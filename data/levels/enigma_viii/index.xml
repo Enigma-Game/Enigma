@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="9" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma VIII"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack8_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack8" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Enigmaparcour" _xpath="./mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Enigmaparcour I" _xpath="./mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Rhythm of Space" _xpath="./mecke20_1" author="mecke" ctrl="force" easy="true" id="mecke20" rel="1" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="The Show Jumper" _xpath="./andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="The Red Room" _xpath="./joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -27,22 +27,25 @@
     <level _seq="19" _title="Earthlink" _xpath="./pulley15_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Vanity's Constrictions" _xpath="./andreas53_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas53" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="21" _title="Wired" _xpath="./andreas49_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas49" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="Push Wires" _xpath="./ral24_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080708ral196" rel="1" rev="100" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Wired Five" _xpath="./ral25_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral073" rel="1" rev="112" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Wireban Premiere" _xpath="./ral26_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080715ral161" rel="1" rev="112" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="Microwire" _xpath="./ral27_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral427" rel="1" rev="107" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="More Microwire" _xpath="./ral28_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral282" rel="1" rev="114" score="1" target="time" unit="duration"/>
-    <level _seq="27" _title="Freestyle Microwire" _xpath="./ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="107" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Push Wires" _xpath="./ral24_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080708ral196" rel="1" rev="116" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Wired Five" _xpath="./ral25_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral073" rel="1" rev="116" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Wireban Premiere" _xpath="./ral26_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080715ral161" rel="1" rev="116" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Microwire" _xpath="./ral27_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral427" rel="1" rev="116" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="More Microwire" _xpath="./ral28_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral282" rel="1" rev="116" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Freestyle Microwire" _xpath="./ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="116" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Balance Beam" _xpath="./mecke03_1" author="mecke" ctrl="force" easy="true" id="mecke03" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Colored Oxyds" _xpath="./andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Fashions Pass" _xpath="./andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="31" _title="Colored Turnstiles" _xpath="./andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="24" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="25" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Wired Shogun" _xpath="./ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="114" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Scarlett's Necklet" _xpath="./ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="115" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="- Meditation -" _xpath="./raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Relaxing at the sea" _xpath="./dev08_1" author="/dev/null" ctrl="force" easy="true" id="dev08" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Helios II" _xpath="./mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20070822ral291" rel="1" rev="115" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Alternation I" _xpath="./mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Enigmaparcour II" _xpath="./mecke29_1" author="mecke" ctrl="force" easy="true" id="mecke29" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

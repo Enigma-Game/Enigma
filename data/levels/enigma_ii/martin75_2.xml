@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Far Side" el:subtitle="" el:id="martin75"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl-space"}
+ti["-"] = {"fl-tigris"}
+ti["#"] = {"st_death"}
+ti["W"] = ti["-"] .. ti["#"]
+ti["S"] = ti["-"] .. {"st_switch", target="the_magnet"}
+ti["m"] = ti[" "] .. {"it_magnet", "the_magnet", state=OFF}
+ti["@"] = ti["-"] .. {"#ac-blackball"}
+ti["X"] = ti["-"] .. {"st_oxyd", "upper#"}
+ti["Y"] = ti["-"] .. {"st_oxyd", "lower#"}
+
+w, h = wo(ti, " ", {
+"####################",
+"#        ----------#",
+"#        ------X-X-#",
+"#        ----------#",
+"#        ------X@X-#",
+"#        ----------#",
+"#      #mWWWWSWWWWW#",
+"#        ----------#",
+"#        ------Y-Y-#",
+"#        ----------#",
+"#        ------Y-Y-#",
+"#        ----------#",
+"####################"
+})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"upper#*", max=0}, {"lower#*", max=0})
+else
+    wo:shuffleOxyd({"upper#*", max=1}, {"lower#*", max=1})
+end
+  ]]></el:luamain>
+    <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>

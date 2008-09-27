@@ -497,6 +497,7 @@ function enigma.SetAttrib(obj, key, val)
          elseif  val == 1 and _obj_name == "st-puzzle" then
              _key = "hollow"
              _val = true
+             enigma._SetAttrib(obj, "connections", "nesw")
          end
      end
      if key == "oxyd" then

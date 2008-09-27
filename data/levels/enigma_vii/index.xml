@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma VII"/>
 
   <attributes/>
 
@@ -84,7 +84,7 @@
     <level _seq="76" _title="Multiban" _xpath="./dpl01_1" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Riverside" _xpath="./johann02_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann02" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="78" _title="The Lone Ranger" _xpath="./pulley04_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="79" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="79" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Spaceship Control" _xpath="./safalra01_1" author="Safalra" ctrl="force" easy="false" id="safalra01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Ball Alley" _xpath="./johann01_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Action Potential" _xpath="./pulley02_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley02" rel="1" rev="0" score="1" target="time" unit="duration"/>

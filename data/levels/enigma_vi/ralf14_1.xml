@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Alcatraz" el:subtitle="Escape from Alcatraz?" el:id="ralf14"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -92,7 +92,7 @@ enigma.ConserveLevel=FALSE
         <el:english el:translate="true">There are at least two patterns to break through the wall.</el:english>
       </el:string> 
       <el:string el:key="text3">
-        <el:english el:translate="true">It is a well known secret that a few prisioners did escape.</el:english>
+        <el:english el:translate="true">It is a well known secret that a few prisoners did escape.</el:english>
       </el:string> 
       <el:string el:key="text4">
         <el:english el:translate="true">A window in the wall would be really nice.</el:english>

@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
-  xmlns:el="http://enigma-game.org/schema/level/1">
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Per.Oxyd 27"
-        el:subtitle="Per.Oxyd 27"
-        el:id="20060629ulf008"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de"
-        el:homepage="http://ulf.zeitform.de"/>
+      <el:identity el:title="Per.Oxyd #27" el:subtitle="Per.Oxyd 27" el:id="20060629ulf008"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92" el:engine="per.oxyd"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force"
-        el:scoreunit="duration" el:scoretarget="time"/>
+      <el:compatibility el:enigma="0.92"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
       <el:score el:easy="00:18" el:difficult="00:27"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -84,12 +78,15 @@ end
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
       <el:string el:key="text1">
-        <el:english>If you think that's to easy, try "Difficulty: Normal".</el:english>
+        <el:english>If you think that's too easy, try "Difficulty: Normal".</el:english>
         <el:translation el:lang="de">Falls Dir das zu einfach ist, versuche die normale Schwierigkeitstufe.</el:translation>
       </el:string>
       <el:string el:key="text2">
-        <el:english>If you think that's to hard, try "Difficulty: Easy".</el:english>
+        <el:english>If you think that's too hard, try "Difficulty: Easy".</el:english>
         <el:translation el:lang="de">Falls Dir das zu schwer ist, versuche die leichte Schwierigkeitstufe.</el:translation>
       </el:string>
      </el:i18n>

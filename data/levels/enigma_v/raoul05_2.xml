@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005,2006,2008 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+       <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl-metal"}
+ti["x"] = {"st-glass1_hole"}
+ti["#"] = {"st-glass2"}
+ti["O"] = {"st-glass2_hole"}
+ti["U"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,-5})}
+ti["L"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,5})}
+ti["P"] = {"st_puzzle_yellow", cluster = 1}
+ti["@"] = {"#ac-blackball", "marble"}
+
+has_puzzle = grp({})  -- group of all activated switches, currently empty
+
+resolver = res.puzzle(ti, "P")
+
+w, h = wo(resolver, " ", {
+"####################",
+"#  x   xx   xx   x #",
+"#  x   xx   xx   x #",
+"#  x   xx   xx   x #",
+"#  xxxxxxxxxxxxxxx #",
+"#    U    U    U   #",
+"# @                #",
+"#   L    L    L    #",
+"# xxxxxxxxxxxxxxx  #",
+"# x   xx   xx   x  #",
+"# x   xx   xx   x  #",
+"# x   xx   xx   x  #",
+"####################"})
+
+-- Maps for the puzzels:
+upper_maps = {
+        {"PPO","OPO","OPP"},
+        {"OPP","OPO","PPO"},
+        {"OPP","PPO","POO"},
+        {"PPO","OPP","OOP"},
+        {"OPO","PPP","OPO"},
+        {"PPP","OPO","OPO"},
+        {"OPO","OPO","PPP"},
+        {"PPP","POO","POO"},
+        {"PPP","OOP","OOP"},
+        {"OPO","PPP","POO"},
+        {"OPO","PPP","OOP"},
+        {"PPO","OPP","OPO"},
+        {"OPP","PPO","OPO"}
+             }
+
+-- simply invert upper_maps to create lower_maps:
+lower_maps = {}
+for _, map in pairs(upper_maps) do
+    table.insert(lower_maps, {map[3], map[2], map[1]})
+end
+
+-- shuffle maplist
+upper_maps = lib.lua.shuffle(upper_maps)
+lower_maps = lib.lua.shuffle(lower_maps)
+
+function set_puzzle(value, sender)
+    if sender._oxyd.y < 0 then
+        wo:drawRect(po(sender) + po({-1, -4}), 3, 3, ti["O"])
+        wo:drawMap(resolver, po(sender) + po({-1, -4}), " ", upper_maps[sender.x/5])
+    else
+        wo:drawRect(po(sender) + po({-1, 2}), 3, 3, ti["O"])
+        wo:drawMap(resolver, po(sender) + po({-1, 2}), " ", lower_maps[(sender.x+1)/5])
+    end
+    has_puzzle = has_puzzle + sender
+    maybe_set_oxyds()
+end
+
+function maybe_set_oxyds()
+    if #has_puzzle == 6 then
+        has_puzzle = has_puzzle + no["marble"]  -- just increase #has_puzzle
+        for obj in no["switch#*"] do
+            wo[obj + obj._oxyd] = {"st_oxyd"}
+        end
+        wo:shuffleOxyd()
+    end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

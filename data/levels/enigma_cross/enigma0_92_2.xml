@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Do Not Dive" _xpath="enigma_i/martin74_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Three Plugs" _xpath="enigma_i/martin83_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin83" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="The Far Side" _xpath="enigma_ii/martin75_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin75" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="The Far Side" _xpath="enigma_ii/martin75_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin75" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="4" _title="Over the Ditch" _xpath="enigma_i/martin78_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Spidering Around Death" _xpath="enigma_iii/martin89_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Brittle Floor!" _xpath="enigma_iii/martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Alcatraz" _xpath="enigma_vi/ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Alcatraz" _xpath="enigma_vi/ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Snakes" _xpath="enigma_i/duffy19_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy19" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Push the Hammer" _xpath="enigma_iii/martin79_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin79" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Snow White -" _xpath="enigma_iii/ant15_1" author="Petr Machata" ctrl="force" easy="false" id="ant15" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Black Diamond Course" _xpath="enigma_iii/duffy28_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy28" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Hall of Glass" _xpath="enigma_i/martin86_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="When Gravity Fails" _xpath="enigma_ii/nat10_1" author="Nat Pryce" ctrl="force" easy="false" id="nat10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Psycho Pushing" _xpath="enigma_v/ss03_2" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="47" _title="Psycho Pushing" _xpath="enigma_v/ss03_2" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Walls Of Sadness" _xpath="enigma_iv/ss12_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Unfair!" _xpath="enigma_iii/ant33_1" author="Petr Machata" ctrl="force" easy="false" id="ant33" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Puzzle Blues" _xpath="enigma_ii/siegfried07_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level3c" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -75,7 +75,7 @@
     <level _seq="67" _title="What's the Problem?" _xpath="enigma_iv/ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Family Business" _xpath="enigma_iii/duffy20_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="69" _title="Stay There!" _xpath="enigma_iv/ralf05_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="70" _title="Block the Way" _xpath="enigma_iv/raywick03_2" author="Ray Wick" ctrl="force" easy="false" id="RayWick003" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="70" _title="Block the Way" _xpath="enigma_iv/raywick03_3" author="Ray Wick" ctrl="force" easy="false" id="RayWick003" rel="3" rev="2" score="3" target="time" unit="duration"/>
     <level _seq="71" _title=".c.R.e.A.z.Y.w.O.r.L.d." _xpath="enigma_iv/martin100_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin100" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="U-Swap" _xpath="enigma_iv/ralf15_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf15" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="The Exchange" _xpath="enigma_iii/raywick04_1" author="Ray Wick" ctrl="force" easy="false" id="RayWick004" rel="1" rev="0" score="1" target="time" unit="duration"/>

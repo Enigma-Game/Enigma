@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20300" network="false" owner="Enigma Team" release="1" revision="2" title="PerOxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20300" network="false" owner="Enigma Team" release="1" revision="3" title="PerOxyd"/>
 
   <attributes/>
 
@@ -23,7 +23,7 @@
     <level _seq="15" _title="- Meditation -" _xpath="./peroxyd20_1" author="Daniel Heck" ctrl="force" easy="false" id="daniel3" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Physics 101" _xpath="./peroxyd21_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin50" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="On the Beach" _xpath="./peroxyd24_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin16" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Per.Oxyd 27" _xpath="./peroxyd27_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf008" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Per.Oxyd #27" _xpath="./peroxyd27_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf008" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Per.Oxyd 28" _xpath="./peroxyd28_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20070104ulf016" rel="1" rev="68" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Per.Oxyd 29" _xpath="./peroxyd29_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20061222ulf013" rel="2" rev="69" score="2" target="time" unit="duration"/>
     <level _seq="21" _title="- Meditation - " _xpath="./peroxyd30_1" author="Raoul Bourquin" ctrl="force" easy="true" id="peroxyd30" rel="1" rev="0" score="1" target="time" unit="duration"/>

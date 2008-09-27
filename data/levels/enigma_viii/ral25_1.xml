@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wired Five" el:subtitle="" el:id="20080721ral073"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 112 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 116 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,8 +24,8 @@ end
 
 ti[" "] = {"fl-abyss"}
 ti["*"] = ti[" "] ..{"st-marble"}
-ti["."] = {"fl-marble", friction=7, mousefactor=1.8, checkerboard=cb} 
-          .. ti({"fl-light", friction=7, mousefactor=1.8, checkerboard=1-cb})
+ti["."] = {"fl-marble", friction=7, adhesion=1.8, checkerboard=cb} 
+          .. ti({"fl-light", friction=7, adhesion=1.8, checkerboard=1-cb})
 
 if wo["IsDifficult"] then
     ti["+"] = ti[" "]
@@ -35,7 +35,7 @@ end
 
 ti["trigger"] = {"it_trigger", target="hill%%", action="signal", inverse=true}
 ti["brownie"] = {"st-marble_move", "brownie%%"}
-ti["mini"] = {"fl-light", friction=7, mousefactor=1.8} 
+ti["mini"] = {"fl-light", friction=7, adhesion=1.8} 
              .. ti({"#ac-whiteball-small", player=0})
              .. ti({"it_meditation_bump", "hill%%"})
 ti[","] = ti["."] .. {"it_meditation_bump", "hill%5"}

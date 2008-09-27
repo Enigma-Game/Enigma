@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma II"/>
 
   <attributes/>
 
@@ -48,7 +48,7 @@
     <level _seq="40" _title="Space Meditation" _xpath="./duffy59_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy59" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Robin's Wood" _xpath="./andreas13_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Puppet" _xpath="./duffy87_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy87" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="The Far Side" _xpath="./martin75_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin75" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="The Far Side" _xpath="./martin75_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin75" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="44" _title="Pharaoh's Tomb" _xpath="./siegfried13_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Oxyd Labyrinth" _xpath="./martin87_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin87" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Door Maze" _xpath="./immanuel02_1" author="Immanuel Herrmann" ctrl="force" easy="false" id="immanuel02" rel="1" rev="0" score="1" target="time" unit="duration"/>

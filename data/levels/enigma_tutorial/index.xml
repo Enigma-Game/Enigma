@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="4" title="Tutorial"/>
+  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="5" title="Tutorial"/>
 
   <attributes/>
 
@@ -43,7 +43,7 @@
     <level _seq="35" _title="Slippery Slopes" _xpath="enigma_i/martin38_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Ice Skating" _xpath="enigma_i/siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Sok It To 'Em" _xpath="enigma_i/nat07_1" author="Nat Pryce" ctrl="force" easy="false" id="nat7" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Lasers and Mirrors" _xpath="./a_tut04" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut04" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Lasers and Mirrors" _xpath="./a_tut04" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut04" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Light Switches" _xpath="enigma_i/martin08_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="enigma_i/siegfried33_1" author="anonymous" ctrl="force" easy="false" id="meditation1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Mirror Room" _xpath="enigma_i/luc12_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="1" rev="0" score="1" target="time" unit="duration"/>

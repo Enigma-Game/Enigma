@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 2 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks for the new items in new API in this level"</el:credits>
+      </el:comments>
+      <el:score el:easy="12:36" el:difficult="14:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ExtralifeGlasses"] = SPOT_DEATH + SPOT_TRAP
+
+if wo ["IsDifficult"] then
+    ti["  "] = {"fl-bluegreen"}
+    ti[" v"] = {"fl-ice"}
+    ti[" '"] = {"fl-rough"}
+else
+    ti["  "] = {"fl-rough"}
+    ti[" v"] = {"fl-bluegreen"}
+
+end
+
+ti["' "] = {"it_trap"}
+ti["b "] = {"it-blackbomb"}
+ti[" ~"] = {"fl-water"}
+ti["r_"] = {"fl-red"}
+ti["b~"] = ti["b "] .. {"fl-water"}
+ti[" _"] = {"fl-swamp"}
+ti["'_"] = ti["' "] .. {"fl-swamp"}
+ti[" ."] = {"fl-space"}
+ti["t "] = {"st-stone_break"}
+ti["# "] = {"st_panel"}
+ti["K "] = {"st-glass_move"}
+ti["K1"] = {"st-glass_move", name="movy1"}
+ti["K2"] = {"st-glass_move", name="movy2"}
+ti["K3"] = {"st-glass_move", name="movy3"}
+ti["K4"] = {"st-glass_move", name="movy4"}
+ti["K5"] = {"st-glass_move", name="movy5"}
+ti["B "] = {"st-brick_magic"}
+ti["O "] = {"st_rotator_ccw", movable=true}
+ti["R "] = {"st_rubberband"}
+ti["T "] = {"st-bluegray"}
+ti["TH"] = {"st-thief"}
+ti["Y "] = {"st-glass"}
+ti["r "] = {"st-brownie"}
+ti["U1"] = {"st-white4"}
+ti["U2"] = {"st-black4"}
+ti["U5"] = {"st-yinyang1"}
+ti[" i"] = ti["U1"] .. {"fl-inverse"}
+ti["ii"] = ti["U2"] .. {"fl-inverse"}
+ti[" w"] = ti["U1"] .. {"fl-water"}
+ti[" e"] = ti[" i"] .. {"it_hammer"}
+ti["u "] = ti[" _"] .. {"st-grate2"}
+ti["x "] = ti["  "] .. {"it-squashed"}
+ti["G "] = ti[" _"] .. {"st-glass"}
+ti["D1"] = ti["G "] .. {"it_death"}
+ti["D2"] = {"st_death_invisible"}
+ti["D3"] = ti["D2"] .. {"it_umbrella_new"}
+ti["D4"] = ti["'_"] .. {"st-break_invisible"}
+ti["H "] = ti[" i"] .. {"st_key", code=1, target={"door#7"}}
+ti["L1"] = ti[" _"] .. {"st_laser_e", name="laser1", state=ON}
+ti["L2"] = ti[" _"] .. {"st_laser_w", name="laser2", state=OFF}
+ti["L3"] = ti[" _"] .. {"st_laser_e", name="laser3", state=ON}
+ti["L4"] = ti[" _"] .. {"st_laser_w", name="laser4", state=ON}
+ti["Y1"] = {"st_switch", target="laser4"}
+ti["Y2"] = {"st_switch", target="cher"}
+ti["h1"] = {"st-bluegray_hole"}
+ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
+ti["Sb"] = ti[" ~"] .. {"st_chess_black"}
+ti["MM"] = ti[" ~"] .. {"st_mail", orientation=NORTH}
+ti["I "] = {"st_oneway_black", orientation=WEST}
+ti["^1"] = {"st_boulder_n"}
+ti["< "] = {"st_boulder_w"}
+ti["3 "] = ti[" v"] .. {"st-wood"}
+ti["2 "] = {"st_oneway_black", orientation=SOUTH}
+ti[" f"] = {"it_wrench"}
+ti["4 "] = ti[" f"] ..{"st_oneway", orientation=WEST}
+ti["6 "] = {"st_oneway", orientation=EAST}
+ti["8 "] = {"st_oneway_white", orientation=NORTH}
+ti["Q "] = {"st-stone_break"}
+ti["wn"] = ti["  "] .. {"st_window_n",secure=true}
+ti["X1"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy1"}
+ti["X2"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy2"}
+ti["X3"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy3"}
+ti["X4"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy4"}
+ti["X5"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy5"}
+ti["X6"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy6"}
+ti["X7"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy7"}
+ti["X8"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy8"}
+ti["X9"] = ti[" ~"] .. {"st-likeoxydd"}
+ti["&1"] = {"it_trigger", target="oxyy1"}
+ti["&2"] = {"it_trigger", target="oxyy2"}
+ti["&3"] = {"it_trigger", target="oxyy3"}
+ti["&4"] = {"it_trigger", target="oxyy4"}
+ti["&5"] = {"it_trigger", target="oxyy5"}
+ti["&6"] = {"it_trigger", target="oxyy6"}
+ti["&7"] = {"it_trigger", target="oxyy7"}
+ti["&8"] = {"it_trigger", target="oxyy8"}
+ti[":1"] = {"st_door", name="door#1", flavor="d", faces="ew"}
+ti[":2"] = {"st_door", name="door#2", flavor="d", faces="ew"}
+ti[":3"] = {"st_door", name="door#3", flavor="d", faces="ew"}
+ti[":4"] = {"st_door", name="door#4", flavor="d", faces="ew"}
+ti[":5"] = {"st_door", name="door#5", flavor="d", faces="ew"}
+ti[":6"] = {"st_door", name="door#6", flavor="d", faces="ew"}
+ti[":7"] = {"st_door", name="door#7", flavor="d", faces="ew"}
+ti[":8"] = {"st_door", name="door#8", flavor="d", faces="ew"}
+ti["! "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
+ti["z "] = ti[" v"] .. {"st-stone_break"}
+ti["N "] = ti[" v"] .. {"st-stone_break"}
+ti["- "] = ti[" ~"] .. {"it_strip_ew"}
+ti["h2"] = ti["h1"] .. {"it-cherry"}
+ti["h3"] = ti["h1"] .. {"it-dynamite"}
+ti["gt"] = {"it_glasses", state = SPOT_TRAP}
+ti["gd"] = {"it_glasses", state = SPOT_DEATH}
+ti["5 "] = {"it_key", code=1}
+ti["o "] = {"it-springboard"}
+ti["j "] = {"it_magicwand"}
+ti[" z"] = {"it-dynamite"}
+ti["P "] = {"st-grate1"}
+ti["9 "] = {"st_turnstile_green"}
+ti["99"] = {"st_turnstile_red"}
+ti["a "] = {"st_turnstilearm", orientation=NORTH}
+ti["q "] = {"st_turnstilearm", orientation=SOUTH}
+ti["k "] = {"st_turnstilearm", orientation=WEST}
+ti["l "] = {"st_turnstilearm", orientation=EAST}
+ti[" *"] = {"it_extralife"}
+ti["v?"] = ti[" v"] ..  {"it-yinyang"}
+ti["* "] = ti["ii"] ..  {"#ac-blackball"}
+ti["vv"] = ti[" v"] ..  {"fl-ice",name="hu"}
+ti[" ?"] = ti["wn"] ..  {"it-yinyang"}
+ti["? "] = ti[" ?"] ..  {"#ac-whiteball"}
+ti["J "] = {"#ac-top", range=1, force=1}
+ti["= "] = {"#ac-horse"}
+ti["$1"] = {"it_trigger", target="door#2"}
+ti["$2"] = {"it_trigger", target="door#1"}
+ti["$3"] = {"it_trigger", target="laser1"}
+ti["$4"] = {"it_trigger", target="door#3"}
+ti["$5"] = {"it_trigger", target="door#5"}
+ti["$6"] = {"it_trigger", target="door#6"}
+ti["$7"] = {"it_trigger", target="laser2"}
+ti["$8"] = {"it_trigger", target="door#4"}
+ti["V1"] = ti["  "] ..{"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex4"}
+ti["V3"] = ti["  "] ..{"it_vortex_open", name="vortex3", destination="vortex5"}
+ti["V4"] = ti["  "] ..{"it_vortex_open", name="vortex4", destination="vortex3"}
+ti["V5"] = ti["  "] ..{"it_vortex_open", name="vortex5", destination="vortex1"}
+ti[".g"] = {"it_glasses", state = SPOT_TRAP}
+ti[". "] = {"it_trap"}
+ti["PW"] = {"st-flash"}
+ti["LL"] = {"st_lightpassenger"}
+ti["P1"] = {"st_puzzle_yellow_s"}
+ti["P2"] = {"st_puzzle_yellow_new"}
+ti["P3"] = {"st_puzzle_yellow_ew"}
+ti["P4"] = {"st_puzzle_yellow_es"}
+ti["P5"] = {"st_puzzle_yellow_sw"}
+ti["P6"] = {"st_puzzle_yellow_nw"}
+ti["P7"] = {"st_puzzle_yellow_ne"}
+ti["mm"] = {"it_sensor",action="callback",target="settimer"}
+ti["mn"] = {"it_sensor",action="callback",target="wormy"}
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 00010203040506070809101112131415161718192021222324
+  "# # # # # # D1# # # # # D1# # # # # # # # # # # # ",
+  "#      ~    3 '_b~D3b~'_3  . _       _$1# T T T # ",
+  "# P1P1H P5P4#  *THh3TH *#  ~A  _PW _A  ~# X9X1X9# ",
+  "# P2P3P2P6P7$7mnSb# Sbmm$3   _       _  # X2X9X3# ",
+  "# A A MMA A D1gt  *   gdD1A A A ? A A A # X9X4X9# ",
+  "#  . vv?vvV3T D4  a~  D4T V1 v v v v3 $2# T T T # ",
+  "# G G G G G A  ~ ~9  ~ ~A # # # # # # U5U2&1&2&3# ",
+  "# L1j B U1U1LL _  q~  r_:1:2:3:4:5:6:7  L2&4r_&5# ",
+  "# A A A A A D1 ~k~99l~ ~D1# # # # # # U5U1&6&7&8# ",
+  "# V5 v#  vV2T '_   ~  '_T V4 v v v v3 $5# T T T # ",
+  "# K1  K3  K5D1 *  J    *D1    8 8 8     # X9X5X9# ",
+  "#   K2 zK4  #   h1G h1  #     8 5 8     # X6X9X7# ",
+  "#  ~ ~   ~ ~D1$4K h1K $8D1K ! ! o ! ! K # X9X8X9# ",
+  "#           L4  h1 _h1  L3            $6# T T T # ",
+  "# # # Y2# # D1# # # # # D1# # # Y1# # # # # # # # "
+})
+function settimer()
+    wo[{0, 1}] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+end
+
+function hux()
+    wo[{15,1}]= {"it-burnable_oil"}
+    wo[{17,1}]= {"it-burnable_oil"}
+    wo[{16,1}]= {"it-burnable_burning"}
+    wo[{15,3}]= {"it-burnable_oil"}
+    wo[{17,3}]= {"it-burnable_oil"}
+    wo[{16,3}]= {"it-burnable_burning"}
+end
+
+function wormy ()
+    wo[{14,5}]= {"it_wormhole", range=1, strength=1, destination="hu"}
+end
+
+function cher()
+    wo[{1,13}]= {"it-cherry"}
+    wo[{2,13}]= {"it-cherry"}
+    wo[{4,13}]= {"it-cherry"}
+    wo[{5,13}]= {"it-cherry"}
+end
+
+wo:add({"ot_wire", anchor1="movy1", anchor2="movy2"})
+wo:add({"ot_wire", anchor1="movy2", anchor2="movy3"})
+wo:add({"ot_wire", anchor1="movy3", anchor2="movy4"})
+wo:add({"ot_wire", anchor1="movy4", anchor2="movy5"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Öffne die Tore</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

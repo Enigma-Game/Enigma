@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Alternation I" el:subtitle="Alternation in a Blue Area" el:id="mecke17"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 2 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+       <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+    <el:comments>
+    <el:credits el:showinfo="true" el:showstart="false"></el:credits>
+    </el:comments>
+       <el:score el:easy="-" el:difficult="10:06"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" !"] = {"fl-rock"}
+ti[" r"] = {"fl-red"}
+ti[" ~"] = {"fl-water"}
+ti[" w"] = {"fl-acwhite"}
+ti[" *"] = {"fl-acblack"}
+ti[" i"] = {"fl-inverse"}
+ti[" b"] = {"fl-bluegreenx"}
+ti[" &"] = {"fl-rough"}
+ti[" '"] = {"fl-gravel"}
+ti[" ,"] = {"fl-white"}
+ti[" +"] = {"fl-sahara"}
+ti["yi"] = ti[" +"] .. {"it-yinyang"}
+ti["o "] = ti[" ~"] .. {"st_oxyd", flavor="d"}
+ti["X~"] = ti[" ~"] .. {"st-grate1"}
+ti["Xw"] = ti[" w"] .. {"st-grate1"}
+ti["X'"] = ti[" '"] .. {"st-grate1"}
+ti["Xi"] = ti[" i"] .. {"st-grate1"}
+ti["Xb"] = ti[" b"] .. {"st-grate1"}
+ti["X&"] = ti[" &"] .. {"st-grate1"}
+ti["yw"] = ti[" w"] .. {"it-yinyang"}
+ti["#w"] = ti["yw"] .. {"#ac-blackball"}
+ti["0~"] = ti[" ~"] .. {"st-coffee"}
+ti["H'"] = ti[" '"] .. {"st-black1"}
+ti["B!"] = ti[" !"] .. {"st-black4"}
+ti["B&"] = ti[" &"] .. {"st-black4"}
+ti["Br"] = ti[" r"] .. {"st-black4"}
+ti["B~"] = ti[" ~"] .. {"st-black4"}
+ti["B'"] = ti[" '"] .. {"st-black4"}
+ti["W!"] = ti[" !"] .. {"st-white4"}
+ti["W~"] = ti[" ~"] .. {"st-white4"}
+ti["W'"] = ti[" '"] .. {"st-white4"}
+ti["Ww"] = ti[" w"] .. {"st-white4"}
+ti["W&"] = ti[" &"] .. {"st-white4"}
+ti["2*"] = ti[" *"] .. {"st-glass_move"}
+ti["2r"] = ti[" r"] .. {"st-glass_move"}
+ti["CW"] = ti[" w"] .. {"st_chess_white"}
+ti["Sw"] = ti[" w"] .. {"st_swap"}
+ti["Tw"] = ti[" w"] .. {"st-thief"}
+ti["y~"] = ti[" ~"] .. {"it-yinyang"}
+ti["Y~"] = ti[" ~"] .. {"st-yinyang1"}
+ti["Y&"] = ti[" &"] .. {"st-yinyang1"}
+ti["Y!"] = ti[" !"] .. {"st-yinyang1"}
+ti["Y'"] = ti[" '"] .. {"st-yinyang1"}
+ti["Yw"] = ti[" w"] .. {"st-yinyang1"}
+ti["++"] = ti[" +"] .. {"st-rock1_hole"}
+ti["+i"] = ti[" i"] .. {"st-rock1_hole"}
+ti["A~"] = ti[" ~"] .. {"st_actorimpulse"}
+ti["v1"] = ti[" i"] .. {"st_door", name="door1", flavor="d", faces="ew"}
+ti["v2"] = ti[" i"] .. {"st_door", name="door2", flavor="d", faces="ew"}
+ti["L1"] = ti[" !"] .. {"st_laser_s", name="laser1", state=ON}
+ti["L2"] = ti[" !"] .. {"st_laser_n", name="laser2", state=ON}
+ti["L3"] = ti[" !"] .. {"st_laser_s", name="laser3", state=ON}
+ti["L4"] = ti[" !"] .. {"st_laser_n", name="laser4", state=ON}
+ti["SL"] = ti[" w"] .. {"st_switch_white", target={"laser1", "laser2","laser3", "laser4"}}
+ti["SB"] = ti[" &"] .. {"st_switch_black", target={"door1"}}
+ti["SP"] = ti[" &"] .. {"st_switch_black", target={"door2"}}
+ti["1&"] = ti[" &"] .. {"st-wood"}
+ti["DD"] = ti[" &"] .. {"st_death"}
+ti["gi"] = ti[" i"] .. {"st-glass"}
+ti["yy"] = ti["yw"] .. {"st_oneway_black", orientation=WEST}
+ti["*w"] = ti["yy"] .. {"#ac-whiteball"}
+ti["OO"] = ti[" &"] .. {"st_oneway_white", orientation=EAST}
+ti["EE"] = ti[" '"] .. {"st_oneway_black", orientation=WEST}
+ti["or"] = ti["X'"] .. {"it-ring"}
+ti["ur"] = ti["X&"] .. {"it-ring"}
+ti["ps"] = ti["Br"] .. {"it_seed"}
+ti["kk"] = ti["Xw"] .. {"it-cherry"}
+ti["ki"] = ti["gi"] .. {"it-cherry"}
+ti["z&"] = ti[" &"] .. {"#ac-top", range=1, force=1}
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+  "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'++B'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!",
+  "B!W~B!W!B!W!B!W!B!W!Y&W'Y' ~X& ~X~B~A~A~A~B~X~0~0~0~0~0~0~0~z&0~0~0~0~0~0~0~B!",
+  "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~X~B~A~o A~B~X~0~X~Y~ ~L1 ~ ~ & ~ ~L3 ~Y~X~0~B!",
+  "Y!W!XwTwTwTwTwTwTwTwXwW'Y'W&SB ~X~EEorW'orEEXb0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
+  "B!B!YwTwSwSwSwSwSwTwXwX~H' ~ ~y~X~B~A~o A~B~Xb0~X~Y~ ~2*yi , , ,yi2* ~Y~X~0~B!",
+  "psW~kkTwSw w w wSwTwXwW'Y'X'Y'X&X~B~A~A~A~B~Xb0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
+  "B~B~TwTwSL w*wCWSwTwTwX'DDW'B'W&Xi+iv1kiv2+iXi1& ~Y& &2r ,2*#w2* ,2r &1& ~ &B&",
+  "psW~kkTwSw w w wSwTwXwW'Y'X'Y'X&XbB~A~A~A~B~X~0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
+  "B!B!YwTwSwSwSwSwSwTwXwX~H' ~ ~y~XbB~A~o A~B~X~0~X~Y~ ~2*yi , , ,yi2* ~Y~X~0~B!",
+  "Y!W!XwTwTwTwTwTwTwTwXwW'Y'W&SP ~XbOOurB&urOOX~0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
+  "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~X~B~A~o A~B~X~0~X~Y~ ~L2 ~ ~ & ~ ~L4 ~Y~X~0~B!",
+  "B!W~B!W!B!W!B!W!B!W!Y&W'Y' ~X& ~X~B~A~A~A~B~X~0~0~0~0~0~0~0~z&0~0~0~0~0~0~0~B!",
+  "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'++B'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!"
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+      <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="true"/>
+          <el:translation el:lang="de">Alternation I</el:translation>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="true"/>
+          <el:translation el:lang="de">Wechselspiel in Blau</el:translation>
+        </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

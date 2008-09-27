@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 115 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false"></el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ProvideExtralifes"] = false
+wo["ExtralifeGlasses"] = SPOT_DEATH
+wo["Brittleness"] = 1.0
+
+ti["  "] = {"fl-sand"}
+ti["~~"] = {"fl-water"}
+ti["~e"] = {"fl-water", "escape_close#"}
+ti["__"] = {"fl-abyss"}
+ti["_f"] = {"fl-abyss_fake"}
+ti[",,"] = {"fl-concrete"}
+ti[",e"] = {"fl-concrete", "escape_pos"}
+ti[",f"] = {"fl-concrete", "escape_close#"}
+ti[".."] = {"fl-gravel"}
+ti["LZ"] = {"fl-gravel", "sunlight1"}
+ti["LY"] = {"fl-gravel", "sunlight2"}
+ti["RZ"] = {"fl-gravel", "ringroom"}
+ti[";;"] = {"fl-dunes", friction=6, mousefactor=2}
+ti["''"] = {"fl-sahara"}
+ti["%%"] = {"fl-samba"}
+ti["%."] = {"fl-samba", "volcan#", secure=true}
+ti["_v"] = {"fl-abyss", "volcan#"}
+ti["::"] = {"fl-rough-red"}
+ti["O0"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLUE}
+ti["O1"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_RED}
+ti["O2"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_GREEN}
+ti["O3"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_YELLOW}
+ti["O4"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_CYAN}
+ti["O5"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_PURPLE}
+ti["O6"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_WHITE}
+ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
+ti[":;"] = {"fl-rough-blue"}
+ti["=="] = {"fl-wood"}
+ti["tt"] = {"fl-thief"}
+ti["$$"] = {"fl-acwhite"}
+ti["gs"] = {"fl-gradient", type=1}
+ti["gw"] = {"fl-gradient", type=4}
+ti["gn"] = {"fl-gradient", type=2}
+ti["ge"] = {"fl-gradient", type=3}
+ti["g5"] = {"fl-gradient", type=5}
+ti["g6"] = {"fl-gradient", type=6}
+ti["g7"] = {"fl-gradient", type=7}
+ti["g8"] = {"fl-gradient", type=8}
+ti["g9"] = {"fl-gradient", type=9}
+ti["ga"] = {"fl-gradient", type=10}
+ti["gb"] = {"fl-gradient", type=11}
+ti["gc"] = {"fl-gradient", type=12}
+ti["^^"] = {"fl-gray"}
+ti["%f"] = {"fl-samba", eternal=true, initfire=true}
+ti[" f"] = {"fl-sand", eternal=true, initfire=true}
+ti["FT"] = {"fl-sand", eternal=true, initfire=true, name="fire_target"}
+ti["%:"] = {"fl-hay", secure=true}
+ti[" v"] = {"fl-sand", force_y=10}
+ti[" h"] = {"fl-sand", force_x=-10}
+ti["XX"] = ti["  "] .. {st_oxyd_d}
+ti[" ."] = ti["  "] .. {"it_seed"}
+ti["'."] = ti["''"] .. {"it_seed"}
+ti["'o"] = ti["''"] .. {"it_meditation"}
+ti["%;"] = ti["%."] .. {"st_door_b", state=OPEN}
+ti[";@"] = ti[";;"] .. {"it_death"}
+ti[" %"] = ti["  "] .. {"it-booze-broken"}
+ti[",%"] = ti[",,"] .. {"it-booze-broken"}
+ti[",b"] = ti[",,"] .. {"it-banana"}
+ti[",d"] = ti[",,"] .. {"it_coin_l"}
+ti[",s"] = ti[",,"] .. {"it_sword"}
+ti[",r"] = ti[",,"] .. {"it-ring"}
+ti[",l"] = ti[",,"] .. {"it_extralife"}
+ti[".r"] = ti[".."] .. {"it-ring"}
+ti[",c"] = ti[",,"] .. {"it_rubberband", anchor2="white", threshold=1, length=10}
+ti[",g"] = ti[",,"] .. {"it_glasses", state=SPOT_DEATH}
+ti["$g"] = ti["$$"] .. {"it_glasses", state=SPOT_DEATH}
+ti[",p"] = ti[",,"] .. {"it-pencil"}
+ti[",t"] = ti[",,"] .. {"it-document", text="mystic"}
+ti[" k"] = ti["_f"] .. {"it-cherry"}
+ti[" e"] = ti["  "] .. {"it-extinguisher_medium"}
+ti["%l"] = ti["%%"] .. {"it_extralife"}
+ti[" m"] = ti["  "] .. {"it_landmine"}
+ti[" o"] = ti["  "] .. {"it-burnable_oil"}
+ti["$o"] = ti["$$"] .. {"it-burnable_oil"}
+ti[" s"] = ti["  "] .. {"it-squashed"}
+ti[".s"] = ti[".."] .. {"it-squashed"}
+ti[";s"] = ti[";;"] .. {"it-squashed"}
+ti["%t"] = ti["%%"] .. {"it_meditation_bump"}
+ti["_U"] = ti["__"] .. {"it_umbrella"}
+ti["_d"] = ti["__"] .. {"it-drop"}
+ti["_."] = ti["_v"] .. {"it_seed_volcano", secure=true}
+ti[";t"] = ti[";;"] .. {"it-spade"}
+ti[";w"] = ti[";;"] .. {"it_magicwand"}
+ti["%w"] = ti["%%"] .. {"it_magicwand"}
+ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
+ti["fw"] = ti["  "] .. {"it-flagwhite"}
+ti["ww"] = ti["  "] .. {"it_wormhole", range=0.5, destination="white_grave"}
+ti[" y"] = ti["  "] .. {"it-yinyang"}
+ti["k0"] = ti["  "] .. {"it_key", code=0}
+ti["k1"] = ti["  "] .. {"it_key", code=1}
+ti["k3"] = ti["~~"] .. {"it_key", code=3}
+ti["k4"] = ti["%%"] .. {"it_key", code=4}
+ti["d1"] = ti[",,"] .. {"it-document", text="welcome"}
+ti["d2"] = ti[",,"] .. {"it-document", text="rainmaker"}
+ti["d3"] = ti[",,"] .. {"it-document", text="bug"}
+ti["d4"] = ti[",,"] .. {"it-document", text="barber"}
+ti["d5"] = ti[",,"] .. {"it-document", text="predecessor"}
+ti["d6"] = ti[";;"] .. {"it-document", text="curse"}
+ti["d7"] = ti["  "] .. {"it-document", text="repair"}
+ti["d8"] = ti["  "] .. {"it-document", text="mailbox"}
+ti["d9"] = ti["$$"] .. {"it-document", text="invoice"}
+ti["da"] = ti["  "] .. {"it-document", text="holy"}
+ti["db"] = ti[";;"] .. {"it-document", text="death"}
+ti["dc"] = ti["  "] .. {"it-document", text="fire"}
+ti["dd"] = ti["  "] .. {"it-document", text="research"}
+ti["de"] = ti[";;"] .. {"it-document", text="noitem"}
+ti["df"] = ti["%%"] .. {"it-document", text="thieves"}
+ti["dg"] = ti["''"] .. {"it-document", text="children"}
+ti["ph"] = ti["$$"] .. {"it_pipe_ew"}
+ti["pH"] = ti["  "] .. {"it_pipe_ew"}
+ti["pv"] = ti["$$"] .. {"it_pipe_ns"}
+ti["pV"] = ti[",,"] .. {"it_pipe_ns"}
+ti["pa"] = ti["  "] .. {"it_pipe_nw"}
+ti["pb"] = ti["$$"] .. {"it_pipe_ne"}
+ti["pB"] = ti[",,"] .. {"it_pipe_ne"}
+ti["pc"] = ti["$$"] .. {"it_pipe_es"}
+ti["pd"] = ti["$$"] .. {"it_pipe_sw"}
+ti["pD"] = ti[",,"] .. {"it_pipe_sw"}
+ti["pn"] = ti[";;"] .. {"it-puller-n"}
+ti["pe"] = ti["gs"] .. {"it-puller-e"}
+ti["te"] = ti[",,"] .. {"it_sensor", target="escape", invisible=true}
+ti["t'"] = ti["''"] .. {"it_trigger", target="open_grave"}
+ti["c'"] = ti["''"] .. {"it_sensor", target="home", invisible=true}
+ti["gS"] = ti["gs"] .. {"it_sensor", target="curse_brittle"}
+ti[";c"] = ti[";;"] .. {"it_sensor", target="curse_legs"}
+ti["t1"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano1"}
+ti["t2"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano2"}
+ti["t3"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano3"}
+ti["t4"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano4"}
+ti["t5"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano5"}
+ti["t6"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano6"}
+ti["tc"] = ti["^^"] .. {"it_sensor", target="scorpion_count"}
+ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init"}
+ti[" C"] = ti["  "] .. {"st-chameleon"}
+ti["'b"] = ti["''"] .. {"st-black4"}
+ti["W "] = ti["  "] .. {"st-white3"}
+ti["Wv"] = ti[" v"] .. {"st-white3"}
+ti["Ws"] = ti["gs"] .. {"st-white3"}
+ti["Ww"] = ti["gw"] .. {"st-white3"}
+ti["Wf"] = ti[" f"] .. {"st-white3"}
+ti["Wk"] = ti["k0"] .. {"st-white3"}
+ti["##"] = ti[";;"] .. {"st-greenbrown"}
+ti["#!"] = ti["##"] .. {"it_death"}
+ti["#@"] = ti[";@"] .. {"st-greenbrown"}
+ti["#d"] = ti["d6"] .. {"st-greenbrown"}
+ti["#D"] = ti["_d"] .. {"st-greenbrown"}
+ti["#z"] = ti[";w"] .. {"st-greenbrown"}
+ti["#e"] = ti["ge"] .. {"st-greenbrown"}
+ti["#w"] = ti["gw"] .. {"st-greenbrown"}
+ti["#t"] = ti[";t"] .. {"st-greenbrown"}
+ti["#s"] = ti[";s"] .. {"st-greenbrown"}
+ti["H#"] = ti[";;"] .. {"st-greenbrown_hole"}
+ti["Hg"] = ti[";g"] .. {"st-greenbrown_hole"}
+ti["Hd"] = ti["db"] .. {"st-greenbrown_hole"}
+ti["Ht"] = ti["de"] .. {"st-greenbrown_hole"}
+ti["He"] = ti["ge"] .. {"st-greenbrown_hole"}
+ti["Hw"] = ti["gw"] .. {"st-greenbrown_hole"}
+ti["Hn"] = ti["gn"] .. {"st-greenbrown_hole"}
+ti["Hm"] = ti["pn"] .. {"st-greenbrown_hole"}
+ti["HE"] = ti[";;"] .. {"st-greenbrown_hole", "white_grave"}
+ti["Hp"] = ti["pe"] .. {"st-greenbrown_hole"}
+ti["Hs"] = ti["gs"] .. {"st-greenbrown_hole"}
+ti["HS"] = ti["gS"] .. {"st-greenbrown_hole"}
+ti["H5"] = ti["g5"] .. {"st-greenbrown_hole"}
+ti["H6"] = ti["g6"] .. {"st-greenbrown_hole"}
+ti["H7"] = ti["g7"] .. {"st-greenbrown_hole"}
+ti["H8"] = ti["g8"] .. {"st-greenbrown_hole"}
+ti["Hc"] = ti[";c"] .. {"st-greenbrown_hole"}
+ti["HF"] = ti["He"] .. {"it-document", text="trapped"}
+ti["I#"] = ti["  "] .. {"st-stoneimpulse"}
+ti["IM"] = ti["''"] .. {"st-stoneimpulse_movable"}
+ti["I."] = ti[".."] .. {"st-stoneimpulse"}
+ti["Im"] = ti[".."] .. {"st-stoneimpulse_movable"}
+ti["Ih"] = ti[".."] .. {"st-stoneimpulse-hollow"}
+ti["IH"] = ti["__"] .. {"st-stoneimpulse-hollow"}
+ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
+ti["MW"] = ti["''"] .. {"st-wood"}
+ti["M:"] = ti["::"] .. {"st-wood"}
+ti["MB"] = ti["c'"] .. {"st-brownie"}
+ti["R0"] = ti["  "] .. {"st-rock5"}
+ti["R1"] = ti["::"] .. {"st-rock1"}
+ti["R6"] = ti["::"] .. {"st-rock1_move"}
+ti["R2"] = ti["  "] .. {"st-rock1"}
+ti["R4"] = ti["^^"] .. {"st-rock1"}
+ti["R5"] = ti[".."] .. {"st-rock1"}
+ti["Rp"] = ti[".."] .. {"st-rock1_hole"}
+ti["Rh"] = ti["  "] .. {"st-rock1_hole"}
+ti["Rm"] = ti["::"] .. {"st-rock1_move"}
+ti["R3"] = ti["  "] .. {"st-rock3"}
+ti["RH"] = ti["  "] .. {"st-rock3_hole"}
+ti["RP"] = ti["  "] .. {"st_panel"}
+ti["R#"] = ti["  "] .. {"st_rotator_cw"}
+ti["RL"] = ti["  "] .. {"st_rotator_ccw"}
+ti["RM"] = ti["  "] .. {"st_rotator_ccw", movable=true}
+ti["RX"] = ti["::"] .. {"st_rotator_ccw", movable=true}
+ti["RY"] = ti["::"] .. {"st_rotator_cw", movable=true}
+ti["P#"] = ti[";;"] .. {"st_pull"}
+ti["P_"] = ti["__"] .. {"st_pull"}
+ti["T#"] = ti["  "] .. {"st-thief"}
+ti["F,"] = ti[",,"] .. {"st-grate1"}
+ti["F:"] = ti["::"] .. {"st-grate1"}
+ti["F'"] = ti["''"] .. {"st-grate1"}
+ti["F."] = ti[".."] .. {"st-grate1"}
+ti["FA"] = ti[".."] .. {"st_fart"}
+ti["S#"] = ti[",,"] .. {"st_scissors"}
+ti["B#"] = ti[".."] .. {"st-block"}
+ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
+ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
+ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
+ti["O,"] = ti[",,"] .. {"st_door_d", "oil_shop", faces="ns"}
+ti["Cm"] = ti[" m"] .. {"st-chameleon"}
+ti["UA"] = ti["_U"] .. {"st-glass1"}
+ti["B;"] = ti[";;"] .. {"st-black4"}
+ti["BB"] = ti["  "] .. {"st_brick", cluster=1}
+ti["Bw"] = ti[".."] .. {"st_boulder_w"}
+ti["Bo"] = ti[".."] .. {"st_boulder_e"}
+ti["BI"] = ti[".."] .. {"st_blocker"}
+ti["B."] = ti[".."] .. {"it_blocker"}
+ti["%b"] = ti["%%"] .. {"it_blocker"}
+ti["Bs"] = ti["%%"] .. {"st_boulder_s"}
+ti["BS"] = ti["%b"] .. {"st_boulder_s"}
+ti["Bn"] = ti["%%"] .. {"st_boulder_n"}
+ti["A1"] = ti[".."] .. {"st_bluesand", cluster=1}
+ti["A2"] = ti[".."] .. {"st_bluesand", cluster=2}
+ti["WE"] = ti["  "] .. {"st_window_e"}
+ti["WS"] = ti["  "] .. {"st_window_s"}
+ti["LE"] = ti[",,"] .. {"st_laser_e", "blacksmith"}
+ti["LX"] = ti[",,"] .. {"st_laser_e", state=ON}
+ti["l"] = ti[".."] .. {"st_puzzle_blue"}
+ti["b"] = ti["''"] .. {"st_puzzle_blue", "tutpuz#"}
+ti["Y"] = ti["''"] .. {"st_puzzle_yellow", "tutpuz#"}
+ti["LS"] = ti[".."] .. {"st_laserswitch", target="illumination"}
+ti["MD"] = ti[".."] .. {"st_mirror_triangle", state=WEST, transparent=true, movable=true}
+ti["MP"] = ti[".."] .. {"st_mirror_slab", state=VERTICAL, transparent=true, movable=true}
+ti["CB"] = ti[",,"] .. {"st_coinslot", target="blacksmith"}
+ti["CS"] = ti[",,"] .. {"st_coinslot", target="buy_south"}
+ti["CW"] = ti[",,"] .. {"st_coinslot", target="buy_west"}
+ti["CC"] = ti[",,"] .. {"st_coinslot", target="ali_barber"}
+ti["CO"] = ti[",,"] .. {"st_coinslot", target="oil_shop"}
+ti["DI"] = ti["__"] .. {"st_death_invisible"}
+ti["GB"] = ti[",b"] .. {"st-glass1_move"}
+ti["GP"] = ti[",p"] .. {"st-glass1_move"}
+ti["GS"] = ti[",s"] .. {"st-glass1_move"}
+ti["GR"] = ti[",r"] .. {"st-glass1_move"}
+ti["GG"] = ti[",g"] .. {"st-glass1_move"}
+ti["GT"] = ti[",t"] .. {"st-glass1_move"}
+ti["G."] = ti[".."] .. {"st-glass_move"}
+ti["G'"] = ti["''"] .. {"st-glass1"}
+ti["GO"] = ti["t'"] .. {"st-glass1_hole"}
+ti["GA"] = ti[",,"] .. {"st-beads"}
+ti["GV"] = ti["t1"] .. {"st-black4"}
+ti["Ti"] = ti["ti"] .. {"st-black4"}
+ti["HW"] = ti["  "] .. {"st_chess_white"}
+ti["C."] = ti[".."] .. {"st-chameleon"}
+ti["Mw"] = ti["  "] .. {"st_mail_w"}
+ti["TL"] = ti[",,"] .. {"st_timer", target="do_curse_legs", name="timer_curse_legs", state=OFF}
+ti["ON"] = ti["^^"] .. {"st_oneway_n"}
+ti["OS"] = ti["^^"] .. {"st_oneway_s"}
+ti["PA"] = ti["__"] .. {"st-plain"}
+ti["P%"] = ti["%."] .. {"st-plain"}
+ti["Pm"] = ti["%."] .. {"st-plain_move"}
+ti["Ph"] = ti["%."] .. {"st-plain_hole"}
+ti["Pc"] = ti["%."] .. {"st-plain_break"}
+ti["Pf"] = ti["%f"] .. {"st-plain_break"}
+ti["P."] = ti["_."] .. {"st-plain_break"}
+ti["PC"] = ti[".."] .. {"st-plain_break"}
+ti["PB"] = ti[".."] .. {"st-bug"}
+ti["TT"] = ti["tt"] .. {"st-thief"}
+ti["D1"] = ti[".."] .. {"st_blocker", "door1#"}
+ti["D2"] = ti[".."] .. {"st_blocker", "door2#"}
+ti["D3"] = ti[".."] .. {"st_blocker", "door3#"}
+ti["D4"] = ti[".."] .. {"st_blocker", "door4#"}
+ti["K1"] = ti[".."] .. {"st_key", code=1, target="door1#*"}
+ti["K2"] = ti[".."] .. {"st_key", code=2, target="door2#*"}
+ti["K3"] = ti[".."] .. {"st_key", code=3, target="door3#*"}
+ti["K4"] = ti[".."] .. {"st_key", code=4, target="door4#*"}
+ti["D5"] = ti["::"] .. {"st_door_c", "door5#"}
+ti["D7"] = ti[".."] .. {"st_door_a", "door7"}
+ti["_C"] = ti["__"] .. {"st-chameleon"}
+ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac-horse"})
+
+ti[" 1"] = ti[",,"] .. {"#ac-blackball", "black", essential=1, player=0, controllers=1} .. ti({"it_extralife"})
+ti[" 2"] = ti["ge"] .. {"#ac-whiteball", "white", essential=0, player=1, controllers=2}
+ti["c1"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid1"}
+ti["c2"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid2"}
+ti["c3"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid3"}
+ti["c4"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid4"}
+ti[" 8"] = ti["  "] .. {"#ac-bug"}
+ti[" 3"] = ti["  "] .. {"#ac-killerball", "killer"}
+--ti[" 3"] = ti["  "] .. {"ac-killerball", "killer", mouseforce=0}
+ti[" 4"] = ti["  "] .. {"#ac-top", range=1.8, force=30}
+ti[" 5"] = ti["  "] .. {"#ac-top", range=3, force=40, name="top"}
+ti[" 6"] = ti["  "] .. {"#ac-rotor", range=3, force=40, name="rotor"}
+ti["%6"] = ti["%%"] .. {"#ac-rotor", range=3, force=40}
+ti["'6"] = ti["''"] .. {"#ac-rotor", range=3, force=40}
+
+ti["C4"] = ti[" 4"] .. {"st-chameleon"}    -- aka sand viper in natur
+ti["H4"] = ti[" 4"] .. {"st-greenbrown_hole"}    -- aka sand viper in natur
+ti["P5"] = ti[" 5"] .. {"st_pull"}    -- aka sand viper in a puller
+ti["G6"] = ti[" 6"] .. {"st-glass1"}    -- aka rotodile in a puller
+ti["G3"] = ti[" 3"] .. {"st-glass1"}    -- aka scorpion in a puller
+ti["G8"] = ti[" 8"] .. {"st-glass1_move"}
+ti["W4"] = ti[" 4"] .. {"st_window_e"}
+ti["C1"] = ti["k1"] .. {"st-chameleon"}
+
+ti["'A"] = {"fl-sahara", "tutoxyd"}
+
+ti["k2"] = ti["##"] .. {"it_key", code=2}
+
+ti["Va"] = ti[";;"] .. {"it_vortex", "vortex_a", destination="vortex_A"}
+ti["VA"] = ti["RH"] .. {"it_vortex", "vortex_A", destination="vortex_a"}
+ti["Vb"] = ti[" C"] .. {"it_vortex", "vortex_b", destination="vortex_B"}
+ti["VB"] = ti["ge"] .. {"it_vortex", "vortex_B", destination="vortex_b"}
+ti["Vc"] = ti["Hw"] .. {"it_vortex", "vortex_c", destination="vortex_C"}
+ti["VC"] = ti["%%"] .. {"it_vortex", "vortex_C", destination="vortex_c"}
+ti["Vd"] = ti["%%"] .. {"it_vortex", "vortex_d", destination="vortex_D"}
+ti["VD"] = ti["Hs"] .. {"it_vortex", "vortex_D", destination="vortex_d"}
+ti["Ve"] = ti["Hw"] .. {"it_vortex", "vortex_e", destination="vortex_E"}
+ti["VE"] = ti["%%"] .. {"it_vortex", "vortex_E", destination="vortex_e"}
+ti["FB"] = ti["Rh"] .. {"it_wormhole", destination="fire_target", range=1.5}
+
+ti["'c"] = ti["''"] .. {"st-chameleon"}
+ti["?g"] = ti["  "] .. {"st-grate3"}
+ti[" w"] = ti["  "] .. {"it_magicwand"}
+
+oxyd_colors = lib.lua.shuffle({OXYD_BLUE, OXYD_RED, OXYD_GREEN, OXYD_YELLOW,
+    OXYD_CYAN, OXYD_PURPLE, OXYD_WHITE, OXYD_BLACK})
+holy_idx = random(1, 8)
+fake_idx = 1
+
+myresolver = function(key, x, y)
+    if key == "o9" then
+        return ti["O"..oxyd_colors[holy_idx]]
+    elseif key == "of" then
+        local idx = lib.lua.cond(fake_idx == holy_idx, fake_idx + 1, fake_idx)
+        fake_idx = idx + 1
+        return ti["O"..oxyd_colors[idx]]
+    elseif key:sub(1,1) == "o" then
+        local idx = 0 + key:sub(2,2)
+        return ti["O"..oxyd_colors[idx]]
+    elseif key:sub(1,1) == "r" then
+        local idx = 0 + key:sub(2,2)
+        return lib.lua.cond(idx == holy_idx, ti["R6"], ti["R1"])
+    else
+        return ti[key]
+    end
+end
+
+w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
+--0 1 2 3 4 5 6 7 8 9101112131415161718||202122232425262728293031323334353637||394041424344454647484950515253545556||
+"C1 s  C4                                                                                                        ####", --  0
+"                                                                                                        ##      C4##", --  1
+"    C4                                                                                                              ", --  2
+"C4                                                                                                                  ", --  3
+"     m                                                                                                              ", --  4
+"                                                                                                                ##  ", --  5
+"                                                                                                                    ", --  6
+"                                                                                                                    ", --  7
+"                                                                                                                    ", --  8
+"                                        C4                                                                          ", --  9
+"                                                         % %                   %                                    ", -- 10
+"                                #d#################s####H#H##### %###############@#d                                ", -- 11
+"                                ###@#@#@#@#@#@#@#@M##@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##                                ", -- 12 --
+"                                ###@##############;;##########################H#H##w                                ", -- 13
+"                                #eHeH5##VD##VeH6##;;##########################H##@##                                ", -- 14
+"                                ###@Hp##Hs####Hn##;;;;H#H#Hd_f_f_f_f_f_f_f####H##@                                  ", -- 15
+"                                ###@Hs##Hs####Hn##;;########DIDIDIDIDIDI_f####H##@                                  ", -- 16
+"                                ###@HS##Hs####Hn##;;########_f_f_f_f_fDI_f####Hc#@##                              ##", -- 17
+"                                ###@####HsHt##Hn##;;M# k kM#_fDIDIDI_fDI_f#######@##                               %", -- 18
+"                                ###@####Hs##H5H8R#;;H#######_fDI_f_f_fDI_f####Hm#@                                  ", -- 19
+"                                ###@####H7HeH8##H#;;##H#####_fDI_fDIDIDI_f####H##@##__                              ", -- 20
+"                             m  ##HFHE########H##D;;H#H#M#M#_fDI_f_f_f_f_f####H##@##                                ", -- 21
+"     %                          ###@####Va;;;;;;;;P_####B;####################H#H##w                                ", -- 22
+"                                ###@##########H#H#H#####H#HwHwHwHwHwHwHwHwVc#####@##                                ", -- 23
+"                                ###@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##                                ", -- 24 --
+"                                #d#@###t####    ######Hg###z    M##### 4k2#########d                                ", -- 25
+"                                                ____                     s                                          ", -- 26
+"                                                                                                                    ", -- 27
+"                          d7                                                                                        ", -- 28
+"                                                                                                                    ", -- 29
+"                                                                                                                    ", -- 30
+"                                                                                                                    ", -- 31
+"                                                                                                                    ", -- 32
+"                                                                                                                    ", -- 33
+"                                                                                                                    ", -- 34
+"                                                                           f f                       f f            ", -- 35
+"      c2  c4 %                C4                                           fWfW W W W W W W W W W W Wf f            ", -- 36 --
+"    c1HWc3  R#~~        ~~RM                                                W $$$$$$ph$$$$ph$$$$$$$$W               ", -- 37
+"BBBBBBBBBBBBBB~e,f,f,f,f~eBBBBBBBBBBBBBB                                    W $$$g## fpb$$$o$$ f$$$oW               ", -- 38
+"BBCS,,GTCWGGCW,,,l 1d1,,,,,,,,B,,,d4,,BBT#                                  W $$$$$$$$$$$$$$$$pd##$$W d8            ", -- 39
+"BBGB,,,,,,,,F,,,,d,d,d,d,,,,,,CC,,S#,,BB                                    W $$$$$$$$$$$$ o    d9phMw              ", -- 40
+"BBCS,,CS,,CSBB,,,,,,,,,,,,,,BBBBBBBBBBBB                               m    W $$phph$o$$    C4  $$$$W               ", -- 41
+"BBGPF,GRF,GSBB,,,,,,,,,,,,,,,,,,,,BB,dBB                                    W $o$$pv## f fpa    $$$$W               ", -- 42
+"BBBBBBBBBBBBBB,,,,,,,,,,,,,,,,,,d5K0,dGA                                    W $$$$pv fWkpH f f  $$$$WvWvWvW W W W W ", -- 43
+"BBLE,,,,CBBB,,,,,,,etetete,,,,,,,,B0,cBBBBBBWSBBBBBB  BBBBBBBBW W W W W W W W $$$$$$ ffw o     fg5gsgsgsgs$$$o$$ f$$", -- 44
+"BB,,,,,,,,BB,,,,BBBBG3G6P5BBBBO,COBBBBBB    W4    da    R2R2BB$$$$$$$$$$$$$$$$$$$$####  Vb   hWwgwgwgwgwgwpb$$####pv", -- 45
+"BBUA,,d2,,,,,,,,BBd3teteteCSBB,,pDpVpBBBo9  W4           fFBBB$$phpv$$$$$o$$$$$$$$$$## f   e f fg7gngn####$$pc$$##$$", -- 46
+"BBUAUAUA,,BB,,,,F,,,,,,,,,G8BBpVpDpVpBBB    W4        dcR2R2BB$$$$$$$$$$$$##$$$$ f$$$o$$ f f$$$$$$$$$$$$$$$$$$##$$$$", -- 47
+"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB###############!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!", -- 48 --
+"                                                                            ##%%%t%tPmPcPcPcPcPcPcPcPcPcPcPm%t%t%%##", -- 49
+"                                                                            ##%tVd%%P%PAPAPAPAPAPAPAPAPAPAP%%%%l%t##", -- 50
+"                                                                            ##%t%%%%P%%.%.%.%.%.%.%.%.%.%.P%%%%%%t##", -- 51
+"                                                                            ##PcP%P%P%%.%.%;%.%.%.%.%.%;%.P%P%P%Ph##", -- 52
+"                                                                            ##PcP.%.%.%.%.t3%.%;%.%.%.t5%.%.PcP%Ph##", -- 53
+"                                                                            ##PcP.%.%.%;%.%.%.GV%.%;%.%.%.%.PfP%Ph##", -- 54
+"                                                                            ##PcP.%.%.t2%.%.%.%.%.t4%.%.%.%;PcP%Ph##", -- 55
+"                                                                            ##PmP%P%P%%.%.%.%.%.%.%.%.%.%.t6PhP%Pm##", -- 56
+"                                                                            ##%t%%%%P%%.%.%.%.%.%.%.%.%.%.Ph%%%%%t##", -- 57
+"                                                                            ##%t%l%%P%P%PmP%PmP%P%PmP%PmP%P%%%VC%t##", -- 58
+"                                                                            ##%%%t%tP%PhPhPhPhPhPhPhPhPhPhPc%t%t%%##", -- 59
+"R0R0R0TTTTTTTTTTTTTTTTTTTTTTTTTTTTR0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0########################################", -- 60 --
+"R0VE%%BnttttTTttttttTTttttttTTtttt%b%bR0^^g5gsgsgsg6R4tcR4g5gsgsgsgsgsgsg6^^D7..............R5FTR5................R0", -- 61
+"R0dfR0ttTTttttttTTttttttTTttttttTT%b%bR0g5g9^^^^^^gwR4ONR4ge^^^^^^^^^^^^gbg6R0....................................R0", -- 62
+"R0R0R0R0TTTTTTTTTTTTTTTTTTTTTTTTTT%b%bR0ge^^^^^^^^gbgsgsgsg9^^^^^^^^^^^^^^gwR0....................................R0", -- 63
+"R0%wtttttttt%wtttt%w%wtttt%wtttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^gwR0....................................R0", -- 64
+"R0%wtt%wtttt%wtttttttttttt%wtttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^g5g6^^^^gwR0....................................R0", -- 65
+"R0%wtttttttttttttttttttttttttttttt%b%bR0ge^^^^g5g6^^^^^^^^^^^^^^^^g7g8^^^^gwR0....RZF.l1F.............F.l1F.......R0", -- 66
+"R0tttttttttttttttttttttttttttttttt%b%bR0ge^^^^g7g8^^^^^^^^^^^^^^^^^^^^^^^^gwR0..R5l1l1l1F.............F.l1l1l1R5..R0", -- 67
+"R0tttttttttttttttttttt%wtttttttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^gwR0..R5R5R5l1F.............F.l1R5RpRp..R0", -- 68
+"R0tttttttttt%wtttttttt%wtttttttttt%b%bR0ge^^^^^^^^^^^^^^gcgngngnga^^^^^^^^gwR0..R5R5VBl1F.............F.l1.rR5R5..R0", -- 69
+"R0%wtt%wtttt%wtt%wtttt%wtttttttttt%b%bR0g7ga^^^^^^^^^^^^gwR4OSR4ge^^^^^^gcg8R0..R5R5R5l1F.F.F.F.F.F.F.F.l1R5R5R5..R0", -- 70
+"R0%wtttttttttttt%wtttt%wttttttttttBSBSTi^^g7gngngngngngng8R4tcR4g7gngngng8^^R0......F.l1l1l1l1l1l1l1l1l1l1F.......R0", -- 71
+"R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0PCPBPCPBPCPBPCPBPCPBR0R0R0R0R0", -- 72 --
+"R0''''''''''''''''''''''''''''R0I#~~''MW''~~I#R0''''''''''''''''''''''''''''R0RLR3R3R3PBPCPBPCPBPCPBPCPBPCR3R3VAR#R0", -- 73
+"R0''''''''''''''''''''''''''''R0MWR0'b'b'bR0MWR0''''''''''''''''''''''''''''R0BwBIBIBIBIBIBIBIBIBIBIBIBIBIBIBIBIBIR0", -- 74
+"R0''''''''~~%%~~RP~~%%~~'''''''''''''b'''b''''''''''''~~RP~~RP~~RP~~''''''''R0B.B.B.B.B.B.B.B.B.B.B.B.B.B.B.B.B.BoR0", -- 75
+"R0''''''''%%%%~~~~~~%%%%'''''''''''''b'''b''''''MW''''RP%%~~~~~~%%RP''''''''R0R#................................RLR0", -- 76
+"R0''''''''~~~~%6%%%6~~~~'''''.'''''''b'''b''''''''''''~~~~%%%%%%~~~~''''''''R0...............................s....R0", -- 77
+"R0''''''''RP~~%%k4%%~~RP'''''''''''''b'''b''''''''''''RP~~%%k3%%~~RP'''''''''b....................................R0", -- 78
+"R0''''''''~~~~%6%%%6~~~~'''''.'''''''b'''b''''''''''''~~~~%%%%%%~~~~''''''''R0....................................R0", -- 79
+"R0''''''''%%%%~~~~~~%%%%'''''''''''''b'''b''''''MW''''RP%%~~~~~~%%RP''''''''R0....................................R0", -- 80
+"R0''''''''~~%%~~RP~~%%~~'''''''''''''b'''b''''''''''''~~RP~~RP~~RP~~''''''''R0A2A1K1A1K2A1A2D1D1D1D1A2A1K3A1K4A1A2R0", -- 81
+"R0''''''''''''''''''''''''''''R0MWR0'b'b'bR0MWR0''''''''''''''''''''''''''''R0A2A1A1A1A1A1A2D2D2D2D2A2A1A1A1A1A1A2R0", -- 82
+"R0''''''''''''''''''''''''''''R0I#~~''MW''~~I#R0''''''''''''''''''''''''''''R0A2A2A2A2A2A2A2D3D3D3D3A2A2A2A2A2A2A2R0", -- 83
+"R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0A1A1A1A1A1A1A1D4D4D4D4A1A1A1A1A1A1A1R0", -- 84 --
+"                                    B#B#I...ImI.I.I.I.I.I.I.I.I.I.I.B#..G.F.B#....................................B#", -- 85
+"  TL                                B#B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.B#..G.F.B#................................MP..B#", -- 86
+"                                    B#B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.B#..G.F.B#..........FA......LS......FA........B#", -- 87
+" 2ge,dgeddge;tgeww                  B#B#B#B#B#ImB#B#B#B#B#B#B#B#B#..B#..G.F.B#......LYl1l1............LZ..l1......B#", -- 88
+"                                    B#B#B#B#B#ImB#B#B#B#B#B#B#B#B#..B#MPG.F.B#......l1l1l1............l1l1l1......B#", -- 89
+"                                  LXC.....................................~~B#..MD..l1l1LS......FA......LSl1......B#", -- 90
+"  ofofofofofofof                    B#B#B#B#B#..IHIHIhIHIHIHIHB#B#B#B#MPG.F.B#......l1l1l1............l1l1l1......B#", -- 91
+"                                    B#B#B#B#B#B#B#B#..B#B#B#IHB#IHIHIH..G.F.B#........l1l1................l1......B#", -- 92
+"                                    B#B#B#B#B#B#B#B#I.I.I.B#IHB#IHB#IH..G.F.B#..........FA......LS......FA........B#", -- 93
+"                                    B#B#B#B#B#B#B#B#I.B#I.B#IHIHIHB#B#..G.F.B#................................MP..B#", -- 94
+"                                    B#B#B#B#B#B#B#B#I...ImB#B#B#B#B#B#..G.F.B#....................................B#", -- 95
+"RPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRP..RPRPRPRPRPRPRPRPRPRPD5D5D5D5RPRPRPRPRPRPRPRPRPRPRPRPRPRPRP", -- 96 --
+"RP::::::::::::M:::::::::::::::::::::::RP::::::::::::::::RX::::::::::::::::::RP::::::::RP::::::::::::M:::::::::::::RP", -- 97
+"RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", -- 98
+"RP::::::::::::::::::::::::::::::::::::o1::::::::::::::::::::::::::::::::::::o2::::::::::::::::::::::::::::::::::::RP", -- 99
+"RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", --100
+"RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", --101
+"RP::::::::::::::::::::::::~~~~~~~~~~~~::::::::::::::::::::::::::::::::::::::::~~~~~~~~~~~~::::::::::::::::::::::::RP", --102
+"RP::::::::::::::::::::::::~~~~~~~~~~~~r1R1R1R1R1R1R1R1::::::::R1R1R1R1R1R1R1r2~~~~~~~~~~~~::::::::::::::::::::::::RP", --103
+"RP::::::::::::::::::::::::~~~~''''~~~~r1R1R1R1R1R1R1R1~~~~~~~~R1R1R1R1R1R1R1r2~~~~''''~~~~::::::::::::::::::::::::RP", --104
+"RP::::::::::::::::::::::::~~~~'''6~~~~r1R1R1R1R1R1R1R1~~~~~~~~R1R1R1R1R1R1R1r2~~~~'''6~~~~::::::::::::::::::::::::RP", --105
+"RP::::::::::::::::::::::::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~::::::::::::::::::::::::RP", --106
+"RP::::::::::::::::::::::::~~~~~~~~~~''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~''~~~~~~~~~~::::::::::::::::::::::::RP", --107
+"RP::::o3::::::::::::::::::::r3r3r3~~~~MBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMB~~~~r5r5r5::::::::::::::::::::o5::::RP", --108 --
+"RP:::::::::::::;::::::::::::R1R1R1~~~~MB''''''''''''''''''''''''''''''''''''MB~~~~R1R1R1:::::::::::::;::::::::::::RP", --109
+"RP:::::::::::;:::;::::::::::R1R1R1~~~~MB''''F'F'F'F'F'F'F'F'F'F'F'F'F'''''''MB~~~~R1R1R1:::::::::::;:::;::::::::::RP", --110
+"RP:::::::::;:::::::;::::::::R1R1R1~~~~MB'''AF'b1b1b1b1b1b1Y1b1b1b1b1F'''''''MB~~~~R1R1R1:::::::::;:::::::;::::::::RP", --111
+"RP:::::::::;:::::::;::::::::R1R1R1~~~~MB''''F'Y1Y1Y1Y1Y1b1Y1b1b1b1b1F'''''''MB~~~~R1R1R1:::::::::;:::::::;::::::::RP", --112
+"RP:::::::::::;:::;::::::::::::~~~~~~~~MB''''F'Y1G'G'G'Y1b1Y1b1b1b1b1F'''''''MB~~~~~~~~:::::::::::::;:::;::::::::::RP", --113
+"RP:::::::::::::;::::::::::::::~~~~~~~~MB''''F'Y1G'GOG'Y1Y1Y1Y1Y1Y1Y1F'''''''MB~~~~~~~~:::::::::::::::;::::::::::::RP", --114
+"RP:::::::;:;:;:;:;:;:;::::::::~~~~~~~~MB''''F'Y1G'G'G'Y1b1Y1b1b1b1b1F'''''''MB~~~~~~~~:::::::::;:;:;:;:;:;:;::::::RP", --115
+"RP:::::::::::::;::::::::::::R1R1R1~~~~MB''''F'Y1Y1Y1Y1Y1b1Y1b1b1b1b1F'''''''MB~~~~R1R1R1:::::::::::::;::::::::::::RP", --116
+"RP:::::::::::::;::::::::::::R1R1R1~~~~MB''''F'b1b1b1b1b1b1Y1b1b1b1b1F'''''''MB~~~~R1R1R1:::::::::::::;::::::::::::RP", --117
+"RP:::::::::::::;::::::::::::R1R1R1~~~~MB''''F'F'F'F'F'F'F'F'F'F'F'F'F'''''''MB~~~~R1R1R1:::::::::::::;::::::::::::RP", --118
+"RP:::::::::::::;::::::::::::R1R1R1~~~~MB''''''''''''''''''''''''''''''''''''MB~~~~R1R1R1:::::::::::::;::::::::::::RP", --119
+"RP::::o4::::::::::::::::::::r4r4r4~~~~MBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMB~~~~r6r6r6::::::::::::::::::::o6::::RP", --120 --
+"RP::::::::::::::::::::::::~~~~~~~~~~''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~''~~~~~~~~~~::::::::::::::::::::::::RP", --121
+"RP::::::::::::::::::::::::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~::::::::::::::::::::::::RP", --122
+"RP::::::::::::::::::::::::~~~~''''~~~~r7R1R1R1R1R1R1R1~~~~~~~~R1R1R1R1R1R1R1r8~~~~''''~~~~::::::::::::::::::::::::RP", --123
+"RP::::::::::::::::::::::::~~~~'''6~~~~r7R1R1R1R1R1R1R1~~~~~~~~R1R1R1R1R1R1R1r8~~~~'''6~~~~::::::::::::::::::::::::RP", --124
+"RP::::::::::::::::::::::::~~~~~~~~~~~~r7R1R1R1R1R1R1R1::::::::R1R1R1R1R1R1R1r8~~~~~~~~~~~~::::::::::::::::::::::::RP", --125
+"RP::::::::::::::::::::::::~~~~~~~~~~~~::::::::::::::::::::::::::::::::::::::::~~~~~~~~~~~~::::::::::::::::::::::::RP", --126
+"RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", --127
+"RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", --128
+"RP::::::::::::::::::::::::::::::::::::o7::::::::::::::::::::::::::::::::::::o8::::::::::::::::::::::::::::::::::::RP", --129
+"RPF:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:::F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:F:RP", --130
+"RP::::::::::::M:::::::::::::::::::::::::::::::::::::::::RY::::::::::::::::::::::::::::::::::::::::::M:::::::::::::RP", --131
+"RPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRP"  --132 --
+})
+
+
+function buy_south(value, sender)
+    st(sender + {0, 1}):kill()
+end
+
+function buy_west(value, sender)
+    st(sender + {-1, 0}):kill()
+end
+
+did_run_escape = false
+function escape()
+    if did_run_escape ==  false then
+        wo[no["escape_pos"]] = {"it-document", text="escape"}
+        did_run_escape = true
+    end
+    local y = no["escape_pos"].y + 1
+    if (no["rotor"].y ~= y) or (no["top"].y ~= y) or (no["killer"].y ~= y) then
+        wo[no["escape_close#*"]] = {"st-metal"}
+    end
+end
+
+did_curse_brittle = false
+function curse_brittle(value, sender)
+    if did_curse_brittle == false then
+        wo[sender + {-1, -3}] = {"it-crack2"}
+        wo[sender] = {"it-document", text="curse_brittle"}
+    end
+    did_curse_brittle = true
+end
+
+function curse_legs(value, sender)
+    wo[sender] = {"it-document", text="curse_legs"}
+    no["timer_curse_legs"]:on()
+end
+
+function do_curse_legs()
+    no["black"]["mouseforce"] = -no["black"]["mouseforce"]
+end
+
+trigger_count = 0
+function volcano(value, sender)
+    trigger_count = trigger_count + lib.lua.cond(value, 1, -1)
+    st(sender + {0, -1}):toggle()
+
+    if (trigger_count == 6) then
+        for v in st(no["volcan#*"]) do
+            if -v and v:is("st_volcano") then
+                v:kill()
+            end
+        end
+        local t = no["volcano"..random(5)]
+        wo:drawRect(t - {1,1}, 3, 3, ti["%:"])
+        local dy = t.y - no["vortex_d"].y
+        wo:drawRect(t - {0, dy}, 1, dy, ti["%:"])
+    end
+end
+
+scorpions = 0
+function scorpion_count(value, sender)
+    scorpions = scorpions + 1
+    if (scorpions == 8) then
+        no["door7"]:open()
+    end
+end
+
+did_init_scorpions = false
+function scorpion_init(value, sender)
+    if (not did_init_scorpions) then
+        for i = 1, 8 do
+            dx = 1 + random(16)
+            dy = -8 + random(5)
+            mf = math.random()*3 - 1
+            if (mf < 0.5) then
+                mf = mf - 1
+            end
+            wo[sender + {dx, dy}] = {"ac-killerball", mouseforce=mf}
+        end
+    end
+    did_init_scorpions = true
+end
+
+switch_count= 0
+function illumination(value, sender)
+    switch_count = switch_count + lib.lua.cond(value, 1, -1)
+    no["door5#*"]:message(lib.lua.cond(switch_count == 4, "open", "close"))
+end
+
+function open_grave(value, sender)
+    local a = no["tutoxyd"]
+    local solved = #no["tutpuz#*"] == 0
+    if (not solved) then
+        wo[a + {1,3}] = {"it-document", text="puzzle"}
+        wo[a + {13,3}] = {"it-cherry"}
+    else
+        wo:drawRect(a + {1, -1}, 13, 9, {"st_nil"})
+        wo:drawMap(ti, a + {3, -1}, "  ",
+                    {"  F'          F'",
+                     "F''oF'      F''oF'",
+                     "  F'          F'",
+                     "      _C_C_C",
+                     "  dg  _C_T_C",
+                     "      _C_C_C",
+                     "  F'          F'",
+                     "F''oF'      F''oF'",
+                     "  F'          F'"})
+    end
+end
+
+did_say_bye = false
+did_set_magnet = false
+function home(value, sender)
+    local k1 = no["kid1"]
+    local k2 = no["kid2"]
+    local k3 = no["kid3"]
+    local k4 = no["kid4"]
+    local a = no["tutoxyd"]
+    local xa, ya = (a + {-2, -3}):xy()
+    local xb, yb = (a + {17, 9}):xy()
+    if (not did_set_magnet) and ((k1.x >= xa and k1.x <= xb and k1.y >= ya and k1.y <= yb) or
+            (k2.x >= xa and k2.x <= xb and k2.y >= ya and k2.y <= yb) or
+            (k3.x >= xa and k3.x <= xb and k3.y >= ya and k3.y <= yb) or
+            (k4.x >= xa and k4.x <= xb and k4.y >= ya and k4.y <= yb)) then
+        did_set_magnet = true
+        wo[a + {7, 3}] = {"it_magnet_on", strength=180, range=5, name="magnet"}
+    end
+    if (not did_say_bye) and ((k1.x >= xa and k1.x <= xb and k1.y >= ya and k1.y <= yb) and
+            (k2.x >= xa and k2.x <= xb and k2.y >= ya and k2.y <= yb) and
+            (k3.x >= xa and k3.x <= xb and k3.y >= ya and k3.y <= yb) and
+            (k4.x >= xa and k4.x <= xb and k4.y >= ya and k4.y <= yb)) then
+        wo[sender] = {"it-document", text="bye"}
+        did_say_bye = true
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Tutoxyds Pyramide</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="welcome">
+        <el:english el:translate="true">Welcome Mr. Jones! Back from your "Alternatives" and "The Walls" training camp?  Got everything you ordered:  some money  --  40 marbleons -- and a horse outside this shopping center.    Many adventurers did loss their life on this pyramid.    Be aware of the dangerous sand vipers and Enighomatep's curses.</el:english>
+      </el:string>
+      <el:string el:key="rainmaker">
+        <el:english el:translate="true" >Mr.Rainmaker gave up this shop. He always insisted that his umbrellas were the most usefull items in this desert. But nobody was willing to spend 2 marbleons.  ---  Now a blacksmith offers his service.</el:english>
+      </el:string>
+      <el:string el:key="escape">
+        <el:english el:translate="true" >Safty Precaution: in case one of these dangerous animals escapes the gates of the shop center will be closed immediatly!</el:english>
+      </el:string>
+      <el:string el:key="mystic">
+        <el:english el:translate="true" >Not much is known of the pyramids architect Enighomatep. But it is said that he loved cherries. He ate so many of them that he sometimes got invisible.</el:english>
+      </el:string>
+      <el:string el:key="bug">
+        <el:english el:translate="true" >Have a look at my collection!    A white scorpion   --   a rotodile   --  and a sand viper.  It is not allowed to sell them.        But I can offer you a scarab that will be for your best.</el:english>
+      </el:string>
+      <el:string el:key="barber">
+        <el:english el:translate="true" >Ali Barber's shop for quick hair cuts. Want to know what is going on?  A thief is hanging around and nobody knows where the 4 pale kids that are playing with your horse are coming from.</el:english>
+      </el:string>
+      <el:string el:key="predecessor">
+        <el:english el:translate="true" >Home of the last adventurer who never returned.   Said he would drill for oil -- but no one believed him.</el:english>
+      </el:string>
+      <el:string el:key="curse">
+        <el:english el:translate="true" >Be cursed for trying to explore Tutoxyd's last secret -- may your homework left undone until you proof worth.</el:english>
+      </el:string>
+      <el:string el:key="repair">
+        <el:english el:translate="true" >It's a pitty that some explorers did damage this historic monument and did litter the environment.   But by magic means the pyramid repairs itself every time an adventurer gives up.</el:english>
+      </el:string>
+      <el:string el:key="curse_brittle">
+        <el:english el:translate="true" >Be cursed for disturbing Tutoxyd's peace -- may the earth part under your feet!</el:english>
+      </el:string>
+      <el:string el:key="curse_legs">
+        <el:english el:translate="true" >Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under your control!</el:english>
+      </el:string>
+      <el:string el:key="trapped">
+        <el:english el:translate="true" >Trapped?   Either wait for a stupid tourist willing to exchange positions with you by using a magic ring - or press Shift F3</el:english>
+      </el:string>
+      <el:string el:key="mailbox">
+        <el:english el:translate="true" >Private Property! This claim belongs to Mr.Whiteoil. In case of absence please drop a letter.</el:english>
+      </el:string>
+      <el:string el:key="invoice">
+        <el:english el:translate="true" >Invoice -- 40 marbleons for 20 barrels of oil.</el:english>
+      </el:string>
+      <el:string el:key="holy">
+        <el:english el:translate="true" >Welcome stranger -- have a look at our holy stone. It is said that it shows everyone his personal fortune color. As all visitors tried to touch it, we had to set up some protection.</el:english>
+      </el:string>
+      <el:string el:key="fire">
+        <el:english el:translate="true" >May I ask for a donation. Just a few bugs - throw the donation into the holy fire. Tutoxyd will be grateful.</el:english>
+      </el:string>
+      <el:string el:key="research">
+        <el:english el:translate="true" >Mr.Whiteoil, we did finish our library reserach. Enighomatep reports, that 4 keys are required. One key got lost immediatly after sealing the pyramid. One is hidden at the border of the pyramid. For the others you have to prove boldness and cleverness.</el:english>
+      </el:string>
+      <el:string el:key="death">
+        <el:english el:translate="true" >Facing the death you can walk without fear.</el:english>
+      </el:string>
+      <el:string el:key="noitem">
+        <el:english el:translate="true" >Sorry, the useful item that was hidden here has been stolen.</el:english>
+      </el:string>
+      <el:string el:key="thieves">
+        <el:english el:translate="true" >Tomb raiders are cursed to stone and floors for eternity.     Have a look at all these little funny sticks that they used to fight the curses.</el:english>
+      </el:string>
+      <el:string el:key="puzzle">
+        <el:english el:translate="true" >Remove all parts of the memorial plate before conjuring up Tutoxyd.</el:english>
+      </el:string>
+      <el:string el:key="children">
+        <el:english el:translate="true" >Who dared to dirsturb my peace? Stranger - you proved to be honorable. Bring back my children for a joint meditation. But be aware that once seeing me they may like to join me instead of a meditation. I make you responsible for the security of my children.</el:english>
+      </el:string>
+      <el:string el:key="bye">
+        <el:english el:translate="true" >You are bringing back my children. As soon as they come to rest I will deliver you from Enighomathep's curses and you may seek your next adventure.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

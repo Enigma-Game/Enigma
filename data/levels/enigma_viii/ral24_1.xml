@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Push Wires" el:subtitle="" el:id="20080708ral196"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 100 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 116 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl-black", friction=5.5, mousefactor=1.7}
+ti[" "] = {"fl-black", friction=5.5, adhesion=1.7}
 ti["~"] = {"fl-abyss"}
 ti["x"] = {"st_oxyd", flavor="d"}
 ti["#"] = {"st-glass3"} .. ti["~"]
@@ -48,6 +48,7 @@ else
   wo:add({"ot_wire", anchor1="wood%2", anchor2="wood%5"})
   wo:add({"ot_wire", anchor1="wood%3", anchor2="wood%4"})
 end
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

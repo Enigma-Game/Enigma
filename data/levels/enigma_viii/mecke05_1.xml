@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:24$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:25$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -150,10 +150,10 @@ ti["B1"] = {"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["B2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["B3"] = {"it_vortex_open", name="vortex3", destination="vortex4"}
 ti["B4"] = ti["  "] ..{"it_vortex_open", name="vortex4", destination="vortex3"}
-ti["t8"] = {"it_trigger", action="openclose", target="door9"}
-ti["t9"] = {"it_trigger", action="openclose", target="door8"}
-ti["E1"] = {"it_sensor", target="door3",action="openclose"}
-ti["E2"] = {"it_sensor", target="door4",action="openclose"}
+ti["t8"] = {"it_trigger", action="toggle", target="door9"}
+ti["t9"] = {"it_trigger", action="toggle", target="door8"}
+ti["E1"] = {"it_sensor", target="door3", action="toggle"}
+ti["E2"] = {"it_sensor", target="door4", action="toggle"}
 ti["A3"] = {"st_door", "door3", flavor="d", faces="ew"}
 ti["A4"] = {"st_door", "door4", flavor="d", faces="ew"}
 ti["d8"] = {"st_door", "door8", flavor="d", faces="ns"}

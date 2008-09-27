@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -77,10 +77,10 @@ ti["  2 "]={"it_trigger", target = {"fo_a"}}
 ti["  3 "]={"it_trigger", target = {"fo_c", "fo_d"}}
 ti["  4 "]={"it_trigger", target = {"fo_d", "fo_b"}}
 ti["  O "]={"it_trigger", target = "castle_door"}
-ti["  # "]={"it-seed_nowood"}
+ti["  # "]={"it_seed", flavor="fake"}
 ti["  $ "]={"it_wormhole"}
 ti["  % "]={"it_hammer"}
-ti["  ' "]={"it-seed"}
+ti["  ' "]={"it_seed"}
 ti["  ( "]={"it-extralife"}
 ti["  & "]={"it-document", text = "text1"}
 if wo["CreatingPreview"] then

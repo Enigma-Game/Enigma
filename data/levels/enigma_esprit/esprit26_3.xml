@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bank-O-Mat" el:subtitle="esprit 26" el:id="ss4"/>
+      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
+      <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl-bumps"}
+ti["#"] = {"st-fakeoxyd"}
+ti["D"] = {"st_death"}
+ti["O"] = {"st_oxyd"}
+ti["."] = {"it_seed"}
+ti["S"] = {"st_switch_black", target="get_money"}
+ti["G"] = {"st-glass1"}
+ti["|"] = {"st_door", name="door#", flavor="c"}
+ti["1"] = {"st_coinslot", _id=1, interval_m=COIN_IGNORE, target="open_door"}
+ti["2"] = {"st_coinslot", _id=2, interval_m=COIN_IGNORE, target="open_door"}
+ti["3"] = {"st_coinslot", _id=3, interval_m=COIN_IGNORE, target="open_door"}
+ti["4"] = {"st_coinslot", _id=4, interval_m=COIN_IGNORE, target="open_door"}
+ti["5"] = {"st_coinslot", _id=5, interval_m=COIN_IGNORE, target="open_door"}
+ti["6"] = {"st_coinslot", _id=6, interval_m=COIN_IGNORE, target="open_door"}
+ti["7"] = {"st_coinslot", _id=7, interval_m=COIN_IGNORE, target="open_door"}
+ti["8"] = {"st_coinslot", _id=8, interval_m=COIN_IGNORE, target="open_door"}
+ti["@"] = {"#ac-blackball"}
+
+w, h = wo(ti, " ", {
+"#######################################",
+"#                GS#                  #",
+"#    1.2 3 4       #                  #",
+"#                  #                  #",
+"#                  #                  #",
+"#                  |   D              #",
+"# O     @          |   D            O #",
+"#                  |   D              #",
+"#                  #                  #",
+"#                  #                  #",
+"#    5 6 7 8       #                  #",
+"#                  #                  #",
+"#######################################"
+})
+
+reserve = 8
+function get_money()
+    if reserve > 0 then
+        reserve = reserve -1
+        wo[po(16,1)] = {"it_coin_m"}
+    else
+        wo[po(16,1)] = {"it-document", text="text1"}
+    end
+end
+
+doors = {false, false, false, false, false, false, false, false}
+door_group = no["door#*"]
+function open_door(value, sender)
+    doors[sender["_id"]] = value
+    counter = 0
+    for k, v in pairs(doors) do
+        if v == true then
+            counter = counter +1
+        end
+    end
+    if counter == 8 then
+        door_group:message("open")
+    else
+        door_group:message("close")
+    end
+end
+
+wo:shuffleOxyd()
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Sorry for inconvenience, the Bank-O-Mat is empty.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
