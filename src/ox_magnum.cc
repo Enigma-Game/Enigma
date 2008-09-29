@@ -225,7 +225,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_coinslot_instant",      // OxydMagnum stone 0x6a
     "st-thief",                 // OxydMagnum stone 0x6b
     "st_shogun_s",              // OxydMagnum stone 0x6c
-    "st-stoneimpulse",          // OxydMagnum stone 0x6d
+    "st_stoneimpulse",          // OxydMagnum stone 0x6d
     "st_laserflop",             // OxydMagnum stone 0x6e
     "st_mail_n",                // OxydMagnum stone 0x6f
     "st_mail_w",                // OxydMagnum stone 0x70
@@ -280,7 +280,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0xa1
     UNUSED,                     // OxydMagnum stone 0xa2
     UNUSED,                     // OxydMagnum stone 0xa3
-    "st-stoneimpulse-hollow",   // OxydMagnum stone 0xa4
+    "st_stoneimpulse_hollow",   // OxydMagnum stone 0xa4
     UNUSED,                     // OxydMagnum stone 0xa5
     UNUSED,                     // OxydMagnum stone 0xa6
     "st_lightpassenger",        // OxydMagnum stone 0xa7

@@ -125,7 +125,6 @@ enigma_SOURCES = 		\
 	stones.hh 		\
 	stones_internal.hh 	\
 	stones_simple.cc 	\
-	stones_complex.cc  	\
 	Utf8ToXML.cc		\
 	Utf8ToXML.hh		\
 	util.cc 		\
@@ -291,6 +290,8 @@ enigma_SOURCES = 		\
 	stones/ScissorsStone.hh	\
 	stones/ShogunStone.cc	\
 	stones/ShogunStone.hh	\
+	stones/StoneImpulse.cc	\
+	stones/StoneImpulse.hh	\
 	stones/SwapStone.cc	\
 	stones/SwapStone.hh	\
 	stones/Switch.cc	\

@@ -87,6 +87,7 @@ namespace enigma {
         st_scissors,
         st_shogun,
         st_stoneimpulse,
+        st_stoneimpulse_steady,
         st_stoneimpulse_hollow,
         st_stoneimpulse_movable,
         st_surprise,

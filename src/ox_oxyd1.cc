@@ -257,7 +257,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_coinslot_instant",      // Oxyd1 stone 0x6a
     "st-thief",                 // Oxyd1 stone 0x6b
     "st_shogun_s",              // Oxyd1 stone 0x6c
-    "st-stoneimpulse",          // Oxyd1 stone 0x6d
+    "st_stoneimpulse",          // Oxyd1 stone 0x6d
     "st_laserflop",             // Oxyd1 stone 0x6e
     "st_mail_n",                // Oxyd1 stone 0x6f
     "st_mail_w",                // Oxyd1 stone 0x70

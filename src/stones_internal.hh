@@ -41,7 +41,6 @@
 namespace enigma {
 
     void Init_simple();
-    void Init_complex();
 
 
 /* -------------------- Auxiliary Functions -------------------- */

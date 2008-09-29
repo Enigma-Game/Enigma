@@ -225,7 +225,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x6a
     UNUSED,              // OxydExtra stone 0x6b
     UNUSED,              // OxydExtra stone 0x6c
-    "st-stoneimpulse",   // OxydExtra stone 0x6d
+    "st_stoneimpulse",   // OxydExtra stone 0x6d
     UNUSED,              // OxydExtra stone 0x6e
     UNUSED,              // OxydExtra stone 0x6f
     UNUSED,              // OxydExtra stone 0x70
@@ -303,7 +303,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0xb8
     UNUSED,              // OxydExtra stone 0xb9
     UNUSED,              // OxydExtra stone 0xba
-    "st-stoneimpulse-hollow", // OxydExtra stone 0xbb
+    "st_stoneimpulse_hollow", // OxydExtra stone 0xbb
     // codes >= 0xbc are unused
 };
 

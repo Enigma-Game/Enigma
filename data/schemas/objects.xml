@@ -62,6 +62,7 @@
     <attr name="scratches" type="string" default="" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
+    <attr name="steady" type="bool" default="false" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
     <attr name="transparent" type="bool" default="false" rw="rw"/>
@@ -925,6 +926,27 @@
     </object>
     <object name="st_shogun_sml">
       <attr name="flavor" value="sml"/>
+    </object>
+    <object name="st_stoneimpulse">
+      <attr name="hollow"/>
+      <attr name="movable"/>
+      <attr name="orientation"/>
+      <attr name="steady"/>
+      <msg name="signal"/>
+      <msg name="_model_reanimated"/>
+      <msg name="_init"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_stoneimpulse_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_stoneimpulse_movable">
+      <attr name="movable" value="true"/>
+    </object>
+    <object name="st_stoneimpulse_steady">
+      <attr name="steady" value="true"/>
+    </object>
+    <object name="st_stoneimpulse_new" init="true">
     </object>
     <object name="st_swap">
       <attr name="state" rw="r"/>

@@ -990,6 +990,5 @@ void InitStones() {
 
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();
-    Init_complex();
 }
 } // namespace enigma

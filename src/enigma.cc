@@ -89,6 +89,11 @@ Direction next(Direction d) {
     return rdir[d+1];
 }
 
+Direction previous(Direction d) {
+    static Direction rdir[] = {NORTH, NODIR, WEST, SOUTH, EAST};
+    return rdir[d+1];
+}
+
 
 Direction
 direction_fromto(GridPos source, GridPos target)

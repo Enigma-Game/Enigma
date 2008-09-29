@@ -297,7 +297,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_shogun_ml",             // PerOxyd stone 0x6a
     "st_shogun_sl",             // PerOxyd stone 0x6b
     "st_shogun_sm",             // PerOxyd stone 0x6c
-    "st-stoneimpulse",          // PerOxyd stone 0x6d
+    "st_stoneimpulse",          // PerOxyd stone 0x6d
     "st_laserflop",             // PerOxyd stone 0x6e
     "st_mail_n",                // PerOxyd stone 0x6f
     "st_mail_w",                // PerOxyd stone 0x70

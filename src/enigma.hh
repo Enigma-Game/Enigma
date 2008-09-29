@@ -118,6 +118,7 @@ namespace enigma {
     Direction rotate_cw (Direction d);
     Direction rotate_ccw (Direction d);
     Direction next(Direction d);
+    Direction previous(Direction d);
 
     std::string to_suffix(Direction d);
     std::string toSuffix(Direction d);
