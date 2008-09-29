@@ -333,7 +333,7 @@ function spawnstate(state,id)
       if (state[i]==1) then
          local pos = area[i];
          local st = enigma.GetStone(pos.x,pos.y)
-         set_attrib(st, "pento", "p"..id)
+         set_attrib(st, "_pento", "p"..id)
       end
    end
 end
@@ -442,7 +442,7 @@ end
 function hammer(x,y)
    local st = enigma.GetStone(x,y)
    if ((st ~= nil) and (enigma.GetKind(st)=="st-puzzle")) then
-      local name = get_attrib(st,"pento")
+      local name = get_attrib(st,"_pento")
       if ((name ~= nil) and (strsub(name,1,1)=="p")) then
          local id = tonumber(strsub(name,2))
          if (id ~= nil) then
@@ -460,7 +460,7 @@ function hammer(x,y)
                for y=ymin,ymax do
                   st = enigma.GetStone(x,y)
                   if ((st ~= nil) and (enigma.GetKind(st)=="st-puzzle")) then
-                     local name2 = get_attrib(st,"pento")
+                     local name2 = get_attrib(st,"_pento")
                      if (name2==name) then
                         kill_stone(x,y)
                         set_item("it-explosion1",x,y)

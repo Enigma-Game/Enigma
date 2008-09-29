@@ -66,6 +66,8 @@ namespace enigma {
         virtual void on_stonehit(Stone *st);
         virtual bool actor_hit(Actor *a);
         virtual void add_force(Actor *a, ecl::V2 &f);
+        virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
+        virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
         
     private:
         // Variables.

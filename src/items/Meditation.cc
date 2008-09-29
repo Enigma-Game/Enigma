@@ -180,6 +180,22 @@ namespace enigma {
                 * 90 * server::HoleForce * v; // get the force
     }
     
+    double Meditation::getFriction(ecl::V2 pos, double defaultFriction, Actor *a) {
+        Value v = getAttr("friction");
+        if (v && covers_floor(pos, a))
+            return v;
+        else
+            return defaultFriction;
+    }
+    
+    ecl::V2 Meditation::calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce) {
+        Value v = getAttr("adhesion");
+        if (v && covers_floor(a->get_pos(), a))
+            return mouseForce * (double)v ;
+        else
+            return floorForce;        
+    }
+        
     bool Meditation::isMeditating(Actor *a) {
         double dist = ecl::length(a->get_pos() - get_pos().center());
         return dist < 0.24 || ((state <= HOLLOW || state >= HILL) && dist < 0.4) ;

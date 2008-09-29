@@ -229,6 +229,8 @@
     <object name="it_meditation">
       <attr name="state" min="-3" max="3" default="-2"/>
       <attr name="essential" max="1"/>
+      <attr name="friction"/>
+      <attr name="adhesion"/>
       <msg name="flip"/>
       <msg name="shovel"/>
       <msg name="signal"/>

@@ -44,6 +44,7 @@ namespace enigma {
             else
                 ASSERT(false, XLevelRuntime, ecl::strf("Seed: illegal flavor value #s", flavor.c_str()).c_str());
                 
+            objFlags = (objFlags & ~OBJBIT_FLAVOR) | (code << 24);
             if (isDisplayable()) {
                 init_model();
             }
