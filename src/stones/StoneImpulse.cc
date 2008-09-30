@@ -155,7 +155,6 @@ namespace enigma {
             else if (!(objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
                 objFlags |= OBJBIT_LASERIDLE;
         }
-        init_model();
     }
     
     bool StoneImpulse::is_floating() const {
@@ -182,16 +181,17 @@ namespace enigma {
         if ((objFlags & OBJBIT_MOVABLE) && (impulse.dir != NODIR)) {
             // move stone without disturbing a running animation
             display::Model *yieldedModel = display::YieldModel(GridLoc(GRID_STONES, get_pos()));
-            move_stone(impulse.dir);
+            bool didMove = move_stone(impulse.dir);
             display::SetModel(GridLoc(GRID_STONES, get_pos()), yieldedModel);
             
             // pulse only if not pushed with a wand
             Actor *hitman = dynamic_cast<Actor*>(impulse.sender);
-            if (hitman == NULL || !player::WieldedItemIs (hitman, "it_magicwand")) {
-                if (state != IDLE)
-                    objFlags |= OBJBIT_REPULSE;
-                else
+            if (hitman == NULL || !player::WieldedItemIs(hitman, "it_magicwand")) {
+                if (state == IDLE)
                     setIState(EXPANDING, NODIR);
+                else if (didMove && state != EXPANDING)
+                    // ensure that an impulse to neighbors will be emitted when moved
+                    objFlags |= OBJBIT_REPULSE;
             }
         } else {
             setIState(EXPANDING, impulse.dir);
@@ -228,11 +228,14 @@ namespace enigma {
                     sound_event("impulse");
                     break;
                 case SHRINKING:
+                    if (state != EXPANDING) {
+                        return;         // do not set new state
+                    }
                     state = newState;
                     init_model();
                     GridPos p = get_pos();
                     Direction origin = reverse((Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29));
-                    for (Direction d = NORTH; d != NODIR; d = previous(d)) {
+                    for (Direction d = WEST; d != NODIR; d = next(d)) {
                         if (!(objFlags & OBJBIT_NOBACKFIRE) || d != origin)
                             send_impulse(move(p, d), d);
                     }
