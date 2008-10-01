@@ -20,6 +20,8 @@
 #include "stones/StoneImpulse.hh"
 #include "main.hh"
 #include "player.hh"
+#include "server.hh"
+#include "world.hh"
 
 namespace enigma {
     StoneImpulse::StoneImpulse(bool isSteady, bool isHollow, bool isMovable, bool isActive) : Stone () {
@@ -49,14 +51,12 @@ namespace enigma {
             if (val.to_bool()) {
                 objFlags |= OBJBIT_MOVABLE;
                 objFlags &= ~OBJBIT_HOLLOW;
-                objFlags &= ~OBJBIT_STEADY;
             } else
                 objFlags &= ~OBJBIT_MOVABLE;
         } else if (key == "steady") {
             if (val.to_bool()) {
                 objFlags |= OBJBIT_STEADY;
                 objFlags &= ~OBJBIT_HOLLOW;
-                objFlags &= ~OBJBIT_MOVABLE;
             } else
                 objFlags &= ~OBJBIT_STEADY;
         } else if (key == "orientation") {
@@ -108,6 +108,9 @@ namespace enigma {
             updateCurrentLightDirs();
             if (state == IDLE && (objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
                setIState(EXPANDING);     // replace potential bogus model
+        } else if (m.message == "ignite") {
+            if (server::GameCompatibility != GAMET_ENIGMA || (objFlags & OBJBIT_LIGHTNEWDIRS))
+                KillStone(get_pos());
         } else
             return Stone::message(m);
     }
@@ -119,7 +122,7 @@ namespace enigma {
 
     void StoneImpulse::init_model() {
         if (state == IDLE)
-            set_model(ecl::strf("st-stoneimpulse%s", (objFlags & OBJBIT_HOLLOW) ? "-hollow" : ""));
+            set_model(ecl::strf("st-stoneimpulse%s", (objFlags & OBJBIT_HOLLOW) ? "-hollow" : ((objFlags & OBJBIT_STEADY) ? "-steady" : "")));
         else
             set_anim(ecl::strf("st-stoneimpulse%s-anim%d", (objFlags & OBJBIT_HOLLOW) ? "-hollow" : "",
                     state == EXPANDING ? 1 : 2));
@@ -181,7 +184,9 @@ namespace enigma {
         if ((objFlags & OBJBIT_MOVABLE) && (impulse.dir != NODIR)) {
             // move stone without disturbing a running animation
             display::Model *yieldedModel = display::YieldModel(GridLoc(GRID_STONES, get_pos()));
+            int oldState = state;
             bool didMove = move_stone(impulse.dir);
+            state = oldState;
             display::SetModel(GridLoc(GRID_STONES, get_pos()), yieldedModel);
             
             // pulse only if not pushed with a wand
@@ -192,7 +197,8 @@ namespace enigma {
                 else if (didMove && state != EXPANDING)
                     // ensure that an impulse to neighbors will be emitted when moved
                     objFlags |= OBJBIT_REPULSE;
-            }
+            } else if (((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && state == IDLE))
+                setIState(EXPANDING);
         } else {
             setIState(EXPANDING, impulse.dir);
         }

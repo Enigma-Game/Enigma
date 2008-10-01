@@ -1092,8 +1092,9 @@ end
 -- (anim2) is longer than the opening animation (anim1). Otherwise
 -- impulse stones do not work properly!
 do
-   local images = DefSubimages("st-stoneimpulse", {h=4})
+   local images = DefSubimages("st-stoneimpulse", {h=6})
    DefRoundStone("st-stoneimpulse", images[1])
+   DefRoundStone("st-stoneimpulse-steady", images[6])
    local frames = {}
    for i=1,4 do table.insert(frames, images[i]) end
    DefAnim("stoneimpulse-anim1", BuildFrames(frames, 55))
