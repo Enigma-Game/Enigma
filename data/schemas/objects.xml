@@ -72,6 +72,7 @@
   <messages>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
+    <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="expl" type="nil"/>
     <msg name="flip" type="nil"/>
@@ -83,6 +84,7 @@
     <msg name="ignite" type="nil"/>
     <msg name="inner_pull" type="dir"/>
     <msg name="kill" type="nil"/>
+    <msg name="lighten" type="nil"/>
     <msg name="move" type="pos"/>
     <msg name="off" type="nil"/>
     <msg name="on" type="nil"/>
@@ -626,6 +628,20 @@
     </object>
     <object name="st_death_invisible">
       <attr name="invisible" value="true"/>
+    </object>
+    <object name="st_disco">
+      <msg name="lighten"/>
+      <msg name="darken"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_death_light">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="st_death_medium">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="st_death_dark">
+      <attr name="state" value="2"/>
     </object>
     <object name="st_door">
       <attr name="faces" default="nesw"/>

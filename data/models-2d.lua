@@ -876,7 +876,7 @@ end
 
 -- st-disco --
 do
-    DefTiles("st-disco", {"st-disco-light","st-disco-medium","st-disco-dark"})
+    DefTiles("st-disco", {"st_disco0","st_disco1","st_disco2"})
 end
 
 -- st-death --

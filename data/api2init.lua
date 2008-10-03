@@ -69,6 +69,9 @@ OPEN     = 1
 IDLE     = 0
 ACTIVE   = 1
 OXYDPAIR = 2
+LIGHT    = 0
+MEDIUM   = 1
+DARK     = 2
 
 -- color
 BLACK  = 0

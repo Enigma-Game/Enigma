@@ -248,6 +248,8 @@ enigma_SOURCES = 		\
 	stones/CoinSlot.hh	\
 	stones/DeathStone.cc	\
 	stones/DeathStone.hh	\
+	stones/DiscoStone.cc	\
+	stones/DiscoStone.hh	\
 	stones/Door.cc		\
 	stones/Door.hh		\
 	stones/FartStone.cc	\

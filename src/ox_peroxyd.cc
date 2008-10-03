@@ -284,8 +284,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-laserbreak",            // PerOxyd stone 0x5d
     "st-coffee",                // PerOxyd stone 0x5e
     "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
-    "st-disco-dark",            // PerOxyd stone 0x60
-    "st-disco-medium",          // PerOxyd stone 0x61
+    "st_disco_dark",            // PerOxyd stone 0x60
+    "st_disco_medium",          // PerOxyd stone 0x61
     "st-bombs",                 // PerOxyd stone 0x62
     "st-flash",                 // PerOxyd stone 0x63
     "st_coinslot_instant",      // PerOxyd stone 0x64

@@ -1334,102 +1334,6 @@ namespace
     DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
 }
 
-/* -------------------- Disco stones -------------------- */
-namespace
-{
-    class DiscoStone : public Stone {
-        CLONEOBJ(DiscoStone);
-    public:
-        DiscoStone(const char *kind) : Stone(kind) {}
-
-        StoneResponse collision_response(const StoneContact &) {
-            return STONE_PASS;
-        }
-
-        virtual void lighten() {}
-        virtual void darken() {}
-    protected:
-        static void visit_lighten(GridPos p) {
-            if (DiscoStone *st = dynamic_cast<DiscoStone*>(GetStone(p)))
-                st->lighten();
-        }
-        static void visit_darken(GridPos p) {
-            if (DiscoStone *st = dynamic_cast<DiscoStone*>(GetStone(p)))
-                st->darken();
-        }
-
-    private:
-        bool is_floating() const { return true; }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "signal") {
-                int ival = m.value;
-                if (ival > 0)
-                    lighten();
-                else
-                    darken();
-                return Value();
-            } else if (m.message == "lighten") {
-                lighten();
-                return Value();
-            } else if (m.message == "darken") {
-                darken();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-    };
-    class DiscoLight : public DiscoStone {
-        CLONEOBJ(DiscoLight);
-        virtual void darken() {
-            GridPos p = get_pos();
-            SetStone (p, MakeStone("st-disco-medium"));
-            visit_darken (move(p, NORTH));
-            visit_darken (move(p, EAST));
-            visit_darken (move(p, SOUTH));
-            visit_darken (move(p, WEST));
-        }
-    public:
-        DiscoLight() : DiscoStone("st-disco-light") {}
-    };
-    class DiscoMedium : public DiscoStone {
-        CLONEOBJ(DiscoMedium);
-    public:
-        DiscoMedium() : DiscoStone("st-disco-medium") {}
-        virtual void lighten() {
-            GridPos p = get_pos();
-            SetStone (p, MakeStone("st-disco-light"));
-            visit_lighten (move(p, NORTH));
-            visit_lighten (move(p, EAST));
-            visit_lighten (move(p, SOUTH));
-            visit_lighten (move(p, WEST));
-        }
-        virtual void darken() {
-            GridPos p = get_pos();
-            SetStone (p, MakeStone("st-disco-dark"));
-            visit_darken (move(p, NORTH));
-            visit_darken (move(p, EAST));
-            visit_darken (move(p, SOUTH));
-            visit_darken (move(p, WEST));
-        }
-    };
-
-    class DiscoDark : public DiscoStone {
-        CLONEOBJ(DiscoDark);
-        virtual void lighten() {
-            GridPos p = get_pos();
-            SetStone (p, MakeStone("st-disco-medium"));
-            visit_lighten (move(p, NORTH));
-            visit_lighten (move(p, EAST));
-            visit_lighten (move(p, SOUTH));
-            visit_lighten (move(p, WEST));
-        }
-        virtual void darken() {}
-    public:
-        DiscoDark() : DiscoStone("st-disco-dark") {}
-    };
-}
-
 /* -------------------- Fire breakable stones -------------------- */
 
 /* These stones mimic the behaviour of the plain-looking stones in
@@ -1553,9 +1457,6 @@ void Init_simple()
 
     Register(new ChameleonStone);
 
-    Register(new DiscoLight);
-    Register(new DiscoMedium);
-    Register(new DiscoDark);
     Register(new DummyStone);
     Register(new EasyModeStone);
     Register(new FakeOxydStone);

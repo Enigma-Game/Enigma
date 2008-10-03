@@ -103,14 +103,17 @@ namespace enigma {
                 init_model();     // replace potential bogus model
             else if (!(objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && !(objFlags & OBJBIT_LASERIDLE))
                 setIState(EXPANDING);
+            return Value();
         } else if (m.message == "_init") {
             // we may have the wrong model
             updateCurrentLightDirs();
             if (state == IDLE && (objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
                setIState(EXPANDING);     // replace potential bogus model
+            return Value();
         } else if (m.message == "ignite") {
             if (server::GameCompatibility != GAMET_ENIGMA || (objFlags & OBJBIT_LIGHTNEWDIRS))
                 KillStone(get_pos());
+            return Value();
         } else
             return Stone::message(m);
     }

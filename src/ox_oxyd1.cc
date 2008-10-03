@@ -250,8 +250,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-laserbreak",            // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65
-    "st-disco-medium",          // Oxyd1 stone 0x66
-    "st-disco-light",           // Oxyd1 stone 0x67
+    "st_disco_medium",          // Oxyd1 stone 0x66
+    "st_disco_light",           // Oxyd1 stone 0x67
     "st-bombs",                 // Oxyd1 stone 0x68
     "st-flash",                 // Oxyd1 stone 0x69
     "st_coinslot_instant",      // Oxyd1 stone 0x6a
