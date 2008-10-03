@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Multi-lane" el:subtitle="" el:id="dev03"/>
+      <el:version el:score="1" el:release="1" el:revision="17" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="true">Thanks to Ronald Lamprecht and Andreas Lochmann for help.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="23:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+statS = {}
+for i = 0, 5 do
+    statS[i] = 0
+end
+
+ti[" "] = {"fl-abyss"}
+ti["."] = {"fl-black"}
+ti["#"] = {"st-rock1"}
+ti["W"] = {"st-wood2"}
+ti["w"] = ti["."] .. ti["W"]
+ti["q"] = ti["w"] .. {"it_extralife"}
+ti["a"] = {"st_key", name = "keyA", code = 1, target = "doorA"}
+ti["A"] = ti["."] .. {"st_door", name = "doorA", faces = "ns"}
+ti["c"] = {"st_key", name = "keyC", code = 3, target = "doorC"}
+ti["C"] = ti["."] .. {"st_door", name = "doorC", faces = "ns"}
+ti["b"] = {"st_key", name = "keyB", code = 2, target = "doorB"}
+ti["B"] = ti["."] .. {"st_door", name = "doorB", faces = "ns"}
+ti["d"] = {"st_key", name = "keyD", code = 4, target = "doorD"}
+ti["D"] = ti["."] .. {"st_door", name = "doorD", faces = "ns"}
+ti["g"] = {"st_laser", name = "laserS1", orientation = SOUTH, state = ON}
+ti["h"] = {"st_laser", name = "laserW#", orientation = WEST,  state = OFF}
+ti["i"] = {"st_laser", name = "laserS2", orientation = SOUTH, state = OFF}
+ti["k"] = {"st_laser", name = "laserN#", orientation = NORTH, state = OFF}
+ti["l"] = {"st_laser", name = "laserS3", orientation = SOUTH, state = ON}
+ti["n"] = {"st_laser", name = "laserS4", orientation = SOUTH, state = ON}
+ti["-"] = ti["."] .. {"st_mirror", movable = true}
+ti["p"] = {"st_lightpassenger"}
+ti["r"] = ti["."] .. {"st_rotator", movable = true, counterclock = true}
+ti["mailer"] = {"st_mail_s"}
+ti["m"] = ti["mailer"] .. {"it_pipe_sw"}
+ti["M"] = ti["mailer"] .. {"it_pipe_es"}
+ti["x"] = {"st-grate1"}
+ti["X"] = ti["."] .. {"st-grate1"}
+ti["="] = ti["."] .. {"st_door", faces = "ns"}
+ti["o"] = {"st_oxyd"}
+ti[":"] = {"fl_bridge_bn", name = "bridgeFloppyBlack#"}
+ti["9"] = {"fl_bridge_bn", name = "bridgeFloppyWhite#"}
+ti["8"] = {"fl_bridge_bw", name = "bridge02#", state = CLOSED}
+ti["7"] = {"fl_bridge_bw", state = CLOSED}
+ti["5"] = {"fl_bridge_bw", name = "bridge00#"}
+ti["J"] = {"fl-abyss_fake"}
+ti[">"] = {"it_pipe_ne"}
+ti["<"] = {"it_pipe_nw"}
+ti["_"] = {"it_pipe_ew"}
+ti["}"] = ti["."] .. {"it_pipe_es"}
+ti["{"] = ti["."] .. {"it_pipe_sw"}
+ti["|"] = ti["."] .. {"it_pipe_ns"}
+ti["+"] = ti["."] .. ti["_"]
+ti["e"] = ti["."] .. {"it_key", code = 1}
+ti["E"] = {"it_key", code = 3}
+ti["f"] = ti["."] .. {"it_key", code = 4}
+ti["F"] = {"it_key", code = 2}
+ti["u"] = ti["."] .. {"it_floppy"}
+ti["v"] = ti["."] .. {"it_floppy"}
+ti["s"] = ti["."] .. {"it_seed"}
+ti["S"] = ti["w"] .. {"it_seed"}
+ti["t"] = {"it_wrench"}
+ti["y"] = ti["w"] .. {"it-yinyang"}
+ti["%"] = ti["."] .. {"it-document", text = "doc1"}
+ti["z"] = {"it-document", text = "BzG"}
+ti["U"] = {"st_floppy", name = "floppyU", action = "toggle", target = "bridgeFloppyBlack#*"}
+ti["V"] = {"st_floppy", name = "floppyV", action = "toggle", target = "bridgeFloppyWhite#*"}
+ti["G"] = {"st_switch", name = "switchG", action = "toggle", target = "laserS1"}
+ti["H"] = {"st_switch", name = "switchH", action = "toggle", target = "@laserW#*"}
+ti["I"] = {"st_switch", name = "switchI", action = "toggle", target = "laserS2"}
+ti["K"] = {"st_switch", name = "switchK", action = "toggle", target = "@laserN#*"}
+ti["L"] = {"st_switch", name = "switchL", action = "toggle", target = "laserS3"}
+ti["0"] = ti["."] .. {"it_trigger", name = "trigger00", action = "toggle", target = "bridge00#*"}
+ti["1"] = {"it_trigger", name = "trigger01", action = "callback", target = "bridge01"}
+ti["2"] = ti["J"] .. {"it_trigger", name = "trigger02", action = "callback", target = "bridge02"}
+ti["3"] = {"it_trigger", name = "trigger03", action = "callback", target = "bridge03"}
+ti["!"] = ti["."] .. {"it_sensor", name = "sensor01", action = "open", target = "bridge02#*", invisible = true}
+ti["@"] = ti["."] .. {"#ac-blackball", player = 0}
+ti["*"] = ti["."] .. {"#ac-whiteball", player = 1}
+
+if wo["IsDifficult"] ~= TRUE then
+    ti["~"] = {"fl-bluegray"}
+    ti["("] = {"fl_bridge_gc", state = CLOSED}
+    ti[";"] = ti["("] .. {"it-yinyang"}
+    ti["R"] = ti["~"] .. {"it-document", text = "doc2"}
+    ti["&"] = ti["."] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
+    ti["["] = ti["("] .. {"it_sensor", name = "sensorEW01", action = "callback", target ="sensorEasyWhite01", invisible = true}
+    ti["]"] = ti["."] .. {"it_sensor", name = "sensorEB01", action = "callback", target ="sensorEasyBlack01", invisible = true}
+end
+
+mainMap = wo:newMap(" ",
+--                    #                  #                  #                  #                  #
+-- 0         1         2         3         4         5         6         7         8         9
+-- 012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345
+{ "##n##################################l                    ###########iI######################gG#", --  0
+  "# p                                                                     ..w   w w            pu#", --  1
+  "#          2                                                            ..wwwwww..             #", --  2
+  "# ....                ... ............                                  ....    w      ...   Wt#", --  3
+  "# ..-.                .           9                                         #  q       .r.   w #", --  4
+  "#......               7           w                        ..               # x x      ..w   .w#", --  5
+  "#*w....    .........!w.           .                       www               # .              w@#", --  6
+  "#%w   .    .....r...!.y888v       .                       ...               #  w      .w.    ww#", --  7
+  "#..   ..w...........!w.           .                       ......w w.w..     h ww0...55.w.  w   h", --  8
+  "#............         8           f                       ...        y.     H   w     .ww      H", --  9
+  "#      ......         .           9                       xx        .       x.ww-     ... w.  :#", -- 10
+  "#                      ..............S                    ..........X.X.....X w .             e#", -- 11
+  "######################################                    k#####################################", -- 12
+  "#                                    #########.##.#########                                    #", -- 13
+  "#                                     #......#.##.#......#                                     #", -- 14
+  "#                                     #..o...#=##=#...o..#                                     #", -- 15
+  "#                                     #...o..#.##.#..o...#                                     #", -- 16
+  "#######################################..o...# ## #...o..#                                     #", -- 17
+  "#;((((((((((((([~~R~R~~].............&#...o....##....o...#                                     #", -- 18
+  "#######################################..o...######...o..#                                     #", -- 19
+  "#                                     #...o..#    #..o...#                                     #", -- 20
+  "#                                     #..o...#    #...o..#                                     #", -- 21
+  "#                                     #...o..#    #..o...#                                     #", -- 22
+  "#                                     #......#z  z#......#                                     #", -- 23
+  "################################################################################################"  -- 24
+-- 0         1         2         3         4         5         6         7         8
+-- 012345678901234567890123456789012345678901234567890123456789012345678901234567890
+})
+
+easyCenterWhiteMap = wo:newMap(" ",
+  -- 3 4         5         6
+  -- 89012345678901234567890
+  { "####################",
+    "# 3                #",
+    "    x              #",
+    "F                  #",
+    "#        ##        #",
+    "#        ##        #",
+    ".        ##        #",
+    "#...#bB# ##        #",
+    "#.#.##s#.##        #",
+    "#.#..###.##        #",
+    "dD##.....##        #",
+    "  ######X######### #",
+    "LV#    #.##.#    ###"
+  })
+
+easyCenterBlackMap = wo:newMap(" ",
+  -- 3 4         5         6
+  -- 89012345678901234567890
+  { "####################",
+    "#                1 #",
+    "#              x    ",
+    "#                  E",
+    "#        ## . w   w#",
+    "#        ## ww   w.#",
+    "#        ## w w w  .",
+    "#        ## #Cc#. .#",
+    "#        ##w#s##.#w#",
+    "#        ##.###..#.#",
+    "#        ##.....##Aa",
+    "# #########x######  ",
+    "###    #.## #    #UK"
+  })
+
+normalCenterMap = wo:newMap(" ",
+  -- 3 4         5         6
+  -- 89012345678901234567890
+  { "####################",
+     "# 3              1 #",
+     "    x    ><    x    ",
+     "F                  E",
+     "#        ## . w   w#",
+     "#        ## ww   w.#",
+     ".        ## w w w  .",
+     "#...#bB# ## #Cc#. .#",
+     "#.#.##s#.##w#s##.#w#",
+     "#}#..###.##.###..#{#",
+     "dD##....|##|....##Aa",
+     "  m#####|##|#####M  ",
+     "LV _____+__+_____ UK"
+  })
+
+function createEasyPassage()
+    wo[{47,18}] = {"st_nil"}
+    wo[{48,18}] = {"st_nil"}
+    wo[{47,18}] = {"fl-bluegray"}
+    wo[{48,18}] = {"fl-bluegray"}
+end
+
+function bridge01()
+    if wo["IsDifficult"] then
+        for x = 46, 49 do
+            wo[{ x, 2}] = {"fl_bridge_gc", state = CLOSED}
+        end
+        for x = 43, 44 do
+            wo[{ x, 4}] = {"fl_bridge_gc", state = CLOSED}
+        end
+        wo[{44, 6}] = {"fl_bridge_gc", state = CLOSED}
+    else
+        wo[{49,11}] = {"fl-bluegray"}
+        wo[{49,12}] = {"fl-bluegray"}
+        createEasyPassage()
+    end
+end
+
+function bridge02()
+    wo[{11, 2}] = {"it_nil"}
+    if (statS[2] == 0) then
+        wo[{23, 7}] = {"fl_bridge_bw", state = CLOSED}
+        wo[{24, 7}] = {"fl_bridge_bw", state = CLOSED}
+        wo[{25, 7}] = {"fl_bridge_bw", state = CLOSED}
+        wo[{22, 9}] = {"fl_bridge_bw", state = CLOSED}
+    end
+    for i = 6, 8 do
+        wo[{20, i}] = {"it_nil"}
+    end
+end
+
+function bridge03()
+    if wo["IsDifficult"] then
+        for y = 2, 3 do
+            wo[{50, y}] = {"fl_bridge_gc", state = CLOSED}
+        end
+        for y = 2, 4 do
+            wo[{45, y}] = {"fl_bridge_gc", state = CLOSED}
+        end
+        for y = 5, 6 do
+            wo[{43, y}] = {"fl_bridge_gc", state = CLOSED}
+        end
+    else
+        for x = 41,44 do
+            wo[{ x, 6}] = {"fl-bluegray"}
+        end
+        createEasyPassage()
+    end
+end
+
+function sensorEasyWhite01()
+    color = "white"
+    wo[{18,18}] = {"st-rock1"}
+    wo[{19,18}] = {"fl-abyss"}
+    wo[{20,18}] = {"st-rock1"}
+    wo:drawMap(ti, po(38, 0), easyCenterWhiteMap)
+end
+
+function sensorEasyBlack01()
+    wo[{18,18}] = {"st-rock1"}
+    wo[{19,18}] = ti["J"] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
+    wo[{20,18}] = {"st-rock1"}
+    wo[{94,6}] = {"it_nil"}    -- remove wormhole
+    wo:drawMap(ti, po(38, 0), easyCenterBlackMap)
+end
+
+-- create world
+width, height = wo(ti," ", mainMap)
+
+if wo["IsDifficult"] then
+    wo:drawMap(ti, po(38, 0), normalCenterMap)
+else
+    wo[{ 1, 5}] = {"it-pin"}
+    wo[{94, 5}] = {"it-pin"}
+    wo[{94, 6}] = {"it_wormhole", destination = po(19.5,18.5), strength = 1.0, range = 1.0}
+    wo[{22, 7}] = {"it_nil"}    -- white yinyang
+    wo[{69, 9}] = {"it_nil"}    -- black yinyang
+    wo[{46,15}] = {"st_nil"}    -- white door
+    wo[{49,15}] = {"st_nil"}    -- black door
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="doc1">
+        <el:english>Attention! The trigger in the abyss is a weird one. It disappears when touched ...</el:english>
+        <el:translation el:lang="de">Vorsicht! Der Trigger im Abgrund ist eigenartig. Er verschwindet bei Berührung ...</el:translation>
+      </el:string>
+      <el:string el:key="doc2">
+        <el:english>Go left to play the white part. Go right to play the black part.</el:english>
+        <el:translation el:lang="de">Nach links für den weißen Part. Nach rechts für den schwarzen Part.</el:translation>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">How does it feel to get rid off the weight of the world? ;-))</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

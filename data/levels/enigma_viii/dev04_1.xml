@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="dev04"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="true">A variation of a Meditation created by Raoul Bourquin</el:credits>
+      </el:comments>
+      <el:score el:easy="0:25" el:difficult="0:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if wo["IsDifficult"] then
+    f = 35.0
+else
+    f = 25.0
+end
+
+ti[" "] = {"fl-abyss"}
+ti["."] = {"fl-gray"}
+ti["d"] = {"fl-gradient1"}
+ti["u"] = {"fl-gradient2"}
+ti["r"] = {"fl-gradient3"}
+ti["l"] = {"fl-gradient4"}
+ti["D"] = {"fl-gradient5"}
+ti["U"] = {"fl-gradient6"}
+ti["R"] = {"fl-gradient7"}
+ti["L"] = {"fl-gradient8"}
+ti["n"] = {"fl-gradient13"}
+ti["s"] = {"fl-gradient14"}
+ti["w"] = {"fl-gradient15"}
+ti["e"] = {"fl-gradient16"}
+ti["0"] = ti["."] .. {"it_wormhole_on", destination = po( 4.5, 6.5), strength = 1.0, range = 1.0}
+ti["1"] = ti["."] .. {"it_wormhole_on", destination = po(15.5, 6.5), strength = 1.0, range = 1.0}
+ti["o"] = ti["."] .. {"it_meditation_hollow"}
+ti["S"] = {"fl-gradient5", force_x =  f, force_y =  f}
+ti["E"] = {"fl-gradient6", force_x = -f, force_y = -f}
+ti["N"] = {"fl-gradient7", force_x =  f, force_y =  f}
+ti["W"] = {"fl-gradient8", force_x = -f, force_y = -f}
+ti["^"] = {"fl-gradient1", force_y =  f}
+ti["v"] = {"fl-gradient2", force_y = -f}
+ti["<"] = {"fl-gradient3", force_x =  f}
+ti[">"] = {"fl-gradient4", force_x = -f}
+ti["9"] = ti["D"] .. {"#ac-whiteball-small", player = 0, essential = 1}
+ti["8"] = ti["U"] .. {"#ac-whiteball-small", player = 0, essential = 1}
+ti["7"] = ti["L"] .. {"#ac-whiteball-small", player = 0, essential = 1}
+ti["6"] = ti["R"] .. {"#ac-whiteball-small", player = 0, essential = 1}
+
+if wo["IsDifficult"] then
+    ti[":"] = {"fl-abyss"}
+else
+    ti[":"] = {"st-invisible"}
+end
+
+width, height = wo(ti, " ",
+-- 0         1         2
+-- 012345678901234567890
+{ "                    ",
+  " ..w9dddddddddd8e.. ",
+  ":s: rDddddddddUl  s ",
+  "S^E:rrDddddddUll :s:",
+  "<o> rrrDddddUlll:S^E",
+  "NvW rrrrDddUllll <o>",
+  "S^E rrrrr01lllll NvW",
+  "<o> rrrrRuuLllll <^>",
+  "NvW:rrrRuuuuLlll rol",
+  ":n: rrRuuuuuuLll:NvW",
+  " n  rRuuuuuuuuLl :n:",
+  " ..w6uuuuuuuuuu7e.. ",
+  "                    "
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

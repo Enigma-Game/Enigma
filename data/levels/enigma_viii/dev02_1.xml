@@ -3,24 +3,24 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Status code 302" el:subtitle="RFC 2068, 10.3.3" el:id="dev02"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.01"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="3:02" el:difficult="9:06"/>
     </el:info>
     <el:luamain><![CDATA[
 statS = {}
 for i = 0, 14 do
-	statS[i] = 1
+  statS[i] = 1
 end
 
 if difficult then
-	add2x = 52
+    add2x = 52
 else
-	add2x = 0
+    add2x = 0
 end
 
 function putsXY(y,s)
@@ -63,7 +63,7 @@ function putsXY(y,s)
     elseif (c == "G") then if difficult then set_stone("st-grate2",x,y)
                                              set_floor("fl-acblack",x,y)
                            else set_stone("st-grate1",x,y)
-                                set_floor("fl-black",x,y) 
+                                set_floor("fl-black",x,y)
                            end
     elseif (c == "M" and difficult) then set_item("it-coin1",x,y)
     elseif (c == "K" and difficult) then set_stone("st-knight",x,y)
@@ -72,7 +72,7 @@ function putsXY(y,s)
     elseif (c == "Y") then if difficult then set_stone("st-yinyang2",x,y)
                            else set_stone("st-switch_white",x,y,{name = "switch01", action = "callback", target = "toggleSwitch01"})
                            end
-    -- triggers, switches, sensors 
+    -- triggers, switches, sensors
     elseif (c == "N") then set_stone("st-switch_white",x,y,{name = "switch07", action = "onoff", target = "laserN"})
     elseif (c == "S") then set_stone("st-switch_black",x,y,{name = "switch08", action = "onoff", target = "laserS"})
     elseif (c == "0") then set_floor("fl-acblack",x,y)
@@ -119,7 +119,7 @@ function toggleDisco()
     oxyd_shuffle()
   end
   statS[10] = statS[10] - 1
-  
+
 end
 
 function createWormHole4Black()
@@ -155,20 +155,20 @@ function openDoor00()
   if (statS[0] == 0 and difficult) or (statS[1] == 0) then
     enigma.KillItem(9,5)
     SendMessage("door00", "open", "1")
-    document(39,6,"text1")
+    document(39,6,"BzG")
   end
 end
 
 function openDoor01a()
   if (statS[2] == 1) then statS[2] = 0
-  else statS[2] = 1 
+  else statS[2] = 1
   end
   openDoors()
 end
 
 function openDoor01b()
   if (statS[3] == 1) then statS[3] = 0
-  else statS[3] = 1 
+  else statS[3] = 1
   end
   openDoors()
 end
@@ -234,7 +234,7 @@ end
 function removeTriggerAC()
   local getObjA = enigma.GetStone(64,2)
   local getObjC = enigma.GetStone(64,10)
-  
+
   if (getObjA ~= nil and getObjC ~= nil) then
     if (enigma.GetKind(getObjA) == "st-rock1_move" and enigma.GetKind(getObjC) == "st-rock1_move") then
       enigma.KillStone(64,2)
@@ -274,7 +274,7 @@ function toggleTriggerA()
     end
     statS[11] = 0
   elseif (statS[11] == 0) then
-    statS[11] = 1  
+    statS[11] = 1
   end
 end
 
@@ -296,7 +296,7 @@ function toggleTriggerC()
     end
     statS[13] = 0
   elseif (statS[13] == 0) then
-    statS[13] = 1  
+    statS[13] = 1
   end
 end
 
@@ -310,6 +310,8 @@ function toggleTriggerD()
     statS[14] = 1
   end
 end
+
+-- main
 
 cols = 77
 rows = 13
@@ -356,15 +358,14 @@ if not difficult then
   set_stone("st-grate1",35,4)
   set_stone("st-grate1",35,8)
 end
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
-      <el:string el:key="text1">
-        <el:english el:translate="true">Hey, you've got godlike help? Is the hell hound on your trail?</el:english>
-      </el:string> 
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Hey, you've got godlike help? Is the hell hound on your trail? ...</el:english>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

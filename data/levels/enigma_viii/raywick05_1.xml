@@ -31,9 +31,9 @@ ti["v"] = {"st_oneway_s"}
 ti[">"] = {"st_oneway_e"}
 ti["<"] = {"st_oneway_w"}
 ti["1"] = {"st_door", name="door1", flavor="d", faces="ew"}
-ti["2"] = {"st-stoneimpulse", name="inner#"}
-ti["4"] = {"st-stoneimpulse"}
-ti["5"] = {"st-stoneimpulse", name="outer#"}
+ti["2"] = {"st_stoneimpulse", name="inner#"}
+ti["4"] = {"st_stoneimpulse"}
+ti["5"] = {"st_stoneimpulse", name="outer#"}
 ti["L"] = {"st_laser_s", name="laser1"}
 ti["M"] = {"st_mirror", transparent=true, orientation=0}
 ti["Z"] = {"st_shogun_sml"}
@@ -94,9 +94,9 @@ w, h = wo(ti, " ", {
 wo:shuffleOxyd()
   ]]></el:luamain>
     <el:i18n>
-	 <el:string el:key="title">
-	   <el:english el:translate="false"/>
-	 </el:string>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
    </el:i18n>
   </el:protected>
 </el:level>

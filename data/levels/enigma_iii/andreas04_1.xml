@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -40,7 +40,7 @@ ti["1   "]={"fl-rock"}
 ti["2   "]={"fl-gradient5"}
 ti["3   "]={"fl-gradient9"}
 ti[" !  "]={"st-greenbrown"}
-ti[" #  "]={"st-stoneimpulse"}
+ti[" #  "]={"st_stoneimpulse"}
 ti[" $  "]={"st-rock1_move"}
 ti[" %  "]={"st-rock1"}
 ti[" A  "]={"st_fourswitch", "fo_a", action = "signal",
@@ -71,7 +71,7 @@ ti[" -  "]={"st_laser", "la_n", orientation = NORTH, state = OFF}
 ti[" .  "]={"st_laser", "la_s", orientation = SOUTH, state = OFF}
 ti[" 0  "]={"st_laser", "la_e", orientation = EAST, state = OFF}
 ti[" 5  "]={"st_door", "castle_door", faces="ew"}
-ti[" 6  "]={"st-stoneimpulse-hollow"}
+ti[" 6  "]={"st_stoneimpulse_hollow"}
 ti["  1 "]={"it_trigger", target = {"fo_a", "fo_c"}}
 ti["  2 "]={"it_trigger", target = {"fo_a"}}
 ti["  3 "]={"it_trigger", target = {"fo_c", "fo_d"}}
@@ -336,7 +336,7 @@ wo:shuffleOxyd()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">A castle lies before you ... beware of guardians!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

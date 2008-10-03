@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:25$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:26$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,8 +59,8 @@ ti["- "] = {"fl-space"}
 ti["-d"] = ti["- "] ..{"it_death"}
 ti["~ "] = {"fl-water"}
 ti["/ "] = {"st-wood"}
-ti["j "] = {"st-disco-light"}
-ti["~1"] = ti["~ "] ..{"st-disco-light"}
+ti["j "] = {"st_disco_light"}
+ti["~1"] = ti["~ "] ..{"st_disco_light"}
 ti["J "] = {"st-stoneimpulse-hollow"}
 ti["U "] = {"st-break_invisible"}
 ti["UU"] = {"st-break_acblack"}
@@ -273,7 +273,6 @@ function recluster(value, sender)
       wo[no["knight2"]] =  {"st_knight"}
     end
 end
-
 
 function topblock1 ()
     wo[{14,12}] = {"st-black4"}

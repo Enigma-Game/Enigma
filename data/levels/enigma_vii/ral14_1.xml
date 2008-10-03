@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Bold Boulder" el:subtitle="" el:id="20061124ral279"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 96 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 117 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,17 +17,20 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
+if not wo["IsDifficult"] then
+    wo["MaxOxydColor"] = OXYD_BLUE
+end
 
 ti[" "] = {"fl-wood"}
 ti["-"] = {"fl-abyss"}
 ti["~"] = {"fl-water"}
-ti["x"] = {"st_oxyd", "oxyd#", flavor="d"}
+ti["x"] = {"st_oxyd", flavor="d"}
 ti["#"] = {"st-likeoxydd"}
 ti["N"] = {"st_boulder_n"}
 ti["R"] = {"st_rotator_ccw"}
 ti["B"] = {"st_blocker"}
 ti["b"] = {"it_blocker"}
-ti["I"] = {"st-stoneimpulse_movable"}
+ti["I"] = {"st_stoneimpulse_movable"}
 ti["1"] = {"#ac-blackball"}
 
 
@@ -46,10 +49,6 @@ w, h = wo(ti, " ", {
 "----RbBbBbBbBbBR----",
 "-----xxxxxxxxxR-----"
 })
-
-if not wo["IsDifficult"] then
-    no["oxyd#*"]["oxydcolor"] = OXYD_BLUE
-end
 
 wo:shuffleOxyd()
     ]]></el:luamain>

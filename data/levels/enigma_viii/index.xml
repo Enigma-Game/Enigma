@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -13,7 +13,7 @@
     <level _seq="5" _title="The Red Room" _xpath="./joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Enigmines" _xpath="./huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Red Cave" _xpath="./mecke21_1" author="mecke" ctrl="force" easy="true" id="mecke21" rel="1" rev="30" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Status code 302" _xpath="./dev02_1" author="/dev/null" ctrl="force" easy="true" id="dev02" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Status code 302" _xpath="./dev02_1" author="/dev/null" ctrl="force" easy="true" id="dev02" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="A Screenful of Secrets" _xpath="./mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Southside Life" _xpath="./mecke10_1" author="mecke" ctrl="force" easy="true" id="mecke10" rel="1" rev="18" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Joona's Chess" _xpath="./joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -37,15 +37,20 @@
     <level _seq="29" _title="Colored Oxyds" _xpath="./andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Fashions Pass" _xpath="./andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="31" _title="Colored Turnstiles" _xpath="./andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Wired Shogun" _xpath="./ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="114" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Scarlett's Necklet" _xpath="./ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="115" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="- Meditation -" _xpath="./raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Relaxing at the sea" _xpath="./dev08_1" author="/dev/null" ctrl="force" easy="true" id="dev08" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Relaxing at the sea" _xpath="./dev08_1" author="/dev/null" ctrl="force" easy="true" id="dev08" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Helios II" _xpath="./mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="15" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20070822ral291" rel="1" rev="115" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20070822ral291" rel="1" rev="117" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Alternation I" _xpath="./mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Enigmaparcour II" _xpath="./mecke29_1" author="mecke" ctrl="force" easy="true" id="mecke29" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title=" - Meditation - " _xpath="./dev07_1" author="/dev/null" ctrl="force" easy="true" id="dev07" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title=" - Meditation - " _xpath="./dev06_1" author="/dev/null" ctrl="force" easy="true" id="dev06" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="- Meditation -" _xpath="./dev04_1" author="/dev/null" ctrl="force" easy="true" id="dev04" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="Multi-lane" _xpath="./dev03_1" author="/dev/null" ctrl="force" easy="true" id="dev03" rel="1" rev="17" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="See Saw Meditation" _xpath="./duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
