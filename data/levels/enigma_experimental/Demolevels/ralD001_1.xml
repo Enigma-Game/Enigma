@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Demo User Resolver" el:subtitle="" el:id="20080516ral198"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1151 $" el:status="experimental"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2007 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["r"] = {"fl-rough-red"}
+ti["b"] = {"fl-rough-blue"}
+ti["1"] = {"#ac-blackball"}
+
+ti["x"] = {"it_cross"}
+
+function myresolver(key, x, y)
+    if key == " " then
+        local center = ((x%3) * (y%3))%2 
+        local checker = ((math.modf(x/3) %2) + (math.modf(y/3) %2))%2
+        if center + checker == 1 then
+            return ti["r"]
+        else
+            return ti["b"]
+        end
+    else
+        return ti[key]
+    end
+end
+
+w, h = wo(myresolver, " ", {
+"                    ",
+"                    ",
+"                    ",
+"      x x           ",
+"       x            ",
+"      x x           ",
+"                    ",
+"          1         ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
+"                    "
+})
+
+  ]]></el:luamain>
+    <el:i18n>
+	 <el:string el:key="title">
+	   <el:english el:translate="false"/>
+	 </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>
+
