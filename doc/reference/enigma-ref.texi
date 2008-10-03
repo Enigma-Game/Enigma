@@ -5597,6 +5597,7 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 
 @menu
 * ActorimpulseStrength::
+* ConserveLevel::
 * CreatingPreview::
 * ExtralifeGlasses::
 * FollowAction::
@@ -5629,6 +5630,38 @@ global value is only used if no object specific value is set.
 @item @b{Default:} @ @ @code{+200.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_actorimpulse}
+@end table
+
+@node ConserveLevel
+@subsection ConserveLevel
+
+A global variable that determines if a dead actor will be resurrected in case of
+@ref{it_extralife}s in the gamer's inventory.
+
+If @code{true}, dead actors attached to a player will be resurrected as long as 
+extralives are available. If a player has no living actor to control or is
+missing the actor's essential constraints (see section Actor Attributes), 
+the player is dead. The level may still continue if a second player is alive.
+If the gamer has an @ref{it_yinyang} in his inventory in single user mode, the 
+control switches to the second player. If all players are dead, a new level game
+is started.
+
+If the conserve mode is @code{false}, no actors will be resurrected. As soon as 
+the player is dead and the control cannot switch to another player, all dead 
+actors are resurrected by using extralives, and the level is restarted without 
+finishing the level game.
+
+Use @code{false} if the level can either be not solved in case of resurrected
+actors or would provide a major shortcut. In all other cases, mode @code{true}
+with proper usage of actors essential constraints will be preferable
+(see section Actor Attributes).
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{true}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
 @end table
 
 @node CreatingPreview
@@ -6616,6 +6649,10 @@ The shape of the meditation.
 @item @b{essential} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Essentialness of being filled with a meditation marble to fulfill the
 @ref{Ending Conditions}.
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{friction}
+Deviating friction that defaults to floor friction.
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{adhesion}
+Deviating adhesion that defaults to floor adhesion.
 @end table
 
 @item @b{Messages:}
@@ -7468,6 +7505,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
 * st_death::           Skull Stone
+* st_disco::           Light shading Stone
 * st_door::            Door of various Flavors
 * st_fart::            Oxyd closing Stone
 * st_floppy::          Floppy Driven Switch
@@ -7490,6 +7528,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
 * st_shogun::          Stackable Hole Stones
+* st_stoneimpulse::    Neighbor Pushing pulsing Stone
 * st_swap::            Neighbor Swapping Stone
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
@@ -7917,6 +7956,60 @@ period.
 
 @end table
 
+
+@c ----------------- Disco Stone --------------------
+@node st_disco
+@subsection st_disco
+@obindex st_disco
+
+A free passable stone, which darkens everything that is underneath the stone.
+It looks like a tinted glass that occurs in several shades. It likely got its
+name from the possibility to switch between the shade grades.
+
+The disco stone comes in three variants, @samp{LIGHT}, @samp{MEDIUM} and 
+@samp{DARK}. The dark variant is pure black, that shows neither actors, items or
+the floor. You can switch between these variants by messages and state attribute
+access. The messages @code{"lighten"} and @code{"darken"} change the shade
+by one degree. The message @code{"signal"} turns the disco light full on or off,
+independent of the previous state. The standard @code{"toggle"} switches from
+light -> medium -> dark -> light.
+
+Note: unlike the old API versions of this stone, it does no longer support
+recursive shading of neighboring disco stones. Make use of object groups by 
+@ref{Objects Naming} to shade groups of arbitrary composition by a single message.
+
+@table @asis
+
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{LIGHT}, @code{MEDIUM}, @code{DARK}; @ @ @i{default}: @code{LIGHT} @ @ @xref{state}
+The shading grade.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{lighten}
+Lighten by one degree.
+@item @b{darken}
+Darken by one degree.
+@item @b{signal} @ @ @xref{signal}
+Switch to @samp{LIGHT} on a value of @code{1}. Switch to @samp{DARK} on a value
+of @code{0}.
+@item @b{toggle} @ @ @xref{toggle}
+Darken by degree or switch from @samp{DARK} to @samp{LIGHT} 
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_disco}: state = @code{LIGHT}
+@item @b{st_disco_light}: state = @code{LIGHT}
+@item @b{st_disco_medium}: state = @code{MEDIUM}
+@item @b{st_disco_dark}: state = @code{DARK}
+@end table
+
+@end table
 
 @c ----------------- Door Stone --------------------
 @node st_door
@@ -9192,6 +9285,103 @@ shogun.
 @item @b{st_shogun_sl}: flavor = @code{"sl"}
 @item @b{st_shogun_ml}: flavor = @code{"ml"}
 @item @b{st_shogun_sml}: flavor = @code{"sml"}
+@end table
+
+@end table
+
+@c ----------------- Stoneimpulse Stone --------------------
+@node st_stoneimpulse
+@subsection st_stoneimpulse
+@obindex st_stoneimpulse
+
+When being triggered these stones do pulse and send stone pushing impulses to
+their direct neighbors. There exist solid, hollow and movable variants of this
+stone.
+
+The pulsing can either be triggered by an actor touching or hitting the stone,
+by receiving a stone impulse from a neighboring @ref{st_stoneimpulse}, via
+@ref{ot_wire} or a dropped @ref{it_puller}. Furtheron laser light, an
+@ref{st_boulder} hitting and of course messages will cause the pulsing, too.
+
+Even though the three major variants can be set by attributes, they are mutual
+exclusive. A @samp{hollow} stone is never movable or solid and vice versa. That
+means setting one of these basic attributes will reset the others to their 
+defaults.
+
+A movable stoneimpulse being pushed will pulse due to the actor hit at the
+new grid position. Even when it is pushed while pulsing it will continue the
+running pulse animation on the new grid and if necessary it will repulse to 
+guarantee that impulses are send to the neighboring stones at the new position.
+
+But if an actor with a revealed @ref{it_magicwand} pushes a movable stoneimpulse
+it will move without any additional pulse.
+
+In general stoneimpulse stones are very responsive to actor contacts. The 
+slightest touch is sufficient to cause a pulsing. Hollow stones will shatter
+actors benath it while pulsing.
+
+Hollow stoneimpulse stones are transparent to laserlight and thus do not react.
+But all other stones to pulse. A standard not @ref{steady} stoneimpulse will
+pulse just one time on each new added light beam. But if you set @ref{steady}
+to @code{true} the stone will continue pulsing as long as a single beam hits
+one of its sides.
+
+An @ref{st_boulder} that hits a stoneimpulse causes it to pulse once. The
+impulse will not backfire onto the @ref{st_boulder}. It will just propagate to
+the other three directions. Thus the boulder remains aside the stoneimpulse. But
+when the stoneimpulse gets activated otherwise it will push back the boulder,
+which will in return hit the stoneimpulse again.
+
+On a chain of stoneimpulse the pulsing will propagate along the chain without
+backfiring, as the previous stone is still active when its successor impulses.
+This feature lets propagate a linear front of impuls through a field of
+stoneimpulse as expected.
+
+If you want to setup a linear circle of stoneimpulse stones with an impulse
+wandering around the circle in one direction forever, you should insert one
+@samp{st_stoneimpulse_new} into the chain. According to the 
+@ref{Snapshot Principle} it is a stone that is just about to start pulsing.
+You need to set the attribute @samp{orientation}, which is just evaluated for
+new stones when set to the grid. It takes the incoming direction of the impulse
+when it reached the new stone. E.g. an orientation of east means that the stone
+received an impulse from a stone located west of it which was bound to east.
+Thus the stone will emit impulses to all directions but west.
+
+Impulse stones will be destroyed by @ref{it_dynamite} exploding on one of the
+eight neighboring grid positions while the stone is enlightened by a laser. But
+other explosions, inclusive @ref{it_bomb}, will not effect stoneimpulse stones.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Movable stones are not hollow.
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Hollow stones are neither movable, nor steady.
+@item @b{steady} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Steady stones send continous impulses while exposed to laser light. Steady stones
+are not hollow.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Pulse at a value of @samp{1}.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_stoneimpulse}
+@item @b{st_stoneimpulse_movable}: movable = @code{true}
+@item @b{st_stoneimpulse_hollow}: hollow = @code{true}
+@item @b{st_stoneimpulse_steady}: steady = @code{true}
+@item @b{st_stoneimpulse_new}: 
+A stone that is about to pulse when being set.
 @end table
 
 @end table
