@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Basic Level" el:subtitle="" el:id="20080721ral513"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1267 $" el:status="experimental"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-samba"}
+ti["."] = {"fl-abyss"}
+ti["~"] = {"fl-water"}
+ti["#"] = {"st-rock1"}
+ti["X"] = {"st_oxyd"}
+
+ti["L"] = {"st_laser", orientation=EAST, state=ON}
+ti["M"] = {"st_lightpassenger", interval=0.04}
+
+ti["P"] = {"st_polarswitch", name="polar"}
+ti["T"] = {"it_trigger", target="polar"}
+
+ti["^"] = {"st_boulder", "boulder", orientation=NORTH}
+ti["F"] = {"st_fourswitch", target="boulder", action="orientate"}
+
+ti["D"] = {"st_door_d", "door", faces="ew"}
+ti["B"] = {"it_blocker", "wall#"}
+ti["S"] = {"st_switch", target={"door", "wall#*"}}
+
+ti["v"] = {"it_vortex", "left", destination="right"}
+ti["V"] = {"it_vortex", "right", destination="left"}
+
+ti["O"] = {"st_turnstile", flavor="red"}
+ti["E"] = {"st_turnstilearm", orientation=EAST}
+ti["N"] = ti["."] .. {"st_turnstilearm_n"}
+
+ti["+"] = {"fl-samba", checkerboard=0} .. ti({"fl-wood", checkerboard=1})
+
+ti["1"] = {"#ac-blackball"}
+
+if wo["IsDifficult"] then
+    ti["="] = ti["~"]
+else
+    ti["="] = ti["~"] .. {"it_strip_ew"}
+end
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#      ....++++++~ #",
+    "L   PM ..N.++~~~~OE#",
+    "#######  T~++++++. #",
+    "#     ^   ~++++++# #",
+    "#         =++++++X X",
+    "#         ~++++++# #",
+    "#~~~~~~~~~~~~~+++X X",
+    "#    ~   B   ~+++###",
+    "F    ~   B   ~+++++#",
+    "# 1  ~   B   #+++++#",
+    "S   v~V  B   D+++++#",
+    "####################"
+})
+
+wo:shuffleOxyd()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
