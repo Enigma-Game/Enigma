@@ -4092,7 +4092,7 @@ group.
 @example
 @var{obj}:@b{set}(@{@b{target}=@var{mydoor}, @b{action}="@b{open}"@})
 @end example
-You can multiple attributes on any object at once with the objects @samp{set()}
+You can set multiple attributes on any object at once with the objects @samp{set()}
 method. The arguement is an anonymous Lua table with the attribute names as keys
 and assigned values of your choice.
 
@@ -4463,7 +4463,7 @@ Let us concentrate on new aspects not discussed in the previous
 03    @i{wo}["@b{FollowMethod}"] = @var{FOLLOW_SCROLL}
 @end example
 This level must forbid the user to resurrect a marble at the start position.
-At the same time the user should the area around the marble as complete as
+At the same time the user should see the area around the marble as complete as
 possible. Thus the scroll mode needs to be set, too. All this is done by
 setting special @ref{Global Attributes}.
 
@@ -4952,10 +4952,10 @@ desired world.
 @item @b{Syntax Samples:}
 @example
 w, h = wo(ti, "  ", 20, 13)
-w, h = wo(resolver, " ", {
+w, h = wo(resolver, " ", @{
        "                    ",
        ...
-       "                    "})
+       "                    "@})
 @end example
 
 @item @b{Details:}
