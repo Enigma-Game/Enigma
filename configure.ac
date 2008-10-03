@@ -376,7 +376,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_oxydmagnum/Makefile
            data/levels/enigma_oxydextra/Makefile
            data/levels/enigma_experimental/Makefile
-           data/levels/enigma_stable/Makefile
+           data/levels/enigma_demolevels/Makefile
            data/levels/enigma_sokoban/Makefile
            data/levels/enigma_microban/Makefile
            data/levels/enigma_mas_microban/Makefile
