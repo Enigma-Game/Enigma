@@ -169,6 +169,12 @@ namespace enigma {
     Object *GetNamedObject (const string &name);
     std::list<Object *> GetNamedGroup(const std::string &templ, const Object *reference = NULL);
 
+/* -------------------- Named Positions -------------------- */
+
+    void NamePosition(Value po, const string &name);
+    Value GetNamedPosition(const string &name);
+    PositionList GetNamedPositionList(const std::string &templ);
+
 /* -------------------- Force Fields -------------------- */
 
     void AddForceField (ForceField *ff);

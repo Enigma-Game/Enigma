@@ -53,14 +53,16 @@ extern "C" {
 #include "nls.hh"
 
 // Lua Registry keys of metatables for user objects
-#define LUA_ID_OBJECT   "_ENIGMAOBJECT"
-#define LUA_ID_POSITION "_POSITION"
-#define LUA_ID_WORLD    "_WORLDOBJECT"
-#define LUA_ID_NAMEOBJ  "_NAMEDOBJECTS"
-#define LUA_ID_GROUP    "_GROUP"
-#define LUA_ID_TILES    "_TILES"
-#define LUA_ID_TILE     "_TILE"
-#define LUA_ID_DEFAULT  "_DEFAULT"
+#define LUA_ID_OBJECT    "_ENIGMAOBJECT"
+#define LUA_ID_POSITION  "_POSITION"
+#define LUA_ID_POSITIONS "_POSITIONS"
+#define LUA_ID_WORLD     "_WORLDOBJECT"
+#define LUA_ID_NAMEOBJ   "_NAMEDOBJECTS"
+#define LUA_ID_GROUP     "_GROUP"
+#define LUA_ID_POLIST    "_POLIST"
+#define LUA_ID_TILES     "_TILES"
+#define LUA_ID_TILE      "_TILE"
+#define LUA_ID_DEFAULT   "_DEFAULT"
 /**
  * The tile dictionary or function that should be used to resolve tile keys.
  */
@@ -185,6 +187,10 @@ static bool is_tiles(lua_State *L, int idx) {
 
 static bool is_group(lua_State *L, int idx) {
     return lua_isuserdata(L,idx) && checkMetadata(L, idx, LUA_ID_GROUP);
+}
+
+static bool is_polist(lua_State *L, int idx) {
+    return lua_isuserdata(L,idx) && checkMetadata(L, idx, LUA_ID_POLIST);
 }
 
 static bool is_world(lua_State *L, int idx) {
@@ -331,6 +337,58 @@ static int pushNewPosition(lua_State *L, ecl::V2 pos) {
     lua_remove(L, -3);    // pos[0]
     lua_remove(L, -2);    // pos[1]
     return 1;
+}
+
+static int pushNewPolist(lua_State *L, PositionList positions) {
+    // NULL objects and duplicates entries in the list will be eliminated
+    int *udata;
+    udata = (int *)lua_newuserdata(L, sizeof(int));   // group user object
+    *udata = 1;
+    
+    lua_newtable(L);  // individual metatable copy
+    luaL_getmetatable(L, LUA_ID_POLIST);
+    // copy metatable template
+    lua_pushnil(L);  // first key
+    while (lua_next(L, -2) != 0) {
+         // key is at index -2 and value at index -1
+         lua_pushvalue(L, -2);   // copy key
+         lua_insert(L, -2);      // insert key copy below value
+         lua_settable(L, -5);    // individual metatable
+    }    
+    lua_pop(L, 1);  // remove metatable template
+
+    int i = 1;
+    for (PositionList::iterator it = positions.begin(); it != positions.end(); ++it) {
+        // polist[i] = position
+        Value v = *it;
+        if (v) {  // existing object not NULL
+            ecl::V2 p(v);
+            lua_pushnumber(L, p[0]);
+            lua_rawseti(L, -2, i++);   
+            lua_pushnumber(L, p[1]);
+            lua_rawseti(L, -2, i++);
+        }
+    }
+
+    lua_setmetatable(L, -2);    
+    return 1;
+}
+
+static PositionList toPositionList(lua_State *L, int idx) {
+    PositionList positions;
+    
+    if (is_polist(L, idx)) {
+        lua_getmetatable(L, idx);
+        int numPositions = lua_objlen(L, -1) / 2;
+        for (int i = 1; i <= numPositions; ++i) {
+            lua_rawgeti(L, -1, 2 * i - 1);   // x
+            lua_rawgeti(L, -2, 2 * i);       // y
+            positions.push_back(ecl::V2(lua_tonumber(L, -2), lua_tonumber(L, -1)));
+            lua_pop(L, 2);          // x, y       
+        }
+        lua_pop(L, 1);          // the metatable        
+    }
+    return positions;
 }
 
 static void push_value(lua_State *L, const Value &val) {
@@ -1182,7 +1240,7 @@ static int setAttributes(lua_State *L) {
 }
 
 static int getStoneItemFloor(lua_State *L, Object::ObjectType ot) {
-    // position|table|obj|(num,num)|group
+    // position|table|obj|(num,num)|group|polist
     if (is_world(L, 1))      // world method?
         lua_remove(L, 1);    // no need of context
     if (is_group(L, 1)) {
@@ -1197,6 +1255,24 @@ static int getStoneItemFloor(lua_State *L, Object::ObjectType ot) {
             } else {
                 continue;  // no valid position
             }
+            Object *obj = NULL;
+            switch (ot) {
+                case Object::FLOOR :
+                    obj = GetFloor(p); break;
+                case Object::ITEM :
+                    obj = GetItem(p); break;
+                case Object::STONE :
+                    obj = GetStone(p); break;
+            }
+            if (obj != NULL) 
+                objects.push_back(obj);
+        }
+        pushNewGroup(L, objects);
+    } else if (is_polist(L, 1)) {
+        PositionList positions = toPositionList(L, 1);
+        ObjectList objects;
+        for (PositionList::iterator itr = positions.begin(); itr != positions.end(); ++itr) {
+            GridPos p = *itr;
             Object *obj = NULL;
             switch (ot) {
                 case Object::FLOOR :
@@ -1566,6 +1642,52 @@ static int differenceGroup(lua_State *L) {
     return intersectGroupBase(L, false);    
 }
 
+static int newPolist(lua_State *L) {
+    // (grp | table | (obj | pos [,obj | pos]))
+    PositionList positions;
+    if (is_group(L, 1)) {
+        ObjectList ol = toObjectList(L, 1);
+        for (ObjectList::iterator itr = ol.begin(); itr != ol.end(); ++itr) {
+            if (*itr != NULL) {
+                switch ((*itr)->getObjectType()) {
+                    case Object::STONE :
+                    case Object::FLOOR :
+                    case Object::ITEM  :
+                        positions.push_back(dynamic_cast<GridObject *>(*itr)->get_pos());
+                        break;
+                    case Object::ACTOR :
+                        positions.push_back(dynamic_cast<Actor *>(*itr)->get_pos());
+                        break;
+                } 
+            }
+        }
+    } else {
+        throwLuaError(L, "New Polist - false arguments");
+        return 0;
+    }
+    return pushNewPolist(L, positions);
+}
+
+static int joinPolist(lua_State *L) {
+    // (polist|po) + (polist|po)
+    if (!((is_polist(L, 1) || is_position(L, 1)) &&  (is_polist(L, 2) || is_position(L, 2) ))) {
+        throwLuaError(L, "Join Polist - argument is no polist, position or object");
+        return 0;
+    }
+    PositionList positions;
+    std::list<Object *> objects;
+    for (int j = 1; j <= 2; j++) {
+        if (is_polist(L, j)) {
+            PositionList addList = toPositionList(L, j);
+            positions.insert(positions.end(), addList.begin(), addList.end());      
+        } else if (is_position(L, j)) {
+            positions.push_back(toPosition(L, j));
+        }
+    }
+    return pushNewPolist(L, positions);
+}
+
+
 MethodMap objectMethodeMap;
 
 static int dispatchObjectReadAccess(lua_State *L) {
@@ -1766,6 +1888,74 @@ static int dispatchPositionWriteAccess(lua_State *L) {
     
     throwLuaError(L, "Invalid position index");
     return 0;
+}
+
+MethodMap positionsMethodeMap;
+
+static int dispatchPositionsReadAccess(lua_State *L) {
+//    Log << "Positions read key - " << lua_tostring(L, 2) << "\n";
+    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
+        throwLuaError(L, "Positions: key is not a string");
+        return 0;
+    }
+    std::string name = lua_tostring(L, 2);
+    
+    if (name.find_first_of("*?") != std::string::npos) {
+        // search all objects that match the template
+        PositionList positions = GetNamedPositionList(name);
+        return pushNewPolist(L, positions);
+    } else {    
+        // search for a unique position
+        Value v = GetNamedPosition(name);
+//        Log << "will push position of '" << name << "' as " << ((ecl::V2)v)[0] << " - " << ((ecl::V2)v)[1] << "\n";
+        push_value(L, v);
+    }
+    return 1;
+}
+
+static int dispatchPositionsWriteAccess(lua_State *L) {
+//    Log << "Positions write key - " << lua_tostring(L, 2) << "\n";
+    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
+        throwLuaError(L, "Position naming: key is not a string");
+        return 0;
+    }
+    if (!is_position(L, 3)){
+        throwLuaError(L, "Position naming: value is not a position");
+        return 0;
+    }
+    NamePosition(toPosition(L, 3), lua_tostring(L, 2));
+    return 0;
+}
+
+static int pushNewPositions(lua_State *L) {
+    // positions is a singleton
+    
+    int *udata;
+    udata=(int *)lua_newuserdata(L,sizeof(int));   // positions user object
+    *udata = 1;
+    
+    luaL_getmetatable(L, LUA_ID_POSITIONS);
+    lua_rawgeti(L, -1, 1);
+    if (lua_isnil(L, -1)) {
+        lua_newtable(L);            // this is the contents table that stores the data
+        lua_rawseti(L, -3, 1);
+    }
+    lua_pop(L, 1); //nil or content table
+    lua_setmetatable(L, -2);
+    return 1;
+}
+
+static int newPositions(lua_State *L) {
+    // positions, (pos|obj|table|(num,num))
+    lua_remove(L, 1);   // remove extra arg
+    if (lua_gettop(L) < 1) {
+        throwLuaError(L, "New position call without arguments");
+        return 0;
+    }
+    if (is_group(L, 1)) {
+        return newPolist(L);
+    } else
+        return newPosition(L);
 }
 
 MethodMap namedObjMethodeMap;
@@ -2249,7 +2439,7 @@ static int dispatchWorldWriteAccess(lua_State *L) {
         
         WorldProxy::instance()->setAttr(name, to_value(L, 3));
         return 0;
-    } else if ((is_object(L, 2) || is_position(L, 2) || is_table(L, 2) || is_group(L, 2)) && 
+    } else if ((is_object(L, 2) || is_position(L, 2) || is_table(L, 2) || is_group(L, 2) || is_polist(L, 2)) && 
             ((is_table(L, 3)) || is_tile(L, 3))) {
         // set object
         double x = -1;
@@ -2305,9 +2495,24 @@ static int dispatchWorldWriteAccess(lua_State *L) {
                     else // is tile
                         setObjectByTile(L, x, y);
 
-                    lua_pop(L, 1);          // the tile/table        
+                    lua_pop(L, 1);          // the tile/table
                 }
-                lua_pop(L, 1);          // the object        
+                lua_pop(L, 1);          // the object
+            }
+            return 0;
+        } else if (is_polist(L, 2)) {
+            PositionList positions = toPositionList(L, 2);
+            for (PositionList::iterator itr = positions.begin(); itr != positions.end(); ++itr) {
+                GridPos p = *itr;
+                x = p.x;
+                y = p.y;
+                lua_pushvalue(L, 3);
+                if (is_table(L, -1))
+                    setObjectByTable(L, x, y);
+                else // is tile
+                    setObjectByTile(L, x, y);
+
+                lua_pop(L, 1);          // the tile/table  
             }
             return 0;
         }
@@ -2779,6 +2984,42 @@ static int shuffleGroup(lua_State *L) {
     return pushNewGroup(L, newSort);
 }
 
+MethodMap polistMethodeMap;
+
+static int dispatchPolistWriteAccess(lua_State *L) {
+    throwLuaError(L, "PoList: illegal write access");
+    return 0;
+}
+
+static int dispatchPolistReadAccess(lua_State *L) {
+    if (!(lua_isnumber(L, 2))) {
+        throwLuaError(L, "Position List: illegal read access");
+        return 0;
+    }
+    
+    if (true /* lua_isnumber(L, 2) */) {
+        int i = lua_tointeger(L, 2);
+        lua_getmetatable(L, 1);
+        int size = lua_objlen(L, -1)  / 2;
+        if (i >= 1 && i <= size) {
+            lua_rawgeti(L, -1, 2*i - 1);
+            lua_rawgeti(L, -2, 2*i);
+            pushNewPosition(L);
+        } else
+            lua_pushnil(L);
+    }
+    return 1;
+}
+
+static int lengthPolist(lua_State *L) {
+    lua_getmetatable(L, 1);
+    int size = lua_objlen(L, -1);
+//    Log << "Length List " << size << "\n";
+    lua_pushinteger(L, size / 2);
+    return 1;
+}
+
+
 MethodMap defaultMethodeMap;
 
 static int pushNewDefault(lua_State *L) {
@@ -2868,7 +3109,7 @@ static CFunction levelFuncs[] = {
     {mathRandom,                    "random"},
     {userType,                      "usertype"},
     {newGroup,                      "grp"},
-    {newPosition,                   "po"},
+//    {newPosition,                   "po"},
     {getFloor,                      "fl"},
     {getItem,                       "it"},
     {getStone,                      "st"},
@@ -2915,6 +3156,17 @@ static CFunction positionMethods[] = {
     {xyPosition,                    "xy"},
     {gridAlignPosition,             "grid"},
     {existsPosition,                "exists"},
+    {0,0}
+};
+
+static CFunction positionsOperations[] = {
+    {dispatchPositionsWriteAccess,  "__newindex"}, //  obj[key]=value
+    {dispatchPositionsReadAccess,   "__index"},    //  obj[key]
+    {newPositions,                  "__call"},
+    {0,0}
+};
+
+static CFunction positionsMethods[] = {
     {0,0}
 };
 
@@ -2985,6 +3237,18 @@ static CFunction groupMethods[] = {
     {groupMessage,                  "message"},
     {killObject,                    "kill"},
     {shuffleGroup,                  "shuffle"},
+    {0,0}
+};
+
+static CFunction polistOperations[] = {
+    {dispatchPolistWriteAccess,     "__newindex"}, //  obj[key]=value
+    {dispatchPolistReadAccess,      "__index"},    //  obj[key]
+    {lengthPolist,                  "__len"},      //  #obj
+    {joinPolist,                    "__concat"},   //  obj .. obj
+    {0,0}
+};
+
+static CFunction polistMethods[] = {
     {0,0}
 };
 
@@ -3313,11 +3577,13 @@ lua_State *InitLevel(int api)
     // Create a new metatable for world objects
     RegisterLuaType(L, LUA_ID_OBJECT, objectOperations, objectMethods, objectMethodeMap);
     RegisterLuaType(L, LUA_ID_POSITION, positionOperations, positionMethods, positionMethodeMap);
+    RegisterLuaType(L, LUA_ID_POSITIONS, positionsOperations, positionsMethods, positionsMethodeMap);
     RegisterLuaType(L, LUA_ID_NAMEOBJ, namedObjOperations, namedObjMethods, namedObjMethodeMap);
     RegisterLuaType(L, LUA_ID_WORLD, worldOperations, worldMethods, worldMethodeMap);
     RegisterLuaType(L, LUA_ID_TILE, tileOperations, tileMethods, tileMethodeMap);
     RegisterLuaType(L, LUA_ID_TILES, tilesOperations, tilesMethods, tilesMethodeMap);
     RegisterLuaType(L, LUA_ID_GROUP, groupOperations, groupMethods, groupMethodeMap);
+    RegisterLuaType(L, LUA_ID_POLIST, polistOperations, polistMethods, polistMethodeMap);
     RegisterLuaType(L, LUA_ID_DEFAULT, defaultOperations, defaultMethods, defaultMethodeMap);
     
     pushNewNamedObj(L);
@@ -3329,6 +3595,9 @@ lua_State *InitLevel(int api)
     pushNewTiles(L);
     RegisterObject(L, "ti");
     
+    pushNewPositions(L);
+    RegisterObject(L, "po");
+
     pushNewDefault(L);
     RegisterObject(L, "DEFAULT");
     

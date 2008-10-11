@@ -27,7 +27,7 @@ namespace ecl
     extern unsigned hash(const std::string &key);
 
     class XInvalidKey : XGeneric {
-	XInvalidKey () : XGeneric("invalid dictionary key")
+        XInvalidKey () : XGeneric("invalid dictionary key")
         {}
     };
 
@@ -35,16 +35,16 @@ namespace ecl
     template <class T>
     class Dict {
     public:
-	typedef std::string            key_type;
-    	typedef std::pair<key_type, T> value_type;
-	typedef size_t                 size_type;
+        typedef std::string            key_type;
+        typedef std::pair<key_type, T> value_type;
+        typedef size_t                 size_type;
 
     private:
-    	struct Entry {
-	    Entry(const key_type &k, const T &v) : pair(k,v) {}
+        struct Entry {
+        Entry(const key_type &k, const T &v) : pair(k,v) {}
             value_type  pair;
             Entry      *next;
-	};
+        };
 
         // ---------- Iterator ----------
         template <class U>
@@ -103,73 +103,73 @@ namespace ecl
         };
 
     public:
-	typedef Iter<value_type>                iterator;
-  	typedef Iter<const value_type>          const_iterator;
+        typedef Iter<value_type>                iterator;
+        typedef Iter<const value_type>          const_iterator;
         friend class Iter<value_type>;
         friend class Iter<const value_type>;        
 
-	Dict(size_type table_size = 257);
+        Dict(size_type table_size = 257);
         ~Dict();
 
         size_type size() const { return nentries; }
 
-	iterator begin() { return iterator(this); }
-	iterator end() { return iterator(); }
- 	const_iterator begin() const { return const_iterator(this); }
- 	const_iterator end() const { return const_iterator(); }
+        iterator begin() { return iterator(this); }
+        iterator end() { return iterator(); }
+        const_iterator begin() const { return const_iterator(this); }
+        const_iterator end() const { return const_iterator(); }
 
         iterator find (const key_type &key);
         const_iterator find (const key_type &key) const;
 
-	T &lookup(const key_type &key) {
-    	    Entry *e = find_entry(key);
+        T &lookup(const key_type &key) {
+            Entry *e = find_entry(key);
 //     	    if (!e) throw XInvalidKey();
-    	    return e->pair.second;
-    	}
-	T &operator[] (const key_type &key) { return lookup(key); }
+            return e->pair.second;
+        }
+        T &operator[] (const key_type &key) { return lookup(key); }
 	
-	const T& lookup(const key_type &key) const {
-	    Entry *e = find_entry(key);
-	    if (!e) throw XInvalidKey();
-	    return e->pair.second;
-	}
+        const T& lookup(const key_type &key) const {
+            Entry *e = find_entry(key);
+            if (!e) throw XInvalidKey();
+            return e->pair.second;
+        }
 
-	const T& operator[] (const key_type &key) const
-	{ return lookup(key); }
+        const T& operator[] (const key_type &key) const
+            { return lookup(key); }
 
-	bool has_key(const key_type &key) const;
+        bool has_key(const key_type &key) const;
 
         /*! Insert a new element into the table. */
-	void insert(const key_type &key, const T &val);
+        void insert(const key_type &key, const T &val);
 
         /*! Remove all entries from the hash table. */
-	void clear();
+        void clear();
 
         /*! Remove the entry with key \var key from the table. */
-	void remove(const key_type &key);
+        void remove(const key_type &key);
 
         /*! Remove the element pointed to by an iterator. */
         void remove (iterator i);
 
     private:
-    	Entry *find_entry(const key_type &key) const;
+        Entry *find_entry(const key_type &key) const;
 
         // ----------  Variables ----------
         size_type nentries;     // Number of entries
-	size_type nbuckets;     // Number of buckets in `hashtab'
-	Entry **hashtab;
+        size_type nbuckets;     // Number of buckets in `hashtab'
+        Entry **hashtab;
     private:
         // Copying not implemented yet
         Dict (const Dict<T> &d)
         : nentries(d.nentries), 
           nbuckets(d.nbuckets), 
           hashtab(new Entry*[nbuckets])
-	{
-	    for (size_type i=0; i<nbuckets; ++i) {
-	    	Entry *e = d.hashtab[i];
-		hashtab[i] = 0;     	    	// XXX Fix
-	    }
-	}
+        {
+            for (size_type i=0; i<nbuckets; ++i) {
+                Entry *e = d.hashtab[i];
+                hashtab[i] = 0;     	    	// XXX Fix
+            }
+        }
         Dict &operator=(const Dict<T> &d);
     };
 

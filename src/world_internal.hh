@@ -19,6 +19,7 @@
 
 
 #include <memory>
+//#include "main.hh"
 
 namespace enigma {
 
@@ -156,8 +157,8 @@ namespace enigma {
         virtual ~Layer() {}
 
         T *get(GridPos p);
-        T *yield(GridPos p);
-        void set(GridPos p, T *x);
+        virtual T *yield(GridPos p);
+        virtual void set(GridPos p, T *x);
         void kill(GridPos p) { dispose(yield(p)); }
 
         virtual T* raw_get (Field &) = 0;
@@ -171,9 +172,27 @@ namespace enigma {
     ** Floor layer
     */
     class FloorLayer : public Layer<Floor> {
-    private:
-        Floor *raw_get (Field &f) { return f.floor; }
-        void raw_set (Field &f, Floor *x) { f.floor = x;}
+    public:
+        Floor *yield(GridPos p) {
+            Floor *f = Layer<Floor>::yield(p);
+            if (Value v = f->getAttr("name")) {
+                NamePosition(p, v.to_string());
+            }
+            return f;
+        }
+        
+        void set(GridPos p, Floor *x) {
+            Floor *f = get(p);
+            if (f != NULL) {
+                if (Value v = f->getAttr("name")) {
+                    NamePosition(p, v.to_string());
+                }
+            }
+            Layer<Floor>::set(p, x);
+        }
+        
+        Floor *raw_get(Field &f) { return f.floor; }
+        void raw_set(Field &f, Floor *x) { f.floor = x;}
     };
 
 
@@ -253,7 +272,10 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void    unname (Object *);
         Object *get_named (const string &);
         std::list<Object *> get_group(const std::string &tmpl, const Object *reference = NULL);
-
+        void namePosition(Value po, const std::string &name);
+        Value getNamedPosition(const std::string &name);
+        PositionList getPositionList(const std::string &tmpl);
+        
         void tick (double dtime);
         void remove (ForceField *ff);
 
@@ -330,7 +352,8 @@ typedef list<sound::SoundDamping> SoundDampingList;
         StoneLayer      st_layer;
 
     private:
-        ecl::Dict<Object *> m_objnames; // Name -> object mapping
+        ecl::Dict<Object *> m_objnames;     // Name -> object mapping
+        ecl::Dict<Value>  namedPositions;   // Name -> position mapping
 
         list<Scramble> scrambles;
     };

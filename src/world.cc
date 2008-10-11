@@ -343,6 +343,64 @@ void World::unname (Object *obj)
     }
 }
 
+void World::namePosition(Value po, const std::string &name) {
+    namedPositions.remove(name);     // need to remove to avoid duplicate inserts in ecl::dict
+    namedPositions.insert(name, po);
+}
+
+Value World::getNamedPosition(const std::string &name) {
+    if (Object *o = get_named(name)) {
+        switch (o->getObjectType()) {
+            case Object::STONE :
+            case Object::FLOOR :
+            case Object::ITEM  :
+                return dynamic_cast<GridObject *>(o)->get_pos();
+            case Object::ACTOR :
+                return dynamic_cast<Actor *>(o)->get_pos();
+            default:
+                return Value(GridPos(-1, -1));
+        } 
+    }
+    
+    std::string wanted = name;
+    if (wanted.size() > 0 && wanted[0] == '@')
+        wanted.erase(0, 1); // erase a leading @ 
+    if (wanted.size() > 0 && wanted[0] == '@')
+        wanted.erase(0, 1); // erase a leading @@ 
+    ecl::Dict<Value>::iterator found = namedPositions.find(wanted);
+    if (found != namedPositions.end()) 
+        return found->second;
+    Log << "Did not find named position: " << name << '\n';
+    return Value(GridPos(-1, -1));
+}
+
+PositionList World::getPositionList(const std::string &tmpl) {
+    PositionList positions;
+    ObjectList objects = get_group(tmpl);
+    for (ObjectList::iterator itr = objects.begin(); itr != objects.end(); ++itr) {
+        switch ((*itr)->getObjectType()) {
+            case Object::STONE :
+            case Object::FLOOR :
+            case Object::ITEM  :
+                positions.push_back(dynamic_cast<GridObject *>(*itr)->get_pos());
+                break;
+            case Object::ACTOR :
+                positions.push_back(dynamic_cast<Actor *>(*itr)->get_pos());
+                break;
+        } 
+    } 
+    
+    ecl::Dict<Value>::iterator it = namedPositions.begin();
+
+    for (; it != namedPositions.end(); ++it) {
+        if (string_match(it->first, tmpl) && !m_objnames.has_key(it->first)) {
+            positions.push_back(it->second);
+        }
+    }
+    return positions;
+}
+
+
 void World::add_actor (Actor *a)
 {
     add_actor (a, a->get_pos());
@@ -1664,11 +1722,23 @@ void UnnameObject(Object *obj)
 
 Object * GetNamedObject (const std::string &name)
 {
-    return level->get_named (name);
+    return level->get_named(name);
 }
 
 std::list<Object *> GetNamedGroup(const std::string &name, const Object *reference) {
     return level->get_group(name, reference);
+}
+
+void NamePosition(Value po, const string &name) {
+    level->namePosition(po, name);
+}
+
+Value GetNamedPosition(const string &name) {
+    return level->getNamedPosition(name);    
+}
+
+PositionList GetNamedPositionList(const string &tmpl) {
+    return level->getPositionList(tmpl);    
 }
 
 bool IsLevelBorder(const GridPos &p) {

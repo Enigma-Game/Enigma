@@ -35,6 +35,7 @@ namespace enigma {
    
     typedef std::list<Object *> ObjectList;
     typedef std::list<Value> TokenList;
+    typedef std::list<Value> PositionList;
 
     /**
      * A flexible container for various types of data. This class is one
