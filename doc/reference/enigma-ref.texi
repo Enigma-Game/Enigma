@@ -3390,7 +3390,8 @@ Ending Conditions - the mystery of Oxyds and Meditation
 * Snapshot Principle::
 * Level Initialization::
 * Object Transformation::         Identity Transfer in case of Transformations
-* Runtime Ticks and Callbacks::
+* Named Positions::               Positions as successors of killed Floors
+* Callbacks and Timers::
 * Ending Conditions::
 @end menu
 
@@ -3475,9 +3476,37 @@ its target and action attributes and all attributes starting with an underscore
 can rely on the successor to message the same target and you can it access it
 via its old name.
 
+@node Named Positions
+@subsection Named Positions
 
-@node Runtime Ticks and Callbacks
-@subsection Runtime Ticks and Callbacks
+Many stones are movable and if the user can not push them, most may still be
+swapped. Items may be picked up by actors or be killed in a burning fire. Thus
+in most cases it is preferable to mark anchors or shapes in the floor. On every
+grid position a floor object is guaranteed and they are much more stable than
+other objects. But nevertheless a user may push an @ref{st_wood}, an 
+@ref{st_puzzle} or other floor building stone on an @ref{fl_water} or
+@ref{fl_abyss}. Furthermore a user may drop and ignite an @ref{it_bomb} that
+destructs the floor leaving a new @ref{fl_abyss}. In all these cases you may
+loose a named anchor or an essential part of a named grid area accessible as
+an object group.
+
+Thus for every named floor that gets killed its position is stored in a
+repository under its name. You just need to retrieve the named positions
+instead of the named objectes if you want to get all affected floor positions.
+
+@example
+ti["~"] = {"fl_water", "water#"@}
+...
+function sweet()
+    wo[po["water#*"]] = {"it_cherry"@}
+end
+@end example
+
+Note that a request for a named position will include all positions of matching
+named objects as well as those named positions derived from killed floors.
+
+@node Callbacks and Timers
+@subsection Callbacks and Timers
 
 @node Ending Conditions
 @subsection Ending Conditions
@@ -3949,6 +3978,7 @@ possibilities and use cases by example.
 * Object Tasks::
 * Group Tasks::
 * Tiles and World Tasks::
+* Named Positions Tasks::
 @end menu
 
 
@@ -3981,6 +4011,8 @@ stone, actor)
 The singleton type of the repository of all tile instances.
 @item @b{world:} @i{preset variable:} @code{@b{wo}}; @ @ @xref{World}
 The singleton type of the world that contains all objects.
+@item @b{positon list:}@ @ @xref{Named Positions}
+A list of positions.
 @end table
 @end table
 
@@ -4341,6 +4373,58 @@ length the standard key length as used in the following map, too. The third
 argument is the map given as an anonymous table of strings. The worlds size is
 given by the maximum line length and the number of lines. These values are
 returned by the call.
+
+@end table
+
+@c ----------------- Named Position Tasks --------------------
+@node Named Positions Tasks
+@subsection Named Positions Tasks
+
+@table @asis
+@item @b{Named Position Usage:}
+@example
+@var{obj}["@b{name}"] = "@var{anchor1}"
+@var{obj}:@b{kill}()
+@var{pos} = @i{po}["@var{anchor1}"]
+@i{po}["@var{anchor2}"] = @var{pos}
+@end example
+The position of any named object can be directly retrieved. The position is
+still accessible under the name, when the object gets killed. You can 
+additionally name own positions. Note that the position of an existing object
+preceeds a position stored under the same name.
+
+@item @b{Creating Position Lists:}
+@example
+@var{polist} = @i{po}["@var{deepwater}#*"]
+@var{polist} = @i{po}(@var{grp})
+@end example
+Requesting positions will result in a list of positions if you make proper usage
+of wildcards. A given object group can be converted into a position list, too.
+
+@item @b{Position List Usage:}
+@example
+@i{wo}[@var{polist}] = @i{ti}["@var{x}"]
+@var{grp} = @i{fl}(@var{polist})
+@end example
+You can use a list of positions to set tiles or to retrieve a group of floors,
+items, stones.
+
+@item @b{Position List Operations:}
+@example
+@i{wo}[@var{polist} .. @i{po}["@var{beach}#*"]] = {"@b{it-banana}"@}
+@end example
+Two position lists can be appended. Single positions can be appended to a given
+position list, too.
+
+@item @b{Position List Members:}
+@example
+for @var{i} = 1, #@var{pogrp} do
+    @i{wo}[@var{polist}[@var{i}]] = {"@b{it_cherry}"@}
+end
+@end example
+Single positions within the list can be accessed by index. The whole list can
+be traversed by a simple for loop. The hash length operator reports the number
+of contained positions.
 
 @end table
 
