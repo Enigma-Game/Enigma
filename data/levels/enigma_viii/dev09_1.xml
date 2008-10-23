@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Under control?" el:subtitle="" el:id="dev09"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="true"></el:credits>
+      </el:comments>
+      <el:score el:easy="1:00" el:difficult="1:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+if wo["IsDifficult"] then
+    wo["ProvideExtralifes"] = false
+end
+
+function np(val, sender)
+    if val == false then
+        wo[{ 8, 5}] = {"it_sensor", invisible = true}
+    end
+end
+
+ti["."] = {"fl-black"}
+ti[" "] = ti["."] .. {"it_sensor", invisible = true}
+ti["w"] = ti["."] .. {"it_wrench"}
+ti["O"] = ti[" "] .. {"st_oxyd", name = "left#"}
+ti["o"] = ti[" "] .. {"st_oxyd", name = "right#"}
+ti["N"] = ti[" "] .. {"st_window_n",   secure = true}
+ti["E"] = ti[" "] .. {"st_window_e",   secure = true}
+ti["S"] = ti[" "] .. {"st_window_s",   secure = true}
+ti["W"] = ti[" "] .. {"st_window_w",   secure = true}
+ti["1"] = ti[" "] .. {"st_window_nw",  secure = true}
+ti["2"] = ti[" "] .. {"st_window_ne",  secure = true}
+ti["3"] = ti[" "] .. {"st_window_es",  secure = true}
+ti["4"] = ti[" "] .. {"st_window_sw",  secure = true}
+ti["I"] = ti[" "] .. {"st_window_nes", secure = true}
+ti["C"] = ti[" "] .. {"st_window_nsw", secure = true}
+ti["U"] = ti[" "] .. {"st_window_new", secure = true}
+ti["A"] = ti[" "] .. {"st_window_esw", secure = true}
+ti["H"] = ti[" "] .. {"st_window_ew",  secure = true}
+ti["J"] = ti[" "] .. {"st_window_ns",  secure = true}
+ti[";"] = ti["w"] .. {"st_window_nsw", secure = true}
+ti[","] = ti["."] .. {"st_window_nes", secure = true}
+ti[":"] = ti[","] .. {"it_sensor", invisible = true, action = "callback", target = "np"}
+ti["9"] = ti[";"] .. {"#ac-whiteball-small", player = 0, essential=1}
+ti["8"] = ti["I"] .. {"#ac-whiteball-small", player = 0, essential=1}
+ti["7"] = ti["C"] .. {"#ac-whiteball-small", player = 0, essential=1}
+ti["6"] = ti[":"] .. {"#ac-whiteball-small", player = 0, essential=1}
+
+width, height = wo(ti, " ",
+-- 0         1         2
+-- 0123456789012345678901
+{ "1NN1NN1N1N1NNNNNNNN2", --  0
+  "W OWW1E E WNNN2N2ooE", --  1
+  "4SO WW1N2 11N2NEE  E", --  2
+  "W   WWW13 W42E 13NNH", --  3
+  "W41NW WW  W EE WW3 H", --  4
+  "W  WNNNW9NN8ESS43 SH", --  5
+  "1NNNNN W    E SSSSS3", --  6
+  "HN 12NNW7SS6ESSSE  E", --  7
+  "H 1EE WW E  EE ES32E", --  8
+  "HSS13 W42E 13EEE   E", --  9
+  "W  WWS4S33 4S3EE oN2", -- 10
+  "WOO4S4SSSE W W3EEo E", -- 11
+  "4SSSSSSSS3S3S3SS3SS3"  -- 12
+})
+wo:shuffleOxyd({"left#*", max = 0}, {"right#*", max = 0})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

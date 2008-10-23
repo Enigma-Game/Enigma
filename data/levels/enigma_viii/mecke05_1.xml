@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:26$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:27$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -253,15 +253,15 @@ function knight ()
 end
 
 function jux ()
-    wo[no["swords"]] = {"it_sword",}
-    wo[no["sword4"]] = {"st-puzzle2-es"}
-    wo[no["sword2"]] = {"st-puzzle2-sw"}
-    wo[no["swordo"]] = {"st-puzzle2-w"}
-    wo[no["swordm"]] = {"st-puzzle2-e"}
-    wo[no["swordn"]] = {"st-puzzle2-ew"}
-    wo[no["sword1"]] = {"st-puzzle2-new"}
-    wo[no["swords"]] = {"st-puzzle2-new"}
-    wo[no["sword3"]] = {"st-puzzle2-ew"}
+    wo[no["swords"]] = {"it_sword"}
+    wo[no["sword4"]] = {"st_puzzle_yellow_es"}
+    wo[no["sword2"]] = {"st_puzzle_yellow_sw"}
+    wo[no["swordo"]] = {"st_puzzle_yellow_w"}
+    wo[no["swordm"]] = {"st_puzzle_yellow_e"}
+    wo[no["swordn"]] = {"st_puzzle_yellow_ew"}
+    wo[no["sword1"]] = {"st_puzzle_yellow_new"}
+    wo[no["swords"]] = {"st_puzzle_yellow_new"}
+    wo[no["sword3"]] = {"st_puzzle_yellow_ew"}
 end
 
 j = 0

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="dev08"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,7 +12,7 @@
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="true">Thanks to Meditation Master Daydreamer for faith-healing the level which terribly suffered from cuts.</el:credits>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="4:59" el:difficult="9:59"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
@@ -32,7 +32,7 @@ ti[": "] = {"st_disco_medium"}
 ti["p "] = {"st-flrock"}
 ti["R "] = {"st-rock2"}
 ti["w "] = {"st-wood"}
-ti["% "] = {"it-document", text = "Did you ask the devil to give you more power? ;-)"}
+ti["% "] = {"it-document", text = "text1"}
 ti["5 "] = {"it_meditation_hollow", essential = 0}
 ti["6 "] = {"it_meditation_hollow", essential = 1}
 ti["7 "] = {"it_meditation_hollow", essential = 1}
@@ -87,6 +87,9 @@ width, height = wo(resolver, "  ",
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false">Did you ask the devil to give you more power? ;-)</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

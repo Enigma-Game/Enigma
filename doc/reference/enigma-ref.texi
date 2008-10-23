@@ -3483,7 +3483,7 @@ Many stones are movable and if the user can not push them, most may still be
 swapped. Items may be picked up by actors or be killed in a burning fire. Thus
 in most cases it is preferable to mark anchors or shapes in the floor. On every
 grid position a floor object is guaranteed and they are much more stable than
-other objects. But nevertheless a user may push an @ref{st_wood}, an 
+other objects. But nevertheless a user may push an @ref{st_wood}, an
 @ref{st_puzzle} or other floor building stone on an @ref{fl_water} or
 @ref{fl_abyss}. Furthermore a user may drop and ignite an @ref{it_bomb} that
 destructs the floor leaving a new @ref{fl_abyss}. In all these cases you may
@@ -3495,10 +3495,10 @@ repository under its name. You just need to retrieve the named positions
 instead of the named objectes if you want to get all affected floor positions.
 
 @example
-ti["~"] = {"fl_water", "water#"@}
+ti["~"] = @{"fl_water", "water#"@}
 ...
 function sweet()
-    wo[po["water#*"]] = {"it_cherry"@}
+    wo[po["water#*"]] = @{"it_cherry"@}
 end
 @end example
 
@@ -4389,7 +4389,7 @@ returned by the call.
 @i{po}["@var{anchor2}"] = @var{pos}
 @end example
 The position of any named object can be directly retrieved. The position is
-still accessible under the name, when the object gets killed. You can 
+still accessible under the name, when the object gets killed. You can
 additionally name own positions. Note that the position of an existing object
 preceeds a position stored under the same name.
 
@@ -4411,7 +4411,7 @@ items, stones.
 
 @item @b{Position List Operations:}
 @example
-@i{wo}[@var{polist} .. @i{po}["@var{beach}#*"]] = {"@b{it-banana}"@}
+@i{wo}[@var{polist} .. @i{po}["@var{beach}#*"]] = @{"@b{it-banana}"@}
 @end example
 Two position lists can be appended. Single positions can be appended to a given
 position list, too.
@@ -4419,7 +4419,7 @@ position list, too.
 @item @b{Position List Members:}
 @example
 for @var{i} = 1, #@var{pogrp} do
-    @i{wo}[@var{polist}[@var{i}]] = {"@b{it_cherry}"@}
+    @i{wo}[@var{polist}[@var{i}]] = @{"@b{it_cherry}"@}
 end
 @end example
 Single positions within the list can be accessed by index. The whole list can
@@ -5722,17 +5722,17 @@ global value is only used if no object specific value is set.
 A global variable that determines if a dead actor will be resurrected in case of
 @ref{it_extralife}s in the gamer's inventory.
 
-If @code{true}, dead actors attached to a player will be resurrected as long as 
+If @code{true}, dead actors attached to a player will be resurrected as long as
 extralives are available. If a player has no living actor to control or is
-missing the actor's essential constraints (see section Actor Attributes), 
+missing the actor's essential constraints (see section Actor Attributes),
 the player is dead. The level may still continue if a second player is alive.
-If the gamer has an @ref{it_yinyang} in his inventory in single user mode, the 
+If the gamer has an @ref{it_yinyang} in his inventory in single user mode, the
 control switches to the second player. If all players are dead, a new level game
 is started.
 
-If the conserve mode is @code{false}, no actors will be resurrected. As soon as 
-the player is dead and the control cannot switch to another player, all dead 
-actors are resurrected by using extralives, and the level is restarted without 
+If the conserve mode is @code{false}, no actors will be resurrected. As soon as
+the player is dead and the control cannot switch to another player, all dead
+actors are resurrected by using extralives, and the level is restarted without
 finishing the level game.
 
 Use @code{false} if the level can either be not solved in case of resurrected
@@ -8050,7 +8050,7 @@ A free passable stone, which darkens everything that is underneath the stone.
 It looks like a tinted glass that occurs in several shades. It likely got its
 name from the possibility to switch between the shade grades.
 
-The disco stone comes in three variants, @samp{LIGHT}, @samp{MEDIUM} and 
+The disco stone comes in three variants, @samp{LIGHT}, @samp{MEDIUM} and
 @samp{DARK}. The dark variant is pure black, that shows neither actors, items or
 the floor. You can switch between these variants by messages and state attribute
 access. The messages @code{"lighten"} and @code{"darken"} change the shade
@@ -8059,7 +8059,7 @@ independent of the previous state. The standard @code{"toggle"} switches from
 light -> medium -> dark -> light.
 
 Note: unlike the old API versions of this stone, it does no longer support
-recursive shading of neighboring disco stones. Make use of object groups by 
+recursive shading of neighboring disco stones. Make use of object groups by
 @ref{Objects Naming} to shade groups of arbitrary composition by a single message.
 
 @table @asis
@@ -8080,7 +8080,7 @@ Darken by one degree.
 Switch to @samp{LIGHT} on a value of @code{1}. Switch to @samp{DARK} on a value
 of @code{0}.
 @item @b{toggle} @ @ @xref{toggle}
-Darken by degree or switch from @samp{DARK} to @samp{LIGHT} 
+Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 @end table
 
 @item @b{Action:} none
@@ -9389,18 +9389,18 @@ by receiving a stone impulse from a neighboring @ref{st_stoneimpulse}, via
 
 Even though the three major variants can be set by attributes, they are mutual
 exclusive. A @samp{hollow} stone is never movable or solid and vice versa. That
-means setting one of these basic attributes will reset the others to their 
+means setting one of these basic attributes will reset the others to their
 defaults.
 
 A movable stoneimpulse being pushed will pulse due to the actor hit at the
 new grid position. Even when it is pushed while pulsing it will continue the
-running pulse animation on the new grid and if necessary it will repulse to 
+running pulse animation on the new grid and if necessary it will repulse to
 guarantee that impulses are send to the neighboring stones at the new position.
 
 But if an actor with a revealed @ref{it_magicwand} pushes a movable stoneimpulse
 it will move without any additional pulse.
 
-In general stoneimpulse stones are very responsive to actor contacts. The 
+In general stoneimpulse stones are very responsive to actor contacts. The
 slightest touch is sufficient to cause a pulsing. Hollow stones will shatter
 actors benath it while pulsing.
 
@@ -9423,7 +9423,7 @@ stoneimpulse as expected.
 
 If you want to setup a linear circle of stoneimpulse stones with an impulse
 wandering around the circle in one direction forever, you should insert one
-@samp{st_stoneimpulse_new} into the chain. According to the 
+@samp{st_stoneimpulse_new} into the chain. According to the
 @ref{Snapshot Principle} it is a stone that is just about to start pulsing.
 You need to set the attribute @samp{orientation}, which is just evaluated for
 new stones when set to the grid. It takes the incoming direction of the impulse
@@ -9464,7 +9464,7 @@ Pulse at a value of @samp{1}.
 @item @b{st_stoneimpulse_movable}: movable = @code{true}
 @item @b{st_stoneimpulse_hollow}: hollow = @code{true}
 @item @b{st_stoneimpulse_steady}: steady = @code{true}
-@item @b{st_stoneimpulse_new}: 
+@item @b{st_stoneimpulse_new}:
 A stone that is about to pulse when being set.
 @end table
 

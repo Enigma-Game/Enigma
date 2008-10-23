@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:67$" el:status="released"/>
+      <el:author  el:name="mecke" el:email=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Clifford J.Tasner for testing and important ideas</el:credits>
+      </el:comments>
+      <el:score el:easy="78:58" el:difficult="78:58"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+if wo ["IsDifficult"] then
+    enigma.SwampSinkSpeed = 3.0
+else
+    enigma.SwampSinkSpeed = 1.5
+end
+
+ti[" !"] = {"fl-swamp"}
+ti["! "] = {"st_death"}
+ti["c "] = {"st-block"}
+ti[" #"] = {"fl-normal"}
+ti[" $"] = {"fl-water"}
+ti["# "] = {"st_oneway_black_n"}
+ti["$ "] = {"st_stoneimpulse_steady"}
+ti[" %"] = {"fl-bluegreenx"}
+ti[" ;"] = {"fl-leavesd4"}
+ti["% "] = {"st-rock1"}
+ti[" &"] = {"fl-samba"}
+ti["& "] = {"st_stoneimpulse_hollow"}
+ti[" '"] = {"fl-red"}
+ti["' "] = {"st-rock1_hole"}
+ti[" e"] = {"fl-space"}
+ti[" *"] = {"fl-sand"}
+ti[" l"] = {"fl-leaves"}
+ti["b "] = {"st_puzzle_yellow_ns"}
+ti["n "] = {"st_puzzle_yellow_ne"}
+ti["* "] = {"st_puzzle_yellow_new"}
+ti["+ "] = {"st-grate1"}
+ti[", "] = {"st_puzzle_yellow_sw"}
+ti["- "] = {"st_puzzle_yellow_ew"}
+ti[". "] = {"st_oxyd_a"}
+ti["/ "] = {"st-wood"}
+ti["0 "] = {"st_puzzle_yellow_es"}
+ti["1 "] = {"st_puzzle_yellow_esw"}
+ti["2 "] = {"st_boulder_w"}
+ti["3 "] = {"st_puzzle_yellow_nw"}
+ti["4 "] = {"st_turnstilearm_n"}
+ti["5 "] = {"st_turnstile"}
+ti["6 "] = {"st_turnstilearm_s"}
+ti["7 "] = {"st_turnstilearm_w"}
+ti["8 "] = {"st_puzzle_yellow_n"}
+ti["9 "] = {"st_puzzle_yellow_s"}
+ti[": "] = {"st_door",state=OPEN,faces="ns"}
+ti[" +"] = {"fl-bluegray"}
+ti["< "] = {"st-black4"}
+ti["= "] = {"st-glass_move"}
+ti["> "] = {"st_turnstilearm_e"}
+ti["? "] = {"st-glass"}
+ti[" ,"] = {"fl-abyss"}
+ti["@ "] = {"st_oneway_black_w"}
+ti["A "] = {"st_puzzle_yellow_nesw"}
+ti[" -"] = {"fl-light"}
+ti["C "] = {"st_oneway_black_e"}
+ti["D "] = {"st_oneway_black_s"}
+ti["//"] = ti[" !"].. {"st-wood"}
+ti[" ."] = {"fl-gradient4"}
+ti["F "] = {"st-camouflage"}
+ti["f "] = {"st-camouflage_move"}
+ti["G "] = {"st_boulder_s"}
+ti["BN"] = ti[" ;"].. {"st_boulder_n"}
+ti[" /"] = {"fl-inverse"}
+ti["H "] = {"st_door",state=OPEN,faces="ew"}
+ti["XX"] = ti[" ;"].. {"#ac-blackball"}
+ti["I "] = {"st-likeoxyda"}
+ti["K "] = {"st_boulder_e"}
+ti["L "] = {"st-rock3_break"}
+ti[" 0"] = {"fl-gradient9"}
+ti[" 1"] = {"fl-gradient3"}
+ti[" 2"] = {"fl-gradient10"}
+ti[" 3"] = {"fl-floor_001"}
+ti["M "] = {"st_swap"}
+ti["N "] = {"st_boulder_n"}
+ti[" 5"] = {"fl-gradient2"}
+ti[" 6"] = {"fl-gradient6"}
+ti[" 7"] = {"fl-gradient12"}
+ti["O "] = {"st_oneway_s"}
+ti[" 8"] = {"fl-bluegreen"}
+ti[" 9"] = {"fl-leavesc2"}
+ti["c9"] = ti["c "] .. {"fl-leavesc2"}
+ti["q9"] = ti["c9"] .. {"it-booze"}
+ti["P "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
+ti["Q "] = ti[" l"] .. {"st_mirror_triangle",movable=true,transparent=true}
+ti["R "] = ti[" l"] .. {"st_mirror_slab",movable=false,transparent=false}
+ti["S "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
+ti["U "] = {"st-rock6"}
+ti[" >"] = {"fl-gravel"}
+ti[" ?"] = {"fl-abyss_fake"}
+ti["W "] = {"st-break_invisible"}
+ti["X "] = {"st_window_s"}
+ti["Y "] = {"st_floppy",target="door4#*"}
+ti["^ "] = {"st_lightpassenger_off"}
+ti["f&"] = ti[" &"] .. {"it_floppy"}
+ti["<#"] = ti[" #"] .. {"st-black4"}
+ti["m "] = ti["<#"] .. {"it_magicwand"}
+ti["o;"] = ti[" ;"] .. {"it-burnable_oil"}
+ti["o!"] = ti[" !"] .. {"it-burnable_oil"}
+ti["g;"] = ti[" ;"] .. {"it_glasses_broken"}
+ti["sb"] = ti[" *"] .. {"it-springboard"}
+ti["sl"] = ti[" l"] .. {"it-springboard"}
+ti["wb"] = ti[" !"] .. {"it_wormhole"}
+ti["?!"] = ti[" !"] .. {"st-glass"}
+ti["c?"] = ti["?!"] .. {"it_coin_m"}
+ti["c$"] = ti[" $"] .. {"it_coin_m"}
+ti["x!"] = ti[" !"] .. {"it_extralife"}
+ti["+!"] = ti["+ "] .. {"fl-swamp"}
+ti["'!"] = ti["+!"] .. {"it_strip_ns"}
+ti["~~"] = ti[" $"] .. {"it_strip_ns"}
+ti["~!"] = ti[" !"] .. {"it_strip_ew"}
+ti["~$"] = ti[" !"] .. {"it_strip_ew"}
+ti["~,"] = ti[" ,"] .. {"it_strip_ew"}
+ti["+$"] = ti["+ "] .. {"fl-water"}
+ti["s~"] = ti["+$"] .. {"it_strip_ns"}
+ti["jl"] = ti[" l"] .. {"it_seed_fake"}
+ti["j$"] = ti[" $"] .. {"it_seed_fake"}
+ti["jx"] = ti[" +"] .. {"it_glasses"}
+ti["=-"] = ti[" -"] .. {"st-glass_move"}
+ti["=+"] = ti[" +"] .. {"st-glass_move"}
+ti["=!"] = ti[" !"] .. {"st-glass_move"}
+ti["c!"] = ti["c "] .. {"fl-swamp"}
+ti["e-"] = ti["=-"] .. {"it-cherry"}
+ti["e!"] = ti[" !"] .. {"it-cherry"}
+ti["=d"] = ti["=-"] .. {"it-dynamite"}
+ti["d~"] = ti[" $"] .. {"it-dynamite"}
+ti["b$"] = ti[" $"] .. {"it-blackbomb"}
+ti["b3"] = ti[" 3"] .. {"it-blackbomb"}
+ti["b#"] = ti[" #"] .. {"it-blackbomb"}
+ti["s$"] = ti[" $"] .. {"it-squashed"}
+ti["v1"] = ti["=!"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["v2"] = ti["=-"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["v3"] = ti["c!"] .. {"it_vortex_open", name="vortex3", destination="vortex4"}
+ti["v4"] = ti["=-"] .. {"it_vortex_open", name="vortex4", destination="vortex3"}
+ti["v5"] = ti["//"] .. {"it_vortex_open", name="vortex5", destination="vortex6"}
+ti["v6"] = ti["=+"] .. {"it_vortex_open", name="vortex6", destination="vortex5"}
+ti["v7"] = ti["c!"] .. {"it_vortex_open", name="vortex7", destination="vortex8"}
+ti["v8"] = ti["=-"] .. {"it_vortex_open", name="vortex8", destination="vortex7"}
+ti["v9"] = ti[" +"] .. {"it_vortex_open", name="vortex9", destination="vortey9"}
+ti["V9"] = ti[" +"] .. {"it_vortex_open", name="vortey9", destination="vortex9"}
+ti["t1"] = ti[" l"] .. {"it_trigger", target="olli1"}
+ti["t2"] = ti[" l"] .. {"it_trigger", target="olli2"}
+ti["t3"] = ti[" l"] .. {"it_trigger", target="olli3"}
+ti["t4"] = ti[" l"] .. {"it_trigger", target="olli4"}
+ti["t5"] = ti[" l"] .. {"it_trigger", target="olli5"}
+ti["t6"] = ti[" l"] .. {"it_trigger", target="olli6"}
+ti["t7"] = ti["P "] .. {"it_trigger",target="laser1",action="toggle"}
+ti["t8"] = ti[" l"] .. {"it_trigger", target="olli8",action="open"}
+ti["T "] = {"st_laserswitch", target={"olli7","ulli1"}}
+ti["B "] = {"st_laser_w",name="laser1",state=ON}
+ti[":1"] = ti[" !"] .. {"st_door",faces="ns",name="olli1"}
+ti[":2"] = ti[" !"] .. {"st_door",faces="ns",name="olli2"}
+ti[":3"] = ti[" +"] .. {"st_door",faces="ns",name="olli3"}
+ti[":4"] = ti[" +"] .. {"st_door",faces="ns",name="olli4"}
+ti[":5"] = ti[" l"] .. {"st_door",faces="ns",name="olli5"}
+ti[":6"] = ti[" !"] .. {"st_door",faces="ew",name="olli6"}
+ti["l1"] = ti[" !"] .. {"st_door",faces="ew",name="olli7"} --uplaser1
+ti["l2"] = ti[" !"] .. {"st_door",faces="ns",name="ulli1"} --uplaser1
+ti[":8"] = ti[" l"] .. {"st_door",faces="ns",name="olli8"} --tomagicwand
+ti["r1"] = ti[" l"] .. {"it_trigger", target="olle1"}
+ti["r2"] = ti[" l"] .. {"it_trigger", target="olle2"}
+ti["r3"] = ti[" l"] .. {"it_trigger", target="olle3"}
+ti["r4"] = ti[" l"] .. {"it_trigger", target="olle4"}
+ti["h1"] = ti[" *"] .. {"st_door",faces="ew",name="olle1"}
+ti["h2"] = ti[" *"] .. {"st_door",faces="ew",name="olle2"}
+ti["h3"] = ti[" *"] .. {"st_door",faces="ew",name="olle3"}
+ti["h4"] = ti[" *"] .. {"st_door",faces="ns",name="olle4"}
+ti["r6"] = ti[" +"] .. {"it_trigger", target={"olle6#*"}} --middleleft
+ti["h6"] = ti[" +"] .. {"st_door",faces="ns",name="olle6#"}
+ti["r7"] = ti[" l"] .. {"it_trigger", target="olle7"} --centralaser
+ti["h7"] = ti[" +"] .. {"st_door",faces="ns",name="olle7"}
+ti["r8"] = ti[" l"] .. {"st_coinslot", target="olle8", action="toggle"} --passageeast
+ti["h8"] = ti[" +"] .. {"st_door",faces="ns",name="olle8"}
+ti["r9"] = ti[" l"] .. {"st_switch", target="olle9", action="toggle"} --oxydbottomsw
+ti["h9"] = ti[" +"] .. {"st_door",faces="ns",name="olle9"}
+ti["n6"] = ti[" l"] .. {"st_coinslot", target="ollo6", action="open"} --oxydmideast1
+ti["n7"] = ti[" +"] .. {"st_door",faces="ns",name="ollo6"}
+ti["n8"] = ti[" l"] .. {"st_switch", target="ollo8", action="open"} --oxydmideast2
+ti["n9"] = ti[" +"] .. {"st_door",faces="ns",name="ollo8"}
+ti["n1"] = ti[" +"] .. {"it_key", code=1}
+ti["n2"] = ti[" e"] .. {"it_key", code=2}
+ti["n3"] = ti[" +"] .. {"it_key", code=3}
+ti["[ "] = {"st_key", code=1, target={"door1#*"}}
+ti["Z "] = {"st_key", code=2, target={"door2#*"}}
+ti["; "] = {"st_key", code=3, target={"door3#*"}}
+ti["g1"] = ti[" +"] .. {"st_door",faces="ns",name="door1#"}
+ti["g2"] = ti[" +"] .. {"st_door_a",name="door2#"} --middleearth
+ti["g4"] = ti[" +"] .. {"st_door_a",name="door4#"} --fourswitchroom
+ti["g3"] = ti[" +"] .. {"st_door",faces="ns",name="door3#"}
+ti["x5"] = ti[" +"] .. {"st_fourswitch",state=3}
+ti["x6"] = ti[" +"] .. {"st_fourswitch",state=2}
+ti["x7"] = ti[" +"] .. {"st_fourswitch",state=0}
+ti["x8"] = ti[" +"] .. {"st_fourswitch",state=1}
+ti["x1"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitcha", name="xx1"}
+ti["x2"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchb", name="xx2"}
+ti["x3"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchc", name="xx3"}
+ti["x4"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchd", name="xx4"}
+ti["YL"] = ti[" +"] .. {"st_timer",action="toggle",target="laser3#*",interval=4,invisible=0}
+ti["XL"] = ti[" +"] .. {"st_laser_w",name="laser3#"}
+ti["LS"] = ti[" +"] .. {"st_laser_s",state=OFF}
+
+if wo ["IsDifficult"] then
+   ti["i+"] = ti[" +"] .. {"it_seed_fake"}
+   ti["rr"] = ti[" $"] .. {"#ac-rotor",range="3", force="3"}
+   ti["ww"] = {"fl-water"}
+   ti["))"] = ti[" l"] .. {"it-burnable_burning"}
+   ti[")$"] = ti[" $"] .. {"it-burnable_burning"}
+   ti[" 4"] = {"fl-gradient1"}
+   ti[" :"] = {"fl-gradient16"}
+   ti[" <"] = {"fl-gradient5"}
+   ti[" ="] = {"fl-gradient8"}
+   ti["r5"] = ti[" ;"] .. {"it_trigger", target="olle5"}
+   ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
+   ti["n5"] = ti[" ;"] .. {"it_trigger",target="liz1#*"}
+   ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}
+   ti["LZ"] = ti[" ;"] .. {"it-burnable_oil"}
+else
+   ti["i+"] = ti[" +"] .. {"it-dynamite"}
+   ti["rt"] = ti[" '"] .. {"st-break_invisible"}
+   ti["rr"] = ti["rt"] .. {"#ac-rotor",range="3", force="3"}
+   ti["ww"] = {"fl-swamp"}
+   ti["))"] = ti[" l"] .. {"it-burnable_oil"}
+   ti[")$"] = ti[" $"] .. {"fl-water"}
+   ti[" 4"] = {"fl-leavesd4"}
+   ti[" :"] = {"fl-leavesd4"}
+   ti[" <"] = {"fl-leavesd4"}
+   ti[" ="] = {"fl-leavesd4"}
+   ti["r5"] = ti[" ;"] .. {"it_trigger", target={"olle5","liz1#*"}}
+   ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
+   ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}
+   ti["LZ"] = ti[" ;"] .. {"it-flagblack"}
+end
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+-- 0001                10                  20                  30                  40                  50                  60        65        70    73            80    83  85  87  89  91
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!!!!!!!!!!!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+  "!! $ ! $ ! $ ! $ ! $ ! ! $ ! ! $ ! $ !!! ! !%! ! ! ! ! ! ! !BN ! ! ! ! ! ! !%!L*L*L*L*L!L!L$L!L$L$L!L!L!L!L*L*L*L*!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !?! ! 8F! , ! , ! , ! ,!!!! !!! !!! $!!!!",
+  "!! ! ! $ ! $ ! $ ! $ ! $ ! $ ! $ $ $ $ $ $ $%! ! ! ! ! ! ! !n5 ! ! ! ! ! ! !%!L*L*L*L*L!L!L$L!L$L$L!L!L!L!L*L*L*L*!! ! $ ! !?! & ! l%! l ! !c$ ! ! $ l & !+8+!F!+!+, $ , ! , !!! !!! $!! !!! !!!",
+  "!! $ $ $ ! $ ! $ ! $ $ ! ! $ $ $ $ $ ! ! !h5h2 * * * * * * * * * * * * * * *h3L*.*L*L*L!L!L$L!L$L$L!L!L!L!L*L*.!L*!! ! ! ! $ ! $ ! ! ! ! ! & l $?$ $ ! !+! ! &=! & !+, ! & & &<' &<& &<& &m v4 %",
+  "!! ! ! ! ! $ ! $ $ $ $ $ $ $ $ $ $ $ ! ! ! !%! ! ! ! * $ $ $r5 $ $ $ * ! ! !%!L*L*L*L*L!L!L$L!L$L$L!L!L!L!L*L*L*L*!! ! ! ! $ $ $ l & ! l $ $?$ $ $ & ! l !+8+!F!+!+> $ e ! & $!!e!!! !!! #!# !!!",
+  "!! $ $ $ $ $+! $ $ $ $ $ $ $ $ $ $ $ ! ! ! !%! ! ! ! * $F!F!+$F!F! $ * ! ! !%!L*L*L*L*L!L!L$L!L$L$L$L$L$L$L*L*L*L*!! ! ! $ & !c? !?; ! & ! l & $ $ $ $ !c? ! 8F! e ! e ! , & ,!!F!F!F! !!! $!!!!",
+  "!! ! ! ! !.!2l l *4$ * $ * ! *4$ * $ * ! ! !%! ! ! ! * $r1r2 $r3r4 $ * ! ! !%!+*+*+*+*+!+!+!+!+$+$+!+!+!+!+*+*+*+*!! ! ! ! ! $ ! !F! l !c$ ! !F! &%! ! l ! 8 !F! ! e $ , ! & !!!F!.!F!!! !!! !!!",
+  "!! $ $ $+$ l/l/l $5$7$5$>$ ! $5$7$5$>$ $ $ $%! ! * ! * $ $ $ $ $ $ $ * ! * !%!+*+*+*+*+!+!+!+!+$+$+!+!+!+!+*+*+*+*!! ! ! $ ! & ! l & ! !?$ ! & ! ! l?! ! ! & !!!!!%!!!!!%!#&%!!!%!#&%!!!!!%!!!!!",
+  "!! ! ! ! $/l/l l *6$ * $ * ! *6$ * $ * ! ! !%! ! * ! ! $ ! ! $ ! ! $ ! ! * !%!L*L*L*L*L!L!L!L!L$L$L!L!L!L!L*L*L*L*!! ! ! & ! ! !rr ! ! $ l ! ! !rr ! ! ! l ! !!! ! ! ! , ' ' ' , ' ' ' , ! ! !!!",
+  "!! $ $ $ $ $+$ $ $ $ $ $ $ $ $ $ $ $ ! ! ! !%! !%* ! ! $ ! ! $ ! ! $ ! !%* !%!L*L*L*L*L!L!L!L!L$L$L!L!L!L!L*L*L*L*!! ! ! ! $ !?! !?! l !%! !?! l ! ! l !%! ! !!! !f! ! ' ! ! ! ' ! ! ! ' !f! !!!",
+  "!! ! $ ! $ ! $ ! $ ! ! ! ! $ ! ! ! $ ! ! ! !%! ! * ! ! $ ! ! $ ! ! $ ! ! * !%!L*L*L*L*L!L!L!L!L$L$L!L!L!L!L*L*L*L*!! !c$ !?$ ! ! $ !%! $ ! l $ $?$ $c$ $ l ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! $ ! ! ! $ ! $ $ $ $ $ ! $ $ $ $ ! ! !%! ! * ! * $ ! ! $ ! ! $ * ! * !%!L*L*L*L*L!L!L!L!L$L$L!L!L!L!L*L*L* * + * ! & ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !!!~!~!~! ,~!~!~! ,~! %~! ,~!~!~!!!", --11
+  "!!!!!!!!!!!!!!!!%!%!%!%!%!%!%!!!!!!!!!!!!!!!!! ! ! ! * $ ! ! $ ! ! $ * ! ! !!!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!!!O!OlO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! * !%! ! ! !%* $ ! ! $ ! ! $%* ! ! !%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! * + * ! !+! ! ! !K!K!K!2!2! !+! ! ! ! ! ! ! !F!wwf!wwrr ! ! ! $ ! ! !rrwwf!wwF!",
+  "!! ! ! ! ! ! ! * * *sb $sb * * * * * * * * *%! ! ! ! * $ ! ! $ ! ! $ * ! ! !%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ;!; ; ! !+! ! ! !K!K!2!2!2! !+! ! ! ! ! ! ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! !%!%!%!%!%!b!%!%!%!%!%!%!%!%!%* !%! ! * ! * $ ! ! $ ! ! $ * ! * !%! ! -=- -=- -=- -=- -=- -=- - - - - ! + ! - -+- - - -K-K-K-2-2- -+- - - - - - - !F!~!~!~! ,~! %~! ,~!~!~! ,~!~!~!F!",
+  "!! ! ! ! ! ! ! ! ! ! !b! ! $ ! ! !@! ! !C* !%! ! * ! ! $ ! ! $ ! ! $ ! ! * !%! ! - -=- -=- -=- -=- -=- -=- - - - - - - - -+- - - -K-K-2-2-2- -+- - - - - - - !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! * * * *8*sb $sb * * *=*@*C* !%! !%* ! ! $ ! ! $ ! ! $ ! !%* !%! ! -v2!-=d=d=d=d!-=d=d=d=d!- - - - !O+ ! - -+- - - -K-K-K-K-2- -+- - - - ! ! ! !F!wwf!wwrr ! ! ! $ ! ! !rrwwf!wwF!", --17
+  "!! ! ! ! ! ! ! ! ! !wb9! ! $@! ! !@!=!.!C* *%! ! * ! ! $ ! ! $ ! ! $ ! ! * !%! ! - -=- -=- -=- -=- -=- -=- - ! ! ! 8 ! ! !+- - - -K-K-2-2-2- -+- - - - !.! ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! * * * *b*sb $sb * * *=*@*C* !%! ! * ! ! $ ! !+$ ! ! $ ! ! * !%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! , 8 , ! !+! ! ! !K!K;K!2!2! !+! ! ! ! ! ! ! !F!~!~!~! ,~!~!~! ,~! %~! ,~!~!~!F!",
+  "!! ! ! ! ! ! ! ! ! ! !b! ! $ ! ! !@! ! !C* !%!2! ! ! ! $^$^$!$^$^$ $ ! ! !K!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! , ,'8 , , !+! ! ! !K!K;2!2!2! !+! ! ! ! ! ! ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! !%!%!%!%!%!b!%!%!%!%!%!%!%!%!%! !%! ! ! ! ! $i+i++$i+i+ $ ! ! ! !%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!:&'8'8'8 $ $%9 $ $ $ $D; $ $ $ $%9 $ $ $ $ $U!U!F!wwf!wwrr ! ! ! $ ! ! !rrwwf!wwF!", --21
+  "!! ! ! ! ! ! ! * * *sb $sb * * * * * * * * *h1 * * * * $ * *+$ * * $ * * * * &=! ! - !=! ! - !=! ! - !=! ! -+!=! !+-b$ :'!x!x!x!x!x!'!x!x!x!x!x!'!x! !+! $ !+!!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! !D!D*D! ! ! ! ! ! ! ! ! !%! ! ! ! ! $LLLL+$LLLL $ ! ! ! !%! -=! ! & -=! ! & -=! ! & -=! ! &.-=! !b$ !F!F!F!F!F!F!F!F!F!F!F!b$b$b$b$ ! $ ! !F!~!~!~! ,~! %~! ,~!~!~! ,~!~!~!F!",
+  "!!!!!!!!!!!!!!!!%!%!%!h4%!%!%!!!!!!!!!!!!!!!!!!!!!!!!!/*!!!!!!!!!!/*!!!!!!!!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!!!b$ !F!o;o;LZo;o;o;o;o;o; ; >o!o!b$ =!!U!U!!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! * ! ! ! ! ! ! !%! ! ! ! ! ! ! */* * !!! ! */* * ! ! ! l ! ! * ! ! ! ! ! * * ! ! ! ! ! * ! ! !b$ !F!o;F!F!F!F!F!F!F!F!F!F$d~o!b$ ! $ ! !F!wwf!wwrr ! ! ! $ ! ! !rrwwf!wwF!", --25
+  "!! ! ! ! ! ! ! ! ! ! ! * ! ! ! ! ! ! !%! ! ! ! ! ! ! */* * !!! ! */* * ! ! !%!%!%!%!%!%!%!%!%!D+D+%!%!%!%!%!%!%!%! !d~ !F!))F!o;o;o;o;o;o;o;o;v3 $o!d~ !d~ ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! * ! ! ! ! ! ! !%! ! ! ! ! ! ! * * * !!! ! * * * ! ! ! !%! ! ! + ! + ! + + + + ! + ! + ! !%! ! $ !F!o;F!o;F!F!F!F!F!F!o;F!d~o!b$ ! $ ! !F!~!~!~! ,~!~!~! ,~! %~! ,~!~!~!F!",
+  "!! ! ! ! ! ! ! ! ! ! ! * ! ! ! ! ! ! !%! ! ! ! ! ! ! ! * ! !!! ! ! * ! ! ! ! !%! ! + ! + ! + ! ! ! ! + ! + ! + !%! ! $~~F!o;c!o;v1o;o;o;o;c!o;F!s$~!b$~! $ ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! * ! ! ! ! ! ! !%! ! ! ! ! ! ! ! + * +!! + * + ! ! ! ! !%! + ! ! !'+'+'+'+'+'+'+'+ ! ! ! +%! !d~ 4F!o;F!XXF!))c!F!o;F!o;F!d~ !b$ !d~ ! !F! !n6 !W$ ! ! !W$ ! ! !W$ !n8 !F!", --29
+  "!!#!#!#!#!#!#!#!#!#!%!'*%!#!#!#!#!#!#!%!#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+#+%! ! ! ! !'+!l!l!l!l!l!l'+ ! ! ! !%! !)$ !F!o;F!o;F!g; !F!o;F!o;F!)$ !d~ ! $ ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! *%! ! ! ! ! ! !%!#!#!#!#l#!#!#! $ $ $ * $ $ $#!#!#!#!#!%! ! ! ! !'+ l l l l l l'+ ! ! ! !%! !d~ !F!o;F!o;F!F!F!F!o;F!o;F!d~ = ! ! $ ! !!! ! ! ! , ! ! ! , ! ! ! , ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%!#! ! ! ! ! ! l ! ! !#! ! ! ! ! ! ! !#!%! ! ! ! !'+t1t2t3t4t5t6'+ ! ! ! !%! !b$ !F!o;F!o;o;o;o;o;o;F!o;F! $ $d~ $ $ ! !!!?!n7?! , ' ' ' ' ' ' ' ,%!n9%!!!",
+  "!!$!&!&!&!&!&!&!&!&!&!&+?! ! !XL ! ! !%! ! ! l ! l ! ! ! ! !#! ! ! ! ! ! ! ! !%! ! ! ! !'+ l l l l l l'+ ! ! ! !%! !+$ ;v7o;F!F!F!F!c!F!F!F!o;F!d~/; ! 4d~ !!! !!!.!!!!!!!!!I!:8I!!!!!!! !.! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! ! ! l l ! ! ! ! ! $ $ $ $%!%!%!%!%!%!%!%! ! + !'+jljljljljljl'+ ! + !%!%! !b$ !F!o;o;o;o;o;o;o;o;o;o;F! $ ! $ ! $ ! !!! !!! ! ! & & & & & & & &!! !!!!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! !XL ! ! !%! ! ! l ! ! ! ! ! ! $#! ! !$!$!$!$! ! ! !%! + ! +'+ l l l l l l'+ + ! +%! ! !d~~!F$F!F!F!F!F!F!F!F!v5F!F!d~~! $ ! $ !!! !!! ! ! !#&!!!!!!!!!!!! & &!! !!!", --35
+  "!!!! ! ! ! ! ! ! ! ! ! +!! ! ! ! ! ! !!! ! ! ! ! ! ! ! $ $ $#! ! !$! l l$! &F! &%! ! + !'+ l l l l l l'+ ! + !%! !!! $ !b$b$b$b$b$b$b$b$b$ $b$ $ $ ! $ !!!!! !!! ! , , , & , , , ,!, , ! & &!!!!",
+  "!!$!&!&!&!&!&!&!&!&!&!&+?! ! lXL l ! !%! ! ! ! l ! ! ! $ $ $#! ! !&& l/l&& & l & $ $ $ $'+ $ $ $ $ $ $'+ $ $ $ $ ! ! $ ! !+! ! ! ! < ! !/; $ ! ! ! = $ ! $ !!! ! !t8=!~, &F, , , , , , !!! & !F!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! $ $ + $ $ $ $ $ $ l l l !%!%!%!%! ! l%!%! ! ! !'+ l l l l l l'+ ! ! !%!%! !b$b$b$c9 $ $ $b$b$b$b$ $ $q9b$ $ $~! $!! !!! ! , , , & , ,!, , , , ! & & &!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! !XL ! ! !%! $ ! $/+ $ ! $ $ $ l/l l !%! ! ! !%! l !%! ! ! !'+ l l l l l l'+ ! ! !%! ! !%! ! !+l ! ! ! ! ! ! ! ! !+l ! ! ! ! $F!F!F!!! ! ! ! & , , , , ,!, $ ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! $ $ $ $ $ $ $ $ $/l/l l $%! ! ! !%!%! !%! ! ! !'+ l l l l l l'+ ! ! !%! !%!%! !%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!F! ;=; ; !!! ! !@&~,C+ +@+ , , ! +@+ +!!",
+  "YL$!&!&!&!&!&!&!&!&!&!&+?! ! !XL ! ! !%! $ $ l/l l l $/+ $ $ $ $ !%! ! ! ! !%! !%! ! ! !'+ l l l l l l'+ ! ! !%! !%! ! ! ! 9 ! !%! l l l l lSl l l l l lFl +P! + ! !!!!! &F, +C+ +!+F+F+D+D+D+!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! $ $/l $ $ l $ $ $ $ $ $ !%! l l ! !%! !%! ! ! !'+ l l l l l l'+ ! ! !%! !%!%!%!%!%!%! !%! l l l l l!l l l l?l l?l ;?; ; ;!! !!!C&!,K+C+@+ +@+ +C+ +@+!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! !XL ! ! !%! $ $ l $ l l $ ! $ ! ! ! !%! l l ! !%! l%! ! ! !'+ l l l l l l'+ ! ! !%! !%! ! ! ! ! ! !%! l l l l l l l l l l lFl ; ; ;!! !!!!! &F, +C+ +!+F+F!#+#+#+!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! $ $ l l l $ $ ! $ ! ! ! l%!%!%!%!%!%!:5%! ! + !'+ l l l l l l'+ ! + !%! 9%!%!%!%! 9%!%!%! l l?l?l?l l l l l l l!l ; ;!; ! ! ! !@&~,C+ +@+ , , ! +@+ +!!",
+  "!!$!&!&!&!&!&!&!&!&!&!&+?! ! lXL l ! !%! $ $ $ $ $ $ $ $ $ ! ! ! !%! ! ! ! ! ! l ! + ! +'+MlMlMlMlMlMl'+ + ! + ! ! ! ! ! ! ! ! !%! l l?lQl?l l l l l lBlTl +!; ; ; , , , & , , , , ,!, $ ! ! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%!%!%!%!%!%!$!$!$!%!%!%!%!%!%! !%!%!%!%!%!%! ! ! !'+NlNlNlNlNlNl'+ ! ! !%!%!%!%!%!%!%!%! !l1 l l?l?l?l l l l l l l!l ; ;!; !+,=!~, &F, , , , , , !+! & &F!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! !XL ! ! !%! + + + + + + + + + + + + + + +$!$! l + l%! ! ! !'+!l!l!l!l!l!l'+ ! ! !%! l ! !%! ! ! ! !%! l l l l l!l l l l l lFl ; ; ;!! , , , & , , ,!, , , ! ! & !!!",
+  "!!!! ! ! ! ! ! ! ! ! ! +!! ! ! ! ! ! !!! ! l l l l l ! l l l l l !%! l%!%!/+ !%+%! ! ! !'+ l l l l l l'+ ! ! !%! 9!! !%!%! 9%! !t7 l l=l l lQl l l l%l l+; ;%; ; ;!! ! ! & , , , , , ,!! & &!!!!",
+  "!!$!&!&!&!&!&!&!&!&!&!&+?! l !XL ! ! !%! ! l ! ! $ $r6 $ $ ! ! l !%! l l l l + l:6 ! ! !'+'+'+'+'+'+'+'+ ! ! ! $ ! ! ! ! ! !%! !%! l l l l l l l l l l lF! +P! +r7!!!! !D&!!!!!!!!!!!! & &!! !!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! ! l l l l l l l l l l l !%!$!%!%!%!%!%l!! ! ! + ! ! ! + + ! ! ! + ! !.! l%!%!%!%!%!%!%!%!%!%!%!R!%!l2%!%!%!%!%!F! ;=; ; !!! !!! & & & & & & & &!! !!!!!",
+  "!! ! ! ! ! ! ! ! ! ! ! +%! ! ! ! ! ! !%! ! ! ! ! ! ! ! ! ! ! ! ! !%!jx%! l ! ! l ! ! + ! ! ! ! ! ! ! ! ! ! + ! $ l ! ! l%!n1%! ! ! ! ! ! ! ! % ! ! ! ! ! !F!F!F!#!!!!! !!!!!!!I!h7I!!!!! !!! !!!",
+  "!! $%!%!%!%!%!%!%!%!%!h6%!%!%!'!'!%!%!%!%!%!%!%!%!h6%!%!%!%!%!%!%!%!:1%! !%!%!%!%! + ! ! ! ! ! + + ! ! ! ! ! +%!%!%!%! !%!:2%! ! ! ! ! ! ! ! % ! ! ! ! ! ! ! ! ! ! ! ! ! !!! ! ! % ! ! ! ! ! !!!",
+  "/! %/% % % % % % % % % % % % % %/% % % % % % % % %/% %!$ $ $ $ $ $ $ + $ l l l l l l l l l l l ! ! l l l l l l l l l l l $ + $ $ $ $ $ $ $ $ % % % % l % % % l , , , ! $ $ $ $I$g3I$ $ $ $ !+!!!",
+  "!! !%!%!%!%!%!%!%!%!r8h8%!%, , , , % ! l ! % , , ,%,%! ! ! ! ! ! ! $ ! $ $ $ $ $ $ $ $ $ $ $!$:3:4!$ $ $ $ $ $ $ $ $ $ $ $ ! $ ! ! ! ! ! ! !%! , , l % , , , % l , , ! $ + + +<+ + + + + $ !+!!!",
+  "!! ! & & & ! & & ! ! & &%& , , , % , $ ! $ , % , , ,%! ! ! ! ! ! ! $ + ! + ! + ! + ! + ! + ! + ! ! + ! + ! + ! + ! + ! + ! + $ ! ! ! ! ! ! !%! , , % , , ! , , % , , ! $ +%* *<*%*%*%* + $ !+!!!",
+  "!!%! !%!%!%!%!%!%!%!%!%!%! , , % , , ! l ! , , % , ,%! ! ! ! ! ! ! $ $ $ $ $ $ $ $ $ $ $ $ $ $ + + $ $ $ $ $ $ $ $ $ $ $ $ $ $ ! ! ! ! ! ! !%! , , l , , ! , , l , , ! $ +%*n2<* * * * + $ !+!!!",
+  "!! ! & & & & & & & & & !%! , , l , , $ ! $ , , l , ,%! ! ! ! ! ! ! $ ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! $ ! ! ! ! ! ! !%! , , l , , ! , , l , , ! $ +%* *<* * * * + $ !+!!!",
+  "!!%!%!%!%!%!%!%!%! ! $ &%! , , l , , ! ! ! , , l , ,%! $ $ $ $ $ $ $ ! ! & & & & & & & & & & & & & & & & & & & & & & & & ! ! $ $ $ $ $ $ $ $%! , , l , , ! , , l , , ! $ +%* *<*%*%*%* + $ !+!!!",
+  "!! ! & ! & & & & ! & & &%! , ,sl , , ! ! ! , ,sl , ,%! ! ! ! ! ! ! $ ! ! & ! ! ! ! ! ! ! ! ! !~~~~ ! ! ! ! ! ! ! ! ! ! & ! ! $ ! ! ! ! ! ! !%! , , l , , ! , ,sl , , ! $ + + +<+ + + + + $ !+!!!",
+  "!!!! ! &%!%!%!%!%!%!%!%!%! , , $ , , l!! l , , $ , ,%! $ $ $ $ ! ! $ ! ! & !+!I!I!I!I!I!I!I!I!g2g2I!I!I!I!I!I!I!I!Z! ! & ! ! $ ! ! $ $ $ $ $%! , , $ , , ! , , $ , ,!! $ $ $ $I$g1I$ $ $ $+!!!!!",
+  "!! ! ! & &%! & & & !%! !%! , ,sl , , ! ! ! , ,sl , ,%! ! !+!~$ & &~$ & & & !I! ! ! ! ! ! ! ! !N+N$ ! ! ! ! ! ! ! !I! ! & & &~$ & &~$+! ! ! !%! , ,sl , , ! , , l , , ! $ + + + + + + + + $ !+!!!",
+  "!! !%! & & & & !%! & & &%! , , l , , $ $ $ , , l , ,%! ! ! & $ $ $ $ $ $ & !I! !b# # #b#b#b#b#b#b#b#b#b#b#b# # # !I! $ $ $ $ $ $ $ $ & ! ! !%! , , l , , ! , , l , , ! $ +<&[&%&<&<&<& + $ !+!!!",
+  "!!%!%!%!%!%!%!%!%!%! !%!%! , , l , , $ $ $ , , l , ,%! ! !+!~$ & &~$ & & & !I! !b# $ $b3 $ $ 3 3 $ $ 3 $ $ 3 $ # !I! ! & & &~$ & &~$+! ! ! !%! , , l , , ! , , l , , ! $ +<& &%& & & & + $ !+!!!",
+  "!! ! & & & & ! & & & & !%! , , l , , $ $ $ , , l , ,%! $ $ $ $ ! ! $ ! ! & !I! !b# $ $ + + + + $b+b+b,b+b+b3b3b# !I! ! & ! ! $ ! ! $ $ $ $ $%! , , l , , ! , , l , , ! $ +<& &%& & & & + $ !+!!!",
+  "!! & $%!%!%!%!%!%!%!%!%!%! , , l , , $ ! $ , , l , ,%! ! ! ! ! ! ! $ ! ! & !I! !b# $ $ + ! ! $+e+e $ ! ! + $ $b# !I! ! & ! ! $ ! ! ! ! ! ! !%! , , l , , ! , , l , , ! $ +<&;&%&<&<&<& + $ !+!!!",
+  "!! ! & & & ! $ ! ! & ! $%! , , % , $ !.! ! $ , % , ,%! $ $ $ $ $ $ $ $ $ &~$g22+b# $ $++ ! !~$ en3~$ ! !++ $ $b#K+g2~$ & $ $ $ $ $ $ $ $ $ $%! , , % , ,.! , , % , , ! $ + + + + + + + + $ !+!!!",
+  "!!%!%!%! ! & & & $ ! & !%! , , l % , $ ! $ , % l , ,%! ! ! ! ! ! ! $ ! ! & !I! !b# $ $ + ! ! $+e+e $ ! ! + $ $b# !I! ! & ! ! $ ! ! ! ! ! ! !%! , , l % , + , % l , , ! $ $ $ $ $ % $ $ $ $ !+!!!",
+  "!! ! ! ! ! $ & & & & & &%! , , , l % ! l ! % l , , ,%! $ $ $ $ ! ! $ ! ! & !I! !b# 3 3 + + , + +b$b+b+b+b+b$b$b# !I! ! & ! ! $ ! ! $ $ $ $ $%! , , , l %=+ % l , , , ! ! ! ! ! ! % ! ! ! ! !+!!!",
+  "!!%!%!%!%!%!%!%!%!%!%!<e%!%!%!%!%!%!%!%!%!%!%!%!%!%!%! ! ! ! $ ! ! $ ! ! & !I! !b# $ 3 $ $ 3 $ $ 3 3 $ $b3 $ $b# !I! ! & ! ! $ ! ! $ ! ! ! !%!%!%!%!%!%!++ + + + + + + + + + + + ++!+!+!+!+!+!!!",
+  "!! !rr ! l ! ! ! ! ! ! e ! ! ! ! l ! !%! ! ! ! ! ! ! ! ! ! ! $ ! ! $ ! ! & !I! !b#b#b#b#b#b#b#b# # # # #b#b#b#b# !I! ! & ! ! $ ! ! $ ! ! ! ! ! ! ! ! ! !%! ! ! ! ! ! ! ! ! !%+ ! ! ! ! ! ! ! !!!",
+  "!! !rr ! l ! ! ! ! ! ! e ! ! ! ! l ! !%! ! ! ! ! ! ! ! ! ! ! $ ! ! $ ! ! & !I! ! ! ! ! ! ! ! !G$G+ ! ! ! ! ! ! ! !I! ! & ! ! $ ! ! $ ! ! ! ! ! ! ! ! ! !%! ! ! ! ! ! ! ! ! ! + ! ! ! ! ! ! ! !!!",
+  "!!%!%!%!%!%!%!%!%!%!%!<e%!%!%!%!%!%!%!!! $ $ $ $ ! ! ! ! ! ! $ ! ! $ ! ! & !Z!I!I!I!I!I!I!I!I!g2g2I!I!I!I!I!I!I!I!+! ! & ! ! $ ! ! $ ! ! ! ! ! ! $ $ $ $!!%!%!%!%!%!%!%!%!%!g3%!%!%!%!%!%!%!%!!!",
+  "!! ! ! ! e ! ! ! l ! !=& ! ! ! ! ! !%!!! ! ! ! $ ! ! ! ! ! ! $ $ $ $ $ $ & ! ! $ $ ! $ ! ! + !~~~~ ! + ! ! $ ! $ $ ! ! & $ $ $ $ $ $ ! ! ! ! ! ! $ ! ! !!!%!?!?!?!?!?!?!?!?!:+?!?!?!?!?!?!?!%!!!",
+  "!! ! ! ! e ! ! ! ! ! ! ! ! ! ! ! e !%!!! ! ! ! $ !F! . . . . .F. . . . .+& &K&K&K&+& & & &@& & & & &C& & & &+&2&2&2& &+& 1 1 1 1F! 1 1 1 1 1F! ! $ ! ! !!!%!&+&+&+&+&+$+X+ + 8X+$+&+&+&+&+&+%!!!",
+  "!! ! ! ! ! ! ! !%! e e%e e l ! ! ! !%!!! ! + . . . . . .F! . . . . .F! ! + !!! !+!%! ! $ ! e !+$+$ ! , ! $ !%!+! !!! ! + !F! 1 1 1 1 1F! 1 1 1 1 1 1 + !!!%!&+,+0+3+&+$+ + 8 + +$+&+b+-+,+&+%!!!",
+  "!! ! ! !%! ! e ! ! ! ! ! ! ! ! e ! !%!!! ! + ! ! ! ! $ $ $ $ $ $ $ $ $ $ $ $!! !F! ! ! ! $ + ! $ $ ! + $ ! ! !F! !!! $ $ $ $ $ $ $ $ $ $ $ $ ! ! ! ! + !!!%!&+b+x1-+&+g4 + + 8 +g4&+n+x2b+&+%!!!",
+  "!! ! ! ! ! ! ! ! ! ! ! ! e ! ! e ! !%!!! ! + ! ! !F! $ ! ! ! ! ! ! ! ! ! + !!!~!F! ! ! $ ! ,~!~$~$~! e ! $ ! !F!~!!! ! + ! ! ! ! ! ! ! ! ! $F! ! ! ! + !!!%!&+n+-+b+&+$+ +x5x6 +$+&+3+0+-+&+%!!!",
+  "!! ! ! ! l e%e e e $ ! ! $ ! !%! ! !%!!! ! +F! $ $ ! $ ! ! ! ! ! ! ! ! ! + !!! !F! ! ! ! $ + ! $ $ ! + $ ! ! !F! !!! ! + ! ! ! ! ! ! ! ! ! $ ! $ $F! + !!!%!$+&+&+&+&+$+X+ + 8X+$+&+&+&+&+$+%!!!",
+  "!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!!! ! + ! ! !F! $ ! ! ! ! ! ! ! ! ! + !!!~!F! ! ! $ ! e~!~$~$~! , ! $ ! !F!~!!! ! + ! ! ! ! ! ! ! ! ! $F! ! ! ! + !!!%!&+b+0+-+&+$+ +x7x8 +$+&+-+,+0+&+%!!!",
+  "!! ! ! ! ! ! ! ! !e-r9 !%e e e ! ! !%!!! ! + ! ! ! ! $ $ $ $ $ $ $ $ $ $ $ $!! !F! ! ! ! $ + ! $ $ ! + $ ! ! !F! !!! $ $ $ $ $ $ $ $ $ $ $ $ ! ! ! ! + !!!%!&+n+x3b+&+g4 + + 8 +g4&+b+x4b+&+%!!!",
+  "!! ! ! e $ ! ! l ! ! ! ! ! $ ! ! ! !%!!! ! + . . . . . .F! . . . . .F! ! + !!!~!F! ! ! $ ! ,~!~$~$~! e ! $ ! !F!~!!! ! + !F! 1 1 1 1 1F! 1 1 1 1 1 1 + !!!%!&+,+-+3+&+$+ + 8 + +$+&+3+n+-+&+%!!!",
+  "!! !+! ! ! ! e%e ; e ; ! !%! l !+e !%!!! ! ! ! ! !F! . . . . .F! . . . . + !!! !F! ! ! ! $ + +G+G+ + + $ ! ! !F! !!! ! + 1 1 1 1F! 1 1 1 1 1F! ! ! ! ! !!!%!&+&+&+&+&+$+X+ + 8X+$+&+&+&+&+&+%!!!",
+  "!! !/! l ! ! ! ! !I!h9I! ! ! ! !!l !%!!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! & & & &+!%! ! $ ! + !s~s~ ! + ! $ !%!+! & & & & ! ! ! ! ! ! !%! ! ! ! ! ! ! ! !!!%!?!?!?!?!?!?!?!?!g3?!?!?!?!?!?!?!%!!!",
+  "!!%!#!%!%!%!%!%!%!%!D;%!%!%!%!%!%!%!%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!%!%!%!%!%!%!%!%! ; ;%!%!%!%!%!%!%!%!%!%! &%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%!%!%!%!%!%!%!%!%!:+%!%!%!%!%!%!%!%!!!",
+  "!! ! ! ! ! ! ! ! ! !'; ! ! ! ! ! ! ! ! ! ! ! ! #C! !C! !C! !C! ! ! ! ! ! ! !%! 0 0 0 0 4 ;D;D;D;D;D;D; ; 4 6 6 6 6%! ! & ! ! $ ! ! ! $ ! ! ! $ ! ! ! ! !%! + + + + + + + + + + + + + + + + + +!!",
+  "!! ! ' ! ' ' ' ' ' ''' ' ' ' ' ' ' ' ! ! ! ! # !C! #C! !C! !C! ! ! ! ! ! ! !%! 0 0 0 0 4 4 ; 4 4 4 4 ; 4 4 6 6 6 6%! ! & & & $ & & & $ & & & $ & & & ! !%! + + $ $ $ $ $ $ $ $ $ $ $ $ $ $ + +!!",
+  "!! ! ' ! '-!-!3!0!-!-!-!-!-!-!-!-! ' ! ! ! # ! !C! !C! #C! !C! ! ! ! ! ! ! !%! 0 0 0 0 $ $ $ $ $ $ $ $ $ $ 6 6 6 6%! ! ! , & $ & , & $ & , & $ & , & ! !%! + + + + + + + + + + + + + + + + + +!!",
+  "!! ! ' ! 'b! ' ' ' ''' ' ' ' ' ',! ' ! ! # ! ! !C! !C! !C! #C! ! ! ! ! , ! !%! 1 1 1 1 $ $ $ $F$F$ $ $ $ $ . . . .%! ! !F, &F$ &F, &F$ &F, &F$ &F, & ! !%! + $ +?%?%?% !?!?!?! !?$?$?$ ! ! + +!!",
+  "!! ! 'b!,'0!-' ! ! ! ! ! ! !-!b'-!,'0! # ! ! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 1 1 $ $ $F$ $ $F$ $ $ $ . . . .%! ! ! , & $ & , & $ & , & $ & , & !+!%! + + +?%LS?% !?!Y!?! !?$.!?$ ! ! +v6!!",
+  "!! !''n!''.!b''' '''v9'' '''b!''A!''b! - -v8 -/-@-/-@-/-@//-@- - -!/ -e- ! ,%! 1 1 1 2 $ $F$ $ $ $ $F$ $ $ 7 . . .%! ! !+, &+$ &+, &+$ &+, &+$ &+, &M&!& & + + $?%?%?% !?!?!?! !?$?$?$ ! ! + +!!",
+  "!! ! '*!-'n!3! ! ! ! ! ! ! !n!-'b!-'3! # ! ! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 2 2 $ $ $F$ $ $F$ $ $ $ 7 7 . .%! ! ! ,f& $ & , & $ & , & $f& , ! !+!%! + + + + + + + + + + + + + + + + + +!!",
+  "!! ! ' ! '1' ' ' ' ''' ' ' ' ' 'A! ' ! ! # ! ! !C! !C! !C! #C! ! ! ! ! , ! !%! 2 2 2 2 $ $ $ $!$!$ $ $ $ $ 7 7 7 7%! ! !F, &F$ &F, &F$ &F, &F$ &F, ! ! !%! + $!! ! +P! ! +%! ! + !j$ +!! ! + +!!",
+  "!! ! ' ! !-!-!-!-!-!-!-!b!b!-!-!-! ' ! ! ! # ! !C! !C! #C! !C! ! ! ! ! ! ! !%!D-?- - - - - - ! 5 5 ! - - - - -?-D-%! ! ! , & $ & , & $ & , & $ & , ! ! !%! + + !P! + !!! + !=l +!! ! + !P! + +!!",
+  "!! ! ' ' ' ' ' ' ' ''' ' ' ' ' ' ' ' ! ! ! ! # !C! #C! !C! !C! ! ! ! ! ! ! !%! -.!?- - - ! ! ! 5 5 ! ! ! - -?-.! -%! ! ! , & & & , & & & , & & & , ! ! !%! + + $ + + + + + + + + + + + + + + +!!",
+  "!! ! ! ! ! ! ! ! ! !V9 ! ! ! ! ! ! ! !!! ! ! ! #C! !C! !C! !C! ! ! ! ! ! ! !%! - -+-=! ! ! 5 5 5 5 5 5 ! !=!+- - -!! ! ! , ! ! ! , ! ! ! , ! ! ! , ! ! !%! + + + + + + + + + + + + + + + + + +!!",
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+})
+
+local ff = {0,0,0,0,0}
+fc = 0
+
+function fourswitcha()
+    ff[1] = ff[1] + 1
+    if (ff[1] >= 4) then ff[1] = 0 end
+    compute_lazy()
+end
+
+function fourswitchb()
+    ff[2] = ff[2] + 1
+    if (ff[2] >= 4) then ff[2] = 0 end
+    compute_lazy()
+end
+
+function fourswitchc()
+    ff[3] = ff[3] + 1
+    if (ff[3] >= 4) then ff[3] = 0 end
+    compute_lazy()
+end
+
+function fourswitchd()
+    ff[4] = ff[4] + 1
+    if (ff[4] >= 4) then ff[4] = 0 end
+    compute_lazy()
+end
+
+function compute_lazy()
+    if (ff[1] == 0) and (ff[2] == 1) and (ff[3] == 3) and (ff[4] == 2) then
+        wo[{81,89}] = {"st_laser_s",state=ON}
+        wo[{89,90}] = {"it_death"}
+    else
+        wo[{81,89}] = {"st_laser_s",state=OFF}
+    end
+end
+
+wo:shuffleOxyd()
+  ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Eine Grüne Hölle</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Expedition zu grünen Wassern</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

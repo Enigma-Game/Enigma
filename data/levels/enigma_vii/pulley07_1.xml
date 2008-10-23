@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,20 +24,17 @@ ti["3"] = ti[" "] .. {"st_scissors", action="callback", target="Grow3"} -- Mushn
 ti["4"] = (ti[" "] .. {"st-grate1"}) .. {"it_trigger", action="callback", target="Grow4"} -- Mushnik swallowed by Audrey II
 ti["5"] = ti[" "] .. {"st_scissors", action="callback", target="Grow5"} -- Audrey being eaten by Audrey II
 ti["6"] = (ti[" "] .. {"st-grate1"}) .. {"it_trigger", action="callback", target="Grow6"} -- Audrey swallowed by Audrey II
-ti["7"] = (ti({"fl-gradient15"}) .. {"it_trigger", action="callback", target="Grow7"}) .. {"st-oneway-w"} -- Seymour being eaten by Audrey II
+ti["7"] = (ti({"fl-gradient15"}) .. {"it_trigger", action="callback", target="Grow7"}) .. {"st_oneway_w"} -- Seymour being eaten by Audrey II
 ti["8"] = (ti[" "] .. {"st-grate1"}) .. {"it_trigger", action="callback", target="Grow8"} -- Seymour swallowed by Audrey II
 ti["9"] = ti[" "] .. {"st_door", name="Door1", flavor="a"} -- Mushnik's door
 ti["0"] = ti[" "] .. {"st_door", name="Door2", flavor="a"} -- Audrey's door
-
 ti["!"] = (ti({"fl-white"}) .. {"st-rock3_hole"}) .. {"it_rubberband", anchor2="Orin", length=1,strength=10}
 ti["@"] = (ti({"fl-plank"}) .. {"st_turnstilearm_w"}) .. {"it_rubberband", anchor2="Mushnik", length=1,strength=10}
 ti["#"] = {"fl-leaves"} .. ti({"it_rubberband", anchor2="Audrey", length=1,strength=10})
-
 ti["-"] = {"fl-white"} .. ti({"it_key", code="1"}) -- Mushnik's key
 ti["_"] = {"fl-plank"} .. ti({"it_key", code="2"}) -- Audrey's key
 ti["("] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"} -- Mushnik's lock
 ti[")"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"} -- Audrey's lock
-
 ti[";"] = {"fl-plank"} .. ti({"st_turnstilearm_w"})
 ti[":"] = {"fl-plank"} .. ti({"st_turnstilearm_e"})
 ti["|"] = {"fl-plank"} .. ti({"st_turnstilearm_n"})
@@ -46,10 +43,9 @@ ti["."] = ti[" "] .. {"st_turnstile_green"}
 ti["?"] = (ti({"fl-plank"}) .. {"st_turnstilearm_w"}) .. {"it_seed"}
 ti["/"] = {"st_turnstilearm_n"} .. ti({"fl-white"})
 ti["+"] = {"st_turnstilearm_n"} .. ti({"fl-leaves"})
-
 ti["a"] = ti[" "] .. {"st-camouflage"}
 ti["b"] = {"fl-white"} .. ti({"it-booze"})
-ti["c"] = {"fl-leaves"} .. ti({"st_nil"})
+ti["c"] = {"fl-leaves"} .. ti({"st_nil"}) .. ti({"it_nil"})
 ti["d"] = ti[" "] .. {"st-redrock"} --Walls
 ti["e"] = {"fl-gradient16"} .. ti({"st_nil"})
 ti["f"] = {"fl-leaves"} --Audrey's floor
@@ -69,7 +65,6 @@ ti["w"] = {"fl-gradient15"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl-woven"}
 ti["z"] = {"fl-plank"}
-
 ti["A"] = {"fl-leaves"} .. ti({"it-banana"})
 ti["B"] = {"fl-plank"} .. ti({"it-blackbomb"})
 ti["D"] = {"fl-white"} .. ti({"st_death"})
@@ -82,7 +77,6 @@ ti["J"] = ti["b"] .. {"#ac-whiteball-small", name="Orin", controllers=0,essentia
 ti["K"] = ti["z"] .. {"#ac-whiteball-small", name="Mushnik", controllers=0,essential=-1}
 ti["L"] = ti["f"] .. {"#ac-whiteball-small", name="Audrey", controllers=0,essential=-1}
 ti["Y"] = ti[" "] .. {"st-grate3"}
-
 ti["M"] = ti["Y"] .. {"#ac-horse", force=3, name="horse", destination={"d1","d2","d3","d4"}} -- Chiffon, Crystal, Ronnette
 ti["O"] = ti[" "] .. {"st_panel", cluster=1}
 ti["P"] = {"fl-white"} .. ti({"st-plain_break"})
@@ -92,12 +86,10 @@ ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it-bu
 ti["T"] = {"fl-plank"} .. ti({"it-coffee"})
 ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it-burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
-
 ti["["] = ti[" "] .. {"st-grate3", name="d1"}
 ti["]"] = ti[" "] .. {"st-grate3", name="d2"}
 ti["{"] = ti[" "] .. {"st-grate3", name="d3"}
 ti["}"] = ti[" "] .. {"st-grate3", name="d4"}
-
 
 --|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
 --|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|

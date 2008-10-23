@@ -18,7 +18,7 @@
     <level _seq="10" _title="Southside Life" _xpath="./mecke10_1" author="mecke" ctrl="force" easy="true" id="mecke10" rel="1" rev="18" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Joona's Chess" _xpath="./joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Helios I" _xpath="./mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="12" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="The Green Hell" _xpath="./mecke22_1" author="mecke" ctrl="force" easy="true" id="mecke22" rel="1" rev="55" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="The Green Hell" _xpath="./mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="67" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Tilt Board" _xpath="./ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="15" _title="4 - 8 - 4" _xpath="./dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="16" _title="Impulsive Order" _xpath="./raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="5" score="1" target="time" unit="duration"/>
@@ -37,11 +37,11 @@
     <level _seq="29" _title="Colored Oxyds" _xpath="./andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Fashions Pass" _xpath="./andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="31" _title="Colored Turnstiles" _xpath="./andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="26" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="27" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Wired Shogun" _xpath="./ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="114" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Scarlett's Necklet" _xpath="./ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="115" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="- Meditation -" _xpath="./raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Relaxing at the sea" _xpath="./dev08_1" author="/dev/null" ctrl="force" easy="true" id="dev08" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Relaxing at the sea" _xpath="./dev08_1" author="/dev/null" ctrl="force" easy="true" id="dev08" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Helios II" _xpath="./mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="15" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20070822ral291" rel="1" rev="117" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Alternation I" _xpath="./mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -51,6 +51,8 @@
     <level _seq="43" _title="- Meditation -" _xpath="./dev04_1" author="/dev/null" ctrl="force" easy="true" id="dev04" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Multi-lane" _xpath="./dev03_1" author="/dev/null" ctrl="force" easy="true" id="dev03" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="See Saw Meditation" _xpath="./duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Under control?" _xpath="./dev09_1" author="/dev/null" ctrl="force" easy="true" id="dev09" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title=" - Meditation - " _xpath="./dev12_1" author="/dev/null" ctrl="force" easy="true" id="dev12" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
