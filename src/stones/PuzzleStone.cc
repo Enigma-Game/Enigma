@@ -22,6 +22,7 @@
 #include "errors.hh"
 #include "main.hh"
 #include "player.hh"
+#include "server.hh"
 #include "world.hh"
 #include <algorithm>
 
@@ -451,37 +452,35 @@ namespace enigma {
             if (huddle.size() == cluster.size()) {
                 exploded = true;
             }
-//            else {
-//                if (getAttr("color") == BLUE) {
-//                    // check if 'huddle' is made up of complete clusters :
-//
-//                    while (!huddle.empty()) {
-//                        // remove one complete cluster from 'huddle'
-//                        markList(cluster, true);
-//                        for (PuzzleList::iterator itr = huddle.begin(); itr != huddle.end(); ) {
-//                            if ((*itr)->objFlags & OBJBIT_VISITED) {
-//                                (*itr)->objFlags &= ~OBJBIT_VISITED;
-//                                PuzzleList::iterator ditr = itr;
-//                                ++itr;
-//                                huddle.erase(ditr);
-//                            } else
-//                               ++itr;
-//                        }
-//
-//                        if (huddle.empty()) { // none left -> all were complete
-//                            exploded = true;
-//                            break;
-//                        }
-//
-//                        // look for next complete cluster :
-//                        cluster.clear();
-//                        PuzzleStone *pz = huddle.front();
-//                        if (!pz->findFragment(cluster)) {
-//                            break; // incomplete cluster found -> don't explode
-//                        }
-//                    }
-//                }
-//            }
+            else if ((server::GameCompatibility == GAMET_PEROXYD) && (getAttr("color") == BLUE)) {
+                // check if 'huddle' is made up of complete clusters :
+
+                while (!huddle.empty()) {
+                    // remove one complete cluster from 'huddle'
+                    markList(cluster, true);
+                    for (PuzzleList::iterator itr = huddle.begin(); itr != huddle.end(); ) {
+                        if ((*itr)->objFlags & OBJBIT_VISITED) {
+                            (*itr)->objFlags &= ~OBJBIT_VISITED;
+                            PuzzleList::iterator ditr = itr;
+                            ++itr;
+                            huddle.erase(ditr);
+                        } else
+                           ++itr;
+                    }
+
+                    if (huddle.empty()) { // none left -> all were complete
+                        exploded = true;
+                        break;
+                    }
+
+                    // look for next complete cluster :
+                    cluster.clear();
+                    PuzzleStone *pz = huddle.front();
+                    if (!pz->findFragment(cluster)) {
+                        break; // incomplete cluster found -> don't explode
+                    }
+                }
+            }
         }
 
         if (exploded) {

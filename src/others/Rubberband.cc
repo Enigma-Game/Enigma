@@ -184,8 +184,17 @@ namespace enigma {
 
             if (isMax && (relspeed < 0) || isMin && (relspeed >0))
                 relspeed = 0;
+                
             force = (dmu * relspeed / dt) * vn;
             force = force * (0.5 + 0.4 / numRubbers);   // damping for inverse friction and multicollision
+
+            // in case one actor is blocked the length can exceed the limits due to later force corrections
+            // in the last timestep - we need to correct possible small errors before they sum up
+            if (isMax && (len > maxLength) && (relspeed >= 0))
+                force = (dmu * (len - maxLength) / dt / dt) * vn;
+            if (isMin && (len < minLength) && (relspeed <= 0))
+                force = (dmu * (len - minLength) / dt / dt) * vn;
+
 //            Log << "Rubber force " << force1 <<  "  " << force2 << "  relspeed  " << relspeed  << " both " << isBoth << "\n";
             ai1->collforce += force;
             ai2->collforce -= force;
