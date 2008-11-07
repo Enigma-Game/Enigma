@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Action Potential" el:subtitle="" el:id="pulley02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="2:45" el:difficult="7:29"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- For more information about action potentials, see:
+-- http://en.wikipedia.org/wiki/Action_potential
+-- http://de.wikipedia.org/wiki/Aktionspotential
+ti[" "] = {"fl-abyss_fake"}
+ti["?"] = {"fl-sand"}
+ti["."] = ti[" "] .. {"st_stoneimpulse_hollow"}
+ti[","] = ti[" "] .. {"st_stoneimpulse"}
+ti[":"] = ti[" "] .. {"st-grate1"}
+ti["*"] = ti[" "] .. {"st-glass1"}
+ti["v"] = ti[" "] .. {"st_boulder_s"}
+ti["w"] = {"fl-red"} .. ti({"st-wood"})
+ti["z"] = ti[" "] .. {"st_rotator_ccw"}
+ti["y"] = ti[" "] .. {"st_boulder_n"}
+ti["0"] = ti[" "] .. {"st_oxyd"}
+ti["x"] = ti[" "] .. {"it_death"}
+ti["X"] = ti["."] .. {"it_death"}
+ti["Y"] = ti["*"] .. {"it_death"}
+ti["A"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseA"}
+ti["B"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseB"}
+ti["C"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseC"}
+ti["D"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseD"}
+ti["E"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseE"}
+ti["F"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseF"}
+ti["G"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseG"}
+ti["H"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseH"}
+ti["I"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseI"}
+ti["J"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseJ"}
+ti["K"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseK"}
+ti["L"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseL"}
+ti["M"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseM"}
+ti["N"] = ti[" "] .. {"it_trigger", action="callback",target="SynapseN"}
+ti["O"] = ti[" "] .. {"it_trigger", action="callback",target="CornerO"}
+ti["P"] = ti[" "] .. {"it_trigger", action="callback",target="CornerP"}
+ti["Q"] = ti[" "] .. {"it_trigger", action="callback",target="CornerQ"}
+ti["R"] = ti[" "] .. {"it_trigger", action="callback",target="CornerR"}
+ti["S"] = ti[" "] .. {"it_trigger", action="callback",target="CornerS"}
+ti["T"] = ti[" "] .. {"it_trigger", action="callback",target="CornerT"}
+ti["U"] = ti[" "] .. {"it_trigger", action="callback",target="CornerU"}
+ti["a"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsea"}
+ti["b"] = ti[" "] .. {"it_trigger", action="callback",target="Synapseb"}
+ti["c"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsec"}
+ti["d"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsed"}
+ti["e"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsee"}
+ti["f"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsef"}
+ti["g"] = ti[" "] .. {"it_trigger", action="callback",target="Synapseg"}
+ti["h"] = ti[" "] .. {"it_trigger", action="callback",target="Synapseh"}
+ti["i"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsei"}
+ti["j"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsej"}
+ti["k"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsek"}
+ti["l"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsel"}
+ti["m"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsem"}
+ti["n"] = ti[" "] .. {"it_trigger", action="callback",target="Synapsen"}
+ti["o"] = ti[" "] .. {"it_trigger", action="callback",target="Cornero"}
+ti["p"] = ti[" "] .. {"it_trigger", action="callback",target="Cornerp"}
+ti["q"] = ti[" "] .. {"it_trigger", action="callback",target="Cornerq"}
+ti["r"] = ti[" "] .. {"it_trigger", action="callback",target="Cornerr"}
+ti["s"] = ti[" "] .. {"it_trigger", action="callback",target="Corners"}
+ti["t"] = ti[" "] .. {"it_trigger", action="callback",target="Cornert"}
+ti["u"] = ti[" "] .. {"it_trigger", action="callback",target="Corneru"}
+ti["1"] = ti[" "] .. {"it_trigger", action="callback",target="Corner1"}
+ti["2"] = ti[" "] .. {"it_trigger", action="callback",target="Corner2"}
+ti["3"] = ti[" "] .. {"it_trigger", action="callback",target="Corner3"}
+ti["4"] = ti[" "] .. {"it_trigger", action="callback",target="Corner4"}
+ti["5"] = ti[" "] .. {"it_trigger", action="callback",target="Corner5"}
+ti["6"] = ti[" "] .. {"it_trigger", action="callback",target="Corner6"}
+ti["7"] = ti[" "] .. {"it_trigger", action="callback",target="Corner7"}
+ti["!"] = ti[" "] .. {"it_trigger", action="callback",target="Corner11"}
+ti["@"] = ti[" "] .. {"it_trigger", action="callback",target="Corner22"}
+ti["#"] = ti[" "] .. {"it_trigger", action="callback",target="Corner33"}
+ti["$"] = ti[" "] .. {"it_trigger", action="callback",target="Corner44"}
+ti["%"] = ti[" "] .. {"it_trigger", action="callback",target="Corner55"}
+ti["^"] = ti[" "] .. {"it_trigger", action="callback",target="Corner66"}
+ti["&"] = ti[" "] .. {"it_trigger", action="callback",target="Corner77"}
+
+w, h = wo(ti, " ", {
+       "**********************************************************", --01
+       "*                                                        *",
+       "*                                                        *",
+       "*                                                        *",
+       "*                                                        *",
+       "*                                                        *",
+       "*                 z******************                    *",
+       "*                * !................*                    *",
+       "*               z                  .*                    *",
+       "*              *   @.............. .*                    *", --10
+       "*             z                  . .*                    *",
+       "*            *     #............ . .*                    *",
+       "*           z                  . . .*                    *",
+       "*          *       $.......... . . .*                    *",
+       "*         z                  . . . .*                    *",
+       "*        *         %........ . . . .*                    *",
+       "*       z                  . . . . .*                    *",
+       "*      *           ^...... . . . . .*                    *",
+       "*     z                  . . . . . .*                    *",
+       "*    *             &.... . . . . . .*                    *", --20
+       "*    ******************w*w*w*w*w*w*w*                    *",
+       "*    *y*y*y*y*y*y*y*??*A*B*C*D*E*F*G*                    *",
+       "*    *7*6*5*4*3*2*1*??*v*v*v*v*v*v*v*                    *",
+       "*    *w*w*w*w*w*w*w??********************************    *",
+       "*    *. . . . . . .*?*..............................*    *",
+       "*    *. . . . . . .*?*. * * * * * * *              .*    *",
+       "*    *XxXxXxXxXxXxX*?*. .......................... .*    *",-- 27
+       "*    *. . . . . . .*?*. . * * * * * *            . .*    *",
+       "*    *. . . . . . .*?*. . ...................... . .*    *",
+       "*    *. . . . . . .*?*. . . * * * * *          . . .*    *", --30
+       "*    *. . . . . . .*?*. . . .................. . . .*    *",
+       "*    *. . . . . . .*?*. . . . * * * *        . . . .*    *",
+       "*    *. . . . . . .*?*. . . . .............. . . . .*    *",
+       "*    *. . . . . . .*?*. . . . . * * *      . . . . .*    *",
+       "*    *. . . . . . .*?*. . . . . .......... . . . . .*    *",
+       "*    *. . . . . . .*?*XxXxXxXxXxXxYxYxxx . . . . . .*    *",-- 36
+       "*    *. . . . . . .*?*. . . . . . .....X . . . . . .*    *",
+       "*    *. . . . . . .*?*.a.b.c.d.e.f.g***. . . . . . .*    *",
+       "*    *. . . . . . .*?*,0,0,0,0,0,0,0***. . . . . . .*    *",
+       "*    *. . . . . . .*?*,*,*,*,*,*,*,****. . . . . . .*    *", --40
+       "*    *. . . . . . .*??????????????????:. . . . . . .     *",
+       "*     . . . . . . .:??????????????????:. . . . . . .     *",
+       "*     . . . . . . .:??????????????????:. . . . . . .     *",
+       "*     . . . . . . .:??????????????????:. . . . . . .     *",
+       "*     . . . . . . .:??????????????????*. . . . . . .*    *",
+       "*    *. . . . . . .****,*,*,*,*,*,*,*?*. . . . . . .*    *",
+       "*    *. . . . . . .***0,0,0,0,0,0,0,*?*. . . . . . .*    *",
+       "*    *. . . . . . .***n.m.l.k.j.i.h.*?*. . . . . . .*    *",
+       "*    *. . . . . . X..... . . . . . .*?*. . . . . . .*    *",
+       "*    *. . . . . . xxxYxYxXxXxXxXxXxX*?*. . . . . . .*    *", --50
+       "*    *. . . . . .......... . . . . .*?*. . . . . . .*    *",
+       "*    *. . . . .      * * * . . . . .*?*. . . . . . .*    *",
+       "*    *. . . . .............. . . . .*?*. . . . . . .*    *",
+       "*    *. . . .        * * * * . . . .*?*. . . . . . .*    *",
+       "*    *. . . .................. . . .*?*. . . . . . .*    *",
+       "*    *. . .          * * * * * . . .*?*. . . . . . .*    *",
+       "*    *. . ...................... . .*?*. . . . . . .*    *",
+       "*    *. .            * * * * * * . .*?*. . . . . . .*    *",
+       "*    *. .......................... .*?*XxXxXxXxXxXxX*    *",
+       "*    *.              * * * * * * * .*?*. . . . . . .*    *", --60
+       "*    *..............................*?*. . . . . . .*    *",
+       "*    ********************************??w*w*w*w*w*w*w*    *",
+       "*                    *y*y*y*y*y*y*y*??*O*P*Q*R*S*T*U*    *",
+       "*                    *N*M*L*K*J*I*H*??*v*v*v*v*v*v*v*    *",
+       "*                    *w w w w w w w******************    *",
+       "*                    *. . . . . . ....u             *    *",
+       "*                    *. . . . . .                  z     *",
+       "*                    *. . . . . ......t           *      *",
+       "*                    *. . . . .                  z       *",
+       "*                    *. . . . ........s         *        *", --70
+       "*                    *. . . .                  z         *",
+       "*                    *. . . ..........r       *          *",
+       "*                    *. . .                  z           *",
+       "*                    *. . ............q     *            *",
+       "*                    *. .                  z             *",
+       "*                    *. ..............p   *              *",
+       "*                    *.                  z               *",
+       "*                    *................o *                *",
+       "*                    ******************z                 *",
+       "*                                                        *", --80
+       "*                                                        *",
+       "*                                                        *",
+       "*                                                        *",
+       "*                                                        *",
+       "**********************************************************"}) --85
+
+wo:shuffleOxyd()
+
+wo[{29, 42.5}] = {"ac-blackball"}
+wo[{32, 43}] = {"it-document", text="text1"}
+
+SynapseOn = {"fl-rough-red"}
+if wo ["IsDifficult"] then
+  SynapseOff = {"fl-abyss_fake"}
+else
+  SynapseOff = {"fl-rough-blue"}
+end
+
+function SynapseA()
+  wo:drawRect(po(23,22), 1, 15, SynapseOn)
+  wo[po(23,23)] = {"st_nil"}
+  wo[po(23,24)] = {"st_nil"}
+end
+function SynapseB()
+  wo:drawRect(po(25,22), 1, 15, SynapseOn)
+  wo[po(25,23)] = {"st_nil"}
+  wo[po(25,24)] = {"st_nil"}
+  wo[po(25,26)] = {"st_nil"}
+end
+function SynapseC()
+  wo:drawRect(po(27,22), 1, 15, SynapseOn)
+  wo[po(27,23)] = {"st_nil"}
+  wo[po(27,24)] = {"st_nil"}
+  wo[po(27,26)] = {"st_nil"}
+  wo[po(27,28)] = {"st_nil"}
+end
+function SynapseD()
+  wo:drawRect(po(29,22), 1, 15, SynapseOn)
+  wo[po(29,23)] = {"st_nil"}
+  wo[po(29,24)] = {"st_nil"}
+  wo[po(29,26)] = {"st_nil"}
+  wo[po(29,28)] = {"st_nil"}
+  wo[po(29,30)] = {"st_nil"}
+end
+function SynapseE()
+  wo:drawRect(po(31,22), 1, 15, SynapseOn)
+  wo[po(31,23)] = {"st_nil"}
+  wo[po(31,24)] = {"st_nil"}
+  wo[po(31,26)] = {"st_nil"}
+  wo[po(31,28)] = {"st_nil"}
+  wo[po(31,30)] = {"st_nil"}
+  wo[po(31,32)] = {"st_nil"}
+end
+function SynapseF()
+  wo:drawRect(po(33,22), 1, 15, SynapseOn)
+  wo[po(33,23)] = {"st_nil"}
+  wo[po(33,24)] = {"st_nil"}
+  wo[po(33,26)] = {"st_nil"}
+  wo[po(33,28)] = {"st_nil"}
+  wo[po(33,30)] = {"st_nil"}
+  wo[po(33,32)] = {"st_nil"}
+  wo[po(33,34)] = {"st_nil"}
+end
+function SynapseG()
+  wo:drawRect(po(35,22), 1, 15, SynapseOn)
+  wo[po(35,23)] = {"st_nil"}
+  wo[po(35,24)] = {"st_nil"}
+  wo[po(35,26)] = {"st_nil"}
+  wo[po(35,28)] = {"st_nil"}
+  wo[po(35,30)] = {"st_nil"}
+  wo[po(35,32)] = {"st_nil"}
+  wo[po(35,34)] = {"st_nil"}
+  wo[po(35,36)] = {"st_nil"}
+end
+function Synapsea()
+  wo:drawRect(po(23,22), 1, 15, SynapseOff)
+  wo[po(23,23)] = {"st-glass1"}
+  wo[po(23,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(23,20)] = {"st-wood"}
+  wo[po(23,22)] = {"st_boulder_s"}
+  wo[po(23,21)] = {"st_nil"}
+  wo[po(23,37)] = {"st_nil"}
+end
+function Synapseb()
+  wo:drawRect(po(25,22), 1, 15, SynapseOff)
+  wo[po(25,23)] = {"st-glass1"}
+  wo[po(25,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(25,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(25,20)] = {"st-wood"}
+  wo[po(25,22)] = {"st_boulder_s"}
+  wo[po(25,21)] = {"st_nil"}
+  wo[po(25,37)] = {"st_nil"}
+end
+function Synapsec()
+  wo:drawRect(po(27,22), 1, 15, SynapseOff)
+  wo[po(27,23)] = {"st-glass1"}
+  wo[po(27,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(27,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(27,28)] = {"st_stoneimpulse_hollow"}
+  wo[po(27,20)] = {"st-wood"}
+  wo[po(27,22)] = {"st_boulder_s"}
+  wo[po(27,21)] = {"st_nil"}
+  wo[po(27,37)] = {"st_nil"}
+end
+function Synapsed()
+  wo:drawRect(po(29,22), 1, 15, SynapseOff)
+  wo[po(29,23)] = {"st-glass1"}
+  wo[po(29,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(29,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(29,28)] = {"st_stoneimpulse_hollow"}
+  wo[po(29,30)] = {"st_stoneimpulse_hollow"}
+  wo[po(29,20)] = {"st-wood"}
+  wo[po(29,22)] = {"st_boulder_s"}
+  wo[po(29,21)] = {"st_nil"}
+  wo[po(29,37)] = {"st_nil"}
+end
+function Synapsee()
+  wo:drawRect(po(31,22), 1, 15, SynapseOff)
+  wo[po(31,23)] = {"st-glass1"}
+  wo[po(31,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(31,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(31,28)] = {"st_stoneimpulse_hollow"}
+  wo[po(31,30)] = {"st_stoneimpulse_hollow"}
+  wo[po(31,32)] = {"st_stoneimpulse_hollow"}
+  wo[po(31,20)] = {"st-wood"}
+  wo[po(31,22)] = {"st_boulder_s"}
+  wo[po(31,21)] = {"st_nil"}
+  wo[po(31,37)] = {"st_nil"}
+end
+function Synapsef()
+  wo:drawRect(po(33,22), 1, 15, SynapseOff)
+  wo[po(33,23)] = {"st-glass1"}
+  wo[po(33,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,28)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,30)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,32)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,34)] = {"st_stoneimpulse_hollow"}
+  wo[po(33,20)] = {"st-wood"}
+  wo[po(33,22)] = {"st_boulder_s"}
+  wo[po(33,21)] = {"st_nil"}
+  wo[po(33,37)] = {"st_nil"}
+end
+function Synapseg()
+  wo:drawRect(po(35,22), 1, 15, SynapseOff)
+  wo[po(35,23)] = {"st-glass1"}
+  wo[po(35,24)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,26)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,28)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,30)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,32)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,34)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,36)] = {"st_stoneimpulse_hollow"}
+  wo[po(35,20)] = {"st-wood"}
+  wo[po(35,22)] = {"st_boulder_s"}
+  wo[po(35,21)] = {"st_nil"}
+  wo[po(35,37)] = {"st_nil"}
+end
+function SynapseH()
+  wo:drawRect(po(34,48), 1, 15, SynapseOn)
+  wo[po(34,61)] = {"st_nil"}
+  wo[po(34,60)] = {"st_nil"}
+end
+function SynapseI()
+  wo:drawRect(po(32,48), 1, 15, SynapseOn)
+  wo[po(32,61)] = {"st_nil"}
+  wo[po(32,60)] = {"st_nil"}
+  wo[po(32,58)] = {"st_nil"}
+end
+function SynapseJ()
+  wo:drawRect(po(30,48), 1, 15, SynapseOn)
+  wo[po(30,61)] = {"st_nil"}
+  wo[po(30,60)] = {"st_nil"}
+  wo[po(30,58)] = {"st_nil"}
+  wo[po(30,56)] = {"st_nil"}
+end
+function SynapseK()
+  wo:drawRect(po(28,48), 1, 15, SynapseOn)
+  wo[po(28,61)] = {"st_nil"}
+  wo[po(28,60)] = {"st_nil"}
+  wo[po(28,58)] = {"st_nil"}
+  wo[po(28,56)] = {"st_nil"}
+  wo[po(28,54)] = {"st_nil"}
+end
+function SynapseL()
+  wo:drawRect(po(26,48), 1, 15, SynapseOn)
+  wo[po(26,61)] = {"st_nil"}
+  wo[po(26,60)] = {"st_nil"}
+  wo[po(26,58)] = {"st_nil"}
+  wo[po(26,56)] = {"st_nil"}
+  wo[po(26,54)] = {"st_nil"}
+  wo[po(26,52)] = {"st_nil"}
+end
+function SynapseM()
+  wo:drawRect(po(24,48), 1, 15, SynapseOn)
+  wo[po(24,61)] = {"st_nil"}
+  wo[po(24,60)] = {"st_nil"}
+  wo[po(24,58)] = {"st_nil"}
+  wo[po(24,56)] = {"st_nil"}
+  wo[po(24,54)] = {"st_nil"}
+  wo[po(24,52)] = {"st_nil"}
+  wo[po(24,50)] = {"st_nil"}
+end
+function SynapseN()
+  wo:drawRect(po(22,48), 1, 15, SynapseOn)
+  wo[po(22,61)] = {"st_nil"}
+  wo[po(22,60)] = {"st_nil"}
+  wo[po(22,58)] = {"st_nil"}
+  wo[po(22,56)] = {"st_nil"}
+  wo[po(22,54)] = {"st_nil"}
+  wo[po(22,52)] = {"st_nil"}
+  wo[po(22,50)] = {"st_nil"}
+  wo[po(22,48)] = {"st_nil"}
+end
+function Synapseh()
+  wo:drawRect(po(34,48), 1, 15, SynapseOff)
+  wo[po(34,61)] = {"st-glass1"}
+  wo[po(34,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(34,64)] = {"st-wood"}
+  wo[po(34,62)] = {"st_boulder_n"}
+  wo[po(34,63)] = {"st_nil"}
+  wo[po(34,47)] = {"st_nil"}
+end
+function Synapsei()
+  wo:drawRect(po(32,48), 1, 15, SynapseOff)
+  wo[po(32,61)] = {"st-glass1"}
+  wo[po(32,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(32,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(32,64)] = {"st-wood"}
+  wo[po(32,62)] = {"st_boulder_n"}
+  wo[po(32,63)] = {"st_nil"}
+  wo[po(32,47)] = {"st_nil"}
+end
+function Synapsej()
+  wo:drawRect(po(30,48), 1, 15, SynapseOff)
+  wo[po(30,61)] = {"st-glass1"}
+  wo[po(30,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(30,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(30,56)] = {"st_stoneimpulse_hollow"}
+  wo[po(30,64)] = {"st-wood"}
+  wo[po(30,62)] = {"st_boulder_n"}
+  wo[po(30,63)] = {"st_nil"}
+  wo[po(30,47)] = {"st_nil"}
+end
+function Synapsek()
+  wo:drawRect(po(28,48), 1, 15, SynapseOff)
+  wo[po(28,61)] = {"st-glass1"}
+  wo[po(28,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(28,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(28,56)] = {"st_stoneimpulse_hollow"}
+  wo[po(28,54)] = {"st_stoneimpulse_hollow"}
+  wo[po(28,64)] = {"st-wood"}
+  wo[po(28,62)] = {"st_boulder_n"}
+  wo[po(28,63)] = {"st_nil"}
+  wo[po(28,47)] = {"st_nil"}
+end
+function Synapsel()
+  wo:drawRect(po(26,48), 1, 15, SynapseOff)
+  wo[po(26,61)] = {"st-glass1"}
+  wo[po(26,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(26,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(26,56)] = {"st_stoneimpulse_hollow"}
+  wo[po(26,54)] = {"st_stoneimpulse_hollow"}
+  wo[po(26,52)] = {"st_stoneimpulse_hollow"}
+  wo[po(26,64)] = {"st-wood"}
+  wo[po(26,62)] = {"st_boulder_n"}
+  wo[po(26,63)] = {"st_nil"}
+  wo[po(26,47)] = {"st_nil"}
+end
+function Synapsem()
+  wo:drawRect(po(24,48), 1, 15, SynapseOff)
+  wo[po(24,61)] = {"st-glass1"}
+  wo[po(24,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,56)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,54)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,52)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,50)] = {"st_stoneimpulse_hollow"}
+  wo[po(24,64)] = {"st-wood"}
+  wo[po(24,62)] = {"st_boulder_n"}
+  wo[po(24,63)] = {"st_nil"}
+  wo[po(24,47)] = {"st_nil"}
+end
+function Synapsen()
+  wo:drawRect(po(22,48), 1, 15, SynapseOff)
+  wo[po(22,61)] = {"st-glass1"}
+  wo[po(22,60)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,58)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,56)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,54)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,52)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,50)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,48)] = {"st_stoneimpulse_hollow"}
+  wo[po(22,64)] = {"st-wood"}
+  wo[po(22,62)] = {"st_boulder_n"}
+  wo[po(22,63)] = {"st_nil"}
+  wo[po(22,47)] = {"st_nil"}
+end
+function CornerO()
+  wo:drawRect(po(39,63), 1, 15, SynapseOn) -- vertical
+  wo[po(39,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(39,60)] = {"st-glass3"}
+    end
+end
+function CornerP()
+  wo:drawRect(po(39,75), 2, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(41,63), 1, 13, SynapseOn) -- vertical
+  wo[po(41,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(41,60)] = {"st-glass3"}
+    end
+end
+function CornerQ()
+  wo:drawRect(po(39,73), 4, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(43,63), 1, 11, SynapseOn) -- vertical
+  wo[po(43,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(43,60)] = {"st-glass3"}
+    end
+end
+function CornerR()
+  wo:drawRect(po(39,71), 6, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(45,63), 1, 9, SynapseOn) -- vertical
+  wo[po(45,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(45,60)] = {"st-glass3"}
+    end
+end
+function CornerS()
+  wo:drawRect(po(39,69), 8, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(47,63), 1, 7, SynapseOn) -- vertical
+  wo[po(47,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(47,60)] = {"st-glass3"}
+    end
+end
+function CornerT()
+  wo:drawRect(po(39,67), 10, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(49,63), 1, 5, SynapseOn) -- vertical
+  wo[po(49,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(49,60)] = {"st-glass3"}
+    end
+end
+function CornerU()
+  wo:drawRect(po(39,65), 12, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(51,63), 1, 3, SynapseOn) -- vertical
+  wo[po(51,64)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st-glass3"}
+    else
+      wo[po(51,60)] = {"st-glass3"}
+    end
+end
+function Cornero()
+  wo:drawRect(po(39,63), 1, 15, SynapseOff) -- vertical
+  wo[po(39,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(39,61)] = {"st-wood"}
+  wo[po(39,63)] = {"st_boulder_s"}
+  wo[po(39,62)] = {"st_nil"}
+  wo[po(38,77)] = {"st_nil"}
+end
+function Cornerp()
+  wo:drawRect(po(39,75), 2, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(41,63), 1, 13, SynapseOff) -- vertical
+  wo[po(41,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(41,61)] = {"st-wood"}
+  wo[po(41,63)] = {"st_boulder_s"}
+  wo[po(41,62)] = {"st_nil"}
+  wo[po(38,75)] = {"st_nil"}
+end
+function Cornerq()
+  wo:drawRect(po(39,73), 4, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(43,63), 1, 11, SynapseOff) -- vertical
+  wo[po(43,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(43,61)] = {"st-wood"}
+  wo[po(43,63)] = {"st_boulder_s"}
+  wo[po(43,62)] = {"st_nil"}
+  wo[po(38,73)] = {"st_nil"}
+end
+function Cornerr()
+  wo:drawRect(po(39,71), 6, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(45,63), 1, 9, SynapseOff) -- vertical
+  wo[po(45,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(45,61)] = {"st-wood"}
+  wo[po(45,63)] = {"st_boulder_s"}
+  wo[po(45,62)] = {"st_nil"}
+  wo[po(38,71)] = {"st_nil"}
+end
+function Corners()
+  wo:drawRect(po(39,69), 8, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(47,63), 1, 7, SynapseOff) -- vertical
+  wo[po(47,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(47,61)] = {"st-wood"}
+  wo[po(47,63)] = {"st_boulder_s"}
+  wo[po(47,62)] = {"st_nil"}
+  wo[po(38,69)] = {"st_nil"}
+end
+function Cornert()
+  wo:drawRect(po(39,67), 10, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(49,63), 1, 5, SynapseOff) -- vertical
+  wo[po(49,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(49,61)] = {"st-wood"}
+  wo[po(49,63)] = {"st_boulder_s"}
+  wo[po(49,62)] = {"st_nil"}
+  wo[po(38,67)] = {"st_nil"}
+end
+function Corneru()
+  wo:drawRect(po(39,65), 12, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(51,63), 1, 3, SynapseOff) -- vertical
+  wo[po(51,64)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(39,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(41,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(43,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(45,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(47,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(49,60)] = {"st_stoneimpulse_hollow"}
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(51,60)] = {"st_stoneimpulse_hollow"}
+    end
+
+  wo[po(51,61)] = {"st-wood"}
+  wo[po(51,63)] = {"st_boulder_s"}
+  wo[po(51,62)] = {"st_nil"}
+  wo[po(38,65)] = {"st_nil"}
+end
+function Corner1()
+  wo:drawRect(po(18,7), 1, 15, SynapseOn) -- vertical
+  wo[po(18,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(18,24)] = {"st-glass3"}
+    end
+end
+function Corner2()
+  wo:drawRect(po(17,9), 2, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(16,9), 1, 13, SynapseOn) -- vertical
+  wo[po(16,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(16,24)] = {"st-glass3"}
+    end
+end
+function Corner3()
+  wo:drawRect(po(15,11), 4, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(14,11), 1, 11, SynapseOn) -- vertical
+  wo[po(14,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(14,24)] = {"st-glass3"}
+    end
+end
+function Corner4()
+  wo:drawRect(po(13,13), 6, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(12,13), 1, 9, SynapseOn) -- vertical
+  wo[po(12,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(12,24)] = {"st-glass3"}
+    end
+end
+function Corner5()
+  wo:drawRect(po(11,15), 8, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(10,15), 1, 7, SynapseOn) -- vertical
+  wo[po(10,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(10,24)] = {"st-glass3"}
+    end
+end
+function Corner6()
+  wo:drawRect(po(9,17), 10, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(8,17), 1, 5, SynapseOn) -- vertical
+  wo[po(8,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(8,24)] = {"st-glass3"}
+    end
+end
+function Corner7()
+  wo:drawRect(po(7,19), 12, 1, SynapseOn) -- horizontal
+  wo:drawRect(po(6,19), 1, 3, SynapseOn) -- vertical
+  wo[po(6,20)] = {"st_nil"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st-glass3"}
+    else
+      wo[po(6,24)] = {"st-glass3"}
+    end
+end
+function Corner11()
+  wo:drawRect(po(18,7), 1, 15, SynapseOff) -- vertical
+  wo[po(18,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(18,23)] = {"st-wood"}
+  wo[po(18,21)] = {"st_boulder_n"}
+  wo[po(18,22)] = {"st_nil"}
+  wo[po(19,7)] = {"st_nil"}
+end
+function Corner22()
+  wo:drawRect(po(17,9), 2, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(16,9), 1, 13, SynapseOff) -- vertical
+  wo[po(16,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(16,23)] = {"st-wood"}
+  wo[po(16,21)] = {"st_boulder_n"}
+  wo[po(16,22)] = {"st_nil"}
+  wo[po(19,9)] = {"st_nil"}
+end
+function Corner33()
+  wo:drawRect(po(15,11), 4, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(14,11), 1, 11, SynapseOff) -- vertical
+  wo[po(14,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(14,23)] = {"st-wood"}
+  wo[po(14,21)] = {"st_boulder_n"}
+  wo[po(14,22)] = {"st_nil"}
+  wo[po(19,11)] = {"st_nil"}
+end
+function Corner44()
+  wo:drawRect(po(13,13), 6, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(12,13), 1, 9, SynapseOff) -- vertical
+  wo[po(12,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(12,23)] = {"st-wood"}
+  wo[po(12,21)] = {"st_boulder_n"}
+  wo[po(12,22)] = {"st_nil"}
+  wo[po(19,13)] = {"st_nil"}
+end
+function Corner55()
+  wo:drawRect(po(11,15), 8, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(10,15), 1, 7, SynapseOff) -- vertical
+  wo[po(10,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(10,23)] = {"st-wood"}
+  wo[po(10,21)] = {"st_boulder_n"}
+  wo[po(10,22)] = {"st_nil"}
+  wo[po(19,15)] = {"st_nil"}
+end
+function Corner66()
+  wo:drawRect(po(9,17), 10, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(8,17), 1, 5, SynapseOff) -- vertical
+  wo[po(8,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(8,23)] = {"st-wood"}
+  wo[po(8,21)] = {"st_boulder_n"}
+  wo[po(8,22)] = {"st_nil"}
+  wo[po(19,17)] = {"st_nil"}
+end
+function Corner77()
+  wo:drawRect(po(7,19), 12, 1, SynapseOff) -- horizontal
+  wo:drawRect(po(6,19), 1, 3, SynapseOff) -- vertical
+  wo[po(6,20)] = {"st-glass1"}
+    if wo ["IsDifficult"] then
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(8,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(10,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(12,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(14,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(16,24)] = {"st_stoneimpulse_hollow"}
+      wo[po(18,24)] = {"st_stoneimpulse_hollow"}
+    else
+      wo[po(6,24)] = {"st_stoneimpulse_hollow"}
+    end
+  wo[po(6,23)] = {"st-wood"}
+  wo[po(6,21)] = {"st_boulder_n"}
+  wo[po(6,22)] = {"st_nil"}
+  wo[po(19,19)] = {"st_nil"}
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Bridge those synapses!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

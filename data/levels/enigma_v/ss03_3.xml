@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl-rough"}
+ti[". "] = {"fl-rough", "destination5"}
+ti["+ "] = {"fl-rough", "destination6"}
+ti["~ "] = {"fl-water"}
+ti["# "] = {"st-rock1"}
+ti["F "] = {"st_fart", "blocker"}
+ti["V "] = {"st_boulder", orientation=SOUTH}
+ti["> "] = {"st_boulder", "boulder3", orientation=EAST}
+ti["| "] = {"st_door", flavor="d", faces="ew"}
+ti["- "] = {"st_door", flavor="d", faces="ns"}
+ti["T "] = {"st-thief"}
+ti["C "] = {"st_coinslot", target="door3"}
+ti["B "] = {"st-bombs"}
+ti["X "] = {"st-grate2"}
+ti["M "] = {"st_blocker"}
+ti["W "] = {"st-wood"}
+if wo["IsDifficult"] then
+    ti["D "] = {"st_death"}
+else
+    ti["D "] = ti["# "]
+end
+ti["J "] = {"st_laser", "laser6", orientation=WEST, state=ON}
+ti["L "] = {"st_laser", "laser8", orientation=EAST, state=OFF}
+ti["K "] = {"st_key", target="door5"}
+ti["Q "] = {"st-glass"}
+ti["G "] = {"st-glass1"}
+ti["g "] = {"st-glass1", "glass7"}
+ti["H "] = {"st-glass1_hole"}
+ti["= "] = {"st-rock1_move"}
+ti["S "] = {"st_switch", target="blocker", action="kill"}
+ti["O "] = {"st_oxyd", flavor="c"}
+ti["t "] = {"it_trigger"}
+ti[" m"] = {"it_magicwand"}
+ti[" g"] = {"it-blackbomb"}
+ti[" b"] = {"it-blackbomb", "bomb4"}
+ti[" e"] = {"it_extralife"}
+ti[" c"] = {"it-crack3"}
+ti[" y"] = {"it-yinyang"}
+ti[" h"] = {"it_hammer"}
+ti[" _"] = {"it_shogun_l"}
+ti[" a"] = {"it_coin_s"}
+ti[" k"] = {"it_key"}
+ti[" j"] = {"it_key", code=0}
+ti[" s"] = {"it-springboard"}
+ti[" ^"] = {"it_meditation_hill"}
+ti[" f"] = {"it_floppy"}
+ti[" ."] = {"it_seed"}
+ti[" *"] = {"it_magnet", state=ON}
+ti[" p"] = {"it-flagblack"}
+ti[" i"] = {"it_sword"}
+ti[" ;"] = {"it_brush"}
+ti[" +"] = {"it_meditation_bump"}
+ti[" v"] = {"it_meditation_hollow"}
+ti[" d"] = {"it-document", text="text2"}
+ti[" -"] = {"it_meditation_dent"}
+ti[" w"] = {"it_whitebomb"}
+ti[" !"] = {"it_wormhole", "worm5", destination="destination5", strength=5}
+ti[" o"] = {"it-spade"}
+ti[" x"] = {"it-document", text="text2"}
+ti[" 1"] = {"it_trigger", invisible=true, target="box", _box=1}
+ti["1 "] = {"st_door", "door1", flavor="d", faces="ew"}
+ti[" 2"] = {"it_trigger", target="box", _box=2}
+ti["2 "] = {"fl-water", "water2#"}
+ti[" 3"] = {"it_trigger", target="box", _box=3}
+ti["3 "] = {"st_door", "door3", flavor="d", faces="ns"}
+ti[" 4"] = {"it_trigger", target="box", _box=4}
+ti[" 5"] = {"it_trigger", target="box", _box=5}
+ti["5 "] = {"st_door", "door5", flavor="d", faces="ns"}
+ti[" 6"] = {"it_trigger", target="box", _box=6}
+ti[" 7"] = {"it_trigger", target="box", _box=7}
+ti["7 "] = {"st_door", "door7", flavor="d", faces="ew"}
+ti[" 8"] = {"it_trigger", target="box", _box=8}
+ti["@ "] = {"#ac-blackball"}
+
+local resolver = res.composer(ti)
+w, h = wo(resolver, "  ", {
+"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+"#         =f  V     =g        #*        =p        =i        =k        =;    # ",
+"#   @         F                                                             # ",
+"#     # # # #  .# # # # # # # 2 # # #   # # C 3 # # # # # # # # # # # #     # ",
+"#     #      1 .O # # # T T # 2 # # #   # # #     # # # # # #      4# #     # ",
+"# =^  #   W  1 1  # # O           # #   # # #     # # # #   W   #   # #   =+# ",
+"#     #     #   W # # # T T  m~  2# #   # O #    3 3  # #   W4W     # #     # ",
+"#     # #     #     # # # #      2# #   #     W #     # #    4#  4  # #     # ",
+"#     # # W        x1       W W   # #   #      3W W   M M     > XbB O #     # ",
+"#     # #     # # # # ~      2W   # #   # # # #       # #       # B # #     # ",
+"# =s  # # # # # # # # # # # # # # # #   # # # # # # # # # # # # # B # #   =d# ",
+"#                                                                           # ",
+"#                                                                           # ",
+"S                                                                           # ",
+"# =j  # # K 5 # # # # D D D D D   D D   # # # # g Hc# # # # # # # # # #     # ",
+"#     # #    5    # # D           J D   # G G G       # # # # # # # # #   =v# ",
+"#     #   W W W5  # # D D     D D D D   # G O G       # #  8       8  #     # ",
+"#     #     #     # # D  6 6W      6D   #  7  G W W   7  8  Q   Q     #     # ",
+"#     # .   #      5# O   D W   W   D   #           G # #   =     =  8#     # ",
+"#     # W!=aO   #   # D +  e  D     D   #  7    W G G # # # # # #   = #     # ",
+"# =e  #     #       # D D D D D     D   # G  7    G G # # L   O #     #   =c# ",
+"#     # # # # # # # # D D D D D D D D   # # # # # # # # # # # # # # # #     # ",
+"#                                                                           # ",
+"#         =y        =h        =_        =i        =-        =o        =k    # ",
+"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "
+})
+
+state = {3, 3, 3, 3, 2, 3, 3, 4}  -- number of additional triggers to be pressed
+
+function box(value, sender)
+    local box = sender["_box"]
+    if value then
+        state[box] = state[box] - 1
+        if state[box] == 0 then
+            if box == 1 then
+                no["door1"]:open()
+            elseif box == 2 then
+                wo[po["water2#*"]] = {"fl-wood"}
+            elseif box == 3 then
+                no["boulder3"]:orientate(WEST)
+            elseif box == 4 then
+                no["bomb4"]:explode()
+            elseif box == 5 then
+                no["worm5"]["destination"] = "destination6"
+                no["worm5"]["strength"] = 0
+            elseif box == 6 then
+                no["laser6"]:off()
+            elseif box == 7 then
+                no["door7"]:open()
+                wo[no["glass7"]] = {"st-glass1_hole", "glass7"}
+            else
+                no["laser8"]:on()
+            end
+        end
+    else
+        if state[box] == 0 then
+            if box == 1 then
+                no["door1"]:close()
+            elseif box == 2 then
+                wo[po["water2#*"]] = {"fl-water"}
+            elseif box == 3 then
+                no["boulder3"]:orientate(EAST)
+            elseif box == 4 then
+                -- nothing to do
+            elseif box == 5 then
+                no["worm5"]["destination"] = "destination5"
+                no["worm5"]["strength"] = 5
+            elseif box == 6 then
+                no["laser6"]:on()
+            elseif box == 7 then
+                no["door7"]:close()
+                wo[no["glass7"]] = ti["g "]
+            else
+                no["laser8"]:off()
+            end
+        end
+        state[box] = state[box] + 1
+    end
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">If I only had a bag.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">shh ... listen!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

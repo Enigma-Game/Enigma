@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Re-entry Circuit" el:subtitle="" el:id="pulley05"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="-" el:difficult="2:35"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl-bumps"}
+ti["O"] = ti[" "] .. {"st_stoneimpulse"}
+ti["b"] = ti[" "] .. {"st-bumps"}
+ti["l"] = ti[" "] .. {"st_stoneimpulse_new", orientation = SOUTH, hollow = true}
+ti["o"] = ti[" "] .. {"st_stoneimpulse_hollow"}
+ti["w"] = ti[" "] .. {"st-wood"}
+ti["x"] = ti[" "] .. {"st-grate1"}
+ti["0"] = ti[" "] .. {"st_oxyd"}
+ti["B"] = ti[" "] .. {"#ac-blackball", player=0}
+
+w, h = wo(ti, " ",{
+ "bbbbbbbbbbbbbbbbbbbb",
+ "b0o o oOooo ooo oo0b",
+ "bOOOObob bbbObObOOOb",
+ "b   o oboOO o o o ob",
+ "boOOObOOo   ObObObob",
+ "bo    o OOOOObOOObob",
+ "bOOOOOowlB  o      b",
+ "b      OOOOOOOOwObob",
+ "boOOwObowo    OOOOob",
+ "bo ooOoo OOOOx o xxb",
+ "bOOb b www  OowOwOOb",
+ "b0oooO oooooO oooo0b",
+ "bbbbbbbbbbbbbbbbbbbb"})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

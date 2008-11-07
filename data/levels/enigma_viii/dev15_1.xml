@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="On belay?" el:subtitle="" el:id="dev15"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:22" el:difficult="4:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-abyss"}
+if wo["IsDifficult"] then
+    ti["."] = {"fl_bridge_gc", state = CLOSED}
+    ti["a"] = ti["."] .. {"st_pull", name = "anchR01"}
+    ti["A"] = ti["."]
+    ti["H"] = ti[" "]
+    ti["L"] = {"st_switch_black", name = "switchH", action = "toggle", target = "@laserW#*"}
+    ti["o"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
+    ti["O"] = ti[" "]
+    ti["@"] = ti["."] .. {"#ac-blackball", player = 0}
+else
+    ti["."] = {"fl-black"}
+    ti["a"] = ti["."] .. {"it-pin"}
+    ti["A"] = ti["."] .. {"st_swap", name = "anchR01"}
+    ti["H"] = ti[" "] .. {"st_pull"}
+    ti["L"] = {"st_switch_white", name = "switchH", action = "toggle", target = "@laserW#*"}
+    ti["o"] = ti[" "]
+    ti["O"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
+    ti["@"] = ti["."] .. {"#ac-whiteball", player = 0, controllers = 1}
+end
+
+ti["x"] = ti[" "] .. {"st-grate1"}
+ti["r"] = ti["."] .. {"st_rotator", movable = true}
+ti["s"] = ti["."] .. {"st_swap"}
+ti["w"] = ti["."] .. {"st-wood"}
+ti["l"] = {"st_laser", name = "laserW#", orientation = WEST,  state = OFF}
+ti["b"] = {"fl_bridge_gc", name = "bridge00#", state = CLOSED}
+ti["trigger0"] = ti["."] .. {"it_trigger", name = "trigger00", action = "toggle", target = "bridge00#*"}
+ti["!"] = {"it_cross"}
+ti[":"] = ti["."] .. ti["!"]
+ti["2"] = ti["trigger0"] .. {"st_rotator", name = "rotator02", movable = true, counterclock = true}
+ti["3"] = ti["."] .. {"st_rotator", name = "rotator03", movable = true, counterclock = false}
+ti["4"] = ti["."] .. {"st_rotator", name = "rotator04", movable = true, counterclock = false}
+
+width, height = wo(ti, " ",
+-- 0         1         2
+-- 012345678901234567890
+{ "    !               ", --  0
+  "    !....... x .... ", --  1
+  " o  !....... x .... ", --  2
+  " O  !....... x .... ", --  3
+  "    !..3..w. x ....L", --  4
+  "  ..:....... x ....l", --  5
+  "  .H:...2.s.  b@A.a ", --  6
+  "  ..:....... x ....l", --  7
+  "    !..4..w. x ....L", --  8
+  " O  !....... x .... ", --  9
+  " o  !....... x .... ", -- 10
+  "    !....... x .... ", -- 11
+  "    !               "  -- 12
+-- 0         1         2
+-- 012345678901234567890
+})
+
+wo:add({"ot_wire", anchor1="anchR01", anchor2="rotator02"})
+wo:add({"ot_wire", anchor1="rotator02", anchor2="rotator03"})
+wo:add({"ot_wire", anchor1="rotator02", anchor2="rotator04"})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

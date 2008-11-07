@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="-" el:difficult="20:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl-sand"}
+ti["a"] = ti[" "] .. {"st_chess_white", name="Silver"} -- Silver (Lone Ranger's Horse)
+ti["b"] = ti[" "] .. {"st-black2"}
+ti["c"] = ti[" "] .. {"st-marble"} -- MARBLE WALL
+ti["d"] = ti[" "] .. {"st_actorimpulse"}
+ti["e"] = ti[" "] .. {"st-marble_hole"} -- MARBLE WALL (HOLLOW)
+ti["f"] = {"fl-abyss_fake"} -- TOMB FLOOR
+ti["h"] = ti[" "] .. {"it_trigger", action="callback", target="Band1"} -- attaches rubber band from Lone Ranger to Silver
+ti["i"] = ti[" "] .. {"st-invisible"}
+ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORIMPULSE} .. ti({"st-marble_hole"})
+ti["k"] = ti[" "] .. {"it_trigger", action="callback", target="Band2"} -- attaches rubber band from Tonto to Tonto's Horse
+ti["l"] = {"fl-water"}
+ti["m"] = ti[" "] .. {"it_hammer"}
+ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st-chameleon"})
+ti["o"] = {"fl-sand", secure=true} .. ti({"it-burnable_oil"})
+ti["p"] = {"fl-swamp"}
+ti["q"] = ti[" "] .. {"st-redrock"} -- SUN RAY
+ti["r"] = {"fl-red"} -- SUN
+ti["s"] = ti[" "] .. {"st_scissors"}
+ti["t"] = ti[" "] .. {"st-thief"}
+ti["u"] = ti[" "] .. {"st-wood"}
+ti["w"] = ti[" "] .. {"st-white2"}
+ti["x"] = ti[" "] .. {"it_death"} -- Corpse
+ti["y"] = {"fl-bluegreen"} -- SKY
+ti["z"] = ti[" "] .. {"st_chess_black", name="Scout"} -- Scout (Tonto's Horse)
+ti["A"] = ti[" "] .. {"st_oneway_black", state=NORTH}
+ti["B"] = ti[" "] .. {"st_oneway_black", state=SOUTH}
+ti["C"] = ti[" "] .. {"st_oneway_black", state=WEST}
+ti["D"] = ti[" "] .. {"st_oneway_black", state=EAST}
+ti["E"] = ti[" "] .. {"st_oneway_white", state=NORTH}
+ti["F"] = ti[" "] .. {"st_oneway_white", state=SOUTH}
+ti["G"] = ti[" "] .. {"st_oneway_white", state=WEST}
+ti["H"] = ti[" "] .. {"st_oneway_white", state=EAST}
+ti["I"] = ti["f"] .. {"st-invisible"} --Invisible stone on black floor
+ti["J"] = ti["y"] .. {"st-black2"} --Black grill on blue floor
+ti["K"] = ti["y"] .. {"st-grate1"} --Grate on blue floor
+ti["L"] = ti[" "] .. {"it_landmine"}
+ti["M"] = ti[" "] .. {"it-spoon"}
+ti["N"] = ti[" "] .. {"it-dynamite"}
+ti["O"] = ti["y"] .. {"st-invisible"} --Invisible stone on blue floor
+ti["P"] = ti[" "] .. {"st_door_a", name="Door1"} -- Tonto's prison door
+ti["Q"] = ti[" "] .. {"#ac-rotor", range=10, gohome=0}
+ti["R"] = ti["r"] .. {"st-invisible"} --Invisible stone on red floor
+ti["S"] = ti[" "] .. {"st_door_a", name="Door2"} -- Silver's prison door
+ti["T"] = ti["y"] .. {"st-thief"} --Thief on blue floor
+ti["U"] = ti[" "] .. {"it-crack3"}
+ti["V"] = ti[" "] .. {"#ac-rotor", name="RGuard1", gohome=0} -- Lone Ranger's Guard
+ti["W"] = ti[" "] .. {"#ac-rotor", name="RGuard2", gohome=0} -- Lone Ranger's Guard
+ti["X"] = ti[" "] .. {"#ac-rotor", name="RGuard3", gohome=0} -- Lone Ranger's Guard
+ti["Y"] = ti["y"] .. {"st-white2"} --White grill on blue floor
+ti["Z"] = (ti[" "] .. {"it_death"}) .. {"st-break_gray"} --Tomb door with corpse
+ti["0"] = ti[" "] .. {"st_oxyd"}
+ti["1"] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"}
+ti["2"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"}
+ti["+"] = ti["l"] .. {"st-wood"}
+ti["6"] = ti[" "] .. {"it-booze"}
+ti["!"] = ti[" "] .. {"it_key", code="1"}
+ti["@"] = ti[" "] .. {"it_key", code="2"}
+ti["#"] = ti[" "] .. {"st-camouflage"}
+ti["$"] = ti[" "] .. {"st-wood"} .. ti({"it-yinyang"})
+ti["%"] = ti[" "] .. {"st_death_invisible"}
+ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
+ti["*"] = ti[" "] .. {"#ac-rotor", range=5, force=100}
+ti[":"] = ti[" "] .. {"st-break_gray"} -- Tomb doors
+ti["v"] = {"fl-gradient14"} -- Down
+ti["<"] = {"fl-gradient15"} -- Left
+ti[">"] = {"fl-gradient16"} -- Right
+ti["^"] = {"fl-gradient13"} -- Up
+ti["("] = (ti[" "] .. {"#ac-whiteball", player=0, controllers=1, essential=-1, name="Ranger"})
+ti[")"] = (ti[" "] .. {"#ac-blackball", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it-yinyang"})
+ti["="] = ti["t"] .. {"it-flagwhite"}
+ti["-"] = ti["l"] .. {"it-flagblack"}
+
+--|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
+--|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|
+w, h = wo(ti, " ",{
+ "ccccccccccccccccccjccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+ "c        VWX      ws                  c    pppc  pp  ppkzt         L        cyqyYqOYTyOOqOOOqOOc", -- 1
+ "c        ccccccccccc        t  i      cc ctpppc     p    c   L         L   wTyOyTOOyqYTyYOqOOOqc",
+ "c    #             c     i     i      clc  ppcc   p  p   c                  cYTyyqOTOOqOTJTyJOOc",
+ "c  # # #           c     i    iiii    clt i  e    p ippp c    L        L    cqTJYTyKTOyJTYyOTqOc",
+ "c  # # #    # # #  c  t  i            ccc t  cccci  tpci c         L       bTyyyJTqJyJTYyTYqyOcT", -- 5
+ "c  # ###  ( # # #  c         Q      iic i    ppllpcpi  i c     L            cOJTOOOTyRrTOOOOJTJ0",
+ "c  ###      # ###  c         ! i      cppt   pplllccic plc          L   L   cOOOqOOrrRRrrTyqOOcc",
+ "c    #      ###    c   i   iiiii      cpppp  pppl    t plc  L               cqOOOORRRRRRRRYTyqcT",
+ "c    #        #    c   i t         t  cpppp  cccii c c i c       L     L    cOOqORRRRRRRRRROYTY0",
+ "c    #        #    c   i   iitii      cpppp  wt b  c   i c                  cOOOORRRRRRRRRROOOcc", --10
+ "c             #    c                  c c c c c c c c c ccc c c c c c c c c cOqORRRRRRRRRRRROqOc",
+ "ccccccccccwccccccccccccccccccwccccccccccccccccctcccccccccccccccccccccccccccccccccccccccccccccccc",
+ "d     e    d       c                  c                 ul          ul      G        =  Sah<<<<c",
+ "d t&ddd ddtc ddddt c                  c      w   wul w   w   wul w   w    ulG          t ccccc^c",
+ "d e   d   %d d     &                  c  ulll+lll+lll+lll+lll+lll+lll+lll+cccccccccccccccc *2c^c", --15
+ "d&ddc dccc&c ccedddccc    Q         ccccclbbblbbblbbblbbblbbblbbblbbblbbb-b D c c c c c c    c^c",
+ "t e & &      t%    e%c              c   ccccccccccccccccccccccccccccccccccc^c                c^c",
+ "d d t d    c&ddddd&c i              6                                     c^c             *  c^c",
+ "d & e d    e       e c              c   c       # #               #       c^c                c^c",
+ "d ddc&d    cdddddd ccc         Q    ccccc     # # #        #    # # #     c^c                c^c", --20
+ "t d   e    e     d c                  c       # ###      # #    # # #     c^c             *  c^c",
+ "d deddcc&cccdddt d c                  c       ###        # # #  ### #     c^c                c^c",
+ "d   d    e%      & e                  c         #        ### #    ###     c^C                c^c",
+ "ctc&c&ddddd&dddddddcccccccccc ccccccccc         #          ###    #   #   c ccccccccccccccccccEc",
+ "c l l l l l l l l cc         6                  #          #      # # # #                      c", --25
+ "c + + + + + + + + cc              L        #       #       #      # # # #                      c",
+ "cbwbwbwbwbwbwbwbwbcc   L             L # # #   #   # # #   #        ### #             ppppp    c",
+ "cbwbwbwbwbwbwbwbwbcc            L      # # # # # # # # #     # #      ###           pppppppp   c",
+ "cbwbwbwbwbwbwbwbwbbb       L         L # ### # # # ### #   # # #      #           ppppplllppp  c",
+ "cbwbwbwbwbwbwbwbwbcc  L                ###   ### #   ###   # ###      #        ppppppllllllppppc", --30
+ "cbwbwbwbwbwbwbwbwbww          L   L      #     ###   #     ###        #     ppppppplllllplllpppc",
+ "cbwbwbwbwbwbwbwbwbwc      L              #     #     #       #             pppppllllllppppllwlll",
+ "cbwbwbwbwbwbwbwbwbwc  L              L   #     #     #       #            pppllllllpppppppppppll",
+ "cu + + + + + + + + c    L        L             #             #           ppplllllpppppp   pppppl",
+ "cl l l l l l l l l c         L                                           pppllllppp          ppl", --35
+ "cwcccccccbbcccccccwcccccecccccccceccccccccccccccccccccccFccccccccbccccccccllllpppp           ppl",
+ "c      wulluw      c                  cv<<<<<<<<<<<<<<<<<c elool oo oooollllppp             pppl",
+ "c cccccccbbccccccc c ooo pp    pp ooo cvcccccccccccccccccc cloolooo   ollllppp    pppppp    ppll",
+ "c ctt         tttc c ooo   p  p   ooo c>>>>>>>>>>>>>>>>>vc cllo o   ooolllpp    pppppppp    ppll",
+ "c ctN   Q     tNtc c    oo  pp  oo    ccccccccccccccccccvc clooloo ooollllpp   ppplllllppp  ppll", --40
+ "c ctt            c c pp   o pp o   pp cv<<<<<<<<<<<<<<<<<c clooloo llllllppppppplllllllllpp pppl",
+ "c c     T  T     c c   ppppoooopppp   cvcccccccccccccccccc clllollll   llllllpllll     lllpppppl",
+ "c c            ttc c pp   o pp o   pp c>>>>>>>>>>>>>>>>>vc colooll      oollllll        llllppll",
+ "c ctNt         Ntc c    oo  pp  oo    ccccccccccccccccccvc cooollo      ooooolll         lllppll",
+ "c cttt         ttc c ooo   p  p   ooo cv<<<<<<<<<<<<<<<<<cncoollooooo    oooo llll         lppll", --45
+ "c cccccccccccccccc c ooo pp    pp ooo cvccccccccccccccccccccoll ooooo     ooo   ll     ll    ppl",
+ "c        GH        c                  c>>>>>>>>>>>>>>>>>>HMcll    ooooo ooooou lll    llll  ppll",
+ "ccccccccccccccccccccccccccccccccceccccccccccccccccccccccccccll   ooo  oooooolllllllwllllllllllll",
+ "IfIfffffIfffIfffffIZ   p        p     clllllooooooloooooollllll oo  lllllllllll      llllpppllll",
+ "IfIfIIIfIfIfIfIIIIIc   p pppppp ppppp coooolollllolollllocl lllloollllllllllll    u   llppppppll", --50
+ "IfIfIfffIfIIIfIfffIZ   p      p p   p colloool@ lolol ooob   llllblll   ll ll      u  ll  u  p1l",
+ "IfIfIfIIIfffIfIfIfIc   pppppp p p p p collllollllololllllc    lll       ul UU        lll     ppl",
+ "IfffIfIfIfIfIfffIfIZ   pp     p p p p cololloooooolooooool              ll lllllllllllll    plll",
+ "IfIfIfIfIfIfIfIIIfIc   pp ppppp p p   colollllllllllllllol         u   ll   lllllllllllllllUllll",
+ "IfIfIfIfffIfffffIff:   pp p   p   p ppcoloooooloooloooooolllll        ll   lllllllllllllppppppll", --55
+ "IfIfIfIIIIIIIIIIIfIc   pp p p ppppp pmcooolllolololollllllllllll     lll   lll        lllpppppll",
+ "IfIfIfffffffffffIfIZ   pp p p       p clollololololoooooob    lllllllllllwll           lllUlllll",
+ "IfIfIfIIIIIIIIIfIfIc   pp p pppp pppp cloloolooolollllllol      llllll                    $lP  l",
+ "IfIfIfffffffffIfffIZ      p    p      clooollllllooooooool                                 ll )l",-- 59
+ "IIIIIIIIIIIIIIIIIIIcccccccccccccccccccccccccccccccccccccclllllllllllllllllllllllllllllllllllllll"})
+--|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
+--|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|
+
+wo[{10, 6}] = {"it-document", text="text1"} -- Introduction
+wo[{10, 13}] = {"it-document", text="text2"} -- Reminder about disguise
+wo[{22, 55}] = {"it-document", text="text3"} -- John Reid's grave
+wo[{89, 13}] = {"it-document", text="text4"} -- Silver released
+wo[{93, 9}] = {"it-document", text="text5"} -- The End, cue end credits!
+wo[{1, 59}] = {"it-document", text="text6"} -- Empty tomb
+
+wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard1", length=5, strength=20, max=5.05, min=4.95})
+wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard2", length=5, strength=20, max=5.05, min=4.95})
+wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard3", length=5, strength=20, max=5.05, min=4.95})
+
+function Band1() -- attaches rubber band from Lone Ranger to Silver
+    wo:add({"ot_rubberband", anchor1="Ranger", anchor2="Silver", length=3, strength=10, max=5, min=0})
+    wo[{94, 24}] = {"st-marble"}
+end
+
+function Band2() -- attaches rubber band from Tonto to Scout
+    wo:add({"ot_rubberband", anchor1="Tonto", anchor2="Scout", length=3, strength=10, max=5, min=0})
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="This is loosely based on The Lone Ranger.">Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have been captured.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true" el:comment="The glasses represent the mask the Lone Ranger used to hide his real identity.">Don't forget your disguise!</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true" el:comment="John Reid is the real name of the Lone Ranger. When five of his friends were killed, he was left for dead. He buried them, and made a sixth empty grave for himself, so everyone else thought he was dead too.">Here lies the grave of John Reid.</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true" el:comment="Said by the Lone Ranger as his horse Silver started galloping.">Hi-yo Silver, away!</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true" el:comment="This was said at the end of most episodes of The Lone Ranger.">Who was that masked man?</el:english>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true" el:comment="The tomb is empty because you faked your death.">Hey! This tomb is empty!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

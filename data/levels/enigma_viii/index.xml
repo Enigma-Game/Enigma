@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -53,6 +53,8 @@
     <level _seq="45" _title="See Saw Meditation" _xpath="./duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Under control?" _xpath="./dev09_1" author="/dev/null" ctrl="force" easy="true" id="dev09" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="47" _title=" - Meditation - " _xpath="./dev12_1" author="/dev/null" ctrl="force" easy="true" id="dev12" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="On belay?" _xpath="./dev15_1" author="/dev/null" ctrl="force" easy="true" id="dev15" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Hang-dogging?" _xpath="./dev16_1" author="/dev/null" ctrl="force" easy="true" id="dev16" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
