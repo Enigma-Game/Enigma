@@ -200,6 +200,10 @@ void Actor::warp(const ecl::V2 &newpos) {
     m_actorinfo.vel = V2();
     m_sprite.move (newpos);
     move ();
+    // notify rubberbands that may now exceed max/min limits
+    ObjectList olist = getAttr("rubbers");   // a private deletion resistant copy
+    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr)
+        SendMessage(*itr, "_recheck");
 }
 
 void Actor::move () 

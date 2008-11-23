@@ -96,6 +96,8 @@ namespace enigma {
             return server::MagnetRange;
         } else if (key == "MaxOxydColor") {
             return server::MaxOxydColor;
+        } else if (key == "RubberViolationStrength") {
+            return server::RubberViolationStrength;
         } else if (key == "SlopeForce") {
             return server::SlopeForce;
         } else if (key == "SwampSinkSpeed") {
@@ -186,6 +188,8 @@ namespace enigma {
             server::MaxOxydColor = val;
             ASSERT(server::MaxOxydColor >= 0 && server::MaxOxydColor < OxydStone::COLORCOUNT, XLevelRuntime,
                     "Attribute 'MaxOxydColor' value is out of range.");
+        } else if (key == "RubberViolationStrength") {
+            server::RubberViolationStrength = val;
         } else if (key == "SlopeForce") {
             server::SlopeForce = val;
         } else if (key == "SwampSinkSpeed") {

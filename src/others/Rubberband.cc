@@ -20,7 +20,8 @@
 #include "others/Rubberband.hh"
 #include "actors.hh"
 #include "errors.hh"
-#include "main.hh"
+//#include "main.hh"
+#include "server.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -62,10 +63,10 @@ namespace enigma {
             ASSERT(innerThreshold >= 0, XLevelRuntime, "Rubberband: inner threshold is negative");
         } else if (key == "max") {
             maxLength = val;
-            ASSERT(maxLength >= 0, XLevelRuntime, "Rubberband: max length is negative");
+            ASSERT((maxLength >= 0) && (maxLength == 0 || maxLength >= minLength), XLevelRuntime, "Rubberband: max length is negative or less min");
         } else if (key == "min") {
             minLength = val;
-            ASSERT(minLength >= 0, XLevelRuntime, "Rubberband: min length is negative");
+            ASSERT((minLength >= 0) && (maxLength == 0 || maxLength >= minLength), XLevelRuntime, "Rubberband: min length is negative or greater max");
         }
         Other::setAttr(key, val);
     }
@@ -89,8 +90,24 @@ namespace enigma {
         return Other::getAttr(key);
     }
     
+    Value Rubberband::message(const Message &m) {
+        if (m.message == "_recheck") {
+            ecl::V2 v = posAnchor2() - anchor1->get_pos();
+            double len = ecl::length(v);
+            if (maxLength > 0 && len > maxLength)
+                objFlags |= OBJBIT_MAXVIOLATION;
+            if (len < minLength)
+                objFlags |= OBJBIT_MINVIOLATION;
+            return Value(); 
+        }
+        return Other::message(m);
+    }
+
     void Rubberband::postAddition() {
+        ASSERT(anchor1 != NULL, XLevelRuntime, "Rubberband: 'anchor1' is no actor");
+        ASSERT(anchor2.ac != NULL, XLevelRuntime, "Rubberband: 'anchor2' is neither actor nor stone");
         model = display::AddRubber(anchor1->get_pos(), posAnchor2(), 240, 140, 20, true);  // orange
+        SendMessage(this, "_recheck");
     }
     
     void Rubberband::preRemoval() {
@@ -110,7 +127,14 @@ namespace enigma {
         double len = ecl::length(v);
         ecl::V2 force;
         
+        // revalidate pending max/min violations
+        if ((objFlags & OBJBIT_MAXVIOLATION) && len <= maxLength)
+            objFlags &= ~OBJBIT_MAXVIOLATION;
+        if ((objFlags & OBJBIT_MINVIOLATION) && len >= minLength)
+            objFlags &= ~OBJBIT_MINVIOLATION;
+        
         if (minLength + eps <= len && (len <= maxLength -eps || maxLength == 0)) {
+            // length within the purly force controlled min/max limited region
             if (len == 0) {
                 force = V2(0, 0);
             } else if (len > outerThreshold) {
@@ -127,6 +151,7 @@ namespace enigma {
             }
                 
         } else if (objFlags & OBJBIT_STONE) {
+            // min/max handling for stone contected rubberbands
             ActorInfo *ai = anchor1->get_actorinfo();
             ecl::V2 vn = normalize(v);
             bool isMax = (len > maxLength - eps);
@@ -144,8 +169,16 @@ namespace enigma {
             if (!isMin && (relspeed > 0) || !isMax && (relspeed < 0))
                 relspeed = 0;
             force = - (1 + 0.8 / numRubbers) * relspeed * vn / dt * ai->mass;  // damping for inverse friction and multiconnections
-            ai->collforce += force;
 //            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
+            
+            // eliminate limit violations by moderate forces
+            if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
+                force = server::RubberViolationStrength * vn;
+            } else if (isMin && (objFlags & OBJBIT_MINVIOLATION)) {
+                force = -server::RubberViolationStrength * vn;
+            }
+            
+            ai->collforce += force;
         } else {
             // two actors bouncing on min/max limits
             ActorInfo *ai1 = anchor1->get_actorinfo();
@@ -190,10 +223,26 @@ namespace enigma {
 
             // in case one actor is blocked the length can exceed the limits due to later force corrections
             // in the last timestep - we need to correct possible small errors before they sum up
-            if (isMax && (len > maxLength) && (relspeed >= 0))
-                force = (dmu * (len - maxLength) / dt / dt) * vn;
-            if (isMin && (len < minLength) && (relspeed <= 0))
-                force = (dmu * (len - minLength) / dt / dt) * vn;
+            if (isMax && (len > maxLength) && (relspeed >= 0) && !(objFlags & OBJBIT_MAXVIOLATION)) {
+                double dlen = ecl::Min(len - maxLength, len - (minLength + eps));
+                dlen = ecl::Max(0.0, dlen);
+                force = (dmu * dlen / dt / dt) * vn;
+            }
+            if (isMin && (len < minLength) && (relspeed <= 0) && !(objFlags & OBJBIT_MINVIOLATION)) {
+                double dlen = len - minLength;
+                if (maxLength > 0) {
+                    dlen = ecl::Max(len - minLength, len - (maxLength - eps));
+                    dlen = ecl::Min(0.0, dlen);
+                }
+                force = (dmu * dlen / dt / dt) * vn;
+            }
+            
+            // eliminate limit violations by moderate forces
+            if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
+                force = server::RubberViolationStrength * vn;
+            } else if (isMax && (objFlags & OBJBIT_MINVIOLATION)) {
+                force = -server::RubberViolationStrength * vn;
+            }
 
 //            Log << "Rubber force " << force1 <<  "  " << force2 << "  relspeed  " << relspeed  << " both " << isBoth << "\n";
             ai1->collforce += force;

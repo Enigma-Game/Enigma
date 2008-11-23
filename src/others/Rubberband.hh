@@ -33,7 +33,9 @@ namespace enigma {
         CLONEOBJ(Rubberband)
 
         enum ObjectPrivatFlagsBits {
-            OBJBIT_STONE      =  1<<24   ///< anchor2 is a stone
+            OBJBIT_STONE        =  1<<24,   ///< anchor2 is a stone
+            OBJBIT_MAXVIOLATION =  1<<25,   ///< max may be not fulfilled due to extraordinary events
+            OBJBIT_MINVIOLATION =  1<<26    ///< min may be not fulfilled due to extraordinary events
         };
 
     public:
@@ -43,6 +45,7 @@ namespace enigma {
         virtual std::string getClass() const;
         virtual void setAttr(const std::string &key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
+        virtual Value message(const Message &m);
         
         // Other interface
         virtual void postAddition();

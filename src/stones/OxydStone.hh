@@ -95,6 +95,7 @@ namespace enigma {
         // GridObject interface
         virtual void on_creation(GridPos p);
         virtual void on_removal (GridPos p);
+        virtual void init_model();
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
 
         // Stone interface

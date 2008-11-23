@@ -244,6 +244,7 @@ namespace enigma {
 
     protected:
         // GridObject interface
+        virtual void on_creation(GridPos p);
         virtual void set_model (const std::string &mname) {
             display::SetModel(GridLoc(GRID_STONES, get_pos()), mname);
         }

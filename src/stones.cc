@@ -31,6 +31,15 @@ namespace enigma {
 
 /* -------------------- Helper routines -------------------- */
 
+void Stone::on_creation(GridPos p) {
+    // notify rubberbands that may now exceed max/min limits
+    ObjectList olist = getAttr("rubbers");   // a private deletion resistant copy
+    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr)
+        SendMessage(*itr, "_recheck");
+    GridObject::on_creation(p);
+}
+
+
 /*! Determine whether the actor hitting the stone can move stone
   and return either the direction the stone should move or NODIR. */
 Direction get_push_direction (const StoneContact &sc) 

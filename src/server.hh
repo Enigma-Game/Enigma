@@ -99,6 +99,7 @@ namespace enigma_server
     extern double   WaterSinkSpeed;
 
     extern double   SwampSinkSpeed;
+    extern double   RubberViolationStrength;
     
     extern int      GlassesVisibility;
     extern int      ExtralifeGlasses;

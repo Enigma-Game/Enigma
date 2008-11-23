@@ -962,15 +962,19 @@ namespace enigma {
             set_iState(CLOSING);
     }
     
-    void OxydStone::on_creation (GridPos) {
+    void OxydStone::on_creation (GridPos p) {
         std::string flavor(getDefaultedAttr("flavor", "a"));
         set_model(string("st-oxyd") + flavor);
         activatePhoto();
+        Stone::on_creation(p);
     }
     
     void OxydStone::on_removal(GridPos p) {
         deactivatePhoto();
         kill_model(p);
+    }
+    
+    void OxydStone::init_model() {
     }
     
     void OxydStone::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
