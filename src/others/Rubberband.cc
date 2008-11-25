@@ -94,10 +94,17 @@ namespace enigma {
         if (m.message == "_recheck") {
             ecl::V2 v = posAnchor2() - anchor1->get_pos();
             double len = ecl::length(v);
-            if (maxLength > 0 && len > maxLength)
+            bool violating = false;
+            if (maxLength > 0 && len > maxLength) {
                 objFlags |= OBJBIT_MAXVIOLATION;
-            if (len < minLength)
+                violating = true;
+            } else if (len < minLength) {
                 objFlags |= OBJBIT_MINVIOLATION;
+                violating = true;
+            }
+            if (violating) {
+                performAction(0);
+            }
             return Value(); 
         }
         return Other::message(m);
@@ -173,9 +180,9 @@ namespace enigma {
             
             // eliminate limit violations by moderate forces
             if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
-                force = server::RubberViolationStrength * vn;
+                force += server::RubberViolationStrength * vn;
             } else if (isMin && (objFlags & OBJBIT_MINVIOLATION)) {
-                force = -server::RubberViolationStrength * vn;
+                force -= server::RubberViolationStrength * vn;
             }
             
             ai->collforce += force;
@@ -239,9 +246,9 @@ namespace enigma {
             
             // eliminate limit violations by moderate forces
             if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
-                force = server::RubberViolationStrength * vn;
+                force += server::RubberViolationStrength * vn;
             } else if (isMax && (objFlags & OBJBIT_MINVIOLATION)) {
-                force = -server::RubberViolationStrength * vn;
+                force -= server::RubberViolationStrength * vn;
             }
 
 //            Log << "Rubber force " << force1 <<  "  " << force2 << "  relspeed  " << relspeed  << " both " << isBoth << "\n";
