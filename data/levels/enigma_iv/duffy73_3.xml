@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>API2 converted by R.Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeForce"] = -20
+
+if wo["IsDifficult"] then
+    wo["ElectricForce"] = -15
+else
+    wo["ElectricForce"] = -20
+end
+
+ti[" "] = {"fl-abyss"}
+ti["l"] = {"fl-leaves"}
+ti["A"] = {"fl-hay"}
+ti["."] = {"fl-bluegreen"}
+ti["i"] = {"fl-inverse"}
+ti["j"] = {"fl-ice"}
+ti["s"] = {"fl-swamp"}
+ti["~"] = {"fl-water"}
+ti["="] = {"fl-space"}
+ti["@"] = {"fl-abyss_fake"}
+ti["d"] = {"fl-gradient", type=1}
+ti["u"] = {"fl-gradient", type=2}
+ti["r"] = {"fl-gradient", type=3}
+ti["e"] = {"fl-gradient", type=4}
+ti["1"] = {"fl-gradient", type=11}
+ti["3"] = {"fl-gradient", type=9}
+ti["7"] = {"fl-gradient", type=12}
+ti["9"] = {"fl-gradient", type=10}
+ti["#"] = {"st_death"}
+ti["v"] = {"st-greenbrown_move"} .. ti["l"]
+ti["%"] = {"st-greenbrown"}
+ti["Q"] = ti["%"] .. ti["A"]
+ti["&"] = ti["%"] .. ti["."]
+ti["K"] = ti["%"] .. ti["i"]
+ti["P"] = ti["%"] .. ti["l"]
+ti["^"] = ti["#"] .. ti["."]
+ti["$"] = ti["#"] .. ti["l"]
+ti["U"] = {"it_umbrella"} .. ti["i"]
+ti["o"] = {"st_oxyd"} .. ti["l"]
+ti["z"] = {"#ac-blackball"} .. ti["l"]
+ti["y"] = {"ac-whiteball", 0, 0.5, mouseforce=0} .. ti["l"]
+ti["g"] = {"st-grate1"} .. ti["l"]
+ti["x"] = {"it_trap", state=OPEN} .. ti["."]
+ti["S"] = {"it-spring1"} .. ti["l"]
+ti["F"] = {"it-flagblack"} .. ti["l"]
+ti["O"] = {"it_extralife"} .. ti["l"]
+ti["T"] = {"st-thief"} .. ti["="]
+ti["B"] = {"st-invisible"} .. ti["A"]
+ti["a"] = {"st-greenbrown_hole"} .. ti["A"]
+ti["b"] = ti["%"] .. ti["A"]
+ti["I"] = {"st-invisible"}
+ti["M"] = {"#ac-rotor",player=1, mouseforce=0, range=4, force=-5} .. ti["l"]
+ti["N"] = {"#ac-top",player=1, mouseforce=0, range=8, force=20} .. ti["i"]
+ti["R"] = {"st_oneway", orientation=EAST} .. ti["l"]
+ti["J"] = {"st-break_acwhite"}
+ti["D"] = {"it-dynamite"}
+ti["t"] = {"it_hammer"}
+ti["H"] = {"st-stone_break"}
+ti["f"] = {"st_actorimpulse_invisible"}
+ti["q"] = {"st-black4"} .. ti["l"]
+ti["w"] = {"st-white4"} .. ti["l"]
+ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=OPEN}
+ti["W"] = {"fl-abyss_fake", "trapeast"}
+ti["C"] = {"st_monoflop", interval=1.5, target="toggletraps"} .. ti["l"]
+ti["?"] = {"st-chargeplus"} .. ti["l"]
+ti["/"] = {"st-chargeminus"} .. ti["l"]
+ti[":"] = {"st-chargezero"} .. ti["A"]
+ti[";"] = {"st-invisible", "whitegate"} .. ti["l"]
+ti["2"] = {"st_switch", target="whiteswitch"} .. ti["l"]
+ti["m"] = {"it-document", text="text1"} .. ti["l"]
+
+if wo["IsDifficult"] then
+    ti["p"] = ti["l"]
+    ti["c"] = ti["x"]
+    ti["G"] = ti["#"]
+else
+    ti["p"] = {"it-flagblack"} .. ti["l"]
+    ti["c"] = ti["@"]
+    ti["G"] = ti["%"]
+end
+
+w,h = wo(ti, " ", {
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  -- 00
+    "I         f               f                     f          f        f      f                 f        f              f           f                      f               f  I",  -- 01
+    "I   f                                                                                                                                                                      I", -- 02
+    "I      t      f                                                                                                      f                                                f    I", -- 03
+    "I                           f         f          f                f        f       f     f              f                          f            f                          I", -- 04
+    "I         f                                               f                                                                                                  f      f      I", -- 05
+    "If               f                                                                               f                f                                                        I", -- 06
+    "I                          f                                                     f                                            f                    D                       I", -- 07
+    "I                                      f              f         f     f                                                                        f       f              f    I", -- 08
+    "I                                                                                                             f                      f                          f          I", -- 09
+    "I   f                                                                                                                  f                                                   I", -- 10
+    "I                    f                                  D      f               f               f      f                                   f                               fI", -- 11
+    "I           f                f          f       f                                                                   f                            f                         I", -- 12
+    "If                                                                                     f                                              f                                    I", -- 13
+    "I                                                                                                          f                   f                                           I", -- 14
+    "I                                f      f                    f            f                                       f                   f            f       f          f    I", -- 15
+    "I                                                   f                                                 f                                                                    I", -- 16
+    "I     f         f        f                                                         f      f                                                                       f        I", -- 17
+    "I                                                                       f                                           f        f                                             I", -- 18
+    "I                                 f           f                                                                  D                        f           f                f   I", -- 19
+    "I                                                       f        f                                   f                                                                     I", -- 20
+    "I    f        f              f                                              f                             f                                    f                f          I", -- 21
+    "I                                       f                                                      f                     f             f                                       I", -- 22
+    "I                                                                                     f                                                                                   fI", -- 23
+    "I                                                          f                                                                               f                               I", -- 24
+    "I           f        f                  f         f                f                                       f                                             f                 I", -- 25
+    "If  f                                                                        f                       f                    f                                        f       I", -- 26
+    "I                                             f                                                                                     f           f                          I", -- 27
+    "I                                f                                                             f           f           f                                              f    I", -- 28
+    "I             f              f                           f         f                f                                              f                       f               I", -- 29
+    "I    D                                                                                                                                                                     I", -- 30
+    "I       f                                                              f                        f       f                                              f        f          I", -- 31
+    "I                                      f    f        f                       f          f                                          f                                       I", -- 32
+    "I                 f                                                                                               f                           f                       f   fI", -- 33
+    "I                                                                                                                         f                                                I", -- 34
+    "I     f                 f           f               f             f        f          f           f         f                    f                       f                 I", -- 35
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIII%%%%%%%%%%%%%%%%%%%#########%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                                      I", -- 36
+    "I     f     f       f     f  HJJJJJJJJv        %         % lrrrrreeeeeejj   %FllPlllP~~~~~~~~~~PbAaAAaBaBbablllsss%llllRiiiiiiiiiNUUU              f                       I", -- 37
+    "I                            HJJJJJJJJv llllll % llp   #   l            l   %lllPlllP~2wwllww2~PbBBBbaBBBbAAlllsss%ggllRiiiiiiiiiiUUU                           f       f  I", -- 38
+    "I                            HJJJJJJJJv lzllSl   lll   ##% leeeerrrrll 3d1  %lllPlllP~wwwllwww~PbAaAaaAaBAAblllsssvlgllRiiiiiiiiiiUUU    f                                 I", -- 39
+    "I                        f   HJJJJJJJJv llllll %         %           l rie  %lllPlllP~wwwllwww~PbabAbBBaBbablllsssvlgllRiiiiiiiiiiUUU                                      I", -- 40
+    "If     f                     HJJJJJJJJv        &xxxxxx^^^%TTTT  7uuuu9 9u7  %lllPlllP~llllllll~P:aBBbbbaBAAblllsssvlgllRiiiiiiiiiiUUU            f                         I", -- 41
+    "I               f            %%%%%%%%%%%%%%%%%%&xx@@@x^@@l===T  e7uu9r  l  lRlClVlllWlll?ly/ll;qAABaaAbABaBblllsss%ggllRiiiiiiiiiiUUU                       f              I", -- 42
+    "I                               f     #x@@cx@@@cxx@@@x^@@%TT=T  ee79rr llxll%lllPlllP~llllllll~P:bBabAaabaBblllsss%$$$$$iiiiiiiiiiUUU                                      I", -- 43
+    "I         f                         f #x@@cx@@@cxx@@@x^cc%===T  ee13rr lxxlx%lllPlllP~wwwllwww~PbAAABBBBBAAbxxxx^m%oooP$iiiiiiiiiiUUU                               f     fI", -- 44
+    "If                          f         #xxxxxxxx^^^^^^^^xx%=TTT  e1dd3r llxlx%lllPlllP~wwwllwww~PbBabbaAabbaaxxxx^l$lllo$iiiiiiiiiiUUU   f       f        f                 I", -- 45
+    "I                                    f#x@@xx@@@xx@@@cxx@@%llllll1dddd3 lxxlx%lllPlllP~2wwllww2~PbAAAAaBAAAABxxxx^M$lllo$iiiiiiiiiiUUU                                      I", -- 46
+    "I                                     #x@@xxcccxx@@@cxx@@%llll         llllx%OllPlllP~~~~~~~~~~PbBbaBbbabBabxxxx^qqlllo$iiiiiiiiiNUUU                                      I", -- 47
+    "I                 f                  f##GG###############%%%%%%%%%%%%%%%%%%%%PPPPPPPPPPPPPPPPPPPQQQQQQQQQQQQ#########################                             f        I", -- 48
+    "I                        f                   f            f         f             f            f             f         f        f                  f                    f  I", -- 49
+    "If     f                              f                                                                                                                                    I", -- 50
+    "I               D                                                                                                                            f             f               I", -- 51
+    "I                                            f                             f                          f                                                           f       fI", -- 52
+    "I                                 f                                f                 f                        f        f            f                                      I", -- 53
+    "I                     f                                 f                                     f                                                                            I", -- 54
+    "If                                                                                                                                                 f                       I", -- 55
+    "I                                                                         f                            f                                                                   I", -- 56
+    "I                                                             f                                                                 f       f                          f       I", -- 57
+    "If                        f                 f                                                                     f                              f         f               I", -- 58
+    "I        f                         f                                                                                        f                                              I", -- 59
+    "I                                                     f         f          f                     f                                                                        fI", -- 60
+    "I                                                                                     f                                                                                    I", -- 61
+    "I               f                                                                                                                    f                        f       f    I", -- 62
+    "I                                             f                                                         f          f                                  D                    I", -- 63
+    "I                           f                                f           f                                                                                                 I", -- 64
+    "I  f                                                              D                           f                                            f        f                      I", -- 65
+    "I                f                   f            f                                                                       f         f                          f          fI", -- 66
+    "I                                                                             f                                                                                            I", -- 67
+    "If       f                                                            f                 f                      f                                                    f      I", -- 68
+    "I                                                                                                    f                                                 f                   I", -- 69
+    "I                                                           f                                                                f            f                                I", -- 70
+    "I   f        f       f                    f      f                                                                                                              f          I", -- 71
+    "I                            f                                            f        f                               f                                                       I", -- 72
+    "I                                                                                                                                         f        f      f            f   I", -- 73
+    "I                                                      f       f                                 f        f                                                               fI", -- 74
+    "If                                      f                                                f                                    f                                 f          I", -- 75
+    "I                            f                                            f                                                                                                I", -- 76
+    "I          f       f                                                                                                                                  f            f       I", -- 77
+    "I                                                      f         f                                 f          f                        f                                f  I", -- 78
+    "I  f                                                                         f                                      f                        f              f              I", -- 79
+    "I    D                           f          f                                              f                                      f                                       fI", -- 80
+    "I                                                                                                       f                                            f                     I", -- 81
+    "If                                                                                                                                                           f             I", -- 82
+    "I    f     f             f            f              f            f            f       f            f                f          f               f                     f    I", -- 83
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"  -- 84
+   })
+
+trap = WEST
+function toggletraps(value, sender)
+    if value then
+        if trap == WEST then
+            no["trapwest"]:open()
+            if not no["trapeast"]:is("fl_bridge") then
+                wo[no["trapeast"]] = {"fl_bridge_bw", "trapeast", state=OPEN} .. ti{"it_trap"}
+                no["trapeast"]:close()
+            end
+        else
+            no["trapeast"]:open()
+            if not no["trapwest"]:is("fl_bridge") then
+                wo[no["trapwest"]] = {"fl_bridge_bw", "trapwest", state=OPEN} .. ti{"it_trap"}
+                no["trapwest"]:close()
+            end
+        end
+    else
+        if trap == WEST then
+            wo[no["trapwest"]] = {"fl-abyss_fake", "trapwest"} .. ti{"it_nil"}
+            trap = EAST
+        else
+            wo[no["trapeast"]] = {"fl-abyss_fake", "trapeast"} .. ti{"it_nil"}
+            trap = WEST
+        end
+    end
+end
+
+switch_count= 0
+function whiteswitch(value, sender)
+    switch_count = switch_count + lib.lua.cond(value, 1, -1)
+    if switch_count == 4 then
+        wo[no["whitegate"]] = {"st-greenbrown_hole", "whitegate"}
+    elseif switch_count == 3 then
+        wo[no["whitegate"]] = ti[";"]
+    end
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="read from the right">.moor txen eht ot teg ot syaw owt era erehT</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

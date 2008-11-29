@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:1$" el:status="released" />
+      <el:author el:name="mecke" el:email="" />
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true" />
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time" />
+      <el:score el:easy="2:50" el:difficult="3:14" />
+    </el:info>
+    <el:luamain>
+    <![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" &"] = {"fl-red"}
+ti[" !"] = {"fl-water"}
+ti["! "] = {"st-rock6"}
+ti[" #"] = {"fl-normal"}
+ti[" $"] = {"fl-sahara"}
+ti["# "] = {"st_chess_white"}
+ti["s "] = {"it-squashed"}
+ti["hh"] = ti[" !"] .. {"st_pull"}
+ti["ef"] = ti[" &"] .. {"it-squashed"}
+ti["$ "] = {"st-rock1"}
+ti[" %"] = {"fl-sand"}
+ti["% "] = {"st_rotator_ccw"}
+ti["& "] = {"st_boulder_n"}
+ti["b "] = {"it_blocker"}
+ti[" '"] = {"fl-bluegray"}
+ti["' "] = {"st_oneway_white_e"}
+ti["( "] = {"st-yellow"}
+ti[") "] = {"st_scissors", name="df3"}
+ti["* "] = {"st_oneway_white_w"}
+ti[" ("] = {"fl-gradient11"}
+ti["+ "] = {"st_boulder_e"}
+ti[", "] = {"st_pull"}
+ti[" a"] = ti["hh"] .. {"it-surprise"}
+ti[" )"] = {"fl-gradient12"}
+ti[" *"] = {"fl-gradient4"}
+ti["- "] = {"st_boulder_w"}
+ti[". "] = {"st-grate1"}
+ti[" d"] = ti["hh"] .. {"it-dynamite"}
+ti[" +"] = {"fl-rough"}
+ti["l "] = {"it_landmine"}
+ti[" u"] = ti["hh"] .. {"it_umbrella"}
+ti["/ "] = {"st_death"}
+ti[" p"] = ti["hh"] .. {"it-pencil"}
+ti["0 "] = {"st_fart"}
+ti[" f"] = ti["hh"] .. {"it-coffee"}
+ti["q "] = {"it-coffee"}
+ti[" ,"] = {"fl-gravel"}
+ti[" -"] = {"fl-rough-red"}
+ti["1 "] = {"st-glass"}
+ti["2 "] = {"st-block"}
+ti[" ."] = {"fl-swamp"}
+ti[" /"] = {"fl-rough-blue"}
+ti["z "] = {"it-document", text="text1"}
+ti["3 "] = {"st_actorimpulse"}
+ti["k "] = {"it-cherry"}
+ti["4 "] = {"st-break_bolder"}
+ti["i "] = {"it_seed"}
+ti["w "] = {"it-flagwhite"}
+ti["5 "] = {"st-thief"}
+ti["y "] = {"it_sword"}
+ti["x "] = {"it_hammer"}
+ti["m "] = {"it_coin_l"}
+ti["6 "] = {"st_knight"}
+ti["n "] = {"it_coin_s"}
+ti["7 "] = {"st_boulder_s"}
+ti["X "] = {"#ac-whiteball-small",essential=1, player=0, controllers=1, name="df1"}
+ti["r "] = {"#ac-rotor", range=1, force=1}
+ti["t "] = {"#ac-top", range=1, force=1}
+if wo ["IsDifficult"] then
+    ti["ee"] = ti[" $"] .. {"st_rotator_ccw"}
+    ti["ex"] = ti["ef"] .. {"st_boulder_n"}
+    ti["eo"] = ti["ef"] .. {"st_boulder_s"}
+else
+    ti["ee"] = ti[" $"] .. {"st-yellow"}
+    ti["ex"] = ti["ef"] .. {"it-squashed"}
+    ti["eo"] = ti["ef"] .. {"it-squashed"}
+end
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+    "!!!!ee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+    "!!$$s&s&s(s&s(s&s(s&s(s&s(s&s(s&s(s&s&ee",
+    "!!r$s&''s'.'0's'2's'2's'2's'2's!2's's&!!",
+    "!!$$s&'' a d p f .,! .,% .,% .,! .,!s&!!",
+    "!!t$s&(!(!(!(!(!z/(!i/(!#/(!y/(!n/(!s&!!",
+    "!!$$b&(! ) ) ) ,3!3!3!3!3!3!3!3!3!(!s&!!",
+    "!!X%ex)! *l+q+ -1-4+ +5. .5. +4+6-s-eo!!",
+    "!!$$b&(! ( ( ( ,3!3!3!3!3!3!3!3!3!(!s&!!",
+    "!!t$s&(!(!(!(!(!k/(!w/(!#/(!x/(!m/(!s&!!",
+    "!!$$s&*' a u p f .,! .,% .,% .,! .,!s&!!",
+    "!!r$s&*'s'.'0's'2's'2's'2's'2's!2's's&!!",
+    "!!ees&s&s)s&s)s&s)s&s)s&s)s&s)s&s)s&s&!!",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ee!!"})
+wo:add({"ot_rubberband", anchor1="df1", anchor2="df3"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Meditiere! ... aber wo??</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">These stormy days ...</el:english>
+        <el:translation el:lang="de">Unruhige Zeiten in dieser Meditation</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 21 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="12:01" el:difficult="14:39"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" #"] = {"fl-gradient1"}
+ti[" $"] = {"fl-dunes"}
+ti[" %"] = {"fl-water"}
+ti["! "] = {"st_death"}
+ti["# "] = {"st-rock1"}
+ti[" &"] = {"fl-normal"}
+ti["$ "] = {"st-thief"}
+ti["% "] = {"st-black3"}
+ti["& "] = {"st-stone_break"}
+ti["' "] = {"st-glass_move"}
+ti["( "] = {"st-bumps"}
+ti[") "] = {"st-grate1"}
+ti["h "] = {"it_strip", connections="ew"}
+ti["* "] = {"st_brick"}
+ti["+ "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=EAST}
+ti[", "] = {"st_mirror", movable=false, transparent=false, orientation=NORTH}
+ti[" '"] = {"fl-himalaya"}
+ti[" ("] = {"fl-leavesc2"}
+ti["g "] = {"it_glasses"}
+ti[". "] = {"st_panel"}
+ti["ß "] = {"st_brake"}
+ti["/ "] = {"st_mirror_triangle", movable=true, transparent=false, orientation=SOUTH}
+ti["0 "] = {"st_mirror", movable=true, transparent=true, orientation=WEST}
+ti[" !"] = {"fl-brick"}
+ti[" )"] = {"fl-red"}
+ti["1 "] = {"st-brownie"}
+ti["2 "] = {"st-rock4"}
+ti[" *"] = {"fl-plank"}
+ti["u "] = {"it_umbrella"}
+ti[" +"] = {"fl-bluegreenx"}
+ti["3 "] = {"st-yellow"}
+ti["4 "] = {"st_door", faces="ew"}
+ti["e "] = {"it_extralife"}
+ti["5 "] = {"st_door", faces="ns"}
+ti[" ,"] = {"fl-swamp"}
+ti["6 "] = {"st-glass"}
+ti["7 "] = {"st_oxyd_d"}
+ti["8 "] = {"st_knight"}
+ti["9 "] = {"st_boulder_e"}
+ti["v "] = {"it_strip", connections="ns"}
+ti[": "] = {"st_boulder_w"}
+ti["; "] = {"st-wood"}
+ti["< "] = {"st_mirror", movable=false, transparent=false, orientation=WEST}
+ti[" -"] = {"fl-sahara"}
+ti["f "] = {"it-flagblack"}
+ti["> "] = {"st_boulder_n"}
+ti["? "] = {"st_bluesand"}
+ti[" ."] = {"fl-samba"}
+ti["w "] = {"it_magicwand"}
+ti[" /"] = {"fl-gravel"}
+ti["@ "] = {"st_rubberband"}
+ti["A "] = {"st-rock3"}
+ti["b "] = {"it-banana"}
+ti["B "] = {"st_actorimpulse"}
+ti["C "] = {"st_rotator_ccw"}
+ti[" 0"] = {"fl-sand"}
+ti[" 1"] = {"fl-rough-blue"}
+ti["D "] = {"st-rock1_hole"}
+ti["E "] = {"st_stoneimpulse_hollow"}
+ti["F "] = {"st_stoneimpulse"}
+ti[" 2"] = {"fl-light"}
+ti["s "] = {"it_sword"}
+ti[" 3"] = {"fl-leavesc4"}
+ti["i "] = {"it-coffee"}
+ti["G "] = {"st_actorimpulse_invisible"}
+ti["y "] = {"it-cherry"}
+ti[" 4"] = {"fl-leavesc1"}
+ti["H "] = {"st-marble"}
+ti[" 5"] = {"fl-leavese2"}
+ti["I "] = {"st_swap"}
+ti["z "] = {"it-flagwhite"}
+ti[" 6"] = {"fl-leaves"}
+ti["J "] = {"st-white3"}
+ti["K "] = {"st-likeoxydd"}
+ti["j "] = {"it-crack3"}
+ti["L "] = {"st-coffee"}
+ti["M "] = {"st_shogun_sml"}
+ti["N "] = {"st_door_a"}
+ti["m "] = {"it-springboard"}
+ti["O "] = {"st-rock6"}
+ti["P "] = {"st-grate3"}
+ti["R "] = {"st-grate2"}
+ti[" 7"] = {"fl-space"}
+ti["S "] = {"st-break_invisible"}
+ti[" 8"] = {"fl-bluegray"}
+ti["T "] = {"st_boulder_s"}
+ti[" 9"] = {"fl-hay"}
+ti["U "] = {"st-rock3_break"}
+ti["V "] = {"st-rock5"}
+ti["W "] = {"st_mirror", movable=true, transparent=false, orientation=SOUTH}
+ti["n "] = {"it-surprise"}
+ti["X "] = {"st_oneway_black_n"}
+ti["o "] = {"it-squashed"}
+ti["Y "] = {"st_oneway_black_w"}
+ti[" :"] = {"fl-leavesd1"}
+ti["Z "] = {"st_lightpassenger_off"}
+ti["^ "] = {"st_brake"}
+ti["~m"] =  ti[" :"] ..{"st-glass_move"}
+ti["=m"] =  ti[" ,"] ..{"st-glass_move"}
+ti["mm"] =  ti[" %"] ..{"st-glass"}
+ti["~g"] =  ti[" %"] ..{"st-grate1"}
+ti["h-"] =  ti["~g"] ..{"it_strip", connections="ew"}
+ti["nn"] =  ti[" 3"] ..{"st_actorimpulse_invisible"}
+ti["n-"] =  ti[" 5"] ..{"st_actorimpulse_invisible"}
+ti["ni"] = ti[" )"] ..{"it-coffee"}
+ti["x "] = {"#ac-blackball"}
+ti["r "] = {"#ac-top", range="1", force="1"}
+ti["p1"] = ti[" $"] .. {"it-document", text="text1"}
+ti["p2"] = ti[" !"] .. {"it-document", text="text2"}
+ti["p3"] = ti[" -"] .. {"it-document", text="text3"}
+ti["p4"] = ti[" -"] .. {"it-document", text="text4"}
+ti["p5"] = ti[" -"] .. {"it-document", text="text5"}
+ti["p6"] = ti[" 2"] .. {"it-document", text="text6"}
+ti["p7"] = ti[" 2"] .. {"it-document", text="text7"}
+ti["q1"] = ti[" 4"] .. {"it-document", text="text8"}
+ti["q2"] = ti[" 0"] .. {"it-document", text="text9"}
+ti["q3"] = ti[" ,"] .. {"it-document", text="text10"}
+ti["q4"] = ti[" 2"] .. {"it-document", text="text11"}
+ti["q5"] = ti[" ."] .. {"it-document", text="text12"}
+ti["q6"] = ti[" /"] .. {"it-document", text="text13"}
+ti["q7"] = ti[" :"] .. {"it-document", text="text14"}
+ti["k1"] = ti[" 4"]..{"it_key", code=1}
+ti["k2"] = ti[" !"]..{"it_key", code=2}
+ti["k3"] = ti["=m"]..{"it_coin_m"}
+ti["k4"] = ti["mm"]..{"it_coin_l"}
+ti["k5"] = ti["mm"]..{"it_sword"}
+ti["k6"] = ti["nn"]..{"it-cherry"}
+ti["k7"] = ti["n-"]..{"it-cherry"}
+ti["= "] = {"st_key",code=1, name= "oklli1", target= "lezy2", action="toggle"}
+ti["t1"] = ti[" %"] ..{"it_trigger", target="olli1",action="toggle"}
+ti["t2"] = ti[" 1"] ..{"it_trigger", target="olli2",action="toggle"}
+ti["t3"] = ti[" /"] ..{"it_trigger", target="olli3",action="toggle"}
+ti["t4"] = ti[" ,"] ..{"it_trigger", target="olli4",action="toggle"}
+ti["t5"] = ti[" %"] ..{"it_trigger", target="olli5",action="toggle"}
+ti["t6"] = ti[" %"] ..{"it_trigger", target="olli6",action="toggle"}
+ti["t7"] = ti[" %"] ..{"it_trigger", target="olli7",action="toggle"}
+ti["t8"] = ti[" !"] ..{"it_trigger", target="lezy1",action="toggle"}
+ti["t9"] = ti[" %"] ..{"it_trigger", target="olli9",action="toggle"}
+ti["~ "] = {"st_laser_e", name="lezy1"}
+ti["- "] = {"st_laser_n", name="lezy2"}
+ti["d1"] = ti[" /"] ..{"st_door", faces="ew", name= "olli1"}
+ti["d2"] = ti[" ."] ..{"st_door", faces="ns", name= "olli2"}
+ti["d3"] = ti["ni"] ..{"st_door", faces="ew", name= "olli3"}
+ti["d4"] = ti[" 2"] ..{"st_door", faces="ew", name= "olli4"}
+ti["d5"] = ti[" +"] ..{"st_door", faces="ew", name= "olli5"}
+ti["d6"] = ti[" +"] ..{"st_door", faces="ns", name= "olli6"}
+ti["d7"] = ti[" +"] ..{"st_door", faces="ns", name= "olli7"}
+ti["d9"] = ti[" )"] ..{"st_door", faces="ew", name= "olli9"}
+
+if wo ["IsDifficult"] then
+    ti["ll"] = ti[" %"]..{"fl-water"}
+    ti["la"] = ti[" %"]..{"fl-water"}
+    ti["aa"] = ti[" %"]..{"fl-water"}
+    ti["al"] = ti[" %"]..{"st-glass_move"}
+    ti["bp"] = ti[" !"]..{"fl-brick"}
+    ti["QQ"] = ti[" /"]..{"st_chess_white"}
+    ti["w1"] = ti["~m"]..{"it_wormhole", destination = po(44.5, 35.5),range=10, strength=10}
+    ti["w2"] = ti[" )"]..{"it_wormhole", destination = po(42.5, 24.5),range=10, strength=10}
+    ti["w3"] = ti[" )"]..{"it_wormhole", destination = po(11.5, 16.5),range=10, strength=10}
+else
+    ti["ll"] = ti[" %"]..{"fl-bluegray"}
+    ti["la"] = ti[" %"]..{"fl-swamp"}
+    ti["aa"] = ti[" %"]..{"st-black3"}
+    ti["al"] = ti[" %"]..{"fl-swamp"}
+    ti["bp"] = ti[" !"]..{"it_umbrella"}
+    ti["QQ"] = ti[" /"]..{"st_brake"}
+    ti["w1"] = ti["~m"]..{"it_wormhole", destination = po(44.5, 35.5),range=3, strength=3}
+    ti["w2"] = ti[" )"]..{"it_wormhole", destination = po(42.5, 24.5),range=3, strength=3}
+    ti["w3"] = ti[" )"]..{"it_wormhole", destination = po(11.5, 16.5),range=3, strength=3}
+end
+
+local resolver = res.composer(ti)
+
+w, h = wo(resolver, "  ", {
+--      00010203040506070809101112131415161718AA20212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
+       "x!$%&%(%#% % % % % % % % % % % % % % % % % % % % % % %#%#% %2%2%2% % % % %2%2%!% %s%s% % % %!%t4t9 % % , , % % % % % %Z8 9 ,U% % %n% % % % % % % % % % %",
+       " # # # ##%#% % % %#% % % % % %#%#%#% % % % % % % % % % % % % % % % %A% % %2%2% / / / / / / / 0la 0 0 0 % % / / / / / / %#% %U%O%O% / % % % % %Z:Z:Z:Z:Z:",
+       " # # # ##%#%#% %#%#%#% % % %#%#% %#%#% % % % % % % % % %#%#%2%2%2% %A%A% % % % / %A%A% %.% 6 0#% 0#% 0#%#% / %#% % % / %D%U, +U%O% / % % % % %Z: : : :Z:",
+       " # # # ##%#%#%#%#%#%#%#% %#%#%#% ! !#% %.% % %.% % %.% %#%#%2%A%2% %A%A%A% % % ! !A%A%2%2%2% 0@% 0 % 0 % %e/ / , / % /T%#% %V%~%6% .q5 % % % % : : : :Z:",
+       " # # # #)% % 'r'#% % %#%#%#% & &;! !h% -p3;- % ) % - - -#%#%2%2%2% % 1 1 1 1h% ! ! ! %2%t3 %q2 % 0 , / /m/ %m/ /w/9%D/D%#% %U% *W* *O% % % % %Z: : : :Z:",
+       " $ $p1 $h-h% ' '#% % %#% ! ! !h% ! !h%;-p4;- % ) % - -p5 ' ' '%%h%h% 1 1 1 1 %A%A% ! !2%2%2% 0j6 0 %%% % % , % % % % / % /^8 8 *I*i*O% % % % %Z:Z:Z:Z:Z:",
+       "!%%%al%%)%#%#% )#%#%#%#%v%#%#%#%#%#%#% '.% % %.% % %.%f' % ' 'b%2%)% / %#%#% %A%A% ! ! % % % 0 % 0 0 0z% / / / / % , / % / % % * * *O%O% % % % % % % % %",
+       "#%#%la#%#%#%g( ) ! ! ! ! !#% %#%#% %#% ' % % % % % % % ' % ' 'b%)%C% / %#%#%#%#% %v%H%H%#%#% 0 , % 2 0z% /6% % / ,6% / % / % %s% 8t8 %O%O% % % % % % % %",
+       "#%#%la#%#%#%.%1%2%2%2% ,#%#%#%#%#%#%#%e' % % % % % % % ' ' ' 'b%2% / / % % %C%#% % .H%H%#%t2 0 % - % 06% / %6, / /QQ /6% /V%V%V% 8h%W6h%O% .O% % % % % %",
+       " % %ll % % % % % % % % , % % % % % % % % % % % % % %%% . % / % % / / % % % %#%#%A%d2%% %#%#% 0 2 ,$% 0z% / , % % % % % % /V%B7V% & &U6 7 7 7 0 % % % % %",
+       "#%#%la#%#%#%#%#%#%#%#%k3#%#%#%#%#%#%#%%% % % % % % %>%w. % / % / / % / / / % %A%A%e.h% . % % 0 0 0 0 0z% / / / / / / / / /V%!7V% % %!& %U%U%O%O% % % % %",
+       "#%#%la#%#%#%#%#%#%#%#% % %#% %#%#% %#%%%:% % % % % % %#%#% / % /2% % / % / %A%A% % % % . % % % % % % % % % % % % % % % % % % 7 % % %v% % % % %O%O% % % %",
+       " % %ll % % % % % % % % % %#%#%#%#%#%#% ! % % % % % % %#%#% / % / / / / % / %E%F%F%F%F%E2E%F%F%E%F%F%E2E%F%F%E%F%F% % / / / / / / / / / % %(%(%(%(%(%(% %",
+       " % %ll % % % % % % % % % % % % % % % % % % % % % % % %#%#% / % %2% %#%#% / %F%A+A+A+A%)2A%A+A+L+A+K%M2K%O%O%O%O%F%O% /B%B%A%A%A%B%B% / % %(% % % % % % %",
+       " % %ll % % % % % % % % % % % % % % % % % % % % % % % % /d1 / % / / /D/D/ / %E%A+ 2i2 2 2 2 2i2 2 2 2 2 2 2 2 2 2 2d4 / % %A%B%A% % % / % %(% % % % % % %",
+       " % %ll %*%*%*%*% *3+e! ! ! !3+ **%*%*%*% % % % % % % % /#%#%#% /2% %#%#% % %F%A+ 2 2 2 2 2 2 2 2 2 2 232N23%)%O%O%O% 7 % %A%A%A% % % / % %(% % %(%(%(%(%",
+       " % %ll % % % ! ! *4+ ! ! ! !d5 * !k2 % % % % % % % % % /#%@%#% /2% %$%$% % %F%A+ 2 2p6 2 2J2J2J2 2 2 2N%K%3% % % % % 767 / / / / / / / % %(% % %(% % % %",
+       " % %ll % % %/!bpu*3+p2 ! ! !3+ * !=! % % % % % % % % % /#%#%#% / / / / / / %E2)2 2 2 2 2 2J2K2J2 2 2 %3%N%3% % %2%2%9%6% 0B%B%B% % % % % %(% % %(% % % %",
+       " % %ll % % % % % *3+3+3+3+3+3+ * % % %*% % % % % % % % / % % % % % % % % / %F%A+ 2 2i2 2 2J2J2J2 2 2 % % % % % %2%R%f%6% 0B%A%B% 0 0 0 % %(% % %(% % % %",
+       " % %ll % % %0% % * * * * * * * *0% % %*% % % % % % % % / / / / /B% %#%#% / %F%A+A+A+A+A+A+ 2 2 2 2 23%3%3%3%3% %2%2%f%6% 0B%B%B% 0 % 0 % %(% % %(% % % %",
+       " % %ll % % % % %3+3+d63+3+d73+3+6% % %f% % % % % % % % %#%#%#% /B% %#%6% / %F%F%F%F%E%F%F%A+ 2 2 2 23%3%3%k43% % % % 767 0 0 0 0 0 % 0 % %(% % %(% % % %",
+       " % %ll % % % % %3+ ) ) ) ) ) )3+6% % %f% % % % % % %t1 .#%3%#% /B% %#%#% / % %A%k5A%k5A%F%A+ 2 2 2q4d38)d9w33% %O%O%S%S%S%S%S%S%S%S% 0 % %(% 0 0(% % % %",
+       " % %la % %+%+% %3+ ) ) ) ) ) )3+0%<% % % % % % % % %%% .#%#%#% /C% % % %:/ % %A%A%A%A%A%F%A+ 2 2 2 23%3%3%k43%h%P%O%6% 0 0 0 0 0 0 0 0 % %8&w0 08& % % %",
+       " % %ll % % % % %3+ ) )3)3) ) )3+6%:%t6*% % % % % % % % . . % % / % % % % /C% % % 3k6 4k7F%A+f2 2 2z23%3%3%3%3% %O%O%6% 73%3% %2%2% %A%A% %8& % %8& % % %",
+       " % %ll % % % % %3+ )3)7)7)3) )3+6% % %*! % % % % % % % % % % % / / / / / / % ! % 2 2p7 2 2 2 2 2 2 2 2 2 2 2 2h-h- !6% 73%3% %2%2% %A%A% %X&X0Y0X0 % %e!",
+       " % %ll % % % % %3+ )3)8)8)3) )3+6% % %f% % % % % % % % % % % % % % % % % % % % % % . % . % % % % % % % % . % % % % .6% 0i0i0 0i0i0 0i0i0o/q6Y0X0Y: : : :",
+       " % %ll % % % % %3+ ) )9):) ) )3+6% % %f% % % % % % % % % % % % % % % % % % % % % % % %z% % % % % % % % % % % % % % % % % % % % % % % % %S% .S%S% :o:$:q7",
+       " % %la % %,%,% %3+ )r) ) )r) )3+<%<% % % % % % % % % % % % % % % % % % % % % % % % % %z% % % % % % % % % % % % % % % % % % % % % % % % %o/ /S%S%o: :o:w1",
+       " % %ll % %-% % %3+ ) ) ) ) ) )3+6%:%t7*% % % % % % % % % % % % % % % % % % % % % % % %z% % % % % % % % % % % % % % % % % % % % % % % % %S% .S%S% :o:$: :",
+       " % %ll % % % % %3+3+!+3+3+!+3+3+6% % %*% % % % % % % % % % % % % % % % % % % % % % % %z% % % % % % % % % % % % % % % % % % % % % %z%z%z%o/ /S%S% : : : :",
+       " % %aa % % % % % % % % % % % % % %%%t5 % % % % % % % % % % % % % % 0 % % % % % % % % %z% % % % % % % % % 0 % % % % % % % % % % % % % % %9%%% % % % % % .",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %z% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % .",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %q3 % % % % % % % % % % % % % % % % % % % % % % % % % % % .",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 4 4z% 4 4 4 4 4 % % % % % % % % % % % % % % % % % % % % % % % % % / /",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % 4 4k1 4A4K4A4 4 % % % % % % % % % % % % % % % % % % % % % % % % % % .",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %(4 )(4 4A4.4A4 4 % % % % % % % % % % % % % % % % % % % % % % % % % / /",
+       " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %(4w2(4q1A434A4 4 % % % % % % % % % % % % % % % % % % % % % % % % % % 0"})
+
+wo:shuffleOxyd()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Audienz in Venedig</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Drücke den Bodenschalter</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Welcome to Venice</el:english>
+        <el:translation el:lang="de">Willkommen in Venedig</el:translation>
+      </el:string>
+        <el:string el:key="text2">
+        <el:english el:translate="true">Welcome to the Audience</el:english>
+        <el:translation el:lang="de">Willkommen nun zur Audienz!</el:translation>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">rialto</el:english>
+        <el:translation el:lang="de">Rialtobrücke...</el:translation>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">... under construction</el:english>
+        <el:translation el:lang="de">Baustelle!</el:translation>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">try the bolders as gondola</el:english>
+        <el:translation el:lang="de">Nutze die Bolder als Gondeln</el:translation>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true">piazza san marco</el:english>
+        <el:translation el:lang="de">Markusplatz</el:translation>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english el:translate="true">danger</el:english>
+        <el:translation el:lang="de">Gefahr</el:translation>
+      </el:string>
+      <el:string el:key="text8">
+        <el:english el:translate="true">san giorgio</el:english>
+        <el:translation el:lang="de">San Giorgio</el:translation>
+      </el:string>
+      <el:string el:key="text9">
+        <el:english el:translate="true">guardian ducale</el:english>
+        <el:translation el:lang="de">Residenz der Palastwache</el:translation>
+      </el:string>
+      <el:string el:key="text10">
+        <el:english el:translate="true">gondoliere on strike</el:english>
+        <el:translation el:lang="de">Gondoliere streiken!</el:translation>
+      </el:string>
+      <el:string el:key="text11">
+        <el:english el:translate="true">palace ducale</el:english>
+        <el:translation el:lang="de">Dogenpalast</el:translation>
+      </el:string>
+      <el:string el:key="text12">
+        <el:english el:translate="true">look at san michele</el:english>
+        <el:translation el:lang="de">Da drüben liegt San Michele</el:translation>
+      </el:string>
+      <el:string el:key="text13">
+        <el:english el:translate="true">use the gondola below</el:english>
+        <el:translation el:lang="de">Unten die Gondel ... Schick sie los!</el:translation>
+      </el:string>
+      <el:string el:key="text14">
+        <el:english el:translate="true">hurry to san giorgio</el:english>
+        <el:translation el:lang="de">Auf nach San Giorgio ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

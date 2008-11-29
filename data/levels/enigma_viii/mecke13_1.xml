@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 6 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to the Enigma Team for the new "wire function" and Ronald for puzzle idea.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="08:27"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-abyss_fake"}
+ti["r"] = {"fl-red"}
+ti["z"] = {"fl-sahara"}
+ti["a"] = {"fl-abyss"}
+ti["~"] = {"fl-water"}
+ti["D"] = ti["a"] .. {"st_disco_light"}
+ti["="] = ti["~"] .. {"st_disco_light"}
+ti["/"] = ti["z"] .. {"st_disco_light"}
+ti["y"] = ti["a"] .. {"it-cherry"} .. ti({"st-glass1_hole"})
+ti["."] = ti["a"] .. {"it-cherry"}
+ti["H"] = {"st-bluegray_hole"}
+ti["b"] = {"st_fart"}
+ti["s"] = {"st_window_s"}
+ti["w"] = {"st_window_w"}
+ti["e"] = {"st_window_e"}
+ti["E"] = {"st_window_n"}
+ti["P"] = {"st-bluegray"}
+ti["p"] = ti["H"] .. {"it-spring1"}
+ti["Q"] = {"st-break_invisible"}
+ti["q"] = {"it-booze-broken"}
+ti["i"] = {"it_sensor"}
+ti["t"] = {"it_meditation_bump"}
+ti["R"] = {"st_oneway_e"}
+ti["W"] = {"it_magicwand"}
+ti["T"] = {"st-yellow"}
+ti["!"] = {"it_death"}
+ti["d"] = {"it-document",text= "?"}
+ti["%"] = {"it_sword"}
+ti["B"] = {"st-glass"}
+ti["C"] = {"st_timer",interval=4,action="toggle",target="laser1",invisible=0}
+ti["c"] = {"st_timer",interval=4,action="toggle",target="laser2",invisible=0}
+ti["K"] = {"st_laser_s", name="laser1", state=OFF}
+ti["k"] = {"st_laser_n", name="laser2", state=OFF}
+ti["L"] = {"st_laser_s", name="laser", state=ON}
+ti["v"] = {"st_laser_n", name="laser", state=ON}
+ti["0"] = ti["t"] .. {"#ac-blackball"}
+ti["X"] = ti[" "] .. {"st_oxyd", flavor="a"}
+ti["#"] = ti[" "] .. {"#ac-top", range="10", force="10"}
+ti["$"] = ti[" "] .. {"#ac-rotor", range="20", force="10"}
+ti["&"] = ti[" "] .. {"#ac-bug"}
+ti["?"] = ti["~"] .. {"st_actorimpulse"}
+ti["Y"] = ti[" "] .. {"it_wormhole"}
+ti[";"] = ti[" "] .. {"it-document", text="text1"}
+ti["1"] = ti["r"] .. {"st-block", "df1"}
+ti["2"] = ti["r"] .. {"st-block", "df2"}
+ti["3"] = ti["r"] .. {"st-block", "df3"}
+ti["4"] = ti["r"] .. {"st-block", "df4"}
+ti["5"] = ti["r"] .. {"st-block", "df5"}
+ti["6"] = ti["r"] .. {"st-block", "df6"}
+ti["7"] = ti["r"] .. {"st-block", "df7"}
+ti["8"] = ti["r"] .. {"st-block", "df8"}
+ti["l"] = ti["!"] .. {"st_polarswitch"}
+ti["Z"] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+ti["g"] = ti[" "] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["G"] = ti[" "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["m"] = ti[" "] .. {"it_magnet", name="maggi1",state=ON, range=20, strength=10}
+ti["U"] = {"st_oneway_black_w"}
+ti["V"] = {"st-black4"}
+ti["n"] = ti["W"] .. {"st-chameleon"}
+ti["o"] = ti["m"] .. {"st-chameleon"}
+ti["O"] = ti[" "] .. {"st-glass1_hole"}
+ti["'"] = {"it-burnable_oil"}
+ti[":"] = {"it-burnable_burning"}
+
+w, h = wo(ti, " ", {
+"BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB",
+"TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
+"Bb~~~     ?     .   U    l       ...       TV T        s VT       br     .   l  Qq Q Q    =/==/ LLLLLLK  QQBbB",
+"Bb~~   ~  .  ~     ~T O ? l     .....       V  T #     s V ?                 V  Qq   Q    =/HH=  T  ddd  C BbB",
+"Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      slV   l    br   TTTTT l  Qq Q Q    =/HH=    Tddd  QQBbB",
+"B~ !   ~     ~H123 T~n ? n  l .........     V    T     s V   ?         T~~~T V Qq  Q Q    =/=/=     dTd .HHH B",
+"B%     ~     ~H4G5To  l  l    &&&&T&&&&    TV  R      TR VT  l    br   T~.~TlVT  RQR R ZWQ/z.//       0;iHpHgB",
+"B~ !   ~     ~H678 T~n ? n  l .........     V  # T     E V   ?         T~~~T V  q  Q Q    =/=/=     dTd .HHH B",
+"Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      ElV   l    br   TTTTT l   q Q Q    =/PH=    Tddd  QQBbB",
+"Bb~~   ~  .  ~     ~T O ? l     .....       V  T       E V ?                 V   q Q Q    =/PH=  T  ddd  c BbB",
+"Bb~~~     ?     .   U    l       ...       TV T        E VT       br     .   l   q Q Q    =/==/ vvvvvvk  QQBbB",
+"TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
+"BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB"})
+
+function hux()
+    wo:drawMap(ti, po(64, 2), " ",{"'",
+                                   ":",
+                                   ":",
+                                   ":",
+                                   "'",
+                                   "'",
+                                   ":",
+                                   "'",
+                                   ":"})
+    wo:drawMap(ti, po(69, 2), " ",{"'",
+                                   ":",
+                                   ":",
+                                   ":",
+                                   "'",
+                                   "'",
+                                   ":",
+                                   "'",
+                                   ":"})
+end
+
+wo:add({"ot_wire", anchor1="df1", anchor2="df3"})
+wo:add({"ot_wire", anchor1="df6", anchor2="df8"})
+wo:add({"ot_wire", anchor1="df7", anchor2="df2"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">... die andere Seite ...</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Dont eat cherries</el:english>
+        <el:translation el:lang="de">Versuche keine Kirschen</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
