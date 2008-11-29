@@ -112,6 +112,7 @@
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
     <msg name="_performaction" type="nil"/>
+    <msg name="_recheck" type="nil"/>
     <msg name="_revive" type="nil"/>
     <msg name="_scramble" type="int"/>
     <msg name="_shogun" type="int"/>
@@ -440,6 +441,7 @@
       <attr name="max"/>
       <attr name="min"/>
       <msg name="_performaction"/>
+      <msg name="_recheck"/>
     </object>
     <object name="ot_wire">
       <attr name="anchor1"/>

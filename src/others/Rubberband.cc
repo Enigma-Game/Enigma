@@ -103,9 +103,12 @@ namespace enigma {
                 violating = true;
             }
             if (violating) {
-                performAction(0);
+                performAction(false);
             }
             return Value(); 
+        } else if (m.message == "_performaction") {
+            performAction(true);
+            return Value();             
         }
         return Other::message(m);
     }

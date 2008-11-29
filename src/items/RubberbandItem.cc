@@ -64,6 +64,7 @@ namespace enigma {
         }
         if (!alreadyConnected && anchor2 != a) { // It's not allowed to connect a rubberband to self.
             Object *obj = MakeObject("ot_rubberband");
+            int id = obj->getId();
             obj->setAttr("anchor1", a);
             obj->setAttr("anchor2", anchor2);
             obj->setAttr("strength", getAttr("strength"));
@@ -74,6 +75,8 @@ namespace enigma {
             AddOther(dynamic_cast<Other *>(obj));
             transferIdentity(obj);
             SendMessage(obj, "_performaction");
+            if (Object::getObject(id) != NULL)   // not killed?
+                SendMessage(obj, "_recheck");
             return ITEM_KILL;
         } else
             return ITEM_DROP;
