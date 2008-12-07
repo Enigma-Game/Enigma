@@ -540,25 +540,6 @@ namespace
         }
     };
 
-/* -------------------- FallenBox -------------------- */
-
-    class FallenBox : public Floor {
-        CLONEOBJ(FallenBox);
-    public:
-        FallenBox(const char *kind)
-        :  Floor(kind, 6.4, 2.0, flf_default, flft_burnable, "fl_abyss")
-        // uses same traits as fl-wood
-        {}
-
-    private:
-        const char *modify_kind(const char *kind) {
-            if (0 == strcmp(kind, "fl-stwood")) {
-                return enigma::IntegerRand(0, 1) ? "fl-stwood1" :  "fl-stwood2";
-            }
-            return kind;
-        }
-    };
-
 /* -------------------- DummyFloor -------------------- */
 
     class DummyFloor : public Floor {
@@ -854,9 +835,6 @@ void InitFloors()
     Register(new Water);
     Register(new Swamp);
     Register(new DummyFloor);
-    Register(new FallenBox("fl-stwood"));
-    Register(new FallenBox("fl-stwood1"));
-    Register(new FallenBox("fl-stwood2"));
     Register(new Thief);
     Register(new WhiteTile);
     Register(new BlackTile);

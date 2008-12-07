@@ -338,13 +338,6 @@ function DefRandFloor(name, imagelist)
     display.DefineRandModel(name, getn(imagelist), imagelist)
 end
 
--- Defines a random floor tile out of a given image with multiple tiles.
--- This is used for the most kinds of floors.
-function DefRandFloorSi(name, height, width)
-    imagelist = DefSubimages(name, {h=height, w=width})
-    display.DefineRandModel(name, getn(imagelist), imagelist)
-end
-
 ---------------------------------
 --   Stone related Functions   --
 ---------------------------------

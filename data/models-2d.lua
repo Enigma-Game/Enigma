@@ -227,70 +227,103 @@ end
 --------------------------------------------------------------------------------
 Progress(15, "Loading floor models")
 
-------------------------
--- single tile floors --
-------------------------
+-------------------
+-- floor borders --
+-------------------
+do
+    DefImage("floor_frame")
+end
+
+-------------------------------------------------------
+-- simple tile floors (single and multiple (random)) --
+-------------------------------------------------------
 do
     floorlist = {
-        "fl_abyss",
-        "fl-acblack",
-        "fl-acwhite",
-        "fl-black",
-        "fl-bluegreen",
-        "fl-darkgray",
-        "fl-dummy",
-        "fl-dunes",
-        "fl-floor_001",
-        "fl_ice",
-        "fl-inverse",
-        "fl-inverse2",
-        "fl-light",
-        "fl-lightgray",
-        "fl-nomouse",
-        "fl-normal",
-        "fl-sand",
-        "fl-stone",
-        "fl-springboard",
-        "fl-trigger",
-        "fl-white",
+        -- single
+        {"fl_abyss", noframe = true},
+        {"fl-acblack", noframe = true},
+        {"fl-acwhite", noframe = true},
+        {"fl-black"},
+        {"fl-bluegreen"},
+        {"fl-darkgray"},
+        {"fl-dummy", noframe = true},
+        {"fl-dunes"},
+        {"fl-floor_001"},
+        {"fl_ice", noframe = true},
+        {"fl-inverse", noframe = true},
+        {"fl-inverse2", noframe = true},
+        {"fl-light"},
+        {"fl-lightgray"},
+        {"fl-nomouse", noframe = true},
+        {"fl-normal"},
+        {"fl-sand"},
+        {"fl-stone"},
+        {"fl-springboard"},
+        {"fl-trigger"},
+        {"fl-white"},
+        -- multiple, with height and width (or 1)
+        {"fl-bluegray", 4},
+        {"fl-bluegreenx", 2},
+        {"fl-brick", 3},
+        {"fl-bumps", 2, 2},
+        {"fl-concrete", 4},
+        {"fl-gravel", 4},
+        {"fl-gray", 5},
+        {"fl-hay", 4},
+        {"fl-himalaya", 4},
+        {"fl-marble", 4},
+        {"fl-metal", 6},
+        {"fl-mortar", 2, 2},
+        {"fl-plank", 4},
+        {"fl-red", 4},
+        {"fl-rock", 2},
+        {"fl-rough", 5},
+        {"fl-rough-blue", 4},
+        {"fl-rough-red", 4},
+        {"fl-sahara", 4},
+        {"fl-samba", 2},
+        {"fl_space", 3, 2, noframe = true},
+        {"fl-stwood", 2},
+        {"fl_swamp", 4, noframe = true},
+        {"fl-tigris", 4},
+        {"fl_water", 4, noframe = true},
+        {"fl-woven", 5},
     }
 
-    DefImages(floorlist)
+    for _, floor in pairs(floorlist) do
+        local basename = floor[1]
+        local height = floor[2] or 1
+        local width = floor[3] or 1
+        if (height == 1) and (width == 1) then
+            -- single floor
+            DefImage(basename)
+            if not floor.noframe then
+                display.DefineComposite(basename .. "_framed", basename, "floor_frame")
+            end
+        else
+            -- multiple (random) floor
+            local imagelist = DefSubimages(basename, {h = height, w = width})
+            display.DefineRandModel(basename, getn(imagelist), imagelist)
+            if not floor.noframe then
+                local framedlist = {}
+                for _, subimage in pairs(imagelist) do
+                    display.DefineComposite(subimage .. "_framed", subimage, "floor_frame")
+                    table.insert(framedlist, subimage .. "_framed")
+                end
+                display.DefineRandModel(basename .. "_framed", getn(framedlist), framedlist)
+            end
+        end
+    end
 end
 
 
 -----------------------------------------
--- Floors with multiple (random) tiles --
+-- Special Floors
 -----------------------------------------
+
+-- gradients
 do
     DefSubimages("fl-gradient2", {w=6, h=4, modelname="fl-gradient"})
-
-    DefRandFloorSi("fl-bluegray", 4)
-    DefRandFloorSi("fl-bluegreenx", 2)
-    DefRandFloorSi("fl-brick", 3)
-    DefRandFloorSi("fl-bumps", 2,2)
-    DefRandFloorSi("fl-concrete", 4)
-    DefRandFloorSi("fl-gravel", 4)
-    DefRandFloorSi("fl-gray", 5)
-    DefRandFloorSi("fl-hay", 4)
-    DefRandFloorSi("fl-himalaya", 4)
-    DefRandFloorSi("fl-marble", 4)
-    DefRandFloorSi("fl-metal", 6)
-    DefRandFloorSi("fl-mortar", 2, 2)
-    DefRandFloorSi("fl-plank", 4)
-    DefRandFloorSi("fl-red", 4)
-    DefRandFloorSi("fl-rock", 2)
-    DefRandFloorSi("fl-rough", 5)
-    DefRandFloorSi("fl-rough-blue", 4)
-    DefRandFloorSi("fl-rough-red", 4)
-    DefRandFloorSi("fl-sahara", 4)
-    DefRandFloorSi("fl-samba", 2)
-    DefRandFloorSi("fl_space", 3,2)
-    DefRandFloorSi("fl-stwood", 2)
-    DefRandFloorSi("fl_swamp", 4)
-    DefRandFloorSi("fl-tigris", 4)
-    DefRandFloorSi("fl_water", 4)
-    DefRandFloorSi("fl-woven", 5)
 end
 
 -- leaves --
@@ -324,11 +357,14 @@ end
 -- Simple floor aliases --
 --------------------------
 do
-    DefAlias("fl-abyss_fake", "fl-abyss")
+    DefAlias("fl-abyss_fake", "fl_abyss")
     DefAlias("fl-normal_x", "fl-normal")
+    DefAlias("fl-normal_x_framed", "fl-normal_framed")
     DefAlias("fl-rough_medium", "fl-rough")
+    DefAlias("fl-rough_medium_framed", "fl-rough_framed")
     DefAlias("fl-rough_slow", "fl-rough")
-    DefAlias("fl-space-force", "fl-space")
+    DefAlias("fl-rough_slow_framed", "fl-rough_framed")
+    DefAlias("fl-space-force", "fl_space")
 end
 
 ----------------------
