@@ -27,7 +27,7 @@
 namespace enigma {
     
     BridgeFloor::BridgeFloor(std::string flavor) : Floor("fl_bridge", 5, 1,
-        flf_default, flft_noash, "fl-abyss")
+        flf_default, flft_noash, "fl_abyss")
     {
         Floor::setAttr("flavor", flavor);
         state = OPEN;

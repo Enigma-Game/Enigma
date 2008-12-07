@@ -746,7 +746,7 @@ namespace
 
         void on_floor_change() {
             if (Floor *fl = GetFloor (get_pos()))
-                if (fl->is_kind("fl-abyss"))
+                if (fl->is_kind("fl_abyss"))
                     ReplaceStone (get_pos(), MakeStone("st-plain_falling"));
         }
 
@@ -825,10 +825,10 @@ namespace
 //            Stone::on_move();
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
-                if (fl->is_kind("fl-abyss")) {
+                if (fl->is_kind("fl_abyss")) {
                     ReplaceStone (p, MakeStone("st-plain_falling"));
                 }
-                else if (fl->is_kind("fl-swamp") || fl->is_kind("fl-water")) {
+                else if (fl->is_kind("fl_swamp") || fl->is_kind("fl_water")) {
                     sound_event ("drown");
                     client::Msg_Sparkle (p.center());
                     KillStone (p);

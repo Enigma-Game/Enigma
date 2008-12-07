@@ -45,7 +45,12 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    fl_abyss = "fl-abyss",
     fl_bridge = "fl-bridge",
+    fl_ice = "fl-ice",
+    fl_space = "fl-space",
+    fl_swamp = "fl-swamp",
+    fl_water = "fl-water",
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
     it_brake = "it-brake",
@@ -64,6 +69,7 @@ RenamingObjectsNew2Old = {
     it_magicwand = "it-magicwand",
     it_magnet = "it-magnet",
     it_magnet_on = "it-magnet-on",
+    it_magnet_off = "it-magnet-off",
     it_meditation_hollow = "it-hollow",
     it_meditation_dent = "it-tinyhollow",
     it_meditation_bump = "it-tinyhill",
@@ -78,7 +84,6 @@ RenamingObjectsNew2Old = {
     it_pipe_nw = "it-pipe-wn",
     it_pipe_ns = "it-pipe-v",
     it_pipe_ne = "it-pipe-ne",
-    it_magnet_off = "it-magnet-off",
     it_rubberband = "it-rubberband",
     it_seed = "it-seed",
     it_seed_fake = "it-seed_nowood",
@@ -154,6 +159,8 @@ RenamingObjectsNew2Old = {
     st_door_c = "st-door_c",
     st_fart = "st-fart",
     st_floppy = "st-floppy",
+    st_flhay = "st-flhay",
+    st_flrock = "st-flrock",
     st_fourswitch = "st-fourswitch",
     st_knight = "st-knight",
     st_laser_w = "st-laser-w",
@@ -287,7 +294,11 @@ RenamingObjectsNew2Old = {
     st_volcano_new = "st-volcano-growing",
     st_volcano_active = "st-volcano_active",
     st_volcano_idle = "st-volcano_inactive",
-    st_window = "st-window"
+    st_window = "st-window",
+    st_wood = "st-wood",
+    st_wood_growing = "st-wood-growing",
+    st_wood_h = "st-wood1",
+    st_wood_v = "st-wood2"
 }
 
 for k,v in pairs(RenamingObjectsNew2Old) do

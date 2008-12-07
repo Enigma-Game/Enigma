@@ -61,6 +61,7 @@ namespace enigma {
         st_fart,
         st_firebreak,
         st_firebreak_move,
+        st_floorbuilder,
         st_floppy,
         st_fourswitch,
         st_greenbrown_growing,

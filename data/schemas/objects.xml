@@ -75,6 +75,8 @@
     <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="expl" type="nil"/>
+    <msg name="fall" type="nil"/>
+    <msg name="fire" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="forcefire" type="nil"/>
     <msg name="get_adjacents" type="nil"/>
@@ -670,6 +672,16 @@
       <msg name="_explosion"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_flhay">
+      <msg name="fire"/>
+      <msg name="heat"/>
+      <msg name="fall"/>
+    </object>
+    <object name="st_flrock">
+      <msg name="fire"/>
+      <msg name="heat"/>
+      <msg name="fall"/>
+    </object>
     <object name="st_floppy">
       <msg name="on"/>
       <msg name="off"/>
@@ -1080,6 +1092,17 @@
     </object>
     <object name="st_window_nesw">
       <attr name="faces" value="nesw"/>
+    </object>
+    <object name="st_wood">
+      <msg name="fire"/>
+      <msg name="heat"/>
+      <msg name="fall"/>
+    </object>
+    <object name="st_wood_growing" init="true">
+    </object>
+    <object name="st_wood_h" init="true">
+    </object>
+    <object name="st_wood_v" init="true">
     </object>
   </zoo>
 </objects>

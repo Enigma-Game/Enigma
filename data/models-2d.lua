@@ -232,7 +232,7 @@ Progress(15, "Loading floor models")
 ------------------------
 do
     floorlist = {
-        "fl-abyss",
+        "fl_abyss",
         "fl-acblack",
         "fl-acwhite",
         "fl-black",
@@ -241,7 +241,7 @@ do
         "fl-dummy",
         "fl-dunes",
         "fl-floor_001",
-        "fl-ice",
+        "fl_ice",
         "fl-inverse",
         "fl-inverse2",
         "fl-light",
@@ -257,6 +257,7 @@ do
 
     DefImages(floorlist)
 end
+
 
 -----------------------------------------
 -- Floors with multiple (random) tiles --
@@ -284,11 +285,11 @@ do
     DefRandFloorSi("fl-rough-red", 4)
     DefRandFloorSi("fl-sahara", 4)
     DefRandFloorSi("fl-samba", 2)
-    DefRandFloorSi("fl-space", 3,2)
+    DefRandFloorSi("fl_space", 3,2)
     DefRandFloorSi("fl-stwood", 2)
-    DefRandFloorSi("fl-swamp", 4)
+    DefRandFloorSi("fl_swamp", 4)
     DefRandFloorSi("fl-tigris", 4)
-    DefRandFloorSi("fl-water", 4)
+    DefRandFloorSi("fl_water", 4)
     DefRandFloorSi("fl-woven", 5)
 end
 
@@ -367,14 +368,14 @@ end
 ------------------------
 do
     function heating_animation(basemodel)
-        local images = DefSubimages(basemodel.."-heating", {h=8});
+        local images = DefSubimages(basemodel.."_heating", {h=8});
         local frames = BuildFrames(images, 240)
-        DefAnim(basemodel.."-heating", frames);
+        DefAnim(basemodel.."_heating", frames);
     end
 
-    heating_animation("fl-ice")
-    heating_animation("fl-water")
-    heating_animation("fl-swamp")
+    heating_animation("fl_ice")
+    heating_animation("fl_water")
+    heating_animation("fl_swamp")
 end
 
 --------------------------------------------------------------------------------

@@ -133,7 +133,7 @@ namespace enigma {
 
     void BoulderStone::on_floor_change() {
         Floor *fl = GetFloor(get_pos());
-        if (fl->is_kind("fl-abyss")) {
+        if (fl->is_kind("fl_abyss")) {
             state = FALLING;
             init_model();
         }

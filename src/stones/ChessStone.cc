@@ -151,9 +151,9 @@ namespace enigma {
     void ChessStone::on_floor_change() {
         Floor *fl = GetFloor(get_pos());
         if (fl != NULL) {
-            if (fl->is_kind("fl-abyss"))
+            if (fl->is_kind("fl_abyss"))
                 try_state(FALLING);
-            if (fl->is_kind("fl-swamp"))
+            if (fl->is_kind("fl_swamp"))
                 try_state(SINKING);
         }
     }

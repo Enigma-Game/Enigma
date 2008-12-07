@@ -392,7 +392,7 @@ namespace
         void on_floor_change() {
             if (Floor *fl=GetFloor(get_pos())) {
                 const string &k = fl->get_kind();
-                if (k=="fl-water" || k=="fl-abyss" || k == "fl-swamp") {
+                if (k=="fl_water" || k=="fl_abyss" || k == "fl_swamp") {
                     client::Msg_Sparkle (get_center());
                     KillStone(get_pos());
                 }
@@ -833,123 +833,12 @@ namespace
     };
 }
 
-/* -------------------- Wooden stone -------------------- */
-
-/** \page st-wood Wooden Stone
-
-This stone is movable.  If moved into abyss, water or swamp it builds
-a wooden plank.
-
-\subsection woode Example
-\verbatim
-set_stone("st-wood", 10,10)
-\endverbatim
-
-Note: There are two flavors of st-wood which may be specified
-by using st-wood1 or st-wood2, and two related kinds: st-flrock,
-which creates the unburnable fl-rock and denies fire under it, and 
-the burnable st-hay, which leaves the burnable but stable fl-hay
-behind.
-
-\image html st-wood.png
-*/
-namespace
-{
-    class WoodenStone : public Stone {
-        CLONEOBJ(WoodenStone);
-        DECL_TRAITS;
-    public:
-        WoodenStone(const char *kind, const char *floorkind_, bool blockfire_ = false) :
-            Stone(kind), floorkind(floorkind_), blockfire(blockfire_) {}
-
-    private:
-        const char *floorkind;
-        bool blockfire;
-
-        void maybe_fall_or_stopfire() {
-            GridPos p = get_pos();
-            if (server::GameCompatibility != GAMET_ENIGMA && IsLevelBorder(p))
-                return;
-            if (Floor *fl = GetFloor(p)) {
-                const string &k = fl->get_kind();
-                if(blockfire)
-                    SendMessage(fl, "stopfire");
-                if (k == "fl-abyss" || k == "fl-water" || k == "fl-swamp") {
-                    SetFloor(p, MakeFloor(floorkind));
-                    KillStone(p);
-                }
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "fire" && !blockfire) {
-                KillStone(get_pos());
-                return true;  // allow fire to spread
-            } else if (m.message == "heat" && blockfire) {
-                return true;  // block fire
-            } else if (m.message == "fall") {
-                maybe_fall_or_stopfire();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        // in oxyd1 only fall when moving
-        void on_move() {
-            Stone::on_move();
-            if (server::GameCompatibility == GAMET_OXYD1)
-                maybe_fall_or_stopfire();
-        }
-        
-        // other oxyds versions: fall everytime the floor changes
-        void on_floor_change() {
-            if (server::GameCompatibility != GAMET_OXYD1)
-                maybe_fall_or_stopfire();
-        }
-    };
-    DEF_TRAITSM(WoodenStone, "INVALID", st_INVALID, MOVABLE_STANDARD);
-
-    /*! When st-wood is created it randomly becomes st-wood1 or
-      st-wood2. */
-    class RandomWoodenStone : public Stone {
-    public:
-        RandomWoodenStone() : Stone("st-wood") {}
-    private:
-        Stone *clone() {
-            if(IntegerRand(0, 1) == 0)
-                return new WoodenStone("st-wood1", "fl-stwood1");
-            else
-                return new WoodenStone("st-wood2", "fl-stwood2");
-        }
-        void dispose() {delete this;}
-    };
-}
 
 //----------------------------------------
 // Growing stones used by it-seed
 //----------------------------------------
 namespace
 {
-    class WoodenStone_Growing : public Stone {
-        CLONEOBJ(WoodenStone_Growing);
-        DECL_TRAITS;
-    public:
-        WoodenStone_Growing()
-        {}
-    private:
-        void init_model() { set_anim("st-wood-growing"); }
-        void animcb() {
-            Stone *st = MakeStone ("st-wood");
-            ReplaceStone (get_pos(), st);
-            SendMessage(st, "fall"); // instantly builds a bridge on fl-swamp etc
-        }
-        void actor_contact(Actor *a) {SendMessage(a, "shatter");}
-        void actor_inside(Actor *a) {SendMessage(a, "shatter");}
-        void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
-
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
-    };
-    DEF_TRAITS(WoodenStone_Growing, "st-wood-growing", st_wood_growing);
     
     class GreenbrownStone_Growing : public Stone {
         CLONEOBJ(GreenbrownStone_Growing);
@@ -1401,10 +1290,10 @@ namespace
         void on_floor_change() {
             GridPos p = get_pos();
             if (Floor *fl = GetFloor (p)) {
-                if (fl->is_kind("fl-abyss")) {
+                if (fl->is_kind("fl_abyss")) {
                     ReplaceStone (p, MakeStone("st-plain_falling"));
                 }
-                else if (fl->is_kind("fl-swamp") || fl->is_kind("fl-water")) {
+                else if (fl->is_kind("fl_swamp") || fl->is_kind("fl_water")) {
                     sound_event ("drown");
                     client::Msg_Sparkle (p.center());
                     KillStone (p);
@@ -1473,12 +1362,6 @@ void Init_simple()
     Register(new Stonebrush);
     Register(new ThiefStone);
 
-    Register(new RandomWoodenStone); // random flavor
-    Register(new WoodenStone("st-wood1", "fl-stwood1")); // horizontal planks
-    Register(new WoodenStone("st-wood2", "fl-stwood2")); // vertical planks
-    Register(new WoodenStone("st-flrock", "fl-rock", true));
-    Register(new WoodenStone("st-flhay", "fl-hay"));
-    Register(new WoodenStone_Growing);
     Register(new GreenbrownStone_Growing);
 
     Register(new YinYangStone1);

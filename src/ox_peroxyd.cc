@@ -103,7 +103,7 @@ bool LP_PerOxyd::hasEasymode(size_t index) {
 // only tables following!
 
 const char *oxyd::peroxyd_floor_map[256] = {
-    "fl-abyss",                 // PerOxyd floor 0x00
+    "fl_abyss",                 // PerOxyd floor 0x00
     "fl-gray",                  // PerOxyd floor 0x01
     "fl-metal",                 // PerOxyd floor 0x02
     "fl-metal",                 // PerOxyd floor 0x03
@@ -118,20 +118,20 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-inverse",               // PerOxyd floor 0x0c
     "fl-acblack",               // PerOxyd floor 0x0d
     "fl-acwhite",               // PerOxyd floor 0x0e
-    "fl-swamp",                 // PerOxyd floor 0x0f
+    "fl_swamp",                 // PerOxyd floor 0x0f
     UNUSED,                     // PerOxyd floor 0x10
     UNUSED,                     // PerOxyd floor 0x11
     UNUSED,                     // PerOxyd floor 0x12
-    "fl-water",                 // PerOxyd floor 0x13
-    "fl-water",                 // PerOxyd floor 0x14
+    "fl_water",                 // PerOxyd floor 0x13
+    "fl_water",                 // PerOxyd floor 0x14
     UNUSED,                     // PerOxyd floor 0x15
     UNUSED,                     // PerOxyd floor 0x16
-    "fl-ice",                   // PerOxyd floor 0x17
+    "fl_ice",                   // PerOxyd floor 0x17
     UNUSED,                     // PerOxyd floor 0x18
     UNUSED,                     // PerOxyd floor 0x19
     UNUSED,                     // PerOxyd floor 0x1a
     UNUSED,                     // PerOxyd floor 0x1b
-    "fl-space",                 // PerOxyd floor 0x1c
+    "fl_space",                 // PerOxyd floor 0x1c
     UNUSED,                     // PerOxyd floor 0x1d
     UNUSED,                     // PerOxyd floor 0x1e
     UNUSED,                     // PerOxyd floor 0x1f
@@ -227,7 +227,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-plain_break",           // PerOxyd stone 0x24
     "st-bluegray_hole",         // PerOxyd stone 0x25
     "st-plain_move",            // PerOxyd stone 0x26
-    "st-wood",                  // PerOxyd stone 0x27
+    "st_wood",                  // PerOxyd stone 0x27
     "st_switch_instant",        // PerOxyd stone 0x28
     "st_switch_black_instant",  // PerOxyd stone 0x29
     "st_switch_white_instant",  // PerOxyd stone 0x2a

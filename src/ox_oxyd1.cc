@@ -67,7 +67,7 @@ void LP_Oxyd1::load (const OxydLib::Level &level)
 // only tables following!
 
 const char *oxyd::oxyd1_floor_map[256] = {
-    "fl-abyss",                 // Oxyd1 floor 0x00
+    "fl_abyss",                 // Oxyd1 floor 0x00
     "fl-gray",                  // Oxyd1 floor 0x01
     "fl-metal",                 // Oxyd1 floor 0x02
     "fl-samba",                 // Oxyd1 floor 0x03 was: checkered floor
@@ -82,26 +82,26 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl-inverse2",              // Oxyd1 floor 0x0c
     "fl-acblack",               // Oxyd1 floor 0x0d
     "fl-acwhite",               // Oxyd1 floor 0x0e
-    "fl-swamp",                 // Oxyd1 floor 0x0f
+    "fl_swamp",                 // Oxyd1 floor 0x0f
     UNUSED,                     // Oxyd1 floor 0x10
     UNUSED,                     // Oxyd1 floor 0x11
     UNUSED,                     // Oxyd1 floor 0x12
-    "fl-water",                 // Oxyd1 floor 0x13
+    "fl_water",                 // Oxyd1 floor 0x13
     UNUSED,                     // Oxyd1 floor 0x14
     UNUSED,                     // Oxyd1 floor 0x15
     UNUSED,                     // Oxyd1 floor 0x16
-    "fl-ice",                   // Oxyd1 floor 0x17
+    "fl_ice",                   // Oxyd1 floor 0x17
     UNUSED,                     // Oxyd1 floor 0x18
     UNUSED,                     // Oxyd1 floor 0x19
     UNUSED,                     // Oxyd1 floor 0x1a
     UNUSED,                     // Oxyd1 floor 0x1b
-    "fl-space",                 // Oxyd1 floor 0x1c
-    "fl-space",                 // Oxyd1 floor 0x1d
+    "fl_space",                 // Oxyd1 floor 0x1c
+    "fl_space",                 // Oxyd1 floor 0x1d
     UNUSED,                     // Oxyd1 floor 0x1e
     UNUSED,                     // Oxyd1 floor 0x1f
-    "fl-space",                 // Oxyd1 floor 0x20
+    "fl_space",                 // Oxyd1 floor 0x20
     "fl-space-force",           // Oxyd1 floor 0x21
-    "fl-space",                 // Oxyd1 floor 0x22
+    "fl_space",                 // Oxyd1 floor 0x22
     "fl-gradient1",             // Oxyd1 floor 0x23
     "fl-gradient2",             // Oxyd1 floor 0x24
     "fl-gradient3",             // Oxyd1 floor 0x25
@@ -191,7 +191,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-plain_break",           // Oxyd1 stone 0x28 [see Level#12]
     "st-plain_hole",            // Oxyd1 stone 0x29
     "st-plain_move",            // Oxyd1 stone 0x2a
-    "st-wood",                  // Oxyd1 stone 0x2b
+    "st_wood",                  // Oxyd1 stone 0x2b
     "st_switch_instant",        // Oxyd1 stone 0x2c
     "st_switch_black_instant",  // Oxyd1 stone 0x2d
     "st_switch_white_instant",  // Oxyd1 stone 0x2e

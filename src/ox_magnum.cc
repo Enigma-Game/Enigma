@@ -34,7 +34,7 @@ using namespace enigma;
 // only tables following!
 
 const char *oxyd::oxydmag_floor_map[256] = {
-    "fl-abyss",                 // OxydMagnum floor 0x00
+    "fl_abyss",                 // OxydMagnum floor 0x00
     "fl-gray",                  // OxydMagnum floor 0x01 (common was 'fl-gray')
     "fl-metal",                 // OxydMagnum floor 0x02 (This should be "fl-stwood" for #112)
     "fl-metal3",                // OxydMagnum floor 0x03
@@ -49,20 +49,20 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl-inverse",               // OxydMagnum floor 0x0c (common was 'fl-inverse')
     "fl-acblack",               // OxydMagnum floor 0x0d
     "fl-acwhite",               // OxydMagnum floor 0x0e
-    "fl-swamp",                 // OxydMagnum floor 0x0f
+    "fl_swamp",                 // OxydMagnum floor 0x0f
     UNUSED,                     // OxydMagnum floor 0x10
     UNUSED,                     // OxydMagnum floor 0x11
     UNUSED,                     // OxydMagnum floor 0x12
-    "fl-water",                 // OxydMagnum floor 0x13
+    "fl_water",                 // OxydMagnum floor 0x13
     UNUSED,                     // OxydMagnum floor 0x14
     UNUSED,                     // OxydMagnum floor 0x15
     UNUSED,                     // OxydMagnum floor 0x16
-    "fl-ice",                   // OxydMagnum floor 0x17
+    "fl_ice",                   // OxydMagnum floor 0x17
     UNUSED,                     // OxydMagnum floor 0x18
     UNUSED,                     // OxydMagnum floor 0x19
     UNUSED,                     // OxydMagnum floor 0x1a
     UNUSED,                     // OxydMagnum floor 0x1b
-    "fl-space",                 // OxydMagnum floor 0x1c
+    "fl_space",                 // OxydMagnum floor 0x1c
     UNUSED,                     // OxydMagnum floor 0x1d
     UNUSED,                     // OxydMagnum floor 0x1e
     UNUSED,                     // OxydMagnum floor 0x1f
@@ -159,7 +159,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-plain_break",           // OxydMagnum stone 0x28
     "st-plain_hole",            // OxydMagnum stone 0x29
     "st-plain_move",            // OxydMagnum stone 0x2a
-    "st-wood",                  // OxydMagnum stone 0x2b
+    "st_wood",                  // OxydMagnum stone 0x2b
     "st_switch_instant",        // OxydMagnum stone 0x2c
     "st_floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
     UNUSED,                     // OxydMagnum stone 0x2e

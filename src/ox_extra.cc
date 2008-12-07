@@ -34,7 +34,7 @@ using namespace enigma;
 // only tables following!
 
 const char *oxyd::oxydextra_floor_map[256] = {
-    "fl-abyss",          // OxydExtra floor 0x00
+    "fl_abyss",          // OxydExtra floor 0x00
     "fl-gray",           // OxydExtra floor 0x01
     "fl-metal",          // OxydExtra floor 0x02
     UNUSED,              // OxydExtra floor 0x03
@@ -53,16 +53,16 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x10
     UNUSED,              // OxydExtra floor 0x11
     UNUSED,              // OxydExtra floor 0x12
-    "fl-water",          // OxydExtra floor 0x13
+    "fl_water",          // OxydExtra floor 0x13
     UNUSED,              // OxydExtra floor 0x14
     UNUSED,              // OxydExtra floor 0x15
     UNUSED,              // OxydExtra floor 0x16
-    "fl-ice",            // OxydExtra floor 0x17
+    "fl_ice",            // OxydExtra floor 0x17
     UNUSED,              // OxydExtra floor 0x18
     UNUSED,              // OxydExtra floor 0x19
     UNUSED,              // OxydExtra floor 0x1a
     UNUSED,              // OxydExtra floor 0x1b
-    "fl-space",          // OxydExtra floor 0x1c
+    "fl_space",          // OxydExtra floor 0x1c
     UNUSED,              // OxydExtra floor 0x1d
     UNUSED,              // OxydExtra floor 0x1e
     UNUSED,              // OxydExtra floor 0x1f
@@ -155,7 +155,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st-plain_break",    // OxydExtra stone 0x24
     "st-plain_hole",     // OxydExtra stone 0x25
     "st-plain_move",     // OxydExtra stone 0x26
-    "st-wood",           // OxydExtra stone 0x27
+    "st_wood",           // OxydExtra stone 0x27
     "st_switch_instant", // OxydExtra stone 0x28
     UNUSED,              // OxydExtra stone 0x29
     UNUSED,              // OxydExtra stone 0x2a

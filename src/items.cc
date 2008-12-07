@@ -928,12 +928,12 @@ namespace
             string model = fl->get_kind();
             // SetItem(p, it_explosion2) only used by it-dynamite?
             // If Yes, the following block could be places in the explosion class:
-            if (model == "fl-space") {
+            if (model == "fl_space") {
                 // In space, an it-dynamite explodes to an it-sherd:
                 // HOT FIX
                 //replace(it_sherd);
                 replace("it-hollow");
-            } else if (model == "fl-ice") {
+            } else if (model == "fl_ice") {
                 // In ice, an it-dynamite explodes to an it-crack2:
                 replace("it-crack2");
             } else {
@@ -1272,7 +1272,7 @@ namespace
         void animcb() {
             if (state == CRACKING2) {
                 GridPos p= get_pos();
-                SetFloor(p, MakeFloor("fl-abyss"));
+                SetFloor(p, MakeFloor("fl_abyss"));
                 KillItem(p);
             } else {
                 state = CRACKING2;
@@ -1356,7 +1356,7 @@ namespace
         }
         void animcb() {
             GridPos p = get_pos();
-            SetFloor(p, MakeFloor("fl-abyss"));
+            SetFloor(p, MakeFloor("fl_abyss"));
             KillItem(p);
         }
     public:
@@ -2054,13 +2054,13 @@ namespace
                 string model = fl->get_kind();
 
                 /* do not allow markings on this floortypes:
-                   fl-abyss, fl-water, fl-swamp
+                   fl_abyss, fl_water, fl_swamp
                    fl-bridge[{-closed,-open}]?
-                   markings on fl-ice will result as it-crack1
+                   markings on fl_ice will result as it-crack1
                 */
-                if (model == "fl-abyss" || model == "fl-water" || model == "fl-swamp") {
+                if (model == "fl_abyss" || model == "fl_water" || model == "fl_swamp") {
                     return ITEM_KEEP;
-                } else  if (model == "fl-ice") {
+                } else  if (model == "fl_ice") {
                     SetItem (p, MakeItem("it-crack1"));
                 } else {
                     SetItem (p, MakeItem("it-cross"));

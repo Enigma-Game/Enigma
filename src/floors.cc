@@ -203,7 +203,7 @@ string Floor::get_firetransform() {
     string model = this->get_kind();
     if (   model == "fl-wood"   || model == "fl-wood1"   || model == "fl-wood2"
         || model == "fl-stwood" || model == "fl-stwood1" || model == "fl-stwood2")
-        return "fl-abyss";
+        return "fl_abyss";
     else
         return "";
 }
@@ -328,9 +328,9 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     // Maybe also transform floor?
     reaction_happened = on_heattransform(sourcedir, flhf) || reaction_happened;
     // Maybe transform stone, or stone blocks fire?
-    if(doStone)
-        if(Stone *st = GetStone(get_pos()))
-            if(to_int(SendMessage(st, "heat", Value(sourcedir))) != 0.0)
+    if (doStone)
+        if (Stone *st = GetStone(get_pos()))
+            if (SendMessage(st, "heat", Value(sourcedir)).to_bool())
                 reaction_happened = true;
     // Not item nor floor nor stone reacted? Then try to ignite the floor!
     // (Note: try_ignite also tests for the heating animation:
@@ -347,7 +347,7 @@ bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
     if(!doHeatTransform || get_heattransform(false) == "")
         return false;
     if(doHeatTransform && get_heattransform(false) != "" && !heating_animation) {
-        set_anim(((string) this->get_kind()) + "-heating");
+        set_anim(((string) this->get_kind()) + "_heating");
         heating_animation = true;
     }
     return true;
@@ -471,7 +471,7 @@ namespace
     class Abyss : public Floor {
         CLONEOBJ(Abyss);
     public:
-        Abyss() : Floor("fl-abyss", 2.0, 1, flf_indestructible, flft_noash) {}
+        Abyss() : Floor("fl_abyss", 2.0, 1, flf_indestructible, flft_noash) {}
     private:
 //         void actor_enter(Actor* a) {SendMessage(a, "fall");}
         void actor_contact (Actor* a) {SendMessage(a, "fall");}
@@ -483,8 +483,8 @@ namespace
     class Ice : public Floor {
         CLONEOBJ (Ice);
     public:
-        Ice() : Floor ("fl-ice", 0.1, 0.1, flf_default, flft_default, "",
-            "fl-water") { }
+        Ice() : Floor ("fl_ice", 0.1, 0.1, flf_default, flft_default, "",
+            "fl_water") { }
 
         virtual double get_friction() const {
             return 0.1 * server::IceFriction;
@@ -496,8 +496,8 @@ namespace
     class Water : public Floor {
         CLONEOBJ(Water);
     public:
-        Water() : Floor("fl-water", 5, 1, flf_indestructible, flft_default, "",
-            "fl-swamp") {}
+        Water() : Floor("fl_water", 5, 1, flf_indestructible, flft_default, "",
+            "fl_swamp") {}
     private:
 
         bool is_destructible() const {return false;}
@@ -514,7 +514,7 @@ namespace
     class Swamp : public Floor {
         CLONEOBJ(Swamp);
     public:
-        Swamp() : Floor("fl-swamp", 13, 1.0, flf_indestructible, flft_default,
+        Swamp() : Floor("fl_swamp", 13, 1.0, flf_indestructible, flft_default,
             "", "fl-dunes") {}
     private:
         bool is_destructible() const {return false;}
@@ -546,7 +546,7 @@ namespace
         CLONEOBJ(FallenBox);
     public:
         FallenBox(const char *kind)
-        :  Floor(kind, 6.4, 2.0, flf_default, flft_burnable, "fl-abyss")
+        :  Floor(kind, 6.4, 2.0, flf_default, flft_burnable, "fl_abyss")
         // uses same traits as fl-wood
         {}
 

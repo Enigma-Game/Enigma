@@ -254,8 +254,10 @@ enigma_SOURCES = 		\
 	stones/Door.hh		\
 	stones/FartStone.cc	\
 	stones/FartStone.hh	\
-	stones/FloppySwitch.cc   \
-	stones/FloppySwitch.hh   \
+	stones/FloorBuilder.cc	\
+	stones/FloorBuilder.hh	\
+	stones/FloppySwitch.cc	\
+	stones/FloppySwitch.hh	\
 	stones/FourSwitch.cc	\
 	stones/FourSwitch.hh	\
 	stones/KeySwitch.cc	\

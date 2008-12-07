@@ -409,7 +409,7 @@ namespace enigma {
 
         for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
             if (Floor *fl = GetFloor(move((*itr)->get_pos(), dir))) {
-                if (!((fl->is_kind("fl-abyss") && isComplete) || (fl->is_kind("fl-water") && (isComplete || waterSink)))) {
+                if (!((fl->is_kind("fl_abyss") && isComplete) || (fl->is_kind("fl_water") && (isComplete || waterSink)))) {
                     createBridge = false;
                     break;
                 }
