@@ -210,6 +210,10 @@ namespace enigma {
             fairShuffleColors(logFlag);
         else
             simpleShuffleColors();
+            
+        for (unsigned i=0; i<levelOxyds.size(); ++i)
+            if (levelOxyds[i]->state == CLOSED && levelOxyds[i]->isDisplayable())
+                levelOxyds[i]->setClosedModel(true);
     }
     
     void OxydStone::simpleShuffleColors() {
@@ -858,23 +862,23 @@ namespace enigma {
         if (m.message == "closeall") {
             closeAllStandardOxyds();
             return Value();
-        }
-        else if (m.message == "shuffle") {
+        } else if (m.message == "peepall") {
+            for (unsigned i=0; i<levelOxyds.size(); ++i)
+                if (levelOxyds[i]->state == CLOSED && levelOxyds[i]->isDisplayable())
+                    levelOxyds[i]->setClosedModel(false);
+        } else if (m.message == "shuffle") {
             shuffleColors();
             return Value();
-        }
-        else if ((m.message == "_trigger"  && m.value.to_bool()) || m.message == "_spitter") {
+        } else if ((m.message == "_trigger"  && m.value.to_bool()) || m.message == "_spitter") {
             tryOpen();   // just internal messages on displayable oxyds
             return Value();
-        }
-        else if (m.message == "_init") {
+        } else if (m.message == "_init") {
             initColors();
             return Value();
         } else if (m.message == "_model_reanimated") {
             if (objFlags & OBJBIT_CLOSED) {
                 state = CLOSED;
-                std::string flavor(getAttr("flavor"));
-                set_model(string("st-oxyd") + flavor);
+                setClosedModel();
                 objFlags &= ~OBJBIT_CLOSED;
             } else if (objFlags & OBJBIT_OPENPAIR) {
                 state = OPEN_PAIR;
@@ -891,15 +895,15 @@ namespace enigma {
     
     void OxydStone::setAttr(const string& key, const Value &val) {
         if (key == "oxydcolor") 
-            ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - recoloring of an not closed stone");
+            ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - recoloring of a not closed stone");
         else if (key == "flavor") {
-            ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - reflavoring of an not closed stone");
+            ASSERT(state == CLOSED, XLevelRuntime, "OxydStone error - reflavoring of a not closed stone");
         }
         
         Stone::setAttr(key, val);   // do value checking
         
         if (key == "flavor" && IsInsideLevel(get_pos()))
-            set_model(string("st-oxyd")+(std::string)val);
+            setClosedModel(true);
     }
         
     int OxydStone::maxState() const {
@@ -963,8 +967,7 @@ namespace enigma {
     }
     
     void OxydStone::on_creation (GridPos p) {
-        std::string flavor(getDefaultedAttr("flavor", "a"));
-        set_model(string("st-oxyd") + flavor);
+        setClosedModel(true);
         activatePhoto();
         Stone::on_creation(p);
     }
@@ -982,6 +985,16 @@ namespace enigma {
             // side independent light switch on
             tryOpen();
         }
+    }
+    
+    void OxydStone::setClosedModel(bool isInitial) {
+        std::string flavor(getDefaultedAttr("flavor", "a"));
+        Value c = getAttr("oxydcolor");
+        if (flavor == "e" && !isInitial && (int)c != FAKE)
+            set_model(std::string("st-oxyd") + flavor + (std::string)c);
+        else
+            set_model(std::string("st-oxyd") + flavor);
+        
     }
     
     void OxydStone::tryOpen() {
@@ -1081,13 +1094,17 @@ namespace enigma {
         int oldExtState = externalState();
         
         state = newState;
+        bool didShuffle = false;
+        bool didFart = false;
     
         switch (newState) {
             case CLOSED:
-                if ((int)getAttr("oxydcolor") == BOLD)
+                if ((int)getAttr("oxydcolor") == BOLD) {
                     shuffleColors();    // shuffle all closed oxyds including itself
-                    
-                set_model(string("st-oxyd")+flavor);
+                    didShuffle = true;
+                }
+                setClosedModel();
+//                set_model(string("st-oxyd")+flavor);
                 break;
         
             case OPEN_SINGLE:
@@ -1095,6 +1112,7 @@ namespace enigma {
                     set_anim(basemodelname + "-pseudo" + color);
                     if ((int)getAttr("oxydcolor") == FART) {
                         closeAllStandardOxyds();
+                        didFart = true;
                         sound_event("fart");
                     } else if ((int)getAttr("oxydcolor") == BOLD) {
                         sound_event("shuffle");
@@ -1141,7 +1159,9 @@ namespace enigma {
                 }
                 break;
         }
-        if (oldExtState != externalState() && (oldExtState != 1 || externalState() != 2))
+        // perform action
+        if (((int)getAttr("oxydcolor") > AUTO && oldExtState != externalState() && (oldExtState != 1 || externalState() != 2)) // avoid second action of paired oxyd that changes from single to pair open state
+                || didShuffle || didFart)
             performAction(externalState() != 0);
     }
     
@@ -1152,6 +1172,7 @@ namespace enigma {
         BootRegister(new OxydStone("b"), "st_oxyd_b");
         BootRegister(new OxydStone("c"), "st_oxyd_c");
         BootRegister(new OxydStone("d"), "st_oxyd_d");
+        BootRegister(new OxydStone("e"), "st_oxyd_e");
     BOOT_REGISTER_END
 
 } // namespace enigma

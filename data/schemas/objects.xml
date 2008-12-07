@@ -92,6 +92,7 @@
     <msg name="on" type="nil"/>
     <msg name="open" type="nil"/>
     <msg name="orientate" type="nil"/>
+    <msg name="peepall" type="nil"/>
     <msg name="pull_rotate" type="int"/>
     <msg name="push_rotate" type="int"/>
     <msg name="setfire" type="nil"/>
@@ -799,6 +800,7 @@
       <attr name="oxydcolor"/>
       <attr name="static"/>
       <msg name="closeall"/>
+      <msg name="peepall"/>
       <msg name="shuffle"/>
       <msg name="_trigger"/>
       <msg name="_spitter"/>

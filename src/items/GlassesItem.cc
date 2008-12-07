@@ -77,8 +77,10 @@ namespace enigma {
         updateGlasses();
     }
     void Glasses::on_stonehit(Stone *) {
-        sound_event ("shatter");
-        setState(0);
+        if (state > 0) {
+            sound_event ("shatter");
+            setState(0);
+        }
     }
         
     int Glasses::traitsIdx() const {

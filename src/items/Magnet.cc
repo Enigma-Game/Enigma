@@ -93,7 +93,7 @@ namespace enigma {
     };
     
     BOOT_REGISTER_START
-        BootRegister(new Magnet(true), "it_magnet");
+        BootRegister(new Magnet(false), "it_magnet");
         BootRegister(new Magnet(false), "it_magnet_off");
         BootRegister(new Magnet(true), "it_magnet_on");
     BOOT_REGISTER_END

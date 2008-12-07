@@ -187,6 +187,7 @@ namespace enigma {
 
 
         // Private methods
+        void setClosedModel(bool isInitial = false);
         void tryOpen();
         void closeAllStandardOxyds();
         void set_iState(iState newState);

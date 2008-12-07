@@ -1342,7 +1342,7 @@ do
         a="st-oxyda-open",
         b="st-oxydb-open",
         c="st-oxydc-open",
-        d="st-oxydd-open"
+        d="st-oxydd-open",
     }
     local shadow = {
        a="sh-round",
@@ -1457,6 +1457,27 @@ do
     mkoxyd("b")
     mkoxyd("c")
     mkoxyd("d")
+
+    -- flavors 'e' 
+    for color = 0, num_colors - 1 do
+        DefOverlay("st-oxyde"..color.."-peep", {"st-oxydb-open", colorspots[color+1], "st-oxyde"})
+        DefShModel("st-oxyde"..color, "st-oxyde"..color.."-peep", "sh-round")
+        DefAlias("st-oxyde"..color.."-opening", "st-oxydb"..color.."-opening")
+        DefAlias("st-oxyde"..color.."-closing", "st-oxydb"..color.."-closing")
+        DefAlias("st-oxyde"..color.."-blink", "st-oxydb"..color.."-blink")
+        DefAlias("st-oxyde"..color.."-open", "st-oxydb"..color.."-open")
+    end
+    DefAlias("st-oxyde", "st-oxydb")
+    DefAlias("st-oxyde-3-opening", "st-oxydb-3-opening")
+    DefAlias("st-oxyde-pseudo-3", "st-oxydb-pseudo-3")
+    DefAlias("st-oxyde-3-closing", "st-oxydb-3-closing")
+    DefOverlay("st-oxyde-3-peep", {"st-oxydb-open", colorspots[97], "st-oxyde"})
+    DefShModel("st-oxyde-3", "st-oxyde-3-peep", "sh-round")
+    DefAlias("st-oxyde-4-opening", "st-oxydb-4-opening")
+    DefAlias("st-oxyde-pseudo-4", "st-oxydb-pseudo-4")
+    DefAlias("st-oxyde-4-closing", "st-oxydb-4-closing")
+    DefOverlay("st-oxyde-4-peep", {"st-oxydb-open", colorspots[96], "st-oxyde"})
+    DefShModel("st-oxyde-4", "st-oxyde-4-peep", "sh-round")
 end
 
 -- st-coffee --
