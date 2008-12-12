@@ -24,8 +24,7 @@ ti["2"] = {"fl-leavesc2"}
 ti["3"] = {"fl-leavesc3"}
 ti["4"] = {"fl-leavesc4"}
 ti["."] = {"fl-leaves"}
-ti["~"] = {"fl-water"}
-
+ti["~"] = {"fl_water"}
 ti["#"] = ti[" "] .. {"st-likeoxyda"}
 ti["@"] = ti["."] .. {"#ac-blackball"}
 ti["C"] = ti["."] .. {"st_chess_black"}
@@ -81,7 +80,6 @@ triggers = no["trigger#*"]
 for j = 1, #triggers do
   triggers[j].target = doors[trigger_to_doors[j]]
 end
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

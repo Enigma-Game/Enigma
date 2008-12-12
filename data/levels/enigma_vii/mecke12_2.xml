@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 32 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 33 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,8 +24,8 @@ ti[" #"] = {"fl-rough-blue"}
 ti[" $"] = {"fl-light"}
 ti["$ "] = {"st_knight"}
 ti["% "] = {"st-grate1"}
-ti[" %"] = {"fl-abyss"}
-ti[" &"] = {"fl-water"}
+ti[" %"] = {"fl_abyss"}
+ti[" &"] = {"fl_water"}
 ti[" '"] = {"fl-sahara"}
 ti[" ("] = {"fl-bluegray"}
 ti["& "] = {"st_oxyd_d"}
@@ -34,7 +34,7 @@ ti[" *"] = {"fl-gradient9"}
 ti[" +"] = {"fl-himalaya"}
 ti[" ,"] = {"fl-gradient10"}
 ti["' "] = {"st_actorimpulse_invisible"}
-ti[" i"] = {"fl-ice"}
+ti[" i"] = {"fl_ice"}
 ti["e "] = {"it_extralife"}
 ti["s "] = {"it-spring2"}
 ti["v "] = {"it_strip", connections="ns"}
@@ -45,7 +45,7 @@ ti["* "] = {"st-break_bolder"}
 ti[" /"] = {"fl-bluegreenx"}
 ti["+ "] = {"st-glass_move"}
 ti[", "] = {"st_door", faces="ew"}
-ti[" 0"] = {"fl-space"}
+ti[" 0"] = {"fl_space"}
 ti["- "] = {"st_bluesand"}
 ti[". "] = {"st_oneway_black_w"}
 ti["/ "] = {"st_oneway_black_e"}
@@ -69,7 +69,7 @@ ti[" 2"] = {"fl-samba"}
 ti["8 "] = {"st-rock4"}
 ti["p "] = {"it_puller_n"}
 ti["h "] = {"it_strip", connections="ew"}
-ti[" 3"] = {"fl-swamp"}
+ti[" 3"] = {"fl_swamp"}
 ti["9 "] = {"st_actorimpulse"}
 ti[" 4"] = {"fl-bluegreen"}
 ti[": "] = {"st_puzzle",hollow=true, connections="nesw"}
@@ -78,7 +78,7 @@ ti[" 5"] = {"fl-gradient4"}
 ti["w "] = {"it_magicwand"}
 ti["y "] = {"it_floppy"}
 ti["; "] = {"st-black4"}
-ti["> "] = {"st-wood"}
+ti["> "] = {"st_wood"}
 ti[" 6"] = {"fl-acwhite"}
 ti[" 7"] = {"fl-gradient14"}
 ti["? "] = {"st-likeoxydd"}
@@ -94,7 +94,7 @@ ti["z3"] =  ti["l3"] ..{"it-cherry"}
 ti["z4"] =  ti["l4"] ..{"it-cherry"}
 ti["z5"] =  ti["l5"] ..{"it-cherry"}
 ti["z6"] =  ti["l6"] ..{"it-cherry"}
-ti["z7"] =  ti[" !"] ..{"st-wood"}
+ti["z7"] =  ti[" !"] ..{"st_wood"}
 ti["z8"] =  ti[" !"] ..{"st_oneway_black_w"}
 ti["z9"] =  ti[" !"] ..{"st-grate1"}
 ti["g5"] =  ti["z9"] .. {"it-crack3"}
@@ -140,13 +140,13 @@ ti["g1"] =  ti["gg"] ..{"st_door", faces="ns", name= "dolli1"}
 ti["g2"] =  ti["gg"] ..{"st_door", faces="ns", name= "dolli2"}
 
 if wo ["IsDifficult"] then
-    ti["l9"] = ti[" &"]..{"fl-water"}
+    ti["l9"] = ti[" &"]..{"fl_water"}
     ti["a3"] = ti[" !"]..{"fl-normal"}
     ti["a4"] = ti[" !"]..{"fl-normal"}
     ti["a5"] = ti[" !"]..{"fl-normal"}
     ti["a6"] = ti[" !"]..{"it_death"}
 else
-    ti["l9"] = ti[" &"]..{"fl-ice"}
+    ti["l9"] = ti[" &"]..{"fl_ice"}
     ti["a3"] = ti[" !"]..{"it-flagblack"}
     ti["a4"] = ti[" !"]..{"it_extralife"}
     ti["a5"] = ti[" !"]..{"it-pin"}

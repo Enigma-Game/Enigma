@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 8 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 9 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,19 +18,19 @@
 wo["ConserveLevel"] = true
 
 ti[" -"] = {"fl-gradient3"}
-ti[" ~"] = {"fl-swamp"}
+ti[" ~"] = {"fl_swamp"}
 ti["A "] = ti[" -"] ..{"it_sword"}
 ti["B "] = {"st_swap"}
-ti["C "] = {"st-wood"}
+ti["C "] = {"st_wood"}
 ti["F "] = {"st_fart"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
 ti["E "] = ti[" ~"] .. {"st-glass_move"}
 ti["  "] = {"fl-normal"}
-ti[" ."] = {"fl-abyss"}
+ti[" ."] = {"fl_abyss"}
 ti["# "] = {"st-redrock"}
 ti[" l"] = {"fl-sahara"}
-ti["~ "] = {"fl-water"}
-ti["; "] = {"fl-swamp"}
+ti["~ "] = {"fl_water"}
+ti["; "] = {"fl_swamp"}
 ti["' "] = {"it_seed"}
 ti["& "] = ti["  "] .. {"st_disco_light"}
 ti[" ,"] = {"fl-red"}

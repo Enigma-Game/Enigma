@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 21 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 22 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,7 +16,7 @@ wo["ConserveLevel"] = true
 
 ti[" #"] = {"fl-gradient1"}
 ti[" $"] = {"fl-dunes"}
-ti[" %"] = {"fl-water"}
+ti[" %"] = {"fl_water"}
 ti["! "] = {"st_death"}
 ti["# "] = {"st-rock1"}
 ti[" &"] = {"fl-normal"}
@@ -48,14 +48,14 @@ ti["3 "] = {"st-yellow"}
 ti["4 "] = {"st_door", faces="ew"}
 ti["e "] = {"it_extralife"}
 ti["5 "] = {"st_door", faces="ns"}
-ti[" ,"] = {"fl-swamp"}
+ti[" ,"] = {"fl_swamp"}
 ti["6 "] = {"st-glass"}
 ti["7 "] = {"st_oxyd_d"}
 ti["8 "] = {"st_knight"}
 ti["9 "] = {"st_boulder_e"}
 ti["v "] = {"it_strip", connections="ns"}
 ti[": "] = {"st_boulder_w"}
-ti["; "] = {"st-wood"}
+ti["; "] = {"st_wood"}
 ti["< "] = {"st_mirror", movable=false, transparent=false, orientation=WEST}
 ti[" -"] = {"fl-sahara"}
 ti["f "] = {"it-flagblack"}
@@ -96,7 +96,7 @@ ti["m "] = {"it-springboard"}
 ti["O "] = {"st-rock6"}
 ti["P "] = {"st-grate3"}
 ti["R "] = {"st-grate2"}
-ti[" 7"] = {"fl-space"}
+ti[" 7"] = {"fl_space"}
 ti["S "] = {"st-break_invisible"}
 ti[" 8"] = {"fl-bluegray"}
 ti["T "] = {"st_boulder_s"}
@@ -164,9 +164,9 @@ ti["d7"] = ti[" +"] ..{"st_door", faces="ns", name= "olli7"}
 ti["d9"] = ti[" )"] ..{"st_door", faces="ew", name= "olli9"}
 
 if wo ["IsDifficult"] then
-    ti["ll"] = ti[" %"]..{"fl-water"}
-    ti["la"] = ti[" %"]..{"fl-water"}
-    ti["aa"] = ti[" %"]..{"fl-water"}
+    ti["ll"] = ti[" %"]..{"fl_water"}
+    ti["la"] = ti[" %"]..{"fl_water"}
+    ti["aa"] = ti[" %"]..{"fl_water"}
     ti["al"] = ti[" %"]..{"st-glass_move"}
     ti["bp"] = ti[" !"]..{"fl-brick"}
     ti["QQ"] = ti[" /"]..{"st_chess_white"}
@@ -175,9 +175,9 @@ if wo ["IsDifficult"] then
     ti["w3"] = ti[" )"]..{"it_wormhole", destination = po(11.5, 16.5),range=10, strength=10}
 else
     ti["ll"] = ti[" %"]..{"fl-bluegray"}
-    ti["la"] = ti[" %"]..{"fl-swamp"}
+    ti["la"] = ti[" %"]..{"fl_swamp"}
     ti["aa"] = ti[" %"]..{"st-black3"}
-    ti["al"] = ti[" %"]..{"fl-swamp"}
+    ti["al"] = ti[" %"]..{"fl_swamp"}
     ti["bp"] = ti[" !"]..{"it_umbrella"}
     ti["QQ"] = ti[" /"]..{"st_brake"}
     ti["w1"] = ti["~m"]..{"it_wormhole", destination = po(44.5, 35.5),range=3, strength=3}

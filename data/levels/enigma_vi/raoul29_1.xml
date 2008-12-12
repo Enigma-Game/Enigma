@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,11 +16,11 @@
 wo["ConserveLevel"] = true
 
 ti[" "] = {"fl-metal"}
-ti["-"] = {"fl-abyss"}
+ti["-"] = {"fl_abyss"}
 if wo["IsDifficult"] then
-  ti["~"] = {"fl-abyss", friction=0.25}
+  ti["~"] = {"fl_abyss", friction=0.25}
 else
-  ti["~"] = {"fl-abyss", friction=0.1}
+  ti["~"] = {"fl_abyss", friction=0.1}
 end
 ti["G"] = {"st-glass2"}
 ti["F"] = {"st-glass1"}

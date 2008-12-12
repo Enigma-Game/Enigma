@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Scarlett's Necklet" el:subtitle="Who did broke the pearl necklet?" el:id="20080814ral422"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 115 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 116 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,10 +29,10 @@ ti["C"] = {"st-marble_move", "pearl#"}
 ti["D"] = {"st-rock1_move", "pearl#"}
 ti["E"] = {"st-glass1_move", "pearl#"}
 ti["F"] = {"st-camouflage_move", "pearl#"}
-ti["G"] = {"st-wood", "pearl#"}
+ti["G"] = {"st_wood", "pearl#"}
 ti["H"] = {"st-glass_move", "pearl#"}
 ti["I"] = {"st-rock3_move", "pearl#"}
-ti["J"] = {"st-flhay", "pearl#"}
+ti["J"] = {"st_flhay", "pearl#"}
 
 ti["_"] = {"st_window_s", secure=true}
 ti["|"] = {"st_window_e", secure=true}

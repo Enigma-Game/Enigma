@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Laser Games" el:subtitle="" el:id="mp03"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author el:name="moonpearl"/>
       <el:copyright>Copyright © moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ ti["9*"] = {"st_mirror", name = "mirror%%", flavor = "triangle",
 local resolver = res.autotile(ti, {"T", "T*"}, {"F", "F*"},
     {"1", "1*"}, {"2", "2*"}, {"3", "3*"}, {"4", "4*"}, {"5", "5*"},
     {"6", "6*"}, {"7", "7*"}, {"8", "8*"}, {"9", "9*"})
-         
+
 w, h = wo(resolver, "  ", {
 "# # # # # # # # # # # $ # $ # $ # $ # # ",
 "#                 #                   # ",

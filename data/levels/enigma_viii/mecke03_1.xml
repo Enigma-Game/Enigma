@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Balance Beam" el:subtitle="Balance Beam" el:id="mecke03"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 30 $" el:status="released"/>
       <el:author  el:name="mecke"/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,16 +18,16 @@
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
-    ti["b"] = {"fl-ice"}
+    ti["b"] = {"fl_ice"}
   else
     ti["b"] = {"fl-bluegray"}
 end
-ti[" "] = {"fl-space"}
+ti[" "] = {"fl_space"}
 ti["r"] = {"fl-red"}
 ti["z"] = {"fl-rough"}
 ti["l"] = {"fl-light"}
-ti["~"] = {"fl-water"}
-ti["y"] = {"fl-swamp"}
+ti["~"] = {"fl_water"}
+ti["y"] = {"fl_swamp"}
 ti["n"] = {"st_window_n"}
 ti["s"] = {"st_window_s"}
 ti["w"] = {"st_window_w"}

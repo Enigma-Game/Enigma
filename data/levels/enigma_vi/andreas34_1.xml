@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Procrustes" el:subtitle="" el:id="andreas34"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,6 @@
       <el:score el:easy="-" el:difficult="05:45"/>
     </el:info>
     <el:luamain><![CDATA[
-
 -- Constructed with the help of BBE.
 
 levelh=13
@@ -26,7 +25,6 @@ levelw=20
 
 mys="st-rock10"
 
-enigma.FlatForce=30
 enigma.SlopeForce=30
 enigma.ElectricForce=30
 

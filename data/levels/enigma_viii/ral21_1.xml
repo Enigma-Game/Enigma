@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 117 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 118 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,9 +24,9 @@ wo["ExtralifeGlasses"] = SPOT_DEATH
 wo["Brittleness"] = 1.0
 
 ti["  "] = {"fl-sand"}
-ti["~~"] = {"fl-water"}
-ti["~e"] = {"fl-water", "escape_close#"}
-ti["__"] = {"fl-abyss"}
+ti["~~"] = {"fl_water"}
+ti["~e"] = {"fl_water", "escape_close#"}
+ti["__"] = {"fl_abyss"}
 ti["_f"] = {"fl-abyss_fake"}
 ti[",,"] = {"fl-concrete"}
 ti[",e"] = {"fl-concrete", "escape_pos"}
@@ -39,7 +39,7 @@ ti[";;"] = {"fl-dunes", friction=6, mousefactor=2}
 ti["''"] = {"fl-sahara"}
 ti["%%"] = {"fl-samba"}
 ti["%."] = {"fl-samba", "volcan#", secure=true}
-ti["_v"] = {"fl-abyss", "volcan#"}
+ti["_v"] = {"fl_abyss", "volcan#"}
 ti["::"] = {"fl-rough-red"}
 ti["O0"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLUE}
 ti["O1"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_RED}
@@ -199,8 +199,8 @@ ti["Im"] = ti[".."] .. {"st_stoneimpulse_movable"}
 ti["Ih"] = ti[".."] .. {"st_stoneimpulse_hollow"}
 ti["IH"] = ti["__"] .. {"st_stoneimpulse_hollow"}
 ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
-ti["MW"] = ti["''"] .. {"st-wood"}
-ti["M:"] = ti["::"] .. {"st-wood"}
+ti["MW"] = ti["''"] .. {"st_wood"}
+ti["M:"] = ti["::"] .. {"st_wood"}
 ti["MB"] = ti["c'"] .. {"st-brownie"}
 ti["R0"] = ti["  "] .. {"st-rock5"}
 ti["R1"] = ti["::"] .. {"st-rock1"}
@@ -723,4 +723,3 @@ end
     </el:i18n>
   </el:protected>
 </el:level>
-

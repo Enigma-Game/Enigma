@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:22$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:23$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,12 +14,12 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" !"] = {"fl-abyss"}
+ti[" !"] = {"fl_abyss"}
 ti["! "] = {"st_puzzle", connections="nesw"}
 ti["# "] = {"st_death"}
 ti[" #"] = {"fl-normal"}
 ti["$ "] = {"st_oxyd_b"}
-ti[" $"] = {"fl-space"}
+ti[" $"] = {"fl_space"}
 ti["% "] = {"st-glass"}
 ti[" %"] = {"fl-rough-blue"}
 ti[" ("] = {"fl-sahara"}
@@ -62,7 +62,7 @@ ti["~~"] = ti[" )"]..{"it-springboard"}
 ti["> "] = {"st_puzzle", connections="ew"}
 ti[" *"] = {"fl-abyss_fake"}
 ti["tt"] = ti[" )"]..{"it_trigger", target="laserhi"}
-ti[" +"] = {"fl-water"}
+ti[" +"] = {"fl_water"}
 ti["? "] = {"st_puzzle", connections="sw"}
 ti["@ "] = {"st_puzzle", connections="esw"}
 ti["A "] = {"st_puzzle", connections="nw"}
@@ -78,7 +78,7 @@ ti["pb"] = ti[" $"]..{"it_pipe", connections="ne"}
 ti["pc"] = ti[" ("]..{"it_pipe", connections="es"}
 ti["E "] = {"st_oneway_black_s"}
 ti["F "] = {"st_mirror", movable=true, transparent=true}
-ti[" ,"] = {"fl-swamp"}
+ti[" ,"] = {"fl_swamp"}
 ti["G "] = {"st_laser_w", name="laserhi"}
 ti["oo"] = ti[" $"]..{"it-spoon"}
 ti["H "] = {"st_oneway_black_e"}
@@ -99,7 +99,7 @@ ti["N "] = ti["ee"]..{"st_pull"}
 ti["MM"] = ti[" ("]..{"st_pull"}
 ti[" -"] = {"fl-stwood1"}
 ti[" ."] = {"fl-stwood2"}
-ti["O "] = {"st-wood"}
+ti["O "] = {"st_wood"}
 ti[") "] = {"st_door", faces="ns", name="dolli2"}
 ti["Z "] = {"st_door", faces="ns", name="dolli1"}
 ti["II"] = ti["ff"]..{"st_door", faces="ew", name="dolli3"}
@@ -112,7 +112,7 @@ if wo ["IsDifficult"] then
     ti["w5"] = ti[" &"]..{"it_wormhole", destination = po(29.5, 30.5),range=10, strength=10}
     ti["w6"] = ti[" ("]..{"it_wormhole", destination = po(66.5, 31.5),range=10, strength=10}
     ti["w7"] = ti[" ("]..{"fl-sahara"}
-    ti["aa"] = ti["< "]..{"fl-abyss"}
+    ti["aa"] = ti["< "]..{"fl_abyss"}
     ti["pe"] = ti[" '"]..{"it-puller-e"}
     ti["ei"] = ti[" ("]..{"fl-sahara"}
 else

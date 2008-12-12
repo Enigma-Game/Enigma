@@ -3,7 +3,7 @@
   <el:protected>
      <el:info el:type="level">
        <el:identity el:title="Watchmaker" el:subtitle="Mend the clockwork" el:id="huesing01"/>
-       <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+       <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
        <el:author el:name="Johannes Hüsing" el:email="hannes@ruhrau.de" el:homepage="http://derwisch.wikidot.com"/>
        <el:copyright>Copyright © 2008 Johannes Hüsing </el:copyright>
        <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,9 +18,9 @@ ti[" "] = {"fl-metal4"}
 ti["-"] = {"fl-metal2"}
 ti["+"] = {"fl-metal3"}
 ti["|"] = {"fl-metal6"}
-ti["~"] = {"fl-water"}
+ti["~"] = {"fl_water"}
 ti["#"] = {"st-metal"}
-ti["W"] = ti["+"] .. {"st-wood"}
+ti["W"] = ti["+"] .. {"st_wood"}
 ti["X"] = {"st_oxyd"}
 ti[":"] = {"st_door","door#", flavor="d", faces="ew"}
 ti["A"] = ti["~"] .. {"st_boulder_n", "boulderA"}

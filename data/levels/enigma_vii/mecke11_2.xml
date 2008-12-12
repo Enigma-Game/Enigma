@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:27$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:28$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -18,7 +18,7 @@
   <![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" !"] = {"fl-abyss"}
+ti[" !"] = {"fl_abyss"}
 ti[" ,"] = {"fl-red"}
 ti["! "] = {"st-block"}
 ti[" #"] = {"fl-acblack"}
@@ -50,7 +50,7 @@ ti[") "] = {"st-grate1"}
 ti["a1"] = ti[" !"] .. {"st-grate1"}
 ti["* "] = {"st_mirror", movable=true, transparent=false}
 ti["+ "] = {"st-rock2"}
-ti[" '"] = {"fl-water"}
+ti[" '"] = {"fl_water"}
 ti[", "] = {"st-rock1_hole"}
 ti["- "] = {"st-thief"}
 ti[". "] = {"st_puzzle_yellow", connections="es"}
@@ -58,7 +58,7 @@ ti["p2"] = ti[" #"] .. {"st_puzzle_yellow", connections="es"}
 ti["/ "] = {"st_puzzle_yellow", connections="ns"}
 ti["0 "] = {"st_puzzle_yellow", connections="ne"}
 ti["p1"] = ti[" #"] .. {"st_puzzle_yellow", connections="ne"}
-ti[" ("] = {"fl-swamp"}
+ti[" ("] = {"fl_swamp"}
 ti["1 "] = {"st_puzzle_yellow", connections="ew"}
 ti["2 "] = {"st-glass"}
 ti["3 "] = {"st_laser_e"}
@@ -83,9 +83,9 @@ ti["oo"] = ti[" #"] .. {"st_oxyd_a"}
 ti["7 "] = {"st_laserswitch", target="door3"}
 ti["$ "] = {"st_laser_s", name="lezy3"}
 ti["8 "] = {"st_oneway_w"}
-ti["9 "] = {"st-wood"}
+ti["9 "] = {"st_wood"}
 ti[": "] = {"st_puzzle_yellow", connections="nw"}
-ti[" )"] = {"fl-space"}
+ti[" )"] = {"fl_space"}
 ti["< "] = {"st_actorimpulse"}
 ti["= "] = {"st-yellow"}
 ti["> "] = {"st_death_invisible"}

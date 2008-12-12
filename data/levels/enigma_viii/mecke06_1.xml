@@ -3,7 +3,7 @@
     <el:protected>
       <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:12$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:13$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -30,7 +30,7 @@ ti[" E"] = {"fl-gradient11"}
 ti[" D"] = {"fl-gradient16"}
 ti[" F"] = {"fl-rough-red"}
 ti["F "] = {"st-black2"}
-ti[" s"] = {"fl-space"}
+ti[" s"] = {"fl_space"}
 ti["w "] = {"it_wormhole", range=10, strength=3}
 ti["d "] = {"it-drop"}
 ti["X "] = {"#ac-blackball"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cold Mail" el:subtitle="" el:id="andreas18"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ function file_oxyd(x,y,f)
 end
 levelh=13
 levelw=20
-enigma.FlatForce=30
+
 enigma.SlopeForce=30
 enigma.ElectricForce=30
 cells={}

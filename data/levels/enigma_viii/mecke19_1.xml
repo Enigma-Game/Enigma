@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:1$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:2$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -16,7 +16,7 @@
 wo["ConserveLevel"] = true
 
 ti[" &"] = {"fl-red"}
-ti[" !"] = {"fl-water"}
+ti[" !"] = {"fl_water"}
 ti["! "] = {"st-rock6"}
 ti[" #"] = {"fl-normal"}
 ti[" $"] = {"fl-sahara"}
@@ -55,7 +55,7 @@ ti[" ,"] = {"fl-gravel"}
 ti[" -"] = {"fl-rough-red"}
 ti["1 "] = {"st-glass"}
 ti["2 "] = {"st-block"}
-ti[" ."] = {"fl-swamp"}
+ti[" ."] = {"fl_swamp"}
 ti[" /"] = {"fl-rough-blue"}
 ti["z "] = {"it-document", text="text1"}
 ti["3 "] = {"st_actorimpulse"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Waterworld" el:subtitle="" el:id="illmind11"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2003 illmind</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -26,7 +26,7 @@ function file_oxyd(x,y,f)
 end
 levelh=37
 levelw=96
-enigma.FlatForce=30
+
 enigma.SlopeForce=30
 enigma.ElectricForce=30
 cells={}

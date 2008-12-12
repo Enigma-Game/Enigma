@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 19 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ wo["ConserveLevel"] = true
 ti[" #"] = {"fl-stone"}
 ti[" a"] = {"fl-rock"}
 ti[" ,"] = {"fl-concrete"}
-ti[" &"] = {"fl-ice"}
+ti[" &"] = {"fl_ice"}
 ti[" %"] = {"fl-gravel"}
 ti["  "] = {"fl-hay",{secure=TRUE}}
 ti[" o"] = {"fl-acblack"}
@@ -29,7 +29,7 @@ ti[" +"] = {"fl-sahara"}
 ti[" '"] = {"fl-tigris"}
 ti[" ."] = {"fl-metal"}
 ti[" /"] = {"fl-woven"}
-ti[" O"] = {"fl-abyss"}
+ti[" O"] = {"fl_abyss"}
 ti[" 1"] = {"fl-red"}
 ti["/ "] = {"st-puzzle-new"}
 ti["$ "] = {"st-grate3"}
@@ -58,7 +58,7 @@ ti["SB"] = {"st-black4"}
 ti["SP"] = {"st_chess_black"}
 ti["SW"] = {"st_chess_white"}
 ti["ZZ"] = ti[" ."] .. {"st-stone_break"}
-ti[" ;"] = {"fl-swamp"}
+ti[" ;"] = {"fl_swamp"}
 ti["R "] = {"st-redrock"}
 ti[" j"] = {"it-crack2"}
 ti["&&"] = ti[" &"] .. {"it-crack2"}
@@ -67,7 +67,7 @@ ti[" y"] = ti[" O"] .. {"st_stoneimpulse_hollow"}
 ti["* "] = ti["u "] .. {"#ac-blackball"}
 ti["*w"] = ti[" '"] .. {"#ac-whiteball",essential=1}
 ti["= "] = ti[" ."] .. {"it_seed"}
-ti[" ="] = {"fl-water"}
+ti[" ="] = {"fl_water"}
 ti[" b"] = {"it-dynamite"}
 ti["!0"] = {"it-burnable_oil"}
 ti["ka"] = {"it_floppy"}
@@ -105,8 +105,8 @@ ti["XF"] = {"st_mail",orientation = EAST}
 ti["DD"] = ti[" ."] .. {"it_death"}
 ti["BD"] = ti[" o"] .. {"it_death"}
 ti["BE"] = ti[" %"] .. {"it_death"}
-ti["BF"] = ti["BE"] .. {"st-wood"}
-ti["BG"] = ti[" %"] .. {"st-wood"}
+ti["BF"] = ti["BE"] .. {"st_wood"}
+ti["BG"] = ti[" %"] .. {"st_wood"}
 ti["U1"] = ti[" ."] .. {"st-white4"}
 ti["U2"] = ti[" ,"] .. {"st-black4"}
 ti["U3"] = ti[" ,"] .. {"st_oneway",state=SOUTH,color=BLACK}
@@ -115,7 +115,7 @@ ti["P "] = ti[" ."] .. {"it_vortex_open"}
 ti["h "] = {"st-bluegray_hole"}
 ti["A "] = {"st_brake"}
 ti["B "] = {"st_swap"}
-ti["C "] = {"st-wood"}
+ti["C "] = {"st_wood"}
 ti["T "] = {"st-thief"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
 ti["E "] = {"st-glass_move"}
@@ -205,7 +205,7 @@ ti["> "] = ti[" '"] .. {"st_boulder_e"}
 ti["< "] = ti[" '"] .. {"st_boulder_w"}
 ti["^ "] = ti[" '"] .. {"st_boulder_n"}
 ti["v "] = ti[" '"] .. {"st_boulder_s"}
-ti["^1"] = ti["^ "] .. {"fl-water"}
+ti["^1"] = ti["^ "] .. {"fl_water"}
 ti["//"] = {"it-burnable_burning"}
 ti["o/"] = {"it-burnable_oil"}
 

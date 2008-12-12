@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,16 +23,16 @@ ti["h"] = ti[" "] .. {"it_trigger", action="callback", target="Band1"} -- attach
 ti["i"] = ti[" "] .. {"st-invisible"}
 ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORIMPULSE} .. ti({"st-marble_hole"})
 ti["k"] = ti[" "] .. {"it_trigger", action="callback", target="Band2"} -- attaches rubber band from Tonto to Tonto's Horse
-ti["l"] = {"fl-water"}
+ti["l"] = {"fl_water"}
 ti["m"] = ti[" "] .. {"it_hammer"}
 ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st-chameleon"})
 ti["o"] = {"fl-sand", secure=true} .. ti({"it-burnable_oil"})
-ti["p"] = {"fl-swamp"}
+ti["p"] = {"fl_swamp"}
 ti["q"] = ti[" "] .. {"st-redrock"} -- SUN RAY
 ti["r"] = {"fl-red"} -- SUN
 ti["s"] = ti[" "] .. {"st_scissors"}
 ti["t"] = ti[" "] .. {"st-thief"}
-ti["u"] = ti[" "] .. {"st-wood"}
+ti["u"] = ti[" "] .. {"st_wood"}
 ti["w"] = ti[" "] .. {"st-white2"}
 ti["x"] = ti[" "] .. {"it_death"} -- Corpse
 ti["y"] = {"fl-bluegreen"} -- SKY
@@ -66,12 +66,12 @@ ti["Z"] = (ti[" "] .. {"it_death"}) .. {"st-break_gray"} --Tomb door with corpse
 ti["0"] = ti[" "] .. {"st_oxyd"}
 ti["1"] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"}
 ti["2"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"}
-ti["+"] = ti["l"] .. {"st-wood"}
+ti["+"] = ti["l"] .. {"st_wood"}
 ti["6"] = ti[" "] .. {"it-booze"}
 ti["!"] = ti[" "] .. {"it_key", code="1"}
 ti["@"] = ti[" "] .. {"it_key", code="2"}
 ti["#"] = ti[" "] .. {"st-camouflage"}
-ti["$"] = ti[" "] .. {"st-wood"} .. ti({"it-yinyang"})
+ti["$"] = ti[" "] .. {"st_wood"} .. ti({"it-yinyang"})
 ti["%"] = ti[" "] .. {"st_death_invisible"}
 ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
 ti["*"] = ti[" "] .. {"#ac-rotor", range=5, force=100}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Wired" el:subtitle="" el:id="andreas49"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@ ti[" "] = {"fl-sahara", friction = 3.5, mouseforce = 4.0}
 ti["a"] = {"fl-light", friction = 3.5, mouseforce = 4.0}
 ti["b"] = {"fl-white", friction = 3.5, mouseforce = 4.0}
 ti["c"] = {"fl-lightgray", friction = 3.5, mouseforce = 4.0}
-ti["_"] = {"fl-water"}
+ti["_"] = {"fl_water"}
 ti["@"] = {"#ac-blackball"}
 ti["w"] = {"st-plain_move", "wood#"}
 ti["t"] = {"it_trigger", "trigger#"}

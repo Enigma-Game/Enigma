@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:32$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:33$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -32,12 +32,12 @@ ti["% "] = {"st_oneway_black_n"}
 ti["& "] = {"st-camouflage"}
 ti["gg"] = ti[" !"] .. {"it-springboard"}
 ti["' "] = {"st_boulder_w"}
-ti[" $"] = {"fl-space"}
+ti[" $"] = {"fl_space"}
 ti["( "] = {"st_death"}
 ti[") "] = {"st_oxyd_d"}
 ti["+ "] = {"st-glass"}
-ti[" %"] = {"fl-abyss"}
-ti[" &"] = {"fl-water"}
+ti[" %"] = {"fl_abyss"}
+ti[" &"] = {"fl_water"}
 ti["cc"] = ti[" &"] .. {"it-cherry"}
 ti["hh"] = ti[" &"] .. {"it_strip", connections="ew"}
 ti["vv"] = ti[" &"] .. {"it_strip", connections="ns"}
@@ -82,7 +82,7 @@ ti["sm"] = ti[" &"] .. {"it_shogun_m"}
 ti["sn"] = ti[" ("] .. {"it_shogun_m"}
 ti["yy"] = ti["mn"] .. {"it-spring2"}
 ti["sl"] = ti[" !"] .. {"it_shogun_l"}
-ti[" *"] = {"fl-swamp"}
+ti[" *"] = {"fl_swamp"}
 ti["7 "] = {"st_rotator_cw", movable=false}
 ti["8 "] = {"st_rotator_ccw", movable=false}
 ti["9 "] = {"st_death_invisible"}
@@ -125,7 +125,7 @@ if wo ["IsDifficult"] then
     ti["ec"] = ti[" !"] .. {"fl-red"}
     ti["eq"] = ti["mn"] .. {"it-spoon"}
     ti["qq"] = ti["fg"] .. {"it-spring2"}
-    ti["~~"] = {"fl-water"}
+    ti["~~"] = {"fl_water"}
 else
     ti["pd"] = {"fl-red"}
     ti["ph"] = {"fl-red"}
@@ -134,7 +134,7 @@ else
     ti["eq"] = ti["mn"] .. {"it_glasses"}
     ti["ec"] = ti["mn"] .. {"it_coin_s"}
     ti["qq"] = ti["fg"] .. {"st-glass"}
-    ti["~~"] = {"fl-abyss"}
+    ti["~~"] = {"fl_abyss"}
 end
 
 local resolver = res.composer(ti)

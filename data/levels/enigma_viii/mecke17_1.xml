@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation I" el:subtitle="Alternation in a Blue Area" el:id="mecke17"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 2 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 3 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ wo["ConserveLevel"] = true
 
 ti[" !"] = {"fl-rock"}
 ti[" r"] = {"fl-red"}
-ti[" ~"] = {"fl-water"}
+ti[" ~"] = {"fl_water"}
 ti[" w"] = {"fl-acwhite"}
 ti[" *"] = {"fl-acblack"}
 ti[" i"] = {"fl-inverse"}
@@ -73,7 +73,7 @@ ti["L4"] = ti[" !"] .. {"st_laser_n", name="laser4", state=ON}
 ti["SL"] = ti[" w"] .. {"st_switch_white", target={"laser1", "laser2","laser3", "laser4"}}
 ti["SB"] = ti[" &"] .. {"st_switch_black", target={"door1"}}
 ti["SP"] = ti[" &"] .. {"st_switch_black", target={"door2"}}
-ti["1&"] = ti[" &"] .. {"st-wood"}
+ti["1&"] = ti[" &"] .. {"st_wood"}
 ti["DD"] = ti[" &"] .. {"st_death"}
 ti["gi"] = ti[" i"] .. {"st-glass"}
 ti["yy"] = ti["yw"] .. {"st_oneway_black", orientation=WEST}

@@ -5,7 +5,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 22 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
     ti["  "] = {"fl-abyss_fake"}
-    ti[" v"] = {"fl-ice"}
+    ti[" v"] = {"fl_ice"}
     ti[" '"] = {"fl-rough"}
     ti["+ "] = ti[" '"] ..{"ac-rotor", 0.5, 0.5,}
 else
@@ -30,9 +30,9 @@ else
     ti[" v"] = {"fl-rough"}
     ti["+ "] = ti[" v"] ..{"ac-rotor", 0.5, 0.5}
 end
-ti[" ~"] = {"fl-water"}
-ti[" _"] = {"fl-swamp"}
-ti[" ."] = {"fl-space"}
+ti[" ~"] = {"fl_water"}
+ti[" _"] = {"fl_swamp"}
+ti[" ."] = {"fl_space"}
 ti[" ("] = {"fl-gradient", type=3}
 ti["t "] = {"st-stone_break"}
 ti["# "] = {"st_lightpassenger"}
@@ -46,7 +46,7 @@ ti["r "] = {"st-brownie"}
 ti["U1"] = {"st-black4"}
 ti["U2"] = ti["U1"] .. {"it_extralife"}
 ti[" i"] = ti["U1"] .. {"fl-inverse"}
-ti[" w"] = ti["U1"] .. {"fl-water"}
+ti[" w"] = ti["U1"] .. {"fl_water"}
 ti[" e"] = ti[" i"] .. {"it_hammer"}
 ti["u "] = ti[" _"] .. {"st-grate2"}
 ti["x "] = ti[" ("] .. {"it_brush"}
@@ -64,7 +64,7 @@ ti["^2"] = ti[" ~"] .. {"st_boulder_n"}
 ti["^3"] = ti["^2"] .. {"it_cross"}
 ti["> "] = ti[" v"] .. {"st_boulder_e"}
 ti["< "] = {"st_boulder_w"}
-ti["3 "] = ti[" v"] .. {"st-wood"}
+ti["3 "] = ti[" v"] .. {"st_wood"}
 ti["2 "] = {"st_oneway_black_s"}
 ti[" f"] = {"it_wrench"}
 ti["4 "] = ti[" f"] ..{"st_oneway_w"}

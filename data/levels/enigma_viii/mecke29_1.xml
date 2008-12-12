@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 2 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 3 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ wo["ExtralifeGlasses"] = SPOT_DEATH + SPOT_TRAP
 
 if wo ["IsDifficult"] then
     ti["  "] = {"fl-bluegreen"}
-    ti[" v"] = {"fl-ice"}
+    ti[" v"] = {"fl_ice"}
     ti[" '"] = {"fl-rough"}
 else
     ti["  "] = {"fl-rough"}
@@ -30,12 +30,12 @@ end
 
 ti["' "] = {"it_trap"}
 ti["b "] = {"it-blackbomb"}
-ti[" ~"] = {"fl-water"}
+ti[" ~"] = {"fl_water"}
 ti["r_"] = {"fl-red"}
-ti["b~"] = ti["b "] .. {"fl-water"}
-ti[" _"] = {"fl-swamp"}
-ti["'_"] = ti["' "] .. {"fl-swamp"}
-ti[" ."] = {"fl-space"}
+ti["b~"] = ti["b "] .. {"fl_water"}
+ti[" _"] = {"fl_swamp"}
+ti["'_"] = ti["' "] .. {"fl_swamp"}
+ti[" ."] = {"fl_space"}
 ti["t "] = {"st-stone_break"}
 ti["# "] = {"st_panel"}
 ti["K "] = {"st-glass_move"}
@@ -56,7 +56,7 @@ ti["U2"] = {"st-black4"}
 ti["U5"] = {"st-yinyang1"}
 ti[" i"] = ti["U1"] .. {"fl-inverse"}
 ti["ii"] = ti["U2"] .. {"fl-inverse"}
-ti[" w"] = ti["U1"] .. {"fl-water"}
+ti[" w"] = ti["U1"] .. {"fl_water"}
 ti[" e"] = ti[" i"] .. {"it_hammer"}
 ti["u "] = ti[" _"] .. {"st-grate2"}
 ti["x "] = ti["  "] .. {"it-squashed"}
@@ -79,7 +79,7 @@ ti["MM"] = ti[" ~"] .. {"st_mail", orientation=NORTH}
 ti["I "] = {"st_oneway_black", orientation=WEST}
 ti["^1"] = {"st_boulder_n"}
 ti["< "] = {"st_boulder_w"}
-ti["3 "] = ti[" v"] .. {"st-wood"}
+ti["3 "] = ti[" v"] .. {"st_wood"}
 ti["2 "] = {"st_oneway_black", orientation=SOUTH}
 ti[" f"] = {"it_wrench"}
 ti["4 "] = ti[" f"] ..{"st_oneway", orientation=WEST}
@@ -134,7 +134,7 @@ ti["l "] = {"st_turnstilearm", orientation=EAST}
 ti[" *"] = {"it_extralife"}
 ti["v?"] = ti[" v"] ..  {"it-yinyang"}
 ti["* "] = ti["ii"] ..  {"#ac-blackball"}
-ti["vv"] = ti[" v"] ..  {"fl-ice",name="hu"}
+ti["vv"] = ti[" v"] ..  {"fl_ice",name="hu"}
 ti[" ?"] = ti["wn"] ..  {"it-yinyang"}
 ti["? "] = ti[" ?"] ..  {"#ac-whiteball"}
 ti["J "] = {"#ac-top", range=1, force=1}

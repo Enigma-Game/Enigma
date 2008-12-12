@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Fashions Pass" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,6 @@
       <el:score el:easy="-" el:difficult="21:06"/>
     </el:info>
     <el:luamain><![CDATA[
-
 --------------------------------------------
 -- CONSTANTS
 --------------------------------------------
@@ -32,14 +31,14 @@ spot_constants = {SPOT_DEATH,
                   SPOT_HOLLOW}
 
 designs =
-  {{"fl-samba",     "fl-water", "st-bluegray",   "st-bluegray_hole",   OXYD_CYAN},
-   {"fl-rock",      "fl-abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
-   {"fl-sahara",    "fl-abyss", "st-greenbrown", "st-greenbrown_hole", OXYD_YELLOW},
-   {"fl-black",     "fl-water", "st-marble",     "st-marble_hole",     OXYD_PURPLE},
-   {"fl-bluegreen", "fl-abyss", "st-metal",      "st-metal_hole",      OXYD_BLUE},
-   {"fl-brick",     "fl-water", "st-rock1",      "st-rock1_hole",      OXYD_RED},
-   {"fl-gravel",    "fl-abyss", "st-rock2",      "st-rock2_hole",      OXYD_BLACK},
-   {"fl-metal",     "fl-water", "st-rock3",      "st-rock3_hole",      OXYD_WHITE}}
+  {{"fl-samba",     "fl_water", "st-bluegray",   "st-bluegray_hole",   OXYD_CYAN},
+   {"fl-rock",      "fl_abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
+   {"fl-sahara",    "fl_abyss", "st-greenbrown", "st-greenbrown_hole", OXYD_YELLOW},
+   {"fl-black",     "fl_water", "st-marble",     "st-marble_hole",     OXYD_PURPLE},
+   {"fl-bluegreen", "fl_abyss", "st-metal",      "st-metal_hole",      OXYD_BLUE},
+   {"fl-brick",     "fl_water", "st-rock1",      "st-rock1_hole",      OXYD_RED},
+   {"fl-gravel",    "fl_abyss", "st-rock2",      "st-rock2_hole",      OXYD_BLACK},
+   {"fl-metal",     "fl_water", "st-rock3",      "st-rock3_hole",      OXYD_WHITE}}
 
 vortex_goals = {}
 maze_maps = {}
@@ -60,7 +59,7 @@ wo["ExtralifeGlasses"] = spot_constants[spot_permutation[1]]
 -- TILE DEFINITIONS (CENTRAL AND OXYD ROOM)
 --------------------------------------------
 
-ti["  "] = {"fl-water"}
+ti["  "] = {"fl_water"}
 ti[" 0"] = {"fl-stone", friction = 3.0, adhesion = 3.0}
 ti["@0"] = {"#ac-blackball"} .. ti({"fl-stone", "start_position"})
 ti["L0"] = {"st_laser", orientation = EAST, state = ON} .. ti[" 0"]
@@ -81,7 +80,7 @@ end
 
 ti["panel1"] = ti({"st_panel", cluster = 1}) .. ti[" 0"]
 ti["panel2"] = ti({"st_panel", cluster = 2}) .. ti[" 0"]
-ti["water"] = ti({"fl-water"})
+ti["water"] = ti({"fl_water"})
 
 --------------------------------------------
 -- TILE DEFINITIONS (MAZES)
@@ -440,7 +439,7 @@ function key_call(is_on, sender)
   no["keydoor5"]:message(lib.lua.cond(key_sum == 2, "open", "close"))
 end
 
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

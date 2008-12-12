@@ -5,7 +5,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,10 +29,10 @@ ti[" l"] = ti["  "] ..{"it_meditation_bump"}
 ti[" m"] = {"fl-sahara"}
 ti[" c"] = {"it_brush"}
 ti["X "] = ti[" m"] ..{"st-grate1"}
-ti[" _"] = {"fl-swamp"}
+ti[" _"] = {"fl_swamp"}
 
 ti[" ,"] = {"fl-red"}
-ti[" ~"] = {"fl-water"}
+ti[" ~"] = {"fl_water"}
 ti[" ."] = {"fl-bluegreenx", friction=0.8}
 ti[" n"] = {"fl-light"}
 
@@ -88,12 +88,12 @@ if wo["IsDifficult"] then
   ti["$4"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
   ti["$5"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
   ti["$6"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
-  ti["3 "] = {"fl-swamp"}
+  ti["3 "] = {"fl_swamp"}
   ti["M."] = ti[" _"]
   ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex3"}
   ti["Ay"] = ti["Ax"] ..{"it_vortex_open", name="vortex3", destination="vortex1"}
 else
-  ti[" '"] = {"fl-swamp"}
+  ti[" '"] = {"fl_swamp"}
   ti["1f"] = ti["1 "] .. {"it_wrench"}
   ti["* "] = ti[" t"] .. {"#ac-blackball"}
   ti["Dx"] = ti["D "]
@@ -104,7 +104,7 @@ else
   ti["$4"] = {"it_trigger", target="olli4"}
   ti["$5"] = {"it_trigger", target="olli5"}
   ti["$6"] = {"it_trigger", target="olli6"}
-  ti["3 "] = ti[" j"] ..{"fl-swamp"}
+  ti["3 "] = ti[" j"] ..{"fl_swamp"}
   ti["M."] = ti[" _"] .. {"it_glasses"}
   ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
 end

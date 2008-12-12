@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,15 +25,15 @@ else
     wo["ElectricForce"] = -20
 end
 
-ti[" "] = {"fl-abyss"}
+ti[" "] = {"fl_abyss"}
 ti["l"] = {"fl-leaves"}
 ti["A"] = {"fl-hay"}
 ti["."] = {"fl-bluegreen"}
 ti["i"] = {"fl-inverse"}
-ti["j"] = {"fl-ice"}
-ti["s"] = {"fl-swamp"}
-ti["~"] = {"fl-water"}
-ti["="] = {"fl-space"}
+ti["j"] = {"fl_ice"}
+ti["s"] = {"fl_swamp"}
+ti["~"] = {"fl_water"}
+ti["="] = {"fl_space"}
 ti["@"] = {"fl-abyss_fake"}
 ti["d"] = {"fl-gradient", type=1}
 ti["u"] = {"fl-gradient", type=2}

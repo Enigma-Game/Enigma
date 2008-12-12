@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:27$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:28$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,7 @@ if wo ["IsDifficult"] then
     ti["n5"] = {"fl-gravel","swordn"}
     ti["o5"] = {"fl-gravel","swordo"}
     ti["s5"] = {"fl-gravel","swords"}
-    ti["y "] = {"fl-swamp"}
+    ti["y "] = {"fl_swamp"}
 else
     ti["  "] = {"fl-rough",burnable=true}
     ti["H "] = {"fl-rough",burnable=true,securefire=true,"hotspot"}
@@ -38,27 +38,27 @@ else
     ti["n5"] = {"fl-rough","swordn"}
     ti["o5"] = {"fl-rough","swordo"}
     ti["s5"] = {"fl-rough","swords"}
-    ti["y "] = {"fl-swamp",{friction=0.6}}
+    ti["y "] = {"fl_swamp",{friction=0.6}}
 end
 
 ti["9 "] = {"fl-bluegreenx"}
-ti[" -"] = {"fl-ice"}
+ti[" -"] = {"fl_ice"}
 ti["1 "] = {"fl-leavesd1"}
 ti["15"] = {"fl-leavesd1","sword1"}
 ti["2 "] = {"fl-leavesd2"}
 ti["25"] = {"fl-leavesd2","sword2"}
 ti["3 "] = {"fl-leavesd3"}
 ti["35"] = {"fl-leavesd3","sword3"}
-ti["3/"] = ti["3 "] ..{"st-wood","woody1"}
-ti["1/"] = ti["1 "] ..{"st-wood","woody2"}
+ti["3/"] = ti["3 "] ..{"st_wood","woody1"}
+ti["1/"] = ti["1 "] ..{"st_wood","woody2"}
 ti["4 "] = {"fl-leavesd4"}
 ti["45"] = {"fl-leavesd4","sword4"}
 ti["z "] = {"it-cherry"}
-ti["Z "] = {"fl-abyss"}
-ti["- "] = {"fl-space"}
+ti["Z "] = {"fl_abyss"}
+ti["- "] = {"fl_space"}
 ti["-d"] = ti["- "] ..{"it_death"}
-ti["~ "] = {"fl-water"}
-ti["/ "] = {"st-wood"}
+ti["~ "] = {"fl_water"}
+ti["/ "] = {"st_wood"}
 ti["j "] = {"st_disco_light"}
 ti["~1"] = ti["~ "] ..{"st_disco_light"}
 ti["J "] = {"st-stoneimpulse-hollow"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,10 +20,10 @@
     <el:luamain><![CDATA[
 -- Originally created with the help of BBE 1.05
 
-ti["    "]={"fl-water"}
-ti["!   "]={"fl-water"}
+ti["    "]={"fl_water"}
+ti["!   "]={"fl_water"}
 ti["#   "]={"fl-leaves"}
-ti["$   "]={"fl-abyss"}
+ti["$   "]={"fl_abyss"}
 ti["%   "]={"fl-normal"}
 ti["&   "]={"fl-gradient12"}
 ti["'   "]={"fl-gradient4"}

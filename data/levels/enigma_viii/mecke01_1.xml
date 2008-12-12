@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,10 +25,10 @@ ti[" '"] = {"fl-sahara"}
 ti[" b"] = {"fl-bluegray"}
 ti[" +"] = {"fl-rough-red"}
 ti[" -"] = {"fl-rough-blue"}
-ti[" ~"] = {"fl-water"}
-ti[" ,"] = {"fl-space"}
-ti[" ."] = {"fl-abyss"}
-ti[" _"] = {"fl-swamp"}
+ti[" ~"] = {"fl_water"}
+ti[" ,"] = {"fl_space"}
+ti[" ."] = {"fl_abyss"}
+ti[" _"] = {"fl_swamp"}
 ti[" ;"] = {"fl-gradient3"}
 ti["! "] = {"st_death"}
 ti["# "] = {"st-black4"}

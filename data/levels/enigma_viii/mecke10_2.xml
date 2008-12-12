@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 19 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 20 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -18,19 +18,19 @@
 wo["ConserveLevel"] = true
 
 ti[" ."] = {"fl-rough-red"}
-ti[" ,"] = {"fl-swamp"}
+ti[" ,"] = {"fl_swamp"}
 ti[" +"] = {"fl-woven"}
 ti[" !"] = {"fl-brick"}
 ti["! "] = {"st_death"}
 ti[" #"] = {"fl-normal"}
 ti["# "] = {"st-rock3"}
-ti[" $"] = {"fl-abyss"}
+ti[" $"] = {"fl_abyss"}
 ti[" %"] = {"fl-light"}
 ti["$ "] = {"st-stone_break"}
 ti["% "] = {"st-rock6"}
-ti[" &"] = {"fl-water"}
+ti[" &"] = {"fl_water"}
 ti[" '"] = {"fl-bluegray"}
-ti[" ("] = {"fl-space"}
+ti[" ("] = {"fl_space"}
 ti["& "] = {"st-yellow"}
 ti["' "] = {"st_actorimpulse"}
 ti["( "] = {"st-grate1"}
@@ -101,7 +101,7 @@ ti[" 3"] = {"fl-acblack"}
 ti["; "] = {"st_knight"}
 ti["< "] = {"st_laser_e", name="lezy1"}
 ti["= "] = {"st-thief"}
-ti["u "] = {"st-wood"}
+ti["u "] = {"st_wood"}
 ti[" 4"] = {"fl-mortar"}
 ti["> "] = {"st_fart"}
 ti[" 5"] = {"fl-gradient15"}
@@ -133,7 +133,7 @@ if wo ["IsDifficult"] then
     ti["wu"] = ti[" )"]..{"fl-red"}
     ti["ww"] = ti[" -"]..{"fl-bluegreenx"}
 else
-    ti["wd"] = ti[" &"]..{"fl-water"}
+    ti["wd"] = ti[" &"]..{"fl_water"}
     ti["bd"] = ti[" #"]..{"fl-normal"}
     ti["wu"] = ti[" )"]..{"it_umbrella"}
     ti["ww"] = ti[" -"]..{"it_extralife"}
