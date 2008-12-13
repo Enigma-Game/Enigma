@@ -129,6 +129,7 @@ namespace enigma {
     }
 
     void WindowStone::animcb() {
+        postFaceChange();
         if (state == FINALBREAK)
             KillStone(get_pos());
         else {
@@ -137,7 +138,7 @@ namespace enigma {
         }
     }
     
-    bool WindowStone::allowsSpreading(Direction dir) const {
+    bool WindowStone::allowsSpreading(Direction dir, bool isFlood) const {
         return !has_dir(getFaces(), dir);
     }
     
@@ -290,11 +291,19 @@ namespace enigma {
                     }
                 }
                 TouchStone(get_pos());  // avoid another actor getting below a moved window face
+                postFaceChange();
                 return true;
             }
         }
         return false;
     }
+
+    void WindowStone::postFaceChange() {
+        SendMessage(GetFloor(get_pos()), "_checkflood");
+        for (Direction d = NORTH; d != NODIR; d = previous(d))
+            SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
+    }
+
     
     DEF_TRAITSM(WindowStone, "st_window", st_window, MOVABLE_BREAKABLE);
 

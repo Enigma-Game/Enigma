@@ -7,7 +7,7 @@
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
-    <attr name="burnable" type="bool" default="false" rw="rw"/>
+    <attr name="burnable" type="bool" default="nil" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="9" rw="rw"/>
     <attr name="code" type="int" default="1" rw="rw"/>
     <attr name="coin_value" type="double" default="1" rw="rw"/>
@@ -22,6 +22,7 @@
     <attr name="fastfire" type="bool" default="false" rw="rw"/>
     <attr name="fellows" type="group" default="nil" rw="r"/>
     <attr name="flavor" type="string" default="b" rw="rw"/>
+    <attr name="floodable" type="bool" default="false" rw="rw"/>
     <attr name="freeze_check" type="bool" default="false" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
@@ -68,6 +69,8 @@
     <attr name="transparent" type="bool" default="false" rw="rw"/>
     <attr name="threshold" type="double" default="0" rw="rw"/>
     <attr name="wires" type="group" default="nil" rw="r"/>
+    <attr name="$firetransform" type="string" default="" rw=""/>
+    <attr name="$heattransform" type="string" default="" rw=""/>
   </attributes>
   <messages>
     <msg name="close" type="nil"/>
@@ -106,6 +109,7 @@
     <msg name="_bombstone" type="nil"/>
     <msg name="_brush" type="nil"/>
     <msg name="_capture" type="nil"/>
+    <msg name="_checkflood" type="nil"/>
     <msg name="_explosion" type="nil"/>
     <msg name="_freeze" type="nil"/>
     <msg name="_glasses" type="nil"/>
@@ -143,6 +147,7 @@
       <attr name="burnable"/>
       <attr name="eternal"/>
       <attr name="fastfire"/>
+      <attr name="floodable"/>
       <attr name="freeze_check"/>
       <attr name="friction"/>
       <attr name="ignitable"/>
@@ -156,8 +161,23 @@
       <msg name="setfire"/>
       <msg name="stopfire"/>
     </object>
+    <object name="fl_floodstream" abstract="true">
+      <attr name="faces"/>
+      <attr name="interval" default="0.5"/>
+      <msg name="_init"/>
+      <msg name="_checkflood"/>
+    </object>
+    <object name="fl_abyss">
+      <attr name="friction" default="2.0"/>
+      <attr name="adhesion" default="1.0"/>
+      <attr name="noash" default="true"/>
+    </object>
     <object name="fl_bridge">
       <attr name="flavor" default="gc"/>
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="1.0"/>
+      <attr name="noash" default="true"/>
+      <attr name="$firetransform" default="fl_abyss"/>
       <msg name="close"/>
       <msg name="open"/>
       <msg name="signal"/>
@@ -172,6 +192,51 @@
     <object name="fl_bridge_bn">
       <attr name="flavor" value="bn"/>
     </object>
+    <object name="fl_hay" super="fl_floodstream">
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="1.5"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_hay_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_ice">
+      <attr name="friction" default="0.1"/>
+      <attr name="adhesion" default="0.1"/>
+    </object>
+    <object name="fl_rock" super="fl_floodstream">
+      <attr name="friction" default="6.5"/>
+      <attr name="adhesion" default="2.2"/>
+    </object>
+    <object name="fl_rock_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_space">
+      <attr name="friction" default="0.0"/>
+      <attr name="adhesion" default="0.0"/>
+    </object>
+    <object name="fl_swamp">
+      <attr name="friction" default="13.0"/>
+      <attr name="adhesion" default="1.0"/>
+    </object>
+    <object name="fl_water" super="fl_floodstream">
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="1.0"/>
+      <attr name="$heattransform" default="fl_swamp"/>
+    </object>
+    <object name="fl_wood" super="fl_floodstream">
+      <attr name="friction" default="6.4"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+      <attr name="$firetransform" default="fl_abyss"/>
+    </object>
+    <object name="fl_wood_h" init="true"/>
+    <object name="fl_wood_v" init="true"/>
+    <object name="fl_wood_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_wood_framed_h" init="true"/>
+    <object name="fl_wood_framed_v" init="true"/>
     <object name="it" abstract="true"/>
     <object name="it_blocker">
       <attr name="autoclose"/>

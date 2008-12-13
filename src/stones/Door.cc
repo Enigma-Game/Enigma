@@ -106,7 +106,7 @@ namespace enigma {
         }
     }
     
-    bool Door::allowsSpreading(Direction dir) const {
+    bool Door::allowsSpreading(Direction dir, bool isFlood) const {
         return state != CLOSED || !has_dir(getFaces(), dir);
     }
     
@@ -161,6 +161,9 @@ namespace enigma {
                 case OPEN:
                     set_model(basename+"-open");
                     MaybeRecalcLight(get_pos());
+                    SendMessage(GetFloor(get_pos()), "_checkflood");
+                    for (Direction d = NORTH; d != NODIR; d = previous(d))
+                        SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
                     break;
                 case CLOSED:
                     set_model(basename+"-closed");

@@ -39,7 +39,6 @@ namespace enigma {
             FALLEN      ///< a stone that is fallen on floor change notification and is vanishing
         };
         
-    private:
         enum ObjectPrivatFlagsBits {
             OBJBIT_BLOCKFIRE =   1<<24,   ///< stone blocks fire on moves and floor changes beneath
             OBJBIT_SUBTYP    =   7<<25,   ///< the FloorBuilderTyp
@@ -72,6 +71,7 @@ namespace enigma {
         virtual void animcb();
         
         // Stone interface
+        virtual bool allowsSpreading(Direction dir, bool isFlood = false) const;
         virtual void actor_hit(const StoneContact &sc);
         virtual void actor_inside(Actor *a);
         virtual void actor_contact(Actor *a);

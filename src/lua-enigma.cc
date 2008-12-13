@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Fri Apr 18 01:20:21 2008.
+** Generated automatically by tolua++-1.0.92 on Mon Dec  8 13:32:36 2008.
 */
 
 #ifndef __cplusplus
@@ -424,30 +424,6 @@ static int tolua_set_enigma_FrictionFactor(lua_State* tolua_S)
    tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
 #endif
   FrictionFactor = ((double)  tolua_tonumber(tolua_S,2,0))
-;
- return 0;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* get function: IceFriction */
-#ifndef TOLUA_DISABLE_tolua_get_enigma_IceFriction
-static int tolua_get_enigma_IceFriction(lua_State* tolua_S)
-{
-  tolua_pushnumber(tolua_S,(lua_Number)IceFriction);
- return 1;
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* set function: IceFriction */
-#ifndef TOLUA_DISABLE_tolua_set_enigma_IceFriction
-static int tolua_set_enigma_IceFriction(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
-  tolua_Error tolua_err;
-  if (!tolua_isnumber(tolua_S,2,0,&tolua_err))
-   tolua_error(tolua_S,"#vinvalid type in variable assignment.",&tolua_err);
-#endif
-  IceFriction = ((double)  tolua_tonumber(tolua_S,2,0))
 ;
  return 0;
 }
@@ -1247,7 +1223,6 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_variable(tolua_S,"SlopeForce",tolua_get_enigma_SlopeForce,tolua_set_enigma_SlopeForce);
    tolua_variable(tolua_S,"FlatForce",tolua_get_enigma_FlatForce,tolua_set_enigma_FlatForce);
    tolua_variable(tolua_S,"FrictionFactor",tolua_get_enigma_FrictionFactor,tolua_set_enigma_FrictionFactor);
-   tolua_variable(tolua_S,"IceFriction",tolua_get_enigma_IceFriction,tolua_set_enigma_IceFriction);
    tolua_variable(tolua_S,"ElectricForce",tolua_get_enigma_ElectricForce,tolua_set_enigma_ElectricForce);
    tolua_variable(tolua_S,"BumperForce",tolua_get_enigma_BumperForce,tolua_set_enigma_BumperForce);
    tolua_variable(tolua_S,"MagnetForce",tolua_get_enigma_MagnetForce,tolua_set_enigma_MagnetForce);

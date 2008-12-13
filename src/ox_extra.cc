@@ -106,7 +106,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x45
     UNUSED,              // OxydExtra floor 0x46
     "fl-bumps",          // OxydExtra floor 0x47
-    "fl-rock",           // OxydExtra floor 0x48
+    "fl_rock",           // OxydExtra floor 0x48
     UNUSED,              // OxydExtra floor 0x49
     UNUSED,              // OxydExtra floor 0x4a
     UNUSED,              // OxydExtra floor 0x4b

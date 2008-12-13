@@ -163,7 +163,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-concrete",              // PerOxyd floor 0x39 (Tan/green horizontal Grain, same as 0x38)(only level 118)
     UNUSED,                     // PerOxyd floor 0x3a
     UNUSED,                     // PerOxyd floor 0x3b
-    "fl-stwood1",               // PerOxyd floor 0x3c
+    "fl_wood_framed_h",         // PerOxyd floor 0x3c
     "fl-samba",                 // PerOxyd floor 0x3d (common was 'fl-wood', horizontal or vertical slats)(many)
     "fl-samba1",                // PerOxyd floor 0x3e (common was 'fl-wood', horizontal slats)(only level 32)
     "fl-samba2",                // PerOxyd floor 0x3f (common was 'fl-wood', vertical slats)(levels: 35, 152)

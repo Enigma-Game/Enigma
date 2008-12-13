@@ -269,14 +269,14 @@ do
         {"fl-concrete", 4},
         {"fl-gravel", 4},
         {"fl-gray", 5},
-        {"fl-hay", 4},
+        {"fl_hay", 4},
         {"fl-himalaya", 4},
         {"fl-marble", 4},
         {"fl-metal", 6},
         {"fl-mortar", 2, 2},
         {"fl-plank", 4},
         {"fl-red", 4},
-        {"fl-rock", 2},
+        {"fl_rock", 2},
         {"fl-rough", 5},
         {"fl-rough-blue", 4},
         {"fl-rough-red", 4},
@@ -351,6 +351,13 @@ do
     DefRandFloor("fl-wood", {"fl-woodx1", "fl-woodx2", "fl-woodx3", "fl-woodx4"})
     DefRandFloor("fl-wood1", {"fl-woodx3", "fl-woodx4"})
     DefRandFloor("fl-wood2", {"fl-woodx1", "fl-woodx2"})
+    
+    DefAlias("fl_wood", "fl-wood")
+    DefAlias("fl_wood1", "fl-wood1")
+    DefAlias("fl_wood2", "fl-wood2")
+    DefAlias("fl_wood_framed", "fl-stwood")
+    DefAlias("fl_wood_framed1", "fl-stwood1")
+    DefAlias("fl_wood_framed2", "fl-stwood2")
 end
 
 --------------------------

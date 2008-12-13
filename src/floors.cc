@@ -33,12 +33,12 @@ namespace enigma {
 Floor::Floor(const char *kind, double friction_, double mfactor, FloorFlags flags,
              FloorFireType flft, const char *firetransform_, const char *heattransform_)
 : GridObject (kind),
-  traits (kind, friction_, mfactor, flags, flft, firetransform_, heattransform_),
+  traits (kind, flags, flft, firetransform_, heattransform_),
   heating_animation(false),
   fire_countdown(1),
   var_floorforce(),
-  var_mousefactor(mfactor),
-  var_friction(friction_)
+  adhesion(mfactor),
+  friction(friction_)
 {}
 
 Floor::Floor (const FloorTraits &tr)
@@ -47,6 +47,10 @@ Floor::Floor (const FloorTraits &tr)
   heating_animation(false),
   fire_countdown(1)
 {}
+
+const char * Floor::get_kind() const {
+    return traits.name.c_str();
+}
 
 Floor *Floor::clone() {
     return new Floor(*this);
@@ -80,32 +84,38 @@ Value Floor::message(const Message &m) {
 
 ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
     if (a->controlled_by(player::CurrentPlayer()))
-        return get_mousefactor() * force;
+        return getAdhesion() * force;
     else
         return ecl::V2();
 }
 
-void Floor::setAttr(const string& key, const Value &val)
-{
-    if (key == "adhesion")
-        var_mousefactor = to_double(val);
-    else if (key == "friction")
-        var_friction = to_double(val);
-    else if (key == "force_x")
-        var_floorforce[0] = to_double(val);
-    else if (key == "force_y")
-        var_floorforce[1] = to_double(val);
-    GridObject::setAttr(key, val);
-}
+    void Floor::setAttr(const string& key, const Value &val) {
+        if (key == "adhesion")
+            adhesion = val;
+        else if (key == "friction")
+            friction = val;
+        else if (key == "force_x")
+            var_floorforce[0] = val;
+        else if (key == "force_y")
+            var_floorforce[1] = val;
+        GridObject::setAttr(key, val);
+    }
 
     Value Floor::getAttr(const std::string &key) const {
         if (key == "adhesion") {
-            return var_mousefactor;
+            return adhesion;
         } else if (key == "friction") {
-            return var_friction;
+            return friction;
         }
         return GridObject::getAttr(key);
-
+    }
+    
+    void Floor::on_creation(GridPos p) {
+        if (Value v = GridObject::getAttr("adhesion"))
+            adhesion = v;
+        if (Value v = GridObject::getAttr("friction"))
+            friction = v;
+        GridObject::on_creation(p);
     }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
@@ -114,13 +124,12 @@ void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 
 double Floor::get_friction() const 
 { 
-    return var_friction; 
+    return friction; 
 }
 
-double Floor::get_mousefactor() const 
-{ 
-    return var_mousefactor; 
-}
+    double Floor::getAdhesion() const { 
+        return adhesion; 
+    }
 
 bool Floor::is_destructible() const 
 {
@@ -152,6 +161,15 @@ void Floor::add_force (Actor *, V2 &f)
     // Note that actor == 0 is possible from lightpassenger-calculation.
     f += var_floorforce;
 }
+
+    void Floor::stone_change(Stone *st) {
+        if (getDefaultedAttr("floodable", false).to_bool()) {
+            SendMessage(GetFloor(get_pos()), "_checkflood");
+            for (Direction d = NORTH; d != NODIR; d = previous(d))
+                SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
+        }
+    }
+
 
 /* -------------- Fire Handling -------------- */
 
@@ -193,31 +211,33 @@ void Floor::add_force (Actor *, V2 &f)
  *  Have I forgotten something?
  */
 
-string Floor::get_firetransform() {
-    if(server::GameCompatibility == GAMET_ENIGMA)
-        return traits.firetransform;
-    // In non-Enigma-compatibility-modes, only fl-wood and fl-stwood
-    // transform. Note: This might have been a bug, as fl-stwood1/2
-    // and fl-wood1/2 were not included (at least fl-wood1/2 were of
-    // a newer date). However, we include them here.
-    string model = this->get_kind();
-    if (   model == "fl-wood"   || model == "fl-wood1"   || model == "fl-wood2"
-        || model == "fl-stwood" || model == "fl-stwood1" || model == "fl-stwood2")
-        return "fl_abyss";
-    else
-        return "";
+std::string Floor::get_firetransform() {
+    if (server::GameCompatibility == GAMET_ENIGMA) {
+        std::string classname = getAttr("$firetransform").to_string();
+        return (classname.length() > 0) ? classname : traits.firetransform;
+    } else {
+        // In non-Enigma-compatibility-modes, only fl-wood and fl-stwood
+        // transform. Note: This might have been a bug, as fl-stwood1/2
+        // and fl-wood1/2 were not included (at least fl-wood1/2 were of
+        // a newer date). However, we include them here.
+        return isKind("fl_wood") ? "fl_abyss" : "";
+    }
 }
-string Floor::get_heattransform(bool override_mode) {
+
+std::string Floor::get_heattransform(bool override_mode) {
     // The bool is needed to correctly exit the heating-animation
     // in case the level switched to non-Enigma-mode in between.
-    if(server::GameCompatibility == GAMET_ENIGMA || override_mode)
-        return traits.heattransform;
-    // In non-Enigma-compatibility-modes, there is no heat-transformation.
-    return "";
+    if (server::GameCompatibility == GAMET_ENIGMA || override_mode) {
+        std::string classname = getAttr("$heattransform").to_string();
+        return (classname.length() > 0) ? classname : traits.heattransform;
+    } else {
+        // In non-Enigma-compatibility-modes, there is no heat-transformation.
+        return "";
+    }
 }
 int Floor::get_fire_countdown() {
-    if(Item *it = GetItem(get_pos()))
-        if(get_id(it) == it_burnable || get_id(it) == it_burnable_oil)
+    if (Item *it = GetItem(get_pos()))
+        if (get_id(it) == it_burnable || get_id(it) == it_burnable_oil)
             return 0;
     return fire_countdown;
 }
@@ -232,7 +252,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     GridPos p = get_pos();
 
     // Don't disturb heating-transformation
-    if(heating_animation)
+    if (heating_animation)
         return false;
 
     // No or floating stone -> Burn items and replicate.
@@ -248,23 +268,23 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             return false;
     }
 
-    if(server::GameCompatibility == GAMET_ENIGMA) {
-        if(has_firetype(flft_burnable)) {
+    if (server::GameCompatibility == GAMET_ENIGMA) {
+        if (has_firetype(flft_burnable)) {
             // has_firetype also checks whether floor is already burning or ignited
             // (via it-burnables), but not which stone is above it.
-            if(Item *it = GetItem(p)) {
+            if (Item *it = GetItem(p)) {
                 // The item didn't respond to the "heat"-message, so we
                 // could assume it's burnable. However, as there might also
                 // be a "setfire"-message from the user or a lazy "message"-
                 // implementation, we still have to check the burnable-flag
                 // of this item:
-                if(!has_flags(it, itf_fireproof))
+                if (!has_flags(it, itf_fireproof))
                     return force_fire();
             } else {
                 // Just spread. Use the fire-countdown to delay fire without
                 // it-burnable, but not in case of a message or a secure+last
                 // call or a fastfire-floor.
-                if(    (get_fire_countdown() == 0) || (flhf == flhf_message)
+                if (   (get_fire_countdown() == 0) || (flhf == flhf_message)
                     || (has_firetype(flft_fastfire))
                     || (((bool) (flhf & flhf_last)) && has_firetype(flft_secure)))
                     return force_fire();            
@@ -272,7 +292,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             }        
         }
     } else {  // non-Enigma-mode
-        if(has_firetype(flft_burnable) || flhf == flhf_message) {
+        if (has_firetype(flft_burnable) || flhf == flhf_message) {
             // We only get here when there is a burnable item or the
             // burnable attribute is set (e.g. as part of replication).
             // A fireproof item doesn't allow to get here. (Note: We
@@ -282,11 +302,11 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             // This floor doesn't burn by default or by item. But, in
             // non-Enigma-compatibility-mode it should, when its neighbor
             // is of the same kind and burns also.
-            if(Floor *fl = GetFloor(move(p, sourcedir))) {
+            if (Floor *fl = GetFloor(move(p, sourcedir))) {
                 string sourcekind = fl->get_kind();
                 string mykind = this->get_kind();
-                if(no_closing_stone && sourcekind == mykind)
-                    if(has_firetype(flft_fastfire))
+                if (no_closing_stone && sourcekind == mykind)
+                    if (has_firetype(flft_fastfire))
                         return force_fire();
                     else
                         this->setAttr("burnable", true);
@@ -321,9 +341,9 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     bool doIgnite = doItem;
     bool reaction_happened = false;
     // Heat item -> destroy cracks, ignite bombs...
-    if(doItem)
-        if(Item *it = GetItem(get_pos()))
-            if(to_int(SendMessage(it, "heat", Value(sourcedir))) != 0.0)
+    if (doItem)
+        if (Item *it = GetItem(get_pos()))
+            if (to_int(SendMessage(it, "heat", Value(sourcedir))) != 0.0)
                 reaction_happened = true;        
     // Maybe also transform floor?
     reaction_happened = on_heattransform(sourcedir, flhf) || reaction_happened;
@@ -335,7 +355,7 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     // Not item nor floor nor stone reacted? Then try to ignite the floor!
     // (Note: try_ignite also tests for the heating animation:
     //        No fire during transformation allowed!)
-    if(doIgnite && !reaction_happened)
+    if (doIgnite && !reaction_happened)
         return this->try_ignite(sourcedir, flhf);
     // Else: return reaction_happened from item or heat-transform
     return reaction_happened;
@@ -344,9 +364,9 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
 bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
     // return true to forbid fire (message caught)
     bool doHeatTransform = (flhf == flhf_message) || ((bool) (flhf & flhf_first));
-    if(!doHeatTransform || get_heattransform(false) == "")
+    if (!doHeatTransform || get_heattransform(false) == "")
         return false;
-    if(doHeatTransform && get_heattransform(false) != "" && !heating_animation) {
+    if (doHeatTransform && get_heattransform(false) != "" && !heating_animation) {
         set_anim(((string) this->get_kind()) + "_heating");
         heating_animation = true;
     }
@@ -354,7 +374,7 @@ bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
 }
 
 void Floor::heat_neighbor(Direction dir, FloorHeatFlags flhf) {
-    if(Floor *fl = GetFloor(move(get_pos(), dir))) {
+    if (Floor *fl = GetFloor(move(get_pos(), dir))) {
         fl->try_heating(reverse(dir), flhf);
     }
 }
@@ -369,20 +389,20 @@ bool Floor::stop_fire(bool is_message) {
 
     // is_message indicates use of the stopfire-message,
     // so we have to check if there is fire at all.
-    if(is_message)
-        if(Item *it = GetItem(p)) {
+    if (is_message)
+        if (Item *it = GetItem(p)) {
             ItemID id = get_id(it);
-            if(id != it_burnable_burning && id != it_burnable_ignited)
+            if (id != it_burnable_burning && id != it_burnable_ignited)
                 return false;  // no fire
         } else
             return false; // no item == no fire
 
     KillItem(p);
     fire_countdown = 1;
-    if(!is_message && get_firetransform() != "")
+    if (!is_message && get_firetransform() != "")
         SetFloor(p, MakeFloor(get_firetransform().c_str()));
     // Remember, at this point "this" may be destroyed.
-    if(!GetFloor(p)->has_firetype(flft_noash))
+    if (!GetFloor(p)->has_firetype(flft_noash))
         SetItem(p, MakeItem("it-burnable_ash"));
     return true; // fire extinguished  
 }
@@ -407,7 +427,7 @@ void Floor::on_burnable_animcb(bool justIgnited) {
     if (st == NULL || st->allowsSpreading(WEST))
         heat_neighbor(WEST,  flhf);
 
-    if(cont_fire)
+    if (cont_fire)
         // continue burning
         //   -> put animation
         SetItem(p, MakeItem("it-burnable_burning"));
@@ -416,17 +436,17 @@ void Floor::on_burnable_animcb(bool justIgnited) {
 }
 
 bool Floor::has_firetype(FloorFireType selector) {
-    if(Item *it = GetItem(get_pos())) {
+    if (Item *it = GetItem(get_pos())) {
         ItemID id = get_id(it);
-        if(selector == flft_burnable || selector == flft_ignitable) {
-            if(   id == it_burnable || id == it_burnable_oil )
+        if (selector == flft_burnable || selector == flft_ignitable) {
+            if (  id == it_burnable || id == it_burnable_oil )
                 return true;
-            if(   id == it_burnable_ash     || id == it_burnable_fireproof
+            if (  id == it_burnable_ash     || id == it_burnable_fireproof
                || id == it_burnable_ignited || id == it_burnable_burning )
                 return false;
             // In non-Enigma-compatibility-modes, the item decides about
             // burnability and only it_burnable[_oil] is ignitable:
-            if(server::GameCompatibility != GAMET_ENIGMA)
+            if (server::GameCompatibility != GAMET_ENIGMA)
                 return (selector == flft_burnable) && !has_flags(it, itf_fireproof);
         }
     }
@@ -454,10 +474,10 @@ bool Floor::has_firetype(FloorFireType selector) {
 
 void Floor::animcb() {
     // Probably the heating-animation ended.
-    if(heating_animation) {
-        if(this->get_heattransform(true) != "")
-            SetFloor(get_pos(), MakeFloor(get_heattransform(true).c_str()));
+    if (heating_animation) {
         heating_animation = false;
+        if (this->get_heattransform(true) != "")
+            SetFloor(get_pos(), MakeFloor(get_heattransform(true).c_str()));
     }
 }
 
@@ -485,27 +505,6 @@ namespace
     public:
         Ice() : Floor ("fl_ice", 0.1, 0.1, flf_default, flft_default, "",
             "fl_water") { }
-
-        virtual double get_friction() const {
-            return 0.1 * server::IceFriction;
-        }
-    };
-
-/* -------------------- Water -------------------- */
-
-    class Water : public Floor {
-        CLONEOBJ(Water);
-    public:
-        Water() : Floor("fl_water", 5, 1, flf_indestructible, flft_default, "",
-            "fl_swamp") {}
-    private:
-
-        bool is_destructible() const {return false;}
-
-        void get_sink_speed (double &sink_speed, double &raise_speed) const { 
-            sink_speed = server::WaterSinkSpeed;
-            raise_speed = 1000; // always sink in water
-        }
 
     };
 
@@ -558,7 +557,6 @@ namespace
     };
 }
 
-
 /* -------------------- Gradient -------------------- */
 
 /** \page fl-gradient Gradient Floor
@@ -806,7 +804,7 @@ namespace
 
         ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 0)
-                return get_mousefactor() * force;
+                return getAdhesion() * force;
             else
                 return ecl::V2();
         }
@@ -819,7 +817,7 @@ namespace
 
         ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
             if (player::CurrentPlayer() == 1)
-                return get_mousefactor() * force;
+                return getAdhesion() * force;
             else
                 return ecl::V2();
         }
@@ -832,7 +830,6 @@ void InitFloors()
     // Floors (most floors are defined in init.lua)
     Register(new Abyss);
     Register(new Ice);
-    Register(new Water);
     Register(new Swamp);
     Register(new DummyFloor);
     Register(new Thief);

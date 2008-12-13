@@ -127,12 +127,12 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x39
     UNUSED,                     // Oxyd1 floor 0x3a
     UNUSED,                     // Oxyd1 floor 0x3b
-    "fl-rock",                  // Oxyd1 floor 0x3c
+    "fl_rock",                  // Oxyd1 floor 0x3c
     UNUSED,                     // Oxyd1 floor 0x3d
     UNUSED,                     // Oxyd1 floor 0x3e
     UNUSED,                     // Oxyd1 floor 0x3f
-    "fl-stwood1",               // Oxyd1 floor 0x40
-    "fl-wood",                  // Oxyd1 floor 0x41
+    "fl_wood_framed_h",         // Oxyd1 floor 0x40
+    "fl_wood",                  // Oxyd1 floor 0x41
     "fl-samba1",                // Oxyd1 floor 0x42
     UNUSED,                     // Oxyd1 floor 0x43
     UNUSED,                     // Oxyd1 floor 0x44

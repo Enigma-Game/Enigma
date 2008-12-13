@@ -146,6 +146,8 @@ enigma_SOURCES = 		\
 	XMLtoUtf8.hh		\
 	floors/BridgeFloor.cc	\
 	floors/BridgeFloor.hh	\
+	floors/FloodStream.cc	\
+	floors/FloodStream.hh	\
 	gui/ErrorMenu.cc	\
 	gui/ErrorMenu.hh	\
 	gui/GameMenu.cc		\

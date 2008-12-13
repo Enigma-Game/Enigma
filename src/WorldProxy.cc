@@ -82,14 +82,10 @@ namespace enigma {
             return server::ElectricForce;
         } else if (key == "ExtralifeGlasses") {
             return server::ExtralifeGlasses;
-        } else if (key == "FlatForce") {
-            return server::FlatForce;
         } else if (key == "FrictionFactor") {
             return server::FrictionFactor;
         } else if (key == "MeditationStrength") {
             return server::HoleForce;
-        } else if (key == "IceFriction") {
-            return server::IceFriction;
         } else if (key == "MagnetStrength") {
             return server::MagnetForce;
         } else if (key == "MagnetRange") {
@@ -170,14 +166,10 @@ namespace enigma {
             server::ElectricForce = val;
         } else if (key == "ExtralifeGlasses") {
             server::ExtralifeGlasses = val;
-        } else if (key == "FlatForce") {
-            server::FlatForce = val;
         } else if (key == "FrictionFactor") {
             server::FrictionFactor = val;
         } else if (key == "MeditationStrength") {
             server::HoleForce = val;
-        } else if (key == "IceFriction") {
-            server::IceFriction = val;
         } else if (key == "MagnetStrength") {
             server::MagnetForce = val;
             BroadcastMessage("_updateglobals", "it_magnet", GRID_ITEMS_BIT);

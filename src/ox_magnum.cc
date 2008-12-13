@@ -94,13 +94,13 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x39
     UNUSED,                     // OxydMagnum floor 0x3a
     UNUSED,                     // OxydMagnum floor 0x3b
-    "fl-rock",                  // OxydMagnum floor 0x3c
+    "fl_rock",                  // OxydMagnum floor 0x3c
     UNUSED,                     // OxydMagnum floor 0x3d
     UNUSED,                     // OxydMagnum floor 0x3e
     0,                          // OxydMagnum floor 0x3f (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
-    "fl-stwood1",               // OxydMagnum floor 0x40
-    "fl-wood",                  // OxydMagnum floor 0x41
-    "fl-wood1",                 // OxydMagnum floor 0x42
+    "fl-wood_framed_h",         // OxydMagnum floor 0x40
+    "fl_wood",                  // OxydMagnum floor 0x41
+    "fl_wood_h",                // OxydMagnum floor 0x42
     UNUSED,                     // OxydMagnum floor 0x43
     UNUSED,                     // OxydMagnum floor 0x44
     UNUSED,                     // OxydMagnum floor 0x45

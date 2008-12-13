@@ -59,19 +59,15 @@ namespace enigma {
     struct FloorTraits {
         // Variables
         string         name;
-        double         friction;
-        double         mousefactor;
         FloorFlags     flags;
         FloorFireType  firetype;
         string         firetransform;  // fire on the same tile
         string         heattransform;  // fire on neighboring tile
 
         // Constructor
-        FloorTraits (const char *n, double f, double m,
-                     FloorFlags flags_, FloorFireType flft = flft_default,
+        FloorTraits (const char *n, FloorFlags flags_, FloorFireType flft = flft_default,
                      const char *ft = "", const char *ht = "")
-            : name(n), friction(f), mousefactor(m),
-              flags(flags_), firetype(flft), firetransform(ft), heattransform(ht)
+            : name(n), flags(flags_), firetype(flft), firetransform(ft), heattransform(ht)
         {}
     };
 
@@ -87,11 +83,12 @@ namespace enigma {
     class Floor : public GridObject {
     public:
         Floor (const FloorTraits &tr);
-        Floor (const char *kind, double friction_, double mfactor,
+        Floor (const char *kind, double friction_ = 0.0, double adhesion = 0.0,
                FloorFlags flags = flf_default, FloorFireType flft = flft_default,
                const char *firetransform_ = "", const char *heattransform_ = "");
 
         // Object interface
+        virtual const char *get_kind() const;
         Floor *clone();
         void dispose();
         virtual Value message(const Message &m);
@@ -105,11 +102,11 @@ namespace enigma {
         virtual void on_drop (Item *) {}
         virtual void on_pickup (Item *) {}
 
-        virtual void stone_change(Stone *) {}
+        virtual void stone_change(Stone *);
         virtual void actor_contact(Actor *) {}
 
         virtual double get_friction() const;
-        virtual double get_mousefactor() const;
+        virtual double getAdhesion() const;
 
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
         virtual bool is_destructible() const;
@@ -122,9 +119,11 @@ namespace enigma {
          virtual Object::ObjectType getObjectType() const {return Object::FLOOR;}
         
         // GridObject interface
-        void set_model (const std::string &mname);
-        display::Model *get_model ();
-        void kill_model (GridPos p);
+        virtual void on_creation(GridPos p);
+        virtual void set_model (const std::string &mname);
+        virtual display::Model *get_model();
+        virtual void kill_model(GridPos p);
+        
         // Fire interface
         virtual bool has_firetype(FloorFireType selector);
         virtual string get_firetransform();
@@ -145,8 +144,8 @@ namespace enigma {
         FloorTraits traits;
         bool heating_animation;
         int fire_countdown;  // used to delay ignition, default is 1.
-        double var_friction;
-        double var_mousefactor;
+        double friction;
+        double adhesion;
         ecl::V2 var_floorforce;
     };
 

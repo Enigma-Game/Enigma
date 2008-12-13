@@ -123,6 +123,10 @@ namespace enigma {
         maybe_fall_or_stopfire(); // instantly builds a bridge on fl_swamp etc
     }
 
+    bool FloorBuilder::allowsSpreading(Direction dir, bool isFlood) const {
+        return isFlood;
+    }
+    
     void FloorBuilder::actor_hit(const StoneContact &sc) {
         if (state == GROWING)
             SendMessage(sc.actor, "shatter");
@@ -156,19 +160,23 @@ namespace enigma {
         GridPos p = get_pos();
         if (server::GameCompatibility != GAMET_ENIGMA && IsLevelBorder(p))
             return;
-        if (Floor *fl = GetFloor(p)) {
-            const std::string &k = fl->get_kind();
+        if (Floor *oldfl = GetFloor(p)) {
+            const std::string &k = oldfl->get_kind();
             if (objFlags & OBJBIT_BLOCKFIRE)
-                SendMessage(fl, "stopfire");
+                SendMessage(oldfl, "stopfire");
             if (k == "fl_abyss" || k == "fl_water" || k == "fl_swamp") {
                 if (onMove)
                     // just mark - can not kill stone yet - this will be done on floor change event
                     state = FALLING;  // keep the stone from moving any longer
                 else if ((server::GameCompatibility != GAMET_OXYD1) || state == FALLING || !onFloorChange) {
                     state = FALLEN;
-                    Floor *fl = MakeFloor((typ == HAY) ? "fl-hay" : ((typ == ROCK) ? "fl-rock" : ((typ == WOOD1) ? "fl-stwood1" : "fl-stwood2")));
-                    transferIdentity(fl);
-                    SetFloor(p, fl); 
+                    Floor *newfl = MakeFloor((typ == HAY) ? "fl_hay_framed" : ((typ == ROCK) ? "fl_rock_framed" : ((typ == WOOD1) ? "fl_wood_framed_h" : "fl_wood_framed_v")));
+                    transferIdentity(newfl);
+                    if (k == "fl_water") {
+                        newfl->setAttr("interval", oldfl->getAttr("interval"));
+                        newfl->setAttr("state", oldfl->getAttr("state"));
+                    }
+                    SetFloor(p, newfl); 
                     KillStone(p);
                 }
             }

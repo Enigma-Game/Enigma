@@ -114,14 +114,11 @@ namespace enigma_server
     // ...for floor tiles that look sloped
     extern double   SlopeForce;
 
-    // ...for floor tiles that DON'T look sloped
+    // depreceated - vertical factor for space floor tiles - used in oxyd emulation only 
     extern double   FlatForce;
 
     // ...for friction on certain floor types
     extern double   FrictionFactor;
-
-    // ...for friction on ice
-    extern double   IceFriction;
 
     // ...for electrostatic forces between actors (default: 15)
     extern double   ElectricForce;

@@ -57,7 +57,6 @@ module enigma
     extern double SlopeForce;
     extern double FlatForce;
     extern double FrictionFactor;
-    extern double IceFriction;
     extern double ElectricForce;
     extern double BumperForce;
     extern double MagnetForce;

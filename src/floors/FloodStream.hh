@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
  * Copyright (C) 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
@@ -17,61 +16,64 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef DOOR_HH
-#define DOOR_HH
+#ifndef FLOODSTREAM_HH
+#define FLOODSTREAM_HH
 
-#include "stones.hh"
-
-#include "stones_internal.hh"
+#include "floors.hh"
 
 namespace enigma {
 
     /** 
      * 
      */
-    class Door : public Stone {
-        CLONEOBJ(Door);
-        DECL_TRAITS;
-        
+    class FloodStream : public Floor, public TimeHandler {
+        CLONEOBJ(FloodStream);
+                
     private:
         enum iState {
-            CLOSED,    ///< 
-            OPEN,      ///< 
-            CLOSING,   ///< 
-            OPENING,   ///< 
+            IDLE,       ///< 
+            FLOODING    ///< 
         };
 
-    public:
-        Door(std::string flavor, int initState, std::string faces = "nesw");
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_SUBTYP    =   3<<24,   ///< the FloodStream typ
+            OBJBIT_MODEL     =   3<<26,   ///< the model typ (h/v for wood)
+        };
         
+        enum FloodStreamTyp {
+            WATER = 0,
+            WOOD,
+            HAY,
+            ROCK
+        };
+    public:
+        FloodStream(int subtyp, int model, bool framed, 
+                FloorFlags flags = flf_default, bool isFloodSource = false);
+        ~FloodStream();
+
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual const char *get_kind() const;
         virtual Value message(const Message &m);
         
         // StateObject interface
-        virtual int externalState() const;
         virtual void setState(int extState);
-        virtual void toggleState();
 
         // GridObject interface
         virtual void init_model();
-        
-        // ModelCallback interface  - Animation callback
-        virtual void animcb();
+        virtual void on_creation(GridPos p);
+                
+        // Floor interface
+        virtual bool is_destructible() const;
+        virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;
+        virtual void stone_change(Stone *st);
 
-        // Stone interface
-        virtual bool is_floating() const;
-        virtual bool is_transparent(Direction d) const;
-        virtual bool allowsSpreading(Direction dir, bool isFlood = false) const;
-        virtual StoneResponse collision_response(const StoneContact &sc);
-        virtual void actor_hit(const StoneContact &sc);
-        virtual const char *collision_sound();
-        virtual FreezeStatusBits get_freeze_bits();
-        
+        // TimeHandler interface
+        virtual void alarm();
+    
     private:
-        std::string model_basename();
-        void set_iState(int newState);
+        // Private methods.
+        FloodStreamTyp getTyp() const;
     };
 
 } // namespace enigma

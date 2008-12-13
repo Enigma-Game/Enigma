@@ -209,7 +209,7 @@ namespace enigma {
         }
         
         // Fire and water spreading that is face and state dependent for stones like doors, window
-        virtual bool allowsSpreading(Direction dir) const {
+        virtual bool allowsSpreading(Direction dir, bool isFlood = false) const {
             return is_floating();
         }
         
