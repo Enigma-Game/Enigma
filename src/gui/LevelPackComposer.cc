@@ -29,6 +29,8 @@
 
 #include "main.hh"
 
+#include <cstdio>
+
 using namespace ecl;
 using namespace std;
 
