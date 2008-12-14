@@ -486,59 +486,6 @@ void Floor::animcb() {
 namespace
 {
 
-/* -------------------- Abyss -------------------- */
-
-    class Abyss : public Floor {
-        CLONEOBJ(Abyss);
-    public:
-        Abyss() : Floor("fl_abyss", 2.0, 1, flf_indestructible, flft_noash) {}
-    private:
-//         void actor_enter(Actor* a) {SendMessage(a, "fall");}
-        void actor_contact (Actor* a) {SendMessage(a, "fall");}
-	bool is_destructible() const {return false;}
-    };
-
-/* -------------------- Ice -------------------- */
-
-    class Ice : public Floor {
-        CLONEOBJ (Ice);
-    public:
-        Ice() : Floor ("fl_ice", 0.1, 0.1, flf_default, flft_default, "",
-            "fl_water") { }
-
-    };
-
-/* -------------------- Swamp -------------------- */
-
-    class Swamp : public Floor {
-        CLONEOBJ(Swamp);
-    public:
-        Swamp() : Floor("fl_swamp", 13, 1.0, flf_indestructible, flft_default,
-            "", "fl-dunes") {}
-    private:
-        bool is_destructible() const {return false;}
-        
-        void get_sink_speed (double &sink_speed, double &raise_speed) const { 
-            sink_speed = server::SwampSinkSpeed;
-            raise_speed = 6.0;
-        }
-    };
-
-/* -------------------- Space with force -------------------- */
-
-    class SpaceForce : public Floor {
-        CLONEOBJ (SpaceForce);
-
-        // Floor interface
-        void add_force (Actor *, V2 &f) {
-            f[1] -= server::FlatForce;
-        }
-
-    public:
-        SpaceForce() : Floor("fl-space-force", 0, 0) {
-        }
-    };
-
 /* -------------------- DummyFloor -------------------- */
 
     class DummyFloor : public Floor {
@@ -828,14 +775,10 @@ namespace
 void InitFloors()
 {
     // Floors (most floors are defined in init.lua)
-    Register(new Abyss);
-    Register(new Ice);
-    Register(new Swamp);
     Register(new DummyFloor);
     Register(new Thief);
     Register(new WhiteTile);
     Register(new BlackTile);
-    Register(new SpaceForce);
 
     Register(new Gradient);
     Register("fl-gradient1", new Gradient(1));

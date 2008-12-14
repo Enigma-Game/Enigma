@@ -148,6 +148,8 @@ enigma_SOURCES = 		\
 	floors/BridgeFloor.hh	\
 	floors/FloodStream.cc	\
 	floors/FloodStream.hh	\
+	floors/SimpleFloors.cc	\
+	floors/SimpleFloors.hh	\
 	gui/ErrorMenu.cc	\
 	gui/ErrorMenu.hh	\
 	gui/GameMenu.cc		\

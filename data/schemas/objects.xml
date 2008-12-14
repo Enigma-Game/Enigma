@@ -163,7 +163,7 @@
     </object>
     <object name="fl_floodstream" abstract="true">
       <attr name="faces"/>
-      <attr name="interval" default="0.5"/>
+      <attr name="interval" default="0.2"/>
       <msg name="_init"/>
       <msg name="_checkflood"/>
     </object>
@@ -203,6 +203,7 @@
     <object name="fl_ice">
       <attr name="friction" default="0.1"/>
       <attr name="adhesion" default="0.1"/>
+      <attr name="$heattransform" default="fl_water"/>
     </object>
     <object name="fl_rock" super="fl_floodstream">
       <attr name="friction" default="6.5"/>
@@ -218,6 +219,7 @@
     <object name="fl_swamp">
       <attr name="friction" default="13.0"/>
       <attr name="adhesion" default="1.0"/>
+      <attr name="$heattransform" default="fl-dunes"/>
     </object>
     <object name="fl_water" super="fl_floodstream">
       <attr name="friction" default="5.0"/>

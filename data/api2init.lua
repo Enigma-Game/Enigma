@@ -72,6 +72,7 @@ OXYDPAIR = 2
 LIGHT    = 0
 MEDIUM   = 1
 DARK     = 2
+FLOODING = 1
 
 -- color
 BLACK  = 0

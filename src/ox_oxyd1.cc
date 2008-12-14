@@ -100,7 +100,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x1e
     UNUSED,                     // Oxyd1 floor 0x1f
     "fl_space",                 // Oxyd1 floor 0x20
-    "fl-space-force",           // Oxyd1 floor 0x21
+    "fl_space_force",           // Oxyd1 floor 0x21
     "fl_space",                 // Oxyd1 floor 0x22
     "fl-gradient1",             // Oxyd1 floor 0x23
     "fl-gradient2",             // Oxyd1 floor 0x24

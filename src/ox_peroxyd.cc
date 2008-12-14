@@ -136,7 +136,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x1e
     UNUSED,                     // PerOxyd floor 0x1f
     UNUSED,                     // PerOxyd floor 0x20
-    "fl-space-force",           // PerOxyd floor 0x21 (flat force)
+    "fl_space_force",           // PerOxyd floor 0x21 (flat force)
     UNUSED,                     // PerOxyd floor 0x22
     "fl-gradient1",             // PerOxyd floor 0x23
     "fl-gradient2",             // PerOxyd floor 0x24
