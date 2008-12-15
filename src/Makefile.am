@@ -284,6 +284,8 @@ enigma_SOURCES = 		\
 	stones/OneWayStone.hh	\
 	stones/OxydStone.cc	\
 	stones/OxydStone.hh	\
+	stones/PassageStone.cc	\
+	stones/PassageStone.hh	\
 	stones/PolarSwitchStone.cc	\
 	stones/PolarSwitchStone.hh	\
 	stones/PullStone.cc	\

@@ -947,6 +947,18 @@
     <object name="st_panel_nesw">
       <attr name="connections" value="nesw"/>
     </object>
+    <object name="st_passage">
+      <attr name="color" default="0"/>
+      <attr name="flavor" default="square"/>
+      <msg name="signal"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_passage_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="st_passage_white">
+      <attr name="color" value="1"/>
+    </object>
     <object name="st_polarswitch">
       <msg name="on"/>
       <msg name="off"/>

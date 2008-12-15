@@ -309,8 +309,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-stonebrush",            // PerOxyd stone 0x76
     "st_door_d_open",           // PerOxyd stone 0x77
     "st_door_d_ew_open",        // PerOxyd stone 0x78
-    "st-white1",                // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)
-    "st-black1",                // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
+    "st_passage_white_square",  // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)
+    "st_passage_black_square",  // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
     "st-metal_hole",            // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
     "st-yinyang3",              // PerOxyd stone 0x7d

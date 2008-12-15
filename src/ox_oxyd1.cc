@@ -288,8 +288,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x89
     "st-stone1",                // Oxyd1 stone 0x8a
     "st_bluesand",              // Oxyd1 stone 0x8b
-    "st-white1",                // Oxyd1 stone 0x8c
-    "st-black1",                // Oxyd1 stone 0x8d
+    "st_passage_white_square",  // Oxyd1 stone 0x8c
+    "st_passage_black_square",  // Oxyd1 stone 0x8d
     "st-yinyang2",              // Oxyd1 stone 0x8e
     UNUSED,                     // Oxyd1 stone 0x8f
     "st-whiteballs",            // Oxyd1 stone 0x90

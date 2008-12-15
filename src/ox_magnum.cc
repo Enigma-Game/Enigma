@@ -256,8 +256,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     0,                          // OxydMagnum stone 0x89 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     "st-stone1",                // OxydMagnum stone 0x8a
     "st-rock6",                 // OxydMagnum stone 0x8b
-    "st-white1",                // OxydMagnum stone 0x8c
-    "st-black1",                // OxydMagnum stone 0x8d
+    "st_passage_white_square",  // OxydMagnum stone 0x8c
+    "st_passage_black_square",  // OxydMagnum stone 0x8d
     "st-yinyang2",              // OxydMagnum stone 0x8e
     UNUSED,                     // OxydMagnum stone 0x8f
     "st-redrock",               // OxydMagnum stone 0x90 (Level 89 only)

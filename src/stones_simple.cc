@@ -1008,64 +1008,6 @@ namespace
     };
 }
 
-
-/* -------------------- Black Stones -------------------- */
-namespace
-{
-    class BlackWhiteStone : public Stone {
-        CLONEOBJ(BlackWhiteStone);
-        DECL_TRAITS_ARRAY(8, m_type);
-        int m_type;
-
-        BlackWhiteStone(int type) : m_type(type)
-        {}
-
-        StoneResponse collision_response(const StoneContact &sc) {
-            Value accolor = sc.actor->getAttr("color"); 
-            if (m_type < 4) {
-                return (accolor && accolor == BLACK) ? 
-                    STONE_PASS : STONE_REBOUND;
-            }
-            else {
-                return (accolor && accolor == WHITE) ? 
-                    STONE_PASS : STONE_REBOUND;
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message == "signal" || m.message == "_trigger") {
-                // toggle between black and white stone
-                m_type = (m_type + 4) % 8;
-                init_model();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        bool is_floating() const { return true; }
-        bool is_transparent (Direction) const { return true; }
-
-    public:
-        static void setup() {
-            for (int i=0; i<8; ++i)
-                Register(new BlackWhiteStone(i));
-        }
-    };
-
-    StoneTraits BlackWhiteStone::traits[8] = {
-        {"st-black1", st_black1, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-black2", st_black2, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-black3", st_black3, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-black4", st_black4, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-white1", st_white1, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-white2", st_white2, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-white3", st_white3, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-        {"st-white4", st_white4, stf_transparent, material_stone, MOVABLE_PERSISTENT},
-    };
-
-}
-
-
 /* -------------------- YinYang stones -------------------- */
 namespace
 {
@@ -1075,11 +1017,11 @@ namespace
         {}
 
     protected:
-        void turn_white(const char *stonename = "st-white1") {
+        void turn_white(const char *stonename = "st_passage_white_square") {
             sound_event("yinyang");
             ReplaceStone (get_pos(), MakeStone(stonename));
         }
-        void turn_black(const char *stonename = "st-black1") {
+        void turn_black(const char *stonename = "st-passage_black_square") {
             sound_event("yinyang");
             ReplaceStone (get_pos(), MakeStone(stonename));
         }
@@ -1330,8 +1272,6 @@ void DefineSimpleStoneMovable(const std::string &kind,
 
 void Init_simple()
 {
-    BlackWhiteStone::setup();
-
     Register(new BlockStone);
     Register(new BombStone("st-bombs", "it-blackbomb"));
     //Register(new BombStone("st-dynamite", "it-dynamite"));
