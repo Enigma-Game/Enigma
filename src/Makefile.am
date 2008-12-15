@@ -194,8 +194,14 @@ enigma_SOURCES = 		\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
 	items/BlockerItem.hh	\
+	items/Coin.cc		\
+	items/Coin.hh		\
+	items/ExtraLife.cc	\
+	items/ExtraLife.hh	\
 	items/GlassesItem.cc	\
 	items/GlassesItem.hh	\
+	items/Hammer.cc		\
+	items/Hammer.hh		\
 	items/Magnet.cc		\
 	items/Magnet.hh		\
 	items/Meditation.cc	\
@@ -210,10 +216,16 @@ enigma_SOURCES = 		\
 	items/Sensor.hh		\
 	items/ShogunDot.cc	\
 	items/ShogunDot.hh	\
+	items/SimpleItems.cc	\
+	items/SimpleItems.hh	\
 	items/StripItem.cc	\
 	items/StripItem.hh	\
+	items/Sword.cc		\
+	items/Sword.hh		\
 	items/Trigger.cc	\
 	items/Trigger.hh	\
+	items/Umbrella.cc	\
+	items/Umbrella.hh	\
 	items/Vortex.cc		\
 	items/Vortex.hh		\
 	items/WormHole.cc	\

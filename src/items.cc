@@ -159,11 +159,7 @@ bool Item::actor_hit(Actor *actor)
 
 namespace
 {
-    DEF_ITEM(MagicWand, "it_magicwand", it_magicwand);
-    DEF_ITEM(Floppy,    "it_floppy", it_floppy);
-    DEF_ITEM(Key,       "it_key", it_key);
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);
-    DEF_ITEM(Wrench,    "it_wrench", it_wrench);
     DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
 
@@ -284,251 +280,6 @@ namespace
     };
     DEF_ITEMTRAITS(Banana, "it-banana", it_banana);
 
-/* -------------------- Sword -------------------- */
-
-    class Sword : public Item, public TimeHandler {
-        CLONEOBJ(Sword);
-        DECL_ITEMTRAITS;
-
-    public:
-        Sword(bool isNew);
-
-        // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-
-        // TimeHandler interface
-        virtual void alarm();
-    };
-
-    Sword::Sword(bool isNew) : Item() {
-        if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
-        }
-    }
-
-    void Sword::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
-            // a new transformed hammer
-            GameTimer.set_alarm(this, 0.2, false);
-        } else {
-            updateCurrentLightDirs();
-            activatePhoto();
-        }
-        Item::on_creation(p);
-    }
-    
-    void Sword::on_removal(GridPos p) {
-        GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
-        Item::on_removal(p);
-    }
-
-    
-    void Sword::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
-        if (added_dirs(oldDirs, newDirs) != 0) {
-            sound_event ("itemtransform");
-            transform("it_hammer_new");
-        }
-    }
-    
-    void Sword::alarm() {
-            updateCurrentLightDirs();
-            activatePhoto();        
-    }
-    
-    DEF_ITEMTRAITS(Sword, "it_sword", it_sword);
-
-/* -------------------- Hammer -------------------- */
-
-    class Hammer : public Item, public TimeHandler {
-        CLONEOBJ(Hammer);
-        DECL_ITEMTRAITS;
-
-    public:
-        Hammer(bool isNew);
-
-        // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-
-        // TimeHandler interface
-        virtual void alarm();
-    };
-    
-    Hammer::Hammer(bool isNew) : Item() {
-        if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
-        }
-    }
-    
-    void Hammer::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
-            // a new transformed hammer
-            GameTimer.set_alarm(this, 0.2, false);
-        } else {
-            updateCurrentLightDirs();
-            activatePhoto();
-        }
-        Item::on_creation(p);
-    }
-    
-    void Hammer::on_removal(GridPos p) {
-        GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
-        Item::on_removal(p);
-    }
-    
-    void Hammer::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
-        if (added_dirs(oldDirs, newDirs) != 0 && server::GameCompatibility != enigma::GAMET_PEROXYD) {
-            sound_event ("itemtransform");
-            transform("it_sword_new");
-        }
-    }
-    
-    void Hammer::alarm() {
-            DirectionBits db = updateCurrentLightDirs();
-            activatePhoto();        
-    }
-    
-    DEF_ITEMTRAITS(Hammer, "it_hammer", it_hammer);
-
-
-/* -------------------- ExtraLife -------------------- */
-
-    class ExtraLife : public Item, public TimeHandler {
-        CLONEOBJ(ExtraLife);
-        DECL_ITEMTRAITS;
-        
-    public:
-        ExtraLife(bool isNew);
-
-        // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-        
-        // Item interface
-        virtual string get_inventory_model();
-        virtual void setup_successor(Item *newitem);
-
-        // TimeHandler interface
-        virtual void alarm();
-    };
-
-    ExtraLife::ExtraLife(bool isNew) : Item() {
-        if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
-        }
-    }
-    
-    std::string ExtraLife::get_inventory_model() {
-        if (player::CurrentPlayer()==0)
-            return "inv-blackball";
-        else
-            return "inv-whiteball";
-    }
-
-    void ExtraLife::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
-            // a new transformed extralife
-            GameTimer.set_alarm(this, 0.2, false);
-        } else {
-            updateCurrentLightDirs();
-            activatePhoto();
-        }
-        Item::on_creation(p);
-    }
-    
-    void ExtraLife::on_removal(GridPos p) {
-        GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
-        Item::on_removal(p);
-    }
-    
-    void ExtraLife::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
-        if (added_dirs(oldDirs, newDirs) != 0) {
-            sound_event ("itemtransform");
-            replace("it_glasses");
-        }
-    }
-    
-    void  ExtraLife::setup_successor(Item *newitem) {
-        newitem->setState(server::ExtralifeGlasses);
-    }
-    
-    void ExtraLife::alarm() {
-            DirectionBits db = updateCurrentLightDirs();
-            activatePhoto();        
-    }
-
-    DEF_ITEMTRAITS(ExtraLife, "it_extralife", it_extralife);
-
-/* -------------------- Umbrella -------------------- */
-
-    class Umbrella : public Item, public TimeHandler {
-        CLONEOBJ(Umbrella);
-        DECL_ITEMTRAITS;
-
-    public:
-        Umbrella(bool isNew);
-
-        // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-
-        // Item interface
-        virtual ItemAction activate(Actor* a, GridPos p);
-        
-        // TimeHandler interface
-        virtual void alarm();
-    };
-
-    Umbrella::Umbrella(bool isNew) : Item() {
-        if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
-        }
-    }
-    
-    void Umbrella::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
-            // a new transformed umbrella
-            GameTimer.set_alarm(this, 0.2, false);
-        } else {
-            updateCurrentLightDirs();
-            activatePhoto();
-        }
-        Item::on_creation(p);
-    }
-    
-    void Umbrella::on_removal(GridPos p) {
-        GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
-        Item::on_removal(p);
-    }
-    
-    void Umbrella::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
-        if (added_dirs(oldDirs, newDirs) != 0 && server::GameCompatibility != enigma::GAMET_PEROXYD) {
-            sound_event ("itemtransform");
-            replace("it-explosion1");
-        }
-    }
-    
-    ItemAction Umbrella::activate(Actor *a, GridPos) {
-        SendMessage(a, "shield");
-        return ITEM_KILL;
-    }
-    
-    void Umbrella::alarm() {
-            DirectionBits db = updateCurrentLightDirs();
-            activatePhoto();        
-    }
-
-    DEF_ITEMTRAITS (Umbrella, "it_umbrella", it_umbrella);
-
 /* -------------------- Spoon -------------------- */
 namespace
 {
@@ -602,103 +353,6 @@ namespace
     DEF_ITEMTRAITSF(BrokenBooze, "it-booze-broken", it_booze_broken, itf_static | itf_indestructible);
 }
 
-/* -------------------- Brush -------------------- */
-    /* Can "paint" some stones and remove ash. */
-    class Brush : public Item {
-        CLONEOBJ(Brush);
-        DECL_ITEMTRAITS;
-
-    public:
-        Brush();
-        
-        // Item interface
-        virtual ItemAction activate(Actor* a, GridPos p);
-    };
-    
-    Brush::Brush() {
-    }
-    
-    ItemAction Brush::activate(Actor *a, GridPos p) {
-        if (Item *it = GetItem(p))
-            SendMessage (it, "_brush");
-        return ITEM_DROP;
-    }
-    
-    DEF_ITEMTRAITSF(Brush, "it_brush", it_brush, itf_inflammable);
-
-
-
-/* -------------------- Coins -------------------- */
-
-// TODO id renaming when names are stable
-
-    class Coin : public Item {
-        CLONEOBJ(Coin);
-        DECL_ITEMTRAITS_ARRAY(3, state);
-
-    public:
-        Coin(int type);
-        static void setup();
-        
-        // Object interface
-        virtual std::string getClass() const;
-
-        // StateObject interface
-        virtual void setState(int extState);
-
-        // GridObject interface
-        virtual void processLight(Direction d);
-        
-        // Item interface
-        virtual void on_stonehit(Stone *st);
-    };
-    
-    void Coin::setup() {
-        RegisterItem (new Coin(0));
-        RegisterItem (new Coin(1));
-        RegisterItem (new Coin(2));
-    }
-
-    Coin::Coin(int type) {
-        state = type;
-        setAttr("coin_value", state == 0 ? 3.0 : (state == 1 ? 6.0 : 12.0));
-    }
-    
-    std::string Coin::getClass() const {
-        return "it_coin";
-    }
-    
-    void Coin::setState(int extState) {
-        // ignore any state access
-    }
-
-    void Coin::processLight(Direction d) {
-        sound_event("itemtransform");
-        switch (state) {
-            case 0 : 
-                transform("it_umbrella_new"); break;
-            case 1 :
-                transform("it_hammer_new"); break;
-            case 2 :
-                transform("it_extralife_new"); break;
-        }
-    }
-
-    void Coin::on_stonehit(Stone *) {
-        if (state <= 1) {
-            state += 1;
-            setAttr("coin_value", (state == 1 ? 6.0 : 12.0));  // API 1 compatibility
-            init_model();
-        }
-
-    }
-    
-    ItemTraits Coin::traits[3] = {
-        {"it_coin_s",  it_coin1,  itf_none, 0.0},
-        {"it_coin_m",  it_coin2,  itf_none, 0.0},
-        {"it_coin_l",  it_coin4,  itf_none, 0.0},
-    };
-    
 /* -------------------- Springs -------------------- */
 
 /** \page it-spring Spring
@@ -2076,44 +1730,6 @@ namespace
     DEF_ITEMTRAITS(Pencil, "it-pencil", it_pencil);
 }
 
-/* -------------------- Death Item  -------------------- */
-    class DeathItem : public Item {
-        CLONEOBJ(DeathItem);
-        DECL_ITEMTRAITS;
-        
-    public:
-        DeathItem();
-        
-        // ModelCallback interface
-        virtual void animcb();
-
-        // Item interface
-        virtual bool actor_hit(Actor *a);
-        
-    };
-    
-    DeathItem::DeathItem() {
-    }
-    
-    void DeathItem::animcb() { 
-        set_model("it_death"); 
-        state = 0;
-     }
-
-    bool DeathItem::actor_hit(Actor *a) {
-        ActorInfo &ai = * a->get_actorinfo();
-        if (!ai.grabbed) {
-            SendMessage(a, "shatter");
-            if (state == 0) {
-                state = 1;
-                set_anim("it_death_anim");
-            }
-        }
-        return false;
-    }
-    
-    DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
-
 /* -------------------- it-surprise -------------------- */
 namespace
 {
@@ -2268,15 +1884,12 @@ void InitItems()
     RegisterItem (new BlackBombBurning);
     RegisterItem (new Booze);
     RegisterItem (new BrokenBooze);
-    RegisterItem (new Brush);
     Burnable::setup();
     RegisterItem (new ChangeFloorItem);
     RegisterItem (new Cherry);
     RegisterItem (new Coffee);
-    Coin::setup();
     Crack::setup();
     RegisterItem (new Cross);
-    RegisterItem (new DeathItem);
     RegisterItem (new Debris);
     RegisterItem (new Document);
     RegisterItem (new Drop);
@@ -2288,17 +1901,10 @@ void InitItems()
     RegisterItem (new Explosion2);
     RegisterItem (new Explosion3);
     Extinguisher::setup();
-    RegisterItem (new ExtraLife(false));
-    Register ("it_extralife_new", new ExtraLife(true));
     RegisterItem (new FlagBlack);
     RegisterItem (new FlagWhite);
-    RegisterItem (new Floppy);
-    RegisterItem (new Hammer(false));
-    Register ("it_hammer_new", new Hammer(true));
     RegisterItem (new Trap);
-    RegisterItem (new Key);
     RegisterItem (new Landmine);
-    RegisterItem (new MagicWand);
     RegisterItem (new Odometer);
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);
@@ -2314,14 +1920,9 @@ void InitItems()
     RegisterItem (new Springboard);
     RegisterItem (new Squashed);
     RegisterItem (new SurpriseItem);
-    RegisterItem (new Sword(false));
-    Register ("it_sword_new", new Sword(true));
     RegisterItem (new TwoPKillStone);
-    RegisterItem (new Umbrella(false));
-    Register ("it_umbrella_new", new Umbrella(true));
     RegisterItem (new Weight);
     RegisterItem (new WhiteBomb);
-    RegisterItem (new Wrench);
     RegisterItem (new YinYang);
 }
 
