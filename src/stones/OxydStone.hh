@@ -66,11 +66,11 @@ namespace enigma {
         enum Color {BLUE = 0, RED, GREEN, YELLOW, CYAN, PURPLE, WHITE, BLACK, 
             GREY, ORANGE, PINE, BROWN,
             COLORCOUNT,
-            AUTO = -1,
-            FAKE = -2,
-            FART = -3,
-            BOLD = -4,
-            MIN  = -4
+            AUTO  = -1,
+            FAKE  = -2,
+            QUAKE = -3,
+            BOLD  = -4,
+            MIN   = -4
         };
         enum LogType {NOTHING, SOLUTION, COUNT, ALL};
             
@@ -152,7 +152,7 @@ namespace enigma {
         static bool isInit;
         static std::vector<unsigned short> colorsUsageCount;
         static unsigned short shuffledFakeCount;
-        static unsigned short shuffledFartCount;
+        static unsigned short shuffledQuakeCount;
         static unsigned short shuffledBoldCount;
         static bool oddUnshuffledColor;
         

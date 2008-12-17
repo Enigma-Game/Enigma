@@ -337,37 +337,6 @@ bool Stone::freeze_check() {
 //  Stones under development :
 
 
-
-/* -------------------- Explosion stone -------------------- */
-namespace
-{
-    class ExplosionStone : public Stone {
-        CLONEOBJ(ExplosionStone);
-        DECL_TRAITS;
-
-        StoneResponse collision_response(const StoneContact &) {
-            return STONE_PASS;
-        }
-
-        void actor_contact (Actor *a) {
-            SendMessage(a, "shatter");
-        }
-        void init_model() {
-            set_anim("st-explosion");
-        }
-
-        void animcb() {
-            KillStone(get_pos());
-        }
-
-    public:
-        ExplosionStone()
-        {}
-    };
-    DEF_TRAITSM(ExplosionStone, "st-explosion", st_explosion, MOVABLE_BREAKABLE);
-}
-
-
 /* -------------------- Charge stone -------------------- */
 
 // Attributes:
@@ -467,77 +436,6 @@ void SpitterStone::actor_hit (const StoneContact &sc)
     }
 }
 
-
-/* -------------------- Oxyd compatibility stones -------------------- */
-
-namespace
-{
-    /* I have no idea what these stones are _really_ supposed to do;
-       they seemingly do not appear in the landscape and they create
-       normal floor tiles on creation.  Other than that... who
-       knows... */
-    class Peroxyd_0xb8 : public Stone {
-        CLONEOBJ(Peroxyd_0xb8);
-        DECL_TRAITS;
-    public:
-        Peroxyd_0xb8()
-        {}
-
-        void on_creation (GridPos p) {
-            SetFloor (p, MakeFloor ("fl-normal"));
-            KillStone(p);
-        }
-    };
-    DEF_TRAITSM(Peroxyd_0xb8, "st-peroxyd-0xb8", st_peroxyd_0xb8, MOVABLE_BREAKABLE);
-    
-    class Peroxyd_0xb9 : public Stone {
-        CLONEOBJ(Peroxyd_0xb9);
-        DECL_TRAITS;
-    public:
-        Peroxyd_0xb9()
-        {}
-
-        void on_creation (GridPos p) {
-            SetFloor (p, MakeFloor ("fl-normal"));
-            KillStone(p);
-        }
-    };
-    DEF_TRAITSM(Peroxyd_0xb9, "st-peroxyd-0xb9", st_peroxyd_0xb9, MOVABLE_BREAKABLE);
-    
-    class Oxyd_0x18 : public Stone {
-        CLONEOBJ(Oxyd_0x18);
-        DECL_TRAITS;
-    public:
-        Oxyd_0x18()
-        {}
-        
-        void on_creation (GridPos p) {
-            KillStone (p);
-        }
-    };
-    DEF_TRAITSM(Oxyd_0x18, "st-oxyd-0x18", st_oxyd_0x18, MOVABLE_BREAKABLE);
-}
-
-
-/* -------------------- Flash stone -------------------- */
-namespace
-{
-    class FlashStone : public Stone {
-        CLONEOBJ(FlashStone);
-
-        void actor_hit (const StoneContact &sc) {
-            if (Actor *other = FindOtherMarble(sc.actor)) {
-                other->add_force (distortedVelocity(sc.actor->get_vel(), 20));
-            }
-        }
-
-    public:
-        FlashStone() : Stone ("st-flash")
-        {}
-    };
-}
-
-
 /* -------------------- Surprise stone -------------------- */
 namespace 
 {
@@ -595,6 +493,9 @@ namespace
 /* -------------------- Breaking stone -------------------- */
 namespace
 {
+    
+    // only used by Bug stone as replacement!
+    
     class BreakingStone : public Stone {
         CLONEOBJ(BreakingStone);
         DECL_TRAITS;
@@ -973,15 +874,10 @@ void InitStones() {
 
     // Register(new ...);
 
-    Register (new ExplosionStone);
     Register (new ChargeStone ("st-chargeplus", +1.0));
     Register (new ChargeStone ("st-chargeminus", -1.0));
     Register (new ChargeStone ("st-chargezero", 0.0));
     Register (new SpitterStone);
-    Register (new Peroxyd_0xb8);
-    Register (new Peroxyd_0xb9);
-    Register (new Oxyd_0x18);
-    Register (new FlashStone);
     Register (new SurpriseStone);
     Register (new CoffeeStone);
     Register (new BlackBallsStone);

@@ -165,7 +165,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
 const char *oxyd::oxyd1_stone_map[256] = {
     0,                          // Oxyd1 stone 0x00
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    "st-fakeoxyd",              // Oxyd1 stone 0x11
+    "st_fake_quake",             // Oxyd1 stone 0x11
     "st_door_c",                // Oxyd1 stone 0x12
     "st_brick_es",              // Oxyd1 stone 0x13
     "st_brick_sw",              // Oxyd1 stone 0x14

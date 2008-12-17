@@ -262,14 +262,16 @@ enigma_SOURCES = 		\
 	stones/ClusterStone.hh	\
 	stones/CoinSlot.cc	\
 	stones/CoinSlot.hh	\
+	stones/CompatibilityStones.cc	\
+	stones/CompatibilityStones.hh	\
 	stones/DeathStone.cc	\
 	stones/DeathStone.hh	\
 	stones/DiscoStone.cc	\
 	stones/DiscoStone.hh	\
 	stones/Door.cc		\
 	stones/Door.hh		\
-	stones/FartStone.cc	\
-	stones/FartStone.hh	\
+	stones/FakeStone.cc	\
+	stones/FakeStone.hh	\
 	stones/FloorBuilder.cc	\
 	stones/FloorBuilder.hh	\
 	stones/FloppySwitch.cc	\
@@ -304,6 +306,8 @@ enigma_SOURCES = 		\
 	stones/PullStone.hh	\
 	stones/PuzzleStone.cc	\
 	stones/PuzzleStone.hh	\
+	stones/QuakeStone.cc	\
+	stones/QuakeStone.hh	\
 	stones/RotatorStone.cc	\
 	stones/RotatorStone.hh	\
 	stones/RubberbandStone.cc	\
@@ -312,6 +316,8 @@ enigma_SOURCES = 		\
 	stones/ScissorsStone.hh	\
 	stones/ShogunStone.cc	\
 	stones/ShogunStone.hh	\
+	stones/SimpleStones.cc	\
+	stones/SimpleStones.hh	\
 	stones/StoneImpulse.cc	\
 	stones/StoneImpulse.hh	\
 	stones/SwapStone.cc	\

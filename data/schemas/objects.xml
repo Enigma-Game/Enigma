@@ -734,18 +734,35 @@
     <object name="st_door_d">
       <attr name="flavor" value="d"/>
     </object>
-    <object name="st_fart" states="3">
-      <msg name="ignite"/>
-      <msg name="signal"/>
-      <msg name="_explosion"/>
-      <msg name="_trigger"/>
+    <object name="st_fake">
+      <attr name="flavor" default="quake"/>
+    </object>
+    <object name="st_fake_quake">
+      <attr name="flavor" value="quake"/>
+    </object>
+    <object name="st_fake_oxyda">
+      <attr name="flavor" value="oxyda"/>
+    </object>
+    <object name="st_fake_oxydb">
+      <attr name="flavor" value="oxydb"/>
+    </object>
+    <object name="st_fake_oxydc">
+      <attr name="flavor" value="oxydc"/>
+    </object>
+    <object name="st_fake_oxydd">
+      <attr name="flavor" value="oxydd"/>
+    </object>
+    <object name="st_fake_oxyde">
+      <attr name="flavor" value="oxyde"/>
+    </object>
+    <object name="st_flash">
+      <attr name="hit_factor"/>
+      <attr name="hit_distortion_xx"/>
+      <attr name="hit_distortion_xy"/>
+      <attr name="hit_distortion_yx"/>
+      <attr name="hit_distortion_yy"/>
     </object>
     <object name="st_flhay">
-      <msg name="fire"/>
-      <msg name="heat"/>
-      <msg name="fall"/>
-    </object>
-    <object name="st_flrock">
       <msg name="fire"/>
       <msg name="heat"/>
       <msg name="fall"/>
@@ -754,6 +771,11 @@
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
+    </object>
+    <object name="st_flrock">
+      <msg name="fire"/>
+      <msg name="heat"/>
+      <msg name="fall"/>
     </object>
     <object name="st_fourswitch" states="4">
       <attr name="counterclock"/>
@@ -987,7 +1009,13 @@
     </object>
     <object name="st_puzzle_yellow">
       <attr name="color" value="3"/>
-   </object>
+    </object>
+    <object name="st_quake" states="3">
+      <msg name="ignite"/>
+      <msg name="signal"/>
+      <msg name="_explosion"/>
+      <msg name="_trigger"/>
+    </object>
     <object name="st_rotator">
       <attr name="counterclock"/>
       <attr name="movable" rw="rw"/>

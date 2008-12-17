@@ -29,8 +29,8 @@ namespace enigma {
     /** 
      * 
      */
-    class FartStone : public Stone {
-        CLONEOBJ(FartStone);
+    class QuakeStone : public Stone {
+        CLONEOBJ(QuakeStone);
         DECL_TRAITS;
     private:
         enum iState {
@@ -41,7 +41,7 @@ namespace enigma {
         };
         
     public:
-        FartStone();
+        QuakeStone();
         
         // Object interface
         virtual std::string getClass() const;        

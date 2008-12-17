@@ -205,7 +205,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     0,                          // PerOxyd stone 0x00 no stone
     0,0,0,0,0,0,0,0,            // PerOxyd stone 0x01 - 0x08   oxyd stones
     0,0,0,0,0,0,0,0,            // PerOxyd stone 0x08 - 0x10   oxyd stones
-    "st-likeoxydc",             // PerOxyd stone 0x11
+    "st_fake_oxydc",             // PerOxyd stone 0x11
     "st-plain_break",           // PerOxyd stone 0x12   no, should be destructible with hammer
     "st-rock4",                 // PerOxyd stone 0x13
     "st-beads",                 // PerOxyd stone 0x14
@@ -345,7 +345,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-grate1",                // PerOxyd stone 0x9a
     "st-metal_hole",            // PerOxyd stone 0x9b
     "st-stone1",                // PerOxyd stone 0x9c
-    "st_fart",                  // PerOxyd stone 0x9d
+    "st_quake",                 // PerOxyd stone 0x9d
     "st_turnstile_red",         // PerOxyd stone 0x9e
     "st_turnstilearm_n",        // PerOxyd stone 0x9f
     "st_turnstilearm_s",        // PerOxyd stone 0xa0

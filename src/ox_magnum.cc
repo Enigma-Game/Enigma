@@ -133,7 +133,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     0,                          // OxydMagnum stone 0x00
     0,0,0,0,0,0,0,0,            // 0x01 -- 0x08  Oxyd stones
     0,0,0,0,0,0,0,0,            // 0x09 -- 0x10  Oxyd stones
-    "st-likeoxydd",             // OxydMagnum stone 0x11
+    "st_fake_oxydd",             // OxydMagnum stone 0x11
     "st-plain",                 // OxydMagnum stone 0x12
     "st_brick_es",              // OxydMagnum stone 0x13
     "st_brick_sw",              // OxydMagnum stone 0x14

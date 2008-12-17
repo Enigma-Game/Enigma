@@ -165,9 +165,14 @@ RenamingObjectsNew2Old = {
     st_door_a = "st-door_a",
     st_door_b = "st-door_b",
     st_door_c = "st-door_c",
-    st_fart = "st-fart",
-    st_floppy = "st-floppy",
+    st_fake_quake = "st-fakeoxyd",
+    st_fake_oxyda = "st-likeoxyda",
+    st_fake_oxydb = "st-likeoxydb",
+    st_fake_oxydc = "st-likeoxydc",
+    st_fake_oxydd = "st-likeoxydd",
+    st_flash = "st-flash",
     st_flhay = "st-flhay",
+    st_floppy = "st-floppy",
     st_flrock = "st-flrock",
     st_fourswitch = "st-fourswitch",
     st_knight = "st-knight",
@@ -278,6 +283,7 @@ RenamingObjectsNew2Old = {
     st_puzzle_yellow_nes = "st-puzzle2-nes",
     st_puzzle_yellow_nesw = "st-puzzle2-nesw",
     st_puzzle_yellow_nesw_hollow = "st-puzzle2-hollow",
+    st_quake = "st-fart",
     st_rotator_cw = "st-rotator-right",
     st_rotator_ccw = "st-rotator-left",
     st_rotator_cw_movable = "st-rotator_move-right",
@@ -422,8 +428,23 @@ function enigma.MakeObject(name)
         enigma._SetAttrib(obj, "faces", "ew")
         enigma._SetAttrib(obj, "state", 1)
         return obj
-    end
-    
+    elseif name == "st-likeoxyda-open" then
+        local obj = enigma._MakeObject("st_fake_oxyda")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
+    elseif name == "st-likeoxydb-open" then
+        local obj = enigma._MakeObject("st_fake_oxydb")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
+    elseif name == "st-likeoxydc-open" then
+        local obj = enigma._MakeObject("st_fake_oxydc")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
+    elseif name == "st-likeoxydd-open" then
+        local obj = enigma._MakeObject("st_fake_oxydd")
+        enigma._SetAttrib(obj, "state", 1)
+        return obj
+    end    
     newname = RenamingObjectsOld2New[name]
     
     if name == "st-laser" then
@@ -636,6 +657,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "mousefactor" then
          _key = "adhesion"
      end
+     if key == "blinking" then
+         _key = "state"
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -677,6 +701,9 @@ function enigma.GetAttrib(obj, key)
          _key = "orientation"
      end
      if key == "on" then
+         _key = "state"
+     end
+     if key == "blinking" then
          _key = "state"
      end
      if key == "type" and _obj_name == "st-door" then

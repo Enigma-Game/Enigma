@@ -31,7 +31,7 @@ namespace enigma {
     bool OxydStone::isInit = false;
     std::vector<unsigned short> OxydStone::colorsUsageCount;
     unsigned short OxydStone::shuffledFakeCount;
-    unsigned short OxydStone::shuffledFartCount;
+    unsigned short OxydStone::shuffledQuakeCount;
     unsigned short OxydStone::shuffledBoldCount;
     bool OxydStone::oddUnshuffledColor;
     
@@ -115,7 +115,7 @@ namespace enigma {
         colorsUsageCount = std::vector<unsigned short>(numColors);
         std::vector<unsigned short>colorsUsageCountNoShuffle(numColors);
         shuffledFakeCount = 0;
-        shuffledFartCount = 0;
+        shuffledQuakeCount = 0;
         shuffledBoldCount = 0;
         oddUnshuffledColor = false;
         
@@ -137,8 +137,8 @@ namespace enigma {
                     case FAKE:
                         if (!declineShuffle) shuffledFakeCount++;
                         break;
-                    case FART:
-                        if (!declineShuffle) shuffledFartCount++;
+                    case QUAKE:
+                        if (!declineShuffle) shuffledQuakeCount++;
                         break;
                     case BOLD:
                         if (!declineShuffle) shuffledBoldCount++;
@@ -292,7 +292,7 @@ namespace enigma {
                 base.oxydsCandidatesCount.push_back(countOxyds(candidates));
             }
             base.freeOxydsMask = all;
-            base.freePseudoCount = shuffledFakeCount + shuffledFartCount + shuffledBoldCount;
+            base.freePseudoCount = shuffledFakeCount + shuffledQuakeCount + shuffledBoldCount;
             base.freePairsCount = 0;
             for (int i = 0; i < numColorsAvailable(); i++) {
                 base.freePairsCount += colorsUsageCount[i];
@@ -666,7 +666,7 @@ namespace enigma {
         unsigned short numColors = numColorsAvailable();
         std::vector<unsigned short> colorsRemainCount = colorsUsageCount;
         unsigned short remainFakeCount = shuffledFakeCount;
-        unsigned short remainFartCount = shuffledFartCount;
+        unsigned short remainQuakeCount = shuffledQuakeCount;
         unsigned short remainBoldCount = shuffledBoldCount;
         
         // distribute colors of pairs with noshuffle, open, blinking oxyds and the pseudooxyds
@@ -676,14 +676,14 @@ namespace enigma {
                 if ((*itr).selOxyd2Mask == 0) {
                     // a single oxyd -- it must be a pseudo
                     OxydStone *oxyd = levelOxyds[oxydId((*itr).selOxyd1Mask)];
-                    ASSERT(remainFakeCount + remainFartCount + remainBoldCount > 0, XLevelRuntime, "Oxyd shuffle - to few pseudo colors");
-                    int i = IntegerRand(1, remainFakeCount + remainFartCount + remainBoldCount);  // use enigma's internal rand!
+                    ASSERT(remainFakeCount + remainQuakeCount + remainBoldCount > 0, XLevelRuntime, "Oxyd shuffle - to few pseudo colors");
+                    int i = IntegerRand(1, remainFakeCount + remainQuakeCount + remainBoldCount);  // use enigma's internal rand!
                     if (i <= remainFakeCount) {
                         remainFakeCount--;
                         oxyd->setAttr("oxydcolor", FAKE);
-                    } else if ( i <= remainFakeCount + remainFartCount) {
-                        remainFartCount--;
-                        oxyd->setAttr("oxydcolor", FART);
+                    } else if ( i <= remainFakeCount + remainQuakeCount) {
+                        remainQuakeCount--;
+                        oxyd->setAttr("oxydcolor", QUAKE);
                     } else {
                         remainBoldCount--;
                         oxyd->setAttr("oxydcolor", BOLD);
@@ -1025,8 +1025,8 @@ namespace enigma {
                 // a standard single oxyd is open - close it
                 pairCandidate->set_iState(CLOSING);
             }
-            // open FART and BOLD, keep FAKE closed
-            if ((int)mycolor <= FART)
+            // open QUAKE and BOLD, keep FAKE closed
+            if ((int)mycolor <= QUAKE)
                 set_iState(OPENING);
         }
         else if (state == CLOSED || state == CLOSING) {
@@ -1095,7 +1095,7 @@ namespace enigma {
         
         state = newState;
         bool didShuffle = false;
-        bool didFart = false;
+        bool didQuake = false;
     
         switch (newState) {
             case CLOSED:
@@ -1108,11 +1108,11 @@ namespace enigma {
                 break;
         
             case OPEN_SINGLE:
-                if ((int)getAttr("oxydcolor") <= FART) {
+                if ((int)getAttr("oxydcolor") <= QUAKE) {
                     set_anim(basemodelname + "-pseudo" + color);
-                    if ((int)getAttr("oxydcolor") == FART) {
+                    if ((int)getAttr("oxydcolor") == QUAKE) {
                         closeAllStandardOxyds();
-                        didFart = true;
+                        didQuake = true;
                         sound_event("fart");
                     } else if ((int)getAttr("oxydcolor") == BOLD) {
                         sound_event("shuffle");
@@ -1161,7 +1161,7 @@ namespace enigma {
         }
         // perform action
         if (((int)getAttr("oxydcolor") > AUTO && oldExtState != externalState() && (oldExtState != 1 || externalState() != 2)) // avoid second action of paired oxyd that changes from single to pair open state
-                || didShuffle || didFart)
+                || didShuffle || didQuake)
             performAction(externalState() != 0);
     }
     

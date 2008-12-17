@@ -968,46 +968,6 @@ Value ThiefStone::message(const Message &m) {
     return Stone::message(m);
 }
 
-//----------------------------------------
-// FakeOxydStone
-//----------------------------------------
-
-/** \page st-fakeoxyd Fake Oxyd Stone
-
-These stones look like real Oxyd stones, but they only blink a little
-when touched and do not open or have other special abilities.
-
-\image html st-fakeoxyd-blink_0001.png
-*/
-namespace
-{
-    class FakeOxydStone : public Stone {
-        CLONEOBJ(FakeOxydStone);
-    public:
-        FakeOxydStone() : Stone("st-fakeoxyd"), state(IDLE) {
-            setAttr("blinking", 0.0);
-        }
-    private:
-        enum State { IDLE, BLINKING } state;
-        void actor_hit(const StoneContact &/*sc*/) {
-            if (state == IDLE) {
-                set_anim("st-fakeoxyd-blink");
-                sound_event ("fakeoxyd");
-                state = BLINKING;
-                setAttr("blinking", 1.0);
-            }
-        }
-        const char *collision_sound() {
-            return "metal";
-        }
-        void animcb() {
-            set_model("st-fakeoxyd");
-            state = IDLE;
-            setAttr("blinking", 0.0);
-        }
-    };
-}
-
 /* -------------------- YinYang stones -------------------- */
 namespace
 {
@@ -1288,7 +1248,6 @@ void Init_simple()
 
     Register(new DummyStone);
     Register(new EasyModeStone);
-    Register(new FakeOxydStone);
     Register(new Grate1);
     Register(new Grate2);
     Register(new Grate3);

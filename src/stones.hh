@@ -58,7 +58,7 @@ namespace enigma {
         st_easymode,
         st_explosion,
         st_fakeoxyda,
-        st_fart,
+        st_quake,
         st_firebreak,
         st_firebreak_move,
         st_floorbuilder,

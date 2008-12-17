@@ -113,7 +113,7 @@ namespace enigma {
                 KillStone(get_pos());
                 break;
             default:
-               ASSERT(0, XLevelRuntime, "ChessStone: inconsistent state in animcb()");
+               ASSERT(false, XLevelRuntime, "ChessStone: inconsistent state in animcb()");
         }
     }
 

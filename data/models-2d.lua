@@ -943,8 +943,8 @@ end
 
 -- st-flash --
 do
-    local images = DefSubimages("st-flash", {h=1})
-    DefSolidStone("st-flash", "st-flash1")
+    local images = DefSubimages("st_flash", {h=1})
+    DefSolidStone("st_flash", "st_flash1")
 end
 
 -- st-fourswitch --
@@ -1511,6 +1511,8 @@ do
         DefAlias("st-oxyde"..color.."-open", "st-oxydb"..color.."-open")
     end
     DefAlias("st-oxyde", "st-oxydb")
+    DefAlias("st-likeoxyde", "st-oxydb")
+    DefAlias("st-likeoxyde-open", "st-likeoxydb-open")
     DefAlias("st-oxyde-3-opening", "st-oxydb-3-opening")
     DefAlias("st-oxyde-pseudo-3", "st-oxydb-pseudo-3")
     DefAlias("st-oxyde-3-closing", "st-oxydb-3-closing")
@@ -1583,13 +1585,8 @@ do
     DefAnim("st-door_c-closing", ReverseFrames(frames))
 end
 
--- st-fakeoxyd --
+-- st-fakeoxyda --
 do
-    DefStone("st-fakeoxyd", "sh-round", {filename="st-oxydb"})
-    DefAnimImages("fakeoxyd-blink",
-        RepeatAnim(PingPong(BuildFrames(FrameNames("st-fakeoxyd-blink", 1,4),50))))
-    DefRoundStone("st-fakeoxyd-blink", "fakeoxyd-blink")
-
     DefAlias("st-fakeoxyda", "st-oxyda")
 end
 

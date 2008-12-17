@@ -18,20 +18,20 @@
  *
  */
 
-#include "stones/FartStone.hh"
+#include "stones/QuakeStone.hh"
 #include "player.hh"
 #include "world.hh"
 //#include "main.hh"
 
 namespace enigma {
-    FartStone::FartStone() {
+    QuakeStone::QuakeStone() {
     }
     
-    std::string FartStone::getClass() const {
-        return "st_fart";
+    std::string QuakeStone::getClass() const {
+        return "st_quake";
     }
     
-    Value FartStone::message(const Message &m) {
+    Value QuakeStone::message(const Message &m) {
         if (m.message == "toggle" || (m.message == "signal" && m.value != 0) ||
                 (m.message == "_trigger" && m.value.to_bool())) {
             setState(ACTIVE);
@@ -43,15 +43,15 @@ namespace enigma {
         return Stone::message(m);
     }
 
-    int FartStone::maxState() const {
+    int QuakeStone::maxState() const {
         return BREAKING;
     }
     
-    int FartStone::externalState() const {
+    int QuakeStone::externalState() const {
         return (state == ACTIVEBREAKING) ? BREAKING : state;
     }
     
-    void FartStone::setState(int extState) {
+    void QuakeStone::setState(int extState) {
         if (state == extState)
             return;
             
@@ -76,7 +76,7 @@ namespace enigma {
             init_model();
     }
     
-    void FartStone::init_model() {
+    void QuakeStone::init_model() {
         switch (state) {
             case IDLE:     set_model("st-fart"); break;
             case ACTIVEBREAKING:
@@ -85,35 +85,35 @@ namespace enigma {
         }
     }
     
-    void FartStone::processLight(Direction d) {
+    void QuakeStone::processLight(Direction d) {
         setState(BREAKING);
     }
 
-    void FartStone::animcb() {
+    void QuakeStone::animcb() {
         if (state == ACTIVE || state == ACTIVEBREAKING)
             setState(IDLE);
         else if (state == BREAKING)
             KillStone(get_pos());
     }
 
-    void FartStone::actor_hit(const StoneContact &sc) {
+    void QuakeStone::actor_hit(const StoneContact &sc) {
         if (player::WieldedItemIs(sc.actor, "it_hammer"))
             setState(BREAKING);
         else
             setState(ACTIVE);
     }
     
-    void FartStone::fart() {
+    void QuakeStone::fart() {
         Object *ox = GetObjectTemplate("st_oxyd");
         SendMessage(ox, "closeall");
         sound_event("fart");
     }
     
         
-    DEF_TRAITSM(FartStone, "st_fart", st_fart, MOVABLE_BREAKABLE);
+    DEF_TRAITSM(QuakeStone, "st_quake", st_quake, MOVABLE_BREAKABLE);
     
     BOOT_REGISTER_START
-        BootRegister(new FartStone(), "st_fart");
+        BootRegister(new QuakeStone(), "st_quake");
     BOOT_REGISTER_END
 
 } // namespace enigma

@@ -100,7 +100,7 @@ OXYD_PINE   = 10
 OXYD_BROWN  = 11
 OXYD_AUTO   = -1
 OXYD_FAKE   = -2
-OXYD_FART   = -3
+OXYD_QUAKE  = -3
 OXYD_BOLD   = -4
 
 -- direction

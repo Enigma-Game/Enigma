@@ -161,14 +161,6 @@ def_stone_movable_glass("st-glass2_move")
 def_stone_hollow("st-glass2_hole")
 def_stone_glass("st-glass3")
 
-function mkoxydlikes(flavor)
-   def_stone("st-likeoxyd"..flavor)
-   def_stone("st-likeoxyd"..flavor.."-open")
-end
-mkoxydlikes("a")
-mkoxydlikes("b")
-mkoxydlikes("c")
-mkoxydlikes("d")
 
 ------------------------------
 -- Define the simple floors --
