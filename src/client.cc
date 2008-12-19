@@ -726,14 +726,17 @@ void Client::level_finished()
     int    difficulty     = app.state->getInt("Difficulty");
     int    wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
-    string par_name       = ratingMgr->getBestScoreHolder(curProxy, difficulty);
     int par_time   = ratingMgr->getParScore(curProxy, difficulty);
 
     int    level_time     = round_nearest<int> (m_total_game_time);
 
     string      text;
     bool        timehunt_restart = false;
-
+    
+    std::string par_name  = ratingMgr->getBestScoreHolder(curProxy, difficulty);
+    for (int cut = 2; par_name.length() > 55; cut++)
+        par_name  = ratingMgr->getBestScoreHolder(curProxy, difficulty, cut);
+    
     if (wr_time > 0) {
         if (best_user_time<0 || best_user_time>wr_time) {
             if (level_time == wr_time)
@@ -791,7 +794,7 @@ void Client::level_finished()
     if (m_cheater)
         text += _(" Cheater!");
 
-    Msg_ShowText (text, false);
+    Msg_ShowText(text, false);
 
     if (!m_cheater) {
         scm->updateUserScore(curProxy, difficulty, level_time);

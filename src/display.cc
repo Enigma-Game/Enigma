@@ -321,7 +321,7 @@ void TextDisplay::set_text (const string &t, bool scrolling, double duration)
 {
     text = t;
     textsurface.reset(font.render(text.c_str()));
-    
+    pingpong = false;
 
     time = 0;
 
@@ -351,11 +351,10 @@ void TextDisplay::set_text (const string &t, bool scrolling, double duration)
     if (!scrolling) {// centered text string
         if (area.w < textsurface->width()) {
             pingpong = true;
-            scrollspeed = 4 * (textsurface->width() - area.w) / duration;
+            scrollspeed = (textsurface->width() - area.w) / duration;
             xoff = 0;
         }
         else {
-            pingpong = false;
             xoff = -(area.w - textsurface->width())/2;
             scrollspeed = 0;
         }
