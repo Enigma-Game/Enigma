@@ -298,9 +298,9 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-yinyang1",              // Oxyd1 stone 0x93
     "st-break_acwhite",         // Oxyd1 stone 0x94
     "st-break_acblack",         // Oxyd1 stone 0x95
-    "st-chargeplus",            // Oxyd1 stone 0x96
-    "st-chargeminus",           // Oxyd1 stone 0x97
-    "st-chargezero",            // Oxyd1 stone 0x98
+    "st_charge_plus",           // Oxyd1 stone 0x96
+    "st_charge_minus",          // Oxyd1 stone 0x97
+    "st_charge_zero",           // Oxyd1 stone 0x98
     "st-glass1",                // Oxyd1 stone 0x99
     // codes >= 0x9a are unused
 };
@@ -312,7 +312,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     IT_EXTERNAL,                  // 0x03 document 2
     "it_hammer",                  // 0x04
     "it-coffee",                  // 0x05
-    "it-cherry",                  // 0x06
+    "it_cherry",                  // 0x06
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
     "it_glasses_broken",          // 0x09

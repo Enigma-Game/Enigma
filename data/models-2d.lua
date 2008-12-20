@@ -432,12 +432,10 @@ Progress(25, "Loading item models")
 do
     itemlist = {
         "it-bag",
-        "it-banana",
         "it-blackbomb",
         "it-blocker",
         "it-booze",
         "it-booze-broken",
-        "it-cherry",
         "it-document",
         "it-drop",
         "it-dynamite",
@@ -449,7 +447,6 @@ do
         "it-ring",
         "it-spade",
         "it-spoon",
-        "it-squashed",
         "it-spring1",
         "it-spring2",
         "it-surprise",
@@ -459,8 +456,10 @@ do
 
     DefImages(itemlist)
 
-    DefImage("it-brake", {filename="st-brake"})
+    DefImage("it_banana", {filename="it-banana"})
+    DefImage("it_brake", {filename="st-brake"})
     DefImage("it_brush", {filename="it-brush"})
+    DefImage("it_cherry", {filename="it-cherry"})
     DefImage("it_coin_s", {filename="it-coin1"})
     DefImage("it_coin_m", {filename="it-coin2"})
     DefImage("it_coin_l", {filename="it-coin4"})
@@ -480,6 +479,7 @@ do
     DefImage("it_meditation_volcano", {filename="it_meditation_volcano"})
     DefImage("it_meditation_caldera", {filename="it_meditation_caldera"})
     DefImage("it_rubberband", {filename="it-rubberband"})
+    DefImage("it_squashed", {filename="it-squashed"})
     DefImage("it_sword", {filename="it-sword"})
     DefImage("it_umbrella", {filename="it-umbrella"})
     DefImage("it_wrench", {filename="it-wrench"})

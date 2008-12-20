@@ -25,6 +25,23 @@
 
 namespace enigma {
     /**
+     * Banana
+     */
+    class Banana : public Item {
+        CLONEOBJ(Banana);
+        DECL_ITEMTRAITS;
+
+    public:
+        Banana();
+
+        // GridObject interface
+        virtual void processLight(Direction d);   // direction of laserbeam
+        
+        // Item interface
+        virtual void on_stonehit(Stone *st);
+    };
+
+    /**
      * Brush Can "paint" some stones and remove ash
      */
     class Brush : public Item {
@@ -39,6 +56,22 @@ namespace enigma {
     };
     
 
+    /**
+     * Cherry
+     */
+
+    class Cherry : public Item {
+        CLONEOBJ(Cherry);
+        DECL_ITEMTRAITS;
+        
+    public:
+        Cherry();
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+        virtual void on_stonehit(Stone *st);
+    };
+    
     /**
      * DeathItem
      */
@@ -71,6 +104,20 @@ namespace enigma {
      * Key
      */
     DEF_ITEM(Key, "it_key", it_key);
+
+    /**
+     * Squashed
+     */
+    class Squashed : public Item {
+        CLONEOBJ(Squashed);
+        DECL_ITEMTRAITS;
+
+    public:
+        Squashed();
+        
+        // Object interface
+        virtual Value message(const Message &m);
+    };
 
     /**
      * Wrench

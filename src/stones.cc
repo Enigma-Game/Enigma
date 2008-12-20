@@ -337,42 +337,6 @@ bool Stone::freeze_check() {
 //  Stones under development :
 
 
-/* -------------------- Charge stone -------------------- */
-
-// Attributes:
-//
-// :charge  + - 0
-namespace
-{
-    class ChargeStone : public Stone {
-        CLONEOBJ(ChargeStone);
-    public:
-        ChargeStone(const char *kind, double charge)
-        : Stone(kind)
-        {
-            setAttr("charge", charge);
-        }
-        virtual Value message(const Message &m) {
-            if (server::GameCompatibility == enigma::GAMET_PEROXYD && m.message == "signal") {
-                performAction(m.value);
-                return Value();
-            }
-            return Stone::message(m);
-        }
-    private:
-        double get_charge() {
-            double q = getAttr("charge");
-            return max(-1.0, min(1.0, q));
-        }
-        void animcb() { init_model(); }
-        void actor_hit (const StoneContact &sc) {
-            ActorInfo *ai = sc.actor->get_actorinfo();
-            ai->charge = get_charge();
-            set_anim(string(get_kind())+"-anim");
-        }
-    };
-}
-
 
 /* -------------------- SpitterStone -------------------- */
 
@@ -874,9 +838,6 @@ void InitStones() {
 
     // Register(new ...);
 
-    Register (new ChargeStone ("st-chargeplus", +1.0));
-    Register (new ChargeStone ("st-chargeminus", -1.0));
-    Register (new ChargeStone ("st-chargezero", 0.0));
     Register (new SpitterStone);
     Register (new SurpriseStone);
     Register (new CoffeeStone);

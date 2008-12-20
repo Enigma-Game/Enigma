@@ -53,9 +53,9 @@ namespace enigma {
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
             if (Item *it = inv->get_item(0)) {
                 GridPos p = PipeItem::findPipeEndpoint(get_pos(), getOrientation());
-                if (IsInsideLevel(p) && it->can_drop_at (p)) {
+                if (IsInsideLevel(p) && it->can_drop_at(p)) {
                     it = inv->yield_first();
-                    player::RedrawInventory (inv);
+                    player::RedrawInventory(inv);
                     it->drop(sc.actor, p);
                 }
             }

@@ -27,6 +27,31 @@
 namespace enigma {
 
     /** 
+     * ChargeStone
+     */
+    class ChargeStone : public Stone {
+        CLONEOBJ(ChargeStone);
+        
+    public:
+        ChargeStone(double charge);
+
+        // Object interface
+        virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+        virtual Value message(const Message &m);
+
+        // GridObject interface
+        virtual void init_model();
+        
+        // ModelCallback interface  - Animation callback
+        virtual void animcb();
+
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
+    };
+
+    /** 
      * FlashStone
      */
     class FlashStone : public Stone {

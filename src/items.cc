@@ -163,7 +163,6 @@ namespace
     DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
 
-
 /* -------------------- DummyItem -------------------- */
     class Dummyitem : public Item {
         CLONEOBJ(Dummyitem);
@@ -181,49 +180,6 @@ namespace
         Dummyitem() {}
     };
     DEF_ITEMTRAITSF(Dummyitem, "it-dummy", it_dummy, itf_fireproof);
-
-/* -------------------- Cherry -------------------- */
-
-    class Cherry : public Item {
-        CLONEOBJ(Cherry);
-        DECL_ITEMTRAITS;
-        ItemAction activate(Actor *actor, GridPos) {
-            SendMessage (actor, "invisibility");
-            return ITEM_KILL;
-        }
-
-        void on_stonehit(Stone *) {
-            replace("it-squashed");
-        }
-    public:
-        Cherry() {
-        }
-    };
-    DEF_ITEMTRAITS(Cherry, "it-cherry", it_cherry);
-
-/* -------------------- Squashed Cherry -------------------- */
-
-    class Squashed : public Item {
-        CLONEOBJ(Squashed);
-        DECL_ITEMTRAITS;
-
-        virtual Value message (const Message &m) {
-            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "_brush") {
-                    KillItem(this->get_pos());
-                    return Value();
-                }
-            }
-            return Item::message(m);
-        }
-
-
-    public:
-        Squashed() {
-        }
-    };
-    DEF_ITEMTRAITSF(Squashed, "it-squashed", it_squashed, itf_static);
-
 
 /* -------------------- Weight -------------------- */
 
@@ -259,26 +215,6 @@ namespace
         Pin() {}
     };
     DEF_ITEMTRAITS(Pin, "it-pin", it_pin);
-
-/* -------------------- Banana -------------------- */
-
-    class Banana : public Item {
-        CLONEOBJ(Banana);
-        DECL_ITEMTRAITS;
-
-        void processLight(Direction d) {
-            sound_event ("itemtransform");
-            replace("it-cherry");
-        }
-
-        void on_stonehit(Stone *) {
-            replace("it-squashed");
-        }
-
-    public:
-        Banana() {}
-    };
-    DEF_ITEMTRAITS(Banana, "it-banana", it_banana);
 
 /* -------------------- Spoon -------------------- */
 namespace
@@ -1879,14 +1815,12 @@ namespace
 void InitItems()
 {
     RegisterItem (new Bag);
-    RegisterItem (new Banana);
     RegisterItem (new BlackBomb);
     RegisterItem (new BlackBombBurning);
     RegisterItem (new Booze);
     RegisterItem (new BrokenBooze);
     Burnable::setup();
     RegisterItem (new ChangeFloorItem);
-    RegisterItem (new Cherry);
     RegisterItem (new Coffee);
     Crack::setup();
     RegisterItem (new Cross);
@@ -1918,7 +1852,6 @@ void InitItems()
     RegisterItem (new Spring1);
     RegisterItem (new Spring2);
     RegisterItem (new Springboard);
-    RegisterItem (new Squashed);
     RegisterItem (new SurpriseItem);
     RegisterItem (new TwoPKillStone);
     RegisterItem (new Weight);

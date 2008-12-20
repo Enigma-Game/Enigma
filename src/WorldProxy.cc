@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -78,11 +78,11 @@ namespace enigma {
             return server::Brittleness;
         } else if (key == "ActorimpulseStrength") {
             return server::BumperForce;
-        } else if (key == "ElectricForce") {
+        } else if (key == "ElectricStrength") {
             return server::ElectricForce;
         } else if (key == "ExtralifeGlasses") {
             return server::ExtralifeGlasses;
-        } else if (key == "FrictionFactor") {
+        } else if (key == "FrictionStrength") {
             return server::FrictionFactor;
         } else if (key == "MeditationStrength") {
             return server::HoleForce;
@@ -94,7 +94,7 @@ namespace enigma {
             return server::MaxOxydColor;
         } else if (key == "RubberViolationStrength") {
             return server::RubberViolationStrength;
-        } else if (key == "SlopeForce") {
+        } else if (key == "SlopeStrength") {
             return server::SlopeForce;
         } else if (key == "SwampSinkSpeed") {
             return server::SwampSinkSpeed;
@@ -162,11 +162,11 @@ namespace enigma {
             server::Brittleness = val;
         } else if (key == "ActorimpulseStrength") {
             server::BumperForce = val;
-        } else if (key == "ElectricForce") {
+        } else if (key == "ElectricStrength") {
             server::ElectricForce = val;
         } else if (key == "ExtralifeGlasses") {
             server::ExtralifeGlasses = val;
-        } else if (key == "FrictionFactor") {
+        } else if (key == "FrictionStrength") {
             server::FrictionFactor = val;
         } else if (key == "MeditationStrength") {
             server::HoleForce = val;
@@ -182,7 +182,7 @@ namespace enigma {
                     "Attribute 'MaxOxydColor' value is out of range.");
         } else if (key == "RubberViolationStrength") {
             server::RubberViolationStrength = val;
-        } else if (key == "SlopeForce") {
+        } else if (key == "SlopeStrength") {
             server::SlopeForce = val;
         } else if (key == "SwampSinkSpeed") {
             server::SwampSinkSpeed = val;

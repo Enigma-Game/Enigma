@@ -68,7 +68,7 @@ namespace enigma {
                 }
                 else if (state == CLOSED) {
                     state = OPENING;
-                    sound_event ("vortexopen");
+                    sound_event("vortexopen");
                     init_model();
                 }
             } else if (extState == 0) { // close
@@ -78,7 +78,7 @@ namespace enigma {
                 }
                 else if (state == OPEN) {
                     state = CLOSING;
-                    sound_event ("vortexclose");
+                    sound_event("vortexclose");
                     init_model();
                 }
             }
@@ -142,14 +142,14 @@ namespace enigma {
             emit_actor(dynamic_cast<Vortex *>((Object *)getAttr("$dest_vortex")));
         } else if (state == SWALLOWING) {
             state = WARPING;
-            sound_event ("hitfloor");
+            sound_event("hitfloor");
             perform_warp();
         } else
             ASSERT (0, XLevelRuntime, "Vortex: alarm called with inconsistent state");
     }
     
     void Vortex::prepare_for_warp (Actor *actor) {
-        SendMessage(actor, "fallvortex");
+        SendMessage(actor, "_fallvortex");
         setAttr("$dest_idx", 0);
         setAttr("$grabbed_actor", actor);
         state = SWALLOWING;

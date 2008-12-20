@@ -625,7 +625,6 @@ namespace
             NO_STATE,
             NORMAL,
             SHATTERING,
-            DROWNING,
             BUBBLING,
             FALLING,            // falling into abyss
             JUMPING,
@@ -782,13 +781,10 @@ Value BasicBall::message(const Message &m)
             } else if (m.message == "laserhit") {
                 change_state_noshield(SHATTERING);
                 handled = true;
-            } else if (m.message == "drown") {
-                change_state_noshield(DROWNING);
-                handled = true;
             } else if (m.message == "fall") {
                 change_state_noshield(FALLING);
                 handled = true;
-            } else if (m.message == "fallvortex") {
+            } else if (m.message == "_fallvortex") {
                 change_state(FALLING_VORTEX);
                 handled = true;
             } else if (m.message == "jump") {
@@ -859,7 +855,7 @@ Value BasicBall::message(const Message &m)
             update_halo();
             handled = true;
         }
-        else if (m.message == "invisibility") {
+        else if (m.message == "_invisibility") {
             m_invisible_rest_time += 8.0;
             handled = true;
         }
@@ -996,7 +992,6 @@ void BasicBall::animcb()
         set_model(kind+"-shattered");
         change_state(DEAD);
         break;
-    case DROWNING:
     case BUBBLING:
         set_model("invisible");
         change_state(DEAD);
@@ -1077,14 +1072,6 @@ void BasicBall::change_state(State newstate) {
         set_anim (kind+"-shatter");
         break;
 
-    case DROWNING:
-        // @@@ FIXME: use same animation as SINKING ?
-        GrabActor(this);
-//         sound::PlaySound("drown");
-        sound_event("drown");
-//         set_anim ("ring-anim");
-        set_anim ("ac-drowned");
-        break;
     case BUBBLING:
         GrabActor(this);
 //         sound::PlaySound("drown");

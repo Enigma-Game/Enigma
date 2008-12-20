@@ -316,9 +316,9 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-yinyang3",              // PerOxyd stone 0x7d
     "st-break_acwhite",         // PerOxyd stone 0x7e
     "st-break_acblack",         // PerOxyd stone 0x7f
-    "st-chargeplus",            // PerOxyd stone 0x80
-    "st-chargeminus",           // PerOxyd stone 0x81
-    "st-chargezero",            // PerOxyd stone 0x82
+    "st_charge_plus",           // PerOxyd stone 0x80
+    "st_charge_minus",          // PerOxyd stone 0x81
+    "st_charge_zero",           // PerOxyd stone 0x82
     "st_boulder_n",             // PerOxyd stone 0x83
     "st_boulder_s",             // PerOxyd stone 0x84
     "st_boulder_w",             // PerOxyd stone 0x85
@@ -385,7 +385,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     IT_EXTERNAL,                  // 0x03 document 2
     "it_hammer",                  // 0x04
     "it-coffee",                  // 0x05
-    "it-cherry",                  // 0x06
+    "it_cherry",                  // 0x06
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
     "it_glasses_broken",          // 0x09
@@ -445,10 +445,10 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it-changefloor",             // 0x3f
     "it_trigger",                 // 0x40
     "it_brush",                   // 0x41
-    "it-banana",                  // 0x42
+    "it_banana",                  // 0x42
     "it-pencil",                  // 0x43
     "it_brake",                   // 0x44
-    "it-squashed",                // 0x45
+    "it_squashed",                // 0x45
     "it_blocker",                 // 0x46
     "it_magicwand",               // 0x47
     "it_wrench",                  // 0x48

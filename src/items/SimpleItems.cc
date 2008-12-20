@@ -26,6 +26,23 @@
 
 namespace enigma {
 
+/* -------------------- Banana -------------------- */
+
+    Banana::Banana() {
+    }
+    
+    void Banana::processLight(Direction d) {
+        sound_event("itemtransform");
+        transform("it_cherry");
+    }
+
+    void Banana::on_stonehit(Stone *) {
+        transform("it_squashed");
+    }
+
+    DEF_ITEMTRAITS(Banana, "it_banana", it_banana);
+
+
 /* -------------------- Brush -------------------- */
    
     Brush::Brush() {
@@ -38,6 +55,22 @@ namespace enigma {
     }
     
     DEF_ITEMTRAITSF(Brush, "it_brush", it_brush, itf_inflammable);
+
+/* -------------------- Cherry -------------------- */
+
+    Cherry::Cherry() {
+    }
+    
+    ItemAction Cherry::activate(Actor *actor, GridPos p) {
+        SendMessage(actor, "_invisibility");
+        return ITEM_KILL;
+    }
+
+    void Cherry::on_stonehit(Stone *) {
+        transform("it_squashed");
+    }
+
+    DEF_ITEMTRAITS(Cherry, "it_cherry", it_cherry);
 
 /* -------------------- Death Item  -------------------- */
     
@@ -63,13 +96,33 @@ namespace enigma {
     
     DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
+/* -------------------- Squashed Cherry -------------------- */
+
+    Squashed::Squashed() {
+    }
+    
+    Value Squashed::message (const Message &m) {
+        if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+            if (m.message == "_brush") {
+                KillItem(this->get_pos());
+                return Value();
+            }
+        }
+        return Item::message(m);
+    }
+
+    DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static);
+
 
     BOOT_REGISTER_START
+        BootRegister(new Banana(), "it_banana");
         BootRegister(new Brush(), "it_brush");
+        BootRegister(new Cherry(), "it_cherry");
         BootRegister(new DeathItem(), "it_death");
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");
+        BootRegister(new Squashed(), "it_squashed");
         BootRegister(new Wrench(), "it_wrench");
     BOOT_REGISTER_END
 

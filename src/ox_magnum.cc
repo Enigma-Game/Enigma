@@ -266,9 +266,9 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-yinyang1",              // OxydMagnum stone 0x93
     "st-break_acwhite",         // OxydMagnum stone 0x94
     "st-break_acblack",         // OxydMagnum stone 0x95
-    "st-chargeplus",            // OxydMagnum stone 0x96
-    "st-chargeminus",           // OxydMagnum stone 0x97
-    "st-chargezero",            // OxydMagnum stone 0x98
+    "st_charge_plus",           // OxydMagnum stone 0x96
+    "st_charge_minus",          // OxydMagnum stone 0x97
+    "st_charge_zero",           // OxydMagnum stone 0x98
     0,                          // OxydMagnum stone 0x99 (common was 'st-blocker')(Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     "st_turnstile_red",         // OxydMagnum stone 0x9a
     "st_turnstilearm_n",        // OxydMagnum stone 0x9b
@@ -296,7 +296,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     IT_EXTERNAL,      // OxydMagnum item 0x03 document 2
     "it_hammer",        // OxydMagnum item 0x04
     "it-coffee",        // OxydMagnum item 0x05
-    "it-cherry",        // OxydMagnum item 0x06
+    "it_cherry",        // OxydMagnum item 0x06
     "it_umbrella",      // OxydMagnum item 0x07
     "it_glasses",       // OxydMagnum item 0x08
     "it_glasses_broken", // OxydMagnum item 0x09

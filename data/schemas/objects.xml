@@ -8,6 +8,7 @@
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="burnable" type="bool" default="nil" rw="rw"/>
+    <attr name="charge" type="double" default="0" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="9" rw="rw"/>
     <attr name="code" type="int" default="1" rw="rw"/>
     <attr name="coin_value" type="double" default="1" rw="rw"/>
@@ -69,6 +70,7 @@
     <attr name="transparent" type="bool" default="false" rw="rw"/>
     <attr name="threshold" type="double" default="0" rw="rw"/>
     <attr name="wires" type="group" default="nil" rw="r"/>
+    <attr name="$charge" type="int" default="0" min="-1" max="1" rw=""/>
     <attr name="$firetransform" type="string" default="" rw=""/>
     <attr name="$heattransform" type="string" default="" rw=""/>
   </attributes>
@@ -111,10 +113,12 @@
     <msg name="_capture" type="nil"/>
     <msg name="_checkflood" type="nil"/>
     <msg name="_explosion" type="nil"/>
+    <msg name="_fallvortex" type="nil"/>
     <msg name="_freeze" type="nil"/>
     <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
+    <msg name="_invisibility" type="nil"/>
     <msg name="_jumping" type="bool"/>
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
@@ -240,6 +244,7 @@
     <object name="fl_wood_framed_h" init="true"/>
     <object name="fl_wood_framed_v" init="true"/>
     <object name="it" abstract="true"/>
+    <object name="it_banana"/>
     <object name="it_blocker">
       <attr name="autoclose"/>
       <msg name="close"/>
@@ -252,6 +257,7 @@
     </object>
     <object name="it_brake"/>
     <object name="it_brush"/>
+    <object name="it_cherry"/>
     <object name="it_coin">
       <attr name="coin_value" default="3"/>
       <attr name="state" rw="r"/>
@@ -403,6 +409,9 @@
     </object>
     <object name="it_shogun_l">
       <attr name="flavor" value="l"/>
+    </object>
+    <object name="it_squashed">
+      <msg name="_brush"/>
     </object>
     <object name="it_strip">
       <attr name="connections"/>
@@ -669,6 +678,19 @@
     </object>
     <object name="st_brick_nesw">
       <attr name="connections" value="nesw"/>
+    </object>
+    <object name="st_charge">
+      <attr name="charge"/>
+      <attr name="$charge"/>
+    </object>
+    <object name="st_charge_zero">
+      <attr name="$charge" value="0"/>
+    </object>
+    <object name="st_charge_plus">
+      <attr name="$charge" value="1"/>
+    </object>
+    <object name="st_charge_minus">
+      <attr name="$charge" value="-1"/>
     </object>
     <object name="st_chess">
       <attr name="color" default="0"/>
