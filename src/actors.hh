@@ -26,17 +26,18 @@ namespace enigma {
     enum ActorID {
         ac_INVALID    = -1,
         ac_FIRST      = 0,
-        ac_blackball  = 0,
-        ac_whiteball  = 1,
-        ac_meditation = 2,
-        ac_killerball = 3,
-        ac_rotor      = 4,
-        ac_top        = 5,
-        ac_horse      = 6,
-        ac_bug        = 7,
-        ac_cannonball = 8,
-        ac_spermbird  = 9,
-        ac_LAST       = 9,
+        ac_marble_black  = 0,
+        ac_marble_white  = 1,
+        ac_pearl_black   = 2,
+        ac_pearl_white   = 3,
+        ac_killerball = 4,
+        ac_rotor      = 5,
+        ac_top        = 6,
+        ac_horse      = 7,
+        ac_bug        = 8,
+        ac_cannonball = 9,
+        ac_spermbird  = 10,
+        ac_LAST       = 10,
         ac_COUNT
     };
 
@@ -176,8 +177,9 @@ namespace enigma {
 
         static double get_max_radius(); // max. radius of all actors
 
-        int get_controllers () const { return controllers; }
-        double get_mouseforce () const { return mouseforce; }
+        int get_controllers() const { return controllers; }
+        bool isSteerable() const { return adhesion != 0.0; }
+        double get_mouseforce() const { return adhesion; }
 
         bool controlled_by(int player) const {
             return (get_controllers() & (1+player)) != 0;
@@ -207,7 +209,7 @@ namespace enigma {
         bool                  use_respawnpos;
         bool                  spikes; // set by "it-pin"
         int                   controllers;
-        double                mouseforce;
+        double                adhesion;
         GridPos               last_gridpos;   // last pos handled by actor move
     };
 
@@ -243,6 +245,18 @@ namespace enigma {
 /* -------------------- Global Functions -------------------- */
 
     void InitActors();
+    
+/* -------------------- Actor Macros -------------------- */
+
+
+#define DECL_ACTORTRAITS \
+        static ActorTraits traits; \
+        const ActorTraits &get_traits() const { return traits; } \
+
+#define DECL_ACTORTRAITS_ARRAY(n, subtype_expr)                                  \
+        static ActorTraits traits[n];                                            \
+        const ActorTraits &get_traits() const { return traits[subtype_expr]; }
+
     
 } // namespace enigma
 

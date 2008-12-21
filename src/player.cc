@@ -434,7 +434,7 @@ void player::CheckDeadActors() {
             if (!a->is_dead() ||
                     (pl >= 0 && server::ConserveLevel && resurrect_actor(pl, a))) {
                 // actor is still alive
-                if (pl >= 0 && a->controlled_by(pl) && a->get_mouseforce() != 0.0) {
+                if (pl >= 0 && a->controlled_by(pl) && a->isSteerable()) {
                     has_living_actor = true;
                 }
                 // count number of alive actors per kind

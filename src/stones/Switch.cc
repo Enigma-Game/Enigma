@@ -100,8 +100,8 @@ namespace enigma {
     
     void Switch::actor_hit(const StoneContact &sc) {
         int ic = iColor();
-        if (ic == 0 || (ic == 1 && get_id(sc.actor) == ac_blackball)
-                 || (ic == 2 && get_id (sc.actor) == ac_whiteball))  // TODO why no small whiteballs?
+        if (ic == 0 || (ic == 1 && get_id(sc.actor) == ac_marble_black)
+                 || (ic == 2 && get_id (sc.actor) == ac_marble_white))  // TODO why no small whiteballs?
             setState(ON - state);  // switch on only if OFF, switch off only if ON, otherwise ignore
     }
 

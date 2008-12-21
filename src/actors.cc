@@ -82,14 +82,6 @@ Actor * ActorsInRangeIterator::next() {
 }
 
 
-/* -------------------- Helper functions -------------------- */
-
-
-#define DECL_TRAITS \
-        static ActorTraits traits; \
-        const ActorTraits &get_traits() const { return traits; } \
-
-
 /* -------------------- Actor -------------------- */
 
 Actor::Actor (const ActorTraits &tr)
@@ -100,7 +92,7 @@ Actor::Actor (const ActorTraits &tr)
   respawnpos(), use_respawnpos(false),
   spikes(false), controllers (0), left (NULL), right (NULL)
 {
-    setAttr("mouseforce", 0.0);
+    setAttr("adhesion", 0.0);
 
     // copy default properties to dynamic properties
     m_actorinfo.mass = tr.default_mass;
@@ -262,7 +254,7 @@ void Actor::set_anim (const string &modelname) {
 bool Actor::can_move() const { 
     if (Stone *st = GetStone (get_gridpos())) {
         if (!server::NoCollisions || !(get_traits().id_mask &
-                        (1<<ac_whiteball | 1<<ac_blackball | 1<<ac_meditation)))
+                        (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_marble_white)))
             return !st->is_sticky(this);
     }
     return true;
@@ -289,8 +281,8 @@ void Actor::setAttr(const string& key, const Value &val)
 {
     if (key == "controllers")
         controllers = to_int (val);
-    else if (key == "mouseforce") 
-        mouseforce = to_double (val);
+    else if (key == "adhesion") 
+        adhesion = to_double (val);
     Object::setAttr(key, val);
 }
 
@@ -380,7 +372,7 @@ void RotorBase::think (double dtime)
     }
 
     ActorsInRangeIterator air_it = ActorsInRangeIterator(this, range,
-            1<<ac_whiteball | 1<<ac_blackball | 1<<ac_meditation);
+            1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_marble_white);
     Actor *a;
     while((a = air_it.next()) != NULL) {
         if (a->is_movable() && !a->is_invisible()) {
@@ -419,7 +411,7 @@ namespace
 {
     class Rotor : public RotorBase {
         CLONEACTOR(Rotor);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
    public:
         Rotor() : RotorBase (traits)
         {
@@ -441,7 +433,7 @@ namespace
 {
     class Top : public RotorBase {
         CLONEACTOR(Top);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
     public:
         Top() : RotorBase (traits)
         {
@@ -463,7 +455,7 @@ namespace
 {
     class Bug : public Actor {
         CLONEACTOR(Bug);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
     public:
         Bug() : Actor(traits) {}
         bool is_flying() const { return false; }
@@ -487,7 +479,7 @@ namespace
 {
     class Horse : public Actor {
         CLONEACTOR(Horse);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
  
         int get_id() const { return ac_horse; }
         bool is_flying() const { return false; }
@@ -557,7 +549,7 @@ namespace
 {
     class CannonBall : public Actor {
         CLONEACTOR(CannonBall);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
     public:
         CannonBall();
         bool is_flying() const { return true; }
@@ -612,628 +604,22 @@ void CannonBall::on_creation(const ecl::V2 &p)
     sprite.set_callback(this);
 }
 
-
-/* -------------------- BasicBall -------------------- */
-namespace
-{
-    /*! The base class for all marbles. */
-    class BasicBall : public Actor {
-    protected:
-        BasicBall(const ActorTraits &tr);
-
-        enum State {
-            NO_STATE,
-            NORMAL,
-            SHATTERING,
-            BUBBLING,
-            FALLING,            // falling into abyss
-            JUMPING,
-            DEAD,               // marble is dead
-            RESURRECTED,        // has been resurrected; about to respawn
-            APPEARING,          // appearing when level starts/after respawn
-            DISAPPEARING,       // disappearing when level finished
-            FALLING_VORTEX,     // falling into vortex
-            RISING_VORTEX,      // appear in vortex
-            JUMP_VORTEX,        // jump out of vortex (here player controls actor)
-        };
-
-        enum HaloState {
-            NOHALO, HALOBLINK, HALONORMAL
-        };
-
-        void sink (double dtime);
-        void disable_shield();
-        void change_state_noshield (State newstate);
-        void change_state(State newstate);
-
-        // Model management
-        void update_model();
-        void set_sink_model(const string &m);
-        void set_shine_model (bool shinep);
-        void update_halo();
-        virtual void hide();
-
-        /* ---------- Actor interface ---------- */
-        
-        virtual void think (double dtime);
-        virtual void move_screen ();
-
-        void on_creation(const ecl::V2 &p);
-        void on_respawn (const ecl::V2 &/*pos*/)
-        {
-            change_state(APPEARING);
-        }
-
-        bool is_dead() const;
-        bool is_movable() const;
-        bool is_flying() const { return state == JUMPING; }
-        bool is_on_floor() const;
-        bool is_drunken() const { return m_drunk_rest_time>0; }
-        bool is_invisible() const { return m_invisible_rest_time>0; }
-
-        bool can_drop_items() const;
-        bool can_pickup_items() const;
-        bool has_shield() const;
-
-        bool can_be_warped() const { return state==NORMAL; }
-
-        // Object interface.
-        virtual Value message(const Message &m);
-
-        // ModelCallback interface.
-        void animcb();
-
-        /* ---------- Variables ---------- */
-
-        State state;            // The marble's current state
-
-        static const int minSinkDepth = 0; // normal level
-        int maxSinkDepth;       // actor dies at this depth
-        double sinkDepth;       // how deep actor has sunk
-        int    sinkModel;       // current model
-        bool   lastshinep;
-
-        double vortex_normal_time; // while jumping out of vortex: time at normal level
-
-        display::SpriteHandle m_halosprite;
-        double                m_shield_rest_time;
-        static const double   SHIELD_TIME;
-        HaloState             m_halostate;
-
-        double m_drunk_rest_time;
-        double m_invisible_rest_time;
-    };
-
-    const double BasicBall::SHIELD_TIME = 10.0;
-}
-
-BasicBall::BasicBall(const ActorTraits &tr)
-: Actor                 (tr),
-  state                 (NO_STATE),
-  maxSinkDepth          (7),
-  sinkDepth             (minSinkDepth),
-  sinkModel             (-1),
-  lastshinep            (false),
-  vortex_normal_time    (0),
-  m_halosprite          (),
-  m_shield_rest_time    (0),
-  m_halostate           (NOHALO),
-  m_drunk_rest_time     (0),
-  m_invisible_rest_time (0)
-{
-}
-
-void BasicBall::on_creation(const ecl::V2 &p) 
-{
-    Actor::on_creation(p);
-    if (server::CreatingPreview)
-        change_state(NORMAL);
-    else
-        change_state(APPEARING);
-}
-
-
-void BasicBall::move_screen ()
-{
-    update_model();
-    update_halo();
-    Actor::move_screen();
-}
-
-bool BasicBall::is_movable() const 
-{
-    return (state!=DEAD && state!=RESURRECTED && state!=APPEARING && state!=DISAPPEARING); 
-}
-
-bool BasicBall::is_dead() const {
-    return state == DEAD;
-}
-
-bool BasicBall::is_on_floor() const {
-    return state == NORMAL || state == JUMP_VORTEX || state==APPEARING;
-}
-
-bool BasicBall::can_drop_items() const {
-    return state == NORMAL || state == JUMP_VORTEX || state==JUMPING;
-}
-
-bool BasicBall::can_pickup_items() const {
-    return state == NORMAL || state == JUMP_VORTEX;
-}
-
-void BasicBall::change_state_noshield (State newstate) 
-{
-    if (!has_shield())
-        change_state(newstate);
-}
-
-Value BasicBall::message(const Message &m) 
-{
-    bool handled = false;
-    switch (state) {
-        case NORMAL:
-            if (m.message == "shatter") {
-                change_state_noshield(SHATTERING);
-                handled = true;
-            } else if (m.message == "suicide") {
-                change_state(SHATTERING);
-                handled = true;
-            } else if (m.message == "laserhit") {
-                change_state_noshield(SHATTERING);
-                handled = true;
-            } else if (m.message == "fall") {
-                change_state_noshield(FALLING);
-                handled = true;
-            } else if (m.message == "_fallvortex") {
-                change_state(FALLING_VORTEX);
-                handled = true;
-            } else if (m.message == "jump") {
-                change_state(JUMPING);
-                handled = true;
-            } else if (m.message == "appear") {
-                change_state(APPEARING);
-                handled = true;
-            } else if (m.message == "disappear") {
-                change_state(DISAPPEARING);
-                handled = true;
-            }
-            break;
-        case JUMPING:
-            if (m.message == "shatter") {
-                change_state_noshield(SHATTERING);
-                handled = true;
-            } else if (m.message == "disappear") {
-                change_state(DISAPPEARING);
-                handled = true;
-            }
-            break;
-        case SHATTERING:
-            if (m.message == "_levelfinish") {
-                change_state(DEAD);
-                handled = true;
-            }
-            break;
-        case DEAD:
-            if (m.message == "resurrect") {
-                change_state(RESURRECTED);
-                handled = true;
-            }
-            break;
-        case FALLING_VORTEX:
-            if (m.message == "rise") {
-                change_state(RISING_VORTEX); // vortex->vortex teleportation
-            } else if (m.message == "appear") {
-                change_state(APPEARING); // vortex->non-vortex teleportation
-                handled = true;
-            }
-            break;
-        case JUMP_VORTEX:
-            if (m.message == "laserhit") {
-                change_state(SHATTERING);
-                handled = true;
-            }
-            break;
-        case APPEARING:
-            // ugly hack
-            if (m.message == "_init") {
-                Actor::message (m);
-                handled = true;
-            } else if (m.message == "shatter") {
-                change_state (SHATTERING);
-                handled = true;
-            }
-    	    break;
-        default:
-            break;
-    }
-
-    // Shield, booze and invisibility can be activated in all states except DEAD
-
-    if (state != DEAD) {
-        if (m.message == "shield") {
-            m_shield_rest_time += SHIELD_TIME;
-            update_halo();
-            handled = true;
-        }
-        else if (m.message == "_invisibility") {
-            m_invisible_rest_time += 8.0;
-            handled = true;
-        }
-        else if (m.message == "booze") {
-            m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
-            handled = true;
-        }
-    }
-
-    return handled ? Value() : Actor::message(m);
-}
-
-void BasicBall::set_sink_model(const string &m)
-{
-    int modelnum = ecl::round_down<int>(sinkDepth);
-
-    if (!has_shield() && modelnum != sinkModel) {
-        ASSERT(modelnum >= minSinkDepth && modelnum < maxSinkDepth, XLevelRuntime,
-            "BasicBall: set_sink_model called though modelnum incorrect");
-
-        string img = m+"-sink";
-        img.append(1, static_cast<char>('0'+modelnum));
-        set_model(img);
-
-        sinkModel = modelnum;
-    }
-}
-
-void BasicBall::set_shine_model (bool shinep)
-{
-    if (shinep != lastshinep) {
-        string modelname = get_kind();
-        if (shinep)
-            set_model (modelname + "-shine");
-        else
-            set_model (modelname);
-        lastshinep = shinep;
-    }
-}
-
-void BasicBall::update_model()
-{
-    if (m_invisible_rest_time > 0)
-        get_sprite().hide();
-    else 
-        get_sprite().show();
-
-    switch (state) {
-    case NORMAL:
-        if (sinkDepth > minSinkDepth && sinkDepth < maxSinkDepth) {
-            set_sink_model(get_kind());
-        }
-        else {
-            ActorInfo *ai = get_actorinfo();
-            int xpos = ecl::round_nearest<int> (ai->pos[0] * 32.0);
-            int ypos = ecl::round_nearest<int> (ai->pos[1] * 32.0);
-
-            bool shinep = ((xpos + ypos) % 2) != 0;
-            set_shine_model (shinep);
-        }
-        break;
-    default:
-        break;
-    }
-}
-
-void BasicBall::sink (double dtime)
-{
-    double sink_speed  = 0.0;
-    double raise_speed = 0.0;   // at this velocity don't sink; above: raise
-
-    Floor *fl = m_actorinfo.field->floor;
-    Item *it = m_actorinfo.field->item;
-    if (!(it != NULL && it->covers_floor(get_pos(), this)) && fl != NULL)
-        fl->get_sink_speed (sink_speed, raise_speed);
     
-    if (sink_speed == 0.0 || has_shield()) {
-        sinkDepth = minSinkDepth;
-        sinkModel = -1;
-    }
-    else {
-        ActorInfo *ai = get_actorinfo();
-        double sinkSpeed = sink_speed * (1 - length(ai->vel) / raise_speed);
-        sinkDepth += sinkSpeed*dtime;
-
-        if (sinkDepth >= maxSinkDepth) {
-            set_model(string(get_kind())+"-sunk");
-            ai->vel = V2();     // stop!
-            sound_event ("swamp");
-            change_state(BUBBLING);
-        }
-        else {
-            if (sinkDepth < minSinkDepth) 
-                sinkDepth = minSinkDepth;
-        }
-    }
-}
-
-void BasicBall::think (double dtime) 
-{
-    if (m_invisible_rest_time > 0)
-        m_invisible_rest_time -= dtime;
-
-    // Update protection shield
-    if (m_shield_rest_time > 0) 
-        m_shield_rest_time -= dtime;
-
-    switch (state) {
-    case NORMAL: 
-        if (m_drunk_rest_time > 0) 
-            m_drunk_rest_time -= dtime;
-        sink (dtime);
-        break;
-    case JUMP_VORTEX:
-        vortex_normal_time += dtime;
-        if (vortex_normal_time > 0.025) // same time as appear animation
-            if (vortex_normal_time > dtime) // ensure min. one tick in state JUMP_VORTEX!
-                change_state(JUMPING); // end of short control over actor
-        break;
-    default:
-
-        break;
-    }
-
-    Actor::think(dtime);
-}
-
-void BasicBall::animcb()
-{
-    string kind=get_kind();
-
-    switch (state) {
-    case SHATTERING:
-        set_model(kind+"-shattered");
-        change_state(DEAD);
-        break;
-    case BUBBLING:
-        set_model("invisible");
-        change_state(DEAD);
-        break;
-    case FALLING:
-        set_model(kind+"-fallen"); // invisible
-        if (get_id (this) == ac_meditation)
-            sound_event ("shattersmall");
-        else
-            sound_event ("shatter");
-        change_state(DEAD);
-        break;
-    case JUMPING:
-        set_model(kind);
-        change_state(NORMAL);
-        break;
-    case APPEARING:
-        set_model(kind);
-        change_state(NORMAL);
-        break;
-    case DISAPPEARING:
-        set_model("ring-anim");
-        break;
-    case FALLING_VORTEX: {
-        set_model(kind+"-fallen"); // invisible
-        break;
-    }
-    case RISING_VORTEX: {
-        set_model(kind);
-        if (Item *it = GetItem(get_gridpos())) {
-            ItemID id = get_id(it);
-            if (id == it_vortex_open || id == it_vortex_closed) 
-                SendMessage(it, "_passed"); // closes some vortex
-        }
-        change_state(JUMP_VORTEX);
-        break;
-    }
-    default:
-        break;
-    }
-}
-
-void BasicBall::change_state(State newstate) {
-    if (newstate == state)
-        return;
-
-    string kind     = get_kind();
-    State  oldstate = state;
-    
-    if (oldstate == JUMPING) {
-        // notify objects on grid about the landing - used by it_trigger
-        SendMessage(GetStone(get_gridpos()), "_jumping", false);
-        SendMessage(GetItem(get_gridpos()), "_jumping", false);
-        SendMessage(GetFloor(get_gridpos()), "_jumping", false);
-    }
-
-    // Whatever happened to the ball, the sink depth
-    // should be returned to zero.
-    sinkDepth = minSinkDepth;
-    sinkModel = -1;
-
-    state = newstate;
-    switch (newstate) {
-    case NORMAL:
-        if (oldstate == APPEARING) {
-            ActorInfo *ai = get_actorinfo();
-            ai->forceacc = V2();
-        }
-        ReleaseActor(this);
-        break;
-
-    case SHATTERING:
-        if (get_id (this) == ac_meditation)
-            sound_event ("shattersmall");
-        else
-            sound_event ("shatter");
-        GrabActor(this);
-        set_anim (kind+"-shatter");
-        break;
-
-    case BUBBLING:
-        GrabActor(this);
-//         sound::PlaySound("drown");
-        set_anim ("ac-drowned");
-        break;
-    case FALLING:
-    case FALLING_VORTEX:
-        GrabActor(this);
-        set_anim(kind+"-fall");
-        break;
-    case DEAD: 
-        disable_shield();
-        m_drunk_rest_time = 0;
-        m_invisible_rest_time = 0;
-        break;
-    case JUMPING:
-        sound_event ("jump");
-        set_anim(kind+"-jump");
-        // notify objects on grid about the jumping - used by it_trigger
-        SendMessage(GetFloor(get_gridpos()), "_jumping", true);
-        SendMessage(GetItem(get_gridpos()), "_jumping", true);
-        SendMessage(GetStone(get_gridpos()), "_jumping", true);
-        break;
-    case APPEARING:
-    case RISING_VORTEX:
-        set_anim(kind+"-appear");
-        GrabActor(this);
-        break;
-    case JUMP_VORTEX:
-        ASSERT(oldstate == RISING_VORTEX, XLevelRuntime,
-            "BasicBall: change to state JUMP_VORTEX but not RISING_VORTEX");
-        vortex_normal_time = 0;
-        set_model(kind);
-        ReleaseActor(this);
-        break;
-    case DISAPPEARING:
-        GrabActor(this);
-        disable_shield();
-        set_anim(kind+"-disappear");
-        break;
-    case RESURRECTED:
-        disable_shield();
-        sinkDepth = minSinkDepth;
-	break;
-    default:
-        break;
-    }
-}
-
-void BasicBall::disable_shield() {
-    if (has_shield()) {
-        m_shield_rest_time = 0;
-        update_halo();
-    }
-}
-
-bool BasicBall::has_shield() const {
-    return m_shield_rest_time > 0;
-}
-
-void BasicBall::update_halo() {
-    HaloState newstate = m_halostate;
-
-    if (m_shield_rest_time <= 0)
-        newstate = NOHALO;
-    else if (m_shield_rest_time <= 3.0)
-        newstate = HALOBLINK;
-    else
-        newstate = HALONORMAL;
-
-    if (newstate != m_halostate) {
-        double radius = get_actorinfo()->radius;
-        string halokind;
-    
-        // Determine which halomodel has to be used:
-        if (radius == 19.0/64) { // Halo for normal balls
-            halokind = "halo";
-        } else if (radius == 13.0f/64) { // Halo for small balls
-            halokind = "halo-small";
-        }
-
-        if (m_halostate == NOHALO){
-            m_halosprite = display::AddSprite (get_pos(), halokind.c_str());
-        }
-        switch (newstate) {
-        case NOHALO:
-            // remove halo
-            m_halosprite.kill();
-            m_halosprite = display::SpriteHandle();
-            break;
-        case HALOBLINK:
-            // blink for the last 3 seconds
-            m_halosprite.replace_model (display::MakeModel (halokind+"-blink"));
-            break;
-        case HALONORMAL:
-            m_halosprite.replace_model (display::MakeModel (halokind));
-            break;
-        }
-        m_halostate = newstate;
-    } else if (m_halostate != NOHALO) {
-        m_halosprite.move (get_pos());
-    }
-}
-
-void BasicBall::hide() {
-    Actor::hide();
-    disable_shield();
-}
-
 //----------------------------------------
 // Balls of different sorts
 //----------------------------------------
 
 namespace
 {
-    class BlackBall : public BasicBall {
-        CLONEACTOR(BlackBall);
-        DECL_TRAITS;
-    public:
-        BlackBall() : BasicBall(traits)
-        {
-            setAttr("mouseforce", Value(1.0));
-            setAttr("color", Value(0.0));
-            setAttr("player", Value(0.0));
-            setAttr("controllers", Value(1.0));
-        }
-    };
-
-    class WhiteBall : public BasicBall {
-        CLONEACTOR(WhiteBall);
-        DECL_TRAITS;
-    public:
-        WhiteBall() : BasicBall(traits)
-        {
-            setAttr("mouseforce", Value(1.0));
-            setAttr("color", Value(1.0));
-            setAttr("player", Value(1.0));
-            setAttr("controllers", Value(2.0));
-        }
-    };
-
-    class WhiteBall_Small : public BasicBall {
-        CLONEACTOR(WhiteBall_Small);
-        DECL_TRAITS;
-    public:
-        WhiteBall_Small() : BasicBall(traits)
-        {
-            setAttr("mouseforce", Value(1.0));
-            setAttr("color", Value(1.0));
-            setAttr("controllers", Value(3.0));
-            maxSinkDepth = 4;
-        }
-    };
 
     class Killerball : public Actor {
         CLONEACTOR(Killerball);
-        DECL_TRAITS;
+        DECL_ACTORTRAITS;
     public:
 
         Killerball() : Actor (traits)
         {
-            setAttr("mouseforce", Value(2.0));
+            setAttr("adhesion", Value(2.0));
             setAttr("color", Value(1.0));
             setAttr("controllers", Value(3.0));
         }
@@ -1244,30 +630,6 @@ namespace
 	}
     };
 }
-
-ActorTraits BlackBall::traits = {
-    "ac-blackball",             // name
-    ac_blackball,               // id
-    1<<ac_blackball,            // id_mask
-    19.0/64,                    // radius
-    1.0                         // mass
-};
-
-ActorTraits WhiteBall::traits = {
-    "ac-whiteball",             // name
-    ac_whiteball,               // id
-    1<<ac_whiteball,            // id_mask
-    19.0/64,                    // radius
-    1.0                         // mass
-};
-
-ActorTraits WhiteBall_Small::traits = {
-    "ac-whiteball-small",       // name
-    ac_meditation,              // id
-    1<<ac_meditation,           // id_mask
-    13.0f/64,                   // radius
-    0.7f                        // mass
-};
 
 ActorTraits Killerball::traits = {
     "ac-killerball",            // name
@@ -1286,9 +648,6 @@ void InitActors ()
     RegisterActor (new Horse);
     RegisterActor (new Rotor);
     RegisterActor (new Top);
-    RegisterActor (new BlackBall);
-    RegisterActor (new WhiteBall);
-    RegisterActor (new WhiteBall_Small);
     RegisterActor (new Killerball);
     RegisterActor (new CannonBall);
 }

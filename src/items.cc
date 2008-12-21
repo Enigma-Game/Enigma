@@ -1778,7 +1778,7 @@ namespace
             int     iplayer = a->getAttr("player");
             ActorID id      = get_id (a);
 
-            if (id == ac_blackball || id == ac_whiteball) {
+            if (id == ac_marble_black || id == ac_marble_white) {
                 // Kill ALL rubberbands connected with the actor:
                 SendMessage(a, "disconnect");
                 Actor *rotor = MakeActor("ac-rotor");

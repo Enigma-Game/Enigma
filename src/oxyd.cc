@@ -501,11 +501,11 @@ void OxydLoader::load_actors ()
 
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
-            ac = MakeActor("ac-blackball");
+            ac = MakeActor("ac_marble_black");
             ac->setAttr ("player", Value(0.0));
             break;
         case MarbleType_White:
-            ac = MakeActor ("ac-whiteball");
+            ac = MakeActor ("ac_marble_white");
             ac->setAttr ("player", Value(1.0));
             break;
         case MarbleType_Meditation:
@@ -517,7 +517,7 @@ void OxydLoader::load_actors ()
                 ac->setAttr ("controllers", Value (3.0));
             }
             else {
-                ac = MakeActor ("ac-whiteball-small");
+                ac = MakeActor("ac_pearl_white");
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
@@ -893,7 +893,7 @@ void LP_OxydMagnum::load (const OxydLib::Level &level)
     PerOxydLoader (level, c).load();
 
     // Add a yinyang item if a white marble is present
-    if (CountActorsOfKind (ac_whiteball) > 0)
+    if (CountActorsOfKind (ac_marble_white) > 0)
         player::AddYinYang();
 }
 

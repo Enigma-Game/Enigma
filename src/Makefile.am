@@ -144,6 +144,8 @@ enigma_SOURCES = 		\
 	XMLtoLocal.hh		\
 	XMLtoUtf8.cc		\
 	XMLtoUtf8.hh		\
+	actors/Balls.cc		\
+	actors/Balls.hh		\
 	floors/BridgeFloor.cc	\
 	floors/BridgeFloor.hh	\
 	floors/FloodStream.cc	\

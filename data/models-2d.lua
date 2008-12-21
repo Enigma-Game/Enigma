@@ -39,37 +39,37 @@ do
     -- Normal Blackball
     images = SpriteImages("fg-blackball", 2, 0.5, 0.32)
     shadows = SpriteImage("sh-blackball", 0.4, 0.29)
-    DefShModel("ac-blackball", "fg-blackball1", "sh-blackball")
-    DefShModel("ac-blackball-shine", "fg-blackball2", "sh-blackball")
+    DefShModel("ac_marble_black", "fg-blackball1", "sh-blackball")
+    DefShModel("ac_marble_black-shine", "fg-blackball2", "sh-blackball")
 
     -- Normal Whiteball
     -- Use shadow from black ball
     DefAlias("sh-whiteball", "sh-blackball")
     images = SpriteImages("fg-whiteball", 2, 0.5, 0.32)
-    DefShModel("ac-whiteball", "fg-whiteball1", "sh-whiteball")
-    DefShModel("ac-whiteball-shine", "fg-whiteball2", "sh-whiteball")
+    DefShModel("ac_marble_white", "fg-whiteball1", "sh-whiteball")
+    DefShModel("ac_marble_white-shine", "fg-whiteball2", "sh-whiteball")
 
     -- Falling Blackball
     images = SpriteImages("ac-blackball-fall", 10)
     frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
-    DefAnim("ac-blackball-fall", frames)
-    DefAlias("ac-blackball-fallen", "invisible")
+    DefAnim("ac_marble_black-fall", frames)
+    DefAlias("ac_marble_black-fallen", "invisible")
 
     -- Appearing / disappearing Blackball
     -- use the images from falling
-    DefAnim("ac-blackball-appear", ReverseFrames(BuildFrames(images, 25)))
-    DefAnim("ac-blackball-disappear", BuildFrames(images, 25))
+    DefAnim("ac_marble_black-appear", ReverseFrames(BuildFrames(images, 25)))
+    DefAnim("ac_marble_black-disappear", BuildFrames(images, 25))
 
     -- Falling Whiteball
     images = SpriteImages("ac-whiteball-fall", 10)
     frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
-    DefAnim("ac-whiteball-fall", frames)
-    DefAlias("ac-whiteball-fallen", "invisible")
+    DefAnim("ac_marble_white-fall", frames)
+    DefAlias("ac_marble_white-fallen", "invisible")
 
     -- Appearing / disappearing Whiteball
     -- use the images from falling
-    DefAnim("ac-whiteball-appear", ReverseFrames(BuildFrames(images, 25)))
-    DefAnim("ac-whiteball-disappear", BuildFrames(images, 25))
+    DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(images, 25)))
+    DefAnim("ac_marble_white-disappear", BuildFrames(images, 25))
 
     -- Jumping Blackball
     images  = SpriteImages("ac-blackball-jump", 4)
@@ -79,7 +79,7 @@ do
         DefShModel("bb-jump"..i, images[i], shadows[i])
         table.insert(frames, "bb-jump"..i)
     end
-    DefAnim("ac-blackball-jump", PingPong(BuildFrames(frames, 70)))
+    DefAnim("ac_marble_black-jump", PingPong(BuildFrames(frames, 70)))
 
     -- Jumping Whiteball
     -- Use shadow from black ball
@@ -89,31 +89,33 @@ do
         DefShModel("wb-jump"..i, images[i], shadows[i])
         table.insert(frames, "wb-jump"..i)
     end
-    DefAnim("ac-whiteball-jump", PingPong(BuildFrames(frames, 70)))
+    DefAnim("ac_marble_white-jump", PingPong(BuildFrames(frames, 70)))
 
     -- Sinking Blackball
     shadows = SpriteImages("sh-blackball-sink", 7, 0.4)
     images = SpriteImages("fg-blackball-sink", 7)
     for i=1,table.getn(images) do
-        DefShModel("ac-blackball-sink"..(i-1), images[i], shadows[i])
+        DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
     end
-    DefAlias("ac-blackball-sunk", "invisible")
+    DefAlias("ac_marble_black-sunk", "invisible")
 
     -- Sinking Whiteball
     -- Use shadow from black ball
     images = SpriteImages("fg-whiteball-sink", 7)
     for i=1,table.getn(images) do
-        DefShModel("ac-whiteball-sink"..(i-1), images[i], shadows[i])
+        DefShModel("ac_marble_white-sink"..(i-1), images[i], shadows[i])
     end
-    DefAlias("ac-whiteball-sunk", "invisible")
+    DefAlias("ac_marble_white-sunk", "invisible")
 
     -- Shattering Blackball
     Sprite({name="ac-blackball-shatter", nimages=5, framelen=60})
-    DefAlias("ac-blackball-shattered", "ac-blackball-shatter5")
+    DefAlias("ac_marble_black-shatter", "ac-blackball-shatter")
+    DefAlias("ac_marble_black-shattered", "ac-blackball-shatter5")
 
     -- Shattering Whiteball
     Sprite({name="ac-whiteball-shatter", nimages=5, framelen=60})
-    DefAlias("ac-whiteball-shattered", "ac-whiteball-shatter5")
+    DefAlias("ac_marble_white-shatter", "ac-whiteball-shatter")
+    DefAlias("ac_marble_white-shattered", "ac-whiteball-shatter5")
 end
 
 -- ac-whiteball-small --
@@ -123,19 +125,19 @@ do
     -- Normal
     SpriteImage ("sh-whiteball-small", 0.4, 0.41)
     SpriteImage ("fg-whiteball-small", 0.5, 0.43)
-    DefShModel("ac-whiteball-small", "fg-whiteball-small", "sh-whiteball-small")
-    DefAlias ("ac-whiteball-small-shine", "ac-whiteball-small")
+    DefShModel("ac_pearl_white", "fg-whiteball-small", "sh-whiteball-small")
+    DefAlias ("ac_pearl_white-shine", "ac_pearl_white")
 
     -- Falling
     images = SpriteImages ("ac-whiteball-small-fall", 5, 0.5, 0.43)
     table.insert(images, "invisible")
-    DefAnim("ac-whiteball-small-fall", ComposeFrames(images,{70,65,60,55,50,30}))
-    DefAlias("ac-whiteball-small-fallen", "invisible")
+    DefAnim("ac_pearl_white-fall", ComposeFrames(images,{70,65,60,55,50,30}))
+    DefAlias("ac_pearl_white-fallen", "invisible")
 
     -- Appearing / disappearing
     -- use the images from falling
-    DefAnim("ac-whiteball-small-appear", ReverseFrames(BuildFrames(images, 25)))
-    DefAnim("ac-whiteball-small-disappear", BuildFrames(images, 25))
+    DefAnim("ac_pearl_white-appear", ReverseFrames(BuildFrames(images, 25)))
+    DefAnim("ac_pearl_white-disappear", BuildFrames(images, 25))
 
     -- Jumping
     images  = SpriteImages("ac-whiteball-small-jump", 4)
@@ -145,7 +147,7 @@ do
         DefShModel("sb-jump"..i, images[i], shadows[i])
         table.insert(frames, "sb-jump"..i)
     end
-    DefAnim("ac-whiteball-small-jump", PingPong(BuildFrames(frames, 70)))
+    DefAnim("ac_pearl_white-jump", PingPong(BuildFrames(frames, 70)))
 
     -- sinking
     DefAlias ("ac-whiteball-small-sink0", "ac-whiteball-small-fall1")
@@ -155,17 +157,18 @@ do
     DefAlias ("ac-whiteball-small-sink4", "ac-whiteball-small-fall5")
     DefAlias ("ac-whiteball-small-sink5", "ac-whiteball-small-fall5")
     DefAlias ("ac-whiteball-small-sink6", "ac-whiteball-small-fall5")
-    DefAlias ("ac-whiteball-small-sunk", "invisible")
+    DefAlias ("ac_pearl_white-sunk", "invisible")
 
     -- Shattering
     images = SpriteImages ("ac-whiteball-small-shatter", 5)
-    DefAnim("ac-whiteball-small-shatter", BuildFrames(images, 60))
+    DefAnim("ac_pearl_white-shatter", BuildFrames(images, 60))
     SpriteImage ("ac-whiteball-small-shattered")
+    DefAlias("ac_pearl_white-shattered", "ac-whiteball-small-shattered")
 end
 
 -- ac-killerball --
 do
-    DefAlias("ac-killerball", "ac-whiteball-small")
+    DefAlias("ac-killerball", "ac_pearl_white")
 end
 
 -- Marbles in inventory  --

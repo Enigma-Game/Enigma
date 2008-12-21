@@ -14,10 +14,12 @@
     <attr name="coin_value" type="double" default="1" rw="rw"/>
     <attr name="color" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="connections" type="string" default="nil" rw="rw"/>
+    <attr name="controllers" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
     <attr name="checkerboard" type="int" default="nil" rw="rw"/>
     <attr name="destination" type="tokens" default="nil" rw="rw"/>
     <attr name="essential" type="int" default="0" min="0" max="2" rw="rw"/>
+    <attr name="essential_id" type="string" default="nil" rw="rw"/>
     <attr name="eternal" type="bool" default="false" rw="rw"/>
     <attr name="faces" type="string" default="nil" rw="rw"/>
     <attr name="fastfire" type="bool" default="false" rw="rw"/>
@@ -56,6 +58,7 @@
     <attr name="noshuffle" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
+    <attr name="player" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="rubbers" type="group" default="nil" rw="r"/>
@@ -145,6 +148,30 @@
       <msg name="disconnect"/>
       <msg name="kill"/>
       <msg name="toggle"/>
+    </object>
+    <object name="ac" abstract="true">
+      <attr name="adhesion" default="1.0"/>
+      <attr name="controllers"/>
+      <attr name="color"/>
+      <attr name="player"/>
+      <attr name="essential"/>
+      <attr name="essential_id"/>
+      <attr name="charge"/>
+    </object>
+    <object name="ac_marble">
+      <attr name="color" default="0"/>
+    </object>
+    <object name="ac_marble_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="ac_marble_white">
+      <attr name="color" value="1"/>
+    </object>
+    <object name="ac_pearl">
+      <attr name="color" default="1" min="1"/>
+    </object>
+    <object name="ac_pearl_white">
+      <attr name="color" value="1"/>
     </object>
     <object name="fl" abstract="true">
       <attr name="adhesion"/>

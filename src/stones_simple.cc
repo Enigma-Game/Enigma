@@ -330,7 +330,7 @@ namespace
 
         StoneResponse collision_response(const StoneContact &sc) {
             ActorID id = get_id(sc.actor);
-            if (id == ac_horse || id == ac_meditation || id == ac_killerball)
+            if (id == ac_horse || id == ac_pearl_white || id == ac_killerball)
                 return STONE_PASS;
             else
                 return STONE_REBOUND;

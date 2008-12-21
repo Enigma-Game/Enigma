@@ -45,6 +45,9 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    ac_marble_black = "ac-blackball",
+    ac_marble_white = "ac-whiteball",
+    ac_pearl_white = "ac-whiteball-small",
     fl_abyss = "fl-abyss",
     fl_bridge = "fl-bridge",
     fl_hay = "fl-hay",
@@ -334,7 +337,11 @@ for k,v in pairs(RenamingObjectsNew2Old) do
 end
 
 function enigma.MakeObject(name)
-    if name == "fl-bridge-open" then
+    if name == "ac-whiteball-small" then
+        local obj = enigma._MakeObject("ac_pearl_white")
+        enigma._SetAttrib(obj, "player", nil)
+        return obj
+    elseif name == "fl-bridge-open" then
         local obj = enigma._MakeObject("fl_bridge")
         return obj
     elseif name == "fl-bridge-closed" then
@@ -663,6 +670,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "mousefactor" then
          _key = "adhesion"
      end
+     if key == "mouseforce" then
+         _key = "adhesion"
+     end
      if key == "blinking" then
          _key = "state"
      end
@@ -711,6 +721,9 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "blinking" then
          _key = "state"
+     end
+     if key == "mouseforce" then
+         _key = "adhesion"
      end
      if key == "type" and _obj_name == "st-door" then
          local faces = enigma._GetAttrib(obj, "faces")
