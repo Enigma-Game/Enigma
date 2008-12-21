@@ -657,6 +657,22 @@
     <object name="st_boulder_n">
       <attr name="orientation" value="3"/>
     </object>
+    <object name="st_box">
+      <attr name="flavor" default="wood" rw="r"/>
+      <msg name="fire"/>
+      <msg name="heat"/>
+      <msg name="fall"/>
+    </object>
+    <object name="st_box_hay" flavor="hay"/>
+    <object name="st_box_rock" flavor="rock"/>
+    <object name="st_box_wood" flavor="wood">
+    </object>
+    <object name="st_box_wood_growing" init="true">
+    </object>
+    <object name="st_box_wood_h" init="true">
+    </object>
+    <object name="st_box_wood_v" init="true">
+    </object>
     <object name="st_brake">
       <msg name="_explosion"/>
     </object>
@@ -811,20 +827,10 @@
       <attr name="hit_distortion_yx"/>
       <attr name="hit_distortion_yy"/>
     </object>
-    <object name="st_flhay">
-      <msg name="fire"/>
-      <msg name="heat"/>
-      <msg name="fall"/>
-    </object>
     <object name="st_floppy">
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
-    </object>
-    <object name="st_flrock">
-      <msg name="fire"/>
-      <msg name="heat"/>
-      <msg name="fall"/>
     </object>
     <object name="st_fourswitch" states="4">
       <attr name="counterclock"/>
@@ -1250,17 +1256,6 @@
     </object>
     <object name="st_window_nesw">
       <attr name="faces" value="nesw"/>
-    </object>
-    <object name="st_wood">
-      <msg name="fire"/>
-      <msg name="heat"/>
-      <msg name="fall"/>
-    </object>
-    <object name="st_wood_growing" init="true">
-    </object>
-    <object name="st_wood_h" init="true">
-    </object>
-    <object name="st_wood_v" init="true">
     </object>
   </zoo>
 </objects>

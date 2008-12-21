@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef FLOORBUILDERSTONE_HH
-#define FLOORBUILDERSTONE_HH
+#ifndef BOXSTONE_HH
+#define BOXSTONE_HH
 
 #include "stones.hh"
 
@@ -28,7 +28,7 @@ namespace enigma {
     /** 
      * 
      */
-    class FloorBuilder : public Stone {
+    class BoxStone : public Stone {
          DECL_TRAITS_ARRAY(2, traitsIdx());
 
     private:
@@ -41,10 +41,10 @@ namespace enigma {
         
         enum ObjectPrivatFlagsBits {
             OBJBIT_BLOCKFIRE =   1<<24,   ///< stone blocks fire on moves and floor changes beneath
-            OBJBIT_SUBTYP    =   7<<25,   ///< the FloorBuilderTyp
+            OBJBIT_SUBTYP    =   7<<25,   ///< the BoxStoneTyp
         };
         
-        enum FloorBuilderTyp {
+        enum BoxStoneTyp {
             WOOD = 0,
             WOOD1,
             WOOD2,
@@ -52,13 +52,14 @@ namespace enigma {
             ROCK
         };
     public:
-        FloorBuilder(int subtyp, int initState = IDLE);
+        BoxStone(int subtyp, int initState = IDLE);
         
         // Object interface
-        virtual FloorBuilder* clone();
+        virtual BoxStone* clone();
         virtual void dispose();
         virtual std::string getClass() const;
         virtual const char *get_kind() const;  // for backward compatibility
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -86,4 +87,4 @@ namespace enigma {
 
 } // namespace enigma
 
-#endif /*FLOORBUILDERSTONE_HH*/
+#endif /*BOXSTONE_HH*/

@@ -142,6 +142,12 @@ RenamingObjectsNew2Old = {
     st_boulder_e = "st-bolder-e",
     st_boulder_s = "st-bolder-s",
     st_boulder_w = "st-bolder-w",
+    st_box_hay = "st-flhay",
+    st_box_rock = "st-flrock",
+    st_box_wood = "st-wood",
+    st_box_wood_growing = "st-wood-growing",
+    st_box_wood_h = "st-wood1",
+    st_box_wood_v = "st-wood2",
     st_brake = "st-brake",
     st_brick = "st-brick",
     st_brick_w = "st-bigbrick-w",
@@ -180,9 +186,7 @@ RenamingObjectsNew2Old = {
     st_fake_oxydc = "st-likeoxydc",
     st_fake_oxydd = "st-likeoxydd",
     st_flash = "st-flash",
-    st_flhay = "st-flhay",
     st_floppy = "st-floppy",
-    st_flrock = "st-flrock",
     st_fourswitch = "st-fourswitch",
     st_knight = "st-knight",
     st_laser_w = "st-laser-w",
@@ -325,11 +329,7 @@ RenamingObjectsNew2Old = {
     st_volcano_new = "st-volcano-growing",
     st_volcano_active = "st-volcano_active",
     st_volcano_idle = "st-volcano_inactive",
-    st_window = "st-window",
-    st_wood = "st-wood",
-    st_wood_growing = "st-wood-growing",
-    st_wood_h = "st-wood1",
-    st_wood_v = "st-wood2"
+    st_window = "st-window"
 }
 
 for k,v in pairs(RenamingObjectsNew2Old) do

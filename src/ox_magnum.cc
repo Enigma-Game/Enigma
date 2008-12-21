@@ -159,7 +159,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-plain_break",           // OxydMagnum stone 0x28
     "st-plain_hole",            // OxydMagnum stone 0x29
     "st-plain_move",            // OxydMagnum stone 0x2a
-    "st_wood",                  // OxydMagnum stone 0x2b
+    "st_box_wood",              // OxydMagnum stone 0x2b
     "st_switch_instant",        // OxydMagnum stone 0x2c
     "st_floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
     UNUSED,                     // OxydMagnum stone 0x2e

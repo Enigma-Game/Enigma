@@ -17,65 +17,73 @@
  *
  */
 
-#include "stones/FloorBuilder.hh"
+#include "stones/BoxStone.hh"
 #include "errors.hh"
 //#include "main.hh"
 
 namespace enigma {
-    FloorBuilder::FloorBuilder(int subtyp, int initState) : Stone() {
+    BoxStone::BoxStone(int subtyp, int initState) : Stone() {
         objFlags |= (subtyp << 25);
         if (subtyp == ROCK)
             objFlags |= OBJBIT_BLOCKFIRE;
         state = initState;
     }
     
-    FloorBuilder* FloorBuilder::clone() {
-        if ((FloorBuilderTyp)((objFlags & OBJBIT_SUBTYP) >> 25) == WOOD) { 
+    BoxStone* BoxStone::clone() {
+        if ((BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25) == WOOD) { 
              // When st_wood is created it randomly becomes st_wood1 or st_wood2.
              if (IntegerRand(0, 1) == 0)
-                return new FloorBuilder(WOOD1, state);
+                return new BoxStone(WOOD1, state);
             else
-                return new FloorBuilder(WOOD2, state);
+                return new BoxStone(WOOD2, state);
         } else {
-            return new FloorBuilder(*this);
+            return new BoxStone(*this);
         }
     }
     
-    void FloorBuilder::dispose() {
+    void BoxStone::dispose() {
         delete this;
     }
     
-    std::string FloorBuilder::getClass() const {
-        FloorBuilderTyp typ = (FloorBuilderTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
-        switch (typ) {
-            case WOOD:
-            case WOOD1:
-            case WOOD2:
-                return "st_wood";
-            case HAY:
-                return "st_flhay";
-            case ROCK:
-                return "st_flrock";
-        }
+    std::string BoxStone::getClass() const {
+        return "st_box";
     }
     
-    const char *FloorBuilder::get_kind() const {
-        FloorBuilderTyp typ = (FloorBuilderTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
+    const char *BoxStone::get_kind() const {
+        BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
         switch (typ) {
             case WOOD:
-                return "st_wood";
+                return "st_box_wood";
             case WOOD1:
-                return "st_wood_h";
+                return "st_box_wood_h";
             case WOOD2:
-                return "st_wood_v";
+                return "st_box_wood_v";
             case HAY:
-                return "st_flhay";
+                return "st_box_hay";
             case ROCK:
-                return "st_flrock";
+                return "st_box_rock";
         }
     }
 
-    Value FloorBuilder::message(const Message &m) {
+    Value BoxStone::getAttr(const std::string &key) const {
+        if (key == "flavor") {
+            BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
+            switch (typ) {
+                case WOOD:
+                case WOOD1:
+                case WOOD2:
+                    return "wood";
+                case HAY:
+                    return "hay";
+                case ROCK:
+                    return "rock";
+            }
+        }
+        return Stone::getAttr(key);
+    }
+    
+
+    Value BoxStone::message(const Message &m) {
         if (m.message == "fire" && !(objFlags & OBJBIT_BLOCKFIRE)) {
             KillStone(get_pos());
             return true;  // allow fire to spread
@@ -88,12 +96,12 @@ namespace enigma {
         return Stone::message(m);
     }
 
-    void FloorBuilder::setState(int extState) {
+    void BoxStone::setState(int extState) {
         // no external states
     }
     
-    void FloorBuilder::init_model() {
-        FloorBuilderTyp typ = (FloorBuilderTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
+    void BoxStone::init_model() {
+        BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
         switch (typ) {
             case WOOD:
                 ASSERT(false, XLevelRuntime, "Wood stone init model state error");
@@ -117,46 +125,46 @@ namespace enigma {
         }
     }
     
-    void FloorBuilder::animcb() {
+    void BoxStone::animcb() {
         state = IDLE;
         init_model();
         maybe_fall_or_stopfire(); // instantly builds a bridge on fl_swamp etc
     }
 
-    bool FloorBuilder::allowsSpreading(Direction dir, bool isFlood) const {
+    bool BoxStone::allowsSpreading(Direction dir, bool isFlood) const {
         return isFlood;
     }
     
-    void FloorBuilder::actor_hit(const StoneContact &sc) {
+    void BoxStone::actor_hit(const StoneContact &sc) {
         if (state == GROWING)
             SendMessage(sc.actor, "shatter");
         else
             Stone::actor_hit(sc);
     }
     
-    void FloorBuilder::actor_inside(Actor *a) {
+    void BoxStone::actor_inside(Actor *a) {
         if (state == GROWING)
             SendMessage(a, "shatter");
     }
     
-    void FloorBuilder::actor_contact(Actor *a) {
+    void BoxStone::actor_contact(Actor *a) {
         if (state == GROWING)
             SendMessage(a, "shatter");
     }
     
-    void FloorBuilder::on_move() {
+    void BoxStone::on_move() {
         // in oxyd1 only fall when moving
         Stone::on_move();
         maybe_fall_or_stopfire(true);
     }
     
-    void FloorBuilder::on_floor_change() {
+    void BoxStone::on_floor_change() {
         // other oxyds versions: fall everytime the floor changes
         maybe_fall_or_stopfire(false, true);
     }
     
-    void FloorBuilder::maybe_fall_or_stopfire(bool onMove, bool onFloorChange) {
-        FloorBuilderTyp typ = (FloorBuilderTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
+    void BoxStone::maybe_fall_or_stopfire(bool onMove, bool onFloorChange) {
+        BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
         GridPos p = get_pos();
         if (server::GameCompatibility != GAMET_ENIGMA && IsLevelBorder(p))
             return;
@@ -183,22 +191,23 @@ namespace enigma {
         }
     }
     
-    int FloorBuilder::traitsIdx() const {
-        return (state == IDLE) ? 1 : 0;
+    int BoxStone::traitsIdx() const {
+        return (state == IDLE) ? 0 : 1;
     }
 
-    StoneTraits FloorBuilder::traits[2] = {
-        {"st_floorbuilder", st_floorbuilder, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_floorbuilder", st_floorbuilder, stf_none, material_stone, 1.0, MOVABLE_STANDARD},
+    StoneTraits BoxStone::traits[2] = {
+        {"st_box", st_box, stf_none, material_stone, 1.0, MOVABLE_STANDARD},
+        {"st_box_wood_growing", st_box_wood_growing, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
 
     BOOT_REGISTER_START
-        BootRegister(new FloorBuilder(0), "st_wood");
-        BootRegister(new FloorBuilder(0, 1), "st_wood_growing");
-        BootRegister(new FloorBuilder(1), "st_wood_h");
-        BootRegister(new FloorBuilder(2), "st_wood_v");
-        BootRegister(new FloorBuilder(3), "st_flhay");
-        BootRegister(new FloorBuilder(4), "st_flrock");
+        BootRegister(new BoxStone(0), "st_box");
+        BootRegister(new BoxStone(0), "st_box_wood");
+        BootRegister(new BoxStone(0, 1), "st_box_wood_growing");
+        BootRegister(new BoxStone(1), "st_box_wood_h");
+        BootRegister(new BoxStone(2), "st_box_wood_v");
+        BootRegister(new BoxStone(3), "st_box_hay");
+        BootRegister(new BoxStone(4), "st_box_rock");
     BOOT_REGISTER_END
 
 } // namespace enigma

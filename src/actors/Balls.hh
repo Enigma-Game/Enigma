@@ -25,7 +25,7 @@
 namespace enigma {
 
     /** 
-     * ChargeStone
+     * 
      */
     /*! The base class for all marbles. */
     class BasicBall : public Actor {

@@ -104,7 +104,7 @@ namespace enigma {
                 return;
            }
        }
-       Stone *st = MakeStone(flavor == 0 ? "st_wood_growing" : (flavor == 1 ? "st-greenbrown-growing" : "st_volcano_growing"));
+       Stone *st = MakeStone(flavor == 0 ? "st_box_wood_growing" : (flavor == 1 ? "st-greenbrown-growing" : "st_volcano_growing"));
        transferIdentity(st);
        if (Value v = getAttr("secure"))
            st->setAttr("secure", v);

@@ -155,7 +155,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st-plain_break",    // OxydExtra stone 0x24
     "st-plain_hole",     // OxydExtra stone 0x25
     "st-plain_move",     // OxydExtra stone 0x26
-    "st_wood",           // OxydExtra stone 0x27
+    "st_box_wood",       // OxydExtra stone 0x27
     "st_switch_instant", // OxydExtra stone 0x28
     UNUSED,              // OxydExtra stone 0x29
     UNUSED,              // OxydExtra stone 0x2a
