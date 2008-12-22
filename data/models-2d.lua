@@ -150,13 +150,13 @@ do
     DefAnim("ac_pearl_white-jump", PingPong(BuildFrames(frames, 70)))
 
     -- sinking
-    DefAlias ("ac-whiteball-small-sink0", "ac-whiteball-small-fall1")
-    DefAlias ("ac-whiteball-small-sink1", "ac-whiteball-small-fall2")
-    DefAlias ("ac-whiteball-small-sink2", "ac-whiteball-small-fall3")
-    DefAlias ("ac-whiteball-small-sink3", "ac-whiteball-small-fall4")
-    DefAlias ("ac-whiteball-small-sink4", "ac-whiteball-small-fall5")
-    DefAlias ("ac-whiteball-small-sink5", "ac-whiteball-small-fall5")
-    DefAlias ("ac-whiteball-small-sink6", "ac-whiteball-small-fall5")
+    DefAlias ("ac_pearl_white-sink0", "ac-whiteball-small-fall1")
+    DefAlias ("ac_pearl_white-sink1", "ac-whiteball-small-fall2")
+    DefAlias ("ac_pearl_white-sink2", "ac-whiteball-small-fall3")
+    DefAlias ("ac_pearl_white-sink3", "ac-whiteball-small-fall4")
+    DefAlias ("ac_pearl_white-sink4", "ac-whiteball-small-fall5")
+    DefAlias ("ac_pearl_white-sink5", "ac-whiteball-small-fall5")
+    DefAlias ("ac_pearl_white-sink6", "ac-whiteball-small-fall5")
     DefAlias ("ac_pearl_white-sunk", "invisible")
 
     -- Shattering

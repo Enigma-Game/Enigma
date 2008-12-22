@@ -89,7 +89,7 @@ namespace enigma {
             return true;  // allow fire to spread
         } else if (m.message == "heat") {
             return (objFlags & OBJBIT_BLOCKFIRE) != 0;  // block fire
-        } else if (m.message == "fall") {
+        } else if (m.message == "_fall") {
             maybe_fall_or_stopfire();
             return Value();
         }
@@ -137,19 +137,19 @@ namespace enigma {
     
     void BoxStone::actor_hit(const StoneContact &sc) {
         if (state == GROWING)
-            SendMessage(sc.actor, "shatter");
+            SendMessage(sc.actor, "_shatter");
         else
             Stone::actor_hit(sc);
     }
     
     void BoxStone::actor_inside(Actor *a) {
         if (state == GROWING)
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
     
     void BoxStone::actor_contact(Actor *a) {
         if (state == GROWING)
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
     
     void BoxStone::on_move() {

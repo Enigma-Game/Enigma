@@ -173,7 +173,7 @@ namespace enigma {
     
     void StoneImpulse::actor_inside(Actor *a) {
         if ((state != IDLE) && (objFlags & OBJBIT_HOLLOW))
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
     
     void StoneImpulse::actor_hit(const StoneContact &sc) {

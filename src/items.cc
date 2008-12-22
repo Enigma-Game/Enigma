@@ -224,7 +224,7 @@ namespace
         DECL_ITEMTRAITS;
 
         ItemAction activate(Actor *a, GridPos) {
-            SendMessage(a, "suicide");
+            SendMessage(a, "_suicide");
             return ITEM_DROP;
         }
     public:
@@ -246,7 +246,7 @@ namespace
 	}
     private:
 	ItemAction activate(Actor *a, GridPos) {
-	    SendMessage(a, "booze");
+	    SendMessage(a, "_booze");
 	    return ITEM_DROP;
 	}
     void on_stonehit(Stone *) {
@@ -267,7 +267,7 @@ namespace
         bool actor_hit(Actor *a) {
             ActorInfo &ai = * a->get_actorinfo();
             if (!ai.grabbed && a->is_on_floor()) {
-                SendMessage(a, "shatter");
+                SendMessage(a, "_shatter");
             }
             return false;
         }
@@ -311,7 +311,7 @@ namespace
     private:
         ItemAction activate(Actor *a, GridPos)
         {
-            SendMessage(a, "jump");
+            SendMessage(a, "_jump");
             return ITEM_KEEP;
         }
     };
@@ -327,7 +327,7 @@ namespace
         {
             Item *it = GetItem(p);
             if (!it || has_flags(it, itf_static)) {
-                SendMessage(a, "jump");
+                SendMessage(a, "_jump");
                 return ITEM_DROP;  // drop if grid has no item
             } else {
                 // don't jump if a regular item is on the grid
@@ -352,7 +352,7 @@ namespace
             double dist = length(a->get_pos() - item_center);
             if (dist < ITEM_RADIUS) {
                 set_anim("it-springboard_anim");
-                SendMessage(a, "jump");
+                SendMessage(a, "_jump");
             }
             return false;
         }
@@ -377,7 +377,7 @@ namespace
     private:
         void init_model() {set_anim("expl");}
         bool actor_hit(Actor *actor) {
-            SendMessage(actor, "shatter");
+            SendMessage(actor, "_shatter");
             return false;
         }
     };
@@ -896,7 +896,7 @@ namespace
         }
         bool actor_hit(Actor *a) {
             if (anim_end)
-                SendMessage(a, "fall");
+                SendMessage(a, "_fall");
             return false;
         }
         virtual Value message(const Message &m) {
@@ -941,7 +941,7 @@ namespace
         DECL_ITEMTRAITS;
 
         bool actor_hit(Actor *a) {
-            SendMessage(a, "fall");
+            SendMessage(a, "_fall");
             return false;
         }
         void animcb() {
@@ -1025,7 +1025,7 @@ void Burnable::animcb() {
 
 bool Burnable::actor_hit(Actor *a) {
     if (state == IGNITE || state == BURNING)
-        SendMessage(a, "shatter");
+        SendMessage(a, "_shatter");
     return false;
 }
 
@@ -1398,7 +1398,7 @@ namespace
     
     bool Trap::actor_hit(Actor *a) {
         if (!a->is_flying()) {
-            SendMessage(a, "fall");
+            SendMessage(a, "_fall");
             if (state == 0) {
                 state = 1;
                 set_anim("it_trap_breaking");
@@ -1782,7 +1782,7 @@ namespace
                 // Kill ALL rubberbands connected with the actor:
                 SendMessage(a, "disconnect");
                 Actor *rotor = MakeActor("ac-rotor");
-                rotor->setAttr("mouseforce", Value (1.0));
+                rotor->setAttr("adhesion", Value (1.0));
                 rotor->setAttr("controllers", Value (iplayer+1));
                 rotor->setAttr("player", Value (iplayer));
                 rotor->setAttr("gohome", Value (0.0));

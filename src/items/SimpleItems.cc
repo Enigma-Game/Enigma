@@ -85,7 +85,7 @@ namespace enigma {
     bool DeathItem::actor_hit(Actor *a) {
         ActorInfo &ai = * a->get_actorinfo();
         if (!ai.grabbed) {
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
             if (state == 0) {
                 state = 1;
                 set_anim("it_death_anim");

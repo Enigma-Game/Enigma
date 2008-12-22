@@ -38,7 +38,7 @@ namespace enigma {
         GameTimer.remove_alarm(this);
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             // release an actor that is grabbed on behalf of this vortex - actor state FALLING_VORTEX
-            SendMessage(actor, "rise");
+            SendMessage(actor, "_rise");
         }
     }
 
@@ -163,7 +163,7 @@ namespace enigma {
         V2 v(destVortex->get_pos().center());
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, v[0], v[1], false);
-            SendMessage(actor, "rise");
+            SendMessage(actor, "_rise");
             if (destVortex != this) {
                 bool isScissor = to_bool(getDefaultedAttr("scissor", 
                         (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
@@ -184,7 +184,7 @@ namespace enigma {
         client::Msg_Sparkle (target);
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, target[0], target[1], false);
-            SendMessage(actor, "appear");
+            SendMessage(actor, "_appear");
             bool isScissor = to_bool(getDefaultedAttr("scissor", 
                     (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
             if (isScissor)

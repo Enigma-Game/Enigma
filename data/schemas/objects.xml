@@ -73,7 +73,7 @@
     <attr name="transparent" type="bool" default="false" rw="rw"/>
     <attr name="threshold" type="double" default="0" rw="rw"/>
     <attr name="wires" type="group" default="nil" rw="r"/>
-    <attr name="$charge" type="int" default="0" min="-1" max="1" rw=""/>
+    <attr name="$chargesign" type="int" default="0" min="-1" max="1" rw=""/>
     <attr name="$firetransform" type="string" default="" rw=""/>
     <attr name="$heattransform" type="string" default="" rw=""/>
   </attributes>
@@ -83,7 +83,6 @@
     <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="expl" type="nil"/>
-    <msg name="fall" type="nil"/>
     <msg name="fire" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="forcefire" type="nil"/>
@@ -111,27 +110,39 @@
     <msg name="toggle" type="nil"/>
     <msg name="turn" type="nil"/>
     <msg name="turnback" type="nil"/>
+    <msg name="_appear" type="nil"/>
     <msg name="_bombstone" type="nil"/>
+    <msg name="_booze" type="nil"/>
     <msg name="_brush" type="nil"/>
     <msg name="_capture" type="nil"/>
     <msg name="_checkflood" type="nil"/>
+    <msg name="_disappear" type="nil"/>
     <msg name="_explosion" type="nil"/>
+    <msg name="_fall" type="nil"/>
     <msg name="_fallvortex" type="nil"/>
     <msg name="_freeze" type="nil"/>
     <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
     <msg name="_init" type="nil"/>
     <msg name="_invisibility" type="nil"/>
+    <msg name="_jump" type="nil"/>
     <msg name="_jumping" type="bool"/>
+    <msg name="_laserhit" type="nil"/>
+    <msg name="_levelfinish" type="bool"/>
     <msg name="_model_reanimated" type="nil"/>
     <msg name="_passed" type="nil"/>            <!-- check type-->
     <msg name="_performaction" type="nil"/>
     <msg name="_recheck" type="nil"/>
+    <msg name="_resurrect" type="nil"/>
     <msg name="_revive" type="nil"/>
+    <msg name="_rise" type="nil"/>
     <msg name="_scramble" type="int"/>
+    <msg name="_shatter" type="nil"/>
+    <msg name="_shield" type="nil"/>
     <msg name="_shogun" type="int"/>
     <msg name="_spitter" type="nil"/>
     <msg name="_start" type="nil"/>
+    <msg name="_suicide" type="nil"/>
     <msg name="_trigger" type="bool"/>
     <msg name="_updateglobals" type="string"/>
   </messages>
@@ -160,6 +171,21 @@
     </object>
     <object name="ac_marble">
       <attr name="color" default="0"/>
+      <msg name="_appear"/>
+      <msg name="_booze"/>
+      <msg name="_disappear"/>
+      <msg name="_fall"/>
+      <msg name="_fallvortex"/>
+      <msg name="_init"/>
+      <msg name="_invisibility"/>
+      <msg name="_jump"/>
+      <msg name="_laserhit"/>
+      <msg name="_levelfinish"/>
+      <msg name="_resurrect"/>
+      <msg name="_rise"/>
+      <msg name="_shatter"/>
+      <msg name="_shield"/>
+      <msg name="_suicide"/>
     </object>
     <object name="ac_marble_black">
       <attr name="color" value="0"/>
@@ -169,6 +195,21 @@
     </object>
     <object name="ac_pearl">
       <attr name="color" default="1" min="1"/>
+      <msg name="_appear"/>
+      <msg name="_booze"/>
+      <msg name="_disappear"/>
+      <msg name="_fall"/>
+      <msg name="_fallvortex"/>
+      <msg name="_init"/>
+      <msg name="_invisibility"/>
+      <msg name="_jump"/>
+      <msg name="_laserhit"/>
+      <msg name="_levelfinish"/>
+      <msg name="_resurrect"/>
+      <msg name="_rise"/>
+      <msg name="_shatter"/>
+      <msg name="_shield"/>
+      <msg name="_suicide"/>
     </object>
     <object name="ac_pearl_white">
       <attr name="color" value="1"/>
@@ -661,7 +702,7 @@
       <attr name="flavor" default="wood" rw="r"/>
       <msg name="fire"/>
       <msg name="heat"/>
-      <msg name="fall"/>
+      <msg name="_fall"/>
     </object>
     <object name="st_box_hay" flavor="hay"/>
     <object name="st_box_rock" flavor="rock"/>
@@ -724,16 +765,16 @@
     </object>
     <object name="st_charge">
       <attr name="charge"/>
-      <attr name="$charge"/>
+      <attr name="$chargesign"/>
     </object>
     <object name="st_charge_zero">
-      <attr name="$charge" value="0"/>
+      <attr name="$chargesign" value="0"/>
     </object>
     <object name="st_charge_plus">
-      <attr name="$charge" value="1"/>
+      <attr name="$chargesign" value="1"/>
     </object>
     <object name="st_charge_minus">
-      <attr name="$charge" value="-1"/>
+      <attr name="$chargesign" value="-1"/>
     </object>
     <object name="st_chess">
       <attr name="color" default="0"/>

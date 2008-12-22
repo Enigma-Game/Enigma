@@ -128,7 +128,7 @@ namespace enigma {
     }
     
     void BridgeFloor::actor_contact(Actor *a) {
-        if (state != CLOSED) SendMessage(a, "fall");
+        if (state != CLOSED) SendMessage(a, "_fall");
     }
     
     std::string BridgeFloor::model_basename() const {

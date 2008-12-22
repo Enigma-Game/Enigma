@@ -55,8 +55,6 @@ namespace enigma {
         BasicBall(const ActorTraits &tr, int maxSinkDepthValue = 7);
 
         // Object interface.
-//        virtual void setAttr(const string& key, const Value &val);
-//        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
         // Actor interface

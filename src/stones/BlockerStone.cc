@@ -121,13 +121,13 @@ namespace enigma {
         if (!(getDefaultedAttr("autoclose", false).to_bool()) && (
                 (state == GROWING && server::GameCompatibility != GAMET_PEROXYD) ||
                 (state == SOLID && server::GameCompatibility == GAMET_PEROXYD))) {
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
         }
     }
     void BlockerStone::actor_inside(Actor *a) {
         if ((state == GROWING && server::GameCompatibility != GAMET_PEROXYD) ||
                 (state == SOLID && server::GameCompatibility == GAMET_PEROXYD)) {
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
         }
     }
     

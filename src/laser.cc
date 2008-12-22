@@ -149,7 +149,7 @@ bool LaserBeam::actor_hit(Actor *actor)
     if ((directions & (EASTBIT | WESTBIT) && dy<-0.1) ||
         (directions & (NORTHBIT | SOUTHBIT)) && dx<-0.1)
     {
-        SendMessage(actor, "laserhit");
+        SendMessage(actor, "_laserhit");
     }
 
     return false; // laser beams can't be picked up

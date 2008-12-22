@@ -294,7 +294,7 @@ namespace enigma {
                 // Move only the actor that hit the turnstile in Oxyd mode
                 do_warp = (ac == dynamic_cast<Actor*>(impulse_sender));
                 if (!do_warp && arm_seen[idx_source])
-                    SendMessage(ac, "shatter"); // hit by an arm
+                    SendMessage(ac, "_shatter"); // hit by an arm
             } else { // green turnstile
                 // move all actors only if pushed by an arm
                 do_warp = arm_seen[idx_source];
@@ -307,7 +307,7 @@ namespace enigma {
             GridPos ac_target_pos(pv_pos.x+to_x[idx_target], pv_pos.y+to_y[idx_target]);
 
             if(!IsInsideLevel(ac_target_pos)) {
-                SendMessage(ac, "shatter");
+                SendMessage(ac, "_shatter");
                 continue;
             }
 

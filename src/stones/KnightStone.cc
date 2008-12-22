@@ -59,7 +59,7 @@ namespace enigma {
                 }
                 init_model();
             } else {
-                SendMessage(sc.actor, "shatter");
+                SendMessage(sc.actor, "_shatter");
             }
         }
     }

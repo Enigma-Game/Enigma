@@ -136,23 +136,23 @@ namespace enigma {
             state = BREAKING;
             init_model();
         } else if (state == GROWING) {
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
         }
     }
     
     void VolcanoStone::actor_touch(const StoneContact &sc) {
         if (state == GROWING)
-            SendMessage(sc.actor, "shatter");        
+            SendMessage(sc.actor, "_shatter");        
     }
 
     void VolcanoStone::actor_inside(Actor *a) {
         if (state != NEW)
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
     
     void VolcanoStone::actor_contact(Actor *a) {
         if (state == GROWING)
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
     
     FreezeStatusBits VolcanoStone::get_freeze_bits() {

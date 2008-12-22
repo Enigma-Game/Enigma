@@ -101,6 +101,41 @@ Actor::Actor (const ActorTraits &tr)
     ASSERT(m_actorinfo.radius <= get_max_radius(), XLevelRuntime, "Actor: radius of actor too large");
 }
 
+    void Actor::setAttr(const string& key, const Value &val) {
+        if (key == "controllers") {
+            controllers = val;
+        } else if (key == "adhesion") { 
+            adhesion = val;
+        } else if (key == "charge") {
+            m_actorinfo.charge = val;
+        } else
+            Object::setAttr(key, val);
+    }
+
+    Value Actor::getAttr(const std::string &key) const {
+        if (key == "controllers") {
+            return controllers;
+        } else if (key == "adhesion") { 
+            return adhesion;
+        } else if (key == "charge") {
+            return m_actorinfo.charge;
+        } else
+            return StateObject::getAttr(key);
+    }
+
+    Value Actor::message(const Message &m) {
+        if (m.message == "_init") {
+            startingpos = get_pos();
+            return Value();
+        } else if (m.message == "_freeze") {
+            m_actorinfo.frozen_vel = m_actorinfo.vel;
+            m_actorinfo.vel = ecl::V2();
+        } else if (m.message == "_revive") {
+            m_actorinfo.vel = m_actorinfo.frozen_vel;        
+        }
+        return StateObject::message(m);
+    }
+
 void Actor::on_collision (Actor *) 
 {
 }
@@ -260,30 +295,9 @@ bool Actor::can_move() const {
     return true;
 }
 
-Value Actor::message(const Message &m) {
-    if (m.message == "_init") {
-        startingpos = get_pos();
-        return Value();
-    } else if (m.message == "_freeze") {
-        m_actorinfo.frozen_vel = m_actorinfo.vel;
-        m_actorinfo.vel = ecl::V2();
-    } else if (m.message == "_revive") {
-        m_actorinfo.vel = m_actorinfo.frozen_vel;        
-    }
-    return StateObject::message(m);
-}
 
 bool Actor::sound_event (const char *name, double vol) {
     return sound::EmitSoundEvent (name, get_pos(), getVolume(name, this, vol));
-}
-
-void Actor::setAttr(const string& key, const Value &val)
-{
-    if (key == "controllers")
-        controllers = to_int (val);
-    else if (key == "adhesion") 
-        adhesion = to_double (val);
-    Object::setAttr(key, val);
 }
 
     double Actor::squareDistance(const Object *other) const {
@@ -321,7 +335,7 @@ namespace
 //        bool is_on_floor() const { return false; } we need friction!
 
 	void on_collision (Actor *a) {
-	    SendMessage(a, "shatter");
+	    SendMessage(a, "_shatter");
 	}
 
         double range;
@@ -626,7 +640,7 @@ namespace
         bool is_dead() const { return false; }
 
 	void on_collision(Actor *a) {
-	    SendMessage(a, "shatter");
+	    SendMessage(a, "_shatter");
 	}
     };
 }

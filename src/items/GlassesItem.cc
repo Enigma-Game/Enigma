@@ -78,7 +78,7 @@ namespace enigma {
     }
     void Glasses::on_stonehit(Stone *) {
         if (state > 0) {
-            sound_event ("shatter");
+            sound_event("shatter");
             setState(0);
         }
     }

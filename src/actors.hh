@@ -118,9 +118,10 @@ namespace enigma {
 
         /* ---------- Object interface ---------- */
         Actor *clone() = 0;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        void   setAttr(const string& key, const Value &val);
-
+ 
         /* ---------- Actor interface ---------- */
         virtual const ActorTraits &get_traits() const = 0;
 

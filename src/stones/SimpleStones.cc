@@ -43,7 +43,7 @@ namespace enigma {
     }
 
     Value ChargeStone::getAttr(const std::string &key) const {
-        if (key == "$charge") {
+        if (key == "$chargesign") {             // used by validator to identify charge stone subkinds
             double charge = getAttr("charge");
             return (charge == 0) ? 0 : ((charge > 0.0) ? 1 : -1);
         } else
@@ -69,8 +69,7 @@ namespace enigma {
     
     void ChargeStone::actor_hit(const StoneContact &sc) {
         double charge = getAttr("charge");
-        ActorInfo *ai = sc.actor->get_actorinfo();
-        ai->charge = charge;
+        sc.actor->setAttr("charge", charge);
         set_anim(ecl::strf("st-charge%s-anim", (charge == 0) ? "zero" : ((charge > 0.0) ? "plus" : "minus")).c_str());
     }
     

@@ -852,9 +852,9 @@ namespace
             Stone *st = MakeStone("st-greenbrown");
             ReplaceStone(get_pos(), st);
         }
-        void actor_contact(Actor *a) {SendMessage(a, "shatter");}
-        void actor_inside(Actor *a) {SendMessage(a, "shatter");}
-        void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "shatter");}
+        void actor_contact(Actor *a) {SendMessage(a, "_shatter");}
+        void actor_inside(Actor *a) {SendMessage(a, "_shatter");}
+        void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "_shatter");}
     };
     DEF_TRAITS(GreenbrownStone_Growing, "st-greenbrown-growing", st_greenbrown_growing);
 

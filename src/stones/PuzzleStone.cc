@@ -234,7 +234,7 @@ namespace enigma {
 
     void PuzzleStone::actor_contact (Actor *a) {
         if (state == EXPLODING || state == IGNITED)
-            SendMessage(a, "shatter");
+            SendMessage(a, "_shatter");
     }
 
     void PuzzleStone::on_impulse(const Impulse& impulse) {

@@ -36,54 +36,42 @@ namespace enigma {
             m_drunk_rest_time (0), m_invisible_rest_time (0) {
         state = NO_STATE;
     }
-    
-//    void BasicBall::setAttr(const string& key, const Value &val) {
-//        if (key == "charge") {
-//        } else
-//        Stone::setAttr(key, val);
-//    }
-//
-//    Value BasicBall::getAttr(const std::string &key) const {
-//        if (key == "charge") {
-//        } else
-//            return Stone::getAttr(key);
-//    }
 
-    Value BasicBall::message(const Message &m) {
+    Value BasicBall::message(const Message &m) {   // shatter, suicide, fall, jump, booze, shield are candidates for public usage
         bool handled = false;
         switch (state) {
             case NORMAL:
-                if (m.message == "shatter") {
+                if (m.message == "_shatter") {
                     change_state_noshield(SHATTERING);
                     handled = true;
-                } else if (m.message == "suicide") {
+                } else if (m.message == "_suicide") {
                     change_state(SHATTERING);
                     handled = true;
-                } else if (m.message == "laserhit") {
+                } else if (m.message == "_laserhit") {
                     change_state_noshield(SHATTERING);
                     handled = true;
-                } else if (m.message == "fall") {
+                } else if (m.message == "_fall") {
                     change_state_noshield(FALLING);
                     handled = true;
                 } else if (m.message == "_fallvortex") {
                     change_state(FALLING_VORTEX);
                     handled = true;
-                } else if (m.message == "jump") {
+                } else if (m.message == "_jump") {
                     change_state(JUMPING);
                     handled = true;
-                } else if (m.message == "appear") {
+                } else if (m.message == "_appear") {
                     change_state(APPEARING);
                     handled = true;
-                } else if (m.message == "disappear") {
+                } else if (m.message == "_disappear") {
                     change_state(DISAPPEARING);
                     handled = true;
                 }
                 break;
             case JUMPING:
-                if (m.message == "shatter") {
+                if (m.message == "_shatter") {
                     change_state_noshield(SHATTERING);
                     handled = true;
-                } else if (m.message == "disappear") {
+                } else if (m.message == "_disappear") {
                     change_state(DISAPPEARING);
                     handled = true;
                 }
@@ -95,21 +83,21 @@ namespace enigma {
                 }
                 break;
             case DEAD:
-                if (m.message == "resurrect") {
+                if (m.message == "_resurrect") {
                     change_state(RESURRECTED);
                     handled = true;
                 }
                 break;
             case FALLING_VORTEX:
-                if (m.message == "rise") {
+                if (m.message == "_rise") {
                     change_state(RISING_VORTEX); // vortex->vortex teleportation
-                } else if (m.message == "appear") {
+                } else if (m.message == "_appear") {
                     change_state(APPEARING); // vortex->non-vortex teleportation
                     handled = true;
                 }
                 break;
             case JUMP_VORTEX:
-                if (m.message == "laserhit") {
+                if (m.message == "_laserhit") {
                     change_state(SHATTERING);
                     handled = true;
                 }
@@ -119,7 +107,7 @@ namespace enigma {
                 if (m.message == "_init") {
                     Actor::message (m);
                     handled = true;
-                } else if (m.message == "shatter") {
+                } else if (m.message == "_shatter") {
                     change_state (SHATTERING);
                     handled = true;
                 }
@@ -131,7 +119,7 @@ namespace enigma {
         // Shield, booze and invisibility can be activated in all states except DEAD
     
         if (state != DEAD) {
-            if (m.message == "shield") {
+            if (m.message == "_shield") {
                 m_shield_rest_time += SHIELD_TIME;
                 update_halo();
                 handled = true;
@@ -140,7 +128,7 @@ namespace enigma {
                 m_invisible_rest_time += 8.0;
                 handled = true;
             }
-            else if (m.message == "booze") {
+            else if (m.message == "_booze") {
                 m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
                 handled = true;
             }
@@ -253,9 +241,9 @@ namespace enigma {
             case FALLING:
                 set_model(kind+"-fallen"); // invisible
                 if (get_id (this) == ac_marble_white)
-                    sound_event ("shattersmall");
+                    sound_event("shattersmall");
                 else
-                    sound_event ("shatter");
+                    sound_event("shatter");
                 change_state(DEAD);
                 break;
             case JUMPING:

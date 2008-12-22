@@ -90,7 +90,7 @@ namespace enigma {
     }
     
     void DeathStone::actor_hit(const StoneContact &sc) {
-        SendMessage(sc.actor, "shatter");
+        SendMessage(sc.actor, "_shatter");
         if (state == IDLE) {
             state = PULSING;
             set_anim("st-death-anim");

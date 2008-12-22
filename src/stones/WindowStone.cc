@@ -154,7 +154,7 @@ namespace enigma {
                 threshold -= 10;
             
             if (impulse > 35) {
-                SendMessage(a, "shatter");
+                SendMessage(a, "_shatter");
             }
 
             else if (!(objFlags & OBJBIT_SECURE) && impulse > threshold) {

@@ -114,7 +114,7 @@ void LevelLocalData::resurrect_actor (Actor *a)
     const double RESPAWN_TIME = 1.5;
 
 //    a->find_respawnpos();
-    SendMessage(a, "resurrect");
+    SendMessage(a, "_resurrect");
     remove_extralife(a);
     respawn_list.push_back(RespawnInfo(a, RESPAWN_TIME));
 }
@@ -233,7 +233,7 @@ void player::LevelFinished(int stage)
             if (stage == 0) {
                 SendMessage(a, "_levelfinish");
             } else {
-                SendMessage(a, "disappear");
+                SendMessage(a, "_disappear");
                 SendMessage(a, "disconnect");
             }
         }
@@ -326,7 +326,7 @@ void player::Suicide()
     for (unsigned i=0; i<players.size(); ++i) {
         vector<Actor *> &al = players[i].actors;
         for (unsigned j=0; j<al.size(); ++j) {
-            SendMessage(al[j], "suicide");
+            SendMessage(al[j], "_suicide");
         }
     }
 }

@@ -40,7 +40,7 @@ namespace enigma {
     }
 
     void Abyss::actor_contact (Actor* a) {
-        SendMessage(a, "fall");
+        SendMessage(a, "_fall");
     }
     
 /* -------------------- Ice -------------------- */
