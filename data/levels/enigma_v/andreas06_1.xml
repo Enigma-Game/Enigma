@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,7 +16,6 @@
       <el:score el:easy="01:08" el:difficult="02:07"/>
     </el:info>
     <el:luamain><![CDATA[
-
 -- Originally created with the help of BBE 1.05
 
 ti[" "]={"fl-normal"}
@@ -38,9 +37,8 @@ ti["'"]={"st-glass1"}
 ti[")"]={"st_mirror", orientation = 3}  -- p|
 ti["("]={"st_mirror", orientation = 3, transparent = true, flavor = "sheets"}  -- p|t
 ti["-"]={"st_mirror", orientation = 3, movable = true}  -- p|m
-ti["."]={"st_mirror", orientation = 3, movable = true,
-                      transparent = true, flavor = "sheets"}  -- p|tm
-ti["@"]={"#ac-blackball", mouseforce = 1}
+ti["."]={"st_mirror", orientation = 3, movable = true, transparent = true, flavor = "sheets"}  -- p|tm
+ti["@"]={"#ac_marble_black", adhesion = 1}
 ti["<"]={"st_oneway_w"}
 ti[">"]={"st_oneway_e"}
 if wo["IsDifficult"] then
@@ -75,7 +73,7 @@ end
 
 wo:shuffleOxyd()
 
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Fashions Pass" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,7 +32,7 @@ spot_constants = {SPOT_DEATH,
 
 designs =
   {{"fl-samba",     "fl_water", "st-bluegray",   "st-bluegray_hole",   OXYD_CYAN},
-   {"fl-rock",      "fl_abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
+   {"fl_rock",      "fl_abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
    {"fl-sahara",    "fl_abyss", "st-greenbrown", "st-greenbrown_hole", OXYD_YELLOW},
    {"fl-black",     "fl_water", "st-marble",     "st-marble_hole",     OXYD_PURPLE},
    {"fl-bluegreen", "fl_abyss", "st-metal",      "st-metal_hole",      OXYD_BLUE},
@@ -61,7 +61,7 @@ wo["ExtralifeGlasses"] = spot_constants[spot_permutation[1]]
 
 ti["  "] = {"fl_water"}
 ti[" 0"] = {"fl-stone", friction = 3.0, adhesion = 3.0}
-ti["@0"] = {"#ac-blackball"} .. ti({"fl-stone", "start_position"})
+ti["@0"] = {"#ac_marble_black"} .. ti({"fl-stone", "start_position"})
 ti["L0"] = {"st_laser", orientation = EAST, state = ON} .. ti[" 0"]
 ti["P0"] = {"st_polarswitch"} .. ti[" 0"]
 ti["v0"] = {"it_vortex", "vortex#", autoclose = true, state = CLOSED} .. ti[" 0"]

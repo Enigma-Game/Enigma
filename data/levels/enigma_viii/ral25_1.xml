@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wired Five" el:subtitle="" el:id="20080721ral073"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 117 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,10 +36,10 @@ end
 ti["trigger"] = {"it_trigger", target="hill%%", action="signal", inverse=true}
 ti["brownie"] = {"st-marble_move", "brownie%%"}
 ti["mini"] = {"fl-light", friction=7, adhesion=1.8} 
-             .. ti({"#ac-whiteball-small", player=0})
+             .. ti({"#ac_pearl"})
              .. ti({"it_meditation_bump", "hill%%"})
 ti[","] = ti["."] .. {"it_meditation_bump", "hill%5"}
-ti["@"] = ti["."] .. {"#ac-whiteball-small", player=0, essential=-1}
+ti["@"] = ti["."] .. {"#ac_pearl", essential=-1}
 
 myres = res.autotile(ti,{"1","5","brownie"},{"a","d","mini"},{"A","E","trigger"})
 

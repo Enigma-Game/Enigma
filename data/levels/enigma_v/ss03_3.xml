@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="7" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti[". "] = {"fl-rough", "destination5"}
 ti["+ "] = {"fl-rough", "destination6"}
 ti["~ "] = {"fl_water"}
 ti["# "] = {"st-rock1"}
-ti["F "] = {"st_fart", "blocker"}
+ti["F "] = {"st_quake", "blocker"}
 ti["V "] = {"st_boulder", orientation=SOUTH}
 ti["> "] = {"st_boulder", "boulder3", orientation=EAST}
 ti["| "] = {"st_door", flavor="d", faces="ew"}
@@ -30,7 +30,7 @@ ti["C "] = {"st_coinslot", target="door3"}
 ti["B "] = {"st-bombs"}
 ti["X "] = {"st-grate2"}
 ti["M "] = {"st_blocker"}
-ti["W "] = {"st_wood"}
+ti["W "] = {"st_box_wood"}
 if wo["IsDifficult"] then
     ti["D "] = {"st_death"}
 else
@@ -87,7 +87,7 @@ ti[" 6"] = {"it_trigger", target="box", _box=6}
 ti[" 7"] = {"it_trigger", target="box", _box=7}
 ti["7 "] = {"st_door", "door7", flavor="d", faces="ew"}
 ti[" 8"] = {"it_trigger", target="box", _box=8}
-ti["@ "] = {"#ac-blackball"}
+ti["@ "] = {"#ac_marble_black"}
 
 local resolver = res.composer(ti)
 w, h = wo(resolver, "  ", {
@@ -128,7 +128,7 @@ function box(value, sender)
             if box == 1 then
                 no["door1"]:open()
             elseif box == 2 then
-                wo[po["water2#*"]] = {"fl-wood"}
+                wo[po["water2#*"]] = {"fl_wood"}
             elseif box == 3 then
                 no["boulder3"]:orientate(WEST)
             elseif box == 4 then

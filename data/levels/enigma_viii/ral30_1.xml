@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Scarlett's Necklet" el:subtitle="Who did broke the pearl necklet?" el:id="20080814ral422"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 116 $" el:status="released"/>
+      <el:identity el:title="Scarlet's Necklace" el:subtitle="Who did broke the pearl necklace?" el:id="20080814ral422"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,10 +29,10 @@ ti["C"] = {"st-marble_move", "pearl#"}
 ti["D"] = {"st-rock1_move", "pearl#"}
 ti["E"] = {"st-glass1_move", "pearl#"}
 ti["F"] = {"st-camouflage_move", "pearl#"}
-ti["G"] = {"st_wood", "pearl#"}
+ti["G"] = {"st_box", "pearl#"}
 ti["H"] = {"st-glass_move", "pearl#"}
 ti["I"] = {"st-rock3_move", "pearl#"}
-ti["J"] = {"st_flhay", "pearl#"}
+ti["J"] = {"st_box_hay", "pearl#"}
 
 ti["_"] = {"st_window_s", secure=true}
 ti["|"] = {"st_window_e", secure=true}
@@ -57,7 +57,7 @@ end
 
 ti["X"] = {"st_oxyd_d", "oxyd"}
 
-ti["@"] = {"ac-blackball", 0, 0.5}
+ti["@"] = {"ac_marble", 0, 0.5}
 
 pearl_keys = lib.lua.shuffle({"A","B","C","D","E","F","G","H","I","J"})
 function myres(key, x, y)
@@ -120,7 +120,7 @@ end
         <el:english el:translate="true"/>
       </el:string>
       <el:string el:key="story">
-        <el:english el:translate="true" >Mrs Scarlett's wonderful pearl necklet tore, and now all the colorful pearls roll on the floor. Mrs Scarlett doesn't remember the sequence, but she knows, adjacent pearls connect, when being on dots while triggered by the switch.</el:english>
+        <el:english el:translate="true" >Mrs. Scarlet's wonderful pearl necklace tore, and all the colorful pearls rolled onto the floor. Mrs. Scarlet doesn't remember the sequence, but she knows that adjacent pearls connect, when placed on dots when the switch flipped.</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

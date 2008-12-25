@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess, Bugs &amp; Rock'n'Roll" el:subtitle="" el:id="andreas31"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ myfloor = {}
 myfloor[1] = "fl-black"     -- "fl-lightgray"
 myfloor[2] = "fl-darkgray"  -- "fl-darkgray"
 myfloor[3] = "fl-black"     -- "fl-light"
-myfloor[4] = "fl-wood"      -- "fl-lightgray"
+myfloor[4] = "fl_wood"      -- "fl-lightgray"
 myfloor[5] = "fl-black"     -- "fl-lightgray"
 myfloor[6] = "fl-black"     -- "fl-lightgray"
 chess_number = 0
@@ -57,14 +57,14 @@ function myresolver(key, x, y)
   return ti[key]
 end
 
-ti["   "] = {"fl-wood"}
-ti["!  "] = {"fl-wood"}
+ti["   "] = {"fl_wood"}
+ti["!  "] = {"fl_wood"}
 ti[" ! "] = {"st-redrock"}  -- st-rock6
 ti[" # "] = {"st_oxyd", flavor = "b"}
 ti[" $ "] = {"st-bug"}
 ti[" T "] = {"it_trigger", target = "trigger_call"}
 ti["  !"] = {"ac-bug"}
-ti["  #"] = {"#ac-blackball", mouseforce = 2.0}
+ti["  #"] = {"#ac_marble_black", mouseforce = 2.0}
 
 level={"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
        "!#####&&&&&&&&&&&&&&&&&&&&&&&&&&&,,,,,!",

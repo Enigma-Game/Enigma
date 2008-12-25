@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 22 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 24 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ ti["! "] = {"st_death"}
 ti["# "] = {"st-rock1"}
 ti[" &"] = {"fl-normal"}
 ti["$ "] = {"st-thief"}
-ti["% "] = {"st-black3"}
+ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st-stone_break"}
 ti["' "] = {"st-glass_move"}
 ti["( "] = {"st-bumps"}
@@ -55,7 +55,7 @@ ti["8 "] = {"st_knight"}
 ti["9 "] = {"st_boulder_e"}
 ti["v "] = {"it_strip", connections="ns"}
 ti[": "] = {"st_boulder_w"}
-ti["; "] = {"st_wood"}
+ti["; "] = {"st_box_wood"}
 ti["< "] = {"st_mirror", movable=false, transparent=false, orientation=WEST}
 ti[" -"] = {"fl-sahara"}
 ti["f "] = {"it-flagblack"}
@@ -66,7 +66,7 @@ ti["w "] = {"it_magicwand"}
 ti[" /"] = {"fl-gravel"}
 ti["@ "] = {"st_rubberband"}
 ti["A "] = {"st-rock3"}
-ti["b "] = {"it-banana"}
+ti["b "] = {"it_banana"}
 ti["B "] = {"st_actorimpulse"}
 ti["C "] = {"st_rotator_ccw"}
 ti[" 0"] = {"fl-sand"}
@@ -79,15 +79,15 @@ ti["s "] = {"it_sword"}
 ti[" 3"] = {"fl-leavesc4"}
 ti["i "] = {"it-coffee"}
 ti["G "] = {"st_actorimpulse_invisible"}
-ti["y "] = {"it-cherry"}
+ti["y "] = {"it_cherry"}
 ti[" 4"] = {"fl-leavesc1"}
 ti["H "] = {"st-marble"}
 ti[" 5"] = {"fl-leavese2"}
 ti["I "] = {"st_swap"}
 ti["z "] = {"it-flagwhite"}
 ti[" 6"] = {"fl-leaves"}
-ti["J "] = {"st-white3"}
-ti["K "] = {"st-likeoxydd"}
+ti["J "] = {"st_passage_white_cross"}
+ti["K "] = {"st_fake_oxydd"}
 ti["j "] = {"it-crack3"}
 ti["L "] = {"st-coffee"}
 ti["M "] = {"st_shogun_sml"}
@@ -100,13 +100,13 @@ ti[" 7"] = {"fl_space"}
 ti["S "] = {"st-break_invisible"}
 ti[" 8"] = {"fl-bluegray"}
 ti["T "] = {"st_boulder_s"}
-ti[" 9"] = {"fl-hay"}
+ti[" 9"] = {"fl_hay"}
 ti["U "] = {"st-rock3_break"}
 ti["V "] = {"st-rock5"}
 ti["W "] = {"st_mirror", movable=true, transparent=false, orientation=SOUTH}
 ti["n "] = {"it-surprise"}
 ti["X "] = {"st_oneway_black_n"}
-ti["o "] = {"it-squashed"}
+ti["o "] = {"it_squashed"}
 ti["Y "] = {"st_oneway_black_w"}
 ti[" :"] = {"fl-leavesd1"}
 ti["Z "] = {"st_lightpassenger_off"}
@@ -119,7 +119,7 @@ ti["h-"] =  ti["~g"] ..{"it_strip", connections="ew"}
 ti["nn"] =  ti[" 3"] ..{"st_actorimpulse_invisible"}
 ti["n-"] =  ti[" 5"] ..{"st_actorimpulse_invisible"}
 ti["ni"] = ti[" )"] ..{"it-coffee"}
-ti["x "] = {"#ac-blackball"}
+ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac-top", range="1", force="1"}
 ti["p1"] = ti[" $"] .. {"it-document", text="text1"}
 ti["p2"] = ti[" !"] .. {"it-document", text="text2"}
@@ -140,8 +140,8 @@ ti["k2"] = ti[" !"]..{"it_key", code=2}
 ti["k3"] = ti["=m"]..{"it_coin_m"}
 ti["k4"] = ti["mm"]..{"it_coin_l"}
 ti["k5"] = ti["mm"]..{"it_sword"}
-ti["k6"] = ti["nn"]..{"it-cherry"}
-ti["k7"] = ti["n-"]..{"it-cherry"}
+ti["k6"] = ti["nn"]..{"it_cherry"}
+ti["k7"] = ti["n-"]..{"it_cherry"}
 ti["= "] = {"st_key",code=1, name= "oklli1", target= "lezy2", action="toggle"}
 ti["t1"] = ti[" %"] ..{"it_trigger", target="olli1",action="toggle"}
 ti["t2"] = ti[" 1"] ..{"it_trigger", target="olli2",action="toggle"}
@@ -176,7 +176,7 @@ if wo ["IsDifficult"] then
 else
     ti["ll"] = ti[" %"]..{"fl-bluegray"}
     ti["la"] = ti[" %"]..{"fl_swamp"}
-    ti["aa"] = ti[" %"]..{"st-black3"}
+    ti["aa"] = ti[" %"]..{"st_passage_black_cross"}
     ti["al"] = ti[" %"]..{"fl_swamp"}
     ti["bp"] = ti[" !"]..{"it_umbrella"}
     ti["QQ"] = ti[" /"]..{"st_brake"}

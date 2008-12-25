@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl-sand"}
 ti["a"] = ti[" "] .. {"st_chess_white", name="Silver"} -- Silver (Lone Ranger's Horse)
-ti["b"] = ti[" "] .. {"st-black2"}
+ti["b"] = ti[" "] .. {"st_passage_black_slash"}
 ti["c"] = ti[" "] .. {"st-marble"} -- MARBLE WALL
 ti["d"] = ti[" "] .. {"st_actorimpulse"}
 ti["e"] = ti[" "] .. {"st-marble_hole"} -- MARBLE WALL (HOLLOW)
@@ -32,8 +32,8 @@ ti["q"] = ti[" "] .. {"st-redrock"} -- SUN RAY
 ti["r"] = {"fl-red"} -- SUN
 ti["s"] = ti[" "] .. {"st_scissors"}
 ti["t"] = ti[" "] .. {"st-thief"}
-ti["u"] = ti[" "] .. {"st_wood"}
-ti["w"] = ti[" "] .. {"st-white2"}
+ti["u"] = ti[" "] .. {"st_box_wood"}
+ti["w"] = ti[" "] .. {"st_passage_white_slash"}
 ti["x"] = ti[" "] .. {"it_death"} -- Corpse
 ti["y"] = {"fl-bluegreen"} -- SKY
 ti["z"] = ti[" "] .. {"st_chess_black", name="Scout"} -- Scout (Tonto's Horse)
@@ -46,7 +46,7 @@ ti["F"] = ti[" "] .. {"st_oneway_white", state=SOUTH}
 ti["G"] = ti[" "] .. {"st_oneway_white", state=WEST}
 ti["H"] = ti[" "] .. {"st_oneway_white", state=EAST}
 ti["I"] = ti["f"] .. {"st-invisible"} --Invisible stone on black floor
-ti["J"] = ti["y"] .. {"st-black2"} --Black grill on blue floor
+ti["J"] = ti["y"] .. {"st_passage_black_slash"} --Black grill on blue floor
 ti["K"] = ti["y"] .. {"st-grate1"} --Grate on blue floor
 ti["L"] = ti[" "] .. {"it_landmine"}
 ti["M"] = ti[" "] .. {"it-spoon"}
@@ -61,17 +61,17 @@ ti["U"] = ti[" "] .. {"it-crack3"}
 ti["V"] = ti[" "] .. {"#ac-rotor", name="RGuard1", gohome=0} -- Lone Ranger's Guard
 ti["W"] = ti[" "] .. {"#ac-rotor", name="RGuard2", gohome=0} -- Lone Ranger's Guard
 ti["X"] = ti[" "] .. {"#ac-rotor", name="RGuard3", gohome=0} -- Lone Ranger's Guard
-ti["Y"] = ti["y"] .. {"st-white2"} --White grill on blue floor
+ti["Y"] = ti["y"] .. {"st_passage_white_slash"} --White grill on blue floor
 ti["Z"] = (ti[" "] .. {"it_death"}) .. {"st-break_gray"} --Tomb door with corpse
 ti["0"] = ti[" "] .. {"st_oxyd"}
 ti["1"] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"}
 ti["2"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"}
-ti["+"] = ti["l"] .. {"st_wood"}
+ti["+"] = ti["l"] .. {"st_box_wood"}
 ti["6"] = ti[" "] .. {"it-booze"}
 ti["!"] = ti[" "] .. {"it_key", code="1"}
 ti["@"] = ti[" "] .. {"it_key", code="2"}
 ti["#"] = ti[" "] .. {"st-camouflage"}
-ti["$"] = ti[" "] .. {"st_wood"} .. ti({"it-yinyang"})
+ti["$"] = ti[" "] .. {"st_box_wood"} .. ti({"it-yinyang"})
 ti["%"] = ti[" "] .. {"st_death_invisible"}
 ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
 ti["*"] = ti[" "] .. {"#ac-rotor", range=5, force=100}
@@ -80,8 +80,8 @@ ti["v"] = {"fl-gradient14"} -- Down
 ti["<"] = {"fl-gradient15"} -- Left
 ti[">"] = {"fl-gradient16"} -- Right
 ti["^"] = {"fl-gradient13"} -- Up
-ti["("] = (ti[" "] .. {"#ac-whiteball", player=0, controllers=1, essential=-1, name="Ranger"})
-ti[")"] = (ti[" "] .. {"#ac-blackball", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it-yinyang"})
+ti["("] = (ti[" "] .. {"#ac_marble_white", player=0, controllers=1, essential=-1, name="Ranger"})
+ti[")"] = (ti[" "] .. {"#ac_marble_black", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it-yinyang"})
 ti["="] = ti["t"] .. {"it-flagwhite"}
 ti["-"] = ti["l"] .. {"it-flagblack"}
 

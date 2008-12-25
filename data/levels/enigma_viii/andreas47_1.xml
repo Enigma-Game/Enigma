@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Show Jumper" el:subtitle="" el:id="andreas47"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,11 +25,9 @@ ti["_"] = ti[" "]
 ti["&"] = {"fl-leaves"}
 ti["+"] = ti["&"] --.. {"st-yellow"}
 ti["*"] = ti["&"]
-
 ti["%"] = ti["+"]
-
 ti["."] = ti["_"] --.. {"st-grate1"}
-ti["@"] = ti["+"] .. {"#ac-whiteball-small", player = 0}
+ti["@"] = ti["+"] .. {"#ac_pearl_white", player = 0}
 ti["1"] = ti[" "] .. {"st_window_sw", secure = true}
 ti["2"] = ti[" "] .. {"st_window_s", secure = true}
 ti["3"] = ti[" "] .. {"st_window_es", secure = true}

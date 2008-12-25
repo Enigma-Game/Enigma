@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title=" - Meditation - " el:subtitle="" el:id="devnull06"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,10 +26,10 @@ ti["."] = {"fl-rough-red"}
 ti["#"] = {"st-rock6"}
 ti["hollow"] =  {"it_meditation_hollow"}
 ti["o"] = ti["hollow"] .. {"fl-rough-red", friction = 2.0}
-ti["1"] = ti[" "] .. {"#ac-whiteball-small", player = 0, essential = 1}
-ti["2"] = ti[" "] .. {"#ac-whiteball-small", player = 0, essential = 1}
-ti["3"] = ti[" "] .. {"#ac-whiteball-small", player = 0, essential = 1}
-ti["4"] = ti[" "] .. {"#ac-whiteball-small", player = 0, essential = 1}
+ti["1"] = ti[" "] .. {"#ac_pearl_white", player = 0, essential = 1}
+ti["2"] = ti[" "] .. {"#ac_pearl_white", player = 0, essential = 1}
+ti["3"] = ti[" "] .. {"#ac_pearl_white", player = 0, essential = 1}
+ti["4"] = ti[" "] .. {"#ac_pearl_white", player = 0, essential = 1}
 
 width, height = wo(ti, " ",
 -- 0         1         2

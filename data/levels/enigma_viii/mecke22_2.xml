@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:68$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:69$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,7 @@ ti["+ "] = {"st-grate1"}
 ti[", "] = {"st_puzzle_yellow_sw"}
 ti["- "] = {"st_puzzle_yellow_ew"}
 ti[". "] = {"st_oxyd_a"}
-ti["/ "] = {"st_wood"}
+ti["/ "] = {"st_box_wood"}
 ti["0 "] = {"st_puzzle_yellow_es"}
 ti["1 "] = {"st_puzzle_yellow_esw"}
 ti["2 "] = {"st_boulder_w"}
@@ -60,7 +60,7 @@ ti["8 "] = {"st_puzzle_yellow_n"}
 ti["9 "] = {"st_puzzle_yellow_s"}
 ti[": "] = {"st_door",state=OPEN,faces="ns"}
 ti[" +"] = {"fl-bluegray"}
-ti["< "] = {"st-black4"}
+ti["< "] = {"st_passage_black_frame"}
 ti["= "] = {"st-glass_move"}
 ti["> "] = {"st_turnstilearm_e"}
 ti["? "] = {"st-glass"}
@@ -70,7 +70,7 @@ ti["A "] = {"st_puzzle_yellow_nesw"}
 ti[" -"] = {"fl-light"}
 ti["C "] = {"st_oneway_black_e"}
 ti["D "] = {"st_oneway_black_s"}
-ti["//"] = ti[" !"].. {"st_wood"}
+ti["//"] = ti[" !"].. {"st_box_wood"}
 ti[" ."] = {"fl-gradient4"}
 ti["F "] = {"st-camouflage"}
 ti["f "] = {"st-camouflage_move"}
@@ -78,8 +78,8 @@ ti["G "] = {"st_boulder_s"}
 ti["BN"] = ti[" ;"].. {"st_boulder_n"}
 ti[" /"] = {"fl-inverse"}
 ti["H "] = {"st_door",state=OPEN,faces="ew"}
-ti["XX"] = ti[" ;"].. {"#ac-blackball"}
-ti["I "] = {"st-likeoxyda"}
+ti["XX"] = ti[" ;"].. {"#ac_marble_black"}
+ti["I "] = {"st_fake_oxyda"}
 ti["K "] = {"st_boulder_e"}
 ti["L "] = {"st-rock3_break"}
 ti[" 0"] = {"fl-gradient9"}
@@ -108,7 +108,7 @@ ti["X "] = {"st_window_s"}
 ti["Y "] = {"st_floppy",target="door4#*"}
 ti["^ "] = {"st_lightpassenger_off"}
 ti["f&"] = ti[" &"] .. {"it_floppy"}
-ti["<#"] = ti[" #"] .. {"st-black4"}
+ti["<#"] = ti[" #"] .. {"st_passage_black_frame"}
 ti["m "] = ti["<#"] .. {"it_magicwand"}
 ti["o;"] = ti[" ;"] .. {"it-burnable_oil"}
 ti["o!"] = ti[" !"] .. {"it-burnable_oil"}
@@ -135,14 +135,14 @@ ti["=-"] = ti[" -"] .. {"st-glass_move"}
 ti["=+"] = ti[" +"] .. {"st-glass_move"}
 ti["=!"] = ti[" !"] .. {"st-glass_move"}
 ti["c!"] = ti["c "] .. {"fl_swamp"}
-ti["e-"] = ti["=-"] .. {"it-cherry"}
-ti["e!"] = ti[" !"] .. {"it-cherry"}
+ti["e-"] = ti["=-"] .. {"it_cherry"}
+ti["e!"] = ti[" !"] .. {"it_cherry"}
 ti["=d"] = ti["=-"] .. {"it-dynamite"}
 ti["d~"] = ti[" $"] .. {"it-dynamite"}
 ti["b$"] = ti[" $"] .. {"it-blackbomb"}
 ti["b3"] = ti[" 3"] .. {"it-blackbomb"}
 ti["b#"] = ti[" #"] .. {"it-blackbomb"}
-ti["s$"] = ti[" $"] .. {"it-squashed"}
+ti["s$"] = ti[" $"] .. {"it_squashed"}
 ti["v1"] = ti["=!"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["v2"] = ti["=-"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["v3"] = ti["c!"] .. {"it_vortex_open", name="vortex3", destination="vortex4"}

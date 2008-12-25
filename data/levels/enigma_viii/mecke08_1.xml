@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"
-  xmlns:el="http://enigma-game.org/schema/level/1">
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +45,7 @@ ti["F "] = {"it_trigger",target="laser3"}
 ti["K "] = {"st_laser_n", name="laser1", state=OFF}
 ti["U "] = {"st_laser_n", name="laser2", state=OFF}
 ti["W "] = {"st_laser_n", name="laser3", state=OFF}
-ti["1 "] = {"st-black4"}
+ti["1 "] = {"st_passage_black_frame"}
 ti["D "] = {"st_death"}
 ti["L "] = ti[" _"] .. {"st_laser_s", name="laser", state=ON}
 ti["h "] = {"st-bluegray_hole"}
@@ -65,7 +63,7 @@ ti["x6"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli6"}
 ti["e "] = {"it_extralife"}
 ti["o "] = {"it-springboard"}
 ti[" j"] = {"it_magicwand"}
-ti["S "] = ti[" n"] ..{"st-white4"}
+ti["S "] = ti[" n"] ..{"st_passage_white_frame"}
 ti["G "] = {"st-yellow"}
 ti["2 "] = {"st-brake"}
 ti["P "] = {"st_pull"}
@@ -79,7 +77,7 @@ ti["V1"] = ti[" _"] ..{"it_vortex_closed", name="vortex1", destination="vortex2"
 if wo["IsDifficult"] then
   ti[" '"] = ti[" ."] .. {"it-crack2", brittleness=0}
   ti["1f"] = ti["1 "] .. {"it_magicwand"}
-  ti["* "] = ti["  "] .. {"#ac-blackball"}
+  ti["* "] = ti["  "] .. {"#ac_marble_black"}
   ti["Dx"] = ti[" ."] .. {"st_door", "doora#", flavor="a"}
   ti["Ax"] = ti[" ."] .. {"st_door", "doorb#", flavor="a"}
   ti["$1"] = {"it_trigger", target={"@doora#*", "@doorb#*"}}
@@ -95,7 +93,7 @@ if wo["IsDifficult"] then
 else
   ti[" '"] = {"fl_swamp"}
   ti["1f"] = ti["1 "] .. {"it_wrench"}
-  ti["* "] = ti[" t"] .. {"#ac-blackball"}
+  ti["* "] = ti[" t"] .. {"#ac_marble_black"}
   ti["Dx"] = ti["D "]
   ti["Ax"] = ti["A "]
   ti["$1"] = {"it_trigger", target="olli1"}

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 33 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 34 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,13 +53,13 @@ ti["P "] = {"st_oneway_black_s"}
 ti["c "] = {"it-crack3"}
 ti["0 "] = {"st-brick_magic"}
 ti["1 "] = {"st-rock1_hole"}
-ti["B "] = {"st-black4"}
+ti["B "] = {"st_passage_black_frame"}
 ti["2 "] = {"st_boulder_w"}
 ti["o "] = {"it-springboard"}
 ti["3 "] = {"st_door", faces="ns"}
 ti["f "] = {"it-coffee"}
 ti["g "] = {"it-blackbomb"}
-ti["5 "] = {"st-black3"}
+ti["5 "] = {"st_passage_black_cross"}
 ti["6 "] = {"st-rock1"}
 ti[" 1"] = {"fl-rough-red"}
 ti["7 "] = {"st_boulder_e"}
@@ -77,24 +77,24 @@ ti["m "] = {"it_hammer"}
 ti[" 5"] = {"fl-gradient4"}
 ti["w "] = {"it_magicwand"}
 ti["y "] = {"it_floppy"}
-ti["; "] = {"st-black4"}
-ti["> "] = {"st_wood"}
+ti["; "] = {"st_passage_black_frame"}
+ti["> "] = {"st_box_wood"}
 ti[" 6"] = {"fl-acwhite"}
 ti[" 7"] = {"fl-gradient14"}
-ti["? "] = {"st-likeoxydd"}
+ti["? "] = {"st_fake_oxydd"}
 ti["@ "] = {"st-glass"}
 ti["A "] = {"st_door", state=OPEN, faces="ns"}
 ti["W "] = {"st-stone_break"}
 ti["gg"] =  ti[" %"] ..{"it_strip", connections="ns"}
 ti["l3"] =  ti[" !"] ..{"st-brick_magic"}
-ti["l4"] =  ti[" i"] ..{"st-black4"}
+ti["l4"] =  ti[" i"] ..{"st_passage_black_frame"}
 ti["l5"] =  ti[" $"] ..{"st-glass_move"}
 ti["l6"] =  ti[" $"] ..{"st-glass"}
-ti["z3"] =  ti["l3"] ..{"it-cherry"}
-ti["z4"] =  ti["l4"] ..{"it-cherry"}
-ti["z5"] =  ti["l5"] ..{"it-cherry"}
-ti["z6"] =  ti["l6"] ..{"it-cherry"}
-ti["z7"] =  ti[" !"] ..{"st_wood"}
+ti["z3"] =  ti["l3"] ..{"it_cherry"}
+ti["z4"] =  ti["l4"] ..{"it_cherry"}
+ti["z5"] =  ti["l5"] ..{"it_cherry"}
+ti["z6"] =  ti["l6"] ..{"it_cherry"}
+ti["z7"] =  ti[" !"] ..{"st_box_wood"}
 ti["z8"] =  ti[" !"] ..{"st_oneway_black_w"}
 ti["z9"] =  ti[" !"] ..{"st-grate1"}
 ti["g5"] =  ti["z9"] .. {"it-crack3"}
@@ -124,7 +124,7 @@ ti["d5"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli5"}
 ti["d6"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli6"}
 ti["d7"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli7"}
 ti["d8"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli8"}
-ti["x "] = {"#ac-blackball"}
+ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac-rotor", range="7", force="7"}
 ti["q "] = {"#ac-top", range="10", force="10"}
 ti["v1"] =  ti[" !"] ..{"it_vortex_open", name="vortex1", destination="vortex2"}

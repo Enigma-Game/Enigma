@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:28$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:29$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -26,7 +26,7 @@ ti["# "] = {"st_death"}
 ti[" $"] = {"fl-normal"}
 ti[" %"] = {"fl-bluegray"}
 ti["% "] = {"st_boulder_w"}
-ti["& "] = {"st_fart"}
+ti["& "] = {"st_quake"}
 ti["c7"] = ti[" #"] .. {"st-glass"}
 ti["c2"] = ti["c7"] .. {"it_key", code=2}
 ti["t1"] = ti[" #"] .. {"it_trigger", target="ox1",action="toggle"}
@@ -78,12 +78,12 @@ ti["y2"] = ti["y1"] .. {"it-puller-s"}
 ti["y3"] = ti[" #"] .. {"it-puller-s"}
 ti["y4"] = ti[" #"] .. {"st_mirror", movable=true, transparent=false}
 ti["y5"] = ti["y4"] .. {"it-puller-s"}
-ti["X "] = {"#ac-blackball"}
+ti["X "] = {"#ac_marble_black"}
 ti["oo"] = ti[" #"] .. {"st_oxyd_a"}
 ti["7 "] = {"st_laserswitch", target="door3"}
 ti["$ "] = {"st_laser_s", name="lezy3"}
 ti["8 "] = {"st_oneway_w"}
-ti["9 "] = {"st_wood"}
+ti["9 "] = {"st_box_wood"}
 ti[": "] = {"st_puzzle_yellow", connections="nw"}
 ti[" )"] = {"fl_space"}
 ti["< "] = {"st_actorimpulse"}
@@ -115,8 +115,8 @@ ti["I "] = {"st_oneway_n"}
 ti["Y "] = {"st_knight"}
 ti["c8"] = ti[" +"] .. {"st-glass"}
 ti["cc"] = ti["c8"] .. {"it_coin_m"}
-ti["J "] = {"st-black4"}
-ti["a5"] = ti[" #"] .. {"st-black4"}
+ti["J "] = {"st_passage_black_frame"}
+ti["a5"] = ti[" #"] .. {"st_passage_black_frame"}
 ti["K "] = {"st_laser_w", name="lezy1"}
 ti["vv"] = ti[" '"] .. {"it_strip", connections="ns"}
 ti["hh"] = ti[" '"] .. {"it_strip", connections="ew"}
@@ -126,7 +126,7 @@ ti["a2"] = ti[" #"] .. {"#ac-top", range=1, force=1}
 ti["a3"] = ti[" #"] .. {"#ac-top", range=3, force=3}
 ti["a6"] = ti["a5"] .. {"#ac-top", range=1, force=1}
 ti["se"] = ti[" #"] .. {"it_seed"}
-ti["sc"] = ti[" *"] .. {"it-cherry"}
+ti["sc"] = ti[" *"] .. {"it_cherry"}
 ti["sb"] = ti[" )"] .. {"st-block"}
 ti["ss"] = ti["sb"] .. {"it-springboard"}
 ti["l1"] = ti["p1"] .. {"it_extralife"}
@@ -140,7 +140,7 @@ if wo ["IsDifficult"] then
     ti["c1"] = ti["c9"] .. {"it_key", code=1}
     ti["nn"] = ti[" #"] .. {"fl-acblack"}
 else
-    ti["hx"] = ti[" #"] .. {"it-cherry"}
+    ti["hx"] = ti[" #"] .. {"it_cherry"}
     ti["nn"] = ti[" #"] .. {"it_extralife"}
     ti["c1"] = ti[" ,"] .. {"it_key", code=1}
     ti["c9"] = ti[" ,"] .. {"fl-red"}

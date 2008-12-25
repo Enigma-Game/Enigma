@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 9 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 10 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,8 +21,8 @@ ti[" -"] = {"fl-gradient3"}
 ti[" ~"] = {"fl_swamp"}
 ti["A "] = ti[" -"] ..{"it_sword"}
 ti["B "] = {"st_swap"}
-ti["C "] = {"st_wood"}
-ti["F "] = {"st_fart"}
+ti["C "] = {"st_box_wood"}
+ti["F "] = {"st_quake"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
 ti["E "] = ti[" ~"] .. {"st-glass_move"}
 ti["  "] = {"fl-normal"}
@@ -38,7 +38,7 @@ ti[" n"] = {"it_death"}
 ti["K "] = ti[" ~"] .. {"st_knight"}
 ti["nn"] = ti[" ,"] .. {"it_magicwand"}
 ti["Y "] = {"st-glass2_move"}
-ti["U1"] = {"st-black4"}
+ti["U1"] = {"st_passage_black_frame"}
 ti["ic"] = {"st-stone_break"}
 ti["h "] = {"st-bluegray_hole"}
 ti["Xn"] = ti["nn"] .. {"st-grate1"}
@@ -65,7 +65,7 @@ ti["y6"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle6"}
 ti["y7"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle7"}
 ti["y8"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle8"}
 ti["y9"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle9"}
-ti["T "] = ti[" ."] .. {"st-black4"}
+ti["T "] = ti[" ."] .. {"st_passage_black_frame"}
 ti[" !"] = ti["  "] .. {"it-burnable_burning"}
 ti["$1"] = {"it_trigger", target="olli1"}
 ti["$2"] = {"it_trigger", target="olli2"}
@@ -92,7 +92,7 @@ ti["O "] = {"st_rotator_ccw", movable=false}
 ti["Z "] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
 ti["l "] = ti[" n"] ..{"st_polarswitch"}
 ti["mm"] = ti[" ~"] ..{"st-grate1"}
-ti["* "] = ti["mm"] ..{"#ac-blackball"}
+ti["* "] = ti["mm"] ..{"#ac_marble_black"}
 ti["+ "] = {"#ac-rotor", range=2, force=2,gohome=false}
 
 local resolver = res.composer(ti)

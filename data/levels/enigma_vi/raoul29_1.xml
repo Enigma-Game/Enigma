@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,8 +39,8 @@ ti["2"] = {"it_trigger", target="l_east", action_1="on", action_0="off"}
 ti["L"] = {"st_laser", orientation=WEST, name="l_west"}
 ti["l"] = {"st_laser", orientation=EAST, name="l_east"}
 ti["O"] = {"st_oxyd", flavor="b"}
-ti["A"] = ti["y"] .. {"#ac-blackball", essential=1}
-ti["B"] = ti["y"] .. {"#ac-whiteball", essential=1}
+ti["A"] = ti["y"] .. {"#ac_marble_black", essential=1}
+ti["B"] = ti["y"] .. {"#ac_marble_white", essential=1}
 
 w, h = wo(ti, " ", {
 "-------G1~~2G-------",

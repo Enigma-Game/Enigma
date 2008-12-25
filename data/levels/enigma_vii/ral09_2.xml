@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Restless Meditation" el:subtitle="Caution - Quick Sand!" el:id="20070623ral914"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 126 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:26" el:difficult="0:47"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_swamp"}
+ti["#"] = {"st_box"}
+if wo["IsDifficult"] then
+  wo["SwampSinkSpeed"] = 2.5
+  ti["."] = {"it_meditation_hollow"}
+  ti["1"] = {"#ac_pearl", essential=1}
+  ti["*"] = ti[" "]
+  ti["2"] = ti[" "]
+else
+  wo["SwampSinkSpeed"] = 1.5
+  ti["*"] = {"it_meditation_hollow"}
+  ti["2"] = {"#ac_pearl", essential=1}
+  ti["."] = ti[" "]
+  ti["1"] = ti[" "]
+end
+
+w, h = wo(ti, " ", {
+  -- 01234567890123456789
+    "####################",
+    "#                  #",
+    "# .              . #",
+    "#  *            *  #",
+    "#                  #",
+    "#      2    2      #",
+    "#       1111       #",
+    "#      2    2      #",
+    "#                  #",
+    "#  *            *  #",
+    "# .              . #",
+    "#                  #",
+    "####################"
+})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Ruhelose Meditation</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Vorsicht - Treibsand!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

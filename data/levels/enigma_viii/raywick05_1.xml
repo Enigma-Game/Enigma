@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Impulsive Order" el:subtitle="" el:id="raywick5"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Ray Wick" el:email=""/>
       <el:copyright>Copyright © 2008 Ray Wick</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti["*"] = {"#ac-blackball"}
+ti["*"] = {"#ac_marble_black"}
 ti["@"] = {"st_oxyd"}
 ti["~"] = {"fl_water"}
 ti["."] = {"fl_swamp"}
@@ -26,7 +26,7 @@ ti["K"] = {"fl_abyss"}
 ti["#"] = {"st-marble"}
 ti["g"] = {"st-glass"}
 ti["G"] = {"st-grate2"}
-ti["+"] = {"st_wood"}
+ti["+"] = {"st_box_wood"}
 ti["v"] = {"st_oneway_s"}
 ti[">"] = {"st_oneway_e"}
 ti["<"] = {"st_oneway_w"}

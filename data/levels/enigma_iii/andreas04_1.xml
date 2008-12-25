@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,13 +30,13 @@ ti["'   "]={"fl-gradient4"}
 ti["(   "]={"fl-gradient11"}
 ti[")   "]={"fl-gradient2"}
 ti["*   "]={"fl-gradient1"}
-ti["+   "]={"fl-rock"}
+ti["+   "]={"fl_rock"}
 ti[",   "]={"fl-gradient6"}
 ti["-   "]={"fl-gradient8"}
 ti[".   "]={"fl-gradient10"}
 ti["/   "]={"fl-gradient3"}
 ti["0   "]={"fl-gradient7"}
-ti["1   "]={"fl-rock"}
+ti["1   "]={"fl_rock"}
 ti["2   "]={"fl-gradient5"}
 ti["3   "]={"fl-gradient9"}
 ti[" !  "]={"st-greenbrown"}
@@ -55,7 +55,7 @@ ti[" I  "]={"st_fourswitch", action = "signal",
              target_0 = "mi_w", target_1 = "mi_s", target_2 = "mi_e", target_3 = "mi_n"}
 ti[" '  "]={"st_oxyd", flavor = "a"}
 ti[" )  "]={"st_knight"}
-ti[" *  "]={"st-black4"}
+ti[" *  "]={"st_passage_black_frame"}
 ti[" J  "]={"st_mirror", flavor = "sheets", orientation = 1,
             transparent = true}  -- p-t
 ti[" (  "]={"st_mirror", "mi_w", flavor = "sheets", orientation = 1,
@@ -86,7 +86,7 @@ ti["  & "]={"it-document", text = "text1"}
 if wo["CreatingPreview"] then
   ti["   !"] = {}
 else
-  ti["   !"] = {"#ac-blackball", mouseforce = 1}
+  ti["   !"] = {"#ac_marble_black", mouseforce = 1}
 end
 ti["   #"]={"ac-top", range = 10, force = 10, gohome = false}
 
@@ -310,7 +310,7 @@ end
 wo["SlopeForce"] = 30
 
 if wo["CreatingPreview"] then
-  wo[{4, 11.3}] = {"ac-blackball"}
+  wo[{4, 11.3}] = {"ac_marble_black"}
   wo["FollowGrid"] = false
   wo["FollowMethod"] = FOLLOW_SCROLL
 else

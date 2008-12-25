@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Freestyle Microwire" el:subtitle="" el:id="20080719ral530"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 117 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,10 +29,10 @@ ti["L"] = ti[" "] .. {"st_laser_s", "laser"}
 ti["O"] = {"st_oxyd_d"}
 
 if wo["IsDifficult"] then
-    ti["@"] = ti["."] .. {"#ac-blackball"}
+    ti["@"] = ti["."] .. {"#ac_marble"}
     ti["%"] = ti[" "]
 else
-    ti["@"] = ti["."] .. ti["g"] .. {"#ac-blackball"}
+    ti["@"] = ti["."] .. ti["g"] .. {"#ac_marble"}
     ti["%"] = ti["g"]
 end
 

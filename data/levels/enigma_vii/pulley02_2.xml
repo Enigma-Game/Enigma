@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Action Potential" el:subtitle="" el:id="pulley02"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ ti[","] = ti[" "] .. {"st_stoneimpulse"}
 ti[":"] = ti[" "] .. {"st-grate1"}
 ti["*"] = ti[" "] .. {"st-glass1"}
 ti["v"] = ti[" "] .. {"st_boulder_s"}
-ti["w"] = {"fl-red"} .. ti({"st_wood"})
+ti["w"] = {"fl-red"} .. ti({"st_box_wood"})
 ti["z"] = ti[" "] .. {"st_rotator_ccw"}
 ti["y"] = ti[" "] .. {"st_boulder_n"}
 ti["0"] = ti[" "] .. {"st_oxyd"}
@@ -175,7 +175,7 @@ w, h = wo(ti, " ", {
 
 wo:shuffleOxyd()
 
-wo[{29, 42.5}] = {"ac-blackball"}
+wo[{29, 42.5}] = {"ac_marble_black"}
 wo[{32, 43}] = {"it-document", text="text1"}
 
 SynapseOn = {"fl-rough-red"}
@@ -245,7 +245,7 @@ function Synapsea()
   wo:drawRect(po(23,22), 1, 15, SynapseOff)
   wo[po(23,23)] = {"st-glass1"}
   wo[po(23,24)] = {"st_stoneimpulse_hollow"}
-  wo[po(23,20)] = {"st_wood"}
+  wo[po(23,20)] = {"st_box_wood"}
   wo[po(23,22)] = {"st_boulder_s"}
   wo[po(23,21)] = {"st_nil"}
   wo[po(23,37)] = {"st_nil"}
@@ -255,7 +255,7 @@ function Synapseb()
   wo[po(25,23)] = {"st-glass1"}
   wo[po(25,24)] = {"st_stoneimpulse_hollow"}
   wo[po(25,26)] = {"st_stoneimpulse_hollow"}
-  wo[po(25,20)] = {"st_wood"}
+  wo[po(25,20)] = {"st_box_wood"}
   wo[po(25,22)] = {"st_boulder_s"}
   wo[po(25,21)] = {"st_nil"}
   wo[po(25,37)] = {"st_nil"}
@@ -266,7 +266,7 @@ function Synapsec()
   wo[po(27,24)] = {"st_stoneimpulse_hollow"}
   wo[po(27,26)] = {"st_stoneimpulse_hollow"}
   wo[po(27,28)] = {"st_stoneimpulse_hollow"}
-  wo[po(27,20)] = {"st_wood"}
+  wo[po(27,20)] = {"st_box_wood"}
   wo[po(27,22)] = {"st_boulder_s"}
   wo[po(27,21)] = {"st_nil"}
   wo[po(27,37)] = {"st_nil"}
@@ -278,7 +278,7 @@ function Synapsed()
   wo[po(29,26)] = {"st_stoneimpulse_hollow"}
   wo[po(29,28)] = {"st_stoneimpulse_hollow"}
   wo[po(29,30)] = {"st_stoneimpulse_hollow"}
-  wo[po(29,20)] = {"st_wood"}
+  wo[po(29,20)] = {"st_box_wood"}
   wo[po(29,22)] = {"st_boulder_s"}
   wo[po(29,21)] = {"st_nil"}
   wo[po(29,37)] = {"st_nil"}
@@ -291,7 +291,7 @@ function Synapsee()
   wo[po(31,28)] = {"st_stoneimpulse_hollow"}
   wo[po(31,30)] = {"st_stoneimpulse_hollow"}
   wo[po(31,32)] = {"st_stoneimpulse_hollow"}
-  wo[po(31,20)] = {"st_wood"}
+  wo[po(31,20)] = {"st_box_wood"}
   wo[po(31,22)] = {"st_boulder_s"}
   wo[po(31,21)] = {"st_nil"}
   wo[po(31,37)] = {"st_nil"}
@@ -305,7 +305,7 @@ function Synapsef()
   wo[po(33,30)] = {"st_stoneimpulse_hollow"}
   wo[po(33,32)] = {"st_stoneimpulse_hollow"}
   wo[po(33,34)] = {"st_stoneimpulse_hollow"}
-  wo[po(33,20)] = {"st_wood"}
+  wo[po(33,20)] = {"st_box_wood"}
   wo[po(33,22)] = {"st_boulder_s"}
   wo[po(33,21)] = {"st_nil"}
   wo[po(33,37)] = {"st_nil"}
@@ -320,7 +320,7 @@ function Synapseg()
   wo[po(35,32)] = {"st_stoneimpulse_hollow"}
   wo[po(35,34)] = {"st_stoneimpulse_hollow"}
   wo[po(35,36)] = {"st_stoneimpulse_hollow"}
-  wo[po(35,20)] = {"st_wood"}
+  wo[po(35,20)] = {"st_box_wood"}
   wo[po(35,22)] = {"st_boulder_s"}
   wo[po(35,21)] = {"st_nil"}
   wo[po(35,37)] = {"st_nil"}
@@ -385,7 +385,7 @@ function Synapseh()
   wo:drawRect(po(34,48), 1, 15, SynapseOff)
   wo[po(34,61)] = {"st-glass1"}
   wo[po(34,60)] = {"st_stoneimpulse_hollow"}
-  wo[po(34,64)] = {"st_wood"}
+  wo[po(34,64)] = {"st_box_wood"}
   wo[po(34,62)] = {"st_boulder_n"}
   wo[po(34,63)] = {"st_nil"}
   wo[po(34,47)] = {"st_nil"}
@@ -395,7 +395,7 @@ function Synapsei()
   wo[po(32,61)] = {"st-glass1"}
   wo[po(32,60)] = {"st_stoneimpulse_hollow"}
   wo[po(32,58)] = {"st_stoneimpulse_hollow"}
-  wo[po(32,64)] = {"st_wood"}
+  wo[po(32,64)] = {"st_box_wood"}
   wo[po(32,62)] = {"st_boulder_n"}
   wo[po(32,63)] = {"st_nil"}
   wo[po(32,47)] = {"st_nil"}
@@ -406,7 +406,7 @@ function Synapsej()
   wo[po(30,60)] = {"st_stoneimpulse_hollow"}
   wo[po(30,58)] = {"st_stoneimpulse_hollow"}
   wo[po(30,56)] = {"st_stoneimpulse_hollow"}
-  wo[po(30,64)] = {"st_wood"}
+  wo[po(30,64)] = {"st_box_wood"}
   wo[po(30,62)] = {"st_boulder_n"}
   wo[po(30,63)] = {"st_nil"}
   wo[po(30,47)] = {"st_nil"}
@@ -418,7 +418,7 @@ function Synapsek()
   wo[po(28,58)] = {"st_stoneimpulse_hollow"}
   wo[po(28,56)] = {"st_stoneimpulse_hollow"}
   wo[po(28,54)] = {"st_stoneimpulse_hollow"}
-  wo[po(28,64)] = {"st_wood"}
+  wo[po(28,64)] = {"st_box_wood"}
   wo[po(28,62)] = {"st_boulder_n"}
   wo[po(28,63)] = {"st_nil"}
   wo[po(28,47)] = {"st_nil"}
@@ -431,7 +431,7 @@ function Synapsel()
   wo[po(26,56)] = {"st_stoneimpulse_hollow"}
   wo[po(26,54)] = {"st_stoneimpulse_hollow"}
   wo[po(26,52)] = {"st_stoneimpulse_hollow"}
-  wo[po(26,64)] = {"st_wood"}
+  wo[po(26,64)] = {"st_box_wood"}
   wo[po(26,62)] = {"st_boulder_n"}
   wo[po(26,63)] = {"st_nil"}
   wo[po(26,47)] = {"st_nil"}
@@ -445,7 +445,7 @@ function Synapsem()
   wo[po(24,54)] = {"st_stoneimpulse_hollow"}
   wo[po(24,52)] = {"st_stoneimpulse_hollow"}
   wo[po(24,50)] = {"st_stoneimpulse_hollow"}
-  wo[po(24,64)] = {"st_wood"}
+  wo[po(24,64)] = {"st_box_wood"}
   wo[po(24,62)] = {"st_boulder_n"}
   wo[po(24,63)] = {"st_nil"}
   wo[po(24,47)] = {"st_nil"}
@@ -460,7 +460,7 @@ function Synapsen()
   wo[po(22,52)] = {"st_stoneimpulse_hollow"}
   wo[po(22,50)] = {"st_stoneimpulse_hollow"}
   wo[po(22,48)] = {"st_stoneimpulse_hollow"}
-  wo[po(22,64)] = {"st_wood"}
+  wo[po(22,64)] = {"st_box_wood"}
   wo[po(22,62)] = {"st_boulder_n"}
   wo[po(22,63)] = {"st_nil"}
   wo[po(22,47)] = {"st_nil"}
@@ -590,7 +590,7 @@ function Cornero()
     else
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(39,61)] = {"st_wood"}
+  wo[po(39,61)] = {"st_box_wood"}
   wo[po(39,63)] = {"st_boulder_s"}
   wo[po(39,62)] = {"st_nil"}
   wo[po(38,77)] = {"st_nil"}
@@ -610,7 +610,7 @@ function Cornerp()
     else
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(41,61)] = {"st_wood"}
+  wo[po(41,61)] = {"st_box_wood"}
   wo[po(41,63)] = {"st_boulder_s"}
   wo[po(41,62)] = {"st_nil"}
   wo[po(38,75)] = {"st_nil"}
@@ -630,7 +630,7 @@ function Cornerq()
     else
       wo[po(43,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(43,61)] = {"st_wood"}
+  wo[po(43,61)] = {"st_box_wood"}
   wo[po(43,63)] = {"st_boulder_s"}
   wo[po(43,62)] = {"st_nil"}
   wo[po(38,73)] = {"st_nil"}
@@ -650,7 +650,7 @@ function Cornerr()
     else
       wo[po(45,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(45,61)] = {"st_wood"}
+  wo[po(45,61)] = {"st_box_wood"}
   wo[po(45,63)] = {"st_boulder_s"}
   wo[po(45,62)] = {"st_nil"}
   wo[po(38,71)] = {"st_nil"}
@@ -670,7 +670,7 @@ function Corners()
     else
       wo[po(47,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(47,61)] = {"st_wood"}
+  wo[po(47,61)] = {"st_box_wood"}
   wo[po(47,63)] = {"st_boulder_s"}
   wo[po(47,62)] = {"st_nil"}
   wo[po(38,69)] = {"st_nil"}
@@ -690,7 +690,7 @@ function Cornert()
     else
       wo[po(49,60)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(49,61)] = {"st_wood"}
+  wo[po(49,61)] = {"st_box_wood"}
   wo[po(49,63)] = {"st_boulder_s"}
   wo[po(49,62)] = {"st_nil"}
   wo[po(38,67)] = {"st_nil"}
@@ -711,7 +711,7 @@ function Corneru()
       wo[po(51,60)] = {"st_stoneimpulse_hollow"}
     end
 
-  wo[po(51,61)] = {"st_wood"}
+  wo[po(51,61)] = {"st_box_wood"}
   wo[po(51,63)] = {"st_boulder_s"}
   wo[po(51,62)] = {"st_nil"}
   wo[po(38,65)] = {"st_nil"}
@@ -841,7 +841,7 @@ function Corner11()
     else
       wo[po(18,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(18,23)] = {"st_wood"}
+  wo[po(18,23)] = {"st_box_wood"}
   wo[po(18,21)] = {"st_boulder_n"}
   wo[po(18,22)] = {"st_nil"}
   wo[po(19,7)] = {"st_nil"}
@@ -861,7 +861,7 @@ function Corner22()
     else
       wo[po(16,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(16,23)] = {"st_wood"}
+  wo[po(16,23)] = {"st_box_wood"}
   wo[po(16,21)] = {"st_boulder_n"}
   wo[po(16,22)] = {"st_nil"}
   wo[po(19,9)] = {"st_nil"}
@@ -881,7 +881,7 @@ function Corner33()
     else
       wo[po(14,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(14,23)] = {"st_wood"}
+  wo[po(14,23)] = {"st_box_wood"}
   wo[po(14,21)] = {"st_boulder_n"}
   wo[po(14,22)] = {"st_nil"}
   wo[po(19,11)] = {"st_nil"}
@@ -901,7 +901,7 @@ function Corner44()
     else
       wo[po(12,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(12,23)] = {"st_wood"}
+  wo[po(12,23)] = {"st_box_wood"}
   wo[po(12,21)] = {"st_boulder_n"}
   wo[po(12,22)] = {"st_nil"}
   wo[po(19,13)] = {"st_nil"}
@@ -921,7 +921,7 @@ function Corner55()
     else
       wo[po(10,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(10,23)] = {"st_wood"}
+  wo[po(10,23)] = {"st_box_wood"}
   wo[po(10,21)] = {"st_boulder_n"}
   wo[po(10,22)] = {"st_nil"}
   wo[po(19,15)] = {"st_nil"}
@@ -941,7 +941,7 @@ function Corner66()
     else
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(8,23)] = {"st_wood"}
+  wo[po(8,23)] = {"st_box_wood"}
   wo[po(8,21)] = {"st_boulder_n"}
   wo[po(8,22)] = {"st_nil"}
   wo[po(19,17)] = {"st_nil"}
@@ -961,7 +961,7 @@ function Corner77()
     else
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
     end
-  wo[po(6,23)] = {"st_wood"}
+  wo[po(6,23)] = {"st_box_wood"}
   wo[po(6,21)] = {"st_boulder_n"}
   wo[po(6,22)] = {"st_nil"}
   wo[po(19,19)] = {"st_nil"}

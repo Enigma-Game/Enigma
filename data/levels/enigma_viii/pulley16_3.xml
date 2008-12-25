@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Color Maze" el:subtitle="" el:id="pulley16"/>
-      <el:version el:score="3" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="6" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -42,7 +42,7 @@ ti["7"] = ti["r"] .. ti["d"]
 ti["8"] = ti["G"] .. ti["d"]
 
 ti["x"] = {"it_sensor", invisible=true, target="gates"}
-ti["*"] = ti["x"] .. {"#ac-blackball", "me"}
+ti["*"] = ti["x"] .. {"#ac_marble_black", "me"}
 
 ti["?"] = {"st_oxyd_a"}
 

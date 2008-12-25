@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="pulley06"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,7 +41,7 @@ ti["door"] = {"st_door", name="Door%%", flavor="a"} .. ti["b"]
 ti["W"] = {"st_brick"}
 ti["trigger"]= {"it_trigger", target="Door%%"} .. ti["b"]
 ti["2"]= {"st-grate3"} .. ti({"it_trigger", target="Door%2"}) .. ti["b"]
-ti["."] = {"#ac-blackball"}
+ti["."] = {"#ac_marble_black"}
 
 resolver = res.autotile(ti, {"1", "9", "trigger"}, {"A","I","door"})
 

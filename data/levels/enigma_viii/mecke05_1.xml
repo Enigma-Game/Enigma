@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:28$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:29$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -49,28 +49,28 @@ ti["2 "] = {"fl-leavesd2"}
 ti["25"] = {"fl-leavesd2","sword2"}
 ti["3 "] = {"fl-leavesd3"}
 ti["35"] = {"fl-leavesd3","sword3"}
-ti["3/"] = ti["3 "] ..{"st_wood","woody1"}
-ti["1/"] = ti["1 "] ..{"st_wood","woody2"}
+ti["3/"] = ti["3 "] ..{"st_box_wood","woody1"}
+ti["1/"] = ti["1 "] ..{"st_box_wood","woody2"}
 ti["4 "] = {"fl-leavesd4"}
 ti["45"] = {"fl-leavesd4","sword4"}
-ti["z "] = {"it-cherry"}
+ti["z "] = {"it_cherry"}
 ti["Z "] = {"fl_abyss"}
 ti["- "] = {"fl_space"}
 ti["-d"] = ti["- "] ..{"it_death"}
 ti["~ "] = {"fl_water"}
-ti["/ "] = {"st_wood"}
+ti["/ "] = {"st_box_wood"}
 ti["j "] = {"st_disco_light"}
 ti["~1"] = ti["~ "] ..{"st_disco_light"}
 ti["J "] = {"st-stoneimpulse-hollow"}
 ti["U "] = {"st-break_invisible"}
 ti["UU"] = {"st-break_acblack"}
 ti["4U"] = ti["4 "] ..{"st-break_acblack"}
-ti["T "] = {"st-black4"}
+ti["T "] = {"st_passage_black_frame"}
 ti["; "] = ti["T "] ..{"it-flagblack"}
 ti["h "] = {"st_oneway_e"}
 ti["i "] = {"st_oneway_w"}
 ti["? "] = {"st-glass_move"}
-ti["* "] = ti["~ "] .. {"it-cherry"}
+ti["* "] = ti["~ "] .. {"it_cherry"}
 ti["F1"] = ti["* "] .. {"st-glass_move","dd1"}
 ti["F2"] = ti["* "] .. {"st-glass_move","dd2"}
 ti["! "] = ti["4 "] ..{"it_death"}
@@ -79,15 +79,15 @@ ti["C "] = ti["  "] .. {"st-brick_magic"}
 ti["D "] = ti["~ "] .. {"st-glass"}
 ti["E "] = ti["? "] .. {"it_extralife"}
 ti["ee"] = ti["  "] .. {"it_extralife"}
-ti["F "] = ti["B "] .. {"it-cherry"}
+ti["F "] = ti["B "] .. {"it_cherry"}
 ti["+ "] = ti["~ "] .. {"st_actorimpulse"}
-ti[": "] = ti["~ "] .. {"it-cherry","Tollkirsche#"}
+ti[": "] = ti["~ "] .. {"it_cherry","Tollkirsche#"}
 ti["# "] = {"st-rock1"}
 ti["##"] = {"st_death"}
 ti["f "] = {"it_magicwand"}
 ti["g "] = {"it_wrench"}
 ti["7 "] = {"st_window_s",secure=true}
-ti["0 "] = ti["4 "] .. {"#ac-blackball",0.5,0.5}
+ti["0 "] = ti["4 "] .. {"#ac_marble_black",0.5,0.5}
 ti["$ "] = ti["9 "] .. {"#ac-top", range="2", force="2"}
 ti["% "] = ti["9 "] .. {"#ac-top", range="7", force="6"}
 ti["X "] = {"st_oxyd", flavor="d"}
@@ -126,8 +126,8 @@ ti["s "] = {"st_fourswitch",state=1, target="hans", action="inner_pull"}
 ti["w "] = ti["$ "] ..{"st_window_es",secure=true, "hans"}
 ti["n "] = {"st_fourswitch",state=0, target="franz", action="inner_pull"}
 ti["e "] = ti["$ "] ..{"st_window_sw",secure=true, "franz"}
-ti["*,"] = ti["Z "] .. ti({"it-cherry"}) .. {"st_window_sw",secure=true}
-ti["*_"] = ti["Z "] .. ti({"it-cherry"}) .. {"st_window_es",secure=true}
+ti["*,"] = ti["Z "] .. ti({"it_cherry"}) .. {"st_window_sw",secure=true}
+ti["*_"] = ti["Z "] .. ti({"it_cherry"}) .. {"st_window_es",secure=true}
 ti["V "] = {"it_sensor",target="topblock1"}
 ti["v "] = {"it_sensor",target="topblock2"}
 ti["O "] = {"it_sensor",target="topblock3"}
@@ -184,8 +184,8 @@ ti["QW"] = ti["~ "] .. {"st_puzzle_yellow_nw"}
 ti["OE"] = ti["~ "] .. {"st_puzzle_yellow_es"}
 ti["OW"] = ti["~ "] .. {"st_puzzle_yellow_sw"}
 ti["TT"] = ti["y "] .. {"it_strip_new"}
-ti["EE"] = ti["  "] .. {"it-cherry"}
-ti["Ee"] = ti["? "] .. {"it-cherry"}
+ti["EE"] = ti["  "] .. {"it_cherry"}
+ti["Ee"] = ti["? "] .. {"it_cherry"}
 ti["/="] = {"st_window_s"}
 ti["!!"] = ti({"st_window_new", secure=true}) .. {"it_extralife"}
 
@@ -275,19 +275,19 @@ function recluster(value, sender)
 end
 
 function topblock1 ()
-    wo[{14,12}] = {"st-black4"}
+    wo[{14,12}] = {"st_passage_black_frame"}
 end
 
 function topblock2 ()
-    wo[{5,12}] = {"st-black4"}
+    wo[{5,12}] = {"st_passage_black_frame"}
 end
 
 function topblock3 ()
-    wo[{5,11}] = {"st-black4"}
+    wo[{5,11}] = {"st_passage_black_frame"}
 end
 
 function topblock4 ()
-    wo[{14,11}] = {"st-black4"}
+    wo[{14,11}] = {"st_passage_black_frame"}
 end
 
 wo:add({"ot_wire", anchor1="boulderCircle", anchor2="dd1"})

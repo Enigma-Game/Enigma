@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 4 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 6 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" !"] = {"fl-rock"}
+ti[" !"] = {"fl_rock"}
 ti[" r"] = {"fl-red"}
 ti[" ~"] = {"fl_water"}
 ti[" n"] = {"fl-normal"}
@@ -38,25 +38,25 @@ ti["Xb"] = ti[" b"] .. {"st-grate1"}
 ti["X&"] = ti[" &"] .. {"st-grate1"}
 ti["Th"] = ti[" i"] .. {"st-yellow"}
 ti["yw"] = ti[" w"] .. {"it-yinyang"}
-ti["#w"] = ti["yw"] .. {"#ac-blackball"}
+ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
 ti["0~"] = ti[" ~"] .. {"st-coffee"}
-ti["H'"] = ti[" '"] .. {"st-black1"}
-ti["B!"] = ti[" !"] .. {"st-black4"}
-ti["B&"] = ti[" &"] .. {"st-black4"}
-ti["Br"] = ti[" r"] .. {"st-black4"}
-ti["B~"] = ti[" ~"] .. {"st-black4"}
-ti["B'"] = ti[" '"] .. {"st-black4"}
-ti["W!"] = ti[" !"] .. {"st-white4"}
-ti["W~"] = ti[" ~"] .. {"st-white4"}
-ti["W'"] = ti[" '"] .. {"st-white4"}
-ti["Ww"] = ti[" w"] .. {"st-white4"}
-ti["Wb"] = ti[" b"] .. {"st-white4"}
-ti["W&"] = ti[" &"] .. {"st-white4"}
+ti["H'"] = ti[" '"] .. {"st_passage_black_square"}
+ti["B!"] = ti[" !"] .. {"st_passage_black_frame"}
+ti["B&"] = ti[" &"] .. {"st_passage_black_frame"}
+ti["Br"] = ti[" r"] .. {"st_passage_black_frame"}
+ti["B~"] = ti[" ~"] .. {"st_passage_black_frame"}
+ti["B'"] = ti[" '"] .. {"st_passage_black_frame"}
+ti["W!"] = ti[" !"] .. {"st_passage_white_frame"}
+ti["W~"] = ti[" ~"] .. {"st_passage_white_frame"}
+ti["W'"] = ti[" '"] .. {"st_passage_white_frame"}
+ti["Ww"] = ti[" w"] .. {"st_passage_white_frame"}
+ti["Wb"] = ti[" b"] .. {"st_passage_white_frame"}
+ti["W&"] = ti[" &"] .. {"st_passage_white_frame"}
 ti["2*"] = ti[" *"] .. {"st-glass_move"}
 ti["2r"] = ti[" r"] .. {"st-glass_move"}
 ti["CW"] = ti[" w"] .. {"st_chess_black"}
 ti["S&"] = ti[" &"] .. {"st-rock1_hole"}
-ti["FF"] = ti[" ~"] .. {"st_fart"}
+ti["FF"] = ti[" ~"] .. {"st_quake"}
 ti["dd"] = ti[" ~"] .. {"it_death"}
 ti["Tw"] = ti["dd"] .. {"st_disco_medium"}
 ti["Td"] = ti[" r"] .. {"st_disco_medium"}
@@ -81,11 +81,11 @@ ti["t3"] = ti[" +"] .. {"it_trigger",target="laser3"}
 ti["t4"] = ti[" +"] .. {"it_trigger",target="laser4"}
 ti["SB"] = ti[" &"] .. {"st_switch_black", target={"door1"}}
 ti["SP"] = ti[" &"] .. {"st_switch_black", target={"door2"}}
-ti["1&"] = ti[" &"] .. {"st_wood"}
+ti["1&"] = ti[" &"] .. {"st_box_wood"}
 ti["DD"] = ti[" &"] .. {"st_death"}
 ti["gi"] = ti[" r"] .. {"st-glass"}
 ti["yy"] = ti["yw"] .. {"st_death"}
-ti["*w"] = ti["yy"] .. {"#ac-whiteball"}
+ti["*w"] = ti["yy"] .. {"#ac_marble_white"}
 ti["j&"] = ti[" &"] .. {"it-crack3"}
 ti["j'"] = ti[" '"] .. {"it-crack3"}
 ti["OO"] = ti["j&"] .. {"st_oneway_white_e"}
@@ -95,17 +95,17 @@ ti["v2"] = ti["EE"] .. {"st_door",faces="ew", name="door2"}
 ti["or"] = ti["X'"] .. {"it-ring"}
 ti["ur"] = ti["X&"] .. {"it-ring"}
 ti["ps"] = ti["Br"] .. {"it_seed"}
-ti["kk"] = ti["Xw"] .. {"it-cherry"}
-ti["ki"] = ti["gi"] .. {"it-cherry"}
+ti["kk"] = ti["Xw"] .. {"it_cherry"}
+ti["ki"] = ti["gi"] .. {"it_cherry"}
 ti["z&"] = ti[" &"] .. {"#ac-top", range=1, force=1}
-ti["Xx"] = ti[" x"] .. {"st-black3"}
-ti["Xn"] = ti[" n"] .. {"st-black3"}
+ti["Xx"] = ti[" x"] .. {"st_passage_black_cross"}
+ti["Xn"] = ti[" n"] .. {"st_passage_black_cross"}
 ti["Xm"] = ti["Xn"] .. {"it_extralife"}
 ti["Vn"] = ti[" n"] .. {"it_vortex_open"}
 ti["Vm"] = ti["Vn"] .. {"st_disco_medium"}
 ti["tt"] = ti[" r"] .. {"it_vortex_open"}
-ti["yr"] = ti[" r"] .. {"st_wood", name="w1"}
-ti["zr"] = ti[" r"] .. {"st_wood", name="w2"}
+ti["yr"] = ti[" r"] .. {"st_box_wood", name="w1"}
+ti["zr"] = ti[" r"] .. {"st_box_wood", name="w2"}
 ti[",~"] = ti[" ~"] .. {"it_seed"}
 ti["bb"] = {"fl_bridge", name ="bbb1"}
 ti["bc"] = {"fl_bridge", name ="bbb2"}

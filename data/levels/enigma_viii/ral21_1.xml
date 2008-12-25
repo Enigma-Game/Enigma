@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 118 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 120 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -50,7 +50,7 @@ ti["O5"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_PURPLE}
 ti["O6"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_WHITE}
 ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
 ti[":;"] = {"fl-rough-blue"}
-ti["=="] = {"fl-wood"}
+ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl-thief"}
 ti["$$"] = {"fl-acwhite"}
 ti["gs"] = {"fl-gradient", type=1}
@@ -69,7 +69,7 @@ ti["^^"] = {"fl-gray"}
 ti["%f"] = {"fl-samba", eternal=true, initfire=true}
 ti[" f"] = {"fl-sand", eternal=true, initfire=true}
 ti["FT"] = {"fl-sand", eternal=true, initfire=true, name="fire_target"}
-ti["%:"] = {"fl-hay", secure=true}
+ti["%:"] = {"fl_hay", secure=true}
 ti[" v"] = {"fl-sand", force_y=10}
 ti[" h"] = {"fl-sand", force_x=-10}
 ti["XX"] = ti["  "] .. {st_oxyd_d}
@@ -80,7 +80,7 @@ ti["%;"] = ti["%."] .. {"st_door_b", state=OPEN}
 ti[";@"] = ti[";;"] .. {"it_death"}
 ti[" %"] = ti["  "] .. {"it-booze-broken"}
 ti[",%"] = ti[",,"] .. {"it-booze-broken"}
-ti[",b"] = ti[",,"] .. {"it-banana"}
+ti[",b"] = ti[",,"] .. {"it_banana"}
 ti[",d"] = ti[",,"] .. {"it_coin_l"}
 ti[",s"] = ti[",,"] .. {"it_sword"}
 ti[",r"] = ti[",,"] .. {"it-ring"}
@@ -91,15 +91,15 @@ ti[",g"] = ti[",,"] .. {"it_glasses", state=SPOT_DEATH}
 ti["$g"] = ti["$$"] .. {"it_glasses", state=SPOT_DEATH}
 ti[",p"] = ti[",,"] .. {"it-pencil"}
 ti[",t"] = ti[",,"] .. {"it-document", text="mystic"}
-ti[" k"] = ti["_f"] .. {"it-cherry"}
+ti[" k"] = ti["_f"] .. {"it_cherry"}
 ti[" e"] = ti["  "] .. {"it-extinguisher_medium"}
 ti["%l"] = ti["%%"] .. {"it_extralife"}
 ti[" m"] = ti["  "] .. {"it_landmine"}
 ti[" o"] = ti["  "] .. {"it-burnable_oil"}
 ti["$o"] = ti["$$"] .. {"it-burnable_oil"}
-ti[" s"] = ti["  "] .. {"it-squashed"}
-ti[".s"] = ti[".."] .. {"it-squashed"}
-ti[";s"] = ti[";;"] .. {"it-squashed"}
+ti[" s"] = ti["  "] .. {"it_squashed"}
+ti[".s"] = ti[".."] .. {"it_squashed"}
+ti[";s"] = ti[";;"] .. {"it_squashed"}
 ti["%t"] = ti["%%"] .. {"it_meditation_bump"}
 ti["_U"] = ti["__"] .. {"it_umbrella"}
 ti["_d"] = ti["__"] .. {"it-drop"}
@@ -157,13 +157,13 @@ ti["t6"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano6"}
 ti["tc"] = ti["^^"] .. {"it_sensor", target="scorpion_count"}
 ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init"}
 ti[" C"] = ti["  "] .. {"st-chameleon"}
-ti["'b"] = ti["''"] .. {"st-black4"}
-ti["W "] = ti["  "] .. {"st-white3"}
-ti["Wv"] = ti[" v"] .. {"st-white3"}
-ti["Ws"] = ti["gs"] .. {"st-white3"}
-ti["Ww"] = ti["gw"] .. {"st-white3"}
-ti["Wf"] = ti[" f"] .. {"st-white3"}
-ti["Wk"] = ti["k0"] .. {"st-white3"}
+ti["'b"] = ti["''"] .. {"st_passage_black_frame"}
+ti["W "] = ti["  "] .. {"st_passage_white_cross"}
+ti["Wv"] = ti[" v"] .. {"st_passage_white_cross"}
+ti["Ws"] = ti["gs"] .. {"st_passage_white_cross"}
+ti["Ww"] = ti["gw"] .. {"st_passage_white_cross"}
+ti["Wf"] = ti[" f"] .. {"st_passage_white_cross"}
+ti["Wk"] = ti["k0"] .. {"st_passage_white_cross"}
 ti["##"] = ti[";;"] .. {"st-greenbrown"}
 ti["#!"] = ti["##"] .. {"it_death"}
 ti["#@"] = ti[";@"] .. {"st-greenbrown"}
@@ -199,8 +199,8 @@ ti["Im"] = ti[".."] .. {"st_stoneimpulse_movable"}
 ti["Ih"] = ti[".."] .. {"st_stoneimpulse_hollow"}
 ti["IH"] = ti["__"] .. {"st_stoneimpulse_hollow"}
 ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
-ti["MW"] = ti["''"] .. {"st_wood"}
-ti["M:"] = ti["::"] .. {"st_wood"}
+ti["MW"] = ti["''"] .. {"st_box_wood"}
+ti["M:"] = ti["::"] .. {"st_box_wood"}
 ti["MB"] = ti["c'"] .. {"st-brownie"}
 ti["R0"] = ti["  "] .. {"st-rock5"}
 ti["R1"] = ti["::"] .. {"st-rock1"}
@@ -226,7 +226,7 @@ ti["F,"] = ti[",,"] .. {"st-grate1"}
 ti["F:"] = ti["::"] .. {"st-grate1"}
 ti["F'"] = ti["''"] .. {"st-grate1"}
 ti["F."] = ti[".."] .. {"st-grate1"}
-ti["FA"] = ti[".."] .. {"st_fart"}
+ti["FA"] = ti[".."] .. {"st_quake"}
 ti["S#"] = ti[",,"] .. {"st_scissors"}
 ti["B#"] = ti[".."] .. {"st-block"}
 ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
@@ -235,7 +235,7 @@ ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
 ti["O,"] = ti[",,"] .. {"st_door_d", "oil_shop", faces="ns"}
 ti["Cm"] = ti[" m"] .. {"st-chameleon"}
 ti["UA"] = ti["_U"] .. {"st-glass1"}
-ti["B;"] = ti[";;"] .. {"st-black4"}
+ti["B;"] = ti[";;"] .. {"st_passage_black_frame"}
 ti["BB"] = ti["  "] .. {"st_brick", cluster=1}
 ti["Bw"] = ti[".."] .. {"st_boulder_w"}
 ti["Bo"] = ti[".."] .. {"st_boulder_e"}
@@ -273,8 +273,8 @@ ti["G."] = ti[".."] .. {"st-glass_move"}
 ti["G'"] = ti["''"] .. {"st-glass1"}
 ti["GO"] = ti["t'"] .. {"st-glass1_hole"}
 ti["GA"] = ti[",,"] .. {"st-beads"}
-ti["GV"] = ti["t1"] .. {"st-black4"}
-ti["Ti"] = ti["ti"] .. {"st-black4"}
+ti["GV"] = ti["t1"] .. {"st_passage_black_frame"}
+ti["Ti"] = ti["ti"] .. {"st_passage_black_frame"}
 ti["HW"] = ti["  "] .. {"st_chess_white"}
 ti["C."] = ti[".."] .. {"st-chameleon"}
 ti["Mw"] = ti["  "] .. {"st_mail_w"}
@@ -304,12 +304,12 @@ ti["D7"] = ti[".."] .. {"st_door_a", "door7"}
 ti["_C"] = ti["__"] .. {"st-chameleon"}
 ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac-horse"})
 
-ti[" 1"] = ti[",,"] .. {"#ac-blackball", "black", essential=1, player=0, controllers=1} .. ti({"it_extralife"})
-ti[" 2"] = ti["ge"] .. {"#ac-whiteball", "white", essential=0, player=1, controllers=2}
-ti["c1"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid1"}
-ti["c2"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid2"}
-ti["c3"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid3"}
-ti["c4"] = ti["  "] .. {"#ac-whiteball-small", essential=1, controllers=0, name="kid4"}
+ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, player=0, controllers=1} .. ti({"it_extralife"})
+ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, player=1, controllers=2}
+ti["c1"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid1"}
+ti["c2"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid2"}
+ti["c3"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid3"}
+ti["c4"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid4"}
 ti[" 8"] = ti["  "] .. {"#ac-bug"}
 ti[" 3"] = ti["  "] .. {"#ac-killerball", "killer"}
 --ti[" 3"] = ti["  "] .. {"ac-killerball", "killer", mouseforce=0}
@@ -600,7 +600,7 @@ function open_grave(value, sender)
     local solved = #no["tutpuz#*"] == 0 
     if (not solved) then
         wo[a + {1,3}] = {"it-document", text="puzzle"}
-        wo[a + {13,3}] = {"it-cherry"}
+        wo[a + {13,3}] = {"it_cherry"}
     else
         wo:drawRect(a + {1, -1}, 13, 9, {"st_nil"})
         wo:drawMap(ti, a + {3, -1}, "  ",

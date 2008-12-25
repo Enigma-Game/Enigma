@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,7 +31,7 @@ ti[" ."] = {"fl_abyss"}
 ti[" _"] = {"fl_swamp"}
 ti[" ;"] = {"fl-gradient3"}
 ti["! "] = {"st_death"}
-ti["# "] = {"st-black4"}
+ti["# "] = {"st_passage_black_frame"}
 ti["+ "] = {"st_actorimpulse_invisible"}
 ti["G "] = {"st-glass"}
 ti["m "] = {"st-glass_move"}
@@ -42,14 +42,14 @@ ti["^ "] = {"st_oneway_black_n"}
 ti["v "] = {"st_oneway_black_s"}
 ti["> "] = {"st_oneway_black_e"}
 ti["K "] = {"st_knight"}
-ti["s "] = {"it-squashed"}
+ti["s "] = {"it_squashed"}
 ti["R "] = ti["R"] .. ti["X "]
 ti["o "] = {"st_oxyd", flavor="d"}
 ti["O "] = {"st_oxyd",flavor="d", name="O#"}
 ti[". "] = {"it_meditation_bump"}
-ti["c "] = {"it-cherry"}
+ti["c "] = {"it_cherry"}
 ti["| "] = {"st_death_invisible"}
-ti[", "] = {"st-likeoxydd"}
+ti[", "] = {"st_fake_oxydd"}
 ti["= "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=EAST}
 ti["T "] = ti["X "] .. {"#ac-top", range="1", force="1"}
 ti["6 "] = {"st_panel"}
@@ -66,7 +66,7 @@ ti["p "] = {"it-puller-n"}
 ti["q "] = {"it-puller-s"}
 ti["t "] = {"it-document",text="text1"}
 ti["M "] = ti["m "] .. {"it-spring2"}
-ti["* "] = ti[" +"] ..{"#ac-blackball"}
+ti["* "] = ti[" +"] ..{"#ac_marble_black"}
 ti["L1"] = {"st_laser_s",name="laser1", state=OFF}
 ti["L2"] = {"st_laser_s",name="laser2", state=OFF}
 ti["L5"] = {"st_laser_s", state=ON}
@@ -89,7 +89,7 @@ else
     ti["x1"] = ti["G "] .. ti[" h"]
     ti["x2"] = ti[" h"]
     ti["x3"] = ti[" b"] .. ti["X "] .. {"it-spring2"}
-    ti["x4"] = ti[" b"] .. ti["X "] .. {"it-cherry"}
+    ti["x4"] = ti[" b"] .. ti["X "] .. {"it_cherry"}
     ti["x5"] = ti["X "] .. ti[" b"]
     ti["x6"] = ti["G "]
 end

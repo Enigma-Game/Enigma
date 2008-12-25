@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="14" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="15" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -67,7 +67,7 @@
     <level _seq="59" _title="Manamana" _xpath="enigma_iii/just07_1" author="JuSt" ctrl="force" easy="false" id="just07" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Bad Flowers" _xpath="enigma_iii/nat30_1" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Don't Touch" _xpath="enigma_iii/raoul07_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul07" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="62" _title="Laser Castle" _xpath="enigma_iii/andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Laser Castle" _xpath="enigma_iii/andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Bump Ahead" _xpath="enigma_iii/illmind01_1" author="illmind" ctrl="force" easy="false" id="illmind01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Killer Hills" _xpath="enigma_iii/luc11_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Fox in the Henhouse" _xpath="enigma_iii/nat26_1" author="Nat Pryce" ctrl="force" easy="false" id="nat26" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -94,10 +94,10 @@
     <level _seq="86" _title="Bolder Run" _xpath="enigma_iv/just02_1" author="JuSt" ctrl="force" easy="false" id="just02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Laser Pushing" _xpath="enigma_iv/just04_1" author="JuSt" ctrl="force" easy="false" id="just04" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Friction Nightmare" _xpath="enigma_iv/luc01_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc01" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="April 1st" _xpath="enigma_v/alain11_1" author="Alain Busser" ctrl="force" easy="false" id="alain11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Send me the keys !" _xpath="enigma_v/alain09_1" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="92" _title="Laser Path" _xpath="enigma_v/andreas06_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="92" _title="Laser Path" _xpath="enigma_v/andreas06_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Hobbyte" _xpath="enigma_v/alain15_1" author="Alain Busser" ctrl="force" easy="false" id="alain15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Water Castle" _xpath="enigma_v/luc21_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc21" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="Moving Puzzles" _xpath="enigma_v/luc13_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc13" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -106,8 +106,8 @@
     <level _seq="98" _title="Sentry Duty" _xpath="enigma_v/nat25_1" author="Nat Pryce" ctrl="force" easy="true" id="nat25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Thievish Alleys" _xpath="enigma_v/andreas33_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas33" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Double play" _xpath="enigma_v/just06_1" author="JuSt" ctrl="force" easy="false" id="just06" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="101" _title="Oxyd-Puzzle" _xpath="enigma_v/raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="102" _title="Keystone" _xpath="enigma_v/raoul12_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="101" _title="Oxyd-Puzzle" _xpath="enigma_v/raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="102" _title="Keystone" _xpath="enigma_v/raoul12_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="103" _title="Print 23" _xpath="enigma_v/richi07_1" author="Richi Bützer" ctrl="force" easy="false" id="richi07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="104" _title="Laser Crossing" _xpath="enigma_v/luc24_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc24" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="105" _title="The Carousel" _xpath="enigma_v/luc30_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc30" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -169,7 +169,7 @@
     <level _seq="161" _title="- Meditation -" _xpath="enigma_vi/alain25_2" author="Alain Busser + Raoul Bourquin" ctrl="force" easy="true" id="alain25" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="162" _title="Checkmate I" _xpath="enigma_vi/andreas29_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="163" _title="The Stable" _xpath="enigma_vi/andreas30_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas30" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="164" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="enigma_vi/andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="164" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="enigma_vi/andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="165" _title="Chessing Positions" _xpath="enigma_vi/raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="166" _title="Twisting by the pool" _xpath="enigma_vi/alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="167" _title="Hot Meditation" _xpath="enigma_vi/ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
@@ -195,14 +195,14 @@
     <level _seq="187" _title="- Meditation -" _xpath="enigma_vi/andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="188" _title="Troy" _xpath="enigma_vi/andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="189" _title="Ben Hur" _xpath="enigma_vi/ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="58" score="1" target="time" unit="duration"/>
-    <level _seq="190" _title="Bodyguard" _xpath="enigma_vi/ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="98" score="1" target="time" unit="duration"/>
+    <level _seq="190" _title="Bodyguard" _xpath="enigma_vi/ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="99" score="1" target="time" unit="duration"/>
     <level _seq="191" _title="Janus" _xpath="enigma_vi/andreas38_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas38" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="192" _title="Phaeton" _xpath="enigma_vi/andreas39_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas39" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="193" _title="Ariadne" _xpath="enigma_vi/andreas40_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas40" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Oiltrace" _xpath="enigma_vi/raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="The Cube" _xpath="enigma_vi/malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="25" score="1" target="time" unit="duration"/>
-    <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="200" _title="Simple Space" _xpath="enigma_vi/ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>

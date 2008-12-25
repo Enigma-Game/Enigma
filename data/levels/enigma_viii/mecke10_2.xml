@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 20 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 21 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -66,12 +66,12 @@ ti["e1"] = ti["e2"]..{"it_brush"}
 ti["3 "] = {"st_shogun_s"}
 ti["5 "] = {"st-rock3_move"}
 ti["6 "] = {"st_shogun_l"}
-ti["c8"] = ti["e4"]..{"it-banana"}
+ti["c8"] = ti["e4"]..{"it_banana"}
 ti["o "] = {"it_meditation_dent"}
-ti["c "] = {"it-cherry"}
-ti["c5"] = ti["w5"]..{"it-cherry"}
-ti["c6"] = ti["w6"]..{"it-cherry"}
-ti["c7"] = ti["e5"]..{"it-cherry"}
+ti["c "] = {"it_cherry"}
+ti["c5"] = ti["w5"]..{"it_cherry"}
+ti["c6"] = ti["w6"]..{"it_cherry"}
+ti["c7"] = ti["e5"]..{"it_cherry"}
 ti["q "] = {"it_coin_s"}
 ti["t1"] = ti[" #"] ..{"it_trigger", target="lezy1",action="toggle"}
 ti["t2"] = ti[" #"] ..{"it_trigger", target="lezy1",action="toggle"}
@@ -101,9 +101,9 @@ ti[" 3"] = {"fl-acblack"}
 ti["; "] = {"st_knight"}
 ti["< "] = {"st_laser_e", name="lezy1"}
 ti["= "] = {"st-thief"}
-ti["u "] = {"st_wood"}
+ti["u "] = {"st_box_wood"}
 ti[" 4"] = {"fl-mortar"}
-ti["> "] = {"st_fart"}
+ti["> "] = {"st_quake"}
 ti[" 5"] = {"fl-gradient15"}
 ti[" 6"] = {"fl-gradient11"}
 ti["? "] = {"st_rotator_ccw"}
@@ -111,18 +111,18 @@ ti["@ "] = {"st_boulder_e"}
 ti["A "] = {"st_actorimpulse_invisible"}
 ti[" 7"] = {"fl-gradient3"}
 ti["B "] = {"st_boulder_w"}
-ti["V "] = {"st-black4"}
+ti["V "] = {"st_passage_black_frame"}
 ti["C "] = {"st-break_invisible"}
 ti["D "] = {"st-bluegray"}
 ti["X "] = {"st-bluegray_hole"}
 ti[" 8"] = {"fl-sahara"}
 ti["E "] = {"st_boulder_s"}
-ti["F "] = {"st-black3"}
+ti["F "] = {"st_passage_black_cross"}
 ti["G "] = {"st_boulder_n"}
 ti["s "] = {"it-springboard"}
 ti["j "] = {"it_magicwand"}
 ti["hh"] = ti[" &"] .. {"it_strip", connections="ew"}
-ti["x "] = {"#ac-blackball"}
+ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac-rotor", range="6", force="10"}
 ti["y "] = {"#ac-top", range="1", force="1"}
 ti["z "] = {"#ac-top", range="3", force="3"}

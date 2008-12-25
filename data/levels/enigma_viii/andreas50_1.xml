@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Colored Oxyds" el:subtitle="" el:id="andreas50"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,11 +18,11 @@ wo["ConserveLevel"] = false
 ti["  "] = {"fl-samba"}
 ti[". "] = {"fl_abyss"}
 ti["# "] = {"st-stone2"}
-ti["@ "] = {"#ac-blackball"}
+ti["@ "] = {"#ac_marble_black"}
 ti["D "] = {"st_oneway", orientation = SOUTH}
 ti["U "] = {"st_oneway", orientation = NORTH}
 ti["S "] = {"st_oxyd", oxydcolor = OXYD_BOLD, noshuffle = true}
-ti["F "] = {"st_oxyd", oxydcolor = OXYD_FART, noshuffle = true}
+ti["F "] = {"st_oxyd", oxydcolor = OXYD_QUAKE, noshuffle = true}
 
 ti["d1"] = {"fl-red"}       .. ti({"it_blocker", "RED#"})
 ti["d2"] = {"fl-bluegray"}  .. ti({"it_blocker", "CYAN#"})

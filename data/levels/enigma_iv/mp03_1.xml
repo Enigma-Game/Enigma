@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Laser Games" el:subtitle="" el:id="mp03"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="moonpearl"/>
       <el:copyright>Copyright © moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ ti["# "] = {"st-rock4"}
 ti["= "] = {"st-block"}
 ti["^ "] = {"st_laser", state = ON, orientation = NORTH}
 ti["$ "] = {"st_oxyd", flavor = "b"}
-ti["@ "] = {"#ac-blackball"}
+ti["@ "] = {"#ac_marble_black"}
 ti["T*"] = {"it_trigger", target = "mirror%%", action_1 = "turn", action_0 = "turnback"}
 ti["F*"] = {"st_fourswitch", target = "mirror%%"}
 ti["1*"] = {"st_mirror", name = "mirror%%", flavor = "triangle", orientation = NORTH}

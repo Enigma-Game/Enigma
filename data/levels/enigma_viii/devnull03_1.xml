@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="18" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="19" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ end
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl-black"}
 ti["#"] = {"st-rock1"}
-ti["W"] = {"st_wood_v"}
+ti["W"] = {"st_box_wood_v"}
 ti["w"] = ti["."] .. ti["W"]
 ti["q"] = ti["w"] .. {"it_extralife"}
 ti["a"] = {"st_key", name = "keyA", code = 1, target = "doorA"}
@@ -89,8 +89,8 @@ ti["1"] = {"it_trigger", name = "trigger01", action = "callback", target = "brid
 ti["2"] = ti["J"] .. {"it_trigger", name = "trigger02", action = "callback", target = "bridge02"}
 ti["3"] = {"it_trigger", name = "trigger03", action = "callback", target = "bridge03"}
 ti["!"] = ti["."] .. {"it_sensor", name = "sensor01", action = "open", target = "bridge02#*", invisible = true}
-ti["@"] = ti["."] .. {"#ac-blackball", player = 0}
-ti["*"] = ti["."] .. {"#ac-whiteball", player = 1}
+ti["@"] = ti["."] .. {"#ac_marble_black", player = 0}
+ti["*"] = ti["."] .. {"#ac_marble_white", player = 1}
 
 if wo["IsDifficult"] ~= TRUE then
     ti["~"] = {"fl-bluegray"}

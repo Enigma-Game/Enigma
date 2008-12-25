@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005,2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ ti["O"] = {"st-glass2_hole"}
 ti["U"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,-5})}
 ti["L"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,5})}
 ti["P"] = {"st_puzzle_yellow", cluster = 1}
-ti["@"] = {"#ac-blackball", "marble"}
+ti["@"] = {"#ac_marble_black", "marble"}
 
 has_puzzle = grp({})  -- group of all activated switches, currently empty
 

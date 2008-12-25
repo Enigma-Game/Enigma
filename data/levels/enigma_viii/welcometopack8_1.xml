@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack8"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,22 +17,20 @@ wo["ConserveLevel"] = false
 
 ti[" "] = {"fl-red"}
 ti["#"] = {"st-glass3"}
-
 ti["t"] = {"st_oxyd", name="group1#"}
 ti["u"] = {"st_oxyd", name="group2#"}
 ti["v"] = {"st_oxyd", name="group3#"}
 ti["w"] = {"st_oxyd", name="group4#"}
-ti["A"] = {"#ac-blackball"}
+ti["A"] = {"#ac_marble_black"}
 ti["D"] = {"it-document", text="text1"}
 
 if wo["IsDifficult"] then
-    ti["T"] = {"st_timer", target="fart1", action="toggle", interval=30}
-    ti["F"] = {"st_fart", "fart1"}
+    ti["T"] = {"st_timer", target="quake", action="toggle", interval=30}
+    ti["F"] = {"st_quake", "quake"}
 else
     ti["T"] = ti[" "]
     ti["F"] = ti[" "]
 end
-
 
 w, h = wo(ti, " ", {
 "####################",

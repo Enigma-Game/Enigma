@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Automaton Magic" el:subtitle="" el:id="ant07"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxydstone#"}
 ti["m"] = ti[" "] .. {"it_magicwand"}
 ti["B"] = ti[" "] .. {"st_boulder_e", "the_boulder"}
 ti["+"] = ti["~"] .. {"it_trigger", target="turn_boulder", action_1="callback", invisible=true}
-ti["A"] = {"ac-blackball", 0.0, 0.5}
+ti["A"] = {"ac_marble_black", 0.0, 0.5}
 
 w, h = wo(ti, " ", {
 "####O##########O####",

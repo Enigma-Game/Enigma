@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Keystone" el:subtitle="" el:id="raoul12"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,8 +31,8 @@ ti["5"] = {"st_switch_white", target="permute", _tag=5}
 ti["6"] = {"st_switch_white", target="permute", _tag=6}
 ti["7"] = {"st_switch_white", target="permute", _tag=7}
 ti["?"] = {"st_puzzle_yellow", intensity = 4/5, cluster=1}
-ti["@"] = {"#ac-blackball"} .. ti({"it-yinyang"})
-ti["B"] = {"#ac-whiteball"} .. ti({"it-yinyang"})
+ti["@"] = {"#ac_marble_black"} .. ti({"it-yinyang"})
+ti["B"] = {"#ac_marble_white"} .. ti({"it-yinyang"})
 
 puzz = res.puzzle(ti,"?")
 

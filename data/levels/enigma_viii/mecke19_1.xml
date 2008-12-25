@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:2$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 3 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -21,9 +21,9 @@ ti["! "] = {"st-rock6"}
 ti[" #"] = {"fl-normal"}
 ti[" $"] = {"fl-sahara"}
 ti["# "] = {"st_chess_white"}
-ti["s "] = {"it-squashed"}
+ti["s "] = {"it_squashed"}
 ti["hh"] = ti[" !"] .. {"st_pull"}
-ti["ef"] = ti[" &"] .. {"it-squashed"}
+ti["ef"] = ti[" &"] .. {"it_squashed"}
 ti["$ "] = {"st-rock1"}
 ti[" %"] = {"fl-sand"}
 ti["% "] = {"st_rotator_ccw"}
@@ -48,7 +48,7 @@ ti["l "] = {"it_landmine"}
 ti[" u"] = ti["hh"] .. {"it_umbrella"}
 ti["/ "] = {"st_death"}
 ti[" p"] = ti["hh"] .. {"it-pencil"}
-ti["0 "] = {"st_fart"}
+ti["0 "] = {"st_quake"}
 ti[" f"] = ti["hh"] .. {"it-coffee"}
 ti["q "] = {"it-coffee"}
 ti[" ,"] = {"fl-gravel"}
@@ -59,7 +59,7 @@ ti[" ."] = {"fl_swamp"}
 ti[" /"] = {"fl-rough-blue"}
 ti["z "] = {"it-document", text="text1"}
 ti["3 "] = {"st_actorimpulse"}
-ti["k "] = {"it-cherry"}
+ti["k "] = {"it_cherry"}
 ti["4 "] = {"st-break_bolder"}
 ti["i "] = {"it_seed"}
 ti["w "] = {"it-flagwhite"}
@@ -70,7 +70,7 @@ ti["m "] = {"it_coin_l"}
 ti["6 "] = {"st_knight"}
 ti["n "] = {"it_coin_s"}
 ti["7 "] = {"st_boulder_s"}
-ti["X "] = {"#ac-whiteball-small",essential=1, player=0, controllers=1, name="df1"}
+ti["X "] = {"#ac_pearl_white",essential=1, player=0, controllers=1, name="df1"}
 ti["r "] = {"#ac-rotor", range=1, force=1}
 ti["t "] = {"#ac-top", range=1, force=1}
 if wo ["IsDifficult"] then
@@ -79,8 +79,8 @@ if wo ["IsDifficult"] then
     ti["eo"] = ti["ef"] .. {"st_boulder_s"}
 else
     ti["ee"] = ti[" $"] .. {"st-yellow"}
-    ti["ex"] = ti["ef"] .. {"it-squashed"}
-    ti["eo"] = ti["ef"] .. {"it-squashed"}
+    ti["ex"] = ti["ef"] .. {"it_squashed"}
+    ti["eo"] = ti["ef"] .. {"it_squashed"}
 end
 
 local resolver = res.composer(ti)

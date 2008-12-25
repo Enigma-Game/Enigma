@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Vanity's Constrictions" el:subtitle="The Hand Mirror Cabinet" el:id="andreas53"/>
-      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="7" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@ wo["ConserveLevel"] = true
 ti["  "] = {"fl-bluegray", checkerboard = 0, friction = 6.0, adhesion = 2.0}
            .. ti({"fl-darkgray", checkerboard = 1, friction = 6.0, adhesion = 2.0})
 ti["# "] = {"st-glass2"}
-ti["@ "] = {"#ac-blackball"}
+ti["@ "] = {"#ac_marble_black"}
 ti["O "] = {"st_oxyd", oxydcolor = OXYD_PURPLE, flavor = "a"}
 ti["S "] = {"st_laserswitch", target = "oxyddoor"}
 ti["D "] = {"st_door", "oxyddoor", flavor="d", faces="ew"}
@@ -26,7 +26,7 @@ ti["L "] = {"st_laser", state = ON, orientation = SOUTH}
 ti["T "] = {"st_mirror", flavor = "triangle", orientation = WEST}
 ti["/*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 2, movable = true}
 ti["&*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 0, movable = true}
-ti["A*"] = {"st_wood", "anchor%%", _mytarget = "mirror%%"}
+ti["A*"] = {"st_box_wood", "anchor%%", _mytarget = "mirror%%"}
 
 if wo["IsDifficult"] then
   ti["F "] = ti["# "]

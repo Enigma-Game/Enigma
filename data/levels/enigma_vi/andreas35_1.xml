@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Checkmate II" el:subtitle="" el:id="andreas35"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,17 +16,12 @@
       <el:score el:easy="-" el:difficult="01:06"/>
     </el:info>
     <el:luamain><![CDATA[
-
-ti[" "] = ti({"fl-white", checkerboard = 0})
-          .. {"fl-black", checkerboard = 1}
+ti[" "] = ti({"fl-white", checkerboard = 0}) .. {"fl-black", checkerboard = 1}
 ti["#"] = {"st-rock3"}
-ti["c"] = ti({"st_chess_white", checkerboard = 0})
-          .. {"st_chess_black", checkerboard = 1}
-ti["x"] = ti({"st-black4", checkerboard = 0})
-          .. {"st-white4", checkerboard = 1}
+ti["c"] = ti({"st_chess_white", checkerboard = 0}) .. {"st_chess_black", checkerboard = 1}
+ti["x"] = ti({"st_passage_black_frame", checkerboard = 0}) .. {"st_passage_white_frame", checkerboard = 1}
 ti["y"] = ti["x"] .. {"it-yinyang"}
-ti["o"] = ti({"st_oxyd", oxydcolor = OXYD_WHITE, checkerboard = 0})
-          .. {"st_oxyd", oxydcolor = OXYD_BLACK, checkerboard = 1}
+ti["o"] = ti({"st_oxyd", oxydcolor = OXYD_WHITE, checkerboard = 0}) .. {"st_oxyd", oxydcolor = OXYD_BLACK, checkerboard = 1}
 
 w, h = wo(ti, " ", {
  -- 01234567890123456789
@@ -46,9 +41,8 @@ w, h = wo(ti, " ", {
 
 wo:shuffleOxyd()
 
-wo[{4,6}] = {"ac-blackball", player = 0}
-wo[{w-4, 6}] = {"ac-whiteball", player = 1}
-
+wo[{4,6}] = {"ac_marble_black", player = 0}
+wo[{w-4, 6}] = {"ac_marble_white", player = 1}
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

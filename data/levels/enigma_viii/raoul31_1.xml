@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="raoul31"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,8 +29,8 @@ ti["#"] = {"st_panel", cluster = 1}
 ti["="] = {"st_panel", cluster = 2}
 ti["u"] = {"it_meditation_hill"}
 ti["o"] = {"it_meditation_hollow"}
-ti["0"] = ti["u"] .. {"#ac-whiteball-small", name="a", player=0} 
-ti["O"] = ti["o"] .. {"#ac-whiteball-small", "s#"} 
+ti["0"] = ti["u"] .. {"#ac_pearl_white", name="a", player=0} 
+ti["O"] = ti["o"] .. {"#ac_pearl_white", "s#"} 
 ti["q"] = {"it_rubberband", anchor2="@@s#*", length=5, strength=10, max=5}
 
 w, h = wo(ti, " ", {

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="7" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,7 @@ end
 
 ti[" "] = {"fl_abyss"}
 ti["l"] = {"fl-leaves"}
-ti["A"] = {"fl-hay"}
+ti["A"] = {"fl_hay"}
 ti["."] = {"fl-bluegreen"}
 ti["i"] = {"fl-inverse"}
 ti["j"] = {"fl_ice"}
@@ -54,8 +54,8 @@ ti["^"] = ti["#"] .. ti["."]
 ti["$"] = ti["#"] .. ti["l"]
 ti["U"] = {"it_umbrella"} .. ti["i"]
 ti["o"] = {"st_oxyd"} .. ti["l"]
-ti["z"] = {"#ac-blackball"} .. ti["l"]
-ti["y"] = {"ac-whiteball", 0, 0.5, mouseforce=0} .. ti["l"]
+ti["z"] = {"#ac_marble_black"} .. ti["l"]
+ti["y"] = {"ac_marble_white", 0, 0.5, adhesion=0} .. ti["l"]
 ti["g"] = {"st-grate1"} .. ti["l"]
 ti["x"] = {"it_trap", state=OPEN} .. ti["."]
 ti["S"] = {"it-spring1"} .. ti["l"]
@@ -66,22 +66,22 @@ ti["B"] = {"st-invisible"} .. ti["A"]
 ti["a"] = {"st-greenbrown_hole"} .. ti["A"]
 ti["b"] = ti["%"] .. ti["A"]
 ti["I"] = {"st-invisible"}
-ti["M"] = {"#ac-rotor",player=1, mouseforce=0, range=4, force=-5} .. ti["l"]
-ti["N"] = {"#ac-top",player=1, mouseforce=0, range=8, force=20} .. ti["i"]
+ti["M"] = {"#ac-rotor", player=1, adhesion=0, range=4, force=-5} .. ti["l"]
+ti["N"] = {"#ac-top", player=1, adhesion=0, range=8, force=20} .. ti["i"]
 ti["R"] = {"st_oneway", orientation=EAST} .. ti["l"]
 ti["J"] = {"st-break_acwhite"}
 ti["D"] = {"it-dynamite"}
 ti["t"] = {"it_hammer"}
 ti["H"] = {"st-stone_break"}
 ti["f"] = {"st_actorimpulse_invisible"}
-ti["q"] = {"st-black4"} .. ti["l"]
-ti["w"] = {"st-white4"} .. ti["l"]
+ti["q"] = {"st_passage_black_frame"} .. ti["l"]
+ti["w"] = {"st_passage_white_frame"} .. ti["l"]
 ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=OPEN}
 ti["W"] = {"fl-abyss_fake", "trapeast"}
 ti["C"] = {"st_monoflop", interval=1.5, target="toggletraps"} .. ti["l"]
-ti["?"] = {"st-chargeplus"} .. ti["l"]
-ti["/"] = {"st-chargeminus"} .. ti["l"]
-ti[":"] = {"st-chargezero"} .. ti["A"]
+ti["?"] = {"st_charge_plus"} .. ti["l"]
+ti["/"] = {"st_charge_minus"} .. ti["l"]
+ti[":"] = {"st_charge_zero"} .. ti["A"]
 ti[";"] = {"st-invisible", "whitegate"} .. ti["l"]
 ti["2"] = {"st_switch", target="whiteswitch"} .. ti["l"]
 ti["m"] = {"it-document", text="text1"} .. ti["l"]

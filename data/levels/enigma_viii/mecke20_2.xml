@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:23$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 24 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,8 +32,8 @@ ti[" '"] = {"fl-bluegray"}
 ti["( "] = {"st-grate3"}
 ti["* "] = {"st-stone_break"}
 ti[" )"] = {"fl-acblack"}
-ti["+ "] = {"st-white3"}
-ti[", "] = {"st-black3"}
+ti["+ "] = {"st_passage_white_cross"}
+ti[", "] = {"st_passage_black_cross"}
 ti["- "] = {"st-grate1"}
 ti["ny"] = ti[" ("]..{"st-stone_break"}
 ti["nw"] = ti[" '"]..{"st-stone_break"}
@@ -68,7 +68,7 @@ ti["@ "] = {"st_puzzle", connections="esw"}
 ti["A "] = {"st_puzzle", connections="nw"}
 ti["B "] = {"st_puzzle", connections="nes"}
 ti["<X"] = ti[" ("]..{"st_puzzle", hollow=true, connections="nesw"}
-ti["XX"] = ti["<X"]..{"#ac-blackball"}
+ti["XX"] = ti["<X"]..{"#ac_marble_black"}
 ti["C "] = {"st_puzzle", connections="nsw"}
 ti["pp"] = ti[" !"]..{"it_pipe", connections="ew"}
 ti["pd"] = ti[" ("]..{"it_pipe", connections="ew"}
@@ -97,9 +97,9 @@ ti["hh"] = ti[" !"]..{"it_strip", connections="ew"}
 ti["h+"] = ti[" +"]..{"it_strip", connections="ew"}
 ti["N "] = ti["ee"]..{"st_pull"}
 ti["MM"] = ti[" ("]..{"st_pull"}
-ti[" -"] = {"fl-stwood1"}
-ti[" ."] = {"fl-stwood2"}
-ti["O "] = {"st_wood"}
+ti[" -"] = {"fl_wood_framed_h"}
+ti[" ."] = {"fl_wood_framed_v"}
+ti["O "] = {"st_box_wood"}
 ti[") "] = {"st_door", faces="ns", name="dolli2"}
 ti["Z "] = {"st_door", faces="ns", name="dolli1"}
 ti["II"] = ti["ff"]..{"st_door", faces="ew", name="dolli3"}
