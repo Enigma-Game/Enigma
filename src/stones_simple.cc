@@ -940,6 +940,7 @@ void ThiefStone::steal_from_player()
             }
             int i = IntegerRand (0, int (inv->size()-1));
             dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
+            Glasses::updateGlasses();
             player::RedrawInventory (inv);
             sound_event("thief");
         }

@@ -23,6 +23,7 @@
 #include "server.hh"
 #include "world.hh"
 #include "main.hh"
+#include "items/GlassesItem.hh"
 
 #include <iostream>
 
@@ -701,6 +702,7 @@ void Thief::steal()
             }
             int i = IntegerRand (0, int (inv->size()-1));
             dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
+            Glasses::updateGlasses();
             player::RedrawInventory (inv);
             didSteal = true;
         }
@@ -712,7 +714,7 @@ void Thief::steal()
                 bag = MakeItem("it-bag");
                 bag->setOwnerPos(get_pos());                
             }
-            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos())); 
+            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos()));
             didSteal = true;
         }
     }

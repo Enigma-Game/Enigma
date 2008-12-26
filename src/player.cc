@@ -25,6 +25,7 @@
 #include "server.hh"
 #include "world.hh"
 #include "main.hh"
+#include "items/GlassesItem.hh"
 
 #include "ecl_util.hh"
 
@@ -274,7 +275,7 @@ void player::SetCurrentPlayer(unsigned iplayer)
     else {
         icurrent_player = iplayer;
         RedrawInventory (GetInventory(iplayer));
-        dynamic_cast<Item *>(GetObjectTemplate("it_glasses"))->on_pickup(NULL);  // ugly hack to call updateGlasses
+        Glasses::updateGlasses();
     }
 }
 
