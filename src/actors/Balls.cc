@@ -137,6 +137,15 @@ namespace enigma {
         return handled ? Value() : Actor::message(m);
     }
     
+
+    int BasicBall::externalState() const {
+        return state == DEAD ? 1 : 0;
+    }
+    
+    void BasicBall::setState(int extState) {
+        // no change possible
+    }
+
     bool BasicBall::is_dead() const {
         return state == DEAD;
     }

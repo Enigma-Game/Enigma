@@ -57,6 +57,10 @@ namespace enigma {
         // Object interface.
         virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
+
         // Actor interface
         virtual bool is_dead() const;
         virtual bool is_movable() const;

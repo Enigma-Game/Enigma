@@ -2274,14 +2274,14 @@ bool GetActorsInsideField (const GridPos& pos, vector<Actor*>& actors)
     return !actors.empty();
 }
 
-void ShatterActorsInsideField (const GridPos &p)
+void ShatterActorsInsideField(const GridPos &p)
 {
     vector<Actor *> actors;
     GetActorsInsideField (p, actors);
     vector<Actor *>::iterator i=actors.begin(),
         end = actors.end();
     for (; i != end; ++i) 
-        SendMessage(*i, "shatter");
+        SendMessage(*i, "_shatter");
 }
 
 
