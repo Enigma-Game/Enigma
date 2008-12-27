@@ -189,7 +189,7 @@ end
 
 -- ac-cannonball --
 do
-    DefAlias("ac-cannonball", "ac-blackball-jump")
+    DefAlias("ac-cannonball", "ac_marble_black-jump")
 end
 
 -- ac-horse --
@@ -1608,8 +1608,8 @@ end
 -- st-spitter --
 do
     DefAlias ("st-spitter", "st-timeswitch")
-    DefAlias ("st-spitter-loading", "st-fakeoxyd-blink")
-    DefAlias ("st-spitter-spitting", "st-fakeoxyd-blink")
+    DefAlias ("st-spitter-loading", "st-farting")
+    DefAlias ("st-spitter-spitting", "st-farting")
 end
 
 ---------------------------

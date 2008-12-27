@@ -43,7 +43,7 @@ build new levels using Lua and how to interact with the game engine.
 * Extension Development::       Resolver, Library Development
 * Old API - Objects::           Description of all objects in Enigma
 * Old API - Variables::         Lua variables that influence the game
-* Old API - Functions::               Predefined functions
+* Old API - Functions::         Predefined functions
 * Object Index::
 * Attribute Index::
 * Message Index::
@@ -478,7 +478,7 @@ spade, bolders, magic-wand to change bolder-direction, bolders sink
 into an abyss, sheets of glass, spoon, actors and items may hide under
 movable stones, small not-killer whiteballs, coloured one-way-streets,
 actorimpulse-stones (``bumpers''), rotors can fly over an abyss,
-fart-stones, swords and knights, lasers, static and movable mirrors,
+quake-stones, swords and knights, lasers, static and movable mirrors,
 item- and coin-transformations by pushing stones over them and by
 using lasers, umbrellas protect in an abyss, hammer and breakable stones
 (although not in the tutorial).
@@ -1356,8 +1356,8 @@ in Enigma, so you can try it out right away.)
  2   draw_border("st-brownie")
  3   fill_floor("fl-hay", 0,0, level_width,level_height)
  4
- 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 5   set_stone("st_quake", level_width-1,0, @{name="quake"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="quake",
  7             interval=10@})
  8
  9   oxyd(3,3)
@@ -1402,8 +1402,8 @@ tiles of type @code{"fl-hay"}.  The other arguments are the upper left
 corner and the width and height of the rectangle to be filled.
 
 @example
- 5   set_stone("st-fart", level_width-1,0, @{name="fart"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="fart",
+ 5   set_stone("st-quake", level_width-1,0, @{name="quake"@})
+ 6   set_stone("st-timer", 0,0, @{action="trigger", target="quake",
  7             interval=10@})
 @end example
 
@@ -1415,11 +1415,11 @@ as arguments.  Note the use of curly braces @code{@{},
 
 Attributes are the key to customizing the behavior of objects in a
 landscape.  Here, we name the first stone we create.
-It's a fart stone that has the unpleasant habit of ``blowing off''
-when triggered.  The timer stone that we create in line 6-7 triggers this fart stone.  This stone
+It's a quake stone that has the unpleasant habit of ``blowing off''
+when triggered.  The timer stone that we create in line 6-7 triggers this quake stone.  This stone
 performs a predefined action at
 regular intervals.  In this case, we want to send a ``trigger'' message
-every ten seconds to the object named ``fart''.
+every ten seconds to the object named ``quake''.
 
 @example
  9   oxyd(3,3)
@@ -4324,6 +4324,14 @@ You can access the members of a group by numbered indices. The size of a group
 is reported by the standard Lua hash @samp{#} operator. If you need to iterate
 over the objects of a group you can write easily Lua for loops. You can either
 iterate with a counter or directly iterate the content objects.
+
+@item @b{Shuffled Group:}
+@example
+@var{shuffled_group} = @var{sorted_group}:@b{shuffle}()
+@var{shuffled_group} = @i{no}["@b{Atrax}#*"]:@b{shuffle}()
+@end example
+Every group returns a shuffled group with the same members when receiving the
+message @code{"shuffle"}.
 @end table
 
 @c ----------------- Tiles and World Tasks --------------------
@@ -4411,7 +4419,7 @@ items, stones.
 
 @item @b{Position List Operations:}
 @example
-@i{wo}[@var{polist} .. @i{po}["@var{beach}#*"]] = @{"@b{it-banana}"@}
+@i{wo}[@var{polist} .. @i{po}["@var{beach}#*"]] = @{"@b{it_banana}"@}
 @end example
 Two position lists can be appended. Single positions can be appended to a given
 position list, too.
@@ -5681,13 +5689,17 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 
 @menu
 * ActorimpulseStrength::
+* AllowSingleOxyds::
 * ConserveLevel::
+* CrackSpreading::
 * CreatingPreview::
+* ElectricStrength::
 * ExtralifeGlasses::
 * FollowAction::
 * FollowGrid::
 * FollowMethod::
 * FollowThreshold::
+* FrictionStrength::
 * Height::
 * IsDifficult::
 * MagnetRange::
@@ -5695,8 +5707,12 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 * MaxOxydColor::
 * MeditationStrength::
 * ProvideExtralifes::
+* RubberViolationStrength::
 * ShowMoves::
+* SlopeStrength::
 * SurviveFinish::
+* SwampSinkSpeed::
+* WaterSinkSpeed::
 * Width::
 * WormholeRange::
 * WormholeStrength::
@@ -5714,6 +5730,24 @@ global value is only used if no object specific value is set.
 @item @b{Default:} @ @ @code{+200.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_actorimpulse}
+@end table
+
+@node AllowSingleOxyds
+@subsection AllowSingleOxyds
+
+A global variable that enables the existence of single unmatched @ref{st_oxyd}
+stones. Setting this variable to @code{true} allows you to set uneven numbers
+of oxyd stones for fixed colors. If a level deletes or adds oxyd stones during
+runtime a @code{true} value avoids possible problems due to temporary uneven
+oxyd stone numbers. The default @code{false} value causes an error message on
+detection of uneven oxyd numbers.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{st_oxyd}
 @end table
 
 @node ConserveLevel
@@ -5748,6 +5782,23 @@ with proper usage of actors essential constraints will be preferable
 @item @b{Support:} @ @ no objects
 @end table
 
+@node CrackSpreading
+@subsection CrackSpreading
+
+A global default value denoting the probability that a brittle floor plate 
+causes direct neighboring floors to either start or to desintegrate further when
+an actor enters or leaves this plate at the center of the affected area. A value
+of @code{1.0} ensures that the crack spread to the direct neighbors, a value of
+@code{0.0} prohibits the spreading to neighbor grids.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number between @code{0.0} and @code{1.0}
+@item @b{Default:} @ @ @code{0.5}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_crack}
+@end table
+
 @node CreatingPreview
 @subsection CreatingPreview
 
@@ -5771,6 +5822,23 @@ end
 @item @b{Default:} @ @ @code{false}
 @item @b{Access:} @ @ read only
 @item @b{Support:} @ @ object independent
+@end table
+
+@node ElectricStrength
+@subsection ElectricStrength
+
+A global scalar default factor for electrical forces. Positive numbers are
+attracting forces for opposite charges where as negative numbers are repelling
+forces for opposite charges. This global value is always multiplied by the
+charge load of the affected actors.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{15.0}
+Positve number are attracting, negative numbers are repelling.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{st_charge}
 @end table
 
 @node ExtralifeGlasses
@@ -5860,6 +5928,20 @@ than half of the screen size.
 @item @b{Support:} @ @ no objects
 @end table
 
+@node FrictionStrength
+@subsection FrictionStrength
+
+A global scalar default factor for floor friction values. This global value is
+always multiplied by the floor specific friction on calculation of the friction
+forced applied to actors.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{1.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ all floors
+@end table
 
 @node Height
 @subsection Height
@@ -5968,6 +6050,23 @@ created (@pxref{World Creation and Resolver Chaining}).
 @item @b{Support:} @ @ object independent
 @end table
 
+@node RubberViolationStrength
+@subsection RubberViolationStrength
+
+A global scalar default factor for the @ref{ot_rubberband} force that is applied
+to actors if the length of the rubberband exceeds the given min or max limits.
+This can happen due to extraordinary events like actor warping, actor 
+resurrection, moving anchor stones or simply new rubberbands that are created
+with off limit length.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positive float number
+@item @b{Default:} @ @ @code{50.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_magnet}
+@end table
+
 @node ShowMoves
 @subsection ShowMoves
 
@@ -5980,6 +6079,20 @@ counter besides the level time. It is mainly used in Sokoban like levels.
 @item @b{Default:} @ @ @code{false}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ object independent
+@end table
+
+@node SlopeStrength
+@subsection SlopeStrength
+
+A global scalar default factor for @ref{fl_slope} floor gradient forces. This 
+global value is used if no slope object specific strength factor is supplied.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{25.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{fl_slope}
 @end table
 
 @node SurviveFinish
@@ -5996,6 +6109,32 @@ same step in some subtle cases.
 @item @b{Default:} @ @ @code{true}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ object independent
+@end table
+
+@node SwampSinkSpeed
+@subsection SwampSinkSpeed
+
+A global default for the speed at which actors need to move to avoid sinking.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positive float number or zero
+@item @b{Default:} @ @ @code{4.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{fl_swamp}
+@end table
+
+@node WaterSinkSpeed
+@subsection WaterSinkSpeed
+
+A global default for the speed at which actors need to move to avoid sinking.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ positive float number or zero
+@item @b{Default:} @ @ @code{4.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{fl_water}
 @end table
 
 @node Width
@@ -6730,7 +6869,7 @@ counting is updated and continues.
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{MEDITATION_CALDERA}, @code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP}, @code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}; @ @ @i{default}: @code{MEDITATION_HOLLOW} @ @ @xref{state}
 The shape of the meditation.
-@item @b{essential} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{essential} @ @ @i{values}: @code{DISPENSIBLE}, @code{INDISPENSIBLE}; @ @ @i{default}: @code{DISPENSIBLE}
 Essentialness of being filled with a meditation marble to fulfill the
 @ref{Ending Conditions}.
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{friction}
@@ -7591,7 +7730,6 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
 * st_door::            Door of various Flavors
-* st_fart::            Oxyd closing Stone
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
 * st_key::             Key Driven Switch
@@ -7608,6 +7746,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_pull::            Pullable Stone
 * st_puzzle::          Clusterable Puzzle Stones
+* st_quake::           Oxyd closing Stone
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
@@ -7769,7 +7908,7 @@ This solid stone moves into the direction shown by the arrow on its picture.
 A marble blocking its way is shattered. When a stone blocks its way, the boulder
 triggers it by a sequence of two internal messages. Some stones give way like
 @ref{st_blocker}, others change their state like @ref{st_oxyd},
-@ref{st_stoneimpulse}, @ref{st_fart}, @ref{st_mirror}, @ref{st_fourswitch},
+@ref{st_stoneimpulse}, @ref{st_quake}, @ref{st_mirror}, @ref{st_fourswitch},
 @ref{st_volcano}. A third category switches temporarily into another state on the
 first message sent when the boulder reaches a grid and switches back on the
 second message sent when the boulder gives up like @ref{st_[black/white]},
@@ -8180,49 +8319,6 @@ objects like @ref{st_balls}.
 @item @b{st_door_c}: flavor = @code{"c"}
 @item @b{st_door_d}: flavor = @code{"d"}
 @end table
-
-@end table
-
-@c ----------------- Fart Stone --------------------
-@node st_fart
-@subsection st_fart
-@obindex st_fart
-
-This stone looks like an @ref{st_oxyd} of flavor @code{"b"}, but it has the
-unpleasant habit of "blowing off" when being activated. Unfortunatley the
-bad air closes all open @ref{st_oxyd}s.
-
-The stone gets activated on an actor hit, on @ref{st_boulder}s hit and on its
-destruction.
-
-The player can destroy this troublemaker with an actor that reveals an
-@ref{it_hammer}, by directing a laser light onto the fart stone or by a nearby
-explosion or ignition.
-
-Of course you can activate and destroy it by messages and state set operations,
-too.
-
-@table @asis
-@item @b{Attributes:}
-
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}, @code{BREAKING}; @ @ @i{default}: @code{IDLE}: @ @ @xref{state}
-Current state of the fart stone. You can just change the state into legal
-follow up states. A breaking state is final.
-@end table
-
-@item @b{Messages:}
-
-@table @asis
-@item @b{toggle} @ @ @xref{toggle}
-Toggles stone from @samp{IDLE} to @samp{ACTIVE}
-@item @b{signal} @ @ @xref{signal}
-Toggles stone from @samp{IDLE} to @samp{ACTIVE}
-@item @b{ignite}
-Toggles stone to @samp{BREAKING}
-@end table
-
-@item @b{Action:} none
 
 @end table
 
@@ -8871,8 +8967,17 @@ assigned to @samp{OXYD_AUTO} colored oxyds. The colors will repeat from the
 single color. With the world attribute @ref{MaxOxydColor} you can lower or
 increase this limit. By setting this attribute to @samp{OXYD_GREEN} you can
 enforce the engine to assign just the first three colors. Be careful in usage
-of more than 8 colors as levels can get incredibly difficult. Uneven number of
-regular colored oxyds are not allowed.
+of more than 8 colors as levels can get incredibly difficult. 
+
+The number auf auto colored oxyds should usually be even as a single remaining
+oxyd of a color keeps a level from being solvable. In case of an uneven number
+one oxyd stone gets colored to @samp{OXYD_FAKE} and does not participate in the
+stone opening procedure. But still you can set uneven number of oxyds of a given
+color if you do not use auto coloring but use explicit color values. Same thing
+happens if you delete a single oxyd during the running game. In both cases
+Enigma reacts with an error message by default. You can suppress this exception
+by setting @ref{AllowSingleOxyds} to @code{true}. In this case it is the authors
+responsibility to guarantee that the level can be solved.
 
 Usually oxyds are shuffled by a @samp{wo:shuffleOxyd()} statement after setting
 of all oxyds. All @samp{CLOSED} oxyds that are not explicitly excluded by the
@@ -8891,12 +8996,16 @@ Single opened oxyds close on a not matching partner oxyd being opened and on
 an opened pair will not be closed this way.
 
 All oxyds including pairs will close on the @samp{closeall} messages that is
-issued by @ref{st_fart} and oxyds colored @samp{OXYD_FART} on actor hits.
+issued by @ref{st_quake} and oxyds colored @samp{OXYD_QUAKE} on actor hits.
 
 Closed oxyds can have different looks. Their visual representation is defined
-by their @samp{flavor}. For each flavor exists an identical looking simple
-stone: @ref{st_likeoxyd_a}, @ref{st_likeoxyd_b}, @ref{st_likeoxyd_c},
-@ref{st_likeoxyd_d}. If you like an identical looking pseudo stone that takes
+by their @samp{flavor}. Most flavors do hide the oxyd color in the closed state.
+Only flavor @code{"e"} starts with hidden color, but once opened returns to
+a closed image with a peep hole that lets the player still see the color.
+
+For each flavor exists an identical looking simple stone: @ref{st_fake_oxyda}, 
+@ref{st_fake_oxydb}, @ref{st_fake_oxydc}, @ref{st_fake_oxydd}, 
+@ref{st_fake_oxyde}. If you like an identical looking pseudo stone that takes
 part in the oxyd shuffling you can use an oxyd of color @samp{OXYD_FAKE}.
 
 During the game oxyds can be reshuffled. Just those oxyds that are still closed
@@ -8919,7 +9028,7 @@ with proper actions.
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}, @code{OXYDPAIR}; @ @ @i{default}: @code{CLOSED} @ @ @xref{state}
 
-@item @b{flavor}, @ @ @i{values}: @code{"a"}, @code{"b"}, @code{"c"}, @code{"d"}; @ @ @i{default}: @code{"b"}
+@item @b{flavor}, @ @ @i{values}: @code{"a"}, @code{"b"}, @code{"c"}, @code{"d"}, @code{"e"}; @ @ @i{default}: @code{"b"}
 The flavor only affects the visual representation of the stone. Mainly the
 closed state and the way of opening differ in the following way:
 @table @asis
@@ -8927,8 +9036,9 @@ closed state and the way of opening differ in the following way:
 @item @code{"b"} black, flat stone that opens by a fade animation
 @item @code{"c"} blue, flat stone that opens by a concentric animation
 @item @code{"d"} dark blue, pyramid like stone that opens like a flower
+@item @code{"e"} black, flat stone that provides a peep hole after closing
 @end table
-@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_FART}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GREY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
+@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_QUAKE}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GREY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
@@ -8943,12 +9053,20 @@ Try open at value @samp{1}, and close at values @samp{0}.
 @item @b{close} @ @ @xref{close}
 @item @b{closeall}
 Closes all opened oxyds if send to any object instance.
+@item @b{peepall}
+All closed oxyds of flavor @code{"e"} will show a peep hole if this message is
+sent to any oxyd object instance.
 @item @b{shuffle}
 Reshuffles all closed oxyds if send to any object instance.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-Values 0, 1.
+Whenever a @code{CLOSED} oxyd gets opened an action with value @code{true} is
+performed. The action is performed directly after the oxyds own reaction on being
+opened, like checking gaming ending conditions, reshuffling or closing all oxyds,
+did finish. Additionally an action with value @code{false} is performed after
+an oxyd changes from an open state to @code{CLOSED}. Note that no action is
+performed on state changes form @code{OPEN} to @code{OXYDPAIR}.
 
 @item @b{Variants:}
 
@@ -8958,6 +9076,7 @@ Values 0, 1.
 @item @b{st_oxyd_b}: flavor = @code{"b"}
 @item @b{st_oxyd_c}: flavor = @code{"c"}
 @item @b{st_oxyd_d}: flavor = @code{"d"}
+@item @b{st_oxyd_e}: flavor = @code{"e"}
 @end table
 
 @end table
@@ -9182,6 +9301,49 @@ of puzzle stone into the given direction.
 @item @b{st_puzzle_blue}: color = @code{BLUE}
 @item @b{st_puzzle_yellow}: color = @code{YELLOW}
 @end table
+
+@end table
+
+@c ----------------- Quake Stone --------------------
+@node st_quake
+@subsection st_quake
+@obindex st_quake
+
+This stone looks like an @ref{st_oxyd} of flavor @code{"b"}, but it has the
+unpleasant habit of quaking when being activated. Unfortunatley this closes all
+open @ref{st_oxyd}s.
+
+The stone gets activated on an actor hit, on @ref{st_boulder}s hit and on its
+destruction.
+
+The player can destroy this troublemaker with an actor that reveals an
+@ref{it_hammer}, by directing a laser light onto the quake stone or by a nearby
+explosion or ignition.
+
+Of course you can activate and destroy it by messages and state set operations,
+too.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}, @code{BREAKING}; @ @ @i{default}: @code{IDLE}: @ @ @xref{state}
+Current state of the quake stone. You can just change the state into legal
+follow up states. A breaking state is final.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{toggle} @ @ @xref{toggle}
+Toggles stone from @samp{IDLE} to @samp{ACTIVE}
+@item @b{signal} @ @ @xref{signal}
+Toggles stone from @samp{IDLE} to @samp{ACTIVE}
+@item @b{ignite}
+Toggles stone to @samp{BREAKING}
+@end table
+
+@item @b{Action:} none
 
 @end table
 
@@ -10005,15 +10167,26 @@ actors, like a spring would do. Thus a positve @samp{strength} would lead to a
 repelling force, a negative one to an attracting force. A rubberband with a
 length inbetween @samp{threshold} and @samp{length} will apply no forces.
 
-In some cases you do want to limit the length of rubberband. You can do this
+In some cases you do want to limit the length of the rubberband. You can do this
 by setting @samp{min} and @samp{max} attributes. Actors will bounce on these
-limits. Do not try to use artificial large @samp{strength} values to ensure
-length limits, as this could lead to extreme forces causing unexpected and
+limits. Do not try to use artificial large @samp{strength} values instead to
+ensure length limits, as this could lead to extreme forces causing unexpected and
 unstable actor movements.
 
-Rubberbands can be cut by @ref{st_scissors}, by receiving a @ref{kill} message,
-by one of the anchors receiving a @ref{disconnect} message or a stone anchor
-that ceases to exist.
+If you set @samp{min} or @samp{max} limits, extraordinary events like actor 
+warping, actor resurrection, moving anchor stones or simply rubberbands that are
+created with an off limit length can cause trouble. When such a limit violation
+is detected an action is performed with a value @samp{false}. You may want to kill
+the rubberband or react in another way by a callback function. The default
+handling is an application of a constant force to bring the actors back within
+the limits. This force value is given by @ref{RubberViolationStrength} and 
+defaults to @samp{50.0}. If you really need to asure that the player is not able
+to violate the limits any further you may need to increase this constant.
+
+Rubberbands can be cut by @ref{st_scissors}, by an @ref{it_vortex} or
+@ref{it_wormhole} with a set @samp{scissors} attribute ,by receiving a 
+@ref{kill} message, by one of the anchors receiving a @ref{disconnect} message 
+or a stone anchor that ceases to exist.
 
 Rubberbands can be dynamically generated by @ref{it_rubberband} and
 @ref{st_rubberband}.
@@ -10044,8 +10217,10 @@ The maximum length at which actors bounce.
 
 @item @b{Messages:} none
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-An action will be performed on behalf of @ref{it_rubberband} after application
-and creation of this rubberband. The action value is @samp{1}.
+An action will be performed with value @samp{false} on violation of a min or max
+limit. Additionally an action will be performed on behalf of @ref{it_rubberband}
+after application and creation of this rubberband with an action value of
+@samp{true}.
 @end table
 
 @c ----------------- Wirecontrol --------------------
@@ -11379,7 +11554,7 @@ must be done by messages @samp{closeall} and @samp{shuffle} to one arbitrary
 given rules.
 
 Rule based shuffling is limited to a maximum of one pair of each standard oxyd
-color plus any combination of additional special fake, fart or bold oxyds
+color plus any combination of additional special fake, quake or bold oxyds
 summing up to a maximum of 32 oxyds. If more than 32 oxyds or 2 or more pairs
 of a single standard color are set, all oxyds will be shuffled by random
 ignoring any provided rules.
