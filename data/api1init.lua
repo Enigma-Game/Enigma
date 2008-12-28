@@ -45,9 +45,14 @@ RenamingObjectsOld2New = {
 }
 
 RenamingObjectsNew2Old = {
+    ac_bug = "ac-bug",
+    ac_horse = "ac-horse",
+    ac_killer = "ac-killerball",
     ac_marble_black = "ac-blackball",
     ac_marble_white = "ac-whiteball",
     ac_pearl_white = "ac-whiteball-small",
+    ac_rotor = "ac-rotor",
+    ac_top = "ac-top",
     fl_abyss = "fl-abyss",
     fl_bridge = "fl-bridge",
     fl_hay = "fl-hay",
@@ -587,7 +592,8 @@ function enigma.SetAttrib(obj, key, val)
          _key = "coin_value"
      end
      if key == "force" and (_obj_name == "st-actorimpulse" or
-             _obj_name == "st-actorimpulse_invisible")  then
+             _obj_name == "st-actorimpulse_invisible" or _obj_name == "ac-horse" or
+             _obj_name == "ac-rotor" or _obj_name == "ac-top")  then
          _key = "strength"
      end
      if key == "friction_factor" then
@@ -676,6 +682,12 @@ function enigma.SetAttrib(obj, key, val)
      if key == "blinking" then
          _key = "state"
      end
+     if key == "attacknearest" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "gohome" then
+         if val == 1 then _val = true else _val = false end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -692,7 +704,8 @@ function enigma.GetAttrib(obj, key)
          _key = "coin_value"
      end
      if key == "force" and (_obj_name == "st-actorimpulse" or
-             _obj_name == "st-actorimpulse_invisible")  then
+             _obj_name == "st-actorimpulse_invisible" or _obj_name == "ac-horse" or
+             _obj_name == "ac-rotor" or _obj_name == "ac-top")  then
          _key = "strength"
      end
      if key == "friction_factor" then
@@ -797,6 +810,12 @@ function enigma.GetAttrib(obj, key)
          if val == false then val = 0 else val = 1 end
      end
      if key == "movable" then
+         if val == false then val = 0 else val = 1 end
+     end
+     if key == "attacknearest" then
+         if val == false then val = 0 else val = 1 end
+     end
+     if key == "gohome" then
          if val == false then val = 0 else val = 1 end
      end
      return val

@@ -374,7 +374,7 @@ namespace enigma {
                 ObjectList ol = (*tit).getObjectList(this);  // convert next token to an objectlist
                 for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
                     GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
-                    if (go != NULL) {   // no actors as destination!
+                    if (go != NULL) {   // no actors and deleted objects as destination!
                         GridPos p = go->get_pos();
                         if (IsInsideLevel(p)) {   // no objects in inventory,...
                             if (i == idx) {

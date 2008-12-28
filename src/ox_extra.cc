@@ -133,7 +133,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     0,                   // no stone
     0, 0, 0, 0, 0, 0, 0, 0,     // oxyd stones
     0, 0, 0, 0, 0, 0, 0, 0,     // oxyd stones
-    "st-fakeoxyd",       // OxydExtra stone 0x11
+    "st_fake_quake",     // OxydExtra stone 0x11
     "st-plain",          // OxydExtra stone 0x12
     "st-rock4",          // OxydExtra stone 0x13
     UNUSED,              // OxydExtra stone 0x14

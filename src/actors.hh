@@ -30,7 +30,7 @@ namespace enigma {
         ac_marble_white  = 1,
         ac_pearl_black   = 2,
         ac_pearl_white   = 3,
-        ac_killerball = 4,
+        ac_killer     = 4,
         ac_rotor      = 5,
         ac_top        = 6,
         ac_horse      = 7,

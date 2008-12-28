@@ -6,6 +6,7 @@
     <attr name="algorithm" type="string" default="std" rw="rw"/>
     <attr name="anchor1" type="tokens" default="nil" rw="rw"/>
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
+    <attr name="attacknearest" type="bool" default="true" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
     <attr name="burnable" type="bool" default="nil" rw="rw"/>
     <attr name="charge" type="double" default="0" rw="rw"/>
@@ -30,6 +31,7 @@
     <attr name="floodable" type="bool" default="false" rw="rw"/>
     <attr name="freeze_check" type="bool" default="false" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
+    <attr name="gohome" type="bool" default="true" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
     <attr name="hit_factor" type="double" default="nil" rw="rw"/>
     <attr name="hit_distortion_xx" type="double" default="1" rw="rw"/>
@@ -61,6 +63,7 @@
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
     <attr name="player" type="int" default="nil" min="0" max="1" rw="rw"/>
+    <attr name="prefercurrent" type="double" default="0.0" rw="rw"/>
     <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="rubbers" type="group" default="nil" rw="r"/>
@@ -171,6 +174,16 @@
       <attr name="essential_id"/>
       <attr name="charge"/>
     </object>
+    <object name="ac_bug">
+    </object>
+    <object name="ac_horse">
+      <attr name="destination"/>
+      <attr name="strength" default="10.0"/>
+    </object>
+    <object name="ac_killer">
+      <attr name="destination"/>
+      <attr name="strength" default="10.0"/>
+    </object>
     <object name="ac_marble">
       <attr name="color" default="0"/>
       <msg name="_appear"/>
@@ -215,6 +228,20 @@
     </object>
     <object name="ac_pearl_white">
       <attr name="color" value="1"/>
+    </object>
+    <object name="ac_rotor">
+      <attr name="range" default="5.0"/>
+      <attr name="strength" default="10.0"/>
+      <attr name="gohome"/>
+      <attr name="attacknearest"/>
+      <attr name="prefercurrent"/>
+    </object>
+    <object name="ac_top">
+      <attr name="range" default="5.0"/>
+      <attr name="strength" default="10.0"/>
+      <attr name="gohome"/>
+      <attr name="attacknearest"/>
+      <attr name="prefercurrent"/>
     </object>
     <object name="fl" abstract="true">
       <attr name="adhesion"/>

@@ -75,7 +75,7 @@ namespace enigma {
         
         virtual void on_creation(const ecl::V2 &pos);
         virtual void think (double dtime);
-        virtual void on_respawn (const ecl::V2 &pos);
+        virtual void on_respawn(const ecl::V2 &pos);
 
         virtual void move_screen();
         virtual void hide();

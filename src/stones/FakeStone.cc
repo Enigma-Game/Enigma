@@ -102,7 +102,7 @@ namespace enigma {
     
     void FakeStone::actor_hit(const StoneContact &sc) {
         if (((objFlags & OBJBIT_SUBTYP) >> 24) == QUAKE && state == IDLE) {
-            sound_event ("fakeoxyd");
+            sound_event("fakeoxyd");
             state = ACTIVE;
             init_model();
         } else

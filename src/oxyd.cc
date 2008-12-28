@@ -502,99 +502,95 @@ void OxydLoader::load_actors ()
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
             ac = MakeActor("ac_marble_black");
-            ac->setAttr ("player", Value(0.0));
+            ac->setAttr("player", 0);
             break;
         case MarbleType_White:
-            ac = MakeActor ("ac_marble_white");
-            ac->setAttr ("player", Value(1.0));
+            ac = MakeActor("ac_marble_white");
+            ac->setAttr("player", 1);
             break;
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
-                ac = MakeActor ("ac-killerball");
+                ac = MakeActor ("ac_killer");
 //                ac->setAttr ("player", Value(0.0));
-                ac->setAttr ("mouseforce", Value (1.0));
-                ac->setAttr ("controllers", Value (3.0));
+                ac->setAttr("adhesion", 1.0);
+                ac->setAttr("controllers", 3);
             }
             else {
                 ac = MakeActor("ac_pearl_white");
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
-                    ac->setAttr("player", Value(1.0));
+                    ac->setAttr("player", 1);
                 else
-                    ac->setAttr ("player", Value(0.0));
+                    ac->setAttr("player", 0);
             }
 
             if (minfo.is_default(MI_FORCE)) {
-                ac->setAttr("mouseforce", Value(1.0));
+                ac->setAttr("adhesion", 1.0);
             }
             else {
-                ac->setAttr("mouseforce", Value(minfo.get_value(MI_FORCE) / 32.0)); // just a guess
+                ac->setAttr("adhesion", (minfo.get_value(MI_FORCE) / 32.0)); // just a guess
             }
             break;
         case MarbleType_Jack:
-            ac = MakeActor ("ac-top");
+            ac = MakeActor("ac_top");
             if (!minfo.is_default(MI_FORCE)) {
                 double force = minfo.get_value(MI_FORCE) / 4; // just a guess
-                ac->setAttr("force", Value(force) );
-                enigma::Log << "Set jack force to " << force << endl;
+                ac->setAttr("strength", force);
+                enigma::Log << "Set jack strength to " << force << endl;
             }
             if (!minfo.is_default(MI_RANGE)) {
                 double range = minfo.get_value(MI_RANGE) / 32.0; // value seems to contain distance in pixels
-                ac->setAttr("range", Value(range) );
+                ac->setAttr("range", range);
                 enigma::Log << "Set jack range to " << range << endl;
             }
             break;
 
         case MarbleType_Rotor: {
-            ac = MakeActor ("ac-rotor");
+            ac = MakeActor("ac_rotor");
 
-            double force = minfo.get_value (MI_FORCE, 30) * 0.3;
-            double range = minfo.get_value (MI_RANGE, 100) / 32.0;
-            int gohome = minfo.get_value (MI_GOHOME, 1);
+            double force = minfo.get_value(MI_FORCE, 30) * 0.3;
+            double range = minfo.get_value(MI_RANGE, 100) / 32.0;
+            int gohome = minfo.get_value(MI_GOHOME, 1);
 
-            ac->setAttr ("force", force);
-            ac->setAttr ("range", range);
-            ac->setAttr ("gohome", Value (gohome));
+            ac->setAttr("strength", force);
+            ac->setAttr("range", range);
+            ac->setAttr("gohome", Value(gohome == 1));
 
-            enigma::Log << "rotor force " << force << endl;
+            enigma::Log << "rotor strength " << force << endl;
             enigma::Log << "rotor range " << range << endl;
             
             break;
         }
 
         case MarbleType_Horse: {
-            ac = MakeActor ("ac-horse");
+            ac = MakeActor("ac_horse");
             int levelw = level.getWidth();
+            ObjectList ol;
             if (!minfo.is_default(MI_HORSETARGET1)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET1);
-                ac->setAttr("target1", ecl::strf("%d %d", 
-                                                   targetpos % levelw, 
-                                                   int(targetpos / levelw)));
+                ol.push_back(GetFloor(GridPos(targetpos % levelw, int(targetpos / levelw))));
             }
             if (!minfo.is_default(MI_HORSETARGET2)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET2);
-                ac->setAttr("target2", ecl::strf("%d %d", 
-                                                   targetpos % levelw, 
-                                                   int(targetpos / levelw)));
+                ol.push_back(GetFloor(GridPos(targetpos % levelw, int(targetpos / levelw))));
             }
             if (!minfo.is_default(MI_HORSETARGET3)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET3);
-                ac->setAttr("target3", ecl::strf("%d %d", 
-                                                   targetpos % levelw, 
-                                                   int(targetpos / levelw)));
+                ol.push_back(GetFloor(GridPos(targetpos % levelw, int(targetpos / levelw))));
             }
             if (!minfo.is_default(MI_HORSETARGET4)) {
                 int targetpos = minfo.get_value(MI_HORSETARGET4);
-                ac->setAttr("target4", ecl::strf("%d %d", 
-                                                   targetpos % levelw, 
-                                                   int(targetpos / levelw)));
+                ol.push_back(GetFloor(GridPos(targetpos % levelw, int(targetpos / levelw))));
+            }
+            if (ol.size() > 0) {
+                ac->setAttr("destination", ol);
             }
             break;
         }
         case MarbleType_Bug:
-            ac = MakeActor ("ac-bug");
+            ac = MakeActor("ac_bug");
             break;
         default:
             enigma::Log << "Unhandled actor type " << int(marble.getMarbleType()) << endl;
@@ -605,7 +601,7 @@ void OxydLoader::load_actors ()
         }
 
         if (ac) 
-            AddActor (x, y, ac);
+            AddActor(x, y, ac);
 
         m_actors.push_back (ac);
     }

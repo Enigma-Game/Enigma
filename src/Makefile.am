@@ -146,6 +146,14 @@ enigma_SOURCES = 		\
 	XMLtoUtf8.hh		\
 	actors/Balls.cc		\
 	actors/Balls.hh		\
+	actors/BugActor.cc	\
+	actors/BugActor.hh	\
+	actors/HorseActor.cc	\
+	actors/HorseActor.hh	\
+	actors/KillerActor.cc	\
+	actors/KillerActor.hh	\
+	actors/Rotors.cc	\
+	actors/Rotors.hh	\
 	floors/BridgeFloor.cc	\
 	floors/BridgeFloor.hh	\
 	floors/FloodStream.cc	\

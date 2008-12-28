@@ -168,7 +168,7 @@ end
 
 -- ac-killerball --
 do
-    DefAlias("ac-killerball", "ac_pearl_white")
+    DefAlias("ac_killer", "ac_pearl_white")
 end
 
 -- Marbles in inventory  --
@@ -184,7 +184,7 @@ end
 -- ac-bug --
 do
     SpriteImage("fg-bug",0.5,0.44)
-    DefShModel("ac-bug", "fg-bug", "sh-whiteball-small")
+    DefShModel("ac_bug", "fg-bug", "sh-whiteball-small")
 end
 
 -- ac-cannonball --
@@ -196,7 +196,7 @@ end
 do
     SpriteImage("fg-horse",0.5,0.18)
     SpriteImage("sh-horse", 0.4)
-    DefShModel("ac-horse", "fg-horse", "sh-horse")
+    DefShModel("ac_horse", "fg-horse", "sh-horse")
 end
 
 -- ac-rotor --
@@ -209,7 +209,7 @@ do
         DefShModel("ac-rotor"..i, fg[i], bg[i])
         table.insert(frames, "ac-rotor"..i)
     end
-    DefAnim("ac-rotor", BuildFrames(frames, 30), true)
+    DefAnim("ac_rotor", BuildFrames(frames, 30), true)
 end
 
 -- ac-top --
@@ -222,7 +222,7 @@ do
         DefShModel("ac-top"..i, fg[i], bg)
         table.insert(frames, "ac-top"..i)
     end
-    DefAnim("ac-top", BuildFrames(frames, 25), true)
+    DefAnim("ac_top", BuildFrames(frames, 25), true)
 end
 
 --------------------------------------------------------------------------------
