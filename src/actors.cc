@@ -211,11 +211,16 @@ void Actor::init() {
     m_sprite = display::AddSprite(get_pos());
 }
 
-void Actor::on_creation(const ecl::V2 &p) 
-{
+void Actor::on_creation(const ecl::V2 &p)  {
+    if (Value vx = getAttr("velocity_x")) {
+        m_actorinfo.vel = V2(vx,  m_actorinfo.vel[1]);
+    }
+    if (Value vy = getAttr("velocity_y")) {
+        m_actorinfo.vel = V2(m_actorinfo.vel[0], vy);
+    }
     set_model(get_kind());
-    m_sprite.move (p);
-    move ();
+    m_sprite.move(p);
+    move();
 }
 
 void Actor::on_respawn (const ecl::V2 &/*pos*/) {

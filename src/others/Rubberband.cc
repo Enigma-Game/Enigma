@@ -181,6 +181,22 @@ namespace enigma {
             force = - (1 + 0.8 / numRubbers) * relspeed * vn / dt * ai->mass;  // damping for inverse friction and multiconnections
 //            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
             
+            // in case one actor is blocked the length can exceed the limits due to later force corrections
+            // in the last timestep - we need to correct possible small errors before they sum up
+            if (isMax && (len > maxLength) && (relspeed <= 0) && !(objFlags & OBJBIT_MAXVIOLATION)) {
+                double dlen = ecl::Min(len - maxLength, len - (minLength + eps));
+                dlen = ecl::Max(0.0, dlen);
+                force = (ai->mass * dlen / dt / dt) * vn;
+            }
+            if (isMin && (len < minLength) && (relspeed >= 0) && !(objFlags & OBJBIT_MINVIOLATION)) {
+                double dlen = len - minLength;
+                if (maxLength > 0) {
+                    dlen = ecl::Max(len - minLength, len - (maxLength - eps));
+                    dlen = ecl::Min(0.0, dlen);
+                }
+                force = (ai->mass * dlen / dt / dt) * vn;
+            }
+            
             // eliminate limit violations by moderate forces
             if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
                 force += server::RubberViolationStrength * vn;
