@@ -62,7 +62,7 @@ namespace enigma {
         } else if (key == "orientation") {
             if (!isDisplayable()) {
                 objFlags &= ~OBJBIT_INCOMINGDIR;
-                Direction incoming = to_direction(val); 
+                Direction incoming = reverse(to_direction(val)); 
                 if (incoming != NODIR ) {
                     objFlags |= (incoming << 29) | OBJBIT_NOBACKFIRE;
                 }
@@ -73,7 +73,7 @@ namespace enigma {
     
     Value StoneImpulse::getAttr(const std::string &key) const {
         if (key == "hollow") {
-            return (bool)(objFlags & OBJBIT_HOLLOW);
+            return isHollow();
         } else if (key == "movable") {
             return (bool)(objFlags & OBJBIT_MOVABLE);
         } else if (key == "steady") {
@@ -125,16 +125,16 @@ namespace enigma {
 
     void StoneImpulse::init_model() {
         if (state == IDLE)
-            set_model(ecl::strf("st-stoneimpulse%s", (objFlags & OBJBIT_HOLLOW) ? "-hollow" : ((objFlags & OBJBIT_STEADY) ? "-steady" : "")));
+            set_model(ecl::strf("st-stoneimpulse%s", isHollow() ? "-hollow" : ((objFlags & OBJBIT_STEADY) ? "-steady" : "")));
         else
-            set_anim(ecl::strf("st-stoneimpulse%s-anim%d", (objFlags & OBJBIT_HOLLOW) ? "-hollow" : "",
+            set_anim(ecl::strf("st-stoneimpulse%s-anim%d", isHollow() ? "-hollow" : "",
                     state == EXPANDING ? 1 : 2));
     }
     
     void StoneImpulse::on_creation(GridPos p) {
         updateCurrentLightDirs();
             
-        if (!(objFlags & OBJBIT_HOLLOW))
+        if (!isHollow())
             activatePhoto();
         
         if (state == IDLE && (objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
@@ -164,26 +164,27 @@ namespace enigma {
     }
     
     bool StoneImpulse::is_floating() const {
-        return objFlags & OBJBIT_HOLLOW;
+        return isHollow();
     }
     
     StoneResponse StoneImpulse::collision_response(const StoneContact &sc) {
-        return ((state != IDLE) || !(objFlags & OBJBIT_HOLLOW)) ? STONE_REBOUND : STONE_PASS;
+        return ((state != IDLE) || !isHollow()) ? STONE_REBOUND : STONE_PASS;
     }
     
     void StoneImpulse::actor_inside(Actor *a) {
-        if ((state != IDLE) && (objFlags & OBJBIT_HOLLOW))
+        if ((state != IDLE) && isHollow())
             SendMessage(a, "_shatter");
     }
     
     void StoneImpulse::actor_hit(const StoneContact &sc) {
         if ((objFlags & OBJBIT_MOVABLE) && maybe_push_stone(sc))
             return;                                      // stone did move on impulse
-        else if (!(objFlags & OBJBIT_HOLLOW)) 
+        else if (!isHollow()) 
             sc.actor->send_impulse(sc.stonepos, NODIR);  // impulse on the slightest touch
     }
 
     void StoneImpulse::on_impulse(const Impulse& impulse) {
+        Actor *hitman = NULL;
         if ((objFlags & OBJBIT_MOVABLE) && (impulse.dir != NODIR)) {
             // move stone without disturbing a running animation
             display::Model *yieldedModel = display::YieldModel(GridLoc(GRID_STONES, get_pos()));
@@ -193,20 +194,29 @@ namespace enigma {
             display::SetModel(GridLoc(GRID_STONES, get_pos()), yieldedModel);
             
             // pulse only if not pushed with a wand
-            Actor *hitman = dynamic_cast<Actor*>(impulse.sender);
+            hitman = dynamic_cast<Actor*>(impulse.sender);
             if (hitman == NULL || !player::WieldedItemIs(hitman, "it_magicwand")) {
                 if (state == IDLE)
-                    setIState(EXPANDING, NODIR);
+                    setIState(EXPANDING, impulse.dir);
                 else if (didMove && state != EXPANDING)
                     // ensure that an impulse to neighbors will be emitted when moved
                     objFlags |= OBJBIT_REPULSE;
-            } else if (((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && state == IDLE))
-                setIState(EXPANDING);
+            } else if (((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && state == IDLE)) {
+                setIState(EXPANDING, impulse.dir);
+            }
         } else {
             setIState(EXPANDING, impulse.dir);
         }
         
-        propagateImpulse(impulse);
+        // direct impulse propagation
+        if (objFlags & OBJBIT_MOVABLE) { 
+            if (hitman != NULL) {
+                objFlags &= ~OBJBIT_PROPAGATE;
+                propagateImpulse(impulse);
+            } else
+                objFlags |= OBJBIT_PROPAGATE;
+        }
+        setAttr("$impulse_source", impulse.sender->getId());
     }
     
     FreezeStatusBits StoneImpulse::get_freeze_bits() {
@@ -248,9 +258,34 @@ namespace enigma {
                         if (!(objFlags & OBJBIT_NOBACKFIRE) || d != origin)
                             send_impulse(move(p, d), d);
                     }
+                    if (!(objFlags & OBJBIT_MOVABLE) || (objFlags & OBJBIT_PROPAGATE)) {
+                        propagateImpulse(Impulse(this, GridPos(-1,-1), 
+                                (Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29)));
+                    }
+                    if (objFlags & OBJBIT_MOVABLE)
+                        objFlags &= ~OBJBIT_PROPAGATE;
                     break;
             }
         }
+    }
+    
+    void StoneImpulse::propagateImpulse(const Impulse& impulse) {
+        if (!impulse.byWire) {
+            ObjectList olist = getAttr("fellows");
+            int sourceId = getDefaultedAttr("$impulse_source", 0);
+            for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
+                Stone *fellow = dynamic_cast<Stone *>(*it);
+                if (fellow != NULL && fellow->getId() != sourceId) {
+                    Impulse wireImpulse(this, fellow->get_pos(), impulse.dir, true);
+                    fellow->on_impulse(wireImpulse);
+                }
+            }
+        }
+        setAttr("$impulse_source", 0);
+    }
+    
+    bool StoneImpulse::isHollow() const {
+        return (bool)(objFlags & OBJBIT_HOLLOW) && !(bool)(objFlags & OBJBIT_MOVABLE);
     }
     
     int StoneImpulse::traitsIdx() const {

@@ -46,7 +46,8 @@ namespace enigma {
         
         enum ObjectPrivatFlagsBits {
             OBJBIT_MOVABLE     =  1<<24,   ///< Object is movable 
-            OBJBIT_HOLLOW      =  1<<25,   ///< 
+            OBJBIT_HOLLOW      =  1<<25,   ///< hollow SI (exclusive usage with movalble feature!)
+            OBJBIT_PROPAGATE   =  1<<25,   ///< only for movable SI mark impulse propagation on shrinking 
             OBJBIT_STEADY      =  1<<26,   ///< continuous laser light causes repeating impulses 
             OBJBIT_REPULSE     =  1<<27,   ///< pending impulse
             OBJBIT_NOBACKFIRE  =  1<<28,   ///< avoid sending impulse back into incoming direction
@@ -84,6 +85,8 @@ namespace enigma {
         
     private:
         void setIState(int newState, Direction incoming = NODIR);
+        void propagateImpulse(const Impulse& impulse);
+        bool isHollow() const;
         int traitsIdx() const;
     };
 
