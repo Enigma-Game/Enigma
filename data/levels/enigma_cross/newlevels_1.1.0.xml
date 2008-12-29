@@ -17,7 +17,7 @@
     <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Horseshoes" _xpath="enigma_vii/duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Impulse-phobia" _xpath="enigma_vii/duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -38,7 +38,7 @@
     <level _seq="30" _title="Give Way" _xpath="enigma_vii/just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Give more Way" _xpath="enigma_vii/just21_2" author="JuSt" ctrl="force" easy="true" id="just21" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="32" _title="Give Way 4 two" _xpath="enigma_vii/just22_2" author="JuSt" ctrl="force" easy="true" id="just22" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="33" _title="Lost in Time and Space" _xpath="enigma_vii/just23_1" author="JuSt" ctrl="force" easy="false" id="just23" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Lost in Time and Space" _xpath="enigma_vii/just23_2" author="JuSt" ctrl="force" easy="false" id="just23" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="34" _title="Alternatives?" _xpath="enigma_vii/just24_1" author="JuSt" ctrl="force" easy="true" id="just24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="No More Alternatives" _xpath="enigma_vii/just25_1" author="JuSt" ctrl="force" easy="true" id="just25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="The Walls" _xpath="enigma_vii/just26_1" author="JuSt" ctrl="force" easy="true" id="just26" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -46,7 +46,7 @@
     <level _seq="38" _title="Double Sense" _xpath="enigma_vii/joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Double Sense II" _xpath="enigma_vii/joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Lightyears" _xpath="enigma_vii/duffy177_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy177" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Zero Magnetism Lab" _xpath="enigma_vii/duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Zero Magnetism Lab" _xpath="enigma_vii/duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Armageddon" _xpath="enigma_vii/duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Mountain Climbing II" _xpath="enigma_vii/joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Minor Tangler" _xpath="enigma_vii/joe24_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -110,7 +110,7 @@
     <level _seq="102" _title="Freestyle Microwire" _xpath="enigma_viii/ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="127" score="1" target="time" unit="duration"/>
     <level _seq="103" _title="Balance Beam" _xpath="enigma_viii/mecke03_1" author="mecke" ctrl="force" easy="true" id="mecke03" rel="1" rev="31" score="1" target="time" unit="duration"/>
     <level _seq="104" _title="Colored Oxyds" _xpath="enigma_viii/andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="105" _title="Fashions Pass" _xpath="enigma_viii/andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="6" score="2" target="time" unit="duration"/>
+    <level _seq="105" _title="Styles Change" _xpath="enigma_viii/andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="7" score="2" target="time" unit="duration"/>
     <level _seq="106" _title="Colored Turnstiles" _xpath="enigma_viii/andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="107" _title="Sanssouci" _xpath="enigma_viii/mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Wired Shogun" _xpath="enigma_viii/ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="127" score="1" target="time" unit="duration"/>
@@ -134,10 +134,15 @@
     <level _seq="126" _title="Hang-dogging?" _xpath="enigma_viii/devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="127" _title="Alternation II" _xpath="enigma_viii/mecke31_1" author="mecke" ctrl="force" easy="false" id="mecke31" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="128" _title="Fifty Years Later ..." _xpath="enigma_viii/mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="21" score="1" target="time" unit="duration"/>
-    <level _seq="129" _title="Turbulencia" _xpath="enigma_viii/mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="129" _title="Turbulencia" _xpath="enigma_viii/mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="130" _title="Techno Voodoo" _xpath="enigma_viii/mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="131" _title="Plutos World" _xpath="enigma_viii/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="132" _title="Plutos Confusion" _xpath="enigma_viii/mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="133" _title="Coober Pedy Opals" _xpath="enigma_viii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="126" score="1" target="time" unit="duration"/>
+    <level _seq="134" _title="Butterfly Opals" _xpath="enigma_viii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="126" score="1" target="time" unit="duration"/>
+    <level _seq="135" _title="Brilliant Opals" _xpath="enigma_viii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="126" score="1" target="time" unit="duration"/>
+    <level _seq="136" _title="Squared Microwire" _xpath="enigma_viii/ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="130" score="1" target="time" unit="duration"/>
+    <level _seq="137" _title="More or Less Wired" _xpath="enigma_viii/ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="134" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

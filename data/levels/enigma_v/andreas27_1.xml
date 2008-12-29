@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pipes and Plumbing" el:subtitle="" el:id="andreas27"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -83,7 +83,7 @@ set_item("it-banana",1,11)
 oxyd_shuffle()
 enigma.ConserveLevel = FALSE
 set_actor("ac-blackball", 4, 4, {player=0})
-set_actor("ac-whiteball", 1.5, 11.5, {player=1,mouseforce=1,7})
+set_actor("ac-whiteball", 1.5, 11.5, {player=1,mouseforce=1})
 set_stone("st-timer", 0, 2, {action="callback", target="calltimer", interval=0.01})
 set_item("it-sensor", 1, 3, {action="callback", target="sensorcall"})
 pipes = {}
@@ -95,12 +95,12 @@ pipes[5] = "it-pipe-ne"
 pipes[6] = "it-pipe-wn"
 for x = 0, levelw-1 do
   for y = 0, levelh-1 do
-    enigma.SetAttrib(enigma.GetFloor(x,y), "towater", 0)
+    enigma.SetAttrib(enigma.GetFloor(x,y), "_towater", 0)
   end
 end
 function setwater(x,y)
   if enigma.GetKind(enigma.GetFloor(x,y)) == fl_floodable then
-    enigma.SetAttrib(enigma.GetFloor(x,y), "towater", 1)
+    enigma.SetAttrib(enigma.GetFloor(x,y), "_towater", 1)
   end
 end
 function setwood(x,y)
@@ -108,7 +108,7 @@ function setwood(x,y)
   if st ~= nil then
     local k = enigma.GetKind(st)
     if (k == "st-wood") or (k == "st-wood1") or (k == "st-wood2") then
-      enigma.SetAttrib(enigma.GetFloor(x,y), "towater", 1)
+      enigma.SetAttrib(enigma.GetFloor(x,y), "_towater", 1)
     end
   end
 end
@@ -122,12 +122,12 @@ function calltimer()
         if enigma.GetKind(it) == "it-banana" then
           set_item("it-burnable", x, y)
           set_floor("fl-water", x, y)
-          enigma.SetAttrib(enigma.GetFloor(x,y), "towater", 0)
+          enigma.SetAttrib(enigma.GetFloor(x,y), "_towater", 0)
         end        
       end
-      if enigma.GetAttrib(enigma.GetFloor(x,y), "towater") == 1 then
+      if enigma.GetAttrib(enigma.GetFloor(x,y), "_towater") == 1 then
         set_floor("fl-water", x, y)
-        enigma.SetAttrib(enigma.GetFloor(x,y), "towater", 0)
+        enigma.SetAttrib(enigma.GetFloor(x,y), "_towater", 0)
       end
     end
   end

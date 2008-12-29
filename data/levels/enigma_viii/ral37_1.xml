@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Brilliant Opals" el:subtitle="The journey is the reward" el:id="20081212ral162"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 126 $" el:status="released"/>
+      <el:author el:name="Ronald Lamprecht, Andreas Lochmann" el:email="ral@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="17:51" el:difficult="13:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+wo["MaxOxydColor"] = lib.lua.cond(wo["IsDifficult"], OXYD_BROWN, OXYD_ORANGE)
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = {"fl_wood_framed"}
+ti["~"] = {"fl_water"}
+ti[":"] = {"it_seed"}
+ti[";"] = {"it_seed_fake"}
+ti["@"] = {"#ac_pearl"}
+ti["B"] = {"st_oxyd_e", oxydcolor=OXYD_BOLD, noshuffle=true, target = "shuffle"} .. ti["~"] .. ti[":"]
+ti["."] = {"st_oxyd_e", target = "oxyd_callback"} .. ti["~"]
+ti["+"] = {"st_oxyd_e", "ox", target = "oxyd_callback"} .. ti["~"]
+
+if wo["IsDifficult"] then
+  ti["*"] = ti["B"]
+  ti["#"] = ti["."]
+else
+  ti["*"] = ti[" "]
+  ti["#"] = ti["B"]
+end
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "~~~~~~+..~...~~~~~~",
+   "~~~~~...~.~...~~~~~",
+   "~~~~...~...~...~~~~",
+   "~~~...*.....*...~~~",
+   "~~...~... ...~...~~",
+   "~...~...# #...~...~",
+   "...~...  @  ...~...",
+   "~...~...# #...~...~",
+   "~~...~... ...~...~~",
+   "~~~...*.....*...~~~",
+   "~~~~...~...~...~~~~",
+   "~~~~~...~.~...~~~~~",
+   "~~~~~~...~...~~~~~~"
+})
+
+last_oxyd = 0
+function oxyd_callback(is_on, sender)
+    if sender.state == OXYDPAIR then
+        oxyds = grp(sender, last_oxyd)
+        wo[sender] = ti[":"]
+        wo[last_oxyd] = ti[";"]
+        it(oxyds):grow()
+    elseif sender.state == OPEN then
+        last_oxyd = sender
+    end
+end
+
+function shuffle(value, sender)
+    sender:peepall()
+    it(sender):grow()
+end
+
+wo:shuffleOxyd()
+no["ox"]:peepall()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Der Weg ist das Ziel</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess, Bugs &amp; Rock'n'Roll" el:subtitle="" el:id="andreas31"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -48,7 +48,7 @@ function myresolver(key, x, y)
     return ti({myfloor[random(1,6)],
             force_x = gx * 30 + random(-5, 5),
             force_y = gy * 30 + random(-5, 5),
-            friction = 3.0, mouseforce = 1.6})
+            friction = 3.0, adhesion = 1.6})
   end
   if key == " C "  then
       chess_number = chess_number + 1
@@ -63,8 +63,8 @@ ti[" ! "] = {"st-redrock"}  -- st-rock6
 ti[" # "] = {"st_oxyd", flavor = "b"}
 ti[" $ "] = {"st-bug"}
 ti[" T "] = {"it_trigger", target = "trigger_call"}
-ti["  !"] = {"ac-bug"}
-ti["  #"] = {"#ac_marble_black", mouseforce = 2.0}
+ti["  !"] = {"ac_bug"}
+ti["  #"] = {"#ac_marble_black", adhesion = 2.0}
 
 level={"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
        "!#####&&&&&&&&&&&&&&&&&&&&&&&&&&&,,,,,!",

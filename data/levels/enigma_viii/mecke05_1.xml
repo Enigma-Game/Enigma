@@ -104,8 +104,8 @@ ti["ZY"] = ti["' "] .. {"st_window_e",secure=true}
 ti["ZZ"] = ti["' "] .. {"st_window_w",secure=true}
 ti["> "] = ti["y "] .. {"it_strip_ne"}
 ti["& "] = ti["~ "] ..{"st_chess_white"}
-ti["q "] = {"it_trigger",action="off", target="laser1"}
-ti["t "] = {"it_trigger",action="off", target="laser2"}
+ti["q "] = {"it_trigger",action="toggle", target="laser1"}
+ti["t "] = {"it_trigger",action="toggle", target="laser2"}
 ti["8 "] = {"st_laser_w", name="laser1", state=ON}
 ti["= "] = {"st_laser_e", name="laser2", state=ON}
 ti["81"] = {"st_laser_w", name="laser3", }

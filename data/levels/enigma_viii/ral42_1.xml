@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="More or Less Wired" el:subtitle="The Gods must be wired" el:id="20081229ral"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 134 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="2:11" el:difficult="3:57"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl-rough"}
+ti["~"] = {"fl_water"}
+ti["O"] = {"st_oxyd_a"} .. ti["~"]
+ti["#"] = {"st_door_a", "d#"}
+ti["boxes"] = {"st_box_hay", "box%%"}
+ti["x"] = {"it_trigger", target="check"}
+ti["@"] = {"ac_marble", 0, 0.5}
+if wo["IsDifficult"] then
+    ti["*"] = ti["O"]
+else
+    ti["*"] = ti["#"]
+end
+
+resolver = res.autotile(ti, {"a", "l", "boxes"})
+
+w, h = wo(resolver, " ", {
+    "O~~~~~~~~~~~~~~~~~~O",
+    "~*#              #*~",
+    "~#      a  b      #~",
+    "~  x l        c x  ~",
+    "~    x        x    ~",
+    "~  k   x    x   d  ~",
+    "~         @        ~",
+    "~  j   x    x   e  ~",
+    "~    x        x    ~",
+    "~  x i        f x  ~",
+    "~#      h  g      #~",
+    "~*#              #*~",
+    "O~~~~~~~~~~~~~~~~~~O"
+})
+
+for i = 1, 11 do
+    wo:add({"ot_wire", anchor1="box%"..i, anchor2="box%"..(i+1)})
+end
+wo:add({"ot_wire", anchor1="box%12", anchor2="box%1"})
+
+pressed = 0
+function check(value, sender)
+    pressed = pressed + lib.lua.cond(value, 1, -1)
+    if pressed == 12 then
+        no["d#*"]:open()
+    else
+        no["d#*"]:close()
+    end
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

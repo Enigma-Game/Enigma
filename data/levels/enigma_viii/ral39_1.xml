@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Squared Microwire" el:subtitle="" el:id="20081227ral230"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 130 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="0:11" el:difficult="0:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["SwampSinkSpeed"] = 2.5
+
+ti[" "] = {"fl_water"}
+ti["."] = {"fl_swamp", friction=6.0, adhesion=2.0}
+ti["_"] = {"fl-black", friction=6.0, adhesion=2.0}
+
+ti["o"] = {"st_oxyd_a"}
+
+ti["doors"] = ti["_"] .. {"st_door_a", "door%%#"}
+ti["boxes"] = ti["_"] .. {"st_box_hay", "box%%"}
+ti["triggers"] = ti["_"] .. {"it_trigger", target="door%%#*"}
+
+if wo["IsDifficult"] then
+    ti["@"] = ti["."] .. {"#ac_marble"} .. ti({"it_strip"})
+else
+    ti["@"] = ti["_"] .. {"#ac_marble"}
+end
+
+resolver = res.autotile(ti, {"a", "d", "doors"}, {"A", "D", "triggers"},
+                {"1", "4", "boxes"})
+
+w, h = wo(resolver, " ", {
+"                   ",
+"o   ...........   o",
+"_   ._________.   _",
+"d   ._......._.   d",
+"_   ._._____._.   _",
+"c   ._._1A2_._.   c",
+"_b_a__._D@C_.__a_b_",
+"c   ._._4B3_._.   c",
+"_   ._._____._.   _",
+"d   ._......._.   d",
+"_   ._________.   _",
+"o   ...........   o",
+"                   "
+})
+
+wo:add({"ot_wire", anchor1="box%1", anchor2="box%2"})
+wo:add({"ot_wire", anchor1="box%3", anchor2="box%2"})
+wo:add({"ot_wire", anchor1="box%3", anchor2="box%4"})
+wo:add({"ot_wire", anchor1="box%1", anchor2="box%4"})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

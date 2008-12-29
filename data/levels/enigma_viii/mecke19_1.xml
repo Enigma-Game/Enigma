@@ -3,16 +3,18 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 3 $" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:5$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
       <el:compatibility el:enigma="1.10" />
       <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time" />
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul Bourquin for testing and some important ideas</el:credits>
+      </el:comments>
       <el:score el:easy="2:50" el:difficult="3:14" />
     </el:info>
-    <el:luamain>
-    <![CDATA[
+    <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
 ti[" &"] = {"fl-red"}
@@ -43,6 +45,8 @@ ti[" *"] = {"fl-gradient4"}
 ti["- "] = {"st_boulder_w"}
 ti[". "] = {"st-grate1"}
 ti[" d"] = ti["hh"] .. {"it-dynamite"}
+ti["c "] = {"it-crack3"}
+ti["? "] = {"it_seed_volcano"}
 ti[" +"] = {"fl-rough"}
 ti["l "] = {"it_landmine"}
 ti[" u"] = ti["hh"] .. {"it_umbrella"}
@@ -68,37 +72,50 @@ ti["y "] = {"it_sword"}
 ti["x "] = {"it_hammer"}
 ti["m "] = {"it_coin_l"}
 ti["6 "] = {"st_knight"}
-ti["n "] = {"it_coin_s"}
+ti["n "] = {"it_magicwand"}
 ti["7 "] = {"st_boulder_s"}
-ti["X "] = {"#ac_pearl_white",essential=1, player=0, controllers=1, name="df1"}
-ti["r "] = {"#ac-rotor", range=1, force=1}
-ti["t "] = {"#ac-top", range=1, force=1}
+ti["pp"] = ti[" -"] .. {"it_squashed"}
+ti["pn"] = ti["pp"] .. {"st_oneway_e"}
+ti["X "] = {"#ac_pearl_white", essential=1, player=0, controllers=1, name="df1"}
+ti["r "] = ti[" $"] .. {"#ac-rotor", range=1, force=1}
+ti["t "] = ti[" $"] .. {"#ac-top", range=1, force=1}
+ti["8 "] = {"st_puzzle_blue_e"}
+ti["9 "] = {"st_puzzle_blue_w"}
+ti[": "] = {"st_puzzle_blue_ew"}
+
 if wo ["IsDifficult"] then
     ti["ee"] = ti[" $"] .. {"st_rotator_ccw"}
     ti["ex"] = ti["ef"] .. {"st_boulder_n"}
     ti["eo"] = ti["ef"] .. {"st_boulder_s"}
+    ti["R "] = {"st_rubberband"}
+    ti["Q "] = {"st_rubberband"}
+    ti["S "] = {"st-yellow"}
 else
     ti["ee"] = ti[" $"] .. {"st-yellow"}
     ti["ex"] = ti["ef"] .. {"it_squashed"}
     ti["eo"] = ti["ef"] .. {"it_squashed"}
+    ti["R "] = {"st-grate1"}
+    ti["Q "] = {"st-rock6"}
+    ti["S "] = {"st_scissors"}
 end
 
 local resolver = res.composer(ti)
 
 w, h = wo(resolver, "  ", {
-    "!!!!ee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-    "!!$$s&s&s(s&s(s&s(s&s(s&s(s&s(s&s(s&s&ee",
-    "!!r$s&''s'.'0's'2's'2's'2's'2's!2's's&!!",
-    "!!$$s&'' a d p f .,! .,% .,% .,! .,!s&!!",
-    "!!t$s&(!(!(!(!(!z/(!i/(!#/(!y/(!n/(!s&!!",
-    "!!$$b&(! ) ) ) ,3!3!3!3!3!3!3!3!3!(!s&!!",
-    "!!X%ex)! *l+q+ -1-4+ +5. .5. +4+6-s-eo!!",
-    "!!$$b&(! ( ( ( ,3!3!3!3!3!3!3!3!3!(!s&!!",
-    "!!t$s&(!(!(!(!(!k/(!w/(!#/(!x/(!m/(!s&!!",
-    "!!$$s&*' a u p f .,! .,% .,% .,! .,!s&!!",
-    "!!r$s&*'s'.'0's'2's'2's'2's'2's!2's's&!!",
-    "!!ees&s&s)s&s)s&s)s&s)s&s)s&s)s&s)s&s&!!",
-    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ee!!"})
+       "!!!!ee!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+       "!!$$s&s&s(s&s(s&s(s&s(s&s(s&s(s&s(s&s&ee",
+       "!!r$s&R's'.'0's'2's'2's'2's'2's!2's's&!!",
+       "!!$$b&'' a d p f .,! .,% .,% .,! .,!b&!!",
+       "!!t$s&(!(!S!(!(!z/(!i/(!#/(!y/(!n/(!s&!!",
+       "!!$$b&(! ) ) )?,3!3!3!3!3!3!3!3!3!(!b&!!",
+       "!!X%ex)! *l+q+c-1-4!9+5.8.5.:+4+6-pneoQ!",
+       "!!$$b&(! ( ( (?,3!3!3!3!3!3!3!3!3!(!b&!!",
+       "!!t$s&(!(!S!(!(!k/(!w/(!#/(!x/(!m/(!s&!!",
+       "!!$$b&*' a u p f .,! .,% .,% .,! .,!b&!!",
+       "!!r$s&R's'.'0's'2's'2's'2's'2's!2's's&!!",
+       "!!ees&s&s)s&s)s&s)s&s)s&s)s&s)s&s)s&s&!!",
+       "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ee!!"})
+
 wo:add({"ot_rubberband", anchor1="df1", anchor2="df3"})
 wo:shuffleOxyd()
  ]]></el:luamain>
@@ -108,7 +125,7 @@ wo:shuffleOxyd()
       </el:string>
       <el:string el:key="subtitle">
         <el:english el:translate="true"/>
-        <el:translation el:lang="de">Meditiere! ... aber wo??</el:translation>
+        <el:translation el:lang="de">Meditiere! ... aber wo ??</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">These stormy days ...</el:english>

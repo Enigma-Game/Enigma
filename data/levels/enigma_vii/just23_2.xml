@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="Lost in Time and Space" el:subtitle="" el:id="just23"/>
-     <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+     <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,6 +39,7 @@ function start_timing()
         enigma.KillStone(136,89)
         enigma.KillStone(137,89)
         enigma.KillStone(135,90)
+        enigma.KillItem(136,90)
         enigma.KillStone(137,90)
         enigma.KillStone(135,91)
         enigma.KillStone(136,91)
@@ -48,11 +49,11 @@ function start_timing()
 end
 
 function puzzle1()
-    puzzle({" #     ", 
-          "###### ", 
-          " ## ###", 
-          " ##### ", 
-          "    #  "}, {41,39}, "redpuzzle", "permutation")
+    puzzle({" #     ",
+            "###### ",
+            " ## ###",
+            " ##### ",
+            "    #  "}, {41,39}, "redpuzzle", "permutation")
 end
 
 function refill()
@@ -118,7 +119,7 @@ end
 function fire()
     for x = 85, 95 do
         draw_floor("fl-leavesb", {77, x}, {1, 0}, 39, {burnable=false})
-    end 
+    end
     SetDefaultAttribs("fl-leaves", {eternal=true, burnable=true, initfire=true})
     set_floor("fl-leaves", 82, 85)
     set_floor("fl-leaves", 85, 85)
@@ -1833,6 +1834,7 @@ if enigma.CreatingPreview then
     set_actor("ac-blackball", 112.5, 46.5, {player="0", mouseforce="1"})
 else
     set_actor("ac-blackball", 136.5, 90.5, {player="0", mouseforce="1", essential="1"})
+    set_stone("st-glass", 136, 90)
 end
 SetDefaultAttribs("ac-rotor", {range="4"})
 set_actor("ac-rotor", 6.5, 37.5)
@@ -1890,64 +1892,64 @@ oxyd_shuffle()
      </el:string>
      <el:string el:key="subtitle">
        <el:english el:translate="true">As Far As My Feet Will Carry Me</el:english>
-       <el:translation el:lang="de">So weit die Füße tragen</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">So weit die Füße tragen</el:translation>
+     </el:string>
      <el:string el:key="text1">
        <el:english el:translate="true">Hey, where am i now?</el:english>
-       <el:translation el:lang="de">Nanu, wo bin ich denn jetzt??</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Nanu, wo bin ich denn jetzt??</el:translation>
+     </el:string>
      <el:string el:key="text2">
        <el:english el:translate="true">Moments ago i've been at home and wanted to take care about my two oxyd stones.</el:english>
-       <el:translation el:lang="de">Gerade war ich doch noch zu Hause, und wollte mich um meine beiden Oxydsteine kümmern.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Gerade war ich doch noch zu Hause, und wollte mich um meine beiden Oxydsteine kümmern.</el:translation>
+     </el:string>
      <el:string el:key="text3">
        <el:english el:translate="true">And now i'm stranded in this weird forest. How can i escape from here?</el:english>
-       <el:translation el:lang="de">Und jetzt sitze ich hier in diesem unheimlichen Wald fest. Wie komme ich hier bloss wieder heraus?</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Und jetzt sitze ich hier in diesem unheimlichen Wald fest. Wie komme ich hier bloss wieder heraus?</el:translation>
+     </el:string>
      <el:string el:key="text4">
        <el:english el:translate="true">If i should have a look-around? Perhaps i can find some things that could help me to find an exit.</el:english>
-       <el:translation el:lang="de">Ob ich mich vielleicht einmal etwas umsehe? Vielleicht finde ich ein paar Sachen, die mir auf der Suche nach dem Ausgang helfen können.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Ob ich mich vielleicht einmal etwas umsehe? Vielleicht finde ich ein paar Sachen, die mir auf der Suche nach dem Ausgang helfen können.</el:translation>
+     </el:string>
      <el:string el:key="text5">
        <el:english el:translate="true">WARNING: Highest caution is necessary.</el:english>
-       <el:translation el:lang="de">ACHTUNG!! Höchste Vorsicht ist geboten.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">ACHTUNG!! Höchste Vorsicht ist geboten.</el:translation>
+     </el:string>
      <el:string el:key="text6">
        <el:english el:translate="true">Wild buffaloes are crossing the way.</el:english>
-       <el:translation el:lang="de">Wilde Büffel kreuzen den Weg.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Wilde Büffel kreuzen den Weg.</el:translation>
+     </el:string>
      <el:string el:key="text7">
        <el:english el:translate="true">Help me, the forest is on fire!</el:english>
-       <el:translation el:lang="de">Hilfe, ein Waldbrand!!</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Hilfe, ein Waldbrand!!</el:translation>
+     </el:string>
      <el:string el:key="text8">
        <el:english el:translate="true">A herd of wild horses blocks the way.</el:english>
-       <el:translation el:lang="de">Eine Herde Wildpferde verperrt den Weg.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Eine Herde Wildpferde verperrt den Weg.</el:translation>
+     </el:string>
      <el:string el:key="text9">
        <el:english el:translate="true">A small hamlet with a fence, a few huts, a pond, some bales of straw.</el:english>
-       <el:translation el:lang="de">Ein kleines Dorf mit einem Zaun, ein paar Hütten, ein Teich, ein paar Strohballen.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Ein kleines Dorf mit einem Zaun, ein paar Hütten, ein Teich, ein paar Strohballen.</el:translation>
+     </el:string>
      <el:string el:key="text11">
        <el:english el:translate="true">If there is finally an exit?</el:english>
-       <el:translation el:lang="de">Ob es hier endlich einen Ausgang gibt?</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Ob es hier endlich einen Ausgang gibt?</el:translation>
+     </el:string>
      <el:string el:key="text12">
        <el:english el:translate="true">I'm afraid, i need some assistance!</el:english>
-       <el:translation el:lang="de">Ich fürchte, hier brauche ich fremde Hilfe!</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Ich fürchte, hier brauche ich fremde Hilfe!</el:translation>
+     </el:string>
      <el:string el:key="text13">
        <el:english el:translate="true">Filling station for empty extinguishers.</el:english>
-       <el:translation el:lang="de">Tankstelle für leere Feuerlöscher.</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Tankstelle für leere Feuerlöscher.</el:translation>
+     </el:string>
      <el:string el:key="text14">
        <el:english el:translate="true">Watch out: Angry mosquitoes!</el:english>
-       <el:translation el:lang="de">Achtung: Wütende Moskitos!</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Achtung: Wütende Moskitos!</el:translation>
+     </el:string>
      <el:string el:key="text15">
        <el:english el:translate="true">Useful things may also be hidden!</el:english>
-       <el:translation el:lang="de">Nützliche Sachen können auch versteckt sein!</el:translation>    
-     </el:string> 
+       <el:translation el:lang="de">Nützliche Sachen können auch versteckt sein!</el:translation>
+     </el:string>
    </el:i18n>
   </el:protected>
 </el:level>

@@ -3,24 +3,17 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Aztec Temple" el:subtitle="" el:id="zogga01"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Dominik Lehmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Dominik Lehmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.0">
-       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="27:11" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- Date: 06-15-2006
-
--- Lua Code --
-
 Story={
 "text1",
 "text2",
@@ -50,6 +43,9 @@ Story={
 }
 
 create_world(41,37)
+if not difficult then
+  enigma.SwampSinkSpeed = 2.0
+end
 
 -- Floors --
 cells={}
@@ -134,15 +130,14 @@ cells["5"]=cell{item={face="it-shogun-l",attr={action="callback",target="OpenWhi
 cells["6"]=cell{item={face="it-shogun-l",attr={action="openclose",target="WhiteBridge"}}}
 cells["7"]=cell{item={face="it-document",attr={text=Story[18]}}}
 cells["8"]=cell{item={face="it-hammer"}}
-cells["9"]=cell{item={face="it-flagblack"}}
 cells[":"]=cell{item={face="it-document",attr={text=Story[17]}}}
 cells[";"]=cell{item={face="it-document",attr={text=Story[16]}}}
 cells["<"]=cell{item={face="it-key_a"}}
 cells["="]=cell{item={face="it-document",attr={text=Story[3]}}}
 cells[">"]=cell{item={face="it-document",attr={text=Story[6]}}}
 cells["?"]=cell{item={face="it-document",attr={text=Story[9]}}}
-cells["@"]=cell{item={face="it-trigger",attr={action="openclose",target="WhiteDoor1"}}}
-cells["A"]=cell{item={face="it-trigger",attr={action="openclose",target="WhiteDoor2"}}}
+cells["@"]=cell{item={face="it-trigger",attr={name="WhiteTrigger1",action="openclose",target="WhiteDoor1"}}}
+cells["A"]=cell{item={face="it-trigger",attr={name="WhiteTrigger2",action="openclose",target="WhiteDoor2"}}}
 cells["B"]=cell{item={face="it-floppy"}}
 cells["C"]=cell{item={face="it-document",attr={text=Story[4]}}}
 cells["D"]=cell{item={face="it-document",attr={text=Story[5]}}}
@@ -158,10 +153,10 @@ cells["M"]=cell{item={face="it-trigger",attr={action="openclose",target="BlackEn
 cells["N"]=cell{item={face="it-trigger",attr={action="close",invisible=1,target="WhiteRoomDoor"}}}
 cells["O"]=cell{item={face="it-magicwand"}}
 cells["P"]=cell{item={face="it-document",attr={text=Story[12]}}}
-cells["Q"]=cell{item={face="it-flagwhite",parent=cells["P"]}}
 cells["R"]=cell{item={face="it-document",attr={text=Story[11]}}}
 cells["S"]=cell{item={face="it-document",attr={text=Story[7]}}}
 cells["T"]=cell{item={face="it-trigger",attr={action="open",invisible=1,target="WhiteRoomDoor"}}}
+cells["U"]=cell{item={face="it-trigger",attr={action="callback",invisible=1,target="DisableWhiteDoor"}}}
 level={
 "                                         ",
 "                          B          L   ",
@@ -169,7 +164,7 @@ level={
 "                                         ",
 "    %                                    ",
 "                                         ",
-"                     9  =            M   ",
+"                        =            M   ",
 "          )  0                C          ",
 "                                         ",
 "                                         ",
@@ -190,8 +185,8 @@ level={
 "          .                              ",
 " #                  5                    ",
 "                    6                    ",
-"                                  E  Q   ",
-"                                         ",
+"                                  E      ",
+"                                     U   ",
 "                                         ",
 "                                         ",
 "               1                         ",
@@ -204,20 +199,19 @@ level={
 draw_map(0,0,level,cells)
 
 -- Stones --
-
 number_TD = 0
-function parent_TD(x,y)   -- frees ASCII 4, 7, :, ;
+function parent_TD(x,y)
   number_TD = number_TD + 1
   set_stone("st-door_a", x, y, {name = "TD"..tostring(number_TD)})
 end
 
 number_DD = 0
-function parent_DD(x,y)   -- frees lots of ASCIIs
-  number_DD = number_DD + 1  
+function parent_DD(x,y)
+  number_DD = number_DD + 1
   set_stone("st-door_a", x, y, {name = "DD"..tostring(number_DD)})
 end
 
-mainstone = "st-camouflage"  --"st-rock1"
+mainstone = "st-camouflage"
 movestone = mainstone.."_move"
 holestone = mainstone.."_hole"
 
@@ -295,6 +289,13 @@ cells["A"]=cell{stone={face="st-oneway_black-e"}}
 cells["B"]=cell{stone={face="st-oneway_black-w"}}
 cells["D"]=cell{stone={face="st-door-v",attr={name="WhiteRoomDoor"}}}
 cells["F"]=cell{stone={face="st-laserswitch",attr={action="openclose",target="DiskDoor1"}}}
+if not difficult then
+  cells["!"]=cell{stone={face="st-window",attr={faces="w", secure=true}}}
+  cells["S"]=cell{stone={face="st-stoneimpulse"}}
+else
+  cells["!"]=cell{}
+  cells["S"]=cell{stone={face=mainstone}}
+end
 level={
 "##########################k##############",
 "#    -.-          U#     # mqtd      zA #",
@@ -307,7 +308,7 @@ level={
 "#       $555$      ^   `        i  i  # #",
 "#  & & &$656$& & & #``a`    i         # #",
 "#  #+#/#$555$#<#I# # ```    i  `     {# #",
-"#  # # $$656$$ # Q # d         i i   |B #",
+"#  # # $$656$$ # QQ# d         i i   |B #",
 "$$$$$$$$$555$$$$$$V#######.#hh##  ##### #",
 "$ $$ $ $$   $$ $ $$#       #  ##  #Q Q# #",
 "$  $,$0$     $=$J$Q#     i n& #   #   # #",
@@ -318,9 +319,9 @@ level={
 "$    $         $   #  #  &   &#   # ` # #",
 "$   $$$       $$$  #  #########   #   # #",
 "$    $         $   #       .      Ci i# #",
-"$        $8$       #     j        C i C #",
-"$        $ $       #       .      # i # #",
-"$$$$$$$$$$9$$$$$$$$##b#############QCC# #",
+"$        $8$       #     j        C!i C #",
+"$        $ $       #       .      S!i # #",
+"$$$$$$$$$$9$$$$$$$$##b############SQCC# #",
 "$             >>>>>#   i i         o  D #",
 "$             >E>E>#    i i           # #",
 "$  '   '   (  >>>>>#   i i o         %# #",
@@ -341,11 +342,12 @@ cells={}
 cells[" "]=cell{}
 cells["#"]=cell{actor={face="ac-blackball",attr={name="Me"}}}
 cells["&"]=cell{actor={face="ac-top",attr={name="Goshers",force=15,range=40}}}
-cells["$"]=cell{actor={face="ac-rotor",attr={force=20,range=30}}}
 if difficult then
   cells["%"]=cell{actor={face="ac-rotor"}}
+  cells["$"]=cell{actor={face="ac-rotor",attr={force=20,range=30}}}
 else
   cells["%"]=cell{}
+  cells["$"]=cell{actor={face="ac-rotor",attr={force=15,range=30}}}
 end
 cells["'"]=cell{actor={face="ac-whiteball",attr={name="Xila"}}}
 level={
@@ -455,6 +457,11 @@ function SwitchGrate()
  end
 end
 
+function DisableWhiteDoor()
+ SetAttrib(enigma.GetNamedObject("WhiteTrigger1"),"target","")
+ SetAttrib(enigma.GetNamedObject("WhiteTrigger2"),"target","")
+end
+
 GoshersIsFree=false
 TTDone={0,0,0,0}
 
@@ -560,86 +567,86 @@ function OpenDiamonds()
   SendMessage("DD"..tostring(j),"open")
  end
 end
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "Coatlicue", which is a small village surrounded by unexplored jungle terrain. Now you find yourself in front of an impressive temple, which seems to be a relic of the ancient Aztec empire. But the temple is in surprisingly good condition ...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">Next to the giant doors of the temple you see a chrome sign: "Restoration by: G. G. Goshers, A.D. 1998". A smaller sign beneath says: "Property of G. G. Goshers. Trespassing prohibited!". Now you notice the dog kennels built up along the front side of the temple. "Goshers made this ancient relic a fortress", you think, "this cannot be legal, for Goshers received funding from the UK Government. I'll try to call him to account!"</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">This guard doesn’t notice me.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text4">
         <el:english el:translate="true">This lake was obviously made by Goshers. I think the correct way is south.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text5">
         <el:english el:translate="true">There's an inscription on the old wall, saying in spanish: "Careful! What you touch could be the last thing you touch!"</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text6">
         <el:english el:translate="true">Chrome sign: "Control of the beast’s cage."</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text7">
         <el:english el:translate="true">Oooh, this slope is steep! Try not to touch the skull!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text8">
         <el:english el:translate="true">This building down there looks like a prison. Let's see if I can determine its purpose ... Ah, there's another chrome sign. Goshers seems to favour chrome signs. It says: "Natives’ prison".</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text9">
         <el:english el:translate="true">Getting beyond the prison building was a really good idea. But now you have to cross this lake. Be thrifty with those boxes!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text10">
         <el:english el:translate="true">Now, peering through the grilled prison windows, you see a native woman imprisoned there. Obviously Goshers locked up all the natives, who disturbed his "work"; trying to enter the temple and to get rich from the treasures of the Aztecs. It might be helpful to be accompanied by someone, who knows the secrets of the jungle and this temple ...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text11">
         <el:english el:translate="true">Since the white man there freed me from the prison, he certainly cannot be as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers and free my people. And even if this is not the case, it's better to be free than imprisoned. I think I should thank him.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text12">
         <el:english el:translate="true">You meet the English adventurer in the front of the prison. "Hello, I'm Xila!", you tell him in broken English. After he introduced himself as well, both of you begin to work out a plan against the evil G. G. Goshers.</el:english>
       </el:string>
       <el:string el:key="text13">
         <el:english el:translate="true">This is a really hard puzzle. The English man will have to help me, if this enigma is to be solved.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text14">
         <el:english el:translate="true">You wonder what this switch could trigger.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text15">
         <el:english el:translate="true">Xila knows how to drain the lake!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text16">
         <el:english el:translate="true">You were lucky to find this hole. It prevents you from drowning.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text17">
         <el:english el:translate="true">This glass stone must fulfill a purpose ...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text18">
         <el:english el:translate="true">It's funny that such a temple should have a side entrance.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text19">
         <el:english el:translate="true">Be careful! There are sensors in the walls.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text20">
         <el:english el:translate="true">After the huge doors of the old temple have opened, you see, that the entrance is protected by 11 knights, armed with spears. These guards are very dangerous. Without a sword you'll never be able to enter. Be careful. There are not only knights, but also thieves.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text21">
         <el:english el:translate="true">"Congratulations. You just managed to enter this old Aztec Temple."</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text22">
         <el:english el:translate="true">"You've been smarter than I expected. But you'll never enter the treasure room nor escape from here!"</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text23">
         <el:english el:translate="true">"I, Goshers, will certainly be able to rid myself of one of my archenemies by just killing you!"</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text24">
         <el:english el:translate="true">"Run for your life!"</el:english>
       </el:string>
       <el:string el:key="text25">
         <el:english el:translate="true">Xila and you just entered the Diamond Room of the old Aztec Temple. By taking him back to Great Britain and rendering him to the police, you have ended the evil career of Gerald Gregory Goshers. Congratulations on the success of your expedition!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

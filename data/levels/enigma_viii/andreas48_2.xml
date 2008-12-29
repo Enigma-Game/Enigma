@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Fashions Pass" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
+      <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
+      <el:version el:score="2" el:release="2" el:revision="7" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -97,13 +97,13 @@ for j = 1, 5 do
   else
     ti[" "..j] = ti["_"..j]
   end
-  
+
   if spot == SPOT_ACTORIMPULSE then
     ti["#"..j] = ti["_"..j] .. ti({design[2]})
   else
     ti["#"..j] = ti["_"..j] .. ti({design[3]})
   end
-  
+
   if spot == SPOT_HOLLOW then
     ti["."..j] = ti["_"..j] .. ti({design[4]})
   else
@@ -129,7 +129,7 @@ for j = 1, 5 do
   else
     ti["g"..j] = ti["_"..j]
   end
-  
+
   ti["M"..j] = {"st_monoflop", target = "vortex_"..spot, action = "signal"} .. ti["_"..j]
   ti["v"..j] = {"it_vortex", "vortex_"..spot, autoclose = true, state = CLOSED,
                  destination = "start_position"} .. ti["_"..j]
@@ -161,7 +161,7 @@ for j = 1, 5 do
     ti["L"..j] = ti["_"..j]
     ti["N"..j] = ti["_"..j]
   end
-end    
+end
 
 ti["k1"] = ti["_1"] .. {"it_floppy"}
 ti["k2"] = ti["_2"] .. {"it_key", code = "good_key"}
