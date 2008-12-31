@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:69$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:70$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -216,7 +216,7 @@ ti["LS"] = ti[" +"] .. {"st_laser_s",state=OFF}
 
 if wo ["IsDifficult"] then
    ti["i+"] = ti[" +"] .. {"it_seed_fake"}
-   ti["rr"] = ti[" $"] .. {"#ac-rotor",range="3", force="3"}
+   ti["rr"] = ti[" $"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_water"}
    ti["))"] = ti[" l"] .. {"it-burnable_burning"}
    ti[")$"] = ti[" $"] .. {"it-burnable_burning"}
@@ -232,7 +232,7 @@ if wo ["IsDifficult"] then
 else
    ti["i+"] = ti[" +"] .. {"it-dynamite"}
    ti["rt"] = ti[" '"] .. {"st-break_invisible"}
-   ti["rr"] = ti["rt"] .. {"#ac-rotor",range="3", force="3"}
+   ti["rr"] = ti["rt"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_swamp"}
    ti["))"] = ti[" l"] .. {"it-burnable_oil"}
    ti[")$"] = ti[" $"] .. {"fl_water"}

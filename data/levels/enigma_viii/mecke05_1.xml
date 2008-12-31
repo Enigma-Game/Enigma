@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:29$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:30$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -88,8 +88,8 @@ ti["f "] = {"it_magicwand"}
 ti["g "] = {"it_wrench"}
 ti["7 "] = {"st_window_s",secure=true}
 ti["0 "] = ti["4 "] .. {"#ac_marble_black",0.5,0.5}
-ti["$ "] = ti["9 "] .. {"#ac-top", range="2", force="2"}
-ti["% "] = ti["9 "] .. {"#ac-top", range="7", force="6"}
+ti["$ "] = ti["9 "] .. {"#ac_top", range=2, strength=2}
+ti["% "] = ti["9 "] .. {"#ac_top", range=7, strength=6}
 ti["X "] = {"st_oxyd", flavor="d"}
 ti["( "] = ti["1 "] .. {"it-puller-e"}
 ti[") "] = ti["3 "] .. {"it-puller-w"}

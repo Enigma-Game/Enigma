@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
-      <el:version el:score="2" el:release="4" el:revision="7" el:status="released"/>
+      <el:version el:score="2" el:release="4" el:revision="8" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ ti["@ "] = {"#ac_marble_black", name = "marble"}
 ti["o "] = {"st_oxyd", flavor = "b"}
 ti["S*"] = {"st_scissors", name = "scissors%%", target = "call_scissors"}
 ti["C "] = {"st_scissors", name = "scissors_central", target = "call_scissors"}
-ti["X*"] = {"st-glass1"} .. ti({"#ac-horse", name = "horse%%"})
+ti["X*"] = {"st-glass1"} .. ti({"#ac_horse", name = "horse%%"})
 ti["s*"] = {"st-grate2", name = "parascissors%%"}
 ti["c "] = {"st-grate2", name = "parascissors_central"}
 ti["x*"] = {"st-glass1_hole", name = "paraplace%%"}
@@ -180,8 +180,7 @@ for j = 1, 8 do
   --       they're connected to. It's the paraplace which Goal
   --       references to, in contrast to the real situation on
   --       the left side.
-  wo[no["paraplace%"..j]] = {"#ac-horse", name = "parahorse%"..Goal[j],
-                                          force = 4 + j/10}
+  wo[no["paraplace%"..j]] = {"#ac_horse", name = "parahorse%"..Goal[j], strength = 4 + j/10}
 end
 
 for j = 1, 8 do

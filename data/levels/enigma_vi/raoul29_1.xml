@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,11 +59,11 @@ w, h = wo(ti, " ", {
 })
 
 if  wo["IsDifficult"]  then
-    wo[{10, 0.5}] = {"ac-rotor", force=20, range=15, prefercurrent=1}
-    wo[{10, 12.5}] = {"ac-rotor", force=20, range=15, prefercurrent=1}
+    wo[{10, 0.5}] = {"ac_rotor", strength=20, range=15, prefercurrent=1}
+    wo[{10, 12.5}] = {"ac_rotor", strength=20, range=15, prefercurrent=1}
 else
-    wo[{10, 0.5}] = {"ac-rotor", force=10, range=15, prefercurrent=1}
-    wo[{10, 12.5}] = {"ac-rotor", force=10, range=15, prefercurrent=1}
+    wo[{10, 0.5}] = {"ac_rotor", strength=10, range=15, prefercurrent=1}
+    wo[{10, 12.5}] = {"ac_rotor", strength=10, range=15, prefercurrent=1}
 end
 wo:shuffleOxyd()
     ]]></el:luamain>

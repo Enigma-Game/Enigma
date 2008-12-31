@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 120 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 136 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -11,11 +11,11 @@
         <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="false" el:showstart="false"></el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Thomas for test playing</el:credits>
       </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="25:38" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
@@ -49,6 +49,7 @@ ti["O4"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_CYAN}
 ti["O5"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_PURPLE}
 ti["O6"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_WHITE}
 ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
+ti["OE"] = {"st_oxyd_d"}
 ti[":;"] = {"fl-rough-blue"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl-thief"}
@@ -85,10 +86,10 @@ ti[",d"] = ti[",,"] .. {"it_coin_l"}
 ti[",s"] = ti[",,"] .. {"it_sword"}
 ti[",r"] = ti[",,"] .. {"it-ring"}
 ti[",l"] = ti[",,"] .. {"it_extralife"}
-ti[".r"] = ti[".."] .. {"it-ring"}
 ti[",c"] = ti[",,"] .. {"it_rubberband", anchor2="white", threshold=1, length=10}
 ti[",g"] = ti[",,"] .. {"it_glasses", state=SPOT_DEATH}
 ti["$g"] = ti["$$"] .. {"it_glasses", state=SPOT_DEATH}
+ti[",a"] = ti[",,"] .. {"it_floppy"}
 ti[",p"] = ti[",,"] .. {"it-pencil"}
 ti[",t"] = ti[",,"] .. {"it-document", text="mystic"}
 ti[" k"] = ti["_f"] .. {"it_cherry"}
@@ -105,6 +106,8 @@ ti["_U"] = ti["__"] .. {"it_umbrella"}
 ti["_d"] = ti["__"] .. {"it-drop"}
 ti["_."] = ti["_v"] .. {"it_seed_volcano", secure=true}
 ti[";t"] = ti[";;"] .. {"it-spade"}
+ti[" t"] = ti["  "] .. {"it-spade"}
+ti[" H"] = ti["  "] .. {"it_meditation_hill"}
 ti[";w"] = ti[";;"] .. {"it_magicwand"}
 ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
@@ -123,7 +126,7 @@ ti["d5"] = ti[",,"] .. {"it-document", text="predecessor"}
 ti["d6"] = ti[";;"] .. {"it-document", text="curse"}
 ti["d7"] = ti["  "] .. {"it-document", text="repair"}
 ti["d8"] = ti["  "] .. {"it-document", text="mailbox"}
-ti["d9"] = ti["$$"] .. {"it-document", text="invoice"}
+ti["d9"] = ti["$$"] .. {"it-document", "docinvoice", text="invoice"}
 ti["da"] = ti["  "] .. {"it-document", text="holy"}
 ti["db"] = ti[";;"] .. {"it-document", text="death"}
 ti["dc"] = ti["  "] .. {"it-document", text="fire"}
@@ -132,17 +135,23 @@ ti["de"] = ti[";;"] .. {"it-document", text="noitem"}
 ti["df"] = ti["%%"] .. {"it-document", text="thieves"}
 ti["dg"] = ti["''"] .. {"it-document", text="children"}
 ti["ph"] = ti["$$"] .. {"it_pipe_ew"}
-ti["pH"] = ti["  "] .. {"it_pipe_ew"}
+ti["pH"] = ti[",,"] .. {"it_pipe_ew"}
 ti["pv"] = ti["$$"] .. {"it_pipe_ns"}
 ti["pV"] = ti[",,"] .. {"it_pipe_ns"}
 ti["pa"] = ti["  "] .. {"it_pipe_nw"}
+ti["pA"] = ti[",,"] .. {"it_pipe_nw"}
 ti["pb"] = ti["$$"] .. {"it_pipe_ne"}
 ti["pB"] = ti[",,"] .. {"it_pipe_ne"}
 ti["pc"] = ti["$$"] .. {"it_pipe_es"}
+ti["pC"] = ti[",,"] .. {"it_pipe_es"}
 ti["pd"] = ti["$$"] .. {"it_pipe_sw"}
 ti["pD"] = ti[",,"] .. {"it_pipe_sw"}
 ti["pn"] = ti[";;"] .. {"it-puller-n"}
 ti["pe"] = ti["gs"] .. {"it-puller-e"}
+ti["g1"] = {"it_rubberband", anchor2="kid1", min=0.55, max=0.65}
+ti["g2"] = {"it_rubberband", anchor2="kid2", min=1.00, max=1.10}
+ti["g3"] = {"it_rubberband", anchor2="kid3", min=1.45, max=1.55}
+ti["g4"] = {"it_rubberband", anchor2="kid4", min=1.90, max=2.00}
 ti["te"] = ti[",,"] .. {"it_sensor", target="escape", invisible=true}
 ti["t'"] = ti["''"] .. {"it_trigger", target="open_grave"}
 ti["c'"] = ti["''"] .. {"it_sensor", target="home", invisible=true}
@@ -155,7 +164,7 @@ ti["t4"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano4"}
 ti["t5"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano5"}
 ti["t6"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano6"}
 ti["tc"] = ti["^^"] .. {"it_sensor", target="scorpion_count"}
-ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init"}
+ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init", invisible=true}
 ti[" C"] = ti["  "] .. {"st-chameleon"}
 ti["'b"] = ti["''"] .. {"st_passage_black_frame"}
 ti["W "] = ti["  "] .. {"st_passage_white_cross"}
@@ -198,10 +207,14 @@ ti["I."] = ti[".."] .. {"st_stoneimpulse"}
 ti["Im"] = ti[".."] .. {"st_stoneimpulse_movable"}
 ti["Ih"] = ti[".."] .. {"st_stoneimpulse_hollow"}
 ti["IH"] = ti["__"] .. {"st_stoneimpulse_hollow"}
+ti["G#"] = ti[";;"] .. {"st-glass1"}
 ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
-ti["MW"] = ti["''"] .. {"st_box_wood"}
-ti["M:"] = ti["::"] .. {"st_box_wood"}
+ti["MW"] = ti["''"] .. {"st_box"}
+ti["M:"] = ti["::"] .. {"st_box"}
 ti["MB"] = ti["c'"] .. {"st-brownie"}
+ti["M."] = ti[".."] .. {"st-brownie"}
+ti["W."] = ti[".."] .. {"st-break_acwhite"}
+ti["S."] = ti[".."] .. {"st-break_acblack"}
 ti["R0"] = ti["  "] .. {"st-rock5"}
 ti["R1"] = ti["::"] .. {"st-rock1"}
 ti["R6"] = ti["::"] .. {"st-rock1_move"}
@@ -228,6 +241,7 @@ ti["F'"] = ti["''"] .. {"st-grate1"}
 ti["F."] = ti[".."] .. {"st-grate1"}
 ti["FA"] = ti[".."] .. {"st_quake"}
 ti["S#"] = ti[",,"] .. {"st_scissors"}
+ti["SS"] = {"st_scissors"}
 ti["B#"] = ti[".."] .. {"st-block"}
 ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
 ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
@@ -299,25 +313,26 @@ ti["K1"] = ti[".."] .. {"st_key", code=1, target="door1#*"}
 ti["K2"] = ti[".."] .. {"st_key", code=2, target="door2#*"}
 ti["K3"] = ti[".."] .. {"st_key", code=3, target="door3#*"}
 ti["K4"] = ti[".."] .. {"st_key", code=4, target="door4#*"}
+ti["KA"] = ti["  "] .. {"st_floppy", target="door8"}
 ti["D5"] = ti["::"] .. {"st_door_c", "door5#"}
 ti["D7"] = ti[".."] .. {"st_door_a", "door7"}
+ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
 ti["_C"] = ti["__"] .. {"st-chameleon"}
-ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac-horse"})
+ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac_horse"})
 
 ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, player=0, controllers=1} .. ti({"it_extralife"})
 ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, player=1, controllers=2}
-ti["c1"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid1"}
-ti["c2"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid2"}
-ti["c3"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid3"}
-ti["c4"] = ti["  "] .. {"#ac_pearl_white", essential=1, controllers=0, name="kid4"}
-ti[" 8"] = ti["  "] .. {"#ac-bug"}
-ti[" 3"] = ti["  "] .. {"#ac-killerball", "killer"}
---ti[" 3"] = ti["  "] .. {"ac-killerball", "killer", mouseforce=0}
-ti[" 4"] = ti["  "] .. {"#ac-top", range=1.8, force=30}
-ti[" 5"] = ti["  "] .. {"#ac-top", range=3, force=40, name="top"}
-ti[" 6"] = ti["  "] .. {"#ac-rotor", range=3, force=40, name="rotor"}
-ti["%6"] = ti["%%"] .. {"#ac-rotor", range=3, force=40}
-ti["'6"] = ti["''"] .. {"#ac-rotor", range=3, force=40}
+ti["c1"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid1"}
+ti["c2"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid2"}
+ti["c3"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid3"}
+ti["c4"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid4"}
+ti[" 8"] = ti["  "] .. {"#ac_bug"}
+ti[" 3"] = ti["  "] .. {"#ac_killer", "killer"}
+ti[" 4"] = ti["  "] .. {"#ac_top", range=1.8, strength=30}
+ti[" 5"] = ti["  "] .. {"#ac_top", range=3, strength=40, name="top"}
+ti[" 6"] = ti["  "] .. {"#ac_rotor", range=3, strength=40, name="rotor"}
+ti["%6"] = ti["%%"] .. {"#ac_rotor", range=3, strength=40}
+ti["'6"] = ti["''"] .. {"ac_rotor", range=3, strength=40}
 
 ti["C4"] = ti[" 4"] .. {"st-chameleon"}    -- aka sand viper in natur
 ti["H4"] = ti[" 4"] .. {"st-greenbrown_hole"}    -- aka sand viper in natur
@@ -348,32 +363,49 @@ ti["'c"] = ti["''"] .. {"st-chameleon"}
 ti["?g"] = ti["  "] .. {"st-grate3"}
 ti[" w"] = ti["  "] .. {"it_magicwand"}
 
+ti["ni"] = {"st_nil"} .. ti{"it_nil"}
+
+if wo["IsDifficult"] then
+    ti[" u"] = ti["  "]
+    ti[".r"] = ti[".."] .. {"it-ring"}
+else
+    ti[" u"] = ti["  "] .. {"it_umbrella"}
+    ti[".r"] = ti[".."] .. {"it_extralife"}
+end
+
 oxyd_colors = lib.lua.shuffle({OXYD_BLUE, OXYD_RED, OXYD_GREEN, OXYD_YELLOW,
     OXYD_CYAN, OXYD_PURPLE, OXYD_WHITE, OXYD_BLACK})
 holy_idx = random(1, 8)
 fake_idx = 1
 
 myresolver = function(key, x, y)
-    if key == "o9" then
-        return ti["O"..oxyd_colors[holy_idx]]
-    elseif key == "of" then
-        local idx = lib.lua.cond(fake_idx == holy_idx, fake_idx + 1, fake_idx)
-        fake_idx = idx + 1
-        return ti["O"..oxyd_colors[idx]]
-    elseif key:sub(1,1) == "o" then
-        local idx = 0 + key:sub(2,2)
-        return ti["O"..oxyd_colors[idx]]
-    elseif key:sub(1,1) == "r" then
-        local idx = 0 + key:sub(2,2)
-        return lib.lua.cond(idx == holy_idx, ti["R6"], ti["R1"])
+    if wo["IsDifficult"] then
+        if key == "o9" then
+            return ti["O"..oxyd_colors[holy_idx]]
+        elseif key == "of" then
+            local idx = lib.lua.cond(fake_idx == holy_idx, fake_idx + 1, fake_idx)
+            fake_idx = idx + 1
+            return ti["O"..oxyd_colors[idx]]
+        elseif key:sub(1,1) == "o" then
+            local idx = 0 + key:sub(2,2)
+            return ti["O"..oxyd_colors[idx]]
+        elseif key:sub(1,1) == "r" then
+            local idx = 0 + key:sub(2,2)
+            return lib.lua.cond(idx == holy_idx, ti["R6"], ti["R1"])
+        end
     else
-        return ti[key]
+        if key == "o9" then
+            return ti["OE"]
+        elseif (key == "of" or key:sub(1,1) == "o" or key:sub(1,1) == "r") then
+            return ti["  "] -- dummy
+        end
     end
+    return ti[key]
 end
 
 w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 --0 1 2 3 4 5 6 7 8 9101112131415161718||202122232425262728293031323334353637||394041424344454647484950515253545556||
-"C1 s  C4                                                                                                        ####", --  0
+"C1 s  C4                                                                                                       u####", --  0
 "                                                                                                        ##      C4##", --  1
 "    C4                                                                                                              ", --  2
 "C4                                                                                                                  ", --  3
@@ -394,7 +426,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "                                ###@####HsHt##Hn##;;M# k kM#_fDIDIDI_fDI_f#######@##                               %", -- 18
 "                                ###@####Hs##H5H8R#;;H#######_fDI_f_f_fDI_f####Hm#@                                  ", -- 19
 "                                ###@####H7HeH8##H#;;##H#####_fDI_fDIDIDI_f####H##@##__                              ", -- 20
-"                             m  ##HFHE########H##D;;H#H#M#M#_fDI_f_f_f_f_f####H##@##                                ", -- 21
+"                             m  ##HFHE########G##D;;H#H#M#M#_fDI_f_f_f_f_f####H##@##                                ", -- 21
 "     %                          ###@####Va;;;;;;;;P_####B;####################H#H##w                                ", -- 22
 "                                ###@##########H#H#H#####H#HwHwHwHwHwHwHwHwVc#####@##                                ", -- 23
 "                                ###@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##                                ", -- 24 --
@@ -412,14 +444,14 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "      c2  c4 %                C4                                           fWfW W W W W W W W W W W Wf f            ", -- 36 --
 "    c1HWc3  R#~~        ~~RM                                                W $$$$$$ph$$$$ph$$$$$$$$W               ", -- 37
 "BBBBBBBBBBBBBB~e,f,f,f,f~eBBBBBBBBBBBBBB                                    W $$$g## fpb$$$o$$ f$$$oW               ", -- 38
-"BBCS,,GTCWGGCW,,,l 1d1,,,,,,,,B,,,d4,,BBT#                                  W $$$$$$$$$$$$$$$$pd##$$W d8            ", -- 39
-"BBGB,,,,,,,,F,,,,d,d,d,d,,,,,,CC,,S#,,BB                                    W $$$$$$$$$$$$ o    d9phMw              ", -- 40
-"BBCS,,CS,,CSBB,,,,,,,,,,,,,,BBBBBBBBBBBB                               m    W $$phph$o$$    C4  $$$$W               ", -- 41
-"BBGPF,GRF,GSBB,,,,,,,,,,,,,,,,,,,,BB,dBB                                    W $o$$pv## f fpa    $$$$W               ", -- 42
-"BBBBBBBBBBBBBB,,,,,,,,,,,,,,,,,,d5K0,dGA                                    W $$$$pv fWkpH f f  $$$$WvWvWvW W W W W ", -- 43
-"BBLE,,,,CBBB,,,,,,,etetete,,,,,,,,B0,cBBBBBBWSBBBBBB  BBBBBBBBW W W W W W W W $$$$$$ ffw o     fg5gsgsgsgs$$$o$$ f$$", -- 44
-"BB,,,,,,,,BB,,,,BBBBG3G6P5BBBBO,COBBBBBB    W4    da    R2R2BB$$$$$$$$$$$$$$$$$$$$####  Vb   hWwgwgwgwgwgwpb$$####pv", -- 45
-"BBUA,,d2,,,,,,,,BBd3teteteCSBB,,pDpVpBBBo9  W4           fFBBB$$phpv$$$$$o$$$$$$$$$$## f   e f fg7gngn####$$pc$$##$$", -- 46
+"BBCS,,GTCWGGCW,,,l 1d1,,,,,,,,B,,,d4S#BBT#                                  W $$$$$$$$$$$$$$$$pd##$$W d8            ", -- 39
+"BBGB,,,,,,,,F,,,,d,d,d,d,,,,,,CC,,BBBBBB                                    W $$$$$$$$$$$$ H o  d9phMw              ", -- 40
+"BBCS,,CS,,CSBB,,,,,,,,,,,,,,BBBBBBBB,aBB                               m    W $$phph$o$$ Hpa 4  $$$$W               ", -- 41
+"BBGPF,GRF,GSBB,,,,,,,,,,,,,,,,,,,,BB,dBB                                    W $o$$pv## f fKA H  $$$$W               ", -- 42
+"BBBBBBBBBBBBBB,,,,,,,,,,,,,,,,,,d5K0,dGA                                    W $$$$pv fWk H f ffw$$$$WvWvWvW W W W W ", -- 43
+"BBLE,,,,CBBB,,,,,,,etetete,,,,,,,,B0,cBBBBBBWSBBBBBB  BBBBBBBBW W W W W W W W $$$$$$ f   o e H fg5gsgsgsgs$$$o$$ f$$", -- 44
+"BB,,,,,,,,BB,,,,BBBBG3G6P5BBBBO,COBBBBBB    W4    da    R2R2BB$$$$$$$$$$$$$$$$$$$$#### HVb   hD8gwgwgwgwgwpb$$####pv", -- 45
+"BBUA,,d2,,,,,,,,BBd3teteteCSBB,,pDpVpBBBo9  W4           fFBBB$$phpv$$$$$o$$$$$$$$$$## f t H f fg7gngn####$$pc$$##$$", -- 46
 "BBUAUAUA,,BB,,,,F,,,,,,,,,G8BBpVpDpVpBBB    W4        dcR2R2BB$$$$$$$$$$$$##$$$$ f$$$o$$ f f$$$$$$$$$$$$$$$$$$##$$$$", -- 47
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB###############!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!", -- 48 --
 "                                                                            ##%%%t%tPmPcPcPcPcPcPcPcPcPcPcPm%t%t%%##", -- 49
@@ -435,7 +467,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "                                                                            ##%%%t%tP%PhPhPhPhPhPhPhPhPhPhPc%t%t%%##", -- 59
 "R0R0R0TTTTTTTTTTTTTTTTTTTTTTTTTTTTR0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0########################################", -- 60 --
 "R0VE%%BnttttTTttttttTTttttttTTtttt%b%bR0^^g5gsgsgsg6R4tcR4g5gsgsgsgsgsgsg6^^D7..............R5FTR5................R0", -- 61
-"R0dfR0ttTTttttttTTttttttTTttttttTT%b%bR0g5g9^^^^^^gwR4ONR4ge^^^^^^^^^^^^gbg6R0....................................R0", -- 62
+"R0dfR0ttTTttttttTTttttttTTttttttTT%b%bR0g5g9^^^^^^gwR4OSR4ge^^^^^^^^^^^^gbg6R0....................................R0", -- 62
 "R0R0R0R0TTTTTTTTTTTTTTTTTTTTTTTTTT%b%bR0ge^^^^^^^^gbgsgsgsg9^^^^^^^^^^^^^^gwR0....................................R0", -- 63
 "R0%wtttttttt%wtttt%w%wtttt%wtttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^gwR0....................................R0", -- 64
 "R0%wtt%wtttt%wtttttttttttt%wtttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^g5g6^^^^gwR0....................................R0", -- 65
@@ -443,7 +475,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "R0tttttttttttttttttttttttttttttttt%b%bR0ge^^^^g7g8^^^^^^^^^^^^^^^^^^^^^^^^gwR0..R5l1l1l1F.............F.l1l1l1R5..R0", -- 67
 "R0tttttttttttttttttttt%wtttttttttt%b%bR0ge^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^gwR0..R5R5R5l1F.............F.l1R5RpRp..R0", -- 68
 "R0tttttttttt%wtttttttt%wtttttttttt%b%bR0ge^^^^^^^^^^^^^^gcgngngnga^^^^^^^^gwR0..R5R5VBl1F.............F.l1.rR5R5..R0", -- 69
-"R0%wtt%wtttt%wtt%wtttt%wtttttttttt%b%bR0g7ga^^^^^^^^^^^^gwR4OSR4ge^^^^^^gcg8R0..R5R5R5l1F.F.F.F.F.F.F.F.l1R5R5R5..R0", -- 70
+"R0%wtt%wtttt%wtt%wtttt%wtttttttttt%b%bR0g7ga^^^^^^^^^^^^gwR4ONR4ge^^^^^^gcg8R0..R5R5R5l1F.F.F.F.F.F.F.F.l1R5R5R5..R0", -- 70
 "R0%wtttttttttttt%wtttt%wttttttttttBSBSTi^^g7gngngngngngng8R4tcR4g7gngngng8^^R0......F.l1l1l1l1l1l1l1l1l1l1F.......R0", -- 71
 "R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0PCPBPCPBPCPBPCPBPCPBR0R0R0R0R0", -- 72 --
 "R0''''''''''''''''''''''''''''R0I#~~''MW''~~I#R0''''''''''''''''''''''''''''R0RLR3R3R3PBPCPBPCPBPCPBPCPBPCR3R3VAR#R0", -- 73
@@ -454,23 +486,23 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "R0''''''''RP~~%%k4%%~~RP'''''''''''''b'''b''''''''''''RP~~%%k3%%~~RP'''''''''b....................................R0", -- 78
 "R0''''''''~~~~%6%%%6~~~~'''''.'''''''b'''b''''''''''''~~~~%%%%%%~~~~''''''''R0....................................R0", -- 79
 "R0''''''''%%%%~~~~~~%%%%'''''''''''''b'''b''''''MW''''RP%%~~~~~~%%RP''''''''R0....................................R0", -- 80
-"R0''''''''~~%%~~RP~~%%~~'''''''''''''b'''b''''''''''''~~RP~~RP~~RP~~''''''''R0A2A1K1A1K2A1A2D1D1D1D1A2A1K3A1K4A1A2R0", -- 81
-"R0''''''''''''''''''''''''''''R0MWR0'b'b'bR0MWR0''''''''''''''''''''''''''''R0A2A1A1A1A1A1A2D2D2D2D2A2A1A1A1A1A1A2R0", -- 82
-"R0''''''''''''''''''''''''''''R0I#~~''MW''~~I#R0''''''''''''''''''''''''''''R0A2A2A2A2A2A2A2D3D3D3D3A2A2A2A2A2A2A2R0", -- 83
-"R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0A1A1A1A1A1A1A1D4D4D4D4A1A1A1A1A1A1A1R0", -- 84 --
-"                                    B#B#I...ImI.I.I.I.I.I.I.I.I.I.I.B#..G.F.B#....................................B#", -- 85
-"  TL                                B#B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.B#..G.F.B#................................MP..B#", -- 86
-"                                    B#B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.B#..G.F.B#..........FA......LS......FA........B#", -- 87
-" 2ge,dgeddge;tgeww                  B#B#B#B#B#ImB#B#B#B#B#B#B#B#B#..B#..G.F.B#......LYl1l1............LZ..l1......B#", -- 88
-"                                    B#B#B#B#B#ImB#B#B#B#B#B#B#B#B#..B#MPG.F.B#......l1l1l1............l1l1l1......B#", -- 89
-"                                  LXC.....................................~~B#..MD..l1l1LS......FA......LSl1......B#", -- 90
-"  ofofofofofofof                    B#B#B#B#B#..IHIHIhIHIHIHIHB#B#B#B#MPG.F.B#......l1l1l1............l1l1l1......B#", -- 91
-"                                    B#B#B#B#B#B#B#B#..B#B#B#IHB#IHIHIH..G.F.B#........l1l1................l1......B#", -- 92
-"                                    B#B#B#B#B#B#B#B#I.I.I.B#IHB#IHB#IH..G.F.B#..........FA......LS......FA........B#", -- 93
-"                                    B#B#B#B#B#B#B#B#I.B#I.B#IHIHIHB#B#..G.F.B#................................MP..B#", -- 94
-"                                    B#B#B#B#B#B#B#B#I...ImB#B#B#B#B#B#..G.F.B#....................................B#", -- 95
-"RPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRP..RPRPRPRPRPRPRPRPRPRPD5D5D5D5RPRPRPRPRPRPRPRPRPRPRPRPRPRPRP", -- 96 --
-"RP::::::::::::M:::::::::::::::::::::::RP::::::::::::::::RX::::::::::::::::::RP::::::::RP::::::::::::M:::::::::::::RP", -- 97
+"R0''''''''~~%%~~RP~~%%~~'''''''''''''b'''b''''''''''''~~RP~~RP~~RP~~''''''''R0A2A1K1A1K2A1A2D1D3D3D2A2A1K3A1K4A1A2R0", -- 81
+"R0''''''''''''''''''''''''''''R0MWR0'b'b'bR0MWR0''''''''''''''''''''''''''''R0A2A1A1A1A1A1A2D3D1D2D3A2A1A1A1A1A1A2R0", -- 82
+"R0''''''''''''''''''''''''''''R0I#~~''MW''~~I#R0''''''''''''''''''''''''''''R0A2A2A2A2A2A2A2D4D2D1D4A2A2A2A2A2A2A2R0", -- 83
+"R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0A1A1A1A1A1A1A1D2D4D4D1A1A1A1A1A1A1A1R0", -- 84 --
+"                                    B#B#I...ImI.I.I.I.I.I.I.I.I.I.B#B#..G.F.B#................................F...B#", -- 85
+"  TL                                B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.I.I...G.F.B#................................F.MPB#", -- 86
+"                                    B#B#B#B#I.B#B#B#B#B#B#B#B#B#B#B#B#..G.F.B#..........FA......LS......FA....F...B#", -- 87
+" 2ge,dgeddge;tgeww                  B#B#B#B#ImB#B#B#B#B#B#B#B#B#B#B#B#..G.F.B#......LYl1l1............LZl1l1..F...B#", -- 88
+"                                    B#B#B#B#ImB#B#B#B#B#B#B#B#B#B#B#B#MPG.F.B#......l1l1l1............l1l1l1..F...B#", -- 89
+"                                  LXC.....F...............................~~B#..MD..l1l1LS......FA......LSl1..F...B#", -- 90
+"  ofofofofofofof                    B#B#B#B#..IHIHIhIHIHIHIHB#B#B#B#B#MPG.F.B#......l1l1l1............l1l1l1..F...B#", -- 91
+"                                    B#B#B#B#B#B#B#..B#B#B#IHB#IHIHIHIH..G.F.B#........l1l1..............l1l1..F...B#", -- 92
+"                                    B#B#B#B#B#B#B#I.I.I.B#IHB#IHB#B#IH..G.F.B#..........FA......LS......FA....F...B#", -- 93
+"                                    B#B#B#B#B#B#B#I.B#I.B#IHIHIHB#B#B#..G.F.B#................................F.MPB#", -- 94
+"                                    B#B#B#B#B#B#B#I...ImB#B#B#B#B#B#B#..G.F.B#................................F...B#", -- 95
+"RPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRPRP..RPRPRPRPRPRPRPRPRPRPRPD5D5D5D5RPRPRPRPRPRPRPRPRPRPRPRPRPRPRP", -- 96 --
+"RP::::::::::::M:::::::::::::::::::::::RP::::::::::::::RX::::::::::::::::::::RP::::::::RP::::::::::::M:::::::::::::RP", -- 97
 "RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", -- 98
 "RP::::::::::::::::::::::::::::::::::::o1::::::::::::::::::::::::::::::::::::o2::::::::::::::::::::::::::::::::::::RP", -- 99
 "RP::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RP", --100
@@ -544,14 +576,14 @@ function curse_legs(value, sender)
 end
 
 function do_curse_legs()
-    no["black"]["mouseforce"] = -no["black"]["mouseforce"]
+    no["black"]["adhesion"] = -no["black"]["adhesion"]
 end
 
 trigger_count = 0
 function volcano(value, sender)
     trigger_count = trigger_count + lib.lua.cond(value, 1, -1)
     st(sender + {0, -1}):toggle()
-    
+
     if (trigger_count == 6) then
         for v in st(no["volcan#*"]) do
             if -v and v:is("st_volcano") then
@@ -583,10 +615,10 @@ function scorpion_init(value, sender)
             if (mf < 0.5) then
                 mf = mf - 1
             end
-            wo[sender + {dx, dy}] = {"ac-killerball", mouseforce=mf}
+            wo[sender + {dx, dy}] = {"ac_killer", adhesion=mf}
         end
     end
-    did_init_scorpions = true 
+    did_init_scorpions = true
 end
 
 switch_count= 0
@@ -597,7 +629,7 @@ end
 
 function open_grave(value, sender)
     local a = no["tutoxyd"]
-    local solved = #no["tutpuz#*"] == 0 
+    local solved = #no["tutpuz#*"] == 0
     if (not solved) then
         wo[a + {1,3}] = {"it-document", text="puzzle"}
         wo[a + {13,3}] = {"it_cherry"}
@@ -606,11 +638,11 @@ function open_grave(value, sender)
         wo:drawMap(ti, a + {3, -1}, "  ",
                     {"  F'          F'",
                      "F''oF'      F''oF'",
-                     "  F'          F'",
+                     "  F'g1      g2F'",
                      "      _C_C_C",
-                     "  dg  _C_T_C",
+                     "  dg  _C_T_C        SS",
                      "      _C_C_C",
-                     "  F'          F'",
+                     "  F'g3      g4F'",
                      "F''oF'      F''oF'",
                      "  F'          F'"})
     end
@@ -642,6 +674,32 @@ function home(value, sender)
     end
 end
 
+if not wo["IsDifficult"] then
+    wo[no["docinvoice"]] = {"it_nil"}
+    wo[no["door8"] - {2, 0}] = {"it-document", text="invoice"}
+
+    wo:drawMap(ti, no["oil_shop"] + {0, 1}, "  ",
+                {"nipHpVpV",
+                 "pVpCpVpA"})
+    local easychamber = no["door7"] + {0, 11}
+    wo:drawRect(easychamber, 20, 13, ti["ni"])
+    wo:drawMap(ti, easychamber, "  ",
+                {"R0R0R0R0R0R0R0PBPBPBPBPBPBR0R0R0R0R0R0R0",
+                 "R0........D2D1............D2D1........R0",
+                 "R0..W.M.S.D1G.G.G.....G.G.G.D2W.M.S...R0",
+                 "R0..M.OEM.D2G.K1G.....G.K2G.D1M.OEM...R0",
+                 "R0..S.M.W.D1G.G.G.....G.G.G.D2S.M.W...R0",
+                 "R0........D2D1D2D1D2D1D2D1D2D1........R0",
+                 "R0........D1D2D1D2D1D2D1D2D1D2........R0",
+                 "R0....................................R0",
+                 "R0..W.M.S...W.M.S.....W.M.S...W.M.S...R0",
+                 "R0..M.OEM...M.OEM.....M.OEM...M.OEM...R0",
+                 "R0..S.M.W...S.M.W.....S.M.W...S.M.W...R0",
+                 "R0....................................R0",
+                 "R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0"})
+    wo:shuffleOxyd()
+end
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
@@ -652,31 +710,31 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="welcome">
-        <el:english el:translate="true">Welcome Mr. Jones! Back from your "Alternatives" and "The Walls" training camp?  Got everything you ordered:  some money  --  40 marbleons -- and a horse outside this shopping center.    Many adventurers did loss their life on this pyramid.    Be aware of the dangerous sand vipers and Enighomatep's curses.</el:english>
+        <el:english el:translate="true">Welcome Mr. Jones! Back from your "Alternatives" and "The Walls" training camp?  Got everything you ordered:  some money  --  40 marbleons -- and a horse outside this shopping center.    Many adventurers did lose their lives in this pyramid.    Beware of the dangerous sand vipers and Enighomatep's curses.</el:english>
       </el:string>
       <el:string el:key="rainmaker">
-        <el:english el:translate="true" >Mr.Rainmaker gave up this shop. He always insisted that his umbrellas were the most usefull items in this desert. But nobody was willing to spend 2 marbleons.  ---  Now a blacksmith offers his service.</el:english>
+        <el:english el:translate="true" >Mr.Rainmaker used to own this shop. He always insisted that his umbrellas were the most usefull items in this desert. But nobody was willing to spend 2 marbleons.  ---  Now a blacksmith offers his service.</el:english>
       </el:string>
       <el:string el:key="escape">
-        <el:english el:translate="true" >Safty Precaution: in case one of these dangerous animals escapes the gates of the shop center will be closed immediatly!</el:english>
+        <el:english el:translate="true" >Safety Precaution: in case one of these dangerous animals escapes, the gates of the shopping center will be closed immediately!</el:english>
       </el:string>
       <el:string el:key="mystic">
-        <el:english el:translate="true" >Not much is known of the pyramids architect Enighomatep. But it is said that he loved cherries. He ate so many of them that he sometimes got invisible.</el:english>
+        <el:english el:translate="true" >Not much is known of the pyramid's architect Enighomatep. But it is said that he loved cherries. He ate so many of them that he sometimes became invisible.</el:english>
       </el:string>
       <el:string el:key="bug">
-        <el:english el:translate="true" >Have a look at my collection!    A white scorpion   --   a rotodile   --  and a sand viper.  It is not allowed to sell them.        But I can offer you a scarab that will be for your best.</el:english>
+        <el:english el:translate="true" >Have a look at my collection!    A white scorpion   --   a rotodile   --  and a sand viper.  They cannot be sold.        But I can offer you a scarab that will be a better choice for you.</el:english>
       </el:string>
       <el:string el:key="barber">
-        <el:english el:translate="true" >Ali Barber's shop for quick hair cuts. Want to know what is going on?  A thief is hanging around and nobody knows where the 4 pale kids that are playing with your horse are coming from.</el:english>
+        <el:english el:translate="true" >Ali Barber's shop for quick hair cuts. Want to know what is going on?  A thief is hanging around and nobody knows where the 4 pale kids that are playing with your horse came from.</el:english>
       </el:string>
       <el:string el:key="predecessor">
         <el:english el:translate="true" >Home of the last adventurer who never returned.   Said he would drill for oil -- but no one believed him.</el:english>
       </el:string>
       <el:string el:key="curse">
-        <el:english el:translate="true" >Be cursed for trying to explore Tutoxyd's last secret -- may your homework left undone until you proof worth.</el:english>
+        <el:english el:translate="true" >Be cursed for trying to explore Tutoxyd's last secret -- may your homework remain undone until you prove worthy!</el:english>
       </el:string>
       <el:string el:key="repair">
-        <el:english el:translate="true" >It's a pitty that some explorers did damage this historic monument and did litter the environment.   But by magic means the pyramid repairs itself every time an adventurer gives up.</el:english>
+        <el:english el:translate="true" >It's a pity that some explorers damaged this historic monument and did littered the environment.   But the pyramid magically repairs itself every time an adventurer gives up.</el:english>
       </el:string>
       <el:string el:key="curse_brittle">
         <el:english el:translate="true" >Be cursed for disturbing Tutoxyd's peace -- may the earth part under your feet!</el:english>
@@ -688,7 +746,7 @@ end
         <el:english el:translate="true" >Trapped?   Either wait for a stupid tourist willing to exchange positions with you by using a magic ring - or press Shift F3</el:english>
       </el:string>
       <el:string el:key="mailbox">
-        <el:english el:translate="true" >Private Property! This claim belongs to Mr.Whiteoil. In case of absence please drop a letter.</el:english>
+        <el:english el:translate="true" >Private Property! This claim belongs to Mr. Whiteoil. In case of absence please send a letter.</el:english>
       </el:string>
       <el:string el:key="invoice">
         <el:english el:translate="true" >Invoice -- 40 marbleons for 20 barrels of oil.</el:english>
@@ -700,25 +758,25 @@ end
         <el:english el:translate="true" >May I ask for a donation. Just a few bugs - throw the donation into the holy fire. Tutoxyd will be grateful.</el:english>
       </el:string>
       <el:string el:key="research">
-        <el:english el:translate="true" >Mr.Whiteoil, we did finish our library reserach. Enighomatep reports, that 4 keys are required. One key got lost immediatly after sealing the pyramid. One is hidden at the border of the pyramid. For the others you have to prove boldness and cleverness.</el:english>
+        <el:english el:translate="true" >Mr. Whiteoil, we finished our library reserach. Enighomatep reports that 4 keys are required. One key got lost immediately after sealing the pyramid. One is hidden at the border of the pyramid. For the others you have to demonstrate boldness and cleverness.</el:english>
       </el:string>
       <el:string el:key="death">
-        <el:english el:translate="true" >Facing the death you can walk without fear.</el:english>
+        <el:english el:translate="true" >Facing Death you can walk without fear.</el:english>
       </el:string>
       <el:string el:key="noitem">
         <el:english el:translate="true" >Sorry, the useful item that was hidden here has been stolen.</el:english>
       </el:string>
       <el:string el:key="thieves">
-        <el:english el:translate="true" >Tomb raiders are cursed to stone and floors for eternity.     Have a look at all these little funny sticks that they used to fight the curses.</el:english>
+        <el:english el:translate="true" >Tomb raiders are cursed to be frozen in stone or floor for all eternity.     Have a look at all these little funny sticks that they used to fight the curses.</el:english>
       </el:string>
       <el:string el:key="puzzle">
         <el:english el:translate="true" >Remove all parts of the memorial plate before conjuring up Tutoxyd.</el:english>
       </el:string>
       <el:string el:key="children">
-        <el:english el:translate="true" >Who dared to dirsturb my peace? Stranger - you proved to be honorable. Bring back my children for a joint meditation. But be aware that once seeing me they may like to join me instead of a meditation. I make you responsible for the security of my children.</el:english>
+        <el:english el:translate="true" >Who dares to dirsturb my peace? Stranger - you have proven to be honorable. Bring back my children for a joint meditation. But beware that upon seeing me they may want to join me instead of meditate. I make you responsible for the security of my children.</el:english>
       </el:string>
       <el:string el:key="bye">
-        <el:english el:translate="true" >You are bringing back my children. As soon as they come to rest I will deliver you from Enighomathep's curses and you may seek your next adventure.</el:english>
+        <el:english el:translate="true" >You are bringing back my children. As soon as they come to rest, I will deliver you from Enighomathep's curses so you may seek your next adventure.</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

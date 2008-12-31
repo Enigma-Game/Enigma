@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="pulley06"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,11 +15,11 @@
 if wo["IsDifficult"] then
     ti[" "]= {"fl-gradient14"}
     ti["^"]= {"fl-gradient13"} -- Up
-    ti["f"]= {"ac-horse", name="footL"} .. ti({"fl-gradient13"})
+    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl-gradient13"})
 else
     ti[" "]= {"fl-normal"}
     ti["^"]= {"fl-normal"}
-    ti["f"]= {"ac-horse", name="footL"} .. ti({"fl-normal"})
+    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl-normal"})
 end
 ti["b"] = {"fl-bluegreen"}
 ti["g"] = {"st-grate3"}
@@ -27,16 +27,16 @@ ti["0"] = {"st_oxyd_b"}
 ti["Y"] = {"st-glass", name="support1"}
 ti["Z"] = {"st-glass", name="support2"}
 --ti["z"] = {"st-glass1_move"}
-ti["O"] = {"#ac-horse", name="head"}
-ti["S"] = {"#ac-horse", name="shoulder"}
-ti["e"] = {"#ac-horse", name="elbowL"}
-ti["L"] = {"#ac-horse", name="elbowR"}
-ti["h"] = {"#ac-horse", name="handL"}
-ti["N"] = {"#ac-horse", name="handR"}
-ti["P"] = {"#ac-horse", name="hip"}
-ti["k"] = {"#ac-horse", name="kneeL"}
-ti["K"] = {"#ac-horse", name="kneeR"}
-ti["R"] = {"#ac-horse", name="footR"}
+ti["O"] = {"#ac_horse", name="head"}
+ti["S"] = {"#ac_horse", name="shoulder"}
+ti["e"] = {"#ac_horse", name="elbowL"}
+ti["L"] = {"#ac_horse", name="elbowR"}
+ti["h"] = {"#ac_horse", name="handL"}
+ti["N"] = {"#ac_horse", name="handR"}
+ti["P"] = {"#ac_horse", name="hip"}
+ti["k"] = {"#ac_horse", name="kneeL"}
+ti["K"] = {"#ac_horse", name="kneeR"}
+ti["R"] = {"#ac_horse", name="footR"}
 ti["door"] = {"st_door", name="Door%%", flavor="a"} .. ti["b"]
 ti["W"] = {"st_brick"}
 ti["trigger"]= {"it_trigger", target="Door%%"} .. ti["b"]

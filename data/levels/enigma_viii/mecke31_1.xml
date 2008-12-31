@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 6 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 7 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -97,7 +97,7 @@ ti["ur"] = ti["X&"] .. {"it-ring"}
 ti["ps"] = ti["Br"] .. {"it_seed"}
 ti["kk"] = ti["Xw"] .. {"it_cherry"}
 ti["ki"] = ti["gi"] .. {"it_cherry"}
-ti["z&"] = ti[" &"] .. {"#ac-top", range=1, force=1}
+ti["z&"] = ti[" &"] .. {"#ac_top", range=1, strength=1}
 ti["Xx"] = ti[" x"] .. {"st_passage_black_cross"}
 ti["Xn"] = ti[" n"] .. {"st_passage_black_cross"}
 ti["Xm"] = ti["Xn"] .. {"it_extralife"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:14$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:15$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -34,8 +34,8 @@ ti[" s"] = {"fl_space"}
 ti["w "] = {"it_wormhole", range=10, strength=3}
 ti["d "] = {"it-drop"}
 ti["X "] = {"#ac_marble_black"}
-ti["r "] = {"#ac-top", range=5, force=7}
-ti["a "] = {"#ac-bug"}
+ti["r "] = {"#ac_top", range=5, strength=7}
+ti["a "] = {"#ac_bug"}
 ti["$ "] = {"st_oxyd_c"}
 ti["# "] = {"st_fake_oxydc"}
 ti["Y "] = {"st_timer",interval=5,invisible=0}
@@ -60,7 +60,7 @@ ti["m1"] = ti[" !"] .. {"it_magnet", name="maggi1",state=OFF, range=20, strength
 ti["m2"] = ti[" !"] .. {"it_magnet", name="maggi2",state=OFF, range=20, strength=20}
 ti["m3"] = ti[" !"] .. {"it_magnet", name="maggi3",state=OFF, range=20, strength=20}
 ti["m4"] = ti[" !"] .. {"it_magnet", name="maggi4",state=OFF, range=20, strength=20}
-ti["&h"] = ti[" !"] .. {"#ac-horse", name="horse", force=7, destination={"1!","2!","3!","4!"}}
+ti["&h"] = ti[" !"] .. {"#ac_horse", name="horse", strength=7, destination={"1!","2!","3!","4!"}}
 
 local resolver = res.composer(ti)
 

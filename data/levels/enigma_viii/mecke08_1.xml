@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -68,8 +68,8 @@ ti["G "] = {"st-yellow"}
 ti["2 "] = {"st-brake"}
 ti["P "] = {"st_pull"}
 
-ti["J "] = {"#ac-top", range=1, force=1}
-ti["= "] = {"#ac-horse"}
+ti["J "] = {"#ac_top", range=1, strength=1}
+ti["= "] = {"#ac_horse"}
 
 ti["Z "] = {"st_floppy", action="open",target="vortex1"}
 ti["V1"] = ti[" _"] ..{"it_vortex_closed", name="vortex1", destination="vortex2"}

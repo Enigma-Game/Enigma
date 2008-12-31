@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 34 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 35 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -125,8 +125,8 @@ ti["d6"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli6"}
 ti["d7"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli7"}
 ti["d8"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli8"}
 ti["x "] = {"#ac_marble_black"}
-ti["r "] = {"#ac-rotor", range="7", force="7"}
-ti["q "] = {"#ac-top", range="10", force="10"}
+ti["r "] = {"#ac_rotor", range=7, strength=7}
+ti["q "] = {"#ac_top", range=10, strength=10}
 ti["v1"] =  ti[" !"] ..{"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["v2"] =  ti[" $"] ..{"it_vortex_open", name="vortex2", destination={"vortex3","vortex1"}}
 ti["v3"] =  ti["z7"] ..{"it_vortex_open", name="vortex3", destination="vortex1"}

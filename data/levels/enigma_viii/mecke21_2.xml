@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 34 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 35 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -103,11 +103,11 @@ ti["C "] = {"st_oneway_black_w"}
 ti["fg"] = ti[" ("] .. {"st-glass"}
 ti["fx"] = ti["fg"] .. {"it_floppy"}
 ti["fy"] = ti[" !"] .. {"it-spoon"}
-ti["&h"] = ti[" !"] .. {"#ac-horse"}
-ti["r1"] = ti[" !"] .. {"#ac-top", range=2, force=2}
-ti["r2"] = ti["jj"] .. {"#ac-rotor", range=5, force=5}
-ti["r3"] = ti[" !"] .. {"#ac-rotor", range=8, force=8}
-ti["r4"] = ti[" !"] .. {"#ac-rotor", range=10, force=10}
+ti["&h"] = ti[" !"] .. {"#ac_horse"}
+ti["r1"] = ti[" !"] .. {"#ac_top", range=2, strength=2}
+ti["r2"] = ti["jj"] .. {"#ac_rotor", range=5, strength=5}
+ti["r3"] = ti[" !"] .. {"#ac_rotor", range=8, strength=8}
+ti["r4"] = ti[" !"] .. {"#ac_rotor", range=10, strength=10}
 ti["d5"] = ti[" *"] .. {"st_door", faces="ew", name= "olli5"}
 ti["d6"] = ti[" !"] .. {"st_door", faces="ew", name= "olli6"}
 ti["d7"] = ti[" !"] .. {"st_door", faces="ew", name= "olli7"}

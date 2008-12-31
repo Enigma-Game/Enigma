@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,14 +53,14 @@ ti["M"] = ti[" "] .. {"it-spoon"}
 ti["N"] = ti[" "] .. {"it-dynamite"}
 ti["O"] = ti["y"] .. {"st-invisible"} --Invisible stone on blue floor
 ti["P"] = ti[" "] .. {"st_door_a", name="Door1"} -- Tonto's prison door
-ti["Q"] = ti[" "] .. {"#ac-rotor", range=10, gohome=0}
+ti["Q"] = ti[" "] .. {"#ac_rotor", range=10, gohome=0}
 ti["R"] = ti["r"] .. {"st-invisible"} --Invisible stone on red floor
 ti["S"] = ti[" "] .. {"st_door_a", name="Door2"} -- Silver's prison door
 ti["T"] = ti["y"] .. {"st-thief"} --Thief on blue floor
 ti["U"] = ti[" "] .. {"it-crack3"}
-ti["V"] = ti[" "] .. {"#ac-rotor", name="RGuard1", gohome=0} -- Lone Ranger's Guard
-ti["W"] = ti[" "] .. {"#ac-rotor", name="RGuard2", gohome=0} -- Lone Ranger's Guard
-ti["X"] = ti[" "] .. {"#ac-rotor", name="RGuard3", gohome=0} -- Lone Ranger's Guard
+ti["V"] = ti[" "] .. {"#ac_rotor", name="RGuard1", gohome=0} -- Lone Ranger's Guard
+ti["W"] = ti[" "] .. {"#ac_rotor", name="RGuard2", gohome=0} -- Lone Ranger's Guard
+ti["X"] = ti[" "] .. {"#ac_rotor", name="RGuard3", gohome=0} -- Lone Ranger's Guard
 ti["Y"] = ti["y"] .. {"st_passage_white_slash"} --White grill on blue floor
 ti["Z"] = (ti[" "] .. {"it_death"}) .. {"st-break_gray"} --Tomb door with corpse
 ti["0"] = ti[" "] .. {"st_oxyd"}
@@ -74,7 +74,7 @@ ti["#"] = ti[" "] .. {"st-camouflage"}
 ti["$"] = ti[" "] .. {"st_box_wood"} .. ti({"it-yinyang"})
 ti["%"] = ti[" "] .. {"st_death_invisible"}
 ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
-ti["*"] = ti[" "] .. {"#ac-rotor", range=5, force=100}
+ti["*"] = ti[" "] .. {"#ac_rotor", range=5, strength=100}
 ti[":"] = ti[" "] .. {"st-break_gray"} -- Tomb doors
 ti["v"] = {"fl-gradient14"} -- Down
 ti["<"] = {"fl-gradient15"} -- Left

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:29$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:30$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -121,10 +121,10 @@ ti["K "] = {"st_laser_w", name="lezy1"}
 ti["vv"] = ti[" '"] .. {"it_strip", connections="ns"}
 ti["hh"] = ti[" '"] .. {"it_strip", connections="ew"}
 ti["hi"] = ti["a1"] .. {"it_strip", connections="ew"}
-ti["JJ"] = ti[" #"] .. {"#ac-top", range=10, force=10}
-ti["a2"] = ti[" #"] .. {"#ac-top", range=1, force=1}
-ti["a3"] = ti[" #"] .. {"#ac-top", range=3, force=3}
-ti["a6"] = ti["a5"] .. {"#ac-top", range=1, force=1}
+ti["JJ"] = ti[" #"] .. {"#ac_top", range=10, strength=10}
+ti["a2"] = ti[" #"] .. {"#ac_top", range=1, strength=1}
+ti["a3"] = ti[" #"] .. {"#ac_top", range=3, strength=3}
+ti["a6"] = ti["a5"] .. {"#ac_top", range=1, strength=1}
 ti["se"] = ti[" #"] .. {"it_seed"}
 ti["sc"] = ti[" *"] .. {"it_cherry"}
 ti["sb"] = ti[" )"] .. {"st-block"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 24 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -85,7 +85,7 @@ ti["H "] = {"st_oneway_black_e"}
 ti["::"] = ti[" '"]..{"it-crack2"}
 ti["d1"] = ti[" $"] .. {"it-document", text="beginning"}
 ti["gg"] = ti[" ("]..{"it-puller-e"}
-ti["JJ"] = ti[" %"]..{"#ac-top", range=1, force=1}
+ti["JJ"] = ti[" %"]..{"#ac_top", range=1, strength=1}
 ti["ff"] = ti[" ("]..{"it-flagblack"}
 ti["J "] = {"st_oneway_black_n"}
 ti["K "] = {"st-bluegray"}

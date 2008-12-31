@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Balance Beam" el:subtitle="Balance Beam" el:id="mecke03"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 31 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 32 $" el:status="released"/>
       <el:author  el:name="mecke"/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -40,7 +40,7 @@ ti["!"] = {"it_death"}
 ti["B"] = {"st-glass"}
 ti["0"] = ti["r"] .. {"#ac_marble_black"}
 ti["X"] = ti["r"] .. {"st_oxyd", flavor="a"}
-ti["#"] = ti["z"] .. {"#ac-top", range="3", force="10"}
+ti["#"] = ti["z"] .. {"#ac_top", range=3, strength=10}
 ti["+"] = ti["~"] .. {"st_actorimpulse"}
 ti["Y"] = ti["y"] .. {"it_wormhole"}
 ti["2"] = ti["r"] .. {"st_window_ns",secure=true}

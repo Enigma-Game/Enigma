@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,11 +22,11 @@ if wo ["IsDifficult"] then
     ti["  "] = {"fl-abyss_fake"}
     ti[" v"] = {"fl_ice"}
     ti[" '"] = {"fl-rough"}
-    ti["+ "] = ti[" '"] ..{"ac-rotor", 0.5, 0.5,}
+    ti["+ "] = ti[" '"] ..{"ac_rotor", 0.5, 0.5,}
 else
     ti["  "] = {"fl-rough"}
     ti[" v"] = {"fl-rough"}
-    ti["+ "] = ti[" v"] ..{"ac-rotor", 0.5, 0.5}
+    ti["+ "] = ti[" v"] ..{"ac_rotor", 0.5, 0.5}
 end
 ti[" ~"] = {"fl_water"}
 ti[" _"] = {"fl_swamp"}
@@ -102,8 +102,8 @@ ti["k "] = {"st_turnstilearm", orientation=WEST}
 ti["l "] = {"st_turnstilearm", orientation=EAST}
 ti[" *"] = {"it-crack3"}
 ti["* "] = ti[" *"] ..  {"#ac_marble_black"}
-ti["J "] = {"#ac-top", range=1, force=1}
-ti["= "] = {"#ac-horse"}
+ti["J "] = {"#ac_top", range=1, strength=1}
+ti["= "] = {"#ac_horse"}
 ti["$1"] = {"it_trigger", target="door#2"}
 ti["$2"] = {"it_trigger", target="door#1"}
 ti["$3"] = {"it_trigger", target="laser"}

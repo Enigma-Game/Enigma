@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Fool the Warden" el:subtitle="" el:id="duffy37"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -55,12 +55,12 @@ function renderLine( line, pattern)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="r" then
-            local ac0 = set_actor("ac-rotor", i,line+.5, {attacknearest=0, range=100, force=100,name="ac0"})
+            local ac0 = set_actor("ac-rotor", i,line+.5, {attacknearest=0, range=100, force=100, name="ac0"})
             abyss(i-1,line)
         elseif c=="R" then
-            local ac1 = set_actor("ac-killerball", i-.5,line+.5, {mouseforce=0, range=100, force=0,name="ac1"})
+            local ac1 = set_actor("ac-killerball", i-.5,line+.5, {mouseforce=0, name="ac1", controllers=0})
         elseif c=="Q" then
-            local ac2 = set_actor("ac-killerball", i-.5,line+.5, {mouseforce=0, range=100, force=0,name="ac2"})
+            local ac2 = set_actor("ac-killerball", i-.5,line+.5, {mouseforce=0, name="ac2", controllers=0})
             abyss(i-1,line)
         elseif c == "b" then
             yy1( "black",  i-1, line)
@@ -120,9 +120,7 @@ ac1=enigma.GetNamedObject("ac1")
 ac2=enigma.GetNamedObject("ac2")
 
 enigma.AddRubberBand(ac0,ac1,100,4)
---enigma.AddRubberBand(ac0,ac1,-100,4)
 enigma.AddRubberBand(ac0,ac2,100,4)
---enigma.AddRubberBand(ac0,ac2,-100,4)
 enigma.AddRubberBand(ac1,ac2,100,6)
 enigma.AddRubberBand(ac1,ac2,-10,0)
     ]]></el:luamain>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 8 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 9 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -54,9 +54,9 @@ ti["L"] = {"st_laser_s", name="laser", state=ON}
 ti["v"] = {"st_laser_n", name="laser", state=ON}
 ti["0"] = ti["t"] .. {"#ac_marble_black"}
 ti["X"] = ti[" "] .. {"st_oxyd", flavor="a"}
-ti["#"] = ti[" "] .. {"#ac-top", range="10", force="10"}
-ti["$"] = ti[" "] .. {"#ac-rotor", range="20", force="10"}
-ti["&"] = ti[" "] .. {"#ac-bug"}
+ti["#"] = ti[" "] .. {"#ac_top", range=10, strength=10}
+ti["$"] = ti[" "] .. {"#ac_rotor", range=20, strength=10}
+ti["&"] = ti[" "] .. {"#ac_bug"}
 ti["?"] = ti["~"] .. {"st_actorimpulse"}
 ti["Y"] = ti[" "] .. {"it_wormhole"}
 ti[";"] = ti[" "] .. {"it-document", text="text1"}

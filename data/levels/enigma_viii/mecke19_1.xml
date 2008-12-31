@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:5$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:6$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -77,8 +77,8 @@ ti["7 "] = {"st_boulder_s"}
 ti["pp"] = ti[" -"] .. {"it_squashed"}
 ti["pn"] = ti["pp"] .. {"st_oneway_e"}
 ti["X "] = {"#ac_pearl_white", essential=1, player=0, controllers=1, name="df1"}
-ti["r "] = ti[" $"] .. {"#ac-rotor", range=1, force=1}
-ti["t "] = ti[" $"] .. {"#ac-top", range=1, force=1}
+ti["r "] = ti[" $"] .. {"#ac_rotor", range=1, strength=1}
+ti["t "] = ti[" $"] .. {"#ac_top", range=1, strength=1}
 ti["8 "] = {"st_puzzle_blue_e"}
 ti["9 "] = {"st_puzzle_blue_w"}
 ti[": "] = {"st_puzzle_blue_ew"}
