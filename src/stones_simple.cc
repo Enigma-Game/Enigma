@@ -982,7 +982,7 @@ namespace
             sound_event("yinyang");
             ReplaceStone (get_pos(), MakeStone(stonename));
         }
-        void turn_black(const char *stonename = "st-passage_black_square") {
+        void turn_black(const char *stonename = "st_passage_black_square") {
             sound_event("yinyang");
             ReplaceStone (get_pos(), MakeStone(stonename));
         }
@@ -1029,9 +1029,9 @@ namespace
             {
                 Value color = sc.actor->getAttr("color");
                 if      (color && color == BLACK) 
-                    turn_white("st-white4");
+                    turn_white("st_passage_white_square");
                 else if (color && color == WHITE) 
-                    turn_black("st-black4");
+                    turn_black("st_passage_black_square");
             }
         }
     };
