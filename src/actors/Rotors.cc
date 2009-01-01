@@ -28,11 +28,12 @@ namespace enigma {
 
 /* -------------------- RotorBase  -------------------- */
 
-    RotorBase::RotorBase(const ActorTraits &tr) : Actor (tr),  attackCurrentOnly(false), timeKeepAttackStrategy(0) {
+    RotorBase::RotorBase(const ActorTraits &tr) : Actor (tr),  attacknearest (false), attackCurrentOnly (false),
+            timeKeepAttackStrategy (0) {
         setAttr("range", 5.0);
         setAttr("strength", 10.0);
         setAttr("gohome", true);
-        setAttr("attacknearest", true);
+        setAttr("attacknearest", false);
         setAttr("prefercurrent", 0.0);
     }
 
@@ -42,9 +43,9 @@ namespace enigma {
         else if (key == "strength") 
             force = val;
         else if (key == "gohome") 
-            gohome = val;
-        else if (key == "attacknearest") 
-            attacknearest = val;
+            gohome = val.to_bool();
+        else if (key == "attacknearest")
+            attacknearest = val.to_bool();
         else if (key == "prefercurrent") 
             prefercurrent = val;
         Actor::setAttr(key, val);

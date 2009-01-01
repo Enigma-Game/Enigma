@@ -198,9 +198,10 @@ namespace enigma {
             if (hitman == NULL || !player::WieldedItemIs(hitman, "it_magicwand")) {
                 if (state == IDLE)
                     setIState(EXPANDING, impulse.dir);
-                else if (didMove && state != EXPANDING)
+                else if (didMove && state != EXPANDING) {
                     // ensure that an impulse to neighbors will be emitted when moved
-                    objFlags |= OBJBIT_REPULSE;
+                    objFlags = (objFlags & ~OBJBIT_INCOMINGDIR) | (impulse.dir << 29) | OBJBIT_REPULSE;
+                }
             } else if (((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && state == IDLE)) {
                 setIState(EXPANDING, impulse.dir);
             }
@@ -209,7 +210,7 @@ namespace enigma {
         }
         
         // direct impulse propagation
-        if (objFlags & OBJBIT_MOVABLE) { 
+        if (objFlags & OBJBIT_MOVABLE && (impulse.dir != NODIR)) { 
             if (hitman != NULL) {
                 objFlags &= ~OBJBIT_PROPAGATE;
                 propagateImpulse(impulse);
@@ -230,7 +231,7 @@ namespace enigma {
                     state = newState;
                     if (objFlags & OBJBIT_REPULSE) {
                         objFlags &= ~OBJBIT_REPULSE;
-                        setIState(EXPANDING, NODIR);
+                        setIState(EXPANDING, (Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29));
                     } else
                         init_model();
                     break;
@@ -270,7 +271,7 @@ namespace enigma {
     }
     
     void StoneImpulse::propagateImpulse(const Impulse& impulse) {
-        if (!impulse.byWire) {
+        if (!impulse.byWire && impulse.dir != NODIR) {
             ObjectList olist = getAttr("fellows");
             int sourceId = getDefaultedAttr("$impulse_source", 0);
             for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
