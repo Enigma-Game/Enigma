@@ -61,11 +61,8 @@ namespace enigma {
                 objFlags &= ~OBJBIT_STEADY;
         } else if (key == "orientation") {
             if (!isDisplayable()) {
-                objFlags &= ~OBJBIT_INCOMINGDIR;
-                Direction incoming = reverse(to_direction(val)); 
-                if (incoming != NODIR ) {
-                    objFlags |= (incoming << 29) | OBJBIT_NOBACKFIRE;
-                }
+                Stone::setAttr("$incoming", reverse(to_direction(val)));
+                objFlags |= OBJBIT_NOBACKFIRE;
             }
         } else
             Stone::setAttr(key, val);
@@ -200,7 +197,8 @@ namespace enigma {
                     setIState(EXPANDING, impulse.dir);
                 else if (didMove && state != EXPANDING) {
                     // ensure that an impulse to neighbors will be emitted when moved
-                    objFlags = (objFlags & ~OBJBIT_INCOMINGDIR) | (impulse.dir << 29) | OBJBIT_REPULSE;
+                    Stone::setAttr("$incoming", impulse.dir); 
+                    objFlags |= OBJBIT_REPULSE;
                 }
             } else if (((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && state == IDLE)) {
                 setIState(EXPANDING, impulse.dir);
@@ -231,7 +229,7 @@ namespace enigma {
                     state = newState;
                     if (objFlags & OBJBIT_REPULSE) {
                         objFlags &= ~OBJBIT_REPULSE;
-                        setIState(EXPANDING, (Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29));
+                        setIState(EXPANDING, to_direction(getAttr("$incoming")));
                     } else
                         init_model();
                     break;
@@ -240,9 +238,7 @@ namespace enigma {
                         return;         // do not set new state
                     }
                     objFlags &= ~OBJBIT_LASERIDLE;
-                    objFlags &= ~OBJBIT_INCOMINGDIR;
-                    if (incoming != NODIR)
-                        objFlags |= (incoming << 29);
+                    Stone::setAttr("$incoming", incoming);
                     state = newState;
                     init_model();
                     sound_event("impulse");
@@ -254,17 +250,16 @@ namespace enigma {
                     state = newState;
                     init_model();
                     GridPos p = get_pos();
-                    Direction origin = reverse((Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29));
+                    Direction origin = reverse(to_direction(getAttr("$incoming")));
                     for (Direction d = WEST; d != NODIR; d = next(d)) {
                         if (!(objFlags & OBJBIT_NOBACKFIRE) || d != origin)
                             send_impulse(move(p, d), d);
                     }
                     if (!(objFlags & OBJBIT_MOVABLE) || (objFlags & OBJBIT_PROPAGATE)) {
                         propagateImpulse(Impulse(this, GridPos(-1,-1), 
-                                (Direction)((objFlags & OBJBIT_INCOMINGDIR) >> 29)));
+                                to_direction(getAttr("$incoming"))));
                     }
-                    if (objFlags & OBJBIT_MOVABLE)
-                        objFlags &= ~OBJBIT_PROPAGATE;
+                    objFlags &= ~OBJBIT_PROPAGATE;
                     break;
             }
         }

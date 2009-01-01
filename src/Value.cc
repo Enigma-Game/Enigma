@@ -493,7 +493,7 @@ namespace enigma {
     }
     
     Direction to_direction (const Value &v) {
-        int val = Clamp(to_int(v), 0, 3);
+        int val = Clamp(to_int(v), -1, 3);
         return static_cast<Direction>(val);
     }
     
