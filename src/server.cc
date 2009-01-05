@@ -100,6 +100,8 @@ GameType server::GameCompatibility;         // no Lua access
 bool     server::WorldSized;                // no Lua access
 bool     server::WorldInitialized;          // no Lua access
 double   server::Brittleness;
+double   server::Fragility;
+double   server::CrackSpreading;
 double   server::BumperForce;
 double   server::ElectricForce;
 double   server::EnigmaCompatibility;       // no Lua access
@@ -260,6 +262,8 @@ void server::PrepareLevel()
     server::FollowThreshold   = 0.5;
     server::ShowMoves         = false;
     server::Brittleness       = 0.5;
+    server::Fragility         = 0.5;
+    server::CrackSpreading    = 0.5;
     server::SlopeForce        = 25.0;
     server::FlatForce         = 0.0;
     server::FrictionFactor    = 1.0;

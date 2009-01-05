@@ -303,10 +303,10 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it-dynamite",      // OxydMagnum item 0x0a
     "it-blackbomb",     // OxydMagnum item 0x0b
     "it-whitebomb",     // OxydMagnum item 0x0c
-    "it-crack0",        // OxydMagnum item 0x0d
-    "it-crack1",        // OxydMagnum item 0x0e
-    "it-crack2",        // OxydMagnum item 0x0f
-    "it-crack3",        // OxydMagnum item 0x10
+    "it_crack_i",        // OxydMagnum item 0x0d
+    "it_crack_s",        // OxydMagnum item 0x0e
+    "it_crack_m",        // OxydMagnum item 0x0f
+    "it_crack_l",        // OxydMagnum item 0x10
     "it_coin_s",         // OxydMagnum item 0x11
     "it_coin_m",         // OxydMagnum item 0x12
     "it_coin_l",         // OxydMagnum item 0x13

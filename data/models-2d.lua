@@ -600,11 +600,8 @@ do
     local frames = BuildFrames(images,50)
     DefAnim("it-debris", frames)
 
-    local frames = BuildFrames({"it-crack4", "it-crack5"},120)
-    DefAnim("it-crack_anim1", frames)
-
-    local frames = BuildFrames({"it-crack6", "it-crack7", "it-crack8"},120)
-    DefAnim("it-crack_anim2", frames)
+    local frames = BuildFrames({"it-crack4", "it-crack5", "it-crack6", "it-crack7", "it-crack8"},120)
+    DefAnim("it-crack_anim", frames)
 end
 
 -- it-death --

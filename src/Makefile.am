@@ -206,6 +206,8 @@ enigma_SOURCES = 		\
 	items/BlockerItem.hh	\
 	items/Coin.cc		\
 	items/Coin.hh		\
+	items/Crack.cc		\
+	items/Crack.hh		\
 	items/ExtraLife.cc	\
 	items/ExtraLife.hh	\
 	items/GlassesItem.cc	\

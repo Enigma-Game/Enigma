@@ -74,14 +74,16 @@ namespace enigma {
             return server::SurviveFinish;
         } else if (key == "Width") {
             return Width();
-        } else if (key == "Brittleness") {
-            return server::Brittleness;
         } else if (key == "ActorimpulseStrength") {
             return server::BumperForce;
+        } else if (key == "CrackSpreading") {
+            return server::CrackSpreading;
         } else if (key == "ElectricStrength") {
             return server::ElectricForce;
         } else if (key == "ExtralifeGlasses") {
             return server::ExtralifeGlasses;
+        } else if (key == "Fragility") {
+            return server::Fragility;
         } else if (key == "FrictionStrength") {
             return server::FrictionFactor;
         } else if (key == "MeditationStrength") {
@@ -158,14 +160,16 @@ namespace enigma {
             STATUSBAR->show_move_counter (server::ShowMoves);
         } else if (key == "SurviveFinish") {
             server::SurviveFinish = val.to_bool();
-        } else if (key == "Brittleness") {
-            server::Brittleness = val;
+        } else if (key == "CrackSpreading") {
+            server::CrackSpreading = val;
         } else if (key == "ActorimpulseStrength") {
             server::BumperForce = val;
         } else if (key == "ElectricStrength") {
             server::ElectricForce = val;
         } else if (key == "ExtralifeGlasses") {
             server::ExtralifeGlasses = val;
+        } else if (key == "Fragility") {
+            server::Fragility = val;
         } else if (key == "FrictionStrength") {
             server::FrictionFactor = val;
         } else if (key == "MeditationStrength") {

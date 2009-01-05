@@ -525,7 +525,7 @@ namespace
                 replace("it-hollow");
             } else if (model == "fl_ice") {
                 // In ice, an it-dynamite explodes to an it-crack2:
-                replace("it-crack2");
+                replace("it_crack_m");
             } else {
                 SetItem(p, MakeItem("it-explosion2"));
             }
@@ -809,127 +809,6 @@ namespace
         { "it-puller-s", it_puller_s, itf_none, 0.0 },
         { "it-puller-e", it_puller_e, itf_none, 0.0 },
         { "it-puller-n", it_puller_n, itf_none, 0.0 },
-    };
-}
-
-
-/* -------------------- Cracks -------------------- */
-namespace
-{
-    class Crack : public Item {
-        CLONEOBJ(Crack);
-        DECL_ITEMTRAITS_ARRAY(4, get_type());
-
-    public:
-        static void setup() {
-            RegisterItem (new Crack(0));
-            RegisterItem (new Crack(1));
-            RegisterItem (new Crack(2));
-            RegisterItem (new Crack(3));
-        }
-
-    private:
-        Crack(int type=0)
-        : state(IDLE), anim_end(false)
-            {
-                setAttr("type", type);
-                setAttr("fixed", 0.0);
-             }
-
-        enum State { IDLE, CRACKING1, CRACKING2 } state;
-        bool anim_end;
-
-        int get_type() const {
-            int t = getAttr("type");
-            return ecl::Clamp(t, 0, 4);
-        }
-	    bool is_fixed() const { return getAttr("fixed") != 0; }
-
-        void init_model() {
-            if (int t=get_type()) {
-                if (t > 3) {
-                    state = CRACKING1;
-                    sound_event ("floordestroy");
-                    set_anim("it-crack_anim1");
-                //SetItem(get_pos(), MakeItem("it-debris"));
-                }else {
-                    set_model(ecl::strf("it-crack%d", t));
-                }
-            }
-            else
-                set_model("invisible");
-        }
-        void animcb() {
-            if (state == CRACKING2) {
-                GridPos p= get_pos();
-                SetFloor(p, MakeFloor("fl_abyss"));
-                KillItem(p);
-            } else {
-                state = CRACKING2;
-                set_anim("it-crack_anim2");
-            }
-        }
-
-        void crack(const GridPos &p) {
-            if (Floor *fl = GetFloor(p)) {
-                if (fl->is_destructible()) {
-                    if (Item *it = GetItem(p))
-                        SendMessage (it, "crack");
-                    else if (do_crack())
-                        SetItem(p, MakeItem("it-crack0"));
-                }
-            }
-        }
-
-        void actor_enter(Actor *a) {
-            if (a->is_on_floor()) {
-                SendMessage(this, "crack");
-
-                if (get_type() <= 3) {
-                    GridPos p = get_pos();
-                    crack (move(p, NORTH));
-                    crack (move(p, EAST));
-                    crack (move(p, SOUTH));
-                    crack (move(p, WEST));
-                }
-            }
-        }
-        bool actor_hit(Actor *a) {
-            if (anim_end)
-                SendMessage(a, "_fall");
-            return false;
-        }
-        virtual Value message(const Message &m) {
-            if (m.message == "crack" && state==IDLE && !is_fixed()) {
-                int type = get_type();
-                if ((type == 0 && do_crack()) || (type > 0)) {
-                    setAttr("type", Value((int)getAttr("type") + 1));
-                    sound_event ("crack");
-                    init_model();
-                return Value();
-                }
-            } else if (m.message == "heat") {
-                sound_event ("crack");
-                replace("it-debris");
-                return true;
-            }
-            return Item::message(m);
-        }
-
-        bool do_crack() {
-            if (!is_fixed()) {
-                double brittleness = getDefaultedAttr("brittleness", server::Brittleness);
-                double rnd = DoubleRand(0, 1);
-                return rnd < brittleness;
-    	    } else
-                return false;
-        }
-    };
-    ItemTraits Crack::traits[4] = {
-        {"it-crack0", it_crack0, itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it-crack1", it_crack1, itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it-crack2", it_crack2, itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it-crack3", it_crack3, itf_static | itf_indestructible | itf_fireproof, 0.0}
     };
 }
 
@@ -1651,7 +1530,7 @@ namespace
                 if (model == "fl_abyss" || model == "fl_water" || model == "fl_swamp") {
                     return ITEM_KEEP;
                 } else  if (model == "fl_ice") {
-                    SetItem (p, MakeItem("it-crack1"));
+                    SetItem (p, MakeItem("it_crack_s"));
                 } else {
                     SetItem (p, MakeItem("it-cross"));
                 }
@@ -1781,11 +1660,11 @@ namespace
             if (id == ac_marble_black || id == ac_marble_white) {
                 // Kill ALL rubberbands connected with the actor:
                 SendMessage(a, "disconnect");
-                Actor *rotor = MakeActor("ac-rotor");
+                Actor *rotor = MakeActor("ac_rotor");
                 rotor->setAttr("adhesion", Value (1.0));
                 rotor->setAttr("controllers", Value (iplayer+1));
                 rotor->setAttr("player", Value (iplayer));
-                rotor->setAttr("gohome", Value (0.0));
+                rotor->setAttr("gohome", Value (false));
                 rotor->setAttr("essential", a->getAttr("essential"));
                 std::string essId;
                 if (Value v = a->getAttr("essential_id")) {
@@ -1822,7 +1701,6 @@ void InitItems()
     Burnable::setup();
     RegisterItem (new ChangeFloorItem);
     RegisterItem (new Coffee);
-    Crack::setup();
     RegisterItem (new Cross);
     RegisterItem (new Debris);
     RegisterItem (new Document);

@@ -91,8 +91,11 @@ namespace enigma_server
    
     // Default brittleness of the floor: 0 = stable..1=unstable.
     // Really: probability that a floor tile will crack when an actor
-    // enters or leaves it.
+    // enters or leaves it. - used up to 1.01
     extern double   Brittleness;
+    // 1.10 crack variables
+    extern double   Fragility;
+    extern double   CrackSpreading;
     
     extern int      MaxOxydColor;
 

@@ -319,10 +319,10 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it-dynamite",                // 0x0a
     "it-blackbomb",               // 0x0b
     "it-whitebomb",               // 0x0c
-    "it-crack0",                  // 0x0d
-    "it-crack1",                  // 0x0e
-    "it-crack2",                  // 0x0f
-    "it-crack3",                  // 0x10
+    "it_crack_i",                 // 0x0d
+    "it_crack_s",                 // 0x0e
+    "it_crack_m",                 // 0x0f
+    "it_crack_l",                 // 0x10
     "it_coin_s",                  // 0x11
     "it_coin_m",                  // 0x12
     "it_coin_l",                  // 0x13

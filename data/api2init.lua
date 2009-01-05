@@ -73,6 +73,9 @@ LIGHT    = 0
 MEDIUM   = 1
 DARK     = 2
 FLOODING = 1
+INVISIBLE = -1
+SMALL     = 0
+LARGE     = 2
 
 -- color
 BLACK  = 0

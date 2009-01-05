@@ -321,13 +321,13 @@ const char* oxyd::oxydextra_item_map[256] = {
     "it-dynamite",                // OxydExtra item 0x0a
     UNUSED,                  // OxydExtra item 0x0b
     UNUSED,                  // OxydExtra item 0x0c
-    "it-crack0",                  // OxydExtra item 0x0d
-    "it-crack1",                  // OxydExtra item 0x0e
-    "it-crack2",                  // OxydExtra item 0x0f
-    "it-crack3",                  // OxydExtra item 0x10
-    "it_coin_s",                   // OxydExtra item 0x11
-    "it_coin_m",                   // OxydExtra item 0x12
-    "it_coin_l",                   // OxydExtra item 0x13
+    "it_crack_i",                 // OxydExtra item 0x0d
+    "it_crack_s",                 // OxydExtra item 0x0e
+    "it_crack_m",                 // OxydExtra item 0x0f
+    "it_crack_l",                 // OxydExtra item 0x10
+    "it_coin_s",                  // OxydExtra item 0x11
+    "it_coin_m",                  // OxydExtra item 0x12
+    "it_coin_l",                  // OxydExtra item 0x13
     "it_key_a",                   // OxydExtra item 0x14
     "it_key_b",                   // OxydExtra item 0x15
     "it_key_c",                   // OxydExtra item 0x16

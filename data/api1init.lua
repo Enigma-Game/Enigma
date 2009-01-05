@@ -76,6 +76,10 @@ RenamingObjectsNew2Old = {
     it_coin_s = "it-coin1",
     it_coin_m = "it-coin2",
     it_coin_l = "it-coin4",
+    it_crack_i = "it-crack0",
+    it_crack_s = "it-crack1",
+    it_crack_m = "it-crack2",
+    it_crack_l = "it-crack3",
     it_cross = "it-cross",
     it_extralife = "it-extralife",
     it_death = "it-death",
@@ -687,6 +691,16 @@ function enigma.SetAttrib(obj, key, val)
      end
      if key == "gohome" then
          if val == 1 then _val = true else _val = false end
+     end
+     if key == "fixed" then
+         if val == 1 then
+             enigma._SetAttrib(obj, "fragility", 0.0)
+             enigma._SetAttrib(obj, "spreading", 0.0)
+         else 
+             enigma._SetAttrib(obj, "fragility", nil)
+             enigma._SetAttrib(obj, "spreading", nil)
+         end
+         return
      end
      enigma._SetAttrib(obj, _key, _val)
 end

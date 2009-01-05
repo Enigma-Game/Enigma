@@ -29,6 +29,7 @@
     <attr name="force_y" type="double" default="0" rw="rw"/>
     <attr name="flavor" type="string" default="b" rw="rw"/>
     <attr name="floodable" type="bool" default="false" rw="rw"/>
+    <attr name="fragility" type="double" default="nil" rw="rw"/>
     <attr name="freeze_check" type="bool" default="false" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gohome" type="bool" default="true" rw="rw"/>
@@ -70,6 +71,7 @@
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="false" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
+    <attr name="spreading" type="double" default="nil" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
     <attr name="steady" type="bool" default="false" rw="rw"/>
@@ -87,6 +89,7 @@
   <messages>
     <msg name="close" type="nil"/>
     <msg name="closeall" type="nil"/>
+    <msg name="crack" type="nil"/>
     <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="expl" type="nil"/>
@@ -256,6 +259,7 @@
       <attr name="floodable"/>
       <attr name="force_x"/>
       <attr name="force_y"/>
+      <attr name="fragility"/>
       <attr name="freeze_check"/>
       <attr name="friction"/>
       <attr name="ignitable"/>
@@ -375,7 +379,26 @@
     <object name="it_coin_l">
       <attr name="state" value="2"/>
     </object>
-    <object name="it_cross">
+     <object name="it_crack">
+      <attr name="state" min="-1" max="3"/>
+      <attr name="fragility"/>
+      <attr name="spreading"/>
+      <msg name="crack"/>
+      <msg name="heat"/>
+    </object>
+    <object name="it_crack_i">
+      <attr name="state" value="-1"/>
+    </object>
+    <object name="it_crack_s">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_crack_m">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_crack_l">
+      <attr name="state" value="2"/>
+    </object>
+   <object name="it_cross">
       <attr name="interval" default="10"/>
       <attr name="state" rw="r"/>
       <msg name="_brush"/>

@@ -1647,8 +1647,12 @@ void WorldPrepareLevel ()
     LaserBeam::prepareLevel();   // clear lists of no longer existing objects
 }
 
-bool WorldInitLevel()
-{
+bool WorldInitLevel() {
+    if (server::EnigmaCompatibility < 1.10) {
+        server::Fragility = server::Brittleness;
+        server::CrackSpreading = server::Brittleness;
+    }
+    
     level->scramble_puzzles();
 
     RecalcLight();
