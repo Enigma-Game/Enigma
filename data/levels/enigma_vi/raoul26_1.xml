@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Puzzles" el:subtitle="look forward!" el:id="raoul26"/>
-      <el:version el:score="1" el:release="1" el:revision="25" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="26" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -86,7 +86,7 @@ function renderLine( line, pattern)
         elseif c=="-" then
             set_floor("fl-rough",i-1,line)
         elseif c=="+" then
-            set_floor("fl-rough_slow",i-1,line)
+            set_floor("fl-rough",i-1,line,{adhesion=0.5, friction=7.0})
         elseif c=="~" then
             set_floor("fl-water",i-1,line)
         elseif c=="l" then

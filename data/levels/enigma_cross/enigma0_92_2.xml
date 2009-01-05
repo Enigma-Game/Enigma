@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -149,7 +149,7 @@
     <level _seq="141" _title="Tilt Control" _xpath="enigma_iii/duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="Anticipation" _xpath="enigma_v/duffy67_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy67" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="143" _title="What a Mess" _xpath="enigma_iv/duffy68_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy68" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="144" _title="Tilt Maze" _xpath="enigma_iii/duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="144" _title="Tilt Maze" _xpath="enigma_iii/duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="145" _title="Build Up and Tear Down" _xpath="enigma_v/duffy70_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="146" _title="Don't Be Greedy" _xpath="enigma_v/duffy71_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy71" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="147" _title="Where Am I?" _xpath="enigma_iv/duffy72_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy72" rel="1" rev="1" score="1" target="time" unit="duration"/>

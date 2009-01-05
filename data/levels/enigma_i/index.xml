@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma I"/>
 
   <attributes/>
 
@@ -55,7 +55,7 @@
     <level _seq="47" _title="Mission Impossible" _xpath="./martin14_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Hurry!" _xpath="./jc01_1" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Hall of Glass" _xpath="./martin86_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_1" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mirror Room" _xpath="./luc12_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="1" rev="0" score="1" target="time" unit="duration"/>

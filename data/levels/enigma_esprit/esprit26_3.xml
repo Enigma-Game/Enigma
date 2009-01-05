@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bank-O-Mat" el:subtitle="esprit 26" el:id="ss4"/>
-      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="3" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl-bumps"}
-ti["#"] = {"st-fakeoxyd"}
+ti["#"] = {"st_fake_quake"}
 ti["D"] = {"st_death"}
 ti["O"] = {"st_oxyd"}
 ti["."] = {"it_seed"}
@@ -29,7 +29,7 @@ ti["5"] = {"st_coinslot", _id=5, interval_m=COIN_IGNORE, target="open_door"}
 ti["6"] = {"st_coinslot", _id=6, interval_m=COIN_IGNORE, target="open_door"}
 ti["7"] = {"st_coinslot", _id=7, interval_m=COIN_IGNORE, target="open_door"}
 ti["8"] = {"st_coinslot", _id=8, interval_m=COIN_IGNORE, target="open_door"}
-ti["@"] = {"#ac-blackball"}
+ti["@"] = {"#ac_marble_black"}
 
 w, h = wo(ti, " ", {
 "#######################################",

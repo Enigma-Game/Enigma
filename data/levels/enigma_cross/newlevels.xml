@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="15" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -201,7 +201,7 @@
     <level _seq="193" _title="Ariadne" _xpath="enigma_vi/andreas40_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas40" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Oiltrace" _xpath="enigma_vi/raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="The Cube" _xpath="enigma_vi/malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>

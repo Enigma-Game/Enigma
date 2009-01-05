@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tilt Maze" el:subtitle="" el:id="duffy69"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,6 @@ create_world( levelw, levelh)
 fill_floor("fl-normal", 0,0,levelw,levelh)
 
 enigma.SlopeForce=10
---enigma.FrictionFactor=.5
 
 function renderLine( line, pattern)
     for i=1, strlen(pattern) do
@@ -36,7 +35,6 @@ function renderLine( line, pattern)
             set_stone( "st-greenbrown", i-1, line)
         elseif c =="%" then
             set_stone( "st-greenbrown", i-1, line)
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c =="X" then
             set_stone( "st-death", i-1, line)
         elseif c == "o" then
@@ -47,15 +45,12 @@ function renderLine( line, pattern)
             abyss(i-1,line)
         elseif c=="z" then
             set_actor("ac-blackball", i-.5,line+.5)
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c == "g" then
             draw_stones("st-grate1",{i-1,line}, {1,1}, 1)
         elseif c=="+" then
             set_stone( "st-wood", i-1, line)
         elseif c=="=" then
             set_floor("fl-space",i-1,line)
-        elseif c=="x" then
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="i" then
             set_floor("fl-ice",i-1,line)
         elseif c=="1" then
@@ -115,19 +110,14 @@ function renderLine( line, pattern)
             end
         elseif c=="a" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir1"})
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="b" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir2"})
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="c" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir3"})
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="d" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir4"})
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c=="e" then
             set_item("it-trigger", i-1,line, {action="callback", target="funccdir5"})
-            --            set_floor("fl-rough_slow",i-1,line)
         elseif c == "d" then --1-d
             set_floor("fl-gradient",  i-1,  line, {type=21})
         elseif c == "u" then --2-u
@@ -152,58 +142,6 @@ function renderLine( line, pattern)
         end
     end
 end
-
---renderLine(00,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
---renderLine(01,"%exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe%")
---renderLine(02,"%xzax#############################xaxx%")
---renderLine(03,"%xdxb#78#789A89A8978978A789A#A789#dxbx%")
---renderLine(04,"%xxcx#45#456A564564A6456456A#6456#xcxx%")
---renderLine(05,"%x####123123#A############3123#23####x%")
---renderLine(06,"%x#A8978A78A#897897A9789A#97A9#89789#x%")
---renderLine(07,"%x#45########A ###4#64564#A456#AA4AA#x%")
---renderLine(08,"%x#12#12A123#  Ly# #AA#31########1###x%")
---renderLine(09,"%x#78978#789##A###7#97#97A97897A#789#x%")
---renderLine(10,"%x#A56A564A64564564#64#64A64A645#4#6#x%")
---renderLine(11,"%x################A#3A#31231A312#A#3#x%")
---renderLine(12,"%x#78978#A897A97897#97########A89789#x%")
---renderLine(13,"%x#4A#A5645A4A64##4#A4#A45645########x%")
---renderLine(14,"%x#12#A23A2A1231#31#31#31A312312312A#x%")
---renderLine(15,"%x#A8############A7#97 97######8A789#x%")
---renderLine(16,"%x#4564564o#AA64#64#64564A6456#####6#x%")
---renderLine(17,"%x##2#######1231A31#A#####3A23123123#x%")
---renderLine(18,"%x#o8#A8978978A789A#A7897#9#######8A#x%")
---renderLine(19,"%x####45A4A#########64A64#645645A####x%")
---renderLine(20,"%xxax#12A1##A2312AA231#31#AAAAA23#xaxx%")
---renderLine(21,"%xdxb#A89789789A89789A#978978978A#dxbx%")
---renderLine(22,"%xxcx#############################xcxx%")
---renderLine(23,"%xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe%")
---renderLine(24,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-
---renderLine(00,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
---renderLine(01,"%exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe%")
---renderLine(02,"%xzax#############################xaxx%")
---renderLine(03,"%xdxb#  #      A       A   A#A   #dxbx%")
---renderLine(04,"%xxcx#  #   A      A       A#    #xcxx%")
---renderLine(05,"%x####      #A############    #  ####x%")
---renderLine(06,"%x#A    A  A#      A    A#  A #     #x%")
---renderLine(07,"%x#  ########A ### #     #A   #AA AA#x%")
---renderLine(08,"%x#  #  A   #  Ly# #A #  ######## ###x%")
---renderLine(09,"%x#     #   ##A### #  #  A     A#   #x%")
---renderLine(10,"%x#A  A   A        #  #  A  A   # # #x%")
---renderLine(11,"%x################A# A#     A   #A# #x%")
---renderLine(12,"%x#     #A   A     #  ########A     #x%")
---renderLine(13,"%x# A#A    A A  ## #  #A     ########x%")
---renderLine(14,"%x#  #A  A A    #  #A #  A         A#x%")
---renderLine(15,"%x#A ############A #  A  ###### A   #x%")
---renderLine(16,"%x#       o#AA  #  #     A    ##### #x%")
---renderLine(17,"%x## #######    A  #A##### A        #x%")
---renderLine(18,"%x#o #A       A   A#A    # ####### A#x%")
---renderLine(19,"%x####  A A#########  A  #      A####x%")
---renderLine(20,"%xxax#  A ##A    AA   #  #AAAAA  #xaxx%")
---renderLine(21,"%xdxb#A        A     A#         A#dxbx%")
---renderLine(22,"%xxcx#############################xcxx%")
---renderLine(23,"%xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxe%")
---renderLine(24,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 
 renderLine(00,"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
 renderLine(01,"%xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx%")

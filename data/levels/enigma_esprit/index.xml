@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="4" title="Esprit"/>
+  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="5" title="Esprit"/>
 
   <attributes/>
 
@@ -31,7 +31,7 @@
     <level _seq="23" _title="esprit 23" _xpath="./esprit23_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="esprit 24" _xpath="./esprit24_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp24" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="esprit 25" _xpath="./esprit25_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp25" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Bank-O-Mat" _xpath="./esprit26_3" author="Sven Siggelkow" ctrl="force" easy="false" id="ss4" rel="3" rev="2" score="3" target="time" unit="duration"/>
+    <level _seq="26" _title="Bank-O-Mat" _xpath="./esprit26_3" author="Sven Siggelkow" ctrl="force" easy="false" id="ss4" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="27" _title="esprit 27" _xpath="./esprit27_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp27" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="esprit 28" _xpath="./esprit28_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="esprit 29" _xpath="./esprit29_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp29" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -65,7 +65,7 @@
     <level _seq="57" _title="esprit 63" _xpath="./esprit63_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp63" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="esprit 65" _xpath="./esprit65_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp65" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="esprit 66" _xpath="./esprit66_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp66" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="esprit 67" _xpath="./esprit67_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin54" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="esprit 67" _xpath="./esprit67_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin54" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="esprit 68" _xpath="./esprit68_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp68" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="esprit 69" _xpath="./esprit69_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp69" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="- Meditation -" _xpath="./esprit70_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp70" rel="1" rev="0" score="1" target="time" unit="duration"/>

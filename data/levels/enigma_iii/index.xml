@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="8" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="9" title="Enigma III"/>
 
   <attributes/>
 
@@ -92,7 +92,7 @@
     <level _seq="84" _title="Tilt Control" _xpath="./duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Lost In Space" _xpath="./martin90_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Triple Threat" _xpath="./illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Tilt Maze" _xpath="./duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Tilt Maze" _xpath="./duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Think Fast" _xpath="./duffy85_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy85" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="89" _title="Overshoot" _xpath="./ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Fool the Watchdog" _xpath="./duffy57_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy57" rel="1" rev="1" score="1" target="time" unit="duration"/>

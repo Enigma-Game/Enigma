@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Counterclockwise" el:id="20070126ulf020"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 95 $" el:status="released"/>
+      <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2007 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:score el:easy="00:59" el:difficult="01:08"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+if wo["IsDifficult"] then
+  ti["#"] = {"st_fake_oxydc"}
+  lint = 0.20
+else
+  ti["#"] = {"st-bluegray"}
+  lint = 0.30
+end
+ti[" "] = {"fl-rough", friction=5.0, adhesion=1.2}
+ti["X"] = {"st-glass2"}
+ti["1"] = {"st_laser", name="le", orientation=EAST, state=OFF}
+ti["2"] = {"st_laser", name="ln", orientation=NORTH, state=OFF}
+ti["3"] = {"st_laser", name="lw", orientation=WEST, state=OFF}
+ti["4"] = {"st_laser", name="ls", orientation=SOUTH, state=OFF}
+ti["T"] = {"it_sensor", target={"ln", "le", "ls", "lw"}, invisible=true}
+ti["M"] = {"it_magnet", state=ON, strength=100.0}
+ti["0"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"ac_marble_black", 1.0, 0.5}
+ti["L"] = {"st_lightpassenger", name="lp", interval=lint}
+ti["t"] = {"#ac_top", {0.5,0.5}, name="top", gohome=false}
+
+w, h = wo(ti, " ", {
+   "#######00######0####",
+   "#M      T@ T      M#",
+   "# #4##0########### #",
+   "# #              3 #",
+   "# # XXXXXXXXXXXX 0 #",
+   "0 # XXXXXXXXXXXX # #",
+   "# # XXXXXXXXXXXX # 0",
+   "# 0 XXXXXXXXXXXX 0 #",
+   "# 0 XXXXXXXXXXXX 0 #",
+   "0 1      L       # #",
+   "# #####0########2# #",
+   "#M       t        M#",
+   "#0###0###0##########"})
+
+wo:add({"ot_rubberband", anchor1="top", anchor2="lp", strength=50.0})
+wo:shuffleOxyd()
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
