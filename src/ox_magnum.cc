@@ -85,12 +85,12 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl-gradient14",            // OxydMagnum floor 0x30
     "fl-gradient15",            // OxydMagnum floor 0x31
     "fl-gradient16",            // OxydMagnum floor 0x32
-    "fl-brick",                 // OxydMagnum floor 0x33 (common was 'fl-rough')
-    "fl-brick",                 // OxydMagnum floor 0x34 (common was 'fl-rough')
+    "fl_brick",                 // OxydMagnum floor 0x33 (common was 'fl-rough')
+    "fl_brick",                 // OxydMagnum floor 0x34 (common was 'fl-rough')
     UNUSED,                     // OxydMagnum floor 0x35
     UNUSED,                     // OxydMagnum floor 0x36
-    "fl-brick",                 // OxydMagnum floor 0x37
-    "fl-brick",                 // OxydMagnum floor 0x38
+    "fl_brick",                 // OxydMagnum floor 0x37
+    "fl_brick",                 // OxydMagnum floor 0x38
     UNUSED,                     // OxydMagnum floor 0x39
     UNUSED,                     // OxydMagnum floor 0x3a
     UNUSED,                     // OxydMagnum floor 0x3b
@@ -104,8 +104,8 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x43
     UNUSED,                     // OxydMagnum floor 0x44
     UNUSED,                     // OxydMagnum floor 0x45
-    "fl-gravel",                // OxydMagnum floor 0x46
-    "fl-gravel",                // OxydMagnum floor 0x47
+    "fl_gravel",                // OxydMagnum floor 0x46
+    "fl_gravel",                // OxydMagnum floor 0x47
     UNUSED,                     // OxydMagnum floor 0x48
     UNUSED,                     // OxydMagnum floor 0x49
     UNUSED,                     // OxydMagnum floor 0x4a
@@ -118,14 +118,14 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x51
     "fl_bridge",                // OxydMagnum floor 0x52 (common was 'fl-bridge')
     "fl-springboard",           // OxydMagnum floor 0x53
-    "fl-light",                 // OxydMagnum floor 0x54
-    "fl-lightgray",             // OxydMagnum floor 0x55
+    "fl_ivory",                 // OxydMagnum floor 0x54
+    "fl_platinum",              // OxydMagnum floor 0x55
     "fl-darkgray",              // OxydMagnum floor 0x56
     UNUSED,                     // OxydMagnum floor 0x57
     "fl-darkgray",              // OxydMagnum floor 0x58
     "fl-leaves",                // OxydMagnum floor 0x59
     "fl-normal",                // OxydMagnum floor 0x5a (Only Oxyd Magnum Gold #119,120)
-    "fl-plank",                 // OxydMagnum floor 0x5b
+    "fl_plank",                 // OxydMagnum floor 0x5b
     // codes >= 0x5c are unused
 };
 

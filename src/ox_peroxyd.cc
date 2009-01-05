@@ -159,8 +159,8 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x35
     UNUSED,                     // PerOxyd floor 0x36
     UNUSED,                     // PerOxyd floor 0x37
-    "fl-concrete",              // PerOxyd floor 0x38 (Tan/green horizontal Grain)
-    "fl-concrete",              // PerOxyd floor 0x39 (Tan/green horizontal Grain, same as 0x38)(only level 118)
+    "fl_concrete",              // PerOxyd floor 0x38 (Tan/green horizontal Grain)
+    "fl_concrete",              // PerOxyd floor 0x39 (Tan/green horizontal Grain, same as 0x38)(only level 118)
     UNUSED,                     // PerOxyd floor 0x3a
     UNUSED,                     // PerOxyd floor 0x3b
     "fl_wood_framed_h",         // PerOxyd floor 0x3c
@@ -175,7 +175,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x45
     UNUSED,                     // PerOxyd floor 0x46
     UNUSED,                     // PerOxyd floor 0x47
-    "fl-concrete",              // PerOxyd floor 0x48
+    "fl_concrete",              // PerOxyd floor 0x48
     UNUSED,                     // PerOxyd floor 0x49
     UNUSED,                     // PerOxyd floor 0x4a
     UNUSED,                     // PerOxyd floor 0x4b
@@ -186,18 +186,18 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-black",                 // PerOxyd floor 0x50 (flat force down, dark olive) (maybe gradient21?)
     "fl-white",                 // PerOxyd floor 0x51 (flat force left, beige)      (maybe gradient24?)
     "fl-black",                 // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)
-    "fl-floor_001",             // PerOxyd floor 0x53
+    "fl_bast",                  // PerOxyd floor 0x53
     UNUSED,                     // PerOxyd floor 0x54
-    "fl-plank",                 // PerOxyd floor 0x55
+    "fl_plank",                 // PerOxyd floor 0x55
     UNUSED,                     // PerOxyd floor 0x56
     "fl-nomouse",               // PerOxyd floor 0x57 (only used in Link-Level 91, friction (2.5) questionable!)
     UNUSED,                     // PerOxyd floor 0x58
     UNUSED,                     // PerOxyd floor 0x59
     UNUSED,                     // PerOxyd floor 0x5a
-    "fl-gravel",                // PerOxyd floor 0x5b
+    "fl_gravel",                // PerOxyd floor 0x5b
     UNUSED,                     // PerOxyd floor 0x5c
     UNUSED,                     // PerOxyd floor 0x5d
-    "fl-gravel",                // PerOxyd floor 0x5e (same as 0x5b)(only level 192)
+    "fl_gravel",                // PerOxyd floor 0x5e (same as 0x5b)(only level 192)
     // codes >= 0x5f are unused
 };
 

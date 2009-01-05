@@ -41,7 +41,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x04
     UNUSED,              // OxydExtra floor 0x05
     UNUSED,              // OxydExtra floor 0x06
-    "fl-light",          // OxydExtra floor 0x07
+    "fl_ivory",          // OxydExtra floor 0x07
     "fl-rough-red",      // OxydExtra floor 0x08
     "fl-rough-blue",     // OxydExtra floor 0x09
     "fl-rough-blue",     // OxydExtra floor 0x0a
@@ -119,13 +119,13 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x52
     UNUSED,              // OxydExtra floor 0x53
     "fl-gray",           // OxydExtra floor 0x54
-    "fl-plank",          // OxydExtra floor 0x55
+    "fl_plank",          // OxydExtra floor 0x55
     UNUSED,              // OxydExtra floor 0x56
     UNUSED,              // OxydExtra floor 0x57
     UNUSED,              // OxydExtra floor 0x58
     "fl-trigger",        // OxydExtra floor 0x59
     UNUSED,              // OxydExtra floor 0x5a
-    "fl-gravel",         // OxydExtra floor 0x5b
+    "fl_gravel",         // OxydExtra floor 0x5b
     // codes >= 0x5c are unused
 };
 

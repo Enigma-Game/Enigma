@@ -75,10 +75,10 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x05
     UNUSED,                     // Oxyd1 floor 0x06
     "fl-normal",                // Oxyd1 floor 0x07
-    "fl-himalaya",              // Oxyd1 floor 0x08
-    "fl-himalaya",              // Oxyd1 floor 0x09
-    "fl-himalaya",              // Oxyd1 floor 0x0a
-    "fl-himalaya",              // Oxyd1 floor 0x0b
+    "fl_himalaya",              // Oxyd1 floor 0x08
+    "fl_himalaya",              // Oxyd1 floor 0x09
+    "fl_himalaya",              // Oxyd1 floor 0x0a
+    "fl_himalaya",              // Oxyd1 floor 0x0b
     "fl-inverse2",              // Oxyd1 floor 0x0c
     "fl-acblack",               // Oxyd1 floor 0x0d
     "fl-acwhite",               // Oxyd1 floor 0x0e
@@ -118,12 +118,12 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl-gradient14",            // Oxyd1 floor 0x30
     "fl-gradient15",            // Oxyd1 floor 0x31
     "fl-gradient16",            // Oxyd1 floor 0x32
-    "fl-brick",                 // Oxyd1 floor 0x33
-    "fl-brick",                 // Oxyd1 floor 0x34 (common was 'fl-rough')
+    "fl_brick",                 // Oxyd1 floor 0x33
+    "fl_brick",                 // Oxyd1 floor 0x34 (common was 'fl-rough')
     UNUSED,                     // Oxyd1 floor 0x35
     UNUSED,                     // Oxyd1 floor 0x36
-    "fl-brick",                 // Oxyd1 floor 0x37
-    "fl-brick",                 // Oxyd1 floor 0x38
+    "fl_brick",                 // Oxyd1 floor 0x37
+    "fl_brick",                 // Oxyd1 floor 0x38
     UNUSED,                     // Oxyd1 floor 0x39
     UNUSED,                     // Oxyd1 floor 0x3a
     UNUSED,                     // Oxyd1 floor 0x3b
@@ -137,8 +137,8 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x43
     UNUSED,                     // Oxyd1 floor 0x44
     UNUSED,                     // Oxyd1 floor 0x45
-    "fl-gravel",                // Oxyd1 floor 0x46
-    "fl-gravel",                // Oxyd1 floor 0x47
+    "fl_gravel",                // Oxyd1 floor 0x46
+    "fl_gravel",                // Oxyd1 floor 0x47
     UNUSED,                     // Oxyd1 floor 0x48
     UNUSED,                     // Oxyd1 floor 0x49
     UNUSED,                     // Oxyd1 floor 0x4a
@@ -153,12 +153,12 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl-springboard",           // Oxyd1 floor 0x53
     UNUSED,                     // Oxyd1 floor 0x54
     "fl-gray",                  // Oxyd1 floor 0x55
-    "fl-light",                 // Oxyd1 floor 0x56
-    "fl-lightgray",             // Oxyd1 floor 0x57
+    "fl_ivory",                 // Oxyd1 floor 0x56
+    "fl_platinum",              // Oxyd1 floor 0x57
     "fl-darkgray",              // Oxyd1 floor 0x58
-    "fl-dunes",                 // Oxyd1 floor 0x59
+    "fl_dunes",                 // Oxyd1 floor 0x59
     "fl-normal",                // Oxyd1 floor 0x5a
-    "fl-plank",                 // Oxyd1 floor 0x5b
+    "fl_plank",                 // Oxyd1 floor 0x5b
     // codes >= 0x5c are unused
 };
 
