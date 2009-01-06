@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@
       <el:score el:easy="-" el:difficult="2:58"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl-brick"}
+ti[" "] = {"fl_brick"}
 ti["1"] = ti[" "] .. {"st_scissors", action="callback", target="Grow1"} -- Orin being eaten by Audrey II
 ti["2"] = (ti[" "] .. {"st-grate1"}) .. {"it_trigger", action="callback", target="Grow2"} -- Orin swallowed by Audrey II
 ti["3"] = ti[" "] .. {"st_scissors", action="callback", target="Grow3"} -- Mushnik being eaten by Audrey II
@@ -29,18 +29,18 @@ ti["8"] = (ti[" "] .. {"st-grate1"}) .. {"it_trigger", action="callback", target
 ti["9"] = ti[" "] .. {"st_door", name="Door1", flavor="a"} -- Mushnik's door
 ti["0"] = ti[" "] .. {"st_door", name="Door2", flavor="a"} -- Audrey's door
 ti["!"] = (ti({"fl-white"}) .. {"st-rock3_hole"}) .. {"it_rubberband", anchor2="Orin", length=1,strength=10}
-ti["@"] = (ti({"fl-plank"}) .. {"st_turnstilearm_w"}) .. {"it_rubberband", anchor2="Mushnik", length=1,strength=10}
+ti["@"] = (ti({"fl_plank"}) .. {"st_turnstilearm_w"}) .. {"it_rubberband", anchor2="Mushnik", length=1,strength=10}
 ti["#"] = {"fl-leaves"} .. ti({"it_rubberband", anchor2="Audrey", length=1,strength=10})
 ti["-"] = {"fl-white"} .. ti({"it_key", code="1"}) -- Mushnik's key
-ti["_"] = {"fl-plank"} .. ti({"it_key", code="2"}) -- Audrey's key
+ti["_"] = {"fl_plank"} .. ti({"it_key", code="2"}) -- Audrey's key
 ti["("] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"} -- Mushnik's lock
 ti[")"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"} -- Audrey's lock
-ti[";"] = {"fl-plank"} .. ti({"st_turnstilearm_w"})
-ti[":"] = {"fl-plank"} .. ti({"st_turnstilearm_e"})
-ti["|"] = {"fl-plank"} .. ti({"st_turnstilearm_n"})
-ti[","] = {"fl-plank"} .. ti({"st_turnstilearm_s"})
+ti[";"] = {"fl_plank"} .. ti({"st_turnstilearm_w"})
+ti[":"] = {"fl_plank"} .. ti({"st_turnstilearm_e"})
+ti["|"] = {"fl_plank"} .. ti({"st_turnstilearm_n"})
+ti[","] = {"fl_plank"} .. ti({"st_turnstilearm_s"})
 ti["."] = ti[" "] .. {"st_turnstile_green"}
-ti["?"] = (ti({"fl-plank"}) .. {"st_turnstilearm_w"}) .. {"it_seed"}
+ti["?"] = (ti({"fl_plank"}) .. {"st_turnstilearm_w"}) .. {"it_seed"}
 ti["/"] = {"st_turnstilearm_n"} .. ti({"fl-white"})
 ti["+"] = {"st_turnstilearm_n"} .. ti({"fl-leaves"})
 ti["a"] = ti[" "] .. {"st-camouflage"}
@@ -54,7 +54,7 @@ ti["h"] = (ti({"fl-white"}) .. {"it_hammer"}) .. {"st-rock3_hole"}
 ti["i"] = {"fl-mortar"} .. ti({"st-beads"}) --Window
 ti["j"] = {"fl-white"} --Orin's floor
 ti["k"] = ti[" "] .. {"st-marble"} --Audrey's Walls
-ti["m"] = {"fl-plank"} .. ti({"it_coin_l"})
+ti["m"] = {"fl_plank"} .. ti({"it_coin_l"})
 ti["n"] = {"fl-gradient13"} .. ti({"st-grate1"})
 ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=1}) .. {"st-camouflage"}
 ti["p"] = ti[" "] .. {"st-plain"}
@@ -64,14 +64,14 @@ ti["t"] = (ti({"fl-gradient14"}) .. {"st-grate1"}) .. {"it-burnable"}
 ti["w"] = {"fl-gradient15"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl-woven"}
-ti["z"] = {"fl-plank"}
+ti["z"] = {"fl_plank"}
 ti["A"] = {"fl-leaves"} .. ti({"it_banana"})
-ti["B"] = {"fl-plank"} .. ti({"it-blackbomb"})
+ti["B"] = {"fl_plank"} .. ti({"it-blackbomb"})
 ti["D"] = {"fl-white"} .. ti({"st_death"})
 ti["E"] = {"fl-leaves"} .. ti({"it_cherry"})
-ti["F"] = {"fl-plank"} .. ti({"it_seed"})
-ti["G"] = {"fl-plank"} .. ti({"st-glass1_hole"})
-ti["H"] = {"fl-brick"} .. ti({"it_meditation_hollow"})
+ti["F"] = {"fl_plank"} .. ti({"it_seed"})
+ti["G"] = {"fl_plank"} .. ti({"st-glass1_hole"})
+ti["H"] = {"fl_brick"} .. ti({"it_meditation_hollow"})
 ti["I"] = ti["y"] .. {"#ac_pearl_white", player=0, name="Seymour"}
 ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=0,essential=-1}
 ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=0,essential=-1}
@@ -83,7 +83,7 @@ ti["P"] = {"fl-white"} .. ti({"st-plain_break"})
 ti["Q"] = ti[" "] .. {"st-rock3_hole"}
 ti["R"] = ti[" "] .. {"st-rock3"}
 ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it-burnable"}
-ti["T"] = {"fl-plank"} .. ti({"it-coffee"})
+ti["T"] = {"fl_plank"} .. ti({"it-coffee"})
 ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it-burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
 ti["["] = ti[" "] .. {"st-grate3", name="d1"}

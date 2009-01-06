@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Development" location="69000" network="false" owner="Enigma Team" release="1" revision="2" title="Demolevels"/>
+  <info enigma="1.00" group="Development" location="69000" network="false" owner="Enigma Team" release="1" revision="3" title="Demolevels"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Demo User Resolver" _xpath="./ralD001_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080516ral198" rel="1" rev="1151" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Demo Resolver Chain" _xpath="./ralD002_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080516ral274" rel="1" rev="1151" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Demo Oxyd Shuffling" _xpath="./ralD003_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080530ral108" rel="1" rev="1259" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Demo Random Resolver" _xpath="./ralD004_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080608ral108" rel="1" rev="1170" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Demo Draw Map" _xpath="./ralD005_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080610ral774" rel="1" rev="1170" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Basic Level" _xpath="./ralD006_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral513" rel="1" rev="1267" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Demo Puzzle" _xpath="./ralD007_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080920ral228" rel="1" rev="1356" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Demo User Resolver" _xpath="./ralD001_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080516ral198" rel="1" rev="1405" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Demo Resolver Chain" _xpath="./ralD002_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080516ral274" rel="1" rev="1434" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Demo Oxyd Shuffling" _xpath="./ralD003_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080530ral108" rel="1" rev="1434" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Demo Random Resolver" _xpath="./ralD004_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080608ral108" rel="1" rev="1434" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Demo Draw Map" _xpath="./ralD005_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080610ral774" rel="1" rev="1434" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Basic Level" _xpath="./ralD006_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral513" rel="1" rev="1405" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Demo Puzzle" _xpath="./ralD007_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080920ral228" rel="1" rev="1434" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

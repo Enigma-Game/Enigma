@@ -13,26 +13,25 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl-sahara"}
+ti[" "] = {"fl_sahara"}
 ti["#"] = {"st-glass"}
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac-blackball"}
+ti["@"] = {"#ac_marble_black"}
 
-w, h = wo(ti, " ", {
-"#O################O#",
-"O                  O",
-"#                  #",
-"#                  #",
-"#                  #",
-"#                  #",
-"#        @         #",
-"#                  #",
-"#                  #",
-"#                  #",
-"#                  #",
-"O                  O",
-"#O################O#"
-})
+wo(ti, " ", {
+    "#O################O#",
+    "O                  O",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#        @         #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "O                  O",
+    "#O################O#"})
 
 wo:shuffleOxyd()
 ]]></el:luamain>

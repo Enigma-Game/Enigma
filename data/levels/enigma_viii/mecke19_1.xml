@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:6$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:7$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -21,7 +21,7 @@ ti[" &"] = {"fl-red"}
 ti[" !"] = {"fl_water"}
 ti["! "] = {"st-rock6"}
 ti[" #"] = {"fl-normal"}
-ti[" $"] = {"fl-sahara"}
+ti[" $"] = {"fl_sahara"}
 ti["# "] = {"st_chess_white"}
 ti["s "] = {"it_squashed"}
 ti["hh"] = ti[" !"] .. {"st_pull"}
@@ -31,7 +31,7 @@ ti[" %"] = {"fl-sand"}
 ti["% "] = {"st_rotator_ccw"}
 ti["& "] = {"st_boulder_n"}
 ti["b "] = {"it_blocker"}
-ti[" '"] = {"fl-bluegray"}
+ti[" '"] = {"fl_bluegray"}
 ti["' "] = {"st_oneway_white_e"}
 ti["( "] = {"st-yellow"}
 ti[") "] = {"st_scissors", name="df3"}
@@ -45,7 +45,7 @@ ti[" *"] = {"fl-gradient4"}
 ti["- "] = {"st_boulder_w"}
 ti[". "] = {"st-grate1"}
 ti[" d"] = ti["hh"] .. {"it-dynamite"}
-ti["c "] = {"it-crack3"}
+ti["c "] = {"it_crack_l"}
 ti["? "] = {"it_seed_volcano"}
 ti[" +"] = {"fl-rough"}
 ti["l "] = {"it_landmine"}
@@ -55,7 +55,7 @@ ti[" p"] = ti["hh"] .. {"it-pencil"}
 ti["0 "] = {"st_quake"}
 ti[" f"] = ti["hh"] .. {"it-coffee"}
 ti["q "] = {"it-coffee"}
-ti[" ,"] = {"fl-gravel"}
+ti[" ,"] = {"fl_gravel"}
 ti[" -"] = {"fl-rough-red"}
 ti["1 "] = {"st-glass"}
 ti["2 "] = {"st-block"}

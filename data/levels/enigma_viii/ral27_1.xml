@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Microwire" el:subtitle="" el:id="20080717ral427"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@ wo["ProvideExtralifes"] = false
 wo["ShowMoves"] = true
 
 ti[" "] = {"fl_abyss"}
-ti["-"] = {"fl-lightgray", friction=7, adhesion=1.8}
+ti["-"] = {"fl_platinum", friction=7, adhesion=1.8}
 ti["."] = {"st_polarswitch"}
 ti["1"] = {"st_mirror", "mirror1", orientation=EAST, movable=true}
 ti["2"] = {"st_mirror", "mirror2", orientation=EAST, movable=true}
@@ -27,7 +27,6 @@ ti["W"] = ti[" "] .. {"st_laser_e", "laser#"}
 ti["E"] = ti[" "] .. {"st_laser_w", "laser#"}
 ti["O"] = {"st_oxyd_d"}
 ti["@"] = ti["x"] .. {"#ac_marble"}
-
 
 w, h = wo(ti, "-", {
 "                    ",

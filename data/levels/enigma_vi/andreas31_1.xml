@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess, Bugs &amp; Rock'n'Roll" el:subtitle="" el:id="andreas31"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,12 +25,12 @@ function trigger_call()
 end
 
 myfloor = {}
-myfloor[1] = "fl-black"     -- "fl-lightgray"
+myfloor[1] = "fl-black"     -- "fl_platinum"
 myfloor[2] = "fl-darkgray"  -- "fl-darkgray"
-myfloor[3] = "fl-black"     -- "fl-light"
-myfloor[4] = "fl_wood"      -- "fl-lightgray"
-myfloor[5] = "fl-black"     -- "fl-lightgray"
-myfloor[6] = "fl-black"     -- "fl-lightgray"
+myfloor[3] = "fl-black"     -- "fl_ivory"
+myfloor[4] = "fl_wood"      -- "fl_platinum"
+myfloor[5] = "fl-black"     -- "fl_platinum"
+myfloor[6] = "fl-black"     -- "fl_platinum"
 chess_number = 0
 
 function myresolver(key, x, y)

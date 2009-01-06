@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:30$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:31$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -14,8 +14,7 @@
       </el:comments>
       <el:score el:easy="28:51" el:difficult="33:44" />
     </el:info>
-  <el:luamain>
-  <![CDATA[
+  <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
 ti[" !"] = {"fl_abyss"}
@@ -24,7 +23,7 @@ ti["! "] = {"st-block"}
 ti[" #"] = {"fl-acblack"}
 ti["# "] = {"st_death"}
 ti[" $"] = {"fl-normal"}
-ti[" %"] = {"fl-bluegray"}
+ti[" %"] = {"fl_bluegray"}
 ti["% "] = {"st_boulder_w"}
 ti["& "] = {"st_quake"}
 ti["c7"] = ti[" #"] .. {"st-glass"}
@@ -45,7 +44,7 @@ ti["U "] = {"st_key", code=1,  target= {"door1","door2"}}
 ti["; "] = {"st_key", code=2,  target="door4"}
 ti["' "] = {"st_door", faces="ns", name="dolli2"}
 ti["( "] = {"st_actorimpulse_invisible"}
-ti[" &"] = {"fl-bluegreenx"}
+ti[" &"] = {"fl_aquamarine"}
 ti[") "] = {"st-grate1"}
 ti["a1"] = ti[" !"] .. {"st-grate1"}
 ti["* "] = {"st_mirror", movable=true, transparent=false}
@@ -106,9 +105,9 @@ ti["w "] = {"it_magicwand"}
 ti["C "] = {"st_stoneimpulse"}
 ti["D "] = {"st-glass_move"}
 ti["E "] = {"st-rock3"}
-ti[" *"] = {"fl-light"}
+ti[" *"] = {"fl_ivory"}
 ti["F "] = {"st_oneway_s"}
-ti[" +"] = {"fl-sahara"}
+ti[" +"] = {"fl_sahara"}
 ti["G "] = {"st-rock6"}
 ti["H "] = {"st_oneway_e"}
 ti["I "] = {"st_oneway_n"}

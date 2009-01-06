@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 25 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 26 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,13 +22,13 @@ ti["$ "] = {"st_oxyd_b"}
 ti[" $"] = {"fl_space"}
 ti["% "] = {"st-glass"}
 ti[" %"] = {"fl-rough-blue"}
-ti[" ("] = {"fl-sahara"}
+ti[" ("] = {"fl_sahara"}
 ti["& "] = {"st_actorimpulse_invisible"}
 ti[" &"] = {"fl-rough-red"}
 ti["ee"] = ti[" ("]..{"it_extralife"}
 ti["ex"] = ti[" %"]..{"it_extralife"}
 ti["' "] = {"st-yellow"}
-ti[" '"] = {"fl-bluegray"}
+ti[" '"] = {"fl_bluegray"}
 ti["( "] = {"st-grate3"}
 ti["* "] = {"st-stone_break"}
 ti[" )"] = {"fl-acblack"}
@@ -82,7 +82,7 @@ ti[" ,"] = {"fl_swamp"}
 ti["G "] = {"st_laser_w", name="laserhi"}
 ti["oo"] = ti[" $"]..{"it-spoon"}
 ti["H "] = {"st_oneway_black_e"}
-ti["::"] = ti[" '"]..{"it-crack2"}
+ti["::"] = ti[" '"]..{"it_crack_m"}
 ti["d1"] = ti[" $"] .. {"it-document", text="beginning"}
 ti["gg"] = ti[" ("]..{"it-puller-e"}
 ti["JJ"] = ti[" %"]..{"#ac_top", range=1, strength=1}
@@ -111,10 +111,10 @@ if wo ["IsDifficult"] then
     ti["w4"] = ti[" &"]..{"it_wormhole", destination = po(19.5, 13.5),range=10, strength=10}
     ti["w5"] = ti[" &"]..{"it_wormhole", destination = po(29.5, 30.5),range=10, strength=10}
     ti["w6"] = ti[" ("]..{"it_wormhole", destination = po(66.5, 31.5),range=10, strength=10}
-    ti["w7"] = ti[" ("]..{"fl-sahara"}
+    ti["w7"] = ti[" ("]..{"fl_sahara"}
     ti["aa"] = ti["< "]..{"fl_abyss"}
     ti["pe"] = ti[" '"]..{"it-puller-e"}
-    ti["ei"] = ti[" ("]..{"fl-sahara"}
+    ti["ei"] = ti[" ("]..{"fl_sahara"}
 else
     ti["w1"] = ti[" &"]..{"it_wormhole", destination = po(28.5, 31.5),range=3, strength=3}
     ti["w2"] = ti[" ("]..{"it_wormhole", destination = po(36.5, 38.5),range=3, strength=3}
@@ -123,9 +123,9 @@ else
     ti["w5"] = ti[" &"]..{"it_wormhole", destination = po(29.5, 30.5),range=3, strength=3}
     ti["w6"] = ti[" ("]..{"it_wormhole", destination = po(66.5, 31.5),range=3, strength=3}
     ti["w7"] = ti[" ("]..{"it_wormhole", destination = po(63.5, 6.5),range=3, strength=3}
-    ti["aa"] = ti["< "]..{"fl-sahara"}
+    ti["aa"] = ti["< "]..{"fl_sahara"}
     ti["ei"] = ti[" ("]..{"it_extralife"}
-    ti["pe"] = ti[" '"]..{"fl-bluegray"}
+    ti["pe"] = ti[" '"]..{"fl_bluegray"}
 end
 
 local resolver = res.composer(ti)

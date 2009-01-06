@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 136 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 137 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,15 +28,15 @@ ti["~~"] = {"fl_water"}
 ti["~e"] = {"fl_water", "escape_close#"}
 ti["__"] = {"fl_abyss"}
 ti["_f"] = {"fl-abyss_fake"}
-ti[",,"] = {"fl-concrete"}
-ti[",e"] = {"fl-concrete", "escape_pos"}
-ti[",f"] = {"fl-concrete", "escape_close#"}
-ti[".."] = {"fl-gravel"}
-ti["LZ"] = {"fl-gravel", "sunlight1"}
-ti["LY"] = {"fl-gravel", "sunlight2"}
-ti["RZ"] = {"fl-gravel", "ringroom"}
-ti[";;"] = {"fl-dunes", friction=6, mousefactor=2}
-ti["''"] = {"fl-sahara"}
+ti[",,"] = {"fl_concrete"}
+ti[",e"] = {"fl_concrete", "escape_pos"}
+ti[",f"] = {"fl_concrete", "escape_close#"}
+ti[".."] = {"fl_gravel"}
+ti["LZ"] = {"fl_gravel", "sunlight1"}
+ti["LY"] = {"fl_gravel", "sunlight2"}
+ti["RZ"] = {"fl_gravel", "ringroom"}
+ti[";;"] = {"fl_dunes", friction=6, mousefactor=2}
+ti["''"] = {"fl_sahara"}
 ti["%%"] = {"fl-samba"}
 ti["%."] = {"fl-samba", "volcan#", secure=true}
 ti["_v"] = {"fl_abyss", "volcan#"}
@@ -343,7 +343,7 @@ ti["G8"] = ti[" 8"] .. {"st-glass1_move"}
 ti["W4"] = ti[" 4"] .. {"st_window_e"}
 ti["C1"] = ti["k1"] .. {"st-chameleon"}
 
-ti["'A"] = {"fl-sahara", "tutoxyd"}
+ti["'A"] = {"fl_sahara", "tutoxyd"}
 
 ti["k2"] = ti["##"] .. {"it_key", code=2}
 
@@ -564,7 +564,7 @@ end
 did_curse_brittle = false
 function curse_brittle(value, sender)
     if did_curse_brittle == false then
-        wo[sender + {-1, -3}] = {"it-crack2"}
+        wo[sender + {-1, -3}] = {"it_crack_m"}
         wo[sender] = {"it-document", text="curse_brittle"}
     end
     did_curse_brittle = true

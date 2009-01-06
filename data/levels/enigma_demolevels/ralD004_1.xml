@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Demo Random Resolver" el:subtitle="" el:id="20080608ral108"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1170 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1434 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,8 +15,8 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti["~"] = {"fl-water"}
-ti["s"] = {"fl-sahara"}
+ti["~"] = {"fl_water"}
+ti["s"] = {"fl_sahara"}
 ti["t"] = {"fl-tigris"}
 ti["i"] = {"fl-inverse2"}
 ti["b"] = {"fl-acblack"}
@@ -25,7 +25,7 @@ ti["w"] = {"fl-acwhite"}
 ti["c"] = {"it_coin_s"}
 ti["p"] = {"it_brush"}
 
-ti["1"] = {"ac-blackball", 0, 0.5}
+ti["1"] = {"ac_marble", 0, 0.5}
 
 simple_random = res.random(ti, " ", {"s", "t"})
 

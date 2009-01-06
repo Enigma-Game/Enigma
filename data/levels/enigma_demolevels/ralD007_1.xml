@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Demo Puzzle" el:subtitle="" el:id="20080920ral228"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1356 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1434 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,17 +18,17 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti["  "] = {"fl-sahara"}
+ti["  "] = {"fl_sahara"}
 ti["##"] = {"st-rock1"}
 
-ti[".."] = {"fl-sahara", push_directions="nesw"}
+ti[".."] = {"fl_sahara", push_directions="nesw"}
 
 ti["B"] = {"st_puzzle_blue"}
 ti["Y"] = {"st_puzzle_yellow"}
 ti["I"] = {"st_puzzle_blue", intensity=2/6} 
 ti["M"] = {"st_puzzle_blue", algorithm="marked", intensity=10} 
 
-ti["xx"] = {"#ac-blackball"} .. ti({"it_magicwand"})
+ti["xx"] = {"#ac_marble"} .. ti({"it_magicwand"})
 
 local resolver = res.puzzle(ti, "B", "Y", "I", "M")
 

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Freestyle Microwire" el:subtitle="" el:id="20080719ral530"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@ wo["ShowMoves"] = true
 wo["MaxOxydColor"] = OXYD_BLUE
 
 ti[" "] = {"fl_abyss"}
-ti["."] = {"fl-light", friction=7, adhesion=1.8}
+ti["."] = {"fl_ivory", friction=7, adhesion=1.8}
 ti["*"] = {"st-glass1"}
 ti["g"] = {"st-glass1_hole"}
 ti["#"] = {"it_trigger", "trigger#", target="check"}
@@ -35,7 +35,6 @@ else
     ti["@"] = ti["."] .. ti["g"] .. {"#ac_marble"}
     ti["%"] = ti["g"]
 end
-
 
 w, h = wo(res.autotile(ti,{"1","4","mirror"}), ".", {
 "O        LSB       O",

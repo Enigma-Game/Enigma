@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="8" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="9" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ end
 ti[" "] = {"fl_abyss"}
 ti["l"] = {"fl-leaves"}
 ti["A"] = {"fl_hay"}
-ti["."] = {"fl-bluegreen"}
+ti["."] = {"fl_bluegreen"}
 ti["i"] = {"fl-inverse"}
 ti["j"] = {"fl_ice"}
 ti["s"] = {"fl_swamp"}

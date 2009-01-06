@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 22 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,13 +19,13 @@ wo["ConserveLevel"] = true
 
 ti[" #"] = {"fl-stone"}
 ti[" a"] = {"fl_rock"}
-ti[" ,"] = {"fl-concrete"}
+ti[" ,"] = {"fl_concrete"}
 ti[" &"] = {"fl_ice"}
-ti[" %"] = {"fl-gravel"}
+ti[" %"] = {"fl_gravel"}
 ti["  "] = {"fl_hay",{secure=TRUE}}
 ti[" o"] = {"fl-acblack"}
-ti[" *"] = {"fl-himalaya"}
-ti[" +"] = {"fl-sahara"}
+ti[" *"] = {"fl_himalaya"}
+ti[" +"] = {"fl_sahara"}
 ti[" '"] = {"fl-tigris"}
 ti[" ."] = {"fl-metal"}
 ti[" /"] = {"fl-woven"}
@@ -60,8 +60,8 @@ ti["SW"] = {"st_chess_white"}
 ti["ZZ"] = ti[" ."] .. {"st-stone_break"}
 ti[" ;"] = {"fl_swamp"}
 ti["R "] = {"st-redrock"}
-ti[" j"] = {"it-crack2"}
-ti["&&"] = ti[" &"] .. {"it-crack2"}
+ti[" j"] = {"it_crack_m"}
+ti["&&"] = ti[" &"] .. {"it_crack_m"}
 ti[" z"] = ti[" ."] .. {"st_stoneimpulse_hollow"}
 ti[" y"] = ti[" O"] .. {"st_stoneimpulse_hollow"}
 ti["* "] = ti["u "] .. {"#ac_marble_black"}
@@ -175,10 +175,10 @@ ti["v7"] = ti["ZZ"] .. {"it_vortex_open", name="vortex7", destination="vortex8"}
 ti["v8"] = ti["E "] .. {"it_vortex_open", name="vortex8", destination="vortex7"}
 ti["w1"] = ti[" ."] .. {"it_vortex_open", name="wortex1", destination="wortex2"}
 ti["w2"] = ti[" ."] .. {"it_vortex_open", name="wortex2", destination="wortex1"}
-ti["&5"] = {"fl-bluegreenx", name="&5"}
-ti["&6"] = {"fl-bluegreenx", name="&6"}
-ti["&7"] = {"fl-bluegreenx", name="&7"}
-ti["&8"] = {"fl-bluegreenx", name="&8"}
+ti["&5"] = {"fl_aquamarine", name="&5"}
+ti["&6"] = {"fl_aquamarine", name="&6"}
+ti["&7"] = {"fl_aquamarine", name="&7"}
+ti["&8"] = {"fl_aquamarine", name="&8"}
 ti["&h"] = ti["&1"] .. {"ac_horse", name="horse", destination={"&5","&6","&7","&8"}}
 ti["&r"] = ti[" 1"] .. {"ac_rotor", 0.5, 0.5, range=5, strength=5}
 ti["t9"] = {"it_trigger", target="laser"}

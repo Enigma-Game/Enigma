@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios I" el:subtitle="Use the Lightpassenger" el:id="mecke48"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,17 +14,17 @@
     <el:luamain><![CDATA[	
 wo["ConserveLevel"] = true
 
-ti["  "] = {"fl-sahara"}
+ti["  "] = {"fl_sahara"}
 ti[" _"] = {"fl_swamp"}
 ti["# "] = {"st_lightpassenger"}
 ti[" i"] = {"st_lightpassenger"}
-ti[" l"] = {"fl-sahara"}
+ti[" l"] = {"fl_sahara"}
 ti["X "] = {"st-grate1"}
 ti["* "] = ti[" _"] ..  {"#ac_marble_black"}
 ti[" ,"] = {"fl-red"}
 ti[" ~"] = {"fl_water"}
 ti[" ."] = {"fl_space"}
-ti[" n"] = {"fl-light"}
+ti[" n"] = {"fl_ivory"}
 ti["K "] = {"st_laser_n", name="laser1", state=OFF}
 ti["E "] = {"st_lightpassenger_off"}
 ti["O "] = {"st_rotator_ccw", movable=false}

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 35 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 36 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,17 +21,17 @@ ti[" !"] = {"fl-normal"}
 ti["! "] = {"st-yellow"}
 ti["# "] = {"st_death"}
 ti[" #"] = {"fl-rough-blue"}
-ti[" $"] = {"fl-light"}
+ti[" $"] = {"fl_ivory"}
 ti["$ "] = {"st_knight"}
 ti["% "] = {"st-grate1"}
 ti[" %"] = {"fl_abyss"}
 ti[" &"] = {"fl_water"}
-ti[" '"] = {"fl-sahara"}
-ti[" ("] = {"fl-bluegray"}
+ti[" '"] = {"fl_sahara"}
+ti[" ("] = {"fl_bluegray"}
 ti["& "] = {"st_oxyd_d"}
 ti[" )"] = {"fl-leavesc1"}
 ti[" *"] = {"fl-gradient9"}
-ti[" +"] = {"fl-himalaya"}
+ti[" +"] = {"fl_himalaya"}
 ti[" ,"] = {"fl-gradient10"}
 ti["' "] = {"st_actorimpulse_invisible"}
 ti[" i"] = {"fl_ice"}
@@ -42,7 +42,7 @@ ti[" -"] = {"fl-gradient11"}
 ti[" ."] = {"fl-gradient12"}
 ti["b "] = {"it_brush"}
 ti["* "] = {"st-break_bolder"}
-ti[" /"] = {"fl-bluegreenx"}
+ti[" /"] = {"fl_aquamarine"}
 ti["+ "] = {"st-glass_move"}
 ti[", "] = {"st_door", faces="ew"}
 ti[" 0"] = {"fl_space"}
@@ -50,7 +50,7 @@ ti["- "] = {"st_bluesand"}
 ti[". "] = {"st_oneway_black_w"}
 ti["/ "] = {"st_oneway_black_e"}
 ti["P "] = {"st_oneway_black_s"}
-ti["c "] = {"it-crack3"}
+ti["c "] = {"it_crack_l"}
 ti["0 "] = {"st-brick_magic"}
 ti["1 "] = {"st-rock1_hole"}
 ti["B "] = {"st_passage_black_frame"}
@@ -71,7 +71,7 @@ ti["p "] = {"it_puller_n"}
 ti["h "] = {"it_strip", connections="ew"}
 ti[" 3"] = {"fl_swamp"}
 ti["9 "] = {"st_actorimpulse"}
-ti[" 4"] = {"fl-bluegreen"}
+ti[" 4"] = {"fl_bluegreen"}
 ti[": "] = {"st_puzzle",hollow=true, connections="nesw"}
 ti["m "] = {"it_hammer"}
 ti[" 5"] = {"fl-gradient4"}
@@ -97,7 +97,7 @@ ti["z6"] =  ti["l6"] ..{"it_cherry"}
 ti["z7"] =  ti[" !"] ..{"st_box_wood"}
 ti["z8"] =  ti[" !"] ..{"st_oneway_black_w"}
 ti["z9"] =  ti[" !"] ..{"st-grate1"}
-ti["g5"] =  ti["z9"] .. {"it-crack3"}
+ti["g5"] =  ti["z9"] .. {"it_crack_l"}
 ti["l7"] =  ti["l5"] .. {"it_extralife"}
 ti["z1"] =  ti[" 4"] .. {"it_key", code=1}
 ti["z2"] =  ti[" !"] .. {"it_key", code=2}

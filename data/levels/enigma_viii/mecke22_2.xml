@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:70$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:71$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,7 +30,7 @@ ti[" #"] = {"fl-normal"}
 ti[" $"] = {"fl_water"}
 ti["# "] = {"st_oneway_black_n"}
 ti["$ "] = {"st_stoneimpulse_steady"}
-ti[" %"] = {"fl-bluegreenx"}
+ti[" %"] = {"fl_aquamarine"}
 ti[" ;"] = {"fl-leavesd4"}
 ti["% "] = {"st-rock1"}
 ti[" &"] = {"fl-samba"}
@@ -59,7 +59,7 @@ ti["7 "] = {"st_turnstilearm_w"}
 ti["8 "] = {"st_puzzle_yellow_n"}
 ti["9 "] = {"st_puzzle_yellow_s"}
 ti[": "] = {"st_door",state=OPEN,faces="ns"}
-ti[" +"] = {"fl-bluegray"}
+ti[" +"] = {"fl_bluegray"}
 ti["< "] = {"st_passage_black_frame"}
 ti["= "] = {"st-glass_move"}
 ti["> "] = {"st_turnstilearm_e"}
@@ -67,7 +67,7 @@ ti["? "] = {"st-glass"}
 ti[" ,"] = {"fl_abyss"}
 ti["@ "] = {"st_oneway_black_w"}
 ti["A "] = {"st_puzzle_yellow_nesw"}
-ti[" -"] = {"fl-light"}
+ti[" -"] = {"fl_ivory"}
 ti["C "] = {"st_oneway_black_e"}
 ti["D "] = {"st_oneway_black_s"}
 ti["//"] = ti[" !"].. {"st_box_wood"}
@@ -85,14 +85,14 @@ ti["L "] = {"st-rock3_break"}
 ti[" 0"] = {"fl-gradient9"}
 ti[" 1"] = {"fl-gradient3"}
 ti[" 2"] = {"fl-gradient10"}
-ti[" 3"] = {"fl-floor_001"}
+ti[" 3"] = {"fl_bast"}
 ti["M "] = {"st_swap"}
 ti["N "] = {"st_boulder_n"}
 ti[" 5"] = {"fl-gradient2"}
 ti[" 6"] = {"fl-gradient6"}
 ti[" 7"] = {"fl-gradient12"}
 ti["O "] = {"st_oneway_s"}
-ti[" 8"] = {"fl-bluegreen"}
+ti[" 8"] = {"fl_bluegreen"}
 ti[" 9"] = {"fl-leavesc2"}
 ti["c9"] = ti["c "] .. {"fl-leavesc2"}
 ti["q9"] = ti["c9"] .. {"it-booze"}
@@ -101,7 +101,7 @@ ti["Q "] = ti[" l"] .. {"st_mirror_triangle",movable=true,transparent=true}
 ti["R "] = ti[" l"] .. {"st_mirror_slab",movable=false,transparent=false}
 ti["S "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["U "] = {"st-rock6"}
-ti[" >"] = {"fl-gravel"}
+ti[" >"] = {"fl_gravel"}
 ti[" ?"] = {"fl-abyss_fake"}
 ti["W "] = {"st-break_invisible"}
 ti["X "] = {"st_window_s"}

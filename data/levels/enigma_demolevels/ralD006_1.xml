@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Basic Level" el:subtitle="" el:id="20080721ral513"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1267 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1405 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,8 @@
 wo["ConserveLevel"] = true
 
 ti[" "] = {"fl-samba"}
-ti["."] = {"fl-abyss"}
-ti["~"] = {"fl-water"}
+ti["."] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
 ti["#"] = {"st-rock1"}
 ti["X"] = {"st_oxyd"}
 
@@ -41,9 +41,9 @@ ti["O"] = {"st_turnstile", flavor="red"}
 ti["E"] = {"st_turnstilearm", orientation=EAST}
 ti["N"] = ti["."] .. {"st_turnstilearm_n"}
 
-ti["+"] = {"fl-samba", checkerboard=0} .. ti({"fl-wood", checkerboard=1})
+ti["+"] = {"fl-samba", checkerboard=0} .. ti({"fl_wood", checkerboard=1})
 
-ti["1"] = {"#ac-blackball"}
+ti["1"] = {"#ac_marble"}
 
 if wo["IsDifficult"] then
     ti["="] = ti["~"]

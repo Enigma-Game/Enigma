@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:30$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:32$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,15 +18,15 @@
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
-    ti["  "] = {"fl-gravel",burnable=true}
-    ti["H "] = {"fl-gravel",burnable=true,"hotspot"}
-    ti["n1"] = {"fl-gravel","knight1"}
-    ti["n2"] = {"fl-gravel","knight2"}
-    ti["n3"] = {"fl-gravel","break2"}
-    ti["m5"] = {"fl-gravel","swordm"}
-    ti["n5"] = {"fl-gravel","swordn"}
-    ti["o5"] = {"fl-gravel","swordo"}
-    ti["s5"] = {"fl-gravel","swords"}
+    ti["  "] = {"fl_gravel",burnable=true}
+    ti["H "] = {"fl_gravel",burnable=true,"hotspot"}
+    ti["n1"] = {"fl_gravel","knight1"}
+    ti["n2"] = {"fl_gravel","knight2"}
+    ti["n3"] = {"fl_gravel","break2"}
+    ti["m5"] = {"fl_gravel","swordm"}
+    ti["n5"] = {"fl_gravel","swordn"}
+    ti["o5"] = {"fl_gravel","swordo"}
+    ti["s5"] = {"fl_gravel","swords"}
     ti["y "] = {"fl_swamp"}
 else
     ti["  "] = {"fl-rough",burnable=true}
@@ -41,7 +41,7 @@ else
     ti["y "] = {"fl_swamp",{friction=0.6}}
 end
 
-ti["9 "] = {"fl-bluegreenx"}
+ti["9 "] = {"fl_aquamarine"}
 ti[" -"] = {"fl_ice"}
 ti["1 "] = {"fl-leavesd1"}
 ti["15"] = {"fl-leavesd1","sword1"}

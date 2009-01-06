@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 9 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 10 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ wo["ConserveLevel"] = true
 
 ti[" "] = {"fl-abyss_fake"}
 ti["r"] = {"fl-red"}
-ti["z"] = {"fl-sahara"}
+ti["z"] = {"fl_sahara"}
 ti["a"] = {"fl_abyss"}
 ti["~"] = {"fl_water"}
 ti["D"] = ti["a"] .. {"st_disco_light"}
