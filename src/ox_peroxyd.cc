@@ -111,10 +111,10 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-metal",                 // PerOxyd floor 0x05
     "fl-metal",                 // PerOxyd floor 0x06
     "fl-metal",                 // PerOxyd floor 0x07
-    "fl-rough-red",             // PerOxyd floor 0x08
-    "fl-rough-blue",            // PerOxyd floor 0x09
-    "fl-rough-blue",            // PerOxyd floor 0x0a
-    "fl-rough-red",             // PerOxyd floor 0x0b
+    "fl_redslab",               // PerOxyd floor 0x08
+    "fl_blueslab",              // PerOxyd floor 0x09
+    "fl_blueslab",              // PerOxyd floor 0x0a
+    "fl_redslab",               // PerOxyd floor 0x0b
     "fl-inverse",               // PerOxyd floor 0x0c
     "fl-acblack",               // PerOxyd floor 0x0d
     "fl-acwhite",               // PerOxyd floor 0x0e
@@ -154,8 +154,8 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl-gradient14",            // PerOxyd floor 0x30 (flat force)
     "fl-gradient15",            // PerOxyd floor 0x31 (flat force)
     "fl-gradient16",            // PerOxyd floor 0x32 (flat force)
-    "fl-rough",                 // PerOxyd floor 0x33 (common was 'fl-rough', should be a 'fl-paper')(only level 75)
-    "fl-rough",                 // PerOxyd floor 0x34
+    "fl_rough",                 // PerOxyd floor 0x33 (common was 'fl-rough', should be a 'fl-paper')(only level 75)
+    "fl_rough",                 // PerOxyd floor 0x34
     UNUSED,                     // PerOxyd floor 0x35
     UNUSED,                     // PerOxyd floor 0x36
     UNUSED,                     // PerOxyd floor 0x37
@@ -164,9 +164,9 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x3a
     UNUSED,                     // PerOxyd floor 0x3b
     "fl_wood_framed_h",         // PerOxyd floor 0x3c
-    "fl-samba",                 // PerOxyd floor 0x3d (common was 'fl-wood', horizontal or vertical slats)(many)
-    "fl-samba1",                // PerOxyd floor 0x3e (common was 'fl-wood', horizontal slats)(only level 32)
-    "fl-samba2",                // PerOxyd floor 0x3f (common was 'fl-wood', vertical slats)(levels: 35, 152)
+    "fl_samba",                 // PerOxyd floor 0x3d (common was 'fl-wood', horizontal or vertical slats)(many)
+    "fl_samba_h",               // PerOxyd floor 0x3e (common was 'fl-wood', horizontal slats)(only level 32)
+    "fl_samba_v",               // PerOxyd floor 0x3f (common was 'fl-wood', vertical slats)(levels: 35, 152)
     UNUSED,                     // PerOxyd floor 0x40
     UNUSED,                     // PerOxyd floor 0x41
     "fl-bumps",                 // PerOxyd floor 0x42

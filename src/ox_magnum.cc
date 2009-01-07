@@ -42,10 +42,10 @@ const char *oxyd::oxydmag_floor_map[256] = {
     0,                          // OxydMagnum floor 0x05 (common was 'fl-metal')(level 121 ?)
     "fl-metal5",                // OxydMagnum floor 0x06
     "fl-normal",                // OxydMagnum floor 0x07 (common was 'fl-metal')
-    "fl-tigris",                // OxydMagnum floor 0x08 (common was 'fl-rough')
-    "fl-tigris",                // OxydMagnum floor 0x09 (common was 'fl-normal')
-    "fl-tigris",                // OxydMagnum floor 0x0a (common was 'fl-normal')
-    "fl-tigris",                // OxydMagnum floor 0x0b (common was 'fl-stone')
+    "fl_tigris",                // OxydMagnum floor 0x08 (common was 'fl-rough')
+    "fl_tigris",                // OxydMagnum floor 0x09 (common was 'fl-normal')
+    "fl_tigris",                // OxydMagnum floor 0x0a (common was 'fl-normal')
+    "fl_tigris",                // OxydMagnum floor 0x0b (common was 'fl-stone')
     "fl-inverse",               // OxydMagnum floor 0x0c (common was 'fl-inverse')
     "fl-acblack",               // OxydMagnum floor 0x0d
     "fl-acwhite",               // OxydMagnum floor 0x0e
@@ -110,8 +110,8 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x49
     UNUSED,                     // OxydMagnum floor 0x4a
     UNUSED,                     // OxydMagnum floor 0x4b
-    "fl-stone",                 // OxydMagnum floor 0x4c
-    "fl-stone",                 // OxydMagnum floor 0x4d
+    "fl_stone",                 // OxydMagnum floor 0x4c
+    "fl_stone",                 // OxydMagnum floor 0x4d
     UNUSED,                     // OxydMagnum floor 0x4e
     UNUSED,                     // OxydMagnum floor 0x4f
     UNUSED,                     // OxydMagnum floor 0x50

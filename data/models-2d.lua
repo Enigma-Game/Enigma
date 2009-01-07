@@ -259,10 +259,10 @@ do
         {"fl_platinum"},
         {"fl-nomouse", noframe = true},
         {"fl-normal"},
-        {"fl-sand"},
-        {"fl-stone"},
+        {"fl_sand"},
+        {"fl_stone"},
         {"fl-springboard"},
-        {"fl-trigger"},
+        {"fl_trigger"},
         {"fl-white"},
         -- multiple, with height and width (or 1)
         {"fl_bluegray", 4},
@@ -274,23 +274,23 @@ do
         {"fl-gray", 5},
         {"fl_hay", 4},
         {"fl_himalaya", 4},
-        {"fl-marble", 4},
+        {"fl_marble", 4},
         {"fl-metal", 6},
-        {"fl-mortar", 2, 2},
+        {"fl_mortar", 2, 2},
         {"fl_plank", 4},
-        {"fl-red", 4},
+        {"fl_red", 4},
         {"fl_rock", 2},
         {"fl-rough", 5},
-        {"fl-rough-blue", 4},
-        {"fl-rough-red", 4},
+        {"fl_blueslab", 4},
+        {"fl_redslab", 4},
         {"fl_sahara", 4},
-        {"fl-samba", 2},
+        {"fl_samba", 2},
         {"fl_space", 3, 2, noframe = true},
         {"fl-stwood", 2},
         {"fl_swamp", 4, noframe = true},
-        {"fl-tigris", 4},
+        {"fl_tigris", 4},
         {"fl_water", 4, noframe = true},
-        {"fl-woven", 5},
+        {"fl_woven", 5},
     }
 
     for _, floor in pairs(floorlist) do
@@ -370,11 +370,9 @@ do
     DefAlias("fl-abyss_fake", "fl_abyss")
     DefAlias("fl-normal_x", "fl-normal")
     DefAlias("fl-normal_x_framed", "fl-normal_framed")
-    DefAlias("fl-rough_medium", "fl-rough")
-    DefAlias("fl-rough_medium_framed", "fl-rough_framed")
-    DefAlias("fl-rough_slow", "fl-rough")
-    DefAlias("fl-rough_slow_framed", "fl-rough_framed")
     DefAlias("fl-space-force", "fl_space")
+    DefAlias("fl_samba_h", "fl_samba1")
+    DefAlias("fl_samba_v", "fl_samba2")
 end
 
 ----------------------

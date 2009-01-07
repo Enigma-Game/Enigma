@@ -70,7 +70,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl_abyss",                 // Oxyd1 floor 0x00
     "fl-gray",                  // Oxyd1 floor 0x01
     "fl-metal",                 // Oxyd1 floor 0x02
-    "fl-samba",                 // Oxyd1 floor 0x03 was: checkered floor
+    "fl_samba",                 // Oxyd1 floor 0x03 was: checkered floor
     UNUSED,                     // Oxyd1 floor 0x04
     UNUSED,                     // Oxyd1 floor 0x05
     UNUSED,                     // Oxyd1 floor 0x06
@@ -133,7 +133,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x3f
     "fl_wood_framed_h",         // Oxyd1 floor 0x40
     "fl_wood",                  // Oxyd1 floor 0x41
-    "fl-samba1",                // Oxyd1 floor 0x42
+    "fl_samba_h",               // Oxyd1 floor 0x42
     UNUSED,                     // Oxyd1 floor 0x43
     UNUSED,                     // Oxyd1 floor 0x44
     UNUSED,                     // Oxyd1 floor 0x45
@@ -144,7 +144,7 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x4a
     UNUSED,                     // Oxyd1 floor 0x4b
     UNUSED,                     // Oxyd1 floor 0x4c
-    "fl-tigris",                // Oxyd1 floor 0x4d
+    "fl_tigris",                // Oxyd1 floor 0x4d
     UNUSED,                     // Oxyd1 floor 0x4e
     UNUSED,                     // Oxyd1 floor 0x4f
     UNUSED,                     // Oxyd1 floor 0x50

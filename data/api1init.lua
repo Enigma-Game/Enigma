@@ -58,6 +58,7 @@ RenamingObjectsNew2Old = {
     fl_bast = "fl-floor_001",
     fl_bluegray = "fl-bluegray",
     fl_bluegreen = "fl-bluegreen",
+    fl_blueslab = "fl-rough-blue",
     fl_brick = "fl-brick",
     fl_bridge = "fl-bridge",
     fl_concrete = "fl-concrete",
@@ -67,12 +68,24 @@ RenamingObjectsNew2Old = {
     fl_himalaya = "fl-himalaya",
     fl_ice = "fl-ice",
     fl_ivory = "fl-light",
+    fl_marble = "fl-marble",
+    fl_mortar = "fl-mortar",
     fl_plank = "fl-plank",
     fl_platinum = "fl-lightgray",
+    fl_red = "fl-red",
+    fl_redslab = "fl-rough-blue",
     fl_rock = "fl-rock",
+    fl_rough = "fl-rough",
     fl_sahara = "fl-sahara", 
+    fl_sand = "fl-sand",
+    fl_samba = "fl-samba",
+    fl_samba_h = "fl-samba1",
+    fl_samba_v = "fl-samba2",
     fl_space = "fl-space",
+    fl_stone = "fl-stone",
     fl_swamp = "fl-swamp",
+    fl_tigris = "fl-tigris",
+    fl_trigger = "fl-trigger",
     fl_water = "fl-water",
     fl_wood = "fl-wood",
     fl_wood_h = "fl-wood1",
@@ -80,6 +93,7 @@ RenamingObjectsNew2Old = {
     fl_wood_framed = "fl-stwood",
     fl_wood_framed_h = "fl-stwood1",
     fl_wood_framed_v = "fl-stwood2",
+    fl_woven = "fl-woven",
     it_banana = "it-banana",
     it_blocker = "it-blocker",
     it_blocker_new = "it-blocker-new",
@@ -369,6 +383,16 @@ function enigma.MakeObject(name)
     elseif name == "fl-bridge-closed" then
         local obj = enigma._MakeObject("fl_bridge")
         enigma._SetAttrib(obj, "state", 0)
+        return obj
+    elseif name == "fl-rough_medium" then
+        local obj = enigma._MakeObject("fl_rough")
+        enigma._SetAttrib(obj, "friction", 5.0)
+        enigma._SetAttrib(obj, "adhesion", 1.2)
+        return obj
+    elseif name == "fl-rough_slow" then
+        local obj = enigma._MakeObject("fl_rough")
+        enigma._SetAttrib(obj, "friction", 7.0)
+        enigma._SetAttrib(obj, "adhesion", 0.5)
         return obj
     elseif name == "st-key" then
         local obj = enigma._MakeObject("st_key")

@@ -42,10 +42,10 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x05
     UNUSED,              // OxydExtra floor 0x06
     "fl_ivory",          // OxydExtra floor 0x07
-    "fl-rough-red",      // OxydExtra floor 0x08
-    "fl-rough-blue",     // OxydExtra floor 0x09
-    "fl-rough-blue",     // OxydExtra floor 0x0a
-    "fl-rough-red",      // OxydExtra floor 0x0b
+    "fl_redslab",        // OxydExtra floor 0x08
+    "fl_blueslab",       // OxydExtra floor 0x09
+    "fl_blueslab",       // OxydExtra floor 0x0a
+    "fl_redslab",        // OxydExtra floor 0x0b
     "fl-inverse",        // OxydExtra floor 0x0c
     "fl-black",          // OxydExtra floor 0x0d
     UNUSED,              // OxydExtra floor 0x0e
@@ -86,20 +86,20 @@ const char *oxyd::oxydextra_floor_map[256] = {
     "fl-gradient15",     // OxydExtra floor 0x31
     "fl-gradient16",     // OxydExtra floor 0x32
     UNUSED,              // OxydExtra floor 0x33
-    "fl-rough",          // OxydExtra floor 0x34
+    "fl_rough",          // OxydExtra floor 0x34
     UNUSED,              // OxydExtra floor 0x35
     UNUSED,              // OxydExtra floor 0x36
     UNUSED,              // OxydExtra floor 0x37
-    "fl-mortar",         // OxydExtra floor 0x38
+    "fl_mortar",         // OxydExtra floor 0x38
     UNUSED,              // OxydExtra floor 0x39
     UNUSED,              // OxydExtra floor 0x3a
     UNUSED,              // OxydExtra floor 0x3b
-    "fl-samba",          // OxydExtra floor 0x3c
+    "fl_samba",          // OxydExtra floor 0x3c
     UNUSED,              // OxydExtra floor 0x3d
     UNUSED,              // OxydExtra floor 0x3e
     UNUSED,              // OxydExtra floor 0x3f
     UNUSED,              // OxydExtra floor 0x40
-    "fl-samba",          // OxydExtra floor 0x41
+    "fl_samba",          // OxydExtra floor 0x41
     UNUSED,              // OxydExtra floor 0x42
     "fl-bumps",          // OxydExtra floor 0x43
     UNUSED,              // OxydExtra floor 0x44
@@ -123,7 +123,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x56
     UNUSED,              // OxydExtra floor 0x57
     UNUSED,              // OxydExtra floor 0x58
-    "fl-trigger",        // OxydExtra floor 0x59
+    "fl_trigger",        // OxydExtra floor 0x59
     UNUSED,              // OxydExtra floor 0x5a
     "fl_gravel",         // OxydExtra floor 0x5b
     // codes >= 0x5c are unused
