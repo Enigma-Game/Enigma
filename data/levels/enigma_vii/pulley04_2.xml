@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="7" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,7 +12,7 @@
       <el:score el:easy="-" el:difficult="20:00"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl-sand"}
+ti[" "] = {"fl_sand"}
 ti["a"] = ti[" "] .. {"st_chess_white", name="Silver"} -- Silver (Lone Ranger's Horse)
 ti["b"] = ti[" "] .. {"st_passage_black_slash"}
 ti["c"] = ti[" "] .. {"st-marble"} -- MARBLE WALL
@@ -26,10 +26,10 @@ ti["k"] = ti[" "] .. {"it_trigger", action="callback", target="Band2"} -- attach
 ti["l"] = {"fl_water"}
 ti["m"] = ti[" "] .. {"it_hammer"}
 ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st-chameleon"})
-ti["o"] = {"fl-sand", secure=true} .. ti({"it-burnable_oil"})
+ti["o"] = {"fl_sand", secure=true} .. ti({"it-burnable_oil"})
 ti["p"] = {"fl_swamp"}
 ti["q"] = ti[" "] .. {"st-redrock"} -- SUN RAY
-ti["r"] = {"fl-red"} -- SUN
+ti["r"] = {"fl_red"} -- SUN
 ti["s"] = ti[" "] .. {"st_scissors"}
 ti["t"] = ti[" "] .. {"st-thief"}
 ti["u"] = ti[" "] .. {"st_box_wood"}

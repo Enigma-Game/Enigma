@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Balance Beam" el:subtitle="Balance Beam" el:id="mecke03"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 33 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 34 $" el:status="released"/>
       <el:author  el:name="mecke"/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,8 +23,8 @@ if wo ["IsDifficult"] then
     ti["b"] = {"fl_bluegray"}
 end
 ti[" "] = {"fl_space"}
-ti["r"] = {"fl-red"}
-ti["z"] = {"fl-rough"}
+ti["r"] = {"fl_red"}
+ti["z"] = {"fl_rough"}
 ti["l"] = {"fl_ivory"}
 ti["~"] = {"fl_water"}
 ti["y"] = {"fl_swamp"}

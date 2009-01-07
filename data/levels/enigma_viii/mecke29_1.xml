@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 6 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 7 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,9 +21,9 @@ wo["ExtralifeGlasses"] = SPOT_DEATH + SPOT_TRAP
 if wo ["IsDifficult"] then
     ti["  "] = {"fl_bluegreen"}
     ti[" v"] = {"fl_ice"}
-    ti[" '"] = {"fl-rough"}
+    ti[" '"] = {"fl_rough"}
 else
-    ti["  "] = {"fl-rough"}
+    ti["  "] = {"fl_rough"}
     ti[" v"] = {"fl_bluegreen"}
 
 end
@@ -31,7 +31,7 @@ end
 ti["' "] = {"it_trap"}
 ti["b "] = {"it-blackbomb"}
 ti[" ~"] = {"fl_water"}
-ti["r_"] = {"fl-red"}
+ti["r_"] = {"fl_red"}
 ti["b~"] = ti["b "] .. {"fl_water"}
 ti[" _"] = {"fl_swamp"}
 ti["'_"] = ti["' "] .. {"fl_swamp"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Counterclockwise" el:id="20070126ulf020"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 95 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 96 $" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2007 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ else
   ti["#"] = {"st-bluegray"}
   lint = 0.30
 end
-ti[" "] = {"fl-rough", friction=5.0, adhesion=1.2}
+ti[" "] = {"fl_rough", friction=5.0, adhesion=1.2}
 ti["X"] = {"st-glass2"}
 ti["1"] = {"st_laser", name="le", orientation=EAST, state=OFF}
 ti["2"] = {"st_laser", name="ln", orientation=NORTH, state=OFF}

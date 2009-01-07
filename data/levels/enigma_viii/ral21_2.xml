@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 137 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 138 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ wo["ProvideExtralifes"] = false
 wo["ExtralifeGlasses"] = SPOT_DEATH
 wo["Brittleness"] = 1.0
 
-ti["  "] = {"fl-sand"}
+ti["  "] = {"fl_sand"}
 ti["~~"] = {"fl_water"}
 ti["~e"] = {"fl_water", "escape_close#"}
 ti["__"] = {"fl_abyss"}
@@ -37,10 +37,10 @@ ti["LY"] = {"fl_gravel", "sunlight2"}
 ti["RZ"] = {"fl_gravel", "ringroom"}
 ti[";;"] = {"fl_dunes", friction=6, mousefactor=2}
 ti["''"] = {"fl_sahara"}
-ti["%%"] = {"fl-samba"}
-ti["%."] = {"fl-samba", "volcan#", secure=true}
+ti["%%"] = {"fl_samba"}
+ti["%."] = {"fl_samba", "volcan#", secure=true}
 ti["_v"] = {"fl_abyss", "volcan#"}
-ti["::"] = {"fl-rough-red"}
+ti["::"] = {"fl_redslab"}
 ti["O0"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLUE}
 ti["O1"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_RED}
 ti["O2"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_GREEN}
@@ -50,7 +50,7 @@ ti["O5"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_PURPLE}
 ti["O6"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_WHITE}
 ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
 ti["OE"] = {"st_oxyd_d"}
-ti[":;"] = {"fl-rough-blue"}
+ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl-thief"}
 ti["$$"] = {"fl-acwhite"}
@@ -67,12 +67,12 @@ ti["ga"] = {"fl-gradient", type=10}
 ti["gb"] = {"fl-gradient", type=11}
 ti["gc"] = {"fl-gradient", type=12}
 ti["^^"] = {"fl-gray"}
-ti["%f"] = {"fl-samba", eternal=true, initfire=true}
-ti[" f"] = {"fl-sand", eternal=true, initfire=true}
-ti["FT"] = {"fl-sand", eternal=true, initfire=true, name="fire_target"}
+ti["%f"] = {"fl_samba", eternal=true, initfire=true}
+ti[" f"] = {"fl_sand", eternal=true, initfire=true}
+ti["FT"] = {"fl_sand", eternal=true, initfire=true, name="fire_target"}
 ti["%:"] = {"fl_hay", secure=true}
-ti[" v"] = {"fl-sand", force_y=10}
-ti[" h"] = {"fl-sand", force_x=-10}
+ti[" v"] = {"fl_sand", force_y=10}
+ti[" h"] = {"fl_sand", force_x=-10}
 ti["XX"] = ti["  "] .. {st_oxyd_d}
 ti[" ."] = ti["  "] .. {"it_seed"}
 ti["'."] = ti["''"] .. {"it_seed"}

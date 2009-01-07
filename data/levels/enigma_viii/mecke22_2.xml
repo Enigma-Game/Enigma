@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:71$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:72$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,12 +33,12 @@ ti["$ "] = {"st_stoneimpulse_steady"}
 ti[" %"] = {"fl_aquamarine"}
 ti[" ;"] = {"fl-leavesd4"}
 ti["% "] = {"st-rock1"}
-ti[" &"] = {"fl-samba"}
+ti[" &"] = {"fl_samba"}
 ti["& "] = {"st_stoneimpulse_hollow"}
-ti[" '"] = {"fl-red"}
+ti[" '"] = {"fl_red"}
 ti["' "] = {"st-rock1_hole"}
 ti[" e"] = {"fl_space"}
-ti[" *"] = {"fl-sand"}
+ti[" *"] = {"fl_sand"}
 ti[" l"] = {"fl-leaves"}
 ti["b "] = {"st_puzzle_yellow_ns"}
 ti["n "] = {"st_puzzle_yellow_ne"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:15$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:16$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -14,12 +14,12 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti["  "] = {"fl-rough"}
-ti[" !"] = {"fl-red"}
-ti["1!"] = {"fl-red", name="1!"}
-ti["2!"] = {"fl-red", name="2!"}
-ti["3!"] = {"fl-red", name="3!"}
-ti["4!"] = {"fl-red", name="4!"}
+ti["  "] = {"fl_rough"}
+ti[" !"] = {"fl_red"}
+ti["1!"] = {"fl_red", name="1!"}
+ti["2!"] = {"fl_red", name="2!"}
+ti["3!"] = {"fl_red", name="3!"}
+ti["4!"] = {"fl_red", name="4!"}
 ti[" f"] = {"fl-abyss_fake"}
 ti["! "] = {"st_lightpassenger"}
 ti[" d"] = ti[" f"] .. {"it_death"}
@@ -28,7 +28,7 @@ ti[" B"] = {"fl-gradient12"}
 ti[" C"] = {"fl-gradient8"}
 ti[" E"] = {"fl-gradient11"}
 ti[" D"] = {"fl-gradient16"}
-ti[" F"] = {"fl-rough-red"}
+ti[" F"] = {"fl_redslab"}
 ti["F "] = {"st_black_slash"}
 ti[" s"] = {"fl_space"}
 ti["w "] = {"it_wormhole", range=10, strength=3}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:32$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:33$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,15 +29,15 @@ if wo ["IsDifficult"] then
     ti["s5"] = {"fl_gravel","swords"}
     ti["y "] = {"fl_swamp"}
 else
-    ti["  "] = {"fl-rough",burnable=true}
-    ti["H "] = {"fl-rough",burnable=true,securefire=true,"hotspot"}
-    ti["n1"] = {"fl-rough","knight1"}
-    ti["n2"] = {"fl-rough","knight2"}
-    ti["n3"] = {"fl-rough","break2"}
-    ti["m5"] = {"fl-rough","swordm"}
-    ti["n5"] = {"fl-rough","swordn"}
-    ti["o5"] = {"fl-rough","swordo"}
-    ti["s5"] = {"fl-rough","swords"}
+    ti["  "] = {"fl_rough",burnable=true}
+    ti["H "] = {"fl_rough",burnable=true,securefire=true,"hotspot"}
+    ti["n1"] = {"fl_rough","knight1"}
+    ti["n2"] = {"fl_rough","knight2"}
+    ti["n3"] = {"fl_rough","break2"}
+    ti["m5"] = {"fl_rough","swordm"}
+    ti["n5"] = {"fl_rough","swordn"}
+    ti["o5"] = {"fl_rough","swordo"}
+    ti["s5"] = {"fl_rough","swords"}
     ti["y "] = {"fl_swamp",{friction=0.6}}
 end
 

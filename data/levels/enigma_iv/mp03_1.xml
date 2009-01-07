@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Laser Games" el:subtitle="" el:id="mp03"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author el:name="moonpearl"/>
       <el:copyright>Copyright © moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = false
 
-ti["  "] = ti({"fl-rough-blue", checkerboard = 1}) .. {"fl-rough-red", checkerboard = 0}
+ti["  "] = ti({"fl_blueslab", checkerboard = 1}) .. {"fl_redslab", checkerboard = 0}
 ti["# "] = {"st-rock4"}
 ti["= "] = {"st-block"}
 ti["^ "] = {"st_laser", state = ON, orientation = NORTH}

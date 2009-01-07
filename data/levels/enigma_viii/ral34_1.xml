@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wired Shogun" el:subtitle="" el:id="20080828ral417"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl_ivory", checkerboard=1} .. ti({"fl-marble", checkerboard=0})
+ti[" "] = {"fl_ivory", checkerboard=1} .. ti({"fl_marble", checkerboard=0})
 ti["."] = {"fl_abyss"}
 
 ti["1"] = {"st_shogun_l", "l1"}

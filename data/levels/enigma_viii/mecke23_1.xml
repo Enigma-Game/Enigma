@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" #"] = {"fl-stone"}
+ti[" #"] = {"fl_stone"}
 ti[" a"] = {"fl_rock"}
 ti[" ,"] = {"fl_concrete"}
 ti[" &"] = {"fl_ice"}
@@ -26,11 +26,11 @@ ti["  "] = {"fl_hay",{secure=TRUE}}
 ti[" o"] = {"fl-acblack"}
 ti[" *"] = {"fl_himalaya"}
 ti[" +"] = {"fl_sahara"}
-ti[" '"] = {"fl-tigris"}
+ti[" '"] = {"fl_tigris"}
 ti[" ."] = {"fl-metal"}
-ti[" /"] = {"fl-woven"}
+ti[" /"] = {"fl_woven"}
 ti[" O"] = {"fl_abyss"}
-ti[" 1"] = {"fl-red"}
+ti[" 1"] = {"fl_red"}
 ti["/ "] = {"st-puzzle-new"}
 ti["$ "] = {"st-grate3"}
 ti["% "] = {"st-glass3"}

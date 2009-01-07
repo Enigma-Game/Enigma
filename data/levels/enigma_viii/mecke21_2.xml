@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 36 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 37 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -14,14 +14,13 @@
       </el:comments>
       <el:score el:easy="23:10" el:difficult="29:12" />
     </el:info>
-    <el:luamain>
-    <![CDATA[
+    <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
-    ti[" !"] = {"fl-red"}
+    ti[" !"] = {"fl_red"}
 else
-    ti[" !"] = {"fl-red", friction=3.6}
+    ti[" !"] = {"fl_red", friction=3.6}
 end
 
 ti["! "] = {"st-bumps"}
@@ -122,14 +121,14 @@ if wo ["IsDifficult"] then
     ti["ph"] = ti[" %"] .. {"it_strip", connections="ew"}
     ti["pv"] = ti[" %"] .. {"it_strip", connections="ns"}
     ti["ei"] = ti[" !"] .. {"it_death"}
-    ti["ec"] = ti[" !"] .. {"fl-red"}
+    ti["ec"] = ti[" !"] .. {"fl_red"}
     ti["eq"] = ti["mn"] .. {"it-spoon"}
     ti["qq"] = ti["fg"] .. {"it-spring2"}
     ti["~~"] = {"fl_water"}
 else
-    ti["pd"] = {"fl-red"}
-    ti["ph"] = {"fl-red"}
-    ti["pv"] = {"fl-red"}
+    ti["pd"] = {"fl_red"}
+    ti["ph"] = {"fl_red"}
+    ti["pv"] = {"fl_red"}
     ti["ei"] = ti[" !"] .. {"it_extralife"}
     ti["eq"] = ti["mn"] .. {"it_glasses"}
     ti["ec"] = ti["mn"] .. {"it_coin_s"}

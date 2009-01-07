@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 23 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 24 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -17,9 +17,9 @@
     <el:luamain> <![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" ."] = {"fl-rough-red"}
+ti[" ."] = {"fl_redslab"}
 ti[" ,"] = {"fl_swamp"}
-ti[" +"] = {"fl-woven"}
+ti[" +"] = {"fl_woven"}
 ti[" !"] = {"fl_brick"}
 ti["! "] = {"st_death"}
 ti[" #"] = {"fl-normal"}
@@ -36,10 +36,10 @@ ti["' "] = {"st_actorimpulse"}
 ti["( "] = {"st-grate1"}
 ti["i1"] = ti[" ."] ..{"st-grate1"}
 ti["i2"] = ti[" ,"] ..{"st-grate1"}
-ti[" 1"] = {"fl-rough"}
+ti[" 1"] = {"fl_rough"}
 ti[") "] = {"st_bluesand"}
 ti["f "] = {"it-coffee"}
-ti[" )"] = {"fl-red"}
+ti[" )"] = {"fl_red"}
 ti["* "] = {"st_oxyd_d"}
 ti["+ "] = {"st-glass_move"}
 ti["e2"] = ti[" +"]..{"st-glass_move"}
@@ -59,7 +59,7 @@ ti["/ "] = {"st_stoneimpulse_hollow"}
 ti["0 "] = {"st-rock3_hole"}
 ti[" -"] = {"fl_aquamarine"}
 ti["1 "] = {"st-glass"}
-ti[" /"] = {"fl-rough-blue"}
+ti[" /"] = {"fl_blueslab"}
 ti["2 "] = {"st_shogun_m"}
 ti[" 0"] = {"fl_himalaya"}
 ti["e1"] = ti["e2"]..{"it_brush"}
@@ -102,7 +102,7 @@ ti["; "] = {"st_knight"}
 ti["< "] = {"st_laser_e", name="lezy1"}
 ti["= "] = {"st-thief"}
 ti["u "] = {"st_box_wood"}
-ti[" 4"] = {"fl-mortar"}
+ti[" 4"] = {"fl_mortar"}
 ti["> "] = {"st_quake"}
 ti[" 5"] = {"fl-gradient15"}
 ti[" 6"] = {"fl-gradient11"}
@@ -130,7 +130,7 @@ ti["z "] = {"#ac_top", range=3, strength=3}
 if wo ["IsDifficult"] then
     ti["wd"] = ti[" &"]..{"it_death"}
     ti["bd"] = ti[" #"]..{"it_death"}
-    ti["wu"] = ti[" )"]..{"fl-red"}
+    ti["wu"] = ti[" )"]..{"fl_red"}
     ti["ww"] = ti[" -"]..{"fl_aquamarine"}
 else
     ti["wd"] = ti[" &"]..{"fl_water"}

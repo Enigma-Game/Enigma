@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wired Five" el:subtitle="" el:id="20080721ral073"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ end
 
 ti[" "] = {"fl_abyss"}
 ti["*"] = ti[" "] ..{"st-marble"}
-ti["."] = {"fl-marble", friction=7, adhesion=1.8, checkerboard=cb} 
+ti["."] = {"fl_marble", friction=7, adhesion=1.8, checkerboard=cb} 
           .. ti({"fl_ivory", friction=7, adhesion=1.8, checkerboard=1-cb})
 
 if wo["IsDifficult"] then

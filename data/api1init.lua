@@ -73,10 +73,10 @@ RenamingObjectsNew2Old = {
     fl_plank = "fl-plank",
     fl_platinum = "fl-lightgray",
     fl_red = "fl-red",
-    fl_redslab = "fl-rough-blue",
+    fl_redslab = "fl-rough-red",
     fl_rock = "fl-rock",
     fl_rough = "fl-rough",
-    fl_sahara = "fl-sahara", 
+    fl_sahara = "fl-sahara",
     fl_sand = "fl-sand",
     fl_samba = "fl-samba",
     fl_samba_h = "fl-samba1",
@@ -237,7 +237,7 @@ RenamingObjectsNew2Old = {
     st_mail_s = "st-mail-s",
     st_mail_e = "st-mail-e",
     st_mail_n = "st-mail-n",
-    
+
     st_mirror_slab_n = "st-mirror-p|",
     st_mirror_slab_e = "st-mirror-p/",
     st_mirror_slab_s = "st-mirror-p-",
@@ -270,7 +270,7 @@ RenamingObjectsNew2Old = {
     st_mirror_triangle_etm = "st-mirror-3>tm",
     st_mirror_triangle_stm = "st-mirror-3vtm",
     st_mirror_triangle_wtm = "st-mirror-3<tm",
-    
+
     st_monoflop = "st-timeswitch",
     st_oxyd = "st-oxyd",
     st_oneway = "st-oneway",
@@ -503,13 +503,13 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("st_fake_oxydd")
         enigma._SetAttrib(obj, "state", 1)
         return obj
-    end    
+    end
     newname = RenamingObjectsOld2New[name]
-    
+
     if name == "st-laser" then
         newname = "st_laser_e"
     end
-    
+
     if newname ~= nil then
         return enigma._MakeObject(newname)
     else
@@ -733,7 +733,7 @@ function enigma.SetAttrib(obj, key, val)
          if val == 1 then
              enigma._SetAttrib(obj, "fragility", 0.0)
              enigma._SetAttrib(obj, "spreading", 0.0)
-         else 
+         else
              enigma._SetAttrib(obj, "fragility", nil)
              enigma._SetAttrib(obj, "spreading", nil)
          end
@@ -808,7 +808,7 @@ function enigma.GetAttrib(obj, key)
      end
 
      local val = enigma._GetAttrib(obj, _key)
-     
+
      if key == "blackball" then
         if val == 0 then val = 1 else val = 0 end
      end
@@ -1077,7 +1077,7 @@ function fill_floor(name, x0,y0, w,h)
     if h  == nil then h  = level_height end
     for y=y0,y0+h-1 do
 	for x=x0,x0+w-1 do
-            set_floor(name, x, y) 
+            set_floor(name, x, y)
         end
     end
 end
@@ -1163,8 +1163,8 @@ end
 ---------------------------------------------
 -- Creation of particular kinds of objects --
 ---------------------------------------------
-function fakeoxyd(x,y) 
-    return set_stone("st-fakeoxyd",x,y) 
+function fakeoxyd(x,y)
+    return set_stone("st-fakeoxyd",x,y)
 end
 
 

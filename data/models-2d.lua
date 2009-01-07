@@ -280,7 +280,7 @@ do
         {"fl_plank", 4},
         {"fl_red", 4},
         {"fl_rock", 2},
-        {"fl-rough", 5},
+        {"fl_rough", 5},
         {"fl_blueslab", 4},
         {"fl_redslab", 4},
         {"fl_sahara", 4},
@@ -354,7 +354,7 @@ do
     DefRandFloor("fl-wood", {"fl-woodx1", "fl-woodx2", "fl-woodx3", "fl-woodx4"})
     DefRandFloor("fl-wood1", {"fl-woodx3", "fl-woodx4"})
     DefRandFloor("fl-wood2", {"fl-woodx1", "fl-woodx2"})
-    
+
     DefAlias("fl_wood", "fl-wood")
     DefAlias("fl_wood1", "fl-wood1")
     DefAlias("fl_wood2", "fl-wood2")
@@ -1499,7 +1499,7 @@ do
     mkoxyd("c")
     mkoxyd("d")
 
-    -- flavors 'e' 
+    -- flavors 'e'
     for color = 0, num_colors - 1 do
         DefOverlay("st-oxyde"..color.."-peep", {"st-oxydb-open", colorspots[color+1], "st-oxyde"})
         DefShModel("st-oxyde"..color, "st-oxyde"..color.."-peep", "sh-round")

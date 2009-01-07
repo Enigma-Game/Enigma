@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Action Potential" el:subtitle="" el:id="pulley02"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,13 +16,13 @@
 -- http://en.wikipedia.org/wiki/Action_potential
 -- http://de.wikipedia.org/wiki/Aktionspotential
 ti[" "] = {"fl-abyss_fake"}
-ti["?"] = {"fl-sand"}
+ti["?"] = {"fl_sand"}
 ti["."] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti[","] = ti[" "] .. {"st_stoneimpulse"}
 ti[":"] = ti[" "] .. {"st-grate1"}
 ti["*"] = ti[" "] .. {"st-glass1"}
 ti["v"] = ti[" "] .. {"st_boulder_s"}
-ti["w"] = {"fl-red"} .. ti({"st_box_wood"})
+ti["w"] = {"fl_red"} .. ti({"st_box_wood"})
 ti["z"] = ti[" "] .. {"st_rotator_ccw"}
 ti["y"] = ti[" "] .. {"st_boulder_n"}
 ti["0"] = ti[" "] .. {"st_oxyd"}
@@ -178,11 +178,11 @@ wo:shuffleOxyd()
 wo[{29, 42.5}] = {"ac_marble_black"}
 wo[{32, 43}] = {"it-document", text="text1"}
 
-SynapseOn = {"fl-rough-red"}
+SynapseOn = {"fl_redslab"}
 if wo ["IsDifficult"] then
   SynapseOff = {"fl-abyss_fake"}
 else
-  SynapseOff = {"fl-rough-blue"}
+  SynapseOff = {"fl_blueslab"}
 end
 
 function SynapseA()

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 28 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,12 +19,12 @@ wo["ConserveLevel"] = true
 
 ti["R"] = {"#ac_rotor", range=1, strength=1}
 ti["  "] = {"fl-normal"}
-ti[" r"] = {"fl-red"}
+ti[" r"] = {"fl_red"}
 ti[" h"] = {"fl_himalaya"}
 ti[" '"] = {"fl_sahara"}
 ti[" b"] = {"fl_bluegray"}
-ti[" +"] = {"fl-rough-red"}
-ti[" -"] = {"fl-rough-blue"}
+ti[" +"] = {"fl_redslab"}
+ti[" -"] = {"fl_blueslab"}
 ti[" ~"] = {"fl_water"}
 ti[" ,"] = {"fl_space"}
 ti[" ."] = {"fl_abyss"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="devnull08"/>
-      <el:version el:score="1" el:release="1" el:revision="15" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="16" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti[" c"] = {"fl_concrete"}
 ti[" h"] = {"fl_hay"}
 ti[" l"] = {"fl-leaves"}
 ti[" r"] = {"fl_rock"}
-ti[" s"] = {"fl-sand"}
+ti[" s"] = {"fl_sand"}
 ti[" v"] = {"fl_gravel", friction = sFactor}
 ti[" V"] = {"fl_gravel", friction = sFactor * 2.5}
 ti[". "] = {"st_disco_light"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Colored Turnstiles" el:subtitle="" el:id="andreas51"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,7 @@ ti["W"] = {"st_turnstilearm_w"}
 ti["R"] = {"st_turnstile", action = {"open", "close"}, target = {"red#*", "green#*"}}
 ti["G"] = {"st_turnstile", action = {"close", "open"}, target = {"red#*", "green#*"},
                            flavor = "green"}
-ti["r"] = {"it_blocker", "red#"} .. ti({"fl-red"})
+ti["r"] = {"it_blocker", "red#"} .. ti({"fl_red"})
 ti["g"] = {"it_blocker", "green#"} .. ti({"fl-leaves"})
 
 ti["O"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_GREEN}
