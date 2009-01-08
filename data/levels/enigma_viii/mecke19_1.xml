@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:8$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:9$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -20,7 +20,7 @@ wo["ConserveLevel"] = true
 ti[" &"] = {"fl_red"}
 ti[" !"] = {"fl_water"}
 ti["! "] = {"st-rock6"}
-ti[" #"] = {"fl-normal"}
+ti[" #"] = {"fl_metal_7"}
 ti[" $"] = {"fl_sahara"}
 ti["# "] = {"st_chess_white"}
 ti["s "] = {"it_squashed"}

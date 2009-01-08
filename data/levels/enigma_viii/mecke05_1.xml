@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:33$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:34$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,16 +43,16 @@ end
 
 ti["9 "] = {"fl_aquamarine"}
 ti[" -"] = {"fl_ice"}
-ti["1 "] = {"fl-leavesd1"}
-ti["15"] = {"fl-leavesd1","sword1"}
-ti["2 "] = {"fl-leavesd2"}
-ti["25"] = {"fl-leavesd2","sword2"}
-ti["3 "] = {"fl-leavesd3"}
-ti["35"] = {"fl-leavesd3","sword3"}
+ti["1 "] = {"fl_lawn_d1"}
+ti["15"] = {"fl_lawn_d1","sword1"}
+ti["2 "] = {"fl_lawn_d2"}
+ti["25"] = {"fl_lawn_d2","sword2"}
+ti["3 "] = {"fl_lawn_d3"}
+ti["35"] = {"fl_lawn_d3","sword3"}
 ti["3/"] = ti["3 "] ..{"st_box_wood","woody1"}
 ti["1/"] = ti["1 "] ..{"st_box_wood","woody2"}
-ti["4 "] = {"fl-leavesd4"}
-ti["45"] = {"fl-leavesd4","sword4"}
+ti["4 "] = {"fl_lawn_d4"}
+ti["45"] = {"fl_lawn_d4","sword4"}
 ti["z "] = {"it_cherry"}
 ti["Z "] = {"fl_abyss"}
 ti["- "] = {"fl_space"}

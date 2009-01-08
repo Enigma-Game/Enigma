@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="20" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="21" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ for i = 0, 5 do
 end
 
 ti[" "] = {"fl_abyss"}
-ti["."] = {"fl-black"}
+ti["."] = {"fl_dark"}
 ti["#"] = {"st-rock1"}
 ti["W"] = {"st_box_wood_v"}
 ti["w"] = ti["."] .. ti["W"]
@@ -57,7 +57,7 @@ ti["9"] = {"fl_bridge_bn", name = "bridgeFloppyWhite#"}
 ti["8"] = {"fl_bridge_bw", name = "bridge02#", state = CLOSED}
 ti["7"] = {"fl_bridge_bw", state = CLOSED}
 ti["5"] = {"fl_bridge_bw", name = "bridge00#"}
-ti["J"] = {"fl-abyss_fake"}
+ti["J"] = {"fl_fake_abyss"}
 ti[">"] = {"it_pipe_ne"}
 ti["<"] = {"it_pipe_nw"}
 ti["_"] = {"it_pipe_ew"}

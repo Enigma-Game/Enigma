@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 24 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 25 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -22,7 +22,7 @@ ti[" ,"] = {"fl_swamp"}
 ti[" +"] = {"fl_woven"}
 ti[" !"] = {"fl_brick"}
 ti["! "] = {"st_death"}
-ti[" #"] = {"fl-normal"}
+ti[" #"] = {"fl_metal_7"}
 ti["# "] = {"st-rock3"}
 ti[" $"] = {"fl_abyss"}
 ti[" %"] = {"fl_ivory"}
@@ -134,7 +134,7 @@ if wo ["IsDifficult"] then
     ti["ww"] = ti[" -"]..{"fl_aquamarine"}
 else
     ti["wd"] = ti[" &"]..{"fl_water"}
-    ti["bd"] = ti[" #"]..{"fl-normal"}
+    ti["bd"] = ti[" #"]..{"fl_metal_7"}
     ti["wu"] = ti[" )"]..{"it_umbrella"}
     ti["ww"] = ti[" -"]..{"it_extralife"}
 end

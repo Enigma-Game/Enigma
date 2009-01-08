@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005,2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,7 +15,7 @@
       <el:score el:easy="-" el:difficult="1:13"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl-metal"}
+ti[" "] = {"fl_metal"}
 ti["x"] = {"st-glass1_hole"}
 ti["#"] = {"st-glass2"}
 ti["O"] = {"st-glass2_hole"}

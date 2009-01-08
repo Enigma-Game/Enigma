@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="10" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,15 +26,15 @@ else
 end
 
 ti[" "] = {"fl_abyss"}
-ti["l"] = {"fl-leaves"}
+ti["l"] = {"fl_lawn"}
 ti["A"] = {"fl_hay"}
 ti["."] = {"fl_bluegreen"}
-ti["i"] = {"fl-inverse"}
+ti["i"] = {"fl_inverse"}
 ti["j"] = {"fl_ice"}
 ti["s"] = {"fl_swamp"}
 ti["~"] = {"fl_water"}
 ti["="] = {"fl_space"}
-ti["@"] = {"fl-abyss_fake"}
+ti["@"] = {"fl_fake_abyss"}
 ti["d"] = {"fl-gradient", type=1}
 ti["u"] = {"fl-gradient", type=2}
 ti["r"] = {"fl-gradient", type=3}
@@ -77,7 +77,7 @@ ti["f"] = {"st_actorimpulse_invisible"}
 ti["q"] = {"st_passage_black_frame"} .. ti["l"]
 ti["w"] = {"st_passage_white_frame"} .. ti["l"]
 ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=OPEN}
-ti["W"] = {"fl-abyss_fake", "trapeast"}
+ti["W"] = {"fl_fake_abyss", "trapeast"}
 ti["C"] = {"st_monoflop", interval=1.5, target="toggletraps"} .. ti["l"]
 ti["?"] = {"st_charge_plus"} .. ti["l"]
 ti["/"] = {"st_charge_minus"} .. ti["l"]
@@ -202,10 +202,10 @@ function toggletraps(value, sender)
         end
     else
         if trap == WEST then
-            wo[no["trapwest"]] = {"fl-abyss_fake", "trapwest"} .. ti{"it_nil"}
+            wo[no["trapwest"]] = {"fl_fake_abyss", "trapwest"} .. ti{"it_nil"}
             trap = EAST
         else
-            wo[no["trapeast"]] = {"fl-abyss_fake", "trapeast"} .. ti{"it_nil"}
+            wo[no["trapeast"]] = {"fl_fake_abyss", "trapeast"} .. ti{"it_nil"}
             trap = WEST
         end
     end

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Squared Microwire" el:subtitle="" el:id="20081227ral230"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 130 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 131 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ wo["SwampSinkSpeed"] = 2.5
 
 ti[" "] = {"fl_water"}
 ti["."] = {"fl_swamp", friction=6.0, adhesion=2.0}
-ti["_"] = {"fl-black", friction=6.0, adhesion=2.0}
+ti["_"] = {"fl_dark", friction=6.0, adhesion=2.0}
 
 ti["o"] = {"st_oxyd_a"}
 

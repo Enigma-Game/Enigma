@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 37 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 38 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -24,7 +24,7 @@ else
 end
 
 ti["! "] = {"st-bumps"}
-ti[" #"] = {"fl-normal"}
+ti[" #"] = {"fl_metal_7"}
 ti["# "] = {"st_oneway_black_s"}
 ti["$ "] = {"st-grate1"}
 ti["% "] = {"st_oneway_black_n"}

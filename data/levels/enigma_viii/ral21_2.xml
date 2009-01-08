@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 138 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 139 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,7 @@ ti["  "] = {"fl_sand"}
 ti["~~"] = {"fl_water"}
 ti["~e"] = {"fl_water", "escape_close#"}
 ti["__"] = {"fl_abyss"}
-ti["_f"] = {"fl-abyss_fake"}
+ti["_f"] = {"fl_fake_abyss"}
 ti[",,"] = {"fl_concrete"}
 ti[",e"] = {"fl_concrete", "escape_pos"}
 ti[",f"] = {"fl_concrete", "escape_close#"}
@@ -66,7 +66,7 @@ ti["g9"] = {"fl-gradient", type=9}
 ti["ga"] = {"fl-gradient", type=10}
 ti["gb"] = {"fl-gradient", type=11}
 ti["gc"] = {"fl-gradient", type=12}
-ti["^^"] = {"fl-gray"}
+ti["^^"] = {"fl_gray"}
 ti["%f"] = {"fl_samba", eternal=true, initfire=true}
 ti[" f"] = {"fl_sand", eternal=true, initfire=true}
 ti["FT"] = {"fl_sand", eternal=true, initfire=true, name="fire_target"}

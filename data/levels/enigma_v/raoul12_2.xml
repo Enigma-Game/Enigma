@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Keystone" el:subtitle="" el:id="raoul12"/>
-      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl-black"}
+ti[" "] = {"fl_dark"}
 ti["."] = {"fl_abyss"}
 ti["#"] = {"st-glass"}
 ti["O"] = {"st_oxyd"}

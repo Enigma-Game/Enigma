@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl-white"}
+ti[" "] = {"fl_bright"}
 ti["x"] = {"it_cross"}
 ti["|"] = {"it_pipe_ns"}
 ti["9"] = {"it_pipe_ne"}

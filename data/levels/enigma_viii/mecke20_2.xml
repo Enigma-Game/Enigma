@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 28 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@ wo["ConserveLevel"] = true
 ti[" !"] = {"fl_abyss"}
 ti["! "] = {"st_puzzle", connections="nesw"}
 ti["# "] = {"st_death"}
-ti[" #"] = {"fl-normal"}
+ti[" #"] = {"fl_metal_7"}
 ti["$ "] = {"st_oxyd_b"}
 ti[" $"] = {"fl_space"}
 ti["% "] = {"st-glass"}
@@ -60,7 +60,7 @@ ti["< "] = {"st_puzzle", hollow=true, connections="nesw"}
 ti["= "] = {"st_puzzle", connections="ne"}
 ti["~~"] = ti[" )"]..{"it-springboard"}
 ti["> "] = {"st_puzzle", connections="ew"}
-ti[" *"] = {"fl-abyss_fake"}
+ti[" *"] = {"fl_fake_abyss"}
 ti["tt"] = ti[" )"]..{"it_trigger", target="laserhi"}
 ti[" +"] = {"fl_water"}
 ti["? "] = {"st_puzzle", connections="sw"}

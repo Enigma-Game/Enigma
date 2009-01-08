@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma IV"/>
+  <info enigma="1.00" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma IV"/>
 
   <attributes/>
 
@@ -103,7 +103,7 @@
     <level _seq="95" _title="MetaPuzzle" _xpath="./ant03_1" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="96" _title=".c.R.e.A.z.Y.w.O.r.L.d." _xpath="./martin100_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin100" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Over the Lake" _xpath="./siegfried27_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9d" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Bizarro World" _xpath="./duffy73_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy73" rel="3" rev="9" score="2" target="time" unit="duration"/>
+    <level _seq="98" _title="Bizarro World" _xpath="./duffy73_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy73" rel="3" rev="10" score="2" target="time" unit="duration"/>
     <level _seq="99" _title="Little Puzzles" _xpath="./wb11_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Big Adventures" _xpath="./wb12_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb12" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>

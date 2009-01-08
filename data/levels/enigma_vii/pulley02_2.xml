@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Action Potential" el:subtitle="" el:id="pulley02"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,7 +15,7 @@
 -- For more information about action potentials, see:
 -- http://en.wikipedia.org/wiki/Action_potential
 -- http://de.wikipedia.org/wiki/Aktionspotential
-ti[" "] = {"fl-abyss_fake"}
+ti[" "] = {"fl_fake_abyss"}
 ti["?"] = {"fl_sand"}
 ti["."] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti[","] = ti[" "] .. {"st_stoneimpulse"}
@@ -180,7 +180,7 @@ wo[{32, 43}] = {"it-document", text="text1"}
 
 SynapseOn = {"fl_redslab"}
 if wo ["IsDifficult"] then
-  SynapseOff = {"fl-abyss_fake"}
+  SynapseOff = {"fl_fake_abyss"}
 else
   SynapseOff = {"fl_blueslab"}
 end

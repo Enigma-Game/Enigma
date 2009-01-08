@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="On belay?" el:subtitle="" el:id="devnull15"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ if wo["IsDifficult"] then
     ti["O"] = ti[" "]
     ti["@"] = ti["."] .. {"#ac_marble_black", player = 0}
 else
-    ti["."] = {"fl-black"}
+    ti["."] = {"fl_dark"}
     ti["a"] = ti["."] .. {"it-pin"}
     ti["A"] = ti["."] .. {"st_swap", name = "anchR01"}
     ti["H"] = ti[" "] .. {"st_pull"}

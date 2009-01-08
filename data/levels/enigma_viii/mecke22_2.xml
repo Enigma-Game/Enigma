@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:72$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:73$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,12 +26,12 @@ end
 ti[" !"] = {"fl_swamp"}
 ti["! "] = {"st_death"}
 ti["c "] = {"st-block"}
-ti[" #"] = {"fl-normal"}
+ti[" #"] = {"fl_metal_7"}
 ti[" $"] = {"fl_water"}
 ti["# "] = {"st_oneway_black_n"}
 ti["$ "] = {"st_stoneimpulse_steady"}
 ti[" %"] = {"fl_aquamarine"}
-ti[" ;"] = {"fl-leavesd4"}
+ti[" ;"] = {"fl_lawn_d4"}
 ti["% "] = {"st-rock1"}
 ti[" &"] = {"fl_samba"}
 ti["& "] = {"st_stoneimpulse_hollow"}
@@ -39,7 +39,7 @@ ti[" '"] = {"fl_red"}
 ti["' "] = {"st-rock1_hole"}
 ti[" e"] = {"fl_space"}
 ti[" *"] = {"fl_sand"}
-ti[" l"] = {"fl-leaves"}
+ti[" l"] = {"fl_lawn"}
 ti["b "] = {"st_puzzle_yellow_ns"}
 ti["n "] = {"st_puzzle_yellow_ne"}
 ti["* "] = {"st_puzzle_yellow_new"}
@@ -76,7 +76,7 @@ ti["F "] = {"st-camouflage"}
 ti["f "] = {"st-camouflage_move"}
 ti["G "] = {"st_boulder_s"}
 ti["BN"] = ti[" ;"].. {"st_boulder_n"}
-ti[" /"] = {"fl-inverse"}
+ti[" /"] = {"fl_inverse"}
 ti["H "] = {"st_door",state=OPEN,faces="ew"}
 ti["XX"] = ti[" ;"].. {"#ac_marble_black"}
 ti["I "] = {"st_fake_oxyda"}
@@ -93,8 +93,8 @@ ti[" 6"] = {"fl-gradient6"}
 ti[" 7"] = {"fl-gradient12"}
 ti["O "] = {"st_oneway_s"}
 ti[" 8"] = {"fl_bluegreen"}
-ti[" 9"] = {"fl-leavesc2"}
-ti["c9"] = ti["c "] .. {"fl-leavesc2"}
+ti[" 9"] = {"fl_lawn_c2"}
+ti["c9"] = ti["c "] .. {"fl_lawn_c2"}
 ti["q9"] = ti["c9"] .. {"it-booze"}
 ti["P "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["Q "] = ti[" l"] .. {"st_mirror_triangle",movable=true,transparent=true}
@@ -102,7 +102,7 @@ ti["R "] = ti[" l"] .. {"st_mirror_slab",movable=false,transparent=false}
 ti["S "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["U "] = {"st-rock6"}
 ti[" >"] = {"fl_gravel"}
-ti[" ?"] = {"fl-abyss_fake"}
+ti[" ?"] = {"fl_fake_abyss"}
 ti["W "] = {"st-break_invisible"}
 ti["X "] = {"st_window_s"}
 ti["Y "] = {"st_floppy",target="door4#*"}
@@ -236,10 +236,10 @@ else
    ti["ww"] = {"fl_swamp"}
    ti["))"] = ti[" l"] .. {"it-burnable_oil"}
    ti[")$"] = ti[" $"] .. {"fl_water"}
-   ti[" 4"] = {"fl-leavesd4"}
-   ti[" :"] = {"fl-leavesd4"}
-   ti[" <"] = {"fl-leavesd4"}
-   ti[" ="] = {"fl-leavesd4"}
+   ti[" 4"] = {"fl_lawn_d4"}
+   ti[" :"] = {"fl_lawn_d4"}
+   ti[" <"] = {"fl_lawn_d4"}
+   ti[" ="] = {"fl_lawn_d4"}
    ti["r5"] = ti[" ;"] .. {"it_trigger", target={"olle5","liz1#*"}}
    ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
    ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}

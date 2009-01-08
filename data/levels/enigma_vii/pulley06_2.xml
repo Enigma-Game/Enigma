@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="pulley06"/>
-      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,16 +17,15 @@ if wo["IsDifficult"] then
     ti["^"]= {"fl-gradient13"} -- Up
     ti["f"]= {"ac_horse", name="footL"} .. ti({"fl-gradient13"})
 else
-    ti[" "]= {"fl-normal"}
-    ti["^"]= {"fl-normal"}
-    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl-normal"})
+    ti[" "]= {"fl_metal_7"}
+    ti["^"]= {"fl_metal_7"}
+    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl_metal_7"})
 end
 ti["b"] = {"fl_bluegreen"}
 ti["g"] = {"st-grate3"}
 ti["0"] = {"st_oxyd_b"}
 ti["Y"] = {"st-glass", name="support1"}
 ti["Z"] = {"st-glass", name="support2"}
---ti["z"] = {"st-glass1_move"}
 ti["O"] = {"#ac_horse", name="head"}
 ti["S"] = {"#ac_horse", name="shoulder"}
 ti["e"] = {"#ac_horse", name="elbowL"}

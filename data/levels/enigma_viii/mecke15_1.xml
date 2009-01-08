@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 28 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ the "bottlepattern"</el:credits>
 wo["ConserveLevel"] = true
 
 if wo ["IsDifficult"] then
-    ti["  "] = {"fl-abyss_fake"}
+    ti["  "] = {"fl_fake_abyss"}
     ti[" v"] = {"fl_ice"}
     ti[" '"] = {"fl_rough"}
     ti["+ "] = ti[" '"] ..{"ac_rotor", 0.5, 0.5,}
@@ -43,7 +43,7 @@ ti["Y "] = {"st-glass"}
 ti["r "] = {"st-brownie"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["U2"] = ti["U1"] .. {"it_extralife"}
-ti[" i"] = ti["U1"] .. {"fl-inverse"}
+ti[" i"] = ti["U1"] .. {"fl_inverse"}
 ti[" w"] = ti["U1"] .. {"fl_water"}
 ti[" e"] = ti[" i"] .. {"it_hammer"}
 ti["u "] = ti[" _"] .. {"st-grate2"}

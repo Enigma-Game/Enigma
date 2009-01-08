@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 28 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ ti[" $"] = {"fl_dunes"}
 ti[" %"] = {"fl_water"}
 ti["! "] = {"st_death"}
 ti["# "] = {"st-rock1"}
-ti[" &"] = {"fl-normal"}
+ti[" &"] = {"fl_metal_7"}
 ti["$ "] = {"st-thief"}
 ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st-stone_break"}
@@ -31,7 +31,7 @@ ti["* "] = {"st_brick"}
 ti["+ "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=EAST}
 ti[", "] = {"st_mirror", movable=false, transparent=false, orientation=NORTH}
 ti[" '"] = {"fl_himalaya"}
-ti[" ("] = {"fl-leavesc2"}
+ti[" ("] = {"fl_lawn_c2"}
 ti["g "] = {"it_glasses"}
 ti[". "] = {"st_panel"}
 ti["ß "] = {"st_brake"}
@@ -76,16 +76,16 @@ ti["E "] = {"st_stoneimpulse_hollow"}
 ti["F "] = {"st_stoneimpulse"}
 ti[" 2"] = {"fl_ivory"}
 ti["s "] = {"it_sword"}
-ti[" 3"] = {"fl-leavesc4"}
+ti[" 3"] = {"fl_lawn_c4"}
 ti["i "] = {"it-coffee"}
 ti["G "] = {"st_actorimpulse_invisible"}
 ti["y "] = {"it_cherry"}
-ti[" 4"] = {"fl-leavesc1"}
+ti[" 4"] = {"fl_lawn_c1"}
 ti["H "] = {"st-marble"}
-ti[" 5"] = {"fl-leavese2"}
+ti[" 5"] = {"fl_lawn_e2"}
 ti["I "] = {"st_swap"}
 ti["z "] = {"it-flagwhite"}
-ti[" 6"] = {"fl-leaves"}
+ti[" 6"] = {"fl_lawn"}
 ti["J "] = {"st_passage_white_cross"}
 ti["K "] = {"st_fake_oxydd"}
 ti["j "] = {"it_crack_l"}
@@ -108,7 +108,7 @@ ti["n "] = {"it-surprise"}
 ti["X "] = {"st_oneway_black_n"}
 ti["o "] = {"it_squashed"}
 ti["Y "] = {"st_oneway_black_w"}
-ti[" :"] = {"fl-leavesd1"}
+ti[" :"] = {"fl_lawn_d1"}
 ti["Z "] = {"st_lightpassenger_off"}
 ti["^ "] = {"st_brake"}
 ti["~m"] =  ti[" :"] ..{"st-glass_move"}

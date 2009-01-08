@@ -18,12 +18,12 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" "] = {"fl-leavesb"}
-ti["1"] = {"fl-leavesc1"}
-ti["2"] = {"fl-leavesc2"}
-ti["3"] = {"fl-leavesc3"}
-ti["4"] = {"fl-leavesc4"}
-ti["."] = {"fl-leaves"}
+ti[" "] = {"fl_lawn_b"}
+ti["1"] = {"fl_lawn_c1"}
+ti["2"] = {"fl_lawn_c2"}
+ti["3"] = {"fl_lawn_c3"}
+ti["4"] = {"fl_lawn_c4"}
+ti["."] = {"fl_lawn"}
 ti["~"] = {"fl_water"}
 ti["#"] = ti[" "] .. {"st_fake_oxyda"}
 ti["@"] = ti["."] .. {"#ac_marble_black"}
@@ -87,10 +87,10 @@ end
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">The stone with the horse's head is called ''chess stone''. Watch how the other marble hits one of them to move it. The angle is important.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">Now try to move these chess stones onto the triggers. They always move two steps plus one step.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

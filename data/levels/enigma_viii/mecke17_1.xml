@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation I" el:subtitle="Alternation in a Blue Area" el:id="mecke17"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 8 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 9 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,11 +22,11 @@ ti[" r"] = {"fl_red"}
 ti[" ~"] = {"fl_water"}
 ti[" w"] = {"fl-acwhite"}
 ti[" *"] = {"fl-acblack"}
-ti[" i"] = {"fl-inverse"}
+ti[" i"] = {"fl_inverse"}
 ti[" b"] = {"fl_aquamarine"}
 ti[" &"] = {"fl_rough"}
 ti[" '"] = {"fl_gravel"}
-ti[" ,"] = {"fl-white"}
+ti[" ,"] = {"fl_bright"}
 ti[" +"] = {"fl_sahara"}
 ti["yi"] = ti[" +"] .. {"it-yinyang"}
 ti["o "] = ti[" ~"] .. {"st_oxyd", flavor="d"}

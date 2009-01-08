@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="7" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="8" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@ ti["b"] = ti[" "] .. {"st_passage_black_slash"}
 ti["c"] = ti[" "] .. {"st-marble"} -- MARBLE WALL
 ti["d"] = ti[" "] .. {"st_actorimpulse"}
 ti["e"] = ti[" "] .. {"st-marble_hole"} -- MARBLE WALL (HOLLOW)
-ti["f"] = {"fl-abyss_fake"} -- TOMB FLOOR
+ti["f"] = {"fl_fake_abyss"} -- TOMB FLOOR
 ti["h"] = ti[" "] .. {"it_trigger", action="callback", target="Band1"} -- attaches rubber band from Lone Ranger to Silver
 ti["i"] = ti[" "] .. {"st-invisible"}
 ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORIMPULSE} .. ti({"st-marble_hole"})

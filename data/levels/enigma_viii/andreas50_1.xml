@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Colored Oxyds" el:subtitle="" el:id="andreas50"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,13 +23,12 @@ ti["D "] = {"st_oneway", orientation = SOUTH}
 ti["U "] = {"st_oneway", orientation = NORTH}
 ti["S "] = {"st_oxyd", oxydcolor = OXYD_BOLD, noshuffle = true}
 ti["F "] = {"st_oxyd", oxydcolor = OXYD_QUAKE, noshuffle = true}
-
 ti["d1"] = {"fl_red"}       .. ti({"it_blocker", "RED#"})
 ti["d2"] = {"fl_bluegray"}  .. ti({"it_blocker", "CYAN#"})
 ti["d3"] = {"fl_bluegreen"} .. ti({"it_blocker", "BLUE#"})
-ti["d4"] = {"fl-leavesb"}   .. ti({"it_blocker", "GREEN#"})
-ti["d5"] = {"fl-black"}     .. ti({"it_blocker", "BLACK#"})
-ti["d6"] = {"fl-white"}     .. ti({"it_blocker", "WHITE#"})
+ti["d4"] = {"fl_lawn_b"}   .. ti({"it_blocker", "GREEN#"})
+ti["d5"] = {"fl_dark"}     .. ti({"it_blocker", "BLACK#"})
+ti["d6"] = {"fl_bright"}     .. ti({"it_blocker", "WHITE#"})
 ti["d7"] = {"fl_sahara"}    .. ti({"it_blocker", "YELLOW#"})
 ti["d8"] = {"fl_redslab"} .. ti({"it_blocker", "PURPLE#"})
 

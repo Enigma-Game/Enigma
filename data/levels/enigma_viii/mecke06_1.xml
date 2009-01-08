@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:16$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:17$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -20,7 +20,7 @@ ti["1!"] = {"fl_red", name="1!"}
 ti["2!"] = {"fl_red", name="2!"}
 ti["3!"] = {"fl_red", name="3!"}
 ti["4!"] = {"fl_red", name="4!"}
-ti[" f"] = {"fl-abyss_fake"}
+ti[" f"] = {"fl_fake_abyss"}
 ti["! "] = {"st_lightpassenger"}
 ti[" d"] = ti[" f"] .. {"it_death"}
 ti["B "] = ti[" d"] .. {"st_polarswitch"}
