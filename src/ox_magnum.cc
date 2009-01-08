@@ -35,18 +35,18 @@ using namespace enigma;
 
 const char *oxyd::oxydmag_floor_map[256] = {
     "fl_abyss",                 // OxydMagnum floor 0x00
-    "fl-gray",                  // OxydMagnum floor 0x01 (common was 'fl-gray')
-    "fl-metal",                 // OxydMagnum floor 0x02 (This should be "fl-stwood" for #112)
-    "fl-metal3",                // OxydMagnum floor 0x03
-    "fl-metal4",                // OxydMagnum floor 0x04
+    "fl_gray",                  // OxydMagnum floor 0x01 (common was 'fl_gray')
+    "fl_metal",                 // OxydMagnum floor 0x02 (This should be "fl-stwood" for #112)
+    "fl_metal_3",               // OxydMagnum floor 0x03
+    "fl_metal_4",               // OxydMagnum floor 0x04
     0,                          // OxydMagnum floor 0x05 (common was 'fl-metal')(level 121 ?)
-    "fl-metal5",                // OxydMagnum floor 0x06
-    "fl-normal",                // OxydMagnum floor 0x07 (common was 'fl-metal')
+    "fl_metal_5",               // OxydMagnum floor 0x06
+    "fl_metal_7n",              // OxydMagnum floor 0x07 (common was 'fl-metal')
     "fl_tigris",                // OxydMagnum floor 0x08 (common was 'fl-rough')
     "fl_tigris",                // OxydMagnum floor 0x09 (common was 'fl-normal')
     "fl_tigris",                // OxydMagnum floor 0x0a (common was 'fl-normal')
     "fl_tigris",                // OxydMagnum floor 0x0b (common was 'fl-stone')
-    "fl-inverse",               // OxydMagnum floor 0x0c (common was 'fl-inverse')
+    "fl_inverse",               // OxydMagnum floor 0x0c (common was 'fl_inverse')
     "fl-acblack",               // OxydMagnum floor 0x0d
     "fl-acwhite",               // OxydMagnum floor 0x0e
     "fl_swamp",                 // OxydMagnum floor 0x0f
@@ -117,14 +117,14 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x50
     UNUSED,                     // OxydMagnum floor 0x51
     "fl_bridge",                // OxydMagnum floor 0x52 (common was 'fl-bridge')
-    "fl-springboard",           // OxydMagnum floor 0x53
+    "fl_white",                 // OxydMagnum floor 0x53
     "fl_ivory",                 // OxydMagnum floor 0x54
     "fl_platinum",              // OxydMagnum floor 0x55
-    "fl-darkgray",              // OxydMagnum floor 0x56
+    "fl_darkgray",              // OxydMagnum floor 0x56
     UNUSED,                     // OxydMagnum floor 0x57
-    "fl-darkgray",              // OxydMagnum floor 0x58
-    "fl-leaves",                // OxydMagnum floor 0x59
-    "fl-normal",                // OxydMagnum floor 0x5a (Only Oxyd Magnum Gold #119,120)
+    "fl_darkgray",              // OxydMagnum floor 0x58
+    "fl_lawn",                  // OxydMagnum floor 0x59
+    "fl_metal_7n",              // OxydMagnum floor 0x5a (Only Oxyd Magnum Gold #119,120)
     "fl_plank",                 // OxydMagnum floor 0x5b
     // codes >= 0x5c are unused
 };

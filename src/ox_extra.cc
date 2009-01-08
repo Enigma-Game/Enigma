@@ -35,8 +35,8 @@ using namespace enigma;
 
 const char *oxyd::oxydextra_floor_map[256] = {
     "fl_abyss",          // OxydExtra floor 0x00
-    "fl-gray",           // OxydExtra floor 0x01
-    "fl-metal",          // OxydExtra floor 0x02
+    "fl_gray",           // OxydExtra floor 0x01
+    "fl_metal",          // OxydExtra floor 0x02
     UNUSED,              // OxydExtra floor 0x03
     UNUSED,              // OxydExtra floor 0x04
     UNUSED,              // OxydExtra floor 0x05
@@ -46,8 +46,8 @@ const char *oxyd::oxydextra_floor_map[256] = {
     "fl_blueslab",       // OxydExtra floor 0x09
     "fl_blueslab",       // OxydExtra floor 0x0a
     "fl_redslab",        // OxydExtra floor 0x0b
-    "fl-inverse",        // OxydExtra floor 0x0c
-    "fl-black",          // OxydExtra floor 0x0d
+    "fl_inverse",        // OxydExtra floor 0x0c
+    "fl_dark",           // OxydExtra floor 0x0d
     UNUSED,              // OxydExtra floor 0x0e
     UNUSED,              // OxydExtra floor 0x0f
     UNUSED,              // OxydExtra floor 0x10
@@ -101,11 +101,11 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x40
     "fl_samba",          // OxydExtra floor 0x41
     UNUSED,              // OxydExtra floor 0x42
-    "fl-bumps",          // OxydExtra floor 0x43
+    "fl_pinkbumps",      // OxydExtra floor 0x43
     UNUSED,              // OxydExtra floor 0x44
     UNUSED,              // OxydExtra floor 0x45
     UNUSED,              // OxydExtra floor 0x46
-    "fl-bumps",          // OxydExtra floor 0x47
+    "fl_pinkbumps",      // OxydExtra floor 0x47
     "fl_rock",           // OxydExtra floor 0x48
     UNUSED,              // OxydExtra floor 0x49
     UNUSED,              // OxydExtra floor 0x4a
@@ -118,7 +118,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x51
     UNUSED,              // OxydExtra floor 0x52
     UNUSED,              // OxydExtra floor 0x53
-    "fl-gray",           // OxydExtra floor 0x54
+    "fl_gray",           // OxydExtra floor 0x54
     "fl_plank",          // OxydExtra floor 0x55
     UNUSED,              // OxydExtra floor 0x56
     UNUSED,              // OxydExtra floor 0x57

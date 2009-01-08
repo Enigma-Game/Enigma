@@ -246,36 +246,36 @@ do
         {"fl_abyss", noframe = true},
         {"fl-acblack", noframe = true},
         {"fl-acwhite", noframe = true},
-        {"fl-black"},
+        {"fl_dark"},
         {"fl_bluegreen"},
-        {"fl-darkgray"},
+        {"fl_darkgray"},
         {"fl-dummy", noframe = true},
         {"fl_dunes"},
         {"fl_bast"},
         {"fl_ice", noframe = true},
-        {"fl-inverse", noframe = true},
-        {"fl-inverse2", noframe = true},
+        {"fl_inverse_white", noframe = true},
+        {"fl_inverse_gray", noframe = true},
         {"fl_ivory"},
         {"fl_platinum"},
-        {"fl-nomouse", noframe = true},
+        {"fl_adhesionless", noframe = true},
         {"fl-normal"},
         {"fl_sand"},
         {"fl_stone"},
-        {"fl-springboard"},
+        {"fl_white"},
         {"fl_trigger"},
-        {"fl-white"},
+        {"fl_bright"},
         -- multiple, with height and width (or 1)
         {"fl_bluegray", 4},
         {"fl_aquamarine", 2},
         {"fl_brick", 3},
-        {"fl-bumps", 2, 2},
+        {"fl_pinkbumps", 2, 2},
         {"fl_concrete", 4},
         {"fl_gravel", 4},
-        {"fl-gray", 5},
+        {"fl_gray", 5},
         {"fl_hay", 4},
         {"fl_himalaya", 4},
         {"fl_marble", 4},
-        {"fl-metal", 6},
+        {"fl_metal", 6},
         {"fl_mortar", 2, 2},
         {"fl_plank", 4},
         {"fl_red", 4},
@@ -331,21 +331,22 @@ end
 
 -- leaves --
 do
-    DefSubimages("fl-leaves", {w=10, h=2, modelname="fl-leavesx"})
-    DefRandFloor("fl-leaves", {"fl-leavesx1", "fl-leavesx2", "fl-leavesx3", "fl-leavesx4"})
-    DefRandFloor("fl-leavesb", {"fl-leavesx5", "fl-leavesx6", "fl-leavesx7", "fl-leavesx8"})
-    DefAlias("fl-leavesc1", "fl-leavesx9")
-    DefAlias("fl-leavesc2", "fl-leavesx10")
-    DefAlias("fl-leavesc3", "fl-leavesx11")
-    DefAlias("fl-leavesc4", "fl-leavesx12")
-    DefAlias("fl-leavesd1", "fl-leavesx13")
-    DefAlias("fl-leavesd2", "fl-leavesx14")
-    DefAlias("fl-leavesd3", "fl-leavesx15")
-    DefAlias("fl-leavesd4", "fl-leavesx16")
-    DefAlias("fl-leavese1", "fl-leavesx17")
-    DefAlias("fl-leavese2", "fl-leavesx18")
-    DefAlias("fl-leavese3", "fl-leavesx19")
-    DefAlias("fl-leavese4", "fl-leavesx20")
+    DefSubimages("fl_lawn", {w=10, h=2, modelname="fl_lawnx"})
+    DefRandFloor("fl_lawn", {"fl_lawnx1", "fl_lawnx2", "fl_lawnx3", "fl_lawnx4"})
+    DefAlias("fl_lawn_a", "fl_lawn")
+    DefRandFloor("fl_lawn_b", {"fl_lawnx5", "fl_lawnx6", "fl_lawnx7", "fl_lawnx8"})
+    DefAlias("fl_lawn_c1", "fl_lawnx9")
+    DefAlias("fl_lawn_c2", "fl_lawnx10")
+    DefAlias("fl_lawn_c3", "fl_lawnx11")
+    DefAlias("fl_lawn_c4", "fl_lawnx12")
+    DefAlias("fl_lawn_d1", "fl_lawnx13")
+    DefAlias("fl_lawn_d2", "fl_lawnx14")
+    DefAlias("fl_lawn_d3", "fl_lawnx15")
+    DefAlias("fl_lawn_d4", "fl_lawnx16")
+    DefAlias("fl_lawn_e1", "fl_lawnx17")
+    DefAlias("fl_lawn_e2", "fl_lawnx18")
+    DefAlias("fl_lawn_e3", "fl_lawnx19")
+    DefAlias("fl_lawn_e4", "fl_lawnx20")
 end
 
 -- wooden floor --
@@ -367,9 +368,22 @@ end
 -- Simple floor aliases --
 --------------------------
 do
-    DefAlias("fl-abyss_fake", "fl_abyss")
-    DefAlias("fl-normal_x", "fl-normal")
-    DefAlias("fl-normal_x_framed", "fl-normal_framed")
+    DefAlias("fl_fake_abyss", "fl_abyss")
+    DefAlias("fl_inverse", "fl_inverse_white")
+    DefAlias("fl_metal_1", "fl_metal1")
+    DefAlias("fl_metal_2", "fl_metal2")
+    DefAlias("fl_metal_3", "fl_metal3")
+    DefAlias("fl_metal_4", "fl_metal4")
+    DefAlias("fl_metal_5", "fl_metal5")
+    DefAlias("fl_metal_6", "fl_metal6")
+    DefAlias("fl_metal_7", "fl-normal")
+    DefAlias("fl_metal_1_framed", "fl_metal1_framed")
+    DefAlias("fl_metal_2_framed", "fl_metal2_framed")
+    DefAlias("fl_metal_3_framed", "fl_metal3_framed")
+    DefAlias("fl_metal_4_framed", "fl_metal4_framed")
+    DefAlias("fl_metal_5_framed", "fl_metal5_framed")
+    DefAlias("fl_metal_6_framed", "fl_metal6_framed")
+    DefAlias("fl_metal_7_framed", "fl-normal_framed")
     DefAlias("fl-space-force", "fl_space")
     DefAlias("fl_samba_h", "fl_samba1")
     DefAlias("fl_samba_v", "fl_samba2")

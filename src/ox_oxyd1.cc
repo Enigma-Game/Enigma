@@ -68,18 +68,18 @@ void LP_Oxyd1::load (const OxydLib::Level &level)
 
 const char *oxyd::oxyd1_floor_map[256] = {
     "fl_abyss",                 // Oxyd1 floor 0x00
-    "fl-gray",                  // Oxyd1 floor 0x01
-    "fl-metal",                 // Oxyd1 floor 0x02
+    "fl_gray",                  // Oxyd1 floor 0x01
+    "fl_metal",                 // Oxyd1 floor 0x02
     "fl_samba",                 // Oxyd1 floor 0x03 was: checkered floor
     UNUSED,                     // Oxyd1 floor 0x04
     UNUSED,                     // Oxyd1 floor 0x05
     UNUSED,                     // Oxyd1 floor 0x06
-    "fl-normal",                // Oxyd1 floor 0x07
+    "fl_metal_7n",              // Oxyd1 floor 0x07
     "fl_himalaya",              // Oxyd1 floor 0x08
     "fl_himalaya",              // Oxyd1 floor 0x09
     "fl_himalaya",              // Oxyd1 floor 0x0a
     "fl_himalaya",              // Oxyd1 floor 0x0b
-    "fl-inverse2",              // Oxyd1 floor 0x0c
+    "fl_inverse_gray",          // Oxyd1 floor 0x0c
     "fl-acblack",               // Oxyd1 floor 0x0d
     "fl-acwhite",               // Oxyd1 floor 0x0e
     "fl_swamp",                 // Oxyd1 floor 0x0f
@@ -150,14 +150,14 @@ const char *oxyd::oxyd1_floor_map[256] = {
     UNUSED,                     // Oxyd1 floor 0x50
     UNUSED,                     // Oxyd1 floor 0x51
     "fl_bridge",                // Oxyd1 floor 0x52
-    "fl-springboard",           // Oxyd1 floor 0x53
+    "fl_white",                 // Oxyd1 floor 0x53
     UNUSED,                     // Oxyd1 floor 0x54
-    "fl-gray",                  // Oxyd1 floor 0x55
+    "fl_gray",                  // Oxyd1 floor 0x55
     "fl_ivory",                 // Oxyd1 floor 0x56
     "fl_platinum",              // Oxyd1 floor 0x57
-    "fl-darkgray",              // Oxyd1 floor 0x58
+    "fl_darkgray",              // Oxyd1 floor 0x58
     "fl_dunes",                 // Oxyd1 floor 0x59
-    "fl-normal",                // Oxyd1 floor 0x5a
+    "fl_metal_7n",              // Oxyd1 floor 0x5a
     "fl_plank",                 // Oxyd1 floor 0x5b
     // codes >= 0x5c are unused
 };

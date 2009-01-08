@@ -104,18 +104,18 @@ bool LP_PerOxyd::hasEasymode(size_t index) {
 
 const char *oxyd::peroxyd_floor_map[256] = {
     "fl_abyss",                 // PerOxyd floor 0x00
-    "fl-gray",                  // PerOxyd floor 0x01
-    "fl-metal",                 // PerOxyd floor 0x02
-    "fl-metal",                 // PerOxyd floor 0x03
-    "fl-metal",                 // PerOxyd floor 0x04
-    "fl-metal",                 // PerOxyd floor 0x05
-    "fl-metal",                 // PerOxyd floor 0x06
-    "fl-metal",                 // PerOxyd floor 0x07
+    "fl_gray",                  // PerOxyd floor 0x01
+    "fl_metal",                 // PerOxyd floor 0x02
+    "fl_metal",                 // PerOxyd floor 0x03
+    "fl_metal",                 // PerOxyd floor 0x04
+    "fl_metal",                 // PerOxyd floor 0x05
+    "fl_metal",                 // PerOxyd floor 0x06
+    "fl_metal",                 // PerOxyd floor 0x07
     "fl_redslab",               // PerOxyd floor 0x08
     "fl_blueslab",              // PerOxyd floor 0x09
     "fl_blueslab",              // PerOxyd floor 0x0a
     "fl_redslab",               // PerOxyd floor 0x0b
-    "fl-inverse",               // PerOxyd floor 0x0c
+    "fl_inverse",               // PerOxyd floor 0x0c
     "fl-acblack",               // PerOxyd floor 0x0d
     "fl-acwhite",               // PerOxyd floor 0x0e
     "fl_swamp",                 // PerOxyd floor 0x0f
@@ -169,8 +169,8 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl_samba_v",               // PerOxyd floor 0x3f (common was 'fl-wood', vertical slats)(levels: 35, 152)
     UNUSED,                     // PerOxyd floor 0x40
     UNUSED,                     // PerOxyd floor 0x41
-    "fl-bumps",                 // PerOxyd floor 0x42
-    "fl-bumps",                 // PerOxyd floor 0x43
+    "fl_pinkbumps",             // PerOxyd floor 0x42
+    "fl_pinkbumps",             // PerOxyd floor 0x43
     UNUSED,                     // PerOxyd floor 0x44
     UNUSED,                     // PerOxyd floor 0x45
     UNUSED,                     // PerOxyd floor 0x46
@@ -181,11 +181,11 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x4b
     "fl_bridge",                // PerOxyd floor 0x4c
     UNUSED,                     // PerOxyd floor 0x4d
-    "fl-gray",                  // PerOxyd floor 0x4e
+    "fl_gray",                  // PerOxyd floor 0x4e
     "fl-gradient13",            // PerOxyd floor 0x4f (flat force up, beige)        (maybe gradient22?)
-    "fl-black",                 // PerOxyd floor 0x50 (flat force down, dark olive) (maybe gradient21?)
-    "fl-white",                 // PerOxyd floor 0x51 (flat force left, beige)      (maybe gradient24?)
-    "fl-black",                 // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)
+    "fl_dark",                  // PerOxyd floor 0x50 (flat force down, dark olive) (maybe gradient21?)
+    "fl_bright",                // PerOxyd floor 0x51 (flat force left, beige)      (maybe gradient24?)
+    "fl_dark",                  // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)
     "fl_bast",                  // PerOxyd floor 0x53
     UNUSED,                     // PerOxyd floor 0x54
     "fl_plank",                 // PerOxyd floor 0x55
