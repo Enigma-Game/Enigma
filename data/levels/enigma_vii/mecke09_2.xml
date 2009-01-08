@@ -19,7 +19,7 @@ ti[" $"] = {"fl_dunes"}
 ti[" %"] = {"fl_water"}
 ti["! "] = {"st_death"}
 ti["# "] = {"st-rock1"}
-ti[" &"] = {"fl_metal_7"}
+ti[" &"] = {"fl_metal_7", friction=4.0}
 ti["$ "] = {"st-thief"}
 ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st-stone_break"}
@@ -111,14 +111,14 @@ ti["Y "] = {"st_oneway_black_w"}
 ti[" :"] = {"fl_lawn_d1"}
 ti["Z "] = {"st_lightpassenger_off"}
 ti["^ "] = {"st_brake"}
-ti["~m"] =  ti[" :"] ..{"st-glass_move"}
-ti["=m"] =  ti[" ,"] ..{"st-glass_move"}
-ti["mm"] =  ti[" %"] ..{"st-glass"}
-ti["~g"] =  ti[" %"] ..{"st-grate1"}
-ti["h-"] =  ti["~g"] ..{"it_strip", connections="ew"}
-ti["nn"] =  ti[" 3"] ..{"st_actorimpulse_invisible"}
-ti["n-"] =  ti[" 5"] ..{"st_actorimpulse_invisible"}
-ti["ni"] = ti[" )"] ..{"it-coffee"}
+ti["~m"] = ti[" :"] .. {"st-glass_move"}
+ti["=m"] = ti[" ,"] .. {"st-glass_move"}
+ti["mm"] = ti[" %"] .. {"st-glass"}
+ti["~g"] = ti[" %"] .. {"st-grate1"}
+ti["h-"] = ti["~g"] .. {"it_strip", connections="ew"}
+ti["nn"] = ti[" 3"] .. {"st_actorimpulse_invisible"}
+ti["n-"] = ti[" 5"] .. {"st_actorimpulse_invisible"}
+ti["ni"] = ti[" )"] .. {"it-coffee"}
 ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac_top", range=1, strength=1}
 ti["p1"] = ti[" $"] .. {"it-document", text="text1"}
@@ -135,54 +135,53 @@ ti["q4"] = ti[" 2"] .. {"it-document", text="text11"}
 ti["q5"] = ti[" ."] .. {"it-document", text="text12"}
 ti["q6"] = ti[" /"] .. {"it-document", text="text13"}
 ti["q7"] = ti[" :"] .. {"it-document", text="text14"}
-ti["k1"] = ti[" 4"]..{"it_key", code=1}
-ti["k2"] = ti[" !"]..{"it_key", code=2}
-ti["k3"] = ti["=m"]..{"it_coin_m"}
-ti["k4"] = ti["mm"]..{"it_coin_l"}
-ti["k5"] = ti["mm"]..{"it_sword"}
-ti["k6"] = ti["nn"]..{"it_cherry"}
-ti["k7"] = ti["n-"]..{"it_cherry"}
+ti["k1"] = ti[" 4"] .. {"it_key", code=1}
+ti["k2"] = ti[" !"] .. {"it_key", code=2}
+ti["k3"] = ti["=m"] .. {"it_coin_m"}
+ti["k4"] = ti["mm"] .. {"it_coin_l"}
+ti["k5"] = ti["mm"] .. {"it_sword"}
+ti["k6"] = ti["nn"] .. {"it_cherry"}
+ti["k7"] = ti["n-"] .. {"it_cherry"}
 ti["= "] = {"st_key",code=1, name= "oklli1", target= "lezy2", action="toggle"}
-ti["t1"] = ti[" %"] ..{"it_trigger", target="olli1",action="toggle"}
-ti["t2"] = ti[" 1"] ..{"it_trigger", target="olli2",action="toggle"}
-ti["t3"] = ti[" /"] ..{"it_trigger", target="olli3",action="toggle"}
-ti["t4"] = ti[" ,"] ..{"it_trigger", target="olli4",action="toggle"}
-ti["t5"] = ti[" %"] ..{"it_trigger", target="olli5",action="toggle"}
-ti["t6"] = ti[" %"] ..{"it_trigger", target="olli6",action="toggle"}
-ti["t7"] = ti[" %"] ..{"it_trigger", target="olli7",action="toggle"}
-ti["t8"] = ti[" !"] ..{"it_trigger", target="lezy1",action="toggle"}
-ti["t9"] = ti[" %"] ..{"it_trigger", target="olli9",action="toggle"}
+ti["t1"] = ti[" %"] .. {"it_trigger", target="olli1",action="toggle"}
+ti["t2"] = ti[" 1"] .. {"it_trigger", target="olli2",action="toggle"}
+ti["t3"] = ti[" /"] .. {"it_trigger", target="olli3",action="toggle"}
+ti["t4"] = ti[" ,"] .. {"it_trigger", target="olli4",action="toggle"}
+ti["t5"] = ti[" %"] .. {"it_trigger", target="olli5",action="toggle"}
+ti["t6"] = ti[" %"] .. {"it_trigger", target="olli6",action="toggle"}
+ti["t7"] = ti[" %"] .. {"it_trigger", target="olli7",action="toggle"}
+ti["t8"] = ti[" !"] .. {"it_trigger", target="lezy1",action="toggle"}
+ti["t9"] = ti[" %"] .. {"it_trigger", target="olli9",action="toggle"}
 ti["~ "] = {"st_laser_e", name="lezy1"}
 ti["- "] = {"st_laser_n", name="lezy2"}
-ti["d1"] = ti[" /"] ..{"st_door", faces="ew", name= "olli1"}
-ti["d2"] = ti[" ."] ..{"st_door", faces="ns", name= "olli2"}
-ti["d3"] = ti["ni"] ..{"st_door", faces="ew", name= "olli3"}
-ti["d4"] = ti[" 2"] ..{"st_door", faces="ew", name= "olli4"}
-ti["d5"] = ti[" +"] ..{"st_door", faces="ew", name= "olli5"}
-ti["d6"] = ti[" +"] ..{"st_door", faces="ns", name= "olli6"}
-ti["d7"] = ti[" +"] ..{"st_door", faces="ns", name= "olli7"}
-ti["d9"] = ti[" )"] ..{"st_door", faces="ew", name= "olli9"}
-
+ti["d1"] = ti[" /"] .. {"st_door", faces="ew", name= "olli1"}
+ti["d2"] = ti[" ."] .. {"st_door", faces="ns", name= "olli2"}
+ti["d3"] = ti["ni"] .. {"st_door", faces="ew", name= "olli3"}
+ti["d4"] = ti[" 2"] .. {"st_door", faces="ew", name= "olli4"}
+ti["d5"] = ti[" +"] .. {"st_door", faces="ew", name= "olli5"}
+ti["d6"] = ti[" +"] .. {"st_door", faces="ns", name= "olli6"}
+ti["d7"] = ti[" +"] .. {"st_door", faces="ns", name= "olli7"}
+ti["d9"] = ti[" )"] .. {"st_door", faces="ew", name= "olli9"}
 if wo ["IsDifficult"] then
-    ti["ll"] = ti[" %"]..{"fl_water"}
-    ti["la"] = ti[" %"]..{"fl_water"}
-    ti["aa"] = ti[" %"]..{"fl_water"}
-    ti["al"] = ti[" %"]..{"st-glass_move"}
-    ti["bp"] = ti[" !"]..{"fl_brick"}
-    ti["QQ"] = ti[" /"]..{"st_chess_white"}
-    ti["w1"] = ti["~m"]..{"it_wormhole", destination = po(44.5, 35.5),range=10, strength=10}
-    ti["w2"] = ti[" )"]..{"it_wormhole", destination = po(42.5, 24.5),range=10, strength=10}
-    ti["w3"] = ti[" )"]..{"it_wormhole", destination = po(11.5, 16.5),range=10, strength=10}
+    ti["ll"] = ti[" %"] .. {"fl_water"}
+    ti["la"] = ti[" %"] .. {"fl_water"}
+    ti["aa"] = ti[" %"] .. {"fl_water"}
+    ti["al"] = ti[" %"] .. {"st-glass_move"}
+    ti["bp"] = ti[" !"] .. {"fl_brick"}
+    ti["QQ"] = ti[" /"] .. {"st_chess_white"}
+    ti["w1"] = ti["~m"] .. {"it_wormhole", destination = po(44.5, 35.5),range=10, strength=10}
+    ti["w2"] = ti[" )"] .. {"it_wormhole", destination = po(42.5, 24.5),range=10, strength=10}
+    ti["w3"] = ti[" )"] .. {"it_wormhole", destination = po(11.5, 16.5),range=10, strength=10}
 else
-    ti["ll"] = ti[" %"]..{"fl_bluegray"}
-    ti["la"] = ti[" %"]..{"fl_swamp"}
-    ti["aa"] = ti[" %"]..{"st_passage_black_cross"}
-    ti["al"] = ti[" %"]..{"fl_swamp"}
-    ti["bp"] = ti[" !"]..{"it_umbrella"}
-    ti["QQ"] = ti[" /"]..{"st_brake"}
-    ti["w1"] = ti["~m"]..{"it_wormhole", destination = po(44.5, 35.5),range=3, strength=3}
-    ti["w2"] = ti[" )"]..{"it_wormhole", destination = po(42.5, 24.5),range=3, strength=3}
-    ti["w3"] = ti[" )"]..{"it_wormhole", destination = po(11.5, 16.5),range=3, strength=3}
+    ti["ll"] = ti[" %"] .. {"fl_bluegray"}
+    ti["la"] = ti[" %"] .. {"fl_swamp"}
+    ti["aa"] = ti[" %"] .. {"st_passage_black_cross"}
+    ti["al"] = ti[" %"] .. {"fl_swamp"}
+    ti["bp"] = ti[" !"] .. {"it_umbrella"}
+    ti["QQ"] = ti[" /"] .. {"st_brake"}
+    ti["w1"] = ti["~m"] .. {"it_wormhole", destination = po(44.5, 35.5),range=3, strength=3}
+    ti["w2"] = ti[" )"] .. {"it_wormhole", destination = po(42.5, 24.5),range=3, strength=3}
+    ti["w3"] = ti[" )"] .. {"it_wormhole", destination = po(11.5, 16.5),range=3, strength=3}
 end
 
 local resolver = res.composer(ti)
@@ -228,7 +227,6 @@ w, h = wo(resolver, "  ", {
        " % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %(4w2(4q1A434A4 4 % % % % % % % % % % % % % % % % % % % % % % % % % % 0"})
 
 wo:shuffleOxyd()
-
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

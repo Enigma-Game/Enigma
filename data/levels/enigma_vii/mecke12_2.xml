@@ -17,7 +17,7 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
 
-ti[" !"] = {"fl_metal_7"}
+ti[" !"] = {"fl_metal_7", friction=4.0}
 ti["! "] = {"st-yellow"}
 ti["# "] = {"st_death"}
 ti[" #"] = {"fl_blueslab"}
@@ -85,77 +85,76 @@ ti["? "] = {"st_fake_oxydd"}
 ti["@ "] = {"st-glass"}
 ti["A "] = {"st_door", state=OPEN, faces="ns"}
 ti["W "] = {"st-stone_break"}
-ti["gg"] =  ti[" %"] ..{"it_strip", connections="ns"}
-ti["l3"] =  ti[" !"] ..{"st-brick_magic"}
-ti["l4"] =  ti[" i"] ..{"st_passage_black_frame"}
-ti["l5"] =  ti[" $"] ..{"st-glass_move"}
-ti["l6"] =  ti[" $"] ..{"st-glass"}
-ti["z3"] =  ti["l3"] ..{"it_cherry"}
-ti["z4"] =  ti["l4"] ..{"it_cherry"}
-ti["z5"] =  ti["l5"] ..{"it_cherry"}
-ti["z6"] =  ti["l6"] ..{"it_cherry"}
-ti["z7"] =  ti[" !"] ..{"st_box_wood"}
-ti["z8"] =  ti[" !"] ..{"st_oneway_black_w"}
-ti["z9"] =  ti[" !"] ..{"st-grate1"}
-ti["g5"] =  ti["z9"] .. {"it_crack_l"}
-ti["l7"] =  ti["l5"] .. {"it_extralife"}
-ti["z1"] =  ti[" 4"] .. {"it_key", code=1}
-ti["z2"] =  ti[" !"] .. {"it_key", code=2}
-ti["t1"] = ti[" !"] ..{"it_trigger", target="lez1",action="toggle"}
-ti["t2"] = ti[" !"] ..{"it_trigger", target="lez2",action="toggle"}
-ti["t3"] = ti[" !"] ..{"it_trigger", target="lez3",action="toggle"}
-ti["t4"] = ti[" !"] ..{"it_trigger", target="lez4",action="toggle"}
-ti["t5"] = ti[" !"] ..{"it_trigger", target="olli5",action="toggle"}
-ti["t6"] = ti[" !"] ..{"it_trigger", target="olli6",action="toggle"}
-ti["t7"] = ti[" !"] ..{"it_trigger", target="olli7",action="toggle"}
-ti["t8"] = ti[" !"] ..{"it_trigger", target="olli8",action="toggle"}
-ti["l1"] = ti[" 4"] ..{"st_laser_e", name="lez1"}
-ti["l2"] = ti[" 4"] ..{"st_laser_e", name="lez2"}
+ti["gg"] = ti[" %"] .. {"it_strip", connections="ns"}
+ti["l3"] = ti[" !"] .. {"st-brick_magic"}
+ti["l4"] = ti[" i"] .. {"st_passage_black_frame"}
+ti["l5"] = ti[" $"] .. {"st-glass_move"}
+ti["l6"] = ti[" $"] .. {"st-glass"}
+ti["z3"] = ti["l3"] .. {"it_cherry"}
+ti["z4"] = ti["l4"] .. {"it_cherry"}
+ti["z5"] = ti["l5"] .. {"it_cherry"}
+ti["z6"] = ti["l6"] .. {"it_cherry"}
+ti["z7"] = ti[" !"] .. {"st_box_wood"}
+ti["z8"] = ti[" !"] .. {"st_oneway_black_w"}
+ti["z9"] = ti[" !"] .. {"st-grate1"}
+ti["g5"] = ti["z9"] .. {"it_crack_l"}
+ti["l7"] = ti["l5"] .. {"it_extralife"}
+ti["z1"] = ti[" 4"] .. {"it_key", code=1}
+ti["z2"] = ti[" !"] .. {"it_key", code=2}
+ti["t1"] = ti[" !"] .. {"it_trigger", target="lez1",action="toggle"}
+ti["t2"] = ti[" !"] .. {"it_trigger", target="lez2",action="toggle"}
+ti["t3"] = ti[" !"] .. {"it_trigger", target="lez3",action="toggle"}
+ti["t4"] = ti[" !"] .. {"it_trigger", target="lez4",action="toggle"}
+ti["t5"] = ti[" !"] .. {"it_trigger", target="olli5",action="toggle"}
+ti["t6"] = ti[" !"] .. {"it_trigger", target="olli6",action="toggle"}
+ti["t7"] = ti[" !"] .. {"it_trigger", target="olli7",action="toggle"}
+ti["t8"] = ti[" !"] .. {"it_trigger", target="olli8",action="toggle"}
+ti["l1"] = ti[" 4"] .. {"st_laser_e", name="lez1"}
+ti["l2"] = ti[" 4"] .. {"st_laser_e", name="lez2"}
 ti["< "] = {"st_laser_s", name="lez3"}
 ti["= "] = {"st_laser_n", name="lez4"}
-ti["( "] = {"st_key", code=1, target="olli1",action="toggle"}--a
-ti[") "] = {"st_key", code=2, target="olli2",action="toggle"}--b
+ti["( "] = {"st_key", code=1, target="olli1",action="toggle"} --a
+ti[") "] = {"st_key", code=2, target="olli2",action="toggle"} --b
 ti["V "] = {"st_floppy", target={"olli3", "olli4"},action="toggle"}
-ti["d1"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli1"}
-ti["d2"] =  ti[" !"] ..{"st_door", faces="ew", name= "olli2"}
-ti["d3"] =  ti[" i"] ..{"st_door", faces="ns", name= "olli3"}--floppy
-ti["d4"] =  ti[" i"] ..{"st_door", faces="ns", name= "olli4"}--floppy
-ti["d5"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli5"}
-ti["d6"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli6"}
-ti["d7"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli7"}
-ti["d8"] =  ti[" !"] ..{"st_door", faces="ns", name= "olli8"}
+ti["d1"] = ti[" !"] .. {"st_door", faces="ns", name= "olli1"}
+ti["d2"] = ti[" !"] .. {"st_door", faces="ew", name= "olli2"}
+ti["d3"] = ti[" i"] .. {"st_door", faces="ns", name= "olli3"} --floppy
+ti["d4"] = ti[" i"] .. {"st_door", faces="ns", name= "olli4"} --floppy
+ti["d5"] = ti[" !"] .. {"st_door", faces="ns", name= "olli5"}
+ti["d6"] = ti[" !"] .. {"st_door", faces="ns", name= "olli6"}
+ti["d7"] = ti[" !"] .. {"st_door", faces="ns", name= "olli7"}
+ti["d8"] = ti[" !"] .. {"st_door", faces="ns", name= "olli8"}
 ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac_rotor", range=7, strength=7}
 ti["q "] = {"#ac_top", range=10, strength=10}
-ti["v1"] =  ti[" !"] ..{"it_vortex_open", name="vortex1", destination="vortex2"}
-ti["v2"] =  ti[" $"] ..{"it_vortex_open", name="vortex2", destination={"vortex3","vortex1"}}
-ti["v3"] =  ti["z7"] ..{"it_vortex_open", name="vortex3", destination="vortex1"}
-ti["v4"] =  ti["z8"] ..{"it_vortex_open", name="vortex4", destination="vortex5"}
-ti["v5"] =  ti[" 2"] ..{"it_vortex_open", name="vortex5", destination="vortex4"}
-ti["v6"] =  ti[" 2"] ..{"it_vortex_open", name="vortex6", destination="vortex7"}
-ti["v7"] =  ti[" 2"] ..{"it_vortex_open", name="vortex7", destination="vortex6"}
-ti["g3"] =  ti[" !"] ..{"st_switch_black", target="dolli1"}
-ti["g4"] =  ti[" !"] ..{"st_switch_black", target="dolli2"}
-ti["g1"] =  ti["gg"] ..{"st_door", faces="ns", name= "dolli1"}
-ti["g2"] =  ti["gg"] ..{"st_door", faces="ns", name= "dolli2"}
-
+ti["v1"] = ti[" !"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["v2"] = ti[" $"] .. {"it_vortex_open", name="vortex2", destination={"vortex3","vortex1"}}
+ti["v3"] = ti["z7"] .. {"it_vortex_open", name="vortex3", destination="vortex1"}
+ti["v4"] = ti["z8"] .. {"it_vortex_open", name="vortex4", destination="vortex5"}
+ti["v5"] = ti[" 2"] .. {"it_vortex_open", name="vortex5", destination="vortex4"}
+ti["v6"] = ti[" 2"] .. {"it_vortex_open", name="vortex6", destination="vortex7"}
+ti["v7"] = ti[" 2"] .. {"it_vortex_open", name="vortex7", destination="vortex6"}
+ti["g3"] = ti[" !"] .. {"st_switch_black", target="dolli1"}
+ti["g4"] = ti[" !"] .. {"st_switch_black", target="dolli2"}
+ti["g1"] = ti["gg"] .. {"st_door", faces="ns", name="dolli1"}
+ti["g2"] = ti["gg"] .. {"st_door", faces="ns", name="dolli2"}
 if wo ["IsDifficult"] then
-    ti["l9"] = ti[" &"]..{"fl_water"}
-    ti["a3"] = ti[" !"]..{"fl_metal_7"}
-    ti["a4"] = ti[" !"]..{"fl_metal_7"}
-    ti["a5"] = ti[" !"]..{"fl_metal_7"}
-    ti["a6"] = ti[" !"]..{"it_death"}
+    ti["l9"] = ti[" &"] .. {"fl_water"}
+    ti["a3"] = ti[" !"] .. {"fl_metal_7", friction=4.0}
+    ti["a4"] = ti[" !"] .. {"fl_metal_7", friction=4.0}
+    ti["a5"] = ti[" !"] .. {"fl_metal_7", friction=4.0}
+    ti["a6"] = ti[" !"] .. {"it_death"}
 else
-    ti["l9"] = ti[" &"]..{"fl_ice"}
-    ti["a3"] = ti[" !"]..{"it-flagblack"}
-    ti["a4"] = ti[" !"]..{"it_extralife"}
-    ti["a5"] = ti[" !"]..{"it-pin"}
-    ti["a6"] = ti[" !"]..{"fl_metal_7"}
+    ti["l9"] = ti[" &"] .. {"fl_ice"}
+    ti["a3"] = ti[" !"] .. {"it-flagblack"}
+    ti["a4"] = ti[" !"] .. {"it_extralife"}
+    ti["a5"] = ti[" !"] .. {"it-pin"}
+    ti["a6"] = ti[" !"] .. {"fl_metal_7", friction=4.0}
 end
+
 local resolver = res.composer(ti)
 
 w, h = wo(resolver, "  ", {
-
        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!$!-!-!-!-!-!-0-!-0-!-0-!-!-!-!-!$!6!6!6!6!6!6!6!g36!6!6!6!6!6!8!8!#!8!8!8!8!8!8!",
        "!! % # % # # # # # # #W#W#W#*#W#*#W#W#W#$!-!-! !-! !-! !-! !-! !-! !-!-!$! % % % %6$ 4 4m$ 4 46$ 2h% !;! ! ! ! ! ! ! !8!",
        "!! #%%%!%!%!%!%!%&%!%&%!%&%!%!%!%!%!%!W#$!.! ! !t5 0t6 0 ! 0t7 0t8 ! !.!$!.2 2 % %+%63 3 3 363 2 26% %#! % 6 %#% % % (8!",

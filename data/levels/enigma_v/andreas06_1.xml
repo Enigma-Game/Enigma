@@ -18,7 +18,7 @@
     <el:luamain><![CDATA[
 -- Originally created with the help of BBE 1.05
 
-ti[" "]={"fl_metal_7"}
+ti[" "]={"fl_metal_7", friction=4.0}
 ti["!"]={"st-metal"}
 ti["$"]={"st_oxyd", flavor = "a"}
 ti["1"]={"st_laserswitch", target = "door1"}

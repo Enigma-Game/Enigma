@@ -19,13 +19,13 @@ wo["ConserveLevel"] = true
 
 ti[" -"] = {"fl-gradient3"}
 ti[" ~"] = {"fl_swamp"}
-ti["A "] = ti[" -"] ..{"it_sword"}
+ti["A "] = ti[" -"] .. {"it_sword"}
 ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
 ti["F "] = {"st_quake"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
 ti["E "] = ti[" ~"] .. {"st-glass_move"}
-ti["  "] = {"fl_metal_7"}
+ti["  "] = {"fl_metal_7", friction=4.0}
 ti[" ."] = {"fl_abyss"}
 ti["# "] = {"st-redrock"}
 ti[" l"] = {"fl_sahara"}
@@ -90,9 +90,9 @@ ti["> "] = ti[" n"] .. {"st_boulder_e"}
 ti["< "] = {"st_boulder_w"}
 ti["O "] = {"st_rotator_ccw", movable=false}
 ti["Z "] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
-ti["l "] = ti[" n"] ..{"st_polarswitch"}
-ti["mm"] = ti[" ~"] ..{"st-grate1"}
-ti["* "] = ti["mm"] ..{"#ac_marble_black"}
+ti["l "] = ti[" n"] .. {"st_polarswitch"}
+ti["mm"] = ti[" ~"] .. {"st-grate1"}
+ti["* "] = ti["mm"] .. {"#ac_marble_black"}
 ti["+ "] = {"#ac_rotor", range=2, strength=2, gohome=false}
 
 local resolver = res.composer(ti)

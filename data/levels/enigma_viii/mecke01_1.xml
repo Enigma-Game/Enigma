@@ -18,7 +18,7 @@
 wo["ConserveLevel"] = true
 
 ti["R"] = {"#ac_rotor", range=1, strength=1}
-ti["  "] = {"fl_metal_7"}
+ti["  "] = {"fl_metal_7", friction=4.0}
 ti[" r"] = {"fl_red"}
 ti[" h"] = {"fl_himalaya"}
 ti[" '"] = {"fl_sahara"}
@@ -66,7 +66,7 @@ ti["p "] = {"it-puller-n"}
 ti["q "] = {"it-puller-s"}
 ti["t "] = {"it-document",text="text1"}
 ti["M "] = ti["m "] .. {"it-spring2"}
-ti["* "] = ti[" +"] ..{"#ac_marble_black"}
+ti["* "] = ti[" +"] .. {"#ac_marble_black"}
 ti["L1"] = {"st_laser_s",name="laser1", state=OFF}
 ti["L2"] = {"st_laser_s",name="laser2", state=OFF}
 ti["L5"] = {"st_laser_s", state=ON}
@@ -77,7 +77,6 @@ ti["S1"] = {"it_trigger", target="laser1"}
 ti["S2"] = {"it_trigger", target="laser2"}
 ti["S3"] = {"it_trigger", target="laser3"}
 ti["S4"] = {"it_trigger", target="laser4"}
-
 if wo ["IsDifficult"] then
     ti["x1"] = ti["! "] .. ti[" h"]
     ti["x2"] = ti["X "] .. ti[" h"]
