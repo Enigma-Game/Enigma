@@ -22,6 +22,7 @@
 
 //#include "errors.hh"
 //#include "main.hh"
+#include "player.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -88,13 +89,37 @@ namespace enigma {
         sink_speed = server::SwampSinkSpeed;
         raise_speed = 6.0;
     }
+
+/* -------------------- Yinyang -------------------- */
+
+    YinyangFloor::YinyangFloor(int initState) : Floor("fl_yinyang", 5.2, 2.0) {
+        state = initState;
+    }
+    
+    std::string YinyangFloor::getClass() const {
+        return "fl_yinyang";
+    }
+        
+    void YinyangFloor::init_model()  {
+        set_model(std::string("fl_yinyang_") + ((state == YIN) ? "yin" : "yang"));
+    }
+    
+    ecl::V2 YinyangFloor::process_mouseforce (Actor *a, ecl::V2 force) {
+        if (player::CurrentPlayer() == state)
+            return getAdhesion() * force;
+        else
+            return ecl::V2();
+    }
     
     BOOT_REGISTER_START
-        BootRegister(new Abyss(), "fl_abyss");
-        BootRegister(new IceFloor(), "fl_ice");
-        BootRegister(new Space(), "fl_space");
+        BootRegister(new Abyss(),     "fl_abyss");
+        BootRegister(new IceFloor(),  "fl_ice");
+        BootRegister(new Space(),     "fl_space");
         BootRegister(new Space(true), "fl_space_force");
-        BootRegister(new Swamp(), "fl_swamp");
+        BootRegister(new Swamp(),     "fl_swamp");
+        BootRegister(new YinyangFloor(0), "fl_yinyang");
+        BootRegister(new YinyangFloor(0), "fl_yinyang_yin");
+        BootRegister(new YinyangFloor(1), "fl_yinyang_yang");
     BOOT_REGISTER_END
 
 } // namespace enigma

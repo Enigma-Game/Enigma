@@ -62,20 +62,22 @@ end
 ----------------
 
 -- state
-OFF      = 0
-ON       = 1
-CLOSED   = 0
-OPEN     = 1
-IDLE     = 0
-ACTIVE   = 1
-OXYDPAIR = 2
-LIGHT    = 0
-MEDIUM   = 1
-DARK     = 2
-FLOODING = 1
+OFF       = 0
+ON        = 1
+CLOSED    = 0
+OPEN      = 1
+IDLE      = 0
+ACTIVE    = 1
+OXYDPAIR  = 2
+LIGHT     = 0
+MEDIUM    = 1
+DARK      = 2
+FLOODING  = 1
 INVISIBLE = -1
 SMALL     = 0
 LARGE     = 2
+YIN       = 0
+YANG      = 1
 
 -- color
 BLACK  = 0
@@ -83,6 +85,12 @@ WHITE  = 1
 BLUE   = 2
 YELLOW = 3
 NOCOLOR = nil
+
+-- controllers
+CTRL_NONE    = 0
+CTRL_YIN     = 1
+CTRL_YANG    = 2
+CTRL_YINYANG = 3
 
 -- rotation direction
 CW  = 0

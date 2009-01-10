@@ -91,7 +91,7 @@ namespace enigma {
         if (fl != NULL && fl->is_destructible()) {
             Value v = fl->getAttr("fragility");
             double fragility = getDefaultedAttr("fragility", v ? v : Value(server::Fragility));
-            if (state < DISSOLVING && DoubleRand(0, 0.9999) < fragility) {
+            if (state < DISSOLVING && (state > INVISIBLE || DoubleRand(0, 0.9999) < fragility)) {
                 toggleState();
                 sound_event("crack");
             }

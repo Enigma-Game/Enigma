@@ -355,10 +355,10 @@ namespace
         }
         
         void init_model() {
-            string modelname = "fl-gray";
-            if (Floor *fl = GetFloor(get_pos()))
-                modelname = fl->get_kind();
-            set_model(modelname);
+            if (Floor *fl = GetFloor(get_pos())) {
+                set_model(fl->get_kind());
+            } else
+                ASSERT(false, XLevelRuntime, "Chameleon Stone: Floor must be set before stone");
         }
 
         bool is_floating() const 

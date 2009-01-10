@@ -741,46 +741,12 @@ Value Thief::message(const Message &m) {
     return Floor::message(m);
 }
 
-//----------------------------------------
-// Black and white tiles
-//----------------------------------------
-namespace
-{
-    class BlackTile : public Floor {
-        CLONEOBJ(BlackTile);
-    public:
-        BlackTile() : Floor ("fl-acblack", 5.2, 2.0) {}
-
-        ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
-            if (player::CurrentPlayer() == 0)
-                return getAdhesion() * force;
-            else
-                return ecl::V2();
-        }
-    };
-
-    class WhiteTile : public Floor {
-        CLONEOBJ(WhiteTile);
-    public:
-        WhiteTile() : Floor ("fl-acwhite", 5.2, 2.0) {}
-
-        ecl::V2 process_mouseforce (Actor *, ecl::V2 force) {
-            if (player::CurrentPlayer() == 1)
-                return getAdhesion() * force;
-            else
-                return ecl::V2();
-        }
-    };
-}
-
 
 void InitFloors()
 {
     // Floors (most floors are defined in init.lua)
     Register(new DummyFloor);
     Register(new Thief);
-    Register(new WhiteTile);
-    Register(new BlackTile);
 
     Register(new Gradient);
     Register("fl-gradient1", new Gradient(1));

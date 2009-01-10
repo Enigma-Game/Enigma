@@ -1590,7 +1590,7 @@ namespace
         void actor_leave (Actor *) {
             if (server::TwoPlayerGame) {
                 // two players: black / white tile
-                exchange_floor ("fl-acwhite", "fl-acblack");
+                exchange_floor("fl_yinyang_yang", "fl_yinyang_yin");
             } else {
                 // one player: left / right accel
 //                exchange_floor ("fl-

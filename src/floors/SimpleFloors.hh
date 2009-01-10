@@ -91,6 +91,31 @@ namespace enigma {
         virtual bool is_destructible() const;
         virtual void get_sink_speed (double &sinkspeed, double &raisespeed) const;        
     };
+
+    /** 
+     * Yinyang
+     */
+    class YinyangFloor : public Floor {
+        CLONEOBJ(YinyangFloor);
+        
+    private:
+        enum iState {
+            YIN,       ///< player 0 - black image
+            YANG       ///< player 1 - white image
+        };
+
+    public:
+        YinyangFloor(int initState);
+
+        // Object interface
+        virtual std::string getClass() const;
+        
+        // GridObject interface
+        virtual void init_model();
+                
+        // Floor interface
+        virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);
+    };
 } // namespace enigma
 
 #endif

@@ -80,8 +80,8 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl_himalaya",              // Oxyd1 floor 0x0a
     "fl_himalaya",              // Oxyd1 floor 0x0b
     "fl_inverse_gray",          // Oxyd1 floor 0x0c
-    "fl-acblack",               // Oxyd1 floor 0x0d
-    "fl-acwhite",               // Oxyd1 floor 0x0e
+    "fl_yinyang_yin",           // Oxyd1 floor 0x0d
+    "fl_yinyang_yang",          // Oxyd1 floor 0x0e
     "fl_swamp",                 // Oxyd1 floor 0x0f
     UNUSED,                     // Oxyd1 floor 0x10
     UNUSED,                     // Oxyd1 floor 0x11

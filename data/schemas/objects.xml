@@ -361,6 +361,16 @@
       <msg name="_init"/>
       <msg name="_performaction"/>
     </object>
+    <object name="fl_yinyang">
+      <attr name="friction" default="5.2"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_yinyang_yin">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="fl_yinyang_yang">
+      <attr name="state" value="1"/>
+    </object>
     <object name="it_blocker_new" init="true">
     </object>
     <object name="it_brake"/>

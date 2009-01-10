@@ -388,6 +388,9 @@ do
     DefAlias("fl-space-force", "fl_space")
     DefAlias("fl_samba_h", "fl_samba1")
     DefAlias("fl_samba_v", "fl_samba2")
+    DefAlias("fl_yinyang", "fl-acblack")
+    DefAlias("fl_yinyang_yin", "fl-acblack")
+    DefAlias("fl_yinyang_yang", "fl-acwhite")
 end
 
 ----------------------
