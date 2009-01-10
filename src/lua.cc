@@ -2984,6 +2984,58 @@ static int shuffleGroup(lua_State *L) {
     return pushNewGroup(L, newSort);
 }
 
+static int sortGroup(lua_State *L) {
+    // group
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
+    std::string command;
+    if (lua_gettop(L) == 2 && lua_isstring(L, 2)) {
+        command = lua_tostring(L, 2);
+    }
+    ObjectList oldSort = toObjectList(L, 1);
+    ObjectList newSort;
+    if (command == "circular") {
+        std::map<double, Object *> sortMap;
+        double cx = 0;
+        double cy = 0;  // center
+        int num = 0;
+        for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr) {
+            GridObject *go = dynamic_cast<GridObject *>(*itr);
+            if (go != NULL) {
+                GridPos p = go->get_pos();
+                cx += p.x;
+                cy += p.y;
+                num++;
+            } 
+        }
+        if (num > 0) {
+            cx = cx/num;
+            cy = cy/num;
+            for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr) {
+                GridObject *go = dynamic_cast<GridObject *>(*itr);
+                if (go != NULL) {
+                    GridPos p = go->get_pos();
+                    double alpha = std::atan2(p.y - cy, p.x - cx); 
+                    sortMap[alpha] = *itr;
+                }
+            }
+            for (std::map<double, Object *>::iterator itr = sortMap.begin(); itr != sortMap.end(); ++itr) {
+                newSort.push_back(itr->second);
+            }
+        }
+    } else {
+        // default sort lexical by name
+        std::map<std::string, Object *> sortMap;
+        for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr)
+            sortMap[((*itr)->getAttr("name")).to_string()] = *itr;
+        for (std::map<std::string, Object *>::iterator itr = sortMap.begin(); itr != sortMap.end(); ++itr)
+            newSort.push_back(itr->second);
+    }
+    return pushNewGroup(L, newSort);
+}
+
 MethodMap polistMethodeMap;
 
 static int dispatchPolistWriteAccess(lua_State *L) {
@@ -3237,6 +3289,7 @@ static CFunction groupMethods[] = {
     {groupMessage,                  "message"},
     {killObject,                    "kill"},
     {shuffleGroup,                  "shuffle"},
+    {sortGroup,                     "sort"},
     {0,0}
 };
 

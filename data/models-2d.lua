@@ -377,6 +377,7 @@ do
     DefAlias("fl_metal_5", "fl_metal5")
     DefAlias("fl_metal_6", "fl_metal6")
     DefAlias("fl_metal_7", "fl-normal")
+    DefAlias("fl_metal_7n", "fl-normal")
     DefAlias("fl_metal_1_framed", "fl_metal1_framed")
     DefAlias("fl_metal_2_framed", "fl_metal2_framed")
     DefAlias("fl_metal_3_framed", "fl_metal3_framed")
