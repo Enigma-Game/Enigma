@@ -463,9 +463,9 @@ do
         "it-odometer",
         "it-pencil",
         "it-pin",
-        "it-ring",
-        "it-spade",
-        "it-spoon",
+        "it_ring",
+        "it_spade",
+        "it_spoon",
         "it-spring1",
         "it-spring2",
         "it-surprise",
@@ -554,7 +554,7 @@ end
 
 -- it-yinyang --
 do
-    DefTiles("it-yinyang", {"it-yinyang", "it-yanying"})
+    DefTiles("it_yinyang", {"it_yinyang", "it_yangyin"})
 end
 
 -- it_strip --
@@ -605,9 +605,9 @@ end
 
 -- it-coffee --
 do
-    local images = DefSubimages("it-coffee", {h=4})
+    local images = DefSubimages("it_coffee", {h=4})
     local frames = BuildFrames(images,150)
-    DefAnim("it-coffee", frames, true)
+    DefAnim("it_coffee", frames, true)
 end
 
 -- Cracks --

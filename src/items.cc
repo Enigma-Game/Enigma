@@ -160,7 +160,6 @@ bool Item::actor_hit(Actor *actor)
 namespace
 {
     DEF_ITEM(Odometer,  "it-odometer", it_odometer);
-    DEF_ITEMF(Coffee,   "it-coffee", it_coffee, itf_inflammable);
 }
 
 /* -------------------- DummyItem -------------------- */
@@ -215,24 +214,6 @@ namespace
         Pin() {}
     };
     DEF_ITEMTRAITS(Pin, "it-pin", it_pin);
-
-/* -------------------- Spoon -------------------- */
-namespace
-{
-    class Spoon : public Item {
-        CLONEOBJ(Spoon);
-        DECL_ITEMTRAITS;
-
-        ItemAction activate(Actor *a, GridPos) {
-            SendMessage(a, "_suicide");
-            return ITEM_DROP;
-        }
-    public:
-        Spoon()
-        {}
-    };
-    DEF_ITEMTRAITS(Spoon, "it-spoon", it_spoon);
-}
 
 /* -------------------- Booze -------------------- */
 
@@ -696,57 +677,6 @@ namespace
                 itf_static | itf_indestructible | itf_fireproof);
 }
 
-
-/* -------------------- YinYang item -------------------- */
-namespace
-{
-    class YinYang : public Item {
-        CLONEOBJ(YinYang);
-        DECL_ITEMTRAITS;
-    public:
-        YinYang()
-        {}
-
-        string get_inventory_model() {
-            if (player::CurrentPlayer()==0)
-                return "it-yinyang";
-            else
-                return "it-yanying";
-        }
-
-        ItemAction activate(Actor *, GridPos p) {
-            // Switch to other marble
-            player::SwapPlayers();
-            // play_sound("switch");   // don't! wrong coordinates!
-            sound::EmitSoundEvent ("switchplayer", p.center());
-            return ITEM_KEEP;
-        }
-    };
-    DEF_ITEMTRAITS(YinYang, "it-yinyang", it_yinyang);
-}
-
-
-/* -------------------- Spade -------------------- */
-namespace
-{
-    class Spade : public Item {
-        CLONEOBJ(Spade);
-        DECL_ITEMTRAITS;
-
-        ItemAction activate(Actor *, GridPos p) {
-            if (Item *it=GetItem(p)) {
-                sound::EmitSoundEvent ("spade", p.center());
-                SendMessage(it, "shovel");
-                return ITEM_KEEP;
-            }
-            return ITEM_DROP;
-        }
-    public:
-        Spade() {}
-    };
-    DEF_ITEMTRAITS(Spade, "it-spade", it_spade);
-}
-
 /* -------------------- Pullers -------------------- */
 namespace
 {
@@ -1031,28 +961,6 @@ namespace
     DEF_ITEMTRAITS(FlagWhite, "it-flagwhite", it_flagwhite);
 }
 
-
-/* -------------------- Ring -------------------- */
-namespace
-{
-    class Ring : public Item {
-        CLONEOBJ(Ring);
-        DECL_ITEMTRAITS;
-    public:
-        Ring() {}
-
-        ItemAction activate(Actor *a, GridPos) {
-            if (ExchangeMarbles(a)) {
-                sound_event ("switchmarbles");
-            }
-            else {
-                RespawnActor(a);
-            }
-            return ITEM_DROP;
-        }
-    };
-    DEF_ITEMTRAITS(Ring, "it-ring", it_ring);
-}
 
 //----------------------------------------
 // Bridge item (for Oxyd compatibility)
@@ -1700,7 +1608,6 @@ void InitItems()
     RegisterItem (new BrokenBooze);
     Burnable::setup();
     RegisterItem (new ChangeFloorItem);
-    RegisterItem (new Coffee);
     RegisterItem (new Cross);
     RegisterItem (new Debris);
     RegisterItem (new Document);
@@ -1724,9 +1631,6 @@ void InitItems()
     RegisterItem (new Pencil);
     RegisterItem (new Pin);
     Puller::setup();
-    RegisterItem (new Ring);
-    RegisterItem (new Spade);
-    RegisterItem (new Spoon);
     RegisterItem (new Spring1);
     RegisterItem (new Spring2);
     RegisterItem (new Springboard);
@@ -1734,7 +1638,6 @@ void InitItems()
     RegisterItem (new TwoPKillStone);
     RegisterItem (new Weight);
     RegisterItem (new WhiteBomb);
-    RegisterItem (new YinYang);
 }
 
 } // namespace enigma

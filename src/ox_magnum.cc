@@ -295,7 +295,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     IT_EXTERNAL,      // OxydMagnum item 0x02 document 1
     IT_EXTERNAL,      // OxydMagnum item 0x03 document 2
     "it_hammer",        // OxydMagnum item 0x04
-    "it-coffee",        // OxydMagnum item 0x05
+    "it_coffee",        // OxydMagnum item 0x05
     "it_cherry",        // OxydMagnum item 0x06
     "it_umbrella",      // OxydMagnum item 0x07
     "it_glasses",       // OxydMagnum item 0x08
@@ -317,14 +317,14 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_sword",         // OxydMagnum item 0x18
     "it-flagwhite",     // OxydMagnum item 0x19
     "it-flagblack",     // OxydMagnum item 0x1a
-    "it-ring",          // OxydMagnum item 0x1b
+    "it_ring",          // OxydMagnum item 0x1b
     "it_pipe_nw",       // OxydMagnum item 0x1c
     "it_pipe_sw",       // OxydMagnum item 0x1d
     "it_pipe_ne",       // OxydMagnum item 0x1e
     "it_pipe_es",       // OxydMagnum item 0x1f
     "it_pipe_ns",        // OxydMagnum item 0x20
     "it_pipe_ew",        // OxydMagnum item 0x21
-    "it-spade",         // OxydMagnum item 0x22
+    "it_spade",         // OxydMagnum item 0x22
     UNUSED,        // OxydMagnum item 0x23
     "it-pin",           // OxydMagnum item 0x24
     "it_seed",          // OxydMagnum item 0x25

@@ -311,7 +311,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     IT_EXTERNAL,                  // 0x02 document 1
     IT_EXTERNAL,                  // 0x03 document 2
     "it_hammer",                  // 0x04
-    "it-coffee",                  // 0x05
+    "it_coffee",                  // 0x05
     "it_cherry",                  // 0x06
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
@@ -333,14 +333,14 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_sword",                   // 0x18
     "it-flagwhite",               // 0x19
     "it-flagblack",               // 0x1a
-    "it-ring",                    // 0x1b
+    "it_ring",                    // 0x1b
     "it_pipe_nw",                 // 0x1c
     "it_pipe_sw",                 // 0x1d
     "it_pipe_ne",                 // 0x1e
     "it_pipe_es",                 // 0x1f
     "it_pipe_ns",                 // 0x20
     "it_pipe_ew",                 // 0x21
-    "it-spade",                   // 0x22
+    "it_spade",                   // 0x22
     "it-surprise",                // 0x23
     "it-pin",                     // 0x24
     "it_seed",                    // 0x25

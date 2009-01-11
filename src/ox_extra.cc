@@ -313,7 +313,7 @@ const char* oxyd::oxydextra_item_map[256] = {
     IT_EXTERNAL,                // OxydExtra item 0x02
     IT_EXTERNAL,                // OxydExtra item 0x03
     "it_hammer",                  // OxydExtra item 0x04
-    "it-coffee",                  // OxydExtra item 0x05
+    "it_coffee",                  // OxydExtra item 0x05
     "it_cherry",                  // OxydExtra item 0x06
     "it_umbrella",                // OxydExtra item 0x07
     IT_MISSING,                 // OxydExtra item 0x08
@@ -341,7 +341,7 @@ const char* oxyd::oxydextra_item_map[256] = {
     UNUSED,                  // OxydExtra item 0x1e
     UNUSED,                  // OxydExtra item 0x1f
     UNUSED,                  // OxydExtra item 0x20
-    "it-spade",                   // OxydExtra item 0x21
+    "it_spade",                   // OxydExtra item 0x21
     "it-surprise",                // OxydExtra item 0x22
     "it-pin",                     // OxydExtra item 0x23
     UNUSED,                  // OxydExtra item 0x24

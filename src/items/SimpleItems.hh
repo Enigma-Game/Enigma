@@ -73,6 +73,11 @@ namespace enigma {
     };
     
     /**
+     * Coffee
+     */
+    DEF_ITEMF(Coffee, "it_coffee", it_coffee, itf_inflammable);
+
+    /**
      * DeathItem
      */
     class DeathItem : public Item {
@@ -106,6 +111,49 @@ namespace enigma {
     DEF_ITEM(Key, "it_key", it_key);
 
     /**
+     * Ring
+     */
+    class Ring : public Item {
+        CLONEOBJ(Ring);
+        DECL_ITEMTRAITS;
+        
+    public:
+        Ring();
+        
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
+
+    /**
+     * Spade
+     */
+    class Spade : public Item {
+        CLONEOBJ(Spade);
+        DECL_ITEMTRAITS;
+
+    public:
+        Spade();
+        
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
+    
+    /**
+     * Spoon
+     */
+    class Spoon : public Item {
+        CLONEOBJ(Spoon);
+        DECL_ITEMTRAITS;
+
+    public:
+        Spoon();
+        
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
+
+    
+    /**
      * Squashed
      */
     class Squashed : public Item {
@@ -124,6 +172,20 @@ namespace enigma {
      */
     DEF_ITEM(Wrench, "it_wrench", it_wrench);
 
+    /**
+     * Yinyang
+     */
+    class Yinyang : public Item {
+        CLONEOBJ(Yinyang);
+        DECL_ITEMTRAITS;
+        
+    public:
+        Yinyang();
+
+        // Item interface
+        virtual std::string get_inventory_model();
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
 } // namespace enigma
 
 #endif

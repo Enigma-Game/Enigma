@@ -193,8 +193,8 @@ void player::AddYinYang ()
 {
     for (unsigned i=0; i<players.size(); ++i) {
         Inventory *inv = GetInventory (i);
-        if (inv->find ("it-yinyang") == -1) 
-            inv->add_item(MakeItem("it-yinyang"));
+        if (inv->find("it_yinyang") == -1) 
+            inv->add_item(MakeItem("it_yinyang"));
     }
 }
 
@@ -463,7 +463,7 @@ void player::CheckDeadActors() {
         else {
             if (pl == icurrent_player)
                 // check if player has yinyang for single gamer mode
-                if (player::GetInventory(pl)->find("it-yinyang",0) >= 0)
+                if (player::GetInventory(pl)->find("it_yinyang",0) >= 0)
                     toggle_player = true;
                 else
                     new_game = true;

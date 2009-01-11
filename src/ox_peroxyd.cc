@@ -384,7 +384,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     IT_EXTERNAL,                  // 0x02 document 1
     IT_EXTERNAL,                  // 0x03 document 2
     "it_hammer",                  // 0x04
-    "it-coffee",                  // 0x05
+    "it_coffee",                  // 0x05
     "it_cherry",                  // 0x06
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
@@ -405,14 +405,14 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_floppy",                  // 0x17
     "it-flagwhite",               // 0x18
     "it-flagblack",               // 0x19
-    "it-ring",                    // 0x1a
+    "it_ring",                    // 0x1a
     "it_pipe_nw",                 // 0x1b
     "it_pipe_sw",                 // 0x1c
     "it_pipe_ne",                 // 0x1d
     "it_pipe_es",                 // 0x1e
     "it_pipe_ns",                  // 0x1f
     "it_pipe_ew",                  // 0x20
-    "it-spade",                   // 0x21
+    "it_spade",                   // 0x21
     "it-surprise",                // 0x22
     "it-pin",                     // 0x23
     "it_seed",                    // 0x24
@@ -440,7 +440,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     UNUSED,                  // 0x3a
     UNUSED,                  // 0x3b
     "it_cross",                   // 0x3c
-    "it-spoon",                   // 0x3d
+    "it_spoon",                   // 0x3d
     IT_MISSING,                   // 0x3e rubber band
     "it-changefloor",             // 0x3f
     "it_trigger",                 // 0x40
