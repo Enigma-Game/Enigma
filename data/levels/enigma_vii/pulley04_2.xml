@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="8" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -49,7 +49,7 @@ ti["I"] = ti["f"] .. {"st-invisible"} --Invisible stone on black floor
 ti["J"] = ti["y"] .. {"st_passage_black_slash"} --Black grill on blue floor
 ti["K"] = ti["y"] .. {"st-grate1"} --Grate on blue floor
 ti["L"] = ti[" "] .. {"it_landmine"}
-ti["M"] = ti[" "] .. {"it-spoon"}
+ti["M"] = ti[" "] .. {"it_spoon"}
 ti["N"] = ti[" "] .. {"it-dynamite"}
 ti["O"] = ti["y"] .. {"st-invisible"} --Invisible stone on blue floor
 ti["P"] = ti[" "] .. {"st_door_a", name="Door1"} -- Tonto's prison door
@@ -71,7 +71,7 @@ ti["6"] = ti[" "] .. {"it-booze"}
 ti["!"] = ti[" "] .. {"it_key", code="1"}
 ti["@"] = ti[" "] .. {"it_key", code="2"}
 ti["#"] = ti[" "] .. {"st-camouflage"}
-ti["$"] = ti[" "] .. {"st_box_wood"} .. ti({"it-yinyang"})
+ti["$"] = ti[" "] .. {"st_box_wood"} .. ti({"it_yinyang"})
 ti["%"] = ti[" "] .. {"st_death_invisible"}
 ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
 ti["*"] = ti[" "] .. {"#ac_rotor", range=5, strength=100}
@@ -81,7 +81,7 @@ ti["<"] = {"fl-gradient15"} -- Left
 ti[">"] = {"fl-gradient16"} -- Right
 ti["^"] = {"fl-gradient13"} -- Up
 ti["("] = (ti[" "] .. {"#ac_marble_white", player=0, controllers=1, essential=-1, name="Ranger"})
-ti[")"] = (ti[" "] .. {"#ac_marble_black", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it-yinyang"})
+ti[")"] = (ti[" "] .. {"#ac_marble_black", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it_yinyang"})
 ti["="] = ti["t"] .. {"it-flagwhite"}
 ti["-"] = ti["l"] .. {"it-flagblack"}
 

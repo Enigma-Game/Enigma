@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 28 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 29 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,7 +31,7 @@ ti["' "] = {"st-yellow"}
 ti[" '"] = {"fl_bluegray"}
 ti["( "] = {"st-grate3"}
 ti["* "] = {"st-stone_break"}
-ti[" )"] = {"fl-acblack"}
+ti[" )"] = {"fl_yinyang_yin"}
 ti["+ "] = {"st_passage_white_cross"}
 ti[", "] = {"st_passage_black_cross"}
 ti["- "] = {"st-grate1"}
@@ -80,7 +80,7 @@ ti["E "] = {"st_oneway_black_s"}
 ti["F "] = {"st_mirror", movable=true, transparent=true}
 ti[" ,"] = {"fl_swamp"}
 ti["G "] = {"st_laser_w", name="laserhi"}
-ti["oo"] = ti[" $"]..{"it-spoon"}
+ti["oo"] = ti[" $"]..{"it_spoon"}
 ti["H "] = {"st_oneway_black_e"}
 ti["::"] = ti[" '"]..{"it_crack_m"}
 ti["d1"] = ti[" $"] .. {"it-document", text="beginning"}

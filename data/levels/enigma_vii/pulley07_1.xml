@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -83,7 +83,7 @@ ti["P"] = {"fl_bright"} .. ti({"st-plain_break"})
 ti["Q"] = ti[" "] .. {"st-rock3_hole"}
 ti["R"] = ti[" "] .. {"st-rock3"}
 ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it-burnable"}
-ti["T"] = {"fl_plank"} .. ti({"it-coffee"})
+ti["T"] = {"fl_plank"} .. ti({"it_coffee"})
 ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it-burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
 ti["["] = ti[" "] .. {"st-grate3", name="d1"}

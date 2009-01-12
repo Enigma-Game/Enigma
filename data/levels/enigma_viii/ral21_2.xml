@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 139 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 140 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,7 +53,7 @@ ti["OE"] = {"st_oxyd_d"}
 ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl-thief"}
-ti["$$"] = {"fl-acwhite"}
+ti["$$"] = {"fl_yinyang_yang"}
 ti["gs"] = {"fl-gradient", type=1}
 ti["gw"] = {"fl-gradient", type=4}
 ti["gn"] = {"fl-gradient", type=2}
@@ -84,7 +84,7 @@ ti[",%"] = ti[",,"] .. {"it-booze-broken"}
 ti[",b"] = ti[",,"] .. {"it_banana"}
 ti[",d"] = ti[",,"] .. {"it_coin_l"}
 ti[",s"] = ti[",,"] .. {"it_sword"}
-ti[",r"] = ti[",,"] .. {"it-ring"}
+ti[",r"] = ti[",,"] .. {"it_ring"}
 ti[",l"] = ti[",,"] .. {"it_extralife"}
 ti[",c"] = ti[",,"] .. {"it_rubberband", anchor2="white", threshold=1, length=10}
 ti[",g"] = ti[",,"] .. {"it_glasses", state=SPOT_DEATH}
@@ -105,15 +105,15 @@ ti["%t"] = ti["%%"] .. {"it_meditation_bump"}
 ti["_U"] = ti["__"] .. {"it_umbrella"}
 ti["_d"] = ti["__"] .. {"it-drop"}
 ti["_."] = ti["_v"] .. {"it_seed_volcano", secure=true}
-ti[";t"] = ti[";;"] .. {"it-spade"}
-ti[" t"] = ti["  "] .. {"it-spade"}
+ti[";t"] = ti[";;"] .. {"it_spade"}
+ti[" t"] = ti["  "] .. {"it_spade"}
 ti[" H"] = ti["  "] .. {"it_meditation_hill"}
 ti[";w"] = ti[";;"] .. {"it_magicwand"}
 ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
 ti["fw"] = ti["  "] .. {"it-flagwhite"}
 ti["ww"] = ti["  "] .. {"it_wormhole", range=0.5, destination="white_grave"}
-ti[" y"] = ti["  "] .. {"it-yinyang"}
+ti[" y"] = ti["  "] .. {"it_yinyang"}
 ti["k0"] = ti["  "] .. {"it_key", code=0}
 ti["k1"] = ti["  "] .. {"it_key", code=1}
 ti["k3"] = ti["~~"] .. {"it_key", code=3}
@@ -367,7 +367,7 @@ ti["ni"] = {"st_nil"} .. ti{"it_nil"}
 
 if wo["IsDifficult"] then
     ti[" u"] = ti["  "]
-    ti[".r"] = ti[".."] .. {"it-ring"}
+    ti[".r"] = ti[".."] .. {"it_ring"}
 else
     ti[" u"] = ti["  "] .. {"it_umbrella"}
     ti[".r"] = ti[".."] .. {"it_extralife"}

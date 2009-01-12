@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 10 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,8 +18,8 @@ ti[" !"] = {"fl_rock"}
 ti[" r"] = {"fl_red"}
 ti[" ~"] = {"fl_water"}
 ti[" n"] = {"fl_metal_7"}
-ti[" w"] = {"fl-acwhite"}
-ti[" *"] = {"fl-acblack"}
+ti[" w"] = {"fl_yinyang_yang"}
+ti[" *"] = {"fl_yinyang_yin"}
 ti[" i"] = {"fl_inverse"}
 ti[" b"] = {"fl_aquamarine"}
 ti[" &"] = {"fl_rough"}
@@ -37,7 +37,7 @@ ti["Xi"] = ti[" i"] .. {"st-grate1"}
 ti["Xb"] = ti[" b"] .. {"st-grate1"}
 ti["X&"] = ti[" &"] .. {"st-grate1"}
 ti["Th"] = ti[" i"] .. {"st-yellow"}
-ti["yw"] = ti[" w"] .. {"it-yinyang"}
+ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
 ti["0~"] = ti[" ~"] .. {"st-coffee"}
 ti["H'"] = ti[" '"] .. {"st_passage_black_square"}
@@ -61,7 +61,7 @@ ti["dd"] = ti[" ~"] .. {"it_death"}
 ti["Tw"] = ti["dd"] .. {"st_disco_medium"}
 ti["Td"] = ti[" r"] .. {"st_disco_medium"}
 ti["TT"] = ti[" ="] .. {"st-thief"}
-ti["y~"] = ti[" ~"] .. {"it-yinyang"}
+ti["y~"] = ti[" ~"] .. {"it_yinyang"}
 ti["Y~"] = ti[" ~"] .. {"st-yinyang1"}
 ti["Y&"] = ti[" &"] .. {"st-yinyang1"}
 ti["Y!"] = ti[" !"] .. {"st-yinyang1"}
@@ -92,8 +92,8 @@ ti["OO"] = ti["j&"] .. {"st_oneway_white_e"}
 ti["v1"] = ti["OO"] .. {"st_door",faces="ew", name="door1"}
 ti["EE"] = ti["j'"] .. {"st_oneway_black_w"}
 ti["v2"] = ti["EE"] .. {"st_door",faces="ew", name="door2"}
-ti["or"] = ti["X'"] .. {"it-ring"}
-ti["ur"] = ti["X&"] .. {"it-ring"}
+ti["or"] = ti["X'"] .. {"it_ring"}
+ti["ur"] = ti["X&"] .. {"it_ring"}
 ti["ps"] = ti["Br"] .. {"it_seed"}
 ti["kk"] = ti["Xw"] .. {"it_cherry"}
 ti["ki"] = ti["gi"] .. {"it_cherry"}

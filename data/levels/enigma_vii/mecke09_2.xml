@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 28 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 29 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -77,7 +77,7 @@ ti["F "] = {"st_stoneimpulse"}
 ti[" 2"] = {"fl_ivory"}
 ti["s "] = {"it_sword"}
 ti[" 3"] = {"fl_lawn_c4"}
-ti["i "] = {"it-coffee"}
+ti["i "] = {"it_coffee"}
 ti["G "] = {"st_actorimpulse_invisible"}
 ti["y "] = {"it_cherry"}
 ti[" 4"] = {"fl_lawn_c1"}
@@ -118,7 +118,7 @@ ti["~g"] = ti[" %"] .. {"st-grate1"}
 ti["h-"] = ti["~g"] .. {"it_strip", connections="ew"}
 ti["nn"] = ti[" 3"] .. {"st_actorimpulse_invisible"}
 ti["n-"] = ti[" 5"] .. {"st_actorimpulse_invisible"}
-ti["ni"] = ti[" )"] .. {"it-coffee"}
+ti["ni"] = ti[" )"] .. {"it_coffee"}
 ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac_top", range=1, strength=1}
 ti["p1"] = ti[" $"] .. {"it-document", text="text1"}

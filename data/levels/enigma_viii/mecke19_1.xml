@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:9$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:10$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -53,8 +53,8 @@ ti[" u"] = ti["hh"] .. {"it_umbrella"}
 ti["/ "] = {"st_death"}
 ti[" p"] = ti["hh"] .. {"it-pencil"}
 ti["0 "] = {"st_quake"}
-ti[" f"] = ti["hh"] .. {"it-coffee"}
-ti["q "] = {"it-coffee"}
+ti[" f"] = ti["hh"] .. {"it_coffee"}
+ti["q "] = {"it_coffee"}
 ti[" ,"] = {"fl_gravel"}
 ti[" -"] = {"fl_redslab"}
 ti["1 "] = {"st-glass"}

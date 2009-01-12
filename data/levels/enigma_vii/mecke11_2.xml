@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:33$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:34$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -20,7 +20,7 @@ wo["ConserveLevel"] = true
 ti[" !"] = {"fl_abyss"}
 ti[" ,"] = {"fl_red"}
 ti["! "] = {"st-block"}
-ti[" #"] = {"fl-acblack"}
+ti[" #"] = {"fl_yinyang_yin"}
 ti["# "] = {"st_death"}
 ti[" $"] = {"fl_metal_7"}
 ti[" %"] = {"fl_bluegray"}
@@ -137,7 +137,7 @@ if wo ["IsDifficult"] then
     ti["hx"] = ti[" '"] .. {"it_strip", connections="ew"}
     ti["c9"] = ti[" ,"] .. {"st-glass"}
     ti["c1"] = ti["c9"] .. {"it_key", code=1}
-    ti["nn"] = ti[" #"] .. {"fl-acblack"}
+    ti["nn"] = ti[" #"] .. {"fl_yinyang_yin"}
 else
     ti["hx"] = ti[" #"] .. {"it_cherry"}
     ti["nn"] = ti[" #"] .. {"it_extralife"}

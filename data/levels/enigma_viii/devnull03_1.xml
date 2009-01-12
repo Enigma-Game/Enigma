@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="21" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -74,7 +74,7 @@ ti["v"] = ti["."] .. {"it_floppy"}
 ti["s"] = ti["."] .. {"it_seed"}
 ti["S"] = ti["w"] .. {"it_seed"}
 ti["t"] = {"it_wrench"}
-ti["y"] = ti["w"] .. {"it-yinyang"}
+ti["y"] = ti["w"] .. {"it_yinyang"}
 ti["%"] = ti["."] .. {"it-document", text = "doc1"}
 ti["z"] = {"it-document", text = "BzG"}
 ti["U"] = {"st_floppy", name = "floppyU", action = "toggle", target = "bridgeFloppyBlack#*"}
@@ -95,7 +95,7 @@ ti["*"] = ti["."] .. {"#ac_marble_white", player = 1}
 if wo["IsDifficult"] ~= TRUE then
     ti["~"] = {"fl_bluegray"}
     ti["("] = {"fl_bridge_gc", state = CLOSED}
-    ti[";"] = ti["("] .. {"it-yinyang"}
+    ti[";"] = ti["("] .. {"it_yinyang"}
     ti["R"] = ti["~"] .. {"it-document", text = "doc2"}
     ti["&"] = ti["."] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
     ti["["] = ti["("] .. {"it_sensor", name = "sensorEW01", action = "callback", target ="sensorEasyWhite01", invisible = true}

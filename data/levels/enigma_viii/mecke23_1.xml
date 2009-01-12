@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 26 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti[" ,"] = {"fl_concrete"}
 ti[" &"] = {"fl_ice"}
 ti[" %"] = {"fl_gravel"}
 ti["  "] = {"fl_hay",{secure=TRUE}}
-ti[" o"] = {"fl-acblack"}
+ti[" o"] = {"fl_yinyang_yin"}
 ti[" *"] = {"fl_himalaya"}
 ti[" +"] = {"fl_sahara"}
 ti[" '"] = {"fl_tigris"}
@@ -91,9 +91,9 @@ ti["!4"] = ti["!0"] .. {"st_disco"}
 ti["!5"] = ti["  "] .. {"st_disco"}
 ti["&1"] = ti[" &"] .. {"st_disco"}
 ti["!6"] = ti["!5"] .. {"it-drop"}
-ti["!7"] = ti["!5"] .. {"it-coffee"}
+ti["!7"] = ti["!5"] .. {"it_coffee"}
 ti["!8"] = ti["!5"] .. {"it-booze"}
-ti["!9"] = ti["!5"] .. {"it-spoon"}
+ti["!9"] = ti["!5"] .. {"it_spoon"}
 ti[" m"] = ti["!1"] .. {"it_magnet",state=ON,range=3,strength=7}
 ti["-m"] = ti["!1"] .. {"it_magnet",state=ON,range=5,strength=-7}
 ti["--"] = ti["!1"] .. {"it_magnet",state=ON,range=10,strength=-12}
@@ -210,7 +210,7 @@ ti["//"] = {"it-burnable_burning"}
 ti["o/"] = {"it-burnable_oil"}
 
 if wo ["IsDifficult"] then
-    ti["oo"] = ti[" o"].. {"it-coffee"}
+    ti["oo"] = ti[" o"].. {"it_coffee"}
     ti["L1"] = {"st_oneway",state=EAST}
     ti["L2"] = {"st_oneway",state=SOUTH}
     ti["L3"] = {"st_oneway",state=WEST}

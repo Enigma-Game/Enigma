@@ -75,8 +75,8 @@ ti["G"] = ti[" "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["m"] = ti[" "] .. {"it_magnet", name="maggi1",state=ON, range=20, strength=10}
 ti["U"] = {"st_oneway_black_w"}
 ti["V"] = {"st_passage_black_frame"}
-ti["n"] = ti["W"] .. {"st-chameleon"}
-ti["o"] = ti["m"] .. {"st-chameleon"}
+ti["n"] = ti[" "] .. ti["W"] .. {"st-chameleon"}
+ti["o"] = ti[" "] .. ti["m"] .. {"st-chameleon"}
 ti["O"] = ti[" "] .. {"st-glass1_hole"}
 ti["'"] = {"it-burnable_oil"}
 ti[":"] = {"it-burnable_burning"}

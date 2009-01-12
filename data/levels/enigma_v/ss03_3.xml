@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="10" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -52,7 +52,7 @@ ti[" g"] = {"it-blackbomb"}
 ti[" b"] = {"it-blackbomb", "bomb4"}
 ti[" e"] = {"it_extralife"}
 ti[" c"] = {"it_crack_l"}
-ti[" y"] = {"it-yinyang"}
+ti[" y"] = {"it_yinyang"}
 ti[" h"] = {"it_hammer"}
 ti[" _"] = {"it_shogun_l"}
 ti[" a"] = {"it_coin_s"}
@@ -72,7 +72,7 @@ ti[" d"] = {"it-document", text="text2"}
 ti[" -"] = {"it_meditation_dent"}
 ti[" w"] = {"it_whitebomb"}
 ti[" !"] = {"it_wormhole", "worm5", destination="destination5", strength=5}
-ti[" o"] = {"it-spade"}
+ti[" o"] = {"it_spade"}
 ti[" x"] = {"it-document", text="text2"}
 ti[" 1"] = {"it_trigger", invisible=true, target="box", _box=1}
 ti["1 "] = {"st_door", "door1", flavor="d", faces="ew"}

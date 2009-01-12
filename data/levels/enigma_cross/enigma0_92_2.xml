@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="14" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Black Diamond Course" _xpath="enigma_iii/duffy28_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy28" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Hall of Glass" _xpath="enigma_i/martin86_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="When Gravity Fails" _xpath="enigma_ii/nat10_1" author="Nat Pryce" ctrl="force" easy="false" id="nat10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Psycho Pushing" _xpath="enigma_v/ss03_3" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="3" rev="9" score="2" target="time" unit="duration"/>
+    <level _seq="47" _title="Psycho Pushing" _xpath="enigma_v/ss03_3" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="3" rev="10" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Walls Of Sadness" _xpath="enigma_iv/ss12_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Unfair!" _xpath="enigma_iii/ant33_1" author="Petr Machata" ctrl="force" easy="false" id="ant33" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Puzzle Blues" _xpath="enigma_ii/siegfried07_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level3c" rel="1" rev="0" score="1" target="time" unit="duration"/>

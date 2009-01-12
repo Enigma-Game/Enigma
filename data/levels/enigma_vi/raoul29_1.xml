@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,7 +26,7 @@ ti["G"] = {"st-glass2"}
 ti["F"] = {"st-glass1"}
 ti["w"] = ti[" "] .. {"it-flagwhite"}
 ti["b"] = ti[" "] .. {"it-flagblack"}
-ti["y"] = {"it-yinyang"}
+ti["y"] = {"it_yinyang"}
 ti["h"] = {"st_mirror", flavor="slab", transparent=true, orientation=SOUTH}
 ti["v"] = {"st_mirror", flavor="slab", transparent=true, orientation=NORTH}
 ti["<"] = {"st_mirror", flavor="triangle", transparent=false, movable=true, orientation=WEST}

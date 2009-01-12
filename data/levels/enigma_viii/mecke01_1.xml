@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 30 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -57,7 +57,7 @@ ti["b "] = {"it-blackbomb"}
 ti["B "] = ti["b "] .. ti["X "]
 ti["e "] = {"it_extralife"}
 ti["Y "] = {"it_brush"}
-ti["l "] = ti["+ "] .. {"it-spoon"} 
+ti["l "] = ti["+ "] .. {"it_spoon"} 
 ti["E "] = {"st_boulder_e"}
 ti["h "] = {"it_hammer"}
 ti["- "] = {"it_strip_ew"}

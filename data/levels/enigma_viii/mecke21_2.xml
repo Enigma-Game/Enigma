@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 38 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 39 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -70,7 +70,7 @@ ti["B "] = {"st_key",code=2, name= "oklli2", target= "olli6"}
 ti["6 "] = {"st_key",code=3, name= "oklli3", target={"olli7","olli9","elli1"}}
 ti["0 "] = {"st_passage_black_cross"}
 ti["1 "] = {"st_floppy", target= "olli8"}
-ti[" )"] = {"fl-acwhite"}
+ti[" )"] = {"fl_yinyang_yang"}
 ti["2 "] = {"st_actorimpulse"}
 ti["3 "] = {"st-break_invisible"}
 ti["mm"] = ti["mn"] .. {"it_magicwand"}
@@ -101,7 +101,7 @@ ti["fc"] = ti["ff"] .. {"it_cherry"}
 ti["C "] = {"st_oneway_black_w"}
 ti["fg"] = ti[" ("] .. {"st-glass"}
 ti["fx"] = ti["fg"] .. {"it_floppy"}
-ti["fy"] = ti[" !"] .. {"it-spoon"}
+ti["fy"] = ti[" !"] .. {"it_spoon"}
 ti["&h"] = ti[" !"] .. {"#ac_horse"}
 ti["r1"] = ti[" !"] .. {"#ac_top", range=2, strength=2}
 ti["r2"] = ti["jj"] .. {"#ac_rotor", range=5, strength=5}
@@ -122,7 +122,7 @@ if wo ["IsDifficult"] then
     ti["pv"] = ti[" %"] .. {"it_strip", connections="ns"}
     ti["ei"] = ti[" !"] .. {"it_death"}
     ti["ec"] = ti[" !"] .. {"fl_red"}
-    ti["eq"] = ti["mn"] .. {"it-spoon"}
+    ti["eq"] = ti["mn"] .. {"it_spoon"}
     ti["qq"] = ti["fg"] .. {"it-spring2"}
     ti["~~"] = {"fl_water"}
 else

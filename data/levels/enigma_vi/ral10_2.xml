@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Bodyguard" el:subtitle="In the line of thieves" el:id="20060730ral012"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 101 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 102 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,8 +21,8 @@ ti["+"] = {"st-glass", "doorA#"}
 ti["*"] = {"st-glass", "doorB#"}
 ti["B"] = {"st_passage_black_frame"}
 ti["W"] = {"st_passage_white_frame"}
-ti["b"] = ti["B"] .. {"it-yinyang"}
-ti["w"] = ti["W"] .. {"it-yinyang"}
+ti["b"] = ti["B"] .. {"it_yinyang"}
+ti["w"] = ti["W"] .. {"it_yinyang"}
 ti["c"] = {"it_cross"}
 
 ti["k"] = ti["B"] .. {"it_key", code="%1"}
