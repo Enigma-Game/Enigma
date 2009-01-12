@@ -39,6 +39,11 @@
 
 namespace enigma { 
     
+    enum Player {
+        YIN = 0,
+        YANG = 1
+    };
+    
     enum Color {
         BLACK = 0,
         WHITE = 1,

@@ -415,7 +415,7 @@ end
 function enigma.MakeObject(name)
     if name == "ac-whiteball-small" then
         local obj = enigma._MakeObject("ac_pearl_white")
-        enigma._SetAttrib(obj, "player", nil)
+        enigma._SetAttrib(obj, "owner", nil)
         return obj
     elseif name == "fl-bridge-open" then
         local obj = enigma._MakeObject("fl_bridge")
@@ -779,6 +779,9 @@ function enigma.SetAttrib(obj, key, val)
          end
          return
      end
+     if key == "player" then
+         _key = "owner"
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -845,6 +848,9 @@ function enigma.GetAttrib(obj, key)
          local color = enigma._GetAttrib(obj, "color")
          if color == 2 then val = 0 else val = 1 end
          return val
+     end
+     if key == "player" then
+         _key = "owner"
      end
 
      local val = enigma._GetAttrib(obj, _key)

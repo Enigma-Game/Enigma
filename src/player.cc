@@ -249,7 +249,7 @@ Inventory * player::GetInventory (int iplayer)
 
 Inventory * player::GetInventory (Actor *a) 
 {
-    if (Value v = a->getAttr("player"))
+    if (Value v = a->getAttr("owner"))
         return GetInventory((int)v);
     return 0;
 }
@@ -552,7 +552,7 @@ void player::InhibitPickup(bool flag) {
 Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) 
 {
     int iplayer=-1;
-    if (Value v = a->getAttr("player")) iplayer = v;
+    if (Value v = a->getAttr("owner")) iplayer = v;
     if (iplayer < 0 || (unsigned)iplayer >= players.size()) {
         //        cerr << "PickupItem: illegal 'player' entry\n";
         return 0;

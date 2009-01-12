@@ -515,7 +515,7 @@ namespace enigma {
     Marble::Marble(int color) : BasicBall(traits[color]) {
         setAttr("adhesion", 1.0);
         setAttr("color", color);
-        setAttr("player", color == BLACK ? 0 : 1);
+        setAttr("owner", color == BLACK ? YIN : YANG);
         setAttr("controllers", color == BLACK ? 1 : 2);
     }
     
@@ -540,7 +540,7 @@ namespace enigma {
     Pearl::Pearl(int color) : BasicBall(traits[color], 4) {
         setAttr("adhesion", 1.0);
         setAttr("color", color);
-        setAttr("player", 0);
+        setAttr("owner", YIN);
         setAttr("controllers", 3);
     }
 

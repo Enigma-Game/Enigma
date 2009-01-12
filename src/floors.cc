@@ -663,7 +663,7 @@ void Thief::actor_enter(Actor *a) {
         state = EMERGING;
         m_affected_actor = a;
         affected_player = -1;
-        if (Value v = m_affected_actor->getAttr("player")) affected_player = v;
+        if (Value v = m_affected_actor->getAttr("owner")) affected_player = v;
     }
 }
 

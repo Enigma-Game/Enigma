@@ -62,8 +62,8 @@
     <attr name="nopaction" type="bool" default="false" rw="rw"/>
     <attr name="noshuffle" type="bool" default="false" rw="rw"/>
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
+    <attr name="owner" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
-    <attr name="player" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="prefercurrent" type="double" default="0.0" rw="rw"/>
     <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
@@ -173,9 +173,9 @@
     <object name="ac" abstract="true">
       <attr name="adhesion" default="1.0"/>
       <attr name="controllers"/>
-      <attr name="color"/>
+      <attr name="color" rw="r"/>
       <attr name="fellows"/>
-      <attr name="player"/>
+      <attr name="owner"/>
       <attr name="essential"/>
       <attr name="essential_id"/>
       <attr name="charge"/>
@@ -754,6 +754,7 @@
       <msg name="orientate"/>
       <msg name="turn"/>
       <msg name="turnback"/>
+      <msg name="flip"/>
     </object>
     <object name="st_boulder_w">
       <attr name="orientation" value="0"/>

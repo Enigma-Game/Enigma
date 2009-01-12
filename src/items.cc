@@ -1285,7 +1285,7 @@ namespace
     }
 
     void Cross::actor_enter(Actor *a) {
-        if ((state == 0) && a->getAttr("player")) {
+        if ((state == 0) && a->getAttr("owner")) {
             state = 1;
             GameTimer.set_alarm (this, getAttr("interval"));
         }
@@ -1466,7 +1466,7 @@ namespace
                 "it_umbrella",
                 "it-spring1",
                 "it-dynamite",
-                "it-coffee",
+                "it_coffee",
                 "it_hammer"
             };
             replace(items[enigma::IntegerRand (0, 4)]);
@@ -1485,24 +1485,8 @@ namespace
         CLONEOBJ(ChangeFloorItem);
         DECL_ITEMTRAITS;
 
-        void exchange_floor (const char *a, const char *b) {
-            GridPos p = get_pos();
-            if (Floor *fl = GetFloor(p)) {
-                if (fl->is_kind(a))
-                    SetFloor (p, MakeFloor(b));
-                else if (fl->is_kind(b))
-                    SetFloor (p, MakeFloor(a));
-            }
-        }
-
         void actor_leave (Actor *) {
-            if (server::TwoPlayerGame) {
-                // two players: black / white tile
-                exchange_floor("fl_yinyang_yang", "fl_yinyang_yin");
-            } else {
-                // one player: left / right accel
-//                exchange_floor ("fl-
-            }
+            SendMessage(GetFloor(get_pos()), "toggle");
         }
 
     public:
@@ -1523,7 +1507,7 @@ namespace
         info->pos = olda->get_pos();
         info->vel = olda->get_vel();
 
-        if (Value v = olda->getAttr("player")) {
+        if (Value v = olda->getAttr("owner")) {
             player::ReplaceActor((int)v, olda, newa);
         }
 
@@ -1562,17 +1546,17 @@ namespace
         {
             const double ROTOR_LIFETIME = 5.0;
 
-            int     iplayer = a->getAttr("player");
+            int     iplayer = a->getAttr("owner");
             ActorID id      = get_id (a);
 
             if (id == ac_marble_black || id == ac_marble_white) {
                 // Kill ALL rubberbands connected with the actor:
                 SendMessage(a, "disconnect");
                 Actor *rotor = MakeActor("ac_rotor");
-                rotor->setAttr("adhesion", Value (1.0));
-                rotor->setAttr("controllers", Value (iplayer+1));
-                rotor->setAttr("player", Value (iplayer));
-                rotor->setAttr("gohome", Value (false));
+                rotor->setAttr("adhesion", 1.0);
+                rotor->setAttr("controllers", iplayer+1);
+                rotor->setAttr("owner", iplayer);
+                rotor->setAttr("gohome", false);
                 rotor->setAttr("essential", a->getAttr("essential"));
                 std::string essId;
                 if (Value v = a->getAttr("essential_id")) {

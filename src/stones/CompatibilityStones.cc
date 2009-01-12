@@ -34,7 +34,7 @@ namespace enigma {
     }
 
     void Peroxyd_0xb8::on_creation (GridPos p) {
-        SetFloor(p, MakeFloor("fl-normal"));
+        SetFloor(p, MakeFloor("fl_metal_7n"));
         KillStone(p);
     }
 
@@ -45,7 +45,7 @@ namespace enigma {
     }
 
     void Peroxyd_0xb9::on_creation (GridPos p) {
-        SetFloor(p, MakeFloor("fl-normal"));
+        SetFloor(p, MakeFloor("fl_metal_7n"));
         KillStone(p);
     }
 

@@ -51,6 +51,9 @@ namespace enigma {
                     m.message == "turnback" && getAttr("counterclock").to_bool())
                     ? rotate_cw(getDir()) : rotate_ccw(getDir()));
             return Value();
+        } else if (m.message == "flip" && state != FALLING && isDisplayable()) {
+            setDir(reverse(getDir()));
+            return Value();
         }
         return Stone::message(m);
     }

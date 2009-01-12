@@ -272,7 +272,7 @@ namespace
         virtual Value message(const Message &m) {
             if (m.message == "_init") {
                 if (server::GetDifficulty() == DIFFICULTY_EASY) {
-                    SetFloor (get_pos(), MakeFloor ("fl-normal"));
+                    SetFloor (get_pos(), MakeFloor ("fl_metal_7n"));
                 } else {
                     KillItem (get_pos());
                 }
@@ -903,7 +903,7 @@ void ThiefStone::actor_hit(const StoneContact &sc) {
         set_anim("st-thief-emerge");
         state = EMERGING;
         m_affected_actor = sc.actor;
-        affected_player = m_affected_actor->getDefaultedAttr("player", -1);
+        affected_player = m_affected_actor->getDefaultedAttr("owner", -1);
     }
 }
 
@@ -1112,7 +1112,7 @@ namespace
         CLONEOBJ(MagicStone);
         DECL_TRAITS;
         void actor_hit(const StoneContact &sc) {
-            if (sc.actor->getAttr("player") && 
+            if (sc.actor->getAttr("owner") && 
                 sc.actor->get_vel() * sc.normal < -4)
             {
                 KillStone(get_pos());

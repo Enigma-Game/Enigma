@@ -1667,7 +1667,7 @@ bool WorldInitLevel() {
         a->on_creation(a->get_actorinfo()->pos);
         SendMessage(a, "_init", Value());
 
-        if (Value v = a->getAttr("player")) {
+        if (Value v = a->getAttr("owner")) {
             int iplayer = v;
             player::AddActor(iplayer, a);
             if (iplayer == 0) seen_player0 = true;
@@ -1684,6 +1684,10 @@ bool WorldInitLevel() {
     BroadcastMessage("_init", Value(),
         GridLayerBits(GRID_ITEMS_BIT | GRID_STONES_BIT | GRID_FLOOR_BIT));
 
+    for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
+        SendMessage(*oit, "_init", Value());
+    }
+        
     server::InitMoveCounter();
     STATUSBAR->show_move_counter (server::ShowMoves);
 

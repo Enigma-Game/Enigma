@@ -190,7 +190,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x54
     "fl_plank",                 // PerOxyd floor 0x55
     UNUSED,                     // PerOxyd floor 0x56
-    "fl-nomouse",               // PerOxyd floor 0x57 (only used in Link-Level 91, friction (2.5) questionable!)
+    "fl_adhesionless",          // PerOxyd floor 0x57 (only used in Link-Level 91, friction (2.5) questionable!)
     UNUSED,                     // PerOxyd floor 0x58
     UNUSED,                     // PerOxyd floor 0x59
     UNUSED,                     // PerOxyd floor 0x5a
@@ -287,7 +287,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_disco_dark",            // PerOxyd stone 0x60
     "st_disco_medium",          // PerOxyd stone 0x61
     "st-bombs",                 // PerOxyd stone 0x62
-    "st-flash",                 // PerOxyd stone 0x63
+    "st_flash",                 // PerOxyd stone 0x63
     "st_coinslot_instant",      // PerOxyd stone 0x64
     "st-thief",                 // PerOxyd stone 0x65
     "st_shogun_s",              // PerOxyd stone 0x66

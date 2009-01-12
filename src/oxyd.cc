@@ -502,17 +502,16 @@ void OxydLoader::load_actors ()
         switch (marble.getMarbleType()) {
         case MarbleType_Black:
             ac = MakeActor("ac_marble_black");
-            ac->setAttr("player", 0);
+            ac->setAttr("owner", YIN);
             break;
         case MarbleType_White:
             ac = MakeActor("ac_marble_white");
-            ac->setAttr("player", 1);
+            ac->setAttr("owner", YANG);
             break;
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
                 ac = MakeActor ("ac_killer");
-//                ac->setAttr ("player", Value(0.0));
                 ac->setAttr("adhesion", 1.0);
                 ac->setAttr("controllers", 3);
             }
@@ -521,9 +520,9 @@ void OxydLoader::load_actors ()
                 nmeditationmarbles += 1;
 
                 if (config.twoplayers && (nmeditationmarbles % 2) == 0)
-                    ac->setAttr("player", 1);
+                    ac->setAttr("owner", YANG);
                 else
-                    ac->setAttr("player", 0);
+                    ac->setAttr("owner", YIN);
             }
 
             if (minfo.is_default(MI_FORCE)) {
