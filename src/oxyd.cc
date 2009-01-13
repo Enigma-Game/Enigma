@@ -361,7 +361,7 @@ static std::string convert_encoding (const std::string &t)
     return tt;
 }
 
-Item  *OxydLoader::make_item (int type)
+Item  *OxydLoader::make_item(int type, int x, int y)
 {
 
     Item *it = 0;
@@ -407,10 +407,14 @@ Item  *OxydLoader::make_item (int type)
             } else if (key == "it_sensor") {
                 it = MakeItem(key.c_str());
                 it->setAttr("invisible", true);
-            } else if (key == "it_inversesensor") {
+            } else if (key == "it_sensor_inverse") {
                 it = MakeItem("it_sensor");
                 it->setAttr("invisible", true);
                 it->setAttr("inverse", true);
+            } else if (key == "it_sensor_exit") {
+                it = MakeItem("it_sensor_exit");
+                it->setAttr("invisible", true);
+                it->setAttr("target", GetFloor(GridPos(x, y)));
             } else {
                 it = MakeItem(key.c_str());                
             }
@@ -448,8 +452,8 @@ void OxydLoader::load_items ()
     const Grid &grid = level.getGrid (GridType_Objects);
     for (unsigned y=0; y<grid.getHeight(); ++y)
         for (unsigned x=0; x<grid.getWidth(); ++x)
-            if (Item *it = make_item (grid.get(x,y)))
-                SetItem (GridPos(x, y), it);
+            if (Item *it = make_item(grid.get(x,y), x, y))
+                SetItem(GridPos(x, y), it);
 }
 
 void OxydLoader::load_stones()

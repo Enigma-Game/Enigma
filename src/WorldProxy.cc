@@ -45,7 +45,7 @@ namespace enigma {
     Value WorldProxy::getAttr(const string& key) const {
         if (key == "AllowSingleOxyds") {
             return server::AllowSingleOxyds;
-        } else if (key == "AllowTogglePlayer") {
+        } else if (key == "TogglePlayerOnDeath") {
             return server::AllowTogglePlayer;
         } else if (key == "ConserveLevel") {
             return server::ConserveLevel;
@@ -113,7 +113,7 @@ namespace enigma {
     void WorldProxy::setAttr(const string& key, const Value &val) {
         if (key == "AllowSingleOxyds") {
             server::AllowSingleOxyds = val;
-        } else if (key == "AllowTogglePlayer") {
+        } else if (key == "TogglePlayerOnDeath") {
             server::AllowTogglePlayer = val;
         } else if (key == "ConserveLevel") {
             server::ConserveLevel = val.to_bool();

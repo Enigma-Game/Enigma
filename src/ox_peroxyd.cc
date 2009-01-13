@@ -442,7 +442,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_cross",                   // 0x3c
     "it_spoon",                   // 0x3d
     IT_MISSING,                   // 0x3e rubber band
-    "it-changefloor",             // 0x3f
+    "it_sensor_exit",             // 0x3f
     "it_trigger",                 // 0x40
     "it_brush",                   // 0x41
     "it_banana",                  // 0x42

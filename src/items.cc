@@ -1478,25 +1478,6 @@ namespace
     DEF_ITEMTRAITS(SurpriseItem, "it-surprise", it_surprise);
 }
 
-/* -------------------- ChangeFloorItem -------------------- */
-namespace
-{
-    class ChangeFloorItem : public Item {
-        CLONEOBJ(ChangeFloorItem);
-        DECL_ITEMTRAITS;
-
-        void actor_leave (Actor *) {
-            SendMessage(GetFloor(get_pos()), "toggle");
-        }
-
-    public:
-        ChangeFloorItem() {
-        }
-    };
-    DEF_ITEMTRAITSF(ChangeFloorItem, "it-changefloor", it_changefloor,
-                itf_static | itf_invisible);
-}
-
 /* -------------------- Drop -------------------- */
 
 namespace
@@ -1591,7 +1572,6 @@ void InitItems()
     RegisterItem (new Booze);
     RegisterItem (new BrokenBooze);
     Burnable::setup();
-    RegisterItem (new ChangeFloorItem);
     RegisterItem (new Cross);
     RegisterItem (new Debris);
     RegisterItem (new Document);

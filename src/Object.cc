@@ -397,8 +397,9 @@ namespace enigma {
         for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
             modified |= (*tit).finalizeNearestObjectReference(this);
         }
-        if (modified)
+        if (modified) {
             setAttr(attr, targets);
+        }
     }
     
     void Object::finalizeNearestObjectReferences() {

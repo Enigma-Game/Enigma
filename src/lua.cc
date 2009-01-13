@@ -2961,6 +2961,39 @@ static int iteratorGroup(lua_State *L) {
     }
 }
 
+static int subGroup(lua_State *L) {
+    // group
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
+    ObjectList oldList = toObjectList(L, 1);
+    int length = oldList.size();
+    int start = 0;
+    int end = length;
+    if (lua_gettop(L) == 2 && lua_isnumber(L, 2)) {
+        end = lua_tointeger(L, 2);
+        if (end < 0) {
+            start = length - end;
+            end = length;
+        }
+    }
+    if (lua_gettop(L) == 3 && lua_isnumber(L, 2) && lua_isnumber(L, 3)) {
+        start = lua_tointeger(L, 2) - 1;
+        end = lua_tointeger(L, 2);
+        if (end < 0) {
+            end = start - end;
+        }
+    }
+    ObjectList newList;
+    int i = 0;
+    for (ObjectList::iterator itr = oldList.begin(); itr != oldList.end(); ++itr, i++) {
+        if (i >= start && i < end)
+            newList.push_back(*itr);
+    }
+    return pushNewGroup(L, newList);
+}
+
 static int shuffleGroup(lua_State *L) {
     // group
     if (lua_gettop(L) < 1 || !is_group(L, 1)) {
@@ -3290,6 +3323,7 @@ static CFunction groupMethods[] = {
     {killObject,                    "kill"},
     {shuffleGroup,                  "shuffle"},
     {sortGroup,                     "sort"},
+    {subGroup,                      "sub"},
     {0,0}
 };
 

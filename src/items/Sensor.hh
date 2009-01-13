@@ -26,31 +26,33 @@
 namespace enigma {
     class Sensor : public Item {
         CLONEOBJ(Sensor);
-        DECL_ITEMTRAITS_ARRAY(4, traitsIdx());
+        DECL_ITEMTRAITS_ARRAY(5, traitsIdx());
     private:
         enum ObjectPrivatFlagsBits {
-            OBJBIT_ISFILTER  =   1<<24    ///< sensor that filters signals, too
+            OBJBIT_EXIT      =   1<<24,    ///< sensor that reacts on actor leave
+            OBJBIT_ISFILTER  =   1<<25,    ///< sensor that filters signals, too
+            OBJBIT_INVISIBLE =   1<<26     ///< sensor that is invisible
         };
     public:
         static void setup();
             
-        Sensor(bool inverse, bool isFilter = false);
+        Sensor(bool inverse, bool isFilter = false, bool exit = false);
         
         // Object interface
         virtual Value message(const Message &m);
         
         // StateObject interface
         virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         
         // GridObject interface
         virtual void init_model();
+        virtual void actor_enter(Actor *a);
+        virtual void actor_leave(Actor *a);
 
         // ModelCallback interface
         virtual void animcb();
 
-        // Item interface
-        virtual void actor_enter(Actor *a);
-    
     private:
         int traitsIdx() const;
     };

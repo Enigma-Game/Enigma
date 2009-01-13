@@ -126,7 +126,6 @@ Actor::Actor (const ActorTraits &tr)
     Value Actor::message(const Message &m) {
         if (m.message == "_init") {
             startingpos = get_pos();
-            return Value();
         } else if (m.message == "_freeze") {
             m_actorinfo.frozen_vel = m_actorinfo.vel;
             m_actorinfo.vel = ecl::V2();

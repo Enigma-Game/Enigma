@@ -100,7 +100,7 @@ namespace oxyd
         /* ---------- OxydLoader interface ---------- */
 
         virtual Stone *make_stone (int type, int x, int y);
-        virtual Item  *make_item (int type);
+        virtual Item  *make_item (int type, int x, int y);
 
 
         /* ---------- Variables ---------- */

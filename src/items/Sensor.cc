@@ -27,11 +27,13 @@
 #include "items/GlassesItem.hh"
 
 namespace enigma {
-    Sensor::Sensor(bool inverse, bool isFilter) {
+    Sensor::Sensor(bool inverse, bool isFilter, bool exit) {
         Object::setAttr("inverse", inverse);
         if (isFilter) {
-            objFlags |= OBJBIT_ISFILTER;
-            Item::setAttr("invisible", true);
+            objFlags |= OBJBIT_ISFILTER | OBJBIT_INVISIBLE;
+        }
+        if (exit) {
+            objFlags |= OBJBIT_EXIT;
         }
     }
     
@@ -56,49 +58,76 @@ namespace enigma {
     
     void Sensor::setAttr(const string& key, const Value &val) {
         if (key == "invisible") {
-            Item::setAttr(key, val);
+            objFlags = (objFlags & ~OBJBIT_INVISIBLE) | (val.to_bool() ? OBJBIT_INVISIBLE : 0);
             if (isDisplayable())
                 init_model();
+            return;
+        } else if (key == "exit") {
+            objFlags = (objFlags & ~OBJBIT_EXIT) | (val.to_bool() ? OBJBIT_EXIT : 0);
             return;
         }
         Item::setAttr(key, val);
     }
     
+    Value Sensor::getAttr(const std::string &key) const {
+        if (key == "invisible") {
+            return (objFlags & OBJBIT_INVISIBLE) != 0;
+        } else if (key == "exit") {
+            return (objFlags & OBJBIT_EXIT) != 0;
+        }
+        return Item::getAttr(key);
+    }
+    
     void Sensor::init_model() {
-        if (getAttr("invisible").to_bool() && ((server::GlassesVisibility & Glasses::SENSOR) == 0))
+        if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::SENSOR) == 0))
             set_model("invisible");
         else
             set_model("it_sensor");
+    }
+    
+    void Sensor::actor_enter(Actor *a) {
+        if (!(objFlags & OBJBIT_EXIT)) {        
+            if (!(objFlags & OBJBIT_INVISIBLE))
+                set_anim("it_sensor_hit");
+            performAction(true);
+        }
+    }
+    
+    void Sensor::actor_leave(Actor *a) {
+        if (objFlags & OBJBIT_EXIT) {        
+            if (!(objFlags & OBJBIT_INVISIBLE))
+                set_anim("it_sensor_hit");
+            performAction(true);
+        }
     }
 
     void Sensor::animcb() {
         init_model();
     }
 
-    void Sensor::actor_enter(Actor *a) {
-        if (!getAttr("invisible").to_bool())
-            set_anim("it_sensor_hit");
-        performAction(true);
-    }
-    
     int Sensor::traitsIdx() const {
         int idx = getAttr("inverse").to_bool() ? 1 : 0;
         if (objFlags & OBJBIT_ISFILTER)
             idx +=2;
+        if (objFlags & OBJBIT_EXIT)
+            idx = 4;
         return idx;
     }
 
-    ItemTraits Sensor::traits[4] = {
+    ItemTraits Sensor::traits[5] = {
         {"it_sensor",  it_sensor,  itf_static}, 
         {"it_sensor_inverse",  it_inversesensor,  itf_static},
         {"it_sensor_filter1", it_signalfilter1, itf_static | itf_invisible, 0.0},  // DAT only
-        {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible, 0.0}   // DAT only
+        {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible, 0.0},   // DAT only
+        {"it_sensor_exit",  it_exitsensor,  itf_static}
     };
+    
     BOOT_REGISTER_START
-        BootRegister(new Sensor(true), "it_sensor");
-        BootRegister(new Sensor(false), "it_sensor_inverse");
-        BootRegister(new Sensor(true, true), "it_sensor_filter1");
-        BootRegister(new Sensor(false, true), "it_sensor_filter0");
+        BootRegister(new Sensor(false), "it_sensor");
+        BootRegister(new Sensor(true), "it_sensor_inverse");
+        BootRegister(new Sensor(false, true), "it_sensor_filter1");
+        BootRegister(new Sensor(true, true), "it_sensor_filter0");
+        BootRegister(new Sensor(false, false, true), "it_sensor_exit");
     BOOT_REGISTER_END
 
 } // namespace enigma
