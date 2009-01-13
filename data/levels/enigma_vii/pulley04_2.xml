@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -80,8 +80,8 @@ ti["v"] = {"fl-gradient14"} -- Down
 ti["<"] = {"fl-gradient15"} -- Left
 ti[">"] = {"fl-gradient16"} -- Right
 ti["^"] = {"fl-gradient13"} -- Up
-ti["("] = (ti[" "] .. {"#ac_marble_white", player=0, controllers=1, essential=-1, name="Ranger"})
-ti[")"] = (ti[" "] .. {"#ac_marble_black", player=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it_yinyang"})
+ti["("] = (ti[" "] .. {"#ac_marble_white", owner=0, controllers=1, essential=-1, name="Ranger"})
+ti[")"] = (ti[" "] .. {"#ac_marble_black", owner=1, controllers=2, essential=-1, name="Tonto"}) .. ti({"it_yinyang"})
 ti["="] = ti["t"] .. {"it-flagwhite"}
 ti["-"] = ti["l"] .. {"it-flagblack"}
 

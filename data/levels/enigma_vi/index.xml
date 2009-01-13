@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="21" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="22" title="Enigma VI"/>
 
   <attributes/>
 
@@ -36,7 +36,7 @@
     <level _seq="28" _title="Holes!" _xpath="./edward14_1" author="Edward" ctrl="force" easy="false" id="edward14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Chessing Positions" _xpath="./raoul22_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="./raoul24_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul24" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Zeus" _xpath="./raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Zeus" _xpath="./raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Sisyphus" _xpath="./nat13_1" author="Nat Pryce" ctrl="force" easy="false" id="nat13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Ben Hur" _xpath="./ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="58" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Troy" _xpath="./andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -57,8 +57,8 @@
     <level _seq="49" _title="Simple Space" _xpath="./ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Just a Maze?" _xpath="./duffy12_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy12" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="Checkmate II" _xpath="./andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="53" _title="Bodyguard" _xpath="./ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="102" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Checkmate II" _xpath="./andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="53" _title="Bodyguard" _xpath="./ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="103" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="be quick or be dead" _xpath="./illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Puzzle Puzzles" _xpath="./raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Tarzan" _xpath="./ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>

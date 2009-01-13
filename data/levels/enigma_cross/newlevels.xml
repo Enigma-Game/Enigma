@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="20" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -158,7 +158,7 @@
     <level _seq="150" _title="Evil" _xpath="enigma_vi/spaceman04_1" author="Spaceman" ctrl="force" easy="false" id="spaceman4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="151" _title="Meditation Disturbance" _xpath="enigma_vi/ral04_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="1" rev="33" score="1" target="time" unit="duration"/>
     <level _seq="152" _title="Banana Republic" _xpath="enigma_v/alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="156" _title="Cold Way" _xpath="enigma_vi/raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -195,14 +195,14 @@
     <level _seq="187" _title="- Meditation -" _xpath="enigma_vi/andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="188" _title="Troy" _xpath="enigma_vi/andreas37_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="189" _title="Ben Hur" _xpath="enigma_vi/ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="58" score="1" target="time" unit="duration"/>
-    <level _seq="190" _title="Bodyguard" _xpath="enigma_vi/ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="102" score="1" target="time" unit="duration"/>
+    <level _seq="190" _title="Bodyguard" _xpath="enigma_vi/ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="103" score="1" target="time" unit="duration"/>
     <level _seq="191" _title="Janus" _xpath="enigma_vi/andreas38_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas38" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="192" _title="Phaeton" _xpath="enigma_vi/andreas39_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas39" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="193" _title="Ariadne" _xpath="enigma_vi/andreas40_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas40" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Oiltrace" _xpath="enigma_vi/raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="The Cube" _xpath="enigma_vi/malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="26" score="1" target="time" unit="duration"/>
-    <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="200" _title="Simple Space" _xpath="enigma_vi/ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>

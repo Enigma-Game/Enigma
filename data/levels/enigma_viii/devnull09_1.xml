@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Under control?" el:subtitle="" el:id="devnull09"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ end
 
 function np(val, sender)
     if val == false then
-        wo[{ 8, 5}] = {"it_sensor", invisible = true}
+        wo[{8,5}] = {"it_sensor", invisible = true}
     end
 end
 
@@ -48,10 +48,10 @@ ti["J"] = ti[" "] .. {"st_window_ns",  secure = true}
 ti[";"] = ti["w"] .. {"st_window_nsw", secure = true}
 ti[","] = ti["."] .. {"st_window_nes", secure = true}
 ti[":"] = ti[","] .. {"it_sensor", invisible = true, action = "callback", target = "np"}
-ti["9"] = ti[";"] .. {"#ac_pearl_white", player = 0, essential=1}
-ti["8"] = ti["I"] .. {"#ac_pearl_white", player = 0, essential=1}
-ti["7"] = ti["C"] .. {"#ac_pearl_white", player = 0, essential=1}
-ti["6"] = ti[":"] .. {"#ac_pearl_white", player = 0, essential=1}
+ti["9"] = ti[";"] .. {"#ac_pearl_white", owner = 0, essential=1}
+ti["8"] = ti["I"] .. {"#ac_pearl_white", owner = 0, essential=1}
+ti["7"] = ti["C"] .. {"#ac_pearl_white", owner = 0, essential=1}
+ti["6"] = ti[":"] .. {"#ac_pearl_white", owner = 0, essential=1}
 
 width, height = wo(ti, " ",
 -- 0         1         2

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -33,7 +33,7 @@
     <level _seq="25" _title="Puppet" _xpath="enigma_vii/pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="126" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Ghost Driver" _xpath="enigma_vii/duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Not Fast Enough" _xpath="enigma_vii/jet04_3" author="James Taylor, Ronald Lamprecht" ctrl="force" easy="true" id="20070413jet001" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="30" _title="Give Way" _xpath="enigma_vii/just20_1" author="JuSt" ctrl="force" easy="false" id="just20" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Give more Way" _xpath="enigma_vii/just21_2" author="JuSt" ctrl="force" easy="true" id="just21" rel="2" rev="3" score="2" target="time" unit="duration"/>
@@ -59,8 +59,8 @@
     <level _seq="51" _title="Swapping Puzzle II" _xpath="enigma_vii/joe22_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Multiban" _xpath="enigma_vii/dpl01_1" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Riverside" _xpath="enigma_vii/johann02_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann02" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="54" _title="The Lone Ranger" _xpath="enigma_vii/pulley04_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="2" rev="9" score="2" target="time" unit="duration"/>
-    <level _seq="55" _title="Little Shop Of Horrors" _xpath="enigma_vii/pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="The Lone Ranger" _xpath="enigma_vii/pulley04_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="2" rev="10" score="2" target="time" unit="duration"/>
+    <level _seq="55" _title="Little Shop Of Horrors" _xpath="enigma_vii/pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Spaceship Control" _xpath="enigma_vii/safalra01_1" author="Safalra" ctrl="force" easy="false" id="safalra01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Ball Alley" _xpath="enigma_vii/johann01_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Action Potential" _xpath="enigma_vii/pulley02_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley02" rel="2" rev="5" score="1" target="time" unit="duration"/>
@@ -84,7 +84,7 @@
     <level _seq="76" _title="Jack-Of-All-Trades" _xpath="enigma_vii/mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="39" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Enigmaparcour I" _xpath="enigma_viii/mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="28" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="Rhythm of Space" _xpath="enigma_viii/mecke20_2" author="mecke" ctrl="force" easy="true" id="mecke20" rel="2" rev="29" score="1" target="time" unit="duration"/>
-    <level _seq="79" _title="The Show Jumper" _xpath="enigma_viii/andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="79" _title="The Show Jumper" _xpath="enigma_viii/andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="The Red Room" _xpath="enigma_viii/joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Enigmines" _xpath="enigma_viii/huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Red Cave" _xpath="enigma_viii/mecke21_2" author="mecke" ctrl="force" easy="true" id="mecke21" rel="2" rev="39" score="1" target="time" unit="duration"/>
@@ -116,25 +116,25 @@
     <level _seq="108" _title="Wired Shogun" _xpath="enigma_viii/ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="129" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="Scarlet's Necklace" _xpath="enigma_viii/ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="128" score="1" target="time" unit="duration"/>
     <level _seq="110" _title="- Meditation -" _xpath="enigma_viii/raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="7" score="1" target="time" unit="duration"/>
-    <level _seq="111" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="112" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="113" _title="Relaxing at the sea" _xpath="enigma_viii/devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="17" score="1" target="time" unit="duration"/>
+    <level _seq="111" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="112" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="113" _title="Relaxing at the sea" _xpath="enigma_viii/devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="18" score="1" target="time" unit="duration"/>
     <level _seq="114" _title="Helios II" _xpath="enigma_viii/mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="20" score="1" target="time" unit="duration"/>
-    <level _seq="115" _title="Tutoxyd's Pyramid" _xpath="enigma_viii/ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="140" score="2" target="time" unit="duration"/>
+    <level _seq="115" _title="Tutoxyd's Pyramid" _xpath="enigma_viii/ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="141" score="2" target="time" unit="duration"/>
     <level _seq="116" _title="Alternation I" _xpath="enigma_viii/mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="117" _title="Enigmaparcour II" _xpath="enigma_viii/mecke29_1" author="mecke" ctrl="force" easy="true" id="mecke29" rel="1" rev="9" score="1" target="time" unit="duration"/>
-    <level _seq="118" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="119" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="120" _title="- Meditation -" _xpath="enigma_viii/devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="7" score="1" target="time" unit="duration"/>
-    <level _seq="121" _title="Multi-lane" _xpath="enigma_viii/devnull03_1" author="/dev/null" ctrl="force" easy="true" id="devnull03" rel="1" rev="22" score="1" target="time" unit="duration"/>
-    <level _seq="122" _title="See Saw Meditation" _xpath="enigma_viii/duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="123" _title="Under control?" _xpath="enigma_viii/devnull09_1" author="/dev/null" ctrl="force" easy="true" id="devnull09" rel="1" rev="7" score="1" target="time" unit="duration"/>
-    <level _seq="124" _title=" - Meditation - " _xpath="enigma_viii/devnull12_1" author="/dev/null" ctrl="force" easy="true" id="devnull12" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="125" _title="On belay?" _xpath="enigma_viii/devnull15_1" author="/dev/null" ctrl="force" easy="true" id="devnull15" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="126" _title="Hang-dogging?" _xpath="enigma_viii/devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="118" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="119" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="120" _title="- Meditation -" _xpath="enigma_viii/devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="121" _title="Multi-lane" _xpath="enigma_viii/devnull03_1" author="/dev/null" ctrl="force" easy="true" id="devnull03" rel="1" rev="23" score="1" target="time" unit="duration"/>
+    <level _seq="122" _title="See Saw Meditation" _xpath="enigma_viii/duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="123" _title="Under control?" _xpath="enigma_viii/devnull09_1" author="/dev/null" ctrl="force" easy="true" id="devnull09" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="124" _title=" - Meditation - " _xpath="enigma_viii/devnull12_1" author="/dev/null" ctrl="force" easy="true" id="devnull12" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="125" _title="On belay?" _xpath="enigma_viii/devnull15_1" author="/dev/null" ctrl="force" easy="true" id="devnull15" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="126" _title="Hang-dogging?" _xpath="enigma_viii/devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="127" _title="Alternation II" _xpath="enigma_viii/mecke31_1" author="mecke" ctrl="force" easy="false" id="mecke31" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="128" _title="Fifty Years Later ..." _xpath="enigma_viii/mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="26" score="1" target="time" unit="duration"/>
-    <level _seq="129" _title="Turbulencia" _xpath="enigma_viii/mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="129" _title="Turbulencia" _xpath="enigma_viii/mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="130" _title="Techno Voodoo" _xpath="enigma_viii/mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="131" _title="Plutos World" _xpath="enigma_viii/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="132" _title="Plutos Confusion" _xpath="enigma_viii/mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="12" score="1" target="time" unit="duration"/>

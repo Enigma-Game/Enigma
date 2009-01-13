@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 140 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 141 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -320,12 +320,12 @@ ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
 ti["_C"] = ti["__"] .. {"st-chameleon"}
 ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac_horse"})
 
-ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, player=0, controllers=1} .. ti({"it_extralife"})
-ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, player=1, controllers=2}
-ti["c1"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid1"}
-ti["c2"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid2"}
-ti["c3"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid3"}
-ti["c4"] = ti["  "] .. {"#ac_pearl", essential=1, player=DEFAULT, controllers=0, name="kid4"}
+ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=0, controllers=1} .. ti({"it_extralife"})
+ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, owner=1, controllers=2}
+ti["c1"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid1"}
+ti["c2"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid2"}
+ti["c3"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid3"}
+ti["c4"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid4"}
 ti[" 8"] = ti["  "] .. {"#ac_bug"}
 ti[" 3"] = ti["  "] .. {"#ac_killer", "killer"}
 ti[" 4"] = ti["  "] .. {"#ac_top", range=1.8, strength=30}

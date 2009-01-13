@@ -31,7 +31,7 @@ ti["C"] = ti["."] .. {"st_chess_black"}
 ti["c"] = (ti["."] .. {"st_chess_black"}) .. {"it_cross"}
 ti["D"] = ti[" "] .. {"st_door", name="door#", flavor="a"}
 ti["T"] = ti["."] .. {"it_trigger", name="trigger#"}
-ti["B"] = ti["."] .. {"#ac_marble_black", controllers=0, player=1, name="second_marble"}
+ti["B"] = ti["."] .. {"#ac_marble_black", controllers=0, owner=1, name="second_marble"}
 ti["S"] = ti["."] .. {"st_switch", target="let_marble_run"}
 ti["d"] = ti["."] .. {"st_door", name="first_door", flavor="a"}
 ti["t"] = ti["."] .. {"it_trigger", target="first_door"}
