@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Slinky Mayhem" el:subtitle="" el:id="duffy64"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["!"] = {"fl_abyss"}
+ti["#"] = {"st-glass"}
+ti["."] = {"st_stoneimpulse", hollow=true}
+ti["I"] = {"st_stoneimpulse", name="pulser#"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+if wo["IsDifficult"] then
+    ti["X"] = {"st_stoneimpulse", "dest#", hollow=true}
+    ti["W"] = ti["."] .. {"it_wormhole", strength=0.0, destination="@dest#*"}
+    ti["O"] = {"st_oxyd", name="oxyds#"}
+    ti["w"] = ti["."]
+    ti["x"] = ti["."]
+    ti["o"] = ti["#"]
+    ti["T"] = ti["!"] .. {"st_timer", interval=3.0, invisible=true, target="pulse"}
+else
+    ti["x"] = {"st_stoneimpulse", "dest#", hollow=true}
+    ti["w"] = ti["."] .. {"it_wormhole", strength=0.0, destination="@dest#*"}
+    ti["o"] = {"st_oxyd", name="oxyds#"}
+    ti["W"] = ti["."]
+    ti["X"] = ti["."]
+    ti["O"] = ti["#"]
+    ti["T"] = ti["!"] .. {"st_timer", interval=4.0, invisible=true, target="pulse"}
+end
+
+w, h = wo(ti, " ", {
+"!###Oo#O#oO###T",
+"!#I....X....I#!",
+"!#.x.......x.#!",
+"!O...........O!",
+"!o...........o!",
+"!#....wWw....#!",
+"!OX...W@W...XO!",
+"!#....wWw....#!",
+"!o...........o!",
+"!O...........O!",
+"!#.x.......x.#!",
+"!#I....X....I#!",
+"!###Oo#O#oO###!"})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular = true})
+
+local pulsstones = no["pulser#*"]
+function pulse(value, sender)
+    pulsstones[random(1,4)]:signal(1)
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

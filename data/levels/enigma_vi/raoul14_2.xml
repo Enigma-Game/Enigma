@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oxydmoron" el:subtitle="" el:id="raoul14"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:58"/>
+    </el:info>
+    <el:luamain><![CDATA[
+local col = math.random(0,1)
+
+ti[" "] = {"fl_water"}
+ti["-"] = {"fl_concrete"}
+ti["Y"] = ti["-"] .. ti({"it_yinyang"}) .. {"st-yinyang1"}
+ti["1"] = ti["-"] .. {"#ac_marble_black"}
+ti["2"] = ti["-"] .. {"#ac_marble_white"}
+ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=col}
+ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=1-col}
+ti["O"] = {"st_oxyd", name="grp1#"}
+ti["P"] = {"st_oxyd", name="grp2#"}
+
+if wo["IsDifficult"] then
+    ti["o"] = ti["O"]
+    ti["p"] = ti["P"]
+else
+    ti["o"] = ti[" "]
+    ti["p"] = ti[" "]
+end
+
+wo(ti, " ",
+   {"                    ",
+    " WWWW p     P  ---- ",
+    " W  WW    P  WW-Y2- ",
+    " W P WWWWW   W ---- ",
+    " WW P    W   W  S   ",
+    "  WW O  ---- W  S   ",
+    " p W  SS----WW  S o ",
+    "   W  S ----  P SS  ",
+    "   W  S   S    O SS ",
+    " ---- S   SSSSS O S ",
+    " -1Y-SS  O    SS  S ",
+    " ----  O     o SSSS ",
+    "                    "})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"grp1#*", max=1}, {"grp2#*", max=1})
+else
+    wo:shuffleOxyd({"grp1#*", max=0}, {"grp2#*", max=0})
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

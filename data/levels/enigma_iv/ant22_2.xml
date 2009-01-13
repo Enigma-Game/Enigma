@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chained" el:subtitle="" el:id="ant22"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal"}
+ti["."] = {"fl_abyss"}
+ti["-"] = {"fl_metal_7"}
+ti["#"] = {"st-metal"}
+ti["x"] = {"st-grate1"}
+ti["0"] = {"st_oxyd", name="grp0#"}
+ti["1"] = {"st_oxyd", name="grp1#"}
+ti["2"] = {"st_oxyd", name="grp2#"}
+ti["3"] = {"st_oxyd", name="grp3#"}
+if wo["IsDifficult"] then
+    ti["4"] = {"st_oxyd", name="grp4#"}
+    ti["5"] = {"st_oxyd", name="grp5#"}
+    ti["6"] = {"st_oxyd", name="grp6#"}
+    ti["7"] = {"st_oxyd", name="grp7#"}
+else
+    ti["4"] = ti["#"]
+    ti["5"] = ti["#"]
+    ti["6"] = ti["#"]
+    ti["7"] = ti["#"]
+end
+ti["W"] = ti["-"] .. {"st_box", name="box"}
+ti["@"] = ti["-"] .. {"#ac_marble_black", name="ball"}
+
+wo(ti, " ",
+   {"#0###4#......#5###1#",
+    "0     4......5     1",
+    "#     #......#     #",
+    "#     #......#     #",
+    "#     ########     #",
+    "#xxxxxxxxxxxxxxxxxx#",
+    "#--------W-@-------#",
+    "#xxxxxxxxxxxxxxxxxx#",
+    "#     ########     #",
+    "#     #......#     #",
+    "#     #......#     #",
+    "3     7......6     2",
+    "#3###7#......#6###2#"})
+
+wo:add({"ot_rubberband", anchor1="ball", anchor2="box", strength=50.0, max=6.5})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"grp0#*", max=0}, {"grp1#*", max=0}, {"grp2#*", max=0}, {"grp3#*", max=0},
+                   {"grp4#*", max=0}, {"grp5#*", max=0}, {"grp6#*", max=0}, {"grp7#*", max=0},
+                   {no["grp0#*"] + no["grp3#*"] + no["grp4#*"] + no["grp7#*"], max=2},
+                   {no["grp1#*"] + no["grp2#*"] + no["grp5#*"] + no["grp6#*"], max=2})
+else
+    wo:shuffleOxyd({"grp0#*", max=0}, {"grp1#*", max=0}, {"grp2#*", max=0}, {"grp3#*", max=0},
+                   {no["grp0#*"] + no["grp3#*"], max=2}, {no["grp1#*"] + no["grp2#*"], max=2})
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

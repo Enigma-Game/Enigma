@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Venice I" el:subtitle="" el:id="raoul16"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:57"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_water"}
+ti["-"] = {"fl_concrete"}
+ti["G"] = ti["-"] .. {"st-glass"}
+ti["O"] = {"st_oxyd"}
+ti["r"] = ti["G"] .. {"it_ring"}
+ti["y"] = ti["G"] .. {"it_yinyang"}
+ti["1"] = ti["-"] .. ti({"it_cherry"}) .. {"#ac_marble_black"}
+ti["2"] = ti["-"] .. ti({"it_cherry"}) .. {"#ac_marble_white"}
+
+local col = math.random(0,1)
+ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=col}
+ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=1-col}
+
+wo(ti, " ",
+   {"                    ",
+    "  GOG GOG  GOG GrG  ",
+    "  O-WWW-SSSS-WWW1y  ",
+    "  GSG GWG  GSG GWG  ",
+    "   S   W    S   W   ",
+    "  GSG GWG  GSG GWG  ",
+    "  O-SSS-WWWW-SSS-O  ",
+    "  GWG GSG  GWG GSG  ",
+    "   W   S    W   S   ",
+    "  GWG GSG  GWG GSG  ",
+    "  y2WWW-SSSS-WWW-O  ",
+    "  GrG GOG  GOG GOG  ",
+    "                    "})
+
+wo:shuffleOxyd()
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

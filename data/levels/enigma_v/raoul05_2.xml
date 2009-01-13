@@ -62,7 +62,7 @@ upper_maps = {
 
 -- simply invert upper_maps to create lower_maps:
 lower_maps = {}
-for _, map in pairs(upper_maps) do
+for i, map in pairs(upper_maps) do
     table.insert(lower_maps, {map[3], map[2], map[1]})
 end
 

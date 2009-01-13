@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="15" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -83,7 +83,7 @@
     <level _seq="75" _title="Switch-Switch" _xpath="enigma_iv/raywick02_2" author="Ray Wick" ctrl="force" easy="false" id="RayWick002" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="76" _title="Turbulence" _xpath="enigma_i/duffy24_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Shrinking Pits" _xpath="enigma_v/duffy23_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy23" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="78" _title="Run Like Hell" _xpath="enigma_iv/ralf09_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="78" _title="Run Like Hell" _xpath="enigma_iv/ralf09_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf09" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Be Faster!" _xpath="enigma_iv/martin98_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin98" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Teamwork" _xpath="enigma_iii/duffy25_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Lock Them In" _xpath="enigma_iii/duffy26_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy26" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -116,7 +116,7 @@
     <level _seq="108" _title="Hail Storm" _xpath="enigma_v/nat21_1" author="Nat Pryce" ctrl="force" easy="true" id="nat21" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="Hexagony" _xpath="enigma_iii/nat22_1" author="Nat Pryce" ctrl="force" easy="true" id="nat22" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="110" _title="Jumpin' Jack Flash" _xpath="enigma_v/ss10_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss10" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="111" _title="It Never Stops" _xpath="enigma_iv/duffy36_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy36" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="111" _title="It Never Stops" _xpath="enigma_iv/duffy36_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy36" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="112" _title="Fool the Warden" _xpath="enigma_iii/duffy37_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy37" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Drunk" _xpath="enigma_ii/duffy38_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy38" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="114" _title="Turnstile City" _xpath="enigma_v/duffy39_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy39" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -144,8 +144,8 @@
     <level _seq="136" _title="Mount Etna" _xpath="enigma_v/duffy61_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy61" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="137" _title="Rush Hour Traffic" _xpath="enigma_iii/duffy62_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy62" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Wildfire" _xpath="enigma_iv/duffy63_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy63" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Slinky Mayhem" _xpath="enigma_iii/duffy64_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy64" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="140" _title="Overwhelming" _xpath="enigma_iii/duffy65_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy65" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="Slinky Mayhem" _xpath="enigma_iii/duffy64_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy64" rel="2" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="140" _title="Overwhelming" _xpath="enigma_iii/duffy65_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy65" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="Tilt Control" _xpath="enigma_iii/duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="Anticipation" _xpath="enigma_v/duffy67_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy67" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="143" _title="What a Mess" _xpath="enigma_iv/duffy68_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy68" rel="2" rev="3" score="2" target="time" unit="duration"/>

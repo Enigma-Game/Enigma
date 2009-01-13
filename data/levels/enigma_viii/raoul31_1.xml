@@ -29,8 +29,8 @@ ti["#"] = {"st_panel", cluster = 1}
 ti["="] = {"st_panel", cluster = 2}
 ti["u"] = {"it_meditation_hill"}
 ti["o"] = {"it_meditation_hollow"}
-ti["0"] = ti["u"] .. {"#ac_pearl_white", name="a", player=0} 
-ti["O"] = ti["o"] .. {"#ac_pearl_white", "s#"} 
+ti["0"] = ti["u"] .. {"#ac_pearl_white", name="a"} 
+ti["O"] = ti["o"] .. {"#ac_pearl_white", "s#", owner=0} 
 ti["q"] = {"it_rubberband", anchor2="@@s#*", length=5, strength=10, max=5}
 
 w, h = wo(ti, " ", {

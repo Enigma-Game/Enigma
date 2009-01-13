@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Overwhelming" el:subtitle="" el:id="duffy65"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="stable"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_mortar"}
+ti["!"] = {"fl_abyss"}
+ti["."] = {"#ac_pearl"}
+ti["O"] = ti["."] .. {"it_meditation_hill", name="hill1#"}
+ti["0"] = ti["."] .. {"it_meditation_hill", name="hill2#"}
+ti["o"] = {"it_meditation_hollow"}
+ti["*"] = ti["."] .. {"it_meditation_hollow"}
+ti["v"] = {"it_wormhole", strength=4.0, destination="@hill1#*"}
+ti["w"] = {"it_wormhole", strength=4.0, destination="@hill2#*"}
+ti["#"] = {"st-greenbrown"}
+
+if wo["IsDifficult"] then
+    wo(ti, " ",{
+    "!###!###!###!###!",
+    "##o###o###o###o##",
+    "#oOw#v0v#wOw#v0o#",
+    "##w###v###w###v##",
+    "!###!###!###!###!",
+    "##v###w###v###w##",
+    "#*0v#wOw#v0v#wO*#",
+    "##v###w###v###w##",
+    "!###!###!###!###!",
+    "##w###v###w###v##",
+    "#oOw#v0v#wOw#v0o#",
+    "##o###o###o###o##",
+    "!###!###!###!###!"})
+else
+    wo(ti, " ",{
+    "!###!!!!###!!!!###!",
+    "##o##!!##o##!!##o##",
+    "#*Ow#!!#v0v#!!#wO*#",
+    "##w##!!##v##!!##w##",
+    "!###!!!!###!!!!###!",
+    "!!!!!!!!!!!!!!!!!!!",
+    "!###!!!!###!!!!###!",
+    "##v##!!##w##!!##v##",
+    "#*0v#!!#wOw#!!#v0*#",
+    "##o##!!##o##!!##o##",
+    "!###!!!!###!!!!###!"})
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

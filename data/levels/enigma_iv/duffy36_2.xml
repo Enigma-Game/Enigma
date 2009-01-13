@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="It Never Stops" el:subtitle="" el:id="duffy36"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["!"] = {"fl_abyss"}
+ti["#"] = {"st-greenbrown"}
+ti["*"] = {"st_stoneimpulse"}
+ti["o"] = {"st_stoneimpulse", hollow=true}
+ti["N"] = {"st_stoneimpulse_new", orientation=NORTH}
+ti["E"] = {"st_stoneimpulse_new", orientation=EAST}
+ti["W"] = {"st_stoneimpulse_new", orientation=WEST}
+ti["S"] = {"st_stoneimpulse_new", orientation=SOUTH}
+ti["n"] = {"st_stoneimpulse_new", orientation=NORTH, hollow=true}
+ti["e"] = {"st_stoneimpulse_new", orientation=EAST, hollow=true}
+ti["w"] = {"st_stoneimpulse_new", orientation=WEST, hollow=true}
+ti["s"] = {"st_stoneimpulse_new", orientation=SOUTH, hollow=true}
+ti["1"] = {"st_oxyd", "inner#"}
+ti["2"] = {"st_oxyd", "outer#"}
+ti["@"] = {"#ac_marble_black"}
+
+if wo["IsDifficult"] then
+    w, h = wo(ti, " ", {
+    "!###########!",
+    "##2       2##",
+    "#2         2#",
+    "#  E**e**S  #",
+    "#  *#1 1#*  #",
+    "#  *1   1*  #",
+    "#  n     s  #",
+    "#  *1   1*  #",
+    "#  *#1 1#*  #",
+    "#  N**w**W  #",
+    "#2         2#",
+    "##2   @   2##",
+    "!###########!"})
+    wo:shuffleOxyd({"inner#*", max=0}, {"outer#*", max=0})
+else
+    w, h = wo(ti, " ", {
+    "!###########!",
+    "##2       2##",
+    "#2         2#",
+    "#   **e**   #",
+    "#  E*1 1*S  #",
+    "#  *1   1*  #",
+    "#  o  @  o  #",
+    "#  *1   1*  #",
+    "#  N*1 1*W  #",
+    "#   **w**   #",
+    "#2         2#",
+    "##2       2##",
+    "!###########!"})
+    wo:shuffleOxyd({"inner#*", max=1}, {"outer#*", max=1})
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
