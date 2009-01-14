@@ -1440,7 +1440,7 @@ namespace
                 } else  if (model == "fl_ice") {
                     SetItem (p, MakeItem("it_crack_s"));
                 } else {
-                    SetItem (p, MakeItem("it-cross"));
+                    SetItem (p, MakeItem("it_cross"));
                 }
                 return ITEM_KILL;
             }

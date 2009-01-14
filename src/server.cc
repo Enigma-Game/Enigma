@@ -83,6 +83,7 @@ bool     server::AllowSingleOxyds;
 bool     server::AllowTogglePlayer;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
+bool     server::IsDifficult;               // read only for Lua
 bool     server::IsLevelRestart;            // no Lua access
 bool     server::ProvideExtralifes;
 bool     server::SurviveFinish;
@@ -245,7 +246,7 @@ bool server::NetworkStart()
 void server::PrepareLevel()
 {
     state = sv_waiting_for_clients;
-
+    
     server::NoCollisions = false;
     server::WorldInitialized  = false;
     server::LevelTime         = 0.0;
@@ -290,6 +291,7 @@ void server::PrepareLevel()
 }
 
 void server::PrepareLua() {
+    server::IsDifficult = (GetDifficulty() == DIFFICULTY_HARD);
     // Restart the Lua environment so symbol definitions from
     // different levels do not get in each other's way.
     int api = (server::EnigmaCompatibility < 1.10) ? 1 : 2;
@@ -636,7 +638,7 @@ enigma::Difficulty server::GetDifficulty()
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
-    int i= app.state->getInt ("Difficulty");
+    int i= app.state->getInt("Difficulty");
     if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasymode())
         return DIFFICULTY_EASY;
     else

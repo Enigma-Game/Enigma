@@ -3069,6 +3069,40 @@ static int sortGroup(lua_State *L) {
     return pushNewGroup(L, newSort);
 }
 
+static int nearestGroup(lua_State *L) {
+    // group
+    if (lua_gettop(L) < 1 || !is_group(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;
+    }
+    if (!(lua_gettop(L) == 2 && is_object(L, 2))) {
+        throwLuaError(L, "Syntax error: expected object reference as first argument");
+        return 0;
+    }
+
+    ObjectList oldList = toObjectList(L, 1);
+    Object *center = to_object(L, 2);
+    double mindist = -1;
+    Object *candidate = NULL;
+    
+    for (ObjectList::iterator itr = oldList.begin(); itr != oldList.end(); ++itr) {
+        if (mindist < 0) {
+            candidate = *itr;
+            mindist = center->squareDistance(candidate);
+        } else {
+            double newdist = center->squareDistance(*itr);
+            
+            // replace last candidate by new closer object, choose a unique candidate
+            if (mindist > newdist || ((mindist == newdist) && (*itr)->isSouthOrEastOf(candidate))) {
+                candidate = *itr;
+                mindist = newdist;
+            }
+        }
+    }
+    pushobject(L, candidate);
+    return 1;
+}
+
 MethodMap polistMethodeMap;
 
 static int dispatchPolistWriteAccess(lua_State *L) {
@@ -3324,6 +3358,7 @@ static CFunction groupMethods[] = {
     {shuffleGroup,                  "shuffle"},
     {sortGroup,                     "sort"},
     {subGroup,                      "sub"},
+    {nearestGroup,                  "nearest"},
     {0,0}
 };
 

@@ -63,7 +63,7 @@ namespace enigma {
         } else if (key == "Height") {
             return Height();
         } else if (key == "IsDifficult") {
-            return (server::GetDifficulty() == DIFFICULTY_HARD);  // read only
+            return server::IsDifficult;  // read only
         } else if (key == "LevelTime") {   
             return server::LevelTime;    // read only
         } else if (key == "ProvideExtralifes") {
