@@ -135,21 +135,21 @@ const char *oxyd::oxydextra_stone_map[256] = {
     0, 0, 0, 0, 0, 0, 0, 0,     // oxyd stones
     "st_fake_quake",     // OxydExtra stone 0x11
     "st-plain",          // OxydExtra stone 0x12
-    "st-rock4",          // OxydExtra stone 0x13
+    "st_purplemarble",   // OxydExtra stone 0x13
     UNUSED,              // OxydExtra stone 0x14
-    "st-rock5",          // OxydExtra stone 0x15
+    "st_tigris",         // OxydExtra stone 0x15
     "st-rock7",          // OxydExtra stone 0x16
     UNUSED,              // OxydExtra stone 0x17
     "st-grate1",         // OxydExtra stone 0x18
     UNUSED,              // OxydExtra stone 0x19
     UNUSED,              // OxydExtra stone 0x1a
     UNUSED,              // OxydExtra stone 0x1b
-    "st-marble",         // OxydExtra stone 0x1c
+    "st_redbrown",       // OxydExtra stone 0x1c
     UNUSED,              // OxydExtra stone 0x1d
     UNUSED,              // OxydExtra stone 0x1e
-    "st-rock5",          // OxydExtra stone 0x1f
-    "st-stone2",         // OxydExtra stone 0x20
-    "st-rock7",          // OxydExtra stone 0x21
+    "st_tigris",         // OxydExtra stone 0x1f
+    "st_redmarble",      // OxydExtra stone 0x20
+    "st_greengray",      // OxydExtra stone 0x21
     "st-glass1",         // OxydExtra stone 0x22
     UNUSED,              // OxydExtra stone 0x23
     "st-plain_break",    // OxydExtra stone 0x24
@@ -234,7 +234,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st_door_d",         // OxydExtra stone 0x73
     "st_door_d_ew",      // OxydExtra stone 0x74
     UNUSED,              // OxydExtra stone 0x75
-    "st-invisible",      // OxydExtra stone 0x76
+    "st_invisible",      // OxydExtra stone 0x76
     UNUSED,              // OxydExtra stone 0x77
     UNUSED,              // OxydExtra stone 0x78
     UNUSED,              // OxydExtra stone 0x79
@@ -255,7 +255,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x88
     UNUSED,              // OxydExtra stone 0x89
     "st_bluesand",       // OxydExtra stone 0x8a
-    "st-bluegray",       // OxydExtra stone 0x8b
+    "st_bluegray",       // OxydExtra stone 0x8b
     UNUSED,              // OxydExtra stone 0x8c
     UNUSED,              // OxydExtra stone 0x8d
     UNUSED,              // OxydExtra stone 0x8e

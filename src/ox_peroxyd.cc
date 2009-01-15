@@ -207,25 +207,25 @@ const char *oxyd::peroxyd_stone_map[256] = {
     0,0,0,0,0,0,0,0,            // PerOxyd stone 0x08 - 0x10   oxyd stones
     "st_fake_oxydc",             // PerOxyd stone 0x11
     "st-plain_break",           // PerOxyd stone 0x12   no, should be destructible with hammer
-    "st-rock4",                 // PerOxyd stone 0x13
+    "st_purplemarble",          // PerOxyd stone 0x13
     "st-beads",                 // PerOxyd stone 0x14
-    "st-rock5",                 // PerOxyd stone 0x15
-    "st-rock7",                 // PerOxyd stone 0x16
+    "st_tigris",                // PerOxyd stone 0x15
+    "st_greengray",             // PerOxyd stone 0x16
     "st-white1",                // PerOxyd stone 0x17 (Looks a little bit different, but function should be the same.)
     "st-grate1",                // PerOxyd stone 0x18
     UNUSED,                     // PerOxyd stone 0x19
     "st-surprise",              // PerOxyd stone 0x1a
     "st-chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
     "st-brick_magic",           // PerOxyd stone 0x1c
-    "st-camouflage",            // PerOxyd stone 0x1d (green camouflage piece)(if st-camouflage is implemented, put it in here)
-    "st-camouflage",            // PerOxyd stone 0x1e (green camouflage piece)
+    "st_camouflage",            // PerOxyd stone 0x1d (green camouflage piece)(if st-camouflage is implemented, put it in here)
+    "st_camouflage",            // PerOxyd stone 0x1e (green camouflage piece)
     UNUSED,                     // PerOxyd stone 0x1f
-    "st-stone2",                // PerOxyd stone 0x20
+    "st_redmarble",             // PerOxyd stone 0x20
     "st-greenbrown",            // PerOxyd stone 0x21
     "st-glass",                 // PerOxyd stone 0x22 (semi opaque piece, not really glass)
     "st-glass",                 // PerOxyd stone 0x23 (must be st-glass, see link level 92)
     "st-plain_break",           // PerOxyd stone 0x24
-    "st-bluegray_hole",         // PerOxyd stone 0x25
+    "st_bluegray_hollow",       // PerOxyd stone 0x25
     "st-plain_move",            // PerOxyd stone 0x26
     "st_box_wood",              // PerOxyd stone 0x27
     "st_switch_instant",        // PerOxyd stone 0x28
@@ -305,13 +305,13 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_mail_s",                // PerOxyd stone 0x72
     "st_door_d",                // PerOxyd stone 0x73
     "st_door_d_ew",             // PerOxyd stone 0x74
-    "st-metal",                 // PerOxyd stone 0x75
+    "st_metal",                 // PerOxyd stone 0x75
     "st-stonebrush",            // PerOxyd stone 0x76
     "st_door_d_open",           // PerOxyd stone 0x77
     "st_door_d_ew_open",        // PerOxyd stone 0x78
     "st_passage_white_square",  // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)
     "st_passage_black_square",  // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
-    "st-metal_hole",            // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
+    "st_metal_hollow",          // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
     "st-yinyang3",              // PerOxyd stone 0x7d
     "st-break_acwhite",         // PerOxyd stone 0x7e
@@ -323,16 +323,16 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_boulder_s",             // PerOxyd stone 0x84
     "st_boulder_w",             // PerOxyd stone 0x85
     "st_boulder_e",             // PerOxyd stone 0x86
-    "st-rock5",                 // PerOxyd stone 0x87
+    "st_tigris",                // PerOxyd stone 0x87
     UNUSED,                     // PerOxyd stone 0x88
     UNUSED,                     // PerOxyd stone 0x89
-    "st-rock6",                 // PerOxyd stone 0x8a
+    "st_purplegray",            // PerOxyd stone 0x8a
     "st_bluesand",              // PerOxyd stone 0x8b
-    "st-rock1",                 // PerOxyd stone 0x8c
-    "st-rock2",                 // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...; only link level 92)
-    "st-rock2",                 // PerOxyd stone 0x8e
+    "st_granite",               // PerOxyd stone 0x8c
+    "st_darkgray",              // PerOxyd stone 0x8d (simple border stone, not exactly st-rock2 ...; only link level 92)
+    "st_darkgray",              // PerOxyd stone 0x8e
     UNUSED,                     // PerOxyd stone 0x8f
-    "st-rock8",                 // PerOxyd stone 0x90
+    "st_concrete",              // PerOxyd stone 0x90
     "st_rotator_ccw_movable",   // PerOxyd stone 0x91
     "st_rotator_cw_movable",    // PerOxyd stone 0x92
     "st_swap",                  // PerOxyd stone 0x93
@@ -343,8 +343,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-grate3",                // PerOxyd stone 0x98
     "st_blocker",               // PerOxyd stone 0x99
     "st-grate1",                // PerOxyd stone 0x9a
-    "st-metal_hole",            // PerOxyd stone 0x9b
-    "st-stone1",                // PerOxyd stone 0x9c
+    "st_metal_hollow",          // PerOxyd stone 0x9b
+    "st_brownpyramide",         // PerOxyd stone 0x9c
     "st_quake",                 // PerOxyd stone 0x9d
     "st_turnstile_red",         // PerOxyd stone 0x9e
     "st_turnstilearm_n",        // PerOxyd stone 0x9f

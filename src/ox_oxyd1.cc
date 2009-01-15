@@ -180,11 +180,11 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-surprise",              // Oxyd1 stone 0x1d
     "st-chameleon",             // Oxyd1 stone 0x1e
     "st_brick",                 // Oxyd1 stone 0x1f
-    "st-rock1",                 // Oxyd1 stone 0x20
-    "st-rock1",                 // Oxyd1 stone 0x21
+    "st_granite",               // Oxyd1 stone 0x20
+    "st_granite",               // Oxyd1 stone 0x21
     UNUSED,                     // Oxyd1 stone 0x22
-    "st-woven",                 // Oxyd1 stone 0x23
-    "st-marble",                // Oxyd1 stone 0x24
+    "st_woven",                 // Oxyd1 stone 0x23
+    "st_redbrown",              // Oxyd1 stone 0x24
     "st-glass1",                // Oxyd1 stone 0x25
     "st-glass3",                // Oxyd1 stone 0x26
     "st-glass2",                // Oxyd1 stone 0x27
@@ -246,7 +246,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_puzzle_yellow_w",       // Oxyd1 stone 0x5f
     "st_puzzle_yellow_e",       // Oxyd1 stone 0x60
     "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
-    "st-metal_hole",            // Oxyd1 stone 0x62
+    "st_metal_hollow",          // Oxyd1 stone 0x62
     "st-laserbreak",            // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65
@@ -265,8 +265,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_mail_s",                // Oxyd1 stone 0x72
     "st_door_d",                // Oxyd1 stone 0x73
     "st_door_d_ew",             // Oxyd1 stone 0x74
-    "st-metal",                 // Oxyd1 stone 0x75
-    "st-invisible",             // Oxyd1 stone 0x76
+    "st_metal",                 // Oxyd1 stone 0x75
+    "st_invisible",             // Oxyd1 stone 0x76
     "st_door_d_open",           // Oxyd1 stone 0x77
     "st_door_d_ew_open",        // Oxyd1 stone 0x78
     UNUSED,                     // Oxyd1 stone 0x79
@@ -282,11 +282,11 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x83
     UNUSED,                     // Oxyd1 stone 0x84
     UNUSED,                     // Oxyd1 stone 0x85
-    "st-metal_hole",            // Oxyd1 stone 0x86
-    "st-rock2",                 // Oxyd1 stone 0x87
+    "st_metal_hollow",          // Oxyd1 stone 0x86
+    "st_darkgray",              // Oxyd1 stone 0x87
     UNUSED,                     // Oxyd1 stone 0x88
     UNUSED,                     // Oxyd1 stone 0x89
-    "st-stone1",                // Oxyd1 stone 0x8a
+    "st_brownpyramide",         // Oxyd1 stone 0x8a
     "st_bluesand",              // Oxyd1 stone 0x8b
     "st_passage_white_square",  // Oxyd1 stone 0x8c
     "st_passage_black_square",  // Oxyd1 stone 0x8d

@@ -89,6 +89,7 @@ namespace enigma {
         st_rubberband,
         st_scissors,
         st_shogun,
+        st_standard,
         st_stoneimpulse,
         st_stoneimpulse_steady,
         st_stoneimpulse_hollow,

@@ -330,6 +330,8 @@ enigma_SOURCES = 		\
 	stones/ShogunStone.hh	\
 	stones/SimpleStones.cc	\
 	stones/SimpleStones.hh	\
+	stones/StandardStones.cc	\
+	stones/StandardStones.hh	\
 	stones/StoneImpulse.cc	\
 	stones/StoneImpulse.hh	\
 	stones/SwapStone.cc	\

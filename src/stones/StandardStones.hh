@@ -1,6 +1,5 @@
 /*
- * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef QUAKESTONE_HH
-#define QUAKESTONE_HH
+#ifndef STANDARDSTONE_HH
+#define STANDARDSTONE_HH
 
 #include "stones.hh"
 
@@ -29,41 +28,44 @@ namespace enigma {
     /** 
      * 
      */
-    class QuakeStone : public Stone {
-        CLONEOBJ(QuakeStone);
-        DECL_TRAITS;
+    class StandardStone : public Stone {
+        CLONEOBJ(StandardStone);
+        DECL_TRAITS_ARRAY(25, traitsIdx());
     private:
         enum iState {
-            IDLE,           ///< 
-            ACTIVE,         ///< 
-            BREAKING,       ///< 
-            ACTIVEBREAKING  ///< active state with a pending breaking 
+            GRANITE,         ///< 
+            ACTIVEBREAKING  ///< 
+        };
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_MOVABLE  =   1<<24,    ///<  
+            OBJBIT_HOLLOW   =   1<<25,    ///< 
+            OBJBIT_GLASSES  =   1<<26,    ///< invisible due to glasses
+            OBJBIT_CLOTH    =   1<<27     ///< collision sound cloth instead of standard stone
         };
         
     public:
-        QuakeStone();
+        StandardStone(int type, bool hollow, bool movable, bool cloth = false);
         
         // Object interface
         virtual std::string getClass() const;        
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         
         // StateObject interface
-        virtual int maxState() const;
-        virtual int externalState() const;
+//        virtual int maxState() const;
+//        virtual int externalState() const;
         virtual void setState(int extState);
 
         // GridObject interface
         virtual void init_model();
-        virtual void processLight(Direction d);
-        
-        // ModelCallback interface
-        virtual void animcb();
         
         // Stone interface
-        virtual void actor_hit(const StoneContact &sc);
+        virtual bool is_floating() const;
+        virtual StoneResponse collision_response(const StoneContact &sc);
+        virtual const char *collision_sound();
 
     private:
-        void fart();
+        int traitsIdx() const;
     };
 
 } // namespace enigma
