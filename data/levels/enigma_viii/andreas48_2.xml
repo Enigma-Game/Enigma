@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="11" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="12" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,13 +31,13 @@ spot_constants = {SPOT_DEATH,
                   SPOT_HOLLOW}
 
 designs =
-  {{"fl_samba",     "fl_water", "st-bluegray",   "st-bluegray_hole",   OXYD_CYAN},
-   {"fl_rock",      "fl_abyss", "st-camouflage", "st-camouflage_hole", OXYD_GREEN},
+  {{"fl_samba",     "fl_water", "st_bluegray",   "st_bluegray_hollow",   OXYD_CYAN},
+   {"fl_rock",      "fl_abyss", "st_camouflage", "st_camouflage_hollow", OXYD_GREEN},
    {"fl_sahara",    "fl_abyss", "st-greenbrown", "st-greenbrown_hole", OXYD_YELLOW},
-   {"fl_dark",     "fl_water", "st-marble",     "st-marble_hole",     OXYD_PURPLE},
-   {"fl_bluegreen", "fl_abyss", "st-metal",      "st-metal_hole",      OXYD_BLUE},
-   {"fl_brick",     "fl_water", "st-rock1",      "st-rock1_hole",      OXYD_RED},
-   {"fl_gravel",    "fl_abyss", "st-rock2",      "st-rock2_hole",      OXYD_BLACK},
+   {"fl_dark",     "fl_water", "st_redbrown",     "st_redbrown_hollow",     OXYD_PURPLE},
+   {"fl_bluegreen", "fl_abyss", "st_metal",      "st_metal_hollow",      OXYD_BLUE},
+   {"fl_brick",     "fl_water", "st_granite",      "st_granite_hollow",      OXYD_RED},
+   {"fl_gravel",    "fl_abyss", "st_darkgray",      "st_darkgray_hollow",      OXYD_BLACK},
    {"fl_metal",     "fl_water", "st-rock3",      "st-rock3_hole",      OXYD_WHITE}}
 
 vortex_goals = {}

@@ -401,6 +401,7 @@ RenamingObjectsNew2Old = {
     st_redbrown_hollow = "st-marble_hole",
     st_redbrown_movable = "st-marble_move",
     st_redmarble = "st-stone2",
+    st_redrock = "st-redrock",
     st_rotator_cw = "st-rotator-right",
     st_rotator_ccw = "st-rotator-left",
     st_rotator_cw_movable = "st-rotator_move-right",

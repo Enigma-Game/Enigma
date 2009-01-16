@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="More Microwire" el:subtitle="" el:id="20080717ral282"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,9 +19,9 @@ ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_samba", friction=7, adhesion=1.8}
 ti["*"] = ti[" "] ..{"st-beads"}
 ti["#"] = {"fl_samba"}
-ti["1"] = {"it_trigger", target="bridgeA"} .. ti{"st-brownie", "brownie1"}
-ti["2"] = {"it_trigger", target="bridgeB"} .. ti{"st-brownie", "brownie2"}
-ti["3"] = {"it_trigger", target="bridgeC"} .. ti{"st-brownie", "brownie3"}
+ti["1"] = {"it_trigger", target="bridgeA"} .. ti{"st_brownie", "brownie1"}
+ti["2"] = {"it_trigger", target="bridgeB"} .. ti{"st_brownie", "brownie2"}
+ti["3"] = {"it_trigger", target="bridgeC"} .. ti{"st_brownie", "brownie3"}
 ti["4"] = {"it_trigger", target="bridgeD"} .. ti{"#ac_marble"}
 ti["5"] = {"it_trigger", target="bridgeE"} 
 ti["6"] = {"it_trigger", target="bridgeF"} 

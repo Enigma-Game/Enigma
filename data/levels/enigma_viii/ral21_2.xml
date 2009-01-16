@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 141 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 142 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -211,19 +211,19 @@ ti["G#"] = ti[";;"] .. {"st-glass1"}
 ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
 ti["MW"] = ti["''"] .. {"st_box"}
 ti["M:"] = ti["::"] .. {"st_box"}
-ti["MB"] = ti["c'"] .. {"st-brownie"}
-ti["M."] = ti[".."] .. {"st-brownie"}
+ti["MB"] = ti["c'"] .. {"st_brownie"}
+ti["M."] = ti[".."] .. {"st_brownie"}
 ti["W."] = ti[".."] .. {"st-break_acwhite"}
 ti["S."] = ti[".."] .. {"st-break_acblack"}
-ti["R0"] = ti["  "] .. {"st-rock5"}
-ti["R1"] = ti["::"] .. {"st-rock1"}
-ti["R6"] = ti["::"] .. {"st-rock1_move"}
-ti["R2"] = ti["  "] .. {"st-rock1"}
-ti["R4"] = ti["^^"] .. {"st-rock1"}
-ti["R5"] = ti[".."] .. {"st-rock1"}
-ti["Rp"] = ti[".."] .. {"st-rock1_hole"}
-ti["Rh"] = ti["  "] .. {"st-rock1_hole"}
-ti["Rm"] = ti["::"] .. {"st-rock1_move"}
+ti["R0"] = ti["  "] .. {"st_tigris"}
+ti["R1"] = ti["::"] .. {"st_granite"}
+ti["R6"] = ti["::"] .. {"st_granite_movable"}
+ti["R2"] = ti["  "] .. {"st_granite"}
+ti["R4"] = ti["^^"] .. {"st_granite"}
+ti["R5"] = ti[".."] .. {"st_granite"}
+ti["Rp"] = ti[".."] .. {"st_granite_hollow"}
+ti["Rh"] = ti["  "] .. {"st_granite_hollow"}
+ti["Rm"] = ti["::"] .. {"st_granite_movable"}
 ti["R3"] = ti["  "] .. {"st-rock3"}
 ti["RH"] = ti["  "] .. {"st-rock3_hole"}
 ti["RP"] = ti["  "] .. {"st_panel"}
@@ -318,7 +318,7 @@ ti["D5"] = ti["::"] .. {"st_door_c", "door5#"}
 ti["D7"] = ti[".."] .. {"st_door_a", "door7"}
 ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
 ti["_C"] = ti["__"] .. {"st-chameleon"}
-ti["_T"] = ti["__"] .. {"st-invisible"} .. ti({"#ac_horse"})
+ti["_T"] = ti["__"] .. {"st_invisible"} .. ti({"#ac_horse"})
 
 ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=0, controllers=1} .. ti({"it_extralife"})
 ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, owner=1, controllers=2}
@@ -557,7 +557,7 @@ function escape()
     end
     local y = no["escape_pos"].y + 1
     if (no["rotor"].y ~= y) or (no["top"].y ~= y) or (no["killer"].y ~= y) then
-        wo[no["escape_close#*"]] = {"st-metal"}
+        wo[no["escape_close#*"]] = {"st_metal"}
     end
 end
 

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="23" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ end
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_dark"}
-ti["#"] = {"st-rock1"}
+ti["#"] = {"st_granite"}
 ti["W"] = {"st_box_wood_v"}
 ti["w"] = ti["."] .. ti["W"]
 ti["q"] = ti["w"] .. {"it_extralife"}
@@ -246,16 +246,16 @@ end
 
 function sensorEasyWhite01()
     color = "white"
-    wo[{18,18}] = {"st-rock1"}
+    wo[{18,18}] = {"st_granite"}
     wo[{19,18}] = {"fl_abyss"}
-    wo[{20,18}] = {"st-rock1"}
+    wo[{20,18}] = {"st_granite"}
     wo:drawMap(ti, po(38, 0), easyCenterWhiteMap)
 end
 
 function sensorEasyBlack01()
-    wo[{18,18}] = {"st-rock1"}
+    wo[{18,18}] = {"st_granite"}
     wo[{19,18}] = ti["J"] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
-    wo[{20,18}] = {"st-rock1"}
+    wo[{20,18}] = {"st_granite"}
     wo[{94,6}] = {"it_nil"}    -- remove wormhole
     wo:drawMap(ti, po(38, 0), easyCenterBlackMap)
 end

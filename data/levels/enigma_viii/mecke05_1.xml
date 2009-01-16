@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:34$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:35$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -82,7 +82,7 @@ ti["ee"] = ti["  "] .. {"it_extralife"}
 ti["F "] = ti["B "] .. {"it_cherry"}
 ti["+ "] = ti["~ "] .. {"st_actorimpulse"}
 ti[": "] = ti["~ "] .. {"it_cherry","Tollkirsche#"}
-ti["# "] = {"st-rock1"}
+ti["# "] = {"st_granite"}
 ti["##"] = {"st_death"}
 ti["f "] = {"it_magicwand"}
 ti["g "] = {"it_wrench"}

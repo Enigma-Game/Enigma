@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 26 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 27 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,27 +39,27 @@ ti["' "] =  ti[" O"] .. {"it_strip_ns"}
 ti["z "] = {"st-grate2"}
 ti["u "] = {"st_stoneimpulse_hollow"}
 ti["o "] = {"st_stoneimpulse"}
-ti["+ "] = {"st-bumps"}
-ti[", "] = {"st-rock6"}
-ti["- "] = {"st-rock7"}
-ti[". "] = {"st-rock8"}
+ti["+ "] = {"st_pinkbumps"}
+ti[", "] = {"st_purplegray"}
+ti["- "] = {"st_greengray"}
+ti[". "] = {"st_concrete"}
 ti["# "] = {"st-greenbrown"}
-ti["0 "] = {"st-brownie"}
-ti["1 "] = {"st-marble"}
+ti["0 "] = {"st_brownie"}
+ti["1 "] = {"st_redbrown"}
 ti["2 "] = {"st-greenbrown-growing"}
 ti["3 "] = {"st-blocker-growing"}
 ti["4 "] = {"st-glass2_hole"}
-ti["5 "] = {"st-stone1"}
-ti["6 "] = {"st-metal"}
-ti["7 "] = {"st-yellow"}
+ti["5 "] = {"st_brownpyramide"}
+ti["6 "] = {"st_metal"}
+ti["7 "] = {"st_yellow"}
 ti["8 "] = {"st-beads"}
-ti["9 "] = {"st-camouflage"}
+ti["9 "] = {"st_camouflage"}
 ti["SB"] = {"st_passage_black_frame"}
 ti["SP"] = {"st_chess_black"}
 ti["SW"] = {"st_chess_white"}
 ti["ZZ"] = ti[" ."] .. {"st-stone_break"}
 ti[" ;"] = {"fl_swamp"}
-ti["R "] = {"st-redrock"}
+ti["R "] = {"st_redrock"}
 ti[" j"] = {"it_crack_m"}
 ti["&&"] = ti[" &"] .. {"it_crack_m"}
 ti[" z"] = ti[" ."] .. {"st_stoneimpulse_hollow"}
@@ -112,7 +112,7 @@ ti["U2"] = ti[" ,"] .. {"st_passage_black_frame"}
 ti["U3"] = ti[" ,"] .. {"st_oneway",state=SOUTH,color=BLACK}
 ti["U4"] = ti[" ,"] .. {"st_oneway",state=NORTH,color=BLACK}
 ti["P "] = ti[" ."] .. {"it_vortex_open"}
-ti["h "] = {"st-bluegray_hole"}
+ti["h "] = {"st_bluegray_hollow"}
 ti["A "] = {"st_brake"}
 ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
@@ -187,7 +187,7 @@ ti[":9"] = {"st_door",faces="ns",name="trixi"}
 ti["PL"] = ti["  "] .. {"st_laser_s", name="laser", state=OFF}
 ti["PM"] = ti["  "] .. {"st_mirror", movable=true, transparent=true, orientation=2}
 ti["PP"] = {"st_bluesand"}
-ti["PQ"] = {"st-brownie"}
+ti["PQ"] = {"st_brownie"}
 ti["PR"] = {"st_lightpassenger_off"}
 ti["PT"] = {"st_bluesand", cluster=2}
 ti["PW"] = {"st_flash"}
@@ -294,7 +294,7 @@ function hux()
 end
 
 function stone(value, sender)
-    wo[{25, 33}] = {"st-redrock"}
+    wo[{25, 33}] = {"st_redrock"}
     wo[{27, 33}] = {"st_panel"}
 end
 
@@ -310,7 +310,7 @@ end
 
 function earth(value, sender)
     wo[{25, 33}] = {"st_oneway",color=BLACK,state=SOUTH}
-    wo[{27, 33}] = {"st-brownie"}
+    wo[{27, 33}] = {"st_brownie"}
 end
 
 wo:shuffleOxyd()

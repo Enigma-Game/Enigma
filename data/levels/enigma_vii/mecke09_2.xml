@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 30 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,13 +18,13 @@ ti[" #"] = {"fl-gradient1"}
 ti[" $"] = {"fl_dunes"}
 ti[" %"] = {"fl_water"}
 ti["! "] = {"st_death"}
-ti["# "] = {"st-rock1"}
+ti["# "] = {"st_granite"}
 ti[" &"] = {"fl_metal_7", friction=4.0}
 ti["$ "] = {"st-thief"}
 ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st-stone_break"}
 ti["' "] = {"st-glass_move"}
-ti["( "] = {"st-bumps"}
+ti["( "] = {"st_pinkbumps"}
 ti[") "] = {"st-grate1"}
 ti["h "] = {"it_strip", connections="ew"}
 ti["* "] = {"st_brick"}
@@ -39,12 +39,12 @@ ti["/ "] = {"st_mirror_triangle", movable=true, transparent=false, orientation=S
 ti["0 "] = {"st_mirror", movable=true, transparent=true, orientation=WEST}
 ti[" !"] = {"fl_brick"}
 ti[" )"] = {"fl_red"}
-ti["1 "] = {"st-brownie"}
-ti["2 "] = {"st-rock4"}
+ti["1 "] = {"st_brownie"}
+ti["2 "] = {"st_purplemarble"}
 ti[" *"] = {"fl_plank"}
 ti["u "] = {"it_umbrella"}
 ti[" +"] = {"fl_aquamarine"}
-ti["3 "] = {"st-yellow"}
+ti["3 "] = {"st_yellow"}
 ti["4 "] = {"st_door", faces="ew"}
 ti["e "] = {"it_extralife"}
 ti["5 "] = {"st_door", faces="ns"}
@@ -71,7 +71,7 @@ ti["B "] = {"st_actorimpulse"}
 ti["C "] = {"st_rotator_ccw"}
 ti[" 0"] = {"fl_sand"}
 ti[" 1"] = {"fl_blueslab"}
-ti["D "] = {"st-rock1_hole"}
+ti["D "] = {"st_granite_hollow"}
 ti["E "] = {"st_stoneimpulse_hollow"}
 ti["F "] = {"st_stoneimpulse"}
 ti[" 2"] = {"fl_ivory"}
@@ -81,7 +81,7 @@ ti["i "] = {"it_coffee"}
 ti["G "] = {"st_actorimpulse_invisible"}
 ti["y "] = {"it_cherry"}
 ti[" 4"] = {"fl_lawn_c1"}
-ti["H "] = {"st-marble"}
+ti["H "] = {"st_redbrown"}
 ti[" 5"] = {"fl_lawn_e2"}
 ti["I "] = {"st_swap"}
 ti["z "] = {"it-flagwhite"}
@@ -93,7 +93,7 @@ ti["L "] = {"st-coffee"}
 ti["M "] = {"st_shogun_sml"}
 ti["N "] = {"st_door_a"}
 ti["m "] = {"it-springboard"}
-ti["O "] = {"st-rock6"}
+ti["O "] = {"st_purplegray"}
 ti["P "] = {"st-grate3"}
 ti["R "] = {"st-grate2"}
 ti[" 7"] = {"fl_space"}
@@ -102,7 +102,7 @@ ti[" 8"] = {"fl_bluegray"}
 ti["T "] = {"st_boulder_s"}
 ti[" 9"] = {"fl_hay"}
 ti["U "] = {"st-rock3_break"}
-ti["V "] = {"st-rock5"}
+ti["V "] = {"st_tigris"}
 ti["W "] = {"st_mirror", movable=true, transparent=false, orientation=SOUTH}
 ti["n "] = {"it-surprise"}
 ti["X "] = {"st_oneway_black_n"}

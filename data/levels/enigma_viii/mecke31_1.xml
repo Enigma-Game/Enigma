@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ ti["X'"] = ti[" '"] .. {"st-grate1"}
 ti["Xi"] = ti[" i"] .. {"st-grate1"}
 ti["Xb"] = ti[" b"] .. {"st-grate1"}
 ti["X&"] = ti[" &"] .. {"st-grate1"}
-ti["Th"] = ti[" i"] .. {"st-yellow"}
+ti["Th"] = ti[" i"] .. {"st_yellow"}
 ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
 ti["0~"] = ti[" ~"] .. {"st-coffee"}
@@ -55,7 +55,7 @@ ti["W&"] = ti[" &"] .. {"st_passage_white_frame"}
 ti["2*"] = ti[" *"] .. {"st-glass_move"}
 ti["2r"] = ti[" r"] .. {"st-glass_move"}
 ti["CW"] = ti[" w"] .. {"st_chess_black"}
-ti["S&"] = ti[" &"] .. {"st-rock1_hole"}
+ti["S&"] = ti[" &"] .. {"st_granite_hollow"}
 ti["FF"] = ti[" ~"] .. {"st_quake"}
 ti["dd"] = ti[" ~"] .. {"it_death"}
 ti["Tw"] = ti["dd"] .. {"st_disco_medium"}

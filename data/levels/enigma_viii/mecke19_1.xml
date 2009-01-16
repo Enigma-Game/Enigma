@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:11$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:12$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -19,21 +19,21 @@ wo["ConserveLevel"] = true
 
 ti[" &"] = {"fl_red"}
 ti[" !"] = {"fl_water"}
-ti["! "] = {"st-rock6"}
+ti["! "] = {"st_purplegray"}
 ti[" #"] = {"fl_metal_7"}
 ti[" $"] = {"fl_sahara"}
 ti["# "] = {"st_chess_white"}
 ti["s "] = {"it_squashed"}
 ti["hh"] = ti[" !"] .. {"st_pull"}
 ti["ef"] = ti[" &"] .. {"it_squashed"}
-ti["$ "] = {"st-rock1"}
+ti["$ "] = {"st_granite"}
 ti[" %"] = {"fl_sand"}
 ti["% "] = {"st_rotator_ccw"}
 ti["& "] = {"st_boulder_n"}
 ti["b "] = {"it_blocker"}
 ti[" '"] = {"fl_bluegray"}
 ti["' "] = {"st_oneway_white_e"}
-ti["( "] = {"st-yellow"}
+ti["( "] = {"st_yellow"}
 ti[") "] = {"st_scissors", name="df3"}
 ti["* "] = {"st_oneway_white_w"}
 ti[" ("] = {"fl-gradient11"}
@@ -89,13 +89,13 @@ if wo ["IsDifficult"] then
     ti["eo"] = ti["ef"] .. {"st_boulder_s"}
     ti["R "] = {"st_rubberband"}
     ti["Q "] = {"st_rubberband"}
-    ti["S "] = {"st-yellow"}
+    ti["S "] = {"st_yellow"}
 else
-    ti["ee"] = ti[" $"] .. {"st-yellow"}
+    ti["ee"] = ti[" $"] .. {"st_yellow"}
     ti["ex"] = ti["ef"] .. {"it_squashed"}
     ti["eo"] = ti["ef"] .. {"it_squashed"}
     ti["R "] = {"st-grate1"}
-    ti["Q "] = {"st-rock6"}
+    ti["Q "] = {"st_purplegray"}
     ti["S "] = {"st_scissors"}
 end
 

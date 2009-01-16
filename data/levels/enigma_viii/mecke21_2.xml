@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 39 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 40 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -23,12 +23,12 @@ else
     ti[" !"] = {"fl_red", friction=3.6}
 end
 
-ti["! "] = {"st-bumps"}
+ti["! "] = {"st_pinkbumps"}
 ti[" #"] = {"fl_metal_7"}
 ti["# "] = {"st_oneway_black_s"}
 ti["$ "] = {"st-grate1"}
 ti["% "] = {"st_oneway_black_n"}
-ti["& "] = {"st-camouflage"}
+ti["& "] = {"st_camouflage"}
 ti["gg"] = ti[" !"] .. {"it-springboard"}
 ti["' "] = {"st_boulder_w"}
 ti[" $"] = {"fl_space"}
@@ -88,7 +88,7 @@ ti["9 "] = {"st_death_invisible"}
 ti["q1"] = ti[" !"] .. {"it_coin_s"}
 ti[": "] = {"st-stone_break"}
 ti["; "] = {"st_fake_oxydd"}
-ti["= "] = {"st-bluegray_hole"}
+ti["= "] = {"st_bluegray_hollow"}
 ti["&d"] = ti[" &"] .. {"it_death"}
 ti["&b"] = ti[" !"] .. {"it_brush"}
 ti["> "] = {"st_stoneimpulse_hollow"}

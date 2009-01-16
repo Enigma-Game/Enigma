@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:73$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:74$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,11 +32,11 @@ ti["# "] = {"st_oneway_black_n"}
 ti["$ "] = {"st_stoneimpulse_steady"}
 ti[" %"] = {"fl_aquamarine"}
 ti[" ;"] = {"fl_lawn_d4"}
-ti["% "] = {"st-rock1"}
+ti["% "] = {"st_granite"}
 ti[" &"] = {"fl_samba"}
 ti["& "] = {"st_stoneimpulse_hollow"}
 ti[" '"] = {"fl_red"}
-ti["' "] = {"st-rock1_hole"}
+ti["' "] = {"st_granite_hollow"}
 ti[" e"] = {"fl_space"}
 ti[" *"] = {"fl_sand"}
 ti[" l"] = {"fl_lawn"}
@@ -72,8 +72,8 @@ ti["C "] = {"st_oneway_black_e"}
 ti["D "] = {"st_oneway_black_s"}
 ti["//"] = ti[" !"].. {"st_box_wood"}
 ti[" ."] = {"fl-gradient4"}
-ti["F "] = {"st-camouflage"}
-ti["f "] = {"st-camouflage_move"}
+ti["F "] = {"st_camouflage"}
+ti["f "] = {"st_camouflage_movable"}
 ti["G "] = {"st_boulder_s"}
 ti["BN"] = ti[" ;"].. {"st_boulder_n"}
 ti[" /"] = {"fl_inverse"}
@@ -100,7 +100,7 @@ ti["P "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["Q "] = ti[" l"] .. {"st_mirror_triangle",movable=true,transparent=true}
 ti["R "] = ti[" l"] .. {"st_mirror_slab",movable=false,transparent=false}
 ti["S "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
-ti["U "] = {"st-rock6"}
+ti["U "] = {"st_purplegray"}
 ti[" >"] = {"fl_gravel"}
 ti[" ?"] = {"fl_fake_abyss"}
 ti["W "] = {"st-break_invisible"}

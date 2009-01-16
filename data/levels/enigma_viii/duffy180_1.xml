@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="See Saw Meditation" el:subtitle="" el:id="duffy180"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,11 +20,11 @@ wo["ConserveLevel"] = false
 
 ti[" "] = {"fl_lawn"}
 ti["~"] = {"fl_water"}
-ti["#"] = {"st-rock5"}
+ti["#"] = {"st_tigris"}
 ti["g"] = {"st-grate1"}
 ti["P"] = {"st_pull"}
 ti["S"] = {"st_switch", target="med#*", action="flip"}
-ti["*"] = {"st-brownie"}
+ti["*"] = {"st_brownie"}
 ti["w"] = {"#ac_pearl_white", owner=0, essential=1 }
 
 if wo["IsDifficult"] then
@@ -38,20 +38,19 @@ else
 end
 
 w, h = wo(ti, " ", {
-"~~~~~~~~~~~~~~~~~~~~",
-"#########~~#########",
-"#       #~~#       #",
-"#       #~~#       #",
-"#       #~~#       #",
-"#     gg####gg     #",
-"S = h gw PP wg H * S",
-"#     gg####gg     #",
-"#       #~~#       #",
-"#       #~~#       #",
-"#       #~~#       #",
-"#########~~#########",
-"~~~~~~~~~~~~~~~~~~~~"
-})
+    "~~~~~~~~~~~~~~~~~~~~",
+    "#########~~#########",
+    "#       #~~#       #",
+    "#       #~~#       #",
+    "#       #~~#       #",
+    "#     gg####gg     #",
+    "S = h gw PP wg H * S",
+    "#     gg####gg     #",
+    "#       #~~#       #",
+    "#       #~~#       #",
+    "#       #~~#       #",
+    "#########~~#########",
+    "~~~~~~~~~~~~~~~~~~~~"})
 
 ]]></el:luamain>
     <el:i18n>

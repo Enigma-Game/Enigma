@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -46,7 +46,7 @@ ti["W "] = {"st_laser_n", name="laser3", state=OFF}
 ti["1 "] = {"st_passage_black_frame"}
 ti["D "] = {"st_death"}
 ti["L "] = ti[" _"] .. {"st_laser_s", name="laser", state=ON}
-ti["h "] = {"st-bluegray_hole"}
+ti["h "] = {"st_bluegray_hollow"}
 ti["A "] = ti[" ~"] .. {"st_actorimpulse"}
 ti["> "] = ti[" ~"] .. {"st_boulder_e"}
 ti["< "] = {"st_boulder_w"}
@@ -62,7 +62,7 @@ ti["e "] = {"it_extralife"}
 ti["o "] = {"it-springboard"}
 ti[" j"] = {"it_magicwand"}
 ti["S "] = ti[" n"] ..{"st_passage_white_frame"}
-ti["G "] = {"st-yellow"}
+ti["G "] = {"st_yellow"}
 ti["2 "] = {"st-brake"}
 ti["P "] = {"st_pull"}
 

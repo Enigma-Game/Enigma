@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Scarlet's Necklace" el:subtitle="Who did broke the pearl necklace?" el:id="20080814ral422"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,11 +24,11 @@ ti["="] = {"fl_bridge_bw", "bridge#"}
 ti["x"] = {"it_shogun_s", "x%%"}
 
 ti["A"] = {"st-block", "pearl#"}
-ti["B"] = {"st-brownie", "pearl#"}
-ti["C"] = {"st-marble_move", "pearl#"}
-ti["D"] = {"st-rock1_move", "pearl#"}
+ti["B"] = {"st_brownie", "pearl#"}
+ti["C"] = {"st_redbrown_movable", "pearl#"}
+ti["D"] = {"st_granite_movable", "pearl#"}
 ti["E"] = {"st-glass1_move", "pearl#"}
-ti["F"] = {"st-camouflage_move", "pearl#"}
+ti["F"] = {"st_camouflage_movable", "pearl#"}
 ti["G"] = {"st_box", "pearl#"}
 ti["H"] = {"st-glass_move", "pearl#"}
 ti["I"] = {"st-rock3_move", "pearl#"}
@@ -47,11 +47,11 @@ ti["d"] = {"it-document", text="story"}
 
 if wo["IsDifficult"] then
     ti["S"] = {"st_coinslot", target="check"}
-    ti["s"] = {"st-yellow"}
+    ti["s"] = {"st_yellow"}
     ti["c"] = {"it_coin_s"}
 else
     ti["S"] = {"st_switch", target="check"}
-    ti["s"] = {"st-rock1"}
+    ti["s"] = {"st_granite"}
     ti["c"] = ti[" "]
 end
 

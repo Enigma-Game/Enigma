@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Re-entry Circuit" el:subtitle="" el:id="pulley05"/>
-      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_pinkbumps"}
 ti["O"] = ti[" "] .. {"st_stoneimpulse"}
-ti["b"] = ti[" "] .. {"st-bumps"}
+ti["b"] = ti[" "] .. {"st_pinkbumps"}
 ti["l"] = ti[" "] .. {"st_stoneimpulse_new", orientation = SOUTH, hollow = true}
 ti["o"] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti["w"] = ti[" "] .. {"st_box_wood"}

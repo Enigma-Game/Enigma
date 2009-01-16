@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma VI"/>
 
   <attributes/>
 
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Dancing on Light Beams" _xpath="./andreas28_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Wormhole Madness!" _xpath="./edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Alcatraz" _xpath="./ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Oiltrace" _xpath="./raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Simple Space" _xpath="./ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
@@ -62,7 +62,7 @@
     <level _seq="54" _title="be quick or be dead" _xpath="./illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Puzzle Puzzles" _xpath="./raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Tarzan" _xpath="./ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Counterclockwise" _xpath="./ulf05_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="2" rev="96" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Counterclockwise" _xpath="./ulf05_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="2" rev="97" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Chess and Boxes" _xpath="./johannes01_1" author="Johannes Laire" ctrl="force" easy="false" id="20061201johannes313" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Walk the line" _xpath="./erich02_1" author="Erich Schubert" ctrl="force" easy="true" id="erich02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Jump into Meditation" _xpath="./ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>

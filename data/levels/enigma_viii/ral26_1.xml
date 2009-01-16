@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Wireban Premiere" el:subtitle="" el:id="20080715ral161"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,10 +17,10 @@ wo["ShowMoves"] = true
 
 ti[" "] = {"fl_platinum", friction=7, adhesion=1.8}
 ti["."] = {"fl_abyss"}
-ti["#"] = {"st-rock8"}
+ti["#"] = {"st_concrete"}
 ti["+"] = {"st-grate1"}
-ti["w"] = {"st-brownie", "wood1"}
-ti["W"] = {"st-brownie", "wood2"}
+ti["w"] = {"st_brownie", "wood1"}
+ti["W"] = {"st_brownie", "wood2"}
 ti["D"] = {"st_door_a", "door1"}
 ti["d"] = {"st_door_a", "door2"}
 ti["T"] = {"it_trigger", target="door1"}

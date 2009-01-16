@@ -3,7 +3,7 @@
   <el:protected>
      <el:info el:type="level">
        <el:identity el:title="Watchmaker" el:subtitle="Mend the clockwork" el:id="huesing01"/>
-       <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+       <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
        <el:author el:name="Johannes Hüsing" el:email="hannes@ruhrau.de" el:homepage="http://derwisch.wikidot.com"/>
        <el:copyright>Copyright © 2008 Johannes Hüsing </el:copyright>
        <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ ti["-"] = {"fl_metal_2"}
 ti["+"] = {"fl_metal_3"}
 ti["|"] = {"fl_metal_6"}
 ti["~"] = {"fl_water"}
-ti["#"] = {"st-metal"}
+ti["#"] = {"st_metal"}
 ti["W"] = ti["+"] .. {"st_box_wood"}
 ti["X"] = {"st_oxyd"}
 ti[":"] = {"st_door","door#", flavor="d", faces="ew"}
@@ -40,20 +40,19 @@ ti["D"] = ti["+"] .. {"it-document", text="text1"}
 ti["0"] = {"ac_marble_black", 0.0, 0.5}
 
 w, h = wo(ti, " ", {
-"####################",
-"#X : : : :A        #",
-"###########        #",
-"#                  #",
-"#   1-a-2  5-b-6   #",
-"#   |+++|  |+++|   #",
-"#   a+W+a 0b+W+b   #",
-"#   |+D+|  |+++|   #",
-"#   3-a-4  7-b-8   #",
-"#                  #",
-"#        ###########",
-"#        B: : : : X#",
-"####################"
-})
+    "####################",
+    "#X : : : :A        #",
+    "###########        #",
+    "#                  #",
+    "#   1-a-2  5-b-6   #",
+    "#   |+++|  |+++|   #",
+    "#   a+W+a 0b+W+b   #",
+    "#   |+D+|  |+++|   #",
+    "#   3-a-4  7-b-8   #",
+    "#                  #",
+    "#        ###########",
+    "#        B: : : : X#",
+    "####################"})
 
   ]]></el:luamain>
     <el:i18n>

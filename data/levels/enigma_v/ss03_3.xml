@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="10" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="11" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ ti["  "] = {"fl_rough"}
 ti[". "] = {"fl_rough", "destination5"}
 ti["+ "] = {"fl_rough", "destination6"}
 ti["~ "] = {"fl_water"}
-ti["# "] = {"st-rock1"}
+ti["# "] = {"st_granite"}
 ti["F "] = {"st_quake", "blocker"}
 ti["V "] = {"st_boulder", orientation=SOUTH}
 ti["> "] = {"st_boulder", "boulder3", orientation=EAST}
@@ -43,7 +43,7 @@ ti["Q "] = {"st-glass"}
 ti["G "] = {"st-glass1"}
 ti["g "] = {"st-glass1", "glass7"}
 ti["H "] = {"st-glass1_hole"}
-ti["= "] = {"st-rock1_move"}
+ti["= "] = {"st_granite_movable"}
 ti["S "] = {"st_switch", target="blocker", action="kill"}
 ti["O "] = {"st_oxyd", flavor="c"}
 ti["t "] = {"it_trigger"}

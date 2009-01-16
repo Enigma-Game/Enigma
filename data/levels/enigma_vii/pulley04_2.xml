@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="11" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,20 +15,20 @@
 ti[" "] = {"fl_sand"}
 ti["a"] = ti[" "] .. {"st_chess_white", name="Silver"} -- Silver (Lone Ranger's Horse)
 ti["b"] = ti[" "] .. {"st_passage_black_slash"}
-ti["c"] = ti[" "] .. {"st-marble"} -- MARBLE WALL
+ti["c"] = ti[" "] .. {"st_redbrown"} -- MARBLE WALL
 ti["d"] = ti[" "] .. {"st_actorimpulse"}
-ti["e"] = ti[" "] .. {"st-marble_hole"} -- MARBLE WALL (HOLLOW)
+ti["e"] = ti[" "] .. {"st_redbrown_hollow"} -- MARBLE WALL (HOLLOW)
 ti["f"] = {"fl_fake_abyss"} -- TOMB FLOOR
 ti["h"] = ti[" "] .. {"it_trigger", action="callback", target="Band1"} -- attaches rubber band from Lone Ranger to Silver
-ti["i"] = ti[" "] .. {"st-invisible"}
-ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORIMPULSE} .. ti({"st-marble_hole"})
+ti["i"] = ti[" "] .. {"st_invisible"}
+ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORIMPULSE} .. ti({"st_redbrown_hollow"})
 ti["k"] = ti[" "] .. {"it_trigger", action="callback", target="Band2"} -- attaches rubber band from Tonto to Tonto's Horse
 ti["l"] = {"fl_water"}
 ti["m"] = ti[" "] .. {"it_hammer"}
 ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st-chameleon"})
 ti["o"] = {"fl_sand", secure=true} .. ti({"it-burnable_oil"})
 ti["p"] = {"fl_swamp"}
-ti["q"] = ti[" "] .. {"st-redrock"} -- SUN RAY
+ti["q"] = ti[" "] .. {"st_redrock"} -- SUN RAY
 ti["r"] = {"fl_red"} -- SUN
 ti["s"] = ti[" "] .. {"st_scissors"}
 ti["t"] = ti[" "] .. {"st-thief"}
@@ -45,16 +45,16 @@ ti["E"] = ti[" "] .. {"st_oneway_white", state=NORTH}
 ti["F"] = ti[" "] .. {"st_oneway_white", state=SOUTH}
 ti["G"] = ti[" "] .. {"st_oneway_white", state=WEST}
 ti["H"] = ti[" "] .. {"st_oneway_white", state=EAST}
-ti["I"] = ti["f"] .. {"st-invisible"} --Invisible stone on black floor
+ti["I"] = ti["f"] .. {"st_invisible"} --Invisible stone on black floor
 ti["J"] = ti["y"] .. {"st_passage_black_slash"} --Black grill on blue floor
 ti["K"] = ti["y"] .. {"st-grate1"} --Grate on blue floor
 ti["L"] = ti[" "] .. {"it_landmine"}
 ti["M"] = ti[" "] .. {"it_spoon"}
 ti["N"] = ti[" "] .. {"it-dynamite"}
-ti["O"] = ti["y"] .. {"st-invisible"} --Invisible stone on blue floor
+ti["O"] = ti["y"] .. {"st_invisible"} --Invisible stone on blue floor
 ti["P"] = ti[" "] .. {"st_door_a", name="Door1"} -- Tonto's prison door
 ti["Q"] = ti[" "] .. {"#ac_rotor", range=10, gohome=0}
-ti["R"] = ti["r"] .. {"st-invisible"} --Invisible stone on red floor
+ti["R"] = ti["r"] .. {"st_invisible"} --Invisible stone on red floor
 ti["S"] = ti[" "] .. {"st_door_a", name="Door2"} -- Silver's prison door
 ti["T"] = ti["y"] .. {"st-thief"} --Thief on blue floor
 ti["U"] = ti[" "] .. {"it_crack_l"}
@@ -70,7 +70,7 @@ ti["+"] = ti["l"] .. {"st_box_wood"}
 ti["6"] = ti[" "] .. {"it-booze"}
 ti["!"] = ti[" "] .. {"it_key", code="1"}
 ti["@"] = ti[" "] .. {"it_key", code="2"}
-ti["#"] = ti[" "] .. {"st-camouflage"}
+ti["#"] = ti[" "] .. {"st_camouflage"}
 ti["$"] = ti[" "] .. {"st_box_wood"} .. ti({"it_yinyang"})
 ti["%"] = ti[" "] .. {"st_death_invisible"}
 ti["&"] = ti[" "] .. {"st_actorimpulse_invisible"}
@@ -165,7 +165,7 @@ wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard3", length=5, strength
 
 function Band1() -- attaches rubber band from Lone Ranger to Silver
     wo:add({"ot_rubberband", anchor1="Ranger", anchor2="Silver", length=3, strength=10, max=5, min=0})
-    wo[{94, 24}] = {"st-marble"}
+    wo[{94, 24}] = {"st_redbrown"}
 end
 
 function Band2() -- attaches rubber band from Tonto to Scout

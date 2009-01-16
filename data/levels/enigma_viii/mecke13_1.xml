@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 13 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,13 +27,13 @@ ti["="] = ti["~"] .. {"st_disco_light"}
 ti["/"] = ti["z"] .. {"st_disco_light"}
 ti["y"] = ti["a"] .. {"it_cherry"} .. ti({"st-glass1_hole"})
 ti["."] = ti["a"] .. {"it_cherry"}
-ti["H"] = {"st-bluegray_hole"}
+ti["H"] = {"st_bluegray_hollow"}
 ti["b"] = {"st_quake"}
 ti["s"] = {"st_window_s"}
 ti["w"] = {"st_window_w"}
 ti["e"] = {"st_window_e"}
 ti["E"] = {"st_window_n"}
-ti["P"] = {"st-bluegray"}
+ti["P"] = {"st_bluegray"}
 ti["p"] = ti["H"] .. {"it-spring1"}
 ti["Q"] = {"st-break_invisible"}
 ti["q"] = {"it-booze-broken"}
@@ -41,7 +41,7 @@ ti["i"] = {"it_sensor"}
 ti["t"] = {"it_meditation_bump"}
 ti["R"] = {"st_oneway_e"}
 ti["W"] = {"it_magicwand"}
-ti["T"] = {"st-yellow"}
+ti["T"] = {"st_yellow"}
 ti["!"] = {"it_death"}
 ti["d"] = {"it-document",text= "?"}
 ti["%"] = {"it_sword"}

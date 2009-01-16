@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Triple-Maze" el:subtitle="" el:id="duffy125"/>
-      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ ti["B"] = {"st_passage_black_square"}
 ti["W"] = {"st_passage_white_square"}
 ti["H"] = {"st-grate3"}
 ti["o"] = {"st_oxyd"}
-ti["*"] = {"st-brownie"}
+ti["*"] = {"st_brownie"}
 ti["x"] = {"it_yinyang"}
 ti["z"] = {"#ac_marble_black", "a1"} .. ti["x"]
 ti["y"] = {"#ac_marble_white", "a3"} .. ti["x"]
