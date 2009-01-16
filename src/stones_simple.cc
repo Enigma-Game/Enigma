@@ -731,7 +731,7 @@ namespace
                         set_model("st-likeoxydc-open");
                     }
                     else {
-                        set_model("st-rock4");
+                        set_model("st_purplemarble");
                     }
                 }
             }

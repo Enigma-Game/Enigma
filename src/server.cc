@@ -263,7 +263,7 @@ void server::PrepareLevel()
     server::FollowThreshold   = 0.5;
     server::ShowMoves         = false;
     server::Brittleness       = 0.5;
-    server::Fragility         = 0.5;
+    server::Fragility         = 1.0;
     server::CrackSpreading    = 0.5;
     server::SlopeForce        = 25.0;
     server::FlatForce         = 0.0;

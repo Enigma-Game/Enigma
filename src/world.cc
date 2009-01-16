@@ -1649,7 +1649,6 @@ void WorldPrepareLevel ()
 
 bool WorldInitLevel() {
     if (server::EnigmaCompatibility < 1.10) {
-        server::Fragility = server::Brittleness;
         server::CrackSpreading = server::Brittleness;
     }
     

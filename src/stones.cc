@@ -413,11 +413,11 @@ namespace
         void actor_hit (const StoneContact &) {
             static const char *stonename[] = {
                 "st-grate1",
-                "st-death",
+                "st_death",
                 "st-surprise",
                 "st-glass1_hole",
                 "st-magic",
-                "st-knight",
+                "st_knight",
                 "st-thief",
                 "st-plain_break",
                 "st-plain_breaking"
