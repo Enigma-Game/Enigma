@@ -7,8 +7,7 @@
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -23,28 +22,27 @@ ti["@"] = ti["-"] .. {"#ac_marble_black"}
 ti["X"] = ti["-"] .. {"st_oxyd", "upper#"}
 ti["Y"] = ti["-"] .. {"st_oxyd", "lower#"}
 
-w, h = wo(ti, " ", {
-"####################",
-"#        ----------#",
-"#        ------X-X-#",
-"#        ----------#",
-"#        ------X@X-#",
-"#        ----------#",
-"#      #mWWWWSWWWWW#",
-"#        ----------#",
-"#        ------Y-Y-#",
-"#        ----------#",
-"#        ------Y-Y-#",
-"#        ----------#",
-"####################"
-})
+wo(ti, " ", {
+    "####################",
+    "#        ----------#",
+    "#        ------X-X-#",
+    "#        ----------#",
+    "#        ------X@X-#",
+    "#        ----------#",
+    "#      #mWWWWSWWWWW#",
+    "#        ----------#",
+    "#        ------Y-Y-#",
+    "#        ----------#",
+    "#        ------Y-Y-#",
+    "#        ----------#",
+    "####################"})
 
 if wo["IsDifficult"] then
     wo:shuffleOxyd({"upper#*", max=0}, {"lower#*", max=0})
 else
     wo:shuffleOxyd({"upper#*", max=1}, {"lower#*", max=1})
 end
-  ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
      <el:string el:key="title">
        <el:english el:translate="false"/>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sokopal" el:subtitle="" el:id="andreas55"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Andreas Lochmann, Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="22:50" el:difficult="34:16"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = {"fl_wood_framed"}
+ti["."] = {"fl_wood_framed", "spot#"}
+ti["_"] = {"fl_abyss"}
+ti["@"] = {"#ac_marble"}
+ti["#1"] = {"st_granite"}
+ti["#2"] = {"st_darkgray"}
+ti["#3"] = {"st_concrete"}
+ti["#4"] = {"st_ancient"}
+ti["o"] = {"st_oxyd_e", oxydcolor = OXYD_GREEN}
+ti["o1"] = {"st_oxyd_e", target = "oxyd_callback", oxydcolor = OXYD_BLACK} .. ti["_"]
+ti["o2"] = {"st_oxyd_e", target = "oxyd_callback", oxydcolor = OXYD_PINE}  .. ti["_"]
+ti["o3"] = {"st_oxyd_e", target = "oxyd_callback", oxydcolor = OXYD_GRAY}  .. ti["_"]
+ti["o4"] = {"st_oxyd_e", target = "oxyd_callback", oxydcolor = OXYD_WHITE} .. ti["_"]
+ti["o5"] = {"st_oxyd_e", target = "oxyd_callback", oxydcolor = OXYD_BROWN} .. ti["_"]
+ti["*"] = {"st_blocker", "door#"}
+ti["w"] = {"st_box_wood"}
+ti[":"] = {"it_seed"}
+ti[";"] = {"it_seed_fake"}
+ti["f"] = {"st_quake"}
+
+local resolver = res.random(ti, "#", {{"#1", 1}, {"#2", 1}, {"#3", 1}, {"#4", 1}})
+
+w, h = wo(resolver, " ", {
+ -- 01234567890123456789
+   "####################",
+   "#######.......######",
+   "#####...........####",
+   "###.....###.......##",
+   "##.......###......##",
+   "#.........#.......##",
+   "#..............    #",
+   "#.............  @ f#",
+   "##....####.....   ##",
+   "### .######.....  ##",
+   "###*#######......###",
+   "#o#*######.......###",
+   "#*#*##...........###",
+   "#***#.............##",
+   "#####..............#",
+   "####....www.......##",
+   "##......w.w......###",
+   "#............#######",
+   "##.........#########",
+   "##.......###########",
+   "###.......###....###",
+   "####.............o##",
+   "######......ww...###",
+   "#######.........####",
+   "####################"
+})
+
+----------------------------------
+--  Fill in oxyds and triggers  --
+----------------------------------
+
+local spots = no["spot#*"]:shuffle()
+
+-- Number of oxyds depends on difficulty:
+local numoxyds = lib.lua.cond(wo["IsDifficult"], 40, 30)
+for j = 1, 5 do
+  for k = 1, numoxyds do
+    wo[spots[j*k - 1]] = ti["o"..j]
+  end
+end
+
+-- triggers for doors
+local doors = no["door#*"]
+for k = 1, #doors do
+  wo[spots[numoxyds*5 + k - 1]] = {"it_trigger", target = doors[k]}
+end
+
+---------------------
+--  Opal function  --
+---------------------
+
+last_oxyd = 0
+function oxyd_callback(is_on, sender)
+    if sender.state == OXYDPAIR then
+        oxyds = grp(sender, last_oxyd)
+        wo[sender] = ti[":"]
+        wo[last_oxyd] = ti[";"]
+        it(oxyds):grow()
+    elseif sender.state == OPEN then
+        last_oxyd = sender
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

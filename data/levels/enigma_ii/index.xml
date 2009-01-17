@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma II"/>
 
   <attributes/>
 
@@ -19,7 +19,7 @@
     <level _seq="11" _title="Automaton Magic" _xpath="./ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Enignimm" _xpath="./alain02_1" author="Alain Busser" ctrl="force" easy="false" id="alain02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="One Way Ticket" _xpath="./luc25_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="14" _title="Stomp Stomp" _xpath="./qq03_1" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq3" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Stomp Stomp" _xpath="./qq03_2" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq3" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="15" _title="Knock Knock!" _xpath="./nat03_1" author="Nat Pryce" ctrl="force" easy="false" id="nat3" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Beam0r" _xpath="./peter01_1" author="Peter Santo" ctrl="force" easy="false" id="peter_001" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Dustwalkers" _xpath="./ant06_1" author="Petr Machata" ctrl="force" easy="false" id="ant06" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -96,7 +96,7 @@
     <level _seq="88" _title="Shifting Shoals" _xpath="./nat28_1" author="Nat Pryce" ctrl="force" easy="false" id="nat28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Pentomino V" _xpath="./ralf20_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Washing Machine" _xpath="./duffy45_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy45" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="It's Magic" _xpath="./martin27_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="91" _title="It's Magic" _xpath="./martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Dirt Clod" _xpath="./xerxes02_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Painting" _xpath="./siegfried21_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Snowing" _xpath="./duffy120_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy120" rel="2" rev="3" score="2" target="time" unit="duration"/>

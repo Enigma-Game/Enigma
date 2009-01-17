@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dependants" el:subtitle="" el:id="ant25"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_sahara"}
+ti["#"] = {"st-rock3"}
+ti["O"] = {"st_oxyd", name="left#"}
+ti["o"] = {"st_oxyd", name="right#"}
+ti["*"] = {"st_puzzle", cluster=1}
+ti["y"] = {"it_yinyang"}
+ti["D"] = {"st_door", name="doors#", flavor="d"}
+ti["t"] = {"it_trigger", name="triggers#", target="@doors#*"}
+ti["1"] = ti["y"] .. {"#ac_marble_black", name="black", owner=0, essential=1}
+ti["2"] = ti["y"] .. {"#ac_marble_white", name="white", owner=1, essential=1}
+ti["3"] = {"#ac_pearl", name="pearl", controllers=0, essential=1}
+
+wo(ti, " ", {
+   "##########################################################",
+   "#                  #1                 #                  #",
+   "#                  #                  #                  #",
+   "#                  #D##################                  #",
+   "#                  # t         ********************      #",
+   "#                  O           *   *  o                  #",
+   "#                  O           * 3 *  o                  #",
+   "#                  O           *   *  o                  #",
+   "#               ********************t #                  #",
+   "#                  ##################D#                  #",
+   "#                  #                  #                  #",
+   "#                  #                 2#                  #",
+   "##########################################################"})
+
+wo:add({"ot_rubberband", anchor1="black", anchor2="pearl", strength=10.0})
+wo:add({"ot_rubberband", anchor1="white", anchor2="pearl", strength=10.0})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"left#*", "right#*", min=3})
+else
+    wo:shuffleOxyd({"left#*", "right#*", max=1})
+end
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

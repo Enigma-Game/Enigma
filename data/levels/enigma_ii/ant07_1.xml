@@ -17,7 +17,7 @@ wo["ConserveLevel"] = true
 ti[" "] = {"fl_sand"}
 ti["~"] = {"fl_water"}
 ti["#"] = ti["~"] .. {"st-greenbrown"}
-ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxydstone#"}
+ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxyds#"}
 ti["m"] = ti[" "] .. {"it_magicwand"}
 ti["B"] = ti[" "] .. {"st_boulder_e", "the_boulder"}
 ti["+"] = ti["~"] .. {"it_trigger", target="turn_boulder", action_1="callback", invisible=true}
@@ -43,7 +43,8 @@ function turn_boulder(state, sender)
         no["the_boulder"]:turn()
     end
 end
-wo:shuffleOxyd({"oxydstone#*", circular=true})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Puzzle Hacker" el:subtitle="" el:id="ant01"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gray"}
+ti["-"] = {"fl_lawn"}
+ti[":"] = {"fl_abyss"}
+ti["#"] = {"st_redbrown"}
+ti["W"] = {"st-grate2"}
+ti["X"] = {"st-grate1"}
+ti["O"] = {"st_oxyd"}
+ti["puzzle"] = {"st_puzzle", cluster="%%"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["door"] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["S"] = {"st_switch", target="bridge"}
+ti["_"] = {"fl_bridge", name="bridge"}
+ti["@"] = {"#ac_marble_black"}
+
+function floor_resolver(key, x, y)
+    if key == " " then
+        if math.random(1,5) == 1 then
+            return ti({"fl_metal_7"})
+        end
+        return ti[" "]
+    end
+    return ti[key]
+end
+
+local resolver = res.autotile(floor_resolver, {"a", "l", "trigger"}, {"A", "L", "door"}, {"1", "6", "puzzle"})
+wo(resolver, " ", {
+    "####################",
+    "#WWWWWWWWWWWWWWWWWW#",
+    "#W@22222   33344 55#",
+    "#W 21  22233633555 #",
+    "#W111 6666666      #",
+    "#W                 #",
+    "#Wa d g j# # --- #A#",
+    "#W       X X --- #B#",
+    "#Wb e h k# # --- #C#",
+    "#W       # # --- #D#",
+    "#Wc f i l# # --- #E#",
+    "#WWWWWWWW# #     #F#",
+    "##########X#######G#",
+    "#       :   :    #H#",
+    "# O---O :   : -- #I#",
+    "# ----- :_::: -- #J#",
+    "# -----   :   -- #K#",
+    "# ------- : ---- #L#",
+    "# ------- : ----   #",
+    "# ------- : ------ #",
+    "# ------- : ------ #",
+    "# ------- : -S---- #",
+    "# O-----O : ------ #",
+    "#         :        #",
+    "####################"})
+
+wo:shuffleOxyd()
+]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

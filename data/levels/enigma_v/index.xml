@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma V"/>
 
   <attributes/>
 
@@ -21,7 +21,7 @@
     <level _seq="13" _title="Sentry Duty" _xpath="./nat25_1" author="Nat Pryce" ctrl="force" easy="true" id="nat25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Thievish Alleys" _xpath="./andreas33_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas33" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Solvable?" _xpath="./barry01_2" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry01" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="16" _title="Draggers" _xpath="./ant21_1" author="Petr Machata" ctrl="force" easy="false" id="ant21" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Draggers" _xpath="./ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Break and Enter" _xpath="./siegfried16_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5b" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Double play" _xpath="./just06_1" author="JuSt" ctrl="force" easy="false" id="just06" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Oxyd-Puzzle" _xpath="./raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="6" score="1" target="time" unit="duration"/>

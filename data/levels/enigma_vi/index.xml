@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma VI"/>
 
   <attributes/>
 
@@ -9,7 +9,7 @@
     <level _seq="1" _title="Welcome" _xpath="./welcometopack6_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack6" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Toreador" _xpath="./ral02_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral004" rel="1" rev="43" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Just another pretty level" _xpath="./edward26_1" author="Edward" ctrl="force" easy="true" id="edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="A-way" _xpath="./richi06_1" author="Richi Bützer" ctrl="force" easy="true" id="richi06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="A-way" _xpath="./richi06_2" author="Richi Bützer" ctrl="force" easy="true" id="richi06" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Pac Marble" _xpath="./andreas22_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas22" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Laser Splitting" _xpath="./luc29_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc29" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="No Memory" _xpath="./edward01_1" author="Edward" ctrl="force" easy="false" id="edward01" rel="1" rev="1" score="1" target="time" unit="duration"/>

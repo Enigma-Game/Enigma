@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="30" title="Enigma VII"/>
 
   <attributes/>
 
@@ -24,7 +24,7 @@
     <level _seq="16" _title="Protected Exhibition" _xpath="./duffy156_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Upstairs Meditation" _xpath="./duffy138_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy138" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Speed Meditation" _xpath="./duffy148_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Pool with a pole" _xpath="./alain28_1" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Pool with a pole" _xpath="./alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Meditation in Peace" _xpath="./ral20_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="1" rev="70" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Cold Meditation" _xpath="./ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Mountain Climbing" _xpath="./joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>

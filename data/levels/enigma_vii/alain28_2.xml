@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pool with a pole" el:subtitle="" el:id="alain28"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="2:22"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ActorimpulseStrength"] = 600.0
+wo["SlopeForce"] = 8.0
+
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_actorimpulse"}
+ti["x"] = {"st_passage_white_frame"}
+ti["-"] = {"fl-gradient15"}
+ti["O"] = {"it_meditation_hollow", essential = 1}
+ti["o"] = {"#ac_pearl", owner = nil, controllers = 0}
+ti["@"] = {"#ac_marble_black", name = "black", owner = 0}
+ti["*"] = {"#ac_marble_white", name = "white", owner = 0}
+
+wo(ti, " ", {
+    "####################",
+    "#              ----#",
+    "#xxxxxxxxxxx    -O-#",
+    "#          x    ---#",
+    "#        o x    ---#",
+    "#          x    ---#",
+    "#Oo@    *o x    O--#",
+    "#          x    ---#",
+    "#        o x    ---#",
+    "#          x    ---#",
+    "#xxxxxxxxxxx    -O-#",
+    "#              ----#",
+    "####################"})
+
+wo:add({"ot_rubberband", anchor1 = "black", anchor2 = "white", length = 5.0, min = 5.0, max = 5.0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

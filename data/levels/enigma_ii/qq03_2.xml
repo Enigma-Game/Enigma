@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Stomp Stomp" el:subtitle="" el:id="qq3"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andrzej Szombierski" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Andrzej Szombierski</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["#"] = {"st-rock3"}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["<"] = {"st_boulder", orientation=WEST}
+ti["-"] = {"st_door", flavor="b"}
+ti["m"] = {"it_magicwand"}
+ti["t"] = {"it_trigger", target="open_doors"}
+ti["O"] = {"st_oxyd", name="oxyds#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "##                ##",
+    "#> t t t t t t t t<#",
+    "##                ##",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "# m                #",
+    "#@#-#-#-#-#-#-#-#-##",
+    "# #O#O#O#O#O#O#O#O##",
+    "####################"})
+
+wo:shuffleOxyd({"oxyds#*", linear=true})
+
+function open_doors(value, sender)
+    st(po(sender)+{0,8}):toggle()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
