@@ -112,7 +112,7 @@ set_stone("st-pmirror", 13, 11, {movable=FALSE, transparent=TRUE, orientation="1
 
 set_stone("st-laser", 19, 5, {dir=WEST, on="1"})
 
-draw_stones("st-glass", {18, 7}, {0, 1}, 5, {type="0"})
+draw_stones("st-glass", {18, 7}, {0, 1}, 5)
 
 set_stone("st-bolder", 17, 1, {name="bolder1", direction=SOUTH})
 

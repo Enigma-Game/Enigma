@@ -44,9 +44,9 @@ set_stone("st-rock1", 16, 10)
 set_stone("st-rock1", 16, 12)
 
 draw_border("st-glass", 3, 5, 3, 3)
-draw_stones("st-glass", {13, 4}, {1, 0}, 4, {type="0"})
-draw_stones("st-glass", {16, 5}, {0, 1}, 2, {type="0"})
-set_stones("st-glass", {{13, 6}, {15, 6}}, {type="0"})
+draw_stones("st-glass", {13, 4}, {1, 0}, 4)
+draw_stones("st-glass", {16, 5}, {0, 1}, 2)
+set_stones("st-glass", {{13, 6}, {15, 6}})
 set_stone("st-glass_move", 14, 6)
 
 set_stone("st-pmirror", 10, 3, {movable=TRUE, transparent=FALSE, orientation="3"})

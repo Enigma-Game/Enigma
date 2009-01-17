@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 30 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ ti["B "] = {"st-brick_magic"}
 ti["O "] = {"st_rotator_ccw", movable=true}
 ti["R "] = {"st_rubberband"}
 ti["T "] = {"st-thief"}
-ti["Y "] = {"st-glass"}
+ti["Y "] = {"st_rawglass"}
 ti["r "] = {"st_brownie"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["U2"] = ti["U1"] .. {"it_extralife"}
@@ -52,7 +52,7 @@ ti["D1"] = {"st_death"}
 ti["D2"] = {"st_death_invisible"}
 ti["D3"] = ti["D2"] .. {"it_umbrella_new"}
 ti["H "] = ti[" i"] .. {"st_key", code=1, target={"door#5"}}
-ti["G "] = ti[" _"] .. {"st-glass"}
+ti["G "] = ti[" _"] .. {"st_rawglass"}
 ti["L "] = ti[" _"] .. {"st_laser_e", name="laser", state=ON}
 ti["h1"] = {"st_bluegray_hollow"}
 ti["A "] = ti[" ~"] .. {"st_actorimpulse"}

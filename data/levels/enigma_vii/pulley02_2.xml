@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Action Potential" el:subtitle="" el:id="pulley02"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti["?"] = {"fl_sand"}
 ti["."] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti[","] = ti[" "] .. {"st_stoneimpulse"}
 ti[":"] = ti[" "] .. {"st-grate1"}
-ti["*"] = ti[" "] .. {"st-glass1"}
+ti["*"] = ti[" "] .. {"st_lightglass"}
 ti["v"] = ti[" "] .. {"st_boulder_s"}
 ti["w"] = {"fl_red"} .. ti({"st_box_wood"})
 ti["z"] = ti[" "] .. {"st_rotator_ccw"}
@@ -243,7 +243,7 @@ function SynapseG()
 end
 function Synapsea()
   wo:drawRect(po(23,22), 1, 15, SynapseOff)
-  wo[po(23,23)] = {"st-glass1"}
+  wo[po(23,23)] = {"st_lightglass"}
   wo[po(23,24)] = {"st_stoneimpulse_hollow"}
   wo[po(23,20)] = {"st_box_wood"}
   wo[po(23,22)] = {"st_boulder_s"}
@@ -252,7 +252,7 @@ function Synapsea()
 end
 function Synapseb()
   wo:drawRect(po(25,22), 1, 15, SynapseOff)
-  wo[po(25,23)] = {"st-glass1"}
+  wo[po(25,23)] = {"st_lightglass"}
   wo[po(25,24)] = {"st_stoneimpulse_hollow"}
   wo[po(25,26)] = {"st_stoneimpulse_hollow"}
   wo[po(25,20)] = {"st_box_wood"}
@@ -262,7 +262,7 @@ function Synapseb()
 end
 function Synapsec()
   wo:drawRect(po(27,22), 1, 15, SynapseOff)
-  wo[po(27,23)] = {"st-glass1"}
+  wo[po(27,23)] = {"st_lightglass"}
   wo[po(27,24)] = {"st_stoneimpulse_hollow"}
   wo[po(27,26)] = {"st_stoneimpulse_hollow"}
   wo[po(27,28)] = {"st_stoneimpulse_hollow"}
@@ -273,7 +273,7 @@ function Synapsec()
 end
 function Synapsed()
   wo:drawRect(po(29,22), 1, 15, SynapseOff)
-  wo[po(29,23)] = {"st-glass1"}
+  wo[po(29,23)] = {"st_lightglass"}
   wo[po(29,24)] = {"st_stoneimpulse_hollow"}
   wo[po(29,26)] = {"st_stoneimpulse_hollow"}
   wo[po(29,28)] = {"st_stoneimpulse_hollow"}
@@ -285,7 +285,7 @@ function Synapsed()
 end
 function Synapsee()
   wo:drawRect(po(31,22), 1, 15, SynapseOff)
-  wo[po(31,23)] = {"st-glass1"}
+  wo[po(31,23)] = {"st_lightglass"}
   wo[po(31,24)] = {"st_stoneimpulse_hollow"}
   wo[po(31,26)] = {"st_stoneimpulse_hollow"}
   wo[po(31,28)] = {"st_stoneimpulse_hollow"}
@@ -298,7 +298,7 @@ function Synapsee()
 end
 function Synapsef()
   wo:drawRect(po(33,22), 1, 15, SynapseOff)
-  wo[po(33,23)] = {"st-glass1"}
+  wo[po(33,23)] = {"st_lightglass"}
   wo[po(33,24)] = {"st_stoneimpulse_hollow"}
   wo[po(33,26)] = {"st_stoneimpulse_hollow"}
   wo[po(33,28)] = {"st_stoneimpulse_hollow"}
@@ -312,7 +312,7 @@ function Synapsef()
 end
 function Synapseg()
   wo:drawRect(po(35,22), 1, 15, SynapseOff)
-  wo[po(35,23)] = {"st-glass1"}
+  wo[po(35,23)] = {"st_lightglass"}
   wo[po(35,24)] = {"st_stoneimpulse_hollow"}
   wo[po(35,26)] = {"st_stoneimpulse_hollow"}
   wo[po(35,28)] = {"st_stoneimpulse_hollow"}
@@ -383,7 +383,7 @@ function SynapseN()
 end
 function Synapseh()
   wo:drawRect(po(34,48), 1, 15, SynapseOff)
-  wo[po(34,61)] = {"st-glass1"}
+  wo[po(34,61)] = {"st_lightglass"}
   wo[po(34,60)] = {"st_stoneimpulse_hollow"}
   wo[po(34,64)] = {"st_box_wood"}
   wo[po(34,62)] = {"st_boulder_n"}
@@ -392,7 +392,7 @@ function Synapseh()
 end
 function Synapsei()
   wo:drawRect(po(32,48), 1, 15, SynapseOff)
-  wo[po(32,61)] = {"st-glass1"}
+  wo[po(32,61)] = {"st_lightglass"}
   wo[po(32,60)] = {"st_stoneimpulse_hollow"}
   wo[po(32,58)] = {"st_stoneimpulse_hollow"}
   wo[po(32,64)] = {"st_box_wood"}
@@ -402,7 +402,7 @@ function Synapsei()
 end
 function Synapsej()
   wo:drawRect(po(30,48), 1, 15, SynapseOff)
-  wo[po(30,61)] = {"st-glass1"}
+  wo[po(30,61)] = {"st_lightglass"}
   wo[po(30,60)] = {"st_stoneimpulse_hollow"}
   wo[po(30,58)] = {"st_stoneimpulse_hollow"}
   wo[po(30,56)] = {"st_stoneimpulse_hollow"}
@@ -413,7 +413,7 @@ function Synapsej()
 end
 function Synapsek()
   wo:drawRect(po(28,48), 1, 15, SynapseOff)
-  wo[po(28,61)] = {"st-glass1"}
+  wo[po(28,61)] = {"st_lightglass"}
   wo[po(28,60)] = {"st_stoneimpulse_hollow"}
   wo[po(28,58)] = {"st_stoneimpulse_hollow"}
   wo[po(28,56)] = {"st_stoneimpulse_hollow"}
@@ -425,7 +425,7 @@ function Synapsek()
 end
 function Synapsel()
   wo:drawRect(po(26,48), 1, 15, SynapseOff)
-  wo[po(26,61)] = {"st-glass1"}
+  wo[po(26,61)] = {"st_lightglass"}
   wo[po(26,60)] = {"st_stoneimpulse_hollow"}
   wo[po(26,58)] = {"st_stoneimpulse_hollow"}
   wo[po(26,56)] = {"st_stoneimpulse_hollow"}
@@ -438,7 +438,7 @@ function Synapsel()
 end
 function Synapsem()
   wo:drawRect(po(24,48), 1, 15, SynapseOff)
-  wo[po(24,61)] = {"st-glass1"}
+  wo[po(24,61)] = {"st_lightglass"}
   wo[po(24,60)] = {"st_stoneimpulse_hollow"}
   wo[po(24,58)] = {"st_stoneimpulse_hollow"}
   wo[po(24,56)] = {"st_stoneimpulse_hollow"}
@@ -452,7 +452,7 @@ function Synapsem()
 end
 function Synapsen()
   wo:drawRect(po(22,48), 1, 15, SynapseOff)
-  wo[po(22,61)] = {"st-glass1"}
+  wo[po(22,61)] = {"st_lightglass"}
   wo[po(22,60)] = {"st_stoneimpulse_hollow"}
   wo[po(22,58)] = {"st_stoneimpulse_hollow"}
   wo[po(22,56)] = {"st_stoneimpulse_hollow"}
@@ -469,15 +469,15 @@ function CornerO()
   wo:drawRect(po(39,63), 1, 15, SynapseOn) -- vertical
   wo[po(39,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(39,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
     end
 end
 function CornerP()
@@ -485,15 +485,15 @@ function CornerP()
   wo:drawRect(po(41,63), 1, 13, SynapseOn) -- vertical
   wo[po(41,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(41,60)] = {"st-glass3"}
+      wo[po(41,60)] = {"st_redfiber"}
     end
 end
 function CornerQ()
@@ -501,15 +501,15 @@ function CornerQ()
   wo:drawRect(po(43,63), 1, 11, SynapseOn) -- vertical
   wo[po(43,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(43,60)] = {"st-glass3"}
+      wo[po(43,60)] = {"st_redfiber"}
     end
 end
 function CornerR()
@@ -517,15 +517,15 @@ function CornerR()
   wo:drawRect(po(45,63), 1, 9, SynapseOn) -- vertical
   wo[po(45,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(45,60)] = {"st-glass3"}
+      wo[po(45,60)] = {"st_redfiber"}
     end
 end
 function CornerS()
@@ -533,15 +533,15 @@ function CornerS()
   wo:drawRect(po(47,63), 1, 7, SynapseOn) -- vertical
   wo[po(47,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(47,60)] = {"st-glass3"}
+      wo[po(47,60)] = {"st_redfiber"}
     end
 end
 function CornerT()
@@ -549,15 +549,15 @@ function CornerT()
   wo:drawRect(po(49,63), 1, 5, SynapseOn) -- vertical
   wo[po(49,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(49,60)] = {"st-glass3"}
+      wo[po(49,60)] = {"st_redfiber"}
     end
 end
 function CornerU()
@@ -565,20 +565,20 @@ function CornerU()
   wo:drawRect(po(51,63), 1, 3, SynapseOn) -- vertical
   wo[po(51,64)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(39,60)] = {"st-glass3"}
-      wo[po(41,60)] = {"st-glass3"}
-      wo[po(43,60)] = {"st-glass3"}
-      wo[po(45,60)] = {"st-glass3"}
-      wo[po(47,60)] = {"st-glass3"}
-      wo[po(49,60)] = {"st-glass3"}
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(39,60)] = {"st_redfiber"}
+      wo[po(41,60)] = {"st_redfiber"}
+      wo[po(43,60)] = {"st_redfiber"}
+      wo[po(45,60)] = {"st_redfiber"}
+      wo[po(47,60)] = {"st_redfiber"}
+      wo[po(49,60)] = {"st_redfiber"}
+      wo[po(51,60)] = {"st_redfiber"}
     else
-      wo[po(51,60)] = {"st-glass3"}
+      wo[po(51,60)] = {"st_redfiber"}
     end
 end
 function Cornero()
   wo:drawRect(po(39,63), 1, 15, SynapseOff) -- vertical
-  wo[po(39,64)] = {"st-glass1"}
+  wo[po(39,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -598,7 +598,7 @@ end
 function Cornerp()
   wo:drawRect(po(39,75), 2, 1, SynapseOff) -- horizontal
   wo:drawRect(po(41,63), 1, 13, SynapseOff) -- vertical
-  wo[po(41,64)] = {"st-glass1"}
+  wo[po(41,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -618,7 +618,7 @@ end
 function Cornerq()
   wo:drawRect(po(39,73), 4, 1, SynapseOff) -- horizontal
   wo:drawRect(po(43,63), 1, 11, SynapseOff) -- vertical
-  wo[po(43,64)] = {"st-glass1"}
+  wo[po(43,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -638,7 +638,7 @@ end
 function Cornerr()
   wo:drawRect(po(39,71), 6, 1, SynapseOff) -- horizontal
   wo:drawRect(po(45,63), 1, 9, SynapseOff) -- vertical
-  wo[po(45,64)] = {"st-glass1"}
+  wo[po(45,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -658,7 +658,7 @@ end
 function Corners()
   wo:drawRect(po(39,69), 8, 1, SynapseOff) -- horizontal
   wo:drawRect(po(47,63), 1, 7, SynapseOff) -- vertical
-  wo[po(47,64)] = {"st-glass1"}
+  wo[po(47,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -678,7 +678,7 @@ end
 function Cornert()
   wo:drawRect(po(39,67), 10, 1, SynapseOff) -- horizontal
   wo:drawRect(po(49,63), 1, 5, SynapseOff) -- vertical
-  wo[po(49,64)] = {"st-glass1"}
+  wo[po(49,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -698,7 +698,7 @@ end
 function Corneru()
   wo:drawRect(po(39,65), 12, 1, SynapseOff) -- horizontal
   wo:drawRect(po(51,63), 1, 3, SynapseOff) -- vertical
-  wo[po(51,64)] = {"st-glass1"}
+  wo[po(51,64)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(39,60)] = {"st_stoneimpulse_hollow"}
       wo[po(41,60)] = {"st_stoneimpulse_hollow"}
@@ -720,15 +720,15 @@ function Corner1()
   wo:drawRect(po(18,7), 1, 15, SynapseOn) -- vertical
   wo[po(18,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(18,24)] = {"st_redfiber"}
     end
 end
 function Corner2()
@@ -736,15 +736,15 @@ function Corner2()
   wo:drawRect(po(16,9), 1, 13, SynapseOn) -- vertical
   wo[po(16,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(16,24)] = {"st-glass3"}
+      wo[po(16,24)] = {"st_redfiber"}
     end
 end
 function Corner3()
@@ -752,15 +752,15 @@ function Corner3()
   wo:drawRect(po(14,11), 1, 11, SynapseOn) -- vertical
   wo[po(14,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(14,24)] = {"st-glass3"}
+      wo[po(14,24)] = {"st_redfiber"}
     end
 end
 function Corner4()
@@ -768,15 +768,15 @@ function Corner4()
   wo:drawRect(po(12,13), 1, 9, SynapseOn) -- vertical
   wo[po(12,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(12,24)] = {"st-glass3"}
+      wo[po(12,24)] = {"st_redfiber"}
     end
 end
 function Corner5()
@@ -784,15 +784,15 @@ function Corner5()
   wo:drawRect(po(10,15), 1, 7, SynapseOn) -- vertical
   wo[po(10,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(10,24)] = {"st-glass3"}
+      wo[po(10,24)] = {"st_redfiber"}
     end
 end
 function Corner6()
@@ -800,15 +800,15 @@ function Corner6()
   wo:drawRect(po(8,17), 1, 5, SynapseOn) -- vertical
   wo[po(8,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(8,24)] = {"st-glass3"}
+      wo[po(8,24)] = {"st_redfiber"}
     end
 end
 function Corner7()
@@ -816,20 +816,20 @@ function Corner7()
   wo:drawRect(po(6,19), 1, 3, SynapseOn) -- vertical
   wo[po(6,20)] = {"st_nil"}
     if wo ["IsDifficult"] then
-      wo[po(6,24)] = {"st-glass3"}
-      wo[po(8,24)] = {"st-glass3"}
-      wo[po(10,24)] = {"st-glass3"}
-      wo[po(12,24)] = {"st-glass3"}
-      wo[po(14,24)] = {"st-glass3"}
-      wo[po(16,24)] = {"st-glass3"}
-      wo[po(18,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
+      wo[po(8,24)] = {"st_redfiber"}
+      wo[po(10,24)] = {"st_redfiber"}
+      wo[po(12,24)] = {"st_redfiber"}
+      wo[po(14,24)] = {"st_redfiber"}
+      wo[po(16,24)] = {"st_redfiber"}
+      wo[po(18,24)] = {"st_redfiber"}
     else
-      wo[po(6,24)] = {"st-glass3"}
+      wo[po(6,24)] = {"st_redfiber"}
     end
 end
 function Corner11()
   wo:drawRect(po(18,7), 1, 15, SynapseOff) -- vertical
-  wo[po(18,20)] = {"st-glass1"}
+  wo[po(18,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -849,7 +849,7 @@ end
 function Corner22()
   wo:drawRect(po(17,9), 2, 1, SynapseOff) -- horizontal
   wo:drawRect(po(16,9), 1, 13, SynapseOff) -- vertical
-  wo[po(16,20)] = {"st-glass1"}
+  wo[po(16,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -869,7 +869,7 @@ end
 function Corner33()
   wo:drawRect(po(15,11), 4, 1, SynapseOff) -- horizontal
   wo:drawRect(po(14,11), 1, 11, SynapseOff) -- vertical
-  wo[po(14,20)] = {"st-glass1"}
+  wo[po(14,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -889,7 +889,7 @@ end
 function Corner44()
   wo:drawRect(po(13,13), 6, 1, SynapseOff) -- horizontal
   wo:drawRect(po(12,13), 1, 9, SynapseOff) -- vertical
-  wo[po(12,20)] = {"st-glass1"}
+  wo[po(12,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -909,7 +909,7 @@ end
 function Corner55()
   wo:drawRect(po(11,15), 8, 1, SynapseOff) -- horizontal
   wo:drawRect(po(10,15), 1, 7, SynapseOff) -- vertical
-  wo[po(10,20)] = {"st-glass1"}
+  wo[po(10,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -929,7 +929,7 @@ end
 function Corner66()
   wo:drawRect(po(9,17), 10, 1, SynapseOff) -- horizontal
   wo:drawRect(po(8,17), 1, 5, SynapseOff) -- vertical
-  wo[po(8,20)] = {"st-glass1"}
+  wo[po(8,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}
@@ -949,7 +949,7 @@ end
 function Corner77()
   wo:drawRect(po(7,19), 12, 1, SynapseOff) -- horizontal
   wo:drawRect(po(6,19), 1, 3, SynapseOff) -- vertical
-  wo[po(6,20)] = {"st-glass1"}
+  wo[po(6,20)] = {"st_lightglass"}
     if wo ["IsDifficult"] then
       wo[po(6,24)] = {"st_stoneimpulse_hollow"}
       wo[po(8,24)] = {"st_stoneimpulse_hollow"}

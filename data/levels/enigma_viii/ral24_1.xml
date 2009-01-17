@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Push Wires" el:subtitle="" el:id="20080708ral196"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 128 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@ wo["ConserveLevel"] = true
 ti[" "] = {"fl_dark", friction=5.5, adhesion=1.7}
 ti["~"] = {"fl_abyss"}
 ti["x"] = {"st_oxyd", flavor="d"}
-ti["#"] = {"st-glass3"} .. ti["~"]
+ti["#"] = {"st_redfiber"} .. ti["~"]
 ti["wood"] = {"st_box_hay", "wood%%"}
 ti["@"] = {"#ac_marble"}
 

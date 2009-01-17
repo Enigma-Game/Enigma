@@ -79,7 +79,7 @@ set_stones("st-pmirror", {{17, 4}, {17, 9}}, {movable=TRUE, transparent=TRUE, or
 set_stone("st-break_bolder", 6, 5)
 set_stone("st-switch_black", 17, 6, {action="onoff", target="laser2", on="1", name="switch5"})
 set_stone("st-switch_white", 18, 6, {action="onoff", target="laser1", on="1", name="switch6"})
-set_stones("st-glass", {{23, 6}, {25, 6}}, {type="0"})
+set_stones("st-glass", {{23, 6}, {25, 6}})
 set_stone("st-stone1", 24, 6)
 set_stone("st-laser", 18, 10, {name="laser2", dir=EAST, on="0"})
 set_stones("st-pmirror", {{17, 11}, {25, 11}}, {movable=FALSE, transparent=FALSE, orientation="4"})

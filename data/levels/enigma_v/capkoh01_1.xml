@@ -78,7 +78,7 @@ set_stones("st-blocker", {{6, 3}, {18, 10}, {6, 11}})
 set_stone("st-door", 11, 3, {name="d1", type="h"})
 set_stone("st-mail-e", 1, 7)
 set_stones("st-brownie", {{2, 7}, {2, 10}})
-set_stone("st-glass", 4, 7, {type="0"})
+set_stone("st-glass", 4, 7)
 set_stones("st-stone_break", {{18, 9}, {5, 11}, {7, 11}, {18, 11}})
 
 -- Actor Layer

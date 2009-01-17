@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:74$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:75$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -61,9 +61,9 @@ ti["9 "] = {"st_puzzle_yellow_s"}
 ti[": "] = {"st_door",state=OPEN,faces="ns"}
 ti[" +"] = {"fl_bluegray"}
 ti["< "] = {"st_passage_black_frame"}
-ti["= "] = {"st-glass_move"}
+ti["= "] = {"st_rawglass_movable"}
 ti["> "] = {"st_turnstilearm_e"}
-ti["? "] = {"st-glass"}
+ti["? "] = {"st_rawglass"}
 ti[" ,"] = {"fl_abyss"}
 ti["@ "] = {"st_oneway_black_w"}
 ti["A "] = {"st_puzzle_yellow_nesw"}
@@ -116,7 +116,7 @@ ti["g;"] = ti[" ;"] .. {"it_glasses_broken"}
 ti["sb"] = ti[" *"] .. {"it-springboard"}
 ti["sl"] = ti[" l"] .. {"it-springboard"}
 ti["wb"] = ti[" !"] .. {"it_wormhole"}
-ti["?!"] = ti[" !"] .. {"st-glass"}
+ti["?!"] = ti[" !"] .. {"st_rawglass"}
 ti["c?"] = ti["?!"] .. {"it_coin_m"}
 ti["c$"] = ti[" $"] .. {"it_coin_m"}
 ti["x!"] = ti[" !"] .. {"it_extralife"}
@@ -131,9 +131,9 @@ ti["s~"] = ti["+$"] .. {"it_strip_ns"}
 ti["jl"] = ti[" l"] .. {"it_seed_fake"}
 ti["j$"] = ti[" $"] .. {"it_seed_fake"}
 ti["jx"] = ti[" +"] .. {"it_glasses"}
-ti["=-"] = ti[" -"] .. {"st-glass_move"}
-ti["=+"] = ti[" +"] .. {"st-glass_move"}
-ti["=!"] = ti[" !"] .. {"st-glass_move"}
+ti["=-"] = ti[" -"] .. {"st_rawglass_movable"}
+ti["=+"] = ti[" +"] .. {"st_rawglass_movable"}
+ti["=!"] = ti[" !"] .. {"st_rawglass_movable"}
 ti["c!"] = ti["c "] .. {"fl_swamp"}
 ti["e-"] = ti["=-"] .. {"it_cherry"}
 ti["e!"] = ti[" !"] .. {"it_cherry"}

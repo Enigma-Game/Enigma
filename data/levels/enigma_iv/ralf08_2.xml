@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- No Meditation -" el:subtitle="" el:id="ralf08"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 203 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,7 +16,7 @@
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_red"}
-ti["#"] = {"st-glass1"}
+ti["#"] = {"st_lightglass"}
 ti["-"] = {"st_pull"}
 ti["o"] = {"it_meditation_hollow"}
 ti["."] = {"#ac_pearl"}

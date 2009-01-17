@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:35$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:36$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,14 +69,14 @@ ti["T "] = {"st_passage_black_frame"}
 ti["; "] = ti["T "] ..{"it-flagblack"}
 ti["h "] = {"st_oneway_e"}
 ti["i "] = {"st_oneway_w"}
-ti["? "] = {"st-glass_move"}
+ti["? "] = {"st_rawglass_movable"}
 ti["* "] = ti["~ "] .. {"it_cherry"}
-ti["F1"] = ti["* "] .. {"st-glass_move","dd1"}
-ti["F2"] = ti["* "] .. {"st-glass_move","dd2"}
+ti["F1"] = ti["* "] .. {"st_rawglass_movable","dd1"}
+ti["F2"] = ti["* "] .. {"st_rawglass_movable","dd2"}
 ti["! "] = ti["4 "] ..{"it_death"}
-ti["B "] = {"st-glass"}
+ti["B "] = {"st_rawglass"}
 ti["C "] = ti["  "] .. {"st-brick_magic"}
-ti["D "] = ti["~ "] .. {"st-glass"}
+ti["D "] = ti["~ "] .. {"st_rawglass"}
 ti["E "] = ti["? "] .. {"it_extralife"}
 ti["ee"] = ti["  "] .. {"it_extralife"}
 ti["F "] = ti["B "] .. {"it_cherry"}

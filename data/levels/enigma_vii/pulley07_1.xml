@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="13" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="14" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -51,7 +51,7 @@ ti["e"] = {"fl-gradient16"} .. ti({"st_nil"})
 ti["f"] = {"fl_lawn"} --Audrey's floor
 ti["g"] = ti[" "] .. {"st-grate1"}
 ti["h"] = (ti({"fl_bright"}) .. {"it_hammer"}) .. {"st-rock3_hole"}
-ti["i"] = {"fl_mortar"} .. ti({"st-beads"}) --Window
+ti["i"] = {"fl_mortar"} .. ti({"st_beads"}) --Window
 ti["j"] = {"fl_bright"} --Orin's floor
 ti["k"] = ti[" "] .. {"st_redbrown"} --Audrey's Walls
 ti["m"] = {"fl_plank"} .. ti({"it_coin_l"})
@@ -70,7 +70,7 @@ ti["B"] = {"fl_plank"} .. ti({"it-blackbomb"})
 ti["D"] = {"fl_bright"} .. ti({"st_death"})
 ti["E"] = {"fl_lawn"} .. ti({"it_cherry"})
 ti["F"] = {"fl_plank"} .. ti({"it_seed"})
-ti["G"] = {"fl_plank"} .. ti({"st-glass1_hole"})
+ti["G"] = {"fl_plank"} .. ti({"st_lightglass_hollow"})
 ti["H"] = {"fl_brick"} .. ti({"it_meditation_hollow"})
 ti["I"] = ti["y"] .. {"#ac_pearl_white", owner=0, name="Seymour"}
 ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=0,essential=-1}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="It's Magic" el:subtitle="" el:id="martin27"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -17,7 +17,7 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_brick"}
 ti["#"] = {"st_brick"}
-ti["*"] = {"st-glass"}
+ti["*"] = {"st_rawglass"}
 ti["!"] = {"st-brick_magic"}
 ti[">"] = {"st_laser", name="laser", orientation=EAST, state=ON}
 ti["/"] = {"st_mirror", orientation=WEST}

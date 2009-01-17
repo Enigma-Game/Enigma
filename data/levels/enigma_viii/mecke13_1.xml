@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 13 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 14 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ ti["~"] = {"fl_water"}
 ti["D"] = ti["a"] .. {"st_disco_light"}
 ti["="] = ti["~"] .. {"st_disco_light"}
 ti["/"] = ti["z"] .. {"st_disco_light"}
-ti["y"] = ti["a"] .. {"it_cherry"} .. ti({"st-glass1_hole"})
+ti["y"] = ti["a"] .. {"it_cherry"} .. ti({"st_lightglass_hollow"})
 ti["."] = ti["a"] .. {"it_cherry"}
 ti["H"] = {"st_bluegray_hollow"}
 ti["b"] = {"st_quake"}
@@ -45,7 +45,7 @@ ti["T"] = {"st_yellow"}
 ti["!"] = {"it_death"}
 ti["d"] = {"it-document",text= "?"}
 ti["%"] = {"it_sword"}
-ti["B"] = {"st-glass"}
+ti["B"] = {"st_rawglass"}
 ti["C"] = {"st_timer",interval=4,action="toggle",target="laser1",invisible=0}
 ti["c"] = {"st_timer",interval=4,action="toggle",target="laser2",invisible=0}
 ti["K"] = {"st_laser_s", name="laser1", state=OFF}
@@ -77,7 +77,7 @@ ti["U"] = {"st_oneway_black_w"}
 ti["V"] = {"st_passage_black_frame"}
 ti["n"] = ti[" "] .. ti["W"] .. {"st-chameleon"}
 ti["o"] = ti[" "] .. ti["m"] .. {"st-chameleon"}
-ti["O"] = ti[" "] .. {"st-glass1_hole"}
+ti["O"] = ti[" "] .. {"st_lightglass_hollow"}
 ti["'"] = {"it-burnable_oil"}
 ti[":"] = {"it-burnable_burning"}
 

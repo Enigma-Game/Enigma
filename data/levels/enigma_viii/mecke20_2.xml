@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 30 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 31 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti["# "] = {"st_death"}
 ti[" #"] = {"fl_metal_7"}
 ti["$ "] = {"st_oxyd_b"}
 ti[" $"] = {"fl_space"}
-ti["% "] = {"st-glass"}
+ti["% "] = {"st_rawglass"}
 ti[" %"] = {"fl_blueslab"}
 ti[" ("] = {"fl_sahara"}
 ti["& "] = {"st_actorimpulse_invisible"}

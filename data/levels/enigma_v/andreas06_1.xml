@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,7 +33,7 @@ ti["e"]={"st_door", "door5", flavor="d", faces="ew"}
 ti["*"]={"st_switch", target = "laser"}
 ti["E"]={"st_switch", target = "door5"}
 ti["&"]={"st_laser", "laser", orientation = EAST}
-ti["'"]={"st-glass1"}
+ti["'"]={"st_lightglass"}
 ti[")"]={"st_mirror", orientation = 3}  -- p|
 ti["("]={"st_mirror", orientation = 3, transparent = true, flavor = "sheets"}  -- p|t
 ti["-"]={"st_mirror", orientation = 3, movable = true}  -- p|m

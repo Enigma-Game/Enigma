@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Keystone" el:subtitle="" el:id="raoul12"/>
-      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="9" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ wo["ConserveLevel"] = true
 
 ti[" "] = {"fl_dark"}
 ti["."] = {"fl_abyss"}
-ti["#"] = {"st-glass"}
+ti["#"] = {"st_rawglass"}
 ti["O"] = {"st_oxyd"}
 ti["P"] = {"st_puzzle_blue", cluster=1}
 ti["1"] = {"st_switch_white", target="permute", _tag=1}
@@ -91,7 +91,7 @@ end
 function permute(value, sender)
     wo:st(pos[sender["_tag"]]):message("push_rotate", dir[sender["_tag"]])
 end
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
      <el:string el:key="title">
        <el:english el:translate="false"/>

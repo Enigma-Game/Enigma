@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 142 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 144 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -173,33 +173,33 @@ ti["Ws"] = ti["gs"] .. {"st_passage_white_cross"}
 ti["Ww"] = ti["gw"] .. {"st_passage_white_cross"}
 ti["Wf"] = ti[" f"] .. {"st_passage_white_cross"}
 ti["Wk"] = ti["k0"] .. {"st_passage_white_cross"}
-ti["##"] = ti[";;"] .. {"st-greenbrown"}
+ti["##"] = ti[";;"] .. {"st_greenbrown"}
 ti["#!"] = ti["##"] .. {"it_death"}
-ti["#@"] = ti[";@"] .. {"st-greenbrown"}
-ti["#d"] = ti["d6"] .. {"st-greenbrown"}
-ti["#D"] = ti["_d"] .. {"st-greenbrown"}
-ti["#z"] = ti[";w"] .. {"st-greenbrown"}
-ti["#e"] = ti["ge"] .. {"st-greenbrown"}
-ti["#w"] = ti["gw"] .. {"st-greenbrown"}
-ti["#t"] = ti[";t"] .. {"st-greenbrown"}
-ti["#s"] = ti[";s"] .. {"st-greenbrown"}
-ti["H#"] = ti[";;"] .. {"st-greenbrown_hole"}
-ti["Hg"] = ti[";g"] .. {"st-greenbrown_hole"}
-ti["Hd"] = ti["db"] .. {"st-greenbrown_hole"}
-ti["Ht"] = ti["de"] .. {"st-greenbrown_hole"}
-ti["He"] = ti["ge"] .. {"st-greenbrown_hole"}
-ti["Hw"] = ti["gw"] .. {"st-greenbrown_hole"}
-ti["Hn"] = ti["gn"] .. {"st-greenbrown_hole"}
-ti["Hm"] = ti["pn"] .. {"st-greenbrown_hole"}
-ti["HE"] = ti[";;"] .. {"st-greenbrown_hole", "white_grave"}
-ti["Hp"] = ti["pe"] .. {"st-greenbrown_hole"}
-ti["Hs"] = ti["gs"] .. {"st-greenbrown_hole"}
-ti["HS"] = ti["gS"] .. {"st-greenbrown_hole"}
-ti["H5"] = ti["g5"] .. {"st-greenbrown_hole"}
-ti["H6"] = ti["g6"] .. {"st-greenbrown_hole"}
-ti["H7"] = ti["g7"] .. {"st-greenbrown_hole"}
-ti["H8"] = ti["g8"] .. {"st-greenbrown_hole"}
-ti["Hc"] = ti[";c"] .. {"st-greenbrown_hole"}
+ti["#@"] = ti[";@"] .. {"st_greenbrown"}
+ti["#d"] = ti["d6"] .. {"st_greenbrown"}
+ti["#D"] = ti["_d"] .. {"st_greenbrown"}
+ti["#z"] = ti[";w"] .. {"st_greenbrown"}
+ti["#e"] = ti["ge"] .. {"st_greenbrown"}
+ti["#w"] = ti["gw"] .. {"st_greenbrown"}
+ti["#t"] = ti[";t"] .. {"st_greenbrown"}
+ti["#s"] = ti[";s"] .. {"st_greenbrown"}
+ti["H#"] = ti[";;"] .. {"st_greenbrown_hollow"}
+ti["Hg"] = ti[";g"] .. {"st_greenbrown_hollow"}
+ti["Hd"] = ti["db"] .. {"st_greenbrown_hollow"}
+ti["Ht"] = ti["de"] .. {"st_greenbrown_hollow"}
+ti["He"] = ti["ge"] .. {"st_greenbrown_hollow"}
+ti["Hw"] = ti["gw"] .. {"st_greenbrown_hollow"}
+ti["Hn"] = ti["gn"] .. {"st_greenbrown_hollow"}
+ti["Hm"] = ti["pn"] .. {"st_greenbrown_hollow"}
+ti["HE"] = ti[";;"] .. {"st_greenbrown_hollow", "white_grave"}
+ti["Hp"] = ti["pe"] .. {"st_greenbrown_hollow"}
+ti["Hs"] = ti["gs"] .. {"st_greenbrown_hollow"}
+ti["HS"] = ti["gS"] .. {"st_greenbrown_hollow"}
+ti["H5"] = ti["g5"] .. {"st_greenbrown_hollow"}
+ti["H6"] = ti["g6"] .. {"st_greenbrown_hollow"}
+ti["H7"] = ti["g7"] .. {"st_greenbrown_hollow"}
+ti["H8"] = ti["g8"] .. {"st_greenbrown_hollow"}
+ti["Hc"] = ti[";c"] .. {"st_greenbrown_hollow"}
 ti["HF"] = ti["He"] .. {"it-document", text="trapped"}
 ti["I#"] = ti["  "] .. {"st_stoneimpulse"}
 ti["IM"] = ti["''"] .. {"st_stoneimpulse_movable"}
@@ -207,8 +207,8 @@ ti["I."] = ti[".."] .. {"st_stoneimpulse"}
 ti["Im"] = ti[".."] .. {"st_stoneimpulse_movable"}
 ti["Ih"] = ti[".."] .. {"st_stoneimpulse_hollow"}
 ti["IH"] = ti["__"] .. {"st_stoneimpulse_hollow"}
-ti["G#"] = ti[";;"] .. {"st-glass1"}
-ti["M#"] = ti[";;"] .. {"st-greenbrown_move"}
+ti["G#"] = ti[";;"] .. {"st_lightglass"}
+ti["M#"] = ti[";;"] .. {"st_greenbrown_movable"}
 ti["MW"] = ti["''"] .. {"st_box"}
 ti["M:"] = ti["::"] .. {"st_box"}
 ti["MB"] = ti["c'"] .. {"st_brownie"}
@@ -248,7 +248,7 @@ ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
 ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
 ti["O,"] = ti[",,"] .. {"st_door_d", "oil_shop", faces="ns"}
 ti["Cm"] = ti[" m"] .. {"st-chameleon"}
-ti["UA"] = ti["_U"] .. {"st-glass1"}
+ti["UA"] = ti["_U"] .. {"st_lightglass"}
 ti["B;"] = ti[";;"] .. {"st_passage_black_frame"}
 ti["BB"] = ti["  "] .. {"st_brick", cluster=1}
 ti["Bw"] = ti[".."] .. {"st_boulder_w"}
@@ -277,16 +277,16 @@ ti["CW"] = ti[",,"] .. {"st_coinslot", target="buy_west"}
 ti["CC"] = ti[",,"] .. {"st_coinslot", target="ali_barber"}
 ti["CO"] = ti[",,"] .. {"st_coinslot", target="oil_shop"}
 ti["DI"] = ti["__"] .. {"st_death_invisible"}
-ti["GB"] = ti[",b"] .. {"st-glass1_move"}
-ti["GP"] = ti[",p"] .. {"st-glass1_move"}
-ti["GS"] = ti[",s"] .. {"st-glass1_move"}
-ti["GR"] = ti[",r"] .. {"st-glass1_move"}
-ti["GG"] = ti[",g"] .. {"st-glass1_move"}
-ti["GT"] = ti[",t"] .. {"st-glass1_move"}
-ti["G."] = ti[".."] .. {"st-glass_move"}
-ti["G'"] = ti["''"] .. {"st-glass1"}
-ti["GO"] = ti["t'"] .. {"st-glass1_hole"}
-ti["GA"] = ti[",,"] .. {"st-beads"}
+ti["GB"] = ti[",b"] .. {"st_lightglass_movable"}
+ti["GP"] = ti[",p"] .. {"st_lightglass_movable"}
+ti["GS"] = ti[",s"] .. {"st_lightglass_movable"}
+ti["GR"] = ti[",r"] .. {"st_lightglass_movable"}
+ti["GG"] = ti[",g"] .. {"st_lightglass_movable"}
+ti["GT"] = ti[",t"] .. {"st_lightglass_movable"}
+ti["G."] = ti[".."] .. {"st_rawglass_movable"}
+ti["G'"] = ti["''"] .. {"st_lightglass"}
+ti["GO"] = ti["t'"] .. {"st_lightglass_hollow"}
+ti["GA"] = ti[",,"] .. {"st_beads"}
 ti["GV"] = ti["t1"] .. {"st_passage_black_frame"}
 ti["Ti"] = ti["ti"] .. {"st_passage_black_frame"}
 ti["HW"] = ti["  "] .. {"st_chess_white"}
@@ -335,11 +335,11 @@ ti["%6"] = ti["%%"] .. {"#ac_rotor", range=3, strength=40}
 ti["'6"] = ti["''"] .. {"ac_rotor", range=3, strength=40}
 
 ti["C4"] = ti[" 4"] .. {"st-chameleon"}    -- aka sand viper in natur
-ti["H4"] = ti[" 4"] .. {"st-greenbrown_hole"}    -- aka sand viper in natur
+ti["H4"] = ti[" 4"] .. {"st_greenbrown_hollow"}    -- aka sand viper in natur
 ti["P5"] = ti[" 5"] .. {"st_pull"}    -- aka sand viper in a puller
-ti["G6"] = ti[" 6"] .. {"st-glass1"}    -- aka rotodile in a puller
-ti["G3"] = ti[" 3"] .. {"st-glass1"}    -- aka scorpion in a puller
-ti["G8"] = ti[" 8"] .. {"st-glass1_move"}
+ti["G6"] = ti[" 6"] .. {"st_lightglass"}    -- aka rotodile in a puller
+ti["G3"] = ti[" 3"] .. {"st_lightglass"}    -- aka scorpion in a puller
+ti["G8"] = ti[" 8"] .. {"st_lightglass_movable"}
 ti["W4"] = ti[" 4"] .. {"st_window_e"}
 ti["C1"] = ti["k1"] .. {"st-chameleon"}
 

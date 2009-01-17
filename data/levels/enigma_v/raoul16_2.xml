@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Venice I" el:subtitle="" el:id="raoul16"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_water"}
 ti["-"] = {"fl_concrete"}
-ti["G"] = ti["-"] .. {"st-glass"}
+ti["G"] = ti["-"] .. {"st_rawglass"}
 ti["O"] = {"st_oxyd"}
 ti["r"] = ti["G"] .. {"it_ring"}
 ti["y"] = ti["G"] .. {"it_yinyang"}

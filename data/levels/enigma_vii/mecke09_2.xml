@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 30 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 31 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti[" &"] = {"fl_metal_7", friction=4.0}
 ti["$ "] = {"st-thief"}
 ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st-stone_break"}
-ti["' "] = {"st-glass_move"}
+ti["' "] = {"st_rawglass_movable"}
 ti["( "] = {"st_pinkbumps"}
 ti[") "] = {"st-grate1"}
 ti["h "] = {"it_strip", connections="ew"}
@@ -49,7 +49,7 @@ ti["4 "] = {"st_door", faces="ew"}
 ti["e "] = {"it_extralife"}
 ti["5 "] = {"st_door", faces="ns"}
 ti[" ,"] = {"fl_swamp"}
-ti["6 "] = {"st-glass"}
+ti["6 "] = {"st_rawglass"}
 ti["7 "] = {"st_oxyd_d"}
 ti["8 "] = {"st_knight"}
 ti["9 "] = {"st_boulder_e"}
@@ -111,9 +111,9 @@ ti["Y "] = {"st_oneway_black_w"}
 ti[" :"] = {"fl_lawn_d1"}
 ti["Z "] = {"st_lightpassenger_off"}
 ti["^ "] = {"st_brake"}
-ti["~m"] = ti[" :"] .. {"st-glass_move"}
-ti["=m"] = ti[" ,"] .. {"st-glass_move"}
-ti["mm"] = ti[" %"] .. {"st-glass"}
+ti["~m"] = ti[" :"] .. {"st_rawglass_movable"}
+ti["=m"] = ti[" ,"] .. {"st_rawglass_movable"}
+ti["mm"] = ti[" %"] .. {"st_rawglass"}
 ti["~g"] = ti[" %"] .. {"st-grate1"}
 ti["h-"] = ti["~g"] .. {"it_strip", connections="ew"}
 ti["nn"] = ti[" 3"] .. {"st_actorimpulse_invisible"}
@@ -166,7 +166,7 @@ if wo ["IsDifficult"] then
     ti["ll"] = ti[" %"] .. {"fl_water"}
     ti["la"] = ti[" %"] .. {"fl_water"}
     ti["aa"] = ti[" %"] .. {"fl_water"}
-    ti["al"] = ti[" %"] .. {"st-glass_move"}
+    ti["al"] = ti[" %"] .. {"st_rawglass_movable"}
     ti["bp"] = ti[" !"] .. {"fl_brick"}
     ti["QQ"] = ti[" /"] .. {"st_chess_white"}
     ti["w1"] = ti["~m"] .. {"it_wormhole", destination = po(44.5, 35.5),range=10, strength=10}

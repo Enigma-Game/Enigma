@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="11" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="12" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,10 +39,10 @@ end
 ti["J "] = {"st_laser", "laser6", orientation=WEST, state=ON}
 ti["L "] = {"st_laser", "laser8", orientation=EAST, state=OFF}
 ti["K "] = {"st_key", target="door5"}
-ti["Q "] = {"st-glass"}
-ti["G "] = {"st-glass1"}
-ti["g "] = {"st-glass1", "glass7"}
-ti["H "] = {"st-glass1_hole"}
+ti["Q "] = {"st_rawglass"}
+ti["G "] = {"st_lightglass"}
+ti["g "] = {"st_lightglass", "glass7"}
+ti["H "] = {"st_lightglass_hollow"}
 ti["= "] = {"st_granite_movable"}
 ti["S "] = {"st_switch", target="blocker", action="kill"}
 ti["O "] = {"st_oxyd", flavor="c"}
@@ -140,7 +140,7 @@ function box(value, sender)
                 no["laser6"]:off()
             elseif box == 7 then
                 no["door7"]:open()
-                wo[no["glass7"]] = {"st-glass1_hole", "glass7"}
+                wo[no["glass7"]] = {"st_lightglass_hollow", "glass7"}
             else
                 no["laser8"]:on()
             end

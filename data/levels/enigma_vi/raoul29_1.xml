@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,8 +22,8 @@ if wo["IsDifficult"] then
 else
     ti["~"] = {"fl_abyss", friction=0.1}
 end
-ti["G"] = {"st-glass2"}
-ti["F"] = {"st-glass1"}
+ti["G"] = {"st_darkglass"}
+ti["F"] = {"st_lightglass"}
 ti["w"] = ti[" "] .. {"it-flagwhite"}
 ti["b"] = ti[" "] .. {"it-flagblack"}
 ti["y"] = {"it_yinyang"}

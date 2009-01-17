@@ -63,7 +63,7 @@ set_stone("st-door", 18, 3, {name="door", type="h"})
 if difficult then
     set_stones("st-stone_break", {{8, 4}, {3, 7}, {13, 7}, {7, 9}})
 end
-set_stone("st-glass", 11, 9, {type="0"})
+set_stone("st-glass", 11, 9)
 set_stone("st-lightpassenger", 13, 11, {name="bolder4"})
 set_stones("st-laser", {{3, 12}, {13, 12}}, {dir=NORTH, on="1"})
 

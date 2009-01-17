@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios I" el:subtitle="Use the Lightpassenger" el:id="mecke48"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 19 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ ti[" n"] = {"fl_ivory"}
 ti["K "] = {"st_laser_n", name="laser1", state=OFF}
 ti["E "] = {"st_lightpassenger_off"}
 ti["O "] = {"st_rotator_ccw", movable=false}
-ti["Y "] = {"st-glass2_move"}
+ti["Y "] = {"st_darkglass_movable"}
 ti["B "] = {"it_trigger",target="laser1"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["D "] = {"st_death"}

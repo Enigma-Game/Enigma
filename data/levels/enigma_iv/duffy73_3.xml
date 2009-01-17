@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="12" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="13" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -44,8 +44,8 @@ ti["3"] = {"fl-gradient", type=9}
 ti["7"] = {"fl-gradient", type=12}
 ti["9"] = {"fl-gradient", type=10}
 ti["#"] = {"st_death"}
-ti["v"] = {"st-greenbrown_move"} .. ti["l"]
-ti["%"] = {"st-greenbrown"}
+ti["v"] = {"st_greenbrown_movable"} .. ti["l"]
+ti["%"] = {"st_greenbrown"}
 ti["Q"] = ti["%"] .. ti["A"]
 ti["&"] = ti["%"] .. ti["."]
 ti["K"] = ti["%"] .. ti["i"]
@@ -63,7 +63,7 @@ ti["F"] = {"it-flagblack"} .. ti["l"]
 ti["O"] = {"it_extralife"} .. ti["l"]
 ti["T"] = {"st-thief"} .. ti["="]
 ti["B"] = {"st_invisible"} .. ti["A"]
-ti["a"] = {"st-greenbrown_hole"} .. ti["A"]
+ti["a"] = {"st_greenbrown_hollow"} .. ti["A"]
 ti["b"] = ti["%"] .. ti["A"]
 ti["I"] = {"st_invisible"}
 ti["M"] = {"#ac_rotor", owner=1, adhesion=0, range=4, strength=-5} .. ti["l"]
@@ -215,7 +215,7 @@ switch_count= 0
 function whiteswitch(value, sender)
     switch_count = switch_count + lib.lua.cond(value, 1, -1)
     if switch_count == 4 then
-        wo[no["whitegate"]] = {"st-greenbrown_hole", "whitegate"}
+        wo[no["whitegate"]] = {"st_greenbrown_hollow", "whitegate"}
     elseif switch_count == 3 then
         wo[no["whitegate"]] = ti[";"]
     end

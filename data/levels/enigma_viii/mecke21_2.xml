@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 40 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 41 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -34,13 +34,13 @@ ti["' "] = {"st_boulder_w"}
 ti[" $"] = {"fl_space"}
 ti["( "] = {"st_death"}
 ti[") "] = {"st_oxyd_d"}
-ti["+ "] = {"st-glass"}
+ti["+ "] = {"st_rawglass"}
 ti[" %"] = {"fl_abyss"}
 ti[" &"] = {"fl_water"}
 ti["cc"] = ti[" &"] .. {"it_cherry"}
 ti["hh"] = ti[" &"] .. {"it_strip", connections="ew"}
 ti["vv"] = ti[" &"] .. {"it_strip", connections="ns"}
-ti[", "] = {"st-glass_move"}
+ti[", "] = {"st_rawglass_movable"}
 ti[" '"] = {"fl_bluegray"}
 ti["- "] = {"st_knight"}
 ti[". "] = {"st_boulder_e"}
@@ -94,12 +94,12 @@ ti["&b"] = ti[" !"] .. {"it_brush"}
 ti["> "] = {"st_stoneimpulse_hollow"}
 ti["? "] = {"st_stoneimpulse"}
 ti["@ "] = {"st_quake"}
-ti["ff"] = ti[" !"] .. {"st-glass_move"}
+ti["ff"] = ti[" !"] .. {"st_rawglass_movable"}
 ti["fe"] = ti["ff"] .. {"it_extralife"}
 ti["ee"] = ti[" !"] .. {"it_extralife"}
 ti["fc"] = ti["ff"] .. {"it_cherry"}
 ti["C "] = {"st_oneway_black_w"}
-ti["fg"] = ti[" ("] .. {"st-glass"}
+ti["fg"] = ti[" ("] .. {"st_rawglass"}
 ti["fx"] = ti["fg"] .. {"it_floppy"}
 ti["fy"] = ti[" !"] .. {"it_spoon"}
 ti["&h"] = ti[" !"] .. {"#ac_horse"}
@@ -132,7 +132,7 @@ else
     ti["ei"] = ti[" !"] .. {"it_extralife"}
     ti["eq"] = ti["mn"] .. {"it_glasses"}
     ti["ec"] = ti["mn"] .. {"it_coin_s"}
-    ti["qq"] = ti["fg"] .. {"st-glass"}
+    ti["qq"] = ti["fg"] .. {"st_rawglass"}
     ti["~~"] = {"fl_abyss"}
 end
 

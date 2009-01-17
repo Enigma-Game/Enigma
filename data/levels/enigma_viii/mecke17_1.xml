@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation I" el:subtitle="Alternation in a Blue Area" el:id="mecke17"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -50,8 +50,8 @@ ti["W~"] = ti[" ~"] .. {"st_passage_white_frame"}
 ti["W'"] = ti[" '"] .. {"st_passage_white_frame"}
 ti["Ww"] = ti[" w"] .. {"st_passage_white_frame"}
 ti["W&"] = ti[" &"] .. {"st_passage_white_frame"}
-ti["2*"] = ti[" *"] .. {"st-glass_move"}
-ti["2r"] = ti[" r"] .. {"st-glass_move"}
+ti["2*"] = ti[" *"] .. {"st_rawglass_movable"}
+ti["2r"] = ti[" r"] .. {"st_rawglass_movable"}
 ti["CW"] = ti[" w"] .. {"st_chess_white"}
 ti["Sw"] = ti[" w"] .. {"st_swap"}
 ti["Tw"] = ti[" w"] .. {"st-thief"}
@@ -75,7 +75,7 @@ ti["SB"] = ti[" &"] .. {"st_switch_black", target={"door1"}}
 ti["SP"] = ti[" &"] .. {"st_switch_black", target={"door2"}}
 ti["1&"] = ti[" &"] .. {"st_box_wood"}
 ti["DD"] = ti[" &"] .. {"st_death"}
-ti["gi"] = ti[" i"] .. {"st-glass"}
+ti["gi"] = ti[" i"] .. {"st_rawglass"}
 ti["yy"] = ti["yw"] .. {"st_oneway_black", orientation=WEST}
 ti["*w"] = ti["yy"] .. {"#ac_marble_white"}
 ti["OO"] = ti[" &"] .. {"st_oneway_white", orientation=EAST}

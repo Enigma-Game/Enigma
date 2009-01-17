@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
-      <el:version el:score="2" el:release="4" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="4" el:revision="10" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,15 +22,15 @@ wo["ConserveLevel"] = true
 -- the next pattern.
 
 ti["  "] = {"fl_lawn_b"}
-ti["# "] = {"st-glass2"}
+ti["# "] = {"st_darkglass"}
 ti["@ "] = {"#ac_marble_black", name = "marble"}
 ti["o "] = {"st_oxyd", flavor = "b"}
 ti["S*"] = {"st_scissors", name = "scissors%%", target = "call_scissors"}
 ti["C "] = {"st_scissors", name = "scissors_central", target = "call_scissors"}
-ti["X*"] = {"st-glass1"} .. ti({"#ac_horse", name = "horse%%"})
+ti["X*"] = {"st_lightglass"} .. ti({"#ac_horse", name = "horse%%"})
 ti["s*"] = {"st-grate2", name = "parascissors%%"}
 ti["c "] = {"st-grate2", name = "parascissors_central"}
-ti["x*"] = {"st-glass1_hole", name = "paraplace%%"}
+ti["x*"] = {"st_lightglass_hollow", name = "paraplace%%"}
 ti["u "] = {"st_switch", target = "next_pattern"}
 ti["v "] = {"st_switch", target = "solve"}
 ti["r*"] = {"fl_lawn_b", "parafloor%%"}
@@ -155,10 +155,10 @@ function fix_horses()
   -- taint the glass of the new "fixpoint"
   local k = 8 - pattern_count + 1
   wo[no["paraplace%"..fixpoint_permutation[k]]]
-    = {"st-glass2_hole", name = "paraplace%"..fixpoint_permutation[k]}
+    = {"st_darkglass_hollow", name = "paraplace%"..fixpoint_permutation[k]}
   if pattern_count == 7 then
     wo[no["paraplace%"..fixpoint_permutation[1]]]
-      = {"st-glass2_hole", name = "paraplace%"..fixpoint_permutation[1]}
+      = {"st_darkglass_hollow", name = "paraplace%"..fixpoint_permutation[1]}
   end
 end
 

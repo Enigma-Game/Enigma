@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,15 +25,15 @@ ti["b"] = {"it_brush"}
 ti["h"] = {"it_hammer"}
 ti["d"] = {"it-dynamite"}
 ti["o"] = {"it-blackbomb"}
-ti["#"] = {"st-glass2"}
-ti["C"] = {"st-glass1"}
+ti["#"] = {"st_darkglass"}
+ti["C"] = {"st_lightglass"}
 ti["0"] = ti["C"] .. {"it_pipe_ns"}
 ti["1"] = ti["C"] .. {"it_pipe_ew"}
 ti["2"] = ti["C"] .. {"it_pipe_ne"}
 ti["3"] = ti["C"] .. {"it_pipe_es"}
 ti["4"] = ti["C"] .. {"it_pipe_sw"}
 ti["5"] = ti["C"] .. {"it_pipe_nw"}
-ti["X"] = ti["x"] .. {"st-glass2"}
+ti["X"] = ti["x"] .. {"st_darkglass"}
 ti["M"] = {"st_mail_e"}
 ti["U"] = {"st_mail_n"}
 ti["I"] = {"st-break_invisible"}

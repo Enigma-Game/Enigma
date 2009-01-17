@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
 ti["F "] = {"st_quake"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
-ti["E "] = ti[" ~"] .. {"st-glass_move"}
+ti["E "] = ti[" ~"] .. {"st_rawglass_movable"}
 ti["  "] = {"fl_metal_7", friction=4.0}
 ti[" ."] = {"fl_abyss"}
 ti["# "] = {"st_redrock"}
@@ -37,7 +37,7 @@ ti[" ,"] = {"fl_red"}
 ti[" n"] = {"it_death"}
 ti["K "] = ti[" ~"] .. {"st_knight"}
 ti["nn"] = ti[" ,"] .. {"it_magicwand"}
-ti["Y "] = {"st-glass2_move"}
+ti["Y "] = {"st_darkglass_movable"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["ic"] = {"st-stone_break"}
 ti["h "] = {"st_bluegray_hollow"}

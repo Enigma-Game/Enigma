@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="More Microwire" el:subtitle="" el:id="20080717ral282"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 129 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 130 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@ wo["ShowMoves"] = true
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_samba", friction=7, adhesion=1.8}
-ti["*"] = ti[" "] ..{"st-beads"}
+ti["*"] = ti[" "] ..{"st_beads"}
 ti["#"] = {"fl_samba"}
 ti["1"] = {"it_trigger", target="bridgeA"} .. ti{"st_brownie", "brownie1"}
 ti["2"] = {"it_trigger", target="bridgeB"} .. ti{"st_brownie", "brownie2"}

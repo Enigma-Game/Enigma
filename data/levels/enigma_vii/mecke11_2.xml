@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:35$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:36$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -26,7 +26,7 @@ ti[" $"] = {"fl_metal_7"}
 ti[" %"] = {"fl_bluegray"}
 ti["% "] = {"st_boulder_w"}
 ti["& "] = {"st_quake"}
-ti["c7"] = ti[" #"] .. {"st-glass"}
+ti["c7"] = ti[" #"] .. {"st_rawglass"}
 ti["c2"] = ti["c7"] .. {"it_key", code=2}
 ti["t1"] = ti[" #"] .. {"it_trigger", target="ox1",action="toggle"}
 ti["t2"] = ti[" #"] .. {"it_trigger", target="ox2",action="toggle"}
@@ -59,7 +59,7 @@ ti["0 "] = {"st_puzzle_yellow", connections="ne"}
 ti["p1"] = ti[" #"] .. {"st_puzzle_yellow", connections="ne"}
 ti[" ("] = {"fl_swamp"}
 ti["1 "] = {"st_puzzle_yellow", connections="ew"}
-ti["2 "] = {"st-glass"}
+ti["2 "] = {"st_rawglass"}
 ti["3 "] = {"st_laser_e"}
 ti["L0"] = ti[" #"] .. {"st_laser_e", name="lezy2"}
 ti["L1"] = ti[" #"] .. {"st_laser_e", name="ox1"}
@@ -103,7 +103,7 @@ ti["d4"] = ti[" #"] .. {"st_door", faces="ns", name="door4"}
 ti["B "] = {"st_stoneimpulse_hollow"}
 ti["w "] = {"it_magicwand"}
 ti["C "] = {"st_stoneimpulse"}
-ti["D "] = {"st-glass_move"}
+ti["D "] = {"st_rawglass_movable"}
 ti["E "] = {"st-rock3"}
 ti[" *"] = {"fl_ivory"}
 ti["F "] = {"st_oneway_s"}
@@ -112,7 +112,7 @@ ti["G "] = {"st_purplegray"}
 ti["H "] = {"st_oneway_e"}
 ti["I "] = {"st_oneway_n"}
 ti["Y "] = {"st_knight"}
-ti["c8"] = ti[" +"] .. {"st-glass"}
+ti["c8"] = ti[" +"] .. {"st_rawglass"}
 ti["cc"] = ti["c8"] .. {"it_coin_m"}
 ti["J "] = {"st_passage_black_frame"}
 ti["a5"] = ti[" #"] .. {"st_passage_black_frame"}
@@ -135,7 +135,7 @@ ti["l4"] = ti[" #"] .. {"it_extralife"}
 
 if wo ["IsDifficult"] then
     ti["hx"] = ti[" '"] .. {"it_strip", connections="ew"}
-    ti["c9"] = ti[" ,"] .. {"st-glass"}
+    ti["c9"] = ti[" ,"] .. {"st_rawglass"}
     ti["c1"] = ti["c9"] .. {"it_key", code=1}
     ti["nn"] = ti[" #"] .. {"fl_yinyang_yin"}
 else

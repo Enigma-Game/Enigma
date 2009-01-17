@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 27 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 29 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,8 +33,8 @@ ti[" O"] = {"fl_abyss"}
 ti[" 1"] = {"fl_red"}
 ti["/ "] = {"st-puzzle-new"}
 ti["$ "] = {"st-grate3"}
-ti["% "] = {"st-glass3"}
-ti["& "] = {"st-glass2"}
+ti["% "] = {"st_redfiber"}
+ti["& "] = {"st_darkglass"}
 ti["' "] =  ti[" O"] .. {"it_strip_ns"}
 ti["z "] = {"st-grate2"}
 ti["u "] = {"st_stoneimpulse_hollow"}
@@ -43,16 +43,16 @@ ti["+ "] = {"st_pinkbumps"}
 ti[", "] = {"st_purplegray"}
 ti["- "] = {"st_greengray"}
 ti[". "] = {"st_concrete"}
-ti["# "] = {"st-greenbrown"}
+ti["# "] = {"st_greenbrown"}
 ti["0 "] = {"st_brownie"}
 ti["1 "] = {"st_redbrown"}
-ti["2 "] = {"st-greenbrown-growing"}
+ti["2 "] = {"st_greenbrown-growing"}
 ti["3 "] = {"st-blocker-growing"}
-ti["4 "] = {"st-glass2_hole"}
+ti["4 "] = {"st_darkglass_hollow"}
 ti["5 "] = {"st_brownpyramide"}
 ti["6 "] = {"st_metal"}
 ti["7 "] = {"st_yellow"}
-ti["8 "] = {"st-beads"}
+ti["8 "] = {"st_beads"}
 ti["9 "] = {"st_camouflage"}
 ti["SB"] = {"st_passage_black_frame"}
 ti["SP"] = {"st_chess_black"}
@@ -118,8 +118,8 @@ ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
 ti["T "] = {"st-thief"}
 ti["D "] = ti[" ~"] .. {"st-grate1"}
-ti["E "] = {"st-glass_move"}
-ti["F "] = {"st-glass"}
+ti["E "] = {"st_rawglass_movable"}
+ti["F "] = {"st_rawglass"}
 ti["! "] = ti[" ."] .. {"it_wrench"}
 ti["p1"] = ti[" a"] .. {"it_pipe",connections = "ew"}
 ti["p2"] = ti[" a"] .. {"it-flagblack"}
