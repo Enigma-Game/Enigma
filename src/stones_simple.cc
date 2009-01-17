@@ -692,7 +692,7 @@ namespace
         void actor_hit(const StoneContact &sc) {
             if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
                 sound_event ("stonepaint");
-                ReplaceStone (get_pos(), MakeStone("st-glass"));
+                ReplaceStone (get_pos(), MakeStone("st_rawglass"));
             }
         }
     };

@@ -740,7 +740,7 @@ end
 -- simple stones --
 -------------------
 do
-    DefStone("st-beads", "sh-glass")
+    DefStone("st_beads", "sh-glass")
     DefStone("st-black1")
     DefStone("st-black2")
     DefStone("st-black3")
@@ -760,10 +760,10 @@ do
     DefStone("st-floppy0", "sh-round", {filename="st-floppy1"})
     DefStone("st-floppy1", "sh-round", {filename="st-floppy2"})
     DefStone("st-flrock")
-    DefStone("st-glass", "sh-glass");
-    DefStone("st-glass1", "sh-glass")
-    DefStone("st-glass2", "sh-glass")
-    DefStone("st-glass3", "sh-glass")
+    DefStone("st_rawglass", "sh-glass");
+    DefStone("st_lightglass", "sh-glass")
+    DefStone("st_darkglass", "sh-glass")
+    DefStone("st_redfiber", "sh-glass")
     DefStone("st-grate1", "sh-grate1")
     DefStone("st-grate2", "sh-grate2")
     DefStone("st-grate3", "sh-grate3")
@@ -1750,10 +1750,6 @@ do
     DefAlias("st-explosion", "expl")
     DefAlias("st-firebreak_move", "st-firebreak")
     DefAlias("st-glass_move", "st-glass");
-    DefAlias("st-glass1_hole", "st-glass1")
-    DefAlias("st-glass1_move", "st-glass1")
-    DefAlias("st-glass2_hole", "st-glass2")
-    DefAlias("st-glass2_move", "st-glass2")
     DefAlias("st-greenbrown_hole", "st-greenbrown")
     DefAlias("st-greenbrown_move", "st-greenbrown")
     DefAlias("st-laserbreak", "st-rock3")

@@ -415,7 +415,7 @@ namespace
                 "st-grate1",
                 "st_death",
                 "st-surprise",
-                "st-glass1_hole",
+                "st_lightglass_hollow",
                 "st-magic",
                 "st_knight",
                 "st-thief",
@@ -445,7 +445,7 @@ namespace
 
         void actor_hit (const StoneContact &) {
             sound_event ("stonetransform");
-            ReplaceStone(get_pos(), MakeStone("st-glass_move"));
+            ReplaceStone(get_pos(), MakeStone("st_rawglass_movable"));
         }
     private:
         FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
@@ -823,7 +823,7 @@ namespace
 
         void actor_hit (const StoneContact &) {
             sound_event ("stonetransform");
-            ReplaceStone(get_pos(), MakeStone("st-glass1_move"));
+            ReplaceStone(get_pos(), MakeStone("st_lightglass_movable"));
         }
     private:
         FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }

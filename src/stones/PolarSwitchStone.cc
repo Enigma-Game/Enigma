@@ -39,7 +39,7 @@ namespace enigma {
     }
 
     void PolarSwitchStone::init_model() {
-        set_model(ecl::strf("st-glass%s", state == ON ? "1" : "2"));
+        set_model(ecl::strf("%s", state == ON ? "st_lightglass" : "st_darkglass"));
     }
 
     bool PolarSwitchStone::is_transparent (Direction d) const {

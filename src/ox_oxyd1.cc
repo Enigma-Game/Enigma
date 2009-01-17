@@ -185,9 +185,9 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x22
     "st_woven",                 // Oxyd1 stone 0x23
     "st_redbrown",              // Oxyd1 stone 0x24
-    "st-glass1",                // Oxyd1 stone 0x25
-    "st-glass3",                // Oxyd1 stone 0x26
-    "st-glass2",                // Oxyd1 stone 0x27
+    "st_lightglass",            // Oxyd1 stone 0x25
+    "st_redfiber",              // Oxyd1 stone 0x26
+    "st_darkglass",             // Oxyd1 stone 0x27
     "st-plain_break",           // Oxyd1 stone 0x28 [see Level#12]
     "st-plain_hole",            // Oxyd1 stone 0x29
     "st-plain_move",            // Oxyd1 stone 0x2a
@@ -301,7 +301,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_charge_plus",           // Oxyd1 stone 0x96
     "st_charge_minus",          // Oxyd1 stone 0x97
     "st_charge_zero",           // Oxyd1 stone 0x98
-    "st-glass1",                // Oxyd1 stone 0x99
+    "st_lightglass",            // Oxyd1 stone 0x99
     // codes >= 0x9a are unused
 };
 

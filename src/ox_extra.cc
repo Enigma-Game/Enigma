@@ -150,7 +150,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st_tigris",         // OxydExtra stone 0x1f
     "st_redmarble",      // OxydExtra stone 0x20
     "st_greengray",      // OxydExtra stone 0x21
-    "st-glass1",         // OxydExtra stone 0x22
+    "st_lightglass",     // OxydExtra stone 0x22
     UNUSED,              // OxydExtra stone 0x23
     "st-plain_break",    // OxydExtra stone 0x24
     "st-plain_hole",     // OxydExtra stone 0x25

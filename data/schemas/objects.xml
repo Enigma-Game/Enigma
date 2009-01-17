@@ -703,6 +703,7 @@
       <msg name="_performaction"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_beads"/>
     <object name="st_blocker_new" init="true">
     </object>
     <object name="st_bluegray">
@@ -892,6 +893,15 @@
       <attr name="instant" value="true"/>
     </object>
     <object name="st_concrete"/>
+    <object name="st_darkglass">
+      <attr name="hollow" rw="r"/>
+    </object>
+    <object name="st_darkglass_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_darkglass_movable">
+      <attr name="movable" value="true"/>
+    </object>
     <object name="st_darkgray">
       <attr name="hollow" rw="r"/>
     </object>
@@ -1004,6 +1014,15 @@
     </object>
     <object name="st_knight">
       <attr name="state" max="4" rw="r"/>
+    </object>
+    <object name="st_lightglass">
+      <attr name="hollow" rw="r"/>
+    </object>
+    <object name="st_lightglass_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_lightglass_movable">
+      <attr name="movable" value="true"/>
     </object>
     <object name="st_mail">
       <attr name="orientation"/>
@@ -1238,12 +1257,12 @@
       <msg name="_explosion"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_rawglass"/>
+    <object name="st_rawglass_movable">
+      <attr name="movable" value="true"/>
+    </object>
     <object name="st_redmarble"/>
     <object name="st_redrock"/>
-    <object name="st_rotator">
-      <attr name="counterclock"/>
-      <attr name="movable" rw="rw"/>
-    </object>
     <object name="st_redbrown">
       <attr name="hollow" rw="r"/>
     </object>
@@ -1252,6 +1271,13 @@
     </object>
     <object name="st_redbrown_movable">
       <attr name="movable" value="true"/>
+    </object>
+    <object name="st_redfiber">
+      <msg name="signal"/>
+    </object>
+    <object name="st_rotator">
+      <attr name="counterclock"/>
+      <attr name="movable" rw="rw"/>
     </object>
     <object name="st_rotator_cw">
       <attr name="state" value="0"/>

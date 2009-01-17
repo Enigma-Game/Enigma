@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008, 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -1840,14 +1840,14 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
         dstValue = dst->getAttr("name");
     }
     
-    if (dst->is_kind("it-hill") || dst->is_kind("it-tinyhill") ||
-            dst->is_kind("it-hollow") || dst->is_kind("it-tinyhollow")) {
+    if (dst->is_kind("it_meditation_hill") || dst->is_kind("it_meditaion_bump") ||
+            dst->is_kind("it_meditation_hollow") || dst->is_kind("it_meditation_dent")) {
         if (!dst->getAttr("name"))
             NameObject(dst, ecl::strf("$!oxyd!hillhollow%d", dst->getId()));
         dstValue = dst->getAttr("name");
     }
     
-    if (src->is_kind("st-actorimpulse")) {
+    if (src->is_kind("st_actorimpulse")) {
         Log << "AddSignal for st-actorimpulse\n";
         ObjectList ol = src->getDefaultedAttr("$!oxyd!destinations", Value(Value::GROUP));
         ol.push_back(dstValue);

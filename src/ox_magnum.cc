@@ -141,7 +141,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_brick_nw",              // OxydMagnum stone 0x16
     UNUSED,                     // OxydMagnum stone 0x17
     UNUSED,                     // OxydMagnum stone 0x18
-    "st-glass1_hole",           // OxydMagnum stone 0x19
+    "st_lightglass_hollow",     // OxydMagnum stone 0x19
     "st-grate1",                // OxydMagnum stone 0x1a
     "st-grate2",                // OxydMagnum stone 0x1b
     "st-bug",                   // OxydMagnum stone 0x1c
@@ -153,9 +153,9 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_granite",               // OxydMagnum stone 0x22 (common was 'st-glass')(Level 73 only)(looks like st-rock1)(looks like 0x20, but not like 0x87)
     "st_woven",                 // OxydMagnum stone 0x23
     "st_redbrown",              // OxydMagnum stone 0x24
-    "st-glass1",                // OxydMagnum stone 0x25
-    "st-glass3",                // OxydMagnum stone 0x26
-    "st-glass1",                // OxydMagnum stone 0x27
+    "st_lightglass",            // OxydMagnum stone 0x25
+    "st_redfiber",              // OxydMagnum stone 0x26
+    "st_lightglass",            // OxydMagnum stone 0x27
     "st-plain_break",           // OxydMagnum stone 0x28
     "st-plain_hole",            // OxydMagnum stone 0x29
     "st-plain_move",            // OxydMagnum stone 0x2a

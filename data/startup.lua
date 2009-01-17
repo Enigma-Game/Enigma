@@ -105,14 +105,7 @@ end
 function def_stone_movable(name, sound)
     world.DefineSimpleStoneMovable(name,sound or "stone",0)
 end
-function def_stone_glass(name, sound)
-    world.DefineSimpleStone(name,sound or "stone",0,1)
-end
-function def_stone_movable_glass(name, sound)
-    world.DefineSimpleStoneMovable(name,sound or "stone",1)
-end
 
-def_stone("st-beads")
 def_stone("st-greenbrown")
 def_stone_movable("st-greenbrown_move", "cloth")
 def_stone_hollow("st-greenbrown_hole")
@@ -120,15 +113,6 @@ def_stone("st-rock3")
 def_stone_movable("st-rock3_move")
 def_stone_hollow("st-rock3_hole")
 
-def_stone_glass("st-glass")
-def_stone_movable_glass("st-glass_move")
-def_stone_glass("st-glass1")
-def_stone_movable_glass("st-glass1_move")
-def_stone_hollow("st-glass1_hole")
-def_stone_glass("st-glass2")
-def_stone_movable_glass("st-glass2_move")
-def_stone_hollow("st-glass2_hole")
-def_stone_glass("st-glass3")
 
 
 ------------------------------

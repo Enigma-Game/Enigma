@@ -70,8 +70,9 @@ namespace enigma {
                 sound_event ("switchon");
                 state += 2;  // OFF->TURNON, ON->TURNOFF
                 set_anim(ecl::strf("st-switch%s%s", colorName(), extState ? "-turnon" : "-turnoff"));
-                if (isInstant())
+                if (isInstant()) {
                     performAction(externalState() == ON);   // immediate action
+                }
             } else if (state == TURNON && extState == OFF) {
                 state = TURNOFF;
                 get_model()->reverse();  // reverse anim
