@@ -767,7 +767,7 @@ do
     DefStone("st-grate1", "sh-grate1")
     DefStone("st-grate2", "sh-grate2")
     DefStone("st-grate3", "sh-grate3")
-    DefStone("st-greenbrown", "sh-round")
+    DefStone("st_greenbrown", "sh-round")
     DefStone("st-key0", "sh-round", {filename="st-key1"})
     DefStone("st-key1", "sh-round", {filename="st-key2"})
     DefStone("st_redbrown", "sh-round")
@@ -1245,7 +1245,6 @@ do
       DefAnim("wood-growing-fg", BuildFrames(n, 130))
       DefAnim("wood-growing-bg", BuildFrames(sh, 130))
       DefShModel("st-wood-growing", "wood-growing-fg", "wood-growing-bg")
-      DefShModel("st-greenbrown-growing", "wood-growing-fg", "wood-growing-bg")
    end
 
    -- Blocker stone --
@@ -1750,8 +1749,6 @@ do
     DefAlias("st-explosion", "expl")
     DefAlias("st-firebreak_move", "st-firebreak")
     DefAlias("st-glass_move", "st-glass");
-    DefAlias("st-greenbrown_hole", "st-greenbrown")
-    DefAlias("st-greenbrown_move", "st-greenbrown")
     DefAlias("st-laserbreak", "st-rock3")
     DefAlias("st-laserbreak-anim", "st-rock3_break-anim")
     DefAlias("st-plain", "st-rock3")

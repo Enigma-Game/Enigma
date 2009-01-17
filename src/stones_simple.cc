@@ -834,32 +834,6 @@ namespace
 }
 
 
-//----------------------------------------
-// Growing stones used by it-seed
-//----------------------------------------
-namespace
-{
-    
-    class GreenbrownStone_Growing : public Stone {
-        CLONEOBJ(GreenbrownStone_Growing);
-        DECL_TRAITS;
-    public:
-        GreenbrownStone_Growing()
-        {}
-    private:
-        void init_model() { set_anim("st-greenbrown-growing"); }
-        void animcb() {
-            Stone *st = MakeStone("st-greenbrown");
-            ReplaceStone(get_pos(), st);
-        }
-        void actor_contact(Actor *a) {SendMessage(a, "_shatter");}
-        void actor_inside(Actor *a) {SendMessage(a, "_shatter");}
-        void actor_hit(const StoneContact &sc) {SendMessage(sc.actor, "_shatter");}
-    };
-    DEF_TRAITS(GreenbrownStone_Growing, "st-greenbrown-growing", st_greenbrown_growing);
-
-}
-
 /* -------------------- Thief -------------------- */
 namespace
 {
@@ -1261,8 +1235,6 @@ void Init_simple()
     Register(new Stone_movebreak);
     Register(new Stonebrush);
     Register(new ThiefStone);
-
-    Register(new GreenbrownStone_Growing);
 
     Register(new YinYangStone1);
     Register(new YinYangStone2);

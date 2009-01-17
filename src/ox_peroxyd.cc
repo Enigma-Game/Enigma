@@ -221,7 +221,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_camouflage",            // PerOxyd stone 0x1e (green camouflage piece)
     UNUSED,                     // PerOxyd stone 0x1f
     "st_redmarble",             // PerOxyd stone 0x20
-    "st-greenbrown",            // PerOxyd stone 0x21
+    "st_greenbrown",            // PerOxyd stone 0x21
     "st_rawglass",              // PerOxyd stone 0x22 (semi opaque piece, not really glass)
     "st_rawglass",              // PerOxyd stone 0x23 (must be st-glass, see link level 92)
     "st-plain_break",           // PerOxyd stone 0x24

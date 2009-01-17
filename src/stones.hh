@@ -65,7 +65,7 @@ namespace enigma {
         st_firebreak_move,
         st_floppy,
         st_fourswitch,
-        st_greenbrown_growing,
+        st_greenbrown,
         st_key,
         st_knight,
         st_laserbreak,

@@ -996,6 +996,16 @@
     <object name="st_granite_movable">
       <attr name="movable" value="true"/>
     </object>
+    <object name="st_greenbrown">
+      <attr name="hollow" rw="r"/>
+    </object>
+    <object name="st_greenbrown_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_greenbrown_movable">
+      <attr name="movable" value="true"/>
+    </object>
+    <object name="st_greenbrown_growing" init="true"/>
     <object name="st_greengray"/>
     <object name="st_invisible">
       <attr name="hollow" rw="r"/>

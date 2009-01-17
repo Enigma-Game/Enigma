@@ -292,6 +292,8 @@ enigma_SOURCES = 		\
 	stones/FourSwitch.hh	\
 	stones/GlassStones.cc	\
 	stones/GlassStones.hh	\
+	stones/GreenBrownStone.cc	\
+	stones/GreenBrownSTone.hh	\
 	stones/KeySwitch.cc	\
 	stones/KeySwitch.hh	\
 	stones/KnightStone.cc	\
