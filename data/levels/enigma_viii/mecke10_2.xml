@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 28 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 29 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -23,7 +23,7 @@ ti[" +"] = {"fl_woven"}
 ti[" !"] = {"fl_brick"}
 ti["! "] = {"st_death"}
 ti[" #"] = {"fl_metal_7", friction=4.0}
-ti["# "] = {"st-rock3"}
+ti["# "] = {"st_plaster"}
 ti[" $"] = {"fl_abyss"}
 ti[" %"] = {"fl_ivory"}
 ti["$ "] = {"st-stone_break"}
@@ -56,7 +56,7 @@ ti["i3"] = ti["i1"] .. {"it_extralife"}
 ti["i4"] = ti["i2"] .. {"it_extralife"}
 ti[". "] = {"st_stoneimpulse"}
 ti["/ "] = {"st_stoneimpulse_hollow"}
-ti["0 "] = {"st-rock3_hole"}
+ti["0 "] = {"st_plaster_hollow"}
 ti[" -"] = {"fl_aquamarine"}
 ti["1 "] = {"st_rawglass"}
 ti[" /"] = {"fl_blueslab"}
@@ -64,7 +64,7 @@ ti["2 "] = {"st_shogun_m"}
 ti[" 0"] = {"fl_himalaya"}
 ti["e1"] = ti["e2"] .. {"it_brush"}
 ti["3 "] = {"st_shogun_s"}
-ti["5 "] = {"st-rock3_move"}
+ti["5 "] = {"st_plaster_movable"}
 ti["6 "] = {"st_shogun_l"}
 ti["c8"] = ti["e4"] .. {"it_banana"}
 ti["o "] = {"it_meditation_dent"}

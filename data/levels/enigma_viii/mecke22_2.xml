@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:75$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:76$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -81,7 +81,7 @@ ti["H "] = {"st_door",state=OPEN,faces="ew"}
 ti["XX"] = ti[" ;"].. {"#ac_marble_black"}
 ti["I "] = {"st_fake_oxyda"}
 ti["K "] = {"st_boulder_e"}
-ti["L "] = {"st-rock3_break"}
+ti["L "] = {"st_plaster_breakable"}
 ti[" 0"] = {"fl-gradient9"}
 ti[" 1"] = {"fl-gradient3"}
 ti[" 2"] = {"fl-gradient10"}

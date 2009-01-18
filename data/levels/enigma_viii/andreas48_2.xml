@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="13" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="14" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -38,7 +38,7 @@ designs =
    {"fl_bluegreen", "fl_abyss", "st_metal",      "st_metal_hollow",      OXYD_BLUE},
    {"fl_brick",     "fl_water", "st_granite",      "st_granite_hollow",      OXYD_RED},
    {"fl_gravel",    "fl_abyss", "st_darkgray",      "st_darkgray_hollow",      OXYD_BLACK},
-   {"fl_metal",     "fl_water", "st-rock3",      "st-rock3_hole",      OXYD_WHITE}}
+   {"fl_metal",     "fl_water", "st_plaster",      "st_plaster_hollow",      OXYD_WHITE}}
 
 vortex_goals = {}
 maze_maps = {}

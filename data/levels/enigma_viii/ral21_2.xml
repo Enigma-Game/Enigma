@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 144 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 145 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -224,8 +224,8 @@ ti["R5"] = ti[".."] .. {"st_granite"}
 ti["Rp"] = ti[".."] .. {"st_granite_hollow"}
 ti["Rh"] = ti["  "] .. {"st_granite_hollow"}
 ti["Rm"] = ti["::"] .. {"st_granite_movable"}
-ti["R3"] = ti["  "] .. {"st-rock3"}
-ti["RH"] = ti["  "] .. {"st-rock3_hole"}
+ti["R3"] = ti["  "] .. {"st_plaster"}
+ti["RH"] = ti["  "] .. {"st_plaster_hollow"}
 ti["RP"] = ti["  "] .. {"st_panel"}
 ti["R#"] = ti["  "] .. {"st_rotator_cw"}
 ti["RL"] = ti["  "] .. {"st_rotator_ccw"}

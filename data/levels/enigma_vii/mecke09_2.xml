@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 31 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 32 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -65,7 +65,7 @@ ti[" ."] = {"fl_samba"}
 ti["w "] = {"it_magicwand"}
 ti[" /"] = {"fl_gravel"}
 ti["@ "] = {"st_rubberband"}
-ti["A "] = {"st-rock3"}
+ti["A "] = {"st_plaster"}
 ti["b "] = {"it_banana"}
 ti["B "] = {"st_actorimpulse"}
 ti["C "] = {"st_rotator_ccw"}
@@ -101,7 +101,7 @@ ti["S "] = {"st-break_invisible"}
 ti[" 8"] = {"fl_bluegray"}
 ti["T "] = {"st_boulder_s"}
 ti[" 9"] = {"fl_hay"}
-ti["U "] = {"st-rock3_break"}
+ti["U "] = {"st_plaster_breakable"}
 ti["V "] = {"st_tigris"}
 ti["W "] = {"st_mirror", movable=true, transparent=false, orientation=SOUTH}
 ti["n "] = {"it-surprise"}
