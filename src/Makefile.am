@@ -316,6 +316,8 @@ enigma_SOURCES = 		\
 	stones/OxydStone.hh	\
 	stones/PassageStone.cc	\
 	stones/PassageStone.hh	\
+	stones/PlasterStone.cc	\
+	stones/PlasterStone.hh	\
 	stones/PolarSwitchStone.cc	\
 	stones/PolarSwitchStone.hh	\
 	stones/PullStone.cc	\

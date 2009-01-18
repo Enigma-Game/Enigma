@@ -8,6 +8,7 @@
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="attacknearest" type="bool" default="false" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
+    <attr name="breakable" type="bool" default="false" rw="rw"/>
     <attr name="burnable" type="bool" default="nil" rw="rw"/>
     <attr name="charge" type="double" default="0" rw="rw"/>
     <attr name="cluster" type="int" default="nil" min="0" max="9" rw="rw"/>
@@ -1230,6 +1231,25 @@
       <attr name="color" value="1"/>
     </object>
     <object name="st_pinkbumps"/>
+    <object name="st_plaster">
+      <attr name="hollow" rw="r"/>
+      <attr name="breakable" rw="r"/>
+    </object>
+    <object name="st_plaster_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_plaster_movable">
+      <attr name="movable" value="true"/>
+      <attr name="breakable" value="false"/>
+    </object>
+    <object name="st_plaster_breakable">
+      <attr name="breakable" value="true"/>
+      <attr name="movable" value="false"/>
+    </object>
+    <object name="st_plaster_movebreakable">
+      <attr name="movable" value="true"/>
+      <attr name="breakable" value="true"/>
+    </object>
     <object name="st_polarswitch">
       <msg name="on"/>
       <msg name="off"/>

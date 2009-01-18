@@ -106,11 +106,6 @@ function def_stone_movable(name, sound)
     world.DefineSimpleStoneMovable(name,sound or "stone",0)
 end
 
-def_stone("st-rock3")
-def_stone_movable("st-rock3_move")
-def_stone_hollow("st-rock3_hole")
-
-
 
 ------------------------------
 -- Define the simple floors --

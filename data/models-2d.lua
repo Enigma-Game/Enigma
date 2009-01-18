@@ -775,6 +775,7 @@ do
     DefStone("st_redrock")
     DefStone("st_granite", "sh-round")
     DefStone("st_darkgray")
+    DefStone("st_plaster")
     DefStone("st-rock3")
     DefStone("st-rock3_cracked")
     DefStone("st_purplemarble")
@@ -1020,7 +1021,7 @@ do
     DefShModel("st-lightpassenger", img[1], "sh-glass")
     DefImage("st-lightpassenger_offx", {filename = "st-lightpassenger_off"})
     DefShModel("st-lightpassenger_off", "st-lightpassenger_offx", "sh-glass")
-    DefAlias("st-lightpassenger_hidden", "st-glass2")
+    DefAlias("st-lightpassenger_hidden", "st_darkglass")
     -- Blink animation
     local frames = {img[2], img[3], img[4], img[5], img[6], img[7]}
     DefAnim("st-lightpassenger-blink1", PingPong(BuildFrames(frames, 75)), true)
@@ -1106,6 +1107,7 @@ do
     DefAnim("rock3_break-anim",BuildFrames(images,50))
     DefSolidStone("st-rock3_break-anim", "rock3_break-anim")
     DefAlias("st-rock3_movebreak", "st-rock3")
+    DefAlias("st_plaster_breaking", "st-rock3_break-anim")
 end
 
 -- st-rock3-falling --

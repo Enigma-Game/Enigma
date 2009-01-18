@@ -191,10 +191,7 @@ wo:_register("drawMap",
         -- world, resolver, (position|object|table), string, (table|map), [int]
         -- world, resolver, (position|object|table), map, [int]
         -- Analyse arguments 3 to 6
-        local origin = anchor
-        if type(origin) == "table" then
-            origin = po(origin)
-        end
+        local origin = po(anchor)   -- either convert or make a working position copy
         local ignore = ignorearg
         local map = maparg
         local readdir = readarg or MAP_IDENT

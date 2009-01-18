@@ -250,7 +250,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x83
     UNUSED,                     // OxydMagnum stone 0x84
     UNUSED,                     // OxydMagnum stone 0x85
-    "st-rock3_hole",            // OxydMagnum stone 0x86
+    "st_plaster_hollow",        // OxydMagnum stone 0x86
     "st_purplemarble",          // OxydMagnum stone 0x87 (was st-rock1, but the pic has straight edges and surfaces)
     0,                          // OxydMagnum stone 0x88 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     0,                          // OxydMagnum stone 0x89 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)

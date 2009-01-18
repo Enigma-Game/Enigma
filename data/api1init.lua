@@ -370,6 +370,12 @@ RenamingObjectsNew2Old = {
     st_passage_white_cross = "st-white3",
     st_passage_white_frame = "st-white4",
     st_pinkbumps = "st-bumps",
+    st_plaster = "st-rock3",
+    st_plaster_hollow = "st-rock3_hole",
+    st_plaster_movable = "st-rock3_move",
+    st_plaster_breakable = "st-rock3_break",
+    st_plaster_movebreakable = "st-rock3_movebreak",
+    
     st_pull = "st-pull",
     st_purplegray = "st-rock6",
     st_purplemarble = "st-rock4",
