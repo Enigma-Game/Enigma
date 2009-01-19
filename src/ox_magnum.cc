@@ -133,8 +133,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     0,                          // OxydMagnum stone 0x00
     0,0,0,0,0,0,0,0,            // 0x01 -- 0x08  Oxyd stones
     0,0,0,0,0,0,0,0,            // 0x09 -- 0x10  Oxyd stones
-    "st_fake_oxydd",             // OxydMagnum stone 0x11
-    "st-plain",                 // OxydMagnum stone 0x12
+    "st_fake_oxydd",            // OxydMagnum stone 0x11
+    "st_flat",                  // OxydMagnum stone 0x12
     "st_brick_es",              // OxydMagnum stone 0x13
     "st_brick_sw",              // OxydMagnum stone 0x14
     "st_brick_ne",              // OxydMagnum stone 0x15
@@ -156,9 +156,9 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_lightglass",            // OxydMagnum stone 0x25
     "st_redfiber",              // OxydMagnum stone 0x26
     "st_lightglass",            // OxydMagnum stone 0x27
-    "st-plain_break",           // OxydMagnum stone 0x28
-    "st-plain_hole",            // OxydMagnum stone 0x29
-    "st-plain_move",            // OxydMagnum stone 0x2a
+    "st_flat_breakable",        // OxydMagnum stone 0x28
+    "st_flat_hollow",           // OxydMagnum stone 0x29
+    "st_flat_movable",          // OxydMagnum stone 0x2a
     "st_box_wood",              // OxydMagnum stone 0x2b
     "st_switch_instant",        // OxydMagnum stone 0x2c
     "st_floppy",                // OxydMagnum stone 0x2d (in normal Oxyd Magnum Levels unused!)
@@ -215,7 +215,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_puzzle_yellow_e",       // Oxyd1 stone 0x60
     "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
     "st_metal_hollow",          // OxydMagnum stone 0x62  (st-explosive: like st-metal, but explodes when touched ...)
-    "st-plain_break",           // OxydMagnum stone 0x63
+    "st_flat_breakable",        // OxydMagnum stone 0x63
     "st-fakeoxyda",             // OxydMagnum stone 0x64
     UNUSED,                     // OxydMagnum stone 0x65
     UNUSED,                     // OxydMagnum stone 0x66

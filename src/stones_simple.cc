@@ -1100,94 +1100,6 @@ namespace
     DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
 }
 
-/* -------------------- Fire breakable stones -------------------- */
-
-/* These stones mimic the behaviour of the plain-looking stones in
-   Oxyd. */
-namespace
-{
-    class Stone_firebreak : public Stone {
-        CLONEOBJ(Stone_firebreak);
-        DECL_TRAITS;
-
-        const char *collision_sound() {return "stone";}
-
-        void break_me() {
-            sound_event("stonedestroy");
-            ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message =="heat" || m.message == "fire") {
-                break_me();
-                return true;
-            }
-            return Stone::message(m);
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs(sc.actor, "it_brush")) {
-                sound_event("stonepaint");
-                ReplaceStone(get_pos(), MakeStone("st-plain"));
-            } else
-                Stone::actor_hit(sc);
-        }
-
-    public:
-        Stone_firebreak()
-        {}
-    };
-    DEF_TRAITSM(Stone_firebreak, "st-firebreak", st_firebreak, MOVABLE_BREAKABLE);
-
-    class Stone_movefirebreak : public Stone {
-        CLONEOBJ(Stone_movefirebreak);
-        DECL_TRAITS;
-
-        void break_me() {
-            sound_event("stonedestroy");
-            ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message =="fire") {
-                break_me();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs(sc.actor, "it_brush")) {
-                sound_event("stonepaint");
-                ReplaceStone(get_pos(), MakeStone("st-plain_move"));
-            } else
-                Stone::actor_hit(sc);
-        }
-
-        void on_floor_change() {
-            GridPos p = get_pos();
-            if (Floor *fl = GetFloor (p)) {
-                if (fl->is_kind("fl_abyss")) {
-                    ReplaceStone (p, MakeStone("st-plain_falling"));
-                }
-                else if (fl->is_kind("fl_swamp") || fl->is_kind("fl_water")) {
-                    sound_event ("drown");
-                    client::Msg_Sparkle (p.center());
-                    KillStone (p);
-                }
-            }
-        }
-
-    public:
-        Stone_movefirebreak() : Stone("st-firebreak") { }
-        
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }        
-    };
-    DEF_TRAITSM(Stone_movefirebreak, "st-firebreak_move", st_firebreak_move,
-                MOVABLE_IRREGULAR);
-}
-
 
 /* -------------------- Functions -------------------- */
 
@@ -1230,7 +1142,6 @@ void Init_simple()
     Register(new LaserBreakable);
     Register(new MagicStone);
     Register(new Stone_break("st-stone_break"));
-    Register(new Stone_break("st-rock3_break"));
     Register(new Stone_break("st-break_gray"));
     Register(new Stone_movebreak);
     Register(new Stonebrush);
@@ -1239,9 +1150,6 @@ void Init_simple()
     Register(new YinYangStone1);
     Register(new YinYangStone2);
     Register(new YinYangStone3);
-
-    Register(new Stone_firebreak);
-    Register(new Stone_movefirebreak);
 }
 
 } // namespace enigma

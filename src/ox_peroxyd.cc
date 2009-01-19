@@ -206,7 +206,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     0,0,0,0,0,0,0,0,            // PerOxyd stone 0x01 - 0x08   oxyd stones
     0,0,0,0,0,0,0,0,            // PerOxyd stone 0x08 - 0x10   oxyd stones
     "st_fake_oxydc",            // PerOxyd stone 0x11
-    "st-plain_break",           // PerOxyd stone 0x12   no, should be destructible with hammer
+    "st_flat_breakable",        // PerOxyd stone 0x12   no, should be destructible with hammer
     "st_purplemarble",          // PerOxyd stone 0x13
     "st_beads",                 // PerOxyd stone 0x14
     "st_tigris",                // PerOxyd stone 0x15
@@ -224,9 +224,9 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_greenbrown",            // PerOxyd stone 0x21
     "st_rawglass",              // PerOxyd stone 0x22 (semi opaque piece, not really glass)
     "st_rawglass",              // PerOxyd stone 0x23 (must be st-glass, see link level 92)
-    "st-plain_break",           // PerOxyd stone 0x24
+    "st_flat_breakable",        // PerOxyd stone 0x24
     "st_bluegray_hollow",       // PerOxyd stone 0x25
-    "st-plain_move",            // PerOxyd stone 0x26
+    "st_flat_movable",          // PerOxyd stone 0x26
     "st_box_wood",              // PerOxyd stone 0x27
     "st_switch_instant",        // PerOxyd stone 0x28
     "st_switch_black_instant",  // PerOxyd stone 0x29

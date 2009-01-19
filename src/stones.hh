@@ -238,6 +238,7 @@ namespace enigma {
         bool move_stone(GridPos newPos, const char *soundevent);
         bool move_stone(Direction dir);
         ecl::V2 distortedVelocity (ecl::V2 vel, double defaultfactor);
+        void transform(std::string kind);
         
         // Cluster support
         void autoJoinCluster();

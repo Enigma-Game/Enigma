@@ -333,7 +333,7 @@
     <object name="fl_swamp">
       <attr name="friction" default="13.0"/>
       <attr name="adhesion" default="1.0"/>
-      <attr name="$heattransform" default="fl-dunes"/>
+      <attr name="$heattransform" default="fl_dunes"/>
     </object>
     <object name="fl_water" super="fl_floodstream">
       <attr name="friction" default="5.0"/>
@@ -976,6 +976,35 @@
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
       <attr name="hit_distortion_yy"/>
+    </object>
+    <object name="st_flat">
+      <attr name="hollow" rw="r"/>
+      <attr name="breakable" rw="r"/>
+      <attr name="burnable" rw="r"/>
+    </object>
+    <object name="st_flat_hollow">
+      <attr name="hollow" value="true"/>
+    </object>
+    <object name="st_flat_movable">
+      <attr name="movable" value="true"/>
+      <attr name="breakable" value="false"/>
+      <attr name="burnable" value="false"/>
+    </object>
+    <object name="st_flat_breakable">
+      <attr name="breakable" value="true"/>
+      <attr name="movable" value="false"/>
+    </object>
+    <object name="st_flat_breaking" init="true"/>
+    <object name="st_flat_cracked">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="st_flat_burnable">
+      <attr name="burnable" value="true"/>
+      <attr name="movable" value="false"/>
+    </object>
+    <object name="st_flat_moveburnable">
+      <attr name="movable" value="true"/>
+      <attr name="burnable" value="true"/>
     </object>
     <object name="st_floppy">
       <msg name="on"/>

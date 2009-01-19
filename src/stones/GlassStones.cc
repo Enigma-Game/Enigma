@@ -84,7 +84,7 @@ namespace enigma {
     }
     
     bool GlassStone::is_sticky(const Actor *a) const {
-        return !a->is_invisible();
+        return !is_floating() && !a->is_invisible();
     }
     
     bool GlassStone::is_transparent(Direction d) const {

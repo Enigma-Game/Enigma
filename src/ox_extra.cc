@@ -134,7 +134,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     0, 0, 0, 0, 0, 0, 0, 0,     // oxyd stones
     0, 0, 0, 0, 0, 0, 0, 0,     // oxyd stones
     "st_fake_quake",     // OxydExtra stone 0x11
-    "st-plain",          // OxydExtra stone 0x12
+    "st_flat",           // OxydExtra stone 0x12
     "st_purplemarble",   // OxydExtra stone 0x13
     UNUSED,              // OxydExtra stone 0x14
     "st_tigris",         // OxydExtra stone 0x15
@@ -152,9 +152,9 @@ const char *oxyd::oxydextra_stone_map[256] = {
     "st_greengray",      // OxydExtra stone 0x21
     "st_lightglass",     // OxydExtra stone 0x22
     UNUSED,              // OxydExtra stone 0x23
-    "st-plain_break",    // OxydExtra stone 0x24
-    "st-plain_hole",     // OxydExtra stone 0x25
-    "st-plain_move",     // OxydExtra stone 0x26
+    "st_flat_breakable", // OxydExtra stone 0x24
+    "st_flat_hollow",    // OxydExtra stone 0x25
+    "st_flat_movable",   // OxydExtra stone 0x26
     "st_box_wood",       // OxydExtra stone 0x27
     "st_switch_instant", // OxydExtra stone 0x28
     UNUSED,              // OxydExtra stone 0x29

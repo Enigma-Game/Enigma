@@ -756,7 +756,7 @@ do
     DefStone("st-dummy")
     DefImage("st-easymode")
     DefStone("st-flhay")
-    DefStone("st-firebreak")
+    DefStone("st_flat_fire")
     DefStone("st-floppy0", "sh-round", {filename="st-floppy1"})
     DefStone("st-floppy1", "sh-round", {filename="st-floppy2"})
     DefStone("st-flrock")
@@ -776,8 +776,8 @@ do
     DefStone("st_granite", "sh-round")
     DefStone("st_darkgray")
     DefStone("st_plaster")
-    DefStone("st-rock3")
-    DefStone("st-rock3_cracked")
+    DefStone("st_flat")
+    DefStone("st_flat_cracked")
     DefStone("st_purplemarble")
     DefStone("st_tigris")
     DefStone("st_purplegray")
@@ -1101,19 +1101,17 @@ do
     for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh-puzzle1") end
 end
 
--- st-rock3-break --
+-- st_flat-break --
 do
-    local images = DefSubimages("st-rock3-break", {h=6})
-    DefAnim("rock3_break-anim",BuildFrames(images,50))
-    DefSolidStone("st-rock3_break-anim", "rock3_break-anim")
-    DefAlias("st-rock3_movebreak", "st-rock3")
-    DefAlias("st_plaster_breaking", "st-rock3_break-anim")
+    local images = DefSubimages("st_flat-break", {h=6})
+    DefAnim("flat_break-anim",BuildFrames(images,50))
+    DefSolidStone("st_flat_breaking", "flat_break-anim")
 end
 
 -- st-rock3-falling --
 do
-    local images = DefSubimages("st-rock3-falling", {h=4})
-    DefAnim("st-rock3-falling", BuildFrames(images, 100))
+    local images = DefSubimages("st_flat_falling", {h=4})
+    DefAnim("st_flat_falling", BuildFrames(images, 100))
 end
 
 -- st-rotator --
@@ -1586,7 +1584,7 @@ end
 -- st-door_b --
 do
     DefAlias("st-door_b-open", "invisible")
-    DefAlias("st-door_b-closed", "st-rock3")
+    DefAlias("st-door_b-closed", "st_flat")
     local img=DefSubimages("st-doorb", {modelname="doorb", h=8})
     local f = BuildFrames(img,60)
     DefAnim("st-door_b-opening", f)
@@ -1596,7 +1594,7 @@ end
 -- st-door_c --
 do
     DefAlias("st-door_c-open", "st-grate2")
-    DefAlias("st-door_c-closed", "st-rock3")
+    DefAlias("st-door_c-closed", "st_flat")
     frames=BuildFrames({"st-door_c-closed","st-door_c-open"},60)
     DefAnim("st-door_c-opening", frames)
     DefAnim("st-door_c-closing", ReverseFrames(frames))
@@ -1747,22 +1745,11 @@ end
 -- Simple stone aliases --
 --------------------------
 do
-    DefAlias("st-breaking", "st-rock3_break-anim")
+    DefAlias("st-breaking", "st_flat_breaking")
     DefAlias("st-explosion", "expl")
-    DefAlias("st-firebreak_move", "st-firebreak")
     DefAlias("st-glass_move", "st-glass");
-    DefAlias("st-laserbreak", "st-rock3")
-    DefAlias("st-laserbreak-anim", "st-rock3_break-anim")
-    DefAlias("st-plain", "st-rock3")
-    DefAlias("st-plain_break", "st-rock3")
-    DefAlias("st-plain_breaking", "st-rock3_break-anim")
-    DefAlias("st-plain_cracked", "st-rock3_cracked")
-    DefAlias("st-plain_falling", "st-rock3-falling")
-    DefAlias("st-plain_hole", "st-rock3")
-    DefAlias("st-plain_move", "st-rock3")
-    DefAlias("st-rock3_hole", "st-rock3")
-    DefAlias("st-rock3_move", "st-rock3")
-    DefAlias("st-rock3_break", "st-rock3")
+    DefAlias("st-laserbreak", "st_flat")
+    DefAlias("st-laserbreak-anim", "st_flat_breaking")
     DefAlias("st-yinyang3", "st-yinyang1")
 end
 

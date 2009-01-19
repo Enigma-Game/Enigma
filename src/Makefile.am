@@ -284,6 +284,8 @@ enigma_SOURCES = 		\
 	stones/Door.hh		\
 	stones/FakeStone.cc	\
 	stones/FakeStone.hh	\
+	stones/FlatStone.cc	\
+	stones/FlatStone.hh	\
 	stones/BoxStone.cc	\
 	stones/BoxStone.hh	\
 	stones/FloppySwitch.cc	\

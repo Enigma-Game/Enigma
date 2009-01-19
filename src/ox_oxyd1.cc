@@ -171,7 +171,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_brick_sw",              // Oxyd1 stone 0x14
     "st_brick_ne"  ,            // Oxyd1 stone 0x15
     "st_brick_nw",              // Oxyd1 stone 0x16
-    "st-plain_hole",            // Oxyd1 stone 0x17
+    "st_flat_hollow",           // Oxyd1 stone 0x17
     "st-oxyd-0x18",             // Oxyd1 stone 0x18
     "st_door_c_open",           // Oxyd1 stone 0x19
     "st-grate1",                // Oxyd1 stone 0x1a
@@ -188,9 +188,9 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_lightglass",            // Oxyd1 stone 0x25
     "st_redfiber",              // Oxyd1 stone 0x26
     "st_darkglass",             // Oxyd1 stone 0x27
-    "st-plain_break",           // Oxyd1 stone 0x28 [see Level#12]
-    "st-plain_hole",            // Oxyd1 stone 0x29
-    "st-plain_move",            // Oxyd1 stone 0x2a
+    "st_flat_breakable",        // Oxyd1 stone 0x28 [see Level#12]
+    "st_flat_hollow",           // Oxyd1 stone 0x29
+    "st_flat_movable",          // Oxyd1 stone 0x2a
     "st_box_wood",              // Oxyd1 stone 0x2b
     "st_switch_instant",        // Oxyd1 stone 0x2c
     "st_switch_black_instant",  // Oxyd1 stone 0x2d

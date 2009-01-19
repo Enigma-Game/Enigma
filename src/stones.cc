@@ -39,6 +39,13 @@ void Stone::on_creation(GridPos p) {
     GridObject::on_creation(p);
 }
 
+void Stone::transform(std::string kind) {
+    Stone *newStone = MakeStone(kind.c_str());
+    transferIdentity(newStone);          // subclasses may hook this call
+    SetStone(get_pos(), newStone);
+}
+
+
 
 /*! Determine whether the actor hitting the stone can move stone
   and return either the direction the stone should move or NODIR. */
@@ -419,8 +426,8 @@ namespace
                 "st-magic",
                 "st_knight",
                 "st-thief",
-                "st-plain_break",
-                "st-plain_breaking"
+                "st_flat_breakable",
+                "st_flat_breaking"
             };
             int idx = enigma::IntegerRand (1, 9) - 1;
             sound_event ("stonetransform");
@@ -498,230 +505,6 @@ namespace
     };
     DEF_TRAITSM(BugStone, "st-bug", st_bug, MOVABLE_BREAKABLE);
 }
-
-
-/* -------------------- Plain stones -------------------- */
-
-/* These stones mimic the behaviour of the plain-looking stones in
-   Oxyd. */
-namespace
-{
-    class PlainStone : public Stone {
-        CLONEOBJ(PlainStone);
-        DECL_TRAITS;
-
-        void processLight(Direction d) {
-            ReplaceStone (get_pos(), MakeStone("st-plain_cracked"));
-        }
-
-        const char *collision_sound() {return "stone";}
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_trigger" || m.message == "signal") {
-                ReplaceStone(get_pos(), MakeStone("st-plain_hole"));
-                return Value();
-            }
-            return Stone::message(m);
-        }
-        void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it-pencil")) {
-                enigma::Inventory *inv = player::GetInventory(sc.actor);
-                if (inv && inv->size() > 0) {
-                    delete inv->yield_item(0);
-                    player::RedrawInventory(inv);
-                    sound_event("stonepaint");
-                    ReplaceStone(get_pos(), MakeStone("st-firebreak"));
-                }
-            } else
-                Stone::actor_hit(sc);
-        }
-    public:
-        PlainStone()
-        {}
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_PERSISTENT; }
-    };
-    DEF_TRAITSM(PlainStone, "st-plain", st_plain, MOVABLE_BREAKABLE);
-    
-    class PlainStone_Hollow : public Stone {
-        CLONEOBJ(PlainStone_Hollow);
-        DECL_TRAITS;
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_trigger" || m.message == "signal") {
-                ReplaceStone(get_pos(), MakeStone("st-plain"));
-                return Value();
-            }
-            return Stone::message(m);
-        }
-
-        StoneResponse collision_response(const StoneContact &) 
-        { return STONE_PASS; }
-
-        bool is_floating() const { return true; }
-    public:
-        PlainStone_Hollow()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Hollow, "st-plain_hole", st_plain_hole, MOVABLE_PERSISTENT);
-
-    class PlainStone_Breaking : public Stone {
-        CLONEOBJ(PlainStone_Breaking);
-        DECL_TRAITS;
-
-        void init_model() {
-            set_anim("st-plain_breaking");
-        }
-        void animcb() {
-            KillStone(get_pos());
-        }
-        const char *collision_sound() {return "metal";}
-    public:
-        PlainStone_Breaking()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Breaking, "st-plain_breaking", st_plain_breaking,
-                MOVABLE_BREAKABLE);
-    
-    class PlainStone_Breakable : public Stone {
-        CLONEOBJ(PlainStone_Breakable);
-        DECL_TRAITS;
-
-        const char *collision_sound() {return "metal";}
-
-        void break_me() {
-            sound_event ("stonedestroy");
-            ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
-        }
-        void processLight(Direction d) {
-            break_me();
-        }
-        virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
-                break_me();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-        void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it_hammer")) {
-                break_me();
-            }
-        }
-
-        void on_floor_change() {
-            if (Floor *fl = GetFloor (get_pos()))
-                if (fl->is_kind("fl_abyss"))
-                    ReplaceStone (get_pos(), MakeStone("st-plain_falling"));
-        }
-
-    public:
-        PlainStone_Breakable()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Breakable, "st-plain_break", st_plain_break,
-                MOVABLE_BREAKABLE);
-    
-    class PlainStone_Cracked : public Stone {
-        CLONEOBJ(PlainStone_Cracked);
-        DECL_TRAITS;
-
-        void break_me() {
-            sound_event ("stonedestroy");
-            ReplaceStone(get_pos(), MakeStone("st-plain_breaking"));
-        }
-
-        void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it_hammer")) {
-                break_me();
-            }
-        }
-
-        virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
-                break_me();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-        const char *collision_sound() {return "metal";}
-    public:
-        PlainStone_Cracked()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Cracked, "st-plain_cracked", st_plain_cracked,
-                MOVABLE_BREAKABLE);
-    
-    class PlainStone_Falling : public Stone {
-        CLONEOBJ(PlainStone_Falling);
-        DECL_TRAITS;
-
-        void init_model() {
-            set_anim("st-plain_falling");
-        }
-
-        void animcb() {
-            sound_event ("stonedestroy");
-            KillStone(get_pos());
-        }
-    public:
-        PlainStone_Falling()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Falling, "st-plain_falling", st_plain_falling,
-                MOVABLE_BREAKABLE);
-
-    class PlainStone_Movable : public Stone {
-        CLONEOBJ(PlainStone_Movable);
-        DECL_TRAITS;
-
-        void break_me() {
-            sound_event ("stonedestroy");
-            ReplaceStone(get_pos(), MakeStone ("st-plain_breaking"));
-        }
-        virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
-                break_me();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-        void on_floor_change() {
-//            Stone::on_move();
-            GridPos p = get_pos();
-            if (Floor *fl = GetFloor (p)) {
-                if (fl->is_kind("fl_abyss")) {
-                    ReplaceStone (p, MakeStone("st-plain_falling"));
-                }
-                else if (fl->is_kind("fl_swamp") || fl->is_kind("fl_water")) {
-                    sound_event ("drown");
-                    client::Msg_Sparkle (p.center());
-                    KillStone (p);
-                }
-            }
-        }
-
-        void actor_hit (const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it-pencil")) {
-                enigma::Inventory *inv = player::GetInventory(sc.actor);
-                if (inv && inv->size() > 0) {
-                    delete inv->yield_item(0);
-                    player::RedrawInventory(inv);
-                    sound_event("stonepaint");
-                    ReplaceStone(get_pos(), MakeStone("st-firebreak_move"));
-                }
-            } else
-                Stone::actor_hit(sc);
-        }
-
-    public:
-        PlainStone_Movable()
-        {}
-    };
-    DEF_TRAITSM(PlainStone_Movable, "st-plain_move", st_plain_move,
-                MOVABLE_STANDARD);
-}
-
 
 /* -------------------- Black- and Whiteballs Stones -------------------- */
 
@@ -846,13 +629,6 @@ void InitStones() {
     Register (new FakeOxydA);
     Register (new BreakingStone);
     Register (new BugStone);
-    Register (new PlainStone);
-    Register (new PlainStone_Hollow);
-    Register (new PlainStone_Breakable);
-    Register (new PlainStone_Breaking);
-    Register (new PlainStone_Cracked);
-    Register (new PlainStone_Movable);
-    Register (new PlainStone_Falling);
 
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();
