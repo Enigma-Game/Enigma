@@ -27,6 +27,35 @@
 namespace enigma {
 
     /** 
+     * BlurStone (old YinYang)
+     */
+    class BlurStone : public Stone {
+        CLONEOBJ(BlurStone);
+    private:
+        enum iState {
+            STRAIGHT,   ///<  encoded flavor 
+            CROSS,      ///< 
+            MAGIC      ///< 
+        };
+    public:
+        BlurStone(int type);
+        
+         // Object interface
+        virtual std::string getClass() const;        
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+        
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual void init_model();
+        
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
+    };
+    
+    /** 
      * ChargeStone
      */
     class ChargeStone : public Stone {
@@ -64,7 +93,38 @@ namespace enigma {
         virtual std::string getClass() const;
 
         // Stone interface
-        virtual void actor_hit (const StoneContact &sc);
+        virtual void actor_hit(const StoneContact &sc);
+    };
+
+    /** 
+     * GrateStone
+     */
+    class GrateStone : public Stone {
+        CLONEOBJ(GrateStone);
+
+    private:
+        enum iState {
+            CROSS,      ///< 
+            FRAMED      ///< 
+        };
+    public:
+        GrateStone(int type);
+        
+         // Object interface
+        virtual std::string getClass() const;        
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+        
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual void init_model();
+
+        // Stone interface
+        virtual bool is_floating() const;
+        virtual bool is_transparent(Direction d) const;
+        virtual StoneResponse collision_response(const StoneContact &sc);
     };
 
 } // namespace enigma

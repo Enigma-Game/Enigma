@@ -309,18 +309,6 @@ namespace
         }
     };
 
-    class Grate1 : public GrateBase {
-        CLONEOBJ(Grate1);
-    public:
-        Grate1() : GrateBase("st-grate1") {}
-    };
-
-    class Grate2 : public GrateBase {
-        CLONEOBJ(Grate2);
-    public:
-        Grate2() : GrateBase("st-grate2") {}
-    };
-
     /*! Horses and small marbles can move through this stone, but
       normal marbles can't. */
     class Grate3 : public GrateBase {
@@ -547,56 +535,6 @@ namespace
     DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
 }
 
-//----------------------------------------
-// Stone_movebreak
-//----------------------------------------
-
-/** \page st-rock3_movebreak Breakable Movable Stone
-
-This stone can be destroyed by an actor having a
-hammer and by laser, dynamite, bombs and bombstones.
-
-\subsection stone_breake Example
-\verbatim
-set_stone("st-rock3_movebreak", 10,10)
-\endverbatim
-
-\image html st-rock3.png
-*/
-namespace
-{
-    class Stone_movebreak : public BreakableStone {
-        CLONEOBJ(Stone_movebreak);
-        DECL_TRAITS;
-    public:
-        Stone_movebreak()
-        {}
-
-        void processLight(Direction d) {
-        }
-
-        string get_break_anim() const  {
-            return "st-rock3_break-anim";
-        }
-        bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it_hammer");
-        }
-
-        void actor_hit(const StoneContact &sc) {
-            if (may_be_broken_by(sc.actor))
-                break_me();
-//             else
-//                 maybe_push_stone (sc);
-        }
-        void on_impulse(const Impulse& impulse) {
-            move_stone(impulse.dir);
-        }
-
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_NO_STONE; }
-    };
-    DEF_TRAITSM(Stone_movebreak, "st-rock3_movebreak", st_movebreak, MOVABLE_IRREGULAR);
-}
 
 //----------------------------------------
 // Break_acwhite
@@ -943,75 +881,6 @@ Value ThiefStone::message(const Message &m) {
     return Stone::message(m);
 }
 
-/* -------------------- YinYang stones -------------------- */
-namespace
-{
-    class YinYangStone : public Stone {
-    public:
-        YinYangStone(const char *kind) : Stone(kind)
-        {}
-
-    protected:
-        void turn_white(const char *stonename = "st_passage_white_square") {
-            sound_event("yinyang");
-            ReplaceStone (get_pos(), MakeStone(stonename));
-        }
-        void turn_black(const char *stonename = "st_passage_black_square") {
-            sound_event("yinyang");
-            ReplaceStone (get_pos(), MakeStone(stonename));
-        }
-        
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_HOLLOW; }
-    };
-
-    class YinYangStone1 : public YinYangStone {
-        CLONEOBJ(YinYangStone1);
-    public:
-        YinYangStone1() : YinYangStone("st-yinyang1") {}
-
-    private:
-        void actor_hit(const StoneContact &sc) {
-            Value color = sc.actor->getAttr("color");
-            if      (color && color == BLACK) turn_white();
-            else if (color && color == WHITE) turn_black();
-        }
-    };
-
-    class YinYangStone2 : public YinYangStone {
-        CLONEOBJ(YinYangStone2);
-    public:
-        YinYangStone2() : YinYangStone("st-yinyang2") {}
-    private:
-        void actor_hit(const StoneContact &sc) {
-            Value color = sc.actor->getAttr("color");
-            if      (color && color == BLACK) turn_black();
-            else if (color && color == WHITE) turn_white();
-        }
-    };
-
-
-    /*! A Per.Oxyd compatible YinYang stone that must be activated
-      with a magic wand or a brush. */
-    class YinYangStone3 : public YinYangStone {
-        CLONEOBJ(YinYangStone3);
-    public:
-        YinYangStone3() : YinYangStone("st-yinyang3") {}
-    private:
-        void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it_magicwand") ||
-                player::WieldedItemIs (sc.actor, "it_brush"))
-            {
-                Value color = sc.actor->getAttr("color");
-                if      (color && color == BLACK) 
-                    turn_white("st_passage_white_square");
-                else if (color && color == WHITE) 
-                    turn_black("st_passage_black_square");
-            }
-        }
-    };
-}
-
-
 /* -------------------- BombStone -------------------- */
 
 namespace
@@ -1135,21 +1004,14 @@ void Init_simple()
 
     Register(new DummyStone);
     Register(new EasyModeStone);
-    Register(new Grate1);
-    Register(new Grate2);
     Register(new Grate3);
     Register(new InvisibleMagic);
     Register(new LaserBreakable);
     Register(new MagicStone);
     Register(new Stone_break("st-stone_break"));
     Register(new Stone_break("st-break_gray"));
-    Register(new Stone_movebreak);
     Register(new Stonebrush);
     Register(new ThiefStone);
-
-    Register(new YinYangStone1);
-    Register(new YinYangStone2);
-    Register(new YinYangStone3);
 }
 
 } // namespace enigma

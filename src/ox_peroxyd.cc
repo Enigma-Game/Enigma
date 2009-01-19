@@ -212,7 +212,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_tigris",                // PerOxyd stone 0x15
     "st_greengray",             // PerOxyd stone 0x16
     "st-white1",                // PerOxyd stone 0x17 (Looks a little bit different, but function should be the same.)
-    "st-grate1",                // PerOxyd stone 0x18
+    "st_grate_cross",           // PerOxyd stone 0x18
     UNUSED,                     // PerOxyd stone 0x19
     "st-surprise",              // PerOxyd stone 0x1a
     "st-chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
@@ -313,7 +313,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_passage_black_square",  // PerOxyd stone 0x7a (Can be either st-black1 or st-black4)
     "st_metal_hollow",          // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
-    "st-yinyang3",              // PerOxyd stone 0x7d
+    "st_blur_magic",            // PerOxyd stone 0x7d
     "st-break_acwhite",         // PerOxyd stone 0x7e
     "st-break_acblack",         // PerOxyd stone 0x7f
     "st_charge_plus",           // PerOxyd stone 0x80

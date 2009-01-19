@@ -725,8 +725,8 @@ do
     DefImage("sh-solid")
     DefImage("sh-round")
     DefImage("sh-round2")
-    DefImage("sh-grate1")
-    DefImage("sh-grate2")
+    DefImage("sh_grate_cross")
+    DefImage("sh_grate_framed")
     DefImage("sh-grate3")
     DefImage("sh-glass")
     DefImage("sh-white4")
@@ -764,8 +764,8 @@ do
     DefStone("st_lightglass", "sh-glass")
     DefStone("st_darkglass", "sh-glass")
     DefStone("st_redfiber", "sh-glass")
-    DefStone("st-grate1", "sh-grate1")
-    DefStone("st-grate2", "sh-grate2")
+    DefStone("st_grate_cross", "sh_grate_cross")
+    DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st-grate3", "sh-grate3")
     DefStone("st_greenbrown", "sh-round")
     DefStone("st-key0", "sh-round", {filename="st-key1"})
@@ -796,8 +796,8 @@ do
     DefStone("st-whiteballs")
     DefStone("st_woven")
     DefStone("st_yellow")
-    DefStone("st-yinyang1")
-    DefStone("st-yinyang2")
+    DefStone("st_blur_straight")
+    DefStone("st_blur_cross")
 end
 
 ---------------------
@@ -1574,7 +1574,7 @@ end
 
 -- st-door_a --
 do
-    DefAlias("st-door_a-open", "st-grate1")
+    DefAlias("st-door_a-open", "st_grate_cross")
     DefAlias("st-door_a-closed", "st-oxyda")
     local f = BuildFrames({"st-door_a-closed", "st-door_a-open"},60)
     DefAnim("st-door_a-opening", f)
@@ -1593,7 +1593,7 @@ end
 
 -- st-door_c --
 do
-    DefAlias("st-door_c-open", "st-grate2")
+    DefAlias("st-door_c-open", "st_grate_framed")
     DefAlias("st-door_c-closed", "st_flat")
     frames=BuildFrames({"st-door_c-closed","st-door_c-open"},60)
     DefAnim("st-door_c-opening", frames)
@@ -1750,7 +1750,7 @@ do
     DefAlias("st-glass_move", "st-glass");
     DefAlias("st-laserbreak", "st_flat")
     DefAlias("st-laserbreak-anim", "st_flat_breaking")
-    DefAlias("st-yinyang3", "st-yinyang1")
+    DefAlias("st_blur_magic", "st_blur_cross")
 end
 
 -- Invisible stones --

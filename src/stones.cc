@@ -419,7 +419,7 @@ namespace
 
         void actor_hit (const StoneContact &) {
             static const char *stonename[] = {
-                "st-grate1",
+                "st_grate_cross",
                 "st_death",
                 "st-surprise",
                 "st_lightglass_hollow",

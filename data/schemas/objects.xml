@@ -759,6 +759,18 @@
     <object name="st_bluesand_nesw">
       <attr name="connections" value="nesw"/>
     </object>
+    <object name="st_blur">
+      <attr name="flavor"/>
+    </object>
+    <object name="st_blur_cross">
+      <attr name="flavor" value="cross"/>
+    </object>
+    <object name="st_blur_magic">
+      <attr name="flavor" value="magic"/>
+    </object>
+    <object name="st_blur_straight">
+      <attr name="flavor" value="straight"/>
+    </object>
     <object name="st_boulder">
       <attr name="counterclock"/>
       <attr name="orientation"/>
@@ -1025,6 +1037,15 @@
     </object>
     <object name="st_granite_movable">
       <attr name="movable" value="true"/>
+    </object>
+    <object name="st_grate">
+      <attr name="flavor"/>
+    </object>
+    <object name="st_grate_cross">
+      <attr name="flavor" value="cross"/>
+    </object>
+    <object name="st_grate_framed">
+      <attr name="flavor" value="framed"/>
     </object>
     <object name="st_greenbrown">
       <attr name="hollow" rw="r"/>
