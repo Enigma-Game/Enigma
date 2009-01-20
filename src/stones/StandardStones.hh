@@ -52,8 +52,6 @@ namespace enigma {
         virtual Value message(const Message &m);
         
         // StateObject interface
-//        virtual int maxState() const;
-//        virtual int externalState() const;
         virtual void setState(int extState);
 
         // GridObject interface

@@ -256,7 +256,7 @@ namespace enigma {
     void PuzzleStone::on_floor_change() {
         if (state == FALLING) {
             state = FALLEN;   // we need to mark the puzzle as the floor set recalls this methods
-            SetFloor(get_pos(), MakeFloor("fl-gray"));
+            SetFloor(get_pos(), MakeFloor("fl_gray"));
             KillStone(get_pos());
         }
     }

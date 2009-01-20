@@ -1106,6 +1106,7 @@ do
     local images = DefSubimages("st_flat-break", {h=6})
     DefAnim("flat_break-anim",BuildFrames(images,50))
     DefSolidStone("st_flat_breaking", "flat_break-anim")
+    DefAlias("st_plaster_breaking", "st_flat_breaking")
 end
 
 -- st-rock3-falling --

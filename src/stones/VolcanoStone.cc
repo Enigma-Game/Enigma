@@ -76,7 +76,7 @@ namespace enigma {
     void VolcanoStone::init_model() {
         switch (state) {
             case FINISHED:
-            case INACTIVE: set_model("st-plain"); break;
+            case INACTIVE: set_model("st_flat"); break;
             case ACTIVE:   set_anim("st-farting"); break;
             case BREAKING: set_anim("st-fartbreak-anim"); break;
             case NEW:      set_anim("it-seed-growing"); break;

@@ -762,7 +762,7 @@ namespace
                 if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
                     sound_event ("stonepaint");
                     state = STONE;
-                    set_model("st-greenbrown");
+                    set_model("st_greenbrown");
                     MaybeRecalcLight(get_pos());
                 }
             }

@@ -25,8 +25,23 @@
 
 namespace enigma {
 
-    /** 
+    /**
+     *
+     * Different kinds of glassstones:
+     *  Stone:                 visible:     invisible:   lasertransparent:
+     *  st-glass               -            pass         Y
+     *  st-glass1              -            pass         Y
+     *  st-glass1_hole         pass         pass         Y
+     *  st-glass2              -            pass         N
+     *  st-glass2_hole         pass         pass         Y
+     *  st-glass3              -            -            Y
      * 
+     * Different kinds of movable glassstones:
+     *  Stone:                 visible:     invisible:   lasertransparent:
+     *  st-glass_move          push         pass         Y
+     *  st-glass1_move         push         push         Y
+     *  st-glass2_move         push         push         N
+     *
      */
     class GlassStone : public Stone {
         CLONEOBJ(GlassStone);
