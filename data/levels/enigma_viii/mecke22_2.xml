@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:76$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:77$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,7 +43,7 @@ ti[" l"] = {"fl_lawn"}
 ti["b "] = {"st_puzzle_yellow_ns"}
 ti["n "] = {"st_puzzle_yellow_ne"}
 ti["* "] = {"st_puzzle_yellow_new"}
-ti["+ "] = {"st-grate1"}
+ti["+ "] = {"st_grate_cross"}
 ti[", "] = {"st_puzzle_yellow_sw"}
 ti["- "] = {"st_puzzle_yellow_ew"}
 ti[". "] = {"st_oxyd_a"}

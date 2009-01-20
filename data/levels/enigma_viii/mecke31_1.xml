@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 13 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 14 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,12 +30,12 @@ ti[" +"] = {"fl_sahara"}
 ti[" x"] = {"fl-gradient3"}
 ti["jj"] = {"it_crack_l"}
 ti["o "] = ti[" ~"] .. {"st_oxyd", flavor="d"}
-ti["X~"] = ti[" ~"] .. {"st-grate1"}
-ti["Xw"] = ti[" w"] .. {"st-grate1"}
-ti["X'"] = ti[" '"] .. {"st-grate1"}
-ti["Xi"] = ti[" i"] .. {"st-grate1"}
-ti["Xb"] = ti[" b"] .. {"st-grate1"}
-ti["X&"] = ti[" &"] .. {"st-grate1"}
+ti["X~"] = ti[" ~"] .. {"st_grate_cross"}
+ti["Xw"] = ti[" w"] .. {"st_grate_cross"}
+ti["X'"] = ti[" '"] .. {"st_grate_cross"}
+ti["Xi"] = ti[" i"] .. {"st_grate_cross"}
+ti["Xb"] = ti[" b"] .. {"st_grate_cross"}
+ti["X&"] = ti[" &"] .. {"st_grate_cross"}
 ti["Th"] = ti[" i"] .. {"st_yellow"}
 ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
@@ -62,12 +62,12 @@ ti["Tw"] = ti["dd"] .. {"st_disco_medium"}
 ti["Td"] = ti[" r"] .. {"st_disco_medium"}
 ti["TT"] = ti[" ="] .. {"st-thief"}
 ti["y~"] = ti[" ~"] .. {"it_yinyang"}
-ti["Y~"] = ti[" ~"] .. {"st-yinyang1"}
-ti["Y&"] = ti[" &"] .. {"st-yinyang1"}
-ti["Y!"] = ti[" !"] .. {"st-yinyang1"}
-ti["Y'"] = ti[" '"] .. {"st-yinyang1"}
-ti["Yw"] = ti[" w"] .. {"st-yinyang1"}
-ti["Yx"] = ti[" ~"] .. {"st-yinyang2"}
+ti["Y~"] = ti[" ~"] .. {"st_blur_cross"}
+ti["Y&"] = ti[" &"] .. {"st_blur_cross"}
+ti["Y!"] = ti[" !"] .. {"st_blur_cross"}
+ti["Y'"] = ti[" '"] .. {"st_blur_cross"}
+ti["Yw"] = ti[" w"] .. {"st_blur_cross"}
+ti["Yx"] = ti[" ~"] .. {"st_blur_straight"}
 ti["++"] = ti[" &"] .. {"st_swap"}
 ti["2&"] = ti[" &"] .. {"st_brake"}
 ti["A~"] = ti[" ~"] .. {"st_actorimpulse"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Hacker" el:subtitle="" el:id="ant01"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,8 +19,8 @@ ti[" "] = {"fl_gray"}
 ti["-"] = {"fl_lawn"}
 ti[":"] = {"fl_abyss"}
 ti["#"] = {"st_redbrown"}
-ti["W"] = {"st-grate2"}
-ti["X"] = {"st-grate1"}
+ti["W"] = {"st_grate_framed"}
+ti["X"] = {"st_grate_cross"}
 ti["O"] = {"st_oxyd"}
 ti["puzzle"] = {"st_puzzle", cluster="%%"}
 ti["trigger"] = {"it_trigger", target="door%%"}

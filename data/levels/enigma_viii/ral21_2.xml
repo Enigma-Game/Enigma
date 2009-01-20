@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 145 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 146 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -235,10 +235,10 @@ ti["RY"] = ti["::"] .. {"st_rotator_cw", movable=true}
 ti["P#"] = ti[";;"] .. {"st_pull"}
 ti["P_"] = ti["__"] .. {"st_pull"}
 ti["T#"] = ti["  "] .. {"st-thief"}
-ti["F,"] = ti[",,"] .. {"st-grate1"}
-ti["F:"] = ti["::"] .. {"st-grate1"}
-ti["F'"] = ti["''"] .. {"st-grate1"}
-ti["F."] = ti[".."] .. {"st-grate1"}
+ti["F,"] = ti[",,"] .. {"st_grate_cross"}
+ti["F:"] = ti["::"] .. {"st_grate_cross"}
+ti["F'"] = ti["''"] .. {"st_grate_cross"}
+ti["F."] = ti[".."] .. {"st_grate_cross"}
 ti["FA"] = ti[".."] .. {"st_quake"}
 ti["S#"] = ti[",,"] .. {"st_scissors"}
 ti["SS"] = {"st_scissors"}
@@ -295,14 +295,14 @@ ti["Mw"] = ti["  "] .. {"st_mail_w"}
 ti["TL"] = ti[",,"] .. {"st_timer", target="do_curse_legs", name="timer_curse_legs", state=OFF}
 ti["ON"] = ti["^^"] .. {"st_oneway_n"}
 ti["OS"] = ti["^^"] .. {"st_oneway_s"}
-ti["PA"] = ti["__"] .. {"st-plain"}
-ti["P%"] = ti["%."] .. {"st-plain"}
-ti["Pm"] = ti["%."] .. {"st-plain_move"}
-ti["Ph"] = ti["%."] .. {"st-plain_hole"}
-ti["Pc"] = ti["%."] .. {"st-plain_break"}
-ti["Pf"] = ti["%f"] .. {"st-plain_break"}
-ti["P."] = ti["_."] .. {"st-plain_break"}
-ti["PC"] = ti[".."] .. {"st-plain_break"}
+ti["PA"] = ti["__"] .. {"st_flat"}
+ti["P%"] = ti["%."] .. {"st_flat"}
+ti["Pm"] = ti["%."] .. {"st_flat_movable"}
+ti["Ph"] = ti["%."] .. {"st_flat_hollow"}
+ti["Pc"] = ti["%."] .. {"st_flat_breakable"}
+ti["Pf"] = ti["%f"] .. {"st_flat_breakable"}
+ti["P."] = ti["_."] .. {"st_flat_breakable"}
+ti["PC"] = ti[".."] .. {"st_flat_breakable"}
 ti["PB"] = ti[".."] .. {"st-bug"}
 ti["TT"] = ti["tt"] .. {"st-thief"}
 ti["D1"] = ti[".."] .. {"st_blocker", "door1#"}

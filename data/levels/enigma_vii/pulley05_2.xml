@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Re-entry Circuit" el:subtitle="" el:id="pulley05"/>
-      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,27 +18,27 @@ ti["b"] = ti[" "] .. {"st_pinkbumps"}
 ti["l"] = ti[" "] .. {"st_stoneimpulse_new", orientation = SOUTH, hollow = true}
 ti["o"] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti["w"] = ti[" "] .. {"st_box_wood"}
-ti["x"] = ti[" "] .. {"st-grate1"}
+ti["x"] = ti[" "] .. {"st_grate_cross"}
 ti["0"] = ti[" "] .. {"st_oxyd"}
 ti["B"] = ti[" "] .. {"#ac_marble_black"}
 
-w, h = wo(ti, " ",{
- "bbbbbbbbbbbbbbbbbbbb",
- "b0o o oOooo ooo oo0b",
- "bOOOObob bbbObObOOOb",
- "b   o oboOO o o o ob",
- "boOOObOOo   ObObObob",
- "bo    o OOOOObOOObob",
- "bOOOOOowlB  o      b",
- "b      OOOOOOOOwObob",
- "boOOwObowo    OOOOob",
- "bo ooOoo OOOOx o xxb",
- "bOOb b www  OowOwOOb",
- "b0oooO oooooO oooo0b",
- "bbbbbbbbbbbbbbbbbbbb"})
+wo(ti, " ",{
+    "bbbbbbbbbbbbbbbbbbbb",
+    "b0o o oOooo ooo oo0b",
+    "bOOOObob bbbObObOOOb",
+    "b   o oboOO o o o ob",
+    "boOOObOOo   ObObObob",
+    "bo    o OOOOObOOObob",
+    "bOOOOOowlB  o      b",
+    "b      OOOOOOOOwObob",
+    "boOOwObowo    OOOOob",
+    "bo ooOoo OOOOx o xxb",
+    "bOOb b www  OowOwOOb",
+    "b0oooO oooooO oooo0b",
+    "bbbbbbbbbbbbbbbbbbbb"})
 
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

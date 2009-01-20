@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Draggers" el:subtitle="" el:id="ant21"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ ti["."] = {"fl_abyss"}
 ti[":"] = ti[" "] .. ti({"it_seed"}) .. {"st-chameleon"}
 ti["d"] = {"it-document", text="text1"}
 ti["#"] = {"st_granite"}
-ti["X"] = {"st-grate1"}
+ti["X"] = {"st_grate_cross"}
 ti["^"] = {"st_boulder", name="boulders#", orientation=NORTH}
 ti["B"] = {"st_oxyd", oxydcolor=OXYD_BLUE, flavor="d"}
 ti["R"] = {"st_oxyd", oxydcolor=OXYD_RED, flavor="d"}

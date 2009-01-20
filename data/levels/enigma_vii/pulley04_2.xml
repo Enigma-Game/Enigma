@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="11" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="12" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,7 @@ ti["G"] = ti[" "] .. {"st_oneway_white", state=WEST}
 ti["H"] = ti[" "] .. {"st_oneway_white", state=EAST}
 ti["I"] = ti["f"] .. {"st_invisible"} --Invisible stone on black floor
 ti["J"] = ti["y"] .. {"st_passage_black_slash"} --Black grill on blue floor
-ti["K"] = ti["y"] .. {"st-grate1"} --Grate on blue floor
+ti["K"] = ti["y"] .. {"st_grate_cross"} --Grate on blue floor
 ti["L"] = ti[" "] .. {"it_landmine"}
 ti["M"] = ti[" "] .. {"it_spoon"}
 ti["N"] = ti[" "] .. {"it-dynamite"}

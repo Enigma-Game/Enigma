@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="25" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -48,8 +48,8 @@ ti["r"] = ti["."] .. {"st_rotator", movable = true, counterclock = true}
 ti["mailer"] = {"st_mail_s"}
 ti["m"] = ti["mailer"] .. {"it_pipe_sw"}
 ti["M"] = ti["mailer"] .. {"it_pipe_es"}
-ti["x"] = {"st-grate1"}
-ti["X"] = ti["."] .. {"st-grate1"}
+ti["x"] = {"st_grate_cross"}
+ti["X"] = ti["."] .. {"st_grate_cross"}
 ti["="] = ti["."] .. {"st_door", faces = "ns"}
 ti["o"] = {"st_oxyd"}
 ti[":"] = {"fl_bridge_bn", name = "bridgeFloppyBlack#"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Zeus" el:subtitle="The master of flashes" el:id="raoul19"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,9 +19,9 @@ ti[" "] = {"fl_rough"}
 ti["~"] = {"fl_water"}
 ti["A"] = {"st_bluesand", cluster=1}
 ti["B"] = {"st_bluesand", cluster=2}
-ti["X"] = {"st-grate1"}
+ti["X"] = {"st_grate", flavor="cross"}
 ti["!"] = {"st_flash"}
-ti["W"] = {"st_passage_white_frame"}
+ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
 ti["O"] = {"st_oxyd", flavor="d"}
 ti["1"] = {"#ac_marble_black", owner=0}
 ti["2"] = {"#ac_marble_white", essential=1}
@@ -58,7 +58,7 @@ else
     "BBBBBABABABABAAAAAAA"}
 end
 
-w, h = wo(ti, " ", map)
+wo(ti, " ", map)
 wo:shuffleOxyd()
  ]]></el:luamain>
     <el:i18n>

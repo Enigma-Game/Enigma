@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Break Down the Wall" el:subtitle="" el:id="duffy107"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,7 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_rock"}
 ti["#"] = {"st_granite"}
-ti["G"] = ti({"st-grate1"}) .. {"it_meditation_hollow"}
+ti["G"] = ti({"st_grate_cross"}) .. {"it_meditation_hollow"}
 ti["R"] = {"st_oneway", color=BLACK, orientation=EAST}
 ti["s"] = {"it_seed"}
 ti["o"] = {"st_oxyd", name="left#"}

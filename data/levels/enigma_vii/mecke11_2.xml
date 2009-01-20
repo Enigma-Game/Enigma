@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:37$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:38$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -45,8 +45,8 @@ ti["; "] = {"st_key", code=2,  target="door4"}
 ti["' "] = {"st_door", faces="ns", name="dolli2"}
 ti["( "] = {"st_actorimpulse_invisible"}
 ti[" &"] = {"fl_aquamarine"}
-ti[") "] = {"st-grate1"}
-ti["a1"] = ti[" !"] .. {"st-grate1"}
+ti[") "] = {"st_grate_cross"}
+ti["a1"] = ti[" !"] .. {"st_grate_cross"}
 ti["* "] = {"st_mirror", movable=true, transparent=false}
 ti["+ "] = {"st_darkgray"}
 ti[" '"] = {"fl_water"}

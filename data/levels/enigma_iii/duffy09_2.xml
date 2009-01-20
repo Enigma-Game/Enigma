@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Double-Maze" el:subtitle="" el:id="duffy9"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,9 +17,9 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_lawn"}
 ti["#"] = {"st_redbrown"}
-ti["X"] = {"st-grate1", name="maze1#"}
+ti["X"] = {"st_grate_cross", name="maze1#"}
 ti["G"] = {"st_rawglass", name="maze2#"}
-ti["H"] = {"st-grate2"}
+ti["H"] = {"st_grate_framed"}
 ti["A"] = {"st_switch", target="exchange_mazes", instant=true}
 ti["O"] = {"st_oxyd", name="oxyd1#"}
 ti["o"] = {"st_oxyd", name="oxyd2#"}

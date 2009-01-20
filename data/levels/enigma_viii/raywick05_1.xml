@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Impulsive Order" el:subtitle="" el:id="raywick5"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author  el:name="Ray Wick" el:email=""/>
       <el:copyright>Copyright © 2008 Ray Wick</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,16 +25,16 @@ ti[" "] = {"fl_marble"}
 ti["K"] = {"fl_abyss"}
 ti["#"] = {"st_redbrown"}
 ti["g"] = {"st_rawglass"}
-ti["G"] = {"st-grate2"}
+ti["G"] = {"st_grate_framed"}
 ti["+"] = {"st_box_wood"}
-ti["v"] = {"st_oneway_s"}
-ti[">"] = {"st_oneway_e"}
-ti["<"] = {"st_oneway_w"}
+ti["v"] = {"st_oneway", orientation=SOUTH}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["<"] = {"st_oneway", orientation=WEST}
 ti["1"] = {"st_door", name="door1", flavor="d", faces="ew"}
 ti["2"] = {"st_stoneimpulse", name="inner#"}
 ti["4"] = {"st_stoneimpulse"}
 ti["5"] = {"st_stoneimpulse", name="outer#"}
-ti["L"] = {"st_laser_s", name="laser1"}
+ti["L"] = {"st_laser", name="laser1", orientation=SOUTH}
 ti["M"] = {"st_mirror", transparent=true, orientation=0}
 ti["Z"] = {"st_shogun_sml"}
 ti["x"] = {"it-blackbomb"}

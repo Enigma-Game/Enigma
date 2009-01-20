@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 11 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,6 @@ if wo ["IsDifficult"] then
 else
     ti["  "] = {"fl_rough"}
     ti[" v"] = {"fl_bluegreen"}
-
 end
 
 ti["' "] = {"it_trap"}
@@ -53,12 +52,12 @@ ti["Y "] = {"st_rawglass"}
 ti["r "] = {"st_brownie"}
 ti["U1"] = {"st_passage_white_frame"}
 ti["U2"] = {"st_passage_black_frame"}
-ti["U5"] = {"st-yinyang1"}
+ti["U5"] = {"st_blur_cross"}
 ti[" i"] = ti["U1"] .. {"fl_inverse"}
 ti["ii"] = ti["U2"] .. {"fl_inverse"}
 ti[" w"] = ti["U1"] .. {"fl_water"}
 ti[" e"] = ti[" i"] .. {"it_hammer"}
-ti["u "] = ti[" _"] .. {"st-grate2"}
+ti["u "] = ti[" _"] .. {"st_grate_framed"}
 ti["x "] = ti["  "] .. {"it_squashed"}
 ti["G "] = ti[" _"] .. {"st_rawglass"}
 ti["D1"] = ti["G "] .. {"it_death"}
@@ -124,7 +123,7 @@ ti["5 "] = {"it_key", code=1}
 ti["o "] = {"it-springboard"}
 ti["j "] = {"it_magicwand"}
 ti[" z"] = {"it-dynamite"}
-ti["P "] = {"st-grate1"}
+ti["P "] = {"st_grate_cross"}
 ti["9 "] = {"st_turnstile_green"}
 ti["99"] = {"st_turnstile_red"}
 ti["a "] = {"st_turnstilearm", orientation=NORTH}

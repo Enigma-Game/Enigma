@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 41 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 42 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti["# "] = {"st_death"}
 ti[" #"] = {"fl_blueslab"}
 ti[" $"] = {"fl_ivory"}
 ti["$ "] = {"st_knight"}
-ti["% "] = {"st-grate1"}
+ti["% "] = {"st_grate_cross"}
 ti[" %"] = {"fl_abyss"}
 ti[" &"] = {"fl_water"}
 ti[" '"] = {"fl_sahara"}
@@ -96,7 +96,7 @@ ti["z5"] = ti["l5"] .. {"it_cherry"}
 ti["z6"] = ti["l6"] .. {"it_cherry"}
 ti["z7"] = ti[" !"] .. {"st_box_wood"}
 ti["z8"] = ti[" !"] .. {"st_oneway_black_w"}
-ti["z9"] = ti[" !"] .. {"st-grate1"}
+ti["z9"] = ti[" !"] .. {"st_grate_cross"}
 ti["g5"] = ti["z9"] .. {"it_crack_l"}
 ti["l7"] = ti["l5"] .. {"it_extralife"}
 ti["z1"] = ti[" 4"] .. {"it_key", code=1}

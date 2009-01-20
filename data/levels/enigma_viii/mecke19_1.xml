@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:13$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:14$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -43,7 +43,7 @@ ti[" a"] = ti["hh"] .. {"it-surprise"}
 ti[" )"] = {"fl-gradient12"}
 ti[" *"] = {"fl-gradient4"}
 ti["- "] = {"st_boulder_w"}
-ti[". "] = {"st-grate1"}
+ti[". "] = {"st_grate_cross"}
 ti[" d"] = ti["hh"] .. {"it-dynamite"}
 ti["c "] = {"it_crack_l"}
 ti["? "] = {"it_seed_volcano"}
@@ -94,7 +94,7 @@ else
     ti["ee"] = ti[" $"] .. {"st_yellow"}
     ti["ex"] = ti["ef"] .. {"it_squashed"}
     ti["eo"] = ti["ef"] .. {"it_squashed"}
-    ti["R "] = {"st-grate1"}
+    ti["R "] = {"st_grate_cross"}
     ti["Q "] = {"st_purplegray"}
     ti["S "] = {"st_scissors"}
 end

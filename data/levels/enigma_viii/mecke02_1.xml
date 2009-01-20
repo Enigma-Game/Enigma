@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti["A "] = ti[" -"] .. {"it_sword"}
 ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
 ti["F "] = {"st_quake"}
-ti["D "] = ti[" ~"] .. {"st-grate1"}
+ti["D "] = ti[" ~"] .. {"st_grate_cross"}
 ti["E "] = ti[" ~"] .. {"st_rawglass_movable"}
 ti["  "] = {"fl_metal_7", friction=4.0}
 ti[" ."] = {"fl_abyss"}
@@ -41,7 +41,7 @@ ti["Y "] = {"st_darkglass_movable"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["ic"] = {"st-stone_break"}
 ti["h "] = {"st_bluegray_hollow"}
-ti["Xn"] = ti["nn"] .. {"st-grate1"}
+ti["Xn"] = ti["nn"] .. {"st_grate_cross"}
 ti[" b"] = ti["  "] .. {"it-blackbomb"}
 ti["i "] = ti["  "] .. {"it-dynamite"}
 ti["ih"] = ti["  "] .. {"it_hammer"}
@@ -91,7 +91,7 @@ ti["< "] = {"st_boulder_w"}
 ti["O "] = {"st_rotator_ccw", movable=false}
 ti["Z "] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
 ti["l "] = ti[" n"] .. {"st_polarswitch"}
-ti["mm"] = ti[" ~"] .. {"st-grate1"}
+ti["mm"] = ti[" ~"] .. {"st_grate_cross"}
 ti["* "] = ti["mm"] .. {"#ac_marble_black"}
 ti["+ "] = {"#ac_rotor", range=2, strength=2, gohome=false}
 

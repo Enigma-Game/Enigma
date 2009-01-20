@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 30 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 31 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -46,7 +46,7 @@ ti["U2"] = ti["U1"] .. {"it_extralife"}
 ti[" i"] = ti["U1"] .. {"fl_inverse"}
 ti[" w"] = ti["U1"] .. {"fl_water"}
 ti[" e"] = ti[" i"] .. {"it_hammer"}
-ti["u "] = ti[" _"] .. {"st-grate2"}
+ti["u "] = ti[" _"] .. {"st_grate_framed"}
 ti["x "] = ti[" ("] .. {"it_brush"}
 ti["D1"] = {"st_death"}
 ti["D2"] = {"st_death_invisible"}
@@ -94,7 +94,7 @@ ti["5 "] = {"it_key", code=1}
 ti["o "] = {"it-springboard"}
 ti["j "] = {"it_magicwand"}
 ti[" z"] = {"it-booze"}
-ti["P "] = {"st-grate1"}
+ti["P "] = {"st_grate_cross"}
 ti["9 "] = {"st_turnstile"} 
 ti["a "] = {"st_turnstilearm", orientation=NORTH}
 ti["q "] = {"st_turnstilearm", orientation=SOUTH}
