@@ -281,7 +281,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_puzzle_blue_e",         // PerOxyd stone 0x5a
     "st_puzzle_blue_nesw",      // PerOxyd stone 0x5b
     "st_puzzle_blue_nesw_hollow", // PerOxyd stone 0x5c
-    "st-laserbreak",            // PerOxyd stone 0x5d
+    "st_break_laser",           // PerOxyd stone 0x5d
     "st-coffee",                // PerOxyd stone 0x5e
     "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
     "st_disco_dark",            // PerOxyd stone 0x60
@@ -314,8 +314,8 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_metal_hollow",          // PerOxyd stone 0x7b (because it looks similar ...; only link level 79)
     0,                          // PerOxyd stone 0x7c (probably complex stone, behavior unknown)(only levels: 23 142, these levels are identical!)
     "st_blur_magic",            // PerOxyd stone 0x7d
-    "st-break_acwhite",         // PerOxyd stone 0x7e
-    "st-break_acblack",         // PerOxyd stone 0x7f
+    "st_break_white",           // PerOxyd stone 0x7e
+    "st_break_black",           // PerOxyd stone 0x7f
     "st_charge_plus",           // PerOxyd stone 0x80
     "st_charge_minus",          // PerOxyd stone 0x81
     "st_charge_zero",           // PerOxyd stone 0x82

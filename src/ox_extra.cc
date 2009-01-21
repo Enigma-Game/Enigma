@@ -209,7 +209,7 @@ const char *oxyd::oxydextra_stone_map[256] = {
     UNUSED,              // OxydExtra stone 0x5a
     UNUSED,              // OxydExtra stone 0x5b
     UNUSED,              // OxydExtra stone 0x5c
-    "st-stone_break",    // OxydExtra stone 0x5d
+    "st_break_oxydc",    // OxydExtra stone 0x5d
     UNUSED,              // OxydExtra stone 0x5e
     UNUSED,              // OxydExtra stone 0x5f
     UNUSED,              // OxydExtra stone 0x60

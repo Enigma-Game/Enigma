@@ -144,7 +144,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_lightglass_hollow",     // OxydMagnum stone 0x19
     "st_grate_cross",           // OxydMagnum stone 0x1a
     "st_grate_framed",          // OxydMagnum stone 0x1b
-    "st-bug",                   // OxydMagnum stone 0x1c
+    "st_break_bug",             // OxydMagnum stone 0x1c
     UNUSED,                     // OxydMagnum stone 0x1d
     UNUSED,                     // OxydMagnum stone 0x1e
     "st_brick",                 // OxydMagnum stone 0x1f
@@ -264,8 +264,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x91
     "st_fourswitch",            // OxydMagnum stone 0x92 (Level 51 only)
     "st_blur_cross",            // OxydMagnum stone 0x93
-    "st-break_acwhite",         // OxydMagnum stone 0x94
-    "st-break_acblack",         // OxydMagnum stone 0x95
+    "st_break_white",           // OxydMagnum stone 0x94
+    "st_break_black",           // OxydMagnum stone 0x95
     "st_charge_plus",           // OxydMagnum stone 0x96
     "st_charge_minus",          // OxydMagnum stone 0x97
     "st_charge_zero",           // OxydMagnum stone 0x98

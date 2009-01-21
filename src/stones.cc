@@ -462,50 +462,50 @@ namespace
 
 
 /* -------------------- Breaking stone -------------------- */
-namespace
-{
-    
-    // only used by Bug stone as replacement!
-    
-    class BreakingStone : public Stone {
-        CLONEOBJ(BreakingStone);
-        DECL_TRAITS;
-
-        void init_model() {
-            sound_event("stonedestroy");
-            set_anim("st-breaking");
-        }
-
-        void animcb() {
-            KillStone(get_pos());
-        }
-    public:
-        BreakingStone()
-        {}
-    };
-    DEF_TRAITSM(BreakingStone, "st-breaking", st_breaking, MOVABLE_BREAKABLE);
-}
-
-
-/* -------------------- Bug stone -------------------- */
-namespace
-{
-    class BugStone : public Stone {
-        CLONEOBJ(BugStone);
-        DECL_TRAITS;
-    public:
-        BugStone()
-        {}
-
-        void actor_hit (const StoneContact &sc) {
-            if (get_id(sc.actor) == ac_bug) {
-                ReplaceStone(get_pos(), MakeStone("st-breaking"));
-            }
-        }
-    };
-    DEF_TRAITSM(BugStone, "st-bug", st_bug, MOVABLE_BREAKABLE);
-}
-
+//namespace
+//{
+//    
+//    // only used by Bug stone as replacement!
+//    
+//    class BreakingStone : public Stone {
+//        CLONEOBJ(BreakingStone);
+//        DECL_TRAITS;
+//
+//        void init_model() {
+//            sound_event("stonedestroy");
+//            set_anim("st-breaking");
+//        }
+//
+//        void animcb() {
+//            KillStone(get_pos());
+//        }
+//    public:
+//        BreakingStone()
+//        {}
+//    };
+//    DEF_TRAITSM(BreakingStone, "st-breaking", st_breaking, MOVABLE_BREAKABLE);
+//}
+//
+//
+///* -------------------- Bug stone -------------------- */
+//namespace
+//{
+//    class BugStone : public Stone {
+//        CLONEOBJ(BugStone);
+//        DECL_TRAITS;
+//    public:
+//        BugStone()
+//        {}
+//
+//        void actor_hit (const StoneContact &sc) {
+//            if (get_id(sc.actor) == ac_bug) {
+//                ReplaceStone(get_pos(), MakeStone("st-breaking"));
+//            }
+//        }
+//    };
+//    DEF_TRAITSM(BugStone, "st-bug", st_bug, MOVABLE_BREAKABLE);
+//}
+//
 /* -------------------- Black- and Whiteballs Stones -------------------- */
 
 namespace
@@ -627,8 +627,8 @@ void InitStones() {
     Register (new BlackBallsStone);
     Register (new WhiteBallsStone);
     Register (new FakeOxydA);
-    Register (new BreakingStone);
-    Register (new BugStone);
+//    Register (new BreakingStone);
+//    Register (new BugStone);
 
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();

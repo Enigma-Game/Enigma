@@ -214,54 +214,54 @@ namespace
 //
 // breakable stones can be destroyed using
 // hammer, laser, dynamite, bombs or bombstones
-
-namespace 
-{
-    class BreakableStone : public Stone {
-    public:
-        BreakableStone(const char *kind) : Stone(kind), state(IDLE) {}
-        BreakableStone() : state(IDLE) {}
-    protected:
-        void break_me() {
-            if (state == IDLE) {
-                state = BREAK;
-                sound_event ("stonedestroy");
-                set_anim(get_break_anim());
-            }
-        }
-        
-        virtual Value message(const Message &m) {
-            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
-                break_me();
-                return Value();
-            }
-            return Stone::message(m);
-        }
-    private:
-        const char *collision_sound() { return "stone"; }
-
-        void actor_hit(const StoneContact &sc) {
-            if (may_be_broken_by(sc.actor))
-                break_me();
-        }
-        void processLight(Direction d) {
-            break_me();
-        }
-        void animcb() {
-            KillStone(get_pos());
-        }
-
-        virtual string get_break_anim() const  {
-            return string(get_kind())+"-anim";
-        }
-        virtual bool may_be_broken_by(Actor *a) const = 0;
-
-        // variables:
-
-        enum State { IDLE, BREAK };
-        State state;
-    };
-}
+//
+//namespace 
+//{
+//    class BreakableStone : public Stone {
+//    public:
+//        BreakableStone(const char *kind) : Stone(kind), state(IDLE) {}
+//        BreakableStone() : state(IDLE) {}
+//    protected:
+//        void break_me() {
+//            if (state == IDLE) {
+//                state = BREAK;
+//                sound_event ("stonedestroy");
+//                set_anim(get_break_anim());
+//            }
+//        }
+//        
+//        virtual Value message(const Message &m) {
+//            if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
+//                break_me();
+//                return Value();
+//            }
+//            return Stone::message(m);
+//        }
+//    private:
+//        const char *collision_sound() { return "stone"; }
+//
+//        void actor_hit(const StoneContact &sc) {
+//            if (may_be_broken_by(sc.actor))
+//                break_me();
+//        }
+//        void processLight(Direction d) {
+//            break_me();
+//        }
+//        void animcb() {
+//            KillStone(get_pos());
+//        }
+//
+//        virtual string get_break_anim() const  {
+//            return string(get_kind())+"-anim";
+//        }
+//        virtual bool may_be_broken_by(Actor *a) const = 0;
+//
+//        // variables:
+//
+//        enum State { IDLE, BREAK };
+//        State state;
+//    };
+//}
 
 //----------------------------------------
 // Stone_break
@@ -279,36 +279,36 @@ set_stone("st-stone_break", 10,10)
 
 \image html st-stone_break.png
 */
-namespace
-{
-    class Stone_break : public BreakableStone {
-        CLONEOBJ(Stone_break);
-        DECL_TRAITS;
-    public:
-        Stone_break(const char *kind) : BreakableStone(kind) { }
-    private:
-        bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it_hammer");
-        }
-    };
-    DEF_TRAITSM(Stone_break, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
-    
-    class LaserBreakable : public BreakableStone {
-        CLONEOBJ (LaserBreakable);
-        DECL_TRAITS;
-
-        void actor_hit(const StoneContact &) {
-        }
-        bool may_be_broken_by(Actor *) const {
-            return false;
-        }
-    public:
-        LaserBreakable()
-        {}
-    };
-    DEF_TRAITSM(LaserBreakable, "st-laserbreak", st_laserbreak, MOVABLE_BREAKABLE);
-}
-
+//namespace
+//{
+//    class Stone_break : public BreakableStone {
+//        CLONEOBJ(Stone_break);
+//        DECL_TRAITS;
+//    public:
+//        Stone_break(const char *kind) : BreakableStone(kind) { }
+//    private:
+//        bool may_be_broken_by(Actor *a) const {
+//            return player::WieldedItemIs (a, "it_hammer");
+//        }
+//    };
+//    DEF_TRAITSM(Stone_break, "INVALID", st_INVALID, MOVABLE_BREAKABLE);
+//    
+//    class LaserBreakable : public BreakableStone {
+//        CLONEOBJ (LaserBreakable);
+//        DECL_TRAITS;
+//
+//        void actor_hit(const StoneContact &) {
+//        }
+//        bool may_be_broken_by(Actor *) const {
+//            return false;
+//        }
+//    public:
+//        LaserBreakable()
+//        {}
+//    };
+//    DEF_TRAITSM(LaserBreakable, "st-laserbreak", st_laserbreak, MOVABLE_BREAKABLE);
+//}
+//
 
 //----------------------------------------
 // Break_bolder
@@ -326,29 +326,29 @@ set_stone("st-break_bolder", 10,10)
 
 \image html st-break_bolder.png
 */
-namespace
-{
-    class Break_bolder : public BreakableStone {
-        CLONEOBJ(Break_bolder);
-        DECL_TRAITS;
-    public:
-        Break_bolder()
-        {}
-    private:
-        bool may_be_broken_by(Actor *a) const {
-            return player::WieldedItemIs (a, "it_hammer");
-        }
-        virtual Value message(const Message &m) {
-            if (m.message == "_trigger") {
-                break_me();
-                return Value();
-            }
-            return BreakableStone::message(m);
-        }
-    };
-    DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
-}
-
+//namespace
+//{
+//    class Break_bolder : public BreakableStone {
+//        CLONEOBJ(Break_bolder);
+//        DECL_TRAITS;
+//    public:
+//        Break_bolder()
+//        {}
+//    private:
+//        bool may_be_broken_by(Actor *a) const {
+//            return player::WieldedItemIs (a, "it_hammer");
+//        }
+//        virtual Value message(const Message &m) {
+//            if (m.message == "_trigger") {
+//                break_me();
+//                return Value();
+//            }
+//            return BreakableStone::message(m);
+//        }
+//    };
+//    DEF_TRAITSM(Break_bolder, "st-break_bolder", st_break_bolder, MOVABLE_BREAKABLE);
+//}
+//
 
 //----------------------------------------
 // Break_acwhite
@@ -366,23 +366,23 @@ set_stone("st-break_acwhite", 10,10)
 
 \image html st-break_acwhite.png
 */
-namespace
-{
-    class Break_acwhite : public BreakableStone {
-        CLONEOBJ(Break_acwhite);
-        DECL_TRAITS;
-    public:
-        Break_acwhite()
-        {}
-    private:
-        bool may_be_broken_by(Actor *a) const {
-            Value color = a->getAttr("color");
-            return color && color == WHITE &&
-                player::WieldedItemIs (a, "it_hammer");
-        }
-    };
-    DEF_TRAITSM(Break_acwhite, "st-break_acwhite", st_break_acwhite, MOVABLE_BREAKABLE);
-}
+//namespace
+//{
+//    class Break_acwhite : public BreakableStone {
+//        CLONEOBJ(Break_acwhite);
+//        DECL_TRAITS;
+//    public:
+//        Break_acwhite()
+//        {}
+//    private:
+//        bool may_be_broken_by(Actor *a) const {
+//            Value color = a->getAttr("color");
+//            return color && color == WHITE &&
+//                player::WieldedItemIs (a, "it_hammer");
+//        }
+//    };
+//    DEF_TRAITSM(Break_acwhite, "st-break_acwhite", st_break_acwhite, MOVABLE_BREAKABLE);
+//}
 
 //----------------------------------------
 // Break_acblack
@@ -400,23 +400,23 @@ set_stone("st-break_acblack", 10,10)
 
 \image html st-break_acblack.png
 */
-namespace
-{
-    class Break_acblack : public BreakableStone {
-        CLONEOBJ(Break_acblack);
-        DECL_TRAITS;
-    public:
-        Break_acblack()
-        {}
-    private:
-        bool may_be_broken_by(Actor *a) const {
-            Value color = a->getAttr("color");
-            return color && color == BLACK &&
-                player::WieldedItemIs (a, "it_hammer");
-        }
-    };
-    DEF_TRAITSM(Break_acblack, "st-break_acblack", st_break_acblack, MOVABLE_BREAKABLE);
-}
+//namespace
+//{
+//    class Break_acblack : public BreakableStone {
+//        CLONEOBJ(Break_acblack);
+//        DECL_TRAITS;
+//    public:
+//        Break_acblack()
+//        {}
+//    private:
+//        bool may_be_broken_by(Actor *a) const {
+//            Value color = a->getAttr("color");
+//            return color && color == BLACK &&
+//                player::WieldedItemIs (a, "it_hammer");
+//        }
+//    };
+//    DEF_TRAITSM(Break_acblack, "st-break_acblack", st_break_acblack, MOVABLE_BREAKABLE);
+//}
 
 /* -------------------- BrickMagic -------------------- */
 
@@ -793,9 +793,9 @@ void Init_simple()
     //Register(new BombStone("st-dynamite", "it-dynamite"));
     //Register(new BombStone("st-whitebombs", "it-whitebomb"));
 
-    Register(new Break_acblack);
-    Register(new Break_acwhite);
-    Register(new Break_bolder);
+//    Register(new Break_acblack);
+//    Register(new Break_acwhite);
+//    Register(new Break_bolder);
     Register(new Break_invisible);
 
     Register(new BrickMagic);
@@ -806,10 +806,10 @@ void Init_simple()
     Register(new EasyModeStone);
     Register(new Grate3);
     Register(new InvisibleMagic);
-    Register(new LaserBreakable);
+//    Register(new LaserBreakable);
     Register(new MagicStone);
-    Register(new Stone_break("st-stone_break"));
-    Register(new Stone_break("st-break_gray"));
+//    Register(new Stone_break("st-stone_break"));
+//    Register(new Stone_break("st-break_gray"));
     Register(new Stonebrush);
     Register(new ThiefStone);
 }

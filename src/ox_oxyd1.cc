@@ -176,7 +176,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_door_c_open",           // Oxyd1 stone 0x19
     "st_grate_cross",           // Oxyd1 stone 0x1a
     "st_grate_framed",          // Oxyd1 stone 0x1b
-    "st-bug",                   // Oxyd1 stone 0x1c
+    "st_break_bug",             // Oxyd1 stone 0x1c
     "st-surprise",              // Oxyd1 stone 0x1d
     "st-chameleon",             // Oxyd1 stone 0x1e
     "st_brick",                 // Oxyd1 stone 0x1f
@@ -247,7 +247,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_puzzle_yellow_e",       // Oxyd1 stone 0x60
     "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
     "st_metal_hollow",          // Oxyd1 stone 0x62
-    "st-laserbreak",            // Oxyd1 stone 0x63
+    "st_break_laser",           // Oxyd1 stone 0x63
     "st-fakeoxyda",             // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65
     "st_disco_medium",          // Oxyd1 stone 0x66
@@ -296,8 +296,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st-blackballs",            // Oxyd1 stone 0x91
     "st_fourswitch",            // Oxyd1 stone 0x92
     "st_blur_cross",            // Oxyd1 stone 0x93
-    "st-break_acwhite",         // Oxyd1 stone 0x94
-    "st-break_acblack",         // Oxyd1 stone 0x95
+    "st_break_white",           // Oxyd1 stone 0x94
+    "st_break_black",           // Oxyd1 stone 0x95
     "st_charge_plus",           // Oxyd1 stone 0x96
     "st_charge_minus",          // Oxyd1 stone 0x97
     "st_charge_zero",           // Oxyd1 stone 0x98

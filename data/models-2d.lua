@@ -885,11 +885,11 @@ end
 
 -- st-break_*, breakable stones --
 do
-    DefSolidStoneWithAnim ("st-stone_break", 10, 50)
-    DefSolidStoneWithAnim ("st-break_bolder", 10, 50)
-    DefRoundStoneWithAnim ("st-break_acwhite", 10, 50)
-    DefRoundStoneWithAnim ("st-break_acblack", 10, 50)
-    DefRoundStoneWithAnim ("st-break_gray", 10, 50)
+    DefSolidStoneWithAnim ("st_break_oxydc", 10, 50)
+    DefSolidStoneWithAnim ("st_break_boulder", 10, 50)
+    DefRoundStoneWithAnim ("st_break_white", 10, 50)
+    DefRoundStoneWithAnim ("st_break_black", 10, 50)
+    DefRoundStoneWithAnim ("st_break_plain", 10, 50)
 end
 
 -- st-chage-plus, st-charge-zero, st-charge-minus --
@@ -1746,11 +1746,12 @@ end
 -- Simple stone aliases --
 --------------------------
 do
-    DefAlias("st-breaking", "st_flat_breaking")
+    DefAlias("st_break_bug", "st-bug")
+    DefAlias("st_break_bug-anim", "st_flat_breaking")
     DefAlias("st-explosion", "expl")
     DefAlias("st-glass_move", "st-glass");
-    DefAlias("st-laserbreak", "st_flat")
-    DefAlias("st-laserbreak-anim", "st_flat_breaking")
+    DefAlias("st_break_laser", "st_flat")
+    DefAlias("st_break_laser-anim", "st_flat_breaking")
     DefAlias("st_blur_magic", "st_blur_cross")
 end
 

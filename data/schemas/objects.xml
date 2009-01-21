@@ -810,6 +810,34 @@
     <object name="st_brake">
       <msg name="_explosion"/>
     </object>
+    <object name="st_break">
+      <attr name="flavor"/>
+      <msg name="ignite"/>
+      <msg name="_bombstone"/>
+      <msg name="_explosion"/>
+      <msg name="_trigger"/>
+    </object>
+    <object name="st_break_black">
+      <attr name="flavor" value="black"/>
+    </object>
+    <object name="st_break_boulder">
+      <attr name="flavor" value="boulder"/>
+    </object>
+    <object name="st_break_bug">
+      <attr name="flavor" value="bug"/>
+    </object>
+    <object name="st_break_laser">
+      <attr name="flavor" value="laser"/>
+    </object>
+    <object name="st_break_oxydc">
+      <attr name="flavor" value="oxydc"/>
+    </object>
+    <object name="st_break_plain">
+      <attr name="flavor" value="plain"/>
+    </object>
+    <object name="st_break_white">
+      <attr name="flavor" value="white"/>
+    </object>
     <object name="st_brick" super="st_clusterstone"/>
     <object name="st_brick_w">
       <attr name="connections" value="w"/>

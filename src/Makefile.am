@@ -268,6 +268,8 @@ enigma_SOURCES = 		\
 	stones/BoulderStone.hh	\
 	stones/BrakeStone.cc	\
 	stones/BrakeStone.hh	\
+	stones/BreakStone.cc	\
+	stones/BreakStone.hh	\
 	stones/ChessStone.cc	\
 	stones/ChessStone.hh	\
 	stones/ClusterStone.cc	\
