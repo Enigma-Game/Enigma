@@ -92,8 +92,6 @@ module world
     Object *GetNamedObject(const char *name);
 
     void Resize(int w, int h);
-    void DefineSimpleStone(const char *kind, const char *sound, int hollow, int glass);
-    void DefineSimpleStoneMovable(const char *kind, const char *sound, int glass);
     void DefineSimpleFloor(const char *kind, double friction, double mousefactor,
                            bool burnable, const char *firetransform);
 }

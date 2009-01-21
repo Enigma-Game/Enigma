@@ -47,8 +47,20 @@ namespace enigma {
 
     // temporary hack for backward compatibility during reengineering
     const char * FloodStream::get_kind() const {
-        static std::string kind =  (getAttr("faces").to_string() == "nesw") ? getClass() + "_framed" : getClass();
-        return kind .c_str();
+        if (getAttr("faces").to_string() == "nesw")
+            switch (getTyp()) { 
+                case WATER : return "fl_water_framed";
+                case WOOD :  return "fl_wood_framed";
+                case HAY :   return "fl_hay_framed";
+                case ROCK :  return "fl_rock_framed";
+            }
+        else
+            switch (getTyp()) { 
+                case WATER : return "fl_water";
+                case WOOD :  return "fl_wood";
+                case HAY :   return "fl_hay";
+                case ROCK :  return "fl_rock";
+            }   
     }
         
     Value FloodStream::message(const Message &m) {

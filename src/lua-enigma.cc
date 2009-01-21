@@ -1,6 +1,6 @@
 /*
 ** Lua binding: enigma
-** Generated automatically by tolua++-1.0.92 on Mon Dec  8 13:32:36 2008.
+** Generated automatically by tolua++-1.0.92 on Tue Jan 20 20:18:15 2009.
 */
 
 #ifndef __cplusplus
@@ -930,72 +930,6 @@ static int tolua_enigma_world_Resize00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: DefineSimpleStone */
-#ifndef TOLUA_DISABLE_tolua_enigma_world_DefineSimpleStone00
-static int tolua_enigma_world_DefineSimpleStone00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,4,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,5,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* kind = ((const char*)  tolua_tostring(tolua_S,1,0));
-  const char* sound = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int hollow = ((int)  tolua_tonumber(tolua_S,3,0));
-  int glass = ((int)  tolua_tonumber(tolua_S,4,0));
-  {
-   DefineSimpleStone(kind,sound,hollow,glass);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'DefineSimpleStone'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
-/* function: DefineSimpleStoneMovable */
-#ifndef TOLUA_DISABLE_tolua_enigma_world_DefineSimpleStoneMovable00
-static int tolua_enigma_world_DefineSimpleStoneMovable00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
-     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,4,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  const char* kind = ((const char*)  tolua_tostring(tolua_S,1,0));
-  const char* sound = ((const char*)  tolua_tostring(tolua_S,2,0));
-  int glass = ((int)  tolua_tonumber(tolua_S,3,0));
-  {
-   DefineSimpleStoneMovable(kind,sound,glass);
-  }
- }
- return 0;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'DefineSimpleStoneMovable'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
-
 /* function: DefineSimpleFloor */
 #ifndef TOLUA_DISABLE_tolua_enigma_world_DefineSimpleFloor00
 static int tolua_enigma_world_DefineSimpleFloor00(lua_State* tolua_S)
@@ -1257,8 +1191,6 @@ TOLUA_API int tolua_enigma_open (lua_State* tolua_S)
    tolua_function(tolua_S,"MakeStone",tolua_enigma_world_MakeStone00);
    tolua_function(tolua_S,"GetNamedObject",tolua_enigma_world_GetNamedObject00);
    tolua_function(tolua_S,"Resize",tolua_enigma_world_Resize00);
-   tolua_function(tolua_S,"DefineSimpleStone",tolua_enigma_world_DefineSimpleStone00);
-   tolua_function(tolua_S,"DefineSimpleStoneMovable",tolua_enigma_world_DefineSimpleStoneMovable00);
    tolua_function(tolua_S,"DefineSimpleFloor",tolua_enigma_world_DefineSimpleFloor00);
   tolua_endmodule(tolua_S);
   tolua_module(tolua_S,"video",0);

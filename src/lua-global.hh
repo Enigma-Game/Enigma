@@ -1,6 +1,6 @@
 /*
 ** Lua binding: global
-** Generated automatically by tolua++-1.0.92 on Mon Dec  8 13:32:36 2008.
+** Generated automatically by tolua++-1.0.92 on Tue Jan 20 20:18:15 2009.
 */
 
 /* Exported function */
