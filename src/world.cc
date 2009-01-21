@@ -226,7 +226,7 @@ const double World::contact_e = 0.02;  // epsilon distant limit for contacts
 World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
         leftmost_actor (NULL), rightmost_actor (NULL), numMeditatists (0), 
         indispensableHollows (0), engagedIndispensableHollows(0), engagedDispensableHollows (0),
-        scrambleIntensity(10) // difficult default
+        registerCriticalPositions (false), scrambleIntensity(10) // difficult default
         {
     w = ww;
     h = hh;
@@ -668,7 +668,7 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
         return;
 
     bool isWindow = stone->get_traits().id == st_window;
-    DirectionBits wsides;
+    DirectionBits wsides = NODIRBIT;
     if (isWindow) {
         wsides = stone->getFaces(a->is_invisible());
     }

@@ -47,7 +47,8 @@ namespace enigma {
 
     // temporary hack for backward compatibility during reengineering
     const char * FloodStream::get_kind() const {
-        return (getClass() + ((getAttr("faces").to_string() == "nesw") ? "_framed" : "")).c_str();
+        static std::string kind =  (getAttr("faces").to_string() == "nesw") ? getClass() + "_framed" : getClass();
+        return kind .c_str();
     }
         
     Value FloodStream::message(const Message &m) {

@@ -23,7 +23,7 @@
 #include "world.hh"
 
 namespace enigma {
-    Wire::Wire() {
+    Wire::Wire() : Other(), anchor1 (NULL), anchor2 (NULL), model (NULL) {
     }
     
     std::string Wire::getClass() const {

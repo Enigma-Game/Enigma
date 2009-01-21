@@ -29,6 +29,7 @@ namespace enigma {
     class YieldingStone : public Stone {
         
     public:
+        YieldingStone();
         void dispose();
         
     protected:

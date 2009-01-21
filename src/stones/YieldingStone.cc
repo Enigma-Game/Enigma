@@ -23,6 +23,9 @@
 #include "world.hh"
 
 namespace enigma {
+    YieldingStone::YieldingStone() : Stone(), yieldedStone (NULL), yieldedModel (NULL) {
+    }
+    
     void YieldingStone::dispose() {
          if (yieldedStone != NULL) {
             SendMessage(yieldedStone, "disconnect");

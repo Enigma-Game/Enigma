@@ -256,7 +256,7 @@ namespace enigma {
     void ObjectValidator::scanAttributeElement(DOMElement *attribElement) {
         std::string name = XMLtoUtf8(attribElement->getAttribute(Utf8ToXML("name").x_str())).c_str();
         std::string typeName = XMLtoUtf8(attribElement->getAttribute(Utf8ToXML("type").x_str())).c_str();
-        validationType valType;
+        validationType valType = VAL_NIL;
         if (typeName == "bool")
             valType = VAL_BOOL;
         else if (typeName == "int")
