@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 30 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 31 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -26,7 +26,7 @@ ti[" #"] = {"fl_metal_7", friction=4.0}
 ti["# "] = {"st_plaster"}
 ti[" $"] = {"fl_abyss"}
 ti[" %"] = {"fl_ivory"}
-ti["$ "] = {"st-stone_break"}
+ti["$ "] = {"st_break_oxydc"}
 ti["% "] = {"st_purplegray"}
 ti[" &"] = {"fl_water"}
 ti[" '"] = {"fl_bluegray"}
@@ -93,7 +93,7 @@ ti["d7"] = ti[" %"] .. {"st_door", faces="ew", name= "olli7"}
 ti["w1"] = ti["w4"] .. {"it_wormhole", destination = po(48.5, 39.5),range=10, strength=10}
 ti["w2"] = ti[" 1"] .. {"it_wormhole", destination = po(40.5, 18.5),range=10, strength=10}
 ti["w3"] = ti[" #"] .. {"it_wormhole", destination = po(20.5, 25.5),range=10, strength=10}
-ti["7 "] = {"st-break_bolder"}
+ti["7 "] = {"st_break_boulder"}
 ti[": "] = {"st_oneway_black_n"}
 ti["Y "] = {"st_oneway_black_s"}
 ti[" 2"] = {"fl_gravel"}

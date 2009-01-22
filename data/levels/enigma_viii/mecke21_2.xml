@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 42 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 43 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -45,8 +45,8 @@ ti[" '"] = {"fl_bluegray"}
 ti["- "] = {"st_knight"}
 ti[". "] = {"st_boulder_e"}
 ti[" ("] = {"fl_aquamarine"}
-ti["A "] = {"st-break_bolder"}
-ti["jj"] = ti[" !"] .. {"st-break_bolder"}
+ti["A "] = {"st_break_boulder"}
+ti["jj"] = ti[" !"] .. {"st_break_boulder"}
 ti["t1"] = ti[" !"] .. {"it_trigger", target="olli1",action="toggle"}
 ti["t2"] = ti[" !"] .. {"it_trigger", target="olli2",action="toggle"}
 ti["t3"] = ti[" !"] .. {"it_trigger", target="olli3",action="toggle"}
@@ -86,7 +86,7 @@ ti["7 "] = {"st_rotator_cw", movable=false}
 ti["8 "] = {"st_rotator_ccw", movable=false}
 ti["9 "] = {"st_death_invisible"}
 ti["q1"] = ti[" !"] .. {"it_coin_s"}
-ti[": "] = {"st-stone_break"}
+ti[": "] = {"st_break_oxydc"}
 ti["; "] = {"st_fake_oxydd"}
 ti["= "] = {"st_bluegray_hollow"}
 ti["&d"] = ti[" &"] .. {"it_death"}

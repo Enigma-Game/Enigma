@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:36$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:37$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -62,9 +62,8 @@ ti["/ "] = {"st_box_wood"}
 ti["j "] = {"st_disco_light"}
 ti["~1"] = ti["~ "] ..{"st_disco_light"}
 ti["J "] = {"st-stoneimpulse-hollow"}
-ti["U "] = {"st-break_invisible"}
-ti["UU"] = {"st-break_acblack"}
-ti["4U"] = ti["4 "] ..{"st-break_acblack"}
+ti["UU"] = {"st_break_black"}
+ti["4U"] = ti["4 "] ..{"st_break_black"}
 ti["T "] = {"st_passage_black_frame"}
 ti["; "] = ti["T "] ..{"it-flagblack"}
 ti["h "] = {"st_oneway_e"}

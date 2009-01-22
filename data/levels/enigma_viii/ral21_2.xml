@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 146 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 147 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -213,8 +213,8 @@ ti["MW"] = ti["''"] .. {"st_box"}
 ti["M:"] = ti["::"] .. {"st_box"}
 ti["MB"] = ti["c'"] .. {"st_brownie"}
 ti["M."] = ti[".."] .. {"st_brownie"}
-ti["W."] = ti[".."] .. {"st-break_acwhite"}
-ti["S."] = ti[".."] .. {"st-break_acblack"}
+ti["W."] = ti[".."] .. {"st_break_white"}
+ti["S."] = ti[".."] .. {"st_break_black"}
 ti["R0"] = ti["  "] .. {"st_tigris"}
 ti["R1"] = ti["::"] .. {"st_granite"}
 ti["R6"] = ti["::"] .. {"st_granite_movable"}
@@ -303,7 +303,7 @@ ti["Pc"] = ti["%."] .. {"st_flat_breakable"}
 ti["Pf"] = ti["%f"] .. {"st_flat_breakable"}
 ti["P."] = ti["_."] .. {"st_flat_breakable"}
 ti["PC"] = ti[".."] .. {"st_flat_breakable"}
-ti["PB"] = ti[".."] .. {"st-bug"}
+ti["PB"] = ti[".."] .. {"st_break_bug"}
 ti["TT"] = ti["tt"] .. {"st-thief"}
 ti["D1"] = ti[".."] .. {"st_blocker", "door1#"}
 ti["D2"] = ti[".."] .. {"st_blocker", "door2#"}

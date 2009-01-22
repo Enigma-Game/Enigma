@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -115,7 +115,7 @@
     <level _seq="107" _title="The Turtle" _xpath="enigma_iii/ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Grow Your Own" _xpath="enigma_iii/nat36_1" author="Nat Pryce" ctrl="force" easy="false" id="natmaze5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="- Meditation -" _xpath="enigma_ii/siegfried37_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation16" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="110" _title="Draggers" _xpath="enigma_v/ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="110" _title="Draggers" _xpath="enigma_v/ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="111" _title="The Disappearing Block" _xpath="enigma_ii/duffy02_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy2" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="112" _title="Space Fishing" _xpath="enigma_iii/martin73_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin73" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Robbery" _xpath="enigma_iv/ant29_2" author="Petr Machata" ctrl="force" easy="false" id="ant29" rel="2" rev="1" score="2" target="time" unit="duration"/>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 31 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 32 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,7 +32,7 @@ ti[" ~"] = {"fl_water"}
 ti[" _"] = {"fl_swamp"}
 ti[" ."] = {"fl_space"}
 ti[" ("] = {"fl-gradient", type=3}
-ti["t "] = {"st-stone_break"}
+ti["t "] = {"st_break_oxydc"}
 ti["# "] = {"st_lightpassenger"}
 ti["K "] = {"st_knight"}
 ti["B "] = {"st-brick_magic"}
@@ -68,7 +68,7 @@ ti[" f"] = {"it_wrench"}
 ti["4 "] = ti[" f"] ..{"st_oneway_w"}
 ti["6 "] = {"st_oneway_e"}
 ti["8 "] = {"st_oneway_black_n"}
-ti["Q "] = {"st-stone_break"}
+ti["Q "] = {"st_break_oxydc"}
 ti["m "] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=true, orientation=0}
 ti["M1"] = ti[" _"] .. {"st_mirror_slab", movable=false, transparent=false, orientation=2}
 ti["M2"] = ti[" _"] .. {"st_mirror_slab", movable=false, orientation=1}
@@ -84,8 +84,8 @@ ti[":7"] = {"st_door", name="door#7", flavor="d", faces="ew"}
 ti[":8"] = {"st_door", name="door#8", flavor="d", faces="ew"}
 ti[":9"] = {"st_door", name="door#9", flavor="d", faces="ew"}
 ti["? "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
-ti["z "] = ti[" v"] .. {"st-stone_break"}
-ti["N "] = ti[" v"] .. {"st-stone_break"}
+ti["z "] = ti[" v"] .. {"st_break_oxydc"}
+ti["N "] = ti[" v"] .. {"st_break_oxydc"}
 ti["- "] = ti[" ~"] .. {"it_strip_ew"}
 ti["b "] = ti[" ~"] .. {"it-booze"}
 ti["h2"] = ti["h1"] .. {"it_cherry"}

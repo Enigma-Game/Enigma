@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 32 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 33 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,13 +30,13 @@ ti["ex"] = ti[" %"]..{"it_extralife"}
 ti["' "] = {"st_yellow"}
 ti[" '"] = {"fl_bluegray"}
 ti["( "] = {"st-grate3"}
-ti["* "] = {"st-stone_break"}
+ti["* "] = {"st_break_oxydc"}
 ti[" )"] = {"fl_yinyang_yin"}
 ti["+ "] = {"st_passage_white_cross"}
 ti[", "] = {"st_passage_black_cross"}
 ti["- "] = {"st_grate_cross"}
-ti["ny"] = ti[" ("]..{"st-stone_break"}
-ti["nw"] = ti[" '"]..{"st-stone_break"}
+ti["ny"] = ti[" ("]..{"st_break_oxydc"}
+ti["nw"] = ti[" '"]..{"st_break_oxydc"}
 ti["nn"] = ti["ny"]..{"it_seed_fake"}
 ti["nm"] = ti["nw"]..{"it_seed_fake"}
 ti[". "] = {"st-block"}
@@ -72,7 +72,7 @@ ti["XX"] = ti["<X"]..{"#ac_marble_black"}
 ti["C "] = {"st_puzzle", connections="nsw"}
 ti["pp"] = ti[" !"]..{"it_pipe", connections="ew"}
 ti["pd"] = ti[" ("]..{"it_pipe", connections="ew"}
-ti["D "] = {"st-break_bolder"}
+ti["D "] = {"st_break_boulder"}
 ti["pa"] = ti[" $"]..{"it_pipe", connections="sw"}
 ti["pb"] = ti[" $"]..{"it_pipe", connections="ne"}
 ti["pc"] = ti[" ("]..{"it_pipe", connections="es"}

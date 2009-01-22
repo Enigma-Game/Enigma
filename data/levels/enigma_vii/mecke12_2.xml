@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 42 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 43 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,7 +41,7 @@ ti["v "] = {"it_strip", connections="ns"}
 ti[" -"] = {"fl-gradient11"}
 ti[" ."] = {"fl-gradient12"}
 ti["b "] = {"it_brush"}
-ti["* "] = {"st-break_bolder"}
+ti["* "] = {"st_break_boulder"}
 ti[" /"] = {"fl_aquamarine"}
 ti["+ "] = {"st_rawglass_movable"}
 ti[", "] = {"st_door", faces="ew"}
@@ -84,7 +84,7 @@ ti[" 7"] = {"fl-gradient14"}
 ti["? "] = {"st_fake_oxydd"}
 ti["@ "] = {"st_rawglass"}
 ti["A "] = {"st_door", state=OPEN, faces="ns"}
-ti["W "] = {"st-stone_break"}
+ti["W "] = {"st_break_oxydc"}
 ti["gg"] = ti[" %"] .. {"it_strip", connections="ns"}
 ti["l3"] = ti[" !"] .. {"st-brick_magic"}
 ti["l4"] = ti[" i"] .. {"st_passage_black_frame"}

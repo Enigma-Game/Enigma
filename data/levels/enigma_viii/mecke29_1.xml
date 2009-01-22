@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 12 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 13 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -35,7 +35,7 @@ ti["b~"] = ti["b "] .. {"fl_water"}
 ti[" _"] = {"fl_swamp"}
 ti["'_"] = ti["' "] .. {"fl_swamp"}
 ti[" ."] = {"fl_space"}
-ti["t "] = {"st-stone_break"}
+ti["t "] = {"st_break_oxydc"}
 ti["# "] = {"st_panel"}
 ti["K "] = {"st_rawglass_movable"}
 ti["K1"] = {"st_rawglass_movable", name="movy1"}
@@ -84,7 +84,7 @@ ti[" f"] = {"it_wrench"}
 ti["4 "] = ti[" f"] ..{"st_oneway", orientation=WEST}
 ti["6 "] = {"st_oneway", orientation=EAST}
 ti["8 "] = {"st_oneway_white", orientation=NORTH}
-ti["Q "] = {"st-stone_break"}
+ti["Q "] = {"st_break_oxydc"}
 ti["wn"] = ti["  "] .. {"st_window_n",secure=true}
 ti["X1"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy1"}
 ti["X2"] = ti[" ~"] .. {"st_oxyd", flavor="a", name="oxyy2"}
@@ -112,8 +112,8 @@ ti[":6"] = {"st_door", name="door#6", flavor="d", faces="ew"}
 ti[":7"] = {"st_door", name="door#7", flavor="d", faces="ew"}
 ti[":8"] = {"st_door", name="door#8", flavor="d", faces="ew"}
 ti["! "] = ti[" ~"] .. {"st_actorimpulse_invisible"}
-ti["z "] = ti[" v"] .. {"st-stone_break"}
-ti["N "] = ti[" v"] .. {"st-stone_break"}
+ti["z "] = ti[" v"] .. {"st_break_oxydc"}
+ti["N "] = ti[" v"] .. {"st_break_oxydc"}
 ti["- "] = ti[" ~"] .. {"it_strip_ew"}
 ti["h2"] = ti["h1"] .. {"it_cherry"}
 ti["h3"] = ti["h1"] .. {"it-dynamite"}

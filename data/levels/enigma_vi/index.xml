@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma VI"/>
 
   <attributes/>
 
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Dancing on Light Beams" _xpath="./andreas28_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Wormhole Madness!" _xpath="./edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Alcatraz" _xpath="./ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Oiltrace" _xpath="./raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Simple Space" _xpath="./ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
