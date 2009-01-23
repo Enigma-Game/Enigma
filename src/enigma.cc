@@ -147,6 +147,10 @@ GridPos::GridPos(const ecl::V2& p)
   y (round_down<int>(p[1])) 
 {}
 
+    GridPos::operator ecl::V2() const {
+        return ecl::V2(x, y);
+    }
+
 
 std::ostream& operator<<(std::ostream& os, const GridPos& val)
 {

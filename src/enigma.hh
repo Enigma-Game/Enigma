@@ -156,6 +156,11 @@ namespace enigma {
         explicit GridPos(const ecl::V2& p);
         void move(Direction dir);
         ecl::V2 center() const;
+        
+        /**
+         * Conversion of a value to a position vector.
+         */
+        operator ecl::V2() const;
     };
 
     GridPos move(GridPos p, Direction dir);

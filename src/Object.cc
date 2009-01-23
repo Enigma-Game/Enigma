@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007, 2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -362,31 +362,20 @@ namespace enigma {
     
     bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) const {
         int i = 0;  // counter for destination candidates
-        Value dest = getAttr("destination");
-        if (dest.getType() == Value::POSITION && idx == 0) {
-            // arbitrary precision position as destination
-            dstpos = dest;
-            return true;
-        } else {
-            // evaluate destination objects in sequence up to "idx"
-            TokenList tl = dest;  // convert any object type value to a tokenlist 
-            for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
-                ObjectList ol = (*tit).getObjectList(this);  // convert next token to an objectlist
-                for (ObjectList::iterator oit = ol.begin(); oit != ol.end(); ++oit) {
-                    GridObject *go = dynamic_cast<GridObject *>(*oit);  // get the object
-                    if (go != NULL) {   // no actors and deleted objects as destination!
-                        GridPos p = go->get_pos();
-                        if (IsInsideLevel(p)) {   // no objects in inventory,...
-                            if (i == idx) {
-                                dstpos = p.center();
-                                return true;
-                            } else
-                                i++;
-                        }
-                    }
+        TokenList tl = getAttr("destination");  // expand any tokens to a list of values 
+        for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
+            PositionList pl = (*tit).getPositionList(this);  // convert next token to a list of positions
+            for (PositionList::iterator pit = pl.begin(); pit != pl.end(); ++pit) {
+                ecl::V2 pos = (*pit).centeredPos();
+                if (IsInsideLevel(pos))  {  // no positions in inventory,..
+                    if (i == idx) {
+                        dstpos = pos;
+                        return true;
+                    } else
+                        i++;
                 }
             }
-        }
+        }        
         return false;
     }
     

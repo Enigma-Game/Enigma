@@ -160,6 +160,7 @@ namespace enigma {
 
     bool IsLevelBorder(const GridPos &p);
     bool IsInsideLevel(const GridPos &p);
+    bool IsInsideLevel(const ecl::V2 &p);
     Object *GetObject(const GridLoc &l);
 
 /* -------------------- Named Objects -------------------- */
@@ -173,7 +174,7 @@ namespace enigma {
 
     void NamePosition(Value po, const string &name);
     Value GetNamedPosition(const string &name);
-    PositionList GetNamedPositionList(const std::string &templ);
+    PositionList GetNamedPositionList(const std::string &templ, const Object *reference = NULL);
 
 /* -------------------- Force Fields -------------------- */
 
@@ -181,8 +182,8 @@ namespace enigma {
     void RemoveForceField (ForceField *ff);
     void SetMouseForce (V2 f);
 
-    void SetConstantForce (V2 force);
-
+    void SetGlobalForce(V2 force);
+    ecl::V2 GetGlobalForce();
 
 /* -------------------- Other Objects -------------------- */
 

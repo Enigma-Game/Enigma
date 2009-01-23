@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -125,7 +125,7 @@ namespace enigma {
          val.dval[1] = pos[1];
     }
     
-    Value::Value(GridPos gpos) : type (POSITION) {
+    Value::Value(GridPos gpos) : type (GRIDPOS) {
          val.dval[0] = gpos.x;
          val.dval[1] = gpos.y;
     }
@@ -133,6 +133,7 @@ namespace enigma {
     Value::Value(Type t) : type (t) {
         switch (t) {
             case POSITION :
+            case GRIDPOS :
                 val.dval[1] = 0;
                 // fall thorough
             case DOUBLE :
@@ -213,6 +214,7 @@ namespace enigma {
                 case NAMEDOBJECT :
                     return strcmp(val.str, other.val.str) == 0;
                 case POSITION :
+                case GRIDPOS :
                     return (val.dval[0] == other.val.dval[0]) && (val.dval[1] == other.val.dval[1]);
             }
         return true;
@@ -293,6 +295,8 @@ namespace enigma {
             case NAMEDOBJECT:
             case STRING:
             case GROUP:
+            case POSITION:
+            case GRIDPOS:
                 result.push_back(*this);
                 break;
             case TOKENS:
@@ -323,22 +327,34 @@ namespace enigma {
     }
     
     Value::operator ecl::V2() const {
+        Object *obj = NULL;
         switch (type) {
-            case POSITION: {
+            case POSITION:
+            case GRIDPOS:
                 return ecl::V2(val.dval[0], val.dval[1]);
-            }
-            default:
-                return ecl::V2(0, 0);
+            case NAMEDOBJECT:
+            case STRING:
+            case OBJECT:
+                obj = *this;
+                if (obj != NULL)
+                    switch (obj->getObjectType()) {
+                        case Object::STONE :
+                        case Object::FLOOR :
+                        case Object::ITEM  :
+                            return dynamic_cast<GridObject *>(obj)->get_pos();
+                        case Object::ACTOR :
+                            return dynamic_cast<Actor *>(obj)->get_pos();
+                    }
+                else if (type != OBJECT)
+                    return GetNamedPosition(val.str);
         }
+        // all other cases
+        return ecl::V2(-1, -1);
     }
     
     Value::operator GridPos() const {
-        switch (type) {
-            case POSITION:
-                return GridPos(round_down<int>(val.dval[0]), round_down<int>(val.dval[1]));
-            default:
-                return GridPos(0, 0);
-        }
+        ecl::V2 pos = *this;
+        return GridPos(pos);
     }
     
     Value::operator const char*() const {
@@ -421,6 +437,33 @@ namespace enigma {
         }
     }
     
+    ecl::V2 Value::centeredPos() const {
+        Object *obj = NULL;
+        switch (type) {
+            case POSITION:
+                return ecl::V2(val.dval[0], val.dval[1]);
+            case GRIDPOS:
+                return ecl::V2(val.dval[0] + 0.5, val.dval[1] + 0.5);
+            case NAMEDOBJECT:
+            case STRING:
+            case OBJECT:
+                obj = *this;
+                if (obj != NULL)
+                    switch (obj->getObjectType()) {
+                        case Object::STONE :
+                        case Object::FLOOR :
+                        case Object::ITEM  :
+                            return dynamic_cast<GridObject *>(obj)->get_pos().center();
+                        case Object::ACTOR :
+                            return dynamic_cast<Actor *>(obj)->get_pos();
+                    }
+                else if (type != OBJECT)
+                    return GetNamedPosition(val.str).centeredPos();
+        }
+        // all other cases
+        return ecl::V2(-1, -1);        
+    }
+    
     ObjectList Value::getObjectList(const Object *reference) const {
         ObjectList result;
         switch (type) {
@@ -444,6 +487,40 @@ namespace enigma {
                             result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
                         } else {
                             result.push_back(GetNamedObject(*it));
+                        }
+                    }
+                }
+                break;
+        }
+        return result;
+    }
+    
+    PositionList Value::getPositionList(const Object *reference) const {
+        PositionList result;
+        switch (type) {
+            case STRING:
+                if (std::string(val.str).find_first_of("*?") != std::string::npos) {
+                    // wildcards in object name - we need to add all objects
+                    result = GetNamedPositionList(val.str, reference);
+                    break;
+                }
+                // else it is a single object name - fall through not possible
+                
+                
+                
+            case NAMEDOBJECT:
+            case OBJECT:
+                result.push_back(*this);
+                break;
+            case GROUP:
+                std::vector<std::string> vs;
+                ecl::split_copy(std::string(val.str), ',', back_inserter(vs));
+                for (std::vector<std::string>::iterator it = vs.begin(); it != vs.end(); ++it) {
+                    if (it->size() > 0) {
+                        if ((*it)[0] == '#') {
+                            result.push_back(Object::getObject(atoi((*it).c_str() + 1)));
+                        } else {
+                            result.push_back(GetNamedPosition(*it));
                         }
                     }
                 }

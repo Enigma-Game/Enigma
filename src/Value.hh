@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -94,6 +94,7 @@ namespace enigma {
                       ///< identifier.
             GROUP,    ///< Value is a group of objects.
             POSITION, ///< Value is a position
+            GRIDPOS,  ///< Value is a grid position
             TOKENS,   ///< Value is a list of token values
             NAMEDOBJECT  ///< internal Value type for named objects - public type is OBJECT
         };
@@ -236,9 +237,19 @@ namespace enigma {
         bool to_bool() const;
         
         /**
+         * Returns the value converted to a vector position with a centering of all
+         * grid position type values. GRIDPOS type values as well as all positions of
+         * GridObject's will be return as grid centered vector positions, while true
+         * vector position values and positions of Actor's will be returned as is.
+         * Other values will return a position of (-1, -1) indicating a false position 
+         */
+        ecl::V2 centeredPos() const;
+        
+        /**
          * 
          */
         ObjectList getObjectList(const Object *reference = NULL) const;
+        PositionList getPositionList(const Object *reference =NULL) const;
         bool finalizeNearestObjectReference(const Object *reference = NULL);
     private:
         void clear();      ///< Release resources and assign type NIL

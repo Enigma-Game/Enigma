@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -86,6 +86,8 @@ namespace enigma {
             return server::Fragility;
         } else if (key == "FrictionStrength") {
             return server::FrictionFactor;
+        } else if (key == "GlobalForce") {
+            return GetGlobalForce();
         } else if (key == "MeditationStrength") {
             return server::HoleForce;
         } else if (key == "MagnetStrength") {
@@ -172,6 +174,8 @@ namespace enigma {
             server::Fragility = val;
         } else if (key == "FrictionStrength") {
             server::FrictionFactor = val;
+        } else if (key == "GlobalForce") {
+            SetGlobalForce(val);
         } else if (key == "MeditationStrength") {
             server::HoleForce = val;
         } else if (key == "MagnetStrength") {

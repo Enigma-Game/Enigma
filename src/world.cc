@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007,2008, 2009 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -226,7 +226,7 @@ const double World::contact_e = 0.02;  // epsilon distant limit for contacts
 World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
         leftmost_actor (NULL), rightmost_actor (NULL), numMeditatists (0), 
         indispensableHollows (0), engagedIndispensableHollows(0), engagedDispensableHollows (0),
-        registerCriticalPositions (false), scrambleIntensity(10) // difficult default
+        globalForce (0, 0), registerCriticalPositions (false), scrambleIntensity(10) // difficult default
         {
     w = ww;
     h = hh;
@@ -374,9 +374,9 @@ Value World::getNamedPosition(const std::string &name) {
     return Value(GridPos(-1, -1));
 }
 
-PositionList World::getPositionList(const std::string &tmpl) {
+PositionList World::getPositionList(const std::string &tmpl, const Object *reference) {
     PositionList positions;
-    ObjectList objects = get_group(tmpl);
+    ObjectList objects = get_group(tmpl, reference);
     for (ObjectList::iterator itr = objects.begin(); itr != objects.end(); ++itr) {
         switch ((*itr)->getObjectType()) {
             case Object::STONE :
@@ -570,7 +570,7 @@ V2 World::get_local_force (Actor *a) {
     if (a->is_on_floor()) {
         if (Floor *floor = a->m_actorinfo.field->floor) {
             // Constant force
-            f += flatForce;
+            f += globalForce;
 
             // Mouse force
             if (a->get_controllers() != 0) {
@@ -1744,8 +1744,8 @@ Value GetNamedPosition(const string &name) {
     return level->getNamedPosition(name);    
 }
 
-PositionList GetNamedPositionList(const string &tmpl) {
-    return level->getPositionList(tmpl);    
+PositionList GetNamedPositionList(const string &tmpl, const Object *reference) {
+    return level->getPositionList(tmpl, reference);    
 }
 
 bool IsLevelBorder(const GridPos &p) {
@@ -1753,6 +1753,10 @@ bool IsLevelBorder(const GridPos &p) {
 }
 
 bool IsInsideLevel(const GridPos &p) {
+    return level->contains(p);
+}
+
+bool IsInsideLevel(const ecl::V2 &p) {
     return level->contains(p);
 }
 
@@ -1767,10 +1771,13 @@ void RemoveForceField(ForceField *ff) {
     level->remove (ff);
 }
 
-void SetConstantForce (V2 force) {
-    level->flatForce = force;
+void SetGlobalForce(V2 force) {
+    level->globalForce = force;
 }
 
+ecl::V2 GetGlobalForce() {
+    return level->globalForce;
+}
 
 /* -------------------- Signals, Messages, Actions -------------------- */
 

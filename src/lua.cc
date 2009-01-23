@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -420,6 +420,7 @@ static void push_value(lua_State *L, const Value &val) {
             pushNewGroup(L, val);
             break;
         case Value::POSITION:
+        case Value::GRIDPOS:
             pushNewPosition(L, val);
             break;
         case Value::TOKENS: {
@@ -804,7 +805,7 @@ static int en_add_constant_force(lua_State *L) {
     ecl::V2 v;
     v[0] = lua_tonumber(L, 1);
     v[1] = lua_tonumber(L, 2);
-    SetConstantForce (v);
+    SetGlobalForce(v);
     return 0;
 }
 
@@ -2862,7 +2863,7 @@ static int newTile(lua_State *L) {
 MethodMap groupMethodeMap;
 
 static int dispatchGroupWriteAccess(lua_State *L) {
-    if (!(lua_isstring(L, 2))) {
+    if (!(lua_isstring(L, 2)) || lua_type(L, 2) == LUA_TNUMBER) {
         throwLuaError(L, "Group: illegal attribute write access");
         return 0;
     }
@@ -2980,7 +2981,7 @@ static int subGroup(lua_State *L) {
     }
     if (lua_gettop(L) == 3 && lua_isnumber(L, 2) && lua_isnumber(L, 3)) {
         start = lua_tointeger(L, 2) - 1;
-        end = lua_tointeger(L, 2);
+        end = lua_tointeger(L, 3);
         if (end < 0) {
             end = start - end;
         }

@@ -259,6 +259,10 @@ typedef list<sound::SoundDamping> SoundDampingList;
             return (p.x>=0 && p.y>=0 && p.x<w && p.y<h);
         }
 
+        bool contains(const ecl::V2 &p) {
+            return (p[0]>=0 && p[1]>=0 && p[0]<w && p[1]<h);
+        }
+
         bool is_border(const GridPos &p);
 
         Field *get_field (GridPos p) {
@@ -274,7 +278,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         std::list<Object *> get_group(const std::string &tmpl, const Object *reference = NULL);
         void namePosition(Value po, const std::string &name);
         Value getNamedPosition(const std::string &name);
-        PositionList getPositionList(const std::string &tmpl);
+        PositionList getPositionList(const std::string &tmpl, const Object *reference = NULL);
         
         void tick (double dtime);
         void remove (ForceField *ff);
@@ -331,7 +335,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         OtherList            others;
         RubberbandList       rubberbands;
         MouseForce           m_mouseforce;
-        V2                   flatForce;
+        ecl::V2              globalForce;
         int                  scrambleIntensity;
         int                  numMeditatists; 
         int                  indispensableHollows;
