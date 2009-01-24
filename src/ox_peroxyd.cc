@@ -216,7 +216,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     UNUSED,                     // PerOxyd stone 0x19
     "st-surprise",              // PerOxyd stone 0x1a
     "st-chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
-    "st-brick_magic",           // PerOxyd stone 0x1c
+    "st_magic_brick",           // PerOxyd stone 0x1c
     "st_camouflage",            // PerOxyd stone 0x1d (green camouflage piece)(if st-camouflage is implemented, put it in here)
     "st_camouflage",            // PerOxyd stone 0x1e (green camouflage piece)
     UNUSED,                     // PerOxyd stone 0x1f
@@ -282,7 +282,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_puzzle_blue_nesw",      // PerOxyd stone 0x5b
     "st_puzzle_blue_nesw_hollow", // PerOxyd stone 0x5c
     "st_break_laser",           // PerOxyd stone 0x5d
-    "st-coffee",                // PerOxyd stone 0x5e
+    "st_magic_oxydc",           // PerOxyd stone 0x5e
     "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
     "st_disco_dark",            // PerOxyd stone 0x60
     "st_disco_medium",          // PerOxyd stone 0x61
@@ -306,7 +306,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_door_d",                // PerOxyd stone 0x73
     "st_door_d_ew",             // PerOxyd stone 0x74
     "st_metal",                 // PerOxyd stone 0x75
-    "st-stonebrush",            // PerOxyd stone 0x76
+    "st_ghost_purplemarble",    // PerOxyd stone 0x76
     "st_door_d_open",           // PerOxyd stone 0x77
     "st_door_d_ew_open",        // PerOxyd stone 0x78
     "st_passage_white_square",  // PerOxyd stone 0x79 (Can be either st-white1 or st-white4)

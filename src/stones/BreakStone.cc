@@ -35,7 +35,7 @@ namespace enigma {
     Value BreakStone::getAttr(const std::string &key) const {
         if (key == "flavor") {
             std::string kind = get_traits().name;
-            return kind.substr(8);
+            return kind.substr(9);
         }
         return Stone::getAttr(key);
     }

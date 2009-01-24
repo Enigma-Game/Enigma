@@ -1060,6 +1060,18 @@
       <msg name="signal"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_ghost">
+      <attr name="flavor"/>
+    </object>
+    <object name="st_ghost_break">
+      <attr name="flavor" value="break"/>
+    </object>
+    <object name="st_ghost_greenbrown">
+      <attr name="flavor" value="greenbrown"/>
+    </object>
+    <object name="st_ghost_purplemarble">
+      <attr name="flavor" value="purplemarble"/>
+    </object>
     <object name="st_granite">
       <attr name="hollow" rw="r"/>
     </object>
@@ -1180,6 +1192,18 @@
       <attr name="state" rw="r"/>
       <msg name="_init"/>
       <msg name="_model_reanimated"/>
+    </object>
+    <object name="st_magic">
+      <attr name="flavor"/>
+    </object>
+    <object name="st_magic_brick">
+      <attr name="flavor" value="brick"/>
+    </object>
+    <object name="st_magic_oxyda">
+      <attr name="flavor" value="oxyda"/>
+    </object>
+    <object name="st_magic_oxydc">
+      <attr name="flavor" value="oxydc"/>
     </object>
     <object name="st_metal">
       <attr name="hollow" rw="r"/>

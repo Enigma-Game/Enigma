@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef FAKESTONE_HH
-#define FAKESTONE_HH
+#ifndef MAGICSTONE_HH
+#define MAGICSTONE_HH
 
 #include "stones.hh"
 
@@ -25,56 +25,38 @@
 
 namespace enigma {
 
-    /** 
-     * 
+    /**
+     *
      */
-    class FakeStone : public Stone {
-         CLONEOBJ(FakeStone);
-
+    class MagicStone : public Stone {
+        CLONEOBJ(MagicStone);
+        DECL_TRAITS_ARRAY(3, traitsIdx());
     private:
         enum iState {
-            IDLE,     ///< standard fake stone - idle or closed
-            ACTIVE    ///< a blinking quake or opened oxyd
-        };
-        
-        enum ObjectPrivatFlagsBits {
-            OBJBIT_SUBTYP    =   7<<24   ///< the FakeStoneTyp
-        };
-        
-        enum FakeStoneTyp {
-            QUAKE = 0,
+            BRICK,
             OXYDA,
-            OXYDB,
-            OXYDC,
-            OXYDD,
-            OXYDE
+            OXYDC
         };
+        
     public:
-        FakeStone(int subtyp, int initState =IDLE);
+        MagicStone(int type);
         
         // Object interface
-        virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual std::string getClass() const;        
         virtual Value getAttr(const std::string &key) const;
         
         // StateObject interface
         virtual void setState(int extState);
-        
+
         // GridObject interface
         virtual void init_model();
         
-        // ModelCallback interface
-        virtual void animcb();
-        
         // Stone interface
-        virtual const char *collision_sound();
-        virtual void actor_hit(const StoneContact &sc);
-    
+        virtual void actor_hit (const StoneContact &sc);
     private:
-        // Private methods.
-        std::string getFlavor() const;
+        int traitsIdx() const;
     };
 
 } // namespace enigma
 
-#endif /*FLOORBUILDERSTONE_HH*/
+#endif

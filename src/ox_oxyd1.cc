@@ -248,7 +248,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
     "st_metal_hollow",          // Oxyd1 stone 0x62
     "st_break_laser",           // Oxyd1 stone 0x63
-    "st-fakeoxyda",             // Oxyd1 stone 0x64
+    "st_magic_oxyda",           // Oxyd1 stone 0x64
     UNUSED,                     // Oxyd1 stone 0x65
     "st_disco_medium",          // Oxyd1 stone 0x66
     "st_disco_light",           // Oxyd1 stone 0x67

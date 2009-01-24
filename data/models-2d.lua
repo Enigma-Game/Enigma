@@ -828,7 +828,7 @@ do
     DefSubimages("st-bigbrick", {modelname="st-bigbrickx",w=4,h=4})
     for i=1,16 do DefSolidStone("st-bigbrick"..i, "st-bigbrickx"..i) end
     DefSolidStone("st-brick", "st-bigbrickx1")
-    DefSolidStone("st-brick_magic", "st-bigbrickx1")
+    DefSolidStone("st_magic_brick", "st-bigbrickx1")
 end
 
 -- st-bigpanel --
@@ -1543,7 +1543,7 @@ end
 
 -- st-coffee --
 do
-    DefAlias("st-coffee", "st-oxydc")
+    DefAlias("st_magic_oxydc", "st-oxydc")
 end
 
 -- st-doorh, st-doorv --
@@ -1603,7 +1603,7 @@ end
 
 -- st-fakeoxyda --
 do
-    DefAlias("st-fakeoxyda", "st-oxyda")
+    DefAlias("st_magic_oxyda", "st-oxyda")
 end
 
 -- st-fart --
@@ -1758,11 +1758,8 @@ end
 -- Invisible stones --
 do
     DefAlias("st-actorimpulse_invisible", "invisible")
-    DefAlias("st-break_invisible", "invisible")
     DefAlias("st-death_invisible", "invisible")
     DefAlias("st_invisible", "invisible")
-    DefAlias("st-invisible_magic", "invisible")
-    DefAlias("st-stonebrush", "invisible")
 end
 
 --------------------------------------------------------------------------------

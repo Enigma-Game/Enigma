@@ -439,28 +439,6 @@ namespace
     DEF_TRAITS(SurpriseStone, "st-surprise", st_surprise);
 }
 
-
-/* -------------------- Coffee stone -------------------- */
-namespace
-{
-    class CoffeeStone : public Stone {
-        CLONEOBJ(CoffeeStone);
-        DECL_TRAITS;
-    public:
-        CoffeeStone()
-        {}
-
-        void actor_hit (const StoneContact &) {
-            sound_event ("stonetransform");
-            ReplaceStone(get_pos(), MakeStone("st_rawglass_movable"));
-        }
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
-    };
-    DEF_TRAITS(CoffeeStone, "st-coffee", st_coffee);
-}
-
-
 /* -------------------- Black- and Whiteballs Stones -------------------- */
 
 namespace
@@ -548,28 +526,6 @@ namespace
     };
 }
 
-/* -------------------- Unimplemented stones -------------------- */
-
-namespace
-{
-    class FakeOxydA : public Stone {
-        CLONEOBJ(FakeOxydA);
-        DECL_TRAITS;
-    public:
-        FakeOxydA()
-        {}
-
-        void actor_hit (const StoneContact &) {
-            sound_event ("stonetransform");
-            ReplaceStone(get_pos(), MakeStone("st_lightglass_movable"));
-        }
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_STANDARD; }
-    };
-    DEF_TRAITS(FakeOxydA, "st-fakeoxyda", st_fakeoxyda);
-}
-
-
 // --------------------------------------------------------------------------------
 
 void InitStones() {
@@ -578,10 +534,8 @@ void InitStones() {
 
     Register (new SpitterStone);
     Register (new SurpriseStone);
-    Register (new CoffeeStone);
     Register (new BlackBallsStone);
     Register (new WhiteBallsStone);
-    Register (new FakeOxydA);
 
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();

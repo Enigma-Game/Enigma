@@ -296,6 +296,8 @@ enigma_SOURCES = 		\
 	stones/FloppySwitch.hh	\
 	stones/FourSwitch.cc	\
 	stones/FourSwitch.hh	\
+	stones/GhostStone.cc	\
+	stones/GhostStone.hh	\
 	stones/GlassStones.cc	\
 	stones/GlassStones.hh	\
 	stones/GreenBrownStone.cc	\
@@ -310,6 +312,8 @@ enigma_SOURCES = 		\
 	stones/LaserSwitch.hh	\
 	stones/LightPassengerStone.cc	\
 	stones/LightPassengerStone.hh	\
+	stones/MagicStone.cc	\
+	stones/MagicStone.hh	\
 	stones/MailStone.cc	\
 	stones/MailStone.hh	\
 	stones/MirrorStone.cc	\

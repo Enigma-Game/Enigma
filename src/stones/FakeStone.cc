@@ -23,8 +23,9 @@
 //#include "main.hh"
 
 namespace enigma {
-    FakeStone::FakeStone(int subtyp) : Stone() {
+    FakeStone::FakeStone(int subtyp, int initState) : Stone() {
         objFlags |= (subtyp << 24);
+        state = initState;
     }
     
     std::string FakeStone::getClass() const {
@@ -132,6 +133,7 @@ namespace enigma {
         BootRegister(new FakeStone(1), "st_fake_oxyda");
         BootRegister(new FakeStone(2), "st_fake_oxydb");
         BootRegister(new FakeStone(3), "st_fake_oxydc");
+        BootRegister(new FakeStone(3, 1), "st_fake_oxydc_open");
         BootRegister(new FakeStone(4), "st_fake_oxydd");
         BootRegister(new FakeStone(5), "st_fake_oxyde");
     BOOT_REGISTER_END

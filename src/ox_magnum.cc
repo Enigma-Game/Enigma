@@ -216,7 +216,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_puzzle_yellow_nesw",    // Oxyd1 stone 0x61
     "st_metal_hollow",          // OxydMagnum stone 0x62  (st-explosive: like st-metal, but explodes when touched ...)
     "st_flat_breakable",        // OxydMagnum stone 0x63
-    "st-fakeoxyda",             // OxydMagnum stone 0x64
+    "st_magic_oxyda",           // OxydMagnum stone 0x64
     UNUSED,                     // OxydMagnum stone 0x65
     UNUSED,                     // OxydMagnum stone 0x66
     UNUSED,                     // OxydMagnum stone 0x67

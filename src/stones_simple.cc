@@ -176,173 +176,6 @@ namespace
     DEF_TRAITS(ChameleonStone, "st-chameleon", st_chameleon);
 }
 
-/* -------------------- BrickMagic -------------------- */
-
-/** \page st-brick_magic Magic Brick Stone
-
-This stone does initially look like a "st-brick". If touched by the
-actor, having a magic wand, it turns into a "st-glass" stone and
-allows lasers to go through it.
-
-\subsection brick_magicke Example
-\verbatim
-set_stone("st-brick_magic", 10,10)
-\endverbatim
-
-\image html st-brick.png
-*/
-namespace
-{
-    class BrickMagic : public Stone {
-        CLONEOBJ(BrickMagic);
-        const char *collision_sound() {return "stone";}
-    public:
-        BrickMagic() : Stone("st-brick_magic") {}
-    private:
-        void actor_hit(const StoneContact &sc) {
-            if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
-                sound_event ("stonepaint");
-                ReplaceStone (get_pos(), MakeStone("st_rawglass"));
-            }
-        }
-    };
-}
-
-/* -------------------- Stonebrush -------------------- */
-
-/** \page st-stonebrush Brush Stone
-
-This stone is initially invisible. If touched by an actor
-having a brush it turns into a "st-rock4".
-
-\subsection stonebrushe Example
-\verbatim
-set_stone("st-stonebrush", 10,10)
-\endverbatim
-
-\image html st-rock4.png
-*/
-namespace
-{
-    class Stonebrush : public Stone {
-        CLONEOBJ(Stonebrush);
-        const char *collision_sound() {return "stone";}
-    public:
-        Stonebrush() : Stone("st-stonebrush"), state(INVISIBLE) {}
-    private:
-        enum State { INVISIBLE, BRUSH } state;
-
-        void actor_hit(const StoneContact &sc) {
-            if( state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it_brush")) {
-                    sound_event ("stonepaint");
-                    state = BRUSH;
-                    if (server::GameCompatibility == GAMET_PEROXYD) {
-                        set_model("st-likeoxydc-open");
-                    }
-                    else {
-                        set_model("st_purplemarble");
-                    }
-                }
-            }
-        }
-    };
-}
-
-//----------------------------------------
-// Break_invisible
-//----------------------------------------
-
-/** \page st-break_invisible Brush Stone
-
-This stone is initially invisible. If touched by an actor having a
-brush it turns into a "st_stone_break".  This stone can be destroyed
-by an actor having a hammer.
-
-\subsection break_invisible Example
-\verbatim
-set_stone("st-break_invisible", 10,10)
-\endverbatim
-
-\image html st-stone_break.png
-*/
-namespace
-{
-    class Break_invisible : public Stone {
-        CLONEOBJ(Break_invisible);
-        DECL_TRAITS;
-        const char *collision_sound() {return "stone";}
-    public:
-        Break_invisible() : state(INVISIBLE) {}
-    private:
-        enum State { INVISIBLE, BRUSH, DESTROY };
-        State state;
-        void actor_hit(const StoneContact &sc) {
-            if (state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it_brush")) {
-                    sound_event ("stonepaint");
-                    state = BRUSH;
-                    set_model("st-stone_break");
-                }
-            }
-            else if (state == BRUSH) {
-                if (player::WieldedItemIs (sc.actor, "it_hammer")) {
-                    sound_event ("stonedestroy");
-                    state = DESTROY;
-                    set_anim("st-stone_break-anim");
-                }
-            }
-        }
-        void animcb() {
-            if (state == DESTROY)
-                KillStone(get_pos());
-        }
-    };
-    DEF_TRAITSM(Break_invisible, "st-break_invisible", st_break_invisible,
-                MOVABLE_BREAKABLE);
-}
-
-//----------------------------------------
-// Invisible Magic
-//----------------------------------------
-
-/** \page st-invisible_magic Magic Invisible Stone
-
-This stone is initially invisible, and laserlight can pass through.
-If touched by an actor having a magic wand, it will mutate into a
-"st-greenbrown" and laserlight is blocked.
-
-\subsection invisible_magice Example
-\verbatim
-set_stone("st-invisible_magic", 10,10)
-\endverbatim
-
-\image html st-greenbrown.png
-*/
-namespace
-{
-    class InvisibleMagic : public Stone {
-        CLONEOBJ(InvisibleMagic);
-        const char *collision_sound() {return "cloth";}
-    public:
-        InvisibleMagic() : Stone("st-invisible_magic"), state(INVISIBLE) {}
-    private:
-        enum State { INVISIBLE, STONE } state;
-
-        void actor_hit(const StoneContact &sc) {
-            if (state == INVISIBLE) {
-                if (player::WieldedItemIs (sc.actor, "it_magicwand")) {
-                    sound_event ("stonepaint");
-                    state = STONE;
-                    set_model("st_greenbrown");
-                    MaybeRecalcLight(get_pos());
-                }
-            }
-        }
-        bool is_transparent (Direction) const { return state==INVISIBLE; }
-    };
-}
-
 /* -------------------- BombStone -------------------- */
 
 namespace
@@ -440,18 +273,12 @@ void Init_simple()
     //Register(new BombStone("st-dynamite", "it-dynamite"));
     //Register(new BombStone("st-whitebombs", "it-whitebomb"));
 
-    Register(new Break_invisible);
-
-    Register(new BrickMagic);
-
     Register(new ChameleonStone);
 
     Register(new DummyStone);
     Register(new EasyModeStone);
     Register(new Grate3);
-    Register(new InvisibleMagic);
     Register(new MagicStone);
-    Register(new Stonebrush);
 }
 
 } // namespace enigma

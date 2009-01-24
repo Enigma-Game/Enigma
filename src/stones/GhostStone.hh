@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef FAKESTONE_HH
-#define FAKESTONE_HH
+#ifndef GHOSTSTONE_HH
+#define GHOSTSTONE_HH
 
 #include "stones.hh"
 
@@ -25,56 +25,41 @@
 
 namespace enigma {
 
-    /** 
-     * 
+    /**
+     *
      */
-    class FakeStone : public Stone {
-         CLONEOBJ(FakeStone);
-
+    class GhostStone : public Stone {
+        CLONEOBJ(GhostStone);
+        DECL_TRAITS_ARRAY(3, traitsIdx());
     private:
         enum iState {
-            IDLE,     ///< standard fake stone - idle or closed
-            ACTIVE    ///< a blinking quake or opened oxyd
+            PURPLEMARBLE,
+            GREENBROWN,
+            BREAK
         };
         
-        enum ObjectPrivatFlagsBits {
-            OBJBIT_SUBTYP    =   7<<24   ///< the FakeStoneTyp
-        };
-        
-        enum FakeStoneTyp {
-            QUAKE = 0,
-            OXYDA,
-            OXYDB,
-            OXYDC,
-            OXYDD,
-            OXYDE
-        };
     public:
-        FakeStone(int subtyp, int initState =IDLE);
+        GhostStone(int type);
         
         // Object interface
-        virtual std::string getClass() const;
-        virtual void setAttr(const string& key, const Value &val);
+        virtual std::string getClass() const;        
         virtual Value getAttr(const std::string &key) const;
         
         // StateObject interface
         virtual void setState(int extState);
-        
+
         // GridObject interface
         virtual void init_model();
         
-        // ModelCallback interface
-        virtual void animcb();
-        
         // Stone interface
+        virtual bool is_transparent(Direction d) const;
+        virtual void actor_hit (const StoneContact &sc);
         virtual const char *collision_sound();
-        virtual void actor_hit(const StoneContact &sc);
-    
+
     private:
-        // Private methods.
-        std::string getFlavor() const;
+        int traitsIdx() const;
     };
 
 } // namespace enigma
 
-#endif /*FLOORBUILDERSTONE_HH*/
+#endif
