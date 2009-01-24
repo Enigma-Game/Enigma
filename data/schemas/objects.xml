@@ -335,6 +335,9 @@
       <attr name="adhesion" default="1.0"/>
       <attr name="$heattransform" default="fl_dunes"/>
     </object>
+    <object name="fl_thief">
+      <msg name="_capture"/>
+    </object>
     <object name="fl_water" super="fl_floodstream">
       <attr name="friction" default="5.0"/>
       <attr name="adhesion" default="1.0"/>
@@ -1328,6 +1331,8 @@
       <attr name="movable" value="true"/>
       <attr name="breakable" value="true"/>
     </object>
+    <object name="st_plop"/>
+    <object name="st_plop_slate" init="true"/>
     <object name="st_polarswitch">
       <msg name="on"/>
       <msg name="off"/>
@@ -1469,6 +1474,9 @@
     </object>
     <object name="st_switch_white">
       <attr name="color" value="1"/>
+    </object>
+    <object name="st_thief">
+      <msg name="_capture"/>
     </object>
     <object name="st_tigris"/>
     <object name="st_timer">

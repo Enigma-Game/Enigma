@@ -41,6 +41,7 @@ namespace enigma {
 
         // Actor interface
         virtual bool is_dead() const;
+        virtual bool has_shield() const;
         virtual void on_collision(Actor *a);
     };
 

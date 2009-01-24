@@ -425,7 +425,7 @@ namespace
                 "st_lightglass_hollow",
                 "st-magic",
                 "st_knight",
-                "st-thief",
+                "st_thief",
                 "st_flat_breakable",
                 "st_flat_breaking"
             };

@@ -160,6 +160,8 @@ enigma_SOURCES = 		\
 	floors/FloodStream.hh	\
 	floors/SimpleFloors.cc	\
 	floors/SimpleFloors.hh	\
+	floors/ThiefFloor.cc	\
+	floors/ThiefFloor.hh	\
 	gui/ErrorMenu.cc	\
 	gui/ErrorMenu.hh	\
 	gui/GameMenu.cc		\
@@ -348,6 +350,8 @@ enigma_SOURCES = 		\
 	stones/SwapStone.hh	\
 	stones/Switch.cc	\
 	stones/Switch.hh	\
+	stones/ThiefStone.cc	\
+	stones/ThiefStone.hh	\
 	stones/TimerStone.cc	\
 	stones/TimerStone.hh	\
 	stones/Turnstile.cc	\

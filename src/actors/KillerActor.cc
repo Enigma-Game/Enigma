@@ -44,6 +44,10 @@ namespace enigma {
     bool Killer::is_dead() const {
         return false;
     }
+    
+    bool Killer::has_shield() const {
+        return false;
+    }
 
     void Killer::on_collision(Actor *a) {
         SendMessage(a, "_shatter");

@@ -134,7 +134,7 @@ SSE = po(1, 2)
 SSW = po(-1, 2)
 WSW = po(-2, 1)
 WNW = po(-2, -1)
-NNW = po(-2, -1)
+NNW = po(-1, -2)
 
 -- essential
 DISPENSIBLE   = 0

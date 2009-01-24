@@ -20,6 +20,7 @@
  */
 
 #include "stones/SimpleStones.hh"
+#include "client.hh"
 #include "errors.hh"
 //#include "main.hh"
 #include "player.hh"
@@ -191,6 +192,33 @@ namespace enigma {
             return sc.actor->is_on_floor() ? STONE_PASS : STONE_REBOUND;
     }
     
+/* -------------------- Plop stone -------------------- */
+    PlopStone::PlopStone() : Stone () {
+    }
+    
+    std::string PlopStone::getClass() const {
+        return "st_plop";
+    }
+        
+    void PlopStone::init_model() {
+        set_model("st_plop_slate");
+    }
+    
+    void PlopStone::on_floor_change() {
+        if (Floor *fl = GetFloor(get_pos())) {
+            const std::string &k = fl->get_kind();
+            if (k=="fl_water" || k=="fl_abyss" || k == "fl_swamp") {
+                sound_event("drown");
+                client::Msg_Sparkle(get_pos().center());
+                KillStone(get_pos());
+            }
+        }
+    }
+    
+    DEF_TRAITSM(PlopStone, "st_plop", st_plop, MOVABLE_STANDARD);
+
+
+
     BOOT_REGISTER_START
         BootRegister(new BlurStone(0), "st_blur");
         BootRegister(new BlurStone(0), "st_blur_straight");
@@ -204,6 +232,8 @@ namespace enigma {
         BootRegister(new GrateStone(0), "st_grate");
         BootRegister(new GrateStone(0), "st_grate_cross");
         BootRegister(new GrateStone(1), "st_grate_framed");
+        BootRegister(new PlopStone(), "st_plop");
+        BootRegister(new PlopStone(), "st_plop_slate");
     BOOT_REGISTER_END
 
 } // namespace enigma

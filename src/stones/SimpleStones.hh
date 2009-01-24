@@ -127,6 +127,24 @@ namespace enigma {
         virtual StoneResponse collision_response(const StoneContact &sc);
     };
 
+    /** 
+     * PlopStone
+     */
+   class PlopStone : public Stone {
+        CLONEOBJ(PlopStone);
+        DECL_TRAITS;
+    public:
+        PlopStone();
+        
+         // Object interface
+        virtual std::string getClass() const;        
+        
+        // GridObject interface
+        virtual void init_model();
+        
+        // Stone interface
+        virtual void on_floor_change();
+   };
 } // namespace enigma
 
 #endif /*SIMPLESTONES_HH*/

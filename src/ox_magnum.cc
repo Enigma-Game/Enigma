@@ -223,7 +223,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st-bombs",                 // OxydMagnum stone 0x68 (common was 'st-shogun-l')
     "st-flash",                 // OxydMagnum stone 0x69
     "st_coinslot_instant",      // OxydMagnum stone 0x6a
-    "st-thief",                 // OxydMagnum stone 0x6b
+    "st_thief",                 // OxydMagnum stone 0x6b
     "st_shogun_s",              // OxydMagnum stone 0x6c
     "st_stoneimpulse",          // OxydMagnum stone 0x6d
     "st_laserflop",             // OxydMagnum stone 0x6e

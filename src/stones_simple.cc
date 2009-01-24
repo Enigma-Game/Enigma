@@ -176,36 +176,6 @@ namespace
     DEF_TRAITS(ChameleonStone, "st-chameleon", st_chameleon);
 }
 
-/* -------------------- BlockStone -------------------- */
-
-namespace
-{
-    class BlockStone : public Stone {
-        CLONEOBJ(BlockStone);
-        DECL_TRAITS;
-    public:
-        BlockStone()
-        {}
-    private:
-        V2 get_center() const {
-            return get_pos().center();
-        }
-
-        void on_floor_change() {
-            if (Floor *fl=GetFloor(get_pos())) {
-                const string &k = fl->get_kind();
-                if (k=="fl_water" || k=="fl_abyss" || k == "fl_swamp") {
-                    client::Msg_Sparkle (get_center());
-                    KillStone(get_pos());
-                }
-            }
-        }
-    };
-    DEF_TRAITSM(BlockStone, "st-block", st_block, MOVABLE_STANDARD);
-    
-};
-
-
 /* -------------------- BrickMagic -------------------- */
 
 /** \page st-brick_magic Magic Brick Stone
@@ -373,116 +343,6 @@ namespace
     };
 }
 
-
-/* -------------------- Thief -------------------- */
-namespace
-{
-    /*! Steals one item from the player's inventory when hit. */
-    class ThiefStone : public Stone {
-        CLONEOBJ(ThiefStone);
-        DECL_TRAITS;
-
-        enum State { IDLE, EMERGING, RETREATING, CAPTURED } state;
-        Actor *m_affected_actor;
-        Item * bag;
-    public:
-        ThiefStone();
-        virtual ~ThiefStone();
-    private:
-        void steal_from_player();
-
-        void actor_hit(const StoneContact &sc);
-        // even a slight touch should steal from the actor: 
-        void actor_touch(const StoneContact &sc) { actor_hit(sc); }
-        void animcb();
-        virtual Value message(const Message &m);        
-
-        const char *collision_sound() { return "cloth"; }
-        int affected_player;
-    };
-    DEF_TRAITSM(ThiefStone, "st-thief", st_thief, MOVABLE_BREAKABLE);
-}
-
-ThiefStone::ThiefStone() 
-: state(IDLE), m_affected_actor (0), affected_player (-1), bag(NULL) {}
-
-ThiefStone::~ThiefStone() {
-    if (bag != NULL)
-        delete bag;
-}
-
-void ThiefStone::actor_hit(const StoneContact &sc) {
-    ActorID id = get_id(sc.actor);
-    if (state == IDLE) {
-        set_anim("st-thief-emerge");
-        state = EMERGING;
-        m_affected_actor = sc.actor;
-        affected_player = m_affected_actor->getDefaultedAttr("owner", -1);
-    }
-}
-
-void ThiefStone::animcb() {
-    switch (state) {
-    case EMERGING:
-        steal_from_player();
-        state = RETREATING;
-        set_anim("st-thief-retreat");
-        break;
-    case RETREATING:
-        state = IDLE;
-        init_model();
-        break;
-    case CAPTURED:
-        KillStone(get_pos());
-        break;
-    default:
-        ASSERT(0, XLevelRuntime, "ThiefStone: animcb called with inconsistent state");
-    }
-}
-
-void ThiefStone::steal_from_player() 
-{
-    // the actor that hit the thief may no longer exist!
-    if (m_affected_actor && affected_player >= 0 &&
-            player::HasActor(affected_player, m_affected_actor) && 
-            !m_affected_actor->has_shield()) {
-        enigma::Inventory *inv = player::GetInventory(m_affected_actor);
-        if (inv && inv->size() > 0) {
-            if (bag == NULL) {
-                bag = MakeItem("it-bag");
-                bag->setOwnerPos(get_pos());
-            }
-            int i = IntegerRand (0, int (inv->size()-1));
-            dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
-            Glasses::updateGlasses();
-            player::RedrawInventory (inv);
-            sound_event("thief");
-        }
-    }
-}
-
-Value ThiefStone::message(const Message &m) {
-    if(m.message == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
-        performAction(!m.value.to_bool());  // inverse signal multiplier
-        return Value();
-    } else if (m.message == "_capture" && state == IDLE) {
-        state = CAPTURED;
-        Item * it =  GetItem(get_pos());
-        
-        // add items on grid pos that can be picked up to our bag
-        if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
-            dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos()));
-        }
-        // drop bag if pos is not occupied by a static item
-        if (GetItem(get_pos()) == NULL)
-            SetItem(get_pos(), bag);
-        bag = NULL;
-        set_anim(string(get_kind()) + "-captured");
-        return true;
-    }
-    return Stone::message(m);
-}
-
 /* -------------------- BombStone -------------------- */
 
 namespace
@@ -576,7 +436,6 @@ namespace
 
 void Init_simple()
 {
-    Register(new BlockStone);
     Register(new BombStone("st-bombs", "it-blackbomb"));
     //Register(new BombStone("st-dynamite", "it-dynamite"));
     //Register(new BombStone("st-whitebombs", "it-whitebomb"));
@@ -593,7 +452,6 @@ void Init_simple()
     Register(new InvisibleMagic);
     Register(new MagicStone);
     Register(new Stonebrush);
-    Register(new ThiefStone);
 }
 
 } // namespace enigma

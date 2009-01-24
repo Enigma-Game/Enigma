@@ -746,7 +746,7 @@ do
     DefStone("st-black3")
     DefStone("st-black4", "sh-white4")
     DefStone("st-blackballs")
-    DefStone("st-block")
+    DefStone("st_plop_slate")
     DefStone("st_bluegray", "sh-round")
     DefStone("st-brake", "sh-brake")
     DefStone("st_brownie", "sh-round")
@@ -1647,9 +1647,9 @@ do
     local f1 = BuildFrames(names, 80)
     DefAnim("pre-st-thief-emerge", f1)
     DefAnim("pre-st-thief-retreat", ReverseFrames(f1))
-    DefRoundStone("st-thief", stonebase)
-    DefRoundStone("st-thief-emerge", "pre-st-thief-emerge")
-    DefRoundStone("st-thief-retreat", "pre-st-thief-retreat")
+    DefRoundStone("st_thief", stonebase)
+    DefRoundStone("st_thief_emerge", "pre-st-thief-emerge")
+    DefRoundStone("st_thief_retreat", "pre-st-thief-retreat")
 
     -- Creating st-thief-captured
     --
@@ -1658,7 +1658,7 @@ do
 
     local img2 = DefSubimages("st-thief-captured", {h = 12})
     local f2 = BuildFrames(img2, 80)
-    DefAnim("st-thief-captured", f2)
+    DefAnim("st_thief_captured", f2)
 
     -- Creating fl-thief
 
@@ -1678,10 +1678,10 @@ do
       end
       local f3 = BuildFrames(floornames[k], 80)
       local f4 = BuildFrames(floorcaptured[k], 80)
-      DefAlias("fl-thief"..k, floorbases[k])
-      DefAnim("fl-thief"..k.."-emerge", f3)
-      DefAnim("fl-thief"..k.."-retreat", ReverseFrames(f3))
-      DefAnim("fl-thief"..k.."-captured", f4)
+      DefAlias("fl_thief"..k, floorbases[k])
+      DefAnim("fl_thief"..k.."_emerge", f3)
+      DefAnim("fl_thief"..k.."_retreat", ReverseFrames(f3))
+      DefAnim("fl_thief"..k.."_captured", f4)
     end
 
 --do

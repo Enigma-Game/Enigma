@@ -124,7 +124,7 @@ namespace enigma {
     BOOT_REGISTER_START
         BootRegister(new GreenBrownStone(false, false), "st_greenbrown");
         BootRegister(new GreenBrownStone(true, false),  "st_greenbrown_hollow");
-        BootRegister(new GreenBrownStone(true, true),  "st_greenbrown_movable");
+        BootRegister(new GreenBrownStone(false, true),  "st_greenbrown_movable");
         BootRegister(new GreenBrownStone(false, false, true),  "st_greenbrown_growing");
     BOOT_REGISTER_END
 

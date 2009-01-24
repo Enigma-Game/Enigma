@@ -138,10 +138,10 @@ namespace enigma {
         virtual bool is_drunken() const { return false; }
         virtual bool is_invisible() const { return false; }
 
-        virtual bool can_drop_items() const { return false; }
+        virtual bool can_drop_items() const { return true; }
         virtual bool can_move() const;
         virtual bool can_be_warped() const { return false; }
-        virtual bool has_shield() const { return false; }
+        virtual bool has_shield() const { return true; }
 
         virtual void init();
 
