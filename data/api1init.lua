@@ -771,18 +771,18 @@ function enigma.SetAttrib(obj, key, val)
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
-             _val = po(val + 0, d.y)
+             _val = po(0 + val, d.y)
          else
-             _val = po(val + 0, 0)
+             _val = po(0 + val, 0)
          end
          _key = "destination"
      end
      if key == "targety" then
          local d = enigma._GetAttrib(obj, "destination")
          if (en.usertype(d) == "position") then
-             _val = po(d.x, val + 0)
+             _val = po(d.x, 0 + val)
          else
-             _val = po(0, val + 0)
+             _val = po(0, 0 + val)
          end
          _key = "destination"
      end

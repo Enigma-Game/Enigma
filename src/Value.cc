@@ -504,12 +504,11 @@ namespace enigma {
                     result = GetNamedPositionList(val.str, reference);
                     break;
                 }
-                // else it is a single object name - fall through not possible
-                
-                
-                
+                // else fall through
             case NAMEDOBJECT:
             case OBJECT:
+            case POSITION:
+            case GRIDPOS:
                 result.push_back(*this);
                 break;
             case GROUP:
