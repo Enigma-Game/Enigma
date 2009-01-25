@@ -79,6 +79,7 @@
     <attr name="steady" type="bool" default="false" rw="rw"/>
     <attr name="strength" type="double" default="1" rw="rw"/>
     <attr name="target" type="tokens" default="nil" rw="rw"/>
+    <attr name="text" type="string" default="nil" rw="rw"/>
     <attr name="transparent" type="bool" default="false" rw="rw"/>
     <attr name="threshold" type="double" default="0" rw="rw"/>
     <attr name="velocity_x" type="double" default="nil" rw="rw"/>
@@ -420,6 +421,9 @@
       <msg name="signal"/>
     </object>
     <object name="it_death"/>
+    <object name="it_document">
+      <attr name="text"/>
+    </object>
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
@@ -476,6 +480,7 @@
     <object name="it_meditation_volcano">
       <attr name="state" value="3"/>
     </object>
+    <object name="it_pencil"/>
     <object name="it_pipe">
       <attr name="connections"/>
       <msg name="_explosion"/>
@@ -509,6 +514,21 @@
     </object>
     <object name="it_pipe_ne">
       <attr name="connections" value="ne"/>
+    </object>
+    <object name="it_puller">
+      <attr name="orientation"/>
+    </object>
+    <object name="it_puller_w">
+      <attr name="orientation" value="0"/>
+    </object>
+    <object name="it_puller_s">
+      <attr name="orientation" value="1"/>
+    </object>
+    <object name="it_puller_e">
+      <attr name="orientation" value="2"/>
+    </object>
+    <object name="it_puller_n">
+      <attr name="orientation" value="3"/>
     </object>
     <object name="it_rubberband">
       <attr name="anchor2"/>

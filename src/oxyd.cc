@@ -376,11 +376,11 @@ Item  *OxydLoader::make_item(int type, int x, int y)
     switch (type) {
         case 0x00: break;           // ignore
         case 0x02:                  // note 1
-    	    it = MakeItem("it-document");
+    	    it = MakeItem("it_document");
     	    it->setAttr ("text", convert_encoding(level.getNoteText(0, lang)).c_str());
             break;
         case 0x03:                  // note 2
-            it = MakeItem("it-document");
+            it = MakeItem("it_document");
             it->setAttr ("text", convert_encoding(level.getNoteText(1, lang)).c_str());
             break;
         case 0x14:                  // key a

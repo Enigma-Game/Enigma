@@ -455,13 +455,13 @@ do
         "it-blocker",
         "it-booze",
         "it-booze-broken",
-        "it-document",
+        "it_document",
         "it-drop",
         "it-dynamite",
         "it-flagblack",
         "it-flagwhite",
         "it-odometer",
-        "it-pencil",
+        "it_pencil",
         "it-pin",
         "it_ring",
         "it_spade",
@@ -645,10 +645,10 @@ end
 
 -- it-puller --
 do
-    local images = {"it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w"}
-    DefTiles("it-puller", images)
+    local images = {"it_puller_n", "it_puller_e", "it_puller_s", "it_puller_w"}
+    DefTiles("it_puller", images)
     local frames = BuildFrames(images, 100)
-    DefAnim("it-puller-active", RepeatAnim(frames, 4), false)
+    DefAnim("it_puller_active", RepeatAnim(frames, 4), false)
 end
 
 -- it-seed --

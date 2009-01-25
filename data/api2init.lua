@@ -519,7 +519,7 @@ function res.composer_implementation(context, evaluator, key, x, y)
         if tile == nil then
             tile = subtile
         else
-            tile = tile .. subtile
+            tile = subtile .. tile
         end
         if #key == 3 then
             subkey = string.sub(key, 1, i-1) .. " " .. string.sub(key, i+1)

@@ -97,12 +97,50 @@ namespace enigma {
     
     DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
+/* -------------------- Pencil -------------------- */
+
+    Pencil::Pencil() {
+    }
+    
+    ItemAction Pencil::activate(Actor *a, GridPos p) {
+        if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
+            if (Item *it=GetItem(p)) {
+                return ITEM_KEEP;
+            }
+            // If the actor is flying and tries to make a cross, drop the it-pencil
+            if (a->is_flying()) {
+                return ITEM_DROP;
+            }
+
+            Floor *fl = GetFloor(p);
+            std::string floor = fl->getClass();
+
+            /* do not allow markings on this floortypes:
+               fl_abyss, fl_water, fl_swamp
+               fl-bridge[{-closed,-open}]?
+               markings on fl_ice will result as it-crack1
+            */
+            if (floor == "fl_abyss" || floor == "fl_water" || floor == "fl_swamp" || floor == "fl_bridge" ) {
+                return ITEM_KEEP;
+            } else if (floor == "fl_ice") {
+                SetItem(p, MakeItem("it_crack_s"));
+            } else {
+                Item *newItem = MakeItem("it_cross");
+                transferIdentity(newItem);
+                SetItem(p, newItem);
+            }
+            return ITEM_KILL;
+        }
+    }
+    
+    DEF_ITEMTRAITS(Pencil, "it_pencil", it_pencil);
+    
 /* -------------------- Ring -------------------- */
 
     Ring::Ring() {
     }
     
-    ItemAction Ring::activate(Actor *a, GridPos) {
+    ItemAction Ring::activate(Actor *a, GridPos p) {
         if (ExchangeMarbles(a)) {
             sound_event("switchmarbles");
         }
@@ -189,6 +227,7 @@ namespace enigma {
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");
+        BootRegister(new Pencil(), "it_pencil");
         BootRegister(new Ring(), "it_ring");
         BootRegister(new Spade(), "it_spade");
         BootRegister(new Spoon(), "it_spoon");

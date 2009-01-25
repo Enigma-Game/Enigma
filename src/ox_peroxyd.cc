@@ -446,7 +446,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_trigger",                 // 0x40
     "it_brush",                   // 0x41
     "it_banana",                  // 0x42
-    "it-pencil",                  // 0x43
+    "it_pencil",                  // 0x43
     "it_brake",                   // 0x44
     "it_squashed",                // 0x45
     "it_blocker",                 // 0x46
@@ -454,10 +454,10 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_wrench",                  // 0x48
     UNUSED,                  // 0x49
     "it-odometer",                // 0x4a
-    "it-puller-n",                // 0x4b
-    "it-puller-s",                // 0x4c
-    "it-puller-w",                // 0x4d
-    "it-puller-e",                // 0x4e
+    "it_puller_n",                // 0x4b
+    "it_puller_s",                // 0x4c
+    "it_puller_w",                // 0x4d
+    "it_puller_e",                // 0x4e
     UNUSED,                       // 0x4f
     UNUSED,                       // 0x50
     IT_MISSING,                   // 0x51 puller left, active

@@ -210,18 +210,26 @@ enigma_SOURCES = 		\
 	items/Coin.hh		\
 	items/Crack.cc		\
 	items/Crack.hh		\
+	items/CrossItem.cc	\
+	items/CrossItem.hh	\
+	items/DocumentItem.cc	\
+	items/DocumentItem.hh	\
 	items/ExtraLife.cc	\
 	items/ExtraLife.hh	\
 	items/GlassesItem.cc	\
 	items/GlassesItem.hh	\
 	items/Hammer.cc		\
 	items/Hammer.hh		\
+	items/Landmine.cc	\
+	items/Landmine.hh	\
 	items/Magnet.cc		\
 	items/Magnet.hh		\
 	items/Meditation.cc	\
 	items/Meditation.hh	\
 	items/PipeItem.cc	\
 	items/PipeItem.hh	\
+	items/PullerItem.cc	\
+	items/PullerItem.hh	\
 	items/RubberbandItem.cc	\
 	items/RubberbandItem.hh	\
 	items/SeedItem.cc	\
@@ -236,6 +244,8 @@ enigma_SOURCES = 		\
 	items/StripItem.hh	\
 	items/Sword.cc		\
 	items/Sword.hh		\
+	items/TrapItem.cc	\
+	items/TrapItem.hh	\
 	items/Trigger.cc	\
 	items/Trigger.hh	\
 	items/Umbrella.cc	\

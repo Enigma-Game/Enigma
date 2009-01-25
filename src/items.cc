@@ -419,54 +419,6 @@ namespace
 }
 
 
-
-
-/* -------------------- Document -------------------- */
-namespace
-{
-    class Document : public Item {
-        CLONEOBJ(Document);
-        DECL_ITEMTRAITS;
-
-        ItemAction activate(Actor *, GridPos)
-        {
-            if (Value v = getAttr("text")) {
-                std::string txt(v);
-                lev::Proxy *level = lev::Proxy::loadedLevel();
-                // after complete switch to Proxy as levelloader the following
-                // conditional can be abolished
-                if (level)
-                    // translate text
-                    txt = level->getLocalizedString(txt);
-                client::Msg_ShowText (txt, true);
-            }
-            return ITEM_KILL;	       // remove from inventory
-        }
-        virtual Value message(const Message &m) {
-            bool explode = false;
-
-            if (m.message == "ignite") {
-                // dynamite does not blow up Documents in Oxyd1
-                explode = server::GameCompatibility != GAMET_OXYD1;
-            } else if (m.message == "_explosion" || m.message == "_bombstone") {
-                explode = true;
-            } else {
-                return Item::message(m);
-            }
-
-            if (explode)
-                replace("it-explosion1");
-            return Value();
-        }
-    public:
-        Document() {
-            setAttr("text", "");
-        }
-    };
-    DEF_ITEMTRAITSF(Document, "it-document", it_document, itf_inflammable);
-}
-
-
 /* -------------------- Dynamite -------------------- */
 namespace
 {
@@ -675,71 +627,6 @@ namespace
     };
     DEF_ITEMTRAITSF(WhiteBomb, "it-whitebomb", it_whitebomb,
                 itf_static | itf_indestructible | itf_fireproof);
-}
-
-/* -------------------- Pullers -------------------- */
-namespace
-{
-    class Puller : public Item {
-        CLONEOBJ (Puller);
-        DECL_ITEMTRAITS_ARRAY(4, get_orientation());
-
-        bool active;
-        Direction m_direction;
-
-        void on_drop(Actor *) { activate(); }
-
-        void activate() {
-            active=true;
-            set_anim("it-puller-active");
-            sound_event ("puller");
-        }
-        void animcb() {
-            Direction dir = get_orientation();
-            
-            // usage within a st-window
-            Stone *stone = GetStone(get_pos());
-            if (stone && (stone->get_traits().id == st_window) &&
-                    to_bool(SendMessage(stone, "inner_pull", dir))) {
-            }
-            
-            // usage in front of a stone
-            else {
-                GridPos   stonepos = move(get_pos(), reverse(dir));
-                send_impulse(stonepos, dir);
-            }
-            
-            sound_event ("dynamite");
-            replace("it-explosion1");
-        }
-
-	Direction get_orientation() const {
-	    return m_direction;
-	}
-
-        Puller(Direction dir)
-        : active(false), m_direction(dir)
-	{ }
-    
-        virtual bool isStatic() const {
-            return active;  // active puller is static
-        }
-        
-    public:
-        static void setup() {
-            RegisterItem (new Puller(NORTH));
-            RegisterItem (new Puller(EAST));
-            RegisterItem (new Puller(SOUTH));
-            RegisterItem (new Puller(WEST));
-        }
-    };
-
-    ItemTraits Puller::traits[4] = {
-        { "it-puller-w", it_puller_w, itf_none, 0.0 },
-        { "it-puller-s", it_puller_s, itf_none, 0.0 },
-        { "it-puller-e", it_puller_e, itf_none, 0.0 },
-        { "it-puller-n", it_puller_n, itf_none, 0.0 },
-    };
 }
 
 /* -------------------- Debris -------------------- */
@@ -1129,184 +1016,6 @@ namespace
                 itf_invisible | itf_fireproof);
 }
 
-/* -------------------- Invisible Trap -------------------- */
-    class Trap : public Item {
-        CLONEOBJ(Trap);
-        DECL_ITEMTRAITS;
-    
-    public:
-        Trap();
-        
-        // Object interface
-        virtual Value message(const Message &m);
-        
-        // StateObject interface
-        virtual void setState(int extState);
-        
-        // GridObject interface
-        virtual void init_model();
-
-        // ModelCallback interface
-        virtual void animcb();
-
-        // Item interface
-        virtual bool actor_hit(Actor *a);        
-    };
-    
-    Trap::Trap() {
-    }
-    
-    Value Trap::message(const Message &m) {
-        if (m.message == "_glasses") {
-            if (isDisplayable())
-                init_model();            
-        }
-        return Item::message(m);
-    }
-    
-    void Trap::setState(int extState) {
-        if (state == 0) {       // no toggle back of a broken (open) trap
-            state == extState;
-            init_model();
-        }
-    }
-    
-    void Trap::init_model() {
-        if (state == 0 && ((server::GlassesVisibility & Glasses::TRAP) == 0))
-            set_model("invisible");
-        else
-            set_model("it_trap");
-        
-    }
-    
-    void Trap::animcb() {
-        init_model();
-    }
-    
-    bool Trap::actor_hit(Actor *a) {
-        if (!a->is_flying()) {
-            SendMessage(a, "_fall");
-            if (state == 0) {
-                state = 1;
-                set_anim("it_trap_breaking");
-            }
-        }
-        return false;
-    }
-        
-    DEF_ITEMTRAITSF(Trap, "it_trap", it_trap, itf_static | itf_fireproof);
-
-
-/* -------------------- Landmine -------------------- */
-    class Landmine : public Item {
-        CLONEOBJ(Landmine);
-        DECL_ITEMTRAITS;
-
-    public:
-        Landmine();
-
-        // Item interface
-        virtual bool actor_hit(Actor *a);
-        virtual void on_stonehit(Stone *st);
-    
-    private:
-        void explode();
-    };
-
-    Landmine::Landmine() {
-    }
-    
-    bool Landmine::actor_hit (Actor *a) {
-        const double ITEM_RADIUS = 0.3;
-        if (!a->is_flying()) {
-            double dist = length(a->get_pos() - get_pos().center());
-            if (dist < ITEM_RADIUS)
-                explode();
-        }
-        return false;
-    }
-    
-    void Landmine::on_stonehit(Stone *st) { 
-        explode();
-    }
-    
-	void Landmine::explode() {
-        sound_event ("landmine");
-        replace("it-explosion2");
-	}
-
-    DEF_ITEMTRAITSF(Landmine, "it_landmine", it_landmine, itf_static);
-
-
-/* -------------------- Cross -------------------- */
-    class Cross : public Item, public TimeHandler {
-        CLONEOBJ(Cross);
-        DECL_ITEMTRAITS;
-
-    public:
-        virtual ~Cross();
-        
-        // Object interface
-        virtual Value message(const Message &m);
-        
-        // StateObject interface
-        virtual void setState(int extState);
-        
-        // Item interface
-        virtual void actor_enter(Actor *a);
-        virtual void actor_leave(Actor *a);
-
-        // TimeHandler interface
-        virtual void alarm();
-    };
-        
-    Cross::~Cross() {
-        GameTimer.remove_alarm(this);
-    }
-    
-    Value Cross::message(const Message &m) {
-        if (server::GameCompatibility == enigma::GAMET_PEROXYD) {
-            // Crosses can be used to invert signals in Per.Oxyd
-            if (m.message == "signal") {
-                performAction(!m.value.to_bool()); // convert 1/0 values to true/false
-                return Value();
-            }
-        } else if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-            if (m.message == "_brush") {
-                KillItem(this->get_pos());
-                return Value();
-            }
-        }
-        return Item::message(m);
-    }
-    
-    void Cross::setState(int extState) {
-        return;   // ignore any write attempts
-    }
-
-    void Cross::actor_enter(Actor *a) {
-        if ((state == 0) && a->getAttr("owner")) {
-            state = 1;
-            GameTimer.set_alarm (this, getAttr("interval"));
-        }
-    }
-
-    void Cross::actor_leave(Actor *) {
-        if (state == 1) {
-            GameTimer.remove_alarm (this);
-            state = 0;
-        }
-    }
-
-    void Cross::alarm() {
-        state = 0;
-        performAction(true);
-    }
-    
-    DEF_ITEMTRAITSF(Cross, "it_cross", it_cross, itf_static);
-
-
-
 /* -------------------- Bag -------------------- */
 namespace
 {
@@ -1408,49 +1117,6 @@ namespace
         }
     };
     DEF_ITEMTRAITS(Bag, "it-bag", it_bag);
-}
-
-/* -------------------- pencil -------------------- */
-namespace
-{
-    class Pencil : public Item {
-        CLONEOBJ(Pencil);
-        DECL_ITEMTRAITS;
-
-        ItemAction activate(Actor * a, GridPos p) {
-            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (Item *it=GetItem(p)) {
-                    return ITEM_KEEP;
-                }
-                // If the actor is flying and tries to make a cross, drop the it-pencil
-                if (a->is_flying()) {
-                    return ITEM_DROP;
-                }
-
-                Floor *fl = GetFloor(p);
-                string model = fl->get_kind();
-
-                /* do not allow markings on this floortypes:
-                   fl_abyss, fl_water, fl_swamp
-                   fl-bridge[{-closed,-open}]?
-                   markings on fl_ice will result as it-crack1
-                */
-                if (model == "fl_abyss" || model == "fl_water" || model == "fl_swamp") {
-                    return ITEM_KEEP;
-                } else  if (model == "fl_ice") {
-                    SetItem (p, MakeItem("it_crack_s"));
-                } else {
-                    SetItem (p, MakeItem("it_cross"));
-                }
-                return ITEM_KILL;
-            }
-        }
-
-    public:
-        Pencil() {}
-    };
-
-    DEF_ITEMTRAITS(Pencil, "it-pencil", it_pencil);
 }
 
 /* -------------------- it-surprise -------------------- */
@@ -1572,9 +1238,7 @@ void InitItems()
     RegisterItem (new Booze);
     RegisterItem (new BrokenBooze);
     Burnable::setup();
-    RegisterItem (new Cross);
     RegisterItem (new Debris);
-    RegisterItem (new Document);
     RegisterItem (new Drop);
     RegisterItem (new Dummyitem);
     RegisterItem (new Dynamite);
@@ -1586,15 +1250,11 @@ void InitItems()
     Extinguisher::setup();
     RegisterItem (new FlagBlack);
     RegisterItem (new FlagWhite);
-    RegisterItem (new Trap);
-    RegisterItem (new Landmine);
     RegisterItem (new Odometer);
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);
     RegisterItem (new OxydBridgeActive);
-    RegisterItem (new Pencil);
     RegisterItem (new Pin);
-    Puller::setup();
     RegisterItem (new Spring1);
     RegisterItem (new Spring2);
     RegisterItem (new Springboard);

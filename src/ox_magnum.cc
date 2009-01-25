@@ -390,9 +390,9 @@ const char* oxyd::oxydmag_item_map[256] = {
     UNUSED,        // OxydMagnum item 0x61 (rev. breaking are)
     UNUSED,        // OxydMagnum item 0x62 (player exchange)
     "it_trigger",       // OxydMagnum item 0x63
-    "it-puller-n",      // OxydMagnum item 0x64
-    "it-puller-s",      // OxydMagnum item 0x65
-    "it-puller-w",      // OxydMagnum item 0x66
-    "it-puller-e",      // OxydMagnum item 0x67
+    "it_puller_n",      // OxydMagnum item 0x64
+    "it_puller_s",      // OxydMagnum item 0x65
+    "it_puller_w",      // OxydMagnum item 0x66
+    "it_puller_e",      // OxydMagnum item 0x67
     // codes >= 0x68 are unused
 };

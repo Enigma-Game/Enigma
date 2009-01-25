@@ -111,6 +111,21 @@ namespace enigma {
     DEF_ITEM(Key, "it_key", it_key);
 
     /**
+     * Pencil
+     */
+    class Pencil : public Item {
+        CLONEOBJ(Pencil);
+        DECL_ITEMTRAITS;
+
+    public:
+        Pencil();
+        
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+    };
+
+
+    /**
      * Ring
      */
     class Ring : public Item {
