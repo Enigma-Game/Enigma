@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 14 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -35,7 +35,7 @@ ti["e"] = {"st_window_e"}
 ti["E"] = {"st_window_n"}
 ti["P"] = {"st_bluegray"}
 ti["p"] = ti["H"] .. {"it-spring1"}
-ti["Q"] = {"st-break_invisible"}
+ti["Q"] = {"st_ghost_break"}
 ti["q"] = {"it-booze-broken"}
 ti["i"] = {"it_sensor"}
 ti["t"] = {"it_meditation_bump"}
@@ -60,14 +60,14 @@ ti["&"] = ti[" "] .. {"#ac_bug"}
 ti["?"] = ti["~"] .. {"st_actorimpulse"}
 ti["Y"] = ti[" "] .. {"it_wormhole"}
 ti[";"] = ti[" "] .. {"it-document", text="text1"}
-ti["1"] = ti["r"] .. {"st-block", "df1"}
-ti["2"] = ti["r"] .. {"st-block", "df2"}
-ti["3"] = ti["r"] .. {"st-block", "df3"}
-ti["4"] = ti["r"] .. {"st-block", "df4"}
-ti["5"] = ti["r"] .. {"st-block", "df5"}
-ti["6"] = ti["r"] .. {"st-block", "df6"}
-ti["7"] = ti["r"] .. {"st-block", "df7"}
-ti["8"] = ti["r"] .. {"st-block", "df8"}
+ti["1"] = ti["r"] .. {"st_plop_slate", "df1"}
+ti["2"] = ti["r"] .. {"st_plop_slate", "df2"}
+ti["3"] = ti["r"] .. {"st_plop_slate", "df3"}
+ti["4"] = ti["r"] .. {"st_plop_slate", "df4"}
+ti["5"] = ti["r"] .. {"st_plop_slate", "df5"}
+ti["6"] = ti["r"] .. {"st_plop_slate", "df6"}
+ti["7"] = ti["r"] .. {"st_plop_slate", "df7"}
+ti["8"] = ti["r"] .. {"st_plop_slate", "df8"}
 ti["l"] = ti["!"] .. {"st_polarswitch"}
 ti["Z"] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
 ti["g"] = ti[" "] .. {"it_vortex_open", name="vortex1", destination="vortex2"}

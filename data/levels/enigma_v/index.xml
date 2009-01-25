@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="21" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="22" title="Enigma V"/>
 
   <attributes/>
 
@@ -50,7 +50,7 @@
     <level _seq="42" _title="Choo-Choo" _xpath="./duffy22_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy22" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Humid Maze" _xpath="./duffy133_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy133" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="44" _title="Turnstile City" _xpath="./duffy39_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy39" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="45" _title="Psycho Pushing" _xpath="./ss03_3" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="3" rev="13" score="2" target="time" unit="duration"/>
+    <level _seq="45" _title="Psycho Pushing" _xpath="./ss03_3" author="Sven Siggelkow" ctrl="force" easy="true" id="ss3" rel="3" rev="14" score="2" target="time" unit="duration"/>
     <level _seq="46" _title="Turnstile Maze" _xpath="./duffy53_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy53" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Swamp Stomp" _xpath="./ralf11_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf11" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Crossfire" _xpath="./duffy56_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy56" rel="1" rev="1" score="1" target="time" unit="duration"/>

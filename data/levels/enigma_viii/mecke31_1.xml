@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 14 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ ti["X&"] = ti[" &"] .. {"st_grate_cross"}
 ti["Th"] = ti[" i"] .. {"st_yellow"}
 ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
-ti["0~"] = ti[" ~"] .. {"st-coffee"}
+ti["0~"] = ti[" ~"] .. {"st_magic_oxydc"}
 ti["H'"] = ti[" '"] .. {"st_passage_black_square"}
 ti["B!"] = ti[" !"] .. {"st_passage_black_frame"}
 ti["B&"] = ti[" &"] .. {"st_passage_black_frame"}
@@ -60,7 +60,7 @@ ti["FF"] = ti[" ~"] .. {"st_quake"}
 ti["dd"] = ti[" ~"] .. {"it_death"}
 ti["Tw"] = ti["dd"] .. {"st_disco_medium"}
 ti["Td"] = ti[" r"] .. {"st_disco_medium"}
-ti["TT"] = ti[" ="] .. {"st-thief"}
+ti["TT"] = ti[" ="] .. {"st_thief"}
 ti["y~"] = ti[" ~"] .. {"it_yinyang"}
 ti["Y~"] = ti[" ~"] .. {"st_blur_cross"}
 ti["Y&"] = ti[" &"] .. {"st_blur_cross"}

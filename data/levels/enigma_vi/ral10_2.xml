@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Bodyguard" el:subtitle="In the line of thieves" el:id="20060730ral012"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 104 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 105 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,7 +15,7 @@
 wo["ConserveLevel"] = false
 
 ti[" "] = {"fl_bluegray"}
-ti["."] = {"fl-thief"}
+ti["."] = {"fl_thief"}
 ti["#"] = {"st_rawglass"}
 ti["+"] = {"st_rawglass", "doorA#"}
 ti["*"] = {"st_rawglass", "doorB#"}
@@ -36,11 +36,11 @@ ti["H"] = ti["."] .. {"#ac_horse", strength=1, destination={"op%1", "op%2","op%3
 ti["h"] = ti["."] .. {"#ac_horse", strength=1, destination={"ip%1", "ip%2","ip%3", "ip%4"}}
 
 ti["T"] = {"it-document", text="help_keys"}
-ti["template_inner"] = {"fl-thief", "ip%%"}
+ti["template_inner"] = {"fl_thief", "ip%%"}
 
 if wo["IsDifficult"] then
     ti[","] = ti["."]
-    ti["template_outer"] = {"fl-thief", "op%%"}
+    ti["template_outer"] = {"fl_thief", "op%%"}
     ti["template_K"] = ti["#"]
     ti["template_P"] = {"st_key", code="%%", target={"@doorA#*", "@doorB#*"}, action={"kill","kill"}}
 else

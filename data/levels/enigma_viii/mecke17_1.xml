@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation I" el:subtitle="Alternation in a Blue Area" el:id="mecke17"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 13 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 14 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -38,7 +38,7 @@ ti["Xb"] = ti[" b"] .. {"st_grate_cross"}
 ti["X&"] = ti[" &"] .. {"st_grate_cross"}
 ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
-ti["0~"] = ti[" ~"] .. {"st-coffee"}
+ti["0~"] = ti[" ~"] .. {"st_magic_oxydc"}
 ti["H'"] = ti[" '"] .. {"st_passage_black_square"}
 ti["B!"] = ti[" !"] .. {"st_passage_black_frame"}
 ti["B&"] = ti[" &"] .. {"st_passage_black_frame"}
@@ -54,7 +54,7 @@ ti["2*"] = ti[" *"] .. {"st_rawglass_movable"}
 ti["2r"] = ti[" r"] .. {"st_rawglass_movable"}
 ti["CW"] = ti[" w"] .. {"st_chess_white"}
 ti["Sw"] = ti[" w"] .. {"st_swap"}
-ti["Tw"] = ti[" w"] .. {"st-thief"}
+ti["Tw"] = ti[" w"] .. {"st_thief"}
 ti["y~"] = ti[" ~"] .. {"it_yinyang"}
 ti["Y~"] = ti[" ~"] .. {"st_blur_cross"}
 ti["Y&"] = ti[" &"] .. {"st_blur_cross"}

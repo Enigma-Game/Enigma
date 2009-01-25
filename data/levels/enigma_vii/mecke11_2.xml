@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:39$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:40$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -19,7 +19,7 @@ wo["ConserveLevel"] = true
 
 ti[" !"] = {"fl_abyss"}
 ti[" ,"] = {"fl_red"}
-ti["! "] = {"st-block"}
+ti["! "] = {"st_plop_slate"}
 ti[" #"] = {"fl_yinyang_yin"}
 ti["# "] = {"st_death"}
 ti[" $"] = {"fl_metal_7"}
@@ -51,7 +51,7 @@ ti["* "] = {"st_mirror", movable=true, transparent=false}
 ti["+ "] = {"st_darkgray"}
 ti[" '"] = {"fl_water"}
 ti[", "] = {"st_granite_hollow"}
-ti["- "] = {"st-thief"}
+ti["- "] = {"st_thief"}
 ti[". "] = {"st_puzzle_yellow", connections="es"}
 ti["p2"] = ti[" #"] .. {"st_puzzle_yellow", connections="es"}
 ti["/ "] = {"st_puzzle_yellow", connections="ns"}
@@ -71,8 +71,8 @@ ti["L6"] = ti[" #"] .. {"st_laser_e", name="ox6"}
 ti["L7"] = ti[" #"] .. {"st_laser_e", name="ox7"}
 ti["4 "] = {"st_puzzle_yellow", connections="sw"}
 ti["p3"] = ti[" #"] .. {"st_puzzle_yellow", connections="sw"}
-ti["5 "] = {"st-break_invisible"}
-ti["y1"] = ti[" !"] .. {"st-break_invisible"}
+ti["5 "] = {"st_ghost_break"}
+ti["y1"] = ti[" !"] .. {"st_ghost_break"}
 ti["y2"] = ti["y1"] .. {"it-puller-s"}
 ti["y3"] = ti[" #"] .. {"it-puller-s"}
 ti["y4"] = ti[" #"] .. {"st_mirror", movable=true, transparent=false}
@@ -126,7 +126,7 @@ ti["a3"] = ti[" #"] .. {"#ac_top", range=3, strength=3}
 ti["a6"] = ti["a5"] .. {"#ac_top", range=1, strength=1}
 ti["se"] = ti[" #"] .. {"it_seed"}
 ti["sc"] = ti[" *"] .. {"it_cherry"}
-ti["sb"] = ti[" )"] .. {"st-block"}
+ti["sb"] = ti[" )"] .. {"st_plop_slate"}
 ti["ss"] = ti["sb"] .. {"it-springboard"}
 ti["l1"] = ti["p1"] .. {"it_extralife"}
 ti["l2"] = ti["p2"] .. {"it_extralife"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ ti["5"] = ti["C"] .. {"it_pipe_nw"}
 ti["X"] = ti["x"] .. {"st_darkglass"}
 ti["M"] = {"st_mail_e"}
 ti["U"] = {"st_mail_n"}
-ti["I"] = {"st-break_invisible"}
+ti["I"] = {"st_ghost_break"}
 ti["O"] = {"st_oxyd", name="oxydstone#"}
 ti["i"] = {"st_switch", target="setv"}
 ti["j"] = {"st_switch", target="seth"}

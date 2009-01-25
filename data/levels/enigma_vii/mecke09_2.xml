@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 34 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 35 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti[" %"] = {"fl_water"}
 ti["! "] = {"st_death"}
 ti["# "] = {"st_granite"}
 ti[" &"] = {"fl_metal_7", friction=4.0}
-ti["$ "] = {"st-thief"}
+ti["$ "] = {"st_thief"}
 ti["% "] = {"st_passage_black_cross"}
 ti["& "] = {"st_break_oxydc"}
 ti["' "] = {"st_rawglass_movable"}
@@ -89,7 +89,7 @@ ti[" 6"] = {"fl_lawn"}
 ti["J "] = {"st_passage_white_cross"}
 ti["K "] = {"st_fake_oxydd"}
 ti["j "] = {"it_crack_l"}
-ti["L "] = {"st-coffee"}
+ti["L "] = {"st_magic_oxydc"}
 ti["M "] = {"st_shogun_sml"}
 ti["N "] = {"st_door_a"}
 ti["m "] = {"it-springboard"}
@@ -97,7 +97,7 @@ ti["O "] = {"st_purplegray"}
 ti["P "] = {"st-grate3"}
 ti["R "] = {"st_grate_framed"}
 ti[" 7"] = {"fl_space"}
-ti["S "] = {"st-break_invisible"}
+ti["S "] = {"st_ghost_break"}
 ti[" 8"] = {"fl_bluegray"}
 ti["T "] = {"st_boulder_s"}
 ti[" 9"] = {"fl_hay"}

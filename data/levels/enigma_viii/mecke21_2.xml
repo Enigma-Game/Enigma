@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 43 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 44 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -61,7 +61,7 @@ ti["t6"] = ti[" !"] .. {"it_trigger", target="lessi2#*",action="toggle"}
 ti["t7"] = ti[" !"] .. {"it_trigger", target="tessi2#*",action="toggle"}
 ti["* "] = ti[" !"] .. {"st_laser_s", name="lessi1",state=OFF}
 ti["ll"] = ti[" !"] .. {"st_laser_s", name="lessi2#",state=OFF}
-ti["mn"] = ti[" !"] .. {"st-break_invisible"}
+ti["mn"] = ti[" !"] .. {"st_ghost_break"}
 ti["k1"] = ti["jj"] .. {"it_key", code=1}
 ti["k2"] = ti["jj"] .. {"it_key", code=2}
 ti["k3"] = ti["jj"] .. {"it_key", code=3}
@@ -72,7 +72,7 @@ ti["0 "] = {"st_passage_black_cross"}
 ti["1 "] = {"st_floppy", target= "olli8"}
 ti[" )"] = {"fl_yinyang_yang"}
 ti["2 "] = {"st_actorimpulse"}
-ti["3 "] = {"st-break_invisible"}
+ti["3 "] = {"st_ghost_break"}
 ti["mm"] = ti["mn"] .. {"it_magicwand"}
 ti["4 "] = {"st_blur_cross"}
 ti["5 "] = {"st_passage_white_cross"}

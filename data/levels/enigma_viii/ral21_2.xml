@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 147 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 148 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -52,7 +52,7 @@ ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
 ti["OE"] = {"st_oxyd_d"}
 ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
-ti["tt"] = {"fl-thief"}
+ti["tt"] = {"fl_thief"}
 ti["$$"] = {"fl_yinyang_yang"}
 ti["gs"] = {"fl-gradient", type=1}
 ti["gw"] = {"fl-gradient", type=4}
@@ -234,7 +234,7 @@ ti["RX"] = ti["::"] .. {"st_rotator_ccw", movable=true}
 ti["RY"] = ti["::"] .. {"st_rotator_cw", movable=true}
 ti["P#"] = ti[";;"] .. {"st_pull"}
 ti["P_"] = ti["__"] .. {"st_pull"}
-ti["T#"] = ti["  "] .. {"st-thief"}
+ti["T#"] = ti["  "] .. {"st_thief"}
 ti["F,"] = ti[",,"] .. {"st_grate_cross"}
 ti["F:"] = ti["::"] .. {"st_grate_cross"}
 ti["F'"] = ti["''"] .. {"st_grate_cross"}
@@ -242,7 +242,7 @@ ti["F."] = ti[".."] .. {"st_grate_cross"}
 ti["FA"] = ti[".."] .. {"st_quake"}
 ti["S#"] = ti[",,"] .. {"st_scissors"}
 ti["SS"] = {"st_scissors"}
-ti["B#"] = ti[".."] .. {"st-block"}
+ti["B#"] = ti[".."] .. {"st_plop_slate"}
 ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
 ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
 ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
@@ -304,7 +304,7 @@ ti["Pf"] = ti["%f"] .. {"st_flat_breakable"}
 ti["P."] = ti["_."] .. {"st_flat_breakable"}
 ti["PC"] = ti[".."] .. {"st_flat_breakable"}
 ti["PB"] = ti[".."] .. {"st_break_bug"}
-ti["TT"] = ti["tt"] .. {"st-thief"}
+ti["TT"] = ti["tt"] .. {"st_thief"}
 ti["D1"] = ti[".."] .. {"st_blocker", "door1#"}
 ti["D2"] = ti[".."] .. {"st_blocker", "door2#"}
 ti["D3"] = ti[".."] .. {"st_blocker", "door3#"}

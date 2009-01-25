@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="13" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="14" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ ti["V "] = {"st_boulder", orientation=SOUTH}
 ti["> "] = {"st_boulder", "boulder3", orientation=EAST}
 ti["| "] = {"st_door", flavor="d", faces="ew"}
 ti["- "] = {"st_door", flavor="d", faces="ns"}
-ti["T "] = {"st-thief"}
+ti["T "] = {"st_thief"}
 ti["C "] = {"st_coinslot", target="door3"}
 ti["B "] = {"st-bombs"}
 ti["X "] = {"st_grate_framed"}

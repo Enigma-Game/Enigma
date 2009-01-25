@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,7 +18,7 @@
 wo["ConserveLevel"] = true
 wo["ExtralifeGlasses"] = wo["ExtralifeGlasses"] + SPOT_ACTORIMPULSE
 
-ti[" t"] = {"fl-thief"}
+ti[" t"] = {"fl_thief"}
 ti["  "] = {"fl_rough"}
 ti[" q"] = {"fl_aquamarine"}
 ti[" i"] = ti[" q"] ..{"it_crack_l", fragility=0}
@@ -35,7 +35,7 @@ ti[" n"] = {"fl_ivory"}
 ti["E "] = {"st_lightpassenger_off"}
 ti["O "] = {"st_rotator_ccw", movable=false}
 ti["Q "] = {"st_rotator_ccw", movable=true}
-ti["T "] = {"st-thief"}
+ti["T "] = {"st_thief"}
 ti["Y "] = {"st_rawglass_movable"}
 ti["B "] = {"it_trigger",target="laser1"}
 ti["C "] = {"it_trigger",target="laser2"}

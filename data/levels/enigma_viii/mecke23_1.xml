@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 31 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 32 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,7 @@ ti["# "] = {"st_greenbrown"}
 ti["0 "] = {"st_brownie"}
 ti["1 "] = {"st_redbrown"}
 ti["2 "] = {"st_greenbrown-growing"}
-ti["3 "] = {"st-blocker-growing"}
+ti["3 "] = {"st_plop_slateer-growing"}
 ti["4 "] = {"st_darkglass_hollow"}
 ti["5 "] = {"st_brownpyramide"}
 ti["6 "] = {"st_metal"}
@@ -116,7 +116,7 @@ ti["h "] = {"st_bluegray_hollow"}
 ti["A "] = {"st_brake"}
 ti["B "] = {"st_swap"}
 ti["C "] = {"st_box_wood"}
-ti["T "] = {"st-thief"}
+ti["T "] = {"st_thief"}
 ti["D "] = ti[" ~"] .. {"st_grate_cross"}
 ti["E "] = {"st_rawglass_movable"}
 ti["F "] = {"st_rawglass"}

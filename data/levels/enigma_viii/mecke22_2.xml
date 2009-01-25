@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:77$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:78$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ end
 
 ti[" !"] = {"fl_swamp"}
 ti["! "] = {"st_death"}
-ti["c "] = {"st-block"}
+ti["c "] = {"st_plop_slate"}
 ti[" #"] = {"fl_metal_7"}
 ti[" $"] = {"fl_water"}
 ti["# "] = {"st_oneway_black_n"}
@@ -103,7 +103,7 @@ ti["S "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["U "] = {"st_purplegray"}
 ti[" >"] = {"fl_gravel"}
 ti[" ?"] = {"fl_fake_abyss"}
-ti["W "] = {"st-break_invisible"}
+ti["W "] = {"st_ghost_break"}
 ti["X "] = {"st_window_s"}
 ti["Y "] = {"st_floppy",target="door4#*"}
 ti["^ "] = {"st_lightpassenger_off"}
@@ -231,7 +231,7 @@ if wo ["IsDifficult"] then
    ti["LZ"] = ti[" ;"] .. {"it-burnable_oil"}
 else
    ti["i+"] = ti[" +"] .. {"it-dynamite"}
-   ti["rt"] = ti[" '"] .. {"st-break_invisible"}
+   ti["rt"] = ti[" '"] .. {"st_ghost_break"}
    ti["rr"] = ti["rt"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_swamp"}
    ti["))"] = ti[" l"] .. {"it-burnable_oil"}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="12" title="Tutorial"/>
+  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="13" title="Tutorial"/>
 
   <attributes/>
 
@@ -56,7 +56,7 @@
     <level _seq="48" _title="Brittle Floor!" _xpath="enigma_iii/martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Inverted Laser Spiral" _xpath="enigma_ii/duffy42_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy42" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="- Meditation -" _xpath="enigma_i/siegfried35_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Items" _xpath="./a_tut05" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Flying" _xpath="enigma_i/luc07_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc07" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Annoying little balls" _xpath="enigma_i/wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>

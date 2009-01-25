@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -17,7 +17,7 @@
     <level _seq="9" _title="Floppy Swapping" _xpath="enigma_ii/martin19_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="enigma_i/siegfried33_1" author="anonymous" ctrl="force" easy="false" id="meditation1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Push Them In" _xpath="enigma_ii/nat05_1" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="It's Magic" _xpath="enigma_ii/martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="It's Magic" _xpath="enigma_ii/martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Ice Skating" _xpath="enigma_i/siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Lasers 101" _xpath="enigma_i/daniel08_1" author="Daniel Heck" ctrl="force" easy="false" id="lasers101" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="The Grim Reaper" _xpath="enigma_i/daniel11_1" author="Daniel Heck" ctrl="force" easy="true" id="space" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -144,7 +144,7 @@
     <level _seq="136" _title="Dependants" _xpath="enigma_iii/ant25_2" author="Petr Machata" ctrl="force" easy="true" id="ant25" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="137" _title="Question of Speed" _xpath="enigma_ii/siegfried32_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Pain" _xpath="enigma_iv/ant27_1" author="Petr Machata" ctrl="force" easy="false" id="ant27" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="- Meditation -" _xpath="enigma_iv/ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="- Meditation -" _xpath="enigma_iv/ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Domain of Mysteries" _xpath="enigma_ii/siegfried31_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
