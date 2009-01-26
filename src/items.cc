@@ -1016,108 +1016,6 @@ namespace
                 itf_invisible | itf_fireproof);
 }
 
-/* -------------------- Bag -------------------- */
-namespace
-{
-    class Bag : public Item, public enigma::ItemHolder {
-        DECL_ITEMTRAITS;
-
-        enum { BAGSIZE = 13 };
-        vector<Item *> m_contents;
-
-        // Item interface
-        bool actor_hit (Actor *a) {
-            if (Item::actor_hit(a)) {
-                if (Inventory *inv = player::MayPickup(a, NULL)) {
-                    std::vector<Item *>::size_type oldSize = m_contents.size();
-                    inv->takeItemsFrom(this);
-                    Glasses::updateGlasses();
-                    if (oldSize != m_contents.size() && !inv->willAddItem(this)) {
-                        // some items have been picked up but the bag will not
-                        // be picked up (and cause the following actions)
-                        player::RedrawInventory (inv);
-                        sound_event ("pickup");
-                    }
-                    return true;
-                }
-            }
-            return false;
-        }
-
-    public:
-        virtual Bag * clone() {
-            ASSERT(is_empty(), XLevelRuntime, "Bag:: Clone of a full bag!");
-            return new Bag(*this);
-        }
-
-        virtual void dispose() {
-            Item * it = yield_first();
-            while (it != NULL) {
-                DisposeObject(it);
-                it = yield_first();
-            }
-            delete this;
-        }
-
-        virtual void on_creation (GridPos p) {
-            GridObject::on_creation(p);
-            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
-                (*itr)->setOwnerPos(p);
-        }
-    
-        virtual void on_removal (GridPos p) {
-            GridObject::on_removal(p);
-            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
-                (*itr)->setOwner(-1);            
-        }
-        
-        virtual void setOwner(int player) {
-            GridObject::setOwner(player);
-            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
-                (*itr)->setOwner(player);            
-        }
-    
-        virtual void setOwnerPos(GridPos p) {
-            GridObject::setOwnerPos(p);
-            for (vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)
-                (*itr)->setOwnerPos(p);
-        }
-    	
-        // ItemHolder interface
-        virtual bool is_full() const {
-            return m_contents.size() >= BAGSIZE;
-        }
-        virtual void add_item (Item *it) {
-            // thieves may add items beyond pick up limit BAGSIZE
-            m_contents.insert (m_contents.begin(), it);
-            it->setOwnerPos(get_pos());  // item is at same position as bag
-        }
-
-        virtual bool is_empty() const {
-            return m_contents.size() == 0;
-        }
-
-        virtual Item *yield_first() {
-            if (m_contents.size() > 0) {
-                Item *it = m_contents[0];
-                m_contents.erase (m_contents.begin());
-                it->setOwner(-1);  // no owner
-                return it;
-            }
-            return NULL;
-        }
-
-        Bag()
-        {}
-
-        ~Bag() {
-            // Bags on the grid are disposed, but bags in the inventory need to be
-            // delete their contents on the destructor
-            ecl::delete_sequence (m_contents.begin(), m_contents.end());
-        }
-    };
-    DEF_ITEMTRAITS(Bag, "it-bag", it_bag);
-}
 
 /* -------------------- it-surprise -------------------- */
 namespace
@@ -1232,7 +1130,6 @@ namespace
 
 void InitItems()
 {
-    RegisterItem (new Bag);
     RegisterItem (new BlackBomb);
     RegisterItem (new BlackBombBurning);
     RegisterItem (new Booze);

@@ -167,7 +167,7 @@ namespace enigma {
         if (((objFlags & OBJBIT_BREAKABLE) || state == CRACKED) && player::WieldedItemIs(sc.actor, "it_hammer"))
             doBreak();
         else if ((state == IDLE && !(objFlags & (OBJBIT_BREAKABLE | OBJBIT_HOLLOW))) &&
-                (player::WieldedItemIs(sc.actor, "it-pencil"))) {
+                (player::WieldedItemIs(sc.actor, "it_pencil"))) {
             enigma::Inventory *inv = player::GetInventory(sc.actor);
             if (inv && inv->size() > 0) {
                 delete inv->yield_item(0);

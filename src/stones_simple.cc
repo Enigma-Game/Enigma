@@ -56,53 +56,6 @@ namespace
     };
 }
 
-
-/* -------------------- EasyModeStone -------------------- */
-
-/** \page st-easymode Easy-Mode Stone
-
-In easy game mode this stone converts the floor at its
-position to fl-normal.
-In normal game mode the stone kills any item at its position.
-Then in both modes it kills itself.
-
-E.g. it can be used to hide water-barriers or to insert helper
-items that make the level easier in easy game mode.
-
-\subsection easye Example
-\verbatim
-set_stone("st-easymode", 10,10)
-\endverbatim
-
-\ref it-easymode
-*/
-
-namespace
-{
-    class EasyModeStone : public Stone {
-        CLONEOBJ(EasyModeStone);
-        DECL_TRAITS;
-
-        virtual Value message(const Message &m) {
-            if (m.message == "_init") {
-                if (server::GetDifficulty() == DIFFICULTY_EASY) {
-                    SetFloor (get_pos(), MakeFloor ("fl_metal_7n"));
-                } else {
-                    KillItem (get_pos());
-                }
-                KillStone (get_pos());
-                return Value();
-            }
-            return Stone::message(m);
-        }
-    public:
-        EasyModeStone() 
-        {}
-    };
-    DEF_TRAITSM(EasyModeStone, "st-easymode", st_easymode, MOVABLE_BREAKABLE);
-}
-
-
 /* -------------------- Grates -------------------- */
 
 namespace
@@ -242,29 +195,6 @@ void BombStone::actor_hit(const StoneContact &sc)
     }
 }
 
-
-/* -------------------- MagicStone -------------------- */
-namespace
-{
-    class MagicStone : public Stone {
-        CLONEOBJ(MagicStone);
-        DECL_TRAITS;
-        void actor_hit(const StoneContact &sc) {
-            if (sc.actor->getAttr("owner") && 
-                sc.actor->get_vel() * sc.normal < -4)
-            {
-                KillStone(get_pos());
-                client::Msg_ShowText ("We don't sell books..", false, 2.0);
-            }
-        }
-    public:
-        MagicStone()
-        {}
-    };
-    DEF_TRAITSM(MagicStone, "st-magic", st_magic, MOVABLE_BREAKABLE);
-}
-
-
 /* -------------------- Functions -------------------- */
 
 void Init_simple()
@@ -276,9 +206,7 @@ void Init_simple()
     Register(new ChameleonStone);
 
     Register(new DummyStone);
-    Register(new EasyModeStone);
     Register(new Grate3);
-    Register(new MagicStone);
 }
 
 } // namespace enigma

@@ -124,7 +124,7 @@ namespace enigma {
                     enigma::Inventory *inv = player::GetInventory(owner);
                     if (inv && inv->size() > 0) {
                         if (bag == NULL) {
-                            bag = MakeItem("it-bag");
+                            bag = MakeItem("it_bag");
                             bag->setOwnerPos(get_pos());
                         }
                         int i = IntegerRand(0, int (inv->size()-1));
@@ -140,7 +140,7 @@ namespace enigma {
         if(Item *it = GetItem(get_pos())) {
             if (!(it->get_traits().flags & itf_static)) {
                 if (bag == NULL) {
-                    bag = MakeItem("it-bag");
+                    bag = MakeItem("it_bag");
                     bag->setOwnerPos(get_pos());                
                 }
                 dynamic_cast<ItemHolder *>(bag)->add_item(YieldItem(get_pos()));

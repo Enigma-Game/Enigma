@@ -25,6 +25,26 @@
 
 namespace enigma {
 
+    class DongleStone : public Stone {
+        CLONEOBJ(DongleStone);
+        DECL_TRAITS;
+    public:
+        DongleStone();
+        
+        // Stone interface
+        virtual void actor_hit (const StoneContact &sc);
+    };
+    
+    class EasyModeStone : public Stone {
+        CLONEOBJ(EasyModeStone);
+        DECL_TRAITS;
+    public:
+        EasyModeStone();
+        
+        // Object interface
+        virtual Value message(const Message &m);
+    };
+
     /** 
      * 
      */

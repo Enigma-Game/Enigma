@@ -26,6 +26,9 @@
 #include "server.hh"
 #include "SoundEffectManager.hh"
 #include "options.hh"
+#include "player.hh"
+#include "Inventory.hh"
+#include "ItemHolder.hh"
 #include "WorldProxy.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
@@ -2067,7 +2070,7 @@ static int dispatchWorldReadAccess(lua_State *L) {
 }
 
 
-static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = false) {
+static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = false, ItemHolder *itemHolder =NULL) {
     // table at -1 
     int xi = round_down<int>(x);
     int yi = round_down<int>(y);
@@ -2117,69 +2120,83 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
     }
     lua_pop(L, 1);   // object type
     setObjectAttributes(obj, L);
-    switch (obj->getObjectType()) {
-        case Object::FLOOR :
-            if (Value odd = obj->getAttr("checkerboard")) {
-                if ((xi+yi)%2 != (int)odd) {
-                    DisposeObject(obj);
-                    break;
-                }
-            }
-            SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
-            break;
-        case Object::STONE :
-            if (!onlyFloors) {
-                if (Value odd = obj->getAttr("checkerboard")) {
-                    if ((xi+yi)%2 != (int)odd) {
-                        DisposeObject(obj);
-                        break;
-                    }
-                }
-                SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
-            } else {
+    if (itemHolder != NULL) {
+        if (obj->getObjectType() != Object::ITEM) {
+            DisposeObject(obj);
+            throwLuaError(L, "Attempt to add an object to a bag or inventory that is no item");
+        } else {
+            Item * it = dynamic_cast<Item *>(obj);
+            if (it->isStatic()) {
                 DisposeObject(obj);
-            }
-            break;
-        case Object::ITEM  :
-            if (!onlyFloors) {
-                if (Value odd = obj->getAttr("checkerboard")) {
-                    if ((xi+yi)%2 != (int)odd) {
-                        DisposeObject(obj);
-                        break;
-                    }
-                }
-                SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
-            } else {
-                DisposeObject(obj);
-            }
-            break;
-        case Object::ACTOR :
-            if (!onlyFloors) {
-                lua_rawgeti(L, -1, 2);
-                if (lua_isnumber(L, -1))
-                    x += lua_tonumber(L, -1);
-                lua_rawgeti(L, -2, 3);
-                if (lua_isnumber(L, -1))
-                    y += lua_tonumber(L, -1);
-                lua_pop(L, 2);               
-                if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
-                    AddActor(x, y, dynamic_cast<Actor *>(obj));
-                else
-                    throwLuaError(L, "World: actor addition to position outside of world");
+                throwLuaError(L, "Attempt to add a static item to a bag or inventory");
             } else
-                DisposeObject(obj);
-            break;
-        case Object::OTHER :
-            if (x < 0)
-                AddOther(dynamic_cast<Other *>(obj));
-            break;
-        default :
-            throwLuaError(L, "World set of unknown object");
+                itemHolder->add_item(it);
+        }
+    } else {
+        switch (obj->getObjectType()) {
+            case Object::FLOOR :
+                if (Value odd = obj->getAttr("checkerboard")) {
+                    if ((xi+yi)%2 != (int)odd) {
+                        DisposeObject(obj);
+                        break;
+                    }
+                }
+                SetFloor(GridPos(xi,yi), dynamic_cast<Floor *>(obj));
+                break;
+            case Object::STONE :
+                if (!onlyFloors) {
+                    if (Value odd = obj->getAttr("checkerboard")) {
+                        if ((xi+yi)%2 != (int)odd) {
+                            DisposeObject(obj);
+                            break;
+                        }
+                    }
+                    SetStone(GridPos(xi,yi), dynamic_cast<Stone *>(obj));
+                } else {
+                    DisposeObject(obj);
+                }
+                break;
+            case Object::ITEM  :
+                if (!onlyFloors) {
+                    if (Value odd = obj->getAttr("checkerboard")) {
+                        if ((xi+yi)%2 != (int)odd) {
+                            DisposeObject(obj);
+                            break;
+                        }
+                    }
+                    SetItem(GridPos(xi,yi), dynamic_cast<Item *>(obj));
+                } else {
+                    DisposeObject(obj);
+                }
+                break;
+            case Object::ACTOR :
+                if (!onlyFloors) {
+                    lua_rawgeti(L, -1, 2);
+                    if (lua_isnumber(L, -1))
+                        x += lua_tonumber(L, -1);
+                    lua_rawgeti(L, -2, 3);
+                    if (lua_isnumber(L, -1))
+                        y += lua_tonumber(L, -1);
+                    lua_pop(L, 2);               
+                    if (IsInsideLevel(GridPos(round_down<int>(x), round_down<int>(y)))) 
+                        AddActor(x, y, dynamic_cast<Actor *>(obj));
+                    else
+                        throwLuaError(L, "World: actor addition to position outside of world");
+                } else
+                    DisposeObject(obj);
+                break;
+            case Object::OTHER :
+                if (x < 0)
+                    AddOther(dynamic_cast<Other *>(obj));
+                break;
+            default :
+                throwLuaError(L, "World set of unknown object");
+        }
     }
     return 0;
 }
 
-static int setObjectByTile(lua_State *L, double x, double y, bool onlyFloors = false) {
+static int setObjectByTile(lua_State *L, double x, double y, bool onlyFloors = false, ItemHolder *itemHolder =NULL) {
     // tile at -1
     
     // this is a recursive function - ensure enough space on the stack
@@ -2189,16 +2206,16 @@ static int setObjectByTile(lua_State *L, double x, double y, bool onlyFloors = f
     lua_getmetatable(L, -1);
     lua_rawgeti(L, -1, 1);    // first tile part
     if (is_tile(L, -1))
-        setObjectByTile(L, x, y, onlyFloors);
+        setObjectByTile(L, x, y, onlyFloors, itemHolder);
     else
-        setObjectByTable(L, x, y, onlyFloors);
+        setObjectByTable(L, x, y, onlyFloors, itemHolder);
     lua_pop(L, 1);  // tile or table
     lua_rawgeti(L, -1, 2);    // second optional tile part
     if (!lua_isnil(L, -1)) {
         if (is_tile(L, -1))
-            setObjectByTile(L, x, y, onlyFloors);
+            setObjectByTile(L, x, y, onlyFloors, itemHolder);
         else
-            setObjectByTable(L, x, y, onlyFloors);
+            setObjectByTable(L, x, y, onlyFloors, itemHolder);
     }
     lua_pop(L, 2);  // tile or table or nil + metatable
     return 0;
@@ -2556,6 +2573,22 @@ static int addOther(lua_State *L) {
             setObjectByTable(L, -1, -1);
         else // is tile
             setObjectByTile(L, -1, -1);
+    } else if (lua_isnumber(L, 2) && (is_tile(L, 3)  || is_table(L, 3))) {
+        int player = lua_tointeger(L, 2);
+        if (player != YIN && player != YANG)
+            throwLuaError(L, "World attempt to add objects to not existing player");
+        if (is_table(L, -1))
+            setObjectByTable(L, -1, -1, false, player::GetInventory(player));
+        else // is tile
+            setObjectByTile(L, -1, -1, false, player::GetInventory(player));         
+    } else if (is_object(L, 2) && (is_tile(L, 3)  || is_table(L, 3))) {
+        ItemHolder *ih = dynamic_cast<ItemHolder *>(to_object(L, 2));
+        if (ih == NULL)
+            throwLuaError(L, "World attempt to add objects to an object that can not take other objects");
+        if (is_table(L, -1))
+            setObjectByTable(L, -1, -1, false, ih);
+        else // is tile
+            setObjectByTile(L, -1, -1, false, ih);         
     }
     return 0;
 }

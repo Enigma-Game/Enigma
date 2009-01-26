@@ -66,7 +66,7 @@ namespace enigma {
         st_greenbrown,
         st_key,
         st_knight,
-        st_magic,
+        st_dongle,
         st_mirror,
         st_oneway,
         st_oxyd_0x18,

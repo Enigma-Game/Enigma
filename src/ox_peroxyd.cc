@@ -40,7 +40,7 @@ Stone *PerOxydLoader::make_stone (int type, int x, int y)
     case 0x39: case 0x3a: case 0x3b:
         // Create magic stones only if they are absolutely necessary
         if (level.getRequireMagicPiece())
-            st = MakeStone ("st-magic");
+            st = MakeStone ("st_dongle");
         break;
     default:
         st = OxydLoader::make_stone (type, x, y);
@@ -245,9 +245,9 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_oneway_white_e",        // PerOxyd stone 0x36
     "st_oneway_white_n",        // PerOxyd stone 0x37
     "st_oneway_white_s",        // PerOxyd stone 0x38
-    "st-magic",                 // PerOxyd stone 0x39 ('st-magic')
-    "st-magic",                 // PerOxyd stone 0x3a ('st-magic')
-    "st-magic",                 // PerOxyd stone 0x3b ('st-magic')
+    "st_dongle",                 // PerOxyd stone 0x39 ('st-magic')
+    "st_dongle",                 // PerOxyd stone 0x3a ('st-magic')
+    "st_dongle",                 // PerOxyd stone 0x3b ('st-magic')
     "st_actorimpulse",          // PerOxyd stone 0x3c
     "st_actorimpulse_invisible", // PerOxyd stone 0x3d
     "st-laser-1",               // PerOxyd stone 0x3e  The laser-names are fake names!
@@ -418,7 +418,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_seed",                    // 0x24
     "it-spring2",                 // 0x25
     "it-spring1",                 // 0x26
-    "it-bag",                     // 0x27
+    "it_bag",                     // 0x27
     "it_magnet_off",              // 0x28
     "it_sensor_filter0",          // 0x29
     "it_sensor_filter1",          // 0x2a

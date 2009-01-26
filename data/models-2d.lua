@@ -450,7 +450,7 @@ Progress(25, "Loading item models")
 
 do
     itemlist = {
-        "it-bag",
+        "it_bag",
         "it-blackbomb",
         "it-blocker",
         "it-booze",
@@ -1042,15 +1042,15 @@ do
     DefAnim("st-lightpassenger-break-hv", BuildFrames(anim_hv, 50), false)
 end
 
--- st-magic :-) --
+-- st_dongle :-) --
 do
-    local img = DefSubimages("st-magic", {h=4, modelname="st-magic-fg"})
+    local img = DefSubimages("st_dongle", {h=4, modelname="st_dongle-fg"})
     local nlist = {}
     for i=1, table.getn(img) do
-        nlist[i] = "st-magic"..i
+        nlist[i] = "st_dongle"..i
         DefRoundStone(nlist[i], img[i])
     end
-    display.DefineRandModel("st-magic", table.getn(nlist), nlist)
+    display.DefineRandModel("st_dongle", table.getn(nlist), nlist)
 end
 
 -- st-mail --

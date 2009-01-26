@@ -423,7 +423,7 @@ namespace
                 "st_death",
                 "st-surprise",
                 "st_lightglass_hollow",
-                "st-magic",
+                "st_dongle",
                 "st_knight",
                 "st_thief",
                 "st_flat_breakable",

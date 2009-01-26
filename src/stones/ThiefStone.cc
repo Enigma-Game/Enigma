@@ -126,7 +126,7 @@ namespace enigma {
                     enigma::Inventory *inv = player::GetInventory(owner);
                     if (inv && inv->size() > 0) {
                         if (bag == NULL) {
-                            bag = MakeItem("it-bag");
+                            bag = MakeItem("it_bag");
                             bag->setOwnerPos(get_pos());
                         }
                         int i = IntegerRand(0, int (inv->size()-1));

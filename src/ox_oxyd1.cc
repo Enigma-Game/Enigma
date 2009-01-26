@@ -346,7 +346,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_seed",                    // 0x25
     "it-spring2",                 // 0x26
     "it-spring1",                 // 0x27
-    "it-bag",                     // 0x28
+    "it_bag",                     // 0x28
     "it_magnet_off",              // 0x29
     "it_inversesensor",           // 0x2a
     "it_sensor",                  // 0x2b

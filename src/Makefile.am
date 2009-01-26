@@ -202,6 +202,8 @@ enigma_SOURCES = 		\
 	gui/TextField.hh	\
 	gui/widgets.cc		\
 	gui/widgets.hh		\
+	items/BagItem.cc	\
+	items/BagItem.hh	\
 	items/BrakeItem.cc	\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
