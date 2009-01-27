@@ -54,6 +54,7 @@
     <attr name="invisible" type="bool" default="false" rw="rw"/>
     <attr name="length" type="double" default="1" rw="rw"/>
     <attr name="loop" type="bool" default="true" rw="rw"/>
+    <attr name="mass" type="double" default="1" rw="rw"/>
     <attr name="max" type="double" default="0" rw="rw"/>
     <attr name="min" type="double" default="0" rw="rw"/>
     <attr name="movable" type="bool" default="false" rw="rw"/>
@@ -482,6 +483,7 @@
       <attr name="state" value="3"/>
     </object>
     <object name="it_pencil"/>
+    <object name="it_pin"/>
     <object name="it_pipe">
       <attr name="connections"/>
       <msg name="_explosion"/>
@@ -655,6 +657,9 @@
     </object>
     <object name="it_vortex_open">
       <attr name="state" value="1"/>
+    </object>
+    <object name="it_weight">
+      <attr name="mass" default="10.0"/>
     </object>
     <object name="it_wormhole">
       <attr name="destination"/>

@@ -473,11 +473,11 @@ void World::exchange_actors(Actor *a1, Actor *a2) {
 }
 
 
-void World::tick (double dtime)
+void World::tick(double dtime)
 {
     // dtime is always 0.01 (cf. server.cc)
 
-    move_actors (dtime);
+    move_actors(dtime);
     tick_sound_dampings();
 
     // Tell floors and items about new stones.
@@ -486,7 +486,7 @@ void World::tick (double dtime)
     changed_stones.clear();
     
 
-    m_mouseforce.tick (dtime);
+    m_mouseforce.tick(dtime);
     for_each (forces.begin(), forces.end(),
               bind2nd(mem_fun(&ForceField::tick), dtime));
 
@@ -547,9 +547,11 @@ ecl::V2 World::drunkenMouseforce(Actor *a, V2 &mforce)
     V2 f = mforce;
     if (a->get_controllers() != 0) {
         if (a->is_drunken()) {
+            double time = fmod(server::LevelTime, 2.0) - 1.0;
             // rotate mouse force by random angle
             double maxangle = M_PI * 0.7;
-            double angle = DoubleRand (-maxangle, maxangle);
+            double angle = maxangle * time;
+//            double angle = DoubleRand (-maxangle, maxangle);
             f = V2(f[0]*cos(angle) - f[1]*sin(angle),
                    f[0]*sin(angle) + f[1]*cos(angle));
         }
@@ -1918,28 +1920,36 @@ Value SendMessage (Object *obj, const Message &m)
 }
 
 
-void BroadcastMessage (const std::string& msg, 
-                              const Value& value, 
-                              GridLayerBits grids)
-{
+void BroadcastMessage (const std::string& msg, const Value& value, GridLayerBits grids, 
+        bool actors, bool others) {
     int  width     = level->w;
     int  height    = level->h;
     bool to_floors = (grids & GRID_FLOOR_BIT) != 0;
     bool to_items  = (grids & GRID_ITEMS_BIT) != 0;
     bool to_stones = (grids & GRID_STONES_BIT) != 0;
 
-    for (int y = 0; y<height; ++y) {
-        for (int x = 0; x<width; ++x) {
-            GridPos p(x, y);
-            Field *f = level->get_field(p);
-            if (to_floors && f->floor) SendMessage (f->floor, msg, value);
-            if (to_items && f->item)  SendMessage (f->item,  msg, value);
-            if (to_stones && f->stone) SendMessage (f->stone, msg, value);
+    if (grids != 0) {
+        for (int y = 0; y<height; ++y) {
+            for (int x = 0; x<width; ++x) {
+                GridPos p(x, y);
+                Field *f = level->get_field(p);
+                if (to_floors && f->floor) SendMessage (f->floor, msg, value);
+                if (to_items && f->item)  SendMessage (f->item,  msg, value);
+                if (to_stones && f->stone) SendMessage (f->stone, msg, value);
+            }
+        }
+    }
+    if (actors) {
+        for (ActorList::iterator itr = level->actorlist.begin(); itr != level->actorlist.end(); ++itr) {
+            SendMessage(*itr, msg, value);
+        }
+    }
+    if (others) {
+        for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
+            SendMessage(*oit, msg, value);
         }
     }
 }
-
-
 
 
 namespace

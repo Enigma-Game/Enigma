@@ -19,6 +19,7 @@
 #ifndef INVENTORY_HH_INCLUDED
 #define INVENTORY_HH_INCLUDED
 
+#include "Object.hh"
 #include "ItemHolder.hh"
 #include <string>
 #include <vector>
@@ -27,10 +28,15 @@
 namespace enigma
 {
     class Item;
-    class Inventory : public ItemHolder {
+    class Inventory : public Object, public ItemHolder {
     public:
         Inventory();
         ~Inventory();
+
+        // Object interface
+        virtual Object *clone();
+        virtual void dispose();
+        virtual std::string getClass() const;
 
         // ---------- ItemHolder interface ----------
         bool is_full() const;

@@ -21,10 +21,11 @@
 #include "errors.hh"
 #include "enigma.hh"
 #include "player.hh"
+#include "Inventory.hh"
 #include "SoundEffectManager.hh"
 #include "server.hh"
 #include "world.hh"
-//#include "main.hh"
+#include "main.hh"
 
 #include <iostream>
 #include <set>
@@ -131,6 +132,18 @@ Actor::Actor (const ActorTraits &tr)
             m_actorinfo.vel = ecl::V2();
         } else if (m.message == "_revive") {
             m_actorinfo.vel = m_actorinfo.frozen_vel;        
+        } else if (m.message == "_update_mass") {
+            if (getAttr("owner") == m.value) {
+                m_actorinfo.mass = get_traits().default_mass + 
+                        (double)(player::GetInventory(this)->getAttr("mass"));
+                ASSERT(m_actorinfo.mass > 0, XLevelRuntime, "Actor mass <= 0!");
+                Log << "Actor new mass " << m_actorinfo.mass << "\n";
+            }
+        } else if (m.message == "_update_pin") {
+            if (getAttr("owner") == m.value) {
+                spikes = (player::GetInventory(this)->find("it_pin")) != -1;
+                Log << "Actor has spikes " << spikes << "\n";
+            }
         }
         return StateObject::message(m);
     }

@@ -208,7 +208,7 @@ namespace enigma {
     void AddSignal (const GridLoc &src, const GridLoc &dst, const string &msg);
 
     void BroadcastMessage (const std::string& msg, const Value& value, 
-                           GridLayerBits grids);
+                           GridLayerBits grids, bool actors =false, bool others =false);
 
     Value SendMessage (Object *obj, const string &msg, const Value& value = Value(), Object *sender = NULL);
     Value SendMessage (Object *obj, const Message &m);

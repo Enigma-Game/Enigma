@@ -126,6 +126,19 @@ namespace enigma {
 
 
     /**
+     * Pin
+     */
+    class Pin : public Item {
+        CLONEOBJ(Pin);
+        DECL_ITEMTRAITS;
+    public:
+        Pin();
+        
+        // GridObject interface
+        virtual void setOwner(int player);
+    };
+
+    /**
      * Ring
      */
     class Ring : public Item {
@@ -180,6 +193,25 @@ namespace enigma {
         
         // Object interface
         virtual Value message(const Message &m);
+    };
+
+    /**
+     * Weight
+     */
+    class Weight : public Item {
+        CLONEOBJ(Weight);
+        DECL_ITEMTRAITS;
+    public:
+        Weight();
+        
+        // Object interface
+        virtual void setAttr(const string& key, const Value &val);
+        
+        // GridObject interface
+        virtual void setOwner(int player);
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
     };
 
     /**

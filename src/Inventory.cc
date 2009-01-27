@@ -16,12 +16,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 #include "Inventory.hh"
+#include "errors.hh"
 #include "items.hh"
+#include "world.hh"
 #include "ecl_util.hh"
 #include <algorithm>
 
 using enigma::Inventory;
 using enigma::Item;
+
+
+namespace enigma {
 
 typedef std::vector<Item*> ItemList;
 
@@ -30,14 +35,29 @@ typedef std::vector<Item*> ItemList;
 unsigned const Inventory::max_items = 12;
 
 
-Inventory::Inventory() : m_items()
-{}
+Inventory::Inventory() : m_items () {
+}
 
 
 Inventory::~Inventory() 
 {
     ecl::delete_sequence (m_items.begin(), m_items.end());
 }
+
+
+    std::string Inventory::getClass() const {
+        return "Inventory";
+    }
+    
+    Object *Inventory::clone() {
+        ASSERT(false, XLevelRuntime, "Inventory attempt to clone");
+        return this;
+    }
+    
+    void Inventory::dispose() {
+        ASSERT(false, XLevelRuntime, "Inventory attempt to dispose");
+    }
+
 
 void Inventory::assignOwner(int playerId) {
     ownerId = playerId;
@@ -115,9 +135,12 @@ void Inventory::add_item(Item *i)
         // first item is a bag and not full and add item is not an empty bag
         firstHolder->add_item (i);
     }
-    else {
-        m_items.insert (m_items.begin(), i);
+    else if (m_items.size() < max_items) {
+        m_items.insert(m_items.begin(), i);
         i->setOwner(ownerId);
+    } else {
+        // someone did try to add an object without prior checking our size
+        DisposeObject(i);
     }
 }
 
@@ -174,3 +197,5 @@ int Inventory::find(const std::string& kind, size_t start_idx) const
     }
     return -1;
 }
+
+} // namespace enigma

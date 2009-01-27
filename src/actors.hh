@@ -174,7 +174,7 @@ namespace enigma {
         }
 
         bool has_spikes() const { return spikes; }
-        void set_spikes(bool has) { spikes = has; }
+//        void set_spikes(bool has) { spikes = has; }
 
         static double get_max_radius(); // max. radius of all actors
 

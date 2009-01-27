@@ -20,6 +20,7 @@
 
 #include "items/SimpleItems.hh"
 //#include "errors.hh"
+#include "Inventory.hh"
 //#include "main.hh"
 #include "player.hh"
 #include "SoundEffectManager.hh"
@@ -135,6 +136,21 @@ namespace enigma {
     
     DEF_ITEMTRAITS(Pencil, "it_pencil", it_pencil);
     
+/* -------------------- Pin -------------------- */
+    Pin::Pin() {
+    }
+    
+    void Pin::setOwner(int player) {
+        Value oldPlayer = getOwner();
+        Item::setOwner(player);
+        if (oldPlayer.getType() != Value::NIL && oldPlayer != -1 ) {
+            BroadcastMessage("_update_pin", oldPlayer, GRID_NONE_BIT, true);            
+        }
+        if (player != -1) {
+            BroadcastMessage("_update_pin", player, GRID_NONE_BIT, true);
+        }
+    }
+    DEF_ITEMTRAITS(Pin, "it_pin", it_pin);
 /* -------------------- Ring -------------------- */
 
     Ring::Ring() {
@@ -197,6 +213,47 @@ namespace enigma {
 
     DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static);
 
+/* -------------------- Weight item -------------------- */
+    Weight::Weight() {
+    }
+    
+    void Weight::setAttr(const string& key, const Value &val) {
+        if (key == "mass") {
+            double oldMass = getAttr("mass");
+            double newMass = val;
+            if (newMass != oldMass && newMass > 0) {
+                Item::setAttr("mass", newMass);
+                Value owner = getOwner();
+                if (owner.getType() != Value::NIL) {
+                    Inventory *i = player::GetInventory(owner);
+                    i->setAttr("mass", (double)i->getAttr("mass") + newMass - oldMass);
+                    BroadcastMessage("_update_mass", owner, GRID_NONE_BIT, true);
+                }
+            }
+        }
+    }        
+        
+    void Weight::setOwner(int player) {
+        Value oldPlayer = getOwner();
+        Item::setOwner(player);
+        if (oldPlayer.getType() != Value::NIL && oldPlayer != -1 ) {
+            Inventory *i = player::GetInventory(oldPlayer);
+            i->setAttr("mass", (double)i->getAttr("mass") - (double)getAttr("mass"));
+            BroadcastMessage("_update_mass", oldPlayer, GRID_NONE_BIT, true);            
+        }
+        if (player != -1) {
+            Inventory *i = player::GetInventory(player);
+            i->setAttr("mass", (double)i->getAttr("mass") + (double)getAttr("mass"));
+            BroadcastMessage("_update_mass", player, GRID_NONE_BIT, true);
+        }
+    }
+
+    ItemAction Weight::activate(Actor *, GridPos p) {
+        return ITEM_KEEP;
+    }
+    
+    DEF_ITEMTRAITS(Weight, "it_weight", it_weight);
+
 /* -------------------- YinYang item -------------------- */
     Yinyang::Yinyang() {
     }
@@ -228,10 +285,12 @@ namespace enigma {
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");
         BootRegister(new Pencil(), "it_pencil");
+        BootRegister(new Pin(), "it_pin");
         BootRegister(new Ring(), "it_ring");
         BootRegister(new Spade(), "it_spade");
         BootRegister(new Spoon(), "it_spoon");
         BootRegister(new Squashed(), "it_squashed");
+        BootRegister(new Weight(), "it_weight");
         BootRegister(new Wrench(), "it_wrench");
         BootRegister(new Yinyang(), "it_yinyang");
     BOOT_REGISTER_END

@@ -462,14 +462,14 @@ do
         "it-flagwhite",
         "it-odometer",
         "it_pencil",
-        "it-pin",
+        "it_pin",
         "it_ring",
         "it_spade",
         "it_spoon",
         "it-spring1",
         "it-spring2",
         "it-surprise",
-        "it-weight",
+        "it_weight",
         "it-whitebomb"
     }
 

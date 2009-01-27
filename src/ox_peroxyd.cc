@@ -414,7 +414,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_pipe_ew",                  // 0x20
     "it_spade",                   // 0x21
     "it-surprise",                // 0x22
-    "it-pin",                     // 0x23
+    "it_pin",                     // 0x23
     "it_seed",                    // 0x24
     "it-spring2",                 // 0x25
     "it-spring1",                 // 0x26

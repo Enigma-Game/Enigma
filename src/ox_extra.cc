@@ -343,7 +343,7 @@ const char* oxyd::oxydextra_item_map[256] = {
     UNUSED,                  // OxydExtra item 0x20
     "it_spade",                   // OxydExtra item 0x21
     "it-surprise",                // OxydExtra item 0x22
-    "it-pin",                     // OxydExtra item 0x23
+    "it_pin",                     // OxydExtra item 0x23
     UNUSED,                  // OxydExtra item 0x24
     UNUSED,                  // OxydExtra item 0x25
     UNUSED,                  // OxydExtra item 0x26

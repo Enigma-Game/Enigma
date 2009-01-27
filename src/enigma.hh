@@ -190,6 +190,7 @@ namespace enigma {
     };
 
     enum GridLayerBits {
+        GRID_NONE_BIT   = 0,
         GRID_FLOOR_BIT  = 1,
         GRID_ITEMS_BIT  = 2,
         GRID_STONES_BIT = 4

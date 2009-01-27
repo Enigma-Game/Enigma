@@ -103,8 +103,11 @@ namespace enigma {
     }
     void BagItem::add_item(Item *it) {
         // thieves may add items beyond pick up limit BAGSIZE
-        m_contents.insert (m_contents.begin(), it);
-        it->setOwnerPos(get_pos());  // item is at same position as bag
+        m_contents.insert(m_contents.begin(), it);
+        if (getOwner().getType() == Value::NIL)
+            it->setOwnerPos(get_pos());  // item is at same position as bag
+        else
+            it->setOwner(getOwner());
     }
 
     bool BagItem::is_empty() const {
@@ -114,8 +117,8 @@ namespace enigma {
     Item * BagItem::yield_first() {
         if (m_contents.size() > 0) {
             Item *it = m_contents[0];
-            m_contents.erase (m_contents.begin());
-            it->setOwner(-1);  // no owner
+            m_contents.erase(m_contents.begin());
+            it->setOwnerPos(GridPos(-1, -1));  // no owner
             return it;
         }
         return NULL;

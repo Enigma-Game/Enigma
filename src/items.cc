@@ -180,41 +180,6 @@ namespace
     };
     DEF_ITEMTRAITSF(Dummyitem, "it-dummy", it_dummy, itf_fireproof);
 
-/* -------------------- Weight -------------------- */
-
-    class Weight : public Item {
-        CLONEOBJ(Weight);
-        DECL_ITEMTRAITS;
-
-        void on_pickup(Actor *a) {
-           ActorInfo *ai = a->get_actorinfo();
-           ai->mass += 10.0;
-        }
-        ItemAction activate(Actor *, GridPos) {
-            return ITEM_KEEP;
-        }
-    public:
-	Weight() {}
-    };
-    DEF_ITEMTRAITS(Weight, "it-weight", it_weight);
-
-/* -------------------- Pin -------------------- */
-
-    class Pin : public Item {
-        CLONEOBJ(Pin);
-        DECL_ITEMTRAITS;
-
-        void on_pickup(Actor *a) {
-            a->set_spikes(true);
-        }
-        void on_drop(Actor *a) {
-            a->set_spikes(false);
-        }
-    public:
-        Pin() {}
-    };
-    DEF_ITEMTRAITS(Pin, "it-pin", it_pin);
-
 /* -------------------- Booze -------------------- */
 
 namespace
@@ -1151,13 +1116,11 @@ void InitItems()
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);
     RegisterItem (new OxydBridgeActive);
-    RegisterItem (new Pin);
     RegisterItem (new Spring1);
     RegisterItem (new Spring2);
     RegisterItem (new Springboard);
     RegisterItem (new SurpriseItem);
     RegisterItem (new TwoPKillStone);
-    RegisterItem (new Weight);
     RegisterItem (new WhiteBomb);
 }
 
