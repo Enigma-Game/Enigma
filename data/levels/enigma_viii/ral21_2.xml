@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 148 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 149 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -90,8 +90,8 @@ ti[",c"] = ti[",,"] .. {"it_rubberband", anchor2="white", threshold=1, length=10
 ti[",g"] = ti[",,"] .. {"it_glasses", state=SPOT_DEATH}
 ti["$g"] = ti["$$"] .. {"it_glasses", state=SPOT_DEATH}
 ti[",a"] = ti[",,"] .. {"it_floppy"}
-ti[",p"] = ti[",,"] .. {"it-pencil"}
-ti[",t"] = ti[",,"] .. {"it-document", text="mystic"}
+ti[",p"] = ti[",,"] .. {"it_pencil"}
+ti[",t"] = ti[",,"] .. {"it_document", text="mystic"}
 ti[" k"] = ti["_f"] .. {"it_cherry"}
 ti[" e"] = ti["  "] .. {"it-extinguisher_medium"}
 ti["%l"] = ti["%%"] .. {"it_extralife"}
@@ -118,22 +118,22 @@ ti["k0"] = ti["  "] .. {"it_key", code=0}
 ti["k1"] = ti["  "] .. {"it_key", code=1}
 ti["k3"] = ti["~~"] .. {"it_key", code=3}
 ti["k4"] = ti["%%"] .. {"it_key", code=4}
-ti["d1"] = ti[",,"] .. {"it-document", text="welcome"}
-ti["d2"] = ti[",,"] .. {"it-document", text="rainmaker"}
-ti["d3"] = ti[",,"] .. {"it-document", text="bug"}
-ti["d4"] = ti[",,"] .. {"it-document", text="barber"}
-ti["d5"] = ti[",,"] .. {"it-document", text="predecessor"}
-ti["d6"] = ti[";;"] .. {"it-document", text="curse"}
-ti["d7"] = ti["  "] .. {"it-document", text="repair"}
-ti["d8"] = ti["  "] .. {"it-document", text="mailbox"}
-ti["d9"] = ti["$$"] .. {"it-document", "docinvoice", text="invoice"}
-ti["da"] = ti["  "] .. {"it-document", text="holy"}
-ti["db"] = ti[";;"] .. {"it-document", text="death"}
-ti["dc"] = ti["  "] .. {"it-document", text="fire"}
-ti["dd"] = ti["  "] .. {"it-document", text="research"}
-ti["de"] = ti[";;"] .. {"it-document", text="noitem"}
-ti["df"] = ti["%%"] .. {"it-document", text="thieves"}
-ti["dg"] = ti["''"] .. {"it-document", text="children"}
+ti["d1"] = ti[",,"] .. {"it_document", text="welcome"}
+ti["d2"] = ti[",,"] .. {"it_document", text="rainmaker"}
+ti["d3"] = ti[",,"] .. {"it_document", text="bug"}
+ti["d4"] = ti[",,"] .. {"it_document", text="barber"}
+ti["d5"] = ti[",,"] .. {"it_document", text="predecessor"}
+ti["d6"] = ti[";;"] .. {"it_document", text="curse"}
+ti["d7"] = ti["  "] .. {"it_document", text="repair"}
+ti["d8"] = ti["  "] .. {"it_document", text="mailbox"}
+ti["d9"] = ti["$$"] .. {"it_document", "docinvoice", text="invoice"}
+ti["da"] = ti["  "] .. {"it_document", text="holy"}
+ti["db"] = ti[";;"] .. {"it_document", text="death"}
+ti["dc"] = ti["  "] .. {"it_document", text="fire"}
+ti["dd"] = ti["  "] .. {"it_document", text="research"}
+ti["de"] = ti[";;"] .. {"it_document", text="noitem"}
+ti["df"] = ti["%%"] .. {"it_document", text="thieves"}
+ti["dg"] = ti["''"] .. {"it_document", text="children"}
 ti["ph"] = ti["$$"] .. {"it_pipe_ew"}
 ti["pH"] = ti[",,"] .. {"it_pipe_ew"}
 ti["pv"] = ti["$$"] .. {"it_pipe_ns"}
@@ -146,8 +146,8 @@ ti["pc"] = ti["$$"] .. {"it_pipe_es"}
 ti["pC"] = ti[",,"] .. {"it_pipe_es"}
 ti["pd"] = ti["$$"] .. {"it_pipe_sw"}
 ti["pD"] = ti[",,"] .. {"it_pipe_sw"}
-ti["pn"] = ti[";;"] .. {"it-puller-n"}
-ti["pe"] = ti["gs"] .. {"it-puller-e"}
+ti["pn"] = ti[";;"] .. {"it_puller_n"}
+ti["pe"] = ti["gs"] .. {"it_puller_e"}
 ti["g1"] = {"it_rubberband", anchor2="kid1", min=0.55, max=0.65}
 ti["g2"] = {"it_rubberband", anchor2="kid2", min=1.00, max=1.10}
 ti["g3"] = {"it_rubberband", anchor2="kid3", min=1.45, max=1.55}
@@ -200,7 +200,7 @@ ti["H6"] = ti["g6"] .. {"st_greenbrown_hollow"}
 ti["H7"] = ti["g7"] .. {"st_greenbrown_hollow"}
 ti["H8"] = ti["g8"] .. {"st_greenbrown_hollow"}
 ti["Hc"] = ti[";c"] .. {"st_greenbrown_hollow"}
-ti["HF"] = ti["He"] .. {"it-document", text="trapped"}
+ti["HF"] = ti["He"] .. {"it_document", text="trapped"}
 ti["I#"] = ti["  "] .. {"st_stoneimpulse"}
 ti["IM"] = ti["''"] .. {"st_stoneimpulse_movable"}
 ti["I."] = ti[".."] .. {"st_stoneimpulse"}
@@ -552,7 +552,7 @@ end
 did_run_escape = false
 function escape()
     if did_run_escape ==  false then
-        wo[no["escape_pos"]] = {"it-document", text="escape"}
+        wo[no["escape_pos"]] = {"it_document", text="escape"}
         did_run_escape = true
     end
     local y = no["escape_pos"].y + 1
@@ -565,13 +565,13 @@ did_curse_brittle = false
 function curse_brittle(value, sender)
     if did_curse_brittle == false then
         wo[sender + {-1, -3}] = {"it_crack_m"}
-        wo[sender] = {"it-document", text="curse_brittle"}
+        wo[sender] = {"it_document", text="curse_brittle"}
     end
     did_curse_brittle = true
 end
 
 function curse_legs(value, sender)
-    wo[sender] = {"it-document", text="curse_legs"}
+    wo[sender] = {"it_document", text="curse_legs"}
     no["timer_curse_legs"]:on()
 end
 
@@ -631,7 +631,7 @@ function open_grave(value, sender)
     local a = no["tutoxyd"]
     local solved = #no["tutpuz#*"] == 0
     if (not solved) then
-        wo[a + {1,3}] = {"it-document", text="puzzle"}
+        wo[a + {1,3}] = {"it_document", text="puzzle"}
         wo[a + {13,3}] = {"it_cherry"}
     else
         wo:drawRect(a + {1, -1}, 13, 9, {"st_nil"})
@@ -669,14 +669,14 @@ function home(value, sender)
             (k2.x >= xa and k2.x <= xb and k2.y >= ya and k2.y <= yb) and
             (k3.x >= xa and k3.x <= xb and k3.y >= ya and k3.y <= yb) and
             (k4.x >= xa and k4.x <= xb and k4.y >= ya and k4.y <= yb)) then
-        wo[sender] = {"it-document", text="bye"}
+        wo[sender] = {"it_document", text="bye"}
         did_say_bye = true
     end
 end
 
 if not wo["IsDifficult"] then
     wo[no["docinvoice"]] = {"it_nil"}
-    wo[no["door8"] - {2, 0}] = {"it-document", text="invoice"}
+    wo[no["door8"] - {2, 0}] = {"it_document", text="invoice"}
 
     wo:drawMap(ti, no["oil_shop"] + {0, 1}, "  ",
                 {"nipHpVpV",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="15" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma II"/>
 
   <attributes/>
 
@@ -96,7 +96,7 @@
     <level _seq="88" _title="Shifting Shoals" _xpath="./nat28_1" author="Nat Pryce" ctrl="force" easy="false" id="nat28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Pentomino V" _xpath="./ralf20_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Washing Machine" _xpath="./duffy45_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy45" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="It's Magic" _xpath="./martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="91" _title="It's Magic" _xpath="./martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Dirt Clod" _xpath="./xerxes02_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Painting" _xpath="./siegfried21_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Snowing" _xpath="./duffy120_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy120" rel="2" rev="3" score="2" target="time" unit="duration"/>

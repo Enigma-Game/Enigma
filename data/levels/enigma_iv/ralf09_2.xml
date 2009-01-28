@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Run Like Hell" el:subtitle="" el:id="ralf09"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ ti["P"] = {"st_pull"}
 ti["v"] = {"st_boulder", orientation=SOUTH}
 ti["o"] = {"st_oxyd", "oxyds1#"}
 ti["O"] = {"st_oxyd", "oxyds2#"}
-ti["d"] = {"it-document", text="text1"}
+ti["d"] = {"it_document", text="text1"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ",

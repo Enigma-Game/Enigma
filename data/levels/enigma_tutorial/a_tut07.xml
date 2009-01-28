@@ -3,16 +3,15 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess Stones" el:subtitle="" el:id="c_tut01"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
-      <el:author  el:name="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author el:name="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Raoul Bourquin, Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-      </el:comments>
+      <el:comments></el:comments>
       <el:score el:easy="-" el:difficult="2:18"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -35,8 +34,8 @@ ti["B"] = ti["."] .. {"#ac_marble_black", controllers=0, owner=1, name="second_m
 ti["S"] = ti["."] .. {"st_switch", target="let_marble_run"}
 ti["d"] = ti["."] .. {"st_door", name="first_door", flavor="a"}
 ti["t"] = ti["."] .. {"it_trigger", target="first_door"}
-ti["i"] = ti["."] .. {"it-document", text="text1"}
-ti["I"] = ti["."] .. {"it-document", text="text2"}
+ti["i"] = ti["."] .. {"it_document", text="text1"}
+ti["I"] = ti["."] .. {"it_document", text="text2"}
 ti["x"] = ti[" "] .. {"st_oxyd", flavor="d"}
 
 w, h = wo(ti, " ", {

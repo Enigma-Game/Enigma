@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="devnull08"/>
-      <el:version el:score="1" el:release="1" el:revision="19" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="20" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,7 +31,7 @@ ti[": "] = {"st_disco_medium"}
 ti["p "] = {"st_box_rock"}
 ti["R "] = {"st_darkgray"}
 ti["w "] = {"st_box_wood"}
-ti["% "] = {"it-document", text = "text1"}
+ti["% "] = {"it_document", text = "text1"}
 ti["5 "] = {"it_meditation_hollow", essential = 0}
 ti["6 "] = {"it_meditation_hollow", essential = 1}
 ti["7 "] = {"it_meditation_hollow", essential = 1}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="16" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="17" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -84,7 +84,7 @@ ti["/"] = {"st_charge_minus"} .. ti["l"]
 ti[":"] = {"st_charge_zero"} .. ti["A"]
 ti[";"] = {"st_invisible", "whitegate"} .. ti["l"]
 ti["2"] = {"st_switch", target="whiteswitch"} .. ti["l"]
-ti["m"] = {"it-document", text="text1"} .. ti["l"]
+ti["m"] = {"it_document", text="text1"} .. ti["l"]
 
 if wo["IsDifficult"] then
     ti["p"] = ti["l"]

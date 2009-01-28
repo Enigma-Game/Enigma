@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="14" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="15" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -152,12 +152,12 @@ w, h = wo(ti, " ",{
 --|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
 --|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|
 
-wo[{10, 6}] = {"it-document", text="text1"} -- Introduction
-wo[{10, 13}] = {"it-document", text="text2"} -- Reminder about disguise
-wo[{22, 55}] = {"it-document", text="text3"} -- John Reid's grave
-wo[{89, 13}] = {"it-document", text="text4"} -- Silver released
-wo[{93, 9}] = {"it-document", text="text5"} -- The End, cue end credits!
-wo[{1, 59}] = {"it-document", text="text6"} -- Empty tomb
+wo[{10, 6}] = {"it_document", text="text1"} -- Introduction
+wo[{10, 13}] = {"it_document", text="text2"} -- Reminder about disguise
+wo[{22, 55}] = {"it_document", text="text3"} -- John Reid's grave
+wo[{89, 13}] = {"it_document", text="text4"} -- Silver released
+wo[{93, 9}] = {"it_document", text="text5"} -- The End, cue end credits!
+wo[{1, 59}] = {"it_document", text="text6"} -- Empty tomb
 
 wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard1", length=5, strength=20, max=5.05, min=4.95})
 wo:add({"ot_rubberband", anchor1="Ranger", anchor2="RGuard2", length=5, strength=20, max=5.05, min=4.95})

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -17,7 +17,7 @@
     <level _seq="9" _title="Floppy Swapping" _xpath="enigma_ii/martin19_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="enigma_i/siegfried33_1" author="anonymous" ctrl="force" easy="false" id="meditation1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Push Them In" _xpath="enigma_ii/nat05_1" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="It's Magic" _xpath="enigma_ii/martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="It's Magic" _xpath="enigma_ii/martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Ice Skating" _xpath="enigma_i/siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Lasers 101" _xpath="enigma_i/daniel08_1" author="Daniel Heck" ctrl="force" easy="false" id="lasers101" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="The Grim Reaper" _xpath="enigma_i/daniel11_1" author="Daniel Heck" ctrl="force" easy="true" id="space" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -115,7 +115,7 @@
     <level _seq="107" _title="The Turtle" _xpath="enigma_iii/ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Grow Your Own" _xpath="enigma_iii/nat36_1" author="Nat Pryce" ctrl="force" easy="false" id="natmaze5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="- Meditation -" _xpath="enigma_ii/siegfried37_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation16" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="110" _title="Draggers" _xpath="enigma_v/ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="110" _title="Draggers" _xpath="enigma_v/ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="111" _title="The Disappearing Block" _xpath="enigma_ii/duffy02_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy2" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="112" _title="Space Fishing" _xpath="enigma_iii/martin73_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin73" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Robbery" _xpath="enigma_iv/ant29_2" author="Petr Machata" ctrl="force" easy="false" id="ant29" rel="2" rev="1" score="2" target="time" unit="duration"/>

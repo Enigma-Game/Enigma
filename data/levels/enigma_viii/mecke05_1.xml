@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sanssouci" el:subtitle="A Baroque Game" el:id="mecke05"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:38$" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:39$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -90,9 +90,9 @@ ti["0 "] = ti["4 "] .. {"#ac_marble_black",0.5,0.5}
 ti["$ "] = ti["9 "] .. {"#ac_top", range=2, strength=2}
 ti["% "] = ti["9 "] .. {"#ac_top", range=7, strength=6}
 ti["X "] = {"st_oxyd", flavor="d"}
-ti["( "] = ti["1 "] .. {"it-puller-e"}
-ti[") "] = ti["3 "] .. {"it-puller-w"}
-ti["^ "] = ti["  "] .. {"it-puller-n"}
+ti["( "] = ti["1 "] .. {"it_puller_e"}
+ti[") "] = ti["3 "] .. {"it_puller_w"}
+ti["^ "] = ti["  "] .. {"it_puller_n"}
 ti[". "] = ti["y "] .. {"it_strip"}
 ti["m "] = ti["y "] .. {"it_strip_sw"}
 ti["p "] = ti["  "] .. {"it_strip_ew"}

@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack8"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.1">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.1"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -21,34 +20,33 @@ ti["t"] = {"st_oxyd", name="group1#"}
 ti["u"] = {"st_oxyd", name="group2#"}
 ti["v"] = {"st_oxyd", name="group3#"}
 ti["w"] = {"st_oxyd", name="group4#"}
-ti["A"] = {"#ac_marble_black"}
-ti["D"] = {"it-document", text="text1"}
-
+ti["@"] = {"#ac_marble_black"}
+ti["d"] = {"it_document", text="text1"}
 if wo["IsDifficult"] then
-    ti["T"] = {"st_timer", target="quake", action="toggle", interval=30}
-    ti["F"] = {"st_quake", "quake"}
+    ti["T"] = {"st_timer", target="quake", interval=30.0}
+    ti["Q"] = {"st_quake", name="quake"}
 else
     ti["T"] = ti[" "]
-    ti["F"] = ti[" "]
+    ti["Q"] = ti[" "]
 end
 
-w, h = wo(ti, " ", {
-"####################",
-"#        TF        #",
-"#                  #",
-"#    t        u    #",
-"#  t    t  u    u  #",
-"#     t      u     #",
-"#  v     AD     u  #",
-"#     v      w     #",
-"#  v    v  w    w  #",
-"#    v        w    #",
-"#                  #",
-"#                  #",
-"####################"
-})
+wo(ti, " ", {
+    "####################",
+    "#        TQ        #",
+    "#                  #",
+    "#    t        u    #",
+    "#  t    t  u    u  #",
+    "#     t      u     #",
+    "#  v     @d     u  #",
+    "#     v      w     #",
+    "#  v    v  w    w  #",
+    "#    v        w    #",
+    "#                  #",
+    "#                  #",
+    "####################"})
+
 wo:shuffleOxyd({"group1#*", max=2},{"group2#*", max=2},{"group3#*", max=2},{"group4#*", max=2})
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>

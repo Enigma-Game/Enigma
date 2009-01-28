@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 32 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 33 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -135,7 +135,7 @@ ti["O1"] = {"st_oneway",color=BLACK,state=EAST}
 ti["O2"] = {"st_oneway",color=BLACK,state=SOUTH}
 ti["O3"] = {"st_oneway",color=BLACK,state=WEST}
 ti["O4"] = {"st_oneway",color=BLACK,state=NORTH}
-ti["DG"] = {"it-bag"}
+ti["DG"] = {"it_bag"}
 ti[" f"] = ti[" 2"] .. {"st_window_e",secure=true}
 ti[" g"] = ti[" 2"] .. {"st_window_s",secure=true}
 ti[" h"] = ti[" 2"] .. {"st_window_w",secure=true}

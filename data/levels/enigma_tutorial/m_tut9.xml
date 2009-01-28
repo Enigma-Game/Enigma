@@ -3,20 +3,16 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Floors 1" el:subtitle="" el:id="m_tutor/m_tut9"/>
-      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-oxyd_default_flavor = "d"
-
 ti[" "] = {"fl_lawn_b"}
 ti["1"] = {"fl_lawn"}
 ti["2"] = {"fl_lawn_c1"}
@@ -34,10 +30,9 @@ ti["D"] = {"fl_dunes"}
 ti["S"] = {"fl_space"}
 ti["C"] = {"fl_sand"}
 ti["#"] = {"st_fake_oxyda"}
-ti["d"] = ti["1"] .. {"it-document", text="text1"}
+ti["d"] = ti["1"] .. {"it_document", text="text1"}
 ti["o"] = ti["C"] .. {"#ac_marble_black"}
 ti["0"] = {"st_oxyd", flavor="d"}
-
 if wo["IsDifficult"] then
     ti["Q"] = {"st_oxyd", flavor="d"}
 else

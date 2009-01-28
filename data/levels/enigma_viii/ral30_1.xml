@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Scarlet's Necklace" el:subtitle="Who did broke the pearl necklace?" el:id="20080814ral422"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 132 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 133 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,7 +43,7 @@ ti["{"] = {"st_window_nw", secure=true}
 ti[")"] = {"st_window_es", secure=true}
 ti["("] = {"st_window_sw", secure=true}
 
-ti["d"] = {"it-document", text="story"}
+ti["d"] = {"it_document", text="story"}
 
 if wo["IsDifficult"] then
     ti["S"] = {"st_coinslot", target="check"}

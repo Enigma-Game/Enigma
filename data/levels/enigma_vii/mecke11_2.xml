@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:40$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:41$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -73,10 +73,10 @@ ti["4 "] = {"st_puzzle_yellow", connections="sw"}
 ti["p3"] = ti[" #"] .. {"st_puzzle_yellow", connections="sw"}
 ti["5 "] = {"st_ghost_break"}
 ti["y1"] = ti[" !"] .. {"st_ghost_break"}
-ti["y2"] = ti["y1"] .. {"it-puller-s"}
-ti["y3"] = ti[" #"] .. {"it-puller-s"}
+ti["y2"] = ti["y1"] .. {"it_puller_s"}
+ti["y3"] = ti[" #"] .. {"it_puller_s"}
 ti["y4"] = ti[" #"] .. {"st_mirror", movable=true, transparent=false}
-ti["y5"] = ti["y4"] .. {"it-puller-s"}
+ti["y5"] = ti["y4"] .. {"it_puller_s"}
 ti["X "] = {"#ac_marble_black"}
 ti["oo"] = ti[" #"] .. {"st_oxyd_a"}
 ti["7 "] = {"st_laserswitch", target="door3"}

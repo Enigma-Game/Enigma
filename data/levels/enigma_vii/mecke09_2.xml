@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 35 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 36 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -121,20 +121,20 @@ ti["n-"] = ti[" 5"] .. {"st_actorimpulse_invisible"}
 ti["ni"] = ti[" )"] .. {"it_coffee"}
 ti["x "] = {"#ac_marble_black"}
 ti["r "] = {"#ac_top", range=1, strength=1}
-ti["p1"] = ti[" $"] .. {"it-document", text="text1"}
-ti["p2"] = ti[" !"] .. {"it-document", text="text2"}
-ti["p3"] = ti[" -"] .. {"it-document", text="text3"}
-ti["p4"] = ti[" -"] .. {"it-document", text="text4"}
-ti["p5"] = ti[" -"] .. {"it-document", text="text5"}
-ti["p6"] = ti[" 2"] .. {"it-document", text="text6"}
-ti["p7"] = ti[" 2"] .. {"it-document", text="text7"}
-ti["q1"] = ti[" 4"] .. {"it-document", text="text8"}
-ti["q2"] = ti[" 0"] .. {"it-document", text="text9"}
-ti["q3"] = ti[" ,"] .. {"it-document", text="text10"}
-ti["q4"] = ti[" 2"] .. {"it-document", text="text11"}
-ti["q5"] = ti[" ."] .. {"it-document", text="text12"}
-ti["q6"] = ti[" /"] .. {"it-document", text="text13"}
-ti["q7"] = ti[" :"] .. {"it-document", text="text14"}
+ti["p1"] = ti[" $"] .. {"it_document", text="text1"}
+ti["p2"] = ti[" !"] .. {"it_document", text="text2"}
+ti["p3"] = ti[" -"] .. {"it_document", text="text3"}
+ti["p4"] = ti[" -"] .. {"it_document", text="text4"}
+ti["p5"] = ti[" -"] .. {"it_document", text="text5"}
+ti["p6"] = ti[" 2"] .. {"it_document", text="text6"}
+ti["p7"] = ti[" 2"] .. {"it_document", text="text7"}
+ti["q1"] = ti[" 4"] .. {"it_document", text="text8"}
+ti["q2"] = ti[" 0"] .. {"it_document", text="text9"}
+ti["q3"] = ti[" ,"] .. {"it_document", text="text10"}
+ti["q4"] = ti[" 2"] .. {"it_document", text="text11"}
+ti["q5"] = ti[" ."] .. {"it_document", text="text12"}
+ti["q6"] = ti[" /"] .. {"it_document", text="text13"}
+ti["q7"] = ti[" :"] .. {"it_document", text="text14"}
 ti["k1"] = ti[" 4"] .. {"it_key", code=1}
 ti["k2"] = ti[" !"] .. {"it_key", code=2}
 ti["k3"] = ti["=m"] .. {"it_coin_m"}

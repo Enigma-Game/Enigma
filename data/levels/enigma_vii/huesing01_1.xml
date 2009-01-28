@@ -3,7 +3,7 @@
   <el:protected>
      <el:info el:type="level">
        <el:identity el:title="Watchmaker" el:subtitle="Mend the clockwork" el:id="huesing01"/>
-       <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+       <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
        <el:author el:name="Johannes Hüsing" el:email="hannes@ruhrau.de" el:homepage="http://derwisch.wikidot.com"/>
        <el:copyright>Copyright © 2008 Johannes Hüsing </el:copyright>
        <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -35,7 +35,7 @@ ti["5"] = {"it_trigger", target={"door#6","door#7"}, action_1={"open","close"}, 
 ti["6"] = {"it_trigger", target={"door#3","door#2"}, action_1={"open","close"}, action_0={"nope","nope"}}
 ti["7"] = {"it_trigger", target={"door#8","door#5"}, action_1={"open","close"}, action_0={"nope","nope"}}
 ti["8"] = {"it_trigger", target={"door#1","door#4"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["D"] = ti["+"] .. {"it-document", text="text1"}
+ti["D"] = ti["+"] .. {"it_document", text="text1"}
 
 ti["0"] = {"ac_marble_black", 0.0, 0.5}
 

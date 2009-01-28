@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="16" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="17" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -120,10 +120,10 @@ w, h = wo(ti, " ",{
  "d_dzz.Tdzz,zz,TzzdKdYYYYYYYYYYYYYYY]YYkffffffkAEAEkffffffk", --23
  "ddddddddddddddddddddYY{YYYYYYYYYYYYYYYkkkkkkkkkkkkkkkkkkkk"})
 
-wo[{4, 5}] = {"it-document", text="feed"} -- Feed Me
-wo[{38, 6}] = {"it-document", text="Orin"} -- Orin Quote
-wo[{38, 21}] = {"it-document", text="Audrey"} -- Audrey Quote
-wo[{19, 20}] = {"it-document", text="Mushnik"} -- Mushnik Quote
+wo[{4, 5}] = {"it_document", text="feed"} -- Feed Me
+wo[{38, 6}] = {"it_document", text="Orin"} -- Orin Quote
+wo[{38, 21}] = {"it_document", text="Audrey"} -- Audrey Quote
+wo[{19, 20}] = {"it_document", text="Mushnik"} -- Mushnik Quote
 
 function Grow1() -- Grows Audrey II
   wo:drawMap(ti, po(2,6), " ", {
@@ -143,7 +143,7 @@ function Grow2() -- Grows Audrey II
     "accccca",
     "aaaaaaa",
     " acaaa "})
-  wo[{5, 3}] = {"it-document", text="OrinD"} -- Orin Death Quote
+  wo[{5, 3}] = {"it_document", text="OrinD"} -- Orin Death Quote
 end
 
 function Grow3() -- Grows Audrey II
@@ -167,7 +167,7 @@ function Grow4() -- Grows Audrey II
     "accccccaa",
     "aaaaaaaay",
     " acacaaa "})
-  wo[{10, 5}] = {"it-document", text="MushnikD"} -- Mushnik Death Quote
+  wo[{10, 5}] = {"it_document", text="MushnikD"} -- Mushnik Death Quote
 end
 
 function Grow5() -- Grows Audrey II
@@ -193,7 +193,7 @@ function Grow6() -- Grows Audrey II
     "accccccccaaa  ",
     "aaaaaaaaaa    ",
     "aaacacacaa    "})
-  wo[{15, 5}] = {"it-document", text="AudreyD"} -- Audrey Death Quote
+  wo[{15, 5}] = {"it_document", text="AudreyD"} -- Audrey Death Quote
 end
 
 function Grow7() -- Grows Audrey II
