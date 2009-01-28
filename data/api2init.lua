@@ -78,6 +78,8 @@ SMALL     = 0
 LARGE     = 2
 YIN       = 0
 YANG      = 1
+EMPTY     = 0
+FULL      = 2
 
 -- color
 BLACK  = 0

@@ -517,7 +517,7 @@ void server::Msg_Command (const string &cmd)
     // ------------------------------ quick options
     else if (cmd == "easy") {
         if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
-            if (curProxy->hasEasymode()) {
+            if (curProxy->hasEasyMode()) {
                 client::Msg_ShowText("Restarting in easy mode", false, 2);
                 app.state->setProperty("Difficulty", DIFFICULTY_EASY);
                 server::Msg_Command("restart");
@@ -531,7 +531,7 @@ void server::Msg_Command (const string &cmd)
     else if (cmd == "noeasy") {
         if (app.state->getInt("Difficulty") == DIFFICULTY_EASY) {
             app.state->setProperty("Difficulty", DIFFICULTY_HARD);
-            if (curProxy->hasEasymode()) {
+            if (curProxy->hasEasyMode()) {
                 client::Msg_ShowText("Restarting in normal mode", false, 2);
                 server::Msg_Command("restart");
             }
@@ -639,7 +639,7 @@ enigma::Difficulty server::GetDifficulty()
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
     int i= app.state->getInt("Difficulty");
-    if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasymode())
+    if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasyMode())
         return DIFFICULTY_EASY;
     else
         return DIFFICULTY_HARD;

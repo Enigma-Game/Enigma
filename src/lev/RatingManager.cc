@@ -519,7 +519,7 @@ namespace enigma { namespace lev {
     }
     
     short RatingManager::getBestScore(Proxy *levelProxy, int difficulty) {
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         switch (difficulty) {
             case DIFFICULTY_EASY:
@@ -556,7 +556,7 @@ namespace enigma { namespace lev {
     }
     
     std::string RatingManager::getBestScoreHolder(Proxy *levelProxy, int difficulty, int cut) {
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         switch (difficulty) {
             case DIFFICULTY_EASY:
@@ -602,7 +602,7 @@ namespace enigma { namespace lev {
     
     
     short RatingManager::getParScore(Proxy *levelProxy, int difficulty) {
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         switch (difficulty) {
             case DIFFICULTY_EASY:

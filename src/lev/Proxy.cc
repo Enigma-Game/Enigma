@@ -251,7 +251,7 @@ namespace enigma { namespace lev {
     std::set<std::string> Proxy::getLevelIds(bool withEasy) {
         std::set<std::string> result;
         for (std::map<std::string, Proxy *>::iterator i= cache.begin(); i != cache.end(); i++) {
-            if ((*i).second->hasEasymode() == withEasy)
+            if ((*i).second->hasEasyMode() == withEasy)
                 result.insert((*i).second->getId());
         }
         return result;
@@ -272,7 +272,7 @@ namespace enigma { namespace lev {
             isLibraryFlag (proxyIsLibrary), normPathType(thePathType), normLevelPath(theNormLevelPath), 
             id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
-            revisionNumber(levelRevision), hasEasymodeFlag(levelHasEasymode), 
+            revisionNumber(levelRevision), hasEasyModeFlag(levelHasEasymode), 
             engineCompatibility(levelCompatibilty), levelStatus (status), 
             scoreUnit (duration), doc(NULL) {
     }
@@ -401,7 +401,7 @@ namespace enigma { namespace lev {
         
         // create new proxy
         return registerLevel(std::string("./")+filenameBase, newPackPath, id, title,
-                        author, scoreVersion, releaseVersion, hasEasymodeFlag, 
+                        author, scoreVersion, releaseVersion, hasEasyModeFlag, 
                         engineCompatibility, levelStatus, revisionNumber);
     }
     
@@ -605,7 +605,9 @@ namespace enigma { namespace lev {
                 getRevisionNumber();
                 getLevelStatus();
                 getAuthor();
-                hasEasymode();
+                hasEasyMode();
+                hasSingleMode();
+                hasNetworkMode();
                 getScoreUnit();
                 getEngineCompatibility();
                 if (!onlyMetadata){   
@@ -624,6 +626,7 @@ namespace enigma { namespace lev {
         if (this == currentLevel) {    // just level - no libs
             server::SetCompatibility(this);
             server::EnigmaCompatibility = getEnigmaCompatibility();
+            server::TwoPlayerGame = hasNetworkMode();
             server::LevelStatus = getLevelStatus();
             if (server::EnigmaCompatibility < 1.10) {
                 server::AllowSingleOxyds = true;
@@ -1011,15 +1014,37 @@ namespace enigma { namespace lev {
         return title;
     }
 
-    bool Proxy::hasEasymode() {
+    bool Proxy::hasEasyMode() {
         if (doc != NULL) {
             DOMElement *modesElem = 
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            hasEasymodeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+            hasEasyModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
                         Utf8ToXML("easy").x_str()));
         }
-        return hasEasymodeFlag;
+        return hasEasyModeFlag;
+    }
+
+    bool Proxy::hasSingleMode() {
+        if (doc != NULL) {
+            DOMElement *modesElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("modes").x_str())->item(0));
+            hasSingleModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("single").x_str()));
+        }
+        return hasSingleModeFlag;
+    }
+
+    bool Proxy::hasNetworkMode() {
+        if (doc != NULL) {
+            DOMElement *modesElem = 
+                    dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("modes").x_str())->item(0));
+            hasNetworkModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("network").x_str()));
+        }
+        return hasNetworkModeFlag;
     }
 
     std::string Proxy::getContact() {

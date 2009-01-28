@@ -1773,6 +1773,32 @@ static int dispatchObjectWriteAccess(lua_State *L){
     return 0;
 }
 
+static int objectSound(lua_State *L) {
+    if (lua_gettop(L) < 1 || !is_object(L, 1)) {
+        throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
+        return 0;        
+    }
+    if (!(lua_gettop(L) >= 2 && lua_isstring(L, 2))) {
+        throwLuaError(L, "Sound name expected as first argument");
+        return 0;        
+    }
+    double vol = 1.0;
+    if (lua_gettop(L) >=3 && lua_isnumber(L, 3))
+        vol = lua_tonumber(L, 3);
+    
+    GridObject *gobj = dynamic_cast<GridObject*>(to_object(L, 1));
+    if (gobj != NULL) {
+        if (!gobj->sound_event(lua_tostring(L, 2), vol)) {
+            //throwLuaError(L, strf("Can't find sound '%s'", soundname).c_str());
+            // Don't throw an error when no sound file was found.
+            // Remember that user sound sets might be incomplete, and
+            // absolutely correct levels could throw an error here.
+            // Instead, write the "silence string" to the command line:
+            sound::WriteSilenceString(lua_tostring(L, 2));
+        }
+    }
+    return 0;
+}
 
 
 static int xyPosition(lua_State *L) {
@@ -3287,6 +3313,7 @@ static CFunction objectMethods[] = {
     {objectGetKind,                 "kind"},
     {killObject,                    "kill"},
     {objectMessage,                 "message"},
+    {objectSound,                   "sound"},
     {setAttributes,                 "set"},
     {xyObject,                      "xy"},
     {0,0}

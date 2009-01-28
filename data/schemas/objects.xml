@@ -426,6 +426,18 @@
     <object name="it_document">
       <attr name="text"/>
     </object>
+     <object name="it_extinguisher">
+      <attr name="state" max="2"/>
+    </object>
+    <object name="it_extinguisher_empty">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_extinguisher_medium">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_extinguisher_full">
+      <attr name="state" value="2"/>
+    </object>
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
@@ -576,6 +588,15 @@
     <object name="it_shogun_l">
       <attr name="flavor" value="l"/>
     </object>
+    <object name="it_spring">
+    </object>
+    <object name="it_spring_keep">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_spring_drop">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_springboard"/>
     <object name="it_squashed">
       <msg name="_brush"/>
     </object>

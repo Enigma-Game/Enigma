@@ -235,83 +235,6 @@ namespace
     DEF_ITEMTRAITSF(BrokenBooze, "it-booze-broken", it_booze_broken, itf_static | itf_indestructible);
 }
 
-/* -------------------- Springs -------------------- */
-
-/** \page it-spring Spring
-
-Activating a spring will make the marble jump.
-A jumping marble does not fall into abyss or water.
-
-Springs come in two flavors: it-spring1 stays in the inventory,
-whereas it-spring2 drops to the floor when you activate it.
-
-\image html it-spring1.png
-*/
-namespace
-{
-    class Spring1 : public Item {
-        CLONEOBJ(Spring1);
-        DECL_ITEMTRAITS;
-    public:
-        Spring1() {}
-    private:
-        ItemAction activate(Actor *a, GridPos)
-        {
-            SendMessage(a, "_jump");
-            return ITEM_KEEP;
-        }
-    };
-    DEF_ITEMTRAITS(Spring1, "it-spring1", it_spring1);
-
-    class Spring2 : public Item {
-        CLONEOBJ(Spring2);
-        DECL_ITEMTRAITS;
-    public:
-        Spring2() {}
-    private:
-        ItemAction activate(Actor *a, GridPos p)
-        {
-            Item *it = GetItem(p);
-            if (!it || has_flags(it, itf_static)) {
-                SendMessage(a, "_jump");
-                return ITEM_DROP;  // drop if grid has no item
-            } else {
-                // don't jump if a regular item is on the grid
-                return ITEM_KEEP;
-            }
-        }
-    };
-    DEF_ITEMTRAITS(Spring2, "it-spring2", it_spring2);
-}
-
-
-/* -------------------- Springboard -------------------- */
-namespace
-{
-    class Springboard : public Item {
-        CLONEOBJ(Springboard);
-        DECL_ITEMTRAITS;
-
-        bool actor_hit(Actor *a) {
-            const double ITEM_RADIUS = 0.3;
-            ecl::V2 item_center(get_pos().x + 0.5, get_pos().y + 0.5);
-            double dist = length(a->get_pos() - item_center);
-            if (dist < ITEM_RADIUS) {
-                set_anim("it-springboard_anim");
-                SendMessage(a, "_jump");
-            }
-            return false;
-        }
-
-        void animcb() {
-            set_model("it-springboard");
-        }
-    public:
-        Springboard() {}
-    };
-    DEF_ITEMTRAITSF(Springboard, "it-springboard", it_springboard, itf_static);
-}
-
 /* -------------------- Explosion -------------------- */
 namespace
 {
@@ -700,78 +623,6 @@ void Burnable::init_model() {
 }
 
 
-/* -------------------- Fire Extinguisher -------------------- */
-namespace
-{
-    /*! This items can extinguish burning floor. */
-    class Extinguisher : public Item {
-        CLONEOBJ(Extinguisher);
-        DECL_ITEMTRAITS_ARRAY(3, get_load());
-    public:
-        static void setup() {
-            RegisterItem (new Extinguisher(0));
-            RegisterItem (new Extinguisher(1));
-            RegisterItem (new Extinguisher(2));
-        }
-
-    private:
-        Extinguisher (int load) {
-    	    setAttr("load", load);
-        }
-
-        int get_load() const { return ecl::Clamp<int>(getAttr("load"),0,2); }
-        void set_load (int load) { setAttr("load", ecl::Clamp<int>(load,0,2)); }
-
-        void extinguish (GridPos p) {
-            if (Item *it = GetItem(p)) {
-                SendMessage (it, "extinguish");
-            } else {
-                SetItem (p, MakeItem("it-burnable_fireproof"));
-            }
-        }
-
-        /* ---------- Item interface ---------- */
-
-        ItemAction activate(Actor *a, GridPos p);
-    };
-
-    ItemTraits Extinguisher::traits[3] = {
-        {"it-extinguisher_empty",  it_extinguisher_empty,  itf_none, 0.0},
-        {"it-extinguisher_medium", it_extinguisher_medium, itf_fireproof, 0.0},
-        {"it-extinguisher",        it_extinguisher,        itf_fireproof, 0.0},
-    };
-}
-
-ItemAction Extinguisher::activate(Actor *a, GridPos p)
-{
-    int load = get_load();
-    if (load > 0) {
-        extinguish (p);
-        extinguish (move(p, NORTH));
-        extinguish (move(p, SOUTH));
-        extinguish (move(p, EAST));
-        extinguish (move(p, WEST));
-        if (load > 1) {
-            // full extinguisher has a larger range
-            extinguish (move(p, NORTH, NORTH));
-            extinguish (move(p, NORTH, EAST));
-            extinguish (move(p, SOUTH, SOUTH));
-            extinguish (move(p, SOUTH, WEST));
-            extinguish (move(p, EAST, EAST));
-            extinguish (move(p, EAST, SOUTH));
-            extinguish (move(p, WEST, WEST));
-            extinguish (move(p, WEST, NORTH));
-        }
-        set_load(load - 1);
-
-        // Redraw the player's inventory, the visual representation of
-        // the extinguisher has changed.
-        player::RedrawInventory();
-    }
-    return ITEM_DROP;
-}
-
-
 /* -------------------- Flags -------------------- */
 
 namespace
@@ -898,11 +749,11 @@ Value EasyKillStone::message(const Message &m)
         // before stones are created.
         if (server::GetDifficulty() == DIFFICULTY_EASY) {
             if (Stone *st = GetStone (get_pos())) {
-                if (st->is_kind ("st-death") ||
-                    st->is_kind ("st-flash") ||
-                    st->is_kind ("st-thief"))
+                if (st->is_kind ("st_death") ||
+                    st->is_kind ("st_flash") ||
+                    st->is_kind ("st_thief"))
                 {
-                    SetStone (get_pos(), MakeStone ("st-plain"));
+                    SetStone (get_pos(), MakeStone ("st_flat"));
                 }
                 else
                     KillStone(get_pos());
@@ -993,7 +844,7 @@ namespace
         void on_drop (Actor *) {
             static char *items[] = {
                 "it_umbrella",
-                "it-spring1",
+                "it_spring_keep",
                 "it-dynamite",
                 "it_coffee",
                 "it_hammer"
@@ -1109,16 +960,12 @@ void InitItems()
     RegisterItem (new Explosion1);
     RegisterItem (new Explosion2);
     RegisterItem (new Explosion3);
-    Extinguisher::setup();
     RegisterItem (new FlagBlack);
     RegisterItem (new FlagWhite);
     RegisterItem (new Odometer);
     RegisterItem (new OnePKillStone);
     RegisterItem (new OxydBridge);
     RegisterItem (new OxydBridgeActive);
-    RegisterItem (new Spring1);
-    RegisterItem (new Spring2);
-    RegisterItem (new Springboard);
     RegisterItem (new SurpriseItem);
     RegisterItem (new TwoPKillStone);
     RegisterItem (new WhiteBomb);

@@ -466,8 +466,8 @@ do
         "it_ring",
         "it_spade",
         "it_spoon",
-        "it-spring1",
-        "it-spring2",
+        "it_spring_keep",
+        "it_spring_drop",
         "it-surprise",
         "it_weight",
         "it-whitebomb"
@@ -523,7 +523,7 @@ end
 
 -- it-extinguisher --
 do
-    DefTiles("it-extinguisher", {"it-extinguisher", "it-extinguisher_medium", "it-extinguisher_empty"})
+    DefTiles("it_extinguisher", {"it_extinguisher_full", "it_extinguisher_medium", "it_extinguisher_empty"})
 end
 
 -- it-dummy
@@ -681,10 +681,10 @@ end
 
 -- it-springboard --
 do
-    local images = {"it-springboard1", "it-springboard2"}
-    DefTiles ("it-springboard", images)
-    DefAlias ("it-springboard", images[1])
-    DefAnim("it-springboard_anim", BuildFrames(ReverseFrames(images),120))
+    local images = {"it_springboard1", "it_springboard2"}
+    DefTiles ("it_springboard", images)
+    DefAlias ("it_springboard", images[1])
+    DefAnim("it_springboard_anim", BuildFrames(ReverseFrames(images),120))
 end
 
 -- it-vortex --

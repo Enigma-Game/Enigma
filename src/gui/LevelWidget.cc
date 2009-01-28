@@ -243,7 +243,7 @@ namespace enigma { namespace gui {
             //   Silver + Gold: Level beaten in all modes - easy available
             Surface *useAsEasy = NULL;
             Surface *useAsDifficult = NULL;
-            if (proxy->hasEasymode()) {
+            if (proxy->hasEasyMode()) {
                 useAsEasy = img_feather;
                 if (scoreMgr->isSolved(proxy, DIFFICULTY_EASY))
                     useAsEasy = img_easy;
@@ -274,7 +274,7 @@ namespace enigma { namespace gui {
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty"))) {
                 blit(gc, x+35, y+5, 
                         (app.state->getInt("Difficulty") != DIFFICULTY_HARD &&
-                        proxy->hasEasymode()) ? img_wrEasy : img_wrDifficult);
+                        proxy->hasEasyMode()) ? img_wrEasy : img_wrDifficult);
             } else if (scoreMgr->parScoreReached(proxy, app.state->getInt("Difficulty"))){
                 blit(gc, x+30, y+12, img_par);
             }

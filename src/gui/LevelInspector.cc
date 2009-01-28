@@ -215,7 +215,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         std::string tmp, tmp2;
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
         lev::ScoreManager  *theScoreMgr = lev::ScoreManager::instance();
-        withEasy = aLevel->hasEasymode();
+        withEasy = aLevel->hasEasyMode();
         ratingInherited = theScoreMgr->isRatingInherited(aLevel);
         ecl::Font *menufont = enigma::GetFont("menufont");
         levelPathString = 

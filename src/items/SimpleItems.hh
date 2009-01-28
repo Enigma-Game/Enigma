@@ -180,7 +180,47 @@ namespace enigma {
         virtual ItemAction activate(Actor* a, GridPos p);
     };
 
+    /**
+     * Spring
+     */
+    class Spring : public Item {
+        CLONEOBJ(Spring);
+        DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
+    private:
+        enum iState {
+            KEEP     =  0,    ///< 
+            DROP     =  1     ///< 
+        };
+    public:
+        Spring(int type);
+        
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // Item interface
+        virtual ItemAction activate(Actor* a, GridPos p);
+        
+    private:
+        int traitsIdx() const;
+    };
     
+    /**
+     * Spring
+     */
+    class Springboard : public Item {
+        CLONEOBJ(Springboard);
+        DECL_ITEMTRAITS;
+
+    public:
+        Springboard();
+        
+        // ModelCallback interface
+        virtual void animcb();
+        
+        // ItemObject interface
+        virtual bool actor_hit(Actor *a);
+    };
+
     /**
      * Squashed
      */

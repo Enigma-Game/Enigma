@@ -518,7 +518,7 @@ namespace enigma { namespace lev {
     bool ScoreManager::isSolved(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_ANY, "ScoreManager::isSolved illegal difficulty");
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         DOMElement * level = getLevel(levelProxy);
@@ -533,7 +533,7 @@ namespace enigma { namespace lev {
     bool ScoreManager::isOutdated(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::isOutdated illegal difficulty");
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         DOMElement * level = getLevel(levelProxy);
@@ -552,7 +552,7 @@ namespace enigma { namespace lev {
     int ScoreManager::getBestUserScore(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::getBestUserScore illegal difficulty");
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         DOMElement * level = getLevel(levelProxy);
@@ -572,7 +572,7 @@ namespace enigma { namespace lev {
         if (levelProxy->getLevelStatus() != lev::STATUS_RELEASED)
             return;
         
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         if (score > SCORE_MAX)
@@ -686,7 +686,7 @@ namespace enigma { namespace lev {
     }
     
     bool ScoreManager::bestScoreReached(lev::Proxy *levelProxy, int difficulty) {
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);
@@ -695,7 +695,7 @@ namespace enigma { namespace lev {
     }
     
     bool ScoreManager::parScoreReached(lev::Proxy *levelProxy, int difficulty) {
-        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasymode())
+        if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
         int bestUserScore = getBestUserScore(levelProxy, difficulty);

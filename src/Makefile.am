@@ -216,6 +216,8 @@ enigma_SOURCES = 		\
 	items/CrossItem.hh	\
 	items/DocumentItem.cc	\
 	items/DocumentItem.hh	\
+	items/Extinguisher.cc	\
+	items/Extinguisher.hh	\
 	items/ExtraLife.cc	\
 	items/ExtraLife.hh	\
 	items/GlassesItem.cc	\

@@ -328,8 +328,8 @@ const char* oxyd::oxydmag_item_map[256] = {
     UNUSED,        // OxydMagnum item 0x23
     "it_pin",           // OxydMagnum item 0x24
     "it_seed",          // OxydMagnum item 0x25
-    "it-spring2",       // OxydMagnum item 0x26
-    "it-spring1",       // OxydMagnum item 0x27
+    "it_spring_drop",   // OxydMagnum item 0x26
+    "it_spring_keep",   // OxydMagnum item 0x27
     "it_bag",           // OxydMagnum item 0x28
     "it_magnet_off",    // OxydMagnum item 0x29
     "it_inversesensor", // OxydMagnum item 0x2a
@@ -344,7 +344,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_meditation_dent",   // OxydMagnum item 0x33
     "it_strip_ns",      // OxydMagnum item 0x34
     "it_strip_ew",      // OxydMagnum item 0x35
-    "it-springboard",   // OxydMagnum item 0x36
+    "it_springboard",   // OxydMagnum item 0x36
     IT_MISSING,       // OxydMagnum item 0x37
     "it-bridge-oxyd",   // OxydMagnum item 0x38
     UNUSED,        // OxydMagnum item 0x39
@@ -366,7 +366,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     UNUSED,        // OxydMagnum item 0x49
     UNUSED,        // OxydMagnum item 0x4a
     UNUSED,        // OxydMagnum item 0x4b
-    "it-springboard",   // OxydMagnum item 0x4c
+    "it_springboard",   // OxydMagnum item 0x4c
     UNUSED,        // OxydMagnum item 0x4d
     UNUSED,        // OxydMagnum item 0x4e
     UNUSED,        // OxydMagnum item 0x4f

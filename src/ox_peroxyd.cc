@@ -416,8 +416,8 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it-surprise",                // 0x22
     "it_pin",                     // 0x23
     "it_seed",                    // 0x24
-    "it-spring2",                 // 0x25
-    "it-spring1",                 // 0x26
+    "it_spring_board",            // 0x25
+    "it_spring_keep",             // 0x26
     "it_bag",                     // 0x27
     "it_magnet_off",              // 0x28
     "it_sensor_filter0",          // 0x29
@@ -433,7 +433,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_meditation_dent",         // 0x33
     "it_strip_ns",                // 0x34
     "it_strip_ew",                // 0x35
-    "it-springboard",             // 0x36
+    "it_springboard",             // 0x36
     IT_MISSING,                   // 0x37
     "it-bridge-oxyd",             // 0x38
     UNUSED,                  // 0x39

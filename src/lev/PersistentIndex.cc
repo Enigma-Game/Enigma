@@ -770,7 +770,7 @@ namespace enigma { namespace lev {
             levelElem->setAttribute( Utf8ToXML("rev").x_str(),
                     Utf8ToXML(ecl::strf("%d",level->getRevisionNumber())).x_str());
             levelElem->setAttribute( Utf8ToXML("easy").x_str(),
-                    Utf8ToXML(level->hasEasymode() ? "true" : "false").x_str());
+                    Utf8ToXML(level->hasEasyMode() ? "true" : "false").x_str());
             std::string control;
             switch (variations[i].ctrl) {
             case lev::force:

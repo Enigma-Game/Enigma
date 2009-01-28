@@ -147,6 +147,9 @@ RenamingObjectsNew2Old = {
     it_crack_l = "it-crack3",
     it_cross = "it-cross",
     it_document = "it-document",
+    it_extinguisher_empty = "it-extinguisher_empty",
+    it_extinguisher_medium = "it-extinguisher_medium",
+    it_extinguisher_full = "it-extinguisher",
     it_extralife = "it-extralife",
     it_death = "it-death",
     it_floppy = "it-floppy",
@@ -185,6 +188,9 @@ RenamingObjectsNew2Old = {
     it_seed_volcano = "it-seed_volcano",
     it_spade = "it-spade",
     it_spoon = "it-spoon",
+    it_spring_keep = "it-spring1",
+    it_spring_drop = "it-spring2",
+    it_springboard = "it-springboard",
     it_squashed = "it-squashed",
     it_shogun_s = "it-shogun-s",
     it_shogun_m = "it-shogun-m",
@@ -761,6 +767,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "value" then
          _key = "coin_value"
      end
+     if key == "load" then
+         _key = "state"
+     end
      if key == "force" and (_obj_name == "st-actorimpulse" or
              _obj_name == "st-actorimpulse_invisible" or _obj_name == "ac-horse" or
              _obj_name == "ac-rotor" or _obj_name == "ac-top")  then
@@ -913,6 +922,9 @@ function enigma.GetAttrib(obj, key)
          _key = "orientation"
      end
      if key == "on" then
+         _key = "state"
+     end
+     if key == "load" then
          _key = "state"
      end
      if key == "blinking" then

@@ -196,6 +196,62 @@ namespace enigma {
 
     DEF_ITEMTRAITS(Spoon, "it_spoon", it_spoon);
 
+/* -------------------- Spring -------------------- */
+    Spring::Spring(int type) {
+        state = type;
+    }
+    
+    void Spring::setState(int extState) {
+        // block all write attempts
+    }
+    
+    ItemAction Spring::activate(Actor *a, GridPos p) {
+        if (state == KEEP) {
+            SendMessage(a, "_jump");
+            return ITEM_KEEP;
+        } else if (state == DROP) {
+            Item *it = GetItem(p);
+            if (!it || has_flags(it, itf_static)) {
+                SendMessage(a, "_jump");
+                return ITEM_DROP;  // drop if grid has no item
+            } else {
+                // don't jump if a regular item is on the grid
+                return ITEM_KEEP;
+            }
+        }
+    }
+    
+    int Spring::traitsIdx() const {
+        return state;
+    }
+    
+    ItemTraits Spring::traits[2] = {
+        {"it_spring_keep", it_spring_keep,  itf_none, 0.0},
+        {"it_spring_drop", it_spring_drop,  itf_none, 0.0},
+    };
+
+/* -------------------- Springboard -------------------- */
+    Springboard::Springboard() {
+    }
+    
+    bool Springboard::actor_hit(Actor *a) {
+        const double MAXDIST = 0.3;
+        double ycenter = get_pos().y + 0.5;
+        double xcenter = get_pos().x + 0.5;
+        ecl::V2 apos = a->get_pos();
+        if ((fabs(apos[1] - ycenter) <= MAXDIST) && (fabs(apos[0] - xcenter) <= MAXDIST)) {
+            set_anim("it_springboard_anim");
+            SendMessage(a, "_jump");
+        }
+        return false;
+    }
+
+    void Springboard::animcb() {
+        set_model("it_springboard");
+    }
+
+    DEF_ITEMTRAITSF(Springboard, "it_springboard", it_springboard, itf_static);
+    
 /* -------------------- Squashed Cherry -------------------- */
 
     Squashed::Squashed() {
@@ -289,6 +345,10 @@ namespace enigma {
         BootRegister(new Ring(), "it_ring");
         BootRegister(new Spade(), "it_spade");
         BootRegister(new Spoon(), "it_spoon");
+        BootRegister(new Spring(0), "it_spring");
+        BootRegister(new Spring(0), "it_spring_keep");
+        BootRegister(new Spring(1), "it_spring_drop");
+        BootRegister(new Springboard(), "it_springboard");
         BootRegister(new Squashed(), "it_squashed");
         BootRegister(new Weight(), "it_weight");
         BootRegister(new Wrench(), "it_wrench");

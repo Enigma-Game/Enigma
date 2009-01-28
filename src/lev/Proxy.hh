@@ -109,7 +109,9 @@ namespace enigma { namespace lev {
         levelStatusType getLevelStatus();
         std::string getAuthor();
         std::string getTitle(); // english title
-        bool hasEasymode();
+        bool hasEasyMode();
+        bool hasSingleMode();
+        bool hasNetworkMode();
         std::string getContact();
         std::string getHomepage();
         controlType getControl();
@@ -161,7 +163,9 @@ namespace enigma { namespace lev {
         int releaseVersion;
         int revisionNumber;
         levelStatusType levelStatus;
-        bool hasEasymodeFlag;
+        bool hasEasyModeFlag;
+        bool hasSingleModeFlag;
+        bool hasNetworkModeFlag;
         scoreUnitType scoreUnit;
         /**
          * The compatibility that needs to be preset on level load.
