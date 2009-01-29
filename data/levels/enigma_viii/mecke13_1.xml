@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -34,7 +34,7 @@ ti["w"] = {"st_window_w"}
 ti["e"] = {"st_window_e"}
 ti["E"] = {"st_window_n"}
 ti["P"] = {"st_bluegray"}
-ti["p"] = ti["H"] .. {"it-spring1"}
+ti["p"] = ti["H"] .. {"it_spring_keep"}
 ti["Q"] = {"st_ghost_break"}
 ti["q"] = {"it-booze-broken"}
 ti["i"] = {"it_sensor"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Psycho Pushing" el:subtitle="" el:id="ss3"/>
-      <el:version el:score="2" el:release="3" el:revision="15" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="16" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -58,7 +58,7 @@ ti[" _"] = {"it_shogun_l"}
 ti[" a"] = {"it_coin_s"}
 ti[" k"] = {"it_key"}
 ti[" j"] = {"it_key", code=0}
-ti[" s"] = {"it-springboard"}
+ti[" s"] = {"it_springboard"}
 ti[" ^"] = {"it_meditation_hill"}
 ti[" f"] = {"it_floppy"}
 ti[" ."] = {"it_seed"}

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour I" el:subtitle="Open the Doors" el:id="mecke15"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 33 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 34 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -91,7 +91,7 @@ ti["b "] = ti[" ~"] .. {"it-booze"}
 ti["h2"] = ti["h1"] .. {"it_cherry"}
 ti["h3"] = ti["h1"] .. {"it_glasses"}
 ti["5 "] = {"it_key", code=1}
-ti["o "] = {"it-springboard"}
+ti["o "] = {"it_springboard"}
 ti["j "] = {"it_magicwand"}
 ti[" z"] = {"it-booze"}
 ti["P "] = {"st_grate_cross"}

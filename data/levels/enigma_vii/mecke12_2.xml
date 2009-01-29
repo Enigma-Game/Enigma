@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 45 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 46 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ ti[" ,"] = {"fl-gradient10"}
 ti["' "] = {"st_actorimpulse_invisible"}
 ti[" i"] = {"fl_ice"}
 ti["e "] = {"it_extralife"}
-ti["s "] = {"it-spring2"}
+ti["s "] = {"it_spring_drop"}
 ti["v "] = {"it_strip", connections="ns"}
 ti[" -"] = {"fl-gradient11"}
 ti[" ."] = {"fl-gradient12"}
@@ -55,7 +55,7 @@ ti["0 "] = {"st_magic_brick"}
 ti["1 "] = {"st_granite_hollow"}
 ti["B "] = {"st_passage_black_frame"}
 ti["2 "] = {"st_boulder_w"}
-ti["o "] = {"it-springboard"}
+ti["o "] = {"it_springboard"}
 ti["3 "] = {"st_door", faces="ns"}
 ti["f "] = {"it_coffee"}
 ti["g "] = {"it-blackbomb"}

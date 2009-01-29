@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:78$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:79$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -113,8 +113,8 @@ ti["m "] = ti["<#"] .. {"it_magicwand"}
 ti["o;"] = ti[" ;"] .. {"it-burnable_oil"}
 ti["o!"] = ti[" !"] .. {"it-burnable_oil"}
 ti["g;"] = ti[" ;"] .. {"it_glasses_broken"}
-ti["sb"] = ti[" *"] .. {"it-springboard"}
-ti["sl"] = ti[" l"] .. {"it-springboard"}
+ti["sb"] = ti[" *"] .. {"it_springboard"}
+ti["sl"] = ti[" l"] .. {"it_springboard"}
 ti["wb"] = ti[" !"] .. {"it_wormhole"}
 ti["?!"] = ti[" !"] .. {"st_rawglass"}
 ti["c?"] = ti["?!"] .. {"it_coin_m"}

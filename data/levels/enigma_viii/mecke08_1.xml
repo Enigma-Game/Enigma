@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 24 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,7 +59,7 @@ ti["x4"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli4"}
 ti["x5"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli5"}
 ti["x6"] = ti[" ~"] .. {"st_oxyd", flavor="a",name="olli6"}
 ti["e "] = {"it_extralife"}
-ti["o "] = {"it-springboard"}
+ti["o "] = {"it_springboard"}
 ti[" j"] = {"it_magicwand"}
 ti["S "] = ti[" n"] ..{"st_passage_white_frame"}
 ti["G "] = {"st_yellow"}

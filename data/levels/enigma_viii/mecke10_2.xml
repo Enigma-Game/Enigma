@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Southside Life" el:subtitle="...Enjoy!" el:id="mecke10" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 32 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 33 $" el:status="released" />
       <el:author el:name="mecke" el:email="" el:homepage="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -119,7 +119,7 @@ ti[" 8"] = {"fl_sahara"}
 ti["E "] = {"st_boulder_s"}
 ti["F "] = {"st_passage_black_cross"}
 ti["G "] = {"st_boulder_n"}
-ti["s "] = {"it-springboard"}
+ti["s "] = {"it_springboard"}
 ti["j "] = {"it_magicwand"}
 ti["hh"] = ti[" &"] .. {"it_strip", connections="ew"}
 ti["x "] = {"#ac_marble_black"}

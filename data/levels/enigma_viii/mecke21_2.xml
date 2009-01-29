@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Red Cave" el:subtitle="In Red Light" el:id="mecke21" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 44 $" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 45 $" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -29,7 +29,7 @@ ti["# "] = {"st_oneway_black_s"}
 ti["$ "] = {"st_grate_cross"}
 ti["% "] = {"st_oneway_black_n"}
 ti["& "] = {"st_camouflage"}
-ti["gg"] = ti[" !"] .. {"it-springboard"}
+ti["gg"] = ti[" !"] .. {"it_springboard"}
 ti["' "] = {"st_boulder_w"}
 ti[" $"] = {"fl_space"}
 ti["( "] = {"st_death"}
@@ -79,7 +79,7 @@ ti["5 "] = {"st_passage_white_cross"}
 ti["ss"] = ti[" ("] .. {"it_shogun_s"}
 ti["sm"] = ti[" &"] .. {"it_shogun_m"}
 ti["sn"] = ti[" ("] .. {"it_shogun_m"}
-ti["yy"] = ti["mn"] .. {"it-spring2"}
+ti["yy"] = ti["mn"] .. {"it_spring_drop"}
 ti["sl"] = ti[" !"] .. {"it_shogun_l"}
 ti[" *"] = {"fl_swamp"}
 ti["7 "] = {"st_rotator_cw", movable=false}
@@ -123,7 +123,7 @@ if wo ["IsDifficult"] then
     ti["ei"] = ti[" !"] .. {"it_death"}
     ti["ec"] = ti[" !"] .. {"fl_red"}
     ti["eq"] = ti["mn"] .. {"it_spoon"}
-    ti["qq"] = ti["fg"] .. {"it-spring2"}
+    ti["qq"] = ti["fg"] .. {"it_spring_drop"}
     ti["~~"] = {"fl_water"}
 else
     ti["pd"] = {"fl_red"}

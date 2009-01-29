@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 149 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 150 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -93,7 +93,7 @@ ti[",a"] = ti[",,"] .. {"it_floppy"}
 ti[",p"] = ti[",,"] .. {"it_pencil"}
 ti[",t"] = ti[",,"] .. {"it_document", text="mystic"}
 ti[" k"] = ti["_f"] .. {"it_cherry"}
-ti[" e"] = ti["  "] .. {"it-extinguisher_medium"}
+ti[" e"] = ti["  "] .. {"it_extinguisher_medium"}
 ti["%l"] = ti["%%"] .. {"it_extralife"}
 ti[" m"] = ti["  "] .. {"it_landmine"}
 ti[" o"] = ti["  "] .. {"it-burnable_oil"}

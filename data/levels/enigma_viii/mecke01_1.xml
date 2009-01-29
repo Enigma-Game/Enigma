@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 33 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 34 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -65,7 +65,7 @@ ti["w "] = {"it_wormhole",range=0,strength=0, state=OFF}
 ti["p "] = {"it_puller_n"}
 ti["q "] = {"it_puller_s"}
 ti["t "] = {"it_document",text="text1"}
-ti["M "] = ti["m "] .. {"it-spring2"}
+ti["M "] = ti["m "] .. {"it_spring_drop"}
 ti["* "] = ti[" +"] .. {"#ac_marble_black"}
 ti["L1"] = {"st_laser_s",name="laser1", state=OFF}
 ti["L2"] = {"st_laser_s",name="laser2", state=OFF}
@@ -87,7 +87,7 @@ if wo ["IsDifficult"] then
 else
     ti["x1"] = ti["G "] .. ti[" h"]
     ti["x2"] = ti[" h"]
-    ti["x3"] = ti[" b"] .. ti["X "] .. {"it-spring2"}
+    ti["x3"] = ti[" b"] .. ti["X "] .. {"it_spring_drop"}
     ti["x4"] = ti[" b"] .. ti["X "] .. {"it_cherry"}
     ti["x5"] = ti["X "] .. ti[" b"]
     ti["x6"] = ti["G "]
