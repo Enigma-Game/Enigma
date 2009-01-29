@@ -57,6 +57,18 @@ namespace enigma {
         }
     };
 
+    struct Action {
+        int         senderId;
+        bool        isCallback;
+        int         targetId;  // target object id for message, flag expectFunction for callback
+        std::string name;      // action name for message, function name for callback
+        Value       val;
+        
+        Action(int senderId_, bool isCallback_, int targetId_, std::string name_, Value val_) : 
+                senderId (senderId_), isCallback (isCallback_), targetId (targetId_), name (name_), val (val_) {
+        }
+    };
+    
     struct Message {
         // Variables
         std::string message;
@@ -168,13 +180,13 @@ namespace enigma {
     void    NameObject (Object *obj, const string &name);
     void    UnnameObject (Object *obj);
     Object *GetNamedObject (const string &name);
-    std::list<Object *> GetNamedGroup(const std::string &templ, const Object *reference = NULL);
+    std::list<Object *> GetNamedGroup(const std::string &templ, Object *reference = NULL);
 
 /* -------------------- Named Positions -------------------- */
 
     void NamePosition(Value po, const string &name);
     Value GetNamedPosition(const string &name);
-    PositionList GetNamedPositionList(const std::string &templ, const Object *reference = NULL);
+    PositionList GetNamedPositionList(const std::string &templ, Object *reference = NULL);
 
 /* -------------------- Force Fields -------------------- */
 
@@ -213,7 +225,9 @@ namespace enigma {
     Value SendMessage (Object *obj, const string &msg, const Value& value = Value(), Object *sender = NULL);
     Value SendMessage (Object *obj, const Message &m);
 
+/* -------------------- Secure Delayed Actions -------------------- */
 
+    void PerformSecureAction(int senderId, bool isCallback, int targetId, std::string name, Value val);
 
 /* -------------------- Actors -------------------- */
 

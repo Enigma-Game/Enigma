@@ -464,13 +464,17 @@ namespace enigma {
         return ecl::V2(-1, -1);        
     }
     
-    ObjectList Value::getObjectList(const Object *reference) const {
+    ObjectList Value::getObjectList(Object *reference) const {
         ObjectList result;
         switch (type) {
             case STRING:
                 if (std::string(val.str).find_first_of("*?") != std::string::npos) {
                     // wildcards in object name - we need to add all objects
                     result = GetNamedGroup(val.str, reference);
+                    break;
+                } else if (std::string(val.str) == "@") {
+                    // self reference
+                    result.push_back(reference);
                     break;
                 }
                 // else it is a single object name - fall through
@@ -495,7 +499,7 @@ namespace enigma {
         return result;
     }
     
-    PositionList Value::getPositionList(const Object *reference) const {
+    PositionList Value::getPositionList(Object *reference) const {
         PositionList result;
         switch (type) {
             case STRING:
@@ -528,7 +532,7 @@ namespace enigma {
         return result;
     }
     
-    bool Value::finalizeNearestObjectReference(const Object *reference) {
+    bool Value::finalizeNearestObjectReference(Object *reference) {
         if (type == STRING && std::string(val.str).find("@@") != 0 && std::string(val.str).find("@") == 0
                 && std::string(val.str).find_first_of("*?") != std::string::npos) {
             //
@@ -544,7 +548,7 @@ namespace enigma {
                 }
             }
             // otherwise it resolves to no object
-            type = NAMEDOBJECT;
+            type = OBJECT;
             val.dval[0] = 0;
             return true;
         }

@@ -71,6 +71,7 @@
     <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
     <attr name="rubbers" type="group" default="nil" rw="r"/>
+    <attr name="safeaction" type="bool" default="false" rw="rw"/>
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="false" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
@@ -167,6 +168,7 @@
       <attr name="inverse"/>
       <attr name="name"/>
       <attr name="nopaction"/>
+      <attr name="safeaction"/>
       <attr name="state"/>
       <attr name="target"/>
       <action type="bool"/>

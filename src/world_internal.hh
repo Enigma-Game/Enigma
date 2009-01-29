@@ -275,10 +275,10 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void    name_object (Object *obj, const string &name);
         void    unname (Object *);
         Object *get_named (const string &);
-        std::list<Object *> get_group(const std::string &tmpl, const Object *reference = NULL);
+        std::list<Object *> get_group(const std::string &tmpl, Object *reference = NULL);
         void namePosition(Value po, const std::string &name);
         Value getNamedPosition(const std::string &name);
-        PositionList getPositionList(const std::string &tmpl, const Object *reference = NULL);
+        PositionList getPositionList(const std::string &tmpl, Object *reference = NULL);
         
         void tick (double dtime);
         void remove (ForceField *ff);
@@ -319,6 +319,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void handle_stone_contacts(unsigned actoridx);
         void stone_change (GridPos p);
         void tick_sound_dampings ();
+        void doPerformPendingActions();
 
     public:
     
@@ -348,6 +349,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         std::vector<GridPos> changed_stones;
         std::list<GridPos>   collisionCriticalPositions;  // stones set to positions after collision check
         bool                 registerCriticalPositions;
+        std::list<Action> actionList;       // pending delayed actions for secure performance
 
         SoundDampingList     sound_dampings; // see SoundEffectManager for details
 

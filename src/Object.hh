@@ -223,7 +223,7 @@ namespace enigma {
          * @arg destpos  return value for position that is centered to a grid
          * @return       validity of position at given index
          */
-        bool getDestinationByIndex(int idx, ecl::V2 &dstpos) const;
+        bool getDestinationByIndex(int idx, ecl::V2 &dstpos);
         
         /**
          * A central managed container for 32 single bit flags to be used by 

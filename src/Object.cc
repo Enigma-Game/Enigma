@@ -302,6 +302,7 @@ namespace enigma {
         
         TokenList::iterator ait = actions.begin();
         std::string action;  // empty string as default
+        bool secure = getAttr("safeaction").to_bool();
         for (TokenList::iterator tit = targets.begin(); tit != targets.end(); ++tit) {
             action = (ait != actions.end()) ? ait->to_string() : "";
             
@@ -310,8 +311,12 @@ namespace enigma {
                 if ((action == "callback" || action.empty()) && (tit->getType() == Value::STRING)) { 
 //                        && lua::IsFunc(lua::LevelState(), tit->get_string())) {
                     // it is an existing callback function
-                    if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this, !action.empty()) != lua::NO_LUAERROR) {
-                        throw XLevelRuntime(std::string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
+                    if (secure) {
+                        PerformSecureAction(this->getId(), true, !action.empty(), tit->get_string(), messageValue);
+                    } else {
+                        if (lua::CallFunc(lua::LevelState(), tit->get_string(), messageValue, this, !action.empty()) != lua::NO_LUAERROR) {
+                            throw XLevelRuntime(std::string("callback '") + tit->get_string() + "' failed:\n"+lua::LastError(lua::LevelState()));
+                        }
                     }
                 }
                 // else ignore this no longer valid target
@@ -331,7 +336,10 @@ namespace enigma {
                         }
                         // check if message is valid, otherwise ignore message
                         if (obj_action != "nop" && (*oit)->validateMessage(obj_action, messageValue))
-                            SendMessage(*oit, Message(obj_action, messageValue, this));                    
+                            if (secure)
+                                PerformSecureAction(this->getId(), false, (*oit)->getId(), obj_action, messageValue);
+                            else
+                                SendMessage(*oit, Message(obj_action, messageValue, this));                    
                     }
                 }
             }
@@ -360,7 +368,7 @@ namespace enigma {
      */
     
     
-    bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) const {
+    bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) {
         int i = 0;  // counter for destination candidates
         TokenList tl = getAttr("destination");  // expand any tokens to a list of values 
         for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {

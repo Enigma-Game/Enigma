@@ -248,9 +248,9 @@ namespace enigma {
         /**
          * 
          */
-        ObjectList getObjectList(const Object *reference = NULL) const;
-        PositionList getPositionList(const Object *reference =NULL) const;
-        bool finalizeNearestObjectReference(const Object *reference = NULL);
+        ObjectList getObjectList(Object *reference = NULL) const;
+        PositionList getPositionList(Object *reference =NULL) const;
+        bool finalizeNearestObjectReference(Object *reference = NULL);
     private:
         void clear();      ///< Release resources and assign type NIL
 

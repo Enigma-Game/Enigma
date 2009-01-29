@@ -279,7 +279,7 @@ Object * World::get_named(const std::string &name) {
     return NULL;
 }
 
-std::list<Object *> World::get_group(const std::string &tmpl, const Object *reference) {
+std::list<Object *> World::get_group(const std::string &tmpl, Object *reference) {
     std::list<Object *> result;
     ecl::Dict<Object *>::iterator it = m_objnames.begin();
     std::string pattern = tmpl;
@@ -289,6 +289,10 @@ std::list<Object *> World::get_group(const std::string &tmpl, const Object *refe
         pattern.erase(0, 1); // erase the leading @
         if (pattern.size() > 0 && pattern[0] == '@') {
             pattern.erase(0, 1); // erase the leading @@
+        } else {
+            // a single "@" is a self reference
+            result.push_back(reference);
+            return result;
         }
         if (reference != NULL)
             nearest = true;
@@ -374,7 +378,7 @@ Value World::getNamedPosition(const std::string &name) {
     return Value(GridPos(-1, -1));
 }
 
-PositionList World::getPositionList(const std::string &tmpl, const Object *reference) {
+PositionList World::getPositionList(const std::string &tmpl, Object *reference) {
     PositionList positions;
     ObjectList objects = get_group(tmpl, reference);
     for (ObjectList::iterator itr = objects.begin(); itr != objects.end(); ++itr) {
@@ -479,6 +483,7 @@ void World::tick(double dtime)
 
     move_actors(dtime);
     tick_sound_dampings();
+    doPerformPendingActions();
 
     // Tell floors and items about new stones.
     for (unsigned i=0; i<changed_stones.size(); ++i)
@@ -493,6 +498,7 @@ void World::tick(double dtime)
     GameTimer.tick(dtime);
 
     PerformRecalcLight(false);   // recalculate laser beams if necessary
+    doPerformPendingActions();
     // do kill lasered actors in same time step
     for (unsigned i=0; i < actorlist.size(); ++i) {
         Item *it = actorlist[i]->get_actorinfo()->field->item;
@@ -500,6 +506,20 @@ void World::tick(double dtime)
             it->actor_hit(actorlist[i]);
         }
     }
+}
+
+void World::doPerformPendingActions() {
+    for (std::list<Action>::iterator itr = actionList.begin(); itr != actionList.end(); ++itr) {
+        if ((*itr).isCallback) {
+            if (lua::CallFunc(lua::LevelState(), (*itr).name, (*itr).val, Object::getObject((*itr).senderId), (*itr).targetId) != lua::NO_LUAERROR) {
+                throw XLevelRuntime(std::string("delayed callback '") + (*itr).name + "' failed:\n"+lua::LastError(lua::LevelState()));
+            }
+        } else {
+            SendMessage(Object::getObject((*itr).targetId), 
+                    Message((*itr).name, (*itr).val, Object::getObject((*itr).senderId)));
+        }
+    }
+    actionList.clear();
 }
 
 /* ---------- Puzzle scrambling -------------------- */
@@ -1734,7 +1754,7 @@ Object * GetNamedObject (const std::string &name)
     return level->get_named(name);
 }
 
-std::list<Object *> GetNamedGroup(const std::string &name, const Object *reference) {
+std::list<Object *> GetNamedGroup(const std::string &name, Object *reference) {
     return level->get_group(name, reference);
 }
 
@@ -1746,7 +1766,7 @@ Value GetNamedPosition(const string &name) {
     return level->getNamedPosition(name);    
 }
 
-PositionList GetNamedPositionList(const string &tmpl, const Object *reference) {
+PositionList GetNamedPositionList(const string &tmpl, Object *reference) {
     return level->getPositionList(tmpl, reference);    
 }
 
@@ -1951,6 +1971,9 @@ void BroadcastMessage (const std::string& msg, const Value& value, GridLayerBits
     }
 }
 
+void PerformSecureAction(int senderId, bool isCallback, int targetId, std::string name, Value val) {
+    level->actionList.push_back(Action(senderId, isCallback, targetId, name, val));
+}
 
 namespace
 {
