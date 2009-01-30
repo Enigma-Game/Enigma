@@ -287,12 +287,12 @@ std::list<Object *> World::get_group(const std::string &tmpl, Object *reference)
     double mindist = -1;
     if (pattern.size() > 0 && pattern[0] == '@') {
         pattern.erase(0, 1); // erase the leading @
-        if (pattern.size() > 0 && pattern[0] == '@') {
-            pattern.erase(0, 1); // erase the leading @@
-        } else {
+        if (pattern.size() == 0) {
             // a single "@" is a self reference
             result.push_back(reference);
             return result;
+        } else if (pattern[0] == '@') {
+            pattern.erase(0, 1); // erase the leading @@
         }
         if (reference != NULL)
             nearest = true;

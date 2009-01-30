@@ -703,6 +703,9 @@
     <object name="it_wrench"/>
     <object name="ot" abstract="true">
     </object>
+    <object name="ot_counter">
+      <msg name="signal"/>
+    </object>
     <object name="ot_rubberband">
       <attr name="anchor1"/>
       <attr name="anchor2"/>

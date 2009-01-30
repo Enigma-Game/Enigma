@@ -270,6 +270,8 @@ enigma_SOURCES = 		\
 	lev/ScoreManager.hh	\
 	lev/VolatileIndex.cc	\
 	lev/VolatileIndex.hh	\
+	others/CounterGadget.cc	\
+	others/CounterGadget.hh	\
 	others/Other.cc		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
