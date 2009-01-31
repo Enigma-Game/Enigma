@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 150 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 151 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -96,8 +96,8 @@ ti[" k"] = ti["_f"] .. {"it_cherry"}
 ti[" e"] = ti["  "] .. {"it_extinguisher_medium"}
 ti["%l"] = ti["%%"] .. {"it_extralife"}
 ti[" m"] = ti["  "] .. {"it_landmine"}
-ti[" o"] = ti["  "] .. {"it-burnable_oil"}
-ti["$o"] = ti["$$"] .. {"it-burnable_oil"}
+ti[" o"] = ti["  "] .. {"it_burnable_oil"}
+ti["$o"] = ti["$$"] .. {"it_burnable_oil"}
 ti[" s"] = ti["  "] .. {"it_squashed"}
 ti[".s"] = ti[".."] .. {"it_squashed"}
 ti[";s"] = ti[";;"] .. {"it_squashed"}
@@ -111,7 +111,7 @@ ti[" H"] = ti["  "] .. {"it_meditation_hill"}
 ti[";w"] = ti[";;"] .. {"it_magicwand"}
 ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
-ti["fw"] = ti["  "] .. {"it-flagwhite"}
+ti["fw"] = ti["  "] .. {"it_flag_white"}
 ti["ww"] = ti["  "] .. {"it_wormhole", range=0.5, destination="white_grave"}
 ti[" y"] = ti["  "] .. {"it_yinyang"}
 ti["k0"] = ti["  "] .. {"it_key", code=0}

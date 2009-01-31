@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="15" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="16" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -67,7 +67,7 @@ ti["P0"] = {"st_polarswitch"} .. ti[" 0"]
 ti["v0"] = {"it_vortex", "vortex#", autoclose = true, state = CLOSED} .. ti[" 0"]
 ti["M0"] = {"st_monoflop", "monoflop#", action = "signal"} .. ti[" 0"]
 ti["e0"] = {"it_extralife"} .. ti[" 0"]
-ti["f0"] = {"it-flagblack"} .. ti[" 0"]
+ti["f0"] = {"it_flag_black"} .. ti[" 0"]
 ti["W0"] = {"st_turnstilearm_w"} .. ti[" 0"]
 ti["S0"] = {"st_turnstilearm_s"} .. ti[" 0"]
 ti["T0"] = {"st_turnstile"} .. ti[" 0"]

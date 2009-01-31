@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 33 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 34 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,7 +69,7 @@ ti["*w"] = ti[" '"] .. {"#ac_marble_white",essential=1}
 ti["= "] = ti[" ."] .. {"it_seed"}
 ti[" ="] = {"fl_water"}
 ti[" b"] = {"it-dynamite"}
-ti["!0"] = {"it-burnable_oil"}
+ti["!0"] = {"it_burnable_oil"}
 ti["ka"] = {"it_floppy"}
 ti["K1"] = {"st_floppy",target="ollf1"}
 ti[":1"] = {"st_door",faces="ns",name="ollf1"}
@@ -122,9 +122,9 @@ ti["E "] = {"st_rawglass_movable"}
 ti["F "] = {"st_rawglass"}
 ti["! "] = ti[" ."] .. {"it_wrench"}
 ti["p1"] = ti[" a"] .. {"it_pipe",connections = "ew"}
-ti["p2"] = ti[" a"] .. {"it-flagblack"}
+ti["p2"] = ti[" a"] .. {"it_flag_black"}
 ti["p3"] = ti[" a"] .. {"it-pipe",connections = "ne"}
-ti["p4"] = ti[" a"] .. {"it-flagwhite"}
+ti["p4"] = ti[" a"] .. {"it_flag_white"}
 ti["sq"] = {"it_squashed"}
 ti["ex"] = {"it_extralife"}
 ti["t "] = {"it_trigger", target="@olli#*"}
@@ -206,8 +206,8 @@ ti["< "] = ti[" '"] .. {"st_boulder_w"}
 ti["^ "] = ti[" '"] .. {"st_boulder_n"}
 ti["v "] = ti[" '"] .. {"st_boulder_s"}
 ti["^1"] = ti["^ "] .. {"fl_water"}
-ti["//"] = {"it-burnable_burning"}
-ti["o/"] = {"it-burnable_oil"}
+ti["//"] = {"it_burnable_burning"}
+ti["o/"] = {"it_burnable_oil"}
 
 if wo ["IsDifficult"] then
     ti["oo"] = ti[" o"].. {"it_coffee"}
@@ -216,7 +216,7 @@ if wo ["IsDifficult"] then
     ti["L3"] = {"st_oneway",state=WEST}
     ti["L4"] = {"st_oneway",state=NORTH}
 else
-    ti["oo"] = ti[" o"].. {"it-flagblack"}
+    ti["oo"] = ti[" o"].. {"it_flag_black"}
     ti["L1"] = {"st_passage_black_frame"}
     ti["L2"] = {"st_passage_black_frame"}
     ti["L3"] = {"st_passage_black_frame"}

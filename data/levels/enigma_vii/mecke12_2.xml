@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 46 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 47 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -146,7 +146,7 @@ if wo ["IsDifficult"] then
     ti["a6"] = ti[" !"] .. {"it_death"}
 else
     ti["l9"] = ti[" &"] .. {"fl_ice"}
-    ti["a3"] = ti[" !"] .. {"it-flagblack"}
+    ti["a3"] = ti[" !"] .. {"it_flag_black"}
     ti["a4"] = ti[" !"] .. {"it_extralife"}
     ti["a5"] = ti[" !"] .. {"it_pin"}
     ti["a6"] = ti[" !"] .. {"fl_metal_7", friction=4.0}

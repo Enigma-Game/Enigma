@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="14" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="15" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -303,7 +303,7 @@ map =   wo:newMap(" ", level) * wo:newMap(" ", stmap)
 w, h = wo(res.composer(ti), "    ", map)
 
 if not wo["IsDifficult"] then
-  wo[{17, 9}] = {"it-flagblack"}
+  wo[{17, 9}] = {"it_flag_black"}
 end
 
 wo["SlopeForce"] = 30

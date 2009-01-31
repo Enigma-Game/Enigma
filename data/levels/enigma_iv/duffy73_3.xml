@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="18" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="19" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -59,7 +59,7 @@ ti["y"] = {"ac_marble_white", 0, 0.5, adhesion=0} .. ti["l"]
 ti["g"] = {"st_grate_cross"} .. ti["l"]
 ti["x"] = {"it_trap", state=OPEN} .. ti["."]
 ti["S"] = {"it_spring_keep"} .. ti["l"]
-ti["F"] = {"it-flagblack"} .. ti["l"]
+ti["F"] = {"it_flag_black"} .. ti["l"]
 ti["O"] = {"it_extralife"} .. ti["l"]
 ti["T"] = {"st_thief"} .. ti["="]
 ti["B"] = {"st_invisible"} .. ti["A"]
@@ -91,7 +91,7 @@ if wo["IsDifficult"] then
     ti["c"] = ti["x"]
     ti["G"] = ti["#"]
 else
-    ti["p"] = {"it-flagblack"} .. ti["l"]
+    ti["p"] = {"it_flag_black"} .. ti["l"]
     ti["c"] = ti["@"]
     ti["G"] = ti["%"]
 end

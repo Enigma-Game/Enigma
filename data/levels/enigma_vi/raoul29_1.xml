@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -17,15 +16,10 @@ wo["ConserveLevel"] = true
 
 ti[" "] = {"fl_metal"}
 ti["-"] = {"fl_abyss"}
-if wo["IsDifficult"] then
-    ti["~"] = {"fl_abyss", friction=0.25}
-else
-    ti["~"] = {"fl_abyss", friction=0.1}
-end
 ti["G"] = {"st_darkglass"}
 ti["F"] = {"st_lightglass"}
-ti["w"] = ti[" "] .. {"it-flagwhite"}
-ti["b"] = ti[" "] .. {"it-flagblack"}
+ti["w"] = {"it_flag_white"}
+ti["b"] = {"it_flag_black"}
 ti["y"] = {"it_yinyang"}
 ti["h"] = {"st_mirror", flavor="slab", transparent=true, orientation=SOUTH}
 ti["v"] = {"st_mirror", flavor="slab", transparent=true, orientation=NORTH}
@@ -39,34 +33,33 @@ ti["2"] = {"it_trigger", target="l_east", action_1="on", action_0="off"}
 ti["L"] = {"st_laser", orientation=WEST, name="l_west"}
 ti["l"] = {"st_laser", orientation=EAST, name="l_east"}
 ti["O"] = {"st_oxyd", flavor="b"}
-ti["A"] = ti["y"] .. {"#ac_marble_black", essential=1}
-ti["B"] = ti["y"] .. {"#ac_marble_white", essential=1}
-
-w, h = wo(ti, " ", {
-"-------G1~~2G-------",
-"GGOFFFFOGGGGOFFFFOGG",
-"GGh    hGGGFh    hFG",
-"OvP----PvOOvP----PvO",
-"F -    - GG -   w- F",
-"F - << - GG - |i - F",
-"F - A< - Ll - |B - F",
-"F - (< - GG - |i - F",
-"F -b   - GG -    - F",
-"OvP----PvOOvP----PvO",
-"GGh    hGGGFh    hFG",
-"GGOFFFFOGGGGOFFFFOGG",
-"-------G1~~2G-------"
-})
-
+ti["A"] = ti["y"] .. {"#ac_marble_black", essential=INDISPENSIBLE}
+ti["B"] = ti["y"] .. {"#ac_marble_white", essential=INDISPENSIBLE}
 if  wo["IsDifficult"]  then
-    wo[{10, 0.5}] = {"ac_rotor", strength=20, range=15, prefercurrent=1}
-    wo[{10, 12.5}] = {"ac_rotor", strength=20, range=15, prefercurrent=1}
+    ti["~"] = {"fl_abyss", friction=0.25}
+    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=20, range=15, prefercurrent=1}
 else
-    wo[{10, 0.5}] = {"ac_rotor", strength=10, range=15, prefercurrent=1}
-    wo[{10, 12.5}] = {"ac_rotor", strength=10, range=15, prefercurrent=1}
+    ti["~"] = {"fl_abyss", friction=0.1}
+    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=10, range=15, prefercurrent=1}
 end
+
+wo(ti, " ", {
+    "-------G1~*2G-------",
+    "GGOFFFFOGGGGOFFFFOGG",
+    "GGh    hGGGFh    hFG",
+    "OvP----PvOOvP----PvO",
+    "F -    - GG -   w- F",
+    "F - << - GG - |i - F",
+    "F - A< - Ll - |B - F",
+    "F - (< - GG - |i - F",
+    "F -b   - GG -    - F",
+    "OvP----PvOOvP----PvO",
+    "GGh    hGGGFh    hFG",
+    "GGOFFFFOGGGGOFFFFOGG",
+    "-------G1~*2G-------"})
+
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

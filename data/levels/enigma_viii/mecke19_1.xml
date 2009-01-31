@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:17$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:18$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -66,7 +66,7 @@ ti["3 "] = {"st_actorimpulse"}
 ti["k "] = {"it_cherry"}
 ti["4 "] = {"st_break_boulder"}
 ti["i "] = {"it_seed"}
-ti["w "] = {"it-flagwhite"}
+ti["w "] = {"it_flag_white"}
 ti["5 "] = {"st_thief"}
 ti["y "] = {"it_sword"}
 ti["x "] = {"it_hammer"}

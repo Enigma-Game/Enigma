@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="17" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="18" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -60,7 +60,7 @@ ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=1}) .. {"st_camouflage"
 ti["p"] = ti[" "] .. {"st_flat"}
 ti["q"] = ti[" "] .. {"st_woven"}
 ti["s"] = {"fl-gradient14"} .. ti({"st_nil"})
-ti["t"] = (ti({"fl-gradient14"}) .. {"st_grate_cross"}) .. {"it-burnable"}
+ti["t"] = (ti({"fl-gradient14"}) .. {"st_grate_cross"}) .. {"it_burnable"}
 ti["w"] = {"fl-gradient15"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl_woven"}
@@ -82,9 +82,9 @@ ti["O"] = ti[" "] .. {"st_panel", cluster=1}
 ti["P"] = {"fl_bright"} .. ti({"st_flat_breakable"})
 ti["Q"] = ti[" "] .. {"st_plaster_hollow"}
 ti["R"] = ti[" "] .. {"st_plaster"}
-ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it-burnable"}
+ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it_burnable"}
 ti["T"] = {"fl_plank"} .. ti({"it_coffee"})
-ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it-burnable"}
+ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it_burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
 ti["["] = ti[" "] .. {"st-grate3", name="d1"}
 ti["]"] = ti[" "] .. {"st-grate3", name="d2"}

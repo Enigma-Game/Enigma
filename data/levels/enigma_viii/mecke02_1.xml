@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 19 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -66,7 +66,7 @@ ti["y7"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle7"}
 ti["y8"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle8"}
 ti["y9"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle9"}
 ti["T "] = ti[" ."] .. {"st_passage_black_frame"}
-ti[" !"] = ti["  "] .. {"it-burnable_burning"}
+ti[" !"] = ti["  "] .. {"it_burnable_burning"}
 ti["$1"] = {"it_trigger", target="olli1"}
 ti["$2"] = {"it_trigger", target="olli2"}
 ti["$3"] = {"it_trigger", target="olli3"}

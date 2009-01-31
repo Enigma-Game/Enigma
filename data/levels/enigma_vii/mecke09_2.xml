@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 37 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 38 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -58,7 +58,7 @@ ti[": "] = {"st_boulder_w"}
 ti["; "] = {"st_box_wood"}
 ti["< "] = {"st_mirror", movable=false, transparent=false, orientation=WEST}
 ti[" -"] = {"fl_sahara"}
-ti["f "] = {"it-flagblack"}
+ti["f "] = {"it_flag_black"}
 ti["> "] = {"st_boulder_n"}
 ti["? "] = {"st_bluesand"}
 ti[" ."] = {"fl_samba"}
@@ -84,7 +84,7 @@ ti[" 4"] = {"fl_lawn_c1"}
 ti["H "] = {"st_redbrown"}
 ti[" 5"] = {"fl_lawn_e2"}
 ti["I "] = {"st_swap"}
-ti["z "] = {"it-flagwhite"}
+ti["z "] = {"it_flag_white"}
 ti[" 6"] = {"fl_lawn"}
 ti["J "] = {"st_passage_white_cross"}
 ti["K "] = {"st_fake_oxydd"}

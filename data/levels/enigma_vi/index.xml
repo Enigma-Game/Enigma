@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="31" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="32" title="Enigma VI"/>
 
   <attributes/>
 
@@ -77,7 +77,7 @@
     <level _seq="69" _title="Devil's Bolder" _xpath="./just14_1" author="JuSt" ctrl="force" easy="true" id="just14" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Twisting by the pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Revolver" _xpath="./ral16_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="1" rev="59" score="1" target="time" unit="duration"/>
-    <level _seq="72" _title="Same task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Same task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="ZigZag" _xpath="./ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Houdini" _xpath="./ral11_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="2" rev="58" score="2" target="time" unit="duration"/>
     <level _seq="75" _title="The wrong Place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>

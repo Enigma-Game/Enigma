@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:42$" el:status="released" />
+      <el:version el:score="1" el:release="2" el:revision="$Revision:43$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -90,7 +90,7 @@ ti["= "] = {"st_yellow"}
 ti["> "] = {"st_death_invisible"}
 ti["? "] = {"st_brownie"}
 ti["g "] = {"it_glasses"}
-ti["f "] = {"it-flagblack"}
+ti["f "] = {"it_flag_black"}
 ti["@ "] = {"st_break_oxydc"}
 ti["st"] = ti[" #"] .. {"st_break_oxydc"}
 ti["sy"] = ti["st"] .. {"it_seed"}

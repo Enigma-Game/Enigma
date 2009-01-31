@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 15 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -190,12 +190,12 @@ function settimer()
 end
 
 function hux()
-    wo[{15,1}]= {"it-burnable_oil"}
-    wo[{17,1}]= {"it-burnable_oil"}
-    wo[{16,1}]= {"it-burnable_burning"}
-    wo[{15,3}]= {"it-burnable_oil"}
-    wo[{17,3}]= {"it-burnable_oil"}
-    wo[{16,3}]= {"it-burnable_burning"}
+    wo[{15,1}]= {"it_burnable_oil"}
+    wo[{17,1}]= {"it_burnable_oil"}
+    wo[{16,1}]= {"it_burnable_burning"}
+    wo[{15,3}]= {"it_burnable_oil"}
+    wo[{17,3}]= {"it_burnable_oil"}
+    wo[{16,3}]= {"it_burnable_burning"}
 end
 
 function wormy ()
