@@ -292,7 +292,7 @@ unsigned player::NumberOfRealPlayers() {
 }
 
 /*! Sets respawn positions for black or white actors. */
-void player::SetRespawnPositions(GridPos pos, bool black) 
+void player::SetRespawnPositions(GridPos pos, Value color) 
 {
     ecl::V2 center = pos.center();
 
@@ -300,8 +300,8 @@ void player::SetRespawnPositions(GridPos pos, bool black)
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            if (Value color = al[j]->getAttr("color")) {
-                if (color == (black ? BLACK : WHITE))
+            if (Value ac = al[j]->getAttr("color")) {
+                if (ac == color)
                     al[j]->set_respawnpos(center);
             }
         }
@@ -309,13 +309,13 @@ void player::SetRespawnPositions(GridPos pos, bool black)
 }
 
 /*! Remove respawn positions for black or white actors */
-void player::RemoveRespawnPositions(bool black) {
+void player::RemoveRespawnPositions(Value color) {
     for (unsigned i=0; i<players.size(); ++i) {
         vector<Actor *> &al = players[i].actors;
 
         for (unsigned j=0; j<al.size(); ++j) {
-            if (Value color = al[j]->getAttr("color")) {
-                if (color == (black ? BLACK : WHITE))
+            if (Value ac = al[j]->getAttr("color")) {
+                if (ac == color)
                     al[j]->remove_respawnpos();
             }
         }

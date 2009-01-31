@@ -331,8 +331,8 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_key_c",                   // 0x16
     "it_floppy",                  // 0x17
     "it_sword",                   // 0x18
-    "it-flagwhite",               // 0x19
-    "it-flagblack",               // 0x1a
+    "it_flag_white",               // 0x19
+    "it_flag_black",               // 0x1a
     "it_ring",                    // 0x1b
     "it_pipe_nw",                 // 0x1c
     "it_pipe_sw",                 // 0x1d

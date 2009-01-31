@@ -86,7 +86,7 @@ namespace enigma {
             SendMessage (it, "extinguish");
         } else {
             // set extinguishing foam to prevent upcoming fire
-            SetItem (p, MakeItem("it-burnable_fireproof"));
+            SetItem (p, MakeItem("it_burnable_fireproof"));
         }
     }
     

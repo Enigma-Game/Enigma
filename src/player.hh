@@ -64,8 +64,8 @@ namespace enigma
 
         // set/remove respawn positions for all black or all white actors
         // (used when it-flagwhite/black is dropped)
-        void SetRespawnPositions(enigma::GridPos pos, bool black);
-        void RemoveRespawnPositions(bool black);
+        void SetRespawnPositions(enigma::GridPos pos, Value color);
+        void RemoveRespawnPositions(Value color);
 
         int      CurrentPlayer();
         void     SetCurrentPlayer(unsigned iplayer);

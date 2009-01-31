@@ -238,13 +238,13 @@ std::string Floor::get_heattransform(bool override_mode) {
 }
 int Floor::get_fire_countdown() {
     if (Item *it = GetItem(get_pos()))
-        if (get_id(it) == it_burnable || get_id(it) == it_burnable_oil)
+        if (get_id(it) == it_burnable_invisible || get_id(it) == it_burnable_oil)
             return 0;
     return fire_countdown;
 }
 
 bool Floor::force_fire() {
-    SetItem(get_pos(), MakeItem("it-burnable_ignited"));
+    SetItem(get_pos(), MakeItem("it_burnable_ignited"));
     fire_countdown = 0;
     return true;
 }
@@ -404,7 +404,7 @@ bool Floor::stop_fire(bool is_message) {
         SetFloor(p, MakeFloor(get_firetransform().c_str()));
     // Remember, at this point "this" may be destroyed.
     if (!GetFloor(p)->has_firetype(flft_noash))
-        SetItem(p, MakeItem("it-burnable_ash"));
+        SetItem(p, MakeItem("it_burnable_ash"));
     return true; // fire extinguished  
 }
 
@@ -431,7 +431,7 @@ void Floor::on_burnable_animcb(bool justIgnited) {
     if (cont_fire)
         // continue burning
         //   -> put animation
-        SetItem(p, MakeItem("it-burnable_burning"));
+        SetItem(p, MakeItem("it_burnable_burning"));
     else
         stop_fire(false);
 }
@@ -440,7 +440,7 @@ bool Floor::has_firetype(FloorFireType selector) {
     if (Item *it = GetItem(get_pos())) {
         ItemID id = get_id(it);
         if (selector == flft_burnable || selector == flft_ignitable) {
-            if (  id == it_burnable || id == it_burnable_oil )
+            if (  id == it_burnable_invisible || id == it_burnable_oil )
                 return true;
             if (  id == it_burnable_ash     || id == it_burnable_fireproof
                || id == it_burnable_ignited || id == it_burnable_burning )

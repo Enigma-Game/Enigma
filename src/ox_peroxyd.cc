@@ -403,8 +403,8 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_key_b",                   // 0x15
     "it_key_c",                   // 0x16
     "it_floppy",                  // 0x17
-    "it-flagwhite",               // 0x18
-    "it-flagblack",               // 0x19
+    "it_flag_white",              // 0x18
+    "it_flag_black",              // 0x19
     "it_ring",                    // 0x1a
     "it_pipe_nw",                 // 0x1b
     "it_pipe_sw",                 // 0x1c

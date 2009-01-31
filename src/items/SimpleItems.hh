@@ -96,6 +96,23 @@ namespace enigma {
     };
 
     /**
+     * FlagItem
+     */
+    class FlagItem : public Item {
+        CLONEOBJ(FlagItem);
+        DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
+    public:
+        FlagItem(int type);
+        
+        // Item interface
+       virtual void on_drop(Actor *a);
+       virtual void on_pickup(Actor *a);
+        
+    private:
+        int traitsIdx() const;
+    };
+    
+    /**
      * Floppy
      */
     DEF_ITEM(Floppy, "it_floppy", it_floppy);

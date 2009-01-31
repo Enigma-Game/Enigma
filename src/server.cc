@@ -502,7 +502,7 @@ void server::Msg_Command (const string &cmd)
 
     // ------------------------------ cheats
     else if (cmd == "god") {
-        SendMessage(player::GetMainActor(player::CurrentPlayer()), "_shield");
+        BroadcastMessage("_shield", player::CurrentPlayer(), GRID_NONE_BIT, true);
         client::Msg_Command("cheater");
     }
     else if (cmd == "collision") {

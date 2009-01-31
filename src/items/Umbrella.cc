@@ -58,7 +58,7 @@ namespace enigma {
     }
     
     ItemAction Umbrella::activate(Actor *a, GridPos) {
-        SendMessage(a, "_shield");
+        BroadcastMessage("_shield", a->getAttr("owner"), GRID_NONE_BIT, true);
         return ITEM_KILL;
     }
     

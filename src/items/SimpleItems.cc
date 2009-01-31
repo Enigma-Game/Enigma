@@ -98,6 +98,29 @@ namespace enigma {
     
     DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
+/* -------------------- Flag -------------------- */
+
+    FlagItem::FlagItem(int type) {
+        Item::setAttr("color", type);
+    }
+    
+    void FlagItem::on_drop(Actor *a) {
+        player::SetRespawnPositions(get_pos(), getAttr("color"));
+    }
+    
+    void FlagItem::on_pickup(Actor *a) {
+        player::RemoveRespawnPositions(getAttr("color"));
+    }
+    
+    int FlagItem::traitsIdx() const {
+        return getAttr("color");
+    }
+    
+    ItemTraits FlagItem::traits[2] = {
+        {"it_flag_black", it_flag_black,  itf_none, 0.0},
+        {"it_flag_white", it_flag_white,  itf_none, 0.0},
+    };
+
 /* -------------------- Pencil -------------------- */
 
     Pencil::Pencil() {
@@ -337,6 +360,9 @@ namespace enigma {
         BootRegister(new Cherry(), "it_cherry");
         BootRegister(new Coffee(), "it_coffee");
         BootRegister(new DeathItem(), "it_death");
+        BootRegister(new FlagItem(0), "it_flag");
+        BootRegister(new FlagItem(0), "it_flag_black");
+        BootRegister(new FlagItem(1), "it_flag_white");
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");

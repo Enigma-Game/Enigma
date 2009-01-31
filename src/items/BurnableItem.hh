@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef CRACKITEM_HH
-#define CRACKITEM_HH
+#ifndef BURNABLEITEM_HH
+#define BURNABLEITEM_HH
 
 #include "items.hh"
 
@@ -25,33 +25,33 @@
 
 namespace enigma {
     /**
+     * Used for animations and interfaces of fire. Study 
+     * floors.hh and floors.cc for the fire implementation.
      */
 
-    class Crack : public Item {
-        CLONEOBJ(Crack);
-        DECL_ITEMTRAITS_ARRAY(4, traitsIdx());
+    class BurnableItem : public Item {
+        CLONEOBJ(BurnableItem);
+        DECL_ITEMTRAITS_ARRAY(6, traitsIdx());
 
     private:
         enum iState {
-            INVISIBLE  = -1,       ///< 
-            SMALL      =  0,       ///< 
-            MEDIUM     =  1,       ///< 
-            LARGE      =  2,       ///<
-            DISSOLVING =  3        ///<  
+            IDLE       =  0,       ///< 
+            OIL        =  1,       ///< 
+            IGNITE     =  2,       ///<
+            BURNING    =  3,       ///<  
+            ASH        =  4,       ///<  
+            FIREPROOF  =  5,       ///<  
         };
 
     public:
-        Crack(int type);
+        BurnableItem(int type);
         
         // Object interface
         virtual std::string getClass() const;
         virtual Value message (const Message &m);
 
         // StateObject interface
-        virtual int maxState() const;
-        virtual int minState() const;
-        virtual void toggleState();
-//        virtual void setState(int extState);
+        virtual void setState(int extState);
 
         // GridObject interface
         virtual void init_model();

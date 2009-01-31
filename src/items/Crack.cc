@@ -78,12 +78,13 @@ namespace enigma {
         KillItem(p);
     }
     
-    void Crack::actor_enter(Actor *a) {
+    bool Crack::actor_hit(Actor *a) {
         if (a->is_on_floor()) {
             crack();
             if (state < DISSOLVING)
                 spread();
         }
+        return false;
     }
     
     void Crack::crack() {

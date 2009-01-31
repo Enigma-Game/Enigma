@@ -208,8 +208,12 @@ enigma_SOURCES = 		\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
 	items/BlockerItem.hh	\
+	items/BurnableItem.cc	\
+	items/BurnableItem.hh	\
 	items/Coin.cc		\
 	items/Coin.hh		\
+	items/CompatibilityItems.cc	\
+	items/CompatibilityItems.hh	\
 	items/Crack.cc		\
 	items/Crack.hh		\
 	items/CrossItem.cc	\

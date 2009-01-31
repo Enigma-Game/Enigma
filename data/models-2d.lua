@@ -458,8 +458,8 @@ do
         "it_document",
         "it-drop",
         "it-dynamite",
-        "it-flagblack",
-        "it-flagwhite",
+        "it_flag_black",
+        "it_flag_white",
         "it-odometer",
         "it_pencil",
         "it_pin",
@@ -533,7 +533,7 @@ end
 
 -- Oil --
 do
-    DefSubimages("it-burnable_oil", {h=4})
+    DefSubimages("it_burnable_oil", {h=4})
 end
 
 -- Laserbeams --
@@ -590,17 +590,17 @@ end
 
 -- Burning Floor --
 do
-    local images = DefSubimages("it-burnable_ignite", {h=8})
+    local images = DefSubimages("it_burnable_ignite", {h=8})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-burnable_ignited", frames)
+    DefAnim("it_burnable_ignited", frames)
 
-    local images = DefSubimages("it-burnable_burning", {h=8})
+    local images = DefSubimages("it_burnable_burning", {h=8})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-burnable_burning", frames)
+    DefAnim("it_burnable_burning", frames)
 
     -- Simple fire related items:
-    DefImages({"it-burnable_ash", "it-burnable_fireproof"})
-    DefAlias("it-burnable", "invisible")
+    DefImages({"it_burnable_ash", "it_burnable_fireproof"})
+    DefAlias("it_burnable_invisible", "invisible")
 end
 
 -- it-coffee --

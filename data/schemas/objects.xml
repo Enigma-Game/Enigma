@@ -98,6 +98,7 @@
     <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
     <msg name="expl" type="nil"/>
+    <msg name="extinguish" type="nil"/>
     <msg name="fire" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="forcefire" type="nil"/>
@@ -390,6 +391,31 @@
       <attr name="coin_value" default="3"/>
       <attr name="state" rw="r"/>
     </object>
+    <object name="it_burnable">
+      <attr name="state" max="5" rw="r"/>
+      <msg name="extinguish"/>
+      <msg name="ignite"/>
+      <msg name="_brush"/>
+      <msg name="_explosion"/>
+    </object>
+    <object name="it_burnable_invisible">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_burnable_oil">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_burnable_ignited">
+      <attr name="state" value="2"/>
+    </object>
+    <object name="it_burnable_burning">
+      <attr name="state" value="3"/>
+    </object>
+    <object name="it_burnable_ash">
+      <attr name="state" value="4"/>
+    </object>
+    <object name="it_burnable_fireproof">
+      <attr name="state" value="5"/>
+    </object>
     <object name="it_coin_s">
       <attr name="state" value="0"/>
     </object>
@@ -399,7 +425,7 @@
     <object name="it_coin_l">
       <attr name="state" value="2"/>
     </object>
-     <object name="it_crack">
+    <object name="it_crack">
       <attr name="state" min="-1" max="3"/>
       <attr name="fragility"/>
       <attr name="spreading"/>
@@ -418,7 +444,7 @@
     <object name="it_crack_l">
       <attr name="state" value="2"/>
     </object>
-   <object name="it_cross">
+    <object name="it_cross">
       <attr name="interval" default="10"/>
       <attr name="state" rw="r"/>
       <msg name="_brush"/>
@@ -428,7 +454,7 @@
     <object name="it_document">
       <attr name="text"/>
     </object>
-     <object name="it_extinguisher">
+    <object name="it_extinguisher">
       <attr name="state" max="2"/>
     </object>
     <object name="it_extinguisher_empty">
@@ -445,6 +471,15 @@
     <object name="it_floppy"/>
     <object name="it_glasses">
       <attr name="state" max="31"/>
+    </object>
+    <object name="it_flag">
+      <attr name="color"/>
+    </object>
+    <object name="it_flag_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="it_flag_white">
+      <attr name="color" value="1"/>
     </object>
     <object name="it_glasses_broken">
       <attr name="state" value="0"/>
