@@ -75,6 +75,7 @@
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="false" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
+    <attr name="selection" type="tokens" default="nil" rw="rw"/>
     <attr name="spreading" type="double" default="nil" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
@@ -686,6 +687,9 @@
     </object>
     <object name="it_strip_nesw">
       <attr name="connections" value="nesw"/>
+    </object>
+    <object name="it_surprise">
+      <attr name="selection"/>
     </object>
     <object name="it_sword"/>
     <object name="it_sword_new" init="true"/>
@@ -1569,6 +1573,9 @@
       <attr name="steady" value="true"/>
     </object>
     <object name="st_stoneimpulse_new" init="true">
+    </object>
+    <object name="st_surprise">
+      <attr name="selection"/>
     </object>
     <object name="st_swap">
       <attr name="state" rw="r"/>

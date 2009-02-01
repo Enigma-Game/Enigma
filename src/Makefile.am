@@ -250,6 +250,8 @@ enigma_SOURCES = 		\
 	items/SimpleItems.hh	\
 	items/StripItem.cc	\
 	items/StripItem.hh	\
+	items/SurpriseItem.cc	\
+	items/SurpriseItem.hh	\
 	items/Sword.cc		\
 	items/Sword.hh		\
 	items/TrapItem.cc	\
@@ -370,6 +372,8 @@ enigma_SOURCES = 		\
 	stones/StandardStones.hh	\
 	stones/StoneImpulse.cc	\
 	stones/StoneImpulse.hh	\
+	stones/SurpriseStone.cc	\
+	stones/SurpriseStone.hh	\
 	stones/SwapStone.cc	\
 	stones/SwapStone.hh	\
 	stones/Switch.cc	\

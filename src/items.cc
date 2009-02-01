@@ -343,7 +343,7 @@ namespace
                 // In space, an it-dynamite explodes to an it-sherd:
                 // HOT FIX
                 //replace(it_sherd);
-                replace("it-hollow");
+                replace("it_meditation_hollow");
             } else if (model == "fl_ice") {
                 // In ice, an it-dynamite explodes to an it-crack2:
                 replace("it_crack_m");
@@ -540,31 +540,6 @@ namespace
                 itf_static | itf_animation | itf_indestructible | itf_fireproof);
 }
 
-/* -------------------- it-surprise -------------------- */
-namespace
-{
-
-    class SurpriseItem : public Item {
-        CLONEOBJ(SurpriseItem);
-        DECL_ITEMTRAITS;
-
-        void on_drop (Actor *) {
-            static char *items[] = {
-                "it_umbrella",
-                "it_spring_keep",
-                "it-dynamite",
-                "it_coffee",
-                "it_hammer"
-            };
-            replace(items[enigma::IntegerRand (0, 4)]);
-        }
-    public:
-        SurpriseItem() {
-        }
-    };
-    DEF_ITEMTRAITS(SurpriseItem, "it-surprise", it_surprise);
-}
-
 /* -------------------- Drop -------------------- */
 
 namespace
@@ -665,7 +640,6 @@ void InitItems()
     RegisterItem (new Explosion2);
     RegisterItem (new Explosion3);
     RegisterItem (new Odometer);
-    RegisterItem (new SurpriseItem);
     RegisterItem (new WhiteBomb);
 }
 

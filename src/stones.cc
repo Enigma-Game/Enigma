@@ -407,38 +407,6 @@ void SpitterStone::actor_hit (const StoneContact &sc)
     }
 }
 
-/* -------------------- Surprise stone -------------------- */
-namespace 
-{
-    class SurpriseStone : public Stone {
-        CLONEOBJ (SurpriseStone);
-        DECL_TRAITS;
-    public:
-        SurpriseStone()
-        {}
-
-        void actor_hit (const StoneContact &) {
-            static const char *stonename[] = {
-                "st_grate_cross",
-                "st_death",
-                "st-surprise",
-                "st_lightglass_hollow",
-                "st_dongle",
-                "st_knight",
-                "st_thief",
-                "st_flat_breakable",
-                "st_flat_breaking"
-            };
-            int idx = enigma::IntegerRand (1, 9) - 1;
-            sound_event ("stonetransform");
-            ReplaceStone (get_pos(), MakeStone (stonename[idx]));
-        }
-    private:
-        FreezeStatusBits get_freeze_bits() { return FREEZEBIT_IRREGULAR; }
-    };
-    DEF_TRAITS(SurpriseStone, "st-surprise", st_surprise);
-}
-
 /* -------------------- Black- and Whiteballs Stones -------------------- */
 
 namespace
@@ -533,7 +501,6 @@ void InitStones() {
     // Register(new ...);
 
     Register (new SpitterStone);
-    Register (new SurpriseStone);
     Register (new BlackBallsStone);
     Register (new WhiteBallsStone);
 

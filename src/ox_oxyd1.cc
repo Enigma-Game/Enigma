@@ -177,7 +177,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_grate_cross",           // Oxyd1 stone 0x1a
     "st_grate_framed",          // Oxyd1 stone 0x1b
     "st_break_bug",             // Oxyd1 stone 0x1c
-    "st-surprise",              // Oxyd1 stone 0x1d
+    "st_surprise",              // Oxyd1 stone 0x1d
     "st-chameleon",             // Oxyd1 stone 0x1e
     "st_brick",                 // Oxyd1 stone 0x1f
     "st_granite",               // Oxyd1 stone 0x20
@@ -341,7 +341,7 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_pipe_ns",                 // 0x20
     "it_pipe_ew",                 // 0x21
     "it_spade",                   // 0x22
-    "it-surprise",                // 0x23
+    "it_surprise",                // 0x23
     "it_pin",                     // 0x24
     "it_seed",                    // 0x25
     "it_spring_drop",             // 0x26

@@ -468,7 +468,7 @@ do
         "it_spoon",
         "it_spring_keep",
         "it_spring_drop",
-        "it-surprise",
+        "it_surprise",
         "it_weight",
         "it-whitebomb"
     }
@@ -788,7 +788,7 @@ do
     DefStone("st-rubberband")
     DefStone("st_brownpyramide")
     DefStone("st_redmarble")
-    DefStone("st-surprise")
+    DefStone("st_surprise")
     DefStone("st-white1")
     DefStone("st-white2")
     DefStone("st-white3")

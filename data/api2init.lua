@@ -57,6 +57,10 @@ function Require(filename)
     enigma.LoadLib(string.sub(filename,8,string.len(filename)-4))
 end
 
+function enigma.settile(key, pos)
+    wo[pos] = en.ti[key]
+end
+
 ---------------
 -- Constants --
 ----------------

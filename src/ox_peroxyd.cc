@@ -214,7 +214,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st-white1",                // PerOxyd stone 0x17 (Looks a little bit different, but function should be the same.)
     "st_grate_cross",           // PerOxyd stone 0x18
     UNUSED,                     // PerOxyd stone 0x19
-    "st-surprise",              // PerOxyd stone 0x1a
+    "st_surprise",              // PerOxyd stone 0x1a
     "st-chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
     "st_magic_brick",           // PerOxyd stone 0x1c
     "st_camouflage",            // PerOxyd stone 0x1d (green camouflage piece)(if st-camouflage is implemented, put it in here)
@@ -413,7 +413,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_pipe_ns",                  // 0x1f
     "it_pipe_ew",                  // 0x20
     "it_spade",                   // 0x21
-    "it-surprise",                // 0x22
+    "it_surprise",                // 0x22
     "it_pin",                     // 0x23
     "it_seed",                    // 0x24
     "it_spring_board",            // 0x25
