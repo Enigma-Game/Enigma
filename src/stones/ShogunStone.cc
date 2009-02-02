@@ -150,8 +150,6 @@ namespace enigma {
     }
 
     void ShogunStone::on_impulse(const Impulse& impulse) {
-        static char * soundevent = "movesmall";
-        
         if (!impulse.byWire && subShogun != NULL) {
             subShogun->on_impulse(impulse);
             return;
@@ -171,7 +169,7 @@ namespace enigma {
             if (!yieldShogun())
                 return;            // being swapped or pulled
             
-            sound_event(soundevent);
+            sound_event("movesmall");
             
             // then put to new position
             if (st == NULL) {

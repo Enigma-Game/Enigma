@@ -402,6 +402,6 @@ const char *oxyd::oxyd1_item_map[256] = {
     UNUSED,                  // 0x5d
     UNUSED,                  // 0x5e
     "it_sensor",                  // 0x5f
-    "it-drop",                    // 0x60    drop (turns actor into rotor)
+    "it_drop",                    // 0x60    drop (turns actor into rotor)
     // codes >= 0x61 are unused
 };

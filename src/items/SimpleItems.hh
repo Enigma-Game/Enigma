@@ -92,7 +92,23 @@ namespace enigma {
 
         // Item interface
         virtual bool actor_hit(Actor *a);
+    };
+
+    /**
+     * DeathItem
+     */
+    class Debris : public Item {
+        CLONEOBJ(Debris);
+        DECL_ITEMTRAITS;
+
+    public:
+        Debris();
         
+        // ModelCallback interface
+        virtual void animcb();
+
+        // Item interface
+        virtual bool actor_hit(Actor *a);
     };
 
     /**

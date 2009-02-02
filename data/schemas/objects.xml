@@ -385,6 +385,15 @@
     <object name="it_bag"/>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_bottle">
+      <msg name="_brush"/>
+    </object>
+    <object name="it_bottle_idle">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_bottle_broken">
+      <attr name="state" value="1"/>
+    </object>
     <object name="it_brake"/>
     <object name="it_brush"/>
     <object name="it_cherry"/>
@@ -455,6 +464,7 @@
     <object name="it_document">
       <attr name="text"/>
     </object>
+    <object name="it_drop"/>
     <object name="it_extinguisher">
       <attr name="state" max="2"/>
     </object>

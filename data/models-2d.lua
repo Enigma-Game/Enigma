@@ -453,14 +453,14 @@ do
         "it_bag",
         "it-blackbomb",
         "it-blocker",
-        "it-booze",
-        "it-booze-broken",
+        "it_bottle_idle",
+        "it_bottle_broken",
         "it_document",
-        "it-drop",
+        "it_drop",
         "it-dynamite",
         "it_flag_black",
         "it_flag_white",
-        "it-odometer",
+        "it_odometer",
         "it_pencil",
         "it_pin",
         "it_ring",
@@ -528,7 +528,7 @@ end
 
 -- it-dummy
 do
-    DefTiles("it-dummy", {"it-dummy", "it-dummy_egg"})
+    DefTiles("it_dummy", {"it_dummy", "it_dummy_egg"})
 end
 
 -- Oil --
@@ -614,7 +614,7 @@ end
 do
     local images = DefSubimages("it-crack", {h=8})
     local frames = BuildFrames(images,50)
-    DefAnim("it-debris", frames)
+    DefAnim("it_debris", frames)
 
     local frames = BuildFrames({"it-crack4", "it-crack5", "it-crack6", "it-crack7", "it-crack8"},120)
     DefAnim("it-crack_anim", frames)

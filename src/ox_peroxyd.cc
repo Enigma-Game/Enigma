@@ -453,7 +453,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_magicwand",               // 0x47
     "it_wrench",                  // 0x48
     UNUSED,                  // 0x49
-    "it-odometer",                // 0x4a
+    "it_odometer",                // 0x4a
     "it_puller_n",                // 0x4b
     "it_puller_s",                // 0x4c
     "it_puller_w",                // 0x4d

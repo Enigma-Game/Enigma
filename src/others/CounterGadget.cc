@@ -44,7 +44,9 @@ namespace enigma {
             } else {
                 state--;
             }
-            if (Value stateTarget = getAttr(ecl::strf("target_%d", state))) {
+            Value stateTarget = getAttr(ecl::strf("target_%d", state));
+            Value stateAction = getAttr(ecl::strf("action_%d", state));
+            if (stateTarget || stateAction) {
                 performAction(true);
             }
             return Value();

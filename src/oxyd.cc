@@ -399,7 +399,7 @@ Item  *OxydLoader::make_item(int type, int x, int y)
             std::string key = config.itemtable[type];
             if (key == IT_INVALID) {
                 Log << ecl::strf ("Unknown item %X\n",type);
-                it = MakeItem("it-dummy");
+                it = MakeItem("it_dummy");
                 it->setAttr("code", type);
             } else if (key == "it_vortex_closed") {
                 it = MakeItem(key.c_str());

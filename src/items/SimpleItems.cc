@@ -98,6 +98,24 @@ namespace enigma {
     
     DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
+/* -------------------- Debris -------------------- */
+
+    Debris::Debris() {
+    }
+    
+    void Debris::animcb() { 
+        SetFloor(get_pos(), MakeFloor("fl_abyss"));
+        kill();
+     }
+
+    bool Debris::actor_hit(Actor *a) {
+        SendMessage(a, "_fall");
+        return false;
+    }
+
+    DEF_ITEMTRAITSF(Debris, "it_debris", it_debris,
+                itf_static | itf_animation | itf_indestructible | itf_fireproof);
+    
 /* -------------------- Flag -------------------- */
 
     FlagItem::FlagItem(int type) {
@@ -360,6 +378,7 @@ namespace enigma {
         BootRegister(new Cherry(), "it_cherry");
         BootRegister(new Coffee(), "it_coffee");
         BootRegister(new DeathItem(), "it_death");
+        BootRegister(new Debris(), "it_debris");
         BootRegister(new FlagItem(0), "it_flag");
         BootRegister(new FlagItem(0), "it_flag_black");
         BootRegister(new FlagItem(1), "it_flag_white");

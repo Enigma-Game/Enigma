@@ -386,7 +386,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     UNUSED,        // OxydMagnum item 0x5d
     UNUSED,        // OxydMagnum item 0x5e
     "it_sensor_filter1", // OxydMagnum item 0x5f
-    "it-drop",          // OxydMagnum item 0x60 (drunk)
+    "it_drop",          // OxydMagnum item 0x60 (drunk)
     UNUSED,        // OxydMagnum item 0x61 (rev. breaking are)
     UNUSED,        // OxydMagnum item 0x62 (player exchange)
     "it_trigger",       // OxydMagnum item 0x63

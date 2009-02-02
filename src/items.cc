@@ -155,86 +155,6 @@ bool Item::actor_hit(Actor *actor)
     }
 }
 
-/* -------------------- Various simple items -------------------- */
-
-namespace
-{
-    DEF_ITEM(Odometer,  "it-odometer", it_odometer);
-}
-
-/* -------------------- DummyItem -------------------- */
-    class Dummyitem : public Item {
-        CLONEOBJ(Dummyitem);
-        DECL_ITEMTRAITS;
-
-        void on_pickup(Actor *) {
-            int code = getAttr("code");
-            fprintf(stderr, "Picked up item 0x%x\n", code);
-        }
-        void on_drop(Actor *) {
-            int code = getAttr("code");
-            fprintf(stderr, "Dropped item 0x%x\n", code);
-        }
-    public:
-        Dummyitem() {}
-    };
-    DEF_ITEMTRAITSF(Dummyitem, "it-dummy", it_dummy, itf_fireproof);
-
-/* -------------------- Booze -------------------- */
-
-namespace
-{
-    class Booze : public Item {
-	CLONEOBJ(Booze);
-        DECL_ITEMTRAITS;
-    public:
-	Booze() {
-	}
-    private:
-	ItemAction activate(Actor *a, GridPos) {
-	    SendMessage(a, "_booze");
-	    return ITEM_DROP;
-	}
-    void on_stonehit(Stone *) {
-        sound_event("shatter");
-        replace("it-booze-broken");
-    }
-    };
-    DEF_ITEMTRAITS(Booze, "it-booze", it_booze);
-}
-
-/* -------------------- Broken Booze -------------------- */
-namespace
-{
-    class BrokenBooze : public Item {
-        CLONEOBJ(BrokenBooze);
-        DECL_ITEMTRAITS;
-
-        bool actor_hit(Actor *a) {
-            ActorInfo &ai = * a->get_actorinfo();
-            if (!ai.grabbed && a->is_on_floor()) {
-                SendMessage(a, "_shatter");
-            }
-            return false;
-        }
-
-        virtual Value message (const Message &m) {
-            if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-                if (m.message == "_brush") {
-                    KillItem(this->get_pos());
-                    return Value();
-                }
-            }
-            return Item::message(m);
-        }
-
-    public:
-        BrokenBooze() {}
-    };
-
-    DEF_ITEMTRAITSF(BrokenBooze, "it-booze-broken", it_booze_broken, itf_static | itf_indestructible);
-}
-
 /* -------------------- Explosion -------------------- */
 namespace
 {
@@ -294,7 +214,7 @@ namespace
         void animcb() {
             if (Floor *fl = GetFloor(get_pos()))
                 if (fl->is_destructible())
-                    replace("it-debris");
+                    replace("it_debris");
                 else
                     kill();
         }
@@ -517,112 +437,6 @@ namespace
                 itf_static | itf_indestructible | itf_fireproof);
 }
 
-/* -------------------- Debris -------------------- */
-namespace
-{
-    class Debris : public Item {
-        CLONEOBJ(Debris);
-        DECL_ITEMTRAITS;
-
-        bool actor_hit(Actor *a) {
-            SendMessage(a, "_fall");
-            return false;
-        }
-        void animcb() {
-            GridPos p = get_pos();
-            SetFloor(p, MakeFloor("fl_abyss"));
-            KillItem(p);
-        }
-    public:
-        Debris() {}
-    };
-    DEF_ITEMTRAITSF(Debris, "it-debris", it_debris,
-                itf_static | itf_animation | itf_indestructible | itf_fireproof);
-}
-
-/* -------------------- Drop -------------------- */
-
-namespace
-{
-    Actor *replace_actor (Actor *olda, Actor *newa)
-    {
-        ActorInfo *info = newa->get_actorinfo();
-        info->pos = olda->get_pos();
-        info->vel = olda->get_vel();
-
-        if (Value v = olda->getAttr("owner")) {
-            player::ReplaceActor((int)v, olda, newa);
-        }
-
-        AddActor (newa);
-        if (!YieldActor (olda)) {
-            enigma::Log << "Strange: could not remove old actor\n";
-        }
-        olda->hide();
-        newa->show();
-        return olda;
-    }
-
-    class DropCallback : public enigma::TimeHandler {
-        Actor *rotor;
-        Actor *old;
-    public:
-        DropCallback (Actor *rotor_, Actor *old_)
-        : rotor (rotor_), old (old_)
-        {}
-
-        // TimerHandler interface
-        virtual void alarm()
-        {
-            replace_actor (rotor, old);
-
-            delete rotor;
-            delete this;
-        }
-    };
-
-    class Drop : public Item {
-        CLONEOBJ (Drop);
-        DECL_ITEMTRAITS;
-
-        ItemAction activate(Actor *a, GridPos)
-        {
-            const double ROTOR_LIFETIME = 5.0;
-
-            int     iplayer = a->getAttr("owner");
-            ActorID id      = get_id (a);
-
-            if (id == ac_marble_black || id == ac_marble_white) {
-                // Kill ALL rubberbands connected with the actor:
-                SendMessage(a, "disconnect");
-                Actor *rotor = MakeActor("ac_rotor");
-                rotor->setAttr("adhesion", 1.0);
-                rotor->setAttr("controllers", iplayer+1);
-                rotor->setAttr("owner", iplayer);
-                rotor->setAttr("gohome", false);
-                rotor->setAttr("essential", a->getAttr("essential"));
-                std::string essId;
-                if (Value v = a->getAttr("essential_id")) {
-                    essId = v.to_string();
-                } else {
-                    essId = a->get_traits().name;
-                }
-                rotor->setAttr("essential_id", Value(essId));
-
-                replace_actor (a, rotor);
-
-                GameTimer.set_alarm (new DropCallback (rotor, a),
-                                            ROTOR_LIFETIME,
-                                            false);
-            }
-            return ITEM_KILL;	       // remove from inventory
-        }
-
-    public:
-        Drop() {}
-    };
-    DEF_ITEMTRAITS(Drop, "it-drop", it_drop);
-}
 
 /* -------------------- Functions -------------------- */
 
@@ -630,16 +444,10 @@ void InitItems()
 {
     RegisterItem (new BlackBomb);
     RegisterItem (new BlackBombBurning);
-    RegisterItem (new Booze);
-    RegisterItem (new BrokenBooze);
-    RegisterItem (new Debris);
-    RegisterItem (new Drop);
-    RegisterItem (new Dummyitem);
     RegisterItem (new Dynamite);
     RegisterItem (new Explosion1);
     RegisterItem (new Explosion2);
     RegisterItem (new Explosion3);
-    RegisterItem (new Odometer);
     RegisterItem (new WhiteBomb);
 }
 

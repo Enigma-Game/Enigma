@@ -208,6 +208,8 @@ enigma_SOURCES = 		\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
 	items/BlockerItem.hh	\
+	items/Bottle.cc		\
+	items/Bottle.hh		\
 	items/BurnableItem.cc	\
 	items/BurnableItem.hh	\
 	items/Coin.cc		\
@@ -220,6 +222,8 @@ enigma_SOURCES = 		\
 	items/CrossItem.hh	\
 	items/DocumentItem.cc	\
 	items/DocumentItem.hh	\
+	items/Drop.cc		\
+	items/Drop.hh		\
 	items/Extinguisher.cc	\
 	items/Extinguisher.hh	\
 	items/ExtraLife.cc	\

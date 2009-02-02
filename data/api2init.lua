@@ -84,6 +84,7 @@ YIN       = 0
 YANG      = 1
 EMPTY     = 0
 FULL      = 2
+BROKEN    = 1 
 
 -- color
 BLACK  = 0

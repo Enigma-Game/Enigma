@@ -77,6 +77,26 @@ namespace enigma {
     };
 
     /**
+     * DummyItem
+     */
+    class Dummyitem : public Item {
+        CLONEOBJ(Dummyitem);
+        DECL_ITEMTRAITS;
+    public:
+        Dummyitem();
+        
+        // Item interface
+       virtual void on_drop(Actor *a);
+       virtual void on_pickup(Actor *a);
+    };
+
+
+    /**
+     * Odometer
+     */
+    DEF_ITEM(Odometer, "it_odometer", it_odometer);
+    
+    /**
      * OxydBridge
      */
     class OxydBridge : public Item {
