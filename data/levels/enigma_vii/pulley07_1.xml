@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="18" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="19" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -76,7 +76,7 @@ ti["I"] = ti["y"] .. {"#ac_pearl_white", owner=0, name="Seymour"}
 ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=0,essential=-1}
 ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=0,essential=-1}
 ti["L"] = ti["f"] .. {"#ac_pearl_white", name="Audrey", controllers=0,essential=-1}
-ti["Y"] = ti[" "] .. {"st-grate3"}
+ti["Y"] = ti[" "] .. {"st_portal"}
 ti["M"] = ti["Y"] .. {"#ac_horse", strength=3, name="horse", destination={"d1","d2","d3","d4"}} -- Chiffon, Crystal, Ronnette
 ti["O"] = ti[" "] .. {"st_panel", cluster=1}
 ti["P"] = {"fl_bright"} .. ti({"st_flat_breakable"})
@@ -86,10 +86,10 @@ ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it_bu
 ti["T"] = {"fl_plank"} .. ti({"it_coffee"})
 ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it_burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
-ti["["] = ti[" "] .. {"st-grate3", name="d1"}
-ti["]"] = ti[" "] .. {"st-grate3", name="d2"}
-ti["{"] = ti[" "] .. {"st-grate3", name="d3"}
-ti["}"] = ti[" "] .. {"st-grate3", name="d4"}
+ti["["] = ti[" "] .. {"st_portal", name="d1"}
+ti["]"] = ti[" "] .. {"st_portal", name="d2"}
+ti["{"] = ti[" "] .. {"st_portal", name="d3"}
+ti["}"] = ti[" "] .. {"st_portal", name="d4"}
 
 --|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
 --|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|

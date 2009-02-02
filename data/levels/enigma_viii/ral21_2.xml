@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 151 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 152 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -165,7 +165,7 @@ ti["t5"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano5"}
 ti["t6"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano6"}
 ti["tc"] = ti["^^"] .. {"it_sensor", target="scorpion_count"}
 ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init", invisible=true}
-ti[" C"] = ti["  "] .. {"st-chameleon"}
+ti[" C"] = ti["  "] .. {"st_chameleon"}
 ti["'b"] = ti["''"] .. {"st_passage_black_frame"}
 ti["W "] = ti["  "] .. {"st_passage_white_cross"}
 ti["Wv"] = ti[" v"] .. {"st_passage_white_cross"}
@@ -247,7 +247,7 @@ ti["B,"] = ti[",,"] .. {"st_door_d", "ali_barber", faces="ew"}
 ti["K0"] = ti["  "] .. {"st_key", code=0, target="predecessor"}
 ti["B0"] = ti[",,"] .. {"st_door_d", "predecessor", faces="ew"}
 ti["O,"] = ti[",,"] .. {"st_door_d", "oil_shop", faces="ns"}
-ti["Cm"] = ti[" m"] .. {"st-chameleon"}
+ti["Cm"] = ti[" m"] .. {"st_chameleon"}
 ti["UA"] = ti["_U"] .. {"st_lightglass"}
 ti["B;"] = ti[";;"] .. {"st_passage_black_frame"}
 ti["BB"] = ti["  "] .. {"st_brick", cluster=1}
@@ -290,7 +290,7 @@ ti["GA"] = ti[",,"] .. {"st_beads"}
 ti["GV"] = ti["t1"] .. {"st_passage_black_frame"}
 ti["Ti"] = ti["ti"] .. {"st_passage_black_frame"}
 ti["HW"] = ti["  "] .. {"st_chess_white"}
-ti["C."] = ti[".."] .. {"st-chameleon"}
+ti["C."] = ti[".."] .. {"st_chameleon"}
 ti["Mw"] = ti["  "] .. {"st_mail_w"}
 ti["TL"] = ti[",,"] .. {"st_timer", target="do_curse_legs", name="timer_curse_legs", state=OFF}
 ti["ON"] = ti["^^"] .. {"st_oneway_n"}
@@ -317,7 +317,7 @@ ti["KA"] = ti["  "] .. {"st_floppy", target="door8"}
 ti["D5"] = ti["::"] .. {"st_door_c", "door5#"}
 ti["D7"] = ti[".."] .. {"st_door_a", "door7"}
 ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
-ti["_C"] = ti["__"] .. {"st-chameleon"}
+ti["_C"] = ti["__"] .. {"st_chameleon"}
 ti["_T"] = ti["__"] .. {"st_invisible"} .. ti({"#ac_horse"})
 
 ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=0, controllers=1} .. ti({"it_extralife"})
@@ -334,14 +334,14 @@ ti[" 6"] = ti["  "] .. {"#ac_rotor", range=3, strength=40, name="rotor"}
 ti["%6"] = ti["%%"] .. {"#ac_rotor", range=3, strength=40}
 ti["'6"] = ti["''"] .. {"ac_rotor", range=3, strength=40}
 
-ti["C4"] = ti[" 4"] .. {"st-chameleon"}    -- aka sand viper in natur
+ti["C4"] = ti[" 4"] .. {"st_chameleon"}    -- aka sand viper in natur
 ti["H4"] = ti[" 4"] .. {"st_greenbrown_hollow"}    -- aka sand viper in natur
 ti["P5"] = ti[" 5"] .. {"st_pull"}    -- aka sand viper in a puller
 ti["G6"] = ti[" 6"] .. {"st_lightglass"}    -- aka rotodile in a puller
 ti["G3"] = ti[" 3"] .. {"st_lightglass"}    -- aka scorpion in a puller
 ti["G8"] = ti[" 8"] .. {"st_lightglass_movable"}
 ti["W4"] = ti[" 4"] .. {"st_window_e"}
-ti["C1"] = ti["k1"] .. {"st-chameleon"}
+ti["C1"] = ti["k1"] .. {"st_chameleon"}
 
 ti["'A"] = {"fl_sahara", "tutoxyd"}
 
@@ -359,8 +359,8 @@ ti["Ve"] = ti["Hw"] .. {"it_vortex", "vortex_e", destination="vortex_E"}
 ti["VE"] = ti["%%"] .. {"it_vortex", "vortex_E", destination="vortex_e"}
 ti["FB"] = ti["Rh"] .. {"it_wormhole", destination="fire_target", range=1.5}
 
-ti["'c"] = ti["''"] .. {"st-chameleon"}
-ti["?g"] = ti["  "] .. {"st-grate3"}
+ti["'c"] = ti["''"] .. {"st_chameleon"}
+ti["?g"] = ti["  "] .. {"st_portal"}
 ti[" w"] = ti["  "] .. {"it_magicwand"}
 
 ti["ni"] = {"st_nil"} .. ti{"it_nil"}

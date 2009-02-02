@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 38 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 39 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -94,7 +94,7 @@ ti["M "] = {"st_shogun_sml"}
 ti["N "] = {"st_door_a"}
 ti["m "] = {"it_springboard"}
 ti["O "] = {"st_purplegray"}
-ti["P "] = {"st-grate3"}
+ti["P "] = {"st_portal"}
 ti["R "] = {"st_grate_framed"}
 ti[" 7"] = {"fl_space"}
 ti["S "] = {"st_ghost_break"}
@@ -104,7 +104,7 @@ ti[" 9"] = {"fl_hay"}
 ti["U "] = {"st_plaster_breakable"}
 ti["V "] = {"st_tigris"}
 ti["W "] = {"st_mirror", movable=true, transparent=false, orientation=SOUTH}
-ti["n "] = {"it-surprise"}
+ti["n "] = {"it_surprise"}
 ti["X "] = {"st_oneway_black_n"}
 ti["o "] = {"it_squashed"}
 ti["Y "] = {"st_oneway_black_w"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="16" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="17" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ ti["j"] = ti[" "] .. {"it_glasses", state=SPOT_HOLLOW + SPOT_DEATH + SPOT_ACTORI
 ti["k"] = ti[" "] .. {"it_trigger", action="callback", target="Band2"} -- attaches rubber band from Tonto to Tonto's Horse
 ti["l"] = {"fl_water"}
 ti["m"] = ti[" "] .. {"it_hammer"}
-ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st-chameleon"})
+ti["n"] = (ti[" "] .. {"it-drop"}) .. ti({"st_chameleon"})
 ti["o"] = {"fl_sand", secure=true} .. ti({"it_burnable_oil"})
 ti["p"] = {"fl_swamp"}
 ti["q"] = ti[" "] .. {"st_redrock"} -- SUN RAY

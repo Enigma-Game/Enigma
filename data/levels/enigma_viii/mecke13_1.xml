@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 19 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -75,8 +75,8 @@ ti["G"] = ti[" "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["m"] = ti[" "] .. {"it_magnet", name="maggi1",state=ON, range=20, strength=10}
 ti["U"] = {"st_oneway_black_w"}
 ti["V"] = {"st_passage_black_frame"}
-ti["n"] = ti[" "] .. ti["W"] .. {"st-chameleon"}
-ti["o"] = ti[" "] .. ti["m"] .. {"st-chameleon"}
+ti["n"] = ti[" "] .. ti["W"] .. {"st_chameleon"}
+ti["o"] = ti[" "] .. ti["m"] .. {"st_chameleon"}
 ti["O"] = ti[" "] .. {"st_lightglass_hollow"}
 ti["'"] = {"it_burnable_oil"}
 ti[":"] = {"it_burnable_burning"}
