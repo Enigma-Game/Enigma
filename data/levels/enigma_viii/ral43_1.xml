@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Mole Hill Meditation" el:subtitle="" el:id="20090112ral228"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 138 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="0:22" el:difficult="1:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["Fragility"] = 0.0
+wo["CrackSpreading"] = 0.0
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"it_coffee"}
+ti["-"] = {"it_crack_s"}
+ti["#"] = {"st_pull"} .. ti["-"]
+
+ti["wormholes"] = {"it_wormhole", range=0.3, destination="hill%%"}
+ti["hills"] = {"it_meditation_hill", "hill%%"}
+
+ti["@"] = {"#ac_pearl", essential=INDISPENSIBLE}
+
+resolver = res.autotile(ti, {"a", "d", "wormholes"}, {"A", "D", "hills"})
+
+if wo["IsDifficult"] then
+  w, h = wo(resolver, " ", {
+      "                    ",
+      " ~ --             ~ ",
+      "  - -  @    C-----  ",
+      " -  D             - ",
+      "  -    b--------@  -",
+      "   -            -  -",
+      "    d    #--  a -  -",
+      "       --   --  -  -",
+      "  @   -   c    B  - ",
+      "     A    - @    -  ",
+      "           ------   ",
+      " ~                ~ ",
+      "                    "
+  })
+else
+  w, h = wo(resolver, " ", {
+      "                    ",
+      " ~    ---         ~ ",
+      "     -@  --C        ",
+      "    -        ---    ",
+      "   -   b-----   -   ",
+      "  -         @    -  ",
+      "  #      -----a  #  ",
+      "  -   @ -        -  ",
+      "  -   --  c    B-   ",
+      "  -  A    -         ",
+      "   -     -          ",
+      " ~  -----         ~ ",
+      "                    "
+  })
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

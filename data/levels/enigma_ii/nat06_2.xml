@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Twelve Doors" el:subtitle="" el:id="nat6"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits>A public domain Sokoban level adapted for Enigma</el:credits>
+        <el:code>New API converted by R. Bourquin</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["."] = {"fl_gray"}
+ti[","] = {"fl_metal_7"}
+ti[":"] = {"fl_rough"}
+ti["#"] = {"st_greenbrown"}
+ti[")"] = ti["."] .. {"st_greenbrown_movable"}
+ti["*"] = ti["."] .. {"st_brownie"}
+ti["+"] = ti[","] .. {"st_brownie"}
+ti["door"] = ti[":"] .. {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["^"] = {"st_laser", orientation=NORTH, state=ON, name="laser"}
+ti["S"] = {"st_switch", target="laser"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["O"] = {"st_oxyd", flavor="a", name="oxyds#"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"a", "l", "trigger"}, {"A", "L", "door"})
+
+wo(resolver, " ", {
+    "                     ################# ",
+    "                   ###@##::::::::::::# ",
+    "                   #....#abcdefghijkl# ",
+    "                   #.*..#::::::::::::# ",
+    "                   #.**.#::::::::::::# ",
+    "                   ##.*.###+######A### ",
+    "                    #,###..*.#   #B#   ",
+    "                   ##...+..*.#   #C#   ",
+    "                   #..*.#..*.#   #D#   ",
+    "                ####.*..#....#   #E#   ",
+    "                #S.#..*.#....#   #F#   ",
+    "                #..)....#....#   #G#   ",
+    "                ##############   #H#   ",
+    "                                 #I#   ",
+    "                                 #J#   ",
+    "                                 #K#   ",
+    "                               #O#L#O# ",
+    "                               O:::::O ",
+    "                               #:::::# ",
+    "                               O::^::O ",
+    "                               #:::::# ",
+    "                               O:::::O ",
+    "                               #O###O# ",
+    "                                       ",
+    "                                       "})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

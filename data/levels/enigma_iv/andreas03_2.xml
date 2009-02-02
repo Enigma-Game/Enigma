@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="How solid?" el:subtitle="" el:id="andreas03"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="01:00" el:difficult="01:25"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["AllowSingleOxyds"] = true  -- clock may damage oxyd stones
+
+if wo["IsDifficult"] then
+  clock_to_delta_pos = { [NORTH] = po(0, 1),
+                         [EAST] = po(1, 0),
+                         [SOUTH] = po(0, -1),
+                         [WEST] = po(-1, 0) }
+else
+  clock_to_delta_pos = { [NORTH] = po(0, -1),
+                         [EAST] = po(1, 0),
+                         [SOUTH] = po(0, 1),
+                         [WEST] = po(-1, 0) }
+end
+
+ti[" "] = {"fl_brick"}
+ti["#"] = {"st_brick"} .. ti({"fl_abyss"})
+ti["!"] = {"st_brick"} .. ti[" "]
+ti["@"] = {"#ac_marble", adhesion = 1}
+ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_PURPLE}
+ti["D"] = {"it_document", text = "text2"}
+ti["T"] = {"st_timer", "timer", target = "callback_timer", state = OFF,
+           interval = lib.lua.cond(wo["IsDifficult"], 1.0, 1.2)}
+ti["C"] = {"st_fourswitch", "clock"}
+ti["S"] = {"st_switch", target = "callback_switch"}
+
+w, h = wo(ti, " ",
+       {"####################",
+        "#T##################",
+        "##@     # ###     ##",
+        "##D# #  #   # #   S#",
+        "##S# #  ###   #   ##",
+        "##   #    # ####!###",
+        "## ###### # #     ##",
+        "##      # # # ######",
+        "##      # # # ######",
+        "######  # # # ##  O#",
+        "#C      #   # !!   #",
+        "##########S#####  O#",
+        "####################"})
+
+wo:shuffleOxyd()
+
+local switch_counter = 0
+function callback_switch(is_on, sender)
+  switch_counter = switch_counter + lib.lua.cond(is_on, 1, -1)
+  if switch_counter == 3 then
+    no["timer"]:on()
+  end
+end
+
+function callback_timer()
+  if no["clock"]:exists() then
+    local clock_state = no["clock"].state
+    local clock_pos = po(no["clock"]) + clock_to_delta_pos[clock_state]
+    if clock_pos.x > 19 then  clock_pos.x = 19  end
+    if clock_pos.x <  0 then  clock_pos.x =  0  end
+    if clock_pos.y > 12 then  clock_pos.y = 12  end
+    if clock_pos.y <  0 then  clock_pos.y =  0  end
+    wo[no["clock"]] = {"st_nil"}
+    if not (st(clock_pos):is("st_timer")) then
+      wo[clock_pos] = ti["C"]
+      no["clock"].state = clock_state
+    else  -- hit the timer!
+      wo[{2, 3}] = {"it_document", text = "text1"}
+    end
+  end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">That wasn't fast enough; try F3.                                                                              (Or search for non-solid stones, if you want.)                                                                                                        (But you won't find any.)                                                                                                                  (Really!)</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">You can believe me: All stones you see in this level are solid!                                                                                      You can really believe me!                                                                               Really!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

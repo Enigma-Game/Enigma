@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Splitting" el:subtitle="" el:id="luc29"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = ti({"fl_tigris", checkerboard=0}) .. {"fl_bluegray", checkerboard=1}
+ti["#"] = {"st_panel"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti[")"] = {"st_laser", orientation=EAST, name="lasere"}
+ti["U"] = {"st_laser", orientation=SOUTH, name="lasers"}
+ti["*"] = {"st_switch", target="laser?"}
+ti["/"] = {"st_mirror", movable=true, orientation=WEST}
+ti["<"] = {"st_mirror", movable=true, flavor="triangle", orientation=EAST}
+ti["z"] = {"st_laserswitch", target="door%%"}
+ti["Z"] = {"st_door", flavor="b", name="door%%"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"a", "l", "z"}, {"A", "L", "Z"})
+wo(resolver, " ", {
+    "#############*####O#",
+    "#        /X/#    AB#",
+    "# ####c##  X# /  #C#",
+    "# ##ed#baU X# <  #D#",
+    "# #f@      X# /  #E#",
+    "# #g < <<  X# <  #F#",
+    "# h#  <    X# // #G#",
+    "# #i < #k# X# <  #H#",
+    "# #j < l#  X# /  #I#",
+    "#/ )   #   X# <  #J#",
+    "#X            /  #K#",
+    "#/XXXXXXXX X#    #L#",
+    "##################O#"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

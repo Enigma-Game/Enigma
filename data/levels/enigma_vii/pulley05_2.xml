@@ -8,7 +8,7 @@
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="2:35"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,7 +20,7 @@ ti["o"] = ti[" "] .. {"st_stoneimpulse_hollow"}
 ti["w"] = ti[" "] .. {"st_box_wood"}
 ti["x"] = ti[" "] .. {"st_grate_cross"}
 ti["0"] = ti[" "] .. {"st_oxyd"}
-ti["B"] = ti[" "] .. {"#ac_marble_black"}
+ti["@"] = ti[" "] .. {"#ac_marble_black"}
 
 wo(ti, " ",{
     "bbbbbbbbbbbbbbbbbbbb",
@@ -29,7 +29,7 @@ wo(ti, " ",{
     "b   o oboOO o o o ob",
     "boOOObOOo   ObObObob",
     "bo    o OOOOObOOObob",
-    "bOOOOOowlB  o      b",
+    "bOOOOOowl@  o      b",
     "b      OOOOOOOOwObob",
     "boOOwObowo    OOOOob",
     "bo ooOoo OOOOx o xxb",

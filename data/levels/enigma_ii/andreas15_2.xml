@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Spaceleast" el:subtitle="" el:id="andreas15"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="00:18" el:difficult="00:18"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeStrength"] = 30
+
+ti[" "] = {"fl_space"}
+ti["2"] = {"fl-gradient1"}
+ti["5"] = {"fl-gradient2"}
+ti["3"] = {"fl-gradient11"}
+ti["6"] = {"fl-gradient12"}
+ti["1"] = {"fl-gradient9"}
+ti["4"] = {"fl-gradient10"}
+ti["!"] = {"st_purplegray"}
+ti["#"] = {"st_death"}
+
+ti["@"] = {"#ac_marble", adhesion = 1.0} .. ti["1"]
+ti["O"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_CYAN}
+ti["P"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_PURPLE}
+ti["Q"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_YELLOW}
+
+if wo["IsDifficult"] then
+  ti["M"] = ti[" "]
+else
+  ti["M"] = {"it_magnet_on"} .. ti({"fl_metal_7", friction = 4.0})
+end
+
+w, h = wo(ti, " ",
+       {"!#!!#!!#!##!#!!#!!#!",
+        "#1       2        3#",
+        "! @       2      3 !",
+        "#  1     2      3  #",
+        "!   1     2    3   !",
+        "#    1   2    3    #",
+        "!     OOMPPMQQ     !",
+        "#    4    5   6    #",
+        "!   4    5     6   !",
+        "#  4      5     6  #",
+        "! 4      5       6 !",
+        "#4        5       6#",
+        "!#!!#!!#!##!#!!#!!#!"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Take Turns" el:subtitle="" el:id="duffy50"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_hay"}
+ti["#"] = {"st_greenbrown"}
+ti["B"] = ti["-"] .. {"st_passage", flavor="frame", color=BLACK}
+ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=WHITE}
+ti["O"] = {"st_oxyd", name="black_oxyds#"}
+ti["o"] = {"st_oxyd", name="white_oxyds#"}
+ti["R"] = ti["-"] .. {"ac_rotor", strength=3.0, range=5.0}
+ti["1"] = ti["-"] .. {"#ac_marble_black", name="black"}
+ti["2"] = ti["-"] .. {"#ac_marble_white", name="white"}
+
+wo(ti, " ", {
+    "                                       ",
+    "              ----- --------- O  oo  O ",
+    "  ----------  ----- -#  #  #- B  WW  B ",
+    "  -1--------  -- #--- --- --- -------- ",
+    "  ----------  --  --# - - - - -------- ",
+    "  ###      -----   ---- --- ---------- ",
+    "           #   #   #  # # # # -------R ",
+    "  ###      -----   ---- --- ---------- ",
+    "  ----------  --  --# - - - - -------- ",
+    "  -2--------  -- #--- --- --- -------- ",
+    "  ----------  ----- -#  #  #- B  WW  B ",
+    "              ----- --------- O  oo  O ",
+    "                                       "})
+
+wo:add({"ot_rubberband", anchor1="black", anchor2="white", strength=1, length=0})
+wo:shuffleOxyd({"black_oxyds#*", max=1}, {"white_oxyds#*", max=1})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

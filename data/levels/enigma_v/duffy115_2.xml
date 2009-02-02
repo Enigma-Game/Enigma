@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Randomizer" el:subtitle="" el:id="duffy115"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_ice"}
+ti["#"] = {"st_tigris"}
+ti["O"] = {"st_oxyd", name="oxyd"}  -- intentional name overwriting to get just one instace for sending the shuffle message
+ti["Q"] = {"st_quake"}
+ti["S"] = {"st_switch", target="oxyd", action="shuffle"}
+ti["*"] = {"#ac_top", strength=3.0, range=25.0}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#Q    O  SS  O    Q#",
+    "# S              S #",
+    "#  O            O  #",
+    "#                  #",
+    "#      O    O      #",
+    "#OS *          @ SO#",
+    "#      O    O      #",
+    "#                  #",
+    "#  O            O  #",
+    "# S              S #",
+    "#Q    O  SS  O    Q#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

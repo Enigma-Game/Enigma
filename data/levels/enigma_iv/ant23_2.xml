@@ -9,9 +9,7 @@
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -25,9 +23,10 @@ else
     ti["*"] = {"st_puzzle", cluster=1, hollow=true}
     ti["T"] = {"it_trigger", target="m%%", action="flip"}
     ti["U"] = ti({"it_meditation_hill", "m%%"}) .. {"st_door", flavor="b", state=OPEN}
+    wo["MeditationStrength"] = 1.3
 end
 ti["W"] = {"st_plop_slate", name="boxes#"}
-ti["@"] = {"#ac_pearl", name="balls#", target="@boxes#*"}
+ti["@"] = {"#ac_pearl", name="balls#", target="@boxes#*", essential=INDISPENSIBLE}
 
 local resolver = res.autotile(ti, {"a", "d", "T"}, {"A", "D", "U"})
 wo(resolver, " ", {

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Arena" el:subtitle="" el:id="andreas14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.1">
+       <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="01:17" el:difficult="02:49"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["AllowSingleOxyds"] = true
+
+local number_lasers = lib.lua.cond(wo["IsDifficult"], 5, 3)
+
+ti[" "] = {"fl_sand"}
+ti["#"] = {"st_fake_oxyda"}
+ti["O"] = {"st_oxyd", "oxyd#", flavor = "a"}
+ti["@"] = {"#ac_marble", "marble", adhesion = 1}
+
+ti["T"] = {"st_timer", target = "timer_callback", interval = 1.0}
+ti["n"] = {"fl_sand", "border_north#", _laser = "S", _dir = po(-1,0)}  .. ti["#"]
+ti["e"] = {"fl_sand", "border_east#",  _laser = "W", _dir = po(0,-1)}  .. ti["#"]
+ti["s"] = {"fl_sand", "border_south#", _laser = "N", _dir = po(1,0)}   .. ti["#"]
+ti["w"] = {"fl_sand", "border_west#",  _laser = "E", _dir = po(0,1)}   .. ti["#"]
+ti["1"] = {"fl_sand", "border_north#", _laser = "S", _dir = po(-1,1)}  .. ti["#"]
+ti["2"] = {"fl_sand", "border_east#",  _laser = "W", _dir = po(-1,-1)} .. ti["#"]
+ti["3"] = {"fl_sand", "border_south#", _laser = "N", _dir = po(1,-1)}  .. ti["#"]
+ti["4"] = {"fl_sand", "border_west#",  _laser = "E", _dir = po(1,1)}   .. ti["#"]
+ti["N"] = {"st_laser", state = ON, orientation = NORTH}
+ti["E"] = {"st_laser", state = ON, orientation = EAST}
+ti["S"] = {"st_laser", state = ON, orientation = SOUTH}
+ti["W"] = {"st_laser", state = ON, orientation = WEST}
+
+w, h = wo(ti, " ",
+       {"#1nnnnnnnnnnnnnnnnn#",
+        "w                  2",
+        "w                  e",
+        "w                  e",
+        "w                  e",
+        "w                  e",
+        "w        @T        e",
+        "w                  e",
+        "w                  e",
+        "w                  e",
+        "w                  e",
+        "4                  e",
+        "#sssssssssssssssss3#"})
+
+border_north = no["border_north#*"]:shuffle()
+border_east  = no["border_east#*"]:shuffle()
+border_south = no["border_south#*"]:shuffle()
+border_west  = no["border_west#*"]:shuffle()
+
+-- Set 8 Oxyd Stones according to some rules, such that
+-- the lasers can't open all of them.
+wo[border_north:sub(2)] = ti["O"]
+wo[border_south[1]] = ti["O"]
+if border_south[1].x == border_north[1].x then
+  wo[border_south[2]] = ti["O"]
+else
+  wo[po(border_north[1].x, border_south[1].y)] = ti["O"]
+end
+wo[border_west:sub(2)] = ti["O"]
+wo[border_east[1]] = ti["O"]
+if border_east[1].y == border_west[1].y then
+  wo[border_east[2]] = ti["O"]
+else
+  wo[po(border_east[1].x, border_west[1].y)] = ti["O"]
+end
+
+wo:shuffleOxyd()
+
+-- Now set initial lasers, but not on oxyds and such that the
+-- marble isn't destroyed in the beginning:
+mx, my = no["marble"]:xy()
+oxyds = fl(po(no["oxyd#*"]))
+free_border = (border_north + border_east + border_south + border_west) - oxyds
+laser_pos = free_border - grp(fl(mx, 0), fl(mx, h-1), fl(0, my), fl(w-1, my))
+laser_pos = (laser_pos:shuffle()):sub(number_lasers)
+for i = 1, #laser_pos do
+  wo[laser_pos[i]] = ti[fl(laser_pos[i])._laser]
+end
+
+-- Move lasers on timer call:
+function timer_callback()
+  wo[laser_pos - oxyds] = ti["#"]
+  local new_pos = grp({})
+  for floor in laser_pos do
+    new_pos = new_pos + fl(floor + floor._dir)
+  end
+  laser_pos = new_pos
+  for floor in laser_pos - oxyds do
+    wo[floor] = ti[floor._laser]
+  end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

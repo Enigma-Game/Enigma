@@ -16,7 +16,6 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
-sFactor = 5.0
 
 ti["  "] = {"fl_water"}
 ti[" c"] = {"fl_concrete"}
@@ -24,20 +23,19 @@ ti[" h"] = {"fl_hay"}
 ti[" l"] = {"fl_lawn"}
 ti[" r"] = {"fl_rock"}
 ti[" s"] = {"fl_sand"}
-ti[" v"] = {"fl_gravel", friction = sFactor}
-ti[" V"] = {"fl_gravel", friction = sFactor * 2.5}
+ti[" v"] = {"fl_gravel", friction = 5.0}
+ti[" V"] = {"fl_gravel", friction = 12.5}
 ti[". "] = {"st_disco_light"}
 ti[": "] = {"st_disco_medium"}
 ti["p "] = {"st_box_rock"}
 ti["R "] = {"st_darkgray"}
 ti["w "] = {"st_box_wood"}
 ti["% "] = {"it_document", text = "text1"}
-ti["5 "] = {"it_meditation_hollow", essential = 0}
-ti["6 "] = {"it_meditation_hollow", essential = 1}
-ti["7 "] = {"it_meditation_hollow", essential = 1}
-ti["8 "] = {"it_meditation_hollow", essential = 1} .. ti["p "]
-ti["9 "] = {"it_meditation_hollow", essential = 1}
-
+ti["5 "] = {"it_meditation_hollow", essential = DISPENSIBLE}
+ti["6 "] = {"it_meditation_hollow", essential = INDISPENSIBLE}
+ti["7 "] = {"it_meditation_hollow", essential = INDESPENSIBLE}
+ti["8 "] = {"it_meditation_hollow", essential = INDISPENSIBLE} .. ti["p "]
+ti["9 "] = {"it_meditation_hollow", essential = INDISPENSIBLE}
 if wo["IsDifficult"] then
     ti["P "] = ti["p "]
     ti["W "] = ti[" r"]
@@ -45,15 +43,14 @@ else
     ti["P "] = ti[" r"]
     ti["W "] = ti["p "]
 end
-
-ti["1 "] = {"#ac_pearl_white", owner = 0, essential=1}
-ti["2 "] = {"#ac_pearl_white", owner = 0, essential=1}
-ti["3 "] = {"#ac_pearl_white", owner = 0, essential=1} .. ti["p "]
-ti["4 "] = {"#ac_pearl_white", owner = 0, essential=1} .. ti["p "]
+ti["1 "] = {"#ac_pearl_white", essential=INDISBENSIBLE}
+ti["2 "] = {"#ac_pearl_white", essential=INDISPENSIBLE}
+ti["3 "] = {"#ac_pearl_white", essential=INDISPENSIBLE} .. ti["p "]
+ti["4 "] = {"#ac_pearl_white", essential=INDISPENSIBLE} .. ti["p "]
 
 local resolver = res.composer(ti)
 
-width, height = wo(resolver, "  ",
+wo(resolver, "  ",
 -- 0                  10                  20
 -- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 { "            . . . . : : : : : : : . . . . : ", --  0
@@ -82,7 +79,7 @@ width, height = wo(resolver, "  ",
   ". . . . : : : . .     . . : : : . .         ", -- 23
   ". . : : : : : : . . . . : : : : : . . .     "  -- 24
 })
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

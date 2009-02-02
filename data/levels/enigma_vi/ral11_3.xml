@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Houdini" el:subtitle="Escape by Chaining Thieves" el:id="20060816ral719"/>
+      <el:version el:score="2" el:release="3" el:revision="$Revision: 147 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">John, JuSt, Ale for testing and feedback</el:credits>
+        <el:code>not really a network level</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["-"] = {"fl_abyss"}
+ti["_"] = {"fl_water"}
+ti["*"] = {"fl_swamp"}
+ti["SS"] = ti["*"] .. {"it_seed"}
+ti["b"] = {"it_brake"}
+ti["h"] = {"it_sword"}
+ti["s"] = {"it_spring_drop"}
+ti["j"] = {"it_springboard"}
+ti["w"] = {"it_magicwand"}
+ti["l"] = {"it_extralife"}
+ti["z"] = {"st_flat_cracked"}
+ti["o"] = ti["z"] .. {"it_vortex_open", "vortex1", destination="vortex2"}
+ti["O"] = ti["z"] .. {"it_vortex_open", "vortex2", destination="vortex1"}
+ti["x"] = {"st_oxyd_a"}
+ti["#"] = {"st_flat"}
+ti["-D"] = ti["-"] .. {"it_death"}
+ti["="] = ti["-D"] .. {"st_flat"}
+ti["+"] = {"st_bluegray"}
+ti["."] = {"st_bluegray_hollow"}
+ti[","] = ti["l"] .. {"st_bluegray_hollow"}
+ti["T"] = {"st_thief"}
+ti["t"] = ti["l"] .. {"st_thief"}
+ti["U"] = ti["T"] .. {"it_document", text="Innocent"}
+ti["V"] = ti["T"] .. {"it_document", text="Pirates"}
+ti["Y"] = ti["T"] .. {"it_document", text="Treasure"}
+ti["P"] = ti["l"] .. {"st_pull"}
+ti["R"] = {"st_rubberband", "rubber"}
+ti["S"] = {"st_scissors", action="open", target="doorA"}
+ti["A0"] = ti["*"] .. {"it_document", text="Atreyu"}
+ti["A"] = ti["A0"] .. {"st_door_d", "doorA", faces="ns"}
+ti["E"] = {"st_swap"}
+ti["G"] = ti["s"] .. {"st_lightglass"}
+ti["g"] = {"st_grate_cross"}
+ti["M"] = ti["-D"] .. {"st_mail_n"}
+ti["m"] = ti["-D"] .. {"st_coinslot", target="laser"}
+ti["L"] = ti["-D"] .. {"st_laser_s", "laser"}
+ti["D0"] = {"it_document", text="CloseDoor"}
+ti["D"] = ti["D0"] .. {"st_door_b", name="doorB"}
+ti["K"] = ti["-"] .. {"st_key", code="a", target="doorB"}
+ti["C"] = {"st_door_b", "doorC"} .. ti{"fl_wood", "floorC"}
+ti["F"] = ti["-"] .. {"st_key", code="b", target="doorC"}
+ti["c"] = ti["."] .. {"it_coin_s"}
+ti["W"] = ti["w"] .. {"st_chess_white"}
+ti["B"] = ti["h"] .. {"st_chess_black"}
+ti["k"] = ti["G"] .. {"it_key", code="a"}
+ti["f"] = ti["G"] .. {"it_key", code="b"}
+
+ti["y"] = {"it_yinyang"}
+ti["1"] = ti["y"] .. {"#ac_marble_black", "acBlack"}
+ti["2"] = ti["y"] .. {"#ac_marble_white"}
+
+if wo["IsDifficult"] then
+    ti["I"] = {"it_trigger", target="swamp"}
+    ti["J"] = ti[" "]
+    ti["Q"] = ti["SS"] .. {"st_thief"}
+else
+    ti["I"] = ti[" "]
+    ti["J"] = ti["j"]
+    ti["Q"] = ti["U"]
+end
+
+function swamp()
+     wo[no["floorC"]] = ti["*"]
+end
+
+w, h = wo(ti, " ", {
+    "####################",
+    "# x=w.t.+.U...+=##x#",
+    "##_=s++.T.+.T..=  _#",
+    "#g =-..V++++..T= g #",
+    "# I=-c+..+Q.+.+=   #",
+    "#  =J+++T,+.+Y+=   #",
+    "#  =2+.U.++T+..=   #",
+    "#  = T.+.T..+.Tm   #",
+    "#FC=M==========L=DK#",
+    "#                  #",
+    "#      f   k       #",
+    "#                  #",
+    "###############*####",
+    "#         ---##A####",
+    "#         ---      #",
+    "#       B ---j     #",
+    "#        ####      #",
+    "#  ETt   ###O  tTt #",
+    "#  TRT 1G  P b TST #",
+    "#  ETt   o###  tTt #",
+    "#        ####      #",
+    "#       W ---j     #",
+    "#         ---      #",
+    "#         ---#######",
+    "####################",
+})
+
+wo:add({"ot_rubberband", anchor1="acBlack", anchor2="rubber", length=1, strength=5})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" el:comment="Escape as unchaining"/>
+        <el:translation el:lang="de">Entfesselung durch Gefangennahme von Dieben</el:translation>
+      </el:string>
+      <el:string el:key="Atreyu">
+        <el:english el:translate="true" el:comment="Characters of Michael Ende's fantasy novel 'The Neverending Story'">Remember Atreyu's horse Atrax!</el:english>
+        <el:translation el:lang="de">Denke an Atrax, das Pferd von Atréju!</el:translation>
+      </el:string>
+      <el:string el:key="Innocent">
+        <el:english el:translate="true" >I am innocent! I've never stolen anything!</el:english>
+        <el:translation el:lang="de">Ich bin unschuldig! Ich habe nie etwas gestohlen!</el:translation>
+      </el:string>
+      <el:string el:key="Pirates">
+        <el:english el:translate="true" >It is said that pirates have taken the treasure.</el:english>
+        <el:translation el:lang="de">Man sagt Piraten hätten den Schatz genommen.</el:translation>
+      </el:string>
+      <el:string el:key="Treasure">
+        <el:english el:translate="true" >Pirates usually hide their treasure!</el:english>
+        <el:translation el:lang="de">Piraten verstecken ihren Schatz für gewöhnlich!</el:translation>
+      </el:string>
+      <el:string el:key="CloseDoor">
+        <el:english el:translate="true" >A closed door gives a better overview!</el:english>
+        <el:translation el:lang="de">Eine geschlossene Tür verschafft einen besseren Überblick!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

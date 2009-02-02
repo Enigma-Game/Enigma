@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Persecution Mania" el:subtitle="A problem shared is a problem halved!" el:id="20060911ral294"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 142 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006, 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:31" el:difficult="0:48"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["x"] = {"st_oxyd"}
+
+if wo["IsDifficult"] then
+    ti["."] = {"fl_red"}
+    ti["8"] = {"ac_rotor", strength=6, range=20, attacknearest=true, prefercurrent=1}
+else
+    ti["."] = {"fl_redslab"}
+    ti["8"] = {"ac_rotor", strength=12, range=20, attacknearest=true, prefercurrent=1}
+end
+
+ti["y"] = {"it_yinyang"}
+ti["1"] = {"#ac_marble_black"} .. ti["y"] .. ti["."]
+ti["2"] = {"#ac_marble_white"} .. ti["y"] .. ti["."]
+
+w, h = wo(ti, " ", {
+"####################",
+"x........  ........x",
+"#      .2  ..      #",
+"x........  ........x",
+"#      ..  ..      #",
+"# 8    ..  ..      #",
+"x........  ........x",
+"#      ..  ..    8 #",
+"#      ..  ..      #",
+"x........  ........x",
+"#      ..  .1      #",
+"x........  ........x",
+"####################"
+})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

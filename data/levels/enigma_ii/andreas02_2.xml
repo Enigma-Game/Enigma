@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Spaceless" el:subtitle="" el:id="andreas02"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="00:23" el:difficult="00:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeStrength"] = 30
+                               -- Gradienten
+ti["v"] = {"fl-gradient1"}     --   1   v
+ti["^"] = {"fl-gradient2"}     --   2   ^
+ti[">"] = {"fl-gradient3"}     --   3   >
+ti["<"] = {"fl-gradient4"}     --   4   <
+ti["B"] = {"fl-gradient5"}     --   5  > v  Tal
+ti["A"] = {"fl-gradient6"}     --   6  < v  Tal
+ti["C"] = {"fl-gradient7"}     --   7  > ^  Tal
+ti["D"] = {"fl-gradient8"}     --   8  < ^  Tal
+ti["b"] = {"fl-gradient9"}     --   9  > v  Spitze
+ti["c"] = {"fl-gradient10"}    --  10  > ^  Spitze
+ti["a"] = {"fl-gradient11"}    --  11  < v  Spitze
+ti["d"] = {"fl-gradient12"}    --  12  < ^  Spitze
+ti[" "] = {"fl_space"}
+ti["#"] = {"st_death"}
+ti["O"] = {"st_oxyd", flavor = "b"}
+
+-- Note that in the following, gradient "d" is missing.
+-- This is historical.
+random_gradients = {"v", "^", ">", "<", "B", "A", "C", "D", "b", "c", "a"}
+
+if wo["IsDifficult"] then
+    ti["@"] = {"#ac_marble", adhesion = 1} .. ti["B"]
+    w, h = wo(res.random(ti, "R", random_gradients), " ",
+         {"####################",
+          "#d^^^^^^^^^^^^^^^^c#",
+          "#<O              O>#",
+          "#< R R R @A R R R >#",
+          "#<       CD       >#",
+          "#< R R R    R R R >#",
+          "#<       OO       >#",
+          "#< R R R    R R R >#",
+          "#<       BA       >#",
+          "#< R R R CD R R R >#",
+          "#<O              O>#",
+          "#avvvvvvvvvvvvvvvvb#",
+          "####################"})
+else
+    ti["@"] = {"#ac_marble", adhesion = 1} .. ti["d"]
+    w, h = wo(res.random(ti, "R", random_gradients), " ",
+         {"####################",
+          "#BvvvvvvvvvvvvvvvvA#",
+          "#>O              O<#",
+          "#> R R R @c R R R <#",
+          "#>       ab       <#",
+          "#> R R R    R R R <#",
+          "#>       OO       <#",
+          "#> R R R    R R R <#",
+          "#>       dc       <#",
+          "#> R R R ab R R R <#",
+          "#>O              O<#",
+          "#C^^^^^^^^^^^^^^^^D#",
+          "####################"})
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

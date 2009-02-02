@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd Drilling" el:subtitle="Useful unsuccessful drillings" el:id="duffy140"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greenbrown"}
+ti["Q"] = {"st_quake", name="quaker#"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["x"] = ti["~"] .. ti["X"]
+ti["E"] = {"st_mail", orientation=EAST}
+ti["W"] = {"st_mail", orientation=WEST}
+ti["."] = {"it_meditation_dent"}
+ti["I"] = ti["."] .. {"st_rawglass"}
+ti["H"] = ti["."] .. ti["X"]
+ti["T"] = {"st_timer", interval=5, target="quaker#*"}
+ti["h"] = {"it_pipe_ew"}
+ti["v"] = {"it_pipe_ns"}
+ti["1"] = {"it_pipe_ne"}
+ti["3"] = {"it_pipe_nw"}
+ti["7"] = {"it_pipe_es"}
+ti["9"] = {"it_pipe_sw"}
+ti["s"] = {"it_seed"}
+ti["O"] = {"st_oxyd", name="left#"}
+ti["o"] = {"st_oxyd", name="right#"}
+ti["@"] = ti["s"] .. {"ac_marble_black", 0.0, 0.5}
+
+wo(ti, " ", {
+    "####################T",
+    "OX#~~~s      s~~~#Xo",
+    "#X#~~~  7hh9  ~~~#X#",
+    "#X#~~~  vQQv  ~~~#X#",
+    "OX#~~~s  hh  s~~~#Xo",
+    "#X#x~~ H    H ~~x#X#",
+    "#XX#XX IEs@WI XX#XX#",
+    "#X#x~~ H    H ~~x#X#",
+    "OX#~~~s  hh  s~~~#Xo",
+    "#X#~~~  vQQv  ~~~#X#",
+    "#X#~~~  1hh3  ~~~#X#",
+    "OX#~~~s      s~~~#Xo",
+    "####################"})
+
+wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -17,7 +17,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["SlopeForce"] = -20
+wo["SlopeStrength"] = -20
 
 if wo["IsDifficult"] then
     wo["ElectricForce"] = -15

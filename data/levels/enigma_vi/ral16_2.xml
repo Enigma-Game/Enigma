@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Revolver" el:subtitle="Charging live ammunition" el:id="20070214ral703"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 146 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code></el:code>
+      </el:comments>
+      <el:score el:easy="3:02" el:difficult="3:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "]  = {"fl_bluegreen"}
+ti["ab"] = {"fl_abyss"}
+ti["-"]  = {"fl_concrete"}
+ti["b"]  = {"fl_bridge_bw", "entry#", state=CLOSED}
+ti["br"] = {"fl_bridge_bw", burnable=false}
+ti["x"]  = {"st_oxyd_d"}
+ti["d"]  = {"st_door_d", "d1#", faces="ew"} .. ti["ab"]
+ti["e"]  = {"st_door_d", "d2#", faces="ew"} .. ti["ab"]
+ti["t"]  = {"it_trigger", target={"@fire#*","@d1#*", "dobridge"}, action_0={"forcefire"}, action_1={"stopfire"}}
+ti["u"]  = {"it_trigger", target={"@fire#*","@d2#*", "dobridge"}, action_0={"forcefire"}, action_1={"stopfire"}}
+ti["s"]  = {"it_trigger", target="counter", action="signal"}
+ti["#"]  = {"st_redmarble"}
+ti["X"]  = {"st_passage_black", flavor="cross"}
+ti["g"]  = ti["X"] .. {"fl_concrete", "fire#", eternal=true, initfire=true}
+ti["G"]  = ti["X"] .. ti["-"]
+ti["N"]  = {"st_turnstilearm_n"}
+ti["S"]  = {"st_turnstilearm_s"}
+ti["W"]  = {"st_turnstilearm_w"}
+ti["E"]  = {"st_turnstilearm_e"}
+ti["T"]  = {"st_turnstile_green"}
+
+ti["1"] = {"#ac_marble", "acBlack"}
+ti["h"] = {"#ac_horse"} .. ti["s"]
+
+if wo["IsDifficult"] then
+  ti["r"] = {"#ac_rotor", gohome=false, range=20, strength=30} .. ti["br"]
+else
+  ti["r"] = {"#ac_rotor", gohome=false, range=20, strength=15} .. ti["br"]
+end
+
+w, h = wo(ti, " ", {
+    "#x################x#",
+    "#G#              #G#",
+    "#rd              b-#",
+    "#g#t   N    N   t#g#",
+    "#re  #WTE##WTE#  dr#",
+    "#g#u #hSh##hSh# u#g#",
+    "#rd  ###XxxX###  er#",
+    "#g#t #hNh##hNh# t#g#",
+    "#re  #WTE##WTE#  dr#",
+    "#g#u   S    S   u#g#",
+    "#-b              er#",
+    "#G#       1      #G#",
+    "#x################x#"
+})
+
+wo:add({"ot_counter", "counter", state=8,
+            target_7="entry#*", action_7="open", 
+            target_8="entry#*", action_8="close"})
+
+wo:shuffleOxyd()
+
+function dobridge(value, sender)
+    fl(sender + {15, 1}):toggle()
+    fl(sender - {15, 1}):toggle()
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Laden scharfer Munition</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -24,7 +24,6 @@ else
 end
 
 ti["! "] = {"st_pinkbumps"}
-ti[" #"] = {"fl_metal_7"}
 ti["# "] = {"st_oneway_black_s"}
 ti["$ "] = {"st_grate_cross"}
 ti["% "] = {"st_oneway_black_n"}
@@ -113,8 +112,8 @@ ti["d7"] = ti[" !"] .. {"st_door", faces="ew", name= "olli7"}
 ti["d8"] = ti[" !"] .. {"st_door", faces="ew", name= "olli8"}
 ti["d9"] = ti[" !"] .. {"st_door", faces="ew", name= "olli9"}
 ti["e1"] = ti[" !"] .. {"st_door", faces="ew", name= "elli1"}
-ti["w1"] = ti[" !"] .. {"it_wormhole", destination = po(48.5, 14.5),range=3, strength=3}
-ti["w2"] = ti[" !"] .. {"it_wormhole", destination = po(48.5, 14.5),range=2, strength=2}
+ti["w1"] = ti[" !"] .. {"it_wormhole", destination = po(48.5, 14.5), range=3, strength=3}
+ti["w2"] = ti[" !"] .. {"it_wormhole", destination = po(48.5, 14.5), range=2, strength=2}
 
 if wo ["IsDifficult"] then
     ti["pd"] = ti[" !"] .. {"it_death"}

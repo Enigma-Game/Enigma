@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 38 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 36 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,6 @@ wo["ConserveLevel"] = true
 ti[" !"] = {"fl_abyss"}
 ti["! "] = {"st_puzzle", connections="nesw"}
 ti["# "] = {"st_death"}
-ti[" #"] = {"fl_metal_7"}
 ti["$ "] = {"st_oxyd_b"}
 ti[" $"] = {"fl_space"}
 ti["% "] = {"st_rawglass"}
@@ -25,20 +24,20 @@ ti[" %"] = {"fl_blueslab"}
 ti[" ("] = {"fl_sahara"}
 ti["& "] = {"st_actorimpulse_invisible"}
 ti[" &"] = {"fl_redslab"}
-ti["ee"] = ti[" ("]..{"it_extralife"}
-ti["ex"] = ti[" %"]..{"it_extralife"}
+ti["ee"] = ti[" ("] .. {"it_extralife"}
+ti["ex"] = ti[" %"] .. {"it_extralife"}
 ti["' "] = {"st_yellow"}
 ti[" '"] = {"fl_bluegray"}
-ti["( "] = {"st_portal"}
+ti["( "] = {"st_passage"}
 ti["* "] = {"st_break_oxydc"}
 ti[" )"] = {"fl_yinyang_yin"}
 ti["+ "] = {"st_passage_white_cross"}
 ti[", "] = {"st_passage_black_cross"}
 ti["- "] = {"st_grate_cross"}
-ti["ny"] = ti[" ("]..{"st_break_oxydc"}
-ti["nw"] = ti[" '"]..{"st_break_oxydc"}
-ti["nn"] = ti["ny"]..{"it_seed_fake"}
-ti["nm"] = ti["nw"]..{"it_seed_fake"}
+ti["ny"] = ti[" ("] .. {"st_break_oxydc"}
+ti["nw"] = ti[" '"] .. {"st_break_oxydc"}
+ti["nn"] = ti["ny"] .. {"it_seed_fake"}
+ti["nm"] = ti["nw"] .. {"it_seed_fake"}
 ti[". "] = {"st_plop_slate"}
 ti["/ "] = {"st_ghost_break"}
 ti["0 "] = {"st_puzzle", connections="e"}
@@ -47,9 +46,9 @@ ti["2 "] = {"st_puzzle", connections="s"}
 ti["3 "] = {"st_turnstile_green"}
 ti["4 "] = {"st_puzzle", connections="n"}
 ti["5 "] = {"st_puzzle", connections="w"}
-ti["c1"] = ti[" ("]..{"it_key", code=1}
-ti["c2"] = ti[" )"]..{"it_key", code=2}
-ti["c3"] = ti[" ("]..{"it_key", code=3}
+ti["c1"] = ti[" ("] .. {"it_key", code=1}
+ti["c2"] = ti[" )"] .. {"it_key", code=2}
+ti["c3"] = ti[" ("] .. {"it_key", code=3}
 ti["6 "] = {"st_key",code=1, name= "olli1", target= "dolli1"}
 ti["7 "] = {"st_key",code=2, name= "olli2", target= "dolli2"}
 ti["8 "] = {"st_key",code=3, name= "olli3", target= "dolli3"}
@@ -58,74 +57,74 @@ ti[": "] = {"st_puzzle", connections="es"}
 ti["; "] = {"st_puzzle", connections="ns"}
 ti["< "] = {"st_puzzle", hollow=true, connections="nesw"}
 ti["= "] = {"st_puzzle", connections="ne"}
-ti["~~"] = ti[" )"]..{"it_springboard"}
+ti["~~"] = ti[" )"] .. {"it_springboard"}
 ti["> "] = {"st_puzzle", connections="ew"}
 ti[" *"] = {"fl_fake_abyss"}
-ti["tt"] = ti[" )"]..{"it_trigger", target="laserhi"}
+ti["tt"] = ti[" )"] .. {"it_trigger", target="laserhi"}
 ti[" +"] = {"fl_water"}
 ti["? "] = {"st_puzzle", connections="sw"}
 ti["@ "] = {"st_puzzle", connections="esw"}
 ti["A "] = {"st_puzzle", connections="nw"}
 ti["B "] = {"st_puzzle", connections="nes"}
-ti["<X"] = ti[" ("]..{"st_puzzle", hollow=true, connections="nesw"}
-ti["XX"] = ti["<X"]..{"#ac_marble_black"}
+ti["<X"] = ti[" ("] .. {"st_puzzle", hollow=true, connections="nesw"}
+ti["XX"] = ti["<X"] .. {"#ac_marble_black"}
 ti["C "] = {"st_puzzle", connections="nsw"}
-ti["pp"] = ti[" !"]..{"it_pipe", connections="ew"}
-ti["pd"] = ti[" ("]..{"it_pipe", connections="ew"}
+ti["pp"] = ti[" !"] .. {"it_pipe", connections="ew"}
+ti["pd"] = ti[" ("] .. {"it_pipe", connections="ew"}
 ti["D "] = {"st_break_boulder"}
-ti["pa"] = ti[" $"]..{"it_pipe", connections="sw"}
-ti["pb"] = ti[" $"]..{"it_pipe", connections="ne"}
-ti["pc"] = ti[" ("]..{"it_pipe", connections="es"}
+ti["pa"] = ti[" $"] .. {"it_pipe", connections="sw"}
+ti["pb"] = ti[" $"] .. {"it_pipe", connections="ne"}
+ti["pc"] = ti[" ("] .. {"it_pipe", connections="es"}
 ti["E "] = {"st_oneway_black_s"}
 ti["F "] = {"st_mirror", movable=true, transparent=true}
 ti[" ,"] = {"fl_swamp"}
 ti["G "] = {"st_laser_w", name="laserhi"}
-ti["oo"] = ti[" $"]..{"it_spoon"}
+ti["oo"] = ti[" $"] .. {"it_spoon"}
 ti["H "] = {"st_oneway_black_e"}
-ti["::"] = ti[" '"]..{"it_crack_m"}
+ti["::"] = ti[" '"] .. {"it_crack_m"}
 ti["d1"] = ti[" $"] .. {"it_document", text="beginning"}
-ti["gg"] = ti[" ("]..{"it_puller_e"}
-ti["JJ"] = ti[" %"]..{"#ac_top", range=1, strength=1}
-ti["ff"] = ti[" ("]..{"it_flag_black"}
+ti["gg"] = ti[" ("] .. {"it_puller_e"}
+ti["JJ"] = ti[" %"] .. {"#ac_top", range=1, strength=1}
+ti["ff"] = ti[" ("] .. {"it_flag_black"}
 ti["J "] = {"st_oneway_black_n"}
 ti["K "] = {"st_bluegray"}
 ti["L "] = {"st_mail_n"}
 ti["M "] = {"st_brake"}
-ti["zz"] = ti[" !"]..{"it_shogun_m"}
-ti["vv"] = ti[" !"]..{"it_strip", connections="ns"}
-ti["hh"] = ti[" !"]..{"it_strip", connections="ew"}
-ti["h+"] = ti[" +"]..{"it_strip", connections="ew"}
-ti["N "] = ti["ee"]..{"st_pull"}
-ti["MM"] = ti[" ("]..{"st_pull"}
+ti["zz"] = ti[" !"] .. {"it_shogun_m"}
+ti["vv"] = ti[" !"] .. {"it_strip", connections="ns"}
+ti["hh"] = ti[" !"] .. {"it_strip", connections="ew"}
+ti["h+"] = ti[" +"] .. {"it_strip", connections="ew"}
+ti["N "] = ti["ee"] .. {"st_pull"}
+ti["MM"] = ti[" ("] .. {"st_pull"}
 ti[" -"] = {"fl_wood_framed_h"}
 ti[" ."] = {"fl_wood_framed_v"}
 ti["O "] = {"st_box_wood"}
 ti[") "] = {"st_door", faces="ns", name="dolli2"}
 ti["Z "] = {"st_door", faces="ns", name="dolli1"}
-ti["II"] = ti["ff"]..{"st_door", faces="ew", name="dolli3"}
+ti["II"] = ti["ff"] .. {"st_door", faces="ew", name="dolli3"}
 
 if wo ["IsDifficult"] then
-    ti["w1"] = ti[" &"]..{"it_wormhole", destination = po(28.5, 31.5),range=3, strength=3}
-    ti["w2"] = ti[" ("]..{"it_wormhole", destination = po(36.5, 38.5),range=10, strength=10}
-    ti["w3"] = ti[" &"]..{"it_wormhole", destination = po(27.5, 13.5),range=10, strength=10}
-    ti["w4"] = ti[" &"]..{"it_wormhole", destination = po(19.5, 13.5),range=10, strength=10}
-    ti["w5"] = ti[" &"]..{"it_wormhole", destination = po(29.5, 30.5),range=10, strength=10}
-    ti["w6"] = ti[" ("]..{"it_wormhole", destination = po(66.5, 31.5),range=10, strength=10}
-    ti["w7"] = ti[" ("]..{"fl_sahara"}
-    ti["aa"] = ti["< "]..{"fl_abyss"}
-    ti["pe"] = ti[" '"]..{"it_puller_e"}
-    ti["ei"] = ti[" ("]..{"fl_sahara"}
+    ti["w1"] = ti[" &"] .. {"it_wormhole", destination = po(28.5, 31.5), range=3, strength=3}
+    ti["w2"] = ti[" ("] .. {"it_wormhole", destination = po(36.5, 38.5), range=10, strength=10}
+    ti["w3"] = ti[" &"] .. {"it_wormhole", destination = po(27.5, 13.5), range=10, strength=10}
+    ti["w4"] = ti[" &"] .. {"it_wormhole", destination = po(19.5, 13.5), range=10, strength=10}
+    ti["w5"] = ti[" &"] .. {"it_wormhole", destination = po(29.5, 30.5), range=10, strength=10}
+    ti["w6"] = ti[" ("] .. {"it_wormhole", destination = po(66.5, 31.5), range=10, strength=10}
+    ti["w7"] = ti[" ("] .. {"fl_sahara"}
+    ti["aa"] = ti["< "] .. {"fl_abyss"}
+    ti["pe"] = ti[" '"] .. {"it_puller_e"}
+    ti["ei"] = ti[" ("] .. {"fl_sahara"}
 else
-    ti["w1"] = ti[" &"]..{"it_wormhole", destination = po(28.5, 31.5),range=3, strength=3}
-    ti["w2"] = ti[" ("]..{"it_wormhole", destination = po(36.5, 38.5),range=3, strength=3}
-    ti["w3"] = ti[" &"]..{"it_wormhole", destination = po(27.5, 13.5),range=3, strength=3}
-    ti["w4"] = ti[" &"]..{"it_wormhole", destination = po(19.5, 13.5),range=3, strength=3}
-    ti["w5"] = ti[" &"]..{"it_wormhole", destination = po(29.5, 30.5),range=3, strength=3}
-    ti["w6"] = ti[" ("]..{"it_wormhole", destination = po(66.5, 31.5),range=3, strength=3}
-    ti["w7"] = ti[" ("]..{"it_wormhole", destination = po(63.5, 6.5),range=3, strength=3}
-    ti["aa"] = ti["< "]..{"fl_sahara"}
-    ti["ei"] = ti[" ("]..{"it_extralife"}
-    ti["pe"] = ti[" '"]..{"fl_bluegray"}
+    ti["w1"] = ti[" &"] .. {"it_wormhole", destination = po(28.5, 31.5), range=3, strength=3}
+    ti["w2"] = ti[" ("] .. {"it_wormhole", destination = po(36.5, 38.5), range=3, strength=3}
+    ti["w3"] = ti[" &"] .. {"it_wormhole", destination = po(27.5, 13.5), range=3, strength=3}
+    ti["w4"] = ti[" &"] .. {"it_wormhole", destination = po(19.5, 13.5), range=3, strength=3}
+    ti["w5"] = ti[" &"] .. {"it_wormhole", destination = po(29.5, 30.5), range=3, strength=3}
+    ti["w6"] = ti[" ("] .. {"it_wormhole", destination = po(66.5, 31.5), range=3, strength=3}
+    ti["w7"] = ti[" ("] .. {"it_wormhole", destination = po(63.5, 6.5), range=3, strength=3}
+    ti["aa"] = ti["< "] .. {"fl_sahara"}
+    ti["ei"] = ti[" ("] .. {"it_extralife"}
+    ti["pe"] = ti[" '"] .. {"fl_bluegray"}
 end
 
 local resolver = res.composer(ti)

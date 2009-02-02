@@ -16,6 +16,7 @@
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_gray"}
+ti["="] = {"fl_metal_7"}
 ti["-"] = {"fl_lawn"}
 ti[":"] = {"fl_abyss"}
 ti["#"] = {"st_redbrown"}
@@ -29,17 +30,8 @@ ti["S"] = {"st_switch", target="bridge"}
 ti["_"] = {"fl_bridge", name="bridge"}
 ti["@"] = {"#ac_marble_black"}
 
-function floor_resolver(key, x, y)
-    if key == " " then
-        if math.random(1,5) == 1 then
-            return ti({"fl_metal_7"})
-        end
-        return ti[" "]
-    end
-    return ti[key]
-end
-
-local resolver = res.autotile(floor_resolver, {"a", "l", "trigger"}, {"A", "L", "door"}, {"1", "6", "puzzle"})
+local random_resolver = res.random(ti, " ", {{"=", 1}, {" ", 4}})
+local resolver = res.autotile(random_resolver, {"a", "l", "trigger"}, {"A", "L", "door"}, {"1", "6", "puzzle"})
 wo(resolver, " ", {
     "####################",
     "#WWWWWWWWWWWWWWWWWW#",
@@ -68,7 +60,7 @@ wo(resolver, " ", {
     "####################"})
 
 wo:shuffleOxyd()
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

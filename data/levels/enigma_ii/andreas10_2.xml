@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Moure-Switches" el:subtitle="" el:id="andreas10"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="02:08" el:difficult="02:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["."] = {"fl_space"}
+ti["!"] = {"st_purplemarble"}
+ti["$"] = {"st_oxyd", "oxyd#", flavor = "d"}
+ti["T"] = {"st_timer", interval = 360.0, loop = false, target = "timer_hint", invisible = true} .. ti["."]
+ti["K"] = {"st_timer", interval = 0.01, loop = false, target = "timer_kill", invisible = true, state = OFF} .. ti["."]
+ti["F"] = {"st_fourswitch", target = "fourswitch_callback"}
+ti["G"] = {"st_switch", target = "switch_callback", state = OFF, instant = true}
+ti["H"] = {"st_switch", target = "switch_callback", state = ON, instant = true}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+-- The following four floor-types will be permuted.
+ti["1"] = {"fl_sahara", _dir = NORTH}
+ti["2"] = {"fl_red", _dir = EAST}
+ti["3"] = {"fl_bluegray", _dir = SOUTH}
+ti["4"] = {"fl_tigris", _dir = WEST}
+
+w, h = wo(res.random(ti, " ", {"1", "2", "3", "4"}), " ",
+       {"T...................",
+        ".KKKKKKKKKKKKKKKKKK.",
+        ".KKKKKKKKKKKKKKKKKK.",
+        "!!$!!$!!$!!$!!$!!$!!",
+        "!FFFFFFFFFFFFFFFFFF!",
+        "!GGGGGGGGGGGGGGGGGG!",
+        "!         @        !",
+        "!HHHHHHHHHHHHHHHHHH!",
+        "!FFFFFFFFFFFFFFFFFF!",
+        "!!$!!$!!$!!$!!$!!$!!",
+        ".KKKKKKKKKKKKKKKKKK.",
+        ".KKKKKKKKKKKKKKKKKK.",
+        "...................."})
+
+wo:shuffleOxyd()
+
+-- A single oxyd stone to use "closeall" and "shuffle".
+mainoxyd = (no["oxyd#*"])[1]
+
+if not wo["IsDifficult"] then
+  wo[{3,6}] = {"it_pin"}
+end
+
+-- First and second hint
+
+wo[{16,6}] = {"it_document", text = "text1"}
+function timer_hint(is_on, sender)
+  wo[{16,6}] = {"it_document", text = "text2"}
+end
+
+-- A sender may never kill itself (at least for now),
+-- so we have to put a timer inbetween (at least for now).
+
+function timer_kill(is_on, sender)
+  local x, y = po(sender):xy()
+  if (y == 1) or (y == 2) then
+    wo[{x,4*y}] = {"st_nil"}
+  elseif (y == 10) or (y == 11) then
+    wo[{x,5 + (y-10)*2}] = {"st_nil"}
+    wo[{x,7 - (y-10)*2}] = ti[lib.lua.cond(y == 10, "H", "G")]
+    mainoxyd:closeall()
+    mainoxyd:shuffle()
+  end
+end
+
+-- Fourswitch callback
+
+solved = false
+function fourswitch_callback(is_on, sender)
+    local x = (po(sender)).x
+    if solved then
+        -- y is 4 or 8
+        st(x,po(sender).y/4):on()
+    else
+        solved = true
+        for j = 1,18 do
+        solved = solved and fl(j,5)._dir == st(j,4).state
+                        and fl(j,7)._dir == st(j,8).state
+        end
+    end
+end
+
+-- Switch callback
+
+function switch_callback(is_on, sender)
+    st(po(sender).x, lib.lua.cond(po(sender).y == 5, 10, 11)):on()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="The sequence of the four elements is important, as they are connected to the colors of the floor.">Our full attention this is worth:           Air and Fire, Water, Earth.</el:english>
+        <el:translation el:lang="de">Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde.</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true" el:comment="Just a hint to regard the floor.">And if your answer can’t be found           then shame on you, eyes to the ground!</el:english>
+        <el:translation el:lang="de">Und kannst Du Rätsel nicht genießen,           dann wirf Deinen Blick mal auf die Fliesen!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,15 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Stomp Stomp" el:subtitle="" el:id="qq3"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Andrzej Szombierski" el:email="" el:homepage=""/>
       <el:copyright>Copyright © Andrzej Szombierski</el:copyright>
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -19,16 +17,17 @@ ti[" "] = {"fl_samba"}
 ti["#"] = {"st_plaster"}
 ti[">"] = {"st_boulder", orientation=EAST}
 ti["<"] = {"st_boulder", orientation=WEST}
-ti["-"] = {"st_door", flavor="b"}
+ti["-"] = {"st_door", flavor="b", name="door%%"}
 ti["m"] = {"it_magicwand"}
-ti["t"] = {"it_trigger", target="open_doors"}
-ti["O"] = {"st_oxyd", name="oxyds#"}
+ti["t"] = {"it_trigger", target="door%%"}
+ti["O"] = {"st_oxyd", name="oxyd%%"}
 ti["@"] = {"#ac_marble_black"}
 
-wo(ti, " ", {
+local resolver = res.autotile(ti, {"a", "h", "t"}, {"A", "H", "-"}, {"1", "8", "O"})
+wo(resolver, " ", {
     "####################",
     "##                ##",
-    "#> t t t t t t t t<#",
+    "#> a b c d e f g h<#",
     "##                ##",
     "#                  #",
     "#                  #",
@@ -36,15 +35,11 @@ wo(ti, " ", {
     "#                  #",
     "#                  #",
     "# m                #",
-    "#@#-#-#-#-#-#-#-#-##",
-    "# #O#O#O#O#O#O#O#O##",
+    "#@#A#B#C#D#E#F#G#H##",
+    "# #1#2#3#4#5#6#7#8##",
     "####################"})
 
-wo:shuffleOxyd({"oxyds#*", linear=true})
-
-function open_doors(value, sender)
-    st(po(sender)+{0,8}):toggle()
-end
+wo:shuffleOxyd({no["oxyd??"]:sort(), linear=true})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

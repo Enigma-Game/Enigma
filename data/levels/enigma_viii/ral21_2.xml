@@ -3,9 +3,9 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 152 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 153 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
-      <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
@@ -49,7 +49,8 @@ ti["O4"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_CYAN}
 ti["O5"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_PURPLE}
 ti["O6"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_WHITE}
 ti["O7"] = ti["::"] .. {"st_oxyd_d", oxydcolor=OXYD_BLACK}
-ti["OE"] = {"st_oxyd_d"}
+ti["Oe"] = {"st_oxyd_d"}
+ti["OE"] = {"st_oxyd_d", "easyoxyd#"}
 ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl_thief"}
@@ -112,8 +113,7 @@ ti[";w"] = ti[";;"] .. {"it_magicwand"}
 ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
 ti["fw"] = ti["  "] .. {"it_flag_white"}
-ti["ww"] = ti["  "] .. {"it_wormhole", range=0.5, destination="white_grave"}
-ti[" y"] = ti["  "] .. {"it_yinyang"}
+ti[" y"] = ti["  "] .. {"it-yinyang"}
 ti["k0"] = ti["  "] .. {"it_key", code=0}
 ti["k1"] = ti["  "] .. {"it_key", code=1}
 ti["k3"] = ti["~~"] .. {"it_key", code=3}
@@ -130,7 +130,7 @@ ti["d9"] = ti["$$"] .. {"it_document", "docinvoice", text="invoice"}
 ti["da"] = ti["  "] .. {"it_document", text="holy"}
 ti["db"] = ti[";;"] .. {"it_document", text="death"}
 ti["dc"] = ti["  "] .. {"it_document", text="fire"}
-ti["dd"] = ti["  "] .. {"it_document", text="research"}
+ti["dd"] = {"it_document", text="research"}
 ti["de"] = ti[";;"] .. {"it_document", text="noitem"}
 ti["df"] = ti["%%"] .. {"it_document", text="thieves"}
 ti["dg"] = ti["''"] .. {"it_document", text="children"}
@@ -191,7 +191,6 @@ ti["He"] = ti["ge"] .. {"st_greenbrown_hollow"}
 ti["Hw"] = ti["gw"] .. {"st_greenbrown_hollow"}
 ti["Hn"] = ti["gn"] .. {"st_greenbrown_hollow"}
 ti["Hm"] = ti["pn"] .. {"st_greenbrown_hollow"}
-ti["HE"] = ti[";;"] .. {"st_greenbrown_hollow", "white_grave"}
 ti["Hp"] = ti["pe"] .. {"st_greenbrown_hollow"}
 ti["Hs"] = ti["gs"] .. {"st_greenbrown_hollow"}
 ti["HS"] = ti["gS"] .. {"st_greenbrown_hollow"}
@@ -224,8 +223,8 @@ ti["R5"] = ti[".."] .. {"st_granite"}
 ti["Rp"] = ti[".."] .. {"st_granite_hollow"}
 ti["Rh"] = ti["  "] .. {"st_granite_hollow"}
 ti["Rm"] = ti["::"] .. {"st_granite_movable"}
-ti["R3"] = ti["  "] .. {"st_plaster"}
-ti["RH"] = ti["  "] .. {"st_plaster_hollow"}
+ti["R3"] = ti["  "] .. {"st_flat"}
+ti["RH"] = ti["  "] .. {"st_flat_hollow"}
 ti["RP"] = ti["  "] .. {"st_panel"}
 ti["R#"] = ti["  "] .. {"st_rotator_cw"}
 ti["RL"] = ti["  "] .. {"st_rotator_ccw"}
@@ -235,10 +234,10 @@ ti["RY"] = ti["::"] .. {"st_rotator_cw", movable=true}
 ti["P#"] = ti[";;"] .. {"st_pull"}
 ti["P_"] = ti["__"] .. {"st_pull"}
 ti["T#"] = ti["  "] .. {"st_thief"}
-ti["F,"] = ti[",,"] .. {"st_grate_cross"}
-ti["F:"] = ti["::"] .. {"st_grate_cross"}
-ti["F'"] = ti["''"] .. {"st_grate_cross"}
-ti["F."] = ti[".."] .. {"st_grate_cross"}
+ti["F,"] = ti[",,"] .. {"st_grate"}
+ti["F:"] = ti["::"] .. {"st_grate"}
+ti["F'"] = ti["''"] .. {"st_grate"}
+ti["F."] = ti[".."] .. {"st_grate"}
 ti["FA"] = ti[".."] .. {"st_quake"}
 ti["S#"] = ti[",,"] .. {"st_scissors"}
 ti["SS"] = {"st_scissors"}
@@ -320,8 +319,8 @@ ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
 ti["_C"] = ti["__"] .. {"st_chameleon"}
 ti["_T"] = ti["__"] .. {"st_invisible"} .. ti({"#ac_horse"})
 
-ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=0, controllers=1} .. ti({"it_extralife"})
-ti[" 2"] = ti["ge"] .. {"#ac_marble_white", "white", essential=0, owner=1, controllers=2}
+ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=YIN, controllers=1}
+ti[" 2"] = ti["H#"] .. {"#ac_marble_white", "white", essential=0, owner=YANG, controllers=2}
 ti["c1"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid1"}
 ti["c2"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid2"}
 ti["c3"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid3"}
@@ -395,7 +394,7 @@ myresolver = function(key, x, y)
         end
     else
         if key == "o9" then
-            return ti["OE"]
+            return ti["Oe"]
         elseif (key == "of" or key:sub(1,1) == "o" or key:sub(1,1) == "r") then
             return ti["  "] -- dummy
         end
@@ -426,7 +425,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "                                ###@####HsHt##Hn##;;M# k kM#_fDIDIDI_fDI_f#######@##                               %", -- 18
 "                                ###@####Hs##H5H8R#;;H#######_fDI_f_f_fDI_f####Hm#@                                  ", -- 19
 "                                ###@####H7HeH8##H#;;##H#####_fDI_fDIDIDI_f####H##@##__                              ", -- 20
-"                             m  ##HFHE########G##D;;H#H#M#M#_fDI_f_f_f_f_f####H##@##                                ", -- 21
+"                             m  ##HF 2########G##D;;H#H#M#M#_fDI_f_f_f_f_f####H##@##                                ", -- 21
 "     %                          ###@####Va;;;;;;;;P_####B;####################H#H##w                                ", -- 22
 "                                ###@##########H#H#H#####H#HwHwHwHwHwHwHwHwVc#####@##                                ", -- 23
 "                                ###@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##                                ", -- 24 --
@@ -444,7 +443,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "      c2  c4 %                C4                                           fWfW W W W W W W W W W W Wf f            ", -- 36 --
 "    c1HWc3  R#~~        ~~RM                                                W $$$$$$ph$$$$ph$$$$$$$$W               ", -- 37
 "BBBBBBBBBBBBBB~e,f,f,f,f~eBBBBBBBBBBBBBB                                    W $$$g## fpb$$$o$$ f$$$oW               ", -- 38
-"BBCS,,GTCWGGCW,,,l 1d1,,,,,,,,B,,,d4S#BBT#                                  W $$$$$$$$$$$$$$$$pd##$$W d8            ", -- 39
+"BBCS,,GTCWGGCW,,,, 1d1,,,,,,,,B,,,d4S#BBT#                                  W $$$$$$$$$$$$$$$$pd##$$W d8            ", -- 39
 "BBGB,,,,,,,,F,,,,d,d,d,d,,,,,,CC,,BBBBBB                                    W $$$$$$$$$$$$ H o  d9phMw              ", -- 40
 "BBCS,,CS,,CSBB,,,,,,,,,,,,,,BBBBBBBB,aBB                               m    W $$phph$o$$ Hpa 4  $$$$W               ", -- 41
 "BBGPF,GRF,GSBB,,,,,,,,,,,,,,,,,,,,BB,dBB                                    W $o$$pv## f fKA H  $$$$W               ", -- 42
@@ -493,7 +492,7 @@ w, h = wo(res.puzzle(myresolver,"l","b","Y"), "  ", {
 "                                    B#B#I...ImI.I.I.I.I.I.I.I.I.I.B#B#..G.F.B#................................F...B#", -- 85
 "  TL                                B#B#B#B#I.B#B#B#B#B#B#B#B#B#I.I.I...G.F.B#................................F.MPB#", -- 86
 "                                    B#B#B#B#I.B#B#B#B#B#B#B#B#B#B#B#B#..G.F.B#..........FA......LS......FA....F...B#", -- 87
-" 2ge,dgeddge;tgeww                  B#B#B#B#ImB#B#B#B#B#B#B#B#B#B#B#B#..G.F.B#......LYl1l1............LZl1l1..F...B#", -- 88
+"                                    B#B#B#B#ImB#B#B#B#B#B#B#B#B#B#B#B#..G.F.B#......LYl1l1............LZl1l1..F...B#", -- 88
 "                                    B#B#B#B#ImB#B#B#B#B#B#B#B#B#B#B#B#MPG.F.B#......l1l1l1............l1l1l1..F...B#", -- 89
 "                                  LXC.....F...............................~~B#..MD..l1l1LS......FA......LSl1..F...B#", -- 90
 "  ofofofofofofof                    B#B#B#B#..IHIHIhIHIHIHIHB#B#B#B#B#MPG.F.B#......l1l1l1............l1l1l1..F...B#", -- 91
@@ -697,8 +696,11 @@ if not wo["IsDifficult"] then
                  "R0..S.M.W...S.M.W.....S.M.W...S.M.W...R0",
                  "R0....................................R0",
                  "R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0R0"})
-    wo:shuffleOxyd()
+    wo:shuffleOxyd({"easyoxyd#*", max=2})
 end
+
+wo:add(YANG, {"it_coin_l"} .. ti["dd"] .. {"it_spade"})
+wo:add(YIN,  {"it_extralife"} .. ti({"it_extralife"}))
 
     ]]></el:luamain>
     <el:i18n>
@@ -781,3 +783,4 @@ end
     </el:i18n>
   </el:protected>
 </el:level>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Doors" el:subtitle="" el:id="level4a"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_greenbrown"}
+ti["-"] = {"st_door", flavor="d", faces="ns", name="doorsh1#"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="doorsv1#"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="doorsh2#"}
+ti[":"] = {"st_door", flavor="d", faces="ew", name="doorsv2#"}
+ti["T"] = {"st_timer", interval=1.0, target="turner"}
+ti["F"] = {"st_fourswitch", name="turner", action_0="close",     action_1="open",      action_2="open",      action_3="close",
+                                           target_0="doors?1#*", target_1="doors?2#*", target_2="doors?1#*", target_3="doors?2#*"}
+ti["O"] = {"st_oxyd", name="left#"}
+ti["o"] = {"st_oxyd", name="right#"}
+ti["0"] = {"st_oxyd", name="middle#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################T",
+    "#O #   #    #   # o#F",
+    "#  | O :    : o |  #",
+    "#  #   #    #   #  #",
+    "##=######-####=##-##",
+    "#  #   #    #   #  #",
+    "#O # 0 : @  | 0 # o#",
+    "#  #   #    #   #  #",
+    "##=#######=###-##=##",
+    "#  #   #    #   #  #",
+    "#  # 0 |    | 0 #  #",
+    "#O #   #    #   # o#",
+    "####################"})
+
+wo:shuffleOxyd({no["left#*"], max=0}, {no["right#*"], max=0}, {"middle#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

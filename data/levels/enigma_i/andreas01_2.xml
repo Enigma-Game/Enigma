@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Lissajous" el:subtitle="" el:id="andreas01"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="00:19" el:difficult="00:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_pinkbumps"}
+ti["#"] = {"st_redfiber"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+ti["~"] = {"it_nil"} .. ti({"st_nil"})
+ti["D"] = {"fl_space"} .. {"it_death"} .. ti({"st_death"})
+ti["T"] = {"st_timer", target = "lissajous_callback", name = "timer", interval = 0.1}
+ti["1"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_RED}
+ti["2"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_ORANGE}
+ti["3"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_YELLOW}
+ti["4"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_BLACK}
+
+w, h = wo(ti, " ",
+       {"T###################",
+        "#1                1#",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#2@      44       2#",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#                  #",
+        "#3                3#",
+        "####################"})
+
+wo:shuffleOxyd()
+
+TICK_ANGLE1_DELTA = 360.0 * 0.1 / 7.0
+TICK_ANGLE2_DELTA = 360.0 * 0.1631 / 7.0
+
+-- coord/old_pos relate to the death stones.
+-- This initial position is that of one of the oxyd-stones,
+-- so there won't be fl-space drawn at the beginning
+coord = po({9.0, 6.0})
+old_pos = coord
+angle1 = 90.0
+angle2 = 90.0
+
+function lissajous_callback()
+    -- Yes, lua's sin and cos work with degree, not radian.
+    angle1 = mod(angle1 + TICK_ANGLE1_DELTA, 360.0)
+    angle2 = mod(angle2 + TICK_ANGLE2_DELTA, 360.0)
+    -- Without the following addition of {0,0}, old_pos would just
+    -- become a reference to coord, not a deep-copy. This is
+    -- particularly confusing, as old_pos would be the coord after
+    -- the next calculation, but "grid()" breaks the memory reference,
+    -- such that old_pos differs from coord but is non-integer!
+    old_pos = coord  + {0, 0}
+    coord.x = 8.0 * cos(angle1) + 10.0
+    coord.y = 5.0 * sin(angle2) +  6.5
+    coord = coord:grid()
+    move_death_stone(old_pos, coord)
+    if wo["IsDifficult"] then
+      move_death_stone({19.0, 12.0} - old_pos, {19.0, 12.0} - coord)
+    end
+end
+
+function move_death_stone(old_pos, coord)
+    if old_pos ~= coord then
+      if not(st(old_pos):is("st_oxyd")) then
+        wo[old_pos] = ti["~"]
+      end
+      if not(st(coord):is("st_oxyd")) then
+        wo[coord] = ti["D"]
+      end
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

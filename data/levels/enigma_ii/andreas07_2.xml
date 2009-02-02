@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Turn Around" el:subtitle="" el:id="andreas07"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="02:19" el:difficult="03:31"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7", friction = 4.0}
+ti["!"] = {"st_metal"}
+ti["o"] = {"st_oxyd", flavor = "a"}
+ti["#"] = {"st_puzzle_yellow", connections = "nw"}
+ti["$"] = {"st_puzzle_yellow", connections = "ew"}
+ti["%"] = {"st_puzzle_yellow", connections = "nsw"}
+ti["&"] = {"st_puzzle_yellow", connections = "sw"}
+ti["'"] = {"st_puzzle_yellow", connections = "ns"}
+ti[")"] = {"st_puzzle_yellow", connections = "new"}
+ti["+"] = {"st_puzzle_yellow", connections = "esw"}
+ti[","] = {"st_puzzle_yellow", connections = "ne"}
+ti["-"] = {"st_puzzle_yellow", connections = "nes"}
+ti["."] = {"st_puzzle_yellow", connections = "es"}
+ti["X"] = {"st_puzzle_yellow", connections = "nesw"}
+ti["*"] = {"st_puzzle_yellow", connections = "nesw", hollow = true}
+ti["d"] = {"it_document", text = "text1"}
+ti["e"] = {"it_document", text = "text2"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+if wo["IsDifficult"] then
+   map={"!!!!!!!!!!!!!!!!!!!!",
+        "!                  !",
+        "!   #')')')',      !",
+        "!   $o$o$o$o$   d  !",
+        "!   %'*'X'*'-      !",
+        "!   $o$o$o$o$      !",
+        "!   %'X'!'X'-      !",
+        "!   $o$o$o$o$      !",
+        "!   %'*'X'*'-      !",
+        "!   $o$o$o$o$   @  !",
+        "!   &'+'+'+'.      !",
+        "!                  !",
+        "!!!!!!!!!!!!!!!!!!!!"}
+else
+   map={"!!!!!!!!!!!!!!!!!!!!",
+        "!                  !",
+        "!   #')')')',      !",
+        "!   $o$o$o$o$   e  !",
+        "!   %'*'*'*'-      !",
+        "!   $o$o$o$o$      !",
+        "!   %'*'*'*'-      !",
+        "!   $o$o$o$o$      !",
+        "!   %'*'*'*'-      !",
+        "!   $o$o$o$o$   @  !",
+        "!   &'+'+'+'.      !",
+        "!                  !",
+        "!!!!!!!!!!!!!!!!!!!!"}
+end
+
+w, h = wo(ti, " ", map)
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Just a hint: Try the easy-mode first ...</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Don't think too long ... it's easy!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

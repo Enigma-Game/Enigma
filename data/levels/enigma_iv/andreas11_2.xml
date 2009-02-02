@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Patterns of Impulse" el:subtitle="" el:id="andreas11"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="04:01" el:difficult="07:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["N"] = {"st_brownpyramide"}
+ti["!"] = {"st_stoneimpulse"}
+ti["$"] = {"st_stoneimpulse_movable"}
+ti["M"] = {"st_box"}
+ti["."] = {"st_grate_cross"}
+ti["O"] = {"st_oxyd", flavor = "c", oxydcolor = OXYD_RED}
+ti["P"] = {"st_oxyd", flavor = "c", oxydcolor = OXYD_CYAN}
+ti["@"] = {"#ac_marble", adhesion = 1} .. ti["."]
+ti["i"] = {"it_document", text = "text1"} .. ti["."]
+ti["1"] = {"fl_wood", "door1#"} .. ti["."]
+ti["2"] = {"fl_wood", "door2#"} .. ti["."]
+ti["3"] = {"fl_wood", "door3#"} .. ti["."]
+ti["t"] = {"it_trigger", target = "close_doors"}
+ti["T"] = {"st_timer", "timer#", target = "open_doors", interval = 3.0, _motion = false}
+
+if wo["IsDifficult"] then
+  ti[":"] = {}
+else
+  ti[":"] = ti["."]
+end
+
+w, h = wo(ti, " ",
+       {" ", " ", " ", " ", " ", " ", " ", " ",
+        "NNN              NNN",
+        "!!N              N!!",
+        "!MN              NM!",
+        "!tTNNN        NNNTt!",
+        "!!!!!NNNNNNNNNN!!!!!",
+        "!O1 $          $ 1P!",
+        "!23.$          $.32!",
+        "!$$$ $ $ $$ $ $ $$$!",
+        "N   $   $@i$   $   N",
+        "N   $...$  $...$   N",
+        "N::::$ $    $ $::::N",
+        "N   $...$  $...$   N",
+        "N   $   $..$   $   N",
+        "!$$$ $ $ $$ $ $ $$$!",
+        "!23.$          $.32!",
+        "!P1 $          $ 1O!",
+        "!!!!!NNNNNNNNNN!!!!!",
+        "!tTNNN        NNNTt!",
+        "!MN              NM!",
+        "!!N              N!!",
+        "NNN              NNN",
+        " ", " ", " ", " ", " ", " ", " ", " "})
+
+timers = no["timer#*"]
+doors1 = no["door1#*"]
+doors2 = no["door2#*"]
+doors3 = no["door3#*"]
+
+function close_doors(is_on, sender)
+  timers:nearest(sender)._motion = true
+  wo[doors1:nearest(sender)] = ti["N"]
+  wo[doors2:nearest(sender)] = ti["N"]
+  wo[doors3:nearest(sender)] = ti["N"]
+end
+
+function open_doors(is_on, sender)
+  if sender._motion then
+    sender._motion = false
+  else
+    wo[doors1:nearest(sender)] = ti["."]
+    wo[doors2:nearest(sender)] = ti["."]
+    wo[doors3:nearest(sender)] = ti["."]
+  end
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">As long as there is motion around the oxyd-stones, you won't reach them.   So: Don't lose control of the level! It's possible.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

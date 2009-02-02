@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Squaring the Circle" el:subtitle="" el:id="nat16"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["SurviveFinish"] = true
+
+ti[" "] = ti({"fl_blueslab", checkerboard=0}) .. {"fl_redslab", checkerboard=1}
+ti["#"] = {"st_panel"}
+ti["O"] = {"st_oxyd", name="oxyds#", flavor="a"}
+ti["@"] = {"ac_marble_black", 0.0, 0.5, name="blackball"}
+
+wo(ti, " ", {
+    "###O###O####O###O###",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "O         @        O",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "###O###O####O###O###"})
+
+local radius = 2.5
+if wo["IsDifficult"] then
+    radius = 1.5
+end
+
+-- Setting the circle of killerballs:
+local number_balls = 20
+local center = no["blackball"] + po(0.0, 0.5)
+local theta = 2*math.pi / number_balls
+for i=0, number_balls-1 do
+    local ballpos = center + po(radius*math.cos(i*theta), radius*math.sin(i*theta))
+    wo[ballpos] = {"ac_killer", name=tostring(i)}
+end
+
+-- And adding the rubberbands:
+local rubber_length = 2*radius*math.sin(math.pi/number_balls)
+for i=1, number_balls-1 do
+    wo:add({"ot_rubberband", anchor1=no[tostring(i-1)], anchor2=no[tostring(i)], length=rubber_length})
+end
+wo:add({"ot_rubberband", anchor1=no[0], anchor2=no[number_balls-1], length=rubber_length})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Troy" el:subtitle="" el:id="andreas37"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="01:37"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["SwampSinkSpeed"] = 2.0
+wo["ShowMoves"] = true
+
+ti[" "] = {"fl_bluegray"}
+ti["~"] = {"fl_water"}
+ti["="] = {"fl_swamp", friction = 9.0, adhesion = 2.0}
+ti["."] = {"fl_sand", friction = 9.0, adhesion = 2.0}
+ti["C"] = {"st_chess"} .. ti["."]
+ti["@"] = {"#ac_marble", adhesion = 1} .. ti["."]
+ti["#"] = {"st_yellow"}
+ti["O"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_YELLOW}
+ti["P"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_GREEN}
+ti["Q"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_BLUE}
+ti["D"] = {"st_door", "door1", flavor = "d", faces = "sn"}
+ti["t"] = {"it_trigger", target = "door1", action = "open"}
+
+w, h = wo(ti, " ",
+   {"~~~~~~~~~~~~~~~~~~~~",
+    "~~==.~~~~~~~..~~~~~~",
+    "~=...=.~~~...====~~~",
+    "~.~@.==~~~~=..=...~~",
+    "~=.=..===~~~..~=..=~",
+    "~==.C.==.=~~~..===.~",
+    "~..=.~==.~~~~....~.~",
+    "~..==.=....~~~=.=.=~",
+    "~.~....~.=~~~~~====~",
+    "~~.~==.~==~~=~~..==~",
+    "~.=.===.=~~=.=~~~=.~",
+    "~~======~~.=..=.~=~~",
+    "~~.=...~~.=~....==~~",
+    "~.=...=~==~===..===~",
+    "~..~===.==.=~=..~=.~",
+    "~~..==......===....~",
+    "~=.===...=...=====.~",
+    "~.~.==~###D###...~.~",
+    "~==..=.#  t  #.=~~~~",
+    "~=.~.==# OPO #...=~~",
+    "~.==.=.#  P  #=~.==~",
+    "~===~..#Q   Q#.=..=~",
+    "~~..~=.#######....~~",
+    "~~~~=....~~~~.==~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

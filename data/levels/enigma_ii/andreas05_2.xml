@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Friend or Foe?" el:subtitle="" el:id="andreas05"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:score el:easy="00:55" el:difficult="00:59"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bluegreen"}
+ti["."] = {"fl_ivory"}
+ti[","] = {"fl_red"}
+ti["!"] = {"st_tigris"}
+ti["#"] = {"st_purplegray"}
+ti["%"] = {"st_greengray"}
+ti["O"] = {"st_oxyd", flavor = "a"}
+ti["@"] = {"#ac_marble", "marble", adhesion = 1.0} .. ti[","]
+ti["t"] = {"#ac_top", "top", range = 10, strength = 10, gohome = false}
+
+w, h = wo(ti, " ",
+       {"!#O#!#O#!#!#!#!#!#!#",
+        "#. . . . .#%#%#%#%#%",
+        "O , , , , , !#!#!#!#",
+        "#. . . . . %#%#%#%#%",
+        "! , , , , !#O , O#!#",
+        "#. . . . . . . . .#%",
+        "O , , @ , , ,t, , ,O",
+        "#. . . . . . . . .#%",
+        "! , , , , !#O , O#!#",
+        "#. . . . . %#%#%#%#%",
+        "O , , , , , !#!#!#!#",
+        "#. . . . .#%#%#%#%#%",
+        "!#O#!#O#!#!#!#!#!#!#"})
+
+if wo["IsDifficult"] then
+  wo:add({"ot_rubberband", anchor1 = "top", anchor2 = "marble", strength = 15, length = 0})
+  wo:add({"ot_rubberband", anchor1 = "marble", anchor2 = st(0,6), strength = 8, length = 0})
+  wo:add({"ot_rubberband", anchor1 = "top", anchor2 = st(19,6), strength = 15, length = 0})
+else
+  wo:add({"ot_rubberband", anchor1 = "top", anchor2 = "marble", strength = 8, length = 0})
+  wo:add({"ot_rubberband", anchor1 = "marble", anchor2 = st(0,6), strength = 8, length = 0})
+  wo:add({"ot_rubberband", anchor1 = "top", anchor2 = st(19,6), strength = 8, length = 0})
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

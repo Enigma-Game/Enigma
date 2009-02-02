@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Vanity's Constrictions" el:subtitle="The Hand Mirror Cabinet" el:id="andreas53"/>
-      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="2:20" el:difficult="6:02"/>
     </el:info>
@@ -16,7 +15,7 @@
 wo["ConserveLevel"] = true
 
 ti["  "] = {"fl_bluegray", checkerboard = 0, friction = 6.0, adhesion = 2.0}
-           .. ti({"fl_darkgray", checkerboard = 1, friction = 6.0, adhesion = 2.0})
+           .. ti({"fl_tigris", checkerboard = 1, friction = 6.0, adhesion = 2.0})
 ti["# "] = {"st_darkglass"}
 ti["@ "] = {"#ac_marble_black"}
 ti["O "] = {"st_oxyd", oxydcolor = OXYD_PURPLE, flavor = "a"}
@@ -30,10 +29,10 @@ ti["A*"] = {"st_box_wood", "anchor%%", _mytarget = "mirror%%"}
 
 if wo["IsDifficult"] then
   ti["F "] = ti["# "]
-  ti["g "] = {"st_rawglass"}
+  ti["g "] = {"st_lightglass"}
 else
-  ti["F "] = ti["  "]
-  ti["g "] = ti["  "]
+  ti["F "] = {}
+  ti["g "] = {}
 end
 
 w, h = wo(res.autotile(ti, {"A", "A*"}, {"/", "/*"}, {"&", "&*"}), "  ", {
@@ -56,8 +55,7 @@ w, h = wo(res.autotile(ti, {"A", "A*"}, {"/", "/*"}, {"&", "&*"}), "  ", {
 for j in no["anchor%*"] do
   wo:add({"ot_wire", anchor1 = j, anchor2 = no[j._mytarget]})
 end
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

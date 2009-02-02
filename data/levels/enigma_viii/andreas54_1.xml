@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Minopal" el:subtitle="Every marble is the architect of its own fortune" el:id="andreas54"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
+      <el:author el:name="Andreas Lochmann, Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann, Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:25" el:difficult="9:39"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = {"fl_wood_framed"}
+ti["~"] = {"fl_water"}
+ti[":"] = {"it_seed"}
+ti[";"] = {"it_seed_fake"}
+if wo["IsDifficult"] then
+    ti["."] = {"st_oxyd", target = "oxyd_callback"} .. ti["~"]
+    ti["@"] = {"#ac_pearl", owner = 0}
+    ti["F"] = {"st_quake"}
+    ti["U"] = {"it_umbrella"}
+    ti["u"] = ti["U"] .. ti["~"]
+else
+    ti["."] = {"st_oxyd", target = "oxyd_callback"} .. ti["~"]
+    ti["F"] = {"#ac_pearl", owner = 0}
+    ti["@"] = ti[" "]
+    ti["U"] = ti[" "]
+    ti["u"] = ti["~"]
+end
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "~~~~~~~~~~~~~~~~~~~",
+   "~u~~~~~~~~~~~~~~~u~",
+   "~~~.............~~~",
+   "~~...............~~",
+   "~~...............~~",
+   "~~......U@U......~~",
+   "~~...... F ......~~",
+   "~~......U U......~~",
+   "~~...............~~",
+   "~~...............~~",
+   "~~~.............~~~",
+   "~u~~~~~~~~~~~~~~~u~",
+   "~~~~~~~~~~~~~~~~~~~"
+})
+
+local last_oxyd = 0
+function oxyd_callback(is_on, sender)
+    if sender.state == OXYDPAIR then
+        oxyds = grp(sender, last_oxyd)
+        wo[oxyds] = ti[":"]
+        if wo["IsDifficult"] then
+            wo[last_oxyd] = ti[";"]
+        end
+        it(oxyds):grow()
+    elseif sender.state == OPEN then
+        last_oxyd = sender
+    end
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Jede Murmel ist Architekt ihres eigenen Schicksals</el:translation>
+      </el:string>
+     </el:i18n>
+  </el:protected>
+</el:level>

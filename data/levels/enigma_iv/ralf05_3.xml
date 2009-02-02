@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Stay There!" el:subtitle="" el:id="ralf05"/>
+      <el:version el:score="2" el:release="3" el:revision="1" el:status="released"/>
+      <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["-"] = {"fl_space"}
+ti["#"] = {"st_granite"}
+ti["S"] = {"st_stoneimpulse"}
+ti["s"] = {"st_stoneimpulse_movable"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["x"] = ti["X"] .. {"it_seed"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="doors#*"}
+ti["t"] = {"it_trigger", target="conter", action="signal"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "--#######S#---------",
+    "--S       #--O---O--",
+    "--# #S### #-- --- --",
+    "--# #     S-#=#-#=#-",
+    "--# # #S##S## ### ##",
+    "--#@S   #          S",
+    "#SS S## #  ## ##   #",
+    "#     S #  #ttt#   #",
+    "S sss S     ttt    #",
+    "# sss #X#  #ttt#   #",
+    "S sss SXX  ## ##   #",
+    "S     #x#          #",
+    "##S#SS############S#"})
+
+wo:add({"ot_counter", "counter", state=0, target_9="doors#*", action_9="open", target_8="doors#*", action_8="close"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
