@@ -35,6 +35,18 @@ namespace enigma {
         virtual void actor_hit (const StoneContact &sc);
     };
     
+    /** 
+     * DummyStone
+     */
+    class DummyStone : public Stone {
+        CLONEOBJ(DummyStone);
+    public:
+        DummyStone();
+    
+        // Stone interface
+        virtual StoneResponse collision_response(const StoneContact &sc);
+    };
+    
     class EasyModeStone : public Stone {
         CLONEOBJ(EasyModeStone);
         DECL_TRAITS;

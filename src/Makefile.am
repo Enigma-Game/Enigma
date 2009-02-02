@@ -294,6 +294,8 @@ enigma_SOURCES = 		\
 	stones/BrakeStone.hh	\
 	stones/BreakStone.cc	\
 	stones/BreakStone.hh	\
+	stones/ChameleonStone.cc	\
+	stones/ChameleonStone.hh	\
 	stones/ChessStone.cc	\
 	stones/ChessStone.hh	\
 	stones/ClusterStone.cc	\
@@ -324,6 +326,8 @@ enigma_SOURCES = 		\
 	stones/GlassStones.hh	\
 	stones/GreenBrownStone.cc	\
 	stones/GreenBrownSTone.hh	\
+	stones/JambStone.cc	\
+	stones/JambStone.hh	\
 	stones/KeySwitch.cc	\
 	stones/KeySwitch.hh	\
 	stones/KnightStone.cc	\
@@ -352,6 +356,8 @@ enigma_SOURCES = 		\
 	stones/PlasterStone.hh	\
 	stones/PolarSwitchStone.cc	\
 	stones/PolarSwitchStone.hh	\
+	stones/PortalStone.cc	\
+	stones/PortalStone.hh	\
 	stones/PullStone.cc	\
 	stones/PullStone.hh	\
 	stones/PuzzleStone.cc	\

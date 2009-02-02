@@ -321,7 +321,7 @@ Stone *OxydLoader::make_stone (int type, int x, int y)
         const char *name = config.stonetable[type];
         if (name == 0) {
             Log << ecl::strf("Unknown stone %X\n", type);
-            st = MakeStone ("st-dummy");
+            st = MakeStone ("st_dummy");
             st->setAttr("code", type);
         }
         else if (name[0] != '\0') { // ignore if name==""

@@ -891,9 +891,14 @@
       <msg name="heat"/>
       <msg name="_fall"/>
     </object>
-    <object name="st_box_hay" flavor="hay"/>
-    <object name="st_box_rock" flavor="rock"/>
-    <object name="st_box_wood" flavor="wood">
+    <object name="st_box_hay">
+      <attr name="flavor" value="hay"/>
+    </object>
+    <object name="st_box_rock">
+      <attr name="flavor" value="rock"/>
+    </object>
+    <object name="st_box_wood">
+      <attr name="flavor" value="wood"/>
     </object>
     <object name="st_box_wood_growing" init="true">
     </object>
@@ -990,6 +995,7 @@
     <object name="st_camouflage_movable">
       <attr name="movable" value="true"/>
     </object>
+    <object name="st_chameleon"/>
     <object name="st_charge">
       <attr name="charge"/>
       <attr name="$chargesign"/>
@@ -1200,6 +1206,17 @@
     </object>
     <object name="st_invisible_movable">
       <attr name="movable" value="true"/>
+    </object>
+    <object name="st_jamb">
+      <attr name="color" default="0"/>
+      <msg name="hit"/>
+      <msg name="signal"/>
+    </object>
+    <object name="st_jamb_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="st_jamb_white">
+      <attr name="color" value="1"/>
     </object>
     <object name="st_key">
       <attr name="code"/>
@@ -1452,6 +1469,15 @@
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
+    </object>
+    <object name="st_portal">
+      <attr name="flavor" default="horse" rw="r"/>
+    </object>
+    <object name="st_portal_horse">
+      <attr name="flavor" value="horse"/>
+    </object>
+    <object name="st_portal_pearl">
+      <attr name="flavor" value="pearl"/>
     </object>
     <object name="st_pull">
       <attr name="state" rw="r"/>

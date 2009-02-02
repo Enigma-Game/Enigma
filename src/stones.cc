@@ -407,92 +407,6 @@ void SpitterStone::actor_hit (const StoneContact &sc)
     }
 }
 
-/* -------------------- Black- and Whiteballs Stones -------------------- */
-
-namespace
-{
-    class BlackBallsStone : public Stone {
-        CLONEOBJ(BlackBallsStone);
-
-        virtual Value message(const Message &m)
-        {
-            if (m.message == "signal" || m.message == "hit") {
-                if (GridObject *sender = dynamic_cast<GridObject*>(m.sender)) {
-                    GridPos p = get_pos();
-                    Object *o;
-                    if (m.message == "hit")
-                        o = m.value;
-                    else
-                        o = SendMessage(m.sender, "_hitactor");
-                    
-                    Actor *a = dynamic_cast<Actor *>(o);
-                    if ((a && get_id(a) == ac_marble_black) || 
-                            (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
-                        if (p.y == sender->get_pos().y) {
-                            SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
-                            SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
-                            SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
-                            SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
-                        }
-                        else {
-                            SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
-                            SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
-                            SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
-                            SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
-                        }
-                        return Value();
-                    }
-                }
-            }
-            return Stone::message(m);
-        }
-    public:
-        BlackBallsStone() : Stone ("st-blackballs") {
-        }
-    };
-
-    class WhiteBallsStone : public Stone {
-        CLONEOBJ(WhiteBallsStone);
-
-        virtual Value message(const Message &m)
-        {
-            if (m.message == "signal" || m.message == "hit") {
-                if (GridObject *sender = dynamic_cast<GridObject*>(m.sender)) {
-                    GridPos p = get_pos();
-                    Object *o;
-                    if (m.message == "hit")
-                        o = m.value;
-                    else
-                        o = SendMessage(m.sender, "_hitactor");
-                        
-                    Actor *a = dynamic_cast<Actor *>(o);
-                    if ((a && get_id(a) == ac_marble_white) ||
-                             (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
-                        if (p.y == sender->get_pos().y) {
-                            SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
-                            SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
-                            SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
-                            SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
-                        }
-                        else {
-                            SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
-                            SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
-                            SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);
-                            SendMessage (GetStone (move (p, SOUTH)), "signal", 1.0);
-                        }
-                        return Value();
-                    }
-                }
-            }
-            return Stone::message(m);
-        }
-
-    public:
-        WhiteBallsStone() : Stone ("st-whiteballs") {
-        }
-
-    };
-}
 
 // --------------------------------------------------------------------------------
 
@@ -501,8 +415,6 @@ void InitStones() {
     // Register(new ...);
 
     Register (new SpitterStone);
-    Register (new BlackBallsStone);
-    Register (new WhiteBallsStone);
 
     // Init stones from stones_simple.cc and stones_complex.cc:
     Init_simple();

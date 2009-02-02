@@ -215,7 +215,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_grate_cross",           // PerOxyd stone 0x18
     UNUSED,                     // PerOxyd stone 0x19
     "st_surprise",              // PerOxyd stone 0x1a
-    "st-chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
+    "st_chameleon",             // PerOxyd stone 0x1b (levels: 23 142 178 183)
     "st_magic_brick",           // PerOxyd stone 0x1c
     "st_camouflage",            // PerOxyd stone 0x1d (green camouflage piece)(if st-camouflage is implemented, put it in here)
     "st_camouflage",            // PerOxyd stone 0x1e (green camouflage piece)
@@ -340,7 +340,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     0,                          // PerOxyd stone 0x95 (dynamite holder, will implememnt it)(levels: 41 184 200)
     "st_rubberband",            // PerOxyd stone 0x96
     "st_scissors",              // PerOxyd stone 0x97
-    "st-grate3",                // PerOxyd stone 0x98
+    "st_portal_horse",          // PerOxyd stone 0x98
     "st_blocker",               // PerOxyd stone 0x99
     "st-grate1",                // PerOxyd stone 0x9a
     "st_metal_hollow",          // PerOxyd stone 0x9b

@@ -178,7 +178,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_grate_framed",          // Oxyd1 stone 0x1b
     "st_break_bug",             // Oxyd1 stone 0x1c
     "st_surprise",              // Oxyd1 stone 0x1d
-    "st-chameleon",             // Oxyd1 stone 0x1e
+    "st_chameleon",             // Oxyd1 stone 0x1e
     "st_brick",                 // Oxyd1 stone 0x1f
     "st_granite",               // Oxyd1 stone 0x20
     "st_granite",               // Oxyd1 stone 0x21
@@ -292,8 +292,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_passage_black_square",  // Oxyd1 stone 0x8d
     "st_blur_straight",         // Oxyd1 stone 0x8e
     UNUSED,                     // Oxyd1 stone 0x8f
-    "st-whiteballs",            // Oxyd1 stone 0x90
-    "st-blackballs",            // Oxyd1 stone 0x91
+    "st_jamb_white",            // Oxyd1 stone 0x90
+    "st_jamb_black",            // Oxyd1 stone 0x91
     "st_fourswitch",            // Oxyd1 stone 0x92
     "st_blur_cross",            // Oxyd1 stone 0x93
     "st_break_white",           // Oxyd1 stone 0x94

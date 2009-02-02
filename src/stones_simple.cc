@@ -24,110 +24,12 @@
 #include "client.hh"
 #include "main.hh"
 #include "Inventory.hh"
-#include "items/GlassesItem.hh"
 
 #include "stones_internal.hh"
 
 using namespace std;
 
 namespace enigma {
-
-
-/* -------------------- DummyStone -------------------- */
-
-namespace
-{
-    /*! Used for debugging; Prints its own oxyd code when hit. */
-    class DummyStone : public Stone {
-        CLONEOBJ(DummyStone);
-    public:
-        DummyStone() : Stone("st-dummy") {}
-    private:
-
-        StoneResponse collision_response(const StoneContact &/*sc*/) {
-            static int lastCode = -1;
-            int        code     = getAttr("code");
-            if (code != lastCode) {
-                fprintf(stderr, "Collision with stone 0x%02x\n", code);
-                lastCode = code;
-            }
-            return STONE_REBOUND;
-        }
-    };
-}
-
-/* -------------------- Grates -------------------- */
-
-namespace
-{
-    class GrateBase : public Stone {
-    public:
-        GrateBase(const char *kind) : Stone(kind) {}
-    private:
-        bool is_floating() const { return true; }
-        bool is_transparent (Direction) const { return true; }
-
-        virtual StoneResponse collision_response(const StoneContact &sc) {
-            if (server::GameCompatibility == GAMET_OXYD1) {
-                return STONE_PASS;
-            }
-            // tested with per.oxyd
-            return sc.actor->is_on_floor() ? STONE_PASS : STONE_REBOUND;
-        }
-    };
-
-    /*! Horses and small marbles can move through this stone, but
-      normal marbles can't. */
-    class Grate3 : public GrateBase {
-        CLONEOBJ(Grate3);
-    public:
-        Grate3() : GrateBase("st-grate3") {}
-
-        StoneResponse collision_response(const StoneContact &sc) {
-            ActorID id = get_id(sc.actor);
-            if (id == ac_horse || id == ac_pearl_white || id == ac_killer)
-                return STONE_PASS;
-            else
-                return STONE_REBOUND;
-        }
-    };
-}
-
-
-/* -------------------- Chameleon Stone -------------------- */
-
-namespace
-{
-    class ChameleonStone : public Stone {
-        CLONEOBJ(ChameleonStone);
-        DECL_TRAITS;
-
-        Value message(const Message &m) {
-            if (m.message == "_model_reanimated") {
-                init_model();
-            }
-            return Stone::message(m);
-        }
-        
-        void init_model() {
-            if (Floor *fl = GetFloor(get_pos())) {
-                set_model(fl->get_kind());
-            } else
-                ASSERT(false, XLevelRuntime, "Chameleon Stone: Floor must be set before stone");
-        }
-
-        bool is_floating() const 
-        { return true; }
-
-        StoneResponse collision_response(const StoneContact &)
-        { return STONE_PASS; }
-
-    public:
-        ChameleonStone() 
-        {}
-    };
-    DEF_TRAITS(ChameleonStone, "st-chameleon", st_chameleon);
-}
 
 /* -------------------- BombStone -------------------- */
 
@@ -202,11 +104,6 @@ void Init_simple()
     Register(new BombStone("st-bombs", "it-blackbomb"));
     //Register(new BombStone("st-dynamite", "it-dynamite"));
     //Register(new BombStone("st-whitebombs", "it-whitebomb"));
-
-    Register(new ChameleonStone);
-
-    Register(new DummyStone);
-    Register(new Grate3);
 }
 
 } // namespace enigma

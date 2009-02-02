@@ -20,7 +20,7 @@
 #include "stones/CompatibilityStones.hh"
 #include "errors.hh"
 #include "client.hh"
-//#include "main.hh"
+#include "main.hh"
 
 namespace enigma {
 
@@ -42,6 +42,21 @@ namespace enigma {
     
     DEF_TRAITSM(DongleStone, "st_dongle", st_dongle, MOVABLE_BREAKABLE);
 
+
+/* -------------------- DummyStone -------------------- */
+
+    DummyStone::DummyStone() : Stone("st_dummy"){
+    }
+    
+    StoneResponse DummyStone::collision_response(const StoneContact &/*sc*/) {
+        static int lastCode = -1;
+        int        code     = getAttr("code");
+        if (code != lastCode) {
+            Log << ecl::strf("Collision with stone 0x%02x\n", code);
+            lastCode = code;
+        }
+        return STONE_REBOUND;
+    }
 
     /**  st-easymode Easy-Mode Stone
     
@@ -110,6 +125,7 @@ namespace enigma {
     
     BOOT_REGISTER_START
         BootRegister(new DongleStone(), "st_dongle");
+        BootRegister(new DummyStone(), "st_dummy");
         BootRegister(new EasyModeStone(), "st-easymode");
         BootRegister(new Peroxyd_0xb8(), "st-peroxyd-0xb8");
         BootRegister(new Peroxyd_0xb9(), "st-peroxyd-0xb9");
