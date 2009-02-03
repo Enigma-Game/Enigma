@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:80$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:81$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -95,7 +95,7 @@ ti["O "] = {"st_oneway_s"}
 ti[" 8"] = {"fl_bluegreen"}
 ti[" 9"] = {"fl_lawn_c2"}
 ti["c9"] = ti["c "] .. {"fl_lawn_c2"}
-ti["q9"] = ti["c9"] .. {"it-booze"}
+ti["q9"] = ti["c9"] .. {"it_bottle"}
 ti["P "] = ti[" l"] .. {"st_mirror_slab",movable=true,transparent=false}
 ti["Q "] = ti[" l"] .. {"st_mirror_triangle",movable=true,transparent=true}
 ti["R "] = ti[" l"] .. {"st_mirror_slab",movable=false,transparent=false}

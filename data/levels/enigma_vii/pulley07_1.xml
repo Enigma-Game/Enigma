@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="19" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="20" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
        <el:credits el:showinfo="true" el:showstart="true">
        This level is based on the 1982 musical "Little Shop Of Horrors.
@@ -44,7 +44,7 @@ ti["?"] = (ti({"fl_plank"}) .. {"st_turnstilearm_w"}) .. {"it_seed"}
 ti["/"] = {"st_turnstilearm_n"} .. ti({"fl_bright"})
 ti["+"] = {"st_turnstilearm_n"} .. ti({"fl_lawn"})
 ti["a"] = ti[" "] .. {"st_camouflage"}
-ti["b"] = {"fl_bright"} .. ti({"it-booze"})
+ti["b"] = {"fl_bright"} .. ti({"it_bottle"})
 ti["c"] = {"fl_lawn"} .. ti({"st_nil"}) .. ti({"it_nil"})
 ti["d"] = ti[" "] .. {"st_redrock"} --Walls
 ti["e"] = {"fl-gradient16"} .. ti({"st_nil"})

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 153 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 154 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -80,8 +80,8 @@ ti["'."] = ti["''"] .. {"it_seed"}
 ti["'o"] = ti["''"] .. {"it_meditation"}
 ti["%;"] = ti["%."] .. {"st_door_b", state=OPEN}
 ti[";@"] = ti[";;"] .. {"it_death"}
-ti[" %"] = ti["  "] .. {"it-booze-broken"}
-ti[",%"] = ti[",,"] .. {"it-booze-broken"}
+ti[" %"] = ti["  "] .. {"it_bottle_broken"}
+ti[",%"] = ti[",,"] .. {"it_bottle_broken"}
 ti[",b"] = ti[",,"] .. {"it_banana"}
 ti[",d"] = ti[",,"] .. {"it_coin_l"}
 ti[",s"] = ti[",,"] .. {"it_sword"}
@@ -104,7 +104,7 @@ ti[".s"] = ti[".."] .. {"it_squashed"}
 ti[";s"] = ti[";;"] .. {"it_squashed"}
 ti["%t"] = ti["%%"] .. {"it_meditation_bump"}
 ti["_U"] = ti["__"] .. {"it_umbrella"}
-ti["_d"] = ti["__"] .. {"it-drop"}
+ti["_d"] = ti["__"] .. {"it_drop"}
 ti["_."] = ti["_v"] .. {"it_seed_volcano", secure=true}
 ti[";t"] = ti[";;"] .. {"it_spade"}
 ti[" t"] = ti["  "] .. {"it_spade"}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma IV"/>
+  <info enigma="1.00" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma IV"/>
 
   <attributes/>
 
@@ -52,14 +52,14 @@
     <level _seq="44" _title="Patterns of Impulse" _xpath="./andreas11_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas11" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Ball and Chain" _xpath="./duffy41_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy41" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Stay There!" _xpath="./ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="47" _title="Just Moving Blocks?" _xpath="./duffy05_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy5" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Just Moving Blocks?" _xpath="./duffy05_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy5" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Artillery" _xpath="./duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="What's the Problem?" _xpath="./ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Walls Of Sadness" _xpath="./ss12_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Pull it!" _xpath="./luc14_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="FIRE, FIRE!" _xpath="./ss07_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Chain Reaction" _xpath="./siegfried17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5e" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="54" _title="Fire Safety" _xpath="./duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Fire Safety" _xpath="./duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Easily Inflammable" _xpath="./martin95_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin95" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="56" _title="The Builder" _xpath="./ss09_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss9" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="57" _title="Run Like Hell" _xpath="./ralf09_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf09" rel="2" rev="4" score="1" target="time" unit="duration"/>

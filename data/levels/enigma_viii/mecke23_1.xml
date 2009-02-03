@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 35 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 36 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -83,16 +83,16 @@ ti["bb"] = ti[" *"] .. {"it-blackbomb"}
 ti[" ~"] = ti[" ="] .. {"it-blackbomb"}
 ti[" _"] = ti[" ="] .. {"it_cherry"}
 ti[" 2"] = ti[" 1"] .. {"it-dynamite"}
-ti[" -"] = ti[" a"] .. {"it-booze-broken", 0.5, 0.5}
+ti[" -"] = ti[" a"] .. {"it_bottle_broken", 0.5, 0.5}
 ti["!1"] = ti[" ="] .. {"st_disco"}
 ti["!2"] = ti["!0"] .. {"st_disco",state=MEDIUM}
 ti["!3"] = ti["!0"] .. {"st_disco",state=DARK}
 ti["!4"] = ti["!0"] .. {"st_disco"}
 ti["!5"] = ti["  "] .. {"st_disco"}
 ti["&1"] = ti[" &"] .. {"st_disco"}
-ti["!6"] = ti["!5"] .. {"it-drop"}
+ti["!6"] = ti["!5"] .. {"it_drop"}
 ti["!7"] = ti["!5"] .. {"it_coffee"}
-ti["!8"] = ti["!5"] .. {"it-booze"}
+ti["!8"] = ti["!5"] .. {"it_bottle"}
 ti["!9"] = ti["!5"] .. {"it_spoon"}
 ti[" m"] = ti["!1"] .. {"it_magnet",state=ON,range=3,strength=7}
 ti["-m"] = ti["!1"] .. {"it_magnet",state=ON,range=5,strength=-7}
