@@ -884,7 +884,7 @@ namespace enigma {
                 state = OPEN_PAIR;
                 std::string flavor(getAttr("flavor"));
                 string color(getDefaultedAttr("oxydcolor", 0));
-                set_model(string("st-oxyd") + flavor + color + "-open");
+                set_model(string("st_oxyd") + flavor + color + "_open");
                 objFlags &= ~OBJBIT_OPENPAIR;
             }
             return Value();
@@ -991,9 +991,9 @@ namespace enigma {
         std::string flavor(getDefaultedAttr("flavor", "a"));
         Value c = getAttr("oxydcolor");
         if (flavor == "e" && !isInitial && (int)c != FAKE)
-            set_model(std::string("st-oxyd") + flavor + (std::string)c);
+            set_model(std::string("st_oxyd") + flavor + (std::string)c);
         else
-            set_model(std::string("st-oxyd") + flavor);
+            set_model(std::string("st_oxyd") + flavor);
         
     }
     
@@ -1087,7 +1087,7 @@ namespace enigma {
         string flavor(getDefaultedAttr("flavor","a"));
         string color(getDefaultedAttr("oxydcolor", 0));
     
-        string basemodelname = string("st-oxyd") + flavor;
+        string basemodelname = string("st_oxyd") + flavor;
         string modelname = basemodelname + color;
     
         iState oldState = (iState)state;
@@ -1104,12 +1104,12 @@ namespace enigma {
                     didShuffle = true;
                 }
                 setClosedModel();
-//                set_model(string("st-oxyd")+flavor);
+//                set_model(string("st_oxyd")+flavor);
                 break;
         
             case OPEN_SINGLE:
                 if ((int)getAttr("oxydcolor") <= QUAKE) {
-                    set_anim(basemodelname + "-pseudo" + color);
+                    set_anim(basemodelname + "_pseudo" + color);
                     if ((int)getAttr("oxydcolor") == QUAKE) {
                         closeAllStandardOxyds();
                         didQuake = true;
@@ -1118,16 +1118,16 @@ namespace enigma {
                         sound_event("shuffle");
                     }
                 } else
-                    set_model(modelname + "-blink");
+                    set_model(modelname + "_blink");
                 break;
         
             case OPEN_PAIR:
                 if (oldState == CLOSED) {
                     sound_event("oxydopen");
                     sound_event("oxydopened");
-                    set_anim(modelname+"-opening");
+                    set_anim(modelname+"_opening");
                 } else {
-                    set_model(modelname + "-open");
+                    set_model(modelname + "_open");
                 }
                 // If this was the last closed oxyd stone, finish the level
                 if (find_if(levelOxyds.begin(),levelOxyds.end(),not_open)
@@ -1139,7 +1139,7 @@ namespace enigma {
             case OPENING:
                 sound_event("oxydopen");
                 if (oldState == CLOSED)
-                    set_anim(modelname + "-opening");
+                    set_anim(modelname + "_opening");
                 else if (oldState == CLOSING)
                     get_model()->reverse();
         
@@ -1155,7 +1155,7 @@ namespace enigma {
                 if (oldState == OPENING)
                     get_model()->reverse();
                 else if (oldState == OPEN_SINGLE || oldState == OPEN_PAIR) {
-                    set_anim(modelname + "-closing");
+                    set_anim(modelname + "_closing");
                 }
                 break;
         }

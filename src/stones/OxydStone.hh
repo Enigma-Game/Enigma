@@ -38,7 +38,7 @@ with \c set_stone(). Use the predefined \c oxyd() function instead.
 
 \subsection oxyda Attributes
 
-- \b flavor      "a", "b", "c", or "d"
+- \b flavor      "a", "b", "c", "d", or "e"
 - \b color       number between 0 and 7
 
 \subsection oxydm Messages
@@ -48,10 +48,10 @@ with \c set_stone(). Use the predefined \c oxyd() function instead.
 - \b trigger     open the stone
 
 <table><tr>
-<td>\image html st-oxyda.png "flavor A"
-<td>\image html st-oxydb.png "flavor B"
-<td>\image html st-oxydc.png "flavor C"
-<td>\image html st-oxydd.png "flavor D"
+<td>\image html st_oxyda.png "flavor A"
+<td>\image html st_oxydb.png "flavors B and E"
+<td>\image html st_oxydc.png "flavor C"
+<td>\image html st_oxydd.png "flavor D"
 </table>
 */
 

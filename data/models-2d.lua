@@ -1009,9 +1009,9 @@ end
 
 -- laserswitch --
 do
-    DefStone("st-laserswitch0", nil, {filename="st-oxydb"})
+    DefStone("st-laserswitch0", nil, {filename="st_oxydb"})
     DefAnimImages("laserswitch-blink",
-        RepeatAnim(PingPong(BuildFrames(FrameNames("st-fakeoxyd-blink", 1,4),50))), {loop=1})
+        RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
     DefSolidStone("st-laserswitch1", "laserswitch-blink")
 end
 
@@ -1387,21 +1387,21 @@ end
 
 do
     local num_colors = 12
-    local colorspots = FrameNames("st-oxyd-color", 1, num_colors)
-    AddFrameNames(colorspots, "st-oxyd-color", 96, 97)
-    local blink_ovls = FrameNames("st-oxyd-blink", 1, 5)
+    local colorspots = FrameNames("st_oxyd_color", 1, num_colors)
+    AddFrameNames(colorspots, "st_oxyd_color", 96, 97)
+    local blink_ovls = FrameNames("st_oxyd_blink", 1, 5)
     local pseudospots = {}
-    pseudospots[-3] = FrameNames("st-oxyd-pseudo-3", 1, 4)
-    pseudospots[-4] = FrameNames("st-oxyd-pseudo-4", 1, 8)
+    pseudospots[-3] = FrameNames("st_oxyd_pseudo_3", 1, 4)
+    pseudospots[-4] = FrameNames("st_oxyd_pseudo_4", 1, 8)
 
 -- Define "fading in" and "fading out" animations for oxyd stones.
 -- These two animations are combined with the stone images to
 -- produce the opening and closing animations for oxyd stones.
     local baseimg = {
-        a="st-oxyda-open",
-        b="st-oxydb-open",
-        c="st-oxydc-open",
-        d="st-oxydd-open",
+        a="st_oxyda_open",
+        b="st_oxydb_open",
+        c="st_oxydc_open",
+        d="st_oxydd_open",
     }
     local shadow = {
        a="sh-round",
@@ -1410,10 +1410,10 @@ do
        d="sh-solid",
     }
     local fopening = {
-        a = BuildFrames(DefSubimages("st-oxyda-opening", {h=9}), 60),
-        b = BuildFrames(DefSubimages("st-oxydb-opening", {h=14}), 40),
-        c = BuildFrames(DefSubimages("st-oxydc-opening", {h=5}), 70),
-        d = BuildFrames(DefSubimages("st-oxydd-opening", {h=5}), 70),
+        a = BuildFrames(DefSubimages("st_oxyda_opening", {h=9}), 60),
+        b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 40),
+        c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
+        d = BuildFrames(DefSubimages("st_oxydd_opening", {h=5}), 70),
     }
     local fclosing = {
         a = ReverseFrames(fopening["a"]),
@@ -1423,9 +1423,9 @@ do
     }
 
     function mkopenclose(flavor, color)
-        local n = "st-oxyd" .. flavor .. color
-        local fadein = "oxyd"..flavor.."-fadein"
-        local fadeout= "oxyd"..flavor.."-fadeout"
+        local n = "st_oxyd" .. flavor .. color
+        local fadein = "oxyd"..flavor.."_fadein"
+        local fadeout= "oxyd"..flavor.."_fadeout"
         local spotcolor = color
 
         if (color >= 0) then
@@ -1434,24 +1434,24 @@ do
             spotcolor = 100 + color -- pseudo colors
         end
 
-        DefOverlay(n.."-base", {baseimg[flavor], colorspots[spotcolor]})
-        display.DefineComposite(n.."-opening-fg", n.."-base", fadein)
-        display.DefineComposite(n.."-closing-fg", n.."-base", fadeout)
-        DefShModel (n.."-opening", n.."-opening-fg", shadow[flavor])
-        DefShModel (n.."-closing", n.."-closing-fg", shadow[flavor])
+        DefOverlay(n.."_base", {baseimg[flavor], colorspots[spotcolor]})
+        display.DefineComposite(n.."_opening_fg", n.."_base", fadein)
+        display.DefineComposite(n.."_closing_fg", n.."_base", fadeout)
+        DefShModel (n.."_opening", n.."_opening_fg", shadow[flavor])
+        DefShModel (n.."_closing", n.."_closing_fg", shadow[flavor])
     end
 
     function mkblink(flavor, color)
-        local n = "st-oxyd"..flavor..color.."-blink"
-        local img={baseimg[flavor],colorspots[color+1], "st-oxyd-questmark"}
+        local n = "st_oxyd"..flavor..color.."_blink"
+        local img={baseimg[flavor],colorspots[color+1], "st_oxyd_questmark"}
         DefOverlay(n..1, img)
         DefOverlay(n..2, {baseimg[flavor], colorspots[color+1]})
-        DefAnim(n.."-anim", BuildFrames({n..1,n..2}, 500), 1)
-        DefShModel(n, n.."-anim", shadow[flavor])
+        DefAnim(n.."_anim", BuildFrames({n..1,n..2}, 500), 1)
+        DefShModel(n, n.."_anim", shadow[flavor])
     end
 
     function mkopened(flavor, color)
-        local n = "st-oxyd" .. flavor .. color .. "-open"
+        local n = "st_oxyd" .. flavor .. color .. "_open"
         local names = {}
 
         for i=1, table.getn(blink_ovls) do
@@ -1462,14 +1462,14 @@ do
 
         -- compose these images into an animation
         frames = PingPong(BuildFrames(names, 100))
-        DefAnim(n.."-anim", frames, true)
+        DefAnim(n.."_anim", frames, true)
 
         -- and finally add a shadow to make the model complete
-        DefShModel(n, n.."-anim", shadow[flavor])
+        DefShModel(n, n.."_anim", shadow[flavor])
     end
 
     function mkpseudo(flavor, color)
-        local n = "st-oxyd" .. flavor .. "-pseudo" .. color
+        local n = "st_oxyd" .. flavor .. "_pseudo" .. color
         local names = {}
 
         for i=1, table.getn(pseudospots[color]) do
@@ -1484,21 +1484,21 @@ do
         elseif (color == -4) then
             frames = RepeatAnim(BuildFrames(names, 100),2)
         end
-        DefAnim(n.."-anim", frames, false)
+        DefAnim(n.."_anim", frames, false)
 
         -- and finally add a shadow to make the model complete
-        DefShModel(n, n.."-anim", shadow[flavor])
+        DefShModel(n, n.."_anim", shadow[flavor])
     end
 
     function mkoxyd(flavor)
-        DefStone("st-oxyd"..flavor, shadow[flavor])
-        DefShModel("st-likeoxyd"..flavor, "st-oxyd"..flavor, shadow[flavor])
---        DefSolidStone("st-likeoxyd"..flavor, "st-oxyd"..flavor)
-        img = DefImage("st-oxyd"..flavor.."-open")
-        DefShModel("st-likeoxyd"..flavor.."-open", img, shadow[flavor])
+        DefStone("st_oxyd"..flavor, shadow[flavor])
+        DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
+--        DefSolidStone("st_fake_oxyd"..flavor, "st_oxyd"..flavor)
+        img = DefImage("st_oxyd"..flavor.."_open")
+        DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
 
-        local fadein = "oxyd"..flavor.."-fadein"
-        local fadeout= "oxyd"..flavor.."-fadeout"
+        local fadein = "oxyd"..flavor.."_fadein"
+        local fadeout= "oxyd"..flavor.."_fadeout"
         DefAnim(fadein, fopening[flavor])
         DefAnim(fadeout, fclosing[flavor])
 
@@ -1519,31 +1519,31 @@ do
 
     -- flavors 'e'
     for color = 0, num_colors - 1 do
-        DefOverlay("st-oxyde"..color.."-peep", {"st-oxydb-open", colorspots[color+1], "st-oxyde"})
-        DefShModel("st-oxyde"..color, "st-oxyde"..color.."-peep", "sh-round")
-        DefAlias("st-oxyde"..color.."-opening", "st-oxydb"..color.."-opening")
-        DefAlias("st-oxyde"..color.."-closing", "st-oxydb"..color.."-closing")
-        DefAlias("st-oxyde"..color.."-blink", "st-oxydb"..color.."-blink")
-        DefAlias("st-oxyde"..color.."-open", "st-oxydb"..color.."-open")
+        DefOverlay("st_oxyde"..color.."_peep", {"st_oxydb_open", colorspots[color+1], "st_oxyde"})
+        DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh-round")
+        DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
+        DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
+        DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
+        DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
     end
-    DefAlias("st-oxyde", "st-oxydb")
-    DefAlias("st-likeoxyde", "st-oxydb")
-    DefAlias("st-likeoxyde-open", "st-likeoxydb-open")
-    DefAlias("st-oxyde-3-opening", "st-oxydb-3-opening")
-    DefAlias("st-oxyde-pseudo-3", "st-oxydb-pseudo-3")
-    DefAlias("st-oxyde-3-closing", "st-oxydb-3-closing")
-    DefOverlay("st-oxyde-3-peep", {"st-oxydb-open", colorspots[97], "st-oxyde"})
-    DefShModel("st-oxyde-3", "st-oxyde-3-peep", "sh-round")
-    DefAlias("st-oxyde-4-opening", "st-oxydb-4-opening")
-    DefAlias("st-oxyde-pseudo-4", "st-oxydb-pseudo-4")
-    DefAlias("st-oxyde-4-closing", "st-oxydb-4-closing")
-    DefOverlay("st-oxyde-4-peep", {"st-oxydb-open", colorspots[96], "st-oxyde"})
-    DefShModel("st-oxyde-4", "st-oxyde-4-peep", "sh-round")
+    DefAlias("st_oxyde", "st_oxydb")
+    DefAlias("st_fake_oxyde", "st_oxydb")
+    DefAlias("st_fake_oxyde_open", "st_fake_oxydb_open")
+    DefAlias("st_oxyde_3_opening", "st_oxydb_3_opening")
+    DefAlias("st_oxyde_pseudo_3", "st_oxydb_pseudo_3")
+    DefAlias("st_oxyde_3_closing", "st_oxydb_3_closing")
+    DefOverlay("st_oxyde_3_peep", {"st_oxydb_open", colorspots[97], "st_oxyde"})
+    DefShModel("st_oxyde_3", "st_oxyde_3_peep", "sh-round")
+    DefAlias("st_oxyde_4_opening", "st_oxydb_4_opening")
+    DefAlias("st_oxyde_pseudo_4", "st_oxydb_pseudo_4")
+    DefAlias("st_oxyde_4_closing", "st_oxydb_4_closing")
+    DefOverlay("st_oxyde_4_peep", {"st_oxydb_open", colorspots[96], "st_oxyde"})
+    DefShModel("st_oxyde_4", "st_oxyde_4_peep", "sh-round")
 end
 
 -- st-coffee --
 do
-    DefAlias("st_magic_oxydc", "st-oxydc")
+    DefAlias("st_magic_oxydc", "st_oxydc")
 end
 
 -- st-doorh, st-doorv --
@@ -1576,7 +1576,7 @@ end
 -- st-door_a --
 do
     DefAlias("st-door_a-open", "st_grate_cross")
-    DefAlias("st-door_a-closed", "st-oxyda")
+    DefAlias("st-door_a-closed", "st_oxyda")
     local f = BuildFrames({"st-door_a-closed", "st-door_a-open"},60)
     DefAnim("st-door_a-opening", f)
     DefAnim("st-door_a-closing", ReverseFrames(f))
@@ -1603,26 +1603,26 @@ end
 
 -- st-fakeoxyda --
 do
-    DefAlias("st_magic_oxyda", "st-oxyda")
+    DefAlias("st_magic_oxyda", "st_oxyda")
 end
 
--- st-fart --
+-- st_quake --
 do
-    DefStone("st-fart", "sh-round", {filename="st-oxydb"})
-    DefAnimImages("farting",
-        RepeatAnim(PingPong(BuildFrames(FrameNames("st-fakeoxyd-blink", 1,4),50))))
-    DefRoundStone("st-farting", "farting")
+    DefStone("st_quake", "sh-round", {filename="st_oxydb"})
+    DefAnimImages("quaking",
+        RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))))
+    DefRoundStone("st_quaking", "quaking")
 
-    namelist = DefSubimages("st-fart-break",{h=6})
-    DefAnim("fartbreak-anim", BuildFrames(namelist,50))
-    DefRoundStone("st-fartbreak-anim", "fartbreak-anim")
+    namelist = DefSubimages("st_quake_break",{h=6})
+    DefAnim("quakebreak_anim", BuildFrames(namelist,50))
+    DefRoundStone("st_quakebreak_anim", "quakebreak_anim")
 end
 
 -- st-spitter --
 do
     DefAlias ("st-spitter", "st-timeswitch")
-    DefAlias ("st-spitter-loading", "st-farting")
-    DefAlias ("st-spitter-spitting", "st-farting")
+    DefAlias ("st-spitter-loading", "st_quaking")
+    DefAlias ("st-spitter-spitting", "st_quaking")
 end
 
 ---------------------------

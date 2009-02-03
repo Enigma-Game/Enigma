@@ -75,16 +75,16 @@ namespace enigma {
         switch (typ) {
             case QUAKE:
                 if (state == ACTIVE)
-                    set_anim("st-farting");
+                    set_anim("st_quaking");
                 else
-                    set_model("st-fart");
+                    set_model("st_quake");
                 break;
             case OXYDA:
             case OXYDB:
             case OXYDC:
             case OXYDD:
             case OXYDE:
-                set_model(ecl::strf("st-like%s%s", getFlavor().c_str(), state == IDLE ? "" : "-open").c_str());
+                set_model(ecl::strf("st_fake_%s%s", getFlavor().c_str(), state == IDLE ? "" : "_open").c_str());
                 break;
         }
     }

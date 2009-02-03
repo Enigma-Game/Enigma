@@ -78,10 +78,10 @@ namespace enigma {
     
     void QuakeStone::init_model() {
         switch (state) {
-            case IDLE:     set_model("st-fart"); break;
+            case IDLE:     set_model("st_quake"); break;
             case ACTIVEBREAKING:
-            case ACTIVE:   set_anim("st-farting"); break;
-            case BREAKING: set_anim("st-fartbreak-anim"); break;
+            case ACTIVE:   set_anim("st_quaking"); break;
+            case BREAKING: set_anim("st_quakebreak_anim"); break;
         }
     }
     
