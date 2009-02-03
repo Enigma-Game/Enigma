@@ -194,6 +194,8 @@ function lib.map.paste(map1, map2, posarg)
     end
   elseif type(posarg) == "table" then
     lib.map.paste(map1, map2, po(posarg))
+  else
+    error("lib.map.paste: Expected position, got "..type(posarg)..".", 2)
   end
 end
 

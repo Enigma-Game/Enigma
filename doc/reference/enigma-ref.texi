@@ -11063,7 +11063,7 @@ It's similarly easy to change it. Let's say, we want to create a passage
 one tile right beside the second marble @samp{@@2}, which is named
 @samp{marble2}:
 @example
-mymap[no["marble2"] + @{1,0@}]
+mymap[no["marble2"] + @{1,0@}] = "  "
 @end example
 Note that the reference to @samp{marble2} only works after the marble has been
 set.
