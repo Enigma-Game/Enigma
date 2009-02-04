@@ -336,13 +336,13 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_rotator_ccw_movable",   // PerOxyd stone 0x91
     "st_rotator_cw_movable",    // PerOxyd stone 0x92
     "st_swap",                  // PerOxyd stone 0x93
-    "st-spitter",               // PerOxyd stone 0x94
+    "st_spitter",               // PerOxyd stone 0x94
     0,                          // PerOxyd stone 0x95 (dynamite holder, will implememnt it)(levels: 41 184 200)
     "st_rubberband",            // PerOxyd stone 0x96
     "st_scissors",              // PerOxyd stone 0x97
     "st_portal_horse",          // PerOxyd stone 0x98
     "st_blocker",               // PerOxyd stone 0x99
-    "st-grate1",                // PerOxyd stone 0x9a
+    "st_grate_cross",           // PerOxyd stone 0x9a
     "st_metal_hollow",          // PerOxyd stone 0x9b
     "st_brownpyramide",         // PerOxyd stone 0x9c
     "st_quake",                 // PerOxyd stone 0x9d

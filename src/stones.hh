@@ -263,9 +263,7 @@ namespace enigma {
     inline StoneID get_id(Stone *st) {
         return st->get_traits().id;
     }
-    
-    void InitStones();
-    
+        
 } // namespace enigma
 
 

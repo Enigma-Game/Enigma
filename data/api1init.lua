@@ -501,6 +501,7 @@ RenamingObjectsNew2Old = {
     st_shogun_sl = "st-shogun-sl",
     st_shogun_ml = "st-shogun-ml",
     st_shogun_sml = "st-shogun-sml",
+    st_spitter = "st-spitter",
     st_stoneimpulse = "st-stoneimpulse",
     st_stoneimpulse_hollow = "st-stoneimpulse-hollow",
     st_stoneimpulse_movable = "st-stoneimpulse_movable",

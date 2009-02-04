@@ -1645,6 +1645,13 @@
     <object name="st_shogun_sml">
       <attr name="flavor" value="sml"/>
     </object>
+    <object name="st_spitter">
+      <attr name="hit_factor"/>
+      <attr name="hit_distortion_xx"/>
+      <attr name="hit_distortion_xy"/>
+      <attr name="hit_distortion_yx"/>
+      <attr name="hit_distortion_yy"/>
+    </object>
     <object name="st_stoneimpulse">
       <attr name="hollow"/>
       <attr name="movable"/>

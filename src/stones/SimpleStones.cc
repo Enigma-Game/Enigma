@@ -22,6 +22,7 @@
 #include "stones/SimpleStones.hh"
 #include "client.hh"
 #include "errors.hh"
+#include "Inventory.hh"
 //#include "main.hh"
 #include "player.hh"
 #include "server.hh"
@@ -218,6 +219,62 @@ namespace enigma {
     
     DEF_TRAITSM(PlopStone, "st_plop", st_plop, MOVABLE_STANDARD);
 
+/* -------------------- SpitterStone -------------------- */
+
+    SpitterStone::SpitterStone() {
+    }
+    
+    void SpitterStone::setState(int extState) {
+        // block any calls
+    }
+    
+    void SpitterStone::init_model() {
+        if (state == IDLE)
+            set_model("st_spitter");
+        else if (state == LOADING)
+            set_anim("st_spitter_loading");
+        else
+            set_anim("st_spitter_spitting");
+    }
+    
+    void SpitterStone::animcb() {
+        switch (state) {
+            case IDLE:
+                ASSERT(false, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
+            case LOADING: {
+                Actor     *ball = MakeActor("ac-cannonball");
+                ActorInfo *ai   = ball->get_actorinfo();
+                ecl::V2 center  = get_pos().center();
+        
+                ai->vel = getAttr("$ball_velocity");
+                AddActor(center[0], center[1], ball);
+                state = SPITTING;
+                init_model();
+                break;
+            }
+            case SPITTING:
+                state = IDLE;
+                break;
+            }
+    }
+
+    void SpitterStone::actor_hit (const StoneContact &sc) {
+        if (state != IDLE)
+            return;
+    
+        if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
+            int lifepos = inv->find("it_extralife");
+            if (lifepos != -1) {
+                delete inv->yield_item(lifepos);
+                player::RedrawInventory (inv);
+                setAttr("$ball_velocity", distortedVelocity(sc.actor->get_vel(), 1.0));
+                state = LOADING;
+                init_model();
+            }
+        }
+    }
+
+    DEF_TRAITSM(SpitterStone, "st_spitter", st_yinyang, MOVABLE_PERSISTENT);
 
 /* -------------------- Yinyang stone -------------------- */
     YinyangStone::YinyangStone(int initState) : Stone () {
@@ -259,7 +316,7 @@ namespace enigma {
         }
     }
     
-    DEF_TRAITSM(YinyangStone, "st_yinyang", st_yinyang, MOVABLE_STANDARD);
+    DEF_TRAITSM(YinyangStone, "st_yinyang", st_yinyang, MOVABLE_PERSISTENT);
 
 
     BOOT_REGISTER_START
@@ -277,6 +334,7 @@ namespace enigma {
         BootRegister(new GrateStone(1), "st_grate_framed");
         BootRegister(new PlopStone(), "st_plop");
         BootRegister(new PlopStone(), "st_plop_slate");
+        BootRegister(new SpitterStone(), "st_spitter");
         BootRegister(new YinyangStone(0), "st_yinyang");
         BootRegister(new YinyangStone(1), "st_yinyang_active");
     BOOT_REGISTER_END

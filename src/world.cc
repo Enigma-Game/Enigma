@@ -2394,7 +2394,6 @@ void InitWorld()
     BootRegister(NULL, NULL, false);
     InitActors();
     InitLasers();
-    InitStones();
     InitFloors();
 }
 

@@ -1623,9 +1623,9 @@ end
 
 -- st-spitter --
 do
-    DefAlias ("st-spitter", "st-timeswitch")
-    DefAlias ("st-spitter-loading", "st_quaking")
-    DefAlias ("st-spitter-spitting", "st_quaking")
+    DefAlias ("st_spitter", "st-timeswitch")
+    DefAlias ("st_spitter_loading", "st_quaking")
+    DefAlias ("st_spitter_spitting", "st_quaking")
 end
 
 ---------------------------

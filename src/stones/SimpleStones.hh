@@ -147,6 +147,35 @@ namespace enigma {
     };
    
     /** 
+     * SpitterStone
+     */
+    class SpitterStone : public Stone {
+        CLONEOBJ(SpitterStone);
+        DECL_TRAITS;
+    private:
+        enum iState {
+            IDLE, 
+            LOADING,
+            SPITTING
+        };
+
+    public:
+        SpitterStone ();
+        
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual void init_model();
+        
+        // ModelCallback interface  - Animation callback
+        virtual void animcb();
+
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
+    };
+    
+    /** 
      * Yinyang 
      */
     class YinyangStone : public Stone {
