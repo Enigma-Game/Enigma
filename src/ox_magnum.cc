@@ -220,8 +220,8 @@ const char *oxyd::oxydmag_stone_map[256] = {
     UNUSED,                     // OxydMagnum stone 0x65
     UNUSED,                     // OxydMagnum stone 0x66
     UNUSED,                     // OxydMagnum stone 0x67
-    "st-bombs",                 // OxydMagnum stone 0x68 (common was 'st-shogun-l')
-    "st-flash",                 // OxydMagnum stone 0x69
+    "st_dispenser_bombblack",   // OxydMagnum stone 0x68 (common was 'st-shogun-l')
+    "st_flash",                 // OxydMagnum stone 0x69
     "st_coinslot_instant",      // OxydMagnum stone 0x6a
     "st_thief",                 // OxydMagnum stone 0x6b
     "st_shogun_s",              // OxydMagnum stone 0x6c
@@ -300,9 +300,9 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_umbrella",      // OxydMagnum item 0x07
     "it_glasses",       // OxydMagnum item 0x08
     "it_glasses_broken", // OxydMagnum item 0x09
-    "it-dynamite",      // OxydMagnum item 0x0a
-    "it-blackbomb",     // OxydMagnum item 0x0b
-    "it-whitebomb",     // OxydMagnum item 0x0c
+    "it_dynamite",      // OxydMagnum item 0x0a
+    "it_bomb_black",    // OxydMagnum item 0x0b
+    "it_bomb_white",    // OxydMagnum item 0x0c
     "it_crack_i",        // OxydMagnum item 0x0d
     "it_crack_s",        // OxydMagnum item 0x0e
     "it_crack_m",        // OxydMagnum item 0x0f

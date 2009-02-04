@@ -196,7 +196,7 @@ namespace enigma {
                 if (Item *it = GetItem(newPos)) {
                     ItemID id = get_id(it);
                     if ((server::GameCompatibility != GAMET_OXYD1 && server::GameCompatibility != GAMET_OXYDMAGNUM) ||
-                            (id != it_cherry && id != it_blackbomb && id != it_whitebomb))
+                            (id != it_cherry && id != it_bomb))
                         it->on_stonehit(this);
                 }
             }

@@ -318,7 +318,7 @@ const char* oxyd::oxydextra_item_map[256] = {
     "it_umbrella",                // OxydExtra item 0x07
     IT_MISSING,                 // OxydExtra item 0x08
     UNUSED,                  // OxydExtra item 0x09
-    "it-dynamite",                // OxydExtra item 0x0a
+    "it_dynamite",                // OxydExtra item 0x0a
     UNUSED,                  // OxydExtra item 0x0b
     UNUSED,                  // OxydExtra item 0x0c
     "it_crack_i",                 // OxydExtra item 0x0d

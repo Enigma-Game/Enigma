@@ -53,7 +53,7 @@ namespace enigma {
     }
     
     void BurnableItem::init_model() {
-        if(state == OIL) {
+        if (state == OIL) {
             set_model(ecl::strf("it_burnable_oil%d", IntegerRand(1, 4)));  // TODO store and keep model subtyp!
         } else
             Item::init_model();

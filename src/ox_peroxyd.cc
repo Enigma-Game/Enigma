@@ -286,7 +286,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_shogun",                // PerOxyd stone 0x5f (oxyd with a hole, movable ... strange stone! st-shogun as workaround, only link level 74)
     "st_disco_dark",            // PerOxyd stone 0x60
     "st_disco_medium",          // PerOxyd stone 0x61
-    "st-bombs",                 // PerOxyd stone 0x62
+    "st_dispenser_bombblack",   // PerOxyd stone 0x62
     "st_flash",                 // PerOxyd stone 0x63
     "st_coinslot_instant",      // PerOxyd stone 0x64
     "st_thief",                 // PerOxyd stone 0x65
@@ -389,9 +389,9 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
     "it_glasses_broken",          // 0x09
-    "it-dynamite",                // 0x0a
-    "it-blackbomb",               // 0x0b
-    "it-whitebomb",               // 0x0c
+    "it_dynamite",                // 0x0a
+    "it_bomb_black",              // 0x0b
+    "it_bomb_white",              // 0x0c
     "it_crack_i",                 // 0x0d
     "it_crack_s",                 // 0x0e
     "it_crack_m",                 // 0x0f
@@ -485,7 +485,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     UNUSED,                  // 0x67
     UNUSED,                  // 0x68
     UNUSED,                  // 0x69
-    "it-blackbomb-burning",       // 0x6a
+    "it_bomb_black_burning", // 0x6a
     UNUSED,                  // 0x6b
     UNUSED,                  // 0x6c
     UNUSED,                  // 0x6d

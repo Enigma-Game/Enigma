@@ -252,8 +252,8 @@ const char *oxyd::oxyd1_stone_map[256] = {
     UNUSED,                     // Oxyd1 stone 0x65
     "st_disco_medium",          // Oxyd1 stone 0x66
     "st_disco_light",           // Oxyd1 stone 0x67
-    "st-bombs",                 // Oxyd1 stone 0x68
-    "st-flash",                 // Oxyd1 stone 0x69
+    "st_dispenser_bombblack",   // Oxyd1 stone 0x68
+    "st_flash",                 // Oxyd1 stone 0x69
     "st_coinslot_instant",      // Oxyd1 stone 0x6a
     "st_thief",                 // Oxyd1 stone 0x6b
     "st_shogun_s",              // Oxyd1 stone 0x6c
@@ -316,9 +316,9 @@ const char *oxyd::oxyd1_item_map[256] = {
     "it_umbrella",                // 0x07
     "it_glasses",                 // 0x08
     "it_glasses_broken",          // 0x09
-    "it-dynamite",                // 0x0a
-    "it-blackbomb",               // 0x0b
-    "it-whitebomb",               // 0x0c
+    "it_dynamite",                // 0x0a
+    "it_bomb_black",              // 0x0b
+    "it_bomb_white",              // 0x0c
     "it_crack_i",                 // 0x0d
     "it_crack_s",                 // 0x0e
     "it_crack_m",                 // 0x0f

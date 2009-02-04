@@ -1983,8 +1983,14 @@ namespace
             SendMessage(stone, "_explosion", source);
         if (source == dest)  // item and floor handling on explosion center is specific
             return;
-        if (Item  *item  = GetItem(dest)) {
-            if (has_flags(item, itf_indestructible))
+        if (Item *item = GetItem(dest)) {
+            if (item->getClass() == "it_explosion") {
+                Item *newExplosion = MakeItem(explosion_item);
+                if ((int)(newExplosion->getAttr("state")) > (int)(item->getAttr("state")))
+                    SetItem(dest, newExplosion);
+                else
+                    DisposeObject(newExplosion);
+            } else if (has_flags(item, itf_indestructible))
                 SendMessage(item, "_explosion", source);
             else
                 SetItem(dest, MakeItem(explosion_item));
@@ -2016,7 +2022,7 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
 
             case EXPLOSION_BLACKBOMB:
                 if (direct_neighbor) {
-                    explosion(center, dest, "it-explosion1");
+                    explosion(center, dest, "it_explosion_nil");
                 } else {
                     // Note: should not ignite in non-enigma-mode!
                     if (stone) SendMessage(stone, "ignite");
@@ -2028,7 +2034,7 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
             case EXPLOSION_WHITEBOMB:
                 // Note: at least in oxyd1 only direct neighbors
                 // explode, and the others not even ignite
-                explosion(center, dest, "it-explosion3");            
+                explosion(center, dest, "it_explosion_debris");            
                 break;
     
             case EXPLOSION_BOMBSTONE:
@@ -2388,7 +2394,6 @@ void InitWorld()
     BootRegister(NULL, NULL, false);
     InitActors();
     InitLasers();
-    InitItems();
     InitStones();
     InitFloors();
 }

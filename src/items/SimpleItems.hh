@@ -112,6 +112,23 @@ namespace enigma {
     };
 
     /**
+     * Explosion
+     */
+    class Explosion : public Item {
+        CLONEOBJ(Explosion);
+        DECL_ITEMTRAITS;
+
+    public:
+        Explosion(int strength);
+        
+        // StateObject interface
+        virtual void setState(int extState);
+        
+        // ModelCallback interface
+        virtual void animcb();
+    };
+    
+    /**
      * FlagItem
      */
     class FlagItem : public Item {

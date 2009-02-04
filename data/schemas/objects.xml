@@ -98,7 +98,7 @@
     <msg name="crack" type="nil"/>
     <msg name="darken" type="nil"/>
     <msg name="disconnect" type="nil"/>
-    <msg name="expl" type="nil"/>
+    <msg name="explode" type="nil"/>
     <msg name="extinguish" type="nil"/>
     <msg name="fire" type="nil"/>
     <msg name="flip" type="nil"/>
@@ -385,6 +385,22 @@
     <object name="it_bag"/>
     <object name="it_blocker_new" init="true">
     </object>
+    <object name="it_bomb">
+      <attr name="color"/>
+      <msg name="ignite"/>
+      <msg name="heat"/>
+      <msg name="explode"/>
+      <msg name="_explosion"/>
+      <msg name="_bombstone"/>
+    </object>
+    <object name="it_bomb_black">
+      <attr name="color" value="0"/>
+    </object>
+    <object name="it_bomb_black_burning" init="true"/>
+    <object name="it_bomb_white">
+      <attr name="color" value="1"/>
+    </object>
+    <object name="it_bomb_white_burning" init="true"/>
     <object name="it_bottle">
       <msg name="_brush"/>
     </object>
@@ -467,6 +483,32 @@
     <object name="it_drop"/>
     <object name="it_extinguisher">
       <attr name="state" max="2"/>
+    </object>
+    <object name="it_dynamite">
+      <attr name="state"/>
+      <msg name="ignite"/>
+      <msg name="heat"/>
+      <msg name="explode"/>
+      <msg name="_explosion"/>
+      <msg name="_bombstone"/>
+    </object>
+    <object name="it_dynamite_burning">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_explosion">
+      <attr name="state" max="3" rw="r"/>
+    </object>
+    <object name="it_explosion_nil">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="it_explosion_hollow">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="it_explosion_crack">
+      <attr name="state" value="2"/>
+    </object>
+    <object name="it_explosion_debris">
+      <attr name="state" value="3"/>
     </object>
     <object name="it_extinguisher_empty">
       <attr name="state" value="0"/>
@@ -1079,6 +1121,20 @@
     </object>
     <object name="st_disco_dark">
       <attr name="state" value="2"/>
+    </object>
+    <object name="st_dispenser">
+      <attr name="flavor" default="bombblack" rw="r"/>
+      <msg name="_explosion"/>
+      <msg name="_bombstone"/>
+    </object>
+    <object name="st_dispenser_bombblack">
+      <attr name="flavor" value="bombblack"/>
+    </object>
+    <object name="st_dispenser_bombwhite">
+      <attr name="flavor" value="bombwhite"/>
+    </object>
+    <object name="st_dispenser_dynamite">
+      <attr name="flavor" value="dynamite"/>
     </object>
     <object name="st_door">
       <attr name="faces" default="nesw"/>
@@ -1734,5 +1790,10 @@
     </object>
     <object name="st_woven"/>
     <object name="st_yellow"/>
+    <object name="st_yinyang">
+    </object>
+    <object name="st_yinyang_active">
+      <attr name="state" value="1"/>
+    </object>
   </zoo>
 </objects>

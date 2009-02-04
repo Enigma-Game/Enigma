@@ -106,6 +106,7 @@ namespace enigma {
         st_camouflage,
         st_polarswitch,
         st_volcano_growing,
+        st_yinyang,
 
         st_LAST,
         st_COUNT = st_LAST

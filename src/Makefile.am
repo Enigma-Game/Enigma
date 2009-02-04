@@ -124,7 +124,6 @@ enigma_SOURCES = 		\
 	stones.cc 		\
 	stones.hh 		\
 	stones_internal.hh 	\
-	stones_simple.cc 	\
 	Utf8ToXML.cc		\
 	Utf8ToXML.hh		\
 	util.cc 		\
@@ -208,6 +207,8 @@ enigma_SOURCES = 		\
 	items/BrakeItem.hh	\
 	items/BlockerItem.cc	\
 	items/BlockerItem.hh	\
+	items/Bomb.cc		\
+	items/Bomb.hh		\
 	items/Bottle.cc		\
 	items/Bottle.hh		\
 	items/BurnableItem.cc	\
@@ -224,6 +225,8 @@ enigma_SOURCES = 		\
 	items/DocumentItem.hh	\
 	items/Drop.cc		\
 	items/Drop.hh		\
+	items/Dynamite.cc	\
+	items/Dynamite.hh	\
 	items/Extinguisher.cc	\
 	items/Extinguisher.hh	\
 	items/ExtraLife.cc	\
@@ -312,6 +315,8 @@ enigma_SOURCES = 		\
 	stones/DeathStone.hh	\
 	stones/DiscoStone.cc	\
 	stones/DiscoStone.hh	\
+	stones/DispenserStone.cc	\
+	stones/DispenserStone.hh	\
 	stones/Door.cc		\
 	stones/Door.hh		\
 	stones/FakeStone.cc	\

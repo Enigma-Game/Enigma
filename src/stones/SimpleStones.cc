@@ -25,6 +25,7 @@
 //#include "main.hh"
 #include "player.hh"
 #include "server.hh"
+#include "SoundEffectManager.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -218,6 +219,48 @@ namespace enigma {
     DEF_TRAITSM(PlopStone, "st_plop", st_plop, MOVABLE_STANDARD);
 
 
+/* -------------------- Yinyang stone -------------------- */
+    YinyangStone::YinyangStone(int initState) : Stone () {
+        state = initState;
+    }
+    
+    std::string YinyangStone::getClass() const {
+        return "st_yinyang";
+    }
+    
+    void YinyangStone::setState(int extState) {
+        if (!isDisplayable())
+           state = extState;
+        else if (state == IDLE) {
+            state = extState;
+            init_model();
+        }
+    }
+        
+    void YinyangStone::init_model() {
+        if (state == IDLE)
+            set_model("st_yinyang");
+        else
+            set_anim("st_yinyang-anim");
+    }
+    
+    void YinyangStone::animcb() {
+        // Switch to other marble
+        player::SwapPlayers();
+        sound::EmitSoundEvent("switchplayer", get_pos().center());
+        state = IDLE;
+        init_model();
+    }
+    
+    void YinyangStone::actor_hit(const StoneContact &sc) {
+        if (state == IDLE) {
+            state = ACTIVE;
+            init_model();
+        }
+    }
+    
+    DEF_TRAITSM(YinyangStone, "st_yinyang", st_yinyang, MOVABLE_STANDARD);
+
 
     BOOT_REGISTER_START
         BootRegister(new BlurStone(0), "st_blur");
@@ -234,6 +277,8 @@ namespace enigma {
         BootRegister(new GrateStone(1), "st_grate_framed");
         BootRegister(new PlopStone(), "st_plop");
         BootRegister(new PlopStone(), "st_plop_slate");
+        BootRegister(new YinyangStone(0), "st_yinyang");
+        BootRegister(new YinyangStone(1), "st_yinyang_active");
     BOOT_REGISTER_END
 
 } // namespace enigma

@@ -451,13 +451,13 @@ Progress(25, "Loading item models")
 do
     itemlist = {
         "it_bag",
-        "it-blackbomb",
+        "it_bomb_black",
         "it-blocker",
         "it_bottle_idle",
         "it_bottle_broken",
         "it_document",
         "it_drop",
-        "it-dynamite",
+        "it_dynamite",
         "it_flag_black",
         "it_flag_white",
         "it_odometer",
@@ -470,7 +470,7 @@ do
         "it_spring_drop",
         "it_surprise",
         "it_weight",
-        "it-whitebomb"
+        "it_bomb_white"
     }
 
     DefImages(itemlist)
@@ -569,23 +569,23 @@ end
 
 -- Burning black bomb --
 do
-    local images = DefSubimages("it-blackbomb-burning", {h=9})
+    local images = DefSubimages("it_bomb_black_burning", {h=9})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-blackbomb-burning", frames)
+    DefAnim("it_bomb_black_burning", frames)
 end
 
 -- Burning white bomb --
 do
-    local images = DefSubimages("it-whitebomb-burning", {h=9})
+    local images = DefSubimages("it_bomb_white_burning", {h=9})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-whitebomb-burning", frames)
+    DefAnim("it_bomb_white_burning", frames)
 end
 
 -- Burning dynamite --
 do
-    local images = DefSubimages("it-dynamite-burning", {h=15})
+    local images = DefSubimages("it_dynamite_burning", {h=15})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-dynamite-burning", frames)
+    DefAnim("it_dynamite_burning", frames)
 end
 
 -- Burning Floor --
@@ -630,9 +630,7 @@ end
 -- Explosion --
 do
     DefAnimImages("expl", {{"expl", 50}})
-    DefAlias("it-explosion1", "expl")
-    DefAlias("it-explosion2", "expl")
-    DefAlias("it-explosion3", "expl")
+    DefAlias("it_explosion", "expl")
 end
 
 -- it-magnet --
@@ -945,17 +943,22 @@ do
     DefRoundStoneWithAnim ("st-death", 3, 140)
 end
 
+-- st_yinyang --
+do
+    DefRoundStoneWithAnim("st_yinyang", 6, 140)
+end
+
 -- st-dynamite, st-bombs, st-whitebombs --
 do
     function make_bombstone(name)
         local images = DefSubimages(name, {h=7})
         DefRoundStone(name, name.."1")
-        DefAnim(name.."-anim", BuildFrames(images,50))
+        DefAnim(name.."_breaking", BuildFrames(images,50))
     end
 
-    make_bombstone("st-bombs")
-    make_bombstone("st-dynamite")
-    make_bombstone("st-whitebombs")
+    make_bombstone("st_dispenser_bombblack")
+    make_bombstone("st_dispenser_dynamite")
+    make_bombstone("st_dispenser_bombwhite")
 end
 
 -- st-flash --

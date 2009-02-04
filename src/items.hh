@@ -31,8 +31,7 @@ namespace enigma {
         it_2pkillstone,
         it_bag,
         it_banana,
-        it_blackbomb,
-        it_blackbomb_burning,
+        it_bomb,
         it_blocker,
         it_bottle_idle,
         it_bottle_broken,
@@ -65,9 +64,7 @@ namespace enigma {
         it_dummy,
         it_easykeepstone,
         it_easykillstone,
-        it_explosion1,
-        it_explosion2,
-        it_explosion3,
+        it_explosion,
         it_exitsensor,
         it_extinguisher,
         it_extinguisher_medium,
@@ -148,7 +145,6 @@ namespace enigma {
         it_vortex_closed,
         it_vstrip,
         it_weight,
-        it_whitebomb,
         it_wormhole_off,
         it_wormhole_on,
         it_wrench,
@@ -280,8 +276,6 @@ namespace enigma {
     }
 
 /* -------------------- Functions -------------------- */
-
-    void InitItems();
     
     
 /* --------------------  Item Macros -------------------- */

@@ -416,7 +416,5 @@ void InitStones() {
 
     Register (new SpitterStone);
 
-    // Init stones from stones_simple.cc and stones_complex.cc:
-    Init_simple();
 }
 } // namespace enigma

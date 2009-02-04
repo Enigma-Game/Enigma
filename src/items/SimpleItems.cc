@@ -116,6 +116,32 @@ namespace enigma {
     DEF_ITEMTRAITSF(Debris, "it_debris", it_debris,
                 itf_static | itf_animation | itf_indestructible | itf_fireproof);
     
+/* -------------------- Explosion -------------------- */
+
+    Explosion::Explosion(int strength) {
+        state = strength;
+    }
+    
+    void Explosion::setState(int extState) {
+        // no state writes
+    }
+    
+    void Explosion::animcb() { 
+        Floor *fl = GetFloor(get_pos());
+        if (state != 0 && fl->is_destructible())
+            if (state == 1)
+                replace("it_meditation_hollow");
+            else if (state == 2)
+                replace("it_crack_m");
+            else
+                replace("it_debris");
+        else
+            kill();
+     }
+     
+    DEF_ITEMTRAITSF(Explosion, "it_explosion", it_explosion, itf_static |
+                itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);
+
 /* -------------------- Flag -------------------- */
 
     FlagItem::FlagItem(int type) {
@@ -379,6 +405,10 @@ namespace enigma {
         BootRegister(new Coffee(), "it_coffee");
         BootRegister(new DeathItem(), "it_death");
         BootRegister(new Debris(), "it_debris");
+        BootRegister(new Explosion(0), "it_explosion_nil");
+        BootRegister(new Explosion(1), "it_explosion_hollow");
+        BootRegister(new Explosion(2), "it_explosion_crack");
+        BootRegister(new Explosion(3), "it_explosion_debris");
         BootRegister(new FlagItem(0), "it_flag");
         BootRegister(new FlagItem(0), "it_flag_black");
         BootRegister(new FlagItem(1), "it_flag_white");
