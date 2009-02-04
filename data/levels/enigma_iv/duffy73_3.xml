@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="19" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="20" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -70,7 +70,7 @@ ti["M"] = {"#ac_rotor", owner=1, adhesion=0, range=4, strength=-5} .. ti["l"]
 ti["N"] = {"#ac_top", owner=1, adhesion=0, range=8, strength=20} .. ti["i"]
 ti["R"] = {"st_oneway", orientation=EAST} .. ti["l"]
 ti["J"] = {"st_break_white"}
-ti["D"] = {"it-dynamite"}
+ti["D"] = {"it_dynamite"}
 ti["t"] = {"it_hammer"}
 ti["H"] = {"st_break_oxydc"}
 ti["f"] = {"st_actorimpulse_invisible"}

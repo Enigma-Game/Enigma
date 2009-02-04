@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Seed Puzzle 2" el:subtitle="" el:id="duffy93"/>
-      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,10 +19,10 @@ wo["CrackSpreading"] = 0.0
 ti[" "] = {"fl_lawn"}
 ti["-"] = {"fl_abyss"}
 ti["#"] = {"st_purplegray"}
-ti["&"] = ti({"st_rawglass"}) .. {"it-blackbomb"}
+ti["&"] = ti({"st_rawglass"}) .. {"it_bomb_black"}
 ti["%"] = {"st_rawglass_movable"}
 ti["X"] = ti({"st_grate", flavor="cross"}) .. {"it_crack_l"}
-ti["B"] = {"st-bombs"}
+ti["B"] = {"st_dispenser"}
 ti["^"] = {"st_oneway", orientation=NORTH}
 ti[">"] = {"st_oneway", orientation=EAST}
 ti["V"] = {"st_oneway", orientation=SOUTH}

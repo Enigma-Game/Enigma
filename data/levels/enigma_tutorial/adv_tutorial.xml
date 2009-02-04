@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -97,7 +97,7 @@ ti["t6"] = {"it_trigger", target = "d6"} .. ti[". "]
 ti["tR"] = {"it_trigger", invisible = true, target = "call_rotor"} .. ti[". "]  -- See below for callback function.
 ti["w "] = {"it_magicwand"}
 ti["x "] = {"it_spoon"} .. ti[". "]
-ti["y "] = {"it-dynamite"}
+ti["y "] = {"it_dynamite"}
 ti["iy"] = ti["y "] .. ti["i "]
 
 -- {"it_document", text = "text%17"} .. ti[". "]  -> dQ

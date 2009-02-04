@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="A Screenful of Secrets" el:subtitle="My First Level" el:id="mecke01"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 34 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 35 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,7 +53,7 @@ ti[", "] = {"st_fake_oxydd"}
 ti["= "] = {"st_mirror_triangle", movable=false, transparent=false, orientation=EAST}
 ti["T "] = ti["X "] .. {"#ac_top", range=1, strength=1}
 ti["6 "] = {"st_panel"}
-ti["b "] = {"it-blackbomb"}
+ti["b "] = {"it_bomb_black"}
 ti["B "] = ti["b "] .. ti["X "]
 ti["e "] = {"it_extralife"}
 ti["Y "] = {"it_brush"}

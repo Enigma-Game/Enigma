@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="20" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="21" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -66,7 +66,7 @@ ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl_woven"}
 ti["z"] = {"fl_plank"}
 ti["A"] = {"fl_lawn"} .. ti({"it_banana"})
-ti["B"] = {"fl_plank"} .. ti({"it-blackbomb"})
+ti["B"] = {"fl_plank"} .. ti({"it_bomb_black"})
 ti["D"] = {"fl_bright"} .. ti({"st_death"})
 ti["E"] = {"fl_lawn"} .. ti({"it_cherry"})
 ti["F"] = {"fl_plank"} .. ti({"it_seed"})

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pontoon Bridges" el:subtitle="" el:id="duffy137"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,12 +17,12 @@ ti[" "] = {"fl_lawn"}
 ti["~"] = {"fl_water"}
 ti["#"] = {"st_greenbrown"}
 ti["="] = ti["~"] .. {"st_greenbrown"}
-ti["B"] = {"st-bombs"}
+ti["B"] = {"st_dispenser"}
 ti["1"] = {"st_puzzle", cluster=1}
 ti["2"] = {"st_puzzle", cluster=2}
 ti["3"] = {"st_puzzle", cluster=3}
 ti["4"] = ti["~"] .. ti["3"]
-ti["d"] = {"it-dynamite"}
+ti["d"] = {"it_dynamite"}
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"#ac_marble_black"}
 

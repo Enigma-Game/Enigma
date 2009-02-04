@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Impulsive Order" el:subtitle="" el:id="raywick5"/>
-      <el:version el:score="1" el:release="1" el:revision="12" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="13" el:status="released"/>
       <el:author  el:name="Ray Wick" el:email=""/>
       <el:copyright>Copyright © 2008 Ray Wick</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -37,7 +37,7 @@ ti["5"] = {"st_stoneimpulse", name="outer#"}
 ti["L"] = {"st_laser", name="laser1", orientation=SOUTH}
 ti["M"] = {"st_mirror", transparent=true, orientation=0}
 ti["Z"] = {"st_shogun_sml"}
-ti["x"] = {"it-blackbomb"}
+ti["x"] = {"it_bomb_black"}
 ti["s"] = ti["G"] .. {"it_spring_keep"}
 ti["z"] = {"it_shogun_l", action="open", target="door1"}
 ti["B"] = {"it_trigger", action_1="signal", action_0="nop", target="outer#*"}

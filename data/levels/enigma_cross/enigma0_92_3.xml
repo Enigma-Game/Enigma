@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="16" title="Enigma 0.92 - 3"/>
+  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma 0.92 - 3"/>
 
   <attributes/>
 
@@ -25,7 +25,7 @@
     <level _seq="17" _title="Excruciating" _xpath="enigma_iv/duffy90_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy90" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="You Must Be Kidding" _xpath="enigma_v/duffy91_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy91" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Map It Out" _xpath="enigma_iii/duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Seed Puzzle 2" _xpath="enigma_iv/duffy93_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy93" rel="3" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="20" _title="Seed Puzzle 2" _xpath="enigma_iv/duffy93_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy93" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="21" _title="Graduated Puzzles" _xpath="enigma_iv/duffy94_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy94" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Automaton" _xpath="enigma_v/duffy95_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy95" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Alien Glyphs 2" _xpath="enigma_ii/duffy96_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy96" rel="2" rev="1" score="2" target="time" unit="duration"/>
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Artillery" _xpath="enigma_iv/duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Versailles" _xpath="enigma_iii/duffy112_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy112" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Help Yourself" _xpath="enigma_v/duffy113_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy113" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Plan Ahead" _xpath="enigma_v/duffy114_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy114" rel="3" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="47" _title="Plan Ahead" _xpath="enigma_v/duffy114_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy114" rel="3" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Randomizer" _xpath="enigma_v/duffy115_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy115" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Just Stay Calm" _xpath="enigma_vi/duffy116_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy116" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Bad Nightmare" _xpath="enigma_iv/duffy117_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy117" rel="2" rev="3" score="2" target="time" unit="duration"/>

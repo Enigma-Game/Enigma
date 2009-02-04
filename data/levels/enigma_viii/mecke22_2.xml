@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:81$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:82$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -137,11 +137,11 @@ ti["=!"] = ti[" !"] .. {"st_rawglass_movable"}
 ti["c!"] = ti["c "] .. {"fl_swamp"}
 ti["e-"] = ti["=-"] .. {"it_cherry"}
 ti["e!"] = ti[" !"] .. {"it_cherry"}
-ti["=d"] = ti["=-"] .. {"it-dynamite"}
-ti["d~"] = ti[" $"] .. {"it-dynamite"}
-ti["b$"] = ti[" $"] .. {"it-blackbomb"}
-ti["b3"] = ti[" 3"] .. {"it-blackbomb"}
-ti["b#"] = ti[" #"] .. {"it-blackbomb"}
+ti["=d"] = ti["=-"] .. {"it_dynamite"}
+ti["d~"] = ti[" $"] .. {"it_dynamite"}
+ti["b$"] = ti[" $"] .. {"it_bomb_black"}
+ti["b3"] = ti[" 3"] .. {"it_bomb_black"}
+ti["b#"] = ti[" #"] .. {"it_bomb_black"}
 ti["s$"] = ti[" $"] .. {"it_squashed"}
 ti["v1"] = ti["=!"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["v2"] = ti["=-"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
@@ -230,7 +230,7 @@ if wo ["IsDifficult"] then
    ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}
    ti["LZ"] = ti[" ;"] .. {"it_burnable_oil"}
 else
-   ti["i+"] = ti[" +"] .. {"it-dynamite"}
+   ti["i+"] = ti[" +"] .. {"it_dynamite"}
    ti["rt"] = ti[" '"] .. {"st_ghost_break"}
    ti["rr"] = ti["rt"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_swamp"}

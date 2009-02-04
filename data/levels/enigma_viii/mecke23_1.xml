@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 36 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 37 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -68,7 +68,7 @@ ti["* "] = ti["u "] .. {"#ac_marble_black"}
 ti["*w"] = ti[" '"] .. {"#ac_marble_white",essential=1}
 ti["= "] = ti[" ."] .. {"it_seed"}
 ti[" ="] = {"fl_water"}
-ti[" b"] = {"it-dynamite"}
+ti[" b"] = {"it_dynamite"}
 ti["!0"] = {"it_burnable_oil"}
 ti["ka"] = {"it_floppy"}
 ti["K1"] = {"st_floppy",target="ollf1"}
@@ -79,10 +79,10 @@ ti["K3"] = {"st_floppy",target="ollf3"}
 ti[":3"] = {"st_door",faces="ns",name="ollf3"}
 ti["K4"] = {"st_floppy",target="ollf4"}
 ti[":4"] = {"st_door",faces="ns",name="ollf4"}
-ti["bb"] = ti[" *"] .. {"it-blackbomb"}
-ti[" ~"] = ti[" ="] .. {"it-blackbomb"}
+ti["bb"] = ti[" *"] .. {"it_bomb_black"}
+ti[" ~"] = ti[" ="] .. {"it_bomb_black"}
 ti[" _"] = ti[" ="] .. {"it_cherry"}
-ti[" 2"] = ti[" 1"] .. {"it-dynamite"}
+ti[" 2"] = ti[" 1"] .. {"it_dynamite"}
 ti[" -"] = ti[" a"] .. {"it_bottle_broken", 0.5, 0.5}
 ti["!1"] = ti[" ="] .. {"st_disco"}
 ti["!2"] = ti["!0"] .. {"st_disco",state=MEDIUM}

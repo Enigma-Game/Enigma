@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="17" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="18" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -134,7 +134,7 @@ for j = 1, 5 do
   ti["v"..j] = {"it_vortex", "vortex_"..spot, autoclose = true, state = CLOSED,
                  destination = "start_position"} .. ti["_"..j]
   ti["O"..j] = {"st_oxyd", oxydcolor = design[5]} .. ti["_"..j]
-  ti["d"..j] = {"it-dynamite"} .. ti["_"..j]
+  ti["d"..j] = {"it_dynamite"} .. ti["_"..j]
   ti["G"..j] = {"it_glasses", state = spot_constants[spot_permutation[(j%5) + 1]]}
                .. ti["_"..j]
   ti["H"..j] = {"it_glasses", state = spot_constants[spot_permutation[((j+1)%5) + 1]]}

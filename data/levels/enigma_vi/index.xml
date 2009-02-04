@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma VI"/>
 
   <attributes/>
 
@@ -87,7 +87,7 @@
     <level _seq="79" _title="Quadropolis" _xpath="./cel1_1" author="Johannes Laire, Jacob Scott, Raoul Bourquin, Andreas Lochmann" ctrl="force" easy="false" id="cel2007_364" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="- Meditation -" _xpath="./raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Magic Trinity" _xpath="./duffy146_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy146" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Pontoon Bridges" _xpath="./duffy137_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy137" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Pontoon Bridges" _xpath="./duffy137_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy137" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="The Cube" _xpath="./malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Blitz Chess" _xpath="./luc32_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc322006" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="One-Way Woods" _xpath="./duffy135_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy135" rel="1" rev="1" score="1" target="time" unit="duration"/>
