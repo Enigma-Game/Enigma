@@ -189,7 +189,7 @@ end
 
 -- ac-cannonball --
 do
-    DefAlias("ac-cannonball", "ac_marble_black-jump")
+    DefAlias("ac_cannonball", "ac_marble_black-jump")
 end
 
 -- ac-horse --

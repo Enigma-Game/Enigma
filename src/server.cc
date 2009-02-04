@@ -197,6 +197,7 @@ void server::RaiseError (const std::string &msg)
 void gametick(double dtime)
 {
     const double timestep = 0.01; // 10ms
+    int count = 0;
 
     server::LevelTime += dtime;
 
@@ -206,14 +207,14 @@ void gametick(double dtime)
         time_accu = 1.0;
     }
     player::Tick (time_accu);
-    for (;time_accu >= timestep; time_accu -= timestep) {
-        WorldTick (timestep);
+    for (;time_accu >= timestep; time_accu -= timestep, count++) {
+        WorldTick(timestep);
 //        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
 //            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
 //                                                + lua::LastError(lua::LevelState()));
 //        }
     }
-    TickFinished ();
+    TickFinished(count * timestep);
 }
 
 

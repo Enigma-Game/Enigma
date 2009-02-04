@@ -164,7 +164,7 @@ namespace enigma {
     bool WorldInitLevel();
 
     void WorldTick(double dtime);
-    void TickFinished ();
+    void TickFinished(double dtime);
 
     // Destroy all objects and the complete object repository
     void ShutdownWorld();

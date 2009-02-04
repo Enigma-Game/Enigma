@@ -242,12 +242,12 @@ namespace enigma {
             case IDLE:
                 ASSERT(false, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
             case LOADING: {
-                Actor     *ball = MakeActor("ac-cannonball");
-                ActorInfo *ai   = ball->get_actorinfo();
+                Other *cb = dynamic_cast<Other *>(MakeObject("ot_cannonball"));
                 ecl::V2 center  = get_pos().center();
-        
-                ai->vel = getAttr("$ball_velocity");
-                AddActor(center[0], center[1], ball);
+                cb->setAttr("$position", center);
+                cb->setAttr("$ball_velocity", getAttr("$ball_velocity"));
+                AddOther(cb);
+                
                 state = SPITTING;
                 init_model();
                 break;

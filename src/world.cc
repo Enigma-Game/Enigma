@@ -483,7 +483,6 @@ void World::tick(double dtime)
 
     move_actors(dtime);
     tick_sound_dampings();
-    doPerformPendingActions();
 
     // Tell floors and items about new stones.
     for (unsigned i=0; i<changed_stones.size(); ++i)
@@ -1394,6 +1393,8 @@ void World::move_actors (double dtime)
             if (!ai.grabbed)
                 handle_stone_contacts(i);
         }
+
+        doPerformPendingActions();
 
         for (unsigned i=0; i<nactors; ++i) {
             Actor     *a  = actorlist[i];
@@ -2374,31 +2375,28 @@ float getVolume(const char *name, Object *obj, float def_volume)
 }
 
 void WorldTick(double dtime) {
-    level->tick (dtime);
+    level->tick(dtime);
 }
 
-void TickFinished () {
+void TickFinished(double dtime) {
     for (unsigned i=0; i<level->actorlist.size(); ++i) {
         level->actorlist[i]->move_screen();
     }
 
     //     
     for (OtherList::iterator oit = level->others.begin(); oit != level->others.end(); ++oit) {
-        (*oit)->tick(0);
+        (*oit)->tick(dtime);
     }    
 }
 
-void InitWorld()
-{
+void InitWorld() {
     Object::bootFinished();
     BootRegister(NULL, NULL, false);
-    InitActors();
     InitLasers();
     InitFloors();
 }
 
-void ShutdownWorld()
-{
+void ShutdownWorld() {
     level.reset();
     player::PlayerShutdown();
     Repos_Shutdown();
