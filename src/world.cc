@@ -566,9 +566,11 @@ ecl::V2 World::drunkenMouseforce(Actor *a, V2 &mforce)
     V2 f = mforce;
     if (a->get_controllers() != 0) {
         if (a->is_drunken()) {
-            double time = fmod(server::LevelTime, 2.0) - 1.0;
+//            double time = fmod(server::LevelTime, 2.0) - 1.0;
+            int t = (int)server::LevelTime;
+            double time = fmod(t * M_PI, 2.0) - 1.0;
             // rotate mouse force by random angle
-            double maxangle = M_PI * 0.7;
+            double maxangle = M_PI * 0.4;
             double angle = maxangle * time;
 //            double angle = DoubleRand (-maxangle, maxangle);
             f = V2(f[0]*cos(angle) - f[1]*sin(angle),
@@ -2393,7 +2395,6 @@ void InitWorld() {
     Object::bootFinished();
     BootRegister(NULL, NULL, false);
     InitLasers();
-    InitFloors();
 }
 
 void ShutdownWorld() {

@@ -75,7 +75,9 @@
     <attr name="secure" type="bool" default="false" rw="rw"/>
     <attr name="scissor" type="bool" default="false" rw="rw"/>
     <attr name="scratches" type="string" default="" rw="rw"/>
+    <attr name="shape" type="string" default="" rw="rw"/>
     <attr name="selection" type="tokens" default="nil" rw="rw"/>
+    <attr name="slope" type="int" default="-1" min="-1" max="7" rw="rw"/>
     <attr name="spreading" type="double" default="nil" rw="rw"/>
     <attr name="state" type="int" default="0" min="0" max="1" rw="rw"/>
     <attr name="static" type="bool" default="false" rw="rw"/>
@@ -331,6 +333,85 @@
     </object>
     <object name="fl_rock_framed">
       <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_slope">
+      <attr name="friction" default="4.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="slope" default="-1"/>
+      <attr name="strength"/>
+      <attr name="shape"/>
+    </object>
+    <object name="fl_slope_pw">
+      <attr name="shape" value="pw"/>
+    </object>
+    <object name="fl_slope_ps">
+      <attr name="shape" value="ps"/>
+    </object>
+    <object name="fl_slope_pe">
+      <attr name="shape" value="pe"/>
+    </object>
+    <object name="fl_slope_pn">
+      <attr name="shape" value="pn"/>
+    </object>
+    <object name="fl_slope_inw">
+      <attr name="shape" value="inw"/>
+    </object>
+    <object name="fl_slope_isw">
+      <attr name="shape" value="isw"/>
+    </object>
+    <object name="fl_slope_ise">
+      <attr name="shape" value="ise"/>
+    </object>
+    <object name="fl_slope_ine">
+      <attr name="shape" value="ine"/>
+    </object>
+    <object name="fl_slope_onw">
+      <attr name="shape" value="onw"/>
+    </object>
+    <object name="fl_slope_osw">
+      <attr name="shape" value="osw"/>
+    </object>
+    <object name="fl_slope_ose">
+      <attr name="shape" value="ose"/>
+    </object>
+    <object name="fl_slope_one">
+      <attr name="shape" value="one"/>
+    </object>
+    <object name="fl_slope_tw">
+      <attr name="shape" value="tw"/>
+    </object>
+    <object name="fl_slope_ts">
+      <attr name="shape" value="ts"/>
+    </object>
+    <object name="fl_slope_te">
+      <attr name="shape" value="te"/>
+    </object>
+    <object name="fl_slope_tn">
+      <attr name="shape" value="tn"/>
+    </object>
+    <object name="fl_slope_twl">
+      <attr name="shape" value="twl"/>
+    </object>
+    <object name="fl_slope_tsl">
+      <attr name="shape" value="tsl"/>
+    </object>
+    <object name="fl_slope_tel">
+      <attr name="shape" value="tel"/>
+    </object>
+    <object name="fl_slope_tnl">
+      <attr name="shape" value="tnl"/>
+    </object>
+    <object name="fl_slope_twr">
+      <attr name="shape" value="twr"/>
+    </object>
+    <object name="fl_slope_tsr">
+      <attr name="shape" value="tsr"/>
+    </object>
+    <object name="fl_slope_ter">
+      <attr name="shape" value="ter"/>
+    </object>
+    <object name="fl_slope_tnr">
+      <attr name="shape" value="tnr"/>
     </object>
     <object name="fl_space">
       <attr name="friction" default="0.0"/>

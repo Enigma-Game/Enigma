@@ -102,22 +102,22 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl_space",                 // Oxyd1 floor 0x20
     "fl_space_force",           // Oxyd1 floor 0x21
     "fl_space",                 // Oxyd1 floor 0x22
-    "fl-gradient1",             // Oxyd1 floor 0x23
-    "fl-gradient2",             // Oxyd1 floor 0x24
-    "fl-gradient3",             // Oxyd1 floor 0x25
-    "fl-gradient4",             // Oxyd1 floor 0x26
-    "fl-gradient5",             // Oxyd1 floor 0x27
-    "fl-gradient6",             // Oxyd1 floor 0x28
-    "fl-gradient7",             // Oxyd1 floor 0x29
-    "fl-gradient8",             // Oxyd1 floor 0x2a
-    "fl-gradient9",             // Oxyd1 floor 0x2b
-    "fl-gradient10",            // Oxyd1 floor 0x2c
-    "fl-gradient11",            // Oxyd1 floor 0x2d
-    "fl-gradient12",            // Oxyd1 floor 0x2e
-    "fl-gradient13",            // Oxyd1 floor 0x2f
-    "fl-gradient14",            // Oxyd1 floor 0x30
-    "fl-gradient15",            // Oxyd1 floor 0x31
-    "fl-gradient16",            // Oxyd1 floor 0x32
+    "fl_slope_ps",              // Oxyd1 floor 0x23
+    "fl_slope_pn",              // Oxyd1 floor 0x24
+    "fl_slope_pe",              // Oxyd1 floor 0x25
+    "fl_slope_pw",              // Oxyd1 floor 0x26
+    "fl_slope_ose",             // Oxyd1 floor 0x27
+    "fl_slope_osw",             // Oxyd1 floor 0x28
+    "fl_slope_one",             // Oxyd1 floor 0x29
+    "fl_slope_onw",             // Oxyd1 floor 0x2a
+    "fl_slope_ise",             // Oxyd1 floor 0x2b
+    "fl_slope_ine",             // Oxyd1 floor 0x2c
+    "fl_slope_isw",             // Oxyd1 floor 0x2d
+    "fl_slope_inw",             // Oxyd1 floor 0x2e
+    "fl_slope_ts",              // Oxyd1 floor 0x2f
+    "fl_slope_tn",              // Oxyd1 floor 0x30
+    "fl_slope_te",              // Oxyd1 floor 0x31
+    "fl_slope_tw",              // Oxyd1 floor 0x32
     "fl_brick",                 // Oxyd1 floor 0x33
     "fl_brick",                 // Oxyd1 floor 0x34 (common was 'fl-rough')
     UNUSED,                     // Oxyd1 floor 0x35

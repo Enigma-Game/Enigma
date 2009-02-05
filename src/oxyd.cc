@@ -435,7 +435,7 @@ void OxydLoader::load_floor ()
 
             if( name == 0) {
                 Log << ecl::strf ("Unknown floor %X\n",code);
-                fl = MakeFloor("fl-dummy");
+                fl = MakeFloor("fl_dummy");
                 fl->setAttr("code", code);
             }
             else {

@@ -132,6 +132,7 @@ namespace enigma {
         int get_fire_countdown();
         virtual bool on_heattransform(Direction sourcedir, FloorHeatFlags flhf);
 
+        ecl::V2 var_floorforce;
     private:
         virtual void on_actorhit(Actor * /*a*/) {}
         // Fire logic
@@ -146,10 +147,7 @@ namespace enigma {
         int fire_countdown;  // used to delay ignition, default is 1.
         double friction;
         double adhesion;
-        ecl::V2 var_floorforce;
     };
-
-    void InitFloors();
 
 } // namespace enigma
 

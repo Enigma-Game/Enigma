@@ -327,6 +327,31 @@ end
 -- gradients
 do
     DefSubimages("fl-gradient2", {w=6, h=4, modelname="fl-gradient"})
+    DefAlias("fl_slope", "fl-gradient21")
+    DefAlias("fl_slope_pw", "fl-gradient4")
+    DefAlias("fl_slope_ps", "fl-gradient1")
+    DefAlias("fl_slope_pe", "fl-gradient3")
+    DefAlias("fl_slope_pn", "fl-gradient2")
+    DefAlias("fl_slope_inw", "fl-gradient12")
+    DefAlias("fl_slope_isw", "fl-gradient11")
+    DefAlias("fl_slope_ise", "fl-gradient9")
+    DefAlias("fl_slope_ine", "fl-gradient10")
+    DefAlias("fl_slope_onw", "fl-gradient8")
+    DefAlias("fl_slope_osw", "fl-gradient6")
+    DefAlias("fl_slope_ose", "fl-gradient5")
+    DefAlias("fl_slope_one", "fl-gradient7")
+    DefAlias("fl_slope_tw", "fl-gradient21")
+    DefAlias("fl_slope_ts", "fl-gradient21")
+    DefAlias("fl_slope_te", "fl-gradient21")
+    DefAlias("fl_slope_tn", "fl-gradient21")
+    DefAlias("fl_slope_twl", "fl-gradient2")
+    DefAlias("fl_slope_tsl", "fl-gradient4")
+    DefAlias("fl_slope_tel", "fl-gradient1")
+    DefAlias("fl_slope_tnl", "fl-gradient3")
+    DefAlias("fl_slope_twr", "fl-gradient1")
+    DefAlias("fl_slope_tsr", "fl-gradient3")
+    DefAlias("fl_slope_ter", "fl-gradient2")
+    DefAlias("fl_slope_tnr", "fl-gradient4")
 end
 
 -- leaves --

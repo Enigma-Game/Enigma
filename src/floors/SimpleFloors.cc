@@ -21,7 +21,7 @@
 #include "floors/SimpleFloors.hh"
 
 //#include "errors.hh"
-//#include "main.hh"
+#include "main.hh"
 #include "player.hh"
 #include "world.hh"
 
@@ -29,7 +29,7 @@ namespace enigma {
     
 /* -------------------- Abyss -------------------- */
 
-    Abyss::Abyss() : Floor("fl_abyss", 0.0, 0.0, flf_indestructible) {
+    Abyss::Abyss() : Floor ("fl_abyss", 0.0, 0.0, flf_indestructible) {
     }
     
     std::string Abyss::getClass() const {
@@ -44,6 +44,21 @@ namespace enigma {
         SendMessage(a, "_fall");
     }
     
+/* -------------------- DummyFloor -------------------- */
+
+    DummyFloor::DummyFloor() : Floor ("fl_dummy", 4.0, 2.5) {
+    }
+    
+    std::string DummyFloor::getClass() const {
+        return "fl_dummy";
+    }
+
+    void DummyFloor::actor_contact(Actor *) {
+        static int lastCode = -1;
+        int code = getAttr("code");
+        Log << ecl::strf("Entering floor 0x%x\n", code);
+    }
+
 /* -------------------- Ice -------------------- */
 
 
@@ -113,6 +128,7 @@ namespace enigma {
     
     BOOT_REGISTER_START
         BootRegister(new Abyss(),     "fl_abyss");
+        BootRegister(new DummyFloor(),"fl_dummy");
         BootRegister(new IceFloor(),  "fl_ice");
         BootRegister(new Space(),     "fl_space");
         BootRegister(new Space(true), "fl_space_force");

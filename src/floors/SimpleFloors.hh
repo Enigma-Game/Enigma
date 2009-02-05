@@ -42,6 +42,22 @@ namespace enigma {
     };
 
     /** 
+     * DummyFloor
+     */
+    class DummyFloor : public Floor {
+        CLONEOBJ(DummyFloor);
+        
+    public:
+        DummyFloor();
+
+        // Object interface
+        virtual std::string getClass() const;
+
+        // Floor interface
+        virtual void actor_contact(Actor *);
+    };
+
+    /** 
      * IceFloor
      */
     class IceFloor : public Floor {

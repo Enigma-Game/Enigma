@@ -138,22 +138,22 @@ const char *oxyd::peroxyd_floor_map[256] = {
     UNUSED,                     // PerOxyd floor 0x20
     "fl_space_force",           // PerOxyd floor 0x21 (flat force)
     UNUSED,                     // PerOxyd floor 0x22
-    "fl-gradient1",             // PerOxyd floor 0x23
-    "fl-gradient2",             // PerOxyd floor 0x24
-    "fl-gradient3",             // PerOxyd floor 0x25
-    "fl-gradient4",             // PerOxyd floor 0x26
-    "fl-gradient5",             // PerOxyd floor 0x27
-    "fl-gradient6",             // PerOxyd floor 0x28
-    "fl-gradient7",             // PerOxyd floor 0x29
-    "fl-gradient8",             // PerOxyd floor 0x2a
-    "fl-gradient9",             // PerOxyd floor 0x2b
-    "fl-gradient10",            // PerOxyd floor 0x2c
-    "fl-gradient11",            // PerOxyd floor 0x2d
-    "fl-gradient12",            // PerOxyd floor 0x2e
-    "fl-gradient13",            // PerOxyd floor 0x2f (flat force)
-    "fl-gradient14",            // PerOxyd floor 0x30 (flat force)
-    "fl-gradient15",            // PerOxyd floor 0x31 (flat force)
-    "fl-gradient16",            // PerOxyd floor 0x32 (flat force)
+    "fl_slope_ps",             // PerOxyd floor 0x23
+    "fl_slope_pn",             // PerOxyd floor 0x24
+    "fl_slope_pe",             // PerOxyd floor 0x25
+    "fl_slope_pw",             // PerOxyd floor 0x26
+    "fl_slope_ose",             // PerOxyd floor 0x27
+    "fl_slope_osw",             // PerOxyd floor 0x28
+    "fl_slope_one",             // PerOxyd floor 0x29
+    "fl_slope_onw",             // PerOxyd floor 0x2a
+    "fl_slope_ise",             // PerOxyd floor 0x2b
+    "fl_slope_ine",            // PerOxyd floor 0x2c
+    "fl_slope_isw",            // PerOxyd floor 0x2d
+    "fl_slope_inw",            // PerOxyd floor 0x2e
+    "fl_slope_ts",            // PerOxyd floor 0x2f (flat force)
+    "fl_slope_tn",            // PerOxyd floor 0x30 (flat force)
+    "fl_slope_te",            // PerOxyd floor 0x31 (flat force)
+    "fl_slope_tw",            // PerOxyd floor 0x32 (flat force)
     "fl_rough",                 // PerOxyd floor 0x33 (common was 'fl-rough', should be a 'fl-paper')(only level 75)
     "fl_rough",                 // PerOxyd floor 0x34
     UNUSED,                     // PerOxyd floor 0x35

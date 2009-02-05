@@ -71,8 +71,8 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x22
     UNUSED,              // OxydExtra floor 0x23
     UNUSED,              // OxydExtra floor 0x24
-    "fl-gradient3",      // OxydExtra floor 0x25
-    "fl-gradient4",      // OxydExtra floor 0x26
+    "fl_slope_pe",      // OxydExtra floor 0x25
+    "fl_slope_pw",      // OxydExtra floor 0x26
     UNUSED,              // OxydExtra floor 0x27
     UNUSED,              // OxydExtra floor 0x28
     UNUSED,              // OxydExtra floor 0x29
@@ -83,8 +83,8 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x2e
     UNUSED,              // OxydExtra floor 0x2f
     UNUSED,              // OxydExtra floor 0x30
-    "fl-gradient15",     // OxydExtra floor 0x31
-    "fl-gradient16",     // OxydExtra floor 0x32
+    "fl_slope_te",     // OxydExtra floor 0x31
+    "fl_slope_tw",     // OxydExtra floor 0x32
     UNUSED,              // OxydExtra floor 0x33
     "fl_rough",          // OxydExtra floor 0x34
     UNUSED,              // OxydExtra floor 0x35

@@ -69,22 +69,22 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x20
     UNUSED,                     // OxydMagnum floor 0x21
     UNUSED,                     // OxydMagnum floor 0x22
-    "fl-gradient1",             // OxydMagnum floor 0x23
-    "fl-gradient2",             // OxydMagnum floor 0x24
-    "fl-gradient3",             // OxydMagnum floor 0x25
-    "fl-gradient4",             // OxydMagnum floor 0x26
-    "fl-gradient5",             // OxydMagnum floor 0x27
-    "fl-gradient6",             // OxydMagnum floor 0x28
-    "fl-gradient7",             // OxydMagnum floor 0x29
-    "fl-gradient8",             // OxydMagnum floor 0x2a
-    "fl-gradient9",             // OxydMagnum floor 0x2b
-    "fl-gradient10",            // OxydMagnum floor 0x2c
-    "fl-gradient11",            // OxydMagnum floor 0x2d
-    "fl-gradient12",            // OxydMagnum floor 0x2e
-    "fl-gradient13",            // OxydMagnum floor 0x2f
-    "fl-gradient14",            // OxydMagnum floor 0x30
-    "fl-gradient15",            // OxydMagnum floor 0x31
-    "fl-gradient16",            // OxydMagnum floor 0x32
+    "fl_slope_ps",             // OxydMagnum floor 0x23
+    "fl_slope_ps",             // OxydMagnum floor 0x24
+    "fl_slope_pe",             // OxydMagnum floor 0x25
+    "fl_slope_pw",             // OxydMagnum floor 0x26
+    "fl_slope_ose",             // OxydMagnum floor 0x27
+    "fl_slope_osw",             // OxydMagnum floor 0x28
+    "fl_slope_one",             // OxydMagnum floor 0x29
+    "fl_slope_onw",             // OxydMagnum floor 0x2a
+    "fl_slope_ise",             // OxydMagnum floor 0x2b
+    "fl_slope_ine",            // OxydMagnum floor 0x2c
+    "fl_slope_isw",            // OxydMagnum floor 0x2d
+    "fl_slope_inw",            // OxydMagnum floor 0x2e
+    "fl_slope_ts",            // OxydMagnum floor 0x2f
+    "fl_slope_tn",            // OxydMagnum floor 0x30
+    "fl_slope_te",            // OxydMagnum floor 0x31
+    "fl_slope_tw",            // OxydMagnum floor 0x32
     "fl_brick",                 // OxydMagnum floor 0x33 (common was 'fl-rough')
     "fl_brick",                 // OxydMagnum floor 0x34 (common was 'fl-rough')
     UNUSED,                     // OxydMagnum floor 0x35

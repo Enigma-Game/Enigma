@@ -113,6 +113,22 @@ RenamingObjectsNew2Old = {
     fl_samba = "fl-samba",
     fl_samba_h = "fl-samba1",
     fl_samba_v = "fl-samba2",
+    fl_slope_ps = "fl-gradient1",
+    fl_slope_pn = "fl-gradient2",
+    fl_slope_pe = "fl-gradient3",
+    fl_slope_pw = "fl-gradient4",
+    fl_slope_ose = "fl-gradient5",
+    fl_slope_osw = "fl-gradient6",
+    fl_slope_one = "fl-gradient7",
+    fl_slope_onw = "fl-gradient8",
+    fl_slope_ise = "fl-gradient9",
+    fl_slope_ine = "fl-gradient10",
+    fl_slope_isw = "fl-gradient11",
+    fl_slope_inw = "fl-gradient12",
+    fl_slope_ts = "fl-gradient13",
+    fl_slope_tn = "fl-gradient14",
+    fl_slope_te = "fl-gradient15",
+    fl_slope_tw = "fl-gradient16",
     fl_space = "fl-space",
     fl_stone = "fl-stone",
     fl_swamp = "fl-swamp",
@@ -537,6 +553,9 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("ac_pearl_white")
         enigma._SetAttrib(obj, "owner", nil)
         return obj
+    elseif name == "fl-gradient" then
+        local obj = enigma._MakeObject("fl_slope_ps")
+        return obj
     elseif name == "fl-bridge-open" then
         local obj = enigma._MakeObject("fl_bridge")
         return obj
@@ -732,6 +751,9 @@ function enigma.GetKind(obj)
     if _newname == "st_mirror" then
         return "st-mirror"
     end
+    if _newname == "fl_slope" then
+        return "fl-gradient"
+    end
     if _oldname ~= nil then
         return _oldname
     else
@@ -795,9 +817,7 @@ function enigma.SetAttrib(obj, key, val)
      if key == "load" then
          _key = "state"
      end
-     if key == "force" and (_obj_name == "st-actorimpulse" or
-             _obj_name == "st-actorimpulse_invisible" or _obj_name == "ac-horse" or
-             _obj_name == "ac-rotor" or _obj_name == "ac-top")  then
+     if key == "force" then
          _key = "strength"
      end
      if key == "friction_factor" then
@@ -877,6 +897,83 @@ function enigma.SetAttrib(obj, key, val)
          else _val = "gc"
          end
      end
+     if key == "type" and string.find(_obj_name, "fl-gradient", 1, true) == 1 then
+         if val == 1 then
+             enigma._SetAttrib(obj, "shape", "ps")
+             enigma._SetAttrib(obj, "slope", 1)
+         elseif val == 2 then
+             enigma._SetAttrib(obj, "shape", "pn")
+             enigma._SetAttrib(obj, "slope", 3)
+         elseif val == 3 then
+             enigma._SetAttrib(obj, "shape", "pe")
+             enigma._SetAttrib(obj, "slope", 2)
+         elseif val == 4 then
+             enigma._SetAttrib(obj, "shape", "pw")
+             enigma._SetAttrib(obj, "slope", 0)
+         elseif val == 5 then
+             enigma._SetAttrib(obj, "shape", "ose")
+             enigma._SetAttrib(obj, "slope", 6)
+         elseif val == 6 then
+             enigma._SetAttrib(obj, "shape", "osw")
+             enigma._SetAttrib(obj, "slope", 5)
+         elseif val == 7 then
+             enigma._SetAttrib(obj, "shape", "one")
+             enigma._SetAttrib(obj, "slope", 7)
+         elseif val == 8 then
+             enigma._SetAttrib(obj, "shape", "onw")
+             enigma._SetAttrib(obj, "slope", 4)
+         elseif val == 9 then
+             enigma._SetAttrib(obj, "shape", "ise")
+             enigma._SetAttrib(obj, "slope", 6)
+         elseif val == 10 then
+             enigma._SetAttrib(obj, "shape", "ine")
+             enigma._SetAttrib(obj, "slope", 7)
+         elseif val == 11 then
+             enigma._SetAttrib(obj, "shape", "isw")
+             enigma._SetAttrib(obj, "slope", 5)
+         elseif val == 12 then
+             enigma._SetAttrib(obj, "shape", "inw")
+             enigma._SetAttrib(obj, "slope", 4)
+         elseif val == 13 then
+             enigma._SetAttrib(obj, "shape", "twr")
+             enigma._SetAttrib(obj, "slope", 5)
+         elseif val == 14 then
+             enigma._SetAttrib(obj, "shape", "twl")
+             enigma._SetAttrib(obj, "slope", 4)
+         elseif val == 15 then
+             enigma._SetAttrib(obj, "shape", "tel")
+             enigma._SetAttrib(obj, "slope", 6)
+         elseif val == 16 then
+             enigma._SetAttrib(obj, "shape", "ter")
+             enigma._SetAttrib(obj, "slope", 7)
+         elseif val == 17 then
+             enigma._SetAttrib(obj, "shape", "tnr")
+             enigma._SetAttrib(obj, "slope", 4)
+         elseif val == 18 then
+             enigma._SetAttrib(obj, "shape", "tnl")
+             enigma._SetAttrib(obj, "slope", 7)
+         elseif val == 19 then
+             enigma._SetAttrib(obj, "shape", "tsl")
+             enigma._SetAttrib(obj, "slope", 5)
+         elseif val == 20 then
+             enigma._SetAttrib(obj, "shape", "tsr")
+             enigma._SetAttrib(obj, "slope", 6)
+         elseif val == 21 then
+             enigma._SetAttrib(obj, "shape", "ts")
+             enigma._SetAttrib(obj, "slope", 1)
+         elseif val == 22 then
+             enigma._SetAttrib(obj, "shape", "tn")
+             enigma._SetAttrib(obj, "slope", 3)
+         elseif val == 23 then
+             enigma._SetAttrib(obj, "shape", "te")
+             enigma._SetAttrib(obj, "slope", 2)
+         elseif val == 24 then
+             enigma._SetAttrib(obj, "shape", "tw")
+             enigma._SetAttrib(obj, "slope", 0)
+         end
+         return
+     end
+     
      if key == "mousefactor" then
          _key = "adhesion"
      end
@@ -920,9 +1017,7 @@ function enigma.GetAttrib(obj, key)
      if key == "value" then
          _key = "coin_value"
      end
-     if key == "force" and (_obj_name == "st-actorimpulse" or
-             _obj_name == "st-actorimpulse_invisible" or _obj_name == "ac-horse" or
-             _obj_name == "ac-rotor" or _obj_name == "ac-top")  then
+     if key == "force" then
          _key = "strength"
      end
      if key == "friction_factor" then
