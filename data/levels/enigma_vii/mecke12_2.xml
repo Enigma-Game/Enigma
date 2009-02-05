@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Jack-Of-All-Trades" el:subtitle="Find The Paradise" el:id="mecke12"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 48 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 49 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,16 +30,16 @@ ti[" '"] = {"fl_sahara"}
 ti[" ("] = {"fl_bluegray"}
 ti["& "] = {"st_oxyd_d"}
 ti[" )"] = {"fl_lawn_c1"}
-ti[" *"] = {"fl-gradient9"}
+ti[" *"] = {"fl_slope_ise"}
 ti[" +"] = {"fl_himalaya"}
-ti[" ,"] = {"fl-gradient10"}
+ti[" ,"] = {"fl_slope_ine"}
 ti["' "] = {"st_actorimpulse_invisible"}
 ti[" i"] = {"fl_ice"}
 ti["e "] = {"it_extralife"}
 ti["s "] = {"it_spring_drop"}
 ti["v "] = {"it_strip", connections="ns"}
-ti[" -"] = {"fl-gradient11"}
-ti[" ."] = {"fl-gradient12"}
+ti[" -"] = {"fl_slope_isw"}
+ti[" ."] = {"fl_slope_inw"}
 ti["b "] = {"it_brush"}
 ti["* "] = {"st_break_boulder"}
 ti[" /"] = {"fl_aquamarine"}
@@ -74,13 +74,13 @@ ti["9 "] = {"st_actorimpulse"}
 ti[" 4"] = {"fl_bluegreen"}
 ti[": "] = {"st_puzzle",hollow=true, connections="nesw"}
 ti["m "] = {"it_hammer"}
-ti[" 5"] = {"fl-gradient4"}
+ti[" 5"] = {"fl_slope_pw"}
 ti["w "] = {"it_magicwand"}
 ti["y "] = {"it_floppy"}
 ti["; "] = {"st_passage_black_frame"}
 ti["> "] = {"st_box_wood"}
 ti[" 6"] = {"fl_yinyang_yang"}
-ti[" 7"] = {"fl-gradient14"}
+ti[" 7"] = {"fl_slope_tn"}
 ti["? "] = {"st_fake_oxydd"}
 ti["@ "] = {"st_rawglass"}
 ti["A "] = {"st_door", state=OPEN, faces="ns"}

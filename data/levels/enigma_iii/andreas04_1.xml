@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Castle" el:subtitle="" el:id="andreas04"/>
-      <el:version el:score="1" el:release="1" el:revision="15" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="16" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,20 +24,20 @@ ti["    "]={"fl_water"}
 ti["!   "]={"fl_water"}
 ti["#   "]={"fl_lawn"}
 ti["$   "]={"fl_abyss"}
-ti["&   "]={"fl-gradient12"}
-ti["'   "]={"fl-gradient4"}
-ti["(   "]={"fl-gradient11"}
-ti[")   "]={"fl-gradient2"}
-ti["*   "]={"fl-gradient1"}
+ti["&   "]={"fl_slope_inw"}
+ti["'   "]={"fl_slope_pw"}
+ti["(   "]={"fl_slope_isw"}
+ti[")   "]={"fl_slope_pn"}
+ti["*   "]={"fl_slope_ps"}
 ti["+   "]={"fl_rock"}
-ti[",   "]={"fl-gradient6"}
-ti["-   "]={"fl-gradient8"}
-ti[".   "]={"fl-gradient10"}
-ti["/   "]={"fl-gradient3"}
-ti["0   "]={"fl-gradient7"}
+ti[",   "]={"fl_slope_osw"}
+ti["-   "]={"fl_slope_onw"}
+ti[".   "]={"fl_slope_ine"}
+ti["/   "]={"fl_slope_pe"}
+ti["0   "]={"fl_slope_one"}
 ti["1   "]={"fl_rock"}
-ti["2   "]={"fl-gradient5"}
-ti["3   "]={"fl-gradient9"}
+ti["2   "]={"fl_slope_ose"}
+ti["3   "]={"fl_slope_ise"}
 ti[" !  "]={"st_greenbrown"}
 ti[" #  "]={"st_stoneimpulse"}
 ti[" $  "]={"st_granite_movable"}

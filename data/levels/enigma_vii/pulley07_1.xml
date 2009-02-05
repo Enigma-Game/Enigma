@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="21" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ ti["3"] = ti[" "] .. {"st_scissors", action="callback", target="Grow3"} -- Mushn
 ti["4"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow4"} -- Mushnik swallowed by Audrey II
 ti["5"] = ti[" "] .. {"st_scissors", action="callback", target="Grow5"} -- Audrey being eaten by Audrey II
 ti["6"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow6"} -- Audrey swallowed by Audrey II
-ti["7"] = (ti({"fl-gradient15"}) .. {"it_trigger", action="callback", target="Grow7"}) .. {"st_oneway_w"} -- Seymour being eaten by Audrey II
+ti["7"] = (ti({"fl_slope_te"}) .. {"it_trigger", action="callback", target="Grow7"}) .. {"st_oneway_w"} -- Seymour being eaten by Audrey II
 ti["8"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow8"} -- Seymour swallowed by Audrey II
 ti["9"] = ti[" "] .. {"st_door", name="Door1", flavor="a"} -- Mushnik's door
 ti["0"] = ti[" "] .. {"st_door", name="Door2", flavor="a"} -- Audrey's door
@@ -47,7 +47,7 @@ ti["a"] = ti[" "] .. {"st_camouflage"}
 ti["b"] = {"fl_bright"} .. ti({"it_bottle"})
 ti["c"] = {"fl_lawn"} .. ti({"st_nil"}) .. ti({"it_nil"})
 ti["d"] = ti[" "] .. {"st_redrock"} --Walls
-ti["e"] = {"fl-gradient16"} .. ti({"st_nil"})
+ti["e"] = {"fl_slope_tw"} .. ti({"st_nil"})
 ti["f"] = {"fl_lawn"} --Audrey's floor
 ti["g"] = ti[" "] .. {"st_grate_cross"}
 ti["h"] = (ti({"fl_bright"}) .. {"it_hammer"}) .. {"st_plaster_hollow"}
@@ -55,13 +55,13 @@ ti["i"] = {"fl_mortar"} .. ti({"st_beads"}) --Window
 ti["j"] = {"fl_bright"} --Orin's floor
 ti["k"] = ti[" "] .. {"st_redbrown"} --Audrey's Walls
 ti["m"] = {"fl_plank"} .. ti({"it_coin_l"})
-ti["n"] = {"fl-gradient13"} .. ti({"st_grate_cross"})
+ti["n"] = {"fl_slope_ts"} .. ti({"st_grate_cross"})
 ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=1}) .. {"st_camouflage"}
 ti["p"] = ti[" "] .. {"st_flat"}
 ti["q"] = ti[" "] .. {"st_woven"}
-ti["s"] = {"fl-gradient14"} .. ti({"st_nil"})
-ti["t"] = (ti({"fl-gradient14"}) .. {"st_grate_cross"}) .. {"it_burnable"}
-ti["w"] = {"fl-gradient15"} .. ti({"st_nil"})
+ti["s"] = {"fl_slope_tn"} .. ti({"st_nil"})
+ti["t"] = (ti({"fl_slope_tn"}) .. {"st_grate_cross"}) .. {"it_burnable"}
+ti["w"] = {"fl_slope_te"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl_woven"}
 ti["z"] = {"fl_plank"}
@@ -82,9 +82,9 @@ ti["O"] = ti[" "] .. {"st_panel", cluster=1}
 ti["P"] = {"fl_bright"} .. ti({"st_flat_breakable"})
 ti["Q"] = ti[" "] .. {"st_plaster_hollow"}
 ti["R"] = ti[" "] .. {"st_plaster"}
-ti["S"] = (ti({"fl-gradient14"}) .. {"st_oneway", orientation=SOUTH}) .. {"it_burnable"}
+ti["S"] = (ti({"fl_slope_tn"}) .. {"st_oneway", orientation=SOUTH}) .. {"it_burnable"}
 ti["T"] = {"fl_plank"} .. ti({"it_coffee"})
-ti["W"] = (ti({"fl-gradient15"}) .. {"st_oneway", orientation=WEST}) .. {"it_burnable"}
+ti["W"] = (ti({"fl_slope_te"}) .. {"st_oneway", orientation=WEST}) .. {"it_burnable"}
 ti["X"] = ti[" "] .. {"st_brick"}
 ti["["] = ti[" "] .. {"st_portal", name="d1"}
 ti["]"] = ti[" "] .. {"st_portal", name="d2"}

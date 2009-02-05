@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:82$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:83$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -71,7 +71,7 @@ ti[" -"] = {"fl_ivory"}
 ti["C "] = {"st_oneway_black_e"}
 ti["D "] = {"st_oneway_black_s"}
 ti["//"] = ti[" !"].. {"st_box_wood"}
-ti[" ."] = {"fl-gradient4"}
+ti[" ."] = {"fl_slope_pw"}
 ti["F "] = {"st_camouflage"}
 ti["f "] = {"st_camouflage_movable"}
 ti["G "] = {"st_boulder_s"}
@@ -82,15 +82,15 @@ ti["XX"] = ti[" ;"].. {"#ac_marble_black"}
 ti["I "] = {"st_fake_oxyda"}
 ti["K "] = {"st_boulder_e"}
 ti["L "] = {"st_plaster_breakable"}
-ti[" 0"] = {"fl-gradient9"}
-ti[" 1"] = {"fl-gradient3"}
-ti[" 2"] = {"fl-gradient10"}
+ti[" 0"] = {"fl_slope_ise"}
+ti[" 1"] = {"fl_slope_pe"}
+ti[" 2"] = {"fl_slope_ine"}
 ti[" 3"] = {"fl_bast"}
 ti["M "] = {"st_swap"}
 ti["N "] = {"st_boulder_n"}
-ti[" 5"] = {"fl-gradient2"}
-ti[" 6"] = {"fl-gradient6"}
-ti[" 7"] = {"fl-gradient12"}
+ti[" 5"] = {"fl_slope_pn"}
+ti[" 6"] = {"fl_slope_osw"}
+ti[" 7"] = {"fl_slope_inw"}
 ti["O "] = {"st_oneway_s"}
 ti[" 8"] = {"fl_bluegreen"}
 ti[" 9"] = {"fl_lawn_c2"}
@@ -220,10 +220,10 @@ if wo ["IsDifficult"] then
    ti["ww"] = {"fl_water"}
    ti["))"] = ti[" l"] .. {"it_burnable_burning"}
    ti[")$"] = ti[" $"] .. {"it_burnable_burning"}
-   ti[" 4"] = {"fl-gradient1"}
-   ti[" :"] = {"fl-gradient16"}
-   ti[" <"] = {"fl-gradient5"}
-   ti[" ="] = {"fl-gradient8"}
+   ti[" 4"] = {"fl_slope_ps"}
+   ti[" :"] = {"fl_slope_tw"}
+   ti[" <"] = {"fl_slope_ose"}
+   ti[" ="] = {"fl_slope_onw"}
    ti["r5"] = ti[" ;"] .. {"it_trigger", target="olle5"}
    ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
    ti["n5"] = ti[" ;"] .. {"it_trigger",target="liz1#*"}

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,14 +33,14 @@ ti["i "] = {"fl_ice"}
 ti["_ "] = {"fl_sand"}
 ti["r "] = {"fl_red"}
 ti["?1"] = {"fl_bridge", "b1"}  -- The second argument defines a name for the bridge: "b1".
-ti["2 "] = {"fl-gradient1"}  -- The numbers correspond to the arrows on the numerical keyboard.
-ti["8 "] = {"fl-gradient2"}
-ti["6 "] = {"fl-gradient3"}
-ti["4 "] = {"fl-gradient4"}
-ti["1 "] = {"fl-gradient11"}
-ti["3 "] = {"fl-gradient9"}
-ti["7 "] = {"fl-gradient12"}
-ti["9 "] = {"fl-gradient10"}
+ti["2 "] = {"fl_slope_ps"}  -- The numbers correspond to the arrows on the numerical keyboard.
+ti["8 "] = {"fl_slope_pn"}
+ti["6 "] = {"fl_slope_pe"}
+ti["4 "] = {"fl_slope_pw"}
+ti["1 "] = {"fl_slope_isw"}
+ti["3 "] = {"fl_slope_ise"}
+ti["7 "] = {"fl_slope_inw"}
+ti["9 "] = {"fl_slope_ine"}
 
 ti["@ "] = {"ac_marble", 0, 0.5}  -- Following Nethack-tradition, the main actor typically is "@",
 ti["# "] = {"st_granite"}         -- and the main walls are described by "#".

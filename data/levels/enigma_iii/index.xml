@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="20" title="Enigma III"/>
 
   <attributes/>
 
@@ -69,7 +69,7 @@
     <level _seq="61" _title="Fool the Warden" _xpath="./duffy37_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy37" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Don't Touch" _xpath="./raoul07_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul07" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="63" _title="Emergency Exit" _xpath="./ss05_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss5" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Laser Castle" _xpath="./andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Laser Castle" _xpath="./andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="16" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="The Safe" _xpath="./siegfried77_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried77" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Block its way!" _xpath="./wb05_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb5" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="67" _title="Bump Ahead" _xpath="./illmind01_1" author="illmind" ctrl="force" easy="false" id="illmind01" rel="1" rev="1" score="1" target="time" unit="duration"/>

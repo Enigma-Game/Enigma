@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Turbulencia" el:subtitle="Meditation! Silence? ... Have a Look ..." el:id="mecke19" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:20$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:21$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -35,12 +35,12 @@ ti["' "] = {"st_oneway_white_e"}
 ti["( "] = {"st_yellow"}
 ti[") "] = {"st_scissors", name="df3"}
 ti["* "] = {"st_oneway_white_w"}
-ti[" ("] = {"fl-gradient11"}
+ti[" ("] = {"fl_slope_isw"}
 ti["+ "] = {"st_boulder_e"}
 ti[", "] = {"st_pull"}
 ti[" a"] = ti["hh"] .. {"it_surprise"}
-ti[" )"] = {"fl-gradient12"}
-ti[" *"] = {"fl-gradient4"}
+ti[" )"] = {"fl_slope_inw"}
+ti[" *"] = {"fl_slope_pw"}
 ti["- "] = {"st_boulder_w"}
 ti[". "] = {"st_grate_cross"}
 ti[" d"] = ti["hh"] .. {"it_dynamite"}

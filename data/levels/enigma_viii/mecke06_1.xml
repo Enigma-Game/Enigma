@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:18$" el:status="released" />
+      <el:version el:score="1" el:release="1" el:revision="$Revision:19$" el:status="released" />
       <el:author el:name="mecke" el:email="" />
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true" />
@@ -24,10 +24,10 @@ ti[" f"] = {"fl_fake_abyss"}
 ti["! "] = {"st_lightpassenger"}
 ti[" d"] = ti[" f"] .. {"it_death"}
 ti["B "] = ti[" d"] .. {"st_polarswitch"}
-ti[" B"] = {"fl-gradient12"}
-ti[" C"] = {"fl-gradient8"}
-ti[" E"] = {"fl-gradient11"}
-ti[" D"] = {"fl-gradient16"}
+ti[" B"] = {"fl_slope_inw"}
+ti[" C"] = {"fl_slope_onw"}
+ti[" E"] = {"fl_slope_isw"}
+ti[" D"] = {"fl_slope_tw"}
 ti[" F"] = {"fl_redslab"}
 ti["F "] = {"st_black_slash"}
 ti[" s"] = {"fl_space"}

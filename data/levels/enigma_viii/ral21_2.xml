@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 154 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 155 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -55,18 +55,18 @@ ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl_thief"}
 ti["$$"] = {"fl_yinyang_yang"}
-ti["gs"] = {"fl-gradient", type=1}
-ti["gw"] = {"fl-gradient", type=4}
-ti["gn"] = {"fl-gradient", type=2}
-ti["ge"] = {"fl-gradient", type=3}
-ti["g5"] = {"fl-gradient", type=5}
-ti["g6"] = {"fl-gradient", type=6}
-ti["g7"] = {"fl-gradient", type=7}
-ti["g8"] = {"fl-gradient", type=8}
-ti["g9"] = {"fl-gradient", type=9}
-ti["ga"] = {"fl-gradient", type=10}
-ti["gb"] = {"fl-gradient", type=11}
-ti["gc"] = {"fl-gradient", type=12}
+ti["gs"] = {"fl_slope_ps"}
+ti["gw"] = {"fl_slope_pw"}
+ti["gn"] = {"fl_slope_pn"}
+ti["ge"] = {"fl_slope_pe"}
+ti["g5"] = {"fl_slope_ose"}
+ti["g6"] = {"fl_slope_osw"}
+ti["g7"] = {"fl_slope_one"}
+ti["g8"] = {"fl_slope_onw"}
+ti["g9"] = {"fl_slope_ise"}
+ti["ga"] = {"fl_slope_ine"}
+ti["gb"] = {"fl_slope_isw"}
+ti["gc"] = {"fl_slope_inw"}
 ti["^^"] = {"fl_gray"}
 ti["%f"] = {"fl_samba", eternal=true, initfire=true}
 ti[" f"] = {"fl_sand", eternal=true, initfire=true}

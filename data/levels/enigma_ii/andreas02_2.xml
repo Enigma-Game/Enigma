@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Spaceless" el:subtitle="" el:id="andreas02"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,19 +14,19 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["SlopeStrength"] = 30
-                               -- Gradienten
-ti["v"] = {"fl-gradient1"}     --   1   v
-ti["^"] = {"fl-gradient2"}     --   2   ^
-ti[">"] = {"fl-gradient3"}     --   3   >
-ti["<"] = {"fl-gradient4"}     --   4   <
-ti["B"] = {"fl-gradient5"}     --   5  > v  Tal
-ti["A"] = {"fl-gradient6"}     --   6  < v  Tal
-ti["C"] = {"fl-gradient7"}     --   7  > ^  Tal
-ti["D"] = {"fl-gradient8"}     --   8  < ^  Tal
-ti["b"] = {"fl-gradient9"}     --   9  > v  Spitze
-ti["c"] = {"fl-gradient10"}    --  10  > ^  Spitze
-ti["a"] = {"fl-gradient11"}    --  11  < v  Spitze
-ti["d"] = {"fl-gradient12"}    --  12  < ^  Spitze
+                              -- Gradienten
+ti["v"] = {"fl_slope_ps"}     --   1   v
+ti["^"] = {"fl_slope_pn"}     --   2   ^
+ti[">"] = {"fl_slope_pe"}     --   3   >
+ti["<"] = {"fl_slope_pw"}     --   4   <
+ti["B"] = {"fl_slope_ose"}    --   5  > v  Tal
+ti["A"] = {"fl_slope_osw"}    --   6  < v  Tal
+ti["C"] = {"fl_slope_one"}    --   7  > ^  Tal
+ti["D"] = {"fl_slope_onw"}    --   8  < ^  Tal
+ti["b"] = {"fl_slope_ise"}    --   9  > v  Spitze
+ti["c"] = {"fl_slope_ine"}    --  10  > ^  Spitze
+ti["a"] = {"fl_slope_isw"}    --  11  < v  Spitze
+ti["d"] = {"fl_slope_inw"}    --  12  < ^  Spitze
 ti[" "] = {"fl_space"}
 ti["#"] = {"st_death"}
 ti["O"] = {"st_oxyd", flavor = "b"}

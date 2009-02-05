@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="devnull04"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,29 +23,29 @@ end
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_gray"}
-ti["d"] = {"fl-gradient1"}
-ti["u"] = {"fl-gradient2"}
-ti["r"] = {"fl-gradient3"}
-ti["l"] = {"fl-gradient4"}
-ti["D"] = {"fl-gradient5"}
-ti["U"] = {"fl-gradient6"}
-ti["R"] = {"fl-gradient7"}
-ti["L"] = {"fl-gradient8"}
-ti["n"] = {"fl-gradient13"}
-ti["s"] = {"fl-gradient14"}
-ti["w"] = {"fl-gradient15"}
-ti["e"] = {"fl-gradient16"}
+ti["d"] = {"fl_slope_ps"}
+ti["u"] = {"fl_slope_pn"}
+ti["r"] = {"fl_slope_pe"}
+ti["l"] = {"fl_slope_pw"}
+ti["D"] = {"fl_slope_ose"}
+ti["U"] = {"fl_slope_osw"}
+ti["R"] = {"fl_slope_one"}
+ti["L"] = {"fl_slope_onw"}
+ti["n"] = {"fl_slope_ts"}
+ti["s"] = {"fl_slope_tn"}
+ti["w"] = {"fl_slope_te"}
+ti["e"] = {"fl_slope_tw"}
 ti["0"] = ti["."] .. {"it_wormhole_on", destination = po( 4.5, 6.5), strength = 1.0, range = 1.0}
 ti["1"] = ti["."] .. {"it_wormhole_on", destination = po(15.5, 6.5), strength = 1.0, range = 1.0}
 ti["o"] = ti["."] .. {"it_meditation_hollow"}
-ti["S"] = {"fl-gradient5", force_x =  f, force_y =  f}
-ti["E"] = {"fl-gradient6", force_x = -f, force_y = -f}
-ti["N"] = {"fl-gradient7", force_x =  f, force_y =  f}
-ti["W"] = {"fl-gradient8", force_x = -f, force_y = -f}
-ti["^"] = {"fl-gradient1", force_y =  f}
-ti["v"] = {"fl-gradient2", force_y = -f}
-ti["<"] = {"fl-gradient3", force_x =  f}
-ti[">"] = {"fl-gradient4", force_x = -f}
+ti["S"] = {"fl_slope_ose", force_x =  f, force_y =  f}
+ti["E"] = {"fl_slope_osw", force_x = -f, force_y = -f}
+ti["N"] = {"fl_slope_one", force_x =  f, force_y =  f}
+ti["W"] = {"fl_slope_onw", force_x = -f, force_y = -f}
+ti["^"] = {"fl_slope_ps", force_y =  f}
+ti["v"] = {"fl_slope_pn", force_y = -f}
+ti["<"] = {"fl_slope_pe", force_x =  f}
+ti[">"] = {"fl_slope_pw", force_x = -f}
 ti["9"] = ti["D"] .. {"#ac_pearl_white", owner = 0, essential = 1}
 ti["8"] = ti["U"] .. {"#ac_pearl_white", owner = 0, essential = 1}
 ti["7"] = ti["L"] .. {"#ac_pearl_white", owner = 0, essential = 1}
