@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="esprit 100" el:subtitle="esprit 100" el:id="ss_esp100"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,12 +17,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- Feb.'06: Replaced some characters to get pure ASCII, Raoul 
-                                                               
-world.DefineSimpleStoneMovable("oneway_move", "metal", 0)
-
-display.DefineAlias("oneway_move", "st-oneway_black-n")
-
 cells={}
 
 -- only for testing
@@ -82,7 +76,7 @@ cells["k"]=cell{item="it-key_b", floor="fl-metal"}
 cells["m"]=cell{floor="fl-metal"}
 cells["p"]=cell{floor="fl-metal",stone="st-plain"}
 cells["v"]=cell{floor="fl-metal",stone="st-oneway-s"}   
-cells["q"]=cell{floor="fl-metal",stone="oneway_move"}
+cells["q"]=cell{floor="fl-metal",stone="st-rock3_move"}
 cells["'"]=cell{floor="fl-metal", item={"it-wormhole",{targetx=41.5, targety=8.5, strength=0}}}
 cells["("]=cell{floor="fl-metal", item={"it-wormhole",{targetx=40.5, targety=3.5, strength=0}}}
 cells[")"]=cell{floor="fl-metal", item={"it-wormhole",{targetx=45.5, targety=4.5, strength=0}}}
@@ -165,18 +159,17 @@ oxyd(46,26)
 oxyd(43,35)
 
 function door23()
-SendMessage("door2", "openclose")  
-SendMessage("door3", "openclose")
+    SendMessage("door2", "openclose")  
+    SendMessage("door3", "openclose")
 end
 
 function door45()
-SendMessage("door4", "openclose")  
-SendMessage("door5", "openclose")
+    SendMessage("door4", "openclose")  
+    SendMessage("door5", "openclose")
 end
 
 fill_floor("fl-leaves",38,24,20,13)
 fill_floor("fl-metal",38,12,20,13)
-
 
 ------------------ Starting Points ------------------------------------
 
@@ -189,23 +182,11 @@ set_actor("ac-blackball", 2.5,35.5) set_floor("fl-metal",2,35)
 -- last but two puzzle (wormhole room)
 --set_actor("ac-blackball", 39.5,11.5, {player=0})
 
--- last but one puzzle (Keyhole room)                               
+-- last but one puzzle (Keyhole room)                       
 --set_actor("ac-blackball", 47.5,17.5, {player=0})
 
 -- last puzzle (meadow pushing)                               
 --set_actor("ac-blackball", 48,30.5, {player=0})
-
-
-
-
-
-
-
-
-
-
-
-
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

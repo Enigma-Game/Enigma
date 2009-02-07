@@ -7,8 +7,7 @@
       <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="0.92" el:engine="oxyd.magnum">
-      </el:compatibility>
+      <el:compatibility el:enigma="0.92" el:engine="oxyd.magnum"/>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
@@ -68,7 +67,7 @@ function renderLine( line, pattern)
          set_item("it-yinyang", i-1, line+.5)
       elseif c == "b" then
          set_actor("ac-whiteball", i-.5,line+.5)
-         set_item("it-yinyang", i-1, line+.5)     
+         set_item("it-yinyang", i-1, line+.5)
         end
     end
 end
@@ -102,10 +101,10 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Everything's been counted carefully!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">Parts of the tubes disappear during detonation!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

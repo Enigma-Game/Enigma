@@ -7,8 +7,7 @@
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92" el:engine="oxyd.magnum">
-      </el:compatibility>
+      <el:compatibility el:enigma="0.92" el:engine="oxyd.magnum"/>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
@@ -37,7 +36,7 @@ function renderLine( line, pattern)
                 elseif c=="w" then
                    set_floor("fl-acwhite",i-1,line)
         end
-    end    
+    end
 end
 
 renderLine(00 , "                    ")
@@ -57,8 +56,8 @@ renderLine(12 , "                    ")
 oxyd_shuffle()
 
 -- Special
-set_actor("ac-blackball", 1.5,2.5, {player=0})  
-set_actor("ac-whiteball", 2.5,2.5, {player=1})  
+set_actor("ac-blackball", 1.5,2.5, {player=0})
+set_actor("ac-whiteball", 2.5,2.5, {player=1})
 set_item("it-yinyang",1,2)
 set_item("it-yinyang",2,2)
     ]]></el:luamain>

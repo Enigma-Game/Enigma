@@ -12,7 +12,7 @@
         el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
+      <el:compatibility el:enigma="1.00" el:engine="per.oxyd">
         <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
         <el:dependency el:path="lib/andreas_ghosts" el:id="lib/andreas_ghosts" el:release="1" el:preload="true"/>
       </el:compatibility>

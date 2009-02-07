@@ -7,8 +7,8 @@
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:compatibility el:enigma="0.92" el:engine="per.oxyd"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="00:18" el:difficult="00:27"/>
     </el:info>
     <el:luamain><![CDATA[

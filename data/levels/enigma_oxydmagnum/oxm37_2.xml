@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tilt" el:subtitle="Oxyd Magnum 37" el:id="martin51"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="1.10" el:engine="oxyd.magnum">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10" el:engine="oxyd.magnum"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
@@ -16,10 +15,10 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl-rough"}
-ti["-"] = {"fl-rough", friction=7.0, adhesion=0.5}
+ti[" "] = {"fl_rough"}
+ti["-"] = {"fl_rough", friction=7.0, adhesion=0.5}
 ti["X"] = {"fl_bridge", name="bridge"}
-ti["#"] = {"st-metal"}
+ti["#"] = {"st_metal"}
 ti["O"] = {"st_oxyd"}
 ti["6"] = {"st_door", name="dn", flavor="d", faces="ns"}
 ti["8"] = {"st_door", name="ds", flavor="d", faces="ns"}
@@ -33,7 +32,7 @@ ti["3"] = ti["-"] .. {"it_trigger", target="ds"}
 ti["4"] = ti["-"] .. {"it_trigger", target="dw"}
 ti["5"] = ti["."] .. {"it_trigger", target="bridge", action=ONOFF, inverse=true}
 
-w, h = wo(ti, " ", {
+wo(ti, " ", {
 "######O#############",
 "#    # #           #",
 "#    #6#           #",
@@ -46,11 +45,10 @@ w, h = wo(ti, " ", {
 "#    # #           #",
 "#    #8#           #",
 "#    # #           #",
-"######O#############"
-})
+"######O#############"})
 
 wo:shuffleOxyd()
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
