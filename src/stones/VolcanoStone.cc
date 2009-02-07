@@ -77,8 +77,8 @@ namespace enigma {
         switch (state) {
             case FINISHED:
             case INACTIVE: set_model("st_flat"); break;
-            case ACTIVE:   set_anim("st-farting"); break;
-            case BREAKING: set_anim("st-fartbreak-anim"); break;
+            case ACTIVE:   set_anim("st_quaking"); break;
+            case BREAKING: set_anim("st_quakebreak_anim"); break;
             case NEW:      set_anim("it-seed-growing"); break;
             case GROWING:  set_anim("st-volcano-growing"); break;
         }

@@ -47,6 +47,7 @@ namespace enigma {
             // old Enigma versions did issue performAction what is incompatible
             updateIState(countActors(),
                     server::EnigmaCompatibility >= 1.10 || server::GameCompatibility != GAMET_ENIGMA); 
+            init_model();
             return Value();
         } else if (m.message == "_jumping" ) {
             updateIState(m.value.to_bool() ? -1 : +1);
@@ -107,7 +108,7 @@ namespace enigma {
         
         Stone *st = GetStone(get_pos());
         state &= ~1;  // delete stone pressure bit
-        if (st != NULL && (!st->is_floating() || st->is_kind("st-puzzle*"))) {
+        if (st != NULL && (!st->is_floating() || st->getClass() == "st_puzzle")) {
             // Hack to make hollow puzzle stones press triggers
             state |= 1;   // add stone pressure bit
         }

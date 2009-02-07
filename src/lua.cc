@@ -275,7 +275,7 @@ static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
 
     std::set<Object *> unique;
     std::list<Object *>::iterator it = objects.begin();
-    for (int i = 1; it != objects.end(); ++it, ++i) {
+    for (int i = 1; it != objects.end(); ++it) {
         if (*it) {  // existing object not NULL
             if (unique.find(*it) == unique.end()) {
                 unique.insert(*it);
@@ -284,6 +284,7 @@ static int pushNewGroup(lua_State *L, std::list<Object *> objects) {
                 lua_rawseti(L, -3, i);   // group[i] = obj
                 lua_pushinteger(L, i);
                 lua_rawset(L, -3);       // group[obj] = i
+                i++;
             }
         }
     }
@@ -3142,6 +3143,9 @@ static int nearestGroup(lua_State *L) {
 
     ObjectList oldList = toObjectList(L, 1);
     Object *center = to_object(L, 2);
+    if (center == NULL) {
+        throwLuaError(L, "Error: reference object is no longer existing");
+    }
     double mindist = -1;
     Object *candidate = NULL;
     

@@ -122,19 +122,19 @@ E.g. it can be used to hide walls in easy game mode.
 
 /* -------------------- DummyItem -------------------- */
 
-    Dummyitem::Dummyitem() {
+    DummyItem::DummyItem() {
     }
 
-    void Dummyitem::on_pickup(Actor *) {
+    void DummyItem::on_pickup(Actor *) {
         int code = getAttr("code");
         Log << ecl::strf("Picked up item 0x%x\n", code);
     }
-    void Dummyitem::on_drop(Actor *) {
+    void DummyItem::on_drop(Actor *) {
         int code = getAttr("code");
         Log << ecl::strf("Dropped up item 0x%x\n", code);
     }
     
-    DEF_ITEMTRAITSF(Dummyitem, "it_dummy", it_dummy, itf_fireproof);
+    DEF_ITEMTRAITSF(DummyItem, "it_dummy", it_dummy, itf_fireproof);
 
 //----------------------------------------
 // Bridge item (for Oxyd compatibility)
@@ -181,7 +181,8 @@ E.g. it can be used to hide walls in easy game mode.
         BootRegister(new EasyKillStone(), "it-easykillstone");
         BootRegister(new OnePKillStone(), "it-1pkillstone");
         BootRegister(new TwoPKillStone(), "it-2pkillstone");
-        BootRegister(new OxydBridge(), "it_dummy");
+        BootRegister(new DummyItem(), "it_dummy");
+        BootRegister(new Odometer(), "it_odometer");
         BootRegister(new OxydBridge(), "it-bridge-oxyd");
         BootRegister(new OxydBridgeActive(), "it-bridge-oxyd_active");
     BOOT_REGISTER_END

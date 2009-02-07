@@ -79,11 +79,11 @@ namespace enigma {
     /**
      * DummyItem
      */
-    class Dummyitem : public Item {
-        CLONEOBJ(Dummyitem);
+    class DummyItem : public Item {
+        CLONEOBJ(DummyItem);
         DECL_ITEMTRAITS;
     public:
-        Dummyitem();
+        DummyItem();
         
         // Item interface
        virtual void on_drop(Actor *a);
