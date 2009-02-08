@@ -3597,10 +3597,10 @@ of the source code itself!
 15
 16    @i{wo}["@b{ConserveLevel}"] = @var{true}
 17
-18    @i{ti}["@var{ }"] = @{"@b{fl-samba}"@}
-19    @i{ti}["@var{.}"] = @{"@b{fl-abyss}"@}
-20    @i{ti}["@var{~}"] = @{"@b{fl-water}"@}
-21    @i{ti}["@var{#}"] = @{"@b{st-rock1}"@}
+18    @i{ti}["@var{ }"] = @{"@b{fl_samba}"@}
+19    @i{ti}["@var{.}"] = @{"@b{fl_abyss}"@}
+20    @i{ti}["@var{~}"] = @{"@b{fl_water}"@}
+21    @i{ti}["@var{#}"] = @{"@b{st_granite}"@}
 22    @i{ti}["@var{X}"] = @{"@b{st_oxyd}"@}
 23
 24    @i{ti}["@var{L}"] = @{"@b{st_laser}", @b{orientation}=@var{EAST}, @b{state}=@var{ON}@}
@@ -3623,9 +3623,9 @@ of the source code itself!
 41    @i{ti}["@var{E}"] = @{"@b{st_turnstilearm}", @b{orientation}=@var{EAST}@}
 42    @i{ti}["@var{N}"] = @i{ti}["@var{.}"] .. @{"@b{st_turnstilearm_n}"@}
 43
-44    @i{ti}["@var{+}"] = @{"@b{fl-samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl-wood}", @b{checkerboard}=@var{1}@})
+44    @i{ti}["@var{+}"] = @{"@b{fl_samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl_wood}", @b{checkerboard}=@var{1}@})
 45
-46    @i{ti}["@var{1}"] = @{"#@b{ac-blackball}"@}
+46    @i{ti}["@var{1}"] = @{"#@b{ac_marble}"@}
 47
 48    if @i{wo}["@b{IsDifficult}"] then
 49        @i{ti}["@var{=}"] = @i{ti}["@var{~}"]
@@ -3695,10 +3695,10 @@ But remember it is a demo level.
 The second part of a level are the tile definitions as explained in
 @ref{World's Shape and Coordinates}. Let us start with the most simple ones:
 @example
-18    @i{ti}["@var{ }"] = @{"@b{fl-samba}"@}
-19    @i{ti}["@var{.}"] = @{"@b{fl-abyss}"@}
-20    @i{ti}["@var{~}"] = @{"@b{fl-water}"@}
-21    @i{ti}["@var{#}"] = @{"@b{st-rock1}"@}
+18    @i{ti}["@var{ }"] = @{"@b{fl_samba}"@}
+19    @i{ti}["@var{.}"] = @{"@b{fl_abyss}"@}
+20    @i{ti}["@var{~}"] = @{"@b{fl_water}"@}
+21    @i{ti}["@var{#}"] = @{"@b{st_granite}"@}
 22    @i{ti}["@var{X}"] = @{"@b{st_oxyd}"@}
 @end example
 
@@ -3811,7 +3811,7 @@ later as the default floor for our level. Thus any tile declaration that does
 not provide its own floor will set this default floor.
 
 @example
-44    @i{ti}["@var{+}"] = @{"@b{fl-samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl-wood}", @b{checkerboard}=@var{1}@})
+44    @i{ti}["@var{+}"] = @{"@b{fl_samba}", @b{checkerboard}=@var{0}@} .. ti(@{"@b{fl_wood}", @b{checkerboard}=@var{1}@})
 @end example
 
 Just for fun we want to provide a checkerboard floor on the right side of our
@@ -3826,7 +3826,7 @@ know how to concatenate two anonymous tables. One argument of the concatenation
 has to be a tile.
 
 @example
-46    @i{ti}["@var{1}"] = @{"#@b{ac-blackball}"@}
+46    @i{ti}["@var{1}"] = @{"#@b{ac_marble}"@}
 @end example
 
 Finally we do need our marble. Unlike other objects it can be positioned
@@ -3895,22 +3895,22 @@ Now let us look at the essential Lua source code part of the level to understand
 how such an idea can be realized with the new API
 
 @example
-@i{ti}["@var{ }"] = @{"@b{fl-sahara}"@}
-@i{ti}["@var{#}"] = @{"@b{st-rock6}"@}
-@i{ti}["@var{@@}"] = @{"#@b{ac-blackball}"@}
+@i{ti}["@var{ }"] = @{"@b{fl_sahara}"@}
+@i{ti}["@var{#}"] = @{"@b{st_purplegray}"@}
+@i{ti}["@var{@@}"] = @{"#@b{ac_marble_black}", "@var{marble_black}"@}
 
 @i{ti}["@var{N}"] = @{"@b{st_turnstilearm_n}"@}
 @i{ti}["@var{S}"] = @{"@b{st_turnstilearm_s}"@}
 @i{ti}["@var{E}"] = @{"@b{st_turnstilearm_e}"@}
 @i{ti}["@var{W}"] = @{"@b{st_turnstilearm_w}"@}
-@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{open}", "@b{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
-@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{close}", "@b{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
-                           @b{flavor} = "@b{green}"@}
-@i{ti}["@var{r}"] = @{"@b{it_blocker}", "@var{red}#"@} .. @i{ti}(@{"@b{fl-red}"@})
-@i{ti}["@var{g}"] = @{"@b{it_blocker}", "@var{green}#"@} .. @i{ti}(@{"@b{fl-leaves}"@})
+@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@var{open}", "@var{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
+@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@var{close}", "@var{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
+                           @b{flavor} = "@var{green}"@}
+@i{ti}["@var{r}"] = @{"@b{it_blocker}", "@var{red}#"@} .. @i{ti}(@{"@b{fl_red}"@})
+@i{ti}["@var{g}"] = @{"@b{it_blocker}", "@var{green}#"@} .. @i{ti}(@{"@b{fl_lawn}"@})
 
-@i{ti}["@var{O}"] = @{"@b{st_oxyd}", @b{flavor} = "@b{d}", @b{oxydcolor} = @var{OXYD_GREEN}@}
-@i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{flavor} = "@b{d}", @b{oxydcolor} = @var{OXYD_RED}@}
+@i{ti}["@var{O}"] = @{"@b{st_oxyd}", @b{flavor} = "@var{d}", @b{oxydcolor} = @var{OXYD_GREEN}@}
+@i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{flavor} = "@var{d}", @b{oxydcolor} = @var{OXYD_RED}@}
 
 @var{w}, @var{h} = @i{wo}(@i{ti}, "@var{ }", @{
  -- 01234567890123456789
@@ -3928,6 +3928,8 @@ how such an idea can be realized with the new API
    "@var{#   g S r S go##o#o#}",
    "@var{#o#####o############}"
 @})
+
+@i{wo}:@b{shuffleOxyd}()
 @end example
 
 There are just four tile definitions that do all the dynamic actions. Let us
@@ -3943,9 +3945,9 @@ explained in @ref{Object Naming}. This allows us to address all these blockers
 later on.
 
 @example
-@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{open}", "@b{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
-@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@b{close}", "@b{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
-                           @b{flavor} = "@b{green}"@}
+@i{ti}["@var{R}"] = @{"@b{st_turnstile}", @b{action} = @{"@var{open}", "@var{close}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@}@}
+@i{ti}["@var{G}"] = @{"@b{st_turnstile}", @b{action} = @{"@var{close}", "@var{open}"@}, @b{target} = @{"@var{red}#*", "@var{green}#*"@},
+                           @b{flavor} = "@var{green}"@}
 @end example
 Whenever the marble hits and turns an @ref{st_turnstile} it performs its actions
 on the targets. Here the author makes clever usage of multitargets and
@@ -4448,7 +4450,7 @@ implement your own level ideas.
 
 @menu
 * Color Maze::    Enigma levelpack VIII, level #19
-* Wired::           Enigma levelpack VIII, level #22
+* Weirdly Wired:: Enigma levelpack VIII, level #22
 @end menu
 
 
@@ -4465,30 +4467,30 @@ not part of the source code itself!
 02    @i{wo}["@b{FollowGrid}"] = @var{false}
 03    @i{wo}["@b{FollowMethod}"] = @var{FOLLOW_SCROLL}
 04
-05    @i{ti}["@var{ }"] = @{"@b{fl-abyss_fake}"@} .. @i{ti}(@{"@b{st-glass1}"@})
+05    @i{ti}["@var{ }"] = @{"@b{fl_fale_abyss}"@} .. @i{ti}(@{"@b{st_lightglass}"@})
 06
-07    @i{ti}["@var{!}"] = @{"@b{fl-rough-blue}", "@var{blue#}", @var{_color}="@var{blue}"@}
-08    @i{ti}["@var{@@}"] = @{"@b{fl-bumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
-09    @i{ti}["@var{#}"] = @{"@b{fl-rough-red}", "@var{red#}", @var{_color}="@var{red}"@}
-10    @i{ti}["@var{$}"] = @{"@b{fl-leavesb}", "@var{green#}", @var{_color}="@var{green}"@}
+07    @i{ti}["@var{!}"] = @{"@b{fl_blueslab}", "@var{blue#}", @var{_color}="@var{blue}"@}
+08    @i{ti}["@var{@@}"] = @{"@b{fl_pinkbumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
+09    @i{ti}["@var{#}"] = @{"@b{fl_redslab}", "@var{red#}", @var{_color}="@var{red}"@}
+10    @i{ti}["@var{$}"] = @{"@b{fl_lawn_b}", "@var{green#}", @var{_color}="@var{green}"@}
 11
-12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-h-open}"@}
-13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-v-open}"@}
-14    @i{ti}["@var{o}"] = @i{ti}["@var{@@}"] .. @{"@b{st-door-h-open}"@}
-15    @i{ti}["@var{O}"] = @i{ti}["@var{@@}"] .. @{"@b{st-door-v-open}"@}
-16    @i{ti}["@var{r}"] = @i{ti}["@var{#}"] .. @{"@b{st-door-h-open}"@}
-17    @i{ti}["@var{R}"] = @i{ti}["@var{#}"] .. @{"@b{st-door-v-open}"@}
-18    @i{ti}["@var{g}"] = @i{ti}["@var{$}"] .. @{"@b{st-door-h-open}"@}
-19    @i{ti}["@var{G}"] = @i{ti}["@var{$}"] .. @{"@b{st-door-v-open}"@}
+12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ns}", @b{state}=@var{OPEN}@}
+13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ew}", @b{state}=@var{OPEN}@}
+14    @i{ti}["@var{o}"] = @i{ti}["@var{@@}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ns}", @b{state}=@var{OPEN}@}
+15    @i{ti}["@var{O}"] = @i{ti}["@var{@@}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ew}", @b{state}=@var{OPEN}@}
+16    @i{ti}["@var{r}"] = @i{ti}["@var{#}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ns}", @b{state}=@var{OPEN}@}
+17    @i{ti}["@var{R}"] = @i{ti}["@var{#}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ew}", @b{state}=@var{OPEN}@}
+18    @i{ti}["@var{g}"] = @i{ti}["@var{$}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ns}", @b{state}=@var{OPEN}@}
+19    @i{ti}["@var{G}"] = @i{ti}["@var{$}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ew}", @b{state}=@var{OPEN}@}
 20
-21    @i{ti}["@var{d}"] = @{"@b{it-document}", @b{text}="@var{text1}"@}
+21    @i{ti}["@var{d}"] = @{"@b{it_document}", @b{text}="@var{text1}"@}
 22    @i{ti}["@var{5}"] = @i{ti}["@var{b}"] .. @i{ti}["@var{d}"]
 23    @i{ti}["@var{6}"] = @i{ti}["@var{O}"] .. @i{ti}["@var{d}"]
 24    @i{ti}["@var{7}"] = @i{ti}["@var{r}"] .. @i{ti}["@var{d}"]
 25    @i{ti}["@var{8}"] = @i{ti}["@var{G}"] .. @i{ti}["@var{d}"]
 26
 27    @i{ti}["@var{x}"] = @{"@b{it_sensor}", @b{invisible}=@var{true}, @b{target}="@var{gates}"@}
-28    @i{ti}["@var{*}"] = @i{ti}["@var{x}"] .. @{"#@b{ac-blackball}", "@var{me}"@}
+28    @i{ti}["@var{*}"] = @i{ti}["@var{x}"] .. @{"#@b{ac_marble_black}", "@var{me}"@}
 29
 30    @i{ti}["@var{?}"] = @{"@b{st_oxyd_a}"@}
 31
@@ -4569,10 +4571,10 @@ as the default tile. This is o.k. as it contains a floor definition. Additional
 objects like the glass stone will never be set on default usage.
 
 @example
-07    @i{ti}["@var{!}"] = @{"@b{fl-rough-blue}", "@var{blue#}", @var{_color}="@var{blue}"@}
-08    @i{ti}["@var{@@}"] = @{"@b{fl-bumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
-09    @i{ti}["@var{#}"] = @{"@b{fl-rough-red}", "@var{red#}", @var{_color}="@var{red}"@}
-10    @i{ti}["@var{$}"] = @{"@b{fl-leavesb}", "@var{green#}", @var{_color}="@var{green}"@}
+07    @i{ti}["@var{!}"] = @{"@b{fl_blueslab}", "@var{blue#}", @var{_color}="@var{blue}"@}
+08    @i{ti}["@var{@@}"] = @{"@b{fl_pinkbumps}", "@var{orange#}", @var{_color}="@var{orange}"@}
+09    @i{ti}["@var{#}"] = @{"@b{fl_redslab}", "@var{red#}", @var{_color}="@var{red}"@}
+10    @i{ti}["@var{$}"] = @{"@b{fl_lawn_b}", "@var{green#}", @var{_color}="@var{green}"@}
 @end example
 Every floor object is autonamed for later group access purposes. Additinally
 every floor objects sets a user attribute prefixed in its name by an underscore
@@ -4580,8 +4582,8 @@ every floor objects sets a user attribute prefixed in its name by an underscore
 function.
 
 @example
-12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-h-open}"@}
-13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st-door-v-open}"@}
+12    @i{ti}["@var{b}"] = @i{ti}["@var{!}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ns}", @b{state}=@var{OPEN}@}
+13    @i{ti}["@var{B}"] = @i{ti}["@var{!}"] .. @{"@b{st_door}", @b{flavor}="@var{d}", @b{faces}="@var{ew}", @b{state}=@var{OPEN}@}
 @end example
 The doors are set without being named, as we will target them by their position.
 
@@ -4675,9 +4677,9 @@ sender as the last visited sensor.
 
 That is all to code a quite complex dynamic level idea like "Color Maze".
 
-@c ----------------- Wired --------------------
-@node Wired
-@subsection Wired
+@c ----------------- Weirdly Wired --------------------
+@node Weirdly Wired
+@subsection Weirdly Wired
 You should have restarted this level several times to notice the design changes
 of the floor pattern and the border panel stones besides the dynamic wiring of
 the stones.
@@ -4691,13 +4693,13 @@ not part of the source code itself!
 02	    <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
 03	  </el:compatibility>
 ...
-04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-05    @i{ti}["@var{a}"] = @{"@b{fl-light}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-06    @i{ti}["@var{b}"] = @{"@b{fl-white}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-07    @i{ti}["@var{c}"] = @{"@b{fl-lightgray}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-08    @i{ti}["@var{_}"] = @{"@b{fl-water}"@}
-09    @i{ti}["@var{@@}"] = @{"#@b{ac-blackball}"@}
-10    @i{ti}["@var{w}"] = @{"@b{st-plain_move}", "@var{wood}#"@}
+04    @i{ti}["@var{ }"] = @{"@b{fl_sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+05    @i{ti}["@var{a}"] = @{"@b{fl_ivory}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+06    @i{ti}["@var{b}"] = @{"@b{fl_bright}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+07    @i{ti}["@var{c}"] = @{"@b{fl_platinum}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+08    @i{ti}["@var{_}"] = @{"@b{fl_water}"@}
+09    @i{ti}["@var{@@}"] = @{"#@b{ac_marble_black}"@}
+10    @i{ti}["@var{w}"] = @{"@b{st_flat_movable}", "@var{wood}#"@}
 11    @i{ti}["@var{t}"] = @{"@b{it_trigger}", "@var{trigger}#"@}
 12    @i{ti}["@var{d}"] = @{"@b{st_blocker}", "@var{door}#"@}
 13    @i{ti}["@var{o}"] = @{"@b{st_oxyd}", @b{oxydcolor} = @var{OXYD_YELLOW}, @b{flavor} = "@var{a}"@}
@@ -4782,17 +4784,17 @@ We make use of some functions of the @ref{libmath} library. Thus we need to
 preload it, besides declaration of compatibility to Enigma 1.10.
 
 @example
-04    @i{ti}["@var{ }"] = @{"@b{fl-sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-05    @i{ti}["@var{a}"] = @{"@b{fl-light}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-06    @i{ti}["@var{b}"] = @{"@b{fl-white}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
-07    @i{ti}["@var{c}"] = @{"@b{fl-lightgray}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+04    @i{ti}["@var{ }"] = @{"@b{fl_sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+05    @i{ti}["@var{a}"] = @{"@b{fl_ivory}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+06    @i{ti}["@var{b}"] = @{"@b{fl_bright}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
+07    @i{ti}["@var{c}"] = @{"@b{fl_platinum}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
 @end example
 Four floor types that the dynamic floor is composed of. They all are unified
 in the @samp{friction} and @samp{adhesion} to provide smooth movement on the
 stylish floor.
 
 @example
-10    @i{ti}["@var{w}"] = @{"@b{st-plain_move}", "@var{wood}#"@}
+10    @i{ti}["@var{w}"] = @{"@b{st_flat_movable}", "@var{wood}#"@}
 11    @i{ti}["@var{t}"] = @{"@b{it_trigger}", "@var{trigger}#"@}
 12    @i{ti}["@var{d}"] = @{"@b{st_blocker}", "@var{door}#"@}
 @end example
@@ -5363,7 +5365,7 @@ descriptions.
 
 An attribute that describes one or several destinations. It is used by objects
 like @ref{it_vortex} and @ref{it_wormhole} to describe their teleporting
-destination.
+destination and by @ref{ac_horse} to describe its traveling path.
 
 Note that this attribute is only supported if it is listed in the individual
 description.
@@ -5378,9 +5380,15 @@ destination = po(3.0, 4.7)
 destination = "myFloor"
 destination = myObject
 destination = @{"vortex2","vortex3","vortex4"@}
+po["dest1"] = po(3,4)
+po["dest2"] = po(7,8)
+destination = @{"dest1","dest2","myFloor"@}
 @end example
 Note that objects like @samp{it_wormhole} that have just a single destination
-do take the first token object.
+do take the first token object. Note that in contrast to @ref{target} tokens a
+destination tokens argument can take named positions, too. Referencing floors
+that may be destructed by bombs, cracks, floor building stones, etc. are save
+destinations, too.
 @item @b{Default:} @ @ @code{nil}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ by teleporting objects
@@ -6208,8 +6216,8 @@ A bridge is a variable floor that can be passed when being @code{CLOSED} but
 being unpassable for marbles like @ref{fl_abyss} when being opened. Floor
 bridges come in several flavors. They can be grey or wooden brown, they can
 pop up in the center or emerge from one side. The flavor string is a combination
-of a color character and a emerging direction character. Note that not all
-combination do exist.
+of a color character and an emerging direction character. Note that not all
+combinations do exist.
 
 Bridges can be opened and closed via messages and state set operations like
 @ref{st_door}.
@@ -6851,7 +6859,7 @@ transforms hollow like items into their hill like counterparts and vice versa:
 @code{MEDITATION_VOLCANO} <-> @code{MEDITATION_CALDERA}, @code{MEDITATION_HILL}
 <-> @code{MEDITATION_HOLLOW}, @code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
 
-Third a @code{"signal"} messages flips on a @code{1} value all meditations to
+Third a @code{"signal"} message flips on a @code{1} value all meditations to
 their hill like counterparts, keeping hill like meditations unchanged, and on a
 @code{0} value to their hollow like counterparts, keeping hollow like meditations
 unchanged.
@@ -7124,7 +7132,7 @@ top will start in state @samp{ON} without sending actions due to the
 The current state of the dot - @samp{ON} for a matching @ref{st_shogun} stack
 on top, @samp{OFF} otherwise.
 @item @b{flavor}, @ @ @i{values}: @code{"s"}, @code{"m"}, @code{"l"}; @ @ @i{default}: @code{"s"}
-A string describing the hole size. @code{"s"} for a small hole, @code{m} for
+A string describing the hole size. @code{"s"} for a small hole, @code{"m"} for
 a medium hole, @code{"l"} for a large hole.
 
 @end table
@@ -7980,7 +7988,7 @@ The brake stone can be used to block a running @ref{st_boulder} or a
 all other blocking stones the brake can be picked up as an item by actors and
 dropped anywhere else.
 
-When an actor passes an brake stone, rolling on the floor or while jumping, it
+When an actor passes a brake stone, rolling on the floor or while jumping, it
 will pick up the object like other items. The brake will be added as an
 @ref{it_brake} to its inventory. Unlike other items the brake can be dropped
 even on grids that are already occupied by an item. But you can not drop the
@@ -8242,7 +8250,7 @@ Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 Doors are stones that let actors pass or block them to enter the grid, depending
 on their state. Doors can be opened and closed by the standard set of messages.
 Doors do not open or close instantly. They need a small amount of time. Actors
-can pass only doors that are completly open.
+can pass only doors that are completely open.
 
 There are several flavors of doors. Where as the variants @code{"a"} to
 @code{"c"} represent grid filling block doors, does the flavor @code{"d"}
@@ -8261,7 +8269,7 @@ state. This means you can not push or move any other stone through an open door.
 The @ref{st_blocker} is a quite compatible door alternative that allows stones
 to pass in its open state.
 
-All doors are floating and will not press @ref{it_triggers}. Thus you can detect
+All doors are floating and will not press @ref{it_trigger}s. Thus you can detect
 passing actors by positioning a trigger beneath a door. Doors will neither press
 @ref{fl_bridge} and will thus take no influence on the bridge.
 
@@ -8728,7 +8736,7 @@ closes a mail pipe completely, rejecting any item insertion.
 @table @asis
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
 The orientation of the mail stone. It determines the neighbor grid position
-onto which the item will dropped, or where the pipe starts.
+onto which the item will be dropped, or where the pipe starts.
 @end table
 
 @item @b{Messages:} none
@@ -9038,7 +9046,7 @@ closed state and the way of opening differ in the following way:
 @item @code{"d"} dark blue, pyramid like stone that opens like a flower
 @item @code{"e"} black, flat stone that provides a peep hole after closing
 @end table
-@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_QUAKE}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GREY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
+@item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_QUAKE}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GRAY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
@@ -9138,7 +9146,7 @@ position of the pull stone with their old velocities.
 
 The pull stone is laser light transparent like other glass like stones.
 
-An existing stone exchange partner is not mandatory. But if an stone is located
+An existing stone exchange partner is not mandatory. But if a stone is located
 on the destination position of a pull stone some conditions must be met for a
 stone exchange. Connected @ref{Cluster Stones} building a block, @ref{st_oxyd}
 configured as being @samp{static}, and another @ref{st_swap} or pull stone that
@@ -9199,12 +9207,12 @@ a bridge. If all new positions are either abyss or water with at least one
 abyss floor just complete blue clusters will sink. Note that puzzles just sink
 on moves. Moving a blue fragment besides another fragment on abyss so that both
 fragments build a complete cluster will not sink the new cluster. It will sink
-on the next move. If two or more stones of a cluster are connected by a wire
-which all send move impulses by the same event, the cluster will move multiple
-times. But it will sink on the first opportunity.
+as a whole on the next move. If two or more stones of a cluster are receive
+wire impulses originating from a single event, the whole cluster will move 
+multiple times. But it will sink on the first opportunity.
 
 Just single unconnected yellow puzzle stones can be moved by actors. Any yellow
-cluster of 2 or more stone can not moved by actor hits. But on stone impulses
+cluster of 2 or more stones can not moved by actor hits. But on stone impulses
 they move like blue puzzles with the exception that just complete yellow clusters
 will sink on water.
 
@@ -9222,7 +9230,7 @@ ones explode on any actor hit. Blue ones only on actor hits with a revealed
 @ref{it_magicwand}.
 
 Exploding puzzles will stay on place and do not interact any more. The exploding
-stones are leathal for actors hitting them, but an actor can start an explosion
+stones are lethal for actors hitting them, but an actor can start an explosion
 beneath a hollow puzzle stone and stay beneath this hollow exploding stone
 without harm until the puzzle dissolved.
 
@@ -9239,7 +9247,7 @@ wand if the row is part of a movable cluster fragment. If the speed is
 sufficient for a hit operation, the cluster will move instead of an expected
 row rotation.
 
-Like @ref{Cluster Stone}s puzzle accept a @samp{cluster} attribute. A new set
+Like @ref{Cluster Stone}s puzzles accept a @samp{cluster} attribute. A new set
 puzzle stone autoconnects to adjacent, same colored puzzle stones belonging to
 the same cluster. But once set the puzzle stone will of course not change its
 connections on subsequent moves or rotations. But as a level author you need to
@@ -9253,10 +9261,10 @@ only.
 
 If you need to shuffle a puzzle of your own, you can make use of the messages
 @samp{get_adjacents} which returns the group of color matching, adjacent puzzle
-stones, and @samp{push_rotate} which is the exact invertion of a push rotation.
+stones, and @samp{pull_rotate} which is the exact invertion of a push rotation.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
 @item @b{color} @ @ @i{values}: @code{BLUE}, @code{YELLOW}; @ @ @i{default}: @code{BLUE}
 The color of the puzzle stubs. Adjacent puzzle stones of matching colors and
 connections cluster to fragments.
@@ -9268,7 +9276,7 @@ south, west, is guaranteed on read access but arbitrary on write access.
 
 @item @b{cluster} @ @ @i{values}: number; @ @ @i{default}: @code{nil}
 If set to a number all adjacent puzzle stones of the same color with
-the identical cluster number will build a cluster. This attribute superceds
+the identical cluster number will build a cluster. This attribute supercedes
 any explicitly given connection description.
 
 @item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
@@ -9284,10 +9292,10 @@ A hollow puzzle stone has a hole in its middle and allows actors to pass beneath
 Returns the huddle of all adjacent puzzle stones of same color independent of
 being connected or not. The huddle is returned as a group.
 @item @b{pull_rotate}, @ @ @i{value type}: direction
-Perform a reverse @samp{push_rotate} from this puzzle stone with the line
+Perform a reverse @samp{push_rotate} from this puzzle stones with the line
 of puzzle stone into the given direction.
 @item @b{push_rotate}, @ @ @i{value type}: direction
-Perform a line rotation as described above from this puzzle stone with the line
+Perform a line rotation as described above from this puzzle stones with the line
 of puzzle stone into the given direction.
 
 @end table
@@ -9499,7 +9507,7 @@ stones being part of the stack will be killed.
 @table @asis
 @item @b{flavor}, @ @ @i{values}: @code{"s"}, @code{"m"}, @code{"l"}, @code{"sm"}, @code{"sl"}, @code{"ml"}, @code{"sml"}; @ @ @i{default}: @code{"s"}; @ @ @i{access}: after initialization read only
 A string describing the hole sizes of this shogun stone and all smaller shogun
-stones that are positioned beneath this stone. @code{"s"} for a small hole, @code{m} for
+stones that are positioned beneath this stone. @code{"s"} for a small hole, @code{"m"} for
 a medium hole, @code{"l"} for a large hole, plus combinations of these
 characters for stacks. On initialization all shoguns of this grid's stack will
 be set according to this attribute, which can be prior set. After initialization
@@ -9567,7 +9575,7 @@ slightest touch is sufficient to cause a pulsing. Hollow stones will shatter
 actors benath it while pulsing.
 
 Hollow stoneimpulse stones are transparent to laserlight and thus do not react.
-But all other stones to pulse. A standard not @ref{steady} stoneimpulse will
+But all other stones do pulse. A standard not @ref{steady} stoneimpulse will
 pulse just one time on each new added light beam. But if you set @ref{steady}
 to @code{true} the stone will continue pulsing as long as a single beam hits
 one of its sides.
@@ -9578,10 +9586,10 @@ the other three directions. Thus the boulder remains aside the stoneimpulse. But
 when the stoneimpulse gets activated otherwise it will push back the boulder,
 which will in return hit the stoneimpulse again.
 
-On a chain of stoneimpulse the pulsing will propagate along the chain without
-backfiring, as the previous stone is still active when its successor impulses.
-This feature lets propagate a linear front of impuls through a field of
-stoneimpulse as expected.
+On a chain of stoneimpulse stones the pulsing will propagate along the chain
+without backfiring, as the previous stone is still active when its successor
+impulses. This feature lets propagate a linear front of impulses through a field
+of stoneimpulse stones as expected.
 
 If you want to setup a linear circle of stoneimpulse stones with an impulse
 wandering around the circle in one direction forever, you should insert one
@@ -9595,7 +9603,7 @@ Thus the stone will emit impulses to all directions but west.
 
 Impulse stones will be destroyed by @ref{it_dynamite} exploding on one of the
 eight neighboring grid positions while the stone is enlightened by a laser. But
-other explosions, inclusive @ref{it_bomb}, will not effect stoneimpulse stones.
+other explosions, including @ref{it_bomb}, will not effect stoneimpulse stones.
 
 @table @asis
 @item @b{Attributes:}
@@ -9606,7 +9614,7 @@ Movable stones are not hollow.
 @item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Hollow stones are neither movable, nor steady.
 @item @b{steady} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-Steady stones send continous impulses while exposed to laser light. Steady stones
+Steady stones send continuous impulses while exposed to laser light. Steady stones
 are not hollow.
 @end table
 
@@ -9641,7 +9649,7 @@ A swap stone can exchange its position with a neighboring stone on the side
 in direction of the initiating impulse. It is not freely movable by pushes.
 But when an actor hits a swap stone and another stone is located on the opposite
 side of the swap stone, both stones will exchange their positions. The swap will
-also be perfomed when the swap stones receives a stone impulse via an
+also be performed when the swap stone receives a stone impulse via an
 @ref{ot_wire} or a neighboring @ref{st_stoneimpulse}. A similar stone it the
 @ref{st_pull}, that exchanges with stones in the reverse direction of the
 initiating impulse.
@@ -9944,8 +9952,8 @@ target and this message as action.
 @subsection st_volcano
 @obindex st_volcano
 
-A volcano stone spreads slowly to neighboring grid positions and filling up
-complete areas and will just stop on boundaries set by others stones.
+A volcano stone spreads slowly to neighboring grid positions filling up
+complete areas and will just stop on boundaries set by other stones.
 
 A volcano can either start by the setting of an @samp{ACTIVE} variant, by
 an inactive @samp{IDLE} variant being triggered by a message or a hitting
@@ -10106,16 +10114,341 @@ Tries to tear the opposite window face into the given direction.
 @section Actor Attributes
 
 @menu
+* adhesion::        Effectiveness of mousemotion
+* charge::          Initial electrical charge
+* controllers::     Mouse
+* color::           Color
+* essential::       
+* essential_id::    
+* owner::           Inventory owner
+* velocity_x::      Initial velocity
+* velocity_y::      Initial velocity
 @end menu
 
-@c -----------------  --------------------
 
+@node adhesion
+@subsection adhesion
+
+The responsiveness of an actor on mouse movements. It is a scalar factor to
+the accelerating force applied to the actor. Note that mouse forces are only
+applied to an actor if the @ref{controllers} attribute allows forces at all.
+Vice versa you should exclude an actor from mouse forces by usage of the
+@ref{controllers} attribute instead of setting its adhesion to zero. The 
+adhesion may take negativ values, too. Such values correspond to inverse forces.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ actor dependent
+@item @b{Access:} @ @ read/write
+@end table
+
+@node charge
+@subsection charge
+
+The initial electrical charge that a new actor starts with when being added to
+the world. Even though this attribute is readable it does not reflect the
+current velocity of an actor during runtime.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@node controllers
+@subsection controllers
+
+The players that can control the actor by their mouse movements.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}
+@item @b{Default:} @ @ @code{0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@node color
+@subsection color
+
+The logical color of the actor. All actors besides @ref{ac_marble}s and
+@ref{ac_pearl}s will report color @code{nil}. The color of an actor can not be
+changed, it is a read only attribute.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{BLACK}, @code{WHITE}, @code{nil}
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read only
+@end table
+
+@node essential
+@subsection essential
+
+Describes the necessity of an actor to be alive in case of multiple actors being
+attached to a player. A value 0 marks an actor as not essential. The player
+may well continue to play with other actors that he controls which are still 
+alive. A value of -1 marks an actor as totally necessary. If such an actor 
+cannot be resurrected after a death, the player is essentially dead. A value 
+of 1 marks an actor as partially essential. Not the actor itself needs to 
+survive but the number of actors of its kind controlled by the player need to be
+larger than the number of actors with value 1. For example, marking 3 out of 5
+small whiteballs with 1 means that the player is dead if 3 small whiteballs are
+no longer alive. See Old API - Variables ‘enigma.ConserveLevel’ for more details
+about restart of levels.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{DISPENSIBLE}, @code{INDISPENSIBLE}, @code{PERKIND}
+@item @b{Default:} @ @ @code{}
+@item @b{Access:} @ @ read/write
+@end table
+
+@node essential_id
+@subsection essential_id
+
+Since a player may control actors of different kinds at the same time, the
+essentialness of actors is limited to its kind via this id. It is possible to
+group actors of different kinds into an essential group via this id. The engine 
+keeps this id even if actors are transformed into other kinds.
+
+@table @asis
+@item @b{Type:} @ @ string
+@item @b{Values:} @ @ any
+@item @b{Default:} @ @ @ model name of actor
+@item @b{Access:} @ @ read/write
+@end table
+
+@node owner
+@subsection owner
+
+The player that owns the actor. The owner gets all items picked up by an actor
+added to his inventory. The ownership of an actor does not influence the
+ability of a player to control the actors movements.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ @code{YIN}, @code{YANG}, @code{nil}
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read/write
+@end table
+
+@node velocity_x
+@subsection velocity_x
+
+The velocity into x direction that a new actor starts with when being added to
+the world. Even though this attribute is readable it does not reflect the
+current velocity of an actor during runtime.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@node velocity_y
+@subsection velocity_y
+
+The velocity into y direction that a new actor starts with when being added to
+the world. Even though this attribute is readable it does not reflect the
+current velocity of an actor during runtime.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- Actors --------------------
 @node Actors
 @section Actors
 
 @menu
+* ac_horse::
+* ac_killer::
+* ac_marble::     
+* ac_pearl::
+* ac_rotor::
+* ac_top::
 @end menu
 
+@c ----------------- Horse --------------------
+@node ac_horse
+@subsection ac_horse
+@obindex ac_horse
+
+A large blue disc like actor. It is called a horse because in some future Enigma
+release @ref{ac_marble}s and @ref{ac_pearl}s should be able to ride on it.
+
+In contrast to the main actors it can not jump or pass an @ref{it_vortex}, and
+will not sink, fall or shatter. A horse is immortal.
+
+A horse is preset to its standard attribute values, that make it a passive
+actor. But nevertheless a horse may move its own way. By usage of the attributes
+@samp{destination} and @samp{strength} you can mark a path marked by an
+arbitrary number of positions given as destinations. The horse will try to reach
+the destinations one in a row with a force given by the strength attribute. As
+soon as one destination has been reached the horse targets for the next position
+and will start over again as soon as the last position has been reached.
+
+Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
+values if you want a player to control a horse directly.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{0.0}; @ @ @xref{adhesion}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@item @b{destination}, @ @ @i{values}: position or tokens; @ @ @i{default}: @code{nil} @ @ @xref{destination}
+A path given by a sequence of positions.
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+10.0}
+A scalar factor for the horse force that drive it to the next destination.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_horse}: controllers = @code{CTRL_NONE}, owner = @code{nil}
+@end table
+
+@end table
+
+@c ----------------- Killer --------------------
+@node ac_killer
+@subsection ac_killer
+@obindex ac_killer
+
+An actor that looks like a white @ref{ac_pearl}, but is a death bringing killer
+ball that shatters @ref{ac_marble}s and @ref{ac_pearl}s on contact.
+
+In contrast to the main actors it can not jump or pass an @ref{it_vortex}, and
+will not sink, fall or shatter. A killer ball is immortal.
+
+A killer is preset to its standard attribute values, that let both players
+control the actor and do assign a higher @samp{adhesion} to it than to
+@ref{ac_pearl}s.
+
+Note that even though a killer looks quite dangerous, @ref{fl_thief} and 
+@ref{st_thief} do steal items from them, if the killer is owned by a player.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{color} @ @ @i{values}: @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
+The color of the killer.
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{2.0}; @ @ @xref{adhesion}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_killer}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
+@end table
+
+@end table
+
+@c ----------------- Marble --------------------
+@node ac_marble
+@subsection ac_marble
+@obindex ac_marble
+
+The main actor in the shape of a large ball, either black or white. Marbles are
+versatile actors that can jump, pass @ref{it_vortex}, but on the other hand they
+can sink, fall and shatter, too.
+
+As long as the @samp{owner} has an @ref{it_extralife} in his inventory a dying
+marble will be resurrected. If no extra life is available a dying actor ends
+up in the @samp{state} dead and can no longer be controlled.
+
+The marbles are preset to their standard attribute values. A recoloring of 
+marbles is not possible. The marbles state changes due to events and can be
+read only, too.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ALIVE}, @code{DEAD}; @ @ @i{default}: @code{ALIVE}; @ @ @xref{state}; @ @ @i{access}: read only
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}; @ @ @i{access}: read only
+The color of the marble.
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_marble}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
+@item @b{ac_marble_black}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
+@item @b{ac_marble_white}: color = @code{WHITE}, controllers = @code{CTRL_YANG}, owner = @code{YANG}
+@end table
+
+@end table
+
+@c ----------------- Pearl --------------------
+@node ac_pearl
+@subsection ac_pearl
+@obindex ac_pearl
+
+The main actor for meditation levels in the shape of a small ball, currently
+just in white color available. Pearls are like marbles versatile actors that
+can jump, pass @ref{it_vortex}, but on the other hand they can sink, fall and
+shatter, too.
+
+As long as the @samp{owner} has an @ref{it_extralife} in his inventory a dying
+marble will be resurrected. If no extra life is available a dying actor ends
+up in the @samp{state} dead and can no longer be controlled.
+
+The pearls are preset to their standard attribute values. The pearls state 
+changes due to events and can be read only.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ALIVE}, @code{DEAD}; @ @ @i{default}: @code{ALIVE}; @ @ @xref{state}; @ @ @i{access}: read only
+@item @b{color} @ @ @i{values}: @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
+The color of the pearl.
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_pearl}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@item @b{ac_pearl_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@end table
+
+@end table
+
+@c ----------------- Rotor --------------------
+@node ac_rotor
+@subsection ac_rotor
+@obindex ac_rotor
+
+@c ----------------- Top --------------------
+@node ac_top
+@subsection ac_top
+@obindex ac_top
 
 @c ===================  Other Objects  =======================
 
@@ -11401,13 +11734,13 @@ use it within the world creation in a resolver.
 
 @item @b{Full Example:}
 @example
-ti[" "] = @{"fl-plank"@}
+ti[" "] = @{"fl_plank"@}
 ti["X"] = @{"st_oxyd"@}
-ti["B"] = @{"st-black3"@}
-ti["W"] = @{"st-white3"@}
-ti["y"] = @{"it-yinyang"@}
-ti["1"] = ti["y"] .. @{"#ac-blackball"@}
-ti["2"] = ti["y"] .. @{"#ac-whiteball"@}
+ti["B"] = @{"st_passage_black", flavor="frame"@}
+ti["W"] = @{"st_passage_white", flavor="frame"@}
+ti["y"] = @{"it_yinyang"@}
+ti["1"] = ti["y"] .. @{"#ac_marble_black"@}
+ti["2"] = ti["y"] .. @{"#ac_marble_white"@}
 
 function myresolver(key, x, y)
     if key == "w" then
@@ -11612,7 +11945,7 @@ wo["ConserveLevel"] = false
 
 ti["~"] = @{"fl_water"@}
 ti[" "] = @{"fl_plank"@}
-ti["c"] = @{"it_crack3", brittleness=0@}
+ti["c"] = @{"it_crack_l", brittleness=0@}
 ti["^"] = @{"st_oneway_n"@}
 ti["1"] = @{"ac_marble_black", 0, 0.5@}
 
@@ -11750,13 +12083,13 @@ ti["template"] = ti["~"] .. ti(@{"it_trigger", target=@{"door%%#*","laser%%"@}@}
 
 @item @b{Full Example:}
 @example
-ti[" "] = @{"fl-sahara"@}
+ti[" "] = @{"fl_sahara"@}
 
 ti["template_a"] = @{"st_floppy", target=@{"door%%#*","laser%%"@}@}
 ti["template_A"] = @{"st_blocker", "door%%#"@}
 ti["template_1"] = @{"st_laser_s", "laser%%"@}
 
-ti["x"] = @{"#ac-blackball"@} .. ti(@{"it_floppy"@})
+ti["x"] = @{"#ac-marble_black"@} .. ti(@{"it_floppy"@})
 
 local resolver = res.autotile(ti, @{"a", "e", "template_a"@},
     @{"A", "E", "template_A"@},  @{"1", "5", "template_1"@})
@@ -11868,7 +12201,7 @@ ti["h "] = @{"it_hammer"@}
 
 ti["k "] = @{"it_key"@} .. ti(@{"st_glass1"@})
 
-ti["xx"] = @{"#ac-blackball"@}
+ti["xx"] = @{"#ac_marbel_black"@}
 
 local resolver = res.composer(ti)
 
@@ -12022,17 +12355,17 @@ rotation if fully respected on shuffling.
 
 @item @b{Full Example:}
 @example
-ti["  "] = @{"fl-sahara"@}
-ti["##"] = @{"st-rock1"@}
+ti["  "] = @{"fl_sahara"@}
+ti["##"] = @{"st_granite"@}
 
-ti[".."] = @{"fl-sahara", push_directions="nesw"@}
+ti[".."] = @{"fl_sahara", push_directions="nesw"@}
 
 ti["B"] = @{"st_puzzle_blue"@}
 ti["Y"] = @{"st_puzzle_yellow"@}
 ti["I"] = @{"st_puzzle_blue", intensity=2/6@}
 ti["M"] = @{"st_puzzle_blue", algorithm="marked", intensity=10@}
 
-ti["xx"] = @{"#ac-blackball"@} ..ti(@{"it_magicwand"@})
+ti["xx"] = @{"#ac_marble_black"@} ..ti(@{"it_magicwand"@})
 
 local resolver = res.puzzle(ti, "B", "Y", "I", "M")
 
@@ -12117,17 +12450,17 @@ floor is set according to the replacement rules.
 
 @item @b{Full Example:}
 @example
-ti["~"] = @{"fl-water"@}
-ti["s"] = @{"fl-sahara"@}
-ti["t"] = @{"fl-tigris"@}
-ti["i"] = @{"fl-inverse2"@}
-ti["b"] = @{"fl-acblack"@}
-ti["w"] = @{"fl-acwhite"@}
+ti["~"] = @{"fl_water"@}
+ti["s"] = @{"fl_sahara"@}
+ti["t"] = @{"fl_tigris"@}
+ti["i"] = @{"fl_inverse_gray"@}
+ti["b"] = @{"fl_yinyang_yin"@}
+ti["w"] = @{"fl_yinyang_yang"@}
 
 ti["c"] = @{"it_coin_s"@}
 ti["p"] = @{"it_brush"@}
 
-ti["1"] = @{"ac-blackball", 0, 0.5@}
+ti["1"] = @{"ac_marble_black", 0, 0.5@}
 
 simple_random = res.random(ti, " ", @{"s", "t"@})
 
@@ -18024,3 +18357,4 @@ set_stone("st-invisible", 7, 9)     -- do the same
 @printindex cp
 
 @bye
+
