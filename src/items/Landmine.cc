@@ -45,7 +45,7 @@ namespace enigma {
     
     void Landmine::explode() {
         sound_event ("landmine");
-        replace("it-explosion2");
+        replace("it_explosion_hollow");
     }
 
     DEF_ITEMTRAITSF(Landmine, "it_landmine", it_landmine, itf_static);

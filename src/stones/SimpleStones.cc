@@ -256,6 +256,7 @@ namespace enigma {
             }
             case SPITTING:
                 state = IDLE;
+                init_model();
                 break;
             }
     }

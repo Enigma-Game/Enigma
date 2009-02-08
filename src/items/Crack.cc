@@ -72,19 +72,18 @@ namespace enigma {
         }
     }
     
-    void Crack::animcb() {
-        GridPos p= get_pos();
-        SetFloor(p, MakeFloor("fl_abyss"));
-        KillItem(p);
-    }
-    
-    bool Crack::actor_hit(Actor *a) {
+    void Crack::actor_enter(Actor *a) {
         if (a->is_on_floor()) {
             crack();
             if (state < DISSOLVING)
                 spread();
         }
-        return false;
+    }
+    
+    void Crack::animcb() {
+        GridPos p= get_pos();
+        SetFloor(p, MakeFloor("fl_abyss"));
+        KillItem(p);
     }
     
     void Crack::crack() {

@@ -138,6 +138,11 @@ namespace enigma {
         else
             kill();
      }
+
+    bool Explosion::actor_hit(Actor *actor) {
+        SendMessage(actor, "shatter");
+        return false;
+    }
      
     DEF_ITEMTRAITSF(Explosion, "it_explosion", it_explosion, itf_static |
                 itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);

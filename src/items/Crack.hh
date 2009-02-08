@@ -55,12 +55,10 @@ namespace enigma {
 
         // GridObject interface
         virtual void init_model();
+        virtual void actor_enter(Actor *a);
         
         // ModelCallback interface
         virtual void animcb();
-        
-        // Item interface
-        virtual bool actor_hit(Actor *a);
         
     private:
         void crack();

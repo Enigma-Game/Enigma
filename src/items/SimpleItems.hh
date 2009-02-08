@@ -126,6 +126,9 @@ namespace enigma {
         
         // ModelCallback interface
         virtual void animcb();
+        
+        // Item interface
+        virtual bool actor_hit(Actor *a);
     };
     
     /**
