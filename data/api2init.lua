@@ -467,17 +467,23 @@ function res.autotile_implementation(context, evaluator, key, x, y)
             
             if #key == #rule[1] and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
                     and first <= candidate and candidate <= last then
-                if ti[key] == nil then
+                local tile = evaluator(context[3], key, x, y)
+                if tile == nil then
                     res.autotile_newtile(key, ti[rule[3]], candidate - first + 1)
+                    return ti[key]
+                else
+                    return tile
                 end
-                return ti[key]
             end
         elseif string.find(key, rule[1], 1, true) == 1 then
             -- prefix based substitution
-            if ti[key] == nil then
+            local tile = evaluator(context[3], key, x, y)
+            if tile == nil then
                 res.autotile_newtile(key, ti[rule[2]], string.sub(key, #(rule[1]) + 1))
+                return ti[key]
+            else
+                return tile
             end
-            return ti[key]
         end
     end
     return evaluator(context[3], key, x, y)
@@ -521,31 +527,48 @@ function res.composer_implementation(context, evaluator, key, x, y)
     if tile ~= nil then
         return tile
     end
+    local template = context[4]
+    if template == nil then
+        template = "123456789"
+    end
     -- try to compose tile
-    for i = #key, 1, -1 do
-        local subkey = string.rep(" ", i-1) .. string.sub(key, i, i) .. string.rep(" ", #key - i)
-        local subtile = evaluator(context[3], subkey, x, y)
-        if subtile == nil then
-            return nil
+    for i = 1, #key do
+        local subkey = ""
+        local ic = "" .. i
+        for j = 1, #key do
+            if template:sub(j, j) == ic then
+                subkey = subkey .. key:sub(j, j)
+            else
+                subkey = subkey .. " "
+            end
         end
-        if tile == nil then
-            tile = subtile
-        else
-            tile = subtile .. tile
-        end
-        if #key == 3 then
-            subkey = string.sub(key, 1, i-1) .. " " .. string.sub(key, i+1)
-            local subtile2 = evaluator(context[3], subkey, x, y)
-            if subtile2 ~= nil then
-                return subtile2 .. subtile
+        if subkey ~= string.rep(" ", #key) then
+            local subtile = evaluator(context[3], subkey, x, y)
+            if subtile == nil then
+                return nil
+            end
+            if tile == nil then
+                tile = subtile
+            else
+                tile = tile .. subtile
             end
         end
     end
     return tile
 end
 
-function res.composer(subresolver)
-    local context = {res.composer_implementation, nil, subresolver}
+function res.composer(subresolver, ...)
+    local args = {...}
+    local template = nil
+    if #args >  1 then
+        error("Resolver composer did not expect more than one argument" ,2)
+    elseif #args == 1 then
+        if type(args[1]) ~= "string" then
+            error("Resolver composer did expect string as first argument" ,2)
+        end
+        template = args[1]
+    end
+    local context = {res.composer_implementation, nil, subresolver, template}
     return context
 end
 
