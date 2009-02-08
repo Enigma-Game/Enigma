@@ -114,10 +114,10 @@ const char *oxyd::oxyd1_floor_map[256] = {
     "fl_slope_ine",             // Oxyd1 floor 0x2c
     "fl_slope_isw",             // Oxyd1 floor 0x2d
     "fl_slope_inw",             // Oxyd1 floor 0x2e
-    "fl_slope_ts",              // Oxyd1 floor 0x2f
-    "fl_slope_tn",              // Oxyd1 floor 0x30
-    "fl_slope_te",              // Oxyd1 floor 0x31
-    "fl_slope_tw",              // Oxyd1 floor 0x32
+    "fl_slope_tn",              // Oxyd1 floor 0x2f
+    "fl_slope_ts",              // Oxyd1 floor 0x30
+    "fl_slope_tw",              // Oxyd1 floor 0x31
+    "fl_slope_te",              // Oxyd1 floor 0x32
     "fl_brick",                 // Oxyd1 floor 0x33
     "fl_brick",                 // Oxyd1 floor 0x34 (common was 'fl-rough')
     UNUSED,                     // Oxyd1 floor 0x35

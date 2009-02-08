@@ -83,8 +83,8 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x2e
     UNUSED,              // OxydExtra floor 0x2f
     UNUSED,              // OxydExtra floor 0x30
-    "fl_slope_te",     // OxydExtra floor 0x31
-    "fl_slope_tw",     // OxydExtra floor 0x32
+    "fl_slope_tw",     // OxydExtra floor 0x31
+    "fl_slope_te",     // OxydExtra floor 0x32
     UNUSED,              // OxydExtra floor 0x33
     "fl_rough",          // OxydExtra floor 0x34
     UNUSED,              // OxydExtra floor 0x35

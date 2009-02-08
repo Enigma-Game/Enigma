@@ -81,10 +81,10 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl_slope_ine",            // OxydMagnum floor 0x2c
     "fl_slope_isw",            // OxydMagnum floor 0x2d
     "fl_slope_inw",            // OxydMagnum floor 0x2e
-    "fl_slope_ts",            // OxydMagnum floor 0x2f
-    "fl_slope_tn",            // OxydMagnum floor 0x30
-    "fl_slope_te",            // OxydMagnum floor 0x31
-    "fl_slope_tw",            // OxydMagnum floor 0x32
+    "fl_slope_tn",            // OxydMagnum floor 0x2f
+    "fl_slope_ts",            // OxydMagnum floor 0x30
+    "fl_slope_tw",            // OxydMagnum floor 0x31
+    "fl_slope_te",            // OxydMagnum floor 0x32
     "fl_brick",                 // OxydMagnum floor 0x33 (common was 'fl-rough')
     "fl_brick",                 // OxydMagnum floor 0x34 (common was 'fl-rough')
     UNUSED,                     // OxydMagnum floor 0x35

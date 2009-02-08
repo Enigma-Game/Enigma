@@ -100,10 +100,22 @@ namespace enigma {
             return server::RubberViolationStrength;
         } else if (key == "SlopeStrength") {
             return server::SlopeForce;
-        } else if (key == "SwampSinkSpeed") {
-            return server::SwampSinkSpeed;
-        } else if (key == "WaterSinkSpeed") {
-            return server::WaterSinkSpeed;
+        } else if (key == "SwampSinkTime") {
+            if (server::SwampSinkSpeed > 0) {
+                if (server::SwampSinkSpeed >= 1000)
+                    return 0;
+                else
+                    return 7.0 / server::SwampSinkSpeed;
+            } else
+                return Value();  // infinite time
+        } else if (key == "WaterSinkTime") {
+            if (server::WaterSinkSpeed > 0) {
+                if (server::WaterSinkSpeed >= 1000)
+                    return 0;
+                else
+                    return 7.0 / server::WaterSinkSpeed;
+            } else
+                return Value();  // infinite time
         } else if (key == "WormholeStrength") {
             return server::WormholeForce;
         } else if (key == "WormholeRange") {
@@ -192,10 +204,24 @@ namespace enigma {
             server::RubberViolationStrength = val;
         } else if (key == "SlopeStrength") {
             server::SlopeForce = val;
-        } else if (key == "SwampSinkSpeed") {
-            server::SwampSinkSpeed = val;
-        } else if (key == "WaterSinkSpeed") {
-            server::WaterSinkSpeed = val;
+        } else if (key == "SwampSinkTime") {
+            if (val.getType() == Value::NIL)
+                server::SwampSinkSpeed = 0;
+            else if ((double)val == 0)
+                server::SwampSinkSpeed = 1000;
+            else {
+                ASSERT((double)val > 0, XLevelRuntime, "SwampSinkTime less zero");
+                server::SwampSinkSpeed = 7.0 / (double)val;
+            }
+        } else if (key == "WaterSinkTime") {
+            if (val.getType() == Value::NIL)
+                server::WaterSinkSpeed = 0;
+            else if ((double)val == 0)
+                server::WaterSinkSpeed = 1000;
+            else {
+                ASSERT((double)val > 0, XLevelRuntime, "SwampSinkTime less zero");
+                server::WaterSinkSpeed = 7.0 / (double)val;
+            }
         } else if (key == "WormholeStrength") {
             server::WormholeForce = val;
             BroadcastMessage("_updateglobals", "it_wormhole", GRID_ITEMS_BIT);

@@ -1824,6 +1824,14 @@
       <attr name="secure"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_volcano_idle">
+      <attr name="state" value="0"/>
+    </object>
+    <object name="st_volcano_active">
+      <attr name="state" value="1"/>
+    </object>
+    <object name="st_volcano_new" init="true"/>
+    <object name="st_volcano_growing" init="true"/>
     <object name="st_window">
       <attr name="faces" default="s"/>
       <attr name="scratches"/>
@@ -1879,9 +1887,14 @@
     <object name="st_woven"/>
     <object name="st_yellow"/>
     <object name="st_yinyang">
+      <attr name="instant"/>
+    </object>
+    <object name="st_yinyang_instant">
+      <attr name="instant" value="true"/>
     </object>
     <object name="st_yinyang_active">
       <attr name="state" value="1"/>
+      <attr name="instant" value="false"/>
     </object>
   </zoo>
 </objects>

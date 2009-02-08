@@ -150,10 +150,10 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl_slope_ine",            // PerOxyd floor 0x2c
     "fl_slope_isw",            // PerOxyd floor 0x2d
     "fl_slope_inw",            // PerOxyd floor 0x2e
-    "fl_slope_ts",            // PerOxyd floor 0x2f (flat force)
-    "fl_slope_tn",            // PerOxyd floor 0x30 (flat force)
-    "fl_slope_te",            // PerOxyd floor 0x31 (flat force)
-    "fl_slope_tw",            // PerOxyd floor 0x32 (flat force)
+    "fl_slope_tn",            // PerOxyd floor 0x2f (flat force)
+    "fl_slope_ts",            // PerOxyd floor 0x30 (flat force)
+    "fl_slope_tw",            // PerOxyd floor 0x31 (flat force)
+    "fl_slope_te",            // PerOxyd floor 0x32 (flat force)
     "fl_rough",                 // PerOxyd floor 0x33 (common was 'fl-rough', should be a 'fl-paper')(only level 75)
     "fl_rough",                 // PerOxyd floor 0x34
     UNUSED,                     // PerOxyd floor 0x35

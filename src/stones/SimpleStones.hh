@@ -27,7 +27,7 @@
 namespace enigma {
 
     /** 
-     * BlurStone (old YinYang)
+     * BlurStone (former YinYang)
      */
     class BlurStone : public Stone {
         CLONEOBJ(BlurStone);
@@ -187,7 +187,7 @@ namespace enigma {
             ACTIVE      ///< 
         };
     public:
-        YinyangStone(int initState);
+        YinyangStone(int initState, bool isInstant =false);
         
          // Object interface
         virtual std::string getClass() const;        
@@ -203,6 +203,9 @@ namespace enigma {
 
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
+        
+    private:
+        void switchPlayer();
     };
 } // namespace enigma
 

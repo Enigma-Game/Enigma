@@ -41,12 +41,14 @@ namespace enigma {
     }
 
     void BlurStone::setAttr(const string& key, const Value &val) {
-        if (key == "flavor" && isDisplayable()) {
+        if (key == "flavor") {
             std::string fs = val.to_string();
             if (fs == "straight") state = STRAIGHT;
             else if (fs == "cross") state = CROSS;
             else if (fs == "magic") state = MAGIC;
             else ASSERT(false, XLevelRuntime, ecl::strf("Blur stone set known flavor%s", fs.c_str()).c_str());
+            if (isDisplayable())
+                init_model();
             return; 
         } else
             Stone::setAttr(key, val);
@@ -277,8 +279,10 @@ namespace enigma {
     DEF_TRAITSM(SpitterStone, "st_spitter", st_yinyang, MOVABLE_PERSISTENT);
 
 /* -------------------- Yinyang stone -------------------- */
-    YinyangStone::YinyangStone(int initState) : Stone () {
+    YinyangStone::YinyangStone(int initState, bool isInstant) : Stone () {
         state = initState;
+        if (isInstant)
+            setAttr("instant", true);
     }
     
     std::string YinyangStone::getClass() const {
@@ -302,18 +306,26 @@ namespace enigma {
     }
     
     void YinyangStone::animcb() {
-        // Switch to other marble
-        player::SwapPlayers();
-        sound::EmitSoundEvent("switchplayer", get_pos().center());
         state = IDLE;
         init_model();
+        if (!getAttr("instant").to_bool())
+            switchPlayer();
     }
     
     void YinyangStone::actor_hit(const StoneContact &sc) {
         if (state == IDLE) {
             state = ACTIVE;
             init_model();
+            if (getAttr("instant").to_bool())
+                switchPlayer();
         }
+    }
+    
+    void YinyangStone::switchPlayer() {
+        // Switch to other marble
+        player::SwapPlayers();
+        sound::EmitSoundEvent("switchplayer", get_pos().center());
+        performAction(true);        
     }
     
     DEF_TRAITSM(YinyangStone, "st_yinyang", st_yinyang, MOVABLE_PERSISTENT);
@@ -336,6 +348,7 @@ namespace enigma {
         BootRegister(new PlopStone(), "st_plop_slate");
         BootRegister(new SpitterStone(), "st_spitter");
         BootRegister(new YinyangStone(0), "st_yinyang");
+        BootRegister(new YinyangStone(0, true), "st_yinyang_instant");
         BootRegister(new YinyangStone(1), "st_yinyang_active");
     BOOT_REGISTER_END
 
