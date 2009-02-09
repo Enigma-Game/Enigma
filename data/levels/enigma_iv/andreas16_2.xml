@@ -3,20 +3,19 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Dark Outside" el:subtitle="" el:id="andreas16"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Originally created with the help of BBE 1.05</el:code>
       </el:comments>
       <el:score el:easy="04:14" el:difficult="07:19"/>
     </el:info>
     <el:luamain><![CDATA[
+
 clock_to_delta_pos = { [NORTH] = po(0, -1),
                        [EAST] = po(1, 0),
                        [SOUTH] = po(0, 1),
@@ -24,46 +23,46 @@ clock_to_delta_pos = { [NORTH] = po(0, -1),
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_brick"}
+ti["#"] = {"st_purplemarble"}
+ti["G"] = {"st_ghost"}
 ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_BLACK} .. ti[" "]
 ti["@"] = {"#ac_marble", adhesion = 1}
-ti["!"] = {"st_purplemarble"}
-ti["#"] = {"st_ghost_purplemarble"}
 ti["b"] = {"it_brush", "thisbrush"}
 ti["T"] = {"st_timer", "timer", target = "callback_timer", interval = 0.8}
 ti["C"] = {"st_fourswitch", "clock"}
 
 w, h = wo(ti, ".",
-       {"T!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-        "!@.#......#........#.......           !",
-        "!..#...#..###...####.......           !",
-        "!.b#####....#...#..........           !",
-        "!........#..#.#.#..#.......           !",
-        "!######..#....#.#..#.......           !",
-        "!.....#..#.#..#.#..#.......           !",
-        "!...#.#.##.#..#.#..#.......           !",
-        "!...#.###..####.#..#.......           !",
-        "!##.#......#....#..#.......           !",
-        "!C..#...####.####..#.......           !",
-        "!...#......#.......#.......           !",
-        "!!!!!!!!!!!!!!!!!!!!!!!!!!!           !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!  O                             O    !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!                                     !",
-        "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"})
+       {"T######################################",
+        "#@.G......G........G.......           #",
+        "#..G...G..GGG...GGGG.......           #",
+        "#.bGGGGG....G...G..........           #",
+        "#........G..G.G.G..G.......           #",
+        "#GGGGGG..G....G.G..G.......           #",
+        "#.....G..G.G..G.G..G.......           #",
+        "#...G.G.GG.G..G.G..G.......           #",
+        "#...G.GGG..GGGG.G..G.......           #",
+        "#GG.G......G....G..G.......           #",
+        "#C..G...GGGG.GGGG..G.......           #",
+        "#...G......G.......G.......           #",
+        "###########################           #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#  O                             O    #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#                                     #",
+        "#######################################"})
 
 wo:shuffleOxyd()
 
-local step_count = 0
-local painting = false
-local hint = false
+step_count = 0
+painting = false
+hint = false
 function callback_timer()
   if no["clock"]:exists() then
     local clock_state = no["clock"].state
@@ -76,10 +75,10 @@ function callback_timer()
     if step_count == 5 then
       no["clock"].counterclock = not wo["IsDifficult"]
       no["clock"]:toggle()
-      no["clock"].counterclock = false
+      no["clock"].counterclock = false      
       clock_state = no["clock"].state
       step_count = 1
-    end
+    end    
     -- Move stone
     if st(clock_pos):exists() then
       clock_pos = old_pos
@@ -100,19 +99,20 @@ function callback_timer()
     end
     -- In case the clock is still hungry and in the dark ...
     if (not painting) and (not hint) and (clock_pos.y > 12) then
-      wo[{1,1}] = {"it_document", text = "text1"}
+      wo[{1,1}] = {"it-document", text = "text1"}
       hint = true
-    end
+    end        
   end
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">What a pity, and there's so much paint left ...</el:english>
-      </el:string>
+      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

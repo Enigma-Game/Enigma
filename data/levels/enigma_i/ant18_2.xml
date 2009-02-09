@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ingrowing" el:subtitle="" el:id="ant18"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin, A. Lochmann</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["AllowSingleOxyds"] = true
+
+ti["-"] = {"fl_sahara"}
+ti[" "] = {"fl_tigris"}
+ti[":"] = {"fl_abyss"}
+ti["_"] = {"fl_metal"}
+ti["."] = {"fl_sahara", name="anchors#"}
+ti["="] = ti["_"] .. {"it_trigger", invisible=true, target="set_cross"}
+ti["+"] = {"st_metal"}
+ti["*"] = {"st_tigris"}
+ti["O"] = ti["_"] .. {"st_oxyd", name="oxyds#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.random(ti, "#", {{"+", 17}, {"*", 3}}), " ", {
+    "#############################",
+    "#.--@  .--   .--   .--   .--#",
+    "#---   ---   ---   ---   ---#",
+    "#---   ---   ---   ---   ---#",
+    "#   ---   ---   ---   ---   #",
+    "#   ---   ---   ---   ---   #",
+    "#   ---   ---   ---   ---   #",
+    "#.--   .--   .--   .--   .--#",
+    "#---   ---   ---   ---   ---#",
+    "#---   ---   ---   ---   ---#",
+    "#   ---   ---   ---   ---   #",
+    "#   ---   ---   ---   ---   #",
+    "#   ---   ---   ---   ---   #",
+    "#.--   .--   .--   .--   .--#",
+    "#---   ---   ---   ---   ---#",
+    "#---   ---   ---   ---   ---#",
+    "#############################"})
+
+-- Anchors for the crosses, we need only 14 of 15
+local anchors = no["anchors#*"]:shuffle():sub(1, 14)
+
+-- preshuffled oxydcolors
+local oxydcolors =  lib.lua.shuffle({OXYD_BLUE, OXYD_BLUE, OXYD_RED, OXYD_RED, OXYD_GREEN, OXYD_GREEN,
+                                     OXYD_YELLOW, OXYD_YELLOW, OXYD_CYAN, OXYD_CYAN, OXYD_PURPLE, OXYD_PURPLE,
+                                     OXYD_WHITE, OXYD_WHITE})
+
+function set_cross(is_on, sender)
+    if not (no["oxyds#*"]:nearest(sender))._done then
+        no["oxyds#*"]:nearest(sender)._done = true
+        for j = 1, 2 do
+            if #anchors > 0 then
+                local pos = po(anchors[1])  -- cache anchor position
+                wo:drawMap(ti, anchors[1], " ", {":=:", "=O=", ":=:"})
+                no["oxyds#*"]:nearest(fl(pos)).oxydcolor = oxydcolors[#anchors]
+                anchors = anchors - anchors[1]
+            end
+        end
+    end
+end
+
+-- Set the initial cross:
+local pos = po(anchors[1])  -- cache anchor position
+wo:drawMap(ti, anchors[1], " ", {":=:", "=O=", ":=:"})
+no["oxyds#*"]:nearest(fl(pos)).oxydcolor = oxydcolors[#anchors]
+anchors = anchors - anchors[1]
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

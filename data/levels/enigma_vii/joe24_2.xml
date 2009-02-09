@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Minor Tangler" el:subtitle="" el:id="joe24"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_red"}
+ti["#"] = {"st_yellow"}
+ti["P"] = {"st_puzzle", cluster="%%"}
+ti["A"] = {"st_puzzle", connections="es"}
+ti["B"] = {"st_puzzle", connections="n"}
+ti["C"] = {"st_puzzle", connections="w"}
+ti["o"] = {"it_meditation_hollow"}
+ti["d"] = {"it_document", text="text1"}
+ti["@"] = {"#ac_pearl"}
+
+local resolver = res.autotile(ti, {"1", "4", "P"})
+
+wo(resolver, " ", {
+    "####################",
+    "#1o1  11    1    1 #",
+    "#1A1  11   11  111 #",
+    "#11 22  111222     #",
+    "# 1   111C12 1111  #",
+    "#   222  112 1  1  #",
+    "#111222  122 1     #",
+    "#  1 2  22   222  1#",
+    "#  1    2B22  21111#",
+    "#   11112  2 2221  #",
+    "#  222 122    2  d #",
+    "#      11     2   @#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Clue: The starting point is where all dead marbles go</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

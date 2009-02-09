@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -26,7 +26,7 @@
     <level _seq="18" _title="Enigris" _xpath="enigma_v/ralf04_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf04" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Gateway" _xpath="enigma_ii/martin85_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin85" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- No Meditation -" _xpath="enigma_iv/ralf08_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf08" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Im-pull-se" _xpath="enigma_vi/ralf07_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Im-pull-se" _xpath="enigma_vi/ralf07_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Simon Says" _xpath="enigma_i/nat12_1" author="Nat Pryce" ctrl="force" easy="false" id="nat12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Deadly Cross" _xpath="enigma_i/martin84_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Easy Shifting.." _xpath="enigma_ii/ralf01_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf01" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -35,7 +35,7 @@
     <level _seq="27" _title="ZigZag" _xpath="enigma_vi/ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Bowling" _xpath="enigma_iii/martin80_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin80" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="The Safe" _xpath="enigma_iii/siegfried77_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried77" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="- Meditation -" _xpath="enigma_v/ralf12_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf12" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="- Meditation -" _xpath="enigma_v/ralf12_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf12" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Symmetry" _xpath="enigma_iv/ant31_1" author="Petr Machata" ctrl="force" easy="false" id="ant31" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Door Maze" _xpath="enigma_ii/immanuel02_1" author="Immanuel Herrmann" ctrl="force" easy="false" id="immanuel02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Welcome to the Machine" _xpath="enigma_i/ralf03_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf03" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -74,7 +74,7 @@
     <level _seq="66" _title="Time is Money" _xpath="enigma_i/nat11_2" author="Nat Pryce" ctrl="force" easy="false" id="nat11" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="67" _title="What's the Problem?" _xpath="enigma_iv/ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Family Business" _xpath="enigma_iii/duffy20_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="69" _title="Stay There!" _xpath="enigma_iv/ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="69" _title="Stay There!" _xpath="enigma_iv/ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="70" _title="Block the Way" _xpath="enigma_iv/raywick03_3" author="Ray Wick" ctrl="force" easy="false" id="RayWick003" rel="3" rev="2" score="3" target="time" unit="duration"/>
     <level _seq="71" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="U-Swap" _xpath="enigma_iv/ralf15_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf15" rel="1" rev="2" score="1" target="time" unit="duration"/>

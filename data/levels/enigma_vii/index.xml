@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma VII"/>
 
   <attributes/>
 
@@ -25,7 +25,7 @@
     <level _seq="17" _title="Upstairs Meditation" _xpath="./duffy138_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy138" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Speed Meditation" _xpath="./duffy148_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Pool with a pole" _xpath="./alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Meditation in Peace" _xpath="./ral20_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="1" rev="70" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Meditation in Peace" _xpath="./ral20_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="2" rev="148" score="2" target="time" unit="duration"/>
     <level _seq="21" _title="Cold Meditation" _xpath="./ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Mountain Climbing" _xpath="./joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Advancing" _xpath="./joe01_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe01" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -73,7 +73,7 @@
     <level _seq="65" _title="Zero Magnetism Lab" _xpath="./duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Armageddon" _xpath="./duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Mountain Climbing II" _xpath="./joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="68" _title="Minor Tangler" _xpath="./joe24_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="Minor Tangler" _xpath="./joe24_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Circulation" _xpath="./pulley03_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley03" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="70" _title="Maze for Two" _xpath="./ral22_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="1" rev="84" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Making Shapes" _xpath="./joe18_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe18" rel="1" rev="1" score="1" target="time" unit="duration"/>

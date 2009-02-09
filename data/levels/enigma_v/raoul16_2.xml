@@ -23,7 +23,7 @@ ti["2"] = ti["-"] .. ti({"it_cherry"}) .. {"#ac_marble_white"}
 
 local col = math.random(0,1)
 ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=col}
-ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=1-col}
+ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=WHITE-col}
 
 wo(ti, " ",
    {"                    ",
@@ -41,7 +41,7 @@ wo(ti, " ",
     "                    "})
 
 wo:shuffleOxyd()
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

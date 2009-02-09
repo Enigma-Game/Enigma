@@ -24,10 +24,10 @@ ti["2"] = ti["-"] .. ti({"it_cherry"}) .. {"#ac_marble_white"}
 local r = 2*math.random(0,1)
 local col = math.random(0,1)
 
-ti["a"] = ti["-"] .. {"st_oneway", color=col, orientation= (SOUTH + r) % 4 } -- south || north
-ti["d"] = ti["-"] .. {"st_oneway", color=col, orientation= (EAST + r) % 4 }  -- east  || west
-ti["f"] = ti["-"] .. {"st_oneway", color=1-col, orientation= (WEST +r) % 4 }   -- west  || east
-ti["g"] = ti["-"] .. {"st_oneway", color=1-col, orientation= (NORTH +r) % 4 }  -- north || south
+ti["a"] = ti["-"] .. {"st_oneway", color=col, orientation= (SOUTH + r) % 4 }       -- south || north
+ti["d"] = ti["-"] .. {"st_oneway", color=col, orientation= (EAST + r) % 4 }        -- east  || west
+ti["f"] = ti["-"] .. {"st_oneway", color=WHITE-col, orientation= (WEST +r) % 4 }   -- west  || east
+ti["g"] = ti["-"] .. {"st_oneway", color=WHITE-col, orientation= (NORTH +r) % 4 }  -- north || south
 
 wo(ti, " ",
    {"                    ",
@@ -45,7 +45,7 @@ wo(ti, " ",
     "                    "})
 
 wo:shuffleOxyd()
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

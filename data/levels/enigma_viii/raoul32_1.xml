@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Involution" el:subtitle="" el:id="raoul32"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:05" el:difficult="1:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rough"}
+ti["."] = {"fl_water"}
+if wo["IsDifficult"] then
+    ti[","] = ti["."]
+else
+    ti[","] = ti[" "]
+end
+ti["Y"] = {"st_yinyang_active"}
+ti["y"] = ti["."] .. {"st_yinyang", target="onewayw", action="flip"}
+ti["B"] = {"st_passage", flavor="frame", color=BLACK, name="passageb#"}
+ti["W"] = {"st_passage", flavor="frame", color=WHITE, name="passagew#"}
+ti[">"] = {"st_oneway", color=BLACK, orientation=EAST, name="onewaye#"}
+ti["^"] = {"st_oneway", color=BLACK, orientation=NORTH, name="onewayn#"}
+ti["V"] = {"st_oneway", color=BLACK, orientation=SOUTH, name="oneways#"}
+ti["#"] = {"st_yinyang", target="switch_doors"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_white"}
+ti["2"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "....................",
+    "..#B#B#B#B#.........",
+    "..B W W B B....y....",
+    "#B#W#B#B#B#B#..,. 2 ",
+    "B W B B W B B..,, O ",
+    "#W#B#W#^#B#W#.......",
+    "B@B B B B W >  .Y   ",
+    "#W#B#W#V#B#W#. .... ",
+    "B B B B W B B.    O ",
+    "#B#W#B#W#B#B#....   ",
+    "..B W W B B....y....",
+    "..#B#B#B#B#.........",
+    "...................."})
+
+local oldswitch
+local oldneighbours = grp({})
+function switch_doors(value, sender)
+    if sender ~= oldswitch or #oldneighbours == 0 then
+        oldswitch = sender
+        local neighbours = find_neighbours(sender)
+        local door = st((oldneighbours * neighbours))
+        if #door > 0 then
+            door = door[1]
+            -- Generic code for "toggling" colors that works for passages and oneways:
+            door["color"] = WHITE - door["color"]
+            oldneighbours = grp({})
+        else
+            oldneighbours = neighbours
+        end
+    end
+end
+
+function find_neighbours(obj)
+    local neighbours = grp({})
+    neighbours = neighbours + fl(obj+po(0,-1))  -- north
+    neighbours = neighbours + fl(obj+po(1, 0))  -- east
+    neighbours = neighbours + fl(obj+po(0, 1))  -- south
+    neighbours = neighbours + fl(obj+po(-1,0))  -- west
+    return neighbours
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

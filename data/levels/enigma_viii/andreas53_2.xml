@@ -3,15 +3,17 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Vanity's Constrictions" el:subtitle="The Hand Mirror Cabinet" el:id="andreas53"/>
-      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:copyright>Copyright © 2008, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="2:20" el:difficult="6:02"/>
     </el:info>
     <el:luamain><![CDATA[
+
 wo["ConserveLevel"] = true
 
 ti["  "] = {"fl_bluegray", checkerboard = 0, friction = 6.0, adhesion = 2.0}
@@ -23,6 +25,7 @@ ti["S "] = {"st_laserswitch", target = "oxyddoor"}
 ti["D "] = {"st_door", "oxyddoor", flavor="d", faces="ew"}
 ti["L "] = {"st_laser", state = ON, orientation = SOUTH}
 ti["T "] = {"st_mirror", flavor = "triangle", orientation = WEST}
+ti["d "] = {"it_document", text = "text1"}
 ti["/*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 2, movable = true}
 ti["&*"] = {"st_mirror", "mirror%%", flavor = "plane", orientation = 0, movable = true}
 ti["A*"] = {"st_box_wood", "anchor%%", _mytarget = "mirror%%"}
@@ -45,7 +48,7 @@ w, h = wo(res.autotile(ti, {"A", "A*"}, {"/", "/*"}, {"&", "&*"}), "  ", {
    "# g g g g g g     g             O   D O ",
    "#         O g     g &f  O &h&i  &j&k# # ",
    "#           g     g g g g g g g # # # # ",
-   "O   &a&b    g /d/e/l  /g        # Al  # ",
+   "O   &a&b    g /d/e/l  /g        # Ald # ",
    "# # # # # # # # # # # # # # # # #     # ",
    "#   AaAb  Ac  AdAe  AfAg  AhAi  AjAk  # ",
    "#                                   @ # ",
@@ -55,10 +58,19 @@ w, h = wo(res.autotile(ti, {"A", "A*"}, {"/", "/*"}, {"&", "&*"}), "  ", {
 for j in no["anchor%*"] do
   wo:add({"ot_wire", anchor1 = j, anchor2 = no[j._mytarget]})
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" el:comment="A wordplay to describe a room crowded with hand mirrors."/>
+    <el:translation el:lang="de">Das Handspiegelkabinett</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Ever tried to look at the back of your head in the mirror?</el:english>
+        <el:translation el:lang="de">Jemals versucht, Ihren Hinterkopf im Spiegel zu betrachten?</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

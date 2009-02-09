@@ -7,12 +7,15 @@
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:comments>
+      </el:comments>
       <el:score el:easy="00:18" el:difficult="00:18"/>
     </el:info>
     <el:luamain><![CDATA[
+
 wo["SlopeStrength"] = 30
 
 ti[" "] = {"fl_space"}
@@ -24,7 +27,6 @@ ti["1"] = {"fl_slope_ise"}
 ti["4"] = {"fl_slope_ine"}
 ti["!"] = {"st_purplegray"}
 ti["#"] = {"st_death"}
-
 ti["@"] = {"#ac_marble", adhesion = 1.0} .. ti["1"]
 ti["O"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_CYAN}
 ti["P"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_PURPLE}
@@ -36,7 +38,7 @@ else
   ti["M"] = {"it_magnet_on"} .. ti({"fl_metal_7", friction = 4.0})
 end
 
-w, h = wo(ti, " ",
+w, h = wo(ti, " ", 
        {"!#!!#!!#!##!#!!#!!#!",
         "#1       2        3#",
         "! @       2      3 !",
@@ -51,8 +53,9 @@ w, h = wo(ti, " ",
         "#4        5       6#",
         "!#!!#!!#!##!#!!#!!#!"})
 
-wo:shuffleOxyd()
- ]]></el:luamain>
+wo:shuffleOxyd()    
+    
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

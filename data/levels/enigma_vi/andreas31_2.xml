@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chess, Bugs &amp; Rock'n'Roll" el:subtitle="" el:id="andreas31"/>
+      <el:version el:score="1" el:release="2" el:revision="12" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2008, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="05:50"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["  "] = {"fl_wood"}
+ti[" #"] = {"st_redrock"}
+ti[" O"] = {"st_oxyd", flavor = "b"}
+ti[" B"] = {"st_break_bug"}
+ti[" C"] = {"st_chess", "chess#"}
+ti[" t"] = {"it_trigger", target = "trigger_call"}
+ti[" b"] = {"ac_bug"}
+ti[" @"] = {"#ac_marble_black", adhesion = 2.0}
+
+myfloor = {"fl_dark", "fl_darkgray", "fl_dark", "fl_wood", "fl_dark", "fl_dark"}
+
+function myresolver(key, x, y)
+  local gx = nil
+  local gy = nil
+  if key == "^ "  then  gx = 0     gy = -1    end
+  if key == "> "  then  gx = 1     gy = 0     end
+  if key == "v "  then  gx = 0     gy = 1     end
+  if key == "< "  then  gx = -1    gy = 0     end
+  if key == ". "  then  gx = 0.8   gy = -0.8  end
+  if key == ": "  then  gx = 0.8   gy = 0.8   end
+  if key == ", "  then  gx = -0.8  gy = -0.8  end
+  if key == "; "  then  gx = -0.8  gy = 0.8   end
+  if gx and gy then
+    return ti({myfloor[random(1,6)],
+            force_x = gx * 30 + random(-5, 5),
+            force_y = gy * 30 + random(-5, 5),
+            friction = 3.0, adhesion = 1.6})
+  end
+  return ti[key]
+end
+
+wo(res.composer(myresolver), "  ",
+ {" # # # # O # # # # # # # # # # # # # # # # # # # # # # # # # # # # # O # # # #",
+  " #: : : : : > > > > > > > > > > > > > >t> > > > > > > > > > > > > ; ; ; ; ;  #",
+  " #: : : : : > > > > > > > > > > > > > >t> > > > > >b> > > > > > > ; ; ; ; ;  #",
+  " #: : : : : > > > >b> > > > > > > > > >t> > > > > > > > > > > > > ; ; ; ; ;  #",
+  " O: : : : : > > > > > > > > > > > > > >t> > > > > > > > > > > > > ; ; ; ; ;  O",
+  " #^ ^ ^ ^ ^ vBvCvBvBvCvCvCvBvBvBvBvBvBv#vBvBvBvBvBvBvCvCvCvBvBvCvBv v v v v  #",
+  " #^ ^ ^ ^ ^ vCvBvBvBvBvBvBvBvBvBvCvBvBvBvBvBvCvBvBvBvBvBvBvBvBvBvCv v v v v  #",
+  " #^ ^b^ ^ ^ vBvBvCvBvCvOvCvCvBvCvOvCvCvBvCvCvOvCvBvCvCvOvCvBvCvBvBv v v vbv  #",
+  " #^ ^ ^ ^ ^ vCvBvBvBvBvBvBvBvBvBvCvBvBvBvBvBvCvBvBvBvBvBvBvBvBvBvCv v v v v  #",
+  " #^ ^ ^ ^ ^ <BvCvBvBvCvCvCvBvBvBvBvBvBv#vBvBvBvBvBvBvCvCvCvBvBvCvBv v v v v  #",
+  " #. . . . . < < < < < < < < < < < < < <t< < < < < < < < < < < < < , , , , ,  #",
+  " #. . . . . < < < < < < < < < < < < < <t< < < < < < < < < <b< < < , , , , ,  #",
+  " # @> > > > < < < < < < < < < < < < < <t< < < < < < < < < < < < < < < < < <  #",
+  " #: : : : : < < < < < < < < < <b< < < <t< < < < < < < < < < < < < ; ; ; ; ;  #",
+  " #: : : : : < < < < < < < < < < < < < <t< < < < < < < < < < < < < ; ; ; ; ;  #",
+  " #v v v v v <B^C^B^B^C^C^C^B^B^B^B^B^B^#^B^B^B^B^B^B^C^C^C^B^B^C^B^ ^ ^ ^ ^  #",
+  " #v vbvbv v ^C^B^B^B^B^B^B^B^B^B^C^B^B^B^B^B^C^B^B^B^B^B^B^B^B^B^C^ ^ ^ ^ ^  #",
+  " #v v v v v ^B^B^C^B^C^O^C^C^B^C^O^C^C^B^C^C^O^C^B^C^C^O^C^B^C^B^B^ ^ ^ ^ ^  #",
+  " #v v v v v ^C^B^B^B^B^B^B^B^B^B^C^B^B^B^B^B^C^B^B^B^B^B^B^B^B^B^C^ ^ ^ ^ ^  #",
+  " #v v v v v ^B^C^B^B^C^C^C^B^B^B^B^B^B^#^B^B^B^B^B^B^C^C^C^B^B^C^B^ ^ ^ ^ ^  #",
+  " O. . . . . > > > > > > > > > > > > > >t> > > > > > > > > > > > > , , , , ,  O",
+  " #. . . . . > > > > > > > > > > > > > >t> > > > > > > > > > > > > , , , , ,  #",
+  " #. . . . . > > > > > > > >b> > > > > >t> > > > > > > >b> > > > > , , ,b, ,  #",
+  " #. . . . . > > > > > > > > > > > > > >t> > > > > > > > > > > > > , , , , ,  #",
+  " # # # # O # # # # # # # # # # # # # # # # # # # # # # # # # # # # # O # # # #"})
+
+wo:shuffleOxyd()
+
+chess_stones = no["chess#*"]
+chess_total = #chess_stones
+
+function trigger_call()
+  local dir = ({NNE, ENE, ESE, SSE, SSW, WSW, WNW, NNW})[random(1,8)]
+  chess_stones[random(1, chess_total)]:message("move", dir)
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

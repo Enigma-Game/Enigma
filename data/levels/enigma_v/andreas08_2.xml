@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tropical Island" el:subtitle="" el:id="andreas08"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="01:20" el:difficult="01:26"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["SlopeStrength"] = 30
+
+ti[" "] = {"fl_sand"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_lawn"}
+ti[":"] = {"fl_lawn_b"}
+ti[","] = {"fl_rock"}
+ti["-"] = {"fl_plank"}
+ti["_"] = {"fl_concrete"}
+ti["^"] = {"fl_slope_pn"}
+ti["v"] = {"fl_slope_ps"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_isw"}
+ti["2"] = {"fl_slope_osw"}
+ti["3"] = {"fl_slope_ise"}
+ti["4"] = {"fl_slope_ose"}
+ti["6"] = {"fl_slope_onw"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["8"] = {"fl_slope_one"}
+ti["#"] = ti[","] .. {"st_granite"}
+ti["B"] = ti[":"] .. {"st_brownie"}
+ti["G"] = ti[":"] .. {"st_greenbrown"}
+ti["H"] = ti["_"] .. {"st_greenbrown"}
+ti["I"] = ti["."] .. {"st_greenbrown"}
+ti["P"] = ti["_"] .. {"st_brownpyramide"}
+ti["X"] = ti["-"] .. ti({"st_grate_cross"})
+ti["s"] = ti[":"] .. {"it_seed"}
+ti["t"] = ti["_"] .. {"#ac_top", range = 10, strength = 10, gohome = false}
+ti["r"] = ti["X"] .. {"#ac_rotor", range = 10, strength = 10, gohome = false}
+ti["@"] = {"#ac_marble", adhesion = 1}
+ti["i"] = {"it_document", text = "text1"}
+ti["j"] =            {"st_oxyd", flavor = "c", oxydcolor = OXYD_BROWN}
+ti["k"] = ti[":"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_GREEN}
+ti["l"] = ti[","] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_GREEN}
+ti["m"] =            {"st_oxyd", flavor = "c", oxydcolor = OXYD_YELLOW}
+ti["n"] = ti[":"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_PINE}
+ti["o"] = ti["-"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_PINE}
+ti["p"] = ti["~"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_BLUE}
+ti["q"] = ti[":"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_BLUE}
+
+ti["volcano"] = {"st_volcano", state = ON}
+
+if wo["IsDifficult"] then
+  ti["V"] = ti[","] .. ti["volcano"]
+else
+  ti["V"] = ti[","]
+end
+
+wo(ti, " ", {
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~      ~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~           ~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~             ~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~    ~~~~~           j     ~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~           @ i              ~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~                               ~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~                  ....          ~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~                 ..........        ~~~~~~~~~~~~~",
+  "~~~~~~~~~~              .......::::::....       ~~~~~~~~~~~~",
+  "~~~~~~~~~            ......:::::::::::....       ~~~~~~~~~~~",
+  "~~~~~~~~          .....:::::::::::::::::...      ~~~~~~~~~~~",
+  "~~~~~~~~        .....::::::::::B:::::::::..       ~~~~~~~~~~",
+  "~~~~~~~        ....::::::B::::::::::::::::..        ~~~~~~~~",
+  "~~~~~~~  j   ....:::::::::::Bs::G::::::::::.         ~~~~~~~",
+  "~~~~~~       ...:::::::::B::::::s:::::G::::..        ~~~~~~~",
+  "~~~~~~      ....::::BG::G::::::B:::::::,,:::.        ~~~~~~~",
+  "~~~~~~      ....:::::::::s:B::s:::::::B,,,::..        ~~~~~~",
+  "~~~~~        ..:::::G::B::::::G:sG::,,,,l,:::..        ~~~~~",
+  "~~~~~         .:::::BG:sB:G:kB:::::,,,,,,,,:::..       ~~~~~",
+  "~~~~~         ..:::::s:::::B::::::7^^^9,,G::::..        ~~~~",
+  "~~~~~~         ..:::::::G:sB:::7^^6,,,8^9::::::..        ~~~",
+  "~~~~~~         ...::::B:::::::76,,,,,,,,89:::::..        ~~~",
+  "~~~~~~~~        ..::::::::G:7^6,,,7^^^9,,89:GG:..     m  ~~~",
+  "~~~~~~~~~        ..:::::::::<,,,7^67^989,,>,:::...        ~~",
+  "~~~~~~~~~~       ..:::GG:::76,7^67^6,8989,>:::::..        ~~",
+  "~~~~~~~~~~~      ..::::::::<7^67^6,,,,89>43:,B::...       ~~",
+  "~~~~~~~~~~~       .:::::::76<,76,,,,,,,>>89::,:G:...      ~~",
+  "~~~~~~~~~~~       ..::::::<,<,<,,,#,#,,>89>,:,,::...     ~~~",
+  "~~~~~~~~~~~       ..::::::<,<,<,,,#,,#,>,>>,,::::...     ~~~",
+  "~~~~~~~~~~~        .:::G::<,<,<,#,,V,#,>,>>,,79:....     ~~~",
+  "~~~~~~~~~~         ..:::::<,<,<,,,,,,,,>,>>,,<89.,..     ~~~",
+  "~~~~~~~~~~         ..:::::<,<,<,,,#,#,,>43>,,<43....     ~~~",
+  "~~~~~~~~~~        ..::::B:12<,12,,,,,,43>,>,,13......     ~~",
+  "~~~~~~~~~~  m     ..G:,::::<<,,1v2,,,4343,>,...,..::.     ~~",
+  "~~~~~~~~~         ..:::::::<12,,,1vvv343,,>,.....:::..     ~",
+  "~~~~~~~~~        ..:::B::::121v2,,,4vv3,,43.,...:::B:..    ~",
+  "~~~~~~~~~       ...::::.....1v21vvv3,,,,43~....:::n::..    ~",
+  "~~~~~~~~~      .........___...1vv2,,,,4v3~~....:G:G:...   ~~",
+  "~~~~~~~~~      ...:...__HHH_..:::1vvvv3~~~.....:::::..    ~~",
+  "~~~~~~~~~     ...::._t__HoH_..:::::..~~~~.......::::.     ~~",
+  "~~~~~~~~~     ...:..__P_HXH_.G::::::.~~~~~...~~..::..     ~~",
+  "~~~~~~~~~      ..:..P_______..::::::.~~~~~~~~~~~.:..     ~~~",
+  "~~~~~~~~~~     .....__HXH__t.:::G:::..~~~~~~~~~~....    ~~~~",
+  "~~~~~~~~~~~~    ....._HrH_P..B::::::..~~~~~~~~~....     ~~~~",
+  "~~~~~~~~~~~~    ......IIH__..::::::::.~~~~p~~~~....    ~~~~~",
+  "~~~~~~~~~~~~     ............:::q:G::.~~~~~~~~.....    ~~~~~",
+  "~~~~~~~~~~~~~       ........:::::::::..~~~~~~..I..     ~~~~~",
+  "~~~~~~~~~~~~~~~        ........:::::::..~~~~.....     ~~~~~~",
+  "~~~~~~~~~~~~~~~~            .......:::.......:...    ~~~~~~~",
+  "~~~~~~~~~~~~~~~~~             .................      ~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~                .........      ~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~                           ~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                    ~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                 ~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~            ~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~          ~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+  "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+
+if not wo["IsDifficult"] then
+  wo[{0,59}] = {"st_timer", target="timer_callback", interval = 7.0}
+end
+
+function timer_callback()
+  wo[{35, 30}] = ti["volcano"]
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Why has there always to be an active volcano and a village of marble-eating inhabitants on a tropical island?</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

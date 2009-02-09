@@ -95,24 +95,24 @@ set_stone("st-switch_white", 9, 5, {action="openclose", target="bridge2"})
 set_floor("fl-bridge-open", 11, 10, {type="a", name="bridge1"})
 set_floor("fl-bridge-open", 12, 5, {type="a", name="bridge2"})
 
-set_item("it-blackbomb_burning", 6, 7)
+set_item("it-blackbomb", 6, 7)
 
-set_stone("st-chameleon", 2, 3)
+--set_stone("st-chameleon", 2, 3)
 set_item("it-ring", 2, 3)
 
-set_stone("st-chameleon", 2, 7)
+--set_stone("st-chameleon", 2, 7)
 set_item("it-seed", 2, 7)
-set_stone("st-chameleon", 2, 9)
+--set_stone("st-chameleon", 2, 9)
 set_item("it-seed", 2, 9)
 
 if difficult then
-    set_stone("st-chameleon", 2, 11)
+--    set_stone("st-chameleon", 2, 11)
     set_item("it-seed", 2, 11)
-    set_stone("st-chameleon", 17, 7)
+--    set_stone("st-chameleon", 17, 7)
     set_item("it-seed", 17, 7)
-    set_stone("st-chameleon", 17, 9)
+--    set_stone("st-chameleon", 17, 9)
     set_item("it-seed", 17, 9)
-    set_stone("st-chameleon", 17, 11)
+--    set_stone("st-chameleon", 17, 11)
     set_item("it-seed", 17, 11)
 end
 

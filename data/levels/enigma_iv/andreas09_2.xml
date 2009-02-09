@@ -3,30 +3,31 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Flagstone Reaper" el:subtitle="" el:id="andreas09"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:comments>
+      </el:comments>
       <el:score el:easy="01:08" el:difficult="01:06"/>
     </el:info>
     <el:luamain><![CDATA[
+
 clock_to_delta_pos = { [NORTH] = po(0, -1),
                        [EAST] = po(1, 0),
                        [SOUTH] = po(0, 1),
                        [WEST] = po(-1, 0) }
-
+  
 ti["~"] = {"fl_abyss"}
 ti["_"] = {"fl_bast",     _floor = "~"}
 ti["1"] = {"fl_sahara",   _floor = "_", _item = "it_magicwand"}
 ti["2"] = {"fl_red",      _floor = "_", _item = "it_umbrella"}
 ti["3"] = {"fl_bluegray", _floor = "_", _item = "it_sword"}
 ti["4"] = {"fl_tigris",   _floor = "_", _item = "it_hammer"}
-ti["5"] = {"fl_gray",     _floor = "_", _item = "it-pin"}
+ti["5"] = {"fl_gray",     _floor = "_", _item = "it-pin"}      
 ti["#"] = {"st_purplegray"}
 ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_WHITE}
 ti["@"] = {"#ac_marble", adhesion = 1}
@@ -40,7 +41,7 @@ ti["B"] = {"st_break_black"}
 ti["M"] = {"st_magic_brick"}
 ti["K"] = {"st_knight"}
 
-w, h = wo(res.random(ti, " ", {"1", "2", "3", "4", "5"}), " ",
+w, h = wo(res.random(ti, " ", {"1", "2", "3", "4", "5"}), " ", 
        {"T################LL#",
         "#C              Gd~S",
         "#               #BM#",
@@ -91,7 +92,8 @@ function callback_timer()
     no["clock"].state = clock_state
   end
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>
@@ -100,7 +102,7 @@ end
       <el:string el:key="text1">
         <el:english el:translate="true" el:comment="Difficult to translate. If you have no idea, just say: Why on this side does this message sit? The Reaper has a use for it">No hint today ...    Those flagstones pass away ...    The docu stands alone ...    Why is it so alone?    --    This hint today ...    Why is it on this side ...    The reaper passing by ...    Could know the reason why!     (orig. by Herman's Hermits)   </el:english>
         <el:translation el:lang="de">Warum ist der Hinweis auf dieser Seite?        Sollte der Mäher das vielleicht wissen?</el:translation>
-      </el:string>
+      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

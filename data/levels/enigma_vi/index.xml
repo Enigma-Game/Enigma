@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma VI"/>
 
   <attributes/>
 
@@ -14,7 +14,7 @@
     <level _seq="6" _title="Laser Splitting" _xpath="./luc29_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc29" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="No Memory" _xpath="./edward01_1" author="Edward" ctrl="force" easy="false" id="edward01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Orbitting" _xpath="./andreas26_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas26" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Im-pull-se" _xpath="./ralf07_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Im-pull-se" _xpath="./ralf07_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf07" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Meditation Disturbance" _xpath="./ral04_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="2" rev="143" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Cold Way" _xpath="./raoul21_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul21" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Oxydmoron" _xpath="./raoul14_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul14" rel="2" rev="3" score="2" target="time" unit="duration"/>
@@ -30,7 +30,7 @@
     <level _seq="22" _title="Edwards Second Level" _xpath="./edward02_1" author="Edward" ctrl="force" easy="false" id="edward02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Prepare Your Defense" _xpath="./duffy132_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="24" _title="The Stable" _xpath="./andreas30_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas30" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="25" _title="Oxydrings" _xpath="./raoul13_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul13" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Oxydrings" _xpath="./raoul13_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Dialers" _xpath="./edward05_1" author="Edward" ctrl="force" easy="true" id="edward05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Persecution Mania" _xpath="./ral12_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060911ral294" rel="2" rev="142" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Holes!" _xpath="./edward14_1" author="Edward" ctrl="force" easy="false" id="edward14" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -46,13 +46,13 @@
     <level _seq="38" _title="Janus" _xpath="./andreas38_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas38" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Odyssey" _xpath="./ant39_1" author="Petr Machata" ctrl="force" easy="false" id="ant39" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./andreas36_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas36" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Laserpowered" _xpath="./raoul20_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Laserpowered" _xpath="./raoul20_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Basketball" _xpath="./ral03_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral005" rel="2" rev="43" score="2" target="time" unit="duration"/>
     <level _seq="43" _title="Edwards Mountain" _xpath="./edward11_1" author="Edward" ctrl="force" easy="true" id="edward11" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Dancing on Light Beams" _xpath="./andreas28_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Wormhole Madness!" _xpath="./edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Alcatraz" _xpath="./ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="2" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Oiltrace" _xpath="./raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Simple Space" _xpath="./ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Hot Meditation" _xpath="./ral08_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="1" rev="42" score="1" target="time" unit="duration"/>
@@ -96,7 +96,7 @@
     <level _seq="88" _title="Correspondence Chess" _xpath="./luc35_3" author="Lukas Schüller" ctrl="force" easy="true" id="luc352007" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="89" _title="Magic Triangle" _xpath="./just13_1" author="JuSt" ctrl="force" easy="false" id="just13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Group Trip to Meditation" _xpath="./duffy136_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy136" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="Twokoban I" _xpath="./raoul28_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="91" _title="Twokoban I" _xpath="./raoul28_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Oxyd Drilling" _xpath="./duffy140_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy140" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Parish Fair" _xpath="./duffy143_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy143" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="In the Middle" _xpath="./duffy141_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy141" rel="1" rev="1" score="1" target="time" unit="duration"/>

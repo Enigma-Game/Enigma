@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Robin's Wood" el:subtitle="" el:id="andreas13"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="04:16" el:difficult="05:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["inv"] = {"st_invisible"}
+ti["cham"] = {"st_chameleon"}
+ti["seed"] = {"it_seed"}
+
+ti[" "] = {"fl_lawn"}
+ti["d"] = {"fl_lawn_b"}
+ti[":"] = {"fl_lawn_c1"}
+ti["%"] = {"fl_lawn_c2"}
+ti["'"] = {"fl_lawn_c3"}
+ti["("] = {"fl_lawn_e2"}
+ti[")"] = {"fl_lawn_d4"} .. ti["inv"]
+ti[";"] = {"fl_lawn_e4"}
+ti["+"] = {"fl_lawn_c4"}
+ti[","] = {"fl_lawn_e1"}
+ti["-"] = {"fl_lawn_d2"}
+ti["."] = {"fl_lawn_d3"} .. ti["inv"]
+ti["/"] = {"fl_lawn_d1"} .. ti["inv"]
+ti["*"] = {"fl_lawn_e3"}
+ti["_"] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+ti["b"] = {"fl_wood"}
+ti["P"] = ti["'"] .. ti["cham"]
+ti["Q"] = ti[" "] .. ti["cham"]
+ti["R"] = ti["%"] .. ti["cham"]
+ti["S"] = ti[":"] .. ti["cham"]
+ti["T"] = ti[";"] .. ti["cham"]
+ti["U"] = ti["("] .. ti["cham"]
+ti["V"] = ti["+"] .. ti["cham"]
+ti["W"] = ti["-"] .. ti["inv"]
+ti["X"] = ti["("] .. ti["inv"]
+ti["Y"] = ti["'"] .. ti["inv"]
+ti["Z"] = ti["_"] .. ti["inv"]
+ti["A"] = ti["d"] .. {"st_granite"}
+ti["B"] = ti["b"] .. {"st_greenbrown"}
+ti["O"] = ti["d"] .. {"st_oxyd", flavor = "c", oxydcolor = OXYD_GREEN}
+ti["#"] = ti["d"] .. ti["inv"]
+ti["D"] = ti["d"] .. ti["cham"]
+ti["K"] = {"st_knight"}
+ti["J"] = ti["d"] .. ti["K"]
+ti["t"] = ti[" "] .. ti["seed"] .. ti["cham"]
+ti["c"] = ti["b"] .. ti["seed"]
+ti["u"] = ti[":"] .. ti["seed"]
+ti["w"] = {"it_sword"}
+ti["i"] = {"it_document", text = "text1"}
+ti["@"] = ti["b"] .. {"#ac_marble", adhesion = 1}
+
+map = {
+  "###########:'#####################~~#########################",
+  "##:          W###########: '####O~~~     '##########,    *###",
+  "##  /######(   K '####### i #####~~###.  +#########:  /#. '##",
+  "## ;############( #######% +#####~~####% *#########  +###( ##",
+  "## ##############('####### ######~######. *#######) BBBB## ##",
+  "## ############### P###### ######~#######( '####:   bbcB## ##",
+  "## ######uP#####:QQ+#####,;#####~~########. ###J  +#Bb@B## ##",
+  "## W#####Q;#####Rt ###### ######~~######### ###) /##BBBB#, ##",
+  "##( '####K#######(QQ'###A ######~########## ##: ;#######) ;##",
+  "###  W#J) ##########J####%*##:  ~  '####### W, +#####:    ###",
+  "###       W########:   '##%  ;#~~. ;#:'####__ /###### ;#. ###",
+  "##) /###A(  *####: +#%  #######~~#%    WAA,__;##: *## ### ###",
+  "#:  #######J(*##, /#### ######~~~#####%_____/##,;. W) ### ###",
+  "#  ;#########%   +#####('#####~~########JAAA##, ##%  +### ###",
+  "#  #####,P##############%*####~~#############: +########, W##",
+  "# ;##### tP##############%'###~~#############% ###St  K    '#",
+  "# ##A##SQ +############### ###~~~#####S P##### *##%QT####X  #",
+  "# ####,+################## J##~~~#####(Q ##A##  W#########X #",
+  "#%'##,K################### ####~~######QQ#####%  K   Y:Q P# #",
+  "## '# ;##################:+#####~~#####%QW#########( K Qt+# #",
+  "##( # #######: '#######:  #######~~~####%K'###########UQ+## #",
+  "###% +#d##dDd w #######  +########~~~####. ###############, #",
+  ":P#) ##D##D##% +####### A##########~~##### ######J:    '#:  #",
+  " Q   ##D##d############ W###########~~ '#) #####:   +##% ; /#",
+  "% V. ##dd#D############%   '#####:   ~     W##,  /######## ##",
+  "####K###D#d###############%  '#:  +##~~##(      +#A####### ##",
+  "###:+###dDd##ddD########### /% +#####~~###################_##",
+  "##,+####d####d#dDd#########K#########~~###################_##",
+  "#:;#####D####D########:     '########O~#########:QP####### ##",
+  "# ######DddDdd######,    ;##%  '######~#########Qt ######:;##",
+  "# ######d##########:  ;########    *##~~########  VD##### J##",
+  "# ######Dd########, /####ZAZZ#: /J% '#~~########%V#d##### *##",
+  "#('######d######:  +#####ZAZ:  ;####(  ~     '#####D#####( ##",
+  "## '#####D#####: ;######ZAZ# ;#########~~##(  '##A#D#####, ##",
+  "##  WA###dJ###, +#######ZZ## '##########~~###  -###J###,  +##",
+  "##%            ;#####S '#Z#, +##:QP#####~~~###( *#:     +####",
+  "########.  /######### tV##: /##:QtQ######~~~###%    +########",
+  "#########% QQP#######RQ*#:   K Q Q #######~~~################",
+  "############RV#########% +#######%V########~~~######d##dd####"}
+
+w, h = wo(res.composer(ti), " ", map)
+
+wo:shuffleOxyd()
+
+if not wo["IsDifficult"] then
+  wo[{53, 5}] = ti["c"]
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-F3.)</el:english>
+        <el:translation el:lang="de">Erst ein Stein und dreimal Baum,   --   da liegt ein geheimer Raum.   --   Und ist nun dieser Text vorbei,   --   wart' nicht lang, drück Shift-F3.</el:translation>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

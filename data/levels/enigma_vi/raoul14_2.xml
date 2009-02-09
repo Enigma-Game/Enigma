@@ -20,7 +20,7 @@ ti["Y"] = ti["-"] .. ti({"it_yinyang"}) .. {"st_blur_cross"}
 ti["1"] = ti["-"] .. {"#ac_marble_black"}
 ti["2"] = ti["-"] .. {"#ac_marble_white"}
 ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=col}
-ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=1-col}
+ti["S"] = ti["-"] .. {"st_passage", flavor="frame", color=WHITE-col}
 ti["O"] = {"st_oxyd", name="grp1#"}
 ti["P"] = {"st_oxyd", name="grp2#"}
 
@@ -52,7 +52,7 @@ if wo["IsDifficult"] then
 else
     wo:shuffleOxyd({"grp1#*", max=0}, {"grp2#*", max=0})
 end
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

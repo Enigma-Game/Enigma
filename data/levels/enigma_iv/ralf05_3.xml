@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Stay There!" el:subtitle="" el:id="ralf05"/>
-      <el:version el:score="2" el:release="3" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,8 +20,8 @@ ti["S"] = {"st_stoneimpulse"}
 ti["s"] = {"st_stoneimpulse_movable"}
 ti["X"] = {"st_grate", flavor="cross"}
 ti["x"] = ti["X"] .. {"it_seed"}
-ti["="] = {"st_door", flavor="d", faces="ns", name="doors#*"}
-ti["t"] = {"it_trigger", target="conter", action="signal"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="doors#"}
+ti["t"] = {"it_trigger", target="counter", action="signal"}
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"#ac_marble_black"}
 
@@ -40,7 +40,7 @@ wo(ti, " ", {
     "S     #x#          #",
     "##S#SS############S#"})
 
-wo:add({"ot_counter", "counter", state=0, target_9="doors#*", action_9="open", target_8="doors#*", action_8="close"})
+wo:add({"ot_counter", "counter", state=0, target="doors#*", action_9="open", action_8="close"})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="You need them" el:subtitle="" el:id="raoul11"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_dark"}
+ti["##"] = {"st_rawglass"}
+ti["II"] = {"st_stoneimpulse"}
+ti["ii"] = {"st_stoneimpulse_hollow"}
+ti["tt"] = {"it_trigger", name="trigger#", invisible=true, target="counter", action="signal"}
+ti["mm"] = {"st_stoneimpulse_hollow", name="magicwand"}
+ti["OO"] = {"st_oxyd", flavor="a"}
+ti["@@"] = {"#ac_marble_black"}
+ti["*"] = {"st_puzzle", intensity=0}
+
+wo(res.puzzle(ti, "*"), "  ", {
+    "####################################################################################################################",
+    "##                                    ##                                    ##                                    ##",
+    "##                                                                                                                ##",
+    "##                                                                                                                ##",
+    "##                                                                    IIIIIIIIIIIIIIIIIIIIII                      ##",
+    "##                                                                    II                  II                      ##",
+    "##                                                                    II                  II                      ##",
+    "##                                                                    II          IIIIIIIIII                      ##",
+    "##                                                                    II          II                              ##",
+    "##                                                                    II          II                              ##",
+    "##                                                                    II          II                              ##",
+    "##                                  IIIIIIIIII  IIIIIIIIIIIIIIIIII    II  IIIIII  IIIIIIII                        ##",
+    "####                              IIII######II##*l##############II####II##II##II        II                      ####",
+    "##                            IIIIII  ##                                    *cIIIIIIIIIIII                        ##",
+    "##                            II      ##                                    ##                                    ##",
+    "##                      IIIIIIII      ##    tt*e*0                *0*0*0    ##                                    ##",
+    "##                      II          IIII    *jOO*ntt*e*0    *f*0*0*kOO*0    *iIIIIII                              ##",
+    "##                      II          II##    *0*0*0    *0    tt    tt*e*0    ##    II                              ##",
+    "##                      II          II##              *0*0*0*k              ##    II                              ##",
+    "##                      II          II*e    *0*0*0    *j    *0    *0*ett    ##    II                              ##",
+    "##                IIIIIIII            ##    *0OO*n*0*ett    *0*0*0*0OO*j    *iII  II                              ##",
+    "##                II        IIIIIIIIII*j    *0*ett                *0*0*0    ##II  II                              ##",
+    "##                IIIIIIIIIIII##########    @@                              IIII  II                              ##",
+    "##                            IIiiiiiiii                                    ##    II                              ##",
+    "####                          IIiiIIII##ii##II##############*f####II##########    II                            ####",
+    "##                            IIiiIIIIIIii##IIIIII  IIIIIIIIII    IIIIIIIIIIIIIIIIII                              ##",
+    "##                            IImmiiiiiiiiII    II  II                                                            ##",
+    "##                            IIIIIIIIIIIIII    II  II                                                            ##",
+    "##                                              II  II                                                            ##",
+    "##                                          IIIIII  II                                                            ##",
+    "##                                          II      II                                                            ##",
+    "##                                          IIIIIIIIII                                                            ##",
+    "##                                                                                                                ##",
+    "##                                                                                                                ##",
+    "##                                                                                                                ##",
+    "##                                    ##                                    ##                                    ##",
+    "####################################################################################################################"})
+
+wo:add({"ot_counter", "counter", state=0, target="set_magicwand", action_7="callback"})
+wo:shuffleOxyd()
+
+function set_magicwand()
+    wo[no["magicwand"]] = {"it_magicwand"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

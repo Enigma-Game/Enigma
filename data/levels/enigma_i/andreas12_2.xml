@@ -3,22 +3,25 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Lissajous' Revenge" el:subtitle="" el:id="andreas12"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:comments>
+      </el:comments>
       <el:score el:easy="00:13" el:difficult="00:22"/>
     </el:info>
     <el:luamain><![CDATA[
+
 wo["ConserveLevel"] = false
 
 ti[" "] = {"fl_aquamarine"}
 ti["~"] = {"fl_water"}
-ti["$"] = {"fl_swamp"}
-ti["!"] = {"st_purplegray"}
+ti["."] = {"fl_swamp"}
+ti["#"] = {"st_purplegray"}
 ti["1"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_GREEN}
 ti["2"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_BLUE}
 ti["3"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_CYAN}
@@ -29,31 +32,32 @@ ti["@"] = {"ac_marble", 0, 0.5, adhesion = 1}
 if wo["IsDifficult"] then
   ti["-"] = ti["~"]
 else
-  ti["-"] = ti["$"]
+  ti["-"] = ti["."]
 end
 
 w, h = wo(ti, " ",
-       {"T!!!!!!!!!!!!!!!!!!!",
-        "!~~$$$$$$$$$$$$$$~~!",
-        "!~$$$$~~~$$~~~$$$$~!",
-        "!$$$$$~1-$$-2~$$$$$!",
-        "!$$~~--$$$$$$--~~$$!",
-        "!$$~4$$$$$$$$$$3~$$!",
-        "!$$---$$$ @$$$---$$!",
-        "!$$~3$$$$$$$$$$4~$$!",
-        "!$$~~--$$$$$$--~~$$!",
-        "!$$$$$~2-$$-1~$$$$$!",
-        "!~$$$$~~~$$~~~$$$$~!",
-        "!~~$$$$$$$$$$$$$$~~!",
-        "!!!!!!!!!!!!!!!!!!!!"})
+       {"T###################",
+        "#~~..............~~#",
+        "#~....~~~..~~~....~#",
+        "#.....~1-..-2~.....#",
+        "#..~~--......--~~..#",
+        "#..~4..........3~..#",
+        "#..---... @...---..#",
+        "#..~3..........4~..#",
+        "#..~~--......--~~..#",
+        "#.....~2-..-1~.....#",
+        "#~....~~~..~~~....~#",
+        "#~~..............~~#",
+        "####################"})
 
 wo:shuffleOxyd()
 
--- Stolen from Nat Pryce ("When Gravity Fails"), then adapted for API 2.
-local TICK_ANGLE1_DELTA = 360.0 * 0.1 / 2.0
-local TICK_ANGLE2_DELTA = 360.0 * 0.1231 / 2.0
-local angle1 = 90.0
-local angle2 = 90.0
+-- Stolen from Nat Pryce ("When Gravity Fails"), then
+-- adapted for API 2.
+TICK_ANGLE1_DELTA = 360.0 * 0.1 / 2.0
+TICK_ANGLE2_DELTA = 360.0 * 0.1231 / 2.0
+angle1 = 90.0
+angle2 = 90.0
 
 function spin_gravity()
     angle1 = mod(angle1 + TICK_ANGLE1_DELTA, 360.0)
@@ -62,7 +66,8 @@ function spin_gravity()
     local gravity_y = sin(angle2) * 20.0
     wo["GlobalForce"] = po(gravity_x, gravity_y)
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

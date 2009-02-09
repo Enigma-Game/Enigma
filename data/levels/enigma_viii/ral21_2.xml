@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 155 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 156 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -67,7 +67,7 @@ ti["g9"] = {"fl_slope_ise"}
 ti["ga"] = {"fl_slope_ine"}
 ti["gb"] = {"fl_slope_isw"}
 ti["gc"] = {"fl_slope_inw"}
-ti["^^"] = {"fl_gray"}
+ti["^^"] = {"fl_slope"}
 ti["%f"] = {"fl_samba", eternal=true, initfire=true}
 ti[" f"] = {"fl_sand", eternal=true, initfire=true}
 ti["FT"] = {"fl_sand", eternal=true, initfire=true, name="fire_target"}
@@ -113,7 +113,7 @@ ti[";w"] = ti[";;"] .. {"it_magicwand"}
 ti["%w"] = ti["%%"] .. {"it_magicwand"}
 ti[";g"] = ti[";;"] .. {"it_glasses_broken"}
 ti["fw"] = ti["  "] .. {"it_flag_white"}
-ti[" y"] = ti["  "] .. {"it-yinyang"}
+ti[" y"] = ti["  "] .. {"it_yinyang"}
 ti["k0"] = ti["  "] .. {"it_key", code=0}
 ti["k1"] = ti["  "] .. {"it_key", code=1}
 ti["k3"] = ti["~~"] .. {"it_key", code=3}
@@ -163,7 +163,7 @@ ti["t3"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano3"}
 ti["t4"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano4"}
 ti["t5"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano5"}
 ti["t6"] = ti["%."] .. {"it_trigger", target="volcano", name="volcano6"}
-ti["tc"] = ti["^^"] .. {"it_sensor", target="scorpion_count"}
+ti["tc"] = ti["^^"] .. {"it_sensor", "sccounter#", target="scorpion_count"}
 ti["ti"] = ti["%%"] .. {"it_sensor", target="scorpion_init", invisible=true}
 ti[" C"] = ti["  "] .. {"st_chameleon"}
 ti["'b"] = ti["''"] .. {"st_passage_black_frame"}
@@ -359,12 +359,12 @@ ti["VE"] = ti["%%"] .. {"it_vortex", "vortex_E", destination="vortex_e"}
 ti["FB"] = ti["Rh"] .. {"it_wormhole", destination="fire_target", range=1.5}
 
 ti["'c"] = ti["''"] .. {"st_chameleon"}
-ti["?g"] = ti["  "] .. {"st_portal"}
+ti["?g"] = ti["  "] .. {"st-grate3"}
 ti[" w"] = ti["  "] .. {"it_magicwand"}
 
 ti["ni"] = {"st_nil"} .. ti{"it_nil"}
 
-if wo["IsDifficult"] then
+if wo["IsDifficult"] then 
     ti[" u"] = ti["  "]
     ti[".r"] = ti[".."] .. {"it_ring"}
 else
@@ -378,7 +378,7 @@ holy_idx = random(1, 8)
 fake_idx = 1
 
 myresolver = function(key, x, y)
-    if wo["IsDifficult"] then
+    if wo["IsDifficult"] then 
         if key == "o9" then
             return ti["O"..oxyd_colors[holy_idx]]
         elseif key == "of" then
@@ -556,7 +556,7 @@ function escape()
     end
     local y = no["escape_pos"].y + 1
     if (no["rotor"].y ~= y) or (no["top"].y ~= y) or (no["killer"].y ~= y) then
-        wo[no["escape_close#*"]] = {"st_metal"}
+        wo[no["escape_close#*"]] = {"st-metal"}
     end
 end
 
@@ -582,7 +582,7 @@ trigger_count = 0
 function volcano(value, sender)
     trigger_count = trigger_count + lib.lua.cond(value, 1, -1)
     st(sender + {0, -1}):toggle()
-
+    
     if (trigger_count == 6) then
         for v in st(no["volcan#*"]) do
             if -v and v:is("st_volcano") then
@@ -598,8 +598,10 @@ end
 
 scorpions = 0
 function scorpion_count(value, sender)
-    scorpions = scorpions + 1
-    if (scorpions == 8) then
+    -- avoid counting Marble Jones investigating the sensors
+    local cntgrp = fl(no["sccounter#*"])
+    local scogrp = fl(no["scorpion#*"])
+    if #(scogrp + cntgrp) == 2 then
         no["door7"]:open()
     end
 end
@@ -614,10 +616,10 @@ function scorpion_init(value, sender)
             if (mf < 0.5) then
                 mf = mf - 1
             end
-            wo[sender + {dx, dy}] = {"ac_killer", adhesion=mf}
+            wo[sender + {dx, dy}] = {"ac_killer", "scorpion#", adhesion=mf}
         end
     end
-    did_init_scorpions = true
+    did_init_scorpions = true 
 end
 
 switch_count= 0
@@ -628,7 +630,7 @@ end
 
 function open_grave(value, sender)
     local a = no["tutoxyd"]
-    local solved = #no["tutpuz#*"] == 0
+    local solved = #no["tutpuz#*"] == 0 
     if (not solved) then
         wo[a + {1,3}] = {"it_document", text="puzzle"}
         wo[a + {13,3}] = {"it_cherry"}
@@ -676,7 +678,7 @@ end
 if not wo["IsDifficult"] then
     wo[no["docinvoice"]] = {"it_nil"}
     wo[no["door8"] - {2, 0}] = {"it_document", text="invoice"}
-
+    
     wo:drawMap(ti, no["oil_shop"] + {0, 1}, "  ",
                 {"nipHpVpV",
                  "pVpCpVpA"})

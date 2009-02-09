@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Twokoban I" el:subtitle="Sokoban for two" el:id="raoul28"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="3:30" el:difficult="3:51"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rock"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_redbrown"}
+ti["G"] = {"st_rawglass"}
+ti["X"] = ti["."] .. ti["G"]
+if wo["IsDifficult"] then
+    ti["B"] = {"st_passage", color=BLACK}
+    ti["W"] = {"st_passage", color=WHITE}
+else
+    ti["B"] = {"st_passage", flavor="frame", color=BLACK}
+    ti["W"] = {"st_passage", flavor="frame", color=WHITE}
+end
+ti["P"] = {"st_blur"}
+ti["Q"] = {"st_blur", flavor="cross"}
+ti["N"] = {"st_laser", orientation=NORTH, name="laser2"}
+ti["S"] = {"st_laser", orientation=SOUTH, name="laser1"}
+ti["n"] = {"st_boulder", orientation=NORTH}
+ti["s"] = {"st_boulder", orientation=SOUTH}
+ti["-"] = {"st_mirror", state=WEST}
+ti["="] = {"st_mirror", state=EAST}
+ti["K"] = ti["."] .. {"st_shogun_sml"}
+ti["+"] = {"it_shogun_l", target="laser1"}
+ti["*"] = {"it_shogun_l", target="laser2"}
+ti["O"] = {"st_oxyd"}
+ti["1"] = {"#ac_marble_black"}
+ti["2"] = {"#ac_marble_white"}
+
+wo(ti, " ", {
+    "....................",
+    ".=-S.XXXX#####X.=G-.",
+    ".GnG.#####PWP##.GOG.",
+    ".G G.#PPPB  QP#.G G.",
+    ".G G.#B###K *Q#.G G.",
+    ".G G.#QPPQW2 Q#.G G.",
+    ".G G.#QW#BW#BQ#.G G.",
+    ".G G.#Q 1BQPPQ#.G G.",
+    ".G G.#Q+ K###W#.G G.",
+    ".G G.#PQ  WPPP#.G G.",
+    ".GOG.##PBP#####.GsG.",
+    ".-G=.X#####XXXX.N-=.",
+    "...................."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

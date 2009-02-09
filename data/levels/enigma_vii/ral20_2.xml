@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Meditation in Peace" el:subtitle="Funeral on Deep Sea" el:id="20070502ral466"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 148 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="2:10" el:difficult="4:27"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_wood"}
+ti["~"] = {"fl_water"}
+
+if wo["IsDifficult"] then
+    ti["#"] = {"st_portal_pearl"} .. ti["~"]
+    ti["."] = ti[" "]
+    ti["1"] = {"#ac_marble"}
+    ti["*"] = {"it_squashed", checkerboard=0} .. ti{"it_burnable_ash", checkerboard=1}
+    ti["!"] = {"it_brush"}
+else
+    ti["#"] = {"st_metal"}
+    ti["."] = {"it_blocker"}
+    ti["1"] = {"#ac_marble"} .. ti{"it_pin"}
+    ti["*"] = {"it_nil"}
+    ti["!"] = {"it_nil"}
+end
+
+ti["P"] = {"st_plop_slate"}
+ti["hole"] = ti["P"] .. {"it_wormhole", destination="dest%%", range=1, strength=5}
+ti["dest"] = {"fl_wood", "dest%%"}  .. ti["*"]
+ti["|"] = ti["P"] .. {"it_dynamite"}
+ti["h"] = {"it_meditation"}
+ti["s"] = {"it_spade"}
+ti["t"] = {"it_document", text="Health"}
+
+ti["2"] = {"#ac_pearl", owner=DEFAULT, controllers=CTRL_NONE, essential=INDISPENSIBLE}
+
+ti["T"] = ti["~"] .. {"st_timer", invisible=1, interval=0.1, target="wave"}
+
+wo(res.autotile(ti, {"a","d","dest"},{"A","D","hole"}), " ", {
+    "T#..*     *     ..#~",
+    "~#.. t a    1  *..#~",
+    "~#..    s  *  ! C|#~",
+    "~#|D         h  ..#~",
+    "~#..*   *    b  ..#~",
+    "~#..            ..#~",
+    "~#.. c  * h  *  ..#~",
+    "~#..            ..#~",
+    "~#|A       *    ..#~",
+    "~#.. h          B|#~",
+    "~#..  *   d     ..#~",
+    "~#..          * ..#~",
+    "~#..*   2222    ..#~"
+})
+
+time = 5
+dir = 1
+function wave()     
+    -- the deep sea
+    if wo["IsDifficult"] then
+        wo["GlobalForce"] = po(dir * 40, 0)
+    else
+        wo["GlobalForce"] = po(dir * 30, 0)
+    end
+    time = time + 1;
+    if (time == 10) then
+        time = 0
+        dir = -dir
+    end
+end
+
+  ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Bestattung auf hoher See</el:translation>
+      </el:string>
+      <el:string el:key="Health">
+        <el:english el:translate="true" >Warning: Do not play this level for more than 10 minutes - you may suffer sea sickness yourself!</el:english>
+        <el:translation el:lang="de">Warnung: Spielen Sie diesen Level nicht für mehr als 10 Minuten - Sie können selber an Seekrankheit leiden!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

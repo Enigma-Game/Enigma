@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Mirror Shop" el:subtitle="" el:id="level9a"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_tigris"}
+ti[">"] = {"st_laser", orientation=EAST, name="laser"}
+ti["M"] = {"st_mirror", movable=true, state=SOUTH, name="mirror%%"}
+ti["C"] = {"st_coinslot", target="mirror%%", action="turn"}
+ti["D"] = {"st_coinslot", target="door1"}
+ti["E"] = {"st_coinslot", target="laser"}
+ti["L"] = {"st_laserswitch", target="door2"}
+ti["T"] = {"st_timer", interval=2.0, target="mirror*", action="turn"}
+ti["-"] = {"st_door", flavor="d", faces="ns", name="door1"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door2"}
+ti["."] = {"it_coin_s"}
+ti["O"] = {"st_oxyd"}
+ti["F"] = {"st_fake_quake"}
+ti["@"] = {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"1", "9", "C"}, {"a", "j", "M"})
+
+wo(resolver, " ", {
+    "T###################",
+    "#L     j #        O#",
+    "#        #         #",
+    "#> a b c #. 1 2 3  #",
+    "#        #.        #",
+    "#  d e f #. 4 5 6  #",
+    "#        #.        #",
+    "#  g h i #. 7 8 9  #",
+    "#        #        @#",
+    "############-###D###",
+    "#        #E        #",
+    "#O       |        F#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

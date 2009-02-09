@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="MetaPuzzle" el:subtitle="" el:id="ant03"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_rough"}
+ti["--"] = {"fl_metal"}
+ti[".."] = {"fl_bast"}
+ti["-."] = {"fl_metal_7"}
+ti["__"] = {"fl_abyss"}
+ti[". "] = {"fl_bast", name="FS%%"}
+ti["B "] = {"fl_bridge", flavor="gc", name="bridge%%"}
+ti["##"] = {"st_brick"}
+ti["BB"] = {"st_break_oxydc"}
+ti["=="] = ti["--"] .. {"st_rawglass"}
+ti["S "] = {"st_switch", name="S%%", target="set_puzzle"}
+ti["* "] = {"st_switch", target="finalize_puzzle"}
+ti["-s"] = ti["-."] .. {"it_spring_keep"}
+ti["-h"] = ti["-."] .. {"it_hammer"}
+ti["t "] = {"it_trigger", target="bridge%%"}
+ti["OO"] = {"st_oxyd", flavor="d"}
+ti["@ "] = {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"S", "S "}, {".", ". "}, {"B", "B "}, {"t", "t "})
+
+wo(resolver, "  ", {
+    "##############################################################################",
+    "##                                                    ##-s__________####BBOO##",
+    "##  ------------------                                -.B2__________-.##BBBB##",
+    "##  --Sa--Sb--Sc--Sd--                                -.____________t2-.    ##",
+    "##  ------------------                                -.____________-.##    ##",
+    "##@ --Se--Sf--Sg--Sh--  .a.b.c.d                      ##____________####    ##",
+    "##  ------------------  .e.f.g.h                      -.__-.-.-.-.__-.-.    ##",
+    "##  --Si--Sj--Sk--Sl--  .i.j.k.l                      ##____________####    ##",
+    "##  ------------------  .m.n.o.p                      -.____________-.##    ##",
+    "##  --Sm--Sn--So--Sp--  ========                      -.____________t1-.    ##",
+    "##  ------------------  --* ----                      -.B1__________-.##BBBB##",
+    "##                                                    ##-h__________####BBOO##",
+    "##############################################################################"})
+
+local puzzlegroup = grp({})
+function set_puzzle(value, sender)
+    local destination = no["F"..sender.name]
+    if value == true then
+        puzzlegroup = puzzlegroup + fl(destination)
+    else
+        puzzlegroup = puzzlegroup - fl(destination)
+    end
+end
+
+local r = 0
+function finalize_puzzle(value, sender)
+    if #st(no["FS*"]) > 0 then
+        wo[no["puzzle"..(r-1).."-*"]] = {"st_nil"}
+    else
+        wo[puzzlegroup] = {"st_puzzle", cluster=r, name="puzzle"..r.."-#"}
+        for obj in st(no["FS*"]) do
+            if obj["connections"] == "" then
+                wo[obj] = {"st_puzzle", hollow=true, connections="nesw", name="puzzle"..r.."-#"}
+            end
+        end
+        r = r+1
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

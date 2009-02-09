@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Moure-Switches" el:subtitle="" el:id="andreas10"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -11,21 +11,22 @@
         <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>Originally created with the help of BBE 1.05</el:code></el:comments>
+      <el:comments>
+      </el:comments>
       <el:score el:easy="02:08" el:difficult="02:13"/>
     </el:info>
     <el:luamain><![CDATA[
+
 ti["."] = {"fl_space"}
-ti["!"] = {"st_purplemarble"}
-ti["$"] = {"st_oxyd", "oxyd#", flavor = "d"}
+ti["#"] = {"st_purplemarble"}
+ti["O"] = {"st_oxyd", "oxyd#", flavor = "d"}
 ti["T"] = {"st_timer", interval = 360.0, loop = false, target = "timer_hint", invisible = true} .. ti["."]
-ti["K"] = {"st_timer", interval = 0.01, loop = false, target = "timer_kill", invisible = true, state = OFF} .. ti["."]
-ti["F"] = {"st_fourswitch", target = "fourswitch_callback"}
-ti["G"] = {"st_switch", target = "switch_callback", state = OFF, instant = true}
-ti["H"] = {"st_switch", target = "switch_callback", state = ON, instant = true}
+ti["F"] = {"st_fourswitch", target = "fourswitch_callback", safeaction = true}
+ti["G"] = {"st_switch", target = "switch_callback", state = OFF, instant = true, safeaction = true}
+ti["H"] = {"st_switch", target = "switch_callback", state = ON, instant = true, safeaction = true}
 ti["@"] = {"#ac_marble", adhesion = 1}
 
--- The following four floor-types will be permuted.
+-- The following four floor-types will be used.
 ti["1"] = {"fl_sahara", _dir = NORTH}
 ti["2"] = {"fl_red", _dir = EAST}
 ti["3"] = {"fl_bluegray", _dir = SOUTH}
@@ -33,17 +34,17 @@ ti["4"] = {"fl_tigris", _dir = WEST}
 
 w, h = wo(res.random(ti, " ", {"1", "2", "3", "4"}), " ",
        {"T...................",
-        ".KKKKKKKKKKKKKKKKKK.",
-        ".KKKKKKKKKKKKKKKKKK.",
-        "!!$!!$!!$!!$!!$!!$!!",
-        "!FFFFFFFFFFFFFFFFFF!",
-        "!GGGGGGGGGGGGGGGGGG!",
-        "!         @        !",
-        "!HHHHHHHHHHHHHHHHHH!",
-        "!FFFFFFFFFFFFFFFFFF!",
-        "!!$!!$!!$!!$!!$!!$!!",
-        ".KKKKKKKKKKKKKKKKKK.",
-        ".KKKKKKKKKKKKKKKKKK.",
+        "....................",
+        "....................",
+        "##O##O##O##O##O##O##",
+        "#FFFFFFFFFFFFFFFFFF#",
+        "#GGGGGGGGGGGGGGGGGG#",
+        "#         @        #",
+        "#HHHHHHHHHHHHHHHHHH#",
+        "#FFFFFFFFFFFFFFFFFF#",
+        "##O##O##O##O##O##O##",
+        "....................",
+        "....................",
         "...................."})
 
 wo:shuffleOxyd()
@@ -62,29 +63,13 @@ function timer_hint(is_on, sender)
   wo[{16,6}] = {"it_document", text = "text2"}
 end
 
--- A sender may never kill itself (at least for now),
--- so we have to put a timer inbetween (at least for now).
-
-function timer_kill(is_on, sender)
-  local x, y = po(sender):xy()
-  if (y == 1) or (y == 2) then
-    wo[{x,4*y}] = {"st_nil"}
-  elseif (y == 10) or (y == 11) then
-    wo[{x,5 + (y-10)*2}] = {"st_nil"}
-    wo[{x,7 - (y-10)*2}] = ti[lib.lua.cond(y == 10, "H", "G")]
-    mainoxyd:closeall()
-    mainoxyd:shuffle()
-  end
-end
-
 -- Fourswitch callback
 
 solved = false
 function fourswitch_callback(is_on, sender)
     local x = (po(sender)).x
     if solved then
-        -- y is 4 or 8
-        st(x,po(sender).y/4):on()
+    sender:kill()
     else
         solved = true
         for j = 1,18 do
@@ -97,9 +82,13 @@ end
 -- Switch callback
 
 function switch_callback(is_on, sender)
-    st(po(sender).x, lib.lua.cond(po(sender).y == 5, 10, 11)):on()
+    wo[{sender.x, 12 - sender.y}] = ti[lib.lua.cond(sender.y == 5, "H", "G")]
+    sender:kill()
+    mainoxyd:closeall()
+    mainoxyd:shuffle()
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

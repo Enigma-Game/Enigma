@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="More or Less Wired" el:subtitle="The Gods must be wired" el:id="20081229ral"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 135 $" el:status="released"/>
+      <el:identity el:title="More or Less Wired" el:subtitle="The Gods must be weird" el:id="20081229ral"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 149 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,11 +20,15 @@ wo["ConserveLevel"] = true
 
 ti[" "] = {"fl_rough"}
 ti["~"] = {"fl_water"}
+
 ti["O"] = {"st_oxyd_a"} .. ti["~"]
 ti["#"] = {"st_door_a", "d#"}
+
 ti["boxes"] = {"st_box_hay", "box%%"}
 ti["x"] = {"it_trigger", target="check"}
+
 ti["@"] = {"ac_marble", 0, 0.5}
+
 if wo["IsDifficult"] then
     ti["*"] = ti["O"]
 else
@@ -65,6 +69,7 @@ function check(value, sender)
 end
 
 wo:shuffleOxyd()
+
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sokopal" el:subtitle="" el:id="andreas55"/>
-      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann, Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,6 +14,7 @@
       <el:score el:easy="22:50" el:difficult="34:16"/>
     </el:info>
     <el:luamain><![CDATA[
+
 wo["ConserveLevel"] = true
 wo["AllowSingleOxyds"] = true
 
@@ -83,7 +84,7 @@ end
 -- triggers for doors
 local doors = no["door#*"]
 for k = 1, #doors do
-  wo[spots[numoxyds*5 + k - 1]] = {"it_trigger", target = doors[k]}
+  wo[spots[numoxyds*5 + k]] = {"it_trigger", target = doors[k]}
 end
 
 ---------------------
@@ -101,7 +102,8 @@ function oxyd_callback(is_on, sender)
         last_oxyd = sender
     end
 end
- ]]></el:luamain>
+
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

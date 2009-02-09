@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma 1.01 new"/>
+  <info enigma="1.00" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma 1.01 new"/>
 
   <attributes/>
 
@@ -16,7 +16,7 @@
     <level _seq="8" _title="Hot Hurdle Race" _xpath="enigma_vi/ulf04_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20070124ulf019" rel="1" rev="93" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Counterclockwise" _xpath="enigma_vi/ulf05_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="2" rev="98" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Check the light" _xpath="enigma_vi/just10_2" author="JuSt" ctrl="force" easy="false" id="just10" rel="2" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="11" _title="Twokoban I" _xpath="enigma_vi/raoul28_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Twokoban I" _xpath="enigma_vi/raoul28_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="The Passage" _xpath="enigma_vi/just11_1" author="JuSt" ctrl="force" easy="false" id="just11" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Magic Triangle" _xpath="enigma_vi/just13_1" author="JuSt" ctrl="force" easy="false" id="just13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Revolver" _xpath="enigma_vi/ral16_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="2" rev="146" score="1" target="time" unit="duration"/>
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Temple of Gold" _xpath="enigma_vii/duffy151_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="3" rev="7" score="3" target="time" unit="duration"/>
     <level _seq="52" _title="Advancing" _xpath="enigma_vii/joe01_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Free Riders" _xpath="enigma_vii/duffy155_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="54" _title="Meditation in Peace" _xpath="enigma_vii/ral20_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="1" rev="70" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Meditation in Peace" _xpath="enigma_vii/ral20_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="2" rev="148" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Squad" _xpath="enigma_vii/duffy153_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy153" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Protected Exhibition" _xpath="enigma_vii/duffy156_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Oneway for White" _xpath="enigma_vii/duffy157_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy157" rel="1" rev="1" score="1" target="time" unit="duration"/>

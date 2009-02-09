@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="A-way" el:subtitle="Sunken Atlantis" el:id="richi06"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Richi Bützer" el:email="" el:homepage="enigma.mal2.ch"/>
       <el:copyright>Copyright © 2005 Richi Bützer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -71,15 +71,17 @@ function generate_way()
 end
 
 function clear_way(value, sender)
+    sender.target = DEFAULT
     if not wo["IsDifficult"] then
         easy_islands()
     end
-    wo[sender] = ti["-"] .. {"it_nil"}  -- clear trigger
+    wo[sender] = ti["-"]
     wo[no["way#*"]] = {"fl_water"} .. ti({"it_trigger", target="walk_way", invisible=true})
 end
 
 function walk_way(value, sender)
-    wo[sender] = ti["-"] .. {"it_nil"}  -- clear trigger
+    sender.target = DEFAULT
+    wo[sender] = ti["-"]
 end
 
 function easy_islands()

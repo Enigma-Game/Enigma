@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sleeping Serpent" el:subtitle="" el:id="raoul10"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["ConserveLevel"] = false
+wo["WaterSinkSpeed"] = 5.0
+
+ti[" "] = {"fl_dark", name="the_floor#"}
+ti["*"] = {"st_puzzle", cluster=1}
+ti["+"] = {"st_puzzle", color=YELLOW, cluster=1}
+ti["!"] = ti["+"] .. {"it_trigger", invisible=true, target="flood_it"}
+ti["d"] = ti["+"] .. {"it_document", text="text1"}
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "********************",
+    "*O                O*",
+    "*  !++++++++++++!  *",
+    "*  +O           !! *",
+    "*  !++++++++++!  + *",
+    "*            O+  + *",
+    "*+++ !++++++++!  + *",
+    "*+@d             + *",
+    "*+++ !++++++++!  + *",
+    "*            O+  + *",
+    "*  !++++++++++!  + *",
+    "*  +O           !! *",
+    "*  !++++++++++++!  *",
+    "*O                O*",
+    "********************"})
+
+wo:shuffleOxyd()
+
+function flood_it(value, sender)
+    wo[no["the_floor#*"]] = {"fl_water"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Don't wake it up!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
