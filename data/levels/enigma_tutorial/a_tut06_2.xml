@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bye!" el:subtitle="" el:id="a_tut06"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn"}
+ti["."] = {"fl_lawn_c4"}
+ti[","] = {"fl_lawn_c2"}
+ti[":"] = {"fl_lawn_c3"}
+ti[";"] = {"fl_lawn_c1"}
+ti["#"] = {"st_fake_oxyda"}
+ti["O"] = {"st_oxyd", flavor = "a"}
+ti["i"] = {"it_document", text = "text1"}
+ti["j"] = {"it_document", text = "text2"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(ti, " ",
+      {"####################",
+       "#                  #",
+       "#            .,    #",
+       "#  .,        :;    #",
+       "#  :;              #",
+       "#       .,         O",
+       "#    j i:;  @ .,   #",
+       "#    .,       :;   #",
+       "#    :;   .,       #",
+       "# .,      :;    ., #",
+       "# :;            :; #",
+       "#                  #",
+       "######O#############"})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">But before this, take a look at the final tutorial level Jacob devised for you.   See it as an exam, if you want to.   It's quite difficult, so don't despair if you don't get through it at the first time.   Bye!</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">Well, I hope you enjoyed this tutorial-pack.   You will see most of these levels a second time in the Enigma packs, together with many new and much more difficult ones.   Just don't give up on them!</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

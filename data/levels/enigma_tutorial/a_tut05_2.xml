@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Items" el:subtitle="" el:id="a_tut05"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn"}
+ti["_"] = {"fl_lawn_b"}
+ti[";"] = {"fl_lawn_c1"}
+ti[","] = {"fl_lawn_c2"}
+ti[":"] = {"fl_lawn_c3"}
+ti["."] = {"fl_lawn_c4"}
+ti["/"] = {"fl_lawn_d1"}
+ti["-"] = {"fl_lawn_d2"}
+ti["*"] = {"fl_lawn_d3"}
+ti["+"] = {"fl_lawn_d4"}
+ti["#"] = {"st_fake_oxyda"}
+ti["O"] = {"st_oxyd", flavor = "d"}
+ti["X"] = {"st_key", code = "%%", target = "door%%"}
+ti["Y"] = {"st_door", "door%%", flavor = "a"} .. ti["_"]
+ti["x"] = {"it_key", code = "%%"}
+ti["i"] = {"it_document", text = "text1"}
+ti["j"] = {"it_document", text = "text2"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(res.autotile(ti, {"a", "c", "x"}, {"A", "C", "X"}, {"D", "F", "Y"}), " ",
+      {"####################",
+       "#_____#___#___#____#",
+       "#_; :_#___#___#_;:_#",
+       "#_ i -#___#___#+  _#",
+       "#_,   A :_E_; C  O_#",
+       "#__@/_#* _#_ /#* O_#",
+       "#_; :_#_ _#_ _#_j _#",
+       "#_ b _#_ -#+ _#_ O_#",
+       "#_ a _D_, B ._F_ O_#",
+       "#_ c _#___#___#_  _#",
+       "#_, ._#___#___#_,._#",
+       "#_____#___#___#____#",
+       "####################"})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Use the right mouse-button to rotate your inventory,  it's the bar at the bottom of the screen.   And guess what these three items down there can be used to.</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">There are lots of different items to use in Enigma, as well as special floors and stones.   Let's explore some more of the actual Enigma levels!   And if you have problems with a level - take a look at the manual:   For some levels, there are hints.</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

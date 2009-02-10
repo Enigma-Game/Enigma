@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Doors and Triggers" el:subtitle="" el:id="a_tut01"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn"}
+ti["_"] = {"fl_lawn_b"}
+ti[";"] = {"fl_lawn_c1"}
+ti[","] = {"fl_lawn_c2"}
+ti[":"] = {"fl_lawn_c3"}
+ti["."] = {"fl_lawn_c4"}
+ti["+"] = {"fl_lawn_e2"}
+ti["-"] = {"fl_lawn_e1"}
+ti["#"] = {"st_fake_oxyda"}
+ti["O"] = {"st_oxyd", flavor = "d"}
+ti["X"] = {"st_door", "door%%", faces = "ew"}
+ti["x"] = {"it_trigger", target = {"door%*", "door%%"}, action = {"close", "open"}}
+ti["i"] = {"it_document", text = "text1"} .. ti["_"]
+ti["@"] = {"#ac_marble", adhesion = 1} .. ti["_"]
+
+wo(res.autotile(ti, {"a", "f", "x"}, {"A", "F", "X"}), " ",
+      {"####################",
+       "#_____; :___+A     O",
+       "#__; : e ____#######",
+       "#__ b , ._____+B   O",
+       "#_;  ._________#####",
+       "#_ d __________+C  O",
+       "#_   ___i_@_____####",
+       "#_ f __________-D  O",
+       "#_,  :_________#####",
+       "#__ c ; :_____-E   O",
+       "#__, . a ____#######",
+       "#_____, .___-F     O",
+       "####################"})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Those doors on the right block your way to the oxyds ... on the left you see some triggers. Maybe they are somehow connected?</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

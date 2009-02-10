@@ -13,6 +13,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+
 ti[" "] = {"fl_lawn_b"}
 ti["1"] = {"fl_lawn"}
 ti["2"] = {"fl_lawn_c1"}
@@ -31,10 +32,11 @@ ti["S"] = {"fl_space"}
 ti["C"] = {"fl_sand"}
 ti["#"] = {"st_fake_oxyda"}
 ti["d"] = ti["1"] .. {"it_document", text="text1"}
-ti["o"] = ti["C"] .. {"#ac_marble_black"}
-ti["0"] = {"st_oxyd", flavor="d"}
+ti["@"] = ti["C"] .. {"#ac_marble_black"}
+ti["O"] = {"st_oxyd", flavor="d"}
+
 if wo["IsDifficult"] then
-    ti["Q"] = {"st_oxyd", flavor="d"}
+    ti["Q"] = ti["O"]
 else
     ti["Q"] = {"st_fake_oxydd"}
 end
@@ -45,7 +47,7 @@ wo(ti, " ", {
     "# 2111111111111114 # 2111111111111114 # 2111111111111114 #",
     "# 1IIIIIIIIIIIIII1 # 1RRRRRRRRRRRRRR1 # 1DDDDDDDDDDDDDD1 #",
     "# 1IIIIIIIIIIIIII1 # 1RRRRRRRRRRRRRR1 # 1DDDDDDDDDDDDDD1 #",
-    "# 1II0IIIIIIIIIII1   1RR0RRRRRRRRRRR1   1DD0DDDDDDDDDDD1 #",
+    "# 1IIOIIIIIIIIIII1   1RRORRRRRRRRRRR1   1DDODDDDDDDDDDD1 #",
     "# 1IIIIIIIIIIIIII11111RRRRRRRRRRRRRR11111DDDDDDDDDDDDDD1 #",
     "# 1IIIIIIIIIIIQII1   1RRRRRRRRRRRQRR1   1DDDDDDDDDDDQDD1 #",
     "# 1IIIIIIIIIIIIII1 # 1RRRRRRRRRRRRRR1 # 1DDDDDDDDDDDDDD1 #",
@@ -57,8 +59,8 @@ wo(ti, " ", {
     "# 2111111111111114 # 21111111d1111114 # 2111111111111114 #",
     "# 1MMMMMMMMMMMMMM1 # 1CCCCCCCCCCCCCC1 # 1SSSSSSSSSSSSSS1 #",
     "# 1MMMMMMMMMMMMMM1 # 1CCCCCCCCCCCCCC1 # 1SSSSSSSSSSSSSS1 #",
-    "# 1MM0MMMMMMMMMMM1   1CC0CCCCCCCCCCC1   1SS0SSSSSSSSSSS1 #",
-    "# 1MMMMMMMMMMMMMM1111dCCCCCCCoCCCCCCd1111SSSSSSSSSSSSSS1 #",
+    "# 1MMOMMMMMMMMMMM1   1CCOCCCCCCCCCCC1   1SSOSSSSSSSSSSS1 #",
+    "# 1MMMMMMMMMMMMMM1111dCCCCCCC@CCCCCCd1111SSSSSSSSSSSSSS1 #",
     "# 1MMMMMMMMMMMQMM1   1CCCCCCCCCCCQCC1   1SSSSSSSSSSSQSS1 #",
     "# 1MMMMMMMMMMMMMM1 # 1CCCCCCCCCCCCCC1 # 1SSSSSSSSSSSSSS1 #",
     "# 1MMMMMMMMMMMMMM1 # 1CCCCCCCCCCCCCC1 # 1SSSSSSSSSSSSSS1 #",
@@ -67,6 +69,7 @@ wo(ti, " ", {
     "##########################################################"})
 
 wo:shuffleOxyd()
+
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

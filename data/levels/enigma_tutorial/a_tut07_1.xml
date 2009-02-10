@@ -4,17 +4,18 @@
     <el:info el:type="level">
       <el:identity el:title="Chess Stones" el:subtitle="" el:id="c_tut01"/>
       <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
-      <el:author el:name="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:author  el:name="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Raoul Bourquin, Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments></el:comments>
+      <el:comments>
+      </el:comments>
       <el:score el:easy="-" el:difficult="2:18"/>
     </el:info>
     <el:luamain><![CDATA[
+
 wo["ConserveLevel"] = true
 
 ti[" "] = {"fl_lawn_b"}
@@ -27,7 +28,7 @@ ti["~"] = {"fl_water"}
 ti["#"] = ti[" "] .. {"st_fake_oxyda"}
 ti["@"] = ti["."] .. {"#ac_marble_black"}
 ti["C"] = ti["."] .. {"st_chess_black"}
-ti["c"] = (ti["."] .. {"st_chess_black"}) .. {"it_cross"}
+ti["c"] = ti["C"] .. {"it_cross"}
 ti["D"] = ti[" "] .. {"st_door", name="door#", flavor="a"}
 ti["T"] = ti["."] .. {"it_trigger", name="trigger#"}
 ti["B"] = ti["."] .. {"#ac_marble_black", controllers=0, owner=1, name="second_marble"}
@@ -67,18 +68,18 @@ w, h = wo(ti, " ", {
    "####################",
 })
 
+doors = no["door#*"]:shuffle()
+triggers = no["trigger#*"]
+
+for j = 1, #triggers do
+  triggers[j].target = doors[j]
+end
+
 function let_marble_run(onoff, sender)
   wo:fl(no["second_marble"]):set({force_x = 65, force_y = 155})
   sender:set({target = ""})
 end
 
-trigger_to_doors = lib.math.permutation(8)
-doors = no["door#*"]
-triggers = no["trigger#*"]
-
-for j = 1, #triggers do
-  triggers[j].target = doors[trigger_to_doors[j]]
-end
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

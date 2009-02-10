@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Timers" el:subtitle="" el:id="a_tut02"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_lawn_b"}
+ti["_"] = {"fl_lawn"}
+ti[";"] = {"fl_lawn_c1"}
+ti[","] = {"fl_lawn_c2"}
+ti[":"] = {"fl_lawn_c3"}
+ti["."] = {"fl_lawn_c4"}
+ti["/"] = {"fl_lawn_d1"}
+ti["*"] = {"fl_lawn_d2"}
+ti["-"] = {"fl_lawn_d3"}
+ti["+"] = {"fl_lawn_d4"}
+ti["#"] = {"st_fake_oxyda"} .. ti["-"]
+ti["w"] = {"st_oneway_w"}
+ti["e"] = {"st_oneway_e"}
+ti["n"] = {"st_oneway_n"}
+ti["s"] = {"st_oneway_s"}
+ti["N"] = {"st_oneway_n", "flip#"}
+ti["S"] = {"st_oneway_s", "flip#"}
+ti["T"] = {"st_timer", interval = 15, target = "flip#*", action = "flip"} .. ti["-"]
+ti["O"] = {"st_oxyd", flavor = "d"}
+ti["i"] = {"it_document", text = "text1"}
+ti["j"] = {"it_document", text = "text2"}
+ti["k"] = {"it_document", text = "text3"} .. ti["_"]
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(ti, " ",
+      {"####################",
+       "#     w w e w w ,__#",
+       "#     #n#S#N#s#  -_#",
+       "#     w w w w w   _O",
+       "#     #s#n#S#n##  _#",
+       "# ;_: e w w w;_#*+_#",
+       "# _T_ #s#n#N#__ek__#",
+       "# ,_. w e w w,_#/-_#",
+       "#     #n#s#s#S##  _#",
+       "# i j w w w e w   _O",
+       "# @   #s#n#n#s#  +_#",
+       "#     w w w w w ;__#",
+       "####################"})
+
+wo:shuffleOxyd()
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">This oscillating stone is a timer-stone. You cannot interact with it, but nevertheless be aware when you see one: After some time-period anything might happen ...</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">The stones with arrows are one-way-stones. As you might have guessed, you can only pass them in one direction.                Mazes are cherished elements of Enigma - you will see lots of them.</el:english>
+      </el:string> 
+      <el:string el:key="text3">
+        <el:english el:translate="true">Well done!     When you have finished this level, let's play some example levels from the actual Enigma packs!</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

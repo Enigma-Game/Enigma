@@ -3,47 +3,40 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Movement 3" el:subtitle="" el:id="m_tutor/m_tut6"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+      <el:compatibility el:enigma="1.10">
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+        <el:code>API 2 version by Andreas, February 2009. Thanks to Martin for the clean code!</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-oxyd_default_flavor = "d"
 
-cells={}
-cells[" "]=cell{floor="fl-leavesb"}
-cells["3"]=cell{floor="fl-leavese1"}
-cells["4"]=cell{floor="fl-leavese4"}
-cells["5"]=cell{floor="fl-leavese1"}
-cells["6"]=cell{floor="fl-leavese3"}
-cells["#"]=cell{stone="st-likeoxyda"}
+ti[" "] = {"fl_lawn_b"}
+ti["3"] = {"fl_lawn_e1"}
+ti["4"] = {"fl_lawn_e4"}
+ti["5"] = {"fl_lawn_e1"}
+ti["6"] = {"fl_lawn_e3"}
+ti["#"] = {"st_fake_oxyda"}
+ti["x"] = {"st_redfiber"}
+ti["d"] = {"it_document", text = "text1"}
+ti["o"] = {"#ac_marble"}
+ti["0"] = {"st_oxyd", flavor = "d"}
 
-if (not difficult) then 
-    cells["X"]=cell{parent=cells[" "]}
+if not wo["IsDifficult"] then 
+    ti["X"] = ti[" "]
+    ti["Q"] = ti["#"]
 else
-    cells["X"]=cell{stone="st-glass3"}
+    ti["X"] = ti["x"]
+    ti["Q"] = ti["0"]
 end
 
-cells["x"]=cell{stone="st-glass3"}
-cells["d"]=cell{{{document, "text1"}}}
-cells["o"]=cell{actor={"ac-blackball", {player=0}}}
-
-if (not difficult) then
-    cells["Q"]=cell{parent=cells["#"]}
-else
-    cells["Q"]=cell{{{oxyd}}}
-end
-
-level = {
+wo(ti, " ", {
    "##Q####0####0####Q##",
    "#3546X3546x3546X354#",
    "046x3546X3546x3546 0",
@@ -56,13 +49,10 @@ level = {
    "#546X3546X3546X3546#",
    "06x3546x3546x3546X30",
    "#3546x3546X3546X354#",
-   "##Q####0####0####Q##"
-}
+   "##Q####0####0####Q##"})
 
-set_default_parent(cells[" "])
-create_world_by_map(level,cells)
+wo:shuffleOxyd()
 
-oxyd_shuffle()
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
