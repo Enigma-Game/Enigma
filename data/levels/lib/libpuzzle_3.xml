@@ -83,6 +83,9 @@ function res.puzzle_finalization(context)
             end
         end
         intensity = intensity * #huddle
+        if intensity > 0 then
+            intensity = intensity + math.random(0, 1)
+        end
         while intensity > 0 and #pushes > 0 do
             local pidx = random(#pushes)  -- select a random push pos/dir
             local puzz = st(pushes[pidx][1])

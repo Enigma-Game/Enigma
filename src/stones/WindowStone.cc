@@ -171,7 +171,7 @@ namespace enigma {
                 } else if (sc.faces == NORTHBIT && sc.normal[1] < 0) {
                     tryInnerPull(SOUTH, a);
                 }
-            } else if (player::WieldedItemIs (sc.actor, "it-ring")) {
+            } else if (player::WieldedItemIs (sc.actor, "it_ring")) {
                 objFlags |= ((sc.faces & getFaces())<< 24);   // scratch face
                 sound_event("crack");
                 init_model();

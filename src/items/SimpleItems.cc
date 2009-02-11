@@ -64,12 +64,19 @@ namespace enigma {
     }
     
     ItemAction Cherry::activate(Actor *actor, GridPos p) {
-        SendMessage(actor, "_invisibility");
-        return ITEM_KILL;
+        if (SendMessage(actor, "_invisibility").to_bool())
+            return ITEM_KILL;
+        else
+            // item not applied - dropped by an actor that does not become invisible
+            return ITEM_DROP;
     }
 
     void Cherry::on_stonehit(Stone *) {
         transform("it_squashed");
+    }
+    
+    void Cherry::on_drop(Actor *a) {
+        transform("it_squashed");        
     }
 
     DEF_ITEMTRAITS(Cherry, "it_cherry", it_cherry);
@@ -126,6 +133,10 @@ namespace enigma {
         // no state writes
     }
     
+    void Explosion::init_model() {
+        set_anim("it_explosion");
+    }
+    
     void Explosion::animcb() { 
         Floor *fl = GetFloor(get_pos());
         if (state != 0 && fl->is_destructible())
@@ -140,12 +151,16 @@ namespace enigma {
      }
 
     bool Explosion::actor_hit(Actor *actor) {
-        SendMessage(actor, "shatter");
+        SendMessage(actor, "_shatter");
         return false;
     }
      
-    DEF_ITEMTRAITSF(Explosion, "it_explosion", it_explosion, itf_static |
-                itf_animation | itf_indestructible | itf_norespawn | itf_fireproof);
+    ItemTraits Explosion::traits[4] = {
+        {"it_explosion_nil",  it_explosion_nil, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
+        {"it_explosion_hollow",  it_explosion_hollow, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
+        {"it_explosion_crack",  it_explosion_crack, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
+        {"it_explosion_debris",  it_explosion_debris, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
+    };
 
 /* -------------------- Flag -------------------- */
 
@@ -311,7 +326,7 @@ namespace enigma {
         double ycenter = get_pos().y + 0.5;
         double xcenter = get_pos().x + 0.5;
         ecl::V2 apos = a->get_pos();
-        if ((fabs(apos[1] - ycenter) <= MAXDIST) && (fabs(apos[0] - xcenter) <= MAXDIST)) {
+        if (a->is_on_floor() && (fabs(apos[1] - ycenter) <= MAXDIST) && (fabs(apos[0] - xcenter) <= MAXDIST)) {
             set_anim("it_springboard_anim");
             SendMessage(a, "_jump");
         }
@@ -410,6 +425,7 @@ namespace enigma {
         BootRegister(new Coffee(), "it_coffee");
         BootRegister(new DeathItem(), "it_death");
         BootRegister(new Debris(), "it_debris");
+        BootRegister(new Explosion(0), "it_explosion");
         BootRegister(new Explosion(0), "it_explosion_nil");
         BootRegister(new Explosion(1), "it_explosion_hollow");
         BootRegister(new Explosion(2), "it_explosion_crack");

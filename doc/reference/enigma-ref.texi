@@ -10196,7 +10196,7 @@ of 1 marks an actor as partially essential. Not the actor itself needs to
 survive but the number of actors of its kind controlled by the player need to be
 larger than the number of actors with value 1. For example, marking 3 out of 5
 small whiteballs with 1 means that the player is dead if 3 small whiteballs are
-no longer alive. See Old API - Variables ‘enigma.ConserveLevel’ for more details
+no longer alive. See Old API - Variables ï¿½enigma.ConserveLevelï¿½ for more details
 about restart of levels.
 
 @table @asis
@@ -18364,518 +18364,647 @@ set_stone("st-invisible", 7, 9)     -- do the same
 @item @b{ac-bug} @expansion{} @ref{ac_bug}
 @item @b{ac-horse} @expansion{} @ref{ac_horse}
 @item @b{ac-killerball} @expansion{} @ref{ac_killer}
+@need 200
 @item @b{ac-rotor} @expansion{} @ref{ac_rotor}
 @item @b{ac-top} @expansion{} @ref{ac_top}
 @item @b{ac-whiteball} @expansion{} @code{ac_marble_white}, @pxref{ac_marble}
 @item @b{ac-whiteball-small} @expansion{} @code{ac_pearl_white, owner=DEFAULT}, @pxref{ac_pearl}
+@need 200
 @item @b{fl-abyss} @expansion{} @ref{fl_abyss}
 @item @b{fl-abyss_fake} @expansion{} @code{fl_fake_abyss}, @pxref{fl_fake}
 @item @b{fl-acblack} @expansion{} @code{fl_yinyang_yin}, @pxref{fl_yinyang}
 @item @b{fl-acwhite} @expansion{} @code{fl_yinyang_yang}, @pxref{fl_yinyang}
+@need 200
 @item @b{fl-black} @expansion{} @ref{fl_dark}
 @item @b{fl-bluegray} @expansion{} @ref{fl_bluegray}
 @item @b{fl-bluegreen} @expansion{} @ref{}
 @item @b{fl-bluegreenx} @expansion{} @ref{fl_aquamarine}
+@need 200
 @item @b{fl-brick} @expansion{} @ref{fl_brick}
 @item @b{fl-bridge} @expansion{} @ref{fl_bridge}
 @item @b{fl-bridge-closed} @expansion{} @code{fl_bridge, state=CLOSED}, @pxref{fl_bridge}
 @item @b{fl-bridge-open} @expansion{} @ref{fl_bridge}
+@need 200
 @item @b{fl-bumps} @expansion{} @ref{fl_pinkbumps}
 @item @b{fl-concrete} @expansion{} @ref{fl_concrete}
 @item @b{fl-darkgray} @expansion{} @ref{fl_darkgray}
 @item @b{fl-dunes} @expansion{} @ref{fl_dunes}
+@need 200
 @item @b{fl-floor_001} @expansion{} @ref{fl_bast}
 @item @b{fl-gradient} @expansion{} @code{fl_slope_ps}, @pxref{fl_slope}
 @item @b{fl-gradient1} @expansion{} @code{fl_slope_ps}, @pxref{fl_slope}
 @item @b{fl-gradient2} @expansion{} @code{fl_slope_pn}, @pxref{fl_slope}
+@need 200
 @item @b{fl-gradient3} @expansion{} @code{fl_slope_pe}, @pxref{fl_slope}
 @item @b{fl-gradient4} @expansion{} @code{fl_slope_pw}, @pxref{fl_slope}
 @item @b{fl-gradient5} @expansion{} @code{fl_slope_ose}, @pxref{fl_slope}
 @item @b{fl-gradient6} @expansion{} @code{fl_slope_osw}, @pxref{fl_slope}
+@need 200
 @item @b{fl-gradient7} @expansion{} @code{fl_slope_one}, @pxref{fl_slope}
 @item @b{fl-gradient8} @expansion{} @code{fl_slope_onw}, @pxref{fl_slope}
 @item @b{fl-gradient9} @expansion{} @code{fl_slope_ise}, @pxref{fl_slope}
 @item @b{fl-gradient10} @expansion{} @code{fl_slope_ine}, @pxref{fl_slope}
+@need 200
 @item @b{fl-gradient11} @expansion{} @code{fl_slope_isw}, @pxref{fl_slope}
 @item @b{fl-gradient12} @expansion{} @code{fl_slope_inw}, @pxref{fl_slope}
 @item @b{fl-gradient13} @expansion{} @code{fl_slope_tn}, @pxref{fl_slope}
 @item @b{fl-gradient14} @expansion{} @code{fl_slope_ts}, @pxref{fl_slope}
+@need 200
 @item @b{fl-gradient15} @expansion{} @code{fl_slope_tw}, @pxref{fl_slope}
 @item @b{fl-gradient16} @expansion{} @code{fl_slope_te}, @pxref{fl_slope}
 @item @b{fl-gravel} @expansion{} @ref{fl_gravel}
 @item @b{fl-gray} @expansion{} @ref{fl_gray}
+@need 200
 @item @b{fl-hay} @expansion{} @ref{fl_hay}
 @item @b{fl-himalaya} @expansion{} @ref{fl_himalaya}
 @item @b{fl-ice} @expansion{} @ref{fl_ice}
 @item @b{fl-inverse} @expansion{} @code{fl_inverse_white}, @pxref{fl_inverse}
+@need 200
 @item @b{fl-inverse2} @expansion{} @code{fl_inverse_gray}, @pxref{fl_inverse}
-@item @b{fl-light} @expansion{} @ref{fl_ivory}
 @item @b{fl-leaves} @expansion{} @code{fl_lawn_a}, @pxref{fl_lawn}
 @item @b{fl-leavesb} @expansion{} @code{fl_lawn_b}, @pxref{fl_lawn}
 @item @b{fl-leavesc1} @expansion{} @code{fl_lawn_c1}, @pxref{fl_lawn}
+@need 200
 @item @b{fl-leavesc2} @expansion{} @code{fl_lawn_c2}, @pxref{fl_lawn}
 @item @b{fl-leavesc3} @expansion{} @code{fl_lawn_c3}, @pxref{fl_lawn}
 @item @b{fl-leavesc4} @expansion{} @code{fl_lawn_c4}, @pxref{fl_lawn}
 @item @b{fl-leavesd1} @expansion{} @code{fl_lawn_d1}, @pxref{fl_lawn}
+@need 200
 @item @b{fl-leavesd2} @expansion{} @code{fl_lawn_d2}, @pxref{fl_lawn}
 @item @b{fl-leavesd3} @expansion{} @code{fl_lawn_d3}, @pxref{fl_lawn}
 @item @b{fl-leavesd4} @expansion{} @code{fl_lawn_d4}, @pxref{fl_lawn}
 @item @b{fl-leavese1} @expansion{} @code{fl_lawn_e1}, @pxref{fl_lawn}
+@need 200
 @item @b{fl-leavese2} @expansion{} @code{fl_lawn_e2}, @pxref{fl_lawn}
 @item @b{fl-leavese3} @expansion{} @code{fl_lawn_e3}, @pxref{fl_lawn}
 @item @b{fl-leavese4} @expansion{} @code{fl_lawn_e4}, @pxref{fl_lawn}
+@item @b{fl-light} @expansion{} @ref{fl_ivory}
+@need 200
 @item @b{fl-lightgray} @expansion{} @ref{fl_platinum}
 @item @b{fl-marble} @expansion{} @ref{fl_marble}
 @item @b{fl-metal} @expansion{} @ref{fl_metal}
 @item @b{fl-metal1} @expansion{} @code{fl_metal_1}, @pxref{fl_metal}
+@need 200
 @item @b{fl-metal2} @expansion{} @code{fl_metal_2}, @pxref{fl_metal}
 @item @b{fl-metal3} @expansion{} @code{fl_metal_3}, @pxref{fl_metal}
 @item @b{fl-metal4} @expansion{} @code{fl_metal_4}, @pxref{fl_metal}
 @item @b{fl-metal5} @expansion{} @code{fl_metal_5}, @pxref{fl_metal}
+@need 200
 @item @b{fl-metal6} @expansion{} @code{fl_metal_6}, @pxref{fl_metal}
 @item @b{fl-mortar} @expansion{} @ref{fl_mortar}
 @item @b{fl-nomouse} @expansion{} @ref{fl_adhesionless}
 @item @b{fl-normal_x} @expansion{} @code{fl_metal_7}, @pxref{fl_metal}
+@need 200
 @item @b{fl-normal} @expansion{} @code{fl_metal_7n}, @pxref{fl_metal}
 @item @b{fl-plank} @expansion{} @ref{fl_plank}
 @item @b{fl-red} @expansion{} @ref{fl_red}
 @item @b{fl-rock} @expansion{} @ref{fl_rock}
+@need 200
 @item @b{fl-rough} @expansion{} @ref{fl_rough}
 @item @b{fl-rough_medium} @expansion{} @code{fl_rough, friction=5.0, adhesion=1.2}, @pxref{fl_rough}
 @item @b{fl-rough_slow} @expansion{} @code{fl_rough, friction=7.0, adhesion=0.5}, @pxref{fl_rough}
 @item @b{fl-rough-blue} @expansion{} @ref{fl_blueslab}
+@need 200
 @item @b{fl-rough-red} @expansion{} @ref{fl_redslab}
 @item @b{fl-sahara} @expansion{} @ref{fl_sahara}
 @item @b{fl-samba} @expansion{} @ref{fl_samba}
 @item @b{fl-samba1} @expansion{} @code{fl_samba_h}, @pxref{fl_samba}
+@need 200
 @item @b{fl-samba2} @expansion{} @code{fl_samba_v}, @pxref{fl_samba}
 @item @b{fl-sand} @expansion{} @ref{fl_sand}
 @item @b{fl-space} @expansion{} @ref{fl_space}
 @item @b{fl-springboard} @expansion{} @ref{fl_white}
+@need 200
 @item @b{fl-stone} @expansion{} @ref{fl_stone}
 @item @b{fl-stwood} @expansion{} @code{fl_wood_framed}, @pxref{fl_wood}
 @item @b{fl-stwood1} @expansion{} @code{fl_wood_framed_h}, @pxref{fl_wood}
 @item @b{fl-stwood2} @expansion{} @code{fl_wood_framed_v}, @pxref{fl_wood}
+@need 200
 @item @b{fl-swamp} @expansion{} @ref{fl_swamp}
 @item @b{fl-thief} @expansion{} @ref{fl_thief}
 @item @b{fl-tigris} @expansion{} @ref{fl_tigris}
 @item @b{fl-trigger} @expansion{} @code{fl_fake_trigger}, @pxref{fl_fake}
+@need 200
 @item @b{fl-water} @expansion{} @ref{fl_water}
 @item @b{fl-white} @expansion{} @ref{fl_bright}
 @item @b{fl-wood} @expansion{} @ref{fl_wood}
 @item @b{fl-wood1} @expansion{} @code{fl_wood_h}, @pxref{fl_wood}
+@need 200
 @item @b{fl-wood2} @expansion{} @code{fl_wood_v}, @pxref{fl_wood}
 @item @b{fl-woven} @expansion{} @ref{fl_woven}
 @item @b{it-abyss} @expansion{} @ref{it_trap}
 @item @b{it-bag} @expansion{} @ref{it_bag}
+@need 200
 @item @b{it-banana} @expansion{} @ref{it_banana}
 @item @b{it-blackbomb} @expansion{} @code{it_bomb_black}, @pxref{it_bomb}
 @item @b{it-blocker} @expansion{} @ref{it_blocker}
 @item @b{it-blocker-new} @expansion{} @code{it_blocker_new}, @pxref{it_blocker}
+@need 200
 @item @b{it-booze} @expansion{} @ref{it_bottle}
 @item @b{it-booze-broken} @expansion{} @code{it_bottle_broken}, @pxref{it_bottle}
 @item @b{it-brake} @expansion{} @ref{it_brake}
 @item @b{it-brush} @expansion{} @ref{it_brush}
+@need 200
 @item @b{it-burnable} @expansion{} @ref{it_burnable}
 @item @b{it-burnable_ash} @expansion{} @code{it_burnable_ash}, @pxref{it_burnable}
 @item @b{it-burnable_burning} @expansion{} @code{it_burnable_burning}, @pxref{it_burnable}
 @item @b{it-burnable_fireproof} @expansion{} @code{it_burnable_fireproof}, @pxref{it_burnable}
+@need 200
 @item @b{it-burnable_ignited} @expansion{} @code{it_burnable_ignited}, @pxref{it_burnable}
 @item @b{it-burnable_oil} @expansion{} @code{it_burnable_oil}, @pxref{it_burnable}
 @item @b{it-cherry} @expansion{} @ref{it_cherry}
 @item @b{it-coffee} @expansion{} @ref{it_coffee}
+@need 200
 @item @b{it-coin1} @expansion{} @code{it_coin_s}, @pxref{it_coin}
 @item @b{it-coin2} @expansion{} @code{it_coin_m}, @pxref{it_coin}
 @item @b{it-coin4} @expansion{} @code{it_coin_l}, @pxref{it_coin}
 @item @b{it-crack0} @expansion{} @code{it_crack_i}, @pxref{it_crack}
+@need 200
 @item @b{it-crack1} @expansion{} @code{it_crack_s}, @pxref{it_crack}
 @item @b{it-crack2} @expansion{} @code{it_crack_m}, @pxref{it_crack}
 @item @b{it-crack3} @expansion{} @code{it_crack_l}, @pxref{it_crack}
 @item @b{it-cross} @expansion{} @ref{it_cross}
+@need 200
 @item @b{it-death} @expansion{} @ref{it_death}
 @item @b{it-document} @expansion{} @ref{it_document}
 @item @b{it-drop} @expansion{} @ref{it_drop}
 @item @b{it-dynamite} @expansion{} @ref{it_dynamite}
+@need 200
 @item @b{it-explosion1} @expansion{} @code{it_explosion_nil}, @pxref{it_explosion}
 @item @b{it-explosion2} @expansion{} @code{it_explosion_hollow}, @pxref{it_explosion}
 @item @b{it-explosion3} @expansion{} @code{it_explosion_debris}, @pxref{it_explosion}
 @item @b{it-extinguisher} @expansion{} @ref{it_extinguisher}
+@need 200
 @item @b{it-extinguisher_empty} @expansion{} @code{it_extinguisher_empty}, @pxref{it_extinguisher}
 @item @b{it-extinguisher_medium} @expansion{} @code{it_extinguisher_medium}, @pxref{it_extinguisher}
 @item @b{it-extralife} @expansion{} @ref{it_extralife}
 @item @b{it-flagblack} @expansion{} @code{it_flag_black}, @pxref{it_flag}
+@need 200
 @item @b{it-flagwhite} @expansion{} @code{it_flag_white}, @pxref{it_flag}
 @item @b{it-floppy} @expansion{} @ref{it_floppy}
 @item @b{it-glasses} @expansion{} @ref{it_glasses}
 @item @b{it-glasses-broken} @expansion{} @code{it_glasses_broken}, @pxref{it_glasses}
+@need 200
 @item @b{it-hammer} @expansion{} @ref{it_hammer}
 @item @b{it-hollow} @expansion{} @code{it_meditation_hollow}, @pxref{it_meditation}
 @item @b{it-hill} @expansion{} @code{it_meditation_hill}, @pxref{it_meditation}
 @item @b{it-hstrip} @expansion{} @code{it_strip_ew}, @pxref{it_strip}
+@need 200
 @item @b{it-inversesensor} @expansion{} @code{it_sensor, invisible=true, inverse=true}, @pxref{it_sensor}
 @item @b{it-key} @expansion{} @code{it_key, code=1}, @pxref{it_key}
 @item @b{it-key_a} @expansion{} @code{it_key, code=1}, @pxref{it_key}
 @item @b{it-key_b} @expansion{} @code{it_key, code=2}, @pxref{it_key}
+@need 200
 @item @b{it-key_c} @expansion{} @code{it_key, code=3}, @pxref{it_key}
 @item @b{it-landmine} @expansion{} @ref{it_landmine}
 @item @b{it-magicwand} @expansion{} @ref{it_magicwand}
 @item @b{it-magnet} @expansion{} @ref{it_magnet}
+@need 200
 @item @b{it-magnet-on} @expansion{} @code{it_magnet_on}, @pxref{it_magnet}
 @item @b{it-magnet-off} @expansion{} @code{it_magnet_off}, @pxref{it_magnet}
 @item @b{it-pencil} @expansion{} @ref{it_pencil}
 @item @b{it-pin} @expansion{} @ref{it_pin}
+@need 200
 @item @b{it-pipe-e} @expansion{} @code{it_pipe_e}, @pxref{it_pipe}
 @item @b{it-pipe-es} @expansion{} @code{it_pipe_es}, @pxref{it_pipe}
 @item @b{it-pipe-h} @expansion{} @code{it_pipe_ew}, @pxref{it_pipe}
 @item @b{it-pipe-n} @expansion{} @code{it_pipe_n}, @pxref{it_pipe}
+@need 200
 @item @b{it-pipe-ne} @expansion{} @code{it_pipe_ne}, @pxref{it_pipe}
 @item @b{it-pipe-s} @expansion{} @code{it_pipe_s}, @pxref{it_pipe}
 @item @b{it-pipe-sw} @expansion{} @code{it_pipe_sw}, @pxref{it_pipe}
 @item @b{it-pipe-v} @expansion{} @code{it_pipe_ns}, @pxref{it_pipe}
+@need 200
 @item @b{it-pipe-w} @expansion{} @code{it_pipe_w}, @pxref{it_pipe}
 @item @b{it-pipe-wn} @expansion{} @code{it_pipe_nw}, @pxref{it_pipe}
 @item @b{it-puller-e} @expansion{} @code{it_puller_e}, @pxref{it_puller}
 @item @b{it-puller-n} @expansion{} @code{it_puller_n}, @pxref{it_puller}
+@need 200
 @item @b{it-puller-s} @expansion{} @code{it_puller_s}, @pxref{it_puller}
 @item @b{it-puller-w} @expansion{} @code{it_puller_w}, @pxref{it_puller}
 @item @b{it-ring} @expansion{} @ref{it_ring}
 @item @b{it-rubberband} @expansion{} @ref{it_rubberband}
+@need 200
 @item @b{it-seed} @expansion{} @code{it_seed_wood}, @pxref{it_seed}
 @item @b{it-seed_nowood} @expansion{} @code{it_seed_fake}, @pxref{it_seed}
 @item @b{it-seed_volcano} @expansion{} @code{it_seed_volcano}, @pxref{it_seed}
 @item @b{it-sensor} @expansion{} @code{it_sensor, invisible=true}, @pxref{it_sensor}
+@need 200
 @item @b{it-spade} @expansion{} @ref{it_spade}
 @item @b{it-spoon} @expansion{} @ref{it_spoon}
 @item @b{it-spring1} @expansion{} @code{it_spring_keep}, @pxref{it_spring}
 @item @b{it-spring2} @expansion{} @code{it_spring_drop}, @pxref{it_spring}
+@need 200
 @item @b{it-springboard} @expansion{} @ref{it_springboard}
 @item @b{it-squashed} @expansion{} @ref{it_squashed}
 @item @b{it-shogun-s} @expansion{} @code{it_shogun_s}, @pxref{it_shogun}
 @item @b{it-shogun-m} @expansion{} @code{it_shogun_m}, @pxref{it_shogun}
+@need 200
 @item @b{it-shogun-l} @expansion{} @code{it_shogun_l}, @pxref{it_shogun}
 @item @b{it-surprise} @expansion{} @ref{it_surprise}
 @item @b{it-sword} @expansion{} @ref{it_sword}
 @item @b{it-tinyhollow} @expansion{} @code{it_meditation_dent}, @pxref{it_meditation}
+@need 200
 @item @b{it-tinyhill} @expansion{} @code{it_meditation_bump}, @pxref{it_meditation}
 @item @b{it-trigger} @expansion{} @ref{it_trigger}
 @item @b{it-umbrella} @expansion{} @ref{it_umbrella}
 @item @b{it-vortex-open} @expansion{} @code{it_vortex_open, scissor=false}, @pxref{it_vortex}
+@need 200
 @item @b{it-vortex-closed} @expansion{} @code{it_vortex_closed, autoclose=true, scissor=false}, @pxref{it_vortex}
 @item @b{it-vstrip} @expansion{} @code{it_strip_ns}, @pxref{it_strip}
 @item @b{it-weight} @expansion{} @ref{it_weight}
 @item @b{it-whitebomb} @expansion{} @code{it_bomb_white}, @pxref{it_bomb}
+@need 200
 @item @b{it-wormhole} @expansion{} @code{it_wormhole_on, scissor=false}, @pxref{it_wormhole}
 @item @b{it-wormhole-off} @expansion{} @code{it_wormhole_off, scissor=false}, @pxref{it_wormhole}
 @item @b{it-wrench} @expansion{} @ref{it_wrench}
 @item @b{it-yinyang} @expansion{} @ref{it_yinyang}
+@need 200
 @item @b{st-actorimpulse} @expansion{} @ref{st_actorimpulse}
 @item @b{st-actorimpulse_invisible} @expansion{} @code{st_actorimpulse_invisible}, @pxref{st_actorimpulse}
 @item @b{st-beads} @expansion{} @ref{st_beads}
 @item @b{st-bigbluesand-e} @expansion{} @code{st_bluesand_e}, @pxref{st_bluesand}
+@need 200
 @item @b{st-bigbluesand-es} @expansion{} @code{st_bluesand_es}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-esw} @expansion{} @code{st_bluesand_esw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-ew} @expansion{} @code{st_bluesand_ew}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-n} @expansion{} @code{st_bluesand_n}, @pxref{st_bluesand}
+@need 200
 @item @b{st-bigbluesand-ne} @expansion{} @code{st_bluesand_ne}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-nes} @expansion{} @code{st_bluesand_nes}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-nesw} @expansion{} @code{st_bluesand_nesw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-new} @expansion{} @code{st_bluesand_new}, @pxref{st_bluesand}
+@need 200
 @item @b{st-bigbluesand-ns} @expansion{} @code{st_bluesand_ns}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-nsw} @expansion{} @code{st_bluesand_nsw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-nw} @expansion{} @code{st_bluesand_nw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-s} @expansion{} @code{st_bluesand_s}, @pxref{st_bluesand}
+@need 200
 @item @b{st-bigbluesand-sw} @expansion{} @code{st_bluesand_sw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-w} @expansion{} @code{st_bluesand_w}, @pxref{st_bluesand}
 @item @b{st-blackballs} @expansion{} @code{st_jamb_black}, @pxref{st_jamb}
 @item @b{st-black1} @expansion{} @code{st_passage_black_square}, @pxref{st_passage}
+@need 200
 @item @b{st-black2} @expansion{} @code{st_passage_black_slash}, @pxref{st_passage}
 @item @b{st-black3} @expansion{} @code{st_passage_black_cross}, @pxref{st_passage}
 @item @b{st-black4} @expansion{} @code{st_passage_black_frame}, @pxref{st_passage}
 @item @b{st-blocker} @expansion{} @ref{st_blocker}
+@need 200
 @item @b{st-blocker-growing} @expansion{} @code{st_blocker_new}, @pxref{st_blocker}
 @item @b{st-bluegray} @expansion{} @ref{st_bluegray}
 @item @b{st-bluegray_hole} @expansion{} @code{st_bluegray_hollow}, @pxref{st_bluegray}
 @item @b{st-blue-sand} @expansion{} @ref{st_bluesand}
+@need 200
 @item @b{st-bolder} @expansion{} @ref{st_boulder}
 @item @b{st-bolder-e} @expansion{} @code{st_boulder_e}, @pxref{st_boulder}
 @item @b{st-bolder-n} @expansion{} @code{st_boulder_n}, @pxref{st_boulder}
 @item @b{st-bolder-s} @expansion{} @code{st_boulder_s}, @pxref{st_boulder}
+@need 200
 @item @b{st-bolder-w} @expansion{} @code{st_boulder_w}, @pxref{st_boulder}
 @item @b{st-brake} @expansion{} @ref{st_brake}
 @item @b{st-break_acblack} @expansion{} @code{st_break_black}, @pxref{st_break}
 @item @b{st-break_acwhite} @expansion{} @code{st_break_white}, @pxref{st_break}
+@need 200
 @item @b{st-break_bolder} @expansion{} @code{st_break_boulder}, @pxref{st_break}
 @item @b{st-break_gray} @expansion{} @code{st_break_plain}, @pxref{st_break}
 @item @b{st-brick} @expansion{} @ref{st_brick}
 @item @b{st-bigbrick-e} @expansion{} @code{st_brick_e}, @pxref{st_brick}
+@need 200
 @item @b{st-bigbrick-es} @expansion{} @code{st_brick_es}, @pxref{st_brick}
 @item @b{st-bigbrick-esw} @expansion{} @code{st_brick_esw}, @pxref{st_brick}
 @item @b{st-bigbrick-ew} @expansion{} @code{st_brick_ew}, @pxref{st_brick}
 @item @b{st-bigbrick-n} @expansion{} @code{st_brick_n}, @pxref{st_brick}
+@need 200
 @item @b{st-bigbrick-ne} @expansion{} @code{st_brick_ne}, @pxref{st_brick}
 @item @b{st-bigbrick-nes} @expansion{} @code{st_brick_nes}, @pxref{st_brick}
 @item @b{st-bigbrick-nesw} @expansion{} @code{st_brick_nesw}, @pxref{st_brick}
 @item @b{st-bigbrick-new} @expansion{} @code{st_brick_new}, @pxref{st_brick}
+@need 200
 @item @b{st-bigbrick-ns} @expansion{} @code{st_brick_ns}, @pxref{st_brick}
 @item @b{st-bigbrick-nsw} @expansion{} @code{st_brick_nsw}, @pxref{st_brick}
 @item @b{st-bigbrick-nw} @expansion{} @code{st_brick_nw}, @pxref{st_brick}
 @item @b{st-bigbrick-s} @expansion{} @code{st_brick_s}, @pxref{st_brick}
+@need 200
 @item @b{st-bigbrick-sw} @expansion{} @code{st_brick_sw}, @pxref{st_brick}
 @item @b{st-bigbrick-w} @expansion{} @code{st_brick_w}, @pxref{st_brick}
 @item @b{st-block} @expansion{} @ref{st_plop}
 @item @b{st-bombs} @expansion{} @code{st_dispenser_bombblack}, @pxref{st_dispenser}
+@need 200
 @item @b{st-break_invisible} @expansion{} @code{st_ghost_break}, @pxref{st_ghost}
 @item @b{st-brick_magic} @expansion{} @code{st_magic_brick}, @pxref{st_magic}
 @item @b{st-brownie} @expansion{} @ref{st_brownie}
 @item @b{st-bug} @expansion{} @code{st_break_bug}, @pxref{st_break}
+@need 200
 @item @b{st-bumps} @expansion{} @ref{st_pinkbumps}
 @item @b{st-camouflage} @expansion{} @ref{st_camouflage}
 @item @b{st-camouflage_hole} @expansion{} @code{st_camouflage_hollow}, @pxref{st_camouflage}
 @item @b{st-camouflage_move} @expansion{} @code{st_camouflage_movable}, @pxref{st_camouflage}
+@need 200
 @item @b{st-chameleon} @expansion{} @ref{st_chameleon}
 @item @b{st-chargeminus} @expansion{} @code{st_charge_minus}, @pxref{st_charge}
 @item @b{st-chargeplus} @expansion{} @code{st_charge_plus}, @pxref{st_charge}
 @item @b{st-chargezero} @expansion{} @code{st_charge_zero}, @pxref{st_charge}
+@need 200
 @item @b{st-chess} @expansion{} @ref{st_chess}
 @item @b{st-chess_black} @expansion{} @code{st_chess_black}, @pxref{st_chess}
 @item @b{st-chess_white} @expansion{} @code{st_chess_white}, @pxref{st_chess}
 @item @b{st-coffee} @expansion{} @code{st_magic_oxydc}, @pxref{st_magic}
+@need 200
 @item @b{st-coinslot} @expansion{} @ref{st_coinslot}
 @item @b{st-death} @expansion{} @ref{st_death}
 @item @b{st-death_invisible} @expansion{} @code{st_death_invisible}, @pxref{st_death}
 @item @b{st-disco-dark} @expansion{} @code{st_disco_dark}, @pxref{st_disco}
+@need 200
 @item @b{st-disco-light} @expansion{} @code{st_disco_light}, @pxref{st_disco}
 @item @b{st-disco-medium} @expansion{} @code{st_disco_medium}, @pxref{st_disco}
 @item @b{st-door_a} @expansion{} @code{st_door_a}, @pxref{st_door}
 @item @b{st-door_b} @expansion{} @code{st_door_b}, @pxref{st_door}
+@need 200
 @item @b{st-door_c} @expansion{} @code{st_door_c}, @pxref{st_door}
 @item @b{st-door-h} @expansion{} @code{st_door_d, faces="ns"}, @pxref{st_door}
 @item @b{st-door-h-open} @expansion{} @code{st_door_d, faces="ns", state=OPEN}, @pxref{st_door}
 @item @b{st-door-v} @expansion{} @code{st_door_d, faces="ew"}, @pxref{st_door}
+@need 200
 @item @b{st-door-v-open} @expansion{} @code{st_door_d, faces="ew", state=OPEN}, @pxref{st_door}
 @item @b{st-fakeoxyd} @expansion{} @code{st_fake_quake}, @pxref{st_fake}
 @item @b{st-fakeoxyda} @expansion{} @code{st_magic_oxyda}, @pxref{st_magic}
 @item @b{st-fart} @expansion{} @ref{st_quake}
+@need 200
 @item @b{st-firebreak} @expansion{} @code{st_flat_burnable}, @pxref{st_flat}
 @item @b{st-firebreak_move} @expansion{} @code{st_flat_moveburnable}, @pxref{st_flat}
 @item @b{st-flash} @expansion{} @ref{st_flash}
 @item @b{st-flhay} @expansion{} @code{st_box_hay}, @pxref{st_box}
+@need 200
 @item @b{st-floppy} @expansion{} @ref{st_floppy}
 @item @b{st-flrock} @expansion{} @code{st_box_rock}, @pxref{st_box}
 @item @b{st-fourswitch} @expansion{} @ref{st_fourswitch}
 @item @b{st-glass} @expansion{} @ref{st_rawglass}
+@need 200
 @item @b{st-glass_move} @expansion{} @code{st_rawglass_movable}, @pxref{st_rawglass}
 @item @b{st-glass1} @expansion{} @ref{st_lightglass}
 @item @b{st-glass1_hole} @expansion{} @code{st_lightglass_hollow}, @pxref{st_lightglass}
 @item @b{st-glass1_move} @expansion{} @code{st_lightglass_movable}, @pxref{st_lightglass}
+@need 200
 @item @b{st-glass2} @expansion{} @ref{st_darkglass}
 @item @b{st-glass2_hole} @expansion{} @code{st_darkglass_hollow}, @pxref{st_darkglass}
 @item @b{st-glass2_move} @expansion{} @code{st_darkglass_movable}, @pxref{st_darkglass}
 @item @b{st-glass3} @expansion{} @ref{st_redfiber}
+@need 200
 @item @b{st-grate1} @expansion{} @code{st_grate_cross}, @pxref{st_grate}
 @item @b{st-grate2} @expansion{} @code{st_grate_framed}, @pxref{st_grate}
 @item @b{st-grate3} @expansion{} @code{st_portal_horse}, @pxref{st_portal}
 @item @b{st-greenbrown} @expansion{} @ref{st_greenbrown}
+@need 200
 @item @b{st-greenbrown_hole} @expansion{} @code{st_greenbrown_hollow}, @pxref{st_greenbrown}
 @item @b{st-greenbrown_move} @expansion{} @code{st_greenbrown_movable}, @pxref{st_greenbrown}
 @item @b{st-invisible} @expansion{} @ref{st_invisible}
 @item @b{st-invisible_hole} @expansion{} @code{st_invisible_hollow}, @pxref{st_invisible}
+@need 200
 @item @b{st-invisible_magic} @expansion{} @code{st_ghost_greenbrown}, @pxref{st_ghost}
 @item @b{st-invisible_move} @expansion{} @code{st_invisible_movable}, @pxref{st_invisible}
 @item @b{st-key} @expansion{} @code{st_key, code=0}, @pxref{st_key}
 @item @b{st-key_a} @expansion{} @code{st_key, code=1}, @pxref{st_key}
+@need 200
 @item @b{st-key_b} @expansion{} @code{st_key, code=2}, @pxref{st_key}
 @item @b{st-key_c} @expansion{} @code{st_key, code=3}, @pxref{st_key}
 @item @b{st-knight} @expansion{} @ref{st_knight}
 @item @b{st-laserbreak} @expansion{} @code{st_break_laser}, @pxref{st_break}
+@need 200
 @item @b{st-laserswitch} @expansion{} @ref{st_laserswitch}
 @item @b{st-lasertimeswitch} @expansion{} @ref{st_laserflop}
 @item @b{st-laser} @expansion{} @code{st_laser_e}, @pxref{st_laser}
 @item @b{st-laser-e} @expansion{} @code{st_laser_e}, @pxref{st_laser}
+@need 200
 @item @b{st-laser-n} @expansion{} @code{st_laser_n}, @pxref{st_laser}
 @item @b{st-laser-s} @expansion{} @code{st_laser_s}, @pxref{st_laser}
 @item @b{st-laser-w} @expansion{} @code{st_laser_w}, @pxref{st_laser}
 @item @b{st-lightpassenger} @expansion{} @ref{st_lightpassenger}
+@need 200
 @item @b{st-lightpassenger_off} @expansion{} @code{st_lightpassenger_off}, @pxref{st_lightpassenger}
 @item @b{st-likeoxyda} @expansion{} @code{st_fake_oxyda}, @pxref{st_fake}
 @item @b{st-likeoxyda-open} @expansion{} @code{st_fake_oxyda, state=OPEN}, @pxref{st_fake}
 @item @b{st-likeoxydb} @expansion{} @code{st_fake_oxydb}, @pxref{st_fake}
+@need 200
 @item @b{st-likeoxydb-open} @expansion{} @code{st_fake_oxydb, state=OPEN}, @pxref{st_fake}
 @item @b{st-likeoxydc} @expansion{} @code{st_fake_oxydc}, @pxref{st_fake}
 @item @b{st-likeoxydc-open} @expansion{} @code{st_fake_oxydc, state=OPEN}, @pxref{st_fake}
 @item @b{st-likeoxydd} @expansion{} @code{st_fake_oxydd}, @pxref{st_fake}
+@need 200
 @item @b{st-likeoxydd-open} @expansion{} @code{st_fake_oxydd, state=OPEN}, @pxref{st_fake}
 @item @b{st-mail-e} @expansion{} @code{st-mail-e}, @pxref{st-mail}
 @item @b{st-mail-n} @expansion{} @code{st-mail-n}, @pxref{st-mail}
 @item @b{st-mail-s} @expansion{} @code{st-mail-s}, @pxref{st-mail}
+@need 200
 @item @b{st-mail-w} @expansion{} @code{st-mail-w}, @pxref{st-mail}
 @item @b{st-marble} @expansion{} @ref{st_redbrown}
 @item @b{st-marble_hole} @expansion{} @code{st_redbrown_hollow}, @pxref{st_redbrown}
 @item @b{st-marble_move} @expansion{} @code{st_redbrown_movable}, @pxref{st_redbrown}
+@need 200
 @item @b{st-metal} @expansion{} @ref{st_metal}
 @item @b{st-metal_hole} @expansion{} @code{st_metal_hollow}, @pxref{st_metal}
 @item @b{st-mirror-p|} @expansion{} @code{st_mirror_slab_n}, @pxref{st_mirror}
 @item @b{st-mirror-p/} @expansion{} @code{st_mirror_slab_e}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-p-} @expansion{} @code{st_mirror_slab_s}, @pxref{st_mirror}
 @item @b{st-mirror-p\\} @expansion{} @code{st_mirror_slab_w}, @pxref{st_mirror}
 @item @b{st-mirror-p|t} @expansion{} @code{st_mirror_slab_nt}, @pxref{st_mirror}
 @item @b{st-mirror-p/t} @expansion{} @code{st_mirror_slab_et}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-p-t} @expansion{} @code{st_mirror_slab_st}, @pxref{st_mirror}
 @item @b{st-mirror-p\\t} @expansion{} @code{st_mirror_slab_wt}, @pxref{st_mirror}
 @item @b{st-mirror-p|m} @expansion{} @code{st_mirror_slab_nm}, @pxref{st_mirror}
 @item @b{st-mirror-p/m} @expansion{} @code{st_mirror_slab_em}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-p-m} @expansion{} @code{st_mirror_slab_sm}, @pxref{st_mirror}
 @item @b{st-mirror-p\\m} @expansion{} @code{st_mirror_slab_wm}, @pxref{st_mirror}
 @item @b{st-mirror-p|tm} @expansion{} @code{st_mirror_slab_ntm}, @pxref{st_mirror}
 @item @b{st-mirror-p/tm} @expansion{} @code{st_mirror_slab_etm}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-p-tm} @expansion{} @code{st_mirror_slab_stm}, @pxref{st_mirror}
 @item @b{st-mirror-p\\tm} @expansion{} @code{st_mirror_slab_wtm}, @pxref{st_mirror}
 @item @b{st-mirror-3^} @expansion{} @code{st_mirror_triangle_n}, @pxref{st_mirror}
 @item @b{st-mirror-3>} @expansion{} @code{st_mirror_triangle_e}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-3v} @expansion{} @code{st_mirror_triangle_s}, @pxref{st_mirror}
 @item @b{st-mirror-3<} @expansion{} @code{st_mirror_triangle_w}, @pxref{st_mirror}
 @item @b{st-mirror-3^t} @expansion{} @code{st_mirror_triangle_nt}, @pxref{st_mirror}
 @item @b{st-mirror-3>t} @expansion{} @code{st_mirror_triangle_et}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-3vt} @expansion{} @code{st_mirror_triangle_st}, @pxref{st_mirror}
 @item @b{st-mirror-3<t} @expansion{} @code{st_mirror_triangle_wt}, @pxref{st_mirror}
 @item @b{st-mirror-3^m} @expansion{} @code{st_mirror_triangle_nm}, @pxref{st_mirror}
 @item @b{st-mirror-3>m} @expansion{} @code{st_mirror_triangle_em}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-3vm} @expansion{} @code{st_mirror_triangle_sm}, @pxref{st_mirror}
 @item @b{st-mirror-3<m} @expansion{} @code{st_mirror_triangle_wm}, @pxref{st_mirror}
 @item @b{st-mirror-3^tm} @expansion{} @code{st_mirror_triangle_ntm}, @pxref{st_mirror}
 @item @b{st-mirror-3>tm} @expansion{} @code{st_mirror_triangle_etm}, @pxref{st_mirror}
+@need 200
 @item @b{st-mirror-3vtm} @expansion{} @code{st_mirror_triangle_stm}, @pxref{st_mirror}
 @item @b{st-mirror-3<tm} @expansion{} @code{st_mirror_triangle_wtm}, @pxref{st_mirror}
 @item @b{st-oneway} @expansion{} @ref{st_oneway}
 @item @b{st-oneway_black"} @expansion{} @code{st_oneway_black}, @pxref{st_oneway}
+@need 200
 @item @b{st-oneway_black-e"} @expansion{} @code{st_oneway_black_e}, @pxref{st_oneway}
 @item @b{st-oneway_black-n"} @expansion{} @code{st_oneway_black_n}, @pxref{st_oneway}
 @item @b{st-oneway_black-s"} @expansion{} @code{st_oneway_black_s}, @pxref{st_oneway}
 @item @b{st-oneway_black-w"} @expansion{} @code{st_oneway_black_w}, @pxref{st_oneway}
+@need 200
 @item @b{st-oneway-e"} @expansion{} @code{st_oneway_e}, @pxref{st_oneway}
 @item @b{st-oneway-n"} @expansion{} @code{st_oneway_n}, @pxref{st_oneway}
 @item @b{st-oneway-s"} @expansion{} @code{st_oneway_s}, @pxref{st_oneway}
 @item @b{st-oneway-w"} @expansion{} @code{st_oneway_w}, @pxref{st_oneway}
+@need 200
 @item @b{st-oneway_white"} @expansion{} @code{st_oneway_white}, @pxref{st_oneway}
 @item @b{st-oneway_white-e"} @expansion{} @code{st_oneway_white_e}, @pxref{st_oneway}
 @item @b{st-oneway_white-n"} @expansion{} @code{st_oneway_white_n}, @pxref{st_oneway}
 @item @b{st-oneway_white-s"} @expansion{} @code{st_oneway_white_s}, @pxref{st_oneway}
+@need 200
 @item @b{st-oneway_white-w"} @expansion{} @code{st_oneway_white_w}, @pxref{st_oneway}
 @item @b{st-oxyd} @expansion{} @ref{st_oxyd}
 @item @b{st-plain} @expansion{} @ref{st_flat}
 @item @b{st-plain_break} @expansion{} @code{st_flat_breakable}, @pxref{st_flat}
+@need 200
 @item @b{st-plain_cracked} @expansion{} @code{st_flat_cracked}, @pxref{st_flat}
 @item @b{st-plain_hole} @expansion{} @code{st_flat_hollow}, @pxref{st_flat}
 @item @b{st-plain_move} @expansion{} @code{st_flat_movable}, @pxref{st_flat}
 @item @b{st-pmirror} @expansion{} @code{st_mirror_slab_e}, @pxref{st_mirror}
+@need 200
 @item @b{st-polarswitch} @expansion{} @ref{st_polarswitch}
 @item @b{st-pull} @expansion{} @ref{st_pull}
 @item @b{st-puzzle} @expansion{} @ref{st_puzzle}
 @item @b{st-puzzle-e} @expansion{} @code{st_puzzle_blue_e}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle-es} @expansion{} @code{st_puzzle_blue_es}, @pxref{st_puzzle}
 @item @b{st-puzzle-esw} @expansion{} @code{st_puzzle_blue_esw}, @pxref{st_puzzle}
 @item @b{st-puzzle-ew} @expansion{} @code{st_puzzle_blue_ew}, @pxref{st_puzzle}
 @item @b{st-puzzle-hollow} @expansion{} @code{st_puzzle_blue_nesw_hollow}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle-n} @expansion{} @code{st_puzzle_blue_n}, @pxref{st_puzzle}
 @item @b{st-puzzle-ne} @expansion{} @code{st_puzzle_blue_ne}, @pxref{st_puzzle}
 @item @b{st-puzzle-nes} @expansion{} @code{st_puzzle_blue_nes}, @pxref{st_puzzle}
 @item @b{st-puzzle-nesw} @expansion{} @code{st_puzzle_blue_nesw}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle-new} @expansion{} @code{st_puzzle_blue_new}, @pxref{st_puzzle}
 @item @b{st-puzzle-ns} @expansion{} @code{st_puzzle_blue_ns}, @pxref{st_puzzle}
 @item @b{st-puzzle-nsw} @expansion{} @code{st_puzzle_blue_nsw}, @pxref{st_puzzle}
 @item @b{st-puzzle-nw} @expansion{} @code{st_puzzle_blue_nw}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle-s} @expansion{} @code{st_puzzle_blue_s}, @pxref{st_puzzle}
 @item @b{st-puzzle-sw} @expansion{} @code{st_puzzle_blue_sw}, @pxref{st_puzzle}
 @item @b{st-puzzle-w} @expansion{} @code{st_puzzle_blue_w}, @pxref{st_puzzle}
 @item @b{st-puzzle2-e} @expansion{} @code{st_puzzle_yellow_e}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle2-es} @expansion{} @code{st_puzzle_yellow_es}, @pxref{st_puzzle}
 @item @b{st-puzzle2-esw} @expansion{} @code{st_puzzle_yellow_esw}, @pxref{st_puzzle}
 @item @b{st-puzzle2-ew} @expansion{} @code{st_puzzle_yellow_ew}, @pxref{st_puzzle}
 @item @b{st-puzzle2-hollow} @expansion{} @code{st_puzzle_yellow_nesw_hollow}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle2-n} @expansion{} @code{st_puzzle_yellow_n}, @pxref{st_puzzle}
 @item @b{st-puzzle2-ne} @expansion{} @code{st_puzzle_yellow_ne}, @pxref{st_puzzle}
 @item @b{st-puzzle2-nes} @expansion{} @code{st_puzzle_yellow_nes}, @pxref{st_puzzle}
 @item @b{st-puzzle2-nesw} @expansion{} @code{st_puzzle_yellow_nesw}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle2-new} @expansion{} @code{st_puzzle_yellow_new}, @pxref{st_puzzle}
 @item @b{st-puzzle2-ns} @expansion{} @code{st_puzzle_yellow_ns}, @pxref{st_puzzle}
 @item @b{st-puzzle2-nsw} @expansion{} @code{st_puzzle_yellow_nsw}, @pxref{st_puzzle}
 @item @b{st-puzzle2-nw} @expansion{} @code{st_puzzle_yellow_nw}, @pxref{st_puzzle}
+@need 200
 @item @b{st-puzzle2-s} @expansion{} @code{st_puzzle_yellow_s}, @pxref{st_puzzle}
 @item @b{st-puzzle2-sw} @expansion{} @code{st_puzzle_yellow_sw}, @pxref{st_puzzle}
 @item @b{st-puzzle2-w} @expansion{} @code{st_puzzle_yellow_w}, @pxref{st_puzzle}
 @item @b{st-redrock} @expansion{} @ref{st_redrock}
+@need 200
 @item @b{st-rock1} @expansion{} @ref{st_granite}
 @item @b{st-rock1_hole} @expansion{} @code{st_granite_hollow}, @pxref{st_granite}
 @item @b{st-rock1_move} @expansion{} @code{st_granite_movable}, @pxref{st_granite}
 @item @b{st-rock2} @expansion{} @ref{st_darkgray}
+@need 200
 @item @b{st-rock2_hole} @expansion{} @code{st_darkgray_hollow}, @pxref{st_darkgray}
 @item @b{st-rock3} @expansion{} @ref{st_plaster}
 @item @b{st-rock3_break} @expansion{} @code{st_plaster_breakable}, @pxref{st_plaster}
 @item @b{st-rock3_hole} @expansion{} @code{st_plaster_hollow}, @pxref{st_plaster}
+@need 200
 @item @b{st-rock3_move} @expansion{} @code{st_plaster_movable}, @pxref{st_plaster}
 @item @b{st-rock3_movebreak} @expansion{} @code{st_plaster_movebreakable}, @pxref{st_plaster}
 @item @b{st-rock4} @expansion{} @ref{st_purplemarble}
 @item @b{st-rock5} @expansion{} @ref{st_tigris}
+@need 200
 @item @b{st-rock6} @expansion{} @ref{st_purplegray}
 @item @b{st-rock7} @expansion{} @ref{st_greengray}
 @item @b{st-rock8} @expansion{} @ref{st_concrete}
 @item @b{st-rock9} @expansion{} @ref{st_ancient}
+@need 200
 @item @b{st-rock10} @expansion{} @ref{st_brownmarble}
 @item @b{st-rotator-left} @expansion{} @code{st_rotator_ccw}, @pxref{st_rotator}
 @item @b{st-rotator_move-left} @expansion{} @code{st_rotator_ccw_movable}, @pxref{st_rotator}
 @item @b{st-rotator_move-right} @expansion{} @code{st_rotator_cw_movable}, @pxref{st_rotator}
+@need 200
 @item @b{st-rotator-right} @expansion{} @code{st_rotator_cw}, @pxref{st_rotator}
 @item @b{st-rubberband} @expansion{} @ref{st_rubberband}
 @item @b{st-scissors} @expansion{} @code{st_scissors, inverse=true}, @pxref{st_scissors}
 @item @b{st-shogun} @expansion{} @ref{st_shogun}
+@need 200
 @item @b{st-shogun-l} @expansion{} @code{st_shogun_l}, @pxref{st_shogun}
 @item @b{st-shogun-m} @expansion{} @code{st_shogun_m}, @pxref{st_shogun}
 @item @b{st-shogun-ml} @expansion{} @code{st_shogun_ml}, @pxref{st_shogun}
 @item @b{st-shogun-s} @expansion{} @code{st_shogun_s}, @pxref{st_shogun}
+@need 200
 @item @b{st-shogun-sl} @expansion{} @code{st_shogun_sl}, @pxref{st_shogun}
 @item @b{st-shogun-sm} @expansion{} @code{st_shogun_sm}, @pxref{st_shogun}
 @item @b{st-shogun-sml} @expansion{} @code{st_shogun_sml}, @pxref{st_shogun}
 @item @b{st-spitter} @expansion{} @ref{st_spitter}
+@need 200
 @item @b{st-stonebrush} @expansion{} @code{st_ghost_purplemarble}, @pxref{st_ghost}
 @item @b{st-stoneimpulse} @expansion{} @ref{st_stoneimpulse}
 @item @b{st-stoneimpulse-hollow} @expansion{} @code{st_stoneimpulse_hollow}, @pxref{st_stoneimpulse}
 @item @b{st-stoneimpulse_movable} @expansion{} @code{st_stoneimpulse_movable}, @pxref{st_stoneimpulse}
+@need 200
 @item @b{st-stone1} @expansion{} @ref{st_brownpyramide}
 @item @b{st-stone2} @expansion{} @ref{st_redmarble}
 @item @b{st-stone_break} @expansion{} @code{st_break_oxydc}, @pxref{st_break}
 @item @b{st-surprise} @expansion{} @ref{st_surprise}
+@need 200
 @item @b{st-swap} @expansion{} @ref{st_swap}
 @item @b{st-switch} @expansion{} @code{st_switch, instant=true}, @pxref{st_switch}
 @item @b{st-switch_black} @expansion{} @code{st_switch_black, instant=true}, @pxref{st_switch}
 @item @b{st-switch_white} @expansion{} @code{st_switch_white, instant=true}, @pxref{st_switch}
+@need 200
 @item @b{st-thief} @expansion{} @ref{st_thief}
 @item @b{st-timer} @expansion{} @ref{st_timer}
 @item @b{st-timeswitch} @expansion{} @ref{st_monoflop}
 @item @b{st-turnstile} @expansion{} @code{st_turnstile_red}, @pxref{st_turnstile}
+@need 200
 @item @b{st-turnstile-green} @expansion{} @code{st_turnstile_green}, @pxref{st_turnstile}
 @item @b{st-turnstile-e} @expansion{} @code{st_turnstilearm_e}, @pxref{st_turnstilearm}
 @item @b{st-turnstile-n} @expansion{} @code{st_turnstilearm_n}, @pxref{st_turnstilearm}
 @item @b{st-turnstile-s} @expansion{} @code{st_turnstilearm_s}, @pxref{st_turnstilearm}
+@need 200
 @item @b{st-turnstile-w} @expansion{} @code{st_turnstilearm_w}, @pxref{st_turnstilearm}
 @item @b{st-volcano} @expansion{} @ref{st_volcano}
 @item @b{st-volcano_active} @expansion{} @code{st_volcano_active}, @pxref{st_volcano}
 @item @b{st-volcano-growing} @expansion{} @code{st_volcano_new}, @pxref{st_volcano}
+@need 200
 @item @b{st-volcano_inactive} @expansion{} @code{st_volcano_idle}, @pxref{st_volcano}
 @item @b{st-whiteballs} @expansion{} @code{st_jamb_white}, @pxref{st_jamb}
 @item @b{st-white1} @expansion{} @code{st_passage_white_square}, @pxref{st_passage}
 @item @b{st-white2} @expansion{} @code{st_passage_white_slash}, @pxref{st_passage}
+@need 200
 @item @b{st-white3} @expansion{} @code{st_passage_white_cross}, @pxref{st_passage}
 @item @b{st-white4} @expansion{} @code{st_passage_white_frame}, @pxref{st_passage}
 @item @b{st-window} @expansion{} @ref{st-window}
 @item @b{st-wood} @expansion{} @code{st_box_wood}, @pxref{st_box}
+@need 200
 @item @b{st-wood1} @expansion{} @code{st_box_wood_h}, @pxref{st_box}
 @item @b{st-wood2} @expansion{} @code{st_box_wood_v}, @pxref{st_box}
 @item @b{st-wood-growing} @expansion{} @code{st_box_wood_growing}, @pxref{st_box}
 @item @b{st-wood_001} @expansion{} @ref{st_panel}
+@need 200
 @item @b{st-woven} @expansion{} @ref{st_woven}
 @item @b{st-yellow} @expansion{} @ref{st_yellow}
 @item @b{st-yinyang1} @expansion{} @code{st_blur_cross}, @pxref{st_blur}
 @item @b{st-yinyang2} @expansion{} @code{st_blur_straight}, @pxref{st_blur}
+@need 200
 @item @b{st-yinyang3} @expansion{} @code{st_blur_magic}, @pxref{st_blur}
 @item @b{st-3mirror} @expansion{} @code{st_mirror_triangle_s}, @pxref{st_mirror}
 @end table

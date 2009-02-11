@@ -178,6 +178,6 @@ def_floor("fl_woven",        6.5,   3.0,    true,   "",         true)
 def_floor("fl_adhesionless", 2.5,   0.0,    true,   "",         false)
 def_floor("fl_dark",         3.0,   1.5,   false,   "",         true)
 def_floor("fl_bright",       3.0,   1.5,   false,   "",         true)
-def_floor("fl_trigger",      3.0,   1.5,    true,   "",         true)
+def_floor("fl_fake_trigger", 3.0,   1.5,    true,   "",         true)
 def_floor("fl_fake_abyss",   3.0,   2.0,   false,   "",         false)
 

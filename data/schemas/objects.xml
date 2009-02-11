@@ -443,16 +443,6 @@
     </object>
     <object name="fl_wood_framed_h" init="true"/>
     <object name="fl_wood_framed_v" init="true"/>
-    <object name="it" abstract="true"/>
-    <object name="it_banana"/>
-    <object name="it_blocker">
-      <attr name="autoclose"/>
-      <msg name="close"/>
-      <msg name="open"/>
-      <msg name="signal"/>
-      <msg name="_init"/>
-      <msg name="_performaction"/>
-    </object>
     <object name="fl_yinyang">
       <attr name="friction" default="5.2"/>
       <attr name="adhesion" default="2.0"/>
@@ -463,7 +453,17 @@
     <object name="fl_yinyang_yang">
       <attr name="state" value="1"/>
     </object>
+    <object name="it" abstract="true"/>
     <object name="it_bag"/>
+    <object name="it_banana"/>
+    <object name="it_blocker">
+      <attr name="autoclose"/>
+      <msg name="close"/>
+      <msg name="open"/>
+      <msg name="signal"/>
+      <msg name="_init"/>
+      <msg name="_performaction"/>
+    </object>
     <object name="it_blocker_new" init="true">
     </object>
     <object name="it_bomb">
@@ -603,9 +603,6 @@
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
-    <object name="it_glasses">
-      <attr name="state" max="31"/>
-    </object>
     <object name="it_flag">
       <attr name="color"/>
     </object>
@@ -614,6 +611,9 @@
     </object>
     <object name="it_flag_white">
       <attr name="color" value="1"/>
+    </object>
+    <object name="it_glasses">
+      <attr name="state" max="31"/>
     </object>
     <object name="it_glasses_broken">
       <attr name="state" value="0"/>

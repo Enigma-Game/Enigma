@@ -64,7 +64,8 @@ namespace enigma {
     
     ItemAction Bottle::activate(Actor *a, GridPos) {
         if (state == IDLE) {
-            SendMessage(a, "_booze");
+            if (!SendMessage(a, "_booze").to_bool())
+                return ITEM_KEEP;
         }
         return ITEM_DROP;
     }

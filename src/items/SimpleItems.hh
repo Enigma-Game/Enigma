@@ -70,6 +70,7 @@ namespace enigma {
         // Item interface
         virtual ItemAction activate(Actor* a, GridPos p);
         virtual void on_stonehit(Stone *st);
+        virtual void on_drop(Actor *a);
     };
     
     /**
@@ -116,13 +117,16 @@ namespace enigma {
      */
     class Explosion : public Item {
         CLONEOBJ(Explosion);
-        DECL_ITEMTRAITS;
+        DECL_ITEMTRAITS_ARRAY(4, state);
 
     public:
         Explosion(int strength);
         
         // StateObject interface
         virtual void setState(int extState);
+        
+        // GridObject interface
+        virtual void init_model();
         
         // ModelCallback interface
         virtual void animcb();
@@ -141,8 +145,8 @@ namespace enigma {
         FlagItem(int type);
         
         // Item interface
-       virtual void on_drop(Actor *a);
-       virtual void on_pickup(Actor *a);
+        virtual void on_drop(Actor *a);
+        virtual void on_pickup(Actor *a);
         
     private:
         int traitsIdx() const;

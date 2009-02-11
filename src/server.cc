@@ -273,7 +273,7 @@ void server::PrepareLevel()
     server::ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
     server::ElectricForce     = 15.0;
     server::BumperForce       = 200.0;
-    server::WaterSinkSpeed    = 1000;
+    server::WaterSinkSpeed    = 10000;
     server::SwampSinkSpeed    = 4;
     server::MagnetForce       = 30;
     server::MagnetRange       = 10;

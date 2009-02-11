@@ -67,6 +67,7 @@ namespace enigma {
     };
 
     BOOT_REGISTER_START
+        BootRegister(new Coin(0), "it_coin");
         BootRegister(new Coin(0), "it_coin_s");
         BootRegister(new Coin(1), "it_coin_m");
         BootRegister(new Coin(2), "it_coin_l");

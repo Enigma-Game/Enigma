@@ -63,7 +63,7 @@ namespace enigma {
         }
         
         sound_event ("dynamite");
-        replace("it-explosion1");
+        replace("it_explosion_nil");
     }
     
     bool PullerItem::isStatic() const {

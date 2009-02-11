@@ -102,7 +102,7 @@ namespace enigma {
             return server::SlopeForce;
         } else if (key == "SwampSinkTime") {
             if (server::SwampSinkSpeed > 0) {
-                if (server::SwampSinkSpeed >= 1000)
+                if (server::SwampSinkSpeed >= 10000)
                     return 0;
                 else
                     return 7.0 / server::SwampSinkSpeed;
@@ -110,7 +110,7 @@ namespace enigma {
                 return Value();  // infinite time
         } else if (key == "WaterSinkTime") {
             if (server::WaterSinkSpeed > 0) {
-                if (server::WaterSinkSpeed >= 1000)
+                if (server::WaterSinkSpeed >= 10000)
                     return 0;
                 else
                     return 7.0 / server::WaterSinkSpeed;
@@ -208,7 +208,7 @@ namespace enigma {
             if (val.getType() == Value::NIL)
                 server::SwampSinkSpeed = 0;
             else if ((double)val == 0)
-                server::SwampSinkSpeed = 1000;
+                server::SwampSinkSpeed = 10000;
             else {
                 ASSERT((double)val > 0, XLevelRuntime, "SwampSinkTime less zero");
                 server::SwampSinkSpeed = 7.0 / (double)val;
@@ -217,7 +217,7 @@ namespace enigma {
             if (val.getType() == Value::NIL)
                 server::WaterSinkSpeed = 0;
             else if ((double)val == 0)
-                server::WaterSinkSpeed = 1000;
+                server::WaterSinkSpeed = 10000;
             else {
                 ASSERT((double)val > 0, XLevelRuntime, "SwampSinkTime less zero");
                 server::WaterSinkSpeed = 7.0 / (double)val;

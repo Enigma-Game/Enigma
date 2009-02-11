@@ -122,15 +122,15 @@ namespace enigma {
             if (m.message == "_shield" && getAttr("owner") ==  m.value) {
                 m_shield_rest_time += SHIELD_TIME;
                 update_halo();
-                handled = true;
+                return true;
             }
             else if (m.message == "_invisibility") {
                 m_invisible_rest_time += 8.0;
-                handled = true;
+                return true;
             }
             else if (m.message == "_booze") {
                 m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
-                handled = true;
+                return true;
             }
         }
     

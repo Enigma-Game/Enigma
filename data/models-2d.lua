@@ -262,7 +262,7 @@ do
         {"fl_sand"},
         {"fl_stone"},
         {"fl_white"},
-        {"fl_trigger"},
+        {"fl_fake_trigger"},
         {"fl_bright"},
         -- multiple, with height and width (or 1)
         {"fl_bluegray", 4},

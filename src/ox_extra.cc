@@ -123,7 +123,7 @@ const char *oxyd::oxydextra_floor_map[256] = {
     UNUSED,              // OxydExtra floor 0x56
     UNUSED,              // OxydExtra floor 0x57
     UNUSED,              // OxydExtra floor 0x58
-    "fl_trigger",        // OxydExtra floor 0x59
+    "fl_fake_trigger",   // OxydExtra floor 0x59
     UNUSED,              // OxydExtra floor 0x5a
     "fl_gravel",         // OxydExtra floor 0x5b
     // codes >= 0x5c are unused

@@ -146,7 +146,7 @@ namespace enigma {
     }
 
     void VolcanoStone::actor_inside(Actor *a) {
-        if (state != NEW)
+        if (state == GROWING || state == ACTIVE || state == BREAKING)
             SendMessage(a, "_shatter");
     }
     
