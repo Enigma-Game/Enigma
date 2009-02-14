@@ -204,6 +204,19 @@ static bool is_default(lua_State *L, int idx) {
     return lua_isuserdata(L,idx) && checkMetadata(L, idx, LUA_ID_DEFAULT);
 }
 
+static int userType(lua_State *L) {
+    std::string type = "unknown";
+    if (is_object(L, -1)) type = "object";
+    else if (is_position(L, -1)) type = "position";
+    else if (is_tile(L, -1)) type = "tile";
+    else if (is_tiles(L, -1)) type = "tiles";
+    else if (is_group(L, -1)) type = "group";
+    else if (is_world(L, -1)) type = "world";
+    else if (is_polist(L, -1)) type = "polist";
+    
+    lua_pushstring(L, type.c_str());
+    return 1;
+}
 
 static Object *to_object(lua_State *L, int idx) {
     
@@ -453,12 +466,19 @@ static Value to_value(lua_State *L, int idx) {
         case LUA_TUSERDATA:
             if (is_object(L, idx))
                 return Value(to_object(L, idx));
-            else  if (is_group(L, idx))
+            else if (is_group(L, idx))
                 return Value(toObjectList(L, idx));
-            else  if (is_position(L, idx))
+            else if (is_position(L, idx))
                 return Value(toPosition(L, idx));
-            else  if (is_default(L, idx))
+            else if (is_default(L, idx))
                 return Value();
+            else {
+                lua_pushvalue(L, idx);
+                userType(L);
+                std::string msg = ecl::strf("Cannot convert userdata type '%s' to Value.", lua_tostring(L, -1));
+                throwLuaError(L, msg.c_str());
+            }
+            break;            
         case LUA_TTABLE: {
             TokenList tokens;
             int i = 1;
@@ -473,7 +493,7 @@ static Value to_value(lua_State *L, int idx) {
             return Value(tokens);
         }
         default: 
-            throwLuaError(L,"Cannot convert type to Value.");
+            throwLuaError(L, "Cannot convert type to Value.");
     }
     return Value();
 }
@@ -958,19 +978,6 @@ static int mathRandom (lua_State *L) {
         }
         default: return luaL_error(L, "wrong number of arguments");
     }
-    return 1;
-}
-
-static int userType(lua_State *L) {
-    std::string type;
-    if (is_object(L, 1)) type = "object";
-    else if (is_position(L, 1)) type = "position";
-    else if (is_tile(L, 1)) type = "tile";
-    else if (is_tiles(L, 1)) type = "tiles";
-    else if (is_group(L, 1)) type = "group";
-    else if (is_world(L, 1)) type = "world";
-    
-    lua_pushstring(L, type.c_str());
     return 1;
 }
 

@@ -96,7 +96,7 @@ namespace enigma {
     };
 
     /**
-     * DeathItem
+     * Debris
      */
     class Debris : public Item {
         CLONEOBJ(Debris);
@@ -262,7 +262,7 @@ namespace enigma {
     };
     
     /**
-     * Spring
+     * Springboard
      */
     class Springboard : public Item {
         CLONEOBJ(Springboard);
