@@ -3393,6 +3393,7 @@ Ending Conditions - the mystery of Oxyds and Meditation
 * Object Transformation::         Identity Transfer in case of Transformations
 * Named Positions::               Positions as successors of killed Floors
 * Callbacks and Timers::
+* Level Restart::
 * Ending Conditions::
 @end menu
 
@@ -3508,6 +3509,9 @@ named objects as well as those named positions derived from killed floors.
 
 @node Callbacks and Timers
 @subsection Callbacks and Timers
+
+@node Level Restart
+@subsection Level Restart
 
 @node Ending Conditions
 @subsection Ending Conditions
@@ -5404,8 +5408,9 @@ is decelarating for positive friction values. But friction can be set to
 negative values as well what generates an accelerating force that is very
 difficult to control for the player.
 
-Besides all floors some floor covering items like @ref{it_strip}, @ref{it_hollow}
-may provide friction values as well to deviate from the floor friction.
+Besides all floors some floor covering items like @ref{it_strip}, 
+@ref{it_meditation} may provide friction values as well to deviate from the 
+floor friction.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -5424,8 +5429,9 @@ mouse speed. Adhesion can be set to negative values as well what generates an
 accelerating force in the inverse direction of the mouse movement which is a
 little bit difficult to control for the player.
 
-Besides all floors some floor covering items like @ref{it_strip}, @ref{it_hollow}
-may provide adhesion values as well to deviate from the floor adhesion.
+Besides all floors some floor covering items like @ref{it_strip}, 
+@ref{it_meditation_hollow} may provide adhesion values as well to deviate from
+the floor adhesion.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -5720,8 +5726,8 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 * ShowMoves::
 * SlopeStrength::
 * SurviveFinish::
-* SwampSinkSpeed::
-* WaterSinkSpeed::
+* SwampSinkTime::
+* WaterSinkTime::
 * Width::
 * WormholeRange::
 * WormholeStrength::
@@ -5767,11 +5773,10 @@ A global variable that determines if a dead actor will be resurrected in case of
 
 If @code{true}, dead actors attached to a player will be resurrected as long as
 extralives are available. If a player has no living actor to control or is
-missing the actor's essential constraints (see section Actor Attributes),
-the player is dead. The level may still continue if a second player is alive.
-If the gamer has an @ref{it_yinyang} in his inventory in single user mode, the
-control switches to the second player. If all players are dead, a new level game
-is started.
+missing the actor's ref{essential} constraints, the player is 
+dead. The level may still continue if a second player is alive. If the gamer has
+an @ref{it_yinyang} in his inventory in single user mode, the control switches
+to the second player. If all players are dead, a new level game is started.
 
 If the conserve mode is @code{false}, no actors will be resurrected. As soon as
 the player is dead and the control cannot switch to another player, all dead
@@ -5780,8 +5785,7 @@ finishing the level game.
 
 Use @code{false} if the level can either be not solved in case of resurrected
 actors or would provide a major shortcut. In all other cases, mode @code{true}
-with proper usage of actors essential constraints will be preferable
-(see section Actor Attributes).
+with proper usage of actors ref{essential} constraints will be preferable.
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -6120,28 +6124,35 @@ same step in some subtle cases.
 @item @b{Support:} @ @ object independent
 @end table
 
-@node SwampSinkSpeed
-@subsection SwampSinkSpeed
+@node SwampSinkTime
+@subsection SwampSinkTime
 
-A global default for the speed at which actors need to move to avoid sinking.
+A global default for the time it takes a static actor to sink in @ref{fl_swamp}.
+Fast moving actors will needs slightly more time than static actors.
 
 @table @asis
-@item @b{Type:} @ @ number
-@item @b{Values:} @ @ positive float number or zero
-@item @b{Default:} @ @ @code{4.0}
+@item @b{Type:} @ @ number or @code{nil}
+@item @b{Values:} @ @ positive float number or zero or @code{nil}
+Sink time in seconds or @samp{nil} for an inifinite time aka not sinking. Time
+values smaller than appr. 0.7 ms will be rounded down to 0 ms.
+@item @b{Default:} @ @ @code{0.57}
+The exact default value is 4/7 seconds due to historic reasons
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{fl_swamp}
 @end table
 
-@node WaterSinkSpeed
-@subsection WaterSinkSpeed
+@node WaterSinkTime
+@subsection WaterSinkTime
 
-A global default for the speed at which actors need to move to avoid sinking.
+A global default for the time it takes a static actor to sink in @ref{fl_water}.
+Fast moving actors will needs slightly more time than static actors.
 
 @table @asis
-@item @b{Type:} @ @ number
-@item @b{Values:} @ @ positive float number or zero
-@item @b{Default:} @ @ @code{4.0}
+@item @b{Type:} @ @ number or @code{nil}
+@item @b{Values:} @ @ positive float number or zero or @code{nil}
+Sink time in seconds or @samp{nil} for an inifinite time aka not sinking. Time
+values smaller than appr. 0.7 ms will be rounded down to 0 ms.
+@item @b{Default:} @ @ @code{0.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{fl_water}
 @end table
@@ -6617,7 +6628,7 @@ those actors that are attached to the player wearing the glasses.
 
 Glasses can make invisible @ref{st_death} visible, can uncover invisible
 passages by making hollow stones transparent, can make inactive
-@ref{st_lightpassenger} be distinguishable from @ref{st_glass}, can make
+@ref{st_lightpassenger} be distinguishable from @ref{st_darkglass}, can make
 invisble @ref{it_sensor}, @ref{it_trap} and @ref{st_actorimpulse} be visible.
 
 All these features are configurable by the constants @samp{SPOT_DEATH},
@@ -6720,7 +6731,7 @@ A static item that explodes on actors stepping onto its critical center part and
 on stones being pushed onto the mine.
 
 The landmine explodes shattering nearby marbles on the same grid and leaves an
-@ref{it_hollow} behind.
+hollow @ref{it_meditation} behind.
 
 Actors can jump over a landmine and pass carefully between two adjacent
 landmines without activating the mines. Landmines do neither react on nearby
@@ -6750,12 +6761,12 @@ wielded item in the player's inventory:
 clusters to explode (@ref{st_puzzle}).
 @item Lets a @samp{st_stoneimpulse_movable} not pulse on pushed
 (@ref{st_stoneimpulse})
-@item Makes @code{st_brick_magic} transparent (@ref{st_brick_magic}).
-@item Makes @code{st_invisible_magic} visible and non-transparent
-(@ref{st_invisible}).
+@item Makes @code{st_magic_brick} transparent (@ref{st_magic}).
+@item Makes @code{st_ghost_greenbrown} visible and non-transparent
+(@ref{st_ghost}).
 @item Makes rubberband stones movable (@ref{st_rubberband}).
 @item Changes the color of a chess stone (@ref{st_chess}).
-@item Activates @code{st_yinyang3} (@ref{st_yinyang}).
+@item Activates @code{st_blur_magic} (@ref{st_blur}).
 @end itemize
 
 @table @asis
@@ -7067,9 +7078,10 @@ Start growing the seed.
 @obindex it_sensor
 
 The sensor item is a switch on top of a floor that reacts on actors passing it.
-It just performs actions on actors entering the sensors grid. It will
-send an action value of @samp{true} but of course the @ref{inverse} attribute
-can be used to send an action value of @samp{false} instead.
+It performs actions on actors either entering or exiting the sensors grid 
+depending on its attribute @samp{exit}. It will send an action value of 
+@samp{true} but of course the @ref{inverse} attribute can be used to send an 
+action value of @samp{false} instead.
 
 Any actors passing the grid, either on the floor or jumping over it will be
 detected.
@@ -7097,12 +7109,19 @@ Alternative objects that react on actors are @ref{it_trigger} and
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 An invisible sensor is totally transparent. But the user may notice it, as actors
 cannot drop items onto the same grid position.
-
+@item @b{exit} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+React either on an actor exiting or entering the grid.
 @end table
 
 @item @b{Messages:} none
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_sensor}: exit = @code{false}
+@item @b{it_sensor_exit}: exit = @code{true}
+@end table
 
 @end table
 
@@ -7298,7 +7317,7 @@ it again.
 
 Just solid stones will press the trigger when pushed onto it. Floating, hollow
 stones will generally not press the trigger with the exception of the hollow,
-central puzzle stone (@pxref st_puzzle).
+central puzzle stone (@pxref{st_puzzle}).
 
 There is no way to set the state of a trigger manually. But the state can
 nevertheless be read. At initialization a trigger that is pressed by objects
@@ -7340,10 +7359,10 @@ cannot drop items onto the same grid position.
 
 An activated umbrella temporarily protects a marble from @ref{st_death},
 @ref{st_knight}, @ref{st_thief}, @ref{fl_abyss}, @ref{fl_water},
-@ref{fl_swamp}, @ref{fl_thief}, @ref{it_death}, @ref{it_abyss},
-@ref{it_booze_broken}, explosions, moving stones and the @samp{shatter}
-and @samp{fall} messages; in other words, from all lethal situations and
-thieves.
+@ref{fl_swamp}, @ref{fl_thief}, @ref{it_death}, @ref{it_trap},
+broken @ref{it_bottle}, explosions, moving stones and all other internal
+@samp{shatter} and @samp{fall} events; in other words, from all lethal
+situations and thieves.
 
 An umbrella gets destroyed when hit by a laser beam and is itself a
 laser transformation result of an @samp{it_coin_s}(@pxref{it_coin}).
@@ -7732,6 +7751,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 @menu
 * st_actorimpulse::    Bumper Stone
 * st_blocker::         Shrinkable Blocker
+* st_blur::            Passage of yet undetermined color 
 * st_boulder::         Moving Arrow Boulder
 * st_brake::           Brake for moving Boulders
 * st_chess::           Movable Chess Knight Stone
@@ -7752,6 +7772,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_monoflop::        Monoflop Switch
 * st_oneway::          Oneway Passage
 * st_oxyd::            Game Target Stone
+* st_passage::         Color dependent Passage
 * st_polarswitch::     Transparency Switch for Light Beams
 * st_pull::            Pullable Stone
 * st_puzzle::          Clusterable Puzzle Stones
@@ -7908,6 +7929,53 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 @end table
 
+@c ----------------- Blur Stone --------------------
+@node st_blur
+@subsection st_blur
+@obindex st_blur
+
+A gray stone that transforms on an actor hit into a @ref{st_passage} depending
+on the color of actor. The color of the passage may be the same as
+the color of the actor or be of the opposite color. The flavor of the passage
+is always @code{"square"}.
+
+In the first case the blur stone is pure gray and its  @samp{flavor} is called 
+@code{"straight"} due to the straight color preserving transformation. The
+touching actor will be able to pass the passage straight away.
+
+In the second case the blur stone has an added white and black symbol to notify
+the player that, on touching the stone with a colored actor, this actor will not
+be able to pass the resulting passage. There are two flavors of such blur stones
+- @code{"cross"} which transform unconditionally on an actor hit to the opposite
+colored @ref{st_passage} and flavor @code{"magic"} which transforms just on
+actors hitting the blur stone with a revealed @ref{it_magicwand} or 
+@ref{it_brush} in their inventory.
+
+For colorless actors a blur stone is just a standard stone without any special
+features.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"straight"}, @code{"cross"}, @code{"magic"}; @ @ @i{default}: @code{"straight"}
+The blur subkind.
+@end table
+
+@item @b{Messages:} none
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_blur}: flavor = @code{"straight"}
+@item @b{st_blur_cross}: flavor = @code{"straight"}
+@item @b{st_blur_cross}: flavor = @code{"cross"}
+@item @b{st_blur_cross}: flavor = @code{"magic"}
+@end table
+
+@end table
+
 @c ----------------- Boulder Stone --------------------
 @node st_boulder
 @subsection st_boulder
@@ -7916,12 +7984,12 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 This solid stone moves into the direction shown by the arrow on its picture.
 A marble blocking its way is shattered. When a stone blocks its way, the boulder
 triggers it by a sequence of two internal messages. Some stones give way like
-@ref{st_blocker}, others change their state like @ref{st_oxyd},
-@ref{st_stoneimpulse}, @ref{st_quake}, @ref{st_mirror}, @ref{st_fourswitch},
-@ref{st_volcano}. A third category switches temporarily into another state on the
-first message sent when the boulder reaches a grid and switches back on the
-second message sent when the boulder gives up like @ref{st_[black/white]},
-@ref{st_plain}, @ref{st_lightpassenger}.
+@ref{st_blocker}, @samp{st_break_boulder} (@pxref{st_break}), others change their
+state like @ref{st_oxyd}, @ref{st_stoneimpulse}, @ref{st_quake}, 
+@ref{st_mirror}, @ref{st_fourswitch}, @ref{st_volcano}. A third category
+switches temporarily into another state on the first message sent when the
+boulder reaches a grid and switches back on the second message sent when the
+boulder gives up like @ref{st_passage}, @ref{st_flat}, @ref{st_lightpassenger}.
 
 Items getting beneath a moving boulder may react like on any other stone move
 on top of them. Additionally @ref{it_blocker} will be released to grow again
@@ -8280,7 +8348,7 @@ the light without intervening the light.
 
 Just doors of type @code{"d"} allow an actor to knock on its closed faces.
 This causes an action that might open the door or do anything else. A common
-target is @ref{st_balls} that evaluated the color of the knocking actor.
+target is @ref{st_jamb} that evaluated the color of the knocking actor.
 
 @table @asis
 
@@ -9012,10 +9080,11 @@ by their @samp{flavor}. Most flavors do hide the oxyd color in the closed state.
 Only flavor @code{"e"} starts with hidden color, but once opened returns to
 a closed image with a peep hole that lets the player still see the color.
 
-For each flavor exists an identical looking simple stone: @ref{st_fake_oxyda}, 
-@ref{st_fake_oxydb}, @ref{st_fake_oxydc}, @ref{st_fake_oxydd}, 
-@ref{st_fake_oxyde}. If you like an identical looking pseudo stone that takes
-part in the oxyd shuffling you can use an oxyd of color @samp{OXYD_FAKE}.
+For each flavor exists an identical looking simple stone: @samp{st_fake_oxyda}, 
+@samp{st_fake_oxydb}, @samp{st_fake_oxydc}, @resampf{st_fake_oxydd}, 
+@samp{st_fake_oxyde} (@pxref{st_fake}). If you like an identical looking pseudo
+stone that takes part in the oxyd shuffling you can use an oxyd of color 
+@samp{OXYD_FAKE}.
 
 During the game oxyds can be reshuffled. Just those oxyds that are still closed
 will take part in the new shuffle process. Oxyd shuffling rules will still be
@@ -9090,6 +9159,55 @@ performed on state changes form @code{OPEN} to @code{OXYDPAIR}.
 
 @end table
 
+@c ----------------- Passage Stone --------------------
+@node st_passage
+@subsection st_passage
+@obindex st_passage
+
+A black or white colored stone of different shapes that lets pass only actors of
+matching color.
+
+The shape is described by the attribute @samp{flavor}. The shape does not
+affect the behaviour, but may be important for the visibility of actors and
+items beneath.
+
+Passage stones react on @samp{signal} and @samp{toggle} messages and
+@ref{st_boulder} arriving on one of its sides. In both cases the passage stone 
+recolors to the opposite color. In case of a boulder the recoloring is of a
+quite short period, as this stone recolors the passage twice. The period in
+between is long enough for an actor to pass or to redirect the boulder before
+sending the second recoloring message.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+The color of the passage that determines which actors can pass.
+@item @b{state}, @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK} @ @ @xref{state}
+The state is a synonym for color.
+@item @b{flavor} @ @ @i{values}: @code{"square"}, @code{"slash"}, @code{"cross"}, @code{"frame"}; @ @ @i{default}: @code{"square"}
+The passage shape.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switch color of the passage.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_passage}: color = @code{BLACK}
+@item @b{st_passage_black}: color = @code{BLACK}
+@item @b{st_passage_black}: color = @code{WHITE}
+@end table
+
+@end table
+
 @c ----------------- Polarswitch Stone --------------------
 @node st_polarswitch
 @subsection st_polarswitch
@@ -9102,8 +9220,8 @@ The main purpose of this switch is its ability to switch crossing laser beams.
 While the switch is not transparent in its default off state, it switches to
 a transparent on state.
 
-The switch looks like an @ref{st_glass2} in its intransparent off state and like
-an @ref{st_glass1} in its transparent on state. Like other @ref{Glasstones} it
+The switch looks like an @ref{st_darkglass} in its intransparent off state and like
+an @ref{st_lightglass} in its transparent on state. Like other @ref{Glasstones} it
 is passable for invisible actors.
 
 @table @asis
@@ -9155,7 +9273,7 @@ is currently engaged in an own stone exchange operation will refuse swapping.
 
 Stone exchanges will not cause item hit transformations as caused by push moved
 stones. But the exchanged stones will react on the new floor, e.g. causing
-@ref{st_wood} and similar stones to sink into water.
+@ref{st_box} to sink into water.
 
 Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
 laser light transparency. If the exchanged stone is not transparent, the light
@@ -9248,7 +9366,7 @@ wand if the row is part of a movable cluster fragment. If the speed is
 sufficient for a hit operation, the cluster will move instead of an expected
 row rotation.
 
-Like @ref{Cluster Stone}s puzzles accept a @samp{cluster} attribute. A new set
+Like @ref{Cluster Stones} puzzles accept a @samp{cluster} attribute. A new set
 puzzle stone autoconnects to adjacent, same colored puzzle stones belonging to
 the same cluster. But once set the puzzle stone will of course not change its
 connections on subsequent moves or rotations. But as a level author you need to
@@ -9576,8 +9694,8 @@ slightest touch is sufficient to cause a pulsing. Hollow stones will shatter
 actors benath it while pulsing.
 
 Hollow stoneimpulse stones are transparent to laserlight and thus do not react.
-But all other stones do pulse. A standard not @ref{steady} stoneimpulse will
-pulse just one time on each new added light beam. But if you set @ref{steady}
+But all other stones do pulse. A standard not @samp{steady} stoneimpulse will
+pulse just one time on each new added light beam. But if you set @samp{steady}
 to @code{true} the stone will continue pulsing as long as a single beam hits
 one of its sides.
 
@@ -9662,7 +9780,7 @@ is currently engaged in an own stone exchange operation will refuse swapping.
 
 Stone exchanges will not cause item hit transformations as caused by push moved
 stones. But the exchanged stones will react on the new floor, e.g. causing
-@ref{st_wood} and similar stones to sink into water.
+@ref{st_box} to sink into water.
 
 Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
 laser light transparency. If the exchanged stone is transparent, the light
@@ -10115,7 +10233,7 @@ Tries to tear the opposite window face into the given direction.
 @section Actor Attributes
 
 @menu
-* adhesion::        Effectiveness of mousemotion
+* adhesion (actor)::        Effectiveness of mousemotion
 * charge::          Initial electrical charge
 * controllers::     Mouse
 * color::           Color
@@ -10127,8 +10245,8 @@ Tries to tear the opposite window face into the given direction.
 @end menu
 
 
-@node adhesion
-@subsection adhesion
+@node adhesion (actor)
+@subsection adhesion (actor)
 
 The responsiveness of an actor on mouse movements. It is a scalar factor to
 the accelerating force applied to the actor. Note that mouse forces are only
@@ -10140,7 +10258,7 @@ adhesion may take negativ values, too. Such values correspond to inverse forces.
 @table @asis
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
-@item @b{Default:} @ @ actor dependent
+@item @b{Default:} @ @ @code{0.0}
 @item @b{Access:} @ @ read/write
 @end table
 
@@ -10166,7 +10284,7 @@ The players that can control the actor by their mouse movements.
 @table @asis
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}
-@item @b{Default:} @ @ @code{0}
+@item @b{Default:} @ @ @code{CTRL_NONE}
 @item @b{Access:} @ @ read/write
 @end table
 
@@ -10188,16 +10306,21 @@ changed, it is a read only attribute.
 @subsection essential
 
 Describes the necessity of an actor to be alive in case of multiple actors being
-attached to a player. A value 0 marks an actor as not essential. The player
-may well continue to play with other actors that he controls which are still 
-alive. A value of -1 marks an actor as totally necessary. If such an actor 
-cannot be resurrected after a death, the player is essentially dead. A value 
-of 1 marks an actor as partially essential. Not the actor itself needs to 
-survive but the number of actors of its kind controlled by the player need to be
-larger than the number of actors with value 1. For example, marking 3 out of 5
-small whiteballs with 1 means that the player is dead if 3 small whiteballs are
-no longer alive. See Old API - Variables �enigma.ConserveLevel� for more details
-about restart of levels.
+attached to a player. A value @samp{DISPENSIBLE} marks an actor as not essential.
+The player may well continue to play with other actors that he controls which
+are still alive. A value of @samp{INDISPENSIBLE} marks an actor as totally 
+necessary. If such an actor cannot be resurrected after a death, the player is
+essentially dead. A value of @samp{PERKIND} marks an actor as partially 
+essential. Not the actor itself needs to survive but the number of actors of 
+its kind controlled by the player need to be larger than the number of actors
+with value @samp{PERKIND}. For example, marking 4 out of 5 @ref{ac_pearl} with
+@samp{PERKIND} means that the player is dead if 2 pearls are no longer alive.
+
+Of course shattered or sunken actors will first be resurrected if an
+@ref{it_extralife} is availabe and the global attribute @ref{ConserveLevel}
+allows a resurrection.
+
+For more details about level restart see @ref{Level Restart}.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -10212,7 +10335,8 @@ about restart of levels.
 Since a player may control actors of different kinds at the same time, the
 essentialness of actors is limited to its kind via this id. It is possible to
 group actors of different kinds into an essential group via this id. The engine 
-keeps this id even if actors are transformed into other kinds.
+keeps this id even if actors are transformed into other kinds like on activation
+of an @ref{it_drop}.
 
 @table @asis
 @item @b{Type:} @ @ string
@@ -10268,6 +10392,7 @@ current velocity of an actor during runtime.
 @section Actors
 
 @menu
+* ac_bug::
 * ac_horse::
 * ac_killer::
 * ac_marble::     
@@ -10275,6 +10400,34 @@ current velocity of an actor during runtime.
 * ac_rotor::
 * ac_top::
 @end menu
+
+@c ----------------- Bug --------------------
+@node ac_bug
+@subsection ac_bug
+@obindex ac_bug
+
+An actor that looks like a smalle gray ball with two red dots on it. Bugs are
+harmless actors that do not affect other actors and they are usually passiv.
+
+In contrast to the main actors they can not jump or pass an @ref{it_vortex}, and
+will not sink, fall or shatter. Bugs are immortal.
+
+Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
+values if you want a player to control a bug directly. If a bug is owned by a
+player @ref{fl_thief} and @ref{st_thief} will steal items from it.
+
+@table @asis
+@item @b{Attributes:} common actor attributes 
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_bug}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@end table
+
+@end table
 
 @c ----------------- Horse --------------------
 @node ac_horse
@@ -10446,10 +10599,120 @@ The color of the pearl.
 @subsection ac_rotor
 @obindex ac_rotor
 
+A rotating actor build up of 4 greenish cudgels. It is a death bringing actor
+that shatters @ref{ac_marble}s and @ref{ac_pearl}s on contact. Its behaviour
+is identical to an @ref{ac_top}.
+
+In contrast to the main actors it can not jump or pass an @ref{it_vortex}, and
+will not sink, fall or shatter. A rotor is immortal.
+
+Rotors do usually hunt mortal actors trying to shatter them. They accelerate by
+force given by the attribute @samp{strength}, but they limit their hunt to
+actors in the given @samp{range}. If no attackable actor remains in this range
+they return to their initial position if the attribute @samp{gohome} is 
+@samp{true}.
+
+Note that in case multiple attackable actors are in range the rotor gets
+confused and tries to attack the center of its victims. But if you set the
+attribute @samp{attacknearest} to @samp{true} the rotor will concentrate just
+on the nearest victim. By adjusting the attribute @samp{prefercurrent} you
+can instruct the rotors to prefer victims of the current active player with
+a certain likelihood.
+
+Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
+values if you want a player to control a rotor directly. If a rotor is owned by a
+player @ref{fl_thief} and @ref{st_thief} will steal items from it.
+
+An @ref{ac_marble} will temporarily transform into a rotor when it activates
+an @ref{it_drop}. During the 5 seconds of transformation the actor is a real
+immortal rotor with the identity inclusive the @samp{essential_id} of the
+former marble. After the period is over it transforms back to its original
+kind.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{range} @ @ @i{values}: float number; @ @ @i{default}: @code{5.0}
+The distance up to which victims are hunted.
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+10.0}
+The force that drives the rotor to its victims.
+@item @b{gohome} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Behaviour of a rotor without victim in range.
+@item @b{attacknearest} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Behaviour of a rotor with multiple victims in range
+@item @b{prefercurrent} @ @ @i{values}: float number in range [0.0 - 1.0]; @ @ @i{default}: @code{+0.0}
+Likelihood of attack strategy. You will usually use this attribute in
+combination with @samp{attacknearest} set to @samp{true}. The Level 
+@samp{Toreador} is an example of the behavior of such rotors.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_rotor}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@end table
+
+@end table
+
 @c ----------------- Top --------------------
 @node ac_top
 @subsection ac_top
 @obindex ac_top
+
+A fast rotating, greenish disk like actor. It is a death bringing actor
+that shatters @ref{ac_marble}s and @ref{ac_pearl}s on contact. Its behaviour
+is identical to an @ref{ac_rotor}.
+
+In contrast to the main actors it can not jump or pass an @ref{it_vortex}, and
+will not sink, fall or shatter. A top is immortal.
+
+Tops do usually hunt mortal actors trying to shatter them. They accelerate by
+force given by the attribute @samp{strength}, but they limit their hunt to
+actors in the given @samp{range}. If no attackable actor remains in this range
+they return to their initial position if the attribute @samp{gohome} is 
+@samp{true}.
+
+Note that in case multiple attackable actors are in range the top gets
+confused and tries to attack the center of its victims. But if you set the
+attribute @samp{attacknearest} to @samp{true} the top will concentrate just
+on the nearest victim. By adjusting the attribute @samp{prefercurrent} you
+can instruct the top to prefer victims of the current active player with
+a certain likelihood.
+
+Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
+values if you want a player to control a top directly. If a top is owned by a
+player @ref{fl_thief} and @ref{st_thief} will steal items from it.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{range} @ @ @i{values}: float number; @ @ @i{default}: @code{5.0}
+The distance up to which victims are hunted.
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+10.0}
+The force that drives the top to its victims.
+@item @b{gohome} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Behaviour of a top without victim in range.
+@item @b{attacknearest} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Behaviour of a top with multiple victims in range
+@item @b{prefercurrent} @ @ @i{values}: float number in range [0.0 - 1.0]; @ @ @i{default}: @code{+0.0}
+Likelihood of attack strategy. You will usually use this attribute in
+combination with @samp{attacknearest} set to @samp{true}. The Level 
+@samp{Toreador} is an example of the behavior of such rotors.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{ac_top}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@end table
+
+@end table
 
 @c ===================  Other Objects  =======================
 
@@ -12188,19 +12451,19 @@ ti["  "] = @{"fl_sahara"@}
 ti[" ="] = @{"fl_tigris"@}
 ti[" ."] = @{"fl_abyss"@}
 ti[" ~"] = @{"fl_water"@}
-ti[" ;"] = @{"fl_leaves"@}
+ti[" ;"] = @{"fl_lawn"@}
 
-ti["# "] = @{"st_rock1"@}
+ti["# "] = @{"st_granite"@}
 ti["W "] = @{"st_wood"@}
 ti["X "] = @{"st_oxyd"@}
-ti["G "] = @{"st_grate1"@}
+ti["G "] = @{"st_grate_cross"@}
 
 ti["2 "] = @{"it_coin_s"@}
 ti["s "] = @{"it_seed"@}
 ti["c "] = @{"it_cherry"@}
 ti["h "] = @{"it_hammer"@}
 
-ti["k "] = @{"it_key"@} .. ti(@{"st_glass1"@})
+ti["k "] = @{"it_key"@} .. ti(@{"st_lightglass"@})
 
 ti["xx"] = @{"#ac_marbel_black"@}
 
