@@ -63,39 +63,33 @@ bool ecl::split_path (const string& path, string* dir_part, string* filename_par
     return true;
 }
 
-namespace {
-    string vstrf(const char *format, va_list argPtr) {
-        static size_t  buf_size = 128;
-        static char   *buffer   = new char[buf_size];
+std::string ecl::strf(const char *format, ...) {
+    static size_t  buf_size = 512;
+    static char   *buffer   = new char[buf_size];
+    
+    va_list argPtr;
+    size_t length;
 
-        size_t length;
-        while (1) {
-            if (!buffer) {
-                assert(buffer); // to stop when debugging
-                return "<alloc problem>";
-            }
-
-            length = vsnprintf(buffer, buf_size, format, argPtr);
-            if (length < buf_size) break; // string fits into current buffer
-
-            // otherwise resize buffer :
-            buf_size += buf_size/2;
-            // fprintf(stderr, "Reallocating vstrf-buffer to size=%u\n", buf_size);
-            delete [] buffer;
-            buffer    = new char[buf_size];
+    while (true) {
+        if (!buffer) {
+            assert(buffer); // to stop when debugging
+            return "<alloc problem>";
         }
 
-        return string(buffer, length);
+        va_start(argPtr, format);
+        length = vsnprintf(buffer, buf_size, format, argPtr);
+        va_end(argPtr);
+        
+        if (length >= 0 && length < buf_size - 1) 
+            // string fits into current buffer
+            return std::string(buffer, length);
+
+        // otherwise resize buffer :
+        buf_size *= 2;
+//        fprintf(stderr, "Reallocating vstrf-buffer to size=%u\n", buf_size);
+        delete [] buffer;
+        buffer = new char[buf_size];
     }
-}
-
-string ecl::strf(const char *format, ...) {
-    va_list argPtr;
-    va_start(argPtr, format);
-    string result = vstrf(format, argPtr);
-    va_end(argPtr);
-
-    return result;
 }
 
     // string_match accepts simple wildcards
