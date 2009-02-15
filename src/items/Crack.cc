@@ -134,6 +134,7 @@ namespace enigma {
     };
 
     BOOT_REGISTER_START
+        BootRegister(new Crack(0),  "it_crack");
         BootRegister(new Crack(-1), "it_crack_i");
         BootRegister(new Crack(0),  "it_crack_s");
         BootRegister(new Crack(1),  "it_crack_m");

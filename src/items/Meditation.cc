@@ -204,9 +204,9 @@ namespace enigma {
     void Meditation::shovel() {
         int newState = (state > 0) ? state - 1 : state + 1;
         if (newState == 0) {
-            // double register indispensible holes as the kill will subtract one essentialness 
-            if (/* state != HILL && state != BUMP && */ (objFlags & OBJBIT_INDISPENSIBLE))
-                ChangeMeditation(0, +1, 0, 0);
+//            // double register indispensible holes as the kill will subtract one essentialness 
+//            if (/* state != HILL && state != BUMP && */ (objFlags & OBJBIT_INDISPENSIBLE))
+//                ChangeMeditation(0, +1, 0, 0);
             kill();
         } else {
             setState(newState);
