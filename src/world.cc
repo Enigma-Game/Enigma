@@ -226,7 +226,7 @@ const double World::contact_e = 0.02;  // epsilon distant limit for contacts
 World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
         leftmost_actor (NULL), rightmost_actor (NULL), numMeditatists (0), 
         indispensableHollows (0), engagedIndispensableHollows(0), engagedDispensableHollows (0),
-        globalForce (0, 0), registerCriticalPositions (false), scrambleIntensity(10) // difficult default
+        registerCriticalPositions (false), scrambleIntensity(10) // difficult default
         {
     w = ww;
     h = hh;
@@ -593,7 +593,7 @@ V2 World::get_local_force (Actor *a) {
     if (a->is_on_floor()) {
         if (Floor *floor = a->m_actorinfo.field->floor) {
             // Constant force
-            f += globalForce;
+            f += server::GlobalForce;
 
             // Mouse force
             if (a->get_controllers() != 0) {
@@ -1794,14 +1794,6 @@ void AddForceField(ForceField *ff)
 
 void RemoveForceField(ForceField *ff) {
     level->remove (ff);
-}
-
-void SetGlobalForce(V2 force) {
-    level->globalForce = force;
-}
-
-ecl::V2 GetGlobalForce() {
-    return level->globalForce;
 }
 
 /* -------------------- Signals, Messages, Actions -------------------- */

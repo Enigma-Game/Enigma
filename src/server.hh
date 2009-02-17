@@ -25,6 +25,7 @@
 
 #include "lev/Proxy.hh"
 #include "Value.hh"
+#include "ecl_math.hh"
 
 #include <stdint.h>
 
@@ -97,6 +98,7 @@ namespace enigma_server
     // 1.10 crack variables
     extern double   Fragility;
     extern double   CrackSpreading;
+    extern ecl::V2  GlobalForce;
     
     extern int      MaxOxydColor;
 
