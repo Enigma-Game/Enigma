@@ -3,68 +3,45 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack6"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
       <el:score el:easy="0:15" el:difficult="0:17"/>
     </el:info>
     <el:luamain><![CDATA[
--- GENERAL --
-levelw = 20
-levelh = 13
-create_world(levelw, levelh)
-enigma.ConserveLevel = FALSE
-
--- DESIGN --
-boden="fl-sahara"
-wand="st-plain"
-
--- FLOOR --
-fill_floor(boden, 0,0,levelw,levelh)
-
--- STONES --
-draw_border(wand)
-
-if difficult then
- set_stone("st-fart",6,6,{name="fart1"})
- set_stone("st-timer",13,6,{action="trigger", target="fart1", interval=20})
+ti[" "] = {"fl_sahara"}
+ti["#"] = {"st_flat"}
+ti["O"] = {"st_oxyd"}
+if wo["IsDifficult"] then
+    ti["Q"] = {"st_quake", name="quaker"}
+    ti["T"] = {"st_timer", interval=20.0, target="quaker"}
+else
+    ti["Q"] = ti[" "]
+    ti["T"] = ti[" "]
 end
+ti["d"] = {"it_document", text="text1"}
+ti["@"] = {"#ac_marble_black"}
 
--- ITEMS --
-set_item("it-document", 8, 6, {text="text1"})
+wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "#          O O O O #",
+    "#                  #",
+    "# O              O #",
+    "#                  #",
+    "# O   Q d  @ T   O #",
+    "#                  #",
+    "# O              O #",
+    "#                  #",
+    "# O O O O          #",
+    "#                  #",
+    "####################"})
 
--- ACTORS --
-set_actor("ac-blackball", 11.5,6.5, {player=0})
-
--- OXYD --
-oxyd(2,4)
-oxyd(2,6)
-oxyd(2,8)
-oxyd(2,10)
-
-oxyd(4,10)
-oxyd(6,10)
-oxyd(8,10)
-
-oxyd(11,2)
-oxyd(13,2)
-oxyd(15,2)
-oxyd(17,2)
-
-oxyd(17,4)
-oxyd(17,6)
-oxyd(17,8)
-
-oxyd_default_flavor = "d"
-oxyd_shuffle()
-    ]]></el:luamain>
+wo:shuffleOxyd()
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>
@@ -72,7 +49,7 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Welcome to Enigma VI</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

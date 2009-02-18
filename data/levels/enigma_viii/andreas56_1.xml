@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="5 Days and 5 Nights" el:subtitle="" el:id="andreas56"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Thanks to Ronald for fine-tuning.</el:code>
+      </el:comments>
+      <el:score el:easy="14:30" el:difficult="29:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_platinum", "floor#"}
+ti["n"] = {"fl_dark", "floor#"}
+ti["#"] = {"st_greengray", "wall#"}
+ti["N"] = {"st_purplegray", "wall#"}
+ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_GRAY}
+ti["Y"] = {"st_yinyang", action = {"grow", "callback"},
+            target = {"@@seed#*", "change_design"}} .. ti{"it_seed_fake", "seed#"}
+ti["B"] = {"st_blur_cross"}
+ti["S"] = {"st_surprise", selection = {"st_passage_black", "st_passage_white"}}
+ti["@"] = {"#ac_marble", essential = INDISPENSIBLE}
+
+if wo["IsDifficult"] then
+    ti["%"] = {"#ac_killer", controllers = CTRL_YANG, adhesion = 0.7, owner = YANG}
+else
+    ti["%"] = {"#ac_pearl", controllers = CTRL_YANG, adhesion = 0.7, owner = YANG}
+end
+
+wo(ti, " ",
+       {"##O#O###O##O###O#O##",
+        "# BBBY BBBBSBBBB   #",
+        "OSB BB BB BBBB BB BO",
+        "#B  BBBBY  SBB  BBB#",
+        "OBBBBB BBBBBB YBBBBO",
+        "#  BB  BB  BB  SBB #",
+        "#BBBBBYB %@ BBBBBBY#",
+        "#BBB BBBB  YBBYB BB#",
+        "OBBB BBBBBBBBBB  BBO",
+        "#BBBBYB  BBB BBYSBB#",
+        "OBS B B BB S  BBB BO",
+        "# BBBBBBBBBBBBBBB  #",
+        "##O#O###O##O###O#O##"})
+
+wo:shuffleOxyd()
+
+is_day = true
+function change_design()
+    if is_day then
+        wo[no["floor#*"]] = ti["n"]
+        wo[no["wall#*"]] = ti["N"]
+    else
+        wo[no["floor#*"]] = ti[" "]
+        wo[no["wall#*"]] = ti["#"]  
+    end
+    is_day = not is_day
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Just a hint: Try the easy-mode first ...</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Don't think too long ... it's easy!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

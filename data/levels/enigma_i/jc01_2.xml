@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hurry!" el:subtitle="" el:id="jc01"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
+      <el:author el:name="Jens-Christian Korth" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Jens-Christian Korth</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Easy mode and new API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_stone"}
+ti["."] = {"fl_metal_7"}
+ti["#"] = {"st_granite"}
+ti["X"] = {"st_portal"}
+ti["d"] = {"st_door", "door", faces = "ew"} .. ti({"fl_slope_pe"})
+ti["F"] = {"st_quake"}
+ti["T"] = {"st_timer", "timer", target="door", action = "close", interval = 5, state = OFF, loop = false}
+ti["1"] = {"it_trigger", target = "initTimer"}
+ti["2"] = {"it_trigger"}
+ti["o"] = {"st_oxyd", "lefto#"}
+ti["O"] = {"st_oxyd", "righto#"}
+ti["Q"] = {"st_oxyd", "righto#", oxydcolor=OXYD_QUAKE}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "XXXXXXXXXXXX########",
+    "X           #......#",
+    "X o   o   o #.O..O.#",
+    "X           #......#",
+    "X           #......#",
+    "X          #T#.....#",
+    "X o   o  @ 1d2...O.#",
+    "X          ###.....#",
+    "X           #......#",
+    "X           #......#",
+    "X o   o   o #.O..Q.#",
+    "X           #......#",
+    "XXXXXXXXXXXX########"
+})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"lefto#*", "righto#*", max = 4}, {"righto#*", min=0, max=0})
+else
+    wo:shuffleOxyd({"lefto#*", "righto#*", max = 2}, {"righto#*", min=1, max=1})
+end
+
+function initTimer(value, sender)
+    if value == true and no["door"]["state"] == CLOSED then
+        no["door"]:open()
+        no["timer"]:on()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

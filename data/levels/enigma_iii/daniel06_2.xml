@@ -9,9 +9,7 @@
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -45,7 +43,7 @@ wo(ti, " ", {
 
 wo:add({"ot_rubberband", anchor1 = "black", anchor2 = "white", length = 10.0, min = 9.98, max = 10.02})
 wo:shuffleOxyd({"left#*", max = 0}, {"right#*", max = 0})
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

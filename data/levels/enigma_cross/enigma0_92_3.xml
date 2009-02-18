@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma 0.92 - 3"/>
+  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma 0.92 - 3"/>
 
   <attributes/>
 
@@ -12,7 +12,7 @@
     <level _seq="4" _title="Seed Puzzle" _xpath="enigma_iv/duffy77_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy77" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Stealing from Thieves" _xpath="enigma_v/duffy78_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy78" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="6" _title="Oxyd Maze" _xpath="enigma_i/duffy79_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy79" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Path in the Stars" _xpath="enigma_ii/duffy80_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy80" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="7" _title="Path in the Stars" _xpath="enigma_ii/duffy80_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy80" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="8" _title="Listen Carefully" _xpath="enigma_v/duffy81_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy81" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Flood Zone" _xpath="enigma_iv/duffy82_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy82" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Fire Safety" _xpath="enigma_iv/duffy83_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy83" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -60,7 +60,7 @@
     <level _seq="52" _title="Reach the Dock" _xpath="enigma_v/duffy119_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Snowing" _xpath="enigma_ii/duffy120_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy120" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="54" _title="Action at a Distance" _xpath="enigma_iv/duffy121_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="55" _title="Civil Engineer" _xpath="enigma_i/duffy122_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy122" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="Civil Engineer" _xpath="enigma_i/duffy122_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy122" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Electric Meditation" _xpath="enigma_iv/duffy123_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Worse Nightmare" _xpath="enigma_iv/duffy124_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy124" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="58" _title="Triple-Maze" _xpath="enigma_iv/duffy125_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="2" rev="12" score="2" target="time" unit="duration"/>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="CrissCross" el:subtitle="" el:id="devnull26"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:30" el:difficult="1:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["##"] = {"st_redrock"}
+ti["  "] = {"fl_concrete"}
+ti[" ~"] = {"fl_water"}
+if wo["IsDifficult"] then
+    ti["X "] = {"st_nil"}
+else
+    ti["X "] = {"st_redrock"}
+end
+ti["+ "] = {"st_turnstile", flavor = "green"}
+ti["^ "] = {"st_turnstilearm", orientation = NORTH}
+ti["> "] = {"st_turnstilearm", orientation = EAST}
+ti["v "] = {"st_turnstilearm", orientation = SOUTH}
+ti["< "] = {"st_turnstilearm", orientation = WEST}
+ti["O "] ={"st_oxyd_a"}
+ti["@ "] = {"#ac_marble_black"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "########################################",
+    "##    < +~      X~              X~  O ##",
+    "##      v~       ~          ^   X~    ##",
+    "##      X~    > +~ ~ ~X~X~ ~+~ ~X~    ##",
+    "##<~+~ ~X~       ~>     X~      X~ ~+~##",
+    "##  v   ^~      X~  ^ <  ~       ~  v ##",
+    "##@     +~>~ ~X~X~       ~  <    ~    ##",
+    "##       ~    X~X~      X~  ^   X~    ##",
+    "##<~+~ ~X~    X~X~<~+~ ~X~ ~+~ ~X~<~+~##",
+    "##  v~        X~X~  v   X~      X~  v ##",
+    "##  X~X~X~X~X~X~        X~  <   ^~    ##",
+    "##                      X~      +~  O ##",
+    "########################################"
+})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -48,7 +48,7 @@ local boxes = no["boxes#*"]
 for obj in no["balls#*"] do
     wo:add({"ot_rubberband", anchor1=obj, anchor2=boxes:nearest(obj), strength=10.0})
 end
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

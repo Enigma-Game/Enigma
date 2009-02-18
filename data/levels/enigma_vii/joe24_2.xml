@@ -23,9 +23,7 @@ ti["o"] = {"it_meditation_hollow"}
 ti["d"] = {"it_document", text="text1"}
 ti["@"] = {"#ac_pearl"}
 
-local resolver = res.autotile(ti, {"1", "4", "P"})
-
-wo(resolver, " ", {
+wo(res.autotile(ti, {"1", "4", "P"}), " ", {
     "####################",
     "#1o1  11    1    1 #",
     "#1A1  11   11  111 #",

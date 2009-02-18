@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Caterpillar" el:subtitle="" el:id="nat15"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin, R. Lamprecht</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_samba"}
+ti["."] = ti({"fl_red", checkerboard=0}) .. {"fl_white", checkerboard=1}
+ti["#"] = {"st_granite"}
+ti["+"] = ti["."] .. ti["#"]
+ti["X"] = ti["-"] .. {"st_grate", flavor="cross"}
+ti["W"] = ti["-"] .. {"st_passage", flavor="frame", color=WHITE}
+ti["="] = ti["."] .. {"st_door", flavor="d", faces="ns", name="door"}
+ti["S"] = ti["."] .. {"st_scissors"}
+ti["^"] = ti["."] .. {"st_oneway", color=WHITE, orientation=NORTH}
+ti["V"] = ti["."] .. {"st_oneway", color=WHITE, orientation=SOUTH}
+ti["t"] = ti["-"] .. {"it_trigger", name="triggers#", target="concat"}
+ti["*"] = ti["W"] .. {"#ac_marble_white", name="whiteballs#", essential=INDISPENSIBLE}
+ti["@"] = {"#ac_marble_black", name="blackball"}
+
+local map = {
+    "#######################################",
+    "#                                ~~~~~#",
+    "#                                ~###~#",
+    "#         ~~~~~          ~~~~~~~~~#*#~#",
+    "#         ~###~          ########~#t#~#",
+    "#         ~#*#~          W----t*#~#-#~#",
+    "#   ~~~~~~~#t#~          ########~#-#~#",
+    "#   ######~#W#~          ~~~~~~~~~#-#~#",
+    "#   W--t*#~                      ~#W#~#",
+    "#   ######~                           #",
+    "#   ~~~~~~~                           #",
+    "#                                     #",
+    "#                                     #",
+    "#                                     #",
+    "#       ~~~~~~~~~~             ~~~~~  #",
+    "#       #########~             ~###~  #",
+    "#       W-----t*#~             ~#*#~  #",
+    "#       #########~             ~#t#~  #",
+    "#~#W#~  ~~~~~~~~~~             ~#X#~  #",
+    "#~#-#~               ~~~~~~~~~~~      #",
+    "#~#t#~               ~##########      #",
+    "#~#*#~      @        ~#*t------W      #",
+    "#~###~               ~##########      #",
+    "#~~~~~               ~~~~~~~~~~~      #",
+    "++++++++++++=++++++++++++++++++++++++++",
+    "+.....................................+",
+    "+.....................................+",
+    "+.....................+V+.+V+.+V+.+V+.+",
+    "+.....................+.+.+.+.+.+.+.+.+",
+    "+.....................+1+.+2+.+3+.+4+.+",
+    "+.....S...............+++.+++.+++.+++.+",
+    "+.....................+1+.+2+.+3+.+4+.+",
+    "+.....................+.+.+.+.+.+.+.+.+",
+    "+.....................+^+.+^+.+^+.+^+.+",
+    "+.....................................+",
+    "+.....................................+",
+    "+++++++++++++++++++++++++++++++++++++++"}
+
+if wo["IsDifficult"] then
+    ti["~"] = {"fl_water"}
+    ti["O"] = ti["."] .. {"st_oxyd", name="oxyd%%#"}
+    local resolver = res.autotile(ti, {"1", "4", "O"})
+    wo(resolver, " ", map)
+    wo:shuffleOxyd({no["oxyd%1#*"], min=1}, {no["oxyd%2#*"], min=1}, {no["oxyd%3#*"], min=1}, {no["oxyd%4#*"], min=1})
+else
+    ti["~"] = {"fl_swamp"}
+    ti["O"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_BLUE}
+    local resolver = res.autotile(ti, {"1", "4", "O"})
+    wo(resolver, " ", map)
+end
+
+for trigger in no["triggers#*"] do
+    trigger["_marble"] = no["whiteballs#*"]:nearest(trigger)
+end
+
+local trail = no["blackball"]
+local count = #no["whiteballs#*"]
+
+function concat(value, sender)
+    sender.target = DEFAULT  -- use every trigger only once
+    wo:add({"ot_rubberband", anchor1=sender["_marble"], anchor2=trail, length=1.0, strength=50.0})
+    trail = sender["_marble"]
+    count = count - 1
+    if count == 0 then
+        no["door"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

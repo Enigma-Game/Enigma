@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Idempotency" el:subtitle="" el:id="duffy145"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_metal_7"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_yellow"}
+ti["+"] = {"st_turnstile"}
+ti["8"] = {"st_turnstilearm", orientation=NORTH}
+ti["6"] = {"st_turnstilearm", orientation=EAST}
+ti["2"] = {"st_turnstilearm", orientation=SOUTH}
+ti["4"] = {"st_turnstilearm", orientation=WEST}
+ti["door"] = {"st_door", flavor="d", faces="ew", name="door%%#"}
+ti["trigger"] = {"it_trigger", target="door%%#*"}
+ti["d"] = ti["~"] .. {"it_trigger", invisible=true, target="door%4#*"}
+ti["f"] = ti["~"] .. {"it_trigger", invisible=true, target="door%6#*"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"A", "J", "door"}, {"a", "j", "trigger"})
+
+wo(resolver, " ", {
+    "####################",
+    "# AB CD EF GH IJ  O#",
+    "# ##################",
+    "#     b   e   h    #",
+    "#####4+6#4+6#4+6####",
+    "#   8 2 8 2 8 2 8  #",
+    "#@#a+6#4+d#f+6#4+i##",
+    "#   2 8 2 8 2 8 2  #",
+    "#####4+6#4+6#4+6####",
+    "#     c   g   j    #",
+    "# ##################",
+    "# AB CD EF GH IJ  O#",
+    "####################"})
+
+no["door*#*"]:open()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

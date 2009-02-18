@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma VII"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Welcome" _xpath="./welcometopack7_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack7" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Welcome" _xpath="./welcometopack7_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack7" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Diving" _xpath="./joona13_1" author="Joona Laire" ctrl="force" easy="true" id="20061203joona500" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Comet" _xpath="./duffy147_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy147" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Caribbean Waters" _xpath="./duffy139_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy139" rel="1" rev="1" score="1" target="time" unit="duration"/>

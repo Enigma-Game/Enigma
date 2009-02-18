@@ -9,9 +9,7 @@
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML and new API converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -47,7 +45,7 @@ wo(resolver, "  ", {
     "  L9                    M8L7M6L5L4L3      "})
 
 wo:shuffleOxyd({"oxyd?1", max=0}, {"oxyd?2", max=0})
-]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

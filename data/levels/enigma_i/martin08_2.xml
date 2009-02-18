@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Light Switches" el:subtitle="" el:id="martin08"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_water"}
+ti["-"] = {"fl_sand"}
+ti["="] = {"fl_lawn"}
+ti["."] = ti["="] .. {"it_shogun_s", name="shogundots#"}
+ti["^"] = {"st_laser", orientation=NORTH, name="lasern#"}
+ti[">"] = {"st_laser", orientation=EAST, name="lasere#"}
+ti["V"] = {"st_laser", orientation=SOUTH, name="lasers#"}
+ti["<"] = {"st_laser", orientation=WEST, name="laserw#"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["="] .. {"ac_marble_black"}
+if wo["IsDifficult"] then
+    ti[","] = ti["."]
+    ti["o"] = ti["O"]
+    ti[")"] = ti[">"]
+    ti["("] = ti["<"]
+    ti[";"] = ti[","]
+    ti[":"] = ti["="] .. {"st_shogun_s"}
+else
+    ti[","] = ti["="]
+    ti["o"] = ti[" "]
+    ti[")"] = ti[" "]
+    ti["("] = ti[" "]
+    ti[":"] = ti["="]
+    ti[";"] = ti["="] .. {"st_shogun_s"}
+end
+
+wo(ti, " ", {
+    "                    ",
+    " o (  O <  > O  ) o ",
+    "                    ",
+    " O     ------     O ",
+    "      --====--      ",
+    " ^    -@....=-    ^ ",
+    "      -:;,,,=-      ",
+    " V    -=....=-    V ",
+    "      --====--      ",
+    " O     ------     O ",
+    "                    ",
+    " o (  O <  > O  ) o ",
+    "                    "})
+
+local lasers = no["laser?#*"]:sort("circular")
+for dot in no["shogundots#*"] do
+    dot.target = lasers[1]
+    lasers = lasers - lasers[1]
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

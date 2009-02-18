@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Path in the Stars" el:subtitle="" el:id="duffy80"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>New API converted by devnull, R. Bourquin</el:code></el:comments>
+      <el:comments><el:code>New API converted by /dev/null, R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,9 +20,9 @@ ti["H"] = {"st_invisible"}
 if wo["IsDifficult"] then
     ti["f"] = ti["="]
 else
-    ti["f"] = ti["="] .. {"it-flagblack"}
+    ti["f"] = ti["="] .. {"it_flag_black"}
 end
-ti["o"] = {"st_oxyd"}
+ti["O"] = {"st_oxyd"}
 ti["@"] = ti["="] .. {"#ac_marble_black"}
 
 wo(ti, " ", {
@@ -30,10 +30,10 @@ wo(ti, " ", {
     "    =+++++++=   =+= ",
     "    +       +   + + ",
     " =+++++++=  =+  + = ",
-    " +  +    +   ++H+ o ",
+    " +  +    +   ++H+ O ",
     " =++= =+++++= +++   ",
     "      +  +  +  =++= ",
-    "  o@f+++++++=   + + ",
+    "  O@f+++++++=   + + ",
     "      +  +      + + ",
     " =+++++++= =++++++= ",
     " +    +    +    +   ",

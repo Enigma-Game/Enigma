@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Follow the Leader" el:subtitle="" el:id="martin71"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Martin Hawlisch" el:email=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin, /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_water"}
+ti["."] = {"fl_sand"}
+ti["#"] = ti[" "] .. {"st_death"}
+ti["B"] = {"st_boulder", name = "boulder", orientation = EAST}
+ti["m"] = {"it_magicwand"}
+ti["1"] = ti[" "] .. {"it_trigger", target="boulder", action_1="turn"}
+ti["2"] = ti[" "] .. {"it_trigger", target="boulder", action_1="turnback"}
+ti["@"] = {"#ac_marble_black", name = "marble"}
+ti["N"] = {"st_oxyd", name = "north1#"}
+ti["E"] = {"st_oxyd", name = "east1#"}
+ti["S"] = {"st_oxyd", name = "south1#"}
+ti["W"] = {"st_oxyd", name = "west1#"}
+if wo["IsDifficult"] then
+    ti["n"] = {"st_oxyd", name = "north2#"}
+    ti["e"] = {"st_oxyd", name = "east2#"}
+    ti["s"] = {"st_oxyd", name = "south2#"}
+    ti["w"] = {"st_oxyd", name = "west2#"}
+else
+    ti["n"] = ti["."]
+    ti["e"] = ti["."]
+    ti["s"] = ti["."]
+    ti["w"] = ti["."]
+end
+
+wo(ti, ".", {
+    "################################################################################################",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "#                                         ..............                                       #",
+    "#                                         N............N                                       #",
+    "#                                         ..............                                       #",
+    "#                                         ..............                                       #",
+    "#                                         ..............                                       #",
+    "#                                         n............n                                       #",
+    "#                                         ..............                                       #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#         .W......w.                     ................                     .e......E.       #",
+    "#         ..........                     ................                     ..........       #",
+    "#         ..........                     ...m............                     ..........       #",
+    "#         ................               ................               ................       #",
+    "#         .....................................    .....................................       #",
+    "#         ..@.B................................ 12 .....................................       #",
+    "#         .....................................    .....................................       #",
+    "#         ................               ................               ................       #",
+    "#         ..........                     ................                     ..........       #",
+    "#         ..........                     ................                     ..........       #",
+    "#         .W......w.                     ................                     .e......E.       #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                               ..                                             #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                              ....                                            #",
+    "#                                         ..............                                       #",
+    "#                                         s............s                                       #",
+    "#                                         ..............                                       #",
+    "#                                         ..............                                       #",
+    "#                                         ..............                                       #",
+    "#                                         S............S                                       #",
+    "#                                         ..............                                       #",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "#                                                                                              #",
+    "################################################################################################"})
+
+wo:add({"ot_rubberband", anchor1 = "marble", anchor2 = "boulder", length = 1.5, strength =  5.0, max = 10.50})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({no["north?#*"], max = 1}, {no["east?#*"], max = 1}, {no["south?#*"], max = 1}, {no["west?#*"], max = 1})
+else
+    wo:shuffleOxyd({no["north?#*"], max = 0}, {no["east?#*"], max = 0}, {no["south?#*"], max = 0}, {no["west?#*"], max = 0})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

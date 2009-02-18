@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="37" title="Enigma VI"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Welcome" _xpath="./welcometopack6_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack6" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Welcome" _xpath="./welcometopack6_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Toreador" _xpath="./ral02_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral004" rel="1" rev="43" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Just another pretty level" _xpath="./edward26_1" author="Edward" ctrl="force" easy="true" id="edward26" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="A-way" _xpath="./richi06_2" author="Richi Bützer" ctrl="force" easy="true" id="richi06" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="A-way" _xpath="./richi06_2" author="Richi Bützer" ctrl="force" easy="true" id="richi06" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Pac Marble" _xpath="./andreas22_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas22" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Laser Splitting" _xpath="./luc29_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc29" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="No Memory" _xpath="./edward01_1" author="Edward" ctrl="force" easy="false" id="edward01" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -63,7 +63,7 @@
     <level _seq="55" _title="Puzzle Puzzles" _xpath="./raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Tarzan" _xpath="./ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Counterclockwise" _xpath="./ulf05_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="2" rev="98" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="Chess and Boxes" _xpath="./johannes01_1" author="Johannes Laire" ctrl="force" easy="false" id="20061201johannes313" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Chess and Boxes" _xpath="./johannes01_2" author="Johannes Laire" ctrl="force" easy="false" id="20061201johannes313" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Walk the line" _xpath="./erich02_1" author="Erich Schubert" ctrl="force" easy="true" id="erich02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Jump into Meditation" _xpath="./ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="River of Challenges" _xpath="./luc33_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc332006" rel="1" rev="4" score="1" target="time" unit="duration"/>
@@ -81,12 +81,12 @@
     <level _seq="73" _title="ZigZag" _xpath="./ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Houdini" _xpath="./ral11_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="3" rev="147" score="2" target="time" unit="duration"/>
     <level _seq="75" _title="The wrong Place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="76" _title="Idempotency" _xpath="./duffy145_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy145" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="76" _title="Idempotency" _xpath="./duffy145_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy145" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Turnstiles for Two" _xpath="./ral17_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral189" rel="2" rev="94" score="2" target="time" unit="duration"/>
     <level _seq="78" _title="jumping ball flash" _xpath="./illmind13_1" author="illmind" ctrl="force" easy="false" id="2007ill001" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Quadropolis" _xpath="./cel1_1" author="Johannes Laire, Jacob Scott, Raoul Bourquin, Andreas Lochmann" ctrl="force" easy="false" id="cel2007_364" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="- Meditation -" _xpath="./raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Magic Trinity" _xpath="./duffy146_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy146" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Magic Trinity" _xpath="./duffy146_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy146" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Pontoon Bridges" _xpath="./duffy137_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy137" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="The Cube" _xpath="./malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Blitz Chess" _xpath="./luc32_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc322006" rel="1" rev="2" score="1" target="time" unit="duration"/>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Magic Trinity" el:subtitle="" el:id="duffy146"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_hay"}
+ti["#"] = {"st_greenbrown"}
+ti["s"] = {"it_sensor", invisible=true, target="callback"}
+ti["1"] = ti["s"] .. {"fl_lawn", _number=1}
+ti["2"] = ti["s"] .. {"fl_wood", _number=2}
+ti["3"] = ti["s"] .. {"fl_sand", _number=3}
+ti["4"] = ti["s"] .. {"fl_bluegreen", _number=4}
+ti["5"] = ti["s"] .. {"fl_metal", _number=5}
+ti["6"] = ti["s"] .. {"fl_tigris", _number=6}
+ti["7"] = ti["s"] .. {"fl_sahara", _number=7}
+ti["8"] = ti["s"] .. {"fl_red", _number=8}
+ti["."] = {"it_sensor", invisible=true, target="reset"}
+ti["="] = {"st_door", flavor="d", faces="ns", state=OPEN, name="doors#"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "# . 353243286376 #O#",
+    "# . 681328343643 #=#",
+    "# . 576856714536 # #",
+    "# . 213473876714 # #",
+    "# . 452652742475 # #",
+    "# @ 681534656261   #",
+    "# . 423676384676 # #",
+    "# . 687231725357 # #",
+    "# . 715376132678 # #",
+    "# . 626742627137 #=#",
+    "# . 267128176726 #O#",
+    "####################"})
+
+local trinity = {0, 0, 0, 0, 0, 0, 0, 0}
+
+function callback(value, sender)
+    trinity[fl(sender)._number] = trinity[fl(sender)._number] + 1
+    if trinity[fl(sender)._number] == 3 then
+        no["doors#*"]:close()
+    end
+end
+
+function reset(value, sender)
+    trinity = {0, 0, 0, 0, 0, 0, 0, 0}
+    no["doors#*"]:open()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+        <el:translation el:lang="de">Magische Dreifaltigkeit</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

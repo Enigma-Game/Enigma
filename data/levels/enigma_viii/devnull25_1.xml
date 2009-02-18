@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Two Is A Company II" el:subtitle="" el:id="devnull25"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="4:30" el:difficult="9:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["##"] = {"st_redrock"}
+ti["  "] = {"fl_concrete"}
+ti["dd"] = {"st_door", "door4White", faces = "ns"}
+ti["DD"] = {"st_door", "door4Black", faces = "ns"}
+ti["ss"] = {"it_shogun_s", target = "doorWhite", action = "signal"}
+ti["tt"] = {"it_shogun_s", target = "doorBlack", action = "signal"}
+ti["SS"] = {"st_shogun_s"}
+if wo["IsDifficult"] then
+    ti["tx"] = ti["  "]
+    ti["sl"] = {"it_shogun_l", target = "doorWhite", action = "signal"}
+    ti["Sx"] = {"st_shogun_s"}
+    ti["SM"] = {"st_shogun_m"}
+    ti["SL"] = {"st_shogun_l"}
+    ti["BB"] = {"st_passage_black_frame"}
+    ti["WW"] = {"st_passage_white_frame"}
+else
+    ti["tx"] = {"it_shogun_s", target = "doorBlack", action = "signal"}
+    ti["sl"] = ti["ss"]
+    ti["Sx"] = ti["  "]
+    ti["SM"] = ti["SS"]
+    ti["SL"] = ti["SS"]
+    ti["BB"] = ti["  "]
+    ti["WW"] = ti["  "]
+end
+ti["oo"] ={"st_oxyd_a", name = "north#"}
+ti["OO"] ={"st_oxyd_a", name = "south#"}
+ti["@@"] = {"#ac_marble_black"}
+ti["**"] = {"#ac_marble_white"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "########################################",
+    "oo  ##@@  tx##              ##tt    sl##",
+    "oo  ######  WW    Sx      ######  ######",
+    "oo  ##      ####SS####SS####  ##  BB  ##",
+    "oo  ##  ######    ##          ##      ##",
+    "oo  ##    WW      ####  ####  ##      ##",
+    "##dd##    ##            ##        ##DD##",
+    "##    SS  ##SS######  ##########  ##  OO",
+    "##  ##        ##ss##  ##  ##  ##  ##  OO",
+    "##  ##  ####  ##  ##  SS  SM  ##  ##  OO",
+    "##  ##  BBSL      ##  ##  ##  ##BB##  OO",
+    "##tt##  ##    ##ss##      ##tt  **##  OO",
+    "########################################",
+})
+
+wo:shuffleOxyd({"north#*", max = 0}, {"south#*", max = 0})
+if wo["IsDifficult"] then
+    wo:add({"ot_counter", "doorBlack", state = 0, target= "door4Black", action_3 = "open", action_2 = "close"})
+    wo:add({"ot_counter", "doorWhite", state = 0, target= "door4White", action_3 = "open", action_2 = "close"})
+else
+    wo:add({"ot_counter", "doorBlack", state = 0, target= "door4Black", action_4 = "open", action_3 = "close"})
+    wo:add({"ot_counter", "doorWhite", state = 0, target= "door4White", action_3 = "open", action_2 = "close"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
