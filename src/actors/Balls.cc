@@ -29,8 +29,8 @@ namespace enigma {
 
     const double BasicBall::SHIELD_TIME = 10.0;
 
-    BasicBall::BasicBall(const ActorTraits &tr, int maxSinkDepthValue) : Actor (tr), 
-            maxSinkDepth (maxSinkDepthValue), sinkDepth (minSinkDepth), sinkModel (-1),
+    BasicBall::BasicBall(const ActorTraits &tr) : Actor (tr), 
+            sinkDepth (minSinkDepth), sinkModel (-1),
             lastshinep (false), vortex_normal_time (0), m_halosprite (),
             m_shield_rest_time (0), m_halostate (NOHALO),
             m_drunk_rest_time (0), m_invisible_rest_time (0) {
@@ -537,7 +537,7 @@ namespace enigma {
     };
 
 /* -------------------- Pearl  -------------------- */
-    Pearl::Pearl(int color) : BasicBall(traits[color], 4) {
+    Pearl::Pearl(int color) : BasicBall(traits[color]) {
         setAttr("adhesion", 1.0);
         setAttr("color", color);
         setAttr("owner", YIN);
@@ -550,6 +550,13 @@ namespace enigma {
 
     const char *Pearl::get_kind() const {
         return "ac_pearl_white";
+    }
+    
+    void Pearl::sink(double dtime) {
+        if (server::GameCompatibility != GAMET_ENIGMA)
+            return;    // do not sink pearls in oxyd modes
+        else
+            BasicBall::sink(dtime);
     }
 
     int Pearl::traitsIdx() const {

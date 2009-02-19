@@ -153,9 +153,9 @@ do
     DefAlias ("ac_pearl_white-sink0", "ac-whiteball-small-fall1")
     DefAlias ("ac_pearl_white-sink1", "ac-whiteball-small-fall2")
     DefAlias ("ac_pearl_white-sink2", "ac-whiteball-small-fall3")
-    DefAlias ("ac_pearl_white-sink3", "ac-whiteball-small-fall4")
-    DefAlias ("ac_pearl_white-sink4", "ac-whiteball-small-fall5")
-    DefAlias ("ac_pearl_white-sink5", "ac-whiteball-small-fall5")
+    DefAlias ("ac_pearl_white-sink3", "ac-whiteball-small-fall3")
+    DefAlias ("ac_pearl_white-sink4", "ac-whiteball-small-fall4")
+    DefAlias ("ac_pearl_white-sink5", "ac-whiteball-small-fall4")
     DefAlias ("ac_pearl_white-sink6", "ac-whiteball-small-fall5")
     DefAlias ("ac_pearl_white-sunk", "invisible")
 
@@ -818,6 +818,7 @@ do
     DefStone("st_yellow")
     DefStone("st_blur_straight")
     DefStone("st_blur_cross")
+    DefStone("st_yinyang_inactive", "sh-round")
 end
 
 ---------------------

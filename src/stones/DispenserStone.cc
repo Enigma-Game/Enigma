@@ -113,9 +113,9 @@ namespace enigma {
     }
 
     StoneTraits DispenserStone::traits[3] = {
-        {"st_dispenser_bombblack", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
-        {"st_dispenser_bombwhite", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
-        {"st_dispenser_dynamite", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_bombblack", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_bombwhite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_dynamite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
     };
 
     BOOT_REGISTER_START

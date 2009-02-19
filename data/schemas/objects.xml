@@ -1739,6 +1739,7 @@
       <attr name="orientation"/>
       <attr name="steady"/>
       <msg name="signal"/>
+      <msg name="ignite"/>
       <msg name="_model_reanimated"/>
       <msg name="_init"/>
       <msg name="_trigger"/>
@@ -1888,12 +1889,17 @@
     <object name="st_yellow"/>
     <object name="st_yinyang">
       <attr name="instant"/>
+      <attr name="loop"/>
     </object>
     <object name="st_yinyang_instant">
       <attr name="instant" value="true"/>
     </object>
     <object name="st_yinyang_active">
       <attr name="state" value="1"/>
+      <attr name="instant" value="false"/>
+    </object>
+    <object name="st_yinyang_inactive">
+      <attr name="state" value="2"/>
       <attr name="instant" value="false"/>
     </object>
   </zoo>

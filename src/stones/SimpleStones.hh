@@ -184,7 +184,8 @@ namespace enigma {
     private:
         enum iState {
             IDLE,       ///< 
-            ACTIVE      ///< 
+            ACTIVE,     ///< 
+            INACTIVE    ///< 
         };
     public:
         YinyangStone(int initState, bool isInstant =false);
@@ -193,6 +194,8 @@ namespace enigma {
         virtual std::string getClass() const;        
         
         // StateObject interface
+        virtual int maxState() const;
+        virtual void toggleState();
         virtual void setState(int extState);
 
         // GridObject interface

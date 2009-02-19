@@ -2347,7 +2347,7 @@ void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
             && (level->engagedIndispensableHollows + level->engagedDispensableHollows) == level->numMeditatists) {
         server::FinishLevel();
     }
-    Log << "chang meditation:  "<< level->numMeditatists << " " << level->indispensableHollows << " "<<level->engagedIndispensableHollows << " " << level->engagedDispensableHollows << "\n";
+//    Log << "chang meditation:  "<< level->numMeditatists << " " << level->indispensableHollows << " "<<level->engagedIndispensableHollows << " " << level->engagedDispensableHollows << "\n";
 }
 
 

@@ -52,7 +52,7 @@ namespace enigma {
         };
 
     public:
-        BasicBall(const ActorTraits &tr, int maxSinkDepthValue = 7);
+        BasicBall(const ActorTraits &tr);
 
         // Object interface.
         virtual Value message(const Message &m);
@@ -83,8 +83,10 @@ namespace enigma {
         // ModelCallback interface  - Animation callback
         virtual void animcb();
 
+    protected:
+        virtual void sink(double dtime);
+
     private:
-        void sink(double dtime);
         void disable_shield();
         void change_state_noshield(iState newstate);
         void change_state(iState newstate);
@@ -96,7 +98,7 @@ namespace enigma {
         void update_halo();
 
         static const int minSinkDepth = 0; // normal level
-        int maxSinkDepth;       // actor dies at this depth
+        static const int maxSinkDepth = 7; // actor dies at this depth
         double sinkDepth;       // how deep actor has sunk
         int    sinkModel;       // current model
         bool   lastshinep;
@@ -141,6 +143,8 @@ namespace enigma {
         virtual std::string getClass() const;
         virtual const char *get_kind() const;
         
+    protected:
+        virtual void sink(double dtime);
     private:
         int traitsIdx() const;
     };

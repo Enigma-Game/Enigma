@@ -897,6 +897,9 @@ en_add_scramble(lua_State *L)
 {
     int         x       = round_down<int>(lua_tonumber(L, 1));
     int         y       = round_down<int>(lua_tonumber(L, 2));
+    if (!lua_isstring(L, 3))
+        throwLuaError(L, "AddScramble: Third argument must be one character of \"wsen\"");
+
     const char *dir     = lua_tostring(L,3);
     const char *allowed = "wsen";
     char       *found   = strchr(allowed, dir[0]);

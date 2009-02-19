@@ -116,7 +116,7 @@ namespace enigma {
     const char * Object::get_kind() const {      // To be made pure virtual
         AttribMap::const_iterator i = attribs.find("kind");
         ASSERT(i != attribs.end() && i->second.getType() == Value::STRING, XLevelRuntime,
-                "Object: attribute kind not found");
+                ecl::strf("Object: attribute kind not found - class '%s'", getClass().c_str()).c_str());
         return i->second.get_string();
     }
     

@@ -290,6 +290,16 @@ namespace enigma {
         return "st_yinyang";
     }
     
+    int YinyangStone::maxState() const {
+        return 2;
+    }
+    
+    void YinyangStone::toggleState() {
+        // just toggle IDLE states, do not stop ACTIVE, or reactive INACTIVE states
+        if (state == IDLE)
+           setState(ACTIVE);
+    }
+    
     void YinyangStone::setState(int extState) {
         if (!isDisplayable())
            state = extState;
@@ -302,12 +312,14 @@ namespace enigma {
     void YinyangStone::init_model() {
         if (state == IDLE)
             set_model("st_yinyang");
+        else if (state == INACTIVE)
+            set_model("st_yinyang_inactive");
         else
             set_anim("st_yinyang-anim");
     }
     
     void YinyangStone::animcb() {
-        state = IDLE;
+        state =  (getAttr("loop").to_bool()) ? IDLE : INACTIVE;
         init_model();
         if (!getAttr("instant").to_bool())
             switchPlayer();
@@ -351,6 +363,7 @@ namespace enigma {
         BootRegister(new YinyangStone(0), "st_yinyang");
         BootRegister(new YinyangStone(0, true), "st_yinyang_instant");
         BootRegister(new YinyangStone(1), "st_yinyang_active");
+        BootRegister(new YinyangStone(2), "st_yinyang_inactive");
     BOOT_REGISTER_END
 
 } // namespace enigma
