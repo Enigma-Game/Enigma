@@ -915,6 +915,7 @@
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
       <attr name="hit_distortion_yy"/>
+      <msg name="signal"/>
       <msg name="_init"/>
       <msg name="_model_reanimated"/>
       <msg name="_trigger"/>

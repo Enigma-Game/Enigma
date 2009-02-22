@@ -1204,6 +1204,11 @@ do
    DefShModel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh-floating")
 end
 
+do
+    local images = DefSubimages("st_stoneimpulse_break", {h=8})
+    DefAnim("st_stoneimpulse_breaking", BuildFrames(images,50))
+end
+
 -- st-switch, st-switch_black, st-switch_white --
 do
     function mkswitch(modelname, basename)

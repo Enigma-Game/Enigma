@@ -1872,7 +1872,6 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     }
     
     if (src->is_kind("st_actorimpulse")) {
-        Log << "AddSignal for st-actorimpulse\n";
         ObjectList ol = src->getDefaultedAttr("$!oxyd!destinations", Value(Value::GROUP));
         ol.push_back(dstValue);
         src->setAttr("$!oxyd!destinations", ol);
@@ -1911,8 +1910,8 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     src->setAttr(target_key, Value(targets));
     TokenList actions = src->getDefaultedAttr(action_key, Value(Value::TOKENS));    
     actions.push_back(Value("signal"));   // add this target to existing ones
-    src->setAttr(action_key, Value(actions));
-}
+    src->setAttr(action_key, actions);
+ }
 
 
 Value SendMessage(Object *obj, const std::string &msg, const Value& value, Object *sender)

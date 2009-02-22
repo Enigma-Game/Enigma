@@ -94,7 +94,7 @@ namespace enigma {
                 (server::EnigmaCompatibility < 1.10 /*&& m.value.getType() == Value::NIL*/))) { // hack for old trigger without value
             setIState(EXPANDING);
             return Value();
-        } else if (m.message == "_model_reanimated") {
+        } else if (m.message == "_model_reanimated" && state != BREAKING) {
             // we are swapped in or out of a laser beam
             if ((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
                 init_model();     // replace potential bogus model
@@ -108,8 +108,10 @@ namespace enigma {
                setIState(EXPANDING);     // replace potential bogus model
             return Value();
         } else if (m.message == "ignite") {
-            if (server::GameCompatibility != GAMET_ENIGMA || (objFlags & OBJBIT_LIGHTNEWDIRS))
-                KillStone(get_pos());
+            if (server::GameCompatibility != GAMET_ENIGMA || (objFlags & OBJBIT_LIGHTNEWDIRS)) {
+                state = BREAKING;
+                init_model();
+            }
             return Value();
         } else
             return Stone::message(m);
@@ -123,6 +125,8 @@ namespace enigma {
     void StoneImpulse::init_model() {
         if (state == IDLE)
             set_model(ecl::strf("st-stoneimpulse%s", isHollow() ? "-hollow" : ((objFlags & OBJBIT_STEADY) ? "-steady" : "")));
+        else if (state == BREAKING)
+            set_anim("st_stoneimpulse_breaking");
         else
             set_anim(ecl::strf("st-stoneimpulse%s-anim%d", isHollow() ? "-hollow" : "",
                     state == EXPANDING ? 1 : 2));
@@ -149,7 +153,9 @@ namespace enigma {
     }
 
     void StoneImpulse::animcb() {
-        if (state == EXPANDING)
+        if (state == BREAKING)
+            KillStone(get_pos());
+        else if (state == EXPANDING)
             setIState(SHRINKING);
         else {
             setIState(IDLE);
@@ -174,13 +180,18 @@ namespace enigma {
     }
     
     void StoneImpulse::actor_hit(const StoneContact &sc) {
-        if ((objFlags & OBJBIT_MOVABLE) && maybe_push_stone(sc))
-            return;                                      // stone did move on impulse
-        else if (!isHollow()) 
-            sc.actor->send_impulse(sc.stonepos, NODIR);  // impulse on the slightest touch
+        if (state != BREAKING) {
+            if ((objFlags & OBJBIT_MOVABLE) && maybe_push_stone(sc))
+                return;                                      // stone did move on impulse
+            else if (!isHollow()) 
+                sc.actor->send_impulse(sc.stonepos, NODIR);  // impulse on the slightest touch
+        }
     }
 
     void StoneImpulse::on_impulse(const Impulse& impulse) {
+        if (state == BREAKING)
+            return;
+            
         Actor *hitman = NULL;
         if ((objFlags & OBJBIT_MOVABLE) && (impulse.dir != NODIR)) {
             // move stone without disturbing a running animation
@@ -223,7 +234,7 @@ namespace enigma {
     }
     
     void StoneImpulse::setIState(int newState, Direction incoming) {
-        if (newState != state && isDisplayable()) {
+        if (newState != state && isDisplayable() && state != BREAKING) {
             switch (newState) {
                 case IDLE:
                     state = newState;

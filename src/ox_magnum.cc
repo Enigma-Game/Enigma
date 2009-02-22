@@ -98,7 +98,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x3d
     UNUSED,                     // OxydMagnum floor 0x3e
     0,                          // OxydMagnum floor 0x3f (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
-    "fl-wood_framed_h",         // OxydMagnum floor 0x40
+    "fl_wood_framed_h",         // OxydMagnum floor 0x40
     "fl_wood",                  // OxydMagnum floor 0x41
     "fl_wood_h",                // OxydMagnum floor 0x42
     UNUSED,                     // OxydMagnum floor 0x43
@@ -332,7 +332,7 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_spring_keep",   // OxydMagnum item 0x27
     "it_bag",           // OxydMagnum item 0x28
     "it_magnet_off",    // OxydMagnum item 0x29
-    "it_inversesensor", // OxydMagnum item 0x2a
+    "it_sensor_inverse", // OxydMagnum item 0x2a
     "it_sensor",        // OxydMagnum item 0x2b
     "it_shogun_s",      // OxydMagnum item 0x2c
     "it_vortex_open",   // OxydMagnum item 0x2d

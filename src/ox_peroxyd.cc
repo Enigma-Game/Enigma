@@ -182,7 +182,7 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl_bridge",                // PerOxyd floor 0x4c
     UNUSED,                     // PerOxyd floor 0x4d
     "fl_gray",                  // PerOxyd floor 0x4e
-    "fl-gradient13",            // PerOxyd floor 0x4f (flat force up, beige)        (maybe gradient22?)
+    "fl_slope_ts",              // PerOxyd floor 0x4f (flat force up, beige)        (maybe gradient22?)
     "fl_dark",                  // PerOxyd floor 0x50 (flat force down, dark olive) (maybe gradient21?)
     "fl_bright",                // PerOxyd floor 0x51 (flat force left, beige)      (maybe gradient24?)
     "fl_dark",                  // PerOxyd floor 0x52 (flat force right, dark olive)(maybe gradient23?)
@@ -211,7 +211,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_beads",                 // PerOxyd stone 0x14
     "st_tigris",                // PerOxyd stone 0x15
     "st_greengray",             // PerOxyd stone 0x16
-    "st-white1",                // PerOxyd stone 0x17 (Looks a little bit different, but function should be the same.)
+    "st_passage_white_square",  // PerOxyd stone 0x17 (Looks a little bit different, but function should be the same.)
     "st_grate_cross",           // PerOxyd stone 0x18
     UNUSED,                     // PerOxyd stone 0x19
     "st_surprise",              // PerOxyd stone 0x1a
@@ -416,7 +416,7 @@ const char *oxyd::peroxyd_item_map[256] = {
     "it_surprise",                // 0x22
     "it_pin",                     // 0x23
     "it_seed",                    // 0x24
-    "it_spring_board",            // 0x25
+    "it_spring_drop",             // 0x25
     "it_spring_keep",             // 0x26
     "it_bag",                     // 0x27
     "it_magnet_off",              // 0x28

@@ -41,7 +41,8 @@ namespace enigma {
         enum iState {
             IDLE,        ///<  
             EXPANDING,   ///<  
-            SHRINKING    ///<
+            SHRINKING,   ///<
+            BREAKING
         };
         
         enum ObjectPrivatFlagsBits {
