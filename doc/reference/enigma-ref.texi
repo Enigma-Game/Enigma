@@ -2803,7 +2803,7 @@ position driven access does exist.
 Enigma is conceptionally a game for 2 players. But nevertheless it can be played
 by one user on a single computer by toggling the control between two virtual
 players. We do call these virtual player's @code{YIN} and @code{YANG}, as the
-first player controls in most cases a black marble, whereas the second 
+first player controls in most cases a black marble, whereas the second
 controls usually a white marble.
 
 Each virtual player has its own inventory of up to 13 items. The leftmost
@@ -2816,7 +2816,7 @@ any item being part of a player's inventory will report an invalid, out of world
 position, that evaluates on an @samp{exists()} request to @samp{false}. You
 can add items directly to inventories by the advanced world method @ref{add}.
 
-Even though the actors are assigned to players they are quite independent 
+Even though the actors are assigned to players they are quite independent
 objects that live in one of the @ref{Object Layers}. Their relationship to
 players is as follows:
 
@@ -2834,7 +2834,7 @@ Another actor may be owned by a player without being controlled by it, thus
 being a passiv actor that depends on being pushed by others. An actor may even
 be controlled by both players, but it can just be owned by one player or none.
 
-The assignment of actors to players is solely configured by 
+The assignment of actors to players is solely configured by
 @ref{Actor Attributes}.
 
 When a single user plays Enigma he starts with the control over the player
@@ -5476,8 +5476,8 @@ is decelarating for positive friction values. But friction can be set to
 negative values as well what generates an accelerating force that is very
 difficult to control for the player.
 
-Besides all floors some floor covering items like @ref{it_strip}, 
-@ref{it_meditation} may provide friction values as well to deviate from the 
+Besides all floors some floor covering items like @ref{it_strip},
+@ref{it_meditation} may provide friction values as well to deviate from the
 floor friction.
 
 @table @asis
@@ -5497,7 +5497,7 @@ mouse speed. Adhesion can be set to negative values as well what generates an
 accelerating force in the inverse direction of the mouse movement which is a
 little bit difficult to control for the player.
 
-Besides all floors some floor covering items like @ref{it_strip}, 
+Besides all floors some floor covering items like @ref{it_strip},
 @ref{it_meditation_hollow} may provide adhesion values as well to deviate from
 the floor adhesion.
 
@@ -5841,7 +5841,7 @@ A global variable that determines if a dead actor will be resurrected in case of
 
 If @code{true}, dead actors attached to a player will be resurrected as long as
 extralives are available. If a player has no living actor to control or is
-missing the actor's ref{essential} constraints, the player is 
+missing the actor's ref{essential} constraints, the player is
 dead. The level may still continue if a second player is alive. If the gamer has
 an @ref{it_yinyang} in his inventory in single user mode, the control switches
 to the second player. If all players are dead, a new level game is started.
@@ -5866,7 +5866,7 @@ with proper usage of actors ref{essential} constraints will be preferable.
 @node CrackSpreading
 @subsection CrackSpreading
 
-A global default value denoting the probability that a brittle floor plate 
+A global default value denoting the probability that a brittle floor plate
 causes direct neighboring floors to either start or to desintegrate further when
 an actor enters or leaves this plate at the center of the affected area. A value
 of @code{1.0} ensures that the crack spread to the direct neighbors, a value of
@@ -6136,7 +6136,7 @@ created (@pxref{World Creation and Resolver Chaining}).
 
 A global scalar default factor for the @ref{ot_rubberband} force that is applied
 to actors if the length of the rubberband exceeds the given min or max limits.
-This can happen due to extraordinary events like actor warping, actor 
+This can happen due to extraordinary events like actor warping, actor
 resurrection, moving anchor stones or simply new rubberbands that are created
 with off limit length.
 
@@ -6165,7 +6165,7 @@ counter besides the level time. It is mainly used in Sokoban like levels.
 @node SlopeStrength
 @subsection SlopeStrength
 
-A global scalar default factor for @ref{fl_slope} floor gradient forces. This 
+A global scalar default factor for @ref{fl_slope} floor gradient forces. This
 global value is used if no slope object specific strength factor is supplied.
 
 @table @asis
@@ -6389,21 +6389,21 @@ The slope is the direction of the force applied to actors on top. The eight
 main directions and @samp{NODIR}, that causes no force to be applied at all, are
 currently supported.
 
-The shape desribes the intended usage, which causes a proper visual 
-representation. There are planar slopes falling just into a horizontal or 
+The shape desribes the intended usage, which causes a proper visual
+representation. There are planar slopes falling just into a horizontal or
 vertical direction (@code{"pw"}, @code{"ps"}, @code{"pe"}, @code{"pn"}),
-inner and outer edges falling into a diagonal direction (@code{"inw"}, 
+inner and outer edges falling into a diagonal direction (@code{"inw"},
 @code{"isw"}, @code{"ise"}, @code{"ine"}, @code{"onw"}, @code{"osw"},
 @code{"ose"}, @code{"one"}), tube center parts falling into a horizontal or
 vertical direction (@code{"tw"}, @code{"ts"}, @code{"te"}, @code{"tn"}) and
 tube left and right sides that accelerate actors into the main tube direction
-and back to the tube center at the same time (@code{"twl"}, @code{"tsl"}, 
-@code{"tel"}, @code{"tnl"}, @code{"twr"}, @code{"tsr"}, @code{"ter"}, 
+and back to the tube center at the same time (@code{"twl"}, @code{"tsl"},
+@code{"tel"}, @code{"tnl"}, @code{"twr"}, @code{"tsr"}, @code{"ter"},
 @code{"tnr"}).
 
 Note that several shapes do currently use an identical visual representation.
 But they differ in their usage and different slope force directions are
-assigned by default when you use the variant suffices. It is strongly 
+assigned by default when you use the variant suffices. It is strongly
 recommended to use always the shape of the intended usage as the images might
 be improved in the future and should fit to your level.
 
@@ -6419,7 +6419,7 @@ cases you may even define individual force components @samp{force_x} and
 
 @table @asis
 @item @b{slope}, @ @ @i{values}: @code{NODIR}, @code{WEST}, @code{SOUTH}, @code{EAST}, @code{NORTH}, @code{NORTHWEST}, @code{SOUTHWEST}, @code{SOUTHEAST}, @code{NORTHEAST}; @ @ @i{default}: @code{NODIR}
-The direction of the force. Note that setting this attribute does not 
+The direction of the force. Note that setting this attribute does not
 automatically assign a fitting @samp{shape}. This attribute is neglected if
 @samp{force_x} or @samp{force_y} attributes are set.
 
@@ -7274,9 +7274,9 @@ Start growing the seed.
 @obindex it_sensor
 
 The sensor item is a switch on top of a floor that reacts on actors passing it.
-It performs actions on actors either entering or exiting the sensors grid 
-depending on its attribute @samp{exit}. It will send an action value of 
-@samp{true} but of course the @ref{inverse} attribute can be used to send an 
+It performs actions on actors either entering or exiting the sensors grid
+depending on its attribute @samp{exit}. It will send an action value of
+@samp{true} but of course the @ref{inverse} attribute can be used to send an
 action value of @samp{false} instead.
 
 Any actors passing the grid, either on the floor or jumping over it will be
@@ -8126,7 +8126,7 @@ A yellow gray woven stone.
 @subsection st_yellow
 @obindex st_yellow
 
-A yellow stone with red green stripes. This stone fits visually to the 
+A yellow stone with red green stripes. This stone fits visually to the
 @ref{st_coinslot}.
 
 @table @asis
@@ -8308,7 +8308,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 @menu
 * st_actorimpulse::    Bumper Stone
 * st_blocker::         Shrinkable Blocker
-* st_blur::            Passage of yet undetermined color 
+* st_blur::            Passage of yet undetermined color
 * st_boulder::         Moving Arrow Boulder
 * st_brake::           Brake for moving Boulders
 * st_chess::           Movable Chess Knight Stone
@@ -8497,7 +8497,7 @@ on the color of actor. The color of the passage may be the same as
 the color of the actor or be of the opposite color. The flavor of the passage
 is always @code{"square"}.
 
-In the first case the blur stone is pure gray and its  @samp{flavor} is called 
+In the first case the blur stone is pure gray and its  @samp{flavor} is called
 @code{"straight"} due to the straight color preserving transformation. The
 touching actor will be able to pass the passage straight away.
 
@@ -8506,7 +8506,7 @@ the player that, on touching the stone with a colored actor, this actor will not
 be able to pass the resulting passage. There are two flavors of such blur stones
 - @code{"cross"} which transform unconditionally on an actor hit to the opposite
 colored @ref{st_passage} and flavor @code{"magic"} which transforms just on
-actors hitting the blur stone with a revealed @ref{it_magicwand} or 
+actors hitting the blur stone with a revealed @ref{it_magicwand} or
 @ref{it_brush} in their inventory.
 
 For colorless actors a blur stone is just a standard stone without any special
@@ -8543,7 +8543,7 @@ This solid stone moves into the direction shown by the arrow on its picture.
 A marble blocking its way is shattered. When a stone blocks its way, the boulder
 triggers it by a sequence of two internal messages. Some stones give way like
 @ref{st_blocker}, @samp{st_break_boulder} (@pxref{st_break}), others change their
-state like @ref{st_oxyd}, @ref{st_stoneimpulse}, @ref{st_quake}, 
+state like @ref{st_oxyd}, @ref{st_stoneimpulse}, @ref{st_quake},
 @ref{st_mirror}, @ref{st_fourswitch}, @ref{st_volcano}. A third category
 switches temporarily into another state on the first message sent when the
 boulder reaches a grid and switches back on the second message sent when the
@@ -9602,7 +9602,7 @@ assigned to @samp{OXYD_AUTO} colored oxyds. The colors will repeat from the
 single color. With the world attribute @ref{MaxOxydColor} you can lower or
 increase this limit. By setting this attribute to @samp{OXYD_GREEN} you can
 enforce the engine to assign just the first three colors. Be careful in usage
-of more than 8 colors as levels can get incredibly difficult. 
+of more than 8 colors as levels can get incredibly difficult.
 
 The number auf auto colored oxyds should usually be even as a single remaining
 oxyd of a color keeps a level from being solvable. In case of an uneven number
@@ -9638,10 +9638,10 @@ by their @samp{flavor}. Most flavors do hide the oxyd color in the closed state.
 Only flavor @code{"e"} starts with hidden color, but once opened returns to
 a closed image with a peep hole that lets the player still see the color.
 
-For each flavor exists an identical looking simple stone: @samp{st_fake_oxyda}, 
-@samp{st_fake_oxydb}, @samp{st_fake_oxydc}, @resampf{st_fake_oxydd}, 
+For each flavor exists an identical looking simple stone: @samp{st_fake_oxyda},
+@samp{st_fake_oxydb}, @samp{st_fake_oxydc}, @samp{st_fake_oxydd},
 @samp{st_fake_oxyde} (@pxref{st_fake}). If you like an identical looking pseudo
-stone that takes part in the oxyd shuffling you can use an oxyd of color 
+stone that takes part in the oxyd shuffling you can use an oxyd of color
 @samp{OXYD_FAKE}.
 
 During the game oxyds can be reshuffled. Just those oxyds that are still closed
@@ -9730,7 +9730,7 @@ affect the behaviour, but may be important for the visibility of actors and
 items beneath.
 
 Passage stones react on @samp{signal} and @samp{toggle} messages and
-@ref{st_boulder} arriving on one of its sides. In both cases the passage stone 
+@ref{st_boulder} arriving on one of its sides. In both cases the passage stone
 recolors to the opposite color. In case of a boulder the recoloring is of a
 quite short period, as this stone recolors the passage twice. The period in
 between is long enough for an actor to pass or to redirect the boulder before
@@ -9885,7 +9885,7 @@ abyss floor just complete blue clusters will sink. Note that puzzles just sink
 on moves. Moving a blue fragment besides another fragment on abyss so that both
 fragments build a complete cluster will not sink the new cluster. It will sink
 as a whole on the next move. If two or more stones of a cluster are receive
-wire impulses originating from a single event, the whole cluster will move 
+wire impulses originating from a single event, the whole cluster will move
 multiple times. But it will sink on the first opportunity.
 
 Just single unconnected yellow puzzle stones can be moved by actors. Any yellow
@@ -10882,8 +10882,8 @@ Activate the yinyang like an actor hitting the stone.
 * charge::          Initial electrical charge
 * controllers::     Mouse
 * color::           Color
-* essential::       
-* essential_id::    
+* essential::
+* essential_id::
 * owner::           Inventory owner
 * velocity_x::      Initial velocity
 * velocity_y::      Initial velocity
@@ -10897,7 +10897,7 @@ The responsiveness of an actor on mouse movements. It is a scalar factor to
 the accelerating force applied to the actor. Note that mouse forces are only
 applied to an actor if the @ref{controllers} attribute allows forces at all.
 Vice versa you should exclude an actor from mouse forces by usage of the
-@ref{controllers} attribute instead of setting its adhesion to zero. The 
+@ref{controllers} attribute instead of setting its adhesion to zero. The
 adhesion may take negativ values, too. Such values correspond to inverse forces.
 
 @table @asis
@@ -10953,10 +10953,10 @@ changed, it is a read only attribute.
 Describes the necessity of an actor to be alive in case of multiple actors being
 attached to a player. A value @samp{DISPENSIBLE} marks an actor as not essential.
 The player may well continue to play with other actors that he controls which
-are still alive. A value of @samp{INDISPENSIBLE} marks an actor as totally 
+are still alive. A value of @samp{INDISPENSIBLE} marks an actor as totally
 necessary. If such an actor cannot be resurrected after a death, the player is
-essentially dead. A value of @samp{PERKIND} marks an actor as partially 
-essential. Not the actor itself needs to survive but the number of actors of 
+essentially dead. A value of @samp{PERKIND} marks an actor as partially
+essential. Not the actor itself needs to survive but the number of actors of
 its kind controlled by the player need to be larger than the number of actors
 with value @samp{PERKIND}. For example, marking 4 out of 5 @ref{ac_pearl} with
 @samp{PERKIND} means that the player is dead if 2 pearls are no longer alive.
@@ -10979,7 +10979,7 @@ For more details about level restart see @ref{Level Restart}.
 
 Since a player may control actors of different kinds at the same time, the
 essentialness of actors is limited to its kind via this id. It is possible to
-group actors of different kinds into an essential group via this id. The engine 
+group actors of different kinds into an essential group via this id. The engine
 keeps this id even if actors are transformed into other kinds like on activation
 of an @ref{it_drop}.
 
@@ -11040,7 +11040,7 @@ current velocity of an actor during runtime.
 * ac_bug::
 * ac_horse::
 * ac_killer::
-* ac_marble::     
+* ac_marble::
 * ac_pearl::
 * ac_rotor::
 * ac_top::
@@ -11062,7 +11062,7 @@ values if you want a player to control a bug directly. If a bug is owned by a
 player @ref{fl_thief} and @ref{st_thief} will steal items from it.
 
 @table @asis
-@item @b{Attributes:} common actor attributes 
+@item @b{Attributes:} common actor attributes
 
 @item @b{Messages:} none
 
@@ -11134,7 +11134,7 @@ A killer is preset to its standard attribute values, that let both players
 control the actor and do assign a higher @samp{adhesion} to it than to
 @ref{ac_pearl}s.
 
-Note that even though a killer looks quite dangerous, @ref{fl_thief} and 
+Note that even though a killer looks quite dangerous, @ref{fl_thief} and
 @ref{st_thief} do steal items from them, if the killer is owned by a player.
 
 @table @asis
@@ -11171,7 +11171,7 @@ As long as the @samp{owner} has an @ref{it_extralife} in his inventory a dying
 marble will be resurrected. If no extra life is available a dying actor ends
 up in the @samp{state} dead and can no longer be controlled.
 
-The marbles are preset to their standard attribute values. A recoloring of 
+The marbles are preset to their standard attribute values. A recoloring of
 marbles is not possible. The marbles state changes due to events and can be
 read only, too.
 
@@ -11213,7 +11213,7 @@ As long as the @samp{owner} has an @ref{it_extralife} in his inventory a dying
 marble will be resurrected. If no extra life is available a dying actor ends
 up in the @samp{state} dead and can no longer be controlled.
 
-The pearls are preset to their standard attribute values. The pearls state 
+The pearls are preset to their standard attribute values. The pearls state
 changes due to events and can be read only.
 
 @table @asis
@@ -11254,7 +11254,7 @@ will not sink, fall or shatter. A rotor is immortal.
 Rotors do usually hunt mortal actors trying to shatter them. They accelerate by
 force given by the attribute @samp{strength}, but they limit their hunt to
 actors in the given @samp{range}. If no attackable actor remains in this range
-they return to their initial position if the attribute @samp{gohome} is 
+they return to their initial position if the attribute @samp{gohome} is
 @samp{true}.
 
 Note that in case multiple attackable actors are in range the rotor gets
@@ -11288,7 +11288,7 @@ Behaviour of a rotor without victim in range.
 Behaviour of a rotor with multiple victims in range
 @item @b{prefercurrent} @ @ @i{values}: float number in range [0.0 - 1.0]; @ @ @i{default}: @code{+0.0}
 Likelihood of attack strategy. You will usually use this attribute in
-combination with @samp{attacknearest} set to @samp{true}. The Level 
+combination with @samp{attacknearest} set to @samp{true}. The Level
 @samp{Toreador} is an example of the behavior of such rotors.
 @end table
 
@@ -11317,7 +11317,7 @@ will not sink, fall or shatter. A top is immortal.
 Tops do usually hunt mortal actors trying to shatter them. They accelerate by
 force given by the attribute @samp{strength}, but they limit their hunt to
 actors in the given @samp{range}. If no attackable actor remains in this range
-they return to their initial position if the attribute @samp{gohome} is 
+they return to their initial position if the attribute @samp{gohome} is
 @samp{true}.
 
 Note that in case multiple attackable actors are in range the top gets
@@ -11345,7 +11345,7 @@ Behaviour of a top without victim in range.
 Behaviour of a top with multiple victims in range
 @item @b{prefercurrent} @ @ @i{values}: float number in range [0.0 - 1.0]; @ @ @i{default}: @code{+0.0}
 Likelihood of attack strategy. You will usually use this attribute in
-combination with @samp{attacknearest} set to @samp{true}. The Level 
+combination with @samp{attacknearest} set to @samp{true}. The Level
 @samp{Toreador} is an example of the behavior of such rotors.
 @end table
 
@@ -11415,19 +11415,19 @@ limits. Do not try to use artificial large @samp{strength} values instead to
 ensure length limits, as this could lead to extreme forces causing unexpected and
 unstable actor movements.
 
-If you set @samp{min} or @samp{max} limits, extraordinary events like actor 
+If you set @samp{min} or @samp{max} limits, extraordinary events like actor
 warping, actor resurrection, moving anchor stones or simply rubberbands that are
 created with an off limit length can cause trouble. When such a limit violation
 is detected an action is performed with a value @samp{false}. You may want to kill
 the rubberband or react in another way by a callback function. The default
 handling is an application of a constant force to bring the actors back within
-the limits. This force value is given by @ref{RubberViolationStrength} and 
+the limits. This force value is given by @ref{RubberViolationStrength} and
 defaults to @samp{50.0}. If you really need to asure that the player is not able
 to violate the limits any further you may need to increase this constant.
 
 Rubberbands can be cut by @ref{st_scissors}, by an @ref{it_vortex} or
-@ref{it_wormhole} with a set @samp{scissors} attribute ,by receiving a 
-@ref{kill} message, by one of the anchors receiving a @ref{disconnect} message 
+@ref{it_wormhole} with a set @samp{scissors} attribute ,by receiving a
+@ref{kill} message, by one of the anchors receiving a @ref{disconnect} message
 or a stone anchor that ceases to exist.
 
 Rubberbands can be dynamically generated by @ref{it_rubberband} and
@@ -19275,7 +19275,7 @@ set_stone("st-invisible", 7, 9)     -- do the same
 
 @node Renaming Index
 @unnumbered Renaming Index
-@table @asis 
+@table @asis
 @item @b{ac-blackball} @expansion{} @code{ac_marble_black}, @pxref{ac_marble}
 @item @b{ac-bug} @expansion{} @ref{ac_bug}
 @item @b{ac-horse} @expansion{} @ref{ac_horse}
