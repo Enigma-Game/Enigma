@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
@@ -32,6 +33,9 @@
 -- Additional mathematically relevant functions are part of liblua:
 --   lib.lua.mod(value, modul)
 --   lib.lua.cond(condition, iftrue, iffalse)
+--
+-- libmath depends on liblua, as lib.math.combinations makes
+-- use of lib.lua.deep_copy.
 --
 
 lib.math = {}
@@ -131,9 +135,6 @@ end
 -- of depth DEPTH. Note that liblua has to be loaded to use
 -- lib.math.combinations.
 function lib.math.combinations(depth, digits)
-  if not lib.lua then
-    error("combinations: Please include the library liblua to use lib.math.combinations.", 2)
-  end
   local all_combinations = {{}}
   local digs = digits
   if (type(depth) ~= "number") or (depth < 1) or (depth ~= math.floor(depth)) then
@@ -157,7 +158,7 @@ function lib.math.combinations(depth, digits)
       for _, new_digit in pairs(digs) do
         local new_combination = lib.lua.deep_copy(old_combination)
         table.insert(new_combination, new_digit)
-        table.insert(next, new_combination)
+        table.insert(next_step, new_combination)
       end
     end
     all_combinations = next_step
