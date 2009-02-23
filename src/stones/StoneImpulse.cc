@@ -108,7 +108,7 @@ namespace enigma {
                setIState(EXPANDING);     // replace potential bogus model
             return Value();
         } else if (m.message == "ignite") {
-            if (server::GameCompatibility != GAMET_ENIGMA || (objFlags & OBJBIT_LIGHTNEWDIRS)) {
+            if ((server::GameCompatibility != GAMET_ENIGMA && state == IDLE) || (objFlags & OBJBIT_LIGHTNEWDIRS)) {
                 state = BREAKING;
                 init_model();
             }

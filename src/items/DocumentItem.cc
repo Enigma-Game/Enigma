@@ -37,14 +37,14 @@ namespace enigma {
         if (m.message == "ignite") {
             // dynamite does not blow up Documents in Oxyd1
             explode = server::GameCompatibility != GAMET_OXYD1;
-        } else if (m.message == "_explosion" || m.message == "_bombstone") {
+        } else if (m.message == "_explosion") {
             explode = true;
         } else {
             return Item::message(m);
         }
 
         if (explode)
-            replace("it-explosion1");
+            replace("it_explosion_nil");
         return Value();
     }
     

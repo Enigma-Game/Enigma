@@ -64,6 +64,8 @@ namespace enigma {
             return;
         } else if (key == "exit") {
             objFlags = (objFlags & ~OBJBIT_EXIT) | (val.to_bool() ? OBJBIT_EXIT : 0);
+            if (isDisplayable())
+                init_model();
             return;
         }
         Item::setAttr(key, val);
@@ -81,6 +83,8 @@ namespace enigma {
     void Sensor::init_model() {
         if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::SENSOR) == 0))
             set_model("invisible");
+        else if (objFlags & OBJBIT_EXIT)
+            set_model("it_sensor_exit");
         else
             set_model("it_sensor");
     }
@@ -96,7 +100,7 @@ namespace enigma {
     void Sensor::actor_leave(Actor *a) {
         if (objFlags & OBJBIT_EXIT) {        
             if (!(objFlags & OBJBIT_INVISIBLE))
-                set_anim("it_sensor_hit");
+                set_anim("it_sensor_exit_hit");
             performAction(true);
         }
     }
@@ -115,11 +119,11 @@ namespace enigma {
     }
 
     ItemTraits Sensor::traits[5] = {
-        {"it_sensor",  it_sensor,  itf_static}, 
-        {"it_sensor_inverse",  it_inversesensor,  itf_static},
-        {"it_sensor_filter1", it_signalfilter1, itf_static | itf_invisible, 0.0},  // DAT only
-        {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible, 0.0},   // DAT only
-        {"it_sensor_exit",  it_exitsensor,  itf_static}
+        {"it_sensor",  it_sensor,  itf_static | itf_indestructible}, 
+        {"it_sensor_inverse",  it_inversesensor,  itf_static | itf_indestructible},
+        {"it_sensor_filter1", it_signalfilter1, itf_static | itf_invisible | itf_indestructible, 0.0},  // DAT only
+        {"it_sensor_filter0", it_signalfilter0, itf_static | itf_invisible | itf_indestructible, 0.0},   // DAT only
+        {"it_sensor_exit",  it_exitsensor,  itf_static | itf_indestructible}
     };
     
     BOOT_REGISTER_START

@@ -129,6 +129,14 @@ namespace enigma {
         state = strength;
     }
     
+    Value Explosion::message(const Message &m) {
+        if (m.message == "_spitter") {
+            state = 3;
+            return Value();
+        }
+        return Item::message(m);
+    }
+    
     void Explosion::setState(int extState) {
         // no state writes
     }

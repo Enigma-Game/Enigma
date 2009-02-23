@@ -70,7 +70,7 @@ namespace enigma {
         performAction(true);
     }
     
-    DEF_ITEMTRAITSF(CrossItem, "it_cross", it_cross, itf_static);
+    DEF_ITEMTRAITSF(CrossItem, "it_cross", it_cross, itf_static | itf_indestructible);
 
     BOOT_REGISTER_START
         BootRegister(new CrossItem(), "it_cross");

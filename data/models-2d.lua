@@ -534,9 +534,6 @@ do
     DefAlias("it-key_a", "it-key")
     DefAlias("it-key_b", "it-key")
     DefAlias("it-key_c", "it-key")
-    -- DefAlias("it-bridge-oxyd", "invisible")
-    -- DefAlias("it-sensor", "invisible")
-    -- DefAlias("it-inversesensor", "invisible")
 end
 
 --------------------------------------------------------------
@@ -690,6 +687,9 @@ do
     DefTiles("it_sensor", {"it_sensor","it_sensor1"})
     local frames = BuildFrames({"it_sensor","it_sensor1"}, 300)
     DefAnim("it_sensor_hit", RepeatAnim(frames, 3), false)
+    DefTiles("it_sensor_exit", {"it_sensor_exit","it_sensor_exit1"})
+    local exitframes = BuildFrames({"it_sensor_exit","it_sensor_exit1"}, 300)
+    DefAnim("it_sensor_exit_hit", RepeatAnim(exitframes, 3), false)
 end
 
 -- it-shogun --

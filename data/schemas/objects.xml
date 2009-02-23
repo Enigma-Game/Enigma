@@ -130,7 +130,7 @@
     <msg name="turn" type="nil"/>
     <msg name="turnback" type="nil"/>
     <msg name="_appear" type="nil"/>
-    <msg name="_bombstone" type="nil"/>
+    <msg name="_dispenser" type="nil"/>
     <msg name="_booze" type="nil"/>
     <msg name="_brush" type="nil"/>
     <msg name="_capture" type="nil"/>
@@ -472,7 +472,6 @@
       <msg name="heat"/>
       <msg name="explode"/>
       <msg name="_explosion"/>
-      <msg name="_bombstone"/>
     </object>
     <object name="it_bomb_black">
       <attr name="color" value="0"/>
@@ -571,7 +570,7 @@
       <msg name="heat"/>
       <msg name="explode"/>
       <msg name="_explosion"/>
-      <msg name="_bombstone"/>
+      <msg name="_dispenser"/>
     </object>
     <object name="it_dynamite_burning">
       <attr name="state" value="1"/>
@@ -1046,7 +1045,6 @@
     <object name="st_break">
       <attr name="flavor"/>
       <msg name="ignite"/>
-      <msg name="_bombstone"/>
       <msg name="_explosion"/>
       <msg name="_trigger"/>
     </object>
@@ -1207,7 +1205,7 @@
     <object name="st_dispenser">
       <attr name="flavor" default="bombblack" rw="r"/>
       <msg name="_explosion"/>
-      <msg name="_bombstone"/>
+      <msg name="_dispenser"/>
     </object>
     <object name="st_dispenser_bombblack">
       <attr name="flavor" value="bombblack"/>

@@ -2017,7 +2017,7 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
             case EXPLOSION_BLACKBOMB:
                 if (direct_neighbor) {
                     explosion(center, dest, "it_explosion_nil");
-                } else {
+                } else if (server::GameCompatibility == GAMET_ENIGMA) {
                     // Note: should not ignite in non-enigma-mode!
                     if (stone) SendMessage(stone, "ignite");
                     if (item)  SendMessage(item, "ignite");
@@ -2026,16 +2026,18 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
                 break;
     
             case EXPLOSION_WHITEBOMB:
-                // Note: at least in oxyd1 only direct neighbors
-                // explode, and the others not even ignite
-                explosion(center, dest, "it_explosion_debris");            
+                if (direct_neighbor || server::GameCompatibility == GAMET_ENIGMA) {
+                    // Note: at least in oxyd1 only direct neighbors
+                    // explode, and the others not even ignite
+                    explosion(center, dest, "it_explosion_debris");
+                }
                 break;
     
-            case EXPLOSION_BOMBSTONE:
+            case EXPLOSION_DISPENSER:
                 if (direct_neighbor) {
-                    if (stone) SendMessage(stone, "_bombstone");
-                    if (item) SendMessage(item, "_bombstone");
-                    if (floor) SendMessage(floor, "_bombstone");
+                    if (stone) SendMessage(stone, "_dispenser");
+                    if (item) SendMessage(item, "_dispenser");
+                    if (floor) SendMessage(floor, "_dispenser");
                 }
                 break;
     

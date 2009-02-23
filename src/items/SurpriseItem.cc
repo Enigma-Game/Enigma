@@ -40,7 +40,7 @@ namespace enigma {
             static const char *stonename[] = {
                 "it_umbrella",
                 "it_spring_keep",
-                "it-dynamite",
+                "it_dynamite",
                 "it_coffee",
                 "it_hammer"
             };

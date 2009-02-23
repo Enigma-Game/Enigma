@@ -259,8 +259,8 @@ namespace enigma {
     }
 
     ItemTraits Vortex::traits[2] = {
-        {"it_vortex_closed", it_vortex_closed, itf_static | itf_fireproof, 0.0},
-        {"it_vortex_open", it_vortex_open,     itf_static | itf_fireproof, 0.0}
+        {"it_vortex_closed", it_vortex_closed, itf_static | itf_fireproof | itf_indestructible, 0.0},
+        {"it_vortex_open", it_vortex_open,     itf_static | itf_fireproof | itf_indestructible, 0.0}
     };
 
     BOOT_REGISTER_START

@@ -34,11 +34,11 @@ namespace enigma {
     }
     
     Value Dynamite::message(const Message &m) {
-        if (m.message == "ignite" || m.message == "_explosion" || m.message == "_bombstone") {
+        if (m.message == "ignite" || m.message == "_explosion" || m.message == "_dispenser") {
             if (isDisplayable())
                 burn();
             return Value();
-        } else if (m.message == "explode") { // currently unused in c++ code
+        } else if (m.message == "explode" || m.message == "_spitter") { // currently unused in c++ code
             if (isDisplayable())
                 explode();
             return Value();

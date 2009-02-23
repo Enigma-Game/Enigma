@@ -183,7 +183,7 @@ namespace enigma {
         kill();
     }
 
-    DEF_ITEMTRAITSF(BlockerItem, "it_blocker", it_blocker, itf_static);
+    DEF_ITEMTRAITSF(BlockerItem, "it_blocker", it_blocker, itf_static | itf_indestructible);
 
     BOOT_REGISTER_START
         BootRegister(new BlockerItem(false), "it_blocker");

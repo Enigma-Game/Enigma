@@ -49,7 +49,7 @@ namespace enigma {
     }
 
     Value DispenserStone::message(const Message &m) {
-        if (m.message =="_explosion" || m.message =="_bombstone") {
+        if (m.message =="_explosion" || m.message =="_dispenser") {
             if (isDisplayable())
                 doBreak();
             return Value();
@@ -71,7 +71,7 @@ namespace enigma {
     
     void DispenserStone::animcb() {
         GridPos p = get_pos();
-        SendExplosionEffect(p, EXPLOSION_BOMBSTONE);
+        SendExplosionEffect(p, EXPLOSION_DISPENSER);
         if (Item *it = GetItem(get_pos())) {
             SendMessage(it, "ignite");
         } else

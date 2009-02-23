@@ -53,7 +53,7 @@ namespace enigma {
     void Umbrella::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
         if (added_dirs(oldDirs, newDirs) != 0 && server::GameCompatibility != enigma::GAMET_PEROXYD) {
             sound_event ("itemtransform");
-            replace("it-explosion1");
+            replace("it_explosion_nil");
         }
     }
     

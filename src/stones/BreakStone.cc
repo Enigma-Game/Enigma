@@ -41,7 +41,7 @@ namespace enigma {
     }
     
     Value BreakStone::message(const Message &m) {
-        if (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone") {
+        if (m.message =="ignite" || m.message == "_explosion") {
             if (typ() != BUG)
                 doBreak();
             return Value();

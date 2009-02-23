@@ -81,7 +81,7 @@ namespace enigma {
     void BrakeStone::explode() {
         GridPos p = get_pos();
         KillStone(p);
-        SetItem(p, MakeItem("it-explosion1"));
+        SetItem(p, MakeItem("it_explosion_nil"));
     }
             
     DEF_TRAITSM(BrakeStone, "st_brake", st_brake, MOVABLE_BREAKABLE);

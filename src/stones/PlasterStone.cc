@@ -62,7 +62,7 @@ namespace enigma {
             }
             return Value();
         } else if ((objFlags & OBJBIT_BREAKABLE) && 
-                (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone")) {
+                (m.message =="ignite" || m.message == "_explosion")) {
             doBreak();
             return Value();
         }

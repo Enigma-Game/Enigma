@@ -318,7 +318,7 @@ namespace enigma {
         EXPLOSION_DYNAMITE, 
         EXPLOSION_BLACKBOMB, 
         EXPLOSION_WHITEBOMB, 
-        EXPLOSION_BOMBSTONE,
+        EXPLOSION_DISPENSER,
         EXPLOSION_SPITTER,
     };
     void SendExplosionEffect (GridPos p, ExplosionType type);

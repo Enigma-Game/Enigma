@@ -145,8 +145,8 @@ namespace enigma {
     }
     
     ItemTraits WormHole::traits[2] = {
-        { "it_wormhole_off", it_wormhole_off, itf_static, 0.0 },
-        { "it_wormhole_on",  it_wormhole_on,  itf_static, 0.0 }
+        { "it_wormhole_off", it_wormhole_off, itf_static | itf_indestructible, 0.0 },
+        { "it_wormhole_on",  it_wormhole_on,  itf_static | itf_indestructible, 0.0 }
     };
 
     BOOT_REGISTER_START

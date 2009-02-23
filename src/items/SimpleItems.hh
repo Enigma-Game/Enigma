@@ -122,6 +122,9 @@ namespace enigma {
     public:
         Explosion(int strength);
         
+        // Object interface
+        virtual Value message(const Message &m);
+        
         // StateObject interface
         virtual void setState(int extState);
         

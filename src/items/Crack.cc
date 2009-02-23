@@ -34,12 +34,12 @@ namespace enigma {
     }
     
     Value Crack::message(const Message &m) {
-        if (m.message == "crack") {
+        if (m.message == "crack" || m.message == "ignite" ) {
             crack();
             return Value();
-        } else if (m.message == "heat") {
+        } else if (m.message == "heat" || m.message == "_explosion" || m.message == "_spitter") {
             sound_event("crack");
-            replace("it-debris");
+            replace("it_debris");
             return true;
         }
         return Item::message(m);
@@ -127,10 +127,10 @@ namespace enigma {
     }
     
     ItemTraits Crack::traits[4] = {
-        {"it_crack_i",  it_crack_i,  itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it_crack_s",  it_crack_s,  itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it_crack_m",  it_crack_m,  itf_static | itf_indestructible | itf_fireproof, 0.0},
-        {"it_crack_l",  it_crack_l,  itf_static | itf_indestructible | itf_fireproof, 0.0},
+        {"it_crack_i",  it_crack_i,  itf_static | itf_fireproof | itf_indestructible, 0.0},
+        {"it_crack_s",  it_crack_s,  itf_static | itf_fireproof | itf_indestructible, 0.0},
+        {"it_crack_m",  it_crack_m,  itf_static | itf_fireproof | itf_indestructible, 0.0},
+        {"it_crack_l",  it_crack_l,  itf_static | itf_fireproof | itf_indestructible, 0.0},
     };
 
     BOOT_REGISTER_START

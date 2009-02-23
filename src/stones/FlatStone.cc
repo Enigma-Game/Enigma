@@ -72,7 +72,7 @@ namespace enigma {
             }
             return Value();
         } else if (((objFlags & (OBJBIT_BREAKABLE | OBJBIT_MOVABLE)) || state == CRACKED) && 
-                (m.message =="ignite" || m.message == "_explosion" || m.message == "_bombstone")) {
+                (m.message =="ignite" || m.message == "_explosion")) {
             doBreak();
             return Value();
         } else if ((m.message == "_trigger" || m.message == "signal") && state == IDLE) {
@@ -106,7 +106,7 @@ namespace enigma {
         else if (state == FALLING)
             set_anim("st_flat_falling");
         else if (state == CRACKED)
-            set_anim("st_flat_cracked");
+            set_model("st_flat_cracked");
         else if (objFlags & OBJBIT_BURNABLE)
             set_model("st_flat_fire");
         else
