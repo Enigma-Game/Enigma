@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd"   xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Babylon" el:subtitle="Semiramis' Garden" el:id="mecke27"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:25 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <!--<el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true" />-->
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks Ronald for testing and important ideas and Raoul for puzzle and code</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="20:43"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["AllowSingleOxyds"] = true
+
+ti[" ("] = {"fl_abyss"}
+ti[" )"] = {"fl_water"}
+ti[" Q"] = {"fl_bluegray"}
+ti[" $"] = {"fl_metal_7n"}
+ti[" 5"] = {"fl_gravel"}
+ti[" &"] = {"fl_red"}
+ti[" *"] = {"fl_pinkbumps"}
+ti[" +"] = {"fl_himalaya"}
+ti[" l"] = {"fl_ivory"}
+ti[" -"] = {"fl_sand"}
+ti[" /"] = {"fl_sahara"}
+ti[" 0"] = {"fl_concrete"}
+ti[" ."] = {"fl_blueslab"}
+ti["OO"] = {"fl_redslab", eternal=true, initfire=true}
+ti[" !"] = {"fl_stone", burnable=false, friction=3.6}
+ti[" %"] = {"fl_aquamarine", burnable=false}
+
+ti[": "] = {"st_greenbrown"}
+ti["' "] = {"st_greenbrown_hollow"}
+ti["d "] = {"st_greenbrown_movable"}
+ti["E "] = {"st_purplegray"}
+ti["R "] = {"st_yellow"}
+ti["f "] = {"st_plaster_movebreakable"}
+ti["/ "] = {"st_plaster_breakable"}
+ti["! "] = {"st_panel"}
+ti["; "] = {"st_brownie"}
+ti["+ "] = {"st_box_wood"}
+ti["V "] = {"st_plop"}
+ti["O "] = {"st_scissors"}
+ti["~ "] = {"st_chess_black"}
+ti["^ "] = {"st_granite_hollow"}
+ti["D "] = {"st_granite_movable"}
+ti["x "] = {"st_rawglass_movable"}
+ti["0 "] = {"st_swap"}
+ti["t "] = {"st_thief"}
+ti["- "] = {"st_death"}
+ti["= "] = {"st_death_invisible"}
+ti["< "] = {"st_knight"}
+ti["1 "] = {"st_oneway_black_s"}
+ti["2 "] = {"st_passage_white_cross"}
+ti["4 "] = {"st_grate_cross"}
+ti["5 "] = {"st_boulder_s"}
+ti["g "] = {"st_boulder_w"}
+ti["( "] = {"st_polarswitch"}
+ti[") "] = {"st_actorimpulse"}
+ti["7 "] = {"st_stoneimpulse"}
+ti["6 "] = {"st_stoneimpulse_hollow"}
+ti["B "] = {"st_lightpassenger"}
+ti["8 "] = {"st_laser_n"}
+ti["9 "] = {"st_laser_s", state=ON}
+ti["L "] = {"st_laser_w"}
+ti["$ "] = {"st_rotator_ccw"}
+ti["& "] = {"st_rotator_cw"}
+ti["N "] = {"st_rotator_ccw", movable=true}
+ti["Y "] = {"st_rotator_cw", movable=true}
+ti["q "] = {"st_door", state= OPEN, faces="ns"}
+ti["C "] = {"st_mirror", movable=true, transparent=false}
+ti["F "] = {"st_invisible"}
+ti["A "] = {"st_disco_light"}
+ti["% "] = {"st_disco_medium"}
+ti["? "] = {"st_disco_dark"}
+ti["hb"] = ti[" !"] .. {"st_disco_light"}
+ti["o "] = ti[" +"] .. {"st_grate_cross"}
+ti[">!"] = ti[" !"] .. {"st_chameleon"}
+
+ti[". "] = {"st_puzzle", connections="nesw"}
+ti["3 "] = {"st_puzzle", hollow=true, connections="nesw", intensity=0}
+ti["G"] = ti[" !"] .. {"st_puzzle", intensity=0}
+ti["H"] = ti[" )"] .. {"st_puzzle", intensity=0}
+ti["I"] = ti[" !"] .. {"st_puzzle", intensity=0}
+ti["J"] = ti[" )"] .. {"st_puzzle", intensity=0}
+ti["Z"] = ti[" !"] .. {"st_puzzle_yellow"}
+ti["{"] = ti[" )"] .. {"st_puzzle_yellow"}
+ti["M"] = ti[" !"] .. {"st_puzzle_yellow"}
+ti["c"] = ti[" %"] .. {"st_puzzle_yellow"}
+
+ti["_ "] = {"st_swap", name="df1"}
+ti["N1"] = ti[" +"] .. {"st_rotator_ccw", movable=true, name="df2"}
+ti["N2"] = ti[" +"] .. {"st_rotator_ccw", movable=true, name="df3"}
+
+ti["supervortextemplate"] = ti[" +"] .. {"it_vortex_open", name="v%%", destination="b%%"}
+ti["hypervortextemplate"] = ti[" +"] .. {"it_vortex_open", name="b%%", destination="v%%"}
+
+ti["superopentemplate"]  = ti[" +"] .. {"st_laserswitch", target="door%%"}
+ti["superdoortemplate"]  = ti[" !"] .. {"st_door", faces="ns", name="door%%"}
+
+ti["YL"] = ti[" +"] .. {"st_timer", action="toggle", target="laser1#*", interval=3}
+ti["YM"] = ti[" +"] .. {"st_timer", action="toggle", target="laser1#*", interval=15}
+ti["YN"] = ti[" +"] .. {"st_timer", action="toggle", target="laser1#*", interval=22}
+
+ti["XM"] = ti[" +"] .. {"st_laser_n", name="laser1#"}
+ti["XL"] = ti[" +"] .. {"st_laser_s", name="laser1#"}
+
+ti["ntemplate"] = ti[">!"] .. {"it_key", code="%%"}
+ti["etemplate"] = ti[" !"] .. {"st_key", code="%%", target="gate%%"}
+ti["rtemplate"] = ti[" !"] .. {"st_door", faces="ns", name="gate%%"}
+
+ti["Ptemplate"] = ti[" +"] .. {"it_trigger", target="uhu%%"}
+ti["Stemplate"] = ti[" +"] .. {"it_trigger", target="wuhu%%"}
+ti["Utemplate"] = ti[" +"] .. {"st_laser_s", name="uhu%%"}
+ti["Wtemplate"] = ti[" +"] .. {"st_laser_n", name="wuhu%%"}
+
+ti["T0"] = ti[" +"] .. {"it_trigger", target="guru0"}
+ti["G0"] = ti[" !"] .. {"st_door", faces="ns", name="guru0"}
+ti["TZ"] = ti[" +"] .. {"it_trigger", target="guru1"}
+ti["LZ"] = ti[" +"] .. {"st_laser_w", name="guru1"}
+
+ti["k "] = {"it_sword"}
+ti["m "] = {"it_hammer"}
+ti["*3"] = ti[">!"] .. {"it_coin_s"}
+ti["T2"] = ti[" +"] .. {"it_trigger"}
+ti["documents"] = ti[" !"] .. {"it_document", text="text%%"}
+
+ti["z "] = ti[" !"] .. {"st_oxyd_d", target = "oxyd_callback", _seedoxyd=true}
+ti["XX"] = ti[" !"] .. {"st_oxyd_d", target = "oxyd_callback"}
+ti["o1"] = ti[" !"] .. {"st_oxyd_b", name="ox", oxydcolor=OXYD_BOLD, noshuffle=true, target = "shuffle"}
+
+ti["RO"] = ti[" %"] .. {"#ac_rotor", range=5, strength=10}
+ti["Ro"] = ti["hb"] .. {"#ac_rotor", range=10, strength=5}
+ti["y "] = {"#ac_top", range=1, strength=1}
+ti["@ "] = {"#ac_marble_black"}
+
+if wo["IsDifficult"] then
+    ti["RU"] = ti[" !"] .. {"#ac_rotor", range=3, strength=10}
+    ti["RW"] = ti[" !"] .. {"#ac_rotor", range=2, strength=15}
+    ti["h "] = {"it_spring_keep"}
+    ti["i "] = {"it_extralife"}
+else
+    ti["RU"] = ti[" !"] .. {"it_extralife"}
+    ti["RW"] = ti[" !"] .. {"it_extralife"}
+    ti["h "] = {"it_umbrella"}
+    ti["i "] = {"it_spring_keep"}
+end
+
+local puzzler = res.puzzle(ti, "G","H","I","J","c","Z","M","{")
+
+local autotiler = res.autotile(puzzler, {"v", "supervortextemplate"},{"b", "hypervortextemplate"},{"n", "ntemplate"},{"e", "etemplate"},{"r", "rtemplate"}, {"P", "Ptemplate"}, {"S", "Stemplate"}, {"U", "Utemplate"}, {"W", "Wtemplate"}, {"L", "superopentemplate"}, {"D", "superdoortemplate"}, {"p", "documents"})
+
+wo(res.composer(autotiler), "  ", {
+       ":!:!:!:!:!:!:!:!:!:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q Q Q Q Q Q Q Q Q Q Q l ! ! ! ! ! !!! ! ! ! ! ! ! l l l l l l l l l l l l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! ! ! ! ! ! ! ! ! Q l ! ! ! ! ! !!! ! ! ! ! ! ! l / / / / / / / / / / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! ! ! ! ! + ! ! ! Q l ! ! ! ! ! !XX ! ! ! ! ! ! l / / / / / / / / / / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! ! ! ! ! + + ! ! Q l ! ! ! !A! ! ( !A! ! ! ! ! l / + + / / / / / / / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!Q Q ! + ! ! + + + + ! Q l ! ! ! ! ! (XX ( ! ! ! ! ! l + + + + / / 0 / / / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!Q Q ! + + + + + ! ! ! Q l ! ! !XX (XX !XX (XX ! ! ! l / / + + + + + + + + l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!Q Q ! ! + + + + + ! ! Q l ! ! ! ! ! (XX ( ! ! ! ! ! l / / / + + + + + + / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! + + ! ! ! + ! ! Q l ! ! ! !A! ! ( !A! ! ! ! ! l / / + + + / + + / / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! + ! ! ! ! ! + ! Q l ! ! ! ! ! !XX ! ! ! ! ! ! l / / + + / / / + + / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q ! ! + ! ! ! + ! ! Q l ! ! ! ! ! !!! ! ! ! ! ! ! l / / + / / / / / + / l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! Q Q Q Q Q Q Q Q Q QFQFlF!F!F!F! ! !!! ! !F!F!F!F!FlFl l l l l l l l l l l!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!!/!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! !~! !~!o! !z  !o!~! !~! ! !o1 ! !~! !~!o! !z  !o!~! !~! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! !~! !~!o! !z  !o!~! !~! ! !YL ! !~! !~!o! !z  !o!~! !~! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!GeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGe3!GeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGe:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!!B!!!!!!!!!!!U1U2U3U4U5U6U7!!!!!!!!!!G0!!!!!!!!!!!!!!!!4!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!$!4! ! ! ! ! !4!4!4!4!4!4!4! ! ! ! ! !4! ! !P1P2P3P4P5P6P7 ! ! ! ! ! ! !;! !&!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!4!T0 ! ! ! !B!B!B!B!B!B!B! !C!C! !T24! ! !C!4!4!4!4!4!C! ! ! !4!LZTZ !;! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!4! ! ! ! ! !4!4!4!4!4!4!4! ! ! ! ! !4! ! !S1S2S3S4S5S6S7 ! ! ! ! ! ! !;! !$!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!&!4!(!(!(!(!(!W1W2W3W4W5W6W7(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!(!4!(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!'!B!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!'!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!'!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1!1! Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % %.% % % % % % % % % % % % % % % % % % % % % % % % % %.% % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % % %.% % % % % % % % % % % %.% % % % % % % % % % % %.% % % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % % % %.% % % % % % % % % %.% %.% % % % % % % % % %.% % % % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!)!(! Q % %(% % % % %.% %RO %(% %RO %.% %(% %.% %RO %(% %RO %.% % % % %(%ca % Q/!cd'!'!'!b2:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % % % % % %.% %.% %.% %.% %.% %.% %.% %.% %.% %.% % % % % % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % % % % % % %.% % % %.% % % %.% % % %.% % % %.% % % % % % % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!(! Q % % % % % % % %.% %.% %.% %.% %.% %.% %.% %.% %.% %.% % % % % % % % % Q(!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!'!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!)!)!.!)!)!.!)!)!.!)!)!.!)!)!.!)!)!.!)!3!2!.!2!2!.!2!2!.!2!2!.!2!2!.!2!2!.!2!2!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!'!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!)!'!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!2!'!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! % % % ! % % % ! % % % ! % % %;!;!;!D1;!;!;! % % % ! % % % ! % % % ! % % %%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:! !:!:!:!:!:!%! % ! % ! % ! % ! % ! % ! % ! %;!<!;!D2;!<!;! % ! % ! % ! % ! % ! % ! % ! %%!:!:!:!:! !:!:!:!:!",
+       ":!:!:! !b1 !'!'!'!/!%! % & %9! %<! %9! %<! %9! % & %;!<!;!D3;!<!;! % & %9! %<! %9! %<! %9! % & %%!/!'!'! !b4 !:!:!:!",
+       ":!:!:!:! !:!:!:!:!:!%! % % %;! % ! % ! % ! % ! % % %;!<!;!D4;!<!;! % % % ! % ! % ! % ! %;! % % %%!:!:!:!:! !:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! !<! ! ! % % % ! % % %;! !<! !;!<!;!D5;!<!;! !<! !;! % % % ! % % % ! !<! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! !;! ! ! ! ! ! ! !;!;!;!D6;!;!;! ! ! ! ! ! ! !;! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!L3x!x!x! *x!x!x! *x!x!x! *x!x!x!R!V! - - -V!R!x!x!x! -x!x!x! -x!x!x! -x!x!x!L6:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!2!2!2! *2!2!2! *2!2!2! *2!2!2!R! !V! -V! !R!)!)!)! -)!)!)! -)!)!)! -)!)!)!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!L2x!x!x! *x!x!x! *x!x!x! *x!x!x!R!V! !^! !V!R!x!x!x! -x!x!x! -x!x!x! -x!x!x!L5:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!2!2!2! *2!2!2! *2!2!2! *2!2!2!R! !V! !V! !R!)!)!)! -)!)!)! -)!)!)! -)!)!)!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!L1x!x!x!C*x!x!x!C*x!x!x!C*x!x!x!R!V! !V! !V!R!x!x!x!C-x!x!x!C-x!x!x!C-x!x!x!L4:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!'!3&3&3&3&3&3&3&3&3&3&3&3&3&3&3&R! !V!'!V! !R!3&3&3&3&3&3&3&3&3&3&3&3&3&3&3&'!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!+!4!4!4!4*4!4!4!4*4!4!4!4*4!4!3&R!V! . . .V!R!3&4!4!4-4!4!4!4-4!4!4!4-4!4!4!+!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!+!5!5!5!5!5!5!5!5!5!5!5!5!5!4!3&R! ! ! . ! !R!3&4!5!5!5!5!5!5!5!5!5!5!5!5!5!+!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!+!/!/!/!/!/!/!/!/!/!/!/!/!/!/!E!E!E!E! lE!E!E!E!/!/!/!/!/!/!/!/!/!/!/!/!/!/!+!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ! ( ! ( ! ( ! ( ! ( ! (XLE!<!<!<!<!<!<!<!E!XL ( ! ( ! ( ! ( ! ( ! ( ! !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ( ! ( ! ( ! ( ! ( ! ( ! (E!<!Rl<l<l<lRl<!E! ( ! ( ! ( ! ( ! ( ! ( ! ! !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t!6!6!6(6!6(6!6(6!6(6!6(6!6(7!E!<!<lR&<&R&<l<!E!6!6(6!6(6!6(6!6(6!6(6!6(6!7!t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ) ) ) ) ) ) ) ) ) ) ) ) ) l<!<l<&Rl<&<l<! l ) ) ) ) ) ) ) ) ) ) ) ) ! )t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! *x!;!x! * ! ! ! *x!;!x! *E!<!<lR&<&R&<l<!E! -d!x!d! - ! ! ! -d!x!d! - !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t!7!6!6(6!6(6!6(6!6(6!6(6!6(6!E!<!Rl<l<l<lRl<!E!7!6(6!6(6!6(6!6(6!6(6!6(6!6(t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ( ! ( ! ( ! ( ! ( ! ( ! !E!<!<!<!<!<!<!<!E! ! ! ( ! ( ! ( ! ( ! ( ! ( !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t!XM ! ( ! ( ! ( ! ( ! ( ! (-!-!E!E!E!r2E!E!E!-!-! ( ! ( ! ( ! ( ! ( ! ( !XMt!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!YM:!:!:!:!:!-!XLXLXLXLXLXLXLXLXLXLXLXLXLXL-!3&3&3&'!3&3&3&-!XLXLXLXLXLXLXLXLXLXLXLXLXLXL-!:!:!:!:!YN:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! ! ! !-!E!E!E!r1E!E!E!-! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! !=! !=! !=! !=! !=! !=! !-! ! ! ! ! ! ! ! ! !-! !=! !=! !=! !=! !=! !=! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! !-! ! !E!y&;!V!;!y&E! ! !-! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! !e1 !-! ! ! !E!!! !V! !!!E! ! ! !-! !e2 ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t!(! !(!(!(!(!(!(! ! !-! ! ! ! !E!y&;! );!y&E! ! ! ! !-! ! !(!(!(!(!(!(! !(!t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ! ! ! ! ! !(! !-! ! ! ! ! !E!!! !V! !!!E! ! ! ! ! !-! !(! ! ! ! ! ! ! !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t!(!(!(!(!(!(! ! !-! ! ! ( ! ! !E!y&;! );!y&E! ! ! ! ( ! !-! ! !(!(!(!(!(!(!t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! ! ! ! ! ! ! !-! ! ! ! ! ( ! !E!!! !V! !!!E! ! ! ( ! ! ! !-! ! ! ! ! ! ! !t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!t! !(!(!(!(!(!-! ! ! ! ! ! ! ( !E!y&;!V!;!y&E! ! ( ! ! ! ! ! !-!(!(!(! !(!(!t!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !E!!! ! ! !!!E! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!-!.!:!.!:!.!:!.!:!.!:!.!:!.!-!-!-!-!-! !-!-!-!-!-!.!:!.!:!.!:!.!:!.!:!.!:!.!-!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!.!:!.!:!.!:!.!:!.!:!.!:!;!:!-! ! ! ! !'! ! ! ! !-!:!;!:!.!:!.!:!.!:!.!:!.!:!.!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!-!.!-!.!:!.!:!.!:!.!-!E!-!E!-!Ml-!O!-!Mm-!O!-!Mi-!E!-!E!-!.!:!.!:!.!:!.!-!.!-!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! !h! !h! ! ! !E! ) )HfHeHeHeHeHc ) )Mb ) )JfJeJeJeJeJc ) )E! ! ! !h! !h! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!%!%!%!%!%!%!-!E! ! )Hj )Me4!MbGj )Me !Me )IjMb4!Me )Jj ) !E!-!%!%!%!%!%!%!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!;!RW;!RW;!%! )E! )HdHk )Me ! !GnHa ) ! )JdIk ! !Me )JnJa )E! )%!;!RW;!RW;!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! !;!>!;! !%!OOE! ! )Hj )RU ! !Gj ) ! ) ! )Ij ! !RU )Jj ) !E!OO%! !;!>!;! !%!:!:!:!:!A!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!;!>!v1>!;!%! )E! )HdHk )N1 !GdHoHa )_! )JdJoIa !N2 )JnJa )E! )%!;!>!v2>!;!%!:!:!:!A!b3A!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! !;!>!;! !%!OOE! ! )Hj ) ! ! !Gj ) ! ) ! )Ij ! ! ! )Jj ) !E!OO%! !;!>!;! !%!:!:!:!:!*3:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!;!i!;!i!;!%! )E! )HdHk ) ! ! !GnHa ) ! )JdIk ! ! ! )JnJa )E! )%!;!i!;!i!;!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!%!%!%!%!%!%!-!E! ! )HlHeHeHeHeHi )ZlZmZo )JlJeJeJeJeJi ) !E!-!%!%!%!%!%!%!%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! !E! ) ) )E) ) ) )E) ){cZg{k )E) ) ) )E) ) ) )E! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! !>! !E!E!E!>!E!E!E!>!p2ZiZnZfp3>!E!E!E!>!E!E!E! !>! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!'! ! ! ! ! !>! ! ! ! ! !>! ! ! !>! ! !'! ! !>! ! ! !>! ! ! ! ! !>! ! ! ! ! !'!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! !OO !>!>!>!>!>!>!>!>! ! ! !>!>!>!>!>!>!>! ! ! !>!>!>!>!>!>!>!>! !OO ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! !?!?!?!?!?!?!?!?! ! ! !?!?!?!?!?!?!?! ! ! !?!?!?!?!?!?!?!?! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! !?!A! !A! !A!?! ! ! !?! ! !A! ! !?! ! ! !?!A! !A! !A!?! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! !?!A! !A! !?! ! ! !?! !?!?!?! !?! ! ! !?! !A! !A!?! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! !?!A! !A!?! ! ! !?!A!?!@!?!A!?! ! ! !?!A! !A!?! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!n1:!:!:!:!:!%! !?!?!?! ! ! ! !?!A! !?! ! ! !?! !?!?!?! !?! ! ! !?! !A!?! ! ! ! !?!?!?! !%!:!:!:!:!n2:!:!:!:!",
+       ":!:!:!A!v4A!'!'!'!/!%! !?!Ro?! ! ! ! ! !?!A!?! ! ! !?! ! !A! ! !?! ! ! !?!A!?! ! ! ! ! !?!Ro?! !%!/!'!'!A!v3A!:!:!:!",
+       ":!:!:!:!A!:!:!:!:!:!%! !?!?!?! ! ! ! ! ! !?!?! ! ! !?!?!?!?!?!?!?! ! ! !?!?! ! ! ! ! ! !?!?!?! !%!:!:!:!:!A!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !p1 ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !OO ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !m! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !%!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!'!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!%!:!:!:!:!:!:!:!:!:!"
+       })
+
+wo:add({"ot_wire", anchor1="df1", anchor2="df2"})
+wo:add({"ot_wire", anchor1="df1", anchor2="df3"})
+wo:shuffleOxyd()
+
+local last_oxyd = 0
+
+function oxyd_callback(value, sender)
+    if sender.state == OXYDPAIR and sender["_seedoxyd"] then
+        wo[sender] = {"it_seed"}
+        wo[last_oxyd] = {"it_seed"}
+        it(grp(sender, last_oxyd)):grow()
+    elseif sender.state == OPEN then
+        last_oxyd = sender
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true">This is Babylon. Be careful, stranger! It's dangerous to go inside.
+          There are some gates, unfortunalety closed, like the famous Gate of Ishtar,
+          and have a look to the lions, the tigers. Semiramis is waiting for you, stranger, ha ha.</el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">Try to find the mechanism to open the gate, stranger</el:english>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true">Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
