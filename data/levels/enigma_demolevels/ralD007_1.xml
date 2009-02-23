@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Demo Puzzle" el:subtitle="" el:id="20080920ral228"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1434 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1457 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@
 wo["ConserveLevel"] = true
 
 ti["  "] = {"fl_sahara"}
-ti["##"] = {"st-rock1"}
+ti["##"] = {"st_granite"}
 
 ti[".."] = {"fl_sahara", push_directions="nesw"}
 

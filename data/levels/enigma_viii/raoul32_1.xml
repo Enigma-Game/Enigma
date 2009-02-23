@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Involution" el:subtitle="" el:id="raoul32"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ else
     ti[","] = ti[" "]
 end
 ti["Y"] = {"st_yinyang_active"}
-ti["y"] = ti["."] .. {"st_yinyang", target="onewayw", action="flip"}
+ti["y"] = ti["."] .. {"st_yinyang", loop=false}
 ti["B"] = {"st_passage", flavor="frame", color=BLACK, name="passageb#"}
 ti["W"] = {"st_passage", flavor="frame", color=WHITE, name="passagew#"}
 ti[">"] = {"st_oneway", color=BLACK, orientation=EAST, name="onewaye#"}

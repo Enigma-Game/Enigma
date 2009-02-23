@@ -22,8 +22,7 @@ ti["n"] = {"fl_dark", "floor#"}
 ti["#"] = {"st_greengray", "wall#"}
 ti["N"] = {"st_purplegray", "wall#"}
 ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_GRAY}
-ti["Y"] = {"st_yinyang", action = {"grow", "callback"},
-            target = {"@@seed#*", "change_design"}} .. ti{"it_seed_fake", "seed#"}
+ti["Y"] = {"st_yinyang", loop = false, target = "change_design"}
 ti["B"] = {"st_blur_cross"}
 ti["S"] = {"st_surprise", selection = {"st_passage_black", "st_passage_white"}}
 ti["@"] = {"#ac_marble", essential = INDISPENSIBLE}
@@ -67,12 +66,6 @@ end
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
-      </el:string>
-      <el:string el:key="text1">
-        <el:english el:translate="true">Just a hint: Try the easy-mode first ...</el:english>
-      </el:string>
-      <el:string el:key="text2">
-        <el:english el:translate="true">Don't think too long ... it's easy!</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

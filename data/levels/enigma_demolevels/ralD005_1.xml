@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Demo Draw Map" el:subtitle="" el:id="20080610ral774"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1434 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1457 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -20,7 +20,7 @@ ti["X"] = {"st_oxyd"}
 ti["B"] = {"st_passage_black", flavor="cross"}
 ti["W"] = {"st_passage_white", flavor="cross"}
 
-ti["y"] = {"it-yinyang"}
+ti["y"] = {"it_yinyang"}
 ti["1"] = ti["y"] .. {"#ac_marble_black"}
 ti["2"] = ti["y"] .. {"#ac_marble_white"}
 

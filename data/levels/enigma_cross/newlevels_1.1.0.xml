@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="41" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -31,7 +31,7 @@
     <level _seq="23" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Transpositions" _xpath="enigma_vii/duffy174_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Puppet" _xpath="enigma_vii/pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="10" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="126" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Ghost Driver" _xpath="enigma_vii/duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Not Fast Enough" _xpath="enigma_vii/jet04_3" author="James Taylor, Ronald Lamprecht" ctrl="force" easy="true" id="20070413jet001" rel="3" rev="3" score="3" target="time" unit="duration"/>
@@ -139,12 +139,12 @@
     <level _seq="131" _title="Coober Pedy Opals" _xpath="enigma_viii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="126" score="1" target="time" unit="duration"/>
     <level _seq="132" _title="Butterfly Opals" _xpath="enigma_viii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="126" score="1" target="time" unit="duration"/>
     <level _seq="133" _title="Brilliant Opals" _xpath="enigma_viii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="126" score="1" target="time" unit="duration"/>
-    <level _seq="134" _title="Squared Microwire" _xpath="enigma_viii/ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="131" score="1" target="time" unit="duration"/>
+    <level _seq="134" _title="Squared Microwire" _xpath="enigma_viii/ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="150" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="More or Less Wired" _xpath="enigma_viii/ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="149" score="1" target="time" unit="duration"/>
     <level _seq="136" _title="Sokopal" _xpath="enigma_viii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="137" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="Two Is A Company I" _xpath="enigma_viii/devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="Two Is A Company II" _xpath="enigma_viii/devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="3" score="1" target="time" unit="duration"/>

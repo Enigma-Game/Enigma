@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Demo User Resolver" el:subtitle="" el:id="20080516ral198"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 1405 $" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 1441 $" el:status="experimental"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -15,8 +15,8 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti["r"] = {"fl-rough-red"}
-ti["b"] = {"fl-rough-blue"}
+ti["r"] = {"fl_redslab"}
+ti["b"] = {"fl_blueslab"}
 ti["1"] = {"#ac_marble"}
 
 ti["x"] = {"it_cross"}

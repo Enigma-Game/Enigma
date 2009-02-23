@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -65,11 +65,11 @@
     <level _seq="57" _title="Coober Pedy Opals" _xpath="./ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="126" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Butterfly Opals" _xpath="./ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="126" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Brilliant Opals" _xpath="./ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="126" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Squared Microwire" _xpath="./ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="131" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Squared Microwire" _xpath="./ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="150" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="More or Less Wired" _xpath="./ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="149" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Sokopal" _xpath="./andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="63" _title="Mole Hill Meditation" _xpath="./ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Involution" _xpath="./raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Involution" _xpath="./raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Near Halley I" _xpath="./devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Two Is A Company I" _xpath="./devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Two Is A Company II" _xpath="./devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="3" score="1" target="time" unit="duration"/>
