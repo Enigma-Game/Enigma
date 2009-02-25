@@ -3121,7 +3121,7 @@ Lua tables.
 @example
 mySwitch["color"] = nil
 mySwitch["color"] = DEFAULT
-wo[{3,6}] = @{"ac_marble_black", player=DEFAULT@}
+wo[@{3,6@}] = @{"ac_marble_black", player=DEFAULT@}
 @end example
 
 Note that @samp{DEFAULT} is not equal to @samp{nil}. They are different values
@@ -6479,10 +6479,12 @@ not automatically assign the proper @samp{slope}.
 @section Standard Items
 
 @menu
-* it_bag::
+* it_bag::             Portable Item Container
+* it_banana::          Transformable Banana
 * it_blocker::         Shrinked Blocker Stone
 * it_brake::           Movable Stone Brake
 * it_brush::
+* it_cherry::          Source of Invisibility
 * it_coin::            Enigma's currency
 * it_cross::           Floor switch for patient Actors
 * it_death::           Unpassable grid blocker
@@ -6495,20 +6497,24 @@ not automatically assign the proper @samp{slope}.
 * it_magicwand::       Wizards Tools
 * it_magnet::
 * it_meditation::
+* it_pin::             Friction increasing crampon
 * it_pipe::
 * it_rubberband::
 * it_seed::            Seeds for Wood, Volcano Stones
 * it_sensor::          Floor Switch for passing Actors
 * it_shogun::          Dot for Shogun Stones
+* it_squashed::        Remnant of squashed Fruits
 * it_strip::           Narrow Bridge
+* it_surprise::        Random Transforming item
 * it_sword::
 * it_trap::
 * it_trigger::         Floor Switch for Actors and Stones
 * it_umbrella::        Death Protection Item
 * it_vortex::          Teleport of Marbels
+* it_weight::          Portable Mass
 * it_wormhole::        Teleport of Actors
-* it_wrench::
-* it_yinyang::
+* it_wrench::          Tool for mechanical Stones
+* it_yinyang::         Player toggling Switch
 @end menu
 
 
@@ -6517,8 +6523,63 @@ not automatically assign the proper @samp{slope}.
 @subsection it_bag
 @obindex it_bag
 
+A bag is a portable container for other objects. The player can fill it with
+up to 13 other items, including other empty or filled bags.
 
+The bag allows a player to carry in total more than 13 items in his inventory.
+Nevertheless most items carried in a bag can not directly be applied. Just the
+@ref{it_weight} does apply its mass even when carried in a bag. On the other
+hand bags offer the user the possibility to pick up and drop items that can not
+be dropped otherwise as they would be activated. E.g. an @ref{it_cherry} can
+not be dropped without application, but if it is contained in a bag the bag
+can be dropped and the cherry can be extracted later on. A bag is useful to
+transfer multiple items via @ref{st_mail}, too.
 
+As long as an @code{it_bag} is at the first place in the inventory, new items
+are put into the bag instead of the inventory, until the bag is full (13 items).
+The player can drop an @code{it_bag} anytime.  When picked up again, items from
+the bag are put back into the inventory (until it is full).
+
+The quite complex rules of pick up in detail:
+
+@enumerate
+@item
+Inventory and bag are limited concerning pickups to 13 items.
+
+@item
+Both are generally LIFO (last item picked up is first item out), but the 
+inventory content can be rotated.
+
+@item
+If you pick up any item besides a bag and your first inventory item is not a bag
+the item is added to the inventory.
+
+@item
+If you pick up any item besides a non-empty bag and your first inventory item is
+a bag the item is added to the first inventroy bag (this includes non-empty bags
+being added into first inventory bags!)
+
+@item
+You empty a bag by dropping it and picking it up again with any item at the
+first inventory position but a bag. As many items as possible are taken from the
+bag and added to the inventory.
+
+@item
+Empty bags are never put into other bags (this would cause unresolvable
+recursion problems). They will only be added as items directly to the inventory.
+
+@item
+If the "picked up" bag can not empty its contents to the inventory or a bag at
+the first inventory position is full the bag is not picked up and keeps the
+remaining items.
+
+@end enumerate
+
+You can add items directly to a bag by usage of the world @ref{add} method.
+
+Bags are are used by @ref{st_thief} and @ref{fl_thief} to carry their stolen
+items. When the thiefs are captured by @ref{st_chess} the bag remains on the
+grid position filled up with the stolen items.
 
 @table @asis
 
@@ -6526,6 +6587,21 @@ not automatically assign the proper @samp{slope}.
 
 @item @b{Messages:} none
 
+@end table
+
+@c ----------------- Banana Item --------------------
+@node it_banana
+@subsection it_banana
+@obindex it_banana
+
+A portable item without direct usage. But it transforms into an @ref{it_cherry}
+when it by a laser beam.
+
+When a stone is pushed over it an @ref{it_squashed} remains as remnants.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
 @end table
 
 @c ----------------- Blocker Item --------------------
@@ -6650,12 +6726,37 @@ an @ref{Object Kind} @samp{it_brake} in an inventory or a container.
 
 TBD
 
+@ref{it_squashed}
+
 @table @asis
 
 @item @b{Attributes:} none
 
 @item @b{Messages:} none
 
+@end table
+
+@c ----------------- Cherry Item --------------------
+@node it_cherry
+@subsection it_cherry
+@obindex it_cherry
+
+A magic item that makes the activating actor for 8 seconds invisible. But not
+all actors become insivible. Just the ball like actors @ref{ac_marble} and
+@ref{ac_pearl} do vanish. Other actors just drop the cherry on activation.
+
+An invisible actor can walk through most kinds of glass 
+(@pxref{Transparent Stones})and as being invisible
+they do no longer attrackt hostile @ref{ac_rotor} and @ref{ac_top}.
+
+When several cherries are activated in sequence each does prolong the actor's
+time of invisiblity by additional 8 seconds.
+
+When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
 @end table
 
 @c ----------------- Coin Item --------------------
@@ -7119,6 +7220,27 @@ Shape transformation. See text above.
 
 @end table
 
+@c ----------------- Pin Item --------------------
+@node it_pin
+@subsection it_pin
+@obindex it_pin
+
+A pin is a friction increasing item that can be used as a crampon on @ref{fl_ice}.
+When it is picked up and is added to the inventory it significantly increases
+the floor friction applied to all actors owned by the inventory's owner.
+
+Pins do just increase friction as long as they are directly part of the 
+inventory. A pin contained within an @ref{it_bag}, being part of the inventory,
+has no influence on the friction. Two or more pins do not apply more friction
+than a single pin. As soon as the last pin is dropped the friction returns
+to its standard values.
+
+@table @asis
+
+@item @b{Attributes:} none
+@item @b{Messages:} none
+
+@end table
 @c ----------------- Pipe Item --------------------
 @node it_pipe
 @subsection it_pipe
@@ -7367,6 +7489,23 @@ a medium hole, @code{"l"} for a large hole.
 
 @end table
 
+@c ----------------- Squashed Item --------------------
+@node it_squashed
+@subsection it_squashed
+@obindex it_squashed
+
+The remnants of fruits like @ref{it_cherry} and @ref{it_banana} after pushing
+a stone over it.
+
+The squashed remnants are scarcely visible on some floor types. The player can
+not pick them up. But it can be wiped away by application of an @ref{it_brush}
+or by a nearby exploding @ref{it_bomb}.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
+@end table
+
 @c ----------------- Strip Item --------------------
 @node it_strip
 @subsection it_strip
@@ -7422,6 +7561,50 @@ Deviating adhesion that defaults to floor adhesion.
 @item @b{it_strip_nesw}: connections = @code{"nesw"}
 
 @end table
+
+@end table
+
+@c ----------------- Surprise Item --------------------
+@node it_surprise
+@subsection it_surprise
+@obindex it_surprise
+
+An item that transforms into a random item as soon as the player drops it.
+
+The replacement item is a random one out of a given selection. You can set
+the @samp{selection} attribute with token of strings. Every string needs either
+to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
+
+@example
+ti["m"] = @{"it_magicwand"@}
+ti["e"] = @{"it_extralife"@}
+ti["s"] = @{"it_surprise", selection=@{"it_seed", "=m", "=e", "=e"@}@}
+@end example
+
+The replacement item is randomly chosen out of the given selection. By listing
+an item several times you can take influence on the likelyhood.
+
+The tile declarations referenced by a key may even contain objects besides
+items. But you should make rare and proper usage of this feature.
+
+Prior replacing the surprise item but after droping it the surprise item will
+perform its action. You can use this action to modify the selection or to set
+objects on your own.
+
+The surprise item is killed by any replacement item set to the grid position.
+If your selection does not resolve to an item you may need to add @ref{"it_nil"}
+to the replacement tile declaration.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{selection}, @ @ @i{values}: tokens of item kinds and tile keys; @ @ @i{default}: @code{@{"it_umbrella", "it_spring_keep", "it_dynamite", "it_coffee", "it_hammer"@}}
+
+@end table
+
+@item @b{Messages:}
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
 @end table
 
@@ -7665,6 +7848,34 @@ A vortex in state @samp{CLOSED}.
 @end table
 @end table
 
+@c ----------------- Weight Item --------------------
+@node it_weight
+@subsection it_weight
+@obindex it_weight
+
+A weight is an item with a mass, that defaults to the mass of 10 @ref{ac_marble}s.
+When it is picked up it is added to the inventory and increases the mass of
+all actors owned by the inventory's owner.
+
+Weights can easily be picked up, but the player can not drop them. Just indirect
+methods like hitting @ref{st_mail}, @ref{st_thief} or crossing a @ref{fl_thief}
+may remove this item from the inventory.
+
+The inventories mass is always updated to the mass of all weights kept in the
+inventory or contained in any @ref{it_bag} contained in the inventory.
+
+@table @asis
+
+@item @b{Attributes:} none
+@table @asis
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{+10.0}
+Mass unit is the mass of an @ref{ac_marble}
+@end table
+
+@item @b{Messages:} none
+
+@end table
+
 @c ----------------- Wormhole Item --------------------
 @node it_wormhole
 @subsection it_wormhole
@@ -7764,7 +7975,7 @@ possible.
 @obindex it_yinyang
 
 A special switch that allows the user to toggle the @ref{Player and Inventory}
-between @code{YIN} and code{YANG}.
+between @code{YIN} and @code{YANG}.
 
 On activation this item does not get dropped but remains unchanged in the
 inventory.
@@ -8307,12 +8518,14 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 
 @menu
 * st_actorimpulse::    Bumper Stone
+* st_beads::           Frame of Glass Beads
 * st_blocker::         Shrinkable Blocker
 * st_blur::            Passage of yet undetermined color
 * st_boulder::         Moving Arrow Boulder
 * st_brake::           Brake for moving Boulders
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
+* st_darkglass::       Semitransparent metall framed Glass
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
 * st_door::            Door of various Flavors
@@ -8323,7 +8536,9 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_laser::           Lightemitting Laser
 * st_laserflop::       Lightsensitive Monoflop
 * st_laserswitch::     Lightsensitive Switch
+* st_lightglass::      Transparent metall framed Glass
 * st_lightpassenger::  Stone pushed by Light
+* st_magic::           Magic Tranforming Stone
 * st_mail::            Mail office for Item transportation
 * st_mirror::          Mirrors of all flavors
 * st_monoflop::        Monoflop Switch
@@ -8334,11 +8549,14 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_pull::            Pullable Stone
 * st_puzzle::          Clusterable Puzzle Stones
 * st_quake::           Oxyd closing Stone
+* st_rawglass::        Transparent Glass Block
+* st_redfiber::        Woven Fiber in a metall Frame
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
 * st_shogun::          Stackable Hole Stones
 * st_stoneimpulse::    Neighbor Pushing pulsing Stone
+* st_surprise::        Random Transforming Stone
 * st_swap::            Neighbor Swapping Stone
 * st_switch::          Classical on/off Switch
 * st_timer::           Animated Timer
@@ -8408,6 +8626,30 @@ A @samp{hit_factor} overrides a given @samp{strength} attribute.
 @table @asis
 @item @b{st_actorimpulse}: invisible = @code{false}
 @item @b{st_actorimpulse_invisible}: invisible = @code{true}
+@end table
+
+@end table
+
+@c ----------------- Beads Stone --------------------
+@node st_beads
+@subsection st_beads
+@obindex st_beads
+
+A stone framed by glass beads. Like other @ref{Transparent Stones} it is 
+passable for invisible actors, but it is not transparent to laser beams.
+
+Like @ref{st_oneway} the beads stone does not detain visible actors once they
+entered the grid and lets them leave on any side.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_beads}
 @end table
 
 @end table
@@ -8763,6 +9005,39 @@ Number of additional active seconds on insertion of a large @ref{it_coin}.
 @table @asis
 @item @b{st_coinslot}: instant = @code{false}
 @item @b{st_coinslot_instant}: instant = @code{true}
+@end table
+
+@end table
+
+@c ----------------- Darkglass Stone --------------------
+@node st_darkglass
+@subsection st_darkglass
+@obindex st_darkglass
+
+A metal framed semi transparent glass stone. It exists in static, movable and 
+hollow variants and is just transparent to laser light in its hollow variant.
+Like other @ref{Transparent Stones} it is passable for invisible actors as long
+as it is not @samp{movable}.
+
+A @ref{st_lightpassenger} in state @samp{OFF} looks identical to a darkglass
+stone
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{hollow}
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{movable}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_darkglass}: hollow = @code{false}, movable = @code{false}
+@item @b{st_darkglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @b{st_darkglass_movable}: hollow = @code{false}, movable = @code{true}
 @end table
 
 @end table
@@ -9254,6 +9529,39 @@ the light change with proper actions.
 
 @end table
 
+@c ----------------- Lightglass Stone --------------------
+@node st_lightglass
+@subsection st_lightglass
+@obindex st_lightglass
+
+A metal framed transparent glass stone. It exists in static, movable and 
+hollow variants and is by its very nature transparent to laser light. Like other
+@ref{Transparent Stones} it is passable for invisible actors as long as it is
+not @samp{movable}.
+
+A @ref{st_magic} of variant @code{st_magic_oxyda} transforms on actor hits to
+a movable lightglass stone
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{hollow}
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{movable}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_lightglass}: hollow = @code{false}, movable = @code{false}
+@item @b{st_lightglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @b{st_lightglass_movable}: hollow = @code{false}, movable = @code{true}
+@end table
+
+@end table
+
 @c ----------------- Lightpassenger Stone --------------------
 
 @node st_lightpassenger
@@ -9291,9 +9599,9 @@ and @samp{floor_gradient} the parallel part of the force of the floor,
 i.e., the sum of gradient-force and @code{force_x/y}-attributes.
 
 The light passenger can be switched on and off by messages (see below), and
-appears as @samp{st_glass2} when inactive. A player with an @ref{it_glasses}
+appears as @samp{st_darkglass} when inactive. A player with an @ref{it_glasses}
 in his inventory that includes the @samp{SPOT_LIGHTPASSENGER} feature is able
-to distinguish the switched off lightpassenger from an @samp{st_glass2}.
+to distinguish the switched off lightpassenger from an @samp{st_darkglass}.
 The variant @samp{st_lightpassenger_off} is deactivated from the beginning.
 A lightpassenger that moves onto an @ref{it_cross} switches off immediatly. A
 switchted off lightpassenger can be switched on by an actor hit with a revealed
@@ -9340,6 +9648,48 @@ Switch the lightpassenger off.
 @item @b{st_lightpassenger}: state = @code{ON}
 @item @b{st_lightpassenger_on}: state = @code{ON}
 @item @b{st_lightpassenger_off}: state = @code{OFF}
+@end table
+
+@end table
+
+@c ----------------- Magic Stone --------------------
+@node st_magic
+@subsection st_magic
+@obindex st_magic
+
+A stone that mimics one stone, but transforms on actor hits into another stone.
+
+Like @ref{st_fake} this stone does initially look like another stone of a kind
+given by the attribute @samp{flavor}. But on an actor hit with or without tool
+it transforms to another stone, which provides its own set of features.
+
+The flavor @code{"brick"} just transforms on a hit with a revealed
+@ref{it_magicwand} into a static @ref{st_rawglass}.
+
+The flavor @code{"oxyda"} transforms on any hit into a movable 
+@ref{st_lightglass}.
+
+The flavor @code{"oxydc"} transforms on any hit into a movable 
+@ref{st_rawglass}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"brick"}, @code{"oxyda"}, @code{"oxydc"}; @ @ @i{default}: @code{"brick"}; @ @ @i{access}: read only
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_magic}: flavor=@code{"brick"}
+@item @b{st_magic_brick}: flavor=@code{"brick"}
+@item @b{st_magic_oxyda}: flavor=@code{"oxyda"}
+@item @b{st_magic_oxydc}: flavor=@code{"oxydc"}
 @end table
 
 @end table
@@ -10032,6 +10382,58 @@ Toggles stone to @samp{BREAKING}
 
 @end table
 
+@c ----------------- Rawglass Stone --------------------
+@node st_rawglass
+@subsection st_rawglass
+@obindex st_rawglass
+
+A block of raw glass. It exists in static and movable variants and is by its
+very nature transparent to laser light. Like other @ref{Transparent Stones} it
+is passable for invisible actors.
+
+This stone looks identical to @ref{st_ice}, but differs of course in its
+features.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{movable}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_rawglass}: movable = @code{false}
+@item @b{st_rawglass_movable}: movable = @code{true}
+@end table
+
+@end table
+
+@c ----------------- Redfiber Stone --------------------
+@node st_redfiber
+@subsection st_redfiber
+@obindex st_redfiber
+
+A metal frame with woven red fiber. Like other @ref{Transparent Stones} it is
+passable ransparent to laser light. But the redfiber is not passable to any
+actors.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_redfiber}
+@end table
+
+@end table
+
 @c ----------------- Rotator Stone --------------------
 @node st_rotator
 @subsection st_rotator
@@ -10314,6 +10716,49 @@ Pulse at a value of @samp{1}.
 @item @b{st_stoneimpulse_new}:
 A stone that is about to pulse when being set.
 @end table
+
+@end table
+
+@c ----------------- Surprise Stone --------------------
+@node st_surprise
+@subsection st_surprise
+@obindex st_surprise
+
+A stone that transforms into a random stone as soon as an actor hits it.
+
+The replacement stone is a random one out of a given selection. You can set
+the @samp{selection} attribute with token of strings. Every string needs either
+to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
+
+@example
+ti["b"] = @{"st_brake"@}
+ti["d"] = @{"st_death"@}
+ti["s"] = @{"st_surprise", selection=@{"st_chess", "=b", "=d", "=d"@}@}
+@end example
+
+The replacement stone is randomly chosen out of the given selection. By listing
+a stone several times you can take influence on the likelyhood.
+
+The tile declarations referenced by a key may even contain objects besides
+stone. But you should make rare and proper usage of this feature.
+
+Prior replacing the surprise stone the surprise stone will perform its action. 
+You can use this action to modify the selection or to set objects on your own.
+
+The surprise stone is killed by any replacement stone set to the grid position.
+If your selection does not resolve to a stone you may need to add @ref{"st_nil"}
+to the replacement tile declaration.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{selection}, @ @ @i{values}: tokens of stone kinds and tile keys; @ @ @i{default}: @code{@{"st_grate_cross", "st_death", "st_surprise", "st_lightglass_hollow", "st_knight", "st_thief", "st_flat_breakable", "st_flat_breaking"@}}
+
+@end table
+
+@item @b{Messages:}
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
 @end table
 
@@ -10858,6 +11303,37 @@ Activate the yinyang like an actor hitting the stone.
 @c ----------------- Transparent Stones --------------------
 @node Transparent Stones
 @subsection Transparent Stones
+
+Enigma provides a collection of transparent stones, all similar, but with
+different features. Some of them may be passed after the use of an
+@ref{it-cherry}, others will be just pushed. Some are transparent for lasers,
+but not all! This table shows their exact properties.
+
+@multitable {st_lightpassenger} {st_lightpassenger_off_plus} {actor is visible:  } {actor is invisible:  } {lasertransparent:  }
+@headitem class @tab kind: @tab actor is visible: @tab actor is invisible: @tab lasertransparent:
+@item @ref{st_rawglass} @tab st_rawglass @tab rebound @tab pass @tab yes
+@item @ref{st_rawglass} @tab st_rawglass_movable @tab push @tab pass @tab yes
+@item @ref{st_lightglass} @tab st_lightglass @tab rebound @tab pass @tab yes
+@item @ref{st_lightglass} @tab st_lightglass_movable @tab push @tab push @tab yes
+@item @ref{st_lightglass} @tab st_lightglass_hollow @tab pass @tab pass @tab yes
+@item @ref{st_darkglass} @tab st_darkglass @tab rebound @tab pass @tab no
+@item @ref{st_darkglass} @tab st_darkglass_movable @tab push @tab push @tab no
+@item @ref{st_darkglass} @tab st_darkglass_hollow @tab pass @tab pass @tab yes
+@item @ref{st_redfiber} @tab st_redfiber @tab rebound @tab rebound @tab yes
+@item @ref{st_polarswitch} @tab st_polarswitch_on @tab toggle @tab pass @tab yes
+@item @ref{st_polarswitch} @tab st_polarswitch_off @tab toggle @tab pass @tab no
+@item @ref{st_beads} @tab st_beads @tab leave @tab pass @tab no
+@item @ref{st_lightpassenger} @tab st_lightpassenger_off @tab rebound @tab rebound @tab no
+@end multitable
+
+These entries can be memorized as follows: A stone is transparent for laser 
+light or if it is hollow, but not if it is dark. Exception is @samp{st_beads},
+whose irregular sides would scatter the beam. A stone can always be passed by 
+invisible actors, with three exceptions: @samp{st_redfiber}, whose inside is 
+filled with red stripes, and the two movables @samp{st_lightglass_movable} and 
+@samp{st_darkglass_movable} which have a non-glass frame which the actor can
+use to move the stone. @code{st_rawglass_movable} does not have such a frame
+and can not be moved by an invisible actor.
 
 @c ----------------- Breakable Stones --------------------
 @node Breakable Stones
@@ -13027,9 +13503,16 @@ w, h = wo(resolver, " ", @{
 "                    "
 @})
 @end example
+A more elaborate example can be found in @ref{Orthogonal Autotiling}.
+
+@item @b{Caveats:}
+Do not use the hash sign @samp{#} as suffix character for key length 2 and
+above autotiled keys. A key @code{"A#"} could result in an unexpected @samp{%%}
+substitution in the name attribute. A name @code{"sample%%"} would be 
+substituted by @code{"sample%#"} which is a name that will be autonumbered 
+(@pxref{Object Naming}).
 @end table
 
-A more elaborate example can be found in @ref{Orthogonal Autotiling}.
 
 @c ----------------- Composer Resolver --------------------
 
@@ -13037,7 +13520,7 @@ A more elaborate example can be found in @ref{Orthogonal Autotiling}.
 @subsection res.composer
 
 The composer resolver reduces the number of required tile declarations by
-generating them by composition of base tiles. Small motley levels and nearly
+generating them by composition of base tiles. Even small levels and nearly
 every large level will use many different objects in numerous tile compositions.
 As the usable one character tile key candidates will not suffice you will need
 to use two or three character tile keys. But you will need numerous tile
@@ -13064,10 +13547,15 @@ on space, @code{"X~"} - a grate on water, @code{"h."} - a hammer on space,
 
 @b{res.composer}(@i{subresolver})
 
+@b{res.composer}(@i{subresolver}, @i{sequence})
+
 @table @asis
 @item @i{subresolver}
 Resolver to which unresolved requests should be forwarded. May be @samp{ti}
 as the final resolver of the resolver chain.
+@item @i{sequence}
+Search sequence for basic tile declarations given as a string of priority 
+numbers. The sequence defaults to @code{"123456789"}.
 @end table
 
 @item @b{Syntax Samples:}
@@ -13077,26 +13565,64 @@ res.composer(ti)
 
 @item @b{Details:}
 For every key in the map the subresolver will be first requested for a tile
-declaration. Thus any given declaration will preceede the auto composition.
+declaration. Thus any given explicit declaration will preceede the auto 
+composition.
 
 Just in case that no declaration exists the search starts for existing subkey
-tiles. Subkeys are keys with some characters replaced by a whitespace @samp{ }.
-For all key lengths the basic subkeys with just one character different from a
-whitespace will be examined. Additionally just for three character key length
-the three keys with just one whitespace replacement and two remaining
-original characters will be examined and these compositions will preced the
-composition of three one character tiles.
+tiles. Subkeys are keys with all but some characters replaced by a whitespace 
+@samp{ }.
 
-Thus for the key @code{"h~"} the composer will look for @code{"h "} and
-@code{" ~"}. For the three character key @code{"#h~"} The composer will look for
-@code{"#h "} plus @code{"  ~"}, @code{"# ~"} plus @code{" h "}, @code{" h~"}
-plus @code{"#  "} and finally @code{"#  "} plus @code{" h "} plus @code{"  ~"}.
-For the 4 character key @code{"A#h~"} the composer will just look for
-@code{"A   "} plus @code{" #  "} plus @code{"  h "} plus @code{"   ~"}. The
-same holds for any larger key length.
+The search sequence is given by the optional second argument and defaults to
+@code{"123456789"}. In the first step all character positions marked by a 
+@samp{1} in the sequence string are maintained in the key string and all others
+are replaced by whitespace. In the second step all  character positions marked
+by a @samp{2} in the sequence string are maintained in the key string and all 
+others are replaced by whitespace. This procedure continues until the number
+equals the key length. All generated subkeys are resolved by the subresolver
+and concatenated in the given sequence.
 
-It is recommended to add the composer resolver behind most other library
-resolvers in the resolver chain.
+With the default sequence @code{"123456789"} a key request for @code{"~mX"} is
+resolved to subkeys @code{"~  "}, @code{" m "} and @code{"  X"}. These subkeys
+are resolved by the subresolver. If the subresolver is @samp{ti} the result is:
+
+@example
+ti["~  "] .. ti[" m "] .. ti["  X"]
+@end example
+
+With a key length of 3 or more characters it is sometimes useful to avoid a
+total decomposition into single character based subkeys. E.g. you may want
+to use a @ref{res.autotile} or @ref{res.puzzle} as subresolver. Both have the
+need of essential 2 character subkeys. In this case you can simply define
+the sequence as @code{"122"} for a key length of 3. A key request of 
+@code{"~Pa"} will be resolved to subkeys @code{"~  "}, @code{" Pa"}. In case
+of a puzzle subresolver this would result in:
+
+@example
+ti["~  "] .. ti[" P"]
+@end example
+
+with second tile declaration being a @ref{st_puzzle} declaration with the
+@samp{connections} attribute being set to @code{"w"} according to the last key
+charcter @samp{a}.
+
+With a @code{"231"} you stick to a total decomposition, but you redefine the
+sequence of evaluation and composition. For the key @code{"~mX"} you would get
+in contrast to the first example:
+
+@example
+ti["  X"] .. ti["~  "] .. ti[" m "]
+@end example
+
+In all cases subkeys, that are strings of whitespaces only, will simply be 
+ignored. With the default sequence the key @code{"~ X"} will result just in:
+
+@example
+ti["~  "] .. ti["  X"]
+@end example
+
+If you set your floors by usage of the composer you should use the all 
+whitespace key as your default floor as this key does not resolve via the
+composer and needs the backup of the default mechanism.
 
 @item @b{Full Example:}
 @example
@@ -13123,12 +13649,13 @@ ti["xx"] = @{"#ac_marbel_black"@}
 local resolver = res.composer(ti)
 
 w, h = wo(resolver, "  ", @{
-"                                        ",
-"  h= ;W;2;c G~ ~# #.2.X X~k=k;          ",
-"                                        ",
-"  2;s;    2.s.    2=s=                  ",
-"  c;h;    c.h.    c=h=    xx            ",
-"                                        "
+--0001020304050607080910111213141516171819
+ "                                        ",
+ "  h= ;W;2;c G~ ~# #.2.X X~k=k;          ",
+ "                                        ",
+ "  2;s;    2.s.    2=s=                  ",
+ "  c;h;    c.h.    c=h=    xx            ",
+ "                                        "
 @})
 @end example
 

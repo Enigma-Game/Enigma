@@ -527,16 +527,16 @@ function res.composer_implementation(context, evaluator, key, x, y)
     if tile ~= nil then
         return tile
     end
-    local template = context[4]
-    if template == nil then
-        template = "123456789"
+    local sequence = context[4]
+    if sequence == nil then
+        sequence = "123456789"
     end
     -- try to compose tile
     for i = 1, #key do
         local subkey = ""
         local ic = "" .. i
         for j = 1, #key do
-            if template:sub(j, j) == ic then
+            if sequence:sub(j, j) == ic then
                 subkey = subkey .. key:sub(j, j)
             else
                 subkey = subkey .. " "
@@ -559,16 +559,16 @@ end
 
 function res.composer(subresolver, ...)
     local args = {...}
-    local template = nil
+    local sequence = nil
     if #args >  1 then
         error("Resolver composer did not expect more than one argument" ,2)
     elseif #args == 1 then
         if type(args[1]) ~= "string" then
             error("Resolver composer did expect string as first argument" ,2)
         end
-        template = args[1]
+        sequence = args[1]
     end
-    local context = {res.composer_implementation, nil, subresolver, template}
+    local context = {res.composer_implementation, nil, subresolver, sequence}
     return context
 end
 

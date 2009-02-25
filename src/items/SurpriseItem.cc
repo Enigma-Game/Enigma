@@ -27,7 +27,7 @@
 
 namespace enigma {
 
-/* -------------------- Surprise stone -------------------- */
+/* -------------------- Surprise item -------------------- */
     SurpriseItem::SurpriseItem() : Item() {
     }
     
