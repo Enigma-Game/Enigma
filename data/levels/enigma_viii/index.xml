@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="37" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="38" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -71,11 +71,11 @@
     <level _seq="63" _title="Mole Hill Meditation" _xpath="./ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Involution" _xpath="./raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Near Halley I" _xpath="./devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="66" _title="Two Is A Company I" _xpath="./devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Two Is A Company II" _xpath="./devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="66" _title="Two Is A Company I" _xpath="./devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Two Is A Company II" _xpath="./devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="CrissCross" _xpath="./devnull26_1" author="/dev/null" ctrl="force" easy="true" id="devnull26" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="5 Days and 5 Nights" _xpath="./andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Babylon" _xpath="./mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Babylon" _xpath="./mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="27" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

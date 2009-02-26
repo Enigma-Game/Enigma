@@ -3,12 +3,11 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Babylon" el:subtitle="Semiramis' Garden" el:id="mecke27"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:25 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:27 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <!--<el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true" />-->
         <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
@@ -78,7 +77,7 @@ ti["N "] = {"st_rotator_ccw", movable=true}
 ti["Y "] = {"st_rotator_cw", movable=true}
 ti["q "] = {"st_door", state= OPEN, faces="ns"}
 ti["C "] = {"st_mirror", movable=true, transparent=false}
-ti["F "] = {"st_invisible"}
+ti["F "] = {"st_invisible_hollow"}
 ti["A "] = {"st_disco_light"}
 ti["% "] = {"st_disco_medium"}
 ti["? "] = {"st_disco_dark"}
@@ -160,6 +159,7 @@ local puzzler = res.puzzle(ti, "G","H","I","J","c","Z","M","{")
 local autotiler = res.autotile(puzzler, {"v", "supervortextemplate"},{"b", "hypervortextemplate"},{"n", "ntemplate"},{"e", "etemplate"},{"r", "rtemplate"}, {"P", "Ptemplate"}, {"S", "Stemplate"}, {"U", "Utemplate"}, {"W", "Wtemplate"}, {"L", "superopentemplate"}, {"D", "superdoortemplate"}, {"p", "documents"})
 
 wo(res.composer(autotiler), "  ", {
+
        ":!:!:!:!:!:!:!:!:!:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!! Q Q Q Q Q Q Q Q Q Q Q l ! ! ! ! ! !!! ! ! ! ! ! ! l l l l l l l l l l l l!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!! Q ! ! ! ! ! ! ! ! ! Q l ! ! ! ! ! !!! ! ! ! ! ! ! l / / / / / / / / / / l!!:!:!:!:!:!:!:!:!:!",
@@ -173,10 +173,10 @@ wo(res.composer(autotiler), "  ", {
        ":!:!:!:!:!:!:!:!:!:!!! Q ! ! + ! ! ! + ! ! Q l ! ! ! ! ! !!! ! ! ! ! ! ! l / / + / / / / / + / l!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!! Q Q Q Q Q Q Q Q Q QFQFlF!F!F!F! ! !!! ! !F!F!F!F!FlFl l l l l l l l l l l!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!!/!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!/!!!:!:!:!:!:!:!:!:!:!",
-       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~!>!o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o!>!~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! !~! !~!o! !z  !o!~! !~! ! !o1 ! !~! !~!o! !z  !o!~! !~! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! !~! !~!o! !z  !o!~! !~! ! !YL ! !~! !~!o! !z  !o!~! !~! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
-       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o! !~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
+       ":!:!:!:!:!:!:!:!:!:!!! ! ! ! ! ! !~!>!o! !z  !o! !~! ! ! ! ! ! ! !~! !o! !z  !o!>!~! ! ! ! ! ! !!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!GeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGe3!GeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGeGe:!:!:!:!:!:!:!:!:!",
        ":!:!:!:!:!:!:!:!:!:!!!B!!!!!!!!!!!U1U2U3U4U5U6U7!!!!!!!!!!G0!!!!!!!!!!!!!!!!4!!!!!!!!!!!!!!!!!!!!!:!:!:!:!:!:!:!:!:!",

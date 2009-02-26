@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Two Is A Company I" el:subtitle="" el:id="devnull24"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,50 +14,48 @@
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = false
 wo["ProvideExtralifes"] = false
-
-ti["##"] = {"st_redrock"}
-ti["  "] = {"fl_concrete"}
-ti["~~"] = {"fl_water"}
-ti["dd"] = {"st_door", "door4White", faces = "ew"}
-ti["DD"] = {"st_door", "door4Black", faces = "ew"}
-ti["ss"] = {"it_shogun_s", target = "doorWhite", action = "signal"}
-ti["SS"] = {"it_trigger",  target = "doorBlack", action = "signal"}
-ti["tt"] = {"st_shogun_s"}
-ti["TT"] = {"st_granite_movable"}
+ti["#"] = {"st_redrock"}
+ti[" "] = {"fl_concrete"}
+ti["~"] = {"fl_water"}
+ti["d"] = {"st_door", "door4White", faces = "ew"}
+ti["D"] = {"st_door", "door4Black", faces = "ew"}
+ti["s"] = {"it_shogun_s", target = "doorWhite", action = "signal"}
+ti["S"] = {"it_trigger",  target = "doorBlack", action = "signal"}
+ti["t"] = {"st_shogun_s"}
+ti["T"] = {"st_granite_movable"}
 if wo["IsDifficult"] then
-    ti["XX"] = ti["##"]
-    ti["sx"] = {"it_shogun_s", target = "doorWhite", action = "signal"}
-    ti["SX"] = {"it_trigger",  target = "doorBlack", action = "signal"}
-    ti["tx"] = {"st_shogun_s"}
-    ti["TX"] = {"st_granite_movable"}
+    ti["W"] = ti["#"]
+    ti["x"] = {"it_shogun_s", target = "doorWhite", action = "signal"}
+    ti["X"] = {"it_trigger",  target = "doorBlack", action = "signal"}
+    ti["y"] = {"st_shogun_s"}
+    ti["Y"] = {"st_granite_movable"}
 else
-    ti["XX"] = ti["  "]
-    ti["sx"] = ti["  "]
-    ti["SX"] = ti["  "]
-    ti["tx"] = ti["  "]
-    ti["TX"] = ti["  "]
+    ti["W"] = ti[" "]
+    ti["x"] = ti[" "]
+    ti["X"] = ti[" "]
+    ti["y"] = ti[" "]
+    ti["Y"] = ti[" "]
 end
-ti["oo"] ={"st_oxyd_a", name = "north#"}
-ti["OO"] ={"st_oxyd_a", name = "south#"}
-ti["@@"] = {"#ac_marble_black"}
-ti["**"] = {"#ac_marble_white"}
+ti["o"] ={"st_oxyd_a", name = "north#"}
+ti["O"] ={"st_oxyd_a", name = "south#"}
+ti["@"] = {"#ac_marble_black"}
+ti["*"] = {"#ac_marble_white"}
 
-w, h = wo(res.composer(ti), "  ", {
-    "########################################",
-    "##      ##  ##oooooooooooo##ss        ##",
-    "##  ##  tx  ##            dd          ##",
-    "##  SX  tt  ##################TT####  ##",
-    "##  ##  ##  ##    XX      XX  TX      ##",
-    "##      ##  ##ss  ss          TT##sx  ##",
-    "##@@        ##~~########~~##        **##",
-    "##  SX##tt          SS  SS##  ##      ##",
-    "##      tx  XX      XX    ##  ##  ##  ##",
-    "##  ####tt##################  TT  sx  ##",
-    "##          DD            ##  TX  ##  ##",
-    "##        SS##OOOOOOOOOOOO##  ##      ##",
-    "########################################"
+w, h = wo(ti, " ", {
+    "####################",
+    "#   # #oooooo#s    #",
+    "# # y #      d     #",
+    "# X t #########T## #",
+    "# # # #  W   W Y   #",
+    "#   # #s s     T#x #",
+    "#@    #~####~#    *#",
+    "# X#t     S S# #   #",
+    "#   y W   W  # # # #",
+    "# ##t######### T x #",
+    "#     D      # Y # #",
+    "#    S#OOOOOO# #   #",
+    "####################"
 })
-
 wo:shuffleOxyd({"north#*", max = 0}, {"south#*", max = 0})
 if wo["IsDifficult"] then
     wo:add({"ot_counter", "doorBlack", state = 0, target = "door4Black", action_5 = "open", action_4 = "close"})
