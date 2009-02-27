@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="37" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -86,7 +86,7 @@
     <level _seq="78" _title="Limited Supplies" _xpath="enigma_iv/duffy130_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy130" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Patterns of Impulse" _xpath="enigma_iv/andreas11_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas11" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Pull it!" _xpath="enigma_iv/luc14_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc14" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Sleeping Serpent" _xpath="enigma_iv/raoul10_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul10" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Sleeping Serpent" _xpath="enigma_iv/raoul10_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul10" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="How solid?" _xpath="enigma_iv/andreas03_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas03" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Cluenigma" _xpath="enigma_iv/alain12_1" author="Alain Busser" ctrl="force" easy="false" id="alain12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="The Flagstone Reaper" _xpath="enigma_iv/andreas09_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas09" rel="2" rev="5" score="1" target="time" unit="duration"/>

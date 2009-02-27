@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sleeping Serpent" el:subtitle="" el:id="raoul10"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,7 +14,7 @@
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
 wo["ConserveLevel"] = false
-wo["WaterSinkSpeed"] = 5.0
+wo["WaterSinkTime"] = 1.4
 
 ti[" "] = {"fl_dark", name="the_floor#"}
 ti["*"] = {"st_puzzle", cluster=1}
