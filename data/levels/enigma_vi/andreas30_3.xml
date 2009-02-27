@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Stable" el:subtitle="" el:id="andreas30"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="02:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- Solvable in 35 pushes (or less?).
+
+wo["ShowMoves"] = true
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn_b"}
+ti["."] = {"fl_lawn"}
+ti["#"] = {"st_yellow"}
+ti["<"] = {"st_oneway_w"}
+ti["H"] = {"st_chess"}
+ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_GREEN}
+ti["door"] = {"st_door", "door%%", faces = "ew"}
+ti["trigger_i"] = {"it_trigger", target = "door%%"}
+ti["trigger_o"] = {"it_trigger", target = "door%%"} .. ti["."]
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(res.autotile(ti, {"A", "F", "door"}, {"a", "f", "trigger_i"}, {"g", "l", "trigger_o"}), " ", {
+       "....................",
+       "...######.....##O#..",
+       "...#ac  #...k## @#..",
+       "...#bd  #...##   #..",
+       "...###  #..##  H #..",
+       ".....#  ####   H #..",
+       ".....#     <  HH #l.",
+       ".....#     #  HH #..",
+       ".....#     #######..",
+       ".#######     #......",
+       ".OABCDEF     #......",
+       ".#############......",
+       "...................."})
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

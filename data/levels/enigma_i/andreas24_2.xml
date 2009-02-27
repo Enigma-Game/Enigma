@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Floppy Floors" el:subtitle="" el:id="andreas24"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="00:43" el:difficult="01:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["SlopeStrength"] = 15
+wo["FrictionStrength"] = 1.5
+
+if wo["IsDifficult"] then
+    ti["v"] = {"fl_slope_ps"}
+    ti["^"] = {"fl_slope_pn"}
+    ti[">"] = {"fl_slope_pe"}
+    ti["<"] = {"fl_slope_pw"}
+else
+    ti["v"] = {"fl_gray"}
+    ti["^"] = {"fl_gray"}
+    ti[">"] = {"fl_gray"}
+    ti["<"] = {"fl_gray"}
+end
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_samba"}
+ti["1"] = {"fl_abyss", "floor1#"}
+ti["2"] = {"fl_abyss", "floor2#"}
+ti["3"] = {"fl_abyss", "floor3#"}
+ti["4"] = {"fl_abyss", "floor4#"}
+ti["5"] = {"fl_abyss", "floor5#"}
+ti["F"] = {"st_floppy", "floppystone#", target = "floppy_call"}
+ti["O"] = {"st_oxyd", "oxyd#", flavor = "b", oxydcolor = OXYD_CYAN}
+ti["P"] = {"st_oxyd", "oxyd#", flavor = "b", oxydcolor = OXYD_PURPLE}
+ti["a"] = ti["^"] .. {"it_floppy"}
+ti["b"] = ti["1"] .. {"it_floppy"}
+ti["c"] = ti["2"] .. {"it_floppy"}  -- appears twice
+ti["@"] = ti["v"] .. {"#ac_marble", adhesion = 1.667}
+
+wo(ti, " ",
+      {"                    ",
+       " v<<11111 444422c55P",
+       " @F^    1 4  4    5 ",
+       " v ^2222122224    5 ",
+       " vF^    b 5  1    3 ",
+       " v ^    3 5  1    3 ",
+       " vFa33333 5 O144444O",
+       " v ^      5  1    1 ",
+       " vF^      5  1    1 ",
+       " v ^444111555333333 ",
+       " vF^         c    3 ",
+       " >>^555552222211113P",
+       "                    "})
+
+wo:shuffleOxyd()
+
+floppystones = no["floppystone#*"]:shuffle()
+for j = 1, #floppystones do
+    floppystones[j]._myfloors = "floor"..j.."#*"
+end
+
+function floppy_call(is_on, sender)
+     if is_on then
+         wo[po[sender._myfloors]] = ti["."]
+     else
+         wo[po[sender._myfloors]] = ti[" "]
+     end
+     no["oxyd#*"][1]:closeall()
+     wo:shuffleOxyd()
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

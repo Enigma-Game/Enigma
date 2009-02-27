@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Procrustes" el:subtitle="" el:id="andreas34"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="05:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_sand"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_brownmarble"}
+ti["O"] = {"st_oxyd", flavor = "d"}
+ti["E"] = {"it_extinguisher"} .. ti["."]
+ti["@"] = {"#ac_marble"} .. ti{"it_magicwand"}
+ti["P"] = {"st_puzzle", cluster = 1}
+ti["markedpuzzle"] = ti["P"] .. {"fl_sand", "puzzles%%#"}
+
+if wo["CreatingPreview"] then
+    ti["f"] = {"fl_hay"} .. ti{"it_burnable_burning"}
+else
+    ti["f"] = {"fl_dunes", eternal = true, burnable = true, initfire = true}
+end
+
+wo(res.autotile(ti, {"1", "4", "markedpuzzle"}), " ", {
+        "#############O#O##O#",
+        "#@          f.f.ffEO",
+        "#  1 1    1 ..f....#",
+        "# 2P 2P1PPP f...f.f#",
+        "#  2PP P    fffff..O",
+        "#      2PPP #####  #",
+        "#        ####      #",
+        "#  ####### P4      #",
+        "O....fffff  P PP4  #",
+        "#fff.f...f P3P4 P4 #",
+        "#......f.. 3  3 3  #",
+        "OEffff.f.f         #",
+        "#O####O#O###########"})
+
+st((no["puzzles%1#*"]:shuffle())[1]):pull_rotate(SOUTH)
+st((no["puzzles%2#*"]:shuffle())[1]):pull_rotate(EAST)
+st((no["puzzles%3#*"]:shuffle())[1]):pull_rotate(NORTH)
+st((no["puzzles%4#*"]:shuffle())[1]):pull_rotate(WEST)
+
+wo:shuffleOxyd()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Prokrustes</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

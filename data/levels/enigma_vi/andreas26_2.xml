@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Orbitting" el:subtitle="" el:id="andreas26"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="01:03" el:difficult="01:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_space"}
+ti["."] = {"fl_darkgray", friction = 4.0, adhesion = 2.0}
+ti["#"] = {"st_break_white"}
+ti["M"] = {"st_monoflop", "monoflop#", target = "close_doors"}
+ti["O"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_WHITE}
+ti["P"] = ti["M"] .. {"fl_space", "passage"}
+ti["T"] = {"st_timer", target = "make_floor_under_marble", interval = 0.1}
+ti["U"] = {"st_timer", target = "open_next_door", interval = 6.0}
+ti["t"] = {"#ac_top", range = 20, strength = 5, gohome = false}
+ti["@"] = {"#ac_marble", "marble"}
+ti["door"] = {"st_door", "door%%", faces = "sn"}
+
+if wo["IsDifficult"] then
+    ti["u"] = ti["t"]
+else
+    ti["u"] = ti[" "]
+end
+
+wo(res.autotile(ti, {"A", "J", "door"}), " ", {
+  "TMMMMMMMMMMMMMMMMMO#",
+  "M                MA#",
+  "M                MB#",
+  "M                MC#",
+  "M       u        MD#",
+  "M    t           ME#",
+  "M                P #",
+  "M                MF#",
+  "M                MG#",
+  "M                MH#",
+  "M         @      MI#",
+  "M                MJ#",
+  "UMMMMMMMMMMMMMMMMMO#"})
+
+timercount = 0  -- ot_counter would be inefficient here.
+
+function close_doors()
+    timercount = 0
+    no["door*"]:close()
+end
+
+function open_next_door()
+    timercount = timercount + 1
+    if timercount < 11 then
+        no["door%"..timercount]:open()
+    end
+    if timercount > 9 then
+        wo[no["monoflop#*"]] = ti["#"]
+        wo[no["passage"]] = {"st_grate_framed"}
+    end
+end
+
+local oldpos = po(0, 0)
+function make_floor_under_marble()
+    if po(no["marble"]) ~= oldpos then
+        wo[no["marble"]] = ti["."]
+        wo[oldpos] = ti[" "]
+        oldpos = po(no["marble"])
+    end
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

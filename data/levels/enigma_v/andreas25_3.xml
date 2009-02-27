@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Acoustic Reminiscence" el:subtitle="" el:id="andreas25"/>
+      <el:version el:score="1" el:release="3" el:revision="5" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="01:26" el:difficult="03:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_samba"}
+ti["."] = {"fl_fake_trigger"}
+ti["s"] = {"fl_samba", "soundfloor"}
+ti["#"] = {"st_box"}
+ti["O"] = {"st_oxyd", "oxyd#", flavor = "b", oxydcolor = OXYD_RED}
+ti["t"] = {"it_sensor", "trigger#", target = "trigger_call", _isopen = false,
+           invisible = true} .. ti["."]
+ti["@"] = {"#ac_marble", adhesion = 1}
+ti["T"] = {"st_timer", target = "timer_call", interval = 0.3}
+ti["U"] = {"st_timer"}  -- just design
+
+wo(ti, " ",
+      {"T##################U",
+       "#                  #",
+       "#                  #",
+       "# t  t  t  t  t  t #",
+       "#                  #",
+       "#        @         #",
+       "# t  t  t st  t  t #",
+       "#                  #",
+       "#                  #",
+       "# t  t  t  t  t  t #",
+       "#                  #",
+       "#                  #",
+       "O##################O"})
+
+wo:add({"ot_counter", "counter", action_9 = "open", target_9 = "oxyd#*"})
+
+triggers = no["trigger#*"]:shuffle()
+soundfloor = no["soundfloor"]
+counter = no["counter"]
+
+for j = 1, 9 do
+    triggers[j]._number = j
+    triggers[j + 9]._number = j
+end
+
+soundname = {
+    ["a"] = "cloth",
+    ["b"] = "blackbomb",
+    ["c"] = "coinsloton",
+    ["d"] = "drown",
+    ["e"] = "fakeoxyd",
+    ["f"] = "fart",
+    ["g"] = "",
+    ["h"] = "shatter",
+    ["i"] = "itemtransform",
+    ["j"] = "jump",
+    ["k"] = "",
+    ["l"] = "laseron",
+    ["m"] = "mirrorturn",
+    ["n"] = "stonepaint",
+    ["o"] = "oxydopen",
+    ["p"] = "pickup",
+    ["q"] = "puzzlerotate",
+    ["r"] = "rubberband",
+    ["s"] = "switchplayer",
+    ["t"] = "triggerdown",
+    ["u"] = "oxydopened",
+    ["v"] = "",
+    ["w"] = "swamp",
+    ["x"] = "",
+    ["y"] = "stonedestroy",
+    ["z"] = "",
+    ["."] = ""  -- this is a forced pause
+}
+
+choosefrom = {"a","b","c","d","e","h","i","j","l","p","q","r","s","w","y"}
+
+if wo["IsDifficult"] then
+    diffelem = lib.lua.shuffle(choosefrom)
+    diffelem = {diffelem[1], diffelem[2], diffelem[3], diffelem[4]}
+    diffsound = lib.lua.shuffle(lib.math.combinations(3, diffelem)) -- 64 combinations
+end
+
+soundstack = {}
+function timer_call()
+    if #soundstack == 0 then
+        return
+    end
+    local play = soundname[table.remove(soundstack, 1)] or ""
+    if play ~= "" then
+        soundfloor:sound(play)
+    end
+end
+
+lasttriggered = -1
+function trigger_call(onoff, sender)
+    if sender._isopen then
+        return
+    end
+    wo[sender] = ti[" "]
+    sender._isopen = true
+    if wo["IsDifficult"] then
+        for _, sound in pairs(diffsound[sender._number]) do
+            table.insert(soundstack, sound)
+    end
+    table.insert(soundstack, ".")
+    else
+        table.insert(soundstack, choosefrom[sender._number])
+    end
+    if lasttriggered == -1 then
+        lasttriggered = sender._number
+    elseif lasttriggered == sender._number then
+        lasttriggered = -1
+    counter:signal(1)
+    else
+        -- start all over again
+        wo[triggers] = ti["."]
+    triggers._isopen = false
+        lasttriggered = -1
+    counter.state = 0
+    end
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

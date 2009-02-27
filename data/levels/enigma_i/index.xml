@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma I"/>
 
   <attributes/>
 
@@ -91,7 +91,7 @@
     <level _seq="83" _title="Watery Grave" _xpath="./martin37_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin37" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Escher's World" _xpath="./ant09_1" author="Petr Machata" ctrl="force" easy="false" id="ant09" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Balancing Act" _xpath="./nat09_1" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Space Tubes" _xpath="./duffy13_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Balance" _xpath="./erich01_1" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="More Space Tubes" _xpath="./duffy33_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy33" rel="1" rev="2" score="1" target="time" unit="duration"/>

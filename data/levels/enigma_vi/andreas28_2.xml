@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dancing on Light Beams" el:subtitle="" el:id="andreas28"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="01:08" el:difficult="01:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+ti[" "] = {"fl_stone"}
+ti["#"] = {"st_concrete"}
+ti["B"] = {"st_polarswitch"}
+ti["L"] = {"st_lightpassenger"}
+ti["M"] = {"st_stoneimpulse_movable"}
+ti["S"] = {"st_laser", orientation = SOUTH, state = ON}
+ti["N"] = {"st_laser", orientation = NORTH, state = ON}
+ti["E"] = {"st_laser", orientation = EAST, state = ON}
+ti["W"] = {"st_laser", orientation = WEST, state = ON}
+ti["O"] = {"st_oxyd", flavor = "b"}
+ti["@"] = {"#ac_marble", adhesion = 1.7}
+
+if wo["IsDifficult"] then
+    ti["s"] = ti[" "]
+else
+    ti["s"] = {"it_spring_keep"}
+end
+
+wo(ti, " ", {"##S##S##############",
+             "# B  B             #",
+             "#          BW  S S #",
+             "#  S B         B B #",
+             "#  B Ls@  EB       #",
+             "EB        B    B   #",
+             "#            B    BW",
+             "#    B  B       BBW#",
+             "#EB           B    #",
+             "#       B   B      #",
+             "########N###N####  #",
+             "#M M M M M M M M  BW",
+             "##########OOOOOO####"})
+
+wo:shuffleOxyd()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
