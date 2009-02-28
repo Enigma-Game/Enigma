@@ -36,12 +36,12 @@ namespace enigma {
     void CannonBall::animcb() {
         GridPos p(pos);
         if (Stone *st = GetStone(p)) {
-            SendMessage (st, "_spitter");
+            SendMessage (st, "_cannonball");
         } else if (Item *it = GetItem(p)) {
             if (!has_flags(it, itf_indestructible))
                 SetItem (p, MakeItem("it_explosion_debris"));
             else
-                SendMessage (it, "_spitter");
+                SendMessage (it, "_cannonball");
         } else if (Floor *fl = GetFloor(p)) {
             if (fl->is_destructible())
                 SetItem (p, MakeItem("it_explosion_debris"));

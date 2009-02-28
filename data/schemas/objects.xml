@@ -133,6 +133,7 @@
     <msg name="_dispenser" type="nil"/>
     <msg name="_booze" type="nil"/>
     <msg name="_brush" type="nil"/>
+    <msg name="_cannonball" type="nil"/>
     <msg name="_capture" type="nil"/>
     <msg name="_checkflood" type="nil"/>
     <msg name="_disappear" type="nil"/>
@@ -159,7 +160,6 @@
     <msg name="_shatter" type="nil"/>
     <msg name="_shield" type="nil"/>
     <msg name="_shogun" type="int"/>
-    <msg name="_spitter" type="nil"/>
     <msg name="_start" type="nil"/>
     <msg name="_suicide" type="nil"/>
     <msg name="_trigger" type="bool"/>
@@ -1005,6 +1005,7 @@
       <msg name="turn"/>
       <msg name="turnback"/>
       <msg name="flip"/>
+      <msg name="_cannonball"/>
     </object>
     <object name="st_boulder_w">
       <attr name="orientation" value="0"/>
@@ -1117,7 +1118,9 @@
     </object>
     <object name="st_brownie"/>
     <object name="st_brownmarble"/>
-    <object name="st_brownpyramide"/>
+    <object name="st_brownpyramide">
+      <msg name="_cannonball"/>
+    </object>
     <object name="st_camouflage">
       <attr name="hollow" rw="r"/>
     </object>
@@ -1500,7 +1503,7 @@
       <msg name="peepall"/>
       <msg name="shuffle"/>
       <msg name="_trigger"/>
-      <msg name="_spitter"/>
+      <msg name="_cannonball"/>
       <msg name="_init"/>
       <msg name="open"/>
       <msg name="close"/>
@@ -1731,6 +1734,8 @@
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
       <attr name="hit_distortion_yy"/>
+      <attr name="secure"/>
+      <msg name="_cannonball"/>
     </object>
     <object name="st_stoneimpulse">
       <attr name="hollow"/>
@@ -1740,6 +1745,7 @@
       <msg name="signal"/>
       <msg name="ignite"/>
       <msg name="_model_reanimated"/>
+      <msg name="_cannonball"/>
       <msg name="_init"/>
       <msg name="_trigger"/>
     </object>
@@ -1889,6 +1895,7 @@
     <object name="st_yinyang">
       <attr name="instant"/>
       <attr name="loop"/>
+      <msg name="_cannonball"/>
     </object>
     <object name="st_yinyang_instant">
       <attr name="instant" value="true"/>

@@ -682,6 +682,10 @@ function enigma.MakeObject(name)
         local obj = enigma._MakeObject("st_fake_oxydd")
         enigma._SetAttrib(obj, "state", 1)
         return obj
+    elseif name == "st-spitter" then
+        local obj = enigma._MakeObject("st_spitter")
+        enigma._SetAttrib(obj, "secure", true)
+        return obj
     end
     newname = RenamingObjectsOld2New[name]
 
@@ -753,6 +757,14 @@ function enigma.GetKind(obj)
     end
     if _newname == "fl_slope" then
         return "fl-gradient"
+    end
+    if _newname == "st_fake_oxydc" then
+        local state = enigma._GetAttrib(obj, "state")
+        if state == 0 then
+            return "st-likeoxydc"
+        else
+            return "st-likeoxydc-open"
+        end
     end
     if _oldname ~= nil then
         return _oldname

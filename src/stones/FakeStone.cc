@@ -32,6 +32,16 @@ namespace enigma {
         return "st_fake";
     }
     
+    const char *FakeStone::get_kind() const {
+        std::string fl = getAttr("flavor").to_string();
+        if (fl == "quake") return "st_fake_quake";
+        else if (fl == "oxyda") return "st_fake_oxyda";
+        else if (fl == "oxydb") return "st_fake_oxydb";
+        else if (fl == "oxydc") return "st_fake_oxydc";
+        else if (fl == "oxydd") return "st_fake_oxydd";
+        else if (fl == "oxyde") return "st_fake_oxyde";
+    }
+    
     void FakeStone::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             std::string fl = val.to_string();

@@ -130,7 +130,7 @@ namespace enigma {
     }
     
     Value Explosion::message(const Message &m) {
-        if (m.message == "_spitter") {
+        if (m.message == "_cannonball") {
             state = 3;
             return Value();
         }

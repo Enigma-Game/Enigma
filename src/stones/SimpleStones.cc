@@ -83,6 +83,22 @@ namespace enigma {
         }
     }
 
+/* -------------------- BrownPyramide stone -------------------- */
+    BrownPyramide::BrownPyramide() : Stone ("st_brownpyramide") {
+    }
+    
+    std::string BrownPyramide::getClass() const {
+        return "st_brownpyramide";
+    }
+
+    Value BrownPyramide::message(const Message &m) {
+        if (m.message == "_cannonball") {
+            KillStone(get_pos());
+            return Value();
+        }
+        return Stone::message(m);
+    }
+    
 /* -------------------- Charge stone -------------------- */
 
     ChargeStone::ChargeStone(double charge) : Stone ("st_charge") {
@@ -230,20 +246,33 @@ namespace enigma {
         // block any calls
     }
     
+    Value SpitterStone::message(const Message &m) {
+        if (m.message == "_cannonball") {
+            if (!getAttr("secure").to_bool() || server::GameCompatibility == enigma::GAMET_PEROXYD) {
+                state = BREAKING;
+                init_model();
+            }
+            return Value();
+        }
+        return Stone::message(m);
+    }
+    
     void SpitterStone::init_model() {
         if (state == IDLE)
             set_model("st_spitter");
         else if (state == LOADING)
             set_anim("st_spitter_loading");
-        else
+        else if (state == SPITTING)
             set_anim("st_spitter_spitting");
+        else
+            set_anim("st_break_plain-anim");
     }
     
     void SpitterStone::animcb() {
         switch (state) {
-            case IDLE:
+            case IDLE :
                 ASSERT(false, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
-            case LOADING: {
+            case LOADING : {
                 Other *cb = dynamic_cast<Other *>(MakeObject("ot_cannonball"));
                 ecl::V2 center  = get_pos().center();
                 cb->setAttr("$position", center);
@@ -254,11 +283,15 @@ namespace enigma {
                 init_model();
                 break;
             }
-            case SPITTING:
+            case SPITTING : 
                 state = IDLE;
                 init_model();
                 break;
-            }
+            case BREAKING :
+                SetItem(get_pos(), MakeItem("it_meditation"));
+                KillStone(get_pos());
+                break;
+        }
     }
 
     void SpitterStone::actor_hit (const StoneContact &sc) {
@@ -288,6 +321,19 @@ namespace enigma {
     
     std::string YinyangStone::getClass() const {
         return "st_yinyang";
+    }
+    
+    Value YinyangStone::message(const Message &m) {
+        if (m.message == "_cannonball") {
+            if (state == IDLE) {
+                state = ACTIVE;
+                init_model();
+                if (getAttr("instant").to_bool())
+                    switchPlayer();
+            }
+            return Value();
+        }
+        return Stone::message(m);
     }
     
     int YinyangStone::maxState() const {
@@ -349,6 +395,7 @@ namespace enigma {
         BootRegister(new BlurStone(0), "st_blur_straight");
         BootRegister(new BlurStone(1), "st_blur_cross");
         BootRegister(new BlurStone(2), "st_blur_magic");
+        BootRegister(new BrownPyramide(), "st_brownpyramide");
         BootRegister(new ChargeStone(0.0), "st_charge");
         BootRegister(new ChargeStone(0.0), "st_charge_zero");
         BootRegister(new ChargeStone(1.0), "st_charge_plus");

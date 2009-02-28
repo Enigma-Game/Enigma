@@ -92,7 +92,7 @@ namespace enigma {
         return state;
     }
         
-    StoneTraits StandardStone::traits[25] = {
+    StoneTraits StandardStone::traits[24] = {
         {"st_granite", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_granite", st_standard, stf_none, material_stone, 1.0, MOVABLE_STANDARD},
         {"st_darkgray", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
@@ -103,7 +103,6 @@ namespace enigma {
         {"st_concrete", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_ancient", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_brownmarble", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
-        {"st_brownpyramide", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_redmarble", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_bluegray", st_standard, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_brownie", st_standard, stf_none, material_stone, 1.0, MOVABLE_STANDARD},
@@ -133,26 +132,25 @@ namespace enigma {
         BootRegister(new StandardStone(7, false, false), "st_concrete");
         BootRegister(new StandardStone(8, false, false), "st_ancient");
         BootRegister(new StandardStone(9, false, false), "st_brownmarble");
-        BootRegister(new StandardStone(10, false, false), "st_brownpyramide");
-        BootRegister(new StandardStone(11, false, false), "st_redmarble");
-        BootRegister(new StandardStone(12, false, false), "st_bluegray");
-        BootRegister(new StandardStone(12, true, false),  "st_bluegray_hollow");
-        BootRegister(new StandardStone(13, false, true, true),  "st_brownie");
-        BootRegister(new StandardStone(14, false, false), "st_pinkbumps");
-        BootRegister(new StandardStone(15, false, false, true), "st_camouflage");
-        BootRegister(new StandardStone(15, true, false),  "st_camouflage_hollow");
-        BootRegister(new StandardStone(16, false, true, true),  "st_camouflage_movable");
-        BootRegister(new StandardStone(17, false, false), "st_redbrown");
-        BootRegister(new StandardStone(17, true, false),  "st_redbrown_hollow");
-        BootRegister(new StandardStone(18, false, true),  "st_redbrown_movable");
-        BootRegister(new StandardStone(19, false, false), "st_metal");
-        BootRegister(new StandardStone(19, true, false),  "st_metal_hollow");
-        BootRegister(new StandardStone(20, false, false), "st_redrock");
-        BootRegister(new StandardStone(21, false, false), "st_woven");
-        BootRegister(new StandardStone(22, false, false), "st_yellow");
-        BootRegister(new StandardStone(23, false, false), "st_invisible");
-        BootRegister(new StandardStone(23, true, false),  "st_invisible_hollow");
-        BootRegister(new StandardStone(24, false, true),  "st_invisible_movable");
+        BootRegister(new StandardStone(10, false, false), "st_redmarble");
+        BootRegister(new StandardStone(11, false, false), "st_bluegray");
+        BootRegister(new StandardStone(11, true, false),  "st_bluegray_hollow");
+        BootRegister(new StandardStone(12, false, true, true),  "st_brownie");
+        BootRegister(new StandardStone(13, false, false), "st_pinkbumps");
+        BootRegister(new StandardStone(14, false, false, true), "st_camouflage");
+        BootRegister(new StandardStone(14, true, false),  "st_camouflage_hollow");
+        BootRegister(new StandardStone(15, false, true, true),  "st_camouflage_movable");
+        BootRegister(new StandardStone(16, false, false), "st_redbrown");
+        BootRegister(new StandardStone(16, true, false),  "st_redbrown_hollow");
+        BootRegister(new StandardStone(17, false, true),  "st_redbrown_movable");
+        BootRegister(new StandardStone(18, false, false), "st_metal");
+        BootRegister(new StandardStone(18, true, false),  "st_metal_hollow");
+        BootRegister(new StandardStone(19, false, false), "st_redrock");
+        BootRegister(new StandardStone(20, false, false), "st_woven");
+        BootRegister(new StandardStone(21, false, false), "st_yellow");
+        BootRegister(new StandardStone(22, false, false), "st_invisible");
+        BootRegister(new StandardStone(22, true, false),  "st_invisible_hollow");
+        BootRegister(new StandardStone(23, false, true),  "st_invisible_movable");
     BOOT_REGISTER_END
 
 } // namespace enigma

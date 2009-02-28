@@ -54,6 +54,9 @@ namespace enigma {
         } else if (m.message == "flip" && state != FALLING && isDisplayable()) {
             setDir(reverse(getDir()));
             return Value();
+        } else if (m.message == "_cannonball" && server::GameCompatibility == enigma::GAMET_PEROXYD) {
+            KillStone(get_pos());
+            return Value();
         }
         return Stone::message(m);
     }

@@ -56,6 +56,19 @@ namespace enigma {
     };
     
     /** 
+     * BrownPyramide
+     */
+    class BrownPyramide : public Stone {
+        CLONEOBJ(BrownPyramide);
+    public:
+        BrownPyramide();
+        
+         // Object interface
+        virtual std::string getClass() const;
+        virtual Value message(const Message &m);
+    };
+    
+    /** 
      * ChargeStone
      */
     class ChargeStone : public Stone {
@@ -156,7 +169,8 @@ namespace enigma {
         enum iState {
             IDLE, 
             LOADING,
-            SPITTING
+            SPITTING,
+            BREAKING
         };
 
     public:
@@ -164,6 +178,7 @@ namespace enigma {
         
         // StateObject interface
         virtual void setState(int extState);
+        virtual Value message(const Message &m);
 
         // GridObject interface
         virtual void init_model();
@@ -192,6 +207,7 @@ namespace enigma {
         
          // Object interface
         virtual std::string getClass() const;        
+        virtual Value message(const Message &m);
         
         // StateObject interface
         virtual int maxState() const;

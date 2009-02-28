@@ -869,7 +869,7 @@ namespace enigma {
         } else if (m.message == "shuffle") {
             shuffleColors();
             return Value();
-        } else if ((m.message == "_trigger"  && m.value.to_bool()) || m.message == "_spitter") {
+        } else if ((m.message == "_trigger"  && m.value.to_bool()) || m.message == "_cannonball") {
             tryOpen();   // just internal messages on displayable oxyds
             return Value();
         } else if (m.message == "_init") {

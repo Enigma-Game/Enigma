@@ -42,8 +42,7 @@ namespace enigma {
                 
                 Actor *a = dynamic_cast<Actor *>(o);
                 int c = getAttr("color");
-                if ((c == BLACK && a && get_id(a) == ac_marble_black) || 
-                        (c == WHITE && a && get_id(a) == ac_marble_white) ||
+                if ((a && a->getAttr("color") && a->getAttr("color") == c) || 
                         (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
                     if (p.y == sender->get_pos().y) {
                         SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);

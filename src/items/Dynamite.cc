@@ -38,7 +38,7 @@ namespace enigma {
             if (isDisplayable())
                 burn();
             return Value();
-        } else if (m.message == "explode" || m.message == "_spitter") { // currently unused in c++ code
+        } else if (m.message == "explode" || m.message == "_cannonball") { // currently unused in c++ code
             if (isDisplayable())
                 explode();
             return Value();

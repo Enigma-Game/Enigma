@@ -37,7 +37,7 @@ namespace enigma {
         if (m.message == "crack" || m.message == "ignite" ) {
             crack();
             return Value();
-        } else if (m.message == "heat" || m.message == "_explosion" || m.message == "_spitter") {
+        } else if (m.message == "heat" || m.message == "_explosion" || m.message == "_cannonball") {
             sound_event("crack");
             replace("it_debris");
             return true;

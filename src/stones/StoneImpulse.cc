@@ -113,6 +113,15 @@ namespace enigma {
                 init_model();
             }
             return Value();
+        } else if (m.message == "_cannonball") {
+            if ((server::GameCompatibility != GAMET_ENIGMA && state == IDLE)) {
+                state = BREAKING;
+                init_model();
+            } else {
+                // Enigma mode do pulse
+                setIState(EXPANDING);
+            }
+            return Value();
         } else
             return Stone::message(m);
     }

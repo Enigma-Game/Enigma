@@ -30,7 +30,7 @@ namespace enigma {
      */
     class StandardStone : public Stone {
         CLONEOBJ(StandardStone);
-        DECL_TRAITS_ARRAY(25, traitsIdx());
+        DECL_TRAITS_ARRAY(24, traitsIdx());
     private:
         enum iState {
             GRANITE,         ///< 
