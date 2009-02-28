@@ -581,18 +581,16 @@ void player::PickupItem (Actor *a, GridPos p)
 
 void player::PickupStoneAsItem (Actor *a, enigma::GridPos p) 
 {
-    if (Inventory *inv = MayPickup(a, GetField(p)->item, true)) 
-    {
-        if (Stone *stone = YieldStone(p)) 
-        {
+    if (Inventory *inv = MayPickup(a, GetField(p)->item, true)) {
+        if (Stone *stone = GetStone(p))  {
             string kind = stone->get_kind();
             if (kind[0] == 's') 
                 kind[0] = 'i';
 
             if (Item *item = MakeItem(kind.c_str())) {
-                SendMessage(stone, "disconnect");
-                DisposeObject (stone);
                 inv->add_item(item);
+                stone->transferIdentity(item);
+                KillStone(p);
                 player::RedrawInventory(inv);
                 sound::EmitSoundEvent ("pickup", p.center());
             }

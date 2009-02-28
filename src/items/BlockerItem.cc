@@ -19,6 +19,7 @@
  */
 
 #include "items/BlockerItem.hh"
+#include "errors.hh"
 //#include "main.hh"
 #include "world.hh"
 
@@ -78,8 +79,8 @@ namespace enigma {
         if (extState == 1) {         // open (shrink)
             if (state == UNLOCKED)   //   revoke pending grow/close
                 setIState(LOCKED);
-        }
-        else {                       // close (grow)
+        } else {                       // close (grow)
+            ASSERT(isDisplayable(), XLevelRuntime, "Blocker item: attempt to set initial state CLOSED - use 'st_blocker'.");
             switch (state) {
                 case LOCKED:
                     setIState(UNLOCKED);  // close when stone is removed
