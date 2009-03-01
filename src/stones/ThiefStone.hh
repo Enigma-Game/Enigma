@@ -34,10 +34,12 @@ namespace enigma {
         
     private:
         enum iState {
-            IDLE,         ///< 
-            EMERGING,     ///< 
-            RETREATING,   ///< 
-            CAPTURED      ///< 
+            IDLE,            ///< 
+            EMERGING,        ///< 
+            RETREATING,      ///< 
+            CAPTURED,        ///<
+            DRUNKEN,         ///<
+            DRUNKENCAPTURED  ///<
         };
         
     public:

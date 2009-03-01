@@ -44,7 +44,7 @@ namespace enigma {
         if (m.message == "signal" && server::GameCompatibility != GAMET_ENIGMA) {
             performAction(!m.value.to_bool());  // inverse signal multiplier
             return Value();
-        } else if (m.message == "_capture" && state == IDLE && isDisplayable()) {            
+        } else if (m.message == "_capture" && (state == IDLE || state == DRUNKEN) && isDisplayable()) {            
             // add items on grid pos that can be picked up to our bag
             Item * it =  GetItem(get_pos());
             if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
@@ -55,7 +55,7 @@ namespace enigma {
                 SetItem(get_pos(), bag);
                 bag = NULL;
             }
-            state = CAPTURED;
+            state = (state == IDLE) ? CAPTURED : DRUNKENCAPTURED;
             init_model();
             return true;
         }
@@ -80,6 +80,12 @@ namespace enigma {
             case CAPTURED:
                 set_anim("st_thief_captured");
                 break;
+            case DRUNKEN:
+                set_model("it_bottle_idle");
+                break;
+            case DRUNKENCAPTURED:
+                set_anim("st_thief_captured");
+                break;
         }
     }
     
@@ -87,7 +93,8 @@ namespace enigma {
         switch (state) {
             case EMERGING:
                 doSteal();
-                state = RETREATING;
+                if (state != DRUNKEN)
+                    state = RETREATING;
                 init_model();
                 break;
             case RETREATING:
@@ -95,6 +102,7 @@ namespace enigma {
                 init_model();
                 break;
             case CAPTURED:
+            case DRUNKENCAPTURED:
                 KillStone(get_pos());
                 break;
             default:
@@ -130,9 +138,12 @@ namespace enigma {
                             bag->setOwnerPos(get_pos());
                         }
                         int i = IntegerRand(0, int (inv->size()-1));
-                        dynamic_cast<ItemHolder *>(bag)->add_item(inv->yield_item(i));
+                        Item *it = inv->yield_item(i);
+                        dynamic_cast<ItemHolder *>(bag)->add_item(it);
                         Glasses::updateGlasses();
                         player::RedrawInventory(inv);
+                        if (it->getKind() == "it_bottle_idle")
+                            state = DRUNKEN;
                         sound_event("thief");
                     }
                 }
