@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Beam0r" el:subtitle="" el:id="peter_001"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Peter Santo" el:email="enigma@exaweb.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Peter Santo</el:copyright>
+      <el:license el:type="public domain" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits>My first Enigma level. It is not too difficult, but I like finding solutions for laser beam puzzles.</el:credits>
+        <el:code>New API converted by R. Bourquin</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_yinyang_yin", invisible=true}
+ti["#"] = {"st_rawglass"}
+ti[">"] = {"st_laser", orientation=EAST, name="laser"}
+ti["*"] = {"st_coinslot", target="laser"}
+ti["."] = {"it_coin_s"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+ti["mirror"] = {"st_mirror", orientation=EAST, name="mirror%%"}
+ti["trigger"] = {"it_trigger", target="mirror%%", action="turn"}
+
+wo(res.autotile(ti, {"A", "K", "mirror"}, {"a", "k", "trigger"}), " ", {
+    "   O   O   O   O    ",
+    "  OA   B   C   DO   ",
+    "                    ",
+    "  >    E   F   G    ",
+    "                    ",
+    "  OH   I   J   KO   ",
+    "   O   O   O   O    ",
+    "     #########      ",
+    "     #a.b.c.d#      ",
+    "     #.......#      ",
+    "     *..e@f.g#      ",
+    "     #.......#      ",
+    "     #h.i.j.k#      "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

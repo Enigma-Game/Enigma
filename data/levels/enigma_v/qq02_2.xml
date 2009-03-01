@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Cage" el:subtitle="" el:id="qq2"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Andrzej Szombierski" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Andrzej Szombierski</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["##"] = {"st_granite"}
+ti["  "] = {"fl_lawn"}
+ti["~~"] = {"fl_water"}
+ti[".."] = {"fl_abyss"}
+ti["::"] = {"fl_wood"}
+ti["BS"] = ti["::"] .. {"st_boulder_s"}
+ti["vv"] = {"st_oneway", orientation = SOUTH}
+ti["gg"] = {"st_grate_cross"}
+ti["ww"] = {"st_box"}
+ti["XX"] = {"st_rawglass"}
+ti["xx"] = {"st_break_oxydc"}
+ti["II"] = {"st_stoneimpulse", "stoneImpulse#"}
+ti["ii"] = {"st_stoneimpulse"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["p"] = ti["::"] .. {"st_puzzle_blue", intensity = 0}
+ti["TT"] = {"st_timer", "timer", target="stoneImpulse#*", action = "signal", interval = 1.5, state = ON}
+ti["aa"] = {"st_door", "doors#", faces = "ns"}
+ti["bb"] = {"st_door", "doors#", faces = "ew"}
+ti["AA"] = {"it_trigger", target = "@doors#*"}
+ti["zz"] = {"fl_bridge_gc", "plank#"}
+ti["ZZ"] = {"it_trigger", target = "planks", action = "signal"}
+ti["bridge"] = {"fl_bridge_gc", name = "bridge%%"}
+ti["trigger4bridge"] = {"it_trigger", target = "bridge%%"}
+ti["LL"] = {"st_laser", "laser", state = ON, orientation = EAST}
+ti["SS"] = {"st_switch", target = "laser"}
+ti["MM"] = {"st_mirror_slab", movable = true, transparent = false, orientation = WEST}
+ti["=="] = {"st_dispenser_bombblack"}
+ti["hh"] = {"it_hammer"}
+ti["ss"] = {"it_spring"}
+ti["oo"] = {"st_oxyd", "left#"}
+ti["OO"] = {"st_oxyd", "right#"}
+ti["@@"] = {"#ac_marble_black"}
+
+local resolver = res.autotile(res.puzzle(ti, "P", "p"), {"d", "bridge"}, {"D", "trigger4bridge"})
+
+wo(resolver, "  ", {
+    "######################~~~~~~~~~~~~~~~~~~",
+    "##PfPePOPc          ##BS~~~~~~~~~~~~~~~~",
+    "##Pj    Pj          ##pb~~~~~~~~~~~~~~~~",
+    "##Pj    Pj        ZZ~~::::::~~~~~~~~~~~~",
+    "##PlPePOPi  @@      zz::::::~~~~~~~~~~~~",
+    "##                  zz::::::~~~~~~~~~~~~",
+    "########          ZZ~~::::::::::::~~~~~~",
+    "##    ################::ph::::::::::~~~~",
+    "II                II##::::AA~~~~~~d1~~~~",
+    "##ww  ##vv######ww########aa##~~~~d2~~~~",
+    "##    iiww                ww##~~~~d3~~~~",
+    "##    ##wwww                II~~~~d4d5~~",
+    "TT    ##ii####################~~~~~~d6~~",
+    "##  D1D2D3##    gg        ==##~~~~~~AA~~",
+    "##  D4D5D6##AAwwww          ########aa##",
+    "################                      ##",
+    "##    SS##hh  ##  ######################",
+    "##    LLssxx  bb  XXggMM            gg##",
+    "##        xx########                  ##",
+    "##                                    ##",
+    "######################                ##",
+    "~~~~~~~~~~~~~~~~~~~~##                ##",
+    "~~~~~~~~~~~~~~~~~~~~##XXXXXXXXXXXXXX####",
+    "~~~~~~~~~~~~~~~~~~~~##ooXXooXXOOXXOO##~~",
+    "~~~~~~~~~~~~~~~~~~~~####oo######OO####~~"})
+
+wo:shuffleOxyd({"left#*", max = 0}, {"right#*", max = 0})
+wo:add({"ot_counter", "planks", state = 0, target = "plank#*", action_2 = "close", action_1 = "open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

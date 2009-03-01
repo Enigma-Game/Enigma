@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma 0.92 - 3"/>
+  <info enigma="1.00" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="20" title="Enigma 0.92 - 3"/>
 
   <attributes/>
 
@@ -42,13 +42,13 @@
     <level _seq="34" _title="Pentomino V" _xpath="enigma_ii/ralf20_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Guardian Angel" _xpath="enigma_iii/duffy102_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy102" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Bungeeball" _xpath="enigma_ii/duffy103_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy103" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Termites" _xpath="enigma_iv/duffy104_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy104" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Termites" _xpath="enigma_iv/duffy104_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy104" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Drunkard's Walk" _xpath="enigma_iv/duffy105_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy105" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Under the Radar" _xpath="enigma_iv/duffy106_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy106" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Break Down the Wall" _xpath="enigma_iii/duffy107_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy107" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Security Guards" _xpath="enigma_i/duffy108_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy108" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="One-Way Streets" _xpath="enigma_iii/duffy109_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy109" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Clear the Path" _xpath="enigma_v/duffy110_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy110" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Clear the Path" _xpath="enigma_v/duffy110_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy110" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Artillery" _xpath="enigma_iv/duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Versailles" _xpath="enigma_iii/duffy112_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy112" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Help Yourself" _xpath="enigma_v/duffy113_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy113" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -65,7 +65,7 @@
     <level _seq="57" _title="Worse Nightmare" _xpath="enigma_iv/duffy124_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy124" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="58" _title="Triple-Maze" _xpath="enigma_iv/duffy125_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy125" rel="2" rev="12" score="2" target="time" unit="duration"/>
     <level _seq="59" _title="Elaborate" _xpath="enigma_v/duffy126_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy126" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Now What?" _xpath="enigma_v/duffy127_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Now What?" _xpath="enigma_v/duffy127_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Patterns" _xpath="enigma_ii/duffy128_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy128" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Island Labyrinth" _xpath="enigma_v/duffy129_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy129" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="In Sync" _xpath="enigma_iii/daniel06_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="2" rev="1" score="2" target="time" unit="duration"/>

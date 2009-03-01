@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="18" title="Tutorial"/>
+  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="19" title="Tutorial"/>
 
   <attributes/>
 
@@ -67,7 +67,7 @@
     <level _seq="59" _title="Formentera!" _xpath="enigma_i/luc06_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="- Meditation -" _xpath="enigma_ii/wb10_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Is It Easy?" _xpath="enigma_i/martin06_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="62" _title="Beam0r" _xpath="enigma_ii/peter01_1" author="Peter Santo" ctrl="force" easy="false" id="peter_001" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Beam0r" _xpath="enigma_ii/peter01_2" author="Peter Santo" ctrl="force" easy="false" id="peter_001" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Slalom Skiing" _xpath="enigma_ii/martin93_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin93" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Chess Stones" _xpath="./a_tut07_1" author="Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" ctrl="force" easy="false" id="c_tut01" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Bye!" _xpath="./a_tut06_2" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut06" rel="2" rev="2" score="1" target="time" unit="duration"/>

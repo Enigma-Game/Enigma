@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="devnull08"/>
-      <el:version el:score="1" el:release="1" el:revision="20" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,12 +28,10 @@ ti[" V"] = {"fl_gravel", friction = 12.5}
 ti[". "] = {"st_disco_light"}
 ti[": "] = {"st_disco_medium"}
 ti["p "] = {"st_box_rock"}
-ti["R "] = {"st_darkgray"}
 ti["w "] = {"st_box_wood"}
+ti["R "] = {"st_darkgray"}
 ti["% "] = {"it_document", text = "text1"}
-ti["5 "] = {"it_meditation_hollow", essential = DISPENSIBLE}
-ti["6 "] = {"it_meditation_hollow", essential = INDISPENSIBLE}
-ti["7 "] = {"it_meditation_hollow", essential = INDESPENSIBLE}
+ti["7 "] = {"it_meditation_hollow", essential = DISPENSIBLE}
 ti["8 "] = {"it_meditation_hollow", essential = INDISPENSIBLE} .. ti["p "]
 ti["9 "] = {"it_meditation_hollow", essential = INDISPENSIBLE}
 if wo["IsDifficult"] then
@@ -43,41 +41,35 @@ else
     ti["P "] = ti[" r"]
     ti["W "] = ti["p "]
 end
-ti["1 "] = {"#ac_pearl_white", essential=INDISBENSIBLE}
-ti["2 "] = {"#ac_pearl_white", essential=INDISPENSIBLE}
-ti["3 "] = {"#ac_pearl_white", essential=INDISPENSIBLE} .. ti["p "]
-ti["4 "] = {"#ac_pearl_white", essential=INDISPENSIBLE} .. ti["p "]
+ti["1 "] = {"#ac_pearl_white", essential = INDISPENSIBLE}
+ti["2 "] = {"#ac_pearl_white", essential = INDISPENSIBLE} .. ti["p "]
 
-local resolver = res.composer(ti)
-
-wo(resolver, "  ",
--- 0                  10                  20
--- 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-{ "            . . . . : : : : : : : . . . . : ", --  0
-  "                  . . . : . . . . . R . : : ", --  1
-  "   l l l l            . . .        vRv. . . ", --  2
-  "   l1lwlwl   l l l l           r rRrRv v. . ", --  3
-  "   lwl l5l     lwlwl s        wh r  RvR . . ", --  4
-  "                   l lws          R       . ", --  5
-  "                   l l s         h h r r  . ", --  6
-  "     r        .                hwhwlwl l    ", --  7
-  "    pr  R       . . . . .      h l l l l    ", --  8
-  "     rpr r r r  . R : .                     ", --  9
-  "     r r rpr r  . : R R .     wh h          ", -- 10
-  "        R         . R 6V v       rR         ", -- 11
-  "     r  R  r      . . R        r rR  r r    ", -- 12
-  "     r  R pr        .                r c    ", -- 13
-  ".     R R  r  pr r.      r    . .   prwc c  ", -- 14
-  ".         pr rpr rR     Pr rpr  pr    wc    ", -- 15
-  ". .  r  R  r rPr rR      r. . pr    wc      ", -- 16
-  ". . WrR R R         R    r. .  r            ", -- 17
-  ". .    v7vR      r  R      rpr r     cwc h  ", -- 18
-  ".  r rR  vR R .  r rR R   R   .     wcwc h  ", -- 19
-  ". prpr2v8VR R R Pr r4r r  R           wh h  ", -- 20
-  ".    rR   R   3r rpr rR 9VR . .       wh    ", -- 21
-  ". . . . R %vR R  r r rR R : . . .           ", -- 22
-  ". . . . : : : . .     . . : : : . .         ", -- 23
-  ". . : : : : : : . . . . : : : : : . . .     "  -- 24
+wo(res.composer(ti), "  ",
+{ "            . . . . : : : : : : : . . . . : ",
+  "                  . . . : . . . . . R . : : ",
+  "   l l l l            . . .        vRv. . . ",
+  "   l1lwlwl   l l l l           r rRrRv v. . ",
+  "   lwl l7l     lwlwl s        wh r  RvR . . ",
+  "                   l lws          R       . ",
+  "                   l l s         h h r r  . ",
+  "     r        .                hwhwlwl l    ",
+  "    pr  R       . . . . .      h l l l l    ",
+  "     rpr r r r  . R : .                     ",
+  "     r r rpr r  . : R R .     wh h          ",
+  "        R         . R 9V v       rR         ",
+  "     r  R  r      . . R        r rR  r r    ",
+  "     r  R pr        .                r c    ",
+  ".     R R  r  pr r.      r    . .   prwc c  ",
+  ".         pr rpr rR     Pr rpr  pr    wc    ",
+  ". .  r  R  r rPr rR      r. . pr    wc      ",
+  ". . WrR R R         R    r. .  r            ",
+  ". .    v9vR      r  R      rpr r     cwc h  ",
+  ".  r rR  vR R .  r rR R   R   .     wcwc h  ",
+  ". prpr1v8VR R R Pr r2r r  R           wh h  ",
+  ".    rR   R   2r rpr rR 9VR . .       wh    ",
+  ". . . . R %vR R  r r rR R : . . .           ",
+  ". . . . : : : . .     . . : : : . .         ",
+  ". . : : : : : : . . . . : : : : : . . .     "
 })
  ]]></el:luamain>
     <el:i18n>

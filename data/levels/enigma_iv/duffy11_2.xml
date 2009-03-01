@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Race" el:subtitle="" el:id="duffy11"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = {"st_box"}
+ti[":"] = {"st_box_hay"}
+ti["*"] = {"st_brownie"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["P"] = {"st_stoneimpulse"}
+ti["^"] = {"st_boulder", orientation=NORTH}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["V"] = {"st_boulder", orientation=SOUTH}
+ti["<"] = {"st_boulder", orientation=WEST}
+ti["="] = {"st_oneway", orientation=EAST}
+ti["t"] = {"it_document", text="text1"}
+ti["d"] = {"it_dynamite"}
+ti["."] = {"it_bomb_black"}
+ti[","] = ti["#"] .. ti["."]
+ti["1"] = {"it_trigger", target="door1"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door1"}
+if wo["IsDifficult"] then
+    ti["W"] = ti["+"]
+    ti["w"] = ti["~"]
+else
+    ti["W"] = ti[" "]
+    ti["w"] = ti[" "]
+end
+ti["O"] = {"st_oxyd", name="main#"}
+ti["o"] = {"st_oxyd", name="other#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "#  PV ####################################################",
+    "#>### ###############################################oo###",
+    "#P         d                              t   @   <#    ##",
+    "##### ############################################## #####",
+    "##### ##################1#########################PV #####",
+    "##### ################## ##########OOOOOOOOOOOOOO# X #####",
+    "##### #####   W      w  * | +    -               = #P#####",
+    "##### ##### ############P######################### #<#####",
+    "##### # VP         w                W  .:            #####",
+    "##### # ### ##### #####################,..######## #######",
+    "##### #PV   ^P  # ################################ #######",
+    "##### ### #####<# ################################ #######",
+    "##### ###P#####P# ################################ #######",
+    "##### ###>##### # ################################ #######",
+    "##### ###    P^ # ################################ #######",
+    "##### ############################################ #######",
+    "###                            +    ~                 P###",
+    "###># ############################################ ###<###",
+    "###P# ######################                    P^ #P  ###",
+    "### # ######################>#######################<#####",
+    "### ^P######################P                        #####",
+    "##########################################################",
+    "##########################################################",
+    "##########################################################"})
+
+wo:shuffleOxyd({"main#*", "other#*", min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">It's a race!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

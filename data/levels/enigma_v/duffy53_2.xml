@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Turnstile Maze" el:subtitle="" el:id="duffy53"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 203 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_rough"}
+ti[".."] = {"fl_abyss"}
+ti["##"] = {"st_greenbrown"}
+ti["||"] = {"st_door", flavor="b", name="door"}
+ti["++"] = {"st_turnstile"}
+ti["^^"] = {"st_turnstilearm", orientation=NORTH}
+ti[">>"] = {"st_turnstilearm", orientation=EAST}
+ti["vv"] = {"st_turnstilearm", orientation=SOUTH}
+ti["<<"] = {"st_turnstilearm", orientation=WEST}
+ti["t"] = {"it_trigger", target="bridge%%"}
+ti["T"] = ti["^^"] .. {"it_trigger", target="bridge%%"}
+ti["b"] = {"fl_bridge", flavor="gc", name="bridge%%"}
+ti["OO"] = {"st_oxyd"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"t", "t"}, {"T", "T"}, {"b", "b"}), "  ", {
+    "##############################################################................",
+    "##  @@||bAbBbCbDbEbFbGbHbIbJbKbLbMbNbObPbQbRbSbTbUbV        ##................",
+    "##  ####################################################    ##................",
+    "##  tA    TB    tC    TD    tE    TF  ##..............##    ##................",
+    "##<<++>>  ++  <<++>>  ++  <<++>>  ++  ##..........##OO##    ##OO##............",
+    "##    tG  vvTH    tI  vvTJ    tK  vv  ##..........OO  ^^    ^^  OO............",
+    "##  <<++>>  ++  <<++>>  ++  <<++>>    ##..........##<<++>><<++>>##............",
+    "##      tL  vvTM    tN  vvTO    tP    ##..........OO  vv    vv  OO............",
+    "##    <<++>>  ++  <<++>>  ++  <<++>>  ##..........OO  ^^    ^^  OO............",
+    "##  TQ    tR  vvTS    tT  vvTU    tV  ##..........##<<++>><<++>>##............",
+    "##  ++  <<++>>  ++  <<++>>  ++  <<++>>##..........OO  vv    vv  OO............",
+    "##  vv          vv          vv        ##..........##OO##OOOO##OO##............",
+    "########################################......................................"})
+
+wo:shuffleOxyd()
+
+function postinit()
+    no["door"]:open()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
