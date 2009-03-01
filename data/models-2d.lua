@@ -244,8 +244,6 @@ do
     floorlist = {
         -- single
         {"fl_abyss", noframe = true},
-        {"fl_yinyang_yin", noframe = true},
-        {"fl_yinyang_yang", noframe = true},
         {"fl_dark"},
         {"fl_bluegreen"},
         {"fl_darkgray"},
@@ -387,6 +385,16 @@ do
     DefAlias("fl_wood_framed", "fl-stwood")
     DefAlias("fl_wood_framed1", "fl-stwood1")
     DefAlias("fl_wood_framed2", "fl-stwood2")
+end
+
+-- yinyang floor --
+do
+    DefSubimages("fl_yinyang_yin", {w=1, h=2, modelname="fl_yinyang_yinx"})
+    DefSubimages("fl_yinyang_yang", {w=1, h=2, modelname="fl_yinyang_yangx"})
+    DefAlias("fl_yinyang_yin", "fl_yinyang_yinx1")
+    DefAlias("fl_yinyang_yin_invisible", "fl_yinyang_yinx2")
+    DefAlias("fl_yinyang_yang", "fl_yinyang_yangx1")
+    DefAlias("fl_yinyang_yang_invisible", "fl_yinyang_yangx2")
 end
 
 --------------------------

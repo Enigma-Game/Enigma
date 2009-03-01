@@ -120,11 +120,17 @@ namespace enigma {
             YANG       ///< player 1 - white image
         };
 
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_INVISIBLE =   1<<24,   ///< yinyang symbol not visible
+        };
+
     public:
-        YinyangFloor(int initState);
+        YinyangFloor(int initState, bool isInvisible =false);
 
         // Object interface
         virtual std::string getClass() const;
+        virtual void setAttr(const std::string &key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         
         // GridObject interface
         virtual void init_model();

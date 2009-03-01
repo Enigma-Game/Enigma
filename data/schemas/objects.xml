@@ -446,6 +446,7 @@
     <object name="fl_yinyang">
       <attr name="friction" default="5.2"/>
       <attr name="adhesion" default="2.0"/>
+      <attr name="invisible"/>
     </object>
     <object name="fl_yinyang_yin">
       <attr name="state" value="0"/>

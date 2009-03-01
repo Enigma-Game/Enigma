@@ -107,16 +107,36 @@ namespace enigma {
 
 /* -------------------- Yinyang -------------------- */
 
-    YinyangFloor::YinyangFloor(int initState) : Floor("fl_yinyang", 5.2, 2.0) {
+    YinyangFloor::YinyangFloor(int initState, bool isInvisible) : Floor("fl_yinyang", 5.2, 2.0) {
         state = initState;
+        if (isInvisible)
+            objFlags |= OBJBIT_INVISIBLE;
     }
     
     std::string YinyangFloor::getClass() const {
         return "fl_yinyang";
     }
+    
+    void YinyangFloor::setAttr(const std::string &key, const Value &val) {
+        if (key == "invisible") {
+            objFlags = (objFlags & ~OBJBIT_INVISIBLE) | (val.to_bool() ? OBJBIT_INVISIBLE : 0);
+            if (isDisplayable())
+                init_model();
+            return;
+        }
+        Floor::setAttr(key, val);
+    }
+    
+    Value YinyangFloor::getAttr(const std::string &key) const {
+        if (key == "invisible") {
+            return (objFlags & OBJBIT_INVISIBLE) != 0;
+        }
+        return Floor::getAttr(key);
+    }
         
     void YinyangFloor::init_model()  {
-        set_model(std::string("fl_yinyang_") + ((state == YIN) ? "yin" : "yang"));
+        set_model(ecl::strf("fl_yinyang_%s%s", (state == YIN) ? "yin" : "yang", 
+                objFlags & OBJBIT_INVISIBLE ? "_invisible" : ""));
     }
     
     ecl::V2 YinyangFloor::process_mouseforce (Actor *a, ecl::V2 force) {
@@ -135,7 +155,9 @@ namespace enigma {
         BootRegister(new Swamp(),     "fl_swamp");
         BootRegister(new YinyangFloor(0), "fl_yinyang");
         BootRegister(new YinyangFloor(0), "fl_yinyang_yin");
+        BootRegister(new YinyangFloor(0, true), "fl_yinyang_yin_invisible");
         BootRegister(new YinyangFloor(1), "fl_yinyang_yang");
+        BootRegister(new YinyangFloor(1, true), "fl_yinyang_yang_invisible");
     BOOT_REGISTER_END
 
 } // namespace enigma

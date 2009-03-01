@@ -47,8 +47,8 @@ const char *oxyd::oxydmag_floor_map[256] = {
     "fl_tigris",                // OxydMagnum floor 0x0a (common was 'fl-normal')
     "fl_tigris",                // OxydMagnum floor 0x0b (common was 'fl-stone')
     "fl_inverse",               // OxydMagnum floor 0x0c (common was 'fl_inverse')
-    "fl_yinyang_yin",           // OxydMagnum floor 0x0d
-    "fl_yinyang_yang",          // OxydMagnum floor 0x0e
+    "fl_yinyang_yin_invisible", // OxydMagnum floor 0x0d
+    "fl_yinyang_yang_invisible",// OxydMagnum floor 0x0e
     "fl_swamp",                 // OxydMagnum floor 0x0f
     UNUSED,                     // OxydMagnum floor 0x10
     UNUSED,                     // OxydMagnum floor 0x11

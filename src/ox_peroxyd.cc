@@ -116,8 +116,8 @@ const char *oxyd::peroxyd_floor_map[256] = {
     "fl_blueslab",              // PerOxyd floor 0x0a
     "fl_redslab",               // PerOxyd floor 0x0b
     "fl_inverse",               // PerOxyd floor 0x0c
-    "fl_yinyang_yin",           // PerOxyd floor 0x0d
-    "fl_yinyang_yang",          // PerOxyd floor 0x0e
+    "fl_yinyang_yin_invisible", // PerOxyd floor 0x0d
+    "fl_yinyang_yang_invisible",// PerOxyd floor 0x0e
     "fl_swamp",                 // PerOxyd floor 0x0f
     UNUSED,                     // PerOxyd floor 0x10
     UNUSED,                     // PerOxyd floor 0x11
