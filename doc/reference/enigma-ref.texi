@@ -6284,17 +6284,114 @@ Positive number are attracting, negative numbers are repelling.
 @section Standard Floors
 
 @menu
+* fl_aquamarine::     Aquamarine floor with low friction
+* fl_bluegray::       Light blue gray floor
+* fl_bluegreen::      Dark blue green floor
 * fl_sahara::         Bright yellow sandstone floor
+* fl_sand::           Granular orange gray sand floor
 @end menu
+@c ----------------- Aquamarine Floor --------------------
+@node fl_aquamarine
+@subsection fl_aquamarine
+@obindex fl_aquamarine
+
+Aquamarine floor with low friction
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.4 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_aquamarine}
+@item @b{fl_aquamarine_framed}
+@end table
+@end table
+
+@c ----------------- Bluegray Floor --------------------
+@node fl_bluegray
+@subsection fl_bluegray
+@obindex fl_bluegray
+
+Light blue gray floor, visually indistinguishable form @ref{fl_thief}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_bluegray}
+@item @b{fl_bluegray_framed}
+@end table
+@end table
+
+@c ----------------- Bluegreen Floor --------------------
+@node fl_bluegreen
+@subsection fl_bluegreen
+@obindex fl_bluegreen
+
+Dark blue green floor
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_bluegreen}
+@item @b{fl_bluegreen_framed}
+@end table
+@end table
+
 @c ----------------- Sahara Floor --------------------
 @node fl_sahara
 @subsection fl_sahara
 @obindex fl_sahara
 
+Bright yellow sandstone floor
+
 @table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@end table
+
 @item @b{Variants:}
 @table @asis
 @item @b{fl_sahara}
+@item @b{fl_sahara_framed}
+@end table
+@end table
+
+@c ----------------- Sand Floor --------------------
+@node fl_sand
+@subsection fl_sand
+@obindex fl_sand
+
+Granular orange gray sand floor
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_sand}
+@item @b{fl_sand_framed}
 @end table
 @end table
 
@@ -6577,7 +6674,7 @@ remaining items.
 
 You can add items directly to a bag by usage of the world @ref{add} method.
 
-Bags are are used by @ref{st_thief} and @ref{fl_thief} to carry their stolen
+Bags are used by @ref{st_thief} and @ref{fl_thief} to carry their stolen
 items. When the thiefs are captured by @ref{st_chess} the bag remains on the
 grid position filled up with the stolen items.
 
@@ -6595,7 +6692,7 @@ grid position filled up with the stolen items.
 @obindex it_banana
 
 A portable item without direct usage. But it transforms into an @ref{it_cherry}
-when it by a laser beam.
+when hit by a laser beam.
 
 When a stone is pushed over it an @ref{it_squashed} remains as remnants.
 
@@ -6746,7 +6843,7 @@ all actors become insivible. Just the ball like actors @ref{ac_marble} and
 @ref{ac_pearl} do vanish. Other actors just drop the cherry on activation.
 
 An invisible actor can walk through most kinds of glass 
-(@pxref{Transparent Stones})and as being invisible
+(@pxref{Transparent Stones}) and as being invisible
 they do no longer attrackt hostile @ref{ac_rotor} and @ref{ac_top}.
 
 When several cherries are activated in sequence each does prolong the actor's
@@ -7345,9 +7442,10 @@ On succesful activation of this item the action message is send with a value of
 
 Stone seeds are items that start growing and finally transforming to stones
 on activation. There are different @samp{flavor}s of seeds that all look the
-same, but do grow to different stones. While a @samp{wood} seed grows to an
-@ref{st_wood}, a @samp{fake} seed grows to an unmovable green brown stone and
-a @samp{volcano} seed grows to an active @ref{st_volcano}.
+same, but do grow to different stones. While a @code{"wood"} seed grows to an
+@ref{st_box}_wood, a @code{"hay"} seed grows to an @ref{st_box}_hay, a
+@code{"fake"} seed grows to an unmovable @ref{st_greenbrown} and a
+@code{"volcano"} seed grows to an active @ref{st_volcano}.
 
 Seeds can be dropped on any item free grid position, even beneath another stone
 that will get killed by the seed successor stone.
@@ -7365,7 +7463,7 @@ The only method of handling seeds without activation are containment within a
 @table @asis
 @item @b{Attributes:}
 @table @asis
-@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
+@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
 The type of the resulting stone.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
@@ -7384,6 +7482,7 @@ Start growing the seed.
 @table @asis
 @item @b{it_seed} flavor = @code{"wood"}
 @item @b{it_seed_wood} flavor = @code{"wood"}
+@item @b{it_seed_hay} flavor = @code{"hay"}
 @item @b{it_seed_fake} flavor = @code{"fake"}
 @item @b{it_seed_volcano} flavor = @code{"volcano"}
 @end table
@@ -7572,7 +7671,7 @@ Deviating adhesion that defaults to floor adhesion.
 An item that transforms into a random item as soon as the player drops it.
 
 The replacement item is a random one out of a given selection. You can set
-the @samp{selection} attribute with token of strings. Every string needs either
+the @samp{selection} attribute with tokens of strings. Every string needs either
 to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
 
 @example
@@ -8018,7 +8117,6 @@ movable variant but provides no additional features.
 * st_bluegray::        light blue gray stone
 * st_brownie::         golden, hay stack like stone
 * st_brownmarble::     brown gray marble
-* st_brownpyramide::   brown gray pyramide shaped stone
 * st_camouflage::      military green camouflage stone
 * st_concrete::        polished light gray stone
 * st_darkgray::        dark gray rock
@@ -8093,20 +8191,6 @@ A brown gray marble like stone.
 @item @b{Variants:}
 @table @asis
 @item @b{st_brownmarble}
-@end table
-@end table
-
-@c ----------------- Brownpyramide Stone --------------------
-@node st_brownpyramide
-@subsection st_brownpyramide
-@obindex st_brownpyramide
-
-A brown gray pyramide shaped stone.
-
-@table @asis
-@item @b{Variants:}
-@table @asis
-@item @b{st_brownpyramide}
 @end table
 @end table
 
@@ -8193,6 +8277,10 @@ A light green gray rock.
 An invisible stone that exists in all three variants. Please make rare usage
 of this stone as it may be very annoying to users to guess that a stone
 exists that he can not see. Use it to maintain the WYSIWYG expected behaviour.
+
+Invisibility is not equal to laser transparency. In fact this stone is not
+laser transparent. And invisibility does not mean that an invisible actor can
+pass. (@pxref{Transparent Stones})
 
 @table @asis
 @item @b{Variants:}
@@ -8522,15 +8610,22 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_blocker::         Shrinkable Blocker
 * st_blur::            Passage of yet undetermined color
 * st_boulder::         Moving Arrow Boulder
+* st_box::             Movable, Floor building Box
 * st_brake::           Brake for moving Boulders
+* st_break::           Breakable Stone of various Flavors
+* st_brownpyramide::   Brown gray pyramide shaped stone
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
 * st_darkglass::       Semitransparent metall framed Glass
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
 * st_door::            Door of various Flavors
+* st_fake::            Fake mimicing other Stones
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
+* st_ghost::           Invisible Transforming Stone
+* st_grate::           Hovering metal Grate
+* st_jamb::            Colored Door Jamb
 * st_key::             Key Driven Switch
 * st_knight::          Sword Bearing Knight Stone
 * st_laser::           Lightemitting Laser
@@ -8847,6 +8942,73 @@ none
 
 @end table
 
+@c ----------------- Box Stone --------------------
+@node st_box
+@subsection st_box
+@obindex st_box
+
+A movable, floor building stone of various flavors. 
+
+This very common stone is well known in its default flavor @code{"wood"}. But it
+exists in the flavors @code{"hay"} and @code{"rock"}, too. The flavor 
+@code{"wood"} has a random wood tile orientation. You can set wooden boxes of
+given tile orientation by the variants @code{st_box_wood_h} and 
+@code{st_box_wood_v}.
+
+The flavors @code{"wood"} and @code{"hay"} may originate from a growing
+@ref{it_seed}. Due to the @ref{Snapshot Principle} special box variants exist
+just for usage in level initialization: @code{st_box_wood_growing} and 
+@code{st_box_hay_growing}.
+
+All variants can easily be pushed around, do press @ref{it_trigger}s and do fall
+into @ref{fl_abyss}, @ref{fl_water} and @ref{fl_swamp} by buiding a framed floor
+of the kind indicated by their @samp{flavor} attribute. All boxes will fall on
+the first occasion. Even if they receive two push impulses at the same time by
+@ref{ot_wire} they fall on the first grid. Thus it is impossible to push a box
+over a ditch. Boxes will fall if the floor beneath them vanishes. E.g. an 
+@ref{it_bomb} explosion beneath a box may change the floor to @ref{fl_abyss} or
+a flood stream may change the floor to @ref{fl_water}. In all these cases the
+box above falls immediatly buildings its kind of floor.
+
+Note that all boxes do actively support @ref{Flood Spreading}. That means that
+they let an arriving flood stream flow beneath them. In case the floor beneath
+the box is floodable it will change to water and the box will fall. The new built
+floor itself conserves the flood stream feature and will let the stream flood
+neighboring floodable floors, too. (@pxref{fl_wood}, @ref{fl_hay}, @ref{fl_rock}).
+
+The box flavors do differ in some small but essential features. Whereas the
+flavors @code{"wood"} and @code{"rock"} do cause an @ref{it_bomb} to explode
+when being pushed over it, a @code{"hay"} flavored box does not ignite bombs.
+
+According to their flavor @code{"wood"} and @code{"hay"} will burn on fire.
+But @code{"rock"} flavored boxes are fire resistant and fire blocking.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"rock"}; @ @ @i{default}: @code{"wood"}; @ @ @i{access}: read only
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_box}: flavor=@code{"wood"}
+@item @b{st_box_wood}: flavor=@code{"wood"}
+@item @b{st_box_wood_h}: flavor=@code{"wood"}
+@item @b{st_box_wood_v}: flavor=@code{"wood"}
+@item @b{st_box_wood_growing}: flavor=@code{"wood"}
+@item @b{st_box_hay}: flavor=@code{"hay"}
+@item @b{st_box_hay_growing}: flavor=@code{"hay"}
+@item @b{st_box_rock}: flavor=@code{"rock"}
+@end table
+
+@end table
+
 @c ----------------- Brake Stone --------------------
 @node st_brake
 @subsection st_brake
@@ -8879,6 +9041,89 @@ explosion on a direct neighbor grid.
 
 @item @b{Action:} none
 
+@end table
+
+@c ----------------- Break Stone --------------------
+@node st_break
+@subsection st_break
+@obindex st_break
+
+A stone of various flavors that just breakable under various conditions. The
+stone may be breakable by actors of some kind, with or without an item, by an
+igniting explosion on a neighboring grid and in most cases by laser light.
+Besides being breakable the stone is a standard stone. The different flavors let
+this stone appear in quite different outlooks.
+
+The flavor @code{"plain"} is a gray stone that is breakable by any actor hit 
+with a revealed @ref{it_hammer} and by a laser beam hitting any side.
+
+The flavors @code{"black"} and @code{"white"} looks similar to the @code{"plain"}
+variant just with a small colored ball sitting on top. But these variants are
+just breakable by any actors of matching color. Of course the actors need a
+revealed @ref{it_hammer}. Laser beams do break the stone, too.
+
+The flavor @code{"oxydc"} looks like a cracked @ref{st_oxyd} of flavor 
+@code{"c"}. Like the @code{"plain"} variant it is breakable by any actor hit 
+with a revealed @ref{it_hammer} and by a laser beam hitting any side.
+
+The flavor @code{"boulder"} looks like a yellowish version of flavor 
+@code{"oxydc"}. It is breakable under the same conditions plus additionally by
+an @ref{st_boulder} hitting on one of its sides.
+
+The flavor @code{"bug"} looks like an @ref{st_flat} with a bug symbol on top.
+It is just breakable by an @ref{st_bug}. No other actor and no laser light will 
+will break it.
+
+The flavor @code{"laser"} looks identical to an @ref{st_flat}. It is not 
+breakable by actors. Just laser light beams on one of its faces will break this
+variant.
+
+All but the variant @code{"bug"} will break on neighboring ignitions like 
+caused by an exploding @ref{it_dynamite} on a direct neighboring position or an
+exploding black @ref{it_bomb} on a diagonal neighboring position.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"plain"}, @code{"black"}, @code{"white"}, @code{"oxydc"}, @code{"boulder"}, @code{"bug"}, @code{"laser"}; @ @ @i{default}: @code{"plain"}; @ @ @i{access}: read only
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{ignite}
+Break stone with exception of flavor @code{"bug"}.
+@end table
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_break}: flavor=@code{"plain"}
+@item @b{st_break_plain}: flavor=@code{"plain"}
+@item @b{st_break_black}: flavor=@code{"black"}
+@item @b{st_break_white}: flavor=@code{"white"}
+@item @b{st_break_oxydc}: flavor=@code{"oxydc"}
+@item @b{st_break_boulder}: flavor=@code{"boulder"}
+@item @b{st_break_bug}: flavor=@code{"bug"}
+@item @b{st_break_laser}: flavor=@code{"laser"}
+@end table
+
+@end table
+
+@c ----------------- Brownpyramide Stone --------------------
+@node st_brownpyramide
+@subsection st_brownpyramide
+@obindex st_brownpyramide
+
+A brown gray pyramide shaped stone. This stone is just standard stone besides
+the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
+@ref{st_spitter} that happens to fall on its top.
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_brownpyramide}
 @end table
 
 @c ----------------- Chess Stone --------------------
@@ -9154,11 +9399,17 @@ on their state. Doors can be opened and closed by the standard set of messages.
 Doors do not open or close instantly. They need a small amount of time. Actors
 can pass only doors that are completely open.
 
-There are several flavors of doors. Where as the variants @code{"a"} to
-@code{"c"} represent grid filling block doors, does the flavor @code{"d"}
-represent a faces based door, that opens or blocks just the given faces of the
-grid. Currently just the combinations of two parallel aligned door faces,
-aka horizontal and vertical doors, are supported.
+There are several flavors of doors. The variants @code{"a"} to @code{"c"}
+represent grid filling block doors. Flavor @code{"a"} looks in the closed state
+like @ref{st_oxyd} of flavor @code{"a"} and in the opened state like an
+@ref{st_grate} of flavor @code{"cross"}. Flavor @code{"b"} looks in the closed 
+state like @ref{st_flat} and in the opened state like an @ref{st_grate} of
+flavor @code{"framed"}. Flavor @code{"c"} looks in the closed state like
+@ref{st_flat} but opens to an unvisible, free passable, but still existing and
+grid blocking stone. The flavor @code{"d"} represent a faces based door, that 
+opens or blocks just the given faces of the grid. Currently just the 
+combinations of two parallel aligned door faces, aka horizontal and vertical 
+doors, are supported.
 
 As door grids can be entered on unfaced sides you should block these faces by
 unpassable stones. If you do not block these entries or even allow marbles to
@@ -9171,7 +9422,7 @@ state. This means you can not push or move any other stone through an open door.
 The @ref{st_blocker} is a quite compatible door alternative that allows stones
 to pass in its open state.
 
-All doors are floating and will not press @ref{it_trigger}s. Thus you can detect
+All doors are hovering and will not press @ref{it_trigger}s. Thus you can detect
 passing actors by positioning a trigger beneath a door. Doors will neither press
 @ref{fl_bridge} and will thus take no influence on the bridge.
 
@@ -9183,12 +9434,21 @@ Just doors of type @code{"d"} allow an actor to knock on its closed faces.
 This causes an action that might open the door or do anything else. A common
 target is @ref{st_jamb} that evaluated the color of the knocking actor.
 
+Doors do support @ref{Flood Spreading} and @ref{Fire Spreading} through open
+faces and generally in @samp{OPEN} state.
+
 @table @asis
 
 @item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{CLOSED}; @ @ @xref{state}
-The open state of the door.
+The open state of the door. On read access it reports if the door is complety
+opened and passable for actors. Note that a door reaches the state @samp{OPEN}
+after the finish of the opening animation, what is an essential amount of time
+after the initiating @code{"open"} message. But on a @code{"close"} message the
+state turns immediatly to @samp{CLOSED} as actors are blocked immediately. On
+write access a state change causes a proper message and may occur with a delay,
+too.
 
 @item @b{flavor} @ @ @i{values}: @code{"a"}, @code{"b"}, @code{"c"}, @code{"d"}; @ @ @i{default}: @code{"d"}
 Representing different door types as described above. Block based flavors
@@ -9219,7 +9479,7 @@ Opens at value @samp{1}, and closes at value @samp{0}.
 Just flavor @code{"d"} doors will perform an action on an actor touching a face
 of a closed door. The action value will be the actor object, which can be
 evaluated on its kind. This action value fits the @samp{hit} messages of
-objects like @ref{st_balls}.
+objects like @ref{st_jamb}.
 
 @item @b{Variants:}
 @table @asis
@@ -9228,6 +9488,55 @@ objects like @ref{st_balls}.
 @item @b{st_door_b}: flavor = @code{"b"}
 @item @b{st_door_c}: flavor = @code{"c"}
 @item @b{st_door_d}: flavor = @code{"d"}
+@end table
+
+@end table
+
+@c ----------------- Fake Stone --------------------
+@node st_fake
+@subsection st_fake
+@obindex st_fake
+
+A stone that mimics other stones, but does not act like them.
+
+In contrast to @ref{st_magic} the fake stone does not transform but remains
+all time a passive variant of the stone that it models. The stone does look 
+like another stone of the kind given by the attribute @samp{flavor}. The fake
+stone may even mimic state dependent behaviour with state dependent models
+and animations.
+
+The flavor @code{"quake"} mimics a @ref{st_quake} inclusive the pulsing 
+animation on actor hits and state changes, but does not cause any @ref{st_oxyd}
+to close.
+
+The flavors @code{"oxyda"}, @code{"oxydb"}, @code{"oxydc"}, @code{"oxydd"},
+@code{"oxyde"} mimc @ref{st_oxyd} of appropriate flavor, but they are just
+passiv stones. Nevertheless they are aware of an state @samp{OPEN} and will
+display the corresponding base image of the open oxyd stone, of course without
+any color spot.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"quake"}, @code{"oxyda"}, @code{"oxydb"}, @code{"oxydc"}, @code{"oxydd"}, @code{"oxyde"}; @ @ @i{default}: @code{"quake"};
+@item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}; @ @ @i{default}: @code{CLOSED}: @ @ @xref{state}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_fake}: flavor=@code{"quake"}, state=@code{IDLE}
+@item @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{IDLE}
+@item @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{CLOSED}
+@item @b{st_fake_oxydb}: flavor=@code{"oxydb"}, state=@code{CLOSED}
+@item @b{st_fake_oxydc}: flavor=@code{"oxydc"}, state=@code{CLOSED}
+@item @b{st_fake_oxydd}: flavor=@code{"oxydd"}, state=@code{CLOSED}
+@item @b{st_fake_oxyde}: flavor=@code{"oxyde"}, state=@code{CLOSED}
 @end table
 
 @end table
@@ -9320,6 +9629,166 @@ representing the old orientation the given action messages will be sent with
 a value of 0, then for the state representing the new orientation the given
 action messages will be sent with a value of 1. This allows you to switch on
 and off alternative sources by a fourswitch.
+@end table
+
+@c ----------------- Ghost Stone --------------------
+@node st_ghost
+@subsection st_ghost
+@obindex st_ghost
+
+An invisible stone that transforms into a visible stone on actor hits with 
+properly revealed tools.
+
+Similar to @ref{st_magic} this stone does transform to another kind, but it
+is initially always invisible, what gave it its name. Invisibility is not
+equal to laser transparency. In fact one flavor of this ghost stone is not
+laser transparent. And invisibility does not mean that an invisible actor can
+pass a ghost stone. (@pxref{Transparent Stones})
+
+The ghost stone transforms to another stone of the kind given by its
+attribute @samp{flavor}. The tool necessary to cause this transformation depends
+on the flavor.
+
+The flavor @code{"purplemarble"} transformsto an @ref{st_purplemarble} on a hit
+with a revealed @ref{it_brush}. This flavor is not laser transparent.
+
+The flavor @code{"greenbrown"} transformsto an @ref{st_greenbrown} on a hit
+with a revealed @ref{it_magicwand}.
+
+The flavor @code{"break"} transformsto an @ref{st_break} of variant 
+@samp{st_break_oxydc} on a hit with a revealed @ref{it_brush}.
+
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"purplemarble"}, @code{"greenbrown"}, @code{"break"}; @ @ @i{default}: @code{"purplemarble"}; @ @ @i{access}: read only
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_ghost}: flavor=@code{"purplemarble"}
+@item @b{st_ghost_purplemarble}: flavor=@code{"purplemarble"}
+@item @b{st_ghost_greenbrown}: flavor=@code{"greenbrown"}
+@item @b{st_ghost_break}: flavor=@code{"break"}
+@end table
+
+@end table
+
+@c ----------------- Grate Stone --------------------
+@node st_grate
+@subsection st_grate
+@obindex st_grate
+
+Hovering metal grate in different flavors that let all actors pass but block
+stones from moving over a grid position.
+
+The different flavors are just for decorative purposes, but @code{"cross"}
+variant looks identical to an open @ref{st_door} of flavor @code{"a"}, whereas
+@code{"framed"} variant looks identical to an open @ref{st_door} of flavor 
+@code{"b"}.
+
+In contrast to opened doors grates do bounce actors that are flying due to a
+jump.
+
+As a hovering stone grates do not press @ref{it_trigger}s and let laser light
+pass. Grates allow @ref{Flood Spreading} and @ref{Fire Spreading}, too.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"cross"}, @code{"framed"}; @ @ @i{default}: @code{"cross"}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_grate}: flavor=@code{"cross"}
+@item @b{st_grate_cross}: flavor=@code{"cross"}
+@item @b{st_grate_framed}: flavor=@code{"framed"}
+@end table
+
+@end table
+
+@c ----------------- Jamb Stone --------------------
+@node st_jamb
+@subsection st_jamb
+@obindex st_jamb
+
+A colored door jamb that allows coupled opening and closing on adjacent 
+@ref{st_door}s. Especially doors of flavor @code{"d"} can be opened by proper
+colored actors by door knocking.
+
+The stone looks like 4 brown door jambs each with a colored ball on top. It fits
+to the 2 faced @code{"d"} variant of @ref{st_door}. These doors can be
+configured to send the message @code{"hit"} to the adjacent jambs as their
+targets. Whenever an actor knocks the door, the jamb receives the message and
+checks the actor for matching color. On success it sends opening signals to
+the door being knocked and to a door being located on the opposite site of the
+jamb. Additionally doors located on the remaining two adjacent positions of the
+jamb will receive a closing signal. E.g.:
+
+@example
+ti["n"] = @{"st_door_d", "north", target="jamb", action="hit"@}
+ti["e"] = @{"st_door_d", "east", target="jamb", action="hit"@}
+ti["s"] = @{"st_door_d", "south", target="jamb", action="hit"@}
+ti["w"] = @{"st_door_d", "west", target="jamb", action="hit"@}
+ti["J"] = @{"st_jamb", "jamb"@}
+ti["@@"] = @{"st_marble"@}
+wo(ti, " ", @{
+  " n ",
+  "wJe",
+  " s@@"
+@}
+@end example
+
+The black marble touching the east door will open the east and the west door,
+and will close the north and south door at the same time. The black marble 
+touching the south door will open the south and the north door, and will close
+the west and east door.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{hit}
+The message value must be an object reference of an actor. The color of the
+actor must match the jamb color to cause an action. The sender's position must
+either match the x or the y coordinate of the jamb, too.
+
+@item @b{signal} @ @ @xref{signal}
+This message is just kept for backward compatibity issues. Do not use it in
+new API levels as it depends on other internal attributes not set for new API
+levels.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_jamb}: color=@code{BLACK}
+@item @b{st_jamb_black}: color=@code{BLACK}
+@item @b{st_jamb_white}: color=@code{WHITE}
+@end table
+
 @end table
 
 @c ----------------- Key Stone --------------------
@@ -10418,7 +10887,7 @@ features.
 @obindex st_redfiber
 
 A metal frame with woven red fiber. Like other @ref{Transparent Stones} it is
-passable ransparent to laser light. But the redfiber is not passable to any
+passable transparent to laser light. But the redfiber is not passable to any
 actors.
 
 @table @asis
@@ -10727,7 +11196,7 @@ A stone that is about to pulse when being set.
 A stone that transforms into a random stone as soon as an actor hits it.
 
 The replacement stone is a random one out of a given selection. You can set
-the @samp{selection} attribute with token of strings. Every string needs either
+the @samp{selection} attribute with tokens of strings. Every string needs either
 to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
 
 @example
@@ -11324,10 +11793,16 @@ but not all! This table shows their exact properties.
 @item @ref{st_polarswitch} @tab st_polarswitch_off @tab toggle @tab pass @tab no
 @item @ref{st_beads} @tab st_beads @tab leave @tab pass @tab no
 @item @ref{st_lightpassenger} @tab st_lightpassenger_off @tab rebound @tab rebound @tab no
+@item @ref{st_invisible} @tab st_invisible @tab rebound @tab rebound @tab no
+@item @ref{st_invisible} @tab st_invisible_movable @tab push @tab push @tab no
+@item @ref{st_invisible} @tab st_invisible_hollow @tab pass @tab pass @tab no
+@item @ref{st_ghost} @tab st_ghost_purplemarble @tab rebound @tab rebound @tab no
+@item @ref{st_ghost} @tab st_ghost_greenbrown @tab rebound @tab rebound @tab yes
+@item @ref{st_ghost} @tab st_ghost_break @tab rebound @tab rebound @tab yes
 @end multitable
 
 These entries can be memorized as follows: A stone is transparent for laser 
-light or if it is hollow, but not if it is dark. Exception is @samp{st_beads},
+light if it is hollow, but not if it is dark. Exception is @samp{st_beads},
 whose irregular sides would scatter the beam. A stone can always be passed by 
 invisible actors, with three exceptions: @samp{st_redfiber}, whose inside is 
 filled with red stripes, and the two movables @samp{st_lightglass_movable} and 
@@ -13644,7 +14119,7 @@ ti["h "] = @{"it_hammer"@}
 
 ti["k "] = @{"it_key"@} .. ti(@{"st_lightglass"@})
 
-ti["xx"] = @{"#ac_marbel_black"@}
+ti["xx"] = @{"#ac_marble_black"@}
 
 local resolver = res.composer(ti)
 
@@ -13940,6 +14415,7 @@ need to use another unique key @samp{C} for the coin on our random floor.
 
 @menu
 * Display Follow Strategy::    How the display view follows the active marble
+* Flood Spreading::
 * Fire Spreading::
 * Freeze Checking::
 @end menu
@@ -14057,6 +14533,9 @@ The final display realigns to the grid even on odd threshold distances.
 @end table
 
 @end table
+
+@node Flood Spreading
+@subsection Flood Spreading
 
 @node Fire Spreading
 @subsection Fire Spreading
@@ -19820,7 +20299,7 @@ set_stone("st-invisible", 7, 9)     -- do the same
 @need 200
 @item @b{fl-black} @expansion{} @ref{fl_dark}
 @item @b{fl-bluegray} @expansion{} @ref{fl_bluegray}
-@item @b{fl-bluegreen} @expansion{} @ref{}
+@item @b{fl-bluegreen} @expansion{} @ref{fl_bluegreen}
 @item @b{fl-bluegreenx} @expansion{} @ref{fl_aquamarine}
 @need 200
 @item @b{fl-brick} @expansion{} @ref{fl_brick}
@@ -20234,11 +20713,11 @@ set_stone("st-invisible", 7, 9)     -- do the same
 @item @b{st-likeoxydd} @expansion{} @code{st_fake_oxydd}, @pxref{st_fake}
 @need 200
 @item @b{st-likeoxydd-open} @expansion{} @code{st_fake_oxydd, state=OPEN}, @pxref{st_fake}
-@item @b{st-mail-e} @expansion{} @code{st_mail_e}, @pxref{st-mail}
-@item @b{st-mail-n} @expansion{} @code{st_mail_n}, @pxref{st-mail}
-@item @b{st-mail-s} @expansion{} @code{st_mail_s}, @pxref{st-mail}
+@item @b{st-mail-e} @expansion{} @code{st_mail_e}, @pxref{st_mail}
+@item @b{st-mail-n} @expansion{} @code{st_mail_n}, @pxref{st_mail}
+@item @b{st-mail-s} @expansion{} @code{st_mail_s}, @pxref{st_mail}
 @need 200
-@item @b{st-mail-w} @expansion{} @code{st_mail_w}, @pxref{st-mail}
+@item @b{st-mail-w} @expansion{} @code{st_mail_w}, @pxref{st_mail}
 @item @b{st-marble} @expansion{} @ref{st_redbrown}
 @item @b{st-marble_hole} @expansion{} @code{st_redbrown_hollow}, @pxref{st_redbrown}
 @item @b{st-marble_move} @expansion{} @code{st_redbrown_movable}, @pxref{st_redbrown}
