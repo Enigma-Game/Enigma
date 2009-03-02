@@ -939,14 +939,14 @@ end
 do
     function make_chess(colour)
         local img1 = DefSubimages("st-chess"..colour, {h=5});
-        --local img2 = DefSubimages("st-chess"..colour.."-captured", {h=5});
+        --local img2 = DefSubimages("st-chess"..colour.."-capture", {h=5});
         local f1 = BuildFrames(img1, 120)
         --local f2 = BuildFrames(img2, 40)
         local f2 = f1
         local f3 = BuildFrames(img1, 500)
         DefAnim("st_chess"..colour.."-disappearing", f1);
         DefAnim("st_chess"..colour.."-appearing", ReverseFrames(f1))
-        DefAnim("st_chess"..colour.."-captured", f2);
+        DefAnim("st_chess"..colour.."-capture", f2);
         DefAnim("st_chess"..colour.."-swamp", f3);
         DefRoundStone("st_chess"..colour, img1[1])
     end
@@ -1672,67 +1672,75 @@ do
 
     local stonebase = "st_bluegray"
     local floorbase = "fl_bluegray"
-    local thiefovl = DefSubimages("thief-template", {h = 7})
-    local capturedovl = DefSubimages("thief-captured-template", {h = 12})
+    local thiefovl = DefSubimages("thief_template", {h = 7})
+    local captureovl = DefSubimages("thief_capture_template", {h = 12})
+    local drunkenovl = DefSubimages("thief_drunken_template", {h = 2})
 
     -- Creating st-thief
 
     local names = {}
     for j = 1, table.getn(thiefovl) do
-        names[j] = "st-thief"..format("_%04d", j)
+        names[j] = "st_thief"..format("_%04d", j)
         display.DefineComposite(names[j], stonebase, thiefovl[j])
     end
 
     local f1 = BuildFrames(names, 80)
-    DefAnim("pre-st-thief-emerge", f1)
-    DefAnim("pre-st-thief-retreat", ReverseFrames(f1))
+    DefAnim("pre_st_thief_emerge", f1)
+    DefAnim("pre_st_thief_retreat", ReverseFrames(f1))
     DefRoundStone("st_thief", stonebase)
-    DefRoundStone("st_thief_emerge", "pre-st-thief-emerge")
-    DefRoundStone("st_thief_retreat", "pre-st-thief-retreat")
+    DefRoundStone("st_thief_emerge", "pre_st_thief_emerge")
+    DefRoundStone("st_thief_retreat", "pre_st_thief_retreat")
 
-    -- Creating st-thief-captured
+    names = {}
+    for j = 1, table.getn(drunkenovl) do
+        names[j] = "st_thief_drunken"..format("%04d", j)
+        display.DefineComposite(names[j], stonebase, drunkenovl[j])
+    end
+    
+    local f5 = BuildFrames(names, 3000)
+    DefAnim("pre_st_thief_drunken", f5, true)
+    DefRoundStone("st_thief_drunken", "pre_st_thief_drunken")
+
+    -- Creating st_thief_capture
     --
     --   Note that this is done without template, as the whole
     --   stone has to disappear (e.g. via shrinking)
 
-    local img2 = DefSubimages("st-thief-captured", {h = 12})
+    local img2 = DefSubimages("st_thief_capture", {h = 12})
     local f2 = BuildFrames(img2, 80)
-    DefAnim("st_thief_captured", f2)
+    DefAnim("st_thief_capture", f2)
 
     -- Creating fl-thief
 
     local floornames = {}
-    local floorcaptured = {}
-    local floorbases = DefSubimages(floorbase, {h=4, modelname="fl-thief-base"})
+    local floorcapture = {}
+    local floordrunken = {}
+    local floorbases = DefSubimages(floorbase, {h=4, modelname="fl_thief_base"})
     for k = 1,4 do
-      floornames[k] = {}
-      for j = 1, table.getn(thiefovl) do
-        floornames[k][j] = "fl-thief"..k..format("_%04d", j)
-        display.DefineComposite(floornames[k][j], floorbases[k], thiefovl[j])
-      end
-      floorcaptured[k] = {}
-      for j = 1, table.getn(capturedovl) do
-        floorcaptured[k][j] = "fl-thief"..k.."-captured"..format("_%04d", j)
-        display.DefineComposite(floorcaptured[k][j], floorbases[k], capturedovl[j])
-      end
-      local f3 = BuildFrames(floornames[k], 80)
-      local f4 = BuildFrames(floorcaptured[k], 80)
-      DefAlias("fl_thief"..k, floorbases[k])
-      DefAnim("fl_thief"..k.."_emerge", f3)
-      DefAnim("fl_thief"..k.."_retreat", ReverseFrames(f3))
-      DefAnim("fl_thief"..k.."_captured", f4)
+        floornames[k] = {}
+        for j = 1, table.getn(thiefovl) do
+            floornames[k][j] = "fl_thief"..k..format("_%04d", j)
+            display.DefineComposite(floornames[k][j], floorbases[k], thiefovl[j])
+        end
+        floorcapture[k] = {}
+        for j = 1, table.getn(captureovl) do
+            floorcapture[k][j] = "fl_thief"..k.."_capture"..format("_%04d", j)
+            display.DefineComposite(floorcapture[k][j], floorbases[k], captureovl[j])
+        end
+        floordrunken[k] = {}
+        for j = 1, table.getn(drunkenovl) do
+            floordrunken[k][j] = "fl-thief"..k.."-drunken"..format("_%04d", j)
+            display.DefineComposite(floordrunken[k][j], floorbases[k], drunkenovl[j])
+        end
+        local f3 = BuildFrames(floornames[k], 80)
+        local f4 = BuildFrames(floorcapture[k], 80)
+        local f6 = BuildFrames(floordrunken[k], 3000)
+        DefAlias("fl_thief"..k, floorbases[k])
+        DefAnim("fl_thief"..k.."_emerge", f3)
+        DefAnim("fl_thief"..k.."_retreat", ReverseFrames(f3))
+        DefAnim("fl_thief"..k.."_capture", f4)
+        DefAnim("fl_thief"..k.."_drunken", f6, true)
     end
-
---do
---    local img = DefSubimages("fl-thief", {h=7})
---    local f = BuildFrames(img, 80)
---    DefAnim("thief-emerge", f)
---    DefAnim("thief-retreat", ReverseFrames(f))
---    DefRoundStone("fl-thief", img[1])
---    DefRoundStone("fl-thief-emerge", "thief-emerge")
---    DefRoundStone("fl-thief-retreat", "thief-retreat")
---end
-
 end
 
 -------------

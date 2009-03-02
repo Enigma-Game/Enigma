@@ -33,12 +33,13 @@ namespace enigma {
         
     private:
         enum iState {
-            IDLE,            ///< 
-            EMERGING,        ///< 
-            RETREATING,      ///< 
-            CAPTURED,         ///< 
-            DRUNKEN,         ///<
-            DRUNKENCAPTURED  ///<
+            IDLE,              ///< 
+            EMERGING,          ///< 
+            RETREATING,        ///< 
+            CAPTURE,           ///< thief is just being captured 
+            DRUNKEN,           ///<
+            DRUNKENCAPTURE,    ///< drunken thief is just being captured
+            CAPTURED           ///< thief has been captured, now inactive
         };
         
         enum ObjectPrivatFlagsBits {

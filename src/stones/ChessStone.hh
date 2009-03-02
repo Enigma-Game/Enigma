@@ -40,8 +40,15 @@ namespace enigma {
          * Variables and Constants
          * (APPEARING and DISAPPEARING are used when moving the stone.)
          */
-        enum State {IDLE, APPEARING, DISAPPEARING, CAPTURING,
-                    CAPTURED, FALLING, SINKING};
+        enum State {
+            IDLE,          ///<
+            APPEARING,     ///<
+            DISAPPEARING,  ///<
+            CAPTURING,     ///< chess piece is capturing some other object
+            CAPTURE,       ///< chess piece is just being captured
+            FALLING,       ///<
+            SINKING        ///<
+        };
 
         /**
          * The first three boolean flags are meant as buffers to

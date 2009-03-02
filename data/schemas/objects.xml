@@ -423,6 +423,8 @@
       <attr name="$heattransform" default="fl_dunes"/>
     </object>
     <object name="fl_thief">
+      <attr name="friction" default="4.5"/>
+      <attr name="adhesion" default="1.5"/>
       <msg name="_capture"/>
     </object>
     <object name="fl_water" super="fl_floodstream">

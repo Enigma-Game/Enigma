@@ -55,7 +55,7 @@ namespace enigma {
                 SetItem(get_pos(), bag);
                 bag = NULL;
             }
-            state = (state == IDLE) ? CAPTURED : DRUNKENCAPTURED;
+            state = (state == IDLE) ? CAPTURE : DRUNKENCAPTURE;
             init_model();
             return true;
         }
@@ -77,14 +77,14 @@ namespace enigma {
             case RETREATING:
                 set_anim("st_thief_retreat");
                 break;
-            case CAPTURED:
-                set_anim("st_thief_captured");
+            case CAPTURE:
+                set_anim("st_thief_capture");
                 break;
             case DRUNKEN:
-                set_model("it_bottle_idle");
+                set_anim("st_thief_drunken");
                 break;
-            case DRUNKENCAPTURED:
-                set_anim("st_thief_captured");
+            case DRUNKENCAPTURE:
+                set_anim("st_thief_capture");
                 break;
         }
     }
@@ -101,8 +101,8 @@ namespace enigma {
                 state = IDLE;
                 init_model();
                 break;
-            case CAPTURED:
-            case DRUNKENCAPTURED:
+            case CAPTURE:
+            case DRUNKENCAPTURE:
                 KillStone(get_pos());
                 break;
             default:

@@ -50,8 +50,8 @@ namespace enigma {
     Value ChessStone::message(const Message &m) {
         if (m.message == "_capture") {
             if (isDisplayable() && state == IDLE && m.value.to_string() != getKind())
-                if (try_state(CAPTURED)) {
-                    set_anim(get_model_name() + "-captured");
+                if (try_state(CAPTURE)) {
+                    set_anim(get_model_name() + "-capture");
                     return true;
                 }
             return Value();
@@ -107,7 +107,7 @@ namespace enigma {
                 }
                 // Else: If floor is swamp or abyss, kill the stone. Do this
                 // just by continuing to the next case:
-            case CAPTURED:
+            case CAPTURE:
             case FALLING:
             case SINKING:
                 KillStone(get_pos());

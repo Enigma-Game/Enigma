@@ -28,7 +28,7 @@
 //#include "main.hh"
 
 namespace enigma {
-    ThiefFloor::ThiefFloor() : Floor("fl_thief", 2.0, 1), victimId (0), bag (NULL) {
+    ThiefFloor::ThiefFloor() : Floor("fl_thief", 4.5, 1.5), victimId (0), bag (NULL) {
         
     }
     
@@ -53,7 +53,7 @@ namespace enigma {
                 SetItem(get_pos(), bag);
                 bag = NULL;
             }
-            state = (state == IDLE) ? CAPTURED : DRUNKENCAPTURED;
+            state = (state == IDLE) ? CAPTURE : DRUNKENCAPTURE;
             init_model();
             return true;
         }
@@ -73,6 +73,7 @@ namespace enigma {
         std::string basename = ecl::strf("fl_thief%d", ((objFlags & OBJBIT_MODEL) >> 24) + 1);
         switch (state) {
             case IDLE:
+            case CAPTURED:
                 set_model(basename); 
                 break;
             case EMERGING:
@@ -81,14 +82,14 @@ namespace enigma {
             case RETREATING:
                 set_anim(basename + "_retreat");
                 break;
-            case CAPTURED:
-                set_anim(basename + "_captured");
+            case CAPTURE:
+                set_anim(basename + "_capture");
                 break;
             case DRUNKEN:
-                set_model("it_bottle_idle");
+                set_anim(basename + "_drunken");
                 break;
-            case DRUNKENCAPTURED:
-                set_anim("st_thief_captured");
+            case DRUNKENCAPTURE:
+                set_anim(basename + "_capture");
                 break;
         }
     }
@@ -102,19 +103,22 @@ namespace enigma {
     }
 
     void ThiefFloor::animcb() {
+        Floor *newfloor;
         switch (state) {
             case EMERGING:
                 doSteal();
-                state = RETREATING;
+                if (state != DRUNKEN)
+                    state = RETREATING;
                 init_model();
                 break;
             case RETREATING:
                 state = IDLE;
                 init_model();
                 break;
-            case CAPTURED:
-            case DRUNKENCAPTURED:
-                KillStone(get_pos());
+            case CAPTURE:
+            case DRUNKENCAPTURE:
+                state = CAPTURED;
+                init_model();
                 break;
             default:
                 ASSERT(0, XLevelRuntime, "ThiefFloor: animcb called with inconsistent state");
