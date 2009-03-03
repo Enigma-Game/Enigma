@@ -5609,9 +5609,9 @@ A set of attributes that allow you to distort hit forces. Objects like
 @ref{st_flash}, @ref{st_spitter} and @ref{st_actorimpulse} apply forces that
 are either based on the hit velocity or the position.
 
-By usage of a simple @samp{hit_factor} you can increase, decrease or invert the
-default factor. Note that you must not set this attribute, if you want to use
-the default.
+By usage of a simple @samp{hit_strength} factor you can increase, decrease or
+invert the default factor. Note that you must not set this attribute, if you 
+want to use the default.
 
 By setting the four attributes @samp{hit_distortion_xx}, @samp{hit_distortion_xy},
 @samp{hit_distortion_yx} and @samp{hit_distortion_yy} you can describe a
@@ -5841,7 +5841,7 @@ A global variable that determines if a dead actor will be resurrected in case of
 
 If @code{true}, dead actors attached to a player will be resurrected as long as
 extralives are available. If a player has no living actor to control or is
-missing the actor's ref{essential} constraints, the player is
+missing the actor's @ref{essential} constraints, the player is
 dead. The level may still continue if a second player is alive. If the gamer has
 an @ref{it_yinyang} in his inventory in single user mode, the control switches
 to the second player. If all players are dead, a new level game is started.
@@ -5853,7 +5853,7 @@ finishing the level game.
 
 Use @code{false} if the level can either be not solved in case of resurrected
 actors or would provide a major shortcut. In all other cases, mode @code{true}
-with proper usage of actors ref{essential} constraints will be preferable.
+with proper usage of actors @ref{essential} constraints will be preferable.
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -5911,7 +5911,8 @@ end
 A global scalar default factor for electrical forces. Positive numbers are
 attracting forces for opposite charges where as negative numbers are repelling
 forces for opposite charges. This global value is always multiplied by the
-charge load of the affected actors.
+charge load of the affected actors. The actors charge load usually results
+from hits of @ref{st_charge}.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -5919,7 +5920,7 @@ charge load of the affected actors.
 @item @b{Default:} @ @ @code{15.0}
 Positve number are attracting, negative numbers are repelling.
 @item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ @ref{st_charge}
+@item @b{Support:} @ @ @ref{Actor Objects}
 @end table
 
 @node ExtralifeGlasses
@@ -8614,17 +8615,23 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_brake::           Brake for moving Boulders
 * st_break::           Breakable Stone of various Flavors
 * st_brownpyramide::   Brown gray pyramide shaped stone
+* st_chameleon::       Floor Mimic
+* st_charge::          Electrical Charger
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
 * st_darkglass::       Semitransparent metall framed Glass
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
+* st_dispenser::       Item Dispenser
 * st_door::            Door of various Flavors
 * st_fake::            Fake mimicing other Stones
+* st_flash::           Partner Marble pushing Stone
+* st_flat::            Featured Gypsum Stone
 * st_floppy::          Floppy Driven Switch
 * st_fourswitch::      Four Direction Switch
 * st_ghost::           Invisible Transforming Stone
 * st_grate::           Hovering metal Grate
+* st_greenbrown::      Mainly brown seedable stone
 * st_jamb::            Colored Door Jamb
 * st_key::             Key Driven Switch
 * st_knight::          Sword Bearing Knight Stone
@@ -8640,7 +8647,10 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_oneway::          Oneway Passage
 * st_oxyd::            Game Target Stone
 * st_passage::         Color dependent Passage
+* st_plaster::         Gypsum sculptured Stone
+* st_plop::            Movable stone ceasing by a Plop
 * st_polarswitch::     Transparency Switch for Light Beams
+* st_portal::          Gate just passable by some Actor kinds
 * st_pull::            Pullable Stone
 * st_puzzle::          Clusterable Puzzle Stones
 * st_quake::           Oxyd closing Stone
@@ -8650,10 +8660,12 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
 * st_shogun::          Stackable Hole Stones
+* st_spitter::
 * st_stoneimpulse::    Neighbor Pushing pulsing Stone
 * st_surprise::        Random Transforming Stone
 * st_swap::            Neighbor Swapping Stone
 * st_switch::          Classical on/off Switch
+* st_thief::           Item Thief
 * st_timer::           Animated Timer
 * st_turnstile::       Turnstile Pivot
 * st_turnstilearm::    Turnstile Arm
@@ -8704,8 +8716,8 @@ notice it, as actors will bounce with additional impulses.
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+200.0} @ @ @xref{ActorimpulseStrength}
 A scalar factor for the impulse force. Positive numbers are attracting forces
 where as negative numbers are repelling forces.
-@item @b{hit_factor} @ @ @i{values}: float number; @ @ @i{default}: @code{nil} @ @ @xref{hit_*}
-A @samp{hit_factor} overrides a given @samp{strength} attribute.
+@item @b{hit_strength} @ @ @i{values}: float number; @ @ @i{default}: @code{nil} @ @ @xref{hit_*}
+A @samp{hit_strength} overrides a given @samp{strength} attribute.
 @item @b{hit_distortion_xx} @ @ @i{values}: float number; @ @ @i{default}: @code{+1.0} @ @ @xref{hit_*}
 @item @b{hit_distortion_xy} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{hit_*}
 @item @b{hit_distortion_yx} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{hit_*}
@@ -9078,7 +9090,7 @@ The flavor @code{"laser"} looks identical to an @ref{st_flat}. It is not
 breakable by actors. Just laser light beams on one of its faces will break this
 variant.
 
-All but the variant @code{"bug"} will break on neighboring ignitions like 
+All but the variant @code{"bug"} will break on neighboring ignitions like those
 caused by an exploding @ref{it_dynamite} on a direct neighboring position or an
 exploding black @ref{it_bomb} on a diagonal neighboring position.
 
@@ -9121,9 +9133,72 @@ A brown gray pyramide shaped stone. This stone is just standard stone besides
 the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
 @ref{st_spitter} that happens to fall on its top.
 
+@table @asis
 @item @b{Variants:}
 @table @asis
 @item @b{st_brownpyramide}
+@end table
+@end table
+
+@c ----------------- Chameleon Stone --------------------
+@node st_chameleon
+@subsection st_chameleon
+@obindex st_chameleon
+
+A stone that has no own image but mimics the floor beneath. Thus it is fairly
+invisible. But as it shows the same image as the floor it hides items and even
+actors on the grid. The stone is hovering, thus it does not press any
+@ref{it_trigger} and lets pass any actors and laser light, too.
+
+Please make rare usage of this stone in Enigma 1.1* as the current display 
+engine does not really support this stone. All dynamic floor and floor changes
+do cause faulty displays. Thus use it currently only in patterns without any
+floor dynamics.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_chameleon}
+@end table
+@end table
+
+@c ----------------- Charge Stone --------------------
+@node st_charge
+@subsection st_charge
+@obindex st_charge
+
+An electrical charger for actors. The image reflects the sign of the 
+@samp{charge} attribute.
+
+Any actor hitting this stone will recharge its @ref{charge} attribute to the
+value given by the stones @samp{charge} attribute. 
+
+The stone itself does not cause any electrical forces. It is neither attracting
+nor repelling for charged actors. Electrical forces applied to actors just
+depend on the charges of different actors and the global attribute 
+@ref{ElectricStrength}.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{charge} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}
+The charge applied to hitting actors.
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:}  none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_charge}: charge = @code{0.0}
+@item @b{st_charge_zero}: charge = @code{0.0}
+@item @b{st_charge_plus}: charge = @code{+1.0}
+@item @b{st_charge_minus}: charge = @code{-1.0}
+@end table
+
 @end table
 
 @c ----------------- Chess Stone --------------------
@@ -9389,6 +9464,52 @@ Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 
 @end table
 
+@c ----------------- Dispenser Stone --------------------
+@node st_dispenser
+@subsection st_dispenser
+@obindex st_dispenser
+
+An item dispenser in some item flavors.
+
+On every actor hit the dispenser adds a new item given by the attribute 
+@samp{flavor}, namely @ref{it_bomb} in color black or white, or @ref{it_dynamite},
+to the inventory of the actor's owner. Of course an item will just be added
+if the inventory is capable of adding a further item. Additionally the 
+dispensers @samp{stock} must supply a further item. The default stock of 1000
+items should be enough for usual demands. But you can limit the supply to just
+a few counted items. This @samp{stock} attribute gets decremented every time
+an actor takes an item.
+
+The dispenser stone does break on adjacent @ref{it_bomb} explosions and 
+adjacent dispenser stone breaks. On its break it will itself cause adjcent
+@ref{it_dynamite} to ignite, @ref{it_bomb} positioned beneath itself to 
+explode, and of course neighboring dispensers to break. Dispenser stones will
+neither break on actor hits, even with a revealed hammer, nor on laser light
+beams.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"bombblack"}, @code{"bombwhite"}, @code{"dynamite"}; @ @ @i{default}: @code{"bombblack"};
+@item @b{stock}, @ @ @i{values}: integer numbers; @ @ @i{default}: @code{1000}: @ @ @xref{state}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_dispenser}: flavor=@code{"bombblack"}
+@item @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
+@item @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
+@item @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
+@end table
+
+@end table
+
 @c ----------------- Door Stone --------------------
 @node st_door
 @subsection st_door
@@ -9541,6 +9662,101 @@ any color spot.
 
 @end table
 
+@c ----------------- Flash Stone --------------------
+@node st_flash
+@subsection st_flash
+@obindex st_flash
+
+A stone symbolized by a yellow flash, that forwards actors hits as a force to
+matching partner actors.
+
+Just @ref{ac_marble} actors are affected. A black hitting marble will push
+the first white marble, and vice versa. The hitting marble's velocity is
+multiplied to a distortion matrix given by four single attributes. The default
+matrix does maintain the direction. The resulting vector is again multiplied
+by a linear strength factor. The resulting force vector is applied to the
+partner marble. If no matching marble exists no forces are applied. The hitting
+marble bounces on the flash stone as on any other standard stone.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hit_strength} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{20.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_xx} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_xy} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_yx} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_yy} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:}  none
+
+@end table
+
+@c ----------------- Flat Stone --------------------
+@node st_flat
+@subsection st_flat
+@obindex st_flat
+
+A flat gypsum stone with many variants and features.
+
+Besides the standard features of a movable, hollow or breakable stone the flat
+stone provides some very special features and variant transformations.
+
+Movable and breakable flat stones will fall into @ref{fl_abyss}. But just the
+movable variant will fall into @ref{fl_water} and @ref{fl_swamp}.
+
+A laser beam will shatter a breakable variant. Furtheron it tansforms a plain flat
+stone, and just this variant, into a cracked variant, which is visually
+distinguishable by small cracks. But further laser light will not break a
+cracked variant. Ignitions and explosions will shatter breakable, cracked and
+movable variants. An actor with a revealed @ref{it_hammer} is able to shatter
+both the breakable and the cracked variant.
+
+An actor with a revealed @ref{"it_pencil"} will mark a plain or movable variant
+as burnable what is hinted for the player by a fire symbol on the flat stone
+surface. A burnable flat stone burns on fire, but just the immovable, burnable
+variant reacts on heating by self destruction. All burnable variants can be
+cleaned by an actor hit with an @ref{"it_brush"}. The fire symbol vanishes and
+the stone does not longer react on fire and heating.
+
+Last but not least an @ref{st_boulder} hitting a plain or hollow variant of the
+flat stone toggles the @samp{hollow} attribute twice within a short period. The
+time is sufficient for a fast actor to pass an otherwise solid plain flat stone.
+By proper fast redirection of the boulder a user can enforce permanent changes
+of the hollow state.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{hollow}
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{movable}
+@item @b{breakable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{breakable}
+@item @b{burnable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{burnable}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_flat}:
+@item @b{st_flat_hollow}: hollow=@code{true}
+@item @b{st_flat_movable}: movable=@code{"true"}
+@item @b{st_flat_breakable}: breakable=@code{"true"}
+@item @b{st_flat_cracked}: 
+@item @b{st_flat_burnable}: burnable=@code{"true"}
+@item @b{st_flat_moveburnable}: movable=@code{"true"}, burnable=@code{"true"}
+@item @b{st_flat_breaking}: breakable=@code{"true"}
+@end table
+
+@end table
+
 @c ----------------- Floppy Stone --------------------
 @node st_floppy
 @subsection st_floppy
@@ -9557,7 +9773,7 @@ to the players inventory.
 @item @b{Attributes:}
 
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}: @ @ @xref{state}
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @ @ @xref{state}
 Current activity state of the floppy stone.
 @end table
 
@@ -9649,13 +9865,13 @@ The ghost stone transforms to another stone of the kind given by its
 attribute @samp{flavor}. The tool necessary to cause this transformation depends
 on the flavor.
 
-The flavor @code{"purplemarble"} transformsto an @ref{st_purplemarble} on a hit
+The flavor @code{"purplemarble"} transforms to an @ref{st_purplemarble} on a hit
 with a revealed @ref{it_brush}. This flavor is not laser transparent.
 
-The flavor @code{"greenbrown"} transformsto an @ref{st_greenbrown} on a hit
+The flavor @code{"greenbrown"} transforms to an @ref{st_greenbrown} on a hit
 with a revealed @ref{it_magicwand}.
 
-The flavor @code{"break"} transformsto an @ref{st_break} of variant 
+The flavor @code{"break"} transforms to an @ref{st_break} of variant 
 @samp{st_break_oxydc} on a hit with a revealed @ref{it_brush}.
 
 
@@ -9719,6 +9935,32 @@ pass. Grates allow @ref{Flood Spreading} and @ref{Fire Spreading}, too.
 @item @b{st_grate_framed}: flavor=@code{"framed"}
 @end table
 
+@end table
+
+@c ----------------- Greenbrown Stone --------------------
+@node st_greenbrown
+@subsection st_greenbrown
+@obindex st_greenbrown
+
+A mainly brown stone that is just a standard stone besides
+the fact that it can originate from two other objects.
+
+On one hand an @ref{it_seed} of flavor @code{"fake"} will grow to a standard,
+unmovable greenbrown. Just for level initialization purpose you can even set
+an variant @samp{st_greenbrown_growing} due to the @ref{Snapshot Principle}.
+
+On the other hand a @ref{st_ghost} of flavor @code{"greenbrown"} will transform
+to standard, unmovable greenbrown on an actor hit with a revealed 
+@ref{it_magicwand}.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_greenbrown}
+@item @b{st_greenbrown_hollow}
+@item @b{st_greenbrown_movable}
+@item @b{st_greenbrown_growing}
+@end table
 @end table
 
 @c ----------------- Jamb Stone --------------------
@@ -10585,6 +10827,73 @@ Switch color of the passage.
 
 @end table
 
+@c ----------------- Plaster Stone --------------------
+@node st_plaster
+@subsection st_plaster
+@obindex st_plaster
+
+A sculptured gypsum stone that exists in various variations of basic stone 
+attributes.
+
+Unlike the similar looking @ref{st_flat} has no special features and behaves
+like a standard stone. 
+
+But it provides breakable variants. Like @ref{st_break} it is breakable by
+laser light, neighboring ignitions like those caused by an exploding 
+@ref{it_dynamite} on a direct neighboring position or an exploding black
+@ref{it_bomb} on a diagonal neighboring position. It breaks on actor hits with
+a revealed @ref{it_magicwand}, too. But unlike @ref{st_break} it offers a
+variant that is breakable and movable at the same time. Of course a possible
+break superceeds a possible push condition.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{hollow}
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{movable}
+@item @b{breakable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: read only @ @ @xref{breakable}
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_plaster}:
+@item @b{st_plaster_hollow}: hollow=@code{true}
+@item @b{st_plaster_movable}: movable=@code{"true"}
+@item @b{st_plaster_breakable}: breakable=@code{"true"}
+@item @b{st_plaster_movebreakable}: movable=@code{"true"}, breakable=@code{"true"}
+@end table
+
+@end table
+
+@c ----------------- Plop Stone --------------------
+@node st_plop
+@subsection st_plop
+@obindex st_plop
+
+A movable stone that ceases to exist with a plop.
+
+This stone behaves like any other standard movable stone. But unlike other
+stones it can cease under some conditions. And if it ceases it does it with
+a plop and some sparkles.
+
+Currently there is just one flavor called @code{"slate"} according to its 
+dark blue gray color. It falls and ceases to exist if pushed on @ref{fl_water},
+@ref{fl_abyss} or @ref{fl_swamp}. Unlike @ref{st_box} it does not build a floor.
+
+@table @asis
+@item @b{Variants:}
+@table @asis
+@item @b{st_plop}
+@item @b{st_plop_slate}
+@end table
+@end table
+
 @c ----------------- Polarswitch Stone --------------------
 @node st_polarswitch
 @subsection st_polarswitch
@@ -10619,6 +10928,44 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Portal Stone --------------------
+@node st_portal
+@subsection st_portal
+@obindex st_portal
+
+A gate that is just passable for some special kind of actors. Like 
+@ref{st_grate} it uses metallic frames but it does not let pass actors of all
+kinds.
+
+The portal stone lets just pass actors of the kind given by its attribute
+@samp{flavor}.
+
+The flavor @code{"horse"} lets just pass an @ref{ac_horse}.
+
+The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
+
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{flavor} @ @ @i{values}: @code{"horse"}, @code{"pearl"}; @ @ @i{default}: @code{"horse"}; @ @ @i{access}: read only
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@item @b{Variants:}
+
+@table @asis
+@item @b{st_portal}: flavor=@code{"horse"}
+@item @b{st_portal_horse}: flavor=@code{"horse"}
+@item @b{st_portal_pearl}: flavor=@code{"pearl"}
+@end table
 
 @end table
 
@@ -11323,6 +11670,39 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 
 @end table
 
+@c ----------------- Thief Stone --------------------
+@node st_thief
+@subsection st_thief
+@obindex st_thief
+
+A thief steals an item from the player's inventory when it is hit by an owned
+actor.
+
+The item is not directly stolen at the moment of the hit. The hit itself just
+causes the thief to emerge from his hiding-place. The thief steals from the
+actor that did hit the stone at the moment of maximum visibility. He takes
+a random item from the owner's inventory. But he just will steal an item if
+the actor is not shielded due to an activated @ref{it_umbrella}.
+
+Thieves have an addiction to alcohol. Thus they get drunken and inactive if
+they happen to steal a bottle filled with stuff.
+
+Thieves have an enemy - the @ref{st_chess}. If a chess stone is pushed onto
+a thief it will capture the thief, sober or drunken. The thief stone vanishes
+and the chess stone jumps onto its position. But the thief will leave behind 
+on the grid all stolen items in his own @ref{it_bag}. If an item happens to
+be positioned beneath the captured thief stone, this item will be added to
+the thief's bag, too. If the thief has not stolen any items he leaves no empty
+bag.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:}  none
+@end table
+
 @c ----------------- Timer Stone --------------------
 @node st_timer
 @subsection st_timer
@@ -11862,8 +12242,14 @@ adhesion may take negativ values, too. Such values correspond to inverse forces.
 @subsection charge
 
 The initial electrical charge that a new actor starts with when being added to
-the world. Even though this attribute is readable it does not reflect the
-current velocity of an actor during runtime.
+the world. Actors do charge and recharge by hitting @ref{st_charge}. Hits 
+of charged actors among themselves does not affect their charge load. Each
+actor keeps its charge load.
+
+The electrical force on a charged actor is given by its own load and the load
+and position of all other charged actors. Note that a constant global factor
+@ref{Electric Strength} is applied, too. If this factor is negativ, equal
+charged actors may even attract each other.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -13574,7 +13960,7 @@ Mirroring Maps}.
 @example
 wo:drawMap(ti, po(5, 7), "-", @{"abcabc"@})
 wo:drawMap(ti, anchor_object, "--", @{"--##--##","##--##"@})
-wo:drawMap(ti, {12, 5}, " ", @{"122  221"@}, MAP_ROT_CW)
+wo:drawMap(ti, @{12, 5@}, " ", @{"122  221"@}, MAP_ROT_CW)
 @end example
 
 @item @b{Details:}
@@ -14804,13 +15190,13 @@ return statements:
 @example
 return evaluator(context[3], "a", x, y)
 return evaluator(context[3], "a", x, y) .. evaluator(context[3], "b", x, y)
-return evaluator(context[3], "a", x, y) .. ti({"st_laser_n", state=ON})
+return evaluator(context[3], "a", x, y) .. ti(@{"st_laser_n", state=ON@})
 @end example
 
 You are even allowed to add new tile declartions to the tiles repository to
 speed up subsequent calls:
 @example
-ti["newkey"] = evaluator(context[3], "a", x, y) .. ti({"st_laser_n", state=ON})
+ti["newkey"] = evaluator(context[3], "a", x, y) .. ti(@{"st_laser_n", state=ON@})
 @end example
 
 A resolver implementation can store and modifiy any of its private parameters
