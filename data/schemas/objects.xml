@@ -125,6 +125,7 @@
     <msg name="shuffle" type="nil"/>
     <msg name="shovel" type="nil"/>
     <msg name="signal" type="int" min="0" max="1"/>
+    <msg name="spit" type="tokens"/>
     <msg name="stopfire" type="nil"/>
     <msg name="toggle" type="nil"/>
     <msg name="turn" type="nil"/>
@@ -742,6 +743,9 @@
     <object name="it_seed_volcano">
       <attr name="flavor" value="volcano"/>
     </object>
+    <object name="it_seed_hay">
+      <attr name="flavor" value="hay"/>
+    </object>
     <object name="it_sensor">
       <attr name="invisible"/>
       <attr name="exit"/>
@@ -1031,18 +1035,16 @@
     <object name="st_box_hay">
       <attr name="flavor" value="hay"/>
     </object>
+    <object name="st_box_hay_growing" init="true"/>
     <object name="st_box_rock">
       <attr name="flavor" value="rock"/>
     </object>
     <object name="st_box_wood">
       <attr name="flavor" value="wood"/>
     </object>
-    <object name="st_box_wood_growing" init="true">
-    </object>
-    <object name="st_box_wood_h" init="true">
-    </object>
-    <object name="st_box_wood_v" init="true">
-    </object>
+    <object name="st_box_wood_growing" init="true"/>
+    <object name="st_box_wood_h" init="true"/>
+    <object name="st_box_wood_v" init="true"/>
     <object name="st_brake">
       <msg name="_explosion"/>
     </object>
@@ -1210,6 +1212,7 @@
     </object>
     <object name="st_dispenser">
       <attr name="flavor" default="bombblack" rw="r"/>
+      <attr name="max" default="1000"/>
       <msg name="_explosion"/>
       <msg name="_dispenser"/>
     </object>
@@ -1737,8 +1740,11 @@
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
       <attr name="hit_distortion_yy"/>
+      <attr name="destination"/>
+      <attr name="range" default="100"/>
       <attr name="secure"/>
       <msg name="_cannonball"/>
+      <msg name="spit"/>
     </object>
     <object name="st_stoneimpulse">
       <attr name="hollow"/>

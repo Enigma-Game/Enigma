@@ -222,7 +222,7 @@ namespace enigma {
                     setAttr("$dest_idx", dest_idx + 1);
                     client::Msg_Sparkle(p_target.center());
                     WarpActor(actor, v_target[0], v_target[1], false);
-                    GameTimer.set_alarm(this, 0.4, false);
+                    GameTimer.set_alarm(this, 0.8, false);
                 }
                 else {
                     switch (v->state) {

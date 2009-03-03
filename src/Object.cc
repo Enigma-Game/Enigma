@@ -370,7 +370,7 @@ namespace enigma {
     
     bool Object::getDestinationByIndex(int idx, ecl::V2 &dstpos) {
         int i = 0;  // counter for destination candidates
-        TokenList tl = getAttr("destination");  // expand any tokens to a list of values 
+        TokenList tl = getAttr("destination");  // expand any tokens to a list of values
         for (TokenList::iterator tit = tl.begin(); tit != tl.end(); ++tit) {
             PositionList pl = (*tit).getPositionList(this);  // convert next token to a list of positions
             for (PositionList::iterator pit = pl.begin(); pit != pl.end(); ++pit) {

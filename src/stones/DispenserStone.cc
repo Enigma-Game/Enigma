@@ -80,22 +80,26 @@ namespace enigma {
     }
 
     void DispenserStone::actor_hit(const StoneContact &sc) {
-        if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-            if (!inv->is_full()) {
-                DispenserStoneTyp typ = (DispenserStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 24);
-                std::string itemkind;
-                switch (typ) {
-                    case BOMBBLACK:
-                        itemkind = "it_bomb_black"; break;
-                    case BOMBWHITE:
-                        itemkind = "it_bomb_white"; break;
-                    case DYNAMITE:
-                        itemkind = "it_dynamite"; break;
-                    default:
-                        ASSERT(false, XLevelRuntime, "Dispenser - unexpected subtyp");
+        int reserve = getAttr("max");
+        if (reserve > 0) {
+            if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
+                if (!inv->is_full()) {
+                    DispenserStoneTyp typ = (DispenserStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 24);
+                    std::string itemkind;
+                    switch (typ) {
+                        case BOMBBLACK:
+                            itemkind = "it_bomb_black"; break;
+                        case BOMBWHITE:
+                            itemkind = "it_bomb_white"; break;
+                        case DYNAMITE:
+                            itemkind = "it_dynamite"; break;
+                        default:
+                            ASSERT(false, XLevelRuntime, "Dispenser - unexpected subtyp");
+                    }
+                    inv->add_item(MakeItem(itemkind.c_str()));
+                    player::RedrawInventory(inv);
+                    setAttr("max", reserve - 1);
                 }
-                inv->add_item(MakeItem(itemkind.c_str()));
-                player::RedrawInventory(inv);
             }
         }
     }

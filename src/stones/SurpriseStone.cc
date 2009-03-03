@@ -55,6 +55,8 @@ namespace enigma {
                     tl.push_back(stonename[i]);
                 if (server::GameCompatibility != GAMET_ENIGMA)
                     tl.push_back("st_dongle");
+                else
+                    tl.push_back("st_puzzle_yellow");
                return tl;
             }
         } else

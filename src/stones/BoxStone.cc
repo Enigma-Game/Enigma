@@ -118,7 +118,10 @@ namespace enigma {
                     set_model("st-wood2");
                 break;
             case HAY:
-                set_model("st-flhay"); break;
+                if (state == GROWING)
+                    set_anim("st-wood-growing");
+                else
+                    set_model("st-flhay"); break;
                 break;
             case ROCK:
                 set_model("st-flrock"); break;
@@ -207,6 +210,7 @@ namespace enigma {
         BootRegister(new BoxStone(1), "st_box_wood_h");
         BootRegister(new BoxStone(2), "st_box_wood_v");
         BootRegister(new BoxStone(3), "st_box_hay");
+        BootRegister(new BoxStone(3, 1), "st_box_hay_growing");
         BootRegister(new BoxStone(4), "st_box_rock");
     BOOT_REGISTER_END
 

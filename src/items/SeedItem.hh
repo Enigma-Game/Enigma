@@ -37,7 +37,7 @@ namespace enigma {
         };
         
         enum ObjectPrivatFlagsBits {
-            OBJBIT_FLAVOR =   3<<24,   ///< wood, greenbrown, volcano seed
+            OBJBIT_FLAVOR =   3<<24,   ///< wood, greenbrown, volcano, hay seed
         };
     public:
         SeedItem(int flavor);

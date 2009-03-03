@@ -23,7 +23,7 @@
 #include "client.hh"
 #include "errors.hh"
 #include "Inventory.hh"
-//#include "main.hh"
+#include "main.hh"
 #include "player.hh"
 #include "server.hh"
 #include "SoundEffectManager.hh"
@@ -172,11 +172,13 @@ namespace enigma {
     }
 
     void GrateStone::setAttr(const string& key, const Value &val) {
-        if (key == "flavor" && isDisplayable()) {
+        if (key == "flavor") {
             std::string fs = val.to_string();
             if (fs == "cross") state = CROSS;
             else if (fs == "framed") state = FRAMED;
             else ASSERT(false, XLevelRuntime, ecl::strf("Grate stone set known flavor%s", fs.c_str()).c_str());
+            if (isDisplayable())
+                init_model();
             return; 
         } else
             Stone::setAttr(key, val);
@@ -253,6 +255,20 @@ namespace enigma {
                 init_model();
             }
             return Value();
+        } else if (m.message == "spit" && state == IDLE && isDisplayable()) {
+            ecl::V2 dest = m.value;
+            if (!IsInsideLevel(dest)) {
+                if (!getDestinationByIndex(0, dest)) {
+                    return Value();
+                }
+                if (!IsInsideLevel(dest))
+                    return Value();
+            }
+            ecl::V2 vel = (GridPos(dest).center() - get_pos().center()) /0.55;
+            setAttr("$ball_velocity", vel);
+            state = LOADING;
+            init_model();
+            return Value();
         }
         return Stone::message(m);
     }
@@ -303,7 +319,11 @@ namespace enigma {
             if (lifepos != -1) {
                 delete inv->yield_item(lifepos);
                 player::RedrawInventory (inv);
-                setAttr("$ball_velocity", distortedVelocity(sc.actor->get_vel(), 1.0));
+                ecl::V2 vel = distortedVelocity(sc.actor->get_vel(), 1.0);
+                double maxvel = (double)getAttr("range")/0.56;
+                if (maxvel * maxvel < square(vel))
+                    vel = maxvel * normalize(vel);
+                setAttr("$ball_velocity", vel);
                 state = LOADING;
                 init_model();
             }

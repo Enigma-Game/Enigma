@@ -41,6 +41,7 @@ namespace enigma {
             if (flavor == "wood") code = 0;
             else if (flavor == "fake") code = 1;
             else if (flavor == "volcano") code = 2;
+            else if (flavor == "hay") code = 3;
             else
                 ASSERT(false, XLevelRuntime, ecl::strf("Seed: illegal flavor value #s", flavor.c_str()).c_str());
                 
@@ -60,6 +61,7 @@ namespace enigma {
                 case 0 : return "wood"; break;
                 case 1 : return "fake"; break;
                 case 2 : return "volcano"; break;
+                case 3 : return "hay"; break;
             }
         } else
             return Item::getAttr(key);
@@ -97,14 +99,13 @@ namespace enigma {
         int flavor = (objFlags & OBJBIT_FLAVOR) >> 24;
         if ((server::GameCompatibility == GAMET_OXYDMAGNUM || server::GameCompatibility == GAMET_OXYD1) &&
             (flavor == 0 && GetStone(p))) {
-            std::string model = GetStone(p)->get_kind();
-            if (model == "st-grate1") {
-                SetFloor(p, MakeFloor("fl-stwood"));
+            if (GetStone(p)->getKind() == "st_grate_cross") {
+                SetFloor(p, MakeFloor("fl_wood_framed"));
                 kill();
                 return;
            }
        }
-       Stone *st = MakeStone(flavor == 0 ? "st_box_wood_growing" : (flavor == 1 ? "st_greenbrown_growing" : "st_volcano_growing"));
+       Stone *st = MakeStone(flavor == 0 ? "st_box_wood_growing" : (flavor == 1 ? "st_greenbrown_growing" :(flavor == 2 ? "st_volcano_growing" : "st_hay_growing")));
        transferIdentity(st);
        if (Value v = getAttr("secure"))
            st->setAttr("secure", v);
@@ -159,6 +160,7 @@ namespace enigma {
         BootRegister(new SeedItem(0), "it_seed_wood");
         BootRegister(new SeedItem(1), "it_seed_fake");
         BootRegister(new SeedItem(2), "it_seed_volcano");
+        BootRegister(new SeedItem(3), "it_seed_hay");
     BOOT_REGISTER_END
 
 } // namespace enigma
