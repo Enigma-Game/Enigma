@@ -84,7 +84,7 @@ namespace enigma {
             if (isDisplayable())
                 init_model();
             return Value();
-        } else if (m.message == "fire" && (objFlags & OBJBIT_BURNABLE)) {
+        } else if (m.message == "_fire" && (objFlags & OBJBIT_BURNABLE)) {
             doBreak();
             return true;
         } else if (m.message == "heat" && (objFlags & OBJBIT_BURNABLE) && !(objFlags & OBJBIT_MOVABLE)) {

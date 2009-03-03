@@ -258,9 +258,16 @@ namespace enigma {
         } else if (m.message == "spit" && state == IDLE && isDisplayable()) {
             ecl::V2 dest = m.value;
             if (!IsInsideLevel(dest)) {
-                if (!getDestinationByIndex(0, dest)) {
-                    return Value();
+                int idx = getDefaultedAttr("$hitdestindex", 0);
+                if (!getDestinationByIndex(idx++, dest)) {
+                    if (idx != 1) {
+                        idx = 0;
+                        if (!getDestinationByIndex(idx++, dest))
+                            return Value();
+                    } else
+                        return Value();
                 }
+                setAttr("$hitdestindex", idx);
                 if (!IsInsideLevel(dest))
                     return Value();
             }

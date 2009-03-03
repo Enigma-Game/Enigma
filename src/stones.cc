@@ -182,7 +182,7 @@ void Stone::on_move() {
    default matrix, resp. defaultfactor as hit_factor. */
 ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
     ecl::V2 newvel;
-    double factor = this->getDefaultedAttr("hit_factor", defaultfactor);
+    double factor = this->getDefaultedAttr("hit_strength", defaultfactor);
     newvel[0] = (double)(this->getDefaultedAttr("hit_distortion_xx", 1)) * vel[0]
                 + (double)(this->getAttr("hit_distortion_xy")) * vel[1];
     newvel[1] = (double)(this->getAttr("hit_distortion_yx")) * vel[0]

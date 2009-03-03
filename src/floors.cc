@@ -411,7 +411,7 @@ bool Floor::stop_fire(bool is_message) {
 void Floor::on_burnable_animcb(bool justIgnited) {
     GridPos p = get_pos();
     // 
-    SendMessage(GetStone(p), "fire");
+    SendMessage(GetStone(p), "_fire");
 
     // Will we stop this time with burning?
     bool cont_fire = justIgnited || has_firetype(flft_eternal) || DoubleRand(0,1) < 0.7;

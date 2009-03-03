@@ -84,7 +84,7 @@ namespace enigma {
     
 
     Value BoxStone::message(const Message &m) {
-        if (m.message == "fire" && !(objFlags & OBJBIT_BLOCKFIRE)) {
+        if (m.message == "_fire" && !(objFlags & OBJBIT_BLOCKFIRE)) {
             KillStone(get_pos());
             return true;  // allow fire to spread
         } else if (m.message == "heat") {

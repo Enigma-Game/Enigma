@@ -986,6 +986,9 @@ function enigma.SetAttrib(obj, key, val)
          return
      end
      
+     if key == "hit_factor" then
+         _key = "hit_strength"
+     end
      if key == "mousefactor" then
          _key = "adhesion"
      end
@@ -1064,6 +1067,9 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "mouseforce" then
          _key = "adhesion"
+     end
+     if key == "hit_factor" then
+         _key = "hit_strength"
      end
      if key == "type" and _obj_name == "st-door" then
          local faces = enigma._GetAttrib(obj, "faces")

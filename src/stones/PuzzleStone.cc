@@ -103,6 +103,9 @@ namespace enigma {
         } else if (m.message == "_init") {
             updateCurrentLightDirs();
             return Value();
+        } else if (m.message == "_cannonball") {
+            explodeCluster();
+            return Value();
         }
         return Stone::message(m);
     }

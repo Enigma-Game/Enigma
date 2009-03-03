@@ -36,7 +36,7 @@
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gohome" type="bool" default="true" rw="rw"/>
     <attr name="gradient" type="double" default="nil" rw="rw"/>
-    <attr name="hit_factor" type="double" default="nil" rw="rw"/>
+    <attr name="hit_strength" type="double" default="nil" rw="rw"/>
     <attr name="hit_distortion_xx" type="double" default="1" rw="rw"/>
     <attr name="hit_distortion_xy" type="double" default="0" rw="rw"/>
     <attr name="hit_distortion_yx" type="double" default="0" rw="rw"/>
@@ -102,7 +102,6 @@
     <msg name="disconnect" type="nil"/>
     <msg name="explode" type="nil"/>
     <msg name="extinguish" type="nil"/>
-    <msg name="fire" type="nil"/>
     <msg name="flip" type="nil"/>
     <msg name="forcefire" type="nil"/>
     <msg name="get_adjacents" type="nil"/>
@@ -141,6 +140,7 @@
     <msg name="_explosion" type="nil"/>
     <msg name="_fall" type="nil"/>
     <msg name="_fallvortex" type="nil"/>
+    <msg name="_fire" type="nil"/>
     <msg name="_freeze" type="nil"/>
     <msg name="_glasses" type="nil"/>
     <msg name="_hit" type="object"/>
@@ -916,7 +916,7 @@
     <object name="st_actorimpulse">
       <attr name="invisible"/>
       <attr name="strength" default="nil"/>
-      <attr name="hit_factor"/>
+      <attr name="hit_strength"/>
       <attr name="hit_distortion_xx"/>
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
@@ -1028,9 +1028,9 @@
     </object>
     <object name="st_box">
       <attr name="flavor" default="wood" rw="r"/>
-      <msg name="fire"/>
       <msg name="heat"/>
       <msg name="_fall"/>
+      <msg name="_fire"/>
     </object>
     <object name="st_box_hay">
       <attr name="flavor" value="hay"/>
@@ -1266,7 +1266,7 @@
       <attr name="flavor" value="oxyde"/>
     </object>
     <object name="st_flash">
-      <attr name="hit_factor"/>
+      <attr name="hit_strength"/>
       <attr name="hit_distortion_xx"/>
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
@@ -1276,6 +1276,7 @@
       <attr name="hollow" rw="r"/>
       <attr name="breakable" rw="r"/>
       <attr name="burnable" rw="r"/>
+      <msg name="_fire"/>
     </object>
     <object name="st_flat_hollow">
       <attr name="hollow" value="true"/>
@@ -1735,7 +1736,7 @@
       <attr name="flavor" value="sml"/>
     </object>
     <object name="st_spitter">
-      <attr name="hit_factor"/>
+      <attr name="hit_strength"/>
       <attr name="hit_distortion_xx"/>
       <attr name="hit_distortion_xy"/>
       <attr name="hit_distortion_yx"/>
