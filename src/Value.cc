@@ -341,7 +341,7 @@ namespace enigma {
                         case Object::STONE :
                         case Object::FLOOR :
                         case Object::ITEM  :
-                            return dynamic_cast<GridObject *>(obj)->get_pos();
+                            return dynamic_cast<GridObject *>(obj)->getOwnerPos();
                         case Object::ACTOR :
                             return dynamic_cast<Actor *>(obj)->get_pos();
                     }
@@ -453,7 +453,7 @@ namespace enigma {
                         case Object::STONE :
                         case Object::FLOOR :
                         case Object::ITEM  :
-                            return dynamic_cast<GridObject *>(obj)->get_pos().center();
+                            return dynamic_cast<GridObject *>(obj)->getOwnerPos().center();
                         case Object::ACTOR :
                             return dynamic_cast<Actor *>(obj)->get_pos();
                     }
