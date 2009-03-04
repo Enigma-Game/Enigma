@@ -6286,8 +6286,16 @@ Positive number are attracting, negative numbers are repelling.
 
 @menu
 * fl_aquamarine::     Aquamarine floor with low friction
+* fl_bast::           Brown woven bast with black background
 * fl_bluegray::       Light blue gray floor
 * fl_bluegreen::      Dark blue green floor
+* fl_brick::          Floor composed of small red bricks
+* fl_concrete::       Granular gray concrete
+* fl_dunes::          Brown granular dunes
+* fl_gravel::         Dark gray, granular floor
+* fl_gray::           Gray with some brown spots
+* fl_himalaya::       Blue purple marbled floor
+* fl_pinkbumps::      Pink floor with white bumps
 * fl_sahara::         Bright yellow sandstone floor
 * fl_sand::           Granular orange gray sand floor
 @end menu
@@ -6296,7 +6304,7 @@ Positive number are attracting, negative numbers are repelling.
 @subsection fl_aquamarine
 @obindex fl_aquamarine
 
-Aquamarine floor with low friction
+Aquamarine floor with low friction.
 
 @table @asis
 @item @b{Attributes:}
@@ -6309,6 +6317,27 @@ Aquamarine floor with low friction
 @table @asis
 @item @b{fl_aquamarine}
 @item @b{fl_aquamarine_framed}
+@end table
+@end table
+
+@c ----------------- Bast Floor --------------------
+@node fl_bast
+@subsection fl_bast
+@obindex fl_bast
+
+Brown woven bast with black background.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_bast}
+@item @b{fl_bast_framed}
 @end table
 @end table
 
@@ -6351,6 +6380,153 @@ Dark blue green floor
 @table @asis
 @item @b{fl_bluegreen}
 @item @b{fl_bluegreen_framed}
+@end table
+@end table
+
+@c ----------------- Brick Floor --------------------
+@node fl_brick
+@subsection fl_brick
+@obindex fl_brick
+
+Floor composed of small red bricks.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_brick}
+@item @b{fl_brick_framed}
+@end table
+@end table
+
+@c ----------------- Concrete Floor --------------------
+@node fl_concrete
+@subsection fl_concrete
+@obindex fl_concrete
+
+Granular gray concrete.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.3 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_concrete}
+@item @b{fl_concrete_framed}
+@end table
+@end table
+
+@c ----------------- Dunes Floor --------------------
+@node fl_dunes
+@subsection fl_dunes
+@obindex fl_dunes
+
+Brown granular dunes.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.3 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_dunes}
+@item @b{fl_dunes_framed}
+@end table
+@end table
+
+@c ----------------- Gravel Floor --------------------
+@node fl_gravel
+@subsection fl_gravel
+@obindex fl_gravel
+
+Dark gray, granular floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.2 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_gravel}
+@item @b{fl_gravel_framed}
+@end table
+@end table
+
+@c ----------------- Gray Floor --------------------
+@node fl_gray
+@subsection fl_gray
+@obindex fl_gray
+
+Gray with some brown spots.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_gray}
+@item @b{fl_gray_framed}
+@end table
+@end table
+
+@c ----------------- Himalaya Floor --------------------
+@node fl_himalaya
+@subsection fl_himalaya
+@obindex fl_himalaya
+
+Blue purple marbled floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_himalaya}
+@item @b{fl_himalaya_framed}
+@end table
+@end table
+
+@c ----------------- Pinkbumps Floor --------------------
+@node fl_pinkbumps
+@subsection fl_pinkbumps
+@obindex fl_pinkbumps
+
+Pink floor with white bumps.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.2 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_pinkbumps}
+@item @b{fl_pinkbumps_framed}
 @end table
 @end table
 
@@ -6403,6 +6579,7 @@ Granular orange gray sand floor
 @menu
 * fl_bridge::         Abyss Bridge
 * fl_slope::          Slopes in various shapes
+* fl_thief::          Hidden Thief
 @end menu
 
 @c ----------------- Bridge Floor --------------------
@@ -6562,6 +6739,39 @@ not automatically assign the proper @samp{slope}.
 @item @b{fl_slope_tnr} slope = @samp{NORTHWEST}, shape = @code{"tnr"}
 @end table
 
+@end table
+
+@c ----------------- Thief Floor --------------------
+@node fl_thief
+@subsection fl_thief
+@obindex fl_thief
+
+A thief steals the item on its position plus an item from the player's inventory
+when it is entered by an owned actor. Unfortunatly the thief floor is visually
+indistinguishable from an @ref{fl_bluegray} and has even the same
+@samp{friction} and @samp{adhesion} values.
+
+The item is not directly stolen at the moment of entering the grid. The enterin
+itself just causes the thief to emerge from his hiding-place. The thief steals 
+from the actor that did conjur him at the moment of maximum visibility. He takes
+a random item from the owner's inventory. But he just will steal an item if
+the actor is not shielded due to an activated @ref{it_umbrella}.
+
+Thieves have an addiction to alcohol. Thus they get drunken and inactive if
+they happen to steal a bottle filled with stuff.
+
+Thieves have an enemy - the @ref{st_chess}. If a chess stone is pushed onto
+a thief it will capture the thief, sober or drunken. The thief vanishes leaving
+an inactive standard floor and the chess stone jumps onto its position. But the
+thief will leave behind on the grid all stolen items in his own @ref{it_bag}. 
+If the thief has not stolen any items he leaves no empty bag.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:}  none
 @end table
 
 @c ===================  Items  =======================
@@ -8660,7 +8870,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
 * st_shogun::          Stackable Hole Stones
-* st_spitter::
+* st_spitter::         Cannonball spitting Stone
 * st_stoneimpulse::    Neighbor Pushing pulsing Stone
 * st_surprise::        Random Transforming Stone
 * st_swap::            Neighbor Swapping Stone
@@ -10682,7 +10892,8 @@ arbitrary rules to limit and influence the shuffling process to guarantee
 solvabitlity and fairness (@pxref{shuffleOxyd}).
 
 Oxyds are opened either by an actor hit, an additional laser beam, an
-@ref{st_boulder} triggering or a message call. A single opened oxyd is in the
+@ref{st_boulder} triggering, an @ref{ot_cannonball} emitted from an
+@ref{st_spitter} or a message call. A single opened oxyd is in the
 state @samp{OPEN}. If a matching second oxyd is opened both switch to the state
 @samp{OXYDPAIR}. Note that this state can be requested, but it can not be set
 directly.
@@ -11070,7 +11281,9 @@ Complete clusters can explode and dissolve. A precondition is that the cluster
 is isolated from any adjacent, same colored further puzzle stone. Such clusters
 explode on an additional new laser beam hitting one of its solid stones. Yellow
 ones explode on any actor hit. Blue ones only on actor hits with a revealed
-@ref{it_magicwand}.
+@ref{it_magicwand}. Additionally complete clusters will explode when an
+@ref{ot_cannonball} emitted by an @ref{st_spitter} happens to fall on top of
+one of the puzzle stones of the cluster.
 
 Exploding puzzles will stay on place and do not interact any more. The exploding
 stones are lethal for actors hitting them, but an actor can start an explosion
@@ -11438,6 +11651,94 @@ shogun.
 
 @end table
 
+@c ----------------- Spitter Stone --------------------
+@node st_spitter
+@subsection st_spitter
+@obindex st_spitter
+
+A stone that spits @ref{ot_cannonball}s on actor hits and on proper messages.
+
+On an actor hit the spitter checks the owner's inventory for an existing
+@ref{it_extralife}. If one exists that is not stuffed in a @ref{it_bag}, it
+takes it and spits an @ref{ot_cannonball} according to the actors velocity
+and its own hit attributes. The cannonball flies into the resulting direction
+with a speed that is proportional to the actors hit speed.
+
+All cannonballs fly the same period of time. They fly above all other objects
+and cross all stone walls. The flight distance is proportional to their initial
+speed. On landing they cause actions on some objects and destroy others:
+
+@itemize @bullet
+@item @ref{st_oxyd} do open,
+@item @ref{st_stoneimpulse} do pulse,
+@item @ref{st_yinyang} do toggle,
+@item @ref{st_puzzle} do explode completely connected clusters, 
+@item @ref{st_brownpyramide} do break,
+@item other stones do remain unmodified and protect items and floors,
+@item @ref{it_dynamite} do ignite,
+@item @ref{it_crack} do crack,
+@item other indestructable items do remain and protect floors,
+@item other items are blown away,
+@item floors do crack to @ref{fl_abyss} if not indestructable as @ref{fl_water}, @ref{fl_swamp}, @ref{fl_abyss}.
+@end itemize
+
+Actors will not be harmed by falling cannonballs.
+
+The spitting can be initiated by the message @code{"hit"}, too. No 
+@ref{it_extralife} is needed in this case. The hit messages takes either a
+destination as message value or in case no value is given it evaluates the
+@samp{destination} attribute. The second case is suitable for usage of 
+@samp{hit} as an action message.
+
+The destination can be any value that evaluates to a valid position, object
+references and object names included. In case of an @samp{destination}
+attribute you can even supply tokens describing a series of destination
+positions. The destinations will be targeted by the cannonballs in turn on
+a sequence of @samp{hit} actions.
+
+Note that the destruction of target objects can have unexpected sideeffects
+on the destination sequence. If you list three @ref{st_stoneimpulse} as
+destinations they will be targeted in the given sequence as none of them
+gets destroyed. But if you list three @ref{st_brownpyramide} the first
+cannonball destroys the first target, leaving two valid destinations. The
+spitter now targets the second target of its list, which happens to evaluate
+to the third brown pyramid stone. Finally the destination list has just one
+still existing brown pyramid, the second one, as target. This one will be
+destroyed on the next spit as the spitter starts again on the first (remaining)
+destination when the end of list is reached. This may be no problem if you
+wand to destroy objects randomly or if you use named destinations with
+wildcards. But if you need control about the sequence you need either 
+destinations targets that get not destroyed or floor object references, as
+they represent @ref{Named Positions} that are persistent to object destructions.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{hit_strength} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_xx} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_xy} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_yx} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}; @ @ @xref{hit_*}
+@item @b{hit_distortion_yy} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
+@item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
+The destination of the cannonball given by an object or a position.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{hit}
+Spit a cannonball. Takes either a destination as message value or @samp{nil}.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_spitter}: secure = @code{false}
+@end table
+
+@end table
+
 @c ----------------- Stoneimpulse Stone --------------------
 @node st_stoneimpulse
 @subsection st_stoneimpulse
@@ -11480,6 +11781,9 @@ impulse will not backfire onto the @ref{st_boulder}. It will just propagate to
 the other three directions. Thus the boulder remains aside the stoneimpulse. But
 when the stoneimpulse gets activated otherwise it will push back the boulder,
 which will in return hit the stoneimpulse again.
+
+An @ref{ot_cannonball} emitted from an @ref{st_spitter} and now falling onto
+a stoneimpulse causes it to pulse, too.
 
 On a chain of stoneimpulse stones the pulsing will propagate along the chain
 without backfiring, as the previous stone is still active when its successor
@@ -11676,7 +11980,8 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 @obindex st_thief
 
 A thief steals an item from the player's inventory when it is hit by an owned
-actor.
+actor. Unfortunatly the thief is visually indistinguishable from a
+@ref{st_bluegray}.
 
 The item is not directly stolen at the moment of the hit. The hit itself just
 causes the thief to emerge from his hiding-place. The thief steals from the
@@ -11892,7 +12197,7 @@ The position of an arm in a turnstile cluster.
 The position of an arm in a turnstile cluster.
 @item @b{connections} @ @ @i{values}: string; @ @ @i{default}: @code{"s"}
 Describes the @ref{st_puzzle} like connection that is the opposite of the
-turnstile position. The string is a string of a single character describing the
+orientation. The string is a string of a single character describing the
 sole connection.
 @end table
 
@@ -12079,7 +12384,9 @@ between @code{YIN} and @code{YANG}.
 In contrast to @ref{it_yinyang} the player can not switch at any point of time
 but is limited to situations where he can hit the stone by one of the actors
 he controls. Of course other objects can send @code{"toggle"} messages on
-actions to this switch, too.
+actions to this switch, too. Additionally an @ref{ot_cannonball} emitted by
+an @ref{st_spitter} that now happens to fall on top of a yinyang stone
+activates it, too.
 
 When being activated the yinyang stone switches from the @samp{IDLE} state to
 the @samp{ACTIVE} state which is animated by a turning yinyang symbol. By
@@ -12711,10 +13018,20 @@ combination with @samp{attacknearest} set to @samp{true}. The Level
 @section Visible Others
 
 @menu
+* ot_cannonball::     Projectile of a Spitter
 * ot_rubberband::     Rubberband with forces
-* ot_wire::    Stone connection that transfers impulses
+* ot_wire::           Stone connection that transfers impulses
 @end menu
 
+
+@c ----------------- Cannonball --------------------
+@node ot_cannonball
+@subsection ot_cannonball
+@obindex ot_cannonball
+
+A short living projectil emitted by an @ref{st_spitter}. It is an internal
+object that can not be directly instanciated. It is listed here just for
+completness.
 
 @c ----------------- Rubberband --------------------
 @node ot_rubberband
