@@ -55,7 +55,7 @@ namespace enigma {
         if (state == extState)
             return;
             
-        if ((state == IDLE && extState == BREAKING) || (state == ACTIVEBREAKING && extState == IDLE)) {
+        if ((state == IDLE && extState == 2) || (state == ACTIVEBREAKING && extState == 0)) {
             state = BREAKING;
             if (isDisplayable()) {
                 fart();

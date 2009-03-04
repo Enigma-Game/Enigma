@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,11 +39,11 @@ namespace enigma {
             std::string flavor = val.to_string();
             int code;
             if (flavor == "wood") code = 0;
-            else if (flavor == "fake") code = 1;
+            else if (flavor == "greenbrown") code = 1;
             else if (flavor == "volcano") code = 2;
             else if (flavor == "hay") code = 3;
             else
-                ASSERT(false, XLevelRuntime, ecl::strf("Seed: illegal flavor value #s", flavor.c_str()).c_str());
+                ASSERT(false, XLevelRuntime, ecl::strf("Seed: illegal flavor value %s", flavor.c_str()).c_str());
                 
             objFlags = (objFlags & ~OBJBIT_FLAVOR) | (code << 24);
             if (isDisplayable()) {
@@ -59,7 +59,7 @@ namespace enigma {
             int flavor = (objFlags & OBJBIT_FLAVOR) >> 24;
             switch (flavor) {
                 case 0 : return "wood"; break;
-                case 1 : return "fake"; break;
+                case 1 : return "greenbrown"; break;
                 case 2 : return "volcano"; break;
                 case 3 : return "hay"; break;
             }
@@ -107,6 +107,7 @@ namespace enigma {
        }
        Stone *st = MakeStone(flavor == 0 ? "st_box_wood_growing" : (flavor == 1 ? "st_greenbrown_growing" :
                (flavor == 2 ? "st_volcano_growing" : "st_box_hay_growing")));
+       ASSERT(st != NULL, XLevelRuntime, "SeedItem - failure on stone creation");
        transferIdentity(st);
        if (Value v = getAttr("secure"))
            st->setAttr("secure", v);
@@ -152,14 +153,14 @@ namespace enigma {
 
     ItemTraits SeedItem::traits[3] = {
         {"it_seed_wood", it_seed_wood, itf_static, 0.2},
-        {"it_seed_fake", it_seed_fake, itf_static, 0.2},
+        {"it_seed_greenbrown", it_seed_fake, itf_static, 0.2},
         {"it_seed_volcano", it_seed_volcano, itf_static, 0.2}
     };
 
     BOOT_REGISTER_START
         BootRegister(new SeedItem(0), "it_seed");
         BootRegister(new SeedItem(0), "it_seed_wood");
-        BootRegister(new SeedItem(1), "it_seed_fake");
+        BootRegister(new SeedItem(1), "it_seed_greenbrown");
         BootRegister(new SeedItem(2), "it_seed_volcano");
         BootRegister(new SeedItem(3), "it_seed_hay");
     BOOT_REGISTER_END

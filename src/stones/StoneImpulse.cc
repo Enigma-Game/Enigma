@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -41,24 +41,30 @@ namespace enigma {
         
     void StoneImpulse::setAttr(const string& key, const Value &val) {
         if (key == "hollow") {
-            if (val.to_bool()) {
-                objFlags |= OBJBIT_HOLLOW;
-                objFlags &= ~OBJBIT_MOVABLE;
-                objFlags &= ~OBJBIT_STEADY;
-            } else
-                objFlags &= ~OBJBIT_HOLLOW;
+            if (!isDisplayable()) {
+                if (val.to_bool()) {
+                    objFlags |= OBJBIT_HOLLOW;
+                    objFlags &= ~OBJBIT_MOVABLE;
+                    objFlags &= ~OBJBIT_STEADY;
+                } else
+                    objFlags &= ~OBJBIT_HOLLOW;
+            }
         } else if (key == "movable") {
-            if (val.to_bool()) {
-                objFlags |= OBJBIT_MOVABLE;
-                objFlags &= ~OBJBIT_HOLLOW;
-            } else
-                objFlags &= ~OBJBIT_MOVABLE;
+            if (!isDisplayable()) {
+                if (val.to_bool()) {
+                    objFlags |= OBJBIT_MOVABLE;
+                    objFlags &= ~OBJBIT_HOLLOW;
+                } else
+                    objFlags &= ~OBJBIT_MOVABLE;
+            }
         } else if (key == "steady") {
-            if (val.to_bool()) {
-                objFlags |= OBJBIT_STEADY;
-                objFlags &= ~OBJBIT_HOLLOW;
-            } else
-                objFlags &= ~OBJBIT_STEADY;
+            if (!isDisplayable()) {
+                if (val.to_bool()) {
+                    objFlags |= OBJBIT_STEADY;
+                    objFlags &= ~OBJBIT_HOLLOW;
+                } else
+                    objFlags &= ~OBJBIT_STEADY;
+            }
         } else if (key == "orientation") {
             if (!isDisplayable()) {
                 Stone::setAttr("$incoming", reverse(to_direction(val)));
@@ -327,8 +333,8 @@ namespace enigma {
         BootRegister(new StoneImpulse(false, false, false, false), "st_stoneimpulse");
         BootRegister(new StoneImpulse(true,  false, false, false), "st_stoneimpulse_steady");
         BootRegister(new StoneImpulse(false, true,  false, false), "st_stoneimpulse_hollow");
-        BootRegister(new StoneImpulse(false, false, true,  false),  "st_stoneimpulse_movable");
-        BootRegister(new StoneImpulse(false, false, false, true), "st_stoneimpulse_new");
+        BootRegister(new StoneImpulse(false, false, true,  false), "st_stoneimpulse_movable");
+        BootRegister(new StoneImpulse(false, false, false, true),  "st_stoneimpulse_new");
     BOOT_REGISTER_END
 
 } // namespace enigma

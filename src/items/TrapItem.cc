@@ -39,10 +39,11 @@ namespace enigma {
     }
     
     void TrapItem::setState(int extState) {
-        if (state == 0) {       // no toggle back of a broken (open) trap
-            state == extState;
+        if (isDisplayable() && state == 0) {       // no toggle back of a broken (open) trap
+            state = extState;
             init_model();
-        }
+        } else
+            state = extState;
     }
     
     void TrapItem::init_model() {

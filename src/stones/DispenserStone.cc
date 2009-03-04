@@ -80,7 +80,7 @@ namespace enigma {
     }
 
     void DispenserStone::actor_hit(const StoneContact &sc) {
-        int reserve = getAttr("max");
+        int reserve = getAttr("stock");
         if (reserve > 0) {
             if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
                 if (!inv->is_full()) {
@@ -98,7 +98,7 @@ namespace enigma {
                     }
                     inv->add_item(MakeItem(itemkind.c_str()));
                     player::RedrawInventory(inv);
-                    setAttr("max", reserve - 1);
+                    setAttr("stock", reserve - 1);
                 }
             }
         }
