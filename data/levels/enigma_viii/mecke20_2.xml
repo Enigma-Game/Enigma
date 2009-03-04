@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Rhythm of Space" el:subtitle="Only A Labyrinth" el:id="mecke20"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 36 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 37 $" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,8 +36,8 @@ ti[", "] = {"st_passage_black_cross"}
 ti["- "] = {"st_grate_cross"}
 ti["ny"] = ti[" ("] .. {"st_break_oxydc"}
 ti["nw"] = ti[" '"] .. {"st_break_oxydc"}
-ti["nn"] = ti["ny"] .. {"it_seed_fake"}
-ti["nm"] = ti["nw"] .. {"it_seed_fake"}
+ti["nn"] = ti["ny"] .. {"it_seed", flavor="greenbrown"}
+ti["nm"] = ti["nw"] .. {"it_seed", flavor="greenbrown"}
 ti[". "] = {"st_plop_slate"}
 ti["/ "] = {"st_ghost_break"}
 ti["0 "] = {"st_puzzle", connections="e"}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -83,7 +83,7 @@
     <level _seq="75" _title="Black Liberation" _xpath="enigma_vii/mecke11_2" author="mecke" ctrl="force" easy="true" id="mecke11" rel="2" rev="43" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Jack-Of-All-Trades" _xpath="enigma_vii/mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="49" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Enigmaparcour I" _xpath="enigma_viii/mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="36" score="1" target="time" unit="duration"/>
-    <level _seq="78" _title="Rhythm of Space" _xpath="enigma_viii/mecke20_2" author="mecke" ctrl="force" easy="true" id="mecke20" rel="2" rev="36" score="1" target="time" unit="duration"/>
+    <level _seq="78" _title="Rhythm of Space" _xpath="enigma_viii/mecke20_2" author="mecke" ctrl="force" easy="true" id="mecke20" rel="2" rev="37" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="The Show Jumper" _xpath="enigma_viii/andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="The Red Room" _xpath="enigma_viii/joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Enigmines" _xpath="enigma_viii/huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -93,7 +93,7 @@
     <level _seq="85" _title="Southside Life" _xpath="enigma_viii/mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Joona's Chess" _xpath="enigma_viii/joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Helios I" _xpath="enigma_viii/mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="22" score="1" target="time" unit="duration"/>
-    <level _seq="88" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="83" score="1" target="time" unit="duration"/>
+    <level _seq="88" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="84" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Tilt Board" _xpath="enigma_viii/ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="90" _title="4 - 8 - 4" _xpath="enigma_viii/dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="91" _title="Impulsive Order" _xpath="enigma_viii/raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="13" score="1" target="time" unit="duration"/>
@@ -136,13 +136,13 @@
     <level _seq="128" _title="Techno Voodoo" _xpath="enigma_viii/mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="19" score="1" target="time" unit="duration"/>
     <level _seq="129" _title="Plutos World" _xpath="enigma_viii/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="130" _title="Plutos Confusion" _xpath="enigma_viii/mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="20" score="1" target="time" unit="duration"/>
-    <level _seq="131" _title="Coober Pedy Opals" _xpath="enigma_viii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="126" score="1" target="time" unit="duration"/>
-    <level _seq="132" _title="Butterfly Opals" _xpath="enigma_viii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="126" score="1" target="time" unit="duration"/>
-    <level _seq="133" _title="Brilliant Opals" _xpath="enigma_viii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="126" score="1" target="time" unit="duration"/>
+    <level _seq="131" _title="Coober Pedy Opals" _xpath="enigma_viii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="127" score="1" target="time" unit="duration"/>
+    <level _seq="132" _title="Butterfly Opals" _xpath="enigma_viii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="127" score="1" target="time" unit="duration"/>
+    <level _seq="133" _title="Brilliant Opals" _xpath="enigma_viii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="127" score="1" target="time" unit="duration"/>
     <level _seq="134" _title="Squared Microwire" _xpath="enigma_viii/ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="150" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="More or Less Wired" _xpath="enigma_viii/ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="149" score="1" target="time" unit="duration"/>
-    <level _seq="136" _title="Sokopal" _xpath="enigma_viii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="5" score="2" target="time" unit="duration"/>
-    <level _seq="137" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="136" _title="Sokopal" _xpath="enigma_viii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="6" score="2" target="time" unit="duration"/>
+    <level _seq="137" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
     <level _seq="139" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>

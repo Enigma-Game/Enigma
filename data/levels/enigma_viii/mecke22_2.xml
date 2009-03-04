@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:83$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:84$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -128,8 +128,8 @@ ti["~$"] = ti[" !"] .. {"it_strip_ew"}
 ti["~,"] = ti[" ,"] .. {"it_strip_ew"}
 ti["+$"] = ti["+ "] .. {"fl_water"}
 ti["s~"] = ti["+$"] .. {"it_strip_ns"}
-ti["jl"] = ti[" l"] .. {"it_seed_fake"}
-ti["j$"] = ti[" $"] .. {"it_seed_fake"}
+ti["jl"] = ti[" l"] .. {"it_seed", flavor="greenbrown"}
+ti["j$"] = ti[" $"] .. {"it_seed", flavor="greenbrown"}
 ti["jx"] = ti[" +"] .. {"it_glasses"}
 ti["=-"] = ti[" -"] .. {"st_rawglass_movable"}
 ti["=+"] = ti[" +"] .. {"st_rawglass_movable"}
@@ -215,7 +215,7 @@ ti["XL"] = ti[" +"] .. {"st_laser_w",name="laser3#"}
 ti["LS"] = ti[" +"] .. {"st_laser_s",state=OFF}
 
 if wo ["IsDifficult"] then
-   ti["i+"] = ti[" +"] .. {"it_seed_fake"}
+   ti["i+"] = ti[" +"] .. {"it_seed", flavor="greenbrown"}
    ti["rr"] = ti[" $"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_water"}
    ti["))"] = ti[" l"] .. {"it_burnable_burning"}

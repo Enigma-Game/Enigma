@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Butterfly Opals" el:subtitle="" el:id="20081207ral708"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 126 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
       <el:author el:name="Ronald Lamprecht, Andreas Lochmann" el:email="ral@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ wo["AllowSingleOxyds"] = true
 ti[" "] = {"fl_wood_framed"}
 ti["~"] = {"fl_water"}
 ti[":"] = {"it_seed"}
-ti[";"] = {"it_seed_fake"}
+ti[";"] = {"it_seed", flavor="greenbrown"}
 ti["@"] = {"#ac_pearl"}
 ti["B"] = {"st_oxyd_e", "ox", oxydcolor=OXYD_BOLD, noshuffle=true, target = "shuffle"} .. ti["~"] .. ti[":"]
 ti["."] = {"st_oxyd_e", target = "oxyd_callback"} .. ti["~"]
