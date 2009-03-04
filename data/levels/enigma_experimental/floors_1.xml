@@ -2,183 +2,97 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="All Floors" el:subtitle="Testlevel with all Floors" el:id="floors"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
-      <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
+      <el:identity el:title="All Floors as of Enigma 1.10" el:subtitle="" el:id="floors"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
-      </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- GENERAL --
-levelh = 13
-levelw = 120
+local floors = {
+{"fl_aquamarine", _text="fl_aquamarine"},
+{"fl_aquamarine_framed", _text="fl_aquamarine_framed"},
+{"fl_bluegray", _text="fl_bluegray"},
+{"fl_bluegray_framed", _text="fl_bluegray_framed"},
+{"fl_bluegreen", _text="fl_bluegreen"},
+{"fl_bluegreen_framed", _text="fl_bluegreen_framed"},
+{"fl_sahara", _text="fl_sahara"},
+{"fl_sahara_framed", _text="fl_sahara_framed"},
+{"fl_sand", _text="fl_sand"},
+{"fl_sand_framed", _text="fl_sand_framed"},
 
-create_world(levelw, levelh)
-enigma.ConserveLevel = TRUE
-display.SetFollowMode(display.FOLLOW_SCROLLING)
+{"fl_bridge", _text="fl_bridge, default"},
+{"fl_bridge", state=OPEN, _text="fl_bridge, state=OPEN"},
+{"fl_bridge", state=CLOSED, _text="fl_bridge, state=CLOSED"},
+{"fl_bridge", state=CLOSED, flavor="gc", _text="fl_bridge, flavor=\"gc\", state=CLOSED"},
+{"fl_bridge", state=CLOSED, flavor="bw", _text="fl_bridge, flavor=\"bw\", state=CLOSED"},
+{"fl_bridge", state=CLOSED, flavor="bn", _text="fl_bridge, flavor=\"bn\", state=CLOSED"},
 
--- DESIGN --
-floor="fl-black"
-wall="st-glass"
+{"fl_slope", _text="fl_slope, default"},
+{"fl_slope", slope=WEST, shape="pw", _text="fl_slope, slope=WEST, shape=\"pw\""},
+{"fl_slope", slope=SOUTH, shape="ps", _text="fl_slope, slope=SOUTH, shape=\"ps\""},
+{"fl_slope", slope=EAST, shape="pe", _text="fl_slope, slope=EAST, shape=\"pe\""},
+{"fl_slope", slope=NORTH, shape="pn", _text="fl_slope, slope=NORTH, shape=\"pn\""},
+{"fl_slope", slope=NORTHWEST, shape="inw", _text="fl_slope, slope=NORTHWEST, shape=\"inw\""},
+{"fl_slope", slope=SOUTHWEST, shape="isw", _text="fl_slope, slope=SOUTHWEST, shape=\"isw\""},
+{"fl_slope", slope=SOUTHEAST, shape="ise", _text="fl_slope, slope=SOUTHEAST, shape=\"ise\""},
+{"fl_slope", slope=NORTHEAST, shape="ine", _text="fl_slope, slope=NORTHEAST, shape=\"ine\""},
+{"fl_slope", slope=NORTHWEST, shape="onw", _text="fl_slope, slope=NORTHWEST, shape=\"onw\""},
+{"fl_slope", slope=SOUTHWEST, shape="osw", _text="fl_slope, slope=SOUTHWEST, shape=\"osw\""},
+{"fl_slope", slope=SOUTHEAST, shape="ose", _text="fl_slope, slope=SOUTHEAST, shape=\"ose\""},
+{"fl_slope", slope=NORTHEAST, shape="one", _text="fl_slope, slope=NORTHEAST, shape=\"one\""},
+{"fl_slope", slope=WEST, shape="tw", _text="fl_slope, slope=WEST, shape=\"tw\""},
+{"fl_slope", slope=SOUTH, shape="ts", _text="fl_slope, slope=SOUTH, shape=\"ts\""},
+{"fl_slope", slope=EAST, shape="te", _text="fl_slope, slope=EAST, shape=\"te\""},
+{"fl_slope", slope=NORTH, shape="tn", _text="fl_slope, slope=NORTH, shape=\"tn\""},
+{"fl_slope", slope=NORTHWEST, shape="twl", _text="fl_slope, slope=NORTHWEST, shape=\"twl\""},
+{"fl_slope", slope=SOUTHWEST, shape="tsl", _text="fl_slope, slope=SOUTHWEST, shape=\"tsl\""},
+{"fl_slope", slope=SOUTHEAST, shape="tel", _text="fl_slope, slope=SOUTHEAST, shape=\"tel\""},
+{"fl_slope", slope=NORTHEAST, shape="tnl", _text="fl_slope, slope=NORTHEAST, shape=\"tnl\""},
+{"fl_slope", slope=SOUTHWEST, shape="twr", _text="fl_slope, slope=SOUTHWEST, shape=\"twr\""},
+{"fl_slope", slope=SOUTHEAST, shape="tsr", _text="fl_slope, slope=SOUTHEAST, shape=\"tsr\""},
+{"fl_slope", slope=NORTHEAST, shape="ter", _text="fl_slope, slope=NORTHEAST, shape=\"ter\""},
+{"fl_slope", slope=NORTHWEST, shape="tnr", _text="fl_slope, slope=NORTHWEST, shape=\"tnr\""}
 
--- FLOOR --
-fill_floor(floor, 0,0,levelw,levelh)
+}
 
--- STONES --
---draw_border(wall)
 
--- ITEMS --
-set_item("it-document", 10, 5, {text="text1"})
+ti[" "] = {"fl_sahara"}
+ti["#"] = {"st_rawglass"}
+ti["S"] = {"st_switch", target="set_floor"}
+ti["x"] = {"st_brake", name="here"}
 
--- ACTORS --
-set_actor("ac-blackball", 4.5,3.5, {player=0})
-set_actor("ac-whiteball", 6.5,3.5, {player=1})
-set_item("it-yinyang",4,3)
-set_item("it-yinyang",6,3)
+wo(ti, " ", 12+#floors, 13)
+wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
+wo[{1,1}] = {"#ac_marble_black"}
+wo[{1,2}] = {"#ac_marble_white"}
+wo[{1,3}] = ti["x"]
 
--- Funktionen
--- VARS
-    floorlist = {
-        -- The first two sections are copied from models-2d.lua,
-        -- except for "fl_abyss", which has been replaced by "fl_abyss_fake".
-        -- (see below for "fl_abyss")
-        -- single
-        {"fl-abyss_fake", noframe = true},
-        {"fl-acblack", noframe = true},
-        {"fl-acwhite", noframe = true},
-        {"fl-black"},
-        {"fl-bluegreen"},
-        {"fl-darkgray"},
-        {"fl-dummy", noframe = true},
-        {"fl-dunes"},
-        {"fl-floor_001"},
-        {"fl_ice", noframe = true},
-        {"fl-inverse", noframe = true},
-        {"fl-inverse2", noframe = true},
-        {"fl-light"},
-        {"fl-lightgray"},
-        {"fl-nomouse", noframe = true},
-        {"fl-normal"},
-        {"fl-sand"},
-        {"fl-stone"},
-        {"fl-springboard"},
-        {"fl-trigger"},
-        {"fl-white"},
-        -- multiple, with height and width (or 1)
-        {"fl-bluegray", 4},
-        {"fl-bluegreenx", 2},
-        {"fl-brick", 3},
-        {"fl-bumps", 2, 2},
-        {"fl-concrete", 4},
-        {"fl-gravel", 4},
-        {"fl-gray", 5},
-        {"fl-hay", 4},
-        {"fl-himalaya", 4},
-        {"fl-marble", 4},
-        {"fl-metal", 6},
-        {"fl-mortar", 2, 2},
-        {"fl-plank", 4},
-        {"fl-red", 4},
-        {"fl-rock", 2},
-        {"fl-rough", 5},
-        {"fl-rough-blue", 4},
-        {"fl-rough-red", 4},
-        {"fl-sahara", 4},
-        {"fl-samba", 2},
-        {"fl_space", 3, 2, noframe = true},
-        {"fl-stwood", 2},
-        {"fl_swamp", 4, noframe = true},
-        {"fl-tigris", 4},
-        {"fl_water", 4, noframe = true},
-        {"fl-woven", 5},
-        -- Additional floors
-        {"fl-leaves", noframe = true},
-        {"fl-leavesb", noframe = true},
-        {"fl-leavesc1", noframe = true},
-        {"fl-leavesc2", noframe = true},
-        {"fl-leavesc3", noframe = true},
-        {"fl-leavesc4", noframe = true},
-        {"fl-leavesd1", noframe = true},
-        {"fl-leavesd2", noframe = true},
-        {"fl-leavesd3", noframe = true},
-        {"fl-leavesd4", noframe = true},
-        {"fl-leavese1", noframe = true},
-        {"fl-leavese2", noframe = true},
-        {"fl-leavese3", noframe = true},
-        {"fl-leavese4", noframe = true},
-        {"fl-metal1"},
-        {"fl-metal2"},
-        {"fl-metal3"},
-        {"fl-metal4"},
-        {"fl-metal5"},
-        {"fl-metal6"},
-        {"fl-normal_x"},
-        {"fl-rough_medium"},
-        {"fl-rough_slow"},
-        {"fl-samba1"},
-        {"fl-samba2"},
-        {"fl-stwood1"},
-        {"fl-stwood2"},
-        {"fl-wood", noframe = true},
-        {"fl-wood1", noframe = true},
-        {"fl-wood2", noframe = true},
-        {"fl-abyss", noframe = true},
-        {"fl-acblack", noframe = true},
-        {"fl-acwhite", noframe = true},
-        {"fl-bridge-closed", noframe = true},
-        {"fl-gradient1", noframe = true},
-        {"fl-gradient2", noframe = true},
-        {"fl-gradient3", noframe = true},
-        {"fl-gradient4", noframe = true},
-        {"fl-gradient5", noframe = true},
-        {"fl-gradient6", noframe = true},
-        {"fl-gradient7", noframe = true},
-        {"fl-gradient8", noframe = true},
-        {"fl-gradient9", noframe = true},
-        {"fl-gradient10", noframe = true},
-        {"fl-gradient11", noframe = true},
-        {"fl-gradient12", noframe = true},
-        {"fl-gradient13", noframe = true},
-        {"fl-gradient14", noframe = true},
-        {"fl-gradient15", noframe = true},
-        {"fl-gradient16", noframe = true},
-        {"fl-inverse", noframe = true},
-        {"fl-inverse2", noframe = true},
-        {"fl-space-force", noframe = true},
-        {"fl-thief", noframe = true}        
-    }
-    
-------
-
-nr=1
-for i=1,table.getn(floorlist) do
-    nr = nr+1
-    set_stone("st-switch", 1 + i, 2, {action="callback", target="sw"..nr, name="switch"..nr})
-    func = "function sw"..nr.."() flnr="..i.."; setfloor(flnr) ; end"
-    dostring(func)
+for i=1, #floors do
+    wo[po(5+i, 1)] = ti["S"]
+    wo[po(5+i, 2)] = {"it_document", text=floors[i]["_text"]}
+    wo[po(5+i, 5)] = floors[i]
+    wo[po(5+i, 6)] = floors[i]
+    wo[po(5+i, 7)] = floors[i]
+    wo[po(5+i, 8)] = floors[i]
+    wo[po(5+i, 9)] = floors[i]
 end
 
-function setfloor(flnr)
-    local floor = floorlist[flnr]
-    draw_floor(floor[1], {1 + flnr, 4}, {0, 1}, 8)
-    if not floorlist[flnr].noframe then
-        draw_floor(floor[1].."_framed", {1 + flnr, 8}, {0, 1}, 4)
+-- Floortile express worldwide:
+function set_floor(value, sender)
+    wo[po(sender) + po(0, 1)] = {"it_document", text=floors[sender.x-5]["_text"]}
+    if no["here"]:exists() then
+        wo[no["here"]] = floors[sender.x-5]
     end
-    set_item("it-document", 1 + flnr, 0, {text = floor[1]})
 end
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
-      <el:string el:key="text1">
-        <el:english el:translate="false">Level with all floors of Enigma 1.01!</el:english>
-      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>

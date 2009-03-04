@@ -2,77 +2,182 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="All Items" el:subtitle="Testlevel with all Items" el:id="items"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="stable"/>
-      <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2006, 2007 Raoul Bourquin</el:copyright>
+      <el:identity el:title="All Items as of Enigma 1.10" el:subtitle="" el:id="items"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
-      </el:compatibility>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- GENERAL --
-levelw = 120
-levelh = 13
-create_world(levelw, levelh)
-enigma.ConserveLevel = TRUE
-display.SetFollowMode(display.FOLLOW_SCROLLING)
+local items = {
 
--- DESIGN --
-boden="fl-black"
-wand="st-glass"
+{"it_bag", _text="it_bag"},
 
--- FLOOR --
-fill_floor(boden, 0,0,levelw,levelh)
+{"it_banana", _text="it_banana"},
 
--- STONES --
-draw_border(wand)
+{"it_blocker", _text="it_blocker, default"},
+{"it_blocker", state=OPEN, _text="it_blocker, state=OPEN"},
+{"it_blocker", autoclose=true, _text="it_blocker, autoclose=true"},
 
--- ITEMS --
-set_item("it-document", 10, 6, {text="text1"})
+{"it_brake", _text="it_brake"},
 
--- ACTORS --
-set_actor("ac-blackball", 4.5,4.5, {player=0})
-set_actor("ac-whiteball", 6.5,4.5, {player=1})
-set_item("it-yinyang",4,4)
-set_item("it-yinyang",6,4)
+{"it_brush", _text="it_brush"},
 
--- Funktionen
--- VARS
-itemlist={"it-abyss", "it-bag", "it-banana", "it-blackbomb", "it-blocker", "it-booze", "it-booze-broken", "it-brake", "it-brush", "it-burnable", "it-burnable_ash", "it-burnable_burning", "it-burnable_fireproof", "it-burnable_ignited", "it-burnable_oil", "it-cherry", "it-coffee", "it-coin1", "it-coin2", "it-coin4", "it-crack0", "it-crack1", "it-crack2", "it-crack3", "it-cross", "it-death", "it-document", "it-drop", "it-dynamite", "it-extinguisher", "it-extinguisher_medium", "it-extinguisher_empty", "it-extralife", "it-flagblack", "it-flagwhite", "it-floppy", "it-glasses", "it-glasses-broken", "it-hammer", "it-hill", "it-hollow", "it-hstrip", "it-inversesensor", "it-key", "it-landmine", "it-magicwand", "it-magnet", "it-magnet-on", "it-pencil", "it-pin", "it-pipe-e", "it-pipe-es", "it-pipe-h", "it-pipe-n", "it-pipe-ne", "it-pipe-s", "it-pipe-sw", "it-pipe-v", "it-pipe-w", "it-pipe-wn", "it-puller-n", "it-puller-e", "it-puller-s", "it-puller-w", "it-ring", "it-rubberband", "it-seed", "it-seed_nowood", "it-seed_volcano", "it-sensor", "it-shogun-l", "it-shogun-m", "it-shogun-s", "it-spade", "it-spoon", "it-spring1", "it-spring2", "it-springboard", "it-squashed", "it-surprise", "it-sword", "it-tinyhill", "it-tinyhollow", "it-trigger", "it-umbrella", "it-vortex-closed", "it-vortex-open", "it-vstrip", "it-weight", "it-whitebomb", "it-wormhole", "it-wormhole-off", "it-wrench", "it-yinyang" }
+{"it_cherry", _text="it_cherry"},
 
-------
-nr=1
-for i=1,table.getn(itemlist) do
-      nr = nr+1
-      set_stone("st-switch",1+i,3, {action="callback", target="sw"..nr, name="switch"..nr})
-      func = "function sw"..nr.."() itnr="..i.."; settem(itnr) ; end"
-      dostring(func)
+{"it_coin", _text="it_coin, default"},
+{"it_coin_s", _text="it_coin_s"},
+{"it_coin_m", _text="it_coin_m"},
+{"it_coin_l", _text="it_coin_l"},
+
+{"it_cross", _text="it_cross"},
+
+{"it_death", _text="it_death"},
+
+{"it_extralife", _text="it_extralife"},
+
+{"it_floppy", _text="it_floppy"},
+
+{"it_glasses", _text="it_glasses, default"},
+{"it_glasses_broken", _text="it_glasses_broken"},
+
+{"it_hammer", _text="it_hammer"},
+
+{"it_key", _text="it_key, default"},
+
+{"it_landmine", _text="it_landmine"},
+
+{"it_magicwand", _text="it_magicwand"},
+
+{"it_magnet", _text="it_magnet, default"},
+{"it_magnet", state=ON, _text="it_magnet, state=ON"},
+{"it_magnet", state=OFF, _text="it_magnet, state=OFF"},
+
+{"it_meditation", _text="it_meditation, default"},
+{"it_meditation", state=MEDITATION_CALDERA, _text="it_meditation, state=MEDITATION_CALDERA"},
+{"it_meditation", state=MEDITATION_HOLLOW, _text="it_meditation, state=MEDITATION_HOLLOW"},
+{"it_meditation", state=MEDITATION_DENT, _text="it_meditation, state=MEDITATION_DENT"},
+{"it_meditation", state=MEDITATION_BUMP, _text="it_meditation, state=MEDITATION_BUMP"},
+{"it_meditation", state=MEDITATION_HILL, _text="it_meditation, state=MEDITATION_HILL"},
+{"it_meditation", state=MEDITATION_VOLCANO, _text="it_meditation, state=MEDITATION_VOLCANO"},
+
+{"it_pin", _text="it_pin"},
+
+{"it_pipe", _text="it_pipe, default"},
+{"it_pipe", connections="w", _text="it_pipe, connections=\"w\""},
+{"it_pipe", connections="s", _text="it_pipe, connections=\"s\""},
+{"it_pipe", connections="sw", _text="it_pipe, connections=\"sw\""},
+{"it_pipe", connections="e", _text="it_pipe, connections=\"e\""},
+{"it_pipe", connections="ew", _text="it_pipe, connections=\"ew\""},
+{"it_pipe", connections="es", _text="it_pipe, connections=\"es\""},
+{"it_pipe", connections="n", _text="it_pipe, connections=\"n\""},
+{"it_pipe", connections="nw", _text="it_pipe, connections=\"nw\""},
+{"it_pipe", connections="ns", _text="it_pipe, connections=\"ns\""},
+{"it_pipe", connections="ne", _text="it_pipe, connections=\"ne\""},
+
+{"it_rubberband", _text="it_rubberband"},
+
+{"it_seed", _text="it_seed, default"},
+{"it_seed", flavor="wood", _text="it_seed, flavor=\"wood\""},
+{"it_seed", flavor="hay", _text="it_seed, flavor=\"hay\""},
+{"it_seed", flavor="greenbrown", _text="it_seed, flavor=\"greenbrown\""},
+{"it_seed", flavor="volcano", _text="it_seed, flavor=\"volcano\""},
+
+{"it_sensor", _text="it_sensor, default"},
+{"it_sensor", invisible=true, _text="it_sensor, invisible=true"},
+{"it_sensor", exit=true, _text="it_sensor, exit=true"},
+{"it_sensor", exit=true, invisible=true, _text="it_sensor, exit=true, invisible=true"},
+
+{"it_shogun", _text="it_shogun, default"},
+{"it_shogun", flavor="s", _text="it_shogun, flavor=\"s\""},
+{"it_shogun", flavor="m", _text="it_shogun, flavor=\"m\""},
+{"it_shogun", flavor="l", _text="it_shogun, flavor=\"l\""},
+
+{"it_squashed", _text="it_squashed"},
+
+{"it_strip", _text="it_strip, default"},
+{"it_strip", connections="w", _text="it_strip, connections=\"w\""},
+{"it_strip", connections="s", _text="it_strip, connections=\"s\""},
+{"it_strip", connections="sw", _text="it_strip, connections=\"sw\""},
+{"it_strip", connections="e", _text="it_strip, connections=\"e\""},
+{"it_strip", connections="ew", _text="it_strip, connections=\"ew\""},
+{"it_strip", connections="es", _text="it_strip, connections=\"es\""},
+{"it_strip", connections="esw", _text="it_strip, connections=\"esw\""},
+{"it_strip", connections="n", _text="it_strip, connections=\"n\""},
+{"it_strip", connections="nw", _text="it_strip, connections=\"nw\""},
+{"it_strip", connections="ns", _text="it_strip, connections=\"ns\""},
+{"it_strip", connections="nsw", _text="it_strip, connections=\"nsw\""},
+{"it_strip", connections="ne", _text="it_strip, connections=\"ne\""},
+{"it_strip", connections="new", _text="it_strip, connections=\"new\""},
+{"it_strip", connections="nes", _text="it_strip, connections=\"nes\""},
+{"it_strip", connections="nesw", _text="it_strip, connections=\"nesw\""},
+
+{"it_surprise", _text="it_surprise"},
+
+{"it_sword", _text="it_sword"},
+
+{"it_trap", _text="it_trap, default"},
+{"it_trap", state=OPEN, _text="it_trap, state=OPEN"},
+{"it_trap", state=CLOSED, _text="it_trap, state=CLOSED"},
+
+{"it_trigger", _text="it_trigger, default"},
+{"it_trigger", invisible=true, _text="it_trigger, invisible=true"},
+
+{"it_umbrella", _text="it_umbrella"},
+
+{"it_vortex", _text="it_vortex, default"},
+{"it_vortex", state=OPEN, _text="it_vortex, state=OPEN"},
+{"it_vortex", state=CLOSED, _text="it_vortex, state=CLOSED"},
+{"it_vortex", autoclose=true, _text="it_vortex, autoclose=true"},
+
+{"it_weight", _text="it_weight"},
+
+{"it_wormhole", _text="it_wormhole, default"},
+{"it_wormhole", state=ON, _text="it_wormhole, state=ON"},
+{"it_wormhole", state=OFF, _text="it_wormhole, state=OFF"},
+
+{"it_wrench", _text="it_wrench"},
+
+{"it_yinyang", _text="it_yinyang"}
+
+}
+
+
+ti[" "] = {"fl_sahara"}
+ti["#"] = {"st_rawglass"}
+ti["S"] = {"st_switch", target="set_item"}
+ti["x"] = {"st_brake", name="here"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", 12+#items, 13)
+wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
+wo[{1,1}] = {"#ac_marble_black"}
+wo[{1,2}] = {"#ac_marble_white"}
+wo[{1,3}] = ti["x"]
+
+for i=1, #items do
+    wo[po(5+i, 1)] = ti["S"]
+    wo[po(5+i, 5)] = items[i]
+    wo[po(5+i, 2)] = {"it_document", text=items[i]["_text"]}
 end
 
-function settem(itnr)
- item= itemlist[itnr]
- itdo=itemlist[itnr]
- set_item(item,1+itnr,5)
- set_item("it-document", 1+itnr, 1, {text=itdo})
+-- Items on demand:
+function set_item(value, sender)
+    wo[po(sender) + po(0, 4)] = items[sender.x-5]
+    wo[po(sender) + po(0, 1)] = {"it_document", text=items[sender.x-5]["_text"]}
+    -- Item express worldwide:
+    if no["here"]:exists() then
+        wo[no["here"] + po(0,1)] = items[sender.x-5]
+    end
 end
-
---Laser:
-set_stone("st-laser", 115, 3, {name="laser1", dir=SOUTH, on="0"})
-set_stone("st-switch", 115,1, {action="onoff", target="laser1"})
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
-      <el:string el:key="text1">
-        <el:english el:translate="false">Level with all items of Enigma 1.01!</el:english>
-      </el:string> 
     </el:i18n>
   </el:protected>
 </el:level>
