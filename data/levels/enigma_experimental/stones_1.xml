@@ -495,6 +495,8 @@ local stones = {
 {"st_shogun", flavor="ml", _text="st_shogun, flavor=\"ml\""},
 {"st_shogun", flavor="sml", _text="st_shogun, flavor=\"sml\""},
 
+{"st_spitter", _text="st_spitter"},
+
 {"st_stoneimpulse", _text="st_stoneimpulse, default"},
 {"st_stoneimpulse_movable", _text="st_stoneimpulse_movable"},
 {"st_stoneimpulse_hollow", _text="st_stoneimpulse_hollow"},

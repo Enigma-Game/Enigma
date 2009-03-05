@@ -15,10 +15,26 @@
 local floors = {
 {"fl_aquamarine", _text="fl_aquamarine"},
 {"fl_aquamarine_framed", _text="fl_aquamarine_framed"},
+{"fl_bast", _text="fl_bast"},
+{"fl_bast_framed", _text="fl_bast_framed"},
 {"fl_bluegray", _text="fl_bluegray"},
 {"fl_bluegray_framed", _text="fl_bluegray_framed"},
 {"fl_bluegreen", _text="fl_bluegreen"},
 {"fl_bluegreen_framed", _text="fl_bluegreen_framed"},
+{"fl_brick", _text="fl_brick"},
+{"fl_brick_framed", _text="fl_brick_framed"},
+{"fl_concrete", _text="fl_concrete"},
+{"fl_concrete_framed", _text="fl_concrete_framed"},
+{"fl_dunes", _text="fl_dunes"},
+{"fl_dunes_framed", _text="fl_dunes_framed"},
+{"fl_gravel", _text="fl_gravel"},
+{"fl_gravel_framed", _text="fl_gravel_framed"},
+{"fl_gray", _text="fl_gray"},
+{"fl_gray_framed", _text="fl_gray_framed"},
+{"fl_himalaya", _text="fl_himalaya"},
+{"fl_himalaya_framed", _text="fl_himalaya_framed"},
+{"fl_pinkbumps", _text="fl_pinkbumps"},
+{"fl_pinkbumps_framed", _text="fl_pinkbumps_framed"},
 {"fl_sahara", _text="fl_sahara"},
 {"fl_sahara_framed", _text="fl_sahara_framed"},
 {"fl_sand", _text="fl_sand"},
@@ -55,7 +71,9 @@ local floors = {
 {"fl_slope", slope=SOUTHWEST, shape="twr", _text="fl_slope, slope=SOUTHWEST, shape=\"twr\""},
 {"fl_slope", slope=SOUTHEAST, shape="tsr", _text="fl_slope, slope=SOUTHEAST, shape=\"tsr\""},
 {"fl_slope", slope=NORTHEAST, shape="ter", _text="fl_slope, slope=NORTHEAST, shape=\"ter\""},
-{"fl_slope", slope=NORTHWEST, shape="tnr", _text="fl_slope, slope=NORTHWEST, shape=\"tnr\""}
+{"fl_slope", slope=NORTHWEST, shape="tnr", _text="fl_slope, slope=NORTHWEST, shape=\"tnr\""},
+
+{"fl_thief", _text="fl_thief"}
 
 }
 
