@@ -122,7 +122,7 @@ OXYD_FAKE   = -2
 OXYD_QUAKE  = -3
 OXYD_BOLD   = -4
 
--- direction
+-- direction/orientations
 NODIR = -1
 WEST  = 0
 SOUTH = 1
@@ -139,15 +139,29 @@ HORIZONTAL = 1
 SLASH      = 2
 VERTICAL   = 3
 
--- multidirections as used by st_chess
-NNE = po(1, -2)
-ENE = po(2, -1)
-ESE = po(2, 1)
-SSE = po(1, 2)
-SSW = po(-1, 2)
-WSW = po(-2, 1)
-WNW = po(-2, -1)
-NNW = po(-1, -2)
+-- direction offsets
+N = po(0, -1)
+E = po(1, 0)
+S = po(0, 1)
+W = po(-1, 0)
+NE = N + E
+NW = N + W
+SE = S + E
+SW = S + W
+NNE = N + NE
+ENE = E + NE
+ESE = E + SE
+SSE = S + SE
+SSW = S + SW
+WSW = W + SW
+WNW = W + NW
+NNW = N + NW
+
+-- neighbors
+
+NEIGHBORS_4     = W .. S .. E .. N
+NEIGHBORS_8     = NEIGHBORS_4 .. NW .. SW ..SE .. NE
+NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW
 
 -- essential
 DISPENSIBLE   = 0

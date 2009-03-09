@@ -94,6 +94,18 @@ namespace enigma {
             for (PuzzleList::iterator itr = huddle.begin(); itr != huddle.end(); ++itr)
                 adj.push_back(*itr);
             return adj;
+        } else if (m.message == "get_cluster") {
+            // need a message instead of getAttr as we write mark puzzles what contradicts "const"
+            PuzzleList fragment;
+            findFragment(fragment);
+            ObjectList adj;
+            for (PuzzleList::iterator itr = fragment.begin(); itr != fragment.end(); ++itr)
+                adj.push_back(*itr);
+            return adj;
+        } else if (m.message == "is_complete") {
+            // need a message instead of getAttr as we write mark puzzles what contradicts "const"
+            PuzzleList fragment;
+            return findFragment(fragment);
         } else if (m.message == "pull_rotate") {
             rotateLine(to_direction(m.value), false);
             return Value();

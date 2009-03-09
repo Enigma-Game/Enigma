@@ -343,7 +343,9 @@ static int pushNewPosition(lua_State *L) {
     lua_pushvalue(L, -3);
     lua_rawseti(L, -2, 2);
 
-    lua_setmetatable(L, -2);    
+    lua_setmetatable(L, -2);
+    
+    //TODO stack cleanup - remove x, y !? check usage first!
     return 1;
 }
 
@@ -984,20 +986,21 @@ static int mathRandom (lua_State *L) {
     return 1;
 }
 
-static int newPosition(lua_State *L) {
+static int newPosition(lua_State *L, int idx =1) {
     // (pos|obj|table|(num,num))
-    if (is_table(L, 1)) {  // table 
-        lua_rawgeti(L, 1, 1);
-        lua_rawgeti(L, 1, 2);
-    } else if (is_position(L, 1)) {
-        lua_getmetatable(L, 1);
-        lua_rawgeti(L, 2, 1);
-        lua_rawgeti(L, 2, 2);
-    } else if (is_object(L, 1)) {
+    if (is_table(L, idx)) {  // table 
+        lua_rawgeti(L, idx, 1);
+        lua_rawgeti(L, idx, 2);
+    } else if (is_position(L, idx)) {
+        lua_getmetatable(L, idx);
+        lua_rawgeti(L, -1, 1);
+        lua_rawgeti(L, -2, 2);
+        lua_remove(L, -3);     // remove metatable
+    } else if (is_object(L, idx)) {
         lua_pushstring(L, "x");
-        lua_gettable(L, 1); 
+        lua_gettable(L, idx); 
         lua_pushstring(L, "y");
-        lua_gettable(L, 1); 
+        lua_gettable(L, idx); 
     }
     
     if ((lua_type(L, -2) != LUA_TNUMBER) || (lua_type(L, -1) != LUA_TNUMBER)) {
@@ -1022,47 +1025,102 @@ static int minusPosition(lua_State *L) {
 }
 
 static int addPositionsBase(lua_State *L, int factorArg2) {
-    // (pos|obj|table) +|- (pos|obj|table)
-    double x = 0;
-    double y = 0;
-    for (int i = 1; i<=2; i++) {
-        if (is_table(L, i)) {  // table
-            lua_rawgeti(L, i, 1);
-            lua_rawgeti(L, i, 2);
-        } else if (is_position(L, i)) {
-            lua_getmetatable(L, i);
-            lua_rawgeti(L, -1, 1);
-            lua_rawgeti(L, -2, 2);
-            lua_remove(L, -3);
-        } else if (is_object(L, i)) {
-            lua_pushstring(L, "x");
-            lua_gettable(L, i); 
-            lua_pushstring(L, "y");
-            lua_gettable(L, i); 
-        } else {
-            throwLuaError(L, "Invalid add position value type");
+    // (pos|obj|table|polist) +|- (pos|obj|table|polist)
+    if (!(is_polist(L, 1) || is_polist(L, 2) )) {
+        // add two positions resulting a new position
+        double x = 0;
+        double y = 0;
+        for (int i = 1; i<=2; i++) {
+            if (is_table(L, i)) {  // table
+                lua_rawgeti(L, i, 1);
+                lua_rawgeti(L, i, 2);
+            } else if (is_position(L, i)) {
+                lua_getmetatable(L, i);
+                lua_rawgeti(L, -1, 1);
+                lua_rawgeti(L, -2, 2);
+                lua_remove(L, -3);
+            } else if (is_object(L, i)) {
+                lua_pushstring(L, "x");
+                lua_gettable(L, i); 
+                lua_pushstring(L, "y");
+                lua_gettable(L, i); 
+            } else {
+                throwLuaError(L, "Invalid add position value type");
+            }
+            if ((lua_type(L, -2) != LUA_TNUMBER) || (lua_type(L, -1) != LUA_TNUMBER)) {
+                throwLuaError(L, "Invalid add position value type");
+                return 0;
+            }            
+            x += (i == 1 ? 1 : factorArg2) *  lua_tonumber(L, -2);
+            y += (i == 1 ? 1 : factorArg2) *  lua_tonumber(L, -1);
+            lua_pop(L, 2);
         }
-        if ((lua_type(L, -2) != LUA_TNUMBER) || (lua_type(L, -1) != LUA_TNUMBER)) {
-            throwLuaError(L, "Invalid add position value type");
-            return 0;
-        }            
-        x += (i == 1 ? 1 : factorArg2) *  lua_tonumber(L, -2);
-        y += (i == 1 ? 1 : factorArg2) *  lua_tonumber(L, -1);
-        lua_pop(L, 2);
+    
+        lua_pushnumber(L, x);
+        lua_pushnumber(L, y);
+    } else {
+        // add a position to a list of postions resulting a list of positions
+        PositionList pl;
+        PositionList newpl;
+        bool found = false;
+        if (is_polist(L, 1)) {
+            pl = toPositionList(L, 1);
+            found = true;
+        } else {
+            newPosition(L, 1);
+        }
+        if (is_polist(L, 2)) {
+            if (found)
+                throwLuaError(L, "Addition of two position lists not supported");                
+            pl = toPositionList(L, 2);
+        } else {
+            newPosition(L, 2);
+        }
+        ecl::V2 offset = toPosition(L, -1);
+        lua_pop(L, 1);
+        for (PositionList::iterator itr = pl.begin(); itr != pl.end(); ++itr) {
+             ecl::V2 newpos = offset + factorArg2 * (ecl::V2)(*itr);
+             newpl.push_back(newpos);
+        }
+        return pushNewPolist(L, newpl);
     }
-
-    lua_pushnumber(L, x);
-    lua_pushnumber(L, y);
     return pushNewPosition(L);
 }
 
+static int joinGroup(lua_State *L) {
+    // (grp|obj) + (grp|obj)
+    if (!((is_group(L, 1) || is_object(L, 1)) &&  (is_group(L, 2) || is_object(L, 2)))) {
+        throwLuaError(L, "Join Group - argument is no object or group");
+        return 0;
+    }
+    std::list<Object *> objects;
+    for (int j = 1; j <= 2; j++) {
+        if (is_group(L, j)) {
+            lua_getmetatable(L, j);
+            int numObjects = lua_objlen(L, -1);
+            for (int i = 1; i <= numObjects; ++i) {
+                lua_rawgeti(L, -1, i);  // the object
+                objects.push_back(to_object(L, -1));
+                lua_pop(L, 1);          // the object        
+            }
+            lua_pop(L, 1);          // the metatable        
+        } else {
+            objects.push_back(to_object(L, j));
+        }
+    }
+    return pushNewGroup(L, objects);    
+}
+
 static int addPositions(lua_State *L) {
-    // (pos|obj|table) + (pos|obj|table)
-    return addPositionsBase(L, 1);
+    if (!(is_group(L, 1) || is_group(L, 2) ))
+        // (pos|obj|table|polist) + (pos|obj|table|polist)
+        return addPositionsBase(L, 1);
+    else
+        return joinGroup(L);
 }
     
 static int subPositions(lua_State *L) {
-    // (pos|obj|table) - (pos|obj|table)
+    // (pos|obj|table|polist) - (pos|obj|table|polist)
     return addPositionsBase(L, -1);
 }
 
@@ -1405,7 +1463,7 @@ static int xyObject(lua_State *L) {
     }
     lua_pushnumber(L, double(p.x));
     lua_pushnumber(L, double(p.y));
-    return 2;    
+    return 2;
 }
 
 static int objectEquality(lua_State *L) {
@@ -1580,31 +1638,7 @@ static int newGroup(lua_State *L) {
     return pushNewGroup(L, objects);
 }
 
-static int joinGroup(lua_State *L) {
-    // (grp|obj) + (grp|obj)
-    if (!((is_group(L, 1) || is_object(L, 1)) &&  (is_group(L, 2) || is_object(L, 2)))) {
-        throwLuaError(L, "Join Group - argument is no object or group");
-        return 0;
-    }
-    std::list<Object *> objects;
-    for (int j = 1; j <= 2; j++) {
-        if (is_group(L, j)) {
-            lua_getmetatable(L, j);
-            int numObjects = lua_objlen(L, -1);
-            for (int i = 1; i <= numObjects; ++i) {
-                lua_rawgeti(L, -1, i);  // the object
-                objects.push_back(to_object(L, -1));
-                lua_pop(L, 1);          // the object        
-            }
-            lua_pop(L, 1);          // the metatable        
-        } else {
-            objects.push_back(to_object(L, j));
-        }
-    }
-    return pushNewGroup(L, objects);    
-}
-
-static int intersectGroupBase(lua_State *L, bool isIntersect) {
+static int intersectGroupBase(lua_State *L, bool isIntersect, bool equal =false) {
     // (grp|obj) (*|-) (grp|obj)
     if (!((is_group(L, 1) || is_object(L, 1)) &&  (is_group(L, 2) || is_object(L, 2)))) {
         throwLuaError(L, "Intersect or Diff Group - argument is no object or group");
@@ -1644,7 +1678,15 @@ static int intersectGroupBase(lua_State *L, bool isIntersect) {
                 (!isIntersect && objSet.find(obj) == objSet.end()))
             objects.push_back(obj);
     }
-    return pushNewGroup(L, objects);    
+    if (!equal)
+        return pushNewGroup(L, objects);
+    else {
+        // check on equality
+        // remove NULL objects first
+        pushNewGroup(L, objects);
+        objects = toObjectList(L, -1);
+        return !objects.size();
+    }    
 }
 
 static int intersectGroup(lua_State *L) {
@@ -1657,23 +1699,20 @@ static int differenceGroup(lua_State *L) {
     return intersectGroupBase(L, false);    
 }
 
+static int groupEquality(lua_State *L) {
+    lua_pushboolean(L, intersectGroupBase(L, false, true));
+    return 1;
+}
+
 static int newPolist(lua_State *L) {
-    // (grp | table | (obj | pos [,obj | pos]))
+    // (grp )
     PositionList positions;
     if (is_group(L, 1)) {
         ObjectList ol = toObjectList(L, 1);
         for (ObjectList::iterator itr = ol.begin(); itr != ol.end(); ++itr) {
+            // eliminate invalid object references and add every object as value of its own
             if (*itr != NULL) {
-                switch ((*itr)->getObjectType()) {
-                    case Object::STONE :
-                    case Object::FLOOR :
-                    case Object::ITEM  :
-                        positions.push_back(dynamic_cast<GridObject *>(*itr)->get_pos());
-                        break;
-                    case Object::ACTOR :
-                        positions.push_back(dynamic_cast<Actor *>(*itr)->get_pos());
-                        break;
-                } 
+                positions.push_back(*itr);
             }
         }
     } else {
@@ -1690,7 +1729,6 @@ static int joinPolist(lua_State *L) {
         return 0;
     }
     PositionList positions;
-    std::list<Object *> objects;
     for (int j = 1; j <= 2; j++) {
         if (is_polist(L, j)) {
             PositionList addList = toPositionList(L, j);
@@ -2166,8 +2204,11 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
             if (it->isStatic()) {
                 DisposeObject(obj);
                 throwLuaError(L, "Attempt to add a static item to a bag or inventory");
-            } else
+            } else {
                 itemHolder->add_item(it);
+                // just in case itemholder is displayed
+                player::RedrawInventory(player::GetInventory(player::CurrentPlayer())); 
+            }
         }
     } else {
         switch (obj->getObjectType()) {
@@ -2960,6 +3001,8 @@ static int dispatchGroupReadAccess(lua_State *L) {
         int i = lua_tointeger(L, 2);
         lua_getmetatable(L, 1);
         int size = lua_objlen(L, -1);
+        if (i < 0)  // backward indices
+            i = size + 1 + i;
         if (i >= 1 && i <= size)
             lua_rawgeti(L, -1, i);
         else
@@ -3343,6 +3386,7 @@ static CFunction positionOperations[] = {
     {dividePositions,               "__div"},      //  obj / obj
     {centerPosition,                "__len"},      //  #obj
     {minusPosition,                 "__unm"},      //  -obj
+    {joinPolist,                    "__concat"},   //  obj .. obj
     {0,0}
 };
 
@@ -3423,6 +3467,7 @@ static CFunction groupOperations[] = {
     {joinGroup,                     "__add"},      //  obj + obj
     {intersectGroup,                "__mul"},      //  obj * obj
     {differenceGroup,               "__sub"},      //  obj - obj
+    {groupEquality,                 "__eq"},       //  ==
     {iteratorGroup,                 "__call"},
     {0,0}
 };
@@ -3441,6 +3486,8 @@ static CFunction polistOperations[] = {
     {dispatchPolistWriteAccess,     "__newindex"}, //  obj[key]=value
     {dispatchPolistReadAccess,      "__index"},    //  obj[key]
     {lengthPolist,                  "__len"},      //  #obj
+    {addPositions,                  "__add"},      //  obj + obj
+    {subPositions,                  "__sub"},      //  obj - obj
     {joinPolist,                    "__concat"},   //  obj .. obj
     {0,0}
 };

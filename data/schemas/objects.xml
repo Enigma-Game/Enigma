@@ -106,6 +106,8 @@
     <msg name="flip" type="nil"/>
     <msg name="forcefire" type="nil"/>
     <msg name="get_adjacents" type="nil"/>
+    <msg name="get_cluster" type="nil"/>
+    <msg name="is_complete" type="nil"/>
     <msg name="grow" type="nil"/>
     <msg name="heat" type="nil"/>
     <msg name="hit" type="object"/>
@@ -1652,6 +1654,8 @@
       <attr name="intensity" default="3"/>
       <attr name="state" rw="r"/>
       <msg name="get_adjacents"/>
+      <msg name="get_cluster"/>
+      <msg name="is_complete"/>
       <msg name="pull_rotate"/>
       <msg name="push_rotate"/>
       <msg name="_scramble"/>
