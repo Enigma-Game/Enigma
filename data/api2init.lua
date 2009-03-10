@@ -474,17 +474,21 @@ end
 
 function res.autotile_implementation(context, evaluator, key, x, y)
     for i, rule in ipairs (context[4]) do
-        if #rule == 3 then   -- from, to substitution
+        if #rule >= 3 then   -- from, to substitution
             --
             local first = string.byte(rule[1], #rule[1])
             local last = string.byte(rule[2], #rule[2])
             local candidate = string.byte(key, #key)
+            local offset = 1
+            if #rule == 4 then
+                offset = rule[4]
+            end
             
-            if #key == #rule[1] and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
+            if #rule[1] == #key and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
                     and first <= candidate and candidate <= last then
                 local tile = evaluator(context[3], key, x, y)
                 if tile == nil then
-                    res.autotile_newtile(key, ti[rule[3]], candidate - first + 1)
+                    res.autotile_newtile(key, ti[rule[3]], candidate - first + offset)
                     return ti[key]
                 else
                     return tile
@@ -505,22 +509,34 @@ function res.autotile_implementation(context, evaluator, key, x, y)
 end
 
 function res.autotile(subresolver, ...)
-    -- syntax: ... = <{prefixkey, template} | {fistkey, lastkey, template}>
+    -- syntax: ... = <{prefixkey, template} | {fistkey, lastkey, template[, offset]}>
     -- context: [4] = table with unmodified rule tables
     local args = {...}
     for i, rule in ipairs(args) do
         if type(rule) ~= "table" then
             error("Resolver autotile rule " .. i.." is not a table", 2)
         else
-            if #rule < 2 or #rule > 3 then
+            if #rule < 2 or #rule > 4 then
                 error("Resolver autotile rule "..i.." wrong number of arguments", 2)
             end
-            for j, str in ipairs(rule) do
-                if type(str) ~= "string" then
-                    error("Resolver autotile rule "..i.." has not a string in position "..j, 2)
+            local template_pos = 2
+            local string_pos = {1,2}
+            if #rule >= 3  then
+                template_pos = 3
+                string_pos = {1,2,3}
+            end
+            
+            for j, num in ipairs(string_pos) do
+                if type(rule[string_pos[num]]) ~= "string" then
+                    error("Resolver autotile rule "..i.." has no string at position "..num, 2)
                 end
             end
-            if #rule == 3 then
+            if #rule == 4 then
+                if type(rule[4]) ~= "number" then
+                    error("Resolver autotile rule "..i.." has no number at position 4", 2)
+                end
+            end
+            if #rule >= 3 then
                 local first = string.byte(rule[1], #rule[1])
                 local last  = string.byte(rule[2], #rule[2])
                 if #rule[2] ~= #rule[1] or string.sub(rule[2], 1, -2) ~= string.sub(rule[1], 1, -2)
@@ -528,8 +544,8 @@ function res.autotile(subresolver, ...)
                     error("Resolver autotile rule "..i.." bad range start-end strings", 2)
                 end
             end
-            if ti[rule[#rule]] == nil then
-                error("Resolver autotile missing template tile '"..rule[#rule].."'", 2)
+            if ti[rule[template_pos]] == nil then
+                error("Resolver autotile missing template tile '"..rule[template_pos].."'", 2)
             end
         end
     end

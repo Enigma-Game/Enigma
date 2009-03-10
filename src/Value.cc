@@ -267,7 +267,10 @@ namespace enigma {
             case BOOL: 
                 return (val.dval[0] != 0) ? 1 : 0;
             case STRING: 
-                return atoi(val.str);  //TODO use strtol and eval remaining part of string
+                if (val.str[0] == '%')
+                    return std::strtol(&(val.str[1]), NULL, 0);
+                else
+                    return std::strtol(val.str, NULL, 0);
             default: return 0;
         }
     }

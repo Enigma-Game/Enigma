@@ -360,7 +360,7 @@ namespace enigma {
                 if ((to_bool(o1->getAttr("noshuffle")) || o1->state != CLOSED) &&
                         (to_bool(o2->getAttr("noshuffle")) || o2->state != CLOSED) &&
                         (int)(o1->getAttr("oxydcolor")) >= 0 &&  (int)(o2->getAttr("oxydcolor")) >= 0 &&
-                        o1->getAttr("oxydcolor") != o2->getAttr("oxydcolor")) {
+                        (int)o1->getAttr("oxydcolor") != (int)o2->getAttr("oxydcolor")) {
                     logBadFrameCount++;
                     return 0;
                 }
@@ -883,8 +883,8 @@ namespace enigma {
             } else if (objFlags & OBJBIT_OPENPAIR) {
                 state = OPEN_PAIR;
                 std::string flavor(getAttr("flavor"));
-                string color(getDefaultedAttr("oxydcolor", 0));
-                set_model(string("st_oxyd") + flavor + color + "_open");
+                int color(getDefaultedAttr("oxydcolor", 0));
+                set_model(ecl::strf("st_oxyd%s%d_open", flavor.c_str(), color));
                 objFlags &= ~OBJBIT_OPENPAIR;
             }
             return Value();
@@ -989,9 +989,9 @@ namespace enigma {
     
     void OxydStone::setClosedModel(bool isInitial) {
         std::string flavor(getDefaultedAttr("flavor", "a"));
-        Value c = getAttr("oxydcolor");
+        int c = getAttr("oxydcolor");
         if (flavor == "e" && !isInitial && (int)c != FAKE)
-            set_model(std::string("st_oxyd") + flavor + (std::string)c);
+            set_model(ecl::strf("st_oxyd%s%d", flavor.c_str(), c));
         else
             set_model(std::string("st_oxyd") + flavor);
         
@@ -1018,7 +1018,7 @@ namespace enigma {
             }
         }
         
-        Value mycolor = getAttr("oxydcolor");    
+        int mycolor = getAttr("oxydcolor");    
         if ((int)mycolor < AUTO) {
             // pseudo open
             if (isSingleOpened) {
@@ -1040,10 +1040,10 @@ namespace enigma {
                     // open both stones. Close one of them otherwise.
                     // (This is the Oxyd behaviour; it doesn't work with
                     // some Enigma levels.)
-                    can_open = (mycolor == pairCandidate->getAttr("oxydcolor") && pairCandidate->state==OPEN_SINGLE);
+                    can_open = (pairCandidate->getAttr("oxydcolor") == mycolor && pairCandidate->state==OPEN_SINGLE);
                 }
                 else 
-                    can_open = (mycolor == pairCandidate->getAttr("oxydcolor"));
+                    can_open = (pairCandidate->getAttr("oxydcolor") == mycolor);
     
                 if (can_open) {
                     pairCandidate->set_iState(OPEN_PAIR);
@@ -1084,8 +1084,8 @@ namespace enigma {
             return;
         }
         
-        string flavor(getDefaultedAttr("flavor","a"));
-        string color(getDefaultedAttr("oxydcolor", 0));
+        std::string flavor(getDefaultedAttr("flavor","a"));
+        std::string color = ecl::strf("%d", (int)getDefaultedAttr("oxydcolor", 0));
     
         string basemodelname = string("st_oxyd") + flavor;
         string modelname = basemodelname + color;
