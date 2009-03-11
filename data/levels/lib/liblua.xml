@@ -41,21 +41,20 @@ setmetatable(lib.lua, getmetatable(lib))
 -- deep_copy returns a copy of SOURCE, where table entries are
 -- not copied as memory references, but complete ("deep copy").
 -- Metatables are transfered, but not deep-copied.
--- TODO: use rawset/rawget instead.
 function lib.lua.deep_copy(source)
- if type(source) ~= "table" then
-   return source
- end
- local dest = {}
- for k, v in pairs(source) do
-   if type(source[k]) == "table" then
-     dest[k] = lib.lua.deep_copy(source[k])
-   else
-     dest[k] = source[k]
-   end
- end
- setmetatable(dest, getmetatable(source))
- return dest
+  if type(source) ~= "table" then
+    return source
+  end
+  local dest = {}
+  for k, v in pairs(source) do
+    if type(v) == "table" then
+      rawset(dest, k, lib.lua.deep_copy(v))
+    else
+      rawset(dest, k, v)
+    end
+  end
+  setmetatable(dest, getmetatable(source))
+  return dest
 end 
 
 -- combine_tables returns a table consisting of all entries of the
@@ -130,6 +129,10 @@ function lib.lua.print_table(t, prefix, depth)
       key_s = "\"" .. key .. "\""
     elseif type(key) == "number" then
       key_s = key
+    elseif usertype(key) == "position" then
+      key_s = "<" .. key.x .. "/" .. key.y .. ">"
+    elseif type(key) == "userdata" then
+      key_s = "<" .. usertype(key) .. ">"
     else
       key_s = "<" .. type(key) .. ">"
     end

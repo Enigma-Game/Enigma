@@ -15045,7 +15045,8 @@ most cases a table of replacement descriptors from which the resulting tile
 should be selected with randomness.
 @item @i{replacement} = @i{key} | @{@i{key}, @i{frequency}@}
 Either a single tile key string that should be taken with a frequency of @samp{1},
-or a pair of a tile key string with a given frequency number.
+or a pair of a tile key string with a given frequency number. The frequency can
+be an integer or non-integer number, but must be positive or zero.
 @end table
 
 @item @b{Syntax Samples:}

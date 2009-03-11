@@ -374,7 +374,7 @@ function res.random_implementation(context, evaluator, key, x, y)
                 super = evaluator(context[3], hit_pair[2], x, y)
             end
             local repl_key
-            local r = math.random(context[6])
+            local r = math.random() * context[6]
             local i = 1
             local s = context[5][i][2]
             while s < r do
@@ -399,35 +399,54 @@ end
 function res.random(subresolver, hits, replacements)
     -- syntax: hits = key | {key, [key]*, [{key, superkey}]*}
     --         replacements = {key, [key]*, [{key, frequency}]*}
-    -- TODO check args!
-    
     local hit_table = {}
     if type(hits) == "string" then
         hit_table[1] = {hits, nil}
-    else
+    elseif type(hits) == "table" then
         for i, v in ipairs(hits) do
             if type(v) == "string" then
                 hit_table[i] = {v, nil}
             elseif type(v) == "table" then
+                if     (type(v[1]) ~= "string") or (type(v[2]) ~= "string") then
+                    error("res.random: Unsupported type or syntax error in second argument.", 2)
+                end
                 hit_table[i] = v
+            else
+                error("res.random: Unsupported type or syntax error in second argument.", 2)
             end
         end
+    else
+        error("res.random: Unsupported type or syntax error in second argument.", 2)
     end
     
     local repl_table = {}
-    for i, v in ipairs(replacements) do
-        if type(v) == "string" then
-            repl_table[i] = {v, 1}
-        elseif type(v) == "table" then
-            repl_table[i] = v
+    if type(replacements) == "string" then
+        repl_table[1] = {replacements, 1}
+    elseif type(replacements) == "table" then
+        for i, v in ipairs(replacements) do
+            if type(v) == "string" then
+                repl_table[i] = {v, 1}
+            elseif type(v) == "table" then
+                if (type(v[1]) ~= "string") and (type(v[2]) ~= "number") then
+                    error("res.random: Unsupported type or syntax error in third argument.", 2)
+                end
+                if v[2] < 0 then
+                    error("res.random: Frequency must be a positive number or zero.", 2)
+                end
+                repl_table[i] = v
+            else
+                error("res.random: Unsupported type or syntax error in third argument.", 2)
+            end
         end
+    else
+        error("res.random: Unsupported type or syntax error in third argument.", 2)
     end
     local repl_sum = 0
     for i, v in ipairs(repl_table) do
         repl_sum = repl_sum + v[2]
     end
     local context = {res.random_implementation, nil, subresolver, hit_table, 
-                      repl_table, repl_sum}
+                     repl_table, repl_sum}
     return context
 end
 
