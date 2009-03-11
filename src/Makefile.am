@@ -554,7 +554,7 @@ bundle-doc:
 static_prefix := `$(SDL_CONFIG) --prefix`
 .PHONY: enigma-fw-mosx
 enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
-	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) ${LIBINTL} $(static_prefix)/lib/libxerces-c.a -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
+	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a /usr/lib/libiconv.dylib $(static_prefix)/lib/libxerces-c.a -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
 
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
