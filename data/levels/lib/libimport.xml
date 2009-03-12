@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libimport"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- libimport.xml is dedicated to parse level files of other
+-- games or formats and typically returns libmap-maps.
+-- In this context, the word "level" refers to a string,
+-- representing a level of the other game. "multilevel"
+-- is a string composed of one or more levels.
+-- A "monolevel" is a string which holds a single level,
+-- but also additional information, so it has to be handled
+-- as multilevel to extract the level.
+-- A map is a map in the libmap-sense, i.e. an Enigma level.
+
+lib.import = {}
+setmetatable(lib.import, getmetatable(lib))
+
+lib.import.line_regexp = {}
+
+-------------------
+-- General tools --
+-------------------
+
+function lib.import.unpack_multilevel(multilevel, sublevel_number, format)
+    if type(multilevel) ~= "string" then
+        error("lib.import.unpack_multilevel: Can't make sense of level type "..type(level)..".", 2)
+    end
+    if (type(sublevel_number or 1) ~= "number") then
+        error("lib.import.unpack_multilevel: Sublevel number must be an integer.", 2)
+    end
+    local current_level_number = 0
+    local level = ""
+    -- search the correct sublevel by pattern matching, line for line
+    local in_level = false
+    for line in string.gfind(multilevel, "([^\n\|]*)[\n\|]") do
+        local start_match, end_match = string.find(line, lib.import.line_regexp[format])
+        if (start_match == 1) and (end_match == string.len(line)) then
+            if not in_level then
+                -- we just entered a new level
+                current_level_number = current_level_number + 1
+                in_level = true
+            end
+            if current_level_number == (sublevel_number or 1) then
+                level = level..line.."\n"
+            end
+        else
+            in_level = false
+        end
+    end  
+    if level == "" then
+        error("lib.import.unpack_multilevel: Multilevel holds less than "..sublevel_number.." levels!", 2)
+    end
+    return level
+end
+
+function lib.import.uncompress_rle(level, attribs)
+    local uncompressed = ""
+    local rle_counter = nil
+    local error_on_multiple = (attribs or {}).error_on_multiple
+    for j = 1, string.len(level) do
+        local ch = string.sub(level, j, j)
+        if tonumber(ch) then
+            -- add number for runlength encoding
+            rle_counter = 10 * (rle_counter or 0) + tonumber(ch)
+        else
+            if error_on_multiple and ((rle_counter or 1) > 1) then
+                -- check whether character is allowed as multiple
+                if string.find(ch, error_on_multiple) then
+                    error("lib.import.uncompress_rle: Level uses rle-compression on an invalid character.", 2)
+                end
+            end
+            uncompressed = uncompressed .. string.rep(ch, rle_counter or 1)
+            rle_counter = nil
+        end
+    end
+    return uncompressed
+end
+
+function lib.import.string_replace(level, old_string, new_string)
+    return string.gsub(level, old_string, function(s) return new_string end)
+end
+
+function lib.import.string_remove_multiples(level, ch)
+    local result = level
+    while string.find(result, ch..ch) do
+        result = lib.import.string_replace(result, ch..ch, ch)
+    end
+    return result
+end
+
+-- When using level_to_map, make sure in advance that the level ends
+-- with a proper line ending, and only one line ending.
+function lib.import.level_to_map(level, _line_ending, _default_key)
+    local line_ending = _line_ending or "\n"
+    local default_key = _default_key or " "
+    if type(level) ~= "string" then
+        error("lib.import.level_to_map: Can't make sense of level type "..type(level)..".", 2)
+    end
+    if type(line_ending) ~= "string" then
+        error("lib.import.level_to_map: Can't make sense of line ending type "..type(level)..".", 2)
+    end
+    if type(default_key) ~= "string" then
+        error("lib.import.level_to_map: Can't make sense of default key type "..type(level)..".", 2)
+    end
+    local premap = {}
+    local reg_exp_line = "(.-)" .. line_ending
+    string.gsub(level, reg_exp_line, function (s)
+        table.insert(premap, s)
+    end)
+    return wo:newMap(default_key, premap)
+end
+
+----------------------------------------
+-- Specific import data and functions --
+----------------------------------------
+
+--------------------------
+-- Sokoban level format --
+--------------------------
+
+-- Sokoban level files can be very different - they can use
+-- runlength encoding and multilevel files. Sometimes, "|"
+-- is used as line ending instead of or together with "\n".
+-- " ", "_" and "-" can all represent space. Sometimes, the
+-- outside is filled with " ", then again with "#" (what we
+-- call "redundant walls"). Finally, line width can vary.
+-- We use a slightly generalized version, to include
+-- chessoban levels. Allowed characters are:
+--    - _ space  space
+--    #          wall
+--    .          goal
+--    $ *        box, box with goal
+--    n N        st_chess, st_chess with goal
+--    @ +        player, player with goal
+-- The returned map will use " " for inside space, "-" for
+-- outside space, default key is " ".
+
+lib.import.line_regexp["sokoban"] =
+      "[ \-\#\_\$\.@\*0-9Nn\+]*"  -- all allowed characters except line ending
+   .. "[\#\$\.@\*Nn\+]+"          -- at least one non-space character
+   .. "[ \-\#\_\$\.@\*0-9Nn\+]*"  -- again all allowed characters except line ending
+
+function lib.import.map_sokoban(multilevel, sublevel_number, keylength_one)
+    if type(multilevel) ~= "string" then
+        error("lib.import.map_sokoban: Multilevel is not a string.", 2)
+    end
+    local level
+    level = lib.import.unpack_multilevel(multilevel .. "\n", sublevel_number or 1, "sokoban")
+    level = lib.import.uncompress_rle(level, {error_on_multiple = "|\n"})
+    level = lib.import.string_replace(level, "|", "\n")
+    level = lib.import.string_remove_multiples(level .. "\n", "\n")
+    local map = lib.import.level_to_map(level, "\n", " ")
+    map:replace("_")
+    map:replace("-")
+    map:replace_outside(" ", "-")
+    -- Remove redundant walls by outside:
+    -- A wall is redundant, if it is surrounded by "-" or "#".
+    -- In this case, it can be replaced by "-".
+    map.defaultkey = "-"
+    map[map:match({{po(0,0), "#"}, {NEIGHBORS_8, "-", "#"}})] = "-"
+    map = map:trim()
+    map.defaultkey = " "
+    -- MAP now is a ready-to-use keylength-one-map.
+    -- If KEYLENGTH_ONE is true, we may return the map;
+    -- otherwise, we resolve the characters "*", "N" and
+    -- "+", which include triggers.
+    if keylength_one then
+        return map
+    end
+    twocharmap = map * wo:newMap(" ")
+    twocharmap:replace(". ", " .")
+    twocharmap:replace("* ", "$.")
+    twocharmap:replace("N ", "n.")
+    twocharmap:replace("+ ", "@.")
+    return twocharmap
+end
+
+---------------------------
+-- Wanderer level format --
+---------------------------
+
+-- Wanderer is a game originally created by Steven Shipway in 1988.
+-- Wanderer level files are uncompressed monolevels with fixed
+-- width. The level itself is followed by a short description
+-- (title/author/email) in a single line or a line of "#"s. Last
+-- line optionally is a number. A Wanderer level knows the
+-- following characters (taken from Wanderer's editor):
+--    : _ #      earth, rock, indestructible rock
+--    * - space  treasure, alternative space, space
+--    O < > ^    falling boulder, arrow from right, arrow from left, balloon
+--    ! + B      landmine, cage, bomb
+--    / \\       deflectors
+--    T A X @    teleport, arrival, exit, start
+--    M S C ~    big monster, baby monster, time capsule, thingy
+
+lib.import.line_regexp["wanderer"] =
+      "[ \:\_\#\*\-O\<\>\^\!\+B\/\\TAX@MSC\~]+" -- at least one character
+
+function lib.import.map_wanderer(monolevel)
+    -- strip level from text lines
+    local level = lib.import.unpack_multilevel(monolevel, 1, "wanderer")
+    local map = lib.import.level_to_map(level, "\n", " ")
+    -- replace alternative space by space (i.e. default key)
+    map:replace("-")
+    return map
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

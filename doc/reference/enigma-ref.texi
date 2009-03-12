@@ -13176,6 +13176,7 @@ already.
 * liblua::       General methods for tables.
 * libmath::      Mathematical algorithms, like random permutations.
 * libmap::       Methods for API 2-maps.
+* libimport::    Methods for importing external level files.
 * libsoko::      A library to interpret Sokoban level files.
 @end menu
 
@@ -13964,6 +13965,45 @@ mymap[no["marble2"] + @{1,0@}] = "  "
 Note that the reference to @samp{marble2} only works after the marble has been
 set.
 
+Requesting and changing map entries can be used with position lists, object and
+group references as well.
+
+You can replace any occurence of a tile key @samp{tile1} by @samp{tile2} simply
+by
+@example
+mymap:replace(tile1, tile2)
+@end example
+You can omit @samp{tile2}, then any occurence of @samp{tile1} will be replaced
+by the default key.
+
+You can also search for positions in a map which fulfill given conditions by
+using @samp{match}, the return value is a position list. The syntax is simple:
+@example
+mymap:match()
+mymap:match(tilekey)
+mymap:match(@{pos1, key1a, key1b, ...@}, @{pos2, key2a, key2b, ...@}, ...)
+mymap:match(@{@{pos1, key1a, key1b, ...@}, @{pos2, key2a, key2b, ...@}, ...@})
+@end example
+The first call will return all positions of the map. The second call will
+return all positions with the desired @code{tilekey}. The third and fourth call
+will return all positions @code{x} such that @code{x + pos1} is one of the keys
+@code{key1a} or @code{key1b} or ..., and such that @code{x + pos2} is one of
+the keys @code{key2a}, @code{2b}, ..., and so on. A tile outside of the map is
+considered to be a default key.
+
+The resulting position list can then be used to replace the matching tile keys:
+@example
+mymap[mymap:match(oldkey)] = newkey
+@end example
+is equivalent to @samp{mymap:replace(oldkey, newkey)} (only slower), and
+@example
+mymap[mymap:match({po(0,0), " "}, {NEIGHBORS_4, ".", ":"})] = "."
+@end example
+will find all occurences of @samp{ }, which are completely surrounded by
+@samp{.}, or @samp{:}, or mixtures of these, and replace them by @samp{.}. As
+all replacements are done after matching, and hence simultaneously, the newly
+introduced @samp{.} will not participate in the matching.
+
 @c ----------------- Connecting Two Maps --------------------
 
 @node Connecting Two Maps
@@ -14017,11 +14057,12 @@ will be extended such that the whole of @samp{map2} fits into it. You can use
 the default key of @samp{map2} will be ignored, i.e. not drawn onto
 @samp{map1}. You can change the default key with @samp{map2.defaultkey = ...}
 prior to the paste command to circumvent this, or use
-@samp{map2.replace(tile)} to replace more tile keys by the default key, such
-that they are not drawn as well. You can use an object group for @samp{pos}, in
-this case several copies of @samp{map2} will be pasted into @samp{map1}. There
-is no guarantee about the sequence in which the maps will be pasted into
-@samp{map1}.
+@samp{map2:replace(tile)} to replace more tile keys by the default key, such
+that they are not drawn as well. You can use an object group or position list
+for @samp{pos}, in this case several copies of @samp{map2} will be pasted into
+@samp{map1}. In the first case, there is no guarantee about the sequence in
+which the maps will be pasted into @samp{map1}. In the second case, a latter
+entry in the position list may overwrite the result of earlier entries.
 
 However, there's a fourth possibility: Two maps may represent two different
 parts of tile keys. Let's give an example to fuse two tile key layers:
@@ -14061,6 +14102,9 @@ first_char * "u" = wo:newMap(" u", @{"#u#u#u#u#u#u#u",
 Fusing maps can be a mighty technique in combination with the
 @ref{res.composer}- and @ref{res.autotile}-resolvers.
 
+A map can also be defused: @samp{map:defuse()} will return a table of maps,
+where each map is of keylength one, holding the corresponding subkey character.
+
 @c ----------------- Other Map Tasks --------------------
 
 @node Other Map Tasks
@@ -14075,14 +14119,6 @@ mymap:set_default_key(".3")
 The new default key should have the same length as the old one. However, it is
 possible to choose a new key length as long as it fits to the map.
 
-You can replace any occurence of a tile key @samp{tile1} by @samp{tile2} simply
-by
-@example
-mymap:replace(tile1, tile2)
-@end example
-You can omit @samp{tile2}, then any occurence of @samp{tile1} will be replaced
-by the default key.
-
 Width and height of a map can be accessed via @samp{mymap.width} and
 @samp{mymap.height}. However, these values can be changed only through the
 following commands @samp{mymap:extend} and @samp{mymap:sub}.
@@ -14095,6 +14131,10 @@ mymap:extend(@{19, 12@})
 will extend @samp{mymap} up to position @samp{@{19,12@}}. Missing entries will
 be filled with the default key. If the map already covers this position, no
 change will be done.
+
+If you want to check whether a position @samp{pos} lies inside a map, you can
+use @samp{mymap:covers(pos)}, which returns a boolean value. Note that a map
+always starts in @samp{@{0,0@}}.
 
 @samp{lib.map.sub} allows you to copy a rectangular area of a map and create a
 "submap" this way. @samp{lib.map.sub} uses the same syntax as
@@ -14114,9 +14154,55 @@ resulting @samp{submap} will still be just the rectangular section of
 Use @samp{submap:extend(width, height)} to ensure the full width and height.
 The default key of the submap of course is the default key of the original map.
 
-If you want to check whether a position @samp{pos} lies inside a map, you can
-use @samp{mymap:covers(pos)}, which returns a boolean value. Note that a map
-always starts in @samp{@{0,0@}}.
+@samp{lib.map.trim} or @samp{mymap:trim(tilekey)} removes all lines and
+columns from the North, South, East and West that consist of @code{tilekey}
+only; it's like trimming a string from white spaces. You can omit
+@samp{tilekey}, then the default key is used instead.
+
+@samp{mymap:replace_outside(tile1, tile2)} is a kind of combination of
+@samp{replace} and @samp{trim}: All occurrences of @code{tile1}, which are
+connected to the border by a path of @samp{tile1}, are replaced by
+@code{tile2} (or default key). Example:
+@example
+map1 = wo:newMap(" ", @{" ##########",
+                       "###      ##",
+                       "F# D ## # #",
+                       "#       # #",
+                       "########   "@})
+map2 = map1:replace_outside(" ", ".")
+map3 = map1:replace_outside(" ", "#")
+map3 = map3:replace_outside("#", ".")
+@end example
+will yield:
+@example
+map2 = @{".##########",
+        "###      ##",
+        "F# D ## #.#",
+        "#       #.#",
+        "########..."@})
+map3 = @{"...........",
+        "...      ..",
+        "F. D ## ...",
+        ".       ...",
+        "..........."@})
+@end example
+You can combine @samp{replace_outside} with @samp{match} to remove irrelevant
+walls:
+@example
+map1.defaultkey = "-"
+map1:replace_outside(" ")
+map1[map1:match({{po(0,0), "#"}, {NEIGHBORS_4, "-", "#", "F"}})] = "-"
+map1:trim()
+map1.defaultkey = " "
+@end example
+will yield:
+@example
+map1 = @{"---######-",
+         "--#      #",
+         "F# D ## #-",
+         "#       #-",
+         "-#######--"@})
+@end example
 
 Finally, you can use @samp{mymap:print()} to print @samp{mymap} to standard
 output. Similar to @ref{lib.lua.print_table}, this is useful for debugging a
@@ -14129,6 +14215,243 @@ If @samp{withXYCounts} is @samp{true}, the map is printed with coordinates on
 the top and on the left. @samp{left_separator} and @samp{right_separator} can
 be strings to be put between the left coordinate axis and the map, and behind
 the map (to analyse space characters).
+
+@node libimport
+@section libimport
+
+libimport is dedicated to parse level files of other games or formats and
+typically returns @ref{libmap}-maps. In this context, the word "level" refers to
+a string, representing a level of the other game. A "monolevel" is a string
+which holds a single level, but also additional information, like titles or
+author names. A "multilevel" is a string composed of one or more monolevels.
+A "map" is a map in the libmap-sense, i.e. an Enigma level.
+
+Apart from the following functions, lib.import includes the minor routines
+@samp{lib.import.string_replace}, which is a wrapper for @code{string.gsub},
+and @samp{lib.import.string_remove_multiples}, which removes multiple
+occurences of a string in another string.
+
+@menu
+* lib.import.unpack_multilevel::        Extract a level from a multilevel.
+* lib.import.uncompress_rle::           Decode run-length encoding.
+* lib.import.level_to_map::             Converts a level into a map.
+* lib.import.map_sokoban::              Converts a Sokoban level into a map.
+* lib.import.map_wanderer::             Converts a Wanderer level into a map.
+@end menu
+
+@c ----------------- unpack_multilevel --------------------
+
+@node lib.import.unpack_multilevel
+@subsection lib.import.unpack_multilevel
+
+@samp{unpack_multilevel} extracts a level from a multilevel string. For this,
+it needs a regexp describing a single level line.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.import.unpack_multilevel}(multilevel, sublevel_number, format)
+@table @asis
+@item @i{multilevel}
+A multilevel string.
+
+@item @i{sublevel_number}
+The number of the level in @code{multilevel} to be extracted. First level is
+@samp{1}. If @code{nil}, @samp{1} is taken as default.
+
+@item @i{format}
+A string referencing an entry in @samp{lib.import.line_regexp}. Currently, only
+@samp{sokoban} and @samp{wanderer} are supported. But you can add further
+entries to @samp{lib.import.line_regexp} if neccessary.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+level_four = lib.import.unpack_multilevel(large_string, 4, "sokoban")
+@end example
+
+@item @b{Details:}
+A level extracted with @code{unpack_multilevel} has still to be converted into
+a format Enigma understands. A level is a string, and lines of the level are to
+be determined by line endings, which can be quite different. In contrast to
+this, an Enigma map is a table of strings, with each line in a separate entry
+of the table. Hence, at least the line endings have to be dealt with.
+
+@c ----------------- uncompress_rle --------------------
+
+@node lib.import.uncompress_rle
+@subsection lib.import.uncompress_rle
+
+@samp{uncompress_rle} takes a string as argument and returns a decoded version
+without run-length encoding.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.import.uncompress_rle}(level, attribs)
+@table @asis
+@item @i{level}
+A level string.
+
+@item @i{attribs}
+A table containing further parameters. Currently, the only supported parameter
+is @samp{error_on_multiple}.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+uncompressed = lib.import.uncompress_rle(compressed, @{error_on_multiple = "\n"@})
+@end example
+
+@item @b{Details:}
+Levels typically include long lines of repeating characters, like walls or
+spaces. To save space, these are sometimes counted and replaced by the total
+number and a single example of the character. This is called "run-length
+encoding", or RLE.
+@example
+"############  A #####BB#" compresses to "12#2 A5#2B#"
+@end example
+However, some characters don't make sense to be repeated, like line endings.
+To return an error when trying to repeat a line ending during decompression,
+you can hand a string to the attribute @samp{error_on_multiple}. Any character
+in this string is then forbidden to be repeated. Remember that the @samp{new
+line}-character is represented by @samp{\n} in Lua.
+
+@c ----------------- level_to_map --------------------
+
+@node lib.import.level_to_map
+@subsection lib.import.level_to_map
+
+@samp{level_to_map} breaks a level string down into a table of strings, which
+is then converted into a @ref{libmap}-map.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.import.level_to_map}(level, line_ending, default_key)
+@table @asis
+@item @i{level}
+A level string.
+
+@item @i{line_ending}
+A string describing a single line ending. Default: @samp{\n}
+
+@item @i{default_key}
+The default key of the returned map. Default: @samp{ }
+@end table
+
+@item @b{Syntax Samples:}
+@example
+mymap = lib.import.level_to_map(level, "|", " ")
+@end example
+
+@item @b{Details:}
+Multiple line endings are interpreted as multiple lines (of which the last
+lines are filled with the default key).
+
+Make sure that the last line of the level ends in a proper line ending, and only
+one line ending. Otherwise, the returned map will be too short or too long.
+
+@c ----------------- map_sokoban --------------------
+
+@node lib.import.map_sokoban
+@subsection lib.import.map_sokoban
+
+@samp{map_sokoban} takes a Sokoban multilevel as argument, and returns a
+beautified @ref{libmap}-map.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.import.map_sokoban}(multilevel, sublevel_number, keylength_one)
+@table @asis
+@item @i{multilevel}
+A multilevel string.
+
+@item @i{sublevel_number}
+The number of the level to be extracted. First level is @samp{1}. Default:
+@samp{1}
+
+@item @i{keylength_one}
+A boolean value. If @code{false}, the returned map has keylength two. Otherwise,
+it has keylength one. Default: @samp{false}
+@end table
+
+@item @b{Syntax Samples:}
+@example
+map_four = lib.import.map_sokoban(multilevel, 4, true)
+@end example
+
+@item @b{Details:}
+Sokoban level files can be very different - they can use run-length encoding and
+multilevel files. Sometimes, @samp{|} is used as line ending instead of or even
+together with @samp{\n}. @samp{ }, @samp{_} and @samp{-} can all represent
+space. Sometimes, the outside is filled with @samp{ }, then again with @samp{#}.
+Finally, line width can vary. We use a slightly generalized version, to include
+chessoban levels. Allowed characters are:
+@example
+   - _ space  space
+   #          wall
+   .          goal
+   $ *        box, box with goal
+   n N        st_chess, st_chess with goal
+   @@ +        player, player with goal
+@end example
+The returned map will use @samp{ } for inside space, @samp{-} for
+outside space, default key is @samp{ }.
+
+If you chose @samp{keylength_one = true}, the returned map will use the
+characters as described above. Otherwise, the returned map will have keylength
+two, and the characters @samp{*}, @samp{N}, and @samp{+} are resolved into
+@samp{$.}, @samp{n.}, and @samp{@@.} respectively, while the other keys become
+@samp{  }, @samp{- }, @samp{# }, @samp{ .}, @samp{$ }, @samp{n }, and
+@samp{@@ }. You can then use @ref{res.composer} to easily draw your map.
+
+Remember that the returned map uses the inner space @samp{ } or @samp{  } as
+default key. Hence, if you want to paste the map into another one
+(@ref{Connecting Two Maps}), you will have to switch the default key to
+@samp{-} or @samp{- } in beforehand to yield a good result.
+
+@c ----------------- map_wanderer --------------------
+
+@node lib.import.map_wanderer
+@subsection lib.import.map_wanderer
+
+@samp{map_wanderer} takes a Wanderer monolevel as argument, and returns a
+@ref{libmap}-map. Note that Enigma does not yet have the neccessary game objects
+to simulate Wanderer.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.import.map_wanderer}(monolevel)
+@table @asis
+@item @i{monolevel}
+A monolevel string.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+mymap = lib.import.map_wanderer(monolevel)
+@end example
+
+@item @b{Details:}
+Wanderer is a game originally created by Steven Shipway in 1988.
+Wanderer level files are uncompressed monolevels with fixed
+width. The level itself is followed by a short description
+(title/author/email) in a single line or a line of @samp{#}. Last
+line optionally is a number. A Wanderer level knows the
+following characters (taken from Wanderer's editor):
+@example
+   : _ #      earth, rock, indestructible rock
+   * - space  treasure, alternative space, space
+   O < > ^    falling boulder, arrow from right, arrow from left, balloon
+   ! + B      landmine, cage, bomb
+   / \        deflectors
+   T A X @@    teleport, arrival, exit, start
+   M S C ~    big monster, baby monster, time capsule, thingy
+@end example
+Due to its fixed width (40) and height (16), a Wanderer level is not always
+surrounded by walls; you might have to add them.
+
+Note that Enigma does not yet support the game elements of Wanderer, hence this
+function currently is only of use to developers.
+
 
 @node libsoko
 @section libsoko

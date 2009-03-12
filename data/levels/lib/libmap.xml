@@ -8,6 +8,7 @@
       <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
@@ -30,14 +31,21 @@
 --   lib.map.fuse(arg1, arg2)                 aka. map1 * map2
 --   lib.map.transform(map, op)               aka. map ^ op
 --   lib.map.get(map, posarg)                 aka. map[posarg]
---   lib.map.set(map, posarg, value)            aka. map[posarg] = value
---   lib.map.extend(map, posarg)                aka. map:extend(posarg)
---   lib.map.sub(map, arg1, arg2)               aka. map:sub(arg1, arg2)
---   lib.map.paste(map1, map2, posarg, ignore)  aka. map1:paste(map2, posarg, ignore)
---   lib.map.covers(map, pos)                   aka. map:covers(pos)
---   lib.map.set_default_key(map, newkey)       aka. map:set_default_key(newkey)
+--   lib.map.set(map, posarg, value)          aka. map[posarg] = value
+--   lib.map.covers(map, pos)                 aka. map:covers(pos)
+--   lib.map.defuse(map)                      aka. map:defuse()
+--   lib.map.extend(map, posarg)              aka. map:extend(posarg)
+--   lib.map.match(map, conditions)           aka. map:match(conditions)
+--   lib.map.paste(map1, map2, posarg, ignore)
+--                                            aka. map1:paste(map2, posarg, ignore)
 --   lib.map.print(map, withXYCounts, left_separator, right_separator)
 --                                            aka. map:print(...)
+--   lib.map.replace(map, oldkey, newkey)     aka. map:replace(oldkey, newkey)
+--   lib.map.replace_outside(map, oldkey, newkey)
+--                                            aka. map:replace_outside(oldkey, newkey)
+--   lib.map.set_default_key(map, newkey)     aka. map:set_default_key(newkey)
+--   lib.map.sub(map, arg1, arg2)             aka. map:sub(arg1, arg2)
+--   lib.map.trim(map, trimkey)               aka. map:trim(trimkey)
 -- Please consult the reference manual for details.
 --
 
@@ -104,6 +112,27 @@ function lib.map.fuse(arg1, arg2)
   return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
 end
 
+function lib.map.defuse(map)
+  if (type(map) ~= "table") or (map.type ~= "map") then
+    error("lib.map.defuse: Can only work on maps.", 2)
+  end
+  local kl = rawget(map, "__keylength")
+  local dk = rawget(map, "__defaultkey")
+  local result = {}
+  for j = 1, kl do
+    result[j] = wo:newMap(string.sub(dk, j, j), map.width, map.height)
+  end
+  for y = 0, map.height - 1 do
+    for x = 0, map.width - 1 do
+      local key = map[{x,y}]
+      for j = 1, kl do
+        result[j][{x,y}] = string.sub(key, j, j)
+      end
+    end
+  end
+  return result
+end
+
 function lib.map.transform(map, op)
   if (type(map) ~= "table") or (map.type ~= "map") then
     error("lib.map.transform: Can only work on maps.", 2)
@@ -161,12 +190,12 @@ function lib.map.sub(map, origin, arg2, arg3)
   local result = {}
   local kl = map.keylength
   for y = pos1.y + 1, pos2.y + 1 do
-    if y < map.height then
+    if y <= map.height then
       result[y-pos1.y] = string.sub(rawget(map, y) or "",
                              pos1.x * kl + 1, (pos2.x + 1) * kl) or ""
     end
   end
-  return wo:newMap(map.defaultkey, result)  
+  return wo:newMap(rawget(map, "__defaultkey"), result)  
 end
 
 function lib.map.paste(map1, map2, posarg)
@@ -192,6 +221,10 @@ function lib.map.paste(map1, map2, posarg)
     for obj in posarg do
       lib.map.paste(map1, map2, obj)
     end
+  elseif usertype(posarg) == "polist" then
+    for j = 1, #posarg do
+      lib.map.paste(map1, map2, posarg[j])
+    end
   elseif type(posarg) == "table" then
     lib.map.paste(map1, map2, po(posarg))
   else
@@ -207,7 +240,7 @@ function lib.map.replace(map, tile1, tile2arg)
   local tile2 = tile2arg or rawget(map, "__defaultkey")
   if    (type(tile1) ~= "string") or (type(tile2) ~= "string")
      or (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
-    error("lib.map.replace: Tiles do not have the same length as default key.")
+    error("lib.map.replace: Tiles do not have the same length as default key.", 2)
   end
   for y = 1, map.height do
     local line = rawget(map, y)
@@ -218,6 +251,107 @@ function lib.map.replace(map, tile1, tile2arg)
       end
     end
   end
+end
+
+function lib.map.replace_outside(map, tile1, tile2arg)
+  if (type(map) ~= "table") or (map.type ~= "map") then
+    error("lib.map.replace_outside: Can only work on maps.", 2)
+  end
+  local kl = rawget(map, "__keylength")
+  local tile2 = tile2arg or rawget(map, "__defaultkey")
+  if    (type(tile1) ~= "string") or (type(tile2) ~= "string")
+     or (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
+    error("lib.map.replace_outside: Tiles do not have the same length as default key.", 2)
+  end
+  if tile1 == tile2 then
+    error("lib.map.replace_outside: Old and new tile must be different.", 2)
+  end
+  -- mark outside floor fields from the border
+  local function check_for_outside(x, y)
+    if string.sub(rawget(map, y), kl * (x - 1) + 1, x * kl) == tile1 then
+      map[{x-1, y-1}] = tile2
+      if y > 1          then  check_for_outside(x, y - 1)  end
+      if y < map.height then  check_for_outside(x, y + 1)  end
+      if x > 1          then  check_for_outside(x - 1, y)  end
+      if x < map.width  then  check_for_outside(x + 1, y)  end
+    end
+  end
+  for y = 1, map.height do
+    check_for_outside(1, y)
+    check_for_outside(map.width, y)
+  end
+  for x = 1, map.width do
+    check_for_outside(x, 1)
+    check_for_outside(x, map.height)
+  end
+end
+
+function lib.map.match(map, conditionsarg, ...)
+  if (type(map) ~= "table") or (map.type ~= "map") then
+    error("lib.map.match: Can only work on maps.", 2)
+  end
+  local kl = rawget(map, "__keylength")
+  local conditions 
+  if #{...} == 0 then
+    if      (type(conditionsarg) == "table")
+       and ((usertype(conditionsarg[1]) == "position") or (usertype(conditionsarg[1]) == "polist")) then
+      conditions = lib.lua.deep_copy({conditionsarg})
+    else
+      conditions = lib.lua.deep_copy(conditionsarg)
+    end
+  else
+    conditions = lib.lua.deep_copy({conditionsarg, ...})
+  end
+  if type(conditions) == "nil" then
+    conditions = {}
+  end
+  if type(conditions) == "string" then
+    conditions = {{po(0,0), conditions}}
+  end
+  if type(conditions) ~= "table" then
+    error("lib.map.match: Conditions of wrong type " .. type(conditions)
+        .. ", expected table, string, or nil.", 2)
+  end
+  for _, condition in pairs(conditions) do
+    if (type(condition) ~= "table") or (#condition < 2) then
+      error("lib.map.match: Wrong type in condition list, expected a table with "
+          .. "at least two entries.", 2)
+    end
+    if (usertype(condition[1]) == "position") then
+      condition[1] = po(grp({})) .. condition[1]
+    end
+    if (usertype(condition[1]) ~= "polist") then
+      error("lib.map.match: Wrong type in condition, expected position or "
+          .. "position list as first entry.", 2)
+    end
+    for j = 2, #condition do
+      if (type(condition[j]) ~= "string") or (string.len(condition[j]) ~= kl) then
+        error("lib.map.match: Tile key in condition has wrong type or key length.", 2)
+      end
+    end       
+  end
+  local result = po(grp({}))
+  for y = 0, map.height - 1 do
+    for x = 0, map.width - 1 do
+      local conditions_fulfilled = true
+      for _, condition in pairs(conditions) do
+        for j = 1, #condition[1] do
+          if conditions_fulfilled then
+            local ch = map[{x + condition[1][j].x, y + condition[1][j].y}]
+            local found = false
+            for j = 2, #condition do
+              found = found or (condition[j] == ch)
+            end
+            conditions_fulfilled = found  -- at this point, cf was always true
+          end
+        end
+      end
+      if conditions_fulfilled then
+        result = result .. po(x,y)
+      end
+    end
+  end
+  return result
 end
 
 function lib.map.covers(map, pos)
@@ -245,6 +379,12 @@ function lib.map.get(map, posarg)
     local result = {}
     for obj in posarg do
       table.insert(result, lib.map.get(map, obj))
+    end
+    return result
+  elseif usertype(posarg) == "polist" then
+    local result = {}
+    for j = 1, #posarg do
+      result[j] = lib.map.get(map, posarg[j])
     end
     return result
   elseif type(posarg) == "table" then
@@ -313,6 +453,14 @@ function lib.map.set(map, posarg, value)
           .. value
           .. string.sub(rawget(map, obj.y + 1), (obj.x + 1) * kl + 1, -1))
       end
+    elseif usertype(posarg) == "polist" then
+      for j = 1, #posarg do
+        map:extend(posarg[j])
+        rawset(map, posarg[j].y + 1,
+             string.sub(rawget(map, posarg[j].y + 1), 1, posarg[j].x * kl)
+          .. value
+          .. string.sub(rawget(map, posarg[j].y + 1), (posarg[j].x + 1) * kl + 1, -1))
+      end
     elseif type(posarg) == "table" then
       lib.map.set(map, po(posarg), value)
     end
@@ -349,6 +497,31 @@ function lib.map.extend(map, posarg)
     rawset(map, "__height", h)
   end
 end
+
+function lib.map.trim(map, trimkeyarg)
+  if (type(map) ~= "table") or (map.type ~= "map") then
+    error("lib.map.trim: Can only work on maps.", 2)
+  end
+  local border_n = map.height - 1
+  local border_s = 0
+  local border_w = map.width - 1
+  local border_e = 0
+  local trimkey = trimkeyarg or rawget(map, "__defaultkey")
+  for x = 0, map.width - 1 do
+    for y = 0, map.height - 1 do
+      if map[{x,y}] ~= trimkey then
+        border_n = math.min(border_n, y)
+        border_s = math.max(border_s, y)
+        border_w = math.min(border_w, x)
+        border_e = math.max(border_e, x)        
+      end
+    end
+  end
+  if (border_n >= border_s) or (border_w >= border_e) then
+    return wo:newMap(trimkey)
+  end
+  return map:sub(po(border_w, border_n), po(border_e, border_s))
+end  
 
 function lib.map.print(map, withXYCounts, left_separator, right_separator)
   if (type(map) ~= "table") or (map.type ~= "map") then
@@ -476,13 +649,17 @@ wo:_register("newMap",
     newmap.__defaultkey = defaultKey
     newmap.__keylength = string.len(defaultKey)
     -- Set methods and finally metatable.
-    newmap.print = lib.map.print
     newmap.covers = lib.map.covers
-    newmap.set_default_key = lib.map.set_default_key
+    newmap.defuse = lib.map.defuse
     newmap.extend = lib.map.extend
-    newmap.sub = lib.map.sub
+    newmap.match = lib.map.match
     newmap.paste = lib.map.paste
+    newmap.print = lib.map.print
     newmap.replace = lib.map.replace
+    newmap.replace_outside = lib.map.replace_outside
+    newmap.set_default_key = lib.map.set_default_key
+    newmap.sub = lib.map.sub
+    newmap.trim = lib.map.trim
     setmetatable(newmap, lib.map.metatable)
     return newmap
   end
