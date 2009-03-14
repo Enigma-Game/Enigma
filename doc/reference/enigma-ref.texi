@@ -5908,11 +5908,12 @@ end
 @node ElectricStrength
 @subsection ElectricStrength
 
-A global scalar default factor for electrical forces. Positive numbers are
-attracting forces for opposite charges where as negative numbers are repelling
-forces for opposite charges. This global value is always multiplied by the
-charge load of the affected actors. The actors charge load usually results
-from hits of @ref{st_charge}.
+A global scalar default factor for electrical forces. Positive numbers result in
+attracting forces for opposite charges and repelling forces for equal signed
+charges. Where as negative numbers result in repelling forces for opposite 
+charges and attracting forces for equal signed charges. This global value is
+always multiplied by the charge load of the affected actors. The actor's charge
+load usually results from hits of @ref{st_charge}.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -6015,7 +6016,7 @@ than half of the screen size.
 
 A global scalar default factor for floor friction values. This global value is
 always multiplied by the floor specific friction on calculation of the friction
-forced applied to actors.
+force applied to actors.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -6146,7 +6147,7 @@ with off limit length.
 @item @b{Values:} @ @ positive float number
 @item @b{Default:} @ @ @code{50.0}
 @item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ @ref{it_magnet}
+@item @b{Support:} @ @ @ref{ot_rubberband}
 @end table
 
 @node ShowMoves
@@ -6197,7 +6198,7 @@ same step in some subtle cases.
 @subsection SwampSinkTime
 
 A global default for the time it takes a static actor to sink in @ref{fl_swamp}.
-Fast moving actors will needs slightly more time than static actors.
+Fast moving actors will need slightly more time than static actors.
 
 @table @asis
 @item @b{Type:} @ @ number or @code{nil}
@@ -6285,20 +6286,57 @@ Positive number are attracting, negative numbers are repelling.
 @section Standard Floors
 
 @menu
+* fl_adhesionless::   Floor without adhesion but friction
 * fl_aquamarine::     Aquamarine floor with low friction
 * fl_bast::           Brown woven bast with black background
 * fl_bluegray::       Light blue gray floor
 * fl_bluegreen::      Dark blue green floor
+* fl_blueslab::       Dark blue marbled slab
 * fl_brick::          Floor composed of small red bricks
+* fl_bright::         Nearly white floor
 * fl_concrete::       Granular gray concrete
+* fl_dark::           Nearly black floor
+* fl_darkgray::       Cold gray floor
 * fl_dunes::          Brown granular dunes
 * fl_gravel::         Dark gray, granular floor
 * fl_gray::           Gray with some brown spots
 * fl_himalaya::       Blue purple marbled floor
+* fl_ivory::          Warm pearl white floor
+* fl_marble::         Light red brown marbled floor
+* fl_mortar::         Rough white floor with gray wrinkles
 * fl_pinkbumps::      Pink floor with white bumps
+* fl_plank::          Small diagonal planks
+* fl_platinum::       Warm light gray floor
+* fl_red::            Warm red floor with low friction
+* fl_redslab::        Dark red marbled slab
+* fl_rough::          Rough warm white floor
 * fl_sahara::         Bright yellow sandstone floor
 * fl_sand::           Granular orange gray sand floor
+* fl_stone::          Granular brown gray floor
+* fl_tigris::         Red sandstone floor
+* fl_white::          Pure white floor
+* fl_woven::          White black woven floor
 @end menu
+@c ----------------- Adhesionless Floor --------------------
+@node fl_adhesionless
+@subsection fl_adhesionless
+@obindex fl_adhesionless
+
+Orange velvet that offers no adhesion but causes friction.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_adhesionless}
+@end table
+@end table
+
 @c ----------------- Aquamarine Floor --------------------
 @node fl_aquamarine
 @subsection fl_aquamarine
@@ -6346,7 +6384,7 @@ Brown woven bast with black background.
 @subsection fl_bluegray
 @obindex fl_bluegray
 
-Light blue gray floor, visually indistinguishable form @ref{fl_thief}.
+Light blue gray floor, visually indistinguishable from @ref{fl_thief}.
 
 @table @asis
 @item @b{Attributes:}
@@ -6367,7 +6405,7 @@ Light blue gray floor, visually indistinguishable form @ref{fl_thief}.
 @subsection fl_bluegreen
 @obindex fl_bluegreen
 
-Dark blue green floor
+Dark blue green floor.
 
 @table @asis
 @item @b{Attributes:}
@@ -6380,6 +6418,28 @@ Dark blue green floor
 @table @asis
 @item @b{fl_bluegreen}
 @item @b{fl_bluegreen_framed}
+@end table
+@end table
+
+@c ----------------- Blueslab Floor --------------------
+@node fl_blueslab
+@subsection fl_blueslab
+@obindex fl_blueslab
+
+Dark blue slab like floor, that is marbled with black. A matching floor is
+@ref{fl_redslab}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_blueslab}
+@item @b{fl_blueslab_framed}
 @end table
 @end table
 
@@ -6404,6 +6464,28 @@ Floor composed of small red bricks.
 @end table
 @end table
 
+@c ----------------- Bright Floor --------------------
+@node fl_bright
+@subsection fl_bright
+@obindex fl_bright
+
+Nearly white floor without any yinyang related features. A matching floor is
+@ref{fl_dark}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_bright}
+@item @b{fl_bright_framed}
+@end table
+@end table
+
 @c ----------------- Concrete Floor --------------------
 @node fl_concrete
 @subsection fl_concrete
@@ -6422,6 +6504,49 @@ Granular gray concrete.
 @table @asis
 @item @b{fl_concrete}
 @item @b{fl_concrete_framed}
+@end table
+@end table
+
+@c ----------------- Dark Floor --------------------
+@node fl_dark
+@subsection fl_dark
+@obindex fl_dark
+
+Nearly black floor without any yinyang related features. A matching floor is
+@ref{fl_bright}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_dark}
+@item @b{fl_dark_framed}
+@end table
+@end table
+
+@c ----------------- Darkgray Floor --------------------
+@node fl_darkgray
+@subsection fl_darkgray
+@obindex fl_darkgray
+
+A medium to drak gray floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_darkgray}
+@item @b{fl_darkgray_framed}
 @end table
 @end table
 
@@ -6509,6 +6634,69 @@ Blue purple marbled floor.
 @end table
 @end table
 
+@c ----------------- Ivory Floor --------------------
+@node fl_ivory
+@subsection fl_ivory
+@obindex fl_ivory
+
+Warm ivory or pearl white floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.2 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_ivory}
+@item @b{fl_ivory_framed}
+@end table
+@end table
+
+@c ----------------- Marble Floor --------------------
+@node fl_marble
+@subsection fl_marble
+@obindex fl_marble
+
+Light red brown marbled floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_marble}
+@item @b{fl_marble_framed}
+@end table
+@end table
+
+@c ----------------- Mortar Floor --------------------
+@node fl_mortar
+@subsection fl_mortar
+@obindex fl_mortar
+
+Very rough brilliant white floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.8 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.2 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_mortar}
+@item @b{fl_mortar_framed}
+@end table
+@end table
+
 @c ----------------- Pinkbumps Floor --------------------
 @node fl_pinkbumps
 @subsection fl_pinkbumps
@@ -6530,12 +6718,118 @@ Pink floor with white bumps.
 @end table
 @end table
 
+@c ----------------- Plank Floor --------------------
+@node fl_plank
+@subsection fl_plank
+@obindex fl_plank
+
+Floor build up by small diagonal orange brown planks.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_plank}
+@item @b{fl_plank_framed}
+@end table
+@end table
+
+@c ----------------- Platinum Floor --------------------
+@node fl_platinum
+@subsection fl_platinum
+@obindex fl_platinum
+
+Warm light gray floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_platinum}
+@item @b{fl_platinum_framed}
+@end table
+@end table
+
+@c ----------------- Red Floor --------------------
+@node fl_red
+@subsection fl_red
+@obindex fl_red
+
+Warm red, very slippy floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.9 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_red}
+@item @b{fl_red_framed}
+@end table
+@end table
+
+@c ----------------- Redslab Floor --------------------
+@node fl_redslab
+@subsection fl_redslab
+@obindex fl_redslab
+
+Dark red slab floor, that is marbled with black. A matching floor is 
+@ref{fl_blueslab}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_redslab}
+@item @b{fl_redslab_framed}
+@end table
+@end table
+
+@c ----------------- Rough Floor --------------------
+@node fl_rough
+@subsection fl_rough
+@obindex fl_rough
+
+Rough warm white floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_rough}
+@item @b{fl_rough_framed}
+@end table
+@end table
+
 @c ----------------- Sahara Floor --------------------
 @node fl_sahara
 @subsection fl_sahara
 @obindex fl_sahara
 
-Bright yellow sandstone floor
+Bright yellow sandstone floor.
 
 @table @asis
 @item @b{Attributes:}
@@ -6556,7 +6850,7 @@ Bright yellow sandstone floor
 @subsection fl_sand
 @obindex fl_sand
 
-Granular orange gray sand floor
+Granular orange gray sand floor.
 
 @table @asis
 @item @b{Attributes:}
@@ -6569,6 +6863,90 @@ Granular orange gray sand floor
 @table @asis
 @item @b{fl_sand}
 @item @b{fl_sand_framed}
+@end table
+@end table
+
+@c ----------------- Stone Floor --------------------
+@node fl_stone
+@subsection fl_stone
+@obindex fl_stone
+
+Granular brown gray floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.4 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_stone}
+@item @b{fl_stone_framed}
+@end table
+@end table
+
+@c ----------------- Tigris Floor --------------------
+@node fl_tigris
+@subsection fl_tigris
+@obindex fl_tigris
+
+Red sandstone floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_tigris}
+@item @b{fl_tigris_framed}
+@end table
+@end table
+
+@c ----------------- White Floor --------------------
+@node fl_white
+@subsection fl_white
+@obindex fl_white
+
+Pure white floor without any yinyang related features.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_white}
+@item @b{fl_white_framed}
+@end table
+@end table
+
+@c ----------------- Woven Floor --------------------
+@node fl_woven
+@subsection fl_woven
+@obindex fl_woven
+
+Diagonal woven white floor with black shadows.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_woven}
+@item @b{fl_woven_framed}
 @end table
 @end table
 
@@ -6747,11 +7125,11 @@ not automatically assign the proper @samp{slope}.
 @obindex fl_thief
 
 A thief steals the item on its position plus an item from the player's inventory
-when it is entered by an owned actor. Unfortunatly the thief floor is visually
+when it is entered by an owned actor. Unfortunately the thief floor is visually
 indistinguishable from an @ref{fl_bluegray} and has even the same
 @samp{friction} and @samp{adhesion} values.
 
-The item is not directly stolen at the moment of entering the grid. The enterin
+The item is not directly stolen at the moment of entering the grid. The entering
 itself just causes the thief to emerge from his hiding-place. The thief steals 
 from the actor that did conjur him at the moment of maximum visibility. He takes
 a random item from the owner's inventory. But he just will steal an item if
@@ -6791,31 +7169,34 @@ If the thief has not stolen any items he leaves no empty bag.
 * it_banana::          Transformable Banana
 * it_blocker::         Shrinked Blocker Stone
 * it_brake::           Movable Stone Brake
-* it_brush::
+* it_brush::           Brush for Painting and Sweeping
 * it_cherry::          Source of Invisibility
 * it_coin::            Enigma's currency
 * it_cross::           Floor switch for patient Actors
 * it_death::           Unpassable grid blocker
-* it_extralife::
-* it_floppy::
+* it_extralife::       
+* it_floppy::          Lock opening uncoded Floppy
 * it_glasses::         Glasses to spot certain objects
-* it_hammer::
-* it_key::
-* it_landmine::
+* it_hammer::          Stone breaking Hammer
+* it_key::             Lock opening coded Key
+* it_landmine::        
 * it_magicwand::       Wizards Tools
-* it_magnet::
-* it_meditation::
+* it_magnet::          Actor attracting Magnet
+* it_meditation::      
 * it_pin::             Friction increasing crampon
-* it_pipe::
-* it_rubberband::
+* it_pipe::            
+* it_puller::          Stone pulling item
+* it_rubberband::      Unconnected Rubberband
 * it_seed::            Seeds for Wood, Volcano Stones
 * it_sensor::          Floor Switch for passing Actors
 * it_shogun::          Dot for Shogun Stones
+* it_spring::          Portable Spring
+* it_springboard::     Static Spring
 * it_squashed::        Remnant of squashed Fruits
 * it_strip::           Narrow Bridge
 * it_surprise::        Random Transforming item
-* it_sword::
-* it_trap::
+* it_sword::           Knight defeating Sword
+* it_trap::            
 * it_trigger::         Floor Switch for Actors and Stones
 * it_umbrella::        Death Protection Item
 * it_vortex::          Teleport of Marbels
@@ -7032,9 +7413,27 @@ an @ref{Object Kind} @samp{it_brake} in an inventory or a container.
 @subsection it_brush
 @obindex it_brush
 
-TBD
+A brush that is useful to paint some stones and sweep away some otherwise
+static items.
 
-@ref{it_squashed}
+Stones must be hit with the brush revealed as the first item in the inventory.
+To sweep away nasty items the actor must activate the brush while being on the
+grid, or while jumping or flying over it:
+
+@itemize @bullet
+@item @ref{st_actorimpulse}, invisible - makes invisible variant visible
+@item @ref{st_blur}, magic -  transforms to @ref{st_passage}
+@item @ref{st_flat}, burnable - transforms to @ref{st_flat}
+@item @ref{st_flat}, moveburnable - transforms to @ref{st_flat}_movable
+@item @ref{st_ghost}, purplemarble - transforms to @ref{st_purplemarble}
+@item @ref{st_ghost}, break - transforms to @ref{st_break}_oxydc
+@item @ref{st_lightpassenger}, off - reactivates to state @samp{ON}
+@item @ref{it_bottle}, broken - remove from floor
+@item @ref{it_burnable}, ash - remove from floor
+@item @ref{it_burnable}, fireproof - remove from floor
+@item @ref{it_cross} - remove from floor
+@item @ref{it_squashed} - remove from floor
+@end itemize
 
 @table @asis
 
@@ -7360,18 +7759,16 @@ The wizard's tool, that allows to do all sort of magic things if it is the
 wielded item in the player's inventory:
 
 @itemize @bullet
-@item Changes direction of a oneway stone (@ref{st_oneway}).
-@item Changes direction of a boulder stone (@ref{st_boulder}).
-@item Scrambles blue puzzle stones instead of pushing, causes complete
-clusters to explode (@ref{st_puzzle}).
-@item Lets a @samp{st_stoneimpulse_movable} not pulse on pushed
-(@ref{st_stoneimpulse})
-@item Makes @code{st_magic_brick} transparent (@ref{st_magic}).
-@item Makes @code{st_ghost_greenbrown} visible and non-transparent
-(@ref{st_ghost}).
-@item Makes rubberband stones movable (@ref{st_rubberband}).
-@item Changes the color of a chess stone (@ref{st_chess}).
-@item Activates @code{st_blur_magic} (@ref{st_blur}).
+@item @ref{st_blur}, magic - transforms to @ref{st_passage},
+@item @ref{st_boulder} - changes direction of a boulder,
+@item @ref{st_chess} - changes the color of a chess stone,
+@item @ref{st_ghost}, greenbrown - transforms to @ref{st_greenbrown},
+@item @ref{st_magic}, brick - transforms to a @ref{st_rawglass},
+@item @ref{st_oneway} - changes direction of a oneway,
+@item @ref{st_puzzle} - scrambles blue puzzle stones instead of pushing, causes complete
+clusters to explode,
+@item @ref{st_rubberband} - makes rubberband stones movable,
+@item @ref{st_stoneimpulse}, movable - avoid pulsing on pushes.
 @end itemize
 
 @table @asis
@@ -7528,6 +7925,33 @@ Shape transformation. See text above.
 
 @end table
 
+@c ----------------- Pencil Item --------------------
+@node it_pencil
+@subsection it_pencil
+@obindex it_pencil
+
+An item to mark floors and stones. 
+
+An activated pencil scratches an @ref{it_cross} on most floors. As the pencil
+gets consumed by this operation the cross takes the pencils identity on
+this @ref{Object Transformation}. But on @ref{fl_ice} the pencil makes a small
+@ref{it_crack} as it is so sharp. On indestructible floors like @ref{fl_abyss},
+@ref{fl_water} and @ref{fl_swamp} and on @ref{fl_bridge} the pencil can not
+be activated at all. Any existing item on the floor does prevent a pencil
+application, too. The actor can only mark a floor if it is on the floor and not
+flying. During a jump an actor will just drop the pencil as an item.
+
+On actor hits with a revealed pencil on a @ref{flat} the stones gets marked
+burnable. Again the pencil is consumed on this operation. Both the plain and
+the movable variants can be marked.
+
+@table @asis
+
+@item @b{Attributes:} none
+@item @b{Messages:} none
+
+@end table
+
 @c ----------------- Pin Item --------------------
 @node it_pin
 @subsection it_pin
@@ -7549,6 +7973,7 @@ to its standard values.
 @item @b{Messages:} none
 
 @end table
+
 @c ----------------- Pipe Item --------------------
 @node it_pipe
 @subsection it_pipe
@@ -7592,6 +8017,43 @@ The horizontal pipe.
 @item @b{it_pipe_ns} connections = @code{"ns"}
 The vertical pipe.
 @item @b{it_pipe_ne} connections = @code{"ne"}
+@end table
+@end table
+
+@c ----------------- Puller Item --------------------
+@node it_puller
+@subsection it_puller
+@obindex it_puller
+
+A puller item looks like a white arrow. It can be picked up. But when being
+dropped it gets activated and whirls around. The actor should leave the grid
+immediately as the puller will finaly dissolve in a leathal explosion.
+
+But the main purpose of the puller is its ability to pull stones. The arrow
+@samp{orientation} indicates the direction into which a stone will be pulled
+when the item is dropped in front. The pull takes place immediatly at the end
+of the short explosion. It is a full blown stone pull, that will pull others
+stones connected to the directly affected stone via @ref{ot_wire}, too. With
+the explosion the puller item ceases to exist.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@atindex orientation
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{WEST}
+
+@end table
+
+@item @b{Messages:} none
+@item @b{Action:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_puller} orientation = @code{WEST}
+@item @b{it_puller_w} orientation = @code{WEST}
+@item @b{it_puller_s} orientation = @code{SOUTH}
+@item @b{it_puller_e} orientation = @code{EAST}
+@item @b{it_puller_n} orientation = @code{NORTH}
 @end table
 @end table
 
@@ -7796,6 +8258,48 @@ a medium hole, @code{"l"} for a large hole.
 @item @b{it_shogun_m}: flavor = @code{"m"}
 @item @b{it_shogun_l}: flavor = @code{"l"}
 @end table
+
+@end table
+
+@c ----------------- Spring Item --------------------
+@node it_spring
+@subsection it_spring
+@obindex it_spring
+
+Springs let @ref{Flying Actors} jump on activation.
+
+There are two types of portable springs. A thin one that is kept in the 
+inventory on activation and can thus be used multiple times in sequence. And
+a thick, condensed one that gets dropped on activation. A static jump
+facility that can not be picked up by an actor is the @ref{it_springboard}.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_spring}
+@item @b{it_spring_keep}
+@item @b{it_spring_drop}
+@end table
+
+@end table
+
+@c ----------------- Springboard Item --------------------
+@node it_springboard
+@subsection it_springboard
+@obindex it_springboard
+
+A static jump facitlity that lets @ref{Flying Actors} jump on passing its center
+square. A springboard can catapult any number of actors anytime with an idle
+reloading time after an activation.
+
+Another catapulting, but portal item is @ref{it_spring}. 
+
+@table @asis
+
+@item @b{Attributes:} none
+@item @b{Messages:} none
 
 @end table
 
@@ -8312,7 +8816,7 @@ to be controlled at every point of time.
 * Standard Stones::
 * Cluster Stones::
 * Special Stones::
-* Feature Summaries::     Tables of transparent, breakable, ... stones
+* Stone Feature Summaries::     Tables of transparent, breakable, ... stones
 @end menu
 
 
@@ -9086,9 +9590,9 @@ The blur subkind.
 
 @table @asis
 @item @b{st_blur}: flavor = @code{"straight"}
-@item @b{st_blur_cross}: flavor = @code{"straight"}
+@item @b{st_blur_straight}: flavor = @code{"straight"}
 @item @b{st_blur_cross}: flavor = @code{"cross"}
-@item @b{st_blur_cross}: flavor = @code{"magic"}
+@item @b{st_blur_magic}: flavor = @code{"magic"}
 @end table
 
 @end table
@@ -9429,7 +9933,7 @@ marbles vertical velocity component.
 When there is a chess stone of opposite color or an @ref{st_thief} at the target
 position of a knight move, this stone is captured and destroyed.
 
-When hit with a revealed @ref{it_wand}, a chess stone changes color.
+When hit with a revealed @ref{it_magicwand}, a chess stone changes color.
 
 Chess stones fall into @ref{fl_abyss} and sink in @ref{fl_swamp}, but cross
 @ref{fl_water} undamaged.
@@ -11053,7 +11557,7 @@ But it provides breakable variants. Like @ref{st_break} it is breakable by
 laser light, neighboring ignitions like those caused by an exploding 
 @ref{it_dynamite} on a direct neighboring position or an exploding black
 @ref{it_bomb} on a diagonal neighboring position. It breaks on actor hits with
-a revealed @ref{it_magicwand}, too. But unlike @ref{st_break} it offers a
+a revealed @ref{it_hammer}, too. But unlike @ref{st_break} it offers a
 variant that is breakable and movable at the same time. Of course a possible
 break superceeds a possible push condition.
 
@@ -12447,9 +12951,9 @@ Activate the yinyang like an actor hitting the stone.
 @end table
 
 
-@c ----------------- Feature Summaries --------------------
-@node Feature Summaries
-@section Feature Summaries
+@c ----------------- Stone Feature Summaries --------------------
+@node Stone Feature Summaries
+@section Stone Feature Summaries
 
 @menu
 * Transparent Stones::
@@ -12509,6 +13013,7 @@ and can not be moved by an invisible actor.
 @menu
 * Actor Attributes::    Common attributes
 * Actors::              All actors
+* Actor Features::      Common noteworthy features
 @end menu
 
 
@@ -13003,6 +13508,36 @@ combination with @samp{attacknearest} set to @samp{true}. The Level
 
 @end table
 
+@c ----------------- Actor Features --------------------
+@node Actor Features
+@section Actor Features
+
+@menu
+* Flying Actors::        Flying Actors
+@end menu
+
+@c ----------------- Flying Actors --------------------
+@node Flying Actors
+@subsection Flying Actors
+
+Ball like actors, namely @ref{ac_marble} and @ref{ac_pearl} are able to fly for
+short period of time if they get catapulted by some item.
+
+Currently there are portable @ref{it_spring} that let actors jump on activation,
+static @ref{it_springboard} that catapult crossing actors and @ref{it_vortex}
+that catapult warping actors.
+
+A flying actor can pass leathal grids with @ref{fl_water}, @ref{fl_abyss}, 
+@ref{it_trap} and even laser beams. But most stones will block flying actors, 
+even some hollow ones like @ref{st_grate} or @ref{st_oneway}. But some others as 
+@ref{st_door} or hollow @ref{Standard Stones} let flying actos pass.
+
+While flying an actor can not pick any items. But the actor can still drop
+items. Activation of a spring while sinking in @ref{fl_water} or @ref{fl_swamp}
+lets the actor jump immediatly out of them and starts the sinking process from
+scratch anew when landing on such a floor.
+
+
 @c ===================  Other Objects  =======================
 
 @node Other Objects
@@ -13172,6 +13707,17 @@ already.
 @node Libraries
 @chapter Libraries
 
+Libraries do contain extensions that are not necessary for every level. By
+outsourcing them into separate files they do not get loaded if not used. This
+improves the level load time and runtime resource consumption. But as a level
+author you have to declare the usage of a library by an XML metadata 
+@samp{dependency} element within the @ref{<compatibility>} element. The
+necessary line of code is listed within every library description.
+
+Some libraries contain collections of useful functions and methods. They are
+described in this chapter. Other libraries do contain @ref{Resolvers} and are
+described just there.
+
 @menu
 * liblua::       General methods for tables.
 * libmath::      Mathematical algorithms, like random permutations.
@@ -13182,6 +13728,16 @@ already.
 
 @node liblua
 @section liblua
+
+This library of basic extensions to the Lua language is described as of release
+1. 
+
+You can load it by adding an @samp{dependency} element to the 
+@ref{<compatibility>} XML Metadata element as follows:
+
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/liblua}" @i{el}:@b{id}="@var{lib/liblua}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+@end example
 
 @menu
 * lib.lua.combine_tables::  Collect entries of anonymous Lua-tables into a common table.
@@ -13466,9 +14022,20 @@ Mirroring Maps} to shuffle the columns.
 @end example
 @end table
 
-
+@c ----------------- libmath --------------------
 @node libmath
 @section libmath
+
+This library of basic mathematical extensions is described as of release 1. 
+
+You can load it by adding an @samp{dependency} element to the 
+@ref{<compatibility>} XML Metadata element as follows:
+
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libmath}" @i{el}:@b{id}="@var{lib/libmath}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+@end example
+
+It preloads automatically the library @ref{liblua}.
 
 @menu
 * lib.math.combinations::       Calculates all possible combinations of a set.
@@ -13820,10 +14387,21 @@ create random patterns, see @ref{lib.math.cubic_polynomial} and @ref{Wired}.
 @node libmap
 @section libmap
 
-@samp{libmap} gives the author more possibilities to work with API 2-maps. Up
-to now, a map just is a table of strings, as described in @ref{World Creation
+The @samp{libmap} gives the author more possibilities to work with API 2-maps. 
+Up to now, a map just is a table of strings, as described in @ref{World Creation
 and Resolver Chaining}. With @samp{libmap}, you can utilize maps in a more
 advanced way.
+
+This library is described as of release 1. 
+
+You can load it by adding an @samp{dependency} element to the 
+@ref{<compatibility>} XML Metadata element as follows:
+
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libmap}" @i{el}:@b{id}="@var{lib/libmap}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+@end example
+
+It preloads automatically the library @ref{liblua}.
 
 @menu
 * Creating Maps::
@@ -14216,6 +14794,7 @@ the top and on the left. @samp{left_separator} and @samp{right_separator} can
 be strings to be put between the left coordinate axis and the map, and behind
 the map (to analyse space characters).
 
+@c ----------------- libimport --------------------
 @node libimport
 @section libimport
 
@@ -14230,6 +14809,18 @@ Apart from the following functions, lib.import includes the minor routines
 @samp{lib.import.string_replace}, which is a wrapper for @code{string.gsub},
 and @samp{lib.import.string_remove_multiples}, which removes multiple
 occurences of a string in another string.
+
+This library is described as of release 1. 
+
+You can load it by adding an @samp{dependency} element to the 
+@ref{<compatibility>} XML Metadata element as follows:
+
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libimport}" @i{el}:@b{id}="@var{lib/libimport}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+@end example
+
+It preloads automatically the libraries @ref{libmap} and @ref{liblua}.
+
 
 @menu
 * lib.import.unpack_multilevel::        Extract a level from a multilevel.
@@ -14409,7 +15000,6 @@ default key. Hence, if you want to paste the map into another one
 @samp{-} or @samp{- } in beforehand to yield a good result.
 
 @c ----------------- map_wanderer --------------------
-
 @node lib.import.map_wanderer
 @subsection lib.import.map_wanderer
 
@@ -14452,9 +15042,22 @@ surrounded by walls; you might have to add them.
 Note that Enigma does not yet support the game elements of Wanderer, hence this
 function currently is only of use to developers.
 
-
+@c ----------------- libsoko --------------------
 @node libsoko
 @section libsoko
+
+This library is described as of release 1. 
+
+You can load it by adding an @samp{dependency} element to the 
+@ref{<compatibility>} XML Metadata element as follows:
+
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libsoko}" @i{el}:@b{id}="@var{lib/libsoko}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
+@end example
+
+It preloads automatically the libraries @ref{libimport}, @ref{libmap} and
+@ref{liblua}.
+
 
 @menu
 * lib.soko.create::
@@ -15204,7 +15807,7 @@ This resolver is part of the library @samp{libpuzzle} as of release 3. You can
 use it by adding the following dependency to your level @ref{<compatibility>}
 declaration:
 @example
-<el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libpuzzle}" @i{el}:@b{id}="@var{lib/libpuzzle}" @i{el}:@b{release}="@var{3}" @i{el}:@b{preload}="@var{true}"/>
 @end example
 
 @item @b{Syntax:}
