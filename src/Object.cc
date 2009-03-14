@@ -209,7 +209,9 @@ namespace enigma {
     
     void Object::setAttrChecked(const std::string& key, const Value &val) {
         // allow all user attributes and those system attributes with write allowance
-        if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
+        if (key == "name")
+            NameObject(this, val.to_string());
+        else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
             setAttr(key, val);
         else
             ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write not allowed for kind '%s'",
@@ -231,6 +233,15 @@ namespace enigma {
             return (objFlags & OBJBIT_INVERSE) != 0;            
         } else if (key == "nopaction") {
             return (objFlags & OBJBIT_NOP) != 0;
+        } else if (key == "basename") {
+            std::string name = getAttr("name").to_string();
+            std::string::size_type p = name.rfind('%');
+            if (p != std::string::npos)
+                return name.substr(0, p);
+            p = name.rfind('#');
+            if (p != std::string::npos)
+                return name.substr(0, p);
+            return name;
         } else {
             AttribMap::const_iterator i = attribs.find(key);
             if (i == attribs.end()) 

@@ -1281,12 +1281,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
          lua_pushvalue(L, -2); // a copy of key for work
          if (!lua_isnumber(L, -1) && lua_isstring(L, -1)) {
             std::string key = lua_tostring(L, -1);
-            if (key == "name") {
-                if (lua_isstring(L, -2))
-                    NameObject(obj, lua_tostring(L, -2));
-            } else {
-                obj->setAttrChecked(key, to_value(L, -2));
-            }
+            obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
              if (!lua_isnumber(L, -2) && lua_isstring(L, -2))
                  NameObject(obj, lua_tostring(L, -2));
@@ -1394,7 +1389,7 @@ static int getStone(lua_State *L) {
     return getStoneItemFloor(L, Object::STONE);
 }
 
-static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
+static int killObjectBase(lua_State *L) {
     Object *obj = to_object(L, -1);
     if (obj) {   // ignore not existing object
         GridObject *gobj;
@@ -1412,7 +1407,8 @@ static int killObjectBase(lua_State *L) {  // TODO Itemholder owner objects
                 break;
             case Object::ITEM  :
                 gobj = dynamic_cast<GridObject*>(obj);
-                KillItem(gobj->get_pos());
+                if (gobj->isDisplayable())
+                    KillItem(gobj->get_pos());
                 break;
             case Object::ACTOR :
             default :
@@ -1795,7 +1791,8 @@ static int dispatchObjectReadAccess(lua_State *L) {
     } else {
         // attribute
         Value val;  // nil
-        if ((keyStr.find('_') != 0) && (obj == NULL || obj->validateMessage(keyStr, Value(Value::DEFAULT)))) {
+        if ((keyStr.find('_') != 0) && ((obj != NULL && obj->validateMessage(keyStr, Value(Value::DEFAULT))) 
+                || (obj == NULL && (keyStr == "exists" || keyStr == "kill")))) {
             // it is a valid public message - try to send it
             messageLIFO.push_back(keyStr);
             lua_pushcfunction(L, objectDirectMessage);
@@ -3237,6 +3234,8 @@ static int dispatchPolistReadAccess(lua_State *L) {
         int i = lua_tointeger(L, 2);
         lua_getmetatable(L, 1);
         int size = lua_objlen(L, -1)  / 2;
+        if (i < 0)  // backward indices
+            i = size + 1 + i;
         if (i >= 1 && i <= size) {
             lua_rawgeti(L, -1, 2*i - 1);
             lua_rawgeti(L, -2, 2*i);
