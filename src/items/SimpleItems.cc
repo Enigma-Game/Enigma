@@ -129,6 +129,10 @@ namespace enigma {
         state = strength;
     }
     
+    std::string Explosion::getClass() const {
+        return "it_explosion";
+    }
+
     Value Explosion::message(const Message &m) {
         if (m.message == "_cannonball") {
             state = 3;
@@ -176,6 +180,10 @@ namespace enigma {
         Item::setAttr("color", type);
     }
     
+    std::string FlagItem::getClass() const {
+        return "it_flag";
+    }
+
     void FlagItem::on_drop(Actor *a) {
         player::SetRespawnPositions(get_pos(), getAttr("color"));
     }
@@ -296,6 +304,9 @@ namespace enigma {
         state = type;
     }
     
+    std::string Spring::getClass() const {
+        return "it_spring";
+    }
     void Spring::setState(int extState) {
         // block all write attempts
     }

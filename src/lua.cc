@@ -1024,7 +1024,7 @@ static int minusPosition(lua_State *L) {
     return pushNewPosition(L);
 }
 
-static int addPositionsBase(lua_State *L, int factorArg2) {
+static int addPositionsBase(lua_State *L, double factorArg2, bool scalarMultiplication =false) {
     // (pos|obj|table|polist) +|- (pos|obj|table|polist)
     if (!(is_polist(L, 1) || is_polist(L, 2) )) {
         // add two positions resulting a new position
@@ -1062,21 +1062,23 @@ static int addPositionsBase(lua_State *L, int factorArg2) {
         // add a position to a list of postions resulting a list of positions
         PositionList pl;
         PositionList newpl;
+        ecl::V2 offset;
         bool found = false;
         if (is_polist(L, 1)) {
             pl = toPositionList(L, 1);
             found = true;
-        } else {
+        } else if (!scalarMultiplication) {
             newPosition(L, 1);
+            offset = toPosition(L, -1);
         }
         if (is_polist(L, 2)) {
             if (found)
                 throwLuaError(L, "Addition of two position lists not supported");                
             pl = toPositionList(L, 2);
-        } else {
+        } else if (!scalarMultiplication) {
             newPosition(L, 2);
+            offset = toPosition(L, -1);
         }
-        ecl::V2 offset = toPosition(L, -1);
         lua_pop(L, 1);
         for (PositionList::iterator itr = pl.begin(); itr != pl.end(); ++itr) {
              ecl::V2 newpos = offset + factorArg2 * (ecl::V2)(*itr);
@@ -1122,6 +1124,19 @@ static int addPositions(lua_State *L) {
 static int subPositions(lua_State *L) {
     // (pos|obj|table|polist) - (pos|obj|table|polist)
     return addPositionsBase(L, -1);
+}
+
+static int scalarMultPositions(lua_State *L) {
+    // (num|polist) * (num|polist)
+    double factor = 0;
+    if (lua_isnumber(L, 1)) {
+        factor = lua_tonumber(L, 1);
+    } else if (lua_isnumber(L, 2)) {
+        factor = lua_tonumber(L, 2);
+    } else {
+        throwLuaError(L, "Position List - scalar multiplications with invalid value type.");
+    }
+    return addPositionsBase(L, factor, true);
 }
 
 static int centerPosition(lua_State *L) {
@@ -2498,7 +2513,6 @@ static int createWorld(lua_State *L) {
         }
     }
     
-    // TODO finalization of resolvers
     lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
     while (is_table(L, -1)) {
         lua_rawgeti(L, -1, 2);      // get resolver finalization at index 2
@@ -2506,7 +2520,8 @@ static int createWorld(lua_State *L) {
             lua_pushvalue(L, -2);       // duplicate table as resolver context
             int retval=lua_pcall(L, 1, 0, 0);     // resolver(context,evaluator,key,x,y) ->  tile
             if (retval!=0) {
-                throwLuaError(L, "Error within tile key resolver finalization");
+                throwLuaError(L, ecl::strf("Error within tile key resolver finalization:\n %s", 
+                        lua_tostring(L, -1)).c_str());
                 return 0;
             }
         } else {
@@ -3135,7 +3150,7 @@ static int sortGroup(lua_State *L) {
         return 0;        
     }
     std::string command;
-    if (lua_gettop(L) == 2 && lua_isstring(L, 2)) {
+    if (lua_gettop(L) >= 2 && lua_isstring(L, 2)) {
         command = lua_tostring(L, 2);
     }
     ObjectList oldSort = toObjectList(L, 1);
@@ -3169,6 +3184,27 @@ static int sortGroup(lua_State *L) {
                 newSort.push_back(itr->second);
             }
         }
+    } else if (command == "linear") {
+        ecl::V2 dir;
+        std::multimap<double, Object *> sortMap;
+        if (lua_gettop(L) == 2 && oldSort.size() >= 2) {
+            Object *front = oldSort.front();
+            oldSort.pop_front();
+            dir = (ecl::V2)(Value(oldSort.front())) - (ecl::V2)(Value(front));
+            oldSort.push_front(front);
+        } else if (lua_gettop(L) == 3 && is_position(L, 3)) {
+            dir = toPosition(L, 3);
+        } else {
+            return pushNewGroup(L, oldSort);
+        }
+        dir.normalize();
+        for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr) {
+            double d = dir * (ecl::V2)(Value(*itr));
+            sortMap.insert(std::make_pair(d, *itr));
+        }
+        for (std::multimap<double, Object *>::iterator itr = sortMap.begin(); itr != sortMap.end(); ++itr)
+            newSort.push_back(itr->second);
+        
     } else {
         // default sort lexical by name
         std::map<std::string, Object *> sortMap;
@@ -3488,6 +3524,7 @@ static CFunction polistOperations[] = {
     {addPositions,                  "__add"},      //  obj + obj
     {subPositions,                  "__sub"},      //  obj - obj
     {joinPolist,                    "__concat"},   //  obj .. obj
+    {scalarMultPositions,           "__mul"},      //  obj * obj
     {0,0}
 };
 

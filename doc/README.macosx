@@ -3,14 +3,14 @@ Building Enigma under MacOS X 10.5, 10.4 and 10.3.9
 Overview:
 ---------
 
-Due to which machines are available to Enigma developers, The latest version
-of Enigma has only been built under MacOS X 10.5. The instructions for
-building under older versions of MacOS X are retained below, but have
-not been tested to verify that they continue to work. Note that the
-Enigma Mac developers all have Apple's free Xcode development environment
-installed on their machines. Even though the build process is not run
-under Xcode, there may be some things that would not work if Xcode had
-never been installed.
+Due to which machines are available to Enigma developers, the latest
+version of Enigma has only been built under MacOS X 10.5. The
+instructions for building under older versions of MacOS X have been
+removed from this README as there can be no assurance that they would
+continue to work. Note that the Enigma Mac developers all have Apple's
+free Xcode development environment installed on their machines. Even
+though the build process is not run under Xcode, there may be some
+things that would not work if Xcode had never been installed.
 
 Enigma is built from the command line using make. There is a make
 target that will create a Mac OS application bundle in a compressed

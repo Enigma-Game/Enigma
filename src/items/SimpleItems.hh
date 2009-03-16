@@ -123,6 +123,7 @@ namespace enigma {
         Explosion(int strength);
         
         // Object interface
+        virtual std::string getClass() const;
         virtual Value message(const Message &m);
         
         // StateObject interface
@@ -146,6 +147,9 @@ namespace enigma {
         DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
     public:
         FlagItem(int type);
+        
+        // Object interface
+        virtual std::string getClass() const;
         
         // Item interface
         virtual void on_drop(Actor *a);
@@ -254,6 +258,9 @@ namespace enigma {
     public:
         Spring(int type);
         
+        // Object interface
+        virtual std::string getClass() const;
+
         // StateObject interface
         virtual void setState(int extState);
 
