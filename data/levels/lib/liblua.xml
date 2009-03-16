@@ -140,6 +140,8 @@ function lib.lua.print_table(t, prefix, depth)
       print((prefix or "") .. "|" .. key_s .. " = " .. value)
     elseif type(value) == "string" then
       print((prefix or "") .. "|" .. key_s .. " = \"" .. value .. "\"")
+    elseif type(value) == "boolean" then
+      print((prefix or "") .. "|" .. key_s .. " = " .. lib.lua.cond(value, "true", "false"))
     elseif type(value) == "table" then
       if (depth or 0) < 5 then
         print((prefix or "") .. "|" .. key_s .. " = |")
@@ -164,6 +166,62 @@ function lib.lua.print_table(t, prefix, depth)
             .. " (usertype '" .. usertype(value) .. "')")
     end
   end
+end
+
+function lib.lua.to_string(thing)
+  local t = type(thing)
+  if t == "userdata" then
+    t = usertype(thing)
+  end
+  local result = "unknown type"
+      if (t == "nil") then
+    result = "nil"
+  elseif (t == "string") then
+    if string.find(thing, "\n", 1, true) then
+      result = "string of several lines: \n" .. thing
+    end
+    result = "string: \"" .. thing .. "\""
+  elseif (t == "number") then
+    result = "number: " .. thing
+  elseif (t == "boolean") then
+    result = "boolean: " .. lib.lua.cond(thing, "true", "false")
+  elseif (t == "table") then
+    result = "table"
+    if thing.type then
+      result = result .. "/" .. thing.type
+    end
+    result = result .. ":\n"
+    local found = false
+    for key, value in pairs(thing) do
+      found = true
+      result = result .. "  " .. lib.lua.to_string(key) .. " -> " .. lib.lua.to_string(value) .. "\n"
+    end
+    if not found then
+      result = "empty table"
+      if thing.type then
+        result = result .. "/" .. thing.type
+      end
+    end
+  elseif (t == "position") then
+    result = "position: " .. thing.x .. "/" .. thing.y
+  elseif (t == "object") then
+    result = "object with name '" .. thing.name .. "' at " .. lib.lua.to_string(po(thing))
+  elseif (t == "tile") then
+    result = "tile"
+  elseif (t == "tiles") then
+    result = "tiles"
+  elseif (t == "group") then
+    result = "object group with " .. #thing .. " objects:\n"
+    for obj in thing do
+      result = result .. "  " .. lib.lua.to_string(obj) .. "\n"
+    end
+  elseif (t == "polist") then
+    result = "position list with " .. #thing .. " positions:\n"
+    for j = 1, #thing do
+      result = result .. "  " .. j .. ": " .. thing[j].x .. "/" .. thing[j].y .. "\n"
+    end
+  end
+  return result
 end
 
 ---------------------------------------------------------------------

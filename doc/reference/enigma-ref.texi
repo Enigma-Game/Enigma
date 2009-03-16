@@ -13746,6 +13746,7 @@ You can load it by adding an @samp{dependency} element to the
 * lib.lua.mod::             A modulo operation.
 * lib.lua.print_table::     Print tables for debug reasons.
 * lib.lua.shuffle::         Shuffle arbitrary anonymous Lua-tables.
+* lib.lua.to_string::       Takes anything as argument and tries to return a sensible description.
 @end menu
 
 @c ----------------- combine_tables --------------------
@@ -14022,6 +14023,46 @@ Mirroring Maps} to shuffle the columns.
 @end example
 @end table
 
+@c ----------------- to_string --------------------
+
+@node lib.lua.to_string
+@subsection lib.lua.to_string
+
+@samp{to_string} is a debug function. It may take anything as argument, and
+tries to return a sensible string describing the type and, if possible, the
+content of the argument.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.lua.to_string}(@i{arg})
+
+@table @asis
+@item @i{arg}
+The argument to be described.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+print(lib.lua.to_string(strange_variable))
+@end example
+
+@item @b{Details:}
+@samp{to_string} is meant for debugging Lua code. Sometimes it happens that a
+variable is not what the author expected to be, and selecting the correct
+output method becomes try-and-error. @samp{to_string} is a fast shortcut to
+this. It returns the content of strings, numbers, booleans, tables, positions,
+and groups. It distinguishes ordinary tables from @ref{libmap}-maps. For
+objects, it returns their name and position, for position lists, it returns the
+total number of positions. It further recognizes nil, tile and tiles.
+
+Use @samp{to_string} only for debugging and testing, it
+is not meant as an element of gameplay.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
 @c ----------------- libmath --------------------
 @node libmath
 @section libmath
@@ -14045,6 +14086,7 @@ It preloads automatically the library @ref{liblua}.
 * lib.math.manhattan_distance:: Calculates the Manhattan distance of positions.
 * lib.math.permutation::        Random permutation.
 * lib.math.random_vector::      A table with random entries.
+* lib.math.steps::              A function to classify a number in intervals.
 @end menu
 
 @c ----------------- combinations --------------------
@@ -14380,6 +14422,53 @@ create random patterns, see @ref{lib.math.cubic_polynomial} and @ref{Wired}.
 
 @item @b{Full Example:}
 @example
+@end example
+@end table
+
+@c ----------------- steps --------------------
+
+@node lib.math.steps
+@subsection lib.math.steps
+
+@samp{steps} takes a number @samp{d} and a table of numbers as arguments and
+returns the index of the first number larger or equal @samp{d}, minus one.
+I.e. it classifies @samp{d} into the intervals given by the table, starting
+with zero, when @samp{d} is smaller than the first number in the table, one,
+when @samp{d} is larger or equal to the first, but smaller than the second
+number, and so on.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.steps}(@i{discriminator}, @i{steps})
+
+@table @asis
+@item @i{discriminator}
+A number.
+
+@item @i{steps}
+A table of numbers.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+number_pairs = lib.math.steps(total_places, {2, 6, 10, 30})
+@end example
+
+@item @b{Details:}
+Negative and non-integer values are allowed. However, the numbers in the
+@samp{steps}-table should be monotonously increasing (not neccessarily strictly
+monotonously), as otherwise the result might be counterintuitive.
+
+@item @b{Full Example:}
+@example
+lib.math.steps(x, {4, 8, 13})
+@end example
+returns:
+@example
+     0  if        x < 4
+     1  if   4 <= x < 8
+     2  if   8 <= x < 13
+     3  if  13 <= x
 @end example
 @end table
 
@@ -14840,7 +14929,7 @@ it needs a regexp describing a single level line.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.import.unpack_multilevel}(multilevel, sublevel_number, format)
+@b{lib.import.unpack_multilevel}(@i{multilevel}, @i{sublevel_number}, @i{format})
 @table @asis
 @item @i{multilevel}
 A multilevel string.
@@ -14866,6 +14955,7 @@ a format Enigma understands. A level is a string, and lines of the level are to
 be determined by line endings, which can be quite different. In contrast to
 this, an Enigma map is a table of strings, with each line in a separate entry
 of the table. Hence, at least the line endings have to be dealt with.
+@end table
 
 @c ----------------- uncompress_rle --------------------
 
@@ -14877,7 +14967,7 @@ without run-length encoding.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.import.uncompress_rle}(level, attribs)
+@b{lib.import.uncompress_rle}(@i{level}, @i{attribs})
 @table @asis
 @item @i{level}
 A level string.
@@ -14905,6 +14995,7 @@ To return an error when trying to repeat a line ending during decompression,
 you can hand a string to the attribute @samp{error_on_multiple}. Any character
 in this string is then forbidden to be repeated. Remember that the @samp{new
 line}-character is represented by @samp{\n} in Lua.
+@end table
 
 @c ----------------- level_to_map --------------------
 
@@ -14916,7 +15007,7 @@ is then converted into a @ref{libmap}-map.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.import.level_to_map}(level, line_ending, default_key)
+@b{lib.import.level_to_map}(@i{level}, @i{line_ending}, @i{default_key})
 @table @asis
 @item @i{level}
 A level string.
@@ -14939,6 +15030,7 @@ lines are filled with the default key).
 
 Make sure that the last line of the level ends in a proper line ending, and only
 one line ending. Otherwise, the returned map will be too short or too long.
+@end table
 
 @c ----------------- map_sokoban --------------------
 
@@ -14950,7 +15042,7 @@ beautified @ref{libmap}-map.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.import.map_sokoban}(multilevel, sublevel_number, keylength_one)
+@b{lib.import.map_sokoban}(@i{multilevel}, @i{sublevel_number}, @i{keylength_one})
 @table @asis
 @item @i{multilevel}
 A multilevel string.
@@ -14998,6 +15090,7 @@ Remember that the returned map uses the inner space @samp{ } or @samp{  } as
 default key. Hence, if you want to paste the map into another one
 (@ref{Connecting Two Maps}), you will have to switch the default key to
 @samp{-} or @samp{- } in beforehand to yield a good result.
+@end table
 
 @c ----------------- map_wanderer --------------------
 @node lib.import.map_wanderer
@@ -15009,7 +15102,7 @@ to simulate Wanderer.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.import.map_wanderer}(monolevel)
+@b{lib.import.map_wanderer}(@i{monolevel})
 @table @asis
 @item @i{monolevel}
 A monolevel string.
@@ -15041,6 +15134,7 @@ surrounded by walls; you might have to add them.
 
 Note that Enigma does not yet support the game elements of Wanderer, hence this
 function currently is only of use to developers.
+@end table
 
 @c ----------------- libsoko --------------------
 @node libsoko
@@ -15055,15 +15149,57 @@ You can load it by adding an @samp{dependency} element to the
   <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libsoko}" @i{el}:@b{id}="@var{lib/libsoko}" @i{el}:@b{release}="@var{1}" @i{el}:@b{preload}="@var{true}"/>
 @end example
 
-It preloads automatically the libraries @ref{libimport}, @ref{libmap} and
-@ref{liblua}.
+It preloads automatically the libraries @ref{libimport}, @ref{libmap},
+@ref{libmath}, and @ref{liblua}.
 
+The only function which is meant to be used in levels is
+@samp{lib.soko.create_sokoball}.
 
-@menu
-* lib.soko.create::
-* lib.soko.recreate::
-* lib.soko.draw::
-@end menu
+@table @asis
+@item @b{Syntax:}
+@b{lib.soko.create_sokoball}(@i{multilevel}, @i{sublevel_number}, @i{design}, @i{maxdesignnumber})
+@table @asis
+@item @i{multilevel}
+A multilevel string in the sense of @ref{libimport}.
+
+@item @i{sublevel_number}
+A number determining the number of the level in @code{multilevel}. Default is
+@samp{1}.
+
+@item @i{design}
+Optionally a number or a design table, see below.
+
+@item @i{maxdesignnumber}
+Optionally, see below.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.soko.create_sokoball(many_levels, 13, 48)
+@end example
+
+@item @b{Details:}
+@samp{create_sokoball} creates a sokoball-level from the string
+@code{multilevel}. This string can be a multilevel, in which case
+@samp{sublevel_number} determines the number of the level, starting with 1
+(default is 1).
+
+The design can be chosen by @samp{design}. This is either a number, which refers
+to the list of predefined designs in @code{libsoko_designlist.xml}, or a table
+with the corresponding design entries. A missing entry will be interpreted as
+the entry from lib.soko_designlist.default. If the @samp{design} variable is
+omitted, a check-number is created from the level which uniquely* determines
+a design from the design list, with @code{maxdesignnumber} as highest possible
+design number.
+
+*Uniquely means: The design might change when the design list is enlarged.
+
+To define own designs, please consult
+@samp{data/levels/lib/libsoko_designlist.xml}.
+
+Returns width and height of new Enigma level.
+@end table
+
 
 @c ===================  Advanced Features  =======================
 

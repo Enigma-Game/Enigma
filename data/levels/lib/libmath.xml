@@ -188,6 +188,38 @@ function lib.math.cubic_polynomial(a, x, y)
          + (a[4] or 0)*x*x + (a[3] or 0)*y + (a[2] or 0)*x + (a[1] or 0)
 end
 
+-- steps takes DISCRIMINATOR and returns a value dependend on where
+-- in the table STEPS of integers the discriminator is located.
+-- Example: lib.math.steps(x, {4, 8, 13}) returns:
+--     0: If        x < 4
+--     1: If   4 <= x < 8
+--     2: If   8 <= x < 13
+--     3: If  13 <= x
+-- Negative and non-integer values are allowed.
+function lib.math.steps(discriminator, steps)
+  if type(discriminator) ~= "number" then
+    error("lib.math.steps: First argument is " .. type(discriminator)
+        .. "/" .. usertype(discriminator) .. ", should be number.", 2)
+  end
+  if type(steps) ~= "table" then
+    error("lib.math.steps: Second argument is " .. type(discriminator)
+        .. "/" .. usertype(discriminator) .. ", should be table.", 2)
+  end
+  local result = 0
+  for _, height in ipairs(steps) do
+    if type(height) ~= "number" then
+      error("lib.math.steps: " .. type(discriminator) .. "/" .. usertype(discriminator)
+          .. " in table of second argument, should be number.", 2)
+    end
+    if discriminator < height then
+      return result
+    else
+      result = result + 1
+    end
+  end
+  return result
+end
+
 ---------------------------------------------------------------------
 --  PERMUTATIONS  AND  RANDOM  NUMBERS
 ---------------------------------------------------------------------
