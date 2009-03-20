@@ -64,6 +64,8 @@ local items = {
 {"it_meditation", state=MEDITATION_HILL, _text="it_meditation, state=MEDITATION_HILL"},
 {"it_meditation", state=MEDITATION_VOLCANO, _text="it_meditation, state=MEDITATION_VOLCANO"},
 
+{"it_pencil", _text="it_pencil"},
+
 {"it_pin", _text="it_pin"},
 
 {"it_pipe", _text="it_pipe, default"},
@@ -77,6 +79,12 @@ local items = {
 {"it_pipe", connections="nw", _text="it_pipe, connections=\"nw\""},
 {"it_pipe", connections="ns", _text="it_pipe, connections=\"ns\""},
 {"it_pipe", connections="ne", _text="it_pipe, connections=\"ne\""},
+
+{"it_puller", _text="it_puller, default"},
+{"it_puller_w",_text="it_puller_w"},
+{"it_puller_s", _text="it_puller_s"},
+{"it_puller_e",_text="it_puller_e"},
+{"it_puller_n", _text="it_puller_n"},
 
 {"it_rubberband", _text="it_rubberband"},
 
@@ -95,6 +103,12 @@ local items = {
 {"it_shogun", flavor="s", _text="it_shogun, flavor=\"s\""},
 {"it_shogun", flavor="m", _text="it_shogun, flavor=\"m\""},
 {"it_shogun", flavor="l", _text="it_shogun, flavor=\"l\""},
+
+{"it_spring", _text="it_spring"},
+{"it_spring_keep", _text="it_spring_keep"},
+{"it_spring_drop", _text="it_spring_drop"},
+
+{"it_springboard", _text="it_springboard"},
 
 {"it_squashed", _text="it_squashed"},
 
