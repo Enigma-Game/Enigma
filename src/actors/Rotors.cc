@@ -100,10 +100,6 @@ namespace enigma {
         Actor::think(dtime);
     }
     
-    void RotorBase::on_collision (Actor *a) {
-        SendMessage(a, "_shatter");
-    }
-
 /* -------------------- Rotor  -------------------- */
     Rotor::Rotor() : RotorBase(traits) {
     }
@@ -114,6 +110,12 @@ namespace enigma {
 
     const char *Rotor::get_kind() const {
         return "ac_rotor";
+    }
+
+    bool Rotor::on_collision (Actor *a) {
+        if (a->is_on_floor())
+            SendMessage(a, "_shatter");
+        return false;
     }
 
     ActorTraits Rotor::traits = {"ac_rotor", ac_rotor, 1<<ac_rotor, 22.0/64, 0.8};
@@ -130,6 +132,12 @@ namespace enigma {
         return "ac_top";
     }
 
+    bool Top::on_collision (Actor *a) {
+        // tops shatter and collide independent on flying status of oponent 
+        SendMessage(a, "_shatter");
+        return true;
+    }
+    
     ActorTraits Top::traits = {"ac_top", ac_top, 1<<ac_top, 16.0/64, 0.8};
     
     BOOT_REGISTER_START
@@ -138,4 +146,5 @@ namespace enigma {
     BOOT_REGISTER_END
 
 } // namespace enigma
+
 

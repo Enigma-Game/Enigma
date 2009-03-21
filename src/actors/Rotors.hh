@@ -39,7 +39,6 @@ namespace enigma {
         // Actor interface
         virtual bool is_dead() const;
         virtual void think (double dtime);
-        virtual void on_collision(Actor *a);
 
     private:
         // Variables
@@ -63,6 +62,9 @@ namespace enigma {
         // Object interface.
         virtual std::string getClass() const;
         virtual const char *get_kind() const;
+
+        // Actor interface
+        virtual bool on_collision(Actor *a);
     };
     
 /* -------------------- Top  -------------------- */
@@ -76,6 +78,9 @@ namespace enigma {
         // Object interface.
         virtual std::string getClass() const;
         virtual const char *get_kind() const;
+
+        // Actor interface
+        virtual bool on_collision(Actor *a);
     };
     
 

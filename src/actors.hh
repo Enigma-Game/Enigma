@@ -127,7 +127,7 @@ namespace enigma {
 
         virtual void think (double dtime);
 
-        virtual void on_collision(Actor *a);
+        virtual bool on_collision(Actor *a);
         virtual void on_creation(const ecl::V2 &pos);
         virtual void on_respawn (const ecl::V2 &pos);
 

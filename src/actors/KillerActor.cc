@@ -49,8 +49,10 @@ namespace enigma {
         return false;
     }
 
-    void Killer::on_collision(Actor *a) {
-        SendMessage(a, "_shatter");
+    bool Killer::on_collision(Actor *a) {
+        if (a->is_on_floor())
+            SendMessage(a, "_shatter");
+        return false;
     }
     
     ActorTraits Killer::traits = {"ac_killer", ac_killer, 1<<ac_killer, 13.0/64, 0.7};

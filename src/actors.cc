@@ -148,8 +148,8 @@ Actor::Actor (const ActorTraits &tr)
         return StateObject::message(m);
     }
 
-void Actor::on_collision (Actor *) 
-{
+bool Actor::on_collision(Actor *a) {
+    return false;
 }
 
 ActorInfo *Actor::get_actorinfo() { 

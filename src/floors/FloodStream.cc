@@ -131,6 +131,8 @@ namespace enigma {
                     Floor *f = GetFloor(p);
                     if (f != NULL && f->isKind("fl_floodstream") && 
                             (f->getAttr("faces").to_string() == "nesw" || f->isKind("fl_water"))) {
+                        if (f->isKind("fl_water") && f->getAttr("state") == IDLE)
+                            init_model();  // make flood visible
                         f->setAttr("interval", getAttr("interval"));
                         f->setAttr("state", FLOODING);
                     } else if (f != NULL && f->getAttr("floodable").to_bool()) {

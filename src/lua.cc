@@ -1642,7 +1642,7 @@ static int newGroup(lua_State *L) {
         for (int i = 1; i <= lua_gettop(L); i++) {
             objects.push_back(to_object(L, i));
         }
-    } else {
+    } else if (lua_gettop(L) > 0) { 
         throwLuaError(L, "New Group - argument is no object");
         return 0;
     }

@@ -119,7 +119,7 @@ namespace enigma {
         // Shield, booze and invisibility can be activated in all states except DEAD
     
         if (state != DEAD) {
-            if (m.message == "_shield" && getAttr("owner") ==  m.value) {
+            if (m.message == "_shield" && getAttr("owner") ==  (int)m.value) {
                 m_shield_rest_time += SHIELD_TIME;
                 update_halo();
                 return true;

@@ -1269,11 +1269,11 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
         if (relspeed < 0)   // not moving towards each other
             return;
 
-        actor1->on_collision (actor2);
-        actor2->on_collision (actor1);
+        bool enforceCollision = actor1->on_collision(actor2);
+        enforceCollision = enforceCollision || actor2->on_collision(actor1);
 
         bool reboundp = (actor1->is_movable() && actor2->is_movable() &&
-                         (actor1->is_on_floor() == actor2->is_on_floor()));
+                (enforceCollision || (actor1->is_on_floor() == actor2->is_on_floor())));
 
         if (reboundp) {
             Contact contact (a2.pos + n*a2.radius, -n);
