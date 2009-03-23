@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Glacial Chasm" el:subtitle="" el:id="luc28"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_sahara"}
+ti["--"] = {"fl_abyss"}
+ti["##"] = {"st_bluegray"}
+ti["XX"] = {"st_grate", flavor="cross"}
+ti["xx"] = ti["--"] .. ti["XX"]
+ti["++"] = ti["XX"] .. {"it_magicwand"}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["bridge"] = {"fl_bridge", name="bridge%%"}
+ti["switch"] = {"st_switch", target="bridge%%"}
+ti["trigger"] = {"it_trigger", target="bridge%%", invisible=true}
+ti["OL"] = {"st_oxyd", name="left#", flavor="d"}
+ti["OR"] = {"st_oxyd", name="right#", flavor="d"}
+ti["@@"] = ti["XX"] .. {"#ac_marble_black"}
+
+wo(res.puzzle(res.autotile(ti, {"b", "bridge"}, {"S", "switch"}, {"t", "trigger"}), "P"), "  ", {
+    "########################################",
+    "OLXXXXXXXXXXxxxxxxxxxxxxxxXXXXXXXXXXXXOR",
+    "##XX        --------------          XX##",
+    "##XX  PePePe------S3------          XX##",
+    "##XX  P1P2P3----b1--------          XX##",
+    "##XX  P1P2P3--------------          XX##",
+    "OL@@  P1P2P3------t1t2b3b4  OR  OR  XXOR",
+    "##XX  P1P2P3--------------          XX##",
+    "##XX  P1P2P3----b2--------          XX##",
+    "##XX  PePePe------S4------          XX##",
+    "##XX        --------------          XX##",
+    "OLXX++XXXXXXxxxxxxxxxxxxxxXXXXXXXXXXXXOR",
+    "########################################"})
+
+wo:shuffleOxyd({"left#*", "right#*", min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

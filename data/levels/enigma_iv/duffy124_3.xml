@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Worse Nightmare" el:subtitle="" el:id="duffy124"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Easy mode by Andreas Lochmann, new API converted by /dev/null</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if wo["IsDifficult"] then
+    wo["FrictionStrength"] = -0.5
+else
+    wo["FrictionStrength"] = -0.3
+end
+
+ti[" "] = {"fl_blueslab"}
+ti["#"] = {"st_brownpyramide"}
+ti["!"] = {"it_landmine"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#O!    ! OO   ! ! O#",
+    "#  ! !   ! !! !    #",
+    "#! !    !      ! ! #",
+    "#     !  !  ! !   !#",
+    "#      !   !   ! ! #",
+    "#O  @    !   !! ! O#",
+    "#     !  ! !!     !#",
+    "#         !  ! !!  #",
+    "# !  !!  !    !  ! #",
+    "# !    !  ! !   !  #",
+    "#O   !   OO   !  !O#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Transpositions" el:subtitle="" el:id="duffy174"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_marble"}
+ti["#"] = {"st_redbrown"}
+ti["."] = {"fl_abyss"}
+ti["X"] = {"st_grate_cross"}
+ti["H"] = {"st_box_wood"}
+ti["*"] = {"st_puzzle", cluster = 1, intensity = 0}
+ti["-"] = ti["."] .. {"st_puzzle", cluster = 1, intensity = 0}
+ti["B"] = {"st_passage_black_square"}
+ti["W"] = {"st_passage_white_square"}
+ti["b"] = {"st_oneway_black", orientation = EAST}
+ti["w"] = {"st_oneway_white", orientation = EAST}
+ti["+"] = {"st_blur_cross"}
+ti["N"] = {"st_mail_n"}
+ti["S"] = {"st_mail_s"}
+ti["|"] = {"it_pipe_ns"}
+ti["1"] = {"it_vortex", "vortexNE", destination = "vortexSW"}
+ti["3"] = {"it_vortex", "vortexNW", destination = "vortexSE"}
+ti["7"] = {"it_vortex", "vortexSE", destination = "vortexNW"}
+ti["9"] = {"it_vortex", "vortexSW", destination = "vortexNE"}
+ti["l"] = {"it_extralife"}
+ti["y"] = {"it_flag_black"}
+ti["Y"] = {"it_flag_white"}
+ti["z"] = ti["y"] .. {"st_passage_white_frame"}
+ti["Z"] = ti["Y"] .. {"st_passage_black_frame"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+ti["Q"] = {"#ac_marble_white"}
+
+w, h = wo(ti, " ", {
+    "#############################################################",
+    "#       ...    ....  +  lw   b XXX..XXX .....  WW+W++   BBB #",
+    "#  @    WWW || BBB.  +   w   b X X..X X BBB..  ++B+++H  ... #",
+    "#    Y  WWW S| BB .  +   w   b X3X..X1X BB ..  ++++W+   ...W#",
+    "#       ...    .. .  #  lw   b XXX..XXX .. ..  ++++++   ...O#",
+    "#................ . #z#  #................ ..  ++W+W+   ....#",
+    "#................H.  +                 ...*-.  ++#++B   ..ll#",
+    "#................ . #Z#  #................ ..  +++BB+   ....#",
+    "#       ...    .. .  #  lb   w XXX..XXX .. ..  ++B+++   ...O#",
+    "#    y  BBB |N WW .  +   b   w X9X..X7X WW ..  ++++++   ...B#",
+    "#  Q    BBB || WWW.  +   b   w X X..X X WWW..  +WW+++H  ... #",
+    "#       ...    ....  +  lb   w XXX..XXX .....  ++++++   WWW #",
+    "#############################################################"})
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -22,14 +22,14 @@
     <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Impulse-phobia" _xpath="enigma_vii/duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Slopes, Jumps &amp; Falls" _xpath="enigma_vii/duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="Arctic Jumping" _xpath="enigma_vii/duffy168_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Breakthrough" _xpath="enigma_vii/duffy170_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Arctic Jumping" _xpath="enigma_vii/duffy168_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Breakthrough" _xpath="enigma_vii/duffy170_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Seasonal Patterns" _xpath="enigma_vii/duffy164_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Shark" _xpath="enigma_vii/duffy169_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy169" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Alpha Factor" _xpath="enigma_vii/duffy171_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy171" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Double Oneways" _xpath="enigma_vii/duffy172_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Transpositions" _xpath="enigma_vii/duffy174_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Transpositions" _xpath="enigma_vii/duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Puppet" _xpath="enigma_vii/pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Ghost Driver" _xpath="enigma_vii/duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -144,13 +144,17 @@
     <level _seq="136" _title="Sokopal" _xpath="enigma_viii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="137" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="Two Is A Company I" _xpath="enigma_viii/devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="Two Is A Company II" _xpath="enigma_viii/devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="143" _title="CrissCross" _xpath="enigma_viii/devnull26_1" author="/dev/null" ctrl="force" easy="true" id="devnull26" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="144" _title="5 Days and 5 Nights" _xpath="enigma_viii/andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="145" _title="Babylon" _xpath="enigma_viii/mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="146" _title="Two Is A Company III" _xpath="enigma_viii/devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="147" _title="Panelled Puzzle I" _xpath="enigma_viii/ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="156" score="1" target="time" unit="duration"/>
+    <level _seq="148" _title="Panelled Puzzle II" _xpath="enigma_viii/ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="156" score="1" target="time" unit="duration"/>
+    <level _seq="149" _title="The Gordian Knot" _xpath="enigma_viii/ral15_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090312ral718" rel="1" rev="157" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

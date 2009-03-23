@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title ="Catwalk Meditation" el:id="20060505ral007"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 159 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:25" el:difficult="2:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["."] = {"fl_rock"}
+ti[" "] = {"fl_abyss"}
+ti["|"] = {"it_strip_ns"}
+ti["-"] = {"it_strip_ew"}
+ti["#"] = {"st_redbrown"}
+ti["*"] = {"st_redbrown_hollow"} .. ti{"fl_fake_abyss", force_y=500}
+ti["="] = {"st_redbrown_hollow"} .. ti{"fl_fake_abyss", force_y=-500}
+ti["o"] = {"it_meditation_dent"} .. ti["."]
+
+ti["1"] = ti["."] .. {"#ac_pearl", essential=INDISPENSIBLE}
+
+if wo["IsDifficult"] then
+    ti["t"] = ti["."] .. {"it_trigger", target="nocompress"}
+    ti["2"] = ti["1"]
+    ti["3"] = ti["."]
+    ti[","] = {"it_springboard"} .. ti["."]
+    ti["g"] = {"fl_himalaya", "horizontal", force_x=1}
+else
+    ti["t"] = ti["."]
+    ti["2"] = ti["."]
+    ti["3"] = ti["1"]
+    ti[","] = {"fl_gravel"}
+    ti["g"] = ti["."]
+end
+
+wo(ti, " ", {
+"####################",
+"#                  #",
+"#    .....,......  #",
+"#    ............  #",
+"#       |  | |     #",
+"#    * *|  |*|  *  #",
+"# g23.1.t.1.1..... #",
+"#  =|=  =|=  | =|  #",
+"#   |    |   |  |  #",
+"#   |    |   |  |  #",
+"#   o    o   o  o  #",
+"#                  #",
+"####################"
+})
+
+function nocompress()
+    wo[no["horizontal"]] = ti["."]
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Meditation auf dem Laufsteg</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

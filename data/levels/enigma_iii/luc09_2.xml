@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Teamplay Doors" el:subtitle="" el:id="luc09"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits>Thanks to Petr Machata for his ant.lua script</el:credits>
+        <el:code>New API converted by R. Bourquin</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_himalaya"}
+ti["##"] = {"st_flat"}
+ti["EE"] = {"st_door", flavor="b"}
+ti["uu"] = {"it_trigger", target="send_toggle", name="trigger%%"}
+ti["door"] = {"st_door", flavor="b", name="door%%"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["OO"] = {"st_oxyd"}
+ti["@1"] = {"#ac_marble_black"}
+ti["@2"] = {"#ac_marble_white"}
+
+wo(res.autotile(ti, {"D", "door"}, {"t", "trigger"}, {"u", "uu"}), "  ", {
+    "##########################################################",
+    "##    EE        ta############        DA  DB  ##      OO##",
+    "##    ######      ############        ######DC##      ####",
+    "##    EEu1##      tbDctdDetfDg        ##  DD  ##      OO##",
+    "##    ######      ############        ##DE######      ####",
+    "##@1  EEu2##      ############        ##  DF  DG      OO##",
+    "##    ########Da##########################################",
+    "##@2  EEu3##      ############      ##tA  tB  t-      OO##",
+    "##    ######      ############      ##  t-  tC        ####",
+    "##    EEu4##      DbtcDdteDftg        t-  tD  t-      OO##",
+    "##    ######      ############      ##  tE  t-        ####",
+    "##    EEu5##      ############      ##t-  tF  tG      OO##",
+    "##########################################################"})
+
+wo:shuffleOxyd()
+
+function postinit()
+    st(no["trigger%5"]+po(-1,0)):open()
+end
+
+function send_toggle(value, sender)
+    if value == true then
+        gr = grp({st(sender+po(-1,0)), st(sender+NNW), st(sender+SSW)})
+        if sender.name == "trigger%1" then
+            gr = grp({st(sender+NNW), st(sender+SSW)})
+        end
+        gr:toggle()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

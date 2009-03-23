@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmap"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -318,7 +318,7 @@ function lib.map.match(map, conditionsarg, ...)
           .. "at least two entries.", 2)
     end
     if (usertype(condition[1]) == "position") then
-      condition[1] = po(grp({})) .. condition[1]
+      condition[1] = po(grp()) .. condition[1]
     end
     if (usertype(condition[1]) ~= "polist") then
       error("lib.map.match: Wrong type in condition, expected position or "
@@ -330,7 +330,7 @@ function lib.map.match(map, conditionsarg, ...)
       end
     end       
   end
-  local result = po(grp({}))
+  local result = po(grp())
   for y = 0, map.height - 1 do
     for x = 0, map.width - 1 do
       local conditions_fulfilled = true

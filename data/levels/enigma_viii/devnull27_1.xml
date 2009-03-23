@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Two Is A Company III" el:subtitle="" el:id="devnull27"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>Thanks to Raoul Bourquin for code optimization</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="6:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["#"] = {"st_redrock"}
+ti[" "] = {"fl_concrete"}
+ti["."] = {"fl_water"}
+ti["B"] = {"st_passage_black_frame"}
+ti["W"] = {"st_passage_white_frame"}
+ti["box"] = {"st_box_rock", "box%%"}
+ti["o"] = {"st_oxyd_a", name = "left#"}
+ti["O"] = {"st_oxyd_a", name = "right#"}
+ti["@"] = {"#ac_marble_black", essential = INDISPENSIBLE}
+ti["*"] = {"#ac_marble_white", essential = INDISPENSIBLE}
+
+wo(res.autotile(ti, {"1", "6", "box"}), " ", {
+    "##################O#",
+    "#*  3. #    #    # O",
+    "#  # # # # ### # #W#",
+    "##1# #.  . ..      #",
+    "#    # #   ### ###B#",
+    "#  # # #  ##  .# 5 #",
+    "#### # ## #    .   #",
+    "o B.    ### ####.#WO",
+    "#.   #  #   #     .#",
+    "#.     #### #   #2##",
+    "#.## #.#  # #4###  #",
+    "o B .  6  W     # @#",
+    "#o##################"})
+
+wo:shuffleOxyd({"left#*", max = 0}, {"right#*", max = 0})
+wo:add({"ot_wire", anchor1 = "box%5", anchor2 = "box%6"})
+wo:add({"ot_wire", anchor1 = "box%1", anchor2 = "box%2"})
+wo:add({"ot_wire", anchor1 = "box%3", anchor2 = "box%4"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

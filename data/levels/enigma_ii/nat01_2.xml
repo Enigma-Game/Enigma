@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Indoor Pool" el:subtitle="" el:id="nat1"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti[" ."] = {"fl_gray"}
+ti["##"] = {"st_metal"}
+ti["~~"] = {"fl_water"}
+ti["X "] = {"st_grate_cross"}
+ti["w "] = {"st_box"}
+ti["--"] = {"st_puzzle_blue", connections = "ew"}
+ti[">>"] = {"st_puzzle_blue", connections = "w"}
+ti["D "] = {"st_door", "doors#", faces = "ew"}
+ti["t "] = {"it_trigger", target = "@doors#*"}
+ti["o "] = {"st_oxyd_a", "north#"}
+ti["O "] = {"st_oxyd_a", "south#"}
+ti["@ "] = {"#ac_marble_black"}
+
+w, h = wo(res.composer(ti), "  ", {
+    "########################################",
+    "##o ##                                ##",
+    "##  ##    ##########        w         ##",
+    "##  D      .X.w. .############w       ##",
+    "##  ##    ###### . . .t. . .##        ##",
+    "##o ##     .X.w.w. .###### .####      ##",
+    "------------>>## .~~~~~~~~ . . .  @   ##",
+    "##O ##     .X.w.w. .###### .####      ##",
+    "##  ##    ###### . . .t. . .##        ##",
+    "##  D      .X.w. .############w       ##",
+    "##  ##    ##########        w         ##",
+    "##O ##                                ##",
+    "########################################"})
+
+wo:shuffleOxyd({"north#*", max = 0}, {"south#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

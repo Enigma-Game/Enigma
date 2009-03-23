@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Tomb" el:subtitle="" el:id="ant04"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["  "] = {"fl_sand"}
+ti["##"] = {"st_greenbrown"}
+ti[".."] = {"fl_abyss"}
+ti["xx"] = {"st_grate_cross"}
+ti["ww"] = {"st_box"}
+ti["doorns"] = {"st_door", name="door%%", faces = "ns"}
+ti["doorew"] = {"st_door", name="door%%", faces = "ew"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["OO"] = {"st_oxyd", "oxyds#"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.puzzle(res.autotile(ti, {"D", "doorew"}, {"E", "doorns"}, {"t", "trigger"}), "P"), "  ", {
+    "......####################..........######################",
+    "########xxxx##tb####xxxx##..........##  ww    ww  ....OO##",
+    "##      xx          ww  ##############      wwww  ....OO##",
+    "##  @@  ##  ##xx##  tcxx  Db        ####  wwww    ....OO##",
+    "##te    xx  td    ww####Ec##  ####    ##  ww      ....OO##",
+    "##ww####xxxx######  ##    ##PePO####Ed##Ee####ww  ....OO##",
+    "##    ########  PdPe  Pe  ..      POtaPa    ##    ....OO##",
+    "####        Da            ################################",
+    "..##########################.............................."})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort(), linear = true})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

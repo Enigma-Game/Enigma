@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma VII"/>
 
   <attributes/>
 
@@ -46,14 +46,14 @@
     <level _seq="38" _title="Knot Garden" _xpath="./duffy165_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Impulse-phobia" _xpath="./duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Slopes, Jumps &amp; Falls" _xpath="./duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Arctic Jumping" _xpath="./duffy168_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="42" _title="Breakthrough" _xpath="./duffy170_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Arctic Jumping" _xpath="./duffy168_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Breakthrough" _xpath="./duffy170_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Seasonal Patterns" _xpath="./duffy164_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy164" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Shark" _xpath="./duffy169_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy169" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Alpha Factor" _xpath="./duffy171_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy171" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Double Oneways" _xpath="./duffy172_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Wood - Water - Wood" _xpath="./duffy173_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Transpositions" _xpath="./duffy174_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Wood - Water - Wood" _xpath="./duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Transpositions" _xpath="./duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Puppet" _xpath="./pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Restless Meditation" _xpath="./ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Ghost Driver" _xpath="./duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008, 2009 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -360,7 +360,7 @@ end
 function lib.soko.setup_attributes_and_polists(map)
     lib.soko.polist = {}
     for _, field in pairs({"way", "wall", "outf", "goal", "wall_one", "wall_two"}) do
-        lib.soko.polist[field] = po(grp({}))
+        lib.soko.polist[field] = po(grp())
     end
     local function mark_as(pos, field)
         lib.soko.polist[field] = lib.soko.polist[field] .. pos
@@ -438,7 +438,7 @@ function lib.soko.setup_attributes_and_polists(map)
             if not (lib.soko.area[check].is_way or lib.soko.area[check].is_wall_one) then
                 mark_as(check, "wall_two")
                 lib.soko.area[check].wall_one =
-                    (lib.soko.area[check].wall_one or po(grp({}))) .. wall_one
+                    (lib.soko.area[check].wall_one or po(grp())) .. wall_one
             end
         end
     end
@@ -632,8 +632,8 @@ function lib.soko.endphase_set_hide_oxyds(max_pairs)
 end
 
 function lib.soko.endphase_set_block_oxyds(max_pairs)
-    local oxyds = po(grp({}))
-    local blockers = po(grp({}))    
+    local oxyds = po(grp())
+    local blockers = po(grp())    
     -- Add all wall_one-elements with exactly one way near as blocker,
     -- and the opposite position as oxyd, if it is of type wall_two.
     -- Make sure that each possible oxyd position is assigned at most once,
@@ -682,7 +682,7 @@ function lib.soko.endphase_set_block_oxyds(max_pairs)
     wo:shuffleOxyd()
     lib.soko.map[oxyds] = "O "
     lib.soko.polist.oxyd = po(oxyds)
-    lib.soko.polist.blocker = po(grp({}))
+    lib.soko.polist.blocker = po(grp())
     for ox in oxyds do
         local blocker = lib.soko.area[po(ox)].blocker
         lib.soko.polist.blocker = lib.soko.polist.blocker .. blocker
@@ -707,7 +707,7 @@ function lib.soko.endphase_set_block_oxyds(max_pairs)
 end
 
 function lib.soko.endphase_set_outside_oxyds(max_pairs)
-    local places = grp({})  -- a group of floors
+    local places = grp()  -- a group of floors
     -- Select all places outside or in the walls, unreachable
     -- for the marble.
     local common_list = lib.soko.polist.outf .. lib.soko.polist.wall_two
@@ -828,7 +828,7 @@ function lib.soko.endphase_vortex()
     end
     for floor in list_way do
         if not floor._component then
-            component[1 + #component] = {has_oxyds = false, floors = grp({})}
+            component[1 + #component] = {has_oxyds = false, floors = grp()}
             mark_component(floor, #component)
         end    
     end

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Panelled Puzzle I" el:subtitle="" el:id="20080820ral639"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 156 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="6:01" el:difficult="7:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_blueslab_framed", "fl#", checkerboard=0} .. ti{"fl_platinum_framed", "fl#", friction=7, adhesion=2, checkerboard=1}
+ti[":"] = {"fl_blueslab_framed", checkerboard=1} .. ti{"fl_platinum_framed", friction=7, adhesion=2, checkerboard=0}
+ti["."] = {"fl_abyss"}
+ti["+"] = {"fl_abyss", "oxydpos#"}
+ti["#"] = {"st_panel", cluster=1}
+
+ti["P"] = {"st_pull","westpull"}
+
+ti["trigger"] = {"it_trigger", "tr%%", invisible=true, target="counter", action="signal"}
+
+ti["*"] = {"st_spitter", "spitter", secure=true}
+ti["|"] = {"st_break", "spitter"}
+ti["X"] = {"st_pull", "eastpull"} .. ti{"fl_redslab_framed"} .. ti{"it_trigger", invisible=true, target="endpos"}
+ti["S"] = {"st_switch", target="balls"}
+ti["$"] = {"it_extralife"}
+
+ti["@"] = {"#ac_marble"}
+
+if wo["IsDifficult"] then
+    ti["?"] = {"it_document", text="solutionseven"}
+else
+    ti["?"] = {"it_nil"}
+end
+
+resolver = res.autotile(ti, {"A", "O", "trigger"})
+
+w, h = wo(resolver, " ", {
+".#....#....#....#.",
+"########..########",
+".#ABCD#+..+#@   #.",
+".#EFGH#.++.* ?  #.",
+".#IJKL#.++.S    #.",
+".#MNOP#+..+#   X#.",
+"########..########",
+".#....#....#....#."
+})
+
+wo:add({"ot_wire", "wire", anchor1="westpull", anchor2="eastpull"})
+wo:add({"ot_counter", "counter", state=15, target_0="conjure"})
+
+connections = {"w","s","sw","e","ew","es","esw","n","nw","ns","nsw",
+                "ne","new","nes","nesw"}
+                
+yellow = {true,true,false,true,true,false,false,true,false,true,false,false,false,false,false}
+
+function parity(p)
+    sum = 0
+    for i = 2, 15 do
+        for j = 1, i do
+            sum = sum + lib.lua.cond(p[j] > p[i], 1, 0)
+        end
+    end
+    return sum % 2
+end
+
+perm = lib.math.permutation(15)
+if  (wo["IsDifficult"] and parity(perm) == 1) or 
+        (not wo["IsDifficult"] and parity(perm) == 0) then
+    perm[1], perm[2] = perm[2], perm[1]
+end
+state = 0  -- first even run for difficult mode
+
+
+for i = 1, 15 do
+    wo[no["tr%"..i]] = {"st_puzzle", connections=connections[perm[i]]}
+    if not wo["IsDifficult"] and yellow[perm[i]] then
+        wo[no["tr%"..i]] = {"st_puzzle_yellow", connections=connections[perm[i]]}
+    end
+end
+
+function endpos(value)
+    if value then
+        wo[no["spitter"]] = ti["*"]
+    else
+        wo[no["spitter"]] = ti["|"]
+    end
+end
+
+function balls()
+    -- we are currently missing an extralife dispenser
+    wo:add(YIN, ti["$"]..ti["$"]..ti["$"]..ti["$"]..ti["$"])
+end
+
+function conjure()
+    if state == 0 and wo["IsDifficult"] then
+        -- now we play an odd parity
+        perm = lib.math.permutation(15)
+        if parity(perm) == 0 then
+            perm[1], perm[2] = perm[2], perm[1]
+        end
+        for i = 1, 15 do
+            wo[no["tr%"..i]] = {"st_puzzle", connections=connections[perm[i]]}
+        end
+        state = 1
+        -- do indicate changed parity
+        wo[no["fl#*"]] = ti[":"]
+        wo[no["eastpull"]+{0,-1}] = {"it_document", text="solutionsodd"}
+    else
+        wo[no["oxydpos#*"]] = {"st_oxyd_d"}
+        no["wire"]:kill()
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="solutionseven">
+        <el:english el:translate="true" >First solve this puzzle for even parity - 34 out of 56 puzzle solutions do work.</el:english>
+      </el:string>
+      <el:string el:key="solutionsodd">
+        <el:english el:translate="true" >Now solve this puzzle for odd parity - the remaining 28 puzzle solutions do now work.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

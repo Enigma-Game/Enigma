@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Involution" el:subtitle="" el:id="raoul32"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -46,31 +46,23 @@ wo(ti, " ", {
     "..#B#B#B#B#.........",
     "...................."})
 
-local oldswitch
-local oldneighbours = grp({})
+local oldsender
+local oldneighbours = grp()
+
 function switch_doors(value, sender)
-    if sender ~= oldswitch or #oldneighbours == 0 then
-        oldswitch = sender
-        local neighbours = find_neighbours(sender)
+    if sender ~= oldsender or #oldneighbours == 0 then
+        oldsender = sender
+        local neighbours = fl(sender + NEIGHBORS_4)
         local door = st((oldneighbours * neighbours))
         if #door > 0 then
             door = door[1]
             -- Generic code for "toggling" colors that works for passages and oneways:
             door["color"] = WHITE - door["color"]
-            oldneighbours = grp({})
+            oldneighbours = grp()
         else
             oldneighbours = neighbours
         end
     end
-end
-
-function find_neighbours(obj)
-    local neighbours = grp({})
-    neighbours = neighbours + fl(obj+po(0,-1))  -- north
-    neighbours = neighbours + fl(obj+po(1, 0))  -- east
-    neighbours = neighbours + fl(obj+po(0, 1))  -- south
-    neighbours = neighbours + fl(obj+po(-1,0))  -- west
-    return neighbours
 end
  ]]></el:luamain>
     <el:i18n>

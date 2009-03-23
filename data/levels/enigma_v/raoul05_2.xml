@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
-      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005,2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,49 +16,46 @@
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_metal"}
-ti["x"] = {"st_lightglass_hollow"}
 ti["#"] = {"st_darkglass"}
+ti["x"] = {"st_lightglass_hollow"}
 ti["O"] = {"st_darkglass_hollow"}
-ti["U"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,-5})}
-ti["L"] = {"st_switch_black", "switch#", target="set_puzzle", instant=true, _oxyd=po({0,5})}
-ti["P"] = {"st_puzzle_yellow", cluster = 1}
-ti["@"] = {"#ac_marble_black", "marble"}
+ti["U"] = {"st_switch_black", name="switch#", target="set_puzzle", instant=true, _oxyd=po({0,-5})}
+ti["L"] = {"st_switch_black", name="switch#", target="set_puzzle", instant=true, _oxyd=po({0,5})}
+ti["P"] = {"st_puzzle_yellow", cluster=1}
+ti["@"] = {"#ac_marble_black", name="marble"}
 
-has_puzzle = grp({})  -- group of all activated switches, currently empty
+has_puzzle = grp()  -- group of all activated switches, currently empty
 
-resolver = res.puzzle(ti, "P")
-
-w, h = wo(resolver, " ", {
-"####################",
-"#  x   xx   xx   x #",
-"#  x   xx   xx   x #",
-"#  x   xx   xx   x #",
-"#  xxxxxxxxxxxxxxx #",
-"#    U    U    U   #",
-"# @                #",
-"#   L    L    L    #",
-"# xxxxxxxxxxxxxxx  #",
-"# x   xx   xx   x  #",
-"# x   xx   xx   x  #",
-"# x   xx   xx   x  #",
-"####################"})
+wo(res.puzzle(ti, "P"), " ", {
+    "####################",
+    "#  x   xx   xx   x #",
+    "#  x   xx   xx   x #",
+    "#  x   xx   xx   x #",
+    "#  xxxxxxxxxxxxxxx #",
+    "#    U    U    U   #",
+    "# @                #",
+    "#   L    L    L    #",
+    "# xxxxxxxxxxxxxxx  #",
+    "# x   xx   xx   x  #",
+    "# x   xx   xx   x  #",
+    "# x   xx   xx   x  #",
+    "####################"})
 
 -- Maps for the puzzels:
 upper_maps = {
-        {"PPO","OPO","OPP"},
-        {"OPP","OPO","PPO"},
-        {"OPP","PPO","POO"},
-        {"PPO","OPP","OOP"},
-        {"OPO","PPP","OPO"},
-        {"PPP","OPO","OPO"},
-        {"OPO","OPO","PPP"},
-        {"PPP","POO","POO"},
-        {"PPP","OOP","OOP"},
-        {"OPO","PPP","POO"},
-        {"OPO","PPP","OOP"},
-        {"PPO","OPP","OPO"},
-        {"OPP","PPO","OPO"}
-             }
+    {"PPO","OPO","OPP"},
+    {"OPP","OPO","PPO"},
+    {"OPP","PPO","POO"},
+    {"PPO","OPP","OOP"},
+    {"OPO","PPP","OPO"},
+    {"PPP","OPO","OPO"},
+    {"OPO","OPO","PPP"},
+    {"PPP","POO","POO"},
+    {"PPP","OOP","OOP"},
+    {"OPO","PPP","POO"},
+    {"OPO","PPP","OOP"},
+    {"PPO","OPP","OPO"},
+    {"OPP","PPO","OPO"}}
 
 -- simply invert upper_maps to create lower_maps:
 lower_maps = {}
@@ -91,7 +88,7 @@ function maybe_set_oxyds()
         wo:shuffleOxyd()
     end
 end
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

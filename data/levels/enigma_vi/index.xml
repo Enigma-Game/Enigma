@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma VI"/>
 
   <attributes/>
 
@@ -38,7 +38,7 @@
     <level _seq="30" _title="- Meditation -" _xpath="./raoul24_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul24" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Zeus" _xpath="./raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Sisyphus" _xpath="./nat13_1" author="Nat Pryce" ctrl="force" easy="false" id="nat13" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Ben Hur" _xpath="./ral13_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="1" rev="58" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Ben Hur" _xpath="./ral13_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061011ral390" rel="2" rev="159" score="2" target="time" unit="duration"/>
     <level _seq="34" _title="Troy" _xpath="./andreas37_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas37" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="35" _title="Phaeton" _xpath="./andreas39_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas39" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Procrustes" _xpath="./andreas34_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas34" rel="2" rev="4" score="1" target="time" unit="duration"/>

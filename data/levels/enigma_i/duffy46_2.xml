@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="No Jumping Necessary" el:subtitle="" el:id="duffy46"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_abyss"}
+ti["#"] = {"st_greenbrown"}
+ti["."] = {"fl_hay"}
+ti[","] = ti["."] .. {"it_crack_m"}
+ti[";"] = ti["."] .. {"it_crack_l"}
+ti["+"] = {"fl_bridge", "bridge#"}
+ti["k"] = ti["."] .. {"it_key"}
+ti["K"] = {"st_key", target = "toggleBridge", action = "signal"}
+ti["f"] = ti["."] .. {"it_floppy"}
+ti["F"] = {"st_floppy", target = "toggleBridge", action = "signal"}
+ti["O"] = {"st_oxyd", oxydcolor = OXYD_BLUE}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+w, h = wo(ti, " ", {
+    "#######################################",
+    "#                  #       O        O #",
+    "# ;;k;;;.@.. f;;.. #O;;;.;;;,,...;;;; #",
+    "# ;     ....;;  .. # ;  .     ;     ; #",
+    "# ..;;; ;       ..+# ;  ;;;..;; ;;; ; #",
+    "# ..; ; ;f;;;;  +;+#..   ; ,  O ;O; ; #",
+    "# ; ; k    ; ;k;+;++.. ;;; .,,O ; ; ; #",
+    "# ; k;;;....  K;+;F#.. ; O ,    ; ;.. #",
+    "# k ;   ....;; ...K# ;;;   ..;;;.  .. #",
+    "# ; ;      ; k ...K# ;   ;.. ; ;.; .. #",
+    "# ;;..;;;k;; ;;...K# ;;;;;   ;;; ;;;  #",
+    "#             FKKK # O       O    O   #",
+    "#######################################"})
+
+wo:add({"ot_counter", "toggleBridge", state = 0, target = "bridge#*", action_9 = "close", action_8 = "open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

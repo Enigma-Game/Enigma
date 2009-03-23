@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Coloured Doors" el:subtitle="" el:id="luc03"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_gray"}
+ti["r "] = {"fl_red", name="red#", _color="red"}
+ti["g "] = {"fl_lawn", name="green#", _color="green"}
+ti["b "] = {"fl_blueslab", name="blue#", _color="blue"}
+ti["y "] = {"fl_sahara", name="yellow#", _color="yellow"}
+ti["##"] = {"st_brick"}
+ti[" -"] = {"st_door", flavor="d", faces="ns", name="doors#"}
+ti[" |"] = {"st_door", flavor="d", faces="ew", name="doors#"}
+ti[" t"] = {"it_trigger", target="toggle_doors"}
+ti[" O"] = {"st_oxyd", flavor="a"}
+ti[" 1"] = {"#ac_marble_black"}
+ti[" 2"] = {"#ac_marble_white"}
+
+wo(res.composer(ti), "  ", {
+    "########################################",
+    "##  ##g g g g ##r r r r ##r r r r ##  ##",
+    "##  ##g gOgtg y|r rOrtr b|r rOrtr ##  ##",
+    "##  ##g g g g ##r r r r ##r r r r ##  ##",
+    "##  ####r-########y-########b-######  ##",
+    "##  ##r r r r ##y y y y ##g g g g ##  ##",
+    "##  ##r rOrtr g|y1y yty2r|g gOgtg ##  ##",
+    "##  ##r r r r ##y y y y ##g g g g ##  ##",
+    "##  ####b-########y-########g-######  ##",
+    "##  ##b b b b ##y y y y ##b b b b ##  ##",
+    "##  ##b bObtb r|y yOyty g|b bObtb ##  ##",
+    "##  ##b b b b ##y y y y ##b b b b ##  ##",
+    "########################################"})
+
+wo:shuffleOxyd()
+
+function toggle_doors(value, sender)
+    st(fl(no["doors#*"]) * no[fl(sender)._color.."#*"]):toggle()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

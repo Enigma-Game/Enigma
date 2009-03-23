@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Ben Hur" el:subtitle="The art of steering a quadriga" el:id="20061011ral390"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 159 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code></el:code>
+      </el:comments>
+      <el:score el:easy="4:52" el:difficult="6:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["X"] = {"st_oxyd", "outer#"}
+ti["x"] = {"st_oxyd", "inner#"}
+ti["#"] = {"st_granite"}
+ti["-"] = ti["#"] 
+
+ti["s"] = {"it_spoon"}
+ti["t"] = {"it_document", text="quater"}
+ti["@"] = {"ac_marble", 0.5, name="acBlack"}
+
+ti["Horse"] = {"st_chess_black", "horse%%"}
+
+if not wo["IsDifficult"] then
+    ti["C"] = ti[" "]
+    ti["D"] = ti[" "]
+end
+
+wo(res.autotile(ti, {"A", "D", "Horse"}), " ", {
+    "####X##########X####",
+    "#           C      #",
+    "#           A t    #",
+    "X           B s@   X",
+    "#           D      #",
+    "#    -        -    #",
+    "#    --x----x--    #",
+    "#    -        -    #",
+    "#                  #",
+    "X                  X",
+    "#                  #",
+    "#                  #",
+    "####X##########X####"
+})
+
+rb_length = lib.lua.cond(wo["IsDifficult"], 3.5, 3.0)
+rb_max = lib.lua.cond(wo["IsDifficult"], 4.5, 4.0)
+for horse in no["horse%*"] do
+    wo:add({"ot_rubberband", anchor1="acBlack", anchor2=horse, strength=200, length=rb_length, threshold=1, max=rb_max})
+end
+
+wo:shuffleOxyd({no["inner#*"], max=0}, {no["outer#*"]:sort("circular"), circular=true})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Die Kunst des Lenkens einer Quadriga</el:translation>
+      </el:string>
+      <el:string el:key="quater">
+        <el:english el:translate="true" el:comment="quater - historical death penalty to be devided in four parts">Dropping the spoon redeems from being quartered!</el:english>
+        <el:translation el:lang="de">Den Löffel abzugeben erlöst einen von einer Vierteilung!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
