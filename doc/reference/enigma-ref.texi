@@ -4441,11 +4441,11 @@ concatenation gets valid.
 
 @item @b{World Initialization}
 @example
-  @var{width}, @var{height} = @i{wo}(@i{ti}, "@var{__}", { -- second arg: default tile key that
+  @var{width}, @var{height} = @i{wo}(@i{ti}, "@var{__}", @{ -- second arg: default tile key that
   "@var{##__......}",                  --   defines the base, too - this example
   "@var{##..__.w__}",                  --   is 2 chars per tile/grid
   "@var{##.. w__..}"
-  })
+  @})
 @end example
 The world is initialized by the @samp{wo()} call that is explained in details
 at @ref{World Creation and Resolver Chaining}. In the simple form you supply
@@ -5498,7 +5498,7 @@ accelerating force in the inverse direction of the mouse movement which is a
 little bit difficult to control for the player.
 
 Besides all floors some floor covering items like @ref{it_strip},
-@ref{it_meditation_hollow} may provide adhesion values as well to deviate from
+@ref{it_meditation} may provide adhesion values as well to deviate from
 the floor adhesion.
 
 @table @asis
@@ -5506,7 +5506,7 @@ the floor adhesion.
 @item @b{Values:} @ @ any floating point number
 @item @b{Default:} @ @ @code{nil}
 @item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ by all floor, and floor covering item objects
+@item @b{Support:} @ @ by all floors, and floor covering item objects
 @end table
 
 @node checkerboard
@@ -7172,6 +7172,7 @@ If the thief has not stolen any items he leaves no empty bag.
 * it_brush::           Brush for Painting and Sweeping
 * it_cherry::          Source of Invisibility
 * it_coin::            Enigma's currency
+* it_crack::           Crack in the Floor
 * it_cross::           Floor switch for patient Actors
 * it_death::           Unpassable grid blocker
 * it_extralife::       
@@ -7508,6 +7509,41 @@ A small coin.
 A medium coin.
 @item @b{it_coin_l}
 A large coin.
+@end table
+
+@end table
+
+@c ----------------- Crack Item --------------------
+@node it_crack
+@subsection it_crack
+@obindex it_crack
+
+
+@table @asis
+
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{INVISIBLE}, @code{SMALL}, @code{MEDIUM}, @code{LARGE}; @ @ @i{default}: @code{SMALL} @ @ @xref{state}
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{crack}
+@item @b{toggle} @ @ @xref{toggle}
+@item @b{ignite} @ @ @xref{ignite}
+@item @b{heat} @ @ @xref{heat}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_it_crack}: state = @code{SMALL}
+@item @b{it_it_crack_i}: state = @code{INVISIBLE}
+@item @b{it_it_crack_s}: state = @code{SMALL}
+@item @b{it_it_crack_m}: state = @code{MEDIUM}
+@item @b{it_it_crack_l}: state = @code{LARGE}
 @end table
 
 @end table
@@ -14451,7 +14487,7 @@ A table of numbers.
 
 @item @b{Syntax Samples:}
 @example
-number_pairs = lib.math.steps(total_places, {2, 6, 10, 30})
+number_pairs = lib.math.steps(total_places, @{2, 6, 10, 30@})
 @end example
 
 @item @b{Details:}
@@ -14461,7 +14497,7 @@ monotonously), as otherwise the result might be counterintuitive.
 
 @item @b{Full Example:}
 @example
-lib.math.steps(x, {4, 8, 13})
+lib.math.steps(x, @{4, 8, 13@})
 @end example
 returns:
 @example
@@ -14664,7 +14700,7 @@ mymap[mymap:match(oldkey)] = newkey
 @end example
 is equivalent to @samp{mymap:replace(oldkey, newkey)} (only slower), and
 @example
-mymap[mymap:match({po(0,0), " "}, {NEIGHBORS_4, ".", ":"})] = "."
+mymap[mymap:match(@{po(0,0), " "@}, @{NEIGHBORS_4, ".", ":"@})] = "."
 @end example
 will find all occurences of @samp{ }, which are completely surrounded by
 @samp{.}, or @samp{:}, or mixtures of these, and replace them by @samp{.}. As
@@ -14858,7 +14894,7 @@ walls:
 @example
 map1.defaultkey = "-"
 map1:replace_outside(" ")
-map1[map1:match({{po(0,0), "#"}, {NEIGHBORS_4, "-", "#", "F"}})] = "-"
+map1[map1:match(@{@{po(0,0), "#"@}, @{NEIGHBORS_4, "-", "#", "F"@}@})] = "-"
 map1:trim()
 map1.defaultkey = " "
 @end example

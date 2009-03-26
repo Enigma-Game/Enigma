@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libmaze"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+lib.maze = {}
+
+function res.maze(subresolver, ...)
+    -- syntax: ... = <sourcebasename>, <targetbasename>
+    -- context: 
+    local args = {...}
+    local context = {res.maze_implementation, res.maze_finalization, subresolver}
+    
+    -- default settings
+    context.encode = function (maze, i, j)
+            return 2000*j + i + 100
+        end
+    context.decode = function (maze, c)
+            local i = (c - 100) % 2000
+            return i, (c - 100 - i) / 2000
+        end
+    context.dirs = {[WEST] = EAST, [SOUTH] = NORTH, [EAST] = WEST, [NORTH] = SOUTH}
+    context.adjacent = function (maze, c, dir)
+            if c == 99 then return c end   -- invalid code
+            local adj
+            if dir == WEST then adj = c - 1
+            elseif dir == SOUTH then adj = c + 2000
+            elseif dir == EAST then adj = c + 1
+            elseif dir == NORTH then adj = c - 2000
+            else error("Maze - illeagal direction "..dir)
+            end
+            if adj < 100 then
+                return 99
+            else 
+                return adj
+            end
+        end
+    --
+    context.anchor = po(0,0)
+    context.kernel = {1,1}
+    context.spacing = {1,1}
+    context.offset_x = {0, false}
+    context.offset_y = {0, false}
+    context.generator = lib.maze.generator_kruskal
+    context.renderer = lib.maze.renderer_standard
+    context.cells = {}  -- cells by index
+    context.indices = {} -- indices by cell
+    context.newcell = function (maze) 
+            local cell = {}
+            setmetatable(cell, context.cellmeta)
+            return cell
+        end
+    context.render = function (maze, ...)
+            context.renderer_args = {...}
+            if type(context.renderer_args[1]) == "function" then
+                context.renderer = context.renderer_args[1]
+                table.remove(context.renderer_args, 1)
+            end
+            maze:renderer(context.renderer_args)
+        end
+    setmetatable(context,{
+          __index = function (context, key)
+                  if type(key) == "number" and key >= 99 then
+                      return rawget(context, "cells")[key]
+                  elseif type(key) == "table" then
+                      local cellmeta = getmetatable(key)
+                      if cellmeta ~= nil and cellmeta.maze == context then
+                          return rawget(context, "indices")[key]
+                      else
+                          error("Maze access with foreign table as index")
+                      end
+                  else
+                      return rawget(context, key)
+                  end
+              end,
+          __newindex = function (context, key, value)
+                  if type(key) == "number" and key >= 100 then
+                      if type(value) == "table" then
+                          local cellmeta = getmetatable(value)
+                          if cellmeta ~= nil and cellmeta.maze == context then
+                              local cells = rawget(context, "cells")
+                              if cells[key] == nil then
+                                  cells[key] = value
+                                  rawget(context, "indices")[value] = key
+                              else
+                                  error("Maze cell index already occupied")
+                              end
+                          else
+                              error("Maze expected unassigned cell set but got something else")
+                          end
+                      else
+                          error("Maze illegal value set at index "..key)
+                      end
+                  else
+                      return rawset(context, key, value)
+                  end
+              end,
+          __call = function (context, ...) 
+                  local args = {...}
+                  if args[1] == nil then
+                      if args[2] == nil then
+                          local idx, cell = next(context.cells, nil)
+                          if idx == nil then
+                               return nil
+                          else
+                              return cell
+                          end
+                      else
+                          local idx, cell = next(context.cells, context.indices[args[2]])
+                          return cell
+                      end
+                  end
+                  return context[context:encode(...)]
+              end
+        })
+    context.cellmeta = {
+          __index = function (cell, key)
+                  if type(key) == "number" then
+                      return rawget(cell, key)
+                  else
+                      return getmetatable(cell)[key]
+                  end
+              end,
+          maze = context,
+          delete = function (cell)
+                  local maze = cell.maze
+                  local idx = maze[cell]
+                  maze.cells[idx] = nil
+                  maze.indices[cell] = nil
+              end,
+          neighbor = function (cell, dir)
+                  return cell.maze[cell.maze:adjacent(cell.maze[cell], dir)]
+              end,
+          connect = function (cell, dir)
+                  if cell[dir] ~= nil then
+                      cell[dir] = true
+                      (cell:neighbor(dir))[cell.maze.dirs[dir]] = true
+                  end
+              end,
+          pos = function (cell)
+                  local maze = cell.maze
+                  local i,j = maze:decode(maze[cell])
+                  local xo = i * (maze.kernel[1] + maze.spacing[1])
+                  local yo = j * (maze.kernel[2] + maze.spacing[2])
+                  xo = xo + maze.offset_x[1] * lib.lua.cond(maze.offset_x[2], j%2, j)
+                  yo = yo + maze.offset_y[1] * lib.lua.cond(maze.offset_y[2], i%2, i)
+                  return maze.anchor + {xo, yo}
+              end
+        }
+        
+    -- argument evaluation
+    if #args~= 1 or type(args[1]) ~= "table" then
+        error("Libmaze wrong number of arguments - expected subresolver and a table of configuration data", 2)
+    end
+    context.area = args[1].area
+    if type(context.area) ~= "table" then
+        error("Libmaze missing area configuration table", 2)
+    end
+    if type(context.area[2]) == "number" then
+        if type(context.area[3]) ~= "number" then
+            error("Libmaze area configuration requires two numbers for size", 2)
+        end
+        context.rectangular = true
+        -- if type (context.area[1]) ~= "string"
+    else
+        for k, v in pairs(context.area) do
+            if type(v) ~= "string" then
+                error("Libmaze area configuration expected string values", 2)
+            end
+        end
+        context.area_keymatches = {}
+        context.area_keyprefixes = {}
+        context.area_objnames = {}
+        context.area_positioncodes = {}
+    end
+    
+    if args[1].render ~= nil and type(args[1].render) ~= "table" then
+        error("Libmaze false renderer configuration", 2)
+    elseif args[1].render ~= nil then
+        context.renderer_args = args[1].render
+        if type(args[1].render[1]) == "function" then
+            context.renderer = args[1].render[1]
+            table.remove(context.renderer_args, 1)
+        end
+    end
+    
+    if args[1].kernel ~= nil and type(args[1].kernel) ~= "table" then
+        error("Libmaze false kernel configuration", 2)
+    elseif args[1].kernel ~= nil then
+        context.kernel = args[1].kernel
+    end
+    if args[1].spacing ~= nil and type(args[1].spacing) ~= "table" then
+        error("Libmaze false spacing configuration", 2)
+    elseif args[1].spacing ~= nil then
+        context.spacing = args[1].spacing
+    end
+    if args[1].offset_x ~= nil and type(args[1].offset_x) ~= "table" then
+        error("Libmaze false offset_x configuration", 2)
+    elseif args[1].offset_x ~= nil then
+        context.offset_x = args[1].offset_x
+    end
+    if args[1].offset_y ~= nil and type(args[1].offset_y) ~= "table" then
+        error("Libmaze false offset_y configuration", 2)
+    elseif args[1].offset_y ~= nil then
+        context.offset_y = args[1].offset_y
+    end
+    
+    if args[1].generator == false then
+        context.generator = nil
+    elseif type(args[1].generator) == "function" then
+        context.generator = args[1].generator
+    end
+    return context
+end
+
+function res.maze_implementation(context, evaluator, key, x, y)
+    if not context.rectangular then
+        if not context.area_args_separated then 
+            for k,v in pairs(context.area) do
+                if #v == #key then
+                    table.insert(context.area_keymatches, v) 
+                elseif #v < #key then
+                    table.insert(context.area_keyprefixes, v) 
+                else
+                    table.insert(context.area_objnames, v) 
+                end
+            end
+            context.area_args_separated = true
+        end
+        for k, v in pairs(context.area_keymatches) do
+            if key == v then
+                table.insert(context.area_positioncodes, context:encode(x,y))
+            end
+        end
+        for k, v in pairs(context.area_keyprefixes) do
+            if key:find(v, 1, true) == 1 then
+                table.insert(context.area_positioncodes, context:encode(x,y))
+                return evaluator(context[3], string.rep(" ", #v) ..key:sub(#v + 1), x, y)
+            end
+        end
+    end
+    return evaluator(context[3], key, x, y)
+end
+
+function res.maze_finalization(context)
+    local maze = context
+    if maze.rectangular then
+        for i = 0, maze.area[2] - 1 do
+            for j = 0, maze.area[3] - 1 do
+                local cell = maze:newcell()
+                maze[maze:encode(i, j)] = cell
+                for dir, opposite in pairs(maze.dirs) do
+                    local neighbor = cell:neighbor(dir)
+                    if neighbor then
+                        cell[dir] = false
+                        neighbor[opposite] = false
+                    end
+                end
+            end
+        end
+        if (type(maze.area[1]) == "string") then
+            maze.anchor = po[maze.area[1]]
+        else
+            maze.anchor = maze.area[1]
+        end
+        maze.anchor = po(fl(maze.anchor))  -- round down
+    else
+        for k, v in pairs(context.area_objnames) do
+            for obj in no[v] do
+                table.insert(context.area_positioncodes, context:encode(obj:xy()))
+            end
+        end
+        
+        local minx = 100000
+        local miny = 100000
+        -- offsets not yet supported!
+        for k,v in pairs(maze.area_positioncodes) do
+            local x,y = maze:decode(v)
+            minx = lib.lua.cond(x < minx, x, minx)
+            miny = lib.lua.cond(y < miny, y, miny)
+        end
+        maze.anchor = po(minx, miny)
+        local cellx = maze.kernel[1] + maze.spacing[1]
+        local celly = maze.kernel[2] + maze.spacing[2]
+        for k,v in pairs(maze.area_positioncodes) do
+            local x,y = maze:decode(v)
+            x = x - minx
+            y = y - miny
+            local i = math.floor(x / cellx)
+            local j = math.floor(y / celly)
+            local cell = maze(i,j)
+            if cell == nil then
+                cell = maze:newcell()
+                maze[maze:encode(i, j)] = cell
+                cell.grids = {}
+            end
+            cell.grids[maze:encode(x % cellx, y % celly)] = true
+        end
+        maze.area_positioncodes = nil  -- delete
+        local incomplete = {}
+        for cell in maze do
+            for i = 0, maze.kernel[1] - 1 do
+                for j = 0, maze.kernel[2] - 1 do
+                     if not cell.grids[maze:encode(i,j)] then
+                         incomplete[cell] = true
+                     end
+                end
+            end
+        end
+        for cell, t in pairs(incomplete) do
+            cell:delete()
+        end
+        incomplete = {}
+        for cell in maze do
+            local neighbor = cell:neighbor(EAST)
+            if neighbor then
+                local complete = true
+                for i = maze.kernel[1], maze.kernel[1] + maze.spacing[1] - 1 do
+                    for j = 0, maze.kernel[2] - 1 do
+                         if not cell.grids[maze:encode(i,j)] then
+                             complete = false
+                         end
+                    end
+                end
+                if complete then
+                    cell[EAST] = false
+                    neighbor[WEST] = false
+                end
+            end
+            neighbor = cell:neighbor(SOUTH)
+            if neighbor then
+                local complete = true
+                for i = 0, maze.kernel[1] - 1 do
+                    for j = maze.kernel[2], maze.kernel[2]  + maze.spacing[2] - 1 do
+                         if not cell.grids[maze:encode(i,j)] then
+                             complete = false
+                         end
+                    end
+                end
+                if complete then
+                    cell[SOUTH] = false
+                    neighbor[NORTH] = false
+                end
+            end
+            cell.grids = nil
+        end
+    end
+    
+    if maze.generator then
+        maze:generator()
+    end
+
+    if maze.renderer_args then
+        maze:renderer(maze.renderer_args)
+    end
+end
+
+function lib.maze.generator_kruskal(maze)
+    local walls = {}
+    local uplinks = {}   -- neighbor cell that is the up link towards the cell cluster root
+    local count = 0      -- count of unconnected cells
+    for cell in maze do
+        count = count + 1
+        for dir, opposite in pairs(maze.dirs) do
+            if cell[dir] == true then
+                -- the neighbor cell did register already
+                cell[dir] = false     -- unmark the link
+            elseif cell[dir] == false then
+                local neighbor = cell:neighbor(dir)
+                if neighbor then
+                    table.insert(walls, {cell, dir})
+                    neighbor[opposite] = true
+                else
+                    error("kruskal - bad cell link value")
+                end
+            end
+        end
+    end
+    walls = lib.lua.shuffle(walls)
+    
+    local function root(cell)
+                local up = cell
+                local down = cell
+                repeat
+                    down = up
+                    up = uplinks[down]
+                until up == nil
+                return down
+            end
+    
+    local next = 1   -- next wall
+    if #walls == 0 then return end
+    
+    while count > 1 do
+        local wall = walls[next]
+        local cell1 = wall[1]
+        local cell2 = cell1:neighbor(wall[2])
+        local root1 = root(cell1)
+        local root2 = root(cell2)
+        if root1 ~= root2 then
+            uplinks[root2] = root1 
+            count = count -1
+            cell1:connect(wall[2])
+        end
+        next = next + 1
+    end
+end
+
+function lib.maze.renderer_standard(maze, args)
+    -- TODO optimized passage positions on offset usage, especially on alternating offsets
+    local map = nil
+    local map_kernel = nil
+    local map_spacing_y = nil
+    local map_spacing_x = nil
+    local map_spacing_z = nil
+    local passage_open = args[1]
+    local passage_closed = nil
+    if type(args[1]) == "table" then
+        passage_open = args[1][1]
+        passage_closed = args[1][2]
+    end
+    if type(args[2]) ~= "string" then
+        map = args[2]
+        map_kernel = map:sub({0, 0}, maze.kernel[1], maze.kernel[2])
+        map_spacing_y = map:sub({maze.kernel[1], 0}, maze.spacing[1], maze.kernel[2])
+        map_spacing_x = map:sub({0, maze.kernel[2]}, maze.kernel[1], maze.spacing[2])
+        map_spacing_z = map:sub(maze.kernel, maze.spacing[1], maze.spacing[2])
+    end
+    for cell in maze do
+        local anchor = cell:pos()
+        if map then
+            wo:drawMap(ti, anchor, map_kernel)
+            if cell[EAST] ~= nil then
+                wo:drawMap(ti, anchor + {maze.kernel[1], 0}, map_spacing_y)
+            end
+            if cell[SOUTH] ~= nil then
+                wo:drawMap(ti, anchor + {0, maze.kernel[2]}, map_spacing_x)
+                if cell[EAST] ~= nil and (cell:neighbor(EAST))[SOUTH] ~= nil
+                                and (cell:neighbor(SOUTH))[EAST] ~= nil then
+                    wo:drawMap(ti, anchor + {maze.kernel[1], maze.kernel[2]}, map_spacing_z)
+                end
+            end
+        else
+            if args[3] then
+                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], ti[args[3]])
+            end
+            if args[2] then
+                if cell[EAST] ~= nil then
+                    wo:drawRect(anchor + {maze.kernel[1], 0}, maze.spacing[1], 
+                        maze.kernel[2], ti[args[2]])
+                end
+                if cell[SOUTH] ~= nil then
+                    wo:drawRect(anchor + {0, maze.kernel[2]}, 
+                        maze.kernel[1], maze.spacing[2], ti[args[2]])
+                    if cell[EAST] ~= nil and (cell:neighbor(EAST))[SOUTH] ~= nil
+                            and (cell:neighbor(SOUTH))[EAST] ~= nil then
+                        wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]}, maze.spacing[1], 
+                            maze.spacing[2], ti[args[2]])
+                    end
+                end
+            end
+        end
+        if cell[EAST] == true then
+            wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]/2}, 
+                    maze.spacing[1], 1, ti[passage_open])
+        end
+        if cell[SOUTH] == true then
+            wo:drawRect(anchor + {maze.kernel[1]/2, maze.kernel[2]}, 
+                    1, maze.spacing[2], ti[passage_open])
+        end
+        if passage_closed then
+            if cell[EAST] == false then
+                wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]/2}, 
+                        maze.spacing[1], 1, ti[passage_closed])
+            end
+            if cell[SOUTH] == false then
+                wo:drawRect(anchor + {maze.kernel[1]/2, maze.kernel[2]}, 
+                        1, maze.spacing[2], ti[passage_closed])
+            end
+        end
+    end
+
+end
+
+function lib.maze.renderer_window(maze, args)
+    if maze.spacing[1] ~= 0 or maze.spacing[2] ~= 0 then
+        error("Maze window renderer requires spacing of {0, 0}",2)
+    end
+    local map = nil
+    local map_kernel = nil
+    if type(args[1]) ~= "string" then
+        map = args[1]
+        map_kernel = map:sub({0, 0}, maze.kernel[1], maze.kernel[2])
+    end
+    for cell in maze do
+        local anchor = cell:pos()
+        if map then
+            wo:drawMap(ti, anchor, map_kernel)
+        else
+            if args[1] then
+                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], ti[args[1]])
+            end
+        end
+        -- TODO extend logic to arbitrary kernel size in the following lines
+        local faces = ""
+        if cell[EAST] == false or (args[2] == true and cell[EAST] == nil) then
+            faces = faces .. "e"
+        end
+        if cell[SOUTH] == false or (args[2] == true and cell[SOUTH] == nil) then
+            faces = faces .. "s"
+        end
+        if args[2] == true and cell[NORTH] == nil then
+            faces = faces .. "n"
+        end
+        if args[2] == true and cell[WEST] == nil then
+            faces = faces .. "w"
+        end
+        wo[anchor] = {"st_window", secure=true, faces=faces}
+    end
+end
+
+function lib.maze.renderer_strip(maze, args)
+    -- TODO extend to arbitrary spacing > {0,0}
+    if maze.kernel[1] ~= 0 or maze.kernel[2] ~= 0 then
+        error("Maze strip renderer requires kernel of {0, 0}",2)
+    end
+    if maze.spacing[1] ~= 1 or maze.spacing[2] ~= 1 then
+        error("Maze strip renderer requires spacing of {1, 1}",2)
+    end
+    local map = nil
+    local map_spacing = nil
+    if type(args[1]) ~= "string" then
+        map = args[1]
+        map_spacing = map:sub({0, 0}, maze.spacing[1], maze.spacing[2])
+    end
+    for cell in maze do
+        local anchor = cell:pos()
+        if map then
+            wo:drawMap(ti, anchor, map_spacing)
+        else
+            if args[1] then
+                wo:drawRect(anchor, maze.spacing[1], maze.spacing[2], ti[args[1]])
+            end
+        end
+        local connections = ""
+        if cell[EAST] == true then
+            connections = connections .. "e"
+        end
+        if cell[SOUTH] == true then
+            connections = connections .. "s"
+        end
+        if cell[NORTH] == true then
+            connections = connections .. "n"
+        end
+        if cell[WEST] == true then
+            connections = connections .. "w"
+        end
+        wo[anchor] = {"it_strip", connections=connections}
+    end
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
