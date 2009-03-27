@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/liblua"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,9 +17,10 @@
     <el:luamain><![CDATA[
 
 ---------------------------------------------------------------------
--- liblib.lua holds some general utilities for working with Lua.
--- It includes functions for deep-copying tables, combining tables,
--- and shuffling tables and a conditional function.
+-- liblua holds some general utilities for working with Lua.
+-- It includes functions for work with tables (deep-copy, combine,
+-- shuffle, print tables), a modulo wrapper and general debugging
+-- functions (currently only to_string).
 ---------------------------------------------------------------------
 --
 -- liblua provides the following functions:
@@ -27,8 +28,8 @@
 --   lib.lua.combine_tables(arg1, ...)
 --   lib.lua.shuffle(t)
 --   lib.lua.print_table(t, prefix, depth)
+--   lib.lua.to_string(thing)
 --   lib.lua.mod(value, modul)
---   lib.lua.cond(condition, iftrue, iffalse)
 --
 
 lib.lua = {}
@@ -141,7 +142,7 @@ function lib.lua.print_table(t, prefix, depth)
     elseif type(value) == "string" then
       print((prefix or "") .. "|" .. key_s .. " = \"" .. value .. "\"")
     elseif type(value) == "boolean" then
-      print((prefix or "") .. "|" .. key_s .. " = " .. lib.lua.cond(value, "true", "false"))
+      print((prefix or "") .. "|" .. key_s .. " = " .. cond(value, "true", "false"))
     elseif type(value) == "table" then
       if (depth or 0) < 5 then
         print((prefix or "") .. "|" .. key_s .. " = |")
@@ -184,7 +185,7 @@ function lib.lua.to_string(thing)
   elseif (t == "number") then
     result = "number: " .. thing
   elseif (t == "boolean") then
-    result = "boolean: " .. lib.lua.cond(thing, "true", "false")
+    result = "boolean: " .. cond(thing, "true", "false")
   elseif (t == "table") then
     result = "table"
     if thing.type then
@@ -248,19 +249,6 @@ function lib.lua.mod(value, modul)
     return lib.lua.mod(modul + (math.fmod or math.mod)(value, modul), modul)
   else
     return (math.fmod or math.mod)(value, modul)
-  end
-end
-
--- A wrapper of "if" to resemble the ternary ?:-function.
--- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
---   lib.lua.cond(t == 0, 1/t, error("Division by zero"))
--- will evaluate the error-function and thus halt for any T.
--- Hence: Make sure there are no sideeffects in IFTRUE and IFFALSE!
-function lib.lua.cond(condition, iftrue, iffalse)
-  if condition then
-    return iftrue
-  else
-    return iffalse
   end
 end
 

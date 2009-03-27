@@ -99,8 +99,8 @@ function check(value, sender)
                 wirename = "wire"..pearls[pearl].."_"..pearls[pearl_right]
                 if pearl_right == pearls[(pearls[pearl] % #pearls) + 1] and not -no[wirename] then
                     wo:add({"ot_wire", wirename, anchor1=pearl, anchor2=pearl_right})
-                    pearl["_wires"] = lib.lua.cond(pearl["_wires"] == 1, 2, 1)
-                    pearl_right["_wires"] = lib.lua.cond(pearl_right["_wires"] == 1, 2, 1)
+                    pearl["_wires"] = cond(pearl["_wires"] == 1, 2, 1)
+                    pearl_right["_wires"] = cond(pearl_right["_wires"] == 1, 2, 1)
                 end
                 wires = pearl["wires"]
                 if pearl["_wires"] == 2 then

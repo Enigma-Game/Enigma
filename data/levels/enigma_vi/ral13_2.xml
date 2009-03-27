@@ -8,7 +8,6 @@
       <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -50,8 +49,8 @@ wo(res.autotile(ti, {"A", "D", "Horse"}), " ", {
     "####X##########X####"
 })
 
-rb_length = lib.lua.cond(wo["IsDifficult"], 3.5, 3.0)
-rb_max = lib.lua.cond(wo["IsDifficult"], 4.5, 4.0)
+rb_length = cond(wo["IsDifficult"], 3.5, 3.0)
+rb_max = cond(wo["IsDifficult"], 4.5, 4.0)
 for horse in no["horse%*"] do
     wo:add({"ot_rubberband", anchor1="acBlack", anchor2=horse, strength=200, length=rb_length, threshold=1, max=rb_max})
 end

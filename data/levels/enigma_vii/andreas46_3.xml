@@ -3,13 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tinker, Tailor" el:subtitle="" el:id="andreas46"/>
-      <el:version el:score="2" el:release="4" el:revision="11" el:status="released"/>
+      <el:version el:score="2" el:release="4" el:revision="12" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="2:18" el:difficult="5:10"/>
@@ -74,7 +73,7 @@ w, h = wo(resolver, "  ", {
 function connect(obj1, obj2, restrict)
   wo:add({"ot_rubberband", anchor1 = obj1, anchor2 = obj2,
           strength = strength or maxstrength,
-          max = lib.lua.cond(restrict and wo["IsDifficult"], 2.5, nil)})
+          max = cond(restrict and wo["IsDifficult"], 2.5, nil)})
   -- Save partner of actor: When call_scissors is called, the
   -- rubberband will've already been removed, so ["fellows"]
   -- doesn't work anymore for the marble.

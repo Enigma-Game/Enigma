@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Moure-Switches" el:subtitle="" el:id="andreas10"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -53,14 +52,14 @@ wo:shuffleOxyd()
 mainoxyd = (no["oxyd#*"])[1]
 
 if not wo["IsDifficult"] then
-  wo[{3,6}] = {"it_pin"}
+    wo[{3,6}] = {"it_pin"}
 end
 
 -- First and second hint
 
 wo[{16,6}] = {"it_document", text = "text1"}
 function timer_hint(is_on, sender)
-  wo[{16,6}] = {"it_document", text = "text2"}
+    wo[{16,6}] = {"it_document", text = "text2"}
 end
 
 -- Fourswitch callback
@@ -82,7 +81,7 @@ end
 -- Switch callback
 
 function switch_callback(is_on, sender)
-    wo[{sender.x, 12 - sender.y}] = ti[lib.lua.cond(sender.y == 5, "H", "G")]
+    wo[{sender.x, 12 - sender.y}] = ti[cond(sender.y == 5, "H", "G")]
     sender:kill()
     mainoxyd:closeall()
     mainoxyd:shuffle()

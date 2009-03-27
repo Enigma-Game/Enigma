@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="18" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="19" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -210,8 +210,8 @@ function glue_maze_into_map(j, maze, height, width, offset)
   for y = 0, height - 1 do
     for x = 0, width - 1 do
       local pos = 2*po({x, y}) + offset
-      local east = lib.lua.cond(maze:can_go_east(x,y), ".", "*")
-      local south = lib.lua.cond(maze:can_go_south(x,y), ".", "*")
+      local east = cond(maze:can_go_east(x,y), ".", "*")
+      local south = cond(maze:can_go_south(x,y), ".", "*")
       replace_key_in_map(j, " ", east,  pos + {1,0})
       replace_key_in_map(j, " ", south, pos + {0,1})
       replace_key_in_map(j, " ", "#",   pos + {1,1})
@@ -371,8 +371,7 @@ local number_field = {}
 for y = 1, #maze_maps[6] do
   number_field[y] = ""
   for x = 1, string.len(maze_maps[6][y]) do
-    number_field[y] = number_field[y]
-      .. lib.lua.cond(math.floor(x/5)%2 == math.floor(y/5)%2, final_spot_1, final_spot_2)
+    number_field[y] = number_field[y] .. cond(math.floor(x/5)%2 == math.floor(y/5)%2, final_spot_1, final_spot_2)
   end
 end
 maze_maps[6] = maze_maps[6] * wo:newMap(" ", number_field)
@@ -435,8 +434,8 @@ end
 
 key_sum = 0
 function key_call(is_on, sender)
-  key_sum = key_sum + lib.lua.cond(is_on == ON, 1, -1)
-  no["keydoor5"]:message(lib.lua.cond(key_sum == 2, "open", "close"))
+  key_sum = key_sum + cond(is_on == ON, 1, -1)
+  no["keydoor5"]:message(cond(key_sum == 2, "open", "close"))
 end
 
  ]]></el:luamain>

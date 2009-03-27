@@ -13755,12 +13755,110 @@ described in this chapter. Other libraries do contain @ref{Resolvers} and are
 described just there.
 
 @menu
-* liblua::       General methods for tables.
-* libmath::      Mathematical algorithms, like random permutations.
-* libmap::       Methods for API 2-maps.
-* libimport::    Methods for importing external level files.
-* libsoko::      A library to interpret Sokoban level files.
+* Basic Functions::  About basic lua functions and standard lua libraries.
+* liblua::           General methods for tables.
+* libmath::          Mathematical algorithms, like random permutations.
+* libmap::           Methods for API 2-maps.
+* libimport::        Methods for importing external level files.
+* libsoko::          A library to interpret Sokoban level files.
 @end menu
+
+@node Basic Functions
+@section Basic Functions
+
+Enigma supports most Lua 5.0 and above statements, i.e. you can freely use
+tables and control structures in your level, as you would expect. However, some
+Lua functions have been deactivated for security reasons or to ensure
+upwards compatibility. These are @samp{dofile}, @samp{module}, @samp{require}
+and most or all functions of the standard libraries @samp{package}, @samp{io}
+and @samp{os}. You should use the @ref{<compatibility>}-tag to include external
+libraries instead of @samp{require}, @samp{dofile} or @samp{package}, and
+@samp{print} for output to stdout instead of @samp{io}. The @samp{print}
+function is pretty useful for developing and debugging complex levels, but
+should not appear in the level's final version anymore.
+
+Of Lua's built-in mathematical functions you may use any of the following:
+@samp{math.abs}, @samp{math.acos}, @samp{math.asin}, @samp{math.atan}, @samp{math.atan2},
+@samp{math.ceil}, @samp{math.cos}, @samp{math.deg}, @samp{math.exp}, @samp{math.floor},
+@samp{math.frexp}, @samp{math.ldexp}, @samp{math.log}, @samp{math.log10}, @samp{math.max},
+@samp{math.min}, @samp{math.pow}, @samp{math.rad}, @samp{math.random}, @samp{math.sin},
+@samp{math.sqrt}, @samp{math.tan}. As of Lua 5.1, the following functions are
+additionally available: @samp{math.cosh}, @samp{math.fmod}, @samp{math.huge},
+@samp{math.modf}, @samp{math.pi}, @samp{math.sinh}, @samp{math.tanh}.
+
+All trigonometric functions use radians, you can use @samp{math.deg} and
+@samp{math.rad} to convert between radians and degrees. For the differences
+between @samp{math.mod} and @samp{math.fmod} see @ref{lib.lua.mod}.
+
+While you have access to nearly all mathematical functions Lua defines, Enigma
+uses an own random generator, which you access via @samp{math.random} with the
+same syntax as Lua's random generator. To ensure stability in future versions
+of Enigma, @samp{math.randomseed} is disabled.
+
+Please read the online manuals of
+@uref{http://www.lua.org/manual/5.0/, Lua 5.0} and 
+@uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailled information.
+
+In addition to the usual Lua functions, Enigma provides the @ref{cond} function,
+which can be used to abbreviate simple if-then-else-constructions.
+
+@menu
+* cond::            A ternary operator, wrapper for if-then-else.
+@end menu
+
+@c ----------------- cond --------------------
+
+@node cond
+@subsection cond
+
+@samp{cond} is a conditional assignment, a ternary operator very
+similar (but not equal to) the @samp{?:}-expression in C-like languages. Note
+however, that there are caveats, see details.
+
+@table @asis
+@item @b{Syntax:}
+@b{cond}(@i{condition}, @i{iftrue}, @i{iffalse})
+
+@table @asis
+@item @i{condition}
+A boolean expression.
+
+@item @i{iftrue}
+The expression to be returned if @samp{condition} is true.
+
+@item @i{iffalse}
+The expression to be returned if @samp{condition} is false.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+cond(wo["IsDifficult"], @{"st_death"@}, ti["#"])
+@end example
+
+@item @b{Details:}
+@samp{cond} evaluates both expressions @samp{iftrue} and
+@samp{iffalse}, regargless of @samp{condition}. Hence,
+@example
+cond(t == 0, 1/t, error("Division by zero"))
+@end example
+will always raise an error: All sideeffects will happen.
+Another example which will not work:
+@example
+w,h = cond(wo["IsDifficult"], wo(ti, " ", map1), wo(ti, " ", map2))
+@end example
+Use this instead:
+@example
+w,h = wo(ti, " ", cond(wo["IsDifficult"], map1, map2))
+@end example
+However, in most cases @samp{cond} is used with static expressions for
+@samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
+sideeffects are possible.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
 
 @node liblua
 @section liblua
@@ -13777,7 +13875,6 @@ You can load it by adding an @samp{dependency} element to the
 
 @menu
 * lib.lua.combine_tables::  Collect entries of anonymous Lua-tables into a common table.
-* lib.lua.cond::            A wrapper for if.
 * lib.lua.deep_copy::       Complete copies of Lua-tables.
 * lib.lua.mod::             A modulo operation.
 * lib.lua.print_table::     Print tables for debug reasons.
@@ -13820,59 +13917,6 @@ neccessary to join anonymous tables, as well.
 In most situations, object grouping should be used instead, but when one works
 with more abstract data (like names of objects instead of objects, or tables
 holding design informations), @samp{combine_tables} can be useful.
-
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
-@c ----------------- cond --------------------
-
-@node lib.lua.cond
-@subsection lib.lua.cond
-
-@samp{lib.lua.cond} is a conditional assignment, a ternary operator very
-similar (but not equal to) the @samp{?:}-expression in C-like languages. Note
-however, that there are caveats, see details.
-
-@table @asis
-@item @b{Syntax:}
-@b{lib.lua.cond}(@i{condition}, @i{iftrue}, @i{iffalse})
-
-@table @asis
-@item @i{condition}
-A boolean expression.
-
-@item @i{iftrue}
-The expression to be returned if @samp{condition} is true.
-
-@item @i{iffalse}
-The expression to be returned if @samp{condition} is false.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-lib.lua.cond(wo["IsDifficult"], @{"st_death"@}, ti["#"])
-@end example
-
-@item @b{Details:}
-@samp{lib.lua.cond} evaluates both expressions @samp{iftrue} and
-@samp{iffalse}, regargless of @samp{condition}. Hence,
-@example
-lib.lua.cond(t == 0, 1/t, error("Division by zero"))
-@end example
-will always raise an error: All sideeffects will happen.
-Another example which will not work:
-@example
-w,h = lib.lua.cond(wo["IsDifficult"], wo(ti, " ", map1), wo(ti, " ", map2))
-@end example
-Use this instead:
-@example
-w,h = wo(ti, " ", lib.lua.cond(wo["IsDifficult"], map1, map2))
-@end example
-However, in most cases @samp{lib.lua.cond} is used with static expressions for
-@samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
-sideeffects are possible.
 
 @item @b{Full Example:}
 @example

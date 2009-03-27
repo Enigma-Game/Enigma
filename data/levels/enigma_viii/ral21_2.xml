@@ -382,7 +382,7 @@ myresolver = function(key, x, y)
         if key == "o9" then
             return ti["O"..oxyd_colors[holy_idx]]
         elseif key == "of" then
-            local idx = lib.lua.cond(fake_idx == holy_idx, fake_idx + 1, fake_idx)
+            local idx = cond(fake_idx == holy_idx, fake_idx + 1, fake_idx)
             fake_idx = idx + 1
             return ti["O"..oxyd_colors[idx]]
         elseif key:sub(1,1) == "o" then
@@ -390,7 +390,7 @@ myresolver = function(key, x, y)
             return ti["O"..oxyd_colors[idx]]
         elseif key:sub(1,1) == "r" then
             local idx = 0 + key:sub(2,2)
-            return lib.lua.cond(idx == holy_idx, ti["R6"], ti["R1"])
+            return cond(idx == holy_idx, ti["R6"], ti["R1"])
         end
     else
         if key == "o9" then
@@ -580,7 +580,7 @@ end
 
 trigger_count = 0
 function volcano(value, sender)
-    trigger_count = trigger_count + lib.lua.cond(value, 1, -1)
+    trigger_count = trigger_count + cond(value, 1, -1)
     st(sender + {0, -1}):toggle()
     
     if (trigger_count == 6) then
@@ -624,8 +624,8 @@ end
 
 switch_count= 0
 function illumination(value, sender)
-    switch_count = switch_count + lib.lua.cond(value, 1, -1)
-    no["door5#*"]:message(lib.lua.cond(switch_count == 4, "open", "close"))
+    switch_count = switch_count + cond(value, 1, -1)
+    no["door5#*"]:message(cond(switch_count == 4, "open", "close"))
 end
 
 function open_grave(value, sender)

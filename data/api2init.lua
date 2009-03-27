@@ -336,6 +336,23 @@ wo:_register("drawRect",
     end
 )
 
+------------------------------
+-- Global utility functions --
+------------------------------
+
+-- A wrapper of "if" to resemble the ternary ?:-function.
+-- Note that this function evaluates both IFTRUE as well as IFFALSE, e.g.
+--     cond(t == 0, 1/t, error("Division by zero"))
+-- will evaluate the error-function and thus halt for any T.
+-- Hence: Make sure there are no sideeffects in IFTRUE and IFFALSE!
+function cond(condition, iftrue, iffalse)
+    if condition then
+        return iftrue
+    else
+        return iffalse
+    end
+end
+
 ---------------
 -- Libraries --
 ---------------

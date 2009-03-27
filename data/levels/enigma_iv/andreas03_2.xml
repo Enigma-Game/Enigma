@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="How solid?" el:subtitle="" el:id="andreas03"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -38,8 +37,7 @@ ti["!"] = {"st_brick"} .. ti[" "]
 ti["@"] = {"#ac_marble", adhesion = 1}
 ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_PURPLE}
 ti["D"] = {"it_document", text = "text2"}
-ti["T"] = {"st_timer", "timer", target = "callback_timer", state = OFF,
-           interval = lib.lua.cond(wo["IsDifficult"], 1.0, 1.2)}
+ti["T"] = {"st_timer", "timer", target = "callback_timer", state = OFF, interval = cond(wo["IsDifficult"], 1.0, 1.2)}
 ti["C"] = {"st_fourswitch", "clock"}
 ti["S"] = {"st_switch", target = "counter", action = "signal"}
 

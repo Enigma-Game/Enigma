@@ -8,7 +8,6 @@
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -60,7 +59,7 @@ wo:add({"ot_wire", anchor1="box%12", anchor2="box%1"})
 
 pressed = 0
 function check(value, sender)
-    pressed = pressed + lib.lua.cond(value, 1, -1)
+    pressed = pressed + cond(value, 1, -1)
     if pressed == 12 then
         no["d#*"]:open()
     else

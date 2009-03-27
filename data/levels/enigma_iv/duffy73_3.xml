@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="21" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="22" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
@@ -213,7 +212,7 @@ end
 
 switch_count= 0
 function whiteswitch(value, sender)
-    switch_count = switch_count + lib.lua.cond(value, 1, -1)
+    switch_count = switch_count + cond(value, 1, -1)
     if switch_count == 4 then
         wo[no["whitegate"]] = {"st_greenbrown_hollow", "whitegate"}
     elseif switch_count == 3 then

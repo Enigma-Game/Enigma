@@ -8,7 +8,6 @@
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="17:51" el:difficult="13:23"/>
@@ -16,7 +15,7 @@
     <el:luamain><![CDATA[
 
 wo["ConserveLevel"] = true
-wo["MaxOxydColor"] = lib.lua.cond(wo["IsDifficult"], OXYD_BROWN, OXYD_ORANGE)
+wo["MaxOxydColor"] = cond(wo["IsDifficult"], OXYD_BROWN, OXYD_ORANGE)
 wo["AllowSingleOxyds"] = true
 
 ti[" "] = {"fl_wood_framed"}

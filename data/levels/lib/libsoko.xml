@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008, 2009 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -534,7 +534,7 @@ function lib_soko_endphase()
             elseif (type(v) == "table") and string.find(v[1], "ac_") then
                 wo[marbles] = v
             elseif v == "rubberball" then
-                local kind = lib.lua.cond(design.white, "#ac_marble", "#ac_marble_white")
+                local kind = cond(design.white, "#ac_marble", "#ac_marble_white")
                 for j = 1, #marbles do
                     wo[marbles[j]] = {kind, "rubberball_" .. j, controllers = CTRL_NONE}
                     wo:add({"ot_rubberband", anchor1 = "rubberball_" .. j,
@@ -918,13 +918,13 @@ end
 -- POS, dependend on the boolean OPEN.
 function lib.soko.endphase_ralf_open_door(open, pos)
     if lib.soko.design.open_door then
-        wo[pos] =    lib.soko.resolver(lib.lua.cond(open, "  ", "# "), pos.x, pos.y)
-                  .. lib.soko.resolver(lib.lua.cond(open, "d ", "D "), pos.x, pos.y)
+        wo[pos] =    lib.soko.resolver(cond(open, "  ", "# "), pos.x, pos.y)
+                  .. lib.soko.resolver(cond(open, "d ", "D "), pos.x, pos.y)
     else
         -- use default "open"/"close"-messages instead
-        if -st(pos) then  st(pos):message(lib.lua.cond(open, "open", "close"))  end
-        if -it(pos) then  it(pos):message(lib.lua.cond(open, "open", "close"))  end
-        if -fl(pos) then  fl(pos):message(lib.lua.cond(open, "close", "open"))  end
+        if -st(pos) then  st(pos):message(cond(open, "open", "close"))  end
+        if -it(pos) then  it(pos):message(cond(open, "open", "close"))  end
+        if -fl(pos) then  fl(pos):message(cond(open, "close", "open"))  end
     end
 end
 

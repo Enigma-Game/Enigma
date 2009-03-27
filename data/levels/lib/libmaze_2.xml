@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmaze"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -155,8 +155,8 @@ function res.maze(subresolver, ...)
                   local i,j = maze:decode(maze[cell])
                   local xo = i * (maze.kernel[1] + maze.spacing[1])
                   local yo = j * (maze.kernel[2] + maze.spacing[2])
-                  xo = xo + maze.offset_x[1] * lib.lua.cond(maze.offset_x[2], j%2, j)
-                  yo = yo + maze.offset_y[1] * lib.lua.cond(maze.offset_y[2], i%2, i)
+                  xo = xo + maze.offset_x[1] * cond(maze.offset_x[2], j%2, j)
+                  yo = yo + maze.offset_y[1] * cond(maze.offset_y[2], i%2, i)
                   return maze.anchor + {xo, yo}
               end
         }
@@ -289,8 +289,8 @@ function res.maze_finalization(context)
         -- offsets not yet supported!
         for k,v in pairs(maze.area_positioncodes) do
             local x,y = maze:decode(v)
-            minx = lib.lua.cond(x < minx, x, minx)
-            miny = lib.lua.cond(y < miny, y, miny)
+            minx = cond(x < minx, x, minx)
+            miny = cond(y < miny, y, miny)
         end
         maze.anchor = po(minx, miny)
         local cellx = maze.kernel[1] + maze.spacing[1]
