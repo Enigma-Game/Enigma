@@ -61,12 +61,8 @@ namespace enigma {
     
     Value FlatStone::message(const Message &m) {
         if (m.message == "_glasses") {
-            if ((to_int(m.value) & Glasses::HOLLOW) && !(objFlags & OBJBIT_GLASSES)) {  // hollow
-                objFlags |= OBJBIT_GLASSES;
-                if (isDisplayable())
-                    init_model();
-            } else if (objFlags & OBJBIT_GLASSES) {
-                objFlags &= ~OBJBIT_GLASSES;
+            if ((bool)((to_int(m.value) & Glasses::HOLLOW)) != (bool)(objFlags & OBJBIT_GLASSES)) {
+                objFlags ^= OBJBIT_GLASSES;
                 if (isDisplayable())
                     init_model();
             }

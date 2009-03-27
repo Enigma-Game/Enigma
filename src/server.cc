@@ -200,8 +200,6 @@ void gametick(double dtime)
     const double timestep = 0.01; // 10ms
     int count = 0;
 
-    server::LevelTime += dtime;
-
     time_accu += dtime;
     if (time_accu > 1.0) {
         fprintf (stderr, "Whoa, system overload!\n");
@@ -209,6 +207,7 @@ void gametick(double dtime)
     }
     player::Tick (time_accu);
     for (;time_accu >= timestep; time_accu -= timestep, count++) {
+        server::LevelTime += timestep;
         WorldTick(timestep);
 //        if (lua::CallFunc (lua::LevelState(), "Tick", timestep, NULL) != 0) {
 //            throw XLevelRuntime (string("Calling 'Tick' failed:\n")
