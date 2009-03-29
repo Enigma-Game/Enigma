@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/liblua"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -170,12 +170,9 @@ function lib.lua.print_table(t, prefix, depth)
 end
 
 function lib.lua.to_string(thing)
-  local t = type(thing)
-  if t == "userdata" then
-    t = usertype(thing)
-  end
-  local result = "unknown type"
-      if (t == "nil") then
+  local t = etype(thing)
+  local result = t
+  if (t == "nil") then
     result = "nil"
   elseif (t == "string") then
     if string.find(thing, "\n", 1, true) then
@@ -187,11 +184,7 @@ function lib.lua.to_string(thing)
   elseif (t == "boolean") then
     result = "boolean: " .. cond(thing, "true", "false")
   elseif (t == "table") then
-    result = "table"
-    if thing.type then
-      result = result .. "/" .. thing.type
-    end
-    result = result .. ":\n"
+    result = "table:\n"
     local found = false
     for key, value in pairs(thing) do
       found = true
@@ -199,9 +192,6 @@ function lib.lua.to_string(thing)
     end
     if not found then
       result = "empty table"
-      if thing.type then
-        result = result .. "/" .. thing.type
-      end
     end
   elseif (t == "position") then
     result = "position: " .. thing.x .. "/" .. thing.y
@@ -221,6 +211,14 @@ function lib.lua.to_string(thing)
     for j = 1, #thing do
       result = result .. "  " .. j .. ": " .. thing[j].x .. "/" .. thing[j].y .. "\n"
     end
+  elseif (t == "map") then
+    result = "map of size " .. thing.width .. " x " .. thing.height .. " with default key '"
+             .. thing.defaultkey .. "':\n"
+    for j = 1, thing.width do
+      result = result .. "  \"" .. thing[j] .. "\"\n"
+    end
+  elseif (t == "unknown") then
+    result = "unknown userdata"
   end
   return result
 end
@@ -235,17 +233,12 @@ end
 -- values as it should. The following function returns (given
 -- an integer) another integer between 0 and MODUL-1.
 function lib.lua.mod(value, modul)
-  if (type(value) ~= "number") or (type(modul) ~= "number") then
-    error("lib.lua.mod: Arguments are not two numbers.", 2)
-  end
-  if modul <= 0 then
-    error("lib.lua.mod: Second argument (modul) must be positive.", 2)
-  end
+  assert_type(value, "lib.lua.mod first argument", 2, "number")
+  assert_type(modul, "lib.lua.mod second argument", 2, "positive")
   if value < 0 then
-    -- No, the following call to lib.lua.mod is not a real
-    -- recursion, it's only for the case where VALUE is a
-    -- negative multiple of MODUL (otherwise we would get
-    -- MODUL as result, not zero).
+    -- No, the following call to lib.lua.mod is not a real recursion, it's
+    -- only for the case where VALUE is a negative multiple of MODUL
+    -- (otherwise we would get MODUL as result, not zero).
     return lib.lua.mod(modul + (math.fmod or math.mod)(value, modul), modul)
   else
     return (math.fmod or math.mod)(value, modul)

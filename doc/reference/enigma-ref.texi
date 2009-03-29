@@ -13799,12 +13799,158 @@ Please read the online manuals of
 @uref{http://www.lua.org/manual/5.0/, Lua 5.0} and 
 @uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailled information.
 
-In addition to the usual Lua functions, Enigma provides the @ref{cond} function,
-which can be used to abbreviate simple if-then-else-constructions.
+In addition to the usual Lua functions, Enigma provides the @ref{cond}-function,
+which can be used to abbreviate simple if-then-else-constructions, and two
+@samp{assert}-kind functions.
 
 @menu
+* assert_bool::     Throws an error if a condition doesn't hold.
+* assert_type::     Throws an error if a variable is not of a given type.
 * cond::            A ternary operator, wrapper for if-then-else.
+* etype::           An advanced function to return normal and user data types.
 @end menu
+
+@c ----------------- assert_bool --------------------
+
+@node assert_bool
+@subsection assert_bool
+
+@samp{assert_bool} throws an error if a given condition doesn't hold.
+
+@table @asis
+@item @b{Syntax:}
+@b{assert_bool}(@i{condition}, @i{message}, @i{level})
+
+@table @asis
+@item @i{condition}
+A boolean expression or anything else. If it is @code{false} or @code{nil}, an
+error will be thrown.
+
+@item @i{message}
+A string, holding the error message. If @code{message} is nil or empty, an
+"anonymous assertion" will be thrown, but it's always better to provide a
+meaningful error message.
+
+@item @i{level}
+@code{level} specifies the error position in the same way as does Lua's
+@samp{error}-function. Default is 1.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+assert_bool(no["mystone"], "Stone 'mystone' has disappeared.")
+@end example
+
+@item @b{Details:}
+Similar to @ref{cond}, all side effects within the evaluation of @samp{message}
+and @samp{level} will appear.
+
+See Lua's manual for more detailed information about the @samp{error}-function.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- assert_type --------------------
+
+@node assert_type
+@subsection assert_type
+
+@samp{assert_type} throws an error if the first argument is not of one of the
+specified types.
+
+@table @asis
+@item @b{Syntax:}
+@b{assert_bool}(@i{var}, @i{vardescription}, @i{level}, @i{type1}, @i{type2}, ...)
+
+@table @asis
+@item @i{var}
+Any kind of variable.
+
+@item @i{vardescription}
+If @samp{var} is not of one of the types @samp{type1}, @samp{type2} ...,
+then an error message will be thrown which includes the actual type of
+@samp{var} and the desired types. @samp{vardescription} is a string which
+holds additional information for the error message. It should be a lower-case
+not-too-short description of @samp{var} (a name, as it is), additional
+details should be added in brackets.
+
+@item @i{level}
+@code{level} specifies the error position in the same way as does Lua's
+@samp{error}-function. Can't be omitted, use @samp{1} if in doubt.
+
+@item @i{type1}, @i{type2}, ...
+A sequence of strings. If @samp{var} is none of these types, the error will
+be thrown. See details below for type descriptors.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+assert_type(arg1, "mygreatfunction first argument (level width)", 1, "nil", "positive integer", "position")
+@end example
+
+@item @b{Details:}
+Possible types are all Lua types (like @samp{nil}, @samp{number}, @samp{boolean},
+@samp{string}, @samp{table}, @samp{function}) except @samp{userdata}, all
+Enigma-own user types (@samp{object}, @samp{position}, @samp{tile},
+@samp{tiles}, @samp{group}, @samp{world}, @samp{polist}, @samp{unknown}), and
+types defined inside metatables (@samp{map} from @ref{libmap}), see
+@ref{etype}. In addition, the following type descriptors are recognized:
+@table @asis
+@item @samp{integer}
+Any integer number (..., -2, -1, 0, 1, 2, ...)
+@item @samp{positive}
+Any number which is positive and not zero.
+@item @samp{non-negative}
+Any number which is not negative, i.e. which is positive or zero.
+@item @samp{natural}
+Any non-negative integer number (0, 1, 2, ...).
+@item @samp{positive integer}
+Any positive integer number (1, 2, 3, ...).
+@item @samp{non-empty string}
+Any string other than the empty string @samp{""}.
+@item @samp{any table}
+If @samp{var} is a table, the @samp{_type}-attribute of its metatable will
+be used as its @ref{etype}. In particular, it won't be accepted as a
+@samp{table} anymore, if this @samp{_type}-attribute exists. For example,
+@example
+assert_type(mytable, "large table", 1, "table")
+@end example
+will throw an assertion when @samp{mytable} is a @samp{map}, although,
+technically, a @samp{map} always is a @samp{table}. You can use @samp{any
+table} as type to allow for any table, regardless of its metatable.
+@end table
+
+Similar to @ref{cond}, all side effects within the evaluation of
+@samp{vardescription}, @samp{level} and any type descriptor will apply.
+
+See Lua's manual for more detailed information about the @samp{error}-function.
+
+@item @b{Full Example:}
+@example
+function paint_lawn(pos)
+    assert_type(pos, "paint_lawn first argument", 2, "position", "object", "polist", "group", "table")
+    if etype(pos) == "object" then
+        assert_bool(-pos, "paint_lawn: Object not existing.", 2)
+    end
+    wo[pos] = ti["lawn"]
+end
+paint_lawn(no["mystone"])
+paint_lawn("myotherstone")
+@end example
+If @samp{mystone} doesn't exist, @code{no["mystone"]} will still be of etype
+@samp{object}, an invalid object. Hence @code{assert_type} will not trigger,
+but @code{assert_bool} will.
+
+If @samp{mystone} exists, the second @samp{paint_lawn} will throw an error via
+@samp{assert_type}, as @code{pos} now is a @code{string}. The error message
+will be:
+@example
+Wrong type for paint_lawn first argument, is string, must be one of position,
+object, polist, group, table.
+@end example
+@end table
 
 @c ----------------- cond --------------------
 
@@ -13853,6 +13999,54 @@ w,h = wo(ti, " ", cond(wo["IsDifficult"], map1, map2))
 However, in most cases @samp{cond} is used with static expressions for
 @samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
 sideeffects are possible.
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- etype --------------------
+
+@node etype
+@subsection etype
+
+@samp{etype} returns an advanced type of its argument.
+
+@table @asis
+@item @b{Syntax:}
+@b{etype}(@i{var})
+
+@table @asis
+@item @i{var}
+Any kind of variable.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+local argtype = etype(firstargument)
+@end example
+
+@item @b{Details:}
+Lua types are @samp{nil}, @samp{number}, @samp{boolean}, @samp{string},
+@samp{table}, @samp{function}, @samp{userdata}, and @samp{thread}. You can use
+Lua's @samp{type}-function to query the type of any variable. However, Enigma
+defines more types through various means, and these types can be queried via
+@samp{etype}. @samp{etype} will return its argument's Lua type as usual, with
+the following two exceptions:
+@table @asis
+@item @i{userdata}
+Instead of @samp{userdata}, Enigma's special types will be returned. These
+special types are @samp{object}, @samp{position}, @samp{tile},
+@samp{tiles}, @samp{group}, @samp{world}, and @samp{polist}. If an unknown
+userdata is encountered, @samp{unknown} will be returned.
+
+@item @i{table}
+If @code{var} is a table, it's metatable will be queried. If there is an entry
+@samp{_type}, this entry will be used as @code{etype}. Most important examples
+of this kind are @ref{libmap}-maps, so @samp{etype} will return @samp{map}. You
+may access the @samp{etype}-system through @samp{_type} whenever you use
+metatables on your own.
+@end table
 
 @item @b{Full Example:}
 @example

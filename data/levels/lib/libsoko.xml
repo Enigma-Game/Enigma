@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008, 2009 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -61,8 +61,7 @@ function lib.soko.area_get(self, index)
     elseif (type(index) == "string") and (index == "type") then
         return "lib.soko.area"
     else
-        error("lib.soko: Internal error: Read access to area_get with wrong "
-            .. "type (" .. type(index) .. "/" .. usertype(index) .. ").", 2)
+        error("lib.soko: Internal error: Read access to area_get with wrong type " .. etype(index) .. ".", 2)
     end
 end
 
@@ -72,7 +71,8 @@ end
 
 lib.soko.area_metatable = {
   __index = lib.soko.area_get,
-  __newindex = lib.soko.area_set
+  __newindex = lib.soko.area_set,
+  _type = "lib.soko.area"
 }
 
 setmetatable(lib.soko.area, lib.soko.area_metatable)
@@ -208,17 +208,17 @@ function lib.soko.number_from_level(map, list_length)
 end
 
 function lib.soko.design_from_description(map, design_description, maxdesignnumber)
+    assert_type(design_description, "lib.soko.design_from_description second argument", 2, "nil", "positive integer", "table")
     -- choose design
     local design = {}
     if type(design_description) == "number" then
         design = lib.lua.deep_copy(lib.soko_designlist.list[design_description])
     elseif type(design_description) == "table" then
         design = lib.lua.deep_copy(design_description)
-    elseif (type(design_description) == "nil") and (type(map) == "table") then
+    else
+        assert_type(map, "lib.soko.design_from_description first argument", 2, "map")
         design = lib.lua.deep_copy(lib.soko_designlist.list[lib.soko.number_from_level(
                      map, maxdesignnumber or #lib.soko_designlist.list)])
-    else
-        error("lib.soko: Can't make sense of design type "..type(design)..".", 2)
     end
     return design
 end
@@ -257,7 +257,7 @@ function lib.soko.define_tiles(design)
             elseif type(field.res) == "table" then
                 lib.soko.resolver_info[key] = field.res
             else
-                error("lib.soko.define_tiles: Can't understand type " .. type(field.res)
+                error("lib.soko.define_tiles: Can't understand type " .. etype(field.res)
                     .. " in resolver info for key '" .. key .. "'.", 2)
             end
             lib.soko.resolver_info[key]._count = #field
@@ -280,7 +280,7 @@ function lib.soko.define_tiles(design)
                 lib.soko.resolver_info[key]._sum = frequency_sum
             end
         else
-            error("lib.soko.define_tiles: Can't understand type " .. type(field)
+            error("lib.soko.define_tiles: Can't understand type " .. type(efield)
                 .. " in design description for key '" .. key .. "'.", 2)
         end
     end 
@@ -332,12 +332,9 @@ function lib.soko.resolver(key, x, y)
         resolve_to = lib.soko.area[po(x,y)].orientation
     -- Unknown method, throw error.
     elseif type(method) == "number" then
-        error("lib.soko.resolver: Unknown resolver method number "
-            .. method .. ".", 2)
+        error("lib.soko.resolver: Unknown resolver method number " .. method .. ".", 2)
     else
-        error("lib.soko.resolver: Unknown resolver method of "
-            .. " type '" .. type(method) .. "', usertype '"
-            .. usertype(method) .. "').", 2)
+        error("lib.soko.resolver: Unknown resolver method of type " .. etype(method) .. ".", 2)
     end
     if resolve_to then
         return lib.soko.resolver(key .. ":" .. resolve_to, x ,y)
@@ -446,24 +443,13 @@ end
 
 function lib.soko.prepare_endphase(map, design)
     -- ensure existence of goals
-    if #lib.soko.polist.goal < 1 then
-        error("libsoko: No goals defined.", 2)
-    end
+    assert_bool(#lib.soko.polist.goal > 0, "libsoko: No goals defined.", 2)
+
     -- ensure a correctly set endphase-attribute
-    if not design.endp then
-        design.endp = lib.lua.deep_copy(lib.soko_designlist.default.endp)
-    end
-    if type(design.endp) ~= "table" then
-        error("lib.soko.prepare_endphase: This design's endphase is given as "
-            .. type(design.endp) .. ", but should be table.")
-    end
-    if design.endp.alg == nil then
-        design.endp.alg = lib.lua.deep_copy(lib.soko_designlist.default.endp.alg)
-    end
-    if type(design.endp.alg) ~= "string" then
-        error("lib.soko.prepare_endphase: This design's endphase algorithm "
-            .. "is given as " .. type(design.endp.alg) ..", but should be string.")
-    end
+    assert_type(design.endp, "libsoko design endphase", 2, "nil", "table")
+    design.endp = design.endp or lib.lua.deep_copy(lib.soko_designlist.default.endp)
+    assert_type(design.endp.alg, "libsoko design endphase algorithm", 2, "nil", "string")
+    design.endp.alg = design.endp.alg or lib.lua.deep_copy(lib.soko_designlist.default.endp.alg)
 
     -- save map and design for later
     lib.soko.map = map
@@ -587,9 +573,7 @@ end
 ------------------------------------------------------------------------
 
 function lib.soko.endphase_circle()
-    if (not no["marble#*"]) or (#no["marble#*"] == 0) then
-       error("lib.soko.endphase_circle: Internal error: Marble not found.", 2)
-    end
+    assert_bool(no["marble#*"] and (#no["marble#*"] > 0), "lib.soko.endphase_circle: No marble found.", 2)
     local pos = po(no["marble#*"][1])
     if pos.x > 10 then  pos = pos + {-2,0}  end
     if pos.y >  6 then  pos = pos + {0,-2}  end
@@ -841,7 +825,7 @@ function lib.soko.endphase_vortex()
         if floor._component then
             component[floor._component].has_oxyds = true
         else
-            error("lib.soko.endphase_vortes: Error in component calculation.", 2)
+            error("lib.soko.endphase_vortes: Error in component calculation.")
         end
     end  
     -- Let there be at most max(5, number-of-oxyd-components)

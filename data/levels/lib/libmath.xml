@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmath"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -87,27 +87,20 @@ end
 -- NUMBER is supposed to be a non-negative integer.
 function lib.math.digits(number, base)
   -- Check arguments and calculate fullbase and exponent
-  if type(number) ~= "number" then
-    error("digits: First argument not a number ("..type(number).." instead).", 2)
-  end
-  if (type(base) ~= "number") and (type(base) ~= "table") then
-    error("digits: Second argument not valid type ("..type(base)..").", 2)
-  end
-  if (number < 0) or (number ~= math.ceil(number)) then
-    error("digits: First argument out of range ("..number..").", 2)
-  end
+  assert_type(number, "lib.math.digits first argument", 2, "natural")
+  assert_type(base, "lib.math.digits second argument", 2, "integer", "table")
   local fullbase = {}
   local exponent = 0
   if type(base) == "number" then
-    if (base < 2) or (base ~= math.ceil(base)) then
-      error("digits: Second argument out of range ("..base..").", 2)
+    if base < 2 then
+      error("lib.math.digits: Second argument out of range, is "..base..", must be at least 2.", 2)
     end
     for j = 1, base do
       table.insert(fullbase, j - 1)
     end
   else -- type(base) == "table"
     if table.getn(base) < 2 then
-      error("digits: Second argument has not enough elements.", 2)
+      error("lib.math.digits: Second argument has not enough elements, must be at least 2.", 2)
     end
     fullbase = base
   end
@@ -120,7 +113,7 @@ function lib.math.digits(number, base)
     table.insert(result, fullbase[d + 1])
     remains = (remains - d) / exponent
     if remains ~= math.ceil(remains) then
-      error("digits: Internal error during calculation (remains = "..remains..").", 2)
+      error("lib.math.digits: Internal error during calculation (remains = "..remains..").")
     end
   end
   return result
@@ -137,20 +130,13 @@ end
 function lib.math.combinations(depth, digits)
   local all_combinations = {{}}
   local digs = digits
-  if (type(depth) ~= "number") or (depth < 1) or (depth ~= math.floor(depth)) then
-    error("combinations: First argument (depth) not a number or out of range.", 2)
-  end
+  assert_type(depth, "lib.math.combinations first argument (depth)", 2, "positive integer")
+  assert_type(digits, "lib.math.combinations second argument (digits)", 2, "positive integer", "table")
   if type(digits) == "number" then
-    if (digits < 1) or (digits ~= math.floor(digits)) then
-      error("combinations: Second argument (digits) out of range.", 2)
-    end
     digs = {}
     for j = 1, digits do
       digs[j] = j
     end
-  end
-  if type(digs) ~= "table" then
-    error("combinations: Second argument (digits) should be number or table.", 2)
   end
   for _ = 1, depth do
     local next_step = {}
@@ -176,13 +162,9 @@ end
 -- to your own liking. Entries in A which are not
 -- numbers are considered zero.
 function lib.math.cubic_polynomial(a, x, y)
-  if type(a) ~= "table" then
-    error("cubic_polynomial: First argument not a table (" .. type(a)
-          .. " instead).", 2)
-  end
-  if (type(x) ~= "number") or (type(y) ~= "number") then
-    error("cubic_polynomial: Second or third argument not a number.", 2)
-  end
+  assert_type(a, "lib.math.cubic_polynomial first argument", 2, "table")
+  assert_type(x, "lib.math.cubic_polynomial second argument", 2, "number")
+  assert_type(y, "lib.math.cubic_polynomial third argument", 2, "number")
   return   (a[10] or 0)*y*y*y + (a[9] or 0)*x*y*y + (a[8] or 0)*x*x*y
          + (a[7] or 0)*x*x*x + (a[6] or 0)*y*y + (a[5] or 0)*x*y
          + (a[4] or 0)*x*x + (a[3] or 0)*y + (a[2] or 0)*x + (a[1] or 0)
@@ -197,20 +179,11 @@ end
 --     3: If  13 <= x
 -- Negative and non-integer values are allowed.
 function lib.math.steps(discriminator, steps)
-  if type(discriminator) ~= "number" then
-    error("lib.math.steps: First argument is " .. type(discriminator)
-        .. "/" .. usertype(discriminator) .. ", should be number.", 2)
-  end
-  if type(steps) ~= "table" then
-    error("lib.math.steps: Second argument is " .. type(discriminator)
-        .. "/" .. usertype(discriminator) .. ", should be table.", 2)
-  end
+  assert_type(discriminator, "lib.math.steps first argument", 2, "number")
+  assert_type(steps, "lib.math.steps second argument", 2, "table")
   local result = 0
   for _, height in ipairs(steps) do
-    if type(height) ~= "number" then
-      error("lib.math.steps: " .. type(discriminator) .. "/" .. usertype(discriminator)
-          .. " in table of second argument, should be number.", 2)
-    end
+    assert_type(height, "lib.math.steps entry in second argument (height)", 2, "number")
     if discriminator < height then
       return result
     else
@@ -228,12 +201,7 @@ end
 -- This function outputs a table with integer entries between
 -- 1 and n at positions 1 to n.
 function lib.math.permutation(n)
-  if type(n) ~= "number" then
-    error("permutation: Expected number, got "..type(n).."!", 2)
-  end
-  if (n < 1) or (n ~= math.floor(n)) then
-    error("permutation: Argument must be positive integer.", 2)
-  end
+  assert_type(n, "lib.math.permutation first argument", 2, "positive integer")
   if n == 1 then
     return {1}
   end
@@ -249,10 +217,8 @@ function lib.math.permutation(n)
 end
 
 -- Return a random cyclic permutation (i.e. with only one cycle) of n elements.
-function lib.math.cyclic_permutation(n)  
-  if type(n) ~= "number" then
-    error("cyclic_permutation: Expected number, got "..type(n).."!", 2)
-  end
+function lib.math.cyclic_permutation(n)
+  assert_type(n, "lib.math.cyclic_permutation first argument", 2, "positive integer")
   local sequence1 = lib.math.permutation(n)
   local sequence2 = {}
   for j = 1, n - 1 do
@@ -265,12 +231,7 @@ end
 -- Return a table with NUMBER random entries.
 -- Additional arguments like with math.random.
 function lib.math.random_vector(number, ...)
-  if type(number) ~= "number" then
-    error("random_vector: First argument not a number ("..type(number).." instead).", 2)
-  end
-  if (number < 0) or (number ~= math.ceil(number)) then
-    error("random_vector: First argument out of range ("..number..").", 2)
-  end
+  assert_type(number, "lib.math.random_vector first argument", 2, "natural")
   local result = {}
   for j = 1, number do
     result[j] = math.random(...)

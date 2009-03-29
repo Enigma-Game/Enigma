@@ -639,3 +639,78 @@ function res.composer(subresolver, ...)
     return context
 end
 
+--------------------
+-- Error handling --
+--------------------
+
+function etype(object)
+    local t = type(object)
+    if t == "userdata" then
+        return usertype(object)
+    elseif t == "table" then
+        return (getmetatable(object) or {})._type or t
+    end
+    return t
+end
+
+function assert_type(object, objname, level, ...)
+    -- assert_type throws an error if object does not fulfill one of the
+    -- conditions in "...". Possible conditions are the lua- and usertype
+    -- names and "map" (i.e. the results of etype), plus the strings
+    -- "integer", "natural" (i.e. integer >= 0), "positive" (> 0), and
+    -- "non-negative" (>= 0). 
+    local conditions = {...}
+    local fulfilled = false
+    for k = 1, #conditions do
+        local condition = conditions[k]
+        fulfilled = fulfilled
+            or  (condition == etype(object))
+            or ((condition == "integer") and (type(object) == "number") and (math.ceil(object) == object))
+            or ((condition == "positive") and (type(object) == "number") and (object > 0))
+            or ((condition == "non-negative") and (type(object) == "number") and (object >= 0))
+            or ((condition == "natural") and (type(object) == "number") and (math.ceil(object) == object) and (object >= 0))
+            or ((condition == "positive integer") and (type(object) == "number") and (math.ceil(object) == object) and (object > 0))
+            or ((condition == "non-empty string") and (type(object) == "string") and (object ~= ""))
+            or ((condition == "any table") and (type(object) == "table"))
+    end
+    if not fulfilled then
+        for k = 1, #conditions do
+            if type(conditions[k]) ~= "string" then
+                error("Error in type assertion: Wrong argument for assert_type, must be string.", 2)
+            end
+        end
+        if type(objname) ~= "string" then
+            error("Error in type assertion: Object name missing for assert_type.", 2)
+        end
+        local s = ""
+        if objname ~= "" then
+            s = " for " .. objname
+        end
+        if #conditions == 0 then
+            error("Unconditional assertion" .. s .. ".", (level or 1) + 1)
+        end
+        s = "Wrong type" .. s ..", is " .. etype(object) ..", must be "
+        if #conditions == 1 then
+            s = s .. conditions[1] .. "."
+        else
+            s = s .. "one of "
+            for k = 1, #conditions - 1 do
+                s = s .. conditions[k] .. ", "
+            end
+            s = s .. conditions[#conditions] .. "."
+        end
+        error(s, (level or 1) + 1)
+    end
+end
+
+function assert_bool(bool, message, level)
+    -- assert_bool throws an error with message MESSAGE if BOOL is false or nil.
+    if not bool then
+        if message and (type(message) == "string") and (message ~= "") then
+            error(message, (level or 1) + 1)
+        else
+            error("Anonymous assertion failed.", (level or 1) + 1)
+        end
+    end
+end
+

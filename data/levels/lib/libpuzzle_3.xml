@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libpuzzle"/>
-      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="6" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -166,13 +166,9 @@ function res.puzzle_implementation(context, evaluator, key, x, y)
             if ti[key] == nil then
                 local template = ti[prefix]
                 local suffix = key:sub(#(prefix) + 1)
-                if template == nil then
-                    error("Resolver puzzle missing template rule '" ..prefix.."'",2 )
-                elseif #suffix ~= 1 then
-                    error("Resolver puzzle key '"..key.."' does not match template rule '" ..prefix.."'",2 )
-                else
-                    res.puzzle_newtile(key, template, suffix)
-                end
+                assert_bool(template, "Resolver puzzle missing template rule '" ..prefix.."'.", 2)
+                assert_bool(#suffix == 1, "Resolver puzzle key '"..key.."' does not match template rule '" ..prefix.."'", 2)
+                res.puzzle_newtile(key, template, suffix)
             end
             table.insert(context[5], po(x,y))
             return ti[key]
@@ -187,14 +183,11 @@ function res.puzzle(subresolver, ...)
     local args = {...}
     local length = 0
     for i, prefix in ipairs(args) do
-        if type(prefix) ~= "string" then
-            error("Resolver puzzle prefix " .. i.." is not a string", 2)
-        else
-           if length == 0 then
-               length = #prefix
-           elseif length ~= #prefix then
-               error("Resolver puzzle prefix " .. i.." mismatch of length", 2)
-           end
+        assert_type(prefix, "res.puzzle puzzle prefix", 2, "string")
+        if length == 0 then
+            length = #prefix
+        elseif length ~= #prefix then
+            error("Resolver puzzle prefix " .. i.." mismatch of length", 2)
         end
     end
     local context = {res.puzzle_implementation, res.puzzle_finalization, subresolver, args, {}}

@@ -3,12 +3,13 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmaze"/>
-      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>      </el:compatibility>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
       <el:modes el:easy="false" el:single="false" el:network="false"/>
       <el:comments>
       </el:comments>
@@ -40,7 +41,7 @@ function res.maze(subresolver, ...)
             elseif dir == SOUTH then adj = c + 2000
             elseif dir == EAST then adj = c + 1
             elseif dir == NORTH then adj = c - 2000
-            else error("Maze - illeagal direction "..dir)
+            else error("Maze - illegal direction "..dir)
             end
             if adj < 100 then
                 return 99
@@ -77,33 +78,21 @@ function res.maze(subresolver, ...)
                       return rawget(context, "cells")[key]
                   elseif type(key) == "table" then
                       local cellmeta = getmetatable(key)
-                      if cellmeta ~= nil and cellmeta.maze == context then
-                          return rawget(context, "indices")[key]
-                      else
-                          error("Maze access with foreign table as index")
-                      end
+                      assert_bool(cellmeta ~= nil and cellmeta.maze == context, "Maze access with foreign table as index.")
+                      return rawget(context, "indices")[key]
                   else
                       return rawget(context, key)
                   end
               end,
           __newindex = function (context, key, value)
                   if type(key) == "number" and key >= 100 then
-                      if type(value) == "table" then
-                          local cellmeta = getmetatable(value)
-                          if cellmeta ~= nil and cellmeta.maze == context then
-                              local cells = rawget(context, "cells")
-                              if cells[key] == nil then
-                                  cells[key] = value
-                                  rawget(context, "indices")[value] = key
-                              else
-                                  error("Maze cell index already occupied")
-                              end
-                          else
-                              error("Maze expected unassigned cell set but got something else")
-                          end
-                      else
-                          error("Maze illegal value set at index "..key)
-                      end
+                      assert_type(value, "maze value (illegal set)", 2, "table")
+                      local cellmeta = getmetatable(value)
+                      assert_bool(cellmeta ~= nil and cellmeta.maze == context, "Maze expected unassigned cell set but got something else")
+                      local cells = rawget(context, "cells")
+                      assert_bool(cells[key] == nil, "Maze cell index already occupied.")
+                      cells[key] = value
+                      rawget(context, "indices")[value] = key
                   else
                       return rawset(context, key, value)
                   end
@@ -162,24 +151,17 @@ function res.maze(subresolver, ...)
         }
         
     -- argument evaluation
-    if #args~= 1 or type(args[1]) ~= "table" then
-        error("Libmaze wrong number of arguments - expected subresolver and a table of configuration data", 2)
-    end
+    assert_bool(#args == 1, "Libmaze wrong number of arguments - expected subresolver and a table of configuration data.", 2)
+    assert_type(args[1], "libmaze configuration data", 2, "table")
     context.area = args[1].area
-    if type(context.area) ~= "table" then
-        error("Libmaze missing area configuration table", 2)
-    end
+    assert_type(context.area, "libmaze area configuration table", 2, "table")
     if type(context.area[2]) == "number" then
-        if type(context.area[3]) ~= "number" then
-            error("Libmaze area configuration requires two numbers for size", 2)
-        end
+        assert_type(context.area[3], "libmaze area configuration table second entry", 2, "number")
         context.rectangular = true
         -- if type (context.area[1]) ~= "string"
     else
         for k, v in pairs(context.area) do
-            if type(v) ~= "string" then
-                error("Libmaze area configuration expected string values", 2)
-            end
+            assert_type(v, "libmaze area configuration table entry", 2, "string")
         end
         context.area_keymatches = {}
         context.area_keyprefixes = {}
@@ -187,9 +169,8 @@ function res.maze(subresolver, ...)
         context.area_positioncodes = {}
     end
     
-    if args[1].render ~= nil and type(args[1].render) ~= "table" then
-        error("Libmaze false renderer configuration", 2)
-    elseif args[1].render ~= nil then
+    assert_type(args[1].render, "libmaze renderer configuration", 2, "nil", "table")
+    if args[1].render then
         context.renderer_args = args[1].render
         if type(args[1].render[1]) == "function" then
             context.renderer = args[1].render[1]
@@ -197,27 +178,15 @@ function res.maze(subresolver, ...)
         end
     end
     
-    if args[1].kernel ~= nil and type(args[1].kernel) ~= "table" then
-        error("Libmaze false kernel configuration", 2)
-    elseif args[1].kernel ~= nil then
-        context.kernel = args[1].kernel
-    end
-    if args[1].spacing ~= nil and type(args[1].spacing) ~= "table" then
-        error("Libmaze false spacing configuration", 2)
-    elseif args[1].spacing ~= nil then
-        context.spacing = args[1].spacing
-    end
-    if args[1].offset_x ~= nil and type(args[1].offset_x) ~= "table" then
-        error("Libmaze false offset_x configuration", 2)
-    elseif args[1].offset_x ~= nil then
-        context.offset_x = args[1].offset_x
-    end
-    if args[1].offset_y ~= nil and type(args[1].offset_y) ~= "table" then
-        error("Libmaze false offset_y configuration", 2)
-    elseif args[1].offset_y ~= nil then
-        context.offset_y = args[1].offset_y
-    end
-    
+    assert_type(args[1].kernel, "libmaze kernel configuration", 2, "nil", "table")
+    assert_type(args[1].spacing, "libmaze spacing configuration", 2, "nil", "table")
+    assert_type(args[1].offset_x, "libmaze offset_x configuration", 2, "nil", "table")
+    assert_type(args[1].offset_y, "libmaze offset_y configuration", 2, "nil", "table")
+    context.kernel = args[1].kernel or context.kernel
+    context.spacing = args[1].spacing or context.spacing
+    context.offset_x = args[1].offset_x or context.offset_x
+    context.offset_y = args[1].offset_y or context.offset_y
+
     if args[1].generator == false then
         context.generator = nil
     elseif type(args[1].generator) == "function" then
@@ -380,12 +349,9 @@ function lib.maze.generator_kruskal(maze)
                 cell[dir] = false     -- unmark the link
             elseif cell[dir] == false then
                 local neighbor = cell:neighbor(dir)
-                if neighbor then
-                    table.insert(walls, {cell, dir})
-                    neighbor[opposite] = true
-                else
-                    error("kruskal - bad cell link value")
-                end
+                assert_bool(neighbor, "lib.maze.generator_kruskal: Bad cell link value.")
+                table.insert(walls, {cell, dir})
+                neighbor[opposite] = true
             end
         end
     end
@@ -496,9 +462,7 @@ function lib.maze.renderer_standard(maze, args)
 end
 
 function lib.maze.renderer_window(maze, args)
-    if maze.spacing[1] ~= 0 or maze.spacing[2] ~= 0 then
-        error("Maze window renderer requires spacing of {0, 0}",2)
-    end
+    assert_bool(maze.spacing[1] == 0 and maze.spacing[2] == 0, "Maze window renderer requires spacing of {0, 0}", 2)
     local map = nil
     local map_kernel = nil
     if type(args[1]) ~= "string" then
@@ -534,12 +498,8 @@ end
 
 function lib.maze.renderer_strip(maze, args)
     -- TODO extend to arbitrary spacing > {0,0}
-    if maze.kernel[1] ~= 0 or maze.kernel[2] ~= 0 then
-        error("Maze strip renderer requires kernel of {0, 0}",2)
-    end
-    if maze.spacing[1] ~= 1 or maze.spacing[2] ~= 1 then
-        error("Maze strip renderer requires spacing of {1, 1}",2)
-    end
+    assert_bool(maze.kernel[1] == 0 and maze.kernel[2] == 0, "Maze strip renderer requires kernel of {0, 0}", 2)
+    assert_bool(maze.spacing[1] == 1 and maze.spacing[2] == 1, "Maze strip renderer requires spacing of {1, 1}", 2)
     local map = nil
     local map_spacing = nil
     if type(args[1]) ~= "string" then

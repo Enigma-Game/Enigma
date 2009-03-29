@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libpento"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,9 +24,7 @@ function res.pento_finalization(context)
     context.src_area = no[context.source.."#*"]
     context.src_anchor = po(0,0)
     do
-        if #context.src_area ~= 25 then
-            error("Pentomino source area not a 5x5 square", 2)
-        end
+        assert_bool(#context.src_area == 25, "Pentomino source area not a 5x5 square.", 2)
         local x = 100000
         local y = 100000
         for s in context.src_area do
@@ -35,15 +33,12 @@ function res.pento_finalization(context)
         end
         context.src_anchor = po(x, y)
         for s in context.src_area do
-            if s.x > x+5 or s.y > y + 5 then
-                error("Pentomino source area not a 5x5 square", 2)
-            end
+            assert_bool((s.x <= x + 5) and (s.y <= y + 5), "Pentomino source area not a 5x5 square.", 2)
         end
     end
     context.target_area = no["target#*"]
-    if #context.target_area ~= 60 then
-        error("Pentomino target area not 60 grids", 2)
-    end
+    assert_bool(#context.target_area == 60, "Pentomino target area not 60 grids.", 2)
+
     context.last_shape = 12
     
     context.next = function ()
@@ -109,11 +104,8 @@ function res.pento(subresolver, ...)
     -- syntax: ... = <sourcebasename>, <targetbasename>
     -- context: 
     local args = {...}
-    if type(args[1]) ~= "string" then
-        error("Resolver pento requires source basename as first argument")
-    elseif type(args[1]) ~= "string" then
-        error("Resolver pento requires target basename as second argument")
-    end
+    assert_type(args[1], "res.pento first argument (source basename)", 2, "string")
+    assert_type(args[2], "res.pento second argument (target basename)", 2, "string")
     local autotile = res.autotile(subresolver, {"O","Z", "pentopuzzle"})
     local context = {res.pento_implementation, res.pento_finalization, autotile}
     context.source = args[1]
