@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libpento"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+    
+    
+ti["pentopuzzle"] = {"st_puzzle", "shape%%#", cluster="%%", intensity=0}
+
+function res.pento_finalization(context)
+    context.src_area = no[context.source.."#*"]
+    context.src_anchor = po(0,0)
+    do
+        if #context.src_area ~= 25 then
+            error("Pentomino source area not a 5x5 square", 2)
+        end
+        local x = 100000
+        local y = 100000
+        for s in context.src_area do
+            if s.x < x then x = s.x end
+            if s.y < y then y = s.y end
+        end
+        context.src_anchor = po(x, y)
+        for s in context.src_area do
+            if s.x > x+5 or s.y > y + 5 then
+                error("Pentomino source area not a 5x5 square", 2)
+            end
+        end
+    end
+    context.target_area = no["target#*"]
+    if #context.target_area ~= 60 then
+        error("Pentomino target area not 60 grids", 2)
+    end
+    context.last_shape = 12
+    
+    context.next = function ()
+        local trash = st(context.src_area)
+        for t in trash do
+            if -t then
+                t:get_cluster():kill()
+            end
+        end
+        local count = 0
+        repeat
+            count = count + 1
+            if count == 13 then return end
+            context.last_shape = context.last_shape + 1
+            if context.last_shape == 13 then context.last_shape = 1 end
+        until #no["shape%"..context.last_shape.."#*"] == 0
+        
+        local shape_map = wo:newMap(" ", context.shapes[context.last_shape])
+        local offset = po(3 - shape_map.width/2, 3 - shape_map.height/2)
+        wo:drawMap(context[3], context.src_anchor + offset, " ", shape_map)
+    end
+
+    context.transform = function (transformations)
+        local target = st(context.src_area)
+        local cluster = nil
+        if #target ~= 5 then return end
+        for t in target do
+            if cluster == nil then 
+                cluster = t["cluster"]
+            elseif cluster ~= t["cluster"] then
+                return
+            end
+        end
+        local oldtransform = target[1]["_transform"] or MAP_IDENT
+        local newtransform = transformations[oldtransform + 1]
+        target[1]:get_cluster():kill()
+        local shape = 0 + cluster:sub(2)
+        local shape_map = wo:newMap(" ", context.shapes[shape]) ^ newtransform
+        local offset = po(3 - shape_map.width/2, 3 - shape_map.height/2)
+        wo:drawMap(context[3], context.src_anchor + offset, " ", shape_map)
+        st(context.src_area)["_transform"] = newtransform
+    end
+
+    context.rotate = function()
+        context.transform(context.rotations)
+    end
+    
+    context.mirror = function()
+        context.transform(context.mirrors)
+    end
+    
+    context.check = function()
+        return #st(context.target_area) == 60
+    end
+
+end
+
+function res.pento_implementation(context, evaluator, key, x, y)
+    return evaluator(context[3], key, x, y)
+end
+
+function res.pento(subresolver, ...)
+    -- syntax: ... = <sourcebasename>, <targetbasename>
+    -- context: 
+    local args = {...}
+    if type(args[1]) ~= "string" then
+        error("Resolver pento requires source basename as first argument")
+    elseif type(args[1]) ~= "string" then
+        error("Resolver pento requires target basename as second argument")
+    end
+    local autotile = res.autotile(subresolver, {"O","Z", "pentopuzzle"})
+    local context = {res.pento_implementation, res.pento_finalization, autotile}
+    context.source = args[1]
+    context.target = args[2]
+    context.shapes = {{"OOOOO"}, {"PP","PPP"}, {"QQQQ","Q"},{"R","RRR"," R"},
+        {"  SS","SSS"},{"T","TTT","T"},{"U U","UUU"},{"VVV","V","V"},
+        {"W","WW"," WW"},{" X","XXX"," X"},{"YYYY"," Y"},{"ZZ"," Z"," ZZ"}}
+    context.rotations = {MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW, MAP_IDENT, 
+        MAP_MIRROR_VERTICAL, MAP_MIRROR_BACKSLASH, MAP_MIRROR_HORIZONTAL, 
+        MAP_MIRROR_SLASH}
+    context.mirrors = {MAP_MIRROR_HORIZONTAL, MAP_MIRROR_SLASH, MAP_MIRROR_VERTICAL,
+        MAP_MIRROR_BACKSLASH, MAP_ROT_CCW, MAP_IDENT, MAP_ROT_CW, MAP_ROT_180}
+    return context
+end
+
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
