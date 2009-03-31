@@ -161,8 +161,8 @@ function lib.map.sub(map, origin, arg2, arg3)
   -- syntax: map, pos1, pos2
   --         map, pos1, width, height
   assert_type(map, "lib.map.sub first argument", 2, "map")
-  assert_type(origin, "lib.map.sub second argument", 2, "position", "object", "string", "table")
-  assert_type(arg2, "lib.map.sub third argument", 2, "position", "object", "string", "table", "number")
+  assert_type(origin, "lib.map.sub second argument", 2, "position", "valid object", "string", "table")
+  assert_type(arg2, "lib.map.sub third argument", 2, "position", "valid object", "string", "table", "number")
   local pos1, pos2 = origin, arg2
   if etype(pos1) ~= "position" then
     pos1 = po(pos1)
@@ -192,40 +192,34 @@ function lib.map.sub(map, origin, arg2, arg3)
 end
 
 -- TODO: Speed up.
-function lib.map._paste(map1, map2, pos)
-  local kl = rawget(map2, "__keylength")
-  local dk = rawget(map2, "__defaultkey")
-  for y = 1, map2.height do
-    local line = rawget(map2, y)
-    for x = 1, map2.width do
-      tile = string.sub(line, kl * (x - 1) + 1, x * kl)
-      if tile ~= dk then
-        map1[{pos.x + x - 1, pos.y + y - 1}] = tile
-      end
-    end
-  end
-end
-
 function lib.map.paste(map1, map2, posarg)
   assert_type(map1, "lib.map.paste first argument", 2, "map")
   assert_type(map2, "lib.map.paste second argument", 2, "map")
-  assert_type(posarg, "lib.map.paste third argument", 2, "position", "object", "string", "group", "polist", "table")  
-  if map1.keylength ~= map2.keylength then
-      error("lib.map.paste: Can't work on maps with different keylengths.", 2)
-  end
+  assert_type(posarg, "lib.map.paste third argument", 2, "position", "valid object", "string", "group", "polist", "table")  
+  assert_bool(map1.keylength == map2.keylength, "lib.map.paste: Can't work on maps with different keylengths.", 2)
   local postype = etype(posarg)
   if postype == "position" then
-    lib.map._paste(map1, map2, posarg)
+    local kl = rawget(map2, "__keylength")
+    local dk = rawget(map2, "__defaultkey")
+    for y = 1, map2.height do
+      local line = rawget(map2, y)
+      for x = 1, map2.width do
+        tile = string.sub(line, kl * (x - 1) + 1, x * kl)
+        if tile ~= dk then
+          map1[{posarg.x + x - 1, posarg.y + y - 1}] = tile
+        end
+      end
+    end
   elseif postype == "group" then
     for obj in posarg do
-      lib.map._paste(map1, map2, po(obj))
+      lib.map.paste(map1, map2, po(obj))
     end
   elseif postype == "polist" then
     for j = 1, #posarg do
-      lib.map._paste(map1, map2, posarg[j])
+      lib.map.paste(map1, map2, posarg[j])
     end
   else
-    lib.map._paste(map1, map2, po(posarg))
+    lib.map.paste(map1, map2, po(posarg))
   end
 end
 
@@ -465,7 +459,7 @@ end
 
 function lib.map.extend(map, posarg)
   assert_type(map, "lib.map.extend first argument", 2, "map")
-  assert_type(posarg, "lib.map.extend second argument", 2, "position", "object", "string", "table")
+  assert_type(posarg, "lib.map.extend second argument", 2, "position", "valid object", "string", "table")
   local pos = posarg
   if etype(pos) ~= "position" then
     pos = po(pos)

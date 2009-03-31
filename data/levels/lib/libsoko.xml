@@ -38,6 +38,7 @@ lib.soko.keys_to_field_names = {["  "] = "inf", ["- "] = "outf", ["$ "] = "box",
 -- RESOLVE_ORIENTED = 5
 GOAL_HOOK_DEFAULT = 0
 GOAL_HOOK_RALF = 1
+lib.soko.MAX_HEIGHT = 10000  -- If you have to change this, change it before any other call to lib.soko.
 
 lib.soko.resolver_info = {}
 lib.soko.area = {}
@@ -53,7 +54,7 @@ lib.soko.goal_hook = GOAL_HOOK_DEFAULT
 -- positions of the current level (see it as "attributes for positions").
 function lib.soko.area_get(self, index)
     if usertype(index) == "position" then
-        local signature = index.x .. "/" .. index.y
+        local signature = index.x * lib.soko.MAX_HEIGHT + index.y
         if not rawget(self, signature) then
             rawset(self, signature, {})
         end
@@ -66,7 +67,7 @@ function lib.soko.area_get(self, index)
 end
 
 function lib.soko.area_set(self, newindex, value)
-    error("lib.soko: Internal error: area_set used inappropriately.", 2)
+    error("lib.soko: Internal error: lib.soko.area used inappropriately.", 1)
 end
 
 lib.soko.area_metatable = {

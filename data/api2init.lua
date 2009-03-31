@@ -213,28 +213,32 @@ MAP_COUNT = 7
 ---------------------
 
 wo:_register("drawMap", 
-    function (world, resolver, anchor, ignorearg, maparg, readarg)
-        -- TODO check validity of arguments
+    function (world, resolver, anchor, arg3, arg4, arg5)
         -- world, resolver, (position|object|table), string, (table|map), [int]
         -- world, resolver, (position|object|table), map, [int]
-        -- Analyse arguments 3 to 6
+        assert_type(world, "wo:drawMap self (world)", 2, "world")
+        assert_type(resolver, "wo:drawMap first argument (resolver)", 2, "tiles", "function", "table")
+        assert_type(anchor, "wo:drawMap second argument (anchor)", 2, "position", "valid object", "table")
+        assert_type(arg3, "wo:drawMap third argument (ignorekey or map)", 2, "string", "map")
         local origin = po(anchor)   -- either convert or make a working position copy
-        local ignore = ignorearg
-        local map = maparg
-        local readdir = readarg or MAP_IDENT
-        if (type(ignore) == "table") and (type(ignore.defaultkey) == "string") then
-            map = ignorearg
+        -- Analyse arguments 4 to 6
+        local ignore, map, readdir
+        if (etype(arg3) == "map") then
+            assert_type(arg4, "wo:drawMap fourth argument (read direction)", 2, "nil", "integer")
+            map = arg3
             ignore = map.defaultkey
-            readdir = maparg or MAP_IDENT
-        elseif (type(map) == "table") and (type(map.defaultkey) == "string")
-               and (string.len(map.defaultkey) ~= string.len(ignore)) then
-            error("drawmap: Ignore key and default key differ in length.", 2)
+            readdir = arg4 or MAP_IDENT
+        else
+            assert_type(arg4, "wo:drawMap fourth argument (map)", 2, "table", "map")
+            assert_type(arg5, "wo:drawMap fifth argument (read direction)", 2, "nil", "integer")
+            ignore = arg3
+            map = arg4
+            readdir = arg5 or MAP_IDENT
+            assert_bool((etype(map) ~= "map") or (string.len(map.defaultkey) == string.len(ignore)),
+                "wo:drawMap: Ignore key and default key differ in length.", 2)
         end
         local len = string.len(ignore)
-        if    (type(readdir) ~= "number") or (readdir % 1 ~= 0)
-           or (readdir < MAP_IDENT) or (readdir > MAP_COUNT) then
-            error("drawmap: Unknown read direction.", 2)
-        end
+        assert_bool((readdir >= MAP_IDENT) and (readdir <= MAP_COUNT), "wo:drawMap: Unknown read direction.", 2)
         -- Prepare read direction rotation
         local w, h = 0, 0
         local function rot(x, y)
@@ -251,34 +255,32 @@ wo:_register("drawMap",
                      [MAP_MIRROR_BACKSLASH]  = {h + 1 - y, w + 1 - x} })[readdir]
         end
         if readdir ~= MAP_IDENT then
-          -- Calculate height and width for rotation if neccessary
-          h = #map
-          for y = 1, h do
-            w = math.max(w, string.len(map[y])/len)
-          end
+            -- Calculate height and width for rotation if neccessary
+            h = #map
+            for y = 1, h do
+                w = math.max(w, string.len(map[y])/len)
+            end
         end
         -- Draw map
         for y=1, #map do
             local linelen = string.len(map[y])
-            if math.fmod(linelen, len) ~= 0 then
-                error("drawmap map line ".. y .. " with odd length", 2)
-            end
+            assert_bool(math.fmod(linelen, len) == 0, "wo:drawMap: Map line ".. y .. " with odd length.", 2)
             for x = 1, linelen/len do
                 local key = string.sub(map[y], len*(x-1)+1, len*x)
                 if key ~= ignore then
                     local p = {origin.x - 1, origin.y - 1}
                     if readdir == MAP_IDENT then
-                      p = {p[1] + x, p[2] + y}
+                        p = {p[1] + x, p[2] + y}
                     else
-                      p = {p[1] + (rot(x,y))[1], p[2] + (rot(x,y))[2]}
+                        p = {p[1] + (rot(x,y))[1], p[2] + (rot(x,y))[2]}
                     end
                     tile = world:_evaluate(resolver, key, p[1], p[2])
                     if tile then
                         world[p] = tile
                     else
-                        error("drawmap: undefined tile '" .. key .. "' at "
+                        error("wo:drawMap: undefined tile '" .. key .. "' at "
                               .. p[1] .. ", " .. p[2] .. "(in submap at "
-                              .. x .. ", ".. y .. ")")
+                              .. x .. ", ".. y .. ").")
                     end
                 end
             end
@@ -288,7 +290,7 @@ wo:_register("drawMap",
         while type(context) == "table" do
             local finalizer = context[2]
             if type(finalizer) == "function" then
-               finalizer(context) 
+                 finalizer(context) 
             end
             context = context[3]
         end
@@ -296,14 +298,24 @@ wo:_register("drawMap",
 )
 
 wo:_register("drawBorder", 
-    function (world, origin, arg2, arg3, arg4)
-        local dest = arg2
-        local tile = arg3
-        if type(arg2) == "number" and type(arg3) == "number" then
+    function (world, arg1, arg2, arg3, arg4)
+        -- world, (position|object|table), width, height, (tile|table)
+        -- world, (position|object|table), (position|object|table), (tile|table)
+        assert_type(world, "wo:drawBorder self (world)", 2, "world")
+        assert_type(arg1, "wo:drawBorder first argument (upperleft edge)", 2, "position", "valid object", "table")
+        assert_type(arg2, "wo:drawBorder second argument (width or lowerright edge)", 2, "position", "valid object", "table", "positive integer")
+        local origin = po(arg1)
+        local dest, tile
+        if etype(arg2) == "number" then
+            assert_type(arg3, "wo:drawBorder third argument (height)", 2, "positive integer")
+            assert_type(arg4, "wo:drawBorder fourth argument (tile)", 2, "tile", "table")
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
-            tile = arg4
+            tile = arg4            
+        else
+            assert_type(arg3, "wo:drawBorder third argument (tile)", 2, "tile", "table")
+            dest = po(arg2)
+            tile = arg3
         end
-        -- TODO check validity of arguments
         for x = origin.x, dest.x do
             wo[{x, origin.y}] = tile
             if origin.y ~= dest.y then
@@ -320,14 +332,24 @@ wo:_register("drawBorder",
 )
 
 wo:_register("drawRect", 
-    function (world, origin, arg2, arg3, arg4)
-        local dest = arg2
-        local tile = arg3
-        if type(arg2) == "number" and type(arg3) == "number" then
+    function (world, arg1, arg2, arg3, arg4)
+        -- world, (position|object|table), width, height, (tile|table)
+        -- world, (position|object|table), (position|object|table), (tile|table)
+        assert_type(world, "wo:drawRect self (world)", 2, "world")
+        assert_type(arg1, "wo:drawRect first argument (upperleft edge)", 2, "position", "valid object", "table")
+        assert_type(arg2, "wo:drawRect second argument (width or lowerright edge)", 2, "position", "valid object", "table", "positive integer")
+        local origin = po(arg1)
+        local dest, tile
+        if etype(arg2) == "number" then
+            assert_type(arg3, "wo:drawRect third argument (height)", 2, "positive integer")
+            assert_type(arg4, "wo:drawRect fourth argument (tile)", 2, "tile", "table")
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
-            tile = arg4
+            tile = arg4            
+        else
+            assert_type(arg3, "wo:drawRect third argument (tile)", 2, "tile", "table")
+            dest = po(arg2)
+            tile = arg3
         end
-        -- TODO check validity of arguments
         for x = origin.x, dest.x do
             for y = origin.y, dest.y do
                 wo[{x, y}] = tile
@@ -416,47 +438,38 @@ end
 function res.random(subresolver, hits, replacements)
     -- syntax: hits = key | {key, [key]*, [{key, superkey}]*}
     --         replacements = {key, [key]*, [{key, frequency}]*}
+    assert_type(subresolver, "res.random first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(hits, "res.random second argument (hits)", 2, "non-empty string", "table")
+    assert_type(hits, "res.random third argument (replacements)", 2, "string", "table")
     local hit_table = {}
     if type(hits) == "string" then
         hit_table[1] = {hits, nil}
-    elseif type(hits) == "table" then
+    else  -- table
         for i, v in ipairs(hits) do
+            assert_type(v, "res.random seond argument (hits), entry " .. i, 2, "non-empty string", "table")
             if type(v) == "string" then
                 hit_table[i] = {v, nil}
             elseif type(v) == "table" then
-                if     (type(v[1]) ~= "string") or (type(v[2]) ~= "string") then
-                    error("res.random: Unsupported type or syntax error in second argument.", 2)
-                end
+                assert_type(v[1], "res.random second argument (hits), key in entry " .. i, 2, "non-empty string")
+                assert_type(v[2], "res.random second argument (hits), superkey in entry " .. i, 2, "nil", "string")
                 hit_table[i] = v
-            else
-                error("res.random: Unsupported type or syntax error in second argument.", 2)
             end
         end
-    else
-        error("res.random: Unsupported type or syntax error in second argument.", 2)
-    end
-    
+    end    
     local repl_table = {}
     if type(replacements) == "string" then
         repl_table[1] = {replacements, 1}
-    elseif type(replacements) == "table" then
+    else  -- table
         for i, v in ipairs(replacements) do
+            assert_type(v, "res.random third argument (replacements), entry " .. i, 2, "string", "table")
             if type(v) == "string" then
                 repl_table[i] = {v, 1}
-            elseif type(v) == "table" then
-                if (type(v[1]) ~= "string") and (type(v[2]) ~= "number") then
-                    error("res.random: Unsupported type or syntax error in third argument.", 2)
-                end
-                if v[2] < 0 then
-                    error("res.random: Frequency must be a positive number or zero.", 2)
-                end
+            else  -- table of key and frequency
+                assert_type(v[1], "res.random third argument (replacements), key in entry " .. i, 2, "string")
+                assert_type(v[2], "res.random third argument (replacements), frequency in entry " .. i, 2, "non-negative")
                 repl_table[i] = v
-            else
-                error("res.random: Unsupported type or syntax error in third argument.", 2)
             end
         end
-    else
-        error("res.random: Unsupported type or syntax error in third argument.", 2)
     end
     local repl_sum = 0
     for i, v in ipairs(repl_table) do
@@ -545,45 +558,33 @@ function res.autotile_implementation(context, evaluator, key, x, y)
 end
 
 function res.autotile(subresolver, ...)
-    -- syntax: ... = <{prefixkey, template} | {fistkey, lastkey, template[, offset]}>
+    -- syntax: ... = <{prefixkey, template} | {firstkey, lastkey, template[, offset]}>
     -- context: [4] = table with unmodified rule tables
+    assert_type(subresolver, "res.autotile first argument (subresolver)", 2, "tiles", "function", "table")
     local args = {...}
     for i, rule in ipairs(args) do
-        if type(rule) ~= "table" then
-            error("Resolver autotile rule " .. i.." is not a table", 2)
-        else
-            if #rule < 2 or #rule > 4 then
-                error("Resolver autotile rule "..i.." wrong number of arguments", 2)
-            end
-            local template_pos = 2
-            local string_pos = {1,2}
-            if #rule >= 3  then
-                template_pos = 3
-                string_pos = {1,2,3}
-            end
-            
-            for j, num in ipairs(string_pos) do
-                if type(rule[string_pos[num]]) ~= "string" then
-                    error("Resolver autotile rule "..i.." has no string at position "..num, 2)
-                end
-            end
-            if #rule == 4 then
-                if type(rule[4]) ~= "number" then
-                    error("Resolver autotile rule "..i.." has no number at position 4", 2)
-                end
-            end
-            if #rule >= 3 then
-                local first = string.byte(rule[1], #rule[1])
-                local last  = string.byte(rule[2], #rule[2])
-                if #rule[2] ~= #rule[1] or string.sub(rule[2], 1, -2) ~= string.sub(rule[1], 1, -2)
-                        or first > last then
-                    error("Resolver autotile rule "..i.." bad range start-end strings", 2)
-                end
-            end
-            if ti[rule[template_pos]] == nil then
-                error("Resolver autotile missing template tile '"..rule[template_pos].."'", 2)
-            end
+        assert_type(rule, "res.autotile argument " .. (i+1) .. " (rule " .. i .. ")", 2, "table")
+        assert_bool((#rule == 2) or (#rule == 3), "res.autotile rule "..i.." has wrong number of arguments (must be 2, 3, or 4).", 2)
+        local template_pos = 2
+        local string_pos = {1,2}
+        if #rule >= 3  then
+            template_pos = 3
+            string_pos = {1,2,3}
         end
+        
+        for j, num in ipairs(string_pos) do
+            assert_type(rule[string_pos[num]], "res.autotile rule " .. i .. ", position " .. num, 2, "string")
+        end
+        if #rule == 4 then
+            assert_type(rule[4], "res.autotile rule " .. i .. ", position 4 (offset)", 2, "integer")
+        end
+        if #rule >= 3 then
+            local first = string.byte(rule[1], #rule[1])
+            local last  = string.byte(rule[2], #rule[2])
+            assert_bool(#rule[1] == #rule[2] and string.sub(rule[2], 1, -2) == string.sub(rule[1], 1, -2) and first <= last, 
+                "res.autotile: Rule " .. i .. " has bad range start-end strings.", 2)
+        end
+        assert_bool(ti[rule[template_pos]], "res.autotile: Missing template tile '" .. rule[template_pos] .. "'", 2)
     end
     local context = {res.autotile_implementation, nil, subresolver, args}
     return context
@@ -625,14 +626,12 @@ function res.composer_implementation(context, evaluator, key, x, y)
 end
 
 function res.composer(subresolver, ...)
+    assert_type(subresolver, "res.composer first argument (subresolver)", 2, "tiles", "function", "table")
     local args = {...}
     local sequence = nil
-    if #args >  1 then
-        error("Resolver composer did not expect more than one argument" ,2)
-    elseif #args == 1 then
-        if type(args[1]) ~= "string" then
-            error("Resolver composer did expect string as first argument" ,2)
-        end
+    assert_bool(#args <= 1, "res.composer: Too many arguments (must be 1 or 2)." ,2)
+    if #args == 1 then
+        assert_type(args[1], "res.composer second argument (sequence)", 2, "non-empty string")
         sequence = args[1]
     end
     local context = {res.composer_implementation, nil, subresolver, sequence}
@@ -672,6 +671,7 @@ function assert_type(object, objname, level, ...)
             or ((condition == "positive integer") and (type(object) == "number") and (math.ceil(object) == object) and (object > 0))
             or ((condition == "non-empty string") and (type(object) == "string") and (object ~= ""))
             or ((condition == "any table") and (type(object) == "table"))
+            or ((condition == "valid object") and (etype(object) == "object") and (-object))
     end
     if not fulfilled then
         for k = 1, #conditions do

@@ -16,8 +16,11 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-    
-    
+
+lib.pento = {}
+lib.pento.MAX_WIDTH  = 100000  -- If you have to change this, change it before any call to res.pento.
+lib.pento.MAX_HEIGHT = 100000  -- If you have to change this, change it before any call to res.pento.
+
 ti["pentopuzzle"] = {"st_puzzle", "shape%%#", cluster="%%", intensity=0}
 
 function res.pento_finalization(context)
@@ -25,8 +28,8 @@ function res.pento_finalization(context)
     context.src_anchor = po(0,0)
     do
         assert_bool(#context.src_area == 25, "Pentomino source area not a 5x5 square.", 2)
-        local x = 100000
-        local y = 100000
+        local x = lib.pento.MAX_WIDTH
+        local y = lib.pento.MAX_HEIGHT
         for s in context.src_area do
             if s.x < x then x = s.x end
             if s.y < y then y = s.y end
@@ -104,8 +107,9 @@ function res.pento(subresolver, ...)
     -- syntax: ... = <sourcebasename>, <targetbasename>
     -- context: 
     local args = {...}
-    assert_type(args[1], "res.pento first argument (source basename)", 2, "string")
-    assert_type(args[2], "res.pento second argument (target basename)", 2, "string")
+    assert_type(subresolver, "res.pento first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(args[1], "res.pento second argument (source basename)", 2, "string")
+    assert_type(args[2], "res.pento third argument (target basename)", 2, "string")
     local autotile = res.autotile(subresolver, {"O","Z", "pentopuzzle"})
     local context = {res.pento_implementation, res.pento_finalization, autotile}
     context.source = args[1]
