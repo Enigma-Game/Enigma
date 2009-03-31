@@ -53,583 +53,583 @@ lib.map = {}
 setmetatable(lib.map, getmetatable(lib))
 
 function lib.map.concat_horizontally(map1, map2)
-  assert_type(map1, "lib.map.concat_horizontally first argument", 2, "map")
-  assert_type(map2, "lib.map.concat_horizontally second argument", 2, "map")
-  if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
-    error("lib.map.concat_horizontally: Default keys differ in length.", 2)
-  end
-  local result = {}
-  for y = 1, math.max(map1.height, map2.height) do
-    result[y] = (rawget(map1, y) or string.rep(map1.defaultkey, map1.width))
-             .. (rawget(map2, y) or string.rep(map2.defaultkey, map2.width))
-  end
-  return wo:newMap(map1.defaultkey, result)  
+    assert_type(map1, "lib.map.concat_horizontally first argument", 2, "map")
+    assert_type(map2, "lib.map.concat_horizontally second argument", 2, "map")
+    if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
+        error("lib.map.concat_horizontally: Default keys differ in length.", 2)
+    end
+    local result = {}
+    for y = 1, math.max(map1.height, map2.height) do
+        result[y] = (rawget(map1, y) or string.rep(map1.defaultkey, map1.width))
+                 .. (rawget(map2, y) or string.rep(map2.defaultkey, map2.width))
+    end
+    return wo:newMap(map1.defaultkey, result)  
 end
 
 function lib.map.concat_vertically(map1, map2)
-  assert_type(map1, "lib.map.concat_vertically first argument", 2, "map")
-  assert_type(map2, "lib.map.concat_vertically second argument", 2, "map")
-  if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
-    error("lib.map.concat_vertically: Default keys differ in length.", 2)
-  end
-  local result = {}
-  for y = 1, map1.height do
-    result[y] = rawget(map1, y)  -- rest of line will be filled by wo:newMap
-  end
-  -- As the default key for result will be set to the first
-  -- default key, we have to attach the missing lines of the
-  -- second map here now.
-  local rest = string.rep(map2.defaultkey, math.max(0, map1.width - map2.width))
-  for y = 1, map2.height do
-    result[y + map1.height] = rawget(map2, y) .. rest
-  end
-  return wo:newMap(map1.defaultkey, result)
+    assert_type(map1, "lib.map.concat_vertically first argument", 2, "map")
+    assert_type(map2, "lib.map.concat_vertically second argument", 2, "map")
+    if string.len(map1.defaultkey) ~= string.len(map2.defaultkey) then
+        error("lib.map.concat_vertically: Default keys differ in length.", 2)
+    end
+    local result = {}
+    for y = 1, map1.height do
+        result[y] = rawget(map1, y)  -- rest of line will be filled by wo:newMap
+    end
+    -- As the default key for result will be set to the first
+    -- default key, we have to attach the missing lines of the
+    -- second map here now.
+    local rest = string.rep(map2.defaultkey, math.max(0, map1.width - map2.width))
+    for y = 1, map2.height do
+        result[y + map1.height] = rawget(map2, y) .. rest
+    end
+    return wo:newMap(map1.defaultkey, result)
 end
 
 function lib.map.fuse(arg1, arg2)
-  local map1, map2 = arg1, arg2
-  if type(arg1) == "string" then
-    map1 = wo:newMap(arg1)
-  end
-  if type(arg2) == "string" then
-    map2 = wo:newMap(arg2)
-  end
-  assert_type(map1, "lib.map.fuse first argument", 2, "map")
-  assert_type(map2, "lib.map.fuse second argument", 2, "map")
-  local result = {}
-  for y = 1, math.max(map1.height, map2.height) do
-    result[y] = ""
-    for x = 1, math.max(map1.width, map2.width) do
-      result[y] = result[y] .. map1[{x - 1, y - 1}] .. map2[{x - 1, y - 1}]
+    local map1, map2 = arg1, arg2
+    if type(arg1) == "string" then
+        map1 = wo:newMap(arg1)
     end
-  end
-  return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
+    if type(arg2) == "string" then
+        map2 = wo:newMap(arg2)
+    end
+    assert_type(map1, "lib.map.fuse first argument", 2, "map")
+    assert_type(map2, "lib.map.fuse second argument", 2, "map")
+    local result = {}
+    for y = 1, math.max(map1.height, map2.height) do
+        result[y] = ""
+        for x = 1, math.max(map1.width, map2.width) do
+            result[y] = result[y] .. map1[{x - 1, y - 1}] .. map2[{x - 1, y - 1}]
+        end
+    end
+    return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
 end
 
 function lib.map.defuse(map)
-  assert_type(map, "lib.map.defuse first argument", 2, "map")
-  local kl = rawget(map, "__keylength")
-  local dk = rawget(map, "__defaultkey")
-  local result = {}
-  for j = 1, kl do
-    result[j] = wo:newMap(string.sub(dk, j, j), map.width, map.height)
-  end
-  for y = 0, map.height - 1 do
-    for x = 0, map.width - 1 do
-      local key = map[{x,y}]
-      for j = 1, kl do
-        result[j][{x,y}] = string.sub(key, j, j)
-      end
+    assert_type(map, "lib.map.defuse first argument", 2, "map")
+    local kl = rawget(map, "__keylength")
+    local dk = rawget(map, "__defaultkey")
+    local result = {}
+    for j = 1, kl do
+        result[j] = wo:newMap(string.sub(dk, j, j), map.width, map.height)
     end
-  end
-  return result
+    for y = 0, map.height - 1 do
+        for x = 0, map.width - 1 do
+            local key = map[{x,y}]
+            for j = 1, kl do
+                result[j][{x,y}] = string.sub(key, j, j)
+            end
+        end
+    end
+    return result
 end
 
 function lib.map.transform(map, op)
-  assert_type(map, "lib.map.transform first argument", 2, "map")
-  assert_type(op, "lib.map.transform second argument", 2, "natural")
-  if op > 7 then
-    error("lib.map.transform: Unknown transformation request.", 2)
-  end
-  local w, h = map.width, map.height
-  local function rot(x, y)
-    return ({[MAP_IDENT]             = {x,         y},
-             [MAP_ROT_CW]            = {y,         h - 1 - x},
-             [MAP_ROT_180]           = {w - 1 - x, h - 1 - y},
-             [MAP_ROT_CCW]           = {w - 1 - y, x},
-             [MAP_MIRROR_HORIZONTAL] = {w - 1 - x, y},
-             [MAP_MIRROR_VERTICAL]   = {x,         h - 1 - y},
-             [MAP_MIRROR_SLASH]      = {y,         x},
-             [MAP_MIRROR_BACKSLASH]  = {w - 1 - y, h - 1 - x}     })[op]
-  end
-  local new_w, new_h = w, h
-  if    (op == MAP_ROT_CW) or (op == MAP_ROT_CCW)
-     or (op == MAP_MIRROR_SLASH) or (op == MAP_MIRROR_BACKSLASH) then
-    new_w, new_h = h, w
-  end
-  local result = {}
-  for y = 1, new_h do
-    result[y] = ""
-    for x = 1, new_w do
-      result[y] = result[y] .. map[rot(x - 1, y - 1)]
+    assert_type(map, "lib.map.transform first argument", 2, "map")
+    assert_type(op, "lib.map.transform second argument", 2, "natural")
+    if op > 7 then
+        error("lib.map.transform: Unknown transformation request.", 2)
     end
-  end
-  return wo:newMap(map.defaultkey, result)  
+    local w, h = map.width, map.height
+    local function rot(x, y)
+        return ({[MAP_IDENT]             = {x,         y},
+                 [MAP_ROT_CW]            = {y,         h - 1 - x},
+                 [MAP_ROT_180]           = {w - 1 - x, h - 1 - y},
+                 [MAP_ROT_CCW]           = {w - 1 - y, x},
+                 [MAP_MIRROR_HORIZONTAL] = {w - 1 - x, y},
+                 [MAP_MIRROR_VERTICAL]   = {x,         h - 1 - y},
+                 [MAP_MIRROR_SLASH]      = {y,         x},
+                 [MAP_MIRROR_BACKSLASH]  = {w - 1 - y, h - 1 - x}     })[op]
+    end
+    local new_w, new_h = w, h
+    if    (op == MAP_ROT_CW) or (op == MAP_ROT_CCW)
+         or (op == MAP_MIRROR_SLASH) or (op == MAP_MIRROR_BACKSLASH) then
+        new_w, new_h = h, w
+    end
+    local result = {}
+    for y = 1, new_h do
+        result[y] = ""
+        for x = 1, new_w do
+            result[y] = result[y] .. map[rot(x - 1, y - 1)]
+        end
+    end
+    return wo:newMap(map.defaultkey, result)  
 end
 
 function lib.map.sub(map, origin, arg2, arg3)
-  -- syntax: map, pos1, pos2
-  --         map, pos1, width, height
-  assert_type(map, "lib.map.sub first argument", 2, "map")
-  assert_type(origin, "lib.map.sub second argument", 2, "position", "valid object", "string", "table")
-  assert_type(arg2, "lib.map.sub third argument", 2, "position", "valid object", "string", "table", "number")
-  local pos1, pos2 = origin, arg2
-  if etype(pos1) ~= "position" then
-    pos1 = po(pos1)
-  end
-  if type(arg2) == "number" then
-    -- arg2 and arg3 are width and height
-    assert_type(arg3, "lib.map.sub fourth argument", 2, "number")
-    pos2 = po(pos1.x + arg2 - 1, pos1.y + arg3 - 1)
-  elseif etype(arg2) ~= "position" then
-    pos2 = po(arg2)
-  end
-  pos1 = pos1:grid()
-  pos2 = pos2:grid()
-  if (pos2.x < pos1.x) or (pos2.y < pos1.y) then
-    error("lib.map.sub: Rectangular area not cleanly defined (first argument "
-        .. "is not top left-hand corner).", 2)
-  end
-  local result = {}
-  local kl = map.keylength
-  for y = pos1.y + 1, pos2.y + 1 do
-    if y <= map.height then
-      result[y-pos1.y] = string.sub(rawget(map, y) or "",
-                             pos1.x * kl + 1, (pos2.x + 1) * kl) or ""
+    -- syntax: map, pos1, pos2
+    --         map, pos1, width, height
+    assert_type(map, "lib.map.sub first argument", 2, "map")
+    assert_type(origin, "lib.map.sub second argument", 2, "position", "valid object", "string", "table")
+    assert_type(arg2, "lib.map.sub third argument", 2, "position", "valid object", "string", "table", "number")
+    local pos1, pos2 = origin, arg2
+    if etype(pos1) ~= "position" then
+        pos1 = po(pos1)
     end
-  end
-  return wo:newMap(rawget(map, "__defaultkey"), result)  
+    if type(arg2) == "number" then
+        -- arg2 and arg3 are width and height
+        assert_type(arg3, "lib.map.sub fourth argument", 2, "number")
+        pos2 = po(pos1.x + arg2 - 1, pos1.y + arg3 - 1)
+    elseif etype(arg2) ~= "position" then
+        pos2 = po(arg2)
+    end
+    pos1 = pos1:grid()
+    pos2 = pos2:grid()
+    if (pos2.x < pos1.x) or (pos2.y < pos1.y) then
+        error("lib.map.sub: Rectangular area not cleanly defined (first argument "
+            .. "is not top left-hand corner).", 2)
+    end
+    local result = {}
+    local kl = map.keylength
+    for y = pos1.y + 1, pos2.y + 1 do
+        if y <= map.height then
+            result[y-pos1.y] = string.sub(rawget(map, y) or "",
+                                   pos1.x * kl + 1, (pos2.x + 1) * kl) or ""
+        end
+    end
+    return wo:newMap(rawget(map, "__defaultkey"), result)  
 end
 
 -- TODO: Speed up.
 function lib.map.paste(map1, map2, posarg)
-  assert_type(map1, "lib.map.paste first argument", 2, "map")
-  assert_type(map2, "lib.map.paste second argument", 2, "map")
-  assert_type(posarg, "lib.map.paste third argument", 2, "position", "valid object", "string", "group", "polist", "table")  
-  assert_bool(map1.keylength == map2.keylength, "lib.map.paste: Can't work on maps with different keylengths.", 2)
-  local postype = etype(posarg)
-  if postype == "position" then
-    local kl = rawget(map2, "__keylength")
-    local dk = rawget(map2, "__defaultkey")
-    for y = 1, map2.height do
-      local line = rawget(map2, y)
-      for x = 1, map2.width do
-        tile = string.sub(line, kl * (x - 1) + 1, x * kl)
-        if tile ~= dk then
-          map1[{posarg.x + x - 1, posarg.y + y - 1}] = tile
+    assert_type(map1, "lib.map.paste first argument", 2, "map")
+    assert_type(map2, "lib.map.paste second argument", 2, "map")
+    assert_type(posarg, "lib.map.paste third argument", 2, "position", "valid object", "string", "group", "polist", "table")  
+    assert_bool(map1.keylength == map2.keylength, "lib.map.paste: Can't work on maps with different keylengths.", 2)
+    local postype = etype(posarg)
+    if postype == "position" then
+        local kl = rawget(map2, "__keylength")
+        local dk = rawget(map2, "__defaultkey")
+        for y = 1, map2.height do
+            local line = rawget(map2, y)
+            for x = 1, map2.width do
+                tile = string.sub(line, kl * (x - 1) + 1, x * kl)
+                if tile ~= dk then
+                    map1[{posarg.x + x - 1, posarg.y + y - 1}] = tile
+                end
+            end
         end
-      end
+    elseif postype == "group" then
+        for obj in posarg do
+            lib.map.paste(map1, map2, po(obj))
+        end
+    elseif postype == "polist" then
+        for j = 1, #posarg do
+            lib.map.paste(map1, map2, posarg[j])
+        end
+    else
+        lib.map.paste(map1, map2, po(posarg))
     end
-  elseif postype == "group" then
-    for obj in posarg do
-      lib.map.paste(map1, map2, po(obj))
-    end
-  elseif postype == "polist" then
-    for j = 1, #posarg do
-      lib.map.paste(map1, map2, posarg[j])
-    end
-  else
-    lib.map.paste(map1, map2, po(posarg))
-  end
 end
 
 function lib.map.replace(map, tile1, tile2arg)
-  assert_type(map, "lib.map.replace first argument", 2, "map")
-  assert_type(tile1, "lib.map.replace second argument", 2, "string")
-  assert_type(tile2arg, "lib.map.replace third argument", 2, "nil", "string")
-  local kl = rawget(map, "__keylength")
-  local tile2 = tile2arg or rawget(map, "__defaultkey")
-  if (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
-    error("lib.map.replace: Tiles do not have the same length as default key.", 2)
-  end
-  for y = 1, map.height do
-    local line = rawget(map, y)
-    for x = 1, map.width do
-      tile = string.sub(line, kl * (x - 1) + 1, x * kl)
-      if tile == tile1 then
-        map[{x-1, y-1}] = tile2
-      end
+    assert_type(map, "lib.map.replace first argument", 2, "map")
+    assert_type(tile1, "lib.map.replace second argument", 2, "string")
+    assert_type(tile2arg, "lib.map.replace third argument", 2, "nil", "string")
+    local kl = rawget(map, "__keylength")
+    local tile2 = tile2arg or rawget(map, "__defaultkey")
+    if (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
+        error("lib.map.replace: Tiles do not have the same length as default key.", 2)
     end
-  end
+    for y = 1, map.height do
+        local line = rawget(map, y)
+        for x = 1, map.width do
+            tile = string.sub(line, kl * (x - 1) + 1, x * kl)
+            if tile == tile1 then
+                map[{x-1, y-1}] = tile2
+            end
+        end
+    end
 end
 
 function lib.map.replace_outside(map, tile1, tile2arg)
-  assert_type(map, "lib.map.replace_outside first argument", 2, "map")
-  assert_type(tile1, "lib.map.replace_outside second argument", 2, "string")
-  assert_type(tile2arg, "lib.map.replace_outside third argument", 2, "nil", "string")
-  local kl = rawget(map, "__keylength")
-  local tile2 = tile2arg or rawget(map, "__defaultkey")
-  if (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
-    error("lib.map.replace_outside: Tiles do not have the same length as default key.", 2)
-  end
-  if tile1 == tile2 then
-    error("lib.map.replace_outside: Old and new tile must be different.", 2)
-  end
-  -- mark outside floor fields from the border
-  local function check_for_outside(x, y)
-    if string.sub(rawget(map, y), kl * (x - 1) + 1, x * kl) == tile1 then
-      map[{x-1, y-1}] = tile2
-      if y > 1          then  check_for_outside(x, y - 1)  end
-      if y < map.height then  check_for_outside(x, y + 1)  end
-      if x > 1          then  check_for_outside(x - 1, y)  end
-      if x < map.width  then  check_for_outside(x + 1, y)  end
+    assert_type(map, "lib.map.replace_outside first argument", 2, "map")
+    assert_type(tile1, "lib.map.replace_outside second argument", 2, "string")
+    assert_type(tile2arg, "lib.map.replace_outside third argument", 2, "nil", "string")
+    local kl = rawget(map, "__keylength")
+    local tile2 = tile2arg or rawget(map, "__defaultkey")
+    if (string.len(tile1) ~= kl) or (string.len(tile2) ~= kl) then
+        error("lib.map.replace_outside: Tiles do not have the same length as default key.", 2)
     end
-  end
-  for y = 1, map.height do
-    check_for_outside(1, y)
-    check_for_outside(map.width, y)
-  end
-  for x = 1, map.width do
-    check_for_outside(x, 1)
-    check_for_outside(x, map.height)
-  end
+    if tile1 == tile2 then
+        error("lib.map.replace_outside: Old and new tile must be different.", 2)
+    end
+    -- mark outside floor fields from the border
+    local function check_for_outside(x, y)
+        if string.sub(rawget(map, y), kl * (x - 1) + 1, x * kl) == tile1 then
+            map[{x-1, y-1}] = tile2
+            if y > 1          then  check_for_outside(x, y - 1)  end
+            if y < map.height then  check_for_outside(x, y + 1)  end
+            if x > 1          then  check_for_outside(x - 1, y)  end
+            if x < map.width  then  check_for_outside(x + 1, y)  end
+        end
+    end
+    for y = 1, map.height do
+        check_for_outside(1, y)
+        check_for_outside(map.width, y)
+    end
+    for x = 1, map.width do
+        check_for_outside(x, 1)
+        check_for_outside(x, map.height)
+    end
 end
 
 -- TODO: Maybe use assert_type.
 function lib.map.match(map, conditionsarg, ...)
-  assert_type(map, "lib.map.match first argument", 2, "map")
-  local kl = rawget(map, "__keylength")
-  local conditions 
-  if #{...} == 0 then
-    if      (type(conditionsarg) == "table")
-       and ((usertype(conditionsarg[1]) == "position") or (usertype(conditionsarg[1]) == "polist")) then
-      conditions = lib.lua.deep_copy({conditionsarg})
-    else
-      conditions = lib.lua.deep_copy(conditionsarg)
-    end
-  else
-    conditions = lib.lua.deep_copy({conditionsarg, ...})
-  end
-  if type(conditions) == "nil" then
-    conditions = {}
-  end
-  if type(conditions) == "string" then
-    conditions = {{po(0,0), conditions}}
-  end
-  if type(conditions) ~= "table" then
-    error("lib.map.match: Conditions of wrong type " .. type(conditions)
-        .. ", expected table, string, or nil.", 2)
-  end
-  for _, condition in pairs(conditions) do
-    if (type(condition) ~= "table") or (#condition < 2) then
-      error("lib.map.match: Wrong type in condition list, expected a table with "
-          .. "at least two entries.", 2)
-    end
-    if (usertype(condition[1]) == "position") then
-      condition[1] = po(grp()) .. condition[1]
-    end
-    if (usertype(condition[1]) ~= "polist") then
-      error("lib.map.match: Wrong type in condition, expected position or "
-          .. "position list as first entry.", 2)
-    end
-    for j = 2, #condition do
-      if (type(condition[j]) ~= "string") or (string.len(condition[j]) ~= kl) then
-        error("lib.map.match: Tile key in condition has wrong type or key length.", 2)
-      end
-    end       
-  end
-  local result = po(grp())
-  for y = 0, map.height - 1 do
-    for x = 0, map.width - 1 do
-      local conditions_fulfilled = true
-      for _, condition in pairs(conditions) do
-        for j = 1, #condition[1] do
-          if conditions_fulfilled then
-            local ch = map[{x + condition[1][j].x, y + condition[1][j].y}]
-            local found = false
-            for j = 2, #condition do
-              found = found or (condition[j] == ch)
-            end
-            conditions_fulfilled = found  -- at this point, cf was always true
-          end
+    assert_type(map, "lib.map.match first argument", 2, "map")
+    local kl = rawget(map, "__keylength")
+    local conditions 
+    if #{...} == 0 then
+        if      (type(conditionsarg) == "table")
+             and ((usertype(conditionsarg[1]) == "position") or (usertype(conditionsarg[1]) == "polist")) then
+            conditions = lib.lua.deep_copy({conditionsarg})
+        else
+            conditions = lib.lua.deep_copy(conditionsarg)
         end
-      end
-      if conditions_fulfilled then
-        result = result .. po(x,y)
-      end
+    else
+        conditions = lib.lua.deep_copy({conditionsarg, ...})
     end
-  end
-  return result
+    if type(conditions) == "nil" then
+        conditions = {}
+    end
+    if type(conditions) == "string" then
+        conditions = {{po(0,0), conditions}}
+    end
+    if type(conditions) ~= "table" then
+        error("lib.map.match: Conditions of wrong type " .. type(conditions)
+            .. ", expected table, string, or nil.", 2)
+    end
+    for _, condition in pairs(conditions) do
+        if (type(condition) ~= "table") or (#condition < 2) then
+            error("lib.map.match: Wrong type in condition list, expected a table with "
+                .. "at least two entries.", 2)
+        end
+        if (usertype(condition[1]) == "position") then
+            condition[1] = po(grp()) .. condition[1]
+        end
+        if (usertype(condition[1]) ~= "polist") then
+            error("lib.map.match: Wrong type in condition, expected position or "
+                .. "position list as first entry.", 2)
+        end
+        for j = 2, #condition do
+            if (type(condition[j]) ~= "string") or (string.len(condition[j]) ~= kl) then
+                error("lib.map.match: Tile key in condition has wrong type or key length.", 2)
+            end
+        end       
+    end
+    local result = po(grp())
+    for y = 0, map.height - 1 do
+        for x = 0, map.width - 1 do
+            local conditions_fulfilled = true
+            for _, condition in pairs(conditions) do
+                for j = 1, #condition[1] do
+                    if conditions_fulfilled then
+                        local ch = map[{x + condition[1][j].x, y + condition[1][j].y}]
+                        local found = false
+                        for j = 2, #condition do
+                            found = found or (condition[j] == ch)
+                        end
+                        conditions_fulfilled = found  -- at this point, cf was always true
+                    end
+                end
+            end
+            if conditions_fulfilled then
+                result = result .. po(x,y)
+            end
+        end
+    end
+    return result
 end
 
 function lib.map.covers(map, pos)
-  if type(pos) == "table" then
-    return (pos[1] >= 0) and (pos[2] >= 0)
-        and (pos[1] < map.width) and (pos[2] < map.height)
-  else
-    return (pos.x >= 0) and (pos.y >= 0)
-        and (pos.x < map.width) and (pos.y < map.height)
-  end
+    if type(pos) == "table" then
+        return (pos[1] >= 0) and (pos[2] >= 0)
+            and (pos[1] < map.width) and (pos[2] < map.height)
+    else
+        return (pos.x >= 0) and (pos.y >= 0)
+            and (pos.x < map.width) and (pos.y < map.height)
+    end
 end
 
 -- TODO: Add string as posarg, maybe speed up.
 function lib.map.get(map, posarg)
-  if type(posarg) == "number" then
-    return rawget(map, posarg)
-  elseif (usertype(posarg) == "position") or (usertype(posarg) == "object") then
-    local pos = posarg:grid()
-    if map:covers(pos) then
-      local kl = rawget(map, "__keylength")
-      return string.sub(rawget(map, pos.y + 1), kl * pos.x + 1, (pos.x + 1) * kl)
+    if type(posarg) == "number" then
+        return rawget(map, posarg)
+    elseif (usertype(posarg) == "position") or (usertype(posarg) == "object") then
+        local pos = posarg:grid()
+        if map:covers(pos) then
+            local kl = rawget(map, "__keylength")
+            return string.sub(rawget(map, pos.y + 1), kl * pos.x + 1, (pos.x + 1) * kl)
+        else
+            return rawget(map, "__defaultkey")
+        end
+    elseif usertype(posarg) == "group" then
+        local result = {}
+        for obj in posarg do
+            table.insert(result, lib.map.get(map, obj))
+        end
+        return result
+    elseif usertype(posarg) == "polist" then
+        local result = {}
+        for j = 1, #posarg do
+            result[j] = lib.map.get(map, posarg[j])
+        end
+        return result
+    elseif type(posarg) == "table" then
+        if map:covers(posarg) then
+            local kl = rawget(map, "__keylength")
+            return string.sub(rawget(map, posarg[2] + 1), kl * posarg[1] + 1, (posarg[1] + 1) * kl)
+        else
+            return rawget(map, "__defaultkey")
+        end
+    elseif type(posarg) == "string" then
+        if (posarg == "type") then
+            return getmetatable(map)._type
+        elseif (posarg == "width") or (posarg == "height")
+             or (posarg == "defaultkey") or (posarg == "keylength") then
+            return rawget(map, "__"..posarg)
+        else  
+            return (rawget(map, "user_attributes"))[posarg]
+        end
     else
-      return rawget(map, "__defaultkey")
+        error("lib.map.get: Can't understand position argument.")
     end
-  elseif usertype(posarg) == "group" then
-    local result = {}
-    for obj in posarg do
-      table.insert(result, lib.map.get(map, obj))
-    end
-    return result
-  elseif usertype(posarg) == "polist" then
-    local result = {}
-    for j = 1, #posarg do
-      result[j] = lib.map.get(map, posarg[j])
-    end
-    return result
-  elseif type(posarg) == "table" then
-    if map:covers(posarg) then
-      local kl = rawget(map, "__keylength")
-      return string.sub(rawget(map, posarg[2] + 1), kl * posarg[1] + 1, (posarg[1] + 1) * kl)
-    else
-      return rawget(map, "__defaultkey")
-    end
-  elseif type(posarg) == "string" then
-    if (posarg == "type") then
-      return getmetatable(map)._type
-    elseif (posarg == "width") or (posarg == "height")
-       or (posarg == "defaultkey") or (posarg == "keylength") then
-      return rawget(map, "__"..posarg)
-    else  
-      return (rawget(map, "user_attributes"))[posarg]
-    end
-  else
-    error("lib.map.get: Can't understand position argument.")
-  end
 end
 
 -- TODO: Add string as posarg, maybe speed up.
 function lib.map.set(map, posarg, value)
-  if type(posarg) == "string" then
-    if (posarg == "type") then
-      if tostring(value) ~= "map" then
-        error("lib.map.set: A map is a map is a map is a map, and not a "
-            .. tostring(value) .. "!", 2)
-      else
-        return
-      end
-    elseif (posarg == "width") or (posarg == "height") then
-      error("lib.map.set: Use extend or sub to change the size of a map.", 2)
-    elseif (posarg == "keylength") then
-      error("lib.map.set: Can't change keylength without default key.", 2)
-    elseif (posarg == "defaultkey") then
-      map:set_default_key(value)
-      return
+    if type(posarg) == "string" then
+        if (posarg == "type") then
+            if tostring(value) ~= "map" then
+                error("lib.map.set: A map is a map is a map is a map, and not a "
+                    .. tostring(value) .. "!", 2)
+            else
+                return
+            end
+        elseif (posarg == "width") or (posarg == "height") then
+            error("lib.map.set: Use extend or sub to change the size of a map.", 2)
+        elseif (posarg == "keylength") then
+            error("lib.map.set: Can't change keylength without default key.", 2)
+        elseif (posarg == "defaultkey") then
+            map:set_default_key(value)
+            return
+        end
+        map.user_attributes[posarg] = value
+    else
+        if type(value) ~= "string" then
+            error("lib.map.set: Key must be of type string, is "..type(value)..".", 2)
+        end
+        local kl = rawget(map, "__keylength")
+        if string.len(value) ~= kl then
+            error("lib.map.set: Key must be of the same length as default key "
+                .."(should be "..kl.. ", is "..string.len(value)..").", 2)
+        end
+        if (usertype(posarg) == "position") or (usertype(posarg) == "object") then
+            local pos = posarg:grid()
+            if (pos.x < 0) or (pos.y < 0) then
+                error("lib.map.set: Negative positions are not supported.", 2)
+            end
+            map:extend(pos)
+            rawset(map, pos.y + 1,
+                   string.sub(rawget(map, pos.y + 1), 1, pos.x * kl)
+                .. value
+                .. string.sub(rawget(map, pos.y + 1), (pos.x + 1) * kl + 1, -1))
+        elseif usertype(posarg) == "group" then
+            for obj in posarg do
+                map:extend(obj)
+                rawset(map, obj.y + 1,
+                     string.sub(rawget(map, obj.y + 1), 1, obj.x * kl)
+                  .. value
+                  .. string.sub(rawget(map, obj.y + 1), (obj.x + 1) * kl + 1, -1))
+            end
+        elseif usertype(posarg) == "polist" then
+            for j = 1, #posarg do
+                map:extend(posarg[j])
+                rawset(map, posarg[j].y + 1,
+                     string.sub(rawget(map, posarg[j].y + 1), 1, posarg[j].x * kl)
+                  .. value
+                  .. string.sub(rawget(map, posarg[j].y + 1), (posarg[j].x + 1) * kl + 1, -1))
+            end
+        elseif type(posarg) == "table" then
+            lib.map.set(map, po(posarg), value)
+        end
     end
-    map.user_attributes[posarg] = value
-  else
-    if type(value) ~= "string" then
-      error("lib.map.set: Key must be of type string, is "..type(value)..".", 2)
-    end
-    local kl = rawget(map, "__keylength")
-    if string.len(value) ~= kl then
-      error("lib.map.set: Key must be of the same length as default key "
-          .."(should be "..kl.. ", is "..string.len(value)..").", 2)
-    end
-    if (usertype(posarg) == "position") or (usertype(posarg) == "object") then
-      local pos = posarg:grid()
-      if (pos.x < 0) or (pos.y < 0) then
-        error("lib.map.set: Negative positions are not supported.", 2)
-      end
-      map:extend(pos)
-      rawset(map, pos.y + 1,
-             string.sub(rawget(map, pos.y + 1), 1, pos.x * kl)
-          .. value
-          .. string.sub(rawget(map, pos.y + 1), (pos.x + 1) * kl + 1, -1))
-    elseif usertype(posarg) == "group" then
-      for obj in posarg do
-        map:extend(obj)
-        rawset(map, obj.y + 1,
-             string.sub(rawget(map, obj.y + 1), 1, obj.x * kl)
-          .. value
-          .. string.sub(rawget(map, obj.y + 1), (obj.x + 1) * kl + 1, -1))
-      end
-    elseif usertype(posarg) == "polist" then
-      for j = 1, #posarg do
-        map:extend(posarg[j])
-        rawset(map, posarg[j].y + 1,
-             string.sub(rawget(map, posarg[j].y + 1), 1, posarg[j].x * kl)
-          .. value
-          .. string.sub(rawget(map, posarg[j].y + 1), (posarg[j].x + 1) * kl + 1, -1))
-      end
-    elseif type(posarg) == "table" then
-      lib.map.set(map, po(posarg), value)
-    end
-  end
 end
 
 function lib.map.extend(map, posarg)
-  assert_type(map, "lib.map.extend first argument", 2, "map")
-  assert_type(posarg, "lib.map.extend second argument", 2, "position", "valid object", "string", "table")
-  local pos = posarg
-  if etype(pos) ~= "position" then
-    pos = po(pos)
-  end
-  local w, h = rawget(map, "__width"), rawget(map, "__height")
-  if pos.x >= w then
-    pos = pos:grid()  
-    local dk = rawget(map, "__defaultkey")
-    local attach = string.rep(dk, pos.x - w + 1)
-    for y = 1, h do
-      rawset(map, y, rawget(map, y) .. attach)
+    assert_type(map, "lib.map.extend first argument", 2, "map")
+    assert_type(posarg, "lib.map.extend second argument", 2, "position", "valid object", "string", "table")
+    local pos = posarg
+    if etype(pos) ~= "position" then
+        pos = po(pos)
     end
-    w = pos.x + 1
-    rawset(map, "__width", w)
-  end
-  if pos.y >= h then
-    pos = pos:grid()
-    local dk = rawget(map, "__defaultkey")
-    local line = string.rep(dk, w)
-    for y = h + 1, pos.y + 1 do
-      rawset(map, y, line)
+    local w, h = rawget(map, "__width"), rawget(map, "__height")
+    if pos.x >= w then
+        pos = pos:grid()  
+        local dk = rawget(map, "__defaultkey")
+        local attach = string.rep(dk, pos.x - w + 1)
+        for y = 1, h do
+            rawset(map, y, rawget(map, y) .. attach)
+        end
+        w = pos.x + 1
+        rawset(map, "__width", w)
     end
-    h = pos.y + 1
-    rawset(map, "__height", h)
-  end
+    if pos.y >= h then
+        pos = pos:grid()
+        local dk = rawget(map, "__defaultkey")
+        local line = string.rep(dk, w)
+        for y = h + 1, pos.y + 1 do
+            rawset(map, y, line)
+        end
+        h = pos.y + 1
+        rawset(map, "__height", h)
+    end
 end
 
 function lib.map.trim(map, trimkeyarg)
-  assert_type(map, "lib.map.trim first argument", 2, "map")
-  assert_type(trimkeyarg, "lib.map.trim second argument", 2, "nil", "string")
-  local border_n = map.height - 1
-  local border_s = 0
-  local border_w = map.width - 1
-  local border_e = 0
-  local trimkey = trimkeyarg or rawget(map, "__defaultkey")
-  if string.len(trimkey) ~= rawget(map, "__keylength") then
-    error("lib.map.trim: Trim key has wrong key length.", 2)
-  end
-  for x = 0, map.width - 1 do
-    for y = 0, map.height - 1 do
-      if map[{x,y}] ~= trimkey then
-        border_n = math.min(border_n, y)
-        border_s = math.max(border_s, y)
-        border_w = math.min(border_w, x)
-        border_e = math.max(border_e, x)        
-      end
+    assert_type(map, "lib.map.trim first argument", 2, "map")
+    assert_type(trimkeyarg, "lib.map.trim second argument", 2, "nil", "string")
+    local border_n = map.height - 1
+    local border_s = 0
+    local border_w = map.width - 1
+    local border_e = 0
+    local trimkey = trimkeyarg or rawget(map, "__defaultkey")
+    if string.len(trimkey) ~= rawget(map, "__keylength") then
+        error("lib.map.trim: Trim key has wrong key length.", 2)
     end
-  end
-  if (border_n >= border_s) or (border_w >= border_e) then
-    return wo:newMap(trimkey)
-  end
-  return map:sub(po(border_w, border_n), po(border_e, border_s))
+    for x = 0, map.width - 1 do
+        for y = 0, map.height - 1 do
+            if map[{x,y}] ~= trimkey then
+                border_n = math.min(border_n, y)
+                border_s = math.max(border_s, y)
+                border_w = math.min(border_w, x)
+                border_e = math.max(border_e, x)        
+            end
+        end
+    end
+    if (border_n >= border_s) or (border_w >= border_e) then
+        return wo:newMap(trimkey)
+    end
+    return map:sub(po(border_w, border_n), po(border_e, border_s))
 end  
 
 function lib.map.print(map, withXYCounts, left_separator, right_separator)
-  assert_type(map, "lib.map.print first argument", 2, "map")
-  assert_type(left_separator, "lib.map.print second argument", 2, "nil", "string")
-  assert_type(right_separator, "lib.map.print third argument", 2, "nil", "string")  
-  local w, h = map.width, map.height
-  local kl = rawget(map, "__keylength")
-  if withXYCounts then
-    local line = string.rep(" ", kl) .. (left_separator or "")
-    for x = 0, w - 1 do
-      line = line .. string.rep(" ", math.max(0, kl - string.len(x)))
-                  .. string.sub(x, math.max(0, string.len(x) - kl) + 1, string.len(x))
-    end
-    line = line .. (right_separator or "")
-    print(line)
-  end
-  for y = 0, h - 1 do
-    local line = ""
+    assert_type(map, "lib.map.print first argument", 2, "map")
+    assert_type(left_separator, "lib.map.print second argument", 2, "nil", "string")
+    assert_type(right_separator, "lib.map.print third argument", 2, "nil", "string")  
+    local w, h = map.width, map.height
+    local kl = rawget(map, "__keylength")
     if withXYCounts then
-      line =    string.rep(" ", math.max(0, kl - string.len(y)))
-             .. string.sub(y, math.max(0, string.len(y) - kl) + 1, string.len(y))      
+        local line = string.rep(" ", kl) .. (left_separator or "")
+        for x = 0, w - 1 do
+            line = line .. string.rep(" ", math.max(0, kl - string.len(x)))
+                      .. string.sub(x, math.max(0, string.len(x) - kl) + 1, string.len(x))
+        end
+        line = line .. (right_separator or "")
+        print(line)
     end
-    line = line .. (left_separator or "") .. map[y + 1] .. (right_separator or "")
-    print(line)
-  end
+    for y = 0, h - 1 do
+        local line = ""
+        if withXYCounts then
+            line =    string.rep(" ", math.max(0, kl - string.len(y)))
+                   .. string.sub(y, math.max(0, string.len(y) - kl) + 1, string.len(y))      
+        end
+        line = line .. (left_separator or "") .. map[y + 1] .. (right_separator or "")
+        print(line)
+    end
 end
 
 function lib.map.set_default_key(map, newkey)
-  assert_type(map, "lib.map.set_default_key first argument", 2, "map")
-  assert_type(newkey, "lib.map.set_default_key second argument", 2, "non-empty string")
-  local new_width = map.width * map.keylength / string.len(newkey)
-  if new_width ~= math.ceil(new_width) then
-    error("lib.map.set_default_key: Map width doesn't fit to new default key.", 2)
-  end
-  rawset(map, "__defaultkey", newkey)
-  rawset(map, "__keylength", string.len(newkey))
-  rawset(map, "__width", new_width)
+    assert_type(map, "lib.map.set_default_key first argument", 2, "map")
+    assert_type(newkey, "lib.map.set_default_key second argument", 2, "non-empty string")
+    local new_width = map.width * map.keylength / string.len(newkey)
+    if new_width ~= math.ceil(new_width) then
+        error("lib.map.set_default_key: Map width doesn't fit to new default key.", 2)
+    end
+    rawset(map, "__defaultkey", newkey)
+    rawset(map, "__keylength", string.len(newkey))
+    rawset(map, "__width", new_width)
 end
 
 lib.map.metatable = {
-  __concat = lib.map.concat_horizontally,
-  __add = lib.map.concat_vertically,
-  __mul = lib.map.fuse,
-  __pow = lib.map.transform,
-  __index = lib.map.get,
-  __newindex = lib.map.set,
-  _type = "map"
+    __concat = lib.map.concat_horizontally,
+    __add = lib.map.concat_vertically,
+    __mul = lib.map.fuse,
+    __pow = lib.map.transform,
+    __index = lib.map.get,
+    __newindex = lib.map.set,
+    _type = "map"
 }
 
 wo:_register("newMap",
-  function(world, defaultKey, arg1, arg2)
-    local newmap = {user_attributes = {}}
-    -- Check arguments, create map if necessary.
-    assert_type(defaultKey, "wo:newMap first argument (default key)", 2, "non-empty string")
-    local width = 0
-    local height = 0
-    local kl = string.len(defaultKey)
-    if (type(arg1) == "table") and (type(arg2) == "nil") then
-      -- Interpret table as map.
-      for key, entry in pairs(arg1) do
-        if type(key) == "number" then
-          -- This line is going to be a real map entry.
-          height = math.max(height, key)
-          assert_type(entry, "wo:newMap line " .. key, 2, "string")
-          local line_width = string.len(entry) / kl
-          if line_width ~= math.floor(line_width) then
-            error("newMap: Line " .. key .. " doesn't fit to key length (" .. kl .. ").", 2)
-          end
-          width = math.max(width, line_width)
-          newmap[key] = entry
-        elseif type(key) == "string" then
-          newmap.user_attributes[key] = entry
+    function(world, defaultKey, arg1, arg2)
+        local newmap = {user_attributes = {}}
+        -- Check arguments, create map if necessary.
+        assert_type(defaultKey, "wo:newMap first argument (default key)", 2, "non-empty string")
+        local width = 0
+        local height = 0
+        local kl = string.len(defaultKey)
+        if (type(arg1) == "table") and (type(arg2) == "nil") then
+            -- Interpret table as map.
+            for key, entry in pairs(arg1) do
+                if type(key) == "number" then
+                    -- This line is going to be a real map entry.
+                    height = math.max(height, key)
+                    assert_type(entry, "wo:newMap line " .. key, 2, "string")
+                    local line_width = string.len(entry) / kl
+                    if line_width ~= math.floor(line_width) then
+                        error("newMap: Line " .. key .. " doesn't fit to key length (" .. kl .. ").", 2)
+                    end
+                    width = math.max(width, line_width)
+                    newmap[key] = entry
+                elseif type(key) == "string" then
+                    newmap.user_attributes[key] = entry
+                else
+                    error("newMap: Strange type for a map table key: " .. etype(key) .. ".", 2)
+                end
+            end
+            -- Now complete the map, make it rectangular.
+            for y = 1, height do
+                newmap[y] = newmap[y] or ""
+                newmap[y] = newmap[y] .. string.rep(defaultKey, width - string.len(newmap[y]) / kl)
+            end
+        elseif type(arg1) == "number" and type(arg2) == "number" then
+            -- Create map from scratch.
+            assert_type(arg1, "wo:newMap third argument (width)", 2, "positive integer")
+            assert_type(arg2, "wo:newMap fourth argument (height)", 2, "positive integer")
+            local line = string.rep(defaultKey, arg1)
+            for y = 1, arg2 do
+                newmap[y] = line
+            end
+            width = arg1
+            height = arg2
+        elseif type(arg1) == "nil" and type(arg2) == "nil" then
+            -- Create 1x1-map from scratch.
+            return wo:newMap(defaultKey, 1, 1)
         else
-          error("newMap: Strange type for a map table key: " .. etype(key) .. ".", 2)
+            error("wo:newMap: Syntax error. Can't understand arguments.", 2)
         end
-      end
-      -- Now complete the map, make it rectangular.
-      for y = 1, height do
-        newmap[y] = newmap[y] or ""
-        newmap[y] = newmap[y] .. string.rep(defaultKey, width - string.len(newmap[y]) / kl)
-      end
-    elseif type(arg1) == "number" and type(arg2) == "number" then
-      -- Create map from scratch.
-      assert_type(arg1, "wo:newMap third argument (width)", 2, "positive integer")
-      assert_type(arg2, "wo:newMap fourth argument (height)", 2, "positive integer")
-      local line = string.rep(defaultKey, arg1)
-      for y = 1, arg2 do
-        newmap[y] = line
-      end
-      width = arg1
-      height = arg2
-    elseif type(arg1) == "nil" and type(arg2) == "nil" then
-      -- Create 1x1-map from scratch.
-      return wo:newMap(defaultKey, 1, 1)
-    else
-      error("wo:newMap: Syntax error. Can't understand arguments.", 2)
+        -- Set additional values.
+        newmap.__width = width
+        newmap.__height = height
+        newmap.__defaultkey = defaultKey
+        newmap.__keylength = string.len(defaultKey)
+        -- Set methods and finally metatable.
+        newmap.covers = lib.map.covers
+        newmap.defuse = lib.map.defuse
+        newmap.extend = lib.map.extend
+        newmap.match = lib.map.match
+        newmap.paste = lib.map.paste
+        newmap.print = lib.map.print
+        newmap.replace = lib.map.replace
+        newmap.replace_outside = lib.map.replace_outside
+        newmap.set_default_key = lib.map.set_default_key
+        newmap.sub = lib.map.sub
+        newmap.trim = lib.map.trim
+        setmetatable(newmap, lib.map.metatable)
+        return newmap
     end
-    -- Set additional values.
-    newmap.__width = width
-    newmap.__height = height
-    newmap.__defaultkey = defaultKey
-    newmap.__keylength = string.len(defaultKey)
-    -- Set methods and finally metatable.
-    newmap.covers = lib.map.covers
-    newmap.defuse = lib.map.defuse
-    newmap.extend = lib.map.extend
-    newmap.match = lib.map.match
-    newmap.paste = lib.map.paste
-    newmap.print = lib.map.print
-    newmap.replace = lib.map.replace
-    newmap.replace_outside = lib.map.replace_outside
-    newmap.set_default_key = lib.map.set_default_key
-    newmap.sub = lib.map.sub
-    newmap.trim = lib.map.trim
-    setmetatable(newmap, lib.map.metatable)
-    return newmap
-  end
 )
 
     ]]></el:luamain>

@@ -50,23 +50,23 @@ setmetatable(lib.math, getmetatable(lib))
 -- If X2 and Y2 are nil, X1 and Y1 are assumed to be positions
 -- instead of coordinates.
 function lib.math.manhattan_distance(x1, y1, x2, y2)
-  if x1 and y1 and x2 and y2 then
-    -- x1, y1, x2, y2 are coordinates
-    return math.abs(x1 - x2) + math.abs(y1 - y2)
-  end
-  if x1 and y1 then
-    -- x1 and y1 are positions, possibly tables.
-    local p1 = x1
-    local p2 = y1
-    if type(p1) == "table" then
-      p1 = po(p1)
+    if x1 and y1 and x2 and y2 then
+        -- x1, y1, x2, y2 are coordinates
+        return math.abs(x1 - x2) + math.abs(y1 - y2)
     end
-    if type(p2) == "table" then
-      p2 = po(p2)
+    if x1 and y1 then
+        -- x1 and y1 are positions, possibly tables.
+        local p1 = x1
+        local p2 = y1
+        if type(p1) == "table" then
+            p1 = po(p1)
+        end
+        if type(p2) == "table" then
+            p2 = po(p2)
+        end
+        return math.abs(p1.x - p2.x) + math.abs(p1.y - p2.y)
     end
-    return math.abs(p1.x - p2.x) + math.abs(p1.y - p2.y)
-  end
-  error("manhattan_distance: Too less arguments.", 2)
+    error("manhattan_distance: Too less arguments.", 2)
 end
 
 ---------------------------------------------------------------------
@@ -86,37 +86,37 @@ end
 --   lib.math.digits(x, {0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"})
 -- NUMBER is supposed to be a non-negative integer.
 function lib.math.digits(number, base)
-  -- Check arguments and calculate fullbase and exponent
-  assert_type(number, "lib.math.digits first argument", 2, "natural")
-  assert_type(base, "lib.math.digits second argument", 2, "integer", "table")
-  local fullbase = {}
-  local exponent = 0
-  if type(base) == "number" then
-    if base < 2 then
-      error("lib.math.digits: Second argument out of range, is "..base..", must be at least 2.", 2)
+    -- Check arguments and calculate fullbase and exponent
+    assert_type(number, "lib.math.digits first argument", 2, "natural")
+    assert_type(base, "lib.math.digits second argument", 2, "integer", "table")
+    local fullbase = {}
+    local exponent = 0
+    if type(base) == "number" then
+        if base < 2 then
+            error("lib.math.digits: Second argument out of range, is "..base..", must be at least 2.", 2)
+        end
+        for j = 1, base do
+            table.insert(fullbase, j - 1)
+        end
+    else -- type(base) == "table"
+        if table.getn(base) < 2 then
+            error("lib.math.digits: Second argument has not enough elements, must be at least 2.", 2)
+        end
+        fullbase = base
     end
-    for j = 1, base do
-      table.insert(fullbase, j - 1)
+    exponent = table.getn(fullbase)
+    -- Decompose NUMBER
+    local remains = number
+    local result = {}
+    while remains > 0 do
+        local d = remains % exponent
+        table.insert(result, fullbase[d + 1])
+        remains = (remains - d) / exponent
+        if remains ~= math.ceil(remains) then
+            error("lib.math.digits: Internal error during calculation (remains = "..remains..").")
+        end
     end
-  else -- type(base) == "table"
-    if table.getn(base) < 2 then
-      error("lib.math.digits: Second argument has not enough elements, must be at least 2.", 2)
-    end
-    fullbase = base
-  end
-  exponent = table.getn(fullbase)
-  -- Decompose NUMBER
-  local remains = number
-  local result = {}
-  while remains > 0 do
-    local d = remains % exponent
-    table.insert(result, fullbase[d + 1])
-    remains = (remains - d) / exponent
-    if remains ~= math.ceil(remains) then
-      error("lib.math.digits: Internal error during calculation (remains = "..remains..").")
-    end
-  end
-  return result
+    return result
 end
 
 -- Return a table of all combinations of DEPTH entries,
@@ -128,28 +128,28 @@ end
 -- of depth DEPTH. Note that liblua has to be loaded to use
 -- lib.math.combinations.
 function lib.math.combinations(depth, digits)
-  local all_combinations = {{}}
-  local digs = digits
-  assert_type(depth, "lib.math.combinations first argument (depth)", 2, "positive integer")
-  assert_type(digits, "lib.math.combinations second argument (digits)", 2, "positive integer", "table")
-  if type(digits) == "number" then
-    digs = {}
-    for j = 1, digits do
-      digs[j] = j
+    local all_combinations = {{}}
+    local digs = digits
+    assert_type(depth, "lib.math.combinations first argument (depth)", 2, "positive integer")
+    assert_type(digits, "lib.math.combinations second argument (digits)", 2, "positive integer", "table")
+    if type(digits) == "number" then
+        digs = {}
+        for j = 1, digits do
+            digs[j] = j
+        end
     end
-  end
-  for _ = 1, depth do
-    local next_step = {}
-    for _, old_combination in pairs(all_combinations) do
-      for _, new_digit in pairs(digs) do
-        local new_combination = lib.lua.deep_copy(old_combination)
-        table.insert(new_combination, new_digit)
-        table.insert(next_step, new_combination)
-      end
+    for _ = 1, depth do
+        local next_step = {}
+        for _, old_combination in pairs(all_combinations) do
+            for _, new_digit in pairs(digs) do
+                local new_combination = lib.lua.deep_copy(old_combination)
+                table.insert(new_combination, new_digit)
+                table.insert(next_step, new_combination)
+            end
+        end
+        all_combinations = next_step
     end
-    all_combinations = next_step
-  end
-  return all_combinations
+    return all_combinations
 end
 
 -- cubic_polynomial returns the result of the
@@ -162,12 +162,12 @@ end
 -- to your own liking. Entries in A which are not
 -- numbers are considered zero.
 function lib.math.cubic_polynomial(a, x, y)
-  assert_type(a, "lib.math.cubic_polynomial first argument", 2, "table")
-  assert_type(x, "lib.math.cubic_polynomial second argument", 2, "number")
-  assert_type(y, "lib.math.cubic_polynomial third argument", 2, "number")
-  return   (a[10] or 0)*y*y*y + (a[9] or 0)*x*y*y + (a[8] or 0)*x*x*y
-         + (a[7] or 0)*x*x*x + (a[6] or 0)*y*y + (a[5] or 0)*x*y
-         + (a[4] or 0)*x*x + (a[3] or 0)*y + (a[2] or 0)*x + (a[1] or 0)
+    assert_type(a, "lib.math.cubic_polynomial first argument", 2, "table")
+    assert_type(x, "lib.math.cubic_polynomial second argument", 2, "number")
+    assert_type(y, "lib.math.cubic_polynomial third argument", 2, "number")
+    return   (a[10] or 0)*y*y*y + (a[9] or 0)*x*y*y + (a[8] or 0)*x*x*y
+           + (a[7] or 0)*x*x*x + (a[6] or 0)*y*y + (a[5] or 0)*x*y
+           + (a[4] or 0)*x*x + (a[3] or 0)*y + (a[2] or 0)*x + (a[1] or 0)
 end
 
 -- steps takes DISCRIMINATOR and returns a value dependend on where
@@ -179,18 +179,18 @@ end
 --     3: If  13 <= x
 -- Negative and non-integer values are allowed.
 function lib.math.steps(discriminator, steps)
-  assert_type(discriminator, "lib.math.steps first argument", 2, "number")
-  assert_type(steps, "lib.math.steps second argument", 2, "table")
-  local result = 0
-  for _, height in ipairs(steps) do
-    assert_type(height, "lib.math.steps entry in second argument (height)", 2, "number")
-    if discriminator < height then
-      return result
-    else
-      result = result + 1
+    assert_type(discriminator, "lib.math.steps first argument", 2, "number")
+    assert_type(steps, "lib.math.steps second argument", 2, "table")
+    local result = 0
+    for _, height in ipairs(steps) do
+        assert_type(height, "lib.math.steps entry in second argument (height)", 2, "number")
+        if discriminator < height then
+            return result
+        else
+            result = result + 1
+        end
     end
-  end
-  return result
+    return result
 end
 
 ---------------------------------------------------------------------
@@ -201,42 +201,42 @@ end
 -- This function outputs a table with integer entries between
 -- 1 and n at positions 1 to n.
 function lib.math.permutation(n)
-  assert_type(n, "lib.math.permutation first argument", 2, "positive integer")
-  if n == 1 then
-    return {1}
-  end
-  local sequence = {}
-  for j = 1, n do
-    table.insert(sequence, j)
-  end
-  for n = table.getn(sequence), 2, -1 do
-    local m = math.random(n)
-    sequence[n], sequence[m] = sequence[m], sequence[n]
-  end
-  return sequence
+    assert_type(n, "lib.math.permutation first argument", 2, "positive integer")
+    if n == 1 then
+        return {1}
+    end
+    local sequence = {}
+    for j = 1, n do
+        table.insert(sequence, j)
+    end
+    for n = table.getn(sequence), 2, -1 do
+        local m = math.random(n)
+        sequence[n], sequence[m] = sequence[m], sequence[n]
+    end
+    return sequence
 end
 
 -- Return a random cyclic permutation (i.e. with only one cycle) of n elements.
 function lib.math.cyclic_permutation(n)
-  assert_type(n, "lib.math.cyclic_permutation first argument", 2, "positive integer")
-  local sequence1 = lib.math.permutation(n)
-  local sequence2 = {}
-  for j = 1, n - 1 do
-    sequence2[sequence1[j]] = sequence1[j+1]
-  end
-  sequence2[sequence1[n]] = sequence1[1]
-  return sequence2
+    assert_type(n, "lib.math.cyclic_permutation first argument", 2, "positive integer")
+    local sequence1 = lib.math.permutation(n)
+    local sequence2 = {}
+    for j = 1, n - 1 do
+        sequence2[sequence1[j]] = sequence1[j+1]
+    end
+    sequence2[sequence1[n]] = sequence1[1]
+    return sequence2
 end
 
 -- Return a table with NUMBER random entries.
 -- Additional arguments like with math.random.
 function lib.math.random_vector(number, ...)
-  assert_type(number, "lib.math.random_vector first argument", 2, "natural")
-  local result = {}
-  for j = 1, number do
-    result[j] = math.random(...)
-  end
-  return result
+    assert_type(number, "lib.math.random_vector first argument", 2, "natural")
+    local result = {}
+    for j = 1, number do
+        result[j] = math.random(...)
+    end
+    return result
 end
 
     ]]></el:luamain>

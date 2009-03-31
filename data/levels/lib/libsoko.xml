@@ -392,6 +392,10 @@ function lib.soko.setup_attributes_and_polists(map)
     end
     
     lib.soko.polist.inf = lib.soko.polist.way .. lib.soko.polist.wall
+    
+    local nogoals = fl(lib.soko.polist.way) - fl(lib.soko.polist.goal)
+    nogoals.freeze_check = true
+    no["box#*"].freeze_check = true
 
     -- polist.wall_one
     -- There are three conditions for an element of polist.wall_one:

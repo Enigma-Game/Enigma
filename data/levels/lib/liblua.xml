@@ -43,19 +43,19 @@ setmetatable(lib.lua, getmetatable(lib))
 -- not copied as memory references, but complete ("deep copy").
 -- Metatables are transfered, but not deep-copied.
 function lib.lua.deep_copy(source)
-  if type(source) ~= "table" then
-    return source
-  end
-  local dest = {}
-  for k, v in pairs(source) do
-    if type(v) == "table" then
-      rawset(dest, k, lib.lua.deep_copy(v))
-    else
-      rawset(dest, k, v)
+    if type(source) ~= "table" then
+        return source
     end
-  end
-  setmetatable(dest, getmetatable(source))
-  return dest
+    local dest = {}
+    for k, v in pairs(source) do
+        if type(v) == "table" then
+            rawset(dest, k, lib.lua.deep_copy(v))
+        else
+            rawset(dest, k, v)
+        end
+    end
+    setmetatable(dest, getmetatable(source))
+    return dest
 end 
 
 -- combine_tables returns a table consisting of all entries of the
@@ -64,23 +64,23 @@ end
 -- table with all entries of T1, T2, T3 etc., with the first table
 -- having highest priority etc.
 function lib.lua.combine_tables(arg1, ...)
-  local args = {arg1, ...}
-  if table.getn(args) == 1 then
-    args = arg1
-  end
-  if type(args) ~= "table" then
-    error("combine_tables: None or only one argument, and it's not a table!", 2)
-  end
-  local result = {}
-  for j,t in pairs(args) do
-    if type(t) ~= "table" then
-      error("combine_tables: Main table does not consist of tables alone!", 2)
+    local args = {arg1, ...}
+    if table.getn(args) == 1 then
+        args = arg1
     end
-    for k,v in pairs(t) do
-      result[k] = result[k] or lib.lua.deep_copy(v)
+    if type(args) ~= "table" then
+        error("combine_tables: None or only one argument, and it's not a table!", 2)
     end
-  end
-  return result
+    local result = {}
+    for j,t in pairs(args) do
+        if type(t) ~= "table" then
+            error("combine_tables: Main table does not consist of tables alone!", 2)
+        end
+        for k,v in pairs(t) do
+            result[k] = result[k] or lib.lua.deep_copy(v)
+        end
+    end
+    return result
 end
 
 -- shuffle resorts the table T randomly and returns a shallow copy of the
@@ -90,22 +90,22 @@ end
 -- that of the argument. Metamethods will be used during the copy
 -- (i.e. no rawget or rawset).
 function lib.lua.shuffle(t)
-  if type(t) ~= "table" then
-    error("lib.lua.shuffle: Argument is not a table.", 2)
-  end
-  local result = {}
-  setmetatable(result, getmetatable(t))
-  for key, value in pairs(t) do
-    result[key] = value
-  end
-  if table.getn(result) < 2 then
+    if type(t) ~= "table" then
+        error("lib.lua.shuffle: Argument is not a table.", 2)
+    end
+    local result = {}
+    setmetatable(result, getmetatable(t))
+    for key, value in pairs(t) do
+        result[key] = value
+    end
+    if table.getn(result) < 2 then
+        return result
+    end
+    for n = table.getn(result), 2, -1 do
+        local m = math.random(n)
+        result[n], result[m] = result[m], result[n]
+    end
     return result
-  end
-  for n = table.getn(result), 2, -1 do
-    local m = math.random(n)
-    result[n], result[m] = result[m], result[n]
-  end
-  return result
 end
 
 -- print_table uses the print command to print all
@@ -120,107 +120,107 @@ end
 -- Don't use it in levels. If you want to suppress
 -- the recursive function, use DEPTH = -1.
 function lib.lua.print_table(t, prefix, depth)
-  if type(t) ~= "table" then
-    print("print_table: Argument is of type "..type(t)..", not table.")
-    return
-  end
-  for key, value in pairs(t) do
-    local key_s
-    if type(key) == "string" then
-      key_s = "\"" .. key .. "\""
-    elseif type(key) == "number" then
-      key_s = key
-    elseif usertype(key) == "position" then
-      key_s = "<" .. key.x .. "/" .. key.y .. ">"
-    elseif type(key) == "userdata" then
-      key_s = "<" .. usertype(key) .. ">"
-    else
-      key_s = "<" .. type(key) .. ">"
+    if type(t) ~= "table" then
+        print("print_table: Argument is of type "..type(t)..", not table.")
+        return
     end
-    if type(value) == "number" then
-      print((prefix or "") .. "|" .. key_s .. " = " .. value)
-    elseif type(value) == "string" then
-      print((prefix or "") .. "|" .. key_s .. " = \"" .. value .. "\"")
-    elseif type(value) == "boolean" then
-      print((prefix or "") .. "|" .. key_s .. " = " .. cond(value, "true", "false"))
-    elseif type(value) == "table" then
-      if (depth or 0) < 5 then
-        print((prefix or "") .. "|" .. key_s .. " = |")
-        lib.lua.print_table(value,
-            (prefix or "") .. "|" .. string.rep(" ", string.len(key_s) + 3),
-            (depth or 0) + 1)
-        print((prefix or "") .. "|")
-      else
-        print((prefix or "") .. "|" .. key_s .. " = | ...")
-      end
-    elseif usertype(value) == "position" then
-      print((prefix or "") .. "|" .. key_s .. " = position " .. value.x
-            .. "/" .. value.y)
-    elseif usertype(value) == "polist" then
-      print((prefix or "") .. "|" .. key_s .. " = polist of " .. #value
-            .. " position(s)")
-    elseif usertype(value) == "object" then
-      print((prefix or "") .. "|" .. key_s .. " = object of name '"
-            .. (value.name or "") .. "'")
-    else
-      print((prefix or "") .. "|" .. key_s .. " of type " .. type(value)
-            .. " (usertype '" .. usertype(value) .. "')")
+    for key, value in pairs(t) do
+        local key_s
+        if type(key) == "string" then
+            key_s = "\"" .. key .. "\""
+        elseif type(key) == "number" then
+            key_s = key
+        elseif usertype(key) == "position" then
+            key_s = "<" .. key.x .. "/" .. key.y .. ">"
+        elseif type(key) == "userdata" then
+            key_s = "<" .. usertype(key) .. ">"
+        else
+            key_s = "<" .. type(key) .. ">"
+        end
+        if type(value) == "number" then
+            print((prefix or "") .. "|" .. key_s .. " = " .. value)
+        elseif type(value) == "string" then
+            print((prefix or "") .. "|" .. key_s .. " = \"" .. value .. "\"")
+        elseif type(value) == "boolean" then
+            print((prefix or "") .. "|" .. key_s .. " = " .. cond(value, "true", "false"))
+        elseif type(value) == "table" then
+            if (depth or 0) < 5 then
+                print((prefix or "") .. "|" .. key_s .. " = |")
+                lib.lua.print_table(value,
+                    (prefix or "") .. "|" .. string.rep(" ", string.len(key_s) + 3),
+                    (depth or 0) + 1)
+                print((prefix or "") .. "|")
+            else
+                print((prefix or "") .. "|" .. key_s .. " = | ...")
+            end
+        elseif usertype(value) == "position" then
+            print((prefix or "") .. "|" .. key_s .. " = position " .. value.x
+                  .. "/" .. value.y)
+        elseif usertype(value) == "polist" then
+            print((prefix or "") .. "|" .. key_s .. " = polist of " .. #value
+                  .. " position(s)")
+        elseif usertype(value) == "object" then
+            print((prefix or "") .. "|" .. key_s .. " = object of name '"
+                  .. (value.name or "") .. "'")
+        else
+            print((prefix or "") .. "|" .. key_s .. " of type " .. type(value)
+                  .. " (usertype '" .. usertype(value) .. "')")
+        end
     end
-  end
 end
 
 function lib.lua.to_string(thing)
-  local t = etype(thing)
-  local result = t
-  if (t == "nil") then
-    result = "nil"
-  elseif (t == "string") then
-    if string.find(thing, "\n", 1, true) then
-      result = "string of several lines: \n" .. thing
+    local t = etype(thing)
+    local result = t
+    if (t == "nil") then
+        result = "nil"
+    elseif (t == "string") then
+        if string.find(thing, "\n", 1, true) then
+            result = "string of several lines: \n" .. thing
+        end
+        result = "string: \"" .. thing .. "\""
+    elseif (t == "number") then
+        result = "number: " .. thing
+    elseif (t == "boolean") then
+        result = "boolean: " .. cond(thing, "true", "false")
+    elseif (t == "table") then
+        result = "table:\n"
+        local found = false
+        for key, value in pairs(thing) do
+            found = true
+            result = result .. "  " .. lib.lua.to_string(key) .. " -> " .. lib.lua.to_string(value) .. "\n"
+        end
+        if not found then
+            result = "empty table"
+        end
+    elseif (t == "position") then
+        result = "position: " .. thing.x .. "/" .. thing.y
+    elseif (t == "object") then
+        result = "object with name '" .. thing.name .. "' at " .. lib.lua.to_string(po(thing))
+    elseif (t == "tile") then
+        result = "tile"
+    elseif (t == "tiles") then
+        result = "tiles"
+    elseif (t == "group") then
+        result = "object group with " .. #thing .. " objects:\n"
+        for obj in thing do
+            result = result .. "  " .. lib.lua.to_string(obj) .. "\n"
+        end
+    elseif (t == "polist") then
+        result = "position list with " .. #thing .. " positions:\n"
+        for j = 1, #thing do
+            result = result .. "  " .. j .. ": " .. thing[j].x .. "/" .. thing[j].y .. "\n"
+        end
+    elseif (t == "map") then
+        result = "map of size " .. thing.width .. " x " .. thing.height .. " with default key '"
+                   .. thing.defaultkey .. "':\n"
+        for j = 1, thing.width do
+            result = result .. "  \"" .. thing[j] .. "\"\n"
+        end
+    elseif (t == "unknown") then
+        result = "unknown userdata"
     end
-    result = "string: \"" .. thing .. "\""
-  elseif (t == "number") then
-    result = "number: " .. thing
-  elseif (t == "boolean") then
-    result = "boolean: " .. cond(thing, "true", "false")
-  elseif (t == "table") then
-    result = "table:\n"
-    local found = false
-    for key, value in pairs(thing) do
-      found = true
-      result = result .. "  " .. lib.lua.to_string(key) .. " -> " .. lib.lua.to_string(value) .. "\n"
-    end
-    if not found then
-      result = "empty table"
-    end
-  elseif (t == "position") then
-    result = "position: " .. thing.x .. "/" .. thing.y
-  elseif (t == "object") then
-    result = "object with name '" .. thing.name .. "' at " .. lib.lua.to_string(po(thing))
-  elseif (t == "tile") then
-    result = "tile"
-  elseif (t == "tiles") then
-    result = "tiles"
-  elseif (t == "group") then
-    result = "object group with " .. #thing .. " objects:\n"
-    for obj in thing do
-      result = result .. "  " .. lib.lua.to_string(obj) .. "\n"
-    end
-  elseif (t == "polist") then
-    result = "position list with " .. #thing .. " positions:\n"
-    for j = 1, #thing do
-      result = result .. "  " .. j .. ": " .. thing[j].x .. "/" .. thing[j].y .. "\n"
-    end
-  elseif (t == "map") then
-    result = "map of size " .. thing.width .. " x " .. thing.height .. " with default key '"
-             .. thing.defaultkey .. "':\n"
-    for j = 1, thing.width do
-      result = result .. "  \"" .. thing[j] .. "\"\n"
-    end
-  elseif (t == "unknown") then
-    result = "unknown userdata"
-  end
-  return result
+    return result
 end
 
 ---------------------------------------------------------------------
@@ -233,16 +233,16 @@ end
 -- values as it should. The following function returns (given
 -- an integer) another integer between 0 and MODUL-1.
 function lib.lua.mod(value, modul)
-  assert_type(value, "lib.lua.mod first argument", 2, "number")
-  assert_type(modul, "lib.lua.mod second argument", 2, "positive")
-  if value < 0 then
-    -- No, the following call to lib.lua.mod is not a real recursion, it's
-    -- only for the case where VALUE is a negative multiple of MODUL
-    -- (otherwise we would get MODUL as result, not zero).
-    return lib.lua.mod(modul + (math.fmod or math.mod)(value, modul), modul)
-  else
-    return (math.fmod or math.mod)(value, modul)
-  end
+    assert_type(value, "lib.lua.mod first argument", 2, "number")
+    assert_type(modul, "lib.lua.mod second argument", 2, "positive")
+    if value < 0 then
+        -- No, the following call to lib.lua.mod is not a real recursion, it's
+        -- only for the case where VALUE is a negative multiple of MODUL
+        -- (otherwise we would get MODUL as result, not zero).
+        return lib.lua.mod(modul + (math.fmod or math.mod)(value, modul), modul)
+    else
+        return (math.fmod or math.mod)(value, modul)
+    end
 end
 
     ]]></el:luamain>
