@@ -652,7 +652,7 @@ function etype(object)
     return t
 end
 
-function assert_type(object, objname, level, ...)
+assert_type = function (object, objname, level, ...)
     -- assert_type throws an error if object does not fulfill one of the
     -- conditions in "...". Possible conditions are the lua- and usertype
     -- names and "map" (i.e. the results of etype), plus the strings
@@ -703,7 +703,7 @@ function assert_type(object, objname, level, ...)
     end
 end
 
-function assert_bool(bool, message, level)
+assert_bool = function (bool, message, level)
     -- assert_bool throws an error with message MESSAGE if BOOL is false or nil.
     if not bool then
         if message and (type(message) == "string") and (message ~= "") then

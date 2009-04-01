@@ -47,10 +47,12 @@
 extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
+#include "lexerproxy.h"
 }
 #else
 #include "lua.h"
 #include "lauxlib.h"
+#include "lexerproxy.h"
 #endif 
 
 
@@ -628,6 +630,8 @@ namespace enigma { namespace lev {
             server::EnigmaCompatibility = getEnigmaCompatibility();
             server::TwoPlayerGame = hasNetworkMode();
             server::LevelStatus = getLevelStatus();
+            lua_evaluate_assert = (server::LevelStatus == STATUS_RELEASED || server::LevelStatus == STATUS_STABLE) 
+                    ? false || !noAssert : true;
             if (server::EnigmaCompatibility < 1.10) {
                 server::AllowSingleOxyds = true;
                 server::SurviveFinish = false;

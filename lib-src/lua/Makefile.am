@@ -4,7 +4,7 @@ noinst_LIBRARIES = liblua.a
 
 # noinst_PROGRAMS = tolua
 
-EXTRA_DIST = README
+EXTRA_DIST = README lexerproxy.c
 
 liblua_a_SOURCES = \
  lapi.c lauxlib.c lbaselib.c lcode.c ldblib.c ldebug.c \
@@ -16,7 +16,8 @@ liblua_a_SOURCES = \
  lopcodes.h lparser.h  lstate.h lstring.h ltable.h ltm.h lua.h \
  luaconf.h lualib.h lundump.h lvm.h lzio.h tolua++.h \
  tolua_event.c tolua_event.h tolua_is.c tolua_map.c tolua_push.c \
- tolua_to.c
+ tolua_to.c \
+ lexerproxy.h
 liblua_a_CFLAGS = $(AM_CFLAGS)
 
 if LINUX
