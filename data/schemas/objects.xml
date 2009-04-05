@@ -900,6 +900,14 @@
       <msg name="_performaction"/>
       <msg name="_recheck"/>
     </object>
+    <object name="ot_timer">
+      <attr name="interval"/>
+      <attr name="loop"/>
+      <attr name="state" default="1"/>
+      <msg name="on"/>
+      <msg name="off"/>
+      <msg name="signal"/>
+    </object>
     <object name="ot_wire">
       <attr name="anchor1"/>
       <attr name="anchor2"/>
@@ -1033,6 +1041,7 @@
     </object>
     <object name="st_box">
       <attr name="flavor" default="wood" rw="r"/>
+      <attr name="secure"/>
       <msg name="heat"/>
       <msg name="_fall"/>
       <msg name="_fire"/>

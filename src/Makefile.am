@@ -293,6 +293,8 @@ enigma_SOURCES = 		\
 	others/Other.hh		\
 	others/Rubberband.cc	\
 	others/Rubberband.hh	\
+	others/TimerGadget.cc	\
+	others/TimerGadget.hh	\
 	others/Wire.cc		\
 	others/Wire.hh		\
 	stones/ActorImpulseStone.cc	\

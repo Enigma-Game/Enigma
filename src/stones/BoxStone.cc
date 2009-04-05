@@ -183,6 +183,8 @@ namespace enigma {
                     state = FALLEN;
                     Floor *newfl = MakeFloor((typ == HAY) ? "fl_hay_framed" : ((typ == ROCK) ? "fl_rock_framed" : ((typ == WOOD1) ? "fl_wood_framed_h" : "fl_wood_framed_v")));
                     transferIdentity(newfl);
+                    if (Value v = getAttr("secure"))
+                        newfl->setAttr("secure", v);
                     if (k == "fl_water") {
                         newfl->setAttr("interval", oldfl->getAttr("interval"));
                         newfl->setAttr("state", oldfl->getAttr("state"));

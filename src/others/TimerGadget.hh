@@ -16,8 +16,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef COUNTERGADGET_HH
-#define COUNTERGADGET_HH
+#ifndef TIMERGADGET_HH
+#define TIMERGADGET_HH
 
 #include "others/Other.hh"
 
@@ -26,19 +26,39 @@
 
 namespace enigma {
     
-    class CounterGadget : public Other {
-        CLONEOBJ(CounterGadget)
+    class TimerGadget : public Other, public TimeHandler {
+        CLONEOBJ(TimerGadget)
 
+    private:
+        enum iState {
+            OFF,          ///< timer is inactive, next action value is true (default)
+            ON,           ///< timer is yet inactive, but will start running on being
+            ON_TRUE,      ///< timer is active, next action value is true
+            ON_FALSE      ///< timer is active, next action value is false
+        };
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_ADDED =   1<<24,    ///< 
+        };
     public:
-        CounterGadget();
-        
+        TimerGadget();
+        ~TimerGadget();
+
         // Object interface
         virtual std::string getClass() const;
-        virtual void setAttr(const std::string &key, const Value &val);
-//        virtual Value getAttr(const std::string &key) const;
-        virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
+
+        // Other interface
+        virtual void postAddition();
+        virtual void preRemoval();
+
+        // TimeHandler interface
+        virtual void alarm();
+
     private:
+        void updateAlarm();        
     };
 
 } // namespace enigma
