@@ -481,57 +481,57 @@ Progress(25, "Loading item models")
 do
     itemlist = {
         "it_bag",
+        "it_banana",
         "it_bomb_black",
+        "it_bomb_white",
         "it-blocker",
         "it_bottle_idle",
         "it_bottle_broken",
+        "it_brush",
+        "it_cherry",
+        "it_cross",
         "it_document",
         "it_drop",
         "it_dynamite",
+        "it_extralife",
         "it_flag_black",
         "it_flag_white",
+        "it_floppy",
+        "it_glasses",
+        "it_glasses_broken",
+        "it_hammer",
+        "it_key",
+        "it_landmine",
+        "it_magicwand",
         "it_odometer",
         "it_pencil",
         "it_pin",
         "it_ring",
+        "it_rubberband",
         "it_spade",
         "it_spoon",
         "it_spring_keep",
         "it_spring_drop",
+        "it_squashed",
         "it_surprise",
+        "it_sword",
+        "it_umbrella",
         "it_weight",
-        "it_bomb_white"
+        "it_wrench"
     }
 
     DefImages(itemlist)
 
-    DefImage("it_banana", {filename="it-banana"})
     DefImage("it_brake", {filename="st-brake"})
-    DefImage("it_brush", {filename="it-brush"})
-    DefImage("it_cherry", {filename="it-cherry"})
     DefImage("it_coin_s", {filename="it-coin1"})
     DefImage("it_coin_m", {filename="it-coin2"})
     DefImage("it_coin_l", {filename="it-coin4"})
-    DefImage("it_cross", {filename="it-cross"})
-    DefImage("it_extralife", {filename="it-extralife"})
-    DefImage("it_floppy", {filename="it-floppy"})
-    DefImage("it_glasses", {filename="it-glasses"})
-    DefImage("it_glasses_broken", {filename="it-glasses-broken"})
-    DefImage("it_hammer", {filename="it-hammer"})
-    DefImage("it_key", {filename="it-key"})
-    DefImage("it_landmine", {filename="it-landmine"})
-    DefImage("it_magicwand", {filename="it-magicwand"})
     DefImage("it_meditation_hollow", {filename="it_meditation_hollow"})
     DefImage("it_meditation_hill", {filename="it_meditation_hill"})
     DefImage("it_meditation_dent", {filename="it_meditation_dent"})
     DefImage("it_meditation_bump", {filename="it_meditation_bump"})
     DefImage("it_meditation_volcano", {filename="it_meditation_volcano"})
     DefImage("it_meditation_caldera", {filename="it_meditation_caldera"})
-    DefImage("it_rubberband", {filename="it-rubberband"})
-    DefImage("it_squashed", {filename="it-squashed"})
-    DefImage("it_sword", {filename="it-sword"})
-    DefImage("it_umbrella", {filename="it-umbrella"})
-    DefImage("it_wrench", {filename="it-wrench"})
 end
 
 -------------------------
@@ -639,12 +639,20 @@ end
 
 -- Cracks --
 do
-    local images = DefSubimages("it-crack", {h=8})
+    local images = DefSubimages("it_crack_abyss", {h=8})
     local frames = BuildFrames(images,50)
     DefAnim("it_debris", frames)
 
-    local frames = BuildFrames({"it-crack4", "it-crack5", "it-crack6", "it-crack7", "it-crack8"},120)
-    DefAnim("it-crack_anim", frames)
+    local frames = BuildFrames({"it_crack_abyss4", "it_crack_abyss5", "it_crack_abyss6", "it_crack_abyss7", "it_crack_abyss8"},120)
+    DefAnim("it_crack_abyss_anim", frames)
+    
+    local images = DefSubimages("it_crack_water", {h=8})
+    local frames = BuildFrames(images,50)
+    DefAnim("it_debris", frames)
+
+    local frames = BuildFrames({"it_crack_water4", "it_crack_water5", "it_crack_water6", "it_crack_water7", "it_crack_water8"},120)
+    DefAnim("it_crack_water_anim", frames)
+
 end
 
 -- it-death --

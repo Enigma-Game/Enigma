@@ -40,18 +40,23 @@ namespace enigma {
             DISSOLVING =  3        ///<  
         };
 
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_TYP    =   1<<24,   ///< 0 - abyss, 1 - water
+        };
+
     public:
         Crack(int type);
         
         // Object interface
         virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
         virtual Value message (const Message &m);
 
         // StateObject interface
         virtual int maxState() const;
         virtual int minState() const;
         virtual void toggleState();
-//        virtual void setState(int extState);
 
         // GridObject interface
         virtual void init_model();
@@ -62,7 +67,6 @@ namespace enigma {
         
     private:
         void crack();
-        void spread();
         int traitsIdx() const;
     };
    

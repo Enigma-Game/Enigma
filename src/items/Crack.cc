@@ -19,7 +19,7 @@
  */
 
 #include "items/Crack.hh"
-//#include "errors.hh"
+#include "errors.hh"
 //#include "main.hh"
 #include "world.hh"
 
@@ -33,6 +33,29 @@ namespace enigma {
         return "it_crack";
     }
     
+    void Crack::setAttr(const string& key, const Value &val) {
+        if (key == "flavor") {
+            std::string flavor = val.to_string();
+            ASSERT(flavor == "abyss" || flavor == "water", XLevelRuntime, "Crack illegal flavor value");
+            if (flavor == "water")
+                objFlags |= OBJBIT_TYP;
+            else
+                objFlags &= ~OBJBIT_TYP;
+            if (isDisplayable()) {
+                init_model();    // need to redisplay after attribute set
+            }
+            return;
+        }
+        Item::setAttr(key, val);
+    }
+    
+    Value Crack::getAttr(const std::string &key) const {
+        if (key == "flavor") {
+            return objFlags & OBJBIT_TYP ? "water" : "abyss";
+        }
+        return Item::getAttr(key);
+    }
+
     Value Crack::message(const Message &m) {
         if (m.message == "crack" || m.message == "ignite" ) {
             crack();
@@ -65,24 +88,46 @@ namespace enigma {
             case SMALL :
             case MEDIUM :
             case LARGE :
-                set_model(ecl::strf("it-crack%d", state + 1)); break;
+                set_model(ecl::strf("it_crack_%s%d", objFlags & OBJBIT_TYP ? "water" : "abyss", state + 1)); break;
             case DISSOLVING :
                 sound_event ("floordestroy");
-                set_anim("it-crack_anim");
+                set_anim(ecl::strf("it_crack_%s_anim", objFlags & OBJBIT_TYP ? "water" : "abyss"));
         }
     }
     
     void Crack::actor_enter(Actor *a) {
         if (a->is_on_floor()) {
             crack();
-            if (state < DISSOLVING)
-                spread();
+            if (state < DISSOLVING) {
+                for (Direction d = NORTH; d != NODIR; d = previous(d)) {
+                    GridPos p = move(get_pos(), d);
+                    if (Floor *fl = GetFloor(p)) {
+                        if (fl->is_destructible()) {
+                            if (Item *it = GetItem(p)) {
+                                if (!(objFlags & OBJBIT_TYP))
+                                    SendMessage(it, "crack");
+                            } else {
+                                double spreading = getDefaultedAttr("spreading", server::CrackSpreading); 
+                                if (DoubleRand(0, 0.9999) < spreading) {
+                                    Item *it = MakeItem("it_crack_i");
+                                    it->setAttr("flavor", getAttr("flavor"));
+                                    if (Value v = getAttr("fragility"))
+                                        it->setAttr("fragility", v);
+                                    if (Value v = getAttr("spreading"))
+                                        it->setAttr("spreading", v);
+                                    SetItem(p, it);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     
     void Crack::animcb() {
         GridPos p= get_pos();
-        SetFloor(p, MakeFloor("fl_abyss"));
+        SetFloor(p, MakeFloor(objFlags & OBJBIT_TYP ? "fl_water" :"fl_abyss"));
         KillItem(p);
     }
     
@@ -98,30 +143,7 @@ namespace enigma {
             }
         }
     }
-    
-    void Crack::spread() {
-        for (Direction d = NORTH; d != NODIR; d = previous(d)) {
-            GridPos p = move(get_pos(), d);
-            if (Floor *fl = GetFloor(p)) {
-                if (fl->is_destructible()) {
-                    if (Item *it = GetItem(p))
-                        SendMessage(it, "crack");
-                    else {
-                        double spreading = getDefaultedAttr("spreading", server::CrackSpreading); 
-                        if (DoubleRand(0, 0.9999) < spreading) {
-                            Item *it = MakeItem("it_crack_i");
-                            if (Value v = getAttr("fragility"))
-                                it->setAttr("fragility", v);
-                            if (Value v = getAttr("spreading"))
-                                it->setAttr("spreading", v);
-                            SetItem(p, it);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
+        
     int Crack::traitsIdx() const {
         return state < DISSOLVING ? state + 1 : 3;
     }

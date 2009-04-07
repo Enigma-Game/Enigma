@@ -42,7 +42,7 @@ namespace enigma {
     WorldProxy::WorldProxy() {
     }
 
-    Value WorldProxy::getAttr(const string& key) const {
+    Value WorldProxy::getAttr(const std::string &key) const {
         if (key == "AllowSingleOxyds") {
             return server::AllowSingleOxyds;
         } else if (key == "TogglePlayerOnDeath") {
@@ -124,7 +124,7 @@ namespace enigma {
         return Value(Value::DEFAULT);
     }  
 
-    void WorldProxy::setAttr(const string& key, const Value &val) {
+    void WorldProxy::setAttr(const std::string &key, const Value &val) {
         if (key == "AllowSingleOxyds") {
             server::AllowSingleOxyds = val;
         } else if (key == "TogglePlayerOnDeath") {
@@ -228,7 +228,9 @@ namespace enigma {
         } else if (key == "WormholeRange") {
             server::WormholeRange = val;
             BroadcastMessage("_updateglobals", "it_wormhole", GRID_ITEMS_BIT);
-        }
+        } else
+            ASSERT(false, XLevelRuntime, ecl::strf("Attempt to set not existing global attribute '%s'.", key.c_str()).c_str());
+        
     }
 
 } // namespace enigma
