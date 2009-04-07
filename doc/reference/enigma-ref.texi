@@ -1,9 +1,12 @@
 \input texinfo                              @c -*- texinfo -*-
+@set VERSION 1.10
 @setfilename enigma-ref.info
 @settitle Enigma Reference Manual
+@documentencoding US-ASCII
+@documentlanguage en
 @titlepage
 @title Enigma Reference Manual
-@subtitle for version 1.10
+@subtitle for version @value{VERSION}
 @author Daniel Heck
 @author Petr Machata
 @author Ralf Westram
@@ -22,7 +25,7 @@
 @top
 
 This manual describes the internals of
-@uref{http://www.nongnu.org/enigma/,Enigma} version 1.10, in particular how to
+@uref{http://www.nongnu.org/enigma/,Enigma} version @value{VERSION}, in particular how to
 build new levels using Lua and how to interact with the game engine.
 @end ifnottex
 
@@ -1372,7 +1375,7 @@ in Enigma, so you can try it out right away.)
 
 The resulting level looks like this inside the game:
 
-@image{images/first_level}
+@image{images/first_level, 150mm}
 @ignore
       <img src="welcome.png" alt="The first level" width="75%" height="75%"></para>
 @end ignore
@@ -5782,6 +5785,7 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 * FollowGrid::
 * FollowMethod::
 * FollowThreshold::
+* Fragility::
 * FrictionStrength::
 * Height::
 * IsDifficult::
@@ -5866,11 +5870,14 @@ with proper usage of actors @ref{essential} constraints will be preferable.
 @node CrackSpreading
 @subsection CrackSpreading
 
-A global default value denoting the probability that a brittle floor plate
-causes direct neighboring floors to either start or to desintegrate further when
-an actor enters or leaves this plate at the center of the affected area. A value
-of @code{1.0} ensures that the crack spread to the direct neighbors, a value of
-@code{0.0} prohibits the spreading to neighbor grids.
+A global default value denoting the probability that a brittle floor plate, that
+is a floor with an @ref{it_crack} on top, causes direct neighboring floors to
+either be marked with an invisible crack or to toggle such invisible cracks to
+a small visible cracks. A value of @code{1.0} ensures that the crack spreads to
+the direct neighbors, a value of @code{0.0} prohibits the spreading to neighbor
+grids. Note that even if crack spreading is prohibited, existing cracks on
+neighbor grids may continue desintegrating due to their @ref{Fragility}. For
+more details see @ref{it_crack}.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -6009,6 +6016,25 @@ than half of the screen size.
 @item @b{Default:} @ @ @code{0.5}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ no objects
+@end table
+
+@node Fragility
+@subsection Fragility
+
+A global default value denoting the probability that a brittle floor plate, that
+is a floor with an @ref{it_crack} on top, continues to desintegrate on events 
+like an actor entering, passing a neighboring @ref{it_crack}, nearby explosions
+or fire heating. A value of @code{1.0} ensures that the crack continues to 
+desintegrates on these events, a value of @code{0.0} prohibits visible cracks
+to get larger. This default is superceeded by @ref{fragility (Floor)} and
+@ref{it_crack} specific values.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number between @code{0.0} and @code{1.0}
+@item @b{Default:} @ @ @code{1.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_crack} and @ref{Floors}
 @end table
 
 @node FrictionStrength
@@ -6277,9 +6303,19 @@ Positive number are attracting, negative numbers are repelling.
 @chapter Floor Objects
 
 @menu
+* Floor Overview::
+* Floor Attributes::
 * Standard Floors::
 * Special Floors::
 @end menu
+
+@c ----------------- Overview Floor --------------------
+@node Floor Overview
+@section Floor Overview
+
+@c ----------------- Floor Attributes --------------------
+@node Floor Attributes
+@section Floor Attributes
 
 @c ----------------- Standard Floor --------------------
 @node Standard Floors
@@ -7158,55 +7194,50 @@ If the thief has not stolen any items he leaves no empty bag.
 @chapter Item Objects
 
 @menu
-* Standard Items::
+* Item Overview::
+* Item Attributes::
+* Portable Items::
+* Static Items::
 @end menu
 
-@node Standard Items
-@section Standard Items
+@c ----------------- Item Overview --------------------
+@node Item Overview
+@section Item Overview
+
+@c ----------------- Item Attributes --------------------
+@node Item Attributes
+@section Item Attributes
+
+@c ----------------- Portable Items --------------------
+@node Portable Items
+@section Portable Items
 
 @menu
 * it_bag::             Portable Item Container
 * it_banana::          Transformable Banana
-* it_blocker::         Shrinked Blocker Stone
-* it_brake::           Movable Stone Brake
+* it_brake::           Portable Stone Brake
 * it_brush::           Brush for Painting and Sweeping
 * it_cherry::          Source of Invisibility
 * it_coin::            Enigma's currency
-* it_crack::           Crack in the Floor
-* it_cross::           Floor switch for patient Actors
-* it_death::           Unpassable grid blocker
 * it_extralife::       
 * it_floppy::          Lock opening uncoded Floppy
 * it_glasses::         Glasses to spot certain objects
 * it_hammer::          Stone breaking Hammer
 * it_key::             Lock opening coded Key
-* it_landmine::        
 * it_magicwand::       Wizards Tools
-* it_magnet::          Actor attracting Magnet
-* it_meditation::      
 * it_pin::             Friction increasing crampon
 * it_pipe::            
 * it_puller::          Stone pulling item
 * it_rubberband::      Unconnected Rubberband
 * it_seed::            Seeds for Wood, Volcano Stones
-* it_sensor::          Floor Switch for passing Actors
-* it_shogun::          Dot for Shogun Stones
 * it_spring::          Portable Spring
-* it_springboard::     Static Spring
-* it_squashed::        Remnant of squashed Fruits
-* it_strip::           Narrow Bridge
 * it_surprise::        Random Transforming item
 * it_sword::           Knight defeating Sword
-* it_trap::            
-* it_trigger::         Floor Switch for Actors and Stones
 * it_umbrella::        Death Protection Item
-* it_vortex::          Teleport of Marbels
 * it_weight::          Portable Mass
-* it_wormhole::        Teleport of Actors
 * it_wrench::          Tool for mechanical Stones
 * it_yinyang::         Player toggling Switch
 @end menu
-
 
 @c ----------------- Bag Item --------------------
 @node it_bag
@@ -7292,86 +7323,6 @@ When a stone is pushed over it an @ref{it_squashed} remains as remnants.
 @table @asis
 @item @b{Attributes:} none
 @item @b{Messages:} none
-@end table
-
-@c ----------------- Blocker Item --------------------
-@node it_blocker
-@subsection it_blocker
-@obindex it_blocker
-
-A door like object that grows to @ref{st_blocker} when an @ref{st_boulder}
-passes. When the boulder did shrink and pass the blocker again it stays in its
-item like open state until it is passed again by a boulder which causes it to
-grow again to a blocker stone.
-
-It fully supports the messages of any door like object and can be opened and
-closed by any switch like object. Note that due to the transformation between
-stone and item during opening and closing you should name the blocker
-(@pxref{name}) and address the blocker by this name. The complete identity
-with all attributes including any user attributes will be transfered between
-stone and item. E.g. @code{@{it_switch, target="myblocker", action="toggle"@}}
-will open and close a given blocker multiple times.
-
-Note that the blocker is the only door object that allows a stone to be pushed
-through. Just boulders cause the growing. Any other stone keeps the open state.
-
-Another unique door feature is the closing of a blocker item caused by a
-passing actor if the autoclose attribute is set to true.
-
-Note that a dropped @ref{it_brake} destroys this item.
-
-@table @asis
-@item @b{Attributes:}
-
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{1} @ @ @xref{state}
-Use CLOSED and OPEN macros as values. The item represents the open state
-and will always return state 1. But you can set its state what is equivalent
-to sending an open message in case of value 1 and a close message in case of
-value 0.
-
-@atindex autoclose
-@item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-A true value causes any actor passing this item to close and grow the blocker.
-
-@end table
-
-@item @b{Messages:}
-
-@table @asis
-@item @b{signal} @ @ @xref{signal}
-A signal of value 1 sends an open message, a signal of value 0 sends a close
-message.
-@item @b{toggle} @ @ @xref{toggle}
-A toggle causes a close message.
-@item @b{close} @ @ @xref{close}
-A close message take immediate effect if the item is not covered by a stone.
-The item transforms to a new growing @ref{st_blocker}. If it is covered by a
-stone of whatever kind it will be marked as unlocked. The closing process starts
-when the stone moves away.
-@item @b{open} @ @ @xref{open}
-As the item is open this message takes only effect if it is currently covered
-by a stone and marked as unlocked. That means it should grow as soon as the
-stone moves away what happens when an @ref{st_boulder} passes an idle blocker
-item. In this case an open message locks the blocker again to avoid a growing
-when the stone moves away.
-@end table
-
-@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-Sends an action at the moment the blocker reaches the open state. That means
-an @ref{st_blocker} did open and did generate this blocker item as its
-successor. The value will be @code{true} to express the open state.
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_blocker}
-A standard blocker item.
-@item @b{it_blocker_new}
-A blocker that just finished shrinking. Mainly used internally as the direct
-successor of an @ref{st_blocker}. But it may be useful to generate an initial
-snapshot of a moving boulder over a blocker line, too. See example levels.
-@end table
-
 @end table
 
 @c ----------------- Brake Item --------------------
@@ -7510,100 +7461,6 @@ A medium coin.
 @item @b{it_coin_l}
 A large coin.
 @end table
-
-@end table
-
-@c ----------------- Crack Item --------------------
-@node it_crack
-@subsection it_crack
-@obindex it_crack
-
-
-@table @asis
-
-@item @b{Attributes:}
-
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{INVISIBLE}, @code{SMALL}, @code{MEDIUM}, @code{LARGE}; @ @ @i{default}: @code{SMALL} @ @ @xref{state}
-
-@end table
-
-@item @b{Messages:}
-
-@table @asis
-@item @b{crack}
-@item @b{toggle} @ @ @xref{toggle}
-@item @b{ignite} @ @ @xref{ignite}
-@item @b{heat} @ @ @xref{heat}
-@end table
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_it_crack}: state = @code{SMALL}
-@item @b{it_it_crack_i}: state = @code{INVISIBLE}
-@item @b{it_it_crack_s}: state = @code{SMALL}
-@item @b{it_it_crack_m}: state = @code{MEDIUM}
-@item @b{it_it_crack_l}: state = @code{LARGE}
-@end table
-
-@end table
-
-@c ----------------- Cross Item --------------------
-@node it_cross
-@subsection it_cross
-@obindex it_cross
-
-An eye-catching cross spot that can detect actors staying on it for a given
-time. When an actor remains on top of the cross for the given @samp{interval}
-without any other actor leaving or passing the cross grid the cross will perform
-its action. Similar, but instant sensors for actors are @ref{it_sensor} and
-@ref{it_trigger}
-
-A cross can be drawn with an @ref{it_pencil} and it can be removed with an
-@ref{it_brush}.
-
-An @ref{st_lightpassenger} moving onto a cross item will switch off.
-
-@table @asis
-@item @b{Attributes:}
-
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{access}: @code{read only} @ @ @xref{state}
-The current state - @samp{0} for the last event being an actor leaving the cross,
-@samp{1} for the last event being an actor entering the cross.
-
-@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{10.0}
-Number of seconds that the actor must stay on the sensor to cause an action.
-
-@end table
-
-@item @b{Messages:} none
-
-@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-
-@end table
-
-@c ----------------- Death Item --------------------
-@node it_death
-@subsection it_death
-@obindex it_death
-
-This item shatters any marble that tries to pass the grid. Even jumping marbles
-will be shattered. Just marbles protected by an activated @ref{it_umbrella} can
-pass without taking harm. Apart from that an @samp{it_death} barrier can only be
-passed by walking around the complete barrier or by warping through an
-@ref{it_vortex}, an @ref{it_wormhole} or by means of an @ref{it_ring}.
-
-The death item is the most secure barrier object. Comparable objects are
-@ref{it_booze_broken}, @ref{fl_abyss}, @ref{fl_water}, @ref{it_trap} or simply
-any solid wall of stones. Usually these alternatives should be favored. The
-death item should mainly be used when all other alternatives are too unsecure.
-
-@table @asis
-
-@item @b{Attributes:} none
-
-@item @b{Messages:} none
 
 @end table
 
@@ -7760,32 +7617,6 @@ The code of a key must match that of an @ref{st_key} to unlock it.
 
 @end table
 
-@c ----------------- Landmine Item --------------------
-@node it_landmine
-@subsection it_landmine
-@obindex it_landmine
-
-!!TBD - Work in progress !!
-
-A static item that explodes on actors stepping onto its critical center part and
-on stones being pushed onto the mine.
-
-The landmine explodes shattering nearby marbles on the same grid and leaves an
-hollow @ref{it_meditation} behind.
-
-Actors can jump over a landmine and pass carefully between two adjacent
-landmines without activating the mines. Landmines do neither react on nearby
-explosions, nor fire, nor laserbeams.
-
-@table @asis
-@item @b{Attributes:} none
-
-@item @b{Messages:} none
-
-@item @b{Action:} none
-
-@end table
-
 @c ----------------- MagicWand Item --------------------
 @node it_magicwand
 @subsection it_magicwand
@@ -7813,151 +7644,6 @@ clusters to explode,
 @item @b{Messages:} none
 
 @item @b{Action:} none
-
-@end table
-
-@c ----------------- Magnet Item --------------------
-@node it_magnet
-@subsection it_magnet
-@obindex it_magnet
-
-Attracts or repells actors in its @samp{range} with a force proportional to the
-@samp{strength} and the inverse of the squared distance. A magnet can be
-switched @samp{ON} and @samp{OFF}.
-
-Note that no forces are applied to actors at a distance smaller than 0.05 grids
-to avoid extraordinary large forces.
-
-@table @asis
-@item @b{Attributes:}
-
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
-The current magnet state - @samp{ON} for an active magnet, @samp{OFF} for an
-inactive magnet.
-
-@item @b{range} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{MagnetRange}
-The distance up to which the magnet applies forces to actors.
-
-@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{MagnetStrength}
-A scalar factor for magnet forces. Positive numbers are attracting forces
-where as negative numbers are repelling forces.
-@end table
-
-@item @b{Messages:}
-
-@table @asis
-@item @b{signal} @ @ @xref{signal}
-A signal of value 1 switches the magnet on, a value of 0 switches the magnet off.
-@item @b{toggle} @ @ @xref{toggle}
-A toggle causes a change in the magnet activity state.
-@item @b{on} @ @ @xref{on}
-Switches the magnet on.
-@item @b{off} @ @ @xref{off}
-Switches the magnet off.
-@end table
-
-@item @b{Action:}
-none
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_magnet}
-A magnet in state @samp{OFF}.
-@item @b{it_magnet_on}
-A magnet in state @samp{ON}.
-@item @b{it_magnet_off}
-A magnet in state @samp{OFF}.
-@end table
-
-@end table
-
-@c ----------------- Meditation Item --------------------
-@node it_meditation
-@subsection it_meditation
-@obindex it_meditation
-
-Meditation items are small round areas of flatness imperfection. All actors will
-experience the slope forces that can be modified by the global scalar factor
-@ref{MeditationStrength}. There are different shapes of meditation items that
-are named according to their shape: @code{MEDITATION_CALDERA},
-@code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP},
-@code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}.
-
-Of special interest are @ref{ac_marble_meditation}s resting on a meditation
-item. They are counted as meditating after staying continuously for one second
-within the round area of the item. One of the two @ref{Ending Conditions} of the
-game is that all meditation marbles come to rest on mediation items.
-
-As meditation items can dynamically be generated during the game by exploding
-@ref{it_landmine} or @ref{it_dynamite} it may be necessary for an author to
-mark those meditation items that are required to be filled with meditation
-marbles. You do this by setting the @samp{essential} attribute to @code{true}.
-Please make rare and obvious usage of this attribute, as the player can not
-distinguish essential from not essential meditation items by their images.
-
-Meditation items can transform into other shapes by various means.
-
-First a user can push a solid stone over a meditation item or activate an
-@ref{it_shovel} on it. Both actions flatten the meditation, either
-@code{MEDITATION_VOLCANO} -> @code{MEDITATION_HILL} -> @code{MEDITATION_BUMP}
--> @code{it_nil} or @code{MEDITATION_CALDERA} -> @code{MEDITATION_HOLLOW} ->
-@code{MEDITATION_DENT} -> @code{it_nil}.
-
-Secondly you can send a @code{"flip"} message to a meditation item which
-transforms hollow like items into their hill like counterparts and vice versa:
-@code{MEDITATION_VOLCANO} <-> @code{MEDITATION_CALDERA}, @code{MEDITATION_HILL}
-<-> @code{MEDITATION_HOLLOW}, @code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
-
-Third a @code{"signal"} message flips on a @code{1} value all meditations to
-their hill like counterparts, keeping hill like meditations unchanged, and on a
-@code{0} value to their hollow like counterparts, keeping hollow like meditations
-unchanged.
-
-A fourth message is @code{"toggle"}. It transforms @code{MEDITATION_HOLLOW} <->
-@code{MEDITATION_VOLCANO}, @code{MEDITATION_CALDERA} <-> @code{MEDITATION_HILL},
-@code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
-
-Of course you can change the state by attribute setting anytime in any sequence
-you like. Essentialness is kept on shape transformations and mediation actor
-counting is updated and continues.
-
-@table @asis
-@item @b{Attributes:}
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{MEDITATION_CALDERA}, @code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP}, @code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}; @ @ @i{default}: @code{MEDITATION_HOLLOW} @ @ @xref{state}
-The shape of the meditation.
-@item @b{essential} @ @ @i{values}: @code{DISPENSIBLE}, @code{INDISPENSIBLE}; @ @ @i{default}: @code{DISPENSIBLE}
-Essentialness of being filled with a meditation marble to fulfill the
-@ref{Ending Conditions}.
-@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{friction}
-Deviating friction that defaults to floor friction.
-@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{adhesion}
-Deviating adhesion that defaults to floor adhesion.
-@end table
-
-@item @b{Messages:}
-@table @asis
-@item @b{flip}
-Shape transformation. See text above.
-@item @b{shovel}
-Shape transformation like an activated @ref{it_shovel}. See text above.
-@item @b{signal} @ @ @xref{signal}
-Shape transformation. See text above.
-@item @b{toggle}
-Shape transformation. See text above.
-@end table
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_meditation} state = @code{MEDITATION_HOLLOW}
-@item @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
-@item @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
-@item @b{it_meditation_dent} state = @code{MEDITATION_DENT}
-@item @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
-@item @b{it_meditation_hill} state = @code{MEDITATION_HILL}
-@item @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
-@end table
 
 @end table
 
@@ -8175,8 +7861,8 @@ The only method of handling seeds without activation are containment within a
 @item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
 The type of the resulting stone.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-This attribute is transfered to the resulting stone. The @ref{st_volcano} makes
-use of it.
+This attribute is transfered to the resulting stone. The @ref{st_volcano} and
+@ref{st_box} make use of it.
 @end table
 
 @item @b{Messages:}
@@ -8194,6 +7880,633 @@ Start growing the seed.
 @item @b{it_seed_hay} flavor = @code{"hay"}
 @item @b{it_seed_fake} flavor = @code{"fake"}
 @item @b{it_seed_volcano} flavor = @code{"volcano"}
+@end table
+
+@end table
+
+@c ----------------- Spring Item --------------------
+@node it_spring
+@subsection it_spring
+@obindex it_spring
+
+Springs let @ref{Flying Actors} jump on activation.
+
+There are two types of portable springs. A thin one that is kept in the 
+inventory on activation and can thus be used multiple times in sequence. And
+a thick, condensed one that gets dropped on activation. A static jump
+facility that can not be picked up by an actor is the @ref{it_springboard}.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_spring}
+@item @b{it_spring_keep}
+@item @b{it_spring_drop}
+@end table
+
+@end table
+
+@c ----------------- Surprise Item --------------------
+@node it_surprise
+@subsection it_surprise
+@obindex it_surprise
+
+An item that transforms into a random item as soon as the player drops it.
+
+The replacement item is a random one out of a given selection. You can set
+the @samp{selection} attribute with tokens of strings. Every string needs either
+to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
+
+@example
+ti["m"] = @{"it_magicwand"@}
+ti["e"] = @{"it_extralife"@}
+ti["s"] = @{"it_surprise", selection=@{"it_seed", "=m", "=e", "=e"@}@}
+@end example
+
+The replacement item is randomly chosen out of the given selection. By listing
+an item several times you can take influence on the likelyhood.
+
+The tile declarations referenced by a key may even contain objects besides
+items. But you should make rare and proper usage of this feature.
+
+Prior replacing the surprise item but after droping it the surprise item will
+perform its action. You can use this action to modify the selection or to set
+objects on your own.
+
+The surprise item is killed by any replacement item set to the grid position.
+If your selection does not resolve to an item you may need to add @samp{"it_nil"}
+to the replacement tile declaration.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{selection}, @ @ @i{values}: tokens of item kinds and tile keys; @ @ @i{default}: @code{@{"it_umbrella", "it_spring_keep", "it_dynamite", "it_coffee", "it_hammer"@}}
+
+@end table
+
+@item @b{Messages:}
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Sword Item --------------------
+@node it_sword
+@subsection it_sword
+@obindex it_sword
+
+The sword is used to neutralize @ref{st_knight}.
+
+It transforms into @ref{it_hammer} when hit by a laser beam and is itself a
+laser transformation result of an @ref{it_hammer}.
+
+A sword that comes into existence on an illuminated grid position will not
+transform due to already existing laser beams. But it will transform on the first
+additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into a sword this new sword will be immune to
+further light transformations for a short latency period to avoid unstable
+flickering of repeated item transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_sword}
+A standard sword item.
+@item @b{it_sword_new}
+A sword that is immune to light transformations for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Umbrella Item --------------------
+@node it_umbrella
+@subsection it_umbrella
+@obindex it_umbrella
+
+An activated umbrella temporarily protects a marble from @ref{st_death},
+@ref{st_knight}, @ref{st_thief}, @ref{fl_abyss}, @ref{fl_water},
+@ref{fl_swamp}, @ref{fl_thief}, @ref{it_death}, @ref{it_trap},
+broken @ref{it_bottle}, explosions, moving stones and all other internal
+@samp{shatter} and @samp{fall} events; in other words, from all lethal
+situations and thieves.
+
+An umbrella gets destroyed when hit by a laser beam and is itself a
+laser transformation result of an @samp{it_coin_s}(@pxref{it_coin}).
+
+An umbrella that comes into existence on an illuminated grid position will not
+be destroyed due to already existing laser beams. But it will be destroyed on
+the first additional beam and on laser beams that are switched off and on again.
+
+If another item transforms into an umbrella this new umbrella will be immune to
+light destruction for a short latency period to avoid repeated item
+transformations.
+
+@table @asis
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_umbrella}
+A standard umbrella item.
+@item @b{it_umbrella_new}
+An umbrella that is immune to light destruction for a short latency period.
+@end table
+
+@end table
+
+@c ----------------- Weight Item --------------------
+@node it_weight
+@subsection it_weight
+@obindex it_weight
+
+A weight is an item with a mass, that defaults to the mass of 10 @ref{ac_marble}s.
+When it is picked up it is added to the inventory and increases the mass of
+all actors owned by the inventory's owner.
+
+Weights can easily be picked up, but the player can not drop them. Just indirect
+methods like hitting @ref{st_mail}, @ref{st_thief} or crossing a @ref{fl_thief}
+may remove this item from the inventory.
+
+The inventories mass is always updated to the mass of all weights kept in the
+inventory or contained in any @ref{it_bag} contained in the inventory.
+
+@table @asis
+
+@item @b{Attributes:} none
+@table @asis
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{+10.0}
+Mass unit is the mass of an @ref{ac_marble}
+@end table
+
+@item @b{Messages:} none
+
+@end table
+
+@c ----------------- Wrench Item --------------------
+@node it_wrench
+@subsection it_wrench
+@obindex it_wrench
+
+A wrench wielded as first item in the players inventory causes some objects
+to react on actor hits. An @ref{st_rotator} changes its turning direction.
+An green @ref{st_turnstile} rotates backwards when hit. An @ref{st_window}
+face pushed with an wrench will swap to the opposite side of the stone if
+possible.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
+
+@c ----------------- Yinyang Item --------------------
+@node it_yinyang
+@subsection it_yinyang
+@obindex it_yinyang
+
+A special switch that allows the user to toggle the @ref{Player and Inventory}
+between @code{YIN} and @code{YANG}.
+
+On activation this item does not get dropped but remains unchanged in the
+inventory.
+
+If a level has been declared to be a full blown two player network level in
+@ref{<modes>}, but is currently played on a single computer both players
+get automatically an yinyang item added to their inventory to allow all actors
+to be controlled at every point of time.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
+
+@c ----------------- Static Items --------------------
+@node Static Items
+@section Static Items
+
+@menu
+* it_blocker::         Shrinked Blocker Stone
+* it_crack::           Crack in the Floor
+* it_cross::           Floor switch for patient Actors
+* it_death::           Unpassable grid blocker
+* it_landmine::        
+* it_magnet::          Actor attracting Magnet
+* it_meditation::      
+* it_sensor::          Floor Switch for passing Actors
+* it_shogun::          Dot for Shogun Stones
+* it_springboard::     Static Spring
+* it_squashed::        Remnant of squashed Fruits
+* it_strip::           Narrow Bridge
+* it_trap::            
+* it_trigger::         Floor Switch for Actors and Stones
+* it_vortex::          Teleport of Marbels
+* it_wormhole::        Teleport of Actors
+@end menu
+
+
+@c ----------------- Blocker Item --------------------
+@node it_blocker
+@subsection it_blocker
+@obindex it_blocker
+
+A door like object that grows to @ref{st_blocker} when an @ref{st_boulder}
+passes. When the boulder did shrink and pass the blocker again it stays in its
+item like open state until it is passed again by a boulder which causes it to
+grow again to a blocker stone.
+
+It fully supports the messages of any door like object and can be opened and
+closed by any switch like object. Note that due to the transformation between
+stone and item during opening and closing you should name the blocker
+(@pxref{name}) and address the blocker by this name. The complete identity
+with all attributes including any user attributes will be transfered between
+stone and item. E.g. @code{@{it_switch, target="myblocker", action="toggle"@}}
+will open and close a given blocker multiple times.
+
+Note that the blocker is the only door object that allows a stone to be pushed
+through. Just boulders cause the growing. Any other stone keeps the open state.
+
+Another unique door feature is the closing of a blocker item caused by a
+passing actor if the autoclose attribute is set to true.
+
+Note that a dropped @ref{it_brake} destroys this item.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{default}: @code{1} @ @ @xref{state}
+Use CLOSED and OPEN macros as values. The item represents the open state
+and will always return state 1. But you can set its state what is equivalent
+to sending an open message in case of value 1 and a close message in case of
+value 0.
+
+@atindex autoclose
+@item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+A true value causes any actor passing this item to close and grow the blocker.
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 sends an open message, a signal of value 0 sends a close
+message.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes a close message.
+@item @b{close} @ @ @xref{close}
+A close message take immediate effect if the item is not covered by a stone.
+The item transforms to a new growing @ref{st_blocker}. If it is covered by a
+stone of whatever kind it will be marked as unlocked. The closing process starts
+when the stone moves away.
+@item @b{open} @ @ @xref{open}
+As the item is open this message takes only effect if it is currently covered
+by a stone and marked as unlocked. That means it should grow as soon as the
+stone moves away what happens when an @ref{st_boulder} passes an idle blocker
+item. In this case an open message locks the blocker again to avoid a growing
+when the stone moves away.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Sends an action at the moment the blocker reaches the open state. That means
+an @ref{st_blocker} did open and did generate this blocker item as its
+successor. The value will be @code{true} to express the open state.
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_blocker}
+A standard blocker item.
+@item @b{it_blocker_new}
+A blocker that just finished shrinking. Mainly used internally as the direct
+successor of an @ref{st_blocker}. But it may be useful to generate an initial
+snapshot of a moving boulder over a blocker line, too. See example levels.
+@end table
+
+@end table
+
+@c ----------------- Crack Item --------------------
+@node it_crack
+@subsection it_crack
+@obindex it_crack
+
+A legacy item that features a crack in the floor. A crack increases every time
+an actor enters and finally dissolves the floor either into an @ref{fl_abyss}
+or an @ref{fl_water}. The color of the fissures shows the upcoming new floor
+kind and corresponds to the attribute @samp{flavor}.
+
+The progress of the floor destruction is described by the attribute @samp{state}.
+On every crack event the state advances by one and a cracking @samp{LARGE} crack
+finally dissolves giving an actor on top just enough time to leave the grid at
+once. Of course an actor jumping over a crack does not causes change on the
+crack itself.
+
+You can control the crack progress by the two attributes @samp{spreading} and
+@samp{fragility}. Where as the first attribute describes the likelihood that the
+crack spreads to a neighboring crack free grid, does the second attribute 
+describe the likelihood that an existing crack advances its state.
+
+An actor entering a crack causes the crack itself to advance its state with the
+given likelihood. A default @samp{abyss} crack causes existing cracks on any of
+the 4 neighboring grid positions to advance their states, too. But a 
+@ref{water} crack does not advance neighboring cracks. Both do cause a spread 
+with the given likelihood of an invisible crack to any of the 4 neighboring grid
+positions in case no crack or any other items exists on it.
+
+Let us have another look on a spreading crack. An actor entering a crack causes
+an invisible crack on the next grid. If the actor continues to move to this grid
+the invisible crack advances to a small visible one, of cause just with the
+given likihood. Note that this first and just this first crack progress takes
+place with the likihood of spreading, too. That means even if the fragility is
+zero the invisible crack gets visible.
+
+Another special feature is the behaviour of a large crack. An actor entering
+causes it to dissolve. But this causes neither a spreading nor a crack advancing
+on neighboring grids. This feature is essential to allow an actor to walk over
+a path of large cracks, as the next grid may not dissolve on an actor entering
+the one before.
+
+Common attribute patterns besides the default ones are:
+@itemize @bullet
+@item @samp{spreading=0, fragility=0} - a fake crack that neither spreads nor dissolves
+@item @samp{spreading=0, fragility=1} - a crack that dissolves and causes neighbor cracks to disolve, but does not spread to new floors
+@end itemize
+
+Both attributes are inherited to new cracks during the process of spreading.
+If not set they take as default the value of the global attributes. For a maximum
+control you can set individual floors their own @ref{fragility (floor)}. These
+values superceed the global @ref{Fragility} default.
+
+Undestructible floors like @ref{fl_abyss}, @ref{fl_water}, @ref{fl_swamp} will
+never crack. As any other item cracks do block laser light and prohibit other items to be
+dropped on the same grid. Nearby fire, explosions and hitting 
+@ref{ot_cannonball}s will dissolve a crack.
+
+@table @asis
+
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{INVISIBLE}, @code{SMALL}, @code{MEDIUM}, @code{LARGE}; @ @ @i{default}: @code{SMALL} @ @ @xref{state}
+@item @b{flavor}, @ @ @i{values}: @code{"abyss"}, @code{"water"}; @ @ @i{default}: @code{"abyss"}
+@item @b{spreading} @ @ @i{values}: positive number between 0.0 and 1.0; @ @ @i{default}: @code{0.5}, @ @ @xref{CrackSpreading}
+@item @b{fragility} @ @ @i{values}: positive number between 0.0 and 1.0; @ @ @i{default}: @code{1.0}, @ @ @xref{Fragility}
+
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{crack}
+@item @b{toggle} @ @ @xref{toggle}
+@item @b{ignite} @ @ @xref{ignite}
+@item @b{heat} @ @ @xref{heat}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_crack}: state = @code{SMALL}
+@item @b{it_crack_i}: state = @code{INVISIBLE}
+@item @b{it_crack_s}: state = @code{SMALL}
+@item @b{it_crack_m}: state = @code{MEDIUM}
+@item @b{it_crack_l}: state = @code{LARGE}
+@end table
+
+@end table
+
+@c ----------------- Cross Item --------------------
+@node it_cross
+@subsection it_cross
+@obindex it_cross
+
+An eye-catching cross spot that can detect actors staying on it for a given
+time. When an actor remains on top of the cross for the given @samp{interval}
+without any other actor leaving or passing the cross grid the cross will perform
+its action. Similar, but instant sensors for actors are @ref{it_sensor} and
+@ref{it_trigger}
+
+A cross can be drawn with an @ref{it_pencil} and it can be removed with an
+@ref{it_brush}.
+
+An @ref{st_lightpassenger} moving onto a cross item will switch off.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{0}, @code{1}; @ @ @i{access}: @code{read only} @ @ @xref{state}
+The current state - @samp{0} for the last event being an actor leaving the cross,
+@samp{1} for the last event being an actor entering the cross.
+
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{10.0}
+Number of seconds that the actor must stay on the sensor to cause an action.
+
+@end table
+
+@item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@end table
+
+@c ----------------- Death Item --------------------
+@node it_death
+@subsection it_death
+@obindex it_death
+
+This item shatters any marble that tries to pass the grid. Even jumping marbles
+will be shattered. Just marbles protected by an activated @ref{it_umbrella} can
+pass without taking harm. Apart from that an @samp{it_death} barrier can only be
+passed by walking around the complete barrier or by warping through an
+@ref{it_vortex}, an @ref{it_wormhole} or by means of an @ref{it_ring}.
+
+The death item is the most secure barrier object. Comparable objects are
+@ref{it_booze_broken}, @ref{fl_abyss}, @ref{fl_water}, @ref{it_trap} or simply
+any solid wall of stones. Usually these alternatives should be favored. The
+death item should mainly be used when all other alternatives are too unsecure.
+
+@table @asis
+
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@end table
+
+@c ----------------- Landmine Item --------------------
+@node it_landmine
+@subsection it_landmine
+@obindex it_landmine
+
+!!TBD - Work in progress !!
+
+A static item that explodes on actors stepping onto its critical center part and
+on stones being pushed onto the mine.
+
+The landmine explodes shattering nearby marbles on the same grid and leaves an
+hollow @ref{it_meditation} behind.
+
+Actors can jump over a landmine and pass carefully between two adjacent
+landmines without activating the mines. Landmines do neither react on nearby
+explosions, nor fire, nor laserbeams.
+
+@table @asis
+@item @b{Attributes:} none
+
+@item @b{Messages:} none
+
+@item @b{Action:} none
+
+@end table
+
+@c ----------------- Magnet Item --------------------
+@node it_magnet
+@subsection it_magnet
+@obindex it_magnet
+
+Attracts or repells actors in its @samp{range} with a force proportional to the
+@samp{strength} and the inverse of the squared distance. A magnet can be
+switched @samp{ON} and @samp{OFF}.
+
+Note that no forces are applied to actors at a distance smaller than 0.05 grids
+to avoid extraordinary large forces.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+The current magnet state - @samp{ON} for an active magnet, @samp{OFF} for an
+inactive magnet.
+
+@item @b{range} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{10.0} @ @ @xref{MagnetRange}
+The distance up to which the magnet applies forces to actors.
+
+@item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{MagnetStrength}
+A scalar factor for magnet forces. Positive numbers are attracting forces
+where as negative numbers are repelling forces.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+A signal of value 1 switches the magnet on, a value of 0 switches the magnet off.
+@item @b{toggle} @ @ @xref{toggle}
+A toggle causes a change in the magnet activity state.
+@item @b{on} @ @ @xref{on}
+Switches the magnet on.
+@item @b{off} @ @ @xref{off}
+Switches the magnet off.
+@end table
+
+@item @b{Action:}
+none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_magnet}
+A magnet in state @samp{OFF}.
+@item @b{it_magnet_on}
+A magnet in state @samp{ON}.
+@item @b{it_magnet_off}
+A magnet in state @samp{OFF}.
+@end table
+
+@end table
+
+@c ----------------- Meditation Item --------------------
+@node it_meditation
+@subsection it_meditation
+@obindex it_meditation
+
+Meditation items are small round areas of flatness imperfection. All actors will
+experience the slope forces that can be modified by the global scalar factor
+@ref{MeditationStrength}. There are different shapes of meditation items that
+are named according to their shape: @code{MEDITATION_CALDERA},
+@code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP},
+@code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}.
+
+Of special interest are @ref{ac_marble_meditation}s resting on a meditation
+item. They are counted as meditating after staying continuously for one second
+within the round area of the item. One of the two @ref{Ending Conditions} of the
+game is that all meditation marbles come to rest on mediation items.
+
+As meditation items can dynamically be generated during the game by exploding
+@ref{it_landmine} or @ref{it_dynamite} it may be necessary for an author to
+mark those meditation items that are required to be filled with meditation
+marbles. You do this by setting the @samp{essential} attribute to @code{true}.
+Please make rare and obvious usage of this attribute, as the player can not
+distinguish essential from not essential meditation items by their images.
+
+Meditation items can transform into other shapes by various means.
+
+First a user can push a solid stone over a meditation item or activate an
+@ref{it_shovel} on it. Both actions flatten the meditation, either
+@code{MEDITATION_VOLCANO} -> @code{MEDITATION_HILL} -> @code{MEDITATION_BUMP}
+-> @code{it_nil} or @code{MEDITATION_CALDERA} -> @code{MEDITATION_HOLLOW} ->
+@code{MEDITATION_DENT} -> @code{it_nil}.
+
+Secondly you can send a @code{"flip"} message to a meditation item which
+transforms hollow like items into their hill like counterparts and vice versa:
+@code{MEDITATION_VOLCANO} <-> @code{MEDITATION_CALDERA}, @code{MEDITATION_HILL}
+<-> @code{MEDITATION_HOLLOW}, @code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
+
+Third a @code{"signal"} message flips on a @code{1} value all meditations to
+their hill like counterparts, keeping hill like meditations unchanged, and on a
+@code{0} value to their hollow like counterparts, keeping hollow like meditations
+unchanged.
+
+A fourth message is @code{"toggle"}. It transforms @code{MEDITATION_HOLLOW} <->
+@code{MEDITATION_VOLCANO}, @code{MEDITATION_CALDERA} <-> @code{MEDITATION_HILL},
+@code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
+
+Of course you can change the state by attribute setting anytime in any sequence
+you like. Essentialness is kept on shape transformations and mediation actor
+counting is updated and continues.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{MEDITATION_CALDERA}, @code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP}, @code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}; @ @ @i{default}: @code{MEDITATION_HOLLOW} @ @ @xref{state}
+The shape of the meditation.
+@item @b{essential} @ @ @i{values}: @code{DISPENSIBLE}, @code{INDISPENSIBLE}; @ @ @i{default}: @code{DISPENSIBLE}
+Essentialness of being filled with a meditation marble to fulfill the
+@ref{Ending Conditions}.
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{friction}
+Deviating friction that defaults to floor friction.
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{adhesion}
+Deviating adhesion that defaults to floor adhesion.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{flip}
+Shape transformation. See text above.
+@item @b{shovel}
+Shape transformation like an activated @ref{it_shovel}. See text above.
+@item @b{signal} @ @ @xref{signal}
+Shape transformation. See text above.
+@item @b{toggle}
+Shape transformation. See text above.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_meditation} state = @code{MEDITATION_HOLLOW}
+@item @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
+@item @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
+@item @b{it_meditation_dent} state = @code{MEDITATION_DENT}
+@item @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
+@item @b{it_meditation_hill} state = @code{MEDITATION_HILL}
+@item @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
 @end table
 
 @end table
@@ -8297,30 +8610,6 @@ a medium hole, @code{"l"} for a large hole.
 
 @end table
 
-@c ----------------- Spring Item --------------------
-@node it_spring
-@subsection it_spring
-@obindex it_spring
-
-Springs let @ref{Flying Actors} jump on activation.
-
-There are two types of portable springs. A thin one that is kept in the 
-inventory on activation and can thus be used multiple times in sequence. And
-a thick, condensed one that gets dropped on activation. A static jump
-facility that can not be picked up by an actor is the @ref{it_springboard}.
-
-@table @asis
-@item @b{Attributes:} none
-@item @b{Messages:} none
-@item @b{Variants:}
-@table @asis
-@item @b{it_spring}
-@item @b{it_spring_keep}
-@item @b{it_spring_drop}
-@end table
-
-@end table
-
 @c ----------------- Springboard Item --------------------
 @node it_springboard
 @subsection it_springboard
@@ -8410,80 +8699,6 @@ Deviating adhesion that defaults to floor adhesion.
 @item @b{it_strip_nes}: connections = @code{"nes"}
 @item @b{it_strip_nesw}: connections = @code{"nesw"}
 
-@end table
-
-@end table
-
-@c ----------------- Surprise Item --------------------
-@node it_surprise
-@subsection it_surprise
-@obindex it_surprise
-
-An item that transforms into a random item as soon as the player drops it.
-
-The replacement item is a random one out of a given selection. You can set
-the @samp{selection} attribute with tokens of strings. Every string needs either
-to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
-
-@example
-ti["m"] = @{"it_magicwand"@}
-ti["e"] = @{"it_extralife"@}
-ti["s"] = @{"it_surprise", selection=@{"it_seed", "=m", "=e", "=e"@}@}
-@end example
-
-The replacement item is randomly chosen out of the given selection. By listing
-an item several times you can take influence on the likelyhood.
-
-The tile declarations referenced by a key may even contain objects besides
-items. But you should make rare and proper usage of this feature.
-
-Prior replacing the surprise item but after droping it the surprise item will
-perform its action. You can use this action to modify the selection or to set
-objects on your own.
-
-The surprise item is killed by any replacement item set to the grid position.
-If your selection does not resolve to an item you may need to add @ref{"it_nil"}
-to the replacement tile declaration.
-
-@table @asis
-@item @b{Attributes:}
-@table @asis
-@item @b{selection}, @ @ @i{values}: tokens of item kinds and tile keys; @ @ @i{default}: @code{@{"it_umbrella", "it_spring_keep", "it_dynamite", "it_coffee", "it_hammer"@}}
-
-@end table
-
-@item @b{Messages:}
-
-@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-
-@end table
-
-@c ----------------- Sword Item --------------------
-@node it_sword
-@subsection it_sword
-@obindex it_sword
-
-The sword is used to neutralize @ref{st_knight}.
-
-It transforms into @ref{it_hammer} when hit by a laser beam and is itself a
-laser transformation result of an @ref{it_hammer}.
-
-A sword that comes into existence on an illuminated grid position will not
-transform due to already existing laser beams. But it will transform on the first
-additional beam and on laser beams that are switched off and on again.
-
-If another item transforms into a sword this new sword will be immune to
-further light transformations for a short latency period to avoid unstable
-flickering of repeated item transformations.
-
-@table @asis
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_sword}
-A standard sword item.
-@item @b{it_sword_new}
-A sword that is immune to light transformations for a short latency period.
 @end table
 
 @end table
@@ -8581,41 +8796,6 @@ cannot drop items onto the same grid position.
 @end table
 
 
-@c ----------------- Umbrella Item --------------------
-@node it_umbrella
-@subsection it_umbrella
-@obindex it_umbrella
-
-An activated umbrella temporarily protects a marble from @ref{st_death},
-@ref{st_knight}, @ref{st_thief}, @ref{fl_abyss}, @ref{fl_water},
-@ref{fl_swamp}, @ref{fl_thief}, @ref{it_death}, @ref{it_trap},
-broken @ref{it_bottle}, explosions, moving stones and all other internal
-@samp{shatter} and @samp{fall} events; in other words, from all lethal
-situations and thieves.
-
-An umbrella gets destroyed when hit by a laser beam and is itself a
-laser transformation result of an @samp{it_coin_s}(@pxref{it_coin}).
-
-An umbrella that comes into existence on an illuminated grid position will not
-be destroyed due to already existing laser beams. But it will be destroyed on
-the first additional beam and on laser beams that are switched off and on again.
-
-If another item transforms into an umbrella this new umbrella will be immune to
-light destruction for a short latency period to avoid repeated item
-transformations.
-
-@table @asis
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_umbrella}
-A standard umbrella item.
-@item @b{it_umbrella_new}
-An umbrella that is immune to light destruction for a short latency period.
-@end table
-
-@end table
-
 @c ----------------- Vortex Item --------------------
 @node it_vortex
 @subsection it_vortex
@@ -8698,34 +8878,6 @@ A vortex in state @samp{CLOSED}.
 @end table
 @end table
 
-@c ----------------- Weight Item --------------------
-@node it_weight
-@subsection it_weight
-@obindex it_weight
-
-A weight is an item with a mass, that defaults to the mass of 10 @ref{ac_marble}s.
-When it is picked up it is added to the inventory and increases the mass of
-all actors owned by the inventory's owner.
-
-Weights can easily be picked up, but the player can not drop them. Just indirect
-methods like hitting @ref{st_mail}, @ref{st_thief} or crossing a @ref{fl_thief}
-may remove this item from the inventory.
-
-The inventories mass is always updated to the mass of all weights kept in the
-inventory or contained in any @ref{it_bag} contained in the inventory.
-
-@table @asis
-
-@item @b{Attributes:} none
-@table @asis
-@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{+10.0}
-Mass unit is the mass of an @ref{ac_marble}
-@end table
-
-@item @b{Messages:} none
-
-@end table
-
 @c ----------------- Wormhole Item --------------------
 @node it_wormhole
 @subsection it_wormhole
@@ -8797,49 +8949,6 @@ A wormhole in state @samp{ON}.
 @item @b{it_wormhole_off}
 A wormhole in state @samp{OFF}.
 @end table
-
-@end table
-
-@c ----------------- Wrench Item --------------------
-@node it_wrench
-@subsection it_wrench
-@obindex it_wrench
-
-A wrench wielded as first item in the players inventory causes some objects
-to react on actor hits. An @ref{st_rotator} changes its turning direction.
-An green @ref{st_turnstile} rotates backwards when hit. An @ref{st_window}
-face pushed with an wrench will swap to the opposite side of the stone if
-possible.
-
-@table @asis
-
-@item @b{Attributes:} none
-
-@item @b{Messages:} none
-
-@end table
-
-@c ----------------- Yinyang Item --------------------
-@node it_yinyang
-@subsection it_yinyang
-@obindex it_yinyang
-
-A special switch that allows the user to toggle the @ref{Player and Inventory}
-between @code{YIN} and @code{YANG}.
-
-On activation this item does not get dropped but remains unchanged in the
-inventory.
-
-If a level has been declared to be a full blown two player network level in
-@ref{<modes>}, but is currently played on a single computer both players
-get automatically an yinyang item added to their inventory to allow all actors
-to be controlled at every point of time.
-
-@table @asis
-
-@item @b{Attributes:} none
-
-@item @b{Messages:} none
 
 @end table
 
@@ -9750,6 +9859,9 @@ But @code{"rock"} flavored boxes are fire resistant and fire blocking.
 
 @table @asis
 @item @b{flavor} @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"rock"}; @ @ @i{default}: @code{"wood"}; @ @ @i{access}: read only
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+This attribute is inherited to a floor build by a falling box and guarantees
+then secure fire burning.
 @end table
 
 @item @b{Messages:} none
@@ -10276,8 +10388,8 @@ like @ref{st_oxyd} of flavor @code{"a"} and in the opened state like an
 @ref{st_grate} of flavor @code{"cross"}. Flavor @code{"b"} looks in the closed 
 state like @ref{st_flat} and in the opened state like an @ref{st_grate} of
 flavor @code{"framed"}. Flavor @code{"c"} looks in the closed state like
-@ref{st_flat} but opens to an unvisible, free passable, but still existing and
-grid blocking stone. The flavor @code{"d"} represent a faces based door, that 
+@ref{st_flat} but opens to an invisible, free passable, but still existing and
+grid blocking stone. The flavor @code{"d"} represents a faces based door, that 
 opens or blocks just the given faces of the grid. Currently just the 
 combinations of two parallel aligned door faces, aka horizontal and vertical 
 doors, are supported.
@@ -12555,7 +12667,8 @@ bag.
 
 This stone can be used to trigger a delayed single or periodic events. An
 active, switched on timer is usually visualized by an animation. An inactive,
-switched off timer shows a static image.
+switched off timer shows a static image. An alternative to an invisible timer
+stone is an @ref{ot_timer} gadget.
 
 Note that this is an exceptional object as its default state is @samp{ON} to
 support the most common case of immediatly runnning timers.
@@ -13736,7 +13849,127 @@ already.
 
 
 @menu
+* ot_counter::   Threshold Switch
+* ot_timer::     Invisible Timer
 @end menu
+
+@c ----------------- Counter Gadget --------------------
+@node ot_counter
+@subsection ot_counter
+@obindex ot_counter
+
+A counter that switches on given thresholds. As a supplement to single switch
+like objektes as @ref{it_trigger}, @ref{st_switch}, @ref{st_laserswitch},
+@ref{st_coinslot}, @ref{st_key}, @ref{st_floppy}, etc. this gadget allows to
+react on a given number of these switches to be switched @samp{ON} while the
+others being switched @samp{OFF}.
+
+The attribute @samp{state} represents the count of switches in @samp{ON} state.
+Due to the @ref{Snapshot Principle} you need to set it to the initial number
+of @samp{ON} switches. All switches need to declare the counter gadget as their 
+@samp{target}. They all need to send a @code{"signal"} message as @samp{action}.
+The counter gadget increases or decreases its count state on every received 
+signal message thus keeping it up to date.
+
+The gadget itself can perform actions by usage of @ref{Object State} dependent
+targets and actions.
+
+E.g. let us assume 8 @ref{it_trigger}s and 8 @ref{st_box}es. Two boxes are
+initially on top of two triggers. A door should open as soon as the user
+succeeds in pushing all boxes onto the triggers.
+
+@example
+ti["t"] = @{"it_trigger", target="mycounter", action="signal"@}
+ti["b"] = @{"st_box"@}
+ti["o"] = ti["t"] .. ti["b"]
+ti["d"] = @{"st_door", "mydoor"@}
+wo(ti, " ", @{"t t t o t o t t",
+             "b b b   b   b b",
+	     "      d   @@    "@})
+wo:add(@{"ot_counter", "mycounter", state=2, target="mydoor", action_7="close", action_8="open"@})
+@end example
+
+Note that it is not sufficient to send an @code{"open"} message on a 
+@samp{state} count of 8, as this event occurs, when 7 boxes are on top of 
+triggers and the last trigger is pressed by the actor itself, too. When the
+actor leaves the 8th trigger the gadget state decreases its state to 7 and
+sends a @code{"close"} message to the door.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: numbers; @ @ @i{default}: 0 @ @ @xref{state}
+The count of switches in @samp{ON} state.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Increases state on a value of @samp{1}, and decreases on a value of @samp{0}.
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Sends an action with value @samp{true} just on explicitly given 
+@ref{Object State} dependent target or action attributes. No default 
+@code{"toggle"} actions will be issued on other states.
+@end table
+
+
+@c ----------------- Timer Gadget --------------------
+@node ot_timer
+@subsection ot_timer
+@obindex ot_timer
+
+This gadget can be used to trigger a delayed single or periodic events. It is
+nearly identical to the @ref{st_timer}, but does neither require a grid position
+nor disturbes the user by a pulsing animation.
+
+Note that this is an exceptional object as its default state is @samp{ON} to
+support the most common case of immediatly runnning timers.
+
+A single shot, not looping timer will send an action value of @samp{true}. A
+looping timer will alternate the boolean action values starting with value
+@samp{true}. You can use @ref{inverse} to start with a value of @samp{false}.
+
+If you stop a timer by switching it off, no further events will be performed.
+Restarting the timer by switching it on again will restart the timer like
+a new timer.
+
+The time interval to the first event and between subsequent events can be relied
+on to an accuracy of 0.01 seconds. But due to performance reasons and visibility
+of the reactions timers should not be set to intervals below 0.1 seconds. An
+interval of less than 0.01 seconds is not valid for a looping timer.
+
+@table @asis
+@item @b{Attributes:}
+
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{ON} @ @ @xref{state}
+An @samp{ON} state timer is running. A timer in state @samp{OFF} is reset and
+waiting for reactivation.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
+Number of seconds until the first and between subsequent events. The interval
+must be larger or equal 0.01 seconds for looping timers.
+@item @b{loop} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+A looping timer will send periodic events.
+@end table
+
+@item @b{Messages:}
+
+@table @asis
+@item @b{signal} @ @ @xref{signal}
+Switches on at value @samp{1}, and off at values @samp{0}.
+@item @b{on} @ @ @xref{on}
+@item @b{off} @ @ @xref{off}
+@end table
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+The action value starts with @samp{true} and alternates on every event between
+@samp{false} and @samp{true}. A timer that is reset starts again with value
+@samp{true}
+@end table
 
 @c ===================  Libraries  =======================
 
