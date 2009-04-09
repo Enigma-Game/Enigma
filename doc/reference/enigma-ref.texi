@@ -6317,6 +6317,88 @@ Positive number are attracting, negative numbers are repelling.
 @node Floor Attributes
 @section Floor Attributes
 
+@menu
+* adhesion (floor)::        Effectiveness of mousemotion
+* burnable::
+* eternal::                 
+* faces (floor)::           Framing Configuration
+* fastfire::
+* floodable::               Flood Affinity
+* force_x::
+* force_y::
+* fragility::
+* freeze_check::
+* friction (floor)::        Decelerating friction force factor
+* ignitable::
+* indestructible::          
+* initfire::
+* noash::
+* push_directions::
+* secure::                  
+@end menu
+
+
+@c ----------------- adhesion (floor) --------------------
+@node adhesion (floor)
+@subsection adhesion (floor)
+
+The responsiveness of an actor on mouse movements. It is a scalar factor to
+the accelerating force applied to an actor. Note that the actor itself
+has another scalar @ref{adhesion (actor)} factor. The adhesion may take negativ
+values, too. Such values correspond to inverse forces.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- faces (floor) --------------------
+@node faces (floor)
+@subsection faces (floor)
+
+Describes if a floor is framed. 
+
+Currently a floor is either not framed at all or framed on all sides. The frame
+attribute can not be direclty accessed and modified on most floors. Append the
+string @code{"_framed"} to a given floor name to yield the all side framed
+variant.
+
+@table @asis
+@item @b{Type:} @ @ string or nil
+@item @b{Values:} @ @ @code{nil}, @code{"nesw"}
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ none - with a few exceptions
+@end table
+
+@c ----------------- floodable --------------------
+@node floodable
+@subsection floodable
+
+Determines whether a floor can be flooded by @ref{fl_water} from a neighboring
+floor.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- friction (floor) --------------------
+@node friction (floor)
+@subsection friction (floor)
+
+@pxref{friction}.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
 @c ----------------- Standard Floor --------------------
 @node Standard Floors
 @section Standard Floors
@@ -6338,7 +6420,9 @@ Positive number are attracting, negative numbers are repelling.
 * fl_gray::           Gray with some brown spots
 * fl_himalaya::       Blue purple marbled floor
 * fl_ivory::          Warm pearl white floor
+* fl_lawn::           Grass in several textures
 * fl_marble::         Light red brown marbled floor
+* fl_metal::          Metal floor in several textures
 * fl_mortar::         Rough white floor with gray wrinkles
 * fl_pinkbumps::      Pink floor with white bumps
 * fl_plank::          Small diagonal planks
@@ -6347,7 +6431,9 @@ Positive number are attracting, negative numbers are repelling.
 * fl_redslab::        Dark red marbled slab
 * fl_rough::          Rough warm white floor
 * fl_sahara::         Bright yellow sandstone floor
+* fl_samba::          Grey bleached wooden floor
 * fl_sand::           Granular orange gray sand floor
+* fl_space::          Black space with a few sparkling stars
 * fl_stone::          Granular brown gray floor
 * fl_tigris::         Red sandstone floor
 * fl_white::          Pure white floor
@@ -6691,6 +6777,41 @@ Warm ivory or pearl white floor.
 @end table
 @end table
 
+@c ----------------- Lawn Floor --------------------
+@node fl_lawn
+@subsection fl_lawn
+@obindex fl_lawn
+
+Grass floor. Light and dark grass and different textures of both exist.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
+@item @b{texture}, @ @ @i{values}: "a","b","c1","c2","c3","c4","d1","d2","d3","d4","e1","e2","e3","e4" ; @ @ @i{default}: "a"; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_lawn}: texture = @samp{"a"}
+@item @b{fl_lawn_a}: texture = @samp{"a"}
+@item @b{fl_lawn_b}: texture = @samp{"b"}
+@item @b{fl_lawn_c1}: texture = @samp{"c1"}
+@item @b{fl_lawn_c2}: texture = @samp{"c2"}
+@item @b{fl_lawn_c3}: texture = @samp{"c3"}
+@item @b{fl_lawn_c4}: texture = @samp{"c4"}
+@item @b{fl_lawn_d1}: texture = @samp{"d1"}
+@item @b{fl_lawn_d2}: texture = @samp{"d2"}
+@item @b{fl_lawn_d3}: texture = @samp{"d3"}
+@item @b{fl_lawn_d4}: texture = @samp{"d4"}
+@item @b{fl_lawn_e1}: texture = @samp{"e1"}
+@item @b{fl_lawn_e2}: texture = @samp{"e2"}
+@item @b{fl_lawn_e3}: texture = @samp{"e3"}
+@item @b{fl_lawn_e4}: texture = @samp{"e4"}
+@end table
+@end table
+
 @c ----------------- Marble Floor --------------------
 @node fl_marble
 @subsection fl_marble
@@ -6709,6 +6830,43 @@ Light red brown marbled floor.
 @table @asis
 @item @b{fl_marble}
 @item @b{fl_marble_framed}
+@end table
+@end table
+
+@c ----------------- Metal Floor --------------------
+@node fl_metal
+@subsection fl_metal
+@obindex fl_metal
+
+Grey metal floor with rivets. Several different textures exists with horizontal
+or vertical aligned joists and various rivets.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{texture}, @ @ @i{values}: integer number, 1 <= n <= 7  ; @ @ @i{default}: random; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_metal}: texture = @samp{random}
+@item @b{fl_metal_1}: texture = @code{1}
+@item @b{fl_metal_2}: texture = @code{2}
+@item @b{fl_metal_3}: texture = @code{3}
+@item @b{fl_metal_4}: texture = @code{4}
+@item @b{fl_metal_5}: texture = @code{5}
+@item @b{fl_metal_6}: texture = @code{6}
+@item @b{fl_metal_7}: texture = @code{7}
+@item @b{fl_metal_framed}: texture = @samp{random}
+@item @b{fl_metal_1_framed}: texture = @code{1}
+@item @b{fl_metal_2_framed}: texture = @code{2}
+@item @b{fl_metal_3_framed}: texture = @code{3}
+@item @b{fl_metal_4_framed}: texture = @code{4}
+@item @b{fl_metal_5_framed}: texture = @code{5}
+@item @b{fl_metal_6_framed}: texture = @code{6}
+@item @b{fl_metal_7_framed}: texture = @code{7}
 @end table
 @end table
 
@@ -6881,6 +7039,33 @@ Bright yellow sandstone floor.
 @end table
 @end table
 
+@c ----------------- Samba Floor --------------------
+@node fl_samba
+@subsection fl_samba
+@obindex fl_samba
+
+Grey bleached wooden floor. Textures with horizontal and vertical aligned plank 
+exist.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@item @b{texture}, @ @ @i{values}: "h", "v"  ; @ @ @i{default}: random; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_samba}: texture = @samp{random}
+@item @b{fl_samba_h}: texture = @code{"h"}
+@item @b{fl_samba_v}: texture = @code{"v"}
+@item @b{fl_samba_framed}: texture = @samp{random}
+@item @b{fl_samba_h_framed}: texture = @code{"h"}
+@item @b{fl_samba_v_framed}: texture = @code{"v"}
+@end table
+@end table
+
 @c ----------------- Sand Floor --------------------
 @node fl_sand
 @subsection fl_sand
@@ -6899,6 +7084,28 @@ Granular orange gray sand floor.
 @table @asis
 @item @b{fl_sand}
 @item @b{fl_sand_framed}
+@end table
+@end table
+
+@c ----------------- Space Floor --------------------
+@node fl_space
+@subsection fl_space
+@obindex fl_space
+
+Black space with a few sparkling stars. This floor has neither a friction nor
+does it provide an adhesion. All actors do drift for inifinity on this floor
+until they reach another floor.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_space}
 @end table
 @end table
 
@@ -6991,10 +7198,51 @@ Diagonal woven white floor with black shadows.
 @section Special Floors
 
 @menu
+* fl_abyss::          Deep black Chasm
 * fl_bridge::         Abyss Bridge
+* fl_fake::           Fake mimicing other Floors
+* fl_hay::            
+* fl_ice::            
+* fl_inverse::        Accerate into the inverse direction
+* fl_rock::           
 * fl_slope::          Slopes in various shapes
+* fl_swamp::          
 * fl_thief::          Hidden Thief
+* fl_water::          
+* fl_wood::           
+* fl_yinyang::        Player dependent Adhesion
 @end menu
+
+@c ----------------- Abyss Floor --------------------
+@node fl_abyss
+@subsection fl_abyss
+@obindex fl_abyss
+
+Pure black abyss into which all rolling balls do fall and shatter. An abyss
+chasm can be crossed by jumping. @ref{Actors} protected by an activated
+@ref{it_umbrella} can pass and even move on an abyss as it provides useful
+@samp{adhesion} and @samp{friction}. Another comparable floor barrier is
+@ref{fl_water}.
+
+Many floors disintegrate on fire or on a dissolving @ref{it_crack} into an
+abyss. The abyss itself is indestructible. It does neither burn nor crack.
+
+Some stones fall into abyss, too. @ref{st_box} will build floors on which all
+actors can move and pass the former abyss filled grid.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{friction}
+@item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_abyss}
+@end table
+@end table
 
 @c ----------------- Bridge Floor --------------------
 @node fl_bridge
@@ -7034,6 +7282,8 @@ It checks for solid stones being on top of it and auto closes accordingly.
 The state as visible and responsible for the actor ability to pass.
 @item @b{flavor}, @ @ @i{values}: @code{"gc"}, @code{"bw"}, @code{"bn"}; @ @ @i{default}: @code{"gc"}
 The type of the bridge.
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
 @end table
 
 @item @b{Messages:}
@@ -7063,6 +7313,149 @@ explicit state if a solid stone currently covers the bridge.
 @item @b{fl_bridge_bn} flavor = @code{"bn"}
 @end table
 
+@end table
+
+@c ----------------- Fake Floor --------------------
+@node fl_fake
+@subsection fl_fake
+@obindex fl_fake
+
+A floor that mimics other floors, but does not act like them.
+
+In contrast to @ref{fl_abyss} the fake abyss is just a standard floor that lets
+pass any actor without any harm.
+
+A fake trigger looks similar to an @ref{it_trigger} but is just a standard floor
+without any special features.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{flavor}, @ @ @i{values}: @code{"abyss"}, @code{"trigger"}; @ @ @i{default}: @code{"abyss"}; @ @ @i{access}: @code{none}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_fake_abyss}: flavor = @code{"abyss"}
+@item @b{fl_fake_trigger}: flavor = @code{"trigger"}
+@end table
+@end table
+
+@c ----------------- Hay Floor --------------------
+@node fl_hay
+@subsection fl_hay
+@obindex fl_hay
+
+A hay floor is in most aspects a standard floor, that exists in a framed
+variation, too.
+
+The framed variant is the successor of a fallen @ref{st_box}_hay. It may be
+flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
+set to @samp{true} as the flood passes below this floor. The framed wood 
+acts like a bridge over a flood stream and the water will continue to spread to
+neighboring grids, while the framed wood is still passable for actors. In fact
+a framed wood can even operate as a flood source, but we do not recommend this
+usage. @pxref{Flood Spreading}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{FLOODING}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.2}
+Number of seconds .
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_hay}
+@item @b{fl_hay_framed}: faces = @code{"nesw"}
+@end table
+@end table
+
+@c ----------------- Ice Floor --------------------
+@node fl_ice
+@subsection fl_ice
+@obindex fl_ice
+
+An ice floor is very slippery frozen water. The user can increase the effective
+friction by carrying an @ref{it_pin} in the players inventory.
+
+Ice is a standard floor in most aspects. But an @ref{it_dynamite} will leave
+an @ref{it_crack}_water instead of a meditation hollow, and nearby fire heat
+will melt the ice to @ref{fl_water}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.1 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.1 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_ice}
+@end table
+@end table
+
+@c ----------------- Inverse Floor --------------------
+@node fl_inverse
+@subsection fl_inverse
+@obindex fl_inverse
+
+Inverse floors accelerate all actors into the opposite direction of the applied
+mouse input force. In all other aspects they are just standard floors.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: -2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{flavor}, @ @ @i{values}: @code{"white"}, @code{"gray"}; @ @ @i{default}: @code{"white"}; @ @ @i{access}: @code{none}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_inverse}: flavor = @code{"white"}
+@item @b{fl_inverse_white}: flavor = @code{"white"}
+@item @b{fl_inverse_gray}: flavor = @code{"gray"}
+@end table
+@end table
+
+@c ----------------- Rock Floor --------------------
+@node fl_rock
+@subsection fl_rock
+@obindex fl_rock
+
+A rock floor is in most aspects a standard floor, that exists in a framed
+variation, too.
+
+The framed variant is the successor of a fallen @ref{st_box}_rock. It may be
+flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
+set to @samp{true} as the flood passes below this floor. The framed wood 
+acts like a bridge over a flood stream and the water will continue to spread to
+neighboring grids, while the framed wood is still passable for actors. In fact
+a framed wood can even operate as a flood source, but we do not recommend this
+usage. @pxref{Flood Spreading}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{FLOODING}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.2}
+Number of seconds .
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.2 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.5 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_rock}
+@item @b{fl_rock_framed}: faces = @code{"nesw"}
+@end table
 @end table
 
 @c ----------------- Slope Floor --------------------
@@ -7119,6 +7512,8 @@ not automatically assign the proper @samp{slope}.
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{25.0} @ @ @xref{SlopeStrength}
 @item @b{force_x} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0}
 @item @b{force_y} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0}
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
 
 @end table
 
@@ -7155,6 +7550,36 @@ not automatically assign the proper @samp{slope}.
 
 @end table
 
+@c ----------------- Swamp Floor --------------------
+@node fl_swamp
+@subsection fl_swamp
+@obindex fl_swamp
+
+A swamp is very sticky floor caused by a high friction. Additionally ball like
+actors will sink in swamp. But the sink speed is limited and gives the user
+a certain time, defined by the global attribute @ref{SwampSinkTime}. When
+an actor moves faster than 6 grids per second, the actor start raising out of 
+the swamp. Jumping in a swamp raises an actor, too.
+
+A swamp is indestructible to the aspect that @ref{it_crack} will not spread
+onto it. But fire starting to burn nearby will dry out the swamp to 
+@ref{fl_dunes}. A swamp itself may be a succesor of a @ref{fl_water} heated by 
+a fire.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 13.0 @ @ @xref{friction}
+@item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_swamp}
+@end table
+@end table
+
 @c ----------------- Thief Floor --------------------
 @node fl_thief
 @subsection fl_thief
@@ -7182,10 +7607,157 @@ If the thief has not stolen any items he leaves no empty bag.
 
 @table @asis
 @item @b{Attributes:} none
+@table @asis
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@end table
 
 @item @b{Messages:} none
 
 @item @b{Action:}  none
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_thief}
+@end table
+@end table
+
+@c ----------------- Water Floor --------------------
+@node fl_water
+@subsection fl_water
+@obindex fl_water
+
+Besides @ref{fl_abyss} water is the second natural floor barrier for ball like
+actors as they can not easily pass it. 
+
+@ref{ac_marble} and @ref{ac_pearl} will sink in water, usually at once, but the 
+time amount can be configured by the global attribute @ref{WaterSinkTime}. 
+Unlike @ref{fl_swamp} water does not raise fast moving actors. But jumping 
+within water raises an actor. Jumping completely over a water chasm is of course
+a more standard way to cross it. Actors protected by an activated 
+@ref{it_umbrella} can pass and even move on water without restrictions.
+
+Some stones fall into water, too. @ref{st_box} will build floors on which all
+actors can move and pass the former water filled grid.
+
+Water itself is indestructible to the aspect that @ref{it_crack} will not spread
+onto it. But fire starting to burn nearby will dry out the water to
+@ref{fl_swamp}.
+
+The standard water is static, its @samp{state} is @samp{IDLE}. It will not 
+spread to adjacent floors. But you can set up flood streams that will fill areas
+or flow through given paths. You just need to define the area by setting the 
+attribute @samp{floodable} to @samp{true} on the affected floors. As soon as you
+add a @samp{fl_water_source} or set the @samp{state} to @samp{FLOODING}, the
+water starts to spread to floodable neigboring grids with a speed defined by the
+attribute @samp{interval}. The speed will be inherited to floors flooded by
+a stream.
+
+Floodable floors with solid stones, closed doors or @ref{st_window} with 
+blocking faces on top will keep the flood from spreading to a new grid. But as
+soon as the obstacle vanishes, e.g. an @ref{st_door} opens, the flood continues
+to spread. Hollow stones, especially @ref{st_oneway} do not block flood streams,
+totally independent of actor blocking features on certain typs or faces.
+
+Of special interest are the @ref{st_box} and their successor floors, the framed
+variants of @ref{fl_wood}, @ref{fl_hay} and @ref{fl_rock}. A flood will flow
+beneath a box stone, if the floor benath is floodable. In consequence of the
+upcoming water, the box stone will fall and build a framed floor of the given
+kind. These floors act like bridges over flooding water. They still let the
+flood spread to further neighboring floodable floors. Thus a user can not stop
+a flood by pushing an @ref{st_box} onto its path, but he can make the water
+passable for his marbles.
+
+When a flood stream spreads to a new floor items on these floors may be affected.
+@ref{it_crack} get flooded and do vanish. All @{it_burnable} besides oil gets
+wiped out, too.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{FLOODING}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.2}
+Number of seconds .
+@item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_water}: state = @code{IDLE}
+@item @b{fl_water_source}: state = @code{FLOODING}
+@end table
+@end table
+
+@c ----------------- Wood Floor --------------------
+@node fl_wood
+@subsection fl_wood
+@obindex fl_wood
+
+A wooden floor is in most aspects a standard floor, that exists in textures
+with horizontal or vertical panels, or random. All textures come in a framed
+variation, too.
+
+The framed variant is the successor of a fallen @ref{st_box}_wood. It may be
+flooded by a @ref{fl_water} stream without the attribute @samp{floodable} being
+set to @samp{true} as the flood passes below this floor. The framed wood 
+acts like a bridge over a flood stream and the water will continue to spread to
+neighboring grids, while the framed wood is still passable for actors. In fact
+a framed wood can even operate as a flood source, but we do not recommend this
+usage. @pxref{Flood Spreading}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{FLOODING}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{0.2}
+Number of seconds .
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_wood}: texture = random
+@item @b{fl_wood_h}: texture = @code{"h"}
+@item @b{fl_wood_v}: texture = @code{"v"}
+@item @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
+@item @b{fl_wood_h_framed}: texture = @code{"h"}, faces = @code{"nesw"}
+@item @b{fl_wood_v_framed}: texture = @code{"v"}, faces = @code{"nesw"}
+@end table
+@end table
+
+@c ----------------- Yinyang Floor --------------------
+@node fl_yinyang
+@subsection fl_yinyang
+@obindex fl_yinyang
+
+A floor that lets move just actors assigned to one player. A basic floor color
+of dark gray corresponds to @samp{YIN} and lets accelerate just actors that
+are controlled by this first player. White colored yinyang floors correspond
+to @samp{YANG} and let accelerate just actors controlled by this second player.
+
+The floor image with 4 rivets in the corners shows an additional yinyang symbol
+to visualize that not the color of the actor is essential but the controlling
+player. In large areas of this floor this symbol is disturbing and it can be
+switched off by the attribute @samp{invisible}.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{YIN}, @code{YANG}; @ @ @i{default}: @code{YIN} @ @ @xref{state}
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.2 @ @ @xref{friction}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{fl_yinyang}: state = @code{YIN}
+@item @b{fl_yinyang_yin}: state = @code{YIN}
+@item @b{fl_yinyang_yang}: state = @code{YANG}
+@end table
 @end table
 
 @c ===================  Items  =======================
@@ -7215,21 +7787,33 @@ If the thief has not stolen any items he leaves no empty bag.
 @menu
 * it_bag::             Portable Item Container
 * it_banana::          Transformable Banana
+* it_bomb::            -
+* it_bottle::          -
 * it_brake::           Portable Stone Brake
 * it_brush::           Brush for Painting and Sweeping
 * it_cherry::          Source of Invisibility
+* it_coffee::          Cup of Coffee
 * it_coin::            Enigma's currency
-* it_extralife::       
+* it_document::        Readable Text Document
+* it_drop::            -
+* it_dynamite::        -
+* it_extinguisher::    -
+* it_extralife::       Another Life or Glasses
+* it_flag::            -
 * it_floppy::          Lock opening uncoded Floppy
 * it_glasses::         Glasses to spot certain objects
 * it_hammer::          Stone breaking Hammer
 * it_key::             Lock opening coded Key
 * it_magicwand::       Wizards Tools
+* it_pencil::          Pencil to mark Objects
 * it_pin::             Friction increasing crampon
-* it_pipe::            
+* it_pipe::            Pipe for Transmissions
 * it_puller::          Stone pulling item
+* it_ring::            -
 * it_rubberband::      Unconnected Rubberband
 * it_seed::            Seeds for Wood, Volcano Stones
+* it_spade::           Shuffle for Meditation flattening
+* it_spoon::           -
 * it_spring::          Portable Spring
 * it_surprise::        Random Transforming item
 * it_sword::           Knight defeating Sword
@@ -7418,6 +8002,20 @@ When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 @item @b{Messages:} none
 @end table
 
+@c ----------------- Coffee Item --------------------
+@node it_coffee
+@subsection it_coffee
+@obindex it_coffee
+
+A totally passiv cup of coffee. It can be picked up and be dropped many times.
+It blocks laser light, prohibits @ref{it_crack} spreading but it burns on fire
+and is blown away on @ref{it_bomb} explosions. 
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
+@end table
+
 @c ----------------- Coin Item --------------------
 @node it_coin
 @subsection it_coin
@@ -7462,6 +8060,36 @@ A medium coin.
 A large coin.
 @end table
 
+@end table
+
+@c ----------------- Document Item --------------------
+@node it_document
+@subsection it_document
+@obindex it_document
+
+This item looks like a piece of paper and contains a text message that can be
+displayed by activating the item. It is destroyed by explosions from 
+@ref{it_bomb}, @ref{st_dispenser}, @ref{it_dynamite} and by burning fire.
+
+@table @asis
+
+@item @b{Attributes:}
+@table @asis
+@item @b{text}, @ @ @i{values}: string;
+Either the text to be displayed or just a key word for identification on
+@ref{Internationalization (i18n)}.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{ignite}
+Burn and destroy the document.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_document}
+@end table
 @end table
 
 @c ----------------- Extralife Item --------------------
@@ -7663,7 +8291,7 @@ be activated at all. Any existing item on the floor does prevent a pencil
 application, too. The actor can only mark a floor if it is on the floor and not
 flying. During a jump an actor will just drop the pencil as an item.
 
-On actor hits with a revealed pencil on a @ref{flat} the stones gets marked
+On actor hits with a revealed pencil on a @ref{st_flat} the stones gets marked
 burnable. Again the pencil is consumed on this operation. Both the plain and
 the movable variants can be marked.
 
@@ -7884,6 +8512,25 @@ Start growing the seed.
 
 @end table
 
+@c ----------------- Spade Item --------------------
+@node it_spade
+@subsection it_spade
+@obindex it_spade
+
+A spade activated while being on the grid position of an @ref{it_meditation}
+will flatten this by one degree and will finally eliminate it completly.
+
+@table @asis
+@item @b{Attributes:} none
+@item @b{Messages:} none
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_spade}
+@end table
+
+@end table
+
 @c ----------------- Spring Item --------------------
 @node it_spring
 @subsection it_spring
@@ -8094,9 +8741,11 @@ to be controlled at every point of time.
 
 @menu
 * it_blocker::         Shrinked Blocker Stone
+* it_burnable::        -
 * it_crack::           Crack in the Floor
 * it_cross::           Floor switch for patient Actors
 * it_death::           Unpassable grid blocker
+* it_explosion::       -
 * it_landmine::        
 * it_magnet::          Actor attracting Magnet
 * it_meditation::      
@@ -8434,10 +9083,10 @@ are named according to their shape: @code{MEDITATION_CALDERA},
 @code{MEDITATION_HOLLOW}, @code{MEDITATION_DENT}, @code{MEDITATION_BUMP},
 @code{MEDITATION_HILL}, @code{MEDITATION_VOLCANO}.
 
-Of special interest are @ref{ac_marble_meditation}s resting on a meditation
-item. They are counted as meditating after staying continuously for one second
-within the round area of the item. One of the two @ref{Ending Conditions} of the
-game is that all meditation marbles come to rest on mediation items.
+Of special interest are @ref{ac_pearl}s resting on a meditation item. They are
+counted as meditating after staying continuously for one second within the round
+area of the item. One of the two @ref{Ending Conditions} of the game is that all
+meditation marbles come to rest on mediation items.
 
 As meditation items can dynamically be generated during the game by exploding
 @ref{it_landmine} or @ref{it_dynamite} it may be necessary for an author to
@@ -8449,7 +9098,7 @@ distinguish essential from not essential meditation items by their images.
 Meditation items can transform into other shapes by various means.
 
 First a user can push a solid stone over a meditation item or activate an
-@ref{it_shovel} on it. Both actions flatten the meditation, either
+@ref{it_spade} on it. Both actions flatten the meditation, either
 @code{MEDITATION_VOLCANO} -> @code{MEDITATION_HILL} -> @code{MEDITATION_BUMP}
 -> @code{it_nil} or @code{MEDITATION_CALDERA} -> @code{MEDITATION_HOLLOW} ->
 @code{MEDITATION_DENT} -> @code{it_nil}.
@@ -8491,7 +9140,7 @@ Deviating adhesion that defaults to floor adhesion.
 @item @b{flip}
 Shape transformation. See text above.
 @item @b{shovel}
-Shape transformation like an activated @ref{it_shovel}. See text above.
+Shape transformation like an activated @ref{it_spade}. See text above.
 @item @b{signal} @ @ @xref{signal}
 Shape transformation. See text above.
 @item @b{toggle}
@@ -13681,7 +14330,7 @@ A flying actor can pass leathal grids with @ref{fl_water}, @ref{fl_abyss},
 even some hollow ones like @ref{st_grate} or @ref{st_oneway}. But some others as 
 @ref{st_door} or hollow @ref{Standard Stones} let flying actos pass.
 
-While flying an actor can not pick any items. But the actor can still drop
+While flying an actor can not pick up any item. But the actor can still drop
 items. Activation of a spring while sinking in @ref{fl_water} or @ref{fl_swamp}
 lets the actor jump immediatly out of them and starts the sinking process from
 scratch anew when landing on such a floor.
@@ -16012,7 +16661,7 @@ security checks by the level author.
 @item @b{Syntax Samples:}
 @example
 wo:shuffleOxyd()
-wo:shuffleOxyd(@{"borderoxyds#*", circular=true@})
+wo:shuffleOxyd(@{no["borderoxyds#*"]:sort("circular"), circular=true@})
 wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0@})
 @end example
 
