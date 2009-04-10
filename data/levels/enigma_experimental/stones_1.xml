@@ -582,6 +582,7 @@ local stones = {
 
 }
 
+wo["FollowMethod"] = FOLLOW_SCROLL
 
 ti[" "] = {"fl_sahara"}
 ti["#"] = {"st_rawglass"}
