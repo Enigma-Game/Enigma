@@ -7669,7 +7669,7 @@ a flood by pushing an @ref{st_box} onto its path, but he can make the water
 passable for his marbles.
 
 When a flood stream spreads to a new floor items on these floors may be affected.
-@ref{it_crack} get flooded and do vanish. All @{it_burnable} besides oil gets
+@ref{it_crack} get flooded and do vanish. All @ref{it_burnable} besides oil gets
 wiped out, too.
 
 @table @asis
