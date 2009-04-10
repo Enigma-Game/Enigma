@@ -456,7 +456,7 @@ namespace enigma {
         BootRegister(new Explosion(2), "it_explosion_crack");
         BootRegister(new Explosion(3), "it_explosion_debris");
         BootRegister(new FlagItem(0), "it_flag");
-        BootRegister(new FlagItem(0), "it_flag_ying");
+        BootRegister(new FlagItem(0), "it_flag_yin");
         BootRegister(new FlagItem(1), "it_flag_yang");
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");

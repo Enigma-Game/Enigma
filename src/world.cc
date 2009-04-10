@@ -1297,7 +1297,6 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2)
             V2 force = (restitution * dmu * relspeed / ActorTimeStep) * n;
             a1.collforce += force;
             a2.collforce -= force;
-
             if (!has_nearby_contact (a1.last_contacts, a1.last_contacts_count, 
                     contact)) {
                 double volume = length (force) * ActorTimeStep;
