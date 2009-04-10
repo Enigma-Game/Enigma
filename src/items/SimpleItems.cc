@@ -19,7 +19,7 @@
  */
 
 #include "items/SimpleItems.hh"
-//#include "errors.hh"
+#include "errors.hh"
 #include "Inventory.hh"
 //#include "main.hh"
 #include "player.hh"
@@ -155,7 +155,7 @@ namespace enigma {
             if (state == 1)
                 replace("it_meditation_hollow");
             else if (state == 2)
-                replace("it_crack_m");
+                replace("it_crack_m_water");
             else
                 replace("it_debris");
         else
@@ -177,28 +177,34 @@ namespace enigma {
 /* -------------------- Flag -------------------- */
 
     FlagItem::FlagItem(int type) {
-        Item::setAttr("color", type);
+        state = type;
     }
     
     std::string FlagItem::getClass() const {
         return "it_flag";
     }
 
+    void FlagItem::setState(int extState) {
+        // need to check for traits index usage
+        ASSERT(extState <= 1 && extState >= 0, XLevelRuntime, "Flag Item - illegal state");
+        Item::setState(extState);
+    }
+    
     void FlagItem::on_drop(Actor *a) {
-        player::SetRespawnPositions(get_pos(), getAttr("color"));
+        player::SetRespawnPositions(get_pos(), state);
     }
     
     void FlagItem::on_pickup(Actor *a) {
-        player::RemoveRespawnPositions(getAttr("color"));
+        player::RemoveRespawnPositions(state);
     }
     
     int FlagItem::traitsIdx() const {
-        return getAttr("color");
+        return state;
     }
     
     ItemTraits FlagItem::traits[2] = {
-        {"it_flag_black", it_flag_black,  itf_none, 0.0},
-        {"it_flag_white", it_flag_white,  itf_none, 0.0},
+        {"it_flag_yin", it_flag_yin,  itf_none, 0.0},
+        {"it_flag_yang", it_flag_yang,  itf_none, 0.0},
     };
 
 /* -------------------- Pencil -------------------- */
@@ -227,7 +233,7 @@ namespace enigma {
             if (floor == "fl_abyss" || floor == "fl_water" || floor == "fl_swamp" || floor == "fl_bridge" ) {
                 return ITEM_KEEP;
             } else if (floor == "fl_ice") {
-                SetItem(p, MakeItem("it_crack_s"));
+                SetItem(p, MakeItem("it_crack_s_water"));
             } else {
                 Item *newItem = MakeItem("it_cross");
                 transferIdentity(newItem);
@@ -450,8 +456,8 @@ namespace enigma {
         BootRegister(new Explosion(2), "it_explosion_crack");
         BootRegister(new Explosion(3), "it_explosion_debris");
         BootRegister(new FlagItem(0), "it_flag");
-        BootRegister(new FlagItem(0), "it_flag_black");
-        BootRegister(new FlagItem(1), "it_flag_white");
+        BootRegister(new FlagItem(0), "it_flag_ying");
+        BootRegister(new FlagItem(1), "it_flag_yang");
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");

@@ -369,6 +369,7 @@ namespace enigma {
             case BUBBLING:
                 GrabActor(this);
         //         sound::PlaySound("drown");
+                m_invisible_rest_time = 0;
                 set_anim("ac-drowned");
                 break;
             case FALLING:

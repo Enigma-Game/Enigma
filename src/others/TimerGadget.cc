@@ -25,6 +25,7 @@
 
 namespace enigma {
     TimerGadget::TimerGadget() : Other() {
+        state = ON;
     }
     
     TimerGadget::~TimerGadget() {

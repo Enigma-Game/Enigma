@@ -45,7 +45,7 @@ namespace enigma {
         };
 
     public:
-        Crack(int type);
+        Crack(int type, bool isWater =false);
         
         // Object interface
         virtual std::string getClass() const;

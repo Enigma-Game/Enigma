@@ -25,8 +25,10 @@
 
 namespace enigma {
 
-    Crack::Crack(int type) {
+    Crack::Crack(int type, bool isWater) {
         state = type;
+        if (isWater)
+            objFlags |= OBJBIT_TYP;
     }
     
     std::string Crack::getClass() const {
@@ -159,7 +161,9 @@ namespace enigma {
         BootRegister(new Crack(0),  "it_crack");
         BootRegister(new Crack(-1), "it_crack_i");
         BootRegister(new Crack(0),  "it_crack_s");
+        BootRegister(new Crack(0, true),  "it_crack_s_water");
         BootRegister(new Crack(1),  "it_crack_m");
+        BootRegister(new Crack(1, true),  "it_crack_m_water");
         BootRegister(new Crack(2),  "it_crack_l");
     BOOT_REGISTER_END
 

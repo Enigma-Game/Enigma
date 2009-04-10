@@ -612,14 +612,12 @@
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
     <object name="it_floppy"/>
-    <object name="it_flag">
-      <attr name="color"/>
+    <object name="it_flag"/>
+    <object name="it_flag_yin">
+      <attr name="state" value="0"/>
     </object>
-    <object name="it_flag_black">
-      <attr name="color" value="0"/>
-    </object>
-    <object name="it_flag_white">
-      <attr name="color" value="1"/>
+    <object name="it_flag_yang">
+      <attr name="state" value="1"/>
     </object>
     <object name="it_glasses">
       <attr name="state" max="31"/>
