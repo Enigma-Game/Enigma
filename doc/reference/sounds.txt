@@ -2,10 +2,11 @@ Sound events in Enigma
 ----------------------
 
 ballcollision
-blackbomb
 blockerdown
 blockerup
-booze
+bomb_black
+bomb_white
+bottle
 bumper
 cloth               
 coinslotoff
@@ -20,7 +21,6 @@ exit                player loses
 extinguish
 fakeoxyd
 falldown
-fart
 finished            player finishes level
 glass               
 impulse
@@ -48,6 +48,7 @@ oxydopened
 pickup
 puller
 puzzlerotate
+quake
 rubberband
 scissors
 seedgrow
@@ -80,7 +81,6 @@ unlock
 vortexclose
 vortexopen
 warp
-whitebomb
 wood                
 yinyang
 

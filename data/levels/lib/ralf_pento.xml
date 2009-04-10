@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/ralf_pento"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © Dec 2004 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -350,7 +350,7 @@ end
 function spawn()
    local n=getn(unspawned)
    if (n==0) then
-      do_sound("fart")
+      do_sound("quake")
       return 0
    end
 
@@ -404,7 +404,7 @@ function sw_spawn()
          spawn()
          do_sound("stonetransform")
       else
-         do_sound("fart")
+         do_sound("quake")
       end
    end
 end
@@ -434,7 +434,7 @@ function sw_rot()
          spawnstate(centeredstate(state),ws)
          do_sound("stonetransform")
       else
-         do_sound("fart")
+         do_sound("quake")
       end
    end
 end
@@ -495,7 +495,7 @@ function sw_kill()
       count = count + hammer(x,y-1)
       count = count + hammer(x,y+1)
       if (count>0) then
-         do_sound("whitebomb")
+         do_sound("bomb_white")
       end
    end
 end

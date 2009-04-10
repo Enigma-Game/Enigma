@@ -58,13 +58,13 @@ namespace enigma {
         if ((state == IDLE && extState == 2) || (state == ACTIVEBREAKING && extState == 0)) {
             state = BREAKING;
             if (isDisplayable()) {
-                fart();
+                quake();
                 sound_event("stonedestroy");
             }
         } else if (state == IDLE && extState == ACTIVE) {
             state = ACTIVE;
             if (isDisplayable())            
-                fart();
+                quake();
         } else if (state == ACTIVE && extState == IDLE) {
             state = IDLE;
         } else if (state == ACTIVE && extState == BREAKING) {
@@ -103,10 +103,10 @@ namespace enigma {
             setState(ACTIVE);
     }
     
-    void QuakeStone::fart() {
+    void QuakeStone::quake() {
         Object *ox = GetObjectTemplate("st_oxyd");
         SendMessage(ox, "closeall");
-        sound_event("fart");
+        sound_event("quake");
     }
     
         

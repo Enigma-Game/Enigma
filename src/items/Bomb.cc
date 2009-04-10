@@ -117,7 +117,7 @@ namespace enigma {
     void Bomb::explode() {
         GridPos p = get_pos();
         Value vc = getAttr("color");
-        sound_event(vc == BLACK ? "blackbomb" : "whitebomb");
+        sound_event(vc == BLACK ? "bomb_black" : "bomb_white");
         SendExplosionEffect(p, vc == BLACK ? EXPLOSION_BLACKBOMB : EXPLOSION_WHITEBOMB);  // may kill the bomb by another explosion1 set by brake
         replace("it_explosion_debris");
     }

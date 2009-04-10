@@ -36,7 +36,7 @@ default_sound = { name = "",
                   damp_tick = 0.9,
                   silence_string = "$default$" }
 
--- Complete a sound definition
+-- Complete a sound effect definition with name 'k' and info 't'
 function complete_sound(k, t)
     local tt = {}
     if type(t) == "string" then
@@ -75,11 +75,13 @@ function copy_missing (t1, t2)
 end
 
 -- Add a new sound set
-function AddSoundSet (tablename, t)
-    for key, value in pairs(t) do
-        r = complete_sound(key, value)  -- completed data set
-        sound.DefineSoundEffect(tablename, key, r.file, r.volume, r.loop,
-            r.global, r.priority, r.damp_max, r.damp_inc, r.damp_mult,
+function AddSoundSet (soundtable_name, soundtable)
+    for soundeffect_name, soundeffect_info in pairs(soundtable) do
+        local soundeffect_name_api2 = soundtable_renamings_api1_to_api2[soundeffect_name] or soundeffect_name
+        local r = complete_sound(soundeffect_name_api2, soundeffect_info)  -- completed data set
+        print(soundeffect_name.." -> "..soundeffect_name_api2)
+        sound.DefineSoundEffect(soundtable_name, soundeffect_name_api2, r.file, r.volume,
+            r.loop, r.global, r.priority, r.damp_max, r.damp_inc, r.damp_mult,
             r.damp_min, r.damp_tick, r.silence_string)
     end
 end
@@ -93,9 +95,12 @@ end
 function Sound (t)  return t  end
 AddSoundTable = AddSoundSet
 
----------------------------------
--- Definition of sound effects --
----------------------------------
+soundtable_renamings_api1_to_api2 = {
+    blackbomb = "bomb_black",
+    booze = "bottle",
+    fart = "quake", 
+    whitebomb = "bomb_white",
+}
 
 ------------------------
 -- Enigma Sound table --
@@ -106,10 +111,11 @@ AddSoundTable = AddSoundSet
 soundtable_enigma = {
     [""]           = "",        -- empty sound
     ballcollision  = "enigma/ballcollision",
-    blackbomb      = "enigma/explosion1",
     blockerdown    = "",
     blockerup      = "",
-    booze          = "",
+    bomb_black      = "enigma/explosion1",
+    bomb_white      = "enigma/explosion1",
+    bottle         = "",
     bumper         = "enigma/bumper",
     cloth          = { file="enigma/st-thud", damp_max = 4.0 },
     coinslotoff    = "",
@@ -124,7 +130,6 @@ soundtable_enigma = {
     extinguish     = "",
     fakeoxyd       = { file="enigma/st-fakeoxyd", volume=0.3 },
     falldown       = "enigma/falldown",   -- missing, unused (falling is shatter!)
-    fart           = "enigma/fart",
     finished       = { file="enigma/finished", global=true },  -- missing
     floordestroy   = "",
     fourswitch     = "enigma/st-switch", 
@@ -155,11 +160,12 @@ soundtable_enigma = {
     moveslow       = "enigma/st-move",
     movesmall      = { file="enigma/st-move", damp_max = 10.0, damp_inc = 2.0 },
     oxydclose      = "enigma/st-oxydclose",  -- missing, not neccessary I think
-    oxydopen       = { file="enigma/st-oxydopen", damp_max = 2000.0, damp_inc = 50.0 },
+    oxydopen       = { file="enigma/st-oxydopen", damp_max = 200.0, damp_inc = 5.0 },
     oxydopened     = "enigma/st-oxydopened",
     pickup         = { file="enigma/pickup", global=true },
     puller         = "",
     puzzlerotate   = "enigma/st-move",
+    quake          = "enigma/quake",
     rubberband     = "enigma/boing",
     scissors       = "",
     seedgrow       = "enigma/seedgrow",  -- missing
@@ -193,7 +199,6 @@ soundtable_enigma = {
     vortexclose    = "enigma/doorclose", -- missing
     vortexopen     = "enigma/dooropen",  -- missing
     warp           = "enigma/warp",      -- missing, maybe suck2?
-    whitebomb      = "enigma/explosion1",
     wood           = "enigma/wood",
     yinyang        = "enigma/st-magic",
 }
@@ -201,10 +206,11 @@ soundtable_enigma = {
 soundtable_silent = {
     [""]           = "",        -- empty sound
     ballcollision  = { silence_string = "tack" },
-    blackbomb      = { silence_string = "KABOOM!" },
     blockerdown    = "",
     blockerup      = "",
-    booze          = "",
+    bomb_black     = { silence_string = "KABOOM!" },
+    bomb_white     = { silence_string = "KABOOOOM!!" },
+    bottle         = "",
     bumper         = { silence_string = "Doinc" },
     cloth          = { silence_string = "bump" },
     coinslotoff    = "",
@@ -219,7 +225,6 @@ soundtable_silent = {
     extinguish     = { silence_string = "pfff..." },
     fakeoxyd       = { silence_string = "ding-dang" },
     falldown       = "",
-    fart           = { silence_string = "Prfft!" },
     finished       = { silence_string = "Finished!" },
     floordestroy   = { silence_string = "CrraaACK!" },
     fourswitch     = { silence_string = "Clihick" }, 
@@ -255,6 +260,7 @@ soundtable_silent = {
     pickup         = { silence_string = "pick" },
     puller         = "",
     puzzlerotate   = { silence_string = "rot-rot" },
+    quake          = { silence_string = "grummel" },
     rubberband     = { silence_string = "Boing!" },
     scissors       = "",
     seedgrow       = { silence_string = "krk...krk" },
@@ -288,7 +294,6 @@ soundtable_silent = {
     vortexclose    = "",
     vortexopen     = "",
     warp           = "",
-    whitebomb      = { silence_string = "KABOOOOM!!" },
     wood           = { silence_string = "dok" },
     yinyang        = { silence_string = "Tradim!" },
 }
@@ -296,10 +301,11 @@ soundtable_silent = {
 soundtable_oxyd = {
     [""]           = "",        -- empty sound
     ballcollision  = "OXKLICK3.SDD",
-    blackbomb      = "OXCRASH2.SDD",
     blockerdown    = "",
     blockerup      = "",
-    booze          = "",
+    bomb_black     = "OXCRASH2.SDD",
+    bomb_white     = "OXCRASH2.SDD",
+    bottle         = "",
     bumper         = "OXWOUOU.SDD",
     cloth          = "OXKLICK4.SDD",
     coinslotoff    = "",
@@ -314,7 +320,6 @@ soundtable_oxyd = {
     extinguish     = "",
     fakeoxyd       = "",
     falldown       = "",
-    fart           = "OXUNTITL.SDD",
     finished       = { file="OXFINITO.SDD", global=true },
     floordestroy   = "OXCRASH2",
     fourswitch     = "",
@@ -345,6 +350,7 @@ soundtable_oxyd = {
     pickup         = "OXINVENT.SDD",
     puller         = "OXPULLER.SDD",
     puzzlerotate   = "OXMOVE.SDD",
+    quake          = "OXUNTITL.SDD",
     rubberband     = "OXBOING.SDD",
     scissors       = "OXCUT.SDD",
     seedgrow       = "",
@@ -378,7 +384,6 @@ soundtable_oxyd = {
     vortexclose    = "OXMOTOR.SDD",
     vortexopen     = "OXMOTOR.SDD",
     warp           = "OXTRANS.SDD",
-    whitebomb      = "OXCRASH2.SDD",
     wood           = "OXKLICK1.SDD",
     yinyang        = "OXMAGIC.SDD",
 }    

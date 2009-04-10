@@ -1113,7 +1113,7 @@ namespace enigma {
                     if ((int)getAttr("oxydcolor") == QUAKE) {
                         closeAllStandardOxyds();
                         didQuake = true;
-                        sound_event("fart");
+                        sound_event("quake");
                     } else if ((int)getAttr("oxydcolor") == BOLD) {
                         sound_event("shuffle");
                     }

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/andreas_itemfreeze"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -254,7 +254,7 @@ function itemfreeze_shatter(j)
     local pos_y = itemfreeze_pos_y[j]
     local mystone = enigma.GetNamedObject("st-itemfreeze_"..tostring(j))
     if mystone ~= nil then
-      enigma.EmitSound(mystone, "whitebomb")
+      enigma.EmitSound(mystone, "bomb_white")
       kill_stone(pos_x, pos_y)
     end
     if itemfreeze_savedfloor[j] ~= "" then

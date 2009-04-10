@@ -63,7 +63,7 @@ namespace enigma {
         virtual void actor_hit(const StoneContact &sc);
 
     private:
-        void fart();
+        void quake();
     };
 
 } // namespace enigma
