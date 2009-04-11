@@ -150,10 +150,8 @@ namespace enigma {
         
         // Object interface
         virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
         
-        // StateObject interface
-        virtual void setState(int extState);
-
         // Item interface
         virtual void on_drop(Actor *a);
         virtual void on_pickup(Actor *a);

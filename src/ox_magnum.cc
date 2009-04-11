@@ -315,8 +315,8 @@ const char* oxyd::oxydmag_item_map[256] = {
     "it_key_c",         // OxydMagnum item 0x16
     "it_floppy",        // OxydMagnum item 0x17
     "it_sword",         // OxydMagnum item 0x18
-    "it_flag_yang",     // OxydMagnum item 0x19
-    "it_flag_yin",      // OxydMagnum item 0x1a
+    "it_flag_white",    // OxydMagnum item 0x19
+    "it_flag_black",    // OxydMagnum item 0x1a
     "it_ring",          // OxydMagnum item 0x1b
     "it_pipe_nw",       // OxydMagnum item 0x1c
     "it_pipe_sw",       // OxydMagnum item 0x1d

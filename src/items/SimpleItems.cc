@@ -177,34 +177,35 @@ namespace enigma {
 /* -------------------- Flag -------------------- */
 
     FlagItem::FlagItem(int type) {
-        state = type;
+        Item::setAttr("color", type);
     }
     
     std::string FlagItem::getClass() const {
         return "it_flag";
     }
-
-    void FlagItem::setState(int extState) {
-        // need to check for traits index usage
-        ASSERT(extState <= 1 && extState >= 0, XLevelRuntime, "Flag Item - illegal state");
-        Item::setState(extState);
-    }
     
+    void FlagItem::setAttr(const string& key, const Value &val) {
+        if (key == "color") {
+            if ((int)val < 0 || (int)val > 1)
+                return;
+        }
+        Item::setAttr(key, val);
+    }        
     void FlagItem::on_drop(Actor *a) {
-        player::SetRespawnPositions(get_pos(), state);
+        player::SetRespawnPositions(get_pos(), getAttr("color"));
     }
     
     void FlagItem::on_pickup(Actor *a) {
-        player::RemoveRespawnPositions(state);
+        player::RemoveRespawnPositions(getAttr("color"));
     }
     
     int FlagItem::traitsIdx() const {
-        return state;
+        return getAttr("color");
     }
     
     ItemTraits FlagItem::traits[2] = {
-        {"it_flag_yin", it_flag_yin,  itf_none, 0.0},
-        {"it_flag_yang", it_flag_yang,  itf_none, 0.0},
+        {"it_flag_black", it_flag_black,  itf_none, 0.0},
+        {"it_flag_white", it_flag_white,  itf_none, 0.0},
     };
 
 /* -------------------- Pencil -------------------- */
@@ -398,7 +399,9 @@ namespace enigma {
                     BroadcastMessage("_update_mass", owner, GRID_NONE_BIT, true);
                 }
             }
+            return;
         }
+        Item::setAttr(key, val);
     }        
         
     void Weight::setOwner(int player) {
@@ -456,8 +459,8 @@ namespace enigma {
         BootRegister(new Explosion(2), "it_explosion_crack");
         BootRegister(new Explosion(3), "it_explosion_debris");
         BootRegister(new FlagItem(0), "it_flag");
-        BootRegister(new FlagItem(0), "it_flag_yin");
-        BootRegister(new FlagItem(1), "it_flag_yang");
+        BootRegister(new FlagItem(0), "it_flag_black");
+        BootRegister(new FlagItem(1), "it_flag_white");
         BootRegister(new Floppy(), "it_floppy");
         BootRegister(new MagicWand(), "it_magicwand");
         BootRegister(new Key(), "it_key");
