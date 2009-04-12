@@ -47,11 +47,11 @@ namespace enigma {
     }
     
     Value Bomb::message(const Message &m) {
-        if (m.message == "ignite"  || m.message == "_explosion"|| m.message == "_cannonball") {
+        if (m.message == "ignite"  || m.message == "_explosion") {
             if (isDisplayable())
                 burn();
             return Value();
-        } else if (m.message == "explode" ) {
+        } else if (m.message == "explode" || m.message == "_cannonball") {
             if (isDisplayable())
                 explode();
             return Value();

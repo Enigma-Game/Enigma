@@ -129,7 +129,7 @@ namespace enigma {
                 return true;
             }
             else if (m.message == "_booze") {
-                m_drunk_rest_time += 5.0; // Drunken for 5 more seconds
+                m_drunk_rest_time += (int)m.value; // Drunken for 5 more seconds
                 return true;
             }
         }

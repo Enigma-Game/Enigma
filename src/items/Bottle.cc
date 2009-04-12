@@ -19,8 +19,10 @@
  */
 
 #include "items/Bottle.hh"
+#include "client.hh"
 //#include "errors.hh"
 //#include "main.hh"
+#include "lev/Proxy.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -63,8 +65,18 @@ namespace enigma {
     }
     
     ItemAction Bottle::activate(Actor *a, GridPos) {
-        if (state == IDLE) {
-            if (!SendMessage(a, "_booze").to_bool())
+        if (Value v = getAttr("text")) {
+            std::string txt(v);
+            lev::Proxy *level = lev::Proxy::loadedLevel();
+            // after complete switch to Proxy as levelloader the following
+            // conditional can be abolished
+            if (level)
+                // translate text
+                txt = level->getLocalizedString(txt);
+            client::Msg_ShowText(txt, true);
+            return ITEM_KILL;          // remove from inventory
+        } else if (state == IDLE) {
+            if (!SendMessage(a, "_booze", getAttr("interval")).to_bool())
                 return ITEM_KEEP;
         }
         return ITEM_DROP;

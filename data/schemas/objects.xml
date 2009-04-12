@@ -491,6 +491,8 @@
     </object>
     <object name="it_bomb_white_burning" init="true"/>
     <object name="it_bottle">
+      <attr name="interval" default="5"/>
+      <attr name="text"/>
       <msg name="_brush"/>
     </object>
     <object name="it_bottle_idle">

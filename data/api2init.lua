@@ -564,7 +564,7 @@ function res.autotile(subresolver, ...)
     local args = {...}
     for i, rule in ipairs(args) do
         assert_type(rule, "res.autotile argument " .. (i+1) .. " (rule " .. i .. ")", 2, "table")
-        assert_bool((#rule == 2) or (#rule == 3), "res.autotile rule "..i.." has wrong number of arguments (must be 2, 3, or 4).", 2)
+        assert_bool((#rule >= 2) and (#rule <= 4), "res.autotile rule "..i.." has wrong number of arguments (must be 2, 3, or 4).", 2)
         local template_pos = 2
         local string_pos = {1,2}
         if #rule >= 3  then
