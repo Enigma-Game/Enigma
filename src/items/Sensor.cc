@@ -90,7 +90,7 @@ namespace enigma {
     }
     
     void Sensor::actor_enter(Actor *a) {
-        if (!(objFlags & OBJBIT_EXIT)) {        
+        if (!(objFlags & OBJBIT_EXIT) && !a->is_dead()) {        
             if (!(objFlags & OBJBIT_INVISIBLE))
                 set_anim("it_sensor_hit");
             performAction(true);
@@ -98,7 +98,7 @@ namespace enigma {
     }
     
     void Sensor::actor_leave(Actor *a) {
-        if (objFlags & OBJBIT_EXIT) {        
+        if ((objFlags & OBJBIT_EXIT) && !a->is_dead()) {        
             if (!(objFlags & OBJBIT_INVISIBLE))
                 set_anim("it_sensor_exit_hit");
             performAction(true);

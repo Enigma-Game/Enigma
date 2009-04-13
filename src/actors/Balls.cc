@@ -221,6 +221,10 @@ namespace enigma {
     }
     
     void BasicBall::on_respawn (const ecl::V2 &pos) {
+            // notify objects on grid about the death - used by it_trigger, sensor, meditation
+            SendMessage(GetFloor(get_gridpos()), "_dying", false, this);
+            SendMessage(GetItem(get_gridpos()), "_dying", false, this);
+            SendMessage(GetStone(get_gridpos()), "_dying", false, this);
             change_state(APPEARING);
     }
 
@@ -381,6 +385,10 @@ namespace enigma {
                 disable_shield();
                 m_drunk_rest_time = 0;
                 m_invisible_rest_time = 0;
+                // notify objects on grid about the death - used by it_trigger, sensor, meditation
+                SendMessage(GetFloor(get_gridpos()), "_dying", true, this);
+                SendMessage(GetItem(get_gridpos()), "_dying", true, this);
+                SendMessage(GetStone(get_gridpos()), "_dying", true, this);
                 break;
             case JUMPING:
                 sound_event("jump");

@@ -71,6 +71,10 @@ namespace enigma {
         } else if (m.message == "_init") {
             checkActors();
             return Value();
+        } else if (m.message == "_dying" ) {
+            if (whiteball == m.sender && m.value.to_bool() == true)
+                // meditatist left hollow (warp, ...)
+                deregisterWhiteball();            
         } else
             return Item::message(m);
     }
@@ -134,12 +138,12 @@ namespace enigma {
         static const double MINTIME = 1.0;
         ItemID id = get_id(this);
     
-        if (whiteball == NULL && !a->is_flying() && get_id(a) == ac_pearl_white && isMeditating(a)) {
+        if (whiteball == NULL && !a->is_flying() && !a->is_dead() && get_id(a) == ac_pearl_white && isMeditating(a)) {
             // meditatist entered a free hollow
             whiteball  = a;
             enter_time = server::LevelTime;
         } else if (whiteball == a) {
-            if (a->is_flying() || !isMeditating(a)) {
+            if (a->is_flying() || a->is_dead() || !isMeditating(a)) {
                 // meditatist left hollow
                 whiteball = NULL;
                 if (enter_time == -1) {   // meditatist is registered

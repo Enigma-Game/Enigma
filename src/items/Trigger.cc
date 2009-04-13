@@ -51,6 +51,14 @@ namespace enigma {
             return Value();
         } else if (m.message == "_jumping" ) {
             updateIState(m.value.to_bool() ? -1 : +1);
+        } else if (m.message == "_dying" ) {
+            Actor *ac = dynamic_cast<Actor *>(m.sender);
+            if (ac != NULL) {
+                if (m.value.to_bool() && !ac->is_flying())
+                    updateIState(-1);
+                else if (!m.value.to_bool())
+                    updateIState(+1);
+            }
         }
         return Item::message(m);
     }
@@ -79,12 +87,12 @@ namespace enigma {
     }
     
     void Trigger::actor_enter(Actor *a) {
-        if (!a->is_flying())
+        if (!(a->is_flying() || a->is_dead()))
             updateIState(+1, !server::WorldInitialized);
     }
     
     void Trigger::actor_leave(Actor *a) {
-        if (!a->is_flying())
+        if (!(a->is_flying() || a->is_dead()))
             updateIState(-1, !server::WorldInitialized);
     }
     
@@ -94,10 +102,10 @@ namespace enigma {
     
     int Trigger::countActors() {
         std::vector<Actor*> actors;
-        GetActorsInsideField (get_pos(), actors);
+        GetActorsInsideField(get_pos(), actors);
         int count = 0;
-        for (std::vector<Actor*>::iterator it = actors.begin(); it != actors.end(); ++it)
-            if (!(*it)->is_flying()) count++;
+        for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr)
+            if (!((*itr)->is_flying() || (*itr)->is_dead())) count++;
         return count;
     }
     
