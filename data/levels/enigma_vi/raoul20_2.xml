@@ -12,7 +12,7 @@
       <el:score el:easy="-" el:difficult="1:16"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["FrictionFactor"] = 2.5
+wo["FrictionStrength"] = 2.5
 
 ti["  "] = {"fl_fake_abyss"}
 ti["--"] = {"fl_bright"}

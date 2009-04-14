@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Acoustic Reminiscence" el:subtitle="" el:id="andreas25"/>
-      <el:version el:score="1" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="3" el:revision="6" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -57,11 +57,11 @@ end
 
 soundname = {
     ["a"] = "cloth",
-    ["b"] = "blackbomb",
+    ["b"] = "bomb_black",
     ["c"] = "coinsloton",
     ["d"] = "drown",
-    ["e"] = "fakeoxyd",
-    ["f"] = "fart",
+    ["e"] = "quake",
+    ["f"] = "fakeoxyd",
     ["g"] = "",
     ["h"] = "shatter",
     ["i"] = "itemtransform",
@@ -85,7 +85,7 @@ soundname = {
     ["."] = ""  -- this is a forced pause
 }
 
-choosefrom = {"a","b","c","d","e","h","i","j","l","p","q","r","s","w","y"}
+choosefrom = {"a","b","c","d","f","h","i","j","l","p","q","r","s","w","y"}
 
 if wo["IsDifficult"] then
     diffelem = lib.lua.shuffle(choosefrom)

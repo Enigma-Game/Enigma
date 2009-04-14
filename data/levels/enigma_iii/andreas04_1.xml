@@ -306,7 +306,7 @@ if not wo["IsDifficult"] then
   wo[{17, 9}] = {"it_flag_black"}
 end
 
-wo["SlopeForce"] = 30
+wo["SlopeStrength"] = 30
 
 if wo["CreatingPreview"] then
   wo[{4, 11.3}] = {"ac_marble_black"}

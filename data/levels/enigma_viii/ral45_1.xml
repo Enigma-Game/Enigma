@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Inverse Maze II" el:subtitle="Change guaranteed" el:id="20090327ral218"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 170 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="13:00" el:difficult="14:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_wood"}
+ti["."] = {"fl_lawn"}
+ti["*"] = ti["."]
+ti["x"] = {"st_oxyd", target="remaze"}
+ti["@"] = {"#ac_marble"}
+mymaze = res.maze(ti, {area ={" "}, persistent=true, render = {" ", "-", " "}})
+
+wo(mymaze, ".", {
+    ".........................................................",
+    ".@...                                                 ...",
+    ".....                                                 ...",
+    "...                                                     .",
+    "...                                                     .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                         ...                           .",
+    ".                         .x.                           .",
+    ".             ...         ...           ...             .",
+    ".             .x.                       .x.             .",
+    ".             ...                       ...             .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                           ...                         .",
+    ".                           .x.                         .",
+    ".         ...               ...             ...         .",
+    ".         .x.                               .x.         .",
+    ".         ...                               ...         .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                       ...                             .",
+    ".                       .x.                             .",
+    ".         ...           ...                 ...         .",
+    ".         .x.                               .x.         .",
+    ".         ...                               ...         .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".             ...                       ...             .",
+    ".             .x.                       .x.             .",
+    ".             ...         ...           ...             .",
+    ".                         .x.                           .",
+    ".                         ...                           .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    ".                                                       .",
+    "...                                                   ...",
+    "...                                                   ...",
+    "........................................................."
+})
+
+function remaze(value, sender)
+    if value and (sender.state == OXYDPAIR or wo["IsDifficult"]) then
+        up = (sender.y - 1)/2 - 1
+        down = up + 3
+        for j = up, down do
+            updateline(j)
+        end
+        no["timer"]["state"] = ON
+    end
+end
+
+function rekruskal()
+    for cell in mymaze do
+        cell[-EAST] = cell[EAST]
+        cell[-SOUTH] = cell[SOUTH]
+        for dir, opposite in pairs(mymaze.dirs) do
+            if cell[dir] ~= nil then
+                cell[dir] = false
+            end
+        end
+    end
+    lib.maze.generator_kruskal(mymaze)
+end
+
+function updateline(j) 
+    for i = 0, 27 do
+        local cell = mymaze(i,j)
+        if cell then
+            if cell[EAST] ~= cell[-EAST] then
+                if cell[EAST] == true then
+                    wo[cell:pos() + E] = ti[" "]
+                elseif cell[EAST] == false then
+                    wo[cell:pos() + E] = ti["-"]
+                end
+            end
+            if cell[SOUTH] ~= cell[-SOUTH] then
+                if cell[SOUTH] == true then
+                    wo[cell:pos() + S] = ti[" "]
+                elseif cell[SOUTH] == false then
+                    wo[cell:pos() + S] = ti["-"]
+                end
+            end
+        end
+    end
+end
+
+up = -1
+down = 50
+function redraw()
+      up = up - 1
+      if up >= 0 then
+          updateline(up)
+      end
+      down = down + 1
+      if down <= 47 then 
+          updateline(down)
+      end
+      if up < 0 and down > 50 then
+          rekruskal()
+          no["timer"]["state"] = OFF
+      end
+end
+
+wo:shuffleOxyd()
+wo:add({"ot_timer", "timer", target="redraw", state=OFF, interval=0.05, loop=true})
+
+rekruskal()   -- precalculate next maze
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Für Abwechslung ist gesorgt</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

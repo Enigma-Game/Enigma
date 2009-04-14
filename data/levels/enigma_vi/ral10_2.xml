@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Bodyguard" el:subtitle="In the line of thieves" el:id="20060730ral012"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 152 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 161 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -43,12 +43,13 @@ if wo["IsDifficult"] then
     ti["template_outer"] = {"fl_thief", "op%%"}
     ti["template_K"] = ti["#"]
     ti["template_P"] = {"st_key", code="%%", target={"@doorA#*", "@doorB#*"}, action={"kill","kill"}}
+    ti["~"] = {"it_pencil"}
 else
     ti[","] = ti[" "]
     ti["template_outer"] = {"fl_bluegray", "op%%"}
     ti["template_K"] = {"st_key", code="%%", target={"@doorA#*", "@doorB#*"}, action={"kill","kill"}}
     ti["template_P"] = ti["#"]
-
+    ti["~"] = {"it_bottle"}
 end
 
 ti["x"] = {"st_oxyd"}
@@ -64,7 +65,7 @@ w, h = wo(resolver, " ", {
 "#..#2,....H...,5#..#",
 "M..#,####..####,#..K",
 "#..#.#9c.h..c6#.#..#",
-"#.Tk.#.m#bw#l.#.n .#",
+"#.~k.#.m#bw#l.#.nT.#",
 "#..#.#8......7#.#..#",
 "N..#,##########,#..L",
 "#..#3,........,4#..#",

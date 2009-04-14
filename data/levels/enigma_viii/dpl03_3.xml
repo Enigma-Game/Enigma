@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="4 - 8 - 4" el:id="20070821dpl003"/>
-      <el:version el:score="3" el:release="3" el:revision="4" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="5" el:status="released"/>
       <el:author  el:name="Dominik Leipold"/>
       <el:copyright>Copyright © 2008 Dominik Leipold</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,7 @@ local c = strsub( pattern, i, i)
 if c == "o" then
  oxyd(i-1,line)
 elseif c == "+" then
- set_stone ("st-rock3",i-1,line)
+ set_stone ("st-plain",i-1,line)
 elseif c == "=" then
  set_floor ("fl-normal",i-1,line)
 elseif c == "X" then
@@ -116,6 +116,10 @@ end
 create_world (96,61)
 fill_floor ("fl-abyss",0,0,96,61)
 oxyd_default_flavor = "d"
+
+if enigma.CreatingPreview then
+  set_actor("ac-blackball", 76.6, 17.5)
+end
 
 --             012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345
 renderLine(05,"                   +                                                                            ")
@@ -377,27 +381,27 @@ end
 fill_floor ("fl-brick",1,25,18,11)
 --              012345678901234567
 renderLinec(00,"ABBBBBBBBBBBBBBBBC")
-
 if difficult then
 renderLinec(01,"D        OOiOOO  D")
 renderLinec(02,"D       dOOOOOO  D")
 renderLinec(03,"D        QQjQQQ  D")
 renderLinec(04,"D       xOOOOOO  G")
 renderLinec(05,"DX       OOkOOO   ")
-renderLinec(06,"D        QQQOOO  H")
-renderLinec(07,"D        OOQOOO  D")
-renderLinec(08,"D        OOQQQQ  D")
+renderLinec(06,"D        OOOOOO  H")
+renderLinec(07,"D        QQQOOO  D")
+renderLinec(08,"D        OOQOOO  D")
+renderLinec(09,"D        OOQQQQ  D")
 else
 renderLinec(01,"D        OOOOOO  D")
 renderLinec(02,"D        OOOOOO  D")
 renderLinec(03,"D        OOOOOO  D")
 renderLinec(04,"Dd       OOOOOO  G")
-renderLinec(05,"DX       OOOOOO   ")
-renderLinec(06,"Dx          OOO  H")
-renderLinec(07,"D        OO OOO  D")
-renderLinec(08,"D        OO      D")
-end
+renderLinec(05,"DX          OOO   ")
+renderLinec(06,"Dx       OO OOO  H")
+renderLinec(07,"D        OO      D")
+renderLinec(08,"D        OOOOOO  D")
 renderLinec(09,"D        OOOOOO  D")
+end
 renderLinec(10,"EBBBBBBBBBBBBBBBBF")
 --              012345678901234567
 puzzle({"##"," #","##"}, {2,29}, "redpuzzle", "permutation")
@@ -442,6 +446,8 @@ elseif c == "$" then
    set_item ("it-coin4",i,line+37,{value=0.1})
  end
  set_stone ("st-wood",i,line+37)
+elseif c == "d" then
+ set_item("it-document",i,line+37,{text="textd1"})
 end
 end
 end
@@ -453,7 +459,7 @@ renderLined(01,"+==        *=*===+")
 renderLined(02,"+==+ w$+=========+")
 renderLined(03,"+=* ww===*== w = +")
 renderLined(04,"+=== =**===w$w    ")
-renderLined(05,"+=*==*=X*=*+  !==+")
+renderLined(05,"+=*==*=X*=*+   ==+")
 renderLined(06,"+==*============ +")
 renderLined(07,"+  w=  ==*=   +  +")
 renderLined(08,"+ +  + ======*===+")
@@ -462,8 +468,11 @@ renderLined(10,"+++++x++++++++++++")
 --              012345678901234567
 if difficult then
 renderLined(01,"    O    w=       ")
+renderLined(05,"              !   ")
 else
 renderLined(08,"    w             ")
+renderLined(05,"      d           ")
+renderLined(06,"              *   ")
 end
 
 -- -----------------------------------------------------------------------------
@@ -785,8 +794,8 @@ renderLineh(01,"D 2s      r   w  D")
 renderLineh(02,"D AC   vL c LxHG D")
 renderLineh(03,"D EIJ   EBG D    D")
 renderLineh(04,"D Z     e   EGyMtD")
-renderLineh(05,"D H    iHBB   XXXD")
-renderLineh(06,"D      b    qMzLXD")
+renderLineh(05,"D H    iHBB XXXX D")
+renderLineh(06,"D      b    qMzL D")
 renderLineh(07,"D  HN  L      WD1D")
 renderLineh(08,"D   EBBIBBBBBBBKdD")
 renderLineh(09,"D   n    Z   ,Y0 D")
@@ -1083,7 +1092,6 @@ elseif c == "j" then
  end
 elseif c == "k" then
  set_actor ("ac-horse",i+57.5,line+49.5,{name="kh4"})
- set_floor ("fl-abyss",i+57,line+49)
 elseif c == "*" then
  set_floor ("fl-abyss",i+57,line+49)
  set_stone ("st-grate3",i+57,line+49)
@@ -1112,7 +1120,7 @@ renderLinek(04,"+h  i+j  +   6  X+")
 renderLinek(05,"+  ! +   + **+X X+")
 renderLinek(06,"+ !q!+!!!+ *r+X X+")
 renderLinek(07,"+ !w!+!e!+ *++X  x")
-renderLinek(08,"+  ! +!!!+ *!+X X+")
+renderLinek(08,"+  ! +!!!+ * +X X+")
 renderLinek(09,"+    3  t+ *k+X$X+")
 renderLinek(10,"++++++++++++++++++")
 --              012345678901234567
@@ -1520,9 +1528,11 @@ function olight3()
   if ol3 == 0 then
     SendMessage(enigma.GetStone(68,52),"lighten")
     SendMessage(enigma.GetStone(70,55),"lighten")
+    SendMessage(enigma.GetStone(70,57),"lighten")
   else
     SendMessage(enigma.GetStone(68,52),"darken")
     SendMessage(enigma.GetStone(70,55),"darken")
+    SendMessage(enigma.GetStone(70,57),"darken")
   end
   ol3 = 1 - ol3
 end
@@ -1604,6 +1614,10 @@ oxyd_shuffle()
       <el:string el:key="textc1">
         <el:english>Start the next explosion at brick 17 (counting from left)!</el:english>
         <el:translation el:lang="de">Die nächste Explosion bei Stein 17 von links starten!</el:translation>
+      </el:string>
+      <el:string el:key="textd1">
+        <el:english>Hint: The white ball's got the key.</el:english>
+        <el:translation el:lang="de">Tipp: Die weiße Kugel hat den Schlüssel.</el:translation>
       </el:string>
       <el:string el:key="textg1">
         <el:english>Use of ring only allowed on marked areas.</el:english>

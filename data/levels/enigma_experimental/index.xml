@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Development" location="70300" network="false" owner="Enigma Team" release="1" revision="7" title="Experimental"/>
+  <info enigma="1.00" group="Development" location="70300" network="false" owner="Enigma Team" release="1" revision="8" title="Experimental"/>
 
   <attributes/>
 
@@ -9,9 +9,9 @@
     <level _seq="1" _title="Demo Simple" _xpath="./demo_simple" author="Ronald Lamprecht" ctrl="force" easy="false" id="20060210ral001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Demo I18N" _xpath="./demo_i18n" author="Ronald Lamprecht" ctrl="force" easy="false" id="20060211ral002" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="New API level template" _xpath="./level_template" author="AUTHOR" ctrl="force" easy="false" id="level_template" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="All Stones" _xpath="./stones_1" author="Raoul Bourquin" ctrl="force" easy="false" id="stones" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="All Floors" _xpath="./floors_1" author="Raoul Bourquin" ctrl="force" easy="false" id="floors" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="All Items" _xpath="./items_1" author="Raoul Bourquin" ctrl="force" easy="false" id="items" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="All Stones as of Enigma 1.10" _xpath="./stones_1" author="Raoul Bourquin" ctrl="force" easy="false" id="stones" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="All Floors as of Enigma 1.10" _xpath="./floors_1" author="Raoul Bourquin" ctrl="force" easy="false" id="floors" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="All Items as of Enigma 1.10" _xpath="./items_1" author="Raoul Bourquin" ctrl="force" easy="false" id="items" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Libsoko - Test" _xpath="./test_libsoko" author="Andreas Lochmann" ctrl="force" easy="true" id="test_libsoko" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 

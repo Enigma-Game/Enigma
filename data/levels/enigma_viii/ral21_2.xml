@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 156 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 173 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@
 wo["ConserveLevel"] = true
 wo["ProvideExtralifes"] = false
 wo["ExtralifeGlasses"] = SPOT_DEATH
-wo["Brittleness"] = 1.0
+wo["Fragility"] = 1.0
 
 ti["  "] = {"fl_sand"}
 ti["~~"] = {"fl_water"}
@@ -54,7 +54,7 @@ ti["OE"] = {"st_oxyd_d", "easyoxyd#"}
 ti[":;"] = {"fl_blueslab"}
 ti["=="] = {"fl_wood"}
 ti["tt"] = {"fl_thief"}
-ti["$$"] = {"fl_yinyang_yang"}
+ti["$$"] = {"fl_yinyang_yang", invisible=true}
 ti["gs"] = {"fl_slope_ps"}
 ti["gw"] = {"fl_slope_pw"}
 ti["gn"] = {"fl_slope_pn"}
@@ -359,7 +359,6 @@ ti["VE"] = ti["%%"] .. {"it_vortex", "vortex_E", destination="vortex_e"}
 ti["FB"] = ti["Rh"] .. {"it_wormhole", destination="fire_target", range=1.5}
 
 ti["'c"] = ti["''"] .. {"st_chameleon"}
-ti["?g"] = ti["  "] .. {"st-grate3"}
 ti[" w"] = ti["  "] .. {"it_magicwand"}
 
 ti["ni"] = {"st_nil"} .. ti{"it_nil"}
@@ -556,14 +555,14 @@ function escape()
     end
     local y = no["escape_pos"].y + 1
     if (no["rotor"].y ~= y) or (no["top"].y ~= y) or (no["killer"].y ~= y) then
-        wo[no["escape_close#*"]] = {"st-metal"}
+        wo[no["escape_close#*"]] = {"st_metal"}
     end
 end
 
 did_curse_brittle = false
 function curse_brittle(value, sender)
     if did_curse_brittle == false then
-        wo[sender + {-1, -3}] = {"it_crack_m"}
+        wo[sender + {-1, -3}] = {"it_crack_m", spreading=1.0}
         wo[sender] = {"it_document", text="curse_brittle"}
     end
     did_curse_brittle = true
@@ -714,73 +713,96 @@ wo:add(YIN,  {"it_extralife"} .. ti({"it_extralife"}))
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="welcome">
-        <el:english el:translate="true">Welcome Mr. Jones! Back from your "Alternatives" and "The Walls" training camp?  Got everything you ordered:  some money  --  40 marbleons -- and a horse outside this shopping center.    Many adventurers did lose their lives in this pyramid.    Beware of the dangerous sand vipers and Enighomatep's curses.</el:english>
+        <el:english el:translate="true">Welcome Mr. Jones! Back from your "Alternatives" and "The Walls" training camp?  Got everything you ordered:  some money  --  40 marbleons -- and a horse outside this shopping center.    Many adventurers did lose their lives in this pyramid.    Beware of the dangerous sand vipers and Enighomathep's curses.</el:english>
+        <el:translation el:lang="de">Willkommen Mr. Jones! Zurück von ihren Trainingscamps "Alternatives" und "The Walls"? Habe alles was sie angefordert haben: etwas Geld -- 40 Marbelonen -- und ein Pferd ausserhalb des Shopping Centers.   Viele Abenteurer haben ihr Leben in dieser Pyramide verloren.   Geben Sie acht auf die gefährlichen Sandvipern und Enighomatheps Flüche.</el:translation>
       </el:string>
       <el:string el:key="rainmaker">
-        <el:english el:translate="true" >Mr.Rainmaker used to own this shop. He always insisted that his umbrellas were the most usefull items in this desert. But nobody was willing to spend 2 marbleons.  ---  Now a blacksmith offers his service.</el:english>
+        <el:english el:translate="true" >Mr. Rainmaker used to own this shop. He always insisted that his umbrellas were the most usefull items in this desert. But nobody was willing to spend 2 marbleons.  ---  Now a blacksmith offers his service.</el:english>
+        <el:translation el:lang="de">Dieser Laden gehörte Mr. Rainmaker. Er bestand immer darauf, dass seine Regenschirme der nützlichste Gegenstand in der Wüste sei. Aber niemand war bereit dafür 2 Marbelonen auszugeben.  --- Nun bietet ein Schmied sein Dienste an.</el:translation>
       </el:string>
       <el:string el:key="escape">
         <el:english el:translate="true" >Safety Precaution: in case one of these dangerous animals escapes, the gates of the shopping center will be closed immediately!</el:english>
+        <el:translation el:lang="de">Sicherheitsvorkehrung: im Falle eines Ausbruchs eines dieser gefährlichen Tiere schliessen die Tore des Shoppingcenters unverzüglich!</el:translation>
       </el:string>
       <el:string el:key="mystic">
-        <el:english el:translate="true" >Not much is known of the pyramid's architect Enighomatep. But it is said that he loved cherries. He ate so many of them that he sometimes became invisible.</el:english>
+        <el:english el:translate="true" >Not much is known of the pyramid's architect Enighomathep. But it is said that he loved cherries. He ate so many of them that he sometimes became invisible.</el:english>
+        <el:translation el:lang="de">Es ist nicht viel bekannt über Enighomathep, den Architekten der Pyramide. Aber es wird behauptet er liebte Kirschen. Er aß so viele davon, dass er manchmal unsichtbar wurde.</el:translation>
       </el:string>
       <el:string el:key="bug">
         <el:english el:translate="true" >Have a look at my collection!    A white scorpion   --   a rotodile   --  and a sand viper.  They cannot be sold.        But I can offer you a scarab that will be a better choice for you.</el:english>
+        <el:translation el:lang="de">Schauen sie sich meine Sammlung an!    Ein weisser Skorpion   --    ein Rotodil  -- und eine Sandviper.  Sie können nicht verkauft werde.      Aber ich kann ihnen ein Skarabäus anbieten, der eine bessere Wahl für Sie ist.</el:translation>
       </el:string>
       <el:string el:key="barber">
         <el:english el:translate="true" >Ali Barber's shop for quick hair cuts. Want to know what is going on?  A thief is hanging around and nobody knows where the 4 pale kids that are playing with your horse came from.</el:english>
+        <el:translation el:lang="de">Ali Barbers Laden für einen schnellen Haarschnitt. Wollen Sie wissen was los ist?  Ein Dieb treibt sich herum und niemand weiss woher die 4 bleichen Kinder, die mit ihrem Pferd spielen, herkommen.</el:translation>
       </el:string>
       <el:string el:key="predecessor">
         <el:english el:translate="true" >Home of the last adventurer who never returned.   Said he would drill for oil -- but no one believed him.</el:english>
+        <el:translation el:lang="de">Heim des letzten Abenteurers, der niemals zurück kam.   Sagte er würde nach Öl bohren -- aber niemand schenkte ihm Glauben.</el:translation>
       </el:string>
       <el:string el:key="curse">
         <el:english el:translate="true" >Be cursed for trying to explore Tutoxyd's last secret -- may your homework remain undone until you prove worthy!</el:english>
+        <el:translation el:lang="de">Sei verflucht für den Versuch Tutoxyds letztes Geheimnis zu erforschen -- möge deine Hausarbeit unerledigt bleiben, bis du dich als würdig bewiesen hast!</el:translation>
       </el:string>
       <el:string el:key="repair">
-        <el:english el:translate="true" >It's a pity that some explorers damaged this historic monument and did littered the environment.   But the pyramid magically repairs itself every time an adventurer gives up.</el:english>
+        <el:english el:translate="true" >It's a pity that some explorers damaged this historic monument and did litter the environment.   But the pyramid magically repairs itself every time an adventurer gives up.</el:english>
+        <el:translation el:lang="de">Es ist traurig, dass einige Forscher dieses historische Monument beschädigt und die Umgebung verdreckt haben.   Aber die Pyramide repariert sich selbst auf magische Weise jedesmal wenn ein Abenteurer aufgibt.</el:translation>
       </el:string>
       <el:string el:key="curse_brittle">
         <el:english el:translate="true" >Be cursed for disturbing Tutoxyd's peace -- may the earth part under your feet!</el:english>
+        <el:translation el:lang="de">Sei verflucht für das Stören der Totenruhe Tutoxyds -- möge die Erde unter deinen Füßen zerbrechen!</el:translation>
       </el:string>
       <el:string el:key="curse_legs">
         <el:english el:translate="true" >Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under your control!</el:english>
+        <el:translation el:lang="de">Sei verflucht für das Stören der Totenruhe Tutoxyds -- mögen deine Beine nicht länger unter deiner Kontrolle stehen!</el:translation>
       </el:string>
       <el:string el:key="trapped">
         <el:english el:translate="true" >Trapped?   Either wait for a stupid tourist willing to exchange positions with you by using a magic ring - or press Shift F3</el:english>
+        <el:translation el:lang="de">Gefangen?   Warte entweder auf einen einfältigen Touristen, der bereit ist durch Anwendung eines magischen Rings seine Position mit der deinigen zu vertauschen - oder drücke 'Umschalttaste + F3'</el:translation>
       </el:string>
       <el:string el:key="mailbox">
         <el:english el:translate="true" >Private Property! This claim belongs to Mr. Whiteoil. In case of absence please send a letter.</el:english>
+        <el:translation el:lang="de">Privater Besitz! Dieser Claim gehört Mr. Whiteoil. Im Falle von Abwesenheit hinterlassen Sie bitte einen Brief.</el:translation>
       </el:string>
       <el:string el:key="invoice">
         <el:english el:translate="true" >Invoice -- 40 marbleons for 20 barrels of oil.</el:english>
+        <el:translation el:lang="de">Rechnung -- 40 Marbelonen für 20 Faß Öl.</el:translation>
       </el:string>
       <el:string el:key="holy">
         <el:english el:translate="true" >Welcome stranger -- have a look at our holy stone. It is said that it shows everyone his personal fortune color. As all visitors tried to touch it, we had to set up some protection.</el:english>
+        <el:translation el:lang="de">Willkommen Fremder -- besichtigen Sie unseren Heiligen Stein. Es wird gesagt, dass er jedem seine persönliche Glücksfarbe zeigt. Da ihn alle Besucher berühren wollen, mussten wir einen Schutz einrichten.</el:translation>
       </el:string>
       <el:string el:key="fire">
         <el:english el:translate="true" >May I ask for a donation. Just a few bugs - throw the donation into the holy fire. Tutoxyd will be grateful.</el:english>
+        <el:translation el:lang="de">Darf ich um eine Spende bitte. Nur ein paar Bugs - werfen Sie die Spende in das Heilige Feuer. Tutoxyd wird sich als dankbar erweisen.</el:translation>
       </el:string>
       <el:string el:key="research">
-        <el:english el:translate="true" >Mr. Whiteoil, we finished our library reserach. Enighomatep reports that 4 keys are required. One key got lost immediately after sealing the pyramid. One is hidden at the border of the pyramid. For the others you have to demonstrate boldness and cleverness.</el:english>
+        <el:english el:translate="true" >Mr. Whiteoil, we finished our library reserach. Enighomathep reports that 4 keys are required. One key got lost immediately after sealing the pyramid. One is hidden at the border of the pyramid. For the others you have to demonstrate boldness and cleverness.</el:english>
+        <el:translation el:lang="de">Mr. Whiteoil, wir haben unsere Nachforschung in den Bibliotheken erledigt. Enighomathep berichtet, dass 4 Schlüssel benötigt werden. Ein Schlüssel ging unmittelbar nach dem Versiegeln der Pyramide verloren. Einer ist am Rand der Pyramide versteckt. Für die anderen muss man sich als tapfer und klug erweisen.</el:translation>
       </el:string>
       <el:string el:key="death">
         <el:english el:translate="true" >Facing Death you can walk without fear.</el:english>
+        <el:translation el:lang="de">Im Angesicht des Todes kann man ohne Furcht wandeln.</el:translation>
       </el:string>
       <el:string el:key="noitem">
         <el:english el:translate="true" >Sorry, the useful item that was hidden here has been stolen.</el:english>
+        <el:translation el:lang="de">Sorry, der nützliche Gegenstand, der hier verborgen lag, ist gestolen worden.</el:translation>
       </el:string>
       <el:string el:key="thieves">
         <el:english el:translate="true" >Tomb raiders are cursed to be frozen in stone or floor for all eternity.     Have a look at all these little funny sticks that they used to fight the curses.</el:english>
+        <el:translation el:lang="de">Grabräuber seinen dazu verflucht in Stein oder Fussbodenplatten für alle Ewigkeit zu verharren.    Schauen sie sich nur all dies lustigen Stöcke an, mit denen sie gegen die Flüche gekämpft haben.</el:translation>
       </el:string>
       <el:string el:key="puzzle">
         <el:english el:translate="true" >Remove all parts of the memorial plate before conjuring up Tutoxyd.</el:english>
+        <el:translation el:lang="de">Beseitige alle Teile der Grabplatte bevor Tutoxyd heraufbeschwört wird.</el:translation>
       </el:string>
       <el:string el:key="children">
         <el:english el:translate="true" >Who dares to dirsturb my peace? Stranger - you have proven to be honorable. Bring back my children for a joint meditation. But beware that upon seeing me they may want to join me instead of meditate. I make you responsible for the security of my children.</el:english>
+        <el:translation el:lang="de">Wer wagt es meinen Frieden zu stören? Fremder - du hast dich als ehrenhaft erwiesen. Bringe meine Kinder zurück für eine gemeinsame Meditation. Aber beachte, dass sobald sie mich sehen, werden sie versucht sein zu mir zu gelanden anstatt zu meditieren. Ich mach dich für die Sicherheit meiner Kinder verantwortlich.</el:translation>
       </el:string>
       <el:string el:key="bye">
         <el:english el:translate="true" >You are bringing back my children. As soon as they come to rest, I will deliver you from Enighomathep's curses so you may seek your next adventure.</el:english>
+        <el:translation el:lang="de">Du hast meine Kinder zurück gebracht. Sobald sie zur Ruhe kommen, werde ich dich von den Flüchen Enighomatheps befreien, so dass du dein nächstes Abenteuer suchen kannst.</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

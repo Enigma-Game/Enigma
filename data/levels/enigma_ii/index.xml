@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma II"/>
 
   <attributes/>
 
@@ -71,11 +71,11 @@
     <level _seq="63" _title="Do It Yourself" _xpath="./martin97_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin97" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Buridan" _xpath="./alain01_1" author="Alain Busser" ctrl="force" easy="false" id="alain01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Laser Magic" _xpath="./ant30_1" author="Petr Machata" ctrl="force" easy="false" id="ant30" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="66" _title="Moure-Switches" _xpath="./andreas10_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas10" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="66" _title="Moure-Switches" _xpath="./andreas10_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas10" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Khun Phan" _xpath="./ralf10_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Almost There" _xpath="./duffy89_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy89" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Question of Speed" _xpath="./siegfried32_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11b" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="- Meditation -" _xpath="./ant16_1" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="- Meditation -" _xpath="./ant16_2" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Come To Me" _xpath="./ant20_1" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Water Holes" _xpath="./siegfried10_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3f" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Follow the Leader" _xpath="./martin71_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin71" rel="2" rev="4" score="2" target="time" unit="duration"/>
@@ -88,13 +88,13 @@
     <level _seq="80" _title="Bungeeball" _xpath="./duffy103_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy103" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Pentomino I" _xpath="./ralf16_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Indoor Pool" _xpath="./nat01_2" author="Nat Pryce" ctrl="force" easy="false" id="nat1" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="83" _title="Pentomino II" _xpath="./ralf17_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento2" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="Pentomino II" _xpath="./pento02_1" author="Enigma Team" ctrl="force" easy="false" id="ralf_pento2" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Shoals" _xpath="./nat27_1" author="Nat Pryce" ctrl="force" easy="false" id="nat27" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="Pentomino III" _xpath="./ralf18_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Pentomino III" _xpath="./pento03_1" author="Enigma Team" ctrl="force" easy="false" id="ralf_pento3" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Slalom Skiing" _xpath="./martin93_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin93" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Pentomino IV" _xpath="./ralf19_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Pentomino IV" _xpath="./pento04_1" author="Enigma Team" ctrl="force" easy="false" id="ralf_pento4" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Shifting Shoals" _xpath="./nat28_1" author="Nat Pryce" ctrl="force" easy="false" id="nat28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Pentomino V" _xpath="./ralf20_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf_pento5" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="Pentomino V" _xpath="./pento05_1" author="Enigma Team" ctrl="force" easy="false" id="ralf_pento5" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Washing Machine" _xpath="./duffy45_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy45" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="It's Magic" _xpath="./martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Dirt Clod" _xpath="./xerxes02_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="1" rev="1" score="1" target="time" unit="duration"/>

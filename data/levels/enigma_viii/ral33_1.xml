@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Panelled Puzzle II" el:subtitle="" el:id="20090308ral237"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 156 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 166 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -131,13 +131,16 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="solutionseven">
-        <el:english el:translate="true" >First solve this puzzle for even parity - 9 out of 19 puzzle solutions do work.</el:english>
+        <el:english el:translate="true" >There are 19 fully connected puzzle piece arrangements, but just 9 of them are reachable from this first distribution.</el:english>
+        <el:translation el:lang="de">Es gibt 19 Figuren mit voll verbundenen Puzzleteilen, aber ausgehend von der ersten Verteilung, können nur 9 dieser Figuren erreicht werden.</el:translation>
       </el:string>
       <el:string el:key="solutionsodd">
-        <el:english el:translate="true" >Now solve this puzzle for odd parity - the remaining 10 puzzle solutions do now work.</el:english>
+        <el:english el:translate="true" >This second distribution can just be converted to any of the other 10 arrangements.</el:english>
+        <el:translation el:lang="de">Diese zweite Verteilung kann nun in jede der anderen 10 Figuren überführt werden.</el:translation>
       </el:string>
       <el:string el:key="solutionseasy">
-        <el:english el:translate="true" >There are just two symmetric solutions that both do work.</el:english>
+        <el:english el:translate="true" >There are just two symmetric puzzle piece arrangements that both are reachable.</el:english>
+        <el:translation el:lang="de">Es gibt nur zwei symmetrische Figuren aus den Puzzleteilen die beide erreichbar sind.</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

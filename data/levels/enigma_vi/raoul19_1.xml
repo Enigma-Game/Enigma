@@ -13,7 +13,7 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
-wo["FrictionFactor"] = 0.5
+wo["FrictionStrength"] = 0.5
 
 ti[" "] = {"fl_rough"}
 ti["~"] = {"fl_water"}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="26" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="27" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -86,7 +86,7 @@
     <level _seq="78" _title="Desert Ruins" _xpath="enigma_i/nat32_1" author="Nat Pryce" ctrl="force" easy="false" id="natmaze1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="- Meditation -" _xpath="enigma_i/siegfried35_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Black Lava" _xpath="enigma_i/ant12_1" author="Petr Machata" ctrl="force" easy="false" id="ant12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Flood Gates" _xpath="enigma_iv/nat08_1" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Flood Gates" _xpath="enigma_iv/nat08_2" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Balancing Act" _xpath="enigma_i/nat09_1" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Sheet Of Ice" _xpath="enigma_v/martin58_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin58" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -94,7 +94,7 @@
     <level _seq="86" _title=".J.U.M.P." _xpath="enigma_i/martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Walk The Plank" _xpath="enigma_v/nat04_1" author="Nat Pryce" ctrl="force" easy="false" id="nat4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Shipwreck" _xpath="enigma_v/nat33_1" author="Nat Pryce" ctrl="force" easy="false" id="natmaze2" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="- Meditation -" _xpath="enigma_ii/ant16_1" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="- Meditation -" _xpath="enigma_ii/ant16_2" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Dancers" _xpath="enigma_ii/ant14_2" author="Petr Machata" ctrl="force" easy="false" id="ant14" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Running Stone" _xpath="enigma_iv/christophanita01_1" author="Christoph &amp; Anita" ctrl="force" easy="false" id="christophanita_runningstone" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Where's The Gardener?" _xpath="enigma_i/siegfried28_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9e" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -138,7 +138,7 @@
     <level _seq="130" _title="Chained" _xpath="enigma_iv/ant22_2" author="Petr Machata" ctrl="force" easy="true" id="ant22" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="131" _title="Just a Maze?" _xpath="enigma_vi/duffy12_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy12" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="132" _title="The Race" _xpath="enigma_iv/duffy11_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy11" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="133" _title="Double-Spiral" _xpath="enigma_iv/duffy17_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy17" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="133" _title="Double-Spiral" _xpath="enigma_iv/duffy17_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy17" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="134" _title="Mourning Palace" _xpath="enigma_iv/ant08_1" author="Petr Machata" ctrl="force" easy="false" id="ant08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="Control Panel" _xpath="enigma_iii/duffy16_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy16" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="136" _title="Dependants" _xpath="enigma_iii/ant25_2" author="Petr Machata" ctrl="force" easy="true" id="ant25" rel="2" rev="2" score="2" target="time" unit="duration"/>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Push? Pull? Rotate!" el:subtitle="Puzzels in a wooden box" el:id="raoul33"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="raoul@users.berlios.de"/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_wood"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_panel", cluster=1}
+ti["="] = {"st_rawglass"}
+ti["floor"] = {"fl_wood", name="dest%%", _connections=""}
+ti["trigger"] = {"it_trigger", invisible=true, target="callback", name="%%"}
+ti["."] = {"it_vortex", destination="dest%13"}
+ti["*"] = {"st_oxyd", oxydcolor=OXYD_ORANGE}
+ti["@"] = {"#ac_marble_black"}
+
+local spanning_tree = res.maze(ti, {area={po(2, 4), 5, 5}, spacing={0,0}})
+local resolver = res.autotile(spanning_tree, {"a", "y", "floor"}, {"A", "Y", "trigger"})
+
+wo(resolver, " ", {
+    "-------------------",
+    "-------------------",
+    "###---###--#==*==#-",
+    "#=#=*=#=#-##@ .  ##",
+    "##abcde##-= ABCDE =",
+    "-=fghij=--= FGHIJ =",
+    "-*klmno*--*.KLMNO.*",
+    "-=pqrst=--= PQRST =",
+    "##uvwxy##-= UVWXY =",
+    "#=#=*=#=#-##  .  ##",
+    "###---###--#==*==#-",
+    "-------------------",
+    "-------------------"})
+
+local conns_from = {[SOUTH]="s", [EAST]="e"}
+local conns_to = {[SOUTH]="n", [EAST]="w"}
+for cell in spanning_tree do
+    for dir, odir in pairs({[SOUTH]=S, [EAST]=E}) do
+        if cell[dir] == true then
+            fl(cell:pos())._connections = fl(cell:pos())._connections .. conns_from[dir]
+            fl(cell:pos()+odir)._connections = fl(cell:pos()+odir)._connections .. conns_to[dir]
+        end
+    end
+end
+
+local dir_rotate = {n="e", e="s", s="w", w="n"}
+function rotate_piece(conn)
+    local newconn = ""
+    for j = 1, string.len(conn) do
+        newconn = newconn .. dir_rotate[string.sub(conn, j, j)]
+    end
+    return newconn
+end
+
+for obj in no["dest*"] do
+    wo[obj] = {"st_puzzle_yellow", connections=fl(obj)["_connections"], hollow=cond(obj.name=="dest%13", true, false)}
+    for i=1, math.random(1,3) do
+        wo[obj] = {"st_puzzle_yellow", connections=rotate_piece(st(obj)["connections"]), hollow=st(obj).hollow}
+    end
+end
+
+function callback(value, sender)
+    if value == true and st(no["dest"..sender.name]):exists() then
+        wo[no["dest"..sender.name]] = {"st_puzzle_yellow", connections=rotate_piece(st(no["dest"..sender.name]).connections), hollow=st(no["dest"..sender.name]).hollow}
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

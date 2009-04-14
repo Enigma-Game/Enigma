@@ -14,7 +14,7 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["ActorimpulseStrength"] = 600.0
-wo["SlopeForce"] = 8.0
+wo["SlopeStrength"] = 8.0
 
 ti[" "] = {"fl_lawn"}
 ti["#"] = {"st_actorimpulse"}

@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="22" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="23" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>API2 converted by R.Lamprecht</el:code>
@@ -19,9 +18,9 @@
 wo["SlopeStrength"] = -20
 
 if wo["IsDifficult"] then
-    wo["ElectricForce"] = -15
+    wo["ElectricStrength"] = -15
 else
-    wo["ElectricForce"] = -20
+    wo["ElectricStrength"] = -20
 end
 
 ti[" "] = {"fl_abyss"}
@@ -56,7 +55,7 @@ ti["o"] = {"st_oxyd"} .. ti["l"]
 ti["z"] = {"#ac_marble_black"} .. ti["l"]
 ti["y"] = {"ac_marble_white", 0, 0.5, adhesion=0} .. ti["l"]
 ti["g"] = {"st_grate_cross"} .. ti["l"]
-ti["x"] = {"it_trap", state=OPEN} .. ti["."]
+ti["x"] = {"it_trap", state=CLOSE} .. ti["."]
 ti["S"] = {"it_spring_keep"} .. ti["l"]
 ti["F"] = {"it_flag_black"} .. ti["l"]
 ti["O"] = {"it_extralife"} .. ti["l"]
@@ -75,7 +74,7 @@ ti["H"] = {"st_break_oxydc"}
 ti["f"] = {"st_actorimpulse_invisible"}
 ti["q"] = {"st_passage_black_frame"} .. ti["l"]
 ti["w"] = {"st_passage_white_frame"} .. ti["l"]
-ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=OPEN}
+ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=CLOSE}
 ti["W"] = {"fl_fake_abyss", "trapeast"}
 ti["C"] = {"st_monoflop", interval=1.5, target="toggletraps"} .. ti["l"]
 ti["?"] = {"st_charge_plus"} .. ti["l"]

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Maze for Two II" el:subtitle="Keep distance!" el:id="20090330ral370"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 169 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2007,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="10:25" el:difficult="14:31"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["-"] = {"fl_wood"}
+ti[" "] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["y"] = {"it_yinyang"}
+ti["x"] = {"st_oxyd_d", "oxyd#*"}
+ti["@b"] = {"#ac_marble_black", controllers=CTRL_YINYANG, essential=INDISPENSIBLE} .. ti["y"]
+ti["@w"] = {"#ac_marble_white", controllers=CTRL_YINYANG, essential=INDISPENSIBLE} .. ti["y"]
+ti["wall"] = ti[" "]
+ti["wall_white"] = {"st_passage_black", flavor="square"} .. ti["-"]
+ti["wall_black"] = {"st_passage_white", flavor="square"} .. ti["-"]
+ti["pw"] = {"st_passage_white", flavor="frame"}
+ti["pb"] = {"st_passage_black", flavor="frame"}
+if wo["IsDifficult"] then
+    ti["d"] = ti["-"]
+    ti["D"] = {"it_document", text="forest"}
+    ti["w"] = ti[" "]
+    ti["b"] = ti[" "]
+    ti["W"] = ti["pw"]
+    ti["B"] = ti["pb"]
+    ti["1"] = ti["@b"]
+    ti["2"] = ti["@w"]
+    ti["3"] = ti[" "]
+    ti["4"] = ti[" "]
+else
+    ti["d"] = {"it_document", text="forest"}
+    ti["D"] = ti[" "]
+    ti["w"] = ti["pw"]
+    ti["b"] = ti["pb"]
+    ti["W"] = ti[" "]
+    ti["B"] = ti[" "]
+    ti["1"] = ti[" "]
+    ti["2"] = ti[" "]
+    ti["3"] = ti["@b"]
+    ti["4"] = ti["@w"]
+end
+
+-- offset of white maze from black maze measured in cells
+ox                = cond(wo["IsDifficult"], 2, 4)
+oy                = 2
+threshold         = cond(wo["IsDifficult"], 0.4, 0.0)
+threshold_border  = 0.17
+threshold_border2 = cond(wo["IsDifficult"], 0.1, 0.1)
+
+op  = po(ox, oy)
+mx  = 19 - ox
+my  = 12 - oy
+
+mymaze = res.maze(ti, {area={po(1, 1), mx, my}})
+
+wo(mymaze, " ", {
+    "#x#############x#############x#########",
+    "#                                     #",
+    "#                                     #",
+    "#                             w   W   #",
+    "#    B   b         B   b         B   b#",
+    "#      3                              #",
+    "#                                     #",
+    "#          d                          x",
+    "#                                     #",
+    "x              4                      #",
+    "#                                     #",
+    "#              1              w   W   #",
+    "#                                     #",
+    "#   B   b        D                    #",
+    "#                                     #",
+    "#                  2                  x",
+    "#                                     #",
+    "x                                     #",
+    "#                                     #",
+    "#                                     #",
+    "#w   W         w   W         w   W    #",
+    "#   B   b                             #",
+    "#                                     #",
+    "#                                     #",
+    "#########x#############x#############x#",
+})
+
+for cell in mymaze do
+    local i, j = mymaze:decode(mymaze[cell])
+    local cp = cell:pos()
+    local cellul = cond(i < ox or j < oy, nil, mymaze(i - ox, j - oy))
+    local celllr = cond(i >= mx - ox or j >= my - oy, nil, mymaze(i + ox, j + oy))
+    -- draw kernel
+    wo[cp] = ti["-"]
+    wo[cp + 2*op] = ti["-"]
+    -- passages
+    local dirs = {[SOUTH] = S, [EAST] = E}
+    for dir, odir in pairs(dirs) do
+        if i < ox or j < oy then
+            if cell[dir] == true then
+                wo[cell:pos() + odir] = ti["-"]
+            elseif cell[dir] == false and cell[-dir] ~= WHITE 
+                    and math.random() < threshold_border2 then
+                wo[cell:pos() + odir] = ti["-"]
+                cell[-dir] = BLACK
+            end
+        else
+            -- central two marble area from the black marble's perspective
+            if cell[dir] == true then
+                wo[cell:pos() + odir] = ti["-"]
+            elseif cellul[dir] == true  or cellul[-dir] == WHITE then
+                if not wo["IsDifficult"] or cell[-dir] == WHITE 
+                        or math.random() > threshold then
+                    wo[cell:pos() + odir] = ti["wall_black"]
+                else
+                    cell[-dir] = BLACK
+                end
+            end
+        end
+        if i > mx - ox - 1 or j > my - oy - 1 then
+            if cell[dir] == true then
+                wo[cell:pos() + 2*op + odir] = ti["-"]
+            elseif cell[dir] == false and cell[-dir] ~= BLACK 
+                    and math.random() < threshold_border2 then
+                wo[cell:pos() + 2*op + odir] = ti["-"]
+                cell[-dir] = WHITE
+            end
+        else
+            -- central two marble area from the white marble's perspective
+            if cell[dir] == true then
+                wo[celllr:pos() + odir] = ti["-"]
+            elseif celllr[dir] == true  or celllr[-dir] == BLACK then
+                if not wo["IsDifficult"] or cell[-dir] == BLACK 
+                        or math.random() > threshold then
+                    wo[celllr:pos() + odir] = ti["wall_white"]
+                else
+                    cell[-dir] = WHITE
+                end
+            end
+        end
+        -- add some not blocking passages in the rim areas
+        if ((i < ox or j < oy) and cell[dir] == true and 
+                (math.random() < threshold_border)) then
+            wo[cell:pos() + odir] = ti["wall_white"]
+        end
+        if ((i > mx - ox - 1 or j > my - oy - 1) and cell[dir] == true
+                and (math.random() < threshold_border)) then
+            wo[cell:pos() + 2*op  + odir] = ti["wall_black"]
+        end
+    end
+end
+
+wo:shuffleOxyd({"oxyds#*", circular=true})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Abstand bewahren!</el:translation>
+      </el:string>
+      <el:string el:key="forest">
+        <el:english el:translate="true">Help! I can't see the forest for the trees!</el:english>
+        <el:translation el:lang="de">Hilfe! Ich kann den Wald vor lauter Bäumen nicht sehen!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

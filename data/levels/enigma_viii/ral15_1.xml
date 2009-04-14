@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="The Gordian Knot" el:subtitle="" el:id="20090312ral718"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 157 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 167 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,36 +23,36 @@ ti["::"] = {"st_grate"}
 ti["++"] = {"st_oxyd_a"}
 ti["-"] = {"st_puzzle_yellow", intensity=10}
 
-ti["@@"] = {"#ac_marble"}
+ti["@@"] = {"ac_marble", 0, 0.5}
 
 if wo["IsDifficult"] then
 wo(res.puzzle(ti, "-"), "  ", {
 --   000102030405060708091011121314151618
     "__##++############################__",
-    "####  ##            ::          ####",
-    "++    ##          ::              ##",
-    "##    ++-j-e-h  ::        -a-B-C  ##",
-    "##    ##-l-f-c::          -D-E-F  ##",
-    "##      -k-b-a    @@      -G-H-I  ##",
-    "##    ##-g-m-o::          -J-K-L  ##",
-    "##    ++-d-n-i  ::        -M-n-o  ##",
-    "++    ##          ::              ##",
-    "####  ##            ::          ####",
+    "####  ##                        ####",
+    "++    ##          ::::            ##",
+    "##    ++-j-e-h  ::    ::  -a-B-C  ##",
+    "##    ##-l-f-c::        ::-D-E-F  ##",
+    "##      -k-b-a      @@    -G-H-I  ##",
+    "##    ##-g-m-o::        ::-J-K-L  ##",
+    "##    ++-d-n-i  ::    ::  -m-N-o  ##",
+    "++    ##          ::::            ##",
+    "####  ##                        ####",
     "__##++############################__"
 })
 else
 wo(res.puzzle(ti, "-"), "  ", {
 --   000102030405060708091011121314151618
     "__##++############################__",
-    "####  ##                        ####",
-    "++    ##                          ##",
-    "##    ++-j-e-h            -A-B-C  ##",
-    "##    ##-l-f-c            -d-E-F  ##",
-    "##      -k-b-a    @@      -G-H-I  ##",
-    "##    ##-g-m-             -j-K-L  ##",
-    "##    ++-d-n-i            -M-N-o  ##",
-    "++    ##                          ##",
-    "####  ##                        ####",
+    "####  ##          ::            ####",
+    "++    ##            ::            ##",
+    "##    ++-j-e-h        ::  -A-B-C  ##",
+    "##    ##-l-f-c          ::-d-E-F  ##",
+    "##      -k-b-a      @@    -G-H-I  ##",
+    "##    ##-g-m-           ::-j-K-L  ##",
+    "##    ++-d-n-i        ::  -M-N-o  ##",
+    "++    ##            ::            ##",
+    "####  ##          ::            ####",
     "__##++############################__"
 })
 end

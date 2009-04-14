@@ -19,10 +19,10 @@ ti["##"] = {"st_metal"}
 ti["~~"] = {"fl_water"}
 ti["X "] = {"st_grate_cross"}
 ti["w "] = {"st_box"}
-ti["--"] = {"st_puzzle_blue", connections = "ew"}
-ti[">>"] = {"st_puzzle_blue", connections = "w"}
-ti["D "] = {"st_door", "doors#", faces = "ew"}
 ti["t "] = {"it_trigger", target = "@doors#*"}
+ti["D "] = {"st_door", "doors#", faces = "ew"}
+ti["--"] = {"st_puzzle", connections = "ew"}
+ti[">>"] = {"st_puzzle", connections = "w"}
 ti["o "] = {"st_oxyd_a", "north#"}
 ti["O "] = {"st_oxyd_a", "south#"}
 ti["@ "] = {"#ac_marble_black"}
