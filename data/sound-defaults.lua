@@ -79,7 +79,6 @@ function AddSoundSet (soundtable_name, soundtable)
     for soundeffect_name, soundeffect_info in pairs(soundtable) do
         local soundeffect_name_api2 = soundtable_renamings_api1_to_api2[soundeffect_name] or soundeffect_name
         local r = complete_sound(soundeffect_name_api2, soundeffect_info)  -- completed data set
-        print(soundeffect_name.." -> "..soundeffect_name_api2)
         sound.DefineSoundEffect(soundtable_name, soundeffect_name_api2, r.file, r.volume,
             r.loop, r.global, r.priority, r.damp_max, r.damp_inc, r.damp_mult,
             r.damp_min, r.damp_tick, r.silence_string)
