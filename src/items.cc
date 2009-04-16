@@ -148,5 +148,8 @@ bool Item::actor_hit(Actor *actor)
     }
 }
 
-
+    std::list<GridPos> Item::warpSpreadPos(bool isWater) {
+        std::list<GridPos> results;
+        return results;
+    }
 } // namespace enigma

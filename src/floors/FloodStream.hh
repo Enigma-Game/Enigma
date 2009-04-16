@@ -73,6 +73,7 @@ namespace enigma {
     
     private:
         // Private methods.
+        void tryFlood(GridPos p, Direction from =NODIR);
         FloodStreamTyp getTyp() const;
     };
 

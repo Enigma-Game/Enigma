@@ -107,7 +107,7 @@ namespace enigma {
     }
     
     bool Door::allowsSpreading(Direction dir, bool isFlood) const {
-        return state != CLOSED || !has_dir(getFaces(), dir);
+        return state != CLOSED || (dir != NODIR ? !has_dir(getFaces(), dir) : (getAttr("flavor").to_string() == "d"));
     }
     
     StoneResponse Door::collision_response(const StoneContact &sc) {

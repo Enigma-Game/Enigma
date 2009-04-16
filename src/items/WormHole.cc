@@ -107,7 +107,7 @@ namespace enigma {
         ASSERT((state & 4) == 0, XLevelRuntime, "WormHole:: Recursion detected!");
         if ((state & 2) == 0 && near_center_p(actor)) {   // may teleport
             client::Msg_Sparkle (get_pos().center());
-            V2 targetpos;
+            ecl::V2 targetpos;
             if (getDestinationByIndex(0, targetpos)) {
                 sound_event ("warp");
                 double latency = getAttr("interval");
@@ -125,6 +125,14 @@ namespace enigma {
             }
         }
         return false;
+    }
+    
+    std::list<GridPos> WormHole::warpSpreadPos(bool isWater) {
+        std::list<GridPos> results;
+        ecl::V2 targetpos;
+        if (getDestinationByIndex(0, targetpos))
+            results.push_back(GridPos(targetpos));
+        return results;
     }
     
     void WormHole::add_force(Actor *a, V2 &f) {

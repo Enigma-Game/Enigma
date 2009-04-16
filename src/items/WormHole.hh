@@ -61,6 +61,7 @@ namespace enigma {
         
         // Item interface
         virtual bool actor_hit(Actor *a);
+        virtual std::list<GridPos> warpSpreadPos(bool isWater);
 
         // ForceField interface
         virtual void add_force(Actor *a, V2 &f);

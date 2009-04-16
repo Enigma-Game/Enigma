@@ -245,6 +245,8 @@ namespace enigma {
 
         /* Called when item is activated by the owner of `a'. */
         virtual ItemAction activate(Actor* a, GridPos p);
+        
+        virtual std::list<GridPos> warpSpreadPos(bool isWater);
     protected:
         virtual Object::ObjectType getObjectType() const {return Object::ITEM;}
         

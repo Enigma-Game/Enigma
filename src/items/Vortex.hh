@@ -60,7 +60,9 @@ namespace enigma {
         virtual void animcb();
 
         // Item interface
+        virtual bool covers_floor(ecl::V2 pos, Actor *a) const;
         virtual bool actor_hit(Actor*);
+        virtual std::list<GridPos> warpSpreadPos(bool isWater);
 
         // TimeHandler interface
         virtual void alarm();

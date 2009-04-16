@@ -104,9 +104,11 @@ namespace enigma {
                 for (Direction d = NORTH; d != NODIR; d = previous(d)) {
                     GridPos p = move(get_pos(), d);
                     if (Floor *fl = GetFloor(p)) {
-                        if (fl->is_destructible()) {
+                        if (fl->is_destructible() && (!(objFlags & OBJBIT_TYP) || !fl->isKind("fl_space"))) {
+                            // crack on every floor besides abyss, water, swamp and no water cracks on space
                             if (Item *it = GetItem(p)) {
-                                if (!(objFlags & OBJBIT_TYP))
+                                // crack neighbor floors if already cracked
+                                if (!(objFlags & OBJBIT_TYP))    // no water crack caused neighbor cracking
                                     SendMessage(it, "crack");
                             } else {
                                 double spreading = getDefaultedAttr("spreading", server::CrackSpreading); 

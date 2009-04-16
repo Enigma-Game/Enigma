@@ -126,13 +126,39 @@ namespace enigma {
         else if (state == OPENING) {
             state = OPEN;
             init_model();
+            BroadcastMessage("_checkflood", true, GRID_FLOOR_BIT);
         }
     }
     
-    bool Vortex::actor_hit (Actor *actor) {
+    bool Vortex::covers_floor(ecl::V2 pos, Actor *a) const {
+        if (GridPos(pos) != get_pos())
+            return false;
+        return (length(pos - get_pos().center()) < 0.25);
+    }
+
+    bool Vortex::actor_hit(Actor *actor) {
         if (state == OPEN && (length((actor->get_pos()) - get_pos().center()) < 0.25) && actor->can_be_warped())
-            prepare_for_warp (actor);
+            prepare_for_warp(actor);
         return false;
+    }
+    
+    std::list<GridPos> Vortex::warpSpreadPos(bool isWater) {
+        std::list<GridPos> results;
+        if (externalState() > 0) { // open -> may spread 
+            ecl::V2 targetpos;
+            int idx = 0;
+            while (getDestinationByIndex(idx++, targetpos)) {
+                GridPos  targetgpos(targetpos);
+                Vortex *v = dynamic_cast<Vortex*>(GetItem(targetgpos));
+                if (v != NULL) {  // Destination is also a vortex
+                    if (v->externalState() == 1)   // opened
+                        results.push_back(targetgpos);
+                } else {
+                        results.push_back(targetgpos);
+                }
+            }
+        }
+        return results;
     }
     
     void Vortex::alarm() {
@@ -181,7 +207,7 @@ namespace enigma {
     }
 
     void Vortex::warp_to(const ecl::V2 &target) {
-        client::Msg_Sparkle (target);
+        client::Msg_Sparkle(target);
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, target[0], target[1], false);
             SendMessage(actor, "_appear");

@@ -65,7 +65,8 @@ namespace enigma {
         
     Value FloodStream::message(const Message &m) {
         if (m.message == "_checkflood") {
-            if (state == FLOODING)
+            Item *it = GetItem(get_pos());
+            if (state == FLOODING && (m.value.to_bool() != true || (it != NULL && it->isKind("it_vortex_open"))))
                 GameTimer.set_alarm(this, (double)getAttr("interval"), false);
             return Value();
         } else
@@ -127,34 +128,44 @@ namespace enigma {
             Stone *thisstone = GetStone(get_pos());
             for (Direction d = NORTH; d != NODIR; d = previous(d)) {
                 if (thisstone == NULL || thisstone->allowsSpreading(d)) {
-                    GridPos p = move(get_pos(), d);
-                    Floor *f = GetFloor(p);
-                    if (f != NULL && f->isKind("fl_floodstream") && 
-                            (f->getAttr("faces").to_string() == "nesw" || f->isKind("fl_water"))) {
-                        if (f->isKind("fl_water") && f->getAttr("state") == IDLE) {
-                            init_model();  // make flood visible
-                            Item *it = GetItem(p);
-                            if (it != NULL && (it->isKind("it_crack") || (it->isKind("it_burnable") && !it->isKind("it_burnable_oil"))))
-                                KillItem(p);
-                        }
-                        f->setAttr("interval", getAttr("interval"));
-                        f->setAttr("state", FLOODING);
-                    } else if (f != NULL && f->getAttr("floodable").to_bool()) {
-                        Stone *st = GetStone(p);
-                        if (st == NULL || st->allowsSpreading(reverse(d), true)) {
-                            Floor *newfloor = MakeFloor("fl_water_source");
-                            newfloor->setAttr("interval", getAttr("interval"));
-                            SetFloor(p, newfloor);
-                            Item *it = GetItem(p);
-                            if (it != NULL && (it->isKind("it_crack") || (it->isKind("it_burnable") && !it->isKind("it_burnable_oil"))))
-                                KillItem(p);
-                        }
-                    }
+                    tryFlood(move(get_pos(), d), reverse(d));
+                }
+            }
+            if (Item *thisItem = GetItem(get_pos())) {
+                std::list<GridPos> results = thisItem->warpSpreadPos(true);
+                for (std::list<GridPos>::iterator itr = results.begin(); itr != results.end(); ++itr)
+                    tryFlood(*itr, NODIR);
+            }
+        }
+    }
+ 
+    void FloodStream::tryFlood(GridPos p, Direction from) {
+        if (IsInsideLevel(p)) {
+            Floor *f = GetFloor(p);
+            if (f != NULL && f->isKind("fl_floodstream") && 
+                    (f->getAttr("faces").to_string() == "nesw" || f->isKind("fl_water"))) {
+                if (f->isKind("fl_water") && f->getAttr("state") == IDLE) {
+                    init_model();  // make flood visible
+                    Item *it = GetItem(p);
+                    if (it != NULL && (it->isKind("it_crack") || (it->isKind("it_burnable") && !it->isKind("it_burnable_oil"))))
+                        KillItem(p);
+                }
+                f->setAttr("interval", getAttr("interval"));
+                f->setAttr("state", FLOODING);
+            } else if (f != NULL && f->getAttr("floodable").to_bool()) {
+                Stone *st = GetStone(p);
+                if (st == NULL || from == NODIR || st->allowsSpreading(from, true)) {
+                    Floor *newfloor = MakeFloor("fl_water_source");
+                    newfloor->setAttr("interval", getAttr("interval"));
+                    SetFloor(p, newfloor);
+                    Item *it = GetItem(p);
+                    if (it != NULL && (it->isKind("it_crack") || (it->isKind("it_burnable") && !it->isKind("it_burnable_oil"))))
+                        KillItem(p);
                 }
             }
         }
     }
-    
+       
     FloodStream::FloodStreamTyp FloodStream::getTyp() const {
         return (FloodStreamTyp)((objFlags & OBJBIT_SUBTYP) >> 24);
     } 

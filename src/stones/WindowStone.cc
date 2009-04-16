@@ -139,7 +139,7 @@ namespace enigma {
     }
     
     bool WindowStone::allowsSpreading(Direction dir, bool isFlood) const {
-        return !has_dir(getFaces(), dir);
+        return (dir != NODIR) ? !has_dir(getFaces(), dir) : true;
     }
     
     void WindowStone::actor_hit(const StoneContact &sc) {
