@@ -6039,8 +6039,8 @@ A global default value denoting the probability that a brittle floor plate, that
 is a floor with an @ref{it_crack} on top, continues to desintegrate on events 
 like an actor entering, passing a neighboring @ref{it_crack}, nearby explosions
 or fire heating. A value of @code{1.0} ensures that the crack continues to 
-desintegrates on these events, a value of @code{0.0} prohibits visible cracks
-to get larger. This default is superceeded by @ref{fragility (Floor)} and
+desintegrate on these events, a value of @code{0.0} prohibits visible cracks
+to get larger. This default is superceeded by @ref{fragility (floor)} and
 @ref{it_crack} specific values.
 
 @table @asis
@@ -6333,22 +6333,23 @@ Positive number are attracting, negative numbers are repelling.
 
 @menu
 * adhesion (floor)::        Effectiveness of mousemotion
-* burnable::
-* eternal::                 
+* burnable::                -
+* eternal::                 -
 * faces (floor)::           Framing Configuration
-* fastfire::
+* fastfire::                -
 * floodable::               Flood Affinity
-* force_x::
-* force_y::
-* fragility::
-* freeze_check::
+* force_x::                 Constant Force
+* force_y::                 Constant Force
+* fragility (floor)::       Crack 
+* freeze_check::            -
 * friction (floor)::        Decelerating friction force factor
-* ignitable::
-* indestructible::          
-* initfire::
-* noash::
-* push_directions::
-* secure::                  
+* ignitable::               -
+* indestructible::          System Flag for destruction resistence 
+* initfire::                -
+* noash::                   -
+* push_directions::         Puzzle Shuffle Hint
+* secure::                  -
+* texture::                 Graphical Image Texture
 @end menu
 
 
@@ -6365,6 +6366,32 @@ values, too. Such values correspond to inverse forces.
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- burnable --------------------
+@node burnable
+@subsection burnable
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- eternal --------------------
+@node eternal
+@subsection eternal
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
 @item @b{Access:} @ @ read/write
 @end table
 
@@ -6386,12 +6413,85 @@ variant.
 @item @b{Access:} @ @ none - with a few exceptions
 @end table
 
+@c ----------------- fastfire --------------------
+@node fastfire
+@subsection fastfire
+
+@xref{Flood Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
 @c ----------------- floodable --------------------
 @node floodable
 @subsection floodable
 
 Determines whether a floor can be flooded by @ref{fl_water} from a neighboring
-floor.
+floor. @xref{Flood Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- force_x --------------------
+@node force_x
+@subsection force_x
+
+A constant floor specific force into east direction applied additionally to all
+other forces to all actors on the floor.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- force_y --------------------
+@node force_y
+@subsection force_y
+
+A constant floor specific force into south direction applied additionally to all
+other forces to all actors on the floor.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float number
+@item @b{Default:} @ @ @code{0.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- fragility (floor) --------------------
+@node fragility (floor)
+@subsection fragility (floor)
+
+A value denoting the probability that a brittle floor plate, that is a floor
+with an @ref{it_crack} on top, continues to desintegrate on events like an actor
+entering, passing a neighboring @ref{it_crack}, nearby explosions or fire 
+heating. A value of @code{1.0} ensures that the crack continues to desintegrate
+on these events, a value of @code{0.0} prohibits visible cracks to get larger.
+This value is defaulted by @ref{Fragility} and superceeded by @ref{it_crack}
+specific values.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ float numbers between @code{0.0} and @code{1.0}
+@item @b{Default:} @ @ @code{1.0}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- freeze_check --------------------
+@node freeze_check
+@subsection freeze_check
+
+@xref{Freeze Checking} for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -6411,6 +6511,106 @@ floor.
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{0.0}
 @item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- ignitable --------------------
+@node ignitable
+@subsection ignitable
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- indestructible --------------------
+@node indestructible
+@subsection indestructible
+
+Most floors can dissolve to @ref{fl_abyss} or @ref{fl_water} on destruction
+by explosions, fire, @ref{ot_cannonball} hits, @ref{it_crack}, @ref{it_trap},
+etc. But a few like @ref{fl_abyss}, @ref{fl_water} and @ref{fl_swamp} are
+indestrctible by all these events.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ none
+@end table
+
+@c ----------------- initfire --------------------
+@node initfire
+@subsection initfire
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- noash --------------------
+@node noash
+@subsection noash
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- push_directions --------------------
+@node push_directions
+@subsection push_directions
+
+A hint for the resolver @ref{res.puzzle} for shuffling of a puzzle. A floor
+marked with this attribute guarantees that an adjacent puzzle row or column
+can be push rotated into the listed directions by the user.
+
+@table @asis
+@item @b{Type:} @ @ string or nil
+@item @b{Values:} @ @ @code{nil}, @code{"nesw"}
+@item @b{Default:} @ @ @code{nil}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- secure --------------------
+@node secure
+@subsection secure
+
+@xref{Fire Spreading} for details.
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- texture --------------------
+@node texture
+@subsection texture
+
+Many floors do provide several textures - graphical image variations that are
+without any influence on the physical engine. Most floors do select a random
+texture in their default variant. Thiss generates areas without unintended
+optical effects. But on some floors you can select the textures by means
+of variant kind names to create your own graphical floor layout.
+
+@table @asis
+@item @b{Type:} @ @ integer number or string
+@item @b{Values:} @ @ integer number or string
+@item @b{Default:} @ @ @code{1}
+@item @b{Access:} @ @ currently none - just by variants kind string on some floors
 @end table
 
 @c ----------------- Standard Floor --------------------
@@ -7524,8 +7724,8 @@ The intended usage as described above. Note that setting this attribute does
 not automatically assign the proper @samp{slope}.
 
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{25.0} @ @ @xref{SlopeStrength}
-@item @b{force_x} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0}
-@item @b{force_y} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0}
+@item @b{force_x} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{force_x}
+@item @b{force_y} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{force_y}
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
 
@@ -7642,10 +7842,10 @@ If the thief has not stolen any items he leaves no empty bag.
 @obindex fl_water
 
 Besides @ref{fl_abyss} water is the second natural floor barrier for ball like
-actors as they can not easily pass it. 
+actors, as they can not easily pass it. 
 
-@ref{ac_marble} and @ref{ac_pearl} will sink in water, usually at once, but the 
-time amount can be configured by the global attribute @ref{WaterSinkTime}. 
+Both, @ref{ac_marble} and @ref{ac_pearl}, will sink in water, usually at once, 
+but the time amount can be configured by the global attribute @ref{WaterSinkTime}. 
 Unlike @ref{fl_swamp} water does not raise fast moving actors. But jumping 
 within water raises an actor. Jumping completely over a water chasm is of course
 a more standard way to cross it. Actors protected by an activated 
@@ -7655,36 +7855,23 @@ Some stones fall into water, too. @ref{st_box} will build floors on which all
 actors can move and pass the former water filled grid.
 
 Water itself is indestructible to the aspect that @ref{it_crack} will not spread
-onto it. But fire starting to burn nearby will dry out the water to
+onto it. But a fire starting to burn nearby will dry out the water to
 @ref{fl_swamp}.
 
 The standard water is static, its @samp{state} is @samp{IDLE}. It will not 
 spread to adjacent floors. But you can set up flood streams that will fill areas
 or flow through given paths. You just need to define the area by setting the 
-attribute @samp{floodable} to @samp{true} on the affected floors. As soon as you
-add a @samp{fl_water_source} or set the @samp{state} to @samp{FLOODING}, the
-water starts to spread to floodable neigboring grids with a speed defined by the
-attribute @samp{interval}. The speed will be inherited to floors flooded by
-a stream.
+attribute @samp{floodable} to @samp{true} on the affected floors. But static
+water lakes do not require an additional @samp{floodable} attribute, as they
+are floodable by default.
 
-Floodable floors with solid stones, closed doors or @ref{st_window} with 
-blocking faces on top will keep the flood from spreading to a new grid. But as
-soon as the obstacle vanishes, e.g. an @ref{st_door} opens, the flood continues
-to spread. Hollow stones, especially @ref{st_oneway} do not block flood streams,
-totally independent of actor blocking features on certain typs or faces.
+As soon as you add a @samp{fl_water_source} or set the @samp{state} to 
+@samp{FLOODING}, the water starts to spread to floodable neigboring grids with
+a speed defined by the attribute @samp{interval}. The speed will be inherited to
+floors flooded by a stream.
 
-Of special interest are the @ref{st_box} and their successor floors, the framed
-variants of @ref{fl_wood}, @ref{fl_hay} and @ref{fl_rock}. A flood will flow
-beneath a box stone, if the floor benath is floodable. In consequence of the
-upcoming water, the box stone will fall and build a framed floor of the given
-kind. These floors act like bridges over flooding water. They still let the
-flood spread to further neighboring floodable floors. Thus a user can not stop
-a flood by pushing an @ref{st_box} onto its path, but he can make the water
-passable for his marbles.
-
-When a flood stream spreads to a new floor items on these floors may be affected.
-@ref{it_crack} get flooded and do vanish. All @ref{it_burnable} besides oil gets
-wiped out, too.
+As a flood can be influenced by many obstacles and may sink some stones itself,
+you will find a complete discussion in the section @ref{Flood Spreading}.
 
 @table @asis
 @item @b{Attributes:}
@@ -7969,8 +8156,8 @@ Ignite the fuse.
 @item @b{Variants:}
 @table @asis
 @item @b{it_bomb}: color = @code{BLACK}
-@item @b{it_bomb_black}: state = @code{BLACK}
-@item @b{it_bomb_white}: state = @code{WHITE}
+@item @b{it_bomb_black}: color = @code{BLACK}
+@item @b{it_bomb_white}: color = @code{WHITE}
 @end table
 
 @end table
@@ -9872,27 +10059,27 @@ cannot drop items onto the same grid position.
 @subsection it_vortex
 @obindex it_vortex
 
-Teleports marbles to a given @samp{destination}. Unlike @ref{it_wormhole} it
-does not teleport other actors.
+Teleports @ref{ac_marble} and @ref{ac_pearl} to a given @samp{destination}. 
+Unlike @ref{it_wormhole} it does not teleport other @ref{Actors}.
 
 In the simplest case, a vortex is connected to a single destination given by
 an object or a position. If the destination is not blocked by a stone the
-marble will be teleported to the destination.
+actor will be teleported to the destination.
 
-If there multiple destination addresses are given, the marble will be teleported
+If multiple destination addresses are given, the actor will be teleported
 to the single destinations in sequence. Blocked destinations are indicated by
-sparkles. Finally the marble exists on the first unblocked destination. If no
-unblocked destination exists the marble exists on the starting vortex. A level
+sparkles. Finally the actor exists on the first unblocked destination. If no
+unblocked destination exists the marble exists at the starting vortex. A level
 author can write nice puzzle which require the user to block destinations to
 reach the final destination of a vortex.
 
-Vortices can be open or closed. Of course a marble can enter just an open
-vortex. Closed vortices at the destination are opened automatically. By default
-such vortices remain open. By usage of the attribute @samp{autoclose} you can
-configure a vortex to close after a marble has been emitted.
+Vortices can be @samp{OPEN} or @samp{CLOSED}. Of course an actor can enter just
+an open vortex. Closed vortices at the destination are opened automatically. 
+By default such vortices remain open. By usage of the attribute @samp{autoclose}
+you can configure a vortex to close after an actor has been emitted.
 
-Marbles are emitted by vortices in a jumping fashion. The user can accelerate
-the marble for a short period and the marble may jump out of a vortex into a
+Actors are emitted by vortices in a jumping fashion. The user can accelerate
+the actor for a short period and the actor may jump out of a vortex into the
 desired direction.
 
 Vortex teleportation take a short amount of time and the involved vortices are
@@ -9902,10 +10089,17 @@ to set up destinations of vortices that build a cycle.
 Rubberbands bound to teleported actors are cut by default. The attribute
 @samp{scissor} allows you to control the cutting behaviour.
 
+But the teleporting feature of a vortices is not limited to actors. A water
+flood will spread through a vortex, too. In contrast to actors the flood will
+spread to all destinations at the same time. Of course a closed vortex on
+either side of the teleportation will block a flood from spreading. But the
+flood continues as soon as the vortices are opened again. Destinations will
+not be blocked by stones for a flood penetrating the grid from beneath, but
+may block the water from spreading further from the destination grid positions.
+All important details are explained in section @ref{Flood Spreading}.
 
 @table @asis
 @item @b{Attributes:}
-
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{OPEN} @ @ @xref{state}
 The visual state of a vortex. An @samp{OPEN} vortex may still be busy due
@@ -9919,9 +10113,9 @@ Flag that indicates whether the vortex should be closed after a teleport.
 
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
+@end table
 
 @item @b{Messages:}
-
 @table @asis
 @item @b{signal} @ @ @xref{signal}
 Opens the vortex on value @samp{1}, and closes the vortex on value @samp{0}.
@@ -9933,19 +10127,13 @@ Tries to open the vortex.
 Tries to close the vortex.
 @end table
 
-@item @b{Action:}
-none
+@item @b{Action:} none
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_vortex}
-A vortex in state @samp{OPEN}.
-@item @b{it_vortex_open}
-A vortex in state @samp{OPEN}.
-@item @b{it_vortex_closed}
-A vortex in state @samp{CLOSED}.
-@end table
-
+@item @b{it_vortex}:  state = @code{OPEN}.
+@item @b{it_vortex_open}: state = @code{OPEN}.
+@item @b{it_vortex_closed}: state @samp{CLOSED}.
 @end table
 @end table
 
@@ -9954,7 +10142,7 @@ A vortex in state @samp{CLOSED}.
 @subsection it_wormhole
 @obindex it_wormhole
 
-Teleports actors of any kind to a given @samp{destination}. Unlike
+Teleports @ref{Actors} of any kind to a given @samp{destination}. Unlike
 @ref{it_vortex} every wormhole has a unique destination. But of course the
 destination may be another wormhole which instantly teleports the actor again.
 An infinite circle of wormholes that are connected by destinations is forbidden.
@@ -9973,10 +10161,14 @@ off for a short latency period given by @samp{interval}. A latency separates
 actors travelling through a wormhole and avoids overlapping actors at the
 destination.
 
+But the teleporting feature of a wormhole is not limited to actors. A water
+flood will spread through a wormhole, too. Of course all actor related
+attributes described above have no influence on the flood. Just the 
+@samp{destination} is important as explained in details in @ref{Flood Spreading}.
+
 @table @asis
 
 @item @b{Attributes:}
-
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
 The current force state - @samp{ON} for a force applying wormholes, @samp{OFF}
@@ -9995,7 +10187,6 @@ The latency time after a teleport during which no further teleports take place.
 @end table
 
 @item @b{Messages:}
-
 @table @asis
 @item @b{signal} @ @ @xref{signal}
 A signal of value 1 switches the wormhole force on, a value of 0 switches the
@@ -10008,19 +10199,14 @@ Switches the wormhole on.
 Switches the wormhole off.
 @end table
 
-@item @b{Action:}
-none
+@item @b{Action:} none
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_wormhole}
-A wormhole in state @samp{OFF}.
-@item @b{it_wormhole_on}
-A wormhole in state @samp{ON}.
-@item @b{it_wormhole_off}
-A wormhole in state @samp{OFF}.
+@item @b{it_wormhole}: state = @code{OFF}.
+@item @b{it_wormhole_on}: state = @code{ON}.
+@item @b{it_wormhole_off}: state @code{OFF}.
 @end table
-
 @end table
 
 
@@ -14051,6 +14237,8 @@ will be @ref{it_squashed}.
 Window face rearrangements can also be initiated by an @ref{it_puller} dropped
 within the window and by the message @samp{inner_pull}.
 
+Windows do support @ref{Flood Spreading} and @ref{Fire Spreading} through open
+faces.
 
 @table @asis
 @item @b{Attributes:}
@@ -16791,7 +16979,7 @@ Returns width and height of new Enigma level.
 @menu
 * World Advanced Methods::  Additional features provided by the world
 * Resolvers::               Standard tools for interpretation of tile maps
-* General Features::        Special features by various objects
+* General Features::        Special features like scrolling, flood, fire,...
 * Tips and Tricks::         Simple patterns that are valuable like a feature
 @end menu
 
@@ -17258,10 +17446,11 @@ Each rule can be either a prefixrule or a rangerule in any mixture
 @item @i{prefixrule} = @{@i{prefix}, @i{template}@}
 A table with two entries. First a prefix string that is common to all tile
 keys that should be handeled followed by key string of the template tile.
-@item @i{rangerule} = @{@i{first}, @i{last}, @i{template}@}
-A table with three entries. A string with the first key to be handled, followed
-by a string with the last key to be handled. The third value is the key string
-of the template tile.
+@item @i{rangerule} = @{@i{first}, @i{last}, @i{template}@ [, @i{offset}]@}
+A table with at least three entries. A string with the first key to be handled,
+followed by a string with the last key to be handled. The third value is the key
+string of the template tile. An optional fourth value, that defaults to @code{1},
+defines the number of the first key on @samp{%%} pattern substitutions.
 @end table
 
 @item @b{Syntax Samples:}
@@ -17284,9 +17473,10 @@ character key maps. But it can be used in multicharacter maps, too. In this case
 the given first and last keys may just differ in the last character. Again a
 copy of the template rule will be generated and the @samp{%%} patterns will be
 substituted. But in this case the substitution is composed of a single percent
-sign followed by an integer number that counts the key position within the
-given range. Thus a key of @samp{c} will target the door @samp{door%3}.
-You need to use the key @samp{C} in the map for the matching door.
+sign followed by an integer number, that counts the key position within the
+given range, starting with the given offset or default @code{1}. Thus a key of 
+@samp{c} in the syntax sampe above will target the door @samp{door%3}. You 
+would need to use the key @samp{C} in the map for the matching door.
 
 The template tile definitions can well be composed of several concatenated
 tiles even with references of base tiles. The pattern substitution takes place
@@ -17610,7 +17800,7 @@ to all sides.
 If you set the @samp{algorithm} on any of the puzzle stones to the value
 @code{"marked"} the resolver registers that the user has no free access, but
 just from positions that you did mark. You do mark a position by setting
-the attribute @samp{"push_directions"} on a floor. All floors adajacent to
+the attribute @ref{push_directions} on a floor. All floors adajacent to
 outer puzzle stones from which a user can push rotate a puzzle will be checked
 for this attribute. If its string value, a substring of @code{"nesw"}, contains
 the character of the required push direction this push event will take part
@@ -17763,7 +17953,7 @@ need to use another unique key @samp{C} for the coin on our random floor.
 
 @menu
 * Display Follow Strategy::    How the display view follows the active marble
-* Flood Spreading::
+* Flood Spreading::            How a water flood spreads over a given area
 * Fire Spreading::
 * Freeze Checking::
 @end menu
@@ -17884,6 +18074,75 @@ The final display realigns to the grid even on odd threshold distances.
 
 @node Flood Spreading
 @subsection Flood Spreading
+@cindex flood
+
+A flood is active @ref{fl_water} that, originating from a source, spreads over
+@ref{floodable} areas. In contrast to a flood standard water is just static, 
+its @samp{state} is @samp{IDLE} and it will not spread to adjacent floors. But
+a flood reaching a static water lake will cross it as a tsunami and continue
+actively spreading on all riparian zones.
+
+You set up the area by adding the attribute @ref{floodable} with value 
+@code{true} on all its floors. Just @ref{fl_water} and the framed variants of
+@ref{fl_wood}, @ref{fl_hay} and @ref{fl_rock} do not require to be explicitly 
+marked floodable as they are floodable by default. The marked area is the 
+maximum area that may be flooded. But obstacles may block the flood temporarily
+or permantently.
+
+A flood starts at a source.  As soon as you add a @samp{fl_water_source} or set
+the @samp{state} to @samp{FLOODING}, the @ref{fl_water} starts to spread to
+floodable neighboring grids with a speed defined by the attribute
+@samp{interval}. The speed will be inherited to floors flooded by the stream.
+
+Floodable floors with solid stones, closed doors or @ref{st_window} with 
+blocking faces on top will keep the flood from spreading to their grid position
+or if already flooded to spread to a neighboring grid. But as soon as the
+obstacle vanishes, e.g. an @ref{st_door} opens, the flood continues to spread.
+Hollow stones, especially @ref{st_oneway} do not block flood streams, totally
+independent of actor blocking features on certain types or faces.
+
+Of special interest are the @ref{st_box} variants and their successor floors,
+the framed variants of @ref{fl_wood}, @ref{fl_hay} and @ref{fl_rock}. A flood
+will flow beneath a box stone, if the floor benath is floodable. In consequence
+of the upcoming water, the box stone will fall and build a framed floor of the 
+given kind. These floors act like bridges over flooding water. They still let 
+the flood spread to further neighboring floodable floors. Thus a user can not
+stop a flood by pushing an @ref{st_box} onto its path, but he can make the water
+passable for his marbles. In fact this framed floors can even operate as a flood
+source, but we do not recommend this usage.
+
+In contrast to these floor building stones the @ref{st_puzzle} does neither
+fall on static nor on flooding @ref{fl_water}. As a solid stone it will even 
+block a flood on neighboring grids to reach its position. But of course once
+moved completly over @ref{fl_water} the puzzle will fall if its own conditions
+are met. The successor @ref{fl_gray} will not build a bridge over water. It
+fills up the ditch and replaces the water completly. Thus the user can use 
+puzzles to stop a flood.
+
+When a flood stream spreads to a new floor items on these floors may be affected.
+E.g. @ref{it_crack} get flooded and do vanish. All @ref{it_burnable} besides oil
+get wiped out, too.
+
+Further active components of the flood concept are @ref{it_vortex} and
+@ref{it_wormhole}. Besides actors both do spread a flood. The @ref{it_wormhole}
+speads the flood to its @samp{destination} if the floor at this grid is marked
+@samp{floodable}. An @ref{it_vortex} will flood all its @samp{destination}s,
+but of course just if it is in state @samp{OPEN}. In case the destinations are
+vortices, too, they must be open, too, for a successful flood spreading. When the
+last closed vortex on either end opens again the hold flood continues to spread.
+Note that in these cases the flood reaches the destination grid from beneath. 
+Thus no stone will block the emerging water. But nevertheless a stone on the 
+destination position may well block the water from spreading to the neighboring
+grids.
+
+Be aware that the Enigma flood has some extraordinary features. The most
+important is the ability to spread unlimitedly from every grid that got flooded,
+independently of a still existing connection to the flood source. Thus once a
+door is opened and a bit of the flood passes the door, the flood will continue
+to spread even if the door closes again. Same is true for toggling vortices or
+puzzle stones being pushed into a flood building a complete bridge over the 
+water stream. But this feature is intentionally, as it avoids many shortcut
+situations and thus makes the flood more usable for level authors.
 
 @node Fire Spreading
 @subsection Fire Spreading
