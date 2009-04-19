@@ -1285,26 +1285,27 @@ Let us have a first view on complete simple @samp{Hello World} level in the new 
   <@i{el}:@b{protected} >
     <@i{el}:@b{info} @i{el}:@b{type}="@var{level}">
       <@i{el}:@b{identity} @i{el}:@b{title}="@var{Demo Simple}" @i{el}:@b{id}="@var{20060210ral001}"/>
-      <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{0}" @i{el}:@b{status}="@var{stable}"/>
+      <@i{el}:@b{version} @i{el}:@b{score}="@var{1}" @i{el}:@b{release}="@var{1}" @i{el}:@b{revision}="@var{2}" @i{el}:@b{status}="@var{stable}"/>
       <@i{el}:@b{author}  @i{el}:@b{name}="@var{Ronald Lamprecht}"/>
-      <@i{el}:@b{copyright}>@var{Copyright @copyright{} 2006 Ronald Lamprecht}</@i{el}:@b{copyright}>
+      <@i{el}:@b{copyright}>@var{Copyright @copyright{} 2006,2009 Ronald Lamprecht}</@i{el}:@b{copyright}>
       <@i{el}:@b{license} @i{el}:@b{type}="@var{GPL v2.0 or above}" @i{el}:@b{open}="@var{true}"/>
-      <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{0.92}"/>
+      <@i{el}:@b{compatibility} @i{el}:@b{enigma}="@var{1.10}"/>
       <@i{el}:@b{modes} @i{el}:@b{easy}="@var{false}" @i{el}:@b{single}="@var{true}" @i{el}:@b{network}="@var{false}"/>
       <@i{el}:@b{score} @i{el}:@b{easy}="@var{-}" @i{el}:@b{difficult}="@var{-}"/>
     </@i{el}:@b{info}>
     <@i{el}:@b{luamain}><![CDATA[
-levelw = 20
-levelh = 13
+@i{ti}["@var{ }"] = @{"@b{fl_lawn_b}"@}
+@i{ti}["@var{#}"] = @{"@b{st_box}"@}
+@i{ti}["@var{o}"] = @{"@b{st_oxyd}"@}
+@i{ti}["@var{@@}"] = @{"#@b{ac_marble}"@}
 
-@b{create_world}( levelw, levelh)
-@b{draw_border}("@i{st-wood}")
-@b{fill_floor}("@i{fl-leavesb}", 0,0,levelw,levelh)
-
-@b{oxyd}( 4,4)
-@b{oxyd}( 14,4)
-
-@b{set_actor}("@i{ac-blackball}", 4, 11)
+@i{wo}(@i{ti}, " ", @{
+    "@var{####################}",
+    "@var{#                  #}",
+    "@var{#  o      @@     o  #}",
+    "@var{#                  #}",
+    "@var{####################}",
+@})
     ]]></@i{el}:@b{luamain}>
     <@i{el}:@b{i18n}/>
   </@i{el}:@b{protected}>
@@ -1349,28 +1350,38 @@ parts:
 @node Getting Started with Levels
 @section Getting Started with Levels
 
-A Simple Level
-
-Here is a very simple level description that can also serve as a
-starting-point for new landscapes.  (In fact, this is the first level
-in Enigma, so you can try it out right away.)
+Most likely you are keen on understanding the basic principles of placing
+objects in a level. Here is a very simple level description that can also serve
+as a starting-point for new landscapes.  (In fact, this is the first welcome
+level in levelpack Enigma I, so you can try it out right away.)
 
 @example
- 1   CreateWorld(20, 13)
- 2   draw_border("st-brownie")
- 3   fill_floor("fl-hay", 0,0, level_width,level_height)
- 4
- 5   set_stone("st_quake", level_width-1,0, @{name="quake"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="quake",
- 7             interval=10@})
- 8
- 9   oxyd(3,3)
-10   oxyd(level_width-4,level_height-4)
-11   oxyd(level_width-4, 3)
-12   oxyd(3,level_height-4)
-13   oxyd_shuffle()
-14
-15   set_actor("ac-blackball", 10,6.5)
+ 1    @i{ti}["@var{ }"] = @{"@b{fl_gravel}"@}
+ 2    @i{ti}["@var{#}"] = @{"@b{st_box}"@}
+ 3    @i{ti}["@var{O}"] = @{"@b{st_oxyd}"@}
+ 4    if @i{wo}["@b{IsDifficult}"] then
+ 5	@i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
+ 6	@i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
+ 7    else
+ 8	@i{ti}["@var{Q}"] = @i{ti}[" "]
+ 9	@i{ti}["@var{T}"] = @i{ti}[" "]
+10    end
+11    @i{ti}["@var{@@}"] = @{"@b{ac_marble_black}", @var{0.0}, @var{0.5}@}
+11
+12    @i{wo}(@i{ti}, " ", @{
+13	"@var{####################}",
+14	"@var{#                  #}",
+15	"@var{#                  #}",
+16	"@var{#  O            O  #}",
+17	"@var{#         @@        #}",
+18	"@var{#                  #}",
+19	"@var{#        QT        #}",
+20	"@var{#                  #}",
+21	"@var{#                  #}",
+22	"@var{#  O            O  #}",
+23	"@var{#                  #}",
+24	"@var{#                  #}",
+25	"@var{####################}"@})
 @end example
 
 The resulting level looks like this inside the game:
@@ -1383,72 +1394,74 @@ The resulting level looks like this inside the game:
 Let's now turn to a line-by-line analysis of this program:
 
 @example
- 1   CreateWorld(20, 13)
- 2   draw_border("st-brownie")
- 3   fill_floor("fl-hay", 0,0, level_width,level_height)
+ 1    @i{ti}["@var{ }"] = @{"@b{fl_gravel}"@}
+ 2    @i{ti}["@var{#}"] = @{"@b{st_box}"@}
+ 3    @i{ti}["@var{O}"] = @{"@b{st_oxyd}"@}
 @end example
 
-The level begins with a call to @code{CreateWorld}, which creates a
-new world that is 20 blocks wide and 13 blocks high.  You can access every
-@dfn{block} in the world with a pair of coordinates:
-The upper left corner has coordinates (0,0); the lower right has
-coordinates (19,12).  Every block contains a floor tile, an (optional)
-item, and an (optional) stone.
-
-You draw a frame of stones around the newly created landscape with the
-@code{draw_border} command.  Its argument, @code{"st-brownie"}, is the
-name of a stone.  By convention, all stones have @code{"st-"} prefixed
-to their name; similarly all item names begin with @code{"it-"} and
-all floor names with @code{"fl-"}.
-
-The @code{fill_floor} command in line 3 fills the complete floor with
-tiles of type @code{"fl-hay"}.  The other arguments are the upper left
-corner and the width and height of the rectangle to be filled.
+First we declare some keys for objects we like to use in our level map. We
+just add each key to our @i{ti} tiles repository and assign an object tile
+description that consists of the object kind name in these simple cases. The
+two character prefix of the kind name shows us the basic object typ like floor,
+item, stone, actor, etc.
 
 @example
- 5   set_stone("st-quake", level_width-1,0, @{name="quake"@})
- 6   set_stone("st-timer", 0,0, @{action="trigger", target="quake",
- 7             interval=10@})
+ 4    if @i{wo}["@b{IsDifficult}"] then
+ 5	@i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
+ 6	@i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
+ 7    else
+ 8	@i{ti}["@var{Q}"] = @i{ti}[" "]
+ 9	@i{ti}["@var{T}"] = @i{ti}[" "]
+10    end
 @end example
 
-Lines 5 to 7 demonstrate how to create individual stones.  The
-@code{set_stone} command takes a stone name, the desired
-coordinates, and an (optional) list of @emph{attributes}
-as arguments.  Note the use of curly braces @code{@{},
-@code{@}} to enclose the attribute list.
+The welcome level provides two modes, the regular difficult one and an easy one.
+As the regular difficult one differs just in two additional stones we add two 
+mode specific tile declarations.
 
-Attributes are the key to customizing the behavior of objects in a
-landscape.  Here, we name the first stone we create.
-It's a quake stone that has the unpleasant habit of ``blowing off''
-when triggered.  The timer stone that we create in line 6-7 triggers this quake stone.  This stone
-performs a predefined action at
-regular intervals.  In this case, we want to send a ``trigger'' message
-every ten seconds to the object named ``quake''.
+In the difficult mode we assign two stone definitions. Each provides the
+stone kind and additional attributes. The @samp{st_quake} is the stone that
+closes oxyd stones when being hit or toggled. We just name it, to be able to
+reference it later on. The second stone is a timer that should get active 
+every 10 seconds and should send a toggle message to its target, our oxyd
+closing @samp{st_quake}. As we did name this stone we can reference it here
+as target by its name.
 
 @example
- 9   oxyd(3,3)
-10   oxyd(level_width-4,level_height-4)
-11   oxyd(level_width-4, 3)
-12   oxyd(3,level_height-4)
-13   oxyd_shuffle()
+11    @i{ti}["@var{@@}"] = @{"@b{ac_marble_black}", @var{0.0}, @var{0.5}@}
 @end example
 
-These commands place a couple of oxyd stones in the level.  The
-@code{oxyd} command internally uses @code{set_stone("st-oxyd", x,y,
-@dots{})} to create the stones, but additionally it assigns sensible
-values to some of the oxyd stones' attributes (most notably the
-color).  The command on line 14 permutes the colors on the oxyd stones
-currently in the landscape.
+Now we just need to declare our actor. It is a black marble that should not
+be placed at the left upper corner of a grid but in the mid of the left
+border of a tile grid. Actually we just want to center it within the level.
+As a one screen sized level has the extension of 20 x 13 we need the offsets
+given above.
 
 @example
-15   set_actor("ac-blackball", 10,6.5)
+12    @i{wo}(@i{ti}, " ", @{
+13	"@var{####################}",
+14	"@var{#                  #}",
+15	"@var{#                  #}",
+16	"@var{#  O            O  #}",
+17	"@var{#         @@        #}",
+18	"@var{#                  #}",
+19	"@var{#        QT        #}",
+20	"@var{#                  #}",
+21	"@var{#                  #}",
+22	"@var{#  O            O  #}",
+23	"@var{#                  #}",
+24	"@var{#                  #}",
+25	"@var{####################}"@})
 @end example
 
-This final line creates the black marble that the player controls.
-We call objects that can move around freely ``actors'' in Enigma.
-Unlike stones and items, actors are not restricted to integer
-coordinates, as you can see in this example.
+Now we can create the world simply by providing a map. We just need to call
+@samp{wo}, our world handle, provide it our tile resolver, the key of the
+default floor and a map of tile keys.
 
+You will find all conceptional background information in chapter 
+@ref{Enigma Paradigm} and more examples and syntax information in chapter
+@ref{Lua API}. But first you should take the time to get aware of the XML
+based level metadata.
 
 
 @node XML Level structure
@@ -4079,7 +4092,7 @@ An Enimga object like a stone, item, floor, other. Any object is a position, too
 A list of objects.
 @item @b{namedobjects:} @i{preset variable:} @code{@b{no}}; @ @ @xref{NamedObjects}
 The singleton type of the repository of all named objects.
-@item @b{default:} @i{preset variable:} @code{@b{DEFAULT}}; @ @ @xref{Default}
+@item @b{default:} @i{preset variable:} @code{@b{DEFAULT}}; @ @ @xref{Object Attributes}
 The singleton type of default values that can be used instead of Lua's @samp{nil}
 in anonymous table tile definitions.
 @item @b{tile:}@ @ @xref{Tile}
@@ -5298,8 +5311,6 @@ used in the default manner.
 * rubbers::
 * wires::
 * fellows::
-* movable::
-* hit_*::
 @end menu
 
 @node name
@@ -5585,50 +5596,6 @@ world's @samp{add} method.
 @item @b{Support:} @ @ by actor and stone objects
 @end table
 
-@node movable
-@subsection movable
-
-An attribute that describes if a stone is movable by actor impulses. It is
-supported by all stones.
-
-Note that this attribute is not listed in the individual stone description
-if the stone is generally not movable.
-
-@table @asis
-@item @b{Type:} @ @ bool
-@item @b{Values:} @ @ @code{true}, @code{false}
-@item @b{Default:} @ @ usually @code{false}
-If a stone exists only in a movable variant this attribute will default to
-@samp{true}.
-@item @b{Access:} @ @ read/sometimes write
-This attribute is only writable for objects that exist in both variations.
-@item @b{Support:} @ @ by all stones
-@end table
-
-@node hit_*
-@subsection hit_*
-
-A set of attributes that allow you to distort hit forces. Objects like
-@ref{st_flash}, @ref{st_spitter} and @ref{st_actorimpulse} apply forces that
-are either based on the hit velocity or the position.
-
-By usage of a simple @samp{hit_strength} factor you can increase, decrease or
-invert the default factor. Note that you must not set this attribute, if you 
-want to use the default.
-
-By setting the four attributes @samp{hit_distortion_xx}, @samp{hit_distortion_xy},
-@samp{hit_distortion_yx} and @samp{hit_distortion_yy} you can describe a
-matrix to set up a new direction. These attributes default to 1, 0, 0, 1.
-A 90 degree clockwise turn is described by 0, 1, -1, 0.
-
-@table @asis
-@item @b{Type:} @ @ number
-@item @b{Values:} @ @ ?
-@item @b{Default:} @ @ factor - @code{nil}, xx, yy - @code{1}, xy, yx - @code{0}
-By default no hit factor is applied. The hit matrix is the neutral one.
-@item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ by some stones
-@end table
 
 @node Common Messages
 @section Common Messages
@@ -7969,7 +7936,7 @@ switched off by the attribute @samp{invisible}.
 @menu
 * Item Overview::
 * Item Attributes::
-* Portable Items::
+* Liftable Items::
 * Static Items::
 @end menu
 
@@ -7981,9 +7948,69 @@ switched off by the attribute @samp{invisible}.
 @node Item Attributes
 @section Item Attributes
 
-@c ----------------- Portable Items --------------------
-@node Portable Items
-@section Portable Items
+@menu
+* fireproof::               -
+* freezable::               -
+* liftable::                -
+* portable::                -
+@end menu
+
+
+@c ----------------- fireproof --------------------
+@node fireproof
+@subsection fireproof
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+
+@c ----------------- freezable --------------------
+@node freezable
+@subsection freezable
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+
+@c ----------------- liftable --------------------
+@node liftable
+@subsection liftable
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+
+@c ----------------- portable --------------------
+@node portable
+@subsection portable
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+
+@c ----------------- Liftable Items --------------------
+@node Liftable Items
+@section Liftable Items
 
 @menu
 * it_bag::             Portable Item Container
@@ -10215,11 +10242,127 @@ Switches the wormhole off.
 @chapter Stone Objects
 
 @menu
+* Stone Overview::
+* Stone Attributes::
 * Standard Stones::
 * Cluster Stones::
 * Special Stones::
 * Stone Feature Summaries::     Tables of transparent, breakable, ... stones
 @end menu
+
+@c ----------------- Stone Overview --------------------
+@node Stone Overview
+@section Stone Overview
+
+@c ----------------- Stone Attributes --------------------
+@node Stone Attributes
+@section Stone Attributes
+
+@menu
+* breakable::         -
+* hit_*::             -
+* hollow::            -
+* hovering::          -
+* movable::           -
+* transparent::       -
+@end menu
+
+
+@c ----------------- breakable --------------------
+@node breakable
+@subsection breakable
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- hit_* --------------------
+@node hit_*
+@subsection hit_*
+
+A set of attributes that allow you to distort hit forces. Objects like
+@ref{st_flash}, @ref{st_spitter} and @ref{st_actorimpulse} apply forces that
+are either based on the hit velocity or the position.
+
+By usage of a simple @samp{hit_strength} factor you can increase, decrease or
+invert the default factor. Note that you must not set this attribute, if you 
+want to use the default.
+
+By setting the four attributes @samp{hit_distortion_xx}, @samp{hit_distortion_xy},
+@samp{hit_distortion_yx} and @samp{hit_distortion_yy} you can describe a
+matrix to set up a new direction. These attributes default to 1, 0, 0, 1.
+A 90 degree clockwise turn is described by 0, 1, -1, 0.
+
+@table @asis
+@item @b{Type:} @ @ number
+@item @b{Values:} @ @ ?
+@item @b{Default:} @ @ factor - @code{nil}, xx, yy - @code{1}, xy, yx - @code{0}
+By default no hit factor is applied. The hit matrix is the neutral one.
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by some stones
+@end table
+
+@c ----------------- hollow --------------------
+@node hollow
+@subsection hollow
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- hovering --------------------
+@node hovering
+@subsection hovering
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- movable --------------------
+@node movable
+@subsection movable
+
+An attribute that describes if a stone is movable by actor impulses. It is
+supported by all stones.
+
+Note that this attribute is not listed in the individual stone description
+if the stone is generally not movable.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ usually @code{false}
+If a stone exists only in a movable variant this attribute will default to
+@samp{true}.
+@item @b{Access:} @ @ read/sometimes write
+This attribute is only writable for objects that exist in both variations.
+@item @b{Support:} @ @ by all stones
+@end table
+
+@c ----------------- transparent --------------------
+@node transparent
+@subsection transparent
+
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
 
 
 @c ----------------- Standard Stones --------------------
@@ -13677,7 +13820,7 @@ it will move without any additional pulse.
 
 In general stoneimpulse stones are very responsive to actor contacts. The
 slightest touch is sufficient to cause a pulsing. Hollow stones will shatter
-actors benath it while pulsing.
+actors beneath it while pulsing.
 
 Hollow stoneimpulse stones are transparent to laserlight and thus do not react.
 But all other stones do pulse. A standard not @samp{steady} stoneimpulse will
@@ -18103,7 +18246,7 @@ independent of actor blocking features on certain types or faces.
 
 Of special interest are the @ref{st_box} variants and their successor floors,
 the framed variants of @ref{fl_wood}, @ref{fl_hay} and @ref{fl_rock}. A flood
-will flow beneath a box stone, if the floor benath is floodable. In consequence
+will flow beneath a box stone, if the floor beneath is floodable. In consequence
 of the upcoming water, the box stone will fall and build a framed floor of the 
 given kind. These floors act like bridges over flooding water. They still let 
 the flood spread to further neighboring floodable floors. Thus a user can not
