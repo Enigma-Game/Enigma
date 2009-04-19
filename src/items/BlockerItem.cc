@@ -139,7 +139,17 @@ namespace enigma {
                 }
             }
             else { // any other stone
-                setIState(LOCKED);
+                switch (state) {
+                    case IDLE:
+                    case NEW:
+                    case LOCKED:
+                        setIState(LOCKED);
+                        break;
+                    case UNLOCKED:
+                        // case appears if a stone is pushed from a trigger to a neighboring
+                        // idle blocker item with the releasing trigger toggeling the blocker, too
+                        break;
+                }
             }
         }
         else {              // stone disappeared
