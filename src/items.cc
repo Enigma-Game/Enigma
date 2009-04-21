@@ -132,6 +132,10 @@ bool Item::isStatic() const {
     return get_traits().flags & itf_static;
 }
 
+bool Item::isPortable() const {
+    return !isStatic() || (get_traits().flags & itf_portable);
+}
+
 void Item::add_force(Actor *, V2 &) {
 }
 

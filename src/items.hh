@@ -32,6 +32,7 @@ namespace enigma {
         it_bag,
         it_banana,
         it_bomb,
+        it_bomb_burning,
         it_blocker,
         it_bottle_idle,
         it_bottle_broken,
@@ -167,13 +168,15 @@ namespace enigma {
 
     enum ItemFlags {
         itf_none   = 0,
-        itf_static = 1,         //!< Cannot be picked up
-        itf_indestructible = 2, //!< Cannot be destroyed by explosions etc.
+        itf_static = 1,         //!< Cannot be picked up - not liftable
+        itf_indestructible = 2, //!< Non standard handling of explosions - may well be destructible!
         itf_animation = 4,      //!< Use set_anim() instead of set_model()
         itf_invisible = 8,      //!< Item has no visible model
         itf_inflammable = 16,   //!< Burns when hit by laser beam
         itf_norespawn = 32,     //!< Don't respawn balls on top of this item
         itf_fireproof = 64,     //!< This item can't burn by fire
+        itf_portable = 128,     //!< This static item can be added to the inventory
+        itf_freezable = 256,    //!< This static item can be frozen and carried by an st_ice
     };
 
     struct ItemTraits {
@@ -205,7 +208,8 @@ namespace enigma {
 
         virtual const ItemTraits &get_traits() const = 0;
         
-        virtual bool isStatic() const;
+        virtual bool isStatic() const;   // not liftable
+        virtual bool isPortable() const;
 
         /*! Return true if item completely covers the floor. In this
           case the Floor::actor_contact() will not be called

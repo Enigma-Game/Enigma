@@ -244,12 +244,12 @@ namespace enigma {
     }
 
     ItemTraits Meditation::traits[6] = {
-        {"it_meditation_caldera",  it_meditation_caldera,  itf_static | itf_fireproof},
-        {"it_meditation_hollow",  it_meditation_hollow,  itf_static | itf_fireproof},
-        {"it_meditation_dent",  it_meditation_dent,  itf_static | itf_fireproof},
-        {"it_meditation_bump",  it_meditation_bump,  itf_static | itf_fireproof},
-        {"it_meditation_hill",  it_meditation_hill,  itf_static | itf_fireproof},
-        {"it_meditation_volcano",  it_meditation_volcano,  itf_static | itf_fireproof},
+        {"it_meditation_caldera",  it_meditation_caldera,  itf_static | itf_fireproof | itf_freezable},
+        {"it_meditation_hollow",  it_meditation_hollow,  itf_static | itf_fireproof | itf_freezable},
+        {"it_meditation_dent",  it_meditation_dent,  itf_static | itf_fireproof | itf_freezable},
+        {"it_meditation_bump",  it_meditation_bump,  itf_static | itf_fireproof | itf_freezable},
+        {"it_meditation_hill",  it_meditation_hill,  itf_static | itf_fireproof | itf_freezable},
+        {"it_meditation_volcano",  it_meditation_volcano,  itf_static | itf_fireproof | itf_freezable},
     };
 
     BOOT_REGISTER_START

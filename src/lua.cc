@@ -2213,9 +2213,9 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
             throwLuaError(L, "Attempt to add an object to a bag or inventory that is no item");
         } else {
             Item * it = dynamic_cast<Item *>(obj);
-            if (it->isStatic()) {
+            if (!it->isPortable()) {
                 DisposeObject(obj);
-                throwLuaError(L, "Attempt to add a static item to a bag or inventory");
+                throwLuaError(L, "Attempt to add an item to a bag or inventory that is not portable");
             } else {
                 itemHolder->add_item(it);
                 // just in case itemholder is displayed

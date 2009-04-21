@@ -76,7 +76,7 @@ namespace enigma {
     
     ItemTraits BurnableItem::traits[6] = {
         {"it_burnable_invisible", it_burnable_invisible, itf_static, 0.0},
-        {"it_burnable_oil",       it_burnable_oil,       itf_static, 0.0},
+        {"it_burnable_oil",       it_burnable_oil,       itf_static | itf_freezable, 0.0},
         {"it_burnable_ignited",   it_burnable_ignited,   itf_static | itf_animation | itf_fireproof, 0.0},
         {"it_burnable_burning",   it_burnable_burning,   itf_static | itf_animation | itf_fireproof, 0.0},
         {"it_burnable_ash",       it_burnable_ash,       itf_static | itf_fireproof, 0.0},

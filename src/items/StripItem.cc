@@ -98,22 +98,22 @@ namespace enigma {
     }
 
     ItemTraits StripItem::traits[16] = {
-        {"it_strip",  it_strip,  itf_static},
-        {"it_strip_w",  it_strip_w,  itf_static},
-        {"it_strip_s",  it_strip_s,  itf_static},
-        {"it_strip_sw",  it_strip_sw,  itf_static},
-        {"it_strip_e",  it_strip_e,  itf_static},
-        {"it_strip_ew",  it_strip_ew,  itf_static},
-        {"it_strip_es",  it_strip_es,  itf_static},
-        {"it_strip_esw",  it_strip_esw,  itf_static},
-        {"it_strip_n",  it_strip_n,  itf_static},
-        {"it_strip_nw",  it_strip_nw,  itf_static},
-        {"it_strip_ns",  it_strip_ns,  itf_static},
-        {"it_strip_nsw",  it_strip_nsw,  itf_static},
-        {"it_strip_ne",  it_strip_ne,  itf_static},
-        {"it_strip_new",  it_strip_new,  itf_static},
-        {"it_strip_nes",  it_strip_nes,  itf_static},
-        {"it_strip_nesw",  it_strip_nesw,  itf_static}
+        {"it_strip",  it_strip,  itf_static | itf_freezable},
+        {"it_strip_w",  it_strip_w,  itf_static | itf_freezable},
+        {"it_strip_s",  it_strip_s,  itf_static | itf_freezable},
+        {"it_strip_sw",  it_strip_sw,  itf_static | itf_freezable},
+        {"it_strip_e",  it_strip_e,  itf_static | itf_freezable},
+        {"it_strip_ew",  it_strip_ew,  itf_static | itf_freezable},
+        {"it_strip_es",  it_strip_es,  itf_static | itf_freezable},
+        {"it_strip_esw",  it_strip_esw,  itf_static | itf_freezable},
+        {"it_strip_n",  it_strip_n,  itf_static | itf_freezable},
+        {"it_strip_nw",  it_strip_nw,  itf_static | itf_freezable},
+        {"it_strip_ns",  it_strip_ns,  itf_static | itf_freezable},
+        {"it_strip_nsw",  it_strip_nsw,  itf_static | itf_freezable},
+        {"it_strip_ne",  it_strip_ne,  itf_static | itf_freezable},
+        {"it_strip_new",  it_strip_new,  itf_static | itf_freezable},
+        {"it_strip_nes",  it_strip_nes,  itf_static | itf_freezable},
+        {"it_strip_nesw",  it_strip_nesw,  itf_static | itf_freezable}
     };
     
     BOOT_REGISTER_START

@@ -363,7 +363,7 @@ namespace enigma {
         set_model("it_springboard");
     }
 
-    DEF_ITEMTRAITSF(Springboard, "it_springboard", it_springboard, itf_static);
+    DEF_ITEMTRAITSF(Springboard, "it_springboard", it_springboard, itf_static | itf_portable | itf_freezable);
     
 /* -------------------- Squashed Cherry -------------------- */
 
@@ -380,7 +380,7 @@ namespace enigma {
         return Item::message(m);
     }
 
-    DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static);
+    DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static | itf_freezable);
 
 /* -------------------- Weight item -------------------- */
     Weight::Weight() {

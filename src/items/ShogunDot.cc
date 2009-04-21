@@ -110,9 +110,9 @@ namespace enigma {
     
 
     ItemTraits ShogunDot::traits[3] = {
-        { "it_shogun_s", it_shogun_s, itf_static | itf_indestructible, 0.0 },
-        { "it_shogun_m", it_shogun_m, itf_static | itf_indestructible, 0.0 },
-        { "it_shogun_l", it_shogun_l, itf_static | itf_indestructible, 0.0 }
+        { "it_shogun_s", it_shogun_s, itf_static | itf_indestructible | itf_freezable, 0.0 },
+        { "it_shogun_m", it_shogun_m, itf_static | itf_indestructible | itf_freezable, 0.0 },
+        { "it_shogun_l", it_shogun_l, itf_static | itf_indestructible | itf_freezable, 0.0 }
     };
 
     BOOT_REGISTER_START

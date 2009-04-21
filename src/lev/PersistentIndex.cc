@@ -262,7 +262,7 @@ namespace enigma { namespace lev {
         Variation var;
         Proxy * curProxy = Index::getCurrentProxy();
         // remember all but commandline absolute and relative paths
-        if (curProxy->getNormPathType() != Proxy::pt_absolute) {
+        if (curProxy != NULL && curProxy->getNormPathType() != Proxy::pt_absolute) {
             PersistentIndex * curIndex = dynamic_cast<PersistentIndex *>(Index::getCurrentIndex());
             if (curIndex != NULL)
                 var = curIndex->getVariation(curIndex->getCurrentPosition());

@@ -122,7 +122,14 @@ namespace enigma {
         replace("it_explosion_debris");
     }
 
-    DEF_ITEMTRAITSF(Bomb, "it_bomb", it_bomb, itf_static | itf_indestructible | itf_fireproof);
+    int Bomb::traitsIdx() const {
+        return state;
+    }
+    
+    ItemTraits Bomb::traits[2] = {
+        {"it_bomb", it_bomb, itf_static | itf_indestructible | itf_fireproof | itf_portable | itf_freezable, 0.0},
+        {"it_bomb_burning", it_bomb_burning, itf_static | itf_indestructible | itf_fireproof | itf_freezable, 0.0},
+    };
 
     BOOT_REGISTER_START
         BootRegister(new Bomb(0), "it_bomb");

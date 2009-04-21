@@ -88,8 +88,8 @@ namespace enigma {
     }
     
     ItemTraits Magnet::traits[2] = {
-        { "it_magnet_off", it_magnet_off, itf_static | itf_indestructible, 0.0 },
-        { "it_magnet_on",  it_magnet_on,  itf_static | itf_indestructible, 0.0 },
+        { "it_magnet_off", it_magnet_off, itf_static | itf_indestructible | itf_freezable, 0.0 },
+        { "it_magnet_on",  it_magnet_on,  itf_static | itf_indestructible | itf_freezable, 0.0 },
     };
     
     BOOT_REGISTER_START

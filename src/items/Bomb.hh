@@ -30,7 +30,7 @@ namespace enigma {
 
     class Bomb : public Item {
         CLONEOBJ(Bomb);
-        DECL_ITEMTRAITS;
+        DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
 
     private:
         enum iState {
@@ -63,6 +63,7 @@ namespace enigma {
     private:
         void burn();
         void explode();
+        int traitsIdx() const;
     };
    
 } // namespace enigma
