@@ -1,125 +1,86 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
-  <el:protected >
+  <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke16"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
+      <el:identity el:title="Plutos World" el:subtitle="Deep ..." el:id="mecke02"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 23 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
-        <el:comments>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for some important ideas.</el:credits>
       </el:comments>
       <el:score el:easy="6:49" el:difficult="6:49"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
-ti[" -"] = {"fl_slope_pe"}
-ti[" ~"] = {"fl_swamp"}
-ti["A "] = ti[" -"] .. {"it_sword"}
-ti["B "] = {"st_swap"}
-ti["C "] = {"st_box_wood"}
-ti["F "] = {"st_quake"}
-ti["D "] = ti[" ~"] .. {"st_grate_cross"}
-ti["E "] = ti[" ~"] .. {"st_rawglass_movable"}
-ti["  "] = {"fl_metal_7", friction=4.0}
 ti[" ."] = {"fl_abyss"}
-ti["# "] = {"st_redrock"}
 ti[" l"] = {"fl_sahara"}
-ti["~ "] = {"fl_water"}
-ti["; "] = {"fl_swamp"}
-ti["' "] = {"it_seed"}
-ti["& "] = ti["  "] .. {"st_disco_light"}
+ti[" ;"] = {"fl_swamp"}
+ti[" ~"] = {"fl_water"}
+ti[" -"] = {"fl_slope_pe"}
 ti[" ,"] = {"fl_red"}
-ti[" n"] = {"it_death"}
-ti["K "] = ti[" ~"] .. {"st_knight"}
-ti["nn"] = ti[" ,"] .. {"it_magicwand"}
+ti["  "] = {"fl_metal_7", friction=4.0}
+ti[" |"] = {"fl_metal_7", friction=4.0, name="hotspot#"}
+ti["B "] = {"st_swap"}
+ti["C "] = {"st_box"}
+ti["F "] = {"st_quake"}
+ti["# "] = {"st_redrock"}
 ti["Y "] = {"st_darkglass_movable"}
 ti["U1"] = {"st_passage_black_frame"}
 ti["ic"] = {"st_break_oxydc"}
 ti["h "] = {"st_bluegray_hollow"}
-ti["Xn"] = ti["nn"] .. {"st_grate_cross"}
-ti[" b"] = ti["  "] .. {"it_bomb_black"}
-ti["i "] = ti["  "] .. {"it_dynamite"}
-ti["ih"] = ti["  "] .. {"it_hammer"}
-ti["w "] = ti["  "] .. {"it_magicwand"}
-ti[": "] = ti["  "] .. {"it_blocker"}
-ti["x1"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli1"}
-ti["x2"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli2"}
-ti["x3"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli3"}
-ti["x4"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli4"}
-ti["x5"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli5"}
-ti["x6"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli6"}
-ti["x7"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli7"}
-ti["x8"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli8"}
-ti["x9"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli9"}
-ti["y1"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle1"}
-ti["y2"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle2"}
-ti["y3"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle3"}
-ti["y4"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle4"}
-ti["y5"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle5"}
-ti["y6"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle6"}
-ti["y7"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle7"}
-ti["y8"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle8"}
-ti["y9"] = ti[" ."] .. {"st_oxyd", flavor="a",name="olle9"}
-ti["T "] = ti[" ."] .. {"st_passage_black_frame"}
-ti[" !"] = ti["  "] .. {"it_burnable_burning"}
-ti["$1"] = {"it_trigger", target="olli1"}
-ti["$2"] = {"it_trigger", target="olli2"}
-ti["$3"] = {"it_trigger", target="olli3"}
-ti["$4"] = {"it_trigger", target="olli4"}
-ti["$5"] = {"it_trigger", target="olli5"}
-ti["$6"] = {"it_trigger", target="olli6"}
-ti["$7"] = {"it_trigger", target="olli7"}
-ti["$8"] = {"it_trigger", target="olli8"}
-ti["$9"] = {"it_trigger", target="olli9"}
-ti["&1"] = {"it_trigger", target="olle1"}
-ti["&2"] = {"it_trigger", target="olle2"}
-ti["&3"] = {"it_trigger", target="olle3"}
-ti["&4"] = {"it_trigger", target="olle4"}
-ti["&5"] = {"it_trigger", target="olle5"}
-ti["&6"] = {"it_trigger", target="olle6"}
-ti["&7"] = {"it_trigger", target="olle7"}
-ti["&8"] = {"it_trigger", target="olle8"}
-ti["&9"] = {"it_trigger", target="olle9"}
-ti["= "] = ti["~ "] .. {"st_disco_light"}
-ti["> "] = ti[" n"] .. {"st_boulder_e"}
 ti["< "] = {"st_boulder_w"}
 ti["O "] = {"st_rotator_ccw", movable=false}
-ti["Z "] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+ti["& "] = {"st_disco_light"}
+ti["' "] = {"it_seed"}
+ti[" n"] = {"it_death"}
+ti["i "] = {"it_dynamite"}
+ti["ih"] = {"it_hammer"}
+ti["w "] = {"it_magicwand"}
+ti[": "] = {"it_blocker"}
+ti[" b"] = {"it_bomb_black"}
+ti[" !"] = {"it_burnable_burning"}
+ti["A "] = ti[" -"] .. {"it_sword"}
+ti["D "] = ti[" ;"] .. {"st_grate_cross"}
+ti["E "] = ti[" ~"] .. {"st_rawglass_movable"}
+ti["K "] = ti[" ;"] .. {"st_knight"}
+ti["nn"] = ti[" ,"] .. ti["w "]
+ti["Xn"] = ti["nn"] .. {"st_grate_cross"}
+ti["AB"] = ti[" ~"] .. ti[" b"]
+ti["BB"] = ti[" ;"] .. ti[" b"]
+ti["T "] = ti[" ."] .. ti["U1"]
+ti["= "] = ti[" ~"] .. ti["& "]
+ti["> "] = ti[" n"] .. {"st_boulder_e"}
 ti["l "] = ti[" n"] .. {"st_polarswitch"}
-ti["mm"] = ti[" ~"] .. {"st_grate_cross"}
+ti["mm"] = ti[" ;"] .. {"st_grate_cross"}
+ti["$template"] = {"it_trigger", target="x%%"}
+ti["xtemplate"] = {"st_oxyd", flavor="a", name="x%%" }
+ti["Z "] = {"st_timer", action="callback", target="set_fire", interval=11.9}
 ti["* "] = ti["mm"] .. {"#ac_marble_black"}
 ti["+ "] = {"#ac_rotor", range=2, strength=2, gohome=false}
 
-local resolver = res.composer(ti)
+local autotiler = res.autotile(ti, {"$", "$template"},{"x", "xtemplate"})
 
-w, h = wo(resolver, "  ", {
+wo(res.composer(autotiler), "  ", {
 -- 0001020304050607080910111213141516171819
   "# # # # # # # # # # # # # # # # # # # # ",
-  "#  .x1 . n .x3 . n .x5 . n .x7 . ! . .# ",
+  "#  .x1 . n .x2 . n .x3 . n .x4 . ! . .# ",
   "O T # # # # # # # # # # # # # # # # T # ",
-  " n: : ;b: : : : : + : : : : : ~b: : : < ",
+  " n: : BB: : : : : + : : : : : AB: : : < ",
   "# ic# TbT T T T T T T T T T T TbT # icO ",
-  "#   #  b b  $1  $3  $5  $7  F  b n#   # ",
+  "#   #  b b  $1  $2 |$3 |$4  F  b n#   # ",
   "K D C E   B '  - - -*  - - - - -A  -l Z ",
-  "#   #  b b  &1  &3  &5  &7  F  b n#   # ",
+  "#   #  b b  $5  $6 |$7 |$8  F  b n#   # ",
   "O   # TbT T T T T T T T T T T TbT #   # ",
-  " n: : ;b: : : : : ih: : : : : ~b: : : < ",
+  " n: : BB: : : : : ih: : : : : AB: : : < ",
   "# T # # # # # # # # # # # # # # # # T O ",
-  "#  .y1 . n .y3 . n .y5 . n .y7 . ! . .# ",
-  "# # # # # # # # # # # # # # # # # # # # "
-})
-function hux()
-    wo:drawMap(ti, po(9, 5), "  ",{" !",
-                                "  ",
-                                " !",})
-    wo:drawMap(ti, po(11, 5), "  ",{" !",
-                                "  ",
-                                " !",})
+  "#  .x5 . n .x6 . n .x7 . n .x8 . ! . .# ",
+  "# # # # # # # # # # # # # # # # # # # # "})
+
+function set_fire()
+    wo[no["hotspot#*"]] = ti[" !"]
 end
 
 wo:shuffleOxyd()

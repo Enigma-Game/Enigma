@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Knot Garden" el:subtitle="" el:id="duffy165"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greenbrown"}
+ti["X"] = {"st_greenbrown_hollow"}
+ti["+"] = {"st_box"}
+ti["*"] = {"st_brownie"}
+ti["D"] = {"st_death"}
+ti["I"] = {"st_invisible"}
+ti["^"] = {"st_oneway", orientation=NORTH}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["<"] = {"st_oneway", orientation=WEST}
+ti["A"] = {"st_door", flavor="d", faces ="ew", name="doora"}
+ti["B"] = {"st_door", flavor="d", faces ="ew", name="doorb", state=OPEN}
+ti["a"] = {"it_trigger", target="doora"}
+ti["b"] = {"it_trigger", action="close", target="doorb"}
+ti["t"] = {"it_document", text="text1"}
+ti["u"] = {"it_document", text="text2"}
+ti["o"] = {"st_fake_quake"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##################################OO######################",
+    "###XXXXXXXX#OOOO##      ~#######O#  XXXXXXXXXX############",
+    "###X######X#    O#      ~#######~#II#########   +      ~O#",
+    "##    +      OOO## #####~#######        ##### @ #####+####",
+    "## ############### #####~####### ###### #####   ##### ##a#",
+    "## #####    u   B  #####~####### ######^###### ###### ## #",
+    "#b b#####b b############~##    A +<            #O#### ## #",
+    "#b bbbbbbb b#XX          ## ####^######+#V######~#### ## #",
+    "#b  b      b#X# #### ### ## #        ## # #####X #### ## #",
+    "#bb b b bbbb#X#+#### ### ## #+###### ## # +      #### ## #",
+    "##b b b   b##X# #### ###+#  # ###### ## ########~#### ## #",
+    "#bb b bbbbbb#X#     +  +   ##           +           + *~ #",
+    "#b  b      b#X###### ###+#  # #######~#~######## #### ## #",
+    "#b bbbbbbb b#XXXXX## ### ## # #       #O#XXXXXX# #### ## #",
+    "#b b       b#####XXX ### ## # # # ##  ###X####X# #### X# #",
+    "#b bbbbbbb b######## ### ## #~# # #######XXXX#X#~##O~  # #",
+    "#b         b######## ### ## #O# # ###XXX####X#X#~#### ## #",
+    "#bbbbbbbbbbb########     ## ### #+##XX#X#XXXX#X# + ##### #",
+    "###########################        ~to#XXX####XD         #",
+    "##########################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">You shouldn't have done that.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Careful.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

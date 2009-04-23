@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Oxyd-Puzzle" el:subtitle="" el:id="raoul05"/>
-      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="9" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2005,2006,2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,11 +69,11 @@ lower_maps = lib.lua.shuffle(lower_maps)
 
 function set_puzzle(value, sender)
     if sender._oxyd.y < 0 then
-        wo:drawRect(po(sender) + po({-1, -4}), 3, 3, ti["O"])
-        wo:drawMap(resolver, po(sender) + po({-1, -4}), " ", upper_maps[sender.x/5])
+        wo:drawRect(po(sender) + po(-1, -4), 3, 3, ti["O"])
+        wo:drawMap(res.puzzle(ti, "P"), po(sender) + po({-1, -4}), " ", upper_maps[sender.x/5])
     else
-        wo:drawRect(po(sender) + po({-1, 2}), 3, 3, ti["O"])
-        wo:drawMap(resolver, po(sender) + po({-1, 2}), " ", lower_maps[(sender.x+1)/5])
+        wo:drawRect(po(sender) + po(-1, 2), 3, 3, ti["O"])
+        wo:drawMap(res.puzzle(ti, "P"), po(sender) + po({-1, 2}), " ", lower_maps[(sender.x+1)/5])
     end
     has_puzzle = has_puzzle + sender
     maybe_set_oxyds()

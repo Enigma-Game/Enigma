@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="More or Less Wired" el:subtitle="The Gods must be weird" el:id="20081229ral"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 166 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 176 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -55,16 +55,7 @@ for i = 1, 11 do
     wo:add({"ot_wire", anchor1="box%"..i, anchor2="box%"..(i+1)})
 end
 wo:add({"ot_wire", anchor1="box%12", anchor2="box%1"})
-
-pressed = 0
-function check(value, sender)
-    pressed = pressed + cond(value, 1, -1)
-    if pressed == 12 then
-        no["d#*"]:open()
-    else
-        no["d#*"]:close()
-    end
-end
+wo:add({"ot_counter", "check", target="d#*", action_11="close", action_12="open"})
 
 wo:shuffleOxyd()
 

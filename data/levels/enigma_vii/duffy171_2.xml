@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Alpha Factor" el:subtitle="" el:id="duffy171"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["#"] = {"st_greenbrown"}
+ti["I"] = {"st_invisible"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "#   O################ ######   #### I #####              #",
+    "# ##I#              #        ###### #     #I### I#####I# #",
+    "#  # # ################## ## ###### # ### #####    IO# # #",
+    "## # # #          I    ## ##        #   #     # #### # # #",
+    "#  I #I# #### ##### ##    ### # # # # # # ### #    I # # #",
+    "# ## # # ## # #O    ######### # # # # # II#   ### I  # # #",
+    "# ## # #    # #####         # #I# # # ### # #   #   I# # #",
+    "# ## # ###### ############# # # # # #     # # # # ## # # #",
+    "#                 I  ###### # #   I ## #### # # #    # # #",
+    "############# ######        # # ###### #### # # ###### # #",
+    "#         ### ###### ######## #        #### # #     ## # #",
+    "# ### #I##### ###### #        ############# # ##### ## # #",
+    "#   I I   ### ###### ##########             # ##### ## # #",
+    "# ### # #          #   I     ##III IIIIIIIII#     #    # #",
+    "#  I    # #I###### ### # ### ##             #######I#### #",
+    "# #########      I     # ### ####### IIIIIII#            #",
+    "# ######### ### ######## ###       #          ############",
+    "#           #            ### ###I# ############          #",
+    "########### ############ ### ### # #            IIIIIIII #",
+    "#         # ########             # ##### #######I      I #",
+    "# ####### # #  #####  @    ####I##    ## #IIIIIII II I I #",
+    "# #I    # # # ######O      #       ## ## II       I    I #",
+    "# #   I # # # ################# ##I#I ## #I  IIIIII I  I #",
+    "# # # I   # #                 # ##I# ### #I  I    I IIII #",
+    "# # # I # # #I############### I III#     #I III III   I  #",
+    "# #O#    I# #                 # #### #####I I         II #",
+    "# #########I# ############### #      #### I I IIIIIII    #",
+    "#           #               # ##I######   I I       IIIII#",
+    "########### # ###############    #   I# # I IIIIIIIII    #",
+    "#  #      # #    I          # ## ##I I# #             ####",
+    "## #I# ## # ###### ###IIII# ##II  II I# ##### ############",
+    "#  I   I           ##I    #  I       I#      I#          #",
+    "## # # #### #########II IIII I IIII III##### ## ######## #",
+    "## # # #### #########I     I   I  I  I I  ##    #      # #",
+    "## # # #### #########IIII I IIIII II I II I###### ### ## #",
+    "##   #   ## #########I                            #      #",
+    "### #### ############IIIIIIIIIIIIIIIIIIIIIIIIIIIII########",
+    "# I  I      IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII#",
+    "# IIIIII IIIIII  II II I  I I II  IIIII    I II   IIIIIII#",
+    "#        I    I II        I I I    I  I II I    II I     #",
+    "# IIIIIIIIII      I II III    I II II   II   I I    IIII #",
+    "# I        I IIII   II I   IIIII I    II  II I I II I    #",
+    "# I IIIIIIII II  III I  I II     I II I   I  I I I    II #",
+    "#            II II     I  I IIII I I I I I  I II IIII III#",
+    "# II I III I    I  I   II I I    I        I         I    #",
+    "#I I III III II  I IIII I I   IIII IIIIIIIIIIIIIIIIIIIII #",
+    "#             I I           I      IO                    #",
+    "##########################################################"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -2,25 +2,23 @@
   <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11" />
-      <el:version el:score="1" el:release="2" el:revision="$Revision:43$" el:status="released" />
-      <el:author el:name="mecke" el:email="" />
+      <el:identity el:title="Black Liberation" el:subtitle="Black is Beautiful" el:id="mecke11"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:44$" el:status="released"/>
+      <el:author el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
-      <el:license el:type="GPL v2.0 or above" el:open="true" />
-      <el:compatibility el:enigma="1.10" />
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time" />
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for testing and feedback</el:credits>
       </el:comments>
-      <el:score el:easy="28:51" el:difficult="33:44" />
+      <el:score el:easy="28:51" el:difficult="33:44"/>
     </el:info>
   <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" !"] = {"fl_abyss"}
 ti[" ,"] = {"fl_red"}
 ti["! "] = {"st_plop_slate"}
-ti[" #"] = {"fl_yinyang_yin"}
+ti[" #"] = {"fl_yinyang_yin_invisible"}
 ti["# "] = {"st_death"}
 ti[" $"] = {"fl_metal_7"}
 ti[" %"] = {"fl_bluegray"}
@@ -28,13 +26,8 @@ ti["% "] = {"st_boulder_w"}
 ti["& "] = {"st_quake"}
 ti["c7"] = ti[" #"] .. {"st_rawglass"}
 ti["c2"] = ti["c7"] .. {"it_key", code=2}
-ti["t1"] = ti[" #"] .. {"it_trigger", target="ox1",action="toggle"}
-ti["t2"] = ti[" #"] .. {"it_trigger", target="ox2",action="toggle"}
-ti["t3"] = ti[" #"] .. {"it_trigger", target="ox3",action="toggle"}
-ti["t4"] = ti[" #"] .. {"it_trigger", target="ox4",action="toggle"}
-ti["t5"] = ti[" #"] .. {"it_trigger", target="ox5",action="toggle"}
-ti["t6"] = ti[" #"] .. {"it_trigger", target="ox6",action="toggle"}
-ti["t7"] = ti[" #"] .. {"it_trigger", target="ox7",action="toggle"}
+
+ti["triggerytemplate"] = ti[" #"] .. {"it_trigger", name="t%%", target="L%%", action="toggle"}
 ti["v8"] = ti[" %"] .. {"it_trigger", target="lezy2",action="toggle"}
 ti["v9"] = ti[" %"] .. {"it_trigger", target="lezy1",action="toggle"}
 ti["v3"] = ti[" #"] .. {"it_trigger", target="lezy3",action="toggle"}
@@ -62,13 +55,7 @@ ti["1 "] = {"st_puzzle_yellow", connections="ew"}
 ti["2 "] = {"st_rawglass"}
 ti["3 "] = {"st_laser_e"}
 ti["L0"] = ti[" #"] .. {"st_laser_e", name="lezy2"}
-ti["L1"] = ti[" #"] .. {"st_laser_e", name="ox1"}
-ti["L2"] = ti[" #"] .. {"st_laser_e", name="ox2"}
-ti["L3"] = ti[" #"] .. {"st_laser_e", name="ox3"}
-ti["L4"] = ti[" #"] .. {"st_laser_e", name="ox4"}
-ti["L5"] = ti[" #"] .. {"st_laser_e", name="ox5"}
-ti["L6"] = ti[" #"] .. {"st_laser_e", name="ox6"}
-ti["L7"] = ti[" #"] .. {"st_laser_e", name="ox7"}
+ti["laserytemplate"] = ti[" #"] .. {"st_laser_e", name="L%%"}
 ti["4 "] = {"st_puzzle_yellow", connections="sw"}
 ti["p3"] = ti[" #"] .. {"st_puzzle_yellow", connections="sw"}
 ti["5 "] = {"st_ghost_break"}
@@ -139,7 +126,7 @@ if wo ["IsDifficult"] then
     ti["hx"] = ti[" '"] .. {"it_strip", connections="ew"}
     ti["c9"] = ti[" ,"] .. {"st_rawglass"}
     ti["c1"] = ti["c9"] .. {"it_key", code=1}
-    ti["nn"] = ti[" #"] .. {"fl_yinyang_yin"}
+    ti["nn"] = ti[" #"] .. {"fl_yinyang_yin_invisible"}
 else
     ti["hx"] = ti[" #"] .. {"it_cherry"}
     ti["nn"] = ti[" #"] .. {"it_extralife"}
@@ -147,9 +134,9 @@ else
     ti["c9"] = ti[" ,"] .. {"fl_red"}
 end
 
-local resolver = res.composer(ti)
+local autotiler = res.autotile(ti, {"t", "triggerytemplate"},{"L", "laserytemplate"})
 
-w, h = wo(resolver, "  ", {
+wo(res.composer(autotiler), "  ", {
        "!!!!!#!#!#!#!#!#!#!#!#!#!#!#!#!###<###!#!#!#!#!#!#!#!#E#E!E!E!E!E!E###############E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#E#",
        "!! ! # # # # # # # # # # #9# #9# !<! !9# # # # # # # #9# ! !(! !5! # # # # # # # # # # # #?# #?# #?# #?# #?# #?#E#",
        "!! ! ### # # # ! # # ### # # # # !<! ! #@!@#@#@#@#@#@# # ! !(! !5! # # # # # # # # # # # # #?# #?# #?# #?# #?# #E#",

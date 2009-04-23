@@ -65,10 +65,9 @@ wo(ti, " ", {
 
 local tore = no["tor#*"]:shuffle()
 local schalter = no["schalter#*"]
-for s in schalter do
-    s.target = tore[1]
-    tore = tore - tore[1]
-end
+for i = 1,#schalter do
+    schalter[i].target = tore[i]
+end 
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

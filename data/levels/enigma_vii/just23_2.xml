@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="Lost in Time and Space" el:subtitle="" el:id="just23"/>
-     <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+     <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ function start_timing()
         enigma.KillStone(136,89)
         enigma.KillStone(137,89)
         enigma.KillStone(135,90)
-        enigma.KillItem(136,90)
+        enigma.KillStone(136,90)
         enigma.KillStone(137,90)
         enigma.KillStone(135,91)
         enigma.KillStone(136,91)

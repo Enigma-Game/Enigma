@@ -3,13 +3,13 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Alternation II" el:subtitle="Alternation in a Dark Area" el:id="mecke31"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 16 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10" />
-       <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
-       <el:score el:easy="-" el:difficult="14:21"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="14:21"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = true
@@ -30,30 +30,19 @@ ti[" +"] = {"fl_sahara"}
 ti[" x"] = {"fl_slope_pe"}
 ti["jj"] = {"it_crack_l"}
 ti["o "] = ti[" ~"] .. {"st_oxyd", flavor="d"}
-ti["X~"] = ti[" ~"] .. {"st_grate_cross"}
-ti["Xw"] = ti[" w"] .. {"st_grate_cross"}
-ti["X'"] = ti[" '"] .. {"st_grate_cross"}
-ti["Xi"] = ti[" i"] .. {"st_grate_cross"}
-ti["Xb"] = ti[" b"] .. {"st_grate_cross"}
-ti["X&"] = ti[" &"] .. {"st_grate_cross"}
+ti["X "] = {"st_grate_cross"}
+ti["Xw"] = ti[" w"] .. ti["X "]
+ti["X'"] = ti[" '"] .. ti["X "]
+ti["X&"] = ti[" &"] .. ti["X "]
 ti["Th"] = ti[" i"] .. {"st_yellow"}
 ti["yw"] = ti[" w"] .. {"it_yinyang"}
 ti["#w"] = ti["yw"] .. {"#ac_marble_black"}
 ti["0~"] = ti[" ~"] .. {"st_magic_oxydc"}
 ti["H'"] = ti[" '"] .. {"st_passage_black_square"}
-ti["B!"] = ti[" !"] .. {"st_passage_black_frame"}
-ti["B&"] = ti[" &"] .. {"st_passage_black_frame"}
-ti["Br"] = ti[" r"] .. {"st_passage_black_frame"}
-ti["B~"] = ti[" ~"] .. {"st_passage_black_frame"}
-ti["B'"] = ti[" '"] .. {"st_passage_black_frame"}
-ti["W!"] = ti[" !"] .. {"st_passage_white_frame"}
-ti["W~"] = ti[" ~"] .. {"st_passage_white_frame"}
-ti["W'"] = ti[" '"] .. {"st_passage_white_frame"}
-ti["Ww"] = ti[" w"] .. {"st_passage_white_frame"}
-ti["Wb"] = ti[" b"] .. {"st_passage_white_frame"}
-ti["W&"] = ti[" &"] .. {"st_passage_white_frame"}
-ti["2*"] = ti[" *"] .. {"st_rawglass_movable"}
-ti["2r"] = ti[" r"] .. {"st_rawglass_movable"}
+ti["B "] = {"st_passage_black_frame"}
+ti["W "] = {"st_passage_white_frame"}
+ti["Br"] = ti[" r"] .. ti["B "]
+ti["2 "] = {"st_rawglass_movable"}
 ti["CW"] = ti[" w"] .. {"st_chess_black"}
 ti["S&"] = ti[" &"] .. {"st_granite_hollow"}
 ti["FF"] = ti[" ~"] .. {"st_quake"}
@@ -62,25 +51,16 @@ ti["Tw"] = ti["dd"] .. {"st_disco_medium"}
 ti["Td"] = ti[" r"] .. {"st_disco_medium"}
 ti["TT"] = ti[" ="] .. {"st_thief"}
 ti["y~"] = ti[" ~"] .. {"it_yinyang"}
-ti["Y~"] = ti[" ~"] .. {"st_blur_cross"}
-ti["Y&"] = ti[" &"] .. {"st_blur_cross"}
-ti["Y!"] = ti[" !"] .. {"st_blur_cross"}
-ti["Y'"] = ti[" '"] .. {"st_blur_cross"}
-ti["Yw"] = ti[" w"] .. {"st_blur_cross"}
+ti["Y "] = ti[" ~"] .. {"st_blur_cross"}
 ti["Yx"] = ti[" ~"] .. {"st_blur_straight"}
 ti["++"] = ti[" &"] .. {"st_swap"}
 ti["2&"] = ti[" &"] .. {"st_brake"}
 ti["A~"] = ti[" ~"] .. {"st_actorimpulse"}
-ti["L1"] = ti[" !"] .. {"st_laser_s", name="laser1", state=ON}
-ti["L2"] = ti[" !"] .. {"st_laser_n", name="laser2", state=ON}
-ti["L3"] = ti[" !"] .. {"st_laser_s", name="laser3", state=ON}
-ti["L4"] = ti[" !"] .. {"st_laser_n", name="laser4", state=ON}
-ti["t1"] = ti[" +"] .. {"it_trigger",target="laser1"}
-ti["t2"] = ti[" +"] .. {"it_trigger",target="laser2"}
-ti["t3"] = ti[" +"] .. {"it_trigger",target="laser3"}
-ti["t4"] = ti[" +"] .. {"it_trigger",target="laser4"}
-ti["SB"] = ti[" &"] .. {"st_switch_black", target={"door1"}}
-ti["SP"] = ti[" &"] .. {"st_switch_black", target={"door2"}}
+ti["ttemplate"] = ti[" +"] .. {"it_trigger",target="Llaser%%"}
+ti["Ttemplate"] = ti[" +"] .. {"it_trigger",target="Mlaser%%"}
+ti["Ltemplate"] = ti[" !"] .. {"st_laser_s", state=ON, name="Llaser%%"}
+ti["Mtemplate"] = ti[" !"] .. {"st_laser_n", state=ON, name="Mlaser%%"}
+ti["stemplate"] = ti[" &"] .. {"st_switch_black", target="door%%"}
 ti["1&"] = ti[" &"] .. {"st_box_wood"}
 ti["DD"] = ti[" &"] .. {"st_death"}
 ti["gi"] = ti[" r"] .. {"st_rawglass"}
@@ -89,15 +69,13 @@ ti["*w"] = ti["yy"] .. {"#ac_marble_white"}
 ti["j&"] = ti[" &"] .. {"it_crack_l"}
 ti["j'"] = ti[" '"] .. {"it_crack_l"}
 ti["OO"] = ti["j&"] .. {"st_oneway_white_e"}
-ti["v1"] = ti["OO"] .. {"st_door",faces="ew", name="door1"}
 ti["EE"] = ti["j'"] .. {"st_oneway_black_w"}
-ti["v2"] = ti["EE"] .. {"st_door",faces="ew", name="door2"}
+ti["vtemplate"] = ti["j&"] .. {"st_door",faces="ew", name="door%%"}
 ti["or"] = ti["X'"] .. {"it_ring"}
 ti["ur"] = ti["X&"] .. {"it_ring"}
 ti["ps"] = ti["Br"] .. {"it_seed"}
 ti["kk"] = ti["Xw"] .. {"it_cherry"}
 ti["ki"] = ti["gi"] .. {"it_cherry"}
-ti["z&"] = ti[" &"] .. {"#ac_top", range=1, strength=1}
 ti["Xx"] = ti[" x"] .. {"st_passage_black_cross"}
 ti["Xn"] = ti[" n"] .. {"st_passage_black_cross"}
 ti["Xm"] = ti["Xn"] .. {"it_extralife"}
@@ -115,23 +93,22 @@ ti["b="] = ti[" ="] .. {"st_disco_medium"}
 ti["SL"] = ti[" w"] .. {"st_switch_black", target="bbb1", action= "close"}
 ti["SK"] = ti[" w"] .. {"st_switch_white", target="bbb2", action= "close"}
 
-local resolver = res.composer(ti)
+local autotiler = res.autotile(ti, {"L", "Ltemplate"},{"M", "Mtemplate"},{"t", "ttemplate"},{"T", "Ttemplate"}, {"s", "stemplate"}, {"v", "vtemplate"})
 
-w, h = wo(resolver, "  ", {
-  "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'ttB'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!",
-  "B!W~B!W!B!W!DDW!B!W!Y&W'Y' ~X& ~X&W~A~A~A~W~X&0~0~0~0~0~0~0~ &0~0~0~0~0~0~0~B!",
-  "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~YxW~A~o A~W~Yx0~X~Y~ ~L1 ~ ~ & ~ ~L3 ~Y~X~0~B!",
-  "Y!W!XwTwTwTwbdTwTwTwXwW'Y'W&SB ~giEEorW'orv2gi0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
-  "B!B!YwTwS&S&S&S&S&TwXwX~DD ~,~yrX~W~A~o A~W~ ~0~X~Y~ ~2*t1 , , ,t22* ~Y~X~0~B!",
-  "psW~kkTwS&SLTTThS&TwXwW'FFFFFFFFX~W~A~A~A~W~Xb0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
-  "B~B~B~DDS&Th*wCWTdb=VmXxXxXxXxXxXmXxXxXxXxXxXmXxXxXxXx2r ,2*#w2* ,2r &++2& &B&",
-  "psW~kkTwS&SKXmThS&TwXwW'FFFFFFFFXbW~A~A~A~W~X~0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
-  "B!B!YwTwS&S&S&S&S&TwXwX~DD ~,~zrXbW~A~o A~W~X~0~X~Y~ ~2*t3 , , ,t42* ~Y~X~0~B!",
-  "Y!W!XwTwTwTwbeTwTwTwXwW'Y'W&SP ~giv1urB&urOOgi0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
-  "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~YxW~A~o A~W~Yx0~X~Y~ ~L4 ~ ~ & ~ ~L2 ~Y~X~0~B!",
-  "B!W~B!W!B!W!DDW!B!W!Y&W'Y' ~X& ~X&W~A~A~A~W~X&0~0~0~0~0~0~0~ &0~0~0~0~0~0~0~B!",
-  "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'ttB'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!"
-})
+wo(res.composer(autotiler), "  ", {
+    "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'ttB'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!",
+    "B!W~B!W!B!W!DDW!B!W!Y&W'Y' ~X& ~X&W~A~A~A~W~X&0~0~0~0~0~0~0~ &0~0~0~0~0~0~0~B!",
+    "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~YxW~A~o A~W~Yx0~X~Y~ ~L1 ~ ~ & ~ ~L2 ~Y~X~0~B!",
+    "Y!W!XwTwTwTwbdTwTwTwXwW'Y'W&s1 ~giEEorW'orv2gi0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
+    "B!B!YwTwS&S&S&S&S&TwXwX~DD ~,~yrX~W~A~o A~W~ ~0~X~Y~ ~2*t1 , , ,T12* ~Y~X~0~B!",
+    "psW~kkTwS&SLTTThS&TwXwW'FFFFFFFFX~W~A~A~A~W~Xb0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
+    "B~B~B~DDS&Th*wCWTdb=VmXxXxXxXxXxXmXxXxXxXxXxXmXxXxXxXx2r ,2*#w2* ,2r &++2& &B&",
+    "psW~kkTwS&SKXmThS&TwXwW'FFFFFFFFXbW~A~A~A~W~X~0~X~ ~ ~2* ,2*2*2* ,2* ~ ~X~0~B!",
+    "B!B!YwTwS&S&S&S&S&TwXwX~DD ~,~zrXbW~A~o A~W~X~0~X~Y~ ~2*t2 , , ,T22* ~Y~X~0~B!",
+    "Y!W!XwTwTwTwbeTwTwTwXwW'Y'W&s2 ~giv1urB&urOOgi0~X~ ~ ~2*2*2*2r2*2*2* ~ ~X~0~B!",
+    "B!B~YwXwYwXwYwXwYwXwWwB~H' ~ ~ ~YxW~A~o A~W~Yx0~X~Y~ ~M2 ~ ~ & ~ ~M1 ~Y~X~0~B!",
+    "B!W~B!W!B!W!DDW!B!W!Y&W'Y' ~X& ~X&W~A~A~A~W~X&0~0~0~0~0~0~0~ &0~0~0~0~0~0~0~B!",
+    "B!B!B!Y!B!Y!B!Y!B!Y!B&B&B&B&B&B'B'B'B'ttB'B'B'B&B!B&B!B&B!B&B&B&B!B&B!B&B!B&B!"})
 
 wo:add({"ot_wire", anchor1="w1", anchor2="w2"})
 wo:shuffleOxyd()

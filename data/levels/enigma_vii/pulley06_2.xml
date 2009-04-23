@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="pulley06"/>
-      <el:version el:score="1" el:release="2" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="12" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -13,13 +13,13 @@
     </el:info>
     <el:luamain><![CDATA[
 if wo["IsDifficult"] then
-    ti[" "]= {"fl_slope_tn"}
-    ti["^"]= {"fl_slope_ts"} -- Up
-    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl_slope_ts"})
+    ti[" "] = {"fl_slope_ts"}
+    ti["^"] = {"fl_slope_tn"}
+    ti["f"] = {"ac_horse", name="footL"} .. ti({"fl_slope_tn"})
 else
-    ti[" "]= {"fl_metal_7"}
-    ti["^"]= {"fl_metal_7"}
-    ti["f"]= {"ac_horse", name="footL"} .. ti({"fl_metal_7"})
+    ti[" "] = {"fl_metal_7"}
+    ti["^"] = {"fl_metal_7"}
+    ti["f"] = {"ac_horse", name="footL"} .. ti({"fl_metal_7"})
 end
 ti["b"] = {"fl_bluegreen"}
 ti["g"] = {"st_portal"}
@@ -36,29 +36,26 @@ ti["P"] = {"#ac_horse", name="hip"}
 ti["k"] = {"#ac_horse", name="kneeL"}
 ti["K"] = {"#ac_horse", name="kneeR"}
 ti["R"] = {"#ac_horse", name="footR"}
-ti["door"] = {"st_door", name="Door%%", flavor="a"} .. ti["b"]
 ti["W"] = {"st_brick"}
-ti["trigger"]= {"it_trigger", target="Door%%"} .. ti["b"]
-ti["2"]= {"st_portal"} .. ti({"it_trigger", target="Door%2"}) .. ti["b"]
+ti["door"] = {"st_door", name="Door%%", flavor="a"} .. ti["b"]
+ti["trigger"] = {"it_trigger", target="Door%%"} .. ti["b"]
+ti["2"] = {"st_portal"} .. ti({"it_trigger", target="Door%2"}) .. ti["b"]
 ti["."] = {"#ac_marble_black"}
 
-resolver = res.autotile(ti, {"1", "9", "trigger"}, {"A","I","door"})
-
-wo(resolver," ",{
-       "W0ggggg2YOZggggggg0W",
-       "Wbg N L^ S  e h  IbW",
-       "Wbg   1     8    gbW",
-       "Wbg.  ^     ^    gbW",
-       "Wbg        9     gbW",
-       "WEg   K4 P3^k    gDW",
-       "WBg    ^  7      gGW",
-       "Wbg       ^ 5    gbW",
-       "Wbg   R     f    gbW",
-       "Wbg       6      gbW",
-       "WbWWWWWWWWWWWWWWWWbW",
-       "WHbbbbbbbFAbbbbbbbCW",
-       "W0WWWWWWWWWWWWWWWW0W"
-})
+wo(res.autotile(ti, {"1", "9", "trigger"}, {"A","I","door"}), " ", {
+    "W0ggggg2YOZggggggg0W",
+    "Wbg N L^ S  e h  IbW",
+    "Wbg   1     8    gbW",
+    "Wbg.  ^     ^    gbW",
+    "Wbg        9     gbW",
+    "WEg   K4 P3^k    gDW",
+    "WBg    ^  7      gGW",
+    "Wbg       ^ 5    gbW",
+    "Wbg   R     f    gbW",
+    "Wbg       6      gbW",
+    "WbWWWWWWWWWWWWWWWWbW",
+    "WHbbbbbbbFAbbbbbbbCW",
+    "W0WWWWWWWWWWWWWWWW0W"})
 
 wo:add({"ot_rubberband", anchor1="head", anchor2="support1", length=1, strength=20, max=1.05, min=0.95})
 wo:add({"ot_rubberband", anchor1="head", anchor2="support2", length=1, strength=20, max=1.05, min=0.95})
@@ -74,7 +71,7 @@ wo:add({"ot_rubberband", anchor1="kneeR", anchor2="footR", length=3, strength=20
 wo:add({"ot_rubberband", anchor1="kneeL", anchor2="footL", length=3, strength=20, max=3.05, min=2.95})
 
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

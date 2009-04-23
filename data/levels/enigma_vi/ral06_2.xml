@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Rhapsody on Cracks" el:subtitle="The real value of coffee" el:id="20060510ral008"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 175 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006, 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:18" el:difficult="2:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+wo["CrackSpreading"] = cond(wo["IsDifficult"], 0.95, 0.75)
+
+ti[" "] = {"fl_bluegray"}
+ti["."] = {"fl_abyss"}
+ti["c"] = {"it_crack_s"}
+ti["s"] = {"it_spring_drop"}
+ti["p"] = {"it_coin_s"}
+ti["n"] = {"it_coin_m"}
+ti["d"] = {"it_coin_l"}
+ti["k"] = {"it_coffee"}
+ti["w"] = {"it_seed"}
+ti["#"] = {"st_rawglass"}
+ti["m"] = {"st_mail_e"}
+ti["-"] = {"it_pipe_ew"} .. ti["#"]
+ti["|"] = {"it_pipe_sw"} .. ti["#"]
+ti["W"] = {"it_wormhole", strength=2, destination="dest"}
+ti["a"] = {"st_door_d", "doorA", faces="ns"}
+ti["A"] = {"st_coinslot", target="doorA"}
+ti["b"] = {"st_door_d", "doorB", faces="ns"}
+ti["B"] = {"st_switch", target="doorB"}
+ti["D"] = {"it_floppy"}
+ti["f"] = {"st_door_d", "doorF", faces="ew"}
+ti["F"] = {"st_floppy", target="doorF"}
+ti["r"] = {"it_key"}
+ti["t"] = {"st_door_d", "doorT", faces="ew"}
+ti["T"] = {"st_key", target="doorT"}
+ti["h"] = {"st_door_d", "doorH", faces="ew"}
+ti["H"] = {"st_switch", target="doorH"}
+ti["g"] = {"st_door_d", "doorG", faces="ew"}
+ti["G"] = {"st_floppy", target="doorG"}
+ti["q"] = {"fl_bluegray", "dest"} .. ti["p"]
+
+if wo["IsDifficult"] then
+    ti["e"] = ti[" "]
+    ti["y"] = ti[" "]
+    ti["z"] = ti["d"]
+else
+    ti["e"] = ti["s"]
+    ti["z"] = ti[" "]
+    ti["y"] = ti["d"]
+end
+
+ti["x"] = {"st_oxyd_a", "left#"}
+ti["u"] = {"st_oxyd_a", "right#"}
+ti["1"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#    ...    ...   c#",
+    "# W  ... eq ...  1 #",
+    "#    ...    ... s  #",
+    "#   #####m-|########",
+    "#        cc        #",
+    "#        cc        #",
+    "#        cc        #",
+    "##b##############aA#",
+    "#p # y# dxu D#  #k #",
+    "#n t  g zxu  h  fk B",
+    "#D TwwG dxu  #r F  #",
+    "#####H#xx##uu#######"
+})
+wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
