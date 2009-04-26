@@ -3330,6 +3330,32 @@ All objects described by a token receive the related message in the action
 table. If not enough messages are listed the default action @samp{toggle}
 will be sent.
 
+Usually actions are performed at once. That is very important as the sequence
+of actions if often essential. Condider an @ref{st_box} being pushed from one
+@ref{it_trigger} to a neighboring one, or just an @ref{ac_marble} moving from
+the first trigger to the neighboring one. In both cases it is important that
+the first trigger is released prior the second one to be pressed. If this
+sequence gets mixed up both triggers could be pressed by a single object for
+a moment what could cause major shortcuts in a level. Thus all actions are
+preformed in the logical sequence and in a stable, repeatable sequence without
+any random.
+
+Action may be simple or sometimes be very complex world rearrangements. But in
+any case you should @b{never ever} @samp{kill} the sender object. Killing the 
+sender can cause application crashes! Be aware that even chained actions are not
+allowed to kill any prior sender object. Thus an @ref{it_trigger} that toggles
+an @ref{st_switch} which in turn kills the first trigger is as critical as the
+trigger killing itself. We do generally discourage you to kill any object
+within its own action, as there is no dissolving animation and the WYSIWYG
+user paradigma is violated, too. But if there is urgent need for reasons of the
+level gaming logic you can perform the action in a secure, delayed mode. Just
+add the attribute @ref{safeaction} with value @samp{true} to the self killing
+sender object. The action will no longer be performed at once, but with a
+minimum delay in a manner that will never cause crashes. But be aware that
+even a minimum delay, which is still within the same timeslice, may disturb
+the sequence of actions. This can cause unexpected logical results on the other
+hand.
+
 @node Callback Function
 @subsection Callback Function
 
@@ -5283,17 +5309,19 @@ w, h = wo(myresolver, " ", @{
 @node Common Attributes and Messages
 @chapter Common Attributes and Messages
 
-Some attributes and messages are common to many objects or even supported
-by all objects. We describe them here in detail. The following chapters will
-just reference them or even skip them when they are generally supported and
-used in the default manner.
+Some attributes, messages and constants are common to many objects or even
+supported by all objects. We describe them here in detail. The following 
+chapters will just reference them or even skip them when they are generally
+supported and used in the default manner.
 
 @menu
 * Common Attributes::
 * Common Messages::
+* Common Constants::
 * Global Attributes::
 @end menu
 
+@c ----------------- Common Attributes --------------------
 @node Common Attributes
 @section Common Attributes
 
@@ -5303,6 +5331,7 @@ used in the default manner.
 * target::
 * action::
 * nopaction::
+* safeaction::
 * inverse::
 * destination::
 * friction::
@@ -5417,6 +5446,20 @@ action = @{"open", "turn", "toggle"@}
 A very special addition to the @ref{Target - Action} paradigm that allows
 in case of state specific actions to deny the sending of default messages
 (@pxref{Object State}).
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ by all objects
+@end table
+
+@node safeaction
+@subsection safeaction
+
+A very special addition to the @ref{Target - Action} paradigm that allows
+to kill the sender within the execution of the action code.
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -5596,7 +5639,7 @@ world's @samp{add} method.
 @item @b{Support:} @ @ by actor and stone objects
 @end table
 
-
+@c ----------------- Common Messages --------------------
 @node Common Messages
 @section Common Messages
 
@@ -5751,12 +5794,280 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 @end table
 
 
+@c ----------------- Common Constants --------------------
+@node Common Constants
+@section Common Constants
+
+@menu
+* state values::
+* color values::
+* actor controllers::
+* oxyd colors::
+* orientations::
+* direction offsets::
+* position lists::
+* essentialness::
+* meditation types::
+* glasses abilities::
+* coinslot acceptance::
+* screen scrolling::
+* map read directions::
+@end menu
+
+@node state values
+@subsection state values
+
+Number constants for object attribute @ref{state}. Please choose the constant
+that is appropriate for an object and do avoid using numbers.
+
+@itemize @bullet
+@item @samp{OFF} = @code{0}, all switch like objects
+@item @samp{ON} = @code{1}, all switch like objects
+@item @samp{CLOSED} = @code{0}, all door like objects
+@item @samp{OPEN} = @code{0}, all door like objects
+@item @samp{IDLE} = @code{0}, other objects in the default passiv state
+@item @samp{ACTIVE} = @code{1}, other objects in the active state
+@item @samp{OXYDPAIR} = @code{2}, just by @ref{st_oxyd}
+@item @samp{LIGHT} = @code{0}, by @ref{st_disco}
+@item @samp{MEDIUM} = @code{1}, by @ref{st_disco}, @ref{it_crack}, @ref{it_extinguisher}
+@item @samp{DARK} = @code{2}, by @ref{st_disco}
+@item @samp{FLOODING} = @code{1}, by @ref{fl_water}, @ref{fl_wood}, @ref{fl_hay}, @ref{fl_rock}
+@item @samp{INVISIBLE} = @code{-1}, by @ref{it_crack}
+@item @samp{SMALL} = @code{0}, by @ref{it_crack}
+@item @samp{LARGE} = @code{2}, by @ref{it_crack}
+@item @samp{YIN} = @code{0}, by @ref{fl_yinyang}
+@item @samp{YANG} = @code{1}, by @ref{fl_yinyang}
+@item @samp{EMPTY} = @code{0}, by @ref{it_extinguisher}
+@item @samp{FULL} = @code{2}, by @ref{it_extinguisher}
+@item @samp{BROKEN} = @code{1}, by @ref{it_bottle}
+@item @samp{BREAKING} = @code{2}, by @ref{st_quake}
+@item @samp{CW} = @code{0}, clockwise, by @ref{st_rotator}
+@item @samp{CCW} = @code{1}, counterclockwise, by @ref{st_rotator}
+@end itemize
+
+
+@node color values
+@subsection color values
+
+Number constants for attribute @ref{color}. Please choose the constant
+that is appropriate for an object and do avoid using numbers. Note that objects
+do support a color attribute only, if it is related to a functionality. The
+color of @ref{st_oxyd} uses another enumeration scheme due to legacy reasons,
+@pxref{oxyd colors}.
+
+@itemize @bullet
+@item @samp{BLACK} = @code{0}, all black/white colored objects
+@item @samp{WHITE} = @code{1}, all black/white colored objects
+@item @samp{BLUE} = @code{2}, by @ref{st_puzzle}
+@item @samp{YELLOW} = @code{3}, by @ref{st_puzzle}
+@item @samp{NOCOLOR} = @code{nil}, some objects, that exist in black, white variants,
+too, like @ref{st_switch}
+@end itemize
+
+@node actor controllers
+@subsection actor controllers
+
+Number constants for actor attribute @ref{controllers}. Please choose the 
+constant that is appropriate for an object and do avoid using numbers. 
+
+@itemize @bullet
+@item @samp{CTRL_NONE} = @code{0}, by all actors
+@item @samp{CTRL_YIN} = @code{1}, by all actors
+@item @samp{CTRL_YANG} = @code{2}, by all actors
+@item @samp{CTRL_YINYANG} = @code{3}, by all actors
+@end itemize
+
+@node oxyd colors
+@subsection oxyd colors
+
+Number constants for @ref{st_oxyd} attribute @ref{oxydcolor}. Please choose the 
+constant that is appropriate for an object and do avoid using numbers. 
+
+@itemize @bullet
+@item @samp{OXYD_BLUE} = @code{0}, by @ref{st_oxyd}
+@item @samp{OXYD_RED} = @code{1}, by @ref{st_oxyd}
+@item @samp{OXYD_GREEN} = @code{2}, by @ref{st_oxyd}
+@item @samp{OXYD_YELLOW} = @code{3}, by @ref{st_oxyd}
+@item @samp{OXYD_CYAN} = @code{4}, by @ref{st_oxyd}
+@item @samp{OXYD_PURPLE} = @code{5}, by @ref{st_oxyd}
+@item @samp{OXYD_WHITE} = @code{6}, by @ref{st_oxyd}
+@item @samp{OXYD_BLACK} = @code{7}, by @ref{st_oxyd}
+@item @samp{OXYD_GRAY} = @code{8}, by @ref{st_oxyd}
+@item @samp{OXYD_ORANGE} = @code{9}, by @ref{st_oxyd}
+@item @samp{OXYD_PINE} = @code{10}, by @ref{st_oxyd}
+@item @samp{OXYD_BROWN} = @code{11}, by @ref{st_oxyd}
+@item @samp{OXYD_AUTO} = @code{-1}, by @ref{st_oxyd}
+@item @samp{OXYD_FAKE} = @code{-2}, by @ref{st_oxyd}
+@item @samp{OXYD_QUAKE} = @code{-3}, by @ref{st_oxyd}
+@item @samp{OXYD_BOLD} = @code{-4}, by @ref{st_oxyd}
+@end itemize
+
+
+@node orientations
+@subsection orientations
+
+Number constants for actor attributes @ref{orientation} or @ref{slope}. Please
+choose the constant that is appropriate for an object and do avoid using numbers.
+
+@itemize @bullet
+@item @samp{NODIR} = @code{-1}, by @ref{fl_slope}
+@item @samp{WEST} = @code{0}, by all objects with 4 orientations
+@item @samp{SOUTH} = @code{1}, by all actors with 4 orientations
+@item @samp{EAST} = @code{2}, by all actors with 4 orientations
+@item @samp{NORTH} = @code{3}, by all actors with 4 orientations
+@item @samp{NORTHWEST} = @code{4}, by all objects with 8 orientations
+@item @samp{SOUTHWEST} = @code{5}, by all actors with 8 orientations
+@item @samp{SOUTHEAST} = @code{6}, by all actors with 8 orientations
+@item @samp{NORTHEAST} = @code{7}, by all actors with 8 orientations
+@end itemize
+
+Just for @ref{st_mirror} another alternative orientation notation exists:
+
+@itemize @bullet
+@item @samp{BACKSLASH} = @code{0}, by @ref{st_mirror}
+@item @samp{HORIZONTAL} = @code{1}, by @ref{st_mirror}
+@item @samp{SLASH} = @code{2}, by @ref{st_mirror}
+@item @samp{VERTICAL} = @code{3}, by @ref{st_mirror}
+@end itemize
+
+@node direction offsets
+@subsection direction offsets
+
+Position constants as vectorial direction offsets. Please choose the constant
+that is appropriate for a calculation and do avoid using the trivial positions
+instead.
+
+@itemize @bullet
+@item @samp{N} = @code{po(0, -1)}
+@item @samp{E} = @code{po(1, 0)}
+@item @samp{S} = @code{po(0, 1)}
+@item @samp{W} = @code{po(-1, 0)}
+@item @samp{NE} = @code{N + E}
+@item @samp{NW} = @code{N + W}
+@item @samp{SE} = @code{S + E}
+@item @samp{SW} = @code{S + W}
+@item @samp{NNE} = @code{N + NE}, by @ref{st_chess}
+@item @samp{ENE} = @code{E + NE}, by @ref{st_chess}
+@item @samp{ESE} = @code{E + SE}, by @ref{st_chess}
+@item @samp{SSE} = @code{S + SE}, by @ref{st_chess}
+@item @samp{SSW} = @code{S + SW}, by @ref{st_chess}
+@item @samp{WSW} = @code{W + SW}, by @ref{st_chess}
+@item @samp{WNW} = @code{W + NW}, by @ref{st_chess}
+@item @samp{NNW} = @code{N + NW}, by @ref{st_chess}
+@end itemize
+
+@node position lists
+@subsection position lists
+
+Position list constants. Please choose these constant that is appropriate for a
+calculation and do avoid using the trivial position lists instead.
+
+@itemize @bullet
+@item @samp{NEIGHBORS_4} = @code{W .. S .. E .. N}
+@item @samp{NEIGHBORS_8} = @code{NEIGHBORS_4 .. NW .. SW ..SE .. NE}
+@item @samp{NEIGHBORS_CHESS} = @code{NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW}
+@end itemize
+
+@node essentialness
+@subsection essentialness
+
+Number constants for attribute @ref{essential}. Please choose the constant that
+is appropriate for an object and do avoid using numbers. 
+
+@itemize @bullet
+@item @samp{DISPENSIBLE} = @code{0}, by all actors and @ref{it_meditation}
+@item @samp{INDISPENSIBLE} = @code{1}, by all actors and @ref{it_meditation}
+@item @samp{PERKIND} = @code{2}, by all actors
+@end itemize
+
+@node meditation types
+@subsection meditation types
+
+Number constants for @ref{it_meditation} attribute @ref{state}. Please choose
+the  constant that is appropriate for an object and do avoid using numbers. 
+
+@itemize @bullet
+@item @samp{MEDITATION_CALDERA} = @code{-3}, by @ref{it_meditation}
+@item @samp{MEDITATION_HOLLOW} = @code{-2}, by @ref{it_meditation}
+@item @samp{MEDITATION_DENT} = @code{-1}, by @ref{it_meditation}
+@item @samp{MEDITATION_BUMP} = @code{1}, by @ref{it_meditation}
+@item @samp{MEDITATION_HILL} = @code{2}, by @ref{it_meditation}
+@item @samp{MEDITATION_VOLCANO} = @code{3}, by @ref{it_meditation}
+@end itemize
+
+@node glasses abilities
+@subsection glasses abilities
+
+Number constants for @ref{it_glasses} attribute @ref{state} and global variable
+@ref{ExtralifeGlasses}. Please use sums of the constants that are appropriate 
+for your glasses and do avoid using numbers.
+
+@itemize @bullet
+@item @samp{SPOT_NOTHING} = @code{0}, by @ref{it_glasses}
+@item @samp{SPOT_DEATH} = @code{1}, by @ref{it_glasses}
+@item @samp{SPOT_HOLLOW} = @code{2}, by @ref{it_glasses}
+@item @samp{SPOT_ACTORIMPULSE} = @code{4}, by @ref{it_glasses}
+@item @samp{SPOT_SENSOR} = @code{8}, by @ref{it_glasses}
+@item @samp{SPOT_LIGHTPASSENGER} = @code{16}, by @ref{it_glasses}
+@item @samp{SPOT_TRAP} = @code{32}, by @ref{it_glasses}
+@end itemize
+
+@node coinslot acceptance
+@subsection coinslot acceptance
+
+Number constants for @ref{st_coinslot} attributes @samp{interval_*}. Please 
+choose the constant that is appropriate for the coinslot and do avoid using 
+numbers. 
+
+@itemize @bullet
+@item @samp{COIN_IGNORE} = @code{-1}, by @ref{st_coinslot}
+@item @samp{COIN_REJECT} = @code{-2}, by @ref{st_coinslot}
+@end itemize
+
+@node screen scrolling
+@subsection screen scrolling
+
+Constants for screen scrolling global attributes @ref{FollowMethod} and
+@ref{FollowAction}. Please choose the constants that are appropriate for 
+screen scrolling and do avoid using numbers or poition values. 
+
+@itemize @bullet
+@item @samp{FOLLOW_NO} = @code{0}, by global @ref{FollowMethod}
+@item @samp{FOLLOW_SCROLL} = @code{1}, by global @ref{FollowMethod}
+@item @samp{FOLLOW_FLIP} = @code{2}, by global @ref{FollowMethod}
+@end itemize
+
+@itemize @bullet
+@item @samp{FOLLOW_FULLSCREEN} = @code{po(19, 12)}, by global @ref{FollowAction}
+@item @samp{FOLLOW_HALFSCREEN} = @code{po(9.5, 6)}, by global @ref{FollowAction}
+@end itemize
+
+@node map read directions
+@subsection map read directions
+
+Number constants for map based method parameters. Please choose the constant
+that is appropriate for an object and do avoid using numbers. 
+
+@itemize @bullet
+@item @samp{MAP_IDENT} = @code{0}, by @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_ROT_CW} = @code{1}, by all @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_ROT_180} = @code{2}, by all @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_ROT_CCW} = @code{3}, by all @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_MIRROR_BACKSLASH} = @code{4}, by @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_MIRROR_HORIZONTAL} = @code{5}, by @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_MIRROR_SLASH} = @code{6}, by @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@item @samp{MAP_MIRROR_VERTICAL} = @code{7}, by @ref{drawMap} and @ref{Rotating and Mirroring Maps}
+@end itemize
+
+
+@c ----------------- Global Attributes --------------------
 @node Global Attributes
 @section Global Attributes
 
 @menu
 * ActorimpulseStrength::
 * AllowSingleOxyds::
+* AllowSuicide::
 * ConserveLevel::
 * CrackSpreading::
 * CreatingPreview::
@@ -5798,6 +6109,22 @@ global value is only used if no object specific value is set.
 @item @b{Default:} @ @ @code{+200.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_actorimpulse}
+@end table
+
+@node AllowSuicide
+@subsection AllowSuicide
+
+A global variable that enables the user to commit suicide with all owned
+actors by pressing @samp{F3}. As this legacy feature can cause unexpected
+shortcuts, you can deny this freedom. A single actor suicide as commited by
+activation of an @ref{it_spoon} is not affected by this global variable.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{true}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no object
 @end table
 
 @node AllowSingleOxyds
@@ -7949,10 +8276,10 @@ switched off by the attribute @samp{invisible}.
 @section Item Attributes
 
 @menu
-* fireproof::               -
-* freezable::               -
-* liftable::                -
-* portable::                -
+* fireproof::         -
+* freezable::         Affinity to be frozen in ice
+* liftable::          Allowance for actors to pick up
+* portable::          Ability to be added to the inventory
 @end menu
 
 
@@ -7973,12 +8300,15 @@ switched off by the attribute @samp{invisible}.
 @node freezable
 @subsection freezable
 
+Describes the affinity of an item to be frozen by an @ref{st_ice}. All
+@ref{portable} items a freezable. But some otherwise static items may be
+freezable, too.
 
 @table @asis
 @item @b{Type:} @ @ boolean
 @item @b{Values:} @ @ @code{false}, @code{true}
 @item @b{Default:} @ @ @code{false}
-@item @b{Access:} @ @ read/write
+@item @b{Access:} @ @ read only
 @end table
 
 
@@ -7986,12 +8316,15 @@ switched off by the attribute @samp{invisible}.
 @node liftable
 @subsection liftable
 
+Describes the ability of @ref{Actors} to pick up an item from a floor. Note
+that some items can be added to the player's inventory and can be dropped onto
+a floor but nevertheless can not be picked up later on.
 
 @table @asis
 @item @b{Type:} @ @ boolean
 @item @b{Values:} @ @ @code{false}, @code{true}
 @item @b{Default:} @ @ @code{false}
-@item @b{Access:} @ @ read/write
+@item @b{Access:} @ @ read only
 @end table
 
 
@@ -7999,12 +8332,16 @@ switched off by the attribute @samp{invisible}.
 @node portable
 @subsection portable
 
+Determines whether an item can be added to the player's inventory. All
+@ref{liftable} items are portable. Portable items that are not liftable can
+either be added to the inventory by means of the world @ref{add} method or
+by an actor hitting a variant of @ref{st_dispenser}.
 
 @table @asis
 @item @b{Type:} @ @ boolean
 @item @b{Values:} @ @ @code{false}, @code{true}
 @item @b{Default:} @ @ @code{false}
-@item @b{Access:} @ @ read/write
+@item @b{Access:} @ @ read only
 @end table
 
 
@@ -8015,7 +8352,6 @@ switched off by the attribute @samp{invisible}.
 @menu
 * it_bag::             Portable Item Container
 * it_banana::          Transformable Banana
-* it_bomb::            Big Explosive Charge
 * it_bottle::          Bottle of Booze
 * it_brake::           Portable Stone Brake
 * it_brush::           Brush for Painting and Sweeping
@@ -8024,7 +8360,6 @@ switched off by the attribute @samp{invisible}.
 * it_coin::            Enigma's currency
 * it_document::        Readable Text Document
 * it_drop::            Magic Transformation Elixir
-* it_dynamite::        Exploder
 * it_extinguisher::    Fire Extinguisher
 * it_extralife::       Another Life or Glasses
 * it_flag::            Respawn Position Marker
@@ -8116,10 +8451,19 @@ grid position filled up with the stolen items.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Messages:} none
 
+@item @b{Variants:}
+@table @asis
+@item @b{it_bag}
+@end table
 @end table
 
 @c ----------------- Banana Item --------------------
@@ -8133,60 +8477,17 @@ when hit by a laser beam.
 When a stone is pushed over it an @ref{it_squashed} remains as remnants.
 
 @table @asis
-@item @b{Attributes:} none
-@item @b{Messages:} none
-@end table
-
-@c ----------------- Bomb Item --------------------
-@node it_bomb
-@subsection it_bomb
-@obindex it_bomb
-
-A bomb is an explosive that can not be picked up. It ignites on laser light, 
-nearby fire and other nearby explosions as those caused by other @ref{it_bomb}s,
-@ref{it_dynamite}, @ref{st_dispenser} exploding directly above a bomb, or simply
-by a solide stone being pushed over them (just a few stones like @ref{st_shogun},
-@ref{st_box}_hay do not cause bombs to ignite). A falling @ref{ot_cannonball}
-lets it explode immediately without prior ignition.
-
-On ignition its fuse starts burning. After a short time the bomb explodes
-causing on the 8 neigboring positions items to ignite and some stones like
-@ref{st_break} to dissolve, too. 
-
-@samp{BLACK} bombs will cause destructible items on the 4 neighboring positions
-to be blown away, and dissolves the floor beneath to a @ref{fl_abyss}.
-
-@samp{WHITE} bombs will cause destructible items on the 8 neighboring positions
-to be blown away, and dissolves the floor beneath and the 8 neighboring
-positions to @ref{fl_abyss}.
-
-Bomb items will be added to the inventory when an actor hits a 
-@ref{st_dispenser}_bombblack or @ref{st_dispenser}_bombwhite.
-
-@table @asis
 @item @b{Attributes:}
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
-@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
-
-@item @b{Messages:}
-@table @asis
-@item @b{explode}
-Direct explosion without burning fuse.
-@item @b{ignite}
-Ignite the fuse.
-@item @b{heat}
-Ignite the fuse.
-@end table
-
+@item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_bomb}: color = @code{BLACK}
-@item @b{it_bomb_black}: color = @code{BLACK}
-@item @b{it_bomb_white}: color = @code{WHITE}
+@item @b{it_banana}
 @end table
-
 @end table
 
 @c ----------------- Bottle Item --------------------
@@ -8227,6 +8528,11 @@ Number of seconds that the actor becomes drunken.
 @item @b{text}, @ @ @i{values}: string;
 Either the text to be displayed or just a key word for identification on
 @ref{Internationalization (i18n)}.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+Just an @samp{IDLE} bottle is liftable, a @samp{BROKEN} one is not liftable.
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+Just an @samp{IDLE} bottle is portable, a @samp{BROKEN} one is not portable.
 @end table
 
 @item @b{Messages:} none
@@ -8269,9 +8575,19 @@ an @ref{Object Kind} @samp{it_brake} in an inventory or a container.
 
 @table @asis
 
-@item @b{Attributes:} none
-
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+Even though being freezable a brake will never freeze as an item, as it is
+always converted to an @ref{st_brake} on being dropped or placed onto a floor.
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_brake}
+@end table
 
 @end table
 
@@ -8304,9 +8620,17 @@ grid, or while jumping or flying over it:
 
 @table @asis
 
-@item @b{Attributes:} none
-
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_brush}
+@end table
 
 @end table
 
@@ -8329,8 +8653,17 @@ time of invisiblity by additional 8 seconds.
 When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_cherry}
+@end table
 @end table
 
 @c ----------------- Coffee Item --------------------
@@ -8343,8 +8676,17 @@ It blocks laser light, prohibits @ref{it_crack} spreading but it burns on fire
 and is blown away on @ref{it_bomb} explosions. 
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_coffee}
+@end table
 @end table
 
 @c ----------------- Coin Item --------------------
@@ -8375,6 +8717,9 @@ additional beam and on laser beams that are switched off and on again.
 @item @b{state}, @ @ @i{values}: @code{0}, @code{1}, @code{2}; @ @ @i{access}: @code{read only} @ @ @xref{state}
 Represents the coin type with 0 being a small coin, 1 being a medium coin and
 2 being a large coin.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -8410,6 +8755,9 @@ Another message carrying item is the @ref{it_bottle}.
 @item @b{text}, @ @ @i{values}: string;
 Either the text to be displayed or just a key word for identification on
 @ref{Internationalization (i18n)}.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -8445,58 +8793,17 @@ Providing a drop in a level with @ref{ac_pearl} will likely cause
 incompatibilities with future Enigma versions.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
 
 @item @b{Variants:}
 @table @asis
 @item @b{it_drop}
-@end table
-
-@end table
-
-@c ----------------- Dynamite Item --------------------
-@node it_dynamite
-@subsection it_dynamite
-@obindex it_dynamite
-
-Dynamite is an explosive that can be picked up and that can be easily ignited
-at any free grid position. It ignites on drop, or if positioned on the floor in
-@samp{IDLE} state it ignites on laser light, nearby fire and other nearby 
-explosions as those caused by @ref{it_bomb}, @ref{st_dispenser}, or other 
-dyamite. A falling @ref{ot_cannonball} lets it explode immediately without prior
-ignition.
-
-On ignition its fuse starts burning. During this @samp{ACTIVE} state the
-dynamite can longer be picked up. After a short time the dynamite explodes
-causing on the 8 neigboring positions items to ignite and some stones like
-@ref{st_break} to dissolve, too. The explosion leaves at its position an
-@ref{it_meditation}_hollow on all floor kinds besides @ref{fl_ice} where an
-@ref{it_crack}_water remains.
-
-Dynamite items will be added to the inventory when an actor hits a 
-@ref{st_dispenser}_dynamite.
-
-@table @asis
-@item @b{Attributes:}
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
-@end table
-
-@item @b{Messages:}
-@table @asis
-@item @b{explode}
-Direct explosion without burning fuse.
-@item @b{ignite}
-Ignite the fuse.
-@item @b{heat}
-Ignite the fuse.
-@end table
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_dynamite}: state = @code{IDLE}
-@item @b{it_dynamite_burning}: state = @code{ACTIVE}
 @end table
 
 @end table
@@ -8528,6 +8835,9 @@ The @samp{toggle} messages refills an extinguisher by one load until it is
 @item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{EMPTY}, @code{MEDIUM}, @code{FULL}; @ @ @i{default}: @code{FULL} @ @ @xref{state}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -8565,6 +8875,12 @@ light destruction for a short latency period to avoid repeated item
 transformations.
 
 @table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Variants:}
 @table @asis
@@ -8596,6 +8912,9 @@ resurrected at their initial position.
 @item @b{Attributes:}
 @table @asis
 @item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Variants:}
@@ -8615,10 +8934,17 @@ A floppy activates an @ref{st_floppy} when inserted by hitting the stone with
 the floppy as first item in the players inventory.
 
 @table @asis
-
-@item @b{Attributes:} none
-
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_floppy}
+@end table
 
 @end table
 
@@ -8656,12 +8982,14 @@ features of such new glasses are determined by the global variable
 
 @table @asis
 @item @b{Attributes:}
-
 @table @asis
 @item @b{state}, @ @ @i{values}: positive numbers; @ @ @i{default}: @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER} @ @ @xref{state}
 A sum of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
 @samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR}, @samp{SPOT_ACTORIMPULSE},
 @samp{SPOT_TRAP}. @samp{SPOT_NOTHING} is the state of a broken glasses.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -8697,6 +9025,12 @@ further light transformations for a short latency period to avoid unstable
 flickering of repeated item transformations.
 
 @table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Variants:}
 @table @asis
@@ -8718,7 +9052,12 @@ the key as first item in the players inventory.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @table @asis
 @item @b{code}, @ @ @i{values}: number or string; @ @ @i{default}: @code{1}
@@ -8727,6 +9066,10 @@ The code of a key must match that of an @ref{st_key} to unlock it.
 
 @item @b{Messages:} none
 
+@item @b{Variants:}
+@table @asis
+@item @b{it_key}
+@end table
 @end table
 
 @c ----------------- MagicWand Item --------------------
@@ -8751,11 +9094,19 @@ clusters to explode,
 @end itemize
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Messages:} none
-
 @item @b{Action:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_magicwand}
+@end table
 
 @end table
 
@@ -8781,8 +9132,17 @@ the movable variants can be marked.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_pencil}
+@end table
 
 @end table
 
@@ -8803,8 +9163,17 @@ to its standard values.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_pin}
+@end table
 
 @end table
 
@@ -8830,6 +9199,9 @@ Describes the pipe connections to the neighbor grids. The string is a substring 
 @code{"nesw"} listing the existing connections. The sequence of the sides, north,
 east, south, west, is guaranteed on read access but arbitrary on write access.
 Currently only pipes with one or two connections do exist.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -8875,7 +9247,9 @@ the explosion the puller item ceases to exist.
 @table @asis
 @atindex orientation
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{WEST}
-
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -8915,7 +9289,12 @@ Providing a ring in any other case will likely cause incompatibilities with
 future Enigma versions.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
 
 @item @b{Variants:}
@@ -8966,6 +9345,9 @@ The length smaller than the natural length below which inverted forces are appli
 The minimum length at which actors bounce.
 @item @b{max} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -8973,6 +9355,11 @@ The maximum length at which actors bounce.
 On succesful activation of this item the action message is send with a value of
 @samp{true}. Note that the parameter @samp{sender} will report the new
 @ref{ot_rubberband}.
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_rubberband}
+@end table
 @end table
 
 
@@ -9009,6 +9396,9 @@ The type of the resulting stone.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 This attribute is transfered to the resulting stone. The @ref{st_volcano} and
 @ref{st_box} make use of it.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9039,7 +9429,12 @@ A spade activated while being on the grid position of an @ref{it_meditation}
 will flatten this by one degree and will finally eliminate it completly.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
 
 @item @b{Variants:}
@@ -9060,12 +9455,24 @@ their spoon.
 
 Thus an Enigma spoon shatters the actor who dropps it. When a player owns 
 multiple actors just the active one gets killed. This is an essential difference
-to pressing F3, what shatters all actors of all players.
+to pressing F3, what shatters all actors of all players. When providing a spoon
+you may sometimes want to revoke the ability to commit a global suicide by
+pressing F3. You can do this by setting the global variable @ref{AllowSuicide}
+to @samp{false}.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_spoon}
+@end table
 
 @end table
 
@@ -9082,7 +9489,12 @@ a thick, condensed one that gets dropped on activation. A static jump
 facility that can not be picked up by an actor is the @ref{it_springboard}.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
@@ -9090,7 +9502,6 @@ facility that can not be picked up by an actor is the @ref{it_springboard}.
 @item @b{it_spring_keep}
 @item @b{it_spring_drop}
 @end table
-
 @end table
 
 @c ----------------- Surprise Item --------------------
@@ -9128,12 +9539,18 @@ to the replacement tile declaration.
 @item @b{Attributes:}
 @table @asis
 @item @b{selection}, @ @ @i{values}: tokens of item kinds and tile keys; @ @ @i{default}: @code{@{"it_umbrella", "it_spring_keep", "it_dynamite", "it_coffee", "it_hammer"@}}
-
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
-
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_surprise}
+@end table
 
 @end table
 
@@ -9156,6 +9573,12 @@ further light transformations for a short latency period to avoid unstable
 flickering of repeated item transformations.
 
 @table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Variants:}
 @table @asis
@@ -9192,6 +9615,12 @@ light destruction for a short latency period to avoid repeated item
 transformations.
 
 @table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Variants:}
 @table @asis
@@ -9225,9 +9654,16 @@ inventory or contained in any @ref{it_bag} contained in the inventory.
 @table @asis
 @item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{+10.0}
 Mass unit is the mass of an @ref{ac_marble}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_weight}
+@end table
 
 @end table
 
@@ -9244,9 +9680,17 @@ possible.
 
 @table @asis
 
-@item @b{Attributes:} none
-
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_wrench}
+@end table
 
 @end table
 
@@ -9268,9 +9712,17 @@ to be controlled at every point of time.
 
 @table @asis
 
-@item @b{Attributes:} none
-
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_yinyang}
+@end table
 
 @end table
 
@@ -9280,10 +9732,12 @@ to be controlled at every point of time.
 
 @menu
 * it_blocker::         Shrinked Blocker Stone
+* it_bomb::            Big Explosive Charge
 * it_burnable::        Fire State
 * it_crack::           Crack in the Floor
 * it_cross::           Floor Switch for patient Actors
 * it_death::           Unpassable grid blocker
+* it_dynamite::        Exploder
 * it_explosion::       Short Explosion Animation
 * it_landmine::        Buried Explosive
 * it_magnet::          Actor attracting Magnet
@@ -9340,6 +9794,9 @@ value 0.
 @item @b{autoclose} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 A true value causes any actor passing this item to close and grow the blocker.
 
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9380,6 +9837,63 @@ snapshot of a moving boulder over a blocker line, too. See example levels.
 
 @end table
 
+@c ----------------- Bomb Item --------------------
+@node it_bomb
+@subsection it_bomb
+@obindex it_bomb
+
+A bomb is an explosive that can not be picked up. It ignites on laser light, 
+nearby fire and other nearby explosions as those caused by other @ref{it_bomb}s,
+@ref{it_dynamite}, @ref{st_dispenser} exploding directly above a bomb, or simply
+by a solide stone being pushed over them (just a few stones like @ref{st_shogun},
+@ref{st_box}_hay do not cause bombs to ignite). A falling @ref{ot_cannonball}
+lets it explode immediately without prior ignition.
+
+On ignition its fuse starts burning. After a short time the bomb explodes
+causing on the 8 neigboring positions items to ignite and some stones like
+@ref{st_break} to dissolve, too. 
+
+@samp{BLACK} bombs will cause destructible items on the 4 neighboring positions
+to be blown away, and dissolves the floor beneath to a @ref{fl_abyss}.
+
+@samp{WHITE} bombs will cause destructible items on the 8 neighboring positions
+to be blown away, and dissolves the floor beneath and the 8 neighboring
+positions to @ref{fl_abyss}.
+
+Bomb items will be added to the inventory when an actor hits a 
+@ref{st_dispenser}_bombblack or @ref{st_dispenser}_bombwhite.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+Just bombs in @samp{state} @samp{IDLE} are portable, burning @samp{ACTIVE} ones
+can not be added to the inventory or an @ref{it_bag}.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{explode}
+Direct explosion without burning fuse.
+@item @b{ignite}
+Ignite the fuse.
+@item @b{heat}
+Ignite the fuse.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_bomb}: color = @code{BLACK}
+@item @b{it_bomb_black}: color = @code{BLACK}
+@item @b{it_bomb_white}: color = @code{WHITE}
+@end table
+
+@end table
+
 @c ----------------- Burnable Item --------------------
 @node it_burnable
 @subsection it_burnable
@@ -9413,6 +9927,9 @@ item. But you can investigate the kind of a burnable.
 @item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: integer numbers between 0 and 5; @ @ @i{default}: @code{0}; @ @ @i{access}: @code{read only}  @ @ @xref{state}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9502,7 +10019,9 @@ dropped on the same grid. Nearby fire, explosions and hitting
 @item @b{flavor}, @ @ @i{values}: @code{"abyss"}, @code{"water"}; @ @ @i{default}: @code{"abyss"}
 @item @b{spreading} @ @ @i{values}: positive number between 0.0 and 1.0; @ @ @i{default}: @code{0.5}, @ @ @xref{CrackSpreading}
 @item @b{fragility} @ @ @i{values}: positive number between 0.0 and 1.0; @ @ @i{default}: @code{1.0}, @ @ @xref{Fragility}
-
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9551,12 +10070,18 @@ The current state - @samp{0} for the last event being an actor leaving the cross
 
 @item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{10.0}
 Number of seconds that the actor must stay on the sensor to cause an action.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-
+@item @b{Variants:}
+@table @asis
+@item @b{it_cross}
+@end table
 @end table
 
 @c ----------------- Death Item --------------------
@@ -9577,9 +10102,69 @@ death item should mainly be used when all other alternatives are too unsecure.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_death}
+@end table
+
+@end table
+
+@c ----------------- Dynamite Item --------------------
+@node it_dynamite
+@subsection it_dynamite
+@obindex it_dynamite
+
+Dynamite is an explosive that can be picked up and that can be easily ignited
+at any free grid position. It ignites on drop, or if positioned on the floor in
+@samp{IDLE} state it ignites on laser light, nearby fire and other nearby 
+explosions as those caused by @ref{it_bomb}, @ref{st_dispenser}, or other 
+dyamite. A falling @ref{ot_cannonball} lets it explode immediately without prior
+ignition.
+
+On ignition its fuse starts burning. During this @samp{ACTIVE} state the
+dynamite can longer be picked up. After a short time the dynamite explodes
+causing on the 8 neigboring positions items to ignite and some stones like
+@ref{st_break} to dissolve, too. The explosion leaves at its position an
+@ref{it_meditation}_hollow on all floor kinds besides @ref{fl_ice} where an
+@ref{it_crack}_water remains.
+
+Dynamite items will be added to the inventory when an actor hits a 
+@ref{st_dispenser}_dynamite.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+Just @samp{IDLE} dynamite can be added to the inventory, burning @samp{ACTIVE}
+ones are not portable.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{explode}
+Direct explosion without burning fuse.
+@item @b{ignite}
+Ignite the fuse.
+@item @b{heat}
+Ignite the fuse.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{it_dynamite}: state = @code{IDLE}
+@item @b{it_dynamite_burning}: state = @code{ACTIVE}
+@end table
 
 @end table
 
@@ -9610,6 +10195,9 @@ item. But you can investigate the kind of an explosion.
 @item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: integer numbers between 0 and 3; @ @ @i{default}: @code{0}; @ @ @i{access}: @code{read only}  @ @ @xref{state}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -9630,8 +10218,6 @@ item. But you can investigate the kind of an explosion.
 @subsection it_landmine
 @obindex it_landmine
 
-!!TBD - Work in progress !!
-
 A static item that explodes on actors stepping onto its critical center part and
 on stones being pushed onto the mine.
 
@@ -9643,11 +10229,20 @@ landmines without activating the mines. Landmines do neither react on nearby
 explosions, nor fire, nor laserbeams.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 
 @item @b{Messages:} none
 
 @item @b{Action:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_landmine}
+@end table
 
 @end table
 
@@ -9677,6 +10272,9 @@ The distance up to which the magnet applies forces to actors.
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+30.0} @ @ @xref{MagnetStrength}
 A scalar factor for magnet forces. Positive numbers are attracting forces
 where as negative numbers are repelling forces.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9769,6 +10367,9 @@ Essentialness of being filled with a meditation marble to fulfill the
 Deviating friction that defaults to floor friction.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{adhesion}
 Deviating adhesion that defaults to floor adhesion.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -9827,14 +10428,15 @@ Alternative objects that react on actors are @ref{it_trigger} and
 
 @table @asis
 @item @b{Attributes:}
-
 @table @asis
-
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 An invisible sensor is totally transparent. But the user may notice it, as actors
 cannot drop items onto the same grid position.
 @item @b{exit} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 React either on an actor exiting or entering the grid.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -9879,6 +10481,9 @@ on top, @samp{OFF} otherwise.
 A string describing the hole size. @code{"s"} for a small hole, @code{"m"} for
 a medium hole, @code{"l"} for a large hole.
 
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
@@ -9908,8 +10513,17 @@ Another catapulting, but portal item is @ref{it_spring}.
 
 @table @asis
 
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_springboard}
+@end table
 
 @end table
 
@@ -9926,8 +10540,17 @@ not pick them up. But it can be wiped away by application of an @ref{it_brush}
 or by a nearby exploding @ref{it_bomb}.
 
 @table @asis
-@item @b{Attributes:} none
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
 @item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @b{it_squashed}
+@end table
 @end table
 
 @c ----------------- Strip Item --------------------
@@ -9963,6 +10586,9 @@ east, south, west, is guaranteed on read access but arbitrary on write access.
 Deviating friction that defaults to floor friction.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: @code{nil} @ @ @xref{adhesion}
 Deviating adhesion that defaults to floor adhesion.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Variants:}
@@ -10014,6 +10640,9 @@ lighting an @ref{it_extralife} can be configured to show invisible traps.
 @item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}; @ @ @i{default}: @code{CLOSED} @ @ @xref{state}
 A @samp{CLOSED} trap is intact and invisible, an @samp{OPEN} trap is broken and
 visible.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 @item @b{Messages:}
 
@@ -10024,6 +10653,10 @@ Opens the trap on value @samp{1}
 Opens the trap.
 @item @b{open} @ @ @xref{open}
 Opens the trap.
+@end table
+@item @b{Variants:}
+@table @asis
+@item @b{it_trap}
 @end table
 
 @end table
@@ -10072,11 +10705,18 @@ released trigger.
 An invisible trigger is totally transparent. But the user may notice it, as actors
 cannot drop items onto the same grid position.
 
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:} none
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+@item @b{Variants:}
+@table @asis
+@item @b{it_trigger}
+@end table
 
 @end table
 
@@ -10140,6 +10780,10 @@ Flag that indicates whether the vortex should be closed after a teleport.
 
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -10211,6 +10855,9 @@ where as negative numbers are repelling forces.
 Rubberband cutting behaviour on teleporting.
 @item @b{interval} @ @ @i{values}: float number greater or equal 0; @ @ @i{default}: @code{0.0}
 The latency time after a teleport during which no further teleports take place.
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
 @end table
 
 @item @b{Messages:}
@@ -11196,6 +11843,8 @@ Turn orientation in turning direction as defined by attribute
 @item @b{turnback}
 Turn orientation in opposite turning direction as defined by attribute
 @samp{counterclock}.
+@item @b{flip}
+Turn orientation into the reverse of the current orientation.
 @end table
 
 @item @b{Action:}

@@ -86,6 +86,8 @@ EMPTY     = 0
 FULL      = 2
 BROKEN    = 1
 BREAKING  = 2
+CW  = 0
+CCW = 1
 
 -- color
 BLACK  = 0
@@ -99,10 +101,6 @@ CTRL_NONE    = 0
 CTRL_YIN     = 1
 CTRL_YANG    = 2
 CTRL_YINYANG = 3
-
--- rotation direction
-CW  = 0
-CCW = 1
 
 -- oxyd color
 OXYD_BLUE   =  0
