@@ -85,6 +85,9 @@ namespace enigma_server
     // Single oxyds make a level unsolvable, but sometimes they are just fake,... 
     extern bool     AllowSingleOxyds;
     
+    // Allow F3
+    extern bool     AllowSuicide;
+    
     // level compatibility
     extern double   EnigmaCompatibility;
    

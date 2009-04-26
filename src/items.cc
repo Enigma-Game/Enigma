@@ -71,6 +71,25 @@ const char *Item::get_kind() const
     return get_traits().name;
 }
 
+    void Item::setAttr(const string& key, const Value &val) {
+        ASSERT(key != "liftable", XLevelRuntime, "Item set of attribute 'liftable' not allowed");
+        ASSERT(key != "portable", XLevelRuntime, "Item set of attribute 'portable' not allowed");
+        ASSERT(key != "freezable", XLevelRuntime, "Item set of attribute 'freezable' not allowed");
+        GridObject::setAttr(key, val);
+    }
+
+
+    Value Item::getAttr(const std::string &key) const {
+        if (key == "liftable") {
+            return !isStatic();
+        } else if (key == "portable") {
+            return isPortable();
+        } else if (key == "freezable") {
+            return isFreezable();
+        }
+        return GridObject::getAttr(key);
+    }
+
 string Item::get_inventory_model()
 {
     return get_kind();
@@ -134,6 +153,10 @@ bool Item::isStatic() const {
 
 bool Item::isPortable() const {
     return !isStatic() || (get_traits().flags & itf_portable);
+}
+
+bool Item::isFreezable() const {
+    return isPortable() || (get_traits().flags & itf_freezable);
 }
 
 void Item::add_force(Actor *, V2 &) {

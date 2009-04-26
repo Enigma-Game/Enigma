@@ -197,6 +197,9 @@ namespace enigma {
 
         /* ---------- Virtual functions ---------- */
         const char *get_kind() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value getAttr(const std::string &key) const;
+
         void init_model();
         virtual void processLight(Direction d);
         virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
@@ -210,6 +213,7 @@ namespace enigma {
         
         virtual bool isStatic() const;   // not liftable
         virtual bool isPortable() const;
+        virtual bool isFreezable() const;
 
         /*! Return true if item completely covers the floor. In this
           case the Floor::actor_contact() will not be called

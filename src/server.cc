@@ -80,6 +80,7 @@ namespace enigma_server
 bool server::NoCollisions = false;
 
 bool     server::AllowSingleOxyds;
+bool     server::AllowSuicide;
 bool     server::AllowTogglePlayer;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
@@ -257,6 +258,7 @@ void server::PrepareLevel()
     server::TwoPlayerGame     = false;
     server::SingleComputerGame= true;
     server::AllowSingleOxyds  = false;
+    server::AllowSuicide      = true;
     server::AllowTogglePlayer = true;
     server::FollowAction      = GridPos(19, 12);   // inner space of a room
     server::FollowGrid        = true;
@@ -493,6 +495,8 @@ void server::Msg_Command (const string &cmd)
     }
     else if (cmd == "suicide") {
         player::Suicide();
+        if (!AllowSuicide)
+            server::Msg_RestartGame();
     }
     else if (cmd == "restart") {
         player::Suicide();
