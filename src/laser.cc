@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@ namespace enigma {
 
 /* -------------------- LaserBeam -------------------- */
 
-    ItemTraits LaserBeam::traits = {"it-laserbeam", it_laserbeam, 
+    ItemTraits LaserBeam::traits = {"it_laserbeam", it_laserbeam, 
                                     itf_static | itf_indestructible, 0.0 };
 
 
@@ -67,6 +67,18 @@ namespace enigma {
 std::list<LaserBeam *> LaserBeam::beamList;
 
 
+    std::string LaserBeam::getClass() const {
+        return "it_laserbeam";
+    }
+    
+    Value LaserBeam::message(const Message &m) {
+        if (m.message == "_freeze") {
+            kill();
+            return Value();
+        }
+        return Item::message(m);
+    }
+    
 void LaserBeam::prepareLevel() {
     beamList.clear();
 }

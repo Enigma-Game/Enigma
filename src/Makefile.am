@@ -341,6 +341,8 @@ enigma_SOURCES = 		\
 	stones/GlassStones.hh	\
 	stones/GreenBrownStone.cc	\
 	stones/GreenBrownSTone.hh	\
+	stones/IceBlock.cc	\
+	stones/IceBlock.hh	\
 	stones/JambStone.cc	\
 	stones/JambStone.hh	\
 	stones/KeySwitch.cc	\

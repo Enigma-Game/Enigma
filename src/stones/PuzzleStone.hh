@@ -111,7 +111,7 @@ namespace enigma {
         virtual void actor_hit(const StoneContact &sc);
         virtual void actor_contact(Actor *a);
         virtual void on_impulse(const Impulse& impulse);
-        virtual void on_move();
+        virtual bool on_move(const GridPos &origin);
         virtual void on_floor_change();
         
         // TimeHandler interface

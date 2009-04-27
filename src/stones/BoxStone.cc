@@ -155,10 +155,11 @@ namespace enigma {
             SendMessage(a, "_shatter");
     }
     
-    void BoxStone::on_move() {
+    bool BoxStone::on_move(const GridPos &origin) {
         // in oxyd1 only fall when moving
-        Stone::on_move();
+        Stone::on_move(origin);
         maybe_fall_or_stopfire(true);
+        return true;
     }
     
     void BoxStone::on_floor_change() {

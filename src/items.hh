@@ -197,7 +197,6 @@ namespace enigma {
 
         /* ---------- Virtual functions ---------- */
         const char *get_kind() const;
-        virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
 
         void init_model();

@@ -46,6 +46,11 @@ namespace enigma {
             if (isDisplayable())
                 burn();
             return true;  // caught message -> no fire!
+        } else if (m.message == "_freeze") {
+            if (state == BURNING) {
+                state = IDLE;
+                init_model();
+            }
         }
         return Item::message(m);
     }

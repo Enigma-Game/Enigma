@@ -123,12 +123,12 @@ namespace enigma {
         }
     }
     
-    void RotatorStone::on_move() {
+    bool RotatorStone::on_move(const GridPos &origin) {
         objFlags &= ~OBJBIT_LIGHTNEWDIRS;
         objFlags |= (objFlags & OBJBIT_LIGHT) >> 25;
         RecalcLight();   // necessary for rotators swapped out of light
         
-        Stone::on_move();
+        return Stone::on_move(origin);
     }
     
     FreezeStatusBits RotatorStone::get_freeze_bits() {

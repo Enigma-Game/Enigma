@@ -34,6 +34,7 @@ namespace enigma {
         
     protected:
         Stone *yieldedStone;
+        GridPos origin;
         display::Model *yieldedModel;
         
         void yieldStone(Stone *st);

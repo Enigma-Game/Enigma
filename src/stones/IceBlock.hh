@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -16,24 +16,24 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef BRAKESTONE_HH
-#define BRAKESTONE_HH
+#ifndef ICESTONE_HH
+#define ICESTONE_HH
 
 #include "stones.hh"
-
 #include "stones_internal.hh"
 
 namespace enigma {
 
     /** 
      * 
+     * 
      */
-    class BrakeStone : public Stone {
-        CLONEOBJ(BrakeStone);
+    class IceBlock : public Stone {
+        CLONEOBJ(IceBlock);
         DECL_TRAITS;
         
     public:
-        BrakeStone();
+        IceBlock();
 
         // Object interface
         virtual std::string getClass() const;
@@ -41,17 +41,13 @@ namespace enigma {
         
         // GridObject interface
         virtual void init_model();
-        virtual void on_creation(GridPos p);
-        virtual void processLight(Direction d);
         
         // Stone interface
-        virtual bool is_sticky(const Actor *a) const;
-        virtual StoneResponse collision_response(const StoneContact &sc);
-        virtual void actor_inside(Actor *a);
+        virtual bool is_transparent(Direction d) const;
         virtual bool on_move(const GridPos &origin);
-         
+        
     private:
-        void explode();
+        void setNoAbyssFloor(const GridPos &p, std::string kind) const;
     };
 
 } // namespace enigma

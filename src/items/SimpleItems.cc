@@ -137,6 +137,9 @@ namespace enigma {
         if (m.message == "_cannonball") {
             state = 3;
             return Value();
+        } else if (m.message == "_freeze") {
+            kill();   // The ice cleans the explosion
+            return Value();
         }
         return Item::message(m);
     }
@@ -372,7 +375,7 @@ namespace enigma {
     
     Value Squashed::message (const Message &m) {
         if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-            if (m.message == "_brush") {
+            if (m.message == "_brush" || m.message == "_freeze") {
                 KillItem(this->get_pos());
                 return Value();
             }
@@ -380,7 +383,7 @@ namespace enigma {
         return Item::message(m);
     }
 
-    DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static | itf_freezable);
+    DEF_ITEMTRAITSF(Squashed, "it_squashed", it_squashed, itf_static);
 
 /* -------------------- Weight item -------------------- */
     Weight::Weight() {

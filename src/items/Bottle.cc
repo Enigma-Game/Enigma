@@ -88,7 +88,7 @@ namespace enigma {
 
     ItemTraits Bottle::traits[2] = {
         {"it_bottle_idle",  it_bottle_idle, itf_none, 0.0},
-        {"it_bottle_broken",  it_bottle_idle, itf_static | itf_indestructible, 0.0},
+        {"it_bottle_broken",  it_bottle_idle, itf_static | itf_indestructible | itf_freezable, 0.0},
     };
 
     BOOT_REGISTER_START

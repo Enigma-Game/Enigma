@@ -33,7 +33,7 @@
     <attr name="flavor" type="string" default="b" rw="rw"/>
     <attr name="floodable" type="bool" default="false" rw="rw"/>
     <attr name="fragility" type="double" default="nil" rw="rw"/>
-    <attr name="freezable" type="bool" default="false" rw="rw"/>
+    <attr name="freezable" type="bool" default="false" rw="r"/>
     <attr name="freeze_check" type="bool" default="false" rw="rw"/>
     <attr name="friction" type="double" default="nil" rw="rw"/>
     <attr name="gohome" type="bool" default="true" rw="rw"/>
@@ -55,7 +55,7 @@
     <attr name="inverse" type="bool" default="false" rw="rw"/>
     <attr name="invisible" type="bool" default="false" rw="rw"/>
     <attr name="length" type="double" default="1" rw="rw"/>
-    <attr name="liftable" type="bool" default="false" rw="rw"/>
+    <attr name="liftable" type="bool" default="false" rw="r"/>
     <attr name="loop" type="bool" default="true" rw="rw"/>
     <attr name="mass" type="double" default="1" rw="rw"/>
     <attr name="max" type="double" default="0" rw="rw"/>
@@ -70,7 +70,7 @@
     <attr name="orientation" type="int" default="0" min="0" max="3" rw="rw"/>
     <attr name="owner" type="int" default="nil" min="0" max="1" rw="rw"/>
     <attr name="oxydcolor" type="int" default="-1" min="-4" max="7" rw="rw"/>
-    <attr name="portable" type="bool" default="false" rw="rw"/>
+    <attr name="portable" type="bool" default="false" rw="r"/>
     <attr name="prefercurrent" type="double" default="0.0" rw="rw"/>
     <attr name="push_directions" type="string" default="nil" rw="rw"/>
     <attr name="range" type="double" default="1.0" rw="rw"/>
@@ -200,6 +200,8 @@
       <attr name="charge"/>
       <attr name="velocity_x"/>
       <attr name="velocity_y"/>
+      <msg name="_freeze"/>
+      <msg name="_revive"/>
     </object>
     <object name="ac_bug">
     </object>
@@ -469,6 +471,7 @@
       <attr name="liftable"/>
       <attr name="portable"/>
       <attr name="freezable"/>
+      <msg name="_freeze"/>
     </object>
     <object name="it_bag"/>
     <object name="it_banana"/>
@@ -1378,6 +1381,7 @@
     </object>
     <object name="st_greenbrown_growing" init="true"/>
     <object name="st_greengray"/>
+    <object name="st_ice"/>
     <object name="st_invisible">
       <attr name="hollow" rw="r"/>
     </object>
@@ -1661,8 +1665,6 @@
     </object>
     <object name="st_pull">
       <attr name="state" rw="r"/>
-      <msg name="_freeze"/>
-      <msg name="_revive"/>
     </object>
     <object name="st_purplemarble"/>
     <object name="st_purplegray"/>

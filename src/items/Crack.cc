@@ -66,6 +66,9 @@ namespace enigma {
             sound_event("crack");
             replace("it_debris");
             return true;
+        } else if (m.message == "_freeze") {
+            kill();   // The ice repairs the floor
+            return Value();
         }
         return Item::message(m);
     }

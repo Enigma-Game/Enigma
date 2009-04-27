@@ -145,7 +145,7 @@ namespace enigma {
         }
     }
     
-    void BoulderStone::on_move() {
+    bool BoulderStone::on_move(const GridPos &origin) {
         state = ACTIVE;
         triggerObstacle(getDir(), true);
         
@@ -153,7 +153,7 @@ namespace enigma {
         objFlags |= (objFlags & OBJBIT_LIGHT) >> 24;
         RecalcLight();   // necessary for rotators swapped out of light
         
-        Stone::on_move();
+        return Stone::on_move(origin);
     }
     
     void BoulderStone::on_impulse(const Impulse& impulse) {

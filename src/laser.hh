@@ -38,6 +38,10 @@ namespace enigma {
         static void all_emitted();
         static void prepareLevel();
 
+        // Object interface
+        virtual std::string getClass() const;
+        virtual Value message(const Message &m);
+
         // GridObject interface
         DirectionBits emissionDirections() const { return (DirectionBits)(objFlags & 15); }
         static ItemTraits traits;

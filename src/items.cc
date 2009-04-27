@@ -71,14 +71,6 @@ const char *Item::get_kind() const
     return get_traits().name;
 }
 
-    void Item::setAttr(const string& key, const Value &val) {
-        ASSERT(key != "liftable", XLevelRuntime, "Item set of attribute 'liftable' not allowed");
-        ASSERT(key != "portable", XLevelRuntime, "Item set of attribute 'portable' not allowed");
-        ASSERT(key != "freezable", XLevelRuntime, "Item set of attribute 'freezable' not allowed");
-        GridObject::setAttr(key, val);
-    }
-
-
     Value Item::getAttr(const std::string &key) const {
         if (key == "liftable") {
             return !isStatic();

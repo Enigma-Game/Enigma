@@ -157,9 +157,10 @@ bool Stone::move_stone(GridPos newPos, const char *soundevent) {
             MoveStone(p, newPos);
             server::IncMoveCounter();
     
-            on_move();
-            if (Item *it = GetItem(newPos))
-                it->on_stonehit(this);
+            if (on_move(p)) {
+                if (Item *it = GetItem(newPos))
+                    it->on_stonehit(this);
+            }
     
             return true;
         }
@@ -171,9 +172,10 @@ bool Stone::move_stone(Direction dir) {
     return move_stone(move(get_pos(), dir), "movesmall");
 }
 
-void Stone::on_move() {
+bool Stone::on_move(const GridPos &origin) {
     if (!is_floating()) 
         ShatterActorsInsideField (get_pos());
+    return true;
 }
 
 /* Multiplies velocity with the attribute-matrix

@@ -183,8 +183,9 @@ namespace enigma {
         return false;
     }
     
-    void WindowStone::on_move() {
+    bool WindowStone::on_move(const GridPos &origin) {
         // do not shatter actors
+        return true;
     }
     
     StoneResponse WindowStone::collision_response(const StoneContact &sc) {

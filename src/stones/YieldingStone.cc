@@ -42,9 +42,9 @@ namespace enigma {
         if (st != NULL) {
             ASSERT(yieldedStone == NULL, XLevelRuntime, "YieldingStone: internal error of double yielding"); 
             yieldedStone = st;
-            GridPos pos = st->get_pos();
-            yieldedModel = display::YieldModel(GridLoc(GRID_STONES, pos));
-            YieldStone(pos);
+            origin = st->get_pos();
+            yieldedModel = display::YieldModel(GridLoc(GRID_STONES, origin));
+            YieldStone(origin);
             yieldedStone->setOwnerPos(get_pos());   // the stone id owned at the new position
         }
     }
@@ -58,7 +58,7 @@ namespace enigma {
             SetStone(pos, yieldedStone);
             if (Object::getObject(id) != NULL) { // not killed?
                 display::SetModel(GridLoc(GRID_STONES, pos), yieldedModel);
-                yieldedStone->on_move();    // continue animations -- this is buggy if the stone has another
+                yieldedStone->on_move(origin);    // continue animations -- this is buggy if the stone has another
                                             // model on the new position like st-chameleon
                 if (Object::getObject(id) != NULL)   // not killed?
                     SendMessage(yieldedStone, "_model_reanimated");  // temp fix: reset bad models

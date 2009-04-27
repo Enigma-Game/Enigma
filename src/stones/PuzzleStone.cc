@@ -217,7 +217,7 @@ namespace enigma {
                 if (GetStone(dest) == NULL) {
                     Stone *puzz = YieldStone(get_pos());
                     SetStone(dest, puzz);
-                    puzz->on_move();
+                    puzz->on_move(get_pos());
                     sound_event ("movesmall");
                 } else
                     rotateLine(rotate_dir);
@@ -263,9 +263,10 @@ namespace enigma {
         propagateImpulse(impulse);
     }
 
-    void PuzzleStone::on_move() {
+    bool PuzzleStone::on_move(const GridPos &origin) {
         if (!(objFlags & OBJBIT_HOLLOW))
             ShatterActorsInsideField (get_pos());
+        return true;
     }
 
     void PuzzleStone::on_floor_change() {
@@ -442,7 +443,7 @@ namespace enigma {
 
         for (PuzzleList::iterator itr = cluster.begin(); itr != cluster.end(); ++itr) {
             SetStone(move((*itr)->sourcePos, dir), *itr);
-            (*itr)->on_move();
+            (*itr)->on_move((*itr)->sourcePos);
         }
         server::IncMoveCounter(size);
 

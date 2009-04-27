@@ -74,8 +74,9 @@ namespace enigma {
         }
     }
     
-    void BrakeStone::on_move() {
+    bool BrakeStone::on_move(const GridPos &origin) {
         // we are not floating, but we do not shatter actors when swapped or pulled
+        return true;
     }
     
     void BrakeStone::explode() {

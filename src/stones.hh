@@ -66,6 +66,7 @@ namespace enigma {
         st_floppy,
         st_fourswitch,
         st_greenbrown,
+        st_ice,
         st_key,
         st_knight,
         st_dongle,
@@ -221,7 +222,7 @@ namespace enigma {
 
         virtual bool freeze_check();
         
-        virtual void on_move();
+        virtual bool on_move(const GridPos &origin);
         virtual void on_floor_change() {}
         virtual void on_impulse(const Impulse& impulse);
         void propagateImpulse(const Impulse& impulse);

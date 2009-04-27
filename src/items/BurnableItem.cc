@@ -38,7 +38,8 @@ namespace enigma {
             state = FIREPROOF;
             init_model();
             return Value();
-        } else if (m.message == "_brush" && (state == ASH || state == FIREPROOF)) {
+        } else if (m.message == "_brush" && (state == ASH || state == FIREPROOF) ||
+                (m.message == "_freeze" && state != OIL)) {
             kill();   // The brush cleans the floor
             return Value();
         } else if (Floor *fl = GetFloor(get_pos())) {
