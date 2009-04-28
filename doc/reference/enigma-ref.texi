@@ -243,7 +243,7 @@ Start Enigma in window mode instead of screen mode.
 
 Enigma interprets all further arguments supplied on the commandline as level file
 addresses. You can use absolute or relative addresses to level files stored
-on your computer. Adding url's to levels stored in the internet is also possible.
+on your computer. Adding url's to levels stored in the Internet is also possible.
 
 A Unix user may start Enigma with the following command:
 
@@ -1793,9 +1793,9 @@ This element provides the versioning information for the system.
 @table @asis
 @item @b{score}, @i{required}
 The score version is given as a positive integer number. New levels start with
-score verison ``1''. New level versions need to increase the
+score version ``1''. New level versions need to increase the
 score version number if the level modifications cause different solutions with
-uncomparable score values. Of course, level authors should be very restrictive
+incomparable score values. Of course, level authors should be very restrictive
 with such modifications.
 
 During the development of a level, you should use the attribute @samp{@b{status}} to mark a
@@ -1834,7 +1834,7 @@ independent from the scoring and release version number.
 If Enigma finds two levelfiles in its data search paths with identical filenames,
 id, score and release version, it will load the one with the higher revision number.
 This feature guarantees that  an older level revision stored on the user's
-home level directory cannot supercede a new revision of a level distributed with a new
+home level directory cannot supersede a new revision of a level distributed with a new
 Enigma release. Online updates will check the level revision numbers, too.
 
 Although  the revision evaluates to a number, the attribute can take a second
@@ -1975,7 +1975,7 @@ attribute.
 The compatibility element itself contains only subelements as content.
 
 @table @asis
-@item @b{dependency}, @i{optional, mutiple occurence}
+@item @b{dependency}, @i{optional, multiple occurrence}
 You can use this element to specify any Enigma-Lua library this level depends on. You can
 specify several libraries by multiple occurrence of this element. If you configure a library to be
 preloaded, the engine will load it before it loads or executes any level Lua code. The load
@@ -2028,7 +2028,7 @@ at the given url.
 
 none.
 
-@item @b{externaldata}, @i{optional, multiple occurence}
+@item @b{externaldata}, @i{optional, multiple occurrence}
 You can use this element to specify any external data file this level
 depends on. You can specify several files by multiple occurrence of this
 element. Files declared can be read via the Lua interface.
@@ -2058,7 +2058,7 @@ license conditions that make it impossible to distribute the data file with Enig
 
 none.
 
-@item @b{editor}, @i{optional, single occurence}
+@item @b{editor}, @i{optional, single occurrence}
 Special level editor programs use this element to store information about themselves.
 
 @b{Attributes:}
@@ -2162,7 +2162,7 @@ none
 The comments element itself contains only subelements as content.
 
 @table @asis
-@item @b{credits}, @i{optional, single occurence}
+@item @b{credits}, @i{optional, single occurrence}
 The place to honor people who helped to make your level run.
 
 @b{Attributes:}
@@ -2178,7 +2178,7 @@ level. Please use this feature only in rare cases.
 
 @b{Contents:}
 
-The credits message itself. It may be broken into several lines. Whitespaces will
+The credits message itself. It may be broken into several lines. Whitespace will
 be collapsed before display.
 
 @item @b{dedication}, @i{optional, single occurrence}
@@ -2198,10 +2198,10 @@ level. Please use this feature only in rare cases.
 
 @b{Contents:}
 
-The dedication message itself. It may be broken into several lines. Whitespaces will
+The dedication message itself. It may be broken into several lines. Whitespace will
 be collapsed before display.
 
-@item @b{code}, @i{optional, single occurence}
+@item @b{code}, @i{optional, single occurrence}
 
 @b{Attributes:}
 
@@ -2210,7 +2210,7 @@ none.
 @b{Contents:}
 
 The main code comment, which may be an explanation of the @ref{<version>} status
-or a todo list. It may be broken into several lines. This comment will not be
+or a to-do list. It may be broken into several lines. This comment will not be
 processed.
 
 @end table
@@ -2305,7 +2305,7 @@ level:
 
 @example
   <@i{el}:@b{protected} >
-    <!-- elements ommited -->
+    <!-- elements omitted -->
     <@i{el}:@b{i18n}>
       <@i{el}:@b{string} @i{el}:@b{key}="@var{title}">
         <@i{el}:@b{english} @i{el}:@b{translate}="@var{false}"/>
@@ -2499,7 +2499,7 @@ Since you may need to convert levels several times between the XML and the Lua f
 we do provide tools for conversion: @samp{xml2lua} and @samp{lua2xml}. Both are
 very simple Lua 5 scripts that you can execute as
 @samp{lua xml2lua demo_simple.xml > demo_simple.lua} with a properly installed
-Lua 5 version. On Unix systems, you can mark the scripts as executables and
+Lua 5 version. On Unix systems, you can mark the scripts as executable and
 simply call @samp{xml2lua demo_simple.xml > demo_simple.lua}.
 
 Of course you can add the conversion algorithms as simple macros for your favorite
@@ -2712,7 +2712,7 @@ stones or oceans of water.
 @cindex onescreener
 On the creation of a world the level author has to give its size in measure of
 tiles. The given width and height of the world are fixed and cannot be changed
-lateron. A common size is 20x13 for a @dfn{Onescreener}. But there are no limits.
+later on. A common size is 20x13 for a @dfn{Onescreener}. But there are no limits.
 You can even build levels smaller than a screen. Note that for larger levels
 you have to take into account that one tile row or column is usually shared
 between two screens on scrolling. Thus a level of 2x2 screens has a size of
@@ -2809,7 +2809,7 @@ that help in plug and play composition of levels, can be added to the world.
 
 All these other objects are full objects concerning the following chapters. But
 you need to use the world's @ref{add} method to add them and you need to use
-@ref{Object Reference} or @ref{Object Naming} to access them lateron, as no
+@ref{Object Reference} or @ref{Object Naming} to access them later on, as no
 position driven access does exist.
 
 @c ----------------- Player and Inventory --------------------
@@ -2847,7 +2847,7 @@ items of the player's inventory can act on all owned actors. The control of an
 actor by a player does just affect the movement of the actor by the users
 force input. An actor may be controlled by a player without parallel ownership.
 Another actor may be owned by a player without being controlled by it, thus
-being a passiv actor that depends on being pushed by others. An actor may even
+being a passive actor that depends on being pushed by others. An actor may even
 be controlled by both players, but it can just be owned by one player or none.
 
 The assignment of actors to players is solely configured by
@@ -2899,7 +2899,7 @@ how to specify the details of the object and how to reference it later on.
 @node Object Kind
 @subsection Object Kind
 
-@cindex abstact kind
+@cindex abstract kind
 Up to now we have spoken about object kinds of floor @samp{fl}, item
 @samp{it}, stone @samp{st} and actor @samp{ac}. All these kinds are called
 @dfn{abstract}. You can check if a given object is of such a kind, but you can
@@ -2938,7 +2938,7 @@ return true if checked for @samp{st_switch}.
 @subsection Object Reference
 
 Having set objects to the various layers a level author sometimes has the need
-of referencing them lateron. On callbacks the engine provides references to
+of referencing them later on. On callbacks the engine provides references to
 sender objects. But the author can request any grid object anytime by its
 position.
 
@@ -2952,8 +2952,8 @@ all objects will receive the message in turn. The sequence of several objects
 in a group is constant and guaranteed to be observed in processing common
 operations.
 
-As objects can ceize to exist you have to be aware that the references are
-volatile, too. You can check every object reference for existance. But in many
+As objects can seize to exist you have to be aware that the references are
+volatile, too. You can check every object reference for existence. But in many
 cases the validity of the reference is unimportant as Enigma 1.10 is very
 tolerant on invalid object references access. The operations will simply be
 ignored and requests will return default values.
@@ -2961,7 +2961,7 @@ ignored and requests will return default values.
 As a general thumb rule you should request and keep object references just
 for the time of a local call. As long as your level code is processed in
 sequence without the running world simulation giving the player a chance to
-kill objects by marble actions, objects should ceize to exist just due to your
+kill objects by marble actions, objects should seize to exist just due to your
 own direct statements.
 
 To gain access to an object later on a subsequent call you can address it via
@@ -2972,14 +2972,14 @@ name. @xref{Object Naming}.
 @node Object Naming
 @subsection Object Naming
 
-For addressing objects on a longterm valid basis every object can individually
+For addressing objects on a long term valid basis every object can individually
 be tagged by a name. Assigning a name to an object is as simple as setting
 the attribute @samp{name} with a unique string on this object. Of course you
 can request an objects name by reading the attribute @samp{name}.
 
 The name is a string that should be made up of characters @samp{a..z},
 @samp{A..Z}, numbers @samp{0..9} and the underscore @samp{_}. Other special
-charcters are only allowed as far as they are explained in the following text.
+characters are only allowed as far as they are explained in the following text.
 
 @cindex auto naming
 It is up to you to ensure unique names. Reusage of an already assigned name
@@ -2998,13 +2998,13 @@ object is registered by the given name.
 
 As you can auto name groups of objects you are allowed to use the wildcard
 characters @samp{?} and @samp{*}. The question mark replaces a single
-arbitrary character, the asterix any number of arbitrary characters. E.g.
+arbitrary character, the asterisk any number of arbitrary characters. E.g.
 @samp{no["mydoor#*"]} retrieves all auto named @samp{mydoor} objects in a single
 object group.
 
 Many object attributes like @samp{target}, @samp{destination} need object
 references to other objects. Besides a volatile @ref{Object Reference} you always
-can provide a name string as a longterm valid object reference. If the attribute
+can provide a name string as a long term valid object reference. If the attribute
 allows several objects to be given you can either give a group of object
 references, a table of object names or a object name with wildcards. Thus
 the string @samp{"mydoor#*"} is a valid target.
@@ -3024,7 +3024,7 @@ and nearby blocker doors in a world map all by the same two tile key characters.
 Every floppy switch will target the nearest blocker door. If two targets are
 given within the same distance the one located in the south will win. If the
 targets are additionally horizontally aligned the one located in east will win.
-In the rare case of objects located on the same position stones will preceed
+In the rare case of objects located on the same position stones will precede
 items, floors and actors. The chosen target or destination depends just on the
 location of these objects and their type, but nothing else. Thus you can rely
 on a stable selection mechanism. @ref{Nearest Object Clustering} may help you in
@@ -3052,12 +3052,12 @@ Objects do change over time. Doors do open, a chess may be recolored, a blocker
 stone may shrink to a blocker item. This means that the kind of the objects
 will change. But in many cases this means that the volatile object reference
 will brake, too. For the sake of the level authors the identity of the object
-will be transfered even if the reference gets invalid. And like the user
+will be transferred even if the reference gets invalid. And like the user
 attributes the name is part of the object identity. Thus if you name an
 @ref{st_blocker} and it it shrinks to an @ref{it_blocker} you will retrieve this
 item if you ask the name object repository for the named object.
 
-When an object like a door is completly killed, e.g. by an @ref{it_seed},
+When an object like a door is completely killed, e.g. by an @ref{it_seed},
 it can no longer be targeted by active objects like switches. A still existing
 reference to a no longer existing object does not cause problems on
 @ref{Messages}. But what about the nearest object references? To avoid problems
@@ -3146,7 +3146,7 @@ you request a nil valued attribute you will always receive the Lua value
 @samp{nil}. @samp{DEFAULT} will never be returned by the engine.
 
 A group is an ordered set of @ref{Object Reference}s. As all contained objects
-must exist this value is seldomly used for attributes in object declarations.
+must exist this value is seldom used for attributes in object declarations.
 But is is very useful for postprocessing of objects and for usage within
 @ref{Callback Function}s.
 
@@ -3179,7 +3179,7 @@ or triggers with callback functions. These functions provide the sender, the
 switch or trigger, as an argument. If you attach the same function to number of
 senders you can store the necessary context information within the sender.
 
-The internal engine uses object attributes as well. Such unaccessable attributes
+The internal engine uses object attributes as well. Such inaccessible attributes
 are named with a leading dollar sign @samp{$}. They may appear in the documentation
 for C++ developers information. Level authors should ignore these attributes.
 
@@ -3204,7 +3204,7 @@ reasons like performance optimization forces a much more complex handling.
 @section Methods of Interaction
 
 Having looked at the description of the initial object composition of a
-level world we still need to undestand how to configure the dynamic behaviour
+level world we still need to understand how to configure the dynamic behaviour
 of a level.
 
 @menu
@@ -3243,7 +3243,7 @@ Messages may return a value. But most messages just return @samp{nil}.
 You can send any message to any object. Not supported messages are silently
 ignored. This is the reason that an exploding dynamite can send @samp{ignite}
 messages to its neighbours without knowing if the objects can be ignited at all.
-Furtheron the dynamite has not to bother with the recipients of the messages.
+Further on the dynamite has not to bother with the recipients of the messages.
 Due to messages the sender and the receiver objects are totally decoupled
 concerning the code base. Thus the level author just needs one method that
 allows sending arbitrary messages to arbitrary objects.
@@ -3264,7 +3264,7 @@ The "target action paradigm" is a classical object oriented method that allows
 you to easily plug together objects. One object is triggered by a function
 call or by an event like an actor hitting a stone, crossing over or applying an
 item. You simply plug this object to another target object and tell it to send
-an action message. Everytime the first object is triggered it will send the
+an action message. Every time the first object is triggered it will send the
 message to its target.
 
 You configure such a target action by setting the attributes @samp{target}
@@ -3311,7 +3311,7 @@ turned off.
 
 The message @ref{signal} takes an integer value of @samp{0} or @samp{1}.
 Indeed the action value does not match. But in this as in many other cases
-the messages and values are designed in a way that they are autoconverted to
+the messages and values are designed in a way that they are automatically converted to
 the appropriated type. This compatibility is the basis for a seamless plugging
 of objects.
 
@@ -3406,10 +3406,10 @@ A key concept for the ability to plug together objects like switches and doors
 are the very simple state machines of these objects. Most objects are described
 by simple machines with just 2 states like @samp{ON},@samp{OFF} or @samp{OPEN},
 @samp{CLOSED}. These objects can be plugged together by just few common messages.
-Furtheron these simple state machines are suited to the gamers who do not want
+Further on these simple state machines are suited to the gamers who do not want
 to read manuals but want to explore the objects by playing with just a few tests.
 
-Even though states are usally named by appropriate uppercase names like above,
+Even though states are usually named by appropriate uppercase names like above,
 the states are integer numbers starting with @samp{0} usually related to the
 default state. But some objects use another mapping due to historic reasons.
 E.g. states that are direction related use the state @samp{3} representing
@@ -3417,7 +3417,7 @@ E.g. states that are direction related use the state @samp{3} representing
 @samp{0} representing @samp{WEST}.
 
 In most cases it is sufficient to perform a state independent common action
-like @ref{toggle}. Even two stated objects can be easily sychronized by the
+like @ref{toggle}. Even two stated objects can be easily synchronized by the
 standard action @ref{signal}. But sometimes you may want to perform very state
 specific actions. Let us look how this can be done.
 
@@ -3536,7 +3536,7 @@ attributes:
 
 A laser that is initially on that illuminates a laserswitch needs an initially
 active laserswitch. But of course no attribute exists that would allow you to
-set a laserwitch active. The snapshot principle includes the rule that all
+set a laserswitch active. The snapshot principle includes the rule that all
 internal states are updated without external actions. This means that the
 laserswitch will show up active without causing an action on its target.
 
@@ -3551,7 +3551,7 @@ an initially existing laser beam will not transform to a sword. It remains as
 a hammer that will transform on any subsequent new laser light during the game.
 
 Of course it cannot be allowed to describe impossible initial level states.
-Objects like dynamite do explode immediatly on a laser beam hit. Thus a
+Objects like dynamite do explode immediately on a laser beam hit. Thus a
 dynamite item in an initial laser beam is a fault that causes an exception.
 The snapshot principle forces you in this case to set an explosion item instead
 of the dynamite.
@@ -3562,7 +3562,7 @@ snapshot of a level. Where possible a special object subkind exists with a suffi
 of @samp{_new}. These objects can be used in the initial level description to
 set objects in special initial states. E.g. @ref{it_blocker} provides such a
 special subkind. Note that these objects will never report their initial
-subkind on a kind request as they come into existance as a standard object.
+subkind on a kind request as they come into existence as a standard object.
 
 
 @node Level Initialization
@@ -3584,7 +3584,7 @@ an @ref{it_rubberband}/@ref{ot_rubberband}, an @ref{it_hammer}/@ref{it_sword},..
 Even though the successor object may have other attributes, some attributes and
 especially any user attributes should be maintained. In fact the objects name,
 its target and action attributes and all attributes starting with an underscore
-@samp{_}, the user attributes, are transfered to the successor object. Thus you
+@samp{_}, the user attributes, are transferred to the successor object. Thus you
 can rely on the successor to message the same target and you can it access it
 via its old name.
 
@@ -3604,7 +3604,7 @@ an object group.
 
 Thus for every named floor that gets killed its position is stored in a
 repository under its name. You just need to retrieve the named positions
-instead of the named objectes if you want to get all affected floor positions.
+instead of the named objects if you want to get all affected floor positions.
 
 @example
 ti["~"] = @{"fl_water", "water#"@}
@@ -3651,7 +3651,7 @@ and value constants are colored in magenta.
 
 After the examples and a short overview we do give details of the language
 specific API part as you can expect it for a reference manual. Please note
-that additional @ref{Advanced Features} are described in a seperate chapter.
+that additional @ref{Advanced Features} are described in a separate chapter.
 
 Until this chapter is finished please read the API Concept Draft, too!
 
@@ -3677,7 +3677,7 @@ Until this chapter is finished please read the API Concept Draft, too!
 @section Basic Lua Examples
 
 Let us look at two basic onescreener levels, that make use of all basic
-techniques. While the first level is a little bit artifical, as it is designed
+techniques. While the first level is a little bit artificial, as it is designed
 for demo purposes only, the second one is a quite dynamic real level out of
 the Enigma levelpacks.
 
@@ -3690,7 +3690,7 @@ the Enigma levelpacks.
 @node Basic Example
 @subsection Basic Example
 
-Let us view the sourcecode. We did add a line count in the first two columns
+Let us view the source code. We did add a line count in the first two columns
 for reference purpose within this section. These line count number are not part
 of the source code itself!
 
@@ -3788,7 +3788,7 @@ Lines 1 to 14 are the XML metadata of the level as described in
 
 You need to declare the level to be compatible to Enigma 1.10 or higher for
 the new API 2 as described in this reference manual. A value less than 1.10
-indicates compatiblity to a previous Enigma release that did use the old API 1,
+indicates compatibility to a previous Enigma release that did use the old API 1,
 which should not be mixed up with the new API 2.
 
 The Lua part starts with line 15:
@@ -3803,7 +3803,7 @@ but most of its usage syntax is identical to that of Lua tables. Thus we access
 an attribute by providing the desired attribute name in square brackets. As we
 give a literal attribute name, we have to put it in double quotes @samp{"}. In
 total this line requests the world to resurrect a killed actor as long as there
-are enough extralifes to conserve the running level (@pxref{ConserveLevel}).
+are enough extra lifes to conserve the running level (@pxref{ConserveLevel}).
 In fact @samp{true} is the default value. So we could have left this line out.
 But remember it is a demo level.
 
@@ -3829,7 +3829,7 @@ characters besides backslash @samp{\} and double quote @samp{"}.
 The assigned object definition are given as Lua anonymous tables, the curly braces,
 containing in the most simple case just the desired @ref{Object Kind}. As it
 is again a literal string, it has to be quoted. Without any further specification
-the objects are taken in their default configuaration as described in
+the objects are taken in their default configuration as described in
 @ref{Floor Objects} and following chapters.
 
 @example
@@ -3852,7 +3852,7 @@ An @ref{st_polarswitch} named for reference usage (@pxref{Object Naming}).
 The @ref{it_trigger} sets up a @ref{Target - Action}, the target being our
 polarswitch. The action attribute is omitted. It defaults to the message
 @samp{toggle}. Thus any actor or stone on top of the trigger makes the
-polarswitch transparent, but switches it back to intransparency when leaving
+polarswitch transparent, but switches it back to opacity when leaving
 the trigger.
 
 @example
@@ -3890,7 +3890,7 @@ name as described in @ref{Object Naming}. Every blocker gets a unique name.
 The switch needs to list all these objects as its targets. This is done by
 an embedded anonymous table given by the curly braces and comma separated
 values. The first one is our door's name, the second one is a wildcarded string
-that describes all our blocker objects. The asterix stands for any suffix
+that describes all our blocker objects. The asterisk stands for any suffix
 that may have been added behind the hash in the process of autonaming of our
 blockers.
 
@@ -3914,7 +3914,7 @@ any objects at all.
 @end example
 
 Another object group is an @ref{st_turnstile} cluster with one arm disconnected.
-The first two definitions are straight forward. But in line 42 we preceed the
+The first two definitions are straight forward. But in line 42 we precede the
 arm's definition by another tile reference. It is the abyss tile defined in
 line 19. By concatenation, the two dots @b{..}, of a tile and a object
 definition we can define a new that is composed of both objects. In this case
@@ -3933,7 +3933,7 @@ Just for fun we want to provide a checkerboard floor on the right side of our
 level. This can be done by usage of the @ref{checkerboard} attribute. Again
 we concatenate two object definitions for a single tile. Both are floors. That
 means for each grid position we try to set both floor types, but just one meets
-the checkboard condition and will be set.
+the checkerboard condition and will be set.
 
 Please notice that we did convert one one the floor object definitions to a tile
 definition by the function call @samp{ti()}. This is necessary as Lua does not
@@ -3946,7 +3946,7 @@ has to be a tile.
 
 Finally we do need our marble. Unlike other objects it can be positioned
 anywhere within a grid. The most common position is the center of the grid.
-This is simply done by preceeding the actor's kind by a hash sign @samp{#}.
+This is simply done by preceding the actor's kind by a hash sign @samp{#}.
 
 @example
 48    if @i{wo}["@b{IsDifficult}"] then
@@ -3957,7 +3957,7 @@ This is simply done by preceeding the actor's kind by a hash sign @samp{#}.
 @end example
 
 We encourage every level author to provide an easy mode for the levels. This
-is an example how to define mode dependant tiles. Like in line 16 we access
+is an example how to define mode dependent tiles. Like in line 16 we access
 a world attribute. But this time it is a read access of @ref{IsDifficult}.
 In easy mode we want a @ref{it_strip} on top of water floor that allows the
 marble to pass and press the trigger. In difficult mode the there should be
@@ -3988,7 +3988,7 @@ how the keys should be resolved. The second argument is the key of our default
 floor. The third argument is the map as a table of strings, one for every line.
 
 The world initialization returns the width and height of our world which are
-calcluated by the maps size.
+calculated by the maps size.
 
 @example
 70    @i{wo}:@b{shuffleOxyd}()
@@ -4004,7 +4004,7 @@ our mighty world object.
 @subsection Colored Turnstiles
 
 As this level is part of the Enigma levelpacks we recommend that you play
-the level first to get familar with the used objects and their behaviour.
+the level first to get familiar with the used objects and their behaviour.
 
 Now let us look at the essential Lua source code part of the level to understand
 how such an idea can be realized with the new API
@@ -4068,7 +4068,7 @@ Whenever the marble hits and turns an @ref{st_turnstile} it performs its actions
 on the targets. Here the author makes clever usage of multitargets and
 multiactions as described in @ref{Target - Action}. On every turn of a red
 turnstile all objects named @samp{red#*}, that are all our blockers on a red
-floor, will be send a message @samp{open}, whereas all blockes on a green floor,
+floor, will be send a message @samp{open}, whereas all blocks on a green floor,
 the second target group, receives the second action message @samp{close}. It is
 essential to choose the @samp{open}, @samp{close} messages instead of
 @samp{toggle}, as more than one red turnstile may be turned in sequence, but
@@ -4085,7 +4085,7 @@ overview and advanced examples to write even more fancy levels.
 @section API 2 Overview
 
 Having analysed a first level it is time get an overview of the API 2
-capabilities. Let us take a task driven appoach by listing the different
+capabilities. Let us take a task driven approach by listing the different
 possibilities and use cases by example.
 
 @menu
@@ -4113,7 +4113,7 @@ the standard Lua types @samp{nil}, @samp{boolean}, @samp{string},
 @item @b{position:}@ @ @xref{Position}
 A position within the world that can be described by an x and y coordinate.
 @item @b{object:}@ @ @xref{Object}
-An Enimga object like a stone, item, floor, other. Any object is a position, too.
+An Enigma object like a stone, item, floor, other. Any object is a position, too.
 @item @b{group:}@ @ @xref{Group}
 A list of objects.
 @item @b{namedobjects:} @i{preset variable:} @code{@b{no}}; @ @ @xref{NamedObjects}
@@ -4128,7 +4128,7 @@ stone, actor)
 The singleton type of the repository of all tile instances.
 @item @b{world:} @i{preset variable:} @code{@b{wo}}; @ @ @xref{World}
 The singleton type of the world that contains all objects.
-@item @b{positon list:}@ @ @xref{Named Positions}
+@item @b{position list:}@ @ @xref{Named Positions}
 A list of positions.
 @end table
 @end table
@@ -4158,7 +4158,7 @@ And let @samp{pos} be a valid variable of type @samp{position}.
 @var{pos} = @var{obj}              -- every object is a valid position
 @var{pos} = @i{po}(@var{12.3}, @var{3.7})    -- a position within a grid (for an actor)
 @end example
-Absolut positions are created by the function @samp{po()}. But the most common
+Absolute positions are created by the function @samp{po()}. But the most common
 way should be the reinterpretation of an object as a position. This lets you
 set other objects relatively to given ones.
 
@@ -4242,7 +4242,7 @@ group.
 @var{obj}:@b{set}(@{@b{target}=@var{mydoor}, @b{action}="@b{open}"@})
 @end example
 You can set multiple attributes on any object at once with the objects @samp{set()}
-method. The arguement is an anonymous Lua table with the attribute names as keys
+method. The argument is an anonymous Lua table with the attribute names as keys
 and assigned values of your choice.
 
 @item @b{Requesting Attributes:}
@@ -4276,7 +4276,7 @@ Any object attribute can be reset to its default value, what is the attributes
 @i{wo}[#@var{pos}] = @{"@b{ac_bug}"@}              -- actor centered on grid pos
 @i{wo}[@var{pos}]  = @{"#@b{ac_bug}"@}             -- actor centered on grid pos
 @i{wo}[@var{pos}]  = @{"@b{ac_bug}", @var{0.3}, @var{0.7}@}    -- actor with offsets to pos
-@i{wo}[@var{my_floor}] = @{"@b{it_magicwand}"@}    -- set an wand on top of a given foor object
+@i{wo}[@var{my_floor}] = @{"@b{it_magicwand}"@}    -- set an wand on top of a given floor object
 @i{wo}[@var{pos}]  = @i{ti}["@var{x}"]                 -- tile based object definition
 @end example
 Besides map based object creation, that you saw in the previous basic examples,
@@ -4296,7 +4296,7 @@ object references. You can explicitly name an object by assigning it at the
 named object repository @samp{no} to the name as the key. But most times you
 just supply the objects name as an object attribute. If you supply the name
 attribute as the @b{second} value in the anonymous table you can omit the
-key @samp{name =} part as a common abreviation.
+key @samp{name =} part as a common abbreviation.
 
 @item @b{Object Autonaming:}
 @example
@@ -4353,7 +4353,7 @@ if -@var{obj} then ...
 Object references may get invalid due to objects being killed. In most cases
 this no problem as requests to invalid objects will simply be ignored. But if
 the level logic depends on the existence of an object you can call the
-@samp{exists()} method or simply preceed the reference by the unary minus
+@samp{exists()} method or simply precede the reference by the unary minus
 @samp{-} operator. Both ways return a simple bool value stating if the object
 reference is still valid.
 
@@ -4396,7 +4396,7 @@ or other attributes of an object to report its current classification.
 @end example
 
 Requesting objects from the named object repository will result in a group of
-objects if you make proper usage of wildcards. Appending an asterix @samp{*}
+objects if you make proper usage of wildcards. Appending an asterisk @samp{*}
 to the autonaming hash will retrieve all objects that have been set with this
 name suffix. But you can create a group by the @samp{grp} function, too. Simply
 add the desired object reference as arguments, either single or as a table.
@@ -4516,7 +4516,7 @@ returned by the call.
 The position of any named object can be directly retrieved. The position is
 still accessible under the name, when the object gets killed. You can
 additionally name own positions. Note that the position of an existing object
-preceeds a position stored under the same name.
+precedes a position stored under the same name.
 
 @item @b{Creating Position Lists:}
 @example
@@ -4560,7 +4560,7 @@ of contained positions.
 
 Now it is time to reveal the real power of the new API. Let us look again at
 two real levels. Investigate the levels first by playing and then join
-in the line by line commentation of the source code to understand how to
+in the line by line commentary of the source code to understand how to
 implement your own level ideas.
 
 @menu
@@ -4680,7 +4680,7 @@ setting special @ref{Global Attributes}.
 05    @i{ti}["@var{ }"] = @{"@b{fl-abyss_fake}"@} .. @i{ti}(@{"@b{st-glass1}"@})
 32    @i{wo}(@i{ti}, "@var{ }", @{
 @end example
-The unaccessible areas are filled with a transparent glass on top of a black
+The inaccessible areas are filled with a transparent glass on top of a black
 floor as defined in line 5. The world initialization uses this tile definition
 as the default tile. This is o.k. as it contains a floor definition. Additional
 objects like the glass stone will never be set on default usage.
@@ -4691,7 +4691,7 @@ objects like the glass stone will never be set on default usage.
 09    @i{ti}["@var{#}"] = @{"@b{fl_redslab}", "@var{red#}", @var{_color}="@var{red}"@}
 10    @i{ti}["@var{$}"] = @{"@b{fl_lawn_b}", "@var{green#}", @var{_color}="@var{green}"@}
 @end example
-Every floor object is autonamed for later group access purposes. Additinally
+Every floor object is autonamed for later group access purposes. Additionally
 every floor objects sets a user attribute prefixed in its name by an underscore
 @samp{_}. This attribute stores a string that we need later on in the callback
 function.
@@ -4707,7 +4707,7 @@ The doors are set without being named, as we will target them by their position.
 @end example
 The actors moves are detected by invisible @ref{it_sensor}s that are positioned
 on any intersection. The target is the @ref{Callback Function} @samp{gates}.
-The action can be ommited as the function name is a unique target.
+The action can be omitted as the function name is a unique target.
 
 @example
 66    @var{last} = @b{it}(@i{no}["@var{me}"])   -- the last visited sensor
@@ -4780,7 +4780,7 @@ is simpler than a conditional expression.
 On the first 3 moves we just do close doors and remember the color sequence.
 But starting with the 4th move we need to open the next color in sequence.
 We do retrieve the color string of the next color from the sequence table by
-a simple modulo calulation. Having the color name we do the same trick as in
+a simple modulo calculation. Having the color name we do the same trick as in
 line 75. But this time we do send the @samp{open} messages to all affected doors.
 
 @example
@@ -4975,7 +4975,7 @@ tile definition is returned.
 @end example
 And now we cluster the border panels. First we need to decide where to put
 panels at all. The positions marked @samp{#} in the map are for sure.
-Additionally we choose randomly every 4th @samp{_} postition to be a panel
+Additionally we choose randomly every 4th @samp{_} position to be a panel
 instead of being a water floor. Finally we replace just in difficult mode
 the switch marked as @samp{S} by a panel stone. Now we need to assign to this
 grid position one of the two panel cluster tiles. We simply generate a random
@@ -5059,10 +5059,10 @@ finished. The last 9 stones have just one wire.
 68    end
 @end example
 Now we wire these remaining 9 stones in sequence, in a closed circle. That gives
-each stone 2 additinal wires. We do this by connecting each of the stones 4 to
+each stone 2 additional wires. We do this by connecting each of the stones 4 to
 11 with is successor and finally connecting stone 12 to stone 4, what is done
 by the modulo operation. This completes the level for the regular mode.
-As prepartion for the easy mode we do autoname these additional wires.
+As preparation for the easy mode we do autoname these additional wires.
 
 @example
 71    function @var{easy_mode_call}(@var{is_on}, @var{sender})
@@ -5393,7 +5393,7 @@ preferable to change the object state later on by messages.
 
 All active objects react on being triggered by performing an action on their
 targets. This attribute is part of the @ref{Target - Action} paradigm that
-guarantees pluggability of objects. You can either set a general @samp{target}
+guarantees plugability of objects. You can either set a general @samp{target}
 attribute for an object, or you can set @ref{state} dependent attributes
 @samp{target_0}, @samp{target_1},... (@pxref{Object State}). They all have the
 same syntax:
@@ -5420,7 +5420,7 @@ target = @{grp(obj1, obj2), "myDoor", myObject@}
 
 All active objects react on being triggered by performing an action on their
 targets. This attribute is part of the @ref{Target - Action} paradigm that
-guarantees pluggability of objects. You can either set a general @samp{action}
+guarantees plugability of objects. You can either set a general @samp{action}
 attribute for an object, or you can set @ref{state} dependent attributes
 @samp{action_0}, @samp{action_1},... (@pxref{Object State}). They all have the
 same syntax:
@@ -5472,7 +5472,7 @@ to kill the sender within the execution of the action code.
 @node inverse
 @subsection inverse
 
-An attribute that requests an invertion of the action value. It is supported by
+An attribute that requests an inversion of the action value. It is supported by
 all objects with boolean action values.
 
 Note that this attribute is not listed in the individual object description
@@ -5485,8 +5485,8 @@ if the object has boolean action values.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ by most objects
 All objects with boolean action values will support this attribute. Additionally
-some objects with other invertable action value types like directions will
-support the invertion of their attributes as stated in the individual object
+some objects with other invertible action value types like directions will
+support the inversion of their attributes as stated in the individual object
 descriptions.
 @end table
 
@@ -5529,7 +5529,7 @@ destinations, too.
 
 An attribute that describes the decelerating friction force on actors that are
 on the floor. The friction force increases with the speed of the actor and
-is decelarating for positive friction values. But friction can be set to
+is decelerating for positive friction values. But friction can be set to
 negative values as well what generates an accelerating force that is very
 difficult to control for the player.
 
@@ -5548,7 +5548,7 @@ floor friction.
 @node adhesion
 @subsection adhesion
 
-An attribute that describes the adhesion that allows an actor to accelarate on
+An attribute that describes the adhesion that allows an actor to accelerate on
 a floor. Greater adhesion leads to more accelerating force at the same given
 mouse speed. Adhesion can be set to negative values as well what generates an
 accelerating force in the inverse direction of the mouse movement which is a
@@ -5574,7 +5574,7 @@ on 'even' or 'uneven' grid positions. Setting this attribute to @samp{0} assures
 that this object will only be set on grid positions with an even sum of
 @code{x + y} grid coordinates, where as a value of @samp{1} assures that the
 sum must be uneven. This way you can easily provide two different object
-declarations for a tile to generate an arbitrarily chaped map of checkerboard
+declarations for a tile to generate an arbitrarily shaped map of checkerboard
 floors, items or stones.
 
 @table @asis
@@ -5757,7 +5757,7 @@ Just objects in state @samp{OPEN} will be closed. An object in state
 @node kill
 @subsection kill
 
-This message causes the receipent to cease to exist. You are just allowed to
+This message causes the recipient to cease to exist. You are just allowed to
 kill objects that are directly part of the world. Objects owned by players,
 being content part of a bag or otherwise owned by another object will refuse
 this message on behalf of their owner.
@@ -6152,7 +6152,7 @@ A global variable that determines if a dead actor will be resurrected in case of
 @ref{it_extralife}s in the gamer's inventory.
 
 If @code{true}, dead actors attached to a player will be resurrected as long as
-extralives are available. If a player has no living actor to control or is
+extralifes are available. If a player has no living actor to control or is
 missing the actor's @ref{essential} constraints, the player is
 dead. The level may still continue if a second player is alive. If the gamer has
 an @ref{it_yinyang} in his inventory in single user mode, the control switches
@@ -6160,7 +6160,7 @@ to the second player. If all players are dead, a new level game is started.
 
 If the conserve mode is @code{false}, no actors will be resurrected. As soon as
 the player is dead and the control cannot switch to another player, all dead
-actors are resurrected by using extralives, and the level is restarted without
+actors are resurrected by using extralifes, and the level is restarted without
 finishing the level game.
 
 Use @code{false} if the level can either be not solved in case of resurrected
@@ -6184,7 +6184,7 @@ either be marked with an invisible crack or to toggle such invisible cracks to
 a small visible cracks. A value of @code{1.0} ensures that the crack spreads to
 the direct neighbors, a value of @code{0.0} prohibits the spreading to neighbor
 grids. Note that even if crack spreading is prohibited, existing cracks on
-neighbor grids may continue desintegrating due to their @ref{Fragility}. For
+neighbor grids may continue disintegrating due to their @ref{Fragility}. For
 more details see @ref{it_crack}.
 
 @table @asis
@@ -6234,7 +6234,7 @@ load usually results from hits of @ref{st_charge}.
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{15.0}
-Positve number are attracting, negative numbers are repelling.
+Positive number are attracting, negative numbers are repelling.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{Actor Objects}
 @end table
@@ -6243,7 +6243,7 @@ Positve number are attracting, negative numbers are repelling.
 @subsection ExtralifeGlasses
 
 A global variable that defines the @ref{it_glasses} type that is generated on
-the laser light convertion of an @ref{it_extralife}
+the laser light conversion of an @ref{it_extralife}
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -6330,11 +6330,11 @@ than half of the screen size.
 @subsection Fragility
 
 A global default value denoting the probability that a brittle floor plate, that
-is a floor with an @ref{it_crack} on top, continues to desintegrate on events 
+is a floor with an @ref{it_crack} on top, continues to disintegrate on events 
 like an actor entering, passing a neighboring @ref{it_crack}, nearby explosions
 or fire heating. A value of @code{1.0} ensures that the crack continues to 
-desintegrate on these events, a value of @code{0.0} prohibits visible cracks
-to get larger. This default is superceeded by @ref{fragility (floor)} and
+disintegrates on these events, a value of @code{0.0} prohibits visible cracks
+to get larger. This default is superseded by @ref{fragility (floor)} and
 @ref{it_crack} specific values.
 
 @table @asis
@@ -6378,7 +6378,7 @@ This is set by the initial world constructor call
 @node IsDifficult
 @subsection IsDifficult
 
-A global read only variable that defines the current diffculty mode selected
+A global read only variable that defines the current difficulty mode selected
 by the user. All differences of easy and difficult mode within the level should
 be coded solely in dependence of this flag. If a level that supports an easy
 mode the author needs to declare it in the XML header in the element
@@ -6417,7 +6417,7 @@ value is only used if no object specific value is set.
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{30.0}
-Positve number are attracting, negative numbers are repelling.
+Positive number are attracting, negative numbers are repelling.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_magnet}
 @end table
@@ -6537,8 +6537,8 @@ Fast moving actors will need slightly more time than static actors.
 @table @asis
 @item @b{Type:} @ @ number or @code{nil}
 @item @b{Values:} @ @ positive float number or zero or @code{nil}
-Sink time in seconds or @samp{nil} for an inifinite time aka not sinking. Time
-values smaller than appr. 0.7 ms will be rounded down to 0 ms.
+Sink time in seconds or @samp{nil} for an infinite time aka not sinking. Time
+values smaller than approximately 0.7 ms will be rounded down to 0 ms.
 @item @b{Default:} @ @ @code{1.75}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{fl_swamp}
@@ -6552,8 +6552,8 @@ A global default for the time it takes an actor to sink in @ref{fl_water}.
 @table @asis
 @item @b{Type:} @ @ number or @code{nil}
 @item @b{Values:} @ @ positive float number or zero or @code{nil}
-Sink time in seconds or @samp{nil} for an inifinite time aka not sinking. Time
-values smaller than appr. 0.7 ms will be rounded down to 0 ms.
+Sink time in seconds or @samp{nil} for an infinite time aka not sinking. Time
+values smaller than approximately 0.7 ms will be rounded down to 0 ms.
 @item @b{Default:} @ @ @code{0.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{fl_water}
@@ -6568,7 +6568,7 @@ This is set by the initial world constructor call
 
 @table @asis
 @item @b{Type:} @ @ number
-@item @b{Values:} @ @ positiv integer number
+@item @b{Values:} @ @ positive integer number
 @item @b{Default:} @ @ @code{?}
 @item @b{Access:} @ @ read only
 @item @b{Support:} @ @ object independent
@@ -6621,6 +6621,80 @@ Positive number are attracting, negative numbers are repelling.
 @node Floor Overview
 @section Floor Overview
 
+@c todo: generate images in local directory.
+@c ( rotate image only if portrait: convert -rotate "90>" filename )
+@c   cut images which are not square (i.e. reduce to single tile)
+@c   adjust dpi for pdf (see images/Makefile): convert -density 112x112 $< $@
+@c   cropping: convert -crop 48x48+0+0 filename
+@c -> Makefile?
+
+@c wie werden die framed-varianten erzeugt?
+@c allg: wie werden / wurden die tiles erzeugt?
+
+@c - distribute images with documentation
+
+@c Macro for pdf(tex) and html reference
+@macro yref {name}
+@c @image{images/\name\} @tab
+@ifhtml
+@ref{\name\} 
+@end ifhtml
+@iftex
+\name\
+@end iftex
+@end macro
+@c
+@multitable @columnfractions .08 .25 .08 .25 .09 .25
+@item @image{images/fl_abyss} @tab @yref{fl_abyss}
+@tab @image{images/fl_adhesionless} @tab @yref{fl_adhesionless}
+@tab @image{images/fl_aquamarine} @tab @yref{fl_aquamarine}
+@item @image{images/fl_bast} @tab @yref{fl_bast}
+@tab @image{images/fl_bluegray} @tab @yref{fl_bluegray}
+@tab @image{images/fl_bluegreen} @tab @yref{fl_bluegreen}
+@item @image{images/fl_blueslab} @tab @yref{fl_blueslab}
+@tab @image{images/fl_brick} @tab @yref{fl_brick}
+@tab @image{images/fl_bright} @tab @yref{fl_bright}
+@item @image{images/fl_concrete} @tab @yref{fl_concrete}
+@tab @image{images/fl_darkgray} @tab @yref{fl_darkgray}
+@tab @image{images/fl_dark} @tab @yref{fl_dark}
+@item @image{images/fl_dunes} @tab @yref{fl_dunes}
+@tab @image{images/fl_fake_trigger} @tab @yref{fl_fake_trigger}
+@tab @image{images/fl_gravel} @tab @yref{fl_gravel}
+@item @image{images/fl_gray} @tab @yref{fl_gray}
+@tab @image{images/fl_hay} @tab @yref{fl_hay}
+@tab @image{images/fl_himalaya} @tab @yref{fl_himalaya}
+@item @image{images/fl_ice_heating} @tab @yref{fl_ice_heating}
+@tab @image{images/fl_ice} @tab @yref{fl_ice}
+@tab @image{images/fl_inverse_gray} @tab @yref{fl_inverse_gray}
+@item @image{images/fl_inverse_white} @tab @yref{fl_inverse_white}
+@tab @image{images/fl_ivory} @tab @yref{fl_ivory}
+@tab @image{images/fl_lawn} @tab @yref{fl_lawn}
+@item @image{images/fl_marble} @tab @yref{fl_marble}
+@tab @image{images/fl_metal} @tab @yref{fl_metal}
+@tab @image{images/fl_mortar} @tab @yref{fl_mortar}
+@item @image{images/fl_pinkbumps} @tab @yref{fl_pinkbumps}
+@tab @image{images/fl_plank} @tab @yref{fl_plank}
+@tab @image{images/fl_platinum} @tab @yref{fl_platinum}
+@item @image{images/fl_red} @tab @yref{fl_red}
+@tab @image{images/fl_redslab} @tab @yref{fl_redslab}
+@tab @image{images/fl_rock} @tab @yref{fl_rock}
+@item @image{images/fl_rough} @tab @yref{fl_rough}
+@tab @image{images/fl_sahara} @tab @yref{fl_sahara}
+@tab @image{images/fl_samba} @tab @yref{fl_samba}
+@item @image{images/fl_sand} @tab @yref{fl_sand}
+@tab @image{images/fl_space} @tab @yref{fl_space}
+@tab @image{images/fl_stone} @tab @yref{fl_stone}
+@item @image{images/fl_swamp_heating} @tab @yref{fl_swamp_heating}
+@tab @image{images/fl_swamp} @tab @yref{fl_swamp}
+@tab @image{images/fl_tigris} @tab @yref{fl_tigris}
+@item @image{images/fl_water_heating} @tab @yref{fl_water_heating}
+@tab @image{images/fl_water} @tab @yref{fl_water}
+@tab @image{images/fl_white} @tab @yref{fl_white}
+@item @image{images/fl_woven} @tab @yref{fl_woven}
+@tab @image{images/fl_yinyang_yang} @tab @yref{fl_yinyang_yang}
+@tab @image{images/fl_yinyang_yin} @tab @yref{fl_yinyang_yin}
+@end multitable
+
 @c ----------------- Floor Attributes --------------------
 @node Floor Attributes
 @section Floor Attributes
@@ -6653,7 +6727,7 @@ Positive number are attracting, negative numbers are repelling.
 
 The responsiveness of an actor on mouse movements. It is a scalar factor to
 the accelerating force applied to an actor. Note that the actor itself
-has another scalar @ref{adhesion (actor)} factor. The adhesion may take negativ
+has another scalar @ref{adhesion (actor)} factor. The adhesion may take negative
 values, too. Such values correspond to inverse forces.
 
 @table @asis
@@ -6696,7 +6770,7 @@ values, too. Such values correspond to inverse forces.
 Describes if a floor is framed. 
 
 Currently a floor is either not framed at all or framed on all sides. The frame
-attribute can not be direclty accessed and modified on most floors. Append the
+attribute can not be directly accessed and modified on most floors. Append the
 string @code{"_framed"} to a given floor name to yield the all side framed
 variant.
 
@@ -6907,6 +6981,7 @@ of variant kind names to create your own graphical floor layout.
 @item @b{Access:} @ @ currently none - just by variants kind string on some floors
 @end table
 
+>>>>>>> .r1644
 @c ----------------- Standard Floor --------------------
 @node Standard Floors
 @section Standard Floors
@@ -6963,7 +7038,7 @@ Orange velvet that offers no adhesion but causes friction.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_adhesionless}
+@item @image{images/fl_adhesionless} @b{fl_adhesionless} 
 @end table
 @end table
 
@@ -6983,8 +7058,8 @@ Aquamarine floor with low friction.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_aquamarine}
-@item @b{fl_aquamarine_framed}
+@item @image{images/fl_aquamarine} @b{fl_aquamarine}
+@item @b{fl_aquamarine_framed} 
 @end table
 @end table
 
@@ -7004,7 +7079,7 @@ Brown woven bast with black background.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_bast}
+@item @image{images/fl_bast} @b{fl_bast} 
 @item @b{fl_bast_framed}
 @end table
 @end table
@@ -7025,7 +7100,7 @@ Light blue gray floor, visually indistinguishable from @ref{fl_thief}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_bluegray}
+@item @image{images/fl_bluegray} @b{fl_bluegray}
 @item @b{fl_bluegray_framed}
 @end table
 @end table
@@ -7046,7 +7121,7 @@ Dark blue green floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_bluegreen}
+@item @image{images/fl_bluegreen} @b{fl_bluegreen}
 @item @b{fl_bluegreen_framed}
 @end table
 @end table
@@ -7068,7 +7143,7 @@ Dark blue slab like floor, that is marbled with black. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_blueslab}
+@item @image{images/fl_blueslab} @b{fl_blueslab}
 @item @b{fl_blueslab_framed}
 @end table
 @end table
@@ -7089,7 +7164,7 @@ Floor composed of small red bricks.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_brick}
+@item @image{images/fl_brick} @b{fl_brick}
 @item @b{fl_brick_framed}
 @end table
 @end table
@@ -7111,7 +7186,7 @@ Nearly white floor without any yinyang related features. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_bright}
+@item @image{images/fl_bright} @b{fl_bright}
 @item @b{fl_bright_framed}
 @end table
 @end table
@@ -7132,7 +7207,7 @@ Granular gray concrete.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_concrete}
+@item @image{images/fl_concrete} @b{fl_concrete}
 @item @b{fl_concrete_framed}
 @end table
 @end table
@@ -7154,7 +7229,7 @@ Nearly black floor without any yinyang related features. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_dark}
+@item @image{images/fl_dark} @b{fl_dark}
 @item @b{fl_dark_framed}
 @end table
 @end table
@@ -7164,7 +7239,7 @@ Nearly black floor without any yinyang related features. A matching floor is
 @subsection fl_darkgray
 @obindex fl_darkgray
 
-A medium to drak gray floor.
+A medium to dark gray floor.
 
 @table @asis
 @item @b{Attributes:}
@@ -7175,7 +7250,7 @@ A medium to drak gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_darkgray}
+@item @image{images/fl_darkgray} @b{fl_darkgray}
 @item @b{fl_darkgray_framed}
 @end table
 @end table
@@ -7196,7 +7271,7 @@ Brown granular dunes.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_dunes}
+@item @image{images/fl_dunes} @b{fl_dunes}
 @item @b{fl_dunes_framed}
 @end table
 @end table
@@ -7217,7 +7292,7 @@ Dark gray, granular floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_gravel}
+@item @image{images/fl_gravel} @b{fl_gravel}
 @item @b{fl_gravel_framed}
 @end table
 @end table
@@ -7238,7 +7313,7 @@ Gray with some brown spots.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_gray}
+@item @image{images/fl_gray} @b{fl_gray}
 @item @b{fl_gray_framed}
 @end table
 @end table
@@ -7259,7 +7334,7 @@ Blue purple marbled floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_himalaya}
+@item @image{images/fl_himalaya} @b{fl_himalaya}
 @item @b{fl_himalaya_framed}
 @end table
 @end table
@@ -7280,7 +7355,7 @@ Warm ivory or pearl white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_ivory}
+@item @image{images/fl_ivory} @b{fl_ivory}
 @item @b{fl_ivory_framed}
 @end table
 @end table
@@ -7336,7 +7411,7 @@ Light red brown marbled floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_marble}
+@item @image{images/fl_marble} @b{fl_marble}
 @item @b{fl_marble_framed}
 @end table
 @end table
@@ -7394,7 +7469,7 @@ Very rough brilliant white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_mortar}
+@item @image{images/fl_mortar} @b{fl_mortar}
 @item @b{fl_mortar_framed}
 @end table
 @end table
@@ -7415,7 +7490,7 @@ Pink floor with white bumps.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_pinkbumps}
+@item @image{images/fl_pinkbumps} @b{fl_pinkbumps}
 @item @b{fl_pinkbumps_framed}
 @end table
 @end table
@@ -7436,7 +7511,7 @@ Floor build up by small diagonal orange brown planks.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_plank}
+@item @image{images/fl_plank} @b{fl_plank}
 @item @b{fl_plank_framed}
 @end table
 @end table
@@ -7457,7 +7532,7 @@ Warm light gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_platinum}
+@item @image{images/fl_platinum} @b{fl_platinum}
 @item @b{fl_platinum_framed}
 @end table
 @end table
@@ -7478,7 +7553,7 @@ Warm red, very slippy floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_red}
+@item @image{images/fl_red} @b{fl_red}
 @item @b{fl_red_framed}
 @end table
 @end table
@@ -7500,7 +7575,7 @@ Dark red slab floor, that is marbled with black. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_redslab}
+@item @image{images/fl_redslab} @b{fl_redslab}
 @item @b{fl_redslab_framed}
 @end table
 @end table
@@ -7521,7 +7596,7 @@ Rough warm white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_rough}
+@item @image{images/fl_rough} @b{fl_rough}
 @item @b{fl_rough_framed}
 @end table
 @end table
@@ -7542,7 +7617,7 @@ Bright yellow sandstone floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_sahara}
+@item @image{images/fl_sahara} @b{fl_sahara}
 @item @b{fl_sahara_framed}
 @end table
 @end table
@@ -7590,7 +7665,7 @@ Granular orange gray sand floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_sand}
+@item @image{images/fl_sand} @b{fl_sand}
 @item @b{fl_sand_framed}
 @end table
 @end table
@@ -7601,7 +7676,7 @@ Granular orange gray sand floor.
 @obindex fl_space
 
 Black space with a few sparkling stars. This floor has neither a friction nor
-does it provide an adhesion. All actors do drift for inifinity on this floor
+does it provide an adhesion. All actors do drift for infinity on this floor
 until they reach another floor.
 
 @table @asis
@@ -7633,7 +7708,7 @@ Granular brown gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_stone}
+@item @image{images/fl_stone} @b{fl_stone}
 @item @b{fl_stone_framed}
 @end table
 @end table
@@ -7654,7 +7729,7 @@ Red sandstone floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_tigris}
+@item @image{images/fl_tigris} @b{fl_tigris}
 @item @b{fl_tigris_framed}
 @end table
 @end table
@@ -7675,7 +7750,7 @@ Pure white floor without any yinyang related features.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_white}
+@item @image{images/fl_white} @b{fl_white}
 @item @b{fl_white_framed}
 @end table
 @end table
@@ -7696,7 +7771,7 @@ Diagonal woven white floor with black shadows.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_woven}
+@item @image{images/fl_woven} @b{fl_woven}
 @item @b{fl_woven_framed}
 @end table
 @end table
@@ -7708,10 +7783,10 @@ Diagonal woven white floor with black shadows.
 @menu
 * fl_abyss::          Deep black Chasm
 * fl_bridge::         Abyss Bridge
-* fl_fake::           Fake mimicing other Floors
+* fl_fake::           Fake mimicking other Floors
 * fl_hay::            Floodable Hay
 * fl_ice::            Slippery frozen water
-* fl_inverse::        Accerate into the inverse direction
+* fl_inverse::        Accelerate into the inverse direction
 * fl_rock::           Floodable Rock Floor
 * fl_slope::          Slopes in various shapes
 * fl_swamp::          Sticky sinkable Floor
@@ -7758,7 +7833,7 @@ actors can move and pass the former abyss filled grid.
 @obindex fl_bridge
 
 A bridge is a variable floor that can be passed when being @code{CLOSED} but
-being unpassable for marbles like @ref{fl_abyss} when being opened. Floor
+being impassable for marbles like @ref{fl_abyss} when being opened. Floor
 bridges come in several flavors. They can be grey or wooden brown, they can
 pop up in the center or emerge from one side. The flavor string is a combination
 of a color character and an emerging direction character. Note that not all
@@ -7769,7 +7844,7 @@ Bridges can be opened and closed via messages and state set operations like
 
 But a unique feature of bridges is to close on a solid stone being pushed onto
 them. Thus stones do not fall into the visible abyss of an opened bridge, but
-can be pushed over them. But as soon as the stone leaves the bridge it openes
+can be pushed over them. But as soon as the stone leaves the bridge it opens
 again. Thus a user will notice the closing and opening bridge on stone pushes.
 
 To be more precise after a stone leaving a bridge, it switches into the state
@@ -7971,15 +8046,15 @@ Number of seconds .
 @subsection fl_slope
 @obindex fl_slope
 
-A floor suited to build larger hills, gradiented areas, wall brims, staircaises
-or tubes that chanelize actors.
+A floor suited to build larger hills, gradient areas, wall brims, staircases
+or tubes that channelize actors.
 
 Slope floors are basically described by their @samp{slope} and their @samp{shape}.
 The slope is the direction of the force applied to actors on top. The eight
 main directions and @samp{NODIR}, that causes no force to be applied at all, are
 currently supported.
 
-The shape desribes the intended usage, which causes a proper visual
+The shape describes the intended usage, which causes a proper visual
 representation. There are planar slopes falling just into a horizontal or
 vertical direction (@code{"pw"}, @code{"ps"}, @code{"pe"}, @code{"pn"}),
 inner and outer edges falling into a diagonal direction (@code{"inw"},
@@ -8071,7 +8146,7 @@ the swamp. Jumping in a swamp raises an actor, too.
 
 A swamp is indestructible to the aspect that @ref{it_crack} will not spread
 onto it. But fire starting to burn nearby will dry out the swamp to 
-@ref{fl_dunes}. A swamp itself may be a succesor of a @ref{fl_water} heated by 
+@ref{fl_dunes}. A swamp itself may be a successor of a @ref{fl_water} heated by 
 a fire.
 
 @table @asis
@@ -8100,7 +8175,7 @@ indistinguishable from an @ref{fl_bluegray} and has even the same
 
 The item is not directly stolen at the moment of entering the grid. The entering
 itself just causes the thief to emerge from his hiding-place. The thief steals 
-from the actor that did conjur him at the moment of maximum visibility. He takes
+from the actor that did conjure him at the moment of maximum visibility. He takes
 a random item from the owner's inventory. But he just will steal an item if
 the actor is not shielded due to an activated @ref{it_umbrella}.
 
@@ -8271,6 +8346,21 @@ switched off by the attribute @samp{invisible}.
 @node Item Overview
 @section Item Overview
 
+@multitable @columnfractions .08 .25 .08 .25 .09 .25
+@item @image{images/it_bag} @tab @yref{it_bag}
+@tab @image{images/it_pin} @tab @yref{it_pin}
+@tab @image{images/it_puller} @tab @yref{it_puller}
+@item @image{images/it_sensor} @tab @yref{it_sensor}
+@tab @image{images/it_springboard} @tab @yref{it_springboard}
+@tab @image{images/it_spring_drop} @tab @yref{it_spring_drop}
+@item @image{images/it_spring_keep} @tab @yref{it_spring_keep}
+@tab @image{images/it_strip} @tab @yref{it_strip}
+@tab @image{images/it_surprise} @tab @yref{it_surprise}
+@item @image{images/it_trap} @tab @yref{it_trap}
+@tab @image{images/it_weight} @tab @yref{it_weight}
+@tab @image{images/it_yinyang} @tab @yref{it_yinyang}
+@end multitable
+
 @c ----------------- Item Attributes --------------------
 @node Item Attributes
 @section Item Attributes
@@ -8369,6 +8459,7 @@ by an actor hitting a variant of @ref{st_dispenser}.
 * it_key::             Lock opening coded Key
 * it_magicwand::       Wizards Tools
 * it_pencil::          Pencil to mark Objects
+* it_pencil::
 * it_pin::             Friction increasing crampon
 * it_pipe::            Pipe for Transmissions
 * it_puller::          Stone pulling item
@@ -8424,7 +8515,7 @@ the item is added to the inventory.
 
 @item
 If you pick up any item besides a non-empty bag and your first inventory item is
-a bag the item is added to the first inventroy bag (this includes non-empty bags
+a bag the item is added to the first inventory bag (this includes non-empty bags
 being added into first inventory bags!)
 
 @item
@@ -8446,7 +8537,7 @@ remaining items.
 You can add items directly to a bag by usage of the world @ref{add} method.
 
 Bags are used by @ref{st_thief} and @ref{fl_thief} to carry their stolen
-items. When the thiefs are captured by @ref{st_chess} the bag remains on the
+items. When the thieves are captured by @ref{st_chess} the bag remains on the
 grid position filled up with the stolen items.
 
 @table @asis
@@ -8561,7 +8652,7 @@ Unlike other items the brake can be dropped even on grids that are already
 occupied by an item. But you can not drop the brake beneath another stone like
 a @ref{it_seed}.
 
-On dropping the brake item it transforms immediatly to an @ref{st_brake} without
+On dropping the brake item it transforms immediately to an @ref{st_brake} without
 killing an item positioned on the grid. The brake stone will press an
 @ref{it_trigger} beneath, what makes the brake item a portable trigger key.
 
@@ -8640,15 +8731,15 @@ grid, or while jumping or flying over it:
 @obindex it_cherry
 
 A magic item that makes the activating actor for 8 seconds invisible. But not
-all actors become insivible. Just the ball like actors @ref{ac_marble} and
+all actors become invisible. Just the ball like actors @ref{ac_marble} and
 @ref{ac_pearl} do vanish. Other actors just drop the cherry on activation.
 
 An invisible actor can walk through most kinds of glass 
 (@pxref{Transparent Stones}) and as being invisible
-they do no longer attrackt hostile @ref{ac_rotor} and @ref{ac_top}.
+they do no longer attract hostile @ref{ac_rotor} and @ref{ac_top}.
 
 When several cherries are activated in sequence each does prolong the actor's
-time of invisiblity by additional 8 seconds.
+time of invisibility by additional 8 seconds.
 
 When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 
@@ -8671,7 +8762,7 @@ When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 @subsection it_coffee
 @obindex it_coffee
 
-A totally passiv cup of coffee. It can be picked up and be dropped many times.
+A totally passive cup of coffee. It can be picked up and be dropped many times.
 It blocks laser light, prohibits @ref{it_crack} spreading but it burns on fire
 and is blown away on @ref{it_bomb} explosions. 
 
@@ -8957,7 +9048,7 @@ Glasses help a marble to spot certain other objects that are otherwise invisible
 or indistinguishable.
 
 To be effective glasses must be hold in the top level of a players inventory.
-That means that the glasses must be shown in the inventory and not be burried
+That means that the glasses must be shown in the inventory and not be buried
 in an @ref{it_bag} that is part of the inventory. Of course glasses just help
 those actors that are attached to the player wearing the glasses.
 
@@ -9233,11 +9324,11 @@ The vertical pipe.
 
 A puller item looks like a white arrow. It can be picked up. But when being
 dropped it gets activated and whirls around. The actor should leave the grid
-immediately as the puller will finaly dissolve in a leathal explosion.
+immediately as the puller will finally dissolve in a lethal explosion.
 
 But the main purpose of the puller is its ability to pull stones. The arrow
 @samp{orientation} indicates the direction into which a stone will be pulled
-when the item is dropped in front. The pull takes place immediatly at the end
+when the item is dropped in front. The pull takes place immediately at the end
 of the short explosion. It is a full blown stone pull, that will pull others
 stones connected to the directly affected stone via @ref{ot_wire}, too. With
 the explosion the puller item ceases to exist.
@@ -9323,7 +9414,7 @@ If @samp{anchor2} does not exist, the @samp{it_rubberband} will be dropped.
 
 The other attributes describe the force and length parameters of the
 @ref{ot_rubberband}, that will be created on application of the item. In fact
-the item's identity will be transfered to its successor
+the item's identity will be transferred to its successor
 (@pxref{Object Transformation}). After creation of the life rubberband the
 action message will be send to the target. Note that it is actually the
 @ref{ot_rubberband} as the successor that sends the message.
@@ -9339,11 +9430,11 @@ connected to. The reference will be evaluated on item activation.
 The force strength.
 @item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
-@item @b{threshold} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
-@item @b{min} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{min} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The minimum length at which actors bounce.
-@item @b{max} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{max} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
@@ -9352,7 +9443,7 @@ The maximum length at which actors bounce.
 
 @item @b{Messages:} none
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
-On succesful activation of this item the action message is send with a value of
+On successful activation of this item the action message is send with a value of
 @samp{true}. Note that the parameter @samp{sender} will report the new
 @ref{ot_rubberband}.
 
@@ -9382,7 +9473,7 @@ Seeds get automatically activated when being dropped, when hit by a laser beam
 or a stone being pushed on them. You can activate them by @samp{grow} and
 @samp{signal} messages, too.
 
-The identity of the seed gets transfered to the emerging stone including the
+The identity of the seed gets transferred to the emerging stone including the
 attribute @samp{secure}.
 
 The only method of handling seeds without activation are containment within a
@@ -9394,7 +9485,7 @@ The only method of handling seeds without activation are containment within a
 @item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
 The type of the resulting stone.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-This attribute is transfered to the resulting stone. The @ref{st_volcano} and
+This attribute is transferred to the resulting stone. The @ref{st_volcano} and
 @ref{st_box} make use of it.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
@@ -9426,7 +9517,7 @@ Start growing the seed.
 @obindex it_spade
 
 A spade activated while being on the grid position of an @ref{it_meditation}
-will flatten this by one degree and will finally eliminate it completly.
+will flatten this by one degree and will finally eliminate it completely.
 
 @table @asis
 @item @b{Attributes:}
@@ -9527,9 +9618,9 @@ an item several times you can take influence on the likelyhood.
 The tile declarations referenced by a key may even contain objects besides
 items. But you should make rare and proper usage of this feature.
 
-Prior replacing the surprise item but after droping it the surprise item will
-perform its action. You can use this action to modify the selection or to set
-objects on your own.
+The surprise item will perform its action after being dropped but before
+being replaced. You can use this action to modify the selection or to
+set objects on your own.
 
 The surprise item is killed by any replacement item set to the grid position.
 If your selection does not resolve to an item you may need to add @samp{"it_nil"}
@@ -9736,7 +9827,7 @@ to be controlled at every point of time.
 * it_burnable::        Fire State
 * it_crack::           Crack in the Floor
 * it_cross::           Floor Switch for patient Actors
-* it_death::           Unpassable grid blocker
+* it_death::           Impassable grid blocker
 * it_dynamite::        Exploder
 * it_explosion::       Short Explosion Animation
 * it_landmine::        Buried Explosive
@@ -9749,7 +9840,7 @@ to be controlled at every point of time.
 * it_strip::           Narrow Bridge
 * it_trap::            Unvisible, covered Abyss
 * it_trigger::         Floor Switch for Actors and Stones
-* it_vortex::          Teleport of Marbels
+* it_vortex::          Teleport of Marbles
 * it_wormhole::        Teleport of Actors
 @end menu
 
@@ -9768,7 +9859,7 @@ It fully supports the messages of any door like object and can be opened and
 closed by any switch like object. Note that due to the transformation between
 stone and item during opening and closing you should name the blocker
 (@pxref{name}) and address the blocker by this name. The complete identity
-with all attributes including any user attributes will be transfered between
+with all attributes including any user attributes will be transferred between
 stone and item. E.g. @code{@{it_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
@@ -9984,8 +10075,8 @@ positions in case no crack or any other items exists on it.
 Let us have another look on a spreading crack. An actor entering a crack causes
 an invisible crack on the next grid. If the actor continues to move to this grid
 the invisible crack advances to a small visible one, of cause just with the
-given likihood. Note that this first and just this first crack progress takes
-place with the likihood of spreading, too. That means even if the fragility is
+given likelihood. Note that this first and just this first crack progress takes
+place with the likelihood of spreading, too. That means even if the fragility is
 zero the invisible crack gets visible.
 
 Another special feature is the behaviour of a large crack. An actor entering
@@ -9997,15 +10088,15 @@ the one before.
 Common attribute patterns besides the default ones are:
 @itemize @bullet
 @item @samp{spreading=0, fragility=0} - a fake crack that neither spreads nor dissolves
-@item @samp{spreading=0, fragility=1} - a crack that dissolves and causes neighbor cracks to disolve, but does not spread to new floors
+@item @samp{spreading=0, fragility=1} - a crack that dissolves and causes neighbor cracks to dissolve, but does not spread to new floors
 @end itemize
 
 Both attributes are inherited to new cracks during the process of spreading.
 If not set they take as default the value of the global attributes. For a maximum
 control you can set individual floors their own @ref{fragility (floor)}. These
-values superceed the global @ref{Fragility} default.
+values supersede the global @ref{Fragility} default.
 
-Undestructible floors like @ref{fl_abyss}, @ref{fl_water}, @ref{fl_swamp} will
+Indestructible floors like @ref{fl_abyss}, @ref{fl_water}, @ref{fl_swamp} will
 never crack. As any other item cracks do block laser light and prohibit other items to be
 dropped on the same grid. Nearby fire, explosions and hitting 
 @ref{ot_cannonball}s will dissolve a crack.
@@ -10098,7 +10189,7 @@ passed by walking around the complete barrier or by warping through an
 The death item is the most secure barrier object. Comparable objects are
 @ref{it_bottle}_broken, @ref{fl_abyss}, @ref{fl_water}, @ref{it_trap} or simply
 any solid wall of stones. Usually these alternatives should be favored. The
-death item should mainly be used when all other alternatives are too unsecure.
+death item should mainly be used when all other alternatives are too insecure.
 
 @table @asis
 
@@ -10251,7 +10342,7 @@ explosions, nor fire, nor laserbeams.
 @subsection it_magnet
 @obindex it_magnet
 
-Attracts or repells actors in its @samp{range} with a force proportional to the
+Attracts or repels actors in its @samp{range} with a force proportional to the
 @samp{strength} and the inverse of the squared distance. A magnet can be
 switched @samp{ON} and @samp{OFF}.
 
@@ -10351,7 +10442,7 @@ A fourth message is @code{"toggle"}. It transforms @code{MEDITATION_HOLLOW} <->
 @code{MEDITATION_VOLCANO}, @code{MEDITATION_CALDERA} <-> @code{MEDITATION_HILL},
 @code{MEDITATION_BUMP} <-> @code{MEDITATION_DENT}.
 
-Of course you can change the state by attribute setting anytime in any sequence
+Of course you can change the state by setting the attribute anytime in any sequence
 you like. Essentialness is kept on shape transformations and mediation actor
 counting is updated and continues.
 
@@ -10505,7 +10596,7 @@ a medium hole, @code{"l"} for a large hole.
 @subsection it_springboard
 @obindex it_springboard
 
-A static jump facitlity that lets @ref{Flying Actors} jump on passing its center
+A static jump facility that lets @ref{Flying Actors} jump on passing its center
 square. A springboard can catapult any number of actors anytime with an idle
 reloading time after an activation.
 
@@ -10568,7 +10659,7 @@ another connected floor via the strip.
 
 Any stone on a directly neighboring grid can be touched or hit by a large marble
 and prevents it from falling off the strip on this side. Small marbles can not
-touch neigboring stones and will not be protected from falling.
+touch neighboring stones and will not be protected from falling.
 
 Per default an actor on a covering strip is exposed to the same friction and
 adhesion as on the floor below. But strips can provide its own deviating
@@ -10749,7 +10840,7 @@ Actors are emitted by vortices in a jumping fashion. The user can accelerate
 the actor for a short period and the actor may jump out of a vortex into the
 desired direction.
 
-Vortex teleportation take a short amount of time and the involved vortices are
+Vortex teleportation takes a short amount of time and the involved vortices are
 blocked for other teleporting request during this process. Thus it is no problem
 to set up destinations of vortices that build a cycle.
 
@@ -10780,7 +10871,7 @@ Flag that indicates whether the vortex should be closed after a teleport.
 
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
-@table @asis
+
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
@@ -10818,7 +10909,7 @@ Teleports @ref{Actors} of any kind to a given @samp{destination}. Unlike
 destination may be another wormhole which instantly teleports the actor again.
 An infinite circle of wormholes that are connected by destinations is forbidden.
 
-A wormhole can attract or repell actors in its @samp{range} with a force
+A wormhole can attract or repel actors in its @samp{range} with a force
 proportional to the @samp{strength} and the inverse of the squared distance.
 The force can be switched @samp{ON} and @samp{OFF} and is represented by its
 external @samp{state}. Note that no forces are applied to actors at a distance
@@ -10829,7 +10920,7 @@ Rubberbands bound to teleported actors are cut by default. The attribute
 
 After teleporting an actor, the wormhole's teleporting ability may be switched
 off for a short latency period given by @samp{interval}. A latency separates
-actors travelling through a wormhole and avoids overlapping actors at the
+actors traveling through a wormhole and avoids overlapping actors at the
 destination.
 
 But the teleporting feature of a wormhole is not limited to actors. A water
@@ -10866,7 +10957,7 @@ The latency time after a teleport during which no further teleports take place.
 A signal of value 1 switches the wormhole force on, a value of 0 switches the
 wormhole force off.
 @item @b{toggle} @ @ @xref{toggle}
-A toggle causes a change in the wormhle force activity state.
+A toggle causes a change in the wormhole force activity state.
 @item @b{on} @ @ @xref{on}
 Switches the wormhole on.
 @item @b{off} @ @ @xref{off}
@@ -10900,6 +10991,29 @@ Switches the wormhole off.
 @c ----------------- Stone Overview --------------------
 @node Stone Overview
 @section Stone Overview
+
+@multitable @columnfractions .08 .25 .08 .25 .09 .25
+@item @image{images/st_ancient} @tab @yref{st_ancient}
+@tab                            @tab @yref{st_bluegray}
+@tab @image{images/st_brownie} @tab @yref{st_brownie}
+@item @image{images/st_brownmarble} @tab @yref{st_brownmarble}
+@tab @image{images/st_camouflage} @tab @yref{st_camouflage}
+@tab @image{images/st_concrete} @tab @yref{st_concrete}
+@item @image{images/st_darkgray} @tab @yref{st_darkgray}
+@tab @image{images/st_granite} @tab @yref{st_granite}
+@tab @image{images/st_greengray} @tab @yref{st_greengray}
+@item                            @tab @yref{st_invisible}
+@tab @image{images/st_metal} @tab @yref{st_metal}
+@tab @image{images/st_pinkbumps} @tab @yref{st_pinkbumps}
+@item @image{images/st_purplegray} @tab @yref{st_purplegray}
+@tab @image{images/st_purplemarble} @tab @yref{st_purplemarble}
+@tab @image{images/st_redbrown} @tab @yref{st_redbrown}
+@item @image{images/st_redmarble} @tab @yref{st_redmarble}
+@tab @image{images/st_redrock} @tab @yref{st_redrock}
+@tab @image{images/st_tigris} @tab @yref{st_tigris}
+@item @image{images/st_woven} @tab @yref{st_woven}
+@tab @image{images/st_yellow} @tab @yref{st_yellow}
+@end multitable
 
 @c ----------------- Stone Attributes --------------------
 @node Stone Attributes
@@ -11034,7 +11148,7 @@ movable variant but provides no additional features.
 * st_pinkbumps::       pink stone with heavy bumps
 * st_purplegray::      dark purple gray rock
 * st_purplemarble::    purple marble
-* st_redbrown::        brown stone whith light red touches
+* st_redbrown::        brown stone with light red touches
 * st_redmarble::       red white marbled stone
 * st_redrock::         dark red rock
 * st_tigris::          red sandstone
@@ -11053,7 +11167,7 @@ A rough green gray rock that looks ancient.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_ancient}
+@item @image{images/st_ancient} @b{st_ancient}
 @end table
 @end table
 
@@ -11063,7 +11177,7 @@ A rough green gray rock that looks ancient.
 @obindex st_bluegray
 
 A light blue gray stone that exists in all two variants. This stone is visually
-undistinguishable from a @ref{st_thief}.
+indistinguishable from a @ref{st_thief}.
 
 @table @asis
 @item @b{Variants:}
@@ -11083,7 +11197,7 @@ A golden, hay stack like stone that exists just in a movable variant.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_brownie}
+@item @image{images/st_brownie} @b{st_brownie}
 @end table
 @end table
 
@@ -11097,7 +11211,7 @@ A brown gray marble like stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_brownmarble}
+@item @image{images/st_brownmarble} @b{st_brownmarble}
 @end table
 @end table
 
@@ -11111,7 +11225,7 @@ A military green camouflage stone that exists in all three variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_camouflage}
+@item @image{images/st_camouflage} @b{st_camouflage}
 @item @b{st_camouflage_hollow}
 @item @b{st_camouflage_movable}
 @end table
@@ -11127,7 +11241,7 @@ A polished light gray stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_concrete}
+@item @image{images/st_concrete} @b{st_concrete}
 @end table
 @end table
 
@@ -11136,12 +11250,12 @@ A polished light gray stone.
 @subsection st_darkgray
 @obindex st_darkgray
 
-A ldark gray rock that exists in all two variants.
+A dark gray rock that exists in all two variants.
 
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_darkgray}
+@item @image{images/st_darkgray} @b{st_darkgray}
 @item @b{st_darkgray_hollow}
 @end table
 @end table
@@ -11156,7 +11270,7 @@ A light gray rock like stone that exists in all three variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_granite}
+@item @image{images/st_granite} @b{st_granite}
 @item @b{st_granite_hollow}
 @item @b{st_granite_movable}
 @end table
@@ -11172,11 +11286,11 @@ A light green gray rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_greengray}
+@item @image{images/st_greengray} @b{st_greengray}
 @end table
 @end table
 
-@c ----------------- Invisble Stone --------------------
+@c ----------------- Invisible Stone --------------------
 @node st_invisible
 @subsection st_invisible
 @obindex st_invisible
@@ -11187,7 +11301,7 @@ exists that he can not see. Use it to maintain the WYSIWYG expected behaviour.
 
 Invisibility is not equal to laser transparency. In fact this stone is not
 laser transparent. And invisibility does not mean that an invisible actor can
-pass. (@pxref{Transparent Stones})
+pass (@pxref{Transparent Stones}).
 
 @table @asis
 @item @b{Variants:}
@@ -11208,7 +11322,7 @@ A metal stone that exists in two variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_metal}
+@item @image{images/st_metal} @b{st_metal}
 @item @b{st_metal_hollow}
 @end table
 @end table
@@ -11223,7 +11337,7 @@ A pink stone with heavy white bumps.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_pinkbumps}
+@item @image{images/st_pinkbumps} @b{st_pinkbumps}
 @end table
 @end table
 
@@ -11237,7 +11351,7 @@ A dark purple gray rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_purplegray}
+@item @image{images/st_purplegray} @b{st_purplegray}
 @end table
 @end table
 
@@ -11251,7 +11365,7 @@ A purple marble stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_purplemarble}
+@item @image{images/st_purplemarble} @b{st_purplemarble}
 @end table
 @end table
 
@@ -11260,12 +11374,12 @@ A purple marble stone.
 @subsection st_redbrown
 @obindex st_redbrown
 
-A brown stone whith light red touches that exists in all three variants.
+A brown stone with light red touches that exists in all three variants.
 
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_redbrown}
+@item @image{images/st_redbrown} @b{st_redbrown}
 @item @b{st_redbrown_hollow}
 @item @b{st_redbrown_movable}
 @end table
@@ -11281,7 +11395,7 @@ A red white marbled stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_redmarble}
+@item @image{images/st_redmarble} @b{st_redmarble}
 @end table
 @end table
 
@@ -11295,7 +11409,7 @@ A dark red rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_redrock}
+@item @image{images/st_redrock} @b{st_redrock}
 @end table
 @end table
 
@@ -11309,7 +11423,7 @@ A red sandstone like @ref{fl_tigris}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_tigris}
+@item @image{images/st_tigris} @b{st_tigris}
 @end table
 @end table
 
@@ -11323,7 +11437,7 @@ A yellow gray woven stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_woven}
+@item @image{images/st_woven} @b{st_woven}
 @end table
 @end table
 
@@ -11338,7 +11452,7 @@ A yellow stone with red green stripes. This stone fits visually to the
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_yellow}
+@item @image{images/st_yellow} @b{st_yellow}
 @end table
 @end table
 
@@ -11372,7 +11486,7 @@ other stones of the same cluster. Or you can give the outer faces, the
 @samp{faces}, that build the common outer face of the resulting big block.
 
 As it is a tedious work to set up larger blocks by their single stones with
-appropriate faces you can rely on an automatical clustering feature. Just
+appropriate faces you can rely on an automatic clustering feature. Just
 set the @samp{cluster} attribute of all single stones of a big block to the
 same number and the faces will be set up automatically to form a large block.
 
@@ -11405,7 +11519,7 @@ is guaranteed on read access but arbitrary on write access.
 
 @item @b{cluster} @ @ @i{values}: number; @ @ @i{default}: @code{nil}
 If set to a number all adjacent cluster stones of the same base type with
-the identical cluster number will build a big block. This attribute superceds
+the identical cluster number will build a big block. This attribute supersedes
 any explicitly given face description.
 
 @end table
@@ -11520,17 +11634,17 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_box::             Movable, Floor building Box
 * st_brake::           Brake for moving Boulders
 * st_break::           Breakable Stone of various Flavors
-* st_brownpyramide::   Brown gray pyramide shaped stone
+* st_brownpyramide::   Brown gray pyramid shaped stone
 * st_chameleon::       Floor Mimic
 * st_charge::          Electrical Charger
 * st_chess::           Movable Chess Knight Stone
 * st_coinslot::        Coin Driven Switch
-* st_darkglass::       Semitransparent metall framed Glass
+* st_darkglass::       Semitransparent metal framed Glass
 * st_death::           Skull Stone
 * st_disco::           Light shading Stone
 * st_dispenser::       Item Dispenser
 * st_door::            Door of various Flavors
-* st_fake::            Fake mimicing other Stones
+* st_fake::            Fake mimicking other Stones
 * st_flash::           Partner Marble pushing Stone
 * st_flat::            Featured Gypsum Stone
 * st_floppy::          Floppy Driven Switch
@@ -11541,12 +11655,12 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_jamb::            Colored Door Jamb
 * st_key::             Key Driven Switch
 * st_knight::          Sword Bearing Knight Stone
-* st_laser::           Lightemitting Laser
-* st_laserflop::       Lightsensitive Monoflop
-* st_laserswitch::     Lightsensitive Switch
-* st_lightglass::      Transparent metall framed Glass
+* st_laser::           Light emitting Laser
+* st_laserflop::       Light sensitive Monoflop
+* st_laserswitch::     Light sensitive Switch
+* st_lightglass::      Transparent metal framed Glass
 * st_lightpassenger::  Stone pushed by Light
-* st_magic::           Magic Tranforming Stone
+* st_magic::           Magic Transforming Stone
 * st_mail::            Mail office for Item transportation
 * st_mirror::          Mirrors of all flavors
 * st_monoflop::        Monoflop Switch
@@ -11561,7 +11675,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_puzzle::          Clusterable Puzzle Stones
 * st_quake::           Oxyd closing Stone
 * st_rawglass::        Transparent Glass Block
-* st_redfiber::        Woven Fiber in a metall Frame
+* st_redfiber::        Woven Fiber in a metal Frame
 * st_rotator::         Rotating Stone Impulser
 * st_rubberband::      Rubberband generator
 * st_scissors::        Scissors cutting rubberbands
@@ -11681,7 +11795,7 @@ It fully supports the messages of any door like object and can be opened and
 closed by any switch like object. Note that due to the transformation between
 stone and item during opening and closing you should name the blocker
 (@pxref{name}) and address the blocker by this name. The complete identity
-with all attributes including any user attributes will be transfered between
+with all attributes including any user attributes will be transferred between
 stone and item. E.g. @samp{@{st_switch, target="myblocker", action="toggle"@}}
 will open and close a given blocker multiple times.
 
@@ -11881,14 +11995,14 @@ just for usage in level initialization: @code{st_box_wood_growing} and
 @code{st_box_hay_growing}.
 
 All variants can easily be pushed around, do press @ref{it_trigger}s and do fall
-into @ref{fl_abyss}, @ref{fl_water} and @ref{fl_swamp} by buiding a framed floor
+into @ref{fl_abyss}, @ref{fl_water} and @ref{fl_swamp} by building a framed floor
 of the kind indicated by their @samp{flavor} attribute. All boxes will fall on
 the first occasion. Even if they receive two push impulses at the same time by
 @ref{ot_wire} they fall on the first grid. Thus it is impossible to push a box
 over a ditch. Boxes will fall if the floor beneath them vanishes. E.g. an 
 @ref{it_bomb} explosion beneath a box may change the floor to @ref{fl_abyss} or
 a flood stream may change the floor to @ref{fl_water}. In all these cases the
-box above falls immediatly buildings its kind of floor.
+box above falls immediately buildings its kind of floor.
 
 Note that all boxes do actively support @ref{Flood Spreading}. That means that
 they let an arriving flood stream flow beneath them. In case the floor beneath
@@ -11948,7 +12062,7 @@ will pick up the object like other items. The brake will be added as an
 even on grids that are already occupied by an item. But you can not drop the
 brake beneath another stone like a @ref{it_seed}.
 
-On dropping the brake item it transforms immediatly back to an @ref{st_brake}
+On dropping the brake item it transforms immediately back to an @ref{st_brake}
 without killing the item positioned on the grid. Just one exception is a brake
 being dropped on top of an @ref{it_blocker} what results in an elimination of
 the blocker. On the other hand a brake stone will press an @ref{it_trigger}
@@ -11977,7 +12091,7 @@ igniting explosion on a neighboring grid and in most cases by laser light.
 Besides being breakable the stone is a standard stone. The different flavors let
 this stone appear in quite different outlooks.
 
-The flavor @code{"plain"} is a gray stone that is breakable by any actor hit 
+The flavor @code{"plain"} is a grey stone that is breakable by any actor hit 
 with a revealed @ref{it_hammer} and by a laser beam hitting any side.
 
 The flavors @code{"black"} and @code{"white"} looks similar to the @code{"plain"}
@@ -12040,7 +12154,7 @@ Break stone with exception of flavor @code{"bug"}.
 @subsection st_brownpyramide
 @obindex st_brownpyramide
 
-A brown gray pyramide shaped stone. This stone is just standard stone besides
+A brown gray pyramid shaped stone. This stone is just standard stone besides
 the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
 @ref{st_spitter} that happens to fall on its top.
 
@@ -12151,7 +12265,7 @@ stone impulses of @ref{st_stoneimpulse} or @ref{it_puller}.
 @item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{BLACK}
 The color of the chess stone
 @item @b{movable} @ @ @i{values}: @code{true}; @ @ @i{default}: @code{true} @ @ @xref{movable}
-Read only attribute that states the movability of a chess stone.
+Read only attribute that states the ability of a chess stone to move.
 @end table
 
 @item @b{Messages:}
@@ -12191,19 +12305,19 @@ Standard not @samp{instant} coinslots do activate after the insertion process
 of the coin. No additional coins can be inserted while another coin is being
 inserted. This prevents unintended multiple coin insertions. On the other hand
 the player has to insert additional coins early enough to prolong the active
-state without temporaryly switching back to @samp{OFF} state. If the first
+state without temporarily switching back to @samp{OFF} state. If the first
 interval runs off while the next coin did not yet finish its insertion the
 coinslot will first switch @samp{OFF} and switch @samp{ON} when the next coin
-is completly inserted.
+is completely inserted.
 
-The acticity interval of a coin insertion depends on the type of the coin. For
+The activity interval of a coin insertion depends on the type of the coin. For
 each type you can set the interval by the @samp{interval_*} attributes. You
 can reject the insertion of a coin type by setting its interval to
 @samp{COIN_REJECT}. The coin will not be taken from the players inventory. By
 a value of @samp{COIN_IGNORE} on the interval attribute the coinslot will fetch
 the coin but will not act at all.
 
-Coinslots configured as @samp{instant} do activate immediatly when the actor
+Coinslots configured as @samp{instant} do activate immediately when the actor
 hits the stone. On every actor hit a coin is inserted independent of the last
 insertion.
 
@@ -12392,7 +12506,7 @@ a few counted items. This @samp{stock} attribute gets decremented every time
 an actor takes an item.
 
 The dispenser stone does break on adjacent @ref{it_bomb} explosions and 
-adjacent dispenser stone breaks. On its break it will itself cause adjcent
+adjacent dispenser stone breaks. On its break it will itself cause adjacent
 @ref{it_dynamite} to ignite, @ref{it_bomb} positioned beneath itself to 
 explode, and of course neighboring dispensers to break. Dispenser stones will
 neither break on actor hits, even with a revealed hammer, nor on laser light
@@ -12444,7 +12558,7 @@ combinations of two parallel aligned door faces, aka horizontal and vertical
 doors, are supported.
 
 As door grids can be entered on unfaced sides you should block these faces by
-unpassable stones. If you do not block these entries or even allow marbles to
+impassable stones. If you do not block these entries or even allow marbles to
 warp into a door, the actors will be free to leave the doors even if they are
 closed. But marbles will shatter on the door grid when doors are closed. This
 behaviour is a legacy Enigma feature.
@@ -12474,11 +12588,11 @@ faces and generally in @samp{OPEN} state.
 @item @b{Attributes:}
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{OPEN}, @code{CLOSED}; @ @ @i{default}: @code{CLOSED}; @ @ @xref{state}
-The open state of the door. On read access it reports if the door is complety
+The open state of the door. On read access it reports if the door is completely
 opened and passable for actors. Note that a door reaches the state @samp{OPEN}
 after the finish of the opening animation, what is an essential amount of time
 after the initiating @code{"open"} message. But on a @code{"close"} message the
-state turns immediatly to @samp{CLOSED} as actors are blocked immediately. On
+state turns immediately to @samp{CLOSED} as actors are blocked immediately. On
 write access a state change causes a proper message and may occur with a delay,
 too.
 
@@ -12542,8 +12656,8 @@ animation on actor hits and state changes, but does not cause any @ref{st_oxyd}
 to close.
 
 The flavors @code{"oxyda"}, @code{"oxydb"}, @code{"oxydc"}, @code{"oxydd"},
-@code{"oxyde"} mimc @ref{st_oxyd} of appropriate flavor, but they are just
-passiv stones. Nevertheless they are aware of an state @samp{OPEN} and will
+@code{"oxyde"} mimic @ref{st_oxyd} of appropriate flavor, but they are just
+passive stones. Nevertheless they are aware of an state @samp{OPEN} and will
 display the corresponding base image of the open oxyd stone, of course without
 any color spot.
 
@@ -12619,7 +12733,7 @@ stone provides some very special features and variant transformations.
 Movable and breakable flat stones will fall into @ref{fl_abyss}. But just the
 movable variant will fall into @ref{fl_water} and @ref{fl_swamp}.
 
-A laser beam will shatter a breakable variant. Furtheron it tansforms a plain flat
+A laser beam will shatter a breakable variant. Further on it transforms a plain flat
 stone, and just this variant, into a cracked variant, which is visually
 distinguishable by small cracks. But further laser light will not break a
 cracked variant. Ignitions and explosions will shatter breakable, cracked and
@@ -12751,7 +12865,7 @@ translates the direction to a 1 for @samp{NORTH}, @samp{SOUTH} and a 0 for
 
 If state dependent target/action pairs are given instead, namely
 @samp{target_0/action_0} for the state @samp{WEST},... , @samp{target_3/action_3}
-for the state @samp{NORTH}, two actions will be perfomed: first for the state
+for the state @samp{NORTH}, two actions will be performed: first for the state
 representing the old orientation the given action messages will be sent with
 a value of 0, then for the state representing the new orientation the given
 action messages will be sent with a value of 1. This allows you to switch on
@@ -12927,7 +13041,7 @@ actor must match the jamb color to cause an action. The sender's position must
 either match the x or the y coordinate of the jamb, too.
 
 @item @b{signal} @ @ @xref{signal}
-This message is just kept for backward compatibity issues. Do not use it in
+This message is just kept for backward compatibility issues. Do not use it in
 new API levels as it depends on other internal attributes not set for new API
 levels.
 @end table
@@ -13080,7 +13194,7 @@ Turn orientation in opposite turning direction as defined by attribute
 
 A switch that is triggered by actor hits and laser light. It switches instantly
 to state @samp{ON} and when it is no longer illuminated it switches back to
-state @samp{OFF} after a given @samp{interval}. Repeatitive actor hits and
+state @samp{OFF} after a given @samp{interval}. Repetitive actor hits and
 continuing laser light will prolong the @samp{ON} state untill a trailing
 @samp{interval} after the last hit has been expired. A similar object without
 light sensitiveness is the @ref{st_monoflop}.
@@ -13225,8 +13339,8 @@ appears as @samp{st_darkglass} when inactive. A player with an @ref{it_glasses}
 in his inventory that includes the @samp{SPOT_LIGHTPASSENGER} feature is able
 to distinguish the switched off lightpassenger from an @samp{st_darkglass}.
 The variant @samp{st_lightpassenger_off} is deactivated from the beginning.
-A lightpassenger that moves onto an @ref{it_cross} switches off immediatly. A
-switchted off lightpassenger can be switched on by an actor hit with a revealed
+A lightpassenger that moves onto an @ref{it_cross} switches off immediately. A
+switched off lightpassenger can be switched on by an actor hit with a revealed
 @ref{it_brush} in the inventory. Such a touch with a brush does wipe out a
 cross beneath the lightpassenger, too.
 
@@ -13334,7 +13448,7 @@ closes a mail pipe completely, rejecting any item insertion.
 
 @table @asis
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
-The orientation of the mail stone. It determines the neighbor grid position
+The orientation of the mail stone. It determines the neighbors grid position
 onto which the item will be dropped, or where the pipe starts.
 @end table
 
@@ -13376,7 +13490,7 @@ Mirrors hit by an actor or impulsed by an @ref{st_stoneimpulse} will move if
 their attribute @samp{movable} is set to true. Mirrors that are not movable
 will differ slightly in a darker color.
 
-Mirros hit or just touched will turn their mirror panes by 90 degrees. The
+Mirrors hit or just touched will turn their mirror panes by 90 degrees. The
 standard turning direction is clockwise. But this standard can be changed
 by the attribute @samp{counterclock}. An @ref{st_boulder} hitting a mirror
 will turn it in its standard direction, too.
@@ -13393,7 +13507,7 @@ Mirrors moved by stone pushing impulses issued by @ref{it_puller},
 
 @table @asis
 @item @b{flavor} @ @ @i{values}: @code{"slab"}, @code{"sheets"}, @code{"triangle"}; @ @ @i{default}: @code{"slab"}
-Mirror panes either set up as a triangle or as a side intransparent slab or
+Mirror panes either set up as a triangle or as a side opaque slab or
 as a mandatory semi-transparent pair of sheets.
 @item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}; @ @ @xref{state}
 The orientation of the mirror. For a triangular mirror it is the triangle's
@@ -13496,7 +13610,7 @@ directions. As most times it is more important to be aware of the passages that
 are blocked, you may remember that the oneway's arrow points to the side that
 can not be entered.
 
-Three variants of the oneway do exist. A neutral, green-gray colored one that
+Three variants of the oneway do exist. A neutral, green-grey colored one that
 lets any actor pass according to the above rules, and additionally a black and
 a white colored oneway. These last oneways will let pass only marbles of
 matching color. All other actors will reflect from all four sides.
@@ -13576,7 +13690,7 @@ increase this limit. By setting this attribute to @samp{OXYD_GREEN} you can
 enforce the engine to assign just the first three colors. Be careful in usage
 of more than 8 colors as levels can get incredibly difficult.
 
-The number auf auto colored oxyds should usually be even as a single remaining
+The number of auto colored oxyds should usually be even as a single remaining
 oxyd of a color keeps a level from being solvable. In case of an uneven number
 one oxyd stone gets colored to @samp{OXYD_FAKE} and does not participate in the
 stone opening procedure. But still you can set uneven number of oxyds of a given
@@ -13590,7 +13704,7 @@ Usually oxyds are shuffled by a @samp{wo:shuffleOxyd()} statement after setting
 of all oxyds. All @samp{CLOSED} oxyds that are not explicitly excluded by the
 @samp{noshuffle} attribute take place in shuffling. But you can define
 arbitrary rules to limit and influence the shuffling process to guarantee
-solvabitlity and fairness (@pxref{shuffleOxyd}).
+solvability and fairness (@pxref{shuffleOxyd}).
 
 Oxyds are opened either by an actor hit, an additional laser beam, an
 @ref{st_boulder} triggering, an @ref{ot_cannonball} emitted from an
@@ -13619,7 +13733,7 @@ stone that takes part in the oxyd shuffling you can use an oxyd of color
 
 During the game oxyds can be reshuffled. Just those oxyds that are still closed
 will take part in the new shuffle process. Oxyd shuffling rules will still be
-guranteed for these partial in game reshuffles. It can be initiated either
+guaranteed for these partial in game reshuffles. It can be initiated either
 by a @samp{shuffle} message that is send to any of the oxyd objects, or by
 usage of an oxyd of color @samp{OXYD_BOLD}. If such a special oxyd is opened,
 e.g. by an actor hit, it shuffles all remaining oxyds including itself.
@@ -13756,7 +13870,7 @@ laser light, neighboring ignitions like those caused by an exploding
 @ref{it_bomb} on a diagonal neighboring position. It breaks on actor hits with
 a revealed @ref{it_hammer}, too. But unlike @ref{st_break} it offers a
 variant that is breakable and movable at the same time. Of course a possible
-break superceeds a possible push condition.
+break supersedes a possible push condition.
 
 @table @asis
 @item @b{Attributes:}
@@ -13795,7 +13909,7 @@ stones it can cease under some conditions. And if it ceases it does it with
 a plop and some sparkles.
 
 Currently there is just one flavor called @code{"slate"} according to its 
-dark blue gray color. It falls and ceases to exist if pushed on @ref{fl_water},
+dark blue grey color. It falls and ceases to exist if pushed on @ref{fl_water},
 @ref{fl_abyss} or @ref{fl_swamp}. Unlike @ref{st_box} it does not build a floor.
 
 @table @asis
@@ -13890,7 +14004,7 @@ A pull stone changes its position on an initiating impulse into the reverse
 direction of the impulse. Thus it can not be pushed like other movable stones.
 But when an actor hits a pull stone it acts like being pulled. If another stone
 is located on the destination grid, both stones will exchange their positions.
-The exchange will also be perfomed when the pull stones receives a stone impulse
+The exchange will also be performed when the pull stones receives a stone impulse
 via an @ref{ot_wire} or a neighboring @ref{st_stoneimpulse}. A similar stone is
 the @ref{st_swap}, that exchanges with stones in the forward direction of the
 initiating impulse.
@@ -13911,7 +14025,7 @@ Stone exchanges will not cause item hit transformations as caused by push moved
 stones. But the exchanged stones will react on the new floor, e.g. causing
 @ref{st_box} to sink into water.
 
-Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
+Further on the exchange is atomic concerning @ref{it_trigger} detection and
 laser light transparency. If the exchanged stone is not transparent, the light
 will pass on every time slice just on one of the two grids. If the exchanged
 stone is floating and does not press @ref{it_trigger}s, the pull stone will
@@ -13937,7 +14051,7 @@ Puzzle stones can construct large clusters of stones, that move together and can
 be destroyed together. There are two colors, blue and yellow puzzle stones,
 which behave different. Each of these color families again consists of 16
 variants that differ in the location of sockets to which neighboring puzzle
-stones can be attached. Furtheron there are hollow variants of all colors and
+stones can be attached. Further on there are hollow variants of all colors and
 connections.
 
 A cluster is complete as soon as all sockets of all stones are connected to
@@ -13952,7 +14066,7 @@ floors building bridges. Rows and columns of adjacent, identical colored puzzle
 stones, connected and unconnected ones, can shift rotate thus allowing the
 player to rearrange and sort the puzzle.
 
-Blue puzzle stones can be moved as single stones, cluster fragements and
+Blue puzzle stones can be moved as single stones, cluster fragments and
 complete clusters by an actor pushing or a stone impulse by @ref{ot_wire} or
 @ref{st_stoneimpulse}. Of course all new positions of the moving puzzle must be
 free of other stones. If all new positions are @ref{fl_water} the blue puzzle
@@ -13998,7 +14112,7 @@ puzzle stone. All subsequent puzzle stones of the same color will shift away
 with the last puzzle of the line returning to the origin. This operation is
 called @code{"push_rotate"} and can be initiated by a message, too.
 
-In case of actor hits possible explosions preceed moves, which preceed rotation
+In case of actor hits possible explosions precede moves, which precede rotation
 operations. Thus you need to touch a blue puzzle row carefully with a revealed
 wand if the row is part of a movable cluster fragment. If the speed is
 sufficient for a hit operation, the cluster will move instead of an expected
@@ -14018,7 +14132,7 @@ only.
 
 If you need to shuffle a puzzle of your own, you can make use of the messages
 @samp{get_adjacents} which returns the group of color matching, adjacent puzzle
-stones, and @samp{pull_rotate} which is the exact invertion of a push rotation.
+stones, and @samp{pull_rotate} which is the exact inversion of a push rotation.
 
 @table @asis
 @item @b{Attributes:}
@@ -14033,7 +14147,7 @@ south, west, is guaranteed on read access but arbitrary on write access.
 
 @item @b{cluster} @ @ @i{values}: number; @ @ @i{default}: @code{nil}
 If set to a number all adjacent puzzle stones of the same color with
-the identical cluster number will build a cluster. This attribute supercedes
+the identical cluster number will build a cluster. This attribute supersedes
 any explicitly given connection description.
 
 @item @b{hollow} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
@@ -14075,7 +14189,7 @@ of puzzle stone into the given direction.
 @obindex st_quake
 
 This stone looks like an @ref{st_oxyd} of flavor @code{"b"}, but it has the
-unpleasant habit of quaking when being activated. Unfortunatley this closes all
+unpleasant habit of quaking when being activated. Unfortunately this closes all
 open @ref{st_oxyd}s.
 
 The stone gets activated on an actor hit, on @ref{st_boulder}s hit and on its
@@ -14236,13 +14350,13 @@ itself again from the rubberband stone.
 @table @asis
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positiv number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
-@item @b{threshold} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
-@item @b{min} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{min} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The minimum length at which actors bounce.
-@item @b{max} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{max} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on connection.
@@ -14378,9 +14492,9 @@ speed. On landing they cause actions on some objects and destroy others:
 @item other stones do remain unmodified and protect items and floors,
 @item @ref{it_dynamite} do ignite,
 @item @ref{it_crack} do crack,
-@item other indestructable items do remain and protect floors,
+@item other indestructible items do remain and protect floors,
 @item other items are blown away,
-@item floors do crack to @ref{fl_abyss} if not indestructable as @ref{fl_water}, @ref{fl_swamp}, @ref{fl_abyss}.
+@item floors do crack to @ref{fl_abyss} if not indestructible as @ref{fl_water}, @ref{fl_swamp}, @ref{fl_abyss}.
 @end itemize
 
 Actors will not be harmed by falling cannonballs.
@@ -14397,7 +14511,7 @@ attribute you can even supply tokens describing a series of destination
 positions. The destinations will be targeted by the cannonballs in turn on
 a sequence of @samp{hit} actions.
 
-Note that the destruction of target objects can have unexpected sideeffects
+Note that the destruction of target objects can have unexpected side effects
 on the destination sequence. If you list three @ref{st_stoneimpulse} as
 destinations they will be targeted in the given sequence as none of them
 gets destroyed. But if you list three @ref{st_brownpyramide} the first
@@ -14410,7 +14524,7 @@ destination when the end of list is reached. This may be no problem if you
 wand to destroy objects randomly or if you use named destinations with
 wildcards. But if you need control about the sequence you need either 
 destinations targets that get not destroyed or floor object references, as
-they represent @ref{Named Positions} that are persistent to object destructions.
+they represent @ref{Named Positions} that are persistent to object destruction.
 
 @table @asis
 @item @b{Attributes:}
@@ -14451,7 +14565,7 @@ stone.
 
 The pulsing can either be triggered by an actor touching or hitting the stone,
 by receiving a stone impulse from a neighboring @ref{st_stoneimpulse}, via
-@ref{ot_wire} or a dropped @ref{it_puller}. Furtheron laser light, an
+@ref{ot_wire} or a dropped @ref{it_puller}. Further on laser light, an
 @ref{st_boulder} hitting and of course messages will cause the pulsing, too.
 
 Even though the three major variants can be set by attributes, they are mutual
@@ -14558,7 +14672,7 @@ ti["s"] = @{"st_surprise", selection=@{"st_chess", "=b", "=d", "=d"@}@}
 @end example
 
 The replacement stone is randomly chosen out of the given selection. By listing
-a stone several times you can take influence on the likelyhood.
+a stone several times you can take influence on the likelihood.
 
 The tile declarations referenced by a key may even contain objects besides
 stone. But you should make rare and proper usage of this feature.
@@ -14606,7 +14720,7 @@ Stone exchanges will not cause item hit transformations as caused by push moved
 stones. But the exchanged stones will react on the new floor, e.g. causing
 @ref{st_box} to sink into water.
 
-Furtheron the exchange is atomic concerning @ref{it_trigger} detection and
+Further on the exchange is atomic concerning @ref{it_trigger} detection and
 laser light transparency. If the exchanged stone is transparent, the light
 will pass on every time slice just on one of the two grids. If the exchanged
 stone is floating and does not press @ref{it_trigger}s, the swap stone will
@@ -14631,7 +14745,7 @@ grid to the next.
 A classical on/off switch that toggles its state on actors hitting the stone.
 Of course other objects can send messages on actions to make this switch turning.
 
-Three variants of the switch do exist. A neutral, gray colored one that reacts
+Three variants of the switch do exist. A neutral, grey colored one that reacts
 on any actor hits, and a black and a white colored switch. These last switches
 will react only if hit by marbles of matching color.
 
@@ -14681,7 +14795,7 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 @obindex st_thief
 
 A thief steals an item from the player's inventory when it is hit by an owned
-actor. Unfortunatly the thief is visually indistinguishable from a
+actor. Unfortunately the thief is visually indistinguishable from a
 @ref{st_bluegray}.
 
 The item is not directly stolen at the moment of the hit. The hit itself just
@@ -14720,7 +14834,7 @@ switched off timer shows a static image. An alternative to an invisible timer
 stone is an @ref{ot_timer} gadget.
 
 Note that this is an exceptional object as its default state is @samp{ON} to
-support the most common case of immediatly runnning timers.
+support the most common case of immediately running timers.
 
 A single shot, not looping timer will send an action value of @samp{true}. A
 looping timer will alternate the boolean action values starting with value
@@ -14788,7 +14902,7 @@ and keeps them in front of the arms. Just actors being in range of the arms will
 be pushed. That means that they need to be in a distance of less than 1.5 grids
 to the center of the pivot. Thus actors located at the very edge of the
 diagonal grid positions will not be pushed. As actors can not be moved out of
-the world, a green turnstile positioned at the levelborder that moves an arm
+the world, a green turnstile positioned at the level border that moves an arm
 to the border will shatter actors instead.
 
 Any actor moved by a turnstile is directly warped to its new position without
@@ -14796,7 +14910,7 @@ touching any grid inbetween. Thus actors can pass abyss or water floors,
 but they will not grab any items located on the grid positions inbetween.
 The relative position of an actor within the grid is maintained during its
 circular move. Thus two small actors moved at the same time keep their relative
-positioning. It is guranteed that any moved actors will fall even into a tiny
+positioning. It is guaranteed that any moved actors will fall even into a tiny
 @ref{it_meditation}_dent that is positioned at the destination grid.
 
 Items in the range of the rotating arms will act like a stone being pushed over
@@ -14814,7 +14928,7 @@ blocked the rotations will desynchronize.
 
 Another way is the coupling of two @ref{st_turnstilearm}s via an @ref{ot_wire}.
 A turnstile will propagate its rotation impulses via an wire that is connected
-at one of its arms. Two turnstiles connected by wired arms will resync in their
+at one of its arms. Two turnstiles connected by wired arms will resynchronize in their
 rotation even if one of them is temporarily blocked.
 
 Turnstiles can be turned by standard messages and attributes. They do even
@@ -14995,8 +15109,8 @@ An active volcano starting in the growing phase.
 
 A stone made up just of glass window faces. All combinations of window faces with
 at least one face are possible. There exist two versions of windows, normal
-blue colored glass and green colored safety glass, that is nearly undistructable.
-Safety glass is seleted by setting the attribute @samp{secure} to @samp{true}.
+blue colored glass and green colored safety glass, that is nearly indestructible.
+Safety glass is selected by setting the attribute @samp{secure} to @samp{true}.
 Every glass face can be weakened by @samp{scratches} which are visible in the
 shadows.
 
@@ -15010,7 +15124,7 @@ Fast moving actors can blast normal blue window faces into smithereens. But too
 strong hits will cause marbles to shatter themselves. An actor can lower the
 required speed by adding @ref{it_weight}, by revealing an @ref{it_hammer}, or by
 weakening the window faces by prior scratching it with an @ref{it_ring}. Green
-safty glass windows will never break on actor attacks.
+safety glass windows will never break on actor attacks.
 
 Bomb explosions can shatter window faces, too. Normal blue window faces adjacent
 to a bomb explosion will break. Green safety glass faces will break only if
@@ -15241,7 +15355,7 @@ the accelerating force applied to the actor. Note that mouse forces are only
 applied to an actor if the @ref{controllers} attribute allows forces at all.
 Vice versa you should exclude an actor from mouse forces by usage of the
 @ref{controllers} attribute instead of setting its adhesion to zero. The
-adhesion may take negativ values, too. Such values correspond to inverse forces.
+adhesion may take negative values, too. Such values correspond to inverse forces.
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -15260,7 +15374,7 @@ actor keeps its charge load.
 
 The electrical force on a charged actor is given by its own load and the load
 and position of all other charged actors. Note that a constant global factor
-@ref{ElectricStrength} is applied, too. If this factor is negativ, equal
+@ref{ElectricStrength} is applied, too. If this factor is negative, equal
 charged actors may even attract each other.
 
 @table @asis
@@ -15311,7 +15425,7 @@ with value @samp{PERKIND}. For example, marking 4 out of 5 @ref{ac_pearl} with
 @samp{PERKIND} means that the player is dead if 2 pearls are no longer alive.
 
 Of course shattered or sunken actors will first be resurrected if an
-@ref{it_extralife} is availabe and the global attribute @ref{ConserveLevel}
+@ref{it_extralife} is available and the global attribute @ref{ConserveLevel}
 allows a resurrection.
 
 For more details about level restart see @ref{Level Restart}.
@@ -15400,8 +15514,8 @@ current velocity of an actor during runtime.
 @subsection ac_bug
 @obindex ac_bug
 
-An actor that looks like a smalle gray ball with two red dots on it. Bugs are
-harmless actors that do not affect other actors and they are usually passiv.
+An actor that looks like a small grey ball with two red dots on it. Bugs are
+harmless actors that do not affect other actors and they are usually passive.
 
 In contrast to the main actors they can not jump or pass an @ref{it_vortex}, and
 will not sink, fall or shatter. Bugs are immortal.
@@ -15727,14 +15841,14 @@ Currently there are portable @ref{it_spring} that let actors jump on activation,
 static @ref{it_springboard} that catapult crossing actors and @ref{it_vortex}
 that catapult warping actors.
 
-A flying actor can pass leathal grids with @ref{fl_water}, @ref{fl_abyss}, 
+A flying actor can pass lethal grids with @ref{fl_water}, @ref{fl_abyss}, 
 @ref{it_trap} and even laser beams. But most stones will block flying actors, 
 even some hollow ones like @ref{st_grate} or @ref{st_oneway}. But some others as 
-@ref{st_door} or hollow @ref{Standard Stones} let flying actos pass.
+@ref{st_door} or hollow @ref{Standard Stones} let flying actors pass.
 
 While flying an actor can not pick up any item. But the actor can still drop
 items. Activation of a spring while sinking in @ref{fl_water} or @ref{fl_swamp}
-lets the actor jump immediatly out of them and starts the sinking process from
+lets the actor jump immediately out of them and starts the sinking process from
 scratch anew when landing on such a floor.
 
 
@@ -15764,9 +15878,9 @@ scratch anew when landing on such a floor.
 @subsection ot_cannonball
 @obindex ot_cannonball
 
-A short living projectil emitted by an @ref{st_spitter}. It is an internal
-object that can not be directly instanciated. It is listed here just for
-completness.
+A short living projectile emitted by an @ref{st_spitter}. It is an internal
+object that can not be directly instantiated. It is listed here just for
+completeness.
 
 @c ----------------- Rubberband --------------------
 @node ot_rubberband
@@ -15789,12 +15903,12 @@ The force that is applied between the objects can be configured by several
 attributes. Every rubberband has a natural @samp{length} at which it does not
 apply any force to the actors. The more the rubberband is extended from this
 point it applies a force of the given @samp{strength}. A positive strength is
-a natural attracting force, whereas a negative strength would repell the actors.
+a natural attracting force, whereas a negative strength would repel the actors.
 
 A rubberband that is shorter than its natural @samp{length} would normally not
 apply any force. But this special rubber allows you to set a @samp{threshold}
 where the rubberband starts to apply the opposite directed forces onto the
-actors, like a spring would do. Thus a positve @samp{strength} would lead to a
+actors, like a spring would do. Thus a positive @samp{strength} would lead to a
 repelling force, a negative one to an attracting force. A rubberband with a
 length inbetween @samp{threshold} and @samp{length} will apply no forces.
 
@@ -15811,7 +15925,7 @@ is detected an action is performed with a value @samp{false}. You may want to ki
 the rubberband or react in another way by a callback function. The default
 handling is an application of a constant force to bring the actors back within
 the limits. This force value is given by @ref{RubberViolationStrength} and
-defaults to @samp{50.0}. If you really need to asure that the player is not able
+defaults to @samp{50.0}. If you really need to assure that the player is not able
 to violate the limits any further you may need to increase this constant.
 
 Rubberbands can be cut by @ref{st_scissors}, by an @ref{it_vortex} or
@@ -15836,13 +15950,13 @@ connected to. Note that the reference will be immediately evaluated and thus the
 actor or stone must exist already.
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positiv number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
-@item @b{threshold} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
-@item @b{min} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{min} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The minimum length at which actors bounce.
-@item @b{max} @ @ @i{values}: positiv number or zero; @ @ @i{default}: @code{0.0}
+@item @b{max} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
 @end table
 
@@ -15910,7 +16024,7 @@ already.
 @obindex ot_counter
 
 A counter that switches on given thresholds. As a supplement to single switch
-like objektes as @ref{it_trigger}, @ref{st_switch}, @ref{st_laserswitch},
+like objects as @ref{it_trigger}, @ref{st_switch}, @ref{st_laserswitch},
 @ref{st_coinslot}, @ref{st_key}, @ref{st_floppy}, etc. this gadget allows to
 react on a given number of these switches to be switched @samp{ON} while the
 others being switched @samp{OFF}.
@@ -15975,10 +16089,10 @@ Sends an action with value @samp{true} just on explicitly given
 
 This gadget can be used to trigger a delayed single or periodic events. It is
 nearly identical to the @ref{st_timer}, but does neither require a grid position
-nor disturbes the user by a pulsing animation.
+nor disturb the user by a pulsing animation.
 
 Note that this is an exceptional object as its default state is @samp{ON} to
-support the most common case of immediatly runnning timers.
+support the most common case of immediately running timers.
 
 A single shot, not looping timer will send an action value of @samp{true}. A
 looping timer will alternate the boolean action values starting with value
@@ -16081,7 +16195,7 @@ of Enigma, @samp{math.randomseed} is disabled.
 
 Please read the online manuals of
 @uref{http://www.lua.org/manual/5.0/, Lua 5.0} and 
-@uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailled information.
+@uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailed information.
 
 In addition to the usual Lua functions, Enigma provides the @ref{cond}-function,
 which can be used to abbreviate simple if-then-else-constructions, and two
@@ -16270,11 +16384,11 @@ cond(wo["IsDifficult"], @{"st_death"@}, ti["#"])
 
 @item @b{Details:}
 @samp{cond} evaluates both expressions @samp{iftrue} and
-@samp{iffalse}, regargless of @samp{condition}. Hence,
+@samp{iffalse}, regardless of @samp{condition}. Hence,
 @example
 cond(t == 0, 1/t, error("Division by zero"))
 @end example
-will always raise an error: All sideeffects will happen.
+will always raise an error: All side effects will happen.
 Another example which will not work:
 @example
 w,h = cond(wo["IsDifficult"], wo(ti, " ", map1), wo(ti, " ", map2))
@@ -16285,7 +16399,7 @@ w,h = wo(ti, " ", cond(wo["IsDifficult"], map1, map2))
 @end example
 However, in most cases @samp{cond} is used with static expressions for
 @samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
-sideeffects are possible.
+side effects are possible.
 
 @item @b{Full Example:}
 @example
@@ -16394,10 +16508,10 @@ all_contacts = lib.lua.combine_tables(telephon_numbers, email_addresses)
 
 @item @b{Details:}
 Just as groups can be joined by @samp{grp1 + grp2}, it can sometimes be
-neccessary to join anonymous tables, as well.
+necessary to join anonymous tables, as well.
 In most situations, object grouping should be used instead, but when one works
 with more abstract data (like names of objects instead of objects, or tables
-holding design informations), @samp{combine_tables} can be useful.
+holding design information), @samp{combine_tables} can be useful.
 
 @item @b{Full Example:}
 @example
@@ -16434,7 +16548,7 @@ After these four commands, @samp{a[1]} and @samp{b[1]} will both be @samp{4},
 but @samp{c[1]} will still be @samp{5}.
 
 @item @b{Details:}
-Metatables are transfered, but not deep-copied.
+Metatables are transferred, but not deep-copied.
 Userdata (like tiles and positions) is not guaranteed to be deep-copied.
 
 @item @b{Full Example:}
@@ -16903,7 +17017,7 @@ lib.math.manhattan_distance(no["marble"], no["othermarble"])
 @end example
 
 @item @b{Details:}
-The Manhattan distance counts the minimal number of pushes neccessary to push a
+The Manhattan distance counts the minimal number of pushes necessary to push a
 wood stone from one position to another. Its unit balls are squares with the
 diagonals parallel to the x- and y-axis (rhombi).
 
@@ -17018,8 +17132,8 @@ number_pairs = lib.math.steps(total_places, @{2, 6, 10, 30@})
 
 @item @b{Details:}
 Negative and non-integer values are allowed. However, the numbers in the
-@samp{steps}-table should be monotonously increasing (not neccessarily strictly
-monotonously), as otherwise the result might be counterintuitive.
+@samp{steps}-table should be monotonously increasing (not necessarily strictly
+monotonously), as otherwise the result might be counter-intuitive.
 
 @item @b{Full Example:}
 @example
@@ -17104,7 +17218,7 @@ character.
 @node Drawing Maps
 @subsection Drawing Maps
 
-Just as we could've used the premap with @samp{wo} or @samp{wo:drawMap} to draw
+Just as we could have used the premap with @samp{wo} or @samp{wo:drawMap} to draw
 it (see @ref{drawMap}), we can use the newly created map as well:
 @example
 wo(resolver, mymap)
@@ -17197,15 +17311,15 @@ set.
 Requesting and changing map entries can be used with position lists, object and
 group references as well.
 
-You can replace any occurence of a tile key @samp{tile1} by @samp{tile2} simply
+You can replace any occurrence of a tile key @samp{tile1} by @samp{tile2} simply
 by
 @example
 mymap:replace(tile1, tile2)
 @end example
-You can omit @samp{tile2}, then any occurence of @samp{tile1} will be replaced
+You can omit @samp{tile2}, then any occurrence of @samp{tile1} will be replaced
 by the default key.
 
-You can also search for positions in a map which fulfill given conditions by
+You can also search for positions in a map which fulfils given conditions by
 using @samp{match}, the return value is a position list. The syntax is simple:
 @example
 mymap:match()
@@ -17228,7 +17342,7 @@ is equivalent to @samp{mymap:replace(oldkey, newkey)} (only slower), and
 @example
 mymap[mymap:match(@{po(0,0), " "@}, @{NEIGHBORS_4, ".", ":"@})] = "."
 @end example
-will find all occurences of @samp{ }, which are completely surrounded by
+will find all occurrences of @samp{ }, which are completely surrounded by
 @samp{.}, or @samp{:}, or mixtures of these, and replace them by @samp{.}. As
 all replacements are done after matching, and hence simultaneously, the newly
 introduced @samp{.} will not participate in the matching.
@@ -17279,10 +17393,10 @@ It's also possible to paste a map into another map:
 map1:paste(map2, pos)
 @end example
 will paste @samp{map2} into @samp{map1} at position @samp{pos} (relative to
-@samp{map1}: @code{@{0,0@}} is the upper left edge). If neccessary, @samp{map1}
+@samp{map1}: @code{@{0,0@}} is the upper left edge). If necessary, @samp{map1}
 will be extended such that the whole of @samp{map2} fits into it. You can use
 @samp{map1.sub} to reduce its size again (see below) as well as to define
-@samp{map2} as a section of another map. During the pasting, any occurence of
+@samp{map2} as a section of another map. During the pasting, any occurrence of
 the default key of @samp{map2} will be ignored, i.e. not drawn onto
 @samp{map1}. You can change the default key with @samp{map2.defaultkey = ...}
 prior to the paste command to circumvent this, or use
@@ -17459,7 +17573,7 @@ A "map" is a map in the libmap-sense, i.e. an Enigma level.
 Apart from the following functions, lib.import includes the minor routines
 @samp{lib.import.string_replace}, which is a wrapper for @code{string.gsub},
 and @samp{lib.import.string_remove_multiples}, which removes multiple
-occurences of a string in another string.
+occurrences of a string in another string.
 
 This library is described as of release 1. 
 
@@ -17503,7 +17617,7 @@ The number of the level in @code{multilevel} to be extracted. First level is
 @item @i{format}
 A string referencing an entry in @samp{lib.import.line_regexp}. Currently, only
 @samp{sokoban} and @samp{wanderer} are supported. But you can add further
-entries to @samp{lib.import.line_regexp} if neccessary.
+entries to @samp{lib.import.line_regexp} if necessary.
 @end table
 
 @item @b{Syntax Samples:}
@@ -17659,7 +17773,7 @@ default key. Hence, if you want to paste the map into another one
 @subsection lib.import.map_wanderer
 
 @samp{map_wanderer} takes a Wanderer monolevel as argument, and returns a
-@ref{libmap}-map. Note that Enigma does not yet have the neccessary game objects
+@ref{libmap}-map. Note that Enigma does not yet have the necessary game objects
 to simulate Wanderer.
 
 @table @asis
@@ -18035,7 +18149,7 @@ situations can be handled by providing proper rules as arguments to this method.
 
 @table @asis
 @item @i{rules} = @i{rule}, @i{rule},...
-No rule or as many as you like, all seperated by a comma.
+No rule or as many as you like, all separated by a comma.
 @item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{log}@}
 Each rule is a table with a subset of the listed entries. The @i{group1} entry
 is mandatory. All other entries are optional and can be added in any combination.
@@ -18185,7 +18299,7 @@ shared pairs of oxyds do exist.
 @menu
 * res.autotile::  Generate tiles from given template declarations
 * res.composer::  Compose tiles from given base tiles
-* res.maze::      Generate arbitrarly chaped mazes
+* res.maze::      Generate arbitrarily shaped mazes
 * res.puzzle::    Generate puzzle tiles and shuffle resulting puzzle clusters
 * res.random::    Choosing random tiles in a given distribution
 @end menu
@@ -18232,12 +18346,12 @@ them within your level map.
 Resolver to which unresolved requests should be forwarded. May be @samp{ti}
 as the final resolver of the resolver chain.
 @item @i{rules} = @i{rule}, @i{rule},...
-One rule or as many as you like, all seperated by a comma.
+One rule or as many as you like, all separated by a comma.
 @item @i{rule} = @i{prefixrule} | @i{rangerule}
 Each rule can be either a prefixrule or a rangerule in any mixture
 @item @i{prefixrule} = @{@i{prefix}, @i{template}@}
 A table with two entries. First a prefix string that is common to all tile
-keys that should be handeled followed by key string of the template tile.
+keys that should be handled followed by key string of the template tile.
 @item @i{rangerule} = @{@i{first}, @i{last}, @i{template}@ [, @i{offset}]@}
 A table with at least three entries. A string with the first key to be handled,
 followed by a string with the last key to be handled. The third value is the key
@@ -18255,7 +18369,7 @@ res.autotile(ti, @{"a", "e", "template_trigger@}, @{"A", "E", "template_door"@}
 Prefix rules need a key length of at least 2. You can not use it with maps
 of just one character per tile. The resolver will create a tile declaration for
 any tile key in the map that matches the given prefix. A copy of the template
-will be taken and all occurences of the two characters @samp{%%} will be
+will be taken and all occurrences of the two characters @samp{%%} will be
 substituted by a single percent sign followed by the suffix of the used tile
 key. Thus a key of @samp{AD} will target the laser @samp{laser%D}. You need to
 use the key @samp{LD} in the map for the matching laser.
@@ -18369,7 +18483,7 @@ res.composer(ti)
 
 @item @b{Details:}
 For every key in the map the subresolver will be first requested for a tile
-declaration. Thus any given explicit declaration will preceede the auto 
+declaration. Thus any given explicit declaration will precede the auto 
 composition.
 
 Just in case that no declaration exists the search starts for existing subkey
@@ -18407,7 +18521,7 @@ ti["~  "] .. ti[" P"]
 
 with second tile declaration being a @ref{st_puzzle} declaration with the
 @samp{connections} attribute being set to @code{"w"} according to the last key
-charcter @samp{a}.
+character @samp{a}.
 
 With a @code{"231"} you stick to a total decomposition, but you redefine the
 sequence of evaluation and composition. For the key @code{"~mX"} you would get
@@ -18417,7 +18531,7 @@ in contrast to the first example:
 ti["  X"] .. ti["~  "] .. ti[" m "]
 @end example
 
-In all cases subkeys, that are strings of whitespaces only, will simply be 
+In all cases, subkeys, that are strings of whitespace only, will simply be 
 ignored. With the default sequence the key @code{"~ X"} will result just in:
 
 @example
@@ -18497,7 +18611,7 @@ template tile and can use all connections variations
 ti["B"] = @{"st_puzzle_blue"@}
 @end example
 
-Additonally this resolver registers every puzzle stone set and allows you to
+Additionally this resolver registers every puzzle stone set and allows you to
 shuffle the puzzle clusters. You can even select shuffle algorithms and define
 accessible sides of a puzzle.
 
@@ -18519,7 +18633,7 @@ declaration:
 Resolver to which unresolved requests should be forwarded. May be @samp{ti}
 as the final resolver of the resolver chain.
 @item @i{rules} = @i{rule}, @i{rule},...
-One rule or as many as you like, all seperated by a comma.
+One rule or as many as you like, all separated by a comma.
 @item @i{rule}
 The string of the template tile key that is the common tile key prefix for all
 autogenerated tile declarations.
@@ -18586,13 +18700,13 @@ solve such a shuffled puzzle with less than 18 pushes.
 If you define no shuffle @samp{algorithm} it is assumed that the user can
 rotate the puzzle from any side and any @ref{st_puzzle}. The requested number
 of shuffling pull operations will be performed from random puzzle stones in a
-manner that gurantees that the user can solve the puzzle if he has free access
+manner that guarantees that the user can solve the puzzle if he has free access
 to all sides.
 
 If you set the @samp{algorithm} on any of the puzzle stones to the value
 @code{"marked"} the resolver registers that the user has no free access, but
 just from positions that you did mark. You do mark a position by setting
-the attribute @ref{push_directions} on a floor. All floors adajacent to
+the attribute @ref{push_directions} on a floor. All floors adjacent to
 outer puzzle stones from which a user can push rotate a puzzle will be checked
 for this attribute. If its string value, a substring of @code{"nesw"}, contains
 the character of the required push direction this push event will take part
@@ -19076,8 +19190,8 @@ attribute is of a similar use.
 @node Resolver Development
 @section Resolver Development
 
-Resolvers are designed to provide easy pluggable extensions for usage by level
-authors. Furtheron resolvers should be as flexible as possible. To reach these
+Resolvers are designed to provide easy plugable extensions for usage by level
+authors. Further on resolvers should be as flexible as possible. To reach these
 goals each resolver consists of three parts: the configurator, the implemention
 and the finalizer.
 
@@ -19105,7 +19219,7 @@ as the final resolver of the resolver chain.
 @end table
 
 @item @b{Details:}
-This function has just one mandatory paramenter, the subresolver. You are free
+This function has just one mandatory parameter, the subresolver. You are free
 to specify arbitrary further parameters due to the needs of the resolvers task.
 
 All official resolvers will be registered in the registry table @samp{res} under
@@ -19206,13 +19320,13 @@ return evaluator(context[3], "a", x, y) .. evaluator(context[3], "b", x, y)
 return evaluator(context[3], "a", x, y) .. ti(@{"st_laser_n", state=ON@})
 @end example
 
-You are even allowed to add new tile declartions to the tiles repository to
+You are even allowed to add new tile declarations to the tiles repository to
 speed up subsequent calls:
 @example
 ti["newkey"] = evaluator(context[3], "a", x, y) .. ti(@{"st_laser_n", state=ON@})
 @end example
 
-A resolver implementation can store and modifiy any of its private parameters
+A resolver implementation can store and modify any of its private parameters
 in the context table for subsequent calls. Especially it can enlist all
 coordinates for postprocessing operations in the finalizer.
 
@@ -19972,7 +20086,7 @@ the item is added to the inventory.
 
 @item
 If you pick up any item besides a non-empty bag and your first inventory item is
-a bag the item is added to the first inventroy bag (this includes non-empty bags
+a bag the item is added to the first inventory bag (this includes non-empty bags
 into bags!)
 
 @item
@@ -20185,7 +20299,7 @@ Determines how long @ref{st-coinslot} keeps activated. Defaults:
 
 Represents cracks in the floor. @code{it-crack0} is invisible and
 grows to @code{it-crack1}, @code{it-crack2}, @code{it-crack3}, after
-which the floor desintegrates to @ref{fl-abyss}.
+which the floor disintegrates to @ref{fl-abyss}.
 
 The @code{brittleness}-attribute and
 @code{enigma.Brittleness}-variable determine the probability that a
@@ -22898,7 +23012,7 @@ When two green turnstiles are intertwined, one of them is hit and an actor would
 be transported between them, then the second turnstile will be hit, too.
 
 When an actor is to be warped outside of the level by a turnstile
-(which only happens with a green one directly at the levelborder), the
+(which only happens with a green one directly at the level border), the
 actor is shattered instead of warped. This is the only case in which a
 green turnstile is able to shatter a marble.
 
@@ -23790,7 +23904,7 @@ The range of @ref{it-wormhole}.  Default: 10.0.
 * enigma.SetAttrib::            Set an attribute of an object
 * enigma.SetAttribs::           Set multiple attributes of an object
 * enigma.SetDefaultAttribs::    Set default attributes
-* enigma.SetCompatibility::     Compability of a level
+* enigma.SetCompatibility::     Compatibility of a level
 * fill_floor::                  Fills a rectangle with a floortile
 * fill_items::                  Fills a rectangle with an item
 * fill_stones::                 Fills a rectangle with a stone
@@ -23836,7 +23950,7 @@ AddRubberBand(ac, st, 50, 10)
 @node CreateWorld
 @section CreateWorld
 
-@defun CreateWorld (width, heigth)
+@defun CreateWorld (width, height)
 
 This function creates a new level. Because objects can be added
 to the level only after @code{CreateWorld} has been called,
