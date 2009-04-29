@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Inkblot 1" el:id="20070519npb015045"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Nathan Bronecke" el:email="npb-engimalevel@rbepan.net" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Nathan Bronecke</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="0:17" el:difficult="0:29"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_swamp"}
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_camouflage"}
+ti["b"] = {"st_passage", flavor="frame", color=BLACK}
+ti["w"] = {"st_passage", flavor="frame", color=WHITE}
+ti["B"] = ti["."] .. ti["b"]
+ti["W"] = ti["."] .. ti["w"]
+ti["Y"] = ti["."] .. {"st_blur", flavor="cross"}
+ti["O"] = {"st_oxyd", flavor="c", name="black#"}
+ti["o"] = {"st_oxyd", flavor="c", name="white#"}
+ti["1"] = {"#ac_marble_black"}
+ti["2"] = {"#ac_marble_white"}
+
+if wo["IsDifficult"] then
+    wo["SwampSinkTime"] = 1/2*wo["SwampSinkTime"]
+    map = {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~oB.....~~~~.....WO~",
+    "~B   # #.~~.# #   W~",
+    "~.    #b....w#    .~",
+    "~.     b....w     .~",
+    "~WO    b.~~.w    oB~",
+    "O..W...Y.~~.Y...B..o",
+    "~WO    w.~~.b    oB~",
+    "~.     w....b     .~",
+    "~.    #w....b#    .~",
+    "~W   #1#.~~.#2#   B~",
+    "~OW.....~~~~.....Bo~",
+    "~~~~~~~~~~~~~~~~~~~~"}
+else
+    wo["SwampSinkTime"] = 2/3*wo["SwampSinkTime"]
+    map = {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~o......~~~~......O~",
+    "~.b  # #.~~.# #  w.~",
+    "~.    #b....w#    .~",
+    "~.     b....w     .~",
+    "~.O    b.~~.w    o.~",
+    "O..W...Y.~~.Y...B..o",
+    "~.O    w.~~.b    o.~",
+    "~.     w....b     .~",
+    "~.    #w....b#    .~",
+    "~.w  #1#.~~.#2#  b.~",
+    "~O......~~~~......o~",
+    "~~~~~~~~~~~~~~~~~~~~"}
+end
+
+wo(ti, " ", map)
+wo:shuffleOxyd({no["black#*"], no["white#*"], min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" el:comment="the common name of the Rorschach test is inkblot test; this title just refers to the level's visual appearance"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

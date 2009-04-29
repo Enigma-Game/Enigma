@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bridge Builders" el:subtitle="" el:id="wb4"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_abyss"}
+ti["~ "] = {"fl_water"}
+ti["- "] = {"fl_sand"}
+ti["= "] = {"fl_lawn"}
+ti[" #"] = {"st_plaster"}
+ti[" %"] = {"st_purplegray"}
+ti[" +"] = {"st_box"}
+ti[" W"] = {"st_passage", color=WHITE, flavor="frame"}
+ti[" B"] = {"st_passage", color=BLACK, flavor="frame"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["doorh"] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["doorv"] = {"st_door", flavor="d", faces="ew", name="door%%"}
+ti[" t"] = {"it_document", text="text1"}
+ti[" O"] = {"st_oxyd", flavor="c"}
+ti["@1"] = ti["= "] .. {"#ac_marble_black"}
+ti["@2"] = ti["= "] .. {"#ac_marble_white"}
+
+local resolver = res.composer(res.autotile(ti, {" 1", " 3", "trigger"}, {" a", " b", "doorv"}, {" c", " c", "doorh", 3}))
+
+wo(resolver, "  ", {
+    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ - - - - - - - - - - ~ =%=O=O=O=O=%=%=%=%=O=O=O=O=%~ ~ - - - - - - - - - - ~ ",
+    "~ - =O= = = =#= = = - ~ =%= = = = = = =O= = = = = =%~ ~ - = = =#= =#= = =O- ~ ",
+    "~ - = =1= =#=#=#= = - ~ =%=%=%=%=%=%=c=%= =%=%=%=%=%~ ~ - = = =#=t=#= = = - ~ ",
+    "~ - = = = = =#= = = - =W=W=a= =%= = = =O= =%= = = =b=B=B- = = =#=#=#= = = - ~ ",
+    "~ - - - - - = - - - - ~ ~ =%= =%= =%= =%= =%= =%=%=%~ ~ - - - - = - - - - - ~ ",
+    "~ ~ ~ ~ ~ - = - ~ ~ ~ ~ ~ =%= = = =%=2=%= = = =%~ ~ ~ ~ ~ ~ ~ - = - ~ ~ ~ ~ ~ ",
+    "~ - - - - - =#- - - - - - -%=%=%=%=3=%= = =%=%=%- - - - - - - - = - - - - - ~ ",
+    "~ - =#=#=#= =#=#=#=#=O=#=#- ~ ~ =%= = = =%=%- -O= = =#= = = = = = = = = = - ~ ",
+    "~ - = = =#= =#= = = =#= = - =B=B=#=#=#=#=W=W- - = = =#=#=#=#=#=#=#=#=#=#=#~ ~ ",
+    "~ - @1= =#= = = =#= = = = =W= =+        =+= =B- = = =#= = = = = = = = = @2- ~ ",
+    "~ - - - - - - - - -#- - - =W= =+        =+= =B- - - - - - - - - - - - - - - ~ ",
+    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ =#=#=#        =#=#=#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">White helps black, black helps white.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

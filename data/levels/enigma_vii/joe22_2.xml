@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Swapping Puzzle II" el:subtitle="" el:id="joe22"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_space"}
+ti["- "] = {"fl_lawn"}
+ti[". "] = {"fl_red"}
+ti[" #"] = {"st_yellow"}
+ti[" &"] = {"st_bluesand"}
+ti[" X"] = {"st_grate", flavor="cross"}
+ti[" S"] = {"st_swap"}
+ti[" B"] = {"st_blocker"}
+ti[" ^"] = {"st_boulder", orientation=NORTH}
+ti[" >"] = {"st_boulder", orientation=EAST}
+ti[" <"] = {"st_boulder", orientation=WEST}
+ti[" m"] = {"it_magicwand"}
+ti[" b"] = {"it_blocker"}
+ti[" o"] = {"it_meditation"}
+ti[" @"] = {"#ac_pearl"}
+
+wo(res.composer(ti), "  ", {
+    "        -#-#-#                    ",
+    "      -#-#-X.&.&.&.&              ",
+    "      -#-#-X. . .o.&              ",
+    "    -#-#-#-B.&.&.&.&              ",
+    "    -#- -S-X-X-X-X-#-#-#-#-#-#-#-#",
+    ".&.&.&- - - - - -X-X-X- - - - - -#",
+    ".&. . -B- -b- - -X-#-X-X-X-S- -#-#",
+    ".&. .&-#- - -#-<- - - ->-S- - -#  ",
+    ".&. . -S-X-#- -#- -#-X-#-X-#- -#  ",
+    ".&.&.&-#- -^- - - - - -S- -^- -#  ",
+    "      -#-#-#-#-#-#-#-#-m- -#-#-#  ",
+    "                    -#-#-@-#      ",
+    "                      -#-#-#      "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

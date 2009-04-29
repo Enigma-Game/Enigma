@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Not Fast Enough" el:id="20070413jet001"/>
+      <el:version el:score="4" el:release="4" el:revision="4" el:status="released"/>
+      <el:author el:name="James Taylor, Ronald Lamprecht" el:email="james@lab6.com"/>
+      <el:copyright>Copyright © 2007,2009 James Taylor, Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul for playtesting</el:credits>
+        <el:code>The easymode is the original level from James Taylor. Difficult mode and new API by Ronald Lamprecht.</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="4:48"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_plank"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_redrock"}
+ti["v"] = {"it_crack_l"}
+ti["u"] = {"it_umbrella"}
+ti["T"] = {"it_trigger", target="door1"}
+ti["U"] = {"it_trigger", target="bridge2"}
+ti["V"] = {"it_trigger", target="bridge3"}
+ti["X"] = {"it_trigger", target="bridge4"}
+ti["Y"] = {"it_trigger", target="door5"}
+ti["g"] = {"st_grate_cross"}
+ti["G"] = {"it_seed"}
+ti["t"] = {"st_turnstile_red"}
+ti["n"] = {"st_turnstilearm_n"}
+ti["S"] = {"st_swap"}
+ti["a"] = {"st_puzzle", connections="n"}
+ti["b"] = {"st_puzzle", connections="s"}
+ti["c"] = {"st_puzzle", connections="es"}
+ti[","] = {"st_puzzle", connections="w"}
+ti["1"] = {"st_door_d", "door1", faces="ew"}
+ti["2"] = {"fl_bridge", "bridge2", flavor="bn", state=CLOSED}
+ti["3"] = {"fl_bridge", "bridge3", flavor="bn", state=CLOSED}
+ti["4"] = {"fl_bridge", "bridge4", flavor="bn", state=CLOSED}
+ti["d"] = {"st_door_d", "finaldoor", faces="ns"}
+ti["l"] = {"st_coinslot", target="finaldoor", interval_s=2, interval_m=4}
+ti["W"] = {"st_switch", target={"bridge*", "firstdoor#*"}}
+ti["D"] = {"st_door_d", "firstdoor#", faces="ns"}
+ti["L"] = {"st_laser_e", "laser1"}
+ti["Z"] = {"it_trigger", target={"laser1", "ddoor*"}}
+ti["w"] = {"st_box"}
+ti["~"] = {"fl_water"}
+ti["0"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble"}
+
+if wo["IsDifficult"] then
+    ti["K"] = {"st_knight"}
+    ti["="] = ti["#"]
+    ti["-"] = {"it_strip_ew"} .. ti["~"]
+    ti["C"] = {"it_coin_m"}
+    ti[">"] = {"st_oneway_e"}
+    ti["5"] = {"st_door_d", "door5", faces="ew"} .. ti{"it_coin_s"}
+    ti["6"] = {"fl_bridge", "ddoor6", flavor="bn", state=CLOSED}
+    ti["7"] = {"fl_bridge", "ddoor7", flavor="bn"}
+    ti["8"] = {"fl_bridge", "ddoor8", flavor="bn", state=CLOSED}
+else
+    ti["K"] = ti[" "]
+    ti["="] = ti[" "]
+    ti["-"] = ti[" "]
+    ti["6"] = ti["~"]
+    ti["7"] = ti["~"]
+    ti["8"] = ti["~"]
+    ti["C"] = {"it_coin_s"}
+    ti[">"] = {"st_oneway_e"} .. ti{"it_coin_m"}
+    ti["5"] = {"st_door_d", "door5", faces="ew"}
+end
+
+wo(ti, " ", {
+    "##################0#",
+    "##TU#V#XY##Z#   @l 0",
+    "#~~~~~~~~~#w# ~###d#",
+    "#~~~~~~~~~#    # - #",
+    "# G G G G # #6 # ~~#",
+    "# # # # # Wv#  # - #",
+    "# a b   a #v# 7#~~ #",
+    "# b# ab#, #v#  # - #",
+    "#  w      #v#8 #K==#",
+    "#gcnbaggg #DL      #",
+    "#ggggggSgv  ######D#",
+    "#gggggggt # 12345>C#",
+    "####################"
+})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Helios II" el:subtitle="Use the Lightpassenger" el:id="mecke08"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 25 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 26 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ wo["ExtralifeGlasses"] = wo["ExtralifeGlasses"] + SPOT_ACTORIMPULSE
 ti[" t"] = {"fl_thief"}
 ti["  "] = {"fl_rough"}
 ti[" q"] = {"fl_aquamarine"}
-ti[" i"] = ti[" q"] ..{"it_crack_l", fragility=0}
+ti[" i"] = ti[" q"] ..{"it_crack_l", spreading=0}
 ti["# "] = ti[" i"] ..{"st_actorimpulse_invisible"}
 ti[" l"] = ti["  "] ..{"it_meditation_bump"}
 ti[" m"] = {"fl_sahara"}

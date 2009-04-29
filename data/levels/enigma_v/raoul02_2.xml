@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Giza Meditation -" el:subtitle="" el:id="raoul02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:15" el:difficult="0:08"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara", name="ball#"}
+ti["a"] = {"fl_sahara", name="small#"}
+ti["b"] = {"fl_sahara", name="medium#"}
+ti["c"] = {"fl_sahara", name="large#"}
+ti["1"] = {"fl_slope", shape="isw", slope=SOUTHWEST}
+ti["2"] = {"fl_slope", shape="ps", slope=SOUTH}
+ti["3"] = {"fl_slope", shape="ise", slope=SOUTHEAST}
+ti["4"] = {"fl_slope", shape="pw", slope=WEST}
+ti["6"] = {"fl_slope", shape="pe", slope=EAST}
+ti["7"] = {"fl_slope", shape="inw", slope=NORTHWEST}
+ti["8"] = {"fl_slope", shape="pn", slope=NORTH}
+ti["9"] = {"fl_slope", shape="ine", slope=NORTEAST}
+ti["#"] = ti({"fl_sahara"}) .. {"st_rawglass"}
+ti["o"] = ti({"fl_dark"}) .. {"it_meditation"}
+ti["@"] = {"#ac_pearl"}
+
+wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "# aa               #",
+    "# aa   bb          #",
+    "# aa   bb     cc   #",
+    "# aa   bb     cc   #",
+    "# aa   bb     cc   #",
+    "# aa   bb     cc   #",
+    "# aa   bb     cc   #",
+    "# aa   bb          #",
+    "# aa               #",
+    "#                  #",
+    "####################"})
+
+small = {"789",
+         "4o6",
+         "123"}
+
+medium = {"78889",
+          "4   6",
+          "4   6",
+          "4   6",
+          "12223"}
+
+large = {"7888889",
+         "4     6",
+         "4     6",
+         "4     6",
+         "4     6",
+         "4     6",
+         "1222223"}
+
+if wo["IsDifficult"] then
+    a_small = po(no["small#*"]:shuffle()[1])
+    a_medium = po(no["medium#*"]:shuffle()[1])
+    a_large = po(no["large#*"]:shuffle()[1])
+else
+    a_small = po(3,6)
+    a_medium = po(8,6)
+    a_large = po(15,6)
+end
+
+wo:drawMap(ti, a_small+NW, " ", small)
+wo:drawMap(ti, a_medium+NW, " ", small)
+wo:drawMap(ti, a_medium+2*NW, " ", medium)
+wo:drawMap(ti, a_large+NW, " ", small)
+wo:drawMap(ti, a_large+2*NW, " ", medium)
+wo:drawMap(ti, a_large+3*NW, " ", large)
+
+wo[no["ball#*"]:shuffle():sub(3)] = ti["@"]
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

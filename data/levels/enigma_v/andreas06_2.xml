@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Path" el:subtitle="" el:id="andreas06"/>
+      <el:version el:score="2" el:release="2" el:revision="15" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="01:08" el:difficult="02:41"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_metal_7", friction = 4.0}
+ti["@"] = {"#ac_marble", adhesion = 1}
+ti["#"] = {"st_metal"}
+ti["<"] = {"st_oneway_w"}
+ti[">"] = {"st_oneway_e"}
+ti["*"] = {"st_laser", "laser", orientation = EAST, state = cond(wo["IsDifficult"], ON, OFF)}
+ti["a"] = {"st_door", "door%1", flavor="d", faces="ew"}
+ti["b"] = {"st_door", "door%2", flavor="d", faces="ns", state = cond(wo["IsDifficult"], OPEN, CLOSED)}
+ti["c"] = {"st_door", "door%3", flavor="d", faces="ns"}
+ti["d"] = {"st_door", "door%4", flavor="d", faces="ns"}
+ti["e"] = {"st_door", "door5#", flavor="d", faces="ew"}
+ti["E"] = {"st_switch", target = "door5#*"}
+ti["G"] = {"st_lightglass"}
+ti["I"] = {"st_mirror", orientation = VERTICAL}
+ti["L"] = {"st_mirror", orientation = VERTICAL, movable = true, transparent = true, flavor = "sheets"}
+ti["M"] = {"st_mirror", orientation = VERTICAL, movable = true}
+ti["T"] = {"st_mirror", orientation = VERTICAL, transparent = true, flavor = "sheets"}
+ti["g"] = cond(wo["IsDifficult"], ti["#"], ti["G"])
+ti["i"] = cond(wo["IsDifficult"], ti["#"], ti["I"])
+ti["l"] = cond(wo["IsDifficult"], ti["#"], ti["L"])
+ti["m"] = cond(wo["IsDifficult"], ti["#"], ti["M"])
+ti["n"] = cond(wo["IsDifficult"], ti["M"], ti["L"])
+ti["S"] = cond(wo["IsDifficult"], ti["#"], {"st_switch", target = "laser"})
+ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_YELLOW}
+ti["o"] = cond(wo["IsDifficult"], {"it_document", text = "text1"}, {})
+ti["laserswitch"] = {"st_laserswitch", target = "door%%"}
+
+w, h = wo(res.autotile(ti, {"1", "4", "laserswitch"}), " ", 
+       {"##################1#",
+        "##*              T 2",
+        "#Oe @o         >   #",
+        "###SG##TGGGIGMGGiGb#",
+        "3 T              I #",
+        "#    <         <   #",
+        "#cG#G#MGG#GG#M##G#G#",
+        "# I              T 4",
+        "#    >         >   #",
+        "####G#m#ln#MGgL#GGd#",
+        "#OGeG            I #",
+        "###Ea<         <   #",
+        "################TGT#"})
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Try the easy mode first ...</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="33" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -161,7 +161,7 @@
     <level _seq="153" _title="Hurry!" _xpath="enigma_iv/wb01_3" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="3" rev="2" score="3" target="time" unit="duration"/>
     <level _seq="154" _title="Lotsa Triggers" _xpath="enigma_iii/wb03_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb3" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="155" _title="Annoying little balls" _xpath="enigma_i/wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="156" _title="Bridge Builders" _xpath="enigma_iii/wb04_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="156" _title="Bridge Builders" _xpath="enigma_iii/wb04_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="157" _title="Easy Skyscraper" _xpath="enigma_iii/wb07_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Spiral Race" _xpath="enigma_i/wb06_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb6" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="159" _title="Block its way!" _xpath="enigma_iii/wb05_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb5" rel="2" rev="1" score="2" target="time" unit="duration"/>

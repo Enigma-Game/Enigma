@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma III"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack3_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack3" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Bridge Builders" _xpath="./wb04_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Bridge Builders" _xpath="./wb04_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Teamplay Doors" _xpath="./luc09_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc09" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Map It Out" _xpath="./duffy92_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy92" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Checkerboard" _xpath="./duffy08_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="1" rev="1" score="1" target="time" unit="duration"/>

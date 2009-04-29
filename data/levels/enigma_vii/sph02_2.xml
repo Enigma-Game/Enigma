@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Crawling the Abyss" el:subtitle="There's more help than you first think!" el:id="sph02"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:author el:name="ShadowPhrogg32642342" el:email="shadowphrogg32642342@gmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2007 ShadowPhrogg3264242</el:copyright>
+      <el:license el:type="GPL v2.0" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["-"] = ti({"fl_yinyang_yin", checkerboard=1}) .. {"fl_yinyang_yang", checkerboard=0}
+ti["."] = {"fl_inverse_gray"}
+ti["^"] = {"fl_slope", slope=NORTH, shape="pn"}
+ti[">"] = {"fl_slope", slope=EAST, shape="pe"}
+ti["V"] = {"fl_slope", slope=SOUTH, shape="ps"}
+ti["<"] = {"fl_slope", slope=WEST, shape="pw"}
+ti["b"] = {"fl_bridge", flavor="gc", name="bridgeb"}
+ti["w"] = {"fl_bridge", flavor="gc", name="bridgew"}
+ti["#"] = {"st_fake_oxydc", state=OPEN}
+ti["X"] = {"st_brake"}
+ti["B"] = {"st_switch", color=BLACK, target="bridgeb"}
+ti["W"] = {"st_switch", color=WHITE, target="bridgew"}
+ti["Q"] = {"st_quake"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["C"] = {"st_magic_oxydc"}
+ti["*"] = {"st_chameleon"}
+ti[","] = ti["."] .. {"it_bomb_black", state=ACTIVE}
+ti["r"] = ti["-"] .. ti["*"] .. {"it_ring"}
+ti["s"] = ti["-"] .. ti["*"] .. {"it_seed"}
+ti["1"] = ti["-"] .. {"#ac_marble_black"}
+ti["2"] = ti["-"] .. {"#ac_marble_white"}
+
+if wo["IsDifficult"] then
+    wo(ti, " ", {
+    "####################",
+    "#--.....  B .....--#",
+    "#--. #O.  - .O# .--#",
+    "#-r.XO#.  ...#OX.--#",
+    "#--.  ..    .   .--#",
+    "#--. ..  W  w . .--#",
+    "#1-. .   -  .>. .-2#",
+    "#-s. .,. .  ^QV .s-#",
+    "#--.   . .. .<  .--#",
+    "#-s.XO#.  . .#OX.s-#",
+    "#--. #O....b.O# .--#",
+    "#-s.            .s-#",
+    "####################"})
+else
+    wo(ti, " ", {
+    "####################",
+    "#--.....  B .....--#",
+    "#--. #C.  - .O# .--#",
+    "#-r. O#.  ...#C .--#",
+    "#--. ...    .   .--#",
+    "#--. .   W  w   .--#",
+    "#1-. .   -  .>. .-2#",
+    "#-s. .,. .  ^QV .--#",
+    "#--.   . .. .<. .--#",
+    "#-s. C#.  . .#O .--#",
+    "#--. #O....b.C# .--#",
+    "#--.            .--#",
+    "####################"})
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

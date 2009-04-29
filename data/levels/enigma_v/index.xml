@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma V"/>
 
   <attributes/>
 
@@ -9,7 +9,7 @@
     <level _seq="1" _title="Welcome" _xpath="./welcometopack5_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="April 1st" _xpath="./alain11_1" author="Alain Busser" ctrl="force" easy="false" id="alain11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Send me the keys !" _xpath="./alain09_1" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Laser Path" _xpath="./andreas06_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Laser Path" _xpath="./andreas06_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="2" rev="15" score="2" target="time" unit="duration"/>
     <level _seq="5" _title="Hobbyte" _xpath="./alain15_1" author="Alain Busser" ctrl="force" easy="false" id="alain15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Water Castle" _xpath="./luc21_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc21" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Moving Puzzles" _xpath="./luc13_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc13" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -24,7 +24,7 @@
     <level _seq="16" _title="Draggers" _xpath="./ant21_2" author="Petr Machata" ctrl="force" easy="true" id="ant21" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Break and Enter" _xpath="./siegfried16_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5b" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Double play" _xpath="./just06_1" author="JuSt" ctrl="force" easy="false" id="just06" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Oxyd-Puzzle" _xpath="./raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Oxyd-Puzzle" _xpath="./raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="./ralf12_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf12" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Plan Ahead" _xpath="./duffy114_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy114" rel="3" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="22" _title="Keystone" _xpath="./raoul12_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="2" rev="9" score="1" target="time" unit="duration"/>
@@ -45,7 +45,7 @@
     <level _seq="37" _title="Ghost Islands" _xpath="./raoul15_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Reach the Dock" _xpath="./duffy119_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Mount Etna" _xpath="./duffy61_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy61" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="- Meditation -" _xpath="./raoul02_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="- Giza Meditation -" _xpath="./raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Clear the Path" _xpath="./duffy110_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy110" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Choo-Choo" _xpath="./duffy22_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy22" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Humid Maze" _xpath="./duffy133_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy133" rel="2" rev="3" score="2" target="time" unit="duration"/>
