@@ -340,7 +340,7 @@ enigma_SOURCES = 		\
 	stones/GlassStones.cc	\
 	stones/GlassStones.hh	\
 	stones/GreenBrownStone.cc	\
-	stones/GreenBrownSTone.hh	\
+	stones/GreenBrownStone.hh	\
 	stones/IceBlock.cc	\
 	stones/IceBlock.hh	\
 	stones/JambStone.cc	\
