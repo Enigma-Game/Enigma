@@ -56,7 +56,7 @@ static void version (void)
  fprintf(stderr, "%s (written by W. Celes, A. Manzur)\n",TOLUA_VERSION);
 }
 
-static void setfield (lua_State* L, int table, char* f, char* v)
+static void setfield (lua_State* L, int table, const char* f, const char* v)
 {
  lua_pushstring(L,f);
  lua_pushstring(L,v);
