@@ -91,7 +91,7 @@ namespace enigma {
     }
     
     int Extinguisher::traitsIdx() const {
-        return state;
+        return ecl::Clamp<int>(state, 0, 2);
     }
     
     ItemTraits Extinguisher::traits[3] = {

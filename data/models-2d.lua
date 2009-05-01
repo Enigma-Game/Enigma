@@ -647,6 +647,8 @@ do
     DefAnim("it_crack_abyss_anim", frames)
     
     local images = DefSubimages("it_crack_water", {h=8})
+    local frames = BuildFrames(images,50)
+    DefAnim("it_debris_water", frames)
 
     local frames = BuildFrames({"it_crack_water4", "it_crack_water5", "it_crack_water6", "it_crack_water7", "it_crack_water8"},120)
     DefAnim("it_crack_water_anim", frames)

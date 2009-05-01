@@ -76,7 +76,10 @@ namespace enigma {
             SetFloor(get_pos(), MakeFloor("fl_ice"));
         }
         Stone::on_move(origin);
-        return false;
+        
+        // deny all item actions on stone move besides bomb explosions
+        itd = GetItem(get_pos());
+        return (itd != NULL && itd->isKind("it_bomb"));
     }
     
     void IceBlock::setNoAbyssFloor(const GridPos &p, std::string kind) const {

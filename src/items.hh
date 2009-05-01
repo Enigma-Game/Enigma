@@ -59,6 +59,7 @@ namespace enigma {
         it_cross,
         it_death,
         it_debris,
+        it_debris_water,
         it_document,
         it_drop,
         it_dynamite,

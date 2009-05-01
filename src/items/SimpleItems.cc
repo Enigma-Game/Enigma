@@ -107,11 +107,12 @@ namespace enigma {
 
 /* -------------------- Debris -------------------- */
 
-    Debris::Debris() {
+    Debris::Debris(int type) {
+        state = type;
     }
     
     void Debris::animcb() { 
-        SetFloor(get_pos(), MakeFloor("fl_abyss"));
+        SetFloor(get_pos(), MakeFloor(state == 0 ? "fl_abyss" : "fl_water"));
         kill();
      }
 
@@ -120,8 +121,14 @@ namespace enigma {
         return false;
     }
 
-    DEF_ITEMTRAITSF(Debris, "it_debris", it_debris,
-                itf_static | itf_animation | itf_indestructible | itf_fireproof);
+    int Debris::traitsIdx() const {
+        return ecl::Clamp<int>(state, 0, 1);
+    }
+    
+    ItemTraits Debris::traits[2] = {
+        {"it_debris", it_debris,  itf_static | itf_animation | itf_indestructible | itf_fireproof, 0.0},
+        {"it_debris_water", it_debris_water,  itf_static | itf_animation | itf_indestructible | itf_fireproof, 0.0},
+    };
     
 /* -------------------- Explosion -------------------- */
 
@@ -170,6 +177,10 @@ namespace enigma {
         return false;
     }
      
+    int Explosion::traitsIdx() const {
+        return ecl::Clamp<int>(state, 0, 3);
+    }
+    
     ItemTraits Explosion::traits[4] = {
         {"it_explosion_nil",  it_explosion_nil, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
         {"it_explosion_hollow",  it_explosion_hollow, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
@@ -338,7 +349,7 @@ namespace enigma {
     }
     
     int Spring::traitsIdx() const {
-        return state;
+        return ecl::Clamp<int>(state, 0, 1);
     }
     
     ItemTraits Spring::traits[2] = {
@@ -455,7 +466,8 @@ namespace enigma {
         BootRegister(new Cherry(), "it_cherry");
         BootRegister(new Coffee(), "it_coffee");
         BootRegister(new DeathItem(), "it_death");
-        BootRegister(new Debris(), "it_debris");
+        BootRegister(new Debris(0), "it_debris");
+        BootRegister(new Debris(1), "it_debris_water");
         BootRegister(new Explosion(0), "it_explosion");
         BootRegister(new Explosion(0), "it_explosion_nil");
         BootRegister(new Explosion(1), "it_explosion_hollow");

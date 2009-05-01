@@ -100,16 +100,19 @@ namespace enigma {
      */
     class Debris : public Item {
         CLONEOBJ(Debris);
-        DECL_ITEMTRAITS;
+        DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
 
     public:
-        Debris();
+        Debris(int type);
         
         // ModelCallback interface
         virtual void animcb();
 
         // Item interface
         virtual bool actor_hit(Actor *a);
+        
+    private:
+        int traitsIdx() const;
     };
 
     /**
@@ -117,7 +120,7 @@ namespace enigma {
      */
     class Explosion : public Item {
         CLONEOBJ(Explosion);
-        DECL_ITEMTRAITS_ARRAY(4, state);
+        DECL_ITEMTRAITS_ARRAY(4, traitsIdx());
 
     public:
         Explosion(int strength);
@@ -137,6 +140,9 @@ namespace enigma {
         
         // Item interface
         virtual bool actor_hit(Actor *a);
+        
+    private:
+        int traitsIdx() const;
     };
     
     /**

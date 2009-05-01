@@ -64,7 +64,7 @@ namespace enigma {
             return Value();
         } else if (m.message == "heat" || m.message == "_explosion" || m.message == "_cannonball") {
             sound_event("crack");
-            replace("it_debris");
+            replace(objFlags & OBJBIT_TYP ? "it_debris_water" : "it_debris");
             return true;
         } else if (m.message == "_freeze") {
             kill();   // The ice repairs the floor

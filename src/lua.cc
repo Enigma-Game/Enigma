@@ -1961,20 +1961,17 @@ static int dispatchPositionWriteAccess(lua_State *L) {
     }
      
     if ((keyType == LUA_TSTRING) && ((keyStr == "x") || (keyStr == "y"))) {
-//    if (((keyType == LUA_TSTRING) &&
-//            ((keyStr == "x") || (keyStr == "y"))) || 
-//            ((keyType == LUA_TNUMBER) && ((keyNum == 1) || (keyNum == 2)))) {
-        lua_getmetatable(L, 1);
-        lua_pushvalue(L, -2);
-        if (keyStr == "x") {
-//        if (((keyType == LUA_TSTRING) && (keyStr == "x")) ||
-//                 ((keyType == LUA_TNUMBER) && (keyNum == 1))) {
-            lua_rawseti(L, -2, 1);
-            return 0;
-        } else {
-            lua_rawseti(L, -2, 2);
-            return 0;
-        }
+        throwLuaError(L, "Invalid position modification of x or y coordinate");
+        return 0;
+//        lua_getmetatable(L, 1);
+//        lua_pushvalue(L, -2);
+//        if (keyStr == "x") {
+//            lua_rawseti(L, -2, 1);
+//            return 0;
+//        } else {
+//            lua_rawseti(L, -2, 2);
+//            return 0;
+//        }
     }
     
     throwLuaError(L, "Invalid position index");

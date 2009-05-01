@@ -117,6 +117,13 @@ namespace enigma {
         return "fl_yinyang";
     }
     
+    const char *YinyangFloor::get_kind() const {   //just for st_chameleon support
+        if (state == YIN)
+           return (objFlags & OBJBIT_INVISIBLE) ? "fl_yinyang_yin_invisible" : "fl_yinyang_yin";
+        else
+           return (objFlags & OBJBIT_INVISIBLE) ? "fl_yinyang_yang_invisible" : "fl_yinyang_yang";
+    }
+    
     void YinyangFloor::setAttr(const std::string &key, const Value &val) {
         if (key == "invisible") {
             objFlags = (objFlags & ~OBJBIT_INVISIBLE) | (val.to_bool() ? OBJBIT_INVISIBLE : 0);
