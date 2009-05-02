@@ -3659,10 +3659,14 @@ Until this chapter is finished please read the API Concept Draft, too!
 * Basic Lua Examples::
 * API 2 Overview::
 * Advanced Lua Examples::
+* Introduction Datatypes::
 * Position::
 * Object::
 * Group::
 * NamedObjects::
+* PositionList::
+* Positions::
+* Functions::
 * Tile::
 * Tiles::
 * World::
@@ -4112,6 +4116,8 @@ the standard Lua types @samp{nil}, @samp{boolean}, @samp{string},
 @table @asis
 @item @b{position:}@ @ @xref{Position}
 A position within the world that can be described by an x and y coordinate.
+@item @b{positions:} @i{preset variable:} @code{@b{po}}; @ @ @xref{Positions}
+The singleton type of the repository of all named positions.
 @item @b{object:}@ @ @xref{Object}
 An Enigma object like a stone, item, floor, other. Any object is a position, too.
 @item @b{group:}@ @ @xref{Group}
@@ -4133,11 +4139,11 @@ A list of positions.
 @end table
 @end table
 
-Please note the three handles @samp{no}, @samp{ti} and @samp{wo}. You have
-noticed two of them in the previous section @ref{Basic Lua Examples}. These
-are three variables, that are preset prior the level code gets executed.
+Please note the four handles @samp{po}, @samp{no}, @samp{ti} and @samp{wo}. You
+have noticed two of them in the previous section @ref{Basic Lua Examples}. These
+are four variables, that are preset prior the level code gets executed.
 
-API 2 uses generally two character names for frequently used variables and
+API 2 uses mainly two character names for frequently used variables and
 functions to shorten the level code and to make it better readable. Authors
 should try to use either single characters or names that are three characters or
 longer for private variable names.
@@ -4220,6 +4226,13 @@ coordinates. This is done by the @samp{grid()} method.
 @var{pos_centered1} ~= @var{pos_centered2}    -- Lua's inequality operator
 @end example
 Position can be easily compared to equality.
+
+@item @b{Position existence}
+@example
+@var{pos}:exists()
+@end example
+@samp{true} if a position is a valid position of the world. All positions 
+outside of the world return @samp{false}.
 @end table
 
 @c ----------------- Attribute Tasks --------------------
@@ -5086,10 +5099,315 @@ When the user switches off again, the wires should be recreated. That is done
 by the same code as lines 65 to 68. Note that is essential that we stored and
 kept the used wire permutation in the variable @samp{wire_p}.
 
+@c ----------------- Introduction Datatypes --------------------
+
+@node Introduction Datatypes
+@section Introduction Datatypes
+
+In the following subchapters we will describe the datatypes, their operators
+and methods, and global functions in detail. We need some syntax and
+conventions for an efficient description.
+
+The following short names, and those derived by appending a number, do always
+represent a value of the corresponding type:
+@itemize @bullet
+@item pos - @ref{Position}
+@item obj - @ref{Object}
+@item polist - @ref{PositionList}
+@item group - @ref{Group}
+@item cpos - constant position, a table with two numbers like @{2, 3@}
+@end itemize
+
+On syntax descriptions of datatype operators or methods we need to list allowed
+argument types. Often several types are possible and you are allowed to choose
+any of a list. In these cases we enlist the types enclosed by @samp{<} and
+@samp{>} and separated by @samp{|}. These characters are not part of the
+operator or method itself and should thus not be typed into the level code. Note
+that we keep square braces @samp{[}, @samp{]} and curly braces @samp{@{},
+@samp{@}} as literal Lua symbols. When these braces appear in the syntax you 
+need to type them in the code. E.g. the following syntax rule:
+
+@example
+result = @var{pos} + <@var{pos} | @var{obj} | @var{cpos} | @var{polist}>
+@end example
+
+allows you to write any of the follwing lines in your level
+
+@example
+@var{result} = @var{pos} + @var{pos}
+@var{result} = @var{pos} + @var{obj}
+@var{result} = @var{pos} + @var{cpos}
+@var{result} = @var{pos} + @var{polist}
+@end example
+
+But a syntax rule like
+
+@example
+x = pos["x"]
+@end example
+
+requires the Lua square bracktes to be coded literally. Of course you are
+still free to name your position variable and the resulting value variable
+whatever you like.
+
+Another most important aspect of Lua data types is the difference between
+values and references. Values are numbers, booleans like @samp{true} and
+@samp{false}, strings and @samp{nil}. The only reference data type is the Lua
+table.
+
+Values are always constant. They can never be modified. You assign a value to
+a variable. On calculations you may assign another value to the same variable.
+But the original value does never get modified. That should be obvious if you
+think of values like @samp{true} or numbers like @samp{7}. But it is even true
+for strings like @code{"hello"}. When you append two string you get a new
+string. But the components themselves do not change. All "string modifying"
+methods do return a new string with the resulting value. Thus a variable
+containing the value of the original string still contains the unmodified value.
+
+Tables are of a totally opposite nature. They represent data containers. In Lua
+you are just handling references to these containers. When you add or change
+a value within the container the table reference remains unmodified but the table
+contents changes. Thus two variable containing both references two the same
+table will afterwards both reference the same modified table.
+
+We will denote for every new data type the character of being a value or a
+reference. If you are unfamilar to the resulting effects you may want to read
+the appendix about @ref{Caveats}.
+
+@cindex polymorphism
+You may have noticed that in many operations you can use an @ref{Object} as
+a @ref{Position}. This is due to the fact that objects support most of the
+position features as well. Objects are no positions, but they do speak the
+same language. This feature is called @samp{polymorphism} and helps you to
+simplify your code significantly. In the follwing subchapters you should
+carefully look at the syntax to understand which types of arguments do fit in
+seamlessly.
+
+@cindex overloading
+The number of usable operators is limited by Lua. Thus an addition of two data
+by the @samp{+} operator causes different actions depending on the involved data
+themselves. An addition of two positions results in an vectorial addition. But
+the addition of two groups results in a join of the groups. This reusage of a
+single operator is called @samp{overloading}.
+
+Overloading combined with polymorphism can cause situations that are ambiguos
+by design. E.g. we decided to allow the addition of a position with an object
+resulting in the vectorial addition of the objects position to the first one.
+At the same time we want to be able to join an object with an existing group
+by usage of the @samp{+} operator. But what should be the result of an addition
+of two objects? The vectorial addition of their positions, or the join of both
+objects in a new group? Either makes sense and would be useful. In this case
+we decided for the first possibility as the minus operation as the vectorial
+difference between two objects is a very important feature. Anyway you can 
+always force the operation of your choice to be applied by transforming one
+object either into a position or a group. Please read carefully the given
+syntax rules for a clear understanding of the results.
+
 @c ----------------- Position --------------------
 
 @node Position
 @section Position
+
+A position is a Lua userdata type introduced by Enigma to handle world positions
+as introduced in @ref{World's Shape and Coordinates}. A position is a value
+and thus constant. Once a position is created it can not be modified anymore.
+But you can calculate with positions by usage of operators. When you add two
+position values you receive the resulting position as a new value. 
+
+In contrast to @ref{Object}s positions have an unlimited lifetime and will never
+cease to exist. Thus you can store position values in a global variables and
+keep them as long as you need. The values are constant and will not change even
+if the objects from which they have been derived have meanwhile moved to another
+grid or even been killed.
+
+Position values are not limited to valid world coordinates. Both coordinates
+can take every positive or negative number and zero, too. Thus you can calculate
+with positions and use them to express offsets between two other positions.
+
+Positions are are created by the @ref{Positions} singleton handle, that allows
+you to convert coordinates, objects, position constants into positions. The
+handle allows you to retrieve existing named positions, too. Furtheron positions
+are implicitly created as return values of many operations.
+
+Let us look at the supported operators:
+
+@table @asis
+@item @b{Addition/Subtraction:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos} <@b{+}|@b{-}> <@i{pos} | @i{obj} | @i{cpos} | @i{polist}>
+
+result = <@i{pos} | @i{obj} | @i{cpos} | @i{polist}> <@b{+}|@b{-}> @i{pos}
+
+@item @b{Details:}
+When a position is added to or subtracted from another position or data 
+convertable to a position the result is the position value representing the 
+vectorial addition or difference of both arguments.
+
+If a position is added to subtracted from a position list a new list is created
+with the positions representing the sum or difference of the position with every
+member of the supplied position list.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = @i{po}(3, 4) + @{1, 2@}              -- = po(4, 6)
+@var{newpos} = @var{myobject} - @i{po}(1, 5)
+@var{newpolist} = @i{po}(2, 3) + @var{NEIGHBORS_4}      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
+@var{newpolist} = @i{po}["@var{myfloor}#*"] - @i{po}(3, 0)
+@end example
+@end table
+
+@item @b{Multiplication/Division:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos} <@b{*}|@b{/}> @i{number}
+
+result = @i{number} @b{*} @i{pos}
+
+@item @b{Details:}
+A scalar multiplication or division of a position vector. A position value 
+with both coordinate values multiplicated or divided by the given number
+is returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = 3 * @i{po}(3, 4)   -- = po(9, 12)
+@var{newpos} = @i{po}(2, 3) / 2   -- = po(1, 1.5)
+@end example
+@end table
+
+@item @b{Sign:}
+@table @asis
+@item @b{Syntax:}
+result = -@i{pos}
+
+@item @b{Details:}
+An unary scalar multiplication of a position vector with @samp{-1}. A new 
+position value with both coordinate values multiplicated by @samp{-1} is returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = -@i{po}(3, 4)   -- = po(-3, -4)
+@end example
+@end table
+
+@item @b{Center:}
+@table @asis
+@item @b{Syntax:}
+result = #@i{pos}
+
+@item @b{Details:}
+A rounding of a position vector to the center of the grid. A new position value
+with coordinates of the center of the containing grid position is returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = #@i{po}(3, 4)   -- = po(3.5, 4.5)
+@end example
+@end table
+
+@item @b{Equality/Inequality:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos1} <==|~=> @i{pos2}
+
+@item @b{Details:}
+A comparison of two position values. Two position values are equal if both
+coordinates are equal. Otherwise they are unequal. If you want to know whether
+two positions point to the same grid, you may want to round both position prior
+comparison. You can round either to the center or to the grid by usage of
+the position operator @samp{#} or the method @samp{grid()}.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = @i{po}(3, 4) == @i{po}(@{3, 4@})  -- = true
+@var{bool} = @i{po}(3, 4) == @i{po}(4, 3)    -- = false
+@var{bool} = @i{po}(3, 4) ~= @i{po}(4, 3)    -- = true
+@end example
+@end table
+
+@item @b{Join:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos1} .. <@i{pos2} | @i{polist}> 
+
+result = <@i{pos1} | @i{polist}> .. @i{pos2}
+
+@item @b{Details:}
+Joins two positions or a position with an exting @ref{PositionList} to a new
+PositionList containing all positions in the given order.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpolist} = @i{po}(3, 4) .. @i{po}(4, 4)
+@end example
+@end table
+
+@item @b{Coordinate Access:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos}["x"]
+
+result = @i{pos}["y"]
+
+result1, result2 = @i{pos}:xy()
+
+@item @b{Details:}
+The single coordinates of a position can be read anytime. You can retrieve
+single coordinates by Lua square bracket index access. Of course you can use
+the Lua alternative dot index access syntax, too (see examples). If you want
+to evaluate both coordinates, you can make use of the method @samp{xy()}, that
+returns both numbers at once in a Lua multiple assignment.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = @i{po}(3, 4)["x"]            -- = 3
+@var{number} = @i{po}(3, 4).x               -- = 3
+@var{number} = @i{po}(3, 4)["y"]            -- = 4
+@var{number} = @i{po}(3, 4).y               -- = 4
+@var{number1}, @var{number2} = @i{po}(3, 4):xy()  -- = 3, 4
+@end example
+@end table
+
+@item @b{Grid Rounding:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos}:grid()
+
+@item @b{Details:}
+Returns a new position value that points to the upper left corner of the grid
+that contains the position itself.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = @i{po}(3.2, 4.7):grid()    -- = 3, 4
+@var{newpos} = @i{po}(-2.4, -5.0):grid()  -- = -3, -5
+@end example
+@end table
+
+@item @b{Existence:}
+@table @asis
+@item @b{Syntax:}
+result = @i{pos}:exists()
+
+@item @b{Details:}
+Checks if the position is part of the world and returns @samp{true} if it is 
+contained. Otherwise @samp{false} is returned. 
+
+Note that the @ref{Object}s @samp{exists} method reports the existence of the
+object. Evaluation of @samp{po(obj):exists()} may result in @samp{false} for
+exisiting objects. E.g. this result occurs for @ref{Items} currently being part
+of a player's inventory. The item exists, but is not part of the world. But
+items contained in a bag placed in the world will report the same position as
+the bag.
+
+@item @b{Syntax Samples:}
+@example
+@var{boolean} = @i{po}(3.2, 4.7):exists()
+@end example
+@end table
+@end table
+
 
 @c ----------------- Object --------------------
 
@@ -5105,6 +5423,21 @@ kept the used wire permutation in the variable @samp{wire_p}.
 
 @node NamedObjects
 @section NamedObjects
+
+@c ----------------- PositionList --------------------
+
+@node PositionList
+@section PositionList
+
+@c ----------------- Positions --------------------
+
+@node Positions
+@section Positions
+
+@c ----------------- Functions --------------------
+
+@node Functions
+@section Functions
 
 @c ----------------- Tile --------------------
 
@@ -5354,7 +5687,7 @@ have need of naming an object you should do it with the object creation as
 a few objects have need of names and will otherwise be named by the engine with
 unique names.
 
-Note that is attribute is not listed in the individual object descriptions.
+Note that this attribute is not listed in the individual object descriptions.
 
 @table @asis
 @item @b{Type:} @ @ string
@@ -5824,7 +6157,7 @@ that is appropriate for an object and do avoid using numbers.
 @item @samp{OFF} = @code{0}, all switch like objects
 @item @samp{ON} = @code{1}, all switch like objects
 @item @samp{CLOSED} = @code{0}, all door like objects
-@item @samp{OPEN} = @code{0}, all door like objects
+@item @samp{OPEN} = @code{1}, all door like objects
 @item @samp{IDLE} = @code{0}, other objects in the default passiv state
 @item @samp{ACTIVE} = @code{1}, other objects in the active state
 @item @samp{OXYDPAIR} = @code{2}, just by @ref{st_oxyd}
@@ -6981,7 +7314,6 @@ of variant kind names to create your own graphical floor layout.
 @item @b{Access:} @ @ currently none - just by variants kind string on some floors
 @end table
 
->>>>>>> .r1644
 @c ----------------- Standard Floor --------------------
 @node Standard Floors
 @section Standard Floors
@@ -10871,7 +11203,6 @@ Flag that indicates whether the vortex should be closed after a teleport.
 
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.
-
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
