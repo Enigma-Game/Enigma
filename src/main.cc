@@ -283,7 +283,7 @@ void Application::init(int argc, char **argv)
     // initialize preferences -- needs LUA, XML
     if (!options::Load()) {
         fprintf(stderr, _("Error in configuration file.\n"));
-      	fprintf(stderr, lua::LastError (lua::GlobalState()).c_str());
+      	fprintf(stderr, "%s\n", lua::LastError (lua::GlobalState()).c_str());
     }     
     prefs = PreferenceManager::instance();
     

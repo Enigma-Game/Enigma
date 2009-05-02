@@ -228,7 +228,7 @@ void display::InitModels()
     if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
         std::string message = ecl::strf("Error loading 'compat.lua'\nError: '%s'\n",
                 lua::LastError(L).c_str());
-        fprintf(stderr, message.c_str());
+        fprintf(stderr, "%s", message.c_str());
         gui::ErrorMenu m(message + 
                 _("\n\nThis error may cause the application to behave strange!")
                 , N_("Continue"));
@@ -241,7 +241,7 @@ void display::InitModels()
     if (lua::DoSysFile(L, vminfo->initscript) != lua::NO_LUAERROR) {
         std::string message = ecl::strf("Error loading '%s'\nError: '%s'\n",
                 fname.c_str(), lua::LastError(L).c_str());
-        fprintf(stderr, message.c_str());
+        fprintf(stderr, "%s", message.c_str());
         gui::ErrorMenu m(message + 
                 _("\n\nThis error may cause the application to behave strange!")
                 , N_("Continue"));

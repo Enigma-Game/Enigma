@@ -211,11 +211,11 @@ Editor::init()
     // TODO - just printing a message is not enough - the app will crash on missing editor.lua
     if (lua::DoSysFile(m_lua, "compat.lua") != lua::NO_LUAERROR) {
         std::string message = "While processing 'compat.lua':\n" +lua::LastError(m_lua);
-        fprintf( stderr, message.c_str() );
+        fprintf( stderr, "%s\n", message.c_str() );
     }
     if (lua::DoSysFile(m_lua, "editor.lua") != lua::NO_LUAERROR) {
         std::string message = "Error loading 'editor.lua'\n" +lua::LastError(m_lua);
-        fprintf( stderr, message.c_str() );
+        fprintf( stderr, "%s\n", message.c_str() );
     }
 }
 
