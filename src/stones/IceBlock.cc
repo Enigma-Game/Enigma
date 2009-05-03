@@ -49,7 +49,7 @@ namespace enigma {
     }
     
     void IceBlock::init_model() {
-        set_model("st_rawglass");
+        set_model("st_ice");
     }
     
     void IceBlock::animcb() {
@@ -67,6 +67,7 @@ namespace enigma {
     }
     
     bool IceBlock::on_move(const GridPos &origin) {
+        bool isFrozenBomb = false;
         Item *itf = GetItem(origin);
         Item *itd = GetItem(get_pos());
         if (itd != NULL) {
@@ -74,9 +75,10 @@ namespace enigma {
             itd = GetItem(get_pos());
         }
         if (itf != NULL && itf->isFreezable()) {
-            if (itd == NULL || !itd->isStatic() || (itd->isFreezable() && !itf->isPortable()))
+            if (itd == NULL || !itd->isStatic() || (itd->isFreezable() && !itf->isPortable())) {
+                isFrozenBomb = itf->isKind("it_bomb");
                 SetItem(get_pos(), YieldItem(origin));
-            else
+            } else
                 KillItem(origin);
         }
         Floor *fl = GetFloor(get_pos());
@@ -87,7 +89,7 @@ namespace enigma {
         
         // deny all item actions on stone move besides bomb explosions
         itd = GetItem(get_pos());
-        return (itd != NULL && itd->isKind("it_bomb"));
+        return (itd != NULL && itd->isKind("it_bomb") && !isFrozenBomb);
     }
     
     void IceBlock::setNoAbyssFloor(const GridPos &p, std::string kind) const {
