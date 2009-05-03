@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma V"/>
+  <info enigma="1.00" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma V"/>
 
   <attributes/>
 
@@ -77,7 +77,7 @@
     <level _seq="69" _title="Gods of Enigma II" _xpath="./mp02_1" author="moonpearl" ctrl="force" easy="false" id="mp02" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="- Meditation -" _xpath="./alain14_1" author="Alain Busser" ctrl="force" easy="false" id="alain14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Frogger" _xpath="./luc20_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc20" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="72" _title="Fatal Attraction I" _xpath="./spaceman01_2" author="Spaceman" ctrl="force" easy="true" id="spaceman1" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="72" _title="Fatal Attraction I" _xpath="./spaceman01_3" author="Spaceman" ctrl="force" easy="true" id="spaceman1" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="73" _title="Acoustic Reminiscence" _xpath="./andreas25_3" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas25" rel="3" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Fatal Attraction II" _xpath="./spaceman02_1" author="Spaceman" ctrl="force" easy="false" id="spaceman2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Stranded" _xpath="./duffy51_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy51" rel="2" rev="4" score="2" target="time" unit="duration"/>
@@ -101,7 +101,7 @@
     <level _seq="93" _title="You need them" _xpath="./raoul11_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul11" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Pipes and Plumbing" _xpath="./andreas27_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas27" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="You Must Be Kidding" _xpath="./duffy91_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy91" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="96" _title="The Chamber" _xpath="./luc31_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc31" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="96" _title="The Chamber" _xpath="./luc31_3" author="Lukas Schüller" ctrl="force" easy="false" id="luc31" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Automaton" _xpath="./duffy95_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy95" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Caterpillar" _xpath="./nat15_2" author="Nat Pryce" ctrl="force" easy="true" id="nat15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Spacestation" _xpath="./raoul23_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul23" rel="1" rev="4" score="1" target="time" unit="duration"/>

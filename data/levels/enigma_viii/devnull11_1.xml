@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="2 + 2" el:id="devnull11"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="3:00" el:difficult="6:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+statW = 0
+statB = 0
+
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" ."] = {"fl_dark", friction = 5.5, adhesion = 1.0}
+ti["  "] = {"fl_bridge_gc", state = CLOSED}
+ti[" ~"] = {"fl_abyss"}
+ti["# "] =  {"st_box_rock"}
+ti["blockerBlack"] = {"st_blocker", "blockerB%%#", state = CLOSED}
+ti["blockerWhite"] = ti[" ."] .. {"st_blocker", "blockerW%%#", state = CLOSED}
+ti["bridges"] = {"fl_bridge_gc", "bridges%%#", state = OPEN}
+ti["1 "] = {"st_window_sw",  secure = true}
+ti["2 "] = {"st_window_s",   secure = true}
+ti["3 "] = {"st_window_es",  secure = true}
+ti["4 "] = {"st_window_w",   secure = true}
+ti["6 "] = {"st_window_e",   secure = true}
+ti["7 "] = {"st_window_nw",  secure = true}
+ti["8 "] = {"st_window_n",   secure = true}
+ti["9 "] = {"st_window_ne",  secure = true}
+ti["= "] = {"st_window_ns",  secure = true}
+ti["A "] = {"st_window_new", secure = true}
+ti["F "] = {"st_window_nsw", secure = true}
+ti["H "] = {"st_window_ew",  secure = true}
+ti["U "] = {"st_window_esw", secure = true}
+ti["M "] = {"st_chess_black"}
+ti["N "] = {"st_chess_white"}
+ti[" a"] = ti[" ."] .. {"it_trigger", target = {"blockerW%A#*", "bridges%A#*"}}
+ti[" b"] = ti[" ."] .. {"it_trigger", target = {"blockerW%B#*", "bridges%B#*"}}
+ti[" c"] = ti[" ."] .. {"it_trigger", target = {"blockerW%C#*", "bridges%C#*"}}
+ti[" d"] = ti[" ."] .. {"it_trigger", target = {"blockerW%D#*", "blockerW%E#*"}}
+ti[" e"] = ti[" ."] .. {"it_trigger", target = {"blockerW%D#*", "blockerW%E#*"}}
+ti[" v"] = {"it_trigger", target = {"bridges%X#*",  "bridges%V#*"}}
+ti[" w"] = {"it_trigger", target = {"blockerB%W#*", "bridges%W#*"}}
+ti[" x"] = {"it_trigger", target = {"blockerB%X#*", "bridges%X#*"}}
+ti[" y"] = {"it_trigger", target = "blockerB%Y#*"}
+ti[" z"] = {"it_trigger", target = {"blockerB%Z#*", "bridges%W#*"}}
+ti["o "] = {"st_oxyd", "oxyds1#"}
+ti["O "] = {"st_oxyd", "oxyds3#"}
+ti["p "] = {"st_oxyd", "oxyds2#"}
+ti["P "] = {"st_oxyd", "oxyds4#"}
+ti[" k"] = {"#ac_marble_black", "marbleNE", essential = INDISPENSIBLE}
+ti[" K"] = ti({"fl_bridge_gc", state = CLOSED}) .. ti({"#ac_marble_black", "marbleSW", essential = INDISPENSIBLE})
+ti[" i"] = ti[" ."] .. {"#ac_marble_white", "marbleNW", essential = INDISPENSIBLE}
+ti[" I"] = ti({"fl_dark", friction = 5.5}) .. {"#ac_marble_white", "marbleSE", essential = INDISPENSIBLE}
+if  wo["IsDifficult"] then
+  ti["q."] = ti[" ~"]
+  ti[" :"] = ti[" ~"]
+  ti[" r"] = ti["  "]
+  ti[" R"] = ti["  "]
+  ti[" s"] = ti[" ."]
+  ti[" S"] = ti[" ."]
+else
+  ti["q "] = ti["6 "]
+  ti[" :"] = ti[" ."]
+  ti[" r"] = ti({"fl_bridge_gc", "floorNE#", state = CLOSED}) .. ti({"it_cross", "sensorNE#", target = "toggleMarbles", interval = 0.01, _color = "black"})
+  ti[" R"] = ti({"fl_bridge_gc", "floorSW#", state = CLOSED}) .. ti({"it_cross", "sensorSW#", target = "toggleMarbles", interval = 0.01, _color = "black"})
+  ti[" s"] = ti({"fl_dark", "floorNW#", friction = 5.5, adhesion = 1.0}) .. ti({"it_cross", "sensorNW#", target = "toggleMarbles", interval = 0.01, _color = "white"})
+  ti[" S"] = ti({"fl_dark", "floorSE#", friction = 5.5, adhesion = 1.0}) .. ti({"it_cross", "sensorSE#", target = "toggleMarbles", interval = 0.01, _color = "white"})
+end
+
+local resAutotile = res.autotile(ti, {"B", "blockerBlack"}, {"W", "blockerWhite"}, {"-", "bridges"})
+width, height = wo(res.composer(resAutotile), "  ", {
+  "7.8.7:8s8.8.8:7.8.9.8 8 8 8 8 7 8 7 8 9 ",
+  "4.o.4. . . e8.#. .6.P 7 8 A BX y ~1 P 6 ",
+  "4.WB4. . .q. . .#~6.8     4 8  ~# -V x6 ",
+  "F:2. . . . . .2.1.3.  8   1 N BW z1   3 ",
+  "4.-B1.6. .1. ~4.N.6.  M 8     1 3r  BZ6 ",
+  "H.o. ~-BWE .Mc . b6.  4k  6r          6 ",
+  "1.=.2.3.2.2.2.1s2.3i7I8.9S8.8.8:8.7.8.9.",
+  "4R      2     2  K# 4. a .WC . . .4.O.6.",
+  "4   =       8   M   4.N.6. ~ . . .9.-AA:",
+  "1 BY   v=   = 8 2 2 7.8.9S8. . . . .WA6:",
+  "4 -W9       2 3     4.#.6. . . . :3.-AU:",
+  "4 p  wBZ= 3   -X3 p 4. dWD . . : .4.O.6.",
+  "1R2 2 1 2 2 3 2 2 2 1.2.3.2.2.2.2.1.2.3."
+}) 
+if  wo["IsDifficult"] then
+  wo:shuffleOxyd({"oxyds1#*", "oxyds3#*", max = 0}, {"oxyds2#*",  "oxyds4#*", max = 0})
+else
+  wo:shuffleOxyd({"oxyds1#*", min = 1}, {"oxyds2#*",  min = 1}, {"oxyds3#*", min = 1}, {"oxyds4#*", min = 1})
+  no["marbleSW"]["adhesion"] = 0.0
+  no["marbleSE"]["adhesion"] = 0.0
+end
+
+function toggleMarbles(val, src)
+  if src["_color"] == "black" then
+    if statB == 0 then
+      no["marbleNE"]["adhesion"] = 0.0
+      no["marbleSW"]["adhesion"] = 1.0
+      statB = 1
+    elseif statB == 1 then
+      no["marbleSW"]["adhesion"] = 0.0
+      no["marbleNE"]["adhesion"] = 1.0
+      statB = 0
+    end
+  end
+  -- white marbles
+  if src["_color"] == "white" then
+    if statW == 0 then
+      no["marbleNW"]["adhesion"] = 0.0
+      no["marbleSE"]["adhesion"] = 1.0
+      statW = 1
+    elseif statW == 1 then
+      no["marbleSE"]["adhesion"] = 0.0
+      no["marbleNW"]["adhesion"] = 1.0
+      statW = 0
+    end
+  end
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

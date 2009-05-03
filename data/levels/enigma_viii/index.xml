@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -97,6 +97,7 @@
     <level _seq="89" _title="Pentomino XIV" _xpath="./pento14_1" author="Enigma Team" ctrl="force" easy="false" id="pento14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Pentomino XV" _xpath="./pento15_1" author="Enigma Team" ctrl="force" easy="false" id="pento15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Pentomino XVI" _xpath="./pento16_1" author="Enigma Team" ctrl="force" easy="false" id="pento16" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="92" _title="2 + 2" _xpath="./devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="6" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

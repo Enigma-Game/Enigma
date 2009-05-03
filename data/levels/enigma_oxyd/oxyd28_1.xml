@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Oxyd 28" el:subtitle="Oxyd 28" el:id="20070104ulf017"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 69 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 70 $" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -49,7 +49,7 @@ set_default_parent(cells["+"])
 oxyd_default_flavor = "a"
 create_world_by_map(level)
 oxyd_shuffle()
-enigma.WaterSinkSpeed = 600
+enigma.WaterSinkSpeed = 200
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

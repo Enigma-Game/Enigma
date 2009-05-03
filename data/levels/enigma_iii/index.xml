@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma III"/>
 
   <attributes/>
 
@@ -47,7 +47,7 @@
     <level _seq="39" _title="Monster in the Dark" _xpath="./duffy52_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy52" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Snow White -" _xpath="./ant15_1" author="Petr Machata" ctrl="force" easy="false" id="ant15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Black Diamond Course" _xpath="./duffy28_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy28" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="42" _title="Spidering Around Death" _xpath="./martin89_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Spidering Around Death" _xpath="./martin89_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="The Ditch" _xpath="./richi01_1" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Rush Hour Traffic" _xpath="./duffy62_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy62" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="The Turtle" _xpath="./ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>

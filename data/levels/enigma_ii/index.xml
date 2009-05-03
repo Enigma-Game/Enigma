@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma II"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack2_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack2" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Round Trip" _xpath="./martin35_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin35" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Blocks and Grates" _xpath="./duffy48_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy48" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Blocks and Grates" _xpath="./duffy48_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy48" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="4" _title=".-R-.-U-.-N-." _xpath="./martin103_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin103" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Gateway" _xpath="./martin85_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin85" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Sentinels" _xpath="./siegfried23_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level8d" rel="1" rev="0" score="1" target="time" unit="duration"/>

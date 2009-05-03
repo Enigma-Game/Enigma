@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hurry!" el:subtitle="" el:id="wb1"/>
+      <el:version el:score="3" el:release="4" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by R. Bourquin
+                 Nov 2005: Changes in level design, due to new timing engine.
+                 Added easy mode (some seconds more time) -- Andreas</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["."] = {"fl_samba"}
+ti["-"] = {"fl_stone"}
+ti["#"] = {"st_purplegray"}
+ti["&"] = {"st_oneway", orientation=EAST}
+ti["I"] = {"st_stoneimpulse"}
+ti["i"] = {"st_stoneimpulse_hollow"}
+ti["+"] = {"st_box"}
+ti["^"] = {"st_boulder", orientation=NORTH}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["V"] = {"st_boulder", orientation=SOUTH}
+ti["<"] = {"st_boulder", orientation=WEST}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door"}
+ti["a"] = {"it_trigger", target="door", action="open"}
+ti["b"] = {"it_trigger", target="door", action="close"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"#ac_marble_black"}
+
+if wo["IsDifficult"] then
+    wo(res.random(ti, " ", {{" ", 3}, {".", 1}, {"-", 20}}), " ", {
+    "#III###O#O#O#O###OO#",
+    "#I#II &        |   O",
+    "#I##I a#O#O#O####OO#",
+    "#I@&i+#IIIIIIIIIIIII",
+    "#I###III######### VI",
+    "#IIIII####### VI# ##",
+    "######### VI# # # # ",
+    "##### VI# # # #     ",
+    "# VI# # # #         ",
+    "# # # #             ",
+    "# #                 ",
+    "#b# # # # # # # # # ",
+    "#I# ^I# ^I# ^I# ^I##"})
+else
+    wo(res.random(ti, " ", {{" ", 3}, {".", 1}, {"-", 20}}), " ", {
+    "#III###O#O#O#O###OO#",
+    "#I#II &        |   O",
+    "#I##I a#O#O#O####OO#",
+    "#I@&i+#IIIIIIIIIIIII",
+    "#I###III######### VI",
+    "#IIIII### VI# VI# ##",
+    "##### VI# # # # # # ",
+    "III   #         b   ",
+    "I#                #<",
+    ">#                 I",
+    "                   I",
+    " # #I # # # # # # # ",
+    "## ^II# ^I# ^I# ^I# "})
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
