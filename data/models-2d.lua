@@ -599,13 +599,19 @@ do
     local images = DefSubimages("it_bomb_black_burning", {h=9})
     local frames = BuildFrames(images, 100)
     DefAnim("it_bomb_black_burning", frames)
+    
+    local frames = BuildFrames({"it_bomb_black_burning8", "it_bomb_black_burning9"},120)
+    DefAnim("it_bomb_black_exploding", frames)
 end
 
 -- Burning white bomb --
 do
     local images = DefSubimages("it_bomb_white_burning", {h=9})
     local frames = BuildFrames(images, 100)
-    DefAnim("it_bomb_white_burning", frames)
+    DefAnim("it_bomb_white_burning", frames
+    )
+    local frames = BuildFrames({"it_bomb_white_burning8", "it_bomb_white_burning9"},120)
+    DefAnim("it_bomb_white_exploding", frames)
 end
 
 -- Burning dynamite --
@@ -1013,6 +1019,16 @@ do
    DefShModel("st-fourswitch-e", "st-fourswitch2", "sh-round")
    DefShModel("st-fourswitch-s", "st-fourswitch3", "sh-round")
    DefShModel("st-fourswitch-w", "st-fourswitch4", "sh-round")
+end
+
+-- st_ice --
+do
+    DefAlias("st_ice", "st_rawglass")
+    DefAlias("st_ice_breaking", "it_debris_water")
+--    local images = DefSubimages("st_ice_break", {h=3})
+--    local frames = BuildFrames(images,50)
+--    DefAnim("st_ice_break-anim", frames)
+--    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh-glass")
 end
 
 -- st-knight --

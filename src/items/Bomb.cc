@@ -98,11 +98,11 @@ namespace enigma {
             case GAMET_OXYDMAGNUM:
                 if (!st->isKind("st_box_wood"))
                     // st-wood does not cause bombs to explode
-                    explode();
+                    ignite(); //delayed explosion to avoid selfdestruction on move
                 break;
             default :
                 if (!st->isKind("st_box_hay"))
-                    explode();
+                    ignite(); //delayed explosion to avoid selfdestruction on move
                 break;
         }
     }
@@ -111,6 +111,14 @@ namespace enigma {
         if (state == IDLE) {
             state = BURNING;
             init_model();
+        }
+    }
+    
+    void Bomb::ignite() {
+        if (state == IDLE) {
+            state = BURNING;
+            std::string color = (getAttr("color") == BLACK) ? "black" : "white";
+            set_anim(ecl::strf("it_bomb_%s_exploding", color.c_str()));   // shortened burning
         }
     }
     

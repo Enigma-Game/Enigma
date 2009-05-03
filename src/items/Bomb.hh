@@ -62,6 +62,7 @@ namespace enigma {
         
     private:
         void burn();
+        void ignite();
         void explode();
         int traitsIdx() const;
     };

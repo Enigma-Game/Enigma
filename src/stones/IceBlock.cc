@@ -33,18 +33,16 @@ namespace enigma {
     
     Value IceBlock::message(const Message &m) {
         if (m.message == "_explosion" || m.message == "ignite") {
-            GridPos p = get_pos();
-            setNoAbyssFloor(p, "fl_ice");
-            setNoAbyssFloor(move(p, NORTH), "fl_ice");
-            setNoAbyssFloor(move(p, EAST), "fl_ice");
-            setNoAbyssFloor(move(p, SOUTH), "fl_ice");
-            setNoAbyssFloor(move(p, WEST), "fl_ice");
-            KillStone(p);
+            if (isDisplayable()) {
+                set_anim("st_ice_breaking");
+            }
             return Value();
         } else if (m.message == "heat") {
-            GridPos p = get_pos();
-            setNoAbyssFloor(p, "fl_water");
-            KillStone(p);
+            if (isDisplayable()) {
+                GridPos p = get_pos();
+                setNoAbyssFloor(p, "fl_water");
+                KillStone(p);
+            }
             return Value();            
         }
         return Stone::message(m);
@@ -52,6 +50,16 @@ namespace enigma {
     
     void IceBlock::init_model() {
         set_model("st_rawglass");
+    }
+    
+    void IceBlock::animcb() {
+        GridPos p = get_pos();
+        setNoAbyssFloor(p, "fl_ice");
+        setNoAbyssFloor(move(p, NORTH), "fl_ice");
+        setNoAbyssFloor(move(p, EAST), "fl_ice");
+        setNoAbyssFloor(move(p, SOUTH), "fl_ice");
+        setNoAbyssFloor(move(p, WEST), "fl_ice");
+        KillStone(p);
     }
     
     bool IceBlock::is_transparent(Direction d) const {

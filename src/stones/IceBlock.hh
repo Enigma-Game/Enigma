@@ -32,6 +32,11 @@ namespace enigma {
         CLONEOBJ(IceBlock);
         DECL_TRAITS;
         
+    private:
+        enum iState {
+            IDLE,           ///< 
+            BREAKING,       ///< 
+        };
     public:
         IceBlock();
 
@@ -41,6 +46,9 @@ namespace enigma {
         
         // GridObject interface
         virtual void init_model();
+        
+        // ModelCallback interface
+        virtual void animcb();
         
         // Stone interface
         virtual bool is_transparent(Direction d) const;

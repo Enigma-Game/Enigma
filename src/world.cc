@@ -2000,16 +2000,13 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
 
     for (int a = 0; a<AFFECTED_FIELDS; ++a) {
         GridPos  dest            = get_neighbour(center, a);
-        Item    *item            = GetItem(dest);
-        Stone   *stone           = GetStone(dest);
-        Floor   *floor           = GetFloor(dest);
         bool     direct_neighbor = a<=4;
 
         switch (type) {
             case EXPLOSION_DYNAMITE:
-                if (stone) SendMessage(stone, "ignite");
-                if (item)  SendMessage(item, "ignite");
-                if (floor) SendMessage(floor, "ignite");
+                if (Stone *stone = GetStone(dest)) SendMessage(stone, "ignite");
+                if (Item *item = GetItem(dest))  SendMessage(item, "ignite");
+                if (Floor *floor = GetFloor(dest)) SendMessage(floor, "ignite");
                 break;
 
             case EXPLOSION_BLACKBOMB:
@@ -2017,9 +2014,9 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
                     explosion(center, dest, "it_explosion_nil");
                 } else if (server::GameCompatibility == GAMET_ENIGMA) {
                     // Note: should not ignite in non-enigma-mode!
-                    if (stone) SendMessage(stone, "ignite");
-                    if (item)  SendMessage(item, "ignite");
-                    if (floor) SendMessage(floor, "ignite");
+                    if (Stone *stone = GetStone(dest)) SendMessage(stone, "ignite");
+                    if (Item *item = GetItem(dest))  SendMessage(item, "ignite");
+                    if (Floor *floor = GetFloor(dest)) SendMessage(floor, "ignite");
                 }
                 break;
     
@@ -2033,9 +2030,9 @@ void SendExplosionEffect(GridPos center, ExplosionType type)
     
             case EXPLOSION_DISPENSER:
                 if (direct_neighbor) {
-                    if (stone) SendMessage(stone, "_dispenser");
-                    if (item) SendMessage(item, "_dispenser");
-                    if (floor) SendMessage(floor, "_dispenser");
+                    if (Stone *stone = GetStone(dest)) SendMessage(stone, "_dispenser");
+                    if (Item *item = GetItem(dest)) SendMessage(item, "_dispenser");
+                    if (Floor *floor = GetFloor(dest)) SendMessage(floor, "_dispenser");
                 }
                 break;
     
