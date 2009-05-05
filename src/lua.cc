@@ -1311,6 +1311,10 @@ static int setAttributes(lua_State *L) {
         throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
         return 0;        
     }
+    if (lua_gettop(L) < 2 || !is_table(L, -1)) {
+        throwLuaError(L, "Multiple set of object attributes requires a table as argument.");
+        return 0;        
+    }
     Object *obj = to_object(L, 1);
     lua_rawgeti(L, -1, 1);  // check if any unnamed attribute exists
     if (!lua_isnil(L, -1)) {
@@ -1625,7 +1629,7 @@ static int groupDirectMessage(lua_State *L) {
 
 
 static int newGroup(lua_State *L) {
-    // (table | (obj[,obj]))
+    // (table | grp | (obj[,obj]))
     std::list<Object *> objects;
     if (is_table(L, 1)) {
        if (lua_gettop(L) > 1) {
@@ -1638,6 +1642,8 @@ static int newGroup(lua_State *L) {
            objects.push_back(to_object(L, -1));
            lua_pop(L, 1);  // remove value; keep key for next iteration
        }
+    } else if (is_group(L, 1)) {
+        objects = toObjectList(L, -1);
     } else if (is_object(L, 1)) {
         for (int i = 1; i <= lua_gettop(L); i++) {
             objects.push_back(to_object(L, i));
@@ -2924,6 +2930,10 @@ static int dispatchTilesReadAccess(lua_State *L) {
 
 static int dispatchTilesWriteAccess(lua_State *L) {
 //    Log << "Tiles write key - " << lua_tostring(L, 2) << "\n";
+    if (server::EnigmaCompatibility < 1.10) {
+        throwLuaError(L, "Mismatch of new API 2 syntax with level compatibility < 1.10");
+        return 0;
+    }
     if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
         throwLuaError(L, "Tiles: key is not a string");
         return 0;
