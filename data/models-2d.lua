@@ -771,6 +771,7 @@ do
     DefImage("sh_grate_framed")
     DefImage("sh_portal_horse")
     DefImage("sh-glass")
+    DefImage("sh_rawglass_quad")
     DefImage("sh-white4")
     DefImage("sh-puzzle1")
     DefImage("sh-brake")
@@ -802,7 +803,8 @@ do
     DefStone("st-floppy0", "sh-round", {filename="st-floppy1"})
     DefStone("st-floppy1", "sh-round", {filename="st-floppy2"})
     DefStone("st-flrock")
-    DefStone("st_rawglass", "sh-glass");
+    DefStone("st_rawglass", "sh-glass")
+    DefStone("st_rawglass_quad", "sh_rawglass_quad")
     DefStone("st_lightglass", "sh-glass")
     DefStone("st_darkglass", "sh-glass")
     DefStone("st_redfiber", "sh-glass")
@@ -1014,21 +1016,21 @@ end
 
 -- st-fourswitch --
 do
-   DefSubimages("st-fourswitch",{h=4})
-   DefShModel("st-fourswitch-n", "st-fourswitch1", "sh-round")
-   DefShModel("st-fourswitch-e", "st-fourswitch2", "sh-round")
-   DefShModel("st-fourswitch-s", "st-fourswitch3", "sh-round")
-   DefShModel("st-fourswitch-w", "st-fourswitch4", "sh-round")
+    DefSubimages("st-fourswitch",{h=4})
+    DefShModel("st-fourswitch-n", "st-fourswitch1", "sh-round")
+    DefShModel("st-fourswitch-e", "st-fourswitch2", "sh-round")
+    DefShModel("st-fourswitch-s", "st-fourswitch3", "sh-round")
+    DefShModel("st-fourswitch-w", "st-fourswitch4", "sh-round")
 end
 
 -- st_ice --
 do
-    DefAlias("st_ice", "st_rawglass")
-    DefAlias("st_ice_breaking", "it_debris_water")
---    local images = DefSubimages("st_ice_break", {h=3})
---    local frames = BuildFrames(images,50)
---    DefAnim("st_ice_break-anim", frames)
---    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh-glass")
+    DefStone("st_ice", "sh-glass")
+
+    local images = DefSubimages("st_ice_break", {h=5})
+    local frames = BuildFrames(images,50)
+    DefAnim("st_ice_break-anim", frames)
+    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh-glass")
 end
 
 -- st-knight --
