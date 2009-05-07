@@ -4156,6 +4156,8 @@ And let @samp{pos} be a valid variable of type @samp{position}.
 @node Position Tasks
 @subsection Position Tasks
 
+For reference details @pxref{Position}.
+
 @table @asis
 @item @b{Creating Positions:}
 @example
@@ -4239,6 +4241,8 @@ outside of the world return @samp{false}.
 @node Attribute Tasks
 @subsection Attribute Tasks
 
+For reference details @pxref{Object}.
+
 @table @asis
 
 @item @b{Single Attribute Setting:}
@@ -4281,6 +4285,8 @@ Any object attribute can be reset to its default value, what is the attributes
 @c ----------------- Object Tasks --------------------
 @node Object Tasks
 @subsection Object Tasks
+
+For reference details @pxref{Object}.
 
 @table @asis
 @item @b{Creating Objects:}
@@ -4398,6 +4404,8 @@ or other attributes of an object to report its current classification.
 @node Group Tasks
 @subsection Group Tasks
 
+For reference details @pxref{Group}.
+
 @table @asis
 @item @b{Creating Groups:}
 
@@ -4447,6 +4455,7 @@ Groups offer some standard operations known from handling with sets.
 @example
 @var{count} = #@var{mygroup}        -- number of objects in the group
 @var{obj}   = @var{mygroup}[@var{5}]     -- 5th object of the group
+@var{obj}   = @var{mygroup}[@var{-1}]    -- last object of the group
 for @var{i} = @var{1}, #@var{mygroup} do @var{obj} = @var{mygroup}[@var{i}] ... end
 for @var{obj} in @var{mygroup} do ... end
 @end example
@@ -4462,6 +4471,32 @@ iterate with a counter or directly iterate the content objects.
 @end example
 Every group returns a shuffled group with the same members when receiving the
 message @code{"shuffle"}.
+
+@item @b{Sorted Group:}
+@example
+@var{sorted_group} = @var{group}:@b{sort}("@b{linear}", po(@var{2}, @var{1}))
+@var{sorted_group} = @var{group}:@b{sort}("@b{linear}")
+@var{sorted_group} = @var{group}:@b{sort}("@b{circular}")
+@var{sorted_group} = @var{group}:@b{sort}()
+@end example
+Sort group objects in linear order according to given direction vector, or
+direction determined by the first two objects. Or order objects cicular around
+their center. If no argument is given order objects lexically.
+
+@item @b{Subset Group:}
+@example
+@var{sub_group} = @var{group}:@b{sub}(@var{2})   -- first two objects
+@var{sub_group} = @var{group}:@b{sub}(@var{-2})  -- last two objects
+@var{sub_group} = @var{group}:@b{sub}(@var{2}, @var{4}) -- objects from 2 to 4
+@var{sub_group} = @var{group}:@b{sub}(@var{2}, @var{-2}) -- two objects starting with 2
+@end example
+Build subgroup with given indices and numbers.
+
+@item @b{Nearest Object:}
+@example
+@var{object} = @var{group}:@b{nearest}(@var{reference})
+@end example
+Search object in group that is nearest to the given reference object.
 @end table
 
 @c ----------------- Tiles and World Tasks --------------------
@@ -5229,6 +5264,8 @@ you to convert coordinates, objects, position constants into positions. The
 handle allows you to retrieve existing named positions, too. Furtheron positions
 are implicitly created as return values of many operations.
 
+For task driven samples @pxref{Position Tasks}.
+
 Let us look at the supported operators:
 
 @table @asis
@@ -5250,10 +5287,10 @@ member of the supplied position list.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpos} = @i{po}(3, 4) + @{1, 2@}              -- = po(4, 6)
-@var{newpos} = @var{myobject} - @i{po}(1, 5)
-@var{newpolist} = @i{po}(2, 3) + @var{NEIGHBORS_4}      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
-@var{newpolist} = @i{po}["@var{myfloor}#*"] - @i{po}(3, 0)
+@var{newpos} = @i{po}(@var{3}, @var{4}) + @{@var{1}, @var{2}@}              -- = po(4, 6)
+@var{newpos} = @var{myobject} - @i{po}(@var{1}, @var{5})
+@var{newpolist} = @i{po}(@var{2}, @var{3}) + @var{NEIGHBORS_4}      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
+@var{newpolist} = @i{po}["@var{myfloor}#*"] - @i{po}(@var{3}, @var{0})
 @end example
 @end table
 
@@ -5271,8 +5308,8 @@ is returned.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpos} = 3 * @i{po}(3, 4)   -- = po(9, 12)
-@var{newpos} = @i{po}(2, 3) / 2   -- = po(1, 1.5)
+@var{newpos} = @var{3} * @i{po}(@var{3}, @var{4})   -- = po(9, 12)
+@var{newpos} = @i{po}(@var{2}, @var{3}) / @var{2}   -- = po(1, 1.5)
 @end example
 @end table
 
@@ -5287,7 +5324,7 @@ position value with both coordinate values multiplicated by @samp{-1} is returne
 
 @item @b{Syntax Samples:}
 @example
-@var{newpos} = -@i{po}(3, 4)   -- = po(-3, -4)
+@var{newpos} = -@i{po}(@var{3}, @var{4})   -- = po(-3, -4)
 @end example
 @end table
 
@@ -5302,7 +5339,7 @@ with coordinates of the center of the containing grid position is returned.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpos} = #@i{po}(3, 4)   -- = po(3.5, 4.5)
+@var{newpos} = #@i{po}(@var{3}, @var{4})   -- = po(3.5, 4.5)
 @end example
 @end table
 
@@ -5320,9 +5357,9 @@ the position operator @samp{#} or the method @samp{grid()}.
 
 @item @b{Syntax Samples:}
 @example
-@var{bool} = @i{po}(3, 4) == @i{po}(@{3, 4@})  -- = true
-@var{bool} = @i{po}(3, 4) == @i{po}(4, 3)    -- = false
-@var{bool} = @i{po}(3, 4) ~= @i{po}(4, 3)    -- = true
+@var{bool} = @i{po}(@var{3}, @var{4}) == @i{po}(@{@var{3}, @var{4}@})  -- = true
+@var{bool} = @i{po}(@var{3}, @var{4}) == @i{po}(@var{4}, @var{3})    -- = false
+@var{bool} = @i{po}(@var{3}, @var{4}) ~= @i{po}(@var{4}, @var{3})    -- = true
 @end example
 @end table
 
@@ -5339,7 +5376,7 @@ PositionList containing all positions in the given order.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpolist} = @i{po}(3, 4) .. @i{po}(4, 4)
+@var{newpolist} = @i{po}(@var{3}, @var{4}) .. @i{po}(@var{4}, @var{4})
 @end example
 @end table
 
@@ -5361,11 +5398,11 @@ returns both numbers at once in a Lua multiple assignment.
 
 @item @b{Syntax Samples:}
 @example
-@var{number} = @i{po}(3, 4)["x"]            -- = 3
-@var{number} = @i{po}(3, 4).x               -- = 3
-@var{number} = @i{po}(3, 4)["y"]            -- = 4
-@var{number} = @i{po}(3, 4).y               -- = 4
-@var{number1}, @var{number2} = @i{po}(3, 4):xy()  -- = 3, 4
+@var{number} = @i{po}(@var{3}, @var{4})["@b{x}"]            -- = 3
+@var{number} = @i{po}(@var{3}, @var{4}).@b{x}               -- = 3
+@var{number} = @i{po}(@var{3}, @var{4})["@b{y}"]            -- = 4
+@var{number} = @i{po}(@var{3}, @var{4}).@b{y}               -- = 4
+@var{number1}, @var{number2} = @i{po}(@var{3}, @var{4}):@b{xy}()  -- = 3, 4
 @end example
 @end table
 
@@ -5380,8 +5417,8 @@ that contains the position itself.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpos} = @i{po}(3.2, 4.7):grid()    -- = 3, 4
-@var{newpos} = @i{po}(-2.4, -5.0):grid()  -- = -3, -5
+@var{newpos} = @i{po}(@var{3.2}, @var{4.7}):@b{grid}()    -- = 3, 4
+@var{newpos} = @i{po}(@var{-2.4}, @var{-5.0}):@b{grid}()  -- = -3, -5
 @end example
 @end table
 
@@ -5403,7 +5440,7 @@ the bag.
 
 @item @b{Syntax Samples:}
 @example
-@var{boolean} = @i{po}(3.2, 4.7):exists()
+@var{boolean} = @i{po}(@var{3.2}, @var{4.7}):@b{exists}()
 @end example
 @end table
 @end table
@@ -5414,15 +5451,646 @@ the bag.
 @node Object
 @section Object
 
+This datatype handels all world participating objects as described in
+@ref{Object Layers}. When you request an object you get a reference to this
+object and not the object itself. You can modify the object, but the object
+can be modified by user actions, too. Deleting your reference by assigning
+another value to your variable does not delete the object itself.
+
+On the other hand an object can cease to exist due to user actions while you
+still have a reference assigned to a Lua variable. Of course this reference
+gets invalid when the referenced object is deleted. But such an invalid
+reference, which we call a @samp{NULL} reference, is no longer fatal with the
+new API. Any write accesses on such references are simply ignored. Thus you can
+send messages to object references independently of their validity. Just on
+read accesses you may want to prior check the existance of an object as you
+would get @samp{nil} values on access of @samp{NULL} references.
+
+Objects take attributes that you access by Lua index methods. Additional to
+the object specific attributes you are free to store your own customer 
+attributes on any object. Customer attributes are any indices starting with an
+underscore @samp{_} as prefix to their name.
+
+The real world objects are created by assigning a @ref{Tile} declaration to
+a @ref{World} position. You retrieve a corresponding object reference either
+by the @ref{NamedObjects} repository, by @ref{Functions} or other methods that
+return single object references.
+
+Objects provide most methods of a @ref{Position} and can in most cases be 
+directly used as a position without explicit conversion. Just special methods
+like existence differ on both datatypes. Of course all objects placed in the
+world are limited to positions within the world. But be aware that portable 
+@ref{Items} can well be part of a player's inventory and thus report a position 
+outside of the world. Actors will always report positions rounded to the
+containing grid. This feature is legacy. As Lua code is anyway unapropriate to
+handle actor movements we maintained this rounding feature.
+
+Objects support standard set operators of @ref{Groups}, too, as long as one
+operand is a group and the other an object.
+
+For task driven samples @pxref{Object Tasks} and @ref{Attribute Tasks}.
+
+
+@table @asis
+@item @b{Attribute Access:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj}["attributename"]
+
+@i{obj}["attributename"] = value
+
+@i{obj}:set(@{attributename1=value1, attributename2=value2,...@})
+
+@item @b{Details:}
+Read or write object attributes as described in the following chapters or
+custom attributes. The @samp{set} method allows you to set multiple attributes
+at once. Attribute writes are ignored if the object reference is invalid.
+Attribute reads require a valid object reference. Otherwise they return
+@samp{nil}.
+
+@item @b{Syntax Samples:}
+@example
+@var{value} = @var{obj}["@b{color}"]
+@var{value} = @var{obj}.@b{color}
+@var{obj}["@b{color}"] = @var{BLACK}
+@var{obj}.@b{color} = @var{BLACK}
+@var{obj}:@b{set}(@{@b{target}=@var{mydoor}, @b{action}="@b{open}"@})
+@end example
+@end table
+
+@item @b{Messaging:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj}:message("msg", value)
+
+result = @i{obj}:msg(value)
+
+@item @b{Details:}
+Send a message with a given value or @samp{nil} to the object. Every message
+can be sent directly as a method with the given message name. When the object
+reference is invalid the message is simply ignored.
+
+@item @b{Syntax Samples:}
+@example
+@var{value} = @var{obj}:@b{message}("@b{open}")
+@var{value} = @var{obj}:@b{open}()
+@var{value} = @var{obj}:@b{message}("@b{signal}", @var{1})
+@var{value} = @var{obj}:@b{signal}(@var{1})
+@end example
+@end table
+
+@item @b{Equality/Inequality:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj1} <==|~=> @i{obj2}
+
+@item @b{Details:}
+A comparison of two object values. Two objects values are equal if both
+reference the same, still existing world object. Otherwise they are unequal.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = @var{obj1} == @var{obj1}  -- = true
+@var{bool} = @var{obj1} == @var{obj2}  -- = false, if two different objects
+@var{bool} = @var{obj1} ~= @var{obj2}  -- = true, if two different objects
+@end example
+@end table
+
+@item @b{Existence:}
+@table @asis
+@item @b{Syntax:}
+result = -@i{obj}
+
+result = @i{obj}:exists()
+
+@item @b{Details:}
+Checks whether an object reference is still valid. Returns true if the object
+still exists, otherwise false is returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = -@var{obj}
+@var{bool} = @var{obj}:@b{exists}()
+@end example
+@end table
+
+@item @b{Kill:}
+@table @asis
+@item @b{Syntax:}
+@i{obj}:kill()
+
+@item @b{Details:}
+Kills the object at once. Note that you should never kill a sender object
+within a callback action. If you have need of killing the sender then add
+the attribute @ref{safeaction} as explained in @ref{Target - Action }.
+
+@item @b{Syntax Samples:}
+@example
+@var{obj}:@b{kill}()
+@end example
+@end table
+
+@item @b{Kind Checks:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj}:is("kind")
+
+result = @i{obj}:kind()
+
+@item @b{Details:}
+These methods allow you to check or retrieve the @ref{Object Kind}.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = @var{obj}:@b{is}("@b{st_chess}")
+@var{string} = @var{obj}:@b{kind}()
+@end example
+@end table
+
+@item @b{Coordinate Access:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj}["x"]
+
+result = @i{obj}["y"]
+
+result1, result2 = @i{obj}:xy()
+
+@item @b{Details:}
+The single position coordinates of an object can be read anytime. You can
+retrieve single coordinates by Lua square bracket index access. Of course you
+can use the Lua alternative dot index access syntax, too (see examples). If you
+want to evaluate both coordinates, you can make use of the method @samp{xy()},
+that returns both numbers at once in a Lua multiple assignment. Anyway the
+coordinates of an object are read only. You can not reposition an object by
+changing its coordinates.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = @var{obj}["@b{x}"]
+@var{number} = @var{obj}.@b{x}
+@var{number} = @var{obj}["@b{y}"]
+@var{number} = @var{obj}.@b{y}
+@var{number1}, @var{number2} = @var{obj}:@b{xy}()
+@end example
+@end table
+
+@item @b{Addition/Subtraction:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj} <@b{+}|@b{-}> <@i{pos} | @i{obj} | @i{cpos} | @i{polist}>
+
+result = <@i{pos} | @i{obj} | @i{cpos} | @i{polist}> <@b{+}|@b{-}> @i{obj}
+
+@item @b{Details:}
+When an object is added to or subtracted from another position or data 
+convertable to a position the result is the position value representing the 
+vectorial addition or difference of both positions.
+
+If an object is added to subtracted from a position list a new list is created
+with the positions representing the sum or difference of the position with every
+member of the supplied position list.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = @var{obj} + @{@var{1}, @var{2}@}
+@var{newpos} = @var{myobject} - @var{obj}
+@var{newpolist} = @var{obj} + @var{NEIGHBORS_4}
+@var{newpolist} = @i{po}["@var{myfloor}#*"] - @var{obj}
+@end example
+@end table
+
+@item @b{Center:}
+@table @asis
+@item @b{Syntax:}
+result = #@i{obj}
+
+@item @b{Details:}
+A rounding of an objects position vector to the center of the grid. A new 
+position value with coordinates of the center of the containing grid position 
+is returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpos} = #@var{obj}   -- e.g. po(3.5, 4.5)
+@end example
+@end table
+
+@item @b{Join:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj} + @i{group}
+
+result = @i{group} + @i{obj}
+
+@item @b{Details:}
+A new set containg the objects of the group plus the single object is returned.
+The object sequence is maintained. If the object is already member of the group
+the new group will contain just one object reference, namely the first one in
+sequence.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} + @i{grp}(@var{obj2}, @var{obj3}, @var{obj1})   -- = grp(obj1, obj2, obj3)
+@var{newgroup} = @i{grp}(@var{obj2}, @var{obj3}) + @var{obj1}         -- = grp(obj2, obj3, obj1)
+@end example
+@end table
+
+@item @b{Intersection:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj} * @i{group}
+
+result = @i{group} * @i{obj}
+
+@item @b{Details:}
+A new set cointaing just the object iteself, in case it is part of the group, 
+too, or an empty group returned.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} * @i{grp}(@var{obj1}, @var{obj2})  -- = grp(obj1)
+@var{newgroup} = @i{grp}(@var{obj2}) * @var{obj1}         -- = grp()
+@end example
+@end table
+
+@item @b{Difference:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj} - @i{group}
+
+result = @i{group} - @i{obj}
+
+@item @b{Details:}
+In the first case a new set containg just the object itself, if it is not part
+of the group, too, or an empty group returned. In the second case the new group
+contains all members of the old group without the object. The sequence of
+objects remains untouched.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} - @i{grp}(@var{obj2}, @var{obj1})  -- = grp()
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}) - @var{obj1}  -- = grp(obj2)
+@end example
+@end table
+
+@item @b{Sound:}
+@table @asis
+@item @b{Syntax:}
+result = @i{obj}:sound("name", volume)
+
+@item @b{Details:}
+Play a sound of given name at the position of the object. The volume defaults
+to @samp{1}.
+
+@item @b{Syntax Samples:}
+@example
+@var{obj}:@b{sound}("@b{quake}")
+@var{obj}:@b{sound}("@b{quake}", @var{2})
+@end example
+@end table
+@end table
+
+
 @c ----------------- Group --------------------
 
 @node Group
 @section Group
 
+A group is a sorted set of @ref{Object}s. Every object can be contained just
+in one instance in the group. In contrast to a Lua table the group is a constant
+value datatype. Once you retrieved a group it can not be modified. But you can
+calculate and and apply operators like join, intersection and difference on
+groups and generate thereby other group values as results.
+
+Even though groups as values are long living you should be carefully in keeping
+a group longer than a callback evaluation. Groups contain object references and
+objects can be killed. Thus a prior retrieved group may contain invalid
+object references on a subsequent callback evaluation. This may be uncritical
+if you just send a message to a group, but in other cases you may need to
+clean the group from invalid members (see below).
+
+You create a group by listing the contained objects as arguments to the 
+@samp{grp()} @ref{Functions}, by retrieving objects from the @ref{NamedObjects}
+repository or as result of other methods and calculations.
+
+As groups are constant the sequence of contained objects is stable. All 
+operations that generate resulting new groups maintain this sequence as far
+as possible. E.g. a join of two groups takes the objects of the first group
+in the given sequence and appends the additional objects of the second group
+in the sequence they appear in the second group.
+
+All group operations that return new groups clean their results from any
+meanwhile invalid @samp{NULL} object references. You can use this feature
+to clean a group by the function @samp{grp()}.
+
+Any message sent to a group will be forwarded to all its members in sequence.
+An attribute write access to a group results in series of attribute writes
+on every group member in sequence, too.
+
+But of course you can iterate over a group and access every member by index
+access. Several special methods for common group evaluations like shuffling,
+subgroup, sort, etc. are supported, too.
+
+For task driven samples @pxref{Group Tasks}.
+
+@table @asis
+@item @b{Messaging:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}:message("msg", value)
+
+result = @i{group}:msg(value)
+
+@item @b{Details:}
+Send a message with a given value or @samp{nil} to all objects in the group.
+Every message can be sent directly as a method with the given message name.
+When an object reference is invalid the message is simply ignored. You are
+even allowed to send a @samp{kill()} message to all objects in a group. The
+objects will be killed, but the group remains filled with invalid @samp{NULL}
+object references.
+
+@item @b{Syntax Samples:}
+@example
+@var{value} = @var{group}:@b{message}("@b{open}")
+@var{value} = @var{group}:@b{open}()
+@var{value} = @var{group}:@b{message}("@b{signal}", @var{1})
+@var{value} = @var{group}:@b{signal}(@var{1})
+@var{value} = @var{group}:@b{kill}()
+@end example
+@end table
+
+@item @b{Attribute Write:}
+@table @asis
+@item @b{Syntax:}
+@i{group}["attributename"] = value
+
+@i{group}:set(@{attributename1=value1, attributename2=value2,...@})
+
+@item @b{Details:}
+Set attributes as described in the following chapters or custom attributes on
+all objects of the group. The @samp{set} method allows you to set multiple
+attributes at once. Attribute writes are ignored if an object reference is
+invalid. Attribute read on groups in not allowed - the group index read is
+overloaded as a group member access.
+
+@item @b{Syntax Samples:}
+@example
+@var{group}["@b{color}"] = @var{BLACK}
+@var{group}.@b{color} = @var{BLACK}
+@var{group}:@b{set}(@{@b{target}=@var{mydoor}, @b{action}="@b{open}"@})
+@end example
+@end table
+
+@item @b{Equality/Inequality:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group1} <==|~=> @i{group2}
+
+@item @b{Details:}
+A comparison of two groups. Two groups are equal if both contain the same set
+of objects independent of their sequence within both groups. Otherwise they are
+unequal.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = @i{grp}(@var{obj1}, @var{obj2}) == @i{grp}(@var{obj2}, @var{obj1})  -- = true
+@var{bool} = @i{grp}(@var{obj1}, @var{obj2}) == @i{grp}(@var{obj1}, @var{obj3})  -- = false, if different object contents
+@var{bool} = @i{grp}(@var{obj1}) ~= @i{grp}(@var{obj2}, @var{obj1})        -- = true, if different object contents
+@end example
+@end table
+
+@item @b{Length:}
+@table @asis
+@item @b{Syntax:}
+result = #@i{group}
+
+@item @b{Details:}
+Number of objects contained in the group. Invalid @samp{NULL} object references
+are counted, too.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = #@i{grp}(@var{obj1}, @var{obj2})         -- = 2
+for @var{i} = @var{1}, #@var{group} do @var{obj} = @var{group}[@var{i}] ... end
+@end example
+@end table
+
+@item @b{Member Access:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}[@i{index}]
+
+result = @i{group}[@i{obj}]
+
+@item @b{Details:}
+An index like read access with an index number between 1 and #@i{group} returns
+the object in the related group sequence position. Negative indices between
+-#@i{group} and -1 give the same objects. Thus you can always access the last
+object at index -1. All other index positions return an invalid @samp{NULL}
+object - not @samp{nil} as tables do! Thus you are always able to send messages
+to returned object references.
+
+An index like read access with an object as index returns the sequence position
+number, the number index, of the object if it is contained in the group or 
+@samp{nil} if it is not contained.
+
+@item @b{Syntax Samples:}
+@example
+@var{object} = @i{grp}(@var{obj1}, @var{obj2})[2]     -- = obj2
+@var{object} = @i{grp}(@var{obj1}, @var{obj2})[-1]    -- = obj2
+@var{object} = @i{grp}(@var{obj1}, @var{obj2})[0]     -- = NULL object
+for @var{i} = @var{1}, #@var{group} do @var{obj} = @var{group}[@var{i}] ... end
+@var{number} = @i{grp}(@var{obj1}, @var{obj2})[@var{obj2}]  -- = 2
+@var{number} = @i{grp}(@var{obj1}, @var{obj2})[@var{obj3}]  -- = nil
+@end example
+@end table
+
+@item @b{Loop:}
+@table @asis
+@item @b{Syntax:}
+for @i{obj} in @i{group} do ... end
+
+@item @b{Details:}
+Looping over all objects contained in a group. The loop occurs in the sequence
+of the contained objects and includes all objects, even invalid @samp{NULL}
+object references.
+
+@item @b{Syntax Samples:}
+@example
+for @var{obj} in @var{group} do @var{obj}:@b{toggle}() end
+@end example
+@end table
+
+
+@item @b{Join:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group} + <@i{obj}|@i{group}>
+
+result = <@i{obj}|@i{group}> + @i{group}
+
+
+@item @b{Details:}
+A new set containg any object of of both arguments just once, is returned. The
+object sequence is maintained. If an object is member of both arguments the new
+group will contain just one object reference, namely the first one in sequence.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} + @i{grp}(@var{obj2}, @var{obj3}, @var{obj1})   -- = grp(obj1, obj2, obj3)
+@var{newgroup} = @i{grp}(@var{obj2}, @var{obj3}) + @i{grp}(@var{obj1}, @var{obj3})   -- = grp(obj2, obj3, obj1)
+@end example
+@end table
+
+@item @b{Intersection:}
+@table @asis
+@item @b{Syntax:}
+result = <@i{obj}|@i{group}> * @i{group}
+
+result = @i{group} * <@i{obj}|@i{group}>
+
+@item @b{Details:}
+A new set cointaing just those objects that a contained in both arguments. The
+objects are returned in the same sequence as they appear in the first argument.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} * @i{grp}(@var{obj2}, @var{obj1})  -- = grp(obj1)
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}) * @i{grp}(@var{obj2}, @var{obj1}, @var{obj3})  -- = grp(obj1, obj2)
+@end example
+@end table
+
+@item @b{Difference:}
+@table @asis
+@item @b{Syntax:}
+result = <@i{obj}|@i{group}> - @i{group}
+
+result = @i{group} - <@i{obj}|@i{group}>
+
+@item @b{Details:}
+A new set containg just those objects of the first argument, that are not
+contained in the second argument is returned. The sequence of the objects
+in the new group is the same as in the first argument.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @var{obj1} - @i{grp}(@var{obj2}, @var{obj1})  -- = grp()
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}) - @i{grp}(@var{obj2}, @var{obj4})  -- = grp(obj1, obj3)
+@end example
+@end table
+
+@item @b{Shuffle:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}:shuffle()
+
+@item @b{Details:}
+Returns a new group with the same objects in another random sequence. Note that
+all invalid @samp{NULL} object reference are removed in the resulting group by
+this method call.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2})
+@end example
+@end table
+
+@item @b{Sorting:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}:sort("circular")
+
+result = @i{group}:sort("linear" <, @i{direction}>)
+
+result = @i{group}:sort()
+
+@item @b{Details:}
+Returns a new group with the same objects in another sorted sequence. Note that
+all invalid @samp{NULL} object reference are removed in the resulting group by
+this method call.
+
+With a string argument @code{"circular"} the objects are aranged arround their
+center by their angle. The distance from this center has no influence.
+
+With a string argument @code{"linear"} the objects are aranged in a linear 
+fashion. You either supply a @ref{Position} as sorting direction vector, or
+the first two objects of the group will define the sorting direction as default.
+
+If no sorting argument is supplied the objects will be sorted by their name
+in lexical order.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}):sort("linear", po(2,1))
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}):sort("circular")
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}):sort()
+@end example
+@end table
+
+@item @b{Subset:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}:sub(@i{number})
+
+result = @i{group}:sub(@i{start}, @i{end})
+
+result = @i{group}:sub(@i{start}, -@i{number})
+
+@item @b{Details:}
+Returns a new group with a subset of the contained objects. The sequence of
+objects in the new group is identical to the sequence in the originating group.
+Note that all invalid @samp{NULL} object reference are removed in the resulting
+group by this method call after determination of the sub set candidate objects.
+
+With a number as argument you determine the number of requested objects. A
+positive number returns the amount of objects starting with the first object
+of the group. Whereas a negative number returns objects from the tail of the
+group. In this case the absolute value determines the number of selected objects
+counted backwards from the last one in sequence.
+
+With two positive numbers as arguements you define the first and the last sequence
+index of the requested subset.
+
+With two numbers, but the second one being negative, you define the first object
+and the with the absolute value of the second number you define the amount of
+objects you want in your subset.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}, @var{obj4}):sub(2)     -- = grp(obj1, obj2)
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}, @var{obj4}):sub(-2)    -- = grp(obj3, obj4)
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}, @var{obj4}):sub(2, 4)  -- = grp(obj2, obj3, obj4)
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}, @var{obj4}):sub(2, -2) -- = grp(obj2, obj3)
+@end example
+@end table
+
+@item @b{Nearest Object:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}:nearest(@i{obj})
+
+@item @b{Details:}
+Returns the object contained in the group that is nearest to the given reference
+object. The distances are calculated exactly without rounding actor positions.
+In case two object have the same distance from the reference object one is
+chosen by chance as the result.
+
+@item @b{Syntax Samples:}
+@example
+@var{newobject} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3}):sub(@var{obj4})
+@end example
+@end table
+
+@end table
+
+
 @c ----------------- NamedObjects --------------------
 
 @node NamedObjects
 @section NamedObjects
+
+Repository
 
 @c ----------------- PositionList --------------------
 
