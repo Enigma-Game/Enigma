@@ -282,13 +282,13 @@ namespace enigma {
     
     void SpitterStone::init_model() {
         if (state == IDLE)
-            set_model("st_spitter");
+            set_anim("st_spitter_idle");
         else if (state == LOADING)
             set_anim("st_spitter_loading");
         else if (state == SPITTING)
             set_anim("st_spitter_spitting");
         else
-            set_anim("st_break_plain-anim");
+            set_anim("st_spitter_breaking");
     }
     
     void SpitterStone::animcb() {

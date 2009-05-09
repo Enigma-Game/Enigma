@@ -1685,9 +1685,27 @@ end
 
 -- st-spitter --
 do
-    DefAlias ("st_spitter", "st-timeswitch")
-    DefAlias ("st_spitter_loading", "st_quaking")
-    DefAlias ("st_spitter_spitting", "st_quaking")
+     local images = DefSubimages("st_spitter_idle", {h=6})
+     local frames = BuildFrames(images,150)
+     DefAnim("st_spitter_idle", frames, true)
+     DefShModel("st_spitter_idle", "st_spitter_idle", "sh-round")
+
+     local images = DefSubimages("st_spitter_spitting", {h=6})
+     local frames = BuildFrames(images,175)
+     DefAnim("st_spitter_spitting", frames)
+     DefShModel("st_spitter_spitting", "st_spitter_spitting", "sh-round")
+
+     local images = DefSubimages("st_spitter_loading", {h=6})
+     local frames = BuildFrames(images,100)
+     frames[6][2] = 50
+     DefAnim("st_spitter_loading", frames)
+     DefShModel("st_spitter_loading", "st_spitter_loading", "sh-round")
+
+     local images = DefSubimages("st_spitter_breaking", {h=6})
+     local frames = BuildFrames(images,150)
+     DefAnim("st_spitter_breaking", frames, true)
+     DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh-round")
+
 end
 
 ---------------------------
