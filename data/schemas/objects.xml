@@ -1696,6 +1696,7 @@
       <msg name="_trigger"/>
     </object>
     <object name="st_rawglass"/>
+    <object name="st_rawglass_quad"  init="true"/>
     <object name="st_rawglass_movable">
       <attr name="movable" value="true"/>
     </object>

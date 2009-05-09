@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2002,2003,2004 Daniel Heck
  * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
@@ -16,8 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef PLASTERSTONE_HH
-#define PLASTERSTONE_HH
+#ifndef SPITTERSTONE_HH
+#define SPITTERSTONE_HH
 
 #include "stones.hh"
 
@@ -26,51 +27,36 @@
 namespace enigma {
 
     /** 
-     * 
+     * SpitterStone
      */
-    class PlasterStone : public Stone {
-        CLONEOBJ(PlasterStone);
-        DECL_TRAITS_ARRAY(4, traitsIdx());
+    class SpitterStone : public Stone {
+        CLONEOBJ(SpitterStone);
+        DECL_TRAITS;
     private:
         enum iState {
-            IDLE,         ///< 
-            BREAKING      ///< 
+            IDLE,
+            ACTIVE,
+            LOADING,
+            SPITTING,
+            BREAKING
         };
-        enum ObjectPrivatFlagsBits {
-            OBJBIT_MOVABLE   =   1<<24,    ///<  
-            OBJBIT_HOLLOW    =   1<<25,    ///< 
-            OBJBIT_GLASSES   =   1<<26,    ///< invisible due to glasses
-            OBJBIT_BREAKABLE =   1<<27     ///< breakable
-        };
-        
+
     public:
-        PlasterStone(bool hollow, bool movable, bool breakable = false);
-        
-        // Object interface
-        virtual std::string getClass() const;        
-        virtual Value getAttr(const std::string &key) const;
-        virtual Value message(const Message &m);
+        SpitterStone ();
         
         // StateObject interface
+        virtual int externalState() const;
         virtual void setState(int extState);
+        virtual Value message(const Message &m);
 
         // GridObject interface
         virtual void init_model();
-        virtual void processLight(Direction d);   // direction of laserbeam
         
-        // ModelCallback interface
+        // ModelCallback interface  - Animation callback
         virtual void animcb();
-        
-        // Stone interface
-        virtual bool is_floating() const;
-        virtual bool is_movable() const;
-        virtual StoneResponse collision_response(const StoneContact &sc);
-        virtual const char *collision_sound();
-        virtual void actor_hit(const StoneContact &sc);
 
-    private:
-        void doBreak();
-        int traitsIdx() const;
+        // Stone interface
+        virtual void actor_hit(const StoneContact &sc);
     };
 
 } // namespace enigma

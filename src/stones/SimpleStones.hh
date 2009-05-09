@@ -159,38 +159,7 @@ namespace enigma {
         virtual void on_floor_change();
     };
    
-    /** 
-     * SpitterStone
-     */
-    class SpitterStone : public Stone {
-        CLONEOBJ(SpitterStone);
-        DECL_TRAITS;
-    private:
-        enum iState {
-            IDLE, 
-            LOADING,
-            SPITTING,
-            BREAKING
-        };
-
-    public:
-        SpitterStone ();
-        
-        // StateObject interface
-        virtual void setState(int extState);
-        virtual Value message(const Message &m);
-
-        // GridObject interface
-        virtual void init_model();
-        
-        // ModelCallback interface  - Animation callback
-        virtual void animcb();
-
-        // Stone interface
-        virtual void actor_hit(const StoneContact &sc);
-    };
-    
-    /** 
+     /** 
      * Yinyang 
      */
     class YinyangStone : public Stone {

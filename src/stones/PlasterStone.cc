@@ -93,6 +93,10 @@ namespace enigma {
         return objFlags & OBJBIT_HOLLOW;
     }
 
+    bool PlasterStone::is_movable() const {
+        return (state != BREAKING) ? Stone::is_movable() : false;
+    }
+    
     StoneResponse PlasterStone::collision_response(const StoneContact &sc) {
         if (objFlags & OBJBIT_HOLLOW)
             return STONE_PASS;

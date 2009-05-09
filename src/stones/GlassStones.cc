@@ -24,12 +24,14 @@
 #include "main.hh"
 
 namespace enigma {
-    GlassStone::GlassStone(int type, bool hollow, bool movable, bool cloth) {
+    GlassStone::GlassStone(int type, bool hollow, bool movable, bool quad, bool cloth) {
         state = type;
         if (hollow)
             objFlags |= OBJBIT_HOLLOW;
         if (movable)
             objFlags |= OBJBIT_MOVABLE;
+        if (quad)
+            objFlags |= OBJBIT_QUAD;
         if (cloth)
             objFlags |= OBJBIT_CLOTH;
     }
@@ -72,7 +74,7 @@ namespace enigma {
         if (objFlags & OBJBIT_GLASSES)
             set_model("invisible");
         else
-            set_model(getClass());
+            set_model(ecl::strf("%s%s", getClass().c_str(), (objFlags & OBJBIT_QUAD) ? "_quad" : ""));
     }
     
     bool GlassStone::is_floating() const {
@@ -115,6 +117,7 @@ namespace enigma {
     
     BOOT_REGISTER_START
         BootRegister(new GlassStone(0, false, false), "st_rawglass");
+        BootRegister(new GlassStone(0, false, false, true), "st_rawglass_quad");
         BootRegister(new GlassStone(1, false, true),  "st_rawglass_movable");
         BootRegister(new GlassStone(2, false, false), "st_lightglass");
         BootRegister(new GlassStone(2, true, false),  "st_lightglass_hollow");

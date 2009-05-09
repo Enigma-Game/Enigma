@@ -22,7 +22,7 @@
 #include "stones/SimpleStones.hh"
 #include "client.hh"
 #include "errors.hh"
-#include "Inventory.hh"
+//#include "Inventory.hh"
 #include "main.hh"
 #include "player.hh"
 #include "server.hh"
@@ -239,106 +239,6 @@ namespace enigma {
     
     DEF_TRAITSM(PlopStone, "st_plop", st_plop, MOVABLE_STANDARD);
 
-/* -------------------- SpitterStone -------------------- */
-
-    SpitterStone::SpitterStone() {
-    }
-    
-    void SpitterStone::setState(int extState) {
-        // block any calls
-    }
-    
-    Value SpitterStone::message(const Message &m) {
-        if (m.message == "_cannonball") {
-            if (!getAttr("secure").to_bool() || server::GameCompatibility == enigma::GAMET_PEROXYD) {
-                state = BREAKING;
-                init_model();
-            }
-            return Value();
-        } else if (m.message == "spit" && state == IDLE && isDisplayable()) {
-            ecl::V2 dest = m.value;
-            if (!IsInsideLevel(dest)) {
-                int idx = getDefaultedAttr("$hitdestindex", 0);
-                if (!getDestinationByIndex(idx++, dest)) {
-                    if (idx != 1) {
-                        idx = 0;
-                        if (!getDestinationByIndex(idx++, dest))
-                            return Value();
-                    } else
-                        return Value();
-                }
-                setAttr("$hitdestindex", idx);
-                if (!IsInsideLevel(dest))
-                    return Value();
-            }
-            ecl::V2 vel = (GridPos(dest).center() - get_pos().center()) /0.55;
-            setAttr("$ball_velocity", vel);
-            state = LOADING;
-            init_model();
-            return Value();
-        }
-        return Stone::message(m);
-    }
-    
-    void SpitterStone::init_model() {
-        if (state == IDLE)
-            set_anim("st_spitter_idle");
-        else if (state == LOADING)
-            set_anim("st_spitter_loading");
-        else if (state == SPITTING)
-            set_anim("st_spitter_spitting");
-        else
-            set_anim("st_spitter_breaking");
-    }
-    
-    void SpitterStone::animcb() {
-        switch (state) {
-            case IDLE :
-                ASSERT(false, XLevelRuntime, "SpitterStone: animcb called with inconsistent state"); 
-            case LOADING : {
-                Other *cb = dynamic_cast<Other *>(MakeObject("ot_cannonball"));
-                ecl::V2 center  = get_pos().center();
-                cb->setAttr("$position", center);
-                cb->setAttr("$ball_velocity", getAttr("$ball_velocity"));
-                AddOther(cb);
-                
-                state = SPITTING;
-                init_model();
-                break;
-            }
-            case SPITTING : 
-                state = IDLE;
-                init_model();
-                break;
-            case BREAKING :
-                SetItem(get_pos(), MakeItem("it_meditation"));
-                KillStone(get_pos());
-                break;
-        }
-    }
-
-    void SpitterStone::actor_hit (const StoneContact &sc) {
-        if (state != IDLE)
-            return;
-    
-        if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-            int lifepos = inv->find("it_extralife");
-            if (lifepos != -1) {
-                delete inv->yield_item(lifepos);
-                player::RedrawInventory (inv);
-                ecl::V2 vel = distortedVelocity(sc.actor->get_vel(), 1.0);
-                double maxvel = (double)getAttr("range")/0.56;
-                if (maxvel * maxvel < square(vel))
-                    vel = maxvel * normalize(vel);
-                setAttr("$ball_velocity", vel);
-                state = LOADING;
-                init_model();
-            }
-        }
-    }
-
-    DEF_TRAITSM(SpitterStone, "st_spitter", st_yinyang, MOVABLE_PERSISTENT);
-
 /* -------------------- Yinyang stone -------------------- */
     YinyangStone::YinyangStone(int initState, bool isInstant) : Stone () {
         state = initState;
@@ -433,7 +333,6 @@ namespace enigma {
         BootRegister(new GrateStone(1), "st_grate_framed");
         BootRegister(new PlopStone(), "st_plop");
         BootRegister(new PlopStone(), "st_plop_slate");
-        BootRegister(new SpitterStone(), "st_spitter");
         BootRegister(new YinyangStone(0), "st_yinyang");
         BootRegister(new YinyangStone(0, true), "st_yinyang_instant");
         BootRegister(new YinyangStone(1), "st_yinyang_active");

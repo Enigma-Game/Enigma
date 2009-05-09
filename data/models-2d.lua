@@ -1687,8 +1687,9 @@ end
 do
      local images = DefSubimages("st_spitter_idle", {h=6})
      local frames = BuildFrames(images,150)
-     DefAnim("st_spitter_idle", frames, true)
-     DefShModel("st_spitter_idle", "st_spitter_idle", "sh-round")
+     DefAnim("st_spitter_active", frames, true)
+     DefShModel("st_spitter_active", "st_spitter_active", "sh-round")
+     DefShModel("st_spitter_idle", "st_spitter_idle1",  "sh-round")
 
      local images = DefSubimages("st_spitter_spitting", {h=6})
      local frames = BuildFrames(images,175)
@@ -1702,8 +1703,8 @@ do
      DefShModel("st_spitter_loading", "st_spitter_loading", "sh-round")
 
      local images = DefSubimages("st_spitter_breaking", {h=6})
-     local frames = BuildFrames(images,150)
-     DefAnim("st_spitter_breaking", frames, true)
+     local frames = BuildFrames(images,100)
+     DefAnim("st_spitter_breaking", frames)
      DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh-round")
 
 end

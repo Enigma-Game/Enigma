@@ -52,6 +52,7 @@ namespace enigma {
         
         // Stone interface
         virtual bool is_transparent(Direction d) const;
+        virtual bool is_movable() const;
         virtual bool on_move(const GridPos &origin);
         
     private:

@@ -83,6 +83,7 @@ namespace enigma {
         st_rubberband,
         st_scissors,
         st_shogun,
+        st_spitter,
         st_standard,
         st_stoneimpulse,
         st_stoneimpulse_steady,
@@ -184,7 +185,7 @@ namespace enigma {
         virtual StoneResponse collision_response(const StoneContact &sc);
 
         /*! Is this stone movable? Affects impulse-stones, fire, ordinary pushes... */
-        bool   is_movable() const {
+        virtual bool is_movable() const {
             return get_traits().movable >= MOVABLE_STANDARD;
         }
 

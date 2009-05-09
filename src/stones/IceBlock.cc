@@ -34,6 +34,7 @@ namespace enigma {
     Value IceBlock::message(const Message &m) {
         if (m.message == "_explosion" || m.message == "ignite") {
             if (isDisplayable()) {
+                state = BREAKING;
                 set_anim("st_ice_breaking");
             }
             return Value();
@@ -64,6 +65,10 @@ namespace enigma {
     
     bool IceBlock::is_transparent(Direction d) const {
         return true;
+    }
+    
+    bool IceBlock::is_movable() const {
+        return (state != BREAKING) ? Stone::is_movable() : false;
     }
     
     bool IceBlock::on_move(const GridPos &origin) {

@@ -61,11 +61,12 @@ namespace enigma {
             OBJBIT_MOVABLE  =   1<<24,    ///<  
             OBJBIT_HOLLOW   =   1<<25,    ///< 
             OBJBIT_GLASSES  =   1<<26,    ///< invisible due to glasses
-            OBJBIT_CLOTH    =   1<<27     ///< collision sound cloth instead of standard stone
+            OBJBIT_QUAD     =   1<<27,    ///< quad texture
+            OBJBIT_CLOTH    =   1<<28     ///< collision sound cloth instead of standard stone
         };
         
     public:
-        GlassStone(int type, bool hollow, bool movable, bool cloth = false);
+        GlassStone(int type, bool hollow, bool movable, bool quad = false, bool cloth = false);
         
         // Object interface
         virtual std::string getClass() const;        
