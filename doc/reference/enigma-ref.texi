@@ -4553,6 +4553,8 @@ returned by the call.
 @node Named Positions Tasks
 @subsection Named Positions Tasks
 
+For reference details @pxref{PositionList}.
+
 @table @asis
 @item @b{Named Position Usage:}
 @example
@@ -5363,7 +5365,7 @@ the position operator @samp{#} or the method @samp{grid()}.
 @end example
 @end table
 
-@item @b{Join:}
+@item @b{Concatenation:}
 @table @asis
 @item @b{Syntax:}
 result = @i{pos1} .. <@i{pos2} | @i{polist}> 
@@ -5371,8 +5373,10 @@ result = @i{pos1} .. <@i{pos2} | @i{polist}>
 result = <@i{pos1} | @i{polist}> .. @i{pos2}
 
 @item @b{Details:}
-Joins two positions or a position with an exting @ref{PositionList} to a new
-PositionList containing all positions in the given order.
+Concatenates two positions or a position with an existing @ref{PositionList} to a 
+new PositionList containing all positions in the given order.  Note that this
+operation is associative, that means it does not matter if you use braces in
+multiple concatenations or not.
 
 @item @b{Syntax Samples:}
 @example
@@ -6090,22 +6094,320 @@ chosen by chance as the result.
 @node NamedObjects
 @section NamedObjects
 
-Repository
+The datatyp NamedObjects is used by just one object, the singleton repository
+of named objects. Whenever you name an object, @xref{Object Naming}, this
+repository registers its name and allows you to retrieve the object lateron
+by providing its name.
+
+Being a singleton you can not create new NamedObjets. The singleton is stored
+at the global variable @samp{no} on level load.
+
+@table @asis
+
+@item @b{Repository Request:}
+@table @asis
+@item @b{Syntax:}
+result = no["@i{name}"]
+
+@item @b{Details:}
+Request of one or several objects from the repository. If no wildcard 
+characters are used in the name an @ref{Object} value is returned. It is either
+the unique object with the given name, or an invalid @samp{NULL} object if no
+object exists with the given name.
+
+If the requested name contains a wildcard character, either an asterix @samp{*}
+or a question mark @samp{?}, a @ref{Group} containing all objects with matching
+names is returned. An asterix matches one or several arbitrary characters. A
+question mark matches a single arbitrary character. Both wildcard charchters
+can be used anywhere in the string and in arbitrary multiplicity. Anyway the
+result is always returned as a @ref{Group}. The group may contain multiple
+objects, just a single object, or even no objects at all when no existing object
+matches your name pattern.
+
+@item @b{Syntax Samples:}
+@example
+@var{obj} = @i{no}["@var{mydoor}"]       -- exakte name match
+@var{group} = @i{no}["@var{mydoors#*}"]  -- any suffix
+@var{group} = @i{no}["@var{mydoor?}"]    -- just one char suffix
+@var{group} = @i{no}["@var{mydoors?#*}"] -- matches e.g. "mydoorsA#123435", "mydoorsB#1213"
+@end example
+@end table
+
+@item @b{Object Naming:}
+@table @asis
+@item @b{Syntax:}
+no["@i{name}"] = @i{obj}
+
+@item @b{Details:}
+Index write accesses to the singleton allows you to name or rename objects. Note
+that you can name or rename objects by @ref{Object} attribute writes, too.
+The objects name is stored as attribute @code{"name"}. Both ways of naming
+an object are totally equivalent.
+
+@item @b{Syntax Samples:}
+@example
+@i{no}["@var{myobject}"] = @var{obj}
+@end example
+@end table
+
+@end table
+
 
 @c ----------------- PositionList --------------------
 
 @node PositionList
 @section PositionList
 
+A PositionList is a sorted set of @ref{Position}s. Like a @ref{Group} this
+container is a constant datatype, that can not be modified. But you can easily
+compose new position lists by concatenation of existing lists and single 
+positions.
+
+An important difference to a group is the ability of a position list to store
+a position multiple times at different locations in its sequence. Thus a
+position list is suited to describe paths, even paths that are closed or
+cross itself.
+
+As @ref{Position}s are values that never become invalid, position lists once
+created will never change or get invalid. They are true values themselves. Thus
+they are the containers of choice for longterm storage.
+
+You can easily transform a group into a position list by the @ref{Positions} 
+singleton by the simple expression @samp{po(group)}. And you can retrieve all
+@ref{Position}s of a basic object kind located along a position list path by
+@ref{Functions} like @samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
+
+As a unique floor object is guaranteed to be on every grid position, you can
+convert a given list of unique grid positions to a group of floors without
+loosing any information. Now you can apply all group methods on the floors, like
+shuffling, sorting, subgrouping, etc.. Finally you can convert the resulting
+group back to a persistent position list. Of course the convertions preserve
+the sequence of members.
+
+Some additional position specific operators are supplied to allow simple
+translations and stretchings of position lists.
+
+Note that in contrast to a @ref{Group} this datatype can not directly be stored
+in an @ref{Object} attribute. But you can always store a @ref{Group} of floors
+in an attribute. In case floors can be destroyed you may need to name these
+floors as discussed in @ref{Named Positions}.
+
+For task driven samples @pxref{Named Positions Tasks}. 
+
+@table @asis
+@item @b{Length:}
+@table @asis
+@item @b{Syntax:}
+result = #@i{polist}
+
+@item @b{Details:}
+Number of positions contained in the list.
+
+@item @b{Syntax Samples:}
+@example
+@var{number} = #@var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) -- = 2
+for @var{i} = @var{1}, #@var{polist} do @var{pos} = @var{polist}[@var{i}] ... end
+@end example
+@end table
+
+@item @b{Member Access:}
+@table @asis
+@item @b{Syntax:}
+result = @i{group}[@i{index}]
+
+@item @b{Details:}
+An index like read access with an index number between 1 and #@i{polist} returns
+the position in the related position list position. Negative indices between
+-#@i{polist} and -1 give the same positions. Thus you can always access the last
+position at index -1. All other indices return a Lua @samp{nil} value like 
+tables.
+
+@item @b{Syntax Samples:}
+@example
+@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[2]     -- = po(5,7)
+@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[-1]    -- = po(5,7)
+@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[0]     -- = nil
+for @var{i} = @var{1}, #@var{polist} do @var{pos} = @var{polist}[@var{i}] ... end
+@end example
+@end table
+
+@item @b{Concatenation:}
+@table @asis
+@item @b{Syntax:}
+result = @i{polist1} .. <@i{pos} | @i{polist2}> 
+
+result = <@i{pos} | @i{polist1}> .. @i{polist2}
+
+@item @b{Details:}
+Concatenates two position lists or a position with a position list to a 
+new PositionList containing all positions in the given order. Note that this
+operation is associative, that means it does not matter if you use braces in
+multiple concatenations or not.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpolist} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) .. @i{po}(@var{4}, @var{4}) -- = (2,3),(5,7),(4,4)
+@end example
+@end table
+
+@item @b{Translation:}
+@table @asis
+@item @b{Syntax:}
+result = @i{polist} <@b{+}|@b{-}> <@i{pos} | @i{obj} | @i{cpos}>
+
+result = <@i{pos} | @i{obj} | @i{cpos}> <@b{+}|@b{-}> @i{polist}
+
+@item @b{Details:}
+If a position or data convertable to a position is added to or subtracted from 
+a position list a new list is created with the positions representing the sum or
+difference of the position with every member of the position list. In total the
+position list is shifted by the position as a vector.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpolist} = @i{po}(@var{2}, @var{3}) + @var{NEIGHBORS_4}      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
+@var{newpolist} = @i{po}["@var{myfloor}#*"] - @i{po}(@var{3}, @var{0})
+@end example
+@end table
+
+@item @b{Stretching:}
+@table @asis
+@item @b{Syntax:}
+result = @i{polist} @b{*} @i{number}
+
+result = @i{number} @b{*} @i{polist}
+
+@item @b{Details:}
+A scalar multiplication or division of all positions in a position list. All
+position values are multiplicated or divided by the given number in both
+coordinate values. In total the position list is stretched by a scalar factor.
+
+@item @b{Syntax Samples:}
+@example
+@var{newpolist} = @var{2} * @var{NEIGHBORS_4}       -- = po(9, 12)
+@var{newpolist} = @var{polist}(@i{po}(@var{2},@var{4}), @i{po}(@var{6},@var{7})) * @var{1/2}   -- = (1, 2), (3, 3.5)
+@end example
+@end table
+
+@end table
+
+
 @c ----------------- Positions --------------------
 
 @node Positions
 @section Positions
 
+The Positions datatyp is just used by a single instance, the singleton 
+repository of named positions. Besides the management of named positions it
+provides useful conversions of other datatypes to position based types.
+
+Being a singleton you can not create new Positions. The singleton is stored
+at the global variable @samp{po} on level load.
+
+The position repository is an extension of the @ref{NamedObjects} repository.
+Whenever you name an object, @xref{Object Naming}, this repository registers
+its name and allows you to retrieve lateron the current object's position by
+providing its name. But even when a floor object gets killed, its position
+entry remains stored as @ref{Named Positions}. Of course you can name positions
+yourself, but positions of existing named objects will always override plane
+named positions on name clashes.
+
+For task driven samples @pxref{Named Positions Tasks}. 
+
+@table @asis
+
+@item @b{Repository Request:}
+@table @asis
+@item @b{Syntax:}
+result = po["@i{name}"]
+
+@item @b{Details:}
+Request of one or several positions from the repository. If no wildcard 
+characters are used in the name the @ref{Position} value of the unique object
+with the given name, if existant, is returned. It no object exists with the 
+name, the last position stored with the same name is returned. If no position
+exists the value @samp{nil} is returned.
+
+If the requested name contains a wildcard character, either an asterix @samp{*}
+or a question mark @samp{?}, a @ref{PositionList} containing all positions with
+matching names is returned. An asterix matches one or several arbitrary 
+characters. A question mark matches a single arbitrary character. Both wildcard
+charchters can be used anywhere in the string and in arbitrary multiplicity.
+Anyway the result is always returned as a @ref{PositionList}. The list may
+contain multiple positions, just a single position, or even no position at all
+when no existing position matches your name pattern.
+
+@item @b{Syntax Samples:}
+@example
+@var{pos} = @i{po}["@var{mydoor}"]        -- exakte name match
+@var{polist} = @i{po}["@var{mydoors#*}"]  -- any suffix
+@var{polist} = @i{po}["@var{mydoor?}"]    -- just one char suffix
+@var{polist} = @i{po}["@var{mydoors?#*}"] -- matches e.g. "mydoorsA#123435", "mydoorsB#1213"
+@end example
+@end table
+
+@item @b{Repository Storage:}
+@table @asis
+@item @b{Syntax:}
+po["@i{name}"] = @i{obj}
+
+@item @b{Details:}
+Index write accesses to the singleton allows you to name or rename positions.
+Note that can not assign a new position to a name that currently references
+an existing @ref{Object}. Such write access are silently ignored.
+
+@item @b{Syntax Samples:}
+@example
+@i{po}["@var{mypos}"] = @var{pos}
+@end example
+@end table
+
+@item @b{Position Convertion:}
+@table @asis
+@item @b{Syntax:}
+result = po(<@i{obj}|@i{pos}|@{@var{x}, @var{y}@}|@var{x}, @var{y})
+
+@item @b{Details:}
+Converts its argument to a new position value.
+
+@item @b{Syntax Samples:}
+@example
+@var{pos} = @i{po}(@var{pos2})
+@var{pos} = @i{po}(@var{obj})
+@var{pos} = @i{po}(@{@var{2}, @var{4}@})
+@var{pos} = @i{po}(@var{3}, @var{7})
+@end example
+@end table
+
+@item @b{PositionList Convertion:}
+@table @asis
+@item @b{Syntax:}
+result = po(@i{group})
+
+@item @b{Details:}
+Converts the given group to a new @ref{PositionList} value, that contains
+the positions of all valid group @ref{Object}s in the same sequence.
+
+@item @b{Syntax Samples:}
+@example
+@var{polist} = @i{po}(@var{group})
+@end example
+@end table
+
+@end table
+
 @c ----------------- Functions --------------------
 
 @node Functions
 @section Functions
+
+fl
+it
+st
+grp
+usertype
+random
+cond
 
 @c ----------------- Tile --------------------
 
