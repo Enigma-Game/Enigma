@@ -472,6 +472,7 @@ local stones = {
 --{"st_quake", state=BREAKING, _text="st_quake, state=BREAKING"},
 
 {"st_rawglass", _text="st_rawglass"},
+{"st_rawglass_quad", _text="st_rawglass_quad"},
 {"st_rawglass_movable", _text="st_rawglass, movable=true"}, -- flavor attributes?
 
 {"st_redfiber", _text="st_redfiber"},
