@@ -12,6 +12,7 @@
 @author Ralf Westram
 @author Ronald Lamprecht
 @author Andreas Lochmann
+@author Andreas Abraham
 @end titlepage
 
 @defindex ob
@@ -44,6 +45,7 @@ build new levels using Lua and how to interact with the game engine.
 * Libraries::                   Advanced tools
 * Advanced Features::           Fire, ...
 * Extension Development::       Resolver, Library Development
+* Guidelines and Hints::        Tips and Recommendations for Levels to be included in Enigma
 * Old API - Objects::           Description of all objects in Enigma
 * Old API - Variables::         Lua variables that influence the game
 * Old API - Functions::         Predefined functions
@@ -52,7 +54,7 @@ build new levels using Lua and how to interact with the game engine.
 * Message Index::
 * Function Index::
 * Concept Index::
-* Renaming Index::
+* Renaming Index::              Old API to new API translation hints
 @end menu
 
 @node  Running Enigma
@@ -3653,8 +3655,6 @@ After the examples and a short overview we do give details of the language
 specific API part as you can expect it for a reference manual. Please note
 that additional @ref{Advanced Features} are described in a separate chapter.
 
-Until this chapter is finished please read the API Concept Draft, too!
-
 @menu
 * Basic Lua Examples::
 * API 2 Overview::
@@ -3665,13 +3665,11 @@ Until this chapter is finished please read the API Concept Draft, too!
 * Group::
 * NamedObjects::
 * PositionList::
-* Positions::
-* Functions::
-* Tile::
-* Tiles::
+* Positions Repository::
+* Tile and Object Declaration::
+* Tiles Repository::
 * World::
-* World Creation and Resolver Chaining::
-* Custom Resolver::
+* Functions::
 
 @end menu
 
@@ -4503,6 +4501,9 @@ Search object in group that is nearest to the given reference object.
 @node Tiles and World Tasks
 @subsection Tiles and World Tasks
 
+For reference details @pxref{Tile and Object Declaration}, @ref{Tiles Repository}
+and @ref{World}.
+
 @table @asis
 
 @item @b{Tiles:}
@@ -4538,7 +4539,7 @@ concatenation gets valid.
   @})
 @end example
 The world is initialized by the @samp{wo()} call that is explained in details
-at @ref{World Creation and Resolver Chaining}. In the simple form you supply
+at @ref{World Creation}. In the simple form you supply
 the @samp{ti} handle as the first argument. The second argument is the key of
 the default tile definition that defines the default floor to be set if a tile
 does not contain another floor object. At the same time this key defines by its
@@ -5003,7 +5004,7 @@ stored in a table, which we will use as polynom coefficients later on.
 @end example
 Up to now we did look up the keys used in the map from our tiles repository
 @samp{ti} that was the first argument of the world initialization call. But
-now we use a @ref{Custom Resolver} (@pxref{World Creation and Resolver Chaining}).
+now we use a @ref{Custom Resolver}.
 The function starting in line 22 is called on every tile to be resolved. It has
 the task of delivering the appropriate tile.
 
@@ -5261,10 +5262,10 @@ Position values are not limited to valid world coordinates. Both coordinates
 can take every positive or negative number and zero, too. Thus you can calculate
 with positions and use them to express offsets between two other positions.
 
-Positions are are created by the @ref{Positions} singleton handle, that allows
-you to convert coordinates, objects, position constants into positions. The
-handle allows you to retrieve existing named positions, too. Furtheron positions
-are implicitly created as return values of many operations.
+Positions are are created by the @ref{Positions Repository} singleton handle, 
+that allows you to convert coordinates, objects, position constants into 
+positions. The handle allows you to retrieve existing named positions, too. 
+Furtheron positions are implicitly created as return values of many operations.
 
 For task driven samples @pxref{Position Tasks}.
 
@@ -5475,7 +5476,7 @@ the object specific attributes you are free to store your own customer
 attributes on any object. Customer attributes are any indices starting with an
 underscore @samp{_} as prefix to their name.
 
-The real world objects are created by assigning a @ref{Tile} declaration to
+The real world objects are created by assigning a tile declaration to
 a @ref{World} position. You retrieve a corresponding object reference either
 by the @ref{NamedObjects} repository, by @ref{Functions} or other methods that
 return single object references.
@@ -5569,7 +5570,7 @@ result = @i{obj}:exists()
 
 @item @b{Details:}
 Checks whether an object reference is still valid. Returns true if the object
-still exists, otherwise false is returned.
+still exists, otherwise false is returned for @samp{NULL} object references.
 
 @item @b{Syntax Samples:}
 @example
@@ -6172,7 +6173,7 @@ As @ref{Position}s are values that never become invalid, position lists once
 created will never change or get invalid. They are true values themselves. Thus
 they are the containers of choice for longterm storage.
 
-You can easily transform a group into a position list by the @ref{Positions} 
+You can easily transform a group into a position list by the @ref{Positions Repository} 
 singleton by the simple expression @samp{po(group)}. And you can retrieve all
 @ref{Position}s of a basic object kind located along a position list path by
 @ref{Functions} like @samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
@@ -6292,10 +6293,10 @@ coordinate values. In total the position list is stretched by a scalar factor.
 @end table
 
 
-@c ----------------- Positions --------------------
+@c ----------------- Positions Repository --------------------
 
-@node Positions
-@section Positions
+@node Positions Repository
+@section Positions Repository
 
 The Positions datatyp is just used by a single instance, the singleton 
 repository of named positions. Besides the management of named positions it
@@ -6396,54 +6397,228 @@ the positions of all valid group @ref{Object}s in the same sequence.
 
 @end table
 
-@c ----------------- Functions --------------------
+@c ----------------- Tile and Object Declaration --------------------
 
-@node Functions
-@section Functions
+@node Tile and Object Declaration
+@section Tile and Object Declaration
 
-fl
-it
-st
-grp
-usertype
-random
-cond
+A tile is the description of one or several objects that should be positioned
+on the same grid position. A single object can be set up by a straight
+object declaration, an anonymous Lua table with entries for the object kind
+and all attributes. The object declaration comes in three minor variations:
 
-@c ----------------- Tile --------------------
+@example
+@{"@b{st_chess}", @b{name}="@var{jumper}", @b{color}=@var{WHITE}@}
+@{"@b{st_chess_white}", "@var{jumper}", @var{_myattr}=@var{5}@}
+@{"@b{ac_marble}", 0.2, 0.6, @b{name}="@var{blacky}"@}
+@end example
 
-@node Tile
-@section Tile
+The first entry, the one stored at table position @samp{1}, has always to be
+the kind name of an supported Enigma object. In the first example all other
+table entries are key value pairs with the key being the attribute name. The
+second example uses the shortcut of specifying the name attribute value as
+second table entry, that will be stored at table position @samp{2}. It has to
+be a string value. The third variation, that is useful for actor declarations,
+stores the grid offsets in x and y direction in the table postions @samp{2} and
+@samp{3}. Of course you can not use the name attribute shortcut in the same
+declaration.
 
-@c ----------------- Tiles --------------------
+These table driven object declarations are always suffcient if you just want to
+set a single object at once. But tiles do often take an item or a stone besides
+a floor. So we need an Enigma data type being able to handle these multiple
+declarations. This is the @samp{tile} data type. It can take just one object
+declaration or an arbitrary list of declarations. You convert a table object
+declaration into a tile by the @ref{Tiles Repository} handle. Once you have a
+tile you can concat other tiles or table object declarations to set up new
+tiles.
 
-@node Tiles
-@section Tiles
+Enigma guarantees that the objects will be set to the world in the sequence
+of declarations in the tile.
+
+For task driven samples @pxref{Tiles and World Tasks}. 
+
+@menu
+* Tile concat::     Compose a new tile as concatenation of two other
+@end menu
+
+@c ----------------- Tile concat --------------------
+
+@node Tile concat
+@subsection Tile concat
+
+@table @asis
+@item @b{Syntax:}
+result = @i{tile} .. <@i{tile} | @i{odecl}>
+
+result = <@i{tile} | @i{odecl}> .. @i{tile}
+
+@item @b{Details:}
+Compose a new tile by concatenation of a tile with another tile or a table
+object declaration. In a concatenated chain of tiles and object declarations
+one of the first two evaluated arguments needs to be a tile as two Lua tables
+do not know how to concat. 
+
+Note that Lua does evaluate the @samp{..} operatorfrom right to left! Thus you
+need either use proper braces or you need to guarantee that at least one of the
+two rightmost tokens is a tile.
+
+@item @b{Syntax Samples:}
+@example
+@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@}
+@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @{"@b{it_cherry}"@}   -- Lua error due to right to left evaluation
+@var{newtile} = (@i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@}) .. @{"@b{it_cherry}"@} -- evaluation order fixed
+@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @i{ti}@{"@b{it_cherry}"@} -- converted one of the two critical declarations
+@end example
+
+@end table
+
+
+@c ----------------- Tiles Repository --------------------
+
+@node Tiles Repository
+@section Tiles Repository
+
+The Tiles datatyp is just used by a single instance, the singleton repository of
+@ref{Tile and Object Declaration}s. Besides the management of tiles it provides
+useful conversions of table based object declarations to tiles.
+
+Being a singleton you can not create a new Tiles repository. The singleton is
+stored at the global variable @samp{ti} on level load.
+
+The repositories stores tiles for given string keys. The key strings can be
+of any length. Due to Lua limitations they need to be composed of printable
+7-bit ASCII characters. 
+
+You can assign a tile to every key just once. A reassign causes an error. On
+one hand this allow internal implementation optimization, but on the other hand
+an unforerseen key reassignement is the most common level coding error that 
+needs to be reported.
+
+For task driven samples @pxref{Tiles and World Tasks}. 
+
+@menu
+* Tiles Storage::     Store a tile for a key
+* Tiles Request::     Retrieve a tile for a key
+* Tile Convertion::   Convert an object declartion into a tile
+@end menu
+
+@c ----------------- Tiles Storage --------------------
+
+@node Tiles Storage
+@subsection Tiles Storage
+
+@table @asis
+@item @b{Syntax:}
+ti["@i{key}"] = <@i{tile}|@i{odecl}>
+
+@item @b{Details:}
+Index write accesses to the singleton allows you to assign a tile or an table
+based object declaration, that is autoconverted to a tile, to a given key. The
+key must be a unique string. Unique in the sense that you can not reassign a
+new tile to key to which previously another tile has been assigned.
+
+@item @b{Syntax Samples:}
+@example
+@i{ti}["@var{#}"] = @var{tile}
+@i{ti}["@var{$}"] = @{@b{st_chess}"@}
+@i{ti}["@var{$}"] = @{@b{st_switch}"@}   -- error of key reassignment
+@i{ti}["@var{anykey}"] = @{@b{st_chess}"@}
+@end example
+@end table
+
+
+@c ----------------- Tiles Request --------------------
+
+@node Tiles Request
+@subsection Tiles Request
+
+@table @asis
+@item @b{Syntax:}
+result = ti["@i{key}"]
+
+@item @b{Details:}
+Request of the tile that has been assigned to the given key. If no tile has yet
+been stored for the key a Lua @samp{nil} value is returned. Note that this
+tiles repository does not use wildcard characters as the named objects and
+postions repositories do. The asterix @samp{*} and question mark @samp{?} are
+just keys as any other characters.
+
+@item @b{Syntax Samples:}
+@example
+@var{tile} = @i{ti}["@var{#}"]
+@end example
+@end table
+
+@c ----------------- Tile Convertion --------------------
+
+@node Tile Convertion
+@subsection Tile Convertion
+
+@table @asis
+@item @b{Syntax:}
+result = ti(@i{odecl})
+
+@item @b{Details:}
+Converts an table based object declaration to a new tile value.
+
+@item @b{Syntax Samples:}
+@example
+@var{tile} = @i{ti}(@{@b{st_chess}"@})
+@var{tile} = @i{ti}@{@b{st_chess}"@}   -- Lua syntax equivalence
+@end example
+@end table
+
 
 @c ----------------- World --------------------
 
 @node World
 @section World
 
-@c ----------------- World Creation and Resolver Chaining --------------------
+The World datatype is just used by a single instance, another singleton object.
+A reference to this singleton is stored at the Lua global variable @samp{wo} on
+level load. Being a singleton you can not instanciate another World object.
 
-@node World Creation and Resolver Chaining
-@section World Creation and Resolver Chaining
+But even though the singleton @samp{wo} already exists on load of a level the
+world is still undefined in all aspects. From the first line of Lua code you
+can access the @ref{Global Attributes}. But the world gets really set up with
+the @ref{World Creation}. After this call the world has a well defined size
+and is filled with an inital set of objects that you can access and modify
+from this moment on.
+
+@menu
+* World Creation::   Set up world with objects
+* add::              Add single objects to the world or an inventory
+* drawBorder::       Draw a rectangular border with a tile
+* drawMap::          Draw objects given by a map of tile keys
+* drawRect::         Fill a complete rectangle with a tile
+* world floor::      Retrieval of floor objects
+* world item::       Retrieval of item objects
+* shuffleOxyd::      Oxyd Shuffling Rules
+* world stone::      Retrieval of stone objects
+@end menu
+
+@c ----------------- World Creation --------------------
+
+@node World Creation
+@subsection World Creation
 
 Once all parameters have been set and all tiles have been declared it is time
 to create the level world with all its objects. This is done by the following
-constructor that appears in two variations.
+constructor that appears in three variations.
 
 @table @asis
 @item @b{Syntax:}
 width, height = @b{wo}(@i{topresolver}, @i{defaultkey}, @i{map})
+
+width, height = @b{wo}(@i{topresolver}, @i{libmap})
 
 width, height = @b{wo}(@i{topresolver}, @i{defaultkey}, @i{width}, @i{height})
 
 @table @asis
 @item @i{topresolver} = @code{ti} | @i{resolver} | @i{localresolver}
 Every tile in the world is given by a key that needs to be resolved to its
-declaration. This can be done either by the tiles repository @samp{ti}, or
-by given library @ref{Resolvers} or by local @ref{Custom Resolver} function.
+declaration. This can be done either by the @ref{Tiles Repository} @samp{ti}, or
+by given library @ref{Resolvers} or by a local @ref{Custom Resolver} function.
 This argument takes the top resolver that is requested first.
 @item @i{defaultkey}
 A string that defines the key that should be taken as default. It is taken
@@ -6453,6 +6628,8 @@ missing. The character length of this key defines the key size within the map
 A table of strings. Each string describes a row of tiles by its tile keys.
 If a map is given, the world size is determined from the longest string and
 the number of rows.
+@item @i{libmap}
+A map of the library @ref{libmap}
 @item @i{width}
 As an argument that is given instead of a map it describes the width of the
 desired world.
@@ -6468,6 +6645,7 @@ w, h = wo(resolver, " ", @{
        "                    ",
        ...
        "                    "@})
+w, h = wo(ti, mylibmap)
 @end example
 
 @item @b{Details:}
@@ -6483,108 +6661,170 @@ not define a floor object will add the floor object of the default tile.
 Every key is resolved to its tile declaration via the given resolver chain.
 The top resolver is given to this call as a parameter. If it is @samp{ti} the
 chain consists just of one element and the tile declaration stored in the tiles
-repository at the given key is taken. But there exist several useful
-@ref{Resolvers} that may simplify the task of level writing or provide dynamic
-features like randomness, mazes, etc. If you like to use one or several of them
-you provide the instance of the resolver to be requested first in this
-constructor. The instance that should be requested next is set in the top
-resolver as first argument, and so on. The last library resolver takes usually
-@samp{ti} as its subresolver. For even more flexibility you can provide an
-own @ref{Custom Resolver} function within the level to take influence on the key
-interpretation. This function has to be the last resolver in the chain.
+repository at the given key is taken. Otherwise the resolvers will be evaluated
+as explained in @ref{Resolver Chaining}.
 
-@item @b{Example:}
-@example
-ti["~"] = @{"fl_water"@}
-ti["s"] = @{"fl_sahara"@}
-ti["t"] = @{"fl_tigris"@}
-ti["1"] = @{"ac-blackball", 0, 0.5@}
-
-ti["template_trigger"] = @{"it_trigger", target="myoxyd%%", action="open"@}
-ti["template_oxyd"]    = ti["~"] .. @{"st_oxyd", "myoxyd%%"@}
-
-myrandom = res.random(ti, " ", @{"s", "t"@})
-
-myautotile = res.autotile(myrandom, @{"a", "h", "template_trigger"@},
-                              @{"A", "H", "template_oxyd"@})
-
-w, h = wo(myautotile, " ", @{
-"A~                ~E",
-"~~                ~~",
-"~~   h        b   ~~",
-"~~                ~~",
-"B~     c    d     ~F",
-"~~                ~~",
-"~~        1       ~~",
-"~~                ~~",
-"C~     f    e     ~G",
-"~~                ~~",
-"~~   g        a   ~~",
-"~~                ~~",
-"D~                ~H"
-@})
-
-wo:shuffleOxyd()
-@end example
 @end table
 
-@c ----------------- Custom Resolver --------------------
+@c ----------------- add --------------------
+@node add
+@subsection add
 
-@node Custom Resolver
-@section Custom Resolver
-
-A customer resolver is a function in the level that allows a dynamic remapping
-of tiles. When this function is registered in the resolver chain it is called
-once for every tile to be set. The tile that this function return will be set.
-
-Typical use cases are design patterns that are easy to calculate, but tedious
-to draw in the map and dynamic generated levels that differ slightly on every
-restart.
+Add @ref{Other Objects} to the world or a portable item to an inventory or
+other container object.
 
 @table @asis
 @item @b{Syntax:}
-tile = @b{myresolver}(@i{key}, @i{x}, @i{y})
+@b{wo:add}(@i{tile_declarations})
+
+@b{wo:add}(@i{target}, @i{tile_declarations})
 
 @table @asis
-@item @i{key}
-String that contains the tile key to be resolved.
-@item @i{x}
-The world x coordinate of the tile.
-@item @i{y}
-The world y coordinate of the tile.
+@item @i{tile_declarations}
+One or many other object declarations given as tiles or anonymous tables.
+@item @i{target}
+@samp{YIN}, @samp{YANG} or valid @ref{Object Reference}
 @end table
 
-@item @b{Details:}
-A custom resolver function is the last resolver that is called in the chain.
-It has to return the final tile that should be drawn at the given position.
-This can be done by statement @samp{return ti["k"]}, which references the tile
-already declared in the tiles map.
-
-If no suited tile is already declared you can alternatively return a new tile
-like @samp{return ti(@{"st_switch", state=ON@})}.
-
-If you decide not to draw any tile at all, you must return an empty tile
-declaration: @samp{return ti(@{@})}.
-
-@samp{return nil} indicates an error of usage of an unknown tile key.
-
-@item @b{Example:}
+@item @b{Syntax Samples:}
 @example
-ti["r"] = @{"fl_rough_red"@}
-ti["b"] = @{"fl_rough_blue"@}
-ti["1"] = @{"#ac-blackball"@}
+wo:add(@{"ot_rubberband", anchor1="a1", anchor2="w", length=2, strength=80, threshold=0@})
+wo:add(ti["r"] .. @{"ot_wire", anchor1="w1", anchor2="w2"@})
+wo:add(YIN, @{"it_magicwand@})
+wo:add(no["mybag"], @{"it_magicwand@} .. ti["h"] .. ti["c"])
+@end example
 
-ti["x"] = @{"it_cross"@}
+@item @b{Details:}
+Just @ref{Other Objects} can be directly added to the world. Just portable
+@ref{Items} can be added to the player's inventories @samp{YIN} and @samp{YANG}
+and to @ref{it_bag}s. No other targets do currently add objects by this method.
+
+@end table
+
+@c ----------------- drawBorder --------------------
+@node drawBorder
+@subsection drawBorder
+
+Draw a border around a rectangle out of given tiles.
+
+@table @asis
+@item @b{Syntax:}
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+
+@table @asis
+@item @i{upperleft_edge}
+Upper left anchor position of the rectangle.
+@item @i{lowerright_edge}
+Lower right end position of the rectangle.
+@item @i{width}
+Width of the rectangle.
+@item @i{height}
+Height of the rectangle.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
+wo:drawBorder(no["myRectUL"], no["myRectLR"], @{"st_grate1"@})
+@end example
+
+@item @b{Details:}
+The rectangle as four one grid thick lines is drawn with the given tile. That
+means on every position of the rectangle itself an instance of every object of
+the tile declaration is set. The rectangle may degenerate to a single line.
+
+@end table
+
+@c ----------------- drawMap --------------------
+@node drawMap
+@subsection drawMap
+
+Even if the world is initialized by a map on creation of the world
+(@pxref{World Creation}), it is sometime useful to
+be able to draw smaller submaps either as part of the initialization or as
+dynamic level changes within @ref{Callback Function}. Of course the main purpose
+of @samp{drawMap} is the drawing of repeating patterns.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{ignore}, @i{map}, [@i{readdir}])
+
+@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{libmap-map}, [@i{readdir}])
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{anchor}
+The anchor position where the upper left tile of the map should be drawn.
+@item @i{ignore}
+A tile key string that should be ignored. This key string is mandatory, even
+if it not used within the map.
+@item @i{map}
+A table of strings. Each string describes a row of tiles by its tile keys.
+@item @i{libmap-map}
+If the map used is created via @ref{libmap}, the @samp{ignore}-string can
+be omitted. The map's default key will then be ignored instead.
+@item @i{readdir}
+An optional argument to modify the direction of the map relative to the world.
+This argument can be any of the constants described in @ref{Rotating and
+Mirroring Maps}.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawMap(ti, po(5, 7), "-", @{"abcabc"@})
+wo:drawMap(ti, anchor_object, "--", @{"--##--##","##--##"@})
+wo:drawMap(ti, @{12, 5@}, " ", @{"122  221"@}, MAP_ROT_CW)
+@end example
+
+@item @b{Details:}
+The syntax is similar to the world creation call. But there are two essential
+differences you need to be aware of. First the map is drawn in the already
+existing world. Thus we need to define the position. This is done via the
+anchor position, which can be an already existing object, too.
+
+The second difference is in the definition of a tile key string for tiles in
+the map that should be ignored. Remember that the world initialization requested
+a default tile key string. This default is still valid. But with the given
+ignore key string we can draw arbitrary shaped patterns by filling unused
+grids in the map with this key.
+
+The length of the ignore key defines the map key length. It is strongly
+recommended to use the same key length as in the world map.
+
+The rows of the supplied map are drawn from the anchor position. The rows may
+be of different length and may start with ignore tile keys. The anchor must be
+the position composed of the smallest x and smallest y coordinate within the
+pattern.
+
+You can use drawMap anywhere after the world creation. You are even allowed to
+use it within the world creation in a resolver.
+
+@item @b{Full Example:}
+@example
+ti[" "] = @{"fl_plank"@}
+ti["X"] = @{"st_oxyd"@}
+ti["B"] = @{"st_passage_black", flavor="frame"@}
+ti["W"] = @{"st_passage_white", flavor="frame"@}
+ti["y"] = @{"it_yinyang"@}
+ti["1"] = ti["y"] .. @{"#ac_marble_black"@}
+ti["2"] = ti["y"] .. @{"#ac_marble_white"@}
 
 function myresolver(key, x, y)
-    if key == " " then
-        local center = ((x%3) * (y%3))%2
-        local checker = ((math.modf(x/3) %2) + (math.modf(y/3) %2))%2
-        if center + checker == 1 then
-            return ti["r"]
-        else
-            return ti["b"]
-        end
+    if key == "w" then
+        wo:drawMap(ti, po(x-1, y-1), "-", @{"-W-",
+                                           "WXW",
+                                           "-W-"@})
+        return ti(@{@})
+    elseif key == "b" then
+        wo:drawMap(ti, po(x-1, y-1), "-", @{"-B",
+                                           "BXB",
+                                           "-B"@})
+        return ti(@{@})
     else
         return ti[key]
     end
@@ -6592,21 +6832,766 @@ end
 
 w, h = wo(myresolver, " ", @{
 "                    ",
+"  b         b       ",
+"       w       w    ",
 "                    ",
 "                    ",
-"      x x           ",
-"       x            ",
-"      x x           ",
-"                    ",
-"          1         ",
-"                    ",
-"                    ",
-"                    ",
-"                    ",
+"   w                ",
+"         12      b  ",
+"              w     ",
+"         w          ",
+"      b             ",
+"   w           b    ",
+"         b          ",
 "                    "
 @})
+wo:shuffleOxyd()
 @end example
 @end table
+
+@c ----------------- drawRect --------------------
+@node drawRect
+@subsection drawRect
+
+Fill a rectangle with a given tile.
+
+@table @asis
+@item @b{Syntax:}
+@b{wo:drawRect}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+
+@b{wo:drawRect}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+
+@table @asis
+@item @i{upperleft_edge}
+Upper left anchor position of the rectangle.
+@item @i{lowerright_edge}
+Lower right end position of the rectangle.
+@item @i{width}
+Width of the rectangle.
+@item @i{height}
+Height of the rectangle.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:drawRect(po(0, 0), wo["Width"], wo["Height"], ti[" "])
+wo:drawRect(no["myRectUL"], no["myRectLR"], @{"fl_water"@})
+@end example
+
+@item @b{Details:}
+The complete rectangle is filled with the given tile. That means on every
+position of the rectangle and its interior an instance of every object of
+the tile declaration is set. The rectangle may degenerate to a single line.
+
+@end table
+
+@c ----------------- world floor --------------------
+@node world floor
+@subsection world floor
+
+Retrieves the floor objects for the given position or positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{wo}:@b{fl}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+This world method is identical to the global function @ref{fl}.
+
+@end table
+
+@c ----------------- world item --------------------
+@node world item
+@subsection world item
+
+Retrieves the item objects for the given position or positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{wo}:@b{it}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+This world method is identical to the global function @ref{it}.
+
+@end table
+
+@c ----------------- shuffleOxyd --------------------
+@node shuffleOxyd
+@subsection shuffleOxyd
+
+Shuffling the color distribution of the @ref{st_oxyd} makes every level, that
+is no meditation, a bit generic. On every level start the level looks a little
+bit different and the user has to solve a modified level. This provides long
+term amusement. Thus the call of this method is part of most levels.
+
+Many levels just call this method without any arguments. This results in a
+shuffling of all @ref{st_oxyd} that are not excluded by a @samp{noshuffle}
+attribute.
+
+But sometimes levels need to influence the shuffling, either for ensuring that
+the level remains solvable, or simply to ensure fairness. Imagine a level that
+has two @ref{st_oxyd}s in every corner. If by chance a user gets a distribution
+where he has in each corner a pair of same colored oxyds, the level might be
+trivial. Another level may have a passage that the marble can pass just a few
+times. With 5 or more oxyds on each side of the passage you need to ensure that
+the marble never needs to pass the passage more often than possible. Both
+situations can be handled by providing proper rules as arguments to this method.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{wo:shuffleOxyd}(@i{rules})
+
+@table @asis
+@item @i{rules} = @i{rule}, @i{rule},...
+No rule or as many as you like, all separated by a comma.
+@item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{log}@}
+Each rule is a table with a subset of the listed entries. The @i{group1} entry
+is mandatory. All other entries are optional and can be added in any combination.
+@item @i{group1} = @i{group} | @i{objectreference} | @i{objectspecifier}
+A description of oxyd objects that are part of the first rule group. Either
+a group or a single object reference or a string specifier that resolves to a
+single or via wildcard to several oxyd objects are legal descriptors.
+@item @i{group2} = @i{group} | @i{objectreference} | @i{objectspecifier}
+A description of oxyd objects that are part of the second rule group. Either
+a group or a single object reference or a string specifier that resolves to a
+single or via wildcard to several oxyd objects are legal descriptors.
+@item @i{maxrule} = @code{max = }@i{number}
+The maximum number of oxyd pairs.
+@item @i{minrule} = @code{min = }@i{number}
+The minimum number of oxyd pairs.
+@item @i{circularrule} = @code{circular = true}
+Avoid any pair of neighboring oxyds in group1. Avoid an oxyd pair of first and
+last oxyd in group1, too.
+@item @i{linearrule} = @code{linear = true}
+Avoid any pair of neighboring oxyds in group1.
+@item @i{log} = @code{log = } @ @  @code{"solution"} |@code{"count"} |@code{"all"}
+Log additional information to the log stream for debugging purposes and
+security checks by the level author.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+wo:shuffleOxyd()
+wo:shuffleOxyd(@{no["borderoxyds#*"]:sort("circular"), circular=true@})
+wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0@})
+@end example
+
+@item @b{Details:}
+
+Any call of @samp{wo:shuffleOxyd()} must occur after all @ref{st_oxyd} have been
+set. That means that it must follow the standard world initialization
+(@pxref{World Creation}). As a side effect shuffleOxyd
+will assign colors to all @samp{OXYD_AUTO} colored @ref{st_oxyd}.
+
+Once called the given shuffling rules remain valid. Any further reshuffling
+must be done by messages @samp{closeall} and @samp{shuffle} to one arbitrary
+@ref{st_oxyd} instance. No addition of an @ref{st_oxyd} or subsequent
+@samp{wo:shuffleOxyd()} calls are possible without disturbing and deleting the
+given rules.
+
+Rule based shuffling is limited to a maximum of one pair of each standard oxyd
+color plus any combination of additional special fake, quake or bold oxyds
+summing up to a maximum of 32 oxyds. If more than 32 oxyds or 2 or more pairs
+of a single standard color are set, all oxyds will be shuffled by random
+ignoring any provided rules.
+
+There are basically two different types of rules. Those with one group and those
+with two groups of oxyds (Note that group is the general API expression for
+a set of oxyds and not a mathematical group). For a single group the rules apply
+to the oxyd instances within this group. For two groups the rules apply to oxyd
+pairs with one oxyd in the first group and the other in the second group.
+
+E.g. @samp{@{"islandoxyds#*", max=0@}} requests that there is no pair within
+this group of oxyds. Whereas @samp{@{"leftoxyds#*","rightoxyds#*", min=3@}}
+requests that there are 3 different oxyd pairs, each with one oxyd out of the
+leftoxyd group and the second out of the rightoxyd group.
+
+Linear and circular rules can only be applied to a single group. They are
+shortcuts for the most common rules that are applied to oxyds arranged on a
+line or a circle. In both cases they avoid pairs of neighboring oxyds. They
+are equivalent to @samp{n-1} res. @samp{n} rules with all possible neighboring
+oxyd pairs as two groups and a rule of @samp{max=0}.
+
+Note that you can apply several rules at once to given groups. E.g. you can
+apply a minrule and a maxrule within one rule!
+
+The shuffling process consists always of two stages. The most important first
+stage generates a valid oxyd pair distribution. That means that we settle which
+pairs will have the same color. But the color itself is assigned in an
+independent second stage. As for the examination of given rules just the pair
+distribution is relevant, we do just count and log these different distributions
+ignoring the colors.
+
+With 16 oxyds of 8 different colors and no restricting rules you have 2027025
+(15 * 13 * 11 * 9 * 7 * 5 * 3) different valid distributions. Keep in mind
+that useful rules should always keep hundreds or thousands of different valid
+distributions for a level.
+
+For debugging purposes you can add a log parameter to one of the rules (it does
+not matter to which one). If you request the log of @samp{solution} the
+pair distribution will be printed to the log stream.
+
+In case of @samp{count} the number of different oxyd distributions will be
+counted and logged. It is recommended to check the count on complex rules to
+ensure that enough distributions remain for a varying game. But be careful
+applying count on trivial rules. With 16 oxyds there may be as many as
+2027025 distributions and it may take a standard PC up to 30 seconds to count
+them - add a factor of 17*19 for 20 oxyds!
+
+Be very, very cautious in usage of logging @samp{all}. This call tries to print
+all solutions. It takes ages if there are too many solutions. First check the
+count before trying to log the solutions.
+
+@item @b{Full Example:}
+@example
+wo["ConserveLevel"] = false
+
+ti["~"] = @{"fl_water"@}
+ti[" "] = @{"fl_plank"@}
+ti["c"] = @{"it_crack_l", brittleness=0@}
+ti["^"] = @{"st_oneway_n"@}
+ti["1"] = @{"ac_marble_black", 0, 0.5@}
+
+ti["x"] = @{"st_oxyd", "island#"@}
+ti["y"] = @{"st_oxyd", "left#"@}
+ti["z"] = @{"st_oxyd", "right#"@}
+
+w, h = wo(ti, " ", @{
+"~~x  x  x  x  x  x~~",
+"~~                ~~",
+"~~~~^~~~~~~~~~~^~~~~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~       cccc       ~",
+"y       ~~~~       z",
+"~~~~c~~~~~~~~~~c~~~~",
+"~~                ~~",
+"~~        1       ~~"
+@})
+
+wo:shuffleOxyd(@{"island#*", min=3, linear=true@}, @{"left#*","right#*", max=2, min=2@})
+@end example
+
+This level uses 14 oxyds. The 6 oxyds in the upper row are on an island that
+can not be left once the marble entered it through one of the oneways. Thus
+we need 3 pairs of oxyds on this island, which are enforced by the min rule.
+To avoid trivial neighboring pairs on the island, we do add a linear rule, too.
+The marble can pass just three times between the left and right islands. This
+allows a first look on the color oxyds with one pass and opening one pair on
+each of the two following passes. Thus we limit the number of pairs by a max
+rule to 2. To avoid trivial oxyd pair distributions, like two pairs on the left
+and two pairs on the right side, we do add a min rule that enforces that two
+shared pairs of oxyds do exist.
+@end table
+
+@c ----------------- world stone --------------------
+@node world stone
+@subsection world stone
+
+Retrieves the stone objects for the given position or positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{wo}:@b{st}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+This world method is identical to the global function @ref{st}.
+
+@end table
+
+
+@c ----------------- Functions --------------------
+
+@node Functions
+@section Functions
+
+Besides all the features strongly related to a value as context and thus
+implemented as operators or methods of these datatypes, a few other tasks 
+remain. These are either context free or take at least in one variation just a 
+standard Lua datatype, that does not supply a context. Thus these tasks are
+implemented as simple functions.
+
+@menu
+* assert_bool::     Throws an error if a condition doesn't hold.
+* assert_type::     Throws an error if a variable is not of a given type.
+* cond::            A ternary operator, wrapper for if-then-else.
+* etype::           An advanced function to return normal and user data types.
+* fl::              Floor retrieval
+* grp::             Create a group out of the argument objects
+* it::              Item retrieval
+* random::          Random number generator
+* st::              Stone retrieval
+* usertype::        Type info for Enigma userdata types 
+@end menu
+
+@c ----------------- assert_bool --------------------
+
+@node assert_bool
+@subsection assert_bool
+
+The function @samp{assert_bool} throws an error if a given condition doesn't hold.
+
+@table @asis
+@item @b{Syntax:}
+@b{assert_bool}(@i{condition}, @i{message}, @i{level})
+
+@table @asis
+@item @i{condition}
+A boolean expression or anything else. If it is @code{false} or @code{nil}, an
+error will be thrown.
+
+@item @i{message}
+A string, holding the error message. If @code{message} is nil or empty, an
+"anonymous assertion" will be thrown, but it's always better to provide a
+meaningful error message.
+
+@item @i{level}
+@code{level} specifies the error position in the same way as does Lua's
+@samp{error}-function. Default is 1.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@i{assert_bool}(@i{no}["@var{mystone}"]:@b{exists}(), "@var{Stone 'mystone' has disappeared.}")
+@end example
+
+@item @b{Details:}
+Assertions help you to detect coding errors. They are heavily used on argument
+checks of library functions and resolver implementations. As the assertions
+should not lead to performance penalties during runtime they are just evaluated
+when the level's @samp{status} is declared in the XML header element @ref{<version>}
+with a value of either @code{"test"} or @code{"experimental"}. For @code{"stable"} 
+and @code{"released"} levels assert statements are simply skipped on compilation
+like Lua comments.
+
+Similar to @ref{cond}, all side effects within the evaluation of @samp{message}
+and @samp{level} will appear.
+
+See Lua's manual for more detailed information about the @samp{error}-function.
+
+@end table
+
+@c ----------------- assert_type --------------------
+
+@node assert_type
+@subsection assert_type
+
+The function @samp{assert_type} throws an error if the first argument is not of one of the
+specified types.
+
+@table @asis
+@item @b{Syntax:}
+@b{assert_type}(@i{var}, @i{vardescription}, @i{level}, @i{type1}, @i{type2}, ...)
+
+@table @asis
+@item @i{var}
+Any kind of variable.
+
+@item @i{vardescription}
+If @samp{var} is not of one of the types @samp{type1}, @samp{type2} ...,
+then an error message will be thrown which includes the actual type of
+@samp{var} and the desired types. @samp{vardescription} is a string which
+holds additional information for the error message. It should be a lower-case
+not-too-short description of @samp{var} (a name, as it is), additional
+details should be added in brackets.
+
+@item @i{level}
+@code{level} specifies the error position in the same way as does Lua's
+@samp{error}-function. Can't be omitted, use @samp{1} if in doubt.
+
+@item @i{type1}, @i{type2}, ...
+A sequence of strings. If @samp{var} is none of these types, the error will
+be thrown. See details below for type descriptors.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@i{assert_type}(@var{arg1}, "@var{mygreatfunction first argument (level width)}", @var{1}, "@b{nil}", "@b{positive integer}", "@b{position}")
+@end example
+
+@item @b{Details:}
+Assertions help you to detect coding errors. They are heavily used on argument
+checks of library functions and resolver implementations. As the assertions
+should not lead to performance penalties during runtime they are just evaluated
+when the level's @samp{status} is declared in the XML header element @ref{<version>}
+with a value of either @code{"test"} or @code{"experimental"}. For @code{"stable"} 
+and @code{"released"} levels assert statements are simply skipped on compilation
+like Lua comments.
+
+Possible types are all Lua types (like @code{"nil"}, @code{"number"},
+@code{"boolean"}, @code{"string"}, @code{"table"}, @code{"function"}) except
+@code{"userdata"}, all Enigma-own user types (@code{"object"},
+@code{"position"}, @code{"tile"}, @code{"tiles"}, @code{"group"},
+@code{"world"}, @code{"polist"}, @code{"unknown"}), and
+types defined inside metatables (@code{"map"} from @ref{libmap}), see
+@ref{etype}. In addition, the following type descriptors are recognized:
+@table @asis
+@item @code{"integer"}
+Any integer number (..., -2, -1, 0, 1, 2, ...)
+@item @code{"positive"}
+Any number which is positive and not zero.
+@item @code{"non-negative"}
+Any number which is not negative, i.e. which is positive or zero.
+@item @code{"natural"}
+Any non-negative integer number (0, 1, 2, ...).
+@item @code{"positive integer"}
+Any positive integer number (1, 2, 3, ...).
+@item @code{"non-empty string"}
+Any string other than the empty string @code{""}.
+@item @code{"any table"}
+If @samp{var} is a table, the @samp{_type}-attribute of its metatable will
+be used as its @ref{etype}. In particular, it won't be accepted as a
+@code{"table"} anymore, if this @samp{_type}-attribute exists. For example,
+@example
+assert_type(mytable, "large table", 1, "table")
+@end example
+will throw an assertion when @samp{mytable} is a @code{"map"}, although,
+technically, a @code{"map"} always is a @code{"table"}. You can use
+@code{"any table"} as type to allow for any table, regardless of its metatable.
+@item @code{"valid object"}
+Any valid object.
+@end table
+
+Similar to @ref{cond}, all side effects within the evaluation of
+@samp{vardescription}, @samp{level} and any type descriptor will apply.
+
+See Lua's manual for more detailed information about the @samp{error}-function.
+
+@item @b{Full Example:}
+@example
+function paint_lawn(pos)
+    assert_type(pos, "paint_lawn first argument", 2, "position", "object", "polist", "group", "table")
+    if etype(pos) == "object" then
+        assert_bool(-pos, "paint_lawn: Object not existing.", 2)
+    end
+    wo[pos] = ti["lawn"]
+end
+paint_lawn(no["mystone"])
+paint_lawn("myotherstone")
+@end example
+If @samp{mystone} doesn't exist, @code{no["mystone"]} will still be of etype
+@code{"object"}, an invalid object. Hence @code{assert_type} will not trigger,
+but @code{assert_bool} will.
+
+If @samp{mystone} exists, the second @samp{paint_lawn} will throw an error via
+@samp{assert_type}, as @code{pos} now is a @code{"string"}. The error message
+will be:
+@example
+Wrong type for paint_lawn first argument, is string, must be one of position,
+object, polist, group, table.
+@end example
+@end table
+
+@c ----------------- cond --------------------
+
+@node cond
+@subsection cond
+
+@samp{cond} is a conditional assignment, a substitution for the ternary
+@samp{?:} operator of C-like languages. Note however, that it is not a 
+equivalent substitution but just a workaround with some subtle side effects. 
+
+@table @asis
+@item @b{Syntax:}
+@b{cond}(@i{condition}, @i{iftrue}, @i{iffalse})
+
+@table @asis
+@item @i{condition}
+A boolean expression.
+
+@item @i{iftrue}
+The expression to be returned if @samp{condition} is true.
+
+@item @i{iffalse}
+The expression to be returned if @samp{condition} is false.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@i{ti}["@var{x}"] = @i{cond}(@i{wo}["@b{IsDifficult}"], @{"@b{st_death}"@}, @i{ti}["@var{#}"])
+@end example
+
+@item @b{Details:}
+@samp{cond} always evaluates both expressions @samp{iftrue} and
+@samp{iffalse}, regardless of @samp{condition}. Hence,
+@example
+@var{mytable} = @{@var{1},@var{2},@var{3},@var{4},@var{5},@var{6},@var{7},@var{8},@var{9},@var{0}@}
+@var{removed_element} = @i{cond}(@var{i} < @var{5}, @i{table}.@i{remove}(@var{mytable}, @var{i}), @i{table}.@i{remove}(@var{mytable}, @var{5}))
+@end example
+will always remove two elements. With @samp{i=2} the @samp{2} will be returned
+but @samp{mytable} will result in @samp{@{1,3,4,5,7,8,9,0@}}, and with @samp{i=6}
+you get the @samp{5} but mytable will be @samp{@{1,2,3,4,7,8,9,0@}}.
+
+Another Enigma example that will cause errors is:
+@example
+@var{w},@var{h} = @i{cond}(@i{wo}["@b{IsDifficult}"], @i{wo}(@i{ti}, " ", @var{map1}), @i{wo}(@i{ti}, " ", @var{map2}))
+@end example
+Both, the second and the third argument will be evaluate. Thus two contradicting
+attempts to create a new world will be made causing the second one to fail. Use
+the following statement instead:
+@example
+@var{w},@var{h} = @i{wo}(@i{ti}, " ", @i{cond}(@i{wo}["@b{IsDifficult}"], @var{map1}, @var{map2}))
+@end example
+However, in most cases @samp{cond} is used anyway with static expressions for
+@samp{iftrue} and @samp{iffalse} (e.g. strings or variables) and no side effects
+will occur.
+
+@end table
+
+@c ----------------- etype --------------------
+@node etype
+@subsection etype
+
+The function @samp{etype()} returns the advanced type of its argument.
+
+@table @asis
+@item @b{Syntax:}
+@b{etype}(@i{var})
+
+@table @asis
+@item @i{var}
+Any kind of variable.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@var{argtype} = @i{etype}(@var{value})
+@end example
+
+@item @b{Details:}
+Lua types are @code{"nil"}, @code{"number"}, @code{"boolean"}, @code{"string"},
+@code{"table"}, @code{"function"}, @code{"userdata"}, and @code{"thread"}. You
+can use Lua's @samp{type}-function to query the type of any variable. However,
+Enigma defines more types through various means, and these types can be queried
+via @samp{etype}. @samp{etype} will return its argument's Lua type as usual,
+with the following two exceptions:
+@table @asis
+@item @i{"userdata"}
+Instead of @code{"userdata"}, Enigma's special types will be returned. These
+special types are @code{"object"}, @code{"position"}, @code{"tile"},
+@code{"tiles"}, @code{"group"}, @code{"world"}, @code{"polist"} and 
+@code{"default"}. If an unknown userdata is encountered, @code{"unknown"} will
+be returned.
+
+@item @i{"table"}
+If @code{var} is a table, it's metatable will be queried. If there is an entry
+@samp{_type}, this entry will be used as @code{etype}. Most important examples
+of this kind are @ref{libmap}-maps and @ref{res.maze} with its mazes and cells.
+So @samp{etype} will return @code{"map"}, @code{"maze"} and @code{"cell"}, too.
+You may access the @code{etype}-system through @samp{_type} whenever you use
+metatables on your own.
+@end table
+
+@end table
+
+@c ----------------- fl --------------------
+@node fl
+@subsection fl
+
+The function @samp{fl()} retrieves the floor objects for the given position or
+positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{fl}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+If the argument describes a single position, the floor object at this position 
+is returned. When this single position is outside of the world an invalid
+@samp{NULL} @ref{Object} reference is returned.
+
+If the argument is either a @ref{Group} or @ref{PositionList} all floor objects
+of the related positions are retrieved and added in the same sequence to a new
+result group. Invalid positions will be skipped without adding an object to the
+group.
+
+In any case you can send messages to the result value.
+
+@item @b{Syntax Samples:}
+@example
+@var{floor} = @i{fl}(@i{po}(@var{3}, @var{5}))
+@var{floor} = @i{fl}(@{@var{3}, @var{5}@})
+@var{floor} = @i{fl}(@var{3}, @var{5})
+@var{floor} = @i{fl}@{@var{3}, @var{5}@}     -- by Lua syntax equivalence
+@var{floor} = @i{fl}(@var{mystone})
+@var{group} = @i{fl}(@i{no}["door#*"])
+@var{group} = @i{fl}(@i{po}(@var{3}, @var{5})..@i{po}(@var{4}, @var{2}))
+@end example 
+
+@end table
+
+@c ----------------- grp --------------------
+@node grp
+@subsection grp
+
+The function @samp{grp()} builds a @ref{Group} out of its argument @ref{Object}s.
+
+@table @asis
+@item @b{Syntax:}
+@b{grp}(<@{@i{obj1},@i{obj2},...@}| @i{obj1},@i{obj2},... |@i{group}>)
+
+@item @b{Details:}
+Returns a new @ref{Group} that is build up by the objects listed by the 
+arguements. The contents objects must be either listed in a Lua table, given
+as multiple single object arguments or an existing group. In all cases the
+sequence of objects is maintained in the returned new group, but all invalid
+@samp{NULL} objects are omitted. In case one object is listed multiple times
+just the first instance will occur in the group and subsequent instances will
+be omitted.
+
+@item @b{Syntax Samples:}
+@example
+@var{newgroup} = @i{grp}(@var{obj1}, @var{obj2}, @var{obj3})
+@var{newgroup} = @i{grp}(@{@var{obj1},@var{obj2}@})
+@var{newgroup} = @i{grp}@{@var{obj1},@var{obj2}@}   -- Lua syntax equivalence
+@var{newgroup} = @i{grp}@{@}            -- empty group
+@var{newgroup} = @i{grp}(@var{group})       -- a copy of group cleaned of invalid @samp{NULL} objects
+@end example
+
+@end table
+
+@c ----------------- it --------------------
+@node it
+@subsection it
+
+The function @samp{it()} retrieves the item objects for the given position or
+positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{it}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+If the argument describes a single position, the item object at this position 
+is returned. When no item is located at the given single position or this 
+position is outside of the world an invalid @samp{NULL} @ref{Object} reference
+is returned.
+
+If the argument is either a @ref{Group} or @ref{PositionList} all item objects
+of the related positions are retrieved and added in the same sequence to a new
+result group. Invalid positions or positions without items will be skipped 
+without adding an object to the group.
+
+In any case you can send messages to the result value.
+
+@item @b{Syntax Samples:}
+@example
+@var{item} = @i{it}(@i{po}(@var{3}, @var{5}))
+@var{item} = @i{it}(@{@var{3}, @var{5}@})
+@var{item} = @i{it}(@var{3}, @var{5})
+@var{item} = @i{it}@{@var{3}, @var{5}@}     -- by Lua syntax equivalence
+@var{item} = @i{it}(@var{mystone})
+@var{group} = @i{it}(@i{no}["door#*"])
+@var{group} = @i{it}(@i{po}(@var{3}, @var{5})..@i{po}(@var{4}, @var{2}))
+@end example 
+
+@end table
+
+@c ----------------- random --------------------
+@node random
+@subsection random
+
+The function @samp{random()} is a syntax compatible replacement for the standard
+Lua function @samp{math.random()}. Both names refer to the same Enigma random
+implementation.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{random}(<|@var{n}|@var{l},@var{u}>)
+
+@item @b{Details:}
+When called without arguments, math.random returns a pseudo-random real number
+in the range [0,1). When called with a number n, math.random returns a 
+pseudo-random integer in the range [1,n]. When called with two arguments, l and
+u, math.random returns a pseudo-random integer in the range [l,u].
+
+The only difference from the Lua implementation is the random generator itself.
+Enigma uses an own implementation that guarantees the same pseudo-random
+number sequence on any operating system and any processor for a given seed.
+This feature will be important for future Enigma versions and thus the 
+randomseed can not be modified by the level itself.
+
+@item @b{Syntax Samples:}
+@example
+@var{float} = @i{random}()          -- e.g. 0.402834
+@var{integer} = @i{random}(20)      -- e.g. 13
+@var{integer} = @i{random}(5, 10)   -- e.g. 5
+@end example 
+
+@end table
+@c ----------------- st --------------------
+@node st
+@subsection st
+
+The function @samp{st()} retrieves the stone objects for the given position or
+positions.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{st}(<@i{pos}| @{@i{x}, @i{y}@}|@i{x}, @i{y}| @i{obj} | @i{group}| @i{polist}>)
+
+@item @b{Details:}
+If the argument describes a single position, the stone object at this position 
+is returned. When no stone is located at the given single position or this 
+position is outside of the world an invalid @samp{NULL} @ref{Object} reference
+is returned.
+
+If the argument is either a @ref{Group} or @ref{PositionList} all stone objects
+of the related positions are retrieved and added in the same sequence to a new
+result group. Invalid positions or positions without stone will be skipped 
+without adding an object to the group.
+
+In any case you can send messages to the result value.
+
+@item @b{Syntax Samples:}
+@example
+@var{stone} = @i{st}(@i{po}(@var{3}, @var{5}))
+@var{stone} = @i{st}(@{@var{3}, @var{5}@})
+@var{stone} = @i{st}(@var{3}, @var{5})
+@var{stone} = @i{st}@{@var{3}, @var{5}@}     -- by Lua syntax equivalence
+@var{stone} = @i{st}(@var{myfloor})
+@var{group} = @i{st}(@i{no}["cherry#*"])
+@var{group} = @i{st}(@i{po}(@var{3}, @var{5})..@i{po}(@var{4}, @var{2}))
+@end example 
+
+@end table
+
+@c ----------------- usertype --------------------
+@node usertype
+@subsection usertype
+
+The function @samp{usertype()} returns type info for Enigma data types.
+
+@table @asis
+@item @b{Syntax:}
+@b{usertype}(@i{var})
+
+@table @asis
+@item @i{var}
+Any kind of variable.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+@var{argtype} = @i{usertype}(@var{value})
+@end example
+
+@item @b{Details:}
+Just for Lua type @code{"userdata"} Enigma's special type info will be returned.
+These special types are @code{"object"}, @code{"position"}, @code{"tile"},
+@code{"tiles"}, @code{"group"}, @code{"world"}, @code{"polist"} and 
+@code{"default"}. If another data type is encountered, @code{"unknown"} will
+be returned.
+
+The function @ref{etype} provides a more general type evaluation for arbitrary
+data types and is partially based on this function.
+
+@end table
+
 
 @c ===================  Commons  =======================
 @node Common Attributes and Messages
@@ -7668,7 +8653,7 @@ force applied to actors.
 
 A global read only variable reports the height of the world in grid units.
 This is set by the initial world constructor call
-(@pxref{World Creation and Resolver Chaining}).
+(@pxref{World Creation}).
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -7760,7 +8745,7 @@ down from hills and bumps.
 A global variable that causes two @ref{it_extralife}s to be added to both player
 inventories on start of a new level. Set it to @samp{false} if a gamer could
 misuse these items. It is important to set this attribute before the world is
-created (@pxref{World Creation and Resolver Chaining}).
+created (@pxref{World Creation}).
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -7867,7 +8852,7 @@ values smaller than approximately 0.7 ms will be rounded down to 0 ms.
 
 A global read only variable reports the width of the world in grid units.
 This is set by the initial world constructor call
-(@pxref{World Creation and Resolver Chaining}).
+(@pxref{World Creation}).
 
 @table @asis
 @item @b{Type:} @ @ number
@@ -12953,6 +13938,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_ghost::           Invisible Transforming Stone
 * st_grate::           Hovering metal Grate
 * st_greenbrown::      Mainly brown seedable stone
+* st_ice::             Item and Floor freezing Ice block
 * st_jamb::            Colored Door Jamb
 * st_key::             Key Driven Switch
 * st_knight::          Sword Bearing Knight Stone
@@ -14289,6 +15275,33 @@ to standard, unmovable greenbrown on an actor hit with a revealed
 @end table
 @end table
 
+@c ----------------- Ice Stone --------------------
+@node st_ice
+@subsection st_ice
+@obindex st_ice
+
+A block of ice is a movable stone that freezes some items when being pushed
+over them. Of course a floor of @ref{fl_water} will freeze, too, when ice is
+being pushed over it. But a block of ice can be destroyed by explosions and by
+heating fire leaving either @ref{fl_ice} or @ref{fl_water}.
+
+Note some minor details of st_ice are not yet stable - especially the fire
+interactions may still change.
+
+@table @asis
+@item @b{Messages:}
+
+@table @asis
+@item @b{ignite} @ @ @xref{ignite}
+@item @b{heat} @ @ @xref{heat}
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @b{st_ice}
+@end table
+@end table
+
 @c ----------------- Jamb Stone --------------------
 @node st_jamb
 @subsection st_jamb
@@ -15536,8 +16549,8 @@ A block of raw glass. It exists in static and movable variants and is by its
 very nature transparent to laser light. Like other @ref{Transparent Stones} it
 is passable for invisible actors.
 
-This stone looks identical to @ref{st_ice}, but differs of course in its
-features.
+This stone comes in a second texture variant that looks like being composed
+of 4 small rawglasses. This @samp{quad} variant is not movable.
 
 @table @asis
 @item @b{Attributes:}
@@ -15552,6 +16565,7 @@ features.
 
 @table @asis
 @item @b{st_rawglass}: movable = @code{false}
+@item @b{st_rawglass_quad}: movable = @code{false}
 @item @b{st_rawglass_movable}: movable = @code{true}
 @end table
 
@@ -15773,6 +16787,9 @@ shogun.
 @obindex st_spitter
 
 A stone that spits @ref{ot_cannonball}s on actor hits and on proper messages.
+The standard spitter is @samp{ACTIVE} showing a slow rotating animation. In
+this @samp{state} the spitter reacts on actor hits, while being @samp{IDLE}
+it is steady and will spit just on messages.
 
 On an actor hit the spitter checks the owner's inventory for an existing
 @ref{it_extralife}. If one exists that is not stuffed in a @ref{it_bag}, it
@@ -15831,6 +16848,9 @@ they represent @ref{Named Positions} that are persistent to object destruction.
 @item @b{Attributes:}
 
 @table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{ACTIVE} @ @ @xref{state}
+An @samp{ACTIVE} spitter is animated and reacts on actor hits while an @samp{IDLE}
+looks steady and does not spit on actor hits.
 @item @b{hit_strength} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
 @item @b{hit_distortion_xx} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{1.0}; @ @ @xref{hit_*}
 @item @b{hit_distortion_xy} @ @ @i{values}: floating point numbers; @ @ @i{default}: @code{0.0}; @ @ @xref{hit_*}
@@ -15850,7 +16870,7 @@ Spit a cannonball. Takes either a destination as message value or @samp{nil}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_spitter}: secure = @code{false}
+@item @b{st_spitter}: secure = @code{false}, state = @code{ACTIVE}
 @end table
 
 @end table
@@ -17498,263 +18518,6 @@ Please read the online manuals of
 @uref{http://www.lua.org/manual/5.0/, Lua 5.0} and 
 @uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailed information.
 
-In addition to the usual Lua functions, Enigma provides the @ref{cond}-function,
-which can be used to abbreviate simple if-then-else-constructions, and two
-@samp{assert}-kind functions.
-
-@menu
-* assert_bool::     Throws an error if a condition doesn't hold.
-* assert_type::     Throws an error if a variable is not of a given type.
-* cond::            A ternary operator, wrapper for if-then-else.
-* etype::           An advanced function to return normal and user data types.
-@end menu
-
-@c ----------------- assert_bool --------------------
-
-@node assert_bool
-@subsection assert_bool
-
-@samp{assert_bool} throws an error if a given condition doesn't hold.
-
-@table @asis
-@item @b{Syntax:}
-@b{assert_bool}(@i{condition}, @i{message}, @i{level})
-
-@table @asis
-@item @i{condition}
-A boolean expression or anything else. If it is @code{false} or @code{nil}, an
-error will be thrown.
-
-@item @i{message}
-A string, holding the error message. If @code{message} is nil or empty, an
-"anonymous assertion" will be thrown, but it's always better to provide a
-meaningful error message.
-
-@item @i{level}
-@code{level} specifies the error position in the same way as does Lua's
-@samp{error}-function. Default is 1.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-assert_bool(no["mystone"], "Stone 'mystone' has disappeared.")
-@end example
-
-@item @b{Details:}
-Similar to @ref{cond}, all side effects within the evaluation of @samp{message}
-and @samp{level} will appear.
-
-See Lua's manual for more detailed information about the @samp{error}-function.
-
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
-@c ----------------- assert_type --------------------
-
-@node assert_type
-@subsection assert_type
-
-@samp{assert_type} throws an error if the first argument is not of one of the
-specified types.
-
-@table @asis
-@item @b{Syntax:}
-@b{assert_type}(@i{var}, @i{vardescription}, @i{level}, @i{type1}, @i{type2}, ...)
-
-@table @asis
-@item @i{var}
-Any kind of variable.
-
-@item @i{vardescription}
-If @samp{var} is not of one of the types @samp{type1}, @samp{type2} ...,
-then an error message will be thrown which includes the actual type of
-@samp{var} and the desired types. @samp{vardescription} is a string which
-holds additional information for the error message. It should be a lower-case
-not-too-short description of @samp{var} (a name, as it is), additional
-details should be added in brackets.
-
-@item @i{level}
-@code{level} specifies the error position in the same way as does Lua's
-@samp{error}-function. Can't be omitted, use @samp{1} if in doubt.
-
-@item @i{type1}, @i{type2}, ...
-A sequence of strings. If @samp{var} is none of these types, the error will
-be thrown. See details below for type descriptors.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-assert_type(arg1, "mygreatfunction first argument (level width)", 1, "nil", "positive integer", "position")
-@end example
-
-@item @b{Details:}
-Possible types are all Lua types (like @code{"nil"}, @code{"number"},
-@code{"boolean"}, @code{"string"}, @code{"table"}, @code{"function"}) except
-@code{"userdata"}, all Enigma-own user types (@code{"object"},
-@code{"position"}, @code{"tile"}, @code{"tiles"}, @code{"group"},
-@code{"world"}, @code{"polist"}, @code{"unknown"}), and
-types defined inside metatables (@code{"map"} from @ref{libmap}), see
-@ref{etype}. In addition, the following type descriptors are recognized:
-@table @asis
-@item @code{"integer"}
-Any integer number (..., -2, -1, 0, 1, 2, ...)
-@item @code{"positive"}
-Any number which is positive and not zero.
-@item @code{"non-negative"}
-Any number which is not negative, i.e. which is positive or zero.
-@item @code{"natural"}
-Any non-negative integer number (0, 1, 2, ...).
-@item @code{"positive integer"}
-Any positive integer number (1, 2, 3, ...).
-@item @code{"non-empty string"}
-Any string other than the empty string @code{""}.
-@item @code{"any table"}
-If @samp{var} is a table, the @samp{_type}-attribute of its metatable will
-be used as its @ref{etype}. In particular, it won't be accepted as a
-@code{"table"} anymore, if this @samp{_type}-attribute exists. For example,
-@example
-assert_type(mytable, "large table", 1, "table")
-@end example
-will throw an assertion when @samp{mytable} is a @code{"map"}, although,
-technically, a @code{"map"} always is a @code{"table"}. You can use
-@code{"any table"} as type to allow for any table, regardless of its metatable.
-@item @code{"valid object"}
-Any valid object.
-@end table
-
-Similar to @ref{cond}, all side effects within the evaluation of
-@samp{vardescription}, @samp{level} and any type descriptor will apply.
-
-See Lua's manual for more detailed information about the @samp{error}-function.
-
-@item @b{Full Example:}
-@example
-function paint_lawn(pos)
-    assert_type(pos, "paint_lawn first argument", 2, "position", "object", "polist", "group", "table")
-    if etype(pos) == "object" then
-        assert_bool(-pos, "paint_lawn: Object not existing.", 2)
-    end
-    wo[pos] = ti["lawn"]
-end
-paint_lawn(no["mystone"])
-paint_lawn("myotherstone")
-@end example
-If @samp{mystone} doesn't exist, @code{no["mystone"]} will still be of etype
-@code{"object"}, an invalid object. Hence @code{assert_type} will not trigger,
-but @code{assert_bool} will.
-
-If @samp{mystone} exists, the second @samp{paint_lawn} will throw an error via
-@samp{assert_type}, as @code{pos} now is a @code{"string"}. The error message
-will be:
-@example
-Wrong type for paint_lawn first argument, is string, must be one of position,
-object, polist, group, table.
-@end example
-@end table
-
-@c ----------------- cond --------------------
-
-@node cond
-@subsection cond
-
-@samp{cond} is a conditional assignment, a ternary operator very
-similar (but not equal to) the @samp{?:}-expression in C-like languages. Note
-however, that there are caveats, see details.
-
-@table @asis
-@item @b{Syntax:}
-@b{cond}(@i{condition}, @i{iftrue}, @i{iffalse})
-
-@table @asis
-@item @i{condition}
-A boolean expression.
-
-@item @i{iftrue}
-The expression to be returned if @samp{condition} is true.
-
-@item @i{iffalse}
-The expression to be returned if @samp{condition} is false.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-cond(wo["IsDifficult"], @{"st_death"@}, ti["#"])
-@end example
-
-@item @b{Details:}
-@samp{cond} evaluates both expressions @samp{iftrue} and
-@samp{iffalse}, regardless of @samp{condition}. Hence,
-@example
-cond(t == 0, 1/t, error("Division by zero"))
-@end example
-will always raise an error: All side effects will happen.
-Another example which will not work:
-@example
-w,h = cond(wo["IsDifficult"], wo(ti, " ", map1), wo(ti, " ", map2))
-@end example
-Use this instead:
-@example
-w,h = wo(ti, " ", cond(wo["IsDifficult"], map1, map2))
-@end example
-However, in most cases @samp{cond} is used with static expressions for
-@samp{iftrue} and @samp{iffalse} (e.g. strings or variables), when no
-side effects are possible.
-
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
-@c ----------------- etype --------------------
-
-@node etype
-@subsection etype
-
-@samp{etype} returns an advanced type of its argument.
-
-@table @asis
-@item @b{Syntax:}
-@b{etype}(@i{var})
-
-@table @asis
-@item @i{var}
-Any kind of variable.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-local argtype = etype(firstargument)
-@end example
-
-@item @b{Details:}
-Lua types are @code{"nil"}, @code{"number"}, @code{"boolean"}, @code{"string"},
-@code{"table"}, @code{"function"}, @code{"userdata"}, and @code{"thread"}. You
-can use Lua's @samp{type}-function to query the type of any variable. However,
-Enigma defines more types through various means, and these types can be queried
-via @samp{etype}. @samp{etype} will return its argument's Lua type as usual,
-with the following two exceptions:
-@table @asis
-@item @i{"userdata"}
-Instead of @code{"userdata"}, Enigma's special types will be returned. These
-special types are @code{"object"}, @code{"position"}, @code{"tile"},
-@code{"tiles"}, @code{"group"}, @code{"world"}, and @code{"polist"}. If an unknown
-userdata is encountered, @code{"unknown"} will be returned.
-
-@item @i{"table"}
-If @code{var} is a table, it's metatable will be queried. If there is an entry
-@samp{_type}, this entry will be used as @code{etype}. Most important examples
-of this kind are @ref{libmap}-maps, so @samp{etype} will return @code{"map"}.
-You may access the @code{etype}-system through @samp{_type} whenever you use
-metatables on your own.
-@end table
-
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
 
 @node liblua
 @section liblua
@@ -18454,8 +19217,8 @@ returns:
 @section libmap
 
 The @samp{libmap} gives the author more possibilities to work with API 2-maps. 
-Up to now, a map just is a table of strings, as described in @ref{World Creation
-and Resolver Chaining}. With @samp{libmap}, you can utilize maps in a more
+Up to now, a map just is a table of strings, as described in 
+@ref{World Creation}. With @samp{libmap}, you can utilize maps in a more
 advanced way.
 
 This library is described as of release 1. 
@@ -19184,185 +19947,157 @@ Returns width and height of new Enigma level.
 @chapter Advanced Features
 
 @menu
-* World Advanced Methods::  Additional features provided by the world
 * Resolvers::               Standard tools for interpretation of tile maps
 * General Features::        Special features like scrolling, flood, fire,...
 * Tips and Tricks::         Simple patterns that are valuable like a feature
 @end menu
 
-@node World Advanced Methods
-@section World Advanced Methods
+@node Resolvers
+@section Resolvers
 
 @menu
-* add::          Add @ref{Other Objects} to the world
-* drawBorder::
-* drawMap::
-* drawRect::
-* shuffleOxyd::  Oxyd Shuffling Rules
+* Resolver Chaining::  
+* Custom Resolver::    
+* res.autotile::       Generate tiles from given template declarations
+* res.composer::       Compose tiles from given base tiles
+* res.maze::           Generate arbitrarily shaped mazes
+* res.puzzle::         Generate puzzle tiles and shuffle resulting puzzle clusters
+* res.random::         Choosing random tiles in a given distribution
 @end menu
 
-@c ----------------- add --------------------
-@node add
-@subsection add
+@c ----------------- Resolver Chaining --------------------
 
-Add @ref{Other Objects} to the world.
+@node Resolver Chaining
+@subsection Resolver Chaining
 
-@table @asis
-@item @b{Syntax:}
-@b{wo:add}(@i{tile_declarations})
+Once all parameters have been set and all tiles have been declared it is time
+to create the level world with all its objects. This is done by the following
+constructor that appears in two variations.
 
-@b{wo:add}(@i{target}, @i{tile_declarations})
-
-@table @asis
-@item @i{tile_declarations}
-One or many other object declarations given as tiles or anonymous tables.
-@item @i{target}
-@samp{YIN}, @samp{YANG} or valid @ref{Object Reference}
-@end table
-
-@item @b{Syntax Samples:}
-@example
-wo:add(@{"ot_rubberband", anchor1="a1", anchor2="w", length=2, strength=80, threshold=0@})
-wo:add(ti["r"] .. @{"ot_wire", anchor1="w1", anchor2="w2"@})
-wo:add(YIN, @{"it_magicwand@})
-wo:add(no["mybag"], @{"it_magicwand@} .. ti["h"] .. ti["c"])
-@end example
-
-@item @b{Details:}
-Just @ref{Other Objects} can be directly added to the world. Just non static
-@ref{Items} can be added to the player's inventories @samp{YIN} and @samp{YANG}
-and to @ref{it_bag}s. No other targets do currently add objects by this method.
-
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
-@c ----------------- drawBorder --------------------
-@node drawBorder
-@subsection drawBorder
-
-Draw a border around a rectangle out of given tiles.
+@ref{World Creation}
 
 @table @asis
 @item @b{Syntax:}
-@b{wo:drawBorder}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+width, height = @b{wo}(@i{topresolver}, ...)
 
-@b{wo:drawBorder}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
 
 @table @asis
-@item @i{upperleft_edge}
-Upper left anchor position of the rectangle.
-@item @i{lowerright_edge}
-Lower right end position of the rectangle.
-@item @i{width}
-Width of the rectangle.
-@item @i{height}
-Height of the rectangle.
+@item @i{topresolver} = @code{ti} | @i{resolver} | @i{localresolver}
+Every tile in the world is given by a key that needs to be resolved to its
+declaration. This can be done either by the @ref{Tiles Repository} @samp{ti}, or
+by given library @ref{Resolvers} or by local @ref{Custom Resolver} function.
+This argument takes the top resolver that is requested first.
 @end table
-
-@item @b{Syntax Samples:}
-@example
-wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
-wo:drawBorder(no["myRectUL"], no["myRectLR"], @{"st_grate1"@})
-@end example
 
 @item @b{Details:}
+Every key is resolved to its tile declaration via the given resolver chain.
+The top resolver is given to this call as a parameter. If it is @samp{ti} the
+chain consists just of one element and the tile declaration stored in the tiles
+repository at the given key is taken. Otherwise the resolvers will be evaluated
+as explained in @ref{Resolver Chaining}.
 
+But there exist several useful
+@ref{Resolvers} that may simplify the task of level writing or provide dynamic
+features like randomness, mazes, etc. If you like to use one or several of them
+you provide the instance of the resolver to be requested first in this
+constructor. The instance that should be requested next is set in the top
+resolver as first argument, and so on. The last library resolver takes usually
+@samp{ti} as its subresolver. For even more flexibility you can provide an
+own @ref{Custom Resolver} function within the level to take influence on the key
+interpretation. This function has to be the last resolver in the chain.
 
-@item @b{Full Example:}
+@item @b{Example:}
 @example
+ti["~"] = @{"fl_water"@}
+ti["s"] = @{"fl_sahara"@}
+ti["t"] = @{"fl_tigris"@}
+ti["1"] = @{"ac-blackball", 0, 0.5@}
+
+ti["template_trigger"] = @{"it_trigger", target="myoxyd%%", action="open"@}
+ti["template_oxyd"]    = ti["~"] .. @{"st_oxyd", "myoxyd%%"@}
+
+myrandom = res.random(ti, " ", @{"s", "t"@})
+
+myautotile = res.autotile(myrandom, @{"a", "h", "template_trigger"@},
+                              @{"A", "H", "template_oxyd"@})
+
+w, h = wo(myautotile, " ", @{
+"A~                ~E",
+"~~                ~~",
+"~~   h        b   ~~",
+"~~                ~~",
+"B~     c    d     ~F",
+"~~                ~~",
+"~~        1       ~~",
+"~~                ~~",
+"C~     f    e     ~G",
+"~~                ~~",
+"~~   g        a   ~~",
+"~~                ~~",
+"D~                ~H"
+@})
+
+wo:shuffleOxyd()
 @end example
 @end table
 
-@c ----------------- drawMap --------------------
-@node drawMap
-@subsection drawMap
+@c ----------------- Custom Resolver --------------------
 
-Even if the world is initialized by a map on creation of the world
-(@pxref{World Creation and Resolver Chaining}), it is sometime useful to
-be able to draw smaller submaps either as part of the initialization or as
-dynamic level changes within @ref{Callback Function}. Of course the main purpose
-of @samp{drawMap} is the drawing of repeating patterns.
+@node Custom Resolver
+@subsection Custom Resolver
+
+A customer resolver is a function in the level that allows a dynamic remapping
+of tiles. When this function is registered in the resolver chain it is called
+once for every tile to be set. The tile that this function return will be set.
+
+Typical use cases are design patterns that are easy to calculate, but tedious
+to draw in the map and dynamic generated levels that differ slightly on every
+restart.
 
 @table @asis
 @item @b{Syntax:}
-
-@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{ignore}, @i{map}, [@i{readdir}])
-
-@b{wo:drawMap}(@i{resolver}, @i{anchor}, @i{libmap-map}, [@i{readdir}])
+tile = @b{myresolver}(@i{key}, @i{x}, @i{y})
 
 @table @asis
-@item @i{subresolver}
-Resolver to which unresolved requests should be forwarded. May be @samp{ti}
-as the final resolver of the resolver chain.
-@item @i{anchor}
-The anchor position where the upper left tile of the map should be drawn.
-@item @i{ignore}
-A tile key string that should be ignored. This key string is mandatory, even
-if it not used within the map.
-@item @i{map}
-A table of strings. Each string describes a row of tiles by its tile keys.
-@item @i{libmap-map}
-If the map used is created via @ref{libmap}, the @samp{ignore}-string can
-be omitted. The map's default key will then be ignored instead.
-@item @i{readdir}
-An optional argument to modify the direction of the map relative to the world.
-This argument can be any of the constants described in @ref{Rotating and
-Mirroring Maps}.
+@item @i{key}
+String that contains the tile key to be resolved.
+@item @i{x}
+The world x coordinate of the tile.
+@item @i{y}
+The world y coordinate of the tile.
 @end table
 
-@item @b{Syntax Samples:}
-@example
-wo:drawMap(ti, po(5, 7), "-", @{"abcabc"@})
-wo:drawMap(ti, anchor_object, "--", @{"--##--##","##--##"@})
-wo:drawMap(ti, @{12, 5@}, " ", @{"122  221"@}, MAP_ROT_CW)
-@end example
-
 @item @b{Details:}
-The syntax is similar to the world creation call. But there are two essential
-differences you need to be aware of. First the map is drawn in the already
-existing world. Thus we need to define the position. This is done via the
-anchor position, which can be an already existing object, too.
+A custom resolver function is the last resolver that is called in the chain.
+It has to return the final tile that should be drawn at the given position.
+This can be done by statement @samp{return ti["k"]}, which references the tile
+already declared in the tiles map.
 
-The second difference is in the definition of a tile key string for tiles in
-the map that should be ignored. Remember that the world initialization requested
-a default tile key string. This default is still valid. But with the given
-ignore key string we can draw arbitrary shaped patterns by filling unused
-grids in the map with this key.
+If no suited tile is already declared you can alternatively return a new tile
+like @samp{return ti(@{"st_switch", state=ON@})}.
 
-The length of the ignore key defines the map key length. It is strongly
-recommended to use the same key length as in the world map.
+If you decide not to draw any tile at all, you must return an empty tile
+declaration: @samp{return ti(@{@})}.
 
-The rows of the supplied map are drawn from the anchor position. The rows may
-be of different length and may start with ignore tile keys. The anchor must be
-the position composed of the smallest x and smallest y coordinate within the
-pattern.
+@samp{return nil} indicates an error of usage of an unknown tile key.
 
-You can use drawMap anywhere after the world creation. You are even allowed to
-use it within the world creation in a resolver.
-
-@item @b{Full Example:}
+@item @b{Example:}
 @example
-ti[" "] = @{"fl_plank"@}
-ti["X"] = @{"st_oxyd"@}
-ti["B"] = @{"st_passage_black", flavor="frame"@}
-ti["W"] = @{"st_passage_white", flavor="frame"@}
-ti["y"] = @{"it_yinyang"@}
-ti["1"] = ti["y"] .. @{"#ac_marble_black"@}
-ti["2"] = ti["y"] .. @{"#ac_marble_white"@}
+ti["r"] = @{"fl_rough_red"@}
+ti["b"] = @{"fl_rough_blue"@}
+ti["1"] = @{"#ac-blackball"@}
+
+ti["x"] = @{"it_cross"@}
 
 function myresolver(key, x, y)
-    if key == "w" then
-        wo:drawMap(ti, po(x-1, y-1), "-", @{"-W-",
-                                           "WXW",
-                                           "-W-"@})
-        return ti(@{@})
-    elseif key == "b" then
-        wo:drawMap(ti, po(x-1, y-1), "-", @{"-B",
-                                           "BXB",
-                                           "-B"@})
-        return ti(@{@})
+    if key == " " then
+        local center = ((x%3) * (y%3))%2
+        local checker = ((math.modf(x/3) %2) + (math.modf(y/3) %2))%2
+        if center + checker == 1 then
+            return ti["r"]
+        else
+            return ti["b"]
+        end
     else
         return ti[key]
     end
@@ -19370,240 +20105,21 @@ end
 
 w, h = wo(myresolver, " ", @{
 "                    ",
-"  b         b       ",
-"       w       w    ",
 "                    ",
 "                    ",
-"   w                ",
-"         12      b  ",
-"              w     ",
-"         w          ",
-"      b             ",
-"   w           b    ",
-"         b          ",
+"      x x           ",
+"       x            ",
+"      x x           ",
+"                    ",
+"          1         ",
+"                    ",
+"                    ",
+"                    ",
+"                    ",
 "                    "
 @})
-wo:shuffleOxyd()
 @end example
 @end table
-
-@c ----------------- drawRect --------------------
-@node drawRect
-@subsection drawRect
-
-@table @asis
-@item @b{Syntax:}
-@b{wo:drawRect}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
-
-@b{wo:drawRect}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
-
-@table @asis
-@item @i{upperleft_edge}
-Upper left anchor position of the rectangle.
-@item @i{lowerright_edge}
-Lower right end position of the rectangle.
-@item @i{width}
-Width of the rectangle.
-@item @i{height}
-Height of the rectangle.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-wo:drawRect(po(0, 0), wo["Width"], wo["Height"], ti[" "])
-wo:drawRect(no["myRectUL"], no["myRectLR"], @{"fl_water"@})
-@end example
-
-@item @b{Details:}
-@item @b{Full Example:}
-@example
-@end example
-@end table
-
-
-@c ----------------- shuffleOxyd --------------------
-@node shuffleOxyd
-@subsection shuffleOxyd
-
-Shuffling the color distribution of the @ref{st_oxyd} makes every level, that
-is no meditation, a bit generic. On every level start the level looks a little
-bit different and the user has to solve a modified level. This provides long
-term amusement. Thus the call of this method is part of most levels.
-
-Many levels just call this method without any arguments. This results in a
-shuffling of all @ref{st_oxyd} that are not excluded by a @samp{noshuffle}
-attribute.
-
-But sometimes levels need to influence the shuffling, either for ensuring that
-the level remains solvable, or simply to ensure fairness. Imagine a level that
-has two @ref{st_oxyd}s in every corner. If by chance a user gets a distribution
-where he has in each corner a pair of same colored oxyds, the level might be
-trivial. Another level may have a passage that the marble can pass just a few
-times. With 5 or more oxyds on each side of the passage you need to ensure that
-the marble never needs to pass the passage more often than possible. Both
-situations can be handled by providing proper rules as arguments to this method.
-
-@table @asis
-@item @b{Syntax:}
-
-@b{wo:shuffleOxyd}(@i{rules})
-
-@table @asis
-@item @i{rules} = @i{rule}, @i{rule},...
-No rule or as many as you like, all separated by a comma.
-@item @i{rule} = @{@i{group1}, @i{group2}, @i{maxrule}, @i{minrule}, @i{circularrule}, @i{linearrule}, @i{log}@}
-Each rule is a table with a subset of the listed entries. The @i{group1} entry
-is mandatory. All other entries are optional and can be added in any combination.
-@item @i{group1} = @i{group} | @i{objectreference} | @i{objectspecifier}
-A description of oxyd objects that are part of the first rule group. Either
-a group or a single object reference or a string specifier that resolves to a
-single or via wildcard to several oxyd objects are legal descriptors.
-@item @i{group2} = @i{group} | @i{objectreference} | @i{objectspecifier}
-A description of oxyd objects that are part of the second rule group. Either
-a group or a single object reference or a string specifier that resolves to a
-single or via wildcard to several oxyd objects are legal descriptors.
-@item @i{maxrule} = @code{max = }@i{number}
-The maximum number of oxyd pairs.
-@item @i{minrule} = @code{min = }@i{number}
-The minimum number of oxyd pairs.
-@item @i{circularrule} = @code{circular = true}
-Avoid any pair of neighboring oxyds in group1. Avoid an oxyd pair of first and
-last oxyd in group1, too.
-@item @i{linearrule} = @code{linear = true}
-Avoid any pair of neighboring oxyds in group1.
-@item @i{log} = @code{log = } @ @  @code{"solution"} |@code{"count"} |@code{"all"}
-Log additional information to the log stream for debugging purposes and
-security checks by the level author.
-@end table
-
-@item @b{Syntax Samples:}
-@example
-wo:shuffleOxyd()
-wo:shuffleOxyd(@{no["borderoxyds#*"]:sort("circular"), circular=true@})
-wo:shuffleOxyd(@{"leftoxyds#*","rightoxyds#*", min=3@}, @{"islandoxyds#*", max=0@})
-@end example
-
-@item @b{Details:}
-
-Any call of @samp{wo:shuffleOxyd()} must occur after all @ref{st_oxyd} have been
-set. That means that it must follow the standard world initialization
-(@pxref{World Creation and Resolver Chaining}). As a side effect shuffleOxyd
-will assign colors to all @samp{OXYD_AUTO} colored @ref{st_oxyd}.
-
-Once called the given shuffling rules remain valid. Any further reshuffling
-must be done by messages @samp{closeall} and @samp{shuffle} to one arbitrary
-@ref{st_oxyd} instance. No addition of an @ref{st_oxyd} or subsequent
-@samp{wo:shuffleOxyd()} calls are possible without disturbing and deleting the
-given rules.
-
-Rule based shuffling is limited to a maximum of one pair of each standard oxyd
-color plus any combination of additional special fake, quake or bold oxyds
-summing up to a maximum of 32 oxyds. If more than 32 oxyds or 2 or more pairs
-of a single standard color are set, all oxyds will be shuffled by random
-ignoring any provided rules.
-
-There are basically two different types of rules. Those with one group and those
-with two groups of oxyds (Note that group is the general API expression for
-a set of oxyds and not a mathematical group). For a single group the rules apply
-to the oxyd instances within this group. For two groups the rules apply to oxyd
-pairs with one oxyd in the first group and the other in the second group.
-
-E.g. @samp{@{"islandoxyds#*", max=0@}} requests that there is no pair within
-this group of oxyds. Whereas @samp{@{"leftoxyds#*","rightoxyds#*", min=3@}}
-requests that there are 3 different oxyd pairs, each with one oxyd out of the
-leftoxyd group and the second out of the rightoxyd group.
-
-Linear and circular rules can only be applied to a single group. They are
-shortcuts for the most common rules that are applied to oxyds arranged on a
-line or a circle. In both cases they avoid pairs of neighboring oxyds. They
-are equivalent to @samp{n-1} res. @samp{n} rules with all possible neighboring
-oxyd pairs as two groups and a rule of @samp{max=0}.
-
-Note that you can apply several rules at once to given groups. E.g. you can
-apply a minrule and a maxrule within one rule!
-
-The shuffling process consists always of two stages. The most important first
-stage generates a valid oxyd pair distribution. That means that we settle which
-pairs will have the same color. But the color itself is assigned in an
-independent second stage. As for the examination of given rules just the pair
-distribution is relevant, we do just count and log these different distributions
-ignoring the colors.
-
-With 16 oxyds of 8 different colors and no restricting rules you have 2027025
-(15 * 13 * 11 * 9 * 7 * 5 * 3) different valid distributions. Keep in mind
-that useful rules should always keep hundreds or thousands of different valid
-distributions for a level.
-
-For debugging purposes you can add a log parameter to one of the rules (it does
-not matter to which one). If you request the log of @samp{solution} the
-pair distribution will be printed to the log stream.
-
-In case of @samp{count} the number of different oxyd distributions will be
-counted and logged. It is recommended to check the count on complex rules to
-ensure that enough distributions remain for a varying game. But be careful
-applying count on trivial rules. With 16 oxyds there may be as many as
-2027025 distributions and it may take a standard PC up to 30 seconds to count
-them - add a factor of 17*19 for 20 oxyds!
-
-Be very, very cautious in usage of logging @samp{all}. This call tries to print
-all solutions. It takes ages if there are too many solutions. First check the
-count before trying to log the solutions.
-
-@item @b{Full Example:}
-@example
-wo["ConserveLevel"] = false
-
-ti["~"] = @{"fl_water"@}
-ti[" "] = @{"fl_plank"@}
-ti["c"] = @{"it_crack_l", brittleness=0@}
-ti["^"] = @{"st_oneway_n"@}
-ti["1"] = @{"ac_marble_black", 0, 0.5@}
-
-ti["x"] = @{"st_oxyd", "island#"@}
-ti["y"] = @{"st_oxyd", "left#"@}
-ti["z"] = @{"st_oxyd", "right#"@}
-
-w, h = wo(ti, " ", @{
-"~~x  x  x  x  x  x~~",
-"~~                ~~",
-"~~~~^~~~~~~~~~~^~~~~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~~~~c~~~~~~~~~~c~~~~",
-"~~                ~~",
-"~~        1       ~~"
-@})
-
-wo:shuffleOxyd(@{"island#*", min=3, linear=true@}, @{"left#*","right#*", max=2, min=2@})
-@end example
-
-This level uses 14 oxyds. The 6 oxyds in the upper row are on an island that
-can not be left once the marble entered it through one of the oneways. Thus
-we need 3 pairs of oxyds on this island, which are enforced by the min rule.
-To avoid trivial neighboring pairs on the island, we do add a linear rule, too.
-The marble can pass just three times between the left and right islands. This
-allows a first look on the color oxyds with one pass and opening one pair on
-each of the two following passes. Thus we limit the number of pairs by a max
-rule to 2. To avoid trivial oxyd pair distributions, like two pairs on the left
-and two pairs on the right side, we do add a min rule that enforces that two
-shared pairs of oxyds do exist.
-@end table
-
-@node Resolvers
-@section Resolvers
-
-@menu
-* res.autotile::  Generate tiles from given template declarations
-* res.composer::  Compose tiles from given base tiles
-* res.maze::      Generate arbitrarily shaped mazes
-* res.puzzle::    Generate puzzle tiles and shuffle resulting puzzle clusters
-* res.random::    Choosing random tiles in a given distribution
-@end menu
 
 @c ----------------- Autotile Resolver --------------------
 
@@ -20683,6 +21199,47 @@ Further information may be stored in the resolvers context.
 
 The finalizer does neither call its subresolver nor does it return a value.
 @end table
+
+@c ==================  Guidelines and Hints  =======================
+
+@node Guidelines and Hints
+@chapter Guidelines and Hints
+
+Up to now we described all features in their full extend. Of course you are
+free to use them all without any restrictions for your private levels. We are
+committed to maintain all features in future versions of Enigma.
+
+But for inclusion of your levels into the Enigma project we would like to
+recommend conformance to some common standards. These few points gurantee that
+your levels can easily be processed by our administration tools, the players
+can talk about your level and your level remains editable by the project
+maintainers in case of urgent need.
+
+Additionally we like to give you some hints how to write good levels by means
+of proper strategy.
+
+@menu
+* Filename Recommendation::
+* Title Recommendation::
+* Tile Key Recommendation::
+* Easy Mode Hints::
+@end menu
+
+@node Filename Recommendation
+@section Filename Recommendation
+No space for spaces
+
+@node Title Recommendation
+@section Title Recommendation
+English - no translation - use subtitle, too
+
+@node Tile Key Recommendation
+@section Tile Key Recommendation
+space for default
+
+@node Easy Mode Hints
+@section Easy Mode Hints
+write easy first, floor friction,...
 
 @c ===================  Old API - Objects  =======================
 
