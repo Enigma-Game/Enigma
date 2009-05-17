@@ -4114,7 +4114,7 @@ the standard Lua types @samp{nil}, @samp{boolean}, @samp{string},
 @table @asis
 @item @b{position:}@ @ @xref{Position}
 A position within the world that can be described by an x and y coordinate.
-@item @b{positions:} @i{preset variable:} @code{@b{po}}; @ @ @xref{Positions}
+@item @b{positions:} @i{preset variable:} @code{@b{po}}; @ @ @xref{Positions Repository}
 The singleton type of the repository of all named positions.
 @item @b{object:}@ @ @xref{Object}
 An Enigma object like a stone, item, floor, other. Any object is a position, too.
@@ -4125,10 +4125,10 @@ The singleton type of the repository of all named objects.
 @item @b{default:} @i{preset variable:} @code{@b{DEFAULT}}; @ @ @xref{Object Attributes}
 The singleton type of default values that can be used instead of Lua's @samp{nil}
 in anonymous table tile definitions.
-@item @b{tile:}@ @ @xref{Tile}
+@item @b{tile:}@ @ @xref{Tile and Object Declaration	}
 A description of one or several objects for a common grid position (floor, item,
 stone, actor)
-@item @b{tiles:} @i{preset variable:} @code{@b{ti}}; @ @ @xref{Tiles}
+@item @b{tiles:} @i{preset variable:} @code{@b{ti}}; @ @ @xref{Tiles Repository}
 The singleton type of the repository of all tile instances.
 @item @b{world:} @i{preset variable:} @code{@b{wo}}; @ @ @xref{World}
 The singleton type of the world that contains all objects.
@@ -5095,7 +5095,7 @@ statement as long as the attribute's name is a legal Lua name (@pxref{Caveats}).
 64              @b{anchor2} = @var{woods}[@var{wire_p}[@var{j}%@var{3} + @var{1}]]@})
 @end example
 Finally we need to add the @ref{ot_wire} between our movable stones. This can
-not be done within the map. We need to use the @ref{World Advanced Methods}
+not be done within the map. We need to use the @ref{World} method 
 @samp{wo:add()}, which takes the two connected stones as two anchor attributes.
 We select the first 3 stones of our wood group as stones to be connected with
 3 other stones of the indices 4 to 12. Thus we take in every loop as the first
@@ -5271,8 +5271,23 @@ For task driven samples @pxref{Position Tasks}.
 
 Let us look at the supported operators:
 
-@table @asis
-@item @b{Addition/Subtraction:}
+@menu
+* Position Addition and Subtraction::     Operators @samp{+} and @samp{-} 
+* Position Multiplication and Division::  Operators @samp{*} and @samp{/}
+* Position Sign::                         Unary Operator @samp{-}
+* Position Center::                       Operator @samp{#}
+* Position Comparison::                   Equality @samp{==} and Inequality @samp{~=}
+* Position Concatenation::                Operator @samp{..}
+* Position Coordinate Access::            Index Operators
+* Position Grid Rounding::                Method @samp{grid()}
+* Position Existence::                    Method @samp{exists()}
+@end menu
+
+@c ----------------- Position Addition and Subtraction --------------------
+
+@node Position Addition and Subtraction
+@subsection Position Addition and Subtraction
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos} <@b{+}|@b{-}> <@i{pos} | @i{obj} | @i{cpos} | @i{polist}>
@@ -5297,7 +5312,11 @@ member of the supplied position list.
 @end example
 @end table
 
-@item @b{Multiplication/Division:}
+@c ----------------- Position Multiplication and Division --------------------
+
+@node Position Multiplication and Division
+@subsection Position Multiplication and Division
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos} <@b{*}|@b{/}> @i{number}
@@ -5316,7 +5335,11 @@ is returned.
 @end example
 @end table
 
-@item @b{Sign:}
+@c ----------------- Position Sign --------------------
+
+@node Position Sign
+@subsection Position Sign
+
 @table @asis
 @item @b{Syntax:}
 result = -@i{pos}
@@ -5331,7 +5354,11 @@ position value with both coordinate values multiplicated by @samp{-1} is returne
 @end example
 @end table
 
-@item @b{Center:}
+@c ----------------- Position Center --------------------
+
+@node Position Center
+@subsection Position Center
+
 @table @asis
 @item @b{Syntax:}
 result = #@i{pos}
@@ -5346,7 +5373,13 @@ with coordinates of the center of the containing grid position is returned.
 @end example
 @end table
 
-@item @b{Equality/Inequality:}
+@c ----------------- Position Comparison --------------------
+
+@node Position Comparison
+@subsection Position Comparison
+
+Equality and Inequality.
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos1} <==|~=> @i{pos2}
@@ -5366,7 +5399,11 @@ the position operator @samp{#} or the method @samp{grid()}.
 @end example
 @end table
 
-@item @b{Concatenation:}
+@c ----------------- Position Concatenation --------------------
+
+@node Position Concatenation
+@subsection Position Concatenation
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos1} .. <@i{pos2} | @i{polist}> 
@@ -5385,7 +5422,11 @@ multiple concatenations or not.
 @end example
 @end table
 
-@item @b{Coordinate Access:}
+@c ----------------- Position Coordinate Access --------------------
+
+@node Position Coordinate Access
+@subsection Position Coordinate Access
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos}["x"]
@@ -5411,7 +5452,11 @@ returns both numbers at once in a Lua multiple assignment.
 @end example
 @end table
 
-@item @b{Grid Rounding:}
+@c ----------------- Position Grid Rounding --------------------
+
+@node Position Grid Rounding
+@subsection Position Grid Rounding
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos}:grid()
@@ -5427,7 +5472,11 @@ that contains the position itself.
 @end example
 @end table
 
-@item @b{Existence:}
+@c ----------------- Position Existence --------------------
+
+@node Position Existence
+@subsection Position Existence
+
 @table @asis
 @item @b{Syntax:}
 result = @i{pos}:exists()
@@ -5447,7 +5496,6 @@ the bag.
 @example
 @var{boolean} = @i{po}(@var{3.2}, @var{4.7}):@b{exists}()
 @end example
-@end table
 @end table
 
 
@@ -5490,7 +5538,7 @@ outside of the world. Actors will always report positions rounded to the
 containing grid. This feature is legacy. As Lua code is anyway unapropriate to
 handle actor movements we maintained this rounding feature.
 
-Objects support standard set operators of @ref{Groups}, too, as long as one
+Objects support standard set operators of @ref{Group}s, too, as long as one
 operand is a group and the other an object.
 
 For task driven samples @pxref{Object Tasks} and @ref{Attribute Tasks}.
@@ -6206,7 +6254,7 @@ Number of positions contained in the list.
 
 @item @b{Syntax Samples:}
 @example
-@var{number} = #@var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) -- = 2
+@var{number} = #(@i{po}(@var{2},@var{3}) .. @i{po}(@var{5},@var{7})) -- = 2
 for @var{i} = @var{1}, #@var{polist} do @var{pos} = @var{polist}[@var{i}] ... end
 @end example
 @end table
@@ -6225,9 +6273,9 @@ tables.
 
 @item @b{Syntax Samples:}
 @example
-@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[2]     -- = po(5,7)
-@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[-1]    -- = po(5,7)
-@var{pos} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7}))[0]     -- = nil
+@var{pos} = (@i{po}(@var{2},@var{3}) .. @i{po}(@var{5},@var{7}))[2]     -- = po(5,7)
+@var{pos} = (@i{po}(@var{2},@var{3}) .. @i{po}(@var{5},@var{7}))[-1]    -- = po(5,7)
+@var{pos} = (@i{po}(@var{2},@var{3}) .. @i{po}(@var{5},@var{7}))[0]     -- = nil
 for @var{i} = @var{1}, #@var{polist} do @var{pos} = @var{polist}[@var{i}] ... end
 @end example
 @end table
@@ -6247,7 +6295,7 @@ multiple concatenations or not.
 
 @item @b{Syntax Samples:}
 @example
-@var{newpolist} = @var{polist}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) .. @i{po}(@var{4}, @var{4}) -- = (2,3),(5,7),(4,4)
+@var{newpolist} = @i{po}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) .. @i{po}(@var{4}, @var{4}) -- = (2,3),(5,7),(4,4)
 @end example
 @end table
 
@@ -6286,7 +6334,7 @@ coordinate values. In total the position list is stretched by a scalar factor.
 @item @b{Syntax Samples:}
 @example
 @var{newpolist} = @var{2} * @var{NEIGHBORS_4}       -- = po(9, 12)
-@var{newpolist} = @var{polist}(@i{po}(@var{2},@var{4}), @i{po}(@var{6},@var{7})) * @var{1/2}   -- = (1, 2), (3, 3.5)
+@var{newpolist} = (@i{po}(@var{2},@var{4}) .. @i{po}(@var{6},@var{7})) * @var{1/2}   -- = (1, 2), (3, 3.5)
 @end example
 @end table
 
@@ -6559,7 +6607,7 @@ just keys as any other characters.
 result = ti(@i{odecl})
 
 @item @b{Details:}
-Converts an table based object declaration to a new tile value.
+Converts a table based object declaration to a new tile value.
 
 @item @b{Syntax Samples:}
 @example
@@ -8168,7 +8216,7 @@ constant that is appropriate for an object and do avoid using numbers.
 @node oxyd colors
 @subsection oxyd colors
 
-Number constants for @ref{st_oxyd} attribute @ref{oxydcolor}. Please choose the 
+Number constants for @ref{st_oxyd} attribute @samp{oxydcolor}. Please choose the 
 constant that is appropriate for an object and do avoid using numbers. 
 
 @itemize @bullet
@@ -8194,7 +8242,7 @@ constant that is appropriate for an object and do avoid using numbers.
 @node orientations
 @subsection orientations
 
-Number constants for actor attributes @ref{orientation} or @ref{slope}. Please
+Number constants for attributes @samp{orientation} or @samp{slope}. Please
 choose the constant that is appropriate for an object and do avoid using numbers.
 
 @itemize @bullet
@@ -19952,12 +20000,21 @@ Returns width and height of new Enigma level.
 * Tips and Tricks::         Simple patterns that are valuable like a feature
 @end menu
 
+@c ----------------- Resolvers --------------------
 @node Resolvers
 @section Resolvers
 
+Every tile in the world is defined by a key that needs to be resolved to its 
+declaration. This can be done either by the @ref{Tiles Repository} @samp{ti} 
+alone, or by additionally chained resolvers. In the chapter @ref{Lua API} we
+learned how to set up a @ref{World} by static @ref{Tile and Object Declaration}s.
+Now it is time to explore the capabilities of resolvers. In the 
+@ref{World Creation} you had to supply a top resolver as an argument. Let us
+look which types of resolvers are available and how you can chain these resolvers. 
+
 @menu
-* Resolver Chaining::  
-* Custom Resolver::    
+* Resolver Chaining::  Linking resolvers and the tiles repository
+* Custom Resolver::    Writing simplified own resolvers
 * res.autotile::       Generate tiles from given template declarations
 * res.composer::       Compose tiles from given base tiles
 * res.maze::           Generate arbitrarily shaped mazes
@@ -19970,43 +20027,42 @@ Returns width and height of new Enigma level.
 @node Resolver Chaining
 @subsection Resolver Chaining
 
-Once all parameters have been set and all tiles have been declared it is time
-to create the level world with all its objects. This is done by the following
-constructor that appears in two variations.
+There exist several useful resolvers that may simplify the task of level writing
+or provide dynamic features like randomness, mazes, etc. Each of them handles
+just some keys out of your world map. For the other keys the resolver has no
+idea how to resolve them to object declarations. Thus each resolver has to be
+linked to a so called @samp{subresolver}. The resolver just forwards all key
+request that it can not handle itself to its subresolver. Indeed it will in
+most cases even forward modified key requests to its subresolver that are 
+required by the process of handling its own keys.
 
-@ref{World Creation}
+The last resolver in the chain will either use the @ref{Tiles Repository} 
+@samp{ti} as its subresolver or a @ref{Custom Resolver} function, which will be
+@samp{ti} based, too
+.
+A typical resolver chain will look like:
+
 
 @table @asis
-@item @b{Syntax:}
-width, height = @b{wo}(@i{topresolver}, ...)
-
-
-@table @asis
-@item @i{topresolver} = @code{ti} | @i{resolver} | @i{localresolver}
-Every tile in the world is given by a key that needs to be resolved to its
-declaration. This can be done either by the @ref{Tiles Repository} @samp{ti}, or
-by given library @ref{Resolvers} or by local @ref{Custom Resolver} function.
-This argument takes the top resolver that is requested first.
-@end table
+@item @b{Syntax Sample:}
+@example
+@var{subresolver} = @i{res}.@i{random}(@i{ti}, ...)
+@var{topresolver} = @i{res}.@i{composer}(@var{subresolver})
+width, height = @i{wo}(@var{topresolver}, ...)
+@end example
 
 @item @b{Details:}
-Every key is resolved to its tile declaration via the given resolver chain.
-The top resolver is given to this call as a parameter. If it is @samp{ti} the
-chain consists just of one element and the tile declaration stored in the tiles
-repository at the given key is taken. Otherwise the resolvers will be evaluated
-as explained in @ref{Resolver Chaining}.
+The call of every resolver returns a context reference handle, that must be
+supplied to the upward resolver in the chain. Thus you need to start with the
+lowest resolver in your level code. The @ref{World Creation} takes the top most
+resolver context handle.
 
-But there exist several useful
-@ref{Resolvers} that may simplify the task of level writing or provide dynamic
-features like randomness, mazes, etc. If you like to use one or several of them
-you provide the instance of the resolver to be requested first in this
-constructor. The instance that should be requested next is set in the top
-resolver as first argument, and so on. The last library resolver takes usually
-@samp{ti} as its subresolver. For even more flexibility you can provide an
-own @ref{Custom Resolver} function within the level to take influence on the key
-interpretation. This function has to be the last resolver in the chain.
+There is no limit to the number of chained resolvers. But the order of resolvers
+may sometimes be critical. Please read carefully the resolver notes for usage,
+restrictions and caveats.
 
-@item @b{Example:}
+@item @b{Full Example:}
+The level "Demo Resolver Chain" of levelpack "Demolevels":
 @example
 ti["~"] = @{"fl_water"@}
 ti["s"] = @{"fl_sahara"@}
@@ -20082,6 +20138,7 @@ declaration: @samp{return ti(@{@})}.
 @samp{return nil} indicates an error of usage of an unknown tile key.
 
 @item @b{Example:}
+The level "Demo User Resolver" of levelpack "Demolevels":
 @example
 ti["r"] = @{"fl_rough_red"@}
 ti["b"] = @{"fl_rough_blue"@}
@@ -20397,9 +20454,160 @@ w, h = wo(resolver, "  ", @{
 @end table
 
 
+@c ----------------- Maze Resolver --------------------
 @node res.maze
 @subsection res.maze
 
+The maze resolver supports you in the creation of quite arbitrary mazes. The
+shape is no longer limited to boring rectangular areas of one grid thick walls
+leaving the player just a one grid path uniquely connecting all parts of the maze.
+
+This second generation maze generator lets you fill mazes in arbitrarily shaped
+areas, mazes with thick walls or chasms, or thin walls of just a sheet of window
+glass, mazes with cells of single grid, cells that are whole islands or mazes
+based on @ref{it_strip} that have cells of no extent and consist of connections
+only. The maze cells may be aligned strictly rectangular or shifted in one
+direction, they may be just connected to its 4 neighbors or to 6 neighbors in
+hexagonal mazes or three dimensional mazes. You can write and plug in your own
+maze generation and rendering algorithms. And finally you can analyse,
+postprocess and even modify your maze even after the inital creation.
+
+From the mathematical point of view we provide the basic structures for
+generation of quite arbitrary directed graphs. Our maze consists of cells, the
+vertices of a graph. Every cell can be connected to a given number of neighbor
+cells.  But these connections, that are the passages from one cell to another,
+can even be direction dependent. This allows you to use window panes on either
+side of a connection or to use oneways for your connections, too. These passages
+from one cell to another are the edges of our graph and as they may be directed
+we have a directed graph. But for most mazed the support of directions is 
+irrelevant and transparent, and you do not really need to know anything about
+graphs at all. Thus we called the resolver just a maze resolver.
+
+Of course such a versatile resolver needs some configuration. As the parameters
+exceed the number of arguments, that you can reasonably supply to a function
+just by enlisting them, we decided to group the parameters for specific 
+tasks and to use a table with named attributes for the configuration. This 
+sounds more complex than it is. But watch out carefully for the table curly
+braces as they are necessary and can not be omitted.
+
+In a big level you may want to generate two or even more completely independent
+mazes. You can do this by using multiple instances of this resolver. The 
+resolver handle returned on the configuration is a unique reference pointer for
+the maze for subsequent requests. Store it and link all the maze resolvers as
+explained in @ref{Resolver Chaining}.
+
+@table @asis
+@item @b{Location:}
+This resolver is part of the library @samp{libmaze} as of release 2. You can
+use it by adding the following dependency to your level @ref{<compatibility>}
+declaration:
+@example
+  <@i{el}:@b{dependency} @i{el}:@b{path}="@var{lib/libmaze}" @i{el}:@b{id}="@var{lib/libmaze}" @i{el}:@b{release}="@var{2}" @i{el}:@b{preload}="@var{true}"/>
+@end example
+
+The library @ref{libmap} is automatically preloaded by this resolver.
+
+@item @b{Syntax:}
+
+@i{themaze} = @b{res.maze}(@i{subresolver}, @i{attributes})
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{attributes} = @{@i{keyvalue}, @i{keyvalue},...@}
+An anonymous table with one or many attributes given as key value pairs, 
+separated by a comma.
+@item @i{keyvalue} = <area=@i{area_value} | render = @i{render_value} | kernel = @i{kernel_value} | spacing = @i{spacing_value} | persistent=@i{persistence}>
+Values for given keys that may occur in any sequence in the anonymous table.
+@item @i{area_value} = @{<@i{rectangular_area} | @i{marked_area}>@}
+The maze area specification, that is either defined as an rectangluar area
+or an area marked in the the world's map.
+@item @i{rectangular_area} = @i{anchor}, @i{width}, @i{height}
+An rectangular area that is given by an anchor position within the world and
+two numbers for the width and height measured in maze cells.
+@item @i{anchor}
+Anything that is convertable to a @ref{Position} that denotes the upper left
+edge of the rectangular maze area. Besides a position value, an object reference
+or a name string of an object or position are supported value types.
+@item @i{marked_area}
+One or multiple strings separated by a comma as simple entries in the anonymous
+table. Every string does either specify a key match, a key prefix or an object
+name. All these strings can be used at the same time for marking an area. The
+strings can occur in any sequence and multiplicity.
+@item @i{kernel_value} = @{kernel_width, kernel_height@}
+The size of the kernel of a cell given by width and height in number of grids.
+@item @i{spacing_value} = @{spacing_x, spacing_y@}
+The distance of the kernel of one cell to its neighbor in x and y direction
+measured in number of grids.
+@item @i{render_value} = @{<@i{std_renderer_args} | @i{other_renderer}>@}
+The specification for drawing the maze. In case of a missing specification
+no drawing will be done at all. If the default standard renderer should be used
+its parameters can be directly supplied, other renderers need a type 
+specification plus the necesssary configuration information.
+@item @i{std_renderer_args} = @i{passage_keys} [, <@i{wall_key} [, @i{kernel_key}] | @i{cell_map}>]]
+The standard renderer takes info about tile keys to be used for the passages,
+and either a cell map, or additional tile keys for the wall and optionally the
+kernel of a cell.
+@item @i{passage_keys} = <@i{passage_key} | @{@i{passage_open}, @i{passage_closed}@}>
+Usually you just give a tile key for open maze passages. Closed passages appear
+like walls and use the same tile key. But in case you want to use special tile
+keys for open and for closed passages you can supply two strings in an 
+anonymous table. If you give no wall key you may need to include an 
+@samp{st_nil} in your open passage tile declaration to kill a wall stone drawn
+by your world map.
+@item @i{wall_key}
+The tile key to be used for drawing walls. If it is omitted no wall is drawn
+and the resolver relies on all possible wall tiles to be drawn by the world
+map itself.
+@item @i{kernel_key}
+In most cases the cell kernel will be drawn by the world map. But if not you
+can supply a tile key that will be drawn on every cell kernel grid.
+@item @i{cell_map}
+Instead of kernel and wall tile keys you can supply a @ref{libmap} map of a
+complete cell. The map can provide arbitrary tiles for cell kernels larger than
+a single grid. The walls can differ on the south and east side, too.
+@item @i{other_renderer} = @i{renderer}  [, @i{other_renderer_args}]
+Enlisting of a a renderer function followed by its specific arguments.
+@item @i{renderer}
+The function that does the rendering. By default it is 
+@samp{lib.maze.renderer_standard} with the above given arguments. Other supplied
+renederers are @samp{lib.maze.renderer_window} and 
+@samp{lib.maze.renderer_strip}
+
+@item @i{persistence}
+A boolean flag that default to @samp{false}. You nees to set it to @samp{true}
+if you want to access the maze or any of its cells after the level 
+initialization. Otherwise the maze reference handle with all its data may get
+invalid due to memory garbage collection. This is no problem for most mazes,
+that will be directly rendered and have no need of further evaluation or changes
+during runtime.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+maze1 = res.maze(ti, @{area =@{"anchor1", 4, 5@}, render = @{" ", "-", " "@}@})
+maze2 = res.maze(ti, @{area =@{"."@}, kernel=@{1,1@}, render = @{"!", "~", "-"@}@})
+maze3 = res.maze(ti, @{area =@{"amaze#*"@}, render = @{@{".","+"@}, "~", "-"@}@})
+maze4 = res.maze(ti, @{area =@{po(2, 12), 5, 5@}, kernel=@{3,2@}, 
+                   render = @{".", wo:newMap(" ", @{"!!!~","--!~","~~~~"@})@}@})
+@end example
+
+@item @b{Details:}
+
+
+
+@item @b{Full Example:}
+@example
+ti[" "] = @{"fl_sahara"@}
+
+w, h = wo(resolver, " ", @{
+"                                        ",
+"                                        ",
+"                                        "
+@})
+@end example
+@end table
 
 @c ----------------- Puzzle Resolver --------------------
 
