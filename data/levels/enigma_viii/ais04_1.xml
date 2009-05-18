@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="From Six To Twenty-Six" el:subtitle="" el:id="20090427ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
+      <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:48"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_redslab"}
+ti["."] = {"fl_blueslab"}
+ti["="] = {"st_rawglass"}
+ti["#"] = {"st_darkgray"}
+ti["Z"] = {"st_mirror_slab", state=EAST, transparent=true}
+ti["z"] = {"st_mirror_slab", state=EAST}
+ti["("] = {"st_puzzle_blue", connections="es"}
+ti["-"] = {"st_puzzle_blue", connections="ew", hollow=true}
+ti[")"] = {"st_puzzle_blue", connections="ws"}
+ti["1"] = {"st_puzzle_blue", connections="ns"}
+ti["2"] = {"st_puzzle_blue", connections="s", hollow=true}
+ti["3"] = {"st_puzzle_blue", connections="n", hollow=true}
+ti["4"] = {"st_puzzle_blue", connections="sn"}
+ti["["] = {"st_window_w", secure=true}
+ti["]"] = {"st_window_e", secure=true}
+ti["_"] = {"st_window_s", secure=true}
+ti["'"] = {"st_window_n", secure=true}
+ti[";"] = {"st_window_nw", secure=true}
+ti["/"] = {"st_window_es", secure=true}
+ti["|"] = {"st_window_ew", secure=true}
+ti["L"] = {"st_window_sw", secure=true}
+ti["`"] = {"st_window_ne", secure=true}
+ti["<"] = {"st_laser", "togglables_#", orientation=WEST}
+ti["v"] = {"st_laser", orientation=SOUTH}
+ti["X"] = {"st_mirror_sheets", "southmirrors_#", transparent=true, movable=true, orientation=SLASH}
+ti["K"] = {"st_mirror_slab", "southmirrors_#", movable=true, orientation=SLASH}
+ti["%"] = {"st_laserswitch", action_1="turn", action_0="turnback", target="@southmirrors_#*"}
+ti["D"] = {"st_door_d","togglables_#", state=CLOSED, faces="ew"}
+ti["I"] = {"st_switch", target="togglables_#*", instant=true}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = ti["["] .. {"#ac_marble"}
+
+function myresolver(k, x, y)
+    if x%2 ~= 0 then
+        return ti[k] .. ti["."]
+    else
+        return ti[k]
+    end
+end
+
+wo(myresolver, " ", {
+    "IZZZZZZZZZZZZZZZZZZZZZZZZZZ< ",
+    "[''''''''''''''''''''''''''` ",
+    "[()                        ] ",
+    "[(-)                       ] ",
+    "[(--)                      ] ",
+    "[(---)                     ] ",
+    "[(----)                    ] ",
+    "[(-----)                   ] ",
+    "[(------)                  ] ",
+    "[(-------)                 ] ",
+    "[(--------)                ] ",
+    "[(---------)               ] ",
+    "[(----------)              ] ",
+    "[(-----------)             ] ",
+    "[(------------)            /_",
+    "@__________________________D]",
+    "|%%%%%%%%%%%%%%%%%%%%%%%%%%#O",
+    "|KXXXXXXXXXXXXXXXXXXXXXXXXX<O",
+    "[''''''''''''''''''''''''''D]",
+    "[121212                    `'",
+    "[343434                    ] ",
+    "L__________________________/ "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

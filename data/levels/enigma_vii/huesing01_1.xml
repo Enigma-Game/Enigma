@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
-     <el:info el:type="level">
-       <el:identity el:title="Watchmaker" el:subtitle="Mend the clockwork" el:id="huesing01"/>
-       <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
-       <el:author el:name="Johannes Hüsing" el:email="hannes@ruhrau.de" el:homepage="http://derwisch.wikidot.com"/>
-       <el:copyright>Copyright © 2008 Johannes Hüsing </el:copyright>
-       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-       <el:compatibility el:enigma="1.10"/>
-       <el:modes el:easy="false" el:single="true" el:network="false"/>
-       <el:score el:easy="-" el:difficult="-"/>
-     </el:info>
+    <el:info el:type="level">
+      <el:identity el:title="Watchmaker" el:subtitle="Mend the clockwork" el:id="huesing01"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:author el:name="Johannes Hüsing" el:email="hannes@ruhrau.de" el:homepage="http://derwisch.wikidot.com"/>
+      <el:copyright>Copyright © 2008 Johannes Hüsing </el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
+wo["ConserveLevel"] = false
 
 ti[" "] = {"fl_metal_4"}
 ti["-"] = {"fl_metal_2"}
-ti["+"] = {"fl_metal_3"}
+ti["="] = {"fl_metal_3"}
 ti["|"] = {"fl_metal_6"}
-ti["~"] = {"fl_water"}
 ti["#"] = {"st_metal"}
-ti["W"] = ti["+"] .. {"st_box_wood"}
-ti["X"] = {"st_oxyd"}
-ti[":"] = {"st_door","door#", flavor="d", faces="ew"}
-ti["A"] = ti["~"] .. {"st_boulder_n", "boulderA"}
+ti["+"] = ti["="] .. {"st_box_wood"}
+ti["^"] = ti({"fl_water"}) .. {"st_boulder_n", "boulderA"}
+ti["V"] = ti({"fl_water"}) .. {"st_boulder_s", "boulderB"}
 ti["a"] = {"it_trigger", target="boulderA", action_1="turn"}
-ti["B"] = ti["~"] .. {"st_boulder_s", "boulderB"}
 ti["b"] = {"it_trigger", target="boulderB", action_1="turn"}
-ti["1"] = {"it_trigger", target={"door#5","door#6"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["2"] = {"it_trigger", target={"door#4","door#3"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["3"] = {"it_trigger", target={"door#7","door#8"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["4"] = {"it_trigger", target={"door#2","door#1"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["5"] = {"it_trigger", target={"door#6","door#7"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["6"] = {"it_trigger", target={"door#3","door#2"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["7"] = {"it_trigger", target={"door#8","door#5"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["8"] = {"it_trigger", target={"door#1","door#4"}, action_1={"open","close"}, action_0={"nope","nope"}}
-ti["D"] = ti["+"] .. {"it_document", text="text1"}
+ti["1"] = {"st_door","door#1", flavor="d", faces="ew"}
+ti["2"] = {"st_door","door#2", flavor="d", faces="ew"}
+ti["3"] = {"st_door","door#3", flavor="d", faces="ew"}
+ti["4"] = {"st_door","door#4", flavor="d", faces="ew"}
+ti["5"] = {"st_door","door#5", flavor="d", faces="ew"}
+ti["6"] = {"st_door","door#6", flavor="d", faces="ew"}
+ti["7"] = {"st_door","door#7", flavor="d", faces="ew"}
+ti["8"] = {"st_door","door#8", flavor="d", faces="ew"}
+ti["A"] = {"it_trigger", target={"door#5","door#6"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["B"] = {"it_trigger", target={"door#4","door#3"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["C"] = {"it_trigger", target={"door#7","door#8"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["D"] = {"it_trigger", target={"door#2","door#1"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["E"] = {"it_trigger", target={"door#6","door#7"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["F"] = {"it_trigger", target={"door#3","door#2"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["G"] = {"it_trigger", target={"door#8","door#5"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["H"] = {"it_trigger", target={"door#1","door#4"}, action_1={"open","close"}, action_0={"nop","nop"}}
+ti["t"] = ti["="] .. {"it_document", text="text1"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"ac_marble_black", 0.0, 0.5}
 
-ti["0"] = {"ac_marble_black", 0.0, 0.5}
-
-w, h = wo(ti, " ", {
+wo(ti, " ", {
     "####################",
-    "#X : : : :A        #",
+    "#O 1 2 3 4^        #",
     "###########        #",
     "#                  #",
-    "#   1-a-2  5-b-6   #",
-    "#   |+++|  |+++|   #",
-    "#   a+W+a 0b+W+b   #",
-    "#   |+D+|  |+++|   #",
-    "#   3-a-4  7-b-8   #",
+    "#   A-a-B  E-b-F   #",
+    "#   |===|  |===|   #",
+    "#   a=+=a @b=+=b   #",
+    "#   |=t=|  |===|   #",
+    "#   C-a-D  G-b-H   #",
     "#                  #",
     "#        ###########",
-    "#        B: : : : X#",
+    "#        V5 6 7 8 O#",
     "####################"})
-
-  ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>

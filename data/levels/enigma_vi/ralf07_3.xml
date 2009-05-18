@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Im-pull-se" el:subtitle="" el:id="ralf07"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -13,12 +13,14 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
 ti[" "] = ti({"fl_bluegreen", checkerboard=0}) .. {"fl_bluegray", checkerboard=1}
 ti["."] = {"fl_abyss"}
 ti["-"] = {"fl_sahara"}
 ti["#"] = {"st_lightglass"}
 ti["X"] = ti["-"] .. ti["#"]
-ti["*"] = ti["-"] .. {"st_lightglass", name="doors#"}
+ti["*"] = {"fl_sahara", name="doors#"} .. ti["#"]
 ti["G"] = ti["-"] .. {"st_rawglass"}
 ti["I"] = {"st_stoneimpulse"}
 ti["J"] = ti["-"] .. ti["I"]
@@ -43,11 +45,15 @@ wo(ti, " ", {
     "........   .........",
     ".........O.........."})
 
-wo:add({"ot_counter", name="counter", state=4, target="open_doors", action_12="callback"})
+wo:add({"ot_counter", name="counter", state=4, target_11="close_doors", target_12="open_doors", action="callback"})
 wo:shuffleOxyd()
 
 function open_doors(value, sender)
-    wo[no["doors#*"]] = ti["-"] .. ti["P"]
+    wo[no["doors#*"]] = ti["P"]
+end
+
+function close_doors(value, sender)
+    wo[no["doors#*"]] = ti["*"]
 end
  ]]></el:luamain>
     <el:i18n>

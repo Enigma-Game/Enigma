@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Panelled Puzzle I" el:subtitle="" el:id="20080820ral639"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 166 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 177 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,8 +27,7 @@ ti["P"] = {"st_pull","westpull"}
 ti["trigger"] = {"it_trigger", "tr%%", invisible=true, target="counter", action="signal"}
 
 ti["*"] = {"st_spitter", "spitter", secure=true}
-ti["|"] = {"st_break", "spitter"}
-ti["X"] = {"st_pull", "eastpull"} .. ti{"fl_redslab_framed"} .. ti{"it_trigger", invisible=true, target="endpos"}
+ti["X"] = {"st_pull", "eastpull"} .. ti{"fl_redslab_framed"} .. ti{"it_trigger", invisible=true, target="spitter"}
 ti["S"] = {"st_switch", target="balls"}
 ti["$"] = {"it_extralife"}
 
@@ -83,14 +82,6 @@ for i = 1, 15 do
     wo[no["tr%"..i]] = {"st_puzzle", connections=connections[perm[i]]}
     if not wo["IsDifficult"] and yellow[perm[i]] then
         wo[no["tr%"..i]] = {"st_puzzle_yellow", connections=connections[perm[i]]}
-    end
-end
-
-function endpos(value)
-    if value then
-        wo[no["spitter"]] = ti["*"]
-    else
-        wo[no["spitter"]] = ti["|"]
     end
 end
 

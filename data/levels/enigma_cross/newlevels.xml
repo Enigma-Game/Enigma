@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="42" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -50,7 +50,7 @@
     <level _seq="42" _title="Buridan" _xpath="enigma_ii/alain01_1" author="Alain Busser" ctrl="force" easy="false" id="alain01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Moure-Switches" _xpath="enigma_ii/andreas10_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas10" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Turn Around" _xpath="enigma_ii/andreas07_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas07" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="45" _title="Shoals" _xpath="enigma_ii/nat27_1" author="Nat Pryce" ctrl="force" easy="false" id="nat27" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="Shoals" _xpath="enigma_ii/nat27_2" author="Nat Pryce" ctrl="force" easy="false" id="nat27" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Shifting Shoals" _xpath="enigma_ii/nat28_1" author="Nat Pryce" ctrl="force" easy="false" id="nat28" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Dirt Clod" _xpath="enigma_ii/xerxes02_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Friend or Foe?" _xpath="enigma_ii/andreas05_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas05" rel="2" rev="3" score="1" target="time" unit="duration"/>

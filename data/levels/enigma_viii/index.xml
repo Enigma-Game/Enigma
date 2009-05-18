@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -21,7 +21,7 @@
     <level _seq="13" _title="The Green Hell" _xpath="./mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="85" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Tilt Board" _xpath="./ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="15" _title="4 - 8 - 4" _xpath="./dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="5" score="3" target="time" unit="duration"/>
-    <level _seq="16" _title="Impulsive Order" _xpath="./raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="13" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Impulsive Order" _xpath="./raywick05_1" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Cross Mail" _xpath="./johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Color Maze" _xpath="./pulley16_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley16" rel="3" rev="10" score="3" target="time" unit="duration"/>
     <level _seq="19" _title="Earthlink" _xpath="./pulley15_1" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -77,8 +77,8 @@
     <level _seq="69" _title="5 Days and 5 Nights" _xpath="./andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Babylon" _xpath="./mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="27" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Two Is A Company III" _xpath="./devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="72" _title="Panelled Puzzle I" _xpath="./ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="166" score="1" target="time" unit="duration"/>
-    <level _seq="73" _title="Panelled Puzzle II" _xpath="./ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="166" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Panelled Puzzle I" _xpath="./ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="177" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="Panelled Puzzle II" _xpath="./ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="177" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="The Gordian Knot" _xpath="./ral15_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090312ral718" rel="1" rev="167" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Inverse Maze" _xpath="./ral44_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090325ral180" rel="1" rev="163" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Inverse Maze II" _xpath="./ral45_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090327ral218" rel="1" rev="170" score="1" target="time" unit="duration"/>
@@ -86,18 +86,12 @@
     <level _seq="78" _title="Fight of Elements" _xpath="./ral48_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090403ral538" rel="1" rev="172" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="New York'Jungle" _xpath="./mecke32_1" author="mecke" ctrl="force" easy="false" id="mecke32" rel="1" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Push? Pull? Rotate!" _xpath="./raoul33_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul33" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Pentomino VI" _xpath="./pento06_1" author="Enigma Team" ctrl="force" easy="false" id="pento6" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Pentomino VII" _xpath="./pento07_1" author="Enigma Team" ctrl="force" easy="false" id="pento7" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="83" _title="Pentomino VIII" _xpath="./pento08_1" author="Enigma Team" ctrl="force" easy="false" id="pento8" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="Pentomino IX" _xpath="./pento09_1" author="Enigma Team" ctrl="force" easy="false" id="pento9" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="Pentomino X" _xpath="./pento10_1" author="Enigma Team" ctrl="force" easy="false" id="pento10" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="86" _title="Pentomino XI" _xpath="./pento11_1" author="Enigma Team" ctrl="force" easy="false" id="pento11" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Pentomino XII" _xpath="./pento12_1" author="Enigma Team" ctrl="force" easy="false" id="pento12" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="88" _title="Pentomino XIII" _xpath="./pento13_1" author="Enigma Team" ctrl="force" easy="false" id="pento13" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="Pentomino XIV" _xpath="./pento14_1" author="Enigma Team" ctrl="force" easy="false" id="pento14" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="90" _title="Pentomino XV" _xpath="./pento15_1" author="Enigma Team" ctrl="force" easy="false" id="pento15" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="Pentomino XVI" _xpath="./pento16_1" author="Enigma Team" ctrl="force" easy="false" id="pento16" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="92" _title="2 + 2" _xpath="./devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="2 + 2" _xpath="./devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Afraid of water" _xpath="./devnull32_1" author="/dev/null" ctrl="force" easy="true" id="devnull32" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="Deathbridge" _xpath="./ais01_1" author="Alex Smith" ctrl="force" easy="true" id="20090416ais523003" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Danger Flag" _xpath="./ais02_1" author="Alex Smith" ctrl="force" easy="true" id="20090338ais523002" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Three Times Through" _xpath="./ais03_1" author="Alex Smith" ctrl="force" easy="true" id="20090316ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="From Six To Twenty-Six" _xpath="./ais04_1" author="Alex Smith" ctrl="force" easy="false" id="20090427ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

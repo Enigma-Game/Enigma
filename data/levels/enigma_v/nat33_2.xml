@@ -3,24 +3,30 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Shipwreck" el:subtitle="" el:id="natmaze2"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-       <el:dependency el:path="lib/natmaze" el:id="lib/natmaze" el:release="1" el:preload="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
-      </el:comments>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-tight_maze( new_kruskal_maze(38,24), "fl-wood", "fl-water", nil )
-oxyd_shuffle()
-display.SetFollowMode(display.FOLLOW_SCROLLING)
-    ]]></el:luamain>
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_wood", name="path#*"}
+ti["~"] = {"fl_water"}
+
+themaze = res.maze(ti, {area={po(1,1), 37, 24}, render={" ", "~", " "}})
+
+wo(themaze, "~", 75, 49)
+wo[po(1,0) .. po(73,0) .. po(1,48) .. po(73,48)] = {"st_oxyd"}
+wo:shuffleOxyd()
+wo[no["path#*"]:shuffle()[1]] = {"#ac_marble_black"}
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

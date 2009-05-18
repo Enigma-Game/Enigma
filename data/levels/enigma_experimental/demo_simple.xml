@@ -3,26 +3,27 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Demo Simple" el:id="20060210ral001"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
       <el:author  el:name="Ronald Lamprecht"/>
-      <el:copyright>Copyright © 2006 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
-      <el:compatibility el:enigma="0.92"/>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
+ti[" "] = {"fl_lawn_b"}
+ti["#"] = {"st_box"}
+ti["o"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
 
-create_world( levelw, levelh)
-draw_border("st-wood")
-fill_floor("fl-leavesb", 0,0,levelw,levelh)
-
-oxyd( 4,4)
-oxyd( 14,4)
-
-set_actor("ac-blackball", 4, 11)
+wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "#  o      @     o  #",
+    "#                  #",
+    "####################",
+})
     ]]></el:luamain>
     <el:i18n/>
   </el:protected>
