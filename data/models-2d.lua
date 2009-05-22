@@ -661,9 +661,9 @@ do
 
 end
 
--- it-death --
+-- it_death --
 do
-    local images = DefSubimages("it-death", {h=4})
+    local images = DefSubimages("it_death", {h=4})
     DefAlias("it_death", images[1])
     DefAnim("it_death_anim", BuildFrames(images, 100))
 end
@@ -987,9 +987,10 @@ do
     DefTiles("st-disco", {"st_disco0","st_disco1","st_disco2"})
 end
 
--- st-death --
+-- st_death --
 do
-    DefRoundStoneWithAnim ("st-death", 3, 140)
+    DefRoundStoneWithAnim ("st_death", 3, 140)
+    DefRoundStoneWithAnim ("st_death_light", 3, 140)
 end
 
 -- st_yinyang --
@@ -1852,7 +1853,7 @@ end
 -- Invisible stones --
 do
     DefAlias("st-actorimpulse_invisible", "invisible")
-    DefAlias("st-death_invisible", "invisible")
+    DefAlias("st_death_invisible", "invisible")
     DefAlias("st_invisible", "invisible")
 end
 

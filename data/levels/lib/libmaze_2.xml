@@ -76,6 +76,7 @@ function res.maze(subresolver, ...)
             maze:renderer(context.renderer_args)
         end
     setmetatable(context,{
+          _type = "maze",
           __index = function (context, key)
                   if type(key) == "number" and key >= 99 then
                       return rawget(context, "cells")[key]
@@ -89,7 +90,7 @@ function res.maze(subresolver, ...)
               end,
           __newindex = function (context, key, value)
                   if type(key) == "number" and key >= 100 then
-                      assert_type(value, "maze value (illegal set)", 2, "table")
+                      assert_type(value, "maze value (illegal set)", 2, "cell")
                       local cellmeta = getmetatable(value)
                       assert_bool(cellmeta ~= nil and cellmeta.maze == context, "Maze expected unassigned cell set but got something else")
                       local cells = rawget(context, "cells")
@@ -119,6 +120,7 @@ function res.maze(subresolver, ...)
               end
         })
     context.cellmeta = {
+          _type = "cell",
           __index = function (cell, key)
                   if type(key) == "number" then
                       return rawget(cell, key)

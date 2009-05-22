@@ -57,6 +57,7 @@ namespace enigma {
         st_coinslot,
         st_death,
         st_death_invisible,
+        st_death_movable,
         st_disco,
         st_dispenser,
         st_door,

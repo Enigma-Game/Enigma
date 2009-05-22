@@ -21,16 +21,22 @@
 #include "stones/DeathStone.hh"
 
 #include "items/GlassesItem.hh"
-//#include "main.hh"
+#include "main.hh"
 
 namespace enigma {
-    DeathStone::DeathStone(bool isInvisible) : Stone () {
+    DeathStone::DeathStone(bool isInvisible, bool isMovable) : Stone () {
         if (isInvisible)
             objFlags |= OBJBIT_INVISIBLE;
+        if (isMovable)
+            objFlags |= OBJBIT_MOVABLE;
             
         state = IDLE;
     }
 
+    DeathStone::~DeathStone() {
+        GameTimer.remove_alarm(this);
+    }
+    
     std::string DeathStone::getClass() const {
         return "st_death";
     }
@@ -43,6 +49,20 @@ namespace enigma {
                 if (isDisplayable())
                     init_model();
             }
+            if ((objFlags & OBJBIT_INVISIBLE) && (objFlags & OBJBIT_INVISIBLE))
+                objFlags &= ~OBJBIT_MOVABLE;    // there is no invisible movable death
+        } else if (key == "movable") {
+            GameTimer.remove_alarm(this);
+            if (val.to_bool()) {
+                objFlags |= OBJBIT_MOVABLE;
+                if (objFlags & OBJBIT_INVISIBLE)  // there is no invisible movable death
+                    objFlags &= ~OBJBIT_INVISIBLE;
+                if (isDisplayable())
+                    setAlarm();
+            } else
+                objFlags &= ~OBJBIT_MOVABLE;
+            if (isDisplayable())
+                init_model();
         } else
             Stone::setAttr(key, val);
     }
@@ -50,6 +70,8 @@ namespace enigma {
     Value DeathStone::getAttr(const std::string &key) const {
         if (key == "invisible") {
             return (objFlags & OBJBIT_INVISIBLE) != 0;
+        } else if (key == "movable") {
+            return (bool)(objFlags & OBJBIT_MOVABLE);
         } else
             return Stone::getAttr(key);
     }
@@ -59,7 +81,15 @@ namespace enigma {
             state = IDLE;   // reset any running anim, be ready to bump again on new grid
             init_model();   // visibility might have changed
         } else if (m.message == "_glasses") {
-            init_model();
+            if (state == IDLE)   // avoid restart of animations
+                init_model();
+            return Value();
+        } else if (m.message == "_trigger" && !m.value.to_bool()) {
+            Direction incoming = NODIR;
+            if (m.sender != NULL)
+                incoming = direction_fromto(dynamic_cast<GridObject *>(m.sender)->get_pos(), get_pos());
+            if (incoming != NODIR)
+                move_stone(incoming);
             return Value();
         }
         return Stone::message(m);
@@ -76,10 +106,30 @@ namespace enigma {
         if (state == IDLE) {
             if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::DEATH) == 0))
                 set_model("invisible");
+            else if ((objFlags & OBJBIT_MOVABLE) && ((server::GlassesVisibility & Glasses::DEATH) != 0))
+                set_model("st_death_light");
             else
-                set_model("st-death");
+                set_model("st_death");
+        } else {
+            if ((objFlags & OBJBIT_MOVABLE) && ((server::GlassesVisibility & Glasses::DEATH) != 0))
+                set_anim("st_death_light-anim");
+            else
+                set_anim("st_death-anim");
         }
         // PULSING anim is always visible and should continue independent on init_model calls
+    }
+    
+    void DeathStone::on_creation (GridPos p) {
+        if (objFlags & OBJBIT_MOVABLE)
+            setAlarm();
+
+        Stone::on_creation(p);    // init the model
+    }
+    
+    void DeathStone::on_removal(GridPos p) {
+        if (objFlags & OBJBIT_MOVABLE)
+            GameTimer.remove_alarm(this);
+        Stone::on_removal(p);
     }
     
     void DeathStone::animcb() {
@@ -90,31 +140,49 @@ namespace enigma {
     }
     
     void DeathStone::actor_hit(const StoneContact &sc) {
-        SendMessage(sc.actor, "_shatter");
-        if (state == IDLE) {
-            state = PULSING;
-            set_anim("st-death-anim");
-        }
+        actor_touch(sc);
+        Stone::actor_hit(sc);
     }
 
     void DeathStone::actor_touch(const StoneContact &sc) {
         // even a slight touch should shatter the actor: 
-         actor_hit(sc);
+        SendMessage(sc.actor, "_shatter");
+        if (state == IDLE) {
+            state = PULSING;
+            init_model();
+        }
     }
-
-    int DeathStone::traitsIdx() const {
-        return (objFlags & OBJBIT_INVISIBLE) ? 1 : 0;
-    }
-
     
-    StoneTraits DeathStone::traits[2] = {
+    void DeathStone::alarm() {
+        if (state == IDLE) {
+            state = PULSING;
+            init_model();
+        }
+        setAlarm();
+    }
+
+    void DeathStone::setAlarm() {
+        double dt = (double)getAttr("interval");
+        if (dt > 0) {
+            dt *= DoubleRand(0.8, 1.2);
+            GameTimer.set_alarm(this, dt, false);
+        }
+    }
+    
+    int DeathStone::traitsIdx() const {
+        return (objFlags & OBJBIT_INVISIBLE) ? 1 : ((objFlags & OBJBIT_MOVABLE) ? 2 : 0);
+    }
+    
+    StoneTraits DeathStone::traits[3] = {
         {"st_death", st_death, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_death_invisible", st_death_invisible, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT},
+        {"st_death_movable", st_death_movable, stf_none, material_stone, 1.0, MOVABLE_STANDARD},
     };
     
     BOOT_REGISTER_START
         BootRegister(new DeathStone(false), "st_death");
         BootRegister(new DeathStone(true), "st_death_invisible");
+        BootRegister(new DeathStone(false, true), "st_death_movable");
     BOOT_REGISTER_END
 
 } // namespace enigma

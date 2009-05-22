@@ -29,9 +29,9 @@ namespace enigma {
     /** 
      * 
      */
-    class DeathStone : public Stone {
+    class DeathStone : public Stone, public TimeHandler {
         CLONEOBJ(DeathStone);
-        DECL_TRAITS_ARRAY(2, traitsIdx());
+        DECL_TRAITS_ARRAY(3, traitsIdx());
     private:
         enum iState {
             IDLE,     ///< 
@@ -40,9 +40,11 @@ namespace enigma {
         
         enum ObjectPrivatFlagsBits {
             OBJBIT_INVISIBLE   =   1<<24,  ///< Object is invisible 
+            OBJBIT_MOVABLE     =   1<<25,  ///< Object is movable 
         };
     public:
-        DeathStone(bool isInvisible);
+        DeathStone(bool isInvisible, bool isMovable =false);
+        ~DeathStone();
         
         // Object interface
         virtual std::string getClass() const;
@@ -55,6 +57,8 @@ namespace enigma {
 
         // GridObject interface
         virtual void init_model();
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
         
         // ModelCallback interface
         virtual void animcb();
@@ -63,7 +67,11 @@ namespace enigma {
         virtual void actor_hit(const StoneContact &sc);
         virtual void actor_touch (const StoneContact &sc);
 
+        // TimeHandler interface
+        virtual void alarm();
+
     private:
+        void setAlarm();
         int traitsIdx() const;
     };
 

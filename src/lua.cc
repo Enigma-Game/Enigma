@@ -213,6 +213,7 @@ static int userType(lua_State *L) {
     else if (is_group(L, -1)) type = "group";
     else if (is_world(L, -1)) type = "world";
     else if (is_polist(L, -1)) type = "polist";
+    else if (is_default(L, -1)) type = "default";
     
     lua_pushstring(L, type.c_str());
     return 1;

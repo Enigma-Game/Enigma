@@ -1218,10 +1218,14 @@
     </object>
     <object name="st_death">
       <attr name="invisible"/>
+      <attr name="interval" default="10"/>
       <msg name="_model_reanimated"/>
     </object>
     <object name="st_death_invisible">
       <attr name="invisible" value="true"/>
+    </object>
+    <object name="st_death_movable">
+      <attr name="movable" value="true"/>
     </object>
     <object name="st_disco">
       <msg name="lighten"/>
