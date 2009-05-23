@@ -3368,8 +3368,8 @@ action message you can supply an own @url{http://www.lua.org, Lua} function that
 is called whenever the action is triggered.
 
 @example
-@{st_switch, target="my_magic", action="callback"@}
-@{st_switch, target="my_magic"@}
+@{"st_switch", target="my_magic", action="callback"@}
+@{"st_switch", target="my_magic"@}
 @end example
 
 The @samp{target} is the name of the function as a string. You may set the
@@ -3383,7 +3383,7 @@ Let us look at the syntax of such a callback function
 
 @example
 function my_magic(value, sender)
-    if value == true
+    if value == true then
         wo[sender + @{1,0@}] = @{"it_coin_s"@}
     end
 end
@@ -9194,7 +9194,7 @@ Positive number are attracting, negative numbers are repelling.
 * force_x::                 Constant Force
 * force_y::                 Constant Force
 * fragility (floor)::       Crack 
-* freeze_check::            -
+* freeze_check (floor)::    Freeze Checking
 * friction (floor)::        Decelerating friction force factor
 * ignitable::               -
 * indestructible::          System Flag for destruction resistence 
@@ -9226,7 +9226,8 @@ values, too. Such values correspond to inverse forces.
 @node burnable
 @subsection burnable
 
-@xref{Fire Spreading} for details.
+Determines whether the floor starts to burn when a fire is nearby and the item
+on the floor allows it to burn. @xref{Fire Spreading} for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9239,7 +9240,8 @@ values, too. Such values correspond to inverse forces.
 @node eternal
 @subsection eternal
 
-@xref{Fire Spreading} for details.
+Determines whether a fire keeps on burning unlimited, until an external cause
+stops it. @xref{Fire Spreading} for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9270,7 +9272,9 @@ variant.
 @node fastfire
 @subsection fastfire
 
-@xref{Flood Spreading} for details.
+When set to @code{true}, fire will spread faster than usual, with the same
+speed as if @ref{it_burnable}[_oil] would be on it. @xref{Flood Spreading} for
+details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9341,10 +9345,12 @@ specific values.
 @end table
 
 @c ----------------- freeze_check --------------------
-@node freeze_check
-@subsection freeze_check
+@node freeze_check (floor)
+@subsection freeze_check (floor)
 
-@xref{Freeze Checking} for details.
+If @code{true}, allows for @ref{Freeze Checking} on this floor tile. Note that
+Freeze Checking only works with those (movable) stones that have additionally set
+@code{freeze_check = true} on their own, see @ref{freeze_check (stone)}.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9370,7 +9376,8 @@ specific values.
 @node ignitable
 @subsection ignitable
 
-@xref{Fire Spreading} for details.
+When @code{true}, and the item on the floor allows it to burn, it will start
+burning on nearby explosions. @xref{Fire Spreading} for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9399,7 +9406,8 @@ indestrctible by all these events.
 @node initfire
 @subsection initfire
 
-@xref{Fire Spreading} for details.
+When set to @code{true}, the floor will start to burn after level
+initialization. @xref{Fire Spreading} for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9412,7 +9420,14 @@ indestrctible by all these events.
 @node noash
 @subsection noash
 
-@xref{Fire Spreading} for details.
+Determines whether @ref{it_burnable}_ash is put onto the floor after a fire
+stops. Ash stops a floor from re-igniting, so @code{noash = true} will allow a
+floor to start burning a second time, unless the item on it or its
+@code{burnable}-attribute deny fire. @xref{Fire Spreading} for details.
+
+@ref{fl_abyss} is the only floor with @code{noash = true} by default, because
+ash falls into the abyss. Note however, that @ref{fl_abyss} isn't burnable by
+default.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9440,7 +9455,8 @@ can be push rotated into the listed directions by the user.
 @node secure
 @subsection secure
 
-@xref{Fire Spreading} for details.
+Ensures that a nearby fire eventually ignites this floor. @xref{Fire Spreading}
+for details.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -9518,6 +9534,7 @@ Orange velvet that offers no adhesion but causes friction.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9538,6 +9555,7 @@ Aquamarine floor with low friction.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.4 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9554,11 +9572,14 @@ Aquamarine floor with low friction.
 
 Brown woven bast with black background.
 
+When burnt, @code{fl_bast} will become @ref{fl_abyss}.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9580,6 +9601,7 @@ Light blue gray floor, visually indistinguishable from @ref{fl_thief}.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9601,6 +9623,7 @@ Dark blue green floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9623,6 +9646,7 @@ Dark blue slab like floor, that is marbled with black. A matching floor is
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9644,6 +9668,7 @@ Floor composed of small red bricks.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9666,6 +9691,7 @@ Nearly white floor without any yinyang related features. A matching floor is
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9687,6 +9713,7 @@ Granular gray concrete.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.3 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9709,6 +9736,7 @@ Nearly black floor without any yinyang related features. A matching floor is
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9730,6 +9758,7 @@ A medium to dark gray floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9751,6 +9780,7 @@ Brown granular dunes.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.3 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9772,6 +9802,7 @@ Dark gray, granular floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.2 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9793,6 +9824,7 @@ Gray with some brown spots.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9814,6 +9846,7 @@ Blue purple marbled floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9835,6 +9868,7 @@ Warm ivory or pearl white floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.2 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9851,12 +9885,15 @@ Warm ivory or pearl white floor.
 
 Grass floor. Light and dark grass and different textures of both exist.
 
+When burnt, @code{fl_lawn} becomes @ref{fl_dunes}.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
 @item @b{texture}, @ @ @i{values}: "a","b","c1","c2","c3","c4","d1","d2","d3","d4","e1","e2","e3","e4" ; @ @ @i{default}: "a"; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9891,6 +9928,7 @@ Light red brown marbled floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9914,6 +9952,7 @@ or vertical aligned joists and various rivets.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
 @item @b{texture}, @ @ @i{values}: integer number, 1 <= n <= 7  ; @ @ @i{default}: random; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9949,6 +9988,7 @@ Very rough brilliant white floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.8 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.2 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9970,6 +10010,7 @@ Pink floor with white bumps.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.2 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -9986,11 +10027,14 @@ Pink floor with white bumps.
 
 Floor build up by small diagonal orange brown planks.
 
+When burnt, @code{fl_plank} becomes @ref{fl_abyss}.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10012,6 +10056,7 @@ Warm light gray floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.6 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10033,6 +10078,7 @@ Warm red, very slippy floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.9 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10055,6 +10101,7 @@ Dark red slab floor, that is marbled with black. A matching floor is
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10076,6 +10123,7 @@ Rough warm white floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 7.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10097,6 +10145,7 @@ Bright yellow sandstone floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10111,8 +10160,10 @@ Bright yellow sandstone floor.
 @subsection fl_samba
 @obindex fl_samba
 
-Grey bleached wooden floor. Textures with horizontal and vertical aligned plank 
+Gray bleached wooden floor. Textures with horizontal and vertical aligned plank 
 exist.
+
+When burnt, @code{fl_samba} becomes @ref{fl_abyss}.
 
 @table @asis
 @item @b{Attributes:}
@@ -10120,6 +10171,7 @@ exist.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
 @item @b{texture}, @ @ @i{values}: "h", "v"  ; @ @ @i{default}: random; @ @ @i{access}: @code{none}  @ @ @xref{texture}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10145,6 +10197,7 @@ Granular orange gray sand floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10168,6 +10221,7 @@ until they reach another floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10188,6 +10242,7 @@ Granular brown gray floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 1.4 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10209,6 +10264,7 @@ Red sandstone floor.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10230,6 +10286,7 @@ Pure white floor without any yinyang related features.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10251,6 +10308,7 @@ Diagonal woven white floor with black shadows.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable}
 @end table
 
 @item @b{Variants:}
@@ -10297,12 +10355,19 @@ abyss. The abyss itself is indestructible. It does neither burn nor crack.
 Some stones fall into abyss, too. @ref{st_box} will build floors on which all
 actors can move and pass the former abyss filled grid.
 
+By default, @code{fl_abyss} can't burn. However, when it burns (e.g. by
+@ref{it_burnable}_oil), it does not create @ref{it_burnable}_ash in the end by
+default (i.e., @ref{noash} is true by default). In particular, when
+@code{burnable} is set to @code{true}, an abyss may reignite arbitrarily often.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{friction}
 @item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable}
+@item @b{noash}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{noash} 
 @end table
 
 @item @b{Variants:}
@@ -10340,6 +10405,9 @@ bridge remains closed when the stone is pushed away.
 A bridge being set adjusts its state according to the @ref{Snapshot Principle}.
 It checks for solid stones being on top of it and auto closes accordingly.
 
+Only the brown (wooden) bridges are burnable by default. Open bridges are never
+burnable, regardless of the @ref{burnable}-attribute.
+
 @table @asis
 
 @item @b{Attributes:}
@@ -10351,6 +10419,8 @@ The state as visible and responsible for the actor ability to pass.
 The type of the bridge.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: depends on @code{flavor} @ @ @xref{burnable} 
+True if flavor is @code{"b*"}, false otherwise.
 @end table
 
 @item @b{Messages:}
@@ -10401,6 +10471,8 @@ without any special features.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
 @item @b{flavor}, @ @ @i{values}: @code{"abyss"}, @code{"trigger"}; @ @ @i{default}: @code{"abyss"}; @ @ @i{access}: @code{none}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: depends on @code{flavor} @ @ @xref{burnable} 
+True if flavor is @code{"trigger"}, false otherwise.
 @end table
 
 @item @b{Variants:}
@@ -10434,6 +10506,7 @@ usage. @pxref{Flood Spreading}.
 Number of seconds .
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10453,13 +10526,14 @@ friction by carrying an @ref{it_pin} in the players inventory.
 
 Ice is a standard floor in most aspects. But an @ref{it_dynamite} will leave
 an @ref{it_crack}_water instead of a meditation hollow, and nearby fire heat
-will melt the ice to @ref{fl_water}.
+will melt the ice to @ref{fl_water} (see @ref{Heat-Transformation}).
 
 @table @asis
 @item @b{Attributes:}
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 0.1 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 0.1 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10482,6 +10556,7 @@ mouse input force. In all other aspects they are just standard floors.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: -2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 3.0 @ @ @xref{friction}
 @item @b{flavor}, @ @ @i{values}: @code{"white"}, @code{"gray"}; @ @ @i{default}: @code{"white"}; @ @ @i{access}: @code{none}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10516,6 +10591,7 @@ usage. @pxref{Flood Spreading}.
 Number of seconds .
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.2 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10581,6 +10657,7 @@ not automatically assign the proper @samp{slope}.
 @item @b{force_y} @ @ @i{values}: float number; @ @ @i{default}: @code{0.0} @ @ @xref{force_y}
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 
 @end table
 
@@ -10630,8 +10707,8 @@ the swamp. Jumping in a swamp raises an actor, too.
 
 A swamp is indestructible to the aspect that @ref{it_crack} will not spread
 onto it. But fire starting to burn nearby will dry out the swamp to 
-@ref{fl_dunes}. A swamp itself may be a successor of a @ref{fl_water} heated by 
-a fire.
+@ref{fl_dunes} (see @ref{Heat-Transform}). A swamp itself may be a successor of
+a @ref{fl_water} heated by a fire.
 
 @table @asis
 @item @b{Attributes:}
@@ -10639,6 +10716,7 @@ a fire.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 13.0 @ @ @xref{friction}
 @item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10677,6 +10755,7 @@ If the thief has not stolen any items he leaves no empty bag.
 @table @asis
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.5 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.5 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Messages:} none
@@ -10709,7 +10788,7 @@ actors can move and pass the former water filled grid.
 
 Water itself is indestructible to the aspect that @ref{it_crack} will not spread
 onto it. But a fire starting to burn nearby will dry out the water to
-@ref{fl_swamp}.
+@ref{fl_swamp} (see @ref{Heat-Transformation}).
 
 The standard water is static, its @samp{state} is @samp{IDLE}. It will not 
 spread to adjacent floors. But you can set up flood streams that will fill areas
@@ -10735,6 +10814,7 @@ Number of seconds .
 @item @b{indestructible}, @ @ @i{values}: bool ; @ @ @i{default}: true; @ @ @i{access}: @code{none}  @ @ @xref{indestructible}
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10761,6 +10841,8 @@ neighboring grids, while the framed wood is still passable for actors. In fact
 a framed wood can even operate as a flood source, but we do not recommend this
 usage. @pxref{Flood Spreading}.
 
+When burnt, @code{fl_wood} becomes @ref{fl_abyss}.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
@@ -10769,6 +10851,7 @@ usage. @pxref{Flood Spreading}.
 Number of seconds .
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 6.4 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: true @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -10804,6 +10887,7 @@ switched off by the attribute @samp{invisible}.
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.2 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: false @ @ @xref{burnable} 
 @end table
 
 @item @b{Variants:}
@@ -13503,12 +13587,13 @@ Switches the wormhole off.
 @section Stone Attributes
 
 @menu
-* breakable::         -
-* hit_*::             -
-* hollow::            -
-* hovering::          -
-* movable::           -
-* transparent::       -
+* breakable::              -
+* freeze_check (stone)::   Freeze Checking
+* hit_*::                  -
+* hollow::                 -
+* hovering::               -
+* movable::                -
+* transparent::            -
 @end menu
 
 
@@ -13516,6 +13601,21 @@ Switches the wormhole off.
 @node breakable
 @subsection breakable
 
+
+@table @asis
+@item @b{Type:} @ @ boolean
+@item @b{Values:} @ @ @code{false}, @code{true}
+@item @b{Default:} @ @ @code{false}
+@item @b{Access:} @ @ read/write
+@end table
+
+@c ----------------- freeze_check --------------------
+@node freeze_check (stone)
+@subsection freeze_check (stone)
+
+If @code{true}, allows for @ref{Freeze Checking} for this stone. Note that
+Freeze Checking only works on those floors that have additionally set
+@code{freeze_check = true} on their own, see @ref{freeze_check (floor)}.
 
 @table @asis
 @item @b{Type:} @ @ boolean
@@ -14736,7 +14836,7 @@ Chess stones fall into @ref{fl_abyss} and sink in @ref{fl_swamp}, but cross
 A chess stone that jumps onto a @ref{fl_thief} captures and inactivates the
 thief.
 
-Chess stones can't jump over or into fire (see @ref{The 1.0-Fire System}). At least,
+Chess stones can't jump over or into fire (see @ref{Fire Spreading}). At least,
 a chess knight is brave enough not to panic when fire starts to burn beneath.
 Note that fire can't ignite the floor below a chess stone. In this
 context it acts like an immovable stone. In the same sense, they don't act on
@@ -21034,8 +21134,9 @@ need to use another unique key @samp{C} for the coin on our random floor.
 @menu
 * Display Follow Strategy::    How the display view follows the active marble
 * Flood Spreading::            How a water flood spreads over a given area
-* Fire Spreading::
-* Freeze Checking::
+* Fire Spreading::             How to start, use, and stop fire.
+* Heat-Transformation::        How some floors transform when a fire starts nearby.
+* Freeze Checking::            How to turn frozen boxes in a Sokoban to st_death.
 @end menu
 
 @node Display Follow Strategy
@@ -21224,13 +21325,276 @@ puzzle stones being pushed into a flood building a complete bridge over the
 water stream. But this feature is intentionally, as it avoids many shortcut
 situations and thus makes the flood more usable for level authors.
 
+@c ----------------------------------------------------------------------
 @node Fire Spreading
 @subsection Fire Spreading
+
+The 1.0-version of Enigma introduced a new fire system, making use of
+attributes and messages of the floor tiles. The default fire, once
+ignited, spreads over the landscape and destroys items, marbles and
+some stones. It spreads along those floor tiles that are marked ``burnable'' by
+default (like @ref{fl_hay} or @ref{fl_wood}), by attribute (see attribute
+@ref{burnable}), or by one of two items that indicate burnability: the invisible
+@ref{it_burnable} and the visible @code{it_burnable_oil}. On a burning floor,
+all items are destroyed. However, some items prevent the floor from burning,
+like @ref{it_meditation} or @ref{it_dynamite} (which ignites instead).
+
+Fire can be ignited in several standard ways:
+@itemize @bullet
+@item The @code{setfire}-message sets fire to a floor if it is
+burnable and the item on it allows it to burn; non-burnable items like
+@ref{it_dynamite} are not ignited by this.
+@item The @code{heat}-message ignites burnable floors as does
+@code{setfire}, but also initiates a @ref{Heat-Transformation} of the floor
+and ignites items on it.
+@item The @code{ignite} and @code{explosion}-messages that are used by
+@ref{it_dynamite} and @ref{it_bomb} can initiate fire via
+@ref{it_burnable}[_oil] or if the
+@ref{ignitable}-attribute of the floor is set (off by default).
+@item The floor already starts burning on initialization when the
+@code{initfire}-attribute is set (off by default).
+@item Fire in the neighborhood, see below.
+@end itemize
+
+If needed, the @code{forcefire}-message can be used to set fire to
+non-burnable floors. Internally, it is equivalent to manually setting
+@code{it_burnable_ignited}; however, setting @code{it_burnable_ignited}
+manually is deprecated to allow a further development of the fire-system in
+future.
+
+Fire does the following:
+@itemize @bullet
+@item It kills @ref{st_box}_wood, @ref{st_box}_hay, and @ref{st_flat}_moveburnable
+above it, and @ref{st_flat}_burnable beneath it.
+@item It melts @ref{st_ice} to @ref{fl_water}.
+@item It heats its neighboring tiles, which might result in a
+@ref{Heat-Transformation} of the floor.
+@item It might ignite or destroy items on its neighbor, this concerns
+@ref{it_dynamite}, both @ref{it_bomb}, and @ref{it_crack}.
+@item It might set fire to its neighbor.
+@item It shatters marbles that are not protected with @ref{it_umbrella} or other
+measures. Note that in future versions, jumping over fire with @ref{it_spring}
+might get allowed.
+@end itemize
+
+Fire stops burning after a random amount of time, as long as the
+@code{eternal}-attribute of the floor is not set. When it stops
+burning, it might replace the floor by another kind
+(``fire-transform''), this is: @ref{fl_wood} is replaced by
+@ref{fl_abyss}, @ref{fl_lawn} by @ref{fl_dunes}. Finally, it
+puts @ref{it_burnable}_ash on the floor, which prohibits a second
+fire and which can be removed with @ref{it_brush}. However, ash is not
+set if the @ref{noash}-attribute is set (default only for @ref{fl_abyss}).
+
+Since the spreading of fire is a random event, in 0.92, a level author couldn't
+be sure that a particular item was ignited or fire was set. Since 1.0, these can
+be assured by setting the @ref{secure}-attribute: When a burnable floor with
+@code{secure = true} is near fire, it will eventually catch fire, items on it
+are ignited, etc. @code{secure} is @code{false} by default.
+
+In 0.92, there were two speeds of fire: When using @ref{it_burnable},
+fire spread much faster than without. This is still the same in
+1.0 and above. However, you can set the @ref{fastfire}-attribute to hasten
+the fire without setting the invisible @ref{it_burnable}, this should be the
+preferred method.
+
+Fire that burns under a stone is not allowed to spread; the only exceptions are
+floating stones like @ref{st_grate}, and those stones that are destroyed by fire
+anyway (@ref{st_box}_wood, @ref{st_box}_hay, @ref{st_flat}_burnable,
+@ref{st_flat}_moveburnable). In contrast to this, fire might also  spread to
+under a movable stone, but not further.
+
+You can stop fire with @code{it_extinguisher}, which creates the fireproof
+@code{it_burnable_fireproof}. Another way to stop fire is to push the totally
+inert @ref{st_box}_rock over it: This is the only movable stone that doesn't
+allow fire under it. A final way to stop fire is to send the
+@code{stopfire}-message to a floor.
+
+@strong{Differences between 1.0 and 0.92}
+
+The old fire system of Enigma versions up to 0.92, differs from
+the 1.0 and above version mainly in the following points:
+
+@itemize @bullet
+@item no fire-transform except @ref{fl_wood} to @ref{fl_abyss}
+@item no @ref{Heat-Transformation}s
+@item ash on @ref{fl_abyss}
+@item no difference between different floors
+@item replication via same-floor-pattern instead of
+burnable-floor-pattern: 0.92 didn't distinguish between burnable and
+non-burnable floors. Instead, fire was allowed to spread to floors of
+the same kind slowly.
+@item burnable items always catch fire: In 1.0 and above, a burnable item
+(except for @ref{it_burnable}[_oil]) on a non-burnable floor won't catch fire,
+in 0.92 it did.
+@end itemize
+
+A good model of the 0.92-system can be attained via the
+compatibility-modes: All non-Enigma-modes (see @ref{Differences
+between Compatibility Modes} and @ref{<compatibility>}) feature a
+version which only marginally differs from 0.92-fire, yet allowing
+some of the new achievements, like secure- or eternal-fire.
+
+Note that in 0.92, fire-transformation happened at the beginning of
+the fire, which manifested in the so called ``burning-abyss''-bug.
+Besides other details, this is how the original 0.92 system differs from the
+one in 1.0-non-Enigma-mode.
+
+@strong{Burnable and Fireproof Floors}
+
+All floors that look like plastic, fabrics, or organics are burnable by default:
+@code{fl_adhesionless, fl_aquamarine, fl_bluegray, fl_bluegreen, fl_blueslab,
+fl_fake_trigger, fl_hay, fl_ivory, fl_marble, fl_platinum, fl_red, fl_redslab,
+fl_rough*, fl_tigris, fl_woven}.
+
+All floors that look like wood are burnable and leave @ref{fl_abyss} behind:
+@code{fl_bast, fl_plank, fl_samba*, fl_wood*}, and @ref{fl_bridge}_b*.
+
+All floors that look like grass are burnable and leave @ref{fl_dunes} behind:
+@ref{fl_lawn}.
+
+All other floors are fireproof (they don't burn by default):
+@code{fl_abyss*, fl_brick, fl_bright, fl_concrete, fl_dark, fl_darkgray,
+fl_dummy, fl_dunes,  fl_gravel, fl_gray, fl_himalaya, fl_ice, fl_inverse*, 
+fl_metal*, fl_mortar, fl_pinkbumps, fl_rock, fl_sahara, fl_sand, fl_slope*,
+fl_space, fl_stone, fl_swamp, fl_water, fl_white, fl_yinyang*}, and
+@ref{fl_bridge}_g*.
+
+An open @ref{fl_bridge} is never burnable, this overrides all items and
+attributes. A closed @ref{fl_bridge} is burnable if and only if it is brown,
+but this can be changed via attribute @code{burnable}. Note that changing the
+flavor of @ref{fl_bridge} will change @code{burnable} according to the new
+flavor as well.
+
+@strong{Fireproof Items}
+
+Most items are passively burnable, this is: An item is destroyed by
+fire, if and only if the floor could burn all by itself.  However,
+there are some items with individual reactions (@code{it_burnable,
+it_burnable_oil, it_dynamite, it_bomb*, it_crack*})
+and some items that are completely fireproof. These are: @code{it_burnable_ash,
+it_burnable_fireproof, it_debris, it_dummy, it_explosion*, it_extinguisher,
+it_extinguisher_medium, it_meditation*, it_trap, it_vortex*} and the fire
+animations themselves: @code{it_burnable_ignited} and
+@code{it_burnable_burning}.
+
+Note that @code{it_extinguisher_empty, it_trigger} (visible and invisible),
+@code{it_landmine}, and @code{it_death} are passively burnable.  In particular,
+@code{it_landmine} does not explode or create @code{it_meditation} when burning.
+The reaction of @ref{it_sensor} towards fire might be changed in future
+versions.
+
+If you need to save a passively burnable item from fire, simply set a fireproof
+floor like @code{fl_sand} or @code{fl_rock} below it. This normally is the case
+when using @ref{it_strip}. However, you can use the @code{burnable}-attribute in
+these cases to force burnability of the floors.
+
+@node Heat-Transformation
+@subsection Heat-Transformation
+
+When a fire starts to burn near @ref{fl_ice}, it melts to @ref{fl_water}. In the
+same sense, @ref{fl_water} boils to @ref{fl_swamp}, and this again to
+@ref{fl_dunes}. In contrast to most other fire-related actions, this is not
+random, but always and only happens, when a nearby fire starts to burn, i.e.
+once for each new fire.
+
+Examples: Put an @ref{st_box}_rock on @ref{fl_ice}. A fire will melt
+the ice, and @ref{st_box}_rock creates a fireproof and safe way to the
+other side. If you use @ref{st_box}_wood instead, @ref{fl_wood}_framed is
+created, which presumably catches fire and leaves @ref{fl_abyss}
+behind. Finally, @ref{st_box}_hay will create @ref{fl_hay}_framed, which is
+burnable, but won't burn down to @ref{fl_abyss}. A similar combination is
+@code{fl_water} with @ref{st_chess}.
+
+You can enforce a transformation by sending the @code{heat}-message to the
+floor.
+
+If you want to suppress this transformation, you can switch to
+a non-Enigma-compatibility-mode.
 
 @node Freeze Checking
 @subsection Freeze Checking
 
+With Enigma 1.1 and above, you can use a special feature to support Sokoban
+levels and Sokoban parts of levels: Whenever a movable stone is pushed into
+some unmovable position, this feature automatically transforms the stone into
+@ref{st_death}, to demonstrate that the game is lost and provide a simple way
+for the player to restart.
 
+The feature is called ``Freeze Checking''. It applies to each stone with
+attribute @code{freeze_check = true} which is pushed onto a floor with
+attribute @code{freeze_check = true}. This way you can restrict the freeze
+check to a bounded area. For a true Sokoban the goal tiles should not be marked
+with @code{freeze_check = true}, as a frozen box on a goal is not considered
+harmful. On the other hand, you can specify which boxes are freeze-checked. This
+gives further freedom to use other stones inside your Sokoban area: Floor and
+stone both need the @code{freeze_check}-attribute activated.
+
+The freeze check recognizes three basic constellations of stones that lead to a
+freeze of a standard movable stone. With @code{B} as box (movable or
+persistent) and @code{#} as wall (persistent):
+@example
+BB   #B   #B
+BB    #    B#
+@end example
+There are more freeze constellations which are not recognized, the simplest
+would be:
+@example
+#B
+ BB
+  #
+@end example
+Don't rely on this fact, it might be changed in future versions.
+
+Please bear in mind: The freeze check is not intelligent. It can't foresee that
+one of your functions might remove a stone, it can't foresee that some door
+will never open up again (doors are considered as non-existent), it doesn't
+recognize when you put an @ref{it_puller}, @ref{it_cherry}, or @ref{st_swap} in
+your level. It handles special stones in a way to minimize false-positive freeze
+checks.
+
+Floating stones (like @ref{st_grate}) create completely new frozen
+constellations. From the following two examples, only the right example is
+frozen (@code{G} is @code{st_grate_cross}):
+@example
+G    G
+BB   BB
+GB   GBG
+@end example
+At present, none of these are recognized as frozen by Enigma, floating stones
+are considered as non-existing during a freeze check. To demonstrate the
+difficulty, you may analyze yourself which of the following constellations is
+frozen:
+@example
+G      G      GBG   GB#    G G#G
+B#    BBB     BB    GB G   BBBBB
+G    #B B#   #B      G     G#G G
+      G G     G
+@end example
+
+In some cases, stones are even handled differently although they have similar
+properties: @ref{st_box}_wood and @code{st_flat_moveburnable} (see
+@ref{st_flat}) are both movable and both destroyed by fire (see @ref{Fire
+Spreading}). There would never be frozen stones, as they can easily be burned
+away. Yet, @code{st_box_wood} uses the default freeze checking, whereas
+@code{st_flat_moveburnable} is considered as non-existing. This is because
+@code{st_box_wood} is often used without fire, whereas
+@code{st_flat_moveburnable} is primarily used in combination with fire.
+
+Another example is @ref{st_shogun}_s, which is considered as a default
+movable stone, in contrast to the remaining shogun stones. This way you can use
+@code{st_shogun_s} with goal @ref{it_shogun}_s, but don't have to fear
+false-positive freeze checks from the non-standard way in which shogun stones
+move.
+
+As a concluding remark, the freeze checking is to be used as a support for the
+gamer only. It's not meant to be exploited as special feature to make movable
+stones unmovable or to provide a way to jump back to the starting position. It
+is subject to changes in future versions. And versions before 1.1 won't make a
+freeze check at all - so you can't rely on it to happen. It should really be
+used in Sokoban-kind parts of a level only, for which it is designed.
+
+@c ----------------------------------------------------------------------
 @node Tips and Tricks
 @section Tips and Tricks
 
@@ -21609,8 +21973,6 @@ write easy first, floor friction,...
 * Stones::
 * Old Actors::
 * General object attributes::
-* The 1.0-Fire System::
-* Freeze Checking::
 * Differences between Compatibility Modes::
 @end menu
 
@@ -21655,7 +22017,7 @@ the gradient's standard force.
 See @ref{Freeze Checking}.
 @end table
 
-Attributes connected to @ref{The 1.0-Fire System} (all boolean):
+Attributes connected to @ref{Fire Spreading} (all boolean):
 @table @code
 @item burnable
 Sets if the floor may burn.
@@ -22244,7 +22606,7 @@ handled the same way as described above.
 @node Fire and Extinguisher
 @subsection Fire and Extinguisher
 
-Compare @ref{The 1.0-Fire System}.
+Compare @ref{Fire Spreading}.
 
 Six items are particular to the fire system:
 @itemize
@@ -23079,7 +23441,7 @@ Springs let marbles jump, e.g., over @ref{fl-water}, @ref{fl-swamp},
 @ref{fl-abyss}, @ref{it-abyss}, and laser beams.  Note that you can't
 jump over any kind of stone, or pass @ref{st-grate} during the
 jump, even if you could on the ground.  The interplay of jumping and
-fire (@ref{The 1.0-Fire System}) will be target of future changes;
+fire (@ref{Fire Spreading}) will be target of future changes;
 don't use them together yet.
 
 You can pick up and use @code{it-spring1} and @code{it-spring2}.  You
@@ -24023,12 +24385,11 @@ color.  Chess stones fall into @ref{fl-abyss} and sink in
 @ref{fl-swamp}, but cross @ref{fl-water} undamaged.  They inactivate
 @ref{fl-thief}.
 
-Chess stones can't jump over or into fire (see @ref{The 1.0-Fire
-System}).  At least, a chess knight is brave enough not to
-panic when fire starts to burn beneath.  Note that fire can't ignite
-the floor below an @code{st-chess_[black/white]}, in this context it
-acts like an immovable stone.  In the same sense, they don't act on
-impulses of @ref{st-stoneimpulse} or similar stones.
+Chess stones can't jump over or into fire (see @ref{Fire Spreading}). At least,
+a chess knight is brave enough not to panic when fire starts to burn beneath. 
+Note that fire can't ignite the floor below an @code{st-chess_[black/white]}, in
+this context it acts like an immovable stone. In the same sense, they don't act
+on impulses of @ref{st-stoneimpulse} or similar stones.
 
 @strong{Attributes}
 
@@ -24251,7 +24612,7 @@ blow off
 @subsection st-firebreak[_move]: Firebreakable Stones
 
 @code{st-firebreak} gets destroyed when there is fire near it (see
-@ref{The 1.0-Fire System}). @code{st-firebreak_move} is movable and
+@ref{Fire Spreading}). @code{st-firebreak_move} is movable and
 gets destroyed when there is fire below it, just like
 @ref{st-wood}. It falls into @ref{fl-water}, @ref{fl-abyss} and
 @ref{fl-swamp} (if you need it not to fall, use @ref{fl-bridge}
@@ -25315,7 +25676,7 @@ when burning and @code{fl-rock} doesn't burn at all.
 
 When there is fire under @code{st-wood} or @code{st-flhay}, they burn
 away.  In contrast to this, @code{st-flrock} extinguishes fire as it
-is pushed over it (see @ref{The 1.0-Fire System}).  This distinguishes
+is pushed over it (see @ref{Fire Spreading}).  This distinguishes
 it from all other movable stones.  Fire that is extinguished in this
 way might leave @code{it-burnable_ash} behind, but the floor does not
 fire-transform.
@@ -25615,286 +25976,6 @@ be searched using @ref{enigma.GetNamedObject}.
 @end table
 
 @c ----------------------------------------------------------------------
-@node The 1.0-Fire System
-@section The 1.0-Fire System
-
-The 1.0-version of Enigma introduces a new fire system, making use of
-attributes and messages of the floor tiles. The default fire, once
-ignited, spreads over the landscape and destroys items, marbles and
-some stones. It spreads along those floor tiles that are marked
-``burnable'' by default (like @code{fl-hay} or @code{fl-wood1}), by
-attribute (setting @code{enigma.SetAttrib(myfloor, "burnable", TRUE)}),
-or by one of two items that indicate burnability: the invisible
-@code{it-burnable} and the visible @code{it-burnable_oil}. On a
-burning floor, all items are destroyed. However, some items prevent the
-floor from burning, like @code{it-hollow} (see @ref{Hills and Hollows}) or
-@ref{it-dynamite} (which is ignited instead).
-
-Fire can be ignited in several standard ways:
-@itemize @bullet
-@item The @code{setfire}-message sets fire to a floor if it is
-burnable and the item on it allows it to burn; non-burnable items like
-@code{it-dynamite} are not ignited by this!
-@item The @code{heat}-message ignites burnable floors as does
-@code{setfire}, but also initiates a heat-transformation of the floor
-(see below) and ignites items on it.
-@item The @code{ignite} and @code{expl}-messages that are used by
-@code{it-dynamite}, @ref{it-blackbomb} and @ref{it-whitebomb} can
-initiate fire via @code{it-burnable[_oil]} or if the
-@code{ignitable}-attribute of the floor is set (off by default).
-@item The floor already starts burning on initialization when the
-@code{initfire}-attribute is set (off by default).
-@item Fire in the neighborhood, see below.
-@end itemize
-
-If needed, the @code{forcefire}-message can be used to set fire to
-non-burnable floors. Internally, it is equivalent to manually setting
-@code{it-burnable_ignited}, the last method (which was quite famous in
-0.92) should be avoided in future, to allow a further development of
-the fire-system.
-
-Fire does the following:
-@itemize @bullet
-@item It kills @ref{st-wood} and @ref{st-firebreak[_move]} above it
-(in case of @code{st-firebreak}: beneath it).
-@item It heats its neighboring tiles, which might result in a
-``heat-transform'' of the floor (see below).
-@item It might ignite or destroy items on its neighbor, this concerns
-@code{it-dynamite}, @code{it-blackbomb}, @code{it-whitebomb} and
-@ref{it-crack}.
-@item It might set fire to its neighbor.
-@item It shatters marbles that are not protected with
-@ref{it-umbrella}. Note that in future versions, jumping over
-fire with @ref{it-spring[1/2/board]} might get allowed.
-@end itemize
-
-Fire stops burning after a random amount of time, as long as the
-@code{eternal}-attribute of the floor is not set. When it stops
-burning, it might replace the floor by another kind
-(``fire-transform''), this is: Wooden floors are replaced by
-@ref{fl-abyss}, leaves are replaced by @code{fl-dunes}. Finally, it
-puts @code{it-burnable_ash} on the floor, which prohibits a second
-fire and which can be removed with @ref{it-brush}. However, ash is not
-set if the floor is @code{fl-abyss} or the @code{noash}-attribute is
-set.
-
-Since the spreading of fire is a random event, in 0.92, a level author
-couldn't be sure that a particular item was ignited or fire was
-set. In 1.0, these can be assured by setting the
-@code{secure}-attribute: When a burnable floor with
-@code{secure}-attribute is near fire, it will eventually catch fire,
-items on it are ignited, etc.
-
-In 0.92, there were two speeds of fire: When using @code{it-burnable},
-fire spread much faster than without. This is still the same in
-1.0. However, you can set the @code{fastfire}-attribute to hasten
-the fire without setting the invisible @code{it-burnable}.
-
-Fire that burns under a stone is not allowed to spread; the only exceptions
-are floating stones (as @ref{st-grate}), and those stones that
-are destroyed by fire anyway (see @ref{st-wood}-variants and
-@ref{st-firebreak[_move]}). In contrast to this, fire might also
-spread to under a movable stone, but not further.
-
-You can stop fire with @code{it-extinguisher}, which creates the
-fireproof @code{it-burnable_fireproof}. Another way to stop fire is to
-push the totally inert @code{st-flrock} (see @ref{st-wood}) over
-it: This is the only movable stone that doesn't allow fire under it. A
-final way to stop fire is to send the @code{stopfire}-message to a
-floor, which works the same way as @code{st-flrock}.
-
-Compare with @ref{Fire and Extinguisher}.
-
-@strong{Heat-Transformations}
-
-When a fire starts to burn near @ref{fl-ice}, it melts to
-@ref{fl-water}. In the same sense, @code{fl-water} boils to
-@ref{fl-swamp}, and this again to @code{fl-dunes}. In contrast to most
-other fire-related actions, this is not random, but always and only
-happens, when a nearby fire starts to burn.
-
-Examples: Put an @code{st-flrock} on @code{fl-ice}. A fire will melt
-the ice, and @code{st-flrock} creates a fireproof and safe way to the
-other side. If you use @ref{st-wood} instead, @code{fl-stwood} is
-created, which presumably catches fire and leaves @code{fl-abyss}
-behind. A similar combination is @code{fl-water} with
-@ref{st-chess_[black/white]}.
-
-If you want to suppress this transformation, you can switch to
-a non-Enigma-compatibility-mode, see the following section.
-
-@strong{Differences between 1.0 and 0.92}
-
-The old fire system of Enigma versions up to 0.92, differs from
-the 1.0 version mainly in the following points:
-
-@itemize @bullet
-@item no fire-transform except @code{fl-[st]wood} to @code{fl-abyss}
-@item no heat-transformations
-@item ash on fl-abyss
-@item no difference between different floors
-@item replication via same-floor-pattern instead of
-burnable-floor-pattern: 0.92 didn't distinguish between burnable and
-non-burnable floors. Instead, fire was allowed to spread to floors of
-the same kind slowly.
-@item burnable items always catch fire: In 1.0, a burnable item (except
-for @code{it-burnable} and @code{it-burnable_oil} themselves) on an
-non-burnable floor won't catch fire, in 0.92 it did.
-@end itemize
-
-A good model of the 0.92-system can be attained via the
-compatibility-modes: All non-Enigma-modes (see @ref{Differences
-between Compatibility Modes} and @ref{<compatibility>}) feature a
-version which only marginally differs from 0.92-fire, yet allowing
-some of the new achievements, like secure- or eternal-fire.
-
-Note that in 0.92, fire-transformation happened at the beginning of
-the fire, which manifested in the so called ``burning-abyss''-bug.
-Besides other details, this is how the original 0.92 system differs from the
-one in 1.0-non-Enigma-mode.
-
-@strong{Burnable and Fireproof Floors}
-
-The following floors are fireproof (they don't burn by default):
-@code{fl-abyss*, fl-ac*, fl-black, fl-brick, fl-bumps,
-fl-concrete, fl-dummy, fl-dunes, fl-gradient*, fl-gravel, fl-gray,
-fl-himalaya, fl-ice*, fl-inverse, fl-inverse2, fl-darkgray, fl-metal*,
-fl-mortar, fl-normal*, fl-rock, fl-sahara, fl-sand, fl-space*,
-fl-springboard, fl-stone, fl-swamp, fl-water, fl-white}, gray @code{fl-bridge}
-
-The following floors are burnable: @code{fl-bluegray, fl-bluegreen*,
-fl-hay, fl-light, fl-lightgray, fl-marble, fl-red, fl-rough*,
-fl-tigris, fl-woven*, fl-trigger}
-
-The following floors are burnable and leave @code{fl-dunes} behind:
-@code{fl-leaves*}
-
-The following floors are burnable and leave @code{fl-abyss} behind:
-@code{fl-floor_001, fl-plank, fl-samba*, fl-stwood*, fl-wood*}, brown
-@code{fl-bridge}.
-
-An open @ref{fl-bridge} is never burnable, this overrides all items and
-attributes. A closed @code{fl-bridge} is burnable if and only if it is brown,
-but this can be changed via attribute @code{burnable}. Note that changing the
-flavor of @code{fl-bridge} will change @code{burnable} according to the new
-flavor as well.
-
-@strong{Fireproof Items}
-
-Most items are passively burnable, this is: An item is destroyed by
-fire, if and only if the floor could burn all by itself.  However,
-there are some items with individual reactions (@code{it-burnable,
-it-burnable_oil, it-dynamite, it-blackbomb, it-whitebomb, it-crack*})
-and some items that are completely fireproof. These are:
-@code{it-hollow, it-tinyhollow, it-hill, it-tinyhill, it-vortex*,
-it-burnable_fireproof, it-burnable_ash, it-extinguisher,
-it-extinguisher_medium, it-abyss}, all items of section @ref{System
-and Debug Items} (@code{it-[1/2]pkillstone, it-bridge-oxyd*,
-it-debris, it-dummy, it-easy[kill/keep]stone, it-explosion*,
-it-oxyd5f, it-signalfilter[0/1]}) and the fire animations themselves:
-@code{it-burnable_ignited} and @code{it-burnable_burning}.
-
-Note that @code{it-extinguisher_empty, it-trigger} (visible and
-invisible), @code{it-landmine}, @code{it-changefloor} and
-@code{it-death} are passively burnable.  In particular,
-@code{it-landmine} does not explode or create
-@code{it-hollow} when burning. The reaction of @ref{it-sensor} and
-@code{it-inversesensor} towards fire might be changed in future
-versions.
-
-If you need to save a passively burnable item from fire, simply set a
-fireproof floor like @code{fl-sand} or @code{fl-rock} below it. This
-normally is the case when using @ref{it-[h/v]strip} and
-@ref{it-changefloor}. However, you can use the
-@code{burnable}-attribute in these cases to force burnability of the
-floors.
-
-
-@c ----------------------------------------------------------------------
-@node Freeze Checking
-@section Freeze Checking
-
-With Enigma 1.1 and above, you can use a special feature to support Sokoban
-levels and Sokoban parts of levels: Whenever a movable stone is pushed into
-some unmovable position, this feature automatically transforms the stone into
-@ref{st-death}, to demonstrate that the game is lost and provide a simple way
-for the player to restart.
-
-The feature is called ``Freeze Checking''. It applies to each stone with
-attribute @code{freeze_check = true} which is pushed onto a floor with
-attribute @code{freeze_check = true}. This way you can restrict the freeze
-check to a bounded area. For a true Sokoban the goal tiles should not be marked
-with @code{freeze_check = true}, as a frozen box on a goal is not considered
-harmful. On the other hand, you can specify which boxes are freeze-checked. This
-gives further freedom to use other stones inside your Sokoban area: Floor and
-stone both need the @code{freeze_check}-attribute activated.
-
-The freeze check recognizes three basic constellations of stones that lead to a
-freeze of a standard movable stone. With @code{B} as box (movable or
-persistent) and @code{#} as wall (persistent):
-@example
-BB   #B   #B
-BB    #    B#
-@end example
-There are more freeze constellations which are not recognized, the simplest
-would be:
-@example
-#B
- BB
-  #
-@end example
-Don't rely on this fact, it might be changed in future versions.
-
-Please bear in mind: The freeze check is not intelligent. It can't foresee that
-one of your functions might remove a stone, it can't foresee that some door
-will never open up again (doors are considered as not existent), it doesn't
-recognize when you put an @ref{it-puller}, @ref{it-cherry}, or @ref{st-swap} in
-your level. It handles special stones in a way to minimize false-positive freeze
-checks.
-
-Floating stones (like @ref{st-grate}) create completely new frozen
-constellations. From the following two examples, only the right example is
-frozen (@code{G} is @code{st-grate1}):
-@example
-G    G
-BB   BB
-GB   GBG
-@end example
-At present, none of these are recognized as frozen by Enigma, floating stones
-are considered as not existing during a freeze check. To demonstrate the
-difficulty, you may analyze yourself which of the following constellations is
-frozen:
-@example
-G      G      GBG   GB#    G G#G
-B#    BBB     BB    GB G   BBBBB
-G    #B B#   #B      G     G#G G
-      G G     G
-@end example
-
-In some cases, stones are even handled differently although they have similar
-properties: @ref{st-wood} and @code{st-firebreak_move} (see
-@ref{st-firebreak[_move]}) are both movable and both destroyed by fire (see
-@ref{The 1.0-Fire System}). There would never be frozen stones, as they can
-easily be burned away. Yet, @code{st-wood} uses the default freeze checking,
-whereas @code{st-firebreak_move} is considered as not existing. This is because
-@code{st-wood} is often used without fire, whereas @code{st-firebreak_move} is
-primarily used in combination with fire.
-
-Another example is @code{st-shogun-s}, which is considered as a default
-movable stone, in contrast to the remaining shogun stones (see
-@ref{st-shogun-<sml>}). This way you can use @code{st-shogun-s} with goal
-@code{it-shogun-s}, but don't have to fear false-positive freeze checks from
-the non-standard way in which shogun stones move.
-
-As a concluding remark, the freeze checking is to be used as a support for the
-gamer only. It's not meant to be exploited as special feature to make movable
-stones unmovable or to provide a way to jump back to the starting position. It
-is subject to changes in future versions. And versions before 1.1 won't make a
-freeze check at all - so you can't rely on it to happen. It should really be
-used in Sokoban-kind parts of a level only, for which it is designed.
-
-
-@c ----------------------------------------------------------------------
 @node Differences between Compatibility Modes
 @section Differences between Compatibility Modes
 
@@ -25914,7 +25995,7 @@ sections above:
 @item Oxyd-stones (@ref{st-oxyd}) must blink before they can be
 ultimately opened (pairs must be hit with some time delay).
 @item The non-Enigma modes feature a model of the 0.92-Fire System
-(see @ref{The 1.0-Fire System}).
+(see @ref{Fire Spreading}).
 @item @ref{it-squashed} and @ref{it-cross} can't be removed with
 @ref{it-brush}.
 @item Only function of @ref{it-pencil} is to turn
