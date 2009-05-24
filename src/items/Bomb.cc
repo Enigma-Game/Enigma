@@ -32,6 +32,10 @@ namespace enigma {
             state = BURNING;
     }
     
+    Bomb::~Bomb() {
+        GameTimer.remove_alarm(this);
+    }
+    
     std::string Bomb::getClass() const {
         return "it_bomb";
     }
@@ -107,6 +111,11 @@ namespace enigma {
         }
     }
     
+    void Bomb::alarm() {
+        GameTimer.remove_alarm(this);
+        explode();
+    }
+    
     void Bomb::burn() {
         if (state == IDLE) {
             state = BURNING;
@@ -115,11 +124,9 @@ namespace enigma {
     }
     
     void Bomb::ignite() {
-        if (state == IDLE) {
-            state = BURNING;
-            std::string color = (getAttr("color") == BLACK) ? "black" : "white";
-            set_anim(ecl::strf("it_bomb_%s_exploding", color.c_str()));   // shortened burning
-        }
+        state = IDLE;   // abort any burning process and explode as soon as possible
+        init_model();
+        GameTimer.set_alarm(this, 0.01, false);
     }
     
     void Bomb::explode() {

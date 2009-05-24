@@ -3169,11 +3169,10 @@ static int sortGroup(lua_State *L) {
         double cy = 0;  // center
         int num = 0;
         for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr) {
-            GridObject *go = dynamic_cast<GridObject *>(*itr);
-            if (go != NULL) {
-                GridPos p = go->get_pos();
-                cx += p.x;
-                cy += p.y;
+            if (*itr != NULL) {
+                ecl::V2 pos = Value(*itr);
+                cx += pos[0];
+                cy += pos[1];
                 num++;
             } 
         }
@@ -3181,10 +3180,9 @@ static int sortGroup(lua_State *L) {
             cx = cx/num;
             cy = cy/num;
             for (ObjectList::iterator itr = oldSort.begin(); itr != oldSort.end(); ++itr) {
-                GridObject *go = dynamic_cast<GridObject *>(*itr);
-                if (go != NULL) {
-                    GridPos p = go->get_pos();
-                    double alpha = std::atan2(p.y - cy, p.x - cx); 
+                if (*itr != NULL) {
+                    ecl::V2 pos = Value(*itr);
+                    double alpha = std::atan2(pos[1] - cy, pos[0] - cx); 
                     sortMap[alpha] = *itr;
                 }
             }

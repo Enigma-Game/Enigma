@@ -161,6 +161,9 @@ NEIGHBORS_4     = W .. S .. E .. N
 NEIGHBORS_8     = NEIGHBORS_4 .. NW .. SW ..SE .. NE
 NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW
 
+-- convertion direction numbers to offset vectors
+DIRNUM2OFF = {[0]=W, S, E, N}
+
 -- essential
 DISPENSIBLE   = 0
 INDISPENSIBLE = 1

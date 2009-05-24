@@ -28,7 +28,7 @@ namespace enigma {
      * 
      */
 
-    class Bomb : public Item {
+    class Bomb : public Item, public TimeHandler {
         CLONEOBJ(Bomb);
         DECL_ITEMTRAITS_ARRAY(2, traitsIdx());
 
@@ -40,6 +40,7 @@ namespace enigma {
         
     public:
         Bomb(int color, bool burning =false);
+        virtual ~Bomb();
         
         // Object interface
         virtual std::string getClass() const;
@@ -60,6 +61,9 @@ namespace enigma {
         virtual std::string get_inventory_model();
         virtual void on_stonehit(Stone *st);
         
+        // TimeHandler interface
+        virtual void alarm();
+
     private:
         void burn();
         void ignite();

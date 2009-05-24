@@ -32,7 +32,7 @@ namespace enigma {
     }
     
     Value IceBlock::message(const Message &m) {
-        if (m.message == "_explosion" || m.message == "ignite") {
+        if (m.message == "_explosion" || m.message == "ignite" || m.message == "_cannonball") {
             if (isDisplayable()) {
                 state = BREAKING;
                 set_anim("st_ice_breaking");

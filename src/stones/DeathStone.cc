@@ -21,7 +21,7 @@
 #include "stones/DeathStone.hh"
 
 #include "items/GlassesItem.hh"
-#include "main.hh"
+//#include "main.hh"
 
 namespace enigma {
     DeathStone::DeathStone(bool isInvisible, bool isMovable) : Stone () {
@@ -141,7 +141,8 @@ namespace enigma {
     
     void DeathStone::actor_hit(const StoneContact &sc) {
         actor_touch(sc);
-        Stone::actor_hit(sc);
+        if (sc.actor->has_shield())   // just shielded actors are allowed to push this stone
+            Stone::actor_hit(sc);
     }
 
     void DeathStone::actor_touch(const StoneContact &sc) {
