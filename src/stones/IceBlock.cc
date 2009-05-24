@@ -33,20 +33,23 @@ namespace enigma {
     
     Value IceBlock::message(const Message &m) {
         if (m.message == "_explosion" || m.message == "ignite" || m.message == "_cannonball") {
-            if (isDisplayable()) {
+            if (isDisplayable() && state != BREAKING) {  // priorise explosion over melting
                 state = BREAKING;
                 set_anim("st_ice_breaking");
             }
             return Value();
         } else if (m.message == "heat") {
-            if (isDisplayable()) {
-                GridPos p = get_pos();
-                setNoAbyssFloor(p, "fl_water");
-                KillStone(p);
+            if (isDisplayable() && state == IDLE) {
+                state = MELTING;
+                set_anim("st_ice_melting");
             }
             return Value();            
         }
         return Stone::message(m);
+    }
+    
+    void IceBlock::setState(int extState) {
+        // block all state write attempts
     }
     
     void IceBlock::init_model() {
@@ -55,11 +58,15 @@ namespace enigma {
     
     void IceBlock::animcb() {
         GridPos p = get_pos();
-        setNoAbyssFloor(p, "fl_ice");
-        setNoAbyssFloor(move(p, NORTH), "fl_ice");
-        setNoAbyssFloor(move(p, EAST), "fl_ice");
-        setNoAbyssFloor(move(p, SOUTH), "fl_ice");
-        setNoAbyssFloor(move(p, WEST), "fl_ice");
+        if (state == BREAKING) {
+            setNoAbyssFloor(p, "fl_ice");
+            setNoAbyssFloor(move(p, NORTH), "fl_ice");
+            setNoAbyssFloor(move(p, EAST), "fl_ice");
+            setNoAbyssFloor(move(p, SOUTH), "fl_ice");
+            setNoAbyssFloor(move(p, WEST), "fl_ice");
+        } else {  // MELTING
+            setNoAbyssFloor(p, "fl_water");
+        }
         KillStone(p);
     }
     
@@ -67,8 +74,12 @@ namespace enigma {
         return true;
     }
     
+    bool IceBlock::is_removable() const {
+        return state == IDLE;
+    }
+    
     bool IceBlock::is_movable() const {
-        return (state != BREAKING) ? Stone::is_movable() : false;
+        return (state == IDLE) ? Stone::is_movable() : false;
     }
     
     bool IceBlock::on_move(const GridPos &origin) {

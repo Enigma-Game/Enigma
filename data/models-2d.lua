@@ -599,9 +599,6 @@ do
     local images = DefSubimages("it_bomb_black_burning", {h=9})
     local frames = BuildFrames(images, 100)
     DefAnim("it_bomb_black_burning", frames)
-    
-    local frames = BuildFrames({"it_bomb_black_burning8", "it_bomb_black_burning9"},120)
-    DefAnim("it_bomb_black_exploding", frames)
 end
 
 -- Burning white bomb --
@@ -1034,6 +1031,10 @@ do
     local frames = BuildFrames(images,50)
     DefAnim("st_ice_break-anim", frames)
     DefShModel("st_ice_breaking", "st_ice_break-anim", "sh-glass")
+
+    local frames = BuildFrames(images,100)
+    DefAnim("st_ice_melt-anim", frames)
+    DefShModel("st_ice_melting", "st_ice_melt-anim", "sh-glass")
 end
 
 -- st-knight --

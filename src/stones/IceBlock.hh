@@ -36,6 +36,7 @@ namespace enigma {
         enum iState {
             IDLE,           ///< 
             BREAKING,       ///< 
+            MELTING         ///< 
         };
     public:
         IceBlock();
@@ -44,6 +45,9 @@ namespace enigma {
         virtual std::string getClass() const;
         virtual Value message(const Message &m);
         
+        // StateObject interface
+        virtual void setState(int extState);
+
         // GridObject interface
         virtual void init_model();
         
@@ -52,6 +56,7 @@ namespace enigma {
         
         // Stone interface
         virtual bool is_transparent(Direction d) const;
+        virtual bool is_removable() const;
         virtual bool is_movable() const;
         virtual bool on_move(const GridPos &origin);
         
