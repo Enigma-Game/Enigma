@@ -41,9 +41,9 @@ build new levels using Lua and how to interact with the game engine.
 * Item Objects::
 * Stone Objects::
 * Actor Objects::
-* Other Objects::               Rubberbands, etc.
-* Libraries::                   Advanced tools
-* Advanced Features::           Fire, ...
+* Other Objects::               Wires, Rubberbands and Gadgets
+* Libraries::                   Supplemental Functions and Features 
+* Advanced Features::           Resolvers, Scrolling, Flood, Fire, etc.
 * Extension Development::       Resolver, Library Development
 * Guidelines and Hints::        Tips and Recommendations for Levels to be included in Enigma
 * Old API - Objects::           Description of all objects in Enigma
@@ -743,8 +743,8 @@ find such tables in the @samp{data/sound-defaults.lua} file and in the empty
 sample file at @samp{reference/soundset.lua}. Each entry in these tables is
 either a string like @samp{enigma/st-coinslot}, which is interpreted as the
 file @samp{soundsets/enigma/st-coinslot.wav} with some default properties, or a
-list of sound attributes enclosed in curly braces. Sound events triggered with
-@ref{enigma.EmitSound} are converted the same way. Here is an example of such an
+list of sound attributes enclosed in curly braces. Sound events triggered by a
+@ref{sound} message are converted the same way. Here is an example of such an
 entry:
 
 @example
@@ -8136,6 +8136,9 @@ world's @samp{add} method.
 * off::
 * open::
 * close::
+* ignite::
+* heat::
+* setfire::
 * kill::
 * sound::
 * disconnect::
@@ -8237,6 +8240,44 @@ Just objects in state @samp{OPEN} will be closed. An object in state
 @item @b{Value:} @ @ -
 @item @b{Returns:} @ @ -
 @item @b{Support:} @ @ by door like objects that can be opened and closed
+@end table
+
+@node ignite
+@subsection ignite
+
+Sets fire to a floor if its burnable (@pxref{Fire Spreading}) or start an
+explosion or shattering of items like @ref{it_dynamite}, @ref{it_bomb} or
+stones like @ref{st_ice}, @ref{st_dispenser} and many more.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by all @ref{Floors} and explosive or shattering items and stones
+@end table
+
+@node heat
+@subsection heat
+
+Sets fire to a floor if its burnable (@pxref{Fire Spreading}) or causes a 
+@ref{Heat-Transformation} on a floor or other objects like @ref{st_ice} that 
+starts melting. Some objects do react on a heat message like on an @ref{ignite}
+message by explosions or shattering.
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by all @ref{Floors} and some other objects.
+@end table
+
+@node setfire
+@subsection setfire
+
+Sets fire to a floor if its burnable (@pxref{Fire Spreading}).
+
+@table @asis
+@item @b{Value:} @ @ -
+@item @b{Returns:} @ @ -
+@item @b{Support:} @ @ by all @ref{Floors}
 @end table
 
 @node kill
@@ -8564,6 +8605,7 @@ that is appropriate for an object and do avoid using numbers.
 * FollowThreshold::
 * Fragility::
 * FrictionStrength::
+* GlobalForce::
 * Height::
 * IsDifficult::
 * MagnetRange::
@@ -8828,6 +8870,20 @@ to get larger. This default is superseded by @ref{fragility (floor)} and
 @item @b{Default:} @ @ @code{1.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_crack} and @ref{Floors}
+@end table
+
+@node GlobalForce
+@subsection GlobalForce
+
+A global constant force that is added to every actor on every grid. The force
+is given as a vector constant by a value of type @ref{Position}.
+
+@table @asis
+@item @b{Type:} @ @ @ref{Position}
+@item @b{Values:} @ @ pair of float numbers
+@item @b{Default:} @ @ @code{po(0.0, 0.0)}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ all floors
 @end table
 
 @node FrictionStrength
@@ -10707,7 +10763,7 @@ the swamp. Jumping in a swamp raises an actor, too.
 
 A swamp is indestructible to the aspect that @ref{it_crack} will not spread
 onto it. But fire starting to burn nearby will dry out the swamp to 
-@ref{fl_dunes} (see @ref{Heat-Transform}). A swamp itself may be a successor of
+@ref{fl_dunes} (@pxref{Heat-Transformation}). A swamp itself may be a successor of
 a @ref{fl_water} heated by a fire.
 
 @table @asis
@@ -11027,7 +11083,6 @@ by an actor hitting a variant of @ref{st_dispenser}.
 * it_key::             Lock opening coded Key
 * it_magicwand::       Wizards Tools
 * it_pencil::          Pencil to mark Objects
-* it_pencil::
 * it_pin::             Friction increasing crampon
 * it_pipe::            Pipe for Transmissions
 * it_puller::          Stone pulling item
@@ -12582,6 +12637,14 @@ instead.
 Note that you are not allowed to set or change the @samp{state} of a burnable
 item. But you can investigate the kind of a burnable.
 
+Besides by @ref{Fire Spreading} the user can interact with burnable items with
+the following other objects:
+@itemize @bullet
+@item @ref{it_extinguisher} sprays @samp{fireproof} foam
+@item @ref{it_brush} removes @samp{ash} and @samp{fireproof}
+@item @ref{st_ice} removes all burnable besides @samp{oil} when being pushed over them
+@end itemize
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
@@ -12667,7 +12730,10 @@ values supersede the global @ref{Fragility} default.
 Indestructible floors like @ref{fl_abyss}, @ref{fl_water}, @ref{fl_swamp} will
 never crack. As any other item cracks do block laser light and prohibit other items to be
 dropped on the same grid. Nearby fire, explosions and hitting 
-@ref{ot_cannonball}s will dissolve a crack.
+@ref{ot_cannonball}s will dissolve a crack by another step.
+
+On the other hand @ref{st_ice} will putty any existing crack when being pushed 
+over it.
 
 @table @asis
 
@@ -13130,6 +13196,9 @@ nevertheless be read. At initialization a dot with a matching shogun stack on
 top will start in state @samp{ON} without sending actions due to the
 @ref{Snapshot Principle}.
 
+Note that a dot is freezable by an @ref{st_ice} and can thus be delocated to
+another position.
+
 @table @asis
 @item @b{Attributes:}
 @table @asis
@@ -13195,8 +13264,8 @@ The remnants of fruits like @ref{it_cherry} and @ref{it_banana} after pushing
 a stone over it.
 
 The squashed remnants are scarcely visible on some floor types. The player can
-not pick them up. But it can be wiped away by application of an @ref{it_brush}
-or by a nearby exploding @ref{it_bomb}.
+not pick them up. But it can be wiped away by application of an @ref{it_brush},
+by a nearby exploding @ref{it_bomb} or by an @ref{st_ice} being pushed over it.
 
 @table @asis
 @item @b{Attributes:}
@@ -13561,7 +13630,7 @@ Switches the wormhole off.
 
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/st_ancient} @tab @yref{st_ancient}
-@tab                            @tab @yref{st_bluegray}
+@tab @image{images/st_bluegray} @tab @yref{st_bluegray}
 @tab @image{images/st_brownie} @tab @yref{st_brownie}
 @item @image{images/st_brownmarble} @tab @yref{st_brownmarble}
 @tab @image{images/st_camouflage} @tab @yref{st_camouflage}
@@ -14976,9 +15045,9 @@ stone
 @subsection st_death
 @obindex st_death
 
-Shatters any marble that hits or even just touches it. Just marbles protected
-by an activated @ref{it_umbrella} will bounce unharmed as other actors do which
-will not die anyway.
+Shatters any @ref{ac_marble} and @ref{ac_pearl} that hits or even just touches
+it. Just marbles and pearls protected by an activated @ref{it_umbrella} will
+bounce unharmed as other actors do which will not die anyway.
 
 Death stones can be configured by the @samp{invisible} attribute to
 be hidden while being idle. When hit by an actor any death stone becomes
@@ -14990,6 +15059,24 @@ The level author can configure @ref{it_glasses} by elimination of
 @ref{ExtralifeGlasses} even glasses generated by laser lighting an
 @ref{it_extralife} can be configured not to show invisible actorimpulse stones.
 
+A death stone can also be movable. Of course ball like actors can not push it.
+But other actors can push it. A movable death stone can be connected by an 
+@ref{ot_wire} to another movable stone that allows to control it. Furtheron
+all stones emitting stone impulses like @ref{st_stoneimpulse}, @ref{st_rotator},
+@ref{st_lightpassenger} can move it. And finally a pushing @ref{st_boulder}
+will move it until an obstacle stops the death stone.
+
+A movable death stone looks identical to the static default version. But from
+time to time it will show its animation and can thus be identified by the user.
+The interval of the animations is determined by the attribute @samp{interval},
+but will randomly vary up to 20% from the given value. When the @samp{interval}
+equals zero no animation will reveal the movable death. But any @ref{it_glasses}
+capable of @samp{SPOT_DEATH} will show the movable death in a lighter stone
+color than the static ones.
+
+A @samp{movable} death can not be @samp{invisible} at the same time. If you set
+both attributes the last attribute set wins and resets the first one.
+
 @table @asis
 
 @item @b{Attributes:}
@@ -14999,6 +15086,12 @@ Current activity state of the death stone. A stone is usually activated by
 a hitting actor.
 @item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Invisible death stones show only when hit by an actor or been toggled by a message.
+Setting this attribute to @samp{true} sets @samp{movable} to @samp{false}.
+@item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @xref{movable}
+Movable death stone. Setting this attribute to @samp{true} sets @samp{invisible}
+to @samp{false}.
+@item @b{interval} @ @ @i{values}: positive number; @ @ @i{default}: @code{10.0}
+Number of seconds to show animation on movable death.
 @end table
 
 @item @b{Messages:}
@@ -15014,10 +15107,10 @@ period.
 @table @asis
 @item @b{st_death}: invisible = @code{false}
 @item @b{st_death_invisible}: invisible = @code{true}
+@item @b{st_death_movable}: movable = @code{true}
 @end table
 
 @end table
-
 
 @c ----------------- Disco Stone --------------------
 @node st_disco
@@ -15582,15 +15675,68 @@ over them. Of course a floor of @ref{fl_water} will freeze, too, when ice is
 being pushed over it. But a block of ice can be destroyed by explosions and by
 heating fire leaving either @ref{fl_ice} or @ref{fl_water}.
 
-Note some minor details of st_ice are not yet stable - especially the fire
-interactions may still change.
+When an ice block without frozen item is pushed onto a grid with an 
+@ref{freezable} item, the ice will freeze the item and will move it beneath
+itself on subsequent pushes. All items that the user can cary in his inventory
+are @ref{freezable} and even some @ref{Static Items} like @ref{it_magnet}, 
+@ref{it_springboard}, etc. But a few items react in a special manner when an
+ice block is pushed onto them:
+@itemize @bullet
+@item @ref{it_squashed} and @ref{it_burnable}, with the exception of 
+@samp{it_burnable_oil}, dissolve to nothing. 
+@item @ref{it_crack} will vanish as the ice is putty for the cracked floors
+@item @ref{it_seed} will not start growing, even though the ice is pushed as a
+solid stone on top.
+@item @ref{it_bomb} will explode and destroy the ice block as well as the floor.
+@item @ref{it_dynamite} is very special - a burning dynamite gets extinguished
+by an ice block and becomes frozen in its idle state.
+@end itemize
+
+But what happens when an ice block with a frozen items gets pushed onto a grid
+with another item? The stronger item wins and survives beneath the ice block
+on the new position while the weaker item will be killed. The sequence from
+weak to strong is quite simple:
+@itemize @bullet
+@item static items that get anyway wiped out by an ice block
+@item @ref{Liftable Items}
+@item @ref{portable} items that are not @ref{liftable}
+@item @ref{freezable} items that are not @ref{portable}
+@item @ref{Static Items} that are not @ref{freezable}
+@end itemize
+When the two items are of the same category the already frozen item wins. This
+last rule ensures that the user can not free frozen items by dropping a liftable
+item out of his inventory in front of an ice block before pushing it.
+
+An ice block looks like a bluish version of @ref{st_rawglass}. But it has just
+one feature in common. It is transparent to laser light. Of course you can not
+freeze laser beams, even though they are implemented in the item layer. Laser
+light will interact even with frozen items and can ignite @ref{it_dynamite} or
+@ref{it_bomb}. Even though being light transparent invisible actors can not
+pass it (@pxref{Transparent Stones}).
+
+Ice blocks shatter on nearby @ref{it_bomb} and @ref{it_dynamite} explosions and
+on @ref{ot_cannonball} hits. The ice will spead to the four direct neighboring
+grid positions and will cover these and the originating position with 
+@ref{fl_ice}. Just @ref{fl_abyss} will not be covered by this ice floor and
+remains unchanged. Thus an exploding bomb leaves an @ref{fl_abyss} at its
+position, even when an ice blocks shatters nearby.
+
+A fire starting to burn on a direct neighbor position will eventually melt the
+ice block by its @ref{Heat-Transformation}. The ice will melt to an 
+@ref{fl_water}. Just in case the ice block melts over an @ref{fl_abyss} the
+floor remains unchanged. The ice heating is no secure feature, as the heat burst
+occurs just once for each fire. Thus a user may be able to push an ice block
+aside a fire without heat transformation. Furtheron the melting takes time.
+Any intermediate nearby explosion can still shatter the melting ice block.
 
 @table @asis
 @item @b{Messages:}
 
 @table @asis
 @item @b{ignite} @ @ @xref{ignite}
+Shatter the ice block.
 @item @b{heat} @ @ @xref{heat}
+Melt the ice block
 @end table
 
 @item @b{Variants:}
@@ -17104,6 +17250,7 @@ speed. On landing they cause actions on some objects and destroy others:
 @item @ref{st_yinyang} do toggle,
 @item @ref{st_puzzle} do explode completely connected clusters, 
 @item @ref{st_brownpyramide} do break,
+@item @ref{st_spitter} do break, if not being @samp{secure}
 @item other stones do remain unmodified and protect items and floors,
 @item @ref{it_dynamite} do ignite,
 @item @ref{it_crack} do crack,
@@ -17156,6 +17303,7 @@ looks steady and does not spit on actor hits.
 @item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
 The destination of the cannonball given by an object or a position.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Unsecure spitters do break on a @ref{ot_cannonball} hit.
 @end table
 
 @item @b{Messages:}
@@ -17916,6 +18064,7 @@ but not all! This table shows their exact properties.
 @item @ref{st_polarswitch} @tab st_polarswitch_off @tab toggle @tab pass @tab no
 @item @ref{st_beads} @tab st_beads @tab leave @tab pass @tab no
 @item @ref{st_lightpassenger} @tab st_lightpassenger_off @tab rebound @tab rebound @tab no
+@item @ref{st_ice} @tab st_ice @tab push @tab push @tab yes
 @item @ref{st_invisible} @tab st_invisible @tab rebound @tab rebound @tab no
 @item @ref{st_invisible} @tab st_invisible_movable @tab push @tab push @tab no
 @item @ref{st_invisible} @tab st_invisible_hollow @tab pass @tab pass @tab no
@@ -20843,7 +20992,7 @@ maze4 = res.maze(ti, @{area =@{po(2, 12), 5, 5@}, kernel=@{3,2@},
 @end example
 
 @item @b{Details:}
-
+Cell
 
 
 @item @b{Full Example:}
