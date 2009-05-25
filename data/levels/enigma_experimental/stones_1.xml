@@ -162,6 +162,7 @@ local stones = {
 
 {"st_death", _text="st_death, default"},
 {"st_death", invisible=true, _text="st_death, invisible=true"},
+{"st_death_movable", _text="st_death, movable=true"},
 
 {"st_disco", _text="st_disco, default"},
 {"st_disco", state=LIGHT, _text="st_disco, state=LIGHT"},
@@ -229,6 +230,8 @@ local stones = {
 {"st_greenbrown_hollow", _text="st_greenbrown_hollow"},
 {"st_greenbrown_movable", _text="st_greenbrown_movable"},
 {"st_greenbrown_growing", _text="st_greenbrown_growing"},
+
+{"st_ice", _text="st_ice"},
 
 {"st_jamb", _text="st_jamb, default"},
 {"st_jamb", color=BLACK, _text="st_jamb, color=BLACK"},
