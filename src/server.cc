@@ -301,7 +301,7 @@ void server::PrepareLua() {
     int api = (server::EnigmaCompatibility < 1.10) ? 1 : 2;
     lua::ShutdownLevel();
     lua_State *L = lua::InitLevel(api);
-    if (lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
+    if (api == 1 && lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
         throw XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
     }
     if (lua::DoSysFile(L, ecl::strf("api%dinit.lua", api)) != lua::NO_LUAERROR) {
