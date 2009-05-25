@@ -17,12 +17,12 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_bluegray"}
 ti["-"] = {"fl_samba"}
-ti["~"] = {"fl_water", name="maze#"}
+ti["~"] = {"fl_water"}
 ti["#"] = {"st_granite"}
 ti["o"] = {"it_meditation_hollow"}
-ti["@"] = ti({"it_magnet", state=ON}) .. {"#ac_pearl", essential=INDISPENSIBLE}
+ti["@"] = {"it_magnet", state=ON} .. ti({"#ac_pearl", essential=INDISPENSIBLE})
 
-maze = res.maze(ti, {area={"maze#*"}, render={"-", "~", "-"}})
+maze = res.maze(ti, {area={"~"}, render={"-", "~", "-"}})
 
 wo(maze, " ", {
     "####################",

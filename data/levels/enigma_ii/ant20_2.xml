@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Come To Me" el:subtitle="" el:id="ant20"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["."] = {"fl_sand"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["V"] = {"fl_slope_ps"}
+ti["<"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_one"}
+ti["3"] = {"fl_slope_onw"}
+ti["7"] = {"fl_slope_ose"}
+ti["9"] = {"fl_slope_osw"}
+ti["a"] = {"fl_slope_isw"}
+ti["b"] = {"fl_slope_ise"}
+ti["c"] = {"fl_slope_inw"}
+ti["d"] = {"fl_slope_ine"}
+ti["#"] = {"st_metal"}
+ti["D"] = {"st_door", flavor="b", name="door#"}
+ti["S"] = {"st_switch", action="callback", target="death", safeaction=true}
+ti["O"] = {"st_oxyd", name="oxyd#"}
+ti["@"] = ti["."] .. {"#ac_marble_black", name="ball"}
+
+wo(ti, " ", {
+    "#O################O#",
+    "OD7VVVVVVVVVVVVVV9DO",
+    "#7b..............a9#",
+    "#>..@.............<#",
+    "#>.....     ......<#",
+    "#>..... 7V9 ......<#",
+    "#>..... >S< ......<#",
+    "#>..... 1^3 ......<#",
+    "#>.....     ......<#",
+    "#>................<#",
+    "#1d..............c3#",
+    "OD1^^^^^^^^^^^^^^3DO",
+    "#O################O#"})
+
+wo:shuffleOxyd({no["oxyd#*"]:sort("circular"), circular=true})
+
+function death(value, sender)
+    no["door#*"]:open()
+    wo[sender] = {"st_death", name="death"}
+    wo:add({"ot_rubberband", anchor1="ball", anchor2="death", strength=16.0, length=0.0})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

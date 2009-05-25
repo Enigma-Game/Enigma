@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chessing Positions" el:subtitle="" el:id="raoul22"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_concrete"}
+ti["~"] = {"fl_water"}
+ti["-"] = {"fl_dark"}
+ti["X"] = ti[" "] .. {"st_grate", flavor="cross"}
+ti["B"] = {"fl_bright", name="stablewhite#"} .. {"st_chess_black", name="chessblack#"} .. ti({"it_trigger", target="chess", invisible=true})
+ti["W"] = {"fl_fake_abyss", name="stableblack#"} .. {"st_chess_white", name="chesswhite#"} .. ti({"it_trigger", target="chess", invisible=true})
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_BLACK, name="oxydblack#"}
+ti["o"] = {"st_oxyd", oxydcolor=OXYD_WHITE, name="oxydwhite#"}
+ti["1"] = ti["-"] .. {"ac_marble_black"}
+ti["2"] = ti["-"] .. {"ac_marble_white"}
+
+wo(ti, "~", {
+    "~~~XXXXXX~~XXXXXX~~~",
+    "O~~X--BBX~~X----X~~o",
+    "~~~X--BBX~~X-2--X~~~",
+    "~~~X--XXX~~XXX--X~~~",
+    "O~~X--XXXXXXXX--X~~o",
+    "~~~X------------X~~~",
+    "~~~X------------X~~~",
+    "O~~X--XXXXXXXX--X~~o",
+    "~~~X--XXX~~XXX--X~~~",
+    "~~~X----X~~XWW--X~~~",
+    "O~~X---1X~~XWW--X~~o",
+    "~~~XXXXXX~~XXXXXX~~~"})
+
+function chess(value, sender)
+    if no["stablewhite#*"] == fl(no["chesswhite#*"]) then
+        no["oxydwhite#*"]:open()
+    end
+    if no["stableblack#*"] == fl(no["chessblack#*"]) then
+        no["oxydblack#*"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

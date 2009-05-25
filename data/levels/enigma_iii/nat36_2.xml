@@ -15,33 +15,35 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
 ti[" "] = {"fl_abyss"}
-ti["-"] = {"fl_abyss", name="path#"}
-ti["*"] = {"fl_abyss", name="hidden_trigger#"}
 ti["="] = {"fl_gray"}
 ti["t"] = ti["="] .. {"it_trigger", name="trigger#", action="callback", target="grow"}
-ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble_black"}
 
-themaze = res.maze(ti, {area={po(1,1), 38, 24}, render={"-", " ", "*"}})
-wo(themaze, " ", 77, 49)
-wo[po(0,0) .. po(0,48) .. po(76,0) .. po(76,48)] = ti["O"]
+local width = 38
+local height = 24
+
+maze = res.maze(ti, {area={po(1,1), width, height}, persistent=true})
+wo(maze, " ", 2*width+1, 2*height+1)
+wo[po(0,0) .. po(0,2*height) .. po(2*width,0) .. po(2*width,2*height)] = {"st_oxyd"}
 wo:shuffleOxyd()
 
 function grow(value, sender)
-    sender.target=DEFAULT
-    grow_maze(sender)
+    cell_vec = (sender - po(1,1))/2
+    cell = maze[maze:encode(cell_vec.x, cell_vec.y)]
+    for d = WEST, NORTH do
+        if cell[d] then
+            wo[cell:pos() + DIRNUM2OFF[d]] = ti["="]
+            wo[cell:pos() + 2*DIRNUM2OFF[d]] = ti["t"]
+        end
+    end
 end
 
-function grow_maze(pos)
-    mazeparts = po(fl(pos + NEIGHBORS_4) * no["path#*"])
-    wo[mazeparts] = ti["="]
-    wo[pos-2*(mazeparts-pos)] = ti["t"]
-end
-
-startpoint = no["hidden_trigger#*"]:shuffle()[1]
-grow_maze(startpoint)
-wo[startpoint] = ti["="] .. ti["@"]
+local startpos = po(2*random(width)-1, 2*random(height)-1)
+wo[startpos] = ti["="] .. ti["t"] .. ti({"#ac_marble_black"})
+grow(true, fl(startpos))
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

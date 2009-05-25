@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dynamice" el:subtitle="" el:id="andreas20"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.1">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="00:54"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- Former author time: 00:51
+
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_ivory"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_fake_oxydc"}
+ti["I"] = {"st_ice"}
+ti["O"] = {"st_oxyd", "leftoxyds#", flavor = "c"}
+ti["P"] = {"st_oxyd", "rightoxyds#", flavor = "c"}
+ti["d"] = {"it_dynamite"}
+ti["s"] = {"it_springboard"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(ti, " ",
+      {"###O############P###",
+       "#     .........    #",
+       "#       .....      #",
+       "O        ...       P",
+       "#    s   ...       #",
+       "#         .        #",
+       "Od I d I @.        P",
+       "#         .        #",
+       "#    s   ...       #",
+       "O        ...       P",
+       "#       .....      #",
+       "#     .........    #",
+       "###O############P###"})
+
+wo:shuffleOxyd({"leftoxyds#*", "rightoxyds#*", min = 5})
+wo:add(YIN, {"it_extralife"})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

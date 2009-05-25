@@ -19,12 +19,12 @@ ti["I"] = {"st_invisible_movable"}
 ti["o"] = {"it_meditation_hollow"}
 ti["X"] = {"st_grate", flavor="cross"}
 ti["S"] = {"st_swap"}
-ti["."] = {"#ac_pearl", essential=INDISPENSIBLE}
+ti["@"] = {"#ac_pearl", essential=INDISPENSIBLE}
 
 wo(ti, " ", {
     "####################",
     "#               #Xo#",
-    "#  .       I    #XX#",
+    "#  @       I    #XX#",
     "#               ####",
     "#                  #",
     "#         S        #",
@@ -32,7 +32,7 @@ wo(ti, " ", {
     "#                  #",
     "#  ##              #",
     "### I              #",
-    "# I I            . #",
+    "# I I            @ #",
     "#o  I              #",
     "####################"})
  ]]></el:luamain>

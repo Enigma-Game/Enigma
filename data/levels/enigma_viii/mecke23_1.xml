@@ -3,12 +3,12 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 37 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 38 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and the Enigma Team for the new functions in the new API</el:credits>
       </el:comments>
@@ -23,7 +23,7 @@ ti[" ,"] = {"fl_concrete"}
 ti[" &"] = {"fl_ice"}
 ti[" %"] = {"fl_gravel"}
 ti["  "] = {"fl_hay",{secure=TRUE}}
-ti[" o"] = {"fl_yinyang_yin"}
+ti[" o"] = {"fl_yinyang_yin_invisible"}
 ti[" *"] = {"fl_himalaya"}
 ti[" +"] = {"fl_sahara"}
 ti[" '"] = {"fl_tigris"}
@@ -35,7 +35,7 @@ ti["/ "] = {"st-puzzle-new"}
 ti["$ "] = {"st_portal"}
 ti["% "] = {"st_redfiber"}
 ti["& "] = {"st_darkglass"}
-ti["' "] =  ti[" O"] .. {"it_strip_ns"}
+ti["' "] = ti[" O"] .. {"it_strip_ns"}
 ti["z "] = {"st_grate_framed"}
 ti["u "] = {"st_stoneimpulse_hollow"}
 ti["o "] = {"st_stoneimpulse"}
@@ -285,12 +285,12 @@ end
 
 function hux()
     wo:drawMap(ti, po(31, 19), "  ",{"//////////////////////",
-                                    "o/o/o/o/o/o/o/o/o/o/o/",
-                                    "o/o/o/o/o/o/o/o/o/o/o/"})
+                                     "o/o/o/o/o/o/o/o/o/o/o/",
+                                     "o/o/o/o/o/o/o/o/o/o/o/"})
 
     wo:drawMap(ti, po(55, 19), "  ",{"//////////////////////",
-                                    "o/o/o/o/o/o/o/o/o/o/o/",
-                                    "o/o/o/o/o/o/o/o/o/o/o/"})
+                                     "o/o/o/o/o/o/o/o/o/o/o/",
+                                     "o/o/o/o/o/o/o/o/o/o/o/"})
 end
 
 function stone(value, sender)
@@ -314,15 +314,15 @@ function earth(value, sender)
 end
 
 wo:shuffleOxyd()
-  ]]></el:luamain>
-     <el:i18n>
-       <el:string el:key="title">
-         <el:english el:translate="false"/>
-       </el:string>
-       <el:string el:key="subtitle">
-         <el:english el:translate="true"/>
-         <el:translation el:lang="de">... Survival Training in verwüsteten Gebieten ...</el:translation>
-       </el:string>
-     </el:i18n>
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">... Survival Training in verwüsteten Gebieten ...</el:translation>
+      </el:string>
+    </el:i18n>
   </el:protected>
 </el:level>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="raoul24"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_mortar"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_beads"}
+ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
+ti["^"] = {"st_oneway", color=WHITE, orientation=NORTH}
+ti["V"] = {"st_oneway", color=WHITE, orientation=SOUTH}
+ti["o"] = {"it_meditation_hollow"}
+ti["r"] = {"it_rubberband", anchor2="other%%"}
+ti["*"] = {"#ac_pearl", name="other%%", controllers=CTRL_NONE, owner=YANG}
+ti["@"] = ti["o"] .. {"#ac_pearl"}
+
+wo(res.autotile(ti, {"1", "4", "*"}, {"a", "d", "r"}), " ", {
+    "~#####~~~~~~~#####~",
+    "~#   #~~~~~~~#   #~",
+    "~# 1 #~~~~~~~# 3 #~",
+    "~#   #########   #~",
+    "~##V###o   o###V##~",
+    "~# a ##     ## c #~",
+    "~#   WW  @  WW   #~",
+    "~# b ##     ## d #~",
+    "~##^###o   o###^##~",
+    "~#   #########   #~",
+    "~# 2 #~~~~~~~# 4 #~",
+    "~#   #~~~~~~~#   #~",
+    "~#####~~~~~~~#####~"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

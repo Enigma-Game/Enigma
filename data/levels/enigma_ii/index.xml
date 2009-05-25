@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="26" title="Enigma II"/>
+  <info enigma="1.00" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="27" title="Enigma II"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack2_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack2" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Round Trip" _xpath="./martin35_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin35" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Round Trip" _xpath="./martin35_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin35" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="3" _title="Blocks and Grates" _xpath="./duffy48_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy48" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="4" _title=".-R-.-U-.-N-." _xpath="./martin103_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin103" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Gateway" _xpath="./martin85_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin85" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -15,7 +15,7 @@
     <level _seq="7" _title="Push Them In" _xpath="./nat05_1" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Rollercoaster" _xpath="./jc02_1" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Dancers" _xpath="./ant14_2" author="Petr Machata" ctrl="force" easy="false" id="ant14" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="- Meditation -" _xpath="./wb10_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="- Meditation -" _xpath="./wb10_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb10" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Automaton Magic" _xpath="./ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Enignimm" _xpath="./alain02_1" author="Alain Busser" ctrl="force" easy="false" id="alain02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="One Way Ticket" _xpath="./luc25_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -39,13 +39,13 @@
     <level _seq="31" _title="Path in the Stars" _xpath="./duffy80_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy80" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="32" _title="Alien Glyphs" _xpath="./duffy31_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy31" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Black Holes" _xpath="./siegfried03_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level2a" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="34" _title="When Gravity Fails" _xpath="./nat10_1" author="Nat Pryce" ctrl="force" easy="false" id="nat10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="When Gravity Fails" _xpath="./nat10_2" author="Nat Pryce" ctrl="force" easy="false" id="nat10" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Alien Glyphs 2" _xpath="./duffy96_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy96" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="36" _title="Koosnab" _xpath="./rb02_1" author="Roberto Bardin" ctrl="force" easy="false" id="rb02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="More Black Holes" _xpath="./luc18_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc18" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Alien Glyphs 3" _xpath="./duffy97_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy97" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Solar System" _xpath="./duffy98_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy98" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="Space Meditation" _xpath="./duffy59_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy59" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Space Meditation" _xpath="./duffy59_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy59" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Robin's Wood" _xpath="./andreas13_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Puppet" _xpath="./duffy87_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy87" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="The Far Side" _xpath="./martin75_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin75" rel="2" rev="5" score="2" target="time" unit="duration"/>
@@ -55,7 +55,7 @@
     <level _seq="47" _title="Fight For Your Life" _xpath="./martin96_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin96" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Road to Eden" _xpath="./alain22_1" author="Alain Busser" ctrl="force" easy="false" id="alain22" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Puzzling Controls" _xpath="./duffy30_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy30" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="- Meditation -" _xpath="./siegfried37_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation16" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="- Meditation -" _xpath="./siegfried37_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation16" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Disk Royal" _xpath="./illmind02_1" author="illmind" ctrl="force" easy="false" id="illmind02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Back And Forth" _xpath="./martin26_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin26" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="53" _title="Spaceless" _xpath="./andreas02_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas02" rel="2" rev="3" score="1" target="time" unit="duration"/>
@@ -76,7 +76,7 @@
     <level _seq="68" _title="Almost There" _xpath="./duffy89_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy89" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Question of Speed" _xpath="./siegfried32_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="- Meditation -" _xpath="./ant16_2" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="71" _title="Come To Me" _xpath="./ant20_1" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="71" _title="Come To Me" _xpath="./ant20_2" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="72" _title="Water Holes" _xpath="./siegfried10_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3f" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Follow the Leader" _xpath="./martin71_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin71" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="74" _title="Laser Spiral" _xpath="./duffy03_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy3" rel="2" rev="2" score="2" target="time" unit="duration"/>

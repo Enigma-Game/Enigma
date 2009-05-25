@@ -17,15 +17,19 @@
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
 
-ti[" "] = {"fl_wood", name="path#*"}
+ti[" "] = {"fl_wood"}
 ti["~"] = {"fl_water"}
 
-themaze = res.maze(ti, {area={po(1,1), 37, 24}, render={" ", "~", " "}})
+local width = 37
+local height = 24
 
-wo(themaze, "~", 75, 49)
-wo[po(1,0) .. po(73,0) .. po(1,48) .. po(73,48)] = {"st_oxyd"}
+maze = res.maze(ti, {area={po(1,1), width, height}, render={" ", "~", " "}})
+
+wo(maze, "~", 2*width+1, 2*height+1)
+wo[po(1,0) .. po(1,2*height) .. po(2*width-1,0) .. po(2*width-1,2*height)] = {"st_oxyd"}
 wo:shuffleOxyd()
-wo[no["path#*"]:shuffle()[1]] = {"#ac_marble_black"}
+
+wo[po(2*random(width)-1, 2*random(height)-1)] = {"#ac_marble"}
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

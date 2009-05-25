@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ice-Bomb" el:subtitle="" el:id="andreas21"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.1">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="00:37"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+-- Former author time: 1:19
+
+ti[" "] = {"fl_mortar"}
+ti["#"] = {"st_portal_horse"}
+ti["B"] = {"st_break_oxydc"}
+ti["N"] = {"st_laser_n", state = ON}
+ti["O"] = {"st_oxyd", flavor = "c", oxydcolor = OXYD_WHITE}
+ti["S"] = {"st_laser_s", state = ON}
+ti["1"] = {"st_box_hay"} .. ti{"it_extinguisher"}
+ti["2"] = {"st_death"} .. ti{"it_ring"}
+ti["3"] = {"st_grate_cross"} .. ti{"it_magicwand"}
+ti["4"] = {"it_bomb_black"}
+ti["5"] = {"st_stoneimpulse_movable"} .. ti{"it_key", code = 1}
+ti["6"] = {"st_shogun_sl"} .. ti{"it_spring_drop"}
+ti["7"] = ti["O"] .. ti{"it_document", text = "text1"}
+ti["8"] = {"st_swap"} .. ti{"it_puller_e"}
+ti["9"] = {"st_ice"}
+ti["@"] = {"#ac_marble", adhesion = 1}
+
+wo(ti, " ",
+      {"##############S#####",
+       "#                  #",
+       "#                  #",
+       "#   1  2  3    #####",
+       "#              #   #",
+       "#              #   #",
+       "#   4  5  6 @  B O #",
+       "#              #   #",
+       "#              #   #",
+       "#   7  8  9    #####",
+       "#                  #",
+       "#                  #",
+       "##############N#####"})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Remember Seed Puzzle 2? There was a similar problem. Or was it Portable Laser ...?</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

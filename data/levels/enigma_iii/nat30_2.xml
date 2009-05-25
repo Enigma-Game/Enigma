@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bad Flowers" el:subtitle="" el:id="nat30"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Nat Pryce</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_metal"}
+ti["o"] = {"it_meditation"}
+ti["."] = {"ac_marble"}
+ti["1"] = {"ac_pearl", essential=INDISPENSIBLE}
+ti["2"] = {"ac_pearl", adhesion=-1.0, essential=INDISPENSIBLE}
+
+w, h = wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "# o       2      o #",
+    "#                  #",
+    "#                  #",
+    "#         1        #",
+    "#                  #",
+    "#                  #",
+    "#         1        #",
+    "#                  #",
+    "# o              o #",
+    "#         2        #",
+    "####################"})
+
+function flower(center)
+    local number = 10
+    local radius = 1.25
+    local theta = 2.0*math.pi/number
+    local segment = 2.0*radius*math.sin(theta/2.0)
+    wo[center] = {"ac_top", strength=250, range=20, attacknearest=true, name="top", controllers=CTRL_NONE}
+    for i=0,number-1 do
+        wo[center+po(radius*math.cos(i*theta), radius*math.sin(i*theta))] = {"ac_marble", name="ball"..i, controllers=CTRL_NONE}
+    end
+    for i=0,number-1 do
+        wo:add({"ot_rubberband", anchor1=no["top"], anchor2=no["ball"..i], length=radius, threshold=radius, strength=10000})
+        wo:add({"ot_rubberband", anchor1=no["ball"..i], anchor2=no["ball"..(i+1)%number], length=segment, threshold=segment, strength=4000})
+    end
+end
+
+flower(po(w/4, h/2))
+flower(po(3*w/4, h/2))
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Welcome to the Machine" el:subtitle="" el:id="ralf03"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1 " el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_sahara"}
+ti["-"] = {"fl_tigris"}
+ti["="] = {"fl_bluegray"}
+ti["#"] = {"st_tigris"}
+ti["A"] = {"st_granite"}
+ti["B"] = {"st_purplegray"}
+ti["C"] = {"st_metal"}
+ti["D"] = {"st_plaster"}
+ti["."] = {"st_nil"}
+ti["S"] = {"st_switch", target="rotate", instant=true, safeaction=true}
+ti["1"] = {"st_oxyd", flavor="a", name="center1#", _kind=1, _rotation=0, _direction=1}
+ti["2"] = {"st_oxyd", flavor="a", name="center2#", _kind=2, _rotation=1, _direction=-1}
+ti["3"] = {"st_oxyd", flavor="a", name="center3#", _kind=3, _rotation=2, _direction=1}
+ti["4"] = {"st_oxyd", flavor="a", name="center4#", _kind=4, _rotation=3, _direction=-1}
+ti["d"] = {"it_document", text="text1"}
+ti["e"] = {"it_document", text="text2"}
+ti["@"] = {"ac_marble_black"}
+
+wo(ti, " ", {
+    "##############################",
+    "#  ---    ---    ---    ---  #",
+    "# -----  -----  -----  ----- #",
+    "#---=------=------=------=---#",
+    "#--=2=----=4=----=1=----=3=--#",
+    "#---=------=------=------=---#",
+    "# -----  -----  -----  ----- #",
+    "#  ---    ---    ---    --- d#",
+    "#  ---    ---    ---    ---  #",
+    "# -----  -----  -----  ----- #",
+    "#---=------=------=------=---#",
+    "#--=4=----=3=----=2=----=4=--#",
+    "#---=------=------=------=---#",
+    "# -----  -----  -----  ----- #",
+    "#e ---    ---    ---    ---  #",
+    "#  ---    ---  @ ---    ---  #",
+    "# -----  -----  -----  ----- #",
+    "#---=------=------=------=---#",
+    "#--=3=----=1=----=1=----=2=--#",
+    "#---=------=------=------=---#",
+    "# -----  -----  -----  ----- #",
+    "#  ---    ---    ---    ---  #",
+    "##############################"})
+
+part1 = {"    A  ", " SAAAA ", "AA   AA", "     A ", "AA   A ", " AA AA ", "  A A  "}
+part2 = {"    B  ", " SBBBB ", "BB   BB", "     B ", "BB   B ", " BB BB ", "  B B  "}
+part3 = {"    C  ", " SCCCC ", "CC   CC", "     C ", "CC   C ", " CC CC ", "  C C  "}
+part4 = {"    D  ", " SDDDD ", "DD   DD", "     D ", "DD   D ", " DD DD ", "  D D  "}
+part5 = {"    .  ", " ..... ", "..   ..", "     . ", "..   . ", " .. .. ", "  . .  "}
+
+parts = {wo:newMap(" ", part1), wo:newMap(" ", part2), wo:newMap(" ", part3), wo:newMap(" ", part4), wo:newMap(" ", part5)}
+
+function rotate(value, sender)
+    local centerstone = no["center?#*"]:nearest(sender)
+    local similarcenters = st(no["center"..centerstone["_kind"].."#*"])
+    for center in similarcenters do
+        wo:drawMap(ti, po(center)-po(3, 3), parts[5]^center["_rotation"])
+        center["_rotation"] = (center["_rotation"]+center["_direction"])%4
+        wo:drawMap(ti, po(center)-po(3, 3), parts[center["_kind"]]^center["_rotation"])
+    end
+end
+
+-- init:
+local centers = no["center?#*"]
+for center in centers do
+    wo:drawMap(ti, po(center)-po(3, 3), parts[center["_kind"]]^center["_rotation"])
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Sections which have the same color always turn at the same time and in the same way.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-stone.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

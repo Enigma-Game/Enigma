@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Flying" el:subtitle="" el:id="luc07"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_metal"}
+ti["u"] = {"it_umbrella"}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#O                 O-----------------O#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#O       @u        d-----------------O#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#                   ------------------#",
+    "#O                 O-----------------O#",
+    "#######################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">You can fly for a short time if you use the umbrella.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

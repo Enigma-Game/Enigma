@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Choo-Choo" el:subtitle="" el:id="duffy22"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_metal"}
+ti["~"] = {"fl_water"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["#"] = {"st_greenbrown"}
+ti["D"] = {"st_death"}
+ti["^"] = {"st_oneway", orientation=NORTH}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["="] = {"st_door", flavor="d", faces="ns", name="door#"}
+ti["S"] = {"st_switch", target="@door#*"}
+ti["B"] = {"st_boulder", orientation=SOUTH, name="boulder#"}
+ti["b"] = {"st_boulder", orientation=EAST, name="boulder#"}
+ti["j"] = {"it_meditation_bump"}
+ti["J"] = {"it_meditation_hill"}
+ti["t"] = {"it_trigger", action_1="flip", target_1="@@boulder#*", action_0="callback", target_0="boulder"}
+ti["u"] = {"it_trigger", action_1="turn", target="@@boulder#*"}
+ti["O"] = {"st_oxyd", name="oxyd"}
+ti["."] = {"#ac_pearl", controllers=CTRL_NONE, owner=YANG, essential=INDISPENSIBLE, name="actor#"}
+ti["@"] = {"#ac_marble_black", name="actor#"}
+
+wo(ti, " ", {
+    "####################################################################",
+    "#                  #DDDDDDDDDDDDDDDDDD#S#         #t#              #",
+    "#   ...........@   #D                D# #         #~#              #",
+    "#                  #D                D# #                          #",
+    "#  #################D   #DDDDDDDD#   D#^#   #=#####~## #############",
+    "#        D         #D   D            D#     #V#u     ~b~t#~~~~~~~~~~",
+    "#   J    31     D  #D   DS           D######O #u    t# # #~~~~~~~~~~",
+    "#  j     97        #D   DDDDD#=#DDDDDD#       #####~## ######~~~~~~~",
+    "#     D        J   #D        # #     D#OOOOOOO#             #~~~~~~~",
+    "# D    31     D    #D        D #     D#########    B        #~~~~~~~",
+    "#  J   97    J     #######   D    #   jJJJJJJJj  ##~#########~~~~~~~",
+    "#          D       J         D    #   jJJJJJJJj  # t     #~~~~~~~~~~",
+    "##########################################################~~~~~~~~~~"})
+
+local actors = no["actor#*"]:sort("linear", W)
+for i=1,#actors-1 do
+    wo:add({"ot_rubberband", anchor1=actors[i], anchor2=actors[i+1], strength=60.0, length=0.44})
+end
+
+wo:shuffleOxyd({no["oxyd#*"]:sort("circular"), circular=true})
+
+function boulder(value, sender)
+    no["boulder#*"]:nearest(sender)["counterclock"] = not no["boulder#*"]:nearest(sender)["counterclock"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

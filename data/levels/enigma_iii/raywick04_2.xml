@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Exchange" el:subtitle="The Exchange" el:id="RayWick004"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Ray Wick" el:email="RayRWick@AOL.com" el:homepage=""/>
+      <el:copyright>Copyright © Ray Wick</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_marble"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_redbrown"}
+ti["G"] = {"st_rawglass"}
+ti["X"] = {"st_grate_cross"}
+ti["+"] = {"st_box"}
+ti["^"] = {"st_oneway", orientation=NORTH}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["U"] = {"st_passage", color=BLACK, flavor="frame"}
+ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
+ti["Y"] = {"st_blur_cross"}
+ti["S"] = {"st_swap"}
+ti["L"] = {"st_laser", orientation=WEST, name="laser1"}
+ti["F"] = {"st_floppy", target="laser1"}
+ti["M"] = {"st_mirror", orientation=HORIZONTAL}
+ti["K"] = {"st_key", code="%%", target="door%%"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door%%"}
+if wo["IsDifficult"] then
+    ti["4"] = ti["G"]
+    ti["5"] = ti["G"]
+    ti["D"] = ti["G"]
+    ti["E"] = ti["G"]
+else
+    ti["4"] = {"st_door", flavor="d", faces="ns", name="door4"}
+    ti["5"] = {"st_door", flavor="d", faces="ns", name="door5"}
+    ti["D"] = {"st_floppy", target="door4"}
+    ti["E"] = {"st_floppy", target="door5"}
+end
+ti["f"] = ti["X"] .. {"it_floppy"}
+ti["k"] = ti["X"] .. {"it_key", code="%%"}
+ti["s"] = ti["X"] .. {"it_spring_keep"}
+ti["x"] = ti["X"] .. {"it_seed"}
+ti["y"] = ti["X"] .. {"it_yinyang"}
+ti["O"] = {"st_oxyd", name="north#"}
+ti["o"] = {"st_oxyd", name="south#"}
+ti["*"] = {"#ac_marble_white"} .. ti({"it_yinyang"})
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "c", "k"}, {"A", "C", "K"}, {"1", "3", "|"}), " ", {
+    "##########################################################",
+    "#                                             XXXXXXXXXU #",
+    "#                                             XMXXMMXXMU #",
+    "#                                             XXMMXXMMXU #",
+    "#XXGEGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG #",
+    "#XMG   XXXX                                   XXXXXXMXbG #",
+    "#XMG   XMXX                                   XXXXXMXXXG #",
+    "#XMG   XXMX                                   XXXXMXXXXG #",
+    "#XMG   XXXX                                   XXXMXXXXXG #",
+    "#XX>                                          XXXXXXXXXG #",
+    "#  G                                                   W #",
+    "#  G                GGGGGGGGGGGGGGGGGGG^GGGGGG4GGGGGGGGG #",
+    "#  G+++++++++++++++++++++++++A++++++++G^++++++W        G #",
+    "#  GXXXXXXXXXXXXXXc+X                xGXXXXXXyGOOOOOOOOG #",
+    "#  GXXXXXXXXXXXXXXX+ S                GXXXXXXXGGGGGGGGGG #",
+    "#  GXXXXXXXXXXXXXXX+                  G                G #",
+    "#  GXXXXXXXXXXXXXXX+                  G                G #",
+    "#  GXXXXXXXXXXXXXXX+                XXG              XXG #",
+    "C  ~2XXXMXXXXXXXXX3+         L @    XYU              XY1 F",
+    "#  GXXXXXMXXXXXXXXX+                XXG              XXG #",
+    "#  GXXXXXXXXXXXXXXX+                  G                G #",
+    "#  GXXXXXXXXXXXXXXX+                  G                G #",
+    "#  GXXXXXXXXXXXXXXX+ S                GXXXXXXXGGGGGGGGGG #",
+    "#  GXXXXXXXXXXXXXXX+X                aGXXXXXXfGooooooooG #",
+    "#  G+++++++++++++++++++++++++B++++++++GV++++++W        G #",
+    "#  G                GGGGGGGGGGGGGGGGGGGVGGGGGG5GGGGGGGGG #",
+    "#  G                                                   W #",
+    "#XX>                                          XXXXXXXXXG #",
+    "#XMG   XXXX                                   XXXMXXXXXG #",
+    "#XMG   XXMX                 *                 XXXXMXXXXG #",
+    "#XMG   XMXX                                   XXXXXMXXXG #",
+    "#XMG   XXXX                                   XXXXXXMXXG #",
+    "#XXGDGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG #",
+    "#                                             XsMMXXMMXU #",
+    "#                                             XMXXMMXXMU #",
+    "#                                             XXXXXXXXXU #",
+    "##########################################################"})
+
+wo:shuffleOxyd({"north#*", "south#*", min=8})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

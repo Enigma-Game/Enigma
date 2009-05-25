@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Cross Mail" el:subtitle="The level goes on" el:id="johann03"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,11 +12,10 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" "] = {"fl_bright"}
-ti["x"] = {"it_cross"}
+ti["x"] = {"it_yinyang"}
 ti["|"] = {"it_pipe_ns"}
+ti["-"] = {"it_pipe_ew"}
 ti["9"] = {"it_pipe_ne"}
 ti["8"] = {"it_pipe_es"}
 ti["7"] = {"it_pipe_sw"}
@@ -27,61 +26,45 @@ ti["d"] = {"it_dynamite"}
 ti["o"] = {"it_bomb_black"}
 ti["#"] = {"st_darkglass"}
 ti["C"] = {"st_lightglass"}
-ti["0"] = ti["C"] .. {"it_pipe_ns"}
-ti["1"] = ti["C"] .. {"it_pipe_ew"}
-ti["2"] = ti["C"] .. {"it_pipe_ne"}
-ti["3"] = ti["C"] .. {"it_pipe_es"}
-ti["4"] = ti["C"] .. {"it_pipe_sw"}
-ti["5"] = ti["C"] .. {"it_pipe_nw"}
+ti["0"] = ti["C"] .. ti["|"]
+ti["1"] = ti["C"] .. ti["-"]
+ti["2"] = ti["C"] .. ti["9"]
+ti["3"] = ti["C"] .. ti["8"]
+ti["4"] = ti["C"] .. ti["7"]
+ti["5"] = ti["C"] .. ti["6"]
 ti["X"] = ti["x"] .. {"st_darkglass"}
 ti["M"] = {"st_mail_e"}
 ti["U"] = {"st_mail_n"}
 ti["I"] = {"st_ghost_break"}
+ti["i"] = {"st_switch", target="setpipe", _pipe="|"}
+ti["j"] = {"st_switch", target="setpipe", _pipe="-"}
+ti["k"] = {"st_switch", target="setpipe", _pipe="9"}
+ti["l"] = {"st_switch", target="setpipe", _pipe="8"}
+ti["m"] = {"st_switch", target="setpipe", _pipe="7"}
+ti["n"] = {"st_switch", target="setpipe", _pipe="6"}
 ti["O"] = {"st_oxyd", name="oxydstone#"}
-ti["i"] = {"st_switch", target="setv"}
-ti["j"] = {"st_switch", target="seth"}
-ti["k"] = {"st_switch", target="setne"}
-ti["l"] = {"st_switch", target="setes"}
-ti["m"] = {"st_switch", target="setsw"}
-ti["n"] = {"st_switch", target="setwn"}
 ti["B"] = ti({"it_yinyang"}) .. {"#ac_marble_black"}
 ti["W"] = ti({"it_yinyang"}) .. {"#ac_marble_white"}
 
-w, h = wo(ti, " ", {
-"##########XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-"#B      bhX       x         x x x x x x x x x x      XdIO#",
-"#         X       x       x x x x x xox x x x x      X IC#",
-"#         X       x      x  x x x x x x x x x x      XdIO#",
-"#         X       x     x   x x x x x x x x x xxxxx  C IC#",
-"#         M  x  xxx    x    x x x x x x xox x xxo x  XdIO#",
-"#         X     x       x   xox x x x x x x x x x xx X IC#",
-"#         X       x      x  x x xox x x x x x x x  x XdIO#",
-"#         X     xxx       x x x x x x x x x xox xx x X IC#",
-"#         X       x         x x x x x x x x x x x  x XdIO#",
-"#ijklmn#  XXXXXXXXXXXXXXXXXXXUXXXUXXXUXXXUXXXUXXXUXXXX IC#",
-"#012345#  #W||||||||||||||                   8679     dIO#",
-"##########################################################"
-})
+wo(ti, " ", {
+    "##########XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "#B      bhX       x         x x x x x x x x x x      XdIO#",
+    "#         X       x       x x x x x xox x x x x      X IC#",
+    "#         X       x      x  x x x x x x x x x x      XdIO#",
+    "#         X       x     x   x x x x x x x x x xxxxx  C IC#",
+    "#         M  x  xxx    x    x x x x x x xox x xxo x  XdIO#",
+    "#         X     x       x   xox x x x x x x x x x xx X IC#",
+    "#         X       x      x  x x xox x x x x x x x  x XdIO#",
+    "#         X     xxx       x x x x x x x x x xox xx x X IC#",
+    "#         X       x         x x x x x x x x x x x  x XdIO#",
+    "#ijklmn#  XXXXXXXXXXXXXXXXXXXUXXXUXXXUXXXUXXXUXXXUXXXX IC#",
+    "#012345#  #W||||||||||||||                   8679     dIO#",
+    "##########################################################"})
 
 wo:shuffleOxyd({"oxydstone#*", linear=true})
 
-function setv()
-    wo[{1,9}] = {"it_pipe_ns"}
-end
-function seth()
-    wo[{2,9}] = {"it_pipe_ew"}
-end
-function setne()
-    wo[{3,9}] = {"it_pipe_ne"}
-end
-function setes()
-    wo[{4,9}] = {"it_pipe_es"}
-end
-function setsw()
-    wo[{5,9}] = {"it_pipe_sw"}
-end
-function setwn()
-    wo[{6,9}] = {"it_pipe_nw"}
+function setpipe(value, sender)
+    wo[sender+N] = ti[sender._pipe]
 end
     ]]></el:luamain>
     <el:i18n>

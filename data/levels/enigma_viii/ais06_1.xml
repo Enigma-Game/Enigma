@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Transforming Numbers" el:subtitle="" el:id="20090406ais523002"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:16"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sand"}
+ti["#"] = {"st_redbrown"}
+ti["?"] = {"st_invisible"}
+ti["+"] = {"st_puzzle_blue", connections="nesw"}
+ti["-"] = {"st_puzzle_blue", connections="ew"}
+ti["*"] = {"st_rawglass"} .. ti({"it_cross"})
+ti["="] = {"st_door_d", "doors_#", faces="ns"}
+ti["x"] = {"st_oxyd_a"}
+ti["o"] = {"#ac_marble"}
+ti["template_trigger"] = {"it_trigger", "trigger%%", target="trigcall", safeaction=true, _num="%%"}
+ti["template_window"] = {"st_window", "window%%"}
+
+-- The numbers, as seven-segment displays
+--            0      1      2      3      4      5      6      7      8      9
+topseg = { "new",   "e", "nes", "nes", "esw", "nsw", "nsw",  "ne","nesw","nesw"}
+botseg = { "esw",   "e",  "sw",  "es",   "e",  "es", "esw",   "e", "esw",  "es"}
+
+-- A table of how the numbers can be broken
+erosion = {
+{0,0,0,0,1,1,1,7,7,7}, -- 0
+{1,1,1,1,1,1,1,1,1,1}, -- 1
+{2,2,2,2,2,2,2,2,2,2}, -- 2
+{3,3,3,3,1,1,1,7,7,7}, -- 3
+{4,4,4,4,4,4,1,1,1,1}, -- 4
+{5,5,5,5,5,5,5,5,5,5}, -- 5
+{6,6,6,6,6,6,5,5,5,5}, -- 6
+{7,7,7,7,7,7,1,1,1,1}, -- 7
+{1,2,3,4,5,6,7,8,8,9}, -- 8
+{9,9,4,4,7,7,1,1,5,5}} -- 9
+
+-- Which autotile numbers make up the digits of each number
+dform = {{12,13,22},{1},{2},{3},{4}}
+
+-- Change the digit at a given autotile location to a given digit
+-- secure sets whether to use green not blue glass
+-- Passing in 10 will kill the digit
+function setdigit(loc,digit,secure)
+    if digit == 10 then
+        if -no["window%"..loc] then no["window%"..loc]:kill() end
+        if -no["window%"..(loc+26)] then no["window%"..(loc+26)]:kill() end
+    end
+    if -no["window%"..loc] and -no["window%"..(loc+26)] then
+        no["window%"..loc].faces = topseg[digit+1]
+        no["window%"..(loc+26)].faces = botseg[digit+1]
+        no["window%"..loc].secure = secure
+        no["window%"..(loc+26)].secure = secure
+    end
+end
+
+-- Find out what digit is at a given autotile location
+-- Returns 10 if there isn't a digit there
+function getdigit(loc)
+    if -no["window%"..loc] and -no["window%"..(loc+26)] then
+        for d = 0, 9 do
+            if no["window%"..loc].faces == topseg[d+1] and
+               no["window%"..(loc+26)].faces == botseg[d+1] then
+                return d
+            end
+        end
+        return 10
+    else
+        return 10
+    end
+end
+
+-- Find out whether the digit at a given autotile location is blue or green
+-- Returns true if there is nothing there at all
+function getsecurity(loc)
+    if -no["window%"..loc] and -no["window%"..(loc+26)] then
+        return no["window%"..loc].secure
+    else
+        return true
+    end
+end
+
+-- Randomly finds a digit that could be made by eroding another
+function randomerosion(digit)
+    local e = erosion[digit+1]
+    return e[random(10)]
+end
+
+-- The main logic for generating a random puzzle.
+-- Sometimes it fails, in which case we have to start again...
+retryflag = true
+while retryflag == true do
+
+-- Generate a random puzzle, apart from the target. The logic finds
+-- a good target for us to use
+d1 = random(4)*25
+d2 = random(9)
+d3 = random(9)
+d4 = random(9)
+d5 = random(9)
+
+-- pt values: 0 = impossible, 1 = too easy, 2 = possible and not too easy
+pt = {}
+m = {d1,d2,d3,d4,d5}
+for t = 100, 999 do pt[t]=0 end
+
+-- Generate all possible permutations of the digits
+for i1 = 1, 5 do
+for i2 = 1, 5 do
+if i1 ~= i2 then
+for i3 = 1, 5 do
+if i1 ~= i3 and i2 ~= i3 then
+for i4 = 1, 5 do
+if i1 ~= i4 and i2 ~= i4 and i3 ~= i4 then
+for i5 = 1, 5 do
+if i1 ~= i5 and i2 ~= i5 and i3 ~= i5 and i4 ~= i5 then
+    m1 = m[i1] m2 = m[i2] m3 = m[i3] m4 = m[i4] m5 = m[i5]
+
+    -- Find all possible sums that can be made with these digits
+    for y1 = 1, 4 do
+        if     y1 == 1 then x1 = m1 + m2
+        elseif y1 == 2 then x1 = m1 * m2
+        elseif y1 == 4 then x1 = m1
+        elseif m1 < m2 then x1 = m2 - m1
+        else                x1 = m1 - m2 end
+        for y2 = 1, 4 do
+            if     y2 == 1 then x2 = x1 + m3
+            elseif y2 == 2 then x2 = x1 * m3
+            elseif y2 == 4 then x2 = x1
+            elseif x1 < m3 then x2 = m3 - x1
+            else                x2 = x1 - m3 end
+            for y3 = 1, 4 do
+                if     y3 == 1 then x3 = x2 + m4 x5 = m4 + m5
+                elseif y3 == 2 then x3 = x2 * m4 x5 = m4 * m5
+                elseif y3 == 4 then x3 = x2      x5 = m4
+                elseif x2 < m4 then x3 = m4 - x2 x5 = m4 - m5
+                else                x3 = x2 - m4 x5 = m4 - m5 end
+                if x5 < 0 then x5 = 0 - x5 end
+                for y4 = 1, 4 do
+                    if     y4 == 1 then x4 = x3 + m5 x6 = x2 + x5
+                    elseif y4 == 2 then x4 = x3 * m5 x6 = x2 * x5
+                    elseif y4 == 4 then x4 = x3      x6 = x2
+                    elseif x3 < m5 then x4 = m5 - x3 x6 = x2 - x5
+                    else                x4 = x3 - m5 x6 = x2 - x5 end
+                    if x6 < 0 then x6 = 0 - x6 end
+                    pt[x4] = 1
+                    pt[x6] = 1
+    end end end end
+end end end end end end end end end
+
+-- Generate a random solution to our random puzzle
+m[2]=randomerosion(m[2])
+m[3]=randomerosion(m[3])
+m[4]=randomerosion(m[4])
+m[5]=randomerosion(m[5])
+
+-- A repeat of the above code; this time we're looking for targets
+-- that can be made with the new solution, and that aren't too easy
+-- This only looks at solutions that use all 5 numbers (unlike the last
+-- code); but there's often a shorter solution anyway
+for i1 = 1, 5 do
+for i2 = 1, 5 do
+if i1 ~= i2 then
+for i3 = 1, 5 do
+if i1 ~= i3 and i2 ~= i3 then
+for i4 = 1, 5 do
+if i1 ~= i4 and i2 ~= i4 and i3 ~= i4 then
+for i5 = 1, 5 do
+if i1 ~= i5 and i2 ~= i5 and i3 ~= i5 and i4 ~= i5 then
+    m1 = m[i1] m2 = m[i2] m3 = m[i3] m4 = m[i4] m5 = m[i5]
+    for y1 = 1, 3 do
+        if     y1 == 1 then x1 = m1 + m2
+        elseif y1 == 2 then x1 = m1 * m2
+        elseif m1 < m2 then x1 = m2 - m1
+        else                x1 = m1 - m2 end
+        for y2 = 1, 3 do
+            if     y2 == 1 then x2 = x1 + m3
+            elseif y2 == 2 then x2 = x1 * m3
+            elseif x1 < m3 then x2 = m3 - x1
+            else                x2 = x1 - m3 end
+            for y3 = 1, 3 do
+                if     y3 == 1 then x3 = x2 + m4 x5 = m4 + m5
+                elseif y3 == 2 then x3 = x2 * m4 x5 = m4 * m5
+                elseif x2 < m4 then x3 = m4 - x2 x5 = m4 - m5
+                else                x3 = x2 - m4 x5 = m4 - m5 end
+                if x5 < 0 then x5 = 0 - x5 end
+                for y4 = 1, 3 do
+                    if     y4 == 1 then x4 = x3 + m5 x6 = x2 + x5
+                    elseif y4 == 2 then x4 = x3 * m5 x6 = x2 * x5
+                    elseif x3 < m5 then x4 = m5 - x3 x6 = x2 - x5
+                    else                x4 = x3 - m5 x6 = x2 - x5 end
+                    if pt[x4] == 0 and x4 > 100 and x4 < 1000 then pt[x4] = 2 retryflag = false end
+                    if pt[x6] == 0 and x6 > 100 and x6 < 1000 then pt[x6] = 2 retryflag = false end
+    end end end end
+end end end end end end end end end
+-- Loop back if there were no solutions of the right difficulty found
+end
+
+-- Pick a random target that isn't too easy but is possible
+pt[0] = 1
+target = 0
+while pt[target] ~= 2 do target = random(899)+100 end
+
+-- Create the map, with digit locations designed to allow for the length of the puzzle's numbers
+wo(res.autotile(ti,{"a","z","template_window",27},{"A","Z","template_window",1},{"1","9","template_trigger"}), " ", {
+    "####################",
+    "#x        x#       #",
+    "#          # S T U #",
+    "#          # s t u #",
+    "#x        x#???????#",
+    "###=####=####+#-#*##",
+    "#o           6 7 8 #",
+    "#                  #",
+    cond(d1==100,"#L M V  A  B  C  D #","#LM V  A  B  C  D  #"),
+    cond(d1==100,"#l m v  a  b  c  d #","#lm v  a  b  c  d  #"),
+    "#                  #",
+    cond(d1==100,"#  1    2  3  4  5 #","#  1   2  3  4  5  #"),
+    "####################"})
+
+-- Set digits at the appropriate locations
+d1d = lib.math.digits(d1+100,10)
+td = lib.math.digits(target,10)
+
+setdigit(1,d2,false)
+setdigit(2,d3,false)
+setdigit(3,d4,false)
+setdigit(4,d5,false)
+
+setdigit(12,cond(d1d[3]==2,1,10),false)
+setdigit(13,d1d[2],false)
+setdigit(22,d1d[1],false)
+
+setdigit(19,td[3],true)
+setdigit(20,td[2],true)
+setdigit(21,td[1],true)
+
+-- The callback for all triggers; this handles all the in-game logic
+function trigcall(state,caller)
+    if state==false then return end
+    local rs = caller._num
+    local r = strsub(rs,2,2)
+    if r+0 <= 5 then
+    -- this is one of the number's triggers
+        local dg = dform[r+0]
+        local k = true
+        local v = 0
+        -- loop over all digits in the number
+        for i = 1, #dg do
+            local d = dg[i]
+            local s = getsecurity(d)
+            -- calculate the numeric value of the number
+            if getdigit(d) < 10 then
+                k = false
+                v = v * 10
+                v = v + getdigit(d)
+            end
+            -- toggle security, kill the digit if it isn't a real digit
+        setdigit(d, getdigit(d), not s)
+        end
+        -- suicide if we killed all the digits
+        if k then caller:kill() end
+        -- open the doors to the oxyd room if it's the target number
+        -- also mark this as secure no matter whether it was secure or not
+        if v == target then
+            for i = 1, #dg do
+                local d = dg[i]
+            setdigit(d, getdigit(d), true)
+            end
+            no["doors_#*"]:open()
+        end
+        return
+    end
+    -- OK, it wasn't a digit trigger; it must be an operation
+    v1 = 0
+    v2 = 0
+    i1 = 0
+    i2 = 0
+    ve2 = true
+    -- Loop over all numbers checking their security and calculating
+    -- their values
+    for i = 1, #dform do
+        local dg = dform[i]
+        local  s = false
+        for j = 1, #dg do
+            if getdigit(dg[j]) < 10 then s = getsecurity(dg[j]) end
+        end
+        if s then
+            local v = 0
+            for j = 1, #dg do
+                local gd = getdigit(dg[j])
+                if gd < 10 then
+                    v = v * 10
+                    v = v + gd
+                end
+            end
+            if v1 == 0 then v1 = v i1 = i
+            elseif v2 == 0 then v2 = v i2 = i
+            else ve2 = false end
+        end
+    end
+    -- If exactly two numbers were selected, we can do the calculation
+    if ve2 and v2 > 0 then
+        -- Do the arithmetic, based on which trigger it was
+        if r == "6" then v3 = v1 + v2
+        elseif r == "8" then v3 = v1 * v2
+        elseif v1 < v2 then v3 = v2 - v1
+        else v3 = v1 - v2 end
+        -- Merge the digit names from the second number into the first;
+        -- that allows us to name more of its digits, which is needed if
+        -- the result has more digits than the original
+        local di2 = dform[i2]
+        local j1 = #(dform[i1])
+        for j = 1, #di2 do
+            j1 = j1 + 1
+        dform[i1][j1] = di2[j]
+    end
+    dform[i2] = {}
+    -- Remove completely destroyed digits from the numbers they belong to
+    for i = 1, #dform do
+        local j3 = 1
+        local dg = dform[i]
+        local newdg = {}
+        for j = 1, #dg do
+            if -no["window%"..(dg[j])] or -no["window%"..(dg[j]+26)] then
+                newdg[j3] = dg[j]
+                j3 = j3 + 1
+            end
+        end
+        dform[i] = newdg
+    end
+    -- Work out the new number as digits
+    local di1 = dform[i1]
+    local di1d = lib.math.digits(v3,10)
+    if v3 == 0 then di1d = {0} end -- Work around a lib.math.digits bug
+    for j = 1, #di1 do
+        if #di1 - j < #di1d then
+            setdigit(di1[j],di1d[#di1-j+1],false)
+        else
+            setdigit(di1[j],10,false)
+            dform[i1][j]=0
+        end
+    end
+    -- Record the current digits (even if malformed), and kill them
+    local wf = {}
+    for i = 1, #dform do
+        local dg = dform[i]
+        for j = 1, #dg do
+            if -no["window%"..(dg[j])] then
+                wf[dg[j]] = no["window%"..(dg[j])].faces
+                       no["window%"..(dg[j])]:kill()
+            else
+                wf[dg[j]] = ""
+            end
+                   if -no["window%"..(dg[j]+26)] then
+                wf[dg[j]+26] = no["window%"..(dg[j]+26)].faces
+                    no["window%"..(dg[j]+26)]:kill()
+            else
+                wf[dg[j]+26] = ""
+            end
+        end
+           no["trigger%"..i]:kill()
+    end
+    -- Replace the recorded digits in new locations, so that all digits
+    -- that belong to the same number are together and the spacing between
+    -- the numbers is adjusted
+    x = 2
+    for i = 1, #dform do
+        local dg = dform[i]
+        px = x - 1
+        for j = 1, #dg do
+            local dgj = dg[j]
+            local dpx = 0
+            if wf[dgj] ~= "" then
+                wo[po({x,8})] = {"st_window", "window%"..dgj, faces=wf[dgj]}
+                dpx = 1
+            end
+            dgj = dgj + 26
+            if wf[dgj] ~= "" then
+                wo[po({x,9})] = {"st_window", "window%"..dgj, faces=wf[dgj]}
+                dpx = 1
+            end
+            x = x + (dpx*2)
+                px = px + dpx
+        end
+        if #dg > 0 then
+            wo[po({px,11})] = {"it_trigger", "trigger%"..i, _num="%"..i, action="callback",target="trigcall",safeaction=true}
+            x = x + 1
+        end
+    end
+    end
+end
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

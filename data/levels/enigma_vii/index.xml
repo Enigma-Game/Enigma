@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="50" title="Enigma VII"/>
+  <info enigma="1.00" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma VII"/>
 
   <attributes/>
 
@@ -10,11 +10,11 @@
     <level _seq="2" _title="Diving" _xpath="./joona13_1" author="Joona Laire" ctrl="force" easy="true" id="20061203joona500" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Comet" _xpath="./duffy147_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy147" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Caribbean Waters" _xpath="./duffy139_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy139" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="DownDown" _xpath="./joona01_1" author="Joona Laire" ctrl="force" easy="true" id="20070406joona005" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="DownDown" _xpath="./joona01_2" author="Joona Laire" ctrl="force" easy="true" id="20070406joona005" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Exclusive Pole Positions" _xpath="./duffy149_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy149" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Mirror Sharing" _xpath="./duffy150_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy150" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Temple of Ganesha" _xpath="./duffy154_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy154" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Open Path" _xpath="./duffy152_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy152" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Open Path" _xpath="./duffy152_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy152" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="./edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Laser Squad" _xpath="./duffy153_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy153" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Free Riders" _xpath="./duffy155_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -22,7 +22,7 @@
     <level _seq="14" _title="The Wild Hunt" _xpath="./duffy159_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy159" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Widgets in the Attic" _xpath="./duffy158_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy158" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Protected Exhibition" _xpath="./duffy156_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="Upstairs Meditation" _xpath="./duffy138_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy138" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Upstairs Meditation" _xpath="./duffy138_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy138" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Speed Meditation" _xpath="./duffy148_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Pool with a pole" _xpath="./alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Meditation in Peace" _xpath="./ral20_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="2" rev="148" score="2" target="time" unit="duration"/>
@@ -41,7 +41,7 @@
     <level _seq="33" _title="Deserted Island" _xpath="./joe08_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="The Fortress" _xpath="./joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Manuevre" _xpath="./joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Mayan Meditation" _xpath="./duffy162_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Mayan Meditation" _xpath="./duffy162_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Horseshoes" _xpath="./duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Knot Garden" _xpath="./duffy165_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Impulse-phobia" _xpath="./duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>

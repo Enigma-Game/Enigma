@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Jumpin' Jack Flash" el:subtitle="" el:id="ss10"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rough"}
+ti["-"] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_lawn"}
+ti["#"] = {"st_greenbrown"}
+ti["H"] = {"st_greenbrown_hollow"} .. ti({"it_document", text="text1"})
+ti["M"] = {"st_greenbrown_movable"} .. ti({"it_springboard"})
+ti["X"] = {"st_portal_pearl"}
+ti["W"] = {"st_passage", color=WHITE}
+ti["B"] = {"st_blur", flavor="cross"}
+ti["T"] = {"st_mirror", flavor="triangle", orientation=SOUTH, movable=true}
+ti[">"] = {"st_laser", orientation=EAST, state=ON, name="laser"}
+ti["S"] = {"st_switch", target="laser"}
+ti["o"] = {"it_meditation_hollow", essential=INDISPENSIBLE}
+ti["b"] = cond(wo["IsDifficult"], ti[" "], {"it_spade"})
+ti["*"] = {"ac_pearl", 0.0, 0.5, essential=INDISPENSIBLE}
+ti["@"] = {"ac_marble_black", 0.0, 0.5}
+
+wo(ti, " ", {
+    "####################",
+    "#W ---~~.~~---b   o#",
+    "# @---~~.~~--->XXXX#",
+    "#  ---~~.~~---     #",
+    "#  ---~~.~~---o o  #",
+    "#  ---~~.~~---     #",
+    "# M---~~.~~--- T * #",
+    "#  ---~~.~~---     #",
+    "#  ---~~.~~---o o  #",
+    "#  ---~~.~~---     #",
+    "#  ---~~.~~---     #",
+    "#H ---~~.~~---    BS",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">This is a meditation landscape: put a small marble into every hole ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

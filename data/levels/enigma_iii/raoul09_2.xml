@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bright Dots" el:subtitle="" el:id="raoul09"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:42"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["."] = ti[" "]
+ti[","] = ti[" "]
+ti["-"] = {"fl_fake_abyss"}
+ti["#"] = {"st_darkglass"}
+ti["X"] = ti["-"] .. {"st_grate_cross"}
+ti["o"] = ti["-"] .. {"#ac_pearl", owner=YANG, controllers=CTRL_NONE}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["-"] .. ti["X"] .. {"ac_marble_black", 0.0, 0.5}
+
+mazeleft = res.maze(ti, {area={"."}, render={"o", " ", "o"}})
+mazeright = res.maze(mazeleft, {area={","}, render={"o", " ", "o"}})
+
+wo(mazeright, " ", {
+    "####################",
+    "#O.......--,,,,,,,O#",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......X@,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "# .......--,,,,,,, #",
+    "#O.......--,,,,,,,O#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

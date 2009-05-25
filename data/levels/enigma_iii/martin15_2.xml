@@ -33,7 +33,7 @@ wo(ti, " ", {
     "# X   X      X   X #",
     "# XX XXX XX XXX XX #",
     "#X    X      X    X#",
-    "####O###O##O###O####",})
+    "####O###O##O###O####"})
 
 wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
  ]]></el:luamain>
