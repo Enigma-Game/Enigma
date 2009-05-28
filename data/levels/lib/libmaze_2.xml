@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmaze"/>
-      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -156,7 +156,7 @@ function res.maze(subresolver, ...)
         }
         
     -- argument evaluation
-    assert_type(subresolver, "res.maze first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(subresolver, "res.maze first argument (subresolver)", 2, "tiles", "function", "table", "maze")
     assert_bool(#args == 1, "res.maze: wrong number of arguments - expected subresolver and a table of configuration data.", 2)
     assert_type(args[1], "res.maze second argument (libmaze configuration data)", 2, "table")
     context.area = args[1].area

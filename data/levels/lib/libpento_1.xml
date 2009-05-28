@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libpento"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -107,7 +107,7 @@ function res.pento(subresolver, ...)
     -- syntax: ... = <sourcebasename>, <targetbasename>
     -- context: 
     local args = {...}
-    assert_type(subresolver, "res.pento first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(subresolver, "res.pento first argument (subresolver)", 2, "tiles", "function", "table", "maze")
     assert_type(args[1], "res.pento second argument (source basename)", 2, "string")
     assert_type(args[2], "res.pento third argument (target basename)", 2, "string")
     local autotile = res.autotile(subresolver, {"O","Z", "pentopuzzle"})

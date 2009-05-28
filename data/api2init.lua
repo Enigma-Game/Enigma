@@ -218,7 +218,7 @@ wo:_register("drawMap",
         -- world, resolver, (position|object|table), string, (table|map), [int]
         -- world, resolver, (position|object|table), map, [int]
         assert_type(world, "wo:drawMap self (world)", 2, "world")
-        assert_type(resolver, "wo:drawMap first argument (resolver)", 2, "tiles", "function", "table")
+        assert_type(resolver, "wo:drawMap first argument (resolver)", 2, "tiles", "function", "table", "maze")
         assert_type(anchor, "wo:drawMap second argument (anchor)", 2, "position", "valid object", "table")
         assert_type(arg3, "wo:drawMap third argument (ignorekey or map)", 2, "string", "map")
         local origin = po(anchor)   -- either convert or make a working position copy
@@ -439,7 +439,7 @@ end
 function res.random(subresolver, hits, replacements)
     -- syntax: hits = key | {key, [key]*, [{key, superkey}]*}
     --         replacements = {key, [key]*, [{key, frequency}]*}
-    assert_type(subresolver, "res.random first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(subresolver, "res.random first argument (subresolver)", 2, "tiles", "function", "table", "maze")
     assert_type(hits, "res.random second argument (hits)", 2, "non-empty string", "table")
     assert_type(hits, "res.random third argument (replacements)", 2, "string", "table")
     local hit_table = {}
@@ -561,7 +561,7 @@ end
 function res.autotile(subresolver, ...)
     -- syntax: ... = <{prefixkey, template} | {firstkey, lastkey, template[, offset]}>
     -- context: [4] = table with unmodified rule tables
-    assert_type(subresolver, "res.autotile first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(subresolver, "res.autotile first argument (subresolver)", 2, "tiles", "function", "table", "maze")
     local args = {...}
     for i, rule in ipairs(args) do
         assert_type(rule, "res.autotile argument " .. (i+1) .. " (rule " .. i .. ")", 2, "table")
@@ -627,7 +627,7 @@ function res.composer_implementation(context, evaluator, key, x, y)
 end
 
 function res.composer(subresolver, ...)
-    assert_type(subresolver, "res.composer first argument (subresolver)", 2, "tiles", "function", "table")
+    assert_type(subresolver, "res.composer first argument (subresolver)", 2, "tiles", "function", "table", "maze")
     local args = {...}
     local sequence = nil
     assert_bool(#args <= 1, "res.composer: Too many arguments (must be 1 or 2)." ,2)
