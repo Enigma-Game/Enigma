@@ -484,11 +484,14 @@ do
         "it_banana",
         "it_bomb_black",
         "it_bomb_white",
-        "it-blocker",
+        "it_blocker",
         "it_bottle_idle",
         "it_bottle_broken",
         "it_brush",
         "it_cherry",
+        "it_coin_s",
+        "it_coin_m",
+        "it_coin_l",
         "it_cross",
         "it_document",
         "it_drop",
@@ -523,9 +526,6 @@ do
     DefImages(itemlist)
 
     DefImage("it_brake", {filename="st-brake"})
-    DefImage("it_coin_s", {filename="it-coin1"})
-    DefImage("it_coin_m", {filename="it-coin2"})
-    DefImage("it_coin_l", {filename="it-coin4"})
     DefImage("it_meditation_hollow", {filename="it_meditation_hollow"})
     DefImage("it_meditation_hill", {filename="it_meditation_hill"})
     DefImage("it_meditation_dent", {filename="it_meditation_dent"})
@@ -548,12 +548,12 @@ end
 -- Multiple-Image-Items, non animated, e.g. it-burnable-oil --
 --------------------------------------------------------------
 
--- it-extinguisher --
+-- it_extinguisher --
 do
     DefTiles("it_extinguisher", {"it_extinguisher_full", "it_extinguisher_medium", "it_extinguisher_empty"})
 end
 
--- it-dummy
+-- it_dummy
 do
     DefTiles("it_dummy", {"it_dummy", "it_dummy_egg"})
 end
@@ -565,21 +565,21 @@ end
 
 -- Laserbeams --
 do
-    DefTiles("it-laser", {"it-laserh", "it-laserv", "it-laserhv"})
+    DefTiles("it_laser", {"it_laser_h", "it_laser_v", "it_laser_hv"})
 end
 
--- it-pipe --
+-- it_pipe --
 do
-    DefTiles("it-pipe", {"it_pipe_e", "it_pipe_s", "it_pipe_es", "it_pipe_sw", "it_pipe_ew",
+    DefTiles("it_pipe", {"it_pipe_e", "it_pipe_s", "it_pipe_es", "it_pipe_sw", "it_pipe_ew",
                             "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns"})
 end
 
 -- it-trigger --
 do
-    DefTiles("it-trigger", {"it-trigger","it-trigger1"})
+    DefTiles("it_trigger", {"it_trigger_up","it_trigger_down"})
 end
 
--- it-yinyang --
+-- it_yinyang --
 do
     DefTiles("it_yinyang", {"it_yinyang", "it_yangyin"})
 end
@@ -633,7 +633,7 @@ do
     DefAlias("it_burnable_invisible", "invisible")
 end
 
--- it-coffee --
+-- it_coffee --
 do
     local images = DefSubimages("it_coffee", {h=4})
     local frames = BuildFrames(images,150)
@@ -671,15 +671,15 @@ do
     DefAlias("it_explosion", "expl")
 end
 
--- it-magnet --
+-- it_magnet --
 do
-    DefImage("it-magnet-off")
-    local images = DefSubimages("it-magnet-on", {h=5})
+    DefImage("it_magnet_off")
+    local images = DefSubimages("it_magnet_on", {h=5})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-magnet-on", frames, 1)
+    DefAnim("it_magnet_on", frames, 1)
 end
 
--- it-puller --
+-- it_puller --
 do
     local images = {"it_puller_n", "it_puller_e", "it_puller_s", "it_puller_w"}
     DefTiles("it_puller", images)
@@ -687,21 +687,19 @@ do
     DefAnim("it_puller_active", RepeatAnim(frames, 4), false)
 end
 
--- it-seed --
+-- it_seed --
 do
-    local images = DefSubimages("it-seed", {h=5})
-    DefAlias("it-seed", "it-seed1")
-    DefAlias("it-seed_nowood", "it-seed1")
-    DefAlias("it-seed_volcano", "it-seed1")
+    local images = DefSubimages("it_seed", {h=5})
+    DefAlias("it_seed", "it_seed1")
     local frames = {
-        "it-seed1", "it-seed2", "it-seed1", "it-seed3", "it-seed1", "it-seed2",
-        "it-seed1", "it-seed4", "it-seed5", "it-seed4", "it-seed1",
-        "it-seed4", "it-seed5",
+        "it_seed1", "it_seed2", "it_seed1", "it_seed3", "it_seed1", "it_seed2",
+        "it_seed1", "it_seed4", "it_seed5", "it_seed4", "it_seed1",
+        "it_seed4", "it_seed5",
     }
-    DefAnim("it-seed-growing", BuildFrames(frames, 120))
+    DefAnim("it_seed_growing", BuildFrames(frames, 120))
 end
 
--- it-sensor --
+-- it_sensor --
 do
     DefTiles("it_sensor", {"it_sensor","it_sensor1"})
     local frames = BuildFrames({"it_sensor","it_sensor1"}, 300)
@@ -711,14 +709,14 @@ do
     DefAnim("it_sensor_exit_hit", RepeatAnim(exitframes, 3), false)
 end
 
--- it-shogun --
+-- it_shogun --
 do
-    NewAnim("it_shogun_s", {img="it-shogun-small", h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it_shogun_m", {img="it-shogun-med",   h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it_shogun_l", {img="it-shogun-big",   h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_s", {img="it_shogun_s", h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_m", {img="it_shogun_m",   h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_l", {img="it_shogun_l",   h=3, speed=160, pingpong=1, loop=1})
 end
 
--- it-springboard --
+-- it_springboard --
 do
     local images = {"it_springboard1", "it_springboard2"}
     DefTiles ("it_springboard", images)
@@ -726,22 +724,22 @@ do
     DefAnim("it_springboard_anim", BuildFrames(ReverseFrames(images),120))
 end
 
--- it-vortex --
+-- it_vortex --
 do
-    local images = DefSubimages("it-vortex", {h=4})
-    DefAlias("it-vortex-open", images[1])
-    DefAlias("it-vortex-closed", images[4])
+    local images = DefSubimages("it_vortex", {h=4})
+    DefAlias("it_vortex_open", images[1])
+    DefAlias("it_vortex_closed", images[4])
 
-    DefAnim("it-vortex-opening", ReverseFrames(BuildFrames(images, 100)))
-    DefAnim("it-vortex-closing", BuildFrames(images, 100))
+    DefAnim("it_vortex_opening", ReverseFrames(BuildFrames(images, 100)))
+    DefAnim("it_vortex_closing", BuildFrames(images, 100))
 end
 
--- it-wormhole --
+-- it_wormhole --
 do
-    local images = DefSubimages("it-wormhole", {h=2})
+    local images = DefSubimages("it_wormhole", {h=2})
     local frames = BuildFrames(images, 100)
-    DefAnim("it-wormhole", frames, true)
-    DefAlias("it-wormhole-off", "it-wormhole1")
+    DefAnim("it_wormhole", frames, true)
+    DefAlias("it_wormhole_off", "it_wormhole1")
 end
 
 -- it_trap --
@@ -1095,11 +1093,11 @@ do
     local anim_v, anim_h, anim_hv = {}, {}, {}
     for j = 1, 7 do
       anim_v[j] = "st-lightpassenger-break-v"..j
-      display.DefineComposite(anim_v[j], "it-laserv", img[j])
+      display.DefineComposite(anim_v[j], "it_laser_v", img[j])
       anim_h[j] = "st-lightpassenger-break-h"..j
-      display.DefineComposite(anim_h[j], "it-laserh", img[j])
+      display.DefineComposite(anim_h[j], "it_laser_h", img[j])
       anim_hv[j] = "st-lightpassenger-break-hv"..j
-      display.DefineComposite(anim_hv[j], "it-laserhv", img[j])
+      display.DefineComposite(anim_hv[j], "it_laser_hv", img[j])
     end
     DefAnim("st-lightpassenger-break-v", BuildFrames(anim_v, 50), false)
     DefAnim("st-lightpassenger-break-h", BuildFrames(anim_h, 50), false)

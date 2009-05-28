@@ -61,9 +61,9 @@ namespace enigma {
     }
     
     ItemTraits Coin::traits[3] = {
-        {"it_coin_s",  it_coin1,  itf_none, 0.0},
-        {"it_coin_m",  it_coin2,  itf_none, 0.0},
-        {"it_coin_l",  it_coin4,  itf_none, 0.0},
+        {"it_coin_s",  it_coin_s,  itf_none, 0.0},
+        {"it_coin_m",  it_coin_m,  itf_none, 0.0},
+        {"it_coin_l",  it_coin_l,  itf_none, 0.0},
     };
 
     BOOT_REGISTER_START

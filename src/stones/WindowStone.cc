@@ -153,7 +153,7 @@ namespace enigma {
             if (objFlags & (sc.faces << 24))  // face is scratched
                 threshold -= 10;
             
-            if (impulse > 35) {
+            if (impulse > 35 && !(objFlags & OBJBIT_SECURE)) {
                 SendMessage(a, "_shatter");
             }
 

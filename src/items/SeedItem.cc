@@ -85,9 +85,9 @@ namespace enigma {
     
     void SeedItem::init_model() {
         if (state == IDLE)
-            set_model("it-seed");
+            set_model("it_seed");
         else
-            set_anim("it-seed-growing");
+            set_anim("it_seed_growing");
     }
     
     void SeedItem::processLight(Direction d) {
@@ -116,7 +116,7 @@ namespace enigma {
     }
     
     std::string SeedItem::get_inventory_model() {
-        return "it-seed";
+        return "it_seed";
     }
     
     bool SeedItem::isStatic() const {
@@ -142,7 +142,7 @@ namespace enigma {
         if (state == IDLE) {
             state = ACTIVE;
             sound_event("seedgrow");
-            set_anim("it-seed-growing");
+            set_anim("it_seed_growing");
         }
     }
         

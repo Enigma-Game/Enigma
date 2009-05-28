@@ -2226,7 +2226,7 @@ void WarpActor(Actor *a, double newx, double newy, bool keep_velocity)
 }
 
 void FastRespawnActor(Actor *a, bool keep_velocity) {
-    a->find_respawnpos();
+//    a->find_respawnpos();
     const V2& p = a->get_respawnpos();
     WarpActor(a, p[0], p[1], keep_velocity);
 }

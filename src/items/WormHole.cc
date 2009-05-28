@@ -98,9 +98,9 @@ namespace enigma {
     
     void WormHole::init_model() {
         if ((state & 3) == ON_IDLE)
-            set_anim("it-wormhole");
+            set_anim("it_wormhole");
         else
-            set_model("it-wormhole-off");
+            set_model("it_wormhole_off");
     }
     
     bool WormHole::actor_hit(Actor *actor) {

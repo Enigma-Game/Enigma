@@ -35,7 +35,7 @@ using namespace enigma;
 //using namespace world;
 using ecl::V2;
 
-#include "actors_internal.hh"
+//#include "actors_internal.hh"
 
 namespace enigma {
 
@@ -196,9 +196,9 @@ void Actor::remove_respawnpos() {
 }
 
 void Actor::find_respawnpos() {
-    V2& what_pos = use_respawnpos ? respawnpos : startingpos;
-    FreeRespawnLocationFinder unblocked(what_pos, *this);
-    what_pos = unblocked.get_position();
+//    V2& what_pos = use_respawnpos ? respawnpos : startingpos;
+//    FreeRespawnLocationFinder unblocked(what_pos, *this);
+//    what_pos = unblocked.get_position();
 }
 
 const V2& Actor::get_respawnpos() const {

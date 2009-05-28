@@ -81,9 +81,9 @@ namespace enigma {
         if (getAttr("invisible").to_bool())
             set_model("invisible");
         else if (state != 0)
-            set_model("it-trigger1");
+            set_model("it_trigger_down");
         else
-            set_model("it-trigger");
+            set_model("it_trigger_up");
     }
     
     void Trigger::actor_enter(Actor *a) {

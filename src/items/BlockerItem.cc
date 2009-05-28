@@ -108,7 +108,7 @@ namespace enigma {
     }
 
     void BlockerItem::init_model() {
-        set_model("it-blocker");
+        set_model("it_blocker");
     }
     
     void BlockerItem::actor_leave(Actor *a) {

@@ -90,12 +90,12 @@ void LaserBeam::init_model()
     
     if (directions & (EASTBIT | WESTBIT)) {
         if (directions & (NORTHBIT | SOUTHBIT))
-            set_model("it-laserhv");
+            set_model("it_laser_hv");
         else
-            set_model("it-laserh");
+            set_model("it_laser_h");
     }
     else if (directions & (NORTHBIT | SOUTHBIT))
-        set_model("it-laserv");
+        set_model("it_laser_v");
 }
 
 void LaserBeam::processLight(Direction dir) {

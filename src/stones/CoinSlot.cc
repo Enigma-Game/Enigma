@@ -109,17 +109,17 @@ namespace enigma {
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
             if (Item *it = inv->get_item(0)) {
                 ItemID id = get_id(it);
-                if (id == it_coin1 || id == it_coin2 || id == it_coin4) {
+                if (id == it_coin_s || id == it_coin_m || id == it_coin_l) {
                     double interval;
                     if (server::EnigmaCompatibility < 1.10) 
                         interval = it->getAttr("coin_value");
                     else {
                         switch (id) {
-                            case it_coin1:
+                            case it_coin_s:
                                 interval = getAttr("interval_s"); break;
-                            case it_coin2:
+                            case it_coin_m:
                                 interval = getAttr("interval_m"); break;
-                            case it_coin4:
+                            case it_coin_l:
                                 interval = getAttr("interval_l"); break;
                         }
                         if (interval == -2)  // reject coin

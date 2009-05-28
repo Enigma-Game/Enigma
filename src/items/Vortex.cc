@@ -101,14 +101,14 @@ namespace enigma {
             case OPEN:
             case EMITTING:
             case SWALLOWING:
-                set_model("it-vortex-open");
+                set_model("it_vortex_open");
                 break;
             case CLOSED: 
-                set_model("it-vortex-closed"); break;
+                set_model("it_vortex_closed"); break;
             case OPENING: 
-                set_anim("it-vortex-opening"); break;
+                set_anim("it_vortex_opening"); break;
             case CLOSING: 
-                set_anim("it-vortex-closing"); break;
+                set_anim("it_vortex_closing"); break;
         }
     }
     

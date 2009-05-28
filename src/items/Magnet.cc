@@ -57,7 +57,7 @@ namespace enigma {
         return Item::message(m);
     }
     void Magnet::init_model() {
-        set_model(ecl::strf("it-magnet%s", state == ON ? "-on" : "-off"));
+        set_model(ecl::strf("it_magnet_%s", state == ON ? "on" : "off"));
     }
     
     void Magnet::on_creation(GridPos p) {
