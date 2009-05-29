@@ -67,7 +67,7 @@ namespace enigma {
         if (objFlags & OBJBIT_GLASSES)
             set_model("invisible");
         else if (state == GROWING)
-            set_anim("st-wood-growing");   // missing model
+            set_anim("st_greenbrown_growing");
         else
             set_model(getClass());
     }

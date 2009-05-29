@@ -40,7 +40,7 @@ namespace enigma {
     }
 
     void BrakeStone::init_model() {
-        set_model("st-brake");
+        set_model("st_brake");
     }
     
     void BrakeStone::on_creation (GridPos p) {

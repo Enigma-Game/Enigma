@@ -151,10 +151,11 @@ namespace enigma {
     }
     
 
-    ItemTraits SeedItem::traits[3] = {
+    ItemTraits SeedItem::traits[4] = {
         {"it_seed_wood", it_seed_wood, itf_static, 0.2},
         {"it_seed_greenbrown", it_seed_fake, itf_static, 0.2},
-        {"it_seed_volcano", it_seed_volcano, itf_static, 0.2}
+        {"it_seed_volcano", it_seed_volcano, itf_static, 0.2},
+        {"it_seed_hay", it_seed_hay, itf_static, 0.2}
     };
 
     BOOT_REGISTER_START

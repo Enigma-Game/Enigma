@@ -525,7 +525,7 @@ do
 
     DefImages(itemlist)
 
-    DefImage("it_brake", {filename="st-brake"})
+    DefImage("it_brake", {filename="st_brake"})
     DefImage("it_meditation_hollow", {filename="it_meditation_hollow"})
     DefImage("it_meditation_hill", {filename="it_meditation_hill"})
     DefImage("it_meditation_dent", {filename="it_meditation_dent"})
@@ -667,8 +667,7 @@ end
 
 -- Explosion --
 do
-    DefAnimImages("expl", {{"expl", 50}})
-    DefAlias("it_explosion", "expl")
+    DefAnimImages("it_explosion", {{"it_explosion", 50}})
 end
 
 -- it_magnet --
@@ -771,7 +770,7 @@ do
     DefImage("sh_passage_slash")
     DefImage("sh_passage_cross")
     DefImage("sh-puzzle1")
-    DefImage("sh-brake")
+    DefImage("sh_brake")
     DefImage("sh-floating")
     -- Note: Window shadows are defined where needed.
 end
@@ -788,7 +787,7 @@ do
     DefStone("st_jamb_black")
     DefStone("st_plop_slate")
     DefStone("st_bluegray", "sh-round")
-    DefStone("st-brake", "sh-brake")
+    DefStone("st_brake", "sh_brake")
     DefStone("st_brownie", "sh-round")
     DefStone("st-bug")
     DefStone("st_pinkbumps")
@@ -1312,7 +1311,7 @@ do
       local n=DefSubimages("st-wood-growing", {h=3})
       DefAnim("wood-growing-fg", BuildFrames(n, 130))
       DefAnim("wood-growing-bg", BuildFrames(sh, 130))
-      DefShModel("st-wood-growing", "wood-growing-fg", "wood-growing-bg")
+      DefShModel("st_wood_growing", "wood-growing-fg", "wood-growing-bg")
    end
 
    -- Blocker stone --
@@ -1333,7 +1332,9 @@ do
 end
 
 do
-    DefAlias("st-volcano-growing", "st-blocker-growing")
+    DefAlias("st_flhay_growing", "st_wood_growing")
+    DefAlias("st_greenbrown_growing", "st_wood_growing")
+    DefAlias("st_volcano_growing", "st-blocker-growing")
 end
 
 -- st-window --

@@ -111,6 +111,7 @@ namespace enigma {
         it_seed_wood,
         it_seed_fake,
         it_seed_volcano,
+        it_seed_hay,
         it_sensor,
         it_shogun_s,
         it_shogun_m,

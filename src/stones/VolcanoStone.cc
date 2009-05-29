@@ -79,8 +79,8 @@ namespace enigma {
             case INACTIVE: set_model("st_flat"); break;
             case ACTIVE:   set_anim("st_quaking"); break;
             case BREAKING: set_anim("st_quakebreak_anim"); break;
-            case NEW:      set_anim("it-seed-growing"); break;
-            case GROWING:  set_anim("st-volcano-growing"); break;
+            case NEW:      set_anim("it_seed_growing"); break;
+            case GROWING:  set_anim("st_volcano_growing"); break;
         }
     }
 

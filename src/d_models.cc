@@ -20,6 +20,7 @@
 #include "display_internal.hh"
 #include "d_models.hh"
 
+//#include "errors.hh"
 #include "lua.hh"
 #include "options.hh"
 #include "d_engine.hh"
@@ -31,6 +32,7 @@
 #include "SDL_image.h"
 
 #include <cstdio>
+#include <cstring>
 #include <iostream>
 
 using namespace enigma;
@@ -368,7 +370,8 @@ void display::AddFrame (const char *name, const char *model, double time)
 
 void display::DefineAlias (const char *name, const char *othername)
 {
-    DefineModel(name, new AliasModel(othername));
+    if (std::strcmp(name, othername) != 0)
+        DefineModel(name, new AliasModel(othername));
 }
 
 

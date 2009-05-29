@@ -28,7 +28,7 @@ namespace enigma {
      */
     class SeedItem : public Item {
         CLONEOBJ(SeedItem);
-        DECL_ITEMTRAITS_ARRAY(3, traitsIdx());
+        DECL_ITEMTRAITS_ARRAY(4, traitsIdx());
 
     private:
         enum iState {

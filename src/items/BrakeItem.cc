@@ -33,7 +33,7 @@ namespace enigma {
     }
     
     std::string BrakeItem::get_inventory_model() {
-        return "st-brake";
+        return "st_brake";
     }
     
     ItemAction BrakeItem::activate(Actor* a, GridPos p) {

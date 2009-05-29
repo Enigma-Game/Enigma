@@ -107,19 +107,19 @@ namespace enigma {
                 ASSERT(false, XLevelRuntime, "Wood stone init model state error");
             case WOOD1:
                 if (state == GROWING)
-                    set_anim("st-wood-growing");
+                    set_anim("st_wood_growing");
                 else
                     set_model("st-wood1");
                 break;
             case WOOD2:
                 if (state == GROWING)
-                    set_anim("st-wood-growing");
+                    set_anim("st_wood_growing");
                 else
                     set_model("st-wood2");
                 break;
             case HAY:
                 if (state == GROWING)
-                    set_anim("st-wood-growing");
+                    set_anim("st_flhay_growing");
                 else
                     set_model("st-flhay"); break;
                 break;
