@@ -794,11 +794,10 @@ do
     DefStone("st_camouflage")
     DefStone("st_dummy")
     DefImage("st-easymode")
-    DefStone("st-flhay")
     DefStone("st_flat_fire")
     DefStone("st-floppy0", "sh-round", {filename="st-floppy1"})
     DefStone("st-floppy1", "sh-round", {filename="st-floppy2"})
-    DefStone("st-flrock")
+    DefStone("st-flrock", "sh-round")
     DefStone("st_rawglass", "sh-glass")
     DefStone("st_rawglass_quad", "sh_rawglass_quad")
     DefStone("st_lightglass", "sh-glass")
@@ -1299,19 +1298,46 @@ do
     DefSolidStone("st-turnstile-green-anim", "turnstile-green-anim")
 end
 
--- st-wood*, growing stones, st-volcano, st-blocker --
+-- growing stones, st_box, st_flhay, greenbrown seed, st-volcano, st-blocker --
 do
-   local sh=DefSubimages("sh-round2-growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
+   local shadows=DefSubimages("sh-round2-growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
-   -- Wooden stones --
+   -- Wooden (box) stones --
    do
       DefSubimages("st-wood", {modelname="st-wood-fg",h=2})
       DefShModel("st-wood1", "st-wood-fg1", "sh-round")
       DefShModel("st-wood2", "st-wood-fg2", "sh-round")
-      local n=DefSubimages("st-wood-growing", {h=3})
-      DefAnim("wood-growing-fg", BuildFrames(n, 130))
-      DefAnim("wood-growing-bg", BuildFrames(sh, 130))
+
+      local images=DefSubimages("st_wood_growing", {h=3})
+      DefAnim("wood-growing-fg", BuildFrames(images, 130))
+      DefAnim("wood-growing-bg", BuildFrames(shadows, 130))
       DefShModel("st_wood_growing", "wood-growing-fg", "wood-growing-bg")
+   end
+
+   -- Greenbrown seed growing --
+   do
+      local images=DefSubimages("st_greenbrown_growing", {h=3})
+      DefAnim("greenbrown-growing-fg", BuildFrames(images, 130))
+      DefAnim("greenbrown-growing-bg", BuildFrames(shadows, 130))
+      DefShModel("st_greenbrown_growing", "greenbrown-growing-fg", "greenbrown-growing-bg")
+   end
+
+   -- st_flhay, hay seed growing --
+   do
+      DefStone("st-flhay", "sh-round")
+
+      local images=DefSubimages("st_flhay_growing", {h=3})
+      DefAnim("hay-growing-fg", BuildFrames(images, 130))
+      DefAnim("hay-growing-bg", BuildFrames(shadows, 130))
+      DefShModel("st_flhay_growing", "hay-growing-fg", "hay-growing-bg")
+   end
+
+   -- volcano growing --
+   do
+      local images=DefSubimages("st_volcano_growing", {h=3})
+      DefAnim("volcano-growing-fg", BuildFrames(images, 80))
+      DefAnim("volcano-growing-bg", BuildFrames(shadows, 80))
+      DefShModel("st_volcano_growing", "volcano-growing-fg", "volcano-growing-bg")
    end
 
    -- Blocker stone --
@@ -1323,18 +1349,12 @@ do
          table.insert(frames, "st-blocker"..i)
       end
       DefAnim("blocker-growing-fg", BuildFrames(frames, 60))
-      DefAnim("blocker-growing-bg", BuildFrames(sh, 60))
+      DefAnim("blocker-growing-bg", BuildFrames(shadows, 60))
       DefAnim("blocker-shrinking-fg", ReverseFrames(BuildFrames(frames, 60)))
-      DefAnim("blocker-shrinking-bg", ReverseFrames(BuildFrames(sh, 60)))
+      DefAnim("blocker-shrinking-bg", ReverseFrames(BuildFrames(shadows, 60)))
       DefShModel("st-blocker-shrinking", "blocker-shrinking-fg", "blocker-shrinking-bg");
       DefShModel("st-blocker-growing", "blocker-growing-fg", "blocker-growing-bg");
    end
-end
-
-do
-    DefAlias("st_flhay_growing", "st_wood_growing")
-    DefAlias("st_greenbrown_growing", "st_wood_growing")
-    DefAlias("st_volcano_growing", "st-blocker-growing")
 end
 
 -- st-window --
