@@ -860,6 +860,7 @@ want to hide a sound set from Enigma. This can be advantageous if you use
 interdependent sound sets (sound sets that share sound files) and want to
 deactivate just one of them.
 
+@c ===================  Levelpack Basics  =======================
 
 @node  Levelpack Basics
 @chapter Levelpack Basics
@@ -1217,6 +1218,7 @@ folder, restart Enigma, add the levels from the @samp{auto} folder to the clipbo
 use the composer to insert the levelpack to your levelpack as a copy, and delete the
 unused level file copies from the @samp{auto} folder.
 
+@c ===================  Level Basics  =======================
 
 @node  Level Basics
 @chapter Level Basics
@@ -1227,8 +1229,7 @@ such levels with a static approach of a simple object map like Sokoban. Some lev
 generate their layout and look different each time you play them. Other levels provide a dynamic
 behavior during the play; i.e., switches may open doors only in certain circumstances. To
 comply with these demands, we have integrated the powerful lightweight C extension language
-@url{http://www.lua.org, Lua}
-into Enigma.
+@url{http://www.lua.org, Lua} as of version 5.1.4 into Enigma.
 
 Up to Enigma 0.92, two different level formats did exist. One was a XML-like format, primarily
 designed for external level editor programs. Because its static object map description part was
@@ -3635,10 +3636,10 @@ named objects as well as those named positions derived from killed floors.
 
 Knowing the basic principles of an Enigma level's world you now just need
 the language glue to write your first level. Enigma levels are written in
-the language @url{http://www.lua.org, Lua}. This powerful language gives you
-the ability to write most complex, dynamical levels, while being nearly
-transparent on writing basic standard levels. Indeed there is no reason to dig
-into this language at the very beginning.
+the language @url{http://www.lua.org, Lua} as of version 5.1.4. This powerful 
+language gives you the ability to write most complex, dynamical levels, while 
+being nearly transparent on writing basic standard levels. Indeed there is no 
+reason to dig into this language at the very beginning.
 
 With the second Lua API version, as of Enigma 1.10, we designed an optimized
 way of describing levels in a very short and readable manner. Thus we do
@@ -9185,6 +9186,7 @@ Positive number are attracting, negative numbers are repelling.
 @end iftex
 @end macro
 @c
+WORK IN PROGRESS - The follwing table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/fl_abyss} @tab @yref{fl_abyss}
 @tab @image{images/fl_adhesionless} @tab @yref{fl_adhesionless}
@@ -9527,7 +9529,7 @@ for details.
 
 Many floors do provide several textures - graphical image variations that are
 without any influence on the physical engine. Most floors do select a random
-texture in their default variant. Thiss generates areas without unintended
+texture in their default variant. This generates areas without unintended
 optical effects. But on some floors you can select the textures by means
 of variant kind names to create your own graphical floor layout.
 
@@ -10972,16 +10974,76 @@ switched off by the attribute @samp{invisible}.
 
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/it_bag} @tab @yref{it_bag}
+@tab @image{images/it_banana} @tab @yref{it_banana}
+@tab @image{images/it_blocker} @tab @yref{it_blocker}
+@item @image{images/it_bomb_black} @tab @yref{it_bomb}_black
+@tab @image{images/it_bomb_white} @tab @yref{it_bomb}_white
+@tab @image{images/it_bottle_idle} @tab @yref{it_bottle}
+@item @image{images/it_bottle_broken} @tab @yref{it_bottle}_broken
+@tab @image{images/st_brake} @tab @yref{it_brake}
+@tab @image{images/it_brush} @tab @yref{it_brush}
+@item @image{images/it_burnable_ash} @tab @yref{it_burnable}_ash
+@tab @image{images/it_burnable_burning} @tab @yref{it_burnable}_burning
+@tab @image{images/it_burnable_fireproof} @tab @yref{it_burnable}_fireproof
+@item @image{images/it_burnable_oil} @tab @yref{it_burnable}_oil
+@tab @image{images/it_cherry} @tab @yref{it_cherry}
+@tab @image{images/it_coffee} @tab @yref{it_coffee}
+@item @image{images/it_coin_s} @tab @yref{it_coin}_s
+@tab @image{images/it_coin_m} @tab @yref{it_coin}_m
+@tab @image{images/it_coin_l} @tab @yref{it_coin}_l
+@item @image{images/it_crack_abyss} @tab @yref{it_crack}_abyss
+@tab @image{images/it_crack_water} @tab @yref{it_crack}_water
+@tab @image{images/it_cross} @tab @yref{it_cross}
+@item @image{images/it_death} @tab @yref{it_death}
+@tab @image{images/it_document} @tab @yref{it_document}
+@tab @image{images/it_drop} @tab @yref{it_drop}
+@item @image{images/it_dynamite} @tab @yref{it_dynamite}
+@tab @image{images/it_explosion} @tab @yref{it_explosion}
+@tab @image{images/it_extralife} @tab @yref{it_extralife}
+@item @image{images/it_extinguisher} @tab @yref{it_extinguisher}
+@tab @image{images/it_flag_black} @tab @yref{it_flag}_black
+@tab @image{images/it_flag_white} @tab @yref{it_flag}_white
+@item @image{images/it_floppy} @tab @yref{it_floppy}
+@tab @image{images/it_glasses} @tab @yref{it_glasses}
+@tab @image{images/it_glasses_broken} @tab @yref{it_glasses}_broken
+@item @image{images/it_hammer} @tab @yref{it_hammer}
+@tab @image{images/it_key} @tab @yref{it_key}
+@tab @image{images/it_landmine} @tab @yref{it_landmine}
+@item @image{images/it_laser} @tab @yref{it_laserbeam}
+@tab @image{images/it_magicwand} @tab @yref{it_magicwand}
+@tab @image{images/it_magnet_off} @tab @yref{it_magnet}
+@item @image{images/it_meditation_bump} @tab @yref{it_meditation}_bump
+@tab @image{images/it_meditation_caldera} @tab @yref{it_meditation}_caledera
+@tab @image{images/it_meditation_dent} @tab @yref{it_meditation}_dent
+@item @image{images/it_meditation_hill} @tab @yref{it_meditation}_hill
+@tab @image{images/it_meditation_hollow} @tab @yref{it_meditation}_hollow
+@tab @image{images/it_meditation_volcano} @tab @yref{it_meditation}_volcano
+@item @image{images/it_pencil} @tab @yref{it_pencil}
 @tab @image{images/it_pin} @tab @yref{it_pin}
-@tab @image{images/it_puller} @tab @yref{it_puller}
-@item @image{images/it_sensor} @tab @yref{it_sensor}
-@tab @image{images/it_springboard} @tab @yref{it_springboard}
-@tab @image{images/it_spring_drop} @tab @yref{it_spring_drop}
-@item @image{images/it_spring_keep} @tab @yref{it_spring_keep}
+@tab @image{images/it_pipe} @tab @yref{it_pipe}
+@item @image{images/it_puller} @tab @yref{it_puller}
+@tab @image{images/it_ring} @tab @yref{it_ring}
+@tab @image{images/it_rubberband} @tab @yref{it_rubberband}
+@item @image{images/it_seed} @tab @yref{it_seed}
+@tab @image{images/it_sensor} @tab @yref{it_sensor}
+@tab @image{images/it_sensor_exit} @tab @yref{it_sensor}_exit
+@item @image{images/it_shogun_m} @tab @yref{it_shogun}
+@tab @image{images/it_spade} @tab @yref{it_spade}
+@tab @image{images/it_spoon} @tab @yref{it_spoon}
+@item @image{images/it_springboard} @tab @yref{it_springboard}
+@tab @image{images/it_spring_drop} @tab @yref{it_spring}_drop
+@tab @image{images/it_spring_keep} @tab @yref{it_spring}_keep
+@item @image{images/it_squashed} @tab @yref{it_squashed}
 @tab @image{images/it_strip} @tab @yref{it_strip}
 @tab @image{images/it_surprise} @tab @yref{it_surprise}
-@item @image{images/it_trap} @tab @yref{it_trap}
+@item @image{images/it_sword} @tab @yref{it_sword}
+@tab @image{images/it_trap} @tab @yref{it_trap}
+@tab @image{images/it_trigger} @tab @yref{it_trigger}
+@item @image{images/it_umbrella} @tab @yref{it_umbrella}
+@tab @image{images/it_vortex} @tab @yref{it_vortex}
 @tab @image{images/it_weight} @tab @yref{it_weight}
+@item @image{images/it_wormhole} @tab @yref{it_wormhole}
+@tab @image{images/it_wrench} @tab @yref{it_wrench}
 @tab @image{images/it_yinyang} @tab @yref{it_yinyang}
 @end multitable
 
@@ -11074,6 +11136,7 @@ by an actor hitting a variant of @ref{st_dispenser}.
 * it_coin::            Enigma's currency
 * it_document::        Readable Text Document
 * it_drop::            Magic Transformation Elixir
+* it_dynamite::        Exploder
 * it_extinguisher::    Fire Extinguisher
 * it_extralife::       Another Life or Glasses
 * it_flag::            Respawn Position Marker
@@ -11176,7 +11239,7 @@ grid position filled up with the stolen items.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_bag}
+@item @image{images/it_bag} @b{it_bag}
 @end table
 @end table
 
@@ -11200,7 +11263,7 @@ When a stone is pushed over it an @ref{it_squashed} remains as remnants.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_banana}
+@item @image{images/it_banana} @b{it_banana}
 @end table
 @end table
 
@@ -11253,9 +11316,9 @@ Just an @samp{IDLE} bottle is portable, a @samp{BROKEN} one is not portable.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_bottle}: state = @code{IDLE}
-@item @b{it_bottle_idle}: state = @code{IDLE}
-@item @b{it_bottle_broken}: state = @code{BROKEN}
+@item @image{images/it_bottle_idle} @b{it_bottle}: state = @code{IDLE}
+@item @image{images/it_bottle_idle} @b{it_bottle_idle}: state = @code{IDLE}
+@item @image{images/it_bottle_broken} @b{it_bottle_broken}: state = @code{BROKEN}
 @end table
 
 @end table
@@ -11300,7 +11363,7 @@ always converted to an @ref{st_brake} on being dropped or placed onto a floor.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_brake}
+@item @image{images/st_brake} @b{it_brake}
 @end table
 
 @end table
@@ -11343,7 +11406,7 @@ grid, or while jumping or flying over it:
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_brush}
+@item @image{images/it_brush} @b{it_brush}
 @end table
 
 @end table
@@ -11376,7 +11439,7 @@ When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_cherry}
+@item @image{images/it_cherry} @b{it_cherry}
 @end table
 @end table
 
@@ -11399,7 +11462,7 @@ and is blown away on @ref{it_bomb} explosions.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_coffee}
+@item @image{images/it_coffee} @b{it_coffee}
 @end table
 @end table
 
@@ -11428,9 +11491,9 @@ additional beam and on laser beams that are switched off and on again.
 @item @b{Attributes:}
 
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{0}, @code{1}, @code{2}; @ @ @i{access}: @code{read only} @ @ @xref{state}
-Represents the coin type with 0 being a small coin, 1 being a medium coin and
-2 being a large coin.
+@item @b{state}, @ @ @i{values}: @code{SMALL}, @code{MEDIUM}, @code{LARGE}; @ @ @i{default}: @code{SMALL}; @ @ @i{access}: @code{read only} @ @ @xref{state}
+Represents the coin type with @samp{SMALL} being a coin of 2 cents, @samp{MEDIUM}
+being a coin of 5 cents and @samp{LARGE} being a coin of 10 cents..
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
@@ -11440,14 +11503,10 @@ Represents the coin type with 0 being a small coin, 1 being a medium coin and
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_coin}
-A small coin.
-@item @b{it_coin_s}
-A small coin.
-@item @b{it_coin_m}
-A medium coin.
-@item @b{it_coin_l}
-A large coin.
+@item @image{images/it_coin_s} @b{it_coin}: state = @code{SMALL}
+@item @image{images/it_coin_s} @b{it_coin_s}: state = @code{SMALL}
+@item @image{images/it_coin_m} @b{it_coin_m}: state = @code{MEDIUM}
+@item @image{images/it_coin_l} @b{it_coin_l}: state = @code{LARGE}
 @end table
 
 @end table
@@ -11482,7 +11541,7 @@ Burn and destroy the document.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_document}
+@item @image{images/it_document} @b{it_document}
 @end table
 @end table
 
@@ -11517,7 +11576,63 @@ incompatibilities with future Enigma versions.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_drop}
+@item @image{images/it_drop} @b{it_drop}
+@end table
+
+@end table
+
+@c ----------------- Dynamite Item --------------------
+@node it_dynamite
+@subsection it_dynamite
+@obindex it_dynamite
+
+Dynamite is an explosive that can be picked up and that can be easily ignited
+at any free grid position. It ignites on drop, or if positioned on the floor in
+@samp{IDLE} state it ignites on laser light, nearby fire and other nearby 
+explosions as those caused by @ref{it_bomb}, @ref{st_dispenser}, or other 
+dyamite. A falling @ref{ot_cannonball} lets it explode immediately without prior
+ignition.
+
+On ignition its fuse starts burning. During this @samp{ACTIVE} state the
+dynamite can longer be picked up. After a short time the dynamite explodes
+causing on the 8 neigboring positions items to ignite and some stones like
+@ref{st_break} to dissolve, too. The explosion leaves at its position an
+@ref{it_meditation}_hollow on all floor kinds besides @ref{fl_ice} where an
+@ref{it_crack}_water remains.
+
+Generally there is no direct way to stop a burning dynamite in order to prevent
+the explosion. It is even not allowed to reset the @samp{state} attribute to
+@samp{IDLE}. But when the user pushes an @ref{st_ice} over a @samp{ACTIVE}
+dynamite it will freeze and stop burning, returning to state @samp{IDLE}.
+
+Dynamite items will be added to the inventory when an actor hits a 
+@ref{st_dispenser}_dynamite.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+Just @samp{IDLE} dynamite can be added to the inventory, burning @samp{ACTIVE}
+ones are not portable.
+@end table
+
+@item @b{Messages:}
+@table @asis
+@item @b{explode}
+Direct explosion without burning fuse.
+@item @b{ignite}
+Ignite the fuse.
+@item @b{heat}
+Ignite the fuse.
+@end table
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/it_dynamite} @b{it_dynamite}: state = @code{IDLE}
+@item @image{images/fl_white} @b{it_dynamite_burning}: state = @code{ACTIVE}
 @end table
 
 @end table
@@ -11562,10 +11677,10 @@ A toggle causes a refill by one load.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_extinguisher}: state = @code{FULL}
-@item @b{it_extinguisher_empty}: state = @code{IDLE}
-@item @b{it_extinguisher_medium}: state = @code{MEDIUM}
-@item @b{it_extinguisher_full}: state = @code{FULL}
+@item @image{images/it_extinguisher} @b{it_extinguisher}: state = @code{FULL}
+@item @image{images/it_extinguisher} @b{it_extinguisher_empty}: state = @code{FULL}
+@item @image{images/fl_white} @b{it_extinguisher_medium}: state = @code{MEDIUM}
+@item @image{images/fl_white} @b{it_extinguisher_full}: state = @code{FULL}
 @end table
 
 @end table
@@ -11598,10 +11713,8 @@ transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_extralife}
-A standard extralife item.
-@item @b{it_extralife_new}
-An extralife that is immune to light destruction for a short latency period.
+@item @image{images/it_extralife} @b{it_extralife}
+@item @image{images/it_extralife} @b{it_extralife_new}: An extralife that is immune to light destruction for a short latency period.
 @end table
 
 @end table
@@ -11633,9 +11746,9 @@ resurrected at their initial position.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_flag}: color = @code{BLACK}
-@item @b{it_flag_black}: color = @code{BLACK}
-@item @b{it_flag_white}: color = @code{WHITE}
+@item @image{images/it_flag_black} @b{it_flag}: color = @code{BLACK}
+@item @image{images/it_flag_black} @b{it_flag_black}: color = @code{BLACK}
+@item @image{images/it_flag_white} @b{it_flag_white}: color = @code{WHITE}
 @end table
 @end table
 
@@ -11657,7 +11770,7 @@ the floppy as first item in the players inventory.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_floppy}
+@item @image{images/it_floppy} @b{it_floppy}
 @end table
 
 @end table
@@ -11710,10 +11823,8 @@ A sum of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_glasses}
-Active glasses item.
-@item @b{it_glasses_broken}
-Broken glasses that spot nothing.
+@item @image{images/it_glasses} @b{it_glasses} Active glasses item.
+@item @image{images/it_glasses_broken} @b{it_glasses_broken} Broken glasses that spot nothing.
 @end table
 
 @end table
@@ -11748,10 +11859,8 @@ flickering of repeated item transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_hammer}
-A standard hammer item.
-@item @b{it_hammer_new}
-A hammer that is immune to light transformations for a short latency period.
+@item @image{images/it_hammer} @b{it_hammer} A standard hammer item.
+@item @image{images/it_hammer} @b{it_hammer_new} A hammer that is immune to light transformations for a short latency period.
 @end table
 
 @end table
@@ -11782,7 +11891,7 @@ The code of a key must match that of an @ref{st_key} to unlock it.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_key}
+@item @image{images/it_key} @b{it_key}
 @end table
 @end table
 
@@ -11819,7 +11928,7 @@ clusters to explode,
 @item @b{Action:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_magicwand}
+@item @image{images/it_magicwand} @b{it_magicwand}
 @end table
 
 @end table
@@ -11855,7 +11964,7 @@ the movable variants can be marked.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_pencil}
+@item @image{images/it_pencil} @b{it_pencil}
 @end table
 
 @end table
@@ -11886,7 +11995,7 @@ to its standard values.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_pin}
+@item @image{images/it_pin} @b{it_pin}
 @end table
 
 @end table
@@ -11923,20 +12032,17 @@ Currently only pipes with one or two connections do exist.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_pipe} connections = @code{"ew"}
-The horizontal pipe.
-@item @b{it_pipe_w} connections = @code{"w"}
-@item @b{it_pipe_s} connections = @code{"s"}
-@item @b{it_pipe_sw} connections = @code{"sw"}
-@item @b{it_pipe_e} connections = @code{"e"}
-@item @b{it_pipe_ew} connections = @code{"ew"}
-The horizontal pipe.
-@item @b{it_pipe_es} connections = @code{"es"}
-@item @b{it_pipe_n} connections = @code{"n"}
-@item @b{it_pipe_nw} connections = @code{"nw"}
-@item @b{it_pipe_ns} connections = @code{"ns"}
-The vertical pipe.
-@item @b{it_pipe_ne} connections = @code{"ne"}
+@item @image{images/fl_white} @b{it_pipe} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/fl_white} @b{it_pipe_w} connections = @code{"w"}
+@item @image{images/fl_white} @b{it_pipe_s} connections = @code{"s"}
+@item @image{images/fl_white} @b{it_pipe_sw} connections = @code{"sw"}
+@item @image{images/it_pipe} @b{it_pipe_e} connections = @code{"e"}
+@item @image{images/fl_white} @b{it_pipe_ew} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/fl_white} @b{it_pipe_es} connections = @code{"es"}
+@item @image{images/fl_white} @b{it_pipe_n} connections = @code{"n"}
+@item @image{images/fl_white} @b{it_pipe_nw} connections = @code{"nw"}
+@item @image{images/fl_white} @b{it_pipe_ns} connections = @code{"ns"} The vertical pipe.
+@item @image{images/fl_white}@b{it_pipe_ne} connections = @code{"ne"}
 @end table
 @end table
 
@@ -11971,11 +12077,11 @@ the explosion the puller item ceases to exist.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_puller} orientation = @code{WEST}
-@item @b{it_puller_w} orientation = @code{WEST}
-@item @b{it_puller_s} orientation = @code{SOUTH}
-@item @b{it_puller_e} orientation = @code{EAST}
-@item @b{it_puller_n} orientation = @code{NORTH}
+@item @image{images/fl_white} @b{it_puller} orientation = @code{WEST}
+@item @image{images/fl_white}@b{it_puller_w} orientation = @code{WEST}
+@item @image{images/fl_white}@b{it_puller_s} orientation = @code{SOUTH}
+@item @image{images/fl_white}@b{it_puller_e} orientation = @code{EAST}
+@item @image{images/it_puller} @b{it_puller_n} orientation = @code{NORTH}
 @end table
 @end table
 
@@ -12013,7 +12119,7 @@ future Enigma versions.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_ring}
+@item @image{images/it_ring} @b{it_ring}
 @end table
 
 @end table
@@ -12072,7 +12178,7 @@ On successful activation of this item the action message is send with a value of
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_rubberband}
+@item @image{images/it_rubberband} @b{it_rubberband}
 @end table
 @end table
 
@@ -12086,7 +12192,7 @@ Stone seeds are items that start growing and finally transforming to stones
 on activation. There are different @samp{flavor}s of seeds that all look the
 same, but do grow to different stones. While a @code{"wood"} seed grows to an
 @ref{st_box}_wood, a @code{"hay"} seed grows to an @ref{st_box}_hay, a
-@code{"fake"} seed grows to an unmovable @ref{st_greenbrown} and a
+@code{"greenbrown"} seed grows to an unmovable @ref{st_greenbrown} and a
 @code{"volcano"} seed grows to an active @ref{st_volcano}.
 
 Seeds can be dropped on any item free grid position, even beneath another stone
@@ -12125,11 +12231,11 @@ Start growing the seed.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_seed} flavor = @code{"wood"}
-@item @b{it_seed_wood} flavor = @code{"wood"}
-@item @b{it_seed_hay} flavor = @code{"hay"}
-@item @b{it_seed_fake} flavor = @code{"fake"}
-@item @b{it_seed_volcano} flavor = @code{"volcano"}
+@item @image{images/it_seed} @b{it_seed} flavor = @code{"wood"}
+@item @image{images/it_seed} @b{it_seed_wood} flavor = @code{"wood"}
+@item @image{images/it_seed} @b{it_seed_hay} flavor = @code{"hay"}
+@item @image{images/it_seed} @b{it_seed_greenbrown} flavor = @code{"greenbrown"}
+@item @image{images/it_seed} @b{it_seed_volcano} flavor = @code{"volcano"}
 @end table
 
 @end table
@@ -12153,7 +12259,7 @@ will flatten this by one degree and will finally eliminate it completely.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_spade}
+@item @image{images/it_spade} @b{it_spade}
 @end table
 
 @end table
@@ -12185,7 +12291,7 @@ to @samp{false}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_spoon}
+@item @image{images/it_spoon} @b{it_spoon}
 @end table
 
 @end table
@@ -12212,9 +12318,9 @@ facility that can not be picked up by an actor is the @ref{it_springboard}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_spring}
-@item @b{it_spring_keep}
-@item @b{it_spring_drop}
+@item @image{images/it_spring_keep} @b{it_spring}
+@item @image{images/it_spring_keep} @b{it_spring_keep}
+@item @image{images/it_spring_drop} @b{it_spring_drop}
 @end table
 @end table
 
@@ -12263,7 +12369,7 @@ to the replacement tile declaration.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_surprise}
+@item @image{images/it_surprise} @b{it_surprise}
 @end table
 
 @end table
@@ -12296,10 +12402,8 @@ flickering of repeated item transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_sword}
-A standard sword item.
-@item @b{it_sword_new}
-A sword that is immune to light transformations for a short latency period.
+@item @image{images/it_sword} @b{it_sword} A standard sword item.
+@item @image{images/it_sword} @b{it_sword_new} A sword that is immune to light transformations for a short latency period.
 @end table
 
 @end table
@@ -12338,10 +12442,8 @@ transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_umbrella}
-A standard umbrella item.
-@item @b{it_umbrella_new}
-An umbrella that is immune to light destruction for a short latency period.
+@item @image{images/it_umbrella} @b{it_umbrella} A standard umbrella item.
+@item @image{images/it_umbrella} @b{it_umbrella_new} An umbrella that is immune to light destruction for a short latency period.
 @end table
 
 @end table
@@ -12376,7 +12478,7 @@ Mass unit is the mass of an @ref{ac_marble}
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_weight}
+@item @image{images/it_weight} @b{it_weight}
 @end table
 
 @end table
@@ -12403,7 +12505,7 @@ possible.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_wrench}
+@item @image{images/it_wrench} @b{it_wrench}
 @end table
 
 @end table
@@ -12435,7 +12537,7 @@ to be controlled at every point of time.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_yinyang}
+@item @image{images/it_yinyang} @b{it_yinyang}
 @end table
 
 @end table
@@ -12451,9 +12553,9 @@ to be controlled at every point of time.
 * it_crack::           Crack in the Floor
 * it_cross::           Floor Switch for patient Actors
 * it_death::           Impassable grid blocker
-* it_dynamite::        Exploder
 * it_explosion::       Short Explosion Animation
 * it_landmine::        Buried Explosive
+* it_laserbeam::           Laser Beam
 * it_magnet::          Actor attracting Magnet
 * it_meditation::      Hills and Hollows
 * it_sensor::          Floor Switch for passing Actors
@@ -12541,9 +12643,9 @@ successor. The value will be @code{true} to express the open state.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_blocker}
+@item @image{images/it_blocker} @b{it_blocker}
 A standard blocker item.
-@item @b{it_blocker_new}
+@item @image{images/it_blocker} @b{it_blocker_new}
 A blocker that just finished shrinking. Mainly used internally as the direct
 successor of an @ref{st_blocker}. But it may be useful to generate an initial
 snapshot of a moving boulder over a blocker line, too. See example levels.
@@ -12601,9 +12703,9 @@ Ignite the fuse.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_bomb}: color = @code{BLACK}
-@item @b{it_bomb_black}: color = @code{BLACK}
-@item @b{it_bomb_white}: color = @code{WHITE}
+@item @image{images/it_bomb_black} @b{it_bomb}: color = @code{BLACK}
+@item @image{images/it_bomb_black} @b{it_bomb_black}: color = @code{BLACK}
+@item @image{images/it_bomb_white} @b{it_bomb_white}: color = @code{WHITE}
 @end table
 
 @end table
@@ -12664,13 +12766,13 @@ Changes burnable immediately to extinguisher foam.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_burnable}: state = @code{0}
-@item @b{it_burnable_invisible}: state = @code{0}
-@item @b{it_burnable_oil}: state = @code{1}
-@item @b{it_burnable_ignited}: state = @code{2}
-@item @b{it_burnable_burning}: state = @code{3}
-@item @b{it_burnable_ash}: state = @code{4}
-@item @b{it_burnable_fireproof}: state = @code{5}
+@item @image{images/fl_white} @b{it_burnable}: state = @code{0}
+@item @image{images/fl_white} @b{it_burnable_invisible}: state = @code{0}
+@item @image{images/it_burnable_oil} @b{it_burnable_oil}: state = @code{1}
+@item @image{images/fl_white} @b{it_burnable_ignited}: state = @code{2}
+@item @image{images/it_burnable_burning} @b{it_burnable_burning}: state = @code{3}
+@item @image{images/it_burnable_ash} @b{it_burnable_ash}: state = @code{4}
+@item @image{images/it_burnable_fireproof} @b{it_burnable_fireproof}: state = @code{5}
 @end table
 
 @end table
@@ -12760,11 +12862,11 @@ over it.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_crack}: state = @code{SMALL}
-@item @b{it_crack_i}: state = @code{INVISIBLE}
-@item @b{it_crack_s}: state = @code{SMALL}
-@item @b{it_crack_m}: state = @code{MEDIUM}
-@item @b{it_crack_l}: state = @code{LARGE}
+@item @image{images/it_crack_abyss} @b{it_crack}: state = @code{SMALL}
+@item @image{images/fl_white} @b{it_crack_i}: state = @code{INVISIBLE}
+@item @image{images/it_crack_abyss} @b{it_crack_s}: state = @code{SMALL}
+@item @image{images/fl_white} @b{it_crack_m}: state = @code{MEDIUM}
+@item @image{images/fl_white} @b{it_crack_l}: state = @code{LARGE}
 @end table
 
 @end table
@@ -12805,7 +12907,7 @@ Number of seconds that the actor must stay on the sensor to cause an action.
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 @item @b{Variants:}
 @table @asis
-@item @b{it_cross}
+@item @image{images/it_cross} @b{it_cross}
 @end table
 @end table
 
@@ -12837,58 +12939,7 @@ death item should mainly be used when all other alternatives are too insecure.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_death}
-@end table
-
-@end table
-
-@c ----------------- Dynamite Item --------------------
-@node it_dynamite
-@subsection it_dynamite
-@obindex it_dynamite
-
-Dynamite is an explosive that can be picked up and that can be easily ignited
-at any free grid position. It ignites on drop, or if positioned on the floor in
-@samp{IDLE} state it ignites on laser light, nearby fire and other nearby 
-explosions as those caused by @ref{it_bomb}, @ref{st_dispenser}, or other 
-dyamite. A falling @ref{ot_cannonball} lets it explode immediately without prior
-ignition.
-
-On ignition its fuse starts burning. During this @samp{ACTIVE} state the
-dynamite can longer be picked up. After a short time the dynamite explodes
-causing on the 8 neigboring positions items to ignite and some stones like
-@ref{st_break} to dissolve, too. The explosion leaves at its position an
-@ref{it_meditation}_hollow on all floor kinds besides @ref{fl_ice} where an
-@ref{it_crack}_water remains.
-
-Dynamite items will be added to the inventory when an actor hits a 
-@ref{st_dispenser}_dynamite.
-
-@table @asis
-@item @b{Attributes:}
-@table @asis
-@item @b{state}, @ @ @i{values}: @code{IDLE}, @code{ACTIVE}; @ @ @i{default}: @code{IDLE} @ @ @xref{state}
-@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
-@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
-@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
-Just @samp{IDLE} dynamite can be added to the inventory, burning @samp{ACTIVE}
-ones are not portable.
-@end table
-
-@item @b{Messages:}
-@table @asis
-@item @b{explode}
-Direct explosion without burning fuse.
-@item @b{ignite}
-Ignite the fuse.
-@item @b{heat}
-Ignite the fuse.
-@end table
-
-@item @b{Variants:}
-@table @asis
-@item @b{it_dynamite}: state = @code{IDLE}
-@item @b{it_dynamite_burning}: state = @code{ACTIVE}
+@item @image{images/it_death} @b{it_death}
 @end table
 
 @end table
@@ -12929,11 +12980,11 @@ item. But you can investigate the kind of an explosion.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_explosion}: state = @code{0}
-@item @b{it_explosion_nil}: state = @code{0}
-@item @b{it_explosion_hollow}: state = @code{1}
-@item @b{it_explosion_crack}: state = @code{2}
-@item @b{it_explosion_debris}: state = @code{3}
+@item @image{images/it_explosion} @b{it_explosion}: state = @code{0}
+@item @image{images/it_explosion} @b{it_explosion_nil}: state = @code{0}
+@item @image{images/it_explosion} @b{it_explosion_hollow}: state = @code{1}
+@item @image{images/it_explosion} @b{it_explosion_crack}: state = @code{2}
+@item @image{images/it_explosion} @b{it_explosion_debris}: state = @code{3}
 @end table
 
 @end table
@@ -12966,9 +13017,34 @@ explosions, nor fire, nor laserbeams.
 @item @b{Action:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_landmine}
+@item @image{images/it_landmine} @b{it_landmine}
 @end table
 
+@end table
+
+@c ----------------- Laserbeam Item --------------------
+@node it_laserbeam
+@subsection it_laserbeam
+@obindex it_laserbeam
+
+A beam of laser light. This item is caused by an @ref{st_laser} that is switched
+on. The beam is automatically calculated and the items are set by the engine.
+You can not set laser beam items on your own. But you may detect a beam as an
+item being located on the item layer. You are free to replace a laser beam item
+by another item. This causes automatically a recalculation of the laser light.
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
+@item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
+@item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@end table
+@item @b{Messages:} none
+@item @b{Variants:}
+@table @asis
+@item @image{images/it_laser} @b{it_laserbeam} can not be instanciated by levels
+@end table
 @end table
 
 @c ----------------- Magnet Item --------------------
@@ -13020,12 +13096,9 @@ none
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_magnet}
-A magnet in state @samp{OFF}.
-@item @b{it_magnet_on}
-A magnet in state @samp{ON}.
-@item @b{it_magnet_off}
-A magnet in state @samp{OFF}.
+@item @image{images/it_magnet_off} @b{it_magnet} state = @samp{OFF}.
+@item @image{images/it_magnet_on} @b{it_magnet_on} state = @samp{ON}.
+@item @image{images/it_magnet_off} @b{it_magnet_off} state = @samp{OFF}.
 @end table
 
 @end table
@@ -13111,13 +13184,13 @@ Shape transformation. See text above.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_meditation} state = @code{MEDITATION_HOLLOW}
-@item @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
-@item @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
-@item @b{it_meditation_dent} state = @code{MEDITATION_DENT}
-@item @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
-@item @b{it_meditation_hill} state = @code{MEDITATION_HILL}
-@item @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
+@item @image{images/it_meditation_hollow} @b{it_meditation} state = @code{MEDITATION_HOLLOW}
+@item @image{images/it_meditation_caldera} @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
+@item @image{images/it_meditation_hollow} @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
+@item @image{images/it_meditation_dent} @b{it_meditation_dent} state = @code{MEDITATION_DENT}
+@item @image{images/it_meditation_bump} @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
+@item @image{images/it_meditation_hill} @b{it_meditation_hill} state = @code{MEDITATION_HILL}
+@item @image{images/it_meditation_volcano} @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
 @end table
 
 @end table
@@ -13170,8 +13243,8 @@ React either on an actor exiting or entering the grid.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_sensor}: exit = @code{false}
-@item @b{it_sensor_exit}: exit = @code{true}
+@item @image{images/it_sensor} @b{it_sensor}: exit = @code{false}
+@item @image{images/it_sensor_exit} @b{it_sensor_exit}: exit = @code{true}
 @end table
 
 @end table
@@ -13220,10 +13293,10 @@ a medium hole, @code{"l"} for a large hole.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_shogun}: flavor = @code{"s"}
-@item @b{it_shogun_s}: flavor = @code{"s"}
-@item @b{it_shogun_m}: flavor = @code{"m"}
-@item @b{it_shogun_l}: flavor = @code{"l"}
+@item @image{images/it_shogun_s} @b{it_shogun}: flavor = @code{"s"}
+@item @image{images/it_shogun_s} @b{it_shogun_s}: flavor = @code{"s"}
+@item @image{images/it_shogun_m} @b{it_shogun_m}: flavor = @code{"m"}
+@item @image{images/it_shogun_l} @b{it_shogun_l}: flavor = @code{"l"}
 @end table
 
 @end table
@@ -13250,7 +13323,7 @@ Another catapulting, but portal item is @ref{it_spring}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_springboard}
+@item @image{images/it_springboard} @b{it_springboard}
 @end table
 
 @end table
@@ -13277,7 +13350,7 @@ by a nearby exploding @ref{it_bomb} or by an @ref{st_ice} being pushed over it.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @b{it_squashed}
+@item @image{images/it_squashed} @b{it_squashed}
 @end table
 @end table
 
@@ -13321,22 +13394,22 @@ Deviating adhesion that defaults to floor adhesion.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_strip}: connections = @code{""}
-@item @b{it_strip_w}: connections = @code{"w"}
-@item @b{it_strip_s}: connections = @code{"s"}
-@item @b{it_strip_sw}: connections = @code{"sw"}
-@item @b{it_strip_e}: connections = @code{"e"}
-@item @b{it_strip_ew}: connections = @code{"ew"}
-@item @b{it_strip_es}: connections = @code{"es"}
-@item @b{it_strip_esw}: connections = @code{"esw"}
-@item @b{it_strip_n}: connections = @code{"n"}
-@item @b{it_strip_nw}: connections = @code{"nw"}
-@item @b{it_strip_ns}: connections = @code{"ns"}
-@item @b{it_strip_nsw}: connections = @code{"nsw"}
-@item @b{it_strip_ne}: connections = @code{"ne"}
-@item @b{it_strip_new}: connections = @code{"new"}
-@item @b{it_strip_nes}: connections = @code{"nes"}
-@item @b{it_strip_nesw}: connections = @code{"nesw"}
+@item @image{images/it_strip} @b{it_strip}: connections = @code{""}
+@item @image{images/fl_white} @b{it_strip_w}: connections = @code{"w"}
+@item @image{images/fl_white} @b{it_strip_s}: connections = @code{"s"}
+@item @image{images/fl_white} @b{it_strip_sw}: connections = @code{"sw"}
+@item @image{images/fl_white} @b{it_strip_e}: connections = @code{"e"}
+@item @image{images/fl_white} @b{it_strip_ew}: connections = @code{"ew"}
+@item @image{images/fl_white} @b{it_strip_es}: connections = @code{"es"}
+@item @image{images/fl_white} @b{it_strip_esw}: connections = @code{"esw"}
+@item @image{images/fl_white} @b{it_strip_n}: connections = @code{"n"}
+@item @image{images/fl_white} @b{it_strip_nw}: connections = @code{"nw"}
+@item @image{images/fl_white} @b{it_strip_ns}: connections = @code{"ns"}
+@item @image{images/fl_white} @b{it_strip_nsw}: connections = @code{"nsw"}
+@item @image{images/fl_white} @b{it_strip_ne}: connections = @code{"ne"}
+@item @image{images/fl_white} @b{it_strip_new}: connections = @code{"new"}
+@item @image{images/fl_white} @b{it_strip_nes}: connections = @code{"nes"}
+@item @image{images/fl_white} @b{it_strip_nesw}: connections = @code{"nesw"}
 
 @end table
 
@@ -13384,7 +13457,7 @@ Opens the trap.
 @end table
 @item @b{Variants:}
 @table @asis
-@item @b{it_trap}
+@item @image{images/it_trap} @b{it_trap}
 @end table
 
 @end table
@@ -13443,7 +13516,7 @@ cannot drop items onto the same grid position.
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 @item @b{Variants:}
 @table @asis
-@item @b{it_trigger}
+@item @image{images/it_trigger} @b{it_trigger}
 @end table
 
 @end table
@@ -13529,9 +13602,9 @@ Tries to close the vortex.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_vortex}:  state = @code{OPEN}.
-@item @b{it_vortex_open}: state = @code{OPEN}.
-@item @b{it_vortex_closed}: state @samp{CLOSED}.
+@item @image{images/it_vortex} @b{it_vortex}:  state = @code{OPEN}.
+@item @image{images/it_vortex} @b{it_vortex_open}: state = @code{OPEN}.
+@item @image{images/fl_white} @b{it_vortex_closed}: state @samp{CLOSED}.
 @end table
 @end table
 
@@ -13604,9 +13677,9 @@ Switches the wormhole off.
 
 @item @b{Variants:}
 @table @asis
-@item @b{it_wormhole}: state = @code{OFF}.
-@item @b{it_wormhole_on}: state = @code{ON}.
-@item @b{it_wormhole_off}: state @code{OFF}.
+@item @image{images/it_wormhole} @b{it_wormhole}: state = @code{OFF}.
+@item @image{images/it_wormhole} @b{it_wormhole_on}: state = @code{ON}.
+@item @image{images/fl_white} @b{it_wormhole_off}: state @code{OFF}.
 @end table
 @end table
 
@@ -13628,6 +13701,7 @@ Switches the wormhole off.
 @node Stone Overview
 @section Stone Overview
 
+WORK IN PROGRESS - The follwing table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/st_ancient} @tab @yref{st_ancient}
 @tab @image{images/st_bluegray} @tab @yref{st_bluegray}
@@ -13834,8 +13908,8 @@ indistinguishable from a @ref{st_thief}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_bluegray}
-@item @b{st_bluegray_hollow}
+@item @image{images/st_bluegray} @b{st_bluegray}
+@item @image{images/st_bluegray} @b{st_bluegray_hollow}
 @end table
 @end table
 
@@ -17890,7 +17964,8 @@ Fast moving actors can blast normal blue window faces into smithereens. But too
 strong hits will cause marbles to shatter themselves. An actor can lower the
 required speed by adding @ref{it_weight}, by revealing an @ref{it_hammer}, or by
 weakening the window faces by prior scratching it with an @ref{it_ring}. Green
-safety glass windows will never break on actor attacks.
+safety glass windows will never break on actor attacks and actors will not 
+shatter on hitting saftey glass.
 
 Bomb explosions can shatter window faces, too. Normal blue window faces adjacent
 to a bomb explosion will break. Green safety glass faces will break only if
