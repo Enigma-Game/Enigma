@@ -1029,7 +1029,8 @@ do
     DefAnim("st_ice_break-anim", frames)
     DefShModel("st_ice_breaking", "st_ice_break-anim", "sh_glass")
 
-    local frames = BuildFrames(images,100)
+    images = DefSubimages("st_ice_melting", {h=10})
+    frames = BuildFrames(images,200)
     DefAnim("st_ice_melt-anim", frames)
     DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_glass")
 end
