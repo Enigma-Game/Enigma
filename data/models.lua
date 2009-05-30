@@ -345,7 +345,7 @@ end
 -- Define a stone together with its shadow model:
 function DefStone(name, shmodel, opt)
     opt = opt or {}
-    shmodel = shmodel or "sh-solid"
+    shmodel = shmodel or "sh_solid"
     opt.filename = opt.filename or name
     display.DefineShadedModel(name, DefImage(nil, opt), shmodel)
 end
@@ -358,15 +358,15 @@ function DefShModel(name, fg, bg)
 end
 
 function DefSolidStone(name, front)
-    DefShModel(name, front, "sh-solid")
+    DefShModel(name, front, "sh_solid")
 end
 
 function DefRoundStone(name, front)
-    DefShModel(name, front, "sh-round")
+    DefShModel(name, front, "sh_round")
 end
 
 function DefFloatingStone(name, front)
-    DefShModel(name, front, "sh-floating")
+    DefShModel(name, front, "sh_floating")
 end
 
 -- Animated Stones --

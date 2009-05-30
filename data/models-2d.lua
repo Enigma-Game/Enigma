@@ -648,7 +648,7 @@ do
 
     local frames = BuildFrames({"it_crack_abyss4", "it_crack_abyss5", "it_crack_abyss6", "it_crack_abyss7", "it_crack_abyss8"},120)
     DefAnim("it_crack_abyss_anim", frames)
-    
+
     local images = DefSubimages("it_crack_water", {h=8})
     local frames = BuildFrames(images,50)
     DefAnim("it_debris_water", frames)
@@ -758,20 +758,21 @@ Progress(40, "Loading stone models")
 -- Stone shadows --
 -------------------
 do
-    DefImage("sh-solid")
-    DefImage("sh-round")
-    DefImage("sh-round2")
+    DefImage("sh_solid")
+    DefImage("sh_round")
+    DefImage("sh_round2")
     DefImage("sh_grate_cross")
     DefImage("sh_grate_framed")
     DefImage("sh_portal_horse")
-    DefImage("sh-glass")
+    DefImage("sh_glass")
     DefImage("sh_rawglass_quad")
-    DefImage("sh-white4")
+    DefImage("sh_passage_frame")
     DefImage("sh_passage_slash")
     DefImage("sh_passage_cross")
-    DefImage("sh-puzzle1")
+    DefImage("sh_puzzle_hollow")
     DefImage("sh_brake")
-    DefImage("sh-floating")
+    DefImage("sh_floating")
+    DefImage("sh_jamb")
     -- Note: Window shadows are defined where needed.
 end
 
@@ -779,40 +780,40 @@ end
 -- simple stones --
 -------------------
 do
-    DefStone("st_beads", "sh-glass")
-    DefStone("st-black1", "sh-round")
+    DefStone("st_beads", "sh_glass")
+    DefStone("st-black1", "sh_round")
     DefStone("st-black2", "sh_passage_slash")
     DefStone("st-black3", "sh_passage_cross")
-    DefStone("st-black4", "sh-white4")
-    DefStone("st_jamb_black")
+    DefStone("st-black4", "sh_passage_frame")
+    DefStone("st_jamb_black", "sh_jamb")
     DefStone("st_plop_slate")
-    DefStone("st_bluegray", "sh-round")
+    DefStone("st_bluegray", "sh_round")
     DefStone("st_brake", "sh_brake")
-    DefStone("st_brownie", "sh-round")
+    DefStone("st_brownie", "sh_round")
     DefStone("st-bug")
     DefStone("st_pinkbumps")
     DefStone("st_camouflage")
     DefStone("st_dummy")
     DefImage("st-easymode")
     DefStone("st_flat_fire")
-    DefStone("st-floppy0", "sh-round", {filename="st-floppy1"})
-    DefStone("st-floppy1", "sh-round", {filename="st-floppy2"})
-    DefStone("st-flrock", "sh-round")
-    DefStone("st_rawglass", "sh-glass")
+    DefStone("st-floppy0", "sh_round", {filename="st-floppy1"})
+    DefStone("st-floppy1", "sh_round", {filename="st-floppy2"})
+    DefStone("st-flrock", "sh_round")
+    DefStone("st_rawglass", "sh_glass")
     DefStone("st_rawglass_quad", "sh_rawglass_quad")
-    DefStone("st_lightglass", "sh-glass")
-    DefStone("st_darkglass", "sh-glass")
-    DefStone("st_redfiber", "sh-glass")
+    DefStone("st_lightglass", "sh_glass")
+    DefStone("st_darkglass", "sh_glass")
+    DefStone("st_redfiber", "sh_glass")
     DefStone("st_grate_cross", "sh_grate_cross")
     DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st_portal_horse", "sh_portal_horse")
-    DefStone("st_greenbrown", "sh-round")
-    DefStone("st-key0", "sh-round", {filename="st-key1"})
-    DefStone("st-key1", "sh-round", {filename="st-key2"})
-    DefStone("st_redbrown", "sh-round")
+    DefStone("st_greenbrown", "sh_round")
+    DefStone("st-key0", "sh_round", {filename="st-key1"})
+    DefStone("st-key1", "sh_round", {filename="st-key2"})
+    DefStone("st_redbrown", "sh_round")
     DefStone("st_metal")
     DefStone("st_redrock")
-    DefStone("st_granite", "sh-round")
+    DefStone("st_granite", "sh_round")
     DefStone("st_darkgray")
     DefStone("st_plaster")
     DefStone("st_flat")
@@ -821,23 +822,23 @@ do
     DefStone("st_tigris")
     DefStone("st_purplegray")
     DefStone("st_greengray")
-    DefStone("st_concrete", "sh-round")
-    DefStone("st_ancient", "sh-round")
+    DefStone("st_concrete", "sh_round")
+    DefStone("st_ancient", "sh_round")
     DefStone("st_brownmarble")
     DefStone("st-rubberband")
     DefStone("st_brownpyramide")
     DefStone("st_redmarble")
-    DefStone("st_surprise")
-    DefStone("st-white1", "sh-round")
+    DefStone("st_surprise", "sh_round")
+    DefStone("st-white1", "sh_round")
     DefStone("st-white2", "sh_passage_slash")
     DefStone("st-white3", "sh_passage_cross")
-    DefStone("st-white4", "sh-white4")
-    DefStone("st_jamb_white")
+    DefStone("st-white4", "sh_passage_frame")
+    DefStone("st_jamb_white", "sh_jamb")
     DefStone("st_woven")
     DefStone("st_yellow")
-    DefStone("st_blur_straight")
-    DefStone("st_blur_cross")
-    DefStone("st_yinyang_inactive", "sh-round")
+    DefStone("st_blur_straight", "sh_round")
+    DefStone("st_blur_cross", "sh_round")
+    DefStone("st_yinyang_inactive", "sh_round")
 end
 
 ---------------------
@@ -910,7 +911,7 @@ do
         local animname="st-bolder"..orient.."a"
         local frames={img[start], img[start+1], img[start+2]}
         DefAnim(animname, BuildFrames(frames, 120), false)
-        DefShModel("st-bolder-"..orient, animname, "sh-round")
+        DefShModel("st-bolder-"..orient, animname, "sh_round")
 
         animname="st-bolder-"..orient.."-fall-anim"
         frames={imgfall[start],imgfall[start+1],imgfall[start+2]}
@@ -1013,31 +1014,31 @@ end
 -- st-fourswitch --
 do
     DefSubimages("st-fourswitch",{h=4})
-    DefShModel("st-fourswitch-n", "st-fourswitch1", "sh-round")
-    DefShModel("st-fourswitch-e", "st-fourswitch2", "sh-round")
-    DefShModel("st-fourswitch-s", "st-fourswitch3", "sh-round")
-    DefShModel("st-fourswitch-w", "st-fourswitch4", "sh-round")
+    DefShModel("st-fourswitch-n", "st-fourswitch1", "sh_round")
+    DefShModel("st-fourswitch-e", "st-fourswitch2", "sh_round")
+    DefShModel("st-fourswitch-s", "st-fourswitch3", "sh_round")
+    DefShModel("st-fourswitch-w", "st-fourswitch4", "sh_round")
 end
 
 -- st_ice --
 do
-    DefStone("st_ice", "sh-glass")
+    DefStone("st_ice", "sh_glass")
 
     local images = DefSubimages("st_ice_break", {h=5})
     local frames = BuildFrames(images,50)
     DefAnim("st_ice_break-anim", frames)
-    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh-glass")
+    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh_glass")
 
     local frames = BuildFrames(images,100)
     DefAnim("st_ice_melt-anim", frames)
-    DefShModel("st_ice_melting", "st_ice_melt-anim", "sh-glass")
+    DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_glass")
 end
 
 -- st-knight --
 do
     local images = DefSubimages("st-knight", {modelname="knight", h=5})
     for i=1, table.getn(images) do
-        DefSolidStone("st-knight"..i, images[i])
+        DefShModel("st-knight"..i, images[i], "sh_round")
     end
 end
 
@@ -1069,23 +1070,22 @@ end
 
 -- laserswitch --
 do
-    DefStone("st-laserswitch0", nil, {filename="st_oxydb"})
-    DefAnimImages("laserswitch-blink",
-        RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
-    DefSolidStone("st-laserswitch1", "laserswitch-blink")
+    DefStone("st-laserswitch0", "sh_round", {filename="st_oxydb"})
+    DefAnimImages("laserswitch-blink", RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
+    DefShModel("st-laserswitch1", "laserswitch-blink", "sh_round")
 end
 
 -- st-lightpassenger --
 do
     local img = DefSubimages("st-lightpassenger", {h=7})
-    DefShModel("st-lightpassenger", img[1], "sh-glass")
+    DefShModel("st-lightpassenger", img[1], "sh_glass")
     DefImage("st-lightpassenger_offx", {filename = "st-lightpassenger_off"})
-    DefShModel("st-lightpassenger_off", "st-lightpassenger_offx", "sh-glass")
+    DefShModel("st-lightpassenger_off", "st-lightpassenger_offx", "sh_glass")
     DefAlias("st-lightpassenger_hidden", "st_darkglass")
     -- Blink animation
     local frames = {img[2], img[3], img[4], img[5], img[6], img[7]}
     DefAnim("st-lightpassenger-blink1", PingPong(BuildFrames(frames, 75)), true)
-    DefShModel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh-glass")
+    DefShModel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh_glass")
     -- Break animation
     img = DefSubimages("st-lightpassenger-break", {h=7})
     local anim_v, anim_h, anim_hv = {}, {}, {}
@@ -1137,19 +1137,19 @@ end
 do
    DefSubimages("st-pull",{modelname="st-pull-fg",h=5})
    DefSubimages("st-swap",{modelname="st-swap-fg",h=5})
-   DefSubimages("sh-pull",{h=4,imgw=ShadowSize,imgh=ShadowSize})
+   DefSubimages("sh_pull",{h=4, imgw=ShadowSize, imgh=ShadowSize})
 
-   DefShModel("st-pull",   "st-pull-fg1", "sh-glass")
-   DefShModel("st-pull-n", "st-pull-fg2", "sh-pull1")
-   DefShModel("st-pull-s", "st-pull-fg3", "sh-pull2")
-   DefShModel("st-pull-e", "st-pull-fg4", "sh-pull3")
-   DefShModel("st-pull-w", "st-pull-fg5", "sh-pull4")
+   DefShModel("st-pull",   "st-pull-fg1", "sh_glass")
+   DefShModel("st-pull-n", "st-pull-fg2", "sh_pull1")
+   DefShModel("st-pull-s", "st-pull-fg3", "sh_pull2")
+   DefShModel("st-pull-e", "st-pull-fg4", "sh_pull3")
+   DefShModel("st-pull-w", "st-pull-fg5", "sh_pull4")
 
-   DefShModel("st-swap",   "st-swap-fg1", "sh-round")
-   DefShModel("st-swap-n", "st-swap-fg2", "sh-pull1")
-   DefShModel("st-swap-s", "st-swap-fg3", "sh-pull2")
-   DefShModel("st-swap-e", "st-swap-fg4", "sh-pull3")
-   DefShModel("st-swap-w", "st-swap-fg5", "sh-pull4")
+   DefShModel("st-swap",   "st-swap-fg1", "sh_round")
+   DefShModel("st-swap-n", "st-swap-fg2", "sh_pull1")
+   DefShModel("st-swap-s", "st-swap-fg3", "sh_pull2")
+   DefShModel("st-swap-e", "st-swap-fg4", "sh_pull3")
+   DefShModel("st-swap-w", "st-swap-fg5", "sh_pull4")
 end
 
 -- st-puzzle* --
@@ -1158,7 +1158,7 @@ do
     -- Full puzzels
     for i=0,31  do DefSolidStone("st_puzzle"..i, "st_puzzlex"..i) end
     -- Hollow puzzels
-    for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh-puzzle1") end
+    for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh_puzzle_hollow") end
 end
 
 -- st_flat-break --
@@ -1187,24 +1187,25 @@ end
 
 -- st-scissors --
 do
-    DefStone("st-scissors")
+    DefStone("st-scissors", "sh_round")
+
     local images = DefSubimages("st-scissors-snip", {h=1})
     DefAnim("st-scissors-snip-anim", BuildFrames(images, 130))
-    DefSolidStone("st-scissors-snip", "st-scissors-snip-anim")
+    DefShModel("st-scissors-snip", "st-scissors-snip-anim", "sh_round")
 end
 
 -- st-shogun* --
 do
-    DefImages{"sh-shogun1","sh-shogun2", "sh-shogun4"}
+    DefImages{"sh_shogun_s","sh_shogun_m", "sh_shogun_l"}
     DefSubimages("st-shogun", {modelname="st-shogun-fg",h=7})
 
-    DefShModel("st-shogun1", "st-shogun-fg1", "sh-shogun1")
-    DefShModel("st-shogun2", "st-shogun-fg2", "sh-shogun2")
-    DefShModel("st-shogun3", "st-shogun-fg3", "sh-shogun1")
-    DefShModel("st-shogun4", "st-shogun-fg4", "sh-shogun4")
-    DefShModel("st-shogun5", "st-shogun-fg5", "sh-shogun1")
-    DefShModel("st-shogun6", "st-shogun-fg6", "sh-shogun2")
-    DefShModel("st-shogun7", "st-shogun-fg7", "sh-shogun1")
+    DefShModel("st-shogun1", "st-shogun-fg1", "sh_shogun_s")
+    DefShModel("st-shogun2", "st-shogun-fg2", "sh_shogun_m")
+    DefShModel("st-shogun3", "st-shogun-fg3", "sh_shogun_s")
+    DefShModel("st-shogun4", "st-shogun-fg4", "sh_shogun_l")
+    DefShModel("st-shogun5", "st-shogun-fg5", "sh_shogun_s")
+    DefShModel("st-shogun6", "st-shogun-fg6", "sh_shogun_m")
+    DefShModel("st-shogun7", "st-shogun-fg7", "sh_shogun_s")
 end
 
 -- st-stoneimpulse --
@@ -1228,14 +1229,14 @@ end
 -- st-stoneimpulse-hollow --
 do
    local images = DefSubimages("st-stoneimpulse-hollow", {h=4})
-   DefShModel("st-stoneimpulse-hollow", images[1], "sh-floating")
+   DefShModel("st-stoneimpulse-hollow", images[1], "sh_floating")
    local frames = {}
    for i=1,4 do table.insert(frames, images[i]) end
    DefAnim("stoneimpulse-hollow-anim1", BuildFrames(frames, 55))
-   DefShModel("st-stoneimpulse-hollow-anim1", "stoneimpulse-hollow-anim1", "sh-floating")
+   DefShModel("st-stoneimpulse-hollow-anim1", "stoneimpulse-hollow-anim1", "sh_floating")
    table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
    DefAnim("stoneimpulse-hollow-anim2", ReverseFrames(BuildFrames(frames, 55)))
-   DefShModel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh-floating")
+   DefShModel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh_floating")
 end
 
 do
@@ -1270,10 +1271,11 @@ end
 
 -- st-timeswitch --
 do
-    DefStone("st-timeswitch")
+    DefStone("st-timeswitch", "sh_round")
+
     local images = DefSubimages("st-time1switch", {h=2})
     DefAnim("st-time1switch-anim", BuildFrames (images, 180), 1)
-    DefSolidStone("st-time1switch", "st-time1switch-anim")
+    DefShModel("st-time1switch", "st-time1switch-anim", "sh_round")
 end
 
 -- st-turnstile --
@@ -1300,13 +1302,13 @@ end
 
 -- growing stones, st_box, st_flhay, greenbrown seed, st-volcano, st-blocker --
 do
-   local shadows=DefSubimages("sh-round2-growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
+   local shadows=DefSubimages("sh_round_growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
    -- Wooden (box) stones --
    do
       DefSubimages("st-wood", {modelname="st-wood-fg",h=2})
-      DefShModel("st-wood1", "st-wood-fg1", "sh-round")
-      DefShModel("st-wood2", "st-wood-fg2", "sh-round")
+      DefShModel("st-wood1", "st-wood-fg1", "sh_round")
+      DefShModel("st-wood2", "st-wood-fg2", "sh_round")
 
       local images=DefSubimages("st_wood_growing", {h=3})
       DefAnim("wood-growing-fg", BuildFrames(images, 130))
@@ -1324,7 +1326,7 @@ do
 
    -- st_flhay, hay seed growing --
    do
-      DefStone("st-flhay", "sh-round")
+      DefStone("st-flhay", "sh_round")
 
       local images=DefSubimages("st_flhay_growing", {h=3})
       DefAnim("hay-growing-fg", BuildFrames(images, 130))
@@ -1343,7 +1345,7 @@ do
    -- Blocker stone --
    do
       local n=DefSubimages("st-blocker", {h=4})
-      DefRoundStone("st-blocker", n[1])
+      DefShModel("st-blocker", n[1], "sh_round")
       frames={}
       for i=4,2,-1 do
          table.insert(frames, "st-blocker"..i)
@@ -1492,10 +1494,10 @@ do
         d="st_oxydd_open",
     }
     local shadow = {
-       a="sh-round",
-       b="sh-round",
-       c="sh-solid",
-       d="sh-solid",
+       a="sh_round",
+       b="sh_round",
+       c="sh_solid",
+       d="sh_solid",
     }
     local fopening = {
         a = BuildFrames(DefSubimages("st_oxyda_opening", {h=9}), 60),
@@ -1608,7 +1610,7 @@ do
     -- flavors 'e'
     for color = 0, num_colors - 1 do
         DefOverlay("st_oxyde"..color.."_peep", {"st_oxydb_open", colorspots[color+1], "st_oxyde"})
-        DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh-round")
+        DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
         DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
         DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
         DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
@@ -1621,12 +1623,12 @@ do
     DefAlias("st_oxyde_pseudo-3", "st_oxydb_pseudo-3")
     DefAlias("st_oxyde-3_closing", "st_oxydb-3_closing")
     DefOverlay("st_oxyde-3_peep", {"st_oxydb_open", colorspots[97], "st_oxyde"})
-    DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh-round")
+    DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh_round")
     DefAlias("st_oxyde-4_opening", "st_oxydb-4_opening")
     DefAlias("st_oxyde_pseudo-4", "st_oxydb_pseudo-4")
     DefAlias("st_oxyde-4_closing", "st_oxydb-4_closing")
     DefOverlay("st_oxyde-4_peep", {"st_oxydb_open", colorspots[96], "st_oxyde"})
-    DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh-round")
+    DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
 end
 
 -- st-coffee --
@@ -1696,7 +1698,7 @@ end
 
 -- st_quake --
 do
-    DefStone("st_quake", "sh-round", {filename="st_oxydb"})
+    DefStone("st_quake", "sh_round", {filename="st_oxydb"})
     DefAnimImages("quaking",
         RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))))
     DefRoundStone("st_quaking", "quaking")
@@ -1711,24 +1713,24 @@ do
      local images = DefSubimages("st_spitter_idle", {h=6})
      local frames = BuildFrames(images,150)
      DefAnim("st_spitter_active", frames, true)
-     DefShModel("st_spitter_active", "st_spitter_active", "sh-round")
-     DefShModel("st_spitter_idle", "st_spitter_idle1",  "sh-round")
+     DefShModel("st_spitter_active", "st_spitter_active", "sh_round")
+     DefShModel("st_spitter_idle", "st_spitter_idle1",  "sh_round")
 
      local images = DefSubimages("st_spitter_spitting", {h=6})
      local frames = BuildFrames(images,175)
      DefAnim("st_spitter_spitting", frames)
-     DefShModel("st_spitter_spitting", "st_spitter_spitting", "sh-round")
+     DefShModel("st_spitter_spitting", "st_spitter_spitting", "sh_round")
 
      local images = DefSubimages("st_spitter_loading", {h=6})
      local frames = BuildFrames(images,100)
      frames[6][2] = 50
      DefAnim("st_spitter_loading", frames)
-     DefShModel("st_spitter_loading", "st_spitter_loading", "sh-round")
+     DefShModel("st_spitter_loading", "st_spitter_loading", "sh_round")
 
      local images = DefSubimages("st_spitter_breaking", {h=6})
      local frames = BuildFrames(images,100)
      DefAnim("st_spitter_breaking", frames)
-     DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh-round")
+     DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh_round")
 
 end
 
@@ -1764,7 +1766,7 @@ do
         names[j] = "st_thief_drunken"..format("%04d", j)
         display.DefineComposite(names[j], stonebase, drunkenovl[j])
     end
-    
+
     local f5 = BuildFrames(names, 3000)
     DefAnim("pre_st_thief_drunken", f5, true)
     DefRoundStone("st_thief_drunken", "pre_st_thief_drunken")
@@ -1834,7 +1836,7 @@ do
         for i=1,4 do
                 mname = basename .. i
                 DefOverlay (mname .. "-ovl", {baseimg, overlays[i]})
-                DefShModel(mname, mname .. "-ovl", "sh-round2")
+                DefShModel(mname, mname .. "-ovl", "sh_round2")
         end
     end
 
