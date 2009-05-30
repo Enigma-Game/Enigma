@@ -29,7 +29,7 @@ namespace enigma {
 
     ExtraLife::ExtraLife(bool isNew) : Item() {
         if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
+            objFlags |= OBJBIT_NEW;
         }
     }
     
@@ -41,20 +41,24 @@ namespace enigma {
     }
 
     void ExtraLife::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+        if (objFlags & OBJBIT_NEW) {
             // a new transformed extralife
             GameTimer.set_alarm(this, 0.2, false);
         } else {
-            updateCurrentLightDirs();
+            objFlags &= ~OBJBIT_LIGHTNEWDIRS;
+            objFlags |= (objFlags & OBJBIT_LIGHT) >> 25;
             activatePhoto();
         }
         Item::on_creation(p);
     }
     
     void ExtraLife::on_removal(GridPos p) {
+        // remember last enlightment for moves
+        objFlags &= ~OBJBIT_LIGHT;
+        objFlags |= (objFlags & OBJBIT_LIGHTNEWDIRS) << 25;
         GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
-        Item::on_removal(p);
+        objFlags &= ~OBJBIT_NEW;
+       Item::on_removal(p);
     }
     
     void ExtraLife::lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs) {
@@ -69,8 +73,9 @@ namespace enigma {
     }
     
     void ExtraLife::alarm() {
-            DirectionBits db = updateCurrentLightDirs();
-            activatePhoto();        
+        objFlags &= ~OBJBIT_NEW;
+        DirectionBits db = updateCurrentLightDirs();
+        activatePhoto();        
     }
 
     DEF_ITEMTRAITS(ExtraLife, "it_extralife", it_extralife);

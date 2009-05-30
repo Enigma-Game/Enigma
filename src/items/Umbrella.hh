@@ -30,6 +30,12 @@ namespace enigma {
         CLONEOBJ(Umbrella);
         DECL_ITEMTRAITS;
 
+    private:        
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_NEW       =   1<<24,  ///< Object is new and rejects transformations for a latency time 
+            OBJBIT_LIGHT     =  15<<25   ///< Light status kept for frozen moves operations 
+        };
+        
     public:
         Umbrella(bool isNew);
 

@@ -27,24 +27,28 @@ namespace enigma {
 
     Sword::Sword(bool isNew) : Item() {
         if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
+            objFlags |= OBJBIT_NEW;
         }
     }
 
     void Sword::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
-            // a new transformed hammer
+        if (objFlags & OBJBIT_NEW) {
+            // a new transformed sword
             GameTimer.set_alarm(this, 0.2, false);
         } else {
-            updateCurrentLightDirs();
+            objFlags &= ~OBJBIT_LIGHTNEWDIRS;
+            objFlags |= (objFlags & OBJBIT_LIGHT) >> 25;
             activatePhoto();
         }
         Item::on_creation(p);
     }
     
     void Sword::on_removal(GridPos p) {
+        // remember last enlightment for moves
+        objFlags &= ~OBJBIT_LIGHT;
+        objFlags |= (objFlags & OBJBIT_LIGHTNEWDIRS) << 25;
         GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
+        objFlags &= ~OBJBIT_NEW;
         Item::on_removal(p);
     }
 
@@ -57,8 +61,9 @@ namespace enigma {
     }
     
     void Sword::alarm() {
-            updateCurrentLightDirs();
-            activatePhoto();        
+        objFlags &= ~OBJBIT_NEW;
+        updateCurrentLightDirs();
+        activatePhoto();        
     }
     
     DEF_ITEMTRAITS(Sword, "it_sword", it_sword);

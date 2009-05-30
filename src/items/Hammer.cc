@@ -27,24 +27,28 @@ namespace enigma {
 
     Hammer::Hammer(bool isNew) : Item() {
         if (isNew) {
-            objFlags |= ALL_DIRECTIONS;
+            objFlags |= OBJBIT_NEW;
         }
     }
     
     void Hammer::on_creation(GridPos p) {
-        if ((objFlags & ALL_DIRECTIONS) == ALL_DIRECTIONS) {
+        if (objFlags & OBJBIT_NEW) {
             // a new transformed hammer
             GameTimer.set_alarm(this, 0.2, false);
         } else {
-            updateCurrentLightDirs();
+            objFlags &= ~OBJBIT_LIGHTNEWDIRS;
+            objFlags |= (objFlags & OBJBIT_LIGHT) >> 25;
             activatePhoto();
         }
         Item::on_creation(p);
     }
     
     void Hammer::on_removal(GridPos p) {
+        // remember last enlightment for moves
+        objFlags &= ~OBJBIT_LIGHT;
+        objFlags |= (objFlags & OBJBIT_LIGHTNEWDIRS) << 25;
         GameTimer.remove_alarm(this);
-        objFlags &= ~ALL_DIRECTIONS;
+        objFlags &= ~OBJBIT_NEW;
         Item::on_removal(p);
     }
     
@@ -56,8 +60,9 @@ namespace enigma {
     }
     
     void Hammer::alarm() {
-            DirectionBits db = updateCurrentLightDirs();
-            activatePhoto();        
+        objFlags &= ~OBJBIT_NEW;
+        DirectionBits db = updateCurrentLightDirs();
+        activatePhoto();        
     }
     
     DEF_ITEMTRAITS(Hammer, "it_hammer", it_hammer);
