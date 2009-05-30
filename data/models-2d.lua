@@ -1866,7 +1866,7 @@ end
 do
     DefAlias("st_break_bug", "st-bug")
     DefAlias("st_break_bug-anim", "st_flat_breaking")
-    DefAlias("st-explosion", "expl")
+    DefAlias("st-explosion", "it_explosion")
     DefAlias("st-glass_move", "st-glass");
     DefAlias("st_break_laser", "st_flat")
     DefAlias("st_break_laser-anim", "st_flat_breaking")
