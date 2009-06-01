@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Waterworld" el:subtitle="" el:id="illmind11"/>
-      <el:version el:score="2" el:release="2" el:revision="6" el:status="test"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="stable"/>
       <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2003 illmind</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -18,6 +18,7 @@
     <el:luamain><![CDATA[
 
 wo["SlopeStrength"] = 30
+wo["ShowMoves"] = true
 
 ti[" "] = {"fl_sand"}
 ti["~"] = {"fl_water"}
@@ -33,10 +34,11 @@ ti["C"] = {"st_coinslot"}
 ti["F"] = ti["-"] .. {"st_death"}
 ti["G"] = ti["|"] .. {"st_death"}
 ti["H"] = ti["^"] .. {"st_death"}
-ti["O"] = {"st_oxyd", flavor = "a"}
+ti["O"] = {"st_oxyd", flavor = "a", name = "outer#"}
+ti["o"] = {"st_oxyd", flavor = "a", name = "inner#"}
 ti["P"] = {"st_stoneimpulse"}
-ti["Q"] = ti["|"] .. ti["O"]
-ti["R"] = ti["-"] .. ti["O"]
+ti["Q"] = ti["|"] .. ti["o"]
+ti["R"] = ti["-"] .. ti["o"]
 ti["S"] = {"st_swap"}
 ti["T"] = ti["~"] .. {"st_death_invisible"}
 ti["X"] = {"st_grate_cross"}
@@ -54,70 +56,81 @@ ti["r"] = {"#ac_rotor", gohome = false, range = 10, strength = 10}
 ti["1"] = {"it_document", text = "text1"}
 ti["2"] = ti["B"] .. {"it_document", text = "text2"}
 ti["3"] = {"it_document", text = "text3"}
+ti["4"] = ti["B"] .. {"it_document", text = "text4"}
 
 if wo["IsDifficult"] then
   ti["b"] = ti[" "]
   ti["n"] = ti["v"] .. {"it_magnet", state = ON}
+  ti["I"] = ti["~"] .. {"st_death"}
+  ti["5"] = {"it_document", text = "text5"}
 else
   ti["b"] = ti["B"]
   ti["n"] = ti["v"]
+  ti["I"] = ti["~"]
+  ti["5"] = ti[" "]
 end
 
 wo(ti, " ", {
   "BBPPPPBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
   "BBSBBP~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~BOvmvmvmvmvmvmvmvmvB",
   "BBO BPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPh^h^h^h^h^hB",
-  "BBBBBBBBBBBBBBBBBBBB~~~~~~       ~~~~~B~~~~~~~~~X~~~~~~~~B~~~~~~~~~       e~BmvmvmvmvmvmvmvmvmvB",
+  "BBBBBBBBBBBBBBBBBBBB~~~~~~       ~~~~~B~~~~~~~~~X~~~~~~~~B~~~~~~~~~B      e~BmvmvmvmvmvmvmvmvmvB",
   "BXXXXXX            B~~~~~~ c   C ~~~~~B~~~~~~~~XOX~~~~~~~B~~~~~~~~~ ~~~~~~~~B^h^h^h^h^h^h^h^h^hB",
   "BXXXXXXeTTTTTTTTTTTB~~~~~~     C ~~~~~B~~~~~~~XSXSX~~~~~~B~~~~~~~~~ ~~~~~~~~BmvmvmvmvmvmvmvmvmvB",
-  "BXXXXXX   T   T   TB~~~~~~ 2   C ~~~~~B~~~~~~XXXOXXX~~~~~B~~~~~~~~~ ~~~~kkkkk^h^h^h^h^h^h^h^h^vB",
-  "BXSXSXX T T T T T TB~~~~~~       ~~~~~B~~~~~~~XSXSX~~~~~~B~~~~~~~~~ ~~~~k~~~BmvmvmvmvmvmvmvmvmvB",
-  "BXXXXXX T   T   T TB~~~~~~~~~~~~~~~~~~B~~~~~~~~XXX~~~~~~~B~~~~~~~~~ kkkkk~~~B^h^h^h^h^h^h^h^h^hB",
+  "BXXXXXX   T   T   TB~~~~~~ 2   C ~~~~~B~~~~~~XXXoXXX~~~~~B~~~~~~~~~ ~~~~kkkkk^h^h^h^h^h^h^h^h^vB",
+  "BXSXSXX T T T T T TB~~~~~~       ~~~~~B~~~~~~~XSXSX~~~~~~B~~~~~~~~~ kkkkk~~~BmvmvmvmvmvmvmvmvmvB",
+  "BXXXXXX T   T   T TB~~~~~~~~~~~~~~~~~~B~~~~~~~~XXX~~~~~~~B~~~~~~~~~ ~~~~~~~~B^h^h^h^h^h^h^h^h^hB",
   "B       TTTTTTTTT TB~~~~~~~~~~~~~~~~~~B~~~~~~~~~X~~~~~~~~B~~~~~~~~~ ~~~~~~~~BmvmvmvmvmvmvmvmvmvB",
   "BTTTTTTTTT        TB~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B^hgh^h^h^h^h^h^hghB",
   "B~~~~~~~~T~TTTTTTTTB~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~BHnHnHnHnHnHnHnHnHnB",
-  "BBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBB4~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBBBBBBBBBBBB",
   "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B",
   "B~       ~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~               ~B",
   "B~ B B B ~~~~~~~~~~B~~             ~~~B~~             ~~~B~~             ~~~B~~ b  b  b  b  b ~B",
-  "B~       ~~~~~~~~~~B~~ B b B B b B ~~~B~~ B B b b B B ~~~B~~  B b B b B  ~~~B~~               ~B",
-  "B~ B B B ~~~~~~~~~~B~~    1        ~~~B~~  B       B  ~~~B~~         1   ~~~B~~   ~~~~~~~~~   ~B",
-  "B~         ~~~~~~~~~~~ b b b b b b ~~~~~~ B Beb@b3B B ~~~~~~  b B b B b b~~~~~~   ~~~~~~~~~   ~B",
-  "B~ b b b b ~~~~~~~~B~~             ~~~B~~  B       B  ~~~B~~             ~~~B~~               ~B",
-  "B~         ~~~~~~~~B~~ B b B B b B ~~~B~~ B B b b B B ~~~B~~  B b B b B  ~~~B~~ B     B     B ~B",
-  "B~ B E B b ~~~~~~~~B~~             ~~~B~~             ~~~B~~             ~~~B~~               ~B",
+  "B~       ~~~~~~~~~~B~~ B b b b b B ~~~B~~ b B b b B b ~~~B~~  B b b b B  ~~~B~~               ~B",
+  "B~ B B B ~~~~~~~~~~B~~    1        ~~~B~~  b       b  ~~~B~~         1   ~~~B~~   ~~~~~~~~~   ~B",
+  "B~         ~~~~~~~~~~~ b B b b B b ~~~~~~ E b5b@b3b B ~~~~~~  b B B B b b~~~~~~   ~~~~~~~~~   ~B",
+  "B~ B B B B ~~~~~~~~B~~             ~~~B~~  b       b  ~~~B~~             ~~~B~~               ~B",
+  "B~         ~~~~~~~~B~~ B b b b b B ~~~B~~ b B b b B b ~~~B~~  B b b b B  ~~~B~~ B     b     B ~B",
+  "B~ B E B B ~~~~~~~~B~~             ~~~B~~             ~~~B~~             ~~~B~~               ~B",
   "B~         ~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B",
   "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~rB",
-  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBB",
-  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~ B",
-  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~      ~B~~~~~~~~~~~~~~~~~~B~~ t ~  ~~~  ~ t ~B~kkkkkkk~~~kkkkkk~B",
-  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~ B B  ~B~~~FGFGFG-GFGFG~~~B~~~~~~  ~~~  ~~~~~B~k~~~~~k~+.k~~~~k~B",
-  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~      ~B~~~GRQ-|-|-|-QF~~~B~~ B ~  ~ ~  ~ B ~B~kkkkk~k~~~~~kkkk~B",
-  "B~TTTTTTTTTTTTTTT~~B~~~~~~~~~~~ B B  ~B~~~FfF|F|F|F|-G~~~B~~   ~       ~   ~B~~~~~k~kkkkkkk~~~~B",
-  "B~TO =========== ~~~~~~~~~~~~        ~B~~~G-|F|F|F|F|F~~~B~~~~~~       ~~~~~B~kkkkk~~~~~~~~~kkkB",
-  "B~TTTTTTTTTTTTTTT~~B~~~~~~~~~ B B B  ~B~~~FQ-|-|-|-|-G~~~B~~ B ~B     2~ B ~B~k~~~~~kkkkkkkkk~kB",
-  "B~~~~~~~~~~~~~~~~~~B~~~              ~B~~~GFGFGFGFGFGF~~~B~~~ ~~~~   ~~~~ ~~B~k~kkk~k~~~~~~~~~kB",
-  "B~~~~~~~~~~~~~~~~~~B~~~  E B  B B B  ~B~~~~~~~~~~~~~~~~~~B~~~ ~~~~   ~~~~ ~~B~k~k~k~k~ B  B  B B",
-  "B~~~~~~~~~~~~~~~~~~B~~~              ~B~~~~~~~~~~~~~~~~~~B~~~             ~~B~kkk~kkk~  B  B   B",
-  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~        OB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~BBBBBBBBBBBBBBBBBB~4BBBBBBBB",
+  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~BIIIIIIII~~~IIIIIIIB",
+  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~      ~B~~~~~~~~~~~~~~~~~~B~~ t ~  ~~~  ~ t ~BIkkkkkkk~~~kkkkkk~B",
+  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~ B B  ~B~~~FGFGFG-GFGFG~~~B~~~~~~  ~~~  ~~~~~BIk~~~~~k~+.k~~~~k~B",
+  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~      ~B~~~GRQ-|-|-|-QF~~~B~~ B ~  ~ ~  ~ B ~BIkkkkk~k~~~~~kkkk~B",
+  "B~TTTTTTTTTTTTTTT~~4~~~~~~~~~~~ B B  ~B~~~FfF|F|F|F|-G~~~B~~   ~       ~   ~BI~~~~k~kkkkkkk~~~~B",
+  "B~TO =========== ~~~~~~~~~~~~        ~B~~~G-|F|F|F|F|F~~~B~~~~~~       ~~~~~BIkkkkk~~~~~~~~~kkkB",
+  "B~TTTTTTTTTTTTTTT~~4~~~~~~~~~ B B B  ~B~~~FQ-|-|-|-|-G~~~B~~ B ~B     2~ B ~BIk~~~~~kkkkkkkkk~kB",
+  "B~~~~~~~~~~~~~~~~~~B~~~              ~B~~~GFGFGFGFGFGF~~~B~~~ ~~~~   ~~~~ ~~BIk~kkk~k~~~~~~~~~kB",
+  "B~~~~~~~~~~~~~~~~~~B~~~  E B  B B B  ~B~~~~~~~~~~~~~~~~~~B~~~ ~~~~   ~~~~ ~~BIk~k~k~k~ B  B  B B",
+  "B~~~~~~~~~~~~~~~~~~B~~~              ~B~~~~~~~~~~~~~~~~~~B~~~             ~~BIkkk~kkk~  B  E   B",
+  "B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~B~~~~~~~~~~~~~~~~~~BIIIIIIII~        OB",
   "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"})
 
-    wo:shuffleOxyd()
-    
-    ]]></el:luamain>
+    wo:shuffleOxyd({"inner#*", max = 0}, {"outer#*", max = 0})
+
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Remember  to  only  move  enough  stones  to  just  look  into  the  next  room  ...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
-        <el:english el:translate="true">You  have  lost  ...</el:english>
-      </el:string> 
+        <el:english el:translate="false">The  mechanism  should  not  be  exposed  to  moisture  or  water  ...</el:english>
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="false">Welcome  to  illmind's  waterworld  ...</el:english>
-      </el:string> 
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="false">Danger!  ...</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="false">Limited supplies. Mind your steps!  ...</el:english>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

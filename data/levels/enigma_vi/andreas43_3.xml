@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="A Cooler Spot in Hell" el:subtitle="" el:id="andreas43"/>
+      <el:version el:score="3" el:release="4" el:revision="7" el:status="released"/>
+      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="03:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["CrackSpreading"] = 0
+
+ti[" "] = {"fl_pinkbumps", secure = true}
+ti["."] = {"fl_abyss", burnable = true, ignitable = true, eternal = true, secure = true, fastfire = true}
+ti[","] = {"fl_abyss", burnable = true, ignitable = true, eternal = true, secure = true, fastfire = false}
+ti["#"] = {"st_pinkbumps"}
+ti["I"] = {"st_ice"}
+ti["K"] = {"st_knight"}
+ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_RED}
+ti["P"] = {"st_plop"}
+ti["R"] = {"st_box_rock"}
+ti["-"] = {"it_burnable_oil"}
+ti["b"] = {"it_bomb_black"}
+ti["c"] = ti["b"] .. ti["."]
+ti["d"] = {"it_dynamite"}
+ti["s"] = {"it_sword"}
+ti["@"] = {"#ac_marble"}
+ti["B"] = ti["I"] .. ti["b"]
+ti["S"] = ti["I"] .. ti["s"]
+
+wo(ti, " ", {
+--       0123456789012345678901234567890123456789
+        ".....#.......,,..#....##............##..",
+        "...d    B   .#c..b.#..bI  .#######....#.",
+        "#..   ..#  I ..#  I ##.   .#     #......",
+        ".....I..@.b. ..   . #.. .-.# ##I #..   .",
+        ".OK .dd P.#. .. #..-... .  # ##R     S #",
+        "... -  .b..# .# #.  ...I.. #B   ##..   .",
+        "...-,.,.s..  .# #   c#  .. # # ##.......",
+        "... .      d..# .. .# Bd.. #   #......#.",
+        ".OK ... ..-..##I#.-..  d.. ##  #......#.",
+        ".....  I .      #  ... R.#    ##.....#..",
+        "....  db . d  ### #.   I  RR# #.....#...",
+        "..#. dd ...dd.... I  #...#..  ....##....",
+        ".....#......#..........................."})
+
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Missing Oxyds?" el:subtitle="" el:id="manfi01"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Manfredi Carta" el:email=""/>
+      <el:copyright>Copyright © 2009 Manfredi Carta</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits>Thanks to the level editors for their kind help.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="5:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_himalaya"}
+ti["."] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_redbrown"}
+ti["X"] = {"st_redbrown_hollow"}
+ti["B"] = {"st_redbrown_movable"}
+ti["y"] = ti["."] .. {"st_redbrown_hollow"}
+ti["b"] = ti["."] .. {"st_redbrown_movable"}
+ti["G"] = ti["."] .. {"st_rawglass"}
+ti["T"] = ti["~"] .. {"st_rawglass"}
+ti["C"] = {"st_ghost_break"}
+ti["F"] = {"st_quake"}
+ti["E"] = ti["."] .. {"st_quake"}
+ti["+"] = ti["."] .. {"st_box"}
+ti["A"] = ti["X"] .. {"fl_slope", slope=SOUTH}
+ti["a"] = ti["X"] .. {"fl_slope", slope=SOUTHEAST}
+ti["w"] = ti["X"] .. {"fl_slope", slope=SOUTHWEST}
+ti["q"] = {"it_seed"}
+ti["L"] = ti["q"] .. {"st_oneway", orientation=WEST}
+ti["U"] = ti["."] .. {"st_oneway", orientation=NORTH}
+ti["e"] = {"st_door", name="door_e#", faces="ew"}
+ti["*"] = {"st_timer"}
+ti["m"] = ti["X"] .. {"it_hammer"}
+ti["k"] = ti["."] .. {"it_cherry"}
+ti["Q"] = ti["X"] .. {"it_cherry"}
+ti["H"] = ti["+"] .. {"it_seed"}
+ti["s"] = ti["y"] .. {"it_seed"}
+ti["J"] = ti["E"] .. {"it_cherry"}
+ti["p"] = ti["U"] .. {"it_brush"}
+ti["D"] = ti["."] .. {"it_document", text="text1"}
+ti["z"] = ti["y"] .. {"it_document", text="text2"}
+ti["t"] = ti["."] .. {"it_trigger", target="lastdoor"}
+ti["%"] = ti["."] .. {"st_door", name="lastdoor", faces="ew"}
+ti["I"] = {"st_oxyd"}
+ti["O"] = {"st_oxyd", name="start#"}
+ti["P"] = {"st_oxyd", name="glass#"}
+ti["@"] = {"#ac_marble_black"}
+if wo["IsDifficult"] then
+    ti["j"] = ti["."]
+    ti["d"] = {"st_door", "door_d#", faces="ew"}
+    ti["?"] = {"st_timer", interval=1.3, target="door_d#*", action="signal"}
+    ti["$"] = {"st_timer", interval=1.3, target="door_e#*", action="signal", inverse=true}
+else
+    ti["j"] = ti["k"]
+    ti["d"] = ti["e"]
+    ti["?"] = ti["*"]
+    ti["$"] = {"st_timer", interval=1.3, target="door_e#*", action="signal", inverse=false}
+end
+
+wo(ti, " ", {
+    "#########################################",
+    "#######?    $#######..#.....#...#.....###",
+    "#Oe d e      d e dO#..................###",
+    "#######      #######..~~~#~~~~~~#~~~+.###",
+    "#######      #######..~......#.....~.+###",
+    "#######      ########.~.#~~~~~~~~~.~+.###",
+    "#Od e d   @  e d eFBD.~.~....t...~#~.+%a#",
+    "#######      #######..~.~~~~~~~~~~.~+.#A#",
+    "#######      #mXXX##.#~......#.....~.H#A#",
+    "#######      ####X##..#~~~~~~~~~~~~~+.#A#",
+    "#Ie dCe      d e dO#.............#....#A#",
+    "##XBX##*    *#######.......#........#.#A#",
+    "###Q#########XXXXX#########s###########A#",
+    "#..~..~~...~.b~~~..yy.y~#.y.y~y.s~#.y.#A#",
+    "#.~#~.X..~~~~.....~#~#~y~y~#.#.#~y.y~y#A#",
+    "#.~~~p~TTTTTTT~~~~~##~#~s.#~s~y~#~#~#.#A#",
+    "#.~TTG~Tk...jT~TTT~#.y.#~#~y~y~#.#~y.y#A#",
+    "#.~T..~T.P.P.T~~~T~#y~s.y.y.#.#~#~y~#~#A#",
+    "Xb~T.~~T..J..G...G.#~#~#~#~#~s.y.#.#.zLw#",
+    "X.~T...G.J.P.T~~~T.#y~y.y.y~#~#~y~y~y~###",
+    "#.~TTT~Tj...kT~TTT.#.#.#~#.#.y~#.#.#.y###",
+    "#.~...~TTTTTTT~~~~.#s~y~y.y~y~y~s~y~#.###",
+    "#.~.~.~~~~~~~.X....#.y.#.#~#.#.#.#.y~y###",
+    "#..b~.........~~#~~##~#~y~y.s~y.y~#.s.###",
+    "#########################################"})
+
+wo:shuffleOxyd({"glass#*", max=0}, {"start#*", min=1})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Fehlende Oxyds?</el:translation>
+        <el:translation el:lang="it">Oxyds Mancanti?</el:translation>
+        <el:translation el:lang="fr">Oxyds Manqants?</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Not everything is as it seems ...</el:english>
+        <el:translation el:lang="de">Nicht alles ist wie es scheint ...</el:translation>
+        <el:translation el:lang="it">Non tutto è come sembra ...</el:translation>
+        <el:translation el:lang="fr">Pas tout n'est comme il semble ...</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Make sure you find all of them</el:english>
+        <el:translation el:lang="de">Pass auf, dass du alle findest</el:translation>
+        <el:translation el:lang="it">Accertati di trovarli tutti</el:translation>
+        <el:translation el:lang="fr">Assure-toi de tous trouver</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

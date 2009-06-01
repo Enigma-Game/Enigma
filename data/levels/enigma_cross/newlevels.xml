@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -12,8 +12,8 @@
     <level _seq="4" _title="Hostile World" _xpath="enigma_i/rb01_1" author="Roberto Bardin" ctrl="force" easy="true" id="rb01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="The Big Swamp" _xpath="enigma_i/luc10_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Bendixxon" _xpath="enigma_i/alain06_1" author="Alain Busser" ctrl="force" easy="false" id="alain06" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Lissajous" _xpath="enigma_i/andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Lissajous' Revenge" _xpath="enigma_i/andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Lissajous" _xpath="enigma_i/andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Lissajous' Revenge" _xpath="enigma_i/andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Enigmawale" _xpath="enigma_i/alain20_1" author="Alain Busser" ctrl="force" easy="true" id="alain20" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Encased" _xpath="enigma_i/xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Without Tremor" _xpath="enigma_i/richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>

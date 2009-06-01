@@ -7,7 +7,7 @@
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10" el:engine="oxyd1"/>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
@@ -27,7 +27,7 @@ ti["^"] = {"st_oneway", orientation=NORTH}
 ti[">"] = {"st_oneway", orientation=EAST}
 ti["V"] = {"st_oneway", orientation=SOUTH}
 ti["<"] = {"st_oneway", orientation=WEST}
-ti["."] = {"it_seed"}
+ti["."] = {"it_seed_hay"}
 ti["O"] = {"st_oxyd", oxydcolor=OXYD_BLUE}
 ti["@"] = {"ac_marble_black", 0.0, 0.5}
 

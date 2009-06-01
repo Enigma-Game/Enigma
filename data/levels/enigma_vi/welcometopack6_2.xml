@@ -16,8 +16,8 @@ ti[" "] = {"fl_sahara"}
 ti["#"] = {"st_flat"}
 ti["O"] = {"st_oxyd"}
 if wo["IsDifficult"] then
-    ti["Q"] = {"st_quake", name="quaker"}
-    ti["T"] = {"st_timer", interval=20.0, target="quaker"}
+    ti["Q"] = {"st_quake", name="quake"}
+    ti["T"] = {"st_timer", interval=20.0, target="quake"}
 else
     ti["Q"] = ti[" "]
     ti["T"] = ti[" "]

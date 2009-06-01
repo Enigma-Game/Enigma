@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="30" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -36,7 +36,7 @@
     <level _seq="28" _title="Swap Swap" _xpath="enigma_iii/siegfried02_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level1f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Push your way" _xpath="enigma_ii/siegfried12_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="enigma_i/siegfried38_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation5" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Bridgebuilder" _xpath="enigma_iii/siegfried20_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Bridgebuilder" _xpath="enigma_iii/siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Space Pirates" _xpath="enigma_v/siegfried19_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6a" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="33" _title="Mission Impossible" _xpath="enigma_i/martin14_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Send More Money" _xpath="enigma_ii/siegfried18_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5f" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -35,8 +35,8 @@ function grow(value, sender)
     cell = maze[maze:encode(cell_vec.x, cell_vec.y)]
     for d = WEST, NORTH do
         if cell[d] then
-            wo[cell:pos() + DIRNUM2OFF[d]] = ti["="]
-            wo[cell:pos() + 2*DIRNUM2OFF[d]] = ti["t"]
+            wo[cell:pos() + ORI2DIR[d]] = ti["="]
+            wo[cell:pos() + 2*ORI2DIR[d]] = ti["t"]
         end
     end
 end

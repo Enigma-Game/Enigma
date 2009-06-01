@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/natmaze"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,12 +19,12 @@
 -- Maze module: maze generator and renderer for Enigma
 -- 
 
-function remove_random_element( table )
-    return tremove( table, random( 1, getn(table) ) )
+function remove_random_element( tab )
+    return table.remove(tab, random(1, #tab))
 end
 
-function random_element( table )
-    return table[random( 1, getn(table) )]
+function random_element( tab )
+    return tab[random(1, #tab)]
 end
 
 
@@ -156,10 +156,10 @@ function maze_walls( maze )
     for y = 0, maze.height-1 do
         for x = 0, maze.width-1 do
             if y < maze.height-1 then
-                tinsert( walls, {cellx=x,celly=y,side=SOUTH} )
+                table.insert( walls, {cellx=x,celly=y,side=SOUTH} )
             end
             if x < maze.width-1 then
-                tinsert( walls, {cellx=x,celly=y,side=EAST} )
+                table.insert( walls, {cellx=x,celly=y,side=EAST} )
             end
         end
     end

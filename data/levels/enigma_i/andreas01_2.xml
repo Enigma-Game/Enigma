@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Lissajous" el:subtitle="" el:id="andreas01"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2006, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -46,32 +46,29 @@ w, h = wo(ti, " ",
 
 wo:shuffleOxyd()
 
-TICK_ANGLE1_DELTA = 360.0 * 0.1 / 7.0
-TICK_ANGLE2_DELTA = 360.0 * 0.1631 / 7.0
-
 -- coord/old_pos relate to the death stones.
 -- This initial position is that of one of the oxyd-stones,
 -- so there won't be fl-space drawn at the beginning
 coord = po({9.0, 6.0})
 angle1 = 90.0
 angle2 = 90.0
+angle1_delta = 360.0 * 0.1 / 7.0
+angle2_delta = 360.0 * 0.1631 / 7.0
 
 function lissajous_callback()
-    -- Yes, lua's sin and cos work with degree, not radian.
-    angle1 = mod(angle1 + TICK_ANGLE1_DELTA, 360.0)
-    angle2 = mod(angle2 + TICK_ANGLE2_DELTA, 360.0)
+    angle1 = math.fmod(angle1 + angle1_delta, 360.0)
+    angle2 = math.fmod(angle2 + angle2_delta, 360.0)
     -- Without the following "po" old_pos would just become a reference
     -- to coord, not a deep-copy. This would be particularly confusing,
     -- as old_pos would be the coord after the next calculation, but
     -- "grid()" breaks the memory reference, such that old_pos differs
     -- from coord but is non-integer!
     local old_pos = po(coord)
-    coord.x = 8.0 * cos(angle1) + 10.0
-    coord.y = 5.0 * sin(angle2) +  6.5
-    coord = coord:grid()
+    coord = po(8.0 * math.cos(math.rad(angle1)) + 10.0,
+               5.0 * math.sin(math.rad(angle2)) +  6.5):grid()
     move_death_stone(old_pos, coord)
     if wo["IsDifficult"] then
-      move_death_stone({19.0, 12.0} - old_pos, {19.0, 12.0} - coord)
+        move_death_stone({19.0, 12.0} - old_pos, {19.0, 12.0} - coord)
     end
 end
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="21" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="22" title="Enigma I"/>
 
   <attributes/>
 
@@ -28,11 +28,11 @@
     <level _seq="20" _title="- Meditation -" _xpath="./siegfried33_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation1" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Do Not Dive" _xpath="./martin74_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Bendixxon" _xpath="./alain06_1" author="Alain Busser" ctrl="force" easy="false" id="alain06" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Lissajous" _xpath="./andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Lissajous" _xpath="./andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Over the Ditch" _xpath="./martin78_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Brittle Planks" _xpath="./martin92_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin92" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="26" _title="Uhh-Steady!" _xpath="./siegfried05_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level2f" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="27" _title="Lissajous' Revenge" _xpath="./andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Lissajous' Revenge" _xpath="./andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Mossy Paths" _xpath="./martin02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="No Jumping Necessary" _xpath="./duffy46_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy46" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="./siegfried39_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation6" rel="2" rev="1" score="1" target="time" unit="duration"/>

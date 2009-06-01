@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Path Through Flood" el:subtitle="" el:id="20080803pulley001"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_sand"}
+ti["~"] = {"fl_water", "StartFlood", interval=0.1}
+ti["-"] = {"fl_rough", floodable=true}
+ti["#"] = {"st_redbrown"}
+ti["A"] = {"st_greenbrown"}
+ti["h"] = {"st_box_hay"}
+ti["r"] = {"st_box_rock"}
+ti["H"] = ti["-"] .. {"st_box_hay"}
+ti["N"] = ti["H"] .. {"it_seed_greenbrown"}
+ti["S"] = ti["H"] .. {"it_seed"}
+ti["V"] = ti["H"] .. {"it_seed_volcano"}
+ti["B"] = ti["H"] .. {"it_key", code="1"}
+ti["!"] = {"st_switch", target="StartFlood"}
+ti["K"] = {"st_key", code="1", target="Door1"}
+ti["|"] = {"st_door_a", name="Door1"}
+ti["O"] = {"st_oxyd"}
+ti["*"] = cond(wo["CreatingPreview"], ti["-"] .. {"ac_marble_black", 0.0, 0.5}, ti["-"])
+ti["@"] = cond(wo["CreatingPreview"], ti[" "], {"#ac_marble_black"})
+
+wo(ti, " ", {
+    "#       ~--NH-HV-----AH-HS-----------------------------# O",
+    "#@ r    HH-HA-----BH-HH-----HN-------------------------# O",
+    "#     r HH-----NH-AH-----HH-HA---------------------K---# O",
+    "#   r    ---AH-HA-----AH-AS-----------------    -   ---# O",
+    "#     r  HH-NH-----SH-HV-----SH       ------------- ---# O",
+    "#  r     HH-----NA-AH-----HH-HH------ ------ ----------# O",
+    "!         ---AH-HH---*-HA-AS-----------------------   -| #",
+    "#     r   HH-HV-----SA-HV-----HA----- ------ ----------# O",
+    "#  r      HH-----SH-HS-----HH-VH----- -----------------# O",
+    "#    r     ---HS-HA-----NH-AN-------- ------ ----------# O",
+    "#  r       HH-HA-----HN-AH------------   -   ----------# O",
+    "#     r    HH-----HN-AH-----VH-------------------------# O",
+    "#          -------HH-----HN-AN-------------------------# O"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

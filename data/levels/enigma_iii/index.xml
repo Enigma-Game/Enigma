@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="27" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma III"/>
 
   <attributes/>
 
@@ -51,7 +51,7 @@
     <level _seq="43" _title="The Ditch" _xpath="./richi01_1" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Rush Hour Traffic" _xpath="./duffy62_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy62" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="The Turtle" _xpath="./ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="46" _title="Bridgebuilder" _xpath="./siegfried20_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Bridgebuilder" _xpath="./siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Easy Skyscraper" _xpath="./wb07_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Automatic Transmission" _xpath="./duffy60_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy60" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Tough Skyscraper" _xpath="./wb08_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb8" rel="1" rev="0" score="1" target="time" unit="duration"/>

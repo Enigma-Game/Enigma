@@ -28,8 +28,8 @@ else
     ti["."] = ti["#"]
     ti["|"] = ti[" "]
 end
-ti["0"] = {"st_oxyd", flavor="a", name="left#"}
-ti["1"] = {"st_oxyd", flavor="a", name="right#"}
+ti["0"] = ti["#"] .. {"st_oxyd", flavor="a", name="left#"}
+ti["1"] = ti["#"] .. {"st_oxyd", flavor="a", name="right#"}
 ti["@"] = ti["#"] .. {"#ac_marble_black"}
 
 wo(ti, " ", {
