@@ -47,12 +47,12 @@ wo(res.autotile(ti, {"D", "door"}, {"t", "trigger"}, {"u", "uu"}), "  ", {
 wo:shuffleOxyd()
 
 function postinit()
-    st(no["trigger%5"]+po(-1,0)):open()
+    st(no["trigger%5"]+W):open()
 end
 
 function send_toggle(value, sender)
     if value == true then
-        gr = grp({st(sender+po(-1,0)), st(sender+NNW), st(sender+SSW)})
+        gr = grp({st(sender+W), st(sender+NNW), st(sender+SSW)})
         if sender.name == "trigger%1" then
             gr = grp({st(sender+NNW), st(sender+SSW)})
         end

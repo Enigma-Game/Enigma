@@ -247,7 +247,7 @@ setdigit(21,td[1],true)
 function trigcall(state,caller)
     if state==false then return end
     local rs = caller._num
-    local r = strsub(rs,2,2)
+    local r = string.sub(rs,2,2)
     if r+0 <= 5 then
     -- this is one of the number's triggers
         local dg = dform[r+0]
