@@ -2419,6 +2419,33 @@ static int setObjectByKey(lua_State *L, std::string key, int j, int i, bool only
     return 0;
 }
 
+static int finalizeResolvers(lua_State *L) {
+    // next resolver on top of stack
+    
+    // this is a recursive function - ensure enough space on the stack
+    if (lua_gettop(L) >  LUA_MINSTACK - 5)
+        lua_checkstack(L, 10);         // guarantee another 10 free slots
+    
+    if (is_table(L, -1)) {
+        lua_rawgeti(L, -1, 3);      // get subresolver at index 3
+        finalizeResolvers(L);       // finalize subresolver first 
+        lua_pop(L, 1);              // subresolver
+        
+        lua_rawgeti(L, -1, 2);      // get resolver finalization at index 2
+        if (!lua_isnil(L, -1)) {
+            lua_pushvalue(L, -2);       // duplicate table as resolver context
+            int retval=lua_pcall(L, 1, 0, 0);     // resolver(context,evaluator,key,x,y) ->  tile
+            if (retval!=0) {
+                throwLuaError(L, ecl::strf("Error within tile key resolver finalization:\n %s", 
+                        lua_tostring(L, -1)).c_str());
+                return 0;
+            }
+        } else {
+            lua_pop(L, 1);  // nil
+        }
+    }
+}
+
 static int createWorld(lua_State *L) {
     // world, resolver, default key, map
     // world, (ti|function|table), string, table
@@ -2518,23 +2545,8 @@ static int createWorld(lua_State *L) {
     }
     
     lua_getfield(L, LUA_REGISTRYINDEX, LUA_ID_RESOLVER);
-    while (is_table(L, -1)) {
-        lua_rawgeti(L, -1, 2);      // get resolver finalization at index 2
-        if (!lua_isnil(L, -1)) {
-            lua_pushvalue(L, -2);       // duplicate table as resolver context
-            int retval=lua_pcall(L, 1, 0, 0);     // resolver(context,evaluator,key,x,y) ->  tile
-            if (retval!=0) {
-                throwLuaError(L, ecl::strf("Error within tile key resolver finalization:\n %s", 
-                        lua_tostring(L, -1)).c_str());
-                return 0;
-            }
-        } else {
-            lua_pop(L, 1);  // nil
-        }
-        lua_rawgeti(L, -1, 3);      // get subresolver at index 3
-        lua_remove(L, -2);          // substitute current resolver table by subresolver
-    }
-    lua_pop(L, 1);   // final resolver
+    finalizeResolvers(L);
+    lua_pop(L, 1);           // top resolver
     
     lua_pushinteger(L, width);
     lua_pushinteger(L, height);

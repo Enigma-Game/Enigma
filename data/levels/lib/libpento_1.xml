@@ -107,7 +107,7 @@ function res.pento(subresolver, ...)
     -- syntax: ... = <sourcebasename>, <targetbasename>
     -- context: 
     local args = {...}
-    assert_type(subresolver, "res.pento first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.pento first argument (subresolver)", 2)
     assert_type(args[1], "res.pento second argument (source basename)", 2, "string")
     assert_type(args[2], "res.pento third argument (target basename)", 2, "string")
     local autotile = res.autotile(subresolver, {"O","Z", "pentopuzzle"})
@@ -122,6 +122,7 @@ function res.pento(subresolver, ...)
         MAP_MIRROR_SLASH}
     context.mirrors = {MAP_MIRROR_HORIZONTAL, MAP_MIRROR_SLASH, MAP_MIRROR_VERTICAL,
         MAP_MIRROR_BACKSLASH, MAP_ROT_CCW, MAP_IDENT, MAP_ROT_CW, MAP_ROT_180}
+    setmetatable(context, res.metatable)
     return context
 end
 

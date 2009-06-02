@@ -161,7 +161,7 @@ NEIGHBORS_4     = W .. S .. E .. N
 NEIGHBORS_8     = NEIGHBORS_4 .. NW .. SW ..SE .. NE
 NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW
 
--- convertion direction numbers to offset vectors
+-- convertion orientation numbers to direction vectors
 ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=po(0,0)}
 
 -- essential
@@ -218,7 +218,7 @@ wo:_register("drawMap",
         -- world, resolver, (position|object|table), string, (table|map), [int]
         -- world, resolver, (position|object|table), map, [int]
         assert_type(world, "wo:drawMap self (world)", 2, "world")
-        assert_type(resolver, "wo:drawMap first argument (resolver)", 2, "tiles", "function", "table", "maze")
+        assert_bool(is_resolver(resolver), "wo:drawMap first argument is no valid resolver", 2)
         assert_type(anchor, "wo:drawMap second argument (anchor)", 2, "position", "valid object", "table")
         assert_type(arg3, "wo:drawMap third argument (ignorekey or map)", 2, "string", "map")
         local origin = po(anchor)   -- either convert or make a working position copy
@@ -286,74 +286,101 @@ wo:_register("drawMap",
                 end
             end
         end
-        -- Call resolver finalizers
-        local context = resolver
-        while type(context) == "table" do
-            local finalizer = context[2]
-            if type(finalizer) == "function" then
-                 finalizer(context) 
+        -- Call resolver finalizers from bottom to top
+        local function finalizeResolvers(context)
+            if type(context) == "table" then
+                finalizeResolvers(context[3])
+                local finalizer = context[2]
+                if type(finalizer) == "function" then
+                     finalizer(context) 
+                end
             end
-            context = context[3]
         end
+        finalizeResolvers(resolver)
     end
 )
 
 wo:_register("drawBorder", 
     function (world, arg1, arg2, arg3, arg4)
-        -- world, (position|object|table), width, height, (tile|table)
-        -- world, (position|object|table), (position|object|table), (tile|table)
+        -- world, (position|object|table), width, height, (tile|table|key, resolver)
+        -- world, (position|object|table), (position|object|table), (tile|table|key, resolver)
         assert_type(world, "wo:drawBorder self (world)", 2, "world")
         assert_type(arg1, "wo:drawBorder first argument (upperleft edge)", 2, "position", "valid object", "table")
         assert_type(arg2, "wo:drawBorder second argument (width or lowerright edge)", 2, "position", "valid object", "table", "positive integer")
         local origin = po(arg1)
-        local dest, tile
+        local dest, tile, resolver
+        local isTile = true
         if etype(arg2) == "number" then
             assert_type(arg3, "wo:drawBorder third argument (height)", 2, "positive integer")
-            assert_type(arg4, "wo:drawBorder fourth argument (tile)", 2, "tile", "table")
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
             tile = arg4            
+            resolver = arg5
         else
-            assert_type(arg3, "wo:drawBorder third argument (tile)", 2, "tile", "table")
             dest = po(arg2)
             tile = arg3
+            resolver = arg4
+        end
+        assert_type(tile, "wo:drawBorder tile/key argument error", 2, "tile", "table", "string")
+        if etype(tile) == "string" then
+            assert_bool(is_resolver(resolver), "wo:drawBorder resolver argument error", 2)
+            isTile = false
         end
         for x = origin.x, dest.x do
             wo[{x, origin.y}] = tile
             if origin.y ~= dest.y then
-                wo[{x, dest.y}] = tile
+                if isTile then
+                    wo[{x, dest.y}] = tile
+                else
+                    wo[{x, dest.y}] = world:_evaluate(resolver, tile, x, dest.y)
+                end
             end
         end
         for y = origin.y + 1, dest.y -1 do
             wo[{origin.x, y}] = tile
             if origin.x ~= dest.x then
-                wo[{dest.x, y}] = tile
+                if isTile then
+                    wo[{dest.x, y}] = tile
+                else
+                    wo[{dest.x, y}] = world:_evaluate(resolver, tile, dest.x, y)
+                end
             end
         end
     end
 )
 
 wo:_register("drawRect", 
-    function (world, arg1, arg2, arg3, arg4)
-        -- world, (position|object|table), width, height, (tile|table)
-        -- world, (position|object|table), (position|object|table), (tile|table)
+    function (world, arg1, arg2, arg3, arg4, arg5)
+        -- world, (position|object|table), width, height, (tile|table|key, resolver)
+        -- world, (position|object|table), (position|object|table), (tile|table|key, resolver)
         assert_type(world, "wo:drawRect self (world)", 2, "world")
         assert_type(arg1, "wo:drawRect first argument (upperleft edge)", 2, "position", "valid object", "table")
         assert_type(arg2, "wo:drawRect second argument (width or lowerright edge)", 2, "position", "valid object", "table", "positive integer")
         local origin = po(arg1)
-        local dest, tile
+        local dest, tile, resolver
+        local isTile = true
         if etype(arg2) == "number" then
             assert_type(arg3, "wo:drawRect third argument (height)", 2, "positive integer")
-            assert_type(arg4, "wo:drawRect fourth argument (tile)", 2, "tile", "table")
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
-            tile = arg4            
+            tile = arg4
+            resolver = arg5
         else
-            assert_type(arg3, "wo:drawRect third argument (tile)", 2, "tile", "table")
             dest = po(arg2)
             tile = arg3
+            resolver = arg4
         end
+        assert_type(tile, "wo:drawRect tile/key argument error", 2, "tile", "table", "string")
+        if etype(tile) == "string" then
+            assert_bool(is_resolver(resolver), "wo:drawRect resolver argument error", 2)
+            isTile = false
+        end
+
         for x = origin.x, dest.x do
             for y = origin.y, dest.y do
-                wo[{x, y}] = tile
+                if isTile then
+                    wo[{x, y}] = tile
+                else
+                    wo[{x, y}] = world:_evaluate(resolver, tile, x, y)
+                end
             end
         end
     end
@@ -405,6 +432,7 @@ setmetatable(res, {__index =
         end
     end 
 })
+res.metatable = {_type="resolver", _resolver=true}
 
 function res.random_implementation(context, evaluator, key, x, y)
     for hit_itr, hit_pair in ipairs(context[4]) do
@@ -439,7 +467,7 @@ end
 function res.random(subresolver, hits, replacements)
     -- syntax: hits = key | {key, [key]*, [{key, superkey}]*}
     --         replacements = {key, [key]*, [{key, frequency}]*}
-    assert_type(subresolver, "res.random first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.random first argument (subresolver)", 2)
     assert_type(hits, "res.random second argument (hits)", 2, "non-empty string", "table")
     assert_type(hits, "res.random third argument (replacements)", 2, "string", "table")
     local hit_table = {}
@@ -478,6 +506,7 @@ function res.random(subresolver, hits, replacements)
     end
     local context = {res.random_implementation, nil, subresolver, hit_table, 
                      repl_table, repl_sum}
+    setmetatable(context, res.metatable)
     return context
 end
 
@@ -561,7 +590,7 @@ end
 function res.autotile(subresolver, ...)
     -- syntax: ... = <{prefixkey, template} | {firstkey, lastkey, template[, offset]}>
     -- context: [4] = table with unmodified rule tables
-    assert_type(subresolver, "res.autotile first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.autotile first argument (subresolver)", 2)
     local args = {...}
     for i, rule in ipairs(args) do
         assert_type(rule, "res.autotile argument " .. (i+1) .. " (rule " .. i .. ")", 2, "table")
@@ -588,6 +617,7 @@ function res.autotile(subresolver, ...)
         assert_bool(ti[rule[template_pos]], "res.autotile: Missing template tile '" .. rule[template_pos] .. "'", 2)
     end
     local context = {res.autotile_implementation, nil, subresolver, args}
+    setmetatable(context, res.metatable)
     return context
 end
 
@@ -627,7 +657,7 @@ function res.composer_implementation(context, evaluator, key, x, y)
 end
 
 function res.composer(subresolver, ...)
-    assert_type(subresolver, "res.composer first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.composer first argument (subresolver)", 2)
     local args = {...}
     local sequence = nil
     assert_bool(#args <= 1, "res.composer: Too many arguments (must be 1 or 2)." ,2)
@@ -636,6 +666,7 @@ function res.composer(subresolver, ...)
         sequence = args[1]
     end
     local context = {res.composer_implementation, nil, subresolver, sequence}
+    setmetatable(context, res.metatable)
     return context
 end
 
@@ -651,6 +682,12 @@ function etype(object)
         return (getmetatable(object) or {})._type or t
     end
     return t
+end
+
+function is_resolver(resolver)
+    local t = etype(resolver)
+    return (t == "tiles") or (t == "function") or (t == "resolver") or 
+        ((type(resolver) == "table") and getmetatable(resolver) and getmetatable(resolver)["_resolver"])
 end
 
 assert_type = function (object, objname, level, ...)

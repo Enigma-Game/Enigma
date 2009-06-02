@@ -29,6 +29,7 @@ function res.maze(subresolver, ...)
     local context = {res.maze_implementation, res.maze_finalization, subresolver}
     
     -- default settings
+    context.finalizing = false
     context.encode = function (maze, i, j)
             return lib.maze.MAX_WIDTH_IN_ENCODE*j + i + 100
         end
@@ -77,6 +78,7 @@ function res.maze(subresolver, ...)
         end
     setmetatable(context,{
           _type = "maze",
+          _resolver = true,
           __index = function (context, key)
                   if type(key) == "number" and key >= 99 then
                       return rawget(context, "cells")[key]
@@ -156,7 +158,7 @@ function res.maze(subresolver, ...)
         }
         
     -- argument evaluation
-    assert_type(subresolver, "res.maze first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.maze first argument (subresolver)", 2)
     assert_bool(#args == 1, "res.maze: wrong number of arguments - expected subresolver and a table of configuration data.", 2)
     assert_type(args[1], "res.maze second argument (libmaze configuration data)", 2, "table")
     context.area = args[1].area
@@ -202,7 +204,7 @@ function res.maze(subresolver, ...)
 end
 
 function res.maze_implementation(context, evaluator, key, x, y)
-    if not context.rectangular then
+    if (not context.finalizing) and (not context.rectangular) then
         if not context.area_args_separated then 
             for k,v in pairs(context.area) do
                 if #v == #key then
@@ -231,6 +233,8 @@ function res.maze_implementation(context, evaluator, key, x, y)
 end
 
 function res.maze_finalization(context)
+    if context.finalizing then return end
+    context.finalizing = true
     local maze = context
     if maze.rectangular then
         for i = 0, maze.area[2] - 1 do
@@ -414,53 +418,53 @@ function lib.maze.renderer_standard(maze, args)
     for cell in maze do
         local anchor = cell:pos()
         if map then
-            wo:drawMap(ti, anchor, map_kernel)
+            wo:drawMap(maze[3], anchor, map_kernel)
             if cell[EAST] ~= nil then
-                wo:drawMap(ti, anchor + {maze.kernel[1], 0}, map_spacing_y)
+                wo:drawMap(maze[3], anchor + {maze.kernel[1], 0}, map_spacing_y)
             end
             if cell[SOUTH] ~= nil then
-                wo:drawMap(ti, anchor + {0, maze.kernel[2]}, map_spacing_x)
+                wo:drawMap(maze[3], anchor + {0, maze.kernel[2]}, map_spacing_x)
                 if cell[EAST] ~= nil and (cell:neighbor(EAST))[SOUTH] ~= nil
                                 and (cell:neighbor(SOUTH))[EAST] ~= nil then
-                    wo:drawMap(ti, anchor + {maze.kernel[1], maze.kernel[2]}, map_spacing_z)
+                    wo:drawMap(maze[3], anchor + {maze.kernel[1], maze.kernel[2]}, map_spacing_z)
                 end
             end
         else
             if args[3] then
-                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], ti[args[3]])
+                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], args[3], maze[3])
             end
             if args[2] then
                 if cell[EAST] ~= nil then
                     wo:drawRect(anchor + {maze.kernel[1], 0}, maze.spacing[1], 
-                        maze.kernel[2], ti[args[2]])
+                        maze.kernel[2], args[2], maze[3])
                 end
                 if cell[SOUTH] ~= nil then
                     wo:drawRect(anchor + {0, maze.kernel[2]}, 
-                        maze.kernel[1], maze.spacing[2], ti[args[2]])
+                        maze.kernel[1], maze.spacing[2], args[2], maze[3])
                     if cell[EAST] ~= nil and (cell:neighbor(EAST))[SOUTH] ~= nil
                             and (cell:neighbor(SOUTH))[EAST] ~= nil then
                         wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]}, maze.spacing[1], 
-                            maze.spacing[2], ti[args[2]])
+                            maze.spacing[2], args[2], maze[3])
                     end
                 end
             end
         end
         if cell[EAST] == true then
             wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]/2}, 
-                    maze.spacing[1], 1, ti[passage_open])
+                    maze.spacing[1], 1, passage_open, maze[3])
         end
         if cell[SOUTH] == true then
             wo:drawRect(anchor + {maze.kernel[1]/2, maze.kernel[2]}, 
-                    1, maze.spacing[2], ti[passage_open])
+                    1, maze.spacing[2], passage_open, maze[3])
         end
         if passage_closed then
             if cell[EAST] == false then
                 wo:drawRect(anchor + {maze.kernel[1], maze.kernel[2]/2}, 
-                        maze.spacing[1], 1, ti[passage_closed])
+                        maze.spacing[1], 1, passage_closed, maze[3])
             end
             if cell[SOUTH] == false then
                 wo:drawRect(anchor + {maze.kernel[1]/2, maze.kernel[2]}, 
-                        1, maze.spacing[2], ti[passage_closed])
+                        1, maze.spacing[2], passage_closed, maze[3])
             end
         end
     end
@@ -478,10 +482,10 @@ function lib.maze.renderer_window(maze, args)
     for cell in maze do
         local anchor = cell:pos()
         if map then
-            wo:drawMap(ti, anchor, map_kernel)
+            wo:drawMap(maze[3], anchor, map_kernel)
         else
             if args[1] then
-                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], ti[args[1]])
+                wo:drawRect(anchor, maze.kernel[1], maze.kernel[2], args[1], maze[3])
             end
         end
         -- TODO extend logic to arbitrary kernel size in the following lines
@@ -515,10 +519,10 @@ function lib.maze.renderer_strip(maze, args)
     for cell in maze do
         local anchor = cell:pos()
         if map then
-            wo:drawMap(ti, anchor, map_spacing)
+            wo:drawMap(maze[3], anchor, map_spacing)
         else
             if args[1] then
-                wo:drawRect(anchor, maze.spacing[1], maze.spacing[2], ti[args[1]])
+                wo:drawRect(anchor, maze.spacing[1], maze.spacing[2], args[1], maze[3])
             end
         end
         local connections = ""

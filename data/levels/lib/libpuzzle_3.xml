@@ -180,7 +180,7 @@ end
 function res.puzzle(subresolver, ...)
     -- syntax: ... = <prefixkey>
     -- context: [4] = table with unmodified rule tables
-    assert_type(subresolver, "res.puzzle first argument (subresolver)", 2, "tiles", "function", "table", "maze")
+    assert_bool(is_resolver(subresolver), "res.puzzle first argument (subresolver)", 2)
     local args = {...}
     local length = 0
     for i, prefix in ipairs(args) do
@@ -192,6 +192,7 @@ function res.puzzle(subresolver, ...)
         end
     end
     local context = {res.puzzle_implementation, res.puzzle_finalization, subresolver, args, {}}
+    setmetatable(context, res.metatable)
     return context
 end
 
