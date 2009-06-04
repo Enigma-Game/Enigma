@@ -76,7 +76,7 @@ namespace enigma {
     /**
      * Coffee
      */
-    DEF_ITEMF(Coffee, "it_coffee", it_coffee);
+    DEF_ITEM(Coffee, "it_coffee", it_coffee);
 
     /**
      * DeathItem
