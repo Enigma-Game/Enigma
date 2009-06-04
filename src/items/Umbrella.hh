@@ -46,6 +46,7 @@ namespace enigma {
 
         // Item interface
         virtual ItemAction activate(Actor* a, GridPos p);
+        virtual void on_pickup(Actor *a);
         
         // TimeHandler interface
         virtual void alarm();

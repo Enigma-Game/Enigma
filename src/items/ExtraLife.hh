@@ -47,7 +47,8 @@ namespace enigma {
         // Item interface
         virtual string get_inventory_model();
         virtual void setup_successor(Item *newitem);
-
+        virtual void on_pickup(Actor *a);
+        
         // TimeHandler interface
         virtual void alarm();
     };

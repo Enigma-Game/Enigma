@@ -3308,6 +3308,25 @@ static int lengthPolist(lua_State *L) {
     return 1;
 }
 
+static int polistEquality(lua_State *L) {
+    // (polist) == (polist)
+    if (!(is_polist(L, 1) &&  is_polist(L, 2))) {
+        throwLuaError(L, "Comparison of polists - argument is no polist");
+        return 0;
+    }
+    PositionList pl1 = toPositionList(L, 1);
+    PositionList pl2 = toPositionList(L, 2);
+    PositionList::iterator itr2 = pl2.begin();
+    for (PositionList::iterator itr1 = pl1.begin(); itr1 != pl1.end(); ++itr1) {
+         if (itr2 == pl2.end() || ((ecl::V2)(*itr1) !=  (ecl::V2)(*itr2))) {
+             lua_pushboolean(L, false);
+             return 1;
+         }
+         ++itr2;
+    }
+    lua_pushboolean(L, itr2 == pl2.end());
+    return 1;
+}
 
 MethodMap defaultMethodeMap;
 
@@ -3543,6 +3562,7 @@ static CFunction polistOperations[] = {
     {subPositions,                  "__sub"},      //  obj - obj
     {joinPolist,                    "__concat"},   //  obj .. obj
     {scalarMultPositions,           "__mul"},      //  obj * obj
+    {polistEquality,                "__eq"},       //  ==
     {0,0}
 };
 

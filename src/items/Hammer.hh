@@ -44,6 +44,9 @@ namespace enigma {
         virtual void on_removal(GridPos p);
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
 
+        // Item interface
+        virtual void on_pickup(Actor *a);
+        
         // TimeHandler interface
         virtual void alarm();
     };

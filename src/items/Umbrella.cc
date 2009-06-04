@@ -66,6 +66,10 @@ namespace enigma {
         return ITEM_KILL;
     }
     
+    void Umbrella::on_pickup(Actor *a) {
+        objFlags &= ~OBJBIT_LIGHT;   // forget enlighting info        
+    }
+    
     void Umbrella::alarm() {
         objFlags &= ~OBJBIT_NEW;
         DirectionBits db = updateCurrentLightDirs();

@@ -162,7 +162,8 @@ NEIGHBORS_8     = NEIGHBORS_4 .. NW .. SW ..SE .. NE
 NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE .. SSW .. WSW .. WNW .. NNW
 
 -- convertion orientation numbers to direction vectors
-ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=po(0,0)}
+ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=po(0,0),
+           [NORTHWEST]=NW, [SOUTHWEST]=SW, [SOUTHEAST]=SE, [NORTHEAST]=NE}
 
 -- essential
 DISPENSIBLE   = 0

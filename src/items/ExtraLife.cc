@@ -72,6 +72,10 @@ namespace enigma {
         newitem->setState(server::ExtralifeGlasses);
     }
     
+    void ExtraLife::on_pickup(Actor *a) {
+        objFlags &= ~OBJBIT_LIGHT;   // forget enlighting info        
+    }
+    
     void ExtraLife::alarm() {
         objFlags &= ~OBJBIT_NEW;
         DirectionBits db = updateCurrentLightDirs();

@@ -59,6 +59,10 @@ namespace enigma {
         }
     }
     
+    void Hammer::on_pickup(Actor *a) {
+        objFlags &= ~OBJBIT_LIGHT;   // forget enlighting info        
+    }
+    
     void Hammer::alarm() {
         objFlags &= ~OBJBIT_NEW;
         DirectionBits db = updateCurrentLightDirs();

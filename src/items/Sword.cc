@@ -60,6 +60,10 @@ namespace enigma {
         }
     }
     
+    void Sword::on_pickup(Actor *a) {
+        objFlags &= ~OBJBIT_LIGHT;   // forget enlighting info        
+    }
+    
     void Sword::alarm() {
         objFlags &= ~OBJBIT_NEW;
         updateCurrentLightDirs();
