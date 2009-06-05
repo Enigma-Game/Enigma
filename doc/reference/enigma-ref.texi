@@ -3088,6 +3088,7 @@ objects are internally autonamed if the level author does not provide a name.
 But these unique names should never interfere with the user assigned object
 names.
 
+@c ----------------- Object Attributes --------------------
 @node Object Attributes
 @subsection Object Attributes
 
@@ -3117,7 +3118,7 @@ types can be assigned:
 If we speak of a bool value we do it in the sense of Lua 5, that means with the
 possible values @samp{true} and @samp{false}.
 
-Many enumerated values like directions and colors are covered by the integer
+Many enumerated values like orientations and colors are covered by the integer
 numbers.
 
 Of special interest is the value @samp{nil}. Just a few attributes make direct
@@ -3125,7 +3126,7 @@ use of the value @samp{nil}, e.g. "color" on some objects. If you set an
 attribute to value @samp{nil} you do actually reset its value to the default
 value. E.g. if you set the attribute "orientation" of @ref{st_boulder} to
 @samp{nil} it will be set to its default, which is actually @samp{NORTH}, an
-enumerated direction value. A subsequent read of the attribute will return this
+enumerated orientation value. A subsequent read of the attribute will return this
 value. Just those attributes that allow a nil value will ever return @samp{nil}
 on a read access. As a direct consequence these attributes always default to
 @samp{nil}.
@@ -3217,6 +3218,7 @@ of a level.
 * Object State::
 @end menu
 
+@c ----------------- Messages --------------------
 @node Messages
 @subsection Messages
 
@@ -3259,6 +3261,7 @@ any object.
 All messages are listed and described in @ref{Common Messages} and the
 subsequent chapters.
 
+@c ----------------- Target - Action --------------------
 @node Target - Action
 @subsection Target - Action
 
@@ -3359,6 +3362,7 @@ even a minimum delay, which is still within the same timeslice, may disturb
 the sequence of actions. This can cause unexpected logical results on the other
 hand.
 
+@c ----------------- Callback Function --------------------
 @node Callback Function
 @subsection Callback Function
 
@@ -3402,6 +3406,7 @@ is given we take the switch, which is the sender, as a position and set a new
 The @ref{Advanced Lua Examples} will show examples of real powerful callback
 functions with a line by line comment.
 
+@c ----------------- Object State --------------------
 @node Object State
 @subsection Object State
 
@@ -3415,8 +3420,8 @@ to read manuals but want to explore the objects by playing with just a few tests
 Even though states are usually named by appropriate uppercase names like above,
 the states are integer numbers starting with @samp{0} usually related to the
 default state. But some objects use another mapping due to historic reasons.
-E.g. states that are direction related use the state @samp{3} representing
-@samp{NORTH} usually as the default and number the directions clockwise down to
+E.g. states that are orientation related use the state @samp{3} representing
+@samp{NORTH} usually as the default and number the orientations clockwise down to
 @samp{0} representing @samp{WEST}.
 
 In most cases it is sufficient to perform a state independent common action
@@ -3642,7 +3647,7 @@ being nearly transparent on writing basic standard levels. Indeed there is no
 reason to dig into this language at the very beginning.
 
 With the second Lua API version, as of Enigma 1.10, we designed an optimized
-way of describing levels in a very short and readable manner. Thus we do
+way of describing levels in a very short and readable manner. Thus we like to
 introduce you to this API by giving several examples from a basic level to most
 thrilling dynamic real Enigma levels. You should be able to start your first
 experiments just after reading the first example with its explanations.
@@ -3652,8 +3657,8 @@ functions are colored in green. Enigma internal string constants as object kinds
 attribute or message names are colored in blue. Level specific variable names
 and value constants are colored in magenta.
 
-After the examples and a short overview we do give details of the language
-specific API part as you can expect it for a reference manual. Please note
+After the examples and a short overview the details of the language specific API
+part are given, as you can expect it for a reference manual. Please note
 that additional @ref{Advanced Features} are described in a separate chapter.
 
 @menu
@@ -5143,6 +5148,21 @@ kept the used wire permutation in the variable @samp{wire_p}.
 @node Introduction Datatypes
 @section Introduction Datatypes
 
+Before describing the datatypes in detail let us look at the used common 
+concepts and conventions.
+
+@menu
+* Syntax and Conventions::         Abbreviations in syntax descriptions
+* Value and Reference::            Basic differences of datatypes
+* Polymorphism and Overloading::   Methods of Object Orientation
+* Pseudo Datatypes::               Reinterpretation of datatypes
+@end menu
+
+@c ----------------- Syntax and Conventions --------------------
+
+@node Syntax and Conventions
+@subsection Syntax and Conventions
+
 In the following subchapters we will describe the datatypes, their operators
 and methods, and global functions in detail. We need some syntax and
 conventions for an efficient description.
@@ -5189,6 +5209,11 @@ requires the Lua square bracktes to be coded literally. Of course you are
 still free to name your position variable and the resulting value variable
 whatever you like.
 
+@c ----------------- Value and Reference --------------------
+
+@node Value and Reference
+@subsection Value and Reference
+
 Another most important aspect of Lua data types is the difference between
 values and references. Values are numbers, booleans like @samp{true} and
 @samp{false}, strings and @samp{nil}. The only reference data type is the Lua
@@ -5212,6 +5237,11 @@ table will afterwards both reference the same modified table.
 We will denote for every new data type the character of being a value or a
 reference. If you are unfamilar to the resulting effects you may want to read
 the appendix about @ref{Caveats}.
+
+@c ----------------- Polymorphism and Overloading --------------------
+
+@node Polymorphism and Overloading
+@subsection Polymorphism and Overloading
 
 @cindex polymorphism
 You may have noticed that in many operations you can use an @ref{Object} as
@@ -5241,6 +5271,43 @@ difference between two objects is a very important feature. Anyway you can
 always force the operation of your choice to be applied by transforming one
 object either into a position or a group. Please read carefully the given
 syntax rules for a clear understanding of the results.
+
+@c ----------------- Pseudo Datatypes --------------------
+
+@node Pseudo Datatypes
+@subsection Pseudo Datatypes
+
+Even though we introduce just the ten additional fundamental datatypes as
+described in the following subchapters, the API does additionally differ
+the same datatype according to its usage. E.g. a standard Lua number is used to
+describe the @ref{state} of an object. Just in rare occurences the state will 
+reflect a real number like the state of @ref{ot_counter}. For most objects
+the state will just be one of a given set of allowed values, which happen to
+be described by numbers by the API. Thus we speak of a pseudo datatype
+in the case of @ref{state} values. 
+
+The API provides @ref{Common Constants} for all pseudo datatypes, all written in
+upper case letters only. You should use exclusively these constants and never
+their equivalent basic number or other type values. The usage of the constants
+makes the level code readable and upward compatible if we ever should have the
+need of changing the assigned values or transforming the pseudo datatype to a
+another datatype.
+
+There is one abstract datatype that needs to be mentioned, as it uses two 
+different pseudo datatypes at the same time. This special case is the datatype
+used to describe the @samp{direction} or @samp{orientation}. Both are 
+essentially the same. But we speak of @samp{orientation} if we are just 
+interested in enlisting the main directions by number values for the purpose of 
+identification. The constant values are given as @ref{orientations}. 
+
+Sometimes you need values for calculation of position offsets. In this case we
+speak of a @samp{direction} and use @ref{Position} values as offset vectors. 
+The most common values are given as constants as listed in subchapter
+@ref{direction offsets}. Note that our @samp{direction} values have no need of
+being normalized to the length of 1.
+
+A given @samp{orientation} can be transformed into a @samp{direction} value by
+the convertion table @ref{ORI2DIR}.
 
 @c ----------------- Position --------------------
 
@@ -6359,12 +6426,33 @@ floors as discussed in @ref{Named Positions}.
 For task driven samples @pxref{Named Positions Tasks}. 
 
 @menu
+* PositionList Comparison::          Equality @samp{==} and Inequality @samp{~=}
 * PositionList Length::              Operator @samp{#}
 * PositionList Member Access::       Index Operators @samp{[]}
 * PositionList Concatenation::       Operator @samp{..}
 * PositionList Translation::         Operators @samp{+} and @samp{-}
 * PositionList Stretching::          Operators @samp{*} and @samp{/}
 @end menu
+
+@c ----------------- PositionList Comparison --------------------
+@node PositionList Comparison
+@subsection PositionList Comparison
+
+@table @asis
+@item @b{Syntax:}
+result = @i{polist1} <==|~=> @i{polist2}
+
+@item @b{Details:}
+A comparison of two position lists. Two position lists are equal if both contain
+the same positions in the identical sequence. Otherwise they are unequal.
+
+@item @b{Syntax Samples:}
+@example
+@var{bool} = (@i{po}(@var{2},@var{3}).. @i{po}(@var{5},@var{7})) == (@i{po}(@var{2},@var{3}) .. @i{po}(@var{5},@var{7}))  -- = true
+@var{bool} = (@i{po}(@var{2},@var{3}).. @i{po}(@var{5},@var{7})) == (@i{po}(@var{4},@var{0}) .. @i{po}(@var{5},@var{7}))  -- = false, different positions
+@var{bool} = (@i{po}(@var{2},@var{3}).. @i{po}(@var{5},@var{7})) == (@i{po}(@var{5},@var{7}) .. @i{po}(@var{2},@var{3}))  -- = false, different sequence
+@end example
+@end table
 
 @c ----------------- PositionList Length --------------------
 @node PositionList Length
@@ -6617,7 +6705,7 @@ table entries are key value pairs with the key being the attribute name. The
 second example uses the shortcut of specifying the name attribute value as
 second table entry, that will be stored at table position @samp{2}. It has to
 be a string value. The third variation, that is useful for actor declarations,
-stores the grid offsets in x and y direction in the table postions @samp{2} and
+stores the grid offsets in x and y directions in the table postions @samp{2} and
 @samp{3}. Of course you can not use the name attribute shortcut in the same
 declaration.
 
@@ -6907,9 +6995,9 @@ Draw a border around a rectangle out of given tiles.
 
 @table @asis
 @item @b{Syntax:}
-@b{wo:drawBorder}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{lowerright_edge}, <@i{tile} | @i{key}, @i{resolver}>)
 
-@b{wo:drawBorder}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+@b{wo:drawBorder}(@i{upperleft_edge}, @i{width}, @i{height}, <@i{tile} | @i{key}, @i{resolver}>)
 
 @table @asis
 @item @i{upperleft_edge}
@@ -6920,12 +7008,20 @@ Lower right end position of the rectangle.
 Width of the rectangle.
 @item @i{height}
 Height of the rectangle.
+@item @i{tile}
+A tile or an object declaration.
+@item @i{key}
+A key string to be resolved via the given resolver.
+@item @i{key}
+A resolver to be used for resolving the key to a valid tile.
 @end table
 
 @item @b{Syntax Samples:}
 @example
 wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
 wo:drawBorder(no["myRectUL"], no["myRectLR"], @{"st_grate1"@})
+wo:drawBorder(no["myRectUL"], no["myRectLR"], @{"fl_water"@} .. ti["X"])
+wo:drawBorder(no["myRectUL"], no["myRectLR"], "x", myresolver)
 @end example
 
 @item @b{Details:}
@@ -7055,9 +7151,9 @@ Fill a rectangle with a given tile.
 
 @table @asis
 @item @b{Syntax:}
-@b{wo:drawRect}(@i{upperleft_edge}, @i{lowerright_edge}, @i{tile})
+@b{wo:drawRect}(@i{upperleft_edge}, @i{lowerright_edge}, <@i{tile} | @i{key}, @i{resolver}>)
 
-@b{wo:drawRect}(@i{upperleft_edge}, @i{width}, @i{height}, @i{tile})
+@b{wo:drawRect}(@i{upperleft_edge}, @i{width}, @i{height}, <@i{tile} | @i{key}, @i{resolver}>)
 
 @table @asis
 @item @i{upperleft_edge}
@@ -7068,12 +7164,20 @@ Lower right end position of the rectangle.
 Width of the rectangle.
 @item @i{height}
 Height of the rectangle.
+@item @i{tile}
+A tile or an object declaration.
+@item @i{key}
+A key string to be resolved via the given resolver.
+@item @i{key}
+A resolver to be used for resolving the key to a valid tile.
 @end table
 
 @item @b{Syntax Samples:}
 @example
 wo:drawRect(po(0, 0), wo["Width"], wo["Height"], ti[" "])
 wo:drawRect(no["myRectUL"], no["myRectLR"], @{"fl_water"@})
+wo:drawRect(no["myRectUL"], no["myRectLR"], @{"fl_water"@} .. ti["#"])
+wo:drawRect(no["myRectUL"], no["myRectLR"], "x", myresolver)
 @end example
 
 @item @b{Details:}
@@ -7321,6 +7425,7 @@ implemented as simple functions.
 * fl::              Floor retrieval
 * grp::             Create a group out of the argument objects
 * it::              Item retrieval
+* ORI2DIR::         Orientation to direction convertion
 * random::          Random number generator
 * st::              Stone retrieval
 * usertype::        Type info for Enigma userdata types 
@@ -7578,10 +7683,10 @@ be returned.
 @item @i{"table"}
 If @code{var} is a table, it's metatable will be queried. If there is an entry
 @samp{_type}, this entry will be used as @code{etype}. Most important examples
-of this kind are @ref{libmap}-maps and @ref{res.maze} with its mazes and cells.
-So @samp{etype} will return @code{"map"}, @code{"maze"} and @code{"cell"}, too.
-You may access the @code{etype}-system through @samp{_type} whenever you use
-metatables on your own.
+of this kind are @ref{libmap}-maps, @ref{Resolvers} and @ref{res.maze} with its
+mazes and cells. So @samp{etype} will return @code{"map"}, @code{"resolver"}, 
+@code{"maze"} and @code{"cell"}, too. You may access the @code{etype}-system
+through @samp{_type} whenever you use metatables on your own.
 @end table
 
 @end table
@@ -7689,6 +7794,28 @@ In any case you can send messages to the result value.
 
 @end table
 
+@c ----------------- ORI2DIR --------------------
+@node ORI2DIR
+@subsection ORI2DIR
+
+The table @samp{ORI2DIR[]} converts orientation values to direction values.
+
+@table @asis
+@item @b{Syntax:}
+result = @b{ORI2DIR}[@var{orientation}]
+
+@item @b{Details:}
+The table has stored the proper directions values at the index positions of
+the related orientations.
+
+@item @b{Syntax Samples:}
+@example
+@var{direction} = @i{ORI2DIR}[NORTH]      -- N  = po(0, -1)
+@var{direction} = @i{ORI2DIR}[SOUTHEAST]  -- SE = po(1,  1)
+@var{direction} = @i{ORI2DIR}[NODIR]      --      po(0,  0)
+@end example 
+
+@end table
 @c ----------------- random --------------------
 @node random
 @subsection random
@@ -7971,7 +8098,7 @@ if the object has boolean action values.
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ by most objects
 All objects with boolean action values will support this attribute. Additionally
-some objects with other invertible action value types like directions will
+some objects with other invertible action value types like orientations will
 support the inversion of their attributes as stated in the individual object
 descriptions.
 @end table
@@ -8154,7 +8281,7 @@ state. Two-stated objects like switches will toggle their state form @samp{ON}
 to @samp{OFF} or from @samp{OFF} to @samp{ON}. Door like objects will toggle
 their state from @samp{OPEN} to @samp{CLOSED} or from @samp{CLOSED} to
 @samp{OPEN}. Other objects like @ref{st_fourswitch} will turn into the next
-direction. Generally the object will toggle to its next state.
+orientation. Generally the object will toggle to its next state.
 
 @table @asis
 @item @b{Value:} @ @ -
@@ -8181,7 +8308,7 @@ message (@pxref{Object State}).
 A signal message tries to set the object to the state 0 (@samp{OFF},
 @samp{CLOSED}) or state 1 (@samp{ON}, @samp{OPEN}) according to its value. This
 message allows you to keep the states of an action source and a receiving object
-in sync. Note that values like @samp{true}, @samp{false} and direction values
+in sync. Note that values like @samp{true}, @samp{false} and orientation values
 like @samp{WEST} to @samp{NORTH} are converted to 0 and 1. This allows you to
 use @samp{signal} as action message on most objects.
 
@@ -8324,6 +8451,8 @@ cutting all @ref{wires} and @ref{rubbers} that are connected to it.
 @c ----------------- Common Constants --------------------
 @node Common Constants
 @section Common Constants
+
+Constants for @ref{Pseudo Datatypes}.
 
 @menu
 * state values::
@@ -10668,8 +10797,8 @@ A floor suited to build larger hills, gradient areas, wall brims, staircases
 or tubes that channelize actors.
 
 Slope floors are basically described by their @samp{slope} and their @samp{shape}.
-The slope is the direction of the force applied to actors on top. The eight
-main directions and @samp{NODIR}, that causes no force to be applied at all, are
+The slope is the orientation of the force applied to actors on top. The eight
+main orientations and @samp{NODIR}, that causes no force to be applied at all, are
 currently supported.
 
 The shape describes the intended usage, which causes a proper visual
@@ -10685,7 +10814,7 @@ and back to the tube center at the same time (@code{"twl"}, @code{"tsl"},
 @code{"tnr"}).
 
 Note that several shapes do currently use an identical visual representation.
-But they differ in their usage and different slope force directions are
+But they differ in their usage and different slope force orientations are
 assigned by default when you use the variant suffices. It is strongly
 recommended to use always the shape of the intended usage as the images might
 be improved in the future and should fit to your level.
@@ -10702,7 +10831,7 @@ cases you may even define individual force components @samp{force_x} and
 
 @table @asis
 @item @b{slope}, @ @ @i{values}: @code{NODIR}, @code{WEST}, @code{SOUTH}, @code{EAST}, @code{NORTH}, @code{NORTHWEST}, @code{SOUTHWEST}, @code{SOUTHEAST}, @code{NORTHEAST}; @ @ @i{default}: @code{NODIR}
-The direction of the force. Note that setting this attribute does not
+The orientation of the force. Note that setting this attribute does not
 automatically assign a fitting @samp{shape}. This attribute is neglected if
 @samp{force_x} or @samp{force_y} attributes are set.
 
@@ -11395,6 +11524,9 @@ grid, or while jumping or flying over it:
 @item @ref{it_squashed} - remove from floor
 @end itemize
 
+The brush is sensitive to laser light an dissolves with an @ref{it_explosion}_nil
+leaving no remnants when being hit by light.
+
 @table @asis
 
 @item @b{Attributes:}
@@ -11519,6 +11651,9 @@ being a coin of 5 cents and @samp{LARGE} being a coin of 10 cents..
 This item looks like a piece of paper and contains a text message that can be
 displayed by activating the item. It is destroyed by explosions from 
 @ref{it_bomb}, @ref{st_dispenser}, @ref{it_dynamite} and by burning fire.
+The document is sensitive to laser light an dissolves with an 
+@ref{it_explosion}_nil leaving no remnants when being hit by light.
+
 Another message carrying item is the @ref{it_bottle}.
 
 @table @asis
@@ -11905,11 +12040,11 @@ wielded item in the player's inventory:
 
 @itemize @bullet
 @item @ref{st_blur}, magic - transforms to @ref{st_passage},
-@item @ref{st_boulder} - changes direction of a boulder,
+@item @ref{st_boulder} - changes orientation of a boulder,
 @item @ref{st_chess} - changes the color of a chess stone,
 @item @ref{st_ghost}, greenbrown - transforms to @ref{st_greenbrown},
 @item @ref{st_magic}, brick - transforms to a @ref{st_rawglass},
-@item @ref{st_oneway} - changes direction of a oneway,
+@item @ref{st_oneway} - changes orientation of a oneway,
 @item @ref{st_puzzle} - scrambles blue puzzle stones instead of pushing, causes complete
 clusters to explode,
 @item @ref{st_rubberband} - makes rubberband stones movable,
@@ -12490,7 +12625,7 @@ Mass unit is the mass of an @ref{ac_marble}
 
 A wrench wielded as first item in the players inventory causes some objects
 to react on actor hits. An @ref{st_rotator} changes its turning direction.
-An green @ref{st_turnstile} rotates backwards when hit. An @ref{st_window}
+A green @ref{st_turnstile} rotates backwards when hit. An @ref{st_window}
 face pushed with an wrench will swap to the opposite side of the stone if
 possible.
 
@@ -14374,7 +14509,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_flash::           Partner Marble pushing Stone
 * st_flat::            Featured Gypsum Stone
 * st_floppy::          Floppy Driven Switch
-* st_fourswitch::      Four Direction Switch
+* st_fourswitch::      Four Orientation Switch
 * st_ghost::           Invisible Transforming Stone
 * st_grate::           Hovering metal Grate
 * st_greenbrown::      Mainly brown seedable stone
@@ -14450,7 +14585,7 @@ invisible actorimpulse stones. With the global attribute @ref{ExtralifeGlasses}
 even glasses generated by laser lighting an @ref{it_extralife} can be configured
 to show invisible actorimpulse stones.
 
-An @ref{st_boulder} hitting an actorimpulse stone will revert its direction
+An @ref{st_boulder} hitting an actorimpulse stone will revert its orientation
 and return in the incoming direction.
 
 @table @asis
@@ -14652,9 +14787,9 @@ to a blocking stone.
 Boulder stones fall into @ref{fl_abyss}, but cross @ref{fl_water}
 unchanged.
 
-@ref{it_magicwand} and lasers reverse its direction. An @ref{st_actorimpulse}
-reverts the direction if the boulder hits it frontally. An @ref{st_rotator}
-changes its direction according to the rotator's direction. An
+@ref{it_magicwand} and lasers reverse its orientation. An @ref{st_actorimpulse}
+reverts the orientation if the boulder hits it frontally. An @ref{st_rotator}
+changes its orientation according to the rotator's direction. An
 @ref{st_stoneimpulse} pushes a boulder away.
 
 @table @asis
@@ -14675,7 +14810,7 @@ direction.
 @table @asis
 @msindex orientate
 @item @b{orientate}, @ @ @i{value type}: direction
-Change the orientation to the given direction value. The @ref{st_fourswitch}
+Change the orientation to the given orientation value. The @ref{st_fourswitch}
 provides a compatible action which allows you to set a boulder as
 target and this message as action.
 @item @b{turn}
@@ -15571,15 +15706,15 @@ Switches on at value @samp{1}, and off at value @samp{0}.
 @subsection st_fourswitch
 @obindex st_fourswitch
 
-A switch that points to one of the four directions turning on every switching
-event. The most common event is an actor hitting this stone. But @ref{st_boulder}
-will trigger this switch, too. Of course other objects can send messages on
-actions to make this switch turning.
+A switch that points into one of the four orientations and turning on every
+switching event. The most common event is an actor hitting this stone. But 
+@ref{st_boulder} will trigger this switch, too. Of course other objects can send
+messages on actions to make this switch turning.
 
 When turning its pointer on a switching event it performs the action given by
 the @samp{action/target}-pair. This can be either a common pair or a
-state/direction dependent pair allowing you to issue different messages
-dependent on the pointing direction.
+state/orientation dependent pair allowing you to issue different messages
+dependent on the pointing orientation.
 
 @table @asis
 @item @b{Attributes:}
@@ -15592,8 +15727,8 @@ The standard turning direction is clockwise. Use this attribute to revert the
 direction.
 @item @b{inverse} @ @ @xref{inverse}
 Note that the action value is inverted in its boolean interpretation. This means
-that an inverted action value is @emph{not} the reverse direction and should not
-be used as a direction value at all.
+that an inverted action value is @emph{not} the reverse orientation and should
+not be used as an orientation value at all.
 @end table
 
 @item @b{Messages:}
@@ -15608,10 +15743,10 @@ Note that a toggle turns the fourswitch independent of a message value.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 Performs an action on each turn. If just a pair of global @samp{target/action}
-attributes are given, the action message is sent to the target with a
-direction value of the new orientation. This value suits any message of the
-target that expects a direction value, and the @ref{signal} message, that
-translates the direction to a 1 for @samp{NORTH}, @samp{SOUTH} and a 0 for
+attributes are given, the action message is sent to the target with a value of
+the new orientation. This value suits any message of the target that expects
+an orientation value, and the @ref{signal} message, that translates the 
+orientation value to a 1 for @samp{NORTH}, @samp{SOUTH} and a 0 for
 @samp{EAST}, @samp{WEST}.
 
 If state dependent target/action pairs are given instead, namely
@@ -15961,7 +16096,7 @@ the knight is beaten after 4 hits.
 The laser stone is the only object that is capable of emitting light beams.
 Per default laser stones are switched off. The @samp{state} attribute represents
 the activity of the laser and can be set initially to @samp{ON}. A laser is
-orientated to one direction in which the light will be emitted.
+orientated to one direction into which the light will be emitted.
 
 Lasers have a latency that protect them from infinite fast switching cycles. This
 allows you to toggle a laser with an @ref{st_laserswitch} that is illuminated
@@ -16361,8 +16496,8 @@ direction.
 
 @table @asis
 @msindex orientate
-@item @b{orientate}, @ @ @i{value type}: direction
-Change the orientation to the given direction value. The @ref{st_fourswitch}
+@item @b{orientate}, @ @ @i{value type}: orientation
+Change the orientation to the given orientation value. The @ref{st_fourswitch}
 provides a compatible action which allows you to set a mirror as
 target and this message as action.
 @item @b{turn}
@@ -16471,8 +16606,8 @@ marbles of any color as well as all other actors.
 @item @b{Messages:}
 
 @table @asis
-@item @b{orientate}, @ @ @i{value type}: direction
-Change the orientation to the given direction value. The @ref{st_fourswitch}
+@item @b{orientate}, @ @ @i{value type}: orientation
+Change the orientation to the given orientation value. The @ref{st_fourswitch}
 provides a compatible action which allows you to set a oneway as
 target and this message as action.
 @item @b{flip},
@@ -16993,10 +17128,10 @@ A hollow puzzle stone has a hole in its middle and allows actors to pass beneath
 @item @b{get_adjacents}
 Returns the huddle of all adjacent puzzle stones of same color independent of
 being connected or not. The huddle is returned as a group.
-@item @b{pull_rotate}, @ @ @i{value type}: direction
+@item @b{pull_rotate}, @ @ @i{value type}: orientation
 Perform a reverse @samp{push_rotate} from this puzzle stones with the line
 of puzzle stone into the given direction.
-@item @b{push_rotate}, @ @ @i{value type}: direction
+@item @b{push_rotate}, @ @ @i{value type}: orientation
 Perform a line rotation as described above from this puzzle stones with the line
 of puzzle stone into the given direction.
 
@@ -17116,7 +17251,7 @@ actors.
 @obindex st_rotator
 
 Rotators send impulses to neighboring stones, thus pushing them in the direction
-given by the rotation. @ref{st_boulder} additionally change their direction to
+given by the rotation. @ref{st_boulder} additionally change their orientation to
 the one they are pushed to.
 
 Rotators can either rotate in clockwise or counterclockwise direction. They can
@@ -17787,7 +17922,7 @@ direction.
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
 The orientation of the turnstile that is only visible by its arms. Setting
 this attribute just defines a new base, but does not turn the turnstile as the
-direction would not be defined. But every rotation does update this attribute
+orientation would not be defined. But every rotation does update this attribute
 relative to its previous value.
 @end table
 
@@ -17822,7 +17957,7 @@ on counterclock turns and @samp{false} on clockwise turns.
 An arm that usually connects to an @ref{st_turnstile} pivot building a turnstile
 cluster. The arm's subkind suffix, its state and orientation are named according
 to the arm's position within the turnstile cluster. Thus a @samp{NORTH} arm has
-a single standard connection of @code{"s"}, the reverse direction.
+a single standard connection of @code{"s"}, the reverse orientation.
 
 As long as a turnstile arm is not connected to a pivot it is a free movable
 stone. Intentionally it is visually indistinguishable from a @ref{st_puzzle}
@@ -17861,8 +17996,8 @@ sole connection.
 
 @table @asis
 @msindex orientate
-@item @b{orientate}, @ @ @i{value type}: direction
-Change the orientation to the given direction value. The @ref{st_fourswitch}
+@item @b{orientate}, @ @ @i{value type}: orientation
+Change the orientation to the given orientation value. The @ref{st_fourswitch}
 provides a compatible action which allows you to set an arm as
 target and this message as action.
 @end table
@@ -18006,8 +18141,8 @@ south, west, is guaranteed on read access but arbitrary on write access.
 @item @b{Messages:}
 
 @table @asis
-@item @b{inner_pull}, @ @ @i{value type}: direction
-Tries to tear the opposite window face into the given direction.
+@item @b{inner_pull}, @ @ @i{value type}: orientation
+Tries to tear the opposite window face into the given orientation.
 @end table
 
 @item @b{Variants:}
@@ -19248,7 +19383,7 @@ The table to be shuffled (only the numerical entries will be shuffled).
 
 @item @b{Syntax Samples:}
 @example
-directions = lib.lua.shuffle(@{NORTH, SOUTH, EAST, WEST@})
+orientations = lib.lua.shuffle(@{NORTH, SOUTH, EAST, WEST@})
 a = @{1, 2, 3, "r", @{"x", "y", "z"@}, 4@}
 b = lib.lua.shuffle(a)
 @end example
@@ -21067,18 +21202,11 @@ maze4 = res.maze(ti, @{area =@{po(2, 12), 5, 5@}, kernel=@{3,2@},
 @end example
 
 @item @b{Details:}
-Cell
+To be written.
 
 
 @item @b{Full Example:}
 @example
-ti[" "] = @{"fl_sahara"@}
-
-w, h = wo(resolver, " ", @{
-"                                        ",
-"                                        ",
-"                                        "
-@})
 @end example
 @end table
 
@@ -21999,9 +22127,12 @@ implementation part may be called.
 
 It is the task of the configurator function to check the user supplied
 parameters thoroughly and to provide appropriate error messages on bad
-parameters. Do this with a lua error message call at level 2:
+parameters. Do this with a lua error message call at level 2 or the useful
+helper functions @ref{assert_bool} and @ref{assert_type}:
 @example
 error("Resolver autotile rule " .. i.." is not a table", 2)
+assert_bool(is_resolver(subresolver), "res.composer first argument (subresolver)", 2)
+assert_type(args[1], "res.composer second argument (sequence)", 2, "non-empty string")
 @end example
 
 The configuration function has to return a table that contains the context
@@ -22022,10 +22153,21 @@ registered as @samp{res.resolvername_implementation}. The finalizer can be
 first parameter of the configurator call needs to be the third context
 table entry.
 
+The context needs to add a metatable with two entries. First @code{"_type"} 
+needs to identify the context as an enigma data type for the @ref{etype}
+function. Most resolvers to simply store the string @code{"resolver"}, but
+special ones might return special identification strings like @code{"maze"}.
+The second required entry is @code{"_resolver"} that needs a boolean @samp{true}
+value assigned for purpose of secure identification of resolver tables. A 
+default resolver metatable is stored at @samp{res.metatable} and can directly
+be set by @samp{setmetatable}.
+
 @item @b{Full Example:}
 @example
 function res.composer(subresolver)
+    assert_bool(is_resolver(subresolver), "res.composer first argument (subresolver)", 2)
     local context = @{res.composer_implementation, nil, subresolver@}
+    setmetatable(context, res.metatable)
     return context
 end
 @end example
@@ -22093,7 +22235,7 @@ in the context table for subsequent calls. Especially it can enlist all
 coordinates for postprocessing operations in the finalizer.
 
 @item @b{Full Example:}
-The implementation of the composer (without the special 3 character key treatment)
+The implementation of the composer (without the special sequence treatment)
 @example
 function res.composer_implementation(context, evaluator, key, x, y)
     local tile = evaluator(context[3], key, x, y)
@@ -22134,7 +22276,7 @@ The context as provided as return value by the @ref{Resolver Configurator}.
 @end table
 
 @item @b{Details:}
-The finalization functions of chained resolvers are called from top to bottom.
+The finalization functions of chained resolvers are called from bottom to top.
 
 Many resolvers have no need of a finalization. But some like a maze constructor
 need to know all participating tiles until they can do their final work.
@@ -22176,7 +22318,7 @@ No space for spaces
 
 @node Title Recommendation
 @section Title Recommendation
-English - no translation - use subtitle, too
+English titles preferred - use subtitle, too
 
 @node Tile Key Recommendation
 @section Tile Key Recommendation
