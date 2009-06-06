@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma III"/>
+  <info enigma="1.00" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma III"/>
 
   <attributes/>
 
@@ -44,11 +44,11 @@
     <level _seq="36" _title="Keepaway" _xpath="./duffy54_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy54" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Fly High" _xpath="./duffy86_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy86" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Bright Dots" _xpath="./raoul09_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul09" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="Monster in the Dark" _xpath="./duffy52_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy52" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Monster in the Dark" _xpath="./duffy52_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy52" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Snow White -" _xpath="./ant15_2" author="Petr Machata" ctrl="force" easy="false" id="ant15" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Black Diamond Course" _xpath="./duffy28_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy28" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Spidering Around Death" _xpath="./martin89_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="The Ditch" _xpath="./richi01_1" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="The Ditch" _xpath="./richi01_2" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Rush Hour Traffic" _xpath="./duffy62_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy62" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="The Turtle" _xpath="./ant05_1" author="Petr Machata" ctrl="force" easy="false" id="ant05" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Bridgebuilder" _xpath="./siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -57,7 +57,7 @@
     <level _seq="49" _title="Tough Skyscraper" _xpath="./wb08_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Something Went Wrong" _xpath="./ss17_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss17" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Hexagony" _xpath="./nat22_2" author="Nat Pryce" ctrl="force" easy="true" id="nat22" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="Set Me Free" _xpath="./illmind06_1" author="illmind" ctrl="force" easy="false" id="illmind06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Set Me Free" _xpath="./illmind06_2" author="illmind" ctrl="force" easy="false" id="illmind06" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="53" _title="Danger Slide" _xpath="./luc15_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc15" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="White Contrast" _xpath="./illmind07_1" author="illmind" ctrl="force" easy="false" id="illmind07" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Tricks" _xpath="./duffy84_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy84" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -72,7 +72,7 @@
     <level _seq="64" _title="Laser Castle" _xpath="./andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="The Safe" _xpath="./siegfried77_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried77" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Block its way!" _xpath="./wb05_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb5" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="67" _title="Bump Ahead" _xpath="./illmind01_1" author="illmind" ctrl="force" easy="false" id="illmind01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Bump Ahead" _xpath="./illmind01_2" author="illmind" ctrl="force" easy="false" id="illmind01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Bowling" _xpath="./martin80_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin80" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Slinky Mayhem" _xpath="./duffy64_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy64" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="70" _title="Overwhelming" _xpath="./duffy65_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy65" rel="2" rev="3" score="1" target="time" unit="duration"/>

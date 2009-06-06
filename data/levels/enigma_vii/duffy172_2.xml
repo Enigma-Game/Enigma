@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Double Oneways" el:subtitle="no U-turn" el:id="duffy172"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti[" -"] = {"fl_metal"}
+ti[" ."] = {"fl_abyss"}
+ti[" ,"] = {"fl_space"}
+ti[" ~"] = {"fl_ice"}
+ti[" :"] = {"fl_rough"}
+ti["# "] = {"st_greenbrown"}
+ti["= "] = {"st_purplegray"}
+ti["I "] = {"st_ghost"}
+ti["X "] = {"st_grate", flavor="cross"}
+ti["P "] = {"st_actorimpulse", name="anchor"}
+ti["^ "] = {"st_oneway", orientation=NORTH}
+ti["> "] = {"st_oneway", orientation=EAST}
+ti["V "] = {"st_oneway", orientation=SOUTH}
+ti["< "] = {"st_oneway", orientation=WEST}
+ti["| "] = {"st_door", name="door", faces="ew"}
+ti["M "] = {"st_coinslot", target="door"}
+ti["1 "] = {"st_switch", target="set_grates"}
+ti["2 "] = {"st_switch", target="set_brownies"}
+ti["W "] = {"st_greenbrown", name="gb2brownie#"}
+ti["Y "] = ti["W "] .. {"it_wormhole", name="leftWH", strength=1, destination="fromY"}
+ti["y "] = {"fl_lawn", name="fromY"}
+ti["z "] = {"fl_rough", name="fromZ"}
+ti["Z "] = {"it_wormhole", strength=1, destination="fromZ"}
+ti["s "] = {"it_seed"}
+ti["m "] = {"it_coin_s"}
+ti["p "] = {"it_brush"}
+ti["l "] = {"it_extralife"}
+ti["!"] = ti[" -"] .. {"st_puzzle",  intensity=0}
+ti["?"] = ti[" -"] .. {"st_puzzle",  intensity=0}
+ti["O "] = {"st_oxyd"}
+ti["@ "] = {"#ac_marble_black"}
+
+leftRoom = wo:newMap("  ", {
+    "#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#- . .",
+    "#: : : : :I: : : : : :I: : : : : : : :#- . .",
+    "#: :I:I: :I: :I:I:I: :I: :I: :I:I:I:W:#- . .",
+    "#: :I: : : : :I:z: : :I: :I: : : : : :#- . .",
+    "#: :I: :I:I: :I:I:I: :I: :I: :I:I: :I:#-=-=-",
+    "#: :I: :I: : : :I: : :I: :I: :I: : : :<- - -",
+    "#: :I:I:I: :I: :I: :I:I: :I:I:I: :I:I:#-=-=-",
+    "#: : : :I:Y:I:W:I: : : : :I: :I:p:I: :>- - -",
+    "#:I:I: :I: :I: :I:I:I:I:I:I: :I:I:I: :#-=-=-",
+    "#: : : :I: : : : :I: :I: : : : : : : :#- . .",
+    "#: :I:I:I:I: :I:I:I: : : :I:I:I:I:I:I:#- . .",
+    "#: : : : : : : : : : :I: : : : : : : :#- . .",
+    "#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#- . ."})
+
+centerRoom = wo:newMap("  ", {
+    "#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#- . .",
+    "#- ~ , ~ , ~ , ~ , ~ , ~ , ~ ,#- , ~ ,#- . .",
+    "#- ,#-#- ~ , ~ , ~ , ~ , ~ , ~#- ~#- ~#- . .",
+    "#- ~ ,#- , ~ , ~ ,P- , ~ , ~ ,#- ,#- ,#- . .",
+    "#-#- ~#- ~ , ~ , ~ , ~ , ~ , ~#- ~#- ~#-=-=-",
+    "<- - ,#- , ~ , ~ , ~ , ~ , ~ , ~ ,#- -<- - -",
+    "#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-=-=-",
+    ">- - - -#- - - -?2 - - -!1 - - - -#- .>- - -",
+    "#- -#- -#-!1!1!1?j - - -!1!1 - - - - .#- -=-",
+    "#-l-#-!1!1!1 - - - - - -?2?2?2?2 - - .#- -=-",
+    "#-l-#- - - - - -?h - - -?2 - - -!1 - -#- -=-",
+    "#-1-#- - - - - -#- - - - - - - -!1 - -#-2-=-",
+    "#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-=-=-"})
+
+rightRoom = wo:newMap("  ", {
+    "#-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "#-    # O # O # O # O # O # O # O # O # M                                   # ",
+    "#-    # ^ # ^ # ^ # ^ # ^ # ^ # ^ # ^ #                                     # ",
+    "#-    # ^ # ^ # ^ # ^ # ^ # ^ # ^ # ^ #                                     # ",
+    "#-                                    # # # # #                   s s s s   # ",
+    "<-                                    #       #                   s s s s   # ",
+    "#-                    @               #   Z   |           m   y   s s s s   # ",
+    ">-                                    #       #                   s s s s   # ",
+    "#-                                    # # # # #                   s s s s   # ",
+    "#-    # V # V # V # V # V # V # V # V #                                     # ",
+    "#-    # V # V # V # V # V # V # V # V #                                     # ",
+    "#-    # O # O # O # O # O # O # O # O # M                                   # ",
+    "#-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "})
+
+passway = wo:newMap("  ", {
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-",
+    " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-",
+    " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -",
+    "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."})
+
+wo(res.composer(res.puzzle(ti, "!", "?")), "  ", leftRoom .. passway .. centerRoom .. passway .. rightRoom)
+wo:shuffleOxyd()
+
+function set_grates(value, sender)
+    sender["target"] = DEFAULT
+    wo:drawMap(res.composer(ti), no["anchor"]+SSE, "  ", {"#,#~#,#~"," -X-X- -"})
+end
+
+function set_brownies(value, sender)
+    wo[no["gb2brownie#*"]] = {"st_brownie"}
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

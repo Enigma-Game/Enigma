@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Big Swamp" el:subtitle="" el:id="luc10"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits>Thanks to Petr Machata for his ant.lua script and Nat Pryce for his natmaze.lua script</el:credits>
+        <el:code>I took this from Petr Machata's Meditation level. New API converted by R. Bourquin</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_swamp"}
+ti["-"] = {"fl_samba"}
+
+themaze = res.maze(res.random(ti, ".", {{".", 4}, {"-", 1}}), {area={po(1,1), 19, 12}, render={".", "~", "."}})
+w, h = wo(themaze, "~", 39, 25)
+
+wo[po(0,0) .. po(w-1,0) .. po(0,h-1) .. po(w-1,h-1)] = {"st_oxyd"}
+wo[po(3,1)] = {"#ac_marble"}
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

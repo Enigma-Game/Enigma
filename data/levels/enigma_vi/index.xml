@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma VI"/>
+  <info enigma="1.00" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma VI"/>
 
   <attributes/>
 
@@ -51,7 +51,7 @@
     <level _seq="43" _title="Edwards Mountain" _xpath="./edward11_1" author="Edward" ctrl="force" easy="true" id="edward11" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Dancing on Light Beams" _xpath="./andreas28_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas28" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Wormhole Madness!" _xpath="./edward24_1" author="Edward" ctrl="force" easy="false" id="edward24" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="46" _title="Alcatraz" _xpath="./ralf14_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Alcatraz" _xpath="./ralf14_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Chess, Bugs &amp; Rock'n'Roll" _xpath="./andreas31_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas31" rel="2" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Oiltrace" _xpath="./raoul25_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Simple Space" _xpath="./ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -78,7 +78,7 @@
     <level _seq="70" _title="Twisting by the pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Revolver" _xpath="./ral16_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="2" rev="146" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Same task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="11" score="1" target="time" unit="duration"/>
-    <level _seq="73" _title="ZigZag" _xpath="./ralf06_1" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="ZigZag" _xpath="./ralf06_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Houdini" _xpath="./ral11_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="3" rev="147" score="2" target="time" unit="duration"/>
     <level _seq="75" _title="The wrong Place?" _xpath="./just17_1" author="JuSt" ctrl="force" easy="false" id="just17" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Idempotency" _xpath="./duffy145_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy145" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -90,7 +90,7 @@
     <level _seq="82" _title="Pontoon Bridges" _xpath="./duffy137_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy137" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="The Cube" _xpath="./malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Blitz Chess" _xpath="./luc32_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc322006" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="One-Way Woods" _xpath="./duffy135_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy135" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="One-Way Woods" _xpath="./duffy135_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy135" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Tandem Chess" _xpath="./luc34_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc342007" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Your Friend, the Light" _xpath="./just15_1" author="JuSt" ctrl="force" easy="true" id="just15" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Correspondence Chess" _xpath="./luc35_3" author="Lukas Schüller" ctrl="force" easy="true" id="luc352007" rel="3" rev="4" score="3" target="time" unit="duration"/>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Alcatraz" el:subtitle="Escape from Alcatraz?" el:id="ralf14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Ralf Westram" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Renamed, added easymode and it-docs in Oct 06 by Leveladministrators
+        New API converted by R. Bourquin</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+      </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["-"] = {"fl_lawn"}
+ti["."] = {"fl_sand"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["I"] = {"st_stoneimpulse"}
+ti["S"] = {"st_swap"}
+ti["P"] = {"st_pull"}
+ti["L"] = {"st_rotator_ccw"}
+ti["R"] = {"st_rotator_cw"}
+if wo["IsDifficult"] then
+    ti["i"] = ti["I"]
+    ti["s"] = ti["S"]
+    ti["1"] = {"it_document", text="text3"}
+    ti["2"] = ti["-"]
+    ti["4"] = {"it_document", text="text4"}
+else
+    ti["i"] = ti[" "]
+    ti["s"] = ti[" "]
+    ti["1"] = {"it_document", text="text1"}
+    ti["2"] = ti["-"] .. {"it_document", text="text2"}
+    ti["4"] = ti[" "]
+end
+ti["O"] = ti["."] .. {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~O................O~",
+    "~.----------------.~",
+    "~.----########----.~",
+    "~.----#  @1 4#----.~",
+    "~.----#LsIIsR#----.~",
+    "~.----# PXXP #----.~",
+    "~.-2--# SiiS #----.~",
+    "~.----#      #----.~",
+    "~.----########----.~",
+    "~.----------------.~",
+    "~O................O~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Al Capone's training camp.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">There are at least two patterns to break through the wall.</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">It is a well known secret that a few prisoners did escape.</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">A window in the wall would be really nice.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

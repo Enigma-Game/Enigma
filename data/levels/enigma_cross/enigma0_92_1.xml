@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="30" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="31" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -103,7 +103,7 @@
     <level _seq="95" _title="Bumperball" _xpath="enigma_iii/duffy15_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy15" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Where am I?" _xpath="enigma_i/martin68_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin68" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Space Travels" _xpath="enigma_i/siegfried30_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10b" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Gopher It" _xpath="enigma_ii/nat34_1" author="Nat Pryce" ctrl="force" easy="false" id="natmaze3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="98" _title="Gopher It" _xpath="enigma_ii/nat34_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze3" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="- Meditation -" _xpath="enigma_i/ant24_2" author="Petr Machata" ctrl="force" easy="false" id="ant24" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Spiders" _xpath="enigma_v/ant26_1" author="Petr Machata" ctrl="force" easy="false" id="ant26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="101" _title="Meditation Puzzle" _xpath="enigma_iv/duffy01_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -128,7 +128,7 @@
     <level _seq="120" _title="Jump!" _xpath="enigma_i/duffy07_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy7" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="121" _title="Checkerboard" _xpath="enigma_iii/duffy08_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="122" _title="Circularity" _xpath="enigma_iv/ant10_1" author="Petr Machata" ctrl="force" easy="false" id="ant10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="123" _title="Just Moving Blocks?" _xpath="enigma_iv/duffy05_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy5" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="123" _title="Just Moving Blocks?" _xpath="enigma_iv/duffy05_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy5" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="124" _title="Slinky-Racing" _xpath="enigma_iv/duffy14_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="125" _title="Boulder-Puzzle" _xpath="enigma_iv/duffy06_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy6" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="126" _title="Wild" _xpath="enigma_iii/ant28_2" author="Petr Machata" ctrl="force" easy="false" id="ant28" rel="2" rev="1" score="1" target="time" unit="duration"/>

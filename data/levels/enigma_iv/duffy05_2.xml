@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Just Moving Blocks?" el:subtitle="" el:id="duffy5"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" el:engine="enigma">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted and difficult mode by R. Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_bridge_gc", "hurdle#"}
+ti["="] = {"fl_bridge_gc", "bridge2#", state=CLOSED}
+ti["#"] = {"st_rawglass"}
+ti["+"] = {"st_box_hay"}
+ti["L"] = {"st_laser_w", "laser"}
+ti["K"] = {"st_key", target="laser", action="on"}
+ti["B"] = {"st_dispenser_bombblack"}
+ti["H"] = {"st_break_oxydc"}
+ti["M"] = {"st_mirror", transparent=true, orientation=SLASH}
+ti["N"] = {"st_mirror", transparent=true, orientation=BACKSLASH}
+ti["V"] = {"st_oneway_s", "ow#"}
+ti["F"] = {"st_floppy", target="ow#*", action="flip"}
+ti["D"] = {"st_door_d", "hurdle#", faces="ew", state=OPEN}
+ti["S"] = {"st_switch", target="hurdle#*"}
+ti["C"] = {"st_coinslot", target="bridge2#*"}
+ti["e"] = {"it_extralife"}
+ti["f"] = {"it_floppy"}
+ti["h"] = {"it_hammer"}
+ti["k"] = {"it_key"}
+ti["o"] = {"it_coin_l"}
+ti["u"] = {"it_coffee"}
+ti["w"] = cond(wo["IsDifficult"], ti[" "], {"it_wrench"})
+ti["c"] = cond(wo["IsDifficult"], ti[" "], {"it_coin_m"})
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################B###C###FK###C###S#####",
+    "#M                 #                  #  N#",
+    "#M                 #w   @        k   c#  N#",
+    "#M                 #                  #  N#",
+    "#                  ####V####--####V####   #",
+    "#                  #       #  #       #   #",
+    "#                  #+++++++#fh#+++++++#   #",
+    "#                  #       #  #       #   #",
+    "#                  #+++++++#  #+++++++#   #",
+    "#                  #   H   #  #   H   #   #",
+    "#                  ###++####==####++###   #",
+    "#N                 # D o          u D # MM#",
+    "####################O################O#####",
+    "#N                                      NL#"})
+
+if not wo["IsDifficult"] then
+    wo:add(YIN, ti["e"] .. ti["e"])
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

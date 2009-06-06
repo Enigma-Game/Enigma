@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sunrise Sunset" el:subtitle="" el:id="pulley18"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="5:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_lawn_b"}
+ti["-"] = {"fl_ice"}
+ti["."] = {"fl_abyss"}
+ti["="] = {"fl_fake_abyss"}
+ti["#"] = {"st_bluesand"}
+ti["F"] = {"st_flat"}
+ti["B"] = ti[" "] .. {"st_greenbrown"}
+ti["C"] = ti[" "] .. {"st_camouflage"}
+ti["G"] = ti["="] .. {"st_darkglass"}
+ti["V"] = ti["-"] .. {"st_boulder", orientation=SOUTH, name="Sun", _sunstate=0}
+ti["D"] = ti["="] .. {"st_door", flavor="b", name="doors#"}
+ti["X"] = ti["="] .. {"st_door", flavor="a", name="door1"}
+ti["N"] = ti["="] .. {"st_switch", target="SetHemisphere", name="hemisphere#", _hemisphere=NORTH}
+ti["S"] = ti["="] .. {"st_switch", target="SetHemisphere", name="hemisphere#", _hemisphere=SOUTH}
+ti["d"] = ti["="] .. {"it_document", text="text1"}
+ti["t"] = ti["-"] .. {"it_trigger", target="RiseSet"}
+ti["O"] = ti["."] .. {"st_oxyd"}
+ti["o"] = ti[" "] .. {"st_oxyd"}
+ti["A"] = cond(wo["CreatingPreview"], {"#ac_marble_black"}, ti[" "])
+ti["@"] = cond(wo["CreatingPreview"], ti["="], ti["="] .. {"#ac_marble_black"})
+
+wo(ti, " ", {
+    "----------------------------------------------------------",
+    "-----------------------------V----------------------------",
+    "--######################################################--",
+    "--#                                                    #--",
+    "--#     CCCCCC            CCCCCC            CCCCCC     #--",
+    "--#    CCCCCCCo          CCCCCCCC          oCCCCCCC    #--",
+    "--#    oCCCCCCC          oCCCCCCC          CCCCCCCo    #--",
+    "--#     CCCCCC            CCCCCC            CCCCCC     #--",
+    "--#       BB                BB                BB       #--",
+    "--#       BB     CCCCCC     BB     CCCCCC     BB       #--",
+    "--#       BB   AoCCCCCCC    BB    CCCCCCCC    BB       #--",
+    "--#...... BB    CCCCCCCC    BB    CCCCCCCo    BB ......#--",
+    "--#       BB     CCCCCo     BB     CCCCCC     BB       #--",
+    "--# ........       BB                BB       ........ #--",
+    "--#        .....   BB                BB   .....        #--",
+    "--#... ... .   .   BB.......  .......BB   .   . ... ...#--",
+    "--#      . . . .   BB                BB   . . . .      #--",
+    "--# .... . . . .   BB .............. BB   . . . . .... #--",
+    "-t#      .   .                              .   .      #t-",
+    "==FFFDFFFFFFFFFFFFFFFFFFFFFFF=FFFFFFFFFFFFFFFFFFFFFFDFFF==",
+    "==G===G=========G===========G=G===G==============G=====G==",
+    "==G=GGG=GGGGGGG=G=GGGGGGGGO=G=G=G=G=GGGGGGGOGGGG=G=GGG=G==",
+    "==G=======G=====G=========G=G=G=G==========G=======G===G==",
+    "==G=GGGGG=G=GGG=GGGGGGGGG=G=G=G=GGGGGGGGGG=G=GGGGG=G=GGG==",
+    "==G=====G=G===G=========G=G=GXG=G========G===G=====G===G==",
+    "==GGGGG=G=GGG=GGGGGGGGOGG=G=G@G=G=GGGGGG=OGGGG=GGGGG=G=G==",
+    "==G===G=G===G=G=======G===G=NdS=G=G======G===G=======G=G==",
+    "==G=G=G=GGG=G=G=GGGGG=G=GGG=GGG=G=G=GGGGGG=G=GGGGGGGGG=G==",
+    "==G=G=G===G=G=G=G=====G=G=======G=G========G=========G=G==",
+    "==G=G=GGG=G===G=G=GGGGG=G=GGGGG=G=GGGGGGGGGGGGGGGG=G=G=G==",
+    "==G=G=G===GGGGG=G=O=====G=G===G=G===G===GO===G===G=G=G=G==",
+    "==G=G===G=======G===GGGGG=G=G===G=G=G=G=G==G===G===G=G=G==",
+    "==G=OGGGGGGGGGGGGGGGG===G=G=GGGGG=G=G=G=OGGGGGGGGG=G=G=G==",
+    "==G===================G===G=======G===G============G===G==",
+    "==GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG==",
+    "==========================================================",
+    "=========================================================="})
+
+wo:add({"ot_timer", name="timer", interval=0.1, target="draw_line", state=OFF})
+wo:shuffleOxyd()
+
+daymap = wo:newMap("@", {
+        "==========================================================",
+        "==========================================================",
+        "==GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG==",
+        "==G====================================================G==",
+        "==G=====GGGGGG============GGGGGG============GGGGGG=====G==",
+        "==G====GGGGGGG===========GGGGGGGG===========GGGGGGG====G==",
+        "==G=====GGGGGGG===========GGGGGGG==========GGGGGGG=====G==",
+        "==G=====GGGGGG============GGGGGG============GGGGGG=====G==",
+        "==G=======GG================GG================GG=======G==",
+        "==G=======GG=====GGGGGG=====GG=====GGGGGG=====GG=======G==",
+        "==G=======GG=====GGGGGGG====GG====GGGGGGGG====GG=======G==",
+        "==G......=GG====GGGGGGGG====GG====GGGGGGG=====GG=......G==",
+        "==G=======GG=====GGGGG======GG=====GGGGGG=====GG=======G==",
+        "==G=........=======GG================GG=======........=G==",
+        "==G========.....===GG================GG===.....========G==",
+        "==G...=...=.===.===GG.......==.......GG===.===.=...=...G==",
+        "==G======.=.=.=.===GG================GG===.=.=.=.======G==",
+        "==G=....=.=.=.=.===GG=..............=GG===.=.=.=.=....=G==",
+        "==G======.===.==============================.===.======G=="})
+
+nightmap = wo:newMap("@", {
+        "----------------------------------------------------------",
+        "----------------------------------------------------------",
+        "--######################################################--",
+        "--#                                                    #--",
+        "--#     CCCCCC            CCCCCC            CCCCCC     #--",
+        "--#    CCCCCCC           CCCCCCCC           CCCCCCC    #--",
+        "--#     CCCCCCC           CCCCCCC          CCCCCCC     #--",
+        "--#     CCCCCC            CCCCCC            CCCCCC     #--",
+        "--#       BB                BB                BB       #--",
+        "--#       BB     CCCCCC     BB     CCCCCC     BB       #--",
+        "--#       BB     CCCCCCC    BB    CCCCCCCC    BB       #--",
+        "--#...... BB    CCCCCCCC    BB    CCCCCCC     BB ......#--",
+        "--#       BB     CCCCC      BB     CCCCCC     BB       #--",
+        "--# ........       BB                BB       ........ #--",
+        "--#        .....   BB                BB   .....        #--",
+        "--#... ... .   .   BB.......  .......BB   .   . ... ...#--",
+        "--#      . . . .   BB                BB   . . . .      #--",
+        "--# .... . . . .   BB .............. BB   . . . . .... #--",
+        "--#      .   .                              .   .      #--"})
+
+-- Split the maps into vertical 1-tile stripes
+local dayparts = {}
+for i=0, daymap.width do
+    dayparts[i+1] = daymap:sub(po(i,0), po(i, daymap.height))
+end
+
+local nightparts = {}
+for i=0, nightmap.width do
+    nightparts[i+1] = nightmap:sub(po(i,0), po(i, nightmap.height))
+end
+
+function SetHemisphere(value, sender)
+    no["hemisphere#*"]["target"] = DEFAULT
+    no["Sun"]:message("orientate", sender["_hemisphere"]-1)
+    no["door1"]:open()
+    if sender["_hemisphere"] == NORTH then
+        wo[po(1, 0) .. po(57, 1) .. po(0, 35) .. po(56, 36)] = {"st_rotator_ccw"}
+        partsbeg = 1
+        partsend = daymap.width
+        partsinc = 1
+    else
+        wo[po(1, 0) .. po(57, 1) .. po(0, 35) .. po(56, 36)] = {"st_rotator_cw"}
+        partsbeg = daymap.width
+        partsend = 1
+        partsinc = -1
+    end
+end
+
+function RiseSet()
+    no["Sun"]["_sunstate"] = no["Sun"]["_sunstate"] + 1
+    if no["Sun"]["_sunstate"] == 1 then
+        cur_parts = dayparts
+        partnr = partsbeg
+        no["timer"]["state"] = ON
+        no["doors#*"]:open()
+    end
+    if no["Sun"]["_sunstate"] == 3 then
+        cur_parts = nightparts
+        partnr = partsbeg
+        no["timer"]["state"] = ON
+        no["doors#*"]:close()
+    end
+    no["Sun"]["_sunstate"] = no["Sun"]["_sunstate"] % 4
+end
+
+-- Draw the map line by line for performance reasons
+function draw_line()
+    wo:drawMap(ti, po(partnr-1, 0), "@", cur_parts[partnr])
+    partnr = partnr + partsinc
+    if partnr == partsend + partsinc then
+        no["timer"]["state"] = OFF
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Choose your hemisphere: left switch for northern, right switch for southern.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

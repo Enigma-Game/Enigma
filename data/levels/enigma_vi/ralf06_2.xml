@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="ZigZag" el:subtitle="" el:id="ralf06"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = cond(wo["IsDifficult"], {"fl_inverse"}, {"fl_bright"})
+ti[".."] = {"fl_space"}
+ti["- "] = {"fl_bridge", state=CLOSED, name="bridge%%#"}
+ti["x "] = {"fl_bridge", state=OPEN, name="bridge%%#"}
+ti["# "] = {"st_rawglass"}
+ti["I "] = {"st_stoneimpulse"}
+ti["+ "] = {"st_turnstile", flavor="green"}
+ti["^ "] = {"st_turnstilearm", orientation=NORTH} .. ti({"it_trigger"})
+ti["> "] = {"st_turnstilearm", orientation=EAST}
+ti["V "] = {"st_turnstilearm", orientation=SOUTH}
+ti["< "] = {"st_turnstilearm", orientation=WEST} .. ti({"it_trigger"})
+ti["L^"] = ti[".."] .. {"st_laser", orientation=NORTH, name="laser#"}
+ti["LV"] = ti[".."] .. {"st_laser", orientation=SOUTH, name="laser#"}
+ti["s "] = {"st_switch", target="laser#*"}
+ti["| "] = {"st_door", flavor="d", faces="ew", name="door%%#"}
+ti["= "] = {"st_door", flavor="d", faces="ew", state=OPEN, name="door%%#"}
+ti["t "] = {"it_trigger", name="trigger%%", target="door%%#*"}
+ti["S "] = {"st_switch", target={"door%%#*", "bridge%%#*"}}
+ti["ee"] = {"it_extralife"}
+ti["O "] = ti[".."] .. {"st_oxyd"}
+ti["* "] = {"#ac_pearl", owner=YANG, controllers=CTRL_NONE}
+ti["@ "] = {"#ac_marble_black"}
+
+local resolver = res.autotile(ti, {"t", "t "}, {"|", "| "}, {"=", "= "}, {"-", "- "}, {"x", "x "}, {"S", "S "})
+
+wo(resolver, "  ", {
+    "I I I I I I I I I I I I I # # # # # # # ",
+    "I ..I # # ..............I     # # # # # ",
+    "I # I     # # ......O ..I     |exe=e  s ",
+    "I # < + > ^   # ......I I   -e# # # # # ",
+    "I #   te* + td# ....L^I #     |dxd=d  Se",
+    "I ..# #   V *   # # ..I I -d  # # # # # ",
+    "I ......# < + > ^   # ..I   @ |cxc=ceeSd",
+    "I ......#   tc* + tb# ..I   -c# # # # # ",
+    "I ..LV....# #   V *   # I     |b  =b  Sc",
+    "I ............# < + > # I     # # # # # ",
+    "I ..O ........#   taI # I     =a  |a  Sb",
+    "I ..............# # I ..I     # # # # # ",
+    "I I I I I I I I I I I I I # # # # # # # "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="U-Swap" el:subtitle="" el:id="ralf15"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = not wo["IsDifficult"]
+
+ti[" "] = {"fl_sahara"}
+ti["#"] = {"st_granite"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["P"] = {"st_pull"}
+ti["I"] = {"st_stoneimpulse_movable"}
+ti["S"] = {"st_swap"}
+ti["D"] = {"st_death"}
+ti["x"] = cond(wo["IsDifficult"], ti[" "], ti["X"])
+ti["O"] = {"st_oxyd", name="oxyd#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.random(ti, ".", {{"I", 2/7}, {"X", 2/7}, {"S", 2/7}, {"x", 1/7*5/6}, {"D", 1/7*1/6}}), " ", {
+    "###O###########O####",
+    "#.PXP.........PXP..#",
+    "#P...P.......P...P.#",
+    "#.....P.....P.....P#",
+    "#......P...P.......#",
+    "#XX.....P.P........#",
+    "O@X......P.........O",
+    "#XX.....P.P........#",
+    "# .....P...P.......#",
+    "#.....P.....P.....P#",
+    "#P...P.......P...P.#",
+    "#.PXP.........PXP..#",
+    "###O###########O####"})
+
+wo:shuffleOxyd({no["oxyd#*"]:sort("circular"), circular=true})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="48" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -99,6 +99,7 @@
     <level _seq="91" _title="The Sum Of Its Parts" _xpath="./luc36" author="Lukas Schüller" ctrl="force" easy="true" id="luc362009" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Missing Oxyds?" _xpath="./manfi01_1" author="Manfredi Carta" ctrl="force" easy="true" id="manfi01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Path Through Flood" _xpath="./pulley24_1" author="Mark Pulley" ctrl="force" easy="false" id="20080803pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="94" _title="Sunrise Sunset" _xpath="./pulley18_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley18" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Ditch" el:subtitle="" el:id="richi01"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Richi Bützer" el:email="" el:homepage="enigma.mal2.ch"/>
+      <el:copyright>Copyright © 2005 Richi Bützer</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_plank"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = {"st_box"}
+ti["*"] = ti["+"] .. {"it_document", text="text1"}
+ti["L"] = {"st_laser", orientation=SOUTH, state=ON}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##########LL##O#####",
+    "#   #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #    *  ~~ ~~~~#",
+    "# # #    +  ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "# # #       ~~ ~~~~#",
+    "#@#         ~~+~~~~#",
+    "##############O#####"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Risk your life ...</el:english>
+        <el:translation el:lang="de">Setze dein Leben aufs Spiel ...</el:translation>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

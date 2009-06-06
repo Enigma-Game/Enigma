@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Antimaze" el:subtitle="" el:id="luc02"/>
+      <el:version el:score="1" el:release="3" el:revision="4" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>May 06: Reduced Size by Andreas, New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["1"] = {"fl_lawn"}
+ti["2"] = {"fl_wood"}
+ti["3"] = {"fl_blueslab"}
+ti["4"] = {"fl_redslab"}
+ti["5"] = {"fl_sand"}
+ti["6"] = {"fl_rough"}
+ti["7"] = {"fl_metal_7"}
+ti["#"] = {"st_granite"}
+ti["W"] = {"st_invisible"}
+ti["H"] = {"st_granite_hollow"}
+
+local width = 19
+local height = 18
+themaze = res.maze(res.random(ti, "1", {"1","2","3","4","5","6","7"}), {area={po(1,1), width, height}, render={{"H", "W"}, "#", "1"}})
+
+w, h = wo(themaze, "1", 39, 37)
+wo:drawBorder(po(0,0), w, h, ti["#"])
+wo[po(1,0) .. po(w-2,0) .. po(1,h-1) .. po(w-2,h-1)] = {"st_oxyd"}
+wo[po(2*random(width)-1, 2*random(height)-1)] = {"#ac_marble"}
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

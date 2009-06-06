@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="22" title="Tutorial"/>
+  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="23" title="Tutorial"/>
 
   <attributes/>
 
@@ -37,7 +37,7 @@
     <level _seq="29" _title="Black Is Beautiful" _xpath="enigma_iii/martin15_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="enigma_i/siegfried39_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Indoor Pool" _xpath="enigma_ii/nat01_2" author="Nat Pryce" ctrl="force" easy="false" id="nat1" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="32" _title="Balance" _xpath="enigma_i/erich01_1" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Balance" _xpath="enigma_i/erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Push Them In" _xpath="enigma_ii/nat05_1" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Without Tremor" _xpath="enigma_i/richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Slippery Slopes" _xpath="enigma_i/martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
