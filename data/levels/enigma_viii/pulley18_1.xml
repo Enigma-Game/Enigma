@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sunrise Sunset" el:subtitle="" el:id="pulley18"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,6 +27,10 @@ ti["B"] = ti[" "] .. {"st_greenbrown"}
 ti["C"] = ti[" "] .. {"st_camouflage"}
 ti["G"] = ti["="] .. {"st_darkglass"}
 ti["V"] = ti["-"] .. {"st_boulder", orientation=SOUTH, name="Sun", _sunstate=0}
+ti["R"] = ti["-"] .. {"st_rotator_cw", name="rot_south#"}
+ti["r"] = ti["-"] .. {"st_rotator_ccw", name="rot_north#"}
+ti["Q"] = ti["="] .. {"st_rotator_cw", name="rot_south#"}
+ti["q"] = ti["="] .. {"st_rotator_ccw", name="rot_north#"}
 ti["D"] = ti["="] .. {"st_door", flavor="b", name="doors#"}
 ti["X"] = ti["="] .. {"st_door", flavor="a", name="door1"}
 ti["N"] = ti["="] .. {"st_switch", target="SetHemisphere", name="hemisphere#", _hemisphere=NORTH}
@@ -39,8 +43,8 @@ ti["A"] = cond(wo["CreatingPreview"], {"#ac_marble_black"}, ti[" "])
 ti["@"] = cond(wo["CreatingPreview"], ti["="], ti["="] .. {"#ac_marble_black"})
 
 wo(ti, " ", {
-    "----------------------------------------------------------",
-    "-----------------------------V----------------------------",
+    "-r------------------------------------------------------R-",
+    "R----------------------------V---------------------------r",
     "--######################################################--",
     "--#                                                    #--",
     "--#     CCCCCC            CCCCCC            CCCCCC     #--",
@@ -74,8 +78,8 @@ wo(ti, " ", {
     "==G=OGGGGGGGGGGGGGGGG===G=G=GGGGG=G=G=G=OGGGGGGGGG=G=G=G==",
     "==G===================G===G=======G===G============G===G==",
     "==GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG==",
-    "==========================================================",
-    "=========================================================="})
+    "q========================================================Q",
+    "=Q======================================================q="})
 
 wo:add({"ot_timer", name="timer", interval=0.1, target="draw_line", state=OFF})
 wo:shuffleOxyd()
@@ -124,12 +128,10 @@ nightmap = wo:newMap("@", {
 
 -- Split the maps into vertical 1-tile stripes
 local dayparts = {}
+local nightparts = {}
+
 for i=0, daymap.width do
     dayparts[i+1] = daymap:sub(po(i,0), po(i, daymap.height))
-end
-
-local nightparts = {}
-for i=0, nightmap.width do
     nightparts[i+1] = nightmap:sub(po(i,0), po(i, nightmap.height))
 end
 
@@ -138,12 +140,12 @@ function SetHemisphere(value, sender)
     no["Sun"]:message("orientate", sender["_hemisphere"]-1)
     no["door1"]:open()
     if sender["_hemisphere"] == NORTH then
-        wo[po(1, 0) .. po(57, 1) .. po(0, 35) .. po(56, 36)] = {"st_rotator_ccw"}
+        wo[no["rot_south#*"]] = {"st_nil"}
         partsbeg = 1
         partsend = daymap.width
         partsinc = 1
     else
-        wo[po(1, 0) .. po(57, 1) .. po(0, 35) .. po(56, 36)] = {"st_rotator_cw"}
+        wo[no["rot_north#*"]] = {"st_nil"}
         partsbeg = daymap.width
         partsend = 1
         partsinc = -1
