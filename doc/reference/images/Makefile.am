@@ -1,5 +1,5 @@
 
-PNG = $(wildcard $(srcdir)/*.png)
+PNG = first_level.png
 
 GFXDIR = ../../../data/gfx48
 
@@ -153,14 +153,20 @@ PNGSOURCE = $(addprefix $(GFXDIR), $(PNGLIST))
 # PDFLIST is deprecated (on elder systems pdflatex needs pdf images)
 PDFLIST = $(addsuffix .pdf, $(basename $(PNGLIST)))
 
+pngdir = @datadir@/doc/enigma/reference/images
+png_DATA = $(PNG) $(PNGLIST)
+
 .SUFFIXES = .png
 
-all: $(PNGLIST) $(PDFLIST)
+all: $(PNGLIST) $(PDFLIST) first_level.pdf
 
 clean:
 	$(RM) $(PNGLIST)
 	$(RM) $(PDFLIST)
+	$(RM) first_level.pdf
 
+first_level.pdf: first_level.png
+	convert -density 112x112 $< $@
 
 %.png: $(GFXDIR)/%.png
 	convert -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< $@
@@ -168,4 +174,4 @@ clean:
 %.pdf: $(GFXDIR)/%.png
 	convert -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< $@
 
-EXTRA_DIST = $(PNG) $(PNGLIST)
+EXTRA_DIST = $(PNG)

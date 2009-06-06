@@ -104,7 +104,7 @@ namespace enigma { namespace gui {
 
     /* -------------------- Main menu -------------------- */
     static const char *credit_text[] = {
-        N_("Main developers of the 1.0 release:"),
+        N_("Main developers of the 1.10 release:"),
         N_("  RONALD LAMPRECHT (lead)"),
         "  RAOUL BOURQUIN",
         "  ANDREAS LOCHMANN",
@@ -159,6 +159,7 @@ namespace enigma { namespace gui {
         "  Guy Busser  (Level design)",
         "  Richi Bützer  (Level design)",
         "  Capkoh  (Level design)",
+        "  Manfredi Carta  (Level design)",
         "  Christoph & Anita  (Level design)",
         "  Дремук Сергей - Serge Dremuk  (Russian translation)",
         "  Joseph Dunne  (Level design)",
@@ -170,11 +171,11 @@ namespace enigma { namespace gui {
         "  Roberto García (Spanish translation)",
         "  Andy Geldmacher  (Level design)",
         "  Edwin Groothuis  (FreeBSD port)",
-        "  Immanuel Herrmann  (Level design)",
-        "  Máté Lehel Juhász  (Hungarian translation)",
         0,
-        "  Johannes Hüsing  (Level design)",
+        "  Immanuel Herrmann  (Level design)",
         "  Brian Huffman  (Level design)",
+        "  Johannes Hüsing  (Level design)",
+        "  Máté Lehel Juhász  (Hungarian translation)",
         "  Samuele Kaplun  (Italian translation)",
         "  Jens-Christian Korth  (Level design)",
         "  Manuel König  (Level design, bug reports)",
