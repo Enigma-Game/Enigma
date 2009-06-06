@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Just Moving Blocks?" el:subtitle="" el:id="duffy5"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,7 +30,7 @@ ti["B"] = {"st_dispenser_bombblack"}
 ti["H"] = {"st_break_oxydc"}
 ti["M"] = {"st_mirror", transparent=true, orientation=SLASH}
 ti["N"] = {"st_mirror", transparent=true, orientation=BACKSLASH}
-ti["V"] = {"st_oneway_s", "ow#"}
+ti["V"] = cond(wo["IsDifficult"], {"st_oneway_n", "ow#"}, {"st_oneway_s", "ow#"})
 ti["F"] = {"st_floppy", target="ow#*", action="flip"}
 ti["D"] = {"st_door_d", "hurdle#", faces="ew", state=OPEN}
 ti["S"] = {"st_switch", target="hurdle#*"}
