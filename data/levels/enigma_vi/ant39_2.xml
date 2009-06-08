@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Odyssey" el:subtitle="The Enigma Level" el:id="ant39"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti[".."] = {"fl_abyss"}
+ti["##"] = {"st_granite"}
+ti["=="] = {"st_rawglass"}
+ti["XX"] = {"st_grate_cross"}
+ti["MM"] = {"st_mirror", movable = true}
+ti["doors"] = {"st_door", "door%%#", faces = "ns", state = CLOSED}
+ti["laserswitches"] = {"st_laserswitch", target = "door%%#*"}
+ti["LE"] = {"st_laser_e", "laserEast"}
+ti["SL"] = {"st_switch", target = "laserEast"}
+ti["++"] = {"st_box"}
+ti["ss"] = ti["++"] .. {"it_seed"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["OE"] = {"st_oxyd_c", "east#"}
+ti["OW"] = {"st_oxyd_c", "west#"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.autotile(res.puzzle(ti, "P"), {"D", "doors"}, {"T", "laserswitches"}), "  ", {
+   "########################################",
+   "##                                    ##",
+   "##  ++  ++  ++  ++  ++    ++  ++  ++  ##",
+   "##....................................##",
+   "##....................................##",
+   "##....................................##",
+   "##....................................##",
+   "##                                    ##",
+   "##          ############  ########    ##",
+   "##          ##T1==              ##    ##",
+   "##          ######    PO        ##    ##",
+   "##            @@##    PO        ##    ##",
+   "######Pj##########    Pj        ########",
+   "##XX  PO    ==        Pj            XX##",
+   "##XX  MM    ==        Pj            XX##",
+   "##XX        ==        Pj      Pf    XX##",
+   "LEXX        ==              PjPj    XX##",
+   "##XX        ==              Pl      XX##",
+   "####XXXXXXXX##========##++  ##======####",
+   "##XX        ==        ++  ++        XX##",
+   "SLXX  ++    ==          ++          XX##",
+   "##XX++  ss  ==            PaPa      XX##",
+   "##XX  ss    ==      MMPj    ++++    XX##",
+   "##XX        ==      MM              XX##",
+   "######D1##########                ######",
+   "##              ##                ##  ##",
+   "##    ++    ######                ##  ##",
+   "##  ++  ++  ##T2==                ##  ##",
+   "##    ++    ############D2##########  ##",
+   "##                ##                  ##",
+   "##................##..................##",
+   "##................##..................##",
+   "##................##..................##",
+   "##................##..................##",
+   "##                ##                  ##",
+   "##                ##                  ##",
+   "##OW############OW##OE##############OE##"})
+
+wo:shuffleOxyd({"west#*", max = 0}, {"east#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

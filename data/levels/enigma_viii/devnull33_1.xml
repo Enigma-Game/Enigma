@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Filler" el:subtitle="" el:id="devnull33"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="7:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_wood"}
+ti["#"] = {"st_greenbrown"}
+ti["S"] = {"st_shogun_s"}
+ti["dot"] = {"it_shogun_s", target="bridge%%"}
+ti["bridge"] = {"fl_bridge_bw", name="bridge%%"}
+ti["1"] = {"st_oxyd", "north#"}
+ti["2"] = {"st_oxyd", "south#"}
+ti["3"] = {"st_oxyd", "west#"}
+ti["4"] = {"st_oxyd", "east#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "q", "dot"}, {"A", "Q", "bridge"}), " ", {
+    "##################4#",
+    "#   k q l #   #b #L1",
+    "#i## ###  S   Snd#K1",
+    "#   c  # S####   #J1",
+    "# # #j     @ S SPAB1",
+    "3M#p  ###S### ####C1",
+    "# #     S # SNS  ###",
+    "3O h### S   #S## #D2",
+    "# ## S Sa ### # QFE2",
+    "#g#  #   S#     m#G2",
+    "# # ##### SS#f##o#H2",
+    "#  e             #I2",
+    "##################4#"})
+
+wo:shuffleOxyd({"north#*", max = 0}, {"south#*", max = 0}, {"west#*", "east#*", min = 2})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

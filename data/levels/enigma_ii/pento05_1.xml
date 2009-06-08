@@ -17,8 +17,9 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["FollowGrid"] = true
 wo["FollowMethod"] = FOLLOW_SCROLL
-wo["ConserveLevel"] = true
+wo["FollowAction"] = FOLLOW_HALFSCREEN
 
 ti[" "] = {"fl_plank"}
 ti["+"] = {"fl_bluegreen", "source#"}
@@ -35,7 +36,6 @@ ti["s"] = {"it_puller_s"}
 ti["w"] = {"it_puller_w"}
 ti["N"] = ti["n"] .. ti({"fl_plank","pullers"})
 ti["!"] = {"it_sensor", target="addpullers", invisible=true}
-
 ti["@"] = {"#ac_marble"}
 
 pento = res.pento(ti, "source", "target")

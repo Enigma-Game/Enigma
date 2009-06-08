@@ -16,7 +16,7 @@
     <level _seq="8" _title="Light Switches" _xpath="enigma_i/martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="9" _title="Floppy Swapping" _xpath="enigma_ii/martin19_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin19" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="enigma_i/siegfried33_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation1" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Push Them In" _xpath="enigma_ii/nat05_1" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Push Them In" _xpath="enigma_ii/nat05_2" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="It's Magic" _xpath="enigma_ii/martin27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Ice Skating" _xpath="enigma_i/siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Lasers 101" _xpath="enigma_i/daniel08_2" author="Daniel Heck" ctrl="force" easy="false" id="lasers101" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -89,7 +89,7 @@
     <level _seq="81" _title="Flood Gates" _xpath="enigma_iv/nat08_2" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Balancing Act" _xpath="enigma_i/nat09_2" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="Sheet Of Ice" _xpath="enigma_v/martin58_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin58" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Sheet Of Ice" _xpath="enigma_v/martin58_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin58" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="No Trespassing" _xpath="enigma_peroxyd/peroxydlink65_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7c" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title=".J.U.M.P." _xpath="enigma_i/martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Walk The Plank" _xpath="enigma_v/nat04_1" author="Nat Pryce" ctrl="force" easy="false" id="nat4" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -125,7 +125,7 @@
     <level _seq="117" _title="Islands" _xpath="enigma_i/duffy10_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy10" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="118" _title="Space Walk" _xpath="enigma_iii/nat35_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze4" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="119" _title="- Meditation -" _xpath="enigma_i/siegfried36_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="120" _title="Jump!" _xpath="enigma_i/duffy07_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy7" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="120" _title="Jump!" _xpath="enigma_i/duffy07_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy7" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="121" _title="Checkerboard" _xpath="enigma_iii/duffy08_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy8" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="122" _title="Circularity" _xpath="enigma_iv/ant10_1" author="Petr Machata" ctrl="force" easy="false" id="ant10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="123" _title="Just Moving Blocks?" _xpath="enigma_iv/duffy05_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy5" rel="2" rev="4" score="2" target="time" unit="duration"/>

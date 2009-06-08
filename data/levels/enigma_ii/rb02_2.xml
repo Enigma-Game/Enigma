@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Koosnab" el:subtitle="" el:id="rb02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Roberto Bardin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Roberto Bardin</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_metal_7"}
+ti[" ."] = {"fl_space"}
+ti["# "] = {"st_greengray"}
+ti["= "] = {"st_lightglass"}
+ti["doorsEW"] = {"st_door", "door%%#", faces="ew", state = CLOSED} .. ti({"fl_bluegray"})
+ti["doorsNS"] = {"st_door", "door%%#", faces="ns", state = CLOSED} .. ti({"fl_bluegray"})
+ti["triggers"] = {"it_trigger", target = "door%%#*"}
+ti["W "] = {"st_box_wood_growing"}
+ti["O "] = {"st_oxyd"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"-", "doorsNS"}, {"|", "doorsEW"}, {"T", "triggers"})), "  ", {
+    " . . .O. . . . . . . . . . . . . .=. . .",
+    " . .# -2# # # # # # # #  . . . .=. . . .",
+    " . .#       # #       #  . . . . .=. . .",
+    " . .# @ #   # #   W   #  . . . . . .=. .",
+    " . .#                 |1O. . . . . . .=.",
+    " . .# # #   # #   # # #  . . . . . .=. .",
+    " . .# # #   # #   # # #  . . . . .=. . .",
+    " . .#         T3T4T2T1#  . . . .=. . . .",
+    " . .#   W   # #   #   #  . . .=. . . . .",
+    " .O.|3      # #       #  . .=. . . . . .",
+    " . .# # # # # # # # -4#  . . .=. . . . .",
+    " . . . . . . . . . .O. . . . . .=. . . .",
+    " . . . . . . . . . . . . . . .=. . . . ."})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
