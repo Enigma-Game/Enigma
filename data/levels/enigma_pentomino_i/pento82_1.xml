@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Pentomino LXXXII" el:subtitle="763 solutions" el:id="pento82"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Enigma Team" el:email=""/>
+      <el:copyright>Copyright © 2009 Enigma Team</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpento" el:id="lib/libpento" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_plank"}
+ti["+"] = {"fl_bluegreen", "source#"}
+ti["."] = {"fl_lawn", "target#"}
+ti["#"] = {"st_bluesand", cluster=1}
+ti["%"] = {"st_bluesand", name="oxyd#", cluster=2}
+ti["&"] = {"st_switch", target="pento.next"}
+ti["/"] = {"st_fourswitch", target="pento.rotate"}
+ti["|"] = {"st_switch", target="pento.mirror"}
+ti["*"] = {"st_oxyd"}
+ti["n"] = {"it_puller_n"}
+ti["e"] = {"it_puller_e"}
+ti["s"] = {"it_puller_s"}
+ti["w"] = {"it_puller_w"}
+ti["N"] = ti["n"] .. ti({"fl_plank","pullers"})
+ti["!"] = {"it_sensor", target="addpullers", invisible=true}
+
+ti["@"] = {"#ac_marble"}
+
+pento = res.pento(ti, "source", "target")
+
+wo(pento, " ", {
+    "#%%%%%%%%%%%%%%#####",
+    "%              ..  #",
+    "%            ......#",
+    "#            ......#",
+    "& +++++      ......#",
+    "# +++++      ......#",
+    "/ +++++  @   ......#",
+    "# +++++      . .. .#",
+    "| +++++      ......#",
+    "#            ......#",
+    "%!!!!!       ......#",
+    "%Nesw!       ......#",
+    "#%%%%%%%%%%%%#######"})
+
+wo:add({"ot_timer", interval=0.5, target="check"})
+
+function check(value, sender)
+    if pento.check() then
+        sender.state=OFF
+        wo[no["oxyd#*"]:shuffle():sub(12)] = ti["*"]
+        wo:shuffleOxyd()
+    end
+end
+
+function addpullers()
+    wo:drawMap(ti, no["pullers"], " ", {"nesw"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

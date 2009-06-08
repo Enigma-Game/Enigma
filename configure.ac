@@ -380,7 +380,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_sokoban/Makefile
            data/levels/enigma_microban/Makefile
            data/levels/enigma_mas_microban/Makefile
-           data/levels/enigma_pentomino/Makefile
+           data/levels/enigma_pentomino_i/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
