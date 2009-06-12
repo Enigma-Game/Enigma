@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Space Tubes" el:subtitle="" el:id="duffy13"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["."] = {"fl_bluegreen"}
+ti["-"] = {"fl_space"}
+ti[" "] = {"fl_abyss"}
+ti["7"] = {"fl_slope_ose"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_osw"}
+ti["6"] = {"fl_slope_pw"}
+ti["3"] = {"fl_slope_onw"}
+ti["2"] = {"fl_slope_pn"}
+ti["1"] = {"fl_slope_one"}
+ti["4"] = {"fl_slope_pe"}
+ti["u"] = {"fl_slope_ise"}
+ti["i"] = {"fl_slope_isw"}
+ti["m"] = {"fl_slope_inw"}
+ti["n"] = {"fl_slope_ine"}
+ti["#"] = {"st_greenbrown"}
+ti["d"] = {"st_switch", target = "doorD"}
+ti["D"] = {"st_door", "doorD", faces = "ns", state = CLOSED}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, ".", {
+    "#######################################",
+    "#                                     #",
+    "# d-..6644..44--66.......4..44--66... #",
+    "#                      ..4..44--66.-. #",
+    "# 78889  788888  88889   4..44--66--- #",
+    "# 4...i88u--------...6     #D#    426 #",
+    "# 4.@.------------...6 7889#.#789 426 #",
+    "# 4...m22n--------...6 4--------6 426 #",
+    "# 12223  122222  4---6  2n--789-  426 #",
+    "#                1n-m3  -4--4-6-  426 #",
+    "# ..4.6-.4-6666.  4-6   8u--123-  426 #",
+    "# .            .  4-6   -789--m2  426 #",
+    "# ...    78888u-6 4-6   -4-6--6-  426 #",
+    "# ...    4------6 4-6   -123--i8  426 #",
+    "# ...    4-m22223 4-6   --7889--  426 #",
+    "# n-m    4-6      4-6   6-4--6-4  426 #",
+    "# 4-6    u-i       -    6-1223-4  426 #",
+    "# 4-6    ... ## 97...n  --------  426 #",
+    "# 4-6    ...882---...4 4........6 426 #",
+    "# 4-6    ...228---...u O........O 426 #",
+    "# 4-i889                          426 #",
+    "# 4----i88888866688882888822888288u26 #",
+    "# 12222222222266622228222288222228223 #",
+    "#                                     #",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

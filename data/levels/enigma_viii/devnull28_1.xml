@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Two Is A Company IV" el:subtitle="" el:id="devnull28"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="6:54"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["#"] = {"st_redrock"}
+ti[" "] = {"fl_concrete"}
+ti["~"] = {"fl_water"}
+ti["R"] = {"st_box_rock"}
+ti["box"] = {"st_box_rock", "box%%"}
+ti["pull"] = {"st_pull", "pull%%"}
+ti["B"] = {"st_box_rock", "black"}
+ti["W"] = {"st_box_rock", "white"}
+ti["o"] = {"st_oxyd_a", name = "left#", static = true}
+ti["O"] = {"st_oxyd_a", name = "right#", static = true}
+ti["@"] = {"#ac_marble_black", essential = INDISPENSIBLE}
+ti["*"] = {"#ac_marble_white", essential = INDISPENSIBLE}
+
+local resolver = res.autotile(ti, {"1", "2", "box"}, {"3", "4", "pull"})
+wo(resolver, " ", {
+    "####################",
+    "#          ~~~~~# @#",
+    "# ###      ~~~~~#32#",
+    "#   #~~~~~~~~~~## ~#",
+    "#   #~~~~~~~~~~#   #",
+    "###~#~~~~BO~~~~# # #",
+    "#   #~~~~oO~~~~#   #",
+    "# R #~~~~oW~~~~###~#",
+    "# ~ #~~~~~~~~~~# RR#",
+    "#~###~~~~~~~~~~#   #",
+    "#41 #~~~~      #####",
+    "#*  #~~~~          #",
+    "####################"})
+
+wo:shuffleOxyd({"left#*", max = 0}, {"right#*", max = 0})
+wo:add({"ot_wire", anchor1 = "box%1", anchor2 = "pull%1"})
+wo:add({"ot_wire", anchor1 = "pull%1", anchor2 = "black"})
+wo:add({"ot_wire", anchor1 = "box%2", anchor2 = "pull%2"})
+wo:add({"ot_wire", anchor1 = "pull%2", anchor2 = "white"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Check the light" el:subtitle="how to play chess with lasers" el:id="just10"/>
-      <el:version el:score="2" el:release="3" el:revision="7" el:status="released"/>
+      <el:version el:score="3" el:release="4" el:revision="9" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -29,7 +29,13 @@ ti["X"] = {"st_grate", flavor="cross"}
 ti["G"] = {"st_grate", flavor="framed"}
 ti["M"] = {"st_mirror", orientation=VERTICAL, movable=true}
 ti["P"] = ti["~"] .. {"st_lightpassenger"}
-ti["L"] = {"st_laserswitch", target="chess"}
+ti["L"] = {"st_laserswitch", target="check_first_chess"}
+ti["J"] = {"st_laserswitch", target="check_second_chess"}
+ti["K"] = {"st_laserswitch", target="check_mirror"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="door1"}
+ti["D"] = {"st_door", flavor="a", name="door2#"}
+ti["Y"] = ti["~"] .. {"st_door", flavor="a", name="door3", state=CLOSED}
+ti["Z"] = {"st_door", flavor="a", name="door4", state=OPEN}
 ti["^"] = {"st_laser", orientation=NORTH, state=ON}
 ti[">"] = {"st_laser", orientation=EAST, state=ON}
 ti["V"] = {"st_laser", orientation=SOUTH, state=ON}
@@ -37,13 +43,12 @@ ti["<"] = {"st_laser", orientation=WEST, state=ON}
 ti["1"] = {"st_laser", orientation=WEST, name="laser1", state=ON}
 ti["2"] = {"st_laser", orientation=EAST, name="laser2", state=ON}
 ti["3"] = {"st_laser", orientation=NORTH, name="laser3"}
-ti["="] = {"st_door", flavor="d", faces="ns", name="door1"}
-ti["D"] = {"st_door", flavor="a", name="door2#"}
+ti["4"] = {"st_laser", orientation=WEST, name="laser4", state=ON}
 ti["S"] = {"st_switch", target="dry"}
 ti["x"] = {"fl_bridge", name="bridge"} .. ti["X"]
 ti["a"] = {"it_trigger", target="door1", action="open"}
 ti["b"] = {"it_trigger", target="door1", action="close"}
-ti["c"] = {"it_trigger", action={"open", "on"}, target={"door2#*", "laser3"}}
+ti["c"] = {"it_trigger", action={"open", "open", "on"}, target={"door2#*", "door4", "laser3"}}
 ti["t"] = {"it_document", text="text1"}
 ti["s"] = ti["~"] .. ti["G"] .. {"it_seed"}
 ti["O"] = {"st_oxyd"}
@@ -55,21 +60,34 @@ wo(ti, " ", {
     "#~~~~~~<#I#      # O",
     "#P#=#~ X#I2 # t  # O",
     "#~#I#~ X#I# #    #D#",
-    "#~#IL~ X1I# #  C  s#",
-    "#~#II~ XRIBM#     G#",
-    "#~#+#~ x#B#  C    G#",
+    "#~#IL~ Z1I# #  C  s#",
+    "#~#II~ XYIBM#     G#",
+    "#~#+J~ x4B#  C    G#",
     "#~#b#~           G #",
     "#~# #~ X      #D##G#",
     "#~###~ ######BS ##3#",
     ">~~~~~~*~*~*~*~~~~c#",
-    "#####^##############"})
+    "#####^K#############"})
 
 wo:shuffleOxyd()
 
-function chess(value, sender)
+function check_first_chess(value, sender)
     if st(sender+E):is("st_chess") then
         no["bridge"]:close()
         grp(no["laser1"], no["laser2"]):off()
+    end
+end
+
+function check_second_chess(value, sender)
+    if st(sender+E):is("st_chess") then
+        no["laser4"]:off()
+    end
+end
+
+function check_mirror(value, sender)
+    if st(sender+4*N):is("st_mirror") then
+        no["door4"]:close()
+        no["door3"]:open()
     end
 end
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma I"/>
 
   <attributes/>
 
@@ -57,7 +57,7 @@
     <level _seq="49" _title="Hall of Glass" _xpath="./martin86_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_1" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mirror Room" _xpath="./luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Annoying little balls" _xpath="./wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Mirror Room II" _xpath="./luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -92,7 +92,7 @@
     <level _seq="84" _title="Escher's World" _xpath="./ant09_2" author="Petr Machata" ctrl="force" easy="false" id="ant09" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Balancing Act" _xpath="./nat09_2" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Space Tubes" _xpath="./duffy13_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Space Tubes" _xpath="./duffy13_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Balance" _xpath="./erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="More Space Tubes" _xpath="./duffy33_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy33" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="- Meditation -" _xpath="./raoul04_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="1" rev="1" score="1" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="32" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="33" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -79,7 +79,7 @@
     <level _seq="71" _title="Light Switches" _xpath="enigma_iv/siegfried24_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8e" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="A Narrow Path" _xpath="enigma_i/martin66_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin66" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="MetaPuzzle" _xpath="enigma_iv/ant03_2" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="74" _title="Space Tubes" _xpath="enigma_i/duffy13_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="74" _title="Space Tubes" _xpath="enigma_i/duffy13_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="The Cage" _xpath="enigma_v/qq02_2" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq2" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="76" _title="Sentinels" _xpath="enigma_ii/siegfried23_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level8d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="The Tomb" _xpath="enigma_iv/ant04_2" author="Petr Machata" ctrl="force" easy="false" id="ant04" rel="2" rev="1" score="2" target="time" unit="duration"/>
