@@ -128,25 +128,64 @@ PNGLIST = \
 	it_wrench.png \
 	it_yinyang.png \
 	st_ancient.png \
+	st_beads.png \
 	st_bluegray.png \
+	st_blur_cross.png \
+	st_blur_straight.png \
 	st_brake.png \
+	st_break_black.png \
+	st_break_boulder.png \
+	st_break_oxydc.png \
+	st_break_plain.png \
+	st_break_white.png \
 	st_brownie.png \
 	st_brownmarble.png \
+	st_brownpyramide.png \
 	st_camouflage.png \
 	st_concrete.png \
+	st_darkglass.png \
 	st_darkgray.png \
+	st_death.png \
+	st_death_light.png \
+	st_dispenser_bombblack.png \
+	st_dispenser_bombwhite.png \
+	st_dispenser_dynamite.png \
+	st_flash.png \
+	st_flat.png \
 	st_granite.png \
+	st_grate_cross.png \
+	st_grate_framed.png \
+	st_greenbrown.png \
 	st_greengray.png \
+	st_ice.png \
+	st_jamb_black.png \
+	st_jamb_white.png \
+	st_lightglass.png \
 	st_metal.png \
+	st_oxyda.png \
+	st_oxydb.png \
+	st_oxydc.png \
+	st_oxydd.png \
+	st_oxyde.png \
 	st_pinkbumps.png \
+	st_plaster.png \
+	st_plop_slate.png \
+	st_portal_horse.png \
 	st_purplegray.png \
 	st_purplemarble.png \
+	st_rawglass.png \
+	st_rawglass_quad.png \
 	st_redbrown.png \
+	st_redfiber.png \
 	st_redmarble.png \
 	st_redrock.png \
+	st_spitter_idle.png \
+	st_surprise.png \
 	st_tigris.png \
 	st_woven.png \
-	st_yellow.png
+	st_yellow.png \
+	st_yinyang.png \
+	st_yinyang_inactive.png
 
 PNGSOURCE = $(addprefix $(GFXDIR), $(PNGLIST))
 

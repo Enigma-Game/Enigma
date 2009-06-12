@@ -7464,11 +7464,17 @@ meaningful error message.
 @item @b{Details:}
 Assertions help you to detect coding errors. They are heavily used on argument
 checks of library functions and resolver implementations. As the assertions
-should not lead to performance penalties during runtime they are just evaluated
-when the level's @samp{status} is declared in the XML header element @ref{<version>}
-with a value of either @code{"test"} or @code{"experimental"}. For @code{"stable"} 
-and @code{"released"} levels assert statements are simply skipped on compilation
-like Lua comments.
+should not lead to performance penalties during runtime they are usually just
+evaluated when the level's @samp{status} is declared in the XML header element 
+@ref{<version>} with a value of either @code{"test"} or @code{"experimental"}. 
+
+For @code{"stable"} and @code{"released"} levels standard assert statements are
+simply skipped on compilation like Lua comments. But you can enforce assert
+statements to be executed even in these modes by the following pattern of
+assignment and additional braces:
+@example
+@var{dummy} = (@i{assert_bool})(@i{no}["@var{mystone}"]:@b{exists}(), "@var{Stone 'mystone' has disappeared.}")
+@end example
 
 Similar to @ref{cond}, all side effects within the evaluation of @samp{message}
 and @samp{level} will appear.
@@ -7518,11 +7524,17 @@ be thrown. See details below for type descriptors.
 @item @b{Details:}
 Assertions help you to detect coding errors. They are heavily used on argument
 checks of library functions and resolver implementations. As the assertions
-should not lead to performance penalties during runtime they are just evaluated
-when the level's @samp{status} is declared in the XML header element @ref{<version>}
-with a value of either @code{"test"} or @code{"experimental"}. For @code{"stable"} 
-and @code{"released"} levels assert statements are simply skipped on compilation
-like Lua comments.
+should not lead to performance penalties during runtime they are usually just
+evaluated when the level's @samp{status} is declared in the XML header element
+@ref{<version>} with a value of either @code{"test"} or @code{"experimental"}. 
+
+For @code{"stable"} and @code{"released"} levels standard assert statements are
+simply skipped on compilation like Lua comments. But you can enforce assert
+statements to be executed even in these modes by the following pattern of
+assignment and additional braces:
+@example
+@var{dummy} = (@i{assert_type})(@var{arg1}, "@var{myfunction first argument}", @var{1}, "@b{integer}")
+@end example
 
 Possible types are all Lua types (like @code{"nil"}, @code{"number"},
 @code{"boolean"}, @code{"string"}, @code{"table"}, @code{"function"}) except
@@ -13838,25 +13850,64 @@ Switches the wormhole off.
 WORK IN PROGRESS - The follwing table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/st_ancient} @tab @yref{st_ancient}
+@tab @image{images/st_beads} @tab @yref{st_beads}
 @tab @image{images/st_bluegray} @tab @yref{st_bluegray}
+@item @image{images/st_blur_cross} @tab @yref{st_blur}_cross
+@tab @image{images/st_blur_straight} @tab @yref{st_blur}_straight
+@tab @image{images/st_brake} @tab @yref{st_brake}
+@item @image{images/st_break_black} @tab @yref{st_break}_black
+@tab @image{images/st_break_boulder} @tab @yref{st_break}_boulder
+@tab @image{images/st_break_oxydc} @tab @yref{st_break}_oxydc
+@item @image{images/st_break_plain} @tab @yref{st_break}_plain
+@tab @image{images/st_break_white} @tab @yref{st_break}_white
 @tab @image{images/st_brownie} @tab @yref{st_brownie}
 @item @image{images/st_brownmarble} @tab @yref{st_brownmarble}
+@tab @image{images/st_brownpyramide} @tab @yref{st_brownpyramide}
 @tab @image{images/st_camouflage} @tab @yref{st_camouflage}
-@tab @image{images/st_concrete} @tab @yref{st_concrete}
-@item @image{images/st_darkgray} @tab @yref{st_darkgray}
-@tab @image{images/st_granite} @tab @yref{st_granite}
+@item @image{images/st_concrete} @tab @yref{st_concrete}
+@tab @image{images/st_darkglass} @tab @yref{st_darkglass}
+@tab @image{images/st_darkgray} @tab @yref{st_darkgray}
+@item @image{images/st_death} @tab @yref{st_death}
+@tab @image{images/st_dispenser_bombblack} @tab @yref{st_dispenser}_bombblack
+@tab @image{images/st_dispenser_bombwhite} @tab @yref{st_dispenser}_bombwhite
+@item @image{images/st_dispenser_dynamite} @tab @yref{st_dispenser}_dynamite
+@tab @image{images/st_flash} @tab @yref{st_flash}
+@tab @image{images/st_flat} @tab @yref{st_flat}
+@item @image{images/st_granite} @tab @yref{st_granite}
+@tab @image{images/st_grate_cross} @tab @yref{st_grate}_cross
+@tab @image{images/st_grate_framed} @tab @yref{st_grate}_framed
+@item @image{images/st_greenbrown} @tab @yref{st_greenbrown}
 @tab @image{images/st_greengray} @tab @yref{st_greengray}
+@tab @image{images/st_ice} @tab @yref{st_ice}
 @item                            @tab @yref{st_invisible}
+@tab @image{images/st_jamb_black} @tab @yref{st_jamb}_black
+@tab @image{images/st_jamb_white} @tab @yref{st_jamb}_white
+@item @image{images/st_lightglass} @tab @yref{st_lightglass}
 @tab @image{images/st_metal} @tab @yref{st_metal}
+@tab @image{images/st_oxyda} @tab @yref{st_oxyd}_a
+@item @image{images/st_oxydb} @tab @yref{st_oxyd}_b
+@tab @image{images/st_oxydc} @tab @yref{st_oxyd}_c
+@tab @image{images/st_oxydd} @tab @yref{st_oxyd}_d
+@item @image{images/st_oxyde} @tab @yref{st_oxyd}_e
 @tab @image{images/st_pinkbumps} @tab @yref{st_pinkbumps}
-@item @image{images/st_purplegray} @tab @yref{st_purplegray}
-@tab @image{images/st_purplemarble} @tab @yref{st_purplemarble}
-@tab @image{images/st_redbrown} @tab @yref{st_redbrown}
-@item @image{images/st_redmarble} @tab @yref{st_redmarble}
-@tab @image{images/st_redrock} @tab @yref{st_redrock}
-@tab @image{images/st_tigris} @tab @yref{st_tigris}
-@item @image{images/st_woven} @tab @yref{st_woven}
+@tab @image{images/st_plaster} @tab @yref{st_plaster}
+@item @image{images/st_plop_slate} @tab @yref{st_plop}_slate
+@tab @image{images/st_portal_horse} @tab @yref{st_portal}
+@tab @image{images/st_purplegray} @tab @yref{st_purplegray}
+@item @image{images/st_purplemarble} @tab @yref{st_purplemarble}
+@tab @image{images/st_rawglass} @tab @yref{st_rawglass}
+@tab @image{images/st_rawglass_quad} @tab @yref{st_rawglass}_quad
+@item @image{images/st_redbrown} @tab @yref{st_redbrown}
+@tab @image{images/st_redfiber} @tab @yref{st_redfiber}
+@tab @image{images/st_redmarble} @tab @yref{st_redmarble}
+@item @image{images/st_redrock} @tab @yref{st_redrock}
+@tab @image{images/st_spitter_idle} @tab @yref{st_spitter}
+@tab @image{images/st_surprise} @tab @yref{st_surprise}
+@item @image{images/st_tigris} @tab @yref{st_tigris}
+@tab @image{images/st_woven} @tab @yref{st_woven}
 @tab @image{images/st_yellow} @tab @yref{st_yellow}
+@item @image{images/st_yinyang} @tab @yref{st_yinyang}
+@tab @image{images/st_yinyang_inactive} @tab @yref{st_yinyang}_inactive 
 @end multitable
 
 @c ----------------- Stone Attributes --------------------
@@ -14634,10 +14685,9 @@ entered the grid and lets them leave on any side.
 
 @item @b{Messages:} none
 
-@item @b{Variants:}
-
+@item @b{Variants:} 
 @table @asis
-@item @b{st_beads}
+@item @image{images/st_beads} @b{st_beads}
 @end table
 
 @end table
@@ -14756,10 +14806,10 @@ The blur subkind.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_blur}: flavor = @code{"straight"}
-@item @b{st_blur_straight}: flavor = @code{"straight"}
-@item @b{st_blur_cross}: flavor = @code{"cross"}
-@item @b{st_blur_magic}: flavor = @code{"magic"}
+@item @image{images/st_blur_straight} @b{st_blur}: flavor = @code{"straight"}
+@item @image{images/st_blur_straight} @b{st_blur_straight}: flavor = @code{"straight"}
+@item @image{images/st_blur_cross} @b{st_blur_cross}: flavor = @code{"cross"}
+@item @image{images/st_blur_cross} @b{st_blur_magic}: flavor = @code{"magic"}
 @end table
 
 @end table
@@ -14939,6 +14989,10 @@ explosion on a direct neighbor grid.
 
 @item @b{Action:} none
 
+@item @b{Variants:} none
+@table @asis
+@item @image{images/st_brake} @b{st_brake}
+@end table
 @end table
 
 @c ----------------- Break Stone --------------------
@@ -14998,14 +15052,14 @@ Break stone with exception of flavor @code{"bug"}.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_break}: flavor=@code{"plain"}
-@item @b{st_break_plain}: flavor=@code{"plain"}
-@item @b{st_break_black}: flavor=@code{"black"}
-@item @b{st_break_white}: flavor=@code{"white"}
-@item @b{st_break_oxydc}: flavor=@code{"oxydc"}
-@item @b{st_break_boulder}: flavor=@code{"boulder"}
-@item @b{st_break_bug}: flavor=@code{"bug"}
-@item @b{st_break_laser}: flavor=@code{"laser"}
+@item @image{images/st_break_plain} @b{st_break}: flavor=@code{"plain"}
+@item @image{images/st_break_plain} @b{st_break_plain}: flavor=@code{"plain"}
+@item @image{images/st_break_black} @b{st_break_black}: flavor=@code{"black"}
+@item @image{images/st_break_white} @b{st_break_white}: flavor=@code{"white"}
+@item @image{images/st_break_oxydc} @b{st_break_oxydc}: flavor=@code{"oxydc"}
+@item @image{images/st_break_boulder} @b{st_break_boulder}: flavor=@code{"boulder"}
+@item @image{images/fl_white} @b{st_break_bug}: flavor=@code{"bug"}
+@item @image{images/fl_white} @b{st_break_laser}: flavor=@code{"laser"}
 @end table
 
 @end table
@@ -15022,7 +15076,7 @@ the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_brownpyramide}
+@item @image{images/st_brownpyramide} @b{st_brownpyramide}
 @end table
 @end table
 
@@ -15239,11 +15293,10 @@ stone
 @item @b{Messages:} none
 
 @item @b{Variants:}
-
 @table @asis
-@item @b{st_darkglass}: hollow = @code{false}, movable = @code{false}
-@item @b{st_darkglass_hollow}: hollow = @code{true}, movable = @code{false}
-@item @b{st_darkglass_movable}: hollow = @code{false}, movable = @code{true}
+@item @image{images/st_darkglass} @b{st_darkglass}: hollow = @code{false}, movable = @code{false}
+@item @image{images/st_darkglass} @b{st_darkglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @image{images/st_darkglass} @b{st_darkglass_movable}: hollow = @code{false}, movable = @code{true}
 @end table
 
 @end table
@@ -15313,9 +15366,9 @@ period.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_death}: invisible = @code{false}
-@item @b{st_death_invisible}: invisible = @code{true}
-@item @b{st_death_movable}: movable = @code{true}
+@item @image{images/st_death} @b{st_death}: invisible = @code{false}
+@item @image{images/fl_white} @b{st_death_invisible}: invisible = @code{true}
+@item @image{images/st_death_light} @b{st_death_movable}: movable = @code{true}
 @end table
 
 @end table
@@ -15412,10 +15465,10 @@ beams.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_dispenser}: flavor=@code{"bombblack"}
-@item @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
-@item @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
-@item @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
+@item @image{images/st_dispenser_bombblack} @b{st_dispenser}: flavor=@code{"bombblack"}
+@item @image{images/st_dispenser_bombblack} @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
+@item @image{images/st_dispenser_bombwhite} @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
+@item @image{images/st_dispenser_dynamite} @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
 @end table
 
 @end table
@@ -15603,6 +15656,10 @@ marble bounces on the flash stone as on any other standard stone.
 
 @item @b{Action:}  none
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_flash} @b{st_flash}:
+@end table
 @end table
 
 @c ----------------- Flat Stone --------------------
@@ -15653,18 +15710,16 @@ of the hollow state.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
 @table @asis
-@item @b{st_flat}:
-@item @b{st_flat_hollow}: hollow=@code{true}
-@item @b{st_flat_movable}: movable=@code{"true"}
+@item @image{images/st_flat} @b{st_flat}:
+@item @image{images/st_flat} @b{st_flat_hollow}: hollow=@code{true}
+@item @image{images/st_flat} @b{st_flat_movable}: movable=@code{"true"}
 @item @b{st_flat_breakable}: breakable=@code{"true"}
 @item @b{st_flat_cracked}: 
 @item @b{st_flat_burnable}: burnable=@code{"true"}
 @item @b{st_flat_moveburnable}: movable=@code{"true"}, burnable=@code{"true"}
 @item @b{st_flat_breaking}: breakable=@code{"true"}
 @end table
-
 @end table
 
 @c ----------------- Floppy Stone --------------------
@@ -15840,9 +15895,9 @@ pass. Grates allow @ref{Flood Spreading} and @ref{Fire Spreading}, too.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_grate}: flavor=@code{"cross"}
-@item @b{st_grate_cross}: flavor=@code{"cross"}
-@item @b{st_grate_framed}: flavor=@code{"framed"}
+@item @image{images/st_grate_cross} @b{st_grate}: flavor=@code{"cross"}
+@item @image{images/st_grate_cross} @b{st_grate_cross}: flavor=@code{"cross"}
+@item @image{images/st_grate_framed} @b{st_grate_framed}: flavor=@code{"framed"}
 @end table
 
 @end table
@@ -15866,10 +15921,10 @@ to standard, unmovable greenbrown on an actor hit with a revealed
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_greenbrown}
-@item @b{st_greenbrown_hollow}
-@item @b{st_greenbrown_movable}
-@item @b{st_greenbrown_growing}
+@item @image{images/st_greenbrown} @b{st_greenbrown}
+@item @image{images/st_greenbrown} @b{st_greenbrown_hollow}
+@item @image{images/st_greenbrown} @b{st_greenbrown_movable}
+@item @image{images/fl_white} @b{st_greenbrown_growing}
 @end table
 @end table
 
@@ -15949,7 +16004,7 @@ Melt the ice block
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_ice}
+@item @image{images/st_ice} @b{st_ice}
 @end table
 @end table
 
@@ -16016,9 +16071,9 @@ levels.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_jamb}: color=@code{BLACK}
-@item @b{st_jamb_black}: color=@code{BLACK}
-@item @b{st_jamb_white}: color=@code{WHITE}
+@item @image{images/st_jamb_black} @b{st_jamb}: color=@code{BLACK}
+@item @image{images/st_jamb_black} @b{st_jamb_black}: color=@code{BLACK}
+@item @image{images/st_jamb_white} @b{st_jamb_white}: color=@code{WHITE}
 @end table
 
 @end table
@@ -16256,9 +16311,9 @@ a movable lightglass stone
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_lightglass}: hollow = @code{false}, movable = @code{false}
-@item @b{st_lightglass_hollow}: hollow = @code{true}, movable = @code{false}
-@item @b{st_lightglass_movable}: hollow = @code{false}, movable = @code{true}
+@item @image{images/st_lightglass} @b{st_lightglass}: hollow = @code{false}, movable = @code{false}
+@item @image{images/st_lightglass} @b{st_lightglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @image{images/st_lightglass} @b{st_lightglass_movable}: hollow = @code{false}, movable = @code{true}
 @end table
 
 @end table
@@ -16759,12 +16814,12 @@ performed on state changes form @code{OPEN} to @code{OXYDPAIR}.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_oxyd}: flavor = @code{"b"}
-@item @b{st_oxyd_a}: flavor = @code{"a"}
-@item @b{st_oxyd_b}: flavor = @code{"b"}
-@item @b{st_oxyd_c}: flavor = @code{"c"}
-@item @b{st_oxyd_d}: flavor = @code{"d"}
-@item @b{st_oxyd_e}: flavor = @code{"e"}
+@item @image{images/st_oxydb} @b{st_oxyd}: flavor = @code{"b"}
+@item @image{images/st_oxyda} @b{st_oxyd_a}: flavor = @code{"a"}
+@item @image{images/st_oxydb} @b{st_oxyd_b}: flavor = @code{"b"}
+@item @image{images/st_oxydc} @b{st_oxyd_c}: flavor = @code{"c"}
+@item @image{images/st_oxydd} @b{st_oxyd_d}: flavor = @code{"d"}
+@item @image{images/st_oxyde} @b{st_oxyd_e}: flavor = @code{"e"}
 @end table
 
 @end table
@@ -16853,11 +16908,11 @@ break supersedes a possible push condition.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_plaster}:
-@item @b{st_plaster_hollow}: hollow=@code{true}
-@item @b{st_plaster_movable}: movable=@code{"true"}
-@item @b{st_plaster_breakable}: breakable=@code{"true"}
-@item @b{st_plaster_movebreakable}: movable=@code{"true"}, breakable=@code{"true"}
+@item @image{images/st_plaster} @b{st_plaster}:
+@item @image{images/st_plaster} @b{st_plaster_hollow}: hollow=@code{true}
+@item @image{images/st_plaster} @b{st_plaster_movable}: movable=@code{"true"}
+@item @image{images/st_plaster} @b{st_plaster_breakable}: breakable=@code{"true"}
+@item @image{images/st_plaster} @b{st_plaster_movebreakable}: movable=@code{"true"}, breakable=@code{"true"}
 @end table
 
 @end table
@@ -16880,8 +16935,8 @@ dark blue grey color. It falls and ceases to exist if pushed on @ref{fl_water},
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_plop}
-@item @b{st_plop_slate}
+@item @image{images/st_plop_slate} @b{st_plop}
+@item @image{images/st_plop_slate} @b{st_plop_slate}
 @end table
 @end table
 
@@ -16953,9 +17008,9 @@ The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_portal}: flavor=@code{"horse"}
-@item @b{st_portal_horse}: flavor=@code{"horse"}
-@item @b{st_portal_pearl}: flavor=@code{"pearl"}
+@item @image{images/st_portal_horse} @b{st_portal}: flavor=@code{"horse"}
+@item @image{images/st_portal_horse} @b{st_portal_horse}: flavor=@code{"horse"}
+@item @image{images/st_portal_horse} @b{st_portal_pearl}: flavor=@code{"pearl"}
 @end table
 
 @end table
@@ -17215,9 +17270,9 @@ of 4 small rawglasses. This @samp{quad} variant is not movable.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_rawglass}: movable = @code{false}
-@item @b{st_rawglass_quad}: movable = @code{false}
-@item @b{st_rawglass_movable}: movable = @code{true}
+@item @image{images/st_rawglass} @b{st_rawglass}: movable = @code{false}
+@item @image{images/st_rawglass_quad} @b{st_rawglass_quad}: movable = @code{false}
+@item @image{images/st_rawglass} @b{st_rawglass_movable}: movable = @code{true}
 @end table
 
 @end table
@@ -17239,7 +17294,7 @@ actors.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_redfiber}
+@item @image{images/st_redfiber} @b{st_redfiber}
 @end table
 
 @end table
@@ -17523,7 +17578,7 @@ Spit a cannonball. Takes either a destination as message value or @samp{nil}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_spitter}: secure = @code{false}, state = @code{ACTIVE}
+@item @image{images/st_spitter_idle} @b{st_spitter}: secure = @code{false}, state = @code{ACTIVE}
 @end table
 
 @end table
@@ -17616,7 +17671,6 @@ Pulse at a value of @samp{1}.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
 @table @asis
 @item @b{st_stoneimpulse}
 @item @b{st_stoneimpulse_movable}: movable = @code{true}
@@ -17669,6 +17723,10 @@ to the replacement tile declaration.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_surprise} @b{st_surprise}
+@end table
 @end table
 
 @c ----------------- Swap Stone --------------------
@@ -18232,10 +18290,10 @@ Activate the yinyang like an actor hitting the stone.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_yinyang}: state = @code{IDLE}
-@item @b{st_yinyang_active}: state = @code{ACTIVE}
-@item @b{st_yinyang_inactive}: state = @code{INACTIVE}
-@item @b{st_yinyang_instant}: instant = @code{true}, state = @code{IDLE}
+@item @image{images/st_yinyang} @b{st_yinyang}: state = @code{IDLE}
+@item @image{images/st_yinyang} @b{st_yinyang_active}: state = @code{ACTIVE}
+@item @image{images/st_yinyang_inactive} @b{st_yinyang_inactive}: state = @code{INACTIVE}
+@item @image{images/st_yinyang} @b{st_yinyang_instant}: instant = @code{true}, state = @code{IDLE}
 @end table
 @end table
 
