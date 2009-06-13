@@ -31,7 +31,7 @@ namespace enigma {
     
     BoxStone* BoxStone::clone() {
         if ((BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25) == WOOD) { 
-             // When st_wood is created it randomly becomes st_wood1 or st_wood2.
+             // When st_box_wood is created it randomly becomes st_box_wood1 or st_box_wood2.
              if (IntegerRand(0, 1) == 0)
                 return new BoxStone(WOOD1, state);
             else
@@ -107,24 +107,24 @@ namespace enigma {
                 ASSERT(false, XLevelRuntime, "Wood stone init model state error");
             case WOOD1:
                 if (state == GROWING)
-                    set_anim("st_wood_growing");
+                    set_anim("st_box_wood_growing");
                 else
-                    set_model("st-wood1");
+                    set_model("st_box_wood1");
                 break;
             case WOOD2:
                 if (state == GROWING)
-                    set_anim("st_wood_growing");
+                    set_anim("st_box_wood_growing");
                 else
-                    set_model("st-wood2");
+                    set_model("st_box_wood2");
                 break;
             case HAY:
                 if (state == GROWING)
-                    set_anim("st_flhay_growing");
+                    set_anim("st_box_hay_growing");
                 else
-                    set_model("st-flhay"); break;
+                    set_model("st_box_hay"); break;
                 break;
             case ROCK:
-                set_model("st-flrock"); break;
+                set_model("st_box_rock"); break;
         }
     }
     

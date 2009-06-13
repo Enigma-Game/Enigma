@@ -195,14 +195,14 @@ end
 -- ac-horse --
 do
     SpriteImage("fg-horse",0.5,0.18)
-    SpriteImage("sh-horse", 0.4)
-    DefShModel("ac_horse", "fg-horse", "sh-horse")
+    SpriteImage("sh_horse", 0.4)
+    DefShModel("ac_horse", "fg-horse", "sh_horse")
 end
 
 -- ac-rotor --
 do
     local fg = SpriteImages("fg-rotor",9)
-    local bg = SpriteImages("sh-rotor", 9, 0.4)
+    local bg = SpriteImages("sh_rotor", 9, 0.4)
 
     frames = {}
     for i=1,9 do
@@ -215,7 +215,7 @@ end
 -- ac-top --
 do
     local fg = SpriteImages("fg-top", 9, 0.5, 0.3)
-    local bg = SpriteImage("sh-top", 0.4, 0.3)
+    local bg = SpriteImage("sh_top", 0.4, 0.3)
 
     frames = {}
     for i=1,9 do
@@ -798,7 +798,7 @@ do
     DefStone("st_flat_fire")
     DefStone("st-floppy0", "sh_round", {filename="st-floppy1"})
     DefStone("st-floppy1", "sh_round", {filename="st-floppy2"})
-    DefStone("st-flrock", "sh_round")
+    DefStone("st_box_rock", "sh_round")
     DefStone("st_rawglass", "sh_glass")
     DefStone("st_rawglass_quad", "sh_rawglass_quad")
     DefStone("st_lightglass", "sh_glass")
@@ -848,7 +848,7 @@ end
 -- st-actorimpulse --
 do
     namelist = DefSubimages("st-actorimpulse", {h=3})
-    shnamelist = DefSubimages("sh-actorimpulse", {h=3,imgw=ShadowSize,imgh=ShadowSize})
+    shnamelist = DefSubimages("sh_actorimpulse", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
     DefAnim("st-ai-fg", PingPong(BuildFrames(namelist, 30)))
     DefAnim("st-ai-sh", PingPong(BuildFrames(shnamelist, 30)))
@@ -1076,31 +1076,31 @@ do
     DefShModel("st-laserswitch1", "laserswitch-blink", "sh_round")
 end
 
--- st-lightpassenger --
+-- st_lightpassenger --
 do
-    local img = DefSubimages("st-lightpassenger", {h=7})
-    DefShModel("st-lightpassenger", img[1], "sh_glass")
-    DefImage("st-lightpassenger_offx", {filename = "st-lightpassenger_off"})
-    DefShModel("st-lightpassenger_off", "st-lightpassenger_offx", "sh_glass")
-    DefAlias("st-lightpassenger_hidden", "st_darkglass")
+    local img = DefSubimages("st_lightpassenger", {h=7})
+    DefShModel("st_lightpassenger", img[1], "sh_glass")
+    DefImage("st_lightpassenger_offx", {filename = "st_lightpassenger_off"})
+    DefShModel("st_lightpassenger_off", "st_lightpassenger_offx", "sh_glass")
+    DefAlias("st_lightpassenger_hidden", "st_darkglass")
     -- Blink animation
     local frames = {img[2], img[3], img[4], img[5], img[6], img[7]}
-    DefAnim("st-lightpassenger-blink1", PingPong(BuildFrames(frames, 75)), true)
-    DefShModel("st-lightpassenger-blink", "st-lightpassenger-blink1", "sh_glass")
+    DefAnim("st_lightpassenger_blink1", PingPong(BuildFrames(frames, 75)), true)
+    DefShModel("st_lightpassenger_blink", "st_lightpassenger_blink1", "sh_glass")
     -- Break animation
-    img = DefSubimages("st-lightpassenger-break", {h=7})
+    img = DefSubimages("st_lightpassenger_break", {h=7})
     local anim_v, anim_h, anim_hv = {}, {}, {}
     for j = 1, 7 do
-      anim_v[j] = "st-lightpassenger-break-v"..j
+      anim_v[j] = "st_lightpassenger_break_v"..j
       display.DefineComposite(anim_v[j], "it_laser_v", img[j])
-      anim_h[j] = "st-lightpassenger-break-h"..j
+      anim_h[j] = "st_lightpassenger_break_h"..j
       display.DefineComposite(anim_h[j], "it_laser_h", img[j])
-      anim_hv[j] = "st-lightpassenger-break-hv"..j
+      anim_hv[j] = "st_lightpassenger_break_hv"..j
       display.DefineComposite(anim_hv[j], "it_laser_hv", img[j])
     end
-    DefAnim("st-lightpassenger-break-v", BuildFrames(anim_v, 50), false)
-    DefAnim("st-lightpassenger-break-h", BuildFrames(anim_h, 50), false)
-    DefAnim("st-lightpassenger-break-hv", BuildFrames(anim_hv, 50), false)
+    DefAnim("st_lightpassenger_break_v", BuildFrames(anim_v, 50), false)
+    DefAnim("st_lightpassenger_break_h", BuildFrames(anim_h, 50), false)
+    DefAnim("st_lightpassenger_break_hv", BuildFrames(anim_hv, 50), false)
 end
 
 -- st_dongle :-) --
@@ -1123,15 +1123,15 @@ do
     DefSolidStone("st-mail-s", images[4])
 end
 
--- st-oneway, st-oneway_black, st-oneway_white --
+-- st_oneway, st_oneway_black, st_oneway_white --
 do
     local model_names = {
-        "st-oneway-e", "st-oneway-n", "st-oneway-s", "st-oneway-w",
-        "st-oneway_black-e", "st-oneway_black-n", "st-oneway_black-s", "st-oneway_black-w",
-        "st-oneway_white-e", "st-oneway_white-n", "st-oneway_white-s", "st-oneway_white-w"
+        "st_oneway_e", "st_oneway_n", "st_oneway_s", "st_oneway_w",
+        "st_oneway_black_e", "st_oneway_black_n", "st_oneway_black_s", "st_oneway_black_w",
+        "st_oneway_white_e", "st_oneway_white_n", "st_oneway_white_s", "st_oneway_white_w"
     }
-    DefSubimages("st-oneway", {modelname="st-onewayx",w=3,h=4})
-    for i=1,12 do DefFloatingStone(model_names[i], "st-onewayx"..i) end
+    DefSubimages("st_oneway", {modelname="st_onewayx",w=3,h=4})
+    for i=1,12 do DefFloatingStone(model_names[i], "st_onewayx"..i) end
 end
 
 -- st-pull, st-swap --
@@ -1307,32 +1307,32 @@ do
 
    -- Wooden (box) stones --
    do
-      DefSubimages("st-wood", {modelname="st-wood-fg",h=2})
-      DefShModel("st-wood1", "st-wood-fg1", "sh_round")
-      DefShModel("st-wood2", "st-wood-fg2", "sh_round")
+      DefSubimages("st_box_wood", {modelname="st_box_wood_fg",h=2})
+      DefShModel("st_box_wood1", "st_box_wood_fg1", "sh_round")
+      DefShModel("st_box_wood2", "st_box_wood_fg2", "sh_round")
 
-      local images=DefSubimages("st_wood_growing", {h=3})
-      DefAnim("wood-growing-fg", BuildFrames(images, 130))
-      DefAnim("wood-growing-bg", BuildFrames(shadows, 130))
-      DefShModel("st_wood_growing", "wood-growing-fg", "wood-growing-bg")
+      local images=DefSubimages("st_box_wood_growing", {h=3})
+      DefAnim("st_box_wood_growing_fg", BuildFrames(images, 130))
+      DefAnim("st_box_wood_growing_bg", BuildFrames(shadows, 130))
+      DefShModel("st_box_wood_growing", "st_box_wood_growing_fg", "st_box_wood_growing_bg")
    end
 
    -- Greenbrown seed growing --
    do
       local images=DefSubimages("st_greenbrown_growing", {h=3})
-      DefAnim("greenbrown-growing-fg", BuildFrames(images, 130))
-      DefAnim("greenbrown-growing-bg", BuildFrames(shadows, 130))
-      DefShModel("st_greenbrown_growing", "greenbrown-growing-fg", "greenbrown-growing-bg")
+      DefAnim("st_greenbrown_growing_fg", BuildFrames(images, 130))
+      DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
+      DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
    end
 
-   -- st_flhay, hay seed growing --
+   -- st_box_hay, hay seed growing --
    do
-      DefStone("st-flhay", "sh_round")
+      DefStone("st_box_hay", "sh_round")
 
-      local images=DefSubimages("st_flhay_growing", {h=3})
-      DefAnim("hay-growing-fg", BuildFrames(images, 130))
-      DefAnim("hay-growing-bg", BuildFrames(shadows, 130))
-      DefShModel("st_flhay_growing", "hay-growing-fg", "hay-growing-bg")
+      local images=DefSubimages("st_box_hay_growing", {h=3})
+      DefAnim("st_box_hay_growing_fg", BuildFrames(images, 130))
+      DefAnim("st_box_hay_growing_bg", BuildFrames(shadows, 130))
+      DefShModel("st_box_hay_growing", "st_box_hay_growing_fg", "st_box_hay_growing_bg")
    end
 
    -- volcano growing --
@@ -1642,7 +1642,7 @@ do
     local f,img,sh
 
     img=DefSubimages("st-doorh", {h=7})
-    sh=DefSubimages("sh-doorh", {h=7,imgw=ShadowSize,imgh=ShadowSize})
+    sh=DefSubimages("sh_doorh", {h=7,imgw=ShadowSize,imgh=ShadowSize})
     DefShModel("st-doorh-open", img[1], sh[1])
     DefShModel("st-doorh-closed", img[7], sh[7])
     DefAnim("doorh-opening-fg", ReverseFrames(BuildFrames(img, 60)))
@@ -1653,7 +1653,7 @@ do
     DefShModel("st-doorh-closing", "doorh-closing-fg", "doorh-closing-bg")
 
     img=DefSubimages("st-doorv", {w=7})
-    sh=DefSubimages("sh-doorv", {w=7,imgw=ShadowSize,imgh=ShadowSize})
+    sh=DefSubimages("sh_doorv", {w=7,imgw=ShadowSize,imgh=ShadowSize})
     DefShModel("st-doorv-open", img[1], sh[1])
     DefShModel("st-doorv-closed", img[7], sh[7])
     DefAnim("doorv-opening-fg", ReverseFrames(BuildFrames(img, 60)))

@@ -87,21 +87,21 @@ namespace enigma {
         switch(state) {
             case OFF:
                 set_model(objFlags & OBJBIT_VISIBLE ?
-                    "st-lightpassenger_off" : "st-lightpassenger_hidden"); break;
+                    "st_lightpassenger_off" : "st_lightpassenger_hidden"); break;
             case ON:
-                set_model("st-lightpassenger"); break;
+                set_model("st_lightpassenger"); break;
             case BLINK:
-                set_model("st-lightpassenger-blink"); break;
+                set_model("st_lightpassenger_blink"); break;
             case BREAK:
                 bool NorthSouth = objFlags & (NORTHBIT | SOUTHBIT);
                 bool EastWest = objFlags & (WESTBIT | EASTBIT);
                 sound_event ("stonedestroy");
                 if (NorthSouth && !EastWest)
-                    set_anim("st-lightpassenger-break-v");
+                    set_anim("st_lightpassenger_break_v");
                 else if (!NorthSouth && EastWest)
-                    set_anim("st-lightpassenger-break-h");
+                    set_anim("st_lightpassenger_break_h");
                 else // and this even in case the laser recently disappeared
-                    set_anim("st-lightpassenger-break-hv");
+                    set_anim("st_lightpassenger_break_hv");
                 break;
         }
     }

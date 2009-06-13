@@ -67,7 +67,7 @@ namespace enigma {
     }
 
     void OneWayStone::init_model() {
-        set_model(ecl::strf("st-oneway%s%s", colorName(), to_suffix((Direction)state).c_str()));
+        set_model(ecl::strf("st_oneway%s%s", colorName(), toSuffix((Direction)state).c_str()));
     }
     
     bool OneWayStone::is_floating() const {
