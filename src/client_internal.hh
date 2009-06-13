@@ -126,7 +126,7 @@ namespace
 
         /* ---------- Private methods ---------- */
 
-        void show_menu();
+        void show_menu(bool isESC);
         void show_help();
 
         // Screen update (state dependant)

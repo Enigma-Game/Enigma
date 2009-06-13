@@ -53,6 +53,8 @@ namespace enigma_server
 
     // The number of seconds passed since the level game started.
     extern double LevelTime;
+    extern double LastMenuTime;
+    extern int MenuCount;
     
     extern int32_t  RandomState;
 

@@ -75,9 +75,10 @@ namespace enigma_server
 
 /* -------------------- Global variables -------------------- */
 
+double   server::LastMenuTime;
+int      server::MenuCount;
 
-
-bool server::NoCollisions = false;
+bool     server::NoCollisions = false;
 
 bool     server::AllowSingleOxyds;
 bool     server::AllowSuicide;
@@ -249,7 +250,9 @@ void server::PrepareLevel()
 {
     state = sv_waiting_for_clients;
     
-    server::NoCollisions = false;
+    server::LastMenuTime      = 0.0;
+    server::MenuCount         = 0;
+    server::NoCollisions      = false;
     server::WorldInitialized  = false;
     server::LevelTime         = 0.0;
     server::ConserveLevel     = true;
@@ -302,13 +305,13 @@ void server::PrepareLua() {
     lua::ShutdownLevel();
     lua_State *L = lua::InitLevel(api);
     if (api == 1 && lua::DoSysFile(L, "compat.lua") != lua::NO_LUAERROR) {
-        throw XLevelLoading("While processing 'compat.lua':\n"+lua::LastError(L));
+        throw XLevelLoading("While processing 'compat.lua':\n" + lua::LastError(L));
     }
     if (lua::DoSysFile(L, ecl::strf("api%dinit.lua", api)) != lua::NO_LUAERROR) {
-        throw XLevelLoading("While processing 'init.lua':\n"+lua::LastError(L));
+        throw XLevelLoading(ecl::strf("While processing 'api%dinit.lua':\n", api) + lua::LastError(L));
     }
     if (lua::DoSysFile(L, "security.lua") != lua::NO_LUAERROR) {
-        throw XLevelLoading("While processing 'security.lua':\n"+lua::LastError(L));
+        throw XLevelLoading("While processing 'security.lua':\n" + lua::LastError(L));
     }
 }
 

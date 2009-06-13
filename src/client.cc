@@ -54,7 +54,7 @@ using namespace ecl;
 using namespace std;
 
 #include "client_internal.hh"
-
+
 /* -------------------- Auxiliary functions -------------------- */
 
 namespace
@@ -212,7 +212,7 @@ void Client::handle_events()
         case SDL_ACTIVEEVENT: {
             update_mouse_button_state();
             if (e.active.gain == 0 && !video::IsFullScreen())
-                show_menu();
+                show_menu(false);
             break;
         }
 
@@ -426,7 +426,7 @@ void Client::on_keydown(SDL_Event &e)
                 app.bossKeyPressed = true;
                 abort();
             } else {
-                show_menu();
+                show_menu(true);
             }
             break;
         case SDLK_LEFT:   set_mousespeed(options::GetMouseSpeed() - 1); break;
@@ -524,8 +524,16 @@ void Client::show_help()
 }
 
 
-void Client::show_menu() 
-{
+void Client::show_menu(bool isESC) {
+    if (isESC && server::LastMenuTime != 0.0 && server::LevelTime - server::LastMenuTime < 0.3) {
+        return; // protection against ESC D.o.S. attacks
+    }
+    if (isESC && server::LastMenuTime != 0.0 && server::LevelTime - server::LastMenuTime < 0.35) {
+        server::MenuCount++;
+        if (server::MenuCount > 10)
+            mark_cheater();
+    }
+    
     server::Msg_Pause (true);
 
     ecl::Screen *screen = video::GetScreen();
@@ -545,7 +553,9 @@ void Client::show_menu()
 
     server::Msg_Pause (false);
     game::ResetGameTimer();
-
+    
+    if (isESC)  // protection against ESC D.o.S. attacks
+        server::LastMenuTime = server::LevelTime;
 }
 
 void Client::draw_screen()
