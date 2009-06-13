@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libpento"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -118,10 +118,9 @@ function res.pento(subresolver, ...)
         {"  SS","SSS"},{"T","TTT","T"},{"U U","UUU"},{"VVV","V","V"},
         {"W","WW"," WW"},{" X","XXX"," X"},{"YYYY"," Y"},{"ZZ"," Z"," ZZ"}}
     context.rotations = {MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW, MAP_IDENT, 
-        MAP_MIRROR_VERTICAL, MAP_MIRROR_BACKSLASH, MAP_MIRROR_HORIZONTAL, 
-        MAP_MIRROR_SLASH}
-    context.mirrors = {MAP_MIRROR_HORIZONTAL, MAP_MIRROR_SLASH, MAP_MIRROR_VERTICAL,
-        MAP_MIRROR_BACKSLASH, MAP_ROT_CCW, MAP_IDENT, MAP_ROT_CW, MAP_ROT_180}
+        MAP_FLIP_VERTICAL, MAP_FLIP_BACKSLASH, MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH}
+    context.mirrors = {MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH, MAP_FLIP_VERTICAL,
+        MAP_FLIP_BACKSLASH, MAP_ROT_CCW, MAP_IDENT, MAP_ROT_CW, MAP_ROT_180}
     setmetatable(context, res.metatable)
     return context
 end

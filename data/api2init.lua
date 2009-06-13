@@ -199,16 +199,26 @@ FOLLOW_FLIP   = 2
 FOLLOW_FULLSCREEN = po(19, 12)
 FOLLOW_HALFSCREEN = po(9.5, 6)
 
--- Read directions for maps
-MAP_IDENT = 0
-MAP_ROT_CW = 1
-MAP_ROT_180 = 2
-MAP_ROT_CCW = 3
-MAP_MIRROR_BACKSLASH = 4
-MAP_MIRROR_HORIZONTAL = 5
-MAP_MIRROR_SLASH = 6
-MAP_MIRROR_VERTICAL = 7
-MAP_COUNT = 7
+-- map transformations, aka. read directions
+MAP_IDENT = {1}
+MAP_ROT_CW = {2}
+MAP_ROT_180 = {3}
+MAP_ROT_CCW = {4}
+MAP_FLIP_BACKSLASH = {5}
+MAP_FLIP_HORIZONTAL = {6}
+MAP_FLIP_SLASH = {7}
+MAP_FLIP_VERTICAL = {8}
+MAP_COUNT = 8
+-- Note: The sequence is of importance for lib.map.transformation_compose.
+MAP_ALL = {MAP_IDENT, MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW, MAP_FLIP_BACKSLASH,
+           MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH, MAP_FLIP_VERTICAL}
+
+for _, transformation in ipairs(MAP_ALL) do
+    setmetatable(transformation, {_type = "maptransformation",
+        __mul = (function() error("You have to load libmap to use \"*\" on map transformations.", 2) end),
+        __pow = (function() error("You have to load libmap to use \"^\" on map transformations.", 2) end),
+        __unm = (function() error("You have to load libmap to use \"-\" on map transformations.", 2) end)})
+end
 
 ---------------------
 -- Utility Methods --
@@ -226,13 +236,13 @@ wo:_register("drawMap",
         -- Analyse arguments 4 to 6
         local ignore, map, readdir
         if (etype(arg3) == "map") then
-            assert_type(arg4, "wo:drawMap fourth argument (read direction)", 2, "nil", "integer")
+            assert_type(arg4, "wo:drawMap fourth argument (read direction)", 2, "nil", "maptransformation")
             map = arg3
             ignore = map.defaultkey
             readdir = arg4 or MAP_IDENT
         else
             assert_type(arg4, "wo:drawMap fourth argument (map)", 2, "table", "map")
-            assert_type(arg5, "wo:drawMap fifth argument (read direction)", 2, "nil", "integer")
+            assert_type(arg5, "wo:drawMap fifth argument (read direction)", 2, "nil", "maptransformation")
             ignore = arg3
             map = arg4
             readdir = arg5 or MAP_IDENT
@@ -240,21 +250,20 @@ wo:_register("drawMap",
                 "wo:drawMap: Ignore key and default key differ in length.", 2)
         end
         local len = string.len(ignore)
-        assert_bool((readdir >= MAP_IDENT) and (readdir <= MAP_COUNT), "wo:drawMap: Unknown read direction.", 2)
         -- Prepare read direction rotation
         local w, h = 0, 0
         local function rot(x, y)
             -- The difference of this function to the one in libmap
             -- results among others from different coordinate origins
             -- and different application of rot.
-            return ({[MAP_IDENT]             = {x,         y},
-                     [MAP_ROT_CW]            = {h + 1 - y, x},
-                     [MAP_ROT_180]           = {w + 1 - x, h + 1 - y},
-                     [MAP_ROT_CCW]           = {y,         w + 1 - x},
-                     [MAP_MIRROR_HORIZONTAL] = {w + 1 - x, y},
-                     [MAP_MIRROR_VERTICAL]   = {x,         h + 1 - y},
-                     [MAP_MIRROR_SLASH]      = {y,         x},
-                     [MAP_MIRROR_BACKSLASH]  = {h + 1 - y, w + 1 - x} })[readdir]
+            return ({[MAP_IDENT]           = {x,         y},
+                     [MAP_ROT_CW]          = {h + 1 - y, x},
+                     [MAP_ROT_180]         = {w + 1 - x, h + 1 - y},
+                     [MAP_ROT_CCW]         = {y,         w + 1 - x},
+                     [MAP_FLIP_HORIZONTAL] = {w + 1 - x, y},
+                     [MAP_FLIP_VERTICAL]   = {x,         h + 1 - y},
+                     [MAP_FLIP_SLASH]      = {y,         x},
+                     [MAP_FLIP_BACKSLASH]  = {h + 1 - y, w + 1 - x} })[readdir]
         end
         if readdir ~= MAP_IDENT then
             -- Calculate height and width for rotation if neccessary

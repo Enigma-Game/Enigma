@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Styles Change" el:subtitle="But dynamite is forever" el:id="andreas48"/>
-      <el:version el:score="2" el:release="2" el:revision="19" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="20" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -293,10 +293,10 @@ for j = 1, 5 do
   replace_key_in_map(j, " ", "H", 2*glasses2 + maze_offset)
   replace_key_in_map(j, " ", "E", 2*extralife + maze_offset)
   if random(2) == 1 then
-    maze_maps[j] = maze_maps[j] ^ MAP_MIRROR_VERTICAL
+    maze_maps[j] = maze_maps[j] ^ MAP_FLIP_VERTICAL
   end
   if random(2) == 1 then
-    maze_maps[j] = maze_maps[j] ^ MAP_MIRROR_HORIZONTAL
+    maze_maps[j] = maze_maps[j] ^ MAP_FLIP_HORIZONTAL
   end
   maze_maps[j] = maze_maps[j] * (""..j)
 end

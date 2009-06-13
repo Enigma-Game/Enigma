@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmap"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -127,24 +127,21 @@ end
 
 function lib.map.transform(map, op)
     assert_type(map, "lib.map.transform first argument", 2, "map")
-    assert_type(op, "lib.map.transform second argument", 2, "natural")
-    if op > 7 then
-        error("lib.map.transform: Unknown transformation request.", 2)
-    end
+    assert_type(op, "lib.map.transform second argument", 2, "maptransformation")
     local w, h = map.width, map.height
     local function rot(x, y)
-        return ({[MAP_IDENT]             = {x,         y},
-                 [MAP_ROT_CW]            = {y,         h - 1 - x},
-                 [MAP_ROT_180]           = {w - 1 - x, h - 1 - y},
-                 [MAP_ROT_CCW]           = {w - 1 - y, x},
-                 [MAP_MIRROR_HORIZONTAL] = {w - 1 - x, y},
-                 [MAP_MIRROR_VERTICAL]   = {x,         h - 1 - y},
-                 [MAP_MIRROR_SLASH]      = {y,         x},
-                 [MAP_MIRROR_BACKSLASH]  = {w - 1 - y, h - 1 - x}     })[op]
+        return ({[MAP_IDENT]           = {x,         y},
+                 [MAP_ROT_CW]          = {y,         h - 1 - x},
+                 [MAP_ROT_180]         = {w - 1 - x, h - 1 - y},
+                 [MAP_ROT_CCW]         = {w - 1 - y, x},
+                 [MAP_FLIP_HORIZONTAL] = {w - 1 - x, y},
+                 [MAP_FLIP_VERTICAL]   = {x,         h - 1 - y},
+                 [MAP_FLIP_SLASH]      = {y,         x},
+                 [MAP_FLIP_BACKSLASH]  = {w - 1 - y, h - 1 - x}     })[op]
     end
     local new_w, new_h = w, h
-    if    (op == MAP_ROT_CW) or (op == MAP_ROT_CCW)
-         or (op == MAP_MIRROR_SLASH) or (op == MAP_MIRROR_BACKSLASH) then
+    if      (op == MAP_ROT_CW)     or (op == MAP_ROT_CCW)
+         or (op == MAP_FLIP_SLASH) or (op == MAP_FLIP_BACKSLASH) then
         new_w, new_h = h, w
     end
     local result = {}
@@ -631,6 +628,59 @@ wo:_register("newMap",
         return newmap
     end
 )
+
+-----------------------------
+-- Transformation handling --
+-----------------------------
+
+function lib.map.random_transformation()
+    return MAP_ALL[random(MAP_COUNT)]
+end
+
+function lib.map.transformation_inverse(x)
+    assert_type(x, "lib.map.transformation_inverse first argument", 2, "maptransformation")
+    return MAP_ALL[({[1] = 1, 4, 3, 2, 5, 6, 7, 8})[x[1]]]
+end
+
+function lib.map.transformation_compose(x, y)
+    assert_type(x, "lib.map.transformation_compose first argument", 2, "maptransformation")
+    assert_type(y, "lib.map.transformation_compose second argument", 2, "maptransformation")    
+    return MAP_ALL[({{1, 2, 3, 4, 5, 6, 7, 8},
+                     {2, 3, 4, 1, 6, 7, 8, 5},
+                     {3, 4, 1, 2, 7, 8, 5, 6},
+                     {4, 1, 2, 3, 8, 5, 6, 7},
+                     {5, 8, 7, 6, 1, 4, 3, 2},
+                     {6, 5, 8, 7, 2, 1, 4, 3},
+                     {7, 6, 5, 8, 3, 2, 1, 4},
+                     {8, 7, 6, 5, 4, 3, 2, 1}}) [x[1]] [y[1]] ]
+end
+
+function lib.map.transformation_power(x, y)
+    assert_type(x, "lib.map.transformation_power first argument", 2, "maptransformation")
+    assert_type(y, "lib.map.transformation_power second argument", 2, "maptransformation", "integer")
+    if type(y) == "number" then
+        local result = MAP_IDENT
+        -- Any 4th power of any element is trivial, so we mod by 4.
+        -- Note that negative powers work as expected.
+        for j = 1, y % 4 do
+            result = result * x
+        end
+        return result
+    else
+        return x*y
+    end
+end
+
+lib.map.transformation_metatable = {
+    __mul = lib.map.transformation_compose,
+    __pow = lib.map.transformation_power,
+    __unm = lib.map.transformation_inverse,
+    _type = "maptransformation"
+}
+
+for _, transformation in ipairs(MAP_ALL) do
+    setmetatable(transformation, lib.map.transformation_metatable)
+end
 
     ]]></el:luamain>
     <el:i18n>

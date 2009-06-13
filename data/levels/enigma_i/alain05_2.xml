@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Enigmhanoi Towers" el:subtitle="" el:id="alain05"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,8 @@ wo(ti, " ", {
 if wo["IsDifficult"] then
     wo:drawMap(ti, no["anchor"] + 2 * S, " ", {"XXXXX", "Xw eX", "XXSXX", "XXXXX"})
 else
-    wo:drawMap(ti, no["anchor"] + 2 * S, " ", {"XXXXX", "XXSeX", "Xw XX", "XXXXX"}, cond(random() < 0.5, MAP_MIRROR_VERTICAL, MAP_IDENT))
+    wo:drawMap(ti, no["anchor"] + 2 * S, " ", {"XXXXX", "XXSeX", "Xw XX", "XXXXX"},
+               cond(random() < 0.5, MAP_FLIP_VERTICAL, MAP_IDENT))
 end
  ]]></el:luamain>
     <el:i18n>
