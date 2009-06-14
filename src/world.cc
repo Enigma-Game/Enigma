@@ -644,7 +644,7 @@ V2 World::get_global_force (Actor *a)
 
     // All other force fields.
     for (ForceList::iterator i=forces.begin(); i != forces.end(); ++i) 
-        (*i)->add_force(a, f);
+        f += (*i)->globalForce(a);
 
     return f;
 }

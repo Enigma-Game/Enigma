@@ -43,13 +43,16 @@ namespace enigma {
         virtual void setAttr(const std::string &key, const Value &val);
         virtual Value message(const Message &m);
 
+        // StateObject interface
+        virtual void setState(int extState);
+
         // GridObject interface
         virtual void on_creation(GridPos p);
         virtual void on_removal(GridPos p);
         virtual void init_model();
 
         // ForceField interface
-        virtual void add_force(Actor *a, V2 &f);
+        virtual ecl::V2 globalForce(Actor *a);
         
     private:
         double correctedStrength;     // 0.6 * strength

@@ -116,7 +116,8 @@ void LevelLocalData::resurrect_actor (Actor *a)
 
 //    a->find_respawnpos();
     SendMessage(a, "_resurrect");
-    remove_extralife(a);
+    if (!server::InfiniteReincarnation)
+        remove_extralife(a);
     respawn_list.push_back(RespawnInfo(a, RESPAWN_TIME));
 }
 

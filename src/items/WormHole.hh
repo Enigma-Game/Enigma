@@ -64,7 +64,7 @@ namespace enigma {
         virtual std::list<GridPos> warpSpreadPos(bool isWater);
 
         // ForceField interface
-        virtual void add_force(Actor *a, V2 &f);
+        virtual ecl::V2 globalForce(Actor *a);
         
         // TimeHandler interface
         virtual void alarm();

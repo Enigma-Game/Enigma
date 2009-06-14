@@ -56,6 +56,20 @@ namespace enigma {
         }
         return Item::message(m);
     }
+    
+    void Magnet::setState(int extState) {
+        // switch force on and off
+        if (extState != state) {          // react only on force changes
+            state = extState;
+            if (isDisplayable()) {
+                if (extState == 1)
+                    AddForceField(this);
+                else
+                    RemoveForceField(this);
+            }
+        }
+    }
+    
     void Magnet::init_model() {
         set_model(ecl::strf("it_magnet_%s", state == ON ? "on" : "off"));
     }
@@ -68,23 +82,25 @@ namespace enigma {
             correctedStrength = 0.6 * server::MagnetForce;
         }
 
-        AddForceField(this);
+        if (state == ON)
+            AddForceField(this);
+            
         Item::on_creation(p);
     }
     
     void Magnet::on_removal(GridPos p) {
         Item::on_removal(p);
-        RemoveForceField(this);
+        if (state == ON)
+            RemoveForceField(this);
     }
     
-    void Magnet::add_force(Actor *a, V2 &f) {
-        if (state == ON) {
-            V2 dv = get_pos().center() - a->get_pos_force();
-            double squareDist = square(dv);
+    ecl::V2 Magnet::globalForce(Actor *a) {
+        // only switched on magnets are registered
+        ecl::V2 dv = get_pos().center() - a->get_pos_force();
+        double squareDist = square(dv);
 
-            if (squareDist >= 0.04 && squareDist < squareRange)
-                f += (correctedStrength / squareDist) * dv;
-        }
+        return (squareDist >= 0.04 && squareDist < squareRange) ?
+                (correctedStrength / squareDist) * dv : ecl::V2();
     }
     
     ItemTraits Magnet::traits[2] = {

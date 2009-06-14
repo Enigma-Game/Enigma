@@ -135,12 +135,13 @@ namespace enigma {
         return results;
     }
     
-    void WormHole::add_force(Actor *a, V2 &f) {
-        V2 dv = get_pos().center() - a->get_pos_force();
+    ecl::V2 WormHole::globalForce(Actor *a) {
+        // only switched on wormholes are registered
+        ecl::V2 dv = get_pos().center() - a->get_pos_force();
         double squareDist = square(dv);
 
-        if (squareDist >= 0.025 && squareDist < squareRange)
-            f += (correctedStrength / squareDist) * dv;
+        return (squareDist >= 0.025 && squareDist < squareRange) ?
+                (correctedStrength / squareDist) * dv : ecl::V2();
     }
     
     void WormHole::alarm() {

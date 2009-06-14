@@ -64,6 +64,7 @@ namespace enigma_server
     extern bool     IsDifficult;
     extern bool     IsLevelRestart;
     extern bool     ProvideExtralifes;
+    extern bool     InfiniteReincarnation;  // do not remove extralife on respawn
     extern bool     SurviveFinish;
     extern bool     TwoPlayerGame;
 

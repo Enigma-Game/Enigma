@@ -128,7 +128,7 @@ namespace enigma {
     class ForceField {
     public:
         virtual ~ForceField() {}
-        virtual void add_force(Actor *a, V2 &force) = 0;
+        virtual ecl::V2 globalForce(Actor *a) = 0;
         virtual void tick(double /*dtime*/) {}
     };
 

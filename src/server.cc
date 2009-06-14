@@ -88,6 +88,7 @@ bool     server::ConserveLevel;
 bool     server::IsDifficult;               // read only for Lua
 bool     server::IsLevelRestart;            // no Lua access
 bool     server::ProvideExtralifes;
+bool     server::InfiniteReincarnation;
 bool     server::SurviveFinish;
 
 Value    server::FollowAction;
@@ -257,6 +258,7 @@ void server::PrepareLevel()
     server::LevelTime         = 0.0;
     server::ConserveLevel     = true;
     server::ProvideExtralifes = true;
+    server::InfiniteReincarnation = false;
     server::SurviveFinish     = true;
     server::TwoPlayerGame     = false;
     server::SingleComputerGame= true;
