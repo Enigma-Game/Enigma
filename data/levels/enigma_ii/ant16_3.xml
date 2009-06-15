@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="ant16"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,13 +18,14 @@
 ti[" "] = {"fl_bluegray"}
 ti["-"] = {"fl_samba"}
 ti["~"] = {"fl_water"}
+ti["="] = ti["~"] .. {"st_death"}      -- no maze water
 ti["#"] = {"st_granite"}
 ti["o"] = {"it_meditation_hollow"}
 ti["@"] = {"it_magnet", state=ON} .. ti({"#ac_pearl", essential=INDISPENSIBLE})
 
 maze = res.maze(ti, {area={"~"}, render={"-", "~", "-"}})
 
-wo(maze, " ", {
+map = wo:newMap(" ", {
     "####################",
     "#   ~~~~~~~~~~~~~  #",
     "# @ ~~~~~~~~~~~~~ o#",
@@ -38,6 +39,14 @@ wo(maze, " ", {
     "# @ ~~~~~~~~~~~~~ o#",
     "#   ~~~~~~~~~~~~~  #",
     "####################"})
+
+-- prohibit straight west-east paths
+columns = lib.lua.shuffle({5,7,9,11,13,15})
+for i=1,6 do
+    map[{columns[i], 2*i - 1}] = "="
+end
+
+wo(maze, map)
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

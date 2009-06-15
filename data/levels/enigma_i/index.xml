@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma I"/>
 
   <attributes/>
 
@@ -57,7 +57,7 @@
     <level _seq="49" _title="Hall of Glass" _xpath="./martin86_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mirror Room" _xpath="./luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Annoying little balls" _xpath="./wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Mirror Room II" _xpath="./luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>

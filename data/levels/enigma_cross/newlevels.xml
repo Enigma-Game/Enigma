@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma 1.00 new"/>
+  <info enigma="1.00" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="48" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -20,7 +20,7 @@
     <level _seq="12" _title="- Meditation -" _xpath="enigma_i/alain04_1" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Light Barrier" _xpath="enigma_i/richi03_1" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Dead Ball Walking" _xpath="enigma_i/illmind08_2" author="illmind" ctrl="force" easy="false" id="illmind08" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="The Enigmhanoi Towers" _xpath="enigma_i/alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="The Enigmhanoi Towers" _xpath="enigma_i/alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Mirror Room" _xpath="enigma_i/luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Mirror Room II" _xpath="enigma_i/luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Castle Maze" _xpath="enigma_i/luc19_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc19" rel="1" rev="0" score="1" target="time" unit="duration"/>

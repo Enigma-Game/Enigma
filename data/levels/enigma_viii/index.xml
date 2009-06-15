@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="50" title="Enigma VIII"/>
+  <info enigma="1.00" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -35,7 +35,7 @@
     <level _seq="27" _title="Freestyle Microwire" _xpath="./ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="129" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Balance Beam" _xpath="./mecke03_1" author="mecke" ctrl="force" easy="true" id="mecke03" rel="1" rev="37" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Colored Oxyds" _xpath="./andreas50_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas50" rel="1" rev="8" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Styles Change" _xpath="./andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="19" score="2" target="time" unit="duration"/>
+    <level _seq="30" _title="Styles Change" _xpath="./andreas48_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas48" rel="2" rev="20" score="2" target="time" unit="duration"/>
     <level _seq="31" _title="Colored Turnstiles" _xpath="./andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Sanssouci" _xpath="./mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="40" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Wired Shogun" _xpath="./ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="129" score="1" target="time" unit="duration"/>
@@ -102,8 +102,8 @@
     <level _seq="94" _title="Sunrise Sunset" _xpath="./pulley18_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley18" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="Filler" _xpath="./devnull33_1" author="/dev/null" ctrl="force" easy="false" id="devnull33" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Two Is A Company IV" _xpath="./devnull28_1" author="/dev/null" ctrl="force" easy="false" id="devnull28" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="97" _title="Help youself I" _xpath="./devnull34_1" author="/dev/null" ctrl="force" easy="true" id="devnull34" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Help youself II" _xpath="./devnull35_1" author="/dev/null" ctrl="force" easy="true" id="devnull35" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="97" _title="Crabwise I" _xpath="./devnull34_2" author="/dev/null" ctrl="force" easy="true" id="devnull34" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="98" _title="Crabwise II" _xpath="./devnull35_2" author="/dev/null" ctrl="force" easy="true" id="devnull35" rel="2" rev="3" score="2" target="time" unit="duration"/>
   </levels>
 
 </index>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="33" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -94,7 +94,7 @@
     <level _seq="86" _title=".J.U.M.P." _xpath="enigma_i/martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Walk The Plank" _xpath="enigma_v/nat04_1" author="Nat Pryce" ctrl="force" easy="false" id="nat4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Shipwreck" _xpath="enigma_v/nat33_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze2" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="- Meditation -" _xpath="enigma_ii/ant16_2" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="- Meditation -" _xpath="enigma_ii/ant16_3" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="90" _title="Dancers" _xpath="enigma_ii/ant14_2" author="Petr Machata" ctrl="force" easy="false" id="ant14" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Running Stone" _xpath="enigma_iv/christophanita01_1" author="Christoph &amp; Anita" ctrl="force" easy="false" id="christophanita_runningstone" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Where's The Gardener?" _xpath="enigma_i/siegfried28_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9e" rel="1" rev="0" score="1" target="time" unit="duration"/>

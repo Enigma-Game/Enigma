@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?> <!-- -*- mode:lua; lua-indent-level:4 -*- -->
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Su Dyxo" el:subtitle="" el:id="20090525ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="10:20"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+-- Defining cells
+basefloor = "fl_bright"
+ti[" "] = {basefloor,adhesion=2,friction=5}
+ti["#"] = {"st_fake_oxydc",state=OPEN}
+ti["."] = {"fl_dark",adhesion=2,friction=5}
+ti["|"] = {"it_strip_ns"}
+ti["-"] = {"it_strip_ew"}
+ti["+"] = {"it_strip_nesw"}
+ti["D"] = {"st_door_b"}
+ti["="] = {"st_lightglass"}
+ti["T"] = {"st_thief"}
+ti["x"] = {"st_oxyd_c"}
+if wo["IsDifficult"] then
+    ti["O"] = ti({"#ac_marble"}) .. {"it_document",text="text1"}
+    ti["S"] = ti["#"]
+else
+    ti["O"] = ti({"#ac_marble"}) .. {"it_document",text="text2"}
+    ti["S"] = {"st_monoflop",interval=60,action="callback",target="clue"}
+end
+-- The items used
+items = {"it_banana", "it_brush", "it_coffee", "it_floppy", "it_hammer",
+         "it_magicwand", "it_key", "it_sword", "it_glasses"}
+for v = 1,9 do
+    ti[""..v] = {items[v]}
+end
+
+w, h = wo(ti," ",{
+    ".............S######",
+    ".   |   |   .OD#D Dx",
+    ".   |   |   .#D#D#D#",
+    ".   |   |   .#D#D#D#",
+    ".---+---+---.# # # #",
+    ".   |   |   .#D#D#D#",
+    ".   |   |   .#D#D#D#",
+    ".   |   |   .#D#D#D#",
+    ".---+---+---.# # # #",
+    ".   |   |   .#D#D#D#",
+    ".   |   |   .#D#D#D#",
+    ".   |   |   .#D D#Dx",
+    ".............#######"})
+
+wo:add({"ot_timer",interval=0.1,action="callback",target="checkitems"})
+
+-------------------------------------------------------------------------------
+-- Code for generating a Sudoku puzzle
+
+-- Helper functions
+function boxof(x,y)
+    local b = 1
+    if x > 3 then b = b + 1 end
+    if x > 6 then b = b + 1 end
+    if y > 3 then b = b + 3 end
+    if y > 6 then b = b + 3 end
+    return b
+end
+
+function randomlegal(f,m)
+    local legalcount = 0
+    local rv = nil
+    for c = 1,m do
+        if f(c) then
+            legalcount = legalcount + 1
+            if random(1,legalcount) == 1 then
+                rv = c
+            end
+        end
+    end
+    return rv
+end
+
+function randomlegalpair(f,m1,m2)
+    local legalcount = 0
+    local rv1 = nil
+    local rv2 = nil
+    for c1 = 1,m1 do for c2 = 1,m2 do
+        if f(c1,c2) then
+            legalcount = legalcount + 1
+            if random(1,legalcount) == 1 then
+                rv1 = c1; rv2 = c2
+            end
+        end
+    end end
+    return rv1, rv2
+end
+
+-- Global variables
+-- Numbers unused in each row
+ru = {{true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true}}
+-- Numbers unused in each column
+cu = {{true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true}}
+-- Numbers unused in each box
+bu = {{true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true},
+      {true,true,true,true,true,true,true,true,true}}
+-- The answer grid
+g  = {{0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0}}
+-- The puzzle grid
+pg = {{0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0}}
+-- Calculating a puzzle
+-- Setting the puzzle consists of alternately adding a random legal value to
+-- a random location, and then deducing all the numbers that we can.
+-- Most iterations of this will be correct; occasionally it will make a mistake,
+-- and when a mistake is detected, it will randomly remove numbers in the same
+-- row or column and re-solve the puzzle, which leads to a correct solution
+-- eventually. Even with debug data, this program generally runs in less than
+-- about a second; without, I've never seen it take longer than 0.3s, and it
+-- normally beats a quarter of a second.
+cellcount = 0
+-- Debug?
+-- dprint = print
+dprint = function(x) end
+
+cluecount = 99
+rededuce = false
+-- We want exactly 33 clues.
+while cluecount > 33 do
+    -- Favour filling the centre cell of all (this makes it overwhelmingly likely,
+    -- although not guaranteed as it might be removed later); that tends to lead to
+    -- slightly more aesthetic puzzles (odd number of clues = even number of items)
+    oldx = 5
+    oldy = 5
+    while cellcount < 81 do
+        if not rededuce then
+        -- Pick a cell to fill, symmetrically if possible
+        if oldx > 0 and g[10-oldx][10-oldy] == 0 then
+        x = 10-oldx
+        y = 10-oldy
+        choicetype = "Symmetrically "
+        else
+        -- Find a random unoccupied cell
+        x,y = randomlegalpair(function(xi,yi) return g[xi][yi] == 0 end, 9, 9)
+        choicetype = "Randomly "
+        end
+        oldx = x
+        oldy = y
+        b = boxof(x,y)
+        -- Verify that there is a legal value
+        v = randomlegal(function(i) return ru[y][i] and cu[x][i] and bu[b][i] end, 9)
+        if not(v==nil) then
+        -- There is a legal value, use it
+        dprint(choicetype .. "setting "..v.." at ("..x..","..y..")")
+        g[x][y] = v
+        pg[x][y] = v
+        ru[y][v] = false
+        cu[x][v] = false
+        bu[b][v] = false
+        cellcount = cellcount + 1
+        else
+        -- We have a contradiction; pick a random filled cell in the same row
+        -- or column, clear it, then clear our deductions
+        xi = x
+        yi = y
+        oldx = 0
+        oldy = 0
+        while pg[xi][yi] == 0 do
+            if random(1,2) == 1 then
+            xi = x; yi = random(1,9)
+            else
+            yi = y; xi = random(1,9)
+            end
+        end
+        dprint("Clearing the cell at ("..xi..","..yi..") as there's a contradiction")
+        pg[xi][yi] = 0
+        pg[10-xi][10-yi] = 0
+        for x = 1,9 do for y = 1,9 do
+            if pg[x][y] == 0 and g[x][y] > 0 then
+            b = boxof(x,y)
+            v = g[x][y]
+            g[x][y] = 0
+            ru[y][v] = true
+            cu[x][v] = true
+            bu[b][v] = true
+            cellcount = cellcount - 1
+            end
+        end end
+        end
+        else
+            rededuce = false
+        end
+    -- Loop, deducing all the cells we can
+    changemade = true
+    while changemade do
+        changemade = false
+        -- Look for cells with only one possible value
+        for x = 1,9 do for y = 1,9 do if g[x][y] == 0 then
+        b = boxof(x,y)
+        vcount = 0
+        lastv = 0
+        for v = 1,9 do
+            if ru[y][v] and cu[x][v] and bu[b][v] then
+            vcount = vcount + 1
+            lastv = v
+            end
+        end
+        if vcount == 1 then
+            -- Only one possible value, set the cell
+            dprint("Setting "..lastv.." at ("..x..","..y..") as the only possibility")
+            g[x][y] = lastv
+            ru[y][lastv] = false
+            cu[x][lastv] = false
+            bu[b][lastv] = false
+            cellcount = cellcount + 1
+            changemade = true
+        end
+        end end end
+        -- Look for columns with only one place to put a given value
+        for x = 1,9 do for v = 1,9 do if cu[x][v] then
+        ycount = 0
+        lasty = 0
+        for y = 1,9 do
+            if ru[y][v] and bu[boxof(x,y)][v] and g[x][y] == 0 then
+            ycount = ycount + 1
+            lasty = y
+            end
+        end
+        if ycount == 1 then
+            -- Only one possible location, set the cell
+            dprint("Setting "..v.." at ("..x..","..lasty..") as the only place in the column")
+            g[x][lasty] = v
+            ru[lasty][v] = false
+            cu[x][v] = false
+            bu[boxof(x,lasty)][v] = false
+            cellcount = cellcount + 1
+            changemade = true
+        end
+        end end end
+        -- Look for rows with only one place to put a given value
+        for y = 1,9 do for v = 1,9 do if ru[y][v] then
+        xcount = 0
+        lastx = 0
+        for x = 1,9 do
+            if cu[x][v] and bu[boxof(x,y)][v] and g[x][y] == 0 then
+            xcount = xcount + 1
+            lastx = x
+            end
+        end
+        if xcount == 1 then
+            -- Only one possible location, set the cell
+            dprint("Setting "..v.." at ("..lastx..","..y..") as the only place in the row")
+            g[lastx][y] = v
+            ru[y][v] = false
+            cu[lastx][v] = false
+            bu[boxof(lastx,y)][v] = false
+            cellcount = cellcount + 1
+            changemade = true
+        end
+        end end end
+    end
+    end
+    -- Symmetrize the puzzle
+    for x = 1,9 do for y = 1,9 do
+    if pg[10-x][10-y] > 0 and pg[x][y] == 0 then
+        dprint("Making the puzzle symmetrical at ("..x..","..y..")")
+        pg[x][y] = g[x][y]
+    end
+    end end
+    -- Fill in unreachable squares and count clues
+    cluecount = 0
+    for x = 1,9 do for y = 1,9 do
+    -- If this cell is unreachable, give it to the player as another hint cell
+    if (x == 2 or x == 5 or x == 8) and (y == 2 or y == 5 or y == 8) then
+        if pg[x-1][y] > 0 and pg[x+1][y] > 0 and pg[x][y-1] > 0 and pg[x][y+1] > 0 then
+        dprint("Filling in unreachable square at ("..x..","..y..")")
+        pg[x][y] = g[x][y]
+        end
+    end
+    -- Count clue cells
+    if pg[x][y] > 0 then cluecount = cluecount + 1 end
+    end end
+    -- If we have too many clues, then eliminate some clues in crowded squares.
+    -- (if we have too /few/, then we can add more later.)
+    -- To randomly favour crowded squares, we pick random clues to eliminate
+    -- until we pick two in the same box.
+    if cluecount > 33 then
+        b = 10
+        boxpicked = {}
+        while boxpicked[b] == nil do
+            boxpicked[b] = 1
+            x, y = randomlegalpair(function(xi,yi) return pg[xi][yi] > 0 end, 9, 9)
+            b = boxof(x,y)
+        end
+        -- Clear all deductions; we'll rededuce next time through the loop.
+        dprint("Eliminating clue at ("..x..","..y..") and opposite to increase difficulty")
+    pg[x][y] = 0
+    pg[10-x][10-y] = 0
+        rededuce = true
+    for x = 1,9 do for y = 1,9 do
+        if pg[x][y] == 0 and g[x][y] > 0 then
+        b = boxof(x,y)
+        v = g[x][y]
+        g[x][y] = 0
+        ru[y][v] = true
+        cu[x][v] = true
+        bu[b][v] = true
+        cellcount = cellcount - 1
+        end
+    end end
+    end
+end
+
+-- Give extra clues if necessary; there must be at least (81-48) = 33 clues so
+-- we have space to fit all the items. Note that this only fills corner and centre
+-- squares of a box, so as not to cause unreachability. (There must be one of those
+-- left; filling all the corner and centre squares would be 45 clues.)
+while cluecount < 33 do
+    if pg[5][5] == 0 then
+        -- (5,5) must be filled, or we'll end up with an even number of clues
+        x = 5
+        y = 5
+    else
+        x,y = randomlegalpair(function(xi,yi)
+            local xc = (xi % 3 == 2)
+            local yc = (yi % 3 == 2)
+            return pg[xi][yi] == 0 and ((xc and yc) or ((not xc) and (not yc)))
+        end, 9, 9)
+    end
+    pg[x][y] = g[x][y]
+    dprint("Adding extra clue at ("..x..","..y..") to make up numbers")
+    cluecount = cluecount + 1
+    if pg[10-x][10-y] == 0 then -- it might not be if this is (5,5)
+        pg[10-x][10-y] = g[10-x][10-y]
+        dprint("Adding extra clue at ("..(10-x)..","..(10-y)..") for symmetry")
+        cluecount = cluecount + 1
+    end
+end
+
+-------------------------------------------------------------------------------
+
+neededcount = {0,0,0,0,0,0,0,0,0}
+
+-- Now the puzzle's been generated, set up the grid accordingly
+for x = 1,9 do for y = 1,9 do
+    -- Deduce the world coordinates for this puzzle cell
+    xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+    yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+    if pg[x][y] > 0 then
+        -- Place the item on the grid, using glass so it can't be moved
+        wo[{xi,yi}] = ti["="]..ti[""..pg[x][y]]
+    else
+        neededcount[g[x][y]] = neededcount[g[x][y]] + 1
+    end
+end end
+
+-- Add the items to place to the map, in a cyclic manner
+function firstneeded()
+    for v=1,9 do
+        if neededcount[v] > 0 then
+            neededcount[v] = neededcount[v] - 1
+            return v
+        end
+    end
+end
+
+for x = 0,11 do
+    wo[{x,0}] = ti[""..firstneeded()]
+end
+for y = 0,11 do
+    wo[{12,y}] = ti[""..firstneeded()]
+end
+for x = 0,11 do
+    wo[{12-x,12}] = ti[""..firstneeded()]
+end
+for y = 0,11 do
+    wo[{0,12-y}] = ti[""..firstneeded()]
+end
+
+-------------------------------------------------------------------------------
+
+-- Things that happen during the level
+
+-- Maintain a list of items that the user can pick up whenever they want
+
+-- The x/y coordinates which hold Sudoku locations
+coords = {1,2,3,5,6,7,9,10,11}
+
+-- Where the items were last iteration: a table of x*11+y to item names,
+-- or "nil" if there are no items
+itemlocations = {}
+
+-- Check the map to see which rows/columns/boxes are correct
+function checkitems()
+    local needchange = false
+    for x = 1,11 do for y = 1,11 do
+        local k = nil
+        if -it({x,y}) then k = it({x,y}):kind() end
+        if not (itemlocations[x*11+y] == k) then
+            itemlocations[x*11+y] = k
+            needchange = true
+        end
+    end end
+    if not needchange then return end
+    -- the ._k attribute is used to store the kind of floor that we
+    -- want to set the floor to; this allows the floor to be updated
+    -- only if it would actually change
+    for x = 1,11 do for y = 1,11 do fl({x,y})._k = basefloor end end
+    -- Check columns
+    for i = 1,#coords do x = coords[i]
+        -- t counts how many of each item there are
+        -- c counts different items, d counts duplicates
+        local t = {}
+        local c = 0
+        local d = 0
+        for j = 1,#coords do y = coords[j]
+            if itemlocations[x*11+y] ~= nil then
+                local k = itemlocations[x*11+y]
+                if t[k] == nil then
+                    t[k] = 1; c = c + 1
+                else
+                    t[k] = t[k] + 1; d = d + 1
+                end
+            end
+        end
+        -- Set floor colour appropriately:
+        -- A correct line shows green where it crosses the strips
+        -- An incorrect line shows red where it crosses the strips and
+        -- under each offending item
+        for y = 1,11 do
+            if itemlocations[x*11+y] ~= nil then
+                local k = itemlocations[x*11+y]
+                if t[k] == nil then
+                    if c==9 then
+                        fl({x,y})._k = "fl_lawn"
+                    elseif d>0 then
+                        fl({x,y})._k = "fl_red"
+                    end
+                elseif t[k]>1 then fl({x,y})._k = "fl_red"
+                end
+            end
+        end
+        -- Open/close the door according to if this column is correct
+        if c==9 then st({16,x}):open() else st({16,x}):close() end
+    end
+    -- Check rows; this is identical to checking the columns, but
+    -- with x and y swapped
+    for i = 1,#coords do y = coords[i]
+        local t = {}
+        local c = 0
+        local d = 0
+        for j = 1,#coords do x = coords[j]
+            if itemlocations[x*11+y] ~= nil then
+                local k = itemlocations[x*11+y]
+                if t[k] == nil then
+                    t[k] = 1; c = c + 1
+                else
+                    t[k] = t[k] + 1; d = d + 1
+                end
+            end
+        end
+        for x = 1,11 do
+            if itemlocations[x*11+y] ~= nil then
+                local k = itemlocations[x*11+y]
+                if t[k] == nil then
+                    if c==9 then
+                        fl({x,y})._k = "fl_lawn"
+                    elseif d>0 then
+                        fl({x,y})._k = "fl_red"
+                    end
+                elseif t[k]>1 then fl({x,y})._k = "fl_red"
+                end
+            end
+        end
+        if c==9 then st({14,y}):open() else st({14,y}):close() end
+    end
+    -- Check boxes
+    for i=1,3 do for j=1,3 do
+        local t = {}
+        local c = 0
+        local d = 0
+        for x=(i*4-3),(i*4-1) do for y=(j*4-3),(j*4-1) do
+            if itemlocations[x*11+y] ~= nil then
+                local k = itemlocations[x*11+y]
+                if t[k] == nil then
+                    t[k] = 1; c = c + 1
+                else
+                    t[k] = t[k] + 1; d = d + 1
+                end
+            end
+        end end
+        -- Colouring rules for boxes are slightly different:
+        -- A correct box marks the whole box green, except
+        -- for cells already marked red by a previous step
+        -- An incorrect box marks the offending items in red
+        for x=(i*4-3),(i*4-1) do for y=(j*4-3),(j*4-1) do
+            if itemlocations[x*11+y] ~= nil and fl({x,y})._k == basefloor then
+                local k = itemlocations[x*11+y]
+                if t[k]>1 then fl({x,y})._k = "fl_red"
+                elseif c==9 then fl({x,y})._k = "fl_lawn"
+                end
+            end
+        end end
+        if c==9 then st({18,(j-1)*4+i}):open() else st({18,(j-1)*4+i}):close() end
+    end end
+    -- Now do the actual colouring, changing the kind of cells
+    -- only if it's different from what's already there (to avoid the
+    -- visual effect of repeatedly replacing floors with a different
+    -- variant, and to improve performance slightly)
+    for x = 1,11 do for y = 1,11 do
+        if fl({x,y})._k ~= fl({x,y}):kind() then
+            wo[{x,y}]={fl({x,y})._k,adhesion=2,friction=5}
+        end
+    end end
+end
+
+-- Give the user a clue, in easy mode, by marking all misplaced items and
+-- squares which can be deduced
+function clue(value, caller)
+    local continuemarking = false
+    if value then
+        -- Look for misplaced items
+        continuemarking = 1
+        for x = 1,9 do
+            for y = 1,9 do
+                -- Deduce the world coordinates for this puzzle cell
+                xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                -- Check which item is here, and if it's wrong
+                if -it({xi,yi}) and it({xi,yi}):kind() ~= items[g[x][y]] then
+                    wo[{xi,yi}] = {"fl_red",adhesion=2,friction=5,_k="fl_red"}
+                    continuemarking = false
+                end
+            end
+        end
+    end
+    -- If all items are correct, then go onto orange and yellow marks
+    if continuemarking then
+        -- Numbers unused in each row
+        ru = {{true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true}}
+        -- Numbers unused in each column
+        cu = {{true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true}}
+        -- Numbers unused in each box
+        bu = {{true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true},
+              {true,true,true,true,true,true,true,true,true}}
+        -- Find out what numbers are unused in each row/column/box
+        for x = 1,9 do
+            for y = 1,9 do
+                xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                if -it({xi,yi}) then
+                    for v = 1,9 do
+                        if it({xi,yi}):kind() == items[v] then
+                            ru[y][v] = false
+                            cu[x][v] = false
+                            bu[boxof(x,y)][v] = false
+                        end
+                    end
+                end
+            end
+        end
+        -- Mark only-position-in-row/column/box yellow
+        -- row
+        for x = 1,9 do
+            for v = 1,9 do
+                -- Find all possible positions for v on row x
+                -- (ypos holds 0 = no positions, position = 1 position, 10 = more than 1)
+                ypos = 0
+                for y = 1,9 do
+                    xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                    yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                    if ru[y][v] and cu[x][v] and bu[boxof(x,y)][v] and not -it({xi,yi}) then
+                        if ypos == 0 then ypos = y else ypos = 10 end
+                    end
+                end
+                -- Draw the yellow marking if there's exactly one
+                if ypos > 0 and ypos < 10 then
+                    y = ypos
+                    xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                    yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                    if not -it({xi,yi}) then
+                        wo[{xi,yi}] = {"fl_sahara",adhesion=2,friction=5,_k="fl_sahara"}
+                    end
+                end
+            end
+        end
+        -- column
+        for y = 1,9 do
+            for v = 1,9 do
+                -- Find all possible positions for v on column y
+                xpos = 0
+                for x = 1,9 do
+                    xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                    yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                    if ru[y][v] and cu[x][v] and bu[boxof(x,y)][v] and not -it({xi,yi}) then
+                        if xpos == 0 then xpos = x else xpos = 10 end
+                    end
+                end
+                -- Draw the yellow marking if there's exactly one
+                if xpos > 0 and xpos < 10 then
+                    x = xpos
+                    xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                    yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                    if not -it({xi,yi}) then
+                        wo[{xi,yi}] = {"fl_sahara",adhesion=2,friction=5,_k="fl_sahara"}
+                    end
+                end
+            end
+        end
+        -- box
+        for xb = 1,3 do
+            for yb = 1,3 do
+                b = boxof(x*3,y*3)
+                for v = 1,9 do
+                    -- Find all possible positions in this box
+                    xpos = 0
+                    ypos = 0
+                    for x = xb*3-2,xb*3 do
+                        for y = yb*3-2,yb*3 do
+                            xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                            yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                            if ru[y][v] and cu[x][v] and bu[boxof(x,y)][v] and not -it({xi,yi}) then
+                                if xpos == 0 then xpos = x else xpos = 10 end
+                                if ypos == 0 then ypos = y else ypos = 10 end
+                            end
+                        end
+                    end
+                    -- Draw the yellow marking if there's exactly one
+                    if xpos > 0 and xpos < 10 then
+                        x = xpos
+                        y = ypos
+                        xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                        yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                        if not -it({xi,yi}) then
+                            wo[{xi,yi}] = {"fl_sahara",adhesion=2,friction=5,_k="fl_sahara"}
+                        end
+                    end
+                end
+            end
+        end
+        -- Mark unfillable cells in red, fillable-now cells in orange
+        for x = 1,9 do
+            for y = 1,9 do
+                xi = x; if xi > 6 then xi = xi + 1 end; if xi > 3 then xi = xi + 1 end
+                yi = y; if yi > 6 then yi = yi + 1 end; if yi > 3 then yi = yi + 1 end
+                if not -it({xi,yi}) then
+                    pcount = 0
+                    for v = 1,9 do
+                        if ru[y][v] and cu[x][v] and bu[boxof(x,y)][v] then pcount = pcount + 1 end
+                    end
+                    if pcount == 0 then
+                        -- should never happen; a space can't be unfillable if
+                        -- all items are placed directly
+                        wo[{xi,yi}] = {"fl_red",adhesion=2,friction=5,_k="fl_red"}
+                    elseif pcount == 1 then
+                        wo[{xi,yi}] = {"fl_sand",adhesion=2,friction=5,_k="fl_sand"}
+                    end
+                end
+            end
+        end
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Place 9 different items in each row, column, and 3x3 box.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Place 9 different items in each row, column, and 3x3 box. Hit the switch to see if any of your items are misplaced, or which locations you can deduce items for next; you can only get 1 hint per minute this way, though.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
