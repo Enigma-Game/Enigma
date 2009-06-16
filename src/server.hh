@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2003,2004,2005 Daniel Heck
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -104,7 +105,7 @@ namespace enigma_server
     // 1.10 crack variables
     extern double   Fragility;
     extern double   CrackSpreading;
-    extern ecl::V2  GlobalForce;
+    extern ecl::V2  ConstantForce;  // global gravitation
     
     extern int      MaxOxydColor;
 

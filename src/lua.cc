@@ -832,7 +832,7 @@ static int en_add_constant_force(lua_State *L) {
     ecl::V2 v;
     v[0] = lua_tonumber(L, 1);
     v[1] = lua_tonumber(L, 2);
-    server::GlobalForce = v;
+    server::ConstantForce = v;
     return 0;
 }
 

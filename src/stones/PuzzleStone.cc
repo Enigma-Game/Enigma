@@ -215,6 +215,7 @@ namespace enigma {
                 // -> move it if dest pos is free
                 GridPos dest = move(get_pos(), move_dir);
                 if (GetStone(dest) == NULL) {
+                    // move without falling in water or abyss
                     Stone *puzz = YieldStone(get_pos());
                     SetStone(dest, puzz);
                     puzz->on_move(get_pos());
@@ -243,6 +244,10 @@ namespace enigma {
             // 3) Last chance: try to rotate the row or column
             if (has_magic_wand) {
                 rotateLine(rotate_dir);
+            } else {
+                // we can not move - otherwise we would have send the impulse in 2)
+                // but we need to propagate the impulse
+                sc.actor->send_impulse(get_pos(), move_dir);
             }
         }
     }

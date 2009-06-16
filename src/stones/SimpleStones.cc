@@ -133,7 +133,7 @@ namespace enigma {
     
     void ChargeStone::init_model() {
         double charge = getAttr("charge");
-        set_model(ecl::strf("st-charge%s", (charge == 0) ? "zero" : ((charge > 0.0) ? "plus" : "minus")).c_str());
+        set_model(ecl::strf("st_charge_%s", (charge == 0) ? "zero" : ((charge > 0.0) ? "plus" : "minus")).c_str());
     }
     
     void ChargeStone::animcb() {
@@ -143,7 +143,7 @@ namespace enigma {
     void ChargeStone::actor_hit(const StoneContact &sc) {
         double charge = getAttr("charge");
         sc.actor->setAttr("charge", charge);
-        set_anim(ecl::strf("st-charge%s-anim", (charge == 0) ? "zero" : ((charge > 0.0) ? "plus" : "minus")).c_str());
+        set_anim(ecl::strf("st_charge_%s_anim", (charge == 0) ? "zero" : ((charge > 0.0) ? "plus" : "minus")).c_str());
     }
     
 

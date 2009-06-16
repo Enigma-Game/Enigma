@@ -91,7 +91,7 @@ namespace enigma {
         } else if (key == "FrictionStrength") {
             return server::FrictionFactor;
         } else if (key == "GlobalForce") {
-            return server::GlobalForce;
+            return server::ConstantForce;
         } else if (key == "MeditationStrength") {
             return server::HoleForce;
         } else if (key == "MagnetStrength") {
@@ -194,7 +194,7 @@ namespace enigma {
         } else if (key == "FrictionStrength") {
             server::FrictionFactor = val;
         } else if (key == "GlobalForce") {
-            server::GlobalForce = val;
+            server::ConstantForce = val;
         } else if (key == "MeditationStrength") {
             server::HoleForce = val;
         } else if (key == "MagnetStrength") {

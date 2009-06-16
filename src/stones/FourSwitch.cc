@@ -62,7 +62,7 @@ namespace enigma {
     }
     
     void FourSwitch::init_model() {
-        set_model(std::string("st-fourswitch") + to_suffix((Direction)state));
+        set_model(std::string("st_fourswitch") + to_suffix((Direction)state));
     }
     
     void FourSwitch::actor_hit(const StoneContact &sc) {

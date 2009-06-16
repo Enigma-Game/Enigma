@@ -62,8 +62,12 @@ namespace enigma {
     }
     
     ItemAction Umbrella::activate(Actor *a, GridPos) {
-        BroadcastMessage("_shield", a->getAttr("owner"), GRID_NONE_BIT, true);
-        return ITEM_KILL;
+        if (a->isMoribund())
+            return ITEM_KEEP;
+        else {
+            BroadcastMessage("_shield", a->getAttr("owner"), GRID_NONE_BIT, true);
+            return ITEM_KILL;
+        }
     }
     
     void Umbrella::on_pickup(Actor *a) {

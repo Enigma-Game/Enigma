@@ -781,16 +781,16 @@ end
 -------------------
 do
     DefStone("st_beads", "sh_glass")
-    DefStone("st-black1", "sh_round")
-    DefStone("st-black2", "sh_passage_slash")
-    DefStone("st-black3", "sh_passage_cross")
-    DefStone("st-black4", "sh_passage_frame")
+    DefStone("st_passage_black_square", "sh_round")
+    DefStone("st_passage_black_slash", "sh_passage_slash")
+    DefStone("st_passage_black_cross", "sh_passage_cross")
+    DefStone("st_passage_black_frame", "sh_passage_frame")
     DefStone("st_jamb_black", "sh_jamb")
     DefStone("st_plop_slate")
     DefStone("st_bluegray", "sh_round")
     DefStone("st_brake", "sh_brake")
     DefStone("st_brownie", "sh_round")
-    DefStone("st-bug")
+    DefStone("st_break_bug")
     DefStone("st_pinkbumps")
     DefStone("st_camouflage")
     DefStone("st_dummy")
@@ -829,10 +829,10 @@ do
     DefStone("st_brownpyramide")
     DefStone("st_redmarble")
     DefStone("st_surprise", "sh_round")
-    DefStone("st-white1", "sh_round")
-    DefStone("st-white2", "sh_passage_slash")
-    DefStone("st-white3", "sh_passage_cross")
-    DefStone("st-white4", "sh_passage_frame")
+    DefStone("st_passage_white_square", "sh_round")
+    DefStone("st_passage_white_slash", "sh_passage_slash")
+    DefStone("st_passage_white_cross", "sh_passage_cross")
+    DefStone("st_passage_white_frame", "sh_passage_frame")
     DefStone("st_jamb_white", "sh_jamb")
     DefStone("st_woven")
     DefStone("st_yellow")
@@ -845,16 +845,16 @@ end
 -- Animated stones --
 ---------------------
 
--- st-actorimpulse --
+-- st_actorimpulse --
 do
-    namelist = DefSubimages("st-actorimpulse", {h=3})
+    namelist = DefSubimages("st_actorimpulse", {h=3})
     shnamelist = DefSubimages("sh_actorimpulse", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
     DefAnim("st-ai-fg", PingPong(BuildFrames(namelist, 30)))
     DefAnim("st-ai-sh", PingPong(BuildFrames(shnamelist, 30)))
-    DefShModel("st-actorimpulse-anim", "st-ai-fg", "st-ai-sh")
+    DefShModel("st_actorimpulse_anim", "st-ai-fg", "st-ai-sh")
 
-    DefShModel("st-actorimpulse", namelist[1], shnamelist[1])
+    DefShModel("st_actorimpulse", namelist[1], shnamelist[1])
 end
 
 -- st-bigbluesand --
@@ -933,25 +933,25 @@ do
     DefRoundStoneWithAnim ("st_break_plain", 10, 50)
 end
 
--- st-chage-plus, st-charge-zero, st-charge-minus --
+-- st_chage_plus, st_charge_zero, st_charge_minus --
 do
     function def_chargestone(basename)
         local n=DefSubimages(basename, {h=2})
         DefSolidStone(basename, n[1])
         DefAnim(basename.."-animfg", {{n[2], 140}})
-        DefSolidStone(basename.."-anim", basename.."-animfg")
+        DefSolidStone(basename.."_anim", basename.."-animfg")
     end
 
-    def_chargestone("st-chargeplus")
-    def_chargestone("st-chargeminus")
-    def_chargestone("st-chargezero")
+    def_chargestone("st_charge_plus")
+    def_chargestone("st_charge_minus")
+    def_chargestone("st_charge_zero")
 end
 
--- st-chess_black, st-chess_white --
+-- st_chess_black, st_chess_white --
 do
     function make_chess(colour)
-        local img1 = DefSubimages("st-chess"..colour, {h=5});
-        --local img2 = DefSubimages("st-chess"..colour.."-capture", {h=5});
+        local img1 = DefSubimages("st_chess"..colour, {h=5});
+        --local img2 = DefSubimages("st_chess"..colour.."-capture", {h=5});
         local f1 = BuildFrames(img1, 120)
         --local f2 = BuildFrames(img2, 40)
         local f2 = f1
@@ -1011,13 +1011,13 @@ do
     DefSolidStone("st_flash", "st_flash1")
 end
 
--- st-fourswitch --
+-- st_fourswitch --
 do
-    DefSubimages("st-fourswitch",{h=4})
-    DefShModel("st-fourswitch-n", "st-fourswitch1", "sh_round")
-    DefShModel("st-fourswitch-e", "st-fourswitch2", "sh_round")
-    DefShModel("st-fourswitch-s", "st-fourswitch3", "sh_round")
-    DefShModel("st-fourswitch-w", "st-fourswitch4", "sh_round")
+    DefSubimages("st_fourswitch",{h=4})
+    DefShModel("st_fourswitch-n", "st_fourswitch1", "sh_round")
+    DefShModel("st_fourswitch-e", "st_fourswitch2", "sh_round")
+    DefShModel("st_fourswitch-s", "st_fourswitch3", "sh_round")
+    DefShModel("st_fourswitch-w", "st_fourswitch4", "sh_round")
 end
 
 -- st_ice --
@@ -1035,11 +1035,11 @@ do
     DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_glass")
 end
 
--- st-knight --
+-- st_knight --
 do
-    local images = DefSubimages("st-knight", {modelname="knight", h=5})
+    local images = DefSubimages("st_knight", {modelname="knight", h=5})
     for i=1, table.getn(images) do
-        DefShModel("st-knight"..i, images[i], "sh_round")
+        DefShModel("st_knight"..i, images[i], "sh_round")
     end
 end
 
@@ -1864,7 +1864,6 @@ end
 -- Simple stone aliases --
 --------------------------
 do
-    DefAlias("st_break_bug", "st-bug")
     DefAlias("st_break_bug-anim", "st_flat_breaking")
     DefAlias("st-explosion", "it_explosion")
     DefAlias("st-glass_move", "st-glass");

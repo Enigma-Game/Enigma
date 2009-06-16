@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2006 Daniel Heck
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -616,21 +617,21 @@ void player::ActivateFirstItem()
         }
 
         switch (it->activate(ac, p)) {
-        case ITEM_DROP:
-            // only drop if no item underneath and actor allows it
-            if (it->can_drop_at(p) && can_drop_item) {
-                it = inv.yield_first ();
+            case ITEM_DROP:
+                // only drop if no item underneath and actor allows it
+                if (it->can_drop_at(p) && can_drop_item) {
+                    it = inv.yield_first ();
+                    RedrawInventory (&inv);
+                    it->drop(ac, p);
+                }
+                break;
+            case ITEM_KILL:
+                DisposeObject (inv.yield_first ());
                 RedrawInventory (&inv);
-                it->drop(ac, p);
+                break;
+            case ITEM_KEEP:
+                break;
             }
-            break;
-        case ITEM_KILL:
-            DisposeObject (inv.yield_first ());
-            RedrawInventory (&inv);
-            break;
-        case ITEM_KEEP:
-            break;
-        }
     }
 }
 

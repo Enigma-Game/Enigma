@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004,2005 Daniel Heck
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -106,7 +107,7 @@ bool     server::WorldInitialized;          // no Lua access
 double   server::Brittleness;
 double   server::Fragility;
 double   server::CrackSpreading;
-ecl::V2  server::GlobalForce;
+ecl::V2  server::ConstantForce;
 double   server::BumperForce;
 double   server::ElectricForce;
 double   server::EnigmaCompatibility;       // no Lua access
@@ -273,7 +274,7 @@ void server::PrepareLevel()
     server::Brittleness       = 0.5;
     server::Fragility         = 1.0;
     server::CrackSpreading    = 0.5;
-    server::GlobalForce       = ecl::V2(0, 0);
+    server::ConstantForce       = ecl::V2(0, 0);
     server::SlopeForce        = 25.0;
     server::FlatForce         = 0.0;
     server::FrictionFactor    = 1.0;

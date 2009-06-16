@@ -584,16 +584,13 @@ ecl::V2 World::drunkenMouseforce(Actor *a, V2 &mforce)
   that the position and velocity entries in ActorInfo will be updated
   only after a *successful* time step, so they cannot be used
   here.] */
-V2 World::get_local_force (Actor *a) {
-    V2 f;
-    V2 m;
+ecl::V2 World::get_local_force (Actor *a) {
+    ecl::V2 f;
+    ecl::V2 m;
     double friction = 0;
 
     if (a->is_on_floor()) {
         if (Floor *floor = a->m_actorinfo.field->floor) {
-            // Constant force
-            f += server::GlobalForce;
-
             // Mouse force
             if (a->get_controllers() != 0) {
                 m = floor->process_mouseforce(a, m_mouseforce.get_force(a));
@@ -624,9 +621,12 @@ V2 World::get_local_force (Actor *a) {
    only once every four time steps, cf. move_actors().  They are used
    for forces that are more time consuming to calculate, i.e.,
    actor-actor interactions and external force fields. */
-V2 World::get_global_force (Actor *a)
-{
-    V2 f;
+ecl::V2 World::get_global_force (Actor *a){
+    ecl::V2 f;
+    
+    // Constant force
+    f += server::ConstantForce;
+    
     // Electrostatic forces between actors.
     if (double q = get_charge(a)) {
         for (ActorList::iterator i=actorlist.begin();

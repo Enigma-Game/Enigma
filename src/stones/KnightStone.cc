@@ -43,7 +43,7 @@ namespace enigma {
     }
      
     void KnightStone::init_model()  {
-        set_model(ecl::strf("st-knight%d", state + 1));
+        set_model(ecl::strf("st_knight%d", state + 1));
     }
     
     StoneResponse KnightStone::collision_response(const StoneContact &) {

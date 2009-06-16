@@ -281,13 +281,17 @@ namespace enigma {
     }
     
     ItemAction Ring::activate(Actor *a, GridPos p) {
-        if (ExchangeMarbles(a)) {
-            sound_event("switchmarbles");
-        }
+        if (a->isMoribund())
+            return ITEM_KEEP;
         else {
-            RespawnActor(a);
+            if (ExchangeMarbles(a)) {
+                sound_event("switchmarbles");
+            }
+            else {
+                RespawnActor(a);
+            }
+            return ITEM_DROP;
         }
-        return ITEM_DROP;
     }
 
     DEF_ITEMTRAITS(Ring, "it_ring", it_ring);

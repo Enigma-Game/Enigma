@@ -66,7 +66,7 @@ namespace enigma {
                 boulder->setAttr("orientation", reverse(to_direction(boulder->getAttr("orientation"))));
                 sound_event("bumper");
                 state = PULSING;
-                set_anim("st-actorimpulse-anim");
+                set_anim("st_actorimpulse_anim");
             }
         } else if (m.message == "_glasses") {
             init_model();
@@ -114,7 +114,7 @@ namespace enigma {
             if ((objFlags & OBJBIT_INVISIBLE) && ((server::GlassesVisibility & Glasses::ACTORIMPULSE) == 0))
                 set_model("invisible");
             else
-                set_model("st-actorimpulse");
+                set_model("st_actorimpulse");
         }
         // PULSING anim is always visible and should continue independent on init_model calls
     }
@@ -141,7 +141,7 @@ namespace enigma {
 
             sound_event("bumper");
             state = PULSING;
-            set_anim("st-actorimpulse-anim");
+            set_anim("st_actorimpulse_anim");
         }
     }
 

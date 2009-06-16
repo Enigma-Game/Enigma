@@ -19,6 +19,7 @@
 
 #include "stones/PassageStone.hh"
 
+#include "errors.hh"
 //#include "main.hh"
 
 namespace enigma {
@@ -57,13 +58,7 @@ namespace enigma {
         if (key == "color") {
             return state;
         } else if (key == "flavor") {
-            switch ((objFlags & OBJBIT_FLAVOR) >> 24) {
-                case 0 : return "square";
-                case 1 : return "slash";
-                case 2 : return "cross";
-                case 3 : return "frame";
-            }
-            return Value();
+            return flavor();
         }
         return Stone::getAttr(key);
     }
@@ -77,8 +72,7 @@ namespace enigma {
     }
     
     void PassageStone::init_model()  {
-        // the models are still encoded in the old API notation
-        set_model(ecl::strf("st-%s%d", (state == BLACK) ? "black" : "white", (int)(((objFlags & OBJBIT_FLAVOR) >> 24)+1)));
+        set_model(ecl::strf("st_passage_%s_%s", (state == BLACK) ? "black" : "white", flavor().c_str()));
     }
 
     bool PassageStone::is_floating() const {
@@ -97,6 +91,16 @@ namespace enigma {
         else {
             return (accolor && accolor == WHITE) ?  STONE_PASS : STONE_REBOUND;
         }
+    }
+    
+    std::string PassageStone::flavor() const {
+        switch ((objFlags & OBJBIT_FLAVOR) >> 24) {
+            case 0 : return "square";
+            case 1 : return "slash";
+            case 2 : return "cross";
+            case 3 : return "frame";
+        }
+        ASSERT(false, XLevelRuntime, "PassageStone unknown flavor");
     }
 
     int PassageStone::traitsIdx() const {

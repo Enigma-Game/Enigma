@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -150,6 +150,10 @@ namespace enigma {
         return state == DEAD;
     }
     
+    bool BasicBall::isMoribund() const {
+        return state == DEAD || state == SHATTERING || state==BUBBLING || state==FALLING || state==RESURRECTED;
+    }
+    
     bool BasicBall::is_movable() const {
         return (state!=DEAD && state!=RESURRECTED && state!=APPEARING && state!=DISAPPEARING); 
     }
@@ -169,6 +173,7 @@ namespace enigma {
     bool BasicBall::is_invisible() const {
         return m_invisible_rest_time>0;
     }
+    
     bool BasicBall::can_drop_items() const {
         return state == NORMAL || state == JUMP_VORTEX || state==JUMPING;
     }

@@ -59,6 +59,7 @@ namespace enigma {
                
     private:
         // Private methods.
+        std::string flavor() const;
         int traitsIdx() const;
     };
 

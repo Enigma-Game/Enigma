@@ -132,6 +132,7 @@ namespace enigma {
         virtual void on_respawn (const ecl::V2 &pos);
 
         virtual bool is_dead() const = 0;
+        virtual bool isMoribund() const {return is_dead(); }
         virtual bool is_movable() const { return true; }
         virtual bool is_flying() const { return false; }
         virtual bool is_on_floor() const { return true; }

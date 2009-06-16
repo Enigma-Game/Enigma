@@ -63,6 +63,7 @@ namespace enigma {
 
         // Actor interface
         virtual bool is_dead() const;
+        virtual bool isMoribund() const;
         virtual bool is_movable() const;
         virtual bool is_flying() const;
         virtual bool is_on_floor() const;
