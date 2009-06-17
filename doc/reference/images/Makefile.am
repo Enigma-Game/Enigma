@@ -127,14 +127,19 @@ PNGLIST = \
 	it_wormhole.png \
 	it_wrench.png \
 	it_yinyang.png \
+	st_actorimpulse.png \
 	st_ancient.png \
 	st_beads.png \
 	st_bluegray.png \
 	st_blur_cross.png \
 	st_blur_straight.png \
+	st_box_hay.png \
+	st_box_rock.png \
+	st_box_wood.png \
 	st_brake.png \
 	st_break_black.png \
 	st_break_boulder.png \
+	st_break_bug.png \
 	st_break_oxydc.png \
 	st_break_plain.png \
 	st_break_white.png \
@@ -142,6 +147,11 @@ PNGLIST = \
 	st_brownmarble.png \
 	st_brownpyramide.png \
 	st_camouflage.png \
+	st_charge_minus.png \
+	st_charge_plus.png \
+	st_charge_zero.png \
+	st_chess_black.png \
+	st_chess_white.png \
 	st_concrete.png \
 	st_darkglass.png \
 	st_darkgray.png \
@@ -152,6 +162,9 @@ PNGLIST = \
 	st_dispenser_dynamite.png \
 	st_flash.png \
 	st_flat.png \
+	st_flat_cracked.png \
+	st_flat_fire.png \
+	st_fourswitch.png \
 	st_granite.png \
 	st_grate_cross.png \
 	st_grate_framed.png \
@@ -160,13 +173,23 @@ PNGLIST = \
 	st_ice.png \
 	st_jamb_black.png \
 	st_jamb_white.png \
+	st_knight.png \
 	st_lightglass.png \
+	st_lightpassenger.png \
 	st_metal.png \
 	st_oxyda.png \
 	st_oxydb.png \
 	st_oxydc.png \
 	st_oxydd.png \
 	st_oxyde.png \
+	st_passage_black_cross.png \
+	st_passage_black_frame.png \
+	st_passage_black_slash.png \
+	st_passage_black_square.png \
+	st_passage_white_cross.png \
+	st_passage_white_frame.png \
+	st_passage_white_slash.png \
+	st_passage_white_square.png \
 	st_pinkbumps.png \
 	st_plaster.png \
 	st_plop_slate.png \
