@@ -45,7 +45,7 @@ namespace enigma {
     }
     
     void SwapStone::init_model() {
-        set_model("st-swap");
+        set_model("st_swap");
     }
     
     bool SwapStone::is_floating() const {
@@ -91,12 +91,12 @@ namespace enigma {
         YieldStone(oldPos);
         SetStone(oldPos, vanishStone);
         vanishStone->yieldStone(otherStone);
-        vanishStone->set_model(std::string("st-swap") + to_suffix(reverse(impulse.dir)));
+        vanishStone->set_model(std::string("st_swap") + toSuffix(reverse(impulse.dir)));
         GameTimer.set_alarm(vanishStone, 0.1, false);
         
         SetStone(newPos, this);
         state = APPEARING;
-        set_model(std::string("st-swap") + to_suffix(impulse.dir));
+        set_model(std::string("st_swap") + toSuffix(impulse.dir));
         GameTimer.set_alarm(this, 0.1, false);
         if (server::GameCompatibility == GAMET_PEROXYD)
             if (Item *it = GetItem(newPos))

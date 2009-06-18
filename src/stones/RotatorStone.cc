@@ -73,7 +73,7 @@ namespace enigma {
     }
 
     void RotatorStone::init_model() {
-        set_anim(state == CW ? "st-rotator-right" : "st-rotator-left");
+        set_anim(state == CW ? "st_rotator_cw" : "st_rotator_ccw");
     }
     
     void RotatorStone::on_creation(GridPos p) {

@@ -71,7 +71,7 @@ namespace enigma {
     }
 
     void TurnstilePivot::init_model() {
-        set_model(std::string("red") == getAttr("flavor").to_string() ? "st-turnstile" : "st-turnstile-green");
+        set_model(std::string("red") == getAttr("flavor").to_string() ? "st_turnstile" : "st_turnstile_green");
     }
 
 
@@ -149,7 +149,7 @@ namespace enigma {
             sound_event("movesmall");
 
             state = ROTATING;
-            set_anim(ecl::strf("st-turnstile%s-anim", (std::string("red") == getAttr("flavor").to_string()) ? "" : "-green"));
+            set_anim(ecl::strf("st_turnstile%s_anim", (std::string("red") == getAttr("flavor").to_string()) ? "" : "_green"));
             rotate_arms(arms, clockwise);
             handleActorsAndItems(clockwise, impulse_sender);
 
@@ -413,7 +413,7 @@ namespace enigma {
     }
 
     void TurnstileArm::init_model() {
-        set_model(ecl::strf("st-turnstile%s", to_suffix((Direction)state).c_str()));
+        set_model(ecl::strf("st_turnstile%s", toSuffix((Direction)state).c_str()));
     }
 
     void TurnstileArm::on_impulse(const Impulse& impulse) {

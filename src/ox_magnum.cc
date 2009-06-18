@@ -70,7 +70,7 @@ const char *oxyd::oxydmag_floor_map[256] = {
     UNUSED,                     // OxydMagnum floor 0x21
     UNUSED,                     // OxydMagnum floor 0x22
     "fl_slope_ps",             // OxydMagnum floor 0x23
-    "fl_slope_ps",             // OxydMagnum floor 0x24
+    "fl_slope_pn",             // OxydMagnum floor 0x24
     "fl_slope_pe",             // OxydMagnum floor 0x25
     "fl_slope_pw",             // OxydMagnum floor 0x26
     "fl_slope_ose",             // OxydMagnum floor 0x27

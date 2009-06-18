@@ -45,7 +45,7 @@ namespace enigma {
     }
     
     void PullStone::init_model() {
-        set_model("st-pull");
+        set_model("st_pull");
     }
     
     bool PullStone::is_floating() const {
@@ -92,12 +92,12 @@ namespace enigma {
         YieldStone(oldPos);
         SetStone(oldPos, vanishStone);
         vanishStone->yieldStone(otherStone);
-        vanishStone->set_model(std::string("st-pull") + to_suffix(impulse.dir));
+        vanishStone->set_model(std::string("st_pull") + toSuffix(impulse.dir));
         GameTimer.set_alarm(vanishStone, 0.09, false);
         
         SetStone(newPos, this);
         state = APPEARING;
-        set_model(std::string("st-pull") + to_suffix(reverse(impulse.dir)));
+        set_model(std::string("st_pull") + toSuffix(reverse(impulse.dir)));
         GameTimer.set_alarm(this, 0.09, false);
 
         // search for affected actors

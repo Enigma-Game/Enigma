@@ -322,6 +322,12 @@
     <object name="fl_bridge_bw">
       <attr name="flavor" value="bw"/>
     </object>
+    <object name="fl_bridge_bs">
+      <attr name="flavor" value="bs"/>
+    </object>
+    <object name="fl_bridge_be">
+      <attr name="flavor" value="be"/>
+    </object>
     <object name="fl_bridge_bn">
       <attr name="flavor" value="bn"/>
     </object>

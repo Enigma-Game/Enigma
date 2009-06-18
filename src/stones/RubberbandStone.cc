@@ -31,7 +31,7 @@ namespace enigma {
     }
         
     void RubberbandStone::init_model() {
-        set_model("st-rubberband");
+        set_model("st_rubberband");
     }
     
     void RubberbandStone::actor_hit(const StoneContact &sc) {

@@ -429,30 +429,52 @@ end
 
 -- bridges --
 do
-    DefImage("fl-bridgea-open")
-    DefImage("fl-bridgea-closed")
-    local namelist=DefSubimages("fl-bridgea", {h=10})
+    DefImage("fl_bridge_gc_open")
+    DefImage("fl_bridge_gc_closed")
+    local namelist=DefSubimages("fl_bridge_gc", {h=10})
     local frames = BuildFrames(namelist,70)
-    DefAnim("fl-bridgea-opening", ReverseFrames(frames))
-    DefAnim("fl-bridgea-closing", frames)
+    DefAnim("fl_bridge_gc_opening", ReverseFrames(frames))
+    DefAnim("fl_bridge_gc_closing", frames)
 end
 
 do
-    DefImage("fl-bridgex-open")
-    DefImage("fl-bridgex-closed")
-    local namelist=DefSubimages("fl-bridgex", {h=9})
+    DefImage("fl_bridge_bw_open")
+    DefImage("fl_bridge_bw_closed")
+    local namelist=DefSubimages("fl_bridge_bw", {h=9})
     local frames = BuildFrames(namelist,70)
-    DefAnim("fl-bridgex-opening", frames)
-    DefAnim("fl-bridgex-closing", ReverseFrames(frames))
+    DefAnim("fl_bridge_bw_opening", frames)
+    DefAnim("fl_bridge_bw_closing", ReverseFrames(frames))
 end
 
 do
-    DefImage("fl-bridgey-open")
-    DefImage("fl-bridgey-closed")
-    local namelist=DefSubimages("fl-bridgey", {h=9})
+    DefAlias("fl_bridge_bs_open", "fl_bridge_bw_open")
+    DefAlias("fl_bridge_bs_closed", "fl_bridge_bw_closed")
+--    local namelist=DefSubimages("fl_bridge_bs", {h=9})
+--    local frames = BuildFrames(namelist,70)
+--    DefAnim("fl_bridge_bs_opening", frames)
+--    DefAnim("fl_bridge_bs_closing", ReverseFrames(frames))
+    DefAlias("fl_bridge_bs_opening", "fl_bridge_bn_opening")
+    DefAlias("fl_bridge_bs_opening", "fl_bridge_bn_closing")
+end
+
+do
+    DefAlias("fl_bridge_be_open", "fl_bridge_bw_open")
+    DefAlias("fl_bridge_be_closed", "fl_bridge_bw_closed")
+--    local namelist=DefSubimages("fl_bridge_be", {h=9})
+--    local frames = BuildFrames(namelist,70)
+--    DefAnim("fl_bridge_be_opening", frames)
+--    DefAnim("fl_bridge_be_closing", ReverseFrames(frames))
+    DefAlias("fl_bridge_be_opening", "fl_bridge_bw_opening")
+    DefAlias("fl_bridge_be_closing", "fl_bridge_bw_closing")
+end
+
+do
+    DefAlias("fl_bridge_bn_open", "fl_bridge_bw_open")
+    DefAlias("fl_bridge_bn_closed", "fl_bridge_bw_closed")
+    local namelist=DefSubimages("fl_bridge_bn", {h=9})
     local frames = BuildFrames(namelist,70)
-    DefAnim("fl-bridgey-opening", frames)
-    DefAnim("fl-bridgey-closing", ReverseFrames(frames))
+    DefAnim("fl_bridge_bn_opening", frames)
+    DefAnim("fl_bridge_bn_closing", ReverseFrames(frames))
 end
 
 ------------------------
@@ -825,7 +847,7 @@ do
     DefStone("st_concrete", "sh_round")
     DefStone("st_ancient", "sh_round")
     DefStone("st_brownmarble")
-    DefStone("st-rubberband")
+    DefStone("st_rubberband")
     DefStone("st_brownpyramide")
     DefStone("st_redmarble")
     DefStone("st_surprise", "sh_round")
@@ -902,26 +924,26 @@ do
     DefSolidStone("st_panel", "st_panelx1")
 end
 
--- st-bolder --
+-- st_boulder --
 do
-    local img=DefSubimages("st-bolder", {w=4,h=3})
-    local imgfall=DefSubimages("st-bolder-fall", {w=4,h=3})
+    local img=DefSubimages("st_boulder", {w=4,h=3})
+    local imgfall=DefSubimages("st_boulder_fall", {w=4,h=3})
 
-    function def_bolder(orient, start)
-        local animname="st-bolder"..orient.."a"
+    function def_boulder(orient, start)
+        local animname="st_boulder"..orient.."a"
         local frames={img[start], img[start+1], img[start+2]}
         DefAnim(animname, BuildFrames(frames, 120), false)
-        DefShModel("st-bolder-"..orient, animname, "sh_round")
+        DefShModel("st_boulder_"..orient, animname, "sh_round")
 
-        animname="st-bolder-"..orient.."-fall-anim"
+        animname="st_boulder_"..orient.."_fall_anim"
         frames={imgfall[start],imgfall[start+1],imgfall[start+2]}
         DefAnim(animname, BuildFrames(frames, 120), false)
     end
 
-    def_bolder("n",1)
-    def_bolder("e",4)
-    def_bolder("s",7)
-    def_bolder("w",10)
+    def_boulder("n",1)
+    def_boulder("e",4)
+    def_boulder("s",7)
+    def_boulder("w",10)
 end
 
 -- st-break_*, breakable stones --
@@ -1134,23 +1156,23 @@ do
     for i=1,12 do DefFloatingStone(model_names[i], "st_onewayx"..i) end
 end
 
--- st-pull, st-swap --
+-- st_pull, st_swap --
 do
-   DefSubimages("st-pull",{modelname="st-pull-fg",h=5})
-   DefSubimages("st-swap",{modelname="st-swap-fg",h=5})
+   DefSubimages("st_pull",{modelname="st-pull-fg",h=5})
+   DefSubimages("st_swap",{modelname="st-swap-fg",h=5})
    DefSubimages("sh_pull",{h=4, imgw=ShadowSize, imgh=ShadowSize})
 
-   DefShModel("st-pull",   "st-pull-fg1", "sh_glass")
-   DefShModel("st-pull-n", "st-pull-fg2", "sh_pull1")
-   DefShModel("st-pull-s", "st-pull-fg3", "sh_pull2")
-   DefShModel("st-pull-e", "st-pull-fg4", "sh_pull3")
-   DefShModel("st-pull-w", "st-pull-fg5", "sh_pull4")
+   DefShModel("st_pull",   "st-pull-fg1", "sh_glass")
+   DefShModel("st_pull_n", "st-pull-fg2", "sh_pull1")
+   DefShModel("st_pull_s", "st-pull-fg3", "sh_pull2")
+   DefShModel("st_pull_e", "st-pull-fg4", "sh_pull3")
+   DefShModel("st_pull_w", "st-pull-fg5", "sh_pull4")
 
-   DefShModel("st-swap",   "st-swap-fg1", "sh_round")
-   DefShModel("st-swap-n", "st-swap-fg2", "sh_pull1")
-   DefShModel("st-swap-s", "st-swap-fg3", "sh_pull2")
-   DefShModel("st-swap-e", "st-swap-fg4", "sh_pull3")
-   DefShModel("st-swap-w", "st-swap-fg5", "sh_pull4")
+   DefShModel("st_swap",   "st-swap-fg1", "sh_round")
+   DefShModel("st_swap_n", "st-swap-fg2", "sh_pull1")
+   DefShModel("st_swap_s", "st-swap-fg3", "sh_pull2")
+   DefShModel("st_swap_e", "st-swap-fg4", "sh_pull3")
+   DefShModel("st_swap_w", "st-swap-fg5", "sh_pull4")
 end
 
 -- st-puzzle* --
@@ -1176,23 +1198,23 @@ do
     DefAnim("st_flat_falling", BuildFrames(images, 100))
 end
 
--- st-rotator --
+-- st_rotator --
 do
-    local images = DefSubimages("st-rotator-left", {h=8})
-    DefAnim("st-rotator-left-anim", BuildFrames(images, 70), false)
-    DefRoundStone("st-rotator-left", "st-rotator-left-anim")
-    local images = DefSubimages("st-rotator-right", {h=8})
-    DefAnim("st-rotator-right-anim", BuildFrames(images, 70), false)
-    DefRoundStone("st-rotator-right", "st-rotator-right-anim")
+    local images = DefSubimages("st_rotator_ccw", {h=8})
+    DefAnim("st_rotator_ccw_anim", BuildFrames(images, 70), false)
+    DefRoundStone("st_rotator_ccw", "st_rotator_ccw_anim")
+    local images = DefSubimages("st_rotator_cw", {h=8})
+    DefAnim("st_rotator_cw_anim", BuildFrames(images, 70), false)
+    DefRoundStone("st_rotator_cw", "st_rotator_cw_anim")
 end
 
--- st-scissors --
+-- st_scissors --
 do
-    DefStone("st-scissors", "sh_round")
+    DefStone("st_scissors", "sh_round")
 
-    local images = DefSubimages("st-scissors-snip", {h=1})
-    DefAnim("st-scissors-snip-anim", BuildFrames(images, 130))
-    DefShModel("st-scissors-snip", "st-scissors-snip-anim", "sh_round")
+    local images = DefSubimages("st_scissors_snip", {h=1})
+    DefAnim("st_scissors_snip_anim", BuildFrames(images, 130))
+    DefShModel("st_scissors_snip", "st_scissors_snip_anim", "sh_round")
 end
 
 -- st-shogun* --
@@ -1245,21 +1267,21 @@ do
     DefAnim("st_stoneimpulse_breaking", BuildFrames(images,50))
 end
 
--- st-switch, st-switch_black, st-switch_white --
+-- st_switch, st_switch_black, st_switch_white --
 do
     function mkswitch(modelname, basename)
         local n = DefSubimages(modelname, {h=3, modelname=basename.."-fg"})
         local f = BuildFrames(n, 60)
-        DefRoundStone(modelname.."-off", n[1])
-        DefRoundStone(modelname.."-on", n[3])
-        DefAnim(basename.."-turnon", f)
-            DefAnim(basename.."-turnoff", ReverseFrames(f))
-            DefRoundStone(modelname.."-turnon", basename.."-turnon")
-            DefRoundStone(modelname.."-turnoff", basename.."-turnoff")
+        DefRoundStone(modelname.."_off", n[1])
+        DefRoundStone(modelname.."_on", n[3])
+        DefAnim(basename.."_turnon", f)
+        DefAnim(basename.."_turnoff", ReverseFrames(f))
+        DefRoundStone(modelname.."_turnon", basename.."_turnon")
+        DefRoundStone(modelname.."_turnoff", basename.."_turnoff")
     end
-    mkswitch("st-switch", "switch")
-    mkswitch("st-switch_black", "switch_black")
-    mkswitch("st-switch_white", "switch_white")
+    mkswitch("st_switch", "switch")
+    mkswitch("st_switch_black", "switch_black")
+    mkswitch("st_switch_white", "switch_white")
 end
 
 -- st-timer --
@@ -1279,26 +1301,26 @@ do
     DefShModel("st-time1switch", "st-time1switch-anim", "sh_round")
 end
 
--- st-turnstile --
+-- st_turnstile --
 do
-    local images = DefSubimages("st-turnstile", {h=2})
-    DefAnim("turnstile-anim", ReverseFrames(BuildFrames(images, 30)))
-    DefSolidStone("st-turnstile", images[1])
-    DefSolidStone("st-turnstile-anim", "turnstile-anim")
+    local images = DefSubimages("st_turnstile", {h=2})
+    DefAnim("turnstile_anim", ReverseFrames(BuildFrames(images, 30)))
+    DefSolidStone("st_turnstile", images[1])
+    DefSolidStone("st_turnstile_anim", "turnstile_anim")
 end
 
 -- st-turnstle, arms --
-DefAlias("st-turnstile-e", "st_puzzle1")
-DefAlias("st-turnstile-w", "st_puzzle4")
-DefAlias("st-turnstile-s", "st_puzzle8")
-DefAlias("st-turnstile-n", "st_puzzle2")
+DefAlias("st_turnstile_e", "st_puzzle1")
+DefAlias("st_turnstile_w", "st_puzzle4")
+DefAlias("st_turnstile_s", "st_puzzle8")
+DefAlias("st_turnstile_n", "st_puzzle2")
 
 -- st-turnstile-green --
 do
-    local images = DefSubimages("st-turnstile-green", {h=2})
-    DefAnim("turnstile-green-anim", ReverseFrames(BuildFrames(images, 30)))
-    DefSolidStone("st-turnstile-green", images[1])
-    DefSolidStone("st-turnstile-green-anim", "turnstile-green-anim")
+    local images = DefSubimages("st_turnstile_green", {h=2})
+    DefAnim("turnstile_green_anim", ReverseFrames(BuildFrames(images, 30)))
+    DefSolidStone("st_turnstile_green", images[1])
+    DefSolidStone("st_turnstile_green_anim", "turnstile_green_anim")
 end
 
 -- growing stones, st_box, st_flhay, greenbrown seed, st-volcano, st-blocker --
@@ -1345,18 +1367,18 @@ do
 
    -- Blocker stone --
    do
-      local n=DefSubimages("st-blocker", {h=4})
-      DefShModel("st-blocker", n[1], "sh_round")
+      local n=DefSubimages("st_blocker", {h=4})
+      DefShModel("st_blocker", n[1], "sh_round")
       frames={}
       for i=4,2,-1 do
-         table.insert(frames, "st-blocker"..i)
+         table.insert(frames, "st_blocker"..i)
       end
-      DefAnim("blocker-growing-fg", BuildFrames(frames, 60))
-      DefAnim("blocker-growing-bg", BuildFrames(shadows, 60))
-      DefAnim("blocker-shrinking-fg", ReverseFrames(BuildFrames(frames, 60)))
-      DefAnim("blocker-shrinking-bg", ReverseFrames(BuildFrames(shadows, 60)))
-      DefShModel("st-blocker-shrinking", "blocker-shrinking-fg", "blocker-shrinking-bg");
-      DefShModel("st-blocker-growing", "blocker-growing-fg", "blocker-growing-bg");
+      DefAnim("blocker_growing_fg", BuildFrames(frames, 60))
+      DefAnim("blocker_growing_bg", BuildFrames(shadows, 60))
+      DefAnim("blocker_shrinking_fg", ReverseFrames(BuildFrames(frames, 60)))
+      DefAnim("blocker_shrinking_bg", ReverseFrames(BuildFrames(shadows, 60)))
+      DefShModel("st_blocker_shrinking", "blocker_shrinking_fg", "blocker_shrinking_bg");
+      DefShModel("st_blocker_growing", "blocker_growing_fg", "blocker_growing_bg");
    end
 end
 

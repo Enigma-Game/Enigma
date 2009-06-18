@@ -69,7 +69,7 @@ namespace enigma {
             if (state <= ON && extState != state) {
                 sound_event ("switchon");
                 state += 2;  // OFF->TURNON, ON->TURNOFF
-                set_anim(ecl::strf("st-switch%s%s", colorName(), extState ? "-turnon" : "-turnoff"));
+                set_anim(ecl::strf("st_switch%s%s", colorName(), extState ? "_turnon" : "_turnoff"));
                 if (isInstant()) {
                     performAction(externalState() == ON);   // immediate action
                 }
@@ -89,7 +89,7 @@ namespace enigma {
     }
 
     void Switch::init_model() {
-        set_model(ecl::strf("st-switch%s%s", colorName(), state == ON ? "-on" : "-off"));
+        set_model(ecl::strf("st_switch%s%s", colorName(), state == ON ? "_on" : "_off"));
     }
     
     void Switch::animcb() {

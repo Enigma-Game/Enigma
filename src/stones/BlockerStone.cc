@@ -80,13 +80,13 @@ namespace enigma {
     void BlockerStone::init_model() {
         switch (state) {
             case SOLID:
-                set_model("st-blocker");
+                set_model("st_blocker");
                 break;
             case SHRINKING:
-                set_anim("st-blocker-shrinking");
+                set_anim("st_blocker_shrinking");
                 break;
             case GROWING:
-                set_anim("st-blocker-growing");
+                set_anim("st_blocker_growing");
                 break;
         }
     }

@@ -85,9 +85,9 @@ namespace enigma {
     }
 
     void BoulderStone::init_model() {
-        std::string mname  = "st-bolder" + to_suffix(getDir());
+        std::string mname  = "st_boulder" + toSuffix(getDir());
         if (state == FALLING)
-            mname += "-fall-anim";
+            mname += "_fall_anim";
         set_anim(mname);
     }
 

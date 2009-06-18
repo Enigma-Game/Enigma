@@ -19,10 +19,6 @@
 @defindex at
 @defindex ms
 
-@macro oisize {}
-10 mm
-@end macro
-
 @contents
 
 @ifnottex
@@ -9352,54 +9348,54 @@ Positive number are attracting, negative numbers are repelling.
 @c
 WORK IN PROGRESS - The follwing table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
-@item @image{images/fl_abyss, @oisize{}} @tab @yref{fl_abyss}
-@tab @image{images/fl_adhesionless, @oisize{}} @tab @yref{fl_adhesionless}
-@tab @image{images/fl_aquamarine, @oisize{}} @tab @yref{fl_aquamarine}
-@item @image{images/fl_bast, @oisize{}} @tab @yref{fl_bast}
-@tab @image{images/fl_bluegray, @oisize{}} @tab @yref{fl_bluegray}
-@tab @image{images/fl_bluegreen, @oisize{}} @tab @yref{fl_bluegreen}
-@item @image{images/fl_blueslab, @oisize{}} @tab @yref{fl_blueslab}
-@tab @image{images/fl_brick, @oisize{}} @tab @yref{fl_brick}
-@tab @image{images/fl_bright, @oisize{}} @tab @yref{fl_bright}
-@item @image{images/fl_concrete, @oisize{}} @tab @yref{fl_concrete}
-@tab @image{images/fl_darkgray, @oisize{}} @tab @yref{fl_darkgray}
-@tab @image{images/fl_dark, @oisize{}} @tab @yref{fl_dark}
-@item @image{images/fl_dunes, @oisize{}} @tab @yref{fl_dunes}
-@tab @image{images/fl_fake_trigger, @oisize{}} @tab @yref{fl_fake_trigger}
-@tab @image{images/fl_gravel, @oisize{}} @tab @yref{fl_gravel}
-@item @image{images/fl_gray, @oisize{}} @tab @yref{fl_gray}
-@tab @image{images/fl_hay, @oisize{}} @tab @yref{fl_hay}
-@tab @image{images/fl_himalaya, @oisize{}} @tab @yref{fl_himalaya}
-@item @image{images/fl_ice_heating, @oisize{}} @tab @yref{fl_ice_heating}
-@tab @image{images/fl_ice, @oisize{}} @tab @yref{fl_ice}
-@tab @image{images/fl_inverse_gray, @oisize{}} @tab @yref{fl_inverse_gray}
-@item @image{images/fl_inverse_white, @oisize{}} @tab @yref{fl_inverse_white}
-@tab @image{images/fl_ivory, @oisize{}} @tab @yref{fl_ivory}
-@tab @image{images/fl_lawn, @oisize{}} @tab @yref{fl_lawn}
-@item @image{images/fl_marble, @oisize{}} @tab @yref{fl_marble}
-@tab @image{images/fl_metal, @oisize{}} @tab @yref{fl_metal}
-@tab @image{images/fl_mortar, @oisize{}} @tab @yref{fl_mortar}
-@item @image{images/fl_pinkbumps, @oisize{}} @tab @yref{fl_pinkbumps}
-@tab @image{images/fl_plank, @oisize{}} @tab @yref{fl_plank}
-@tab @image{images/fl_platinum, @oisize{}} @tab @yref{fl_platinum}
-@item @image{images/fl_red, @oisize{}} @tab @yref{fl_red}
-@tab @image{images/fl_redslab, @oisize{}} @tab @yref{fl_redslab}
-@tab @image{images/fl_rock, @oisize{}} @tab @yref{fl_rock}
-@item @image{images/fl_rough, @oisize{}} @tab @yref{fl_rough}
-@tab @image{images/fl_sahara, @oisize{}} @tab @yref{fl_sahara}
-@tab @image{images/fl_samba, @oisize{}} @tab @yref{fl_samba}
-@item @image{images/fl_sand, @oisize{}} @tab @yref{fl_sand}
-@tab @image{images/fl_space, @oisize{}} @tab @yref{fl_space}
-@tab @image{images/fl_stone, @oisize{}} @tab @yref{fl_stone}
-@item @image{images/fl_swamp_heating, @oisize{}} @tab @yref{fl_swamp_heating}
-@tab @image{images/fl_swamp, @oisize{}} @tab @yref{fl_swamp}
-@tab @image{images/fl_tigris, @oisize{}} @tab @yref{fl_tigris}
-@item @image{images/fl_water_heating, @oisize{}} @tab @yref{fl_water_heating}
-@tab @image{images/fl_water, @oisize{}} @tab @yref{fl_water}
-@tab @image{images/fl_white, @oisize{}} @tab @yref{fl_white}
-@item @image{images/fl_woven, @oisize{}} @tab @yref{fl_woven}
-@tab @image{images/fl_yinyang_yang, @oisize{}} @tab @yref{fl_yinyang_yang}
-@tab @image{images/fl_yinyang_yin, @oisize{}} @tab @yref{fl_yinyang_yin}
+@item @image{images/fl_abyss, 12mm} @tab @yref{fl_abyss}
+@tab @image{images/fl_adhesionless, 12mm} @tab @yref{fl_adhesionless}
+@tab @image{images/fl_aquamarine, 12mm} @tab @yref{fl_aquamarine}
+@item @image{images/fl_bast, 12mm} @tab @yref{fl_bast}
+@tab @image{images/fl_bluegray, 12mm} @tab @yref{fl_bluegray}
+@tab @image{images/fl_bluegreen, 12mm} @tab @yref{fl_bluegreen}
+@item @image{images/fl_blueslab, 12mm} @tab @yref{fl_blueslab}
+@tab @image{images/fl_brick, 12mm} @tab @yref{fl_brick}
+@tab @image{images/fl_bright, 12mm} @tab @yref{fl_bright}
+@item @image{images/fl_concrete, 12mm} @tab @yref{fl_concrete}
+@tab @image{images/fl_darkgray, 12mm} @tab @yref{fl_darkgray}
+@tab @image{images/fl_dark, 12mm} @tab @yref{fl_dark}
+@item @image{images/fl_dunes, 12mm} @tab @yref{fl_dunes}
+@tab @image{images/fl_fake_trigger, 12mm} @tab @yref{fl_fake_trigger}
+@tab @image{images/fl_gravel, 12mm} @tab @yref{fl_gravel}
+@item @image{images/fl_gray, 12mm} @tab @yref{fl_gray}
+@tab @image{images/fl_hay, 12mm} @tab @yref{fl_hay}
+@tab @image{images/fl_himalaya, 12mm} @tab @yref{fl_himalaya}
+@item @image{images/fl_ice_heating, 12mm} @tab @yref{fl_ice_heating}
+@tab @image{images/fl_ice, 12mm} @tab @yref{fl_ice}
+@tab @image{images/fl_inverse_gray, 12mm} @tab @yref{fl_inverse_gray}
+@item @image{images/fl_inverse_white, 12mm} @tab @yref{fl_inverse_white}
+@tab @image{images/fl_ivory, 12mm} @tab @yref{fl_ivory}
+@tab @image{images/fl_lawn, 12mm} @tab @yref{fl_lawn}
+@item @image{images/fl_marble, 12mm} @tab @yref{fl_marble}
+@tab @image{images/fl_metal, 12mm} @tab @yref{fl_metal}
+@tab @image{images/fl_mortar, 12mm} @tab @yref{fl_mortar}
+@item @image{images/fl_pinkbumps, 12mm} @tab @yref{fl_pinkbumps}
+@tab @image{images/fl_plank, 12mm} @tab @yref{fl_plank}
+@tab @image{images/fl_platinum, 12mm} @tab @yref{fl_platinum}
+@item @image{images/fl_red, 12mm} @tab @yref{fl_red}
+@tab @image{images/fl_redslab, 12mm} @tab @yref{fl_redslab}
+@tab @image{images/fl_rock, 12mm} @tab @yref{fl_rock}
+@item @image{images/fl_rough, 12mm} @tab @yref{fl_rough}
+@tab @image{images/fl_sahara, 12mm} @tab @yref{fl_sahara}
+@tab @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
+@item @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
+@tab @image{images/fl_space, 12mm} @tab @yref{fl_space}
+@tab @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
+@item @image{images/fl_swamp_heating, 12mm} @tab @yref{fl_swamp_heating}
+@tab @image{images/fl_swamp, 12mm} @tab @yref{fl_swamp}
+@tab @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
+@item @image{images/fl_water_heating, 12mm} @tab @yref{fl_water_heating}
+@tab @image{images/fl_water, 12mm} @tab @yref{fl_water}
+@tab @image{images/fl_white, 12mm} @tab @yref{fl_white}
+@item @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
+@tab @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang_yang}
+@tab @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang_yin}
 @end multitable
 
 @c ----------------- Floor Attributes --------------------
@@ -9761,7 +9757,7 @@ Orange velvet that offers no adhesion but causes friction.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_adhesionless, @oisize{}} @b{fl_adhesionless} 
+@item @image{images/fl_adhesionless, 12mm} @b{fl_adhesionless} 
 @end table
 @end table
 
@@ -9782,7 +9778,7 @@ Aquamarine floor with low friction.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_aquamarine, @oisize{}} @b{fl_aquamarine}
+@item @image{images/fl_aquamarine, 12mm} @b{fl_aquamarine}
 @item @b{fl_aquamarine_framed} 
 @end table
 @end table
@@ -9806,7 +9802,7 @@ When burnt, @code{fl_bast} will become @ref{fl_abyss}.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_bast, @oisize{}} @b{fl_bast} 
+@item @image{images/fl_bast, 12mm} @b{fl_bast} 
 @item @b{fl_bast_framed}
 @end table
 @end table
@@ -9828,7 +9824,7 @@ Light blue gray floor, visually indistinguishable from @ref{fl_thief}.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_bluegray, @oisize{}} @b{fl_bluegray}
+@item @image{images/fl_bluegray, 12mm} @b{fl_bluegray}
 @item @b{fl_bluegray_framed}
 @end table
 @end table
@@ -9850,7 +9846,7 @@ Dark blue green floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_bluegreen, @oisize{}} @b{fl_bluegreen}
+@item @image{images/fl_bluegreen, 12mm} @b{fl_bluegreen}
 @item @b{fl_bluegreen_framed}
 @end table
 @end table
@@ -9873,7 +9869,7 @@ Dark blue slab like floor, that is marbled with black. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_blueslab, @oisize{}} @b{fl_blueslab}
+@item @image{images/fl_blueslab, 12mm} @b{fl_blueslab}
 @item @b{fl_blueslab_framed}
 @end table
 @end table
@@ -9895,7 +9891,7 @@ Floor composed of small red bricks.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_brick, @oisize{}} @b{fl_brick}
+@item @image{images/fl_brick, 12mm} @b{fl_brick}
 @item @b{fl_brick_framed}
 @end table
 @end table
@@ -9918,7 +9914,7 @@ Nearly white floor without any yinyang related features. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_bright, @oisize{}} @b{fl_bright}
+@item @image{images/fl_bright, 12mm} @b{fl_bright}
 @item @b{fl_bright_framed}
 @end table
 @end table
@@ -9940,7 +9936,7 @@ Granular gray concrete.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_concrete, @oisize{}} @b{fl_concrete}
+@item @image{images/fl_concrete, 12mm} @b{fl_concrete}
 @item @b{fl_concrete_framed}
 @end table
 @end table
@@ -9963,7 +9959,7 @@ Nearly black floor without any yinyang related features. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_dark, @oisize{}} @b{fl_dark}
+@item @image{images/fl_dark, 12mm} @b{fl_dark}
 @item @b{fl_dark_framed}
 @end table
 @end table
@@ -9985,7 +9981,7 @@ A medium to dark gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_darkgray, @oisize{}} @b{fl_darkgray}
+@item @image{images/fl_darkgray, 12mm} @b{fl_darkgray}
 @item @b{fl_darkgray_framed}
 @end table
 @end table
@@ -10007,7 +10003,7 @@ Brown granular dunes.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_dunes, @oisize{}} @b{fl_dunes}
+@item @image{images/fl_dunes, 12mm} @b{fl_dunes}
 @item @b{fl_dunes_framed}
 @end table
 @end table
@@ -10029,7 +10025,7 @@ Dark gray, granular floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_gravel, @oisize{}} @b{fl_gravel}
+@item @image{images/fl_gravel, 12mm} @b{fl_gravel}
 @item @b{fl_gravel_framed}
 @end table
 @end table
@@ -10051,7 +10047,7 @@ Gray with some brown spots.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_gray, @oisize{}} @b{fl_gray}
+@item @image{images/fl_gray, 12mm} @b{fl_gray}
 @item @b{fl_gray_framed}
 @end table
 @end table
@@ -10073,7 +10069,7 @@ Blue purple marbled floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_himalaya, @oisize{}} @b{fl_himalaya}
+@item @image{images/fl_himalaya, 12mm} @b{fl_himalaya}
 @item @b{fl_himalaya_framed}
 @end table
 @end table
@@ -10095,7 +10091,7 @@ Warm ivory or pearl white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_ivory, @oisize{}} @b{fl_ivory}
+@item @image{images/fl_ivory, 12mm} @b{fl_ivory}
 @item @b{fl_ivory_framed}
 @end table
 @end table
@@ -10155,7 +10151,7 @@ Light red brown marbled floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_marble, @oisize{}} @b{fl_marble}
+@item @image{images/fl_marble, 12mm} @b{fl_marble}
 @item @b{fl_marble_framed}
 @end table
 @end table
@@ -10215,7 +10211,7 @@ Very rough brilliant white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_mortar, @oisize{}} @b{fl_mortar}
+@item @image{images/fl_mortar, 12mm} @b{fl_mortar}
 @item @b{fl_mortar_framed}
 @end table
 @end table
@@ -10237,7 +10233,7 @@ Pink floor with white bumps.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_pinkbumps, @oisize{}} @b{fl_pinkbumps}
+@item @image{images/fl_pinkbumps, 12mm} @b{fl_pinkbumps}
 @item @b{fl_pinkbumps_framed}
 @end table
 @end table
@@ -10261,7 +10257,7 @@ When burnt, @code{fl_plank} becomes @ref{fl_abyss}.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_plank, @oisize{}} @b{fl_plank}
+@item @image{images/fl_plank, 12mm} @b{fl_plank}
 @item @b{fl_plank_framed}
 @end table
 @end table
@@ -10283,7 +10279,7 @@ Warm light gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_platinum, @oisize{}} @b{fl_platinum}
+@item @image{images/fl_platinum, 12mm} @b{fl_platinum}
 @item @b{fl_platinum_framed}
 @end table
 @end table
@@ -10305,7 +10301,7 @@ Warm red, very slippy floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_red, @oisize{}} @b{fl_red}
+@item @image{images/fl_red, 12mm} @b{fl_red}
 @item @b{fl_red_framed}
 @end table
 @end table
@@ -10328,7 +10324,7 @@ Dark red slab floor, that is marbled with black. A matching floor is
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_redslab, @oisize{}} @b{fl_redslab}
+@item @image{images/fl_redslab, 12mm} @b{fl_redslab}
 @item @b{fl_redslab_framed}
 @end table
 @end table
@@ -10350,7 +10346,7 @@ Rough warm white floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_rough, @oisize{}} @b{fl_rough}
+@item @image{images/fl_rough, 12mm} @b{fl_rough}
 @item @b{fl_rough_framed}
 @end table
 @end table
@@ -10372,7 +10368,7 @@ Bright yellow sandstone floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_sahara, @oisize{}} @b{fl_sahara}
+@item @image{images/fl_sahara, 12mm} @b{fl_sahara}
 @item @b{fl_sahara_framed}
 @end table
 @end table
@@ -10424,7 +10420,7 @@ Granular orange gray sand floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_sand, @oisize{}} @b{fl_sand}
+@item @image{images/fl_sand, 12mm} @b{fl_sand}
 @item @b{fl_sand_framed}
 @end table
 @end table
@@ -10469,7 +10465,7 @@ Granular brown gray floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_stone, @oisize{}} @b{fl_stone}
+@item @image{images/fl_stone, 12mm} @b{fl_stone}
 @item @b{fl_stone_framed}
 @end table
 @end table
@@ -10491,7 +10487,7 @@ Red sandstone floor.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_tigris, @oisize{}} @b{fl_tigris}
+@item @image{images/fl_tigris, 12mm} @b{fl_tigris}
 @item @b{fl_tigris_framed}
 @end table
 @end table
@@ -10513,7 +10509,7 @@ Pure white floor without any yinyang related features.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, @oisize{}} @b{fl_white}
+@item @image{images/fl_white, 12mm} @b{fl_white}
 @item @b{fl_white_framed}
 @end table
 @end table
@@ -10535,7 +10531,7 @@ Diagonal woven white floor with black shadows.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_woven, @oisize{}} @b{fl_woven}
+@item @image{images/fl_woven, 12mm} @b{fl_woven}
 @item @b{fl_woven_framed}
 @end table
 @end table
@@ -11137,78 +11133,78 @@ switched off by the attribute @samp{invisible}.
 @section Item Overview
 
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
-@item @image{images/it_bag, @oisize{}} @tab @yref{it_bag}
-@tab @image{images/it_banana, @oisize{}} @tab @yref{it_banana}
-@tab @image{images/it_blocker, @oisize{}} @tab @yref{it_blocker}
-@item @image{images/it_bomb_black, @oisize{}} @tab @yref{it_bomb}_black
-@tab @image{images/it_bomb_white, @oisize{}} @tab @yref{it_bomb}_white
-@tab @image{images/it_bottle_idle, @oisize{}} @tab @yref{it_bottle}
-@item @image{images/it_bottle_broken, @oisize{}} @tab @yref{it_bottle}_broken
-@tab @image{images/st_brake, @oisize{}} @tab @yref{it_brake}
-@tab @image{images/it_brush, @oisize{}} @tab @yref{it_brush}
-@item @image{images/it_burnable_ash, @oisize{}} @tab @yref{it_burnable}_ash
-@tab @image{images/it_burnable_burning, @oisize{}} @tab @yref{it_burnable}_burning
-@tab @image{images/it_burnable_fireproof, @oisize{}} @tab @yref{it_burnable}_fireproof
-@item @image{images/it_burnable_oil, @oisize{}} @tab @yref{it_burnable}_oil
-@tab @image{images/it_cherry, @oisize{}} @tab @yref{it_cherry}
-@tab @image{images/it_coffee, @oisize{}} @tab @yref{it_coffee}
-@item @image{images/it_coin_s, @oisize{}} @tab @yref{it_coin}_s
-@tab @image{images/it_coin_m, @oisize{}} @tab @yref{it_coin}_m
-@tab @image{images/it_coin_l, @oisize{}} @tab @yref{it_coin}_l
-@item @image{images/it_crack_abyss, @oisize{}} @tab @yref{it_crack}_abyss
-@tab @image{images/it_crack_water, @oisize{}} @tab @yref{it_crack}_water
-@tab @image{images/it_cross, @oisize{}} @tab @yref{it_cross}
-@item @image{images/it_death, @oisize{}} @tab @yref{it_death}
-@tab @image{images/it_document, @oisize{}} @tab @yref{it_document}
-@tab @image{images/it_drop, @oisize{}} @tab @yref{it_drop}
-@item @image{images/it_dynamite, @oisize{}} @tab @yref{it_dynamite}
-@tab @image{images/it_explosion, @oisize{}} @tab @yref{it_explosion}
-@tab @image{images/it_extralife, @oisize{}} @tab @yref{it_extralife}
-@item @image{images/it_extinguisher, @oisize{}} @tab @yref{it_extinguisher}
-@tab @image{images/it_flag_black, @oisize{}} @tab @yref{it_flag}_black
-@tab @image{images/it_flag_white, @oisize{}} @tab @yref{it_flag}_white
-@item @image{images/it_floppy, @oisize{}} @tab @yref{it_floppy}
-@tab @image{images/it_glasses, @oisize{}} @tab @yref{it_glasses}
-@tab @image{images/it_glasses_broken, @oisize{}} @tab @yref{it_glasses}_broken
-@item @image{images/it_hammer, @oisize{}} @tab @yref{it_hammer}
-@tab @image{images/it_key, @oisize{}} @tab @yref{it_key}
-@tab @image{images/it_landmine, @oisize{}} @tab @yref{it_landmine}
-@item @image{images/it_laser, @oisize{}} @tab @yref{it_laserbeam}
-@tab @image{images/it_magicwand, @oisize{}} @tab @yref{it_magicwand}
-@tab @image{images/it_magnet_off, @oisize{}} @tab @yref{it_magnet}
-@item @image{images/it_meditation_bump, @oisize{}} @tab @yref{it_meditation}_bump
-@tab @image{images/it_meditation_caldera, @oisize{}} @tab @yref{it_meditation}_caledera
-@tab @image{images/it_meditation_dent, @oisize{}} @tab @yref{it_meditation}_dent
-@item @image{images/it_meditation_hill, @oisize{}} @tab @yref{it_meditation}_hill
-@tab @image{images/it_meditation_hollow, @oisize{}} @tab @yref{it_meditation}_hollow
-@tab @image{images/it_meditation_volcano, @oisize{}} @tab @yref{it_meditation}_volcano
-@item @image{images/it_pencil, @oisize{}} @tab @yref{it_pencil}
-@tab @image{images/it_pin, @oisize{}} @tab @yref{it_pin}
-@tab @image{images/it_pipe, @oisize{}} @tab @yref{it_pipe}
-@item @image{images/it_puller, @oisize{}} @tab @yref{it_puller}
-@tab @image{images/it_ring, @oisize{}} @tab @yref{it_ring}
-@tab @image{images/it_rubberband, @oisize{}} @tab @yref{it_rubberband}
-@item @image{images/it_seed, @oisize{}} @tab @yref{it_seed}
-@tab @image{images/it_sensor, @oisize{}} @tab @yref{it_sensor}
-@tab @image{images/it_sensor_exit, @oisize{}} @tab @yref{it_sensor}_exit
-@item @image{images/it_shogun_m, @oisize{}} @tab @yref{it_shogun}
-@tab @image{images/it_spade, @oisize{}} @tab @yref{it_spade}
-@tab @image{images/it_spoon, @oisize{}} @tab @yref{it_spoon}
-@item @image{images/it_springboard, @oisize{}} @tab @yref{it_springboard}
-@tab @image{images/it_spring_drop, @oisize{}} @tab @yref{it_spring}_drop
-@tab @image{images/it_spring_keep, @oisize{}} @tab @yref{it_spring}_keep
-@item @image{images/it_squashed, @oisize{}} @tab @yref{it_squashed}
-@tab @image{images/it_strip, @oisize{}} @tab @yref{it_strip}
-@tab @image{images/it_surprise, @oisize{}} @tab @yref{it_surprise}
-@item @image{images/it_sword, @oisize{}} @tab @yref{it_sword}
-@tab @image{images/it_trap, @oisize{}} @tab @yref{it_trap}
-@tab @image{images/it_trigger, @oisize{}} @tab @yref{it_trigger}
-@item @image{images/it_umbrella, @oisize{}} @tab @yref{it_umbrella}
-@tab @image{images/it_vortex, @oisize{}} @tab @yref{it_vortex}
-@tab @image{images/it_weight, @oisize{}} @tab @yref{it_weight}
-@item @image{images/it_wormhole, @oisize{}} @tab @yref{it_wormhole}
-@tab @image{images/it_wrench, @oisize{}} @tab @yref{it_wrench}
-@tab @image{images/it_yinyang, @oisize{}} @tab @yref{it_yinyang}
+@item @image{images/it_bag, 12mm} @tab @yref{it_bag}
+@tab @image{images/it_banana, 12mm} @tab @yref{it_banana}
+@tab @image{images/it_blocker, 12mm} @tab @yref{it_blocker}
+@item @image{images/it_bomb_black, 12mm} @tab @yref{it_bomb}_black
+@tab @image{images/it_bomb_white, 12mm} @tab @yref{it_bomb}_white
+@tab @image{images/it_bottle_idle, 12mm} @tab @yref{it_bottle}
+@item @image{images/it_bottle_broken, 12mm} @tab @yref{it_bottle}_broken
+@tab @image{images/st_brake, 12mm} @tab @yref{it_brake}
+@tab @image{images/it_brush, 12mm} @tab @yref{it_brush}
+@item @image{images/it_burnable_ash, 12mm} @tab @yref{it_burnable}_ash
+@tab @image{images/it_burnable_burning, 12mm} @tab @yref{it_burnable}_burning
+@tab @image{images/it_burnable_fireproof, 12mm} @tab @yref{it_burnable}_fireproof
+@item @image{images/it_burnable_oil, 12mm} @tab @yref{it_burnable}_oil
+@tab @image{images/it_cherry, 12mm} @tab @yref{it_cherry}
+@tab @image{images/it_coffee, 12mm} @tab @yref{it_coffee}
+@item @image{images/it_coin_s, 12mm} @tab @yref{it_coin}_s
+@tab @image{images/it_coin_m, 12mm} @tab @yref{it_coin}_m
+@tab @image{images/it_coin_l, 12mm} @tab @yref{it_coin}_l
+@item @image{images/it_crack_abyss, 12mm} @tab @yref{it_crack}_abyss
+@tab @image{images/it_crack_water, 12mm} @tab @yref{it_crack}_water
+@tab @image{images/it_cross, 12mm} @tab @yref{it_cross}
+@item @image{images/it_death, 12mm} @tab @yref{it_death}
+@tab @image{images/it_document, 12mm} @tab @yref{it_document}
+@tab @image{images/it_drop, 12mm} @tab @yref{it_drop}
+@item @image{images/it_dynamite, 12mm} @tab @yref{it_dynamite}
+@tab @image{images/it_explosion, 12mm} @tab @yref{it_explosion}
+@tab @image{images/it_extralife, 12mm} @tab @yref{it_extralife}
+@item @image{images/it_extinguisher, 12mm} @tab @yref{it_extinguisher}
+@tab @image{images/it_flag_black, 12mm} @tab @yref{it_flag}_black
+@tab @image{images/it_flag_white, 12mm} @tab @yref{it_flag}_white
+@item @image{images/it_floppy, 12mm} @tab @yref{it_floppy}
+@tab @image{images/it_glasses, 12mm} @tab @yref{it_glasses}
+@tab @image{images/it_glasses_broken, 12mm} @tab @yref{it_glasses}_broken
+@item @image{images/it_hammer, 12mm} @tab @yref{it_hammer}
+@tab @image{images/it_key, 12mm} @tab @yref{it_key}
+@tab @image{images/it_landmine, 12mm} @tab @yref{it_landmine}
+@item @image{images/it_laser, 12mm} @tab @yref{it_laserbeam}
+@tab @image{images/it_magicwand, 12mm} @tab @yref{it_magicwand}
+@tab @image{images/it_magnet_off, 12mm} @tab @yref{it_magnet}
+@item @image{images/it_meditation_bump, 12mm} @tab @yref{it_meditation}_bump
+@tab @image{images/it_meditation_caldera, 12mm} @tab @yref{it_meditation}_caledera
+@tab @image{images/it_meditation_dent, 12mm} @tab @yref{it_meditation}_dent
+@item @image{images/it_meditation_hill, 12mm} @tab @yref{it_meditation}_hill
+@tab @image{images/it_meditation_hollow, 12mm} @tab @yref{it_meditation}_hollow
+@tab @image{images/it_meditation_volcano, 12mm} @tab @yref{it_meditation}_volcano
+@item @image{images/it_pencil, 12mm} @tab @yref{it_pencil}
+@tab @image{images/it_pin, 12mm} @tab @yref{it_pin}
+@tab @image{images/it_pipe, 12mm} @tab @yref{it_pipe}
+@item @image{images/it_puller, 12mm} @tab @yref{it_puller}
+@tab @image{images/it_ring, 12mm} @tab @yref{it_ring}
+@tab @image{images/it_rubberband, 12mm} @tab @yref{it_rubberband}
+@item @image{images/it_seed, 12mm} @tab @yref{it_seed}
+@tab @image{images/it_sensor, 12mm} @tab @yref{it_sensor}
+@tab @image{images/it_sensor_exit, 12mm} @tab @yref{it_sensor}_exit
+@item @image{images/it_shogun_m, 12mm} @tab @yref{it_shogun}
+@tab @image{images/it_spade, 12mm} @tab @yref{it_spade}
+@tab @image{images/it_spoon, 12mm} @tab @yref{it_spoon}
+@item @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
+@tab @image{images/it_spring_drop, 12mm} @tab @yref{it_spring}_drop
+@tab @image{images/it_spring_keep, 12mm} @tab @yref{it_spring}_keep
+@item @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
+@tab @image{images/it_strip, 12mm} @tab @yref{it_strip}
+@tab @image{images/it_surprise, 12mm} @tab @yref{it_surprise}
+@item @image{images/it_sword, 12mm} @tab @yref{it_sword}
+@tab @image{images/it_trap, 12mm} @tab @yref{it_trap}
+@tab @image{images/it_trigger, 12mm} @tab @yref{it_trigger}
+@item @image{images/it_umbrella, 12mm} @tab @yref{it_umbrella}
+@tab @image{images/it_vortex, 12mm} @tab @yref{it_vortex}
+@tab @image{images/it_weight, 12mm} @tab @yref{it_weight}
+@item @image{images/it_wormhole, 12mm} @tab @yref{it_wormhole}
+@tab @image{images/it_wrench, 12mm} @tab @yref{it_wrench}
+@tab @image{images/it_yinyang, 12mm} @tab @yref{it_yinyang}
 @end multitable
 
 @c ----------------- Item Attributes --------------------
@@ -11403,7 +11399,7 @@ grid position filled up with the stolen items.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_bag, @oisize{}} @b{it_bag}
+@item @image{images/it_bag, 12mm} @b{it_bag}
 @end table
 @end table
 
@@ -11427,7 +11423,7 @@ When a stone is pushed over it an @ref{it_squashed} remains as remnants.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_banana, @oisize{}} @b{it_banana}
+@item @image{images/it_banana, 12mm} @b{it_banana}
 @end table
 @end table
 
@@ -11480,9 +11476,9 @@ Just an @samp{IDLE} bottle is portable, a @samp{BROKEN} one is not portable.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_bottle_idle, @oisize{}} @b{it_bottle}: state = @code{IDLE}
-@item @image{images/it_bottle_idle, @oisize{}} @b{it_bottle_idle}: state = @code{IDLE}
-@item @image{images/it_bottle_broken, @oisize{}} @b{it_bottle_broken}: state = @code{BROKEN}
+@item @image{images/it_bottle_idle, 12mm} @b{it_bottle}: state = @code{IDLE}
+@item @image{images/it_bottle_idle, 12mm} @b{it_bottle_idle}: state = @code{IDLE}
+@item @image{images/it_bottle_broken, 12mm} @b{it_bottle_broken}: state = @code{BROKEN}
 @end table
 
 @end table
@@ -11527,7 +11523,7 @@ always converted to an @ref{st_brake} on being dropped or placed onto a floor.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_brake, @oisize{}} @b{it_brake}
+@item @image{images/st_brake, 12mm} @b{it_brake}
 @end table
 
 @end table
@@ -11573,7 +11569,7 @@ leaving no remnants when being hit by light.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_brush, @oisize{}} @b{it_brush}
+@item @image{images/it_brush, 12mm} @b{it_brush}
 @end table
 
 @end table
@@ -11606,7 +11602,7 @@ When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_cherry, @oisize{}} @b{it_cherry}
+@item @image{images/it_cherry, 12mm} @b{it_cherry}
 @end table
 @end table
 
@@ -11629,7 +11625,7 @@ and is blown away on @ref{it_bomb} explosions.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_coffee, @oisize{}} @b{it_coffee}
+@item @image{images/it_coffee, 12mm} @b{it_coffee}
 @end table
 @end table
 
@@ -11670,10 +11666,10 @@ being a coin of 5 cents and @samp{LARGE} being a coin of 10 cents..
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_coin_s, @oisize{}} @b{it_coin}: state = @code{SMALL}
-@item @image{images/it_coin_s, @oisize{}} @b{it_coin_s}: state = @code{SMALL}
-@item @image{images/it_coin_m, @oisize{}} @b{it_coin_m}: state = @code{MEDIUM}
-@item @image{images/it_coin_l, @oisize{}} @b{it_coin_l}: state = @code{LARGE}
+@item @image{images/it_coin_s, 12mm} @b{it_coin}: state = @code{SMALL}
+@item @image{images/it_coin_s, 12mm} @b{it_coin_s}: state = @code{SMALL}
+@item @image{images/it_coin_m, 12mm} @b{it_coin_m}: state = @code{MEDIUM}
+@item @image{images/it_coin_l, 12mm} @b{it_coin_l}: state = @code{LARGE}
 @end table
 
 @end table
@@ -11711,7 +11707,7 @@ Burn and destroy the document.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_document, @oisize{}} @b{it_document}
+@item @image{images/it_document, 12mm} @b{it_document}
 @end table
 @end table
 
@@ -11746,7 +11742,7 @@ incompatibilities with future Enigma versions.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_drop, @oisize{}} @b{it_drop}
+@item @image{images/it_drop, 12mm} @b{it_drop}
 @end table
 
 @end table
@@ -11801,8 +11797,8 @@ Ignite the fuse.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_dynamite, @oisize{}} @b{it_dynamite}: state = @code{IDLE}
-@item @image{images/fl_white, @oisize{}} @b{it_dynamite_burning}: state = @code{ACTIVE}
+@item @image{images/it_dynamite, 12mm} @b{it_dynamite}: state = @code{IDLE}
+@item @image{images/fl_white, 12mm} @b{it_dynamite_burning}: state = @code{ACTIVE}
 @end table
 
 @end table
@@ -11847,10 +11843,10 @@ A toggle causes a refill by one load.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_extinguisher, @oisize{}} @b{it_extinguisher}: state = @code{FULL}
-@item @image{images/it_extinguisher, @oisize{}} @b{it_extinguisher_empty}: state = @code{FULL}
-@item @image{images/fl_white, @oisize{}} @b{it_extinguisher_medium}: state = @code{MEDIUM}
-@item @image{images/fl_white, @oisize{}} @b{it_extinguisher_full}: state = @code{FULL}
+@item @image{images/it_extinguisher, 12mm} @b{it_extinguisher}: state = @code{FULL}
+@item @image{images/it_extinguisher, 12mm} @b{it_extinguisher_empty}: state = @code{FULL}
+@item @image{images/fl_white, 12mm} @b{it_extinguisher_medium}: state = @code{MEDIUM}
+@item @image{images/fl_white, 12mm} @b{it_extinguisher_full}: state = @code{FULL}
 @end table
 
 @end table
@@ -11883,8 +11879,8 @@ transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_extralife, @oisize{}} @b{it_extralife}
-@item @image{images/it_extralife, @oisize{}} @b{it_extralife_new}: An extralife that is immune to light destruction for a short latency period.
+@item @image{images/it_extralife, 12mm} @b{it_extralife}
+@item @image{images/it_extralife, 12mm} @b{it_extralife_new}: An extralife that is immune to light destruction for a short latency period.
 @end table
 
 @end table
@@ -11916,9 +11912,9 @@ resurrected at their initial position.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_flag_black, @oisize{}} @b{it_flag}: color = @code{BLACK}
-@item @image{images/it_flag_black, @oisize{}} @b{it_flag_black}: color = @code{BLACK}
-@item @image{images/it_flag_white, @oisize{}} @b{it_flag_white}: color = @code{WHITE}
+@item @image{images/it_flag_black, 12mm} @b{it_flag}: color = @code{BLACK}
+@item @image{images/it_flag_black, 12mm} @b{it_flag_black}: color = @code{BLACK}
+@item @image{images/it_flag_white, 12mm} @b{it_flag_white}: color = @code{WHITE}
 @end table
 @end table
 
@@ -11940,7 +11936,7 @@ the floppy as first item in the players inventory.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_floppy, @oisize{}} @b{it_floppy}
+@item @image{images/it_floppy, 12mm} @b{it_floppy}
 @end table
 
 @end table
@@ -11993,8 +11989,8 @@ A sum of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_glasses, @oisize{}} @b{it_glasses} Active glasses item.
-@item @image{images/it_glasses_broken, @oisize{}} @b{it_glasses_broken} Broken glasses that spot nothing.
+@item @image{images/it_glasses, 12mm} @b{it_glasses} Active glasses item.
+@item @image{images/it_glasses_broken, 12mm} @b{it_glasses_broken} Broken glasses that spot nothing.
 @end table
 
 @end table
@@ -12029,8 +12025,8 @@ flickering of repeated item transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_hammer, @oisize{}} @b{it_hammer} A standard hammer item.
-@item @image{images/it_hammer, @oisize{}} @b{it_hammer_new} A hammer that is immune to light transformations for a short latency period.
+@item @image{images/it_hammer, 12mm} @b{it_hammer} A standard hammer item.
+@item @image{images/it_hammer, 12mm} @b{it_hammer_new} A hammer that is immune to light transformations for a short latency period.
 @end table
 
 @end table
@@ -12061,7 +12057,7 @@ The code of a key must match that of an @ref{st_key} to unlock it.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_key, @oisize{}} @b{it_key}
+@item @image{images/it_key, 12mm} @b{it_key}
 @end table
 @end table
 
@@ -12098,7 +12094,7 @@ clusters to explode,
 @item @b{Action:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_magicwand, @oisize{}} @b{it_magicwand}
+@item @image{images/it_magicwand, 12mm} @b{it_magicwand}
 @end table
 
 @end table
@@ -12134,7 +12130,7 @@ the movable variants can be marked.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_pencil, @oisize{}} @b{it_pencil}
+@item @image{images/it_pencil, 12mm} @b{it_pencil}
 @end table
 
 @end table
@@ -12165,7 +12161,7 @@ to its standard values.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_pin, @oisize{}} @b{it_pin}
+@item @image{images/it_pin, 12mm} @b{it_pin}
 @end table
 
 @end table
@@ -12202,17 +12198,17 @@ Currently only pipes with one or two connections do exist.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, @oisize{}} @b{it_pipe} connections = @code{"ew"} The horizontal pipe.
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_w} connections = @code{"w"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_s} connections = @code{"s"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_sw} connections = @code{"sw"}
-@item @image{images/it_pipe, @oisize{}} @b{it_pipe_e} connections = @code{"e"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_ew} connections = @code{"ew"} The horizontal pipe.
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_es} connections = @code{"es"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_n} connections = @code{"n"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_nw} connections = @code{"nw"}
-@item @image{images/fl_white, @oisize{}} @b{it_pipe_ns} connections = @code{"ns"} The vertical pipe.
-@item @image{images/fl_white, @oisize{}}@b{it_pipe_ne} connections = @code{"ne"}
+@item @image{images/fl_white, 12mm} @b{it_pipe} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/fl_white, 12mm} @b{it_pipe_w} connections = @code{"w"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_s} connections = @code{"s"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_sw} connections = @code{"sw"}
+@item @image{images/it_pipe, 12mm} @b{it_pipe_e} connections = @code{"e"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_ew} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/fl_white, 12mm} @b{it_pipe_es} connections = @code{"es"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_n} connections = @code{"n"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_nw} connections = @code{"nw"}
+@item @image{images/fl_white, 12mm} @b{it_pipe_ns} connections = @code{"ns"} The vertical pipe.
+@item @image{images/fl_white, 12mm}@b{it_pipe_ne} connections = @code{"ne"}
 @end table
 @end table
 
@@ -12247,11 +12243,11 @@ the explosion the puller item ceases to exist.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, @oisize{}} @b{it_puller} orientation = @code{WEST}
-@item @image{images/fl_white, @oisize{}} @b{it_puller_w} orientation = @code{WEST}
-@item @image{images/fl_white, @oisize{}} @b{it_puller_s} orientation = @code{SOUTH}
-@item @image{images/fl_white, @oisize{}} @b{it_puller_e} orientation = @code{EAST}
-@item @image{images/it_puller, @oisize{}} @b{it_puller_n} orientation = @code{NORTH}
+@item @image{images/fl_white, 12mm} @b{it_puller} orientation = @code{WEST}
+@item @image{images/fl_white, 12mm} @b{it_puller_w} orientation = @code{WEST}
+@item @image{images/fl_white, 12mm} @b{it_puller_s} orientation = @code{SOUTH}
+@item @image{images/fl_white, 12mm} @b{it_puller_e} orientation = @code{EAST}
+@item @image{images/it_puller, 12mm} @b{it_puller_n} orientation = @code{NORTH}
 @end table
 @end table
 
@@ -12289,7 +12285,7 @@ future Enigma versions.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_ring, @oisize{}} @b{it_ring}
+@item @image{images/it_ring, 12mm} @b{it_ring}
 @end table
 
 @end table
@@ -12348,7 +12344,7 @@ On successful activation of this item the action message is send with a value of
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_rubberband, @oisize{}} @b{it_rubberband}
+@item @image{images/it_rubberband, 12mm} @b{it_rubberband}
 @end table
 @end table
 
@@ -12401,11 +12397,11 @@ Start growing the seed.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_seed, @oisize{}} @b{it_seed} flavor = @code{"wood"}
-@item @image{images/it_seed, @oisize{}} @b{it_seed_wood} flavor = @code{"wood"}
-@item @image{images/it_seed, @oisize{}} @b{it_seed_hay} flavor = @code{"hay"}
-@item @image{images/it_seed, @oisize{}} @b{it_seed_greenbrown} flavor = @code{"greenbrown"}
-@item @image{images/it_seed, @oisize{}} @b{it_seed_volcano} flavor = @code{"volcano"}
+@item @image{images/it_seed, 12mm} @b{it_seed} flavor = @code{"wood"}
+@item @image{images/it_seed, 12mm} @b{it_seed_wood} flavor = @code{"wood"}
+@item @image{images/it_seed, 12mm} @b{it_seed_hay} flavor = @code{"hay"}
+@item @image{images/it_seed, 12mm} @b{it_seed_greenbrown} flavor = @code{"greenbrown"}
+@item @image{images/it_seed, 12mm} @b{it_seed_volcano} flavor = @code{"volcano"}
 @end table
 
 @end table
@@ -12429,7 +12425,7 @@ will flatten this by one degree and will finally eliminate it completely.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_spade, @oisize{}} @b{it_spade}
+@item @image{images/it_spade, 12mm} @b{it_spade}
 @end table
 
 @end table
@@ -12461,7 +12457,7 @@ to @samp{false}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_spoon, @oisize{}} @b{it_spoon}
+@item @image{images/it_spoon, 12mm} @b{it_spoon}
 @end table
 
 @end table
@@ -12488,9 +12484,9 @@ facility that can not be picked up by an actor is the @ref{it_springboard}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_spring_keep, @oisize{}} @b{it_spring}
-@item @image{images/it_spring_keep, @oisize{}} @b{it_spring_keep}
-@item @image{images/it_spring_drop, @oisize{}} @b{it_spring_drop}
+@item @image{images/it_spring_keep, 12mm} @b{it_spring}
+@item @image{images/it_spring_keep, 12mm} @b{it_spring_keep}
+@item @image{images/it_spring_drop, 12mm} @b{it_spring_drop}
 @end table
 @end table
 
@@ -12539,7 +12535,7 @@ to the replacement tile declaration.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_surprise, @oisize{}} @b{it_surprise}
+@item @image{images/it_surprise, 12mm} @b{it_surprise}
 @end table
 
 @end table
@@ -12572,8 +12568,8 @@ flickering of repeated item transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_sword, @oisize{}} @b{it_sword} A standard sword item.
-@item @image{images/it_sword, @oisize{}} @b{it_sword_new} A sword that is immune to light transformations for a short latency period.
+@item @image{images/it_sword, 12mm} @b{it_sword} A standard sword item.
+@item @image{images/it_sword, 12mm} @b{it_sword_new} A sword that is immune to light transformations for a short latency period.
 @end table
 
 @end table
@@ -12612,8 +12608,8 @@ transformations.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_umbrella, @oisize{}} @b{it_umbrella} A standard umbrella item.
-@item @image{images/it_umbrella, @oisize{}} @b{it_umbrella_new} An umbrella that is immune to light destruction for a short latency period.
+@item @image{images/it_umbrella, 12mm} @b{it_umbrella} A standard umbrella item.
+@item @image{images/it_umbrella, 12mm} @b{it_umbrella_new} An umbrella that is immune to light destruction for a short latency period.
 @end table
 
 @end table
@@ -12648,7 +12644,7 @@ Mass unit is the mass of an @ref{ac_marble}
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_weight, @oisize{}} @b{it_weight}
+@item @image{images/it_weight, 12mm} @b{it_weight}
 @end table
 
 @end table
@@ -12675,7 +12671,7 @@ possible.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_wrench, @oisize{}} @b{it_wrench}
+@item @image{images/it_wrench, 12mm} @b{it_wrench}
 @end table
 
 @end table
@@ -12707,7 +12703,7 @@ to be controlled at every point of time.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_yinyang, @oisize{}} @b{it_yinyang}
+@item @image{images/it_yinyang, 12mm} @b{it_yinyang}
 @end table
 
 @end table
@@ -12813,9 +12809,9 @@ successor. The value will be @code{true} to express the open state.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_blocker, @oisize{}} @b{it_blocker}
+@item @image{images/it_blocker, 12mm} @b{it_blocker}
 A standard blocker item.
-@item @image{images/it_blocker, @oisize{}} @b{it_blocker_new}
+@item @image{images/it_blocker, 12mm} @b{it_blocker_new}
 A blocker that just finished shrinking. Mainly used internally as the direct
 successor of an @ref{st_blocker}. But it may be useful to generate an initial
 snapshot of a moving boulder over a blocker line, too. See example levels.
@@ -12873,9 +12869,9 @@ Ignite the fuse.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_bomb_black, @oisize{}} @b{it_bomb}: color = @code{BLACK}
-@item @image{images/it_bomb_black, @oisize{}} @b{it_bomb_black}: color = @code{BLACK}
-@item @image{images/it_bomb_white, @oisize{}} @b{it_bomb_white}: color = @code{WHITE}
+@item @image{images/it_bomb_black, 12mm} @b{it_bomb}: color = @code{BLACK}
+@item @image{images/it_bomb_black, 12mm} @b{it_bomb_black}: color = @code{BLACK}
+@item @image{images/it_bomb_white, 12mm} @b{it_bomb_white}: color = @code{WHITE}
 @end table
 
 @end table
@@ -12936,13 +12932,13 @@ Changes burnable immediately to extinguisher foam.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, @oisize{}} @b{it_burnable}: state = @code{0}
-@item @image{images/fl_white, @oisize{}} @b{it_burnable_invisible}: state = @code{0}
-@item @image{images/it_burnable_oil, @oisize{}} @b{it_burnable_oil}: state = @code{1}
-@item @image{images/fl_white, @oisize{}} @b{it_burnable_ignited}: state = @code{2}
-@item @image{images/it_burnable_burning, @oisize{}} @b{it_burnable_burning}: state = @code{3}
-@item @image{images/it_burnable_ash, @oisize{}} @b{it_burnable_ash}: state = @code{4}
-@item @image{images/it_burnable_fireproof, @oisize{}} @b{it_burnable_fireproof}: state = @code{5}
+@item @image{images/fl_white, 12mm} @b{it_burnable}: state = @code{0}
+@item @image{images/fl_white, 12mm} @b{it_burnable_invisible}: state = @code{0}
+@item @image{images/it_burnable_oil, 12mm} @b{it_burnable_oil}: state = @code{1}
+@item @image{images/fl_white, 12mm} @b{it_burnable_ignited}: state = @code{2}
+@item @image{images/it_burnable_burning, 12mm} @b{it_burnable_burning}: state = @code{3}
+@item @image{images/it_burnable_ash, 12mm} @b{it_burnable_ash}: state = @code{4}
+@item @image{images/it_burnable_fireproof, 12mm} @b{it_burnable_fireproof}: state = @code{5}
 @end table
 
 @end table
@@ -13032,11 +13028,11 @@ over it.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_crack_abyss, @oisize{}} @b{it_crack}: state = @code{SMALL}
-@item @image{images/fl_white, @oisize{}} @b{it_crack_i}: state = @code{INVISIBLE}
-@item @image{images/it_crack_abyss, @oisize{}} @b{it_crack_s}: state = @code{SMALL}
-@item @image{images/fl_white, @oisize{}} @b{it_crack_m}: state = @code{MEDIUM}
-@item @image{images/fl_white, @oisize{}} @b{it_crack_l}: state = @code{LARGE}
+@item @image{images/it_crack_abyss, 12mm} @b{it_crack}: state = @code{SMALL}
+@item @image{images/fl_white, 12mm} @b{it_crack_i}: state = @code{INVISIBLE}
+@item @image{images/it_crack_abyss, 12mm} @b{it_crack_s}: state = @code{SMALL}
+@item @image{images/fl_white, 12mm} @b{it_crack_m}: state = @code{MEDIUM}
+@item @image{images/fl_white, 12mm} @b{it_crack_l}: state = @code{LARGE}
 @end table
 
 @end table
@@ -13077,7 +13073,7 @@ Number of seconds that the actor must stay on the sensor to cause an action.
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_cross, @oisize{}} @b{it_cross}
+@item @image{images/it_cross, 12mm} @b{it_cross}
 @end table
 @end table
 
@@ -13109,7 +13105,7 @@ death item should mainly be used when all other alternatives are too insecure.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_death, @oisize{}} @b{it_death}
+@item @image{images/it_death, 12mm} @b{it_death}
 @end table
 
 @end table
@@ -13150,11 +13146,11 @@ item. But you can investigate the kind of an explosion.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_explosion, @oisize{}} @b{it_explosion}: state = @code{0}
-@item @image{images/it_explosion, @oisize{}} @b{it_explosion_nil}: state = @code{0}
-@item @image{images/it_explosion, @oisize{}} @b{it_explosion_hollow}: state = @code{1}
-@item @image{images/it_explosion, @oisize{}} @b{it_explosion_crack}: state = @code{2}
-@item @image{images/it_explosion, @oisize{}} @b{it_explosion_debris}: state = @code{3}
+@item @image{images/it_explosion, 12mm} @b{it_explosion}: state = @code{0}
+@item @image{images/it_explosion, 12mm} @b{it_explosion_nil}: state = @code{0}
+@item @image{images/it_explosion, 12mm} @b{it_explosion_hollow}: state = @code{1}
+@item @image{images/it_explosion, 12mm} @b{it_explosion_crack}: state = @code{2}
+@item @image{images/it_explosion, 12mm} @b{it_explosion_debris}: state = @code{3}
 @end table
 
 @end table
@@ -13187,7 +13183,7 @@ explosions, nor fire, nor laserbeams.
 @item @b{Action:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_landmine, @oisize{}} @b{it_landmine}
+@item @image{images/it_landmine, 12mm} @b{it_landmine}
 @end table
 
 @end table
@@ -13213,7 +13209,7 @@ by another item. This causes automatically a recalculation of the laser light.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_laser, @oisize{}} @b{it_laserbeam} can not be instanciated by levels
+@item @image{images/it_laser, 12mm} @b{it_laserbeam} can not be instanciated by levels
 @end table
 @end table
 
@@ -13266,9 +13262,9 @@ none
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_magnet_off, @oisize{}} @b{it_magnet} state = @samp{OFF}.
-@item @image{images/it_magnet_on, @oisize{}} @b{it_magnet_on} state = @samp{ON}.
-@item @image{images/it_magnet_off, @oisize{}} @b{it_magnet_off} state = @samp{OFF}.
+@item @image{images/it_magnet_off, 12mm} @b{it_magnet} state = @samp{OFF}.
+@item @image{images/it_magnet_on, 12mm} @b{it_magnet_on} state = @samp{ON}.
+@item @image{images/it_magnet_off, 12mm} @b{it_magnet_off} state = @samp{OFF}.
 @end table
 
 @end table
@@ -13354,13 +13350,13 @@ Shape transformation. See text above.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_meditation_hollow, @oisize{}} @b{it_meditation} state = @code{MEDITATION_HOLLOW}
-@item @image{images/it_meditation_caldera, @oisize{}} @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
-@item @image{images/it_meditation_hollow, @oisize{}} @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
-@item @image{images/it_meditation_dent, @oisize{}} @b{it_meditation_dent} state = @code{MEDITATION_DENT}
-@item @image{images/it_meditation_bump, @oisize{}} @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
-@item @image{images/it_meditation_hill, @oisize{}} @b{it_meditation_hill} state = @code{MEDITATION_HILL}
-@item @image{images/it_meditation_volcano, @oisize{}} @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
+@item @image{images/it_meditation_hollow, 12mm} @b{it_meditation} state = @code{MEDITATION_HOLLOW}
+@item @image{images/it_meditation_caldera, 12mm} @b{it_meditation_caldera} state = @code{MEDITATION_CALDERA}
+@item @image{images/it_meditation_hollow, 12mm} @b{it_meditation_hollow} state = @code{MEDITATION_HOLLOW}
+@item @image{images/it_meditation_dent, 12mm} @b{it_meditation_dent} state = @code{MEDITATION_DENT}
+@item @image{images/it_meditation_bump, 12mm} @b{it_meditation_bump} state = @code{MEDITATION_BUMP}
+@item @image{images/it_meditation_hill, 12mm} @b{it_meditation_hill} state = @code{MEDITATION_HILL}
+@item @image{images/it_meditation_volcano, 12mm} @b{it_meditation_volcano} state = @code{MEDITATION_VOLCANO}
 @end table
 
 @end table
@@ -13413,8 +13409,8 @@ React either on an actor exiting or entering the grid.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_sensor, @oisize{}} @b{it_sensor}: exit = @code{false}
-@item @image{images/it_sensor_exit, @oisize{}} @b{it_sensor_exit}: exit = @code{true}
+@item @image{images/it_sensor, 12mm} @b{it_sensor}: exit = @code{false}
+@item @image{images/it_sensor_exit, 12mm} @b{it_sensor_exit}: exit = @code{true}
 @end table
 
 @end table
@@ -13463,10 +13459,10 @@ a medium hole, @code{"l"} for a large hole.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_shogun_s, @oisize{}} @b{it_shogun}: flavor = @code{"s"}
-@item @image{images/it_shogun_s, @oisize{}} @b{it_shogun_s}: flavor = @code{"s"}
-@item @image{images/it_shogun_m, @oisize{}} @b{it_shogun_m}: flavor = @code{"m"}
-@item @image{images/it_shogun_l, @oisize{}} @b{it_shogun_l}: flavor = @code{"l"}
+@item @image{images/it_shogun_s, 12mm} @b{it_shogun}: flavor = @code{"s"}
+@item @image{images/it_shogun_s, 12mm} @b{it_shogun_s}: flavor = @code{"s"}
+@item @image{images/it_shogun_m, 12mm} @b{it_shogun_m}: flavor = @code{"m"}
+@item @image{images/it_shogun_l, 12mm} @b{it_shogun_l}: flavor = @code{"l"}
 @end table
 
 @end table
@@ -13493,7 +13489,7 @@ Another catapulting, but portal item is @ref{it_spring}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_springboard, @oisize{}} @b{it_springboard}
+@item @image{images/it_springboard, 12mm} @b{it_springboard}
 @end table
 
 @end table
@@ -13520,7 +13516,7 @@ by a nearby exploding @ref{it_bomb} or by an @ref{st_ice} being pushed over it.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_squashed, @oisize{}} @b{it_squashed}
+@item @image{images/it_squashed, 12mm} @b{it_squashed}
 @end table
 @end table
 
@@ -13564,22 +13560,22 @@ Deviating adhesion that defaults to floor adhesion.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_strip, @oisize{}} @b{it_strip}: connections = @code{""}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_w}: connections = @code{"w"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_s}: connections = @code{"s"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_sw}: connections = @code{"sw"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_e}: connections = @code{"e"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_ew}: connections = @code{"ew"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_es}: connections = @code{"es"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_esw}: connections = @code{"esw"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_n}: connections = @code{"n"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_nw}: connections = @code{"nw"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_ns}: connections = @code{"ns"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_nsw}: connections = @code{"nsw"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_ne}: connections = @code{"ne"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_new}: connections = @code{"new"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_nes}: connections = @code{"nes"}
-@item @image{images/fl_white, @oisize{}} @b{it_strip_nesw}: connections = @code{"nesw"}
+@item @image{images/it_strip, 12mm} @b{it_strip}: connections = @code{""}
+@item @image{images/fl_white, 12mm} @b{it_strip_w}: connections = @code{"w"}
+@item @image{images/fl_white, 12mm} @b{it_strip_s}: connections = @code{"s"}
+@item @image{images/fl_white, 12mm} @b{it_strip_sw}: connections = @code{"sw"}
+@item @image{images/fl_white, 12mm} @b{it_strip_e}: connections = @code{"e"}
+@item @image{images/fl_white, 12mm} @b{it_strip_ew}: connections = @code{"ew"}
+@item @image{images/fl_white, 12mm} @b{it_strip_es}: connections = @code{"es"}
+@item @image{images/fl_white, 12mm} @b{it_strip_esw}: connections = @code{"esw"}
+@item @image{images/fl_white, 12mm} @b{it_strip_n}: connections = @code{"n"}
+@item @image{images/fl_white, 12mm} @b{it_strip_nw}: connections = @code{"nw"}
+@item @image{images/fl_white, 12mm} @b{it_strip_ns}: connections = @code{"ns"}
+@item @image{images/fl_white, 12mm} @b{it_strip_nsw}: connections = @code{"nsw"}
+@item @image{images/fl_white, 12mm} @b{it_strip_ne}: connections = @code{"ne"}
+@item @image{images/fl_white, 12mm} @b{it_strip_new}: connections = @code{"new"}
+@item @image{images/fl_white, 12mm} @b{it_strip_nes}: connections = @code{"nes"}
+@item @image{images/fl_white, 12mm} @b{it_strip_nesw}: connections = @code{"nesw"}
 
 @end table
 
@@ -13627,7 +13623,7 @@ Opens the trap.
 @end table
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_trap, @oisize{}} @b{it_trap}
+@item @image{images/it_trap, 12mm} @b{it_trap}
 @end table
 
 @end table
@@ -13686,7 +13682,7 @@ cannot drop items onto the same grid position.
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_trigger, @oisize{}} @b{it_trigger}
+@item @image{images/it_trigger, 12mm} @b{it_trigger}
 @end table
 
 @end table
@@ -13772,9 +13768,9 @@ Tries to close the vortex.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_vortex, @oisize{}} @b{it_vortex}:  state = @code{OPEN}.
-@item @image{images/it_vortex, @oisize{}} @b{it_vortex_open}: state = @code{OPEN}.
-@item @image{images/fl_white, @oisize{}} @b{it_vortex_closed}: state @samp{CLOSED}.
+@item @image{images/it_vortex, 12mm} @b{it_vortex}:  state = @code{OPEN}.
+@item @image{images/it_vortex, 12mm} @b{it_vortex_open}: state = @code{OPEN}.
+@item @image{images/fl_white, 12mm} @b{it_vortex_closed}: state @samp{CLOSED}.
 @end table
 @end table
 
@@ -13847,9 +13843,9 @@ Switches the wormhole off.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_wormhole, @oisize{}} @b{it_wormhole}: state = @code{OFF}.
-@item @image{images/it_wormhole, @oisize{}} @b{it_wormhole_on}: state = @code{ON}.
-@item @image{images/fl_white, @oisize{}} @b{it_wormhole_off}: state @code{OFF}.
+@item @image{images/it_wormhole, 12mm} @b{it_wormhole}: state = @code{OFF}.
+@item @image{images/it_wormhole, 12mm} @b{it_wormhole_on}: state = @code{ON}.
+@item @image{images/fl_white, 12mm} @b{it_wormhole_off}: state @code{OFF}.
 @end table
 @end table
 
@@ -13873,86 +13869,86 @@ Switches the wormhole off.
 
 WORK IN PROGRESS - The follwing table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
-@item @image{images/st_actorimpulse, @oisize{}} @tab @yref{st_actorimpulse}
-@tab @image{images/st_ancient, @oisize{}} @tab @yref{st_ancient}
-@tab @image{images/st_beads, @oisize{}} @tab @yref{st_beads}
-@item @image{images/st_bluegray, @oisize{}} @tab @yref{st_bluegray}
-@tab @image{images/st_blur_cross, @oisize{}} @tab @yref{st_blur}_cross
-@tab @image{images/st_blur_straight, @oisize{}} @tab @yref{st_blur}_straight
-@item @image{images/st_box_hay, @oisize{}} @tab @yref{st_box}_hay
-@tab @image{images/st_box_rock, @oisize{}} @tab @yref{st_box}_rock
-@tab @image{images/st_box_wood, @oisize{}} @tab @yref{st_box}_wood
-@item @image{images/st_brake, @oisize{}} @tab @yref{st_brake}
-@tab @image{images/st_break_black, @oisize{}} @tab @yref{st_break}_black
-@tab @image{images/st_break_boulder, @oisize{}} @tab @yref{st_break}_boulder
-@item @image{images/st_break_bug, @oisize{}} @tab @yref{st_break}_bug
-@tab @image{images/st_break_oxydc, @oisize{}} @tab @yref{st_break}_oxydc
-@tab @image{images/st_break_plain, @oisize{}} @tab @yref{st_break}_plain
-@item @image{images/st_break_white, @oisize{}} @tab @yref{st_break}_white
-@tab @image{images/st_brownie, @oisize{}} @tab @yref{st_brownie}
-@tab @image{images/st_brownmarble, @oisize{}} @tab @yref{st_brownmarble}
-@item @image{images/st_brownpyramide, @oisize{}} @tab @yref{st_brownpyramide}
-@tab @image{images/st_camouflage, @oisize{}} @tab @yref{st_camouflage}
-@tab @image{images/st_charge_minus, @oisize{}} @tab @yref{st_charge}_minus
-@item @image{images/st_charge_plus, @oisize{}} @tab @yref{st_charge}_plus
-@tab @image{images/st_charge_zero, @oisize{}} @tab @yref{st_charge}_zero
-@tab @image{images/st_chess_black, @oisize{}} @tab @yref{st_chess}_black
-@item @image{images/st_chess_white, @oisize{}} @tab @yref{st_chess}_white
-@tab @image{images/st_concrete, @oisize{}} @tab @yref{st_concrete}
-@tab @image{images/st_darkglass, @oisize{}} @tab @yref{st_darkglass}
-@item @image{images/st_darkgray, @oisize{}} @tab @yref{st_darkgray}
-@tab @image{images/st_death, @oisize{}} @tab @yref{st_death}
-@tab @image{images/st_dispenser_bombblack, @oisize{}} @tab @yref{st_dispenser}_bombblack
-@item @image{images/st_dispenser_bombwhite, @oisize{}} @tab @yref{st_dispenser}_bombwhite
-@tab @image{images/st_dispenser_dynamite, @oisize{}} @tab @yref{st_dispenser}_dynamite
-@tab @image{images/st_flash, @oisize{}} @tab @yref{st_flash}
-@item @image{images/st_flat, @oisize{}} @tab @yref{st_flat}
-@tab @image{images/st_fourswitch, @oisize{}} @tab @yref{st_fourswitch}
-@tab @image{images/st_granite, @oisize{}} @tab @yref{st_granite}
-@item @image{images/st_grate_cross, @oisize{}} @tab @yref{st_grate}_cross
-@tab @image{images/st_grate_framed, @oisize{}} @tab @yref{st_grate}_framed
-@tab @image{images/st_greenbrown, @oisize{}} @tab @yref{st_greenbrown}
-@item @image{images/st_greengray, @oisize{}} @tab @yref{st_greengray}
-@tab @image{images/st_ice, @oisize{}} @tab @yref{st_ice}
+@item @image{images/st_actorimpulse, 12mm} @tab @yref{st_actorimpulse}
+@tab @image{images/st_ancient, 12mm} @tab @yref{st_ancient}
+@tab @image{images/st_beads, 12mm} @tab @yref{st_beads}
+@item @image{images/st_bluegray, 12mm} @tab @yref{st_bluegray}
+@tab @image{images/st_blur_cross, 12mm} @tab @yref{st_blur}_cross
+@tab @image{images/st_blur_straight, 12mm} @tab @yref{st_blur}_straight
+@item @image{images/st_box_hay, 12mm} @tab @yref{st_box}_hay
+@tab @image{images/st_box_rock, 12mm} @tab @yref{st_box}_rock
+@tab @image{images/st_box_wood, 12mm} @tab @yref{st_box}_wood
+@item @image{images/st_brake, 12mm} @tab @yref{st_brake}
+@tab @image{images/st_break_black, 12mm} @tab @yref{st_break}_black
+@tab @image{images/st_break_boulder, 12mm} @tab @yref{st_break}_boulder
+@item @image{images/st_break_bug, 12mm} @tab @yref{st_break}_bug
+@tab @image{images/st_break_oxydc, 12mm} @tab @yref{st_break}_oxydc
+@tab @image{images/st_break_plain, 12mm} @tab @yref{st_break}_plain
+@item @image{images/st_break_white, 12mm} @tab @yref{st_break}_white
+@tab @image{images/st_brownie, 12mm} @tab @yref{st_brownie}
+@tab @image{images/st_brownmarble, 12mm} @tab @yref{st_brownmarble}
+@item @image{images/st_brownpyramide, 12mm} @tab @yref{st_brownpyramide}
+@tab @image{images/st_camouflage, 12mm} @tab @yref{st_camouflage}
+@tab @image{images/st_charge_minus, 12mm} @tab @yref{st_charge}_minus
+@item @image{images/st_charge_plus, 12mm} @tab @yref{st_charge}_plus
+@tab @image{images/st_charge_zero, 12mm} @tab @yref{st_charge}_zero
+@tab @image{images/st_chess_black, 12mm} @tab @yref{st_chess}_black
+@item @image{images/st_chess_white, 12mm} @tab @yref{st_chess}_white
+@tab @image{images/st_concrete, 12mm} @tab @yref{st_concrete}
+@tab @image{images/st_darkglass, 12mm} @tab @yref{st_darkglass}
+@item @image{images/st_darkgray, 12mm} @tab @yref{st_darkgray}
+@tab @image{images/st_death, 12mm} @tab @yref{st_death}
+@tab @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
+@item @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
+@tab @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
+@tab @image{images/st_flash, 12mm} @tab @yref{st_flash}
+@item @image{images/st_flat, 12mm} @tab @yref{st_flat}
+@tab @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
+@tab @image{images/st_granite, 12mm} @tab @yref{st_granite}
+@item @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
+@tab @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
+@tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
+@item @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
+@tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
 @tab                            @tab @yref{st_invisible}
-@item @image{images/st_jamb_black, @oisize{}} @tab @yref{st_jamb}_black
-@tab @image{images/st_jamb_white, @oisize{}} @tab @yref{st_jamb}_white
-@tab @image{images/st_knight, @oisize{}} @tab @yref{st_knight}
-@item @image{images/st_lightglass, @oisize{}} @tab @yref{st_lightglass}
-@tab @image{images/st_lightpassenger, @oisize{}} @tab @yref{st_lightpassenger}
-@tab @image{images/st_metal, @oisize{}} @tab @yref{st_metal}
-@item @image{images/st_oxyda, @oisize{}} @tab @yref{st_oxyd}_a
-@tab @image{images/st_oxydb, @oisize{}} @tab @yref{st_oxyd}_b
-@tab @image{images/st_oxydc, @oisize{}} @tab @yref{st_oxyd}_c
-@item @image{images/st_oxydd, @oisize{}} @tab @yref{st_oxyd}_d
-@tab @image{images/st_oxyde, @oisize{}} @tab @yref{st_oxyd}_e
-@tab @image{images/st_passage_black_square, @oisize{}} @tab @yref{st_passage}_black
-@item @image{images/st_passage_black_slash, @oisize{}} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_cross, @oisize{}} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_frame, @oisize{}} @tab @yref{st_passage}_black
-@item @image{images/st_passage_white_square, @oisize{}} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_slash, @oisize{}} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_cross, @oisize{}} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_frame, @oisize{}} @tab @yref{st_passage}_white
-@tab @image{images/st_pinkbumps, @oisize{}} @tab @yref{st_pinkbumps}
-@tab @image{images/st_plaster, @oisize{}} @tab @yref{st_plaster}
-@item @image{images/st_plop_slate, @oisize{}} @tab @yref{st_plop}_slate
-@tab @image{images/st_portal_horse, @oisize{}} @tab @yref{st_portal}
-@tab @image{images/st_purplegray, @oisize{}} @tab @yref{st_purplegray}
-@item @image{images/st_purplemarble, @oisize{}} @tab @yref{st_purplemarble}
-@tab @image{images/st_rawglass, @oisize{}} @tab @yref{st_rawglass}
-@tab @image{images/st_rawglass_quad, @oisize{}} @tab @yref{st_rawglass}_quad
-@item @image{images/st_redbrown, @oisize{}} @tab @yref{st_redbrown}
-@tab @image{images/st_redfiber, @oisize{}} @tab @yref{st_redfiber}
-@tab @image{images/st_redmarble, @oisize{}} @tab @yref{st_redmarble}
-@item @image{images/st_redrock, @oisize{}} @tab @yref{st_redrock}
-@tab @image{images/st_spitter_idle, @oisize{}} @tab @yref{st_spitter}
-@tab @image{images/st_surprise, @oisize{}} @tab @yref{st_surprise}
-@item @image{images/st_tigris, @oisize{}} @tab @yref{st_tigris}
-@tab @image{images/st_woven, @oisize{}} @tab @yref{st_woven}
-@tab @image{images/st_yellow, @oisize{}} @tab @yref{st_yellow}
-@item @image{images/st_yinyang, @oisize{}} @tab @yref{st_yinyang}
-@tab @image{images/st_yinyang_inactive, @oisize{}} @tab @yref{st_yinyang}_inactive 
+@item @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
+@tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
+@tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
+@item @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
+@tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
+@tab @image{images/st_metal, 12mm} @tab @yref{st_metal}
+@item @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
+@tab @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b
+@tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
+@item @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
+@tab @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
+@tab @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
+@tab @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
+@item @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
+@tab @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
+@tab @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
+@item @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@tab @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
+@tab @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
+@item @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
+@tab @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
+@tab @image{images/st_redmarble, 12mm} @tab @yref{st_redmarble}
+@item @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
+@tab @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
+@tab @image{images/st_surprise, 12mm} @tab @yref{st_surprise}
+@item @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
+@tab @image{images/st_woven, 12mm} @tab @yref{st_woven}
+@tab @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
+@item @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
+@tab @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive 
 @end multitable
 
 @c ----------------- Stone Attributes --------------------
@@ -14123,7 +14119,7 @@ A rough green gray rock that looks ancient.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_ancient, @oisize{}} @b{st_ancient}
+@item @image{images/st_ancient, 12mm} @b{st_ancient}
 @end table
 @end table
 
@@ -14138,8 +14134,8 @@ indistinguishable from a @ref{st_thief}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_bluegray, @oisize{}} @b{st_bluegray}
-@item @image{images/st_bluegray, @oisize{}} @b{st_bluegray_hollow}
+@item @image{images/st_bluegray, 12mm} @b{st_bluegray}
+@item @image{images/st_bluegray, 12mm} @b{st_bluegray_hollow}
 @end table
 @end table
 
@@ -14153,7 +14149,7 @@ A golden, hay stack like stone that exists just in a movable variant.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_brownie, @oisize{}} @b{st_brownie}
+@item @image{images/st_brownie, 12mm} @b{st_brownie}
 @end table
 @end table
 
@@ -14167,7 +14163,7 @@ A brown gray marble like stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_brownmarble, @oisize{}} @b{st_brownmarble}
+@item @image{images/st_brownmarble, 12mm} @b{st_brownmarble}
 @end table
 @end table
 
@@ -14181,7 +14177,7 @@ A military green camouflage stone that exists in all three variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_camouflage, @oisize{}} @b{st_camouflage}
+@item @image{images/st_camouflage, 12mm} @b{st_camouflage}
 @item @b{st_camouflage_hollow}
 @item @b{st_camouflage_movable}
 @end table
@@ -14197,7 +14193,7 @@ A polished light gray stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_concrete, @oisize{}} @b{st_concrete}
+@item @image{images/st_concrete, 12mm} @b{st_concrete}
 @end table
 @end table
 
@@ -14211,7 +14207,7 @@ A dark gray rock that exists in all two variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_darkgray, @oisize{}} @b{st_darkgray}
+@item @image{images/st_darkgray, 12mm} @b{st_darkgray}
 @item @b{st_darkgray_hollow}
 @end table
 @end table
@@ -14226,7 +14222,7 @@ A light gray rock like stone that exists in all three variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_granite, @oisize{}} @b{st_granite}
+@item @image{images/st_granite, 12mm} @b{st_granite}
 @item @b{st_granite_hollow}
 @item @b{st_granite_movable}
 @end table
@@ -14242,7 +14238,7 @@ A light green gray rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_greengray, @oisize{}} @b{st_greengray}
+@item @image{images/st_greengray, 12mm} @b{st_greengray}
 @end table
 @end table
 
@@ -14278,7 +14274,7 @@ A metal stone that exists in two variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_metal, @oisize{}} @b{st_metal}
+@item @image{images/st_metal, 12mm} @b{st_metal}
 @item @b{st_metal_hollow}
 @end table
 @end table
@@ -14293,7 +14289,7 @@ A pink stone with heavy white bumps.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_pinkbumps, @oisize{}} @b{st_pinkbumps}
+@item @image{images/st_pinkbumps, 12mm} @b{st_pinkbumps}
 @end table
 @end table
 
@@ -14307,7 +14303,7 @@ A dark purple gray rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_purplegray, @oisize{}} @b{st_purplegray}
+@item @image{images/st_purplegray, 12mm} @b{st_purplegray}
 @end table
 @end table
 
@@ -14321,7 +14317,7 @@ A purple marble stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_purplemarble, @oisize{}} @b{st_purplemarble}
+@item @image{images/st_purplemarble, 12mm} @b{st_purplemarble}
 @end table
 @end table
 
@@ -14335,7 +14331,7 @@ A brown stone with light red touches that exists in all three variants.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_redbrown, @oisize{}} @b{st_redbrown}
+@item @image{images/st_redbrown, 12mm} @b{st_redbrown}
 @item @b{st_redbrown_hollow}
 @item @b{st_redbrown_movable}
 @end table
@@ -14351,7 +14347,7 @@ A red white marbled stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_redmarble, @oisize{}} @b{st_redmarble}
+@item @image{images/st_redmarble, 12mm} @b{st_redmarble}
 @end table
 @end table
 
@@ -14365,7 +14361,7 @@ A dark red rock.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_redrock, @oisize{}} @b{st_redrock}
+@item @image{images/st_redrock, 12mm} @b{st_redrock}
 @end table
 @end table
 
@@ -14379,7 +14375,7 @@ A red sandstone like @ref{fl_tigris}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_tigris, @oisize{}} @b{st_tigris}
+@item @image{images/st_tigris, 12mm} @b{st_tigris}
 @end table
 @end table
 
@@ -14393,7 +14389,7 @@ A yellow gray woven stone.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_woven, @oisize{}} @b{st_woven}
+@item @image{images/st_woven, 12mm} @b{st_woven}
 @end table
 @end table
 
@@ -14408,7 +14404,7 @@ A yellow stone with red green stripes. This stone fits visually to the
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_yellow, @oisize{}} @b{st_yellow}
+@item @image{images/st_yellow, 12mm} @b{st_yellow}
 @end table
 @end table
 
@@ -14708,8 +14704,8 @@ A @samp{hit_strength} overrides a given @samp{strength} attribute.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_actorimpulse, @oisize{}} @b{st_actorimpulse}: invisible = @code{false}
-@item @image{images/fl_white, @oisize{}} @b{st_actorimpulse_invisible}: invisible = @code{true}
+@item @image{images/st_actorimpulse, 12mm} @b{st_actorimpulse}: invisible = @code{false}
+@item @image{images/fl_white, 12mm} @b{st_actorimpulse_invisible}: invisible = @code{true}
 @end table
 
 @end table
@@ -14732,7 +14728,7 @@ entered the grid and lets them leave on any side.
 
 @item @b{Variants:} 
 @table @asis
-@item @image{images/st_beads, @oisize{}} @b{st_beads}
+@item @image{images/st_beads, 12mm} @b{st_beads}
 @end table
 
 @end table
@@ -14851,10 +14847,10 @@ The blur subkind.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_blur_straight, @oisize{}} @b{st_blur}: flavor = @code{"straight"}
-@item @image{images/st_blur_straight, @oisize{}} @b{st_blur_straight}: flavor = @code{"straight"}
-@item @image{images/st_blur_cross, @oisize{}} @b{st_blur_cross}: flavor = @code{"cross"}
-@item @image{images/st_blur_cross, @oisize{}} @b{st_blur_magic}: flavor = @code{"magic"}
+@item @image{images/st_blur_straight, 12mm} @b{st_blur}: flavor = @code{"straight"}
+@item @image{images/st_blur_straight, 12mm} @b{st_blur_straight}: flavor = @code{"straight"}
+@item @image{images/st_blur_cross, 12mm} @b{st_blur_cross}: flavor = @code{"cross"}
+@item @image{images/st_blur_cross, 12mm} @b{st_blur_magic}: flavor = @code{"magic"}
 @end table
 
 @end table
@@ -14990,14 +14986,14 @@ then secure fire burning.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_box_wood, @oisize{}} @b{st_box}: flavor=@code{"wood"}
-@item @image{images/st_box_wood, @oisize{}} @b{st_box_wood}: flavor=@code{"wood"}
-@item @image{images/st_box_wood, @oisize{}} @b{st_box_wood_h}: flavor=@code{"wood"}
-@item @image{images/fl_white, @oisize{}} @b{st_box_wood_v}: flavor=@code{"wood"}
-@item @image{images/fl_white, @oisize{}} @b{st_box_wood_growing}: flavor=@code{"wood"}
-@item @image{images/st_box_hay, @oisize{}} @b{st_box_hay}: flavor=@code{"hay"}
-@item @image{images/fl_white, @oisize{}} @b{st_box_hay_growing}: flavor=@code{"hay"}
-@item @image{images/st_box_rock, @oisize{}} @b{st_box_rock}: flavor=@code{"rock"}
+@item @image{images/st_box_wood, 12mm} @b{st_box}: flavor=@code{"wood"}
+@item @image{images/st_box_wood, 12mm} @b{st_box_wood}: flavor=@code{"wood"}
+@item @image{images/st_box_wood, 12mm} @b{st_box_wood_h}: flavor=@code{"wood"}
+@item @image{images/fl_white, 12mm} @b{st_box_wood_v}: flavor=@code{"wood"}
+@item @image{images/fl_white, 12mm} @b{st_box_wood_growing}: flavor=@code{"wood"}
+@item @image{images/st_box_hay, 12mm} @b{st_box_hay}: flavor=@code{"hay"}
+@item @image{images/fl_white, 12mm} @b{st_box_hay_growing}: flavor=@code{"hay"}
+@item @image{images/st_box_rock, 12mm} @b{st_box_rock}: flavor=@code{"rock"}
 @end table
 
 @end table
@@ -15036,7 +15032,7 @@ explosion on a direct neighbor grid.
 
 @item @b{Variants:} none
 @table @asis
-@item @image{images/st_brake, @oisize{}} @b{st_brake}
+@item @image{images/st_brake, 12mm} @b{st_brake}
 @end table
 @end table
 
@@ -15097,14 +15093,14 @@ Break stone with exception of flavor @code{"bug"}.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_break_plain, @oisize{}} @b{st_break}: flavor=@code{"plain"}
-@item @image{images/st_break_plain, @oisize{}} @b{st_break_plain}: flavor=@code{"plain"}
-@item @image{images/st_break_black, @oisize{}} @b{st_break_black}: flavor=@code{"black"}
-@item @image{images/st_break_white, @oisize{}} @b{st_break_white}: flavor=@code{"white"}
-@item @image{images/st_break_oxydc, @oisize{}} @b{st_break_oxydc}: flavor=@code{"oxydc"}
-@item @image{images/st_break_boulder, @oisize{}} @b{st_break_boulder}: flavor=@code{"boulder"}
-@item @image{images/st_break_bug, @oisize{}} @b{st_break_bug}: flavor=@code{"bug"}
-@item @image{images/st_flat, @oisize{}} @b{st_break_laser}: flavor=@code{"laser"}
+@item @image{images/st_break_plain, 12mm} @b{st_break}: flavor=@code{"plain"}
+@item @image{images/st_break_plain, 12mm} @b{st_break_plain}: flavor=@code{"plain"}
+@item @image{images/st_break_black, 12mm} @b{st_break_black}: flavor=@code{"black"}
+@item @image{images/st_break_white, 12mm} @b{st_break_white}: flavor=@code{"white"}
+@item @image{images/st_break_oxydc, 12mm} @b{st_break_oxydc}: flavor=@code{"oxydc"}
+@item @image{images/st_break_boulder, 12mm} @b{st_break_boulder}: flavor=@code{"boulder"}
+@item @image{images/st_break_bug, 12mm} @b{st_break_bug}: flavor=@code{"bug"}
+@item @image{images/st_flat, 12mm} @b{st_break_laser}: flavor=@code{"laser"}
 @end table
 
 @end table
@@ -15121,7 +15117,7 @@ the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_brownpyramide, @oisize{}} @b{st_brownpyramide}
+@item @image{images/st_brownpyramide, 12mm} @b{st_brownpyramide}
 @end table
 @end table
 
@@ -15143,7 +15139,7 @@ floor dynamics.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, @oisize{}} @b{st_chameleon}
+@item @image{images/fl_white, 12mm} @b{st_chameleon}
 @end table
 @end table
 
@@ -15178,10 +15174,10 @@ The charge applied to hitting actors.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_charge_zero, @oisize{}} @b{st_charge}: charge = @code{0.0}
-@item @image{images/st_charge_zero, @oisize{}} @b{st_charge_zero}: charge = @code{0.0}
-@item @image{images/st_charge_plus, @oisize{}} @b{st_charge_plus}: charge = @code{+1.0}
-@item @image{images/st_charge_minus, @oisize{}} @b{st_charge_minus}: charge = @code{-1.0}
+@item @image{images/st_charge_zero, 12mm} @b{st_charge}: charge = @code{0.0}
+@item @image{images/st_charge_zero, 12mm} @b{st_charge_zero}: charge = @code{0.0}
+@item @image{images/st_charge_plus, 12mm} @b{st_charge_plus}: charge = @code{+1.0}
+@item @image{images/st_charge_minus, 12mm} @b{st_charge_minus}: charge = @code{-1.0}
 @end table
 
 @end table
@@ -15242,9 +15238,9 @@ Jump into the given direction.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_chess_black, @oisize{}} @b{st_chess}: color = @code{BLACK}
-@item @image{images/st_chess_black, @oisize{}} @b{st_chess_black}: color = @code{BLACK}
-@item @image{images/st_chess_white, @oisize{}} @b{st_chess_white}: color = @code{WHITE}
+@item @image{images/st_chess_black, 12mm} @b{st_chess}: color = @code{BLACK}
+@item @image{images/st_chess_black, 12mm} @b{st_chess_black}: color = @code{BLACK}
+@item @image{images/st_chess_white, 12mm} @b{st_chess_white}: color = @code{WHITE}
 @end table
 
 @end table
@@ -15339,9 +15335,9 @@ stone
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_darkglass, @oisize{}} @b{st_darkglass}: hollow = @code{false}, movable = @code{false}
-@item @image{images/st_darkglass, @oisize{}} @b{st_darkglass_hollow}: hollow = @code{true}, movable = @code{false}
-@item @image{images/st_darkglass, @oisize{}} @b{st_darkglass_movable}: hollow = @code{false}, movable = @code{true}
+@item @image{images/st_darkglass, 12mm} @b{st_darkglass}: hollow = @code{false}, movable = @code{false}
+@item @image{images/st_darkglass, 12mm} @b{st_darkglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @image{images/st_darkglass, 12mm} @b{st_darkglass_movable}: hollow = @code{false}, movable = @code{true}
 @end table
 
 @end table
@@ -15411,9 +15407,9 @@ period.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_death, @oisize{}} @b{st_death}: invisible = @code{false}
-@item @image{images/fl_white, @oisize{}} @b{st_death_invisible}: invisible = @code{true}
-@item @image{images/st_death_light, @oisize{}} @b{st_death_movable}: movable = @code{true}
+@item @image{images/st_death, 12mm} @b{st_death}: invisible = @code{false}
+@item @image{images/fl_white, 12mm} @b{st_death_invisible}: invisible = @code{true}
+@item @image{images/st_death_light, 12mm} @b{st_death_movable}: movable = @code{true}
 @end table
 
 @end table
@@ -15510,10 +15506,10 @@ beams.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_dispenser_bombblack, @oisize{}} @b{st_dispenser}: flavor=@code{"bombblack"}
-@item @image{images/st_dispenser_bombblack, @oisize{}} @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
-@item @image{images/st_dispenser_bombwhite, @oisize{}} @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
-@item @image{images/st_dispenser_dynamite, @oisize{}} @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
+@item @image{images/st_dispenser_bombblack, 12mm} @b{st_dispenser}: flavor=@code{"bombblack"}
+@item @image{images/st_dispenser_bombblack, 12mm} @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
+@item @image{images/st_dispenser_bombwhite, 12mm} @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
+@item @image{images/st_dispenser_dynamite, 12mm} @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
 @end table
 
 @end table
@@ -15703,7 +15699,7 @@ marble bounces on the flash stone as on any other standard stone.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_flash, @oisize{}} @b{st_flash}:
+@item @image{images/st_flash, 12mm} @b{st_flash}:
 @end table
 @end table
 
@@ -15758,14 +15754,14 @@ of the hollow state.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_flat, @oisize{}} @b{st_flat}:
-@item @image{images/st_flat, @oisize{}} @b{st_flat_hollow}: hollow=@code{true}
-@item @image{images/st_flat, @oisize{}} @b{st_flat_movable}: movable=@code{"true"}
-@item @image{images/st_flat, @oisize{}} @b{st_flat_breakable}: breakable=@code{"true"}
-@item @image{images/st_flat_cracked, @oisize{}} @b{st_flat_cracked}: 
-@item @image{images/st_flat_fire, @oisize{}} @b{st_flat_burnable}: burnable=@code{"true"}
-@item @image{images/st_flat_fire, @oisize{}} @b{st_flat_moveburnable}: movable=@code{"true"}, burnable=@code{"true"}
-@item @image{images/fl_white, @oisize{}} @b{st_flat_breaking}: breakable=@code{"true"}
+@item @image{images/st_flat, 12mm} @b{st_flat}:
+@item @image{images/st_flat, 12mm} @b{st_flat_hollow}: hollow=@code{true}
+@item @image{images/st_flat, 12mm} @b{st_flat_movable}: movable=@code{"true"}
+@item @image{images/st_flat, 12mm} @b{st_flat_breakable}: breakable=@code{"true"}
+@item @image{images/st_flat_cracked, 12mm} @b{st_flat_cracked}: 
+@item @image{images/st_flat_fire, 12mm} @b{st_flat_burnable}: burnable=@code{"true"}
+@item @image{images/st_flat_fire, 12mm} @b{st_flat_moveburnable}: movable=@code{"true"}, burnable=@code{"true"}
+@item @image{images/fl_white, 12mm} @b{st_flat_breaking}: breakable=@code{"true"}
 @end table
 @end table
 
@@ -15860,7 +15856,7 @@ and off alternative sources by a fourswitch.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_fourswitch, @oisize{}} @b{st_fourswitch}
+@item @image{images/st_fourswitch, 12mm} @b{st_fourswitch}
 @end table
 @end table
 
@@ -15946,9 +15942,9 @@ pass. Grates allow @ref{Flood Spreading} and @ref{Fire Spreading}, too.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_grate_cross, @oisize{}} @b{st_grate}: flavor=@code{"cross"}
-@item @image{images/st_grate_cross, @oisize{}} @b{st_grate_cross}: flavor=@code{"cross"}
-@item @image{images/st_grate_framed, @oisize{}} @b{st_grate_framed}: flavor=@code{"framed"}
+@item @image{images/st_grate_cross, 12mm} @b{st_grate}: flavor=@code{"cross"}
+@item @image{images/st_grate_cross, 12mm} @b{st_grate_cross}: flavor=@code{"cross"}
+@item @image{images/st_grate_framed, 12mm} @b{st_grate_framed}: flavor=@code{"framed"}
 @end table
 
 @end table
@@ -15972,10 +15968,10 @@ to standard, unmovable greenbrown on an actor hit with a revealed
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_greenbrown, @oisize{}} @b{st_greenbrown}
-@item @image{images/st_greenbrown, @oisize{}} @b{st_greenbrown_hollow}
-@item @image{images/st_greenbrown, @oisize{}} @b{st_greenbrown_movable}
-@item @image{images/fl_white, @oisize{}} @b{st_greenbrown_growing}
+@item @image{images/st_greenbrown, 12mm} @b{st_greenbrown}
+@item @image{images/st_greenbrown, 12mm} @b{st_greenbrown_hollow}
+@item @image{images/st_greenbrown, 12mm} @b{st_greenbrown_movable}
+@item @image{images/fl_white, 12mm} @b{st_greenbrown_growing}
 @end table
 @end table
 
@@ -16055,7 +16051,7 @@ Melt the ice block
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_ice, @oisize{}} @b{st_ice}
+@item @image{images/st_ice, 12mm} @b{st_ice}
 @end table
 @end table
 
@@ -16122,9 +16118,9 @@ levels.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_jamb_black, @oisize{}} @b{st_jamb}: color=@code{BLACK}
-@item @image{images/st_jamb_black, @oisize{}} @b{st_jamb_black}: color=@code{BLACK}
-@item @image{images/st_jamb_white, @oisize{}} @b{st_jamb_white}: color=@code{WHITE}
+@item @image{images/st_jamb_black, 12mm} @b{st_jamb}: color=@code{BLACK}
+@item @image{images/st_jamb_black, 12mm} @b{st_jamb_black}: color=@code{BLACK}
+@item @image{images/st_jamb_white, 12mm} @b{st_jamb_white}: color=@code{WHITE}
 @end table
 
 @end table
@@ -16193,7 +16189,7 @@ the knight is beaten after 4 hits.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_knight, @oisize{}} @b{st_knight}
+@item @image{images/st_knight, 12mm} @b{st_knight}
 @end table
 
 @end table
@@ -16367,9 +16363,9 @@ a movable lightglass stone
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_lightglass, @oisize{}} @b{st_lightglass}: hollow = @code{false}, movable = @code{false}
-@item @image{images/st_lightglass, @oisize{}} @b{st_lightglass_hollow}: hollow = @code{true}, movable = @code{false}
-@item @image{images/st_lightglass, @oisize{}} @b{st_lightglass_movable}: hollow = @code{false}, movable = @code{true}
+@item @image{images/st_lightglass, 12mm} @b{st_lightglass}: hollow = @code{false}, movable = @code{false}
+@item @image{images/st_lightglass, 12mm} @b{st_lightglass_hollow}: hollow = @code{true}, movable = @code{false}
+@item @image{images/st_lightglass, 12mm} @b{st_lightglass_movable}: hollow = @code{false}, movable = @code{true}
 @end table
 
 @end table
@@ -16457,9 +16453,9 @@ Switch the lightpassenger off.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_lightpassenger, @oisize{}} @b{st_lightpassenger}: state = @code{ON}
-@item @image{images/st_lightpassenger, @oisize{}} @b{st_lightpassenger_on}: state = @code{ON}
-@item @image{images/st_darkglass, @oisize{}} @b{st_lightpassenger_off}: state = @code{OFF}
+@item @image{images/st_lightpassenger, 12mm} @b{st_lightpassenger}: state = @code{ON}
+@item @image{images/st_lightpassenger, 12mm} @b{st_lightpassenger_on}: state = @code{ON}
+@item @image{images/st_darkglass, 12mm} @b{st_lightpassenger_off}: state = @code{OFF}
 @end table
 
 @end table
@@ -16870,12 +16866,12 @@ performed on state changes form @code{OPEN} to @code{OXYDPAIR}.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_oxydb, @oisize{}} @b{st_oxyd}: flavor = @code{"b"}
-@item @image{images/st_oxyda, @oisize{}} @b{st_oxyd_a}: flavor = @code{"a"}
-@item @image{images/st_oxydb, @oisize{}} @b{st_oxyd_b}: flavor = @code{"b"}
-@item @image{images/st_oxydc, @oisize{}} @b{st_oxyd_c}: flavor = @code{"c"}
-@item @image{images/st_oxydd, @oisize{}} @b{st_oxyd_d}: flavor = @code{"d"}
-@item @image{images/st_oxyde, @oisize{}} @b{st_oxyd_e}: flavor = @code{"e"}
+@item @image{images/st_oxydb, 12mm} @b{st_oxyd}: flavor = @code{"b"}
+@item @image{images/st_oxyda, 12mm} @b{st_oxyd_a}: flavor = @code{"a"}
+@item @image{images/st_oxydb, 12mm} @b{st_oxyd_b}: flavor = @code{"b"}
+@item @image{images/st_oxydc, 12mm} @b{st_oxyd_c}: flavor = @code{"c"}
+@item @image{images/st_oxydd, 12mm} @b{st_oxyd_d}: flavor = @code{"d"}
+@item @image{images/st_oxyde, 12mm} @b{st_oxyd_e}: flavor = @code{"e"}
 @end table
 
 @end table
@@ -16922,15 +16918,15 @@ Switch color of the passage.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_passage_black_square, @oisize{}} @b{st_passage}: color = @code{BLACK}, flavor = @code{"square"}
-@item @image{images/st_passage_black_square, @oisize{}} @b{st_passage_black}: color = @code{BLACK}, flavor = @code{"square"}
-@item @image{images/st_passage_black_slash, @oisize{}} @b{st_passage_black}: color = @code{BLACK}, flavor = @code{"slash"}
-@item @image{images/st_passage_black_cross, @oisize{}} @b{st_passage_black}: color = @code{BLACK} - flavor = @code{"cross"}
-@item @image{images/st_passage_black_frame, @oisize{}} @b{st_passage_black}: color = @code{BLACK} - flavor = @code{"frame"}
-@item @image{images/st_passage_white_square, @oisize{}} @b{st_passage_white}: color = @code{WHITE}, flavor = @code{"square"}
-@item @image{images/st_passage_white_slash, @oisize{}} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"slash"}
-@item @image{images/st_passage_white_cross, @oisize{}} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"cross"}
-@item @image{images/st_passage_white_frame, @oisize{}} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"frame"}
+@item @image{images/st_passage_black_square, 12mm} @b{st_passage}: color = @code{BLACK}, flavor = @code{"square"}
+@item @image{images/st_passage_black_square, 12mm} @b{st_passage_black}: color = @code{BLACK}, flavor = @code{"square"}
+@item @image{images/st_passage_black_slash, 12mm} @b{st_passage_black}: color = @code{BLACK}, flavor = @code{"slash"}
+@item @image{images/st_passage_black_cross, 12mm} @b{st_passage_black}: color = @code{BLACK} - flavor = @code{"cross"}
+@item @image{images/st_passage_black_frame, 12mm} @b{st_passage_black}: color = @code{BLACK} - flavor = @code{"frame"}
+@item @image{images/st_passage_white_square, 12mm} @b{st_passage_white}: color = @code{WHITE}, flavor = @code{"square"}
+@item @image{images/st_passage_white_slash, 12mm} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"slash"}
+@item @image{images/st_passage_white_cross, 12mm} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"cross"}
+@item @image{images/st_passage_white_frame, 12mm} @b{st_passage_white}: color = @code{WHITE} - flavor = @code{"frame"}
 @end table
 
 @end table
@@ -16970,11 +16966,11 @@ break supersedes a possible push condition.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_plaster, @oisize{}} @b{st_plaster}:
-@item @image{images/st_plaster, @oisize{}} @b{st_plaster_hollow}: hollow=@code{true}
-@item @image{images/st_plaster, @oisize{}} @b{st_plaster_movable}: movable=@code{"true"}
-@item @image{images/st_plaster, @oisize{}} @b{st_plaster_breakable}: breakable=@code{"true"}
-@item @image{images/st_plaster, @oisize{}} @b{st_plaster_movebreakable}: movable=@code{"true"}, breakable=@code{"true"}
+@item @image{images/st_plaster, 12mm} @b{st_plaster}:
+@item @image{images/st_plaster, 12mm} @b{st_plaster_hollow}: hollow=@code{true}
+@item @image{images/st_plaster, 12mm} @b{st_plaster_movable}: movable=@code{"true"}
+@item @image{images/st_plaster, 12mm} @b{st_plaster_breakable}: breakable=@code{"true"}
+@item @image{images/st_plaster, 12mm} @b{st_plaster_movebreakable}: movable=@code{"true"}, breakable=@code{"true"}
 @end table
 
 @end table
@@ -16997,8 +16993,8 @@ dark blue grey color. It falls and ceases to exist if pushed on @ref{fl_water},
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_plop_slate, @oisize{}} @b{st_plop}
-@item @image{images/st_plop_slate, @oisize{}} @b{st_plop_slate}
+@item @image{images/st_plop_slate, 12mm} @b{st_plop}
+@item @image{images/st_plop_slate, 12mm} @b{st_plop_slate}
 @end table
 @end table
 
@@ -17070,9 +17066,9 @@ The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_portal_horse, @oisize{}} @b{st_portal}: flavor=@code{"horse"}
-@item @image{images/st_portal_horse, @oisize{}} @b{st_portal_horse}: flavor=@code{"horse"}
-@item @image{images/st_portal_horse, @oisize{}} @b{st_portal_pearl}: flavor=@code{"pearl"}
+@item @image{images/st_portal_horse, 12mm} @b{st_portal}: flavor=@code{"horse"}
+@item @image{images/st_portal_horse, 12mm} @b{st_portal_horse}: flavor=@code{"horse"}
+@item @image{images/st_portal_horse, 12mm} @b{st_portal_pearl}: flavor=@code{"pearl"}
 @end table
 
 @end table
@@ -17336,9 +17332,9 @@ of 4 small rawglasses. This @samp{quad} variant is not movable.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_rawglass, @oisize{}} @b{st_rawglass}: movable = @code{false}
-@item @image{images/st_rawglass_quad, @oisize{}} @b{st_rawglass_quad}: movable = @code{false}
-@item @image{images/st_rawglass, @oisize{}} @b{st_rawglass_movable}: movable = @code{true}
+@item @image{images/st_rawglass, 12mm} @b{st_rawglass}: movable = @code{false}
+@item @image{images/st_rawglass_quad, 12mm} @b{st_rawglass_quad}: movable = @code{false}
+@item @image{images/st_rawglass, 12mm} @b{st_rawglass_movable}: movable = @code{true}
 @end table
 
 @end table
@@ -17360,7 +17356,7 @@ actors.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_redfiber, @oisize{}} @b{st_redfiber}
+@item @image{images/st_redfiber, 12mm} @b{st_redfiber}
 @end table
 
 @end table
@@ -17644,7 +17640,7 @@ Spit a cannonball. Takes either a destination as message value or @samp{nil}.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_spitter_idle, @oisize{}} @b{st_spitter}: secure = @code{false}, state = @code{ACTIVE}
+@item @image{images/st_spitter_idle, 12mm} @b{st_spitter}: secure = @code{false}, state = @code{ACTIVE}
 @end table
 
 @end table
@@ -17791,7 +17787,7 @@ to the replacement tile declaration.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_surprise, @oisize{}} @b{st_surprise}
+@item @image{images/st_surprise, 12mm} @b{st_surprise}
 @end table
 @end table
 
@@ -18356,10 +18352,10 @@ Activate the yinyang like an actor hitting the stone.
 @item @b{Variants:}
 
 @table @asis
-@item @image{images/st_yinyang, @oisize{}} @b{st_yinyang}: state = @code{IDLE}
-@item @image{images/st_yinyang, @oisize{}} @b{st_yinyang_active}: state = @code{ACTIVE}
-@item @image{images/st_yinyang_inactive, @oisize{}} @b{st_yinyang_inactive}: state = @code{INACTIVE}
-@item @image{images/st_yinyang, @oisize{}} @b{st_yinyang_instant}: instant = @code{true}, state = @code{IDLE}
+@item @image{images/st_yinyang, 12mm} @b{st_yinyang}: state = @code{IDLE}
+@item @image{images/st_yinyang, 12mm} @b{st_yinyang_active}: state = @code{ACTIVE}
+@item @image{images/st_yinyang_inactive, 12mm} @b{st_yinyang_inactive}: state = @code{INACTIVE}
+@item @image{images/st_yinyang, 12mm} @b{st_yinyang_instant}: instant = @code{true}, state = @code{IDLE}
 @end table
 @end table
 

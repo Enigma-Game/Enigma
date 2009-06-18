@@ -30,16 +30,16 @@ namespace enigma {
     }
         
     void ScissorsStone::init_model() {
-        set_model("st-scissors");
+        set_model("st_scissors");
     }
     
     void ScissorsStone::animcb() {
-        set_model("st-scissors");
+        init_model();
     }
     
     void ScissorsStone::actor_hit(const StoneContact &sc) {
         sound_event("scissors");
-        set_anim("st-scissors-snip");
+        set_anim("st_scissors_snip");
         if (SendMessage(sc.actor, "disconnect").to_bool())
             performAction(true);
     }

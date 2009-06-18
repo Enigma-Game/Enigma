@@ -39,7 +39,7 @@ namespace enigma {
     void BridgeFloor::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
-            ASSERT(flavor == "gc" || flavor == "bw" || flavor == "bn", XLevelRuntime, "BridgeFloor illegal flavor value");
+            ASSERT(flavor == "gc" || flavor == "bw" || flavor == "bs"|| flavor == "be" || flavor == "bn", XLevelRuntime, "BridgeFloor illegal flavor value");
             Floor::setAttr("flavor", val);
             Floor::setAttr("burnable", flavor != "gc");
             if (isDisplayable() && state <= OPEN) {
@@ -134,11 +134,15 @@ namespace enigma {
     std::string BridgeFloor::model_basename() const {
         std::string flavor = getAttr("flavor").to_string();
         if (flavor == "gc")
-            return "fl-bridgea-";
+            return "fl_bridge_g_";
         else if (flavor == "bw")
-            return "fl-bridgex-";
+            return "fl_bridge_w_";
+        else if (flavor == "bs")
+            return "fl_bridge_s_";
+        else if (flavor == "be")
+            return "fl_bridge_e_";
         else if (flavor == "bn")
-            return "fl-bridgey-";
+            return "fl_bridge_n_";
         return "";
     }
     
@@ -169,6 +173,8 @@ namespace enigma {
         BootRegister(new BridgeFloor("gc"), "fl_bridge");
         BootRegister(new BridgeFloor("gc"), "fl_bridge_gc");
         BootRegister(new BridgeFloor("bn"), "fl_bridge_bn");
+        BootRegister(new BridgeFloor("be"), "fl_bridge_be");
+        BootRegister(new BridgeFloor("bs"), "fl_bridge_bs");
         BootRegister(new BridgeFloor("bw"), "fl_bridge_bw");
     BOOT_REGISTER_END
 
