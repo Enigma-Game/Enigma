@@ -438,43 +438,25 @@ do
 end
 
 do
-    DefImage("fl_bridge_bw_open")
-    DefImage("fl_bridge_bw_closed")
-    local namelist=DefSubimages("fl_bridge_bw", {h=9})
-    local frames = BuildFrames(namelist,70)
-    DefAnim("fl_bridge_bw_opening", frames)
-    DefAnim("fl_bridge_bw_closing", ReverseFrames(frames))
-end
+    local bridge_o = DefImage("fl_bridge_bw_open")
+    local bridge_c = DefImage("fl_bridge_bw_closed")
 
-do
-    DefAlias("fl_bridge_bs_open", "fl_bridge_bw_open")
-    DefAlias("fl_bridge_bs_closed", "fl_bridge_bw_closed")
---    local namelist=DefSubimages("fl_bridge_bs", {h=9})
---    local frames = BuildFrames(namelist,70)
---    DefAnim("fl_bridge_bs_opening", frames)
---    DefAnim("fl_bridge_bs_closing", ReverseFrames(frames))
-    DefAlias("fl_bridge_bs_opening", "fl_bridge_bn_opening")
-    DefAlias("fl_bridge_bs_opening", "fl_bridge_bn_closing")
-end
+    for key,suff in ipairs({"bw", "bs", "be", "bn"}) do
+        DefAlias("fl_bridge_"..suff.."_open", "fl_bridge_bw_open")
+        DefAlias("fl_bridge_"..suff.."_closed", "fl_bridge_bw_closed")
 
-do
-    DefAlias("fl_bridge_be_open", "fl_bridge_bw_open")
-    DefAlias("fl_bridge_be_closed", "fl_bridge_bw_closed")
---    local namelist=DefSubimages("fl_bridge_be", {h=9})
---    local frames = BuildFrames(namelist,70)
---    DefAnim("fl_bridge_be_opening", frames)
---    DefAnim("fl_bridge_be_closing", ReverseFrames(frames))
-    DefAlias("fl_bridge_be_opening", "fl_bridge_bw_opening")
-    DefAlias("fl_bridge_be_closing", "fl_bridge_bw_closing")
-end
+        local tmp=DefSubimages("fl_bridge_"..suff, {h=7})
+        local namelist = {}
+        namelist[1] = bridge_c
+        for i=1,7  do
+            namelist[i+1] = tmp[i]
+        end
+        namelist[9] = bridge_o
 
-do
-    DefAlias("fl_bridge_bn_open", "fl_bridge_bw_open")
-    DefAlias("fl_bridge_bn_closed", "fl_bridge_bw_closed")
-    local namelist=DefSubimages("fl_bridge_bn", {h=9})
-    local frames = BuildFrames(namelist,70)
-    DefAnim("fl_bridge_bn_opening", frames)
-    DefAnim("fl_bridge_bn_closing", ReverseFrames(frames))
+        local frames = BuildFrames(namelist,70)
+        DefAnim("fl_bridge_"..suff.."_opening", frames)
+        DefAnim("fl_bridge_"..suff.."_closing", ReverseFrames(frames))
+    end
 end
 
 ------------------------

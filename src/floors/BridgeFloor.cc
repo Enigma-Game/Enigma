@@ -134,15 +134,15 @@ namespace enigma {
     std::string BridgeFloor::model_basename() const {
         std::string flavor = getAttr("flavor").to_string();
         if (flavor == "gc")
-            return "fl_bridge_g_";
+            return "fl_bridge_gc_";
         else if (flavor == "bw")
-            return "fl_bridge_w_";
+            return "fl_bridge_bw_";
         else if (flavor == "bs")
-            return "fl_bridge_s_";
+            return "fl_bridge_bs_";
         else if (flavor == "be")
-            return "fl_bridge_e_";
+            return "fl_bridge_be_";
         else if (flavor == "bn")
-            return "fl_bridge_n_";
+            return "fl_bridge_bn_";
         return "";
     }
     

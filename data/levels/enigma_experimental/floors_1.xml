@@ -111,6 +111,8 @@ local floors = {
 {"fl_bridge", state=CLOSED, _text="fl_bridge, state=CLOSED"},
 {"fl_bridge", state=CLOSED, flavor="gc", _text="fl_bridge, flavor=\"gc\", state=CLOSED"},
 {"fl_bridge", state=CLOSED, flavor="bw", _text="fl_bridge, flavor=\"bw\", state=CLOSED"},
+{"fl_bridge", state=CLOSED, flavor="bs", _text="fl_bridge, flavor=\"bs\", state=CLOSED"},
+{"fl_bridge", state=CLOSED, flavor="be", _text="fl_bridge, flavor=\"be\", state=CLOSED"},
 {"fl_bridge", state=CLOSED, flavor="bn", _text="fl_bridge, flavor=\"bn\", state=CLOSED"},
 {"fl_fake_abyss", _text="fl_fake_abyss"},
 {"fl_fake_trigger", _text="fl_fake_trigger"},
