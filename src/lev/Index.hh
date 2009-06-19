@@ -126,7 +126,7 @@ namespace enigma { namespace lev {
                 scoreUnitType varUnit = duration, std::string varTarget = "time",
                 std::map<std::string, std::string> varExtensions = nullExtensions);
         virtual void clear();
-        void updateFromProxies();
+        virtual void updateFromProxies();
 
         // ---------- LevelPack legacy methods ---to be renamed ------- */
         /*! Return the default SoundSet (see options::SoundSet for meaning) */

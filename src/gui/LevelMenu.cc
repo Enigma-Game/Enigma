@@ -193,10 +193,11 @@ namespace enigma { namespace gui {
         N_("Escape:"),              N_("Skip to main menu"),
         "F1:",                      N_("Show this help"),
         "F5:",                      0, // see below
+        "F7:",                      N_("Update levelpack"),
         N_("Arrows:"),              N_("Select level"),
         N_("Return:"),              N_("Play selected level"),
         N_("Back/Space:"),          N_("Previous/next levelpack"),
-        "u",                        N_("Mark current level as Unsolved"),
+        "u",                        N_("Mark current level as unsolved"),
     //    "s",                        N_("Mark current level as Solved"),
         N_("Alt+Return:"),          N_("Switch between fullscreen and window"),
         N_("Left click:"),               N_("Play selected level"),
@@ -226,6 +227,10 @@ namespace enigma { namespace gui {
                     break;
                 case SDLK_F5:
                     next_unsolved();
+                    break;
+                case SDLK_F7:
+                    lev::Index::getCurrentIndex()->updateFromProxies();
+                    draw_all();
                     break;
                 case SDLK_u: {
                     lev::ScoreManager::instance()->markUnsolved(lev::Index::getCurrentProxy(), 

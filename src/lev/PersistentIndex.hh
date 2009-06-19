@@ -60,7 +60,7 @@ namespace enigma { namespace lev {
          * 
          * thePackPath " " for a new not yet defined path
          */
-        PersistentIndex(std::string thePackPath, bool systemOnly, 
+        PersistentIndex(std::string thePackPath, bool systemOnly, bool isAuto =false,
                 double defaultLocation = INDEX_DEFAULT_PACK_LOCATION,
                 std::string anIndexName = "",
                 std::string theIndexFilename = INDEX_STD_FILENAME, 
@@ -101,6 +101,7 @@ namespace enigma { namespace lev {
         void erase(int pos);
         void exchange(int pos1, int pos2);
         virtual bool isSource(Proxy * aProxy);
+        virtual void updateFromProxies();
         bool save(bool allowOverwrite = true);
     protected:
         std::string packPath;  // "auto", "",...
@@ -113,16 +114,17 @@ namespace enigma { namespace lev {
         bool isModified;
         bool isUserOwned;
         bool isEditable;
+        bool isAuto;
         std::string indexUrl;
     private:
-	static std::vector<PersistentIndex *> indexCandidates;
+        static std::vector<PersistentIndex *> indexCandidates;
         std::string absIndexPath;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *updateElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *levelsElem;
         
-	static void checkCandidate(PersistentIndex * candidate);
+        static void checkCandidate(PersistentIndex * candidate);
         // legacy 0.92
         void parsePar(const string& par, int& par_value, std::string& par_text);
     };
