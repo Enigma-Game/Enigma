@@ -13,6 +13,8 @@ PNGLIST = \
 	fl_bluegreen.png \
 	fl_blueslab.png \
 	fl_brick.png \
+	fl_bridge_bw_closed.png \
+	fl_bridge_gc_closed.png \
 	fl_bright.png \
 	fl_concrete.png \
 	fl_dark.png \
@@ -24,7 +26,6 @@ PNGLIST = \
 	fl_hay.png \
 	fl_himalaya.png \
 	fl_ice.png \
-	fl_ice_heating.png \
 	fl_inverse_gray.png \
 	fl_inverse_white.png \
 	fl_ivory.png \
@@ -45,10 +46,8 @@ PNGLIST = \
 	fl_space.png \
 	fl_stone.png \
 	fl_swamp.png \
-	fl_swamp_heating.png \
 	fl_tigris.png \
 	fl_water.png \
-	fl_water_heating.png \
 	fl_white.png \
 	fl_woven.png \
 	fl_yinyang_yang.png \
@@ -130,9 +129,12 @@ PNGLIST = \
 	st_actorimpulse.png \
 	st_ancient.png \
 	st_beads.png \
+	st_blocker.png \
 	st_bluegray.png \
+	st_bluesand.png \
 	st_blur_cross.png \
 	st_blur_straight.png \
+	st_boulder.png \
 	st_box_hay.png \
 	st_box_rock.png \
 	st_box_wood.png \
@@ -143,6 +145,7 @@ PNGLIST = \
 	st_break_oxydc.png \
 	st_break_plain.png \
 	st_break_white.png \
+	st_brick.png \
 	st_brownie.png \
 	st_brownmarble.png \
 	st_brownpyramide.png \
@@ -152,6 +155,7 @@ PNGLIST = \
 	st_charge_zero.png \
 	st_chess_black.png \
 	st_chess_white.png \
+	st_coinslot.png \
 	st_concrete.png \
 	st_darkglass.png \
 	st_darkgray.png \
@@ -164,6 +168,8 @@ PNGLIST = \
 	st_flat.png \
 	st_flat_cracked.png \
 	st_flat_fire.png \
+	st_floppy_off.png \
+	st_floppy_on.png \
 	st_fourswitch.png \
 	st_granite.png \
 	st_grate_cross.png \
@@ -173,6 +179,8 @@ PNGLIST = \
 	st_ice.png \
 	st_jamb_black.png \
 	st_jamb_white.png \
+	st_key_off.png \
+	st_key_on.png \
 	st_knight.png \
 	st_lightglass.png \
 	st_lightpassenger.png \
@@ -182,6 +190,7 @@ PNGLIST = \
 	st_oxydc.png \
 	st_oxydd.png \
 	st_oxyde.png \
+	st_panel.png \
 	st_passage_black_cross.png \
 	st_passage_black_frame.png \
 	st_passage_black_slash.png \
@@ -193,6 +202,7 @@ PNGLIST = \
 	st_pinkbumps.png \
 	st_plaster.png \
 	st_plop_slate.png \
+	st_pull.png \
 	st_portal_horse.png \
 	st_purplegray.png \
 	st_purplemarble.png \
@@ -202,9 +212,21 @@ PNGLIST = \
 	st_redfiber.png \
 	st_redmarble.png \
 	st_redrock.png \
+	st_rotator_ccw.png \
+	st_rotator_cw.png \
+	st_rubberband.png \
 	st_spitter_idle.png \
+	st_scissors.png \
+	st_stoneimpulse.png \
+	st_stoneimpulse_hollow.png \
 	st_surprise.png \
+	st_swap.png \
+	st_switch.png \
+	st_switch_black.png \
+	st_switch_white.png \
 	st_tigris.png \
+	st_turnstile.png \
+	st_turnstile_green.png \
 	st_woven.png \
 	st_yellow.png \
 	st_yinyang.png \

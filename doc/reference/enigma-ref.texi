@@ -7,9 +7,9 @@
 @titlepage
 @title Enigma Reference Manual
 @subtitle for version @value{VERSION}
-@author Daniel Heck
-@author Petr Machata
-@author Ralf Westram
+@author Daniel Heck (old API v 0.92)
+@author Petr Machata (old API v 0.92)
+@author Ralf Westram (old API v 0.92)
 @author Ronald Lamprecht
 @author Andreas Lochmann
 @author Andreas Abraham
@@ -3513,9 +3513,11 @@ Ending Conditions - the mystery of Oxyds and Meditation
 * Ending Conditions::
 @end menu
 
+@c ----------------- Library Preloading --------------------
 @node Library Preloading
 @subsection Library Preloading
 
+@c ----------------- Snapshot Principle --------------------
 @node Snapshot Principle
 @subsection Snapshot Principle
 
@@ -3571,14 +3573,62 @@ special subkind. Note that these objects will never report their initial
 subkind on a kind request as they come into existence as a standard object.
 
 
+@c ----------------- Level Initialization --------------------
 @node Level Initialization
 @subsection Level Initialization
 
-global variables
-tile declarations
-world init
-oxyd shuffle
-postinit()
+Knowing what has been preloaded and knowing exaktly which objects we have to
+set in which state, it is time to have a look on how your level code is 
+processed. The main issue is to guarantee that all parts referenced have been
+set up properly in advance.
+
+Prior execution of the first line of your code the world exists just as an
+abstract handle, but not as grid array able to accept objects. Thus the first
+lines of code should set up all @ref{Global Attributes} derivating from their
+defaults. Even though many attributes can be set or changes later on and even
+on runtime, there are some attributes like @ref{ProvideExtralifes} that take
+only effect if being set prior world creation, or others like @ref{MaxOxydColor}
+that must be set prior their first usage. Our recommendation is to collect all
+global attribut settings at the very beginning of the level.
+
+The second section of your level code should be the declaration of tiles. Being
+just declarations these code lines do not set objects to the world. They just
+depend on global attributes and may reference each other. Listing them all
+together in a code section makes it easy to maintain the overview and to avoid
+dependecy conflicts.
+
+If you use @ref{Resolvers} you should put their declarations in the next code
+section as they may refer to tiles and global attributes and need to be set up
+prior the world creation.
+
+The central statement of every level is the @ref{World Creation}. It sets up
+the world to its size and sets initial objects according to the given tile
+declarations to the grid array. While you are free to add and change any of
+these objects later on the size of the world is fixed and can not be changed.
+
+Thus subsequent code lines should @ref{add} other objects, draw additional
+maps of objects and finalize some objects. The most common statement for such
+a finialization is the @ref{shuffleOxyd} method. It needs to know all 
+@ref{st_oxyd} to be able to color and shuffle them. Another finalization may
+be a custom rendering of a maze, that extracts the maze shape out of the
+level map (@pxref{res.maze}).
+
+This post world creation code may well have the need of loops or even some
+local used functions that need to be integrated to precede. Please keep such
+functions near by their usage and within the same code section.
+
+Another set of functions that you may want to add are @ref{Callbacks}. We 
+recommend to append these functions as the last section as they are not called
+within the level initialization itself.
+
+But there is one very special exception. The @code{postinit()} callback is
+called after the level initialization code has been processed and all subsequent
+engine internal initialization has been finished. If this function is present
+in a level it gets execute directly before the first mouse movement event gets
+processed. Thus you can rely within this function that all objects are set up
+in their final state. If you have need of such a postinit callback you should
+put it after all the level intialization code and in front of other callback
+functions that will be executed on subsequent events.
 
 @node Object Transformation
 @subsection Object Transformation
@@ -3623,12 +3673,15 @@ end
 Note that a request for a named position will include all positions of matching
 named objects as well as those named positions derived from killed floors.
 
+@c ----------------- Callbacks and Timers --------------------
 @node Callbacks and Timers
 @subsection Callbacks and Timers
 
+@c ----------------- Level Restart --------------------
 @node Level Restart
 @subsection Level Restart
 
+@c ----------------- Ending Conditions --------------------
 @node Ending Conditions
 @subsection Ending Conditions
 
@@ -9358,46 +9411,45 @@ WORK IN PROGRESS - The follwing table is still incomplete!
 @tab @image{images/fl_bluegreen, 12mm} @tab @yref{fl_bluegreen}
 @item @image{images/fl_blueslab, 12mm} @tab @yref{fl_blueslab}
 @tab @image{images/fl_brick, 12mm} @tab @yref{fl_brick}
+@tab @image{images/fl_bridge_bw_closed, 12mm} @tab @yref{fl_bridge}_bw
+@item @image{images/fl_bridge_gc_closed, 12mm} @tab @yref{fl_bridge}_gc
 @tab @image{images/fl_bright, 12mm} @tab @yref{fl_bright}
-@item @image{images/fl_concrete, 12mm} @tab @yref{fl_concrete}
-@tab @image{images/fl_darkgray, 12mm} @tab @yref{fl_darkgray}
+@tab @image{images/fl_concrete, 12mm} @tab @yref{fl_concrete}
+@item @image{images/fl_darkgray, 12mm} @tab @yref{fl_darkgray}
 @tab @image{images/fl_dark, 12mm} @tab @yref{fl_dark}
-@item @image{images/fl_dunes, 12mm} @tab @yref{fl_dunes}
-@tab @image{images/fl_fake_trigger, 12mm} @tab @yref{fl_fake_trigger}
+@tab @image{images/fl_dunes, 12mm} @tab @yref{fl_dunes}
+@item @image{images/fl_fake_trigger, 12mm} @tab @yref{fl_fake}_trigger
 @tab @image{images/fl_gravel, 12mm} @tab @yref{fl_gravel}
-@item @image{images/fl_gray, 12mm} @tab @yref{fl_gray}
-@tab @image{images/fl_hay, 12mm} @tab @yref{fl_hay}
+@tab @image{images/fl_gray, 12mm} @tab @yref{fl_gray}
+@item @image{images/fl_hay, 12mm} @tab @yref{fl_hay}
 @tab @image{images/fl_himalaya, 12mm} @tab @yref{fl_himalaya}
-@item @image{images/fl_ice_heating, 12mm} @tab @yref{fl_ice_heating}
 @tab @image{images/fl_ice, 12mm} @tab @yref{fl_ice}
-@tab @image{images/fl_inverse_gray, 12mm} @tab @yref{fl_inverse_gray}
-@item @image{images/fl_inverse_white, 12mm} @tab @yref{fl_inverse_white}
+@item @image{images/fl_inverse_gray, 12mm} @tab @yref{fl_inverse}_gray
+@tab @image{images/fl_inverse_white, 12mm} @tab @yref{fl_inverse}_white
 @tab @image{images/fl_ivory, 12mm} @tab @yref{fl_ivory}
-@tab @image{images/fl_lawn, 12mm} @tab @yref{fl_lawn}
-@item @image{images/fl_marble, 12mm} @tab @yref{fl_marble}
+@item @image{images/fl_lawn, 12mm} @tab @yref{fl_lawn}
+@tab @image{images/fl_marble, 12mm} @tab @yref{fl_marble}
 @tab @image{images/fl_metal, 12mm} @tab @yref{fl_metal}
-@tab @image{images/fl_mortar, 12mm} @tab @yref{fl_mortar}
-@item @image{images/fl_pinkbumps, 12mm} @tab @yref{fl_pinkbumps}
+@item @image{images/fl_mortar, 12mm} @tab @yref{fl_mortar}
+@tab @image{images/fl_pinkbumps, 12mm} @tab @yref{fl_pinkbumps}
 @tab @image{images/fl_plank, 12mm} @tab @yref{fl_plank}
-@tab @image{images/fl_platinum, 12mm} @tab @yref{fl_platinum}
-@item @image{images/fl_red, 12mm} @tab @yref{fl_red}
+@item @image{images/fl_platinum, 12mm} @tab @yref{fl_platinum}
+@tab @image{images/fl_red, 12mm} @tab @yref{fl_red}
 @tab @image{images/fl_redslab, 12mm} @tab @yref{fl_redslab}
-@tab @image{images/fl_rock, 12mm} @tab @yref{fl_rock}
-@item @image{images/fl_rough, 12mm} @tab @yref{fl_rough}
+@item @image{images/fl_rock, 12mm} @tab @yref{fl_rock}
+@tab @image{images/fl_rough, 12mm} @tab @yref{fl_rough}
 @tab @image{images/fl_sahara, 12mm} @tab @yref{fl_sahara}
-@tab @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
-@item @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
+@item @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
+@tab @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
 @tab @image{images/fl_space, 12mm} @tab @yref{fl_space}
-@tab @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
-@item @image{images/fl_swamp_heating, 12mm} @tab @yref{fl_swamp_heating}
+@item @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
 @tab @image{images/fl_swamp, 12mm} @tab @yref{fl_swamp}
 @tab @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
-@item @image{images/fl_water_heating, 12mm} @tab @yref{fl_water_heating}
-@tab @image{images/fl_water, 12mm} @tab @yref{fl_water}
+@item @image{images/fl_water, 12mm} @tab @yref{fl_water}
 @tab @image{images/fl_white, 12mm} @tab @yref{fl_white}
-@item @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
-@tab @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang_yang}
-@tab @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang_yin}
+@tab @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
+@item @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang}_yang
+@tab @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang}_yin
 @end multitable
 
 @c ----------------- Floor Attributes --------------------
@@ -10446,7 +10498,7 @@ until they reach another floor.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_space}
+@item @image{images/fl_space, 12mm} @b{fl_space}
 @end table
 @end table
 
@@ -10592,7 +10644,7 @@ default (i.e., @ref{noash} is true by default). In particular, when
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_abyss}
+@item @image{images/fl_abyss, 12mm} @b{fl_abyss}
 @end table
 @end table
 
@@ -10635,7 +10687,7 @@ burnable, regardless of the @ref{burnable}-attribute.
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{CLOSED}, @code{OPEN}; @ @ @i{default}: @code{OPEN} @ @ @xref{state}
 The state as visible and responsible for the actor ability to pass.
-@item @b{flavor}, @ @ @i{values}: @code{"gc"}, @code{"bw"}, @code{"bn"}; @ @ @i{default}: @code{"gc"}
+@item @b{flavor}, @ @ @i{values}: @code{"gc"}, @code{"bw"}, @code{"bs"}, @code{"be"}, @code{"bn"}; @ @ @i{default}: @code{"gc"}
 The type of the bridge.
 @item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 1.0 @ @ @xref{adhesion}
 @item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 5.0 @ @ @xref{friction}
@@ -10664,10 +10716,12 @@ explicit state if a solid stone currently covers the bridge.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_bridge} flavor = @code{"gc"}
-@item @b{fl_bridge_gc} flavor = @code{"gc"}
-@item @b{fl_bridge_bw} flavor = @code{"bw"}
-@item @b{fl_bridge_bn} flavor = @code{"bn"}
+@item @image{images/fl_bridge_gc_closed, 12mm} @b{fl_bridge} flavor = @code{"gc"}
+@item @image{images/fl_bridge_gc_closed, 12mm} @b{fl_bridge_gc} flavor = @code{"gc"}
+@item @image{images/fl_bridge_bw_closed, 12mm} @b{fl_bridge_bw} flavor = @code{"bw"}
+@item @image{images/fl_bridge_bw_closed, 12mm} @b{fl_bridge_bs} flavor = @code{"bs"}
+@item @image{images/fl_bridge_bw_closed, 12mm} @b{fl_bridge_be} flavor = @code{"be"}
+@item @image{images/fl_bridge_bw_closed, 12mm} @b{fl_bridge_bn} flavor = @code{"bn"}
 @end table
 
 @end table
@@ -10697,8 +10751,8 @@ True if flavor is @code{"trigger"}, false otherwise.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_fake_abyss}: flavor = @code{"abyss"}
-@item @b{fl_fake_trigger}: flavor = @code{"trigger"}
+@item @image{images/fl_abyss, 12mm} @b{fl_fake_abyss}: flavor = @code{"abyss"}
+@item @image{images/fl_fake_trigger, 12mm} @b{fl_fake_trigger}: flavor = @code{"trigger"}
 @end table
 @end table
 
@@ -10731,7 +10785,7 @@ Number of seconds .
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_hay}
+@item @image{images/fl_hay, 12mm} @b{fl_hay}
 @item @b{fl_hay_framed}: faces = @code{"nesw"}
 @end table
 @end table
@@ -10758,7 +10812,7 @@ will melt the ice to @ref{fl_water} (see @ref{Heat-Transformation}).
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_ice}
+@item @image{images/fl_ice, 12mm} @b{fl_ice}
 @end table
 @end table
 
@@ -10781,9 +10835,9 @@ mouse input force. In all other aspects they are just standard floors.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_inverse}: flavor = @code{"white"}
-@item @b{fl_inverse_white}: flavor = @code{"white"}
-@item @b{fl_inverse_gray}: flavor = @code{"gray"}
+@item @image{images/fl_inverse_white, 12mm} @b{fl_inverse}: flavor = @code{"white"}
+@item @image{images/fl_inverse_white, 12mm} @b{fl_inverse_white}: flavor = @code{"white"}
+@item @image{images/fl_inverse_gray, 12mm} @b{fl_inverse_gray}: flavor = @code{"gray"}
 @end table
 @end table
 
@@ -10816,7 +10870,7 @@ Number of seconds .
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_rock}
+@item @image{images/fl_rock, 12mm} @b{fl_rock}
 @item @b{fl_rock_framed}: faces = @code{"nesw"}
 @end table
 @end table
@@ -10941,7 +10995,7 @@ a @ref{fl_water} heated by a fire.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_swamp}
+@item @image{images/fl_swamp, 12mm} @b{fl_swamp}
 @end table
 @end table
 
@@ -10984,7 +11038,7 @@ If the thief has not stolen any items he leaves no empty bag.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_thief}
+@item @image{images/fl_bluegray, 12mm} @b{fl_thief}
 @end table
 @end table
 
@@ -11039,8 +11093,8 @@ Number of seconds .
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_water}: state = @code{IDLE}
-@item @b{fl_water_source}: state = @code{FLOODING}
+@item @image{images/fl_water, 12mm} @b{fl_water}: state = @code{IDLE}
+@item @image{images/fl_water, 12mm} @b{fl_water_source}: state = @code{FLOODING}
 @end table
 @end table
 
@@ -11112,9 +11166,9 @@ switched off by the attribute @samp{invisible}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_yinyang}: state = @code{YIN}
-@item @b{fl_yinyang_yin}: state = @code{YIN}
-@item @b{fl_yinyang_yang}: state = @code{YANG}
+@item @image{images/fl_yinyang_yin, 12mm} @b{fl_yinyang}: state = @code{YIN}
+@item @image{images/fl_yinyang_yin, 12mm} @b{fl_yinyang_yin}: state = @code{YIN}
+@item @image{images/fl_yinyang_yang, 12mm} @b{fl_yinyang_yang}: state = @code{YANG}
 @end table
 @end table
 
@@ -13874,7 +13928,10 @@ WORK IN PROGRESS - The follwing table is still incomplete!
 @item @image{images/st_actorimpulse, 12mm} @tab @yref{st_actorimpulse}
 @tab @image{images/st_ancient, 12mm} @tab @yref{st_ancient}
 @tab @image{images/st_beads, 12mm} @tab @yref{st_beads}
-@item @image{images/st_bluegray, 12mm} @tab @yref{st_bluegray}
+@item @image{images/st_blocker, 12mm} @tab @yref{st_blocker}
+@tab @image{images/st_boulder, 12mm} @tab @yref{st_boulder}
+@tab @image{images/st_bluegray, 12mm} @tab @yref{st_bluegray}
+@item @image{images/st_bluesand, 12mm} @tab @yref{st_bluesand}
 @tab @image{images/st_blur_cross, 12mm} @tab @yref{st_blur}_cross
 @tab @image{images/st_blur_straight, 12mm} @tab @yref{st_blur}_straight
 @item @image{images/st_box_hay, 12mm} @tab @yref{st_box}_hay
@@ -13887,34 +13944,40 @@ WORK IN PROGRESS - The follwing table is still incomplete!
 @tab @image{images/st_break_oxydc, 12mm} @tab @yref{st_break}_oxydc
 @tab @image{images/st_break_plain, 12mm} @tab @yref{st_break}_plain
 @item @image{images/st_break_white, 12mm} @tab @yref{st_break}_white
+@tab @image{images/st_brick, 12mm} @tab @yref{st_brick}
 @tab @image{images/st_brownie, 12mm} @tab @yref{st_brownie}
-@tab @image{images/st_brownmarble, 12mm} @tab @yref{st_brownmarble}
-@item @image{images/st_brownpyramide, 12mm} @tab @yref{st_brownpyramide}
+@item @image{images/st_brownmarble, 12mm} @tab @yref{st_brownmarble}
+@tab @image{images/st_brownpyramide, 12mm} @tab @yref{st_brownpyramide}
 @tab @image{images/st_camouflage, 12mm} @tab @yref{st_camouflage}
-@tab @image{images/st_charge_minus, 12mm} @tab @yref{st_charge}_minus
-@item @image{images/st_charge_plus, 12mm} @tab @yref{st_charge}_plus
+@item @image{images/st_charge_minus, 12mm} @tab @yref{st_charge}_minus
+@tab @image{images/st_charge_plus, 12mm} @tab @yref{st_charge}_plus
 @tab @image{images/st_charge_zero, 12mm} @tab @yref{st_charge}_zero
-@tab @image{images/st_chess_black, 12mm} @tab @yref{st_chess}_black
-@item @image{images/st_chess_white, 12mm} @tab @yref{st_chess}_white
-@tab @image{images/st_concrete, 12mm} @tab @yref{st_concrete}
+@item @image{images/st_chess_black, 12mm} @tab @yref{st_chess}_black
+@tab @image{images/st_chess_white, 12mm} @tab @yref{st_chess}_white
+@tab @image{images/st_coinslot, 12mm} @tab @yref{st_coinslot}
+@item @image{images/st_concrete, 12mm} @tab @yref{st_concrete}
 @tab @image{images/st_darkglass, 12mm} @tab @yref{st_darkglass}
-@item @image{images/st_darkgray, 12mm} @tab @yref{st_darkgray}
-@tab @image{images/st_death, 12mm} @tab @yref{st_death}
+@tab @image{images/st_darkgray, 12mm} @tab @yref{st_darkgray}
+@item @image{images/st_death, 12mm} @tab @yref{st_death}
 @tab @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
-@item @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
-@tab @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
+@tab @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
+@item @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
 @tab @image{images/st_flash, 12mm} @tab @yref{st_flash}
-@item @image{images/st_flat, 12mm} @tab @yref{st_flat}
+@tab @image{images/st_flat, 12mm} @tab @yref{st_flat}
+@item @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
+@tab @image{images/st_floppy_on, 12mm} @tab @yref{st_floppy}_on
 @tab @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
-@tab @image{images/st_granite, 12mm} @tab @yref{st_granite}
-@item @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
+@item @image{images/st_granite, 12mm} @tab @yref{st_granite}
+@tab @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
 @tab @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
-@tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
-@item @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
+@item @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
+@tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
 @tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@tab                            @tab @yref{st_invisible}
-@item @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
+@item                            @tab @yref{st_invisible}
+@tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
 @tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
+@item @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
+@tab @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
 @tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
 @item @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
 @tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
@@ -13924,33 +13987,47 @@ WORK IN PROGRESS - The follwing table is still incomplete!
 @tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
 @item @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
 @tab @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
-@tab @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_panel, 12mm} @tab @yref{st_panel}
+@item @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
-@tab @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
-@item @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
+@item @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
+@tab @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
 @tab @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
+@item @image{images/st_pull, 12mm} @tab @yref{st_pull}
 @tab @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
-@item @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
-@tab @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
+@tab @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@item @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
 @tab @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
-@item @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
-@tab @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
+@tab @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
+@item @image{images/st_redfiber, 12mm} @tab @yref{st_redfiber}
 @tab @image{images/st_redmarble, 12mm} @tab @yref{st_redmarble}
-@item @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
+@tab @image{images/st_redrock, 12mm} @tab @yref{st_redrock}
+@item @image{images/st_rotator_ccw, 12mm} @tab @yref{st_rotator}_ccw
+@tab @image{images/st_rotator_cw, 12mm} @tab @yref{st_rotator}_cw
+@tab @image{images/st_rubberband, 12mm} @tab @yref{st_rubberband}
+@item @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
 @tab @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
+@tab @image{images/st_stoneimpulse, 12mm} @tab @yref{st_stoneimpulse}
+@item @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
 @tab @image{images/st_surprise, 12mm} @tab @yref{st_surprise}
+@tab @image{images/st_swap, 12mm} @tab @yref{st_swap}
+@item @image{images/st_switch, 12mm} @tab @yref{st_switch}
+@tab @image{images/st_switch_black, 12mm} @tab @yref{st_switch}_black
+@tab @image{images/st_switch_white, 12mm} @tab @yref{st_switch}_white
 @item @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
-@tab @image{images/st_woven, 12mm} @tab @yref{st_woven}
+@tab @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
+@tab @image{images/st_turnstile_green, 12mm} @tab @yref{st_turnstile}_green
+@item @image{images/st_woven, 12mm} @tab @yref{st_woven}
 @tab @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
-@item @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
-@tab @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive 
+@tab @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
+@item @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive 
 @end multitable
 
 @c ----------------- Stone Attributes --------------------
@@ -14490,7 +14567,7 @@ to use @samp{st_bluesand} with the attributes @samp{cluster} and @samp{faces}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_bluesand}: connections = @code{""}
+@item @image{images/st_bluesand, 12mm} @b{st_bluesand}: connections = @code{""}
 @item @b{st_bluesand_w}: connections = @code{"w"}
 @item @b{st_bluesand_s}: connections = @code{"s"}
 @item @b{st_bluesand_sw}: connections = @code{"sw"}
@@ -14522,7 +14599,7 @@ to use @samp{st_brick} with the attributes @samp{cluster} and @samp{faces}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_brick}: connections = @code{""}
+@item @image{images/st_brick, 12mm} @b{st_brick}: connections = @code{""}
 @item @b{st_brick_w}: connections = @code{"w"}
 @item @b{st_brick_s}: connections = @code{"s"}
 @item @b{st_brick_sw}: connections = @code{"sw"}
@@ -14553,7 +14630,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @b{st_panel}: connections = @code{""}
+@item @image{images/st_panel, 12mm} @b{st_panel}: connections = @code{""}
 @item @b{st_panel_w}: connections = @code{"w"}
 @item @b{st_panel_s}: connections = @code{"s"}
 @item @b{st_panel_sw}: connections = @code{"sw"}
@@ -14800,9 +14877,9 @@ successor. The value will be @samp{false} to express the closing state.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_blocker}
+@item @image{images/st_blocker, 12mm}  @b{st_blocker}
 A standard blocker stone.
-@item @b{st_blocker_new}
+@item @image{images/st_blocker, 12mm}  @b{st_blocker_new}
 A blocker that just starts growing. Mainly used internally as the direct
 successor of an @ref{it_blocker}. But it may be useful to generate an initial
 snapshot of a moving boulder over a blocker line, too. See example levels.
@@ -14921,11 +14998,11 @@ none
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_boulder}
-@item @b{st_boulder_n}: orientation = @code{NORTH}
-@item @b{st_boulder_e}: orientation = @code{EAST}
-@item @b{st_boulder_s}: orientation = @code{SOUTH}
-@item @b{st_boulder_w}: orientation = @code{WEST}
+@item @image{images/st_boulder, 12mm} @b{st_boulder}
+@item @image{images/st_boulder, 12mm} @b{st_boulder_n}: orientation = @code{NORTH}
+@item @image{images/fl_white, 12mm} @b{st_boulder_e}: orientation = @code{EAST}
+@item @image{images/fl_white, 12mm} @b{st_boulder_s}: orientation = @code{SOUTH}
+@item @image{images/fl_white, 12mm} @b{st_boulder_w}: orientation = @code{WEST}
 @end table
 
 @end table
@@ -15306,8 +15383,8 @@ Number of additional active seconds on insertion of a large @ref{it_coin}.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_coinslot}: instant = @code{false}
-@item @b{st_coinslot_instant}: instant = @code{true}
+@item @image{images/st_coinslot, 12mm} @b{st_coinslot}: instant = @code{false}
+@item @image{images/st_coinslot, 12mm} @b{st_coinslot_instant}: instant = @code{true}
 @end table
 
 @end table
@@ -15798,6 +15875,11 @@ Switches on at value @samp{1}, and off at value @samp{0}.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_floppy_off, 12mm} @b{st_floppy} with state=@code{OFF}
+@item @image{images/st_floppy_on, 12mm} @b{st_floppy} with state=@code{ON}
+@end table
 @end table
 
 @c ----------------- Fourswitch Stone --------------------
@@ -16161,6 +16243,11 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_key_off, 12mm} @b{st_key} with state=@code{OFF}
+@item @image{images/st_key_on, 12mm} @b{st_key} with state=@code{ON}
+@end table
 @end table
 @c ----------------- Knight Stone --------------------
 @node st_knight
@@ -17066,7 +17153,6 @@ The flavor @code{"pearl"} lets just pass an @ref{ac_pearl}.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
 @table @asis
 @item @image{images/st_portal_horse, 12mm} @b{st_portal}: flavor=@code{"horse"}
 @item @image{images/st_portal_horse, 12mm} @b{st_portal_horse}: flavor=@code{"horse"}
@@ -17120,6 +17206,10 @@ grid to the next.
 
 @item @b{Action:} none
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_pull, 12mm} @b{st_pull}
+@end table
 @end table
 
 @c ----------------- Puzzle Stone --------------------
@@ -17400,13 +17490,11 @@ Switches the rotation direction.
 @end table
 
 @item @b{Variants:}
-
 @table @asis
-@item @b{st_rotator}: state = @code{CW}
-@item @b{st_rotator_cw}: state = @code{CW}
-@item @b{st_rotator_ccw}: state = @code{CCW}
+@item @image{images/st_rotator_cw, 12mm} @b{st_rotator}: state = @code{CW}
+@item @image{images/st_rotator_cw, 12mm} @b{st_rotator_cw}: state = @code{CW}
+@item @image{images/st_rotator_ccw, 12mm} @b{st_rotator_ccw}: state = @code{CCW}
 @end table
-
 @end table
 
 @c ----------------- Rubberband Stone --------------------
@@ -17449,6 +17537,10 @@ Rubberband cutting behaviour on connection.
 
 @item @b{Messages:} none
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_rubberband, 12mm} @b{st_rubberband}
+@end table
 @end table
 
 @c ----------------- Scissors Stone --------------------
@@ -17469,6 +17561,10 @@ action/target-pair.
 Sends an action message with value @samp{true} on freeing an actor from its
 rubberbands.
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_scissors, 12mm} @b{st_scissors}
+@end table
 @end table
 
 @c ----------------- Shogun Stone --------------------
@@ -17736,11 +17832,11 @@ Pulse at a value of @samp{1}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_stoneimpulse}
-@item @b{st_stoneimpulse_movable}: movable = @code{true}
-@item @b{st_stoneimpulse_hollow}: hollow = @code{true}
-@item @b{st_stoneimpulse_steady}: steady = @code{true}
-@item @b{st_stoneimpulse_new}:
+@item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse}
+@item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_movable}: movable = @code{true}
+@item @image{images/st_stoneimpulse_hollow, 12mm} @b{st_stoneimpulse_hollow}: hollow = @code{true}
+@item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_steady}: steady = @code{true}
+@item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_new}:
 A stone that is about to pulse when being set.
 @end table
 
@@ -17831,6 +17927,10 @@ grid to the next.
 
 @item @b{Action:} none
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_swap, 12mm} @b{st_swap}
+@end table
 @end table
 
 @c ----------------- Switch Stone --------------------
@@ -17878,9 +17978,9 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_switch}
-@item @b{st_switch_black}: color = @code{BLACK}
-@item @b{st_switch_white}: color = @code{WHITE}
+@item @image{images/st_switch, 12mm} @b{st_switch}
+@item @image{images/st_switch_black, 12mm} @b{st_switch_black}: color = @code{BLACK}
+@item @image{images/st_switch_white, 12mm} @b{st_switch_white}: color = @code{WHITE}
 @end table
 
 @end table
@@ -18064,9 +18164,9 @@ on counterclock turns and @samp{false} on clockwise turns.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_turnstile}: flavor = @code{"red"}
-@item @b{st_turnstile_red}: flavor = @code{"red"}
-@item @b{st_turnstile_green}: flavor = @code{"green"}
+@item @image{images/st_turnstile, 12mm} @b{st_turnstile}: flavor = @code{"red"}
+@item @image{images/st_turnstile, 12mm} @b{st_turnstile_red}: flavor = @code{"red"}
+@item @image{images/st_turnstile_green, 12mm} @b{st_turnstile_green}: flavor = @code{"green"}
 @end table
 @end table
 
