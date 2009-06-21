@@ -139,11 +139,11 @@ namespace enigma {
 
     void StoneImpulse::init_model() {
         if (state == IDLE)
-            set_model(ecl::strf("st-stoneimpulse%s", isHollow() ? "-hollow" : ((objFlags & OBJBIT_STEADY) ? "-steady" : "")));
+            set_model(ecl::strf("st_stoneimpulse%s", isHollow() ? "_hollow" : ((objFlags & OBJBIT_STEADY) ? "_steady" : "")));
         else if (state == BREAKING)
             set_anim("st_stoneimpulse_breaking");
         else
-            set_anim(ecl::strf("st-stoneimpulse%s-anim%d", isHollow() ? "-hollow" : "",
+            set_anim(ecl::strf("st_stoneimpulse%s_anim%d", isHollow() ? "_hollow" : "",
                     state == EXPANDING ? 1 : 2));
     }
     

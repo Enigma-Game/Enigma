@@ -445,14 +445,9 @@ do
         DefAlias("fl_bridge_"..suff.."_open", "fl_bridge_bw_open")
         DefAlias("fl_bridge_"..suff.."_closed", "fl_bridge_bw_closed")
 
-        local tmp=DefSubimages("fl_bridge_"..suff, {h=7})
-        local namelist = {}
-        namelist[1] = bridge_c
-        for i=1,7  do
-            namelist[i+1] = tmp[i]
-        end
-        namelist[9] = bridge_o
-
+        local namelist=DefSubimages("fl_bridge_"..suff, {h=7})
+	table.insert(namelist, 1, bridge_c)
+	table.insert(namelist, bridge_o)
         local frames = BuildFrames(namelist,70)
         DefAnim("fl_bridge_"..suff.."_opening", frames)
         DefAnim("fl_bridge_"..suff.."_closing", ReverseFrames(frames))
@@ -800,8 +795,8 @@ do
     DefStone("st_dummy")
     DefImage("st-easymode")
     DefStone("st_flat_fire")
-    DefStone("st-floppy0", "sh_round", {filename="st-floppy1"})
-    DefStone("st-floppy1", "sh_round", {filename="st-floppy2"})
+    DefStone("st_floppy_off", "sh_round")
+    DefStone("st_floppy_on", "sh_round")
     DefStone("st_box_rock", "sh_round")
     DefStone("st_rawglass", "sh_glass")
     DefStone("st_rawglass_quad", "sh_rawglass_quad")
@@ -812,8 +807,8 @@ do
     DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st_portal_horse", "sh_portal_horse")
     DefStone("st_greenbrown", "sh_round")
-    DefStone("st-key0", "sh_round", {filename="st-key1"})
-    DefStone("st-key1", "sh_round", {filename="st-key2"})
+    DefStone("st_key_off", "sh_round")
+    DefStone("st_key_on", "sh_round")
     DefStone("st_redbrown", "sh_round")
     DefStone("st_metal")
     DefStone("st_redrock")
@@ -861,47 +856,23 @@ do
     DefShModel("st_actorimpulse", namelist[1], shnamelist[1])
 end
 
--- st-bigbluesand --
-do
-    DefSubimages("st-bigbluesand", {modelname="st-bigbluesandx",w=4,h=4})
-    for i=1,16 do DefSolidStone("st-bigbluesand"..i, "st-bigbluesandx"..i) end
-    DefSolidStone("st-blue-sand", "st-bigbluesandx1")
-end
-
--- st-bigbrick --
-do
-    DefSubimages("st-bigbrick", {modelname="st-bigbrickx",w=4,h=4})
-    for i=1,16 do DefSolidStone("st-bigbrick"..i, "st-bigbrickx"..i) end
-    DefSolidStone("st-brick", "st-bigbrickx1")
-    DefSolidStone("st_magic_brick", "st-bigbrickx1")
-end
-
--- st-bigpanel --
-do
-    DefSubimages("st-bigpanel", {modelname="st-bigpanelx",w=4,h=4})
-    for i=1,16 do DefSolidStone("st-bigpanel"..i, "st-bigpanelx"..i) end
-    DefSolidStone("st-panel", "st-bigpanelx1")
-    -- st-wood_001. Remove when it's time!
-    DefSolidStone("st-wood_001", "st-bigpanelx1")
-end
-
 -- st_bluesand --
 do
-    DefSubimages("st-bigbluesand", {modelname="st_bluesandx",w=4,h=4})
+    DefSubimages("st_bluesand", {modelname="st_bluesandx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_bluesand"..i, "st_bluesandx"..(i+1)) end
     DefSolidStone("st_bluesand", "st_bluesandx1")
 end
 
 -- st_brick --
 do
-    DefSubimages("st-bigbrick", {modelname="st_brickx",w=4,h=4})
+    DefSubimages("st_brick", {modelname="st_brickx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_brick"..i, "st_brickx"..(i+1)) end
     DefSolidStone("st_brick", "st_brickx1")
 end
 
 -- st_panel --
 do
-    DefSubimages("st-bigpanel", {modelname="st_panelx",w=4,h=4})
+    DefSubimages("st_panel", {modelname="st_panelx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_panel"..i, "st_panelx"..(i+1)) end
     DefSolidStone("st_panel", "st_panelx1")
 end
@@ -971,13 +942,13 @@ do
     make_chess("_white")
 end
 
--- st-coinslot --
+-- st_coinslot --
 do
-    DefStone("st-coinslot")
-    local images = DefSubimages("st-coin2slot", {h=18})
-    DefAnim("st-coin2slot-anim", BuildFrames(images, 20))
-    DefSolidStone("st-coin2slot", "st-coin2slot-anim")
-    DefSolidStone("st-coinslot-active", "st-coin2slot18")
+    DefStone("st_coinslot")
+    local images = DefSubimages("st_coinslot_insert", {h=18})
+    DefAnim("st_coinslot_anim", BuildFrames(images, 20))
+    DefSolidStone("st_coinslot_insert", "st_coinslot_anim")
+    DefSolidStone("st_coinslot_active", "st_coinslot_insert18")
 end
 
 -- st-disco --
@@ -1213,35 +1184,35 @@ do
     DefShModel("st-shogun7", "st-shogun-fg7", "sh_shogun_s")
 end
 
--- st-stoneimpulse --
+-- st_stoneimpulse --
 --
 -- Note: It's important that the duration of the closing animation
 -- (anim2) is longer than the opening animation (anim1). Otherwise
 -- impulse stones do not work properly!
 do
-   local images = DefSubimages("st-stoneimpulse", {h=6})
-   DefRoundStone("st-stoneimpulse", images[1])
-   DefRoundStone("st-stoneimpulse-steady", images[6])
+   local images = DefSubimages("st_stoneimpulse", {h=6})
+   DefRoundStone("st_stoneimpulse", images[1])
+   DefRoundStone("st_stoneimpulse_steady", images[6])
    local frames = {}
    for i=1,4 do table.insert(frames, images[i]) end
-   DefAnim("stoneimpulse-anim1", BuildFrames(frames, 55))
-   DefRoundStone("st-stoneimpulse-anim1", "stoneimpulse-anim1")
+   DefAnim("stoneimpulse_anim1", BuildFrames(frames, 55))
+   DefRoundStone("st_stoneimpulse_anim1", "stoneimpulse_anim1")
    table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
-   DefAnim("stoneimpulse-anim2", ReverseFrames(BuildFrames(frames, 55)))
-   DefRoundStone("st-stoneimpulse-anim2", "stoneimpulse-anim2")
+   DefAnim("stoneimpulse_anim2", ReverseFrames(BuildFrames(frames, 55)))
+   DefRoundStone("st_stoneimpulse_anim2", "stoneimpulse_anim2")
 end
 
--- st-stoneimpulse-hollow --
+-- st_stoneimpulse_hollow --
 do
-   local images = DefSubimages("st-stoneimpulse-hollow", {h=4})
-   DefShModel("st-stoneimpulse-hollow", images[1], "sh_floating")
+   local images = DefSubimages("st_stoneimpulse_hollow", {h=4})
+   DefShModel("st_stoneimpulse_hollow", images[1], "sh_floating")
    local frames = {}
    for i=1,4 do table.insert(frames, images[i]) end
-   DefAnim("stoneimpulse-hollow-anim1", BuildFrames(frames, 55))
-   DefShModel("st-stoneimpulse-hollow-anim1", "stoneimpulse-hollow-anim1", "sh_floating")
+   DefAnim("stoneimpulse_hollow_anim1", BuildFrames(frames, 55))
+   DefShModel("st_stoneimpulse_hollow_anim1", "stoneimpulse_hollow_anim1", "sh_floating")
    table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
-   DefAnim("stoneimpulse-hollow-anim2", ReverseFrames(BuildFrames(frames, 55)))
-   DefShModel("st-stoneimpulse-hollow-anim2", "stoneimpulse-hollow-anim2", "sh_floating")
+   DefAnim("stoneimpulse_hollow_anim2", ReverseFrames(BuildFrames(frames, 55)))
+   DefShModel("st_stoneimpulse_hollow_anim2", "stoneimpulse_hollow_anim2", "sh_floating")
 end
 
 do

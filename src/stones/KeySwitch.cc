@@ -46,7 +46,7 @@ namespace enigma {
     }
 
     void KeySwitch::init_model() {
-        set_model(ecl::strf("st-key%s", state == ON ? "1" : "0"));
+        set_model(ecl::strf("st_key_%s", state == ON ? "on" : "off"));
     }
 
     void KeySwitch::actor_hit(const StoneContact &sc) {

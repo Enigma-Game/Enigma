@@ -87,12 +87,12 @@ namespace enigma {
     }
     
     void Trigger::actor_enter(Actor *a) {
-        if (!(a->is_flying() || a->is_dead()))
+        if (!(a->is_flying() || a->isMoribund()))
             updateIState(+1, !server::WorldInitialized);
     }
     
     void Trigger::actor_leave(Actor *a) {
-        if (!(a->is_flying() || a->is_dead()))
+        if (!(a->is_flying() || a->isMoribund()))
             updateIState(-1, !server::WorldInitialized);
     }
     
@@ -105,7 +105,7 @@ namespace enigma {
         GetActorsInsideField(get_pos(), actors);
         int count = 0;
         for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr)
-            if (!((*itr)->is_flying() || (*itr)->is_dead())) count++;
+            if (!((*itr)->is_flying() || (*itr)->isMoribund())) count++;
         return count;
     }
     

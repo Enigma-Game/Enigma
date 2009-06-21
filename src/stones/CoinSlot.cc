@@ -80,7 +80,7 @@ namespace enigma {
     void CoinSlot::init_model() {
         // just static models
         if (state <= ON)
-            set_model(state==ON ? "st-coinslot-active" : "st-coinslot");
+            set_model(state==ON ? "st_coinslot_active" : "st_coinslot");
     }
 
     void CoinSlot::animcb() {
@@ -166,11 +166,11 @@ namespace enigma {
                 ASSERT(newIState != ON, XLevelRuntime, "Coinslot - illegal state change from OFF to ON");
                 actionValue = true;
                 doAction = (newIState == INSERT_ON);
-                set_anim("st-coin2slot");
+                set_anim("st_coinslot_insert");
                 break;
             case ON :
                 if (newIState == INSERT_ON)
-                    set_anim("st-coin2slot");
+                    set_anim("st_coinslot_insert");
                 else if (newIState == OFF) {
                     actionValue = false;
                     doAction = true;
@@ -187,7 +187,7 @@ namespace enigma {
             case INSERT_ON :
                 switch (newIState) {
                     case INSERT_ON :
-                        set_anim("st-coin2slot");  // may restart anim!
+                        set_anim("st_coinslot_insert");  // may restart anim!
                         break;
                     case ON :
                         doInit = true;

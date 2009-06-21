@@ -41,7 +41,7 @@ namespace enigma {
     }
 
     void FloppySwitch::init_model() {
-        set_model(ecl::strf("st-floppy%s", state == ON ? "1" : "0"));
+        set_model(ecl::strf("st_floppy_%s", state == ON ? "on" : "off"));
     }
 
     void FloppySwitch::actor_hit(const StoneContact &sc) {
