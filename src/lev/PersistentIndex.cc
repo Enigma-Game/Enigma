@@ -245,6 +245,10 @@ namespace enigma { namespace lev {
         load(systemOnly);
     }
     
+    int autoIndexProxyCompare(Proxy * first, Proxy * second) {
+        return first->getNormLevelPath() < second->getNormLevelPath();
+    }
+    
     void PersistentIndex::load(bool systemOnly, bool update) {
         if (doc != NULL) {
             doc->release();
@@ -278,6 +282,7 @@ namespace enigma { namespace lev {
                 }
             }
             delete dirIter;
+            std::sort(proxies.begin(), proxies.end(), autoIndexProxyCompare);
             return;
         }
 
