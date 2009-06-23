@@ -479,13 +479,13 @@ function res.random(subresolver, hits, replacements)
     --         replacements = {key, [key]*, [{key, frequency}]*}
     assert_bool(is_resolver(subresolver), "res.random first argument (subresolver)", 2)
     assert_type(hits, "res.random second argument (hits)", 2, "non-empty string", "table")
-    assert_type(hits, "res.random third argument (replacements)", 2, "string", "table")
+    assert_type(replacements, "res.random third argument (replacements)", 2, "string", "table")
     local hit_table = {}
     if type(hits) == "string" then
         hit_table[1] = {hits, nil}
     else  -- table
         for i, v in ipairs(hits) do
-            assert_type(v, "res.random seond argument (hits), entry " .. i, 2, "non-empty string", "table")
+            assert_type(v, "res.random second argument (hits), entry " .. i, 2, "non-empty string", "table")
             if type(v) == "string" then
                 hit_table[i] = {v, nil}
             elseif type(v) == "table" then

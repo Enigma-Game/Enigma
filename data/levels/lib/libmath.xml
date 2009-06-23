@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmath"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -85,10 +85,14 @@ end
 -- Hexadecimal would be:
 --   lib.math.digits(x, {0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"})
 -- NUMBER is supposed to be a non-negative integer.
-function lib.math.digits(number, base)
+-- If NUMBER is zero, lib.math.digits returns the zero-digit as
+-- result, unless ZERO_IS_EMPTY is true - in this case, it returns
+-- an empty table.
+function lib.math.digits(number, base, zero_is_empty)
     -- Check arguments and calculate fullbase and exponent
     assert_type(number, "lib.math.digits first argument", 2, "natural")
     assert_type(base, "lib.math.digits second argument", 2, "integer", "table")
+    assert_type(zero_is_empty, "lib.math.digits third argument", 2, "boolean", "nil")
     local fullbase = {}
     local exponent = 0
     if type(base) == "number" then
@@ -105,6 +109,10 @@ function lib.math.digits(number, base)
         fullbase = base
     end
     exponent = table.getn(fullbase)
+    -- Handle zero
+    if number == 0 then
+        return cond(zero_is_empty, {}, {fullbase[1]})
+    end
     -- Decompose NUMBER
     local remains = number
     local result = {}

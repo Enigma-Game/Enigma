@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmap"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -340,6 +340,8 @@ function lib.map.match(map, conditionsarg, ...)
 end
 
 function lib.map.covers(map, pos)
+    assert_type(map, "lib.map.covers first argument (map)", 2, "map")
+    assert_type(pos, "lib.map.covers second argument (position)", 2, "position", "table")
     if type(pos) == "table" then
         return (pos[1] >= 0) and (pos[2] >= 0)
             and (pos[1] < map.width) and (pos[2] < map.height)
@@ -349,8 +351,10 @@ function lib.map.covers(map, pos)
     end
 end
 
--- TODO: Add string as posarg, maybe speed up.
 function lib.map.get(map, posarg)
+    assert_type(map, "lib.map.get first argument (map)", 2, "map")
+    assert_type(posarg, "lib.map.get second argument (index key)", 2, "number", "position",
+                "object", "group", "polist", "table", "string")
     if type(posarg) == "number" then
         return rawget(map, posarg)
     elseif (usertype(posarg) == "position") or (usertype(posarg) == "object") then
@@ -386,16 +390,21 @@ function lib.map.get(map, posarg)
         elseif (posarg == "width") or (posarg == "height")
              or (posarg == "defaultkey") or (posarg == "keylength") then
             return rawget(map, "__"..posarg)
-        else  
-            return (rawget(map, "user_attributes"))[posarg]
+        else
+            local pos = po[posarg]
+            if pos then
+                return lib.map.get(map, pos)
+            else
+                return rawget(map, "__defaultkey")
+            end
         end
-    else
-        error("lib.map.get: Can't understand position argument.")
     end
 end
 
--- TODO: Add string as posarg, maybe speed up.
 function lib.map.set(map, posarg, value)
+    assert_type(map, "lib.map.set first argument (map)", 2, "map")
+    assert_type(posarg, "lib.map.set second argument (index key)", 2, "number", "position",
+                "object", "group", "polist", "table", "string")
     if type(posarg) == "string" then
         if (posarg == "type") then
             if tostring(value) ~= "map" then
@@ -411,12 +420,16 @@ function lib.map.set(map, posarg, value)
         elseif (posarg == "defaultkey") then
             map:set_default_key(value)
             return
+        else
+            local pos = po[posarg]
+            if pos then
+                lib.map.set(map, pos, value)
+            else
+                error("lib.map.set: Named position '" .. posarg .. "' doesn't exist.", 2)
+            end
         end
-        map.user_attributes[posarg] = value
     else
-        if type(value) ~= "string" then
-            error("lib.map.set: Key must be of type string, is "..type(value)..".", 2)
-        end
+        assert_type(value, "lib.map.set third argument (value)", 2, "non-empty string")
         local kl = rawget(map, "__keylength")
         if string.len(value) ~= kl then
             error("lib.map.set: Key must be of the same length as default key "
@@ -512,9 +525,10 @@ function lib.map.trim(map, trimkeyarg)
 end  
 
 function lib.map.print(map, withXYCounts, left_separator, right_separator)
-    assert_type(map, "lib.map.print first argument", 2, "map")
-    assert_type(left_separator, "lib.map.print second argument", 2, "nil", "string")
-    assert_type(right_separator, "lib.map.print third argument", 2, "nil", "string")  
+    assert_type(map, "lib.map.print first argument (map)", 2, "map")
+    assert_type(withXYCounts, "lib.map.print second argument (with X-Y-counts)", 2, "nil", "boolean")
+    assert_type(left_separator, "lib.map.print third argument (left separator)", 2, "nil", "string")
+    assert_type(right_separator, "lib.map.print fourth argument (right separator)", 2, "nil", "string")  
     local w, h = map.width, map.height
     local kl = rawget(map, "__keylength")
     if withXYCounts then
@@ -561,7 +575,7 @@ lib.map.metatable = {
 
 wo:_register("newMap",
     function(world, defaultKey, arg1, arg2)
-        local newmap = {user_attributes = {}}
+        local newmap = {}
         -- Check arguments, create map if necessary.
         assert_type(defaultKey, "wo:newMap first argument (default key)", 2, "non-empty string")
         local width = 0
@@ -570,8 +584,7 @@ wo:_register("newMap",
         if (type(arg1) == "table") and (type(arg2) == "nil") then
             -- Interpret table as map.
             for key, entry in pairs(arg1) do
-                if type(key) == "number" then
-                    -- This line is going to be a real map entry.
+                if (type(key) == "number") and (key == math.ceil(key)) and (key > 0) then
                     height = math.max(height, key)
                     assert_type(entry, "wo:newMap line " .. key, 2, "string")
                     local line_width = string.len(entry) / kl
@@ -580,10 +593,6 @@ wo:_register("newMap",
                     end
                     width = math.max(width, line_width)
                     newmap[key] = entry
-                elseif type(key) == "string" then
-                    newmap.user_attributes[key] = entry
-                else
-                    error("newMap: Strange type for a map table key: " .. etype(key) .. ".", 2)
                 end
             end
             -- Now complete the map, make it rectangular.

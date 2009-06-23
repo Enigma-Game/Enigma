@@ -19362,7 +19362,7 @@ described just there.
 @node Basic Functions
 @section Basic Functions
 
-Enigma supports most Lua 5.0 and above statements, i.e. you can freely use
+Enigma supports most Lua 5.1 and above statements, i.e. you can freely use
 tables and control structures in your level, as you would expect. However, some
 Lua functions have been deactivated for security reasons or to ensure
 upwards compatibility. These are @samp{dofile}, @samp{module}, @samp{require}
@@ -19374,25 +19374,25 @@ function is pretty useful for developing and debugging complex levels, but
 should not appear in the level's final version anymore.
 
 Of Lua's built-in mathematical functions you may use any of the following:
-@samp{math.abs}, @samp{math.acos}, @samp{math.asin}, @samp{math.atan}, @samp{math.atan2},
-@samp{math.ceil}, @samp{math.cos}, @samp{math.deg}, @samp{math.exp}, @samp{math.floor},
-@samp{math.frexp}, @samp{math.ldexp}, @samp{math.log}, @samp{math.log10}, @samp{math.max},
-@samp{math.min}, @samp{math.pow}, @samp{math.rad}, @samp{math.random}, @samp{math.sin},
-@samp{math.sqrt}, @samp{math.tan}. As of Lua 5.1, the following functions are
-additionally available: @samp{math.cosh}, @samp{math.fmod}, @samp{math.huge},
-@samp{math.modf}, @samp{math.pi}, @samp{math.sinh}, @samp{math.tanh}.
+@samp{math.abs}, @samp{math.acos}, @samp{math.asin}, @samp{math.atan},
+@samp{math.atan2}, @samp{math.ceil}, @samp{math.cos}, @samp{math.cosh},
+@samp{math.deg}, @samp{math.exp}, @samp{math.floor}, @samp{math.fmod},
+@samp{math.frexp}, @samp{math.huge}, @samp{math.ldexp}, @samp{math.log},
+@samp{math.log10}, @samp{math.max}, @samp{math.min}, @samp{math.modf},
+@samp{math.pi}, @samp{math.pow}, @samp{math.rad}, @samp{math.random},
+@samp{math.sin}, @samp{math.sinh},  @samp{math.sqrt}, @samp{math.tan},
+@samp{math.tanh}.
 
 All trigonometric functions use radians, you can use @samp{math.deg} and
 @samp{math.rad} to convert between radians and degrees. For the differences
-between @samp{math.mod} and @samp{math.fmod} see @ref{lib.lua.mod}.
+between @samp{math.mod}, @samp{%}, and @samp{math.fmod} see @ref{lib.lua.mod}.
 
 While you have access to nearly all mathematical functions Lua defines, Enigma
 uses an own random generator, which you access via @samp{math.random} with the
 same syntax as Lua's random generator. To ensure stability in future versions
 of Enigma, @samp{math.randomseed} is disabled.
 
-Please read the online manuals of
-@uref{http://www.lua.org/manual/5.0/, Lua 5.0} and 
+Please read the online manual of
 @uref{http://www.lua.org/manual/5.1/, Lua 5.1} for more detailed information.
 
 
@@ -19521,19 +19521,21 @@ lib.lua.mod(no["marble"].x, 1)
 @end example
 
 @item @b{Details:}
-Lua 5.0 uses @samp{math.mod} as modulo operation, Lua 5.1 provides @samp{%} and
-@samp{math.fmod}. Whereas all three operations agree on positive numbers and
-zero as @samp{value}, there are differences on negative numbers:
+Lua 5.0 used @samp{math.mod} as modulo operation, this function is not
+available in Lua 5.1 anymore, and hence not available in Enigma. Lua 5.1
+provides @samp{%} and @samp{math.fmod}. Whereas all three operations agree on
+positive numbers and zero as @samp{value}, there are differences on negative
+numbers:
 @example
-math.mod(-1, 4) == -1
-math.fmod(-1, 4) == -1
-(-1)%4 == 3
-lib.lua.mod(-1, 4) == 3
+Lua 5.0:  math.mod(-1, 4) == -1
+Lua 5.1:  math.fmod(-1, 4) == -1
+Lua 5.1:  (-1)%4 == 3
+lib.lua:  lib.lua.mod(-1, 4) == 3
 @end example
 While the Lua-own modulo functions yield results even for negative
 @samp{modul} (with varying signs of the outcome), @samp{lib.lua.mod} will raise
 an error if @samp{modul <= 0}, and the result @samp{r} is otherwise guaranteed
-to be @samp{0 <= r < modul}.
+to be @code{0 <= r < modul}.
 
 @item @b{Full Example:}
 @example
@@ -19894,7 +19896,7 @@ keys will be used as digits).
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.math.digits}(@i{number}, @i{base})
+@b{lib.math.digits}(@i{number}, @i{base} [, @i{zero_is_empty}])
 
 @table @asis
 @item @i{number}
@@ -19903,6 +19905,10 @@ A non-negative integer.
 @item @i{base}
 A positive integer other than 1, or a table with numerical keys.
 
+@item @i{zero_is_empty}
+If @code{number} is zero, a table containing the zero-th digit is returned by
+default. If @code{zero_is_empty} is @code{true}, an empty table is returned
+instead.
 @end table
 
 @item @b{Syntax Samples:}
@@ -20587,9 +20593,21 @@ A libmap-map is always rectangular. But you may use an ignore-key when you draw
 the map with @ref{drawMap} to create arbitrarily shaped areas.
 
 If the premap is not rectangular, missing positions are set to the default key.
+However, each line length must be divisible by the default key's length, otherwise
+an error is thrown.
 
-As each libmap-map can be used to replace a premap, you may also use
-@code{wo:newMap} to copy a libmap-map with:
+You may feed arbitrary tables to @code{wo:newMap}, but only their positive
+integer entries are used, all other entries are ignored. You might even skip
+lines, like in this example:
+@example
+wo:newMap(" ", @{[25] = "g"@})
+@end example
+This will return a map of width 1 and height 25 filled with spaces, except for
+the last line, which will be @code{"g"}.
+
+Each libmap-map is a table and can be used as a premap as well. Its default
+key is ignored when a libmap-map is considered as a premap. In particular,
+you may use @code{wo:newMap} to copy a libmap-map with:
 @example
 newcopy = wo:newMap(mymap.defaultkey, mymap)
 @end example
@@ -20621,8 +20639,8 @@ Non-empty strings of the same length as the default key of @code{mymap}.
 A libmap-map.
 
 @item @i{posarg}
-A position, object, group, position list, or table (interpretable as single
-position).
+A position, object, group, position list, string, or table (interpretable as
+single position).
 @end table
 
 @item @b{Syntax Samples:}
@@ -20636,10 +20654,22 @@ sequence. Empty groups and position lists will return empty tables.
 Correspondingly, a write-access with a group or position list changes the key
 at each position in the group or position list to the given string.
 
-You may request any position outside of the scope of the map, even with
-negative coordinates. If you do so, the default key is returned.
+A read-access with a string invokes a @ref{Positions Repository Request} to
+retrieve a named position, unless the string equals one of @code{"type"},
+@code{"width"}, @code{"height"}, @code{"defaultkey"}, or @code{"keylength"},
+which return the corresponding properties of the map instead.
 
-If you try to set an entry to a position with a negative coordinate, an error
+A write-access with a string similarly is interpreted as access to a named
+position, unless the string equals @code{"defaultkey"}, see
+@ref{Map Default Keys}. A write-access to a non-existing position throws an
+error.
+
+You may request any position outside of the scope of the map, even with
+negative coordinates. If you do so, the default key is returned. This accounts
+for non-existing positions as well (for example positions of items in the
+inventory, or the position of a string which doesn't describe a named position).
+
+If you try to set an entry to a position with a negative coordinate an error
 is returned. However, if you use non-negative coordinates outside of the scope
 of the map, the map is subsequently extended to the new position, setting
 the default key as entry where necessary.
@@ -21196,7 +21226,7 @@ map1 = wo:newMap(" ", @{"#######",
 map2 = wo:newMap(".", @{"F.E",
                        "E.E"@})
 @end example
-In this situation, @code{map1:paste(map2, po(1, 1) .. po(5, 3)} will change
+In this situation, @code{map1:paste(map2, po(1, 1) .. po(5, 3))} will change
 map1 into:
 @example
 @{"####### ",
