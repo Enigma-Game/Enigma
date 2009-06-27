@@ -648,7 +648,7 @@ end
 
 function lib.map.transformation_inverse(x)
     assert_type(x, "lib.map.transformation_inverse first argument", 2, "maptransformation")
-    return MAP_ALL[({[1] = 1, 4, 3, 2, 5, 6, 7, 8})[x[1]]]
+    return MAP_ALL[({1, 4, 3, 2, 5, 6, 7, 8}) [x.index] ]
 end
 
 function lib.map.transformation_compose(x, y)
@@ -661,7 +661,7 @@ function lib.map.transformation_compose(x, y)
                      {5, 8, 7, 6, 1, 4, 3, 2},
                      {6, 5, 8, 7, 2, 1, 4, 3},
                      {7, 6, 5, 8, 3, 2, 1, 4},
-                     {8, 7, 6, 5, 4, 3, 2, 1}}) [x[1]] [y[1]] ]
+                     {8, 7, 6, 5, 4, 3, 2, 1}}) [x.index] [y.index] ]
 end
 
 function lib.map.transformation_power(x, y)
@@ -684,7 +684,7 @@ lib.map.transformation_metatable = {
     __mul = lib.map.transformation_compose,
     __pow = lib.map.transformation_power,
     __unm = lib.map.transformation_inverse,
-    _type = "maptransformation"
+    _type = "maptransformation",
 }
 
 for _, transformation in ipairs(MAP_ALL) do

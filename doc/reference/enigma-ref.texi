@@ -8781,6 +8781,9 @@ are not numbers, to allow advanced operations on them when libmap is loaded, see
 @item @samp{MAP_FLIP_VERTICAL} = flip up and down
 @end itemize
 
+Because map transformations are not numbers, you may not safe them as
+attributes of objects. Instead, you have to use @samp{index} and
+@samp{MAP_ALL}, see @ref{Map Transformation Index and MAP_ALL}.
 
 @c ----------------- Global Attributes --------------------
 @node Global Attributes
@@ -20142,9 +20145,10 @@ We first give six task-oriented sections, then describe each function in detail.
 * lib.map.replace_outside::
 * lib.map.sub::
 * lib.map.trim::
+* Map Transformation Index and MAP_ALL::
 * Map Transformation Composition and Powers:: Operators @samp{*} and @samp{^}
 * Map Transformation Inverse::                Operator @samp{-}
-* Random and All Map Transformations::
+* Random Map Transformations::
 @end menu
 
 @c ----------------- Creating Maps --------------------
@@ -21525,7 +21529,55 @@ a 1x1-map with the trimmed key as only entry, and the default key of the
 original map.
 @end table
 
-* Map Transformation Composition and Powers:: Operators @samp{*} and @samp{^}
+@c ----------------- Map Transformation Index and MAP_ALL --------------------
+
+@node Map Transformation Index and MAP_ALL
+@subsection Map Transformation Index and MAP_ALL
+
+All eight transformation constants (see @ref{map read directions},
+@ref{Rotating and Mirroring Maps}, @ref{Map Transformation}) are additionally
+packed into the table @code{MAP_ALL}, so a simple call to
+@code{ipairs(MAP_ALL)} can iterate over all of them. @code{MAP_ALL} is provided
+without need to load libmap.
+
+Each transformation offers the field @code{"index"}, which returns the number at
+which the transformation appears in @code{MAP_ALL}. libmap is not needed to use
+@code{"index"} either.
+
+@table @asis
+@item @b{Syntax:}
+@b{MAP_ALL} = @{@b{MAP_IDENT}, @b{MAP_ROT_CW}, @b{MAP_ROT_180}, @b{MAP_ROT_CCW}, @b{MAP_FLIP_BACKSLASH},
+           @b{MAP_FLIP_HORIZONTAL}, @b{MAP_FLIP_SLASH}, @b{MAP_FLIP_VERTICAL}@}
+
+@b{transformation_index} = @i{maptransformation}.@b{index}
+
+@table @asis
+@item @i{transformation_index}
+An integer between 1 and 8.
+
+@item @i{maptransformation}
+A map transformation.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+MAP_ALL[MAP_ROT_CW.index] == MAP_ROT_CW
+@end example
+
+@item @b{Details:}
+You may not safe map transformations as attributes of objects, for example the
+following will throw an error:
+@example
+no["stone_a"]["_mytrafo"] = MAP_ROT_CCW
+@end example
+Instead, you have to use @code{index} and retrieve the correct transformation
+from @code{MAP_ALL}:
+@example
+no["stone_a"]["_mytrafo"] = MAP_ROT_CCW.index
+...
+oldtrafo = MAP_ALL[no["stone_a"]["_mytrafo"]]
+@end example
+@end table
 
 @c ----------------- Map Transformation Composition and Powers --------------------
 
@@ -21642,26 +21694,16 @@ Keeping to group theoretic notions, the inverse is denoted by @samp{^ (-1)},
 which works just as well(see @ref{Map Transformation Composition and Powers}).
 @end table
 
-@c ----------------- Random and All Map Transformations --------------------
+@c ----------------- Random Map Transformations --------------------
 
-@node Random and All Map Transformations
-@subsection Random and All Map Transformations
+@node Random Map Transformations
+@subsection Random Map Transformations
 
-All eight transformation constants (see @ref{map read directions},
-@ref{Rotating and Mirroring Maps}, @ref{Map Transformation}) are additionally
-packed into the table @code{MAP_ALL}, so a simple call to
-@code{ipairs(MAP_ALL)} can iterate over all of them. @code{MAP_ALL} is provided
-without need to load libmap.
-
-In addition, libmap provides the function
-@code{lib.map.random_transformation()} to pick one of the eight transformations
-by random.
+libmap provides the function @code{lib.map.random_transformation()} to pick one
+of the eight transformations by random.
 
 @table @asis
 @item @b{Syntax:}
-@b{MAP_ALL} = @{@b{MAP_IDENT}, @b{MAP_ROT_CW}, @b{MAP_ROT_180}, @b{MAP_ROT_CCW}, @b{MAP_FLIP_BACKSLASH},
-           @b{MAP_FLIP_HORIZONTAL}, @b{MAP_FLIP_SLASH}, @b{MAP_FLIP_VERTICAL}@}
-
 @i{randomtransformation} = @b{lib.map.random_transformation}()
 
 @table @asis

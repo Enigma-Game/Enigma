@@ -200,24 +200,25 @@ FOLLOW_FULLSCREEN = po(19, 12)
 FOLLOW_HALFSCREEN = po(9.5, 6)
 
 -- map transformations, aka. read directions
-MAP_IDENT = {1}
-MAP_ROT_CW = {2}
-MAP_ROT_180 = {3}
-MAP_ROT_CCW = {4}
-MAP_FLIP_BACKSLASH = {5}
-MAP_FLIP_HORIZONTAL = {6}
-MAP_FLIP_SLASH = {7}
-MAP_FLIP_VERTICAL = {8}
+MAP_IDENT            = {index = 1}
+MAP_ROT_CW           = {index = 2}
+MAP_ROT_180          = {index = 3}
+MAP_ROT_CCW          = {index = 4}
+MAP_FLIP_BACKSLASH   = {index = 5}
+MAP_FLIP_HORIZONTAL  = {index = 6}
+MAP_FLIP_SLASH       = {index = 7}
+MAP_FLIP_VERTICAL    = {index = 8}
 MAP_COUNT = 8
 -- Note: The sequence is of importance for lib.map.transformation_compose.
 MAP_ALL = {MAP_IDENT, MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW, MAP_FLIP_BACKSLASH,
            MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH, MAP_FLIP_VERTICAL}
 
 for _, transformation in ipairs(MAP_ALL) do
-    setmetatable(transformation, {_type = "maptransformation",
+    setmetatable(transformation, {
         __mul = (function() error("You have to load libmap to use \"*\" on map transformations.", 2) end),
         __pow = (function() error("You have to load libmap to use \"^\" on map transformations.", 2) end),
-        __unm = (function() error("You have to load libmap to use \"-\" on map transformations.", 2) end)})
+        __unm = (function() error("You have to load libmap to use \"-\" on map transformations.", 2) end),
+        _type = "maptransformation"})
 end
 
 ---------------------

@@ -64,7 +64,7 @@ function res.pento_finalization(context)
         wo:drawMap(context[3], context.src_anchor + offset, " ", shape_map)
     end
 
-    context.transform = function (transformations)
+    context.transform = function (transformation)
         local target = st(context.src_area)
         local cluster = nil
         if #target ~= 5 then return end
@@ -75,22 +75,22 @@ function res.pento_finalization(context)
                 return
             end
         end
-        local oldtransform = target[1]["_transform"] or MAP_IDENT
-        local newtransform = transformations[oldtransform + 1]
+        local oldtransform = MAP_ALL[target[1]["_transform"]] or MAP_IDENT
+        local newtransform = oldtransform * transformation
         target[1]:get_cluster():kill()
         local shape = 0 + cluster:sub(2)
         local shape_map = wo:newMap(" ", context.shapes[shape]) ^ newtransform
         local offset = po(3 - shape_map.width/2, 3 - shape_map.height/2)
         wo:drawMap(context[3], context.src_anchor + offset, " ", shape_map)
-        st(context.src_area)["_transform"] = newtransform
+        st(context.src_area)["_transform"] = newtransform.index
     end
 
     context.rotate = function()
-        context.transform(context.rotations)
+        context.transform(MAP_ROT_CW)
     end
     
     context.mirror = function()
-        context.transform(context.mirrors)
+        context.transform(MAP_FLIP_HORIZONTAL)
     end
     
     context.check = function()
@@ -117,10 +117,6 @@ function res.pento(subresolver, ...)
     context.shapes = {{"OOOOO"}, {"PP","PPP"}, {"QQQQ","Q"},{"R","RRR"," R"},
         {"  SS","SSS"},{"T","TTT","T"},{"U U","UUU"},{"VVV","V","V"},
         {"W","WW"," WW"},{" X","XXX"," X"},{"YYYY"," Y"},{"ZZ"," Z"," ZZ"}}
-    context.rotations = {MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW, MAP_IDENT, 
-        MAP_FLIP_VERTICAL, MAP_FLIP_BACKSLASH, MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH}
-    context.mirrors = {MAP_FLIP_HORIZONTAL, MAP_FLIP_SLASH, MAP_FLIP_VERTICAL,
-        MAP_FLIP_BACKSLASH, MAP_ROT_CCW, MAP_IDENT, MAP_ROT_CW, MAP_ROT_180}
     setmetatable(context, res.metatable)
     return context
 end
