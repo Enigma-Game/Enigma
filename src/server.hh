@@ -58,6 +58,8 @@ namespace enigma_server
     extern int MenuCount;
     
     extern int32_t  RandomState;
+    extern unsigned SublevelNumber;
+    extern std::string SublevelTitle;
 
     // True: do not reset level when player dies
     extern bool     ConserveLevel;

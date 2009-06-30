@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -153,9 +154,7 @@ namespace enigma { namespace gui {
         else if (w == restart) {
             if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
                 // force a reload from file
-                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
-                if (curProxy != NULL)
-                    curProxy->release();
+                lev::Proxy::releaseCache();
             }
             client::Stop ();
             server::Msg_LoadLevel(ind->getCurrent(), false);

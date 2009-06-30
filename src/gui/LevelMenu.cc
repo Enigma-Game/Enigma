@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -259,9 +260,7 @@ namespace enigma { namespace gui {
             int ilevel = ind->getCurrentPosition();
             if (w->lastModifierKeys() & KMOD_CTRL && w->lastModifierKeys() & KMOD_SHIFT) {
                 // force a reload from file
-                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
-                if (curProxy != NULL)
-                    curProxy->release();
+                lev::Proxy::releaseCache();
             }
     
             if ((unsigned)ilevel < ind->size()) {
@@ -344,7 +343,7 @@ namespace enigma { namespace gui {
                 // use the inspector to check the absolute path!
                 lbl_levelname->set_text(ecl::strf("#%d: %s (%s)",
                           ind->getCurrentLevel(), curProxy->getTitle().c_str(), 
-                          curProxy->getNormLevelPath().c_str()));
+                          curProxy->getNormFilePath().c_str()));
             } else {
                 lbl_levelname->set_text(ecl::strf("#%d: %s",
                           ind->getCurrentLevel(), curProxy->getTitle().c_str()));

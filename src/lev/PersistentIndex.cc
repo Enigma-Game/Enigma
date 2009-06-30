@@ -143,6 +143,23 @@ namespace enigma { namespace lev {
         if (onlySystemIndices)
             return;
         
+        // register index free auto folder
+        // this needs to be done prior history registration to avoid outdated proxies
+        PersistentIndex * autoIndex = new PersistentIndex("auto", false, true,
+                INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME);
+        autoIndex->isEditable = false;
+        Index::registerIndex(autoIndex);
+        
+        // register team auto not yet registered new files
+        PersistentIndex * teamautoIndex = new PersistentIndex("team_test_new_api", false, true,
+                75000, "test_new_api");
+        if (teamautoIndex->size() > 0) {
+            teamautoIndex->isEditable = false;
+            Index::registerIndex(teamautoIndex);
+        } else {
+            delete teamautoIndex;
+        }
+        
         // UserPath: register dirs and zips with xml-indices excl auto
         dirIter = DirIter::instance(app.userPath + "/levels");
         while (dirIter->get_next(dirEntry)) {
@@ -190,22 +207,6 @@ namespace enigma { namespace lev {
             Index::registerIndex(indexCandidates[i]);
         }
 	
-        // register auto not yet registered new files
-        PersistentIndex * autoIndex = new PersistentIndex("auto", false, true,
-                INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME);
-        autoIndex->isEditable = false;
-        Index::registerIndex(autoIndex);
-        
-        // register team auto not yet registered new files
-        PersistentIndex * teamautoIndex = new PersistentIndex("team_test_new_api", false, true,
-                75000, "test_new_api");
-        if (teamautoIndex->size() > 0) {
-            teamautoIndex->isEditable = false;
-            Index::registerIndex(teamautoIndex);
-        } else {
-            delete teamautoIndex;
-        }
-        
         // check if history is available - else generate a new index
         Index * foundHistory = Index::findIndex("History");
         if ( foundHistory != NULL) {
@@ -246,7 +247,7 @@ namespace enigma { namespace lev {
     }
     
     int autoIndexProxyCompare(Proxy * first, Proxy * second) {
-        return first->getNormLevelPath() < second->getNormLevelPath();
+        return first->getNormFilePath() < second->getNormFilePath();
     }
     
     void PersistentIndex::load(bool systemOnly, bool update) {
@@ -268,7 +269,7 @@ namespace enigma { namespace lev {
                             (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4) ||
                             (dirEntry.name.rfind(".lua") == dirEntry.name.size() - 4))) {
                         Proxy * newProxy = Proxy::autoRegisterLevel(packPath, 
-                                dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                                dirEntry.name.substr(0, dirEntry.name.size() - 4), 1);
                         if (newProxy != NULL) {
                             // first check that the proxy is not in the index
                             //  - may occur if the level is stored as .xml and .lua in the folder
@@ -277,6 +278,12 @@ namespace enigma { namespace lev {
                                 appendProxy(newProxy);
                             }
                             // do not delete Proxy if not used - we are not the owner!
+                            // register additional sublevels
+                            for (int i = 2; i <= newProxy->getQuantity(); i++) {
+                                Proxy * newSubProxy = Proxy::autoRegisterLevel(packPath, 
+                                        dirEntry.name.substr(0, dirEntry.name.size() - 4), i);
+                                appendProxy(newSubProxy);                                
+                            }
                         }
                     }
                 }
@@ -649,7 +656,7 @@ namespace enigma { namespace lev {
     }
     
     bool PersistentIndex::isSource(Proxy * aProxy) {
-        std::string proxyPath = aProxy->getNormLevelPath();
+        std::string proxyPath = aProxy->getNormFilePath();
         if (proxyPath[0] == '#')
             // Oxyd reference
             return false;
@@ -751,7 +758,7 @@ namespace enigma { namespace lev {
             
             Proxy * level = getProxy(i);
             // convert Proxy normLevelPath to pack local path ./* if possible
-            std::string xpath = level->getNormLevelPath();
+            std::string xpath = level->getNormFilePath();
             if (xpath.find(packPath + "/") == 0)
                 xpath = "." + xpath.substr(packPath.size());
             else if (packPath.empty() && xpath.find("/") == std::string::npos)

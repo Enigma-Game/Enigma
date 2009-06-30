@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -173,10 +173,10 @@ namespace enigma { namespace gui {
                                 break;
                             }
                             if (curIndex->isSource(curProxy) && 
-                                    backups.find(curProxy->getNormLevelPath()) == backups.end()) {
+                                    backups.find(curProxy->getNormFilePath()) == backups.end()) {
                                 // mark as deletion candidate - the final check
                                 // if we delete it really occurs on save
-                                deletions.insert(curProxy->getNormLevelPath());
+                                deletions.insert(curProxy->getNormFilePath());
                             }
                             curIndex->erase(pos);
                             if (pos >= curIndex->size() && pos > 0)
@@ -216,8 +216,8 @@ namespace enigma { namespace gui {
                                 // insert reference to our copy
                                 curIndex->insertProxy(pos++, levelCopy, true,
                                         var.ctrl, var.unit, var.target, var.extensions);
-                                backups.insert(levelCopy->getNormLevelPath());
-                                deletions.erase(levelCopy->getNormLevelPath());
+                                backups.insert(levelCopy->getNormFilePath());
+                                deletions.erase(levelCopy->getNormFilePath());
                             }
                             isModified = true;
                         }
@@ -357,7 +357,7 @@ namespace enigma { namespace gui {
         else {
             lbl_levelname->set_text(ecl::strf("#%d:(%s)",
                       ind->getCurrentLevel(), 
-                      curProxy->getNormLevelPath().c_str()));
+                      curProxy->getNormFilePath().c_str()));
         }
         
         int csize = clipboard->size();

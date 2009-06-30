@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -619,7 +619,7 @@ namespace enigma { namespace lev {
     
     bool Index::hasNormLevelPath(std::string path) {
         for (int i = 0; i < proxies.size(); i++) {
-            if (proxies[i]->getNormLevelPath() == path)
+            if (proxies[i]->getNormFilePath() == path)
                 return true;
         }
         return false;

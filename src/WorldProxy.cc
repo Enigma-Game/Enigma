@@ -74,6 +74,10 @@ namespace enigma {
             return server::InfiniteReincarnation;
         } else if (key == "ShowMoves") {
             return server::ShowMoves;
+        } else if (key == "SublevelNumber") {
+            return (int)server::SublevelNumber;
+        } else if (key == "SublevelTitle") {
+            return server::SublevelTitle;
         } else if (key == "SurviveFinish") {
             return server::SurviveFinish;
         } else if (key == "Width") {
@@ -179,6 +183,8 @@ namespace enigma {
         } else if (key == "ShowMoves") {
             server::ShowMoves = val.to_bool();
             STATUSBAR->show_move_counter (server::ShowMoves);
+        } else if (key == "SublevelTitle") {
+            server::SublevelTitle = val.to_string();
         } else if (key == "SurviveFinish") {
             server::SurviveFinish = val.to_bool();
         } else if (key == "CrackSpreading") {

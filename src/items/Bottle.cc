@@ -22,6 +22,7 @@
 #include "client.hh"
 //#include "errors.hh"
 //#include "main.hh"
+#include "lev/Index.hh"
 #include "lev/Proxy.hh"
 #include "world.hh"
 
@@ -67,7 +68,7 @@ namespace enigma {
     ItemAction Bottle::activate(Actor *a, GridPos) {
         if (Value v = getAttr("text")) {
             std::string txt(v);
-            lev::Proxy *level = lev::Proxy::loadedLevel();
+            lev::Proxy *level = lev::Index::getCurrentProxy();
             // after complete switch to Proxy as levelloader the following
             // conditional can be abolished
             if (level)

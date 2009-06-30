@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,10 +17,12 @@
  */
 
 #include "lev/Proxy.hh"
+#include "lev/SubProxy.hh"
 
 #include "ecl_system.hh"
 #include "errors.hh"
 #include "gui/ErrorMenu.hh"
+#include "gui/LevelPreviewCache.hh"
 #include "lua.hh"
 #include "main.hh"
 #include "nls.hh"
@@ -60,7 +62,7 @@ using namespace std;
 using namespace enigma;
 XERCES_CPP_NAMESPACE_USE 
 
-namespace enigma { namespace lev {     
+namespace enigma { namespace lev {
     // http://enigma-game.org/schema/level/1
     const XMLCh Proxy::levelNS[] = {
             chLatin_h, chLatin_t, chLatin_t, chLatin_p, chColon, chForwardSlash,
@@ -83,12 +85,12 @@ namespace enigma { namespace lev {
         registeredLibs.clear();
     }
 
-    Proxy *Proxy::currentLevel = NULL;
+    Proxy *Proxy::cachedLevel = NULL;
     
-    Proxy *Proxy::loadedLevel() {
-        return currentLevel;
+    void Proxy::releaseCache() {
+        if (cachedLevel != NULL)
+            cachedLevel->release();
     }
-    
 
     Proxy * Proxy::registerLevel(std::string levelPath, std::string indexPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
@@ -97,7 +99,23 @@ namespace enigma { namespace lev {
         Proxy *theProxy;
         pathType thePathType = pt_resource;
         std::string theNormLevelPath;
+        bool isMulti = false;
+        std::string fileId;
+        unsigned subnum; 
         
+        // Multilevel
+        if (levelId[levelId.size() - 1] == ']') {
+            isMulti = true;
+            std::string::size_type numpos = levelId.find_last_of("[");
+            ASSERT(numpos != std::string::npos, XLevelPackInit, "Proxy - invalid multilevel id");
+            ASSERT(levelId.find_first_not_of("0123456789", numpos+1) == levelId.size() -1, 
+                    XLevelPackInit, "Proxy - invalid multilevel id");
+            std::istringstream subnumstr(levelId.substr(numpos + 1, levelId.size() - numpos - 2));
+            subnumstr >> std::dec >> subnum;
+            fileId = levelId.substr(0, numpos);
+//            Log << "Multilevel Id '" << levelId << "' sublevel " << subnum << " fileId '" << fileId << "'\n";
+        }
+
         // Normalize level path
         if (indexPath == "#commandline") {
             if (levelPath.find("://") != std::string::npos) {
@@ -137,24 +155,43 @@ namespace enigma { namespace lev {
         // should have different filenames -- but we have to handle it:
         // we generate proxys for each registration and decide on level load
         // evaluating the level metadata which proxy was right.
-        char txt[5];
-        snprintf(txt, sizeof(txt), "%d", levelRelease);        
-        std::string cacheKey = theNormLevelPath + levelId + txt;
+        std::string cacheKey = theNormLevelPath + levelId + ecl::strf("%d", levelRelease);
         std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
         if (i != cache.end()) {
             Proxy * candidate = i->second;
             return candidate;
         }
         
-        // create new proxy
-        theProxy = new Proxy(false, thePathType, theNormLevelPath, levelId, levelTitle,
-            levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
-            levelCompatibilty, status, levelRevision);
-        cache.insert(std::make_pair(cacheKey, theProxy));
-        return theProxy;
+        if (!isMulti) {
+            // create new proxy
+            theProxy = new Proxy(false, thePathType, theNormLevelPath, levelId, levelTitle,
+                levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
+                levelCompatibilty, status, levelRevision);
+            cache.insert(std::make_pair(cacheKey, theProxy));
+            return theProxy;
+        } else {
+            // search for existing proxy for multilevel file
+            Proxy * fileProxy;
+            std::string multiCacheKey = theNormLevelPath + fileId + ecl::strf("%d", levelRelease);
+            std::map<std::string, Proxy *>::iterator mi = cache.find(multiCacheKey);
+            if (i != cache.end()) {
+                fileProxy = mi->second;
+            } else {
+                // create new multilevel file proxy
+                fileProxy = new Proxy(false, thePathType, theNormLevelPath, fileId, levelTitle,
+                    levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
+                    levelCompatibilty, status, levelRevision);
+                cache.insert(std::make_pair(multiCacheKey, fileProxy));
+            }
+            // create sublevel proxy
+            theProxy = new SubProxy(fileProxy, subnum, thePathType, theNormLevelPath, levelId, levelTitle);
+            cache.insert(std::make_pair(cacheKey, theProxy));
+            return theProxy;            
+        }
+        
     }
     
-    Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename) {
+    Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename, int subNum) {
         Proxy *theProxy = new Proxy(false, pt_resource, indexPath + "/" + filename , "", "",
             "unknown", 1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
         try {
@@ -175,14 +212,34 @@ namespace enigma { namespace lev {
         } else {
             // eliminate duplicates and register
 //            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << " Title: " << theProxy->getTitle() <<"\n";
-            std::string cacheKey = theProxy->getNormLevelPath() + theProxy->getId() + 
+            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() + 
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
             if (i != cache.end()) {
                 delete theProxy;
+//                Log << "duplicate Proxy - " << cacheKey <<"\n";
                 theProxy = i->second;
             } else {
                 cache.insert(std::make_pair(cacheKey, theProxy));        
+            }
+        }
+        // multilevel
+        if ((theProxy != NULL) && 
+                (theProxy->isMultiFlag)) {
+            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() + ecl::strf("[%d]", subNum) + 
+                    ecl::strf("%d", theProxy->getReleaseVersion());
+            std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
+            if (i != cache.end()) {
+                theProxy = i->second;
+            } else {
+                // create sublevel proxy
+                std::string fileTitle = theProxy->getTitle();
+                bool isLuaTitle = (fileTitle[fileTitle.size() - 1] != '#');
+                theProxy = new SubProxy(theProxy, subNum, pt_resource, indexPath + "/" + filename,
+                    theProxy->getId() + ecl::strf("[%d]", subNum), "");
+                cache.insert(std::make_pair(cacheKey, theProxy));
+                if (isLuaTitle)   // update Preview to get lua title
+                    gui::LevelPreviewCache::instance()->updatePreview(theProxy);
             }
         }
         return theProxy;
@@ -204,7 +261,7 @@ namespace enigma { namespace lev {
     LowerCaseString searchText("");
     void do_search(const std::map<std::string, Proxy *>::value_type pair) {
         Proxy * candidate = pair.second;
-        if (searchText.containedBy(candidate->getNormLevelPath()) ||
+        if (searchText.containedBy(candidate->getNormFilePath()) ||
                 searchText.containedBy(candidate->getTitle()) ||
                 searchText.containedBy(candidate->getId()) ||
                 searchText.containedBy(candidate->getAuthor())) {
@@ -271,8 +328,8 @@ namespace enigma { namespace lev {
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
             GameType levelCompatibilty,levelStatusType status, int levelRevision) :  
-            isLibraryFlag (proxyIsLibrary), normPathType(thePathType), normLevelPath(theNormLevelPath), 
-            id(levelId), title(levelTitle), author(levelAuthor),
+            isLibraryFlag (proxyIsLibrary), isMultiFlag (false), normPathType(thePathType), normFilePath(theNormLevelPath), 
+            quantity (1), id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(levelRevision), hasEasyModeFlag(levelHasEasymode), 
             engineCompatibility(levelCompatibilty), levelStatus (status), 
@@ -288,14 +345,18 @@ namespace enigma { namespace lev {
             doc->release();
             doc = NULL;
         }
-        if (this == currentLevel) {
-            currentLevel = NULL;
+        if (this == cachedLevel) {
+            cachedLevel = NULL;
             releaseLibs();
         }
     }
     
+    std::string Proxy::getNormFilePath() {
+        return normFilePath;
+    }
+    
     std::string Proxy::getNormLevelPath() {
-        return normLevelPath;
+        return normFilePath;
     }
     
     std::string Proxy::getLocalSubstitutionLevelPath() {
@@ -342,11 +403,11 @@ namespace enigma { namespace lev {
         
         // resolve resource path to filepath
         } else if (normPathType == pt_absolute || normPathType == pt_url) { 
-            absLevelPath = normLevelPath;
+            absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
-            if(!app.resourceFS->findFile ("levels/" + normLevelPath + ".xml", 
+            if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml", 
                         absLevelPath, isptr) &&
-                    !app.resourceFS->findFile ("levels/" + normLevelPath + ".lua", 
+                    !app.resourceFS->findFile ("levels/" + normFilePath + ".lua", 
                         absLevelPath, isptr)) {
                 return NULL;
             }
@@ -417,7 +478,7 @@ namespace enigma { namespace lev {
                 // doc exists - metadata are loaded
                 return;
             if (!isLibraryFlag != expectLevel)
-                    throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
+                    throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normFilePath.c_str()));
             // doc exists - we can directly load
             loadDoc();
             return;
@@ -432,9 +493,9 @@ namespace enigma { namespace lev {
         
         // release current proxy
         if (!isLibraryFlag) {
-            if (currentLevel != NULL)
-                currentLevel->release();
-            currentLevel = this;
+            if (cachedLevel != NULL)
+                cachedLevel->release();
+            cachedLevel = this;
         }
         
         // handle oxyd first
@@ -449,28 +510,28 @@ namespace enigma { namespace lev {
                 server::AllowSingleOxyds = true;
             server::PrepareLua();
             // use oxyd loader
-            std::string::size_type posSecondHash = normLevelPath.find('#',1);
+            std::string::size_type posSecondHash = normFilePath.find('#',1);
             if (posSecondHash == string::npos)
-                throw XLevelLoading("Bad filename for oxyd level: " + normLevelPath );
-            std::string packName = normLevelPath.substr(1, posSecondHash -1);
-            std::string levelNumber = normLevelPath.substr(posSecondHash + 1);
+                throw XLevelLoading("Bad filename for oxyd level: " + normFilePath );
+            std::string packName = normFilePath.substr(1, posSecondHash -1);
+            std::string levelNumber = normFilePath.substr(posSecondHash + 1);
             if (Index * oxydIndex = Index::findIndex(packName)) {
                 dynamic_cast<oxyd::LevelPack_Oxyd *>(oxydIndex)->load_oxyd_level(atoi(levelNumber.c_str()));
             } else {
-                throw XLevelLoading("Missing oxyd levelpack for: " + normLevelPath);
+                throw XLevelLoading("Missing oxyd levelpack for: " + normFilePath);
             }
             return;
             
         // resolve resource path to filepath
         } else if (normPathType == pt_absolute || normPathType == pt_url) { 
-            absLevelPath = normLevelPath;
+            absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
-            if(!app.resourceFS->findFile ("levels/" + normLevelPath + ".xml", 
+            if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml", 
                         absLevelPath, isptr) &&
-                    !app.resourceFS->findFile ("levels/" + normLevelPath + ".lua", 
+                    !app.resourceFS->findFile ("levels/" + normFilePath + ".lua", 
                         absLevelPath, isptr)) {
                 std::string type = isLibraryFlag ? "library " : "level ";
-                throw XLevelLoading("Could not find " + type + normLevelPath );
+                throw XLevelLoading("Could not find " + type + normFilePath );
             }
         } else
             // error unknown type
@@ -594,14 +655,16 @@ namespace enigma { namespace lev {
             } else {
                 // check metadata - currently just overwrite
                 isLibraryFlag = (getType() == "library") ? true : false;
+                isMultiFlag = (getType() == "multilevel") ? true : false;
                 if (!updateReleaseVersion()) {
                     release();   // avoid load success on a second read attempt
-                    throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d\n", normLevelPath.c_str(), releaseVersion));
+                    throw XLevelLoading(ecl::strf("Release version mismatch on %s: requested %d\n", normFilePath.c_str(), releaseVersion));
                 }
                 if (!updateId()) {
                     release();   // avoid load success on a second read attempt
-                    throw XLevelLoading(ecl::strf("Id mismatch on %s: requested %s\n", normLevelPath.c_str(), id.c_str()));
+                    throw XLevelLoading(ecl::strf("Id mismatch on %s: requested %s\n", normFilePath.c_str(), id.c_str()));
                 }
+                getQuantity();
                 getTitle();
                 getScoreVersion();
                 getRevisionNumber();
@@ -614,7 +677,7 @@ namespace enigma { namespace lev {
                 getEngineCompatibility();
                 if (!onlyMetadata){   
                     if (!isLibraryFlag != expectLevel)
-                        throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normLevelPath.c_str()));
+                        throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normFilePath.c_str()));
                     loadDoc();
                 }
             }
@@ -625,7 +688,7 @@ namespace enigma { namespace lev {
         if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
             throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
                     absLevelPath.c_str(), getEnigmaCompatibility()));
-        if (this == currentLevel) {    // just level - no libs
+        if (this == cachedLevel) {    // just level - no libs
             server::SetCompatibility(this);
             server::EnigmaCompatibility = getEnigmaCompatibility();
             server::TwoPlayerGame = hasNetworkMode();
@@ -644,7 +707,7 @@ namespace enigma { namespace lev {
 
     void Proxy::processDependencies() {
         // cleanup on level but not on libs
-        if (this == currentLevel) {
+        if (this == cachedLevel) {
             // cleanup all lib proxies loaded by previous load
             releaseLibs();
         }
@@ -671,7 +734,7 @@ namespace enigma { namespace lev {
 //                Log << "Deps: Path="<<depPath<<" Id="<< depId <<" Rel="<< depRelease <<" Prel="<< depPreload<< " Url=" << depUrl<<"\n";
                 // load every dependency just once and break circular dependencies
                 // by central load via Level
-                currentLevel->registerPreloadDependency(depPath, depId, depRelease,
+                cachedLevel->registerPreloadDependency(depPath, depId, depRelease,
                         depPreload, depUrl);
             }
         }
@@ -709,7 +772,7 @@ namespace enigma { namespace lev {
             // relative lib path
             std::string levelDir;
             std::string levelFilename;
-            if (ecl::split_path(normLevelPath, &levelDir, &levelFilename))
+            if (ecl::split_path(normFilePath, &levelDir, &levelFilename))
                 // the level is on subdirectory or in a zip
                 depPath = levelDir + "/" +  depPath.substr(2);
             else
@@ -889,6 +952,14 @@ namespace enigma { namespace lev {
                     Utf8ToXML("type").x_str())).c_str();
         } else
             return "";
+    }
+    
+    int Proxy::getQuantity() {
+        if (doc != NULL) {
+            quantity = XMLString::parseInt(infoElem->getAttributeNS(levelNS, 
+                    Utf8ToXML("quantity").x_str()));
+        }
+        return quantity;
     }
     
     bool Proxy::updateId() {

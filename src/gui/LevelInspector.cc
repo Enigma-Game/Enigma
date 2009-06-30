@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006, 2007 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -199,7 +199,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         catch (XLevelLoading &err) {
             std::vector<string> lines;
             std::string errmsg = _("Server Error: could not load level '")
-                                   + aLevel->getNormLevelPath() + "'\n"
+                                   + aLevel->getNormFilePath() + "'\n"
                                    + err.what();
             ecl::split_copy (errmsg, '\n', back_inserter(lines));
             int x     = vshrink?30:60;
@@ -220,7 +220,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         ecl::Font *menufont = enigma::GetFont("menufont");
         levelPathString = 
                 (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
-                levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+                levelProxy->getAbsLevelPath() : levelProxy->getNormFilePath();
         // substitute all backslashes by slashes
         for (std::string::size_type slpos = levelPathString.find('\\');
                 slpos != std::string::npos; slpos = levelPathString.find('\\')) 

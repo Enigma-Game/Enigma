@@ -382,9 +382,7 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F3: 
             if (keymod & KMOD_SHIFT) {
                 // force a reload from file
-                lev::Proxy * curProxy = lev::Proxy::loadedLevel();
-                if (curProxy != NULL)
-                    curProxy->release();
+                lev::Proxy::releaseCache();
                 server::Msg_Command ("restart");
             }
         default:
@@ -448,7 +446,7 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F6: Msg_JumpBack(); break;
 
         case SDLK_F10: {
-            lev::Proxy *level = lev::Proxy::loadedLevel();
+            lev::Proxy *level = lev::Index::getCurrentProxy();
             std::string basename = std::string("screenshots/") +
                     level->getLocalSubstitutionLevelPath();
             std::string fname = basename + ".png";

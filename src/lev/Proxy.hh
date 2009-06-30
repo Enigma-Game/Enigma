@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -57,7 +57,7 @@ namespace enigma { namespace lev {
     public:
         enum pathType { pt_url, pt_resource, pt_absolute, pt_oxyd};
         static const XMLCh levelNS[]; // the XML namespace
-        static Proxy *loadedLevel(); // tmp ?
+        static void releaseCache();
         
         /**
          * The registration of a level.
@@ -81,16 +81,16 @@ namespace enigma { namespace lev {
                 GameType levelCompatibilty, levelStatusType status =STATUS_RELEASED,
                 int levelRevision = 0);
         
-        static Proxy *autoRegisterLevel(std::string indexPath, std::string filename);
+        static Proxy *autoRegisterLevel(std::string indexPath, std::string filename, int subNum);
 
         static std::string search(std::string text);
         static void countLevels();
         static std::set<std::string> getLevelIds(bool withEasy);
         static std::set<Proxy *> getProxies();
 
-        void loadLevel();
-        void loadMetadata(bool expectLevel);
-        Proxy * copy(std::string newBasePath, std::string newPackPath, bool backup = true);
+        virtual void loadLevel();
+        virtual void loadMetadata(bool expectLevel);
+        virtual Proxy * copy(std::string newBasePath, std::string newPackPath, bool backup = true);
         
         /**
          * Retrieve and translate a level string. The key may be "title",
@@ -100,36 +100,37 @@ namespace enigma { namespace lev {
          * @arg key     the key for the search string
          * @return      the translation of the string
          */
-        std::string getLocalizedString(const std::string &key);
-        
+        virtual int getQuantity();
         std::string getId();
-        int getScoreVersion();
-        int getReleaseVersion();
-        int getRevisionNumber();
-        levelStatusType getLevelStatus();
-        std::string getAuthor();
-        std::string getTitle(); // english title
-        bool hasEasyMode();
-        bool hasSingleMode();
-        bool hasNetworkMode();
-        std::string getContact();
-        std::string getHomepage();
-        controlType getControl();
-        scoreUnitType getScoreUnit();
-        std::string getScoreTarget();
-        std::string getCredits(bool infoUsage);
-        std::string getDedication(bool infoUsage);
-        int getEasyScore();
-        int getDifficultScore();
-        GameType getEngineCompatibility();
-        double getEnigmaCompatibility();
+        virtual int getScoreVersion();
+        virtual int getReleaseVersion();
+        virtual int getRevisionNumber();
+        virtual std::string getLocalizedString(const std::string &key);
+        virtual levelStatusType getLevelStatus();
+        virtual std::string getAuthor();
+        virtual std::string getTitle(); // untranslated English title
+        virtual bool hasEasyMode();
+        virtual bool hasSingleMode();
+        virtual bool hasNetworkMode();
+        virtual std::string getContact();
+        virtual std::string getHomepage();
+        virtual controlType getControl();
+        virtual scoreUnitType getScoreUnit();
+        virtual std::string getScoreTarget();
+        virtual std::string getCredits(bool infoUsage);
+        virtual std::string getDedication(bool infoUsage);
+        virtual int getEasyScore();
+        virtual int getDifficultScore();
+        virtual GameType getEngineCompatibility();
+        virtual double getEnigmaCompatibility();
         
         /**
-         * the level address that can be used independent of a level pack
+         * the levels file address that can be used independent of a level pack
          * as a crossreference. (stable/welcome, #oxyd#17, http://..., ~/test)
          */
-        std::string getNormLevelPath();
+        std::string getNormFilePath();
         
+        virtual std::string getNormLevelPath();
         /**
          * The normalized level path with all critical characters substituted
          * by '~' to allow url's to be used and to make generated paths portable.
@@ -142,22 +143,33 @@ namespace enigma { namespace lev {
          * the type of the level address
          */
         Proxy::pathType getNormPathType();
-        std::string getAbsLevelPath();
+        virtual std::string getAbsLevelPath();
         void loadDependency(std::string depId);
+    
+    protected:
+        std::string title;
+        
+        Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
+                std::string levelId, std::string levelTitle, std::string levelAuthor,
+                int levelScoreVersion, int levelRelease, bool levelHasEasymode,
+                GameType levelCompatibilty, levelStatusType status, int levelRevision = 0);
+        ~Proxy();
         void release();
+
     private:
-        static Proxy *currentLevel;
+        static Proxy *cachedLevel;           // file proxy only
         static std::map<std::string, Proxy *> cache;
         static std::vector<Proxy *> loadedLibs;
         static std::vector<Proxy *> registeredLibs;
         static void releaseLibs();
         
         bool isLibraryFlag;
+        bool isMultiFlag;
         pathType normPathType;
-        std::string normLevelPath; // stable/welcome, #oxyd#17, http://..., ~/test
+        std::string normFilePath; // stable/welcome, #oxyd#17, http://..., ~/test
         std::string absLevelPath;
+        int quantity;
         std::string id; // level id - old filename or indexname
-        std::string title; // old name
         std::string author;
         int scoreVersion;
         int releaseVersion;
@@ -178,11 +190,6 @@ namespace enigma { namespace lev {
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
         
-        Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
-                std::string levelId, std::string levelTitle, std::string levelAuthor,
-                int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-                GameType levelCompatibilty, levelStatusType status, int levelRevision = 0);
-        ~Proxy();
         void load(bool onlyMetadata, bool expectLevel);
         void loadDoc();
         void loadLuaCode();

@@ -78,6 +78,8 @@ namespace enigma_server
 
 double   server::LastMenuTime;
 int      server::MenuCount;
+unsigned server::SublevelNumber;
+std::string server::SublevelTitle;
 
 bool     server::NoCollisions = false;
 
@@ -166,7 +168,7 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
     catch (XLevelLoading &err) {
         std::string levelPathString = 
             (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
-            levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+            levelProxy->getAbsLevelPath() : levelProxy->getNormFilePath();
         std::string msg = _("Server Error: could not load level '")
                                + levelPathString + "'\n"
                                + err.what();
@@ -180,7 +182,7 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
     catch (XLevelRuntime &err) {
         std::string levelPathString = 
             (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ?
-            levelProxy->getAbsLevelPath() : levelProxy->getNormLevelPath();
+            levelProxy->getAbsLevelPath() : levelProxy->getNormFilePath();
         std::string msg = _("Server Error: could not load level '")
                                + levelPathString + "'\n"
                                + err.what();
@@ -252,6 +254,8 @@ void server::PrepareLevel()
 {
     state = sv_waiting_for_clients;
     
+    server::SublevelNumber    = 1;
+    server::SublevelTitle     = "";
     server::LastMenuTime      = 0.0;
     server::MenuCount         = 0;
     server::NoCollisions      = false;
