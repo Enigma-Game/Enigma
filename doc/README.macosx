@@ -75,6 +75,15 @@ to somehing like /opt/local-enigma. It is likely that you want to do
 that if you are going to build on MacOS 10.5 for a 10.3.9+ or 10.4+
 target, as that requires Macports to be configured specially.
 
+NOTE: ImageMagick is required to build the documentation. There are
+difficulties installing ImageMagick using Macports customised for
+building Enigma on MacOS 10.5 for deployment on 10.3.9+ or 10.4. If
+you are building Enigma that way, download the ImageMagick binaries
+tar file from
+http://www.imagemagick.org/script/binary-releases.php#macosx
+and install according to the directions there. Be sure to export
+MAGICK_HOME as described there,
+
 Step 2a Fix up an autconf problem:
 
 I don't know if this is the most correct way to fix a problem with
@@ -203,6 +212,7 @@ a) simple case, building to target your own platform only:
 
  ./autogen.sh
  env CPPFLAGS="-I/opt/local/include" LDFLAGS="-L/opt/local/lib" ./configure
+ make gmo 
  make
  make macapp
 
@@ -212,6 +222,7 @@ b) building on a 10.5 Intel machine to target 10.4+ Intel
  export SDK=/Developer/SDKs/MacOSX10.4u.sdk
  ./autogen.sh
  env CPPFLAGS="-I/opt/local/include -mmacosx-version-min=10.4 -isysroot ${SDK}" LDFLAGS="-L/opt/local/lib -mmacosx-version-min=10.4 -isysroot ${SDK} -Wl,-syslibroot,${SDK}" ./configure
+ make gmo 
  make
  make macapp
 
@@ -221,6 +232,7 @@ c) building on a 10.5 PPC machine to target 10.3.9+ PPC
  export SDK=/Developer/SDKs/MacOSX10.3.9.sdk
  ./autogen.sh
  env CPPFLAGS="-I/opt/local/include -mmacosx-version-min=10.3 -isysroot ${SDK}" LDFLAGS="-L/opt/local/lib -mmacosx-version-min=10.3 -isysroot ${SDK} -Wl,-syslibroot,${SDK}" ./configure
+ make gmo 
  make
  make macapp
 
@@ -235,7 +247,7 @@ and an Intel Mac, then combine them to form one Universal
 build. Follow the instructions above to get a build for 10.4+ on the
 Intel machine and for 10.3.9+ on the PPC machine.
 
-On the PPC machine, go into the direcctory tree of the resulting
+On the PPC machine, go into the directory tree of the resulting
 Enigma.app, either using a terminal command line or in the finder
 using control-click Show Package Contents, and copy the file
 Enigma.app/Contents/MacOS/enigma to the Intel machine where you name

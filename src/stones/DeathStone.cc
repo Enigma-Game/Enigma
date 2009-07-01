@@ -84,7 +84,7 @@ namespace enigma {
             if (state == IDLE)   // avoid restart of animations
                 init_model();
             return Value();
-        } else if (m.message == "_trigger" && !m.value.to_bool()) {
+        } else if (m.message == "_trigger" && !m.value.to_bool() && (objFlags & OBJBIT_MOVABLE)) {
             Direction incoming = NODIR;
             if (m.sender != NULL)
                 incoming = direction_fromto(dynamic_cast<GridObject *>(m.sender)->get_pos(), get_pos());

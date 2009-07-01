@@ -400,14 +400,14 @@ void server::Msg_SetLevelPack (const std::string &name) {
 void server::Msg_LoadLevel (lev::Proxy *levelProxy, bool isPreview) {
     server::CreatingPreview = isPreview;
     if (!isPreview) {
-	// update F6 jump back history
-	if (currentIndex != lev::Index::getCurrentIndex() ||
-		currentLevel != currentIndex->getCurrentPosition()) {
-	    previousIndex = currentIndex;
-	    previousLevel = currentLevel;
-	    currentIndex = lev::Index::getCurrentIndex();
-	    currentLevel = currentIndex->getCurrentPosition();
-	}
+        // update F6 jump back history
+        if (currentIndex != lev::Index::getCurrentIndex() ||
+        	currentLevel != currentIndex->getCurrentPosition()) {
+            previousIndex = currentIndex;
+            previousLevel = currentLevel;
+            currentIndex = lev::Index::getCurrentIndex();
+            currentLevel = currentIndex->getCurrentPosition();
+        }
     }
     load_level(levelProxy, false);
 }
@@ -652,10 +652,13 @@ void server::SetCompatibility(lev::Proxy *levelProxy) {
 
 enigma::Difficulty server::GetDifficulty()
 {
+    if (server::CreatingPreview)
+        return DIFFICULTY_HARD;    // we may not access the current index!
+        
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::Proxy *curProxy = ind->getCurrent();
     int i= app.state->getInt("Difficulty");
-    if (i == DIFFICULTY_EASY && !server::CreatingPreview && curProxy->hasEasyMode())
+    if (i == DIFFICULTY_EASY  && curProxy->hasEasyMode())
         return DIFFICULTY_EASY;
     else
         return DIFFICULTY_HARD;
