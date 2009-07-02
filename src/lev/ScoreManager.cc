@@ -61,18 +61,24 @@ XERCES_CPP_NAMESPACE_USE
 namespace {
 #if _XERCES_VERSION >= 30000
     class ScoreDomSerFilter : public DOMLSSerializerFilter {
+        public:
+            virtual DOMNodeFilter::FilterAction acceptNode(const DOMNode *node) const;
 #else
     class ScoreDomSerFilter : public DOMWriterFilter {
-#endif
         public:
             virtual short acceptNode(const DOMNode *node) const;
+#endif
             virtual unsigned long getWhatToShow () const {
                 return DOMNodeFilter::SHOW_ALL;
             }
             virtual void setWhatToShow (unsigned long toShow) {}
     };
     
+#if _XERCES_VERSION >= 30000
+    DOMNodeFilter::FilterAction ScoreDomSerFilter::acceptNode(const DOMNode *node) const {
+#else
     short ScoreDomSerFilter::acceptNode(const DOMNode *node) const {
+#endif
         if (node->getNodeType () == DOMNode::ELEMENT_NODE &&
                  std::string(XMLtoUtf8(node->getNodeName()).c_str()) == "level") {
             const DOMElement *e = dynamic_cast<const DOMElement *>(node);
