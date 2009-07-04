@@ -567,10 +567,11 @@ namespace enigma {
     }
     
     void Pearl::sink(double dtime) {
-        if (server::GameCompatibility != GAMET_ENIGMA)
-            return;    // do not sink pearls in oxyd modes
-        else
-            BasicBall::sink(dtime);
+        if (server::GameCompatibility != GAMET_ENIGMA) {
+            if (m_actorinfo.field->floor->isKind("fl_swamp"))  
+                return;    // do not sink pearls in swamp in oxyd modes
+        }
+        BasicBall::sink(dtime);
     }
 
     int Pearl::traitsIdx() const {
