@@ -529,7 +529,7 @@ namespace enigma { namespace lev {
             default:
                 ecl::Assert <XFrontend> (false, "RatingManager::getBestScore illegal difficulty");
         }
-                
+        return -1;
     }
     
     std::string RatingManager::cutHolders(std::string org, int factor) {
@@ -566,6 +566,7 @@ namespace enigma { namespace lev {
             default:
                 ecl::Assert <XFrontend> (false, "RatingManager::getBestScoreHolder illegal difficulty");
         }
+        return "";
     }
 
     short RatingManager::getBestScoreEasy(Proxy *levelProxy) {
@@ -612,7 +613,7 @@ namespace enigma { namespace lev {
             default:
                 ecl::Assert <XFrontend> (false, "RatingManager::getParScore illegal difficulty");
         }
-                
+        return -1;
     }
     
     short RatingManager::getParScoreEasy(Proxy *levelProxy) {

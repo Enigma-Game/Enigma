@@ -256,6 +256,7 @@ namespace enigma {
             }
             return ITEM_KILL;
         }
+        return ITEM_KEEP;
     }
     
     DEF_ITEMTRAITS(Pencil, "it_pencil", it_pencil);

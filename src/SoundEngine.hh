@@ -117,7 +117,7 @@ namespace sound
         bool is_music_playing() { return false; }
         void clear_cache() {}
         void define_sound (const SoundName &, const SoundData &) {}
-        bool play_sound (const SoundEvent &) {}
+        bool play_sound (const SoundEvent &) { return false;}
         void cache_sound(const SoundEffect &s) {}
         void set_listenerpos (ecl::V2 pos) {}
         void tick(double /*dtime*/) {}

@@ -172,7 +172,7 @@ dnl ----------------------------------------
 dnl Check for xerces
 dnl ----------------------------------------
 if test "$MINGW32" = yes; then
-  AC_MSG_CHECKING([for Xerces 3.0 experimental version])
+  AC_MSG_CHECKING([for Xerces release 3.0])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       [AC_MSG_RESULT([found])],
       [AC_MSG_ERROR([not found])])      

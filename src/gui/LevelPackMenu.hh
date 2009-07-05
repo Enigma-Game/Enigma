@@ -46,7 +46,7 @@ namespace enigma { namespace gui {
     class LevelPackMenu : public Menu {
     public:
         LevelPackMenu();
-        bool manageLevelMenu();
+        void manageLevelMenu();
         virtual bool manage();
 
         bool on_event (const SDL_Event &e);
