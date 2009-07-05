@@ -181,7 +181,7 @@ namespace
         bool play_music (const std::string &/*filename*/) { return false; }
         void stop_music() {}
         void fadeout_music() {}
-        bool play_sound (const SoundEvent &) {}
+        bool play_sound (const SoundEvent &) { return false;}
         void define_sound (const SoundName &, const std::string &/*filename*/) {}
         void define_sound (const SoundName &, const SoundData &) {}
         void set_listenerpos (ecl::V2 pos) {}

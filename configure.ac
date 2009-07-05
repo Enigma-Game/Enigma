@@ -123,7 +123,7 @@ SDL_LIBS="$SDL_LIBS -lSDL_image -lSDL_mixer"
 AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
 
 if test "$have_mix_quickload" = no; then
-   AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
+  AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
 fi
 
 dnl ----------------------------------------
@@ -167,22 +167,22 @@ dnl ----------------------------------------
 dnl Check for xerces
 dnl ----------------------------------------
 if test "$MINGW32" = yes; then
-  AC_MSG_CHECKING([for Xerces 3.0 experimental version])
+  AC_MSG_CHECKING([for Xerces release 3.0])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       [AC_MSG_RESULT([found])],
       [AC_MSG_ERROR([not found])])      
-   AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+   AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
 else
-  AC_MSG_CHECKING([for Xerces 3.0 experimental version])
+  AC_MSG_CHECKING([for current Xerces release 3.0])
   AC_EGREP_HEADER([gXercesMajVersion = 3],[xercesc/util/XercesVersion.hpp],
       xerces3exp="yes",
       xerces3exp="no")      
   if test "x$xerces3exp" = xyes; then
     AC_MSG_RESULT([found])
-    AC_CHECK_LIB(xerces, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
+    AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   else
     AC_MSG_RESULT([not found])
-    AC_MSG_CHECKING([for Xerces >=2.4 released version])
+    AC_MSG_CHECKING([for old Xerces release >=2.4])
     AC_RUN_IFELSE([AC_LANG_PROGRAM([[#include <xercesc/util/XercesVersion.hpp>]],
           [[if (XERCES_VERSION_MAJOR < 2)
               return 1;

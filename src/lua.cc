@@ -574,7 +574,7 @@ en_add_scramble(lua_State *L)
     int         y       = round_down<int>(lua_tonumber(L, 2));
     const char *dir     = lua_tostring(L,3);
     const char *allowed = "wsen";
-    char       *found   = strchr(allowed, dir[0]);
+    const char *found   = strchr(allowed, dir[0]);
 
     if (found && found[0]) 
         world::AddScramble(GridPos(x,y), enigma::Direction(found-allowed));

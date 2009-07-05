@@ -31,6 +31,7 @@
 #include "XMLtoUtf8.hh"
 #include "ecl_system.hh"
 #include "gui/ErrorMenu.hh"
+#include <cstdio>
 #include <iostream>
 #include <sstream>
 #include <xercesc/dom/DOM.hpp>

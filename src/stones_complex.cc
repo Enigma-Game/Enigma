@@ -3104,6 +3104,7 @@ namespace
                 return Value();
             }
         }
+        return Value();
     }
 
     void ChessStone::alarm() {

@@ -28,6 +28,7 @@
 #include "XMLtoLocal.hh"
 #include "XMLtoUtf8.hh"
 #include "ecl_system.hh"
+#include <cstdio>
 #include <iostream>
 #include <xercesc/dom/DOM.hpp>
 #include <xercesc/util/XMLDouble.hpp>

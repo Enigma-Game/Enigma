@@ -299,7 +299,7 @@ namespace enigma { namespace gui {
         }
     }
     
-    bool LevelPackMenu::manageLevelMenu() {
+    void LevelPackMenu::manageLevelMenu() {
         bool finished = false;
         while (!finished) {
             {        

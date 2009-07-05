@@ -27,6 +27,7 @@
 #include "lev/ScoreManager.hh"
 #include "lev/RatingManager.hh"
 
+#include <cstdio>
 
 namespace enigma { namespace lev {
 
