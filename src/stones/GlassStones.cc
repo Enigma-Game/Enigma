@@ -97,7 +97,7 @@ namespace enigma {
     }
 
     const char *GlassStone::collision_sound() {
-        return (objFlags & OBJBIT_CLOTH) ? "stone" : "cloth";
+        return (objFlags & OBJBIT_CLOTH) ? "cloth" : "stone";
     }
     
     int GlassStone::traitsIdx() const {

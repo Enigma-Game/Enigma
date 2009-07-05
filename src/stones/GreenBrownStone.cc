@@ -105,7 +105,7 @@ namespace enigma {
     }
 
     const char *GreenBrownStone::collision_sound() {
-        return (objFlags & OBJBIT_CLOTH) ? "stone" : "cloth";
+        return (objFlags & OBJBIT_CLOTH) ? "cloth" : "stone";
     }
     
     int GreenBrownStone::traitsIdx() const {
