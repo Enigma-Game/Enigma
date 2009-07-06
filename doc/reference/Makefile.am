@@ -9,6 +9,8 @@ ref_DATA = $(HTML) ant_lua.txt sounds.txt soundset.lua lua2xml xml2lua
 
 EXTRA_DIST = enigma-ref.texi enigma-t2h.init $(ref_DATA)
 
+MOSTLYCLEANFILES = enigma-ref.{at,ats,aux,cp,cps,fn,fns,ky,log,ms,mss,ob,obs,pg,toc,tp,vr,vrs}
+CLEANFILES = enigma-ref.{pdf,html}
 
 enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	@if [ "${TEXI2HTML}" ]; then \
@@ -27,8 +29,3 @@ pdf_local: enigma-ref.pdf
 
 %.pdf: %.texi
 	$(TEXI2DVI) --pdf $<
-# Better use $(TEXI2PDF). May be missing on elder systems.
-
-clean:
-	$(RM) enigma-ref.pdf
-	$(RM) enigma-ref.{at,ats,aux,cp,cps,fn,fns,ky,log,ms,mss,ob,obs,pg,toc,tp,vr,vrs}
