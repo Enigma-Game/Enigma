@@ -166,8 +166,10 @@ ORI2DIR = {[WEST]=W, [SOUTH]=S, [EAST]=E, [NORTH]=N, [NODIR]=po(0,0),
            [NORTHWEST]=NW, [SOUTHWEST]=SW, [SOUTHEAST]=SE, [NORTHEAST]=NE}
 
 -- essential
-DISPENSIBLE   = 0
-INDISPENSIBLE = 1
+DISPENSIBLE   = 0   -- typo to be deleted when all levels are updated
+INDISPENSIBLE = 1   -- typo to be deleted when all levels are updated
+DISPENSABLE   = 0
+INDISPENSABLE = 1
 PERKIND       = 2
 
 -- meditation
