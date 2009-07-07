@@ -32,7 +32,7 @@ libecl_a_SOURCES = \
 	ecl_sdl.hh 			\
 	ecl_sdl.cc			\
 	ecl_system.hh 			\
-	ecl_system_unix.cc 		\
+	ecl_system.cc	 		\
 	ecl_sys_localename.cc		\
 	ecl_utf.hh                      \
 	ecl_utf.cc                      \

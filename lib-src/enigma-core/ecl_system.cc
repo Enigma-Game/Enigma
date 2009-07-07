@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -31,6 +32,11 @@
 
 #ifdef __MINGW32__
 #include <windows.h>
+#include <shellapi.h>
+#elif MACOSX
+#include <Carbon/Carbon.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
 #endif
 
 using namespace ecl;
@@ -102,6 +108,50 @@ bool ecl::FolderCreate (const std::string &fname)
 #endif
     }
     return ok;
+}
+
+bool ecl::BrowseUrl(const std::string url) {
+    bool result = true;
+#ifdef __MINGW32__
+    result == (ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+#elif MACOSX
+    CFStringRef cfurlStr = CFStringCreateWithCString( NULL, url.c_str(), kCFStringEncodingASCII);
+
+    // Create a URL object:
+    CFURLRef cfurl = CFURLCreateWithString (NULL, cfurlStr, NULL);
+
+    // Open the URL:
+    LSOpenCFURLRef(cfurl, NULL);
+
+    // Release the created resources:
+    CFRelease(cfurl);
+    CFRelease(cfurlStr);
+#else
+    result = (system(("xdg-open " + url + " &").c_str()) == 0);
+#endif
+    return result;
+}
+
+bool ecl::ExploreFolder(const std::string path) {
+    bool result = true;
+#ifdef __MINGW32__
+    result == (ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+#elif MACOSX
+    CFStringRef cfurlStr = CFStringCreateWithCString( NULL, path.c_str(), kCFStringEncodingASCII);
+
+    // Create a URL object:
+    CFURLRef cfurl = CFURLCreateWithString (NULL, cfurlStr, NULL);
+
+    // Open the URL:
+    LSOpenCFURLRef(cfurl, NULL);
+
+    // Release the created resources:
+    CFRelease(cfurl);
+    CFRelease(cfurlStr);
+#else
+    result = (system(("xdg-open " + path + " &").c_str()) == 0);
+#endif
+    return result;
 }
 
 #ifdef __MINGW32__

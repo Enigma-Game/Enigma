@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -41,20 +42,47 @@ namespace enigma { namespace gui {
         void on_action(Widget *w);
 
         // Private methods.
-        void show_paths();
         void build_menu();
 
         // Variables.
-        Widget *m_startgame;
-        Widget *m_levelpack;
+        Widget *startgame;
+        Widget *levelpack;
         Widget *m_netgame;
         Widget *leveled;
-        Widget *manual;
         Widget *options;
-        Widget *credits;
+        Widget *update;
+        Widget *help;
         Widget *quit;
         Widget *lpack;
         std::vector <Widget*> language;
+    };
+
+/* -------------------- MainHelpMenu -------------------- */
+        
+    class MainHelpMenu : public gui::Menu {
+    public:
+        MainHelpMenu ();
+        ~MainHelpMenu ();
+    private:
+        // ActionListener interface.
+        bool on_event (const SDL_Event &e);
+        void on_action(gui::Widget *w);
+
+        // Menu interface.
+        void draw_background(ecl::GC &gc);
+        void tick(double dtime);
+
+        // Private methods.
+        void showPaths();
+
+        // Variables.
+        gui::Widget *homepage;
+        gui::Widget *docs;
+        gui::Widget *paths;
+        gui::Widget *autofolder;
+        gui::Widget *scorefolder;
+        gui::Widget *credits;
+        gui::Widget *back;
     };
 
 /* -------------------- NetworkMenu -------------------- */
@@ -73,7 +101,7 @@ namespace enigma { namespace gui {
         void tick(double dtime);
 
         // Variables.
-        gui::Widget *m_startgame;
+        gui::Widget *startgame;
         gui::Widget *m_joingame;
         gui::Widget *m_back;
     };

@@ -36,6 +36,9 @@ namespace ecl
         
     bool FolderExists (const std::string &fname);
     bool FolderCreate (const std::string &fname);
+    
+    bool BrowseUrl(const std::string url);
+    bool ExploreFolder(const std::string path);
 
 #ifdef __MINGW32__
     std::string ApplicationDataPath();

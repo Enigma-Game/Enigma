@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2003,2004 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -128,6 +129,11 @@ namespace enigma
          * developers to start enigma in test configuration).
          */
         std::string prefPath;
+        
+        /**
+         * the path to the documentation. 
+         */
+        std::string docPath;
         
         /**
          * the path to the gettext l10n data. 

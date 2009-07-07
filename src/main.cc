@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -495,6 +496,17 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     if (!systemCmdDataPath.empty())
          systemFS->prepend_dir(systemCmdDataPath);
     Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
+    
+    // docPath
+    docPath = DOCDIR;    // defined in src/Makefile.am 
+#ifdef __MINGW32__
+    if (progDirExists) {
+        docPath = progDir;
+    }
+#elif MACOSX
+    docPath = progDir + "/../Resources/doc";
+#endif
+    Log << "docPath = \"" << docPath << "\"\n"; 
     
     // l10nPath
     l10nPath = LOCALEDIR;    // defined in src/Makefile.am

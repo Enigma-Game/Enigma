@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
- *
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -20,7 +20,6 @@
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
 #include "gui/OptionsMenu.hh"
-#include "gui/HelpMenu.hh"
 #include "gui/InfoMenu.hh"
 #include "gui/LevelPackMenu.hh"
 #include "gui/LevelPreviewCache.hh"
@@ -65,7 +64,7 @@ namespace enigma { namespace gui {
         const video::VMInfo *vminfo = video::GetInfo();
     
         BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
-        m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
+        startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         m_joingame = b.add(new StaticTextButton(N_("Join Game"), this));
         m_back = b.add(new StaticTextButton(N_("Back"), this));
     }
@@ -81,7 +80,7 @@ namespace enigma { namespace gui {
     
     void NetworkMenu::on_action(gui::Widget *w)
     {
-        if (w == m_startgame) {
+        if (w == startgame) {
             netgame::Start();
         } 
         else if (w == m_joingame) {
@@ -102,7 +101,7 @@ namespace enigma { namespace gui {
     }
     
 
-    /* -------------------- Main menu -------------------- */
+    /* -------------------- Help menu -------------------- */
     static const char *credit_text[] = {
         N_("Main developers of the 1.10 release:"),
         N_("  RONALD LAMPRECHT (lead)"),
@@ -121,7 +120,7 @@ namespace enigma { namespace gui {
         N_("Enigma is free software and may be distributed under the"),
         N_("terms of the GNU General Public License, version 2."),
         " ",
-        N_("Copyright (C) 2002-2007 Daniel Heck and contributors."),
+        N_("Copyright (C) 2002-2009 Daniel Heck and contributors."),
         0,
         N_("Main developer of all releases:"),
         " ",
@@ -218,130 +217,60 @@ namespace enigma { namespace gui {
         0,
     };
     
-    MainMenu::MainMenu() 
-    {
-        build_menu();
-    }
-    
-    void MainMenu::build_menu() 
-    {
+    MainHelpMenu::MainHelpMenu () {
         const video::VMInfo *vminfo = video::GetInfo();
-        const int vshrink = vminfo->width < 640 ? 1 : 0;
-        int y[] = {75, 170, 190, 220, 220};
-        // parameters to use when flags are not at top: {75, 150, 170, 200, 200};
-#ifdef ENABLE_EXPERIMENTAL
-        y[1] = 150;
-#endif
-        BuildVList b(this, Rect((vminfo->width - 150)/2, y[vminfo->tt], 150, vshrink?20:40), 5);
-        m_startgame = b.add(new StaticTextButton(N_("Start Game"), this));
-        m_levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
-#ifdef ENABLE_EXPERIMENTAL
-        m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
-        leveled     = b.add(new StaticTextButton(N_("Editor"), this));
-#endif
-        options     = b.add(new StaticTextButton(N_("Options"), this));
-        credits     = b.add(new StaticTextButton(N_("Credits"), this));
-        quit        = b.add(new StaticTextButton(N_("Quit"), this));
-        int ly = vminfo->width - 5 - 35*(NUMENTRIES(nls::languages) - 1);
-        //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
-        BuildHList l(this, Rect(ly, 10, 30, 20), 5);
-        //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
-        language.clear();
-        if(!vshrink)
-            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i) {
-                BorderlessImageButton *but = new BorderlessImageButton(
-                    nls::languages[i].flagimage + string("-shaded"),
-                    nls::languages[i].flagimage,
-                    nls::languages[i].flagimage, this);
-                language.push_back(l.add(but));
-            }
+        const bool vshrink = vminfo->width < 640 ;
+    
+        BuildVList b = vshrink? BuildVList(this, Rect(40, 40, 100, 25), 3)
+                : BuildVList(this, Rect((vminfo->width - 150)/2, vminfo->tt ? 80 : 150, 150, 40), 7);
+        BuildVList br = vshrink? BuildVList(this, Rect(180, 40, 100, 25), 4) : BuildVList(this, Rect(0, 0, 0, 0), 0);
+        BuildVList *brp = vshrink? &br : &b;
+        
+        homepage = b.add(new StaticTextButton(N_("Homepage"), this));
+        docs = b.add(new StaticTextButton(N_("Dokumentation"), this));
+        paths = b.add(new StaticTextButton(N_("Paths"), this));
+        autofolder = brp->add(new StaticTextButton(N_("Locate Auto"), this));
+        scorefolder = brp->add(new StaticTextButton(N_("Locate Score"), this));
+        credits = brp->add(new StaticTextButton(N_("Credits"), this));
+        back = brp->add(new StaticTextButton(N_("Back"), this));
     }
     
-    void MainMenu::draw_background(ecl::GC &gc) 
-    {
-        const video::VMInfo *vminfo = video::GetInfo();
-    
-        video::SetCaption (("Enigma - Main Menu"));
-        sound::StartMenuMusic();
-    
-        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
-    
-        Font *f = enigma::GetFont("levelmenu");
-        Surface * logo(enigma::GetImage("enigma_logo3"));
-        int x0=(vminfo->width - logo->width())/2;
-        int y0[] = {0, 50, 60, 70, 80};
-        // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
-#ifdef ENABLE_EXPERIMENTAL
-        y0[1] = 30;
-#endif
-        blit(gc, x0, y0[vminfo->tt], logo);
-        f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
+    MainHelpMenu::~MainHelpMenu () {
     }
     
-    bool MainMenu::on_event (const SDL_Event &e) {
-        switch (e.type) {
-            case SDL_KEYDOWN:
-                SDLKey keysym = e.key.keysym.sym;
-                switch (keysym) {
-                case SDLK_F2:     
-                    show_paths();
-                    invalidate_all();
-                    return true;
-                default:
-                    break;
-                }
-                break;
-        }
+    bool MainHelpMenu::on_event (const SDL_Event &e)  {
         return false;
     }
-
-    void MainMenu::on_action(Widget *w) 
-    {
-        if (w == m_startgame) {            
-            LevelPackMenu m;
-            m.manageLevelMenu();
-        } else if (w == m_levelpack) {
-            LevelPackMenu m;
-            m.manage();
+    
+    void MainHelpMenu::on_action(gui::Widget *w) {
+        if (w == homepage) {
+            ecl::BrowseUrl("http://www.enigma-game.org");            
+        } else if (w == docs) {
+            ecl::BrowseUrl(app.docPath + "/index.html");
+        } else if (w == paths) {
+            showPaths();
+        } else if (w == autofolder) {
+            ecl::ExploreFolder(app.userPath + "/levels/auto");
+        } else if (w == scorefolder) {
+            ecl::ExploreFolder(app.userPath);
         } else if (w == credits) {
             displayInfo(credit_text, 6);
-        } else if (w == options) {
-            ShowOptionsMenu(0);
-    
-    #ifdef ENABLE_EXPERIMENTAL
-        } else if (w == m_netgame) {
-            ShowNetworkMenu();
-        } else if (w == leveled) {
-            editor::Run();
-    #endif
-        } else if (w == quit) {
+        } else if (w == back) {
             Menu::quit();
-        } else if (language.size() > 0) {
-            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i)
-                if (w == language[i-1]) {
-                    options::SetOption ("Language", nls::languages[i].localename);
-                    app.setLanguage(nls::languages[i].localename);
-                }
         } else
             return;
         invalidate_all();
     }
     
-    void MainMenu::tick(double /* dtime */) 
-    {
-        bool isFullScreen = app.prefs->getBool("FullScreen");
-        if (app.selectedVideoMode != video::GetVideoMode()
-                || isFullScreen != video::IsFullScreen())
-        {
-            ChangeVideoMode();
-            clear();
-            reset_active_widget ();
-            build_menu();
-            invalidate_all();
-        }
+    void MainHelpMenu::draw_background(ecl::GC &gc) {
+        video::SetCaption (("Enigma - Help Menu"));
+        blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
     }
-        
-    void MainMenu::show_paths() {
+    
+    void MainHelpMenu::tick(double dtime) {
+    }
+    
+    void MainHelpMenu::showPaths() {
         const char *pathtext[25];
         std::string pathstrings[25];
         std::string work;
@@ -411,6 +340,140 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = 0;
         displayInfo(pathtext, 1);
+    }
+    
+    /* -------------------- Main menu -------------------- */
+    MainMenu::MainMenu() 
+    {
+        build_menu();
+    }
+    
+    void MainMenu::build_menu() 
+    {
+        const video::VMInfo *vminfo = video::GetInfo();
+        const int vshrink = vminfo->width < 640 ? 1 : 0;
+        int y[] = {75, 170, 190, 220, 220};
+        // parameters to use when flags are not at top: {75, 150, 170, 200, 200};
+#ifdef ENABLE_EXPERIMENTAL
+        y[1] = 150;
+#endif
+        BuildVList b(this, Rect(vshrink?40:(vminfo->width - 150)/2, vshrink?120:y[vminfo->tt], vshrink?100:150, vshrink?25:40), vshrink?3:6);
+        BuildVList br = vshrink? BuildVList(this, Rect(180, 120, 100, 25), 3) : BuildVList(this, Rect(0, 0, 0, 0), 0);
+        BuildVList *brp = vshrink? &br : &b;
+        startgame = b.add(new StaticTextButton(N_("Start Game"), this));
+        levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
+#ifdef ENABLE_EXPERIMENTAL
+        m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
+        leveled     = b.add(new StaticTextButton(N_("Editor"), this));
+#endif
+        options     = b.add(new StaticTextButton(N_("Options"), this));
+#if 0
+        update      = brp->add(new StaticTextButton(N_("Update"), this));
+#endif
+        help        = brp->add(new StaticTextButton(N_("Help"), this));
+        quit        = brp->add(new StaticTextButton(N_("Quit"), this));
+        
+        int ly = vminfo->width - 5 - 35*(NUMENTRIES(nls::languages) - 1);
+        //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
+        BuildHList l(this, Rect(ly, 10, 30, 20), 5);
+        //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
+        language.clear();
+        if(!vshrink)
+            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i) {
+                BorderlessImageButton *but = new BorderlessImageButton(
+                    nls::languages[i].flagimage + string("-shaded"),
+                    nls::languages[i].flagimage,
+                    nls::languages[i].flagimage, this);
+                language.push_back(l.add(but));
+            }
+    }
+    
+    void MainMenu::draw_background(ecl::GC &gc) 
+    {
+        const video::VMInfo *vminfo = video::GetInfo();
+    
+        video::SetCaption (("Enigma - Main Menu"));
+        sound::StartMenuMusic();
+    
+        blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
+    
+        Font *f = enigma::GetFont("levelmenu");
+        Surface * logo(enigma::GetImage("enigma_logo3"));
+        int x0=(vminfo->width - logo->width())/2;
+        int y0[] = {0, 50, 60, 70, 80};
+        // parameters to use when flags are not at top: {0, 30, 40, 50, 60};
+#ifdef ENABLE_EXPERIMENTAL
+        y0[1] = 30;
+#endif
+        blit(gc, x0, y0[vminfo->tt], logo);
+        f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
+    }
+    
+    bool MainMenu::on_event (const SDL_Event &e) {
+        switch (e.type) {
+            case SDL_KEYDOWN:
+                SDLKey keysym = e.key.keysym.sym;
+                switch (keysym) {
+                case SDLK_F1:
+                case SDLK_F2: {
+                    MainHelpMenu m;
+                    m.manage();
+                    invalidate_all();
+                    return true;
+                }
+                default:
+                    break;
+                }
+                break;
+        }
+        return false;
+    }
+
+    void MainMenu::on_action(Widget *w) 
+    {
+        if (w == startgame) {            
+            LevelPackMenu m;
+            m.manageLevelMenu();
+        } else if (w == levelpack) {
+            LevelPackMenu m;
+            m.manage();
+        } else if (w == options) {
+            ShowOptionsMenu(0);
+        } else if (w == help) {
+            MainHelpMenu m;
+            m.manage();
+    
+    #ifdef ENABLE_EXPERIMENTAL
+        } else if (w == m_netgame) {
+            ShowNetworkMenu();
+        } else if (w == leveled) {
+            editor::Run();
+    #endif
+        } else if (w == quit) {
+            Menu::quit();
+        } else if (language.size() > 0) {
+            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i)
+                if (w == language[i-1]) {
+                    options::SetOption ("Language", nls::languages[i].localename);
+                    app.setLanguage(nls::languages[i].localename);
+                }
+        } else
+            return;
+        invalidate_all();
+    }
+    
+    void MainMenu::tick(double /* dtime */) 
+    {
+        bool isFullScreen = app.prefs->getBool("FullScreen");
+        if (app.selectedVideoMode != video::GetVideoMode()
+                || isFullScreen != video::IsFullScreen())
+        {
+            ChangeVideoMode();
+            clear();
+            reset_active_widget ();
+            build_menu();
+            invalidate_all();
+        }
     }
     
 /* -------------------- Functions -------------------- */
