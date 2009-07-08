@@ -113,7 +113,7 @@ bool ecl::FolderCreate (const std::string &fname)
 bool ecl::BrowseUrl(const std::string url) {
     bool result = true;
 #ifdef __MINGW32__
-    result == (ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+    result == ((int)ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
 #elif MACOSX
     CFStringRef cfurlStr = CFStringCreateWithCString( NULL, url.c_str(), kCFStringEncodingASCII);
 
@@ -135,7 +135,7 @@ bool ecl::BrowseUrl(const std::string url) {
 bool ecl::ExploreFolder(const std::string path) {
     bool result = true;
 #ifdef __MINGW32__
-    result == (ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
+    result == ((int)ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
 #elif MACOSX
     CFStringRef cfurlStr = CFStringCreateWithCString( NULL, path.c_str(), kCFStringEncodingASCII);
 

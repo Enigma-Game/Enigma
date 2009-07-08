@@ -246,7 +246,7 @@ namespace enigma { namespace gui {
         if (w == homepage) {
             ecl::BrowseUrl("http://www.enigma-game.org");            
         } else if (w == docs) {
-            ecl::BrowseUrl(app.docPath + "/index.html");
+            ecl::BrowseUrl("file://" + app.docPath + "/index.html");
         } else if (w == paths) {
             showPaths();
         } else if (w == autofolder) {

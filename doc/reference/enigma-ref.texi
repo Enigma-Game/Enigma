@@ -1345,9 +1345,11 @@ parts:
 * Internationalization (i18n)::
 * Usage::
 * Update and Upgrade::
-* Using Libraries::
+* Library Files::
+* Multilevel Files::
 @end menu
 
+@c ----------------- Getting Started with Levels --------------------
 @node Getting Started with Levels
 @section Getting Started with Levels
 
@@ -1465,6 +1467,7 @@ You will find all conceptional background information in chapter
 based level metadata.
 
 
+@c ----------------- XML Level structure --------------------
 @node XML Level structure
 @section XML Level structure
 
@@ -1623,6 +1626,7 @@ This upgrade node is part of the @ref{Update and Upgrade} system.
 
 @end table
 
+@c ----------------- Info metadata --------------------
 @node Info metadata
 @section Info metadata
 
@@ -1651,7 +1655,7 @@ Let us look at all supported subnodes of info with typically used attributes:
 @b{Attributes:}
 
 @table @asis
-@item @b{type}, @i{required}, values = ``level'', ``library'', ``multilevel''
+@item @b{type}, @i{required}, values = @code{"level"}, @code{"library"}, @code{"multilevel"}
 You may use the schema for single Enigma levels, libraries that contain level
 description parts for reuse, and descriptions for multiple levels at once.
 
@@ -1660,18 +1664,18 @@ edit them manually or with a level editor program, or which description elements
 use.
 
 @samp{library} are level description parts that may be included in levels.
-The library may consist simply of Lua code in the luamain node, or additional object
-descriptions in the elements node. Libraries may make use of nearly all nodes besides
-the @samp{/level/protected/info/score} and @samp{/level/*/i18n}, which both must be
-provided, but will not be evaluated. Libraries are included in levels via
-the dependency node-element. See @ref{<compatibility>}.
+@ref{Library Files} consist simply of Lua code in the luamain node. Libraries
+may make use of nearly all nodes besides the @samp{/level/protected/info/score}
+and @samp{/level/*/i18n}, which both must be provided, but will not be evaluated.
+Libraries are included in levels via the dependency node-element. See
+@ref{<compatibility>}.
 
 @samp{multilevel} are descriptions for multiple levels at once. The main purpose
 is to support foreign game level formats, like the Sokoban level format, which
-usually describes a whole set of level maps in a single file.
+usually describes a whole set of level maps in a single file (@pxref{Multilevel Files}).
 
 @item @b{quantity}, @i{optional}
-The number of levels contained in a multilevel file.
+The number of levels contained in a multilevel file (@pxref{Multilevel Files}).
 
 @end table
 
@@ -2295,6 +2299,7 @@ encodings. You may use Lua strings and comments with Umlauts, but Lua identifier
 limited to pure US-ASCII. The benefit is that you can use Umlauts and
 other non-ASCII characters within it-document hints.
 
+@c ----------------- Internationalization (i18n) --------------------
 @node Internationalization (i18n)
 @section Internationalization (i18n)
 
@@ -2426,6 +2431,7 @@ Here the author gives the public translation in the @samp{#  check:} line. Since
 contains at least one mistake, the translator will correct it, as shown in the @samp{msgstr}
 string.
 
+@c ----------------- Usage --------------------
 @node Usage
 @section Usage
 
@@ -2573,8 +2579,9 @@ new release, we added another upgrade element in the public section. Level admin
 use this element for the same purpose, with the same syntax, without modifying the author's
 protected section.
 
-@node Using Libraries
-@section Using Libraries
+@c ----------------- Library Files --------------------
+@node Library Files
+@section Library Files
 
 Libraries are collections of Lua functions for reuse in many levels. To use a library, you must
 declare it as a dependency, as described in @ref{<compatibility>}. Preloading the library is all
@@ -2659,6 +2666,64 @@ not provide any information of the required library release.
 If a library file with a complete filename is not present, the default library file without release
 number addition will be loaded for XML load requests, too. Yet the future belongs to the new
 naming scheme, and every new library should follow it from the beginning.
+
+@c ----------------- Multilevel Files --------------------
+@node Multilevel Files
+@section Multilevel Files
+
+Another concept of code reusage besides @ref{Library Files} are multilevel files.
+The code contained in a single file generates several levels, called sublevels,
+that appear as autonomous levels in a levelpack. Of course this concept is much
+less flexible than the library concept as other level files can not reuse the 
+code. But you can write a multilevel if you wrote a lot of specific code for a 
+complex level that provides more than just two variants, which would be 
+otherwise presented as @samp{difficult} and @samp{easy} @ref{<modes>}.
+
+But the main reason for multilevel files is the support of foreign game level
+formats like Sokoban, which describe a whole set of levels in a single file.
+Enigma imports these original files with just a few lines of code. It would be
+inefficient, even though being possible, to write an Enigma level stub for
+every level imported from a single foreign file.
+
+But multilevel files have some restrictions. They use a single set of XML
+level metadata. Thus these metadata must fit to all levels. The 
+@ref{<version>} will be identical as it reflects either the code version of the
+native level or the version of the imported foreign file. But the other data
+like @ref{<author>}, @ref{<compatibility>} and @ref{<modes>} have to match, too.
+If they do not, you can not use a multilevel file.
+
+Just the values for @samp{title} and @samp{id} will and have to differ for all
+levels described by a single multilevel file. There exists special support for
+multilevels to handle these attributes.
+
+Let us look at all attributes and features of multilevels that differ from
+standard level files.
+
+First you have to declare in the @ref{Info metadata} element the type as 
+@code{"multilevel"} and to provide the quantity of generated levels. The 
+sublevels will be numbered from 1 to the given quantity.
+
+In the element @ref{<identity>} you have to provide just one unique level id 
+value. Enigma will automatically append the string @code{"[1]"} for the first
+sublevel, @code{"[2]"} for the second and so on. Thus every sublevel has an
+unique id. 
+
+Additionally you should provide base title for the levels in this metadata
+@ref{<identity>} element. If your title ends with a hash @samp{#} sign Enigma
+will autogenerate titles for the sublevels by appending the sublevel number to
+the given common title string.
+
+For individual sublevel titles the @ref{LUA code} has to provide the titles.
+The title in the @ref{<identity>} element may not end on a hash sign and will
+only be used as a default title base in case the @ref{LUA code} fails to
+provide a sublevel title. Prior execution of the Lua code the global
+attribute @ref{SublevelNumber} gets initialized. The Lua part has either way to
+load the appropriate sublevel based on this number. Now it has additionally to
+set the second special multilevel global attribute @ref{SublevelTitle}.
+
+
+@ref{<compatibility>} externaldata
+
 
 
 @c ===================  Paradigm  =======================
@@ -8816,6 +8881,8 @@ attributes of objects. Instead, you have to use @samp{index} and
 * RubberViolationStrength::
 * ShowMoves::
 * SlopeStrength::
+* SublevelNumber::
+* SublevelTitle::
 * SurviveFinish::
 * SwampSinkTime::
 * WaterSinkTime::
@@ -9270,6 +9337,38 @@ global value is used if no slope object specific strength factor is supplied.
 @item @b{Default:} @ @ @code{25.0}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{fl_slope}
+@end table
+
+@node SublevelNumber
+@subsection SublevelNumber
+
+A global variable that is only used by @ref{Multilevel Files}. It contains the
+number of the sublevel that should be loaded and played. The number is preset
+to a value between @code{1} and the @samp{quantity} given in the 
+@ref{Info metadata}. 
+
+@table @asis
+@item @b{Type:} @ @ int
+@item @b{Values:} @ @ positive integer numbers
+@item @b{Default:} @ @ @code{1}
+@item @b{Access:} @ @ read only
+@item @b{Support:} @ @ no objects
+@end table
+
+@node SublevelTitle
+@subsection SublevelTitle
+
+A global variable that is only used by @ref{Multilevel Files}. If the sublevel
+provides an individual title this variable must be set on level load to the
+title string. An empty string value causes an auto generated title based on
+the title given in the @ref{<identity>} element and the @ref{SublevelNumber}.
+
+@table @asis
+@item @b{Type:} @ @ string
+@item @b{Values:} @ @ any string
+@item @b{Default:} @ @ @code{""}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no objects
 @end table
 
 @node SurviveFinish
