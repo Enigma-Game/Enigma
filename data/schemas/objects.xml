@@ -1262,6 +1262,9 @@
     <object name="st_dispenser_dynamite">
       <attr name="flavor" value="dynamite"/>
     </object>
+    <object name="st_dispenser_extralife">
+      <attr name="flavor" value="extralife"/>
+    </object>
     <object name="st_door">
       <attr name="faces" default="nesw"/>
       <attr name="flavor"/>

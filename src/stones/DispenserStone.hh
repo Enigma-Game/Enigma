@@ -25,48 +25,49 @@
 
 namespace enigma {
 
-    /** 
-     * 
+    /**
+     *
      */
     class DispenserStone : public Stone {
         CLONEOBJ(DispenserStone);
-        DECL_TRAITS_ARRAY(3, traitsIdx());
+        DECL_TRAITS_ARRAY(4, traitsIdx());
 
     private:
         enum iState {
-            IDLE,       ///< 
-            BREAKING    ///< 
+            IDLE,       ///<
+            BREAKING    ///<
         };
-        
+
         enum ObjectPrivatFlagsBits {
             OBJBIT_SUBTYP    =   3<<24,   ///< the item typ
         };
-        
+
         enum DispenserStoneTyp {
             BOMBBLACK,
             BOMBWHITE,
-            DYNAMITE
+            DYNAMITE,
+            EXTRALIFE
         };
     public:
         DispenserStone(int subtyp);
-        
+
         // Object interface
         virtual std::string getClass() const;
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual void setState(int extState);
-        
+
         // GridObject interface
         virtual void init_model();
-        
+
         // ModelCallback interface
         virtual void animcb();
-        
+
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
-    
+
     private:
         // Private methods.
         void doBreak();

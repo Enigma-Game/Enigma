@@ -45,7 +45,6 @@ namespace enigma {
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
         
         // Item interface
-        virtual string get_inventory_model();
         virtual void setup_successor(Item *newitem);
         virtual void on_pickup(Actor *a);
         

@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -28,11 +28,11 @@ namespace enigma {
     DispenserStone::DispenserStone(int subtyp) : Stone() {
         objFlags |= (subtyp << 24);
     }
-    
+
     std::string DispenserStone::getClass() const {
         return "st_dispenser";
     }
-    
+
     Value DispenserStone::getAttr(const std::string &key) const {
         if (key == "flavor") {
             DispenserStoneTyp typ = (DispenserStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 24);
@@ -43,6 +43,8 @@ namespace enigma {
                     return "bombwhite";
                 case DYNAMITE:
                     return "dynamite";
+                case EXTRALIFE:
+                    return "extralife";
             }
         }
         return Stone::getAttr(key);
@@ -60,7 +62,7 @@ namespace enigma {
     void DispenserStone::setState(int extState) {
         // no external states
     }
-    
+
     void DispenserStone::init_model() {
         std::string base = get_traits().name;
         if (state == BREAKING)
@@ -68,7 +70,7 @@ namespace enigma {
         else
             set_model(base);
     }
-    
+
     void DispenserStone::animcb() {
         GridPos p = get_pos();
         SendExplosionEffect(p, EXPLOSION_DISPENSER);
@@ -93,6 +95,8 @@ namespace enigma {
                             itemkind = "it_bomb_white"; break;
                         case DYNAMITE:
                             itemkind = "it_dynamite"; break;
+                        case EXTRALIFE:
+                            itemkind = "it_extralife"; break;
                         default:
                             ASSERT(false, XLevelRuntime, "Dispenser - unexpected subtyp");
                     }
@@ -103,7 +107,7 @@ namespace enigma {
             }
         }
     }
-    
+
     void DispenserStone::doBreak() {
         if (state == IDLE) {
             state = BREAKING;
@@ -111,15 +115,16 @@ namespace enigma {
             init_model();
         }
     }
-    
+
     int DispenserStone::traitsIdx() const {
         return (objFlags & OBJBIT_SUBTYP) >> 24;
     }
 
-    StoneTraits DispenserStone::traits[3] = {
+    StoneTraits DispenserStone::traits[4] = {
         {"st_dispenser_bombblack", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
         {"st_dispenser_bombwhite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
         {"st_dispenser_dynamite", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
+        {"st_dispenser_extralife", st_dispenser, stf_none, material_stone, 1.0, MOVABLE_BREAKABLE},
     };
 
     BOOT_REGISTER_START
@@ -127,6 +132,7 @@ namespace enigma {
         BootRegister(new DispenserStone(0), "st_dispenser_bombblack");
         BootRegister(new DispenserStone(1), "st_dispenser_bombwhite");
         BootRegister(new DispenserStone(2), "st_dispenser_dynamite");
+        BootRegister(new DispenserStone(3), "st_dispenser_extralife");
     BOOT_REGISTER_END
 
 } // namespace enigma

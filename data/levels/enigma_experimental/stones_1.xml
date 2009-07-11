@@ -173,6 +173,7 @@ local stones = {
 {"st_dispenser_bombblack", _text="st_dispenser_bombblack"}, -- flavor attributes?
 {"st_dispenser_bombwhite", _text="st_dispenser_bombwhite"}, -- flavor attributes?
 {"st_dispenser_dynamite", _text="st_dispenser_dynamite"}, -- flavor attributes?
+{"st_dispenser_extralife", _text="st_dispenser_extralife"}, -- flavor attributes?
 
 {"st_door", _text="st_door, default"},
 {"st_door", flavor="a", _text="st_door, flavor=\"a\""},
@@ -614,6 +615,7 @@ for i=1, #stones do
     wo[po(5+i, 2)] = ti["#"]
     wo[po(5+i, 3)] = ti["S"]
     wo[po(5+i, 4)] = {"it_document", text=stones[i]["_text"]}
+    wo[po(5+i, 5)] = {"it_pencil"}
 end
 
 -- Stones express worldwide:

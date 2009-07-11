@@ -33,13 +33,6 @@ namespace enigma {
         }
     }
     
-    std::string ExtraLife::get_inventory_model() {
-        if (player::CurrentPlayer()==0)
-            return "inv-blackball";
-        else
-            return "inv-whiteball";
-    }
-
     void ExtraLife::on_creation(GridPos p) {
         if (objFlags & OBJBIT_NEW) {
             // a new transformed extralife
