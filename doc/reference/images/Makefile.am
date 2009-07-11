@@ -225,7 +225,6 @@ SIMPLEPNG = \
 	st_plaster.png \
 	st_plop_slate.png \
 	st_pull.png \
-	st_puzzle.png \
 	st_portal_horse.png \
 	st_purplegray.png \
 	st_purplemarble.png \

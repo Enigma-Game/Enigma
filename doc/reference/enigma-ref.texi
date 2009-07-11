@@ -1745,9 +1745,12 @@ and system identification of the level.
 
 @table @asis
 @item @b{title}, @i{required}
-The English title of the level. Make sure that the title is not too long, since Enigma
-will use it on the level selection menu. Translations of the title can be provided
-in the @ref{Internationalization (i18n)} sections.
+The English title of the level. The string can contain arbitrary characters
+that are displayable by Enigma's font and XML conformant. Just in case of
+@ref{Multilevel files} a trailing hash sign has a special meaning. Anyway please
+make sure that the title is not too long, since Enigma will use it on the level
+selection menu. Translations of the title can be provided in the
+@ref{Internationalization (i18n)} sections.
 
 @item @b{subtitle}, @i{optional}
 An optional English subtitle. Used for title parts that are too long for the
@@ -1757,13 +1760,15 @@ in the @ref{Internationalization (i18n)} sections.
 
 @item @b{id}, @i{required}
 This is the central system identification string of the level that remains valid
-for all time, independent of upcoming release updates. Enigma's single demand
-on the id is that it is unique among all levels created by all authors
-around the world.
+for all time, independent of upcoming release updates. The id string should not
+contain spaces, braces and wildcard characters, that means no character out
+of @samp{*? ()[]@{@}}. Enigma's main demand on the id is that it is unique among
+all levels created by all authors around the world and that it does not end on a
+closing square bracket.
 
-Since you can edit levels with any text editor or different special Enigma level editors, there is no
-control about the uniqueness. Thus, we have to provide a simple convention to avoid any
-possible id clashes:
+Since you can edit levels with any text editor or different special Enigma level
+editors, there is no control about the uniqueness. Thus, we have to provide a
+simple convention to avoid any possible id clashes:
 
 @var{@b{YYYYMMDDuserNNN}}
 
@@ -1775,8 +1780,8 @@ differ in the random number part. The id is an Enigma level system id, and is
 never exposed to users.
 
 For backward compatibility, legacy levels keep their former filename as the
-new level id, and do not fit in the name schema given above. Still, that does no harm since the
-only requirement is the uniqueness.
+new level id, and do not fit in the name schema given above. Still, that does 
+not harm since the only requirement is the uniqueness.
 
 @end table
 
