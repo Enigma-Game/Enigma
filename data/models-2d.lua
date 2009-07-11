@@ -37,17 +37,17 @@ do
     local images,frames,shadows
 
     -- Normal Blackball
-    images = SpriteImages("fg-blackball", 2, 0.5, 0.32)
+    images = SpriteImages("ac_marble_black", 2, 0.5, 0.32)
     shadows = SpriteImage("sh-blackball", 0.4, 0.29)
-    DefShModel("ac_marble_black", "fg-blackball1", "sh-blackball")
-    DefShModel("ac_marble_black-shine", "fg-blackball2", "sh-blackball")
+    DefShModel("ac_marble_black", "ac_marble_black1", "sh-blackball")
+    DefShModel("ac_marble_black-shine", "ac_marble_black2", "sh-blackball")
 
     -- Normal Whiteball
     -- Use shadow from black ball
     DefAlias("sh-whiteball", "sh-blackball")
-    images = SpriteImages("fg-whiteball", 2, 0.5, 0.32)
-    DefShModel("ac_marble_white", "fg-whiteball1", "sh-whiteball")
-    DefShModel("ac_marble_white-shine", "fg-whiteball2", "sh-whiteball")
+    images = SpriteImages("ac_marble_white", 2, 0.5, 0.32)
+    DefShModel("ac_marble_white", "ac_marble_white1", "sh-whiteball")
+    DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh-whiteball")
 
     -- Falling Blackball
     images = SpriteImages("ac-blackball-fall", 10)
@@ -124,8 +124,8 @@ do
 
     -- Normal
     SpriteImage ("sh-whiteball-small", 0.4, 0.41)
-    SpriteImage ("fg-whiteball-small", 0.5, 0.43)
-    DefShModel("ac_pearl_white", "fg-whiteball-small", "sh-whiteball-small")
+    SpriteImage ("ac_pearl_white", 0.5, 0.43)
+    DefShModel("ac_pearl_white", "ac_pearl_white", "sh-whiteball-small")
     DefAlias ("ac_pearl_white-shine", "ac_pearl_white")
 
     -- Falling
@@ -171,14 +171,20 @@ do
     DefAlias("ac_killer", "ac_pearl_white")
 end
 
+-- Marbles in inventory  --
+do
+    DefImage("inv-blackball")
+    DefImage("inv-whiteball")
+end
+
 ----------------------------
 -- not ball-shaped actors --
 ----------------------------
 
 -- ac-bug --
 do
-    SpriteImage("fg-bug",0.5,0.44)
-    DefShModel("ac_bug", "fg-bug", "sh-whiteball-small")
+    SpriteImage("ac_bug",0.5,0.44)
+    DefShModel("ac_bug", "ac_bug", "sh-whiteball-small")
 end
 
 -- ac-cannonball --
@@ -188,14 +194,14 @@ end
 
 -- ac-horse --
 do
-    SpriteImage("fg-horse",0.5,0.18)
+    SpriteImage("ac_horse",0.5,0.18)
     SpriteImage("sh_horse", 0.4)
-    DefShModel("ac_horse", "fg-horse", "sh_horse")
+    DefShModel("ac_horse", "ac_horse", "sh_horse")
 end
 
 -- ac-rotor --
 do
-    local fg = SpriteImages("fg-rotor",9)
+    local fg = SpriteImages("ac_rotor",9)
     local bg = SpriteImages("sh_rotor", 9, 0.4)
 
     frames = {}
@@ -208,7 +214,7 @@ end
 
 -- ac-top --
 do
-    local fg = SpriteImages("fg-top", 9, 0.5, 0.3)
+    local fg = SpriteImages("ac_top", 9, 0.5, 0.3)
     local bg = SpriteImage("sh_top", 0.4, 0.3)
 
     frames = {}
@@ -250,6 +256,7 @@ do
         {"fl_ivory"},
         {"fl_platinum"},
         {"fl_adhesionless", noframe = true},
+        {"fl-normal"},
         {"fl_sand"},
         {"fl_stone"},
         {"fl_white"},
@@ -266,7 +273,7 @@ do
         {"fl_hay", 4},
         {"fl_himalaya", 4},
         {"fl_marble", 4},
-        {"fl_metal", 7},
+        {"fl_metal", 6},
         {"fl_mortar", 2, 2},
         {"fl_plank", 4},
         {"fl_red", 4},
@@ -277,7 +284,7 @@ do
         {"fl_sahara", 4},
         {"fl_samba", 2},
         {"fl_space", 3, 2, noframe = true},
-        {"fl-stwood", 2},
+        {"fl_wood_framed", 2},
         {"fl_swamp", 4, noframe = true},
         {"fl_tigris", 4},
         {"fl_water", 4, noframe = true},
@@ -317,32 +324,32 @@ end
 
 -- gradients
 do
-    DefSubimages("fl-gradient2", {w=6, h=4, modelname="fl-gradient"})
-    DefAlias("fl_slope", "fl-gradient21")
-    DefAlias("fl_slope_pw", "fl-gradient4")
-    DefAlias("fl_slope_ps", "fl-gradient1")
-    DefAlias("fl_slope_pe", "fl-gradient3")
-    DefAlias("fl_slope_pn", "fl-gradient2")
-    DefAlias("fl_slope_inw", "fl-gradient12")
-    DefAlias("fl_slope_isw", "fl-gradient11")
-    DefAlias("fl_slope_ise", "fl-gradient9")
-    DefAlias("fl_slope_ine", "fl-gradient10")
-    DefAlias("fl_slope_onw", "fl-gradient8")
-    DefAlias("fl_slope_osw", "fl-gradient6")
-    DefAlias("fl_slope_ose", "fl-gradient5")
-    DefAlias("fl_slope_one", "fl-gradient7")
-    DefAlias("fl_slope_tw", "fl-gradient21")
-    DefAlias("fl_slope_ts", "fl-gradient21")
-    DefAlias("fl_slope_te", "fl-gradient21")
-    DefAlias("fl_slope_tn", "fl-gradient21")
-    DefAlias("fl_slope_twl", "fl-gradient2")
-    DefAlias("fl_slope_tsl", "fl-gradient4")
-    DefAlias("fl_slope_tel", "fl-gradient1")
-    DefAlias("fl_slope_tnl", "fl-gradient3")
-    DefAlias("fl_slope_twr", "fl-gradient1")
-    DefAlias("fl_slope_tsr", "fl-gradient3")
-    DefAlias("fl_slope_ter", "fl-gradient2")
-    DefAlias("fl_slope_tnr", "fl-gradient4")
+    DefSubimages("fl_slope", {w=6, h=4, modelname="fl_slope"})
+    DefAlias("fl_slope", "fl_slope21")
+    DefAlias("fl_slope_pw", "fl_slope4")
+    DefAlias("fl_slope_ps", "fl_slope1")
+    DefAlias("fl_slope_pe", "fl_slope3")
+    DefAlias("fl_slope_pn", "fl_slope2")
+    DefAlias("fl_slope_inw", "fl_slope12")
+    DefAlias("fl_slope_isw", "fl_slope11")
+    DefAlias("fl_slope_ise", "fl_slope9")
+    DefAlias("fl_slope_ine", "fl_slope10")
+    DefAlias("fl_slope_onw", "fl_slope8")
+    DefAlias("fl_slope_osw", "fl_slope6")
+    DefAlias("fl_slope_ose", "fl_slope5")
+    DefAlias("fl_slope_one", "fl_slope7")
+    DefAlias("fl_slope_tw", "fl_slope21")
+    DefAlias("fl_slope_ts", "fl_slope21")
+    DefAlias("fl_slope_te", "fl_slope21")
+    DefAlias("fl_slope_tn", "fl_slope21")
+    DefAlias("fl_slope_twl", "fl_slope2")
+    DefAlias("fl_slope_tsl", "fl_slope4")
+    DefAlias("fl_slope_tel", "fl_slope1")
+    DefAlias("fl_slope_tnl", "fl_slope3")
+    DefAlias("fl_slope_twr", "fl_slope1")
+    DefAlias("fl_slope_tsr", "fl_slope3")
+    DefAlias("fl_slope_ter", "fl_slope2")
+    DefAlias("fl_slope_tnr", "fl_slope4")
 end
 
 -- leaves --
@@ -367,17 +374,10 @@ end
 
 -- wooden floor --
 do
-    DefSubimages("fl-wood", {w=1, h=4, modelname="fl-woodx"})
-    DefRandFloor("fl-wood", {"fl-woodx1", "fl-woodx2", "fl-woodx3", "fl-woodx4"})
-    DefRandFloor("fl-wood1", {"fl-woodx3", "fl-woodx4"})
-    DefRandFloor("fl-wood2", {"fl-woodx1", "fl-woodx2"})
-
-    DefAlias("fl_wood", "fl-wood")
-    DefAlias("fl_wood1", "fl-wood1")
-    DefAlias("fl_wood2", "fl-wood2")
-    DefAlias("fl_wood_framed", "fl-stwood")
-    DefAlias("fl_wood_framed1", "fl-stwood1")
-    DefAlias("fl_wood_framed2", "fl-stwood2")
+    DefSubimages("fl_wood", {w=1, h=4, modelname="fl-woodx"})
+    DefRandFloor("fl_wood", {"fl-woodx1", "fl-woodx2", "fl-woodx3", "fl-woodx4"})
+    DefRandFloor("fl_wood1", {"fl-woodx3", "fl-woodx4"})
+    DefRandFloor("fl_wood2", {"fl-woodx1", "fl-woodx2"})
 end
 
 -- yinyang floor --
@@ -402,15 +402,15 @@ do
     DefAlias("fl_metal_4", "fl_metal4")
     DefAlias("fl_metal_5", "fl_metal5")
     DefAlias("fl_metal_6", "fl_metal6")
-    DefAlias("fl_metal_7", "fl_metal7")
-    DefAlias("fl_metal_7n", "fl_metal7")
+    DefAlias("fl_metal_7", "fl-normal")
+    DefAlias("fl_metal_7n", "fl-normal")
     DefAlias("fl_metal_1_framed", "fl_metal1_framed")
     DefAlias("fl_metal_2_framed", "fl_metal2_framed")
     DefAlias("fl_metal_3_framed", "fl_metal3_framed")
     DefAlias("fl_metal_4_framed", "fl_metal4_framed")
     DefAlias("fl_metal_5_framed", "fl_metal5_framed")
     DefAlias("fl_metal_6_framed", "fl_metal6_framed")
-    DefAlias("fl_metal_7_framed", "fl_metal7_framed")
+    DefAlias("fl_metal_7_framed", "fl-normal_framed")
     DefAlias("fl-space-force", "fl_space")
     DefAlias("fl_samba_h", "fl_samba1")
     DefAlias("fl_samba_v", "fl_samba2")
@@ -833,13 +833,6 @@ do
     DefStone("st_yinyang_inactive", "sh_round")
 end
 
--- st_magic --
-do
-    DefAlias("st_magic_oxydc", "st_oxydc")
-    DefAlias("st_magic_oxyda", "st_oxyda")
-    DefAlias("st_magic_brick", "st_brick")
-end
-
 ---------------------
 -- Animated stones --
 ---------------------
@@ -951,9 +944,9 @@ do
     DefSolidStone("st_coinslot_active", "st_coinslot_insert18")
 end
 
--- st-disco --
+-- st_disco --
 do
-    DefTiles("st-disco", {"st_disco0","st_disco1","st_disco2"})
+    DefTiles("st_disco", {"st_disco0","st_disco1","st_disco2"})
 end
 
 -- st_death --
@@ -967,7 +960,7 @@ do
     DefRoundStoneWithAnim("st_yinyang", 6, 140)
 end
 
--- st-dynamite, st-bombs, st-whitebombs, extralife-dispenser --
+-- st-dynamite, st-bombs, st-whitebombs --
 do
     function make_bombstone(name)
         local images = DefSubimages(name, {h=7})
@@ -978,12 +971,6 @@ do
     make_bombstone("st_dispenser_bombblack")
     make_bombstone("st_dispenser_dynamite")
     make_bombstone("st_dispenser_bombwhite")
-end
-
--- st_dispenser_extralife --
-do
-    local images = DefSubimages("st_dispenser_extralife", {h=7})
-    DefRoundStone("st_dispenser_extralife", "st_dispenser_extralife1")
 end
 
 -- st-flash --
@@ -1050,13 +1037,6 @@ do
     make_laser("-n")
 end
 
--- laserswitch --
-do
-    DefStone("st-laserswitch0", "sh_round", {filename="st_oxydb"})
-    DefAnimImages("laserswitch-blink", RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
-    DefShModel("st-laserswitch1", "laserswitch-blink", "sh_round")
-end
-
 -- st_lightpassenger --
 do
     local img = DefSubimages("st_lightpassenger", {h=7})
@@ -1095,13 +1075,13 @@ do
     display.DefineRandModel("st_dongle", table.getn(nlist), nlist)
 end
 
--- st-mail --
+-- st_mail --
 do
-    local images = DefSubimages("st-mail", {h=4})
-    DefSolidStone("st-mail-n", images[1])
-    DefSolidStone("st-mail-e", images[2])
-    DefSolidStone("st-mail-w", images[3])
-    DefSolidStone("st-mail-s", images[4])
+    local images = DefSubimages("st_mail", {h=4})
+    DefSolidStone("st_mail_n", images[1])
+    DefSolidStone("st_mail_e", images[2])
+    DefSolidStone("st_mail_w", images[3])
+    DefSolidStone("st_mail_s", images[4])
 end
 
 -- st_oneway, st_oneway_black, st_oneway_white --
@@ -1136,19 +1116,16 @@ end
 
 -- st-puzzle* --
 do
-    DefSubimages("st_puzzle_blue", {modelname="st_puzzlex",w=4,h=4,startindex=0})
-    DefSubimages("st_puzzle_yellow", {modelname="st_puzzlex",w=4,h=4,startindex=16})
-    DefSubimages("st_puzzle_blue_hollow", {modelname="st_puzzlex",w=4,h=4,startindex=32})
-    DefSubimages("st_puzzle_yellow_hollow", {modelname="st_puzzlex",w=4,h=4,startindex=48})
+    DefSubimages("st_puzzle", {modelname="st_puzzlex",w=16,h=4,startindex=0})
     -- Full puzzels
     for i=0,31  do DefSolidStone("st_puzzle"..i, "st_puzzlex"..i) end
     -- Hollow puzzels
     for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh_puzzle_hollow") end
 end
 
--- st_flat-break --
+-- st_flat_break --
 do
-    local images = DefSubimages("st_flat-break", {h=6})
+    local images = DefSubimages("st_flat_break", {h=6})
     DefAnim("flat_break-anim",BuildFrames(images,50))
     DefSolidStone("st_flat_breaking", "flat_break-anim")
     DefAlias("st_plaster_breaking", "st_flat_breaking")
@@ -1182,15 +1159,15 @@ end
 -- st-shogun* --
 do
     DefImages{"sh_shogun_s","sh_shogun_m", "sh_shogun_l"}
-    DefSubimages("st-shogun", {modelname="st-shogun-fg",h=7})
+    DefSubimages("st_shogun", {modelname="st-shogun-fg",h=7})
 
-    DefShModel("st-shogun1", "st-shogun-fg1", "sh_shogun_s")
-    DefShModel("st-shogun2", "st-shogun-fg2", "sh_shogun_m")
-    DefShModel("st-shogun3", "st-shogun-fg3", "sh_shogun_s")
-    DefShModel("st-shogun4", "st-shogun-fg4", "sh_shogun_l")
-    DefShModel("st-shogun5", "st-shogun-fg5", "sh_shogun_s")
-    DefShModel("st-shogun6", "st-shogun-fg6", "sh_shogun_m")
-    DefShModel("st-shogun7", "st-shogun-fg7", "sh_shogun_s")
+    DefShModel("st_shogun1", "st-shogun-fg1", "sh_shogun_s")
+    DefShModel("st_shogun2", "st-shogun-fg2", "sh_shogun_m")
+    DefShModel("st_shogun3", "st-shogun-fg3", "sh_shogun_s")
+    DefShModel("st_shogun4", "st-shogun-fg4", "sh_shogun_l")
+    DefShModel("st_shogun5", "st-shogun-fg5", "sh_shogun_s")
+    DefShModel("st_shogun6", "st-shogun-fg6", "sh_shogun_m")
+    DefShModel("st_shogun7", "st-shogun-fg7", "sh_shogun_s")
 end
 
 -- st_stoneimpulse --
@@ -1246,22 +1223,28 @@ do
     mkswitch("st_switch_white", "switch_white")
 end
 
--- st-timer --
+-- st_timer --
 do
-    local images = DefSubimages("st-timer", {h=4})
-    DefAnim("timer-anim", BuildFrames(images, 120), 1)
-    DefRoundStone("st-timer", "timer-anim")
-    DefRoundStone("st-timeroff", "st-timer1")
+    local images = DefSubimages("st_timer", {h=4})
+    DefAnim("timer_anim", BuildFrames(images, 120), 1)
+    DefRoundStone("st_timer", "timer_anim")
+    DefRoundStone("st_timeroff", "st_timer1")
 end
 
--- st-timeswitch --
+-- st_monoflop, st_laserswitch --
 do
-    DefStone("st-timeswitch", "sh_round")
-
-    local images = DefSubimages("st-time1switch", {h=2})
-    DefAnim("st-time1switch-anim", BuildFrames (images, 180), 1)
-    DefShModel("st-time1switch", "st-time1switch-anim", "sh_round")
+    local images = DefSubimages("st_monoflop", {h=2})
+    DefRoundStone("st_monoflop", "st_monoflop1")
+    DefAnim("st_monoflop_anim", BuildFrames (images, 180), 1)
+    DefShModel("st_monoflop_anim", "st_monoflop_anim", "sh_round")
 end
+-- laserswitch --
+do
+    DefStone("st_laserswitch0", "sh_round", {filename="st_oxydb"})
+    DefAnimImages("laserswitch-blink", RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
+    DefShModel("st_laserswitch1", "laserswitch-blink", "sh_round")
+end
+
 
 -- st_turnstile --
 do
@@ -1616,59 +1599,66 @@ do
     DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
 end
 
--- st-doorh, st-doorv --
+-- st_magic --
+do
+    DefAlias("st_magic_brick", "st_brick")
+    DefAlias("st_magic_oxyda", "st_oxyda")
+    DefAlias("st_magic_oxydc", "st_oxydc")
+end
+
+-- st_door_d --
 do
     local f,img,sh
 
-    img=DefSubimages("st-doorh", {h=7})
+    img=DefSubimages("st_door_d_ns", {h=7})
     sh=DefSubimages("sh_doorh", {h=7,imgw=ShadowSize,imgh=ShadowSize})
-    DefShModel("st-doorh-open", img[1], sh[1])
-    DefShModel("st-doorh-closed", img[7], sh[7])
+    DefShModel("st_door_d_ns_open", img[1], sh[1])
+    DefShModel("st_door_d_ns_closed", img[7], sh[7])
     DefAnim("doorh-opening-fg", ReverseFrames(BuildFrames(img, 60)))
     DefAnim("doorh-opening-bg", ReverseFrames(BuildFrames(sh, 60)))
-    DefShModel("st-doorh-opening", "doorh-opening-fg", "doorh-opening-bg")
+    DefShModel("st_door_d_ns_opening", "doorh-opening-fg", "doorh-opening-bg")
     DefAnim("doorh-closing-fg", BuildFrames(img, 60))
     DefAnim("doorh-closing-bg", BuildFrames(sh, 60))
-    DefShModel("st-doorh-closing", "doorh-closing-fg", "doorh-closing-bg")
+    DefShModel("st_door_d_ns_closing", "doorh-closing-fg", "doorh-closing-bg")
 
-    img=DefSubimages("st-doorv", {w=7})
+    img=DefSubimages("st_door_d_ew", {w=7})
     sh=DefSubimages("sh_doorv", {w=7,imgw=ShadowSize,imgh=ShadowSize})
-    DefShModel("st-doorv-open", img[1], sh[1])
-    DefShModel("st-doorv-closed", img[7], sh[7])
+    DefShModel("st_door_d_ew_open", img[1], sh[1])
+    DefShModel("st_door_d_ew_closed", img[7], sh[7])
     DefAnim("doorv-opening-fg", ReverseFrames(BuildFrames(img, 60)))
     DefAnim("doorv-opening-bg", ReverseFrames(BuildFrames(sh, 60)))
-    DefShModel("st-doorv-opening", "doorv-opening-fg", "doorv-opening-bg")
+    DefShModel("st_door_d_ew_opening", "doorv-opening-fg", "doorv-opening-bg")
     DefAnim("doorv-closing-fg", BuildFrames(img, 60))
     DefAnim("doorv-closing-bg", BuildFrames(sh, 60))
-    DefShModel("st-doorv-closing", "doorv-closing-fg", "doorv-closing-bg")
+    DefShModel("st_door_d_ew_closing", "doorv-closing-fg", "doorv-closing-bg")
 end
 
--- st-door_a --
+-- st_door_a --
 do
-    DefAlias("st-door_a-open", "st_grate_cross")
-    DefAlias("st-door_a-closed", "st_oxyda")
-    local f = BuildFrames({"st-door_a-closed", "st-door_a-open"},60)
-    DefAnim("st-door_a-opening", f)
-    DefAnim("st-door_a-closing", ReverseFrames(f))
+    DefAlias("st_door_a_open", "st_grate_cross")
+    DefAlias("st_door_a_closed", "st_oxyda")
+    local f = BuildFrames({"st_door_a_closed", "st_door_a_open"},60)
+    DefAnim("st_door_a_opening", f)
+    DefAnim("st_door_a_closing", ReverseFrames(f))
 end
 
--- st-door_b --
+-- st_door_b --
 do
-    DefAlias("st-door_b-open", "invisible")
-    DefAlias("st-door_b-closed", "st_flat")
-    local img=DefSubimages("st-doorb", {modelname="doorb", h=8})
+    DefAlias("st_door_b_open", "invisible")
+    DefAlias("st_door_b_closed", "st_flat")
+    local img=DefSubimages("st_door_b", {modelname="doorb", h=8})
     local f = BuildFrames(img,60)
-    DefAnim("st-door_b-opening", f)
-    DefAnim("st-door_b-closing", ReverseFrames(f))
+    DefAnim("st_door_b_opening", f)
+    DefAnim("st_door_b_closing", ReverseFrames(f))
 end
 
--- st-door_c --
+-- st_door_c --
 do
-    DefAlias("st-door_c-open", "st_grate_framed")
-    DefAlias("st-door_c-closed", "st_flat")
-    frames=BuildFrames({"st-door_c-closed","st-door_c-open"},60)
-    DefAnim("st-door_c-opening", frames)
-    DefAnim("st-door_c-closing", ReverseFrames(frames))
+    DefAlias("st_door_c_open", "st_grate_framed")
+    DefAlias("st_door_c_closed", "st_flat")
+    frames=BuildFrames({"st_door_c_closed","st_door_c_open"},60)
+    DefAnim("st_door_c_opening", frames)
+    DefAnim("st_door_c_closing", ReverseFrames(frames))
 end
 
 -- st_quake --

@@ -73,7 +73,7 @@ namespace enigma {
     }
     
     void MonoFlopStone::init_model() {
-        set_model(state <= OFF_NEW ? "st-timeswitch" : "st-time1switch");
+        set_model(state <= OFF_NEW ? "st_monoflop" : "st_monoflop_anim");
     }
     
     void MonoFlopStone::on_creation (GridPos p) {

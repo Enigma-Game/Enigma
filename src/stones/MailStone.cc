@@ -45,8 +45,8 @@ namespace enigma {
     }
 
     void MailStone::init_model() {
-        string mname = "st-mail" ;
-        set_model(mname + to_suffix(getOrientation()));
+        string mname = "st_mail" ;
+        set_model(mname + toSuffix(getOrientation()));
     }
     
     void MailStone::actor_hit(const StoneContact &sc) {

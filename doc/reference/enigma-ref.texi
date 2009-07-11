@@ -9503,7 +9503,6 @@ Positive number are attracting, negative numbers are repelling.
 @end iftex
 @end macro
 @c
-WORK IN PROGRESS - The following table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/fl_abyss, 12mm} @tab @yref{fl_abyss}
 @tab @image{images/fl_adhesionless, 12mm} @tab @yref{fl_adhesionless}
@@ -9543,15 +9542,23 @@ WORK IN PROGRESS - The following table is still incomplete!
 @tab @image{images/fl_sahara, 12mm} @tab @yref{fl_sahara}
 @item @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
 @tab @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
-@tab @image{images/fl_space, 12mm} @tab @yref{fl_space}
-@item @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
+@tab @image{images/fl_slope_f, 12mm} @tab @yref{fl_slope}
+@item @image{images/fl_slope, 12mm} @tab @yref{fl_slope}_ps
+@tab @image{images/fl_slope_c, 12mm} @tab @yref{fl_slope}_ise
+@tab @image{images/fl_slope_b, 12mm} @tab @yref{fl_slope}_ose
+@item @image{images/fl_space, 12mm} @tab @yref{fl_space}
+@tab @image{images/fl_stone, 12mm} @tab @yref{fl_stone}
 @tab @image{images/fl_swamp, 12mm} @tab @yref{fl_swamp}
-@tab @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
-@item @image{images/fl_water, 12mm} @tab @yref{fl_water}
+@item @image{images/fl_thief, 12mm} @tab @yref{fl_thief}
+@tab @image{images/fl_thief_capture, 12mm} @tab @yref{fl_thief}
+@tab @image{images/fl_thief_drunken, 12mm} @tab @yref{fl_thief}
+@item @image{images/fl_tigris, 12mm} @tab @yref{fl_tigris}
+@tab @image{images/fl_water, 12mm} @tab @yref{fl_water}
 @tab @image{images/fl_white, 12mm} @tab @yref{fl_white}
+@item @image{images/fl_wood, 12mm} @tab @yref{fl_wood}
 @tab @image{images/fl_woven, 12mm} @tab @yref{fl_woven}
-@item @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang}_yang
-@tab @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang}_yin
+@tab @image{images/fl_yinyang_yang, 12mm} @tab @yref{fl_yinyang}_yang
+@item @image{images/fl_yinyang_yin, 12mm} @tab @yref{fl_yinyang}_yin
 @end multitable
 
 @c ----------------- Floor Attributes --------------------
@@ -9935,7 +9942,7 @@ Aquamarine floor with low friction.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_aquamarine, 12mm} @b{fl_aquamarine}
-@item @b{fl_aquamarine_framed} 
+@item @image{images/fl_aquamarine_framed, 12mm} @b{fl_aquamarine_framed} 
 @end table
 @end table
 
@@ -9959,7 +9966,7 @@ When burnt, @code{fl_bast} will become @ref{fl_abyss}.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_bast, 12mm} @b{fl_bast} 
-@item @b{fl_bast_framed}
+@item @image{images/fl_bast_framed, 12mm} @b{fl_bast_framed}
 @end table
 @end table
 
@@ -9981,7 +9988,7 @@ Light blue gray floor, visually indistinguishable from @ref{fl_thief}.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_bluegray, 12mm} @b{fl_bluegray}
-@item @b{fl_bluegray_framed}
+@item @image{images/fl_bluegray_framed, 12mm} @b{fl_bluegray_framed}
 @end table
 @end table
 
@@ -10003,7 +10010,7 @@ Dark blue green floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_bluegreen, 12mm} @b{fl_bluegreen}
-@item @b{fl_bluegreen_framed}
+@item @image{images/fl_bluegreen_framed, 12mm} @b{fl_bluegreen_framed}
 @end table
 @end table
 
@@ -10026,7 +10033,7 @@ Dark blue slab like floor, that is marbled with black. A matching floor is
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_blueslab, 12mm} @b{fl_blueslab}
-@item @b{fl_blueslab_framed}
+@item @image{images/fl_blueslab_framed, 12mm} @b{fl_blueslab_framed}
 @end table
 @end table
 
@@ -10048,7 +10055,7 @@ Floor composed of small red bricks.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_brick, 12mm} @b{fl_brick}
-@item @b{fl_brick_framed}
+@item @image{images/fl_brick_framed, 12mm}  @b{fl_brick_framed}
 @end table
 @end table
 
@@ -10071,7 +10078,7 @@ Nearly white floor without any yinyang related features. A matching floor is
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_bright, 12mm} @b{fl_bright}
-@item @b{fl_bright_framed}
+@item @image{images/fl_bright_framed, 12mm} @b{fl_bright_framed}
 @end table
 @end table
 
@@ -10093,7 +10100,7 @@ Granular gray concrete.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_concrete, 12mm} @b{fl_concrete}
-@item @b{fl_concrete_framed}
+@item @image{images/fl_concrete_framed, 12mm} @b{fl_concrete_framed}
 @end table
 @end table
 
@@ -10116,7 +10123,7 @@ Nearly black floor without any yinyang related features. A matching floor is
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_dark, 12mm} @b{fl_dark}
-@item @b{fl_dark_framed}
+@item @image{images/fl_dark_framed, 12mm} @b{fl_dark_framed}
 @end table
 @end table
 
@@ -10138,7 +10145,7 @@ A medium to dark gray floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_darkgray, 12mm} @b{fl_darkgray}
-@item @b{fl_darkgray_framed}
+@item @image{images/fl_darkgray_framed, 12mm}@b{fl_darkgray_framed}
 @end table
 @end table
 
@@ -10160,7 +10167,7 @@ Brown granular dunes.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_dunes, 12mm} @b{fl_dunes}
-@item @b{fl_dunes_framed}
+@item @image{images/fl_dunes_framed, 12mm} @b{fl_dunes_framed}
 @end table
 @end table
 
@@ -10182,7 +10189,7 @@ Dark gray, granular floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_gravel, 12mm} @b{fl_gravel}
-@item @b{fl_gravel_framed}
+@item @image{images/fl_gravel_framed, 12mm} @b{fl_gravel_framed}
 @end table
 @end table
 
@@ -10204,7 +10211,7 @@ Gray with some brown spots.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_gray, 12mm} @b{fl_gray}
-@item @b{fl_gray_framed}
+@item @image{images/fl_gray_framed, 12mm} @b{fl_gray_framed}
 @end table
 @end table
 
@@ -10226,7 +10233,7 @@ Blue purple marbled floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_himalaya, 12mm} @b{fl_himalaya}
-@item @b{fl_himalaya_framed}
+@item @image{images/fl_himalaya_framed, 12mm} @b{fl_himalaya_framed}
 @end table
 @end table
 
@@ -10248,7 +10255,7 @@ Warm ivory or pearl white floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_ivory, 12mm} @b{fl_ivory}
-@item @b{fl_ivory_framed}
+@item @image{images/fl_ivory_framed, 12mm} @b{fl_ivory_framed}
 @end table
 @end table
 
@@ -10271,23 +10278,23 @@ When burnt, @code{fl_lawn} becomes @ref{fl_dunes}.
 @end table
 
 @item @b{Variants:}
-@table @asis
-@item @b{fl_lawn}: texture = @samp{"a"}
-@item @b{fl_lawn_a}: texture = @samp{"a"}
-@item @b{fl_lawn_b}: texture = @samp{"b"}
-@item @b{fl_lawn_c1}: texture = @samp{"c1"}
-@item @b{fl_lawn_c2}: texture = @samp{"c2"}
-@item @b{fl_lawn_c3}: texture = @samp{"c3"}
-@item @b{fl_lawn_c4}: texture = @samp{"c4"}
-@item @b{fl_lawn_d1}: texture = @samp{"d1"}
-@item @b{fl_lawn_d2}: texture = @samp{"d2"}
-@item @b{fl_lawn_d3}: texture = @samp{"d3"}
-@item @b{fl_lawn_d4}: texture = @samp{"d4"}
-@item @b{fl_lawn_e1}: texture = @samp{"e1"}
-@item @b{fl_lawn_e2}: texture = @samp{"e2"}
-@item @b{fl_lawn_e3}: texture = @samp{"e3"}
-@item @b{fl_lawn_e4}: texture = @samp{"e4"}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/fl_lawn, 12mm} @tab @b{fl_lawn_a}: texture = @samp{"a"}
+@tab @image{images/fl_lawn_c, 12mm} @tab @b{fl_lawn_b}: texture = @samp{"b"}
+@item @image{images/fl_lawn_e, 12mm} @tab @b{fl_lawn_c1}: texture = @samp{"c1"}
+@tab @image{images/fl_lawn_f, 12mm} @tab @b{fl_lawn_c3}: texture = @samp{"c3"}
+@item @image{images/fl_lawn_e2, 12mm} @tab @b{fl_lawn_c2}: texture = @samp{"c2"}
+@tab @image{images/fl_lawn_f2, 12mm} @tab @b{fl_lawn_c4}: texture = @samp{"c4"}
+@item @image{images/fl_lawn_g, 12mm} @tab @b{fl_lawn_d1}: texture = @samp{"d1"}
+@tab @image{images/fl_lawn_h, 12mm} @tab @b{fl_lawn_d3}: texture = @samp{"d3"}
+@item @image{images/fl_lawn_g2, 12mm} @tab @b{fl_lawn_d2}: texture = @samp{"d2"}
+@tab @image{images/fl_lawn_h2, 12mm} @tab @b{fl_lawn_d4}: texture = @samp{"d4"}
+@item @image{images/fl_lawn_i, 12mm} @tab @b{fl_lawn_e1}: texture = @samp{"e1"}
+@tab @image{images/fl_lawn_j, 12mm} @tab @b{fl_lawn_e3}: texture = @samp{"e3"}
+@item @image{images/fl_lawn_i2, 12mm} @tab @b{fl_lawn_e2}: texture = @samp{"e2"}
+@tab @image{images/fl_lawn_j2, 12mm} @tab @b{fl_lawn_e4}: texture = @samp{"e4"}
+@item @image{images/fl_lawn, 12mm} @tab @b{fl_lawn}: texture = @samp{"a"}
+@end multitable
 @end table
 
 @c ----------------- Marble Floor --------------------
@@ -10308,7 +10315,7 @@ Light red brown marbled floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_marble, 12mm} @b{fl_marble}
-@item @b{fl_marble_framed}
+@item @image{images/fl_marble_framed, 12mm} @b{fl_marble_framed}
 @end table
 @end table
 
@@ -10330,24 +10337,24 @@ or vertical aligned joists and various rivets.
 @end table
 
 @item @b{Variants:}
-@table @asis
-@item @b{fl_metal}: texture = @samp{random}
-@item @b{fl_metal_1}: texture = @code{1}
-@item @b{fl_metal_2}: texture = @code{2}
-@item @b{fl_metal_3}: texture = @code{3}
-@item @b{fl_metal_4}: texture = @code{4}
-@item @b{fl_metal_5}: texture = @code{5}
-@item @b{fl_metal_6}: texture = @code{6}
-@item @b{fl_metal_7}: texture = @code{7}
-@item @b{fl_metal_framed}: texture = @samp{random}
-@item @b{fl_metal_1_framed}: texture = @code{1}
-@item @b{fl_metal_2_framed}: texture = @code{2}
-@item @b{fl_metal_3_framed}: texture = @code{3}
-@item @b{fl_metal_4_framed}: texture = @code{4}
-@item @b{fl_metal_5_framed}: texture = @code{5}
-@item @b{fl_metal_6_framed}: texture = @code{6}
-@item @b{fl_metal_7_framed}: texture = @code{7}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/fl_metal, 12mm} @tab @b{fl_metal}: texture = @samp{random}
+@tab @image{images/fl_metal_framed, 12mm} @tab @b{fl_metal_framed}: texture = @samp{random}
+@item @image{images/fl_metal, 12mm} @tab @b{fl_metal_1}: texture = @code{1}
+@tab @image{images/fl_metal_framed, 12mm} @tab @b{fl_metal_1_framed}: texture = @code{1}
+@item @image{images/fl_metal_2, 12mm} @tab @b{fl_metal_2}: texture = @code{2}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_2_framed}: texture = @code{2}
+@item @image{images/fl_metal_3, 12mm} @tab @b{fl_metal_3}: texture = @code{3}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_3_framed}: texture = @code{3}
+@item @image{images/fl_metal_4, 12mm} @tab @b{fl_metal_4}: texture = @code{4}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_4_framed}: texture = @code{4}
+@item @image{images/fl_metal_5, 12mm} @tab @b{fl_metal_5}: texture = @code{5}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_5_framed}: texture = @code{5}
+@item @image{images/fl_metal_6, 12mm} @tab @b{fl_metal_6}: texture = @code{6}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_6_framed}: texture = @code{6}
+@item @image{images/fl_metal_7, 12mm} @tab @b{fl_metal_7}: texture = @code{7}
+@tab @image{images/construction, 12mm} @tab @b{fl_metal_7_framed}: texture = @code{7}
+@end multitable
 @end table
 
 @c ----------------- Mortar Floor --------------------
@@ -10368,7 +10375,7 @@ Very rough brilliant white floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_mortar, 12mm} @b{fl_mortar}
-@item @b{fl_mortar_framed}
+@item @image{images/fl_mortar_framed, 12mm} @b{fl_mortar_framed}
 @end table
 @end table
 
@@ -10390,7 +10397,7 @@ Pink floor with white bumps.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_pinkbumps, 12mm} @b{fl_pinkbumps}
-@item @b{fl_pinkbumps_framed}
+@item @image{images/fl_pinkbumps_framed, 12mm} @b{fl_pinkbumps_framed}
 @end table
 @end table
 
@@ -10414,7 +10421,7 @@ When burnt, @code{fl_plank} becomes @ref{fl_abyss}.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_plank, 12mm} @b{fl_plank}
-@item @b{fl_plank_framed}
+@item @image{images/fl_plank_framed, 12mm} @b{fl_plank_framed}
 @end table
 @end table
 
@@ -10436,7 +10443,7 @@ Warm light gray floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_platinum, 12mm} @b{fl_platinum}
-@item @b{fl_platinum_framed}
+@item @image{images/fl_platinum_framed, 12mm} @b{fl_platinum_framed}
 @end table
 @end table
 
@@ -10458,7 +10465,7 @@ Warm red, very slippy floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_red, 12mm} @b{fl_red}
-@item @b{fl_red_framed}
+@item @image{images/fl_red_framed, 12mm} @b{fl_red_framed}
 @end table
 @end table
 
@@ -10481,7 +10488,7 @@ Dark red slab floor, that is marbled with black. A matching floor is
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_redslab, 12mm} @b{fl_redslab}
-@item @b{fl_redslab_framed}
+@item @image{images/fl_redslab_framed, 12mm} @b{fl_redslab_framed}
 @end table
 @end table
 
@@ -10503,7 +10510,7 @@ Rough warm white floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_rough, 12mm} @b{fl_rough}
-@item @b{fl_rough_framed}
+@item @image{images/fl_rough_framed, 12mm} @b{fl_rough_framed}
 @end table
 @end table
 
@@ -10525,7 +10532,7 @@ Bright yellow sandstone floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_sahara, 12mm} @b{fl_sahara}
-@item @b{fl_sahara_framed}
+@item @image{images/fl_sahara_framed, 12mm} @b{fl_sahara_framed}
 @end table
 @end table
 
@@ -10550,12 +10557,12 @@ When burnt, @code{fl_samba} becomes @ref{fl_abyss}.
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_samba}: texture = @samp{random}
-@item @b{fl_samba_h}: texture = @code{"h"}
-@item @b{fl_samba_v}: texture = @code{"v"}
-@item @b{fl_samba_framed}: texture = @samp{random}
-@item @b{fl_samba_h_framed}: texture = @code{"h"}
-@item @b{fl_samba_v_framed}: texture = @code{"v"}
+@item @image{images/fl_samba, 12mm} @b{fl_samba}: texture = @samp{random}
+@item @image{images/fl_samba, 12mm} @b{fl_samba_h}: texture = @code{"h"}
+@item @image{images/fl_samba_2, 12mm} @b{fl_samba_v}: texture = @code{"v"}
+@item @image{images/fl_samba_framed, 12mm} @b{fl_samba_framed}: texture = @samp{random}
+@item @image{images/fl_samba_framed, 12mm} @b{fl_samba_h_framed}: texture = @code{"h"}
+@item @image{images/construction, 12mm} @b{fl_samba_v_framed}: texture = @code{"v"}
 @end table
 @end table
 
@@ -10577,7 +10584,7 @@ Granular orange gray sand floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_sand, 12mm} @b{fl_sand}
-@item @b{fl_sand_framed}
+@item @image{images/fl_sand_framed, 12mm} @b{fl_sand_framed}
 @end table
 @end table
 
@@ -10622,7 +10629,7 @@ Granular brown gray floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_stone, 12mm} @b{fl_stone}
-@item @b{fl_stone_framed}
+@item @image{images/fl_stone_framed, 12mm} @b{fl_stone_framed}
 @end table
 @end table
 
@@ -10644,7 +10651,7 @@ Red sandstone floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_tigris, 12mm} @b{fl_tigris}
-@item @b{fl_tigris_framed}
+@item @image{images/fl_tigris_framed, 12mm} @b{fl_tigris_framed}
 @end table
 @end table
 
@@ -10666,7 +10673,7 @@ Pure white floor without any yinyang related features.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_white, 12mm} @b{fl_white}
-@item @b{fl_white_framed}
+@item @image{images/fl_white_framed, 12mm} @b{fl_white_framed}
 @end table
 @end table
 
@@ -10688,7 +10695,7 @@ Diagonal woven white floor with black shadows.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_woven, 12mm} @b{fl_woven}
-@item @b{fl_woven_framed}
+@item @image{images/fl_woven_framed, 12mm} @b{fl_woven_framed}
 @end table
 @end table
 
@@ -10888,7 +10895,7 @@ Number of seconds .
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_hay, 12mm} @b{fl_hay}
-@item @b{fl_hay_framed}: faces = @code{"nesw"}
+@item @image{images/fl_hay_framed, 12mm} @b{fl_hay_framed}: faces = @code{"nesw"}
 @end table
 @end table
 
@@ -10973,7 +10980,7 @@ Number of seconds .
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_rock, 12mm} @b{fl_rock}
-@item @b{fl_rock_framed}: faces = @code{"nesw"}
+@item @image{images/fl_rock_framed, 12mm} @b{fl_rock_framed}: faces = @code{"nesw"}
 @end table
 @end table
 
@@ -11040,34 +11047,33 @@ not automatically assign the proper @samp{slope}.
 @item @b{Messages:} None
 
 @item @b{Variants:}
-@table @asis
-@item @b{fl_slope} slope = @samp{NODIR}, shape = @code{""}
-@item @b{fl_slope_pw} slope = @samp{WEST}, shape = @code{"pw"}
-@item @b{fl_slope_ps} slope = @samp{SOUTH}, shape = @code{"ps"}
-@item @b{fl_slope_pe} slope = @samp{EAST}, shape = @code{"pe"}
-@item @b{fl_slope_pn} slope = @samp{NORTH}, shape = @code{"pn"}
-@item @b{fl_slope_inw} slope = @samp{NORTHWEST}, shape = @code{"inw"}
-@item @b{fl_slope_isw} slope = @samp{SOUTHWEST}, shape = @code{"isw"}
-@item @b{fl_slope_ise} slope = @samp{SOUTHEAST}, shape = @code{"ise"}
-@item @b{fl_slope_ine} slope = @samp{NORTHEAST}, shape = @code{"ine"}
-@item @b{fl_slope_onw} slope = @samp{NORTHWEST}, shape = @code{"onw"}
-@item @b{fl_slope_osw} slope = @samp{SOUTHWEST}, shape = @code{"osw"}
-@item @b{fl_slope_ose} slope = @samp{SOUTHEAST}, shape = @code{"ose"}
-@item @b{fl_slope_one} slope = @samp{NORTHEAST}, shape = @code{"one"}
-@item @b{fl_slope_tw} slope = @samp{WEST}, shape = @code{"tw"}
-@item @b{fl_slope_ts} slope = @samp{SOUTH}, shape = @code{"ts"}
-@item @b{fl_slope_te} slope = @samp{EAST}, shape = @code{"te"}
-@item @b{fl_slope_tn} slope = @samp{NORTH}, shape = @code{"tn"}
-@item @b{fl_slope_twl} slope = @samp{NORTHWEST}, shape = @code{"twl"}
-@item @b{fl_slope_tsl} slope = @samp{SOUTHWEST}, shape = @code{"tsl"}
-@item @b{fl_slope_tel} slope = @samp{SOUTHEAST}, shape = @code{"tel"}
-@item @b{fl_slope_tnl} slope = @samp{NORTHEAST}, shape = @code{"tnl"}
-@item @b{fl_slope_twr} slope = @samp{SOUTHWEST}, shape = @code{"twr"}
-@item @b{fl_slope_tsr} slope = @samp{SOUTHEAST}, shape = @code{"tsr"}
-@item @b{fl_slope_ter} slope = @samp{NORTHEAST}, shape = @code{"ter"}
-@item @b{fl_slope_tnr} slope = @samp{NORTHWEST}, shape = @code{"tnr"}
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/fl_slope_f, 12mm} @tab @b{fl_slope} slope = @samp{NODIR}, shape = @code{""} @tab @tab
+@item @image{images/fl_slope_4, 12mm} @tab @b{fl_slope_pw} slope = @samp{WEST}, shape = @code{"pw"}
+@tab @image{images/fl_slope, 12mm} @tab @b{fl_slope_ps} slope = @samp{SOUTH}, shape = @code{"ps"}
+@item @image{images/fl_slope_3, 12mm} @tab @b{fl_slope_pe} slope = @samp{EAST}, shape = @code{"pe"}
+@tab @image{images/fl_slope_2, 12mm} @tab @b{fl_slope_pn} slope = @samp{NORTH}, shape = @code{"pn"}
+@item @image{images/fl_slope_c4, 12mm} @tab @b{fl_slope_inw} slope = @samp{NORTHWEST}, shape = @code{"inw"}
+@tab @image{images/fl_slope_c3, 12mm} @tab @b{fl_slope_isw} slope = @samp{SOUTHWEST}, shape = @code{"isw"}
+@item @image{images/fl_slope_c, 12mm} @tab @b{fl_slope_ise} slope = @samp{SOUTHEAST}, shape = @code{"ise"}
+@tab @image{images/fl_slope_c2, 12mm} @tab @b{fl_slope_ine} slope = @samp{NORTHEAST}, shape = @code{"ine"}
+@item @image{images/fl_slope_b4, 12mm} @tab @b{fl_slope_onw} slope = @samp{NORTHWEST}, shape = @code{"onw"}
+@tab @image{images/fl_slope_b2, 12mm} @tab @b{fl_slope_osw} slope = @samp{SOUTHWEST}, shape = @code{"osw"}
+@item @image{images/fl_slope_b, 12mm} @tab @b{fl_slope_ose} slope = @samp{SOUTHEAST}, shape = @code{"ose"}
+@tab @image{images/fl_slope_b3, 12mm} @tab @b{fl_slope_one} slope = @samp{NORTHEAST}, shape = @code{"one"}
+@item @image{images/fl_slope_f, 12mm} @tab @b{fl_slope_tw} slope = @samp{WEST}, shape = @code{"tw"}
+@tab @image{images/fl_slope_f, 12mm} @tab @b{fl_slope_ts} slope = @samp{SOUTH}, shape = @code{"ts"}
+@item @image{images/fl_slope_f, 12mm} @tab @b{fl_slope_te} slope = @samp{EAST}, shape = @code{"te"}
+@tab @image{images/fl_slope_f, 12mm} @tab @b{fl_slope_tn} slope = @samp{NORTH}, shape = @code{"tn"}
+@item @image{images/fl_slope_2, 12mm} @tab @b{fl_slope_twl} slope = @samp{NORTHWEST}, shape = @code{"twl"}
+@tab @image{images/fl_slope_4, 12mm} @tab @b{fl_slope_tsl} slope = @samp{SOUTHWEST}, shape = @code{"tsl"}
+@item @image{images/fl_slope, 12mm} @tab @b{fl_slope_tel} slope = @samp{SOUTHEAST}, shape = @code{"tel"}
+@tab @image{images/fl_slope_3, 12mm} @tab @b{fl_slope_tnl} slope = @samp{NORTHEAST}, shape = @code{"tnl"}
+@item @image{images/fl_slope, 12mm} @tab @b{fl_slope_twr} slope = @samp{SOUTHWEST}, shape = @code{"twr"}
+@tab @image{images/fl_slope_3, 12mm} @tab @b{fl_slope_tsr} slope = @samp{SOUTHEAST}, shape = @code{"tsr"}
+@item @image{images/fl_slope_2, 12mm} @tab @b{fl_slope_ter} slope = @samp{NORTHEAST}, shape = @code{"ter"}
+@tab @image{images/fl_slope_4, 12mm} @tab @b{fl_slope_tnr} slope = @samp{NORTHWEST}, shape = @code{"tnr"}
+@end multitable
 @end table
 
 @c ----------------- Swamp Floor --------------------
@@ -11140,7 +11146,10 @@ If the thief has not stolen any items he leaves no empty bag.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_bluegray, 12mm} @b{fl_thief}
+@item @image{images/fl_bluegray, 12mm} @b{fl_thief}: hidden
+@item @image{images/fl_thief, 12mm} @b{fl_thief}: showing up at the moment when stealing items
+@item @image{images/fl_thief_capture, 12mm} @b{fl_thief}: when being captured
+@item @image{images/fl_thief_drunken, 12mm} @b{fl_thief}: drunken thief
 @end table
 @end table
 
@@ -11232,12 +11241,12 @@ Number of seconds .
 
 @item @b{Variants:}
 @table @asis
-@item @b{fl_wood}: texture = random
-@item @b{fl_wood_h}: texture = @code{"h"}
-@item @b{fl_wood_v}: texture = @code{"v"}
-@item @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
-@item @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
-@item @b{fl_wood_framed_v}: texture = @code{"v"}, faces = @code{"nesw"}
+@item @image{images/fl_wood, 12mm} @b{fl_wood}: texture = random
+@item @image{images/fl_wood_3, 12mm} @b{fl_wood_h}: texture = @code{"h"}
+@item @image{images/fl_wood, 12mm} @b{fl_wood_v}: texture = @code{"v"}
+@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed}: texture = random, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed, 12mm} @b{fl_wood_framed_h}: texture = @code{"h"}, faces = @code{"nesw"}
+@item @image{images/fl_wood_framed_2, 12mm} @b{fl_wood_framed_v}: texture = @code{"v"}, faces = @code{"nesw"}
 @end table
 @end table
 
@@ -11352,7 +11361,7 @@ switched off by the attribute @samp{invisible}.
 @tab @image{images/it_spring_drop, 12mm} @tab @yref{it_spring}_drop
 @tab @image{images/it_spring_keep, 12mm} @tab @yref{it_spring}_keep
 @item @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
-@tab @image{images/it_strip, 12mm} @tab @yref{it_strip}
+@tab @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
 @tab @image{images/it_surprise, 12mm} @tab @yref{it_surprise}
 @item @image{images/it_sword, 12mm} @tab @yref{it_sword}
 @tab @image{images/it_trap, 12mm} @tab @yref{it_trap}
@@ -12401,10 +12410,10 @@ the explosion the puller item ceases to exist.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, 12mm} @b{it_puller} orientation = @code{WEST}
-@item @image{images/fl_white, 12mm} @b{it_puller_w} orientation = @code{WEST}
-@item @image{images/fl_white, 12mm} @b{it_puller_s} orientation = @code{SOUTH}
-@item @image{images/fl_white, 12mm} @b{it_puller_e} orientation = @code{EAST}
+@item @image{images/it_puller_4, 12mm} @b{it_puller} orientation = @code{WEST}
+@item @image{images/it_puller_4, 12mm} @b{it_puller_w} orientation = @code{WEST}
+@item @image{images/it_puller_3, 12mm} @b{it_puller_s} orientation = @code{SOUTH}
+@item @image{images/it_puller_2, 12mm} @b{it_puller_e} orientation = @code{EAST}
 @item @image{images/it_puller, 12mm} @b{it_puller_n} orientation = @code{NORTH}
 @end table
 @end table
@@ -13717,26 +13726,24 @@ Deviating adhesion that defaults to floor adhesion.
 @end table
 
 @item @b{Variants:}
-@table @asis
-@item @image{images/it_strip, 12mm} @b{it_strip}: connections = @code{""}
-@item @image{images/fl_white, 12mm} @b{it_strip_w}: connections = @code{"w"}
-@item @image{images/fl_white, 12mm} @b{it_strip_s}: connections = @code{"s"}
-@item @image{images/fl_white, 12mm} @b{it_strip_sw}: connections = @code{"sw"}
-@item @image{images/fl_white, 12mm} @b{it_strip_e}: connections = @code{"e"}
-@item @image{images/fl_white, 12mm} @b{it_strip_ew}: connections = @code{"ew"}
-@item @image{images/fl_white, 12mm} @b{it_strip_es}: connections = @code{"es"}
-@item @image{images/fl_white, 12mm} @b{it_strip_esw}: connections = @code{"esw"}
-@item @image{images/fl_white, 12mm} @b{it_strip_n}: connections = @code{"n"}
-@item @image{images/fl_white, 12mm} @b{it_strip_nw}: connections = @code{"nw"}
-@item @image{images/fl_white, 12mm} @b{it_strip_ns}: connections = @code{"ns"}
-@item @image{images/fl_white, 12mm} @b{it_strip_nsw}: connections = @code{"nsw"}
-@item @image{images/fl_white, 12mm} @b{it_strip_ne}: connections = @code{"ne"}
-@item @image{images/fl_white, 12mm} @b{it_strip_new}: connections = @code{"new"}
-@item @image{images/fl_white, 12mm} @b{it_strip_nes}: connections = @code{"nes"}
-@item @image{images/fl_white, 12mm} @b{it_strip_nesw}: connections = @code{"nesw"}
-
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/it_strip, 12mm}@tab @b{it_strip}: connections = @code{""}
+@tab @image{images/it_strip_2, 12mm}@tab @b{it_strip_w}: connections = @code{"w"}
+@item @image{images/it_strip_3, 12mm}@tab @b{it_strip_s}: connections = @code{"s"}
+@tab @image{images/it_strip_4, 12mm}@tab @b{it_strip_sw}: connections = @code{"sw"}
+@item @image{images/it_strip_b, 12mm}@tab @b{it_strip_e}: connections = @code{"e"}
+@tab @image{images/it_strip_b2, 12mm}@tab @b{it_strip_ew}: connections = @code{"ew"}
+@item @image{images/it_strip_b3, 12mm}@tab @b{it_strip_es}: connections = @code{"es"}
+@tab @image{images/it_strip_b4, 12mm}@tab @b{it_strip_esw}: connections = @code{"esw"}
+@item @image{images/it_strip_c, 12mm}@tab @b{it_strip_n}: connections = @code{"n"}
+@tab @image{images/it_strip_c2, 12mm}@tab @b{it_strip_nw}: connections = @code{"nw"}
+@item @image{images/it_strip_c3, 12mm}@tab @b{it_strip_ns}: connections = @code{"ns"}
+@tab @image{images/it_strip_c4, 12mm}@tab @b{it_strip_nsw}: connections = @code{"nsw"}
+@item @image{images/it_strip_d, 12mm}@tab @b{it_strip_ne}: connections = @code{"ne"}
+@tab @image{images/it_strip_d2, 12mm}@tab @b{it_strip_new}: connections = @code{"new"}
+@item @image{images/it_strip_d3, 12mm}@tab @b{it_strip_nes}: connections = @code{"nes"}
+@tab @image{images/it_strip_d4, 12mm}@tab @b{it_strip_nesw}: connections = @code{"nesw"}
+@end multitable
 @end table
 
 @c ----------------- Trap Item --------------------
@@ -14025,14 +14032,13 @@ Switches the wormhole off.
 @node Stone Overview
 @section Stone Overview
 
-WORK IN PROGRESS - The following table is still incomplete!
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/st_actorimpulse, 12mm} @tab @yref{st_actorimpulse}
 @tab @image{images/st_ancient, 12mm} @tab @yref{st_ancient}
 @tab @image{images/st_beads, 12mm} @tab @yref{st_beads}
 @item @image{images/st_blocker, 12mm} @tab @yref{st_blocker}
 @tab @image{images/st_boulder, 12mm} @tab @yref{st_boulder}
-@tab @image{images/st_bluegray, 12mm} @tab @yref{st_bluegray}
+@tab @image{images/st_bluegray, 12mm} @tab @yref{st_bluegray} or @yref{st_thief}
 @item @image{images/st_bluesand, 12mm} @tab @yref{st_bluesand}
 @tab @image{images/st_blur_cross, 12mm} @tab @yref{st_blur}_cross
 @tab @image{images/st_blur_straight, 12mm} @tab @yref{st_blur}_straight
@@ -14061,50 +14067,74 @@ WORK IN PROGRESS - The following table is still incomplete!
 @tab @image{images/st_darkglass, 12mm} @tab @yref{st_darkglass}
 @tab @image{images/st_darkgray, 12mm} @tab @yref{st_darkgray}
 @item @image{images/st_death, 12mm} @tab @yref{st_death}
-@tab @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
+@tab @image{images/st_disco, 12mm} @tab @yref{st_disco}_light
+@tab @image{images/st_disco_2, 12mm} @tab @yref{st_disco}_medium
+@item @image{images/st_disco_3, 12mm} @tab @yref{st_disco}_dark
+@tab @image{images/st_door_d_ew_g, 12mm} @tab @yref{st_door}_d (ew)
+@tab @image{images/st_door_d_ns_7, 12mm} @tab @yref{st_door}_d (ns)
+@item @image{images/st_dispenser_bombblack, 12mm} @tab @yref{st_dispenser}_bombblack
 @tab @image{images/st_dispenser_bombwhite, 12mm} @tab @yref{st_dispenser}_bombwhite
-@item @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
+@tab @image{images/st_dispenser_dynamite, 12mm} @tab @yref{st_dispenser}_dynamite
+@item @image{images/st_dispenser_extralife, 12mm} @tab @yref{st_dispenser}_extralife
+@tab @image{images/st_oxydc_open, 12mm} @tab @yref{st_fake}_oxydc (open)
 @tab @image{images/st_flash, 12mm} @tab @yref{st_flash}
-@tab @image{images/st_flat, 12mm} @tab @yref{st_flat}
-@item @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
+@item @image{images/st_flat, 12mm} @tab @yref{st_flat}
+@tab @image{images/st_floppy_off, 12mm} @tab @yref{st_floppy}_off
 @tab @image{images/st_floppy_on, 12mm} @tab @yref{st_floppy}_on
-@tab @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
-@item @image{images/st_granite, 12mm} @tab @yref{st_granite}
+@item @image{images/st_fourswitch, 12mm} @tab @yref{st_fourswitch}
+@tab @image{images/st_granite, 12mm} @tab @yref{st_granite}
 @tab @image{images/st_grate_cross, 12mm} @tab @yref{st_grate}_cross
-@tab @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
-@item @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
+@item @image{images/st_grate_framed, 12mm} @tab @yref{st_grate}_framed
+@tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
 @tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
-@tab @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@item                            @tab @yref{st_invisible}
+@item @image{images/st_ice, 12mm} @tab @yref{st_ice}
+@tab                            @tab @yref{st_invisible}
 @tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
-@tab @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
-@item @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
+@item @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
+@tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
 @tab @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
-@tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
-@item @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
-@tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
+@item @image{images/st_knight, 12mm} @tab @yref{st_knight}
+@tab @image{images/st_laser_w_0001, 12mm} @tab @yref{st_laser}
+@tab @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
+@item @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
+@tab @image{images/st_mail, 12mm} @tab @yref{st_mail}
 @tab @image{images/st_metal, 12mm} @tab @yref{st_metal}
-@item @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
+@item @image{images/st_mirror_static_04, 12mm} @tab @yref{st_mirror}_triangle
+@tab @image{images/st_mirror_static_08, 12mm} @tab @yref{st_mirror}_triangle
+@tab @image{images/st_mirror_static_12, 12mm} @tab @yref{st_mirror}_slab
+@item @image{images/st_mirror_static_16, 12mm} @tab @yref{st_mirror}_slab
+@tab @image{images/st_mirror_static_20, 12mm} @tab @yref{st_mirror}_sheets
+@tab @image{images/st_monoflop, 12mm} @tab @yref{st_monoflop}
+@item @image{images/st_monoflop_2, 12mm} @tab @yref{st_monoflop}
+@tab @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
+@tab @image{images/st_oneway_b, 12mm} @tab @yref{st_oneway}_black
+@item @image{images/st_oneway_c, 12mm} @tab @yref{st_oneway}_white
+@tab @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
 @tab @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b
-@tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
-@item @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
+@item @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
+@tab @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
 @tab @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
-@tab @image{images/st_panel, 12mm} @tab @yref{st_panel}
-@item @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_panel, 12mm} @tab @yref{st_panel}
+@tab @image{images/st_passage_black_square, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_black_slash, 12mm} @tab @yref{st_passage}_black
-@tab @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
-@item @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
+@item @image{images/st_passage_black_cross, 12mm} @tab @yref{st_passage}_black
+@tab @image{images/st_passage_black_frame, 12mm} @tab @yref{st_passage}_black
 @tab @image{images/st_passage_white_square, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
-@item @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
+@item @image{images/st_passage_white_slash, 12mm} @tab @yref{st_passage}_white
+@tab @image{images/st_passage_white_cross, 12mm} @tab @yref{st_passage}_white
 @tab @image{images/st_passage_white_frame, 12mm} @tab @yref{st_passage}_white
-@tab @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
-@item @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
+@item @image{images/st_pinkbumps, 12mm} @tab @yref{st_pinkbumps}
+@tab @image{images/st_plaster, 12mm} @tab @yref{st_plaster}
 @tab @image{images/st_plop_slate, 12mm} @tab @yref{st_plop}_slate
-@tab @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
-@item @image{images/st_pull, 12mm} @tab @yref{st_pull}
+@item @image{images/st_portal_horse, 12mm} @tab @yref{st_portal}
+@tab @image{images/st_pull, 12mm} @tab @yref{st_pull}
 @tab @image{images/st_purplegray, 12mm} @tab @yref{st_purplegray}
-@tab @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@item @image{images/st_purplemarble, 12mm} @tab @yref{st_purplemarble}
+@tab @image{images/st_puzzle_blue_3, 12mm} @tab @yref{st_puzzle}_blue or @yref{st_turnstilearm}_n
+@tab @image{images/st_puzzle_blue_d3, 12mm} @tab @yref{st_puzzle}_blue
+@item @image{images/st_puzzle_blue_hollow_d3, 12mm} @tab @yref{st_puzzle}_blue
+@tab @image{images/st_puzzle_yellow_d3, 12mm} @tab @yref{st_puzzle}_yellow
+@tab @image{images/st_puzzle_yellow_hollow_d3, 12mm} @tab @yref{st_puzzle}_yellow
 @item @image{images/st_rawglass, 12mm} @tab @yref{st_rawglass}
 @tab @image{images/st_rawglass_quad, 12mm} @tab @yref{st_rawglass}_quad
 @tab @image{images/st_redbrown, 12mm} @tab @yref{st_redbrown}
@@ -14115,6 +14145,9 @@ WORK IN PROGRESS - The following table is still incomplete!
 @tab @image{images/st_rotator_cw, 12mm} @tab @yref{st_rotator}_cw
 @tab @image{images/st_rubberband, 12mm} @tab @yref{st_rubberband}
 @item @image{images/st_scissors, 12mm} @tab @yref{st_scissors}
+@tab @image{images/st_shogun, 12mm} @tab @yref{st_shogun}_s
+@tab @image{images/st_shogun_2, 12mm} @tab @yref{st_shogun}_m
+@item @image{images/st_shogun_4, 12mm} @tab @yref{st_shogun}_l
 @tab @image{images/st_spitter_idle, 12mm} @tab @yref{st_spitter}
 @tab @image{images/st_stoneimpulse, 12mm} @tab @yref{st_stoneimpulse}
 @item @image{images/st_stoneimpulse_hollow, 12mm} @tab @yref{st_stoneimpulse}_hollow
@@ -14123,14 +14156,22 @@ WORK IN PROGRESS - The following table is still incomplete!
 @item @image{images/st_switch, 12mm} @tab @yref{st_switch}
 @tab @image{images/st_switch_black, 12mm} @tab @yref{st_switch}_black
 @tab @image{images/st_switch_white, 12mm} @tab @yref{st_switch}_white
+@item @image{images/st_thief, 12mm} @tab @yref{st_thief}
+@tab @image{images/st_thief_capture, 12mm} @tab @yref{st_thief}
+@tab @image{images/st_thief_drunken, 12mm} @tab @yref{st_thief}
 @item @image{images/st_tigris, 12mm} @tab @yref{st_tigris}
-@tab @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
+@tab @image{images/st_timer, 12mm} @tab @yref{st_timer}
+@tab @image{images/st_timer_2, 12mm} @tab @yref{st_timer}
+@item @image{images/st_turnstile, 12mm} @tab @yref{st_turnstile}
 @tab @image{images/st_turnstile_green, 12mm} @tab @yref{st_turnstile}_green
-@item @image{images/st_woven, 12mm} @tab @yref{st_woven}
+@tab @image{images/st_window_blue_3, 12mm} @tab @yref{st_window}
+@item @image{images/st_window_green_3, 12mm} @tab @yref{st_window}
+@tab @image{images/st_woven, 12mm} @tab @yref{st_woven}
 @tab @image{images/st_yellow, 12mm} @tab @yref{st_yellow}
-@tab @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
-@item @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive 
+@item @image{images/st_yinyang, 12mm} @tab @yref{st_yinyang}
+@tab @image{images/st_yinyang_inactive, 12mm} @tab @yref{st_yinyang}_inactive 
 @end multitable
+
 
 @c ----------------- Stone Attributes --------------------
 @node Stone Attributes
@@ -14668,26 +14709,24 @@ to use @samp{st_bluesand} with the attributes @samp{cluster} and @samp{faces}.
 
 @table @asis
 @item @b{Variants:}
-@table @asis
-@item @image{images/st_bluesand, 12mm} @b{st_bluesand}: connections = @code{""}
-@item @b{st_bluesand_w}: connections = @code{"w"}
-@item @b{st_bluesand_s}: connections = @code{"s"}
-@item @b{st_bluesand_sw}: connections = @code{"sw"}
-@item @b{st_bluesand_e}: connections = @code{"e"}
-@item @b{st_bluesand_ew}: connections = @code{"ew"}
-@item @b{st_bluesand_es}: connections = @code{"es"}
-@item @b{st_bluesand_esw}: connections = @code{"esw"}
-@item @b{st_bluesand_n}: connections = @code{"n"}
-@item @b{st_bluesand_nw}: connections = @code{"nw"}
-@item @b{st_bluesand_ns}: connections = @code{"ns"}
-@item @b{st_bluesand_nsw}: connections = @code{"nsw"}
-@item @b{st_bluesand_ne}: connections = @code{"ne"}
-@item @b{st_bluesand_new}: connections = @code{"new"}
-@item @b{st_bluesand_nes}: connections = @code{"nes"}
-@item @b{st_bluesand_nesw}: connections = @code{"nesw"}
-
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_bluesand, 12mm}@tab @b{st_bluesand}: connections = @code{""}
+@tab @image{images/st_bluesand_2, 12mm}@tab @b{st_bluesand_w}: connections = @code{"w"}
+@item @image{images/st_bluesand_3, 12mm}@tab @b{st_bluesand_s}: connections = @code{"s"}
+@tab @image{images/st_bluesand_4, 12mm}@tab @b{st_bluesand_sw}: connections = @code{"sw"}
+@item @image{images/st_bluesand_b, 12mm}@tab @b{st_bluesand_e}: connections = @code{"e"}
+@tab @image{images/st_bluesand_b2, 12mm}@tab @b{st_bluesand_ew}: connections = @code{"ew"}
+@item @image{images/st_bluesand_b3, 12mm}@tab @b{st_bluesand_es}: connections = @code{"es"}
+@tab @image{images/st_bluesand_b4, 12mm}@tab @b{st_bluesand_esw}: connections = @code{"esw"}
+@item @image{images/st_bluesand_c, 12mm}@tab @b{st_bluesand_n}: connections = @code{"n"}
+@tab @image{images/st_bluesand_c2, 12mm}@tab @b{st_bluesand_nw}: connections = @code{"nw"}
+@item @image{images/st_bluesand_c3, 12mm}@tab @b{st_bluesand_ns}: connections = @code{"ns"}
+@tab @image{images/st_bluesand_c4, 12mm}@tab @b{st_bluesand_nsw}: connections = @code{"nsw"}
+@item @image{images/st_bluesand_d, 12mm}@tab @b{st_bluesand_ne}: connections = @code{"ne"}
+@tab @image{images/st_bluesand_d2, 12mm}@tab @b{st_bluesand_new}: connections = @code{"new"}
+@item @image{images/st_bluesand_d3, 12mm}@tab @b{st_bluesand_nes}: connections = @code{"nes"}
+@tab @image{images/st_bluesand_d4, 12mm}@tab @b{st_bluesand_nesw}: connections = @code{"nesw"}
+@end multitable
 @end table
 
 @c ----------------- Brick Stone --------------------
@@ -14700,26 +14739,24 @@ to use @samp{st_brick} with the attributes @samp{cluster} and @samp{faces}.
 
 @table @asis
 @item @b{Variants:}
-@table @asis
-@item @image{images/st_brick, 12mm} @b{st_brick}: connections = @code{""}
-@item @b{st_brick_w}: connections = @code{"w"}
-@item @b{st_brick_s}: connections = @code{"s"}
-@item @b{st_brick_sw}: connections = @code{"sw"}
-@item @b{st_brick_e}: connections = @code{"e"}
-@item @b{st_brick_ew}: connections = @code{"ew"}
-@item @b{st_brick_es}: connections = @code{"es"}
-@item @b{st_brick_esw}: connections = @code{"esw"}
-@item @b{st_brick_n}: connections = @code{"n"}
-@item @b{st_brick_nw}: connections = @code{"nw"}
-@item @b{st_brick_ns}: connections = @code{"ns"}
-@item @b{st_brick_nsw}: connections = @code{"nsw"}
-@item @b{st_brick_ne}: connections = @code{"ne"}
-@item @b{st_brick_new}: connections = @code{"new"}
-@item @b{st_brick_nes}: connections = @code{"nes"}
-@item @b{st_brick_nesw}: connections = @code{"nesw"}
-
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_brick, 12mm}@tab @b{st_brick}: connections = @code{""}
+@tab @image{images/st_brick_2, 12mm}@tab @b{st_brick_w}: connections = @code{"w"}
+@item @image{images/st_brick_3, 12mm}@tab @b{st_brick_s}: connections = @code{"s"}
+@tab @image{images/st_brick_4, 12mm}@tab @b{st_brick_sw}: connections = @code{"sw"}
+@item @image{images/st_brick_b, 12mm}@tab @b{st_brick_e}: connections = @code{"e"}
+@tab @image{images/st_brick_b2, 12mm}@tab @b{st_brick_ew}: connections = @code{"ew"}
+@item @image{images/st_brick_b3, 12mm}@tab @b{st_brick_es}: connections = @code{"es"}
+@tab @image{images/st_brick_b4, 12mm}@tab @b{st_brick_esw}: connections = @code{"esw"}
+@item @image{images/st_brick_c, 12mm}@tab @b{st_brick_n}: connections = @code{"n"}
+@tab @image{images/st_brick_c2, 12mm}@tab @b{st_brick_nw}: connections = @code{"nw"}
+@item @image{images/st_brick_c3, 12mm}@tab @b{st_brick_ns}: connections = @code{"ns"}
+@tab @image{images/st_brick_c4, 12mm}@tab @b{st_brick_nsw}: connections = @code{"nsw"}
+@item @image{images/st_brick_d, 12mm}@tab @b{st_brick_ne}: connections = @code{"ne"}
+@tab @image{images/st_brick_d2, 12mm}@tab @b{st_brick_new}: connections = @code{"new"}
+@item @image{images/st_brick_d3, 12mm}@tab @b{st_brick_nes}: connections = @code{"nes"}
+@tab @image{images/st_brick_d4, 12mm}@tab @b{st_brick_nesw}: connections = @code{"nesw"}
+@end multitable
 @end table
 @c ----------------- Panel Stone --------------------
 @node st_panel
@@ -14731,26 +14768,24 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 
 @table @asis
 @item @b{Variants:}
-@table @asis
-@item @image{images/st_panel, 12mm} @b{st_panel}: connections = @code{""}
-@item @b{st_panel_w}: connections = @code{"w"}
-@item @b{st_panel_s}: connections = @code{"s"}
-@item @b{st_panel_sw}: connections = @code{"sw"}
-@item @b{st_panel_e}: connections = @code{"e"}
-@item @b{st_panel_ew}: connections = @code{"ew"}
-@item @b{st_panel_es}: connections = @code{"es"}
-@item @b{st_panel_esw}: connections = @code{"esw"}
-@item @b{st_panel_n}: connections = @code{"n"}
-@item @b{st_panel_nw}: connections = @code{"nw"}
-@item @b{st_panel_ns}: connections = @code{"ns"}
-@item @b{st_panel_nsw}: connections = @code{"nsw"}
-@item @b{st_panel_ne}: connections = @code{"ne"}
-@item @b{st_panel_new}: connections = @code{"new"}
-@item @b{st_panel_nes}: connections = @code{"nes"}
-@item @b{st_panel_nesw}: connections = @code{"nesw"}
-
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_panel, 12mm}@tab  @b{st_panel}: connections = @code{""}
+@tab @image{images/st_panel_2, 12mm}@tab @b{st_panel_w}: connections = @code{"w"}
+@item @image{images/st_panel_3, 12mm}@tab @b{st_panel_s}: connections = @code{"s"}
+@tab @image{images/st_panel_4, 12mm}@tab @b{st_panel_sw}: connections = @code{"sw"}
+@item @image{images/st_panel_b, 12mm}@tab @b{st_panel_e}: connections = @code{"e"}
+@tab @image{images/st_panel_b2, 12mm}@tab @b{st_panel_ew}: connections = @code{"ew"}
+@item @image{images/st_panel_b3, 12mm}@tab @b{st_panel_es}: connections = @code{"es"}
+@tab @image{images/st_panel_b4, 12mm}@tab @b{st_panel_esw}: connections = @code{"esw"}
+@item @image{images/st_panel_c, 12mm}@tab @b{st_panel_n}: connections = @code{"n"}
+@tab @image{images/st_panel_c2, 12mm}@tab @b{st_panel_nw}: connections = @code{"nw"}
+@item @image{images/st_panel_c3, 12mm}@tab @b{st_panel_ns}: connections = @code{"ns"}
+@tab @image{images/st_panel_c4, 12mm}@tab @b{st_panel_nsw}: connections = @code{"nsw"}
+@item @image{images/st_panel_d, 12mm}@tab @b{st_panel_ne}: connections = @code{"ne"}
+@tab @image{images/st_panel_d2, 12mm}@tab @b{st_panel_new}: connections = @code{"new"}
+@item @image{images/st_panel_d3, 12mm}@tab @b{st_panel_nes}: connections = @code{"nes"}
+@tab @image{images/st_panel_d4, 12mm}@tab @b{st_panel_nesw}: connections = @code{"nesw"}
+@end multitable
 @end table
 
 
@@ -15102,9 +15137,9 @@ none
 @table @asis
 @item @image{images/st_boulder, 12mm} @b{st_boulder}
 @item @image{images/st_boulder, 12mm} @b{st_boulder_n}: orientation = @code{NORTH}
-@item @image{images/fl_white, 12mm} @b{st_boulder_e}: orientation = @code{EAST}
-@item @image{images/fl_white, 12mm} @b{st_boulder_s}: orientation = @code{SOUTH}
-@item @image{images/fl_white, 12mm} @b{st_boulder_w}: orientation = @code{WEST}
+@item @image{images/st_boulder_b, 12mm} @b{st_boulder_e}: orientation = @code{EAST}
+@item @image{images/st_boulder_c, 12mm} @b{st_boulder_s}: orientation = @code{SOUTH}
+@item @image{images/st_boulder_d, 12mm} @b{st_boulder_w}: orientation = @code{WEST}
 @end table
 
 @end table
@@ -15170,10 +15205,10 @@ then secure fire burning.
 @item @image{images/st_box_wood, 12mm} @b{st_box}: flavor=@code{"wood"}
 @item @image{images/st_box_wood, 12mm} @b{st_box_wood}: flavor=@code{"wood"}
 @item @image{images/st_box_wood, 12mm} @b{st_box_wood_h}: flavor=@code{"wood"}
-@item @image{images/fl_white, 12mm} @b{st_box_wood_v}: flavor=@code{"wood"}
-@item @image{images/fl_white, 12mm} @b{st_box_wood_growing}: flavor=@code{"wood"}
+@item @image{images/st_box_wood_2, 12mm} @b{st_box_wood_v}: flavor=@code{"wood"}
+@item @image{images/st_box_wood_growing, 12mm} @b{st_box_wood_growing}: flavor=@code{"wood"}
 @item @image{images/st_box_hay, 12mm} @b{st_box_hay}: flavor=@code{"hay"}
-@item @image{images/fl_white, 12mm} @b{st_box_hay_growing}: flavor=@code{"hay"}
+@item @image{images/st_box_hay_growing, 12mm} @b{st_box_hay_growing}: flavor=@code{"hay"}
 @item @image{images/st_box_rock, 12mm} @b{st_box_rock}: flavor=@code{"rock"}
 @end table
 
@@ -15641,10 +15676,10 @@ Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_disco}: state = @code{LIGHT}
-@item @b{st_disco_light}: state = @code{LIGHT}
-@item @b{st_disco_medium}: state = @code{MEDIUM}
-@item @b{st_disco_dark}: state = @code{DARK}
+@item @image{images/st_disco, 12mm} @b{st_disco}: state = @code{LIGHT}
+@item @image{images/st_disco, 12mm} @b{st_disco_light}: state = @code{LIGHT}
+@item @image{images/st_disco_2, 12mm} @b{st_disco_medium}: state = @code{MEDIUM}
+@item @image{images/st_disco_3, 12mm} @b{st_disco_dark}: state = @code{DARK}
 @end table
 
 @end table
@@ -15657,13 +15692,13 @@ Darken by degree or switch from @samp{DARK} to @samp{LIGHT}
 An item dispenser in some item flavors.
 
 On every actor hit the dispenser adds a new item given by the attribute 
-@samp{flavor}, namely @ref{it_bomb} in color black or white, or @ref{it_dynamite},
-to the inventory of the actor's owner. Of course an item will just be added
-if the inventory is capable of adding a further item. Additionally the 
-dispenser's @samp{stock} must supply a further item. The default stock of 1000
-items should be enough for usual demands. But you can limit the supply to just
-a few counted items. This @samp{stock} attribute gets decremented every time
-an actor takes an item.
+@samp{flavor}, namely @ref{it_bomb} in color black or white, @ref{it_dynamite}
+or @ref{it_extralife} to the inventory of the actor's owner. Of course an item 
+will just be added if the inventory is capable of adding a further item. 
+Additionally the dispenser's @samp{stock} must supply a further item. The 
+default stock of 1000 items should be enough for usual demands. But you can 
+limit the supply to just a few counted items. This @samp{stock} attribute gets
+decremented every time an actor takes an item.
 
 The dispenser stone does break on adjacent @ref{it_bomb} explosions and 
 adjacent dispenser stone breaks. On its break it will itself cause adjacent
@@ -15676,7 +15711,7 @@ beams.
 @item @b{Attributes:}
 
 @table @asis
-@item @b{flavor} @ @ @i{values}: @code{"bombblack"}, @code{"bombwhite"}, @code{"dynamite"}; @ @ @i{default}: @code{"bombblack"};
+@item @b{flavor} @ @ @i{values}: @code{"bombblack"}, @code{"bombwhite"}, @code{"dynamite"}, @code{"extralife"}; @ @ @i{default}: @code{"bombblack"};
 @item @b{stock}, @ @ @i{values}: integer numbers; @ @ @i{default}: @code{1000}: @ @ @xref{state}
 @end table
 
@@ -15691,6 +15726,7 @@ beams.
 @item @image{images/st_dispenser_bombblack, 12mm} @b{st_dispenser_bombblack}: flavor=@code{"bombblack"}
 @item @image{images/st_dispenser_bombwhite, 12mm} @b{st_dispenser_bombwhite}: flavor=@code{"bombwhite"}
 @item @image{images/st_dispenser_dynamite, 12mm} @b{st_dispenser_dynamite}: flavor=@code{"dynamite"}
+@item @image{images/st_dispenser_extralife, 12mm} @b{st_dispenser_extralife}: flavor=@code{"extralife"}
 @end table
 
 @end table
@@ -15709,10 +15745,10 @@ There are several flavors of doors. The variants @code{"a"} to @code{"c"}
 represent grid filling block doors. Flavor @code{"a"} looks in the closed state
 like @ref{st_oxyd} of flavor @code{"a"} and in the opened state like an
 @ref{st_grate} of flavor @code{"cross"}. Flavor @code{"b"} looks in the closed 
-state like @ref{st_flat} and in the opened state like an @ref{st_grate} of
-flavor @code{"framed"}. Flavor @code{"c"} looks in the closed state like
-@ref{st_flat} but opens to an invisible, free passable, but still existing and
-grid blocking stone. The flavor @code{"d"} represents a faces based door, that 
+state like @ref{st_flat} but opens to an invisible, free passable, but still
+existing and grid blocking stone. Flavor @code{"c"} looks in the closed state
+like @ref{st_flat} and in the opened state like an @ref{st_grate} of flavor
+@code{"framed"}. The flavor @code{"d"} represents a faces based door, that 
 opens or blocks just the given faces of the grid. Currently just the 
 combinations of two parallel aligned door faces, aka horizontal and vertical 
 doors, are supported.
@@ -15788,13 +15824,18 @@ evaluated on its kind. This action value fits the @samp{hit} messages of
 objects like @ref{st_jamb}.
 
 @item @b{Variants:}
-@table @asis
-@item @b{st_door}: flavor = @code{"d"}
-@item @b{st_door_a}: flavor = @code{"a"}
-@item @b{st_door_b}: flavor = @code{"b"}
-@item @b{st_door_c}: flavor = @code{"c"}
-@item @b{st_door_d}: flavor = @code{"d"}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_oxyda, 12mm}@tab  @b{st_door_a}: flavor = @code{"a"}, state = @code{CLOSED}
+@tab @image{images/st_grate_cross, 12mm}@tab  @b{st_door_a}: flavor = @code{"a"}, state = @code{OPEN}
+@item @image{images/st_flat, 12mm}@tab  @b{st_door_b}: flavor = @code{"b"}, state = @code{CLOSED}
+@tab @image{images/fl_white, 12mm}@tab  @b{st_door_b}: flavor = @code{"b"}, state = @code{OPEN}
+@item @image{images/st_flat, 12mm}@tab  @b{st_door_c}: flavor = @code{"c"}, state = @code{CLOSED}
+@tab @image{images/st_grate_framed, 12mm}@tab  @b{st_door_c}: flavor = @code{"c"}, state = @code{OPEN}
+@item @image{images/st_door_d_ns_7, 12mm}@tab  @b{st_door_d}: flavor = @code{"d"}, faces = @code{"ns"}, state = @code{CLOSED}
+@tab @image{images/st_door_d_ns, 12mm}@tab  @b{st_door_d}: flavor = @code{"d"}, faces = @code{"ns"}, state = @code{OPEN}
+@item @image{images/st_door_d_ew_g, 12mm}@tab  @b{st_door_d}: flavor = @code{"d"}, faces = @code{"ew"}, state = @code{CLOSED}
+@tab @image{images/st_door_d_ew, 12mm}@tab  @b{st_door_d}: flavor = @code{"d"}, faces = @code{"ew"}, state = @code{OPEN}
+@end multitable
 
 @end table
 
@@ -15834,16 +15875,20 @@ any color spot.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
-@table @asis
-@item @b{st_fake}: flavor=@code{"quake"}, state=@code{IDLE}
-@item @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{IDLE}
-@item @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{CLOSED}
-@item @b{st_fake_oxydb}: flavor=@code{"oxydb"}, state=@code{CLOSED}
-@item @b{st_fake_oxydc}: flavor=@code{"oxydc"}, state=@code{CLOSED}
-@item @b{st_fake_oxydd}: flavor=@code{"oxydd"}, state=@code{CLOSED}
-@item @b{st_fake_oxyde}: flavor=@code{"oxyde"}, state=@code{CLOSED}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_oxydb, 12mm} @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{IDLE}
+@tab @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{ACTIVE}
+@item @image{images/st_oxyda, 12mm} @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{CLOSED}
+@tab @image{images/st_oxyda_open, 12mm} @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{OPEN}
+@item @image{images/st_oxydb, 12mm} @b{st_fake_oxydb}: flavor=@code{"oxydb"}, state=@code{CLOSED}
+@tab @image{images/st_oxydb_open, 12mm} @b{st_fake_oxydb}: flavor=@code{"oxydb"}, state=@code{OPEN}
+@item @image{images/st_oxydc, 12mm} @b{st_fake_oxydc}: flavor=@code{"oxydc"}, state=@code{CLOSED}
+@tab @image{images/st_oxydc_open, 12mm} @b{st_fake_oxydc}: flavor=@code{"oxydc"}, state=@code{OPEN}
+@item @image{images/st_oxydd, 12mm} @b{st_fake_oxydd}: flavor=@code{"oxydd"}, state=@code{CLOSED}
+@tab @image{images/st_oxydb_open, 12mm} @b{st_fake_oxydd}: flavor=@code{"oxydd"}, state=@code{OPEN}
+@item @image{images/st_oxydb, 12mm} @b{st_fake_oxyde}: flavor=@code{"oxyde"}, state=@code{CLOSED}
+@tab @image{images/st_oxydb_open, 12mm} @b{st_fake_oxyde}: flavor=@code{"oxyde"}, state=@code{OPEN}
+@end multitable
 
 @end table
 
@@ -15942,7 +15987,7 @@ of the hollow state.
 @item @image{images/st_flat_cracked, 12mm} @b{st_flat_cracked}: 
 @item @image{images/st_flat_fire, 12mm} @b{st_flat_burnable}: burnable=@code{"true"}
 @item @image{images/st_flat_fire, 12mm} @b{st_flat_moveburnable}: movable=@code{"true"}, burnable=@code{"true"}
-@item @image{images/fl_white, 12mm} @b{st_flat_breaking}: breakable=@code{"true"}
+@item @image{images/st_flat_break, 12mm} @b{st_flat_breaking}: breakable=@code{"true"}
 @end table
 @end table
 
@@ -16086,14 +16131,12 @@ The flavor @code{"break"} transforms to an @ref{st_break} of variant
 @item @b{Action:} none
 
 @item @b{Variants:}
-
-@table @asis
-@item @b{st_ghost}: flavor=@code{"purplemarble"}
-@item @b{st_ghost_purplemarble}: flavor=@code{"purplemarble"}
-@item @b{st_ghost_greenbrown}: flavor=@code{"greenbrown"}
-@item @b{st_ghost_break}: flavor=@code{"break"}
-@end table
-
+@multitable @columnfractions .08 .52 .40
+@item @image{images/fl_white, 12mm}@tab @b{st_ghost}: flavor=@code{"purplemarble"} @tab@image{images/st_purplemarble, 12mm}
+@item @image{images/fl_white, 12mm}@tab @b{st_ghost_purplemarble}: flavor=@code{"purplemarble"} @tab@image{images/st_purplemarble, 12mm}
+@item @image{images/fl_white, 12mm}@tab @b{st_ghost_greenbrown}: flavor=@code{"greenbrown"} @tab@image{images/st_greenbrown, 12mm}
+@item @image{images/fl_white, 12mm}@tab @b{st_ghost_break}: flavor=@code{"break"} @tab@image{images/st_break_plain, 12mm}
+@end multitable
 @end table
 
 @c ----------------- Grate Stone --------------------
@@ -16157,7 +16200,7 @@ to standard, unmovable greenbrown on an actor hit with a revealed
 @item @image{images/st_greenbrown, 12mm} @b{st_greenbrown}
 @item @image{images/st_greenbrown, 12mm} @b{st_greenbrown_hollow}
 @item @image{images/st_greenbrown, 12mm} @b{st_greenbrown_movable}
-@item @image{images/fl_white, 12mm} @b{st_greenbrown_growing}
+@item @image{images/st_greenbrown_growing, 12mm} @b{st_greenbrown_growing}
 @end table
 @end table
 
@@ -16439,15 +16482,16 @@ Turn orientation in opposite turning direction as defined by attribute
 @item @b{Action:} none
 
 @item @b{Variants:}
-
-@table @asis
-@item @b{st_laser}
-@item @b{st_laser_w}: orientation = @code{WEST}
-@item @b{st_laser_s}: orientation = @code{SOUTH}
-@item @b{st_laser_e}: orientation = @code{EAST}
-@item @b{st_laser_n}: orientation = @code{NORTH}
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_laser_w_0001, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{OFF}
+@tab @image{images/st_laser_w_0006, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{ON}
+@item @image{images/st_laser_s_0001, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{OFF}
+@tab @image{images/st_laser_s_0006, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{ON}
+@item @image{images/st_laser_e_0001, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{OFF}
+@tab @image{images/st_laser_e_0006, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{ON}
+@item @image{images/st_laser_n_0001, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{OFF}
+@tab @image{images/st_laser_n_0006, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{ON}
+@end multitable
 @end table
 
 @c ----------------- Laserflop Stone --------------------
@@ -16494,6 +16538,11 @@ Switches the laserflop on like on an actor hit.
 @end table
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_monoflop, 12mm} @b{st_laserflop}: state = @code{OFF}
+@item @image{images/st_monoflop_2, 12mm} @b{st_laserflop}: state = @code{ON}
+@end table
 
 @end table
 
@@ -16526,6 +16575,10 @@ the light change with proper actions.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@table @asis
+@item @image{images/st_oxydb, 12mm} @b{st_laserswitch}: state = @code{OFF}
+@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_laserswitch}: state = @code{ON}
+@end table
 @end table
 
 @c ----------------- Lightglass Stone --------------------
@@ -16685,10 +16738,10 @@ The flavor @code{"oxydc"} transforms on any hit into a movable
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_magic}: flavor=@code{"brick"}
-@item @b{st_magic_brick}: flavor=@code{"brick"}
-@item @b{st_magic_oxyda}: flavor=@code{"oxyda"}
-@item @b{st_magic_oxydc}: flavor=@code{"oxydc"}
+@item @image{images/st_brick, 12mm} @b{st_magic}: flavor=@code{"brick"}
+@item @image{images/st_brick, 12mm} @b{st_magic_brick}: flavor=@code{"brick"}
+@item @image{images/st_oxyda, 12mm} @b{st_magic_oxyda}: flavor=@code{"oxyda"}
+@item @image{images/st_oxydc, 12mm} @b{st_magic_oxydc}: flavor=@code{"oxydc"}
 @end table
 
 @end table
@@ -16722,11 +16775,11 @@ onto which the item will be dropped, or where the pipe starts.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_mail}: orientation = @code{NORTH}
-@item @b{st_mail_w}: orientation = @code{WEST}
-@item @b{st_mail_s}: orientation = @code{SOUTH}
-@item @b{st_mail_e}: orientation = @code{EAST}
-@item @b{st_mail_n}: orientation = @code{NORTH}
+@item @image{images/st_mail, 12mm} @b{st_mail}: orientation = @code{NORTH}
+@item @image{images/st_mail_3, 12mm} @b{st_mail_w}: orientation = @code{WEST}
+@item @image{images/st_mail_4, 12mm} @b{st_mail_s}: orientation = @code{SOUTH}
+@item @image{images/st_mail_2, 12mm} @b{st_mail_e}: orientation = @code{EAST}
+@item @image{images/st_mail, 12mm} @b{st_mail_n}: orientation = @code{NORTH}
 @end table
 
 @end table
@@ -16812,13 +16865,48 @@ Turn the orientation in turning direction as defined by attribute
 @item @b{Action:} none
 
 @item @b{Variants:}
-
-@table @asis
-@item @b{st_mirror}: flavor=@code{slab}, state = @code{NORTH}
-@item @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}
-@item @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}
-@item @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_mirror_static_03, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_03, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_04, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_04, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_01, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_01, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_02, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_02, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_07, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_07, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_08, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_08, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_05, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_05, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_06, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_06, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_11, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_11, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_12, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_12, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_09, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_09, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_10, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_10, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_15, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_15, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_16, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_16, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_13, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_13, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_14, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_14, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_19, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_19, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_20, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_20, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_17, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_17, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_18, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_18, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@end multitable
 
 @end table
 
@@ -16860,6 +16948,11 @@ Switch the monoflop on like on an actor hit.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_monoflop, 12mm} @b{st_monoflop}: state = @code{OFF}
+@item @image{images/st_monoflop_2, 12mm} @b{st_monoflop}: state = @code{ON}
+@end table
 @end table
 
 @c ----------------- Oneway Stone --------------------
@@ -16916,13 +17009,20 @@ Flip the orientation to the opposite direction.
 @item @b{Action:} none
 
 @item @b{Variants:}
-
-@table @asis
-@item @b{st_oneway}
-@item @b{st_oneway_black}: color = @code{BLACK}
-@item @b{st_oneway_white}: color = @code{WHITE}
-@end table
-
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_oneway, 12mm}@tab  @b{st_oneway}: orientation = @code{EAST}
+@tab @image{images/st_oneway_2, 12mm}@tab @b{st_oneway}: orientation = @code{NORTH}
+@item @image{images/st_oneway_3, 12mm}@tab @b{st_oneway}: orientation = @code{SOUTH}
+@tab @image{images/st_oneway_4, 12mm}@tab @b{st_oneway}: orientation = @code{WEST}
+@item @image{images/st_oneway_b, 12mm}@tab @b{st_oneway_black}: color = @code{BLACK}; orientation = @code{EAST}
+@tab @image{images/st_oneway_b2, 12mm}@tab @b{st_oneway_black}: color = @code{BLACK}; orientation = @code{NORTH}
+@item @image{images/st_oneway_b3, 12mm}@tab @b{st_oneway_black}: color = @code{BLACK}; orientation = @code{SOUTH}
+@tab @image{images/st_oneway_b4, 12mm}@tab @b{st_oneway_black}: color = @code{BLACK}; orientation = @code{WEST}
+@item @image{images/st_oneway_c, 12mm}@tab @b{st_oneway_white}: color = @code{WHITE}; orientation = @code{EAST}
+@tab @image{images/st_oneway_c2, 12mm}@tab @b{st_oneway_white}: color = @code{WHITE}; orientation = @code{NORTH}
+@item @image{images/st_oneway_c3, 12mm}@tab @b{st_oneway_white}: color = @code{WHITE}; orientation = @code{SOUTH}
+@tab @image{images/st_oneway_c4, 12mm}@tab @b{st_oneway_white}: color = @code{WHITE}; orientation = @code{WEST}
+@end multitable
 @end table
 
 @c ----------------- Oxyd Stone --------------------
@@ -17224,6 +17324,11 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 
 @item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
 
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_darkglass, 12mm} @b{st_polarswitch}: state = @code{OFF}
+@item @image{images/st_lightglass, 12mm} @b{st_polarswitch}: state = @code{ON}
+@end table
 @end table
 
 @c ----------------- Portal Stone --------------------
@@ -17451,11 +17556,72 @@ of puzzle stone into the given direction.
 
 @item @b{Variants:}
 
-@table @asis
-@item @b{st_puzzle}: color = @code{BLUE}
-@item @b{st_puzzle_blue}: color = @code{BLUE}
-@item @b{st_puzzle_yellow}: color = @code{YELLOW}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_puzzle_blue, 12mm}@tab  @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{""}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"w"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"s"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"sw"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_b, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"e"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_b2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ew"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_b3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"es"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_b4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"esw"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_c, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"n"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_c2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nw"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_c3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ns"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_c4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nsw"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_d, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ne"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_d2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"new"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_d3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nes"}, hollow = @code{false}
+@tab @image{images/st_puzzle_blue_d4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nesw"}, hollow = @code{false}
+@item @image{images/st_puzzle_blue_hollow, 12mm}@tab  @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{""}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"w"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"s"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"sw"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_b, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"e"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_b2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ew"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_b3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"es"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_b4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"esw"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_c, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"n"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_c2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nw"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_c3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ns"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_c4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nsw"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_d, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"ne"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_d2, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"new"}, hollow = @code{true}
+@item @image{images/st_puzzle_blue_hollow_d3, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nes"}, hollow = @code{true}
+@tab @image{images/st_puzzle_blue_hollow_d4, 12mm}@tab @b{st_puzzle_blue}: color = @code{BLUE}, connections = @code{"nesw"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow, 12mm}@tab  @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{""}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"w"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"s"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"sw"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_b, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"e"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_b2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ew"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_b3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"es"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_b4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"esw"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_c, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"n"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_c2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nw"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_c3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ns"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_c4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nsw"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_d, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ne"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_d2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"new"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_d3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nes"}, hollow = @code{false}
+@tab @image{images/st_puzzle_yellow_d4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nesw"}, hollow = @code{false}
+@item @image{images/st_puzzle_yellow_hollow, 12mm}@tab  @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{""}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"w"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"s"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"sw"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_b, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"e"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_b2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ew"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_b3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"es"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_b4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"esw"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_c, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"n"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_c2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nw"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_c3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ns"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_c4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nsw"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_d, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"ne"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_d2, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"new"}, hollow = @code{true}
+@item @image{images/st_puzzle_yellow_hollow_d3, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nes"}, hollow = @code{true}
+@tab @image{images/st_puzzle_yellow_hollow_d4, 12mm}@tab @b{st_puzzle_yellow}: color = @code{YELLOW}, connections = @code{"nesw"}, hollow = @code{true}
+@end multitable
 
 @end table
 
@@ -17500,6 +17666,11 @@ Toggles stone to @samp{BREAKING}
 
 @item @b{Action:} none
 
+@table @asis
+@item @image{images/st_oxydb, 12mm} @b{st_quake}: state = @code{IDLE}
+@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_quake}: state = @code{ACTIVE}
+@item @image{images/st_quake_break, 12mm} @b{st_quake}: state = @code{BREAKING}
+@end table
 @end table
 
 @c ----------------- Rawglass Stone --------------------
@@ -17737,14 +17908,14 @@ shogun.
 @item @b{Variants:}
 
 @table @asis
-@item @b{st_shogun}: flavor = @code{"s"}
-@item @b{st_shogun_s}: flavor = @code{"s"}
-@item @b{st_shogun_m}: flavor = @code{"m"}
-@item @b{st_shogun_sm}: flavor = @code{"sm"}
-@item @b{st_shogun_l}: flavor = @code{"l"}
-@item @b{st_shogun_sl}: flavor = @code{"sl"}
-@item @b{st_shogun_ml}: flavor = @code{"ml"}
-@item @b{st_shogun_sml}: flavor = @code{"sml"}
+@item @image{images/st_shogun, 12mm} @b{st_shogun}: flavor = @code{"s"}
+@item @image{images/st_shogun, 12mm} @b{st_shogun_s}: flavor = @code{"s"}
+@item @image{images/st_shogun_2, 12mm} @b{st_shogun_m}: flavor = @code{"m"}
+@item @image{images/st_shogun_3, 12mm} @b{st_shogun_sm}: flavor = @code{"sm"}
+@item @image{images/st_shogun_4, 12mm} @b{st_shogun_l}: flavor = @code{"l"}
+@item @image{images/st_shogun_5, 12mm} @b{st_shogun_sl}: flavor = @code{"sl"}
+@item @image{images/st_shogun_6, 12mm} @b{st_shogun_ml}: flavor = @code{"ml"}
+@item @image{images/st_shogun_7, 12mm} @b{st_shogun_sml}: flavor = @code{"sml"}
 @end table
 
 @end table
@@ -17937,7 +18108,7 @@ Pulse at a value of @samp{1}.
 @item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse}
 @item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_movable}: movable = @code{true}
 @item @image{images/st_stoneimpulse_hollow, 12mm} @b{st_stoneimpulse_hollow}: hollow = @code{true}
-@item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_steady}: steady = @code{true}
+@item @image{images/st_stoneimpulse_6, 12mm} @b{st_stoneimpulse_steady}: steady = @code{true}
 @item @image{images/st_stoneimpulse, 12mm} @b{st_stoneimpulse_new}:
 A stone that is about to pulse when being set.
 @end table
@@ -18119,6 +18290,14 @@ bag.
 @item @b{Messages:} none
 
 @item @b{Action:}  none
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_bluegray, 12mm} @b{st_thief}: hidden
+@item @image{images/st_thief, 12mm} @b{st_thief}: showing up at the moment when stealing items
+@item @image{images/st_thief_capture, 12mm} @b{st_thief}: when being captured
+@item @image{images/st_thief_drunken, 12mm} @b{st_thief}: drunken thief
+@end table
 @end table
 
 @c ----------------- Timer Stone --------------------
@@ -18177,6 +18356,12 @@ Switches on at value @samp{1}, and off at values @samp{0}.
 The action value starts with @samp{true} and alternates on every event between
 @samp{false} and @samp{true}. A timer that is reset starts again with value
 @samp{true}
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/st_timer, 12mm} @b{st_timer}: state = @code{OFF}
+@item @image{images/st_timer_2, 12mm} @b{st_timer}: state = @code{ON}
+@end table
 @end table
 
 @c ----------------- Turnstile Pivot Stone --------------------
@@ -18329,11 +18514,11 @@ target and this message as action.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_turnstilearm}: orientation = @code{NORTH}
-@item @b{st_turnstilearm_n}: orientation = @code{NORTH}
-@item @b{st_turnstilearm_e}: orientation = @code{EAST}
-@item @b{st_turnstilearm_s}: orientation = @code{SOUTH}
-@item @b{st_turnstilearm_w}: orientation = @code{WEST}
+@item @image{images/st_puzzle_blue_3, 12mm} @b{st_turnstilearm}: orientation = @code{NORTH}
+@item @image{images/st_puzzle_blue_3, 12mm} @b{st_turnstilearm_n}: orientation = @code{NORTH}
+@item @image{images/st_puzzle_blue_2, 12mm} @b{st_turnstilearm_e}: orientation = @code{EAST}
+@item @image{images/st_puzzle_blue_c, 12mm} @b{st_turnstilearm_s}: orientation = @code{SOUTH}
+@item @image{images/st_puzzle_blue_b, 12mm} @b{st_turnstilearm_w}: orientation = @code{WEST}
 @end table
 @end table
 
@@ -18390,12 +18575,12 @@ Activates an inactive volcano stone.
 
 @item @b{Variants:}
 @table @asis
-@item @b{st_volcano}: state = @code{IDLE}
-@item @b{st_volcano_idle}: state = @code{IDLE}
-@item @b{st_volcano_active}: state = @code{ACTIVE}
-@item @b{st_volcano_new}:
+@item @image{images/st_flat, 12mm} @b{st_volcano}: state = @code{IDLE}
+@item @image{images/st_flat, 12mm} @b{st_volcano_idle}: state = @code{IDLE}
+@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_volcano_active}: state = @code{ACTIVE}
+@item @image{images/it_seed, 12mm} @b{st_volcano_new}:
 An active volcano starting in the seed like phase.
-@item @b{st_volcano_growing}:
+@item @image{images/st_volcano_growing, 12mm} @b{st_volcano_growing}:
 An active volcano starting in the growing phase.
 @end table
 @end table
@@ -18469,25 +18654,40 @@ Tries to tear the opposite window face into the given orientation.
 @end table
 
 @item @b{Variants:}
-@table @asis
-@item @b{st_window}: faces = @code{"s"}
-@item @b{st_window_w}: faces = @code{"w"}
-@item @b{st_window_s}: faces = @code{"s"}
-@item @b{st_window_sw}: faces = @code{"sw"}
-@item @b{st_window_e}: faces = @code{"e"}
-@item @b{st_window_ew}: faces = @code{"ew"}
-@item @b{st_window_es}: faces = @code{"es"}
-@item @b{st_window_esw}: faces = @code{"esw"}
-@item @b{st_window_n}: faces = @code{"n"}
-@item @b{st_window_nw}: faces = @code{"nw"}
-@item @b{st_window_ns}: faces = @code{"ns"}
-@item @b{st_window_nsw}: faces = @code{"nsw"}
-@item @b{st_window_ne}: faces = @code{"ne"}
-@item @b{st_window_new}: faces = @code{"new"}
-@item @b{st_window_nes}: faces = @code{"nes"}
-@item @b{st_window_nesw}: faces = @code{"nesw"}
-
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/st_window_blue_3, 12mm}@tab @b{st_window}: faces = @code{"s"}, secure = @code{false}
+@tab @image{images/st_window_green_3, 12mm}@tab @b{st_window}: faces = @code{"s"}, secure = @code{true}
+@item @image{images/st_window_blue_2, 12mm}@tab @b{st_window_w}: faces = @code{"w"}, secure = @code{false}
+@tab @image{images/st_window_green_2, 12mm}@tab @b{st_window_w}: faces = @code{"w"}, secure = @code{true}
+@item @image{images/st_window_blue_3, 12mm}@tab @b{st_window_s}: faces = @code{"s"}, secure = @code{false}
+@tab @image{images/st_window_green_3, 12mm}@tab @b{st_window_s}: faces = @code{"s"}, secure = @code{true}
+@item @image{images/st_window_blue_4, 12mm}@tab @b{st_window_sw}: faces = @code{"sw"}, secure = @code{false}
+@tab @image{images/st_window_green_4, 12mm}@tab @b{st_window_sw}: faces = @code{"sw"}, secure = @code{true}
+@item @image{images/st_window_blue_b, 12mm}@tab @b{st_window_e}: faces = @code{"e"}, secure = @code{false}
+@tab @image{images/st_window_green_b, 12mm}@tab @b{st_window_e}: faces = @code{"e"}, secure = @code{true}
+@item @image{images/st_window_blue_b2, 12mm}@tab @b{st_window_ew}: faces = @code{"ew"}, secure = @code{false}
+@tab @image{images/st_window_green_b2, 12mm}@tab @b{st_window_ew}: faces = @code{"ew"}, secure = @code{true}
+@item @image{images/st_window_blue_b3, 12mm}@tab @b{st_window_es}: faces = @code{"es"}, secure = @code{false}
+@tab @image{images/st_window_green_b3, 12mm}@tab @b{st_window_es}: faces = @code{"es"}, secure = @code{true}
+@item @image{images/st_window_blue_b4, 12mm}@tab @b{st_window_esw}: faces = @code{"esw"}, secure = @code{false}
+@tab @image{images/st_window_green_b4, 12mm}@tab @b{st_window_esw}: faces = @code{"esw"}, secure = @code{true}
+@item @image{images/st_window_blue_c, 12mm}@tab @b{st_window_n}: faces = @code{"n"}, secure = @code{false}
+@tab @image{images/st_window_green_c, 12mm}@tab @b{st_window_n}: faces = @code{"n"}, secure = @code{true}
+@item @image{images/st_window_blue_c2, 12mm}@tab @b{st_window_nw}: faces = @code{"nw"}, secure = @code{false}
+@tab @image{images/st_window_green_c2, 12mm}@tab @b{st_window_nw}: faces = @code{"nw"}, secure = @code{true}
+@item @image{images/st_window_blue_c3, 12mm}@tab @b{st_window_ns}: faces = @code{"ns"}, secure = @code{false}
+@tab @image{images/st_window_green_c3, 12mm}@tab @b{st_window_ns}: faces = @code{"ns"}, secure = @code{true}
+@item @image{images/st_window_blue_c4, 12mm}@tab @b{st_window_nsw}: faces = @code{"nsw"}, secure = @code{false}
+@tab @image{images/st_window_green_c4, 12mm}@tab @b{st_window_nsw}: faces = @code{"nsw"}, secure = @code{true}
+@item @image{images/st_window_blue_d, 12mm}@tab @b{st_window_ne}: faces = @code{"ne"}, secure = @code{false}
+@tab @image{images/st_window_green_d, 12mm}@tab @b{st_window_ne}: faces = @code{"ne"}, secure = @code{true}
+@item @image{images/st_window_blue_d2, 12mm}@tab @b{st_window_new}: faces = @code{"new"}, secure = @code{false}
+@tab @image{images/st_window_green_d2, 12mm}@tab @b{st_window_new}: faces = @code{"new"}, secure = @code{true}
+@item @image{images/st_window_blue_d3, 12mm}@tab @b{st_window_nes}: faces = @code{"nes"}, secure = @code{false}
+@tab @image{images/st_window_green_d3, 12mm}@tab @b{st_window_nes}: faces = @code{"nes"}, secure = @code{true}
+@item @image{images/st_window_blue_d4, 12mm}@tab @b{st_window_nesw}: faces = @code{"nesw"}, secure = @code{false}
+@tab @image{images/st_window_green_d4, 12mm}@tab @b{st_window_nesw}: faces = @code{"nesw"}, secure = @code{true}
+@end multitable
 @end table
 
 @c ----------------- Yinyang Stone --------------------
@@ -18832,7 +19032,7 @@ player @ref{fl_thief} and @ref{st_thief} will steal items from it.
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_bug}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@item @image{images/ac_bug, 14mm} @b{ac_bug}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
 @end table
 
 @end table
@@ -18877,7 +19077,7 @@ A scalar factor for the horse force that drive it to the next destination.
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_horse}: controllers = @code{CTRL_NONE}, owner = @code{nil}
+@item @image{images/ac_horse, 14mm} @b{ac_horse}: controllers = @code{CTRL_NONE}, owner = @code{nil}
 @end table
 
 @end table
@@ -18916,7 +19116,7 @@ The color of the killer.
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_killer}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
+@item @image{images/ac_pearl_white, 14mm} @b{ac_killer}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
 @end table
 
 @end table
@@ -18955,9 +19155,9 @@ The color of the marble.
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_marble}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
-@item @b{ac_marble_black}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
-@item @b{ac_marble_white}: color = @code{WHITE}, controllers = @code{CTRL_YANG}, owner = @code{YANG}
+@item @image{images/ac_marble_black, 14mm}  @b{ac_marble}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
+@item @image{images/ac_marble_black, 14mm} @b{ac_marble_black}: color = @code{BLACK}, controllers = @code{CTRL_YIN}, owner = @code{YIN}
+@item @image{images/ac_marble_white, 14mm} @b{ac_marble_white}: color = @code{WHITE}, controllers = @code{CTRL_YANG}, owner = @code{YANG}
 @end table
 
 @end table
@@ -18996,8 +19196,8 @@ The color of the pearl.
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_pearl}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
-@item @b{ac_pearl_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@item @image{images/ac_pearl_white, 14mm} @b{ac_pearl}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@item @image{images/ac_pearl_white, 14mm} @b{ac_pearl_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @end table
 
 @end table
@@ -19060,7 +19260,7 @@ combination with @samp{attacknearest} set to @samp{true}. The Level
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_rotor}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@item @image{images/ac_rotor, 14mm} @b{ac_rotor}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
 @end table
 
 @end table
@@ -19117,7 +19317,7 @@ combination with @samp{attacknearest} set to @samp{true}. The Level
 @item @b{Variants:}
 
 @table @asis
-@item @b{ac_top}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
+@item @image{images/ac_top, 14mm} @b{ac_top}: color = @code{nil}, controllers = @code{CTRL_NONE}, owner = @code{nil}
 @end table
 
 @end table

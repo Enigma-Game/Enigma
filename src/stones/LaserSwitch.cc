@@ -55,7 +55,7 @@ namespace enigma {
     }
     
     void LaserSwitch::init_model() {
-        set_model(ecl::strf("st-laserswitch%d", state == ON ? 1 : 0));
+        set_model(ecl::strf("st_laserswitch%d", state == ON ? 1 : 0));
     }
     
     void LaserSwitch::on_creation(GridPos p) {

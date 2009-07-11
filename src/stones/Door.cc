@@ -80,9 +80,9 @@ namespace enigma {
     void Door::init_model() {
         string mname = model_basename();
         if (state == CLOSED)
-            mname += "-closed";
+            mname += "_closed";
         else if (state==OPEN)
-            mname += "-open";
+            mname += "_open";
         set_model(mname);
     }
 
@@ -149,9 +149,9 @@ namespace enigma {
     std::string Door::model_basename() {
         std::string flavor = getAttr("flavor").to_string();
         if (flavor != "d")
-            return std::string("st-door_") + flavor;
+            return std::string("st_door_") + flavor;
         else
-            return (getConnections() == (WESTBIT | EASTBIT)) ? "st-doorh": "st-doorv";
+            return (getConnections() == (WESTBIT | EASTBIT)) ? "st_door_d_ns" : "st_door_d_ew";
     }
     
     void Door::set_iState(int newState) {
@@ -159,14 +159,14 @@ namespace enigma {
             std::string basename = model_basename();
             switch (newState) {
                 case OPEN:
-                    set_model(basename+"-open");
+                    set_model(basename+"_open");
                     MaybeRecalcLight(get_pos());
                     SendMessage(GetFloor(get_pos()), "_checkflood");
                     for (Direction d = NORTH; d != NODIR; d = previous(d))
                         SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
                     break;
                 case CLOSED:
-                    set_model(basename+"-closed");
+                    set_model(basename+"_closed");
                     ShatterActorsInsideField (get_pos());
                     MaybeRecalcLight(get_pos()); // maybe superfluous
                     break;
@@ -175,14 +175,14 @@ namespace enigma {
                     if (state == CLOSING)
                         get_model()->reverse();
                     else
-                        set_anim(basename+"-opening");
+                        set_anim(basename+"_opening");
                     break;
                 case CLOSING:
                     sound_event((getAttr("flavor").to_string() == "d") ? "doorclose" : "");
                     if (state == OPENING)
                         get_model()->reverse();
                     else
-                        set_anim(basename+"-closing");
+                        set_anim(basename+"_closing");
                     ShatterActorsInsideField (get_pos());
                     MaybeRecalcLight(get_pos());
                     break;

@@ -70,7 +70,7 @@ namespace enigma {
         if (getAttr("invisible").to_bool()) {
             set_model("invisible");
         } else {
-            set_model(state == OFF ? "st-timeroff" : "st-timer");
+            set_model(state == OFF ? "st_timeroff" : "st_timer");
         }
     }
     

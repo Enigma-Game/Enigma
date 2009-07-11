@@ -100,7 +100,7 @@ namespace enigma {
     }
     
     void ShogunStone::init_model() {
-        set_model(ecl::strf("st-shogun%d", getHoles()/S));
+        set_model(ecl::strf("st_shogun%d", getHoles()/S));
     }
     
     void ShogunStone::setOwnerPos(GridPos po) {
