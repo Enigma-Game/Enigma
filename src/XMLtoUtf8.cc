@@ -27,11 +27,19 @@ XERCES_CPP_NAMESPACE_USE
 namespace enigma
 {
     XMLtoUtf8::XMLtoUtf8(const XMLCh* const toTranscode) {
+#if _XERCES_VERSION >= 30000
+        XMLSize_t srcLength = XMLString::stringLen(toTranscode) + 1;
+        // make safe assumptions on utf-8 size
+        XMLSize_t maxDestLength = 3 * srcLength;
+        XMLSize_t charsEaten;
+        XMLSize_t destLength;
+#else
         unsigned int srcLength = XMLString::stringLen(toTranscode) + 1;
         // make safe assumptions on utf-8 size
         unsigned int maxDestLength = 3 * srcLength;
         unsigned int charsEaten;
         unsigned int destLength;
+#endif
         // make a buffer - size does not matter - the object is temporary 
         utf8String = new char[maxDestLength];
         // transcode to utf-8 -- there are no unrepresentable chars
