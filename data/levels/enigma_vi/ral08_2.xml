@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title ="Hot Meditation" el:id="20060527ral010"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 166 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 167 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti["#"] = {"st_redbrown"} .. ti[" "]
 ti[","] = {"fl_wood"}
 ti[";"] = {"it_burnable"} .. ti[","]
 ti["o"] = {"it_meditation"}
-ti["1"] = {"#ac_pearl", essential=INDISPENSIBLE}
+ti["1"] = {"#ac_pearl", essential=INDISPENSABLE}
 
 if wo["IsDifficult"] then
     ti["O"] = ti["o"]

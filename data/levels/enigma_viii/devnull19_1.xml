@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Near Halley I" el:subtitle="" el:id="devnull19"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,8 +22,8 @@ ti["bo"] = ti["  "] .. {"st_passage_black_frame"}
 ti["wo"] = ti["  "] .. {"st_passage_white_frame"}
 ti["o "] = ti["  "] .. {"st_oxyd", name = "north#"}
 ti["O "] = ti["  "] .. {"st_oxyd", name = "south#"}
-ti["@b"] = ti["  "] .. {"#ac_marble_black", essential = INDISPENSIBLE}
-ti["@w"] = ti["  "] .. {"#ac_marble_white", essential = INDISPENSIBLE}
+ti["@b"] = ti["  "] .. {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@w"] = ti["  "] .. {"#ac_marble_white", essential = INDISPENSABLE}
 ti["P"] = ti["  "] .. {"st_puzzle_blue", intensity = 4}
 
 if wo["IsDifficult"] then

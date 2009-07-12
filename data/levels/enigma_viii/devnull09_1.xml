@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Under control?" el:subtitle="" el:id="devnull09"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -34,10 +34,10 @@ ti["U"] = ti[" "] .. {"st_window_new", secure = true}
 ti["A"] = ti[" "] .. {"st_window_esw", secure = true}
 ti["H"] = ti[" "] .. {"st_window_ew",  secure = true}
 ti["J"] = ti[" "] .. {"st_window_ns",  secure = true}
-ti["9"] = ti["C"] .. {"#ac_pearl_white", essential=INDISPENSIBLE}
-ti["8"] = ti["I"] .. {"#ac_pearl_white", essential=INDISPENSIBLE}
-ti["7"] = ti["C"] .. {"#ac_pearl_white", essential=INDISPENSIBLE}
-ti["6"] = ti["I"] .. {"#ac_pearl_white", essential=INDISPENSIBLE}
+ti["9"] = ti["C"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["8"] = ti["I"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["7"] = ti["C"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["6"] = ti["I"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
 
 wo(ti, " ",
 -- 0         1         2

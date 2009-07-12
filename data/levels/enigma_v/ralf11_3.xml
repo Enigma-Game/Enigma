@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Swamp Stomp" el:subtitle="" el:id="ralf11"/>
-      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -41,7 +41,7 @@ else
 end
 ti["#"] = {"fl_blueslab"} .. ti({"st_rawglass"})
 ti["O"] = {"fl_blueslab"} .. ti({"st_oxyd"})
-ti["*"] = ti["-"] .. {"#ac_marble_white", essential=INDISPENSIBLE}
+ti["*"] = ti["-"] .. {"#ac_marble_white", essential=INDISPENSABLE}
 ti["@"] = ti["-"] .. {"#ac_marble_black"}
 
 wo(ti, " ", {

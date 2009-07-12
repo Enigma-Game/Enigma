@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="ant16"/>
-      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ ti["~"] = {"fl_water"}
 ti["="] = ti["~"] .. {"st_death"}      -- no maze water
 ti["#"] = {"st_granite"}
 ti["o"] = {"it_meditation_hollow"}
-ti["@"] = {"it_magnet", state=ON} .. ti({"#ac_pearl", essential=INDISPENSIBLE})
+ti["@"] = {"it_magnet", state=ON} .. ti({"#ac_pearl", essential=INDISPENSABLE})
 
 maze = res.maze(ti, {area={"~"}, render={"-", "~", "-"}})
 

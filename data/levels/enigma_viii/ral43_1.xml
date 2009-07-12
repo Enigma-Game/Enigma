@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Mole Hill Meditation" el:subtitle="" el:id="20090112ral228"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 138 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 139 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,7 +27,7 @@ ti["#"] = {"st_pull"} .. ti["-"]
 ti["wormholes"] = {"it_wormhole", range=0.3, destination="hill%%"}
 ti["hills"] = {"it_meditation_hill", "hill%%"}
 
-ti["@"] = {"#ac_pearl", essential=INDISPENSIBLE}
+ti["@"] = {"#ac_pearl", essential=INDISPENSABLE}
 
 resolver = res.autotile(ti, {"a", "d", "wormholes"}, {"A", "D", "hills"})
 

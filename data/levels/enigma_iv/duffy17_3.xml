@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Double-Spiral" el:subtitle="" el:id="duffy17"/>
-      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -48,8 +48,8 @@ ti["f"] = {"st_floppy", target = "door1"}
 ti["F"] = {"st_floppy", target = "door3"}
 ti["b"] = ti[" "] .. {"it_brush"}
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble_black", essential = INDISPENSIBLE}
-ti["*"] = {"#ac_marble_white", essential = INDISPENSIBLE}
+ti["@"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential = INDISPENSABLE}
 
 w, h = wo(ti, " ", {
     "#######################################",

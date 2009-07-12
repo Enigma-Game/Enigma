@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="ant23"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,7 +26,7 @@ else
     wo["MeditationStrength"] = 1.3
 end
 ti["W"] = {"st_plop_slate", name="boxes#"}
-ti["@"] = {"#ac_pearl", name="balls#", target="@boxes#*", essential=INDISPENSIBLE}
+ti["@"] = {"#ac_pearl", name="balls#", target="@boxes#*", essential=INDISPENSABLE}
 
 local resolver = res.autotile(ti, {"a", "d", "T"}, {"A", "D", "U"})
 wo(resolver, " ", {

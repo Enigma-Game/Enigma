@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Maze for Two II" el:subtitle="Keep distance!" el:id="20090330ral370"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 169 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 170 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,8 +25,8 @@ ti[" "] = {"fl_water"}
 ti["#"] = {"st_granite"}
 ti["y"] = {"it_yinyang"}
 ti["x"] = {"st_oxyd_d", "oxyd#*"}
-ti["@b"] = {"#ac_marble_black", controllers=CTRL_YINYANG, essential=INDISPENSIBLE} .. ti["y"]
-ti["@w"] = {"#ac_marble_white", controllers=CTRL_YINYANG, essential=INDISPENSIBLE} .. ti["y"]
+ti["@b"] = {"#ac_marble_black", controllers=CTRL_YINYANG, essential=INDISPENSABLE} .. ti["y"]
+ti["@w"] = {"#ac_marble_white", controllers=CTRL_YINYANG, essential=INDISPENSABLE} .. ti["y"]
 ti["wall"] = ti[" "]
 ti["wall_white"] = {"st_passage_black", flavor="square"} .. ti["-"]
 ti["wall_black"] = {"st_passage_white", flavor="square"} .. ti["-"]

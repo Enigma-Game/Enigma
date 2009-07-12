@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="ralf12"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -24,7 +24,7 @@ ti["door"] = {"st_door", flavor="b", name="door%%#"}
 ti["trigger"] = {"it_trigger", target="counter%%", action="signal"}
 ti["R"] = {"st_puzzle", color=YELLOW}
 ti["S"] = ti({"st_puzzle", color=YELLOW}) .. {"it_meditation_hollow"}
-ti["@ "] = {"#ac_pearl", essential=INDISPENSIBLE}
+ti["@ "] = {"#ac_pearl", essential=INDISPENSABLE}
 
 local resolver = res.autotile(res.puzzle(ti, "R", "S"), {"t", "trigger"}, {"D", "door"})
 

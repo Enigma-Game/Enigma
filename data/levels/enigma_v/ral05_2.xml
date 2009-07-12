@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title ="Catwalk Meditation" el:id="20060505ral007"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 159 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 160 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ ti["*"] = {"st_redbrown_hollow"} .. ti{"fl_fake_abyss", force_y=500}
 ti["="] = {"st_redbrown_hollow"} .. ti{"fl_fake_abyss", force_y=-500}
 ti["o"] = {"it_meditation_dent"} .. ti["."]
 
-ti["1"] = ti["."] .. {"#ac_pearl", essential=INDISPENSIBLE}
+ti["1"] = ti["."] .. {"#ac_pearl", essential=INDISPENSABLE}
 
 if wo["IsDifficult"] then
     ti["t"] = ti["."] .. {"it_trigger", target="nocompress"}

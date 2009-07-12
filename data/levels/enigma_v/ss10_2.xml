@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Jumpin' Jack Flash" el:subtitle="" el:id="ss10"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -26,9 +26,9 @@ ti["B"] = {"st_blur", flavor="cross"}
 ti["T"] = {"st_mirror", flavor="triangle", orientation=SOUTH, movable=true}
 ti[">"] = {"st_laser", orientation=EAST, state=ON, name="laser"}
 ti["S"] = {"st_switch", target="laser"}
-ti["o"] = {"it_meditation_hollow", essential=INDISPENSIBLE}
+ti["o"] = {"it_meditation_hollow", essential=INDISPENSABLE}
 ti["b"] = cond(wo["IsDifficult"], ti[" "], {"it_spade"})
-ti["*"] = {"ac_pearl", 0.0, 0.5, essential=INDISPENSIBLE}
+ti["*"] = {"ac_pearl", 0.0, 0.5, essential=INDISPENSABLE}
 ti["@"] = {"ac_marble_black", 0.0, 0.5}
 
 wo(ti, " ", {

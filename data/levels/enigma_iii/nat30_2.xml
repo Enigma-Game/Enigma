@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bad Flowers" el:subtitle="" el:id="nat30"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Nat Pryce</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -17,8 +17,8 @@ ti[" "] = {"fl_lawn"}
 ti["#"] = {"st_metal"}
 ti["o"] = {"it_meditation"}
 ti["."] = {"ac_marble"}
-ti["1"] = {"ac_pearl", essential=INDISPENSIBLE}
-ti["2"] = {"ac_pearl", adhesion=-1.0, essential=INDISPENSIBLE}
+ti["1"] = {"ac_pearl", essential=INDISPENSABLE}
+ti["2"] = {"ac_pearl", adhesion=-1.0, essential=INDISPENSABLE}
 
 w, h = wo(ti, " ", {
     "####################",

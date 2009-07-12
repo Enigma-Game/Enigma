@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
-      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="12" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,8 +33,8 @@ ti["2"] = {"it_trigger", target="l_east", action_1="on", action_0="off"}
 ti["L"] = {"st_laser", orientation=WEST, name="l_west"}
 ti["l"] = {"st_laser", orientation=EAST, name="l_east"}
 ti["O"] = {"st_oxyd", flavor="b"}
-ti["A"] = ti["y"] .. {"#ac_marble_black", essential=INDISPENSIBLE}
-ti["B"] = ti["y"] .. {"#ac_marble_white", essential=INDISPENSIBLE}
+ti["A"] = ti["y"] .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["B"] = ti["y"] .. {"#ac_marble_white", essential=INDISPENSABLE}
 if  wo["IsDifficult"]  then
     ti["~"] = {"fl_abyss", friction=0.25}
     ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=20, range=15, prefercurrent=1}

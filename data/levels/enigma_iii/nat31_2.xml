@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Too Many Holes" el:subtitle="" el:id="nat31"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Nat Pryce</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -16,8 +16,8 @@
 ti[" "] = {"fl_lawn"}
 ti["#"] = {"st_lightglass"}
 ti["*"] = {"st_lightglass", name="inner_border#"}
-ti["o"] = {"it_meditation_hollow", essential=INDISPENSIBLE}
-ti["."] = {"ac_pearl", 0.0, 0.5, essential=INDISPENSIBLE}
+ti["o"] = {"it_meditation_hollow", essential=INDISPENSABLE}
+ti["."] = {"ac_pearl", 0.0, 0.5, essential=INDISPENSABLE}
 
 width, height = wo(ti, " ", 58, 37)
 wo:drawBorder(po(0,0), po(57, 36), ti["#"])

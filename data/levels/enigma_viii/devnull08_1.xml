@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Relaxing at the sea" el:subtitle="" el:id="devnull08"/>
-      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="23" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,9 +31,9 @@ ti["p "] = {"st_box_rock"}
 ti["w "] = {"st_box_wood"}
 ti["R "] = {"st_darkgray"}
 ti["% "] = {"it_document", text = "text1"}
-ti["7 "] = {"it_meditation_hollow", essential = DISPENSIBLE}
-ti["8 "] = {"it_meditation_hollow", essential = INDISPENSIBLE} .. ti["p "]
-ti["9 "] = {"it_meditation_hollow", essential = INDISPENSIBLE}
+ti["7 "] = {"it_meditation_hollow", essential = DISPENSABLE}
+ti["8 "] = {"it_meditation_hollow", essential = INDISPENSABLE} .. ti["p "]
+ti["9 "] = {"it_meditation_hollow", essential = INDISPENSABLE}
 if wo["IsDifficult"] then
     ti["P "] = ti["p "]
     ti["W "] = ti[" r"]
@@ -41,8 +41,8 @@ else
     ti["P "] = ti[" r"]
     ti["W "] = ti["p "]
 end
-ti["1 "] = {"#ac_pearl_white", essential = INDISPENSIBLE}
-ti["2 "] = {"#ac_pearl_white", essential = INDISPENSIBLE} .. ti["p "]
+ti["1 "] = {"#ac_pearl_white", essential = INDISPENSABLE}
+ti["2 "] = {"#ac_pearl_white", essential = INDISPENSABLE} .. ti["p "]
 
 wo(res.composer(ti), "  ",
 { "            . . . . : : : : : : : . . . . : ",
