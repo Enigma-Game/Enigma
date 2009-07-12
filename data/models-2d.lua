@@ -171,11 +171,6 @@ do
     DefAlias("ac_killer", "ac_pearl_white")
 end
 
--- Marbles in inventory  --
-do
-    DefImage("inv-blackball")
-    DefImage("inv-whiteball")
-end
 
 ----------------------------
 -- not ball-shaped actors --
@@ -256,7 +251,6 @@ do
         {"fl_ivory"},
         {"fl_platinum"},
         {"fl_adhesionless", noframe = true},
-        {"fl-normal"},
         {"fl_sand"},
         {"fl_stone"},
         {"fl_white"},
@@ -273,7 +267,7 @@ do
         {"fl_hay", 4},
         {"fl_himalaya", 4},
         {"fl_marble", 4},
-        {"fl_metal", 6},
+        {"fl_metal", 7},
         {"fl_mortar", 2, 2},
         {"fl_plank", 4},
         {"fl_red", 4},
@@ -402,15 +396,15 @@ do
     DefAlias("fl_metal_4", "fl_metal4")
     DefAlias("fl_metal_5", "fl_metal5")
     DefAlias("fl_metal_6", "fl_metal6")
-    DefAlias("fl_metal_7", "fl-normal")
-    DefAlias("fl_metal_7n", "fl-normal")
+    DefAlias("fl_metal_7", "fl_metal7")
+    DefAlias("fl_metal_7n", "fl_metal7")
     DefAlias("fl_metal_1_framed", "fl_metal1_framed")
     DefAlias("fl_metal_2_framed", "fl_metal2_framed")
     DefAlias("fl_metal_3_framed", "fl_metal3_framed")
     DefAlias("fl_metal_4_framed", "fl_metal4_framed")
     DefAlias("fl_metal_5_framed", "fl_metal5_framed")
     DefAlias("fl_metal_6_framed", "fl_metal6_framed")
-    DefAlias("fl_metal_7_framed", "fl-normal_framed")
+    DefAlias("fl_metal_7_framed", "fl_metal7_framed")
     DefAlias("fl-space-force", "fl_space")
     DefAlias("fl_samba_h", "fl_samba1")
     DefAlias("fl_samba_v", "fl_samba2")
@@ -960,7 +954,7 @@ do
     DefRoundStoneWithAnim("st_yinyang", 6, 140)
 end
 
--- st-dynamite, st-bombs, st-whitebombs --
+-- st_dispenser --
 do
     function make_bombstone(name)
         local images = DefSubimages(name, {h=7})
@@ -971,6 +965,12 @@ do
     make_bombstone("st_dispenser_bombblack")
     make_bombstone("st_dispenser_dynamite")
     make_bombstone("st_dispenser_bombwhite")
+end
+
+-- st_dispenser_extralife --
+do
+    local images = DefSubimages("st_dispenser_extralife", {h=7})
+    DefRoundStone("st_dispenser_extralife", "st_dispenser_extralife1")
 end
 
 -- st-flash --
@@ -1116,7 +1116,10 @@ end
 
 -- st-puzzle* --
 do
-    DefSubimages("st_puzzle", {modelname="st_puzzlex",w=16,h=4,startindex=0})
+    DefSubimages("st_puzzle_blue", {modelname="st_puzzlex",w=4,h=4,startindex=0})
+    DefSubimages("st_puzzle_yellow", {modelname="st_puzzlex",w=4,h=4,startindex=16})
+    DefSubimages("st_puzzle_blue_hollow", {modelname="st_puzzlex",w=4,h=4,startindex=32})
+    DefSubimages("st_puzzle_yellow_hollow", {modelname="st_puzzlex",w=4,h=4,startindex=48})
     -- Full puzzels
     for i=0,31  do DefSolidStone("st_puzzle"..i, "st_puzzlex"..i) end
     -- Hollow puzzels

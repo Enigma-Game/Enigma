@@ -244,7 +244,7 @@ namespace enigma {
             // 3) Last chance: try to rotate the row or column
             if (has_magic_wand) {
                 rotateLine(rotate_dir);
-            } else {
+            } else if (move_dir != NODIR) {
                 // we can not move - otherwise we would have send the impulse in 2)
                 // but we need to propagate the impulse
                 sc.actor->send_impulse(get_pos(), move_dir);
@@ -397,6 +397,9 @@ namespace enigma {
     }
 
     bool PuzzleStone::moveCluster(bool waterSink, Direction dir, bool checkOnly) {
+        if (dir == NODIR) 
+            return false;
+        
         PuzzleList cluster;
         bool isComplete = findFragment(cluster, true);
 

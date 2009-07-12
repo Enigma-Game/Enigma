@@ -66,7 +66,10 @@ if test "x$MACOSX" = xyes; then
 fi
 
 dnl ---------- Texi2html ----------
-AC_PATH_PROG(TEXI2HTML, texi2html, "")
+AC_PATH_PROG([TEXI2HTML], [texi2html], [""])
+
+dnl ---------- ImageMagick ----------
+AC_PATH_PROG([CONVERT], [convert], [""])
 
 dnl ---------- Use the included tolua ----------
 AC_SUBST([TOLUA])

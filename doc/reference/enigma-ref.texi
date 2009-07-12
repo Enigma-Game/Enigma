@@ -17130,6 +17130,22 @@ closed state and the way of opening differ in the following way:
 @item @code{"e"} black, flat stone that provides a peep hole after closing
 @end table
 @item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_QUAKE}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GRAY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
+@multitable @columnfractions .08 .17 .08 .17 .08 .17 .08 .17
+@item @image{images/st_oxyd_color_0001, 10mm}@tab @code{OXYD_BLUE}
+@tab @image{images/st_oxyd_color_0002, 10mm}@tab @code{OXYD_RED}
+@tab @image{images/st_oxyd_color_0003, 10mm}@tab @code{OXYD_GREEN}
+@tab @image{images/st_oxyd_color_0004, 10mm}@tab @code{OXYD_YELLOW}
+@item @image{images/st_oxyd_color_0005, 10mm}@tab @code{OXYD_CYAN}
+@tab @image{images/st_oxyd_color_0006, 10mm}@tab @code{OXYD_PURPLE}
+@tab @image{images/st_oxyd_color_0007, 10mm}@tab @code{OXYD_WHITE}
+@tab @image{images/st_oxyd_color_0008, 10mm}@tab @code{OXYD_BLACK}
+@item @image{images/st_oxyd_color_0009, 10mm}@tab @code{OXYD_GRAY}
+@tab @image{images/st_oxyd_color_0010, 10mm}@tab @code{OXYD_ORANGE}
+@tab @image{images/st_oxyd_color_0011, 10mm}@tab @code{OXYD_PINE}
+@tab @image{images/st_oxyd_color_0012, 10mm}@tab @code{OXYD_BROWN}
+@item @image{images/st_oxyd_color_0097, 10mm}@tab @code{OXYD_QUAKE}
+@tab @image{images/st_oxyd_color_0096, 10mm}@tab @code{OXYD_BOLD}
+@end multitable
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
