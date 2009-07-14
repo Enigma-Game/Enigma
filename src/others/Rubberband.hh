@@ -67,7 +67,8 @@ namespace enigma {
         double maxLength;
         display::RubberHandle model;
         
-        ecl::V2 posAnchor2();
+        Object * anchor2Object() const;
+        ecl::V2 posAnchor2() const;
         void switchAnchor(Object *oldAnchor, Object *newAnchor, Object *otherAnchor);
     };
 

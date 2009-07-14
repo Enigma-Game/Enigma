@@ -38,9 +38,9 @@ namespace enigma {
             anchor1 = dynamic_cast<Actor *>((Object *)val);
             ASSERT(anchor1 != NULL, XLevelRuntime, "Rubberband: 'anchor1' is no actor");
             ASSERT(anchor1 != anchor2.ac, XLevelRuntime, "Rubberband: 'anchor1' is identical to 'anchor2'");
-            switchAnchor(old, anchor1, (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac);
+            switchAnchor(old, anchor1, anchor2Object());
         } else if (key == "anchor2") {
-            Object * old = (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac;
+            Object * old = anchor2Object();
             Object * obj = val;
             if (obj != NULL && obj->getObjectType() == Object::ACTOR) {
                 anchor2.ac = dynamic_cast<Actor *>((Object *)val);
@@ -75,7 +75,7 @@ namespace enigma {
         if (key == "anchor1") {
             return anchor1;
         } else if (key == "anchor2") {
-            return (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac;
+            return anchor2Object();
         } else if (key == "strength") {
             return strength;
         } else if (key == "length") {
@@ -122,8 +122,8 @@ namespace enigma {
     
     void Rubberband::preRemoval() {
         model.kill();
-        switchAnchor(anchor1, NULL, (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac);
-        switchAnchor((objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac, NULL, anchor1);        
+        switchAnchor(anchor1, NULL, anchor2Object());
+        switchAnchor(anchor2Object(), NULL, anchor1);        
     }
     
     void Rubberband::tick(double dt) {
@@ -277,7 +277,11 @@ namespace enigma {
 
     }
     
-    ecl::V2 Rubberband::posAnchor2() {
+    Object * Rubberband::anchor2Object() const {
+        return (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac;
+    }
+    
+    ecl::V2 Rubberband::posAnchor2() const {
         return (objFlags & OBJBIT_STONE) ? anchor2.st->getOwnerPos().center() : anchor2.ac->get_pos();
     }
     
@@ -307,6 +311,24 @@ namespace enigma {
             olist.push_back(this);
             newAnchor->setAttr("rubbers", olist);
             if (otherAnchor != NULL) {
+                // check on existing rubberbands between anchors
+                olist = newAnchor->getAttr("fellows");
+                ObjectList::iterator it = find(olist.begin(), olist.end(), otherAnchor);
+                if (it != olist.end()) {
+                    // we do not allow two rubberbands between identical anchors!
+                    // - the user can't see it
+                    // - danger of automatic addition of infinte rubberbands, that cause the engine to stop
+                    // - danger of contradicting min, max values
+                    olist = newAnchor->getAttr("rubbers");
+                    for (it = olist.begin(); it != olist.end(); ++it) {
+                        Rubberband *oldRubber = dynamic_cast<Rubberband *>(*it);
+                        if (otherAnchor == oldRubber->anchor1 || otherAnchor == oldRubber->anchor2Object()) {
+                            KillOther(oldRubber);
+                            break;
+                        }
+                    }
+                }
+                
                 // add both anchors to each others fellows list
                 olist = newAnchor->getAttr("fellows");
                 olist.push_back(otherAnchor);
