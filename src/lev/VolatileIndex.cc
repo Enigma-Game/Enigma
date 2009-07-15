@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -33,7 +33,7 @@ namespace enigma { namespace lev {
             levelCount++;
             Proxy * aProxy = Proxy::registerLevel(levelpaths[i], "#commandline",
                     ecl::strf("_%d",levelCount), ecl::strf("Level %d", i), "unknown",
-                    1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
+                    1, 1, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
             proxies.push_back(aProxy);
             try {
                 aProxy->loadMetadata(true);
