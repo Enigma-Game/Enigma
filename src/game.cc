@@ -72,7 +72,12 @@ void game::StartGame ()
     video::HideMouse();
     sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);
 
+//    Uint32 start_tick_time = SDL_GetTicks();
+
     server::Msg_LoadLevel(ind->getCurrent(), false);
+    
+//    double dtimelog = (SDL_GetTicks() - start_tick_time)/1000.0;
+//    Log << "StartGame  time " << dtimelog << "\n";
 
     double dtime = 0;
     last_tick_time=SDL_GetTicks();

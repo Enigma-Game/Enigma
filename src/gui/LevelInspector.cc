@@ -492,6 +492,8 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         if (idLines >= 1) {
             add(new Label(N_("Id: "), HALIGN_RIGHT),Rect(hmargin,vnext,110,25));
             add(new Label(levelProxy->getId(), HALIGN_LEFT),Rect(hmargin+110+10, vnext, textwidth, 25));
+            add(new Label(N_("Load time: "), HALIGN_LEFT),Rect(hmargin+110+10+200+10, vnext, 110, 25));
+            add(new Label(ecl::strf("%g", levelProxy->getLoadtime()), HALIGN_LEFT),Rect(hmargin+110+10+200+10+90+10, vnext, 110, 25));
             vnext += (25 + vspacing)*idLines;
         }
         if (compatibilityLines >= 1) {

@@ -258,7 +258,7 @@ namespace enigma {
                 break;
             case FALLING:
                 set_model(kind+"-fallen"); // invisible
-                if (get_id (this) == ac_marble_white)
+                if (get_id (this) == ac_pearl_white)
                     sound_event("shattersmall");
                 else
                     sound_event("shatter");

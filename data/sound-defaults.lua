@@ -109,40 +109,40 @@ soundtable_renamings_api1_to_api2 = {
 
 soundtable_enigma = {
     [""]           = "",        -- empty sound
-    ballcollision  = "enigma/ballcollision",
+    ballcollision  = "enigma/ballcollision",  -- world
     blockerdown    = "",
     blockerup      = "",
-    bomb_black      = "enigma/explosion1",
-    bomb_white      = "enigma/explosion1",
+    bomb_black      = "enigma/explosion1", -- it_bomb
+    bomb_white      = "enigma/explosion1", -- it_bomb
     bottle         = "",
-    bumper         = "enigma/bumper",
+    bumper         = "enigma/bumper",     -- st_actorimpulse
     cloth          = { file="enigma/st-thud", damp_max = 4.0 },
     coinslotoff    = "",
     coinsloton     = "enigma/st-coinslot",
-    crack          = "",
-    doorclose      = "enigma/doorclose",  -- missing
-    dooropen       = "enigma/dooropen",   -- missing
-    drown          = "enigma/drown",
-    dynamite       = "enigma/explosion2", -- replace?
+    crack          = "",                  -- st_window ring scratch, it_crack enlarge
+    doorclose      = "enigma/doorclose",  -- missing, st_door_d
+    dooropen       = "enigma/dooropen",   -- missing, st_door_d
+    drown          = "enigma/drown",      -- st_plop, st_flat falling
+    dynamite       = "enigma/explosion2", -- replace?, it_dyanmite, it_puller explosion
     electric       = "enigma/st-stone",   -- replace
     exit           = { file="enigma/exit", global=true },  -- missing
     extinguish     = "",
-    fakeoxyd       = { file="enigma/st-fakeoxyd", volume=0.3 },
+    fakeoxyd       = { file="enigma/st-fakeoxyd", volume=0.3 }, -- st_fake
     falldown       = "enigma/falldown",   -- missing, unused (falling is shatter!)
-    finished       = { file="enigma/finished", global=true },  -- missing
-    floordestroy   = "",
-    fourswitch     = "enigma/st-switch", 
+    finished       = { file="enigma/finished", global=true },  -- missing, client on finish
+    floordestroy   = "",                  -- it_crack dissolve floor
+    fourswitch     = "enigma/st-switch",  -- st_fourswitch turn
     glass          = "enigma/st-metal",   -- replace
-    hitfloor       = "enigma/stone",      -- missing, used by it-vortex
-    impulse        = "",
+    hitfloor       = "enigma/stone",      -- missing, it-vortex ball swallowed
+    impulse        = "",                  -- st_stoneimpulse
     intro          = { file="enigma/intro", global=true },  -- missing
     invrotate      = { file="enigma/invrotate", global=true },
-    itemtransform  = "enigma/st-magic",
-    jump           = "enigma/boink",
+    itemtransform  = "enigma/st-magic",   -- it_coin, it_extralife, it_hammer, it_banana, it_sword, it_umbrella laser transform
+    jump           = "enigma/boink",       -- balls jumping
     jumppad        = "",
-    landmine       = "enigma/explosion2",  -- replace?
+    landmine       = "enigma/explosion2",  -- replace?, it_landmine
     laserloop      = "",
-    laseron        = { file="enigma/st-laser", damp_max = 20.0, damp_inc = 2.0 },
+    laseron        = { file="enigma/st-laser", damp_max = 20.0, damp_inc = 2.0 }, -- it_laser
     laseroff       = "",
     lock           = "",
     magneton       = "",
@@ -154,41 +154,41 @@ soundtable_enigma = {
     menustop        = { file="enigma/menustop", global=true },
     menuswitch      = { file="enigma/menuswitch", global=true },
     metal          = "enigma/st-metal",
-    mirrorturn     = "enigma/st-mirrorturn",
+    mirrorturn     = "enigma/st-mirrorturn", -- st_mirror
     movebig        = "enigma/st-move",
     moveslow       = "enigma/st-move",
     movesmall      = { file="enigma/st-move", damp_max = 10.0, damp_inc = 2.0 },
     oxydclose      = "enigma/st-oxydclose",  -- missing, not neccessary I think
     oxydopen       = { file="enigma/st-oxydopen", damp_max = 200.0, damp_inc = 5.0 },
     oxydopened     = "enigma/st-oxydopened",
-    pickup         = { file="enigma/pickup", global=true },
-    puller         = "",
+    pickup         = { file="enigma/pickup", global=true }, -- it_bag pickup
+    puller         = "",                 -- it_puller rotating
     puzzlerotate   = "enigma/st-move",
-    quake          = "enigma/quake",
-    rubberband     = "enigma/boing",
-    scissors       = "",
-    seedgrow       = "enigma/seedgrow",  -- missing
-    shatter        = "enigma/shatter",
-    shattersmall   = "enigma/shatter",   -- replace, "shattersmall" is missing
+    quake          = "enigma/quake",     -- st_quake, st_oxyd fart
+    rubberband     = "enigma/boing",     -- st7it_rubberband connect 
+    scissors       = "",                 -- st_scissors snip
+    seedgrow       = "enigma/seedgrow",  -- missing, it_seed
+    shatter        = "enigma/shatter",   -- st_window, it_bottle, it_glasses breaking
+    shattersmall   = "enigma/shatter",   -- replace, "shattersmall" is missing, st_pearl shatter
     shogunoff      = "",
     shogunon       = "",
-    shuffle        = "enigma/switch",
+    shuffle        = "enigma/switch",    -- st_oxyd
     skull          = "",
-    spade          = "",
+    spade          = "",                 -- it_spade
     squish         = "",
     stone          = "enigma/st-stone",
-    stonedestroy   = "enigma/explosion0",
-    stonepaint     = "enigma/st-magic",
-    stonetransform = "enigma/st-magic",
-    swamp          = "enigma/swamped",
-    switchmarbles  = "enigma/warp",      -- missing
+    stonedestroy   = "enigma/explosion0",  -- stone breaking
+    stonepaint     = "enigma/st-magic",  -- st_magic brick, st_ghost paint, st_flat pencil, st_chess recolor
+    stonetransform = "enigma/st-magic",  -- st_surprise, st_magic oxyd*
+    swamp          = "enigma/swamped",   -- balls sinking
+    switchmarbles  = "enigma/warp",      -- missing, it_ring
     switchoff      = "",
     switchon       = "enigma/st-switch",
-    switchplayer   = "enigma/switch",
+    switchplayer   = "enigma/switch",    -- st/it_yinyang
     sword          = "",
-    thief          = "enigma/thief",     -- missing
-    triggerdown    = "enigma/it-triggerdown",
-    triggerup      = "enigma/it-triggerup",
+    thief          = "enigma/thief",     -- missing, st/fl_thief stealing
+    triggerdown    = "enigma/it-triggerdown", -- it_trigger
+    triggerup      = "enigma/it-triggerup",   -- it_trigger
     turnstileleft  = "enigma/turnstileleft",  -- missing
     turnstileright = "enigma/turnstileright", -- missing
     umbrellaoff    = "",
@@ -199,7 +199,7 @@ soundtable_enigma = {
     vortexopen     = "enigma/dooropen",  -- missing
     warp           = "enigma/warp",      -- missing, maybe suck2?
     wood           = "enigma/wood",
-    yinyang        = "enigma/st-magic",
+    yinyang        = "enigma/st-magic",  -- st_blur transformation,
 }
 
 soundtable_silent = {

@@ -145,6 +145,7 @@ namespace enigma { namespace lev {
         Proxy::pathType getNormPathType();
         virtual std::string getAbsLevelPath();
         void loadDependency(std::string depId);
+        double getLoadtime();
     
     protected:
         std::string title;
@@ -189,6 +190,7 @@ namespace enigma { namespace lev {
         XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument *doc;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement *infoElem;
         XERCES_CPP_NAMESPACE_QUALIFIER DOMNodeList *stringList;
+        double loadtime;
         
         void load(bool onlyMetadata, bool expectLevel);
         void loadDoc();

@@ -32,6 +32,8 @@
 #include "Utf8ToXML.hh"
 #include "XMLtoUtf8.hh"
 #include "lev/Index.hh"
+#include "ecl_sdl.hh"
+
 
 #include <cassert>
 #include <fstream>
@@ -334,7 +336,7 @@ namespace enigma { namespace lev {
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
             revisionNumber(levelRevision), hasEasyModeFlag(levelHasEasymode), 
             engineCompatibility(levelCompatibilty), levelStatus (status), 
-            scoreUnit (duration), doc(NULL) {
+            scoreUnit (duration), doc(NULL), loadtime (0) {
     }
         
     Proxy::~Proxy() {
@@ -485,6 +487,7 @@ namespace enigma { namespace lev {
             return;
         }
 
+        Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
         bool useFileLoader = false;
         bool isXML = true;
         std::auto_ptr<std::istream> isptr;
@@ -683,6 +686,7 @@ namespace enigma { namespace lev {
                 }
             }
         }
+        loadtime = (SDL_GetTicks() - start_tick_time)/1000.0;
     }
     
     void Proxy::loadDoc() {
@@ -1283,5 +1287,9 @@ namespace enigma { namespace lev {
                 return atoi(text.substr(0,colon).c_str()) * 60 +
                         atoi(text.substr(colon+1).c_str());
         }
-    }    
+    }
+    
+    double Proxy::getLoadtime() {
+        return loadtime;
+    }
 }} // namespace enigma::lev

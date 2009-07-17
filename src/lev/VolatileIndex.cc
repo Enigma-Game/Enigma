@@ -18,8 +18,9 @@
 
 #include "lev/VolatileIndex.hh"
 #include "errors.hh"
+#include "gui/ErrorMenu.hh"
 #include "main.hh"
-
+#include "nls.hh"
 
 
 namespace enigma { namespace lev {
@@ -30,16 +31,22 @@ namespace enigma { namespace lev {
             const std::vector<string> levelpaths, double defaultLocation) : 
             Index(anIndexName, aGroupName, defaultLocation) {
         for (unsigned i=0; i<levelpaths.size(); i++) {
-            levelCount++;
             Proxy * aProxy = Proxy::registerLevel(levelpaths[i], "#commandline",
                     ecl::strf("_%d",levelCount), ecl::strf("Level %d", i), "unknown",
-                    1, 1, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
-            proxies.push_back(aProxy);
+                    1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN); 
             try {
                 aProxy->loadMetadata(true);
+                levelCount++;
+                proxies.push_back(aProxy);
             }
             catch (XLevelLoading &err) {
                 Log << "Level load error on '" << levelpaths[i] << "\n";
+                std::string message = _("Error on auto registration of levelfile: ");
+                message += levelpaths[i] + "\n\n";
+                message += _("Note: the level will not show up in the \"Startup Folder\" levelpack!\n\n");
+                message += err.what();
+                gui::ErrorMenu m(message, N_("Continue"));
+                m.manage();
             }
         }
     }
