@@ -2799,6 +2799,17 @@ static int shuffleOxyd(lua_State *L) {
     return 0;
 }
 
+static int externalData(lua_State *L) {
+    // world, path  -- 
+    if (!lua_isstring(L, 2)) {
+            throwLuaError(L, "External data access without path id string");
+            return 0;
+    }
+    lev::Proxy * curProxy = lev::Index::getCurrentProxy();
+    lua_pushstring(L, curProxy->getExternalData(lua_tostring(L, 2)).c_str());
+    return 1;
+}
+
 MethodMap tileMethodeMap;
 
 static int dispatchTileWriteAccess(lua_State *L) {
@@ -3506,6 +3517,7 @@ static CFunction worldMethods[] = {
     {getItem,                       "it"},
     {getStone,                      "st"},
     {shuffleOxyd,                   "shuffleOxyd"},
+    {externalData,                  "externalData"},
     {0,0}
 };
 

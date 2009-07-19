@@ -408,9 +408,9 @@ namespace enigma { namespace lev {
         } else if (normPathType == pt_absolute || normPathType == pt_url) { 
             absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
-            if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml", 
+            if(!app.resourceFS->findFile("levels/" + normFilePath + ".xml", 
                         absLevelPath, isptr) &&
-                    !app.resourceFS->findFile ("levels/" + normFilePath + ".lua", 
+                    !app.resourceFS->findFile("levels/" + normFilePath + ".lua", 
                         absLevelPath, isptr)) {
                 return NULL;
             }
@@ -444,11 +444,11 @@ namespace enigma { namespace lev {
             // preload plain Lua file or zipped level
             if (isptr.get() != NULL) {
                 // zipped file
-                Readfile (*isptr, levelCode);
+                Readfile(*isptr, levelCode);
             } else {
                 // plain file
                 basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
-                Readfile (ifs, levelCode);
+                Readfile(ifs, levelCode);
             }
             std::string oPath = newBasePath + "/" + newPackPath + "/" + filename;
             if (backup) {
@@ -545,7 +545,7 @@ namespace enigma { namespace lev {
         // xml or lua
         size_t extbegin = absLevelPath.rfind ('.');
         if (extbegin != string::npos) {
-            string ext = absLevelPath.substr (extbegin);
+            std::string ext = absLevelPath.substr(extbegin);
         
             if (normPathType != pt_url && (ext == ".lua" || ext == ".ell")) {
                 useFileLoader = true;
@@ -555,10 +555,10 @@ namespace enigma { namespace lev {
                 // use file loader only for zipped xml files
                 useFileLoader = (isptr.get() != NULL) ? true : false;
             } else {
-                throw XLevelLoading ("Unknown file extension in " + absLevelPath);
+                throw XLevelLoading("Unknown file extension in " + absLevelPath);
             }
         } else {
-                throw XLevelLoading ("Unknown file extension in " + absLevelPath);
+                throw XLevelLoading("Unknown file extension in " + absLevelPath);
         }
 
         // load
@@ -707,6 +707,7 @@ namespace enigma { namespace lev {
             server::PrepareLua();
         }
         processDependencies();
+        processExternaldata();
         loadLuaCode();
     }
 
@@ -846,6 +847,101 @@ namespace enigma { namespace lev {
         } else
             // xml levels have to register used libraries as dependencies
             throw XLevelLoading("load attempt of undeclared library");
+    }
+    
+    void Proxy::processExternaldata() {
+        if (doc != NULL) {
+            DOMNodeList *extList = infoElem->getElementsByTagNameNS(
+                    levelNS, Utf8ToXML("externaldata").x_str());
+            for (int i = 0, l = extList->getLength();  i < l; i++) {
+                DOMElement *extElem = dynamic_cast<DOMElement *>(extList->item(i));
+                std::string extNormPath;
+                std::string extUrl;
+                extNormPath = XMLtoUtf8(extElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("path").x_str())).c_str();
+                extUrl = XMLtoUtf8(extElem->getAttributeNS(levelNS, 
+                        Utf8ToXML("url").x_str())).c_str();
+//                Log << "EData: Path="<<extNormPath<< " Url=" << extUrl<<"\n";
+                // load every external data resource just once even if multiple urls are given
+                if (externalData.find(extNormPath) == externalData.end()) {
+                    std::auto_ptr<std::istream> isptr;
+                    ByteVec extCode;
+                    
+                    std::string extFilename;
+                    std::string extPath;
+                    bool isLocal = true;
+                    if (extNormPath.find("./") == 0) {
+                        extFilename = extNormPath.substr(2);
+                        if (normPathType == pt_resource) {
+                            extPath = normFilePath.substr(0, normFilePath.rfind('/') + 1) + extFilename + ".txt";
+                        } else if (normPathType == pt_absolute) {
+                            extPath = absLevelPath.substr(0, absLevelPath.rfind('/') + 1) + extFilename + ".txt";
+                        } else
+                            ASSERT(false, XLevelLoading, ("Invalid external data path '" + extNormPath + "'").c_str());
+                    } else if  (extNormPath.find("externaldata/") == 0) {
+                        extFilename = extNormPath.substr(13);
+                        isLocal = false;
+                        extPath = extNormPath + ".txt";
+                    } else {
+                        ASSERT(false, XLevelLoading, ("Invalid external data path '" + extNormPath + "'").c_str());
+                    }
+                    
+                    // TODO check extFilename no further /, no suffix, legal chars
+                    
+                    // resolve resource path to filepath
+                    std::string absExtPath;
+//                    Log << "External data extPath " << extPath << "\n";
+                    bool haveLocalCopy = true;
+                    if (normPathType == pt_absolute) {
+                        absExtPath = extPath;
+                    } else { 
+                        haveLocalCopy = app.resourceFS->findFile("levels/" + extPath, absExtPath, isptr);
+                    }
+
+                    // preload plain file or zipped file
+                    if (haveLocalCopy && isptr.get() != NULL) {
+                        // zipped file
+                        Readfile(*isptr, extCode);
+                    } else if (haveLocalCopy) {
+                        // plain file
+                        basic_ifstream<char> ifs(absExtPath.c_str(), ios::binary | ios::in);
+                        if (ifs != NULL)
+                            Readfile(ifs, extCode);
+                        else
+                            haveLocalCopy = false;
+                    }
+                    
+                    if (!haveLocalCopy) {
+                        // need to download via curl
+                        absExtPath = app.userPath + "/levels/" + extPath;
+//                        Log << "External data download via curl '" << extUrl << "' - '" << absExtPath <<"'\n";
+
+                        // TODO try catch assertions with proper handling, checksums
+                        Downloadfile(extUrl, extCode);
+                        
+                        // save a local copy
+                        ofstream ofs(absExtPath.c_str(), ios::binary | ios::out);
+                        ofs.write(&extCode[0], extCode.size());
+                        ofs.close();
+                        if (ofs.fail())
+                            Log << "External data failed to write local copy to '" << absExtPath << "'\n";
+                        
+                        // terminate the yet unterminated code string
+                        extCode.push_back(0);
+                    }
+                    
+                    std::string extString = reinterpret_cast<const char *>(&extCode[0]);
+//                    Log << "External data loaded:\n" << extString << "\n";
+                    externalData[extNormPath] = extString;
+                }
+            }
+        }
+    }
+    
+    std::string Proxy::getExternalData(std::string pathId) {
+        std::map<std::string, std::string>::iterator itr = externalData.find(pathId); // [] access would create map entries!
+        ASSERT(itr != externalData.end(), XLevelRuntime, ("Unknown external data access '" + pathId + "'\n").c_str());
+        return itr->second;
     }
     
     void Proxy::loadLuaCode() {

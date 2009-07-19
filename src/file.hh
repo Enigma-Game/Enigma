@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -19,11 +20,12 @@
 #ifndef FILE_HH_INCLUDED
 #define FILE_HH_INCLUDED
 
+#include "ecl_error.hh"
+
 #include <iosfwd>
 #include <vector>
 #include <list>
 #include <memory>
-#include "ecl_error.hh"
 
 namespace enigma
 {
@@ -185,7 +187,11 @@ namespace enigma
     };
 
 /* -------------------- Helper functions -------------------- */
-
+    
+    bool InitCurl();
+    void ShutdownCurl();
+    void Downloadfile(std::string url, ByteVec &dst);
+    
     /*! Load a complete file/input stream `is' into `dst'.  */
     std::istream &Readfile (std::istream &is, ByteVec &dst, int blocksize=512);
     bool Copyfile(std::string fromPath, std::string toPath);

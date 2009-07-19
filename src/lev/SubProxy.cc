@@ -151,6 +151,10 @@ namespace enigma { namespace lev {
         return multiProxy->getEnigmaCompatibility();
     }
     
+    std::string SubProxy::getExternalData(std::string pathId) {
+        return multiProxy->getExternalData(pathId);
+    }
+    
     std::string SubProxy::getNormLevelPath() {
         return getNormFilePath() + ecl::strf("_%d", subNum);
     }

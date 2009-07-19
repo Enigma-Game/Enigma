@@ -54,6 +54,7 @@ namespace enigma { namespace lev {
         virtual int getDifficultScore();
         virtual GameType getEngineCompatibility();
         virtual double getEnigmaCompatibility();
+        virtual std::string getExternalData(std::string pathId);
         virtual std::string getNormLevelPath();
         virtual std::string getAbsLevelPath();
         

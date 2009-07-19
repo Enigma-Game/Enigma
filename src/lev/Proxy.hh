@@ -123,6 +123,7 @@ namespace enigma { namespace lev {
         virtual int getDifficultScore();
         virtual GameType getEngineCompatibility();
         virtual double getEnigmaCompatibility();
+        virtual std::string getExternalData(std::string pathId);
         
         /**
          * the levels file address that can be used independent of a level pack
@@ -180,6 +181,7 @@ namespace enigma { namespace lev {
         bool hasSingleModeFlag;
         bool hasNetworkModeFlag;
         scoreUnitType scoreUnit;
+        std::map<std::string, std::string> externalData;
         /**
          * The compatibility that needs to be preset on level load.
          * Usually level set the compatibility themselves on load. But heritage
@@ -195,7 +197,8 @@ namespace enigma { namespace lev {
         void load(bool onlyMetadata, bool expectLevel);
         void loadDoc();
         void loadLuaCode();
-        void processDependencies();   
+        void processDependencies();
+        void processExternaldata();
         void registerPreloadDependency(std::string depPath, std::string depId,
             int depRelease, bool depPreload, std::string depUrl);
         std::string getType();

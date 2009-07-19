@@ -345,8 +345,14 @@ void Application::init(int argc, char **argv)
     lua::CheckedDoFile (L, app.systemFS, "sound-defaults.lua");
     lua::DoSubfolderfile (L, "soundsets", "soundset.lua");
 
-    // ----- Initialize network layer
-    if (enet_initialize () != 0) {
+    // ----- Initialize TCP network layer
+    if (!InitCurl()) {
+        fprintf (stderr, "An error occurred while initializing Curl.\n");
+        exit (1);
+    }
+    
+    // ----- Initialize UDP network layer
+    if (enet_initialize() != 0) {
         fprintf (stderr, "An error occurred while initializing ENet.\n");
         exit (1);
     }
@@ -693,6 +699,8 @@ void Application::initUserDatapaths() {
         ecl::FolderCreate (userPath + "/levels/auto");
     if (!ecl::FolderExists(userPath + "/levels/cross"))
         ecl::FolderCreate (userPath + "/levels/cross");
+    if (!ecl::FolderExists(userPath + "/levels/externaldata"))
+        ecl::FolderCreate (userPath + "/levels/externaldata");
     if (!ecl::FolderExists(userPath + "/levels/legacy_dat"))
         ecl::FolderCreate (userPath + "/levels/legacy_dat");   
     if (!ecl::FolderExists(userPath + "/backup"))
@@ -833,6 +841,7 @@ void Application::shutdown()
     video::Shutdown();
     sound::Shutdown();
     enet_deinitialize();
+    enigma::ShutdownCurl();
     lua::ShutdownGlobal();
     XMLPlatformUtils::Terminate();
     delete ::nullbuffer;

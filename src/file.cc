@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,6 +18,8 @@
  *
  */
 #include "file.hh"
+
+#include "errors.hh"
 #include "enigma.hh"
 #include "video.hh"
 #include "main.hh"
@@ -33,6 +36,7 @@
 #include <ios>
 #include <iostream>
 #include <fstream>
+#include <curl/curl.h>
 
 using namespace enigma;
 using namespace ecl;
@@ -380,3 +384,38 @@ bool enigma::Copyfile(std::string fromPath, std::string toPath) {
     ofs.close();
     return !ofs.fail();
 }
+
+    CURL *easycurl;
+    
+    bool enigma::InitCurl() {
+        if (curl_global_init(CURL_GLOBAL_ALL) != 0)
+            return false;
+        
+        easycurl = curl_easy_init();
+        return easycurl != NULL;
+    }
+    
+    void enigma::ShutdownCurl() {
+        curl_easy_cleanup(easycurl);
+        curl_global_cleanup();
+    }
+    
+    size_t curl_writefunction(void *src, size_t size, size_t nmemb, void *dataptr) {
+        ByteVec *dest = (ByteVec *)dataptr;
+        size_t oldlen = dest->size();
+        dest->resize(oldlen + size * nmemb);
+        std::memcpy(&(*dest)[oldlen], src, size * nmemb);
+        Log << "curl write " << size * nmemb << " new size " << dest->size() << "\n";
+        return size * nmemb;
+    }
+    
+    void enigma::Downloadfile(std::string url, ByteVec &dst) {
+        ASSERT(curl_easy_setopt(easycurl, CURLOPT_URL, url.c_str()) == CURLE_OK, XLevelLoading, 
+                ("Curl url error on '" + url + "'").c_str());
+        ASSERT(curl_easy_setopt(easycurl, CURLOPT_WRITEFUNCTION, curl_writefunction) == CURLE_OK, XLevelLoading, 
+                ("Curl funtion error on '" + url + "'").c_str());
+        ASSERT(curl_easy_setopt(easycurl, CURLOPT_WRITEDATA, &dst) == CURLE_OK, XLevelLoading, 
+                ("Curl data set error on '" + url + "'").c_str());
+        ASSERT(curl_easy_perform(easycurl) == CURLE_OK, XLevelLoading,
+                ("Curl download error on '" + url + "'").c_str());
+    }
