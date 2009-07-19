@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="edward10"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Edward" el:email=""/>
+      <el:copyright>Copyright © 2006 Edward</el:copyright>
+      <el:license el:type="Donated to Enigma under the project's license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by daydreamer, June 2009</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["-"] = {"fl_abyss"}
+ti["^"] = {"fl_slope", slope=NORTH}
+ti["v"] = {"it_wormhole_on", destination = "posV"}
+ti["w"] = {"it_wormhole_on", destination = "posW"}
+ti["o"] = {"it_meditation_hollow"}
+ti["@"] = {"#ac_pearl", essential=INDISPENSABLE}
+ti["V"] = ti["@"] .. {"fl_wood", name = "posV"}
+ti["W"] = ti["@"] .. {"fl_wood", name = "posW"}
+
+wo(ti, " ", {
+    "------------------",
+    "--------  --------",
+    "--------vw--------",
+    "---            ---",
+    "-                -",
+    "-                -",
+    "--    oooooo    --",
+    "--   ^^    ^^   --",
+    "--   ^V    W^   --",
+    "--@ -^------^- @--",
+    "-----^------^-----",
+    "-----@------@-----",
+    "------------------"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

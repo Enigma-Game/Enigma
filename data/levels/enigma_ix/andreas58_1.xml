@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Symopal" el:subtitle="" el:id="andreas58"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann, Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Andreas Lochmann, Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:01" el:difficult="7:50"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = {"fl_blueslab"}
+ti[","] = {"fl_water", "spot_left#"}
+ti["#"] = {"fl_blueslab", "wall_left#"}
+ti[":"] = {"it_seed", _free = true}
+ti[";"] = {"it_seed", _free = false, flavor = "greenbrown"}
+ti["@"] = {"ac_pearl"}
+ti["#1"] = {"st_flat"}
+ti["#2"] = {"st_plaster"}
+ti["P"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_WHITE}
+ti["D"] = {"st_door", "doors#", flavor = "c"}
+ti["K"] = {"st_death"}
+
+oxyd_colors = {OXYD_RED, OXYD_BLUE, OXYD_GREEN, OXYD_YELLOW, OXYD_ORANGE, OXYD_PURPLE}
+for j = 1, #oxyd_colors do
+    ti["O" .. oxyd_colors[j]] = ti{"fl_water"} .. {"st_oxyd_e", oxydcolor = oxyd_colors[j], target = "oxyd_callback"}
+end
+
+if wo["IsDifficult"] then
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "##########          ",
+   "###      #          ",
+   "##  ,,,,            ",
+   "#  ,,,,,,           ",
+   "#   , ,             ",
+   "#  ,,,,,,           ",
+   "##  ,,,,,           ",
+   "PDD      ,       DDP",
+   "##  ,,,,,           ",
+   "#  ,,,,,,           ",
+   "#  ,,,,,  @         ",
+   "##       #          ",
+   "##########          "
+})
+
+else
+
+w, h = wo(ti, " ", {
+ -- 01234567890123456789
+   "##########          ",
+   "###      #          ",
+   "##  ,,,,            ",
+   "#  ,,,,,,           ",
+   "#                   ",
+   "#  ,,,,,            ",
+   "##  ,,,,,           ",
+   "PDD              DDP",
+   "##  ,,,,,           ",
+   "#  ,,,,,            ",
+   "#         @         ",
+   "##       #          ",
+   "##########          "
+})
+
+end
+----------------------------------------
+--  Fill in oxyds and symmetric wall  --
+----------------------------------------
+
+spots_left = po(no["spot_left#*"]:shuffle())
+colors_left = lib.math.permutation((#spots_left)/2)
+colors_right = lib.math.permutation((#spots_left)/2)
+
+function mirrored_pos(pos)
+    return po(19 - pos.x, pos.y)
+end
+
+for j = 1, (#spots_left)/2 do
+    local color_left = oxyd_colors[colors_left[j] % (#oxyd_colors) + 1]
+    local color_right = oxyd_colors[colors_right[j] % (#oxyd_colors) + 1]
+    wo[spots_left[2*j - 1]] = ti["O" .. color_left]
+    wo[spots_left[2*j]] = ti["O" .. color_left]
+    wo[mirrored_pos(spots_left[2*j - 1])] = ti["O" .. color_right]
+    wo[mirrored_pos(spots_left[2*j])] = ti["O" .. color_right]
+end
+
+for wall in no["wall_left#*"]:shuffle() do
+    local chosen = cond(math.random(5) == 1, "#2", "#1")
+    wo[wall] = ti[chosen]
+    wo[mirrored_pos(po(wall))] = ti[chosen]
+end
+
+----------------------------------
+--  Opal and postinit function  --
+----------------------------------
+
+last_oxyd = 0
+function oxyd_callback(is_on, sender)
+    if sender.state == OXYDPAIR then
+        oxyds = grp(sender, last_oxyd)
+        wo[sender] = ti[":"]
+        fl(sender)._free = true
+        wo[last_oxyd] = ti[";"]
+        fl(last_oxyd)._free = false
+        it(oxyds):grow()
+        no["opal_counter"]:signal(1)
+    elseif sender.state == OPEN then
+        last_oxyd = sender
+    end
+end
+
+function postinit()
+    st(spots_left[1]):peepall()
+end
+
+----------------------------------
+--  Counter and Solution Check  --
+----------------------------------
+
+wo:add({"ot_counter", "opal_counter", ["target_" .. #spots_left] = "counter_callback"})
+
+function counter_callback()
+    local solved = true
+    for j = 1, #spots_left do
+        local left = fl(spots_left[j])._free or false
+        local right = fl(mirrored_pos(spots_left[j]))._free or false
+        solved = solved and (left == right)
+    end
+    if solved then
+        no["doors#*"]:open()
+    else
+        wo[no["doors#*"]] = ti["K"]
+        wo:add(YIN, {"it_document", text = "text1"})
+    end
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">It's not symmetric!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

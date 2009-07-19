@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="23" title="Tutorial"/>
+  <info enigma="1.00" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="24" title="Tutorial"/>
 
   <attributes/>
 
@@ -47,7 +47,7 @@
     <level _seq="39" _title="Light Switches" _xpath="enigma_i/martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="enigma_i/siegfried33_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation1" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Mirror Room" _xpath="enigma_i/luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="42" _title="Sokoban Revival" _xpath="enigma_i/martin04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Sokoban Revival" _xpath="enigma_i/martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Mirror Room II" _xpath="enigma_i/luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Mission Impossible" _xpath="enigma_i/martin14_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Brittle Planks" _xpath="enigma_i/martin92_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin92" rel="2" rev="1" score="2" target="time" unit="duration"/>

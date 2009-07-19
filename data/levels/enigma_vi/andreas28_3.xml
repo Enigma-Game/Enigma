@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Dancing on Light Beams" el:subtitle="" el:id="andreas28"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,6 +21,7 @@ ti["#"] = {"st_concrete"}
 ti["B"] = {"st_polarswitch"}
 ti["L"] = {"st_lightpassenger"}
 ti["M"] = {"st_stoneimpulse_movable"}
+ti["D"] = {"st_death_movable"}
 ti["S"] = {"st_laser", orientation = SOUTH, state = ON}
 ti["N"] = {"st_laser", orientation = NORTH, state = ON}
 ti["E"] = {"st_laser", orientation = EAST, state = ON}
@@ -45,7 +46,7 @@ wo(ti, " ", {"##S##S##############",
              "#EB           B    #",
              "#       B   B      #",
              "########N###N####  #",
-             "#M M M M M M M M  BW",
+             "#              D  BW",
              "##########OOOOOO####"})
 
 wo:shuffleOxyd()

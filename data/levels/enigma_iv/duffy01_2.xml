@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Meditation Puzzle" el:subtitle="" el:id="duffy1"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Converted to new API by daydreamer, June 2009</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_metal"}
+ti["#"] = {"st_brownie"}
+ti["="] = {"st_greenbrown"}
+ti["W"] = {"st_box_wood"}
+ti["S"] = {"st_shogun_s"}
+ti["M"] = {"st_shogun_m"}
+ti["L"] = {"st_shogun_l"}
+ti["^"] = {"st_oneway_n"}
+ti["A"] = {"st_door", name="door1", flavor="d", faces="ns"}
+ti["B"] = {"st_door", name="door2", flavor="d", faces="ew"}
+ti["C"] = ti["."] .. {"st_door", name="door3", flavor="d", faces="ew" }
+ti["a"] = {"it_shogun_l", target="door1"}
+ti["b"] = {"it_trigger", target="door2"}
+ti["c"] = {"it_trigger", target="door3"}
+ti["o"] = {"it_meditation_hollow"}
+ti["@"] = {"#ac_pearl", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#o=        = b   C #",
+    "# = S @ a  ==  W =o#",
+    "# =  W W    ==A====#",
+    "# B      = ~       #",
+    "# =        = L W   #",
+    "#c~        =    =^=#",
+    "#===~============~=#",
+    "#       =          #",
+    "#  @               #",
+    "#   ~~      M~     #",
+    "#                  #",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

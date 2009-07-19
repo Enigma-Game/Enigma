@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Transforming Numbers" el:subtitle="" el:id="20090406ais523002"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
       <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -340,7 +340,6 @@ function trigcall(state,caller)
     -- Work out the new number as digits
     local di1 = dform[i1]
     local di1d = lib.math.digits(v3,10)
-    if v3 == 0 then di1d = {0} end -- Work around a lib.math.digits bug
     for j = 1, #di1 do
         if #di1 - j < #di1d then
             setdigit(di1[j],di1d[#di1-j+1],false)

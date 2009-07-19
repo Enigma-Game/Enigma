@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma 1.1 new"/>
+  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="57" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -178,6 +178,11 @@
     <level _seq="170" _title="Crabwise I" _xpath="enigma_viii/devnull34_2" author="/dev/null" ctrl="force" easy="true" id="devnull34" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="171" _title="Crabwise II" _xpath="enigma_viii/devnull35_2" author="/dev/null" ctrl="force" easy="true" id="devnull35" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="172" _title="Su Dyxo" _xpath="enigma_ix/ais33_1" author="Alex Smith" ctrl="force" easy="true" id="20090525ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="173" _title="Camel and Needle" _xpath="enigma_ix/andreas57_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas57" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="174" _title="Water Galore" _xpath="enigma_ix/ral49_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090620ral141" rel="1" rev="178" score="1" target="time" unit="duration"/>
+    <level _seq="175" _title="pinnacles1" _xpath="enigma_ix/mecke36_1" author="mecke" ctrl="force" easy="true" id="mecke36" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="176" _title="Symopal" _xpath="enigma_ix/andreas58_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas58" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="177" _title="The Pilgrim's Progress" _xpath="enigma_ix/pulley14_1" author="Mark Pulley" ctrl="force" easy="false" id="20080101pulley001" rel="2" rev="1" score="2" target="time" unit="duration"/>
   </levels>
 
 </index>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Camel and Needle" el:subtitle="" el:id="andreas57"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="15:38"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_sand"}
+ti["#1"] = {"st_granite"}
+ti["#2"] = {"st_box_hay"}
+ti["#3"] = {"st_brownmarble"}
+ti["@"] = {"#ac_marble"}
+ti["box"] = {"st_box_hay", "hay%%"}
+ti["trigger"] = {"it_trigger", target = "door%%#*"}
+ti["door"] = {"st_door", "door%%#", faces = "ew"}
+ti["Y"] = {"st_oxyd", oxydcolor = OXYD_BROWN}
+
+w, h = wo(res.random(res.autotile(ti, {"A", "L", "box"}, {"a", "l", "trigger"}, {"M", "X", "door"}),
+                     "#", {"#1", "#2", "#3"}), " ", {
+   "##########################################################",
+   "#                  ####################                  #",
+   "#            c     #######YXWVUTSRQPONM     C        @   #",
+   "#            b a   ####################   A B            #",
+   "#                  ####################                  #",
+   "#       l k        ####################        K L       #",
+   "#        e                                      E        #",
+   "#     d     f      ####################      D     F     #",
+   "#                  ####################                  #",
+   "#                  ####################                  #",
+   "#    g h   i j     MNOPQRSTUVWXY#######     G H   I J    #",
+   "#                  ####################                  #",
+   "##########################################################"
+})
+
+wo:add({"ot_wire", anchor1 = no["hay%1"], anchor2 = no["hay%2"]})
+wo:add({"ot_wire", anchor1 = no["hay%1"], anchor2 = no["hay%3"]})
+wo:add({"ot_wire", anchor1 = no["hay%2"], anchor2 = no["hay%3"]})
+wo:add({"ot_wire", anchor1 = no["hay%2"], anchor2 = no["hay%4"]})
+wo:add({"ot_wire", anchor1 = no["hay%4"], anchor2 = no["hay%6"]})
+wo:add({"ot_wire", anchor1 = no["hay%4"], anchor2 = no["hay%7"]})
+wo:add({"ot_wire", anchor1 = no["hay%4"], anchor2 = no["hay%8"]})
+wo:add({"ot_wire", anchor1 = no["hay%6"], anchor2 = no["hay%9"]})
+wo:add({"ot_wire", anchor1 = no["hay%6"], anchor2 = no["hay%10"]})
+wo:add({"ot_wire", anchor1 = no["hay%4"], anchor2 = no["hay%11"]})
+wo:add({"ot_wire", anchor1 = no["hay%5"], anchor2 = no["hay%11"]})
+wo:add({"ot_wire", anchor1 = no["hay%5"], anchor2 = no["hay%12"]})
+wo:add({"ot_wire", anchor1 = no["hay%6"], anchor2 = no["hay%12"]})
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

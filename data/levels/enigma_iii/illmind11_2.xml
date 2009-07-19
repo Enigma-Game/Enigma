@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Waterworld" el:subtitle="" el:id="illmind11"/>
-      <el:version el:score="2" el:release="2" el:revision="6" el:status="stable"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
       <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2003 illmind</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -16,7 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-
 wo["SlopeStrength"] = 30
 wo["ShowMoves"] = true
 

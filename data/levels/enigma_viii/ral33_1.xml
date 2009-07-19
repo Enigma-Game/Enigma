@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Panelled Puzzle II" el:subtitle="" el:id="20090308ral237"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 177 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 179 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,7 +28,7 @@ ti["trigger"] = {"it_trigger", "tr%%", invisible=true, target="counter", action=
 
 ti["*"] = {"st_spitter", "spitter", secure=true}
 ti["X"] = {"st_pull", "eastpull"} .. ti{"fl_redslab_framed"} .. ti{"it_trigger", invisible=true, target="spitter"}
-ti["S"] = {"st_switch", target="balls"}
+ti["S"] = {"st_dispenser_extralife"}
 ti["$"] = {"it_extralife"}
 
 ti["@"] = {"#ac_marble"}
@@ -89,11 +89,6 @@ state = 1  -- first odd run for difficult mode
 
 for i = 1, 15 do
     wo[no["tr%"..i]] = {"st_puzzle", connections=connections[perm[i]]}
-end
-
-function balls()
-    -- we are currently missing an extralife dispenser
-    wo:add(YIN, ti["$"]..ti["$"]..ti["$"]..ti["$"]..ti["$"])
 end
 
 function conjure()

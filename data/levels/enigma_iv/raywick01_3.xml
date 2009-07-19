@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title ="Doors Galore" el:id="RayWick001"/>
+      <el:version el:score="3" el:release="3" el:revision="3" el:status="released"/>
+      <el:author  el:name="Ray Wick" el:email="RayRWick@AOL.com"/>
+      <el:copyright>Copyright © Ray Wick</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Lamprecht</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = not wo["IsDifficult"]
+
+ti["  "] = cond(wo["IsDifficult"], {"fl_brick"}, {"fl_brick", friction=6.4})
+ti[" ~"] = {"fl_water"}
+ti["f "] = {"it_floppy"}
+ti["g "] = cond(wo["IsDifficult"], ti["  "], ti["f "])
+ti["? "] = cond(wo["IsDifficult"], {"it_coin_s"}, ti["  "])
+ti["x "] = {"it_bomb_black"}
+ti["d "] = {"it_dynamite"}
+ti["* "] = {"st_oxyd"}
+ti["# "] = {"st_brick"}
+ti["+ "] = {"st_box_hay"}
+ti["e "] = ti["+ "] .. ti["f "]
+ti["! "] = {"st_stoneimpulse"}
+ti["> "] = {"st_oneway_e"}
+ti["< "] = {"st_oneway_w"}
+ti["@ "] = {"#ac_marble"}
+if wo["IsDifficult"] then
+    ti["%6"] = {"st_coinslot", target={"door%6", "door%3"}}
+    ti["L3"] = ti["# "]
+end
+ti["K3"] = ti["+ "] .. cond(wo["IsDifficult"], {"it_nil"}, {"it_key", code="%3"})
+ti["doorsh"]  = {"st_door_d", "door%%", faces="ns"}
+ti["doorsv"]  = {"st_door_d", "door%%", faces="ew"}
+ti["floppys"] = {"st_floppy", target="door%%"}
+ti["locks"]   = {"st_key", code="%%", target="door%%"}
+ti["keys"]    = {"it_key", code="%%"}
+
+local myres = res.autotile(res.composer(ti), {"=", "doorsh"}, {"|", "doorsv"}, {"%", "floppys"}, {"L", "locks"}, {"K", "keys"})
+
+wo(myres, "  ", {
+    "# * # # # # # # # # # # # # # # # # * # ",
+    "# =3#  ~ ~ ~ ~ ~ ~*  ~ ~ ~  >   # L2=1# ",
+    "L3   ~ ~ ~   ~ ~ ~ ~ ~ ~# =5#   %4    %6",
+    "#            ~ ~ ~ ~ ~ ~ ~  %5  %8  %7# ",
+    "# K2+ + +    ~ ~ ~ ~ ~ ~*   # =4#   |7* ",
+    "# e          ~ ~ ~!  ~ ~+   !   # =8# # ",
+    "#     K1   ~ ~ ~ ~ ~ ~ ~ ~  !       # # ",
+    "#    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  # K3? ? ? # ",
+    "#    ~ ~ ~*  ~ ~f  ~ ~  @   # ? ? +   # ",
+    "#    ~ ~ ~ ~ ~ ~    +   +   # # #     # ",
+    "#    ~ ~ ~ ~ ~ ~    + + +   |6  # =9%9# ",
+    "#   >   g + x d           + #   <   |2* ",
+    "# * # # # # # # # # # # ! ! # # # L1# # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>

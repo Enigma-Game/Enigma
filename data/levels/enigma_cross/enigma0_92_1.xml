@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma 0.92 - 1"/>
+  <info enigma="1.00" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -10,7 +10,7 @@
     <level _seq="2" _title="Is It Easy?" _xpath="enigma_i/martin06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="3" _title="Pharaoh's Tomb" _xpath="enigma_ii/siegfried13_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Feel Your Way" _xpath="enigma_i/siegfried06_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level3a" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Sokoban Revival" _xpath="enigma_i/martin04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Sokoban Revival" _xpath="enigma_i/martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Black Is Beautiful" _xpath="enigma_iii/martin15_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Round Trip" _xpath="enigma_ii/martin35_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin35" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="8" _title="Light Switches" _xpath="enigma_i/martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>
@@ -106,7 +106,7 @@
     <level _seq="98" _title="Gopher It" _xpath="enigma_ii/nat34_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze3" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="- Meditation -" _xpath="enigma_i/ant24_2" author="Petr Machata" ctrl="force" easy="false" id="ant24" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Spiders" _xpath="enigma_v/ant26_1" author="Petr Machata" ctrl="force" easy="false" id="ant26" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="101" _title="Meditation Puzzle" _xpath="enigma_iv/duffy01_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="101" _title="Meditation Puzzle" _xpath="enigma_iv/duffy01_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="102" _title="Come To Me" _xpath="enigma_ii/ant20_2" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="103" _title="Corridors" _xpath="enigma_ii/siegfried29_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="104" _title="Dustwalkers" _xpath="enigma_ii/ant06_1" author="Petr Machata" ctrl="force" easy="false" id="ant06" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma 0.92 - 2"/>
+  <info enigma="1.00" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -70,7 +70,7 @@
     <level _seq="62" _title="TNT Shortage?" _xpath="enigma_iv/siegfried74_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried74" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Tunnels" _xpath="enigma_iv/martin82_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin82" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Growing The Doors" _xpath="enigma_i/martin88_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin88" rel="3" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="65" _title="Doors Galore" _xpath="enigma_iv/raywick01_2" author="Ray Wick" ctrl="force" easy="true" id="RayWick001" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="65" _title="Doors Galore" _xpath="enigma_iv/raywick01_3" author="Ray Wick" ctrl="force" easy="true" id="RayWick001" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="66" _title="Time is Money" _xpath="enigma_i/nat11_2" author="Nat Pryce" ctrl="force" easy="false" id="nat11" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="67" _title="What's the Problem?" _xpath="enigma_iv/ss14_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="Family Business" _xpath="enigma_iii/duffy20_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy20" rel="2" rev="1" score="2" target="time" unit="duration"/>
@@ -137,7 +137,7 @@
     <level _seq="129" _title="Keepaway" _xpath="enigma_iii/duffy54_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy54" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="130" _title="Build Up Speed" _xpath="enigma_iii/duffy55_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy55" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="131" _title="Crossfire" _xpath="enigma_v/duffy56_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy56" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="132" _title="Fool the Watchdog" _xpath="enigma_iii/duffy57_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy57" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="132" _title="Fool the Watchdog" _xpath="enigma_iii/duffy57_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy57" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="133" _title="Upstream Journey" _xpath="enigma_iii/duffy58_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy58" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="134" _title="Space Meditation" _xpath="enigma_ii/duffy59_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy59" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="Automatic Transmission" _xpath="enigma_iii/duffy60_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy60" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -165,10 +165,10 @@
     <level _seq="157" _title="Easy Skyscraper" _xpath="enigma_iii/wb07_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Spiral Race" _xpath="enigma_i/wb06_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="159" _title="Block its way!" _xpath="enigma_iii/wb05_2" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb5" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="160" _title="Little Puzzles" _xpath="enigma_iv/wb11_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb11" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="160" _title="Little Puzzles" _xpath="enigma_iv/wb11_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb11" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="161" _title="- Meditation -" _xpath="enigma_ii/wb10_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb10" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="162" _title="Tough Skyscraper" _xpath="enigma_iii/wb08_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb8" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="163" _title="Big Adventures" _xpath="enigma_iv/wb12_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb12" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="163" _title="Big Adventures" _xpath="enigma_iv/wb12_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb12" rel="2" rev="0" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

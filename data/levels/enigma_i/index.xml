@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma I"/>
+  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="26" title="Enigma I"/>
 
   <attributes/>
 
@@ -46,9 +46,9 @@
     <level _seq="38" _title="Encased" _xpath="./xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Without Tremor" _xpath="./richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./alain04_1" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Light Barrier" _xpath="./richi03_1" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Light Barrier" _xpath="./richi03_2" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Basement" _xpath="./siegfried26_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9c" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Sokoban Revival" _xpath="./martin04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Sokoban Revival" _xpath="./martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Dead Ball Walking" _xpath="./illmind08_2" author="illmind" ctrl="force" easy="false" id="illmind08" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Duck and Cover" _xpath="./nat02_2" author="Nat Pryce" ctrl="force" easy="true" id="nat2" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Oxyd Maze" _xpath="./duffy79_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy79" rel="1" rev="1" score="1" target="time" unit="duration"/>

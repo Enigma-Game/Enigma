@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Big Adventures" el:subtitle="" el:id="wb12"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (June 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["~"] = {"fl_water"}
+ti[","] = {"fl_sand"}
+ti["."] = {"fl_rough"}
+ti[":"] = {"fl_swamp"}
+ti["-"] = {"fl_space"}
+ti["#"] = {"st_granite"}
+ti["*"] = {"st_greengray"}
+ti["+"] = ti["."] .. {"st_break_oxydc"}
+ti["="] = {"st_stoneimpulse"}
+ti["!"] = {"st_stoneimpulse_hollow"}
+ti["X"] = {"st_grate_cross"}
+ti["W"] = {"st_box"}
+ti["w"] = ti["."] .. ti["W"]
+ti["^"] = {"st_oneway", orientation = NORTH}
+ti[">"] = {"st_oneway", orientation = EAST}
+ti["V"] = {"st_oneway", orientation = SOUTH}
+ti["<"] = {"st_oneway", orientation = WEST}
+ti["6"] = {"st_boulder_e"}
+ti["4"] = {"st_boulder_w"}
+ti["triggers"] = {"it_trigger", target = "hurdles%%"}
+ti["doorsEW"] = {"st_door", "hurdles%%", faces = "ew"}
+ti["doorsNS"] = {"st_door", "hurdles%%", faces = "ns"}
+ti["s"] = {"it_spring_drop"}
+ti["t"] = {"it_hammer"}
+ti["x"] = {"it_bomb"}
+ti["y"] = {"it_document", text = "text1"}
+ti["Y"] = {"it_document", text = "text2"}
+ti["z"] = {"it_document", text = "text3"}
+ti["Z"] = {"it_document", text = "text4"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "n", "triggers"}, {"A", "G", "doorsEW"}, {"H", "N", "doorsNS", 8}), " ", {
+    "##########################################################",
+    "#d~~~~~~~~w..+*,,,,>  #     #     #k# #----- ----------#e#",
+    "#~~~~~~~~ww.+*,,,.~#  #     #  ~  # # #----- ----------#-#",
+    "#~~~~~~~ww.+*,,,.~~# W#W #  #  #  # # >  ---W------   -#-#",
+    "#~~~~~~ww.+*,,,.~~~#  W  #     #  ~ # #----- ------   -#-#",
+    "#~~~~~ww.+*,,,.~   #     #     #      #----- ------   ---#",
+    "#~~~~ww.+*,,,.~~ ~ ##############################--------#",
+    "#~~~ww.+*,,,.~   ~ <     ~~~~~~~~~~~~~#         #--------#",
+    "#~~ww.+*,,,.~~ ~~~~#~   ~~   ~~ ~~    # ~~~~~~~~#--------#",
+    "#~ww.+*,,,.~~~    ~#~~ ~~ s ~~ s ~~ s <W  W~W   #--------#",
+    "#ww.+*,,,.~~~~~~~ ~#~~~~   ~~     ~~  #~~ ~~~ ~~#######  #",
+    "#w.+*,,,.~        ~#~~~~~~~~~~~~~~~~~~#         #        #",
+    "#..*+,,,*#V####################################^####VV####",
+    "#...*+,,+#         #O#O###O#O#    Y   # > < > > #      ~ #",
+    "#...+*,,*# W W W   #         #   ### @#^#^#^#V#V#     W~ #",
+    "#..w*+,,+#  W W  # # O#O#O#O #   ###### > < < < #~~~   ~W#",
+    "#..*+,,,*# W W W # #    Z    #WWW## ~~#^#^#V#V#^#i ~~~~~~#",
+    "#.w*,,,*+#X~~#X~~# #O#O   O#O#      ~~> > > > > #  ~   ~ #",
+    "#.+*,,,*.#~~~X~~~# #####^#########  ~~###########  ~ W ~y#",
+    "#.*,,,*..#~X~X~X~# # E # #af X#########j  ~     #~~~ W ~W#",
+    "#.*,,,+..#~~~#~~~# #H#K#L#b      XXXX #  ~~~ WW #~     ~ #",
+    "#.+*,,+*.#~**#~**# #I# D #cg X#X X  X <  ~~~  W #~   ~~W #",
+    "#.*,,,*..#   W   # #J##########XWWWWW # ~~~~ WW #~~~~~~W #",
+    "#.*,,,+..#       #m# A B C F G        #h ~~~    <      WW#",
+    "#.+*,,**.#VV##############################################",
+    "#..+,,,+.#  #n  z# > #---#   #WWW W WW#~~~~~~:::##########",
+    "#..*,,,*.#  ## W # # #-#-# # # WxW Wx #  W  #:::#:::::####",
+    "#..+*,,+.#   ##M##N# #-#-#-# >W W W W > W W #  W>:::::::##",
+    "#..*+,,*.##        #-#-#---############  W  #:::#::::::::#",
+    "#..+*,,+..##########---#####=!!!!!!!!=#~~~~~~:::###::::::#",
+    "#..*,,,*...........#####========!===!=##############:::::#",
+    "#.*+,,+*+*+*+*+*+w.#   #4!!!   =!=!!!=#  ::::::###:::::::#",
+    "#.+*,,,+*+,,,,,,*+*# #       =!=!=!===# #::::::::::::::::#",
+    "#.*+,,,,,,,,,,,,,,,< #######=#!!!=!=!!< #:#::::::::::::###",
+    "#..*+,,,,,+*+*+,,,,< #l    #4#6#=!!=!=###:################",
+    "#..w*+*+*+*...*+*+*###  #4=  #  =!!!!!#:::::::::::::::::t#",
+    "#########################==##=========####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Too many wooden blocks!  Try the other way ...</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Greetings, adventurer!    The road ahead is long and dangerous, so be careful!</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">Well done, adventurer!    Good luck!</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">Congratulations, adventurer!  You did it!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

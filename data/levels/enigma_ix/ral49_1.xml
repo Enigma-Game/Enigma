@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title ="Water Galore" el:subtitle="Variations on a theme by Ray Wick" el:id="20090620ral141"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 178 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ray for his inspiring "Doors Galore".</el:credits>
+      </el:comments>
+      <el:score el:easy="5:35" el:difficult="5:05"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["  "] = {"fl_ivory", friction=4.0, adhesion=1.8}
+ti[" ~"] = {"fl_water"}
+ti[" -"] = cond(wo["IsDifficult"], ti[" ~"], ti["  "])
+ti["f "] = {"it_floppy"}
+ti["g "] = cond(wo["IsDifficult"], ti["f "], ti["  "])
+ti["? "] = {"it_coin_s"}
+ti["x "] = {"it_bomb_black"}
+ti["d "] = {"it_dynamite"}
+ti["* "] = {"st_oxyd"}
+ti["*1"] = {"st_oxyd", "oxydA#"}
+ti["*2"] = {"st_oxyd", "oxydB#"}
+ti["# "] = {"st_brick", cluster=1}
+ti["+ "] = cond(wo["IsDifficult"], {"st_box_wood"}, {"st_box_hay"})
+ti["e "] = cond(wo["IsDifficult"], ti["  "], ti["+ "] .. ti["f "])
+ti["E "] = cond(wo["IsDifficult"], ti["+ "] .. ti["f "], ti["  "])
+ti["! "] = {"st_stoneimpulse"}
+ti["> "] = {"st_oneway_e"}
+ti["< "] = {"st_oneway_w"}
+ti["@ "] = {"#ac_marble"}
+
+ti["%6"] = {"st_coinslot", target={"door%6", "door%3"}}
+ti["t "] = {"it_trigger", target="door%0"}
+ti["l "] = cond(wo["IsDifficult"], ti["# "], {"st_laser_s", "laser"})
+ti["s "] = cond(wo["IsDifficult"], ti["# "], {"st_switch", target="laser"})
+ti["L "] = cond(wo["IsDifficult"], {"st_laser_e", "laser"}, ti["# "])
+ti["S "] = cond(wo["IsDifficult"], {"st_switch", target="laser"}, ti["# "])
+
+ti["doorsh"]  = {"st_door_d", "door%%", faces="ns"}
+ti["doorsv"]  = {"st_door_d", "door%%", faces="ew"}
+ti["floppys"] = {"st_floppy", target="door%%"}
+ti["locks"]   = {"st_key", code="%%", target="door%%"}
+ti["keys"]    = {"it_key", code="%%"}
+
+local myres = res.autotile(res.composer(ti), {"=", "doorsh"}, {"|", "doorsv"},
+    {"%", "floppys"}, {"L", "locks"}, {"K", "keys"})
+
+wo(myres, "  ", {
+    "# *2# # # s # l # # # # # # # # # # * # ",
+    "# =3#  ~ ~ ~ ~ ~t   |0*2#   >   # L2=1# ",
+    "#  - ~ ~ ~ - ~ ~ ~ ~# # # =5#   %4    %6",
+    "#            ~ ~ ~ ~ ~ ~ ~  %5  %8  %7# ",
+    "# K2+ + +    ~ ~ ~ ~ ~ ~*   # =4#   |7*1",
+    "L e        - ~ ~ ~!  ~ ~+   !   # =8# # ",
+    "# E   K1   ~ ~ ~ ~ ~ ~ ~ ~  !       S # ",
+    "#    ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  # + ? ? ? # ",
+    "#    ~ ~ ~*  ~ ~f  ~ ~  @   # ? ? +   # ",
+    "#    ~ ~ ~ ~ ~ ~    +   +   # # #     # ",
+    "#    ~ ~ ~ ~ ~ ~    + + +   |6  # =9%9# ",
+    "#   >   g + x d           + #   <   |2* ",
+    "# * # # # # # # # # # # ! ! # # # L1# # "
+})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"oxydA#*", "oxydB#*", min=1})
+else
+    wo:shuffleOxyd()
+end
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Pinnacles I" el:subtitle="~on a special chessboard" el:id="mecke36"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:16 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="8:42" el:difficult="10:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_abyss"}
+ti["~ "] = {"fl_water"}
+ti["# "] = {"fl_lawn_a"}
+
+if wo ["IsDifficult"] then
+    ti["$ "] = {"fl_space"}
+    ti["! "] = {"fl_redslab"}
+    ti["? "] = {"it_strip_ew"}
+    ti[" ."] = {"it_seed_volcano"}
+    ti[" c"] = {"it_banana"}
+    ti[" !"] = {"st_quake"}
+    ti[" m"] = ti["$ "] .. {"st_rawglass_movable"}
+    ti[" M"] = ti[" m"] .. {"it_cherry"}
+    ti[" X"] = {"it_bottle_broken"}
+    ti[" u"] = ti["$ "] .. {"it_coffee"}
+else
+    ti["! "] = {"fl_hay"}
+    ti[" ."] = {"it_seed_hay"}
+    ti[" c"] = {"it_cherry"}
+    ti[" !"] = {"st_bluesand"}
+    ti["$ "] = {"fl_himalaya"}
+    ti["? "] = {"fl_himalaya"}
+    ti[" X"] = {"it_hammer"}
+    ti[" u"] = ti["$ "] .. {"it_umbrella"}
+    ti[" M"] = ti["# "] .. {"st_yellow"}
+end
+
+ti[" I"] = {"st_stoneimpulse"}
+ti[" D"] = {"st_death"}
+ti[" &"] = {"st_shogun_s"}
+ti[" d"] = {"st_disco_medium"}
+ti[" '"] = ti[" u"] .. {"st_rawglass"}
+ti[" v"] = {"it_puller_s"}
+ti[" Y"] = {"st_oxyd", flavor="b", name="leftoxyd#"}
+ti[" y"] = {"st_oxyd", flavor="b", name="rightoxyd#"}
+ti[" @"] = {"#ac_marble_black"}
+ti["opener1"] = ti["# "] .. {"it_shogun_s", target="doora%%"}
+ti["opener2"] = ti["! "] .. {"it_shogun_s", target="bridgeb%%"}
+ti["over"] = ti[" c"] .. {"fl_bridge_bw", name="bridgeb%%"}
+ti["doorera"] = ti["? "] .. {"st_door", flavor="b", name="doora%%"}
+
+local autotiler = res.autotile(ti, {"i", "opener1"}, {"j", "opener2"}, {"d", "doorera"}, {"e", "over"})
+
+wo(res.composer(autotiler), "  ", {
+    "!!#!!!#!!!#!!!#I!I#!!!#I!I#!!!#!!!#!!!#!",
+    "#!!!i1! i2!!# ! #&! # !&# ! #!j1# j2#!!!",
+    "!!!!!!# !&i3!&# j4# ! i4!&# j3# ! #!!!#!",
+    "#!!!# ! # ! #!! #!! # !!# !!# ! # ! #!!!",
+    "!Yd0e5#!! #!! i5!X# ! #Xj5# !!# !!e9d2#y",
+    "#Yd9e4! #&! #!!&#!!!#!!!# !!# !&# e8d3!y",
+    "!Yd8e3# !!# !@#.$ $v#d M~ #!! #!! e6d4#y",
+    "#Yd6e2!&# ! #!!&#!!!#!!!# !!# ! #&e7d5!y",
+    "!Yd7e1# ! #&!!i6!&# ! #&j6#!!&# ! e0d1#y",
+    "#!!!i8!!# ! $'! # ! # ! # $'# ! #!j8!!!!",
+    "!!# !!i9!&# !!# j7#!!!i7!&#!! #&j9#!! #!",
+    "#!!!# ! i0! # ! #&! # !&# ! # j0# ! #!!!",
+    "!!#!!!#!!!#!!!#I!I#!!!#I!I#!!!#!!!#!!!#!"})
+
+wo:shuffleOxyd({"leftoxyd#*", max=2}, {"rightoxyd#*", max=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sokoban Revival" el:subtitle="" el:id="martin04"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Martin Hawlisch" el:email=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false">A variation of an Original Sokoban level, © 1982 Thinking Rabbit</el:credits>
+        <el:code>Converted to new API by /dev/null in June 2009.</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_yinyang_yin", invisible = true}
+ti["#"] = {"st_brownpyramide"}
+ti["+"] = {"st_box_wood"}
+ti["triggers"] = {"it_trigger", target = "hurdles%%"}
+ti["laser_e"] = {"st_laser_e", "hurdles%%", state=ON}
+ti["laser_w"] = {"st_laser_w", "hurdles%%", state=ON}
+ti["door_h"] = {"st_door", "hurdles%%", flavor="d", faces="ew"}
+ti["door_v"] = {"st_door", "hurdles%%", flavor="d", faces="ns"}
+ti["o"] = {"st_oxyd_a", name="left#"}
+ti["O"] = {"st_oxyd_a", name="right#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "f", "triggers"}, {"A", "B", "door_h"}, {"C", "D", "door_v", 3}, {"E", "E", "laser_e",5}, {"F", "F", "laser_w", 6}), " ", {
+    "####################",
+    "#   A   #O##########",
+    "# ###+  #          #",
+    "# ###  +##########C#",
+    "#o#  + + ##      B #",
+    "### # ## #O ###### #",
+    "#   # ## ####  ab# #",
+    "# +  +         fc# #",
+    "##### ### #@#  ed# #",
+    "#  o#     # ###### #",
+    "#D########E        #",
+    "#           F#######",
+    "####################"})
+
+wo:shuffleOxyd({"left#*", max=0},{"right#*", max=0} )
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
