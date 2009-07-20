@@ -525,7 +525,7 @@ bundle-fw: enigma-fw-mosx
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to copy the doc files to the MacOS dmg staging area
-bundle_doc := $(bundle_root)/Documentation
+bundle_doc := $(bundle_name)/Contents/Resources/doc
 .PHONY: bundle-doc
 bundle-doc:
 	-rm -rf $(bundle_doc)

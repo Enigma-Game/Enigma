@@ -64,6 +64,9 @@
 #ifdef MACOSX
 // for search paths
 #include "NSSystemDirectories.h"
+#include <Carbon/Carbon.h>
+#include <CoreFoundation/CoreFoundation.h>
+#include <CoreServices/CoreServices.h>
 #endif
 
 using namespace std;
@@ -238,6 +241,19 @@ void Application::init(int argc, char **argv)
     sscanf(PACKAGE_VERSION, "%4lf", &enigmaVersion);
 
     progCallPath = argv[0];
+#if MACOSX
+    CFBundleRef mainBundle = CFBundleGetMainBundle();
+    CFURLRef cfurlmain = CFBundleCopyExecutableURL(mainBundle);
+    CFStringRef cffileStr = CFURLCopyFileSystemPath(cfurlmain, kCFURLPOSIXPathStyle);
+    CFIndex cfmax = CFStringGetMaximumSizeOfFileSystemRepresentation(cffileStr);
+    char localbuffer[cfmax];
+    if (CFStringGetFileSystemRepresentation(cffileStr, localbuffer, cfmax)) {
+      progCallPath = localbuffer; // error skips this and defaults to argv[0] which works for most purposes
+    }
+    CFRelease(mainBundle);
+    CFRelease(cfurlmain);
+    CFRelease(cffileStr);
+#endif
     copy(argv+1, argv+argc, back_inserter(args));
     
     // parse commandline arguments -- needs args
