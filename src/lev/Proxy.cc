@@ -247,7 +247,6 @@ namespace enigma { namespace lev {
         }
         return theProxy;
     }
-   
 
     struct LowerCaseString {
         std::string low;

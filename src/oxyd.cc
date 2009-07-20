@@ -771,6 +771,9 @@ LevelPack_Oxyd::LevelPack_Oxyd (OxydVersion ver, DatFile *dat,
     Log << "Levelpack '" << get_name() << "' has " << nlevels << " levels." << endl;
 }
 
+void LevelPack_Oxyd::updateFromFolder() {
+}
+
 const char* LevelPack_Oxyd::get_default_SoundSet() const 
 { 
     return sound::GetOxydSoundSet(m_datfile->getVersion()).c_str();

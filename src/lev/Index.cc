@@ -693,6 +693,7 @@ namespace enigma { namespace lev {
     }
     
     void Index::updateFromProxies() {
+        Proxy::releaseCache();   // enforce a reload from file
         for (int i = 0, l = proxies.size();  i < l; i++) {
             try {
                 proxies[i]->loadMetadata(true);

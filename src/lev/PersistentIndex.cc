@@ -674,13 +674,16 @@ namespace enigma { namespace lev {
         }
     }
     
-    void PersistentIndex::updateFromProxies() {
+    void PersistentIndex::updateFromFolder() {
         if (!isAuto)
             return;
         
-        clear();
-        load(false);
+        // force a reload of metadata to update existing proxies
+        // for multilevels it is essential to do this prior the reload
         Index::updateFromProxies();
+        clear();
+        // now reload - existing proxies are reused, but we have updated them already
+        load(false);
     }
     
     bool PersistentIndex::save(bool allowOverwrite) {

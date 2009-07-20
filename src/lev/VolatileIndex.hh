@@ -38,6 +38,7 @@ namespace enigma { namespace lev {
                 double defaultLocation = INDEX_DEFAULT_PACK_LOCATION);
         ~VolatileIndex();
         virtual void clear();
+        virtual void updateFromFolder();
     private:
         static int levelCount;  // used for volatile level ids - necessary for lua levels
     };

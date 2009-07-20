@@ -101,7 +101,7 @@ namespace enigma { namespace lev {
         void erase(int pos);
         void exchange(int pos1, int pos2);
         virtual bool isSource(Proxy * aProxy);
-        virtual void updateFromProxies();
+        virtual void updateFromFolder();
         bool save(bool allowOverwrite = true);
     protected:
         std::string packPath;  // "auto", "",...

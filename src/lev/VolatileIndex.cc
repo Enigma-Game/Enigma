@@ -57,4 +57,7 @@ namespace enigma { namespace lev {
         proxies.clear();
         currentPosition = 0;
     }
+    
+    void VolatileIndex::updateFromFolder() {
+    }
 }} // namespace enigma::lev

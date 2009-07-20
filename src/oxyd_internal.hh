@@ -155,6 +155,7 @@ namespace oxyd
                         int idx_start, int idx_end, bool twoplayers);
 
         void load_oxyd_level (size_t index);
+        virtual void updateFromFolder();
 
         /* ---------- LevelPack interface ---------- */
         string get_name() const;
