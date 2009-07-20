@@ -945,9 +945,8 @@ en_add_signal (lua_State *L) {
 int loadLib(lua_State *L) 
 {
     const char *id = lua_tostring(L, 1);
-    lev::Proxy * curProxy = lev::Index::getCurrentProxy();
     try {
-        curProxy->loadDependency(id);
+        server::LoadedProxy->loadDependency(id);
     } catch (XLevelLoading &err) {
         throwLuaError(L, err.what());
     }
@@ -2805,8 +2804,7 @@ static int externalData(lua_State *L) {
             throwLuaError(L, "External data access without path id string");
             return 0;
     }
-    lev::Proxy * curProxy = lev::Index::getCurrentProxy();
-    lua_pushstring(L, curProxy->getExternalData(lua_tostring(L, 2)).c_str());
+    lua_pushstring(L, server::LoadedProxy->getExternalData(lua_tostring(L, 2)).c_str());
     return 1;
 }
 

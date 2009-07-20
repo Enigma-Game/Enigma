@@ -33,6 +33,7 @@
 #include <dirent.h>
 #endif
 #include <algorithm>
+#include <cstring>
 #include <ios>
 #include <iostream>
 #include <fstream>
@@ -405,7 +406,7 @@ bool enigma::Copyfile(std::string fromPath, std::string toPath) {
         size_t oldlen = dest->size();
         dest->resize(oldlen + size * nmemb);
         std::memcpy(&(*dest)[oldlen], src, size * nmemb);
-        Log << "curl write " << size * nmemb << " new size " << dest->size() << "\n";
+//        Log << "curl write " << size * nmemb << " new size " << dest->size() << "\n";
         return size * nmemb;
     }
     

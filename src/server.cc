@@ -78,6 +78,7 @@ namespace enigma_server
 
 double   server::LastMenuTime;
 int      server::MenuCount;
+lev::Proxy * server::LoadedProxy;
 unsigned server::SublevelNumber;
 std::string server::SublevelTitle;
 
@@ -149,6 +150,7 @@ namespace
 void load_level(lev::Proxy *levelProxy, bool isRestart)
 {
     try {
+        server::LoadedProxy = levelProxy;
         server::PrepareLevel();
         IsLevelRestart = isRestart;
 

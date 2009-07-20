@@ -156,7 +156,7 @@ namespace enigma { namespace lev {
     }
     
     std::string SubProxy::getNormLevelPath() {
-        return getNormFilePath() + ecl::strf("_%d", subNum);
+        return getNormFilePath() + ecl::strf("_%.3d", subNum);
     }
     
     std::string SubProxy::getAbsLevelPath() {

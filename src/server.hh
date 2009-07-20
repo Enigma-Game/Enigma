@@ -57,6 +57,7 @@ namespace enigma_server
     extern double LastMenuTime;
     extern int MenuCount;
     
+    extern lev::Proxy * LoadedProxy;
     extern int32_t  RandomState;
     extern unsigned SublevelNumber;
     extern std::string SublevelTitle;

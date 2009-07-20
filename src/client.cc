@@ -446,7 +446,7 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F6: Msg_JumpBack(); break;
 
         case SDLK_F10: {
-            lev::Proxy *level = lev::Index::getCurrentProxy();
+            lev::Proxy *level = server::LoadedProxy;
             std::string basename = std::string("screenshots/") +
                     level->getLocalSubstitutionLevelPath();
             std::string fname = basename + ".png";

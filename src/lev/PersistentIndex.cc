@@ -247,7 +247,7 @@ namespace enigma { namespace lev {
     }
     
     int autoIndexProxyCompare(Proxy * first, Proxy * second) {
-        return first->getNormFilePath() < second->getNormFilePath();
+        return first->getNormLevelPath() < second->getNormLevelPath();
     }
     
     void PersistentIndex::load(bool systemOnly, bool update) {

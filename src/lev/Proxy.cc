@@ -931,6 +931,7 @@ namespace enigma { namespace lev {
                     }
                     
                     std::string extString = reinterpret_cast<const char *>(&extCode[0]);
+                    Log << "External data loaded:\n" << extNormPath << "\n";
 //                    Log << "External data loaded:\n" << extString << "\n";
                     externalData[extNormPath] = extString;
                 }

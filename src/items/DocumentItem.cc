@@ -24,6 +24,7 @@
 //#include "main.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
+#include "server.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -51,12 +52,8 @@ namespace enigma {
     ItemAction DocumentItem::activate(Actor *a, GridPos) {
         if (Value v = getAttr("text")) {
             std::string txt(v);
-            lev::Proxy *level = lev::Index::getCurrentProxy();
-            // after complete switch to Proxy as levelloader the following
-            // conditional can be abolished
-            if (level)
-                // translate text
-                txt = level->getLocalizedString(txt);
+            // translate text
+            txt = server::LoadedProxy->getLocalizedString(txt);
             client::Msg_ShowText(txt, true);
         }
         return ITEM_KILL;          // remove from inventory

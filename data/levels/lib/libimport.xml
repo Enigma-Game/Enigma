@@ -142,6 +142,7 @@ lib.import.line_regexp["sokoban"] =
       "[ \-\#\_\$\.@\*0-9Nn\+]*"  -- all allowed characters except line ending
    .. "[\#\$\.@\*Nn\+]+"          -- at least one non-space character
    .. "[ \-\#\_\$\.@\*0-9Nn\+]*"  -- again all allowed characters except line ending
+   .. "[\r]?"                     -- maybe a carriage return from line ending
 
 function lib.import.map_sokoban(multilevel, sublevel_number, keylength_one)
     assert_type(multilevel, "lib.import.map_sokoban first argument", 2, "non-empty string")
@@ -149,6 +150,7 @@ function lib.import.map_sokoban(multilevel, sublevel_number, keylength_one)
     local level
     level = lib.import.unpack_multilevel(multilevel .. "\n", sublevel_number or 1, "sokoban")
     level = lib.import.uncompress_rle(level, {error_on_multiple = "|\n"})
+    level = lib.import.string_replace(level, "\r\n", "\n")
     level = lib.import.string_replace(level, "|", "\n")
     level = lib.import.string_remove_multiples(level .. "\n", "\n")
     local map = lib.import.level_to_map(level, "\n", " ")
