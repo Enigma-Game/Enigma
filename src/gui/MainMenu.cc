@@ -227,7 +227,7 @@ namespace enigma { namespace gui {
         BuildVList *brp = vshrink? &br : &b;
         
         homepage = b.add(new StaticTextButton(N_("Homepage"), this));
-        docs = b.add(new StaticTextButton(N_("Dokumentation"), this));
+        docs = b.add(new StaticTextButton(N_("Documentation"), this));
         paths = b.add(new StaticTextButton(N_("Paths"), this));
         autofolder = brp->add(new StaticTextButton(N_("Locate Auto"), this));
         scorefolder = brp->add(new StaticTextButton(N_("Locate Score"), this));

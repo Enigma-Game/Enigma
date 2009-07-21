@@ -137,17 +137,9 @@ bool ecl::ExploreFolder(const std::string path) {
 #ifdef __MINGW32__
     result == ((int)ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
 #elif MACOSX
-    CFStringRef cfurlStr = CFStringCreateWithCString( NULL, path.c_str(), kCFStringEncodingASCII);
-
-    // Create a URL object:
-    CFURLRef cfurl = CFURLCreateWithString (NULL, cfurlStr, NULL);
-
-    // Open the URL:
-    LSOpenCFURLRef(cfurl, NULL);
-
-    // Release the created resources:
-    CFRelease(cfurl);
-    CFRelease(cfurlStr);
+    FSRef fref;
+    FSPathMakeRef((UInt8*)path.c_str(), &fref, NULL);
+    LSOpenFSRef(&fref, NULL);
 #else
     result = (system(("xdg-open " + path + " &").c_str()) == 0);
 #endif
