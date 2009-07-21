@@ -547,12 +547,9 @@ namespace enigma { namespace lev {
             std::string ext = absLevelPath.substr(extbegin);
         
             if (normPathType != pt_url && (ext == ".lua" || ext == ".ell")) {
-                useFileLoader = true;
                 isXML = false;  // preliminary - may still be lua commented xml
             } else if (ext == ".xml" || ext == ".elx") {
                 isXML = true;
-                // use file loader only for zipped xml files
-                useFileLoader = (isptr.get() != NULL) ? true : false;
             } else {
                 throw XLevelLoading("Unknown file extension in " + absLevelPath);
             }
@@ -560,82 +557,105 @@ namespace enigma { namespace lev {
                 throw XLevelLoading("Unknown file extension in " + absLevelPath);
         }
 
-        // load
-        
-        if (useFileLoader) {
-            // preload plain Lua file or zipped level
-            if (isptr.get() != NULL) {
-                // zipped file
-                Readfile (*isptr, levelCode);
-            } else {
-                // plain file
-                basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
-                Readfile (ifs, levelCode);
-            }
+        // preload file into buffer
+        if (normPathType == pt_url) {
+            // url address via curl
+            Downloadfile(normFilePath, levelCode);
+        } else if (isptr.get() != NULL) {
+            // zipped file
+            Readfile (*isptr, levelCode);
+        } else {
+            // plain file
+            basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
+            Readfile (ifs, levelCode);
+        }
  
-            if(!isXML) {
-                if(levelCode.size() >= 8 && std::string("--xml-- ").compare(
-                        0, 8, &(levelCode[0]), 8) == 0) {
-                    isXML = true;
-                    // delete lua "--xml-- " comments in level code
-                    int s = levelCode.size();
-                    int i = 0;
-                    int j = 0;
-                    for (i=8, j=0; i < s;) {
-                        char c = levelCode[j++] = levelCode[i++];
-                        if(c == '\n') {
-                            if(s >= i+8 && std::string("--xml-- ").compare(
-                                    0, 8, &(levelCode[i]), 8) == 0) {
-                                i += 8;
-                            }
+        if(!isXML) {
+            if (levelCode.size() >= 8 && std::string("--xml-- ").compare(
+                    0, 8, &(levelCode[0]), 8) == 0) {
+                isXML = true;
+                // delete lua "--xml-- " comments in level code
+                int s = levelCode.size();
+                int i = 0;
+                int j = 0;
+                for (i=8, j=0; i < s;) {
+                    char c = levelCode[j++] = levelCode[i++];
+                    if(c == '\n') {
+                        if(s >= i+8 && std::string("--xml-- ").compare(
+                                0, 8, &(levelCode[i]), 8) == 0) {
+                            i += 8;
                         }
                     }
-                    levelCode.resize(j);
-                } else if (!onlyMetadata){
-                    // handle pure lua
-                    // load plain lua file
-                    doc = NULL;
-                    const char *buffer = reinterpret_cast<const char *>(&levelCode[0]);
-                    // add debugging info to lua code
-                    std::string luaCode = "--@" + absLevelPath + "\n" + 
-                                buffer;
-                    lua_State *L = lua::LevelState();
-                    if (luaL_dostring(L, luaCode.c_str() ) != 0) {
-                        lua_setglobal (L, "_LASTERROR");
-                        throw XLevelLoading(lua::LastError(L));
-                    }
-                } else {
-                    // ensure that metadata are consistent - called for all
-                    // new commanline lua levels
-                    if (releaseVersion == 0)
-                        releaseVersion = 1;
                 }
+                levelCode.resize(j);
+            } else if (!onlyMetadata){
+                // handle pure lua
+                // load plain lua file
+                doc = NULL;
+                const char *buffer = reinterpret_cast<const char *>(&levelCode[0]);
+                // add debugging info to lua code
+                std::string luaCode = "--@" + absLevelPath + "\n" + 
+                            buffer;
+                lua_State *L = lua::LevelState();
+                if (luaL_dostring(L, luaCode.c_str() ) != 0) {
+                    lua_setglobal (L, "_LASTERROR");
+                    throw XLevelLoading(lua::LastError(L));
+                }
+            } else {
+                // ensure that metadata are consistent - called for all
+                // new commanline lua levels
+                if (releaseVersion == 0)
+                    releaseVersion = 1;
             }
         }
+        
         if (isXML) {
+            // count XML header lines for proper Lua line count messages
+            static const char *luaId = "<el:luamain><![CDATA[";
+            int codeSize = levelCode.size();
+            headerLines = 0;
+            int idPtr = 0;
+            bool pendingCR = false;
+            for (int i = 0; i < codeSize; i++) {
+                char c = levelCode[i];
+                if (pendingCR && c == '\n') {
+                    pendingCR = false;
+                } else if (c == '\r') {
+                    headerLines++;
+                    pendingCR = true;
+                    idPtr = 0;
+                } else if (c == '\n') {
+                    headerLines++;
+                    pendingCR = false;
+                    idPtr = 0;
+                } else if (c == luaId[idPtr]) {
+                    idPtr++;
+                    if (idPtr == 20) {
+                        break;
+                    }
+                }
+            }
+            
+            // load XML
             try {
                 std::ostringstream errStream;
                 app.domParserErrorHandler->resetErrors();
                 app.domParserErrorHandler->reportToOstream(&errStream);
                 app.domParserSchemaResolver->resetResolver();
                 app.domParserSchemaResolver->addSchemaId("level.xsd","level.xsd");
-                if (!useFileLoader) {
-                    // local xml file or URL
-                    doc = app.domParser->parseURI(absLevelPath.c_str());
-                } else {
-                    // preloaded lua-commented xml or zipped xml
+                
+                // preloaded lua-commented xml or zipped xml
 #if _XERCES_VERSION >= 30000
-                    std::auto_ptr<DOMLSInput> domInputLevelSource ( new Wrapper4InputSource(
-                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
-                            levelCode.size(), absLevelPath.c_str(), false)));
-                    doc = app.domParser->parse(domInputLevelSource.get());
+                std::auto_ptr<DOMLSInput> domInputLevelSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
+                        levelCode.size(), absLevelPath.c_str(), false)));
+                doc = app.domParser->parse(domInputLevelSource.get());
 #else    
-                    std::auto_ptr<Wrapper4InputSource> domInputLevelSource ( new Wrapper4InputSource(
-                            new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
-                            levelCode.size(), absLevelPath.c_str(), false)));
-                    doc = app.domParser->parse(*domInputLevelSource);
+                std::auto_ptr<Wrapper4InputSource> domInputLevelSource ( new Wrapper4InputSource(
+                        new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
+                        levelCode.size(), absLevelPath.c_str(), false)));
+                doc = app.domParser->parse(*domInputLevelSource);
 #endif
-                }
                 if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagNameNS(
                             levelNS, Utf8ToXML("info").x_str())->item(0));
@@ -950,7 +970,7 @@ namespace enigma { namespace lev {
         if (luamainList->getLength() == 1) {
             DOMElement *luamain  = dynamic_cast<DOMElement *>(luamainList->item(0));
             // add debugging info to lua code
-            std::string luaCode = "--@" + absLevelPath + "\n" + 
+            std::string luaCode = "--@" + absLevelPath + std::string(headerLines, '\n') +
                         XMLtoUtf8(luamain->getTextContent()).c_str();
             if (luaL_dostring(L, luaCode.c_str() ) != 0) {
                 lua_setglobal (L, "_LASTERROR");

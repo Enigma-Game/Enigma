@@ -165,6 +165,7 @@ namespace enigma { namespace lev {
         static std::vector<Proxy *> registeredLibs;
         static void releaseLibs();
         
+        int headerLines;
         bool isLibraryFlag;
         bool isMultiFlag;
         pathType normPathType;
