@@ -28,6 +28,7 @@ lib.soko = {}
 setmetatable(lib.soko, getmetatable(lib))
 lib.soko.keys_to_field_names = {["  "] = "inf", ["- "] = "outf", ["$ "] = "box",
     ["# "] = "wall", [" ."] = "goal", ["D "] = "door", ["d "] = "open_door"}
+lib.soko.ignore_key = "Ig"  -- This key may not appear in any Sokoban-level.
     
 -- The following constants are defined in libsoko_designlist:
 -- RESOLVE_ALL = 0
@@ -511,7 +512,7 @@ function lib_soko_endphase()
     local alg = endp.alg
     local marbles = no["marble#*"]
     -- redraw level and give items
-    wo:drawMap(lib.soko.resolver_endphase, po(0,0), lib.soko.map)
+    wo:drawMap(lib.soko.resolver_endphase, po(0,0), lib.soko.ignore_key, lib.soko.map)
     local give = lib.lua.deep_copy(endp.give)
     if type(give) == "string" then
         give = {{give}}

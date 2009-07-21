@@ -1332,7 +1332,7 @@ lib.soko_designlist.list = {
          door = "st_blocker",
          oxyd = "b",
          endp = {inf = {"fl_white", "fl_fake_abyss", res = RESOLVE_CHECKERBOARD},
-                 goal = {"st_nil", "it_nil"},
+                 goal = {"st_nil", "it_nil", {"fl_white", "fl_fake_abyss", res = RESOLVE_CHECKERBOARD}},
                  alg = "ralf"}},
 [140] = {inf = ti{"fl_bast", friction = 3.0},
          outf = {"fl_lawn_e4", "fl_lawn_e2", "fl_lawn_e1", "fl_lawn_e3", res = RESOLVE_WAVES},
