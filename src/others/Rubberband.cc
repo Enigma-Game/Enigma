@@ -307,9 +307,7 @@ namespace enigma {
             }            
         }
         if (newAnchor != NULL) {
-            ObjectList olist = newAnchor->getAttr("rubbers");
-            olist.push_back(this);
-            newAnchor->setAttr("rubbers", olist);
+            ObjectList olist;
             if (otherAnchor != NULL) {
                 // check on existing rubberbands between anchors
                 olist = newAnchor->getAttr("fellows");
@@ -337,6 +335,9 @@ namespace enigma {
                 olist.push_back(newAnchor);
                 otherAnchor->setAttr("fellows", olist);
             }
+            olist = newAnchor->getAttr("rubbers");
+            olist.push_back(this);
+            newAnchor->setAttr("rubbers", olist);
         }
     }
 
