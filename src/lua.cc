@@ -1299,7 +1299,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
             obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
              if (!lua_isnumber(L, -2) && lua_isstring(L, -2))
-                 NameObject(obj, lua_tostring(L, -2));
+                 obj->setAttrChecked("name", lua_tostring(L, -2));
          }
          lua_pop(L, 2);  // remove copy key + value, leave original key for loop
     }    

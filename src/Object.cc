@@ -196,7 +196,7 @@ namespace enigma {
                 objFlags |= OBJBIT_NOP;
             else
                 objFlags &= ~OBJBIT_NOP;
-        
+            
         } else if (val) {        // only set non-default values
             if (val.getType() == Value::NIL /*&& server::EnigmaCompatibility >= 1.10*/)
                 // delete attribute
@@ -209,9 +209,37 @@ namespace enigma {
     
     void Object::setAttrChecked(const std::string& key, const Value &val) {
         // allow all user attributes and those system attributes with write allowance
-        if (key == "name")
+        if (key == "name") {
+            std::string oldName = getAttr("name").to_string();
+            std::string newName = val.to_string();
+            bool isRename =  oldName.size() > 0 && newName != oldName;
+            
+            // on name clash unname other object with same name and repair all fellow references
+            Object *victim = GetNamedObject(newName);
+            if (victim != NULL) {
+                UnnameObject(victim);
+                ObjectList olist = victim->getAttr("fellows");
+                for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
+                    ObjectList olist2 = (*itr)->getAttr("fellows");
+                    olist2.remove(NULL);
+                    olist2.push_back(victim);
+                    (*itr)->setAttr("fellows", olist2);
+                }
+            }
+            
             NameObject(this, val.to_string());
-        else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
+            
+            // in case of a renaming repair all fellow reference that will now be NULL instead of this
+            if (isRename) {
+                ObjectList olist = getAttr("fellows");
+                for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
+                    ObjectList olist2 = (*itr)->getAttr("fellows");
+                    olist2.remove(NULL);
+                    olist2.push_back(this);
+                    (*itr)->setAttr("fellows", olist2);
+                }
+            }
+        } else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
             setAttr(key, val);
         else
             ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write not allowed for kind '%s'",

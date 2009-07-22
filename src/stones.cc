@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -42,6 +43,14 @@ void Stone::on_creation(GridPos p) {
 void Stone::transform(std::string kind) {
     Stone *newStone = MakeStone(kind.c_str());
     transferIdentity(newStone);          // subclasses may hook this call
+    ObjectList olist = getAttr("rubbers");
+    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
+        (*itr)->setAttr("anchor2", newStone);
+    }
+    olist = getAttr("wires");
+    for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
+        (*itr)->setAttr((this == (*itr)->getAttr("anchor1")) ? "anchor1" : "anchor2", newStone);
+    }
     SetStone(get_pos(), newStone);
 }
 
