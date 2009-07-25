@@ -656,9 +656,6 @@ void Application::initXerces() {
 }	
 
 void Application::initUserDatapaths() {
-
-    app.prefs->setProperty("ScoreUploadURL", "http://enigma.bplaced.net/enigma.php");
-
     // userPath
     userPath = prefs->getString("UserPath");
     if (userPath.empty()) {

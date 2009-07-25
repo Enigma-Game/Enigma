@@ -139,9 +139,6 @@ namespace enigma { namespace gui {
         RatingsUpdateButton() : BoolOptionButton("RatingsAutoUpdate", N_("Auto"), N_("Never"), this) {}
     };
 
-    struct ScoreUploadButton : public BoolOptionButton {
-        ScoreUploadButton() : BoolOptionButton("ScoreAutoUpload", N_("Always"), N_("Never"), this) {}
-    };
 
 
     /* -------------------- VideoModeButton -------------------- */
@@ -495,7 +492,6 @@ namespace enigma { namespace gui {
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
                 OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
                 OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
-                OPTIONS_NEW_LB(N_("Score upload: "), new ScoreUploadButton())
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");
