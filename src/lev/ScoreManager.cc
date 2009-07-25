@@ -35,6 +35,9 @@
 #include "main.hh"
 #include "options.hh"
 
+#include <curl/curl.h>
+#include <curl/easy.h>
+
 #include <cmath>
 #include <ctime>
 #include <iostream>
@@ -138,7 +141,7 @@ namespace enigma { namespace lev {
                 hasValidStateUserId = true;
                 Log << "User id '" << stateUserId << "'\n";
             } else 
-                Log << "Bad user id '" << ecl::strf("%.4lX %.4lX %.4lX %.4lX",i1, i2,i3, i4) << "'\n";
+                Log << "Bad user id '" << ecl::strf("%.4lX %.4lX %.4lX %.4lX",i1, i2, i3, i4) << "'\n";
                 
         }
         
@@ -168,7 +171,7 @@ namespace enigma { namespace lev {
                 std::ostringstream content;
                 readFromZipStream(zipStream, content);
                 std::string score = content.str();
- #if _XERCES_VERSION >= 30000
+#if _XERCES_VERSION >= 30000
                 std::auto_ptr<DOMLSInput> domInputScoreSource ( new Wrapper4InputSource(
                         new MemBufInputSource(reinterpret_cast<const XMLByte *>(score.c_str()),
                         score.size(), "", false)));
@@ -332,7 +335,7 @@ namespace enigma { namespace lev {
         int len = target.size();
         unsigned r = 0;
         const char *p = target.c_str();
-        
+
         while (len--)
             r = (r<<8 & 0xFFFF) ^ ctab[(r >> 8) ^ *p++];
         return ecl::strf("%.4lX", r); 
@@ -509,12 +512,13 @@ namespace enigma { namespace lev {
             m.manage();          
         } else
             Log << "Score save o.k.\n";
-        
+
         return result;
     }
 
     void ScoreManager::shutdown() {
         save();
+        upload();
         if (doc != NULL)
             doc->release();
         doc = NULL;
@@ -1139,4 +1143,66 @@ namespace enigma { namespace lev {
         }
         return result;
     }
+
+    /*
+     * Post the score file to an internet upload server
+     */
+    int ScoreManager::upload() {
+      CURL *curl;
+      CURLcode res;
+
+      struct curl_httppost *formpost=NULL;
+      struct curl_httppost *lastptr=NULL;
+      std::string scoreBasePath = app.userPath + "/enigma.score";
+      std::string uploadURL;
+      app.prefs->getProperty("ScoreUploadURL", uploadURL);
+
+      if (app.prefs->getBool("ScoreAutoUpload") == true &&
+	  !app.state->getString("UserName").empty() &&
+	  doc != NULL && isModified)
+      {
+	Log << "Sending score to " << uploadURL << "\n";
+
+	curl_global_init(CURL_GLOBAL_ALL);
+
+	/* Fill in the file upload field and the submit field */
+	curl_formadd(&formpost, &lastptr,
+		     CURLFORM_COPYNAME, "uploaded_file",
+		     CURLFORM_FILE, scoreBasePath.c_str(), CURLFORM_END);
+	curl_formadd(&formpost, &lastptr,
+		     CURLFORM_COPYNAME, "submit",
+		     CURLFORM_COPYCONTENTS, "Upload", CURLFORM_END);
+	
+	curl = curl_easy_init();
+	if(curl) {
+	  std::string agent = "Enigma "; 
+	  std::ostringstream ostr;
+	  ostr << app.getEnigmaVersion(); // setprecision?
+	  std::string strValue = ostr.str();
+	  agent.append(ostr.str());
+#if MACOSX
+	  agent.append(", MacOSX, User ");
+#elif __MINGW32__
+	  agent.append(", Windows, User ");
+#else
+	  agent.append(", Linux, User ");
+#endif
+	  agent.append(app.state->getString("UserName"));
+
+	  curl_easy_setopt(curl, CURLOPT_URL, uploadURL.c_str());
+	  curl_easy_setopt(curl, CURLOPT_USERAGENT, agent.c_str());
+	  curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+
+	  res = curl_easy_perform(curl);
+	  if (res != 0)
+	    Log << "Libcurl error " << res << " on upload.\n";
+	  
+	  curl_easy_cleanup(curl);
+	  curl_formfree(formpost);
+	} else
+	  Log << "Could not init libcurl.\n";
+      }
+      return 0;
+    }
+
 }} // namespace enigma::lev

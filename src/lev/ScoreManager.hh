@@ -121,7 +121,12 @@ namespace enigma { namespace lev {
         bool hasValidUserId;
         bool didUpgrade;
         bool isModified;
-        
+
+        /**
+         * Uploads the score file to a server.
+         */
+        int upload();
+      
         void finishUserId(unsigned id3);
         std::string sec(std::string target);
         XERCES_CPP_NAMESPACE_QUALIFIER DOMElement * getLevel(lev::Proxy *levelProxy);
