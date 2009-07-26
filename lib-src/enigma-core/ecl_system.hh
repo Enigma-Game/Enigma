@@ -30,6 +30,7 @@ namespace ecl
     extern const char *PathsSeparator;
 
     std::string ExpandPath (const std::string &path);
+    std::string BeautifyPath(const std::string path);
 
     bool        FileExists (const std::string &fname);
     std::time_t FileModTime (const std::string &fname);

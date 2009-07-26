@@ -1,5 +1,5 @@
 
-PNG = first_level.png construction.png
+PNG = first_level.png construction.png ralD006_1.png
 
 GFXDIR = ../../../data/gfx48
 

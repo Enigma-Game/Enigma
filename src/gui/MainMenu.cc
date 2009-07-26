@@ -250,9 +250,9 @@ namespace enigma { namespace gui {
         } else if (w == paths) {
             showPaths();
         } else if (w == autofolder) {
-            ecl::ExploreFolder(app.userPath + "/levels/auto");
+            ecl::ExploreFolder(ecl::BeautifyPath(app.userPath + "/levels/auto"));
         } else if (w == scorefolder) {
-            ecl::ExploreFolder(app.userPath);
+            ecl::ExploreFolder(ecl::BeautifyPath(app.userPath));
         } else if (w == credits) {
             displayInfo(credit_text, 6);
         } else if (w == back) {
@@ -280,9 +280,9 @@ namespace enigma { namespace gui {
         int i = 0;
         
         pathtext[i++] = N_("Preferences Path:");
-        work = app.prefPath;
+        work = ecl::BeautifyPath(app.prefPath);
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -290,9 +290,9 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = " ";
         pathtext[i++] = N_("User Path:");
-        work = app.userPath;
+        work = ecl::BeautifyPath(app.userPath);
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -300,9 +300,9 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = " ";
         pathtext[i++] = N_("User Image Path:");
-        work = app.userImagePath;
+        work = ecl::BeautifyPath(app.userImagePath);
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -310,9 +310,9 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = " ";
         pathtext[i++] = N_("System Path:");
-        work = app.systemFS->getDataPath();
+        work = ecl::BeautifyPath(app.systemFS->getDataPath());
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -320,9 +320,9 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = " ";
         pathtext[i++] = N_("Resource Paths:");
-        work = app.resourceFS->getDataPath();
+        work = ecl::BeautifyPath(app.resourceFS->getDataPath());
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);
@@ -330,9 +330,9 @@ namespace enigma { namespace gui {
         } while(!work.empty() );
         pathtext[i++] = " ";
         pathtext[i++] = N_("L10n Path:");
-        work = app.l10nPath;
+        work = ecl::BeautifyPath(app.l10nPath);
         do {
-            std::string::size_type breakPos = breakString(menufont, work,"/\\", width);
+            std::string::size_type breakPos = breakString(menufont, work, ecl::PathSeparators, width);
             pathstrings[i] = "    " + work.substr(0,breakPos);
             pathtext[i] = pathstrings[i].c_str();
             work = work.substr(breakPos);

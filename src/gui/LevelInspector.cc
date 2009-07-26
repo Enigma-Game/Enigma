@@ -471,10 +471,12 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         }
         if (levelPathLines >= 1) {
             add(new Label(N_("Level Path: "), HALIGN_RIGHT),Rect(hmargin,vnext,vshrink?55:110,vshrink?12:25));
-            std::string workString = levelPathString;
+            bool localSeparator = (levelProxy->getNormPathType() == lev::Proxy::pt_resource) ||
+                        (levelProxy->getNormPathType() == lev::Proxy::pt_absolute);
+            std::string workString = localSeparator ? ecl::BeautifyPath(levelPathString) : levelPathString;
             for (int i = 0; i< levelPathLines - 1; i++) {
                 std::string::size_type breakPos = breakString(menufont, workString, 
-                        "/", textwidth);
+                        localSeparator ? ecl::PathSeparator : "/", textwidth);
                 add(new Label(workString.substr(0,breakPos), HALIGN_LEFT), Rect(hmargin+(vshrink?55+5:110+10),vnext,textwidth,vshrink?12:25));
                 workString = workString.substr(breakPos);
                 vnext += ((vshrink?12:25) + vspacing);

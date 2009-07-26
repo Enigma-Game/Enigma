@@ -51,17 +51,27 @@ const char *ecl::PathsSeparator = ":";      // for listing paths in a string
 #endif
 const char *ecl::PathSeparators = "/\\";    // for path splits
 
-string ecl::ExpandPath (const string &pth)
-{
-    string path = pth;
-    string::size_type p=path.find("~");
+std::string ecl::ExpandPath (const string &pth) {
+    std::string path = pth;
+    std::string::size_type p=path.find("~");
     if (p != string::npos) {
-        string home;
+        std::string home;
         if (char *h = getenv("HOME"))
             home = h;
         path.replace(p, 1, home);
     }
     return path;
+}
+
+std::string ecl::BeautifyPath(const std::string path) {
+    std::string foreignSeparators = ecl::PathSeparators;
+    foreignSeparators.erase(foreignSeparators.find(ecl::PathSeparator));
+    std::string result = path;
+    for (std::string::size_type pos = result.find_first_of(foreignSeparators);
+            pos != std::string::npos; pos = result.find_first_of(foreignSeparators)) {
+        result.replace(pos, 1, ecl::PathSeparator);
+    }
+    return result;
 }
 
 bool ecl::FileExists (const std::string &fname)

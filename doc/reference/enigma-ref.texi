@@ -1363,11 +1363,11 @@ level in levelpack Enigma I, so you can try it out right away.)
  2    @i{ti}["@var{#}"] = @{"@b{st_box}"@}
  3    @i{ti}["@var{O}"] = @{"@b{st_oxyd}"@}
  4    if @i{wo}["@b{IsDifficult}"] then
- 5	@i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
- 6	@i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
+ 5        @i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
+ 6        @i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
  7    else
- 8	@i{ti}["@var{Q}"] = @i{ti}[" "]
- 9	@i{ti}["@var{T}"] = @i{ti}[" "]
+ 8        @i{ti}["@var{Q}"] = @i{ti}[" "]
+ 9        @i{ti}["@var{T}"] = @i{ti}[" "]
 10    end
 11    @i{ti}["@var{@@}"] = @{"@b{ac_marble_black}", @var{0.0}, @var{0.5}@}
 11
@@ -1410,11 +1410,11 @@ item, stone, actor, etc.
 
 @example
  4    if @i{wo}["@b{IsDifficult}"] then
- 5	@i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
- 6	@i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
+ 5        @i{ti}["@var{Q}"] = @{"@b{st_quake}", @b{name}="@var{quake}"@}
+ 6        @i{ti}["@var{T}"] = @{"@b{st_timer}", @b{interval}=@var{10.0}, @b{target}="@var{quake}"@}
  7    else
- 8	@i{ti}["@var{Q}"] = @i{ti}[" "]
- 9	@i{ti}["@var{T}"] = @i{ti}[" "]
+ 8        @i{ti}["@var{Q}"] = @i{ti}[" "]
+ 9        @i{ti}["@var{T}"] = @i{ti}[" "]
 10    end
 @end example
 
@@ -1442,19 +1442,19 @@ given above.
 
 @example
 12    @i{wo}(@i{ti}, " ", @{
-13	"@var{####################}",
-14	"@var{#                  #}",
-15	"@var{#                  #}",
-16	"@var{#  O            O  #}",
-17	"@var{#         @@        #}",
-18	"@var{#                  #}",
-19	"@var{#        QT        #}",
-20	"@var{#                  #}",
-21	"@var{#                  #}",
-22	"@var{#  O            O  #}",
-23	"@var{#                  #}",
-24	"@var{#                  #}",
-25	"@var{####################}"@})
+13        "@var{####################}",
+14        "@var{#                  #}",
+15        "@var{#                  #}",
+16        "@var{#  O            O  #}",
+17        "@var{#         @@        #}",
+18        "@var{#                  #}",
+19        "@var{#        QT        #}",
+20        "@var{#                  #}",
+21        "@var{#                  #}",
+22        "@var{#  O            O  #}",
+23        "@var{#                  #}",
+24        "@var{#                  #}",
+25        "@var{####################}"@})
 @end example
 
 Now we can create the world simply by providing a map. We just need to call
@@ -2039,29 +2039,33 @@ at the given url.
 none.
 
 @item @b{externaldata}, @i{optional, multiple occurrence}
-You can use this element to specify any external data file this level
-depends on. You can specify several files by multiple occurrence of this
+You can use this element to specify any external text data file this level
+depends on. You can specify several files by multiple occurrences of this
 element. Files declared can be read via the Lua interface.
 
-This feature should support levels that simulate foreign games like Sokoban within Enigma. Due
-to copyrights and license conditions, including some data within a level may not be possible.
-However, distributing the data in the original unmodified format may be legal.
+This feature should support levels that simulate foreign games like Sokoban
+within Enigma. Due to copyrights and license conditions, the inclusion of such
+data within a level or even the distribution with Enigma may not be possible.
+However, distributing or downloading the data in the original unmodified format
+may be legal.
 
 @b{Attributes:}
 @table @asis
-@item @b{path}, @i{optional}
-The resource path of the external data file with its suffix. Since the data are usually level-
-specific, you should store them with the level in the same levelpack directory. Thus, a relative
-resource path, such as @samp{./datafile.ext}
-is preferable.
+@item @b{path}, @i{required}
+The resource path of the external data file without its suffix @samp{.txt}. The
+path has to be either of the format @code{"./name"} for an external data file
+that is locally  stored in the same folder as the level file, or will be saved
+at this position when it gets downloaded. Or the path can be of the format
+@code{"externaldata/name"} for shared external data files, that are referenced
+by multiple level files stored at different folders. The external data file will
+be locally stored or gets saved in the folder @{"levels/externaldata"}. In any
+case the local name of the external data file will have the suffix @samp{.txt}
+to mark it readable but not executable for the local operating system.
 
 @item @b{url}, @i{optional}
-This optional attribute allows you to specify an online address for the external data
-file. This method can access only well-formed xml data files.
-
-You should use the online access method only as a backup address or due to very restrictive
-license conditions that make it impossible to distribute the data file with Enigma.
-
+This optional attribute allows you to specify an internet download address for
+the external data file. On first access a missing external data file will be
+downloaded and a copy will be stored locally for further access.
 @end table
 
 @b{Contents:}
@@ -2713,7 +2717,7 @@ value. Enigma will automatically append the string @code{"[1]"} for the first
 sublevel, @code{"[2]"} for the second and so on. Thus every sublevel has an
 unique id. 
 
-Additionally you should provide base title for the levels in this metadata
+Additionally you should provide a base title for the levels in this metadata
 @ref{<identity>} element. If your title ends with a hash @samp{#} sign Enigma
 will autogenerate titles for the sublevels by appending the sublevel number to
 the given common title string.
@@ -2723,8 +2727,8 @@ The title in the @ref{<identity>} element may not end on a hash sign and will
 only be used as a default title base in case the @ref{LUA code} fails to
 provide a sublevel title. Prior execution of the Lua code the global
 attribute @ref{SublevelNumber} gets initialized. The Lua part has either way to
-load the appropriate sublevel based on this number. Now it has additionally to
-set the second special multilevel global attribute @ref{SublevelTitle}.
+load the appropriate sublevel based on this number. Now it has additionally the
+task to set the second special multilevel global attribute @ref{SublevelTitle}.
 
 
 @ref{<compatibility>} externaldata
@@ -3474,6 +3478,9 @@ is given we take the switch, which is the sender, as a position and set a new
 The @ref{Advanced Lua Examples} will show examples of real powerful callback
 functions with a line by line comment.
 
+Further usage and aspects of callbacks in the level's lifecycle are given in
+the section @ref{Callbacks and Load Balancing}.
+
 @c ----------------- Object State --------------------
 @node Object State
 @subsection Object State
@@ -3578,7 +3585,7 @@ Ending Conditions - the mystery of Oxyds and Meditation
 * Level Initialization::
 * Object Transformation::         Identity Transfer in case of Transformations
 * Named Positions::               Positions as successors of killed Floors
-* Callbacks and Timers::
+* Callbacks and Load Balancing::
 * Level Restart::
 * Ending Conditions::
 @end menu
@@ -3687,14 +3694,14 @@ This post world creation code may well have the need of loops or even some
 local used functions that need to be integrated to precede. Please keep such
 functions near by their usage and within the same code section.
 
-Another set of functions that you may want to add are @ref{Callbacks}. We 
-recommend to append these functions as the last section as they are not called
-within the level initialization itself.
+Another set of functions that you may want to add are @ref{Callbacks and Load 
+Balancing}. We recommend to append these functions as the last section as they
+are not called within the level initialization itself.
 
 But there is one very special exception. The @code{postinit()} callback is
 called after the level initialization code has been processed and all subsequent
 engine internal initialization has been finished. If this function is present
-in a level it gets execute directly before the first mouse movement event gets
+in a level it gets executed directly before the first mouse movement event gets
 processed. Thus you can rely within this function that all objects are set up
 in their final state. If you have need of such a postinit callback you should
 put it after all the level intialization code and in front of other callback
@@ -3743,9 +3750,17 @@ end
 Note that a request for a named position will include all positions of matching
 named objects as well as those named positions derived from killed floors.
 
-@c ----------------- Callbacks and Timers --------------------
-@node Callbacks and Timers
-@subsection Callbacks and Timers
+@c ----------------- Callbacks and Load Balancing --------------------
+@node Callbacks and Load Balancing
+@subsection Callbacks and Load Balancing
+
+The most flexible feature for a level author to establish an unique behaviour
+of his level are @ref{Callback Function}s. 
+
+@ref{Target - Action} kill warning
+@ref{ot_timer}
+
+global and res.*.function
 
 @c ----------------- Level Restart --------------------
 @node Level Restart
@@ -3906,6 +3921,8 @@ of the source code itself!
 @end example
 
 The resulting level looks like this in the game
+
+@image{images/ralD006_1, 150mm}
 
 Let us now analyse the code line by line.
 
@@ -11753,14 +11770,20 @@ leaving no remnants when being hit by light.
 
 A magic item that makes the activating actor for 8 seconds invisible. But not
 all actors become invisible. Just the ball like actors @ref{ac_marble} and
-@ref{ac_pearl} do vanish. Other actors just drop the cherry on activation.
+@ref{ac_pearl} do vanish.
 
 An invisible actor can walk through most kinds of glass 
-(@pxref{Transparent Stones}) and as being invisible
-they do no longer attract hostile @ref{ac_rotor} and @ref{ac_top}.
+(@pxref{Transparent Stones}) and as being invisible they do no longer attract
+hostile @ref{ac_rotor} and @ref{ac_top}.
 
 When several cherries are activated in sequence each does prolong the actor's
 time of invisibility by additional 8 seconds.
+
+Other actors drop the cherry as an @ref{it_squashed} on activation. Sending a 
+cherry via an @ref{st_mail} results in an  @ref{it_squashed}, too. This
+gives you the control that a cherry added to one player's inventory can not be
+easily transfered to other actors assigned to the other player. Just 
+@ref{st_thief} and @ref{fl_thief} are able to steal the cherry undamaged.
 
 When a stone is pushed over a cherry an @ref{it_squashed} remains as remnants.
 
