@@ -76,7 +76,7 @@ namespace enigma { namespace lev {
         void load(bool systemOnly, bool update = false);
         void loadDoc();
         std::string getPackPath();
-        bool setName(std::string newName);
+        bool setName(std::string newName, bool isSokoball);
         std::string getOwner();
         void setOwner(std::string newOwner);
         int getRelease();

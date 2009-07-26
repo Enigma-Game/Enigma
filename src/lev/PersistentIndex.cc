@@ -101,13 +101,29 @@ namespace enigma { namespace lev {
             dirIter = DirIter::instance(sysPaths[i] + "/levels");
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
-                        dirEntry.name != ".svn" && dirEntry.name != "enigma_cross") {
+                        dirEntry.name != ".svn" && dirEntry.name != "enigma_cross" && 
+                        dirEntry.name != "sokoballs") {
                     candidates.insert(dirEntry.name);
                 }
                 else {
                     std::string::size_type zipPos = dirEntry.name.rfind(".zip");
                     if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
                         candidates.insert(dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                    }
+                }
+            }
+            delete dirIter;
+            // check for sokoball levelpacks
+            dirIter = DirIter::instance(sysPaths[i] + "/levels/sokoballs");
+            while (dirIter->get_next(dirEntry)) {
+                if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
+                        dirEntry.name != ".svn") {
+                    candidates.insert("sokoballs/" + dirEntry.name);
+                }
+                else {
+                    std::string::size_type zipPos = dirEntry.name.rfind(".zip");
+                    if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
+                        candidates.insert("sokoballs/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
                     }
                 }
             }
@@ -121,7 +137,7 @@ namespace enigma { namespace lev {
             // decide if a user copy is an update
             PersistentIndex * anIndex = new PersistentIndex(*i, true);
             anIndex->isUserOwned = false;
-            Log << "precheck: " << *i << "\n";
+//            Log << "precheck: " << *i << "\n";
             checkCandidate(anIndex);
         }
 
@@ -166,13 +182,28 @@ namespace enigma { namespace lev {
             if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                     dirEntry.name != ".svn" && dirEntry.name != "auto" &&
                     dirEntry.name != "cross" && dirEntry.name != "enigma_cross" && 
-                    dirEntry.name != "legacy_dat") {
+                    dirEntry.name != "legacy_dat" &&  dirEntry.name != "sokoballs") {
                     candidates2.insert(dirEntry.name);
             }
             else {
                 std::string::size_type zipPos = dirEntry.name.rfind(".zip");
                 if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
                         candidates2.insert(dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                }
+            }
+        }
+        delete dirIter;
+        // User Path: register sokoballs
+        dirIter = DirIter::instance(app.userPath + "/levels/sokoballs");
+        while (dirIter->get_next(dirEntry)) {
+            if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
+                    dirEntry.name != ".svn") {
+                    candidates2.insert("sokoballs/" + dirEntry.name);
+            }
+            else {
+                std::string::size_type zipPos = dirEntry.name.rfind(".zip");
+                if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
+                        candidates2.insert("sokoballs/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
                 }
             }
         }
@@ -187,6 +218,7 @@ namespace enigma { namespace lev {
 #endif
         for (std::set<std::string>::iterator i = candidates2.begin(); 
                 i != candidates2.end(); i++) {
+//            Log << "sokoball candidate2 " << *i << " - check \n";
             PersistentIndex * anIndex = new PersistentIndex(*i, false);
             checkCandidate(anIndex);
         }
@@ -487,7 +519,7 @@ namespace enigma { namespace lev {
         return packPath;
     }
     
-    bool PersistentIndex::setName(std::string newName) {
+    bool PersistentIndex::setName(std::string newName, bool isSokoball) {
         if (findIndex(newName) != NULL)
             return false;  // do not allow duplicate names
         
@@ -503,7 +535,7 @@ namespace enigma { namespace lev {
             // generate usabale path name and check it it usable
             if (fileName == "cross" || fileName == "enigma_cross" ||
                     fileName == "legacy_dat" || fileName == "auto" ||
-                    fileName == "history") {
+                    fileName == "sokoballs" || fileName == "history") {
                 return false;
             } 
             // check if the name would conflict with existing files
@@ -516,7 +548,7 @@ namespace enigma { namespace lev {
                 return false;
             }
             if (packPath == " ") {
-                packPath = fileName;
+                packPath = (isSokoball ? "sokoballs/" : "") + fileName;
                 indexFilename = INDEX_STD_FILENAME;
             } else
                 indexFilename = fileName + ".xml";

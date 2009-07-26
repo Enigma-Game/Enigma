@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,13 +39,26 @@ namespace enigma { namespace gui {
 
     class LevelmodeButton : public ImageButton {
         // ActionListener interface.
-        void on_action(Widget *);
+        virtual void on_action(Widget *);
     public:
         LevelmodeButton(bool initialMode = false);
         bool isLinkOnly();
         virtual void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
         void update();
+        bool mode;
+    };
+
+    class SokoballButton : public TextButton {
+        // ActionListener interface.
+        virtual void on_action(Widget *);
+        
+        // TextButton interface.
+        virtual std::string get_text() const;
+    public:
+        SokoballButton(bool initialMode = false);
+        bool isSokoball();
+    private:
         bool mode;
     };
 
@@ -79,6 +92,7 @@ namespace enigma { namespace gui {
         LevelmodeButton *levelmode;
         Label       *defLocationValueLabel;
         TextField   *defLocationTF;
+        SokoballButton *sokoballValueButton;
         Label       *releaseValueLabel;
         TextField   *releaseTF;
         Label       *revisionValueLabel;

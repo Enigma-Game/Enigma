@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006, 2007 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -79,7 +79,26 @@ namespace enigma { namespace gui {
         ImageButton::draw(gc, r);
     }
     
+    /* -------------------- Sokoball Button -------------------- */
+
+    SokoballButton::SokoballButton(bool initialMode) : TextButton(this) {
+        mode = initialMode;
+    }
+
+    void SokoballButton::on_action(Widget *) {
+        mode = !mode;
+        invalidate();
+    }
     
+    std::string SokoballButton::get_text() const {
+        return mode ? N_("Yes") : N_("No");
+    }
+    
+    bool SokoballButton::isSokoball() {
+        return mode;
+    }
+    
+    /* -------------------- LevelPackConfig -------------------- */
     
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
             bool forceGroupReasign) : isReasignOnly (forceGroupReasign), 
@@ -216,6 +235,7 @@ namespace enigma { namespace gui {
             but_metadata = new StaticTextButton(N_("Edit Metadata"), this);
         else
             but_metadata = new Label();
+        Label * sokoballLabel = new Label("Sokoball:", HALIGN_RIGHT);
         Label * releaseLabel = new Label(N_("Release:"), HALIGN_RIGHT);
         Label * revisionLabel = new Label(N_("Revision:"), HALIGN_RIGHT);
         Label * compatibilityLabel = new Label(N_("Compatibility:"), HALIGN_RIGHT);
@@ -224,20 +244,20 @@ namespace enigma { namespace gui {
         
         if (!isReasignOnly) {
             metaVList->add_back(but_metadata);
-            metaVList->add_back(new Label());
-	    if (WizardMode) {
-		metaVList->add_back(releaseLabel);
-		metaVList->add_back(revisionLabel);
-	    } else {
-		metaVList->add_back(new Label());
-		metaVList->add_back(new Label());
-	    }
+            metaVList->add_back(sokoballLabel);
+            if (WizardMode) {
+                metaVList->add_back(releaseLabel);
+                metaVList->add_back(revisionLabel);
+            } else {
+                metaVList->add_back(new Label());
+                metaVList->add_back(new Label());
+            }
             metaVList->add_back(crossmodeLabel);
-	    if (WizardMode) {
-		metaVList->add_back(compatibilityLabel);
-	    } else {
-		metaVList->add_back(new Label());
-	    }
+            if (WizardMode) {
+                metaVList->add_back(compatibilityLabel);
+            } else {
+                metaVList->add_back(new Label());
+            }
             metaVList->add_back(defLocationLabel);
             metaVList->add_back(new Label());
         }
@@ -247,12 +267,16 @@ namespace enigma { namespace gui {
         valueMetaVList->set_alignment(HALIGN_CENTER, VALIGN_CENTER);
         valueMetaVList->set_default_size(vshrink?37:75, vshrink?17:35);
         Widget * levelmodeWidget;
+        Widget * sokoballValueWidget;
         if (indexName.empty()){
             levelmode = new LevelmodeButton(false);
             levelmodeWidget = levelmode;
+            sokoballValueButton = new SokoballButton(false);
+            sokoballValueWidget = sokoballValueButton;
         } else {
             levelmodeWidget = new Image(isPersistent && !(persIndex->isCross()) ?
                     "ic-link_copy" : "ic-link");
+            sokoballValueWidget = new Label(isPersistent && (persIndex->getPackPath().find("sokoballs/") == 0) ? "yes" : "no");
         }
         defLocationValueLabel = new Label(ecl::strf("%g", packIndex->getDefaultLocation()));
         releaseValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRelease()) : "-");
@@ -261,20 +285,20 @@ namespace enigma { namespace gui {
         
         if (!isReasignOnly) {
             valueMetaVList->add_back(new Label());
-            valueMetaVList->add_back(new Label());
-	    if (WizardMode) {
-            valueMetaVList->add_back(releaseValueLabel);
-            valueMetaVList->add_back(revisionValueLabel);
-	    } else {
-            valueMetaVList->add_back(new Label());
-            valueMetaVList->add_back(new Label());
-	    }
+            valueMetaVList->add_back(sokoballValueWidget);
+            if (WizardMode) {
+                valueMetaVList->add_back(releaseValueLabel);
+                valueMetaVList->add_back(revisionValueLabel);
+            } else {
+                valueMetaVList->add_back(new Label());
+                valueMetaVList->add_back(new Label());
+            }
             valueMetaVList->add_back(levelmodeWidget);
-	    if (WizardMode) {
-            valueMetaVList->add_back(compatibilityValueLabel);
-	    } else {
-            valueMetaVList->add_back(new Label());
-	    }
+            if (WizardMode) {
+                valueMetaVList->add_back(compatibilityValueLabel);
+            } else {
+                valueMetaVList->add_back(new Label());
+            }
             valueMetaVList->add_back(defLocationValueLabel);
             valueMetaVList->add_back(new Label());
         }
@@ -361,17 +385,17 @@ namespace enigma { namespace gui {
             defLocationTF = new TextField(defLocationValueLabel->getText()); 
             valueMetaVList->exchange_child(defLocationValueLabel, defLocationTF);
             delete defLocationValueLabel;
-	    if (WizardMode) {
-		releaseTF = new TextField(releaseValueLabel->getText()); 
-		valueMetaVList->exchange_child(releaseValueLabel, releaseTF);
-		delete releaseValueLabel;
-		revisionTF = new TextField(revisionValueLabel->getText()); 
-		valueMetaVList->exchange_child(revisionValueLabel, revisionTF);
-		delete revisionValueLabel;
-		compatibilityTF = new TextField(compatibilityValueLabel->getText()); 
-		valueMetaVList->exchange_child(compatibilityValueLabel, compatibilityTF);
-		delete compatibilityValueLabel;
-	    }
+            if (WizardMode) {
+                releaseTF = new TextField(releaseValueLabel->getText()); 
+                valueMetaVList->exchange_child(releaseValueLabel, releaseTF);
+                delete releaseValueLabel;
+                revisionTF = new TextField(revisionValueLabel->getText()); 
+                valueMetaVList->exchange_child(revisionValueLabel, revisionTF);
+                delete revisionValueLabel;
+                compatibilityTF = new TextField(compatibilityValueLabel->getText()); 
+                valueMetaVList->exchange_child(compatibilityValueLabel, compatibilityTF);
+                delete compatibilityValueLabel;
+            }
         }
     }
     
@@ -399,11 +423,12 @@ namespace enigma { namespace gui {
             newtitle = newtitle.substr(0 , lastChar + 1);
             newtitle = newtitle.substr(newtitle.find_first_not_of(" "));
             if (newtitle != persIndex->getName()) {
+                bool isSokoball = persIndex->getPackPath().find("sokoballs/");
                 if (isNewIndex) {
                     // check for filename usability of title
                     const std::string validChars("_- .#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
                     if (newtitle.find_first_not_of(validChars, 0) != std::string::npos ||
-			    (newtitle.length() >= 1 && newtitle[0] == '.')) {
+                            (newtitle.length() >= 1 && newtitle[0] == '.')) {
                         errorLabel->set_text(N_("Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"));
                         return false;               
                     }
@@ -411,8 +436,10 @@ namespace enigma { namespace gui {
                     // set packPath to cross if link only
                     if (levelmode->isLinkOnly())
                         persIndex->markNewAsCross();
+                    
+                    isSokoball = sokoballValueButton->isSokoball();
                 }
-                if (!persIndex->setName(newtitle)) {
+                if (!persIndex->setName(newtitle, isSokoball)) {
                     errorLabel->set_text(N_("Error: title already in use - choose another title"));
                     return false;
                 }
@@ -439,27 +466,27 @@ namespace enigma { namespace gui {
                     int i = 0;
                     // check value - keep old value on error 
                     if ((sscanf(releaseTF->getText().c_str(),"%d", &i) == 1) &&
-                	    i > 0) {
-                	persIndex->setRelease(i);
-                	needSave = true;
+                            i > 0) {
+                        persIndex->setRelease(i);
+                        needSave = true;
                     }
                 }
                 if (revisionTF->getText() != ecl::strf("%d", persIndex->getRevision())) {
                     int i = 0;
                     // check value - keep old value on error 
                     if ((sscanf(revisionTF->getText().c_str(),"%d", &i) == 1) &&
-                	    i > 0) {
-                	persIndex->setRevision(i);
-                	needSave = true;
+                            i > 0) {
+                        persIndex->setRevision(i);
+                        needSave = true;
                     }
                 }
                 if (compatibilityTF->getText() != ecl::strf("%.2f", persIndex->getCompatibility())) {
                     double d = 0;
                     // check value - keep old value on error 
                     if ((sscanf(compatibilityTF->getText().c_str(),"%lg", &d) == 1) &&
-                	    d >= 1) {
-                	persIndex->setCompatibility(d);
-                	needSave = true;
+                            d >= 1) {
+                        persIndex->setCompatibility(d);
+                        needSave = true;
                     }
                 }
             }
