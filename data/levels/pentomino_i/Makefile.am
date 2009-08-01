@@ -1,3 +1,3 @@
-pkgdatadir = $(datadir)/@PACKAGE@/levels/enigma_pentomino_i
+pkgdatadir = $(datadir)/@PACKAGE@/levels/pentomino_i
 pkgdata_DATA = $(wildcard $(srcdir)/*.png $(srcdir)/*.txt $(srcdir)/*.xml)
 EXTRA_DIST = $(pkgdata_DATA)
