@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="mad-ill-tation" el:subtitle="a tribute to esprit meditation levels" el:id="ill0907-01"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="illmind" el:email="illmind@mag-heut.net" el:homepage="http://www.mag-heut.net"/>
+      <el:copyright>Copyright © 2007 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["#"] = {"st_granite"}
+ti[" "] = {"fl_dark"}
+ti["."] = {"fl_abyss"}
+ti["d"] = {"it_document", text = "text1"}
+ti["o"] = {"it_meditation"}
+ti["1"] = {"#ac_pearl_white", adhesion =  0.5, essential = INDISPENSABLE}
+ti["2"] = {"#ac_pearl_white", adhesion =  5.0, essential = INDISPENSABLE}
+ti["3"] = {"#ac_pearl_white", adhesion = -1.0, essential = INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#o     .     .     #",
+    "#o  .              #",
+    "#o        .     .  #",
+    "################   #",
+    "#       .          #",
+    "# .        .     . #",
+    "#    .        .    #",
+    "#   ################",
+    "#  .        .     1#",
+    "#     .        .  2#",
+    "#d       .        3#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">... illmind's mad-ill-tation ... a tribute to esprit meditation levels from the past. thank you. ...</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

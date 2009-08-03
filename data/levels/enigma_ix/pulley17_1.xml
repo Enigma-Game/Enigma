@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Logic Gates" el:subtitle="" el:id="20080601pulley001"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="5:38" el:difficult="4:35"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowThreshold"] = po(4, 3)
+
+ti[" "] = {"fl_bright"}
+ti[">"] = {"fl_slope_te"} -- Right
+ti["<"] = {"fl_slope_tw"} -- Left
+ti["^"] = {"fl_slope_tn"} -- Up
+ti["v"] = {"fl_slope_ts"} -- Down
+ti["e"] = {"st_oneway_black", state=EAST}
+ti["s"] = {"st_oneway_black", state=SOUTH}
+ti["w"] = {"st_oneway_black", state=WEST}
+ti["E"] = ti[">"] .. {"st_oneway_black", state=EAST}
+ti["N"] = ti["^"] .. {"st_oneway_black", state=NORTH}
+ti["S"] = ti["v"] .. {"st_oneway_black", state=SOUTH}
+ti["W"] = ti["<"] .. {"st_oneway_black", state=WEST}
+ti["("] = ti["<"] .. {"st_oneway", state=WEST}
+ti[")"] = ti[">"] .. {"st_oneway", state=WEST}
+ti["-"] = ti["w"] .. {"it_sensor", "westsensor#", target="mark", _dir=W}
+ti["="] = ti["e"] .. {"it_sensor", "eastsensor#", target="mark", _dir=E}
+ti["0"] = {"st_oxyd"}
+ti["#"] = {"st_bluegray"}
+
+if wo ["IsDifficult"] then
+  ti["d"] = ti["#"]
+  ti["."] = ti[">"]
+  ti["f"] = ti[">"]
+else
+  ti["d"] = {"st_dispenser_extralife"}
+  ti["."] = ti[">"] .. {"it_spoon"}
+  ti["f"] = ti[">"] .. {"it_flag_black"}
+end
+
+ti["*"] = cond(wo["CreatingPreview"], ti[" "] .. {"ac_marble_black", 0.5, 0.5}, ti[" "])
+ti["@"] = cond(wo["CreatingPreview"], ti[">"], ti[">"] .. {"#ac_marble_black"})
+
+--          1    1    2    2    3    3    4    4    5    5    6    6    7    7    8    8
+--0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5
+wo(ti, " ", {
+ "#######################################d###########################################",
+ "#@>>.>f>.>f>>>E                                                 W<<<<<<<<<<<<<<<<<#", --01
+ "###############s#######s#######s#######s#######s#######s#######s#################N#",
+ "#         #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#           #^#",
+ "#     #####s#######s#######s#######s#######s#######s#######s#######s####        #^#",
+ "#     #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#       #^#", --05
+ "# #####s#######s#######s#######s#######s#######s#######s#######s#######s####    #^#",
+ "# #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#   #^#",
+ "# #s#######s#######s#######s#######s#######s#######s#######s#######s#######s#   #^#",
+ "# # eees-w( )e=s-w( )e=s-w( )e=sww(*)ees-w( )e=s-w( )e=s-w( )e=s-w( )e=swww #   #^#",
+ "# #####s#######s#######s#######s#######s#######s#######s#######s#######s#####   #^#", --10
+ "# #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#   #^#",
+ "# #s#######s#######s#######s#######s#######s#######s#######s#######s#######s#   #^#",
+ "# # eees-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=swww #   #^#",
+ "# #####s#######s#######s#######s#######s#######s#######s#######s#######s#####   #^#",
+ "# #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#   #^#", --15
+ "# #s#######s#######s#######s#######s#######s#######s#######s#######s#######s#   #^#",
+ "# # eees-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=swww #   #^#",
+ "# #####s#######s#######s#######s#######s#######s#######s#######s#######s#####   #^#",
+ "# #s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s-w( )e=s#   #^#",
+ "###s#######s#######s#######s#######s#######s#######s#######s#######s#######s#####^#", --20
+ "#      0#      0#      0#      0#      0#      0#      0#      0#      0#      0#^#",
+ "#s#######s#######s#######s#######s#######s#######s#######s#######s#######s#######^#",
+ "#>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E>>>>>>>E^#",
+ "###################################################################################"}) --24
+--          1    1    2    2    3    3    4    4    5    5    6    6    7    7    8    8
+--0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5
+
+wo:add({"ot_timer", target="rotate", state=ON, interval=0.1, loop=true})
+wo:shuffleOxyd()
+
+function flip(value, sender)
+   st(sender - 2*sender["_dir"]):flip()
+   st(sender - 4*sender["_dir"]):flip()
+end
+
+for sensor in no["westsensor#*"]:shuffle():sub(1, 37) do
+   flip(true, sensor)
+end
+
+active_sensors = {}
+
+function mark(value, sender)
+   sender["_count"] = 6
+   sender["_rot"] = cond(math.random() > 0.5, 1, -1)
+   table.insert(active_sensors, sender)
+end
+
+function rotate(value, sender)
+   for i=#active_sensors, 1, -1 do
+       local sensor = active_sensors[i]
+       local dir = st(sensor - 2*sensor["_dir"])["state"]
+       dir = (dir + sensor["_rot"]) % 4
+       st(sensor - 2*sensor["_dir"])["state"] = dir
+       st(sensor - 4*sensor["_dir"])["state"] = dir
+       sensor["_count"] = sensor["_count"] - 1
+       if sensor["_count"] == 0 then
+           table.remove(active_sensors, i)
+       end
+   end
+end
+ ]]></el:luamain>
+   <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+ </el:protected>
+</el:level>

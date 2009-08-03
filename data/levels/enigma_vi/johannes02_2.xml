@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Knight's Journey" el:id="20061210johannes313"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Johannes Laire" el:email="johannes.laire@gmail.com"/>
+      <el:copyright>Copyright © 2006 Johannes Laire</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (August 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="03:02"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bluegray"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_metal"}
+ti["Y"] = {"st_blur_magic"}
+ti["M"] = ti({"it_pipe", connections = "ew"}) .. {"st_mail_e"}
+ti["9"] = {"it_pipe", connections = "sw"}
+ti["6"] = {"it_pipe", connections = "ns"}
+ti["3"] = {"it_pipe", connections = "nw"} 
+ti["+"] = {"st_thief"}
+ti["!"] = ti({"it_seed_volcano"}) .. {"st_bluegray"}
+ti["."] = ti({"it_seed"}) .. {"st_bluegray_hollow"}
+ti["S"] = ti["~"] .. {"st_chess_black"}
+ti["y"] = {"it_yinyang"}
+ti["O"] = {"st_oxyd_c", oxydcolor = OXYD_BLACK}
+ti["o"] = {"st_oxyd_c", oxydcolor = OXYD_WHITE}
+ti["1"] = {"#ac_marble_black"}
+ti["2"] = {"#ac_marble_white"}
+
+wo(ti, " ", {
+   "#################### ",
+   "#OOOOOOOOOOOOOOOOOO# ",
+   "#YYYYYYYYYYYYYYYYYY# ",
+   "#        y1        # ",
+   "#                  M9",
+   "#S+++++++++++++++++#6",
+   "#~+!++!++!++.++.++.#6",
+   "#~+++++++++++++++++#6",
+   "#                  M3",
+   "#        2y        # ",
+   "#YYYYYYYYYYYYYYYYYY# ",
+   "#oooooooooooooooooo# ",
+   "#################### "})
+
+wo:add(YIN, {"it_magicwand"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

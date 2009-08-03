@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Circulation" el:subtitle="" el:id="pulley03"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_fake_abyss", push_directions=nil}
+
+ti["a*"] = ti({"it_vortex_open", destination="Target%%"}) .. {"fl_slope_tn"} -- Up
+ti["b*"] = ti({"it_vortex_open", destination="Target%%"}) .. {"fl_slope_ts"} -- Down
+ti["c*"] = ti({"it_vortex_open", destination="Target%%"}) .. {"fl_slope_te"} -- Right
+ti["d*"] = ti({"it_vortex_open", destination="Target%%"}) .. {"fl_slope_tw"} -- Left
+ti["e*"] = {"fl_slope_tn", name="Target%%"} -- Up
+ti["f*"] = {"fl_slope_ts", name="Target%%"} -- Down
+ti["g*"] = {"fl_slope_te", name="Target%%"} -- Right
+ti["h*"] = {"fl_slope_tw", name="Target%%"} -- Left
+ti["i*"] = {"fl_redslab", name="Target%%"} -- Artery
+ti["j*"] = ti({"it_vortex_open", destination="Target%%"}) .. {"fl_tigris"} -- Gut
+ti["k "] = {"fl_woven"} -- Hand
+ti["m "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_tn"} -- Up - Gut
+ti["n "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_ts"} -- Down - Gut
+ti["o "] = {"st_oxyd_e"}
+ti["p "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_te"} -- Right - Gut
+ti["q "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_tw"} -- Left - Gut
+ti["r "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_ise"} -- Down and right - gut
+ti["s "] = {"fl_swamp"} -- Kidney
+ti["t "] = ti({"fl_slope_te"}) .. {"it_sword"}
+ti["u "] = (ti{"st_oneway_black", state=EAST} .. {"fl_slope_te"}) .. {"it_trigger", action="callback",target="CloseGates"}
+ti["v "] = {"fl_slope_ts"} -- Down
+ti["w "] = {"fl_water"} -- Bladder
+ti["x "] = (ti{"st_knight"} .. {"fl_wood"}) .. {"it_death"}
+ti["y "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_isw"} -- Down and left - gut
+ti["z "] = ti({"it_bottle_broken"}) .. {"fl_pinkbumps"}
+
+ti["B "] = {"st_timer", loop=1,interval=10,action="signal",target="peristalsis"}
+ti["D "] = {"st_oneway_white", state=SOUTH}
+ti["E "] = ti({"st_oneway_black", state=EAST}) .. {"fl_slope_te"}
+ti["F "] = {"fl_gravel"} -- Foot
+ti["G "] = ti({"st_redfiber"}) .. {"fl_tigris"}
+ti["H "] = ti({"st_door_d_ew", state=CLOSED, name="gate#"}) .. {"fl_gravel"} -- Foot
+ti["I "] = ti({"st_invisible"}) .. {"fl_swamp"}
+ti["J "] = ti({"st_oneway_black", state=EAST}) .. {"fl_pinkbumps"}
+ti["K "] = ti({"st_knight"}) .. {"fl_wood"}
+ti["L "] = {"st_oneway_white", state=WEST}
+ti["N "] = ti({"st_oneway_black", state=NORTH}) .. {"fl_slope_tn"}
+ti["O "] = {"st_stoneimpulse"}
+ti["P "] = ti({"st_stoneimpulse_hollow", name="peristalsis"}) .. {"fl_tigris"}
+ti["Q "] = {"fl_redslab"} -- left heart
+ti["R "] = {"st_oneway_white", state=EAST}
+ti["S "] = ti({"st_oneway_black", state=SOUTH}) .. {"fl_slope_ts"}
+ti["T "] = {"fl_lawn"} -- Thumb
+ti["U "] = {"st_oneway_white", state=NORTH}
+ti["V "] = {"fl_blueslab"} -- right heart
+ti["W "] = ti({"st_oneway_black", state=WEST}) .. {"fl_slope_tw"}
+ti["X "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_ine"} -- Up and right - gut
+ti["Y "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_inw"} -- Up and left - gut
+ti["Z"] = ti({"fl_plank", push_directions=nil}) .. {"st_puzzle_yellow", cluster=1, intensity=2/36}
+
+ti["1 "] = {"fl_space"}
+ti["2 "] = {"fl_plank", push_directions="nesw"} -- Brain
+ti["4 "] = ti({"st_door_a", name="gate#"}) .. {"fl_swamp"}
+ti["5 "] = ti({"st_door_d_ew", state=CLOSED, name="gate#"}) .. {"fl_lawn"}
+ti["6 "] = ti({"st_door_d_ew", state=CLOSED, name="gate#"}) .. {"fl_wood"}
+ti["7 "] = ti({"st_door_d_ew", state=CLOSED, name="gate#"}) .. {"fl_tigris"}
+ti["8 "] = ti({"st_door_d_ew", state=CLOSED, name="gate#"}) .. {"fl_pinkbumps"}
+
+ti["! "] = ti({"st_door_d", state=CLOSED, name="gate#"}) .. {"fl_plank", push_directions=nil} -- Brain
+ti["# "] = {"st_yellow"}
+ti["$ "] = {"st_redrock"} --artery
+ti["% "] = (ti{"st_door_a", name="gate#"} .. {"it_strip_ew"}) .. {"fl_water"}
+ti["^ "] = {"fl_slope_tn"} -- Up
+ti["& "] = {"st_switch", action="callback", target="OpenGates"}
+ti["* "] = {"st_bluesand"} --vein
+ti["( "] = {"fl_slope_ine"} -- Up and right
+ti[") "] = {"fl_slope_inw"} -- Up and left
+
+ti["` "] = ti({"it_strip_ne"}) .. {"fl_water"}
+ti["~ "] = {"st_timer", loop=1,interval=0.25,action="callback",target="heartbeat"}
+ti["_ "] = ti({"it_strip_es"}) .. {"fl_water"}
+ti["= "] = {"fl_tigris"} -- Gut
+ti["[ "] = ti({"it_strip_ew"}) .. {"fl_water"}
+ti["] "] = ti({"it_strip_ns"}) .. {"fl_water"}
+ti["{ "] = {"fl_slope_ise"} -- Down and right
+ti["} "] = {"fl_slope_isw"} -- Down and left
+ti["| "] = ti({"st_puzzle_yellow_n"}) .. {"fl_plank", push_directions=nil}
+ti["; "] = ti({"it_strip_nw"}) .. {"fl_water"}
+ti[": "] = ti({"it_strip_sw"}) .. {"fl_water"}
+ti["' "] = ti({"st_puzzle_yellow_s"}) .. {"fl_plank", push_directions=nil}
+ti[", "] = {"fl_plank", push_directions=nil} -- Brain
+ti[". "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_tigris"}
+ti["> "] = {"fl_slope_te"} -- Right
+ti["< "] = {"fl_slope_tw"} -- Left
+ti["/ "] = {"fl_pinkbumps"} -- Liver
+ti["? "] = ti({"it_strip_nes"}) .. {"fl_water"}
+
+ti["- "] = ti({"st_puzzle_yellow_ew"}) .. {"fl_plank", push_directions=nil}
+ti["+ "] = ti({"st_puzzle_yellow_nesw_hollow", algorithm="marked"}) .. {"fl_plank", push_directions="nesw"}
+
+local baseresolver = res.puzzle(ti, "Z")
+local medresolver  = res.random(baseresolver, "l ", {"1 ", "  "})
+local topresolver  = res.autotile(medresolver, {"a", "a*"}, {"b", "b*"}, {"c", "c*"}, {"d", "d*"}, {"e", "e*"}, {"f", "f*"}, {"g", "g*"}, {"h", "h*"}, {"i", "i*"}, {"j", "j*"})
+
+--|                   1         1       | 2         2         3         3     |   4         4         5         5   |     6         6         7         7         8         8         9         9         0         0         1         1         2         2         3
+--| 1       5         0         5       | 0         5         0         5     |   0         5         0         5   |     0         5         0         5         0         5         0         5         0         5         0         5         0         5         0
+w, h = wo(topresolver, "  ", {
+ "                                                                            # # # # # # # # # # # # # # # # # # # #                                                                             ",
+ "                                                                        # # # 2 2 2 2 2 2 2 2 # # 2 2 2 2 2 2 2 2 # # #                                                                         ",
+ "                                                                        # 2 2 2 Z12 Z12 Z12 ' # # ' 2 Z12 Z12 Z12 2 2 #                                                                         ",
+ "                                                                        # 2 Z1Z1Z1Z1Z1Z1Z12 , # # , 2 Z1Z1Z1Z1Z1Z1Z12 #                                                                         ",
+ "                                                                        # 2 2 Z1Z1, , , Z1Z1+ - - + Z1Z1, , , Z1Z12 2 #                                                                         ",
+ "                                                                        # 2 Z1Z1Z1Z1, Z1Z1Z1+ - - + Z1Z1Z1, Z1Z1Z1Z12 #                                                                         ",
+ "                                                                        # 2 2 2 Z1Z1Z1Z1Z1Z1Z1# # Z1Z1Z1Z1Z1Z1Z12 2 2 #                                                                         ",
+ "                                                                        # # # 2 2 Z1Z1Z1Z1Z1Z1# # Z1Z1Z1Z1Z1Z12 2 # # #                                                                         ",
+ "                                                                            # # 2 Z12 Z12 2 | # # | 2 2 Z12 Z12 # #                                                                             ",
+ "                                                                            # # 2 2 2 2 2 # ! # # ! # 2 2 2 2 2 # #                                                                             ",
+ "                        # # # # # # # # # # # # # # # # # # # # # # # # # # # * , * $ , $ # o # # o # $ , $ * , * # # # # # # # # # # # # # # # # # # # # # # # # # # #                         ",
+ "            # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # * d9* $ N $ $ $ $ $ $ $ $ N $ * b7* # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #             ",
+ "          # # $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ D $ $ ^ ) < < W < > > E ^ $ $ D $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ # #           ",
+ "          # # $ v } } < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < < W < < < < W < > > E > E > > > > > E > > > > > > > > > > > > > > > > > > > > > > > > > { { v $ # #           ",
+ "          # # $ v $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ D $ $ $ $ $ $ $ ) > > E > E > { { { v $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ v $ # #           ",
+ "          # # $ v $ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # * f9* # # # # # $ ) ^ ( $ $ $ $ D $ $ S $ # # # # # # # # # # # # # # # # # # # # # # # # # # $ v $ # #           ",
+ "          # # $ v $ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * } * * * * * * $ ) ^ ( $ * * * f7* $ v $ * * * * * * * * * * * * * * * * * * * * * * * * * * $ v $ # #           ",
+ "          # # $ v $ * > > > > > > > > > > > > > > > > > > > > > > > > > E b3W < < W < < < < h8L ) ^ ( L d8< < h6W L v L d6< < < < < < < < < < < < < < < < < < < < < < < < * $ v $ # #           ",
+ "          # # $ v $ * ( * * * * * * * * * * * * * * * * * * * * * * * * * D * * * * * * * * * $ ^ ^ ( $ * * * * * $ v $ * * * * * * * * * * * * * * * * * * * * * * * * ) * $ v $ # #           ",
+ "          # # $ v $ * ( * # # # # # # # # # # # # # # # # # # # # # * * * D * * * * * * * * ~ $ ^ ^ ^ $ * * * * * $ v $ * # # # # # # # # # # # # # # # # # # # # # # * ) * $ v $ # #           ",
+ "          # # $ v $ * ^ * # # # # # # # # # # # l l l l l l l l l l l W < < < < < < W < < > c2R ^ ^ ^ R g2> > > b4R v R g4l l l l l l l l l l l # # # # # # # # # # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # # l l l l l l l l l l l * * D * * * * * * ) ( * $ ^ ^ ^ $ * * * * * $ v $ * l l l l l l l l l l l # # # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # l l l l l l l l l l l l $ $ D $ $ $ $ $ * ^ ^ * $ ^ ^ ^ $ $ $ $ $ $ $ v $ # l l l l l l l l l l l l # # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # l l l l l l l l l l l l > > > > > > > c1R ^ ^ R R ^ ^ ^ R f1$ $ $ $ $ v $ # l l l l l l l l l l l l # # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # l l l l l l l l l l l l l $ $ D $ $ $ $ $ * ^ ^ * $ ^ ^ ^ $ v $ Q Q Q $ v $ # l l l l l l l l l l l l l # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # l l l l l l l l l l l l l # * f3* V V V V * ^ ^ * $ ^ ^ ^ $ v $ Q Q Q $ v $ # l l l l l l l l l l l l l # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # l l l l l l l l l l l l l # * v * V V V V * ^ ^ * $ ^ ^ ^ $ S $ Q Q Q $ v $ $ l l l l l l l l l l l l l # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # l l l l l l l l l l l l l # * S * V V V V * ^ ^ * $ ^ ^ ^ $ Q Q Q Q i5L v L d5l l l l l l l l l l l l l # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * > u V V V V * ^ ^ * $ ^ ^ ^ $ Q Q Q Q Q $ v $ $ l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * N * V V V V * ^ ^ * $ N N N $ $ $ $ S $ $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * ^ * * * S * * N N * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l l l l l l l l l l l l # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l l l l l l l l l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # l l l # # # # # # # l l l l # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # l l l l # # # # # # # l l l #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # & # # # / / / / z # # # # # # * ^ * V V V V V V V * $ Q Q Q Q Q Q Q Q Q $ v $ # # # # # # L R x x x # # # & #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # z z / z z / z / / / 8 o # * ^ * * * * * * * * * $ $ $ $ $ $ $ $ $ $ $ v $ # x x D K K K K K K K K K D # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / / / z / / z / / / z z # # # * ^ ) < < < < < < * $ v v v v v v v < < < < < $ # x x x K x K x x x x L K 6 o #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / z / z z / z z z z / / / z z * * * * * * * * ) * $ v v v v v v v $ $ $ $ $ $ D K K K K U K K K K K K R # # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / z / z z / / / / / / z / z z * * * * * * * * ^ * $ v v v v v v v $ * * * * * * K x x R x x x x x x K x x x #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / z / / z z / z z z z z / / / E > > > > > > E e0W L } v v v v v { L d0< < < < W K x x K K K K D x x K x x x #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / / z / z J / z / / / / / z z * * * * * * * * ea* $ } v v v v v { $ * * * * * * R x x K x x K K K K K U x x #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # z / z / / / z z / z z z z z z $ $ $ $ $ $ $ $ U $ $ } v v v v v { $ $ $ $ $ $ $ K K K K U x R x x x x x x x #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / / z z z z z z / / / / / / / W < < < < < < < < < W < v v v v v > E > > t > > E N $ # # # # # # # # # # # # #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / z / / / z z z z z # # # # # $ $ $ $ $ $ $ $ U $ $ $ v v v v v $ $ $ $ $ $ $ $ $ $ p p p p p p p p p p r n #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # / / / z / z # # # # n y q G n y q # o 4 s * * aa* * $ v v v v v $ * s 4 o # p p p X m G G G G G G G G G G y #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # / # N # n y q G n G Y G n G Y # I s s > E eeW hbL } v v v { L dbs s I # X G G G G G n y q q q q q q q q #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # o 8 / # N # n G Y G n G m G n G m # s s s * * N * * $ } v v v { $ * s s s # m G n y q G r G G G G G G G G G #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # # # N # n G m G n G m G n G m # s s s $ $ U $ $ $ } v v v { $ $ s s s # m G n G Y G p p p p p p p p r n #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . . . # N # y G m G n G m G y G m # s s s < < < < < W < v v { > E > s s s # m G n G m G G G G G G G G G G y #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . G . . . q q G m G n G m Y q G m # s s s $ $ U $ $ $ $ v v { $ $ $ # # # # m G n G m Y q q q q q q q q q q #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . G G G G G G G m G r G G G G G m # # # # # * ae* G G $ v v { $ $ B P . . . m G r G G G G G G G G G G G G G #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . . . . . . . G m G p p p r n G m Y q q G . O m O O G $ v v > E > > = = = = = G p p p p p p p p p p p p r n #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # G G G G G = . G m q G G G G p n G G G Y G . * ^ * O G $ v v $ $ $ G G G G G G G G G G G G G G G G G G G G y #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . . . . . G . G G m Y q q q G n G p X m G . * eh* O G $ v v $ G G n y q G n y q q q q q q q q q q q q q q q #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . G G G . G . = G G G G G Y G n G X G G G O * U * O G $ v v $ G G n G Y G r G G G G G G G G G G G G G G G G #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # . . . G . G . . . . . G G m G n G m G n y q < < < q hcL v v L jc= . G m G p p p p p p p p p p p p p p p r n #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # G G . G . G G G G G . G G m G y G m G y G G * U * O G $ v v $ G G . G m G G G G G G G G G G G G G G G G G y #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # o 7 . G . . . . . . . = G m Y q G m Y q G . O ahO O G $ } { $ o 7 . G m Y q q q q q q q q q q q q q q q q q #           # # * ^ * $ v $ # #           ",
+ "          # # $ v $ * ^ * # #           # # # # # G G G G G G G G G G G G G G G G G O * ed* G G $ } { $ G G O G G G G G G G G G G G G G G G G # # # # #           # # * ^ * $ v $ # #           ",
+ "# # # # # # # $ S $ * N * # #           # # # # # $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ O $ U $ $ $ $ } { $ $ $ O $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ # # # # #           # # * N * $ S $ # # # # # # # ",
+ "# o T T T T 5 k k k k k k k #           # # # # # $ v v < < < < < < < < < < < < < < q < < < < < W < > E > > p > > > > > > > > > > > > > v v $ # # # # #           # k k k k k k k 5 T T T T o # ",
+ "# # # # # # # k k k k k k k #           # # # # # $ v v $ $ $ $ $ $ $ $ $ $ $ $ $ $ O $ U $ $ $ $ $ $ $ $ $ O $ $ $ $ $ $ $ $ $ $ $ $ $ v v $ # # # # #           # k k k k k k k # # # # # # # ",
+ "            # k k k k k k k #           # # # # # $ v v $ * * * * * * * * * * * * * O * ad* * * * * * * * * O * * * * * * * * * * * * $ v v $ # # # # #           # k k k k k k k #             ",
+ "            # k k k k k k k #           # # # # # $ v v $ * > > > > > > > > > > > > p E ^ W < < < < < < < < q < < < < < < < < < < < * $ v v $ # # # # #           # k k k k k k k #             ",
+ "            # k k k k k k k #           # # # # # $ v v $ * ( * * * * * * * * * * O O * * * * * * * * * * * O O * * * * * * * * * ) * $ v v $ # # # # #           # k k k k k k k #             ",
+ "            # k k k k k k k #           # # # # # $ v v $ * ( * . . . . . . . . . . G . . . . O O O . . . . G . . . . . . . . . * ) * $ v v $ # # # # #           # k k k k k k k #             ",
+ "            # k # k # k # k #           # # # # # $ v { $ * ^ W . G G G G G G G G G . . w w w o % : w w w . . G G G G G G G G . E ^ * $ } v $ # # # # #           # k # k # k # k #             ",
+ "            # k # k # k # k #           # # # # # $ v { $ * ef* . . . . . . . . . G . [ [ : w w w ] w _ [ [ . G . . . . . . . . * eg* $ } v $ # # # # #           # k # k # k # k #             ",
+ "            # k # k # k # k #           # # # # # $ v { $ $ U $ G G G G G G G G . G . w w ] w w w ] w ] w w . G . G G G G G G G $ U $ $ } v $ # # # # #           # k # k # k # k #             ",
+ "            # k # k # k # k #           # # # # # $ v > E > > E . . . . . . . . . G . w w ? [ [ [ ; w ] w w . G . . . . . . . . W < < W < v $ # # # # #           # k # k # k # k #             ",
+ "            # # # # # # # # #           # # # # # $ S $ $ $ U $ . G G G G G G G G G . w w ] w w w w w ] w w . G G G G G G G G . $ U $ $ $ S $ # # # # #           # # # # # # # # #             ",
+ "                                        # # # # # $ v $ # * af* . . . . . . . . . . . w w ` [ [ [ [ [ ; w w . . . . . . . . . . * ag* # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # # #                     # # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # # #                     # # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # #                         # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # #                         # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # # #                         # # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # #                             # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # #                             # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # # #                             # # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # #                                 # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # #                                 # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # # #                                 # # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ v $ # * ^ * # # # # # # #                                     # # # # # # # * ^ * # $ v $ # # # # #                                         ",
+ "                                        # # # # # $ S $ # * N * # # # # # # #                                     # # # # # # # * N * # $ S $ # # # # #                                         ",
+ "                                    # # # F F F F F F # # # F F F F # F F F #                                     # F F F F F F F F # # # F F F F F F # # #                                     ",
+ "                                # # # F F F # # # # # # # # # # # F F F # F #                                     # F # # # # # # # # # # # # # # # F F F # # #                                 ",
+ "                            # # # F F F # # F F F F F F F F F # # # # # # F #                                     # F F F F F F F F F F F F F F F F # # F # # # # #                             ",
+ "                        # # # # F F # # # F F # # # # # # # F F F F F F # F #                                     # # # # # # # # # # # # # # # # F F F F # F F F # # #                         ",
+ "                    # # # # # # F # F F F F # F F F F F F # # # # # # F # F #                                     # F # F F F F F F F F F F F F F F # # # F F # F F F # # #                     ",
+ "                # # # # F F F # F # F # # # # F # # # # F F F F F F F F # F #                                     # F # F # # # # # F # # # # # # # F F F F # # # # F # # # # #                 ",
+ "            # # # # # # F # F F F # F F F F # F # F F F # # # # # # # # # F #                                     # F # F # F F F # F F F F F F # F F # # # F F F F F # # # # # # #             ",
+ "        # # # # F F F # F # # # # # # # # F # F # F # F # F F F # F F F # F #                                     # F # F # F # F # # # # # # F # F # F F F F # # # # # # F F F F # # #         ",
+ "    # # # # # # F # F # F F F F F F F F F F # F # F # F # F # F # F # F # F #                                     # F # F F F # F # F F F F F F # F # F # # # # # F F F # F # # F # # # # #     ",
+ "# # # # F F F # F # F # # # # # # # # # # # # F # F # F # F # F # F # F # F #                                     # F # # # # # F # F # # # # # # F # F # F F F # F # F # F # # F F F F F # # # ",
+ "# o H F F # F F F # F F F F F F F F F F F F F F F F # F F F # F F F # F F F #                                     # F F F F F F F # F F F F F F F F # F F F # F F F # F F F # # # # # # F H o # ",
+ "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #                                     # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "})
+--|                   1         1       | 2         2         3         3     |   4         4         5         5   |     6         6         7         7         8         8         9         9         0         0         1         1         2         2         3
+--| 1       5         0         5       | 0         5         0         5     |   0         5         0         5   |     0         5         0         5         0         5         0         5         0         5         0         5         0         5         0
+
+wo:shuffleOxyd()
+
+wo[{39.5,28.5}] = {"ac_marble_black"}
+wo[{41,29}] = {"it_document", text="text1"}
+wo["SlopeStrength"] = 50
+
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+  heartN = {"st_oneway_black", state=NORTH}
+  heartS = {"st_oneway_black", state=SOUTH}
+  heartK = {"st_nil"}
+  HeartL = {"fl_redslab"}
+  HeartR = {"fl_blueslab"}
+  N1 = {"fl_slope_tn", force_y=-25}
+  S1 = {"fl_slope_ts", force_y=25}
+  W1 = {"fl_slope_tw", force_x=-25}
+  E1 = {"fl_slope_te", force_x=25}
+  NE1 = {"fl_slope_ine", force_x=25, force_y=-25}
+  NW1 = {"fl_slope_inw", force_x=-25, force_y=-25}
+  SE1 = {"fl_slope_ise", force_x=25, force_y=25}
+  SW1 = {"fl_slope_isw", force_x=-25, force_y=25}
+  N2 = {"fl_slope_tn", force_y=-50}
+  S2 = {"fl_slope_ts", force_y=50}
+  W2 = {"fl_slope_tw", force_x=-50}
+  E2 = {"fl_slope_te", force_x=50}
+  NE2 = {"fl_slope_ine", force_x=50, force_y=-50}
+  NW2 = {"fl_slope_inw", force_x=-50, force_y=-50}
+  SE2 = {"fl_slope_ise", force_x=50, force_y=50}
+  SW2 = {"fl_slope_isw", force_x=-50, force_y=50}
+  N3 = {"fl_slope_tn", force_y=-100}
+  S3 = {"fl_slope_ts", force_y=100}
+  W3 = {"fl_slope_tw", force_x=-100}
+  E3 = {"fl_slope_te", force_x=100}
+  NE3 = {"fl_slope_ine", force_x=100, force_y=-100}
+  NW3 = {"fl_slope_inw", force_x=-100, force_y=-100}
+  SE3 = {"fl_slope_ise", force_x=100, force_y=100}
+  SW3 = {"fl_slope_isw", force_x=-100, force_y=100}
+
+pulse=0
+
+-- Some functions below originally had 2 tile declarations - I have split these, but kept the originals (hidden by --)
+function heartbeat()
+  pulse=pulse+1
+  if pulse==1 then
+-- Right Atrium --
+    wo:drawRect(po(39,25), po(42,25), heartS)
+    wo:drawRect(po(42,28), po(42,29), SW1)
+    wo:drawRect(po(41,28), po(41,29), S1)
+    wo:drawRect(po(40,28), po(40,29), SE1)
+    wo:drawRect(po(39,28), po(39,29), E1)
+-- Right Ventricle --
+    wo:drawRect(po(39,34), po(45,34), (heartK))
+    wo:drawRect(po(39,34), po(45,34), (N2))
+--    wo:drawRect(po(39,34), po(45,34), heartK,N2)
+    wo:drawRect(po(39,36), po(45,36), heartS)
+    wo:drawRect(po(39,35), po(45,35), heartS)
+    wo:drawRect(po(39,31), po(45,31), HeartR)
+    wo:drawRect(po(39,32), po(45,32), HeartR)
+    wo:drawRect(po(39,33), po(45,33), HeartR)
+-- Left Atrium --
+    wo:drawRect(po(54,24), po(56,24), heartS)
+    wo:drawRect(po(56,27), po(56,28), SW1)
+    wo:drawRect(po(55,27), po(55,28), S1)
+    wo:drawRect(po(54,27), po(54,28), SE1)
+    wo:drawRect(po(52,27), po(53,28), E1)
+-- Left Ventricle --
+    wo:drawRect(po(48,34), po(56,34), heartK)
+    wo:drawRect(po(48,34), po(56,34), N2)
+--    wo:drawRect(po(48,34), po(56,34), heartK,N2)
+    wo:drawRect(po(48,36), po(56,36), heartS)
+    wo:drawRect(po(48,35), po(56,35), heartS)
+    wo:drawRect(po(48,30), po(56,30), HeartL)
+    wo:drawRect(po(48,31), po(56,31), HeartL)
+    wo:drawRect(po(48,32), po(56,32), HeartL)
+    wo:drawRect(po(48,33), po(56,33), HeartL)
+  end
+  if pulse==2 then
+-- Right Atrium --
+    wo:drawRect(po(39,26), po(42,26), heartS)
+    wo:drawRect(po(42,28), po(42,29), SW2)
+    wo:drawRect(po(41,28), po(41,29), S2)
+    wo:drawRect(po(40,28), po(40,29), SE2)
+    wo:drawRect(po(39,28), po(39,29), E2)
+-- Right Ventricle --
+    wo:drawRect(po(39,35), po(45,35), heartK)
+    wo:drawRect(po(39,35), po(45,35), N2)
+--    wo:drawRect(po(39,35), po(45,35), heartK,N2)
+-- Left Atrium --
+    wo:drawRect(po(54,25), po(56,25), heartS)
+    wo:drawRect(po(56,27), po(56,28), SW2)
+    wo:drawRect(po(55,27), po(55,28), S2)
+    wo:drawRect(po(54,27), po(54,28), SE2)
+    wo:drawRect(po(52,27), po(53,28), E2)
+-- Left Ventricle --
+    wo:drawRect(po(48,35), po(56,35), heartK)
+    wo:drawRect(po(48,35), po(56,35), N2)
+--    wo:drawRect(po(48,35), po(56,35), heartK,N2)
+  end
+  if pulse==3 then
+-- Right Atrium --
+    wo:drawRect(po(39,27), po(42,27), heartS)
+    wo:drawRect(po(42,28), po(42,29), SW3)
+    wo:drawRect(po(41,28), po(41,29), S3)
+    wo:drawRect(po(40,28), po(40,29), SE3)
+    wo:drawRect(po(39,28), po(39,29), E3)
+-- Right Ventricle --
+    wo:drawRect(po(48,36), po(56,36), heartK)
+    wo:drawRect(po(48,36), po(56,36), N2)
+--    wo:drawRect(po(48,36), po(56,36), heartK,N2)
+-- Left Atrium --
+    wo:drawRect(po(54,26), po(56,26), heartS)
+    wo:drawRect(po(56,27), po(56,28), SW3)
+    wo:drawRect(po(55,27), po(55,28), S3)
+    wo:drawRect(po(54,27), po(54,28), SE3)
+    wo:drawRect(po(52,27), po(53,28), E3)
+-- Left Ventricle --
+    wo:drawRect(po(39,36), po(45,36), heartK)
+    wo:drawRect(po(39,36), po(45,36), N2)
+--    wo:drawRect(po(39,36), po(45,36), heartK,N2)
+  end
+  if pulse==4 then
+-- Right Atrium --
+    wo:drawRect(po(39,27), po(42,27), heartK)
+    wo:drawRect(po(39,27), po(42,27), S2)
+--    wo:drawRect(po(39,27), po(42,27), heartK,S2)
+    wo:drawRect(po(39,25), po(42,25), heartN)
+    wo:drawRect(po(39,26), po(42,26), heartN)
+    wo:drawRect(po(39,28), po(42,28), HeartR)
+    wo:drawRect(po(39,29), po(42,29), HeartR)
+-- Right Ventricle --
+    wo:drawRect(po(39,36), po(45,36), heartN)
+    wo:drawRect(po(44,31), po(45,33), N1)
+    wo:drawRect(po(43,31), po(43,33), NE1)
+    wo:drawRect(po(39,31), po(42,31), E1)
+    wo:drawRect(po(39,32), po(42,32), E1)
+    wo:drawRect(po(39,33), po(42,33), E1)
+-- Left Atrium --
+    wo:drawRect(po(54,26), po(56,26), heartK)
+    wo:drawRect(po(54,26), po(56,26), S2)
+--    wo:drawRect(po(54,26), po(56,26), heartK,S2)
+    wo:drawRect(po(54,24), po(56,24), heartN)
+    wo:drawRect(po(54,25), po(56,25), heartN)
+    wo:drawRect(po(52,27), po(56,27), HeartL)
+    wo:drawRect(po(52,28), po(56,28), HeartL)
+-- Left Ventricle --
+    wo:drawRect(po(48,36), po(56,36), heartN)
+    wo:drawRect(po(48,30), po(50,30), N1)
+    wo:drawRect(po(48,31), po(50,31), N1)
+    wo:drawRect(po(48,32), po(50,32), N1)
+    wo:drawRect(po(48,33), po(50,33), N1)
+    wo:drawRect(po(51,30), po(51,33), NW1)
+    wo:drawRect(po(52,30), po(56,30), W1)
+    wo:drawRect(po(52,31), po(56,31), W1)
+    wo:drawRect(po(52,32), po(56,32), W1)
+    wo:drawRect(po(52,33), po(56,33), W1)
+  end
+  if pulse==5 then
+-- Right Atrium --
+    wo:drawRect(po(39,26), po(42,26), heartK)
+    wo:drawRect(po(39,26), po(42,26), S2)
+--    wo:drawRect(po(39,26), po(42,26), heartK,S2)
+-- Right Ventricle --
+    wo:drawRect(po(39,35), po(45,35), heartN)
+    wo:drawRect(po(44,31), po(45,33), N2)
+    wo:drawRect(po(43,31), po(43,33), NE2)
+    wo:drawRect(po(39,31), po(42,31), E2)
+    wo:drawRect(po(39,32), po(42,32), E2)
+    wo:drawRect(po(39,33), po(42,33), E2)
+-- Left Atrium --
+    wo:drawRect(po(54,25), po(56,25), heartK)
+    wo:drawRect(po(54,25), po(56,25), S2)
+--    wo:drawRect(po(54,25), po(56,25), heartK,S2)
+-- Left Ventricle --
+    wo:drawRect(po(48,35), po(56,35), heartN)
+    wo:drawRect(po(48,30), po(50,30), N2)
+    wo:drawRect(po(48,31), po(50,31), N2)
+    wo:drawRect(po(48,32), po(50,32), N2)
+    wo:drawRect(po(48,33), po(50,33), N2)
+    wo:drawRect(po(51,30), po(51,33), NW2)
+    wo:drawRect(po(52,30), po(56,30), W2)
+    wo:drawRect(po(52,31), po(56,31), W2)
+    wo:drawRect(po(52,32), po(56,32), W2)
+    wo:drawRect(po(52,33), po(56,33), W2)
+  end
+  if pulse==6 then
+-- Right Atrium --
+    wo:drawRect(po(39,25), po(42,25), heartK)
+    wo:drawRect(po(39,25), po(42,25), S2)
+--    wo:drawRect(po(39,25), po(42,25), heartK,S2)
+-- Right Ventricle --
+    wo:drawRect(po(39,34), po(45,34), heartN)
+    wo:drawRect(po(44,31), po(45,33), N3)
+    wo:drawRect(po(43,31), po(43,33), NE3)
+    wo:drawRect(po(39,31), po(42,31), E3)
+    wo:drawRect(po(39,32), po(42,32), E3)
+    wo:drawRect(po(39,33), po(42,33), E3)
+-- Left Atrium --
+    wo:drawRect(po(54,24), po(56,24), heartK)
+    wo:drawRect(po(54,24), po(56,24), S2)
+--    wo:drawRect(po(54,24), po(56,24), heartK,S2)
+-- Left Ventricle --
+    wo:drawRect(po(48,34), po(56,34), heartN)
+    wo:drawRect(po(48,30), po(50,30), N3)
+    wo:drawRect(po(48,31), po(50,31), N3)
+    wo:drawRect(po(48,32), po(50,32), N3)
+    wo:drawRect(po(48,33), po(50,33), N3)
+    wo:drawRect(po(51,30), po(51,33), NW3)
+    wo:drawRect(po(52,30), po(56,30), W3)
+    wo:drawRect(po(52,31), po(56,31), W3)
+    wo:drawRect(po(52,32), po(56,32), W3)
+    wo:drawRect(po(52,33), po(56,33), W3)
+  end
+  if pulse>6 then
+    pulse=0
+  end
+end
+
+-- Closes all gates to oxyds
+function CloseGates()
+  no["gate#*"]:message("close")
+end
+
+-- Opens all gates to oxyds
+function OpenGates()
+  no["gate#*"]:message("open")
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="Your job is to 'collect' oxygen from the lungs (by opening the switch), then deliver the oxygen to the tissues (by touching the oxyds).">Carry that oxygen around.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

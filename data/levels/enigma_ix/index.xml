@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma IX"/>
 
   <attributes/>
 
@@ -10,9 +10,13 @@
     <level _seq="2" _title="Su Dyxo" _xpath="./ais33_1" author="Alex Smith" ctrl="force" easy="true" id="20090525ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="Camel and Needle" _xpath="./andreas57_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas57" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Water Galore" _xpath="./ral49_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090620ral141" rel="1" rev="178" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="pinnacles1" _xpath="./mecke36_1" author="mecke" ctrl="force" easy="true" id="mecke36" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Pinnacles I" _xpath="./mecke36_1" author="mecke" ctrl="force" easy="true" id="mecke36" rel="1" rev="16" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Symopal" _xpath="./andreas58_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas58" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="The Pilgrim's Progress" _xpath="./pulley14_1" author="Mark Pulley" ctrl="force" easy="false" id="20080101pulley001" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="8" _title="Logic Gates" _xpath="./pulley17_1" author="Mark Pulley" ctrl="force" easy="true" id="20080601pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="9" _title="Behind glass" _xpath="./rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Perennial Creek" _xpath="./pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="11" _title="Wired pulls" _xpath="./raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

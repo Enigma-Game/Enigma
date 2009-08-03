@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Perennial Creek" el:subtitle="" el:id="20080614pulley001"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="4:21" el:difficult="4:09"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_sand"}
+ti["~"] = cond(wo["IsDifficult"], {"fl_water_source", interval=0.5}, {"fl_water_source", interval=1})   -- start of water flow
+ti[";"] = {"fl_rough", floodable=true}   -- path of water flow
+ti["a"] = {"st_key", action="toggle", target="Door1"}
+ti["c"] = {"st_door_a", name="Door1"}
+ti["h"] = {"st_box_hay"}
+ti["#"] = {"st_redbrown"}
+ti["r"] = {"st_box_rock"}
+ti["v"] = {"it_vortex_closed", name="vortex0", autoclose=true, destination = {"vortex1", "vortex0"}}
+ti["x"] = ti[";"] .. {"st_portal"}
+ti["w"] = {"st_box_wood"}
+ti["B"] = ti[";"] .. {"it_key"}
+ti["H"] = ti[";"] .. {"st_box_hay"}
+ti["I"] = (ti[";"] .. {"st_box_hay"}) .. {"it_vortex_closed", name="vortex1", autoclose=true}
+ti["J"] = {"it_sensor_exit", target="vortex0", action="open"}
+ti["R"] = ti[";"] .. {"st_box_rock"}   -- floodable
+ti["S"] = (ti[";"] .. {"st_box_rock"}) .. {"it_seed"}
+ti["T"] = (ti[";"] .. {"st_box_rock"}) .. {"it_seed_hay"}
+ti["W"] = ti[";"] .. {"st_box_wood"}
+ti["0"] = {"st_oxyd", "top#"}
+ti["1"] = {"st_oxyd", "islands#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "~;;###00000000#a##########################################",
+    "#;v#@#HHHHHHHHc;;    ;;;;;;;;;;;;;;;;;;;;;;;x;;;;;;;;;;;;#",--01
+    "#;J# ########xRR;;   ;;r           ;        #   ;;;;;;;;;#",
+    "#;        ;;;;R;;;;;;;;            ;        1     ;;;;;;;#",
+    "#;        ;;;;;;;#####xR###########R#########;;;;  ;;;;;;#",
+    "#;;;;;;;  ;;;;;;  ;;;;#;;                   ;;;;;;;  ;;;;#",--05
+    "#;;;;;;;;    ###;;;;;;#            r        ;   ;;;;   ;;#",
+    "#      ;;;;;;;;;;   ;;                   ;;;;    ;;;    ;#",
+    "#                    ;;;;;;;;;;;;;;;;    ;;      ;;;;   ;#",
+    "#      ;;;;;;;;;;;                  ;   ;;        ;;;   ;#",
+    "#;;;;;;;;;;;;;;;;;;;#;;;;;;;;;;;;   ;  ;;;      ;;;;;;  ;#",--10
+    "#;;;;;;;;;;;;;;;;;;;#;          ;   ;;;;;;;;;;;;;;;;;;  ;#",
+    "#;;;;;;;;;;;;;;;;;;;;;        ;;;            ww     ;;  ;#",--
+    "#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1;   ;;;;;;;;;WW     ;   ;#",
+    "#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  ;   ;    ;#  ;;;;;  ;   ;#",
+    "#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  ;;;;;    ;#      ;;;;;;;;#",--15
+    "#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;          ;#              #",
+    "#;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;         ;H              #",
+    "#;;;;;;      ;;;;;;;;;;;;;;;;;;;;;       ;#              #",
+    "#;;;          ;;;;;;        ;;;;;;;       #              #",
+    "#;;     1     ;    ;    r r ;;;;;;;       ##H##########1##",--20
+    "#;;           ;;   ;   r   r ;;;;;;;        ;;;          #",
+    "#;;;        ;;;;;  ;    r r  ;;;;;;;        H;;          #",
+    "#;;;;;;;;;;;;;;;;;;;         ;;;;;;;      ;;;;;;;        #",
+    "#xx####h####xx###############;;;;;;;  ;;;;;;;;;;;;;;;;;;;#",--
+    "#;;;        ;;;             ##########;;;;;;;;;;;;;;;;;;;#",--25
+    "#;;     h   ;;;      ;;;;;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;#",
+    "#;     hH;;;;;  ;;;;;;   ;;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;#",
+    "#;     ;;    ; ;;        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;#",
+    "#;    ;;;    ; ;        ;;;;;;;;;;;   ;;;;;      ;;;;;;;;#",
+    "#;    ;;;;;;;;;;        ;;;;;S;;;;;    ;;;    h  ;;  ;;;;#",--30
+    "#; 1  ;;;              r ;;;;;;;S;      ;;      ;;;    ;;#",
+    "#;    ;;;;   1            ;R;;;;;;      ;;;     ;;; h   ;#",
+    "#;;  ;;;;;                ;;;T;;;;;r   ;;;;     ;;;     ;#",
+    "#;;;;;;;;;;          r    ;;;;;T;;;    ;; ;;     ;;;    H#",
+    "#;;;;;;;;;;              ;;;;;;;;;;;   ;; ;;;;;;;;;;;;;IB#",--35
+    "##########################################################"})
+
+wo:shuffleOxyd({"top#*"}, {"islands#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -2,21 +2,19 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="New York'Jungle" el:subtitle="Big Apple Blues" el:id="mecke32"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:21 $" el:status="released"/>
+      <el:identity el:title="New York Jungle" el:subtitle="Big Apple Blues" el:id="mecke32"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:23 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for testing and some important ideas</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald and Clifford for testing, translation and some important ideas</el:credits>
       </el:comments>
       <el:score el:easy="-" el:difficult="24:12" />
     </el:info>
     <el:luamain><![CDATA[
-
-wo["ConserveLevel"] = true
 wo["CrackSpreading"] = 0.0
 
 ti["  "] = {"fl_red"}
@@ -35,7 +33,6 @@ ti[" !"] = {"st_grate_cross"}
 ti[" q"] = {"it_flag_white"}
 ti[" w"] = {"it_pin"}
 ti[" U"] = {"it_extralife"}
-
 ti[" $"] = {"st_brick"}
 ti[" %"] = {"st_greenbrown"}
 ti[" &"] = {"st_bluesand"}
@@ -45,11 +42,9 @@ ti[" )"] = {"st_rotator_ccw", movable="false"}
 ti[" *"] = {"st_puzzle_yellow", connections="ew"}
 ti[" y"] = {"it_yinyang"}
 ti[" +"] = {"st_shogun_s"}
-
 ti[" ,"] = {"st_oxyd_d"}
 ti[" s"] = {"it_springboard"}
 ti[" t"] = {"it_bag"}
-
 ti[" u"] = {"it_weight"}
 ti[" -"] = {"st_boulder_n"}
 ti[" ."] = {"st_blur_cross"}
@@ -73,27 +68,21 @@ ti[" 8"] = {"st_thief"}
 ti[" 9"] = {"st_pull"}
 ti[" f"] = {"it_banana"}
 ti[" g"] = {"st_mail", orientation = WEST}
-
 ti[" :"] = {"st_beads"}
 ti[" h"] = {"it_crack_m"}
 ti[" ;"] = {"st_magic_oxydc"}
-
 ti[" >"] = {"st_oneway_black_e"}
-
 ti[" ?"] = {"st_puzzle_yellow", connections="s"}
 ti[" W"] = {"st_puzzle_yellow", connections="n"}
 ti[" @"] = {"st_puzzle_yellow", connections="new"}
 ti[" B"] = {"st_passage_black_frame"}
 ti[" C"] = {"st_darkglass"}
 ti[" ^"] = {"st_rawglass"}
-
 ti[" D"] = {"st_oneway_n"}
 ti[" E"] = {"st_oneway_s"}
 ti[" ~"] = {"it_wormhole", range=10, strength=10}
 ti[" F"] = {"st_door"}
-
 ti[" _"] = {"it_shogun_l", target="door2", action="open"}
-
 ti[" x"] = {"#ac_marble_black"}
 ti[" Y"] = {"#ac_marble_white"}
 ti[" ="] = {"#ac_killer", controllers=0}
@@ -110,13 +99,11 @@ ti[" J"] = {"st_actorimpulse_invisible"}
 ti[" K"] = {"st_passage_black_square"}
 ti[" Z"] = {"st_actorimpulse"}
 ti[" L"] = {"st_oneway_black_s"}
-
 ti[" X"] = {"#ac_rotor", range=2, strength=1}
 ti[" b"] = {"it_floppy"}
 ti[" M"] = {"st_plop"}
 ti[" N"] = {"st_purplegray"}
 ti[" O"] = {"st_puzzle_yellow", connections="w"}
-
 ti[" P"] = {"st_plaster"}
 ti[" Q"] = {"st_puzzle_yellow", connections="e"}
 ti[" R"] = {"st_shogun_m"}
@@ -124,23 +111,19 @@ ti[" c"] = {"it_spoon"}
 ti[" d"] = {"it_meditation_hill"}
 ti[" S"] = {"st_greenbrown_hollow"}
 ti["VS"] = ti["$ "] .. {"st_greenbrown_hollow"}
-
 ti[" <"] = {"st_coinslot",name = "conny", target="door4"}
 ti["DA"] = ti["$ "] .. {"it_coin_l"}
 ti["EA"] = ti["DA"] .. {"st_death_invisible"}
 ti["DB"] = ti["' "] .. {"st_grate_cross"}
 ti["EB"] = ti["DB"] .. {"it_shogun_l"}
 ti["TT"] = ti["# "] .. {"it_trigger", name = "triggery", target="door3"}
-
 ti["KA"] = ti["' "] .. {"it_glasses", state = SPOT_DEATH}
 ti["KB"] = ti["' "] .. {"it_glasses", state = SPOT_SENSOR}
 ti["KC"] = ti["' "] .. {"it_glasses", state = SPOT_TRAP}
-
 ti["GB"] = ti["$ "] .. {"it_sensor", invisible=true, name = "tsensory", target="door1", action="open"}
 ti["GC"] = ti["+ "] .. {"it_trap"}
 ti["GD"] = ti["$ "] .. {"it_trap"}
 ti["GE"] = ti["$ "] .. {"it_seed_volcano"}
-
 ti[" #"] = {"st_switch", target="door5", action="open"}
 ti["V1"] = ti["$ "] ..{"it_vortex_open", name="vortex1", destination="vortex3"}
 ti["V2"] = ti["$ "] ..{"it_vortex_open", name="vortex2", destination="vortex1"}
@@ -151,7 +134,6 @@ ti["A3"] = ti["$ "] ..{"st_door", faces="ns", name="door3"}
 ti["A4"] = ti["$ "] ..{"st_door", flavor="a", name="door4"}
 ti["A5"] = ti["$ "] ..{"st_door", faces="ns", name="door5"}
 ti["A6"] = ti["$ "] ..{"st_door", flavor="a", name="door6"}
-
 ti["a1"] = ti["$ "] .. {"it_document", text="text1"}
 ti["a2"] = ti["$ "] .. {"it_document", text="text2"}
 ti["a3"] = ti["% "] .. {"it_document", text="text3"}
@@ -162,51 +144,46 @@ ti["a7"] = ti["$ "] .. {"it_document", text="text7"}
 ti["a8"] = ti["$ "] .. {"it_document", text="text8"}
 ti["a9"] = ti["$ "] .. {"it_document", text="text9"}
 
-
-local resolver = res.composer(ti)
-
-w, h = wo(resolver, "  ", {
-       "! ! ! ! ! ! ! ! ! ! ! !b! ! ! ! ! ! ! ! ",
-       "! ! $!$s$ $ $ $>$ $ $s!u$ $L$ $ $s$!! ! ",
-       "! $;$s$%$%$8$%$%$!$%$8$%$!$%$%$8$%$S$%! ",
-       "! $S% $,$%GB$9$ $ $s$!$s$ $ $9$9$%$y$$! ",
-       "! $;% $%$%$9&:&h&h&h&h&h&h&h&:$9$%$1$%! ",
-       "! $ % $0$ $!&hEB'C'D'D'D'CEB&h$ $R$ $u! ",
-       "!f$&% %c$&$ &ha4( ( ( ( ( KB&h$ $&$ $$! ",
-       "! $$$,% $7$ &h'h( )s! )s( 'h&h$ $7$ $&! ",
-       "! $$$&%1$&$U&,'5( ! !_!=( '5&,$U$&$ $$! ",
-       "! $v$ % $ $ &h'h( )s! )s( 'h&h$ $+$?V1!q",
-       "! $'$ %2% $'&hKA( ( ( ( ( KC&h$ $'$ $'! ",
-       "! $$$ $'% $,&hEB'C'E'E'E'CEB&h$ $'$W$$! ",
-       "! $'$)$'% % &:&h&h&h&h&h&h&h&:$ $>$ $'! ",
-       "!!$ $ $3$r%r$3$r$r$3$r$r$3$r$r$3$r$ $)! ",
-       "! $($-$($ % % $6$ $Z$ V3$6$ $6+ $ + $6! ",
-       "! $$$ $g$.$0a3$ V3.~$s$ $Z$w$NGC$ ! + ! ",
-       "! $($-$($ $&% $?$ $Z$ $&$6$ $6+ $ + $6! ",
-       "! $)$ $4$r$r%4%r$r$4$r$r$4$r$r$4$ $ $ ! ",
-       "! $($ $($ $&$;%@$;$&$ $H$6$ $6$P$c$)$P! ",
-       "! $($ $$$5$$$;% $;$&$ $&$6$ $6$P$L$P$$! ",
-       "!a$*$*$*$*$*$*%*%*$*$*$*$*$*$O$Q$d$ $u! ",
-       "! $($ $($ $&$ $,% $6$ $6$6$X$6$P$ $$$P! ",
-       "! $($L$g$ $&$ $;% % $b$6$6$ $6$P$ $P$P! ",
-       "!l$y$.$5$ $ $ $5EA%5EA$5EA$ $ $ $ $ $!! ",
-       "! $($f$($($w$($$$v%v%v$($($ $($($ $($$! ",
-       "! ! $ $$$($ $($($v$,a6$I$($I$$$($5$($I! ",
-       "! b2b3$5$g$ca5A1$v$u%v$cA2$c$ca7$4$ $ !!",
-       "! ! KA$6$6$5$6$6$5$6% % $6b1$G$6$ b4% ! ",
-       "! !f$o$6$6$ $6$6$ $6$0% $6$5$6$6$ GDGC! ",
-       "! ! $u$Y$6$o$o$o$o$o$eEAa8$ $u$u$ $^! ! ",
-       "! ! $c$eA6$ $6$6$ $6$6$0%t$6$u$6! ! ! ! ",
-       "! !q! $c$5$ $6$6$ $6$G$K% $0$ $^!MTT!l! ",
-       "! ! ! !c$ GD$.$Ba9A3GD$.$5$ $ !q! ! ! ! ",
-       "! !mV2! ! ! $<$n$8$E$6$ * ! ! !q! ! ! ! ",
-       "! a1$xa2! $sGEA4$6$t!k* ! ! ! !q! ! ! ! ",
-       "! GCA5GC! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ",
-       "! $ $,! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! "
-       })
+wo(res.composer(ti), "  ", {
+    "! ! ! ! ! ! ! ! ! ! ! !b! ! ! ! ! ! ! ! ",
+    "! ! $!$s$ $ $ $>$ $ $s!u$ $L$ $ $s$!! ! ",
+    "! $;$s$%$%$8$%$%$!$%$8$%$!$%$%$8$%$S$%! ",
+    "! $S% $,$%GB$9$ $ $s$!$s$ $ $9$9$%$y$$! ",
+    "! $;% $%$%$9&:&h&h&h&h&h&h&h&:$9$%$1$%! ",
+    "! $ % $0$ $!&hEB'C'D'D'D'CEB&h$ $R$ $u! ",
+    "!f$&% %c$&$ &ha4( ( ( ( ( KB&h$ $&$ $$! ",
+    "! $$$,% $7$ &h'h( )s! )s( 'h&h$ $7$ $&! ",
+    "! $$$&%1$&$U&,'5( ! !_!=( '5&,$U$&$ $$! ",
+    "! $v$ % $ $ &h'h( )s! )s( 'h&h$ $+$?V1!q",
+    "! $'$ %2% $'&hKA( ( ( ( ( KC&h$ $'$ $'! ",
+    "! $$$ $'% $,&hEB'C'E'E'E'CEB&h$ $'$W$$! ",
+    "! $'$)$'% % &:&h&h&h&h&h&h&h&:$ $>$ $'! ",
+    "!!$ $ $3$r%r$3$r$r$3$r$r$3$r$r$3$r$ $)! ",
+    "! $($-$($ % % $6$ $Z$ V3$6$ $6+ $ + $6! ",
+    "! $$$ $g$.$0a3$ V3.~$s$ $Z$w$NGC$ ! + ! ",
+    "! $($-$($ $&% $?$ $Z$ $&$6$ $6+ $ + $6! ",
+    "! $)$ $4$r$r%4%r$r$4$r$r$4$r$r$4$ $ $ ! ",
+    "! $($ $($ $&$;%@$;$&$ $H$6$ $6$P$c$)$P! ",
+    "! $($ $$$5$$$;% $;$&$ $&$6$ $6$P$L$P$$! ",
+    "!a$*$*$*$*$*$*%*%*$*$*$*$*$*$O$Q$d$ $u! ",
+    "! $($ $($ $&$ $,% $6$ $6$6$X$6$P$ $$$P! ",
+    "! $($L$g$ $&$ $;% % $b$6$6$ $6$P$ $P$P! ",
+    "!l$y$.$5$ $ $ $5EA%5EA$5EA$ $ $ $ $ $!! ",
+    "! $($f$($($w$($$$v%v%v$($($ $($($ $($$! ",
+    "! ! $ $$$($ $($($v$,a6$I$($I$$$($5$($I! ",
+    "! b2b3$5$g$ca5A1$v$u%v$cA2$c$ca7$4$ $ !!",
+    "! ! KA$6$6$5$6$6$5$6% % $6b1$G$6$ b4% ! ",
+    "! !f$o$6$6$ $6$6$ $6$0% $6$5$6$6$ GDGC! ",
+    "! ! $u$Y$6$o$o$o$o$o$eEAa8$ $u$u$ $^! ! ",
+    "! ! $c$eA6$ $6$6$ $6$6$0%t$6$u$6! ! ! ! ",
+    "! !q! $c$5$ $6$6$ $6$G$K% $0$ $^!MTT!l! ",
+    "! ! ! !c$ GD$.$Ba9A3GD$.$5$ $ !q! ! ! ! ",
+    "! !mV2! ! ! $<$n$8$E$6$ * ! ! !q! ! ! ! ",
+    "! a1$xa2! $sGEA4$6$t!k* ! ! ! !q! ! ! ! ",
+    "! GCA5GC! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ",
+    "! $ $,! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! "})
 
 wo:shuffleOxyd()
-
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
@@ -216,32 +193,32 @@ wo:shuffleOxyd()
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Welcome to Liberty Island, NY</el:english>
-        <el:translation el:lang="de">Willkommen auf Liberty Island, NY</el:translation>
+        <el:english el:translate="true">Welcome to Liberty Island, New York City</el:english>
+        <el:translation el:lang="de">Willkommen auf Liberty Island, New York City</el:translation>
       </el:string>
       <el:string el:key="text2">
-        <el:english el:translate="true">To get a full picture of NY you should look at it through all glasses you can.</el:english>
-        <el:translation el:lang="de">Benutze soviel "Brillen" wie möglich, um New York möglichst "facettenreich" zu erleben</el:translation>
+        <el:english el:translate="true">To get a fuller picture of New York City, you should view it through every pair of glasses you can find.</el:english>
+        <el:translation el:lang="de">Benutze soviel "Brillen" wie möglich, um New York City möglichst "facettenreich" zu erleben</el:translation>
       </el:string>
       <el:string el:key="text3">
-        <el:english el:translate="true">What a traffic jam at the Times Square, that's is the Broadway. But unfortunatly you have no time to visit a musical!</el:english>
+        <el:english el:translate="true">There's always a terrible traffic jam on Broadway at Times Square.  It's a pity you don't have time to see a show!</el:english>
         <el:translation el:lang="de">Welch ein Trubel am Times Square, so ist der Broadway. Aber leider fehlt Dir die Zeit, ein Musical anzuschauen</el:translation>
       </el:string>
       <el:string el:key="text4">
-        <el:english el:translate="true">Charles Ives is the composer of "Central Park in the Dark". Enjoy his music, play the shogun to open some gate!</el:english>
+        <el:english el:translate="true">Charles Ives was the composer of "Central Park in the Dark". Enjoy his music, and use the shogun to open some gates!</el:english>
         <el:translation el:lang="de">"Central Park in the Dark" wurde von Charles Ives komponiert, genieße seine Musik, löse das Shogun: Es wird Dir ein Tor öffnen!</el:translation>
       </el:string>
       <el:string el:key="text5">
-        <el:english el:translate="true">The traffic regulation is said to be weird. An outbound traffic sensor at the Central Park seems to be responsible for this street. Use your glasses.</el:english>
+        <el:english el:translate="true">These mechanized traffic signals are strange.  An outbound traffic sensor at Central park seems to be responsible for this street.  Use your glasses!</el:english>
         <el:translation el:lang="de">Die Verkehrsregelung ist hier schon sonderbar. Für die Regelung scheint ein Sensor in der Nähe des Central Parks verantwortlich zu sein. Benutze Deine Brillen.</el:translation>
       </el:string>
       <el:string el:key="text6">
-        <el:english el:translate="true">Funny: A fountain in the Central Park controlls the traffic</el:english>
+        <el:english el:translate="true">It's funny that a fountain in Central Park should control the traffic flow.</el:english>
         <el:translation el:lang="de">Lustig: Eine Fontäne steuert den Verkehr</el:translation>
       </el:string>
       <el:string el:key="text7">
-        <el:english el:translate="true">Welcome to China town</el:english>
-        <el:translation el:lang="de">Willkommen in China Town</el:translation>
+        <el:english el:translate="true">Welcome to Chinatown</el:english>
+        <el:translation el:lang="de">Willkommen in Chinatown</el:translation>
       </el:string>
       <el:string el:key="text8">
         <el:english el:translate="false">Wall Street</el:english>

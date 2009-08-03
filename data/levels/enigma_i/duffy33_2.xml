@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="More Space Tubes" el:subtitle="" el:id="duffy33"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null, easy mode by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["InfiniteReincarnation"] = not wo["IsDifficult"]
+
+ti["."] = {"fl_bluegreen"}
+ti["-"] = {"fl_space"}
+ti[" "] = {"fl_abyss"}
+ti["7"] = {"fl_slope_ise"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_isw"}
+ti["6"] = {"fl_slope_pw"}
+ti["3"] = {"fl_slope_inw"}
+ti["2"] = {"fl_slope_pn"}
+ti["1"] = {"fl_slope_ine"}
+ti["4"] = {"fl_slope_pe"}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = ti["-"] .. {"st_greenbrown"}
+ti["d"] = {"st_switch", target = "doorD"}
+ti["D"] = ti["-"] .. {"st_door", "doorD", faces = "ew", state = CLOSED}
+ti["O"] = {"st_oxyd"}
+ti["@"] = cond(wo["IsDifficult"], {"#ac_marble_black"}, {"#ac_marble_white", owner = YIN, controllers = YANG} )
+ti["f"] = cond(wo["IsDifficult"], ti["."], {"it_flag_white"})
+ti["F"] = cond(wo["IsDifficult"], ti["-"], ti["."] .. {"it_flag_white"})
+
+wo(ti, ".", {
+    "##########################################################",
+    "#                                  222222442282266222288 #",
+    "# 8888288684488828884--64--64--64--6                   . #",
+    "# O222822624422282224--64--64--64--6 6..4----4..6      f #",
+    "#                                    6..4----4..--..-.-. #",
+    "# 78889 7888889 7889      78888889    --     1223        #",
+    "# 4...987-----989f.6      4------6    --            7889 #",
+    "# 4O@.------+----..6      4-3221-6    --            4f-6 #",
+    "# 4...321-----323..6      4-6  4-6   7889 .444--66.--..6 #",
+    "# 12223 1222223 17-3 78888 - 887-6   4..6 .         17-6 #",
+    "#                4-6 4-----------6   4..6 .6644--6.  4-6 #",
+    "# d4.f.6..       4-6 4-322 - 22223   1223         .  4-6 #",
+    "#       --       4-6 4-6  4-6           .4444-6666.  4-6 #",
+    "# 78888888888889 4-987-6  4-6 788888889              6-4 #",
+    "# 4-3216-4---- 6 4-----6   -  4-------88#28822888889 6-4 #",
+    "#  -6-4987889--  1222223  4-6 4-78889---D----------6 6-4 #",
+    "#  -9 -8 4--6-            4-987-4---6-22#8228827---6 426 #",
+    "# 4---4-61223--6          4----F4---6-         4---6 426 #",
+    "# 4---123------63         12221-4---6-888889    ---6 426 #",
+    "# 4-789--321-3213221          4-12223------6   4---  426 #",
+    "# 4-4 6--6-4-6-46..4     3221 4-------2221-6   4---987-6 #",
+    "# 4-123 -987-9876..4-----6.f4 122222223  4-6   4-------6 #",
+    "# 122222222222229887-----6..4            4-6   122222223 #",
+    "#                        98878882882888887-6             #",
+    "##########################################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

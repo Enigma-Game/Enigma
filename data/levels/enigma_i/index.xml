@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="26" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="27" title="Enigma I"/>
 
   <attributes/>
 
@@ -11,12 +11,12 @@
     <level _seq="3" _title="Archipelago" _xpath="./martin12_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Flying" _xpath="./luc07_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc07" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Snakes" _xpath="./duffy19_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy19" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Welcome to the Machine" _xpath="./ralf03_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf03" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Welcome to the Machine" _xpath="./ralf03_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf03" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Sok It To 'Em" _xpath="./nat07_2" author="Nat Pryce" ctrl="force" easy="false" id="nat7" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Easy?" _xpath="./ss01_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss1" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Ingrowing" _xpath="./ant18_2" author="Petr Machata" ctrl="force" easy="false" id="ant18" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="./alain03_2" author="Alain Busser" ctrl="force" easy="false" id="alain03" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="(Counter)Clockwise" _xpath="./wb13_1" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb13" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="(Counter)Clockwise" _xpath="./wb13_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb13" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="12" _title="Hanging In The Balance" _xpath="./illmind03_2" author="illmind" ctrl="force" easy="false" id="illmind03" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Desert Ruins" _xpath="./nat32_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze1" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Slippery Slopes" _xpath="./martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -46,16 +46,16 @@
     <level _seq="38" _title="Encased" _xpath="./xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Without Tremor" _xpath="./richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./alain04_1" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Light Barrier" _xpath="./richi03_2" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="2" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Light Barrier" _xpath="./richi03_2" author="Richi Bützer" ctrl="force" easy="false" id="richi03" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Basement" _xpath="./siegfried26_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9c" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Sokoban Revival" _xpath="./martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Sokoban Revival" _xpath="./martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Dead Ball Walking" _xpath="./illmind08_2" author="illmind" ctrl="force" easy="false" id="illmind08" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Duck and Cover" _xpath="./nat02_2" author="Nat Pryce" ctrl="force" easy="true" id="nat2" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Oxyd Maze" _xpath="./duffy79_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy79" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Mission Impossible" _xpath="./martin14_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Hurry!" _xpath="./jc01_2" author="Jens-Christian Korth" ctrl="force" easy="true" id="jc01" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="49" _title="Hall of Glass" _xpath="./martin86_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin86" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="- Meditation -" _xpath="./siegfried36_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation15" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mirror Room" _xpath="./luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -94,7 +94,7 @@
     <level _seq="86" _title="Floppy Floors" _xpath="./andreas24_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Space Tubes" _xpath="./duffy13_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Balance" _xpath="./erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="89" _title="More Space Tubes" _xpath="./duffy33_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy33" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="89" _title="More Space Tubes" _xpath="./duffy33_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy33" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="- Meditation -" _xpath="./raoul04_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Civil Engineer" _xpath="./duffy122_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy122" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Security Guards" _xpath="./duffy108_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy108" rel="1" rev="2" score="1" target="time" unit="duration"/>

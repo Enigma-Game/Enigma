@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Wired pulls" el:subtitle="and do not destroy the puzzels" el:id="raoul36"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["-"] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["&"] = {"st_bluesand", cluster=1}
+ti["#"] = {"st_bluesand", cluster=2}
+ti["="] = cond(wo["IsDifficult"], ti["#"], {"fl_bluegray"})
+ti["B"] = {"st_door", flavor="a", name="blocker#"} .. ti({"fl_bridge", state=OPEN, name="bridge#"})
+ti["P"] = {"st_pull", name="pull%%"}
+ti["*"] = {"st_puzzle", cluster=1, name="puzzle#"}
+ti["t"] = {"it_trigger", target="check_doors"}
+ti["O"] = {"st_oxyd", flavor="e", static=true, oxydcolor=OXYD_BLUE, name="oxyd#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"1", "6", "P"}), " ", {
+    "--&&###########&&--",
+    "--&             &--",
+    "--##           ##--",
+    "&&#~~ ** t ** ~~#&&",
+    "&O#~  *2===3*  ~#O&",
+    "#B~~ **t   t** ~~B#",
+    "##~  *1==@==4*  ~##",
+    "#B~~ **t   t** ~~B#",
+    "&O#~  *6===5*  ~#O&",
+    "&&#~~ ** t ** ~~#&&",
+    "--##           ##--",
+    "--&             &--",
+    "--&&###########&&--"})
+
+wo:add({"ot_wire", anchor1="pull%1", anchor2="pull%2"})
+wo:add({"ot_wire", anchor1="pull%2", anchor2="pull%3"})
+wo:add({"ot_wire", anchor1="pull%3", anchor2="pull%4"})
+wo:add({"ot_wire", anchor1="pull%4", anchor2="pull%5"})
+wo:add({"ot_wire", anchor1="pull%5", anchor2="pull%6"})
+wo:add({"ot_wire", anchor1="pull%6", anchor2="pull%1"})
+wo:add({"ot_wire", anchor1="pull%1", anchor2="pull%3"})
+wo:add({"ot_wire", anchor1="pull%3", anchor2="pull%5"})
+wo:add({"ot_wire", anchor1="pull%5", anchor2="pull%1"})
+
+wo:add({"ot_counter", name="counter", state=0, target={"blocker#*", "bridge#*"}, action_5={"close", "open"}, action_6={"open","close"}})
+
+function check_doors(value, sender)
+    if #no["puzzle#*"] == 0 then   -- assure shortcut free use of puzzlestones
+        no["counter"]:message("signal", value)
+    end
+end
+
+no["oxyd#*"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

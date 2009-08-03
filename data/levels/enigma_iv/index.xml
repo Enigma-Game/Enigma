@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma IV"/>
 
   <attributes/>
 
@@ -25,7 +25,7 @@
     <level _seq="17" _title="Flood Gates" _xpath="./nat08_2" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Sierpinski" _xpath="./alain10_1" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Labyrinth of Puzzles" _xpath="./duffy35_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy35" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Meditation Puzzle" _xpath="./duffy01_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Meditation Puzzle" _xpath="./duffy01_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="NO Trespassing" _xpath="./martin104_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin104" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Symmetry" _xpath="./ant31_1" author="Petr Machata" ctrl="force" easy="false" id="ant31" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Bavarian Madness" _xpath="./ss08_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss8" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -35,10 +35,10 @@
     <level _seq="27" _title="Robbery" _xpath="./ant29_2" author="Petr Machata" ctrl="force" easy="false" id="ant29" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="28" _title="The Life Game" _xpath="./alain13_1" author="Alain Busser" ctrl="force" easy="false" id="alain13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Where is it?" _xpath="./barry02_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry02" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="- Meditation -" _xpath="./ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="- Meditation -" _xpath="./ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Eternal Circulation" _xpath="./raoul03_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Under the Radar" _xpath="./duffy106_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy106" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Double-Spiral" _xpath="./duffy17_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy17" rel="3" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="33" _title="Double-Spiral" _xpath="./duffy17_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy17" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="34" _title="Running Rings" _xpath="./siegfried14_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4f" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="It Never Stops" _xpath="./duffy36_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy36" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="36" _title="Circularity" _xpath="./ant10_1" author="Petr Machata" ctrl="force" easy="false" id="ant10" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -104,8 +104,8 @@
     <level _seq="96" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Over the Lake" _xpath="./siegfried27_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level9d" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="98" _title="Bizarro World" _xpath="./duffy73_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy73" rel="3" rev="23" score="2" target="time" unit="duration"/>
-    <level _seq="99" _title="Little Puzzles" _xpath="./wb11_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb11" rel="2" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="100" _title="Big Adventures" _xpath="./wb12_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb12" rel="2" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Little Puzzles" _xpath="./wb11_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb11" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="100" _title="Big Adventures" _xpath="./wb12_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb12" rel="2" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

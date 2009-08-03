@@ -3,15 +3,17 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puppet" el:subtitle="" el:id="pulley06"/>
-      <el:version el:score="1" el:release="2" el:revision="12" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="13" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="0:45" el:difficult="-"/>
+      <el:score el:easy="0:45" el:difficult="2:29"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["SlopeStrength"] = 10
+
 if wo["IsDifficult"] then
     ti[" "] = {"fl_slope_ts"}
     ti["^"] = {"fl_slope_tn"}
@@ -40,13 +42,13 @@ ti["W"] = {"st_brick"}
 ti["door"] = {"st_door", name="Door%%", flavor="a"} .. ti["b"]
 ti["trigger"] = {"it_trigger", target="Door%%"} .. ti["b"]
 ti["2"] = {"st_portal"} .. ti({"it_trigger", target="Door%2"}) .. ti["b"]
-ti["."] = {"#ac_marble_black"}
+ti["@"] = {"#ac_marble_black"}
 
 wo(res.autotile(ti, {"1", "9", "trigger"}, {"A","I","door"}), " ", {
     "W0ggggg2YOZggggggg0W",
     "Wbg N L^ S  e h  IbW",
     "Wbg   1     8    gbW",
-    "Wbg.  ^     ^    gbW",
+    "Wbg@  ^     ^    gbW",
     "Wbg        9     gbW",
     "WEg   K4 P3^k    gDW",
     "WBg    ^  7      gGW",

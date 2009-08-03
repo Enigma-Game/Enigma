@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Pilgrim's Progress" el:subtitle="" el:id="20080101pulley001"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="stable"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -136,323 +136,321 @@ local topresolver  = res.composer(baseresolver)
 
 --      |                   1         1       | 2         2         3         3     |   4         4         5         5   |   5
 --      | 1       5         0         5       | 0         5         0         5     |   0         5         0         5   |   9
-w, h = wo(topresolver, "  ", {
- "b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b     ",
- "b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",--01
- "b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",
- "b  c c c c c0c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c0c c c c c cb     ",
- "b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
- "b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",--05
- "b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
- "b  c c c c c0c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c0c c c c c cb     ",
- "b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",--Celestial City
- "b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c6w c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
- "b b b b b b b b b b b b b b b b b b b b b b b b b b b  6= t6= b b b b b b b b b b b b b b b b b b b b b b b b b b G G G ",--10
- "b  . . . . . . . . . . . . . . . . . . . . . . . . .e.W6V, Wu. . . . . . . . . . . . . . . . . . . . . . . . . . .e. VG ",
- "b n6b b b b b b b b b b b b b b b b b b b b b b b b b x b z6b b b b b b b b b b b b b b b b b b b b b b b b b b b G  VG ",--
- "b  6b                                                                                                             b  VG ",
- "b  6b n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n b  VG ",
- "b  6b  v v v v v v   v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v vb  VG ",--15
- "b  6b  v v v v v v   v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v vb  VG ",
- "b  6b  W W W W W W   W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",
- "b  6b XWXWXWXWXWXW  XWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWb  VG ",
- "b  6b YWYWYWYWYWYW) YWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWb  VG ",
- "b  6b YWYWYWYWYWYW  YWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWb  VG ",--20
- "b  6b XWXWXWXWXWXW  XWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWb  VG ",
- "b  6b  W W W W W W   W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",-- Black River / River Of Death
- "b  6b             4u                                    4v                                                        b  VG ",
- "b  6b                                                                       b b b b b b b b b b b b b b b b b b b b  VG ",--
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",--25
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",-- Land of Beulah
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                   r                 4t l w w w w w w w w w w w w w w w w w wb  VG ",--30
- "b  6b                                                                        l w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",-- Enchanted ground
- "b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
- "b  6b                                                                       b  w w w w w w w w w w w w w w w w w wb  VG ",--35
- "b  6b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b                  l2s                b  VG ",--
- "b  6b                                 b                 b b                 b                  l l                b  VG ",
- "b  6b                                 b                 b b                 b                5 l l                b  VG ",
- "b  6b                                 b                 b b                 b              5 l l &                b  VG ",
- "b  6b              5 l l l l l l l l lwl l2r l l l %             5 l l l l lel l l l l l l l l &                  b  VG ",--40
- "b  6b              l l l l l l l l l lwl l l l l l l %         5 l l l l l lel l l l l l l l &                    b  VG ",
- "b  6b              l l &              b            7 l 4     $ l &          b                                     b  VG ",
- "b  6b              l l                b              7 l l l l &            b                                     b  VG ",--Two paths - left: flatterer (to net), rig ht: correct
- "b  6b              l l                b                7 l l &              b                                     b  VG ",
- "b  6b              l l                b                  l l                b                                     b  VG ",--45
- "b  6b            5 l l                b                  l l                b                                     b  VG ",-- Plain
- "b  6b            l l &                b                  l l                b                                     b  VG ",
- "b  6b b b b b b sVsVb b b b b b b b b b                 2q l                b b b b b b b b b b b b b b b b b b b b  VG ",--
- "b  6b  q q q q q q qw,                             8 ^ ^ ^ ^ ^ ^ 9             8 ^ ^ ^ ^ ^ ^ ^ ^ 9                b  VG ",
- "b  6b  q q q q q q qw,                             < 8 ^ ^ ^ ^ 9 >             < 8 ^ ^ ^ ^ ^ ^ 9 .                b  VG ",--50
- "b  6b  q q q q q q qw, 8 ^ ^ ^ ^ ^ 9               < < l l l l > >             < < 8 ^ ^ ^ ^ 9 . .                b  VG ",
- "b  6b  q q q q q q qw, < 8 ^ ^ ^ 9 >               < < l l l l > >             < < <         . . .                b  VG ",
- "b  6b  q q q q q q qw, < <       > >               < < l l l l > >             < < <         . . .   8 ^ ^ ^ ^ ^ 9b  VG ",-- Delectable Mountains
- "b  6b  q q q q q q qw, < <       > >               < < l l l l > >             < < <         . . .   < 8 ^ ^ ^ 9 >b  VG ",
- "b  6b  q q q q q q qw, < <       > >               < * v v v v ( >             < < <         . . .  EHEHEHEHEHEHEHEH VG ",--55
- "b  6b  q q q q q q qw, < * v v v ( >               * v v v v v v (             < < * v v v v ( . .      B B B B   e. VG ",
- "b  6b  q q q q q q qw, * v v v v v (                     l l                   < * v v v v v v ( .  EHEHEHEHEHEHEHEH VG ",
- "b  6b  q q q q q q qw,                                   l l                   * v v v v v v v v (   < * v v v ( >b  VG ",
- "b  6b  q q q q q q qw,                                  2p l                                         * v v v v v (b  VG ",
- "b  6b :}b b b b b b b b b b b b b b b b b b b b b b b b  7 l %b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--60
- "b  6b :}b B B B b B B B B B B B B B B b               b    7 l l l %                                              b  VG ", -- random it_meditation added after map
- "b  6b :}b B b B b B b b b b b b b b B b               b            7 %                                            b  VG ",
- "b  6b :}b B b B b B b B B B B B B B B b               b              7 %                                          b  VG ",
- "b  6b B B B b B B B b B b b b b b b b b               b      1 l !     l                                          b  VG ",
- "b  6b B b b b b b b b B B B B B B B B b               b      l   7 l l &                                          b  VG ",--65
- "b  6b B B B B B B B b B b b b b b b B b               b      l                                                    b  VG ",
- "b  6b b b b b b b B b B B B B B B b 4owl l %          b      7 %                                                  b  VG ",-- Doubting Castle / By-Path Meadow
- "b  6b B B B B B B B b b b b b b B b   wl l l %        b        7 l l %                                            b  VG ",
- "b  6b B b b b b b b B B B B B B B b B b  7 l l l %    b              l                                            b  VG ",
- "b  6b B b B B B B b B b b b b b b b B b    7 l l l %  b          5 l &                                            b  VG ",--70
- "b  6b B B B b b B b B B b B B B B B B b        7 l l %b        5 &                                                b  VG ",
- "b  6b b b b b B B b b B b B b b b b b b n n n n n7nlnlb b b b blb b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
- "b  6b B B B B B b b b B b B B B B B B b            l l l %  v5v&             W W W W W W W       W W W W W W W W Wb  VG ",
- "b  6b B B B B B Q B b B b b b b b b B b            7 l l l %vl         W W W W W W W W W W W W W W W W W W W W W Wb  VG ",
- "b  6b B B B B B b B b B B B B B B B B b              7 l l l &       W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",--75
- "b  6O B B B B B b B b b b b b b b b b b                  l l     W W W W W           W W W W W W W W W            b  VG ",
- "b  6b b b b b b b B b B B B B B B b B e                52n l   W W W W W                                          b  VG ",-- Pleasant meadow / River of the Water of Life
- "b  6b B B B B B B B b B b b b b B b B e              5 l l l W W W W W                                            b  VG ",
- "b  6b B b b b b b b b B b B B B B b B b            5 l l l W W W W W                                              b  VG ",
- "b  6b B b B B B b B B B b B b B b b B b          5 l l l W W W W W                                                b  VG ",--80
- "b  6b B b B b B b B b b b B b B b b B b          l l l l W W W W W                                                b  VG ",
- "b  6b B b B b B b B b B b B b b b b B b          l l l l W W W W W                                                b  VG ",
- "b  6b B B B b B B B b B B B B B B B B b          l l l l W W W W W                                                b  VG ",
- "b  6b b b b b b b b b b b b b b b b b b          7 l l l l W W W W                                                b  VG ",--
- "b  6b                                 b            l l l l W W W W W                                              b  VG ",--85
- "b  6b    8 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 9               7 l l l l W W W W W W                                          b  VG ",
- "b  6b    < 8 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 9 >                 l l l l l W W W W W W W W W                                  b  VG ",-- Hill Lucre
- "b  6b    < < 8 ^ ^ ^ ^ ^ ^ ^ ^ 9 > >                 7 l l l l       W W W W W W W W W W W                        b  VG ",
- "b  6b    < < <c c c c c c c c  > > >                   l l l l                 W W W W W W W W W                  b  VG ",
- "b  6b    < < <c d d d d d d c  > > >                   l l l l                       W W W W W W W W              b  VG ",--90
- "b  6b    < < <c c c c c c c c  > > >                   l l l l                               W W W W W W          b  VG ",
- "b  6b    < < * v v v v v v v v ( > >                   l l l l                                     W W W W W      b  VG ",
- "b  6b    < * v v v v v v v v v v ( >                   l l l l                                       W W W W W    b  VG ",
- "b  6b    * v v v v v v v v v v v v (                   l2m l l                                         W W W W W Wb  VG ",-- Plain called Ease
- "=  6b b                               b                l l l l              b                            W W W W Wb  VG ",--95
- "= N6= G G G G G G G G G G G G G G G G G G G G G G G G G N _ G G G G G G G G G G G G G G G G G G G G G G G G G G G G  VG ",--
- "=  6D> > > > > > > > > > > > > > > > > > > > > > > > >r>  Z G aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaGaaaaaaaaaG  VG ",
- "=  6= G G G G G G G G G G G G G G G G G G G G G G G G G G G G aa a a a a a a a a a a a aaa a a aGa a a aGa a a aaaG  VG ",
- "=  6G aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaa aaa aaa aGa aaa aGa aGa aaaG  VG ",
- "=  6G aa a a aaa a a aaa a a aaa a a a a a a a a a a a a a a aaa a a a a a aaa a a aaa aaa aaa aGa aaa aGa aGa aaaG  VG ",--100
- "=  6G aa aaa aaa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaa aaa aaa aaa aaa aaa aGa aGa aGa aaaG  VG ",
- "G  6G aa aaa aaa aaa aaa aaa aaa a a a a a a a a a a a aaa a a aaa a a aaa aaa aaa a a aaa aaa aaa aGa aGa aGa aaaG  VG ",
- "G  6G aa aaa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaa aaa aaa aaa aaa aaa aaa aaa aaaaaaaaaaa aGa aaa aGa aaa aGa aaaG  VG ",-- Vanity Fair
- "G  6G aa aaa aaa aaa aaa aaa a a a a a a a a a aaa aaa a a aaa a a aaa a a aaa a a a a a a aGa a a aGa a a aGa aaaG  VG ",
- "G  6G aa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaGaaaaaaaGa aaaG  VG ",--105
- "G  6 a a aaa a a aaa a a aaa a a a a a a a a a a a aaaG G G G G G G G G G G G aa a a a a a a a a a a a a a a a aaaG  VG ",
- "G a6aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaG  . .e. . . . . .5l . .e. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaG  VG ",
- "G G G G G G G G G G G G G G G G G G G G G G G G G G G G  a aG G G G G G G G G G G G G G G G G G G G G G G G G G G G  VG ",--
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--110
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",-- Wilderness
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
- "b  T T T T T T T T T T T TU1 T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T TU2 T T T T T Tb  VG ",
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",-- meets talkative
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--115
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S3k T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
- "b  T T T T T TU4 T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T TU3 T T T T T T T T T T T Tb  VG ",
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
- "b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--120
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",--125
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",-- meets Faithful
- "b                                                        l l                                                      b  VG ",
- "b                                                        l l                                                      b  VG ",--130
- "b                                                       2j l                                                      b  VG ",
- "b b b b b b b b b b b b b b b b b b b b b b b b b b b b +lNlb b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
- "b YlYlYlYlYlYlYlYlYlYlYlYlYWYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYlYWYWYWYlYlYlYlYWYWYWYWYWYlYlYlYlYWYWYWYWYWYWYlYlYlYlYlYlYlYlYlYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",--135
- "b YlYlYWYWYWYWYlYlYlYlYlYlYlYlYlYWYWYWYWYlYlYWYWYlYlYlYlYlYlYlYlYlYWYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYlYlYlYWYWYWYWYlYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYlYlYWYlYlYlYlYlYlYlYlYWYWYWY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYlYlYWYWYWYlYlYlYlYlYWYWYlYlYlYWYlYlYlYlYlYlYlYlYWYWYlYlYlYWYWYlYlYlYWYWYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYlYlYWYWYWYWYlYlYlYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYWYlYlYWYWYWYWYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",-- Valley of the Shadow of Death
- "b YlYlYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYWYWYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",--140
- "b YWYWYlYlYlYlYlYlYlYWYWYWYWYlYlYlYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYWYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYWYWYlYlYlYlYWYWYWYlYlYlYlYlYlYWYWYWYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b YlYlYWYWYlYlYlYWYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYWYWYW9iYlYlYlYlYWYWYWYWYWYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y. VG ",
- "b b b b b b b b b b b b b b b b b b b b b b b b b b b b blblb b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
- "b                                                        l l                                                      b  VG ",--145
- "b                                                        l l                        b b b b b b b b b b           b  VG ",
- "b                                                        l l                        e> > > > > > > > vb           b  VG ",
- "b                                                        l l                        b b b b b b b b  vb           b  VG ",
- "b                                                        l l                                      b  vb           b  VG ",
- "b                                                        l l                              b b b b b  vb           b  VG ",--150
- "b                                                        l l                              b  v < < < <b           b  VG ",
- "b                                                        l l                              b  vb b b b b           b  VG ",-- Valley of Humiliation (Apollyon)
- "b                                                        l l                              b  vb                   b  VG ",
- "b                                                        l l                              b  vb b b b b b b b b b b  VG ",
- "b                                                        l2h                              b  > > > > > > > > > >;>e> VG ",--155
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b b b b b b b b b b b b b  VG ",--
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",--160
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",-- Slope
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",--165
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
- "K K K K K K K K K K K K K K K K K K K K K K K K K K K K  p pK K K K K K K K K K K K K K K K K K K K K K K K K K K K  VG ",--
- "K  p p p p pK  p p p p p p p p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK  VG ",
- "K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p p p p p p p p p p p p p pb  pK  VG ",--170
- "K  p pop p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p pb b b b b b b b b  p p pb  pK  VG ",
- "K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b  pb  p p p p p p pb  pb b b  pK  VG ",-- Palace called Beautiful
- "K  p ppp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  pb  pb  p p p p p p pb  pb  pb  pK  VG ",
- "K  p p p p p-p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK K K K K K K K K K K K K K K K K K K K  VG ",
- "K  p ppp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK  p p p p p p p p p p p p p p p p p pK  VG ",--175
- "K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b  p p p p p p p p p p p pK  VG ",
- "K  p prp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b b b b b b b b b b  p p pK  VG ",
- "K  p p p p p~  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p p p p pb  p p p p pK  VG ",
- "K  p p p p pK  p p p p p p p p p p p pK  p p p p p p p p7g p p p p p p p p pK  p p p p p p p p p p p p p p p p p pK  VG ",
- "K K K K K K K K K K K K K K K K K K K K K K K K K K K K nlnlK K K K K K K K K K K K K K K K K K K K K K K K K K K K  VG ",--180
- "b B B B b B B B b B B B B B B B B B B b                  l l                b  . . . . . . . . . . . . . . . . . .e. VG ",
- "b B b B B B b B b B b b b b b b b b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B b b b b b B b B B B B b B B B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B b B B B b B b b b b B b B b b b b b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B b B b B b B B B B B B b B B B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",--185
- "b B B B b B b b b B b b b b b b b b B i1      f1         l l        f2      i2 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",-- Lions
- "b b b B b B b B B B b B B B B B B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B B B b B B B b B B B b b b b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B b b b b b b b b b B B B B b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b B b B B B b B B B b b b b B b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",--190
- "b B B B b B B B b B B B B B B b B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
- "b b b b b b b b b B b b b b b b b b b b b b b b b b b b nlnlb b b b b b b b b  { 6 6 6 } { } 6 6 6 6 { 6 6 6 6 6 }b  VG ",--
- "b                  l                  b  g g g g g g g g U Ub  V V V V [ , ,b  , { 6 } . [ ] 6 6 6 } , { 6 6 6 } .b  VG ",
- "b                  7 %                b  g g g g g g g U U Ub  ]       , , ,b  , , S . . { 6 6 6 } . , , { 6 } . .b  VG ",
- "b                    l                b  g g g g g g U Ub b  ]         , , ,b  , [ V ] . , { 6 } . . , , , S . . .b  VG ",--195
- "b                    l                b  g g g g g g U                 , , ,b  [ V V V ] , , S . . . , , [ V ] . .b  VG ",--  Way called Destruction
- "b                    7 %              b  g g g g g g Ub b b b  6 6 6 6 { , ,b  V V V V V , [ V ] . . , [ V V V ] .b  VG ",--  Hill of difficulty
- "b                      7 %            b  g g g g g g U U g gb  6 6 6 6 6 { ,b  . [ 6 6 6 [ V V V ] 6 6 6 } V V V ]b  VG ",-- Way called Danger
- "b                        7 %          b  g g g g g g g U g gb b b b b b b b b  . , [ 6 6 6 ] . , , { 6 } . 6 6 6 6b  VG ",
- "b                          l          b  g g g g g g g U U g g g g g g g g gb  . , , [ 6 ] . . , , , S . . [ 6 6 6b  VG ",--200
- "b                          l          b  g g g g g g g g U g g g g g g g g gb  . , , , S . . . , , [ V ] . , [ 6 ]b  VG ",
- "b                          7 %        b  g g g g g g g g U U g g g g g g g gb  . , , { V } . . , [ V V V ] , , S .b  VG ",
- "b                            7 %      b  g g g g g g g g g U g g g g g g g gb  . , { V V V } . [ V V V V V , { V }b  VG ",
- "b n n n n n n n n n n n n n n nln n n b  g g g g g g g g g U g g g g g g g gb b n n n5n&n n n n n n n n n n n n n b  VG ",
- "b                              7 %    w  V V V V V V V V V U V V V V V V V Ve      5 &                            b  VG ",--205
- "b                                7 l lw% V V V V V V V V U U V V V V V 5 l lel l l &                              b  VG ",
- "b                                  7 lwl l l % W W W V V U U V V 5 l l l l lel l &                                b  VG ",-- path divides in three
- "b                                     w7 l l l l l l l l l l l l l l l l l le&                                    b  VG ",
- "b                                     w      7 l l l l l l l l l l l l &    e                                     b  VG ",
- "b                                     w            7 l l l2f l l &          e                                     b  VG ",--210
- "b                                     w               b  l lb               e                                     b  VG ",
- "b                                     w               b  l lb               e                                     b  VG ",
- "b                                     w               b  l lb               e                                     b  VG ",-- plain
- "b                                     w               b  l lb               e                                     b  VG ",
- "b                                     w               b  l lb               e                                     b  VG ",--215
- "C C C C C C C C C C C C C C C C C C C C b b b b b b b b nlnlb b b b b b b b C C C C C C C C C C C C C C C C C C C C  VG ",--
- "C EHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHC  S S S S S S S S S S S S S S S S S SC  A A A A A A A A A A A A A A A A A AC  VG ",
- "C  W W W W W W W W W W W W W W W W W WC  S S S S S S S S SJS S S S S S S S SC  A A A A A A A A`A A A A A A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARARARARARARARARA A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",--220
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARARARARARARARARA A A A A AC  VG ",-- Mt Calvary
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",--225
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
- "C C C C C C C C C  | |C C C C C C C C C ASASASASASASASAS v vASASASASASASASASC C C C C C C SSSS S SSSSSC C C C C C C  VG ",--
- "C  | | | | | | | | | | | | | | | | | |C b b b b b b b bS    bSB B B B B B B C  A A A ASSSS S S S S S SSSSS A A A AC  VG ",
- "C  | | | | | | | | | | | | | | | | | |C b b b b b b b bS    bSB B B B B B b C  A ASSSS S S S S S S S S S SSSSS A AC  VG ",--230
- "C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C SSSS S S S S S S S S S S S S S SSSSSC  VG ",
- "C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
- "C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
- "C  | | |b| | | | | | | | | | |b| | | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
- "C  |P|b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",--235
- "C  |b| |b| |b| | | | | | |b| |b| |b| |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
- "C  | | |b| | | | | | | | | | |b| | | |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
- "C  | |b| |b| | | | | | | | |b| |b| | |C b b b b b b b b     b b b b B b b b C RASS S S S S S S S S S S S S S SSSRAC  VG ",
- "C  |b| | | |b| | | | | | |b| | | |b| |C b b b b b b b b     b b b b j b b C  | S S S S S S S S S S S S S S S S S SC  VG ",
- "C C C C C C C C C  | |C C C C C C C C C C C C C C C C C  | |C C C C C C C  | | |C C C C C C C C C C C C C C C C C C  VG ",--240
- "C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | | |C  ] ] V V [ S S SMS [ V V V V [ [ [b  VG ",
- "C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  ] ] ] S S S S { 6MSMS VMSMSMS [ [ ,b  VG ",
- "C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  ] ] S S { 6 { { 6 }MSMSMS }MSMS , ,b  VG ",-- Interpreter's House
- "C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  . S S { { , , { 6 } 6 6 6 } .MS , ,b  VG ",
- "C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . S , , , , , , S . . . . . .MS [ [b  VG ",--245
- "C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . S S , , , , [ V ] . . . . .MSMS [b  VG ",
- "C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . . S , , , [ V V V ] . . . . .MSMSL. VG ",
- "C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  . S S , , [ V V V V V ] . . . } 6 6A. VG ",
- "C ||||||||||||||||||||||||||||||||||||C  | | |b|b|b| | | | | | | | | | | | |C  . S , , , S S S S [ [ [ [ [ . 6 6 6A. VG ",
- "C ||||||||||||||||||||||||||||||||||||C  | | |b|b|b|b|b|b|b|b|b|b|b|b| | | |C  . S S S V S 6 6 S S S [ [ [ [ } } }A. VG ",--250
- "C ||||||||||||||||||||||||||||||||||T|C  | | | | |b| | | | | |b| | | | | | |C  } } } S S S 6 6 6 6 S S [ [ [ [ } }A. VG ",
- "C C C C C C C C C  | | |C C C C C C C C C C C C C C C C C C C C C C C C C C C  } } } 6 6 6 6 6 6 6 } S [ [ [ [ [ }A. VG ",--
- "C  | | | | | | | | | | | | | | | | | |C          l l                        b  6 6 6 6 6 6 6 6 6 } . S S S [ [ [ [A. VG ",
- "C  | | |S| |S| |S| | | | | | | | | | |C 4d       l l %                      b  6 6 , , , , { 6 } . . . . S S [ [ [b  VG ",
- "C  | | |S|S|S|S|S| | | | | | | | | | |q|         7 l l                      b  6 6 , , , , ,m  . . . . . . S S , ,b  VG ",--255
- "C  | | | |b|b|b| | | | | | | | | | | |C            l l %                    b  V V V V [ , ,m  . . . . . . . S , ,b  VG ",
- "C  | | | |b|b|b| | | | | | | | | | | |C            7 l l                    b  V V V V [ , [ V ] . . . . S S S , ,b  VG ",
- "C  | | | | |b| | |K|K| | | | | | | | |C b b b b b y LlLly b b b b b b b b b b  V V V , , [ V V V ] . . S S { { { ,b  VG ",-- Wicket Gate
- "C  | | |b|b|b|b|b|K|K| | | | | | | | |C              l l                   5Ll S S S , [ V V V V V ] S S { { { { {b  VG ",
- "C  | | | | |b| | | | | | | | | | | | |C              l l %               5 &b      S S V V V V V V S S { { { { { {b  VG ",--260
- "C  | | | |b|b|b| | | | | | | | | | | |C              7 l l           5 l &  b        S S V V S S S S { { { { { { {b  VG ",-- Mt Sinai
- "C  | | | |b| |b| | | | | | | | | | | |C                l l 4 $ l l l &      b          S S S S { 6 6 { { { { { { {b  VG ",
- "C  | | | |b| |b| | | | | | | | | | | |C                7 l l l l &          b                    { 6 6 { { { { { {b  VG ",
- "C C C C C C C C C C C C C C C C C C C C                  l l &              b b b b b b b b b b b b b b b b b b b b  VG ",--
- "C 1a d d d d d d d d d dC  d d d d d dC                  l l                                             W W W W Wb  VG ",--265
- "C  d dC C C C C C C C  dC  dC C C C  dC  D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D W W W D Db  VG ",
- "C  dC  d d dC  d d d d dC  d d d dC  dC  D D W W D D W W W D D D D D D D D D D D D D D D D D D W W D D D D D D D Db  VG ",
- "C  dC  dC  dC C C C C C C  dC C  dC  dC  W W W W D D D D D D D W W W D D D D W W D D D D D D D D W W W D D D D D Db  VG ",
- "C  dC  dC  dC  d d d d d d d dC  dC C C  D D D D D D D D D D D D W W D D D D W W D D D D D D D D W W W D D D D D Db  VG ",
- "C  dC  dC  dC  dC C C C C C  dC  d d dC  D D D D D D D D W W D D D D D D D W W W D D D D D D D W W W D D D D D D Db  VG ",--270
- "C  dC  dC  dC  dC  d d d d d dC  dC  dC  D D D W W W D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D Db  VG ",-- slough of despond
- "C  dC  dC  dC  dC  dC C C C C C  dC  dC  D D D W W W W D D D D D W W D W D D D D D D D W W D D D D D D D D D D D Db  VG ",
- "C  d d dC  dC  dC  dC  d d d d d dC  dC  D D D W D D D D D D D D D W W W D D D D D D D W W W W D D D D D D D D D Db  VG ",
- "C C C C C  dC  dC  dC  dC C C C C C  dC  D D D D D D D D D D D D D D D D D D D D D D D D D W W D D D D D D D D D DeV VG ",
- "C  d d d d dC  dC  dC  d d d d d dC  dC                 2c l                                                      AS VG ",--275
- "C  dC C C C C  dC  dC C C C C C  dC  dC                  l l                G G G G G G G G G G G G G G G G G G G sV VG ",--
- "C  dC  d d d d dC  d d d d d dC  dC  dC                $ l &                G  h h h h h h h hLhLhLhLhLh h h8x h h h ,G ",
- "C  dC  dC C C C C C C C C C  dC  dC  dC                l l                  G  hG G G G G G G G G G G G G G = = = = n6G ",
- "C  dC  dC  d d d d d d d dC  dC  dC  dC              5 l l                  G  h h h h hHH h h h h h h h h h h h hG  6G ",-- plain
- "C  dC  dC  dC C C C C C  dC  dC  dC  dC              l l 3                  G HHHHHHHH hHH hHHHHHHHHHHHHHHHHHHHH hG  6G ",--280
- "C  dC  d d d dC  d d d d dC  dC  dC  dC              l l                    G  h h h h hHH hHH h h h h h h h hHH hG  6G ",
- "C  dC C C C  dC  dC C C C C  dC  dC C C C C C C C C  l lC C C C C C C C C C G  hHHHHHHHHHH hHH hHHHHHHHHHHHH hHH hG  6G ",
- "C  d d d d d dC  dC  d d dC  dC  d d d d d d d d dC  l lC  d d d d dC  d d dG  hHH h h hHH hHH h h h h h hHH hHH hG  6G ",
- "C C C C C C C C  dC  dC  dC  dC C C C C C C C C C C  l2bC  dC C C C C  dC  dG  hHH hHH hHH hHHHHHHHHHHHH hHH hHH hG  6G ",
- "C  d d d d d d d dC  dC  dC  d d d d d d d d d d d d d dC  d d d d d d dC  dG  hHH hHH hHH h h h h h h h hHH hHH hG  6G ",--285
- "C  dC C C C C C C C  dC  dC C C C C C C C C C C C C C C C C C C C C C C C  de  hHH hHH hHHHHHHHHHHHHHHHHHHHH hHH hG  6G ",
- "C  d d d d d d d d d dC  d d d d d d d d d d d d d d d d d d d d d d d d d dAS h h hHH h h h h h h h h h h h hHH he. 6G ",--city of destruction
- "C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G G G G G G G G G G G G G G G G G G G G G G "})--288
+wo(topresolver, "  ", {
+"b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b     ",
+"b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",--01
+"b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",
+"b  c c c c c0c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c0c c c c c cb     ",
+"b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
+"b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",--05
+"b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
+"b  c c c c c0c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c0c c c c c cb     ",
+"b  c c c c c c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c0c c c c c c c c c c c c c c cb     ",--Celestial City
+"b  c c c c c c c c c c c c c c c c c c c c c c c c c c c c6w c c c c c c c c c c c c c c c c c c c c c c c c c c cb     ",
+"b b b b b b b b b b b b b b b b b b b b b b b b b b b  6= t6= b b b b b b b b b b b b b b b b b b b b b b b b b b G G G ",--10
+"b  . . . . . . . . . . . . . . . . . . . . . . . . .e.W6V, Wu. . . . . . . . . . . . . . . . . . . . . . . . . . .e. VG ",
+"b n6b b b b b b b b b b b b b b b b b b b b b b b b b x b z6b b b b b b b b b b b b b b b b b b b b b b b b b b b G  VG ",--
+"b  6b                                                                                                             b  VG ",
+"b  6b n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n n b  VG ",
+"b  6b  v v v v v v   v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v vb  VG ",--15
+"b  6b  v v v v v v   v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v v vb  VG ",
+"b  6b  W W W W W W   W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",
+"b  6b XWXWXWXWXWXW  XWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWb  VG ",
+"b  6b YWYWYWYWYWYW) YWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWb  VG ",
+"b  6b YWYWYWYWYWYW  YWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWYWb  VG ",--20
+"b  6b XWXWXWXWXWXW  XWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWXWb  VG ",
+"b  6b  W W W W W W   W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",-- Black River / River Of Death
+"b  6b             4u                                    4v                                                        b  VG ",
+"b  6b                                                                       b b b b b b b b b b b b b b b b b b b b  VG ",--
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",--25
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",-- Land of Beulah
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                   r                 4t l w w w w w w w w w w w w w w w w w wb  VG ",--30
+"b  6b                                                                        l w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",-- Enchanted ground
+"b  6b                                                                          w w w w w w w w w w w w w w w w w wb  VG ",
+"b  6b                                                                       b  w w w w w w w w w w w w w w w w w wb  VG ",--35
+"b  6b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b                  l2s                b  VG ",--
+"b  6b                                 b                 b b                 b                  l l                b  VG ",
+"b  6b                                 b                 b b                 b                5 l l                b  VG ",
+"b  6b                                 b                 b b                 b              5 l l &                b  VG ",
+"b  6b              5 l l l l l l l l lwl l2r l l l %             5 l l l l lel l l l l l l l l &                  b  VG ",--40
+"b  6b              l l l l l l l l l lwl l l l l l l %         5 l l l l l lel l l l l l l l &                    b  VG ",
+"b  6b              l l &              b            7 l 4     $ l &          b                                     b  VG ",
+"b  6b              l l                b              7 l l l l &            b                                     b  VG ",--Two paths - left: flatterer (to net), rig ht: correct
+"b  6b              l l                b                7 l l &              b                                     b  VG ",
+"b  6b              l l                b                  l l                b                                     b  VG ",--45
+"b  6b            5 l l                b                  l l                b                                     b  VG ",-- Plain
+"b  6b            l l &                b                  l l                b                                     b  VG ",
+"b  6b b b b b b sVsVb b b b b b b b b b                 2q l                b b b b b b b b b b b b b b b b b b b b  VG ",--
+"b  6b  q q q q q q qw,                             8 ^ ^ ^ ^ ^ ^ 9             8 ^ ^ ^ ^ ^ ^ ^ ^ 9                b  VG ",
+"b  6b  q q q q q q qw,                             < 8 ^ ^ ^ ^ 9 >             < 8 ^ ^ ^ ^ ^ ^ 9 .                b  VG ",--50
+"b  6b  q q q q q q qw, 8 ^ ^ ^ ^ ^ 9               < < l l l l > >             < < 8 ^ ^ ^ ^ 9 . .                b  VG ",
+"b  6b  q q q q q q qw, < 8 ^ ^ ^ 9 >               < < l l l l > >             < < <         . . .                b  VG ",
+"b  6b  q q q q q q qw, < <       > >               < < l l l l > >             < < <         . . .   8 ^ ^ ^ ^ ^ 9b  VG ",-- Delectable Mountains
+"b  6b  q q q q q q qw, < <       > >               < < l l l l > >             < < <         . . .   < 8 ^ ^ ^ 9 >b  VG ",
+"b  6b  q q q q q q qw, < <       > >               < * v v v v ( >             < < <         . . .  EHEHEHEHEHEHEHEH VG ",--55
+"b  6b  q q q q q q qw, < * v v v ( >               * v v v v v v (             < < * v v v v ( . .      B B B B   e. VG ",
+"b  6b  q q q q q q qw, * v v v v v (                     l l                   < * v v v v v v ( .  EHEHEHEHEHEHEHEH VG ",
+"b  6b  q q q q q q qw,                                   l l                   * v v v v v v v v (   < * v v v ( >b  VG ",
+"b  6b  q q q q q q qw,                                  2p l                                         * v v v v v (b  VG ",
+"b  6b :}b b b b b b b b b b b b b b b b b b b b b b b b  7 l %b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--60
+"b  6b :}b B B B b B B B B B B B B B B b               b    7 l l l %                                              b  VG ", -- random it_meditation added after map
+"b  6b :}b B b B b B b b b b b b b b B b               b            7 %                                            b  VG ",
+"b  6b :}b B b B b B b B B B B B B B B b               b              7 %                                          b  VG ",
+"b  6b B B B b B B B b B b b b b b b b b               b      1 l !     l                                          b  VG ",
+"b  6b B b b b b b b b B B B B B B B B b               b      l   7 l l &                                          b  VG ",--65
+"b  6b B B B B B B B b B b b b b b b B b               b      l                                                    b  VG ",
+"b  6b b b b b b b B b B B B B B B b 4owl l %          b      7 %                                                  b  VG ",-- Doubting Castle / By-Path Meadow
+"b  6b B B B B B B B b b b b b b B b   wl l l %        b        7 l l %                                            b  VG ",
+"b  6b B b b b b b b B B B B B B B b B b  7 l l l %    b              l                                            b  VG ",
+"b  6b B b B B B B b B b b b b b b b B b    7 l l l %  b          5 l &                                            b  VG ",--70
+"b  6b B B B b b B b B B b B B B B B B b        7 l l %b        5 &                                                b  VG ",
+"b  6b b b b b B B b b B b B b b b b b b n n n n n7nlnlb b b b blb b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
+"b  6b B B B B B b b b B b B B B B B B b            l l l %  v5v&             W W W W W W W       W W W W W W W W Wb  VG ",
+"b  6b B B B B B Q B b B b b b b b b B b            7 l l l %vl         W W W W W W W W W W W W W W W W W W W W W Wb  VG ",
+"b  6b B B B B B b B b B B B B B B B B b              7 l l l &       W W W W W W W W W W W W W W W W W W W W W W Wb  VG ",--75
+"b  6O B B B B B b B b b b b b b b b b b                  l l     W W W W W           W W W W W W W W W            b  VG ",
+"b  6b b b b b b b B b B B B B B B b B e                52n l   W W W W W                                          b  VG ",-- Pleasant meadow / River of the Water of Life
+"b  6b B B B B B B B b B b b b b B b B e              5 l l l W W W W W                                            b  VG ",
+"b  6b B b b b b b b b B b B B B B b B b            5 l l l W W W W W                                              b  VG ",
+"b  6b B b B B B b B B B b B b B b b B b          5 l l l W W W W W                                                b  VG ",--80
+"b  6b B b B b B b B b b b B b B b b B b          l l l l W W W W W                                                b  VG ",
+"b  6b B b B b B b B b B b B b b b b B b          l l l l W W W W W                                                b  VG ",
+"b  6b B B B b B B B b B B B B B B B B b          l l l l W W W W W                                                b  VG ",
+"b  6b b b b b b b b b b b b b b b b b b          7 l l l l W W W W                                                b  VG ",--
+"b  6b                                 b            l l l l W W W W W                                              b  VG ",--85
+"b  6b    8 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 9               7 l l l l W W W W W W                                          b  VG ",
+"b  6b    < 8 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 9 >                 l l l l l W W W W W W W W W                                  b  VG ",-- Hill Lucre
+"b  6b    < < 8 ^ ^ ^ ^ ^ ^ ^ ^ 9 > >                 7 l l l l       W W W W W W W W W W W                        b  VG ",
+"b  6b    < < <c c c c c c c c  > > >                   l l l l                 W W W W W W W W W                  b  VG ",
+"b  6b    < < <c d d d d d d c  > > >                   l l l l                       W W W W W W W W              b  VG ",--90
+"b  6b    < < <c c c c c c c c  > > >                   l l l l                               W W W W W W          b  VG ",
+"b  6b    < < * v v v v v v v v ( > >                   l l l l                                     W W W W W      b  VG ",
+"b  6b    < * v v v v v v v v v v ( >                   l l l l                                       W W W W W    b  VG ",
+"b  6b    * v v v v v v v v v v v v (                   l2m l l                                         W W W W W Wb  VG ",-- Plain called Ease
+"=  6b b                               b                l l l l              b                            W W W W Wb  VG ",--95
+"= N6= G G G G G G G G G G G G G G G G G G G G G G G G G N _ G G G G G G G G G G G G G G G G G G G G G G G G G G G G  VG ",--
+"=  6D> > > > > > > > > > > > > > > > > > > > > > > > >r>  Z G aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaGaaaaaaaaaG  VG ",
+"=  6= G G G G G G G G G G G G G G G G G G G G G G G G G G G G aa a a a a a a a a a a a aaa a a aGa a a aGa a a aaaG  VG ",
+"=  6G aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaaa aaa aaa aGa aaa aGa aGa aaaG  VG ",
+"=  6G aa a a aaa a a aaa a a aaa a a a a a a a a a a a a a a aaa a a a a a aaa a a aaa aaa aaa aGa aaa aGa aGa aaaG  VG ",--100
+"=  6G aa aaa aaa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaa aaa aaa aaa aaa aaa aaa aGa aGa aGa aaaG  VG ",
+"G  6G aa aaa aaa aaa aaa aaa aaa a a a a a a a a a a a aaa a a aaa a a aaa aaa aaa a a aaa aaa aaa aGa aGa aGa aaaG  VG ",
+"G  6G aa aaa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaa aaa aaa aaa aaa aaa aaa aaa aaaaaaaaaaa aGa aaa aGa aaa aGa aaaG  VG ",-- Vanity Fair
+"G  6G aa aaa aaa aaa aaa aaa a a a a a a a a a aaa aaa a a aaa a a aaa a a aaa a a a a a a aGa a a aGa a a aGa aaaG  VG ",
+"G  6G aa aaa aaa aaa aaa aaaaaaaaaaaaaaaaaaaaa aaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaGaaaaaaaGa aaaG  VG ",--105
+"G  6 a a aaa a a aaa a a aaa a a a a a a a a a a a aaaG G G G G G G G G G G G aa a a a a a a a a a a a a a a a aaaG  VG ",
+"G a6aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaG  . .e. . . . . .5l . .e. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaG  VG ",
+"G G G G G G G G G G G G G G G G G G G G G G G G G G G G  a aG G G G G G G G G G G G G G G G G G G G G G G G G G G G  VG ",--
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--110
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",-- Wilderness
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
+"b  T T T T T T T T T T T TU1 T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T TU2 T T T T T Tb  VG ",
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",-- meets talkative
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--115
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S3k T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
+"b  T T T T T TU4 T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T TU3 T T T T T T T T T T T Tb  VG ",
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",
+"b  T T T T T T T T T T T T T T T T T T T T T T T T T T T S S T T T T T T T T T T T T T T T T T T T T T T T T T T Tb  VG ",--120
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",--125
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",-- meets Faithful
+"b                                                        l l                                                      b  VG ",
+"b                                                        l l                                                      b  VG ",--130
+"b                                                       2j l                                                      b  VG ",
+"b b b b b b b b b b b b b b b b b b b b b b b b b b b b +lNlb b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
+"b YlYlYlYlYlYlYlYlYlYlYlYlYWYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYlYWYWYWYlYlYlYlYWYWYWYWYWYlYlYlYlYWYWYWYWYWYWYlYlYlYlYlYlYlYlYlYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlYlYlYWYWYWYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",--135
+"b YlYlYWYWYWYWYlYlYlYlYlYlYlYlYlYWYWYWYWYlYlYWYWYlYlYlYlYlYlYlYlYlYWYWYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYlYlYlYWYWYWYWYlYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYlYlYWYlYlYlYlYlYlYlYlYWYWYWY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYlYlYWYWYWYlYlYlYlYlYWYWYlYlYlYWYlYlYlYlYlYlYlYlYWYWYlYlYlYWYWYlYlYlYWYWYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYlYlYWYWYWYWYlYlYlYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYWYlYlYWYWYWYWYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",-- Valley of the Shadow of Death
+"b YlYlYlYlYlYlYlYlYlYWYWYWYlYlYlYlYlYWYWYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",--140
+"b YWYWYlYlYlYlYlYlYlYWYWYWYWYlYlYlYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYWYWYWYWYlYlYlYlYlYlYlYlYlYlYlYlYlYWYWYlYlYlYlYWYWYWYlYlYlYlYlYlYWYWYWYlYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b YlYlYWYWYlYlYlYWYWYWYWYlYlYlYlYlYlYlYWYWYlYlYlYlYWYWYW9iYlYlYlYlYWYWYWYWYWYlY.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.Y.e. VG ",
+"b b b b b b b b b b b b b b b b b b b b b b b b b b b b blblb b b b b b b b b b b b b b b b b b b b b b b b b b b b  VG ",--
+"b                                                        l l                                                      b  VG ",--145
+"b                                                        l l                        b b b b b b b b b b           b  VG ",
+"b                                                        l l                        e> > > > > > > > vb           b  VG ",
+"b                                                        l l                        b b b b b b b b  vb           b  VG ",
+"b                                                        l l                                      b  vb           b  VG ",
+"b                                                        l l                              b b b b b  vb           b  VG ",--150
+"b                                                        l l                              b  v < < < <b           b  VG ",
+"b                                                        l l                              b  vb b b b b           b  VG ",-- Valley of Humiliation (Apollyon)
+"b                                                        l l                              b  vb                   b  VG ",
+"b                                                        l l                              b  vb b b b b b b b b b b  VG ",
+"b                                                        l2h                              b  > > > > > > > > > >;>e> VG ",--155
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b b b b b b b b b b b b b  VG ",--
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",--160
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",-- Slope
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",--165
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"b  ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ ^b  VG ",
+"K K K K K K K K K K K K K K K K K K K K K K K K K K K K  p pK K K K K K K K K K K K K K K K K K K K K K K K K K K K  VG ",--
+"K  p p p p pK  p p p p p p p p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK  VG ",
+"K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p p p p p p p p p p p p p pb  pK  VG ",--170
+"K  p pop p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p pb b b b b b b b b  p p pb  pK  VG ",
+"K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b  pb  p p p p p p pb  pb b b  pK  VG ",-- Palace called Beautiful
+"K  p ppp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  pb  pb  p p p p p p pb  pb  pb  pK  VG ",
+"K  p p p p p-p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK K K K K K K K K K K K K K K K K K K K  VG ",
+"K  p ppp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pK  p p p p p p p p p p p p p p p p p pK  VG ",--175
+"K  p p p p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b  p p p p p p p p p p p pK  VG ",
+"K  p prp p pK  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb b b b b b b b b b b b  p p pK  VG ",
+"K  p p p p p~  p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p p pb  p p p p p pb  p p p p pK  VG ",
+"K  p p p p pK  p p p p p p p p p p p pK  p p p p p p p p7g p p p p p p p p pK  p p p p p p p p p p p p p p p p p pK  VG ",
+"K K K K K K K K K K K K K K K K K K K K K K K K K K K K nlnlK K K K K K K K K K K K K K K K K K K K K K K K K K K K  VG ",--180
+"b B B B b B B B b B B B B B B B B B B b                  l l                b  . . . . . . . . . . . . . . . . . .e. VG ",
+"b B b B B B b B b B b b b b b b b b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B b b b b b B b B B B B b B B B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B b B B B b B b b b b B b B b b b b b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B b B b B b B B B B B B b B B B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",--185
+"b B B B b B b b b B b b b b b b b b B i1      f1         l l        f2      i2 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",-- Lions
+"b b b B b B b B B B b B B B B B B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B B B b B B B b B B B b b b b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B b b b b b b b b b B B B B b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b B b B B B b B B B b b b b B b B b B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",--190
+"b B B B b B B B b B B B B B B b B B B b                  l l                b  6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6b  VG ",
+"b b b b b b b b b B b b b b b b b b b b b b b b b b b b nlnlb b b b b b b b b  { 6 6 6 } { } 6 6 6 6 { 6 6 6 6 6 }b  VG ",--
+"b                  l                  b  g g g g g g g g U Ub  V V V V [ , ,b  , { 6 } . [ ] 6 6 6 } , { 6 6 6 } .b  VG ",
+"b                  7 %                b  g g g g g g g U U Ub  ]       , , ,b  , , S . . { 6 6 6 } . , , { 6 } . .b  VG ",
+"b                    l                b  g g g g g g U Ub b  ]         , , ,b  , [ V ] . , { 6 } . . , , , S . . .b  VG ",--195
+"b                    l                b  g g g g g g U                 , , ,b  [ V V V ] , , S . . . , , [ V ] . .b  VG ",--  Way called Destruction
+"b                    7 %              b  g g g g g g Ub b b b  6 6 6 6 { , ,b  V V V V V , [ V ] . . , [ V V V ] .b  VG ",--  Hill of difficulty
+"b                      7 %            b  g g g g g g U U g gb  6 6 6 6 6 { ,b  . [ 6 6 6 [ V V V ] 6 6 6 } V V V ]b  VG ",-- Way called Danger
+"b                        7 %          b  g g g g g g g U g gb b b b b b b b b  . , [ 6 6 6 ] . , , { 6 } . 6 6 6 6b  VG ",
+"b                          l          b  g g g g g g g U U g g g g g g g g gb  . , , [ 6 ] . . , , , S . . [ 6 6 6b  VG ",--200
+"b                          l          b  g g g g g g g g U g g g g g g g g gb  . , , , S . . . , , [ V ] . , [ 6 ]b  VG ",
+"b                          7 %        b  g g g g g g g g U U g g g g g g g gb  . , , { V } . . , [ V V V ] , , S .b  VG ",
+"b                            7 %      b  g g g g g g g g g U g g g g g g g gb  . , { V V V } . [ V V V V V , { V }b  VG ",
+"b n n n n n n n n n n n n n n nln n n b  g g g g g g g g g U g g g g g g g gb b n n n5n&n n n n n n n n n n n n n b  VG ",
+"b                              7 %    w  V V V V V V V V V U V V V V V V V Ve      5 &                            b  VG ",--205
+"b                                7 l lw% V V V V V V V V U U V V V V V 5 l lel l l &                              b  VG ",
+"b                                  7 lwl l l % W W W V V U U V V 5 l l l l lel l &                                b  VG ",-- path divides in three
+"b                                     w7 l l l l l l l l l l l l l l l l l le&                                    b  VG ",
+"b                                     w      7 l l l l l l l l l l l l &    e                                     b  VG ",
+"b                                     w            7 l l l2f l l &          e                                     b  VG ",--210
+"b                                     w               b  l lb               e                                     b  VG ",
+"b                                     w               b  l lb               e                                     b  VG ",
+"b                                     w               b  l lb               e                                     b  VG ",-- plain
+"b                                     w               b  l lb               e                                     b  VG ",
+"b                                     w               b  l lb               e                                     b  VG ",--215
+"C C C C C C C C C C C C C C C C C C C C b b b b b b b b nlnlb b b b b b b b C C C C C C C C C C C C C C C C C C C C  VG ",--
+"C EHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHEHC  S S S S S S S S S S S S S S S S S SC  A A A A A A A A A A A A A A A A A AC  VG ",
+"C  W W W W W W W W W W W W W W W W W WC  S S S S S S S S SJS S S S S S S S SC  A A A A A A A A`A A A A A A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARARARARARARARARA A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",--220
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARA A A A A A ARA A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A ARARARARARARARARA A A A A AC  VG ",-- Mt Calvary
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",--225
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C  v v v v v v v v v v v v v v v v v vC  A A A A A A A A A A A A A A A A A AC  VG ",
+"C C C C C C C C C  | |C C C C C C C C C ASASASASASASASAS v vASASASASASASASASC C C C C C C SSSS S SSSSSC C C C C C C  VG ",--
+"C  | | | | | | | | | | | | | | | | | |C b b b b b b b bS    bSB B B B B B B C  A A A ASSSS S S S S S SSSSS A A A AC  VG ",
+"C  | | | | | | | | | | | | | | | | | |C b b b b b b b bS    bSB B B B B B b C  A ASSSS S S S S S S S S S SSSSS A AC  VG ",--230
+"C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C SSSS S S S S S S S S S S S S S SSSSSC  VG ",
+"C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
+"C  | |b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
+"C  | | |b| | | | | | | | | | |b| | | |C b b b b b b b bS    bSB B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
+"C  |P|b|b|b| | | | | | | | |b|b|b| | |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",--235
+"C  |b| |b| |b| | | | | | |b| |b| |b| |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
+"C  | | |b| | | | | | | | | | |b| | | |C b b b b b b b b     b B B B B B B b C  ASS S S S S S S S S S S S S S SSS AC  VG ",
+"C  | |b| |b| | | | | | | | |b| |b| | |C b b b b b b b b     b b b b B b b b C RASS S S S S S S S S S S S S S SSSRAC  VG ",
+"C  |b| | | |b| | | | | | |b| | | |b| |C b b b b b b b b     b b b b j b b C  | S S S S S S S S S S S S S S S S S SC  VG ",
+"C C C C C C C C C  | |C C C C C C C C C C C C C C C C C  | |C C C C C C C  | | |C C C C C C C C C C C C C C C C C C  VG ",--240
+"C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | | |C  ] ] V V [ S S SMS [ V V V V [ [ [b  VG ",
+"C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  ] ] ] S S S S { 6MSMS VMSMSMS [ [ ,b  VG ",
+"C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  ] ] S S { 6 { { 6 }MSMSMS }MSMS , ,b  VG ",-- Interpreter's House
+"C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  . S S { { , , { 6 } 6 6 6 } .MS , ,b  VG ",
+"C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . S , , , , , , S . . . . . .MS [ [b  VG ",--245
+"C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . S S , , , , [ V ] . . . . .MSMS [b  VG ",
+"C |||||||||||||||||||||||||||||||||||| | | | | | | | | | | | | | | | | | | |C  . . S , , , [ V V V ] . . . . .MSMSL. VG ",
+"C ||||||||||||||||||||||||||||||||||||C  | | | | | | | | | | | | | | | | | |C  . S S , , [ V V V V V ] . . . } 6 6A. VG ",
+"C ||||||||||||||||||||||||||||||||||||C  | | |b|b|b| | | | | | | | | | | | |C  . S , , , S S S S [ [ [ [ [ . 6 6 6A. VG ",
+"C ||||||||||||||||||||||||||||||||||||C  | | |b|b|b|b|b|b|b|b|b|b|b|b| | | |C  . S S S V S 6 6 S S S [ [ [ [ } } }A. VG ",--250
+"C ||||||||||||||||||||||||||||||||||T|C  | | | | |b| | | | | |b| | | | | | |C  } } } S S S 6 6 6 6 S S [ [ [ [ } }A. VG ",
+"C C C C C C C C C  | | |C C C C C C C C C C C C C C C C C C C C C C C C C C C  } } } 6 6 6 6 6 6 6 } S [ [ [ [ [ }A. VG ",--
+"C  | | | | | | | | | | | | | | | | | |C          l l                        b  6 6 6 6 6 6 6 6 6 } . S S S [ [ [ [A. VG ",
+"C  | | |S| |S| |S| | | | | | | | | | |C 4d       l l %                      b  6 6 , , , , { 6 } . . . . S S [ [ [b  VG ",
+"C  | | |S|S|S|S|S| | | | | | | | | | |q|         7 l l                      b  6 6 , , , , ,m  . . . . . . S S , ,b  VG ",--255
+"C  | | | |b|b|b| | | | | | | | | | | |C            l l %                    b  V V V V [ , ,m  . . . . . . . S , ,b  VG ",
+"C  | | | |b|b|b| | | | | | | | | | | |C            7 l l                    b  V V V V [ , [ V ] . . . . S S S , ,b  VG ",
+"C  | | | | |b| | |K|K| | | | | | | | |C b b b b b y LlLly b b b b b b b b b b  V V V , , [ V V V ] . . S S { { { ,b  VG ",-- Wicket Gate
+"C  | | |b|b|b|b|b|K|K| | | | | | | | |C              l l                   5Ll S S S , [ V V V V V ] S S { { { { {b  VG ",
+"C  | | | | |b| | | | | | | | | | | | |C              l l %               5 &b      S S V V V V V V S S { { { { { {b  VG ",--260
+"C  | | | |b|b|b| | | | | | | | | | | |C              7 l l           5 l &  b        S S V V S S S S { { { { { { {b  VG ",-- Mt Sinai
+"C  | | | |b| |b| | | | | | | | | | | |C                l l 4 $ l l l &      b          S S S S { 6 6 { { { { { { {b  VG ",
+"C  | | | |b| |b| | | | | | | | | | | |C                7 l l l l &          b                    { 6 6 { { { { { {b  VG ",
+"C C C C C C C C C C C C C C C C C C C C                  l l &              b b b b b b b b b b b b b b b b b b b b  VG ",--
+"C 1a d d d d d d d d d dC  d d d d d dC                  l l                                             W W W W Wb  VG ",--265
+"C  d dC C C C C C C C  dC  dC C C C  dC  D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D W W W D Db  VG ",
+"C  dC  d d dC  d d d d dC  d d d dC  dC  D D W W D D W W W D D D D D D D D D D D D D D D D D D W W D D D D D D D Db  VG ",
+"C  dC  dC  dC C C C C C C  dC C  dC  dC  W W W W D D D D D D D W W W D D D D W W D D D D D D D D W W W D D D D D Db  VG ",
+"C  dC  dC  dC  d d d d d d d dC  dC C C  D D D D D D D D D D D D W W D D D D W W D D D D D D D D W W W D D D D D Db  VG ",
+"C  dC  dC  dC  dC C C C C C  dC  d d dC  D D D D D D D D W W D D D D D D D W W W D D D D D D D W W W D D D D D D Db  VG ",--270
+"C  dC  dC  dC  dC  d d d d d dC  dC  dC  D D D W W W D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D Db  VG ",-- slough of despond
+"C  dC  dC  dC  dC  dC C C C C C  dC  dC  D D D W W W W D D D D D W W D W D D D D D D D W W D D D D D D D D D D D Db  VG ",
+"C  d d dC  dC  dC  dC  d d d d d dC  dC  D D D W D D D D D D D D D W W W D D D D D D D W W W W D D D D D D D D D Db  VG ",
+"C C C C C  dC  dC  dC  dC C C C C C  dC  D D D D D D D D D D D D D D D D D D D D D D D D D W W D D D D D D D D D DeV VG ",
+"C  d d d d dC  dC  dC  d d d d d dC  dC                 2c l                                                      AS VG ",--275
+"C  dC C C C C  dC  dC C C C C C  dC  dC                  l l                G G G G G G G G G G G G G G G G G G G sV VG ",--
+"C  dC  d d d d dC  d d d d d dC  dC  dC                $ l &                G  h h h h h h h hLhLhLhLhLh h h8x h h h ,G ",
+"C  dC  dC C C C C C C C C C  dC  dC  dC                l l                  G  hG G G G G G G G G G G G G G = = = = n6G ",
+"C  dC  dC  d d d d d d d dC  dC  dC  dC              5 l l                  G  h h h h hHH h h h h h h h h h h h hG  6G ",-- plain
+"C  dC  dC  dC C C C C C  dC  dC  dC  dC              l l 3                  G HHHHHHHH hHH hHHHHHHHHHHHHHHHHHHHH hG  6G ",--280
+"C  dC  d d d dC  d d d d dC  dC  dC  dC              l l                    G  h h h h hHH hHH h h h h h h h hHH hG  6G ",
+"C  dC C C C  dC  dC C C C C  dC  dC C C C C C C C C  l lC C C C C C C C C C G  hHHHHHHHHHH hHH hHHHHHHHHHHHH hHH hG  6G ",
+"C  d d d d d dC  dC  d d dC  dC  d d d d d d d d dC  l lC  d d d d dC  d d dG  hHH h h hHH hHH h h h h h hHH hHH hG  6G ",
+"C C C C C C C C  dC  dC  dC  dC C C C C C C C C C C  l2bC  dC C C C C  dC  dG  hHH hHH hHH hHHHHHHHHHHHH hHH hHH hG  6G ",
+"C  d d d d d d d dC  dC  dC  d d d d d d d d d d d d d dC  d d d d d d dC  dG  hHH hHH hHH h h h h h h h hHH hHH hG  6G ",--285
+"C  dC C C C C C C C  dC  dC C C C C C C C C C C C C C C C C C C C C C C C  de  hHH hHH hHHHHHHHHHHHHHHHHHHHH hHH hG  6G ",
+"C  d d d d d d d d d dC  d d d d d d d d d d d d d d d d d d d d d d d d d dAS h h hHH h h h h h h h h h h h hHH he. 6G ",--city of destruction
+"C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C C G G G G G G G G G G G G G G G G G G G G G G "})--288
 --      |                   1         1       | 2         2         3         3     |   4         4         5         5   |   5
 --      | 1       5         0         5       | 0         5         0         5     |   0         5         0         5   |   9
 
-
-
 --Meditation items
-  wo:drawMap(res.random(ti, "v ", {"v ", "g ", "h ", "k ", "l "}), po(28,60), "  ", {
- "v v                                                       ",--60
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",--65
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",--70
- "v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
- "                                                          ",--
- "    v v                                                   ",
- "    v                                                     "})
+ wo:drawMap(res.random(ti, "v ", {"v ", "g ", "h ", "k ", "l "}), po(28,60), "  ", {
+"v v                                                       ",--60
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",--65
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",--70
+"v v v v v v v v v v v v v v v v v v v v v v v v v v v v v ",
+"                                                          ",--
+"    v v                                                   ",
+"    v                                                     "})
 
 if wo["CreatingPreview"] then
-  wo[{29, 5.5}] = {"ac_marble_black"}
-  wo[{26.5, 5.5}] = {"ac_marble_white"}
-  wo[{31.5, 5.5}] = {"ac_marble_white"}
+    wo[{29, 5.5}] = {"ac_marble_black"}
+    wo[{26.5, 5.5}] = {"ac_marble_white"}
+    wo[{31.5, 5.5}] = {"ac_marble_white"}
 end
 
 wo[no["Key3"]] = ti({"st_chameleon"})
@@ -476,41 +474,40 @@ wo["WaterSinkTime"] = 10
 wo["Fragility"] = 1
 
 function Cross()
-  wo[{29, 217}] = {"it_key", code="1"} -- opens Celestial City
-  wo[{38, 218}] = {"st_scissors", action="callback", target="RemoveBurden"}
-  wo[{28, 218}] = {"it_document", text="text%e"}
+    wo[{29, 217}] = {"it_key", code="1"} -- opens Celestial City
+    wo[{38, 218}] = {"st_scissors", action="callback", target="RemoveBurden"}
+    wo[{28, 218}] = {"it_document", text="text%e"}
 end
 
 function ApollyonDefeat()
-  wo[{28, 144}] = {"st_oneway", state=NORTH}
-  wo[{29, 144}] = {"st_oneway", state=NORTH}
+    wo[{28, 144}] = {"st_oneway", state=NORTH}
+    wo[{29, 144}] = {"st_oneway", state=NORTH}
 end
 
 function RemoveBurden()
-  wo:add({"ot_rubberband", anchor1="Burden", anchor2="Sepulchre", length=1, strength=100, max=1.05, min=0.95})
+    wo:add({"ot_rubberband", anchor1="Burden", anchor2="Sepulchre", length=1, strength=100, max=1.05, min=0.95})
 end
 
 function VainHope() -- Cheat across river - can't get into Celestial City
-  no["DoorC"]:message("close")
-  no["DoorH"]:message("open")
-  wo[{29, 11}] = {"fl_slope_te", force_x=100}
-  wo[{29, 12}] = {"fl_slope_tn", force_y=-100}
+    no["DoorC"]:message("close")
+    no["DoorH"]:message("open")
+    wo[{29, 11}] = {"fl_slope_te", force_x=100}
+    wo[{29, 12}] = {"fl_slope_tn", force_y=-100}
 end
 
 function Promise() -- Opening passage using key called Promise
-  no["Door3"]:message("open")
-  wo:drawRect(po(28,72), po(56,72), ti({"st_oneway", state=NORTH}))
+    no["Door3"]:message("open")
+    wo:drawRect(po(28,72), po(56,72), ti({"st_oneway", state=NORTH}))
 end
 
 function MeetFaithful()
-  wo:add({"ot_rubberband", anchor1="Christian", anchor2="Faithful", length=1, strength=20, max=1.05, min=0.95})
+    wo:add({"ot_rubberband", anchor1="Christian", anchor2="Faithful", length=1, strength=20, max=1.05, min=0.95})
 end
 
 function MeetHopeful()
-  wo:add({"ot_rubberband", anchor1="Christian", anchor2="Hopeful", length=1, strength=20, max=1.05, min=0.95})
+    wo:add({"ot_rubberband", anchor1="Christian", anchor2="Hopeful", length=1, strength=20, max=1.05, min=0.95})
 end
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

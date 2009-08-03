@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="57" title="Enigma 1.1 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="58" title="Enigma 1.1 new"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Inkblot 1" _xpath="enigma_vii/npb01_2" author="Nathan Bronecke" ctrl="force" easy="true" id="20070519npb015045" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="mad-ill-tation" _xpath="enigma_vii/illmind14_1" author="illmind" ctrl="force" easy="false" id="ill0907-01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="mad-ill-tation" _xpath="enigma_vii/illmind14_2" author="illmind" ctrl="force" easy="false" id="ill0907-01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="- Meditation -" _xpath="enigma_vii/joe04_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="- Meditation -" _xpath="enigma_vii/joe05_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Working Outwards" _xpath="enigma_vii/joe06_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Super Puzzle" _xpath="enigma_vii/joe11_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Pantograph" _xpath="enigma_vii/duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Advanced Space Tubes" _xpath="enigma_vii/duffy161_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy161" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Advanced Space Tubes" _xpath="enigma_vii/duffy161_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy161" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -29,7 +29,7 @@
     <level _seq="21" _title="Double Oneways" _xpath="enigma_vii/duffy172_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Transpositions" _xpath="enigma_vii/duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Puppet" _xpath="enigma_vii/pulley06_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="2" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Puppet" _xpath="enigma_vii/pulley06_3" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="3" rev="13" score="2" target="time" unit="duration"/>
     <level _seq="25" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Ghost Driver" _xpath="enigma_vii/duffy176_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="8" score="1" target="time" unit="duration"/>
@@ -49,8 +49,8 @@
     <level _seq="41" _title="Armageddon" _xpath="enigma_vii/duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Mountain Climbing II" _xpath="enigma_vii/joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Minor Tangler" _xpath="enigma_vii/joe24_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="Circulation" _xpath="enigma_vii/pulley03_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley03" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="45" _title="Maze for Two" _xpath="enigma_vii/ral22_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="2" rev="100" score="2" target="time" unit="duration"/>
+    <level _seq="44" _title="Circulation" _xpath="enigma_vii/pulley03_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley03" rel="3" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="45" _title="Maze for Two" _xpath="enigma_vii/ral22_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="2" rev="101" score="2" target="time" unit="duration"/>
     <level _seq="46" _title="Making Shapes" _xpath="enigma_vii/joe18_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe18" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Clever Pushing" _xpath="enigma_vii/joe19_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe19" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Using Rotators" _xpath="enigma_vii/joe20_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe20" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -83,7 +83,7 @@
     <level _seq="75" _title="Jack-Of-All-Trades" _xpath="enigma_vii/mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="49" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Enigmaparcour I" _xpath="enigma_viii/mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="36" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Rhythm of Space" _xpath="enigma_viii/mecke20_2" author="mecke" ctrl="force" easy="true" id="mecke20" rel="2" rev="37" score="1" target="time" unit="duration"/>
-    <level _seq="78" _title="The Show Jumper" _xpath="enigma_viii/andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="11" score="1" target="time" unit="duration"/>
+    <level _seq="78" _title="The Show Jumper" _xpath="enigma_viii/andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="The Red Room" _xpath="enigma_viii/joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Enigmines" _xpath="enigma_viii/huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Red Cave" _xpath="enigma_viii/mecke21_2" author="mecke" ctrl="force" easy="true" id="mecke21" rel="2" rev="45" score="1" target="time" unit="duration"/>
@@ -117,7 +117,7 @@
     <level _seq="109" _title="- Meditation -" _xpath="enigma_viii/raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="110" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="111" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="8" score="1" target="time" unit="duration"/>
-    <level _seq="112" _title="Relaxing at the sea" _xpath="enigma_viii/devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="112" _title="Relaxing at the sea" _xpath="enigma_viii/devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Helios II" _xpath="enigma_viii/mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="114" _title="Tutoxyd's Pyramid" _xpath="enigma_viii/ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="173" score="2" target="time" unit="duration"/>
     <level _seq="115" _title="Alternation I" _xpath="enigma_viii/mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="14" score="1" target="time" unit="duration"/>
@@ -125,8 +125,8 @@
     <level _seq="117" _title="- Meditation -" _xpath="enigma_viii/devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="118" _title="Multi-lane" _xpath="enigma_viii/devnull03_1" author="/dev/null" ctrl="force" easy="true" id="devnull03" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="119" _title="See Saw Meditation" _xpath="enigma_viii/duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="120" _title="Under control?" _xpath="enigma_viii/devnull09_1" author="/dev/null" ctrl="force" easy="true" id="devnull09" rel="1" rev="9" score="1" target="time" unit="duration"/>
-    <level _seq="121" _title=" - Meditation - " _xpath="enigma_viii/devnull12_1" author="/dev/null" ctrl="force" easy="true" id="devnull12" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="120" _title="Under control?" _xpath="enigma_viii/devnull09_1" author="/dev/null" ctrl="force" easy="true" id="devnull09" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="121" _title=" - Meditation - " _xpath="enigma_viii/devnull12_1" author="/dev/null" ctrl="force" easy="true" id="devnull12" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="122" _title="On belay?" _xpath="enigma_viii/devnull15_1" author="/dev/null" ctrl="force" easy="true" id="devnull15" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="123" _title="Hang-dogging?" _xpath="enigma_viii/devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="124" _title="Alternation II" _xpath="enigma_viii/mecke31_1" author="mecke" ctrl="force" easy="false" id="mecke31" rel="1" rev="21" score="1" target="time" unit="duration"/>
@@ -142,32 +142,32 @@
     <level _seq="134" _title="More or Less Wired" _xpath="enigma_viii/ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="176" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="Sokopal" _xpath="enigma_viii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="7" score="2" target="time" unit="duration"/>
     <level _seq="136" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="137" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="138" score="1" target="time" unit="duration"/>
+    <level _seq="137" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="139" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Two Is A Company I" _xpath="enigma_viii/devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="Two Is A Company II" _xpath="enigma_viii/devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="CrissCross" _xpath="enigma_viii/devnull26_1" author="/dev/null" ctrl="force" easy="true" id="devnull26" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="143" _title="5 Days and 5 Nights" _xpath="enigma_viii/andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="143" _title="5 Days and 5 Nights" _xpath="enigma_viii/andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="144" _title="Babylon" _xpath="enigma_viii/mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="27" score="1" target="time" unit="duration"/>
-    <level _seq="145" _title="Two Is A Company III" _xpath="enigma_viii/devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="146" _title="Panelled Puzzle I" _xpath="enigma_viii/ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="177" score="1" target="time" unit="duration"/>
-    <level _seq="147" _title="Panelled Puzzle II" _xpath="enigma_viii/ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="177" score="1" target="time" unit="duration"/>
+    <level _seq="145" _title="Two Is A Company III" _xpath="enigma_viii/devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="146" _title="Panelled Puzzle I" _xpath="enigma_viii/ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="179" score="1" target="time" unit="duration"/>
+    <level _seq="147" _title="Panelled Puzzle II" _xpath="enigma_viii/ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="179" score="1" target="time" unit="duration"/>
     <level _seq="148" _title="The Gordian Knot" _xpath="enigma_viii/ral15_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090312ral718" rel="1" rev="167" score="1" target="time" unit="duration"/>
     <level _seq="149" _title="Inverse Maze" _xpath="enigma_viii/ral44_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090325ral180" rel="1" rev="163" score="1" target="time" unit="duration"/>
     <level _seq="150" _title="Inverse Maze II" _xpath="enigma_viii/ral45_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090327ral218" rel="1" rev="170" score="1" target="time" unit="duration"/>
-    <level _seq="151" _title="Maze for Two II" _xpath="enigma_viii/ral23_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090330ral370" rel="2" rev="169" score="2" target="time" unit="duration"/>
+    <level _seq="151" _title="Maze for Two II" _xpath="enigma_viii/ral23_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090330ral370" rel="2" rev="170" score="2" target="time" unit="duration"/>
     <level _seq="152" _title="Fight of Elements" _xpath="enigma_viii/ral48_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090403ral538" rel="1" rev="172" score="1" target="time" unit="duration"/>
-    <level _seq="153" _title="New York'Jungle" _xpath="enigma_viii/mecke32_1" author="mecke" ctrl="force" easy="false" id="mecke32" rel="1" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="153" _title="New York Jungle" _xpath="enigma_viii/mecke32_1" author="mecke" ctrl="force" easy="false" id="mecke32" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="154" _title="Push? Pull? Rotate!" _xpath="enigma_viii/raoul33_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul33" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="155" _title="2 + 2" _xpath="enigma_viii/devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="155" _title="2 + 2" _xpath="enigma_viii/devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="156" _title="Afraid of water" _xpath="enigma_viii/devnull32_1" author="/dev/null" ctrl="force" easy="true" id="devnull32" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="157" _title="Deathbridge" _xpath="enigma_viii/ais01_1" author="Alex Smith" ctrl="force" easy="true" id="20090416ais523003" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Danger Flag" _xpath="enigma_viii/ais02_1" author="Alex Smith" ctrl="force" easy="true" id="20090338ais523002" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="159" _title="Three Times Through" _xpath="enigma_viii/ais03_1" author="Alex Smith" ctrl="force" easy="true" id="20090316ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="160" _title="From Six To Twenty-Six" _xpath="enigma_viii/ais04_1" author="Alex Smith" ctrl="force" easy="false" id="20090427ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="161" _title="Rainbow Adjacencies" _xpath="enigma_viii/ais05_1" author="Alex Smith" ctrl="force" easy="false" id="20090422ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="162" _title="Transforming Numbers" _xpath="enigma_viii/ais06_1" author="Alex Smith" ctrl="force" easy="false" id="20090406ais523002" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="162" _title="Transforming Numbers" _xpath="enigma_viii/ais06_1" author="Alex Smith" ctrl="force" easy="false" id="20090406ais523002" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="163" _title="Enigmaparcour III" _xpath="enigma_viii/mecke35_1" author="mecke" ctrl="force" easy="true" id="mecke35" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="164" _title="Mazelets" _xpath="enigma_viii/raoul34_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul34" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="165" _title="The Sum Of Its Parts" _xpath="enigma_viii/luc36" author="Lukas Schüller" ctrl="force" easy="true" id="luc362009" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -180,9 +180,15 @@
     <level _seq="172" _title="Su Dyxo" _xpath="enigma_ix/ais33_1" author="Alex Smith" ctrl="force" easy="true" id="20090525ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="173" _title="Camel and Needle" _xpath="enigma_ix/andreas57_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas57" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="174" _title="Water Galore" _xpath="enigma_ix/ral49_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090620ral141" rel="1" rev="178" score="1" target="time" unit="duration"/>
-    <level _seq="175" _title="pinnacles1" _xpath="enigma_ix/mecke36_1" author="mecke" ctrl="force" easy="true" id="mecke36" rel="1" rev="15" score="1" target="time" unit="duration"/>
+    <level _seq="175" _title="Pinnacles I" _xpath="enigma_ix/mecke36_1" author="mecke" ctrl="force" easy="true" id="mecke36" rel="1" rev="16" score="1" target="time" unit="duration"/>
     <level _seq="176" _title="Symopal" _xpath="enigma_ix/andreas58_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas58" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="177" _title="The Pilgrim's Progress" _xpath="enigma_ix/pulley14_1" author="Mark Pulley" ctrl="force" easy="false" id="20080101pulley001" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="178" _title="Logic Gates" _xpath="enigma_ix/pulley17_1" author="Mark Pulley" ctrl="force" easy="true" id="20080601pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="179" _title="Behind glass" _xpath="enigma_ix/rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="180" _title="Perennial Creek" _xpath="enigma_ix/pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="181" _title="Wired Strips" _xpath="enigma_viii/ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="183" _title="Wired pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

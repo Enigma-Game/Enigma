@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pentachromos" el:subtitle="Combined effort level 2" el:id="cel2"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author  el:name="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["MaxOxydColor"] = OXYD_BROWN
+
+-- Joseph Dunne
+
+ti["j "] = {"fl_lawn"}
+ti["j0"] = {"fl_water"}
+ti["j,"] = {"fl_red"}
+ti["j*"] = ti["j "] .. {"st_stoneimpulse"}
+ti["j{"] = ti["j "] .. {"st_rotator_ccw"}
+ti["j#"] = ti["j "] .. {"st_bluesand"}
+ti["j%"] = ti["j "] .. {"st_yellow"}
+ti["j&"] = ti["j "] .. {"st_grate_cross"}
+ti["j$"] = ti["j "] .. {"st_box_wood"}
+ti["j8"] = ti["j "] .. {"st_boulder_n"}
+ti["j!"] = ti["j "] .. {"st_swap"}
+ti["j)"] = ti["j "] .. {"st_oneway_n"}
+ti["j("] = ti["j "] .. {"st_oneway_s"}
+ti["jW"] = ti["j "] .. {"st_puzzle_blue_n"}
+ti["jR"] = ti["j "] .. {"st_puzzle_blue_ns"}
+ti["jV"] = ti["j "] .. {"st_puzzle_blue_ew"}
+ti["jA"] = ti["j "] .. {"st_puzzle_blue_w"}
+ti["jX"] = ti["j "] .. {"st_puzzle_blue_s"}
+ti["jD"] = ti["j "] .. {"st_puzzle_blue_e"}
+ti["jQ"] = ti["j "] .. {"st_puzzle_blue_nw"}
+ti["jZ"] = ti["j "] .. {"st_puzzle_blue_sw"}
+ti["jC"] = ti["j "] .. {"st_puzzle_blue_es"}
+ti["jE"] = ti["j "] .. {"st_puzzle_blue_ne"}
+ti["j-"] = ti["j "] .. {"st_switch", target="@vortexback#*"}
+ti["j7"] = ti["j "] .. {"it_blocker"}
+ti["j`"] = ti["j "] .. {"it_key", code=8}
+ti["j~"] = ti["j "] .. {"it_key", code=3}
+ti["jv"] = ti["j "] .. {"it_vortex_closed", destination = po(135.5,2.5), name="vortexback#", autoclose=true}
+
+-- Ronald Lamprecht
+
+ti["r "] = {"fl_lawn", friction=6.0}
+ti["r~"] = {"fl_abyss"}
+ti["r#"] = ti["r "] .. {"st_granite"}
+ti["re"] = ti["r "] .. {"it_vortex_closed", name="vortexRale", destination = po(135.5,10.5), autoclose=true}
+ti["rs"] = (ti["r "] .. {"it_vortex_closed", name="vortexRals", autoclose=true}) .. {"st_shogun_s"}
+ti["rm"] = (ti["r "] .. {"it_vortex_closed", name="vortexRalm", autoclose=true}) .. {"st_shogun_m"}
+ti["rl"] = (ti["r "] .. {"it_vortex_closed", name="vortexRall", autoclose=true}) .. {"st_shogun_l"}
+ti["rI"] = ti["r "] .. {"st_stoneimpulse"}
+ti["rd"] = ti["r "] .. {"it_shogun_l", target="ral_door1", action="toggle"}
+ti["rh"] = ti["r "] .. {"st_door_d_ew", name="ral_door1"}
+ti["rW"] = ti["r "] .. {"st_box_wood"}
+ti["rX"] = ti["r "] .. {"st_swap"}
+ti["rt"] = ti["r "] .. {"it_trigger", target="ral_bridge1a", action="toggle"}
+ti["ru"] = ti["r "] .. {"it_trigger", target="ral_bridge2b", action="toggle"}
+ti["rv"] = ti["r "] .. {"it_trigger", target="ral_bridge3c", action="toggle"}
+ti["ra"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge1a"}
+ti["rb"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge2b"}
+ti["rc"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge3c"}
+ti["r."] = ti({"fl_abyss"}) .. {"it_seed"}
+ti["rf"] = {"fl_lawn"} .. ti({"it_floppy"})
+ti["rF"] = {"fl_lawn"} .. ti({"st_floppy", target="ral_fdoor", action="toggle"})
+ti["rG"] = ti["r "] .. {"st_door_d_ew", name="ral_fdoor"}
+ti["rj"] = {"fl_lawn", friction=6.0, type="x"} .. ti({"it_key", code=1})
+ti["rK"] = {"fl_lawn", friction=6.0, type="x"} .. ti({"it_key", code=4})
+ti["r-"] = ti["r "] .. {"st_switch", target="vortexRale"}
+
+-- Dominik Lehmann
+
+ti["z "] = {"fl_dark"}
+ti["z#"] = {"st_redrock"}
+ti["z."] = ti["z "] .. {"it_vortex_closed", destination = po(135.5,6.5), autoclose=true, name="vortexback#"}
+ti["z@"] = ti["z "] .. {"it_key", code=2}
+ti["z!"] = ti["z "] .. {"it_key", code=5}
+ti["z="] = ti["z "] .. {"it_document", text = "text1"}
+ti["z/"] = {"fl_red"} .. ti({"st_rawglass"})
+ti["z+"] = ti["z "] .. {"st_box_wood"}
+ti["z~"] = ti["z "] .. {"st_chess_black"}
+ti["z%"] = ti["z "] .. {"st_blocker"}
+ti["z&"] = ti["z "] .. {"it_blocker"}
+ti["zB"] = ti["z "] .. {"st_boulder_s"}
+ti["z]"] = ti["z "] .. {"st_rotator_cw"}
+ti["z["] = ti["z "] .. {"st_rotator_ccw"}
+ti["z)"] = ti["z "] .. {"st_rotator_cw_movable"}
+ti["z("] = ti["z "] .. {"st_rotator_ccw_movable"}
+ti["zX"] = ti["z "] .. {"st_mirror_slab_et", transparent = "true", movable = "true"}
+ti["zY"] = ti["z "] .. {"st_mirror_triangle_n", transparent = "true", movable = "true"}
+ti["zZ"] = ti["z "] .. {"st_mirror_slab_e", movable = "true"}
+ti["z1"] = ti["z "] .. {"st_laser_e", name = "Laser"}
+ti["z2"] = {"fl_bridge_gc", state = OPEN, name = "ChessDoor"}
+ti["z3"] = {"fl_bridge_gc", state = OPEN, name = "BackDoor"}
+ti["z4"] = {"fl_bridge_gc", state = OPEN, name = "UpperDoor"}
+ti["z5"] = {"fl_bridge_gc", state = OPEN, name = "LowerDoor"}
+ti["z6"] = {"fl_bridge_gc", state = OPEN, name = "HorseDoor"}
+ti["z7"] = {"fl_bridge_gc", state = OPEN, name = "ItemDoor1"}
+ti["z8"] = {"fl_bridge_gc", state = OPEN, name = "ItemDoor2"}
+ti["z9"] = {"fl_bridge_gc", state = OPEN, name = "ItemDoor3"}
+ti["za"] = ti["z "] .. {"st_laserswitch", action = "signal", target = "LaserFunc"}
+ti["zd"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = {"close", "toggle"}, target = {"ChessDoor", "HorseDoor"}})
+ti["ze"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "BackDoor"})
+ti["zf"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "BackDoor"})
+ti["zg"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = {"toggle", "toggle"}, target = {"ItemDoor3", "LowerDoor"}})
+ti["zh"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "LowerDoor"})
+ti["zi"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "Laser"})
+ti["zj"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "ItemDoor1"})
+ti["zk"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = {"toggle", "toggle"}, target = {"HorseDoor", "UpperDoor"}})
+ti["z-"] = ti["z "] .. {"st_switch", target="@vortexback#*"}
+
+-- Mark Pulley
+
+ti["p "] = {"fl_sand"}
+ti["p#"]= ti["p "] .. {"st_jamb_black"}
+ti["p&"]= ti["p "] .. {"st_fake_oxydb"}
+ti["p>"]= ti["p "] .. {"st_oneway_black", state = EAST}
+ti["pa"]= ti["p "] .. {"st_oneway_black", state = SOUTH}
+ti["pb"]= ti["p "] .. {"it_sensor", invisible = true, target={"Gaten", "Gateo", "Gatep", "Gateq", "Gater", "Gatet", "Gatey"},
+                                                      action={"open", "close", "close", "close", "open", "close", "close"}}
+ti["pg"]= ti["p "] .. {"st_jamb_black", name="Stoneg"}
+ti["ph"]= ti["p "] .. {"st_jamb_black", name="Stoneh"}
+ti["pi"]= ti["p "] .. {"st_jamb_black", name="Stonei"}
+ti["pj"]= ti["p "] .. {"st_jamb_black", name="Stonej"}
+ti["pk"]= ti["p "] .. {"st_jamb_black", name="Stonek"}
+ti["pl"]= ti["p "] .. {"it_sensor", invisible = true, target="GateL"}
+ti["pm"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_N"}
+ti["pn"]= ti["p "] .. {"st_door_d", state = OPEN, faces=ns, name="Gaten"}
+ti["po"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gateo"}
+ti["pp"]= ti["p "] .. {"st_door_a", name="Gatep"}
+ti["pq"]= ti["p "] .. {"st_door_a", name="Gateq"}
+ti["pr"]= ti["p "] .. {"st_door_d", state = OPEN, faces=ns, name="Gater"}
+ti["pt"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gatet"}
+ti["pu"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_U"}
+ti["pv"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_V"}
+ti["p+"] = {"fl_sand", name="dest"}
+ti["pw"]= ti["p "] .. {"it_vortex_closed", destination = po(135.5,4.5), name="vortexback#", autoclose=true}
+ti["px"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_X"}
+ti["py"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gatey"}
+ti["pz"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gatey"}) .. {"st_oneway_black", state = EAST}
+ti["pA"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_A"}
+ti["pB"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_B"}
+ti["pC"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_C"}
+ti["pD"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_D"}
+ti["pE"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_E"}
+ti["pG"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_G", target={"Stoneg","Stoneh"}, action={"hit","hit"}}
+ti["pH"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_H"}
+ti["pI"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_I", target={"Stonei", "Stonej"}, action={"hit","hit"}}
+ti["pJ"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_J", target={"Stonej","Stonek"}, action={"hit","hit"}}
+ti["pK"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_K", target="Stonek", action="hit"}
+ti["pL"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="GateL"}
+ti["pM"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_M"}
+ti["pN"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_O"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_N"}
+ti["pO"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_P"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_O"}
+ti["pP"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_Q"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_P"}
+ti["pQ"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_R"}) .. {"st_door_d_ew", state = CLOSED, name="Gate_Q"}
+ti["pR"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_R"}
+ti["pS"]= ti["p "] .. {"st_switch", target="Gate_*"}
+ti["p-"]= ti["p "] .. {"st_switch", target="@vortexback#*"}
+ti["pU"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_U"}
+ti["pV"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_V"}
+ti["pW"]= ti["p "] .. {"st_switch", target={"Gaten", "Gatep", "Gater", "Gatet", "Gatey"}}
+ti["pX"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_X"}
+ti["pY"]= ti["p "] .. {"st_switch", target={"Gateo", "Gatep", "Gateq", "Gatet", "Gatey"}}
+ti["pZ"]= ti["p "] .. {"st_switch", target={"Gaten", "Gateo", "Gateq", "Gater", "Gatey"}}
+ti["p1"]= ti["p "] .. {"it_key", code=6}
+
+-- Lukas Schüller
+
+ti["l "] = {"fl_bright"}
+ti["l~"] = ti["l "] .. {"fl_water"}
+ti["l."] = ti["l "] .. {"fl_abyss"}
+ti["l#"] = ti["l "] .. {"st_darkglass"}
+ti["l+"] = ti["l "] .. {"st_box_wood"}
+ti["l*"] = ti["l "] .. {"st_plop_slate"}
+ti["lX"] = ti["l "] .. {"st_grate_cross"}
+ti["l1"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor1"}
+ti["l2"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor2"}
+ti["l3"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor3"}
+ti["l4"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor4"}
+ti["l5"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor5"}
+ti["l6"] = ti["l "] .. {"st_door_d_ew", name = "LucDoor6"}
+ti["l<"] = ti["l "] .. {"st_laser_w", name = "LucLaser", state = OFF}
+ti["lv"] = ti["l "] .. {"st_boulder_s"}
+ti["l&"] = ti["l "] .. {"st_blocker"}
+ti["l-"] = ti["l "] .. {"st_switch", target="@vortexback#*"}
+ti["ls"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor1"}
+ti["lt"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor2"}
+ti["lu"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor3"}
+ti["lw"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor4"}
+ti["lx"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor5"}
+ti["ly"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor6"}
+ti["lz"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucLaser"}
+ti["l?"] = ti["l "] .. {"it_key", code=7}
+ti["l0"] = ti["l "] .. {"it_vortex_closed", destination = po(135.5,8.5), autoclose=true, name="vortexback#"}
+
+-- End room
+
+ti["~~"] = {"fl_water"}
+ti["  "] = {"fl_darkgray"}
+ti[" a"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "EndA"}
+ti[" b"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "EndB"}
+ti[" c"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "EndC"}
+ti[" d"] = ti["  "] .. {"st_key", code=4, action = "toggle", target = "EndD"}
+ti[" e"] = ti["  "] .. {"st_key", code=5, action = "toggle", target = "EndE"}
+ti[" f"] = ti["  "] .. {"st_key", code=6, action = "toggle", target = "EndF"}
+ti[" g"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "EndG"}
+ti[" h"] = ti["  "] .. {"st_key", code=8, action = "toggle", target = "EndH"}
+ti[" i"] = ti["  "] .. {"st_floppy", action = "toggle", target = "EndI"}
+ti[" A"] = ti["  "] .. {"st_door_b", name = "EndA"}
+ti[" B"] = ti["  "] .. {"st_door_b", name = "EndB"}
+ti[" C"] = ti["  "] .. {"st_door_b", name = "EndC"}
+ti[" D"] = ti["  "] .. {"st_door_b", name = "EndD"}
+ti[" E"] = ti["  "] .. {"st_door_b", name = "EndE"}
+ti[" F"] = ti["  "] .. {"st_door_b", name = "EndF"}
+ti[" G"] = ti["  "] .. {"st_door_b", name = "EndG"}
+ti[" H"] = ti["  "] .. {"st_door_b", name = "EndH"}
+ti[" I"] = ti["  "] .. {"st_door_b", name = "EndI"}
+ti[" 0"] = ti["  "] .. {"st_oxyd_e", oxydcolor = OXYD_AUTO}
+ti[" 5"] = ti["r "] .. {"it_vortex_open", destination = {"vortexRall", "vortexRals", "vortexRalm", "vortexRale"}} -- ral
+ti[" 6"] = ti["z "] .. {"it_vortex_open", destination = po(75.5,6.5)} -- zogga
+ti[" 7"] = ti["p "] .. {"it_vortex_open", destination = po(75.5,35.5)} -- pulley
+ti[" 8"] = ti["l "] .. {"it_vortex_open", destination = po(98.5,5.5)} -- luc
+ti[" 9"] = ti["j "] .. {"it_vortex_open", destination = po(96.5,35.5)} -- joe
+ti[" #"] = ti["  "] .. {"st_flat"}
+ti[" P"] = ti["  "] .. {"it_flag"}
+
+ti["1A"] = ti["  "] .. {"st_door_b", name = "1A"}
+ti["1B"] = ti["  "] .. {"st_door_b", name = "1B"}
+ti["1C"] = ti["  "] .. {"st_door_b", name = "1C"}
+ti["1D"] = ti["  "] .. {"st_door_b", name = "1D"}
+ti["1E"] = ti["  "] .. {"st_door_b", name = "1E"}
+ti["2A"] = ti["  "] .. {"st_door_b", name = "2A"}
+ti["2B"] = ti["  "] .. {"st_door_b", name = "2B"}
+ti["2C"] = ti["  "] .. {"st_door_b", name = "2C"}
+ti["2D"] = ti["  "] .. {"st_door_b", name = "2D"}
+ti["2E"] = ti["  "] .. {"st_door_b", name = "2E"}
+ti["2F"] = ti["  "] .. {"st_door_b", name = "2F"}
+ti["3A"] = ti["  "] .. {"st_door_b", name = "3A"}
+ti["3B"] = ti["  "] .. {"st_door_b", name = "3B"}
+ti["3C"] = ti["  "] .. {"st_door_b", name = "3C"}
+ti["3D"] = ti["  "] .. {"st_door_b", name = "3D"}
+ti["3E"] = ti["  "] .. {"st_door_b", name = "3E"}
+ti["3F"] = ti["  "] .. {"st_door_b", name = "3F"}
+ti["4A"] = ti["  "] .. {"st_door_b", name = "4A"}
+ti["4B"] = ti["  "] .. {"st_door_b", name = "4B"}
+ti["4C"] = ti["  "] .. {"st_door_b", name = "4C"}
+ti["4D"] = ti["  "] .. {"st_door_b", name = "4D"}
+ti["5A"] = ti["  "] .. {"st_door_b", name = "5A"}
+ti["5B"] = ti["  "] .. {"st_door_b", name = "5B"}
+ti["5C"] = ti["  "] .. {"st_door_b", name = "5C"}
+ti["5D"] = ti["  "] .. {"st_door_b", name = "5D"}
+ti["6A"] = ti["  "] .. {"st_door_b", name = "6A"}
+ti["6B"] = ti["  "] .. {"st_door_b", name = "6B"}
+ti["6C"] = ti["  "] .. {"st_door_b", name = "6C"}
+ti["6D"] = ti["  "] .. {"st_door_b", name = "6D"}
+ti["7A"] = ti["  "] .. {"st_door_b", name = "7A"}
+ti["7B"] = ti["  "] .. {"st_door_b", name = "7B"}
+ti["7C"] = ti["  "] .. {"st_door_b", name = "7C"}
+ti["7D"] = ti["  "] .. {"st_door_b", name = "7D"}
+ti["7E"] = ti["  "] .. {"st_door_b", name = "7E"}
+ti["8A"] = ti["  "] .. {"st_door_b", name = "8A"}
+ti["8B"] = ti["  "] .. {"st_door_b", name = "8B"}
+ti["8C"] = ti["  "] .. {"st_door_b", name = "8C"}
+ti["8D"] = ti["  "] .. {"st_door_b", name = "8D"}
+ti["9A"] = ti["  "] .. {"st_door_b", name = "9A"}
+ti["9B"] = ti["  "] .. {"st_door_b", name = "9B"}
+ti["9C"] = ti["  "] .. {"st_door_b", name = "9C"}
+ti["9D"] = ti["  "] .. {"st_door_b", name = "9D"}
+ti["9E"] = ti["  "] .. {"st_door_b", name = "9E"}
+
+ti["1a"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1A"}
+ti["1b"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1B"}
+ti["1c"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1C"}
+ti["1d"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1D"}
+ti["1e"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1E"}
+ti["2a"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2A"}
+ti["2b"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2B"}
+ti["2c"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2C"}
+ti["2d"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2D"}
+ti["2e"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2E"}
+ti["2f"] = ti["  "] .. {"st_key", code=2, action = "toggle", target = "2F"}
+ti["3a"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3A"}
+ti["3b"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3B"}
+ti["3c"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3C"}
+ti["3d"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3D"}
+ti["3e"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3E"}
+ti["3f"] = ti["  "] .. {"st_key", code=3, action = "toggle", target = "3F"}
+ti["4a"] = ti["  "] .. {"st_key", code=4, action = "toggle", target = "4A"}
+ti["4b"] = ti["  "] .. {"st_key", code=4, action = "toggle", target = "4B"}
+ti["4c"] = ti["  "] .. {"st_key", code=4, action = "toggle", target = "4C"}
+ti["4d"] = ti["  "] .. {"st_key", code=4, action = "toggle", target = "4D"}
+ti["5a"] = ti["  "] .. {"st_key", code=5, action = "toggle", target = "5A"}
+ti["5b"] = ti["  "] .. {"st_key", code=5, action = "toggle", target = "5B"}
+ti["5c"] = ti["  "] .. {"st_key", code=5, action = "toggle", target = "5C"}
+ti["5d"] = ti["  "] .. {"st_key", code=5, action = "toggle", target = "5D"}
+ti["6a"] = ti["  "] .. {"st_key", code=6, action = "toggle", target = "6A"}
+ti["6b"] = ti["  "] .. {"st_key", code=6, action = "toggle", target = "6B"}
+ti["6c"] = ti["  "] .. {"st_key", code=6, action = "toggle", target = "6C"}
+ti["6d"] = ti["  "] .. {"st_key", code=6, action = "toggle", target = "6D"}
+ti["7a"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "7A"}
+ti["7b"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "7B"}
+ti["7c"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "7C"}
+ti["7d"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "7D"}
+ti["7e"] = ti["  "] .. {"st_key", code=7, action = "toggle", target = "7E"}
+ti["8a"] = ti["  "] .. {"st_key", code=8, action = "toggle", target = "8A"}
+ti["8b"] = ti["  "] .. {"st_key", code=8, action = "toggle", target = "8B"}
+ti["8c"] = ti["  "] .. {"st_key", code=8, action = "toggle", target = "8C"}
+ti["8d"] = ti["  "] .. {"st_key", code=8, action = "toggle", target = "8D"}
+ti["9a"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9A"}
+ti["9b"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9B"}
+ti["9c"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9C"}
+ti["9d"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9D"}
+ti["9e"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9E"}
+
+ti["@@"] = ti["  "] .. {"#ac_marble"}
+
+map_ronald = {"r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#",
+              "r#r r r r r r r r r r r r r~r~r~r~r~r~r#r r r r r r r r r r r r r r r r r r r#",
+              "r#r r r r r r r r r r r r r r r r r#r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r r r r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r r r r r r rIrsr r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r#r#r-r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r r r r~r~r~r r#",
+              "r#rjrhrGr rer rIrmr r rdr r~r~r~r rWrtrXrurWrvr r r.rar.rbr.rcr rKr r.r.r.rfr#",
+              "r#r#r#rFr r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r r r r~r~r~r r#",
+              "r#r r r r r r rIrlr r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r r r r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r r r r r r r r r r r r r r r r r#r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r r#",
+              "r#r r r r r r r r r r r r r~r~r~r~r~r~r#r r r r r r r r r r r r r r r r r r r#",
+              "r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#"}
+
+map_dominik = {"z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#",
+               "z#z z z z6z#z z z3z z@zhzizjz#z!z9z8z7z#",
+               "z#z z+z zez#z z z#z4z[z#z#z#z#z#z#z#z z#",
+               "z#z z z#z#z#z#z z#zfz z&z z z z#zkz#z z#",
+               "z#z zdzaz z z z z#zgz z#z z z z z%z#z z#",
+               "z#z#z2z#z z z z zaz#z z#z#z z z(z%z#z z#",
+               "z#z z z#z z#z zZz z#z z z z#z(z z z#z.z-",
+               "z#z z zXz z z z#z z#z z z#z z z)z z#z z#",
+               "z#z#z z#z z#zYz#z z#z%z z z z)z z z]z z#",
+               "z1z z z/z z z z z z/zBz z z#z z z#z#z z#",
+               "z#z z#z#z#z#z#z#zaz#z#z5z#z#z#z#z#z z z#",
+               "z#z z z~z z z z z z z z z z z z z z z=z#",
+               "z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#"}
+
+map_lukas = {"l~l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~",
+             "l~l#l#l l#l#l l l l l#l l l l l~l~l#l#l~",
+             "l~l#l#l?l#l#l l+l#l lXl*l l*l l~l~l#l#l~",
+             "l~l#l#l&l#l#l l+l l l#l l l#l#l#l lsl#l~",
+             "l~l#l l l l#l l+l#l l*l l l#l l ltlul#l~",
+             "l~l-l l0l lXl l l+l+l l l#l#l l#l#l l#l~",
+             "l~l#l l l l#l l+l#l l*l l l#l l lwlxl#l~",
+             "l~l#l#l l#l#l l+l l l#l l l#l#l#l lyl#l~",
+             "l~l#lzl l#l#l l+l#l lXl*l l*l l~l~l#l#l~",
+             "l~l#l#l~l#l#l l l l l#l l l l l~l~l#l#l~",
+             "l~l#l#l l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~",
+             "l~l#l#lvl l1l l2l l3l l4l l5l l6l l<l#l~",
+             "l~l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~"}
+
+map_mark = {"p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#",
+            "p#pvp p p p p p p p pLp p#p p p p pRplp#",
+            "p#p#p#p&p#pXp#p&p#p&p#p p#p pgp&p#p#p#p#",
+            "p#pup p p p p&pxpVp pAp p#p pGp p>p pSp#",
+            "p#p&p#p&p#p&p#pUp#p&p#p p#p&phpPp#p p#p#",
+            "p#pWp#pYp#pZp&p p&p pBp p#p pHp p&p p-p#",
+            "p#p p p p p p p p#p p#p#p&pNpip&p#p p#p#",
+            "p#pnp#p&p#p&p#p p#p pCp p#p pIp p p p p#",
+            "p#p p&p ptpap&p p#p&p#p p#pmpjp&p#p p p#",
+            "p#pop#prp#pzpbp p#p pDp p#p pJp p&p p p#",
+            "p#p p&p p&pyp&p p#p p#p&p#p&pkpOp#p p p#",
+            "p#ppp pqp#p1p>p p>p pEp pQp pKp p>p+pwp#",
+            "p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#"}
+
+map_joseph = {"j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#",
+              "j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j j j j*j*",
+              "j#j#j&j&j j j~j&j j&j j j j j*j*j)j#j(j#j*j#j#j#",
+              "j#j#j0j$j*j%j%j%j%j%j%j%j#j j#j!j0j#j0j jDjAj&j#",
+              "j#j0j0j0j0j%j,j,j,j,j,j%jCj jRj j0j#j0j#j j j`j#",
+              "j#j0j0j0j7j%j%j%j%j%j,j%jEjVjQj j0j#j0j#j#j#j#j#",
+              "j#j{j0j0j0j0j0j0j#j%j%j%j j j j j0j0j0j#",
+              "j#j0j0j0j0j0j0j0j#j#j j j j j j j j j j#",
+              "j#j j jXj j j#j#j#j#j j j jXj jDjZj j j#",
+              "j#j j jDjWj j&j#j#j j j j jRj#j jRj j j#",
+              "j#j j!j!jAj j8j&j&j j j j j j j jRj j j#",
+              "j-jvj j j j j&j#j#j j j j j j j j j j j#",
+              "j#j#j#j*j*j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#"}
+
+map_main = {" # # # # # # #7a #3a #5a #6d #3d #9c # #",
+            "j#j    a   P1A  2A  4A  9C  8B  3D  7Ej#",
+            "j# 9j  b  1a  2a  6a  7d  8a  8b  5c  6c",
+            "p#j p  c A #7B  3A  5A  7A  2D  9D  6Cp#",
+            "p# 7p  d B #  9a  4a  7c  5b  2d  1e  9d",
+            "z#z p  e C #2B  6A  8A  3C  1D  6D  8Cz#",
+            " # 6z  f D #  2b  3b  9b  4c  1d  9e  4d",
+            "z#z l  g E #3B  1C  7D  6B  4C  3E  2Ez#",
+            "l# 8l  h F #  7b  2c  1c  6b  3c  8d  2f",
+            "l#r l  i G #9A  4B  2C  9B  5B  5C  1El#",
+            "r# 5r  # H #  1b  4b  7e  3e  8c  2e  5d",
+            "r#r   @@ I #1B  7C  5D  8D  9E  2F  4Dr#",
+            "l#l#l#l#l#l#l# # # #   # #z#z#z#z#z#z#z#",
+            "l# 0l l l  0l             z  0z z z  0z#",
+            "l#l l l l l l             z z z z z z z#",
+            "l#l l  0l l l    0     0  z z z  0z z z#",
+            "l#l l l l l l             z z z z z z z#",
+            "l# 0l l l  0l             z  0z z z  0z#",
+            " #                                     #",
+            "j# 0j j j  0j p p p p p p r  0r r r  0r#",
+            "j#j j j j j j p p p p p p r r r r r r r#",
+            "j#j j  0j j j p  0p p  0p r r r  0r r r#",
+            "j#j j j j j j p p p p p p r r r r r r r#",
+            "j# 0j j j  0j p p p p p p r  0r r r  0r#",
+            "j#j#j#j#j#j#j#p#p#p#p#p#p#r#r#r#r#r#r#r#"}
+
+wo(ti, "~~", 153, 37)
+wo:drawMap(ti, po(0,0), "??", map_ronald)
+wo:drawMap(ti, po(57,0), "??", map_dominik)
+wo:drawMap(ti, po(95,0), "??", map_lukas)
+wo:drawMap(ti, po(133,0), "??", map_main)
+wo:drawMap(ti, po(57,24), "??", map_mark)
+wo:drawMap(ti, po(95,24), "??", map_joseph)
+wo:add({"ot_counter", "LaserFunc", state = 0, target_3 = "ItemDoor2", action_3 = "close"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Oh, ridiculous riddle rule my marble's meaningless mind, continue creating confusion being blackball's brain's blind.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

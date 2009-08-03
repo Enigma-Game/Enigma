@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Behind glass" el:subtitle="" el:id="rudolf01"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Rudolf" el:email=""/>
+      <el:copyright>Copyright © 2009 Rudolf</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_sahara"}
+ti["- "] = {"fl_inverse"}
+ti[". "] = {"fl_ice"}
+ti[", "] = {"fl_gray"}
+ti[" #"] = {"st_rawglass"}
+ti[" M"] = {"st_rawglass_movable"}
+ti[" H"] = ti[" M"] .. {"it_hammer"}
+ti[" F"] = {"st_fake_quake"}
+ti[" C"] = ti({"st_quake"}) .. {"it_cherry"}
+ti["= "] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["| "] = ti[", "] .. {"st_door", flavor="d", faces="ew", name="door%%"}
+ti["|a"] = ti[". "] .. {"st_door", flavor="d", faces="ew", name="door%a"}
+ti["B "] = ti[", "] .. {"st_blocker", name="door%%"}
+ti["t "] = {"it_trigger", target="door%%"}
+ti["tf"] = ti["- "] .. {"it_trigger", target="door%f"}
+ti["dd"] = {"it_document", text="text1"}
+ti[" O"] = {"st_oxyd"}
+ti[" @"] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(res.random(ti," ?",{"  "," #"}), {"t", "t "}, {"|", "| "}, {"=", "= "}, {"B", "B "})), "  ", {
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #ta # # #tb #",
+    " # O                                 O #,O, , , , , , , , , , , , Bd, , , ,  #",
+    " #                                     #,#,#,#,#,#,#,#, ,#,#,#,#,#,M,#,#,#,  #",
+    " #       ? ? ? ? ?    ,?,?,?,?,?       #tc, , , , , ,#, , , ,F,#td, , Bb,#,  #",
+    " #     ? ? ? ? ? ?    ,?,?,?,?,?,?     #,#,M,M,M,#,#,#, ,#,#,#,#,F, ,#, ,#,  #",
+    " #     ? ?                    ,?,?     #,F, , , , , , , , , ,O,#,#, ,#, ,#,  #",
+    " #                   @                 #,#,#,#,#,#,#,#,#,#,#,#,#,#, ,#, ,#,  #",
+    " #    -?-?              dd    .?.?     HBf, , , , , , , , ,#,#,#,#, ,#, ,#,  #",
+    " #    -?-?-?-?-?-?    .?.?.?.?.?.?     #,#,#,#,#,#,#,#, ,#te,#,#,#, ,#, ,#,  #",
+    " #      -?-?-?-?-?    .?.?.?.?.?       #,O, , , , , |c, ,#, ,O,#,O, ,#, ,#,  #",
+    " #                                     #,#,#,#,#,#,#,#, ,#,M,#,#,#,M,#, ,#,  #",
+    " # O                                 O #, , , , , , , , |g, , , , , , , ,#,  #",
+    " # # # # # # # # # # # # M # # # # # # # M # # # # #=e # # # # # # # # # # M #",
+    " #-O- - - - - - - - - - tf- - - - - -O #. .#.F. . .#. .#.#.#.#. . . . . . .  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. . . .#. .#.#.O.#.#.#. .#.#.#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#. .#. .#.#.#.#.C.#. .#.O.#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#. .#. .#. . |a. .#. .#. .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#. .#. .#.O.#.#. .#. .#. .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#. .#. .#.#.#.#. .#. .#. .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#.O.#. .#. . . . . . .#. .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. .#.#.#. .#.#.#.#.#.#.#.#. .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#. . . . . . . . . . . . . . .#.  #",
+    " #- - - - - - - - - - - - - - - - - -  #. .#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.  #",
+    " #-F- - - - - - - - - - - - - - - - -O #. . . . . . . . . . . . . . . . . .  #",
+    " # # # # # # # # # # # # # # # # # # # #tg # # # # # # # # # # # # # # # # # #"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Search it.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

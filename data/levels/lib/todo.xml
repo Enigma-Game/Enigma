@@ -13,7 +13,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl_abyss"}
+ti[" "] = {"fl_dark"}
 ti["#"] = {"st_granite"}
 ti["o"] = {"it_meditation_hollow"}
 ti["."] = ti["o"] .. {"#ac_pearl"}

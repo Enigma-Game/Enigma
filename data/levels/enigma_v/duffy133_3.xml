@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Humid Maze" el:subtitle="" el:id="duffy133"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (August 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["SwampSinkTime"] = 13.5
+wo["WaterSinkTime"] = 46.5
+
+ti[" "] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["+"] = {"fl_swamp"}
+ti["f"] = ti["+"] .. {"it_flag_black"}
+if wo["IsDifficult"] then
+    ti["l"] = ti["+"]
+    ti["s"] = ti["+"]
+else
+    ti["l"] = ti["+"] .. {"it_extralife"}
+    ti["s"] = ti["+"] .. {"it_seed"}
+end
+ti["O"] = ti["~"] .. {"st_oxyd"}
+ti["@"] = ti["+"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "                                                                             ",
+    "                                                                             ",
+    "  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~    ~~~~~   ~~~~  ",
+    "            ~                ~                ~           ~   +++  ~~~~~  ~  ",
+    "  ~~~~~~~~  ~  ~~~~~~~~~~~~  ~~~~~~~~~~~~ ~~~ ~ ~~~~~~~   ~  ++++         ~  ",
+    "  ~      ~~~~  ~          ~  ~          ~ ~   ~ ~     ~   ~ +++++ ~~~ ~~~~~  ",
+    "  ~  +++       ~   ~~~~~~ ~ ++ ~~~~~~~~ ~ ~~~~~ ~ ~~~ ~   ~ +++++ ~   ~      ",
+    "  ~ +++++~~~~~~~   ~    ~ ~ ++ ~      ~ ~ ~     ~ ~ ~ ~   ~     ~ ~ ~ ~ ~ ~  ",
+    "  ~ ++++       ~   ~    ~ ~ ++ ~  ~~~ ~ ~ ~ ~~~~~ ~ ~ ~   ~ ~~~ ~ ~ ~ ~ ~ ~  ",
+    "  ~ ++++ ~~~~~ ~   ~ ~~~~ ~ ++ ~  ~ ~ ~ ~ ~ ~     ~ ~ ~   ~~~ ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~      ~   ~ ~   ~ ~    ~    ~  ~ ~ ~ ~ ~ ~~~~~ ~ ~ ~       ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~~~~~~~~ ~ ~ ~   ~ ~ ~~~~~~~~~  ~ ~ ~ ~ ~       ~ ~ ~   ~~~ ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~        ~ ~ ~   ~ ~ ~       ~  ~ ~ ~ ~ ~~~~~~~~~ ~ ~   ~ ~~~ ~ ~ ~ ~ ~ ~  ",
+    "  ~~~~~~~~~~ ~ ~~~~~ ~ ~ ~~~~~ ~  ~   ~ ~    ~    ~ ~ ~   ~     ~ ~ ~ ~ ~ ~  ",
+    "             ~     ~ ~ ~ ~   ~ ~~ ~ ~~~ ~   ~~  ~ ~ ~ ~~~~~~~~~~~~~ ~ ~ ~ ~  ",
+    "  ++~~~~~~~~ ~~~~~ ~ ~ ~ ~~~ ~  ~ ~     ~   ~   ~ ~ ~               ~ ~ ~ ~  ",
+    "  +++      ~ ~   ~ ~ ~ ~   ~ ~  ~ ~~~~~~~~  ~~  ~ ~ ~~~~~~~~~ ~~~~~~~ ~ ~ ~  ",
+    "  ++++ ~~~ ~ ~~~ ~ ~ ~ ~ ~~~ ~ ~~        ~~  ~  ~ ~           ~       ~ ~ ~  ",
+    "  ++++ ~ ~ ~ ~ ~ ~   ~ ~ ~   ~ ~    ++l+  ~~ ~~~~ ~~~~~~~~~~~ ~       ~ ~ ~  ",
+    "   +++ ~ ~ ~ ~ ~ ~~~ ~ ~ ~~~ ~ ~~~~~+++f+  ~            ~   ~ ~ ~~~~~~~ ~ ~  ",
+    "     ~~~ ~ ~ ~ ~   ~ ~ ~   ~ ~      ++++@+ ~ ~~~~~~~~~~~~ ~~~ ~ ~       ~ ~  ",
+    "         ~ ~ ~ ~~~ ~ ~ ~ ~~~ ~ ~~~~  +s+++ ~ ~OOO~            ~ ~ ~~~~~~~ ~  ",
+    "  ~~~~~~~~ ~ ~   ~ ~ ~ ~ ~   ~    ~     ~  ~ ~OOO~ ~~~~~~~~~~~~ ~ ~ ~ ~ ~ ~  ",
+    "  ~      ~ ~ ~~~ ~ ~ ~ ~ ~~~ ~~~~~~~~~~~~  ~ ~~~~~ ~            ~ ~ ~ ~ ~ ~  ",
+    "  ~~~~~~ ~ ~ ~ ~ ~ ~ ~     ~               ~       ~   ~~~~~~~~ ~ ~ ~ ~ ~ ~  ",
+    "  ~      ~ ~ ~ ~ ~ ~ ~~~~~ ~   ~~~~~~~~~~~~~~~~~~~~~   ~      ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~ ~~~~~~ ~ ~ ~ ~ ~     ~     ~                       ~  +++ ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~        ~ ~ ~ ~ ~ ~ +++++++ ~   ~~~~~~~~~~~~~~~~~~  ~ ++++ ~ ~ ~ ~ ~ ~ ~  ",
+    "  ~~~~~~~~ ~ ~ ~ ~ ~ ~ +++++++ ~~~~~                ~  ~ ++++ ~ ~ ~ ~ ~ ~~~  ",
+    "         ~ ~ ~ ~ ~ ~ ~  +++            ~~~~~~~~~~~  ~  ~ ++++ ~ ~ ~ ~     ~  ",
+    "  ~~~~~~~~ ~     ~   ~    ~~~~~~~~~~~~~~         ~~~~  ~   ~  ~ ~ ~ ~~~~~ ~  ",
+    "  ~        ~~~~~~~~~~~              ~    ~~~~~~~       ~   ~  ~ ~       ~ ~  ",
+    "  ~~~~~~~~                 ~~~~~~~  ~~~~~~     ~~~~~~~~~   ~  ~ ~~~~~~~~~ ~  ",
+    "  ~        ~~~   ~~~~~     ~     ~         ~~~             ~              ~  ",
+    "  ~~~~~~~~~~ ~~~~~   ~~~~~~~     ~~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  ",
+    "                                                                             ",
+    "                                                                             "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

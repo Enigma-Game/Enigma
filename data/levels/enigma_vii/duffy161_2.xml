@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Advanced Space Tubes" el:subtitle="" el:id="duffy161"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null, easy mode by /dev/null</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if wo["IsDifficult"] then
+    mode = "black"
+else
+    mode = "white"
+    wo["InfiniteReincarnation"] = true
+end
+
+ti["."] = {"fl_bluegreen"}
+ti["-"] = {"fl_space"}
+ti[" "] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti[","] = {"fl_swamp"}
+ti[":"] = {"fl_metal"}
+ti["7"] = {"fl_slope_ise"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_isw"}
+ti["6"] = {"fl_slope_pw"}
+ti["3"] = {"fl_slope_inw"}
+ti["2"] = {"fl_slope_pn"}
+ti["1"] = {"fl_slope_ine"}
+ti["4"] = {"fl_slope_pe"}
+ti["#"] = {"st_greenbrown"}
+ti["%"] = ti[":"] .. {"st_greenbrown"}
+ti["!"] = {"st_death"}
+ti["V"] = ti[":"] .. {"st_oneway", orientation = SOUTH}
+ti["H"] = ti["-"] .. {"st_break_"..mode}
+ti["F"] = ti["."] .. {"it_flag_"..mode}
+ti["f"] = ti["-"] .. {"it_flag_"..mode}
+ti["p"] = ti["8"] .. {"it_coffee"}
+ti["Y"] = ti[":"] .. {"it_extralife"}
+ti["y"] = ti["."] .. {"it_extralife"}
+ti["Z"] = ti["H"] .. {"it_extralife"}
+ti["z"] = ti["8"] .. {"it_extralife"}
+ti["l"] = ti["-"] .. {"it_extralife"}
+ti["a"] = {"fl_bridge", "bridgeA", state = OPEN}
+ti["A"] = {"st_switch_"..mode, target = "bridgeA", action = "close"}
+ti["b"] = ti["."] .. {"it_trigger", target = "boulder", action_1 = "flip"}
+ti["B"] = ti["-"] .. {"st_boulder", "boulder", orientation = EAST}
+ti["c"] = ti[":"] .. {"it_vortex_closed", "vortexC", autoclose = true, destination = "vortexD"}
+ti["C"] = {"st_switch_"..mode, target = "vortexC", action = "open"}
+ti["d"] = ti[":"] .. {"it_vortex_open", "vortexD", destination = "vortexC"}
+ti["e"] = ti["."] .. {"it_trigger", target = "doorE", action = "open"}
+ti["E"] = ti["."] .. {"st_door", "doorE", faces = "ew", state = CLOSED}
+ti["i"] = ti["."] .. {"it_wormhole", destination = "whI", strength = 0.0}
+ti["I"] = {"fl_bluegreen", "whI"}
+ti["j"] = ti["."] .. {"it_wormhole", destination = "whJ", strength = 0.0}
+ti["J"] = {"fl_bluegreen", "whJ"}
+ti["m"] = ti["-"] .. {"it_landmine"}
+ti["_"] = {"it_strip_ew"}
+ti["|"] = {"it_strip_ns"}
+ti["v"] = ti[":"] .. {"it_vortex_open"}
+ti["s"] = ti["-"] .. {"it_springboard"}
+ti["S"] = ti["."] .. {"it_springboard"}
+ti[";"] = ti["-"] .. {"it_crack_m"}
+ti["h"] = ti["8"] .. {"it_hammer"}
+ti["O"] = ti["-"] .. {"st_oxyd"}
+ti["o"] = ti["."] .. {"st_oxyd"}
+ti["0"] = ti[","] .. {"st_oxyd"}
+ti["r"] = {"ac_rotor", range = 5.0, strength =  5.0}
+ti["R"] = ti["."] .. {"#ac_rotor", 0.5, 0.0, range = 5.0, strength = 10.0}
+ti["@"] = ti["."] .. cond(wo["IsDifficult"], {"#ac_marble_black"}, {"#ac_marble_white", owner = YIN, controllers = YANG} )
+ti["X"] = cond(wo["IsDifficult"], ti["."], ti["F"])
+
+wo(ti, " ", {
+    "#############################################################################",
+    "#                                                                           #",
+    "#    ...788889      78888888888888889.F-6644444._-...--_.......  s.788889   #",
+    "# ......4----6      4-,-,-,-,-,-,-,-6                       .y.   .122223   #",
+    "# .  ...1221-6#.Ji  12222222222222223  788888888888888889   ...             #",
+    "# .        4-6E..      s  s  s         4----------------6       78888888889 #",
+    "# 789      4-6#                   788887----------------6       4-s-s;s-s-6 #",
+    "# 4-6       -                     4-------m####mmmmm----6  ...  4---------6 #",
+    "# 4-6      4-9         .  .  -    4-3221---#------------6  .F.s 4;---l---;6 #",
+    "# 4-6      4-98889     -  .  .  ..4-6  4---#------------6  ...  4---------6 #",
+    "# 4-6 !    4-----6     .  -  .  . 4-6  1222%-322222222223  8    4----;----6 #",
+    "# 123 !    12221-6     .  .  -  . 123      4-6             8    12222222223 #",
+    "#   . !        4-6 !!!!-!!.!!.!!.. S       4-6             8                #",
+    "# 789 !        4-6 !   .  -  . ! .         4-6 !666666696669   .X....       #",
+    "# 4-6 !        4-98%888888h889 ! F 789  !  4-6         p   8 789 -  -       #",
+    "# 123          4---HHHHHHHHHH6 !   4-6  !  4-6         p   8 4-6 .  .       #",
+    "#  S ! 788889  4-32%21OHHZHHO6 !   123  !  4l6         p   8 4-6 .  .       #",
+    "#    ! 4....9887-6 ! 122222223 !    -   !  123!..      p   8 4-6 -  -       #",
+    "#    ! 4o@.F-----6 !           !    s   !      .. ..   p   8 4m6 -  -       #",
+    "#    ! 4....322223 !!!!!A!!!!!!!        !   ..v v ..   p   8 4-6 -  -       #",
+    "# 789  122223           .               !   ..    v.   p   8 4-6 .  .       #",
+    "# 4-6            X.44444.66666..6644.   !       !      p   z 4-6 7889       #",
+    "# 4-6 ! 78888888889                 .   !        4v6   p   - 123 4--6       #",
+    "# 123 ! 4---------6   !!!!!!!!!!!!! .   !        4l6   ...---.   4--6       #",
+    "# 123 ! 4-,,, ,,,-6   !           !              4l6       - . ! 4--6       #",
+    "# 123 ! 4---------6   ! 788888889 ! #...X        4f6       ! . ! 4--6       #",
+    "# 4-6 ! 12222222223   ! 4s---s--6 ###.# .        6f4           ! 4--6       #",
+    "# 4-6 !    .          ! 4--s---s6 787.97.98      6-4        !!!! 4--6 !!!!!!#",
+    "# 4-6 !    .  !!!!!!!!! 4s-l-s--6 4-4.6-----     4-6             4--6       #",
+    "# 4s6 !   !. !          4--s-l-s6 122221-----    4-6             4--6       #",
+    "#     !   !.! 788       7s---s--% #####1222---   4-6         r   4--6   r   #",
+    "# 4-6 !    -  4--s --s ----s---s79#!        ---  4m6             4--6       #",
+    "# 4-6      V  4--       2222222213# 78888  88889 4-6             4--6       #",
+    "# 4-988888889 4--6                ! 4---------l6 4-6             4--6       #",
+    "# 4----- ---6 4--6  !!!!!!!!!!!!!!! 4-322  22223 4-6             4--6       #",
+    "# 122222221-6 1216  !               4-6          4-6             4--6       #",
+    "#         4-6   46  ! ,,,,, 0,,,    4-988889     4-9889          4..6       #",
+    "#!!!!!!!! 4-9888799 ! ,   -    -    4-----f6     4l---6    7888887R.9888889 #",
+    "#         4-------  ! - -,,    ,    1 2221-6     1221-6    4--------------6 #",
+    "#   :Y:   4---f-323 ! - ,     ,,,        4-6        4-6    4--#--------#--6 #",
+    "#   :d:   4-----6l6 ! , ,    ,,,,,    ###4-9888  8887-6### 4--------------6 #",
+    "#   :::   122222323 ! , -   ,,---,,   #b~4B-----------6~b# 4------,,------6 #",
+    "#       !  a     c  ! ,---,,,,-l-,,,, ###122222  222223### 4------,,------6 #",
+    "#   789 !  C !!   !!!   - , ,,---,, ,                      4--------------6 #",
+    "#   4-6       !!!!!     , e  ,,,,,  , ...     ... ... ...  4--#--------#--6 #",
+    "# 78789882289.     88..,, ..  ,,,   ,,..._____. | | | | |  4--------------6 #",
+    "# 12222228823.6666322..   .Ij  ,    0 ...       ... ... .yF1222222222222223 #",
+    "#                              0                                            #",
+    "#############################################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

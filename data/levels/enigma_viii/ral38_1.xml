@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Wired Strips" el:subtitle="" el:id="20081223ral510"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 151 $" el:status="stable"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Andreas Lochmann for the mathematical theory that "Wired Strips" is based on</el:credits>
+      </el:comments>
+      <el:score el:easy="7:07" el:difficult="4:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SwampSinkTime"] = 3.5
+
+ti[" "] = {"fl_samba"}
+ti["."] = {"fl_swamp", friction=6.0, adhesion=2.0}
+ti["#"] = {"st_fake_oxyda"}
+ti["x"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble"}
+
+state = {1,2,3,4,5,6,7,8,9}  -- number of triggers that need still to be pressed to open doors
+if wo["IsDifficult"] then
+     state = {8,8,8,8,8,8,8,8,8}
+end
+
+function generate_strip(screen, size, randomboxes)
+    for i = 1, size + 1 do
+        wo:drawBorder(po(9 - size + 2 * (i-1), (screen - 1) * 12 + 3), 1, 7, ti["."])
+    end
+    local tpos = {}
+    local wpos = {}
+    for i = 1, size  do
+        tpos[i] = math.random(3)
+        wpos[i] = math.random(3)
+    end
+    if randomboxes == false then
+        wpos = lib.lua.deep_copy(tpos)
+        for i = 1, 400 do
+            local p = math.random(size)
+            local d = math.random(2)
+            if d == 1 then
+                if (wpos[p] > 1) and (p == 1 or wpos[p-1] > 1) and (p == size or wpos[p+1] > 1) then
+                    wpos[p] = wpos[p] -1
+                    if p > 1 then
+                        wpos[p-1] = wpos[p-1] -1
+                    end
+                    if p < size then
+                        wpos[p+1] = wpos[p+1] -1
+                    end
+                end
+            else
+                if (wpos[p] < 3) and (p == 1 or wpos[p-1] < 3) and (p == size or wpos[p+1] < 3) then
+                    wpos[p] = wpos[p] + 1
+                    if p > 1 then
+                        wpos[p-1] = wpos[p-1] + 1
+                    end
+                    if p < size then
+                        wpos[p+1] = wpos[p+1] + 1
+                    end
+                end
+            end
+        end
+    end
+    for i = 1, size  do
+        wo[po(10 - size + 2 * (i-1), (screen - 1) * 12 + 3)] = ti["."]
+        wo[po(10 - size + 2 * (i-1), (screen - 1) * 12 + 9)] = ti["."]
+        wo[po(10 - size + 2 * (i-1), (screen - 1) * 12 + 4 + tpos[i])] = {"it_trigger", target="check", _screen=screen}
+        wo[po(10 - size + 2 * (i-1), (screen - 1) * 12 + 4 + wpos[i])] = {"st_box", "box_"..screen..i}
+        if tpos[i] == wpos[i] then
+            state[screen] = state[screen] - 1
+        end
+        if i > 1 then
+            wo:add({"ot_wire", anchor1="box_"..screen..(i-1), anchor2="box_"..screen..i})
+        end
+    end
+
+end
+
+function check(value, sender)
+    if value then
+        state[sender["_screen"]] = state[sender["_screen"]] - 1
+    else
+        state[sender["_screen"]] = state[sender["_screen"]] + 1
+    end
+    for i = 1, 8 do
+        if state[i] == 0 or state[i+1] == 0 then
+            no["door_"..i.."#*"]:open()
+        else
+            no["door_"..i.."#*"]:close()
+        end
+    end
+end
+
+w, h = wo(ti, " ", 19, 9*12 + 1)
+wo:drawBorder(po(0,0), w, h, ti["#"])
+
+last_strip_random = false
+for i = 1, 9 do
+    if wo["IsDifficult"] then
+        if last_strip_random then
+            last_strip_random = false
+        else
+            last_strip_random = cond(math.random(2) == 1, true, false)
+        end
+        generate_strip(i, 8, last_strip_random)
+    else
+        generate_strip(i, i, true)
+    end
+end
+
+for i = 1, 8 do
+    wo:drawMap(
+        function (key, x, y)
+            if key == "=" then
+                if state[i] == 0 or state[i+1] == 0 then
+                    return {"st_door_a", "door_"..i.."#", state=OPEN}
+                else
+                    return {"st_door_a", "door_"..i.."#", state=CLOSED}
+                end
+            else
+                return ti[key]
+            end
+        end,
+        po(5, i*12 - 1), " ", {
+            "===   ===",
+            "=x=   =x=",
+            "===   ==="})
+end
+
+if wo["IsDifficult"] then
+    wo[{w/2, h/2 - 4}] = ti["@"]
+else
+    wo[{w/2, 10}] = ti["@"]
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
