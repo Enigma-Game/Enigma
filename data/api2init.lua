@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------
--- Copyright (C) 2008 Ronald Lamprecht
+-- Copyright (C) 2008,2009 Ronald Lamprecht
 --
 -- This program is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU General Public License
@@ -121,15 +121,16 @@ OXYD_QUAKE  = -3
 OXYD_BOLD   = -4
 
 -- direction/orientations
-NODIR = -1
-WEST  = 0
-SOUTH = 1
-EAST  = 2
-NORTH = 3
-NORTHWEST = 4
-SOUTHWEST = 5
-SOUTHEAST = 6
-NORTHEAST = 7
+RANDOMDIR = -2
+NODIR     = -1
+WEST      =  0
+SOUTH     =  1
+EAST      =  2
+NORTH     =  3
+NORTHWEST =  4
+SOUTHWEST =  5
+SOUTHEAST =  6
+NORTHEAST =  7
 
 -- alternative orientation notation for mirrors
 BACKSLASH  = 0

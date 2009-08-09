@@ -84,7 +84,8 @@ SIMPLEPNG = \
 	it_meditation_volcano.png \
 	it_pencil.png \
 	it_pin.png \
-	it_pipe.png \
+	it_pipe.png it_pipe_b.png it_pipe_c.png it_pipe_d.png it_pipe_e.png \
+	it_pipe_f.png it_pipe_g.png it_pipe_h.png it_pipe_i.png it_pipe_j.png \
 	it_puller.png it_puller_2.png it_puller_3.png it_puller_4.png \
 	it_ring.png \
 	it_rubberband.png \
@@ -109,7 +110,7 @@ SIMPLEPNG = \
 	it_trap.png \
 	it_trigger.png \
 	it_umbrella.png \
-	it_vortex.png \
+	it_vortex.png it_vortex_4.png \
 	it_weight.png \
 	it_wormhole.png \
 	it_wrench.png \

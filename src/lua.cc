@@ -2186,7 +2186,10 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
         name = name.substr(1);
     }
     
-    if (name == "fl_nil") {
+    if (name == "nil") {
+        lua_pop(L, 1);   // object type
+        return 0;
+    } else if (name == "fl_nil") {
         if (!onlyFloors)
             KillFloor(GridPos(xi, yi));
         lua_pop(L, 1);   // object type

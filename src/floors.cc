@@ -117,6 +117,9 @@ ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
         if (Value v = GridObject::getAttr("friction"))
             friction = v;
         GridObject::on_creation(p);
+        
+        if (server::WorldInitialized && has_firetype(flft_initfire))
+            force_fire();
     }
 
 void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {

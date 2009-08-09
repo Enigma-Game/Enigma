@@ -125,9 +125,7 @@ Actor::Actor (const ActorTraits &tr)
     }
 
     Value Actor::message(const Message &m) {
-        if (m.message == "_init") {
-            startingpos = get_pos();
-        } else if (m.message == "_freeze") {
+        if (m.message == "_freeze") {
             m_actorinfo.frozen_vel = m_actorinfo.vel;
             m_actorinfo.vel = ecl::V2();
         } else if (m.message == "_revive") {
@@ -224,6 +222,7 @@ void Actor::init() {
 }
 
 void Actor::on_creation(const ecl::V2 &p)  {
+    startingpos = get_pos();
     if (Value vx = getAttr("velocity_x")) {
         m_actorinfo.vel = V2(vx,  m_actorinfo.vel[1]);
     }

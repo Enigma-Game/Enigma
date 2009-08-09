@@ -76,8 +76,13 @@ namespace enigma {
                 handled = true;
             }
         } else if (key == "orientation") {
-            if (val >= minState() && val <= maxState()) {
-                setState(val);
+            int orientation = val;
+            // random orientation
+            if (orientation == -2)
+                orientation = IntegerRand(minState(), maxState());
+            
+            if (orientation >= minState() && orientation <= maxState()) {
+                setState(orientation);
                 handled = true;
             }
         } else if (key == "transparent") {

@@ -8717,6 +8717,7 @@ Number constants for attributes @samp{orientation} or @samp{slope}. Please
 choose the constant that is appropriate for an object and do avoid using numbers.
 
 @itemize @bullet
+@item @samp{RANDOMDIR} = @code{-2}, by @ref{st_mirror}
 @item @samp{NODIR} = @code{-1}, by @ref{fl_slope}
 @item @samp{WEST} = @code{0}, by all objects with 4 orientations
 @item @samp{SOUTH} = @code{1}, by all actors with 4 orientations
@@ -10167,7 +10168,7 @@ A medium to dark gray floor.
 @item @b{Variants:}
 @table @asis
 @item @image{images/fl_darkgray, 12mm} @b{fl_darkgray}
-@item @image{images/fl_darkgray_framed, 12mm}@b{fl_darkgray_framed}
+@item @image{images/fl_darkgray_framed, 12mm} @b{fl_darkgray_framed}
 @end table
 @end table
 
@@ -11369,7 +11370,7 @@ switched off by the attribute @samp{invisible}.
 @tab @image{images/it_meditation_volcano, 12mm} @tab @yref{it_meditation}_volcano
 @item @image{images/it_pencil, 12mm} @tab @yref{it_pencil}
 @tab @image{images/it_pin, 12mm} @tab @yref{it_pin}
-@tab @image{images/it_pipe, 12mm} @tab @yref{it_pipe}
+@tab @image{images/it_pipe_e, 12mm} @tab @yref{it_pipe}
 @item @image{images/it_puller, 12mm} @tab @yref{it_puller}
 @tab @image{images/it_ring, 12mm} @tab @yref{it_ring}
 @tab @image{images/it_rubberband, 12mm} @tab @yref{it_rubberband}
@@ -12393,17 +12394,17 @@ Currently only pipes with one or two connections do exist.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/fl_white, 12mm} @b{it_pipe} connections = @code{"ew"} The horizontal pipe.
-@item @image{images/fl_white, 12mm} @b{it_pipe_w} connections = @code{"w"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_s} connections = @code{"s"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_sw} connections = @code{"sw"}
+@item @image{images/it_pipe_e, 12mm} @b{it_pipe} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/it_pipe_f, 12mm} @b{it_pipe_w} connections = @code{"w"}
+@item @image{images/it_pipe_b, 12mm} @b{it_pipe_s} connections = @code{"s"}
+@item @image{images/it_pipe_d, 12mm} @b{it_pipe_sw} connections = @code{"sw"}
 @item @image{images/it_pipe, 12mm} @b{it_pipe_e} connections = @code{"e"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_ew} connections = @code{"ew"} The horizontal pipe.
-@item @image{images/fl_white, 12mm} @b{it_pipe_es} connections = @code{"es"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_n} connections = @code{"n"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_nw} connections = @code{"nw"}
-@item @image{images/fl_white, 12mm} @b{it_pipe_ns} connections = @code{"ns"} The vertical pipe.
-@item @image{images/fl_white, 12mm}@b{it_pipe_ne} connections = @code{"ne"}
+@item @image{images/it_pipe_e, 12mm} @b{it_pipe_ew} connections = @code{"ew"} The horizontal pipe.
+@item @image{images/it_pipe_c, 12mm} @b{it_pipe_es} connections = @code{"es"}
+@item @image{images/it_pipe_g, 12mm} @b{it_pipe_n} connections = @code{"n"}
+@item @image{images/it_pipe_i, 12mm} @b{it_pipe_nw} connections = @code{"nw"}
+@item @image{images/it_pipe_j, 12mm} @b{it_pipe_ns} connections = @code{"ns"} The vertical pipe.
+@item @image{images/it_pipe_h, 12mm}@b{it_pipe_ne} connections = @code{"ne"}
 @end table
 @end table
 
@@ -13963,7 +13964,7 @@ Tries to close the vortex.
 @table @asis
 @item @image{images/it_vortex, 12mm} @b{it_vortex}:  state = @code{OPEN}.
 @item @image{images/it_vortex, 12mm} @b{it_vortex_open}: state = @code{OPEN}.
-@item @image{images/fl_white, 12mm} @b{it_vortex_closed}: state @samp{CLOSED}.
+@item @image{images/it_vortex_4, 12mm} @b{it_vortex_closed}: state @samp{CLOSED}.
 @end table
 @end table
 
@@ -14000,7 +14001,7 @@ attributes described above have no influence on the flood. Just the
 
 @item @b{Attributes:}
 @table @asis
-@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{ON} @ @ @xref{state}
 The current force state - @samp{ON} for a force applying wormholes, @samp{OFF}
 for force neutral wormholes.
 @item @b{destination}, @ @ @i{values}: tokens or position; @ @ @i{default}: @code{nil} @ @ @xref{destination}
@@ -14036,7 +14037,7 @@ Switches the wormhole off.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_wormhole, 12mm} @b{it_wormhole}: state = @code{OFF}.
+@item @image{images/it_wormhole, 12mm} @b{it_wormhole}: state = @code{ON}.
 @item @image{images/it_wormhole, 12mm} @b{it_wormhole_on}: state = @code{ON}.
 @item @image{images/fl_white, 12mm} @b{it_wormhole_off}: state @code{OFF}.
 @end table
@@ -16856,11 +16857,13 @@ as a mandatory semi-transparent pair of sheets.
 @item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}; @ @ @xref{state}
 The orientation of the mirror. For a triangular mirror it is the triangle's
 pointing direction. For a planar mirror it is the reflection direction of an
-incoming northbound beam.
-@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}
+incoming northbound beam. 
+@item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}, @code{RANDOMDIR}; @ @ @i{default}: @code{NORTH}
 The orientation of the mirror. For a triangular mirror it is the triangle's
 pointing direction. For a planar mirror it is the reflection direction of an
-incoming northbound beam.
+incoming northbound beam. The value @code{RANDOMDIR} is just evaluated when the
+mirror is being set. From this point of time the mirror will report a random
+orientation out of the other 4 real orientations.
 @item @b{transparent} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Semitransparency of the mirror panes.
 @item @b{movable} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false} @ @ @xref{movable}
