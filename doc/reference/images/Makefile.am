@@ -54,15 +54,15 @@ SIMPLEPNG = \
 	it_coin_s.png \
 	it_coin_m.png \
 	it_coin_l.png \
-	it_crack_abyss.png \
-	it_crack_water.png \
+	it_crack_abyss.png it_crack_abyss_2.png it_crack_abyss_3.png \
+	it_crack_water.png it_crack_water_2.png it_crack_water_3.png \
 	it_cross.png \
 	it_death.png \
 	it_document.png \
 	it_drop.png \
-	it_dynamite.png \
+	it_dynamite.png it_dynamite_burning.png \
 	it_explosion.png \
-	it_extinguisher.png \
+	it_extinguisher.png it_extinguisher_2.png it_extinguisher_3.png \
 	it_extralife.png \
 	it_flag_black.png \
 	it_flag_white.png \

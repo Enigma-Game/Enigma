@@ -11994,7 +11994,7 @@ Ignite the fuse.
 @item @b{Variants:}
 @table @asis
 @item @image{images/it_dynamite, 12mm} @b{it_dynamite}: state = @code{IDLE}
-@item @image{images/fl_white, 12mm} @b{it_dynamite_burning}: state = @code{ACTIVE}
+@item @image{images/it_dynamite_burning, 12mm} @b{it_dynamite_burning}: state = @code{ACTIVE}
 @end table
 
 @end table
@@ -12040,9 +12040,9 @@ A toggle causes a refill by one load.
 @item @b{Variants:}
 @table @asis
 @item @image{images/it_extinguisher, 12mm} @b{it_extinguisher}: state = @code{FULL}
-@item @image{images/it_extinguisher, 12mm} @b{it_extinguisher_empty}: state = @code{FULL}
-@item @image{images/fl_white, 12mm} @b{it_extinguisher_medium}: state = @code{MEDIUM}
-@item @image{images/fl_white, 12mm} @b{it_extinguisher_full}: state = @code{FULL}
+@item @image{images/it_extinguisher, 12mm} @b{it_extinguisher_full}: state = @code{FULL}
+@item @image{images/it_extinguisher_2, 12mm} @b{it_extinguisher_medium}: state = @code{MEDIUM}
+@item @image{images/it_extinguisher_3, 12mm} @b{it_extinguisher_empty}: state = @code{EMPTY}
 @end table
 
 @end table
@@ -13223,13 +13223,18 @@ over it.
 @end table
 
 @item @b{Variants:}
-@table @asis
-@item @image{images/it_crack_abyss, 12mm} @b{it_crack}: state = @code{SMALL}
-@item @image{images/fl_white, 12mm} @b{it_crack_i}: state = @code{INVISIBLE}
-@item @image{images/it_crack_abyss, 12mm} @b{it_crack_s}: state = @code{SMALL}
-@item @image{images/fl_white, 12mm} @b{it_crack_m}: state = @code{MEDIUM}
-@item @image{images/fl_white, 12mm} @b{it_crack_l}: state = @code{LARGE}
-@end table
+@multitable @columnfractions .08 .42 .08 .42
+@item @image{images/it_crack_abyss, 12mm}@tab  @b{it_crack}: state = @code{SMALL}, flavor = @code{"abyss"}
+@tab @image{images/it_crack_water, 12mm}@tab  @b{it_crack}: state = @code{SMALL}, flavor = @code{"water"}
+@item @image{images/fl_white, 12mm}@tab  @b{it_crack_i}: state = @code{INVISIBLE}, flavor = @code{"abyss"}
+@tab @image{images/fl_white, 12mm}@tab  @b{it_crack_i}: state = @code{INVISIBLE}, flavor = @code{"water"}
+@item @image{images/it_crack_abyss, 12mm}@tab  @b{it_crack_s}: state = @code{SMALL}, flavor = @code{"abyss"}
+@tab @image{images/it_crack_water, 12mm}@tab  @b{it_crack_s}: state = @code{SMALL}, flavor = @code{"water"}
+@item @image{images/it_crack_abyss_2, 12mm}@tab  @b{it_crack_m}: state = @code{MEDIUM}, flavor = @code{"abyss"}
+@tab @image{images/it_crack_water_2, 12mm}@tab  @b{it_crack_m}: state = @code{MEDIUM}, flavor = @code{"water"}
+@item @image{images/it_crack_abyss_3, 12mm}@tab  @b{it_crack_l}: state = @code{LARGE}, flavor = @code{"abyss"}
+@tab @image{images/it_crack_water_3, 12mm}@tab  @b{it_crack_l}: state = @code{LARGE}, flavor = @code{"water"}
+@end multitable
 
 @end table
 

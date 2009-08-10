@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -254,17 +254,20 @@ void Actor::move ()
     if (m_actorinfo.field) {
         if (m_actorinfo.gridpos != last_gridpos) {
             // Actor entered a new field -> notify floor and item objects
-            if (Floor *fl = m_actorinfo.field->floor)
-                fl->actor_enter (this);
-            if (Item *it = m_actorinfo.field->item)
-                it->actor_enter (this);
-
+            // first leave old - avoid the possibility that an actor presses
+            // two triggers at once.
             if (const Field *of = GetField(last_gridpos)) {
                 if (Floor *fl = of->floor)
-                    fl->actor_leave (this);
+                    fl->actor_leave(this);
                 if (Item *it = of->item)
-                    it->actor_leave (this);
+                    it->actor_leave(this);
             }
+            // then enter new field
+            if (Floor *fl = m_actorinfo.field->floor)
+                fl->actor_enter(this);
+            if (Item *it = m_actorinfo.field->item)
+                it->actor_enter(this);
+
         }
 
         Item *it = m_actorinfo.field->item;
