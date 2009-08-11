@@ -66,6 +66,7 @@ namespace enigma {
                     AddForceField(this);
                 else
                     RemoveForceField(this);
+                init_model();
             }
         }
     }
