@@ -68,18 +68,23 @@ Value Floor::message(const Message &m) {
     // "setfire"  : Just try to make fire (if burnable).
     // "forcefire": Force fire, even on unburnable floor.
     // "stopfire" : Stop fire, put ash but don't transform floor.
-    if (m.message == "_init" && has_firetype(flft_initfire))
-        return force_fire();
-    if (m.message == "heat")
+    if (m.message == "_init") {
+        if (has_firetype(flft_initfire))
+            force_fire();
+    } else if (m.message == "heat") {
         return try_heating(NODIR, flhf_message);
-    if ((m.message == "ignite" || m.message == "_explosion") && has_firetype(flft_ignitable))
+    } else if (m.message == "ignite" || m.message == "_explosion") {
+        if (has_firetype(flft_ignitable))
+            return try_ignite(NODIR, flhf_message);
+        else
+            return Value();
+    } else if (m.message == "setfire") {
         return try_ignite(NODIR, flhf_message);
-    if (m.message == "setfire")
-        return try_ignite(NODIR, flhf_message);
-    if (m.message == "forcefire")
+    } else if (m.message == "forcefire") {
         return force_fire();
-    if (m.message == "stopfire")
+    } else if (m.message == "stopfire") {
         return stop_fire(true);
+    }
     return GridObject::message(m);
 }
 

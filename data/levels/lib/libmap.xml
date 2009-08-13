@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libmap"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -97,11 +97,23 @@ function lib.map.fuse(arg1, arg2)
     assert_type(map1, "lib.map.fuse first argument", 2, "map")
     assert_type(map2, "lib.map.fuse second argument", 2, "map")
     local result = {}
+    if type(arg1) == "string" and string.len(arg1) == 1 and map2.__keylength == 1 then
+--        print ("map fuse optimizer")
+        for y = 1, map2.height do
+            local line2 = map2[y]
+            local line = ""
+            for x = 1, string.len(line2) do
+                line = line .. arg1 .. string.sub(line2, x, x)
+            end
+            result[y] = line
+        end
+    else
     for y = 1, math.max(map1.height, map2.height) do
         result[y] = ""
         for x = 1, math.max(map1.width, map2.width) do
             result[y] = result[y] .. map1[{x - 1, y - 1}] .. map2[{x - 1, y - 1}]
         end
+    end
     end
     return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
 end

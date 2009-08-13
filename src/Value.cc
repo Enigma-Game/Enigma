@@ -558,6 +558,12 @@ namespace enigma {
         return false;
     }
     
+    bool Value::maybeNearestObjectReference() const {
+        if (type == STRING || type == NAMEDOBJECT || type == GROUP || type == TOKENS)
+            return std::string(val.str).find('@') != std::string::npos;
+        else
+            return false;
+    }
     
     int to_int(const Value &v) {
         return v;

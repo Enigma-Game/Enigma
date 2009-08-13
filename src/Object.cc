@@ -149,7 +149,8 @@ namespace enigma {
     Value Object::message(const Message &m) {
         if (m.message == "_init") {
             // finalize nearest target and destination
-            finalizeNearestObjectReferences();
+            if (objFlags & OBJBIT_INIT)
+                finalizeNearestObjectReferences();
         } else if (m.message == "kill") {
             switch (getObjectType()) {
                 case OTHER:
@@ -239,9 +240,12 @@ namespace enigma {
                     (*itr)->setAttr("fellows", olist2);
                 }
             }
-        } else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val))
+        } else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val)) {
+            if (key == "destination" || key.find("target") == 0)
+                 if (val.maybeNearestObjectReference())
+                     objFlags |= OBJBIT_INIT; 
             setAttr(key, val);
-        else
+        } else
             ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write not allowed for kind '%s'",
                     key.c_str(), getKind().c_str()).c_str());
     }

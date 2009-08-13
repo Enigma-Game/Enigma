@@ -1940,6 +1940,8 @@ void BroadcastMessage (const std::string& msg, const Value& value, GridLayerBits
     bool to_items  = (grids & GRID_ITEMS_BIT) != 0;
     bool to_stones = (grids & GRID_STONES_BIT) != 0;
 
+//    Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
+
     if (grids != 0) {
         for (int y = 0; y<height; ++y) {
             for (int x = 0; x<width; ++x) {
@@ -1961,6 +1963,10 @@ void BroadcastMessage (const std::string& msg, const Value& value, GridLayerBits
             SendMessage(*oit, msg, value);
         }
     }
+    
+//    double exectime = (SDL_GetTicks() - start_tick_time)/1000.0;
+//    Log << ecl::strf("World init did take %g seconds for floors %d, items %d, stones %d, actors %d, others %d\n", 
+//         exectime, to_floors, to_items, to_stones, actors, others);
 }
 
 void PerformSecureAction(int senderId, bool isCallback, int targetId, std::string name, Value val) {

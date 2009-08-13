@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,7 +39,8 @@ namespace enigma {
         OBJBIT_LIGHTALLDIRS  =  255,   ///< GridObject all 8 direction bits with old an new light
         OBJBIT_PHOTOACTIV    =  1<<8,  ///< GridObject registered as photo activ
         OBJBIT_INVERSE       =  1<<9,  ///< Object invert action value
-        OBJBIT_NOP           =  1<<10  ///< Object use nop instead toggle as default action
+        OBJBIT_NOP           =  1<<10, ///< Object use nop instead toggle as default action
+        OBJBIT_INIT          =  1<<11  ///< Object needs init message for @ finalization
     };
     
     class Value;

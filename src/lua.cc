@@ -3674,6 +3674,7 @@ Error CallFunc(lua_State *L, const std::string funcpath, const Value& arg, Objec
     int retval;
     const char *funcname = funcpath.c_str();
     
+//    Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
     if (funcpath.find('.')) {
         std::list<std::string> nodes;
         ecl::split_copy(funcpath, '.', std::back_inserter(nodes));
@@ -3707,6 +3708,9 @@ Error CallFunc(lua_State *L, const std::string funcpath, const Value& arg, Objec
         if (retval != 0)  {  // error
             lua_setglobal(L, "_LASTERROR") ; //Set _LASTERROR to returned error message
         }
+//        double exectime = (SDL_GetTicks() - start_tick_time)/1000.0;
+//        if (exectime > -1.000)
+//            Log << ecl::strf("Lua callback '%s' did take %g seconds\n", funcname, exectime);
         return _lua_err_code(retval);
     } else {
         if (expectFunction) {
