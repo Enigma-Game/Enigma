@@ -59,8 +59,21 @@ namespace enigma {
         Log << ecl::strf("Entering floor 0x%x\n", code);
     }
 
-/* -------------------- Ice -------------------- */
+/* -------------------- FakeFloor -------------------- */
 
+    FakeFloor::FakeFloor(std::string flavor) : Floor ("fl_fake") {
+        setAttr("flavor", flavor);
+    }
+    
+    std::string FakeFloor::getClass() const {
+        return "fl_fake";
+    }
+    
+    void FakeFloor::init_model()  {
+        set_model("fl_fake_" + getAttr("flavor").to_string());
+    }
+
+/* -------------------- Ice -------------------- */
 
     IceFloor::IceFloor() : Floor ("fl_ice") {
     }
@@ -69,6 +82,20 @@ namespace enigma {
         return "fl_ice";
     }
     
+/* -------------------- InverseFloor -------------------- */
+
+    InverseFloor::InverseFloor(std::string flavor) : Floor ("fl_inverse") {
+        setAttr("flavor", flavor);
+    }
+    
+    std::string InverseFloor::getClass() const {
+        return "fl_inverse";
+    }
+    
+    void InverseFloor::init_model()  {
+        set_model("fl_inverse_" + getAttr("flavor").to_string());
+    }
+
 /* -------------------- Space -------------------- */
 
     
@@ -156,7 +183,13 @@ namespace enigma {
     BOOT_REGISTER_START
         BootRegister(new Abyss(),     "fl_abyss");
         BootRegister(new DummyFloor(),"fl_dummy");
+        BootRegister(new FakeFloor(),  "fl_fake");
+        BootRegister(new FakeFloor(),  "fl_fake_abyss");
+        BootRegister(new FakeFloor("trigger"),  "fl_fake_trigger");
         BootRegister(new IceFloor(),  "fl_ice");
+        BootRegister(new InverseFloor(),  "fl_inverse");
+        BootRegister(new InverseFloor(),  "fl_inverse_white");
+        BootRegister(new InverseFloor("gray"),  "fl_inverse_gray");
         BootRegister(new Space(),     "fl_space");
         BootRegister(new Space(true), "fl_space_force");
         BootRegister(new Swamp(),     "fl_swamp");

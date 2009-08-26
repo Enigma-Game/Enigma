@@ -105,6 +105,8 @@ ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
         else if (key == "force_y")
             var_floorforce[1] = val;
         GridObject::setAttr(key, val);
+        if (key == "faces" && isDisplayable())
+            init_model();
     }
 
     Value Floor::getAttr(const std::string &key) const {

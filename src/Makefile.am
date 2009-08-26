@@ -162,6 +162,8 @@ enigma_SOURCES = 		\
 	floors/SimpleFloors.hh	\
 	floors/SlopeFloor.cc	\
 	floors/SlopeFloor.hh	\
+	floors/StandardFloors.cc	\
+	floors/StandardFloors.hh	\
 	floors/ThiefFloor.cc	\
 	floors/ThiefFloor.hh	\
 	gui/ErrorMenu.cc	\

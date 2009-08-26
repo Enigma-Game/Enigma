@@ -58,6 +58,22 @@ namespace enigma {
     };
 
     /** 
+     * Fake
+     */
+    class FakeFloor : public Floor {
+        CLONEOBJ(FakeFloor);
+        
+    public:
+        FakeFloor(std::string flavor ="abyss");
+
+        // Object interface
+        virtual std::string getClass() const;
+        
+        // GridObject interface
+        virtual void init_model();
+    };
+
+    /** 
      * IceFloor
      */
     class IceFloor : public Floor {
@@ -68,6 +84,22 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
+    };
+
+    /** 
+     * InverseFloor
+     */
+    class InverseFloor : public Floor {
+        CLONEOBJ(InverseFloor);
+        
+    public:
+        InverseFloor(std::string flavor ="white");
+
+        // Object interface
+        virtual std::string getClass() const;
+        
+        // GridObject interface
+        virtual void init_model();
     };
 
     /** 

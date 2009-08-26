@@ -294,6 +294,7 @@
       <msg name="setfire"/>
       <msg name="stopfire"/>
     </object>
+    <object name="fl_standard" abstract="true"/>
     <object name="fl_floodstream" abstract="true">
       <attr name="faces"/>
       <attr name="interval" default="0.2"/>
@@ -304,6 +305,65 @@
       <attr name="friction" default="2.0"/>
       <attr name="adhesion" default="1.0"/>
       <attr name="noash" default="true"/>
+    </object>
+    <object name="fl_adhesionless" super="fl_standard">
+      <attr name="friction" default="2.5"/>
+      <attr name="adhesion" default="0.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_aquamarine" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="0.4"/>
+      <attr name="adhesion" default="1.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_aquamarine_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_bast" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="1.5"/>
+      <attr name="adhesion" default="2.5"/>
+      <attr name="burnable" default="true"/>
+      <attr name="$firetransform" default="fl_abyss"/>
+    </object>
+    <object name="fl_bast_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_bluegray" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="4.5"/>
+      <attr name="adhesion" default="1.5"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_bluegray_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_bluegreen" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_bluegreen_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_blueslab" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="7.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_blueslab_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_brick" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.5"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_brick_framed">
+      <attr name="faces" value="nesw"/>
     </object>
     <object name="fl_bridge">
       <attr name="flavor" default="gc"/>
@@ -331,6 +391,73 @@
     <object name="fl_bridge_bn">
       <attr name="flavor" value="bn"/>
     </object>
+    <object name="fl_bright" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.5"/>
+    </object>
+    <object name="fl_bright_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_concrete" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="4.5"/>
+      <attr name="adhesion" default="1.3"/>
+    </object>
+    <object name="fl_concrete_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_dark" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.5"/>
+    </object>
+    <object name="fl_dark_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_darkgray" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.6"/>
+    </object>
+    <object name="fl_darkgray_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_dunes" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="1.3"/>
+      <attr name="adhesion" default="1.0"/>
+    </object>
+    <object name="fl_dunes_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_fake">
+      <attr name="flavor" default="abyss"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_fake_abyss">
+      <attr name="flavor" value="abyss"/>
+    </object>
+    <object name="fl_fake_trigger">
+      <attr name="flavor" value="trigger"/>
+    </object>
+    <object name="fl_gravel" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.2"/>
+      <attr name="adhesion" default="1.5"/>
+    </object>
+    <object name="fl_gravel_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_gray" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="3.0"/>
+    </object>
+    <object name="fl_gray_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
     <object name="fl_hay" super="fl_floodstream">
       <attr name="friction" default="5.0"/>
       <attr name="adhesion" default="1.5"/>
@@ -339,10 +466,152 @@
     <object name="fl_hay_framed">
       <attr name="faces" value="nesw"/>
     </object>
+    <object name="fl_himalaya" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_himalaya_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
     <object name="fl_ice">
       <attr name="friction" default="0.1"/>
       <attr name="adhesion" default="0.1"/>
       <attr name="$heattransform" default="fl_water"/>
+    </object>
+    <object name="fl_inverse">
+      <attr name="flavor" default="white"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="-2.0"/>
+    </object>
+    <object name="fl_inverse_white">
+      <attr name="flavor" value="white"/>
+    </object>
+    <object name="fl_inverse_gray">
+      <attr name="flavor" value="gray"/>
+    </object>
+    <object name="fl_ivory" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="2.2"/>
+      <attr name="adhesion" default="1.6"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_ivory_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_lawn" super="fl_standard">
+      <attr name="friction" default="4.0"/>
+      <attr name="adhesion" default="1.5"/>
+      <attr name="burnable" default="true"/>
+      <attr name="$firetransform" default="fl_dunes"/>
+    </object>
+    <object name="fl_lawn_a" init="true"/>
+    <object name="fl_lawn_b" init="true"/>
+    <object name="fl_lawn_c1" init="true"/>
+    <object name="fl_lawn_c2" init="true"/>
+    <object name="fl_lawn_c3" init="true"/>
+    <object name="fl_lawn_c4" init="true"/>
+    <object name="fl_lawn_d1" init="true"/>
+    <object name="fl_lawn_d2" init="true"/>
+    <object name="fl_lawn_d3" init="true"/>
+    <object name="fl_lawn_d4" init="true"/>
+    <object name="fl_lawn_e1" init="true"/>
+    <object name="fl_lawn_e2" init="true"/>
+    <object name="fl_lawn_e3" init="true"/>
+    <object name="fl_lawn_e4" init="true"/>
+    <object name="fl_marble" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.4"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_marble_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_metal" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_metal_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_metal_1" init="true"/>
+    <object name="fl_metal_1_framed" init="true"/>
+    <object name="fl_metal_2" init="true"/>
+    <object name="fl_metal_2_framed" init="true"/>
+    <object name="fl_metal_3" init="true"/>
+    <object name="fl_metal_3_framed" init="true"/>
+    <object name="fl_metal_4" init="true"/>
+    <object name="fl_metal_4_framed" init="true"/>
+    <object name="fl_metal_5" init="true"/>
+    <object name="fl_metal_5_framed" init="true"/>
+    <object name="fl_metal_6" init="true"/>
+    <object name="fl_metal_6_framed" init="true"/>
+    <object name="fl_metal_7" init="true"/>
+    <object name="fl_metal_7_framed" init="true"/>
+    <object name="fl_metal_7n" init="true"/>
+    <object name="fl_mortar" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="7.2"/>
+      <attr name="adhesion" default="1.8"/>
+    </object>
+    <object name="fl_mortar_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_pinkbumps" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="5.0"/>
+      <attr name="adhesion" default="1.2"/>
+    </object>
+    <object name="fl_pinkbumps_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_plank" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="5.5"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+      <attr name="$firetransform" default="fl_abyss"/>
+    </object>
+    <object name="fl_plank_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_platinum" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="3.0"/>
+      <attr name="adhesion" default="1.6"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_platinum_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_red" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="0.9"/>
+      <attr name="adhesion" default="1.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_red_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_redslab" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="7.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_redslab_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_rough" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="7.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_rough_framed">
+      <attr name="faces" value="nesw"/>
     </object>
     <object name="fl_rock" super="fl_floodstream">
       <attr name="friction" default="6.5"/>
@@ -351,12 +620,42 @@
     <object name="fl_rock_framed">
       <attr name="faces" value="nesw"/>
     </object>
+    <object name="fl_sahara" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.4"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_sahara_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_samba" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+      <attr name="$firetransform" default="fl_abyss"/>
+    </object>
+    <object name="fl_samba_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
+    <object name="fl_samba_h" init="true"/>
+    <object name="fl_samba_h_framed" init="true"/>
+    <object name="fl_samba_v" init="true"/>
+    <object name="fl_samba_v_framed" init="true"/>
     <object name="fl_slope">
       <attr name="friction" default="4.0"/>
       <attr name="adhesion" default="2.0"/>
       <attr name="slope" default="-1"/>
       <attr name="strength"/>
       <attr name="shape"/>
+    </object>
+    <object name="fl_sand" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.0"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_sand_framed">
+      <attr name="faces" value="nesw"/>
     </object>
     <object name="fl_slope_pw">
       <attr name="shape" value="pw"/>
@@ -434,6 +733,14 @@
       <attr name="friction" default="0.0"/>
       <attr name="adhesion" default="0.0"/>
     </object>
+    <object name="fl_stone" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="1.4"/>
+      <attr name="adhesion" default="1.0"/>
+    </object>
+    <object name="fl_stone_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
     <object name="fl_swamp">
       <attr name="friction" default="13.0"/>
       <attr name="adhesion" default="1.0"/>
@@ -444,10 +751,27 @@
       <attr name="adhesion" default="1.5"/>
       <msg name="_capture"/>
     </object>
+    <object name="fl_tigris" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_tigris_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
     <object name="fl_water" super="fl_floodstream">
       <attr name="friction" default="5.0"/>
       <attr name="adhesion" default="1.0"/>
       <attr name="$heattransform" default="fl_swamp"/>
+    </object>
+    <object name="fl_white" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="4.0"/>
+      <attr name="adhesion" default="2.0"/>
+    </object>
+    <object name="fl_white_framed">
+      <attr name="faces" value="nesw"/>
     </object>
     <object name="fl_wood" super="fl_floodstream">
       <attr name="friction" default="6.4"/>
@@ -462,6 +786,15 @@
     </object>
     <object name="fl_wood_framed_h" init="true"/>
     <object name="fl_wood_framed_v" init="true"/>
+    <object name="fl_woven" super="fl_standard">
+      <attr name="faces"/>
+      <attr name="friction" default="6.5"/>
+      <attr name="adhesion" default="3.0"/>
+      <attr name="burnable" default="true"/>
+    </object>
+    <object name="fl_woven_framed">
+      <attr name="faces" value="nesw"/>
+    </object>
     <object name="fl_yinyang">
       <attr name="friction" default="5.2"/>
       <attr name="adhesion" default="2.0"/>
