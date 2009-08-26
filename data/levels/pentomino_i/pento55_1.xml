@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Pentomino LV" el:subtitle="438 solutions" el:id="pento55"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author el:name="Enigma Team" el:email=""/>
       <el:copyright>Copyright © 2009 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -38,13 +38,13 @@ wo(pento, " ", {
     "#%%%%%%%%%%%%%%%%%%#",
     "%                  %",
     "%                  %",
-    "#       ...........#",
-    "& +++++  ......... #",
-    "# +++++  ......... #",
-    "/ +++++ @......... #",
-    "# +++++  ......... #",
-    "| +++++  ......... #",
-    "#       ...........#",
+    "#        ..........#",
+    "& +++++   ........ #",
+    "# +++++   ........ #",
+    "/ +++++ @ ........ #",
+    "# +++++   ........ #",
+    "| +++++   ........ #",
+    "#        ..........#",
     "%!!!!!             %",
     "%Nesw!             %",
     "#%%%%%%%%%%%%%%%%%%#"})
