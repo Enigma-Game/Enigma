@@ -1722,7 +1722,7 @@ static int groupEquality(lua_State *L) {
 }
 
 static int newPolist(lua_State *L) {
-    // (grp )
+    // (grp | table)
     PositionList positions;
     if (is_group(L, 1)) {
         ObjectList ol = toObjectList(L, 1);
@@ -1731,6 +1731,13 @@ static int newPolist(lua_State *L) {
             if (*itr != NULL) {
                 positions.push_back(*itr);
             }
+        }
+    } else if (is_table(L, 1)) {
+        int len = lua_objlen(L, 1);
+        for (int i = 1; i <= len; i++) {
+            lua_rawgeti(L, 1, i);
+            positions.push_back(to_value(L, -1));
+            lua_pop(L, 1);
         }
     } else {
         throwLuaError(L, "New Polist - false arguments");
@@ -2048,6 +2055,20 @@ static int newPositions(lua_State *L) {
     }
     if (is_group(L, 1)) {
         return newPolist(L);
+    } else if (is_table(L, 1)) {
+        bool coordinates = true;
+        if (lua_objlen(L, -1) == 0)  // empty table as empty po list
+            coordinates = false;
+        else {
+            lua_rawgeti(L, 1, 1);   // examine first element
+            if (is_position(L, -1))
+                coordinates = false;
+            lua_pop(L, 1);
+        }
+        if (coordinates)
+            return newPosition(L);
+        else
+            return newPolist(L);
     } else
         return newPosition(L);
 }
