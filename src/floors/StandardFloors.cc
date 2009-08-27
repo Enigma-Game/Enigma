@@ -105,6 +105,14 @@ namespace enigma {
         return StandardFloorNames[state].classname;
     }
     
+    int StandardFloor::externalState() const {
+        return 0;   // no external states
+    }
+    
+    void StandardFloor::setState(int extState) {
+        // no external states
+    }
+    
     void StandardFloor::init_model()  {
         bool isFramed = (getAttr("faces").to_string() == "nesw");
         set_model((StandardFloorNames[state].submodel.length() > 0 ? StandardFloorNames[state].submodel :

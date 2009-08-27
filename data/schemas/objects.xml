@@ -8,6 +8,7 @@
     <attr name="anchor2" type="tokens" default="nil" rw="rw"/>
     <attr name="attacknearest" type="bool" default="false" rw="rw"/>
     <attr name="autoclose" type="bool" default="false" rw="rw"/>
+    <attr name="autoopen" type="bool" default="false" rw="rw"/>
     <attr name="basename" type="string" default="nil" rw="r"/>
     <attr name="breakable" type="bool" default="false" rw="rw"/>
     <attr name="burnable" type="bool" default="nil" rw="rw"/>
@@ -1205,6 +1206,7 @@
     <object name="it_vortex">
       <attr name="destination"/>
       <attr name="autoclose"/>
+      <attr name="autoopen"/>
       <attr name="scissor" default="true"/>
       <msg name="open"/>
       <msg name="close"/>

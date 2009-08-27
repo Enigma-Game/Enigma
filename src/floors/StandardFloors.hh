@@ -32,6 +32,10 @@ namespace enigma {
         // Object interface
         virtual std::string getClass() const;
 
+        // StateObject interface
+        virtual int externalState() const;
+        virtual void setState(int extState);
+
         // GridObject interface
         virtual void init_model();
     };
