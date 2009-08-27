@@ -86,53 +86,85 @@ function lib.map.concat_vertically(map1, map2)
     return wo:newMap(map1.defaultkey, result)
 end
 
-function lib.map.fuse(arg1, arg2)
-    local map1, map2 = arg1, arg2
-    if type(arg1) == "string" then
-        map1 = wo:newMap(arg1)
-    end
-    if type(arg2) == "string" then
-        map2 = wo:newMap(arg2)
-    end
-    assert_type(map1, "lib.map.fuse first argument", 2, "map")
-    assert_type(map2, "lib.map.fuse second argument", 2, "map")
+function lib.map.fuse(map1, map2)
+    assert_type(map1, "lib.map.fuse first argument", 2, "map", "string")
+    assert_type(map2, "lib.map.fuse second argument", 2, "map", "string")
+    assert_bool((etype(map1) == "map") or (etype(map2) == "map"),
+                "lib.map.fuse: At least one argument must be a map, but both are strings.", 2)
     local result = {}
-    if type(arg1) == "string" and string.len(arg1) == 1 and map2.__keylength == 1 then
---        print ("map fuse optimizer")
+    if type(map1) == "string" then
+        local width = map2.width
+        local kl = map2.__keylength
         for y = 1, map2.height do
             local line2 = map2[y]
             local line = ""
-            for x = 1, string.len(line2) do
-                line = line .. arg1 .. string.sub(line2, x, x)
+            for x = 1, width*kl, kl do
+                line = line .. map1 .. string.sub(line2, x, x + kl - 1)
             end
             result[y] = line
         end
+        return wo:newMap(map1 .. map2.defaultkey, result)  
+    elseif type(map2) == "string" then
+        local width = map1.width
+        local kl = map1.__keylength
+        for y = 1, map1.height do
+            local line1 = map1[y]
+            local line = ""
+            for x = 1, width*kl, kl do
+                line = line .. string.sub(line1, x, x + kl - 1) .. map2
+            end
+            result[y] = line
+        end        
+        return wo:newMap(map1.defaultkey .. map2, result)  
     else
-    for y = 1, math.max(map1.height, map2.height) do
-        result[y] = ""
-        for x = 1, math.max(map1.width, map2.width) do
-            result[y] = result[y] .. map1[{x - 1, y - 1}] .. map2[{x - 1, y - 1}]
+        local width = math.max(map1.width, map2.width)
+        local kl1 = map1.__keylength
+        local kl2 = map2.__keylength
+        local dk1 = map1.defaultkey
+        local dk2 = map2.defaultkey
+        for y = 1, math.max(map1.height, map2.height) do
+            local line1 = map1[y] or ""
+            local line2 = map2[y] or ""
+            local line = ""
+            for x = 1, width do
+                local p1 = string.sub(line1, x*kl1 - kl1 + 1, x*kl1)
+                local p2 = string.sub(line2, x*kl2 - kl2 + 1, x*kl2)
+                if p1 == "" then
+                    line = line .. dk1
+                else
+                    line = line .. p1
+                end
+                if p2 == "" then
+                    line = line .. dk2
+                else
+                    line = line .. p2
+                end
+            end
+            result[y] = line
         end
+        return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
     end
-    end
-    return wo:newMap(map1.defaultkey .. map2.defaultkey, result)  
 end
 
 function lib.map.defuse(map)
     assert_type(map, "lib.map.defuse first argument", 2, "map")
     local kl = rawget(map, "__keylength")
     local dk = rawget(map, "__defaultkey")
+    local premap = {}
+    for j = 1, kl do
+        premap[j] = {}
+    end
+    for y = 1, rawget(map, "__height") do
+        local line = map[y]
+        local j = 1
+        for x = 1, string.len(line) do
+            premap[j][y] = (premap[j][y] or "") .. string.sub(line, x, x)
+            j = (j % kl) + 1
+        end
+    end
     local result = {}
     for j = 1, kl do
-        result[j] = wo:newMap(string.sub(dk, j, j), map.width, map.height)
-    end
-    for y = 0, map.height - 1 do
-        for x = 0, map.width - 1 do
-            local key = map[{x,y}]
-            for j = 1, kl do
-                result[j][{x,y}] = string.sub(key, j, j)
-            end
-        end
+        result[j] = wo:newMap(string.sub(dk, j, j), premap[j])
     end
     return result
 end
@@ -448,15 +480,15 @@ function lib.map.set(map, posarg, value)
                 .."(should be "..kl.. ", is "..string.len(value)..").", 2)
         end
         if (usertype(posarg) == "position") or (usertype(posarg) == "object") then
-            local pos = posarg:grid()
-            if (pos.x < 0) or (pos.y < 0) then
-                error("lib.map.set: Negative positions are not supported.", 2)
+            local x, y = (posarg:grid()):xy()
+            assert_bool((x >= 0) and (y >= 0), "lib.map.set: Negative positions are not supported.", 2)
+            if (x >= rawget(map, "__width")) or (y >= rawget(map, "__height")) then
+                map:extend({x, y})
             end
-            map:extend(pos)
-            rawset(map, pos.y + 1,
-                   string.sub(rawget(map, pos.y + 1), 1, pos.x * kl)
+            rawset(map, y + 1,
+                   string.sub(rawget(map, y + 1), 1, x * kl)
                 .. value
-                .. string.sub(rawget(map, pos.y + 1), (pos.x + 1) * kl + 1, -1))
+                .. string.sub(rawget(map, y + 1), (x + 1) * kl + 1, -1))
         elseif usertype(posarg) == "group" then
             for obj in posarg do
                 map:extend(obj)
@@ -474,7 +506,17 @@ function lib.map.set(map, posarg, value)
                   .. string.sub(rawget(map, posarg[j].y + 1), (posarg[j].x + 1) * kl + 1, -1))
             end
         elseif type(posarg) == "table" then
-            lib.map.set(map, po(posarg), value)
+            local x, y = posarg[1], posarg[2]
+            assert_bool(type(x) == "number", "lib.map.set second argument (position): Conversion to position failed.", 2)
+            assert_bool(type(y) == "number", "lib.map.set second argument (position): Conversion to position failed.", 2)
+            assert_bool((x >= 0) and (y >= 0), "lib.map.set: Negative positions are not supported.", 2)
+            if (x >= rawget(map, "__width")) or (y >= rawget(map, "__height")) then
+                map:extend({x, y})
+            end
+            rawset(map, y + 1,
+                   string.sub(rawget(map, y + 1), 1, x * kl)
+                .. value
+                .. string.sub(rawget(map, y + 1), (x + 1) * kl + 1, -1))
         end
     end
 end

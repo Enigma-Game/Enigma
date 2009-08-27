@@ -410,35 +410,34 @@ function lib.soko.setup_attributes_and_polists(map)
             local delta = NEIGHBORS_8[j]
             outside = outside or lib.soko.area[pos + delta].is_outf
         end
-        if outside then
-            local count = 0
-            local last_orientation
-            for _, dir in ipairs({{N, NORTH}, {S, SOUTH}, {E, EAST}, {W, WEST}}) do
-                if lib.soko.area[pos + dir[1]].is_way then
-                    count = count + 1
-                    last_orientation = dir[2]
-                end
+        local count = 0
+        local last_orientation
+        for _, dir in ipairs({{N, NORTH}, {S, SOUTH}, {E, EAST}, {W, WEST}}) do
+            if lib.soko.area[pos + dir[1]].is_way then
+                count = count + 1
+                last_orientation = dir[2]
             end
-            if count > 0 then
-                mark_as(pos, "wall_one")
-                lib.soko.area[pos].ways = count
-                if count == 1 then
-                    lib.soko.area[pos].orientation = last_orientation
-                end
+        end
+        lib.soko.area[pos].ways = count
+        if outside and (count > 0) then
+            mark_as(pos, "wall_one")
+            if count == 1 then
+                lib.soko.area[pos].orientation = last_orientation
             end
         end
     end
     -- polist.wall_two
-    -- There are three conditions for an element of polist.wall_two:
+    -- There are four conditions for an element of polist.wall_two:
     -- (i) it's near a wall_one, (ii) it's not a wall_one,
-    -- (iii) it's wall or outside. In addition, the neighboring
-    -- wall_one are added into the list.
+    -- (iii) it's wall or outside, (iii) it's not near a way.
+    -- In addition, the neighboring wall_one are added into the list.
     for i = 1, #lib.soko.polist.wall_one do
         local wall_one = lib.soko.polist.wall_one[i]
         for j = 1, #NEIGHBORS_4 do
             local delta = NEIGHBORS_4[j]
             local check = wall_one + delta
-            if not (lib.soko.area[check].is_way or lib.soko.area[check].is_wall_one) then
+            if not (lib.soko.area[check].is_way or lib.soko.area[check].is_wall_one
+                    or ((lib.soko.area[check].ways or 0) > 0)) then
                 mark_as(check, "wall_two")
                 lib.soko.area[check].wall_one =
                     (lib.soko.area[check].wall_one or po(grp())) .. wall_one

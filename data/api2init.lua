@@ -276,10 +276,11 @@ wo:_register("drawMap",
         end
         -- Draw map
         for y=1, #map do
-            local linelen = string.len(map[y])
+            local line = map[y]
+            local linelen = string.len(line)
             assert_bool(math.fmod(linelen, len) == 0, "wo:drawMap: Map line ".. y .. " with odd length.", 2)
             for x = 1, linelen/len do
-                local key = string.sub(map[y], len*(x-1)+1, len*x)
+                local key = string.sub(line, len*(x-1)+1, len*x)
                 if key ~= ignore then
                     local p = {origin.x - 1, origin.y - 1}
                     if readdir == MAP_IDENT then
