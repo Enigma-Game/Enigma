@@ -33,6 +33,7 @@
 #include "player.hh"
 #include "StateManager.hh"
 #include "world.hh"
+#include "MusicManager.hh"
 
 #include "enet/enet.h"
 
@@ -150,6 +151,10 @@ namespace
 void load_level(lev::Proxy *levelProxy, bool isRestart)
 {
     try {
+    Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
+        if (!CreatingPreview)
+            sound::StartLevelMusic(false);
+            
         server::LoadedProxy = levelProxy;
         server::PrepareLevel();
         IsLevelRestart = isRestart;
@@ -166,6 +171,8 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
                 player::LevelLoaded(isRestart);
                 client::Msg_LevelLoaded(isRestart);
         }
+        double exectime = (SDL_GetTicks() - start_tick_time)/1000.0;
+        Log << ecl::strf("Server load level did take %g seconds\n", exectime);
     }
     catch (XLevelLoading &err) {
         std::string levelPathString = 

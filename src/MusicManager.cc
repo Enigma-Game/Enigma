@@ -32,7 +32,6 @@
 using namespace enigma;
 using namespace sound;
 
-
 /* -------------------- Interface Functions -------------------- */
 
 bool sound::StartMenuMusic()
@@ -43,10 +42,12 @@ bool sound::StartMenuMusic()
     }
 }
 
-bool sound::StartLevelMusic()
+bool sound::StartLevelMusic(bool blocking)
 {
     if(MusicManager::instance()->getMusicContext() != MUSIC_GAME) {
-        sound::FadeoutMusic();
+        sound::FadeoutMusic(blocking);
+        if (!blocking)
+            return true;
         MusicManager::instance()->setMusicContext(MUSIC_GAME);
     }
 }

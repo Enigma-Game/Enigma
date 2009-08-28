@@ -45,7 +45,7 @@ namespace sound
     void EnableSound();
     void DisableMusic();
     bool PlayMusic(const std::string &name, double position = 0.0);
-    void FadeoutMusic();
+    void FadeoutMusic(bool blocking =true);
 
     /*! Stop any music currently playing. */
     void StopMusic();
@@ -89,7 +89,7 @@ namespace sound
 
         virtual bool play_music(const std::string &filename, double position) = 0;
         virtual void stop_music() = 0;
-        virtual void fadeout_music() = 0;
+        virtual void fadeout_music(bool blocking =true) = 0;
         virtual bool is_music_playing() = 0;
         
         // ---------- Sound effects ----------
@@ -113,7 +113,7 @@ namespace sound
         void set_music_volume(double /*musicvol*/) {}
         bool play_music (const std::string &/*filename*/, double /*position*/) { return false; }
         void stop_music() {}
-        void fadeout_music() {}
+        void fadeout_music(bool blocking =true) {}
         bool is_music_playing() { return false; }
         void clear_cache() {}
         void define_sound (const SoundName &, const SoundData &) {}
@@ -136,7 +136,7 @@ namespace sound
         void set_music_volume(double musicvol);
         bool play_music (const std::string &filename, double position);
         void stop_music();
-        void fadeout_music();
+        void fadeout_music(bool blocking =true);
         bool is_music_playing();
         void clear_cache();
         void define_sound (const SoundName &, const SoundData &);

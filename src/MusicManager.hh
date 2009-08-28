@@ -34,7 +34,7 @@ namespace sound
     void DefineMusicSingle(std::string title, std::string filename);
 
     bool StartMenuMusic();
-    bool StartLevelMusic();
+    bool StartLevelMusic(bool blocking =true);
     void MusicTick(double dtime);
     void InitMusic();
     void SetInGameMusicActive(bool active);

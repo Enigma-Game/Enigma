@@ -31,7 +31,6 @@
 using namespace enigma;
 using namespace sound;
 
-
 /* -------------------- Local variables -------------------- */
 namespace
 {
@@ -44,7 +43,6 @@ namespace
     bool music_mute         = false;
 }
 
-
 /* -------------------- Interface Functions -------------------- */
 
 void sound::Init() 
@@ -162,9 +160,9 @@ void sound::CacheSound(const SoundEffect &s)
     sound_engine->cache_sound(s);
 }
 
-void sound::FadeoutMusic() 
+void sound::FadeoutMusic(bool blocking) 
 {
-    sound_engine->fadeout_music();
+    sound_engine->fadeout_music(blocking);
 }
 
 bool sound::PlayMusic (const std::string &name, double position) 
@@ -202,7 +200,6 @@ void sound::UpdateVolume()
     sound::SetMusicVolume(options::GetDouble("MusicVolume"));
 }
 
-
 /* -------------------- SoundEngine_SDL implementation -------------------- */
 
 SoundEngine::SoundEngine()
@@ -336,13 +333,18 @@ bool SoundEngine_SDL::play_music (const std::string &filename, double position)
     return false;
 }
 
-void SoundEngine_SDL::fadeout_music()
+void SoundEngine_SDL::fadeout_music(bool blocking)
 {
-    while (Mix_FadingMusic() != MIX_NO_FADING)
+    while (Mix_FadingMusic() != MIX_NO_FADING) {
+        if (!blocking)
+            return;
         SDL_Delay(10);
+    }
 
     if (Mix_PlayingMusic()) {
         Mix_FadeOutMusic(500);
+        if (!blocking)
+            return;
         SDL_Delay(400);
     }
     while (Mix_PlayingMusic())
