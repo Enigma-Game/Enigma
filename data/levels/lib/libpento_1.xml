@@ -40,7 +40,7 @@ function res.pento_finalization(context)
         end
     end
     context.target_area = no["target#*"]
-    assert_bool(#context.target_area == 60, "Pentomino target area not 60 grids.", 2)
+    local dummy = (assert_bool)(#context.target_area == 60, "Pentomino target area not 60 grids.", 2)
 
     context.last_shape = 12
     

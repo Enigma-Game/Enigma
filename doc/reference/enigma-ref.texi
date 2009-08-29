@@ -6654,6 +6654,23 @@ multiple concatenations or not.
 @example
 @var{newpolist} = @i{po}(@i{po}(@var{2},@var{3}), @i{po}(@var{5},@var{7})) .. @i{po}(@var{4}, @var{4}) -- = (2,3),(5,7),(4,4)
 @end example
+
+@item @b{Caveats:}
+Note that due to the value nature of position lists the concatenation creates
+a new value. This is an expensive operation. When you are collecting potentially
+large number of positions in a loop, you should not concat each new candidate
+to an existing position list. Avoid the creation of numerous position list 
+values and collect the positions in a standard Lua table. Convert this table
+at the end to a position list (@xref{PositionList Conversion}).
+
+@example
+@var{result} = @{@}
+for @var{x} = 1, 200 do
+    table.insert(@var{result}, @i{po}(@var{x}, 17))
+end
+return @i{po}(@var{result})
+@end example
+
 @end table
 
 @c ----------------- PositionList Translation --------------------
@@ -6809,15 +6826,17 @@ Converts its argument to a new position value.
 
 @table @asis
 @item @b{Syntax:}
-result = po(@i{group})
+result = po(@i{group} | @{@i{pos1}, @i{pos2}, @i{pos3}@})
 
 @item @b{Details:}
-Converts the given group to a new @ref{PositionList} value, that contains
-the positions of all valid group @ref{Object}s in the same sequence.
+Converts the given group or table of positions to a new @ref{PositionList}
+value, that contains the positions of all valid group @ref{Object}s or table
+members in the same sequence.
 
 @item @b{Syntax Samples:}
 @example
 @var{polist} = @i{po}(@var{group})
+@var{polist} = @i{po}(@{@i{po}(@var{3}, @var{7}), @i{po}(@var{2}, @var{6})@})
 @end example
 @end table
 
@@ -13909,7 +13928,13 @@ reach the final destination of a vortex.
 Vortices can be @samp{OPEN} or @samp{CLOSED}. Of course an actor can enter just
 an open vortex. Closed vortices at the destination are opened automatically.
 By default such vortices remain open. By usage of the attribute @samp{autoclose}
-you can configure a vortex to close after an actor has been emitted.
+you can configure a vortex to close after an actor has been emitted. This helps
+the user to leave the vortex by keeping the marble from being reinserted into 
+the vortex. Of course an autoclose disables the user to return, too. If this
+is not your intention you set additionally the attribute @samp{autoopen} to
+@code{true}. The vortex will reopen again when the marble leaves the closed
+vortex. If the user did directly jump out of the vortex, it will reopen when
+the user enters the vortex grid again.
 
 Actors are emitted by vortices in a jumping fashion. The user can accelerate
 the actor for a short period and the actor may jump out of a vortex into the
@@ -13943,6 +13968,10 @@ The destination of the teleport given by an object or a position.
 
 @item @b{autoclose}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Flag that indicates whether the vortex should be closed after a teleport.
+
+@item @b{autoopen}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Flag that indicates whether the vortex should open when an actor enters the grid
+or leaves the vortex.
 
 @item @b{scissor}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
 Rubberband cutting behaviour on teleporting.

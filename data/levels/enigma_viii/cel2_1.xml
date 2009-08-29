@@ -71,8 +71,8 @@ ti["r."] = ti({"fl_abyss"}) .. {"it_seed"}
 ti["rf"] = {"fl_lawn"} .. ti({"it_floppy"})
 ti["rF"] = {"fl_lawn"} .. ti({"st_floppy", target="ral_fdoor", action="toggle"})
 ti["rG"] = ti["r "] .. {"st_door_d_ew", name="ral_fdoor"}
-ti["rj"] = {"fl_lawn", friction=6.0, type="x"} .. ti({"it_key", code=1})
-ti["rK"] = {"fl_lawn", friction=6.0, type="x"} .. ti({"it_key", code=4})
+ti["rj"] = {"fl_lawn", friction=6.0} .. ti({"it_key", code=1})
+ti["rK"] = {"fl_lawn", friction=6.0} .. ti({"it_key", code=4})
 ti["r-"] = ti["r "] .. {"st_switch", target="vortexRale"}
 
 -- Dominik Lehmann
