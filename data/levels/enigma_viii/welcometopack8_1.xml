@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack8"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,6 +12,8 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["MaxOxydColor"] = OXYD_GRAY
+
 ti[" "] = {"fl_red"}
 ti["#"] = {"st_redfiber"}
 ti["t"] = {"st_oxyd", name="group1#"}

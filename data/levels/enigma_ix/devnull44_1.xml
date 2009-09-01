@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hide them" el:subtitle="" el:id="devnull44"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="4:44"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["WormholeRange"] = 0.0
+
+ti[" "] = {"fl_dark"}
+ti["~"] = {"fl_water"}
+ti["+"] = {"st_box_hay"}
+ti["x"] = {"st_grate"}
+ti["X"] = ti["~"] .. {"st_grate"}
+ti["#"] = {"st_redrock"}
+ti["medi"] = {"it_meditation_hill"}
+ti["T"] = {"fl_dark", name="bump%%"} .. ti["medi"]
+ti["t"] = ti["+"] .. {"it_wormhole", destination = "bump%%"}
+ti["s"] = {"it_wormhole", destination = "bump%1"}
+ti["S"] = {"it_wormhole", destination = "bump%4"}
+ti["@"] = {"#ac_pearl_white", essential = INDISPENSABLE}
+
+wo(res.autotile(ti, {"A","D","T"},{"a","d","t"}), " ", {
+    "####################",
+    "#   ~ ~ #  # ~~ ~  #",
+    "#   c  X#  # ++b ~ #",
+    "#~~~~ + #  #   + ~~#",
+    "# ++#   #@@#   #   #",
+    "# A #####  ##### D #",
+    "#   #   #sS#   #   #",
+    "##### B #  # C #####",
+    "#   #   #@@#   #   #",
+    "# ++~~  #  #~ ~~ ~~#",
+    "# ~d   +#  #  + a+~#",
+    "# ~  X~~#  # ~x +~~#",
+    "####################" })
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

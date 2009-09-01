@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bicolor" el:subtitle="" el:id="devnull31"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["FrictionStrength"] = 2.0
+
+ti["##"] = {"st_granite"}
+ti["  "] = {"fl_red", friction = 5.0, adhesion = 3.0}
+ti[" ~"] = {"fl_gray"}
+ti[" ."] = {"fl_abyss"}
+ti["X "] = {"st_grate_cross"}
+ti["B "] = {"st_passage_black", flavor = "frame"}
+ti["W "] = {"st_passage_white", flavor = "frame"}
+ti["P"] = {"st_puzzle", color = BLUE, intensity = 0}
+ti["Q"] = ti[" ."] .. {"st_puzzle", color = YELLOW, cluster = 0, intensity = 2}
+ti["o "] = {"st_oxyd", "oxydsB#"}
+ti["O "] = {"st_oxyd", "oxydsW#"}
+ti["@ "] = {"#ac_marble_black", 0.5, 0.0, essential = INDISPENSABLE}
+ti["* "] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.composer(res.puzzle(ti, "P", "Q")), "  ", {
+    " . . . . . . .O. . . . .O. . . . . . . .",
+    " . . . . . .O.W         W O. . . . . . .",
+    " . . . . . . .X.  PbPf  X. . . . . . . .",
+    " . . .O. . . .X.  @     X. . . .o. . . .",
+    " . .O.W X.X.X.X.   . .  X.X.X.X.B o. . .",
+    " . . .         .Q Q Q Q   Pe       . . .",
+    " . . .          Q X.X.Q * PhPa     . . .",
+    " . . .  Pb  Pl  Q Q Q Q   Pa       . . .",
+    " . .O.W X.X.X.X.   . .  X.X.X.X.B o. . .",
+    " . . .O. . . .X.      PdX. . . .o. . . .",
+    " . . . . . . .X.  PePi  X. . . . . . . .",
+    " . . . . . .o.B         B o. . . . . . .",
+    " . . . . . . .o. . . . .o. . . . . . . ."})
+
+wo:shuffleOxyd({"oxydsB#*", max = 0}, {"oxydsW#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

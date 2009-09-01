@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Crabwise III" el:subtitle="" el:id="devnull38"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:45" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_abyss"}
+ti["#"] = ti({"fl_bridge"}) .. {"st_redrock"}
+ti["X"] = ti[" "] .. {"st_grate_cross"}
+ti["x"] = cond(wo["IsDifficult"], ti["~"] .. {"st_grate_cross"}, ti["~"])
+ti["+"] = cond(wo["IsDifficult"], ti[" "], ti["X"])
+ti["w"] = {"st_puzzle_blue", "pa", connections = "w", intensity = 0}
+ti["s"] = {"st_puzzle_blue", "pb", connections = "se", intensity = 0}
+ti["n"] = {"st_puzzle_blue", "pc", connections = "nw", intensity = 0}
+ti["e"] = {"st_puzzle_blue", "pd", connections = "e", intensity = 0}
+ti["W"] = {"st_puzzle_blue", "pA", connections = "w", intensity = 0}
+ti["-"] = {"st_puzzle_blue", "pB", connections = "ew", intensity = 0}
+ti["E"] = {"st_puzzle_blue", "pC", connections = "e", intensity = 0}
+ti["a"] = ti({"fl_hay_framed"}) .. {"it_trigger", target = "toggleDoors", action = "signal", invisible = true}
+ti["A"] = {"st_door_a", "doors#"}
+ti["b"] = ti({"fl_hay_framed"}) .. {"it_trigger", target = "toggleBridges", action = "signal", invisible = true}
+ti["B"] = {"fl_bridge", "bridges#"}
+ti["1"] = {"st_pull", "nav01"}
+ti["2"] = {"st_swap"}
+ti["3"] = {"st_box_rock"}
+ti["4"] = {"st_pull", "nav02"}
+ti["O"] = {"st_oxyd_a", oxydcolor = OXYD_RED, static = true}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##################O#",
+    "#     ~~x~X        #",
+    "#  ne ~x~~X        #",
+    "#     ~~~~X@ 2a1a3 #",
+    "# ws  ~~x~X        #",
+    "#     ~x~~X        #",
+    "##A#A###############",
+    "#       .....X     #",
+    "#       ..BBBX  E  #",
+    "#   4   ..B..+ b-b #",
+    "#       BBB..X  W  #",
+    "#       .....X     #",
+    "##################O#"})
+
+if wo["IsDifficult"] then
+    wo:add({"ot_wire", anchor1 = "nav01", anchor2 = "pa"})
+    wo:add({"ot_wire", anchor1 = "nav01", anchor2 = "pd"})
+    wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pA"})
+    wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pC"})
+else
+    wo:add({"ot_wire", anchor1 = "nav01", anchor2 = "pa"})
+    wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pC"})
+end
+wo:add({"ot_counter", "toggleDoors", state = 0, target = "doors#*", action_2 = "open", action_1 = "close"})
+wo:add({"ot_counter", "toggleBridges", state = 0, target = "bridges#*", action_2 = "close", action_1 = "open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Hintenrum III</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

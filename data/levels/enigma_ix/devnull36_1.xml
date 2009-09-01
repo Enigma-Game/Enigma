@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="At the pool" el:subtitle="" el:id="devnull36"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="6:00" el:difficult="6:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+if wo["IsDifficult"] then
+    ti["#"] = ti["~"] .. {"st_grate_cross"}
+    wo["ProvideExtralifes"] = false
+else
+    ti["#"] = ti["~"] .. {"st_portal"}
+end
+ti["W"] = {"st_box_rock"}
+ti["D"] = {"st_door", "door#", faces = "ew"}
+ti["keys"] = {"it_key", code = "%%"}
+ti["holes"] = {"st_key", code = "%%", target = "@door#*"}
+ti["o"] = {"st_oxyd_c", "oxydsBorder#"}
+ti["O"] = {"st_oxyd_c", "oxydsCenter#"}
+ti["@"] = {"#ac_marble_black", 0.5}
+
+wo(res.autotile(ti, {"a", "b", "keys"}, {"A", "B", "holes"}), " ", {
+  "####################",
+  "#~~     ~##~     ~~#",
+  "#~ W~  W~##~W  ~W ~#",
+  "#~  W  Wa##bW  W  ~#",
+  "#~  ####~~~~####  ~#",
+  "#~ W#~~~~~~~~~~#W ~#",
+  "#~  #   ~~~~   #  ~#",
+  "#~ ~#W W ~~ W W#~ ~#",
+  "#~~~    W@ W    ~~~#",
+  "#~~~   ######   ~~~#",
+  "##~~~###OOOO###~~~##",
+  "#o~~~D        D~~~o#",
+  "##o#A##########B#o##"})
+
+wo:shuffleOxyd({"oxydsCenter#*", max = 0}, {"oxydsBorder#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

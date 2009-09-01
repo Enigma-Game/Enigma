@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Weirdly Wired" el:subtitle="" el:id="andreas49"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,11 +14,11 @@
       <el:score el:easy="0:37" el:difficult="8:49"/>
     </el:info>
     <el:luamain><![CDATA[
-    
-ti[" "] = {"fl_sahara", friction = 3.5, mouseforce = 4.0}
-ti["a"] = {"fl_ivory", friction = 3.5, mouseforce = 4.0}
-ti["b"] = {"fl_bright", friction = 3.5, mouseforce = 4.0}
-ti["c"] = {"fl_platinum", friction = 3.5, mouseforce = 4.0}
+
+ti[" "] = {"fl_sahara", friction = 3.5, adhesion = 4.0}
+ti["a"] = {"fl_ivory", friction = 3.5, adhesion = 4.0}
+ti["b"] = {"fl_bright", friction = 3.5, adhesion = 4.0}
+ti["c"] = {"fl_platinum", friction = 3.5, adhesion = 4.0}
 ti["_"] = {"fl_water"}
 ti["@"] = {"#ac_marble_black"}
 ti["w"] = {"st_flat_movable", "wood#"}
@@ -34,7 +34,7 @@ floors  = {ti[" "], ti["a"], ti["b"], ti["c"]}
 polynom = lib.math.random_vector(10, 4)
 
 function myresolver(key, x, y)
-  if key == " " then  
+  if key == " " then
     return floors[lib.math.cubic_polynomial(polynom, x, y) % (#floors) + 1]
   elseif    (key == "#")
          or ((key == "_") and (random(4) == 1))

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="lower i" el:subtitle="" el:id="devnull39"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="4:32" el:difficult="4:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowThreshold"] = po(0, 0)
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+wo["FrictionStrength"] = cond(wo["IsDifficult"], 1.5, 1.0)
+wo["WormholeRange"] = 0.0
+
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_abyss"}
+ti[" "] = {"fl_bridge_gc", state = CLOSED}
+ti["#"] = {"st_fake_oxyda"}
+ti["S"] = {"st_chess_black"}
+ti["triggers"] = {"it_trigger", target = "bridge%%"}
+ti["bridges"] = {"fl_bridge_gc", "bridge%%", state = OPEN}
+ti["w"] = {"it_wormhole", destination = po(6.0, 4.0)}
+ti["O"] = {"st_oxyd_a", "oxyds#"}
+ti["@"] = {"#ac_marble_black", 0.5, 0.0}
+
+wo(res.autotile(ti, {"a", "h", "bridges"}, {"A", "H", "triggers"}), " ", {
+    "............",
+    ".....##.....",
+    "...#O  O#...",
+    "..#O    O#..",
+    "..#O    O#..",
+    "...#O  O#...",
+    ".....##.....",
+    "............",
+    "............",
+    "............",
+    ".##########.",
+    "############",
+    "##whgfedcb##",
+    "##~~~~~~~a##",
+    "##  SSSS  ##",
+    "## ~SSSS~ ##",
+    "##  ~  ~  ##",
+    "##  ~  ~  ##",
+    "## ~    ~ ##",
+    "## ~~~~~~~##",
+    "##   @    ##",
+    "##ABCDEFGH##",
+    "############",
+    "############"})
+
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
+if not wo["IsDifficult"] then
+    wo:add(YIN, {"it_pin"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

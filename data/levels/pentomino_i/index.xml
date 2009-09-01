@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Sokoban" location="69000" network="false" owner="Enigma Team" release="1" revision="2" title="Pentomino I"/>
+  <info enigma="1.00" group="Sokoban" location="69000" network="false" owner="Enigma Team" release="1" revision="3" title="Pentomino I"/>
 
   <attributes/>
 
@@ -68,7 +68,7 @@
     <level _seq="60" _title="Pentomino LXI" _xpath="./pento61_1" author="Enigma Team" ctrl="force" easy="false" id="pento61" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Pentomino LXII" _xpath="./pento62_1" author="Enigma Team" ctrl="force" easy="false" id="pento62" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Pentomino LXIII" _xpath="./pento63_1" author="Enigma Team" ctrl="force" easy="false" id="pento63" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="Pentomino LXIV" _xpath="./pento64_1" author="Enigma Team" ctrl="force" easy="false" id="pento64" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="Pentomino LXIV" _xpath="./pento64_1" author="Enigma Team" ctrl="force" easy="false" id="pento64" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Pentomino LXV" _xpath="./pento65_1" author="Enigma Team" ctrl="force" easy="false" id="pento65" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Pentomino LXVI" _xpath="./pento66_1" author="Enigma Team" ctrl="force" easy="false" id="pento66" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Pentomino LXVII" _xpath="./pento67_1" author="Enigma Team" ctrl="force" easy="false" id="pento67" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -81,9 +81,9 @@
     <level _seq="73" _title="Pentomino LXXIV" _xpath="./pento74_1" author="Enigma Team" ctrl="force" easy="false" id="pento74" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Pentomino LXXV" _xpath="./pento75_1" author="Enigma Team" ctrl="force" easy="false" id="pento75" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Pentomino LXXVI" _xpath="./pento76_1" author="Enigma Team" ctrl="force" easy="false" id="pento76" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="76" _title="Pentomino LXXVII" _xpath="./pento77_1" author="Enigma Team" ctrl="force" easy="false" id="pento77" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="77" _title="Pentomino LXXVIII" _xpath="./pento78_1" author="Enigma Team" ctrl="force" easy="false" id="pento78" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="78" _title="Pentomino LXXIX" _xpath="./pento79_1" author="Enigma Team" ctrl="force" easy="false" id="pento79" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="76" _title="Pentomino LXXVII" _xpath="./pento77_1" author="Enigma Team" ctrl="force" easy="false" id="pento77" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="77" _title="Pentomino LXXVIII" _xpath="./pento78_1" author="Enigma Team" ctrl="force" easy="false" id="pento78" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="78" _title="Pentomino LXXIX" _xpath="./pento79_1" author="Enigma Team" ctrl="force" easy="false" id="pento79" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Pentomino LXXX" _xpath="./pento80_1" author="Enigma Team" ctrl="force" easy="false" id="pento80" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Pentomino LXXXI" _xpath="./pento81_1" author="Enigma Team" ctrl="force" easy="false" id="pento81" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Pentomino LXXXII" _xpath="./pento82_1" author="Enigma Team" ctrl="force" easy="false" id="pento82" rel="1" rev="2" score="1" target="time" unit="duration"/>
