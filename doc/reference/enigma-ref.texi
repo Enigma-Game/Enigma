@@ -4999,9 +4999,9 @@ columns for reference purpose within this section. These line count number are
 not part of the source code itself!
 
 @example
-01	  <el:compatibility el:enigma="1.10">
-02	    <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
-03	  </el:compatibility>
+01      <el:compatibility el:enigma="1.10">
+02         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+03      </el:compatibility>
 ...
 04    @i{ti}["@var{ }"] = @{"@b{fl_sahara}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
 05    @i{ti}["@var{a}"] = @{"@b{fl_ivory}", @b{friction} = @var{3.5}, @b{adhesion} = @var{4.0}@}
@@ -5023,7 +5023,7 @@ not part of the source code itself!
 21
 22    function @var{myresolver}(@var{key}, @var{x}, @var{y})
 23      if @var{key} == "@var{ }" then
-24	  return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+24        return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
 25      elseif    (@var{key} == "@var{#}")
 26            or ((@var{key} == "@var{_}") and (@i{random}(@var{4}) == @var{1}))
 27            or ((@var{key} == "@var{S}") and @i{wo}["@b{IsDifficult}"]) then
@@ -5086,9 +5086,9 @@ How is this versatility in design and action achieved as the last lines 69 to
 that do the real work.
 
 @example
-01	  <el:compatibility el:enigma="1.10">
-02	    <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
-03	  </el:compatibility>
+01       <el:compatibility el:enigma="1.10">
+02         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+03       </el:compatibility>
 @end example
 We make use of some functions of the @ref{libmath} library. Thus we need to
 preload it, besides declaration of compatibility to Enigma 1.10.
@@ -5154,7 +5154,7 @@ the task of delivering the appropriate tile.
 
 @example
 23      if @var{key} == "@var{ }" then
-24	  return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
+24        return @var{floors}[@i{lib}.@i{math}.@i{cubic_polynomial}(@var{polynom}, @var{x}, @var{y}) % (#@var{floors}) + @var{1}]
 @end example
 These two lines generate the always changing floor design. For every map key
 @samp{ } we calculate the cubic polynomial that is randomized due to the
@@ -6878,6 +6878,46 @@ tiles.
 Enigma guarantees that the objects will be set to the world in the sequence
 of declarations in the tile.
 
+@obindex fl_nil
+@obindex it_nil
+@obindex st_nil
+@obindex nil
+Even though in most cases you use object declarations and tiles to set objects
+you may need in some advanced usage cases to supply such a datatype in 
+situations where you want to add nothing at all or even want to kill an
+possibly existing object. In these cases you can supply on of the pseudo object
+kind names @code{"fl_nil"}, @code{"it_nil"}, @code{"st_nil"} or @code{"nil"}.
+While the first three pseudo kinds will kill existing objects on the given
+layer, the last pseudo kind will just do nothing. It is equivalent, but more
+expressive than an empty Lua table being used as an object declaration:
+
+@example
+@i{ti}["@var{D}"] = @i{cond}(@i{wo}["@b{IsDifficult"}], @{"@b{st_death}"@}, @{"@b{nil}"@})
+@i{ti}["@var{S}"] = @{"@b{st_surprise}", @b{selection}=@{"@b{st_box}", "@b{st_nil}"@}@}
+function @var{customresolver}(@var{key}, @var{x}, @var{y})
+    if @var{key} == "@var{a}" then
+        return @{"@b{nil}"@}
+    elseif @var{key} == "@var{b}" then
+        return @{@}
+    else
+        return @i{ti}[@var{key}]
+    end
+end
+@end example
+
+The first sample uses the pseudo to supply a valid third arguement to the
+@ref{cond} function that causes no syntax error when being passed to the
+world in easy mode.
+
+The second sample uses the pseudo to kill the @ref{st_surprise} even when
+no substitution stone is being set.
+
+The last example of an @ref{Custom Resolver} provides a solution of avoiding
+the change of the world on a given key in the world map. Usually you will always
+set at least a floor object. But if you draw a map during runtime there is no
+longer the need of setting inital floors. In cases where this can not be handled
+by proper usage of default keys the pseudo kind @code{"nil"} is your friend.
+
 For task driven samples @pxref{Tiles and World Tasks}.
 
 @menu
@@ -7786,6 +7826,7 @@ The expression to be returned if @samp{condition} is false.
 @item @b{Syntax Samples:}
 @example
 @i{ti}["@var{x}"] = @i{cond}(@i{wo}["@b{IsDifficult}"], @{"@b{st_death}"@}, @i{ti}["@var{#}"])
+@i{ti}["@var{D}"] = @i{cond}(@i{wo}["@b{IsDifficult"}], @{"@b{st_death}"@}, @{"@b{nil}"@})
 @end example
 
 @item @b{Details:}
@@ -22570,7 +22611,7 @@ If no suited tile is already declared you can alternatively return a new tile
 like @samp{return ti(@{"st_switch", state=ON@})}.
 
 If you decide not to draw any tile at all, you must return an empty tile
-declaration: @samp{return ti(@{@})}.
+declaration: @samp{return @{"nil"@}} or @samp{return @{@}}.
 
 @samp{return nil} indicates an error of usage of an unknown tile key.
 

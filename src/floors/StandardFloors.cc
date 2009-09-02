@@ -95,7 +95,7 @@ namespace enigma {
     StandardFloor::StandardFloor(int type, bool framed) : Floor(StandardFloorNames[type].classname.c_str()) {
         state = type;
         Floor::setAttr("faces", framed ? "nesw" : "");
-        if  (type = 40) { // fl_metal_7n -- legacy normal floor with special values
+        if  (type == 40) { // fl_metal_7n -- legacy normal floor with special values
             setAttr("friction", 4.0);
             setAttr("adhesion", 2.0);
         }
