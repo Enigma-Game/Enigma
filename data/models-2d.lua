@@ -956,21 +956,16 @@ end
 
 -- st_dispenser --
 do
-    function make_bombstone(name)
+    function make_dispenser(name)
         local images = DefSubimages(name, {h=7})
         DefRoundStone(name, name.."1")
         DefAnim(name.."_breaking", BuildFrames(images,50))
     end
 
-    make_bombstone("st_dispenser_bombblack")
-    make_bombstone("st_dispenser_dynamite")
-    make_bombstone("st_dispenser_bombwhite")
-end
-
--- st_dispenser_extralife --
-do
-    local images = DefSubimages("st_dispenser_extralife", {h=7})
-    DefRoundStone("st_dispenser_extralife", "st_dispenser_extralife1")
+    make_dispenser("st_dispenser_bombblack")
+    make_dispenser("st_dispenser_dynamite")
+    make_dispenser("st_dispenser_bombwhite")
+    make_dispenser("st_dispenser_extralife")
 end
 
 -- st-flash --
