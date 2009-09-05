@@ -220,11 +220,12 @@ namespace enigma {
                     // slower when pushing another stone. This looks more
                     // natural. That's why impulse is delayed:
                     objFlags |= OBJBIT_BLOCKED;
-                }
-                move_stone(skateDir);
-                Item * it = GetItem(get_pos());
-                if (it != NULL && get_id(it) == it_cross) {
-                    setState(0);
+                } else {
+                    move_stone(skateDir);
+                    Item * it = GetItem(get_pos());
+                    if (it != NULL && get_id(it) == it_cross) {
+                        setState(0);
+                    }
                 }
             }
             GameTimer.set_alarm(this, calcInterval(), false);
