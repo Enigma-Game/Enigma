@@ -1,0 +1,1616 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Inferno" el:subtitle="With respects to Dante Alighieri" el:id="duffy181"/>
+      <el:version el:score="1" el:release="2" el:revision="20" el:status="released"/>
+      <el:author  el:name="Jacob Scott"/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">New API convertion, easy mode and performance tuning by Ronald Lamprecht</el:credits>
+        <el:code>
+          The Italian Original as well as English, German, and Finnish translations
+          of the "Devine Comedy" are available from the Project Gutenberg's web
+          site - http://www.gutenberg.org - or any available mirror site.
+          English translation found at http://etcweb.princeton.edu/dante/pdp/commedia.html.
+          The German passages have been taken from the translation by Carl Streckfuß,
+          Leipzig, 1876 - available at the German site of Wikipedia at:
+          http://de.wikisource.org/wiki/G%C3%B6ttliche_Kom%C3%B6die_%28Streckfu%C3%9F_1876%29
+        </el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["ProvideExtralifes"] = false
+wo["ElectricStrength"] = 10
+wo["AllowSingleOxyds"] = true
+
+ti["  "] = {"fl_abyss"}
+ti[" ~"] = {"fl_water"}
+ti[" s"] = {"fl_swamp"}
+ti[" ="] = {"fl_space"}
+ti[" e"] = {"it_extralife"}
+ti[" O"] = {"it_extralife"}
+ti[" f"] = {"it_flag_black"}
+ti[" j"] = {"it_surprise", target="draw_joker", selection={"it_coffee"}}
+ti[" #"] = {"st_granite"}
+ti[" *"] = {"st_brownie"}
+ti[" +"] = {"st_box"}
+ti[" T"] = {"st_tigris"}
+ti[" X"] = {"st_death"}
+ti[" G"] = {"st_grate_cross"}
+
+resolver = res.composer(ti)
+wo(resolver, "  ", 10*19+1, 13*12+1)
+
+easy = not wo["IsDifficult"]
+jokerdest = po(1.5, 1.5)
+map = {}    -- global var for currently drawn map
+anchors = { beginning = po(0   ,  0),      -- Room map:
+            death     = po(2*19,  0),      --  b dddfffff
+            ferry     = po(5*19,  0),      --
+            circle1   = po(0   ,  8*12),   --  2222 88888
+            minos     = po(5*19,  4*12),   --
+            circle2   = po(0   ,  2*12),   --  7777 m 3
+            circle3   = po(7*19,  4*12),   --
+            circle4   = po(0   ,  6*12-5), --  44444 999
+            circle5   = po(0   , 11*12-1), --         9
+            circle6   = po(5*19, 10*12),   --  111111 999
+            circle7   = po(0   ,  4*12),   --           o
+            circle8   = po(5*19,  2*12),   --       666 o
+            circle9   = po(6*19,  6*12),   --  5555 666 o
+            finish    = po(9*19,  9*12+1)  --  5555 666 o
+}
+
+wo:add(YIN,  ti[" e"] .. cond(easy,  ti[" e"] .. {"it_document", text="easy_intro"}, ti[" e"]))
+
+-- Beginning
+
+ti["B "] = {"fl_concrete"}
+ti["B!"] = ti["  "]
+ti["B="] ={"fl_water", "drownspot"}
+ti["B$"] = ti[" #"] .. ti[" ~"]
+ti["Bg"] = ti[" G"]
+ti["BG"] = ti[" G"] .. ti{"it_sensor_exit", invisible=true, target="checkeasy"}
+ti["BW"] = {"it_wormhole", destination="drownspot", range=5}
+ti["Bz"] = {"#ac_marble", "dante"} .. ti{"it_sensor", invisible=true, target="checkdeath", safeaction=true}
+ti["B%"] = {"st_brownie", "tombstone"}
+ti["BS"] = cond(easy, {"st_switch", "easyswitch"}, ti[" #"])
+ti["Bb"] = cond(easy, {"it_bag", "bag"}, ti["B "])
+ti["Bx"] = {"it_sensor", invisible=true}  -- block initial joker wormhole goal
+
+map = wo:newMap(" ", {
+    "####################",
+    "#x  * *   *    X W #",
+    "#    * * *     X **#",
+    "#   ########XXXX * #",
+    "#   # *g   #   **  #",
+    "#   #G  !* # ** * *#",
+    "#   *%***  #  * ** #",
+    "#   #z*  g #b  **  #",
+    "#   #S######    *~~$",
+    "#   * * *   *   ~~~$",
+    "#    **  ** ** ~~=~$",
+    "#   *  * *  *  ~~~~$",
+    "###############$$$$$"
+})
+
+wo:drawRect(anchors["beginning"], map.width, map.height, ti["B "])
+map = "B" * map
+wo:drawMap(resolver, anchors["beginning"], map)
+
+easy_finalized = false
+function checkeasy()
+    if not wo["IsDifficult"] and not easy_finalized then
+        easy = (no["easyswitch"]["state"] == OFF)
+        no["loadbalancer"]:on()
+        wo:add(no["bag"], cond(easy, ti[" j"], ti[" j"] .. ti[" j"] .. ti[" j"] .. ti[" j"]) .. ti[" j"] .. ti[" j"] .. ti[" j"])
+        easy_finalized = true
+    end
+end
+
+function checkdeath(value, sender)
+    if po(no["tombstone"]) == po(sender) then
+        wo[sender] = {"it_wormhole", destination="death_entry", strength=0}
+    end
+end
+
+-- Death
+function initDeath(stage)
+--  print("initDeath "..stage)
+  if stage == 1 then
+    ti["D "] = ti["  "]
+    ti["Da"] = {"fl_fake_abyss"}
+    ti["De"] = {"it_sensor", "death_entry", invisible=true, target="enter_death"} .. ti["Da"]
+    ti["D@"] = {"it_sensor", "death_exit", invisible=true, target="enter_death"} .. ti["Da"]
+    ti["D#"] = {"st_darkglass"}
+    ti["D:"] = cond(easy, ti["Da"], ti[" ="])
+    ti["Di"] = {"st_invisible"}
+    ti["Dh"] = cond(easy, {"it_death"}, {"nil"}) .. ti["Di"]
+    ti["Dj"] = {"st_invisible", "death_door1"}
+    ti["Dk"] = {"st_invisible", "death_door2"} .. ti["Da"]
+    ti["DJ"] = ti["Di"] .. ti[" ="]
+    ti["DI"] = {"st_invisible_movable"} .. ti["Da"]
+    ti["Df"] = {"st_actorimpulse_invisible"}
+    ti["DF"] = {"st_actorimpulse_invisible"} .. ti[" ="]
+    ti["D-"] = {"st_chameleon"} .. ti[" ="]
+    ti["DA"] = {"st_chameleon"} .. ti["Da"]
+    ti["Ds"] = {"it_trigger", target="deathtrigger1"} .. ti["Da"]
+    ti["DT"] = {"it_trigger", target="deathtrigger2"} .. ti["Da"]
+    ti["DD"] = {"it_document", text="death_intro"} .. ti["Da"]
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "                                                          ",
+        "  #####   ===   ####################iiiiiiiiiii       XX  ",
+        "  #aaa#   ===   #=====aaaaaa=aaaaaa#aaaaiaiiaa######      ",
+        "  #aea#         #==###############a#aaaJ:aaaaaAAAAA#  ####",
+        " X#aaa#######   #==#saaa==aaaaIaa#a#iaa==aahaa####A#  #a@a",
+        "  #aDaaaaaaf#   #aa#########jiiaa#a#aaiaaaiaaai  #-#  #a##",
+        "  #aaaaaaaaa#   #aaaaaaaaaa#aaiaiaaiiaiahiTaaii  #-#XX#k# ",
+        "  #######aaa#X  ########aaa#aIia==aaiaiaaaiaaaiX #A####a# ",
+        "        #===#  X       #afa#iaiaaaaaiaaaaaaaaai  #AAAAAa# ",
+        "==      #===############aaa#faiaihiiiiihIiiiiii  #AAAAAa# ",
+        "==  =   #aaaaa=======aaaaaa#aaiiaaaaiaaaIaaaiX   ######## ",
+        "=====   #aaaaa==F====aaaaaa#:aaaaahaaaiaaaiai  =          ",
+        "  ===   ####################iiiiiiiiiiiiiiiii ==      X   "
+    })
+  elseif stage == 3 then
+    map = "D" * map
+  elseif stage >= 4 then
+    wo:drawMap(resolver, anchors["death"]+{0, stage-4}, map:sub(po(0, stage-4), map.width, 1))
+    if stage == map.height + 3 then
+        return false
+    end
+  end
+  return true
+end
+
+function enter_death()
+    jokerdest = #po["death_exit"]
+end
+
+function deathtrigger1(value, sender)
+    wo[no["death_door1"]] = ti["DI"]
+end
+
+function deathtrigger2(value, sender)
+    if -st(sender) then
+        no["death_door2"]:kill()
+    end
+end
+
+-- Ferry
+function initFerry(stage)
+--  print("initFerry "..stage)
+  if stage == 1 then
+    ti["F "] = ti[" ~"]
+    ti["Fc"] = {"fl_tigris"}
+    ti["F@"] = {"it_sensor", "ferry_exit", invisible=true} .. ti["Fc"]  -- dummy sensor to block drop of joker causing recursive wormholes
+    ti["Fn"] = {"fl_metal_7"}
+    ti["Fh"] = {"fl_wood_h"}
+    ti["Fd"] = {"fl_slope_ps"}
+    ti["F="] = {"fl_space", "altar"}
+    ti["F."] = {"fl_water", "ferrygoal"}
+    ti["F:"] = {"st_darkgray"}
+    ti["F#"] = ti["F:"] .. ti[" ~"]
+    ti["F$"] = ti["F:"] .. ti["Fc"]
+    ti["FS"] = ti["F:"] .. ti[" s"]
+    ti["F%"] = {"st_yellow"} .. ti["Fc"]
+    ti["FK"] = {"st_knight", "charon"} .. ti["Fh"]
+    ti["FD"] = {"it_document", text="ferry_charon"} .. ti["Fh"]
+    ti["FT"] = {"it_sensor", "charonsensor", target="takelife", invisible=true, safeaction=true} .. ti["Fh"]
+    ti["FR"] = {"st_oneway", orientation = EAST} .. ti{"it_sensor", invisible=true, target="enter_ferry"} ..ti["Fc"]
+    ti["FE"] = {"it_document", text="ferry_intro"} .. ti["Fc"]
+    ti["Ft"] = {"st_thief"} .. ti["Fc"]
+    ti["Fk"] = {"st_chess_black"} .. ti["Fc"]
+    ti["FC"] = {"st_coinslot", target="paypassage"} .. ti["Fc"]
+    ti["FW"] = {"it_wormhole", destination="circle1_entry", strength=10, range=2} .. ti["Fc"]
+    ti["Fy"] = {"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG} .. ti["Fc"]
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "$$$$$$$$$$SSS##########################X####SS######X#####SSSSSS####################SSS$$$S$$$$$",
+        "$ccccccyccsss         X                     ss            ssssss X           X       sscccscccc$",
+        "$ccccc%%%ccss                     X            X           sss                       sssccsscWc$",
+        "$cttcc%=%ccccnnnnnX                                                   X         nnnnnsssccssscc$",
+        "REcccc%d%cccchhhhh    X                      X          X        X            X      ssccccssssS",
+        "$cccccccccccchhhhh             X      X                                 X            sssccc@sssS",
+        "$ssccccccccccDTKhh                                                                .  ccccsscccc$",
+        "$ssscsssccccchhhhh X              X              X           X             X         cccssscccc$",
+        "$cssssssscCcchhhhh                       X             X                             cccssssccc$",
+        "$cssccsssssccnnnnn              X                                               nnnnncccccccccc$",
+        "$ccccccssssss          X            ss                      X     sss   X            scccccsscc$",
+        "$ccccccckcsss                X    sssss      X                   ssss        X       ssccsssssc$",
+        "$$$$$$$$$$SS######################SSSSS##################X#######SSSS#################S$$SSSSS$$"
+    })
+  elseif stage == 3 then
+    map = "F" * map
+    wo:add({"ot_timer", "ferry", target="moveferry", interval=cond(easy, 0.6, 0.4), loop=true, state=OFF})
+    wo:add(YANG, cond(easy, {"it_coin_s"}, {"it_coin_s"} .. ti{"it_coffee"}))
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["ferry"] + {0, stage-4}, map.width, 1, ti[" ~"])
+  elseif stage >= map.height + 4 then
+    wo:drawMap(resolver, anchors["ferry"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+    if stage == 2* map.height + 3 then
+        return false
+    end
+  end
+  return true
+end
+
+function enter_ferry()
+    jokerdest = #po["ferry_exit"]
+end
+
+function takelife(value, sender)
+    if it(no["altar"]):is("it_extralife") then
+        wo[no["altar"]] = {"it_explosion"}
+        no["altar"]:sound("stonetransform")
+        wo[sender + W] = {"it_document", text="ferry_life"}
+        sender:kill()
+    end
+end
+
+function paypassage(value, sender)
+    if value and -no["charonsensor"] then
+        wo[no["charonsensor"] + W] = {"it_document", text="ferry_coin"}
+        wo[no["charonsensor"] + 2*W] = {"it_spoon"}
+    elseif not (value or -no["charonsensor"]) then
+         -- start on timeout to give time for the marble to enter the ferry
+        no["ferry"]:on()
+    end
+end
+
+function moveferry(value, sender)
+    local center = po(no["charon"])
+    wo:drawRect(center+{3,-2}, 1, 5, ti["Fh"])
+    wo:drawRect(center+{-2,-2}, 1, 5, ti[" ~"])
+    no["charon"]:kill()
+    wo[center + E] = ti["FK"]
+    if po(no["charon"]) == po["ferrygoal"] then
+        sender:off()
+    end
+end
+
+-- Circle 1 -- Limbo
+function initCircle1(stage)
+--  print("initCircle1 "..stage)
+  if stage == 1 then
+    ti["1 "] = {"fl_lawn", force_y=cond(easy, 25, 40)}
+    ti["1."] = cond(easy, {"nil"}, ti[" *"])
+    ti["1%"] = {"it_sensor", "circle1_middle", invisible=true, target="enter_middle1"}
+    ti["1@"] = {"it_sensor", "circle1_exit", invisible=true}
+    ti["1#"] = {"st_rubberband", strength=cond(easy, 6.35, 10), length=2}
+    ti["1A"] = {"st_rubberband", "anchor1black", length=2}
+    ti["1B"] = {"st_rubberband", "anchor1white", length=2}
+    ti["1C"] = {"st_rubberband", "anchor1pearl", length=2}
+    ti["1a"] = {"#ac_marble_black", "lev1black", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["1b"] = {"#ac_marble_white", "lev1white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["1c"] = {"#ac_pearl", "lev1pearl", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["1g"] = ti[" G"]
+    ti["1S"] = {"st_scissors"}
+    ti["1d"] = {"it_document", text="circle1_intro"}
+    ti["1$"] = ti[" *"] .. ti[" ~"]
+    ti["11"] = {"it_sensor", "circle1_entry", invisible=true, target="enter_circle1"}
+    ti["1W"] = {"it_wormhole", destination="minos_entry", strength=20, range=5}
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "###########################A###########################################B##############################C#############",
+        "*       ~  *  ~~       *      ~~      ~~~     ~~  *  ~~  *      ~    *          ~     ~  ~  ~     ~**      *~~  XS**",
+        "*           *    *      *      ~~     ~~~         *      *         ~*          ** ** ** ** **        *  ~**     X **",
+        "*     d      *              *                     *          ~*    *~   *  ~   %~  ~  ~  ~             *  ~       **",
+        "*                  *       *            **        *    ~     *~   *  ~   *~    ** ** ** ** **       ~** ~ *       **",
+        "*                  *            *   ~    **       *    ~    *  ~      ~  ~*     ~  ~     ~  ~    ~**    * *    @  **",
+        "*  1       *  ~~      **   a   *     ~    **      *    ~   *    ~  *   b~  *   ** ** ** ** **       * c *  *  *.* **",
+        "* ***     *   ~~        *     *       ~    ~~     *               *   *            ~  ~  ~  ~          *     ~*** **",
+        "* ***    *      *        *        *       ***     *             ~*     *       ** ** ** ** **     ~**        * * ***",
+        "*       *        *                     *          *             *~      *       ~  ~  ~     ~        *  ~** **   W**",
+        "*      *                              *           *               ~      *     ** ** ** ** **              ** *  ***",
+        "$~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~$*",
+        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*",
+        "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$*"
+    })
+  elseif stage == 3 then
+    map = "1" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle1"] + {0, stage-4}, map.width, 1, ti["1 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver, anchors["circle1"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), 60, 1))
+  elseif stage >= 2 * map.height + 4 then
+    wo:drawMap(resolver, anchors["circle1"] + {60, stage-2*map.height-4}, map:sub(po(60, stage-2*map.height-4), map.width - 60, 1))
+    if stage == 3* map.height + 3 then
+        return false
+    end
+  end
+  if stage == map.height + 4 + 6 then
+     -- need to connect actors directly due to forces
+        wo:add({"ot_rubberband", anchor1="lev1black", anchor2="anchor1black", strength=cond(easy, 6.35, 10), length=2})
+  elseif stage == 2*map.height + 4 + 6 then
+        wo:add({"ot_rubberband", anchor1="lev1white", anchor2="anchor1white", strength=cond(easy, 6.35, 10), length=2})
+        wo:add({"ot_rubberband", anchor1="lev1pearl", anchor2="anchor1pearl", strength=cond(easy, 6.35, 10), length=2})
+  end
+  return true
+end
+
+function enter_circle1()
+    jokerdest = #po["circle1_middle"]
+end
+
+function enter_middle1()
+    jokerdest = #po["circle1_exit"]
+end
+
+
+-- Minos
+function initMinos(stage)
+--  print("initMinos "..stage)
+  if stage == 1 then
+    ti["m "] = {"fl_pinkbumps"}
+    ti["m@"] = {"it_sensor", "minos_exit", invisible=true} .. ti["m "]  -- dummy sensor to block drop of joker causing recursive wormholes
+    ti["m#"] = {"st_purplemarble"}
+    ti["mk"] = {"st_knight"}
+    ti["mD"] = {"it_document", text="minos_intro"}
+    ti["mE"] = {"it_document", text="minos_final"}
+    ti["me"] = {"it_document", text="minos_snarl"}
+    ti["ml"] = {"fl_slope_pw"}
+    ti["mr"] = {"fl_slope_pe"}
+    ti["md"] = {"fl_slope_ps"}
+    ti["ms"] = {"it_sensor", "minos_entry", invisible=true, target="enter_minos"}
+    ti["mt"] = {"it_sensor", invisible=true, target="minos_wormhole", action="on"}
+    ti["mW"] = {"it_wormhole", "minos_wormhole", destination="circle2_entry", strength=200, range=4, state=OFF}
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "####################",
+        "#      ##k##       #",
+        "#      l D r    e  #",
+        "# s    ## ##       #",
+        "#       #d#        #",
+        "#XXXXXXXX XXXXXXXXX#",
+        "#         X        #",
+        "#  XXXXXXXX  X  E@ #",
+        "#  X         Xttttt#",
+        "#  X X X X X X     #",
+        "#  X  X X X  X  W  #",
+        "#            X     #",
+        "###XXXXXXXXXXX######"
+    })
+  elseif stage == 3 then
+    map = "m" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["minos"] + {0, stage-4}, map.width, 1, ti["m "])
+  elseif stage >= map.height + 4 then
+    wo:drawMap(resolver, anchors["minos"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+    if stage == 2* map.height + 3 then
+        return false
+    end
+  end
+  return true
+end
+
+function enter_minos()
+    jokerdest = #po["minos_exit"]
+end
+
+-- Circle 2
+force2grp = grp()
+force2pos = po(force2grp)
+function initCircle2(stage)
+--  print("initCircle2 "..stage)
+  if stage == 1 then
+    ti["2 "] = {"fl_metal", "enforcedmetal#"}
+    ti["2~"] = {"fl_water", "enforcedwater#"}
+    ti["2D"] = {"it_document", text="circle2_intro"}
+    ti["2@"] = {"it_sensor", "circle2_exit", invisible=true}  -- dummy sensor, keep enforced floor
+    ti["2%"] = {"it_sensor", "circle2_middle", invisible=true, target="enter_middle2"}
+    ti["2#"] = ti[" T"] .. {"fl_metal"} -- without force
+    ti["2$"] = ti[" T"] .. ti[" ~"]
+    ti["2!"] = ti["  "]
+    ti["2B"] = {"st_passage_black", flavor = "frame"}
+    ti["2N"] = {"st_passage_white", flavor = "frame"}
+    ti["2y"] = {"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["2w"] = {"#ac_pearl", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["2R"] = {"#ac_rotor", strength=0}
+    ti["2T"] = {"#ac_top", strength=0}
+    ti["2F"] = {"st_actorimpulse", strength=700}
+    ti["2O"] = ti[" e"]
+    ti["2L"] = {"it_landmine"}
+    ti["2t"] = {"it_sensor", "circle2_entry", invisible=true, target="enter_circle2"}
+    ti["2u"] = {"it_sensor", invisible=true, target="circle2_enforce"}
+    ti["2v"] = {"it_sensor", invisible=true, target="circle2_easify"}
+    ti["2W"] = {"it_wormhole", destination="circle3_entry", strength=20, range=5}
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "###############################$$############################################",
+        "#O*      F    *    *      *    ~~     #         ###        #    F   * @*  XO#",
+        "#    R      *          +       ~~ *   #         ### ##X### #         ** **  #",
+        "#*   *          *            * ~~     #   #### ####     v# #       **  *W * #",
+        "#      *            *    F     ~~    *#      #  ########B# #       * ** ** *#",
+        "#   *    F    T            +   ~~   F ## #   #  !B!+     # #    F   *  * ** #",
+        "#*    *       *       *        ~~     #y*#  +## ###      # #         * F*  *#",
+        "#     D*         *           * ~~  *  ## #      ### ###### #                #",
+        "#BBBB   O      *        +      ~~     B###      NNNu#      #X              F#",
+        "#f  B  *   *       F           ~~     B% #    ##### # ######              ###",
+        "# ###                      F  *~~   * #  #   **  ## # #####L              # #",
+        "#  t#    F    *          *     ~~     #       #w### #               X       #",
+        "###############################$$############################################"
+    })
+    wo:add({"ot_timer", "storm", target="blow", loop=false, state=OFF})
+  elseif stage == 3 then
+    map = "2" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle2"] + {0, stage-4}, map.width, 1, ti["2 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver, anchors["circle2"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    force2grp = no["enforcedmetal#*"]
+    force2pos = po["enforcedwater#*"]
+    return false
+  end
+  return true
+end
+
+function enter_circle2()
+    jokerdest = #po["circle2_middle"]
+    wind_strength = cond(easy, 200, 1000)
+    blow(true, no["storm"])
+end
+
+function enter_middle2()
+    jokerdest = #po["circle2_exit"]
+end
+
+wind_x = 0
+wind_y = 0
+wind_strength = 1000
+function blow(value, sender)
+    local function newforce(oldforce)
+            local choice = random(7)
+            if oldforce == 0 then
+                return cond(choice == 7, 0, random(wind_strength)/20 - wind_strength/40)
+            else
+                local amount = cond(choice == 7, 0, cond(choice <= 4, 1, -1) * random(wind_strength)/40)
+                return cond(oldforce < 0, amount, -amount)
+            end
+        end
+
+    wind_x = newforce(wind_x)
+    wind_y = newforce(wind_y)
+--    print("storm blow "..wind_x.."/"..wind_y.." strength "..wind_strength)
+    force2grp["force_x"] = wind_x
+    force2grp["force_y"] = wind_y
+    fl(force2pos)["force_x"] = wind_x
+    fl(force2pos)["force_y"] = wind_y
+    sender["interval"] = cond(easy, random(2500), random(2000))/100
+    sender:on()
+end
+
+function circle2_enforce()
+    wind_strength = 1000
+end
+
+function circle2_easify()
+    wind_strength = cond(easy, 200, 1000)
+end
+
+-- Circle 3
+function initCircle3(stage)
+--  print("initCircle3 "..stage)
+  if stage == 1 then
+    ti["3 "] = {"fl_bright"}
+    ti["3r"] = {"fl_bright", "rainbase"}
+    ti["3c"] = {"fl_dunes", friction=cond(easy, 2.0, 1.3)}
+    ti["3#"] = {"st_greengray"}
+    ti["3*"] = cond(easy, ti[" +"], ti["3 "])
+    ti["3s"] = {"st_stoneimpulse"}
+    ti["3D"] = {"it_document", text="circle3_intro"}
+    ti["3f"] = {"it_sensor", "circle3_entry", invisible=true, target="enter_circle3"}
+    ti["3@"] = {"it_sensor", "circle3_exit#", invisible=true} -- dummy sensor to block drop of joker causing recursive wormholes
+    ti["3W"] = {"it_wormhole", destination="circle4_entry", strength=5, range=3} .. ti[" ~"]
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "###############sssss",
+        "#   rcccccccccc+++@s",
+        "# +  cccccccccc   +#",
+        "#  D cccccccccc    #",
+        "# +  cccccccccc    #",
+        "#    cccccccccc  ~##",
+        "# * +cccccccccc s~W#",
+        "#    cccccccccc  ~##",
+        "# +  cccccccccc    #",
+        "#  f cccccccccc    #",
+        "# +  cccccccccc   +#",
+        "#    ~~~~~~~~~~+++@s",
+        "###############sssss"
+    })
+    wo:add({"ot_timer", "cerberus", target="pour", interval=cond(easy, 0.70, 0.55), loop=true, state=OFF})
+  elseif stage == 3 then
+    map = "3" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle3"] + {0, stage-4}, map.width, 1, ti["3 "])
+  elseif stage >= map.height + 4 then
+    wo:drawMap(resolver, anchors["circle3"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+    if stage == 2* map.height + 3 then
+        return false
+    end
+  end
+  return true
+end
+
+function enter_circle3()
+    no["storm"]:off()
+    jokerdest = #(no["circle3_exit#*"]:shuffle()[1])
+    no["cerberus"]:on()
+    if #no["raindrop#*"] == 0 then
+        local base = no["rainbase"]
+        for i = 1,10 do
+            wo[base + i*E + (random(11)-2)*S] = {"fl_water", "raindrop#"}
+        end
+    end
+end
+
+function pour()
+    local base = no["rainbase"]
+    for drop in no["raindrop#*"] do
+        local newpos = drop + S
+        if newpos.y - base.y >= 10 then
+            newpos = po(newpos.x, base.y - 1)
+        end
+        wo[newpos] = {"fl_water", "raindrop#"}
+        wo[drop] = ti["3c"]
+    end
+end
+
+-- Circle 4
+function initCircle4(stage)
+--  print("initCircle4 "..stage)
+  if stage == 1 then
+    ti["4 "] = {"fl_dark"}
+    ti["4#"] = {"st_greenbrown"}
+    ti["4N"] = {"st_boulder_n"}
+    ti["4E"] = {"st_boulder_e"}
+    ti["4S"] = {"st_boulder_s"}
+    ti["4W"] = {"st_boulder_w"}
+    ti["4n"] = ti["4#"]
+    ti["4e"] = ti["4#"]
+    ti["4s"] = ti["4#"]
+    ti["4w"] = ti["4#"]
+    ti["4m"] = ti["4N"] .. ti[" ~"]
+    ti["4u"] = ti["4#"] .. ti[" ~"]
+    ti["4D"] = {"it_document", text="circle4_intro"}
+    ti["4v"] = {"it_wormhole", "circle4_exit", destination="circle5_entry", strength=0}
+    ti["4x"] = {"st_turnstile"}
+    ti["48"] = {"st_turnstilearm_n"}
+    ti["46"] = {"st_turnstilearm_e"}
+    ti["42"] = {"st_turnstilearm_s"}
+    ti["44"] = {"st_turnstilearm_w"}
+    ti["4G"] = {"st_brake"}
+    ti["4B"] = {"st_break_boulder"}
+    ti["4R"] = {"st_rotator_cw"}
+    ti["4r"] = {"st_rotator_ccw"}
+    ti["4`"] = {"it_bag"}
+
+    ti["4."] = {"it_sensor", invisible=true, target="make_greedy"}
+    ti["4o"] = {"it_sensor", "circle4_entry", invisible=true, target="enter_circle4"}
+    ti["4%"] = {"it_sensor", "circle4_middle", invisible=true, target="enter_middle4"}
+  elseif stage == 2 then
+    resolver4 = res.random(res.random(res.random(res.random(res.random(res.random(
+        resolver, "4H", {"4E","4W"}),  "4V", {"4S","4N"}),  "47", {"4E","4S"}),
+        "49", {"4W","4S"}), "43", {"4W","4N"}), "41", {"4E","4N"})
+    map = wo:newMap(" ", {
+        "                    SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+        "                    SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+        "                    SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+        "                    SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+        "####################SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS####################",
+        "7rHHHHHHHHHHHHHHrHH9SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS7HHHHHHHHHHHHHHHHHH9",
+        "VeS        s   m   VSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSV swwwwwwww        V",
+        "V e*   o ees~ *~~` VSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSV s       n swwwww V",
+        "V    x6    s~ n~   VNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNV s  swww n s    n V",
+        "V 8 82 8   s~ n~  S1HWBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEH3 s  sO n n s s  n V",
+        "V4x4x Ex6x6s~ n~  S ........................................................  s  s  n n s s  n V",
+        "V 2   8    s~ n~ %G ........................................................  es s  n nww s  n V",
+        "V  4x6x86  s~ n~  N ........................................................   s s  n     s  n V",
+        "V 4x  1x 4xs~ n~  N7HWBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBEH9  s s  nwwwwww  n V",
+        "V  2x      *~ n~   VSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSV  s s        v  n V",
+        "V   2   D   ~ nuuw VNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNV*ww s   eeees   n V",
+        "V        4x ~ n   EVNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNV    eeeen   eeeen V",
+        "1HHHHHHHHHWRHHHHHHH3NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN1HHHHHHHHHHHHHHHHHH3",
+        "####################NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN####################",
+        "                    NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "                    NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "                    NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+        "                    NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+    })
+  elseif stage == 3 then
+    map = "4" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle4"] + {0, stage-4}, map.width, 1, ti["4 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver4, anchors["circle4"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    function resolver4custom(key, x, y)
+        if key == "4n" then
+            return ti["4N"]
+        elseif key == "4e" then
+            return ti["4E"]
+        elseif key == "4s" then
+            return ti["4S"]
+        elseif key == "4w" or key == "4u" then
+            return ti["4W"]
+        else
+            return {"nil"}
+        end
+    end
+    if stage == 2 * map.height + 4 then
+        wo:drawMap(resolver4custom, anchors["circle4"] + {1, 6}, map:sub(po(1, 6), 17, 11))
+    else
+        wo:drawMap(resolver4custom, anchors["circle4"] + {78, 6}, map:sub(po(78, 6), 17, 11))
+        return false
+    end
+  end
+  return true
+end
+
+function enter_circle4()
+    jokerdest = #po["circle4_middle"]
+    no["cerberus"]:off()
+end
+
+function enter_middle4()
+    jokerdest = #po["circle4_exit"]
+end
+
+greedops = {{2*N .. 3*N .. 4*N, SOUTH}, {2*S .. 3*S .. 4*S, NORTH}}
+function make_greedy(value, sender)
+    local start = random(2)  -- select which boulder to flip first
+    st(sender + greedops[start][1]):orientate(greedops[start][2])
+    st(sender + greedops[3-start][1]):orientate(greedops[3-start][2])
+end
+
+
+-- Circle 5
+function initCircle5(stage)
+--  print("initCircle5 "..stage)
+  if stage == 1 then
+    ti["5 "] = {"fl_swamp"}
+    ti["5c"] = {"fl_concrete"}
+    ti["5i"] = {"st_invisible"} .. ti[" ~"]
+    ti["5&"] = {"st_greenbrown"}
+    ti["5#"] = ti[" #"] .. ti["5c"]
+    ti["5*"] = ti[" *"] .. ti["5c"]
+    ti["5+"] = ti[" +"] .. ti["5c"]
+    ti["5h"] = {"fl_hay"}
+    ti["5!"] = ti["  "]
+    ti["5d"] = {"it_document", text="circle5_intro"}
+    ti["5E"] = {"it_document", text="circle5_approach"}
+    ti["5F"] = {"it_document", text="circle5_angels"} .. ti["5h"]
+    ti["5W"] = {"it_wormhole", "circle5_exit", destination="circle6_entry", strength=0} .. ti["5c"]
+    ti["5q"] = {"it_spoon"}
+    ti["5t"] = {"#ac_top", "5top#", range=5, strength=20, gohome=false}
+    ti["5r"] = {"#ac_rotor", "5top#", range=5, strength=20, gohome=false}
+    ti["5T"] = {"#ac_top", strength=0, gohome=false} .. ti[" ~"]
+    ti["5R"] = {"#ac_rotor", strength=0, gohome=false} .. ti[" ~"]
+    ti["5x"] = {"#ac_top", range=cond(easy, 10, 7), strength=cond(easy, 10, 15), gohome=false} .. ti["5c"]
+
+    ti["51"] = {"it_trigger", target={"5door%1", "5door%4"}} .. ti["5c"]
+    ti["5trigger"] = {"it_trigger", target="5door%%"} .. ti["5c"]
+    ti["5door"] = {"st_door_d", "5door%%", faces = "ns"} .. ti["5c"]
+    ti["5."] = {"it_sensor", invisible=true, target="release5tops"} .. ti["5c"]
+
+    ti["5l"] = {"it_sensor", "circle5_entry", invisible=true, target="enter_circle5"} .. ti["5h"]
+    ti["5%"] = {"it_sensor", "circle5_middle", invisible=true, target="enter_middle5"} .. ti["5h"]
+    ti["5^"] = {"it_sensor", "circle5_final", invisible=true, target="enter_final5"} .. ti["5c"]
+    ti["5@"] = {"fl_dark", "circle5_exit"}
+
+    ti["5o"] = cond(easy, ti[" O"], {"nil"})
+
+  elseif stage == 2 then
+    resolver5 = res.autotile(resolver, {"51", "53", "5trigger"}, {"5A", "5D", "5door"})
+    map = wo:newMap(" ", {
+        "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~i",
+        "~~~~~~  ~~~       ~~  ~~~~~~~~~~   ~~~~     &      ~~~   ~~~~   ~~     ~~~~~~i",
+        "~~~     ~~T~    ~~~~     ~~ O~~     ~~~          o  ~~~    ~~~1           ~~~i",
+        "~                ~~    h    ~~      ~~~ ~~    ~~~    ~~~    ~~       %      ~i",
+        "~  hhh  f  ~~~       ~~~   &~~~    ~~~~~~~     ~~~         ~~~    ~~       ~~i",
+        "~  hlh    ~~~  ~~~    ~~     ~~     ~~   ~~~  ~~~    h    ~T~    ~~~    &  ~~i",
+        "~  hhh     &   ~~     ~~~   ~~     ~~~ h ~~~    ~~~     ~~~                 ~i",
+        "~        d    ~~~~~~   ~~~          ~~~  ~~    ~~~                F       ###i",
+        "~    ~~         ~~~    ~~   ~~~~  r      ~~    ~~~~~  ~~~~           #####cx#i",
+        "~~~ ~     ~~~~   ~~~~          ~   ~~~~~~~~~     ~~     ~~       #A##cccc+!##i",
+        "~~~~~       ~~   ~~     ~~~~  ~~~   ~~~~~~    h     ~~         ##c.ccc#####x#i",
+        "~      ~~~     ~~~    ~~~~     ~~     ~~ o        ~~~~       ##ccc#B##cccc+!#i",
+        "~~   ~~~~~~~~~~R~    ~~~~~    ~~~      ~~ ~~   &   ~~~~    ##ccc##ccccc######i",
+        "~   h  ~~~~~~~~~~   ~~~  ~         &   ~~~~~~~~~       h  #ccc##ccc#C##ccccc#i",
+        "~        &  ~~           ~~   h   ~~~   ~~~~~      ~~    #cc##ccc##ccccccccc#i",
+        "~  ~~~  t  ~~     ~~~  h  ~~~      ~~   ~~~         ~   #cc#ccc##ccc#D#######i",
+        "~   ~~~~  ~~~   ~~~~        ~~   ~~~~~   ~~ h  ~~~     #cc#cc##cccc##^cc#ccc#i",
+        "~    ~~                    ~~~~    ~~~~   ~   t~~~    #cc#cc#cccccc#cc*c+ccc#i",
+        "~      ~              ~~   ~~~    ~~~~    ~~   ~~  h  #c#cc#cc######cc###c#c#i",
+        "~~~~   ~~   ~~~~~  &  ~~    O~     ~~~        ~~~    #cc#c#ccc#ccccc+c+c#**c#i",
+        "~~~   ~~~  ~~  q      ~~~  ~~    ~~~~      ~R~~~    #cc#cc#c####c#c##c#c*ccc#i",
+        "~  o ~~~    ~~   ~     ~~ r ~~~         E ~~~       #c#cc#cc#c+cc*cccc*c#####i",
+        "~ h       ~~~~h ~~~        ~~~    ~~~          ~~  #cc#c#ccc#c##c######c#!!W#i",
+        "~    ~~~~~~~     ~~~      ~~~    ~~~   ~~    o     #2#3c#ccc#ccccccccccc!!!!#i",
+        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~##########################i",
+    })
+    wo["SwampSinkTime"] = cond(easy, 3, 1.75)
+  elseif stage == 3 then
+    map = "5" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle5"] + {0, stage-4}, map.width, 1, ti["5 "])
+  elseif stage >= map.height + 4 then
+    wo:drawMap(resolver5, anchors["circle5"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+    if stage == 2* map.height + 3 then
+        return false
+    end
+  end
+  return true
+end
+
+function release5tops()
+    no["5top#*"]["gohome"] = true
+end
+
+function enter_circle5()
+    jokerdest = #po["circle5_middle"]
+end
+
+function enter_middle5()
+    jokerdest = #po["circle5_final"]
+end
+
+function enter_final5()
+    jokerdest = #po["circle5_exit"]
+end
+
+
+-- Circle 6
+function initCircle6(stage)
+--  print("initCircle6 "..stage)
+  if stage == 1 then
+    ti["6 "] = {"fl_concrete"}
+    ti["6."] = {"fl_yinyang_yin", invisible=true}
+    ti["6!"] = {"fl_yinyang_yin", "fireinit6#", invisible=true, burnable=true, eternal=true, initfire=true}
+    ti["6$"] = {"st_redmarble"}
+    ti["6%"] = ti[" #"]
+    ti["6g"] = {"st_grate_framed"}
+    ti["6F"] = ti[" f"] .. ti["6."]
+    ti["6O"] = ti[" O"] .. ti["6."]
+    ti["6N"] = {"st_mail_n"} .. ti["6."]
+    ti["6R"] = {"st_oneway_black", orientation = EAST} .. ti["6."]
+    ti["6L"] = {"st_oneway_black", orientation = WEST} .. ti["6."]
+    ti["6h"] = {"it_pipe_ew"} .. ti["6."]
+    ti["6v"] = {"it_pipe_ns"} .. ti["6."]
+    ti["67"] = {"it_pipe_es"} .. ti["6."]
+    ti["69"] = {"it_pipe_sw"} .. ti["6."]
+    ti["63"] = {"it_pipe_nw"} .. ti["6."]
+    ti["61"] = {"it_pipe_ne"} .. ti["6."]
+    ti["6m"] = {"st_mirror_slab", "mirror#", orientation=RANDOMDIR, movable=true}
+    ti["6M"] = {"st_mirror_slab", "mirror#", orientation=RANDOMDIR, movable=false}
+    ti["6H"] = {"st_break_oxydc"}
+    ti["6`"] = {"st_granite_hollow"}
+    ti["6,"] = cond(easy, ti["6`"], ti["6%"])
+    ti["6:"] = cond(easy, ti["6%"], ti["6`"])
+    ti["6D"] = {"it_document", text="circle6_intro"}
+    ti["6E"] = {"it_document", text="circle6_tombs"} .. ti["6."]
+    ti["6W"] = {"it_wormhole", destination="circle7_entry", strength=0} .. ti["6."]
+    ti["6U"] = {"st_laser_n", "circle6laser"}
+    ti["6T"] = {"it_trigger", target="circle6laser"}
+    ti["6y"] = {"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG} .. ti["6."]
+    ti["6w"] = {"#ac_pearl", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG} .. ti["6."]
+
+    ti["6l"] = {"it_sensor", "circle6_entry", invisible=true, target="enter_circle6"}
+    ti["6'"] = {"it_sensor", "circle6_middle", invisible=true, target="enter_middle6"} .. ti["6`"]
+    ti["6^"] = {"it_sensor", "circle6_final", invisible=true, target="enter_final6"} .. ti["6`"]
+    ti["6@"] = {"it_sensor", "circle6_exit", invisible=true} .. ti["6."]  -- dummy sensor to block drop of joker causing recursive wormholes
+
+  elseif stage == 2 then
+    resolver6 = res.autotile(resolver, {"51", "53", "5trigger"}, {"5A", "5C", "5door"})
+    map = wo:newMap(" ", {
+        "##########################################################",
+        "#                 m#  #m             m#%%%```%%%```%%%%%%#",
+        "# l #####   #####  #  #   #########   #%```%`````%`````%%#",
+        "#   #   #   #   #  ####   #       #   #%`%%%%%%`%%%`%%%%%#",
+        "#   ##### D #   #         #########   #%``%```%```%````%%#",
+        "#UT         #   #   ### ###           #%%`%`%`%%%%%%`%%%%#",
+        "### #########   #   # # # #  m ###    #`````%`````%%`````#",
+        "# #m#           #   # # # #    # #    #%%%%`%%%%%``%%%`%`#",
+        "### #############   ### ###    ###    #```````%%%%%%%%`%`#",
+        "#m                   m                #`%%%%%`%```%````%`#",
+        "#   #####   #####  ###  #####         #````%%`%%%`%`%`%%%#",
+        "#   #   #   #   #  # #  #   #        m#%%%`%````%`%`%```%#",
+        "#   # ###   #####  ###  ### ###########%%%%%`%%```%`%%`%%#",
+        "#   # #m         gg       # #%````````#%%````%%%%`%``%```#",
+        "#   ### #########  ###### ###%`%%%%%%%#%%`%%`%%%%%%%%%%%`#",
+        "#m    gg          m#    #   #`````````````%%`````%%``````#",
+        "######  ############    ##  #`%`%%%%`%#%%%%%'%%%%%%`%%%%%#",
+        "#    #  #          ####  #m #`%`%````%#%%%##H##%%%%````%%#",
+        "#    #  #          #  ####  ###############   #%%`%`%`%%%#",
+        "######  #############  m    ``````````````` M #%%```%`%%%#",
+        "#                 # #       ###############   #%``%%%`%%%#",
+        "#  ##### m        ###  ######%%```````#%%%#####%`%%`%%%`%#",
+        "#  #   #    ###        #%`%%%%%`%%%%%```````````````````%#",
+        "#  #   #    # #m      m#%```````````%%#`%`%%%`%%`%%%%%`%%#",
+        "################################################`#########",
+        "#%%%%%`````%%%%%%%%#%%``%%%%``%%%%%%%`#%`%`%```%```%`%%%`#",
+        "#%```%%%`%````%`%````%%````%%`````%%%````````%```%```````#",
+        "#%`%`%```%%%%`%`%`%#`%%`%%````%%%`:```###$$$#####$$$######",
+        "#%%%```%%%````%```%#`%```%%%%`%`%%%%%`#O.$y$.h...$y$.h..O#",
+        "#%```%%%`%%%%`%%`%%#```%```%%```%```%,#.hL.$....h$.R.....#",
+        "#%%%`%%%`````````%%#%%%%%%%%%%%%%`%```#..$7$..N..$3$v...h#",
+        "#%%%```%%%%%%%%%%%%#%```%%%`%```:`%`%%#h.$!$.....$!$.....#",
+        "#%```%```%```````%%#%`%`%```%%%`%%%`%%#......$!$v..9.$!$.#",
+        "#%%%`%%%%%`%%%%%`%%#%`%```%%%```%%%```^E..v..$1$.....$O$.#",
+        "#%````%`%``````%``````%%%```%`%```%%%%#.h....L.$...h.$@$.#",
+        "#%%%%`````%%%%%%%%%#%```%%%```%%%`````#O....h$w$..v..$W$F#",
+        "#############################################$$$#####$$$##"
+    })
+  elseif stage == 3 then
+    map = "6" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle6"] + {0, stage-4}, map.width, 1, ti["6 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver6, anchors["circle6"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    return false
+  end
+  return true
+end
+
+function enter_circle6()
+    jokerdest = #po["circle6_middle"]
+end
+
+function enter_middle6()
+    jokerdest = #po["circle6_final"]
+end
+
+function enter_final6()
+    jokerdest = #po["circle6_exit"]
+end
+
+
+-- Circle 7
+function initCircle7(stage)
+--  print("initCircle7 "..stage)
+  if stage == 1 then
+    ti["7 "] = {"fl_wood_framed", burnable=false}
+    ti["7#"] = {"st_redrock"}
+    ti["7%"] = {"st_camouflage"}
+    ti["7F"] = {"fl_wood_framed", "fireinit7#", initfire=true, eternal=true}
+    ti["7b"] = {"fl_bridge_bw", state=CLOSED, burnable=false}
+    ti["7S"] = {"fl_sand", _firedrop=false}
+    ti["7X"] = {"fl_sand", _firedrop=true}
+    ti["7s"] = ti{"it_sensor", invisible=true, target="firerain"} .. ti["7S"]
+    ti["7$"] = ti["7#"] .. ti["7S"]
+    ti["7g"] = ti[" G"]
+    ti["7B"] = {"st_passage_black", flavor = "frame"}
+    ti["7D"] = {"it_document", text="circle7_intro"}
+    ti["7E"] = {"it_document", text="circle7_boil"}
+    ti["7f"] = {"it_document", text="circle7_nest"}
+    ti["7G"] = {"it_document", text="circle7_sand"}
+    ti["7W"] = {"it_wormhole", destination="circle8_entry", strength=10, range=10} .. ti["7S"]
+    ti["7I"] = {"st_puzzle_yellow", connections = "ns"}
+    ti["77"] = {"st_puzzle_yellow", connections = "es"}
+    ti["79"] = {"st_puzzle_yellow", connections = "sw"}
+    ti["7L"] = {"st_puzzle_yellow", connections = "ne"}
+    ti["7/"] = {"st_puzzle_yellow", connections = "nw"}
+    ti["7C"] = {"it_coffee"}
+    ti["7rotor"] = {"#ac_rotor", "minotaurus%%", gohome=true, strength=cond(easy, 25, 40), range=cond(easy, 7, 5)}
+    ti["7t"] = {"#ac_top", strength=0}
+    ti["7x"] = {"ac_top", 0.5, 0, strength=0}
+    ti["7R"] = {"#ac_rotor", strength=0} .. ti["7F"]
+    ti["7l"] = {"it_sensor", "circle7_entry", invisible=true, target="enter_circle7"}
+    ti["7&"] = {"it_sensor", "circle7_middle", invisible=true, target="enter_middle7"}
+    ti["7?"] = {"it_sensor", "circle7_final", invisible=true, target="enter_final7"} .. ti["7S"]
+    ti["7@"] = {"it_sensor", "circle7_exit", invisible=true} .. ti{"fl_sand", _firedrop=false}  -- dummy sensor to block drop of joker causing recursive wormholes
+  elseif stage == 2 then
+    resolver7 = res.autotile(resolver, {"71", "75", "7rotor"})
+    map = wo:newMap(" ", {
+        "#########################################################$$$$$$$$$$$$$$$$$$$$",
+        "#                  #######    I    9g          FFFFFF#   sXsssssXXXssssssX@W$",
+        "#                1 #######      I  7g        FFFRFFF #   sXssXXsXsXXXXsXsXsX$",
+        "#  l    ##      234    ###   /     Ig       FFFFFFF  #   sXXsXssXssssXsXssss$",
+        "#       ##       5 ###  ## I       Lg FFFbbFFFFF     #  G?sssXsXXXXssXsXXXXX$",
+        "#    D             #### ##    FFFRFFFFFFFbbFFF       t   sXXsXsssssssXssXsss$",
+        "#                  ####B##   FFFFFFFFFFFFbbF   % t   %   sXssXXXssXXXXXsXsXX$",
+        "#                  #   &   FFFFF    FF  f  %  %%%   %%%  sXXXXssssXsXsXsXsXs$",
+        "#    ##      ####### E   FFFFF    %    %  %%%g%%%% %%%%% sXssssXXsXsssXsssXs$",
+        "#   C##      #######    FFFFF  %t%%% x%%%t%%% %%%   %%%  sXsXXXXXXXsXXXXsXXs$",
+        "#                 O#   FFFF  t%% %%%t%%%%  g   %  %t g   sXsXsssXsXssssXsXXs$",
+        "#                  # FFFFF  t g   g    g   %   %  g  %   sXsssXsssssXXssssss$",
+        "#########################################################$$$$$$$$$$$$$$$$$$$$"
+    })
+  elseif stage == 3 then
+    map = "7" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle7"] + {0, stage-4}, map.width, 1, ti["7 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver7, anchors["circle7"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    wo:add({"ot_rubberband", anchor1="minotaurus%1", anchor2="minotaurus%3", strength=60, length=1})
+    wo:add({"ot_rubberband", anchor1="minotaurus%2", anchor2="minotaurus%3", strength=60, length=1})
+    wo:add({"ot_rubberband", anchor1="minotaurus%4", anchor2="minotaurus%3", strength=60, length=1})
+    wo:add({"ot_rubberband", anchor1="minotaurus%5", anchor2="minotaurus%3", strength=60, length=1})
+    wo:add({"ot_rubberband", anchor1="minotaurus%1", anchor2="minotaurus%2", strength=60, length=1.41421356})
+    wo:add({"ot_rubberband", anchor1="minotaurus%2", anchor2="minotaurus%5", strength=60, length=1.41421356})
+    wo:add({"ot_rubberband", anchor1="minotaurus%4", anchor2="minotaurus%1", strength=60, length=1.41421356})
+    wo:add({"ot_rubberband", anchor1="minotaurus%5", anchor2="minotaurus%4", strength=60, length=1.41421356})
+    return false
+  end
+  return true
+end
+
+function enter_circle7()
+    jokerdest = #po["circle7_middle"]
+end
+
+function enter_middle7()
+    jokerdest = #po["circle7_final"]
+end
+
+function enter_final7()
+    jokerdest = #po["circle7_exit"]
+end
+
+function firerain(value, sender)
+    for floor in fl(sender + NEIGHBORS_4) do
+        if floor["_firedrop"]  then
+            floor["burnable"] = true
+            floor["eternal"] = true
+            floor:setfire()
+        end
+    end
+end
+
+-- Circle 8
+function initCircle8(stage)
+--  print("initCircle8 "..stage)
+  if stage == 1 then
+    ti["8 "] = {"fl_mortar"}
+    ti["8c"] = {"fl_wood"}
+    ti["8!"] = ti["  "]
+    ti["8#"] = {"st_metal"}
+    ti["8%"] = ti["8#"] .. ti["  "]
+    ti["8^"] = {"it_bomb_black"} .. ti["  "]
+    ti["8g"] = ti[" G"]
+    ti["8,"] = {"it_document", text="circle8_intro"}
+    ti["8W"] = {"it_wormhole", destination="circle9_entry", strength=5, range=8}
+    ti["8b"] = {"#ac_bug", "geryon", 0.5, 0}
+    ti["8bridge"] = {"fl_bridge_bn", "8bridge%%", state=OPEN}
+    ti["8A"] = {"st_switch", target={"8bridge%3", "8bridge%4"}}
+    ti["8B"] = {"st_switch", target={"8bridge%1", "8bridge%2", "8bridge%6"}}
+    ti["8C"] = {"st_switch", target={"8bridge%2", "8bridge%3"}}
+    ti["8D"] = {"st_switch", target={"8bridge%3", "8bridge%4", "8bridge%6"}}
+    ti["8E"] = {"st_switch", target={"8bridge%1", "8bridge%5"}}
+    ti["8F"] = {"st_switch", target={"8bridge%2", "8bridge%4", "8bridge%5"}}
+    ti["8q"] = {"it_vortex_open", "8vortexA", destination=cond(easy,{"8vortexB", "circle8_final"},"8vortexB")}
+    ti["8Q"] = {"it_vortex_closed", "8vortexB", destination="8vortexA", autoclose=true}
+    ti["8`"] = ti{"st_dispenser_bombblack"}
+    ti["8w"] = {"it_bomb_white"}
+    ti["8s"] = {"it_seed"}
+
+    ti["8d"] = {"fl_slope_ps", strength=cond(easy, 10, 25)}
+    ti["8u"] = {"fl_slope_pn", strength=cond(easy, 10, 25)}
+    ti["8r"] = {"fl_slope_pe", strength=cond(easy, 10, 25)}
+    ti["8l"] = {"fl_slope_pw", strength=cond(easy, 10, 25)}
+
+    ti["8U"] = {"st_oneway", orientation = NORTH}
+    ti["8R"] = {"st_oneway", orientation = EAST}
+    ti["8@"] = {"st_oneway", orientation = SOUTH}
+    ti["8L"] = {"st_oneway", orientation = WEST}
+    ti["8."] = {"it_spoon"} .. ti["8R"]
+    ti["8h"] = {"it_hammer"}
+    ti["8H"] = {"st_break_black"}
+    ti["8N"] = {"st_break_bug"}
+
+    ti["8x"] = {"it_sensor", "circle8_entry", invisible=true, target="enter_circle8"}
+    ti["8&"] = {"it_sensor", "circle8_middle", invisible=true, target="enter_middle8"}
+    ti["8="] = {"it_sensor", "circle8_final", invisible=true, target="enter_final8"}
+    ti["8>"] = {"it_sensor", "circle8_exit", invisible=true} -- dummy sensor to block drop of joker causing recursive wormholes
+  elseif stage == 2 then
+    resolver8 = res.autotile(resolver, {"81", "86", "8bridge"})
+    map = wo:newMap(" ", {
+        "##################################################################################%%%%%%%#######",
+        "#       !!!    !!! f  !!!    !!!    !!!    !!!    ccc    !!!    !!!    !!!   HNHN!!!!!!!!rrr>HW#",
+        "#    x  !!!  B !!!    !!!    ccc    !!!    !!! Q  !!!    !!!    !!!  ``!!!   NHNH!!!!!!!!rrr HH#",
+        "#       !!!    !!!    !!!    !!!    !!!    !!!    !!!    !!!    !!!  `O!!!   HNHNrrrrdd!!uu!!!!%",
+        "#       ccc    !!! C  !!! O  !!!    !!!    12!    !!! *  !!!    !!!  ``!!! b NHNHrrrrdd!!uu!!!!%",
+        "#   ,   !!!    !!!    !!!    !!!  E !!!    !3!    !!!    !!!    ccc  `s!!!   HNHN!!!!dd!!uull!!%",
+        "#       !!!    !!!    ccc    !!!    !!!  F !4!    ^^^    !!!    !!!  ``!!! =     !!!!dd!!uull!!%",
+        "#       !!!    !!!    !!!    !!!    !!!    !56&   !!!    cccw   !!!  `q!!!       !!ddll!!!!uu!!%",
+        "#       !!!    !!!    !!!    !!!    ccc    !!!    !!!gwwg!!!    !!!  ``!!!  #@L@@!!dd!!!!!!uu!!%",
+        "#       !!!    !!!    !!!  D !!!    !!!    !!!    !!!    !!!    ^^^    !!!  #LR.L!!dd!!!!!!uu!!%",
+        "#     A !!!    ccc    !!!    !!!    !!!    !!!    !!!    ^^^    !!!    !!!  RU@UL!!rrrrrrrruu!!%",
+        "#       !!!    !!!    !!!    !!!    !!!    !!!    ccc    !!!    !!!    !!!  RRUhU!!!!!!!!!!!!!!%",
+        "#################################################################################%%%%%%%%%%%%%%%"
+    })
+  elseif stage == 3 then
+    map = "8" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    wo:drawRect(anchors["circle8"] + {0, stage-4}, map.width, 1, ti["8 "])
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver8, anchors["circle8"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    return false
+  end
+  return true
+end
+
+function enter_circle8()
+    jokerdest = #po["circle8_middle"]
+end
+
+function enter_middle8()
+    jokerdest = #po["circle8_final"]
+end
+
+function enter_final8()
+    jokerdest = #po["circle8_exit"]
+end
+
+-- Circle 9
+function initCircle9(stage)
+--  print("initCircle9 "..stage)
+  if stage == 1 then
+    ti["9 "] = {"fl_ice", noash=true, friction=cond(easy, 0.4, 0.1), adhesion=cond(easy, 0.3, 0.1)}
+    ti["9#"] = {"st_bluesand"}
+    ti["9@"] = {"st_purplegray"}
+    ti["9$"] = {"st_purplegray", "laserpos#"}
+    ti["9d"] = {"fl_bast", friction=cond(easy, 3.5, 1.5)}
+    ti["9^"] = {"st_invisible"}
+    ti["9%"] = ti["9^"] .. ti["9d"]
+    ti["9H"] = {"st_pinkbumps"}
+    ti["9S"] = {"st_swap"}
+    ti["9q"] = {"st_scissors"}
+    ti["9?"] = {"st_stoneimpulse"}
+    ti["9!"] = ti["  "]
+    ti["9g"] = ti[" G"]
+    ti["9+"] = {"st_box_wood"}
+    ti["9f"] = {"st_actorimpulse_invisible"}
+    ti["9t"] = {"st_thief"}
+    ti["9a"] = {"fl_rough"}
+    ti["9i"] = {"fl_inverse_white"}
+    ti["9c"] = {"fl_bluegray"}
+    ti["9r"] = {"fl_red"}
+    ti["9C"] = {"st_fake_oxydd"}
+    ti["9R"] = {"st_death", "9base"}
+    ti["9D"] = {"it_document", text="circle9_intro"}
+    ti["9F"] = {"it_document", text="circle9_center"}
+    ti["9G"] = {"it_document", text="circle9_universe"}
+    ti["9/"] = {"it_document", text="circle9_emperor"}
+    ti["9:"] = {"it_document", text="circle9_fool"}
+    ti["9."] = {"st_door_d", "9door", faces="ns"}
+    ti["9Z"] = {"st_switch", target="name_sins"}
+    ti["9T"] = {"it_trigger", target="trigger_sins"} .. ti["9c"]
+    ti["9A"] = {"st_rawglass"} .. ti{"#ac_marble_black", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["9B"] = {"st_rawglass"} .. ti{"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["9Q"] = {"st_rawglass_movable"} .. ti[" O"]
+    ti["9N"] = {"st_passage_black", flavor="frame"} .. ti{"fl_gravel"}
+                   .. {"it_sensor", "circle9_exit", invisible=true} -- dummy sensor to block drop of joker causing recursive wormholes
+    ti["9;"] = ti[" f"]
+    ti["9&"] = ti[" O"]
+    ti["9k"] = {"st_knight"}
+    ti["9_"] = {"st_charge_plus"}
+    ti["9-"] = {"st_charge_minus"}
+    ti["9L"] = {"st_charge_zero", "chargezero"}
+    ti["9m"] = {"it_magnet", "magnet9#", strength=15, range=30}
+    ti["9>"] = {"it_sensor", invisible=true, target={"judecca", "9timer_rotor", "enter_final9"}, action={"signal", "signal", "callback"}}
+                  .. ti{"st_passage_black", flavor="frame"}
+    ti["9J"] = {"fl_bluegreen", burnable=false, noash=true}
+    ti["9v"] = {"fl_sand"} .. ti{"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["9b"] = {"fl_red"} .. ti{"#ac_marble_black", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["9n"] = {"fl_sahara"} .. ti{"#ac_pearl_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG}
+    ti["9I"] = {"#ac_rotor", "rotor9", strength=1, range=0, gohome=false, prefercurrent=1.0}
+    ti["9|"] = {"fl_ice", "9fire_limit"}
+
+    ti["avarice"]       = {"st_boulder_w", _key="avarice"}
+    ti["faithlessness"] = {"st_rubberband", _key="faithlessness", length=5, strength=5}
+    ti["fraud"]         = {"st_metal", _key="fraud"}
+    ti["gluttony"]      = {"st_greengray", _key="gluttony"}
+    ti["heresy"]        = {"st_granite", _key="heresy"}
+    ti["lust"]          = {"st_tigris", _key="lust"}
+    ti["sloth"]         = {"st_greenbrown", _key="sloth"}
+    ti["treachery"]     = {"st_bluesand", _key="treachery"}
+    ti["violence"]      = {"st_redrock", _key="violence"}
+
+    ti["9x"] = {"it_sensor", "circle9_entry", invisible=true, target="enter_circle9"}
+    ti["9y"] = {"it_sensor", "circle9_middle", invisible=true, target="enter_middle9"}
+    ti["9z"] = {"it_sensor", "circle9_final", invisible=true} -- dummy sensor to block drop of joker causing recursive wormholes
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "##########################################################",
+        "#     c        H         t      aaaaa             f      #",
+        "#  x  cc     HH   F   t     t   HHHHH        f           #",
+        "#  D cccS   H              HHHHH     HHHHH           f   #",
+        "# *  cccc  H      t    HHHH            ^  HHHH           #",
+        "#     ccc  H        HHH TTTTTTTTT   ;  ^ ^   ^HHH   f    #",
+        "#         Hg     HHH  ccccccccccccc    ^ d%d^d   HHH     #",
+        "#     HHHH     HH     ccccccccccccc   ^ %ddd%%d%d ^ HH   #",
+        "#    H        H       cRcccccccccCc   ^ dd%ddd%dd^       #",
+        "#   H        H      q ccccccccccccc    %%d ^ %%dddd    H #",
+        "# G H       H         ccccccccccccc   yd%d^  ddd%%d     H#",
+        "#   H       H                     Z   ^    ^ ^ddd ^     H#",
+        "####H#######H############.##############################H#",
+        "                   #        #         #",
+        "                   #        #   z     #",
+        "                   #=       #   +   ==#",
+        "                   #===     #      ===#",
+        "                   #==================#",
+        "                   #==================#",
+        "                   #!!!!!!!!!!!!!!!!!!#",
+        "                   #iiiiiiiiiiiiiiiiii#",
+        "                   #     +            #",
+        "                   #icicicicicicicicic#",
+        "                   #cicicicicicicicici#",
+        "                   #                  ###########################XX##########",
+        "                   #                                     #   __  m          #",
+        "                   #            A            B          #             $ @   #",
+        "                   #                                   #            $@k@@@@ #",
+        "                   #                                   >            $v@b@n@ #",
+        "                   #         Q                         >      JJJ   $@k@k@@ #",
+        "                   #                                /  >    :LJJJ    I$@@   #",
+        "                   #                           &       >      JJJ    $@k@   #",
+        "                   #                                   >              $k@   #",
+        "                   #                              A    #              $@@   #",
+        "                   #      B                             #            |k!@   #",
+        "                   #                                     # m --      !+?@@  #",
+        "                   #######################################XX#########N#######"
+    })
+  elseif stage == 3 then
+    map = "9" * map
+  elseif stage >= 4 and stage <= map.height + 3 then
+    if stage < 17 then
+        wo:drawRect(anchors["circle9"] + {0, stage-4}, 58, 1, ti["9 "])
+    else
+        wo:drawRect(anchors["circle9"] + {19, stage-4}, 58, 1, ti["9 "])
+    end
+  elseif stage >= map.height + 4 and stage < 2 * map.height + 4 then
+    wo:drawMap(resolver, anchors["circle9"] + {0, stage-map.height-4}, map:sub(po(0, stage-map.height-4), map.width, 1))
+  else
+    local sins = {"violence", "treachery", "lust", "avarice", "heresy", "fraud", "faithlessness", "gluttony", "sloth"}
+    local rsins = lib.lua.shuffle(sins)
+    sinbase = no["9base"]
+    for i = 1, #sins do
+        wo[sinbase + i*E] = ti[rsins[i]]
+        fl(sinbase + i*E)["_key"] = sins[(5*i+1)%9+1]
+    end
+    name_sins()
+    wo:add({"ot_timer", "judecca", target="activy_demons", interval=8+random(1000)/200, loop=false, state=OFF})
+    wo:add({"ot_timer", "9timer_rotor", target="create_9rotor", interval=10, loop=false, state=OFF, safeaction=true})
+    wo:add({"ot_timer", "9timer_magnets", target="activy_magnets", interval=6, loop=false, state=OFF, inverse=true})
+    wo:add({"ot_timer", "9timer_laser", target="activy_laser", interval=1.6, loop=false, state=OFF, inverse=true})
+    wo:add({"ot_timer", "9timer_fire", target="activy_fire", interval=3, loop=false, state=OFF, inverse=true})
+    magnets9 = no["magnet9#*"]
+    laserpositions = po(no["laserpos#*"]:sort("linear", S))  -- laser positions from north to south
+    return false
+  end
+  return true
+end
+
+function name_sins()
+    for i = 1, 9 do
+        wo[sinbase + S + i*E] = {"it_document", text=st(sinbase + i*E)["_key"]}
+    end
+end
+
+sin_pos1 = 0
+sin_pos2 = 0
+function trigger_sins(value, sender)
+    num_sin = sender.x - sinbase.x
+    if value then   -- trigger entered
+        if sin_pos1 == 0 then
+            sin_pos1 = num_sin
+        else
+            sin_pos2 = num_sin
+        end
+        wo[sinbase + N + num_sin*E] = ti["9r"]
+    else  -- trigger released
+        if sin_pos2 ~= 0 then
+            local first_sin = st(sinbase + sin_pos1 * E)["_key"]
+            local second_sin = st(sinbase + sin_pos2 * E)["_key"]
+            wo[sinbase + sin_pos1 * E] = ti[second_sin]
+            wo[sinbase + sin_pos2 * E] = ti[first_sin]
+            wo[sinbase + N + sin_pos1*E] = ti["9c"]
+            wo[sinbase + N + sin_pos2*E] = ti["9c"]
+            sin_pos1 = 0
+            sin_pos2 = 0
+            name_sins()
+            local count = 0
+            for i = 1, 9 do
+                if st(sinbase + i*E)["_key"] == fl(sinbase + i*E)["_key"] then
+                    count = count + 1
+                end
+            end
+            if count == 9 then
+                no["9door"]:open()
+            else
+                no["9door"]:close()
+            end
+        end
+    end
+end
+
+function create_9rotor(value, sender)
+    no["rotor9"]["range"] = 30
+    sender:kill()  -- just one rotor
+end
+
+function activy_demons(value, sender)
+    local fire_limit = po["9fire_limit"]
+    local dante = no["dante"]
+    local allowfire =  dante.x < fire_limit.x - 3 and dante.x >= fire_limit.x - 11 and
+                       dante.y >= fire_limit.y - 9 and dante.y < fire_limit.y + 2
+    local choice = (random(6) - 1) % cond(allowfire, 3, 2)
+    local withfire = cond(allowfire, "true", "false")
+    print("activy demons "..withfire.." choice ".. choice)
+    if choice == 0 then
+        activy_magnets(true)
+    elseif choice == 1 then
+        activy_laser(true)
+    else
+        activy_fire(true)
+    end
+    sender["interval"] = 8+random(1000)/200
+    sender:on()
+end
+
+function activy_magnets(value, sender)
+    if value then
+        no["9timer_magnets"]:on()
+        local choice = random(3)
+        if choice ~= 2 then
+            magnets9[1]:on()
+        end
+        if choice > 1 then
+            magnets9[2]:on()
+        end
+    else
+        magnets9:off()
+    end
+end
+
+laser_state = 0
+laser_pos = 0
+function activy_laser(value, sender)
+    if value then
+        local offset = no["dante"].y - laserpositions[1].y + 1
+        if offset >= 1 and offset <= 8 and random(3) == 1 then
+            laser_pos = laserpositions[offset]
+        else
+            laser_pos = laserpositions[random(#laserpositions)]
+        end
+        wo[laser_pos] = {"st_laser_w", "laser9"}
+        no["9timer_laser"]:on()
+    else
+        if laser_state == 0 then
+            no["laser9"]:on()
+            laser_state = 1
+            no["9timer_laser"]:on()
+        elseif laser_state == 1 then
+            no["laser9"]:off()
+            laser_state = 2
+            no["9timer_laser"]:on()
+        else
+            wo[laser_pos] = ti["9@"]
+            laser_state = 0
+        end
+    end
+end
+
+firepositions = 2 * NEIGHBORS_8 .. NEIGHBORS_CHESS
+function activy_fire(value, sender)
+    if value then
+        no["9timer_fire"]:on()
+        firecenter = no["dante"]
+        for floor in fl(firecenter + firepositions) do
+            local item = it(floor)
+            if not (-item and (item:is("it_sword") or item:is("it_hammer") or item:is("it_magnet"))) then
+                floor["burnable"] = true
+                floor["eternal"] = true
+                floor:setfire()
+            end
+        end
+    else
+        fl(firecenter + firepositions)["noash"] = true   -- mark melted ice as noash
+        fl(firecenter + firepositions):stopfire()
+        wo:drawRect(firecenter + 3*NW, 7, 7, "9 ", resolver)
+        wo:drawRect(no["chargezero"] + NE, 3, 3, "9J", resolver)
+    end
+end
+
+function enter_circle9()
+    jokerdest = #po["circle9_middle"]
+end
+
+function enter_middle9()
+    jokerdest = #po["circle9_final"]
+end
+
+function enter_final9()
+    jokerdest = #po["circle9_exit"]
+end
+
+
+-- Final
+function initFinal(stage)
+--  print("initFinal "..stage)
+  if stage == 1 then
+    ti["o "] = {"nil"}
+    ti["o#"] = {"st_concrete"}
+    ti["o@"] = {"st_purplegray"}
+    ti["oI"] = {"st_invisible"} .. ti[" ="]
+    ti["ol"] = {"fl_lawn"}
+    ti["oo"] = {"st_oxyd_d"} .. ti["ol"]
+    ti["o."] = {"fl_gravel", "exitgravel#"}
+    ti["oD"] = {"it_document", "zerogravity", text="circleo_intro"} .. ti["o."]
+    ti["oE"] = {"it_document", text="circleo_heaven"} .. ti["o."]
+  elseif stage == 2 then
+    map = wo:newMap(" ", {
+        "############.@@#####",
+        "############.@@@####",
+        "###########..@@@####",
+        "###########..@@#####",
+        "###########.@@@#####",
+        "###########.@.@#####",
+        "###########.@.@#####",
+        "###########...@#####",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########.D.######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########.E.######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "###########...######",
+        "I==================I",
+        "I==================I",
+        "I==llllllllllllll==I",
+        "I==lollllllllllol==I",
+        "I==llllllllllllll==I",
+        "I==llllllllllllll==I",
+        "I==llllllllllllll==I",
+        "I==lollllllllllol==I",
+        "I==llllllllllllll==I",
+        "I==================I",
+        "I==================I",
+        "IIIIIIIIIIIIIIIIIIII"
+    })
+  elseif stage == 3 then
+    map = "o" * map
+  elseif stage >= 4 and stage < map.height + 4 then
+    wo:drawMap(resolver, anchors["finish"] + {0, stage-4}, map:sub(po(0, stage-4), map.width, 1))
+  else
+    local zerogravity = no["zerogravity"]
+    for floor in no["exitgravel#*"] do
+        floor["force_y"] = 5*(zerogravity.y - floor.y)
+    end
+    wo:shuffleOxyd()
+    return false
+  end
+  return true
+end
+
+-- load all circles but the starting room in background
+
+wo:add({"ot_timer", "loadbalancer", target="load", interval=0.1, loop=true, state=OFF})
+
+postinits = {initDeath, initFerry, initCircle1, initMinos, initCircle2, initCircle3,
+        initCircle4, initCircle5, initCircle6, initCircle7, initCircle8, initCircle9,
+        initFinal}
+initializer = 1
+stage = 1
+function load(value, sender)
+    if postinits[initializer](stage) then
+        stage = stage + 1
+    elseif #postinits > initializer then
+        initializer = initializer + 1
+        stage = 1
+    else
+        sender:off()
+    end
+end
+
+if wo["IsDifficult"] then
+    no["loadbalancer"]:on()
+end
+
+-- joker handling
+function draw_joker(value, sender)
+    wo[sender] = {"it_wormhole", destination=jokerdest, range=1, strength=50}
+end
+
+  ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Eine Hommage an Dante Alighieri</el:translation>
+      </el:string>
+      <el:string el:key="easy_intro">
+        <el:english el:translate="true">Switch on, if you like to play the regular difficulty with many jokers, or leave it switched off, if you like to face easier challenges with less jokers.</el:english>
+        <el:translation el:lang="de">Anschalten, um den regulären schweren Modus mit vielen Jokern zu spielen - oder ausgeschaltet lassen, falls leichtere Herausforderungen mit entsprechend weniger Jokern erwünscht sind.</el:translation>
+      </el:string>
+      <el:string el:key="death_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto III / Terzine 3">BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / ABANDON ALL HOPE, YOU WHO ENTER HERE.</el:english>
+        <el:translation el:lang="de">Nicht ward vor mir Geschaffnes angetroffen / als Ewiges - und ewig daur’ auch ich. / Ihr, die ihr eingeht, laßt hier jedes Hoffen.</el:translation>
+      </el:string>
+      <el:string el:key="ferry_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto III / Terzine 33">...stilled the shaggy jowls / of the pilot of the livid marsh, / about whose eyes burned wheels of flame.</el:english>
+        <el:translation el:lang="de">Hierauf ließ ruhen die bewollten Wangen / des fahlen Sumpfs erzürnter Steuermann, / des Augen Flammenräder rings umschlangen.</el:translation>
+      </el:string>
+      <el:string el:key="ferry_charon">
+        <el:english el:translate="true">I am Charon, ferryman of the underworld.  I will transport you through the perilous swamps of Acheron, but the price is not cheap.              Wait!  You still seem alive....                                                   It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a symbol of life on that altar to keep the guards at bay, and then perhaps I will consider taking you across.</el:english>
+        <el:translation el:lang="de">Charon bin ich, Fährmann der Unterwelt. Ich will dich geleiten durch die Gefahren der Sümpfe Acherons, doch der Preis hierfür ist nicht gering. Doch halt! Was ist dies? Mir will scheinen, du weilest noch unter den Lebenden? ...                                           Dies kann nicht sein! Nur den Toten ist es gestattet, diesen Ort zu betreten.  Rasch! Bringe an jenem Altar dort ein Symbol des Lebens als Opfer dar - dies wird die Wächter beschwichtigen. Und dann vielleicht werde ich in Erwägung ziehen, dir Geleit hinüber auf die andere Seite zu gewähren.</el:translation>
+      </el:string>
+      <el:string el:key="ferry_life">
+        <el:english el:translate="true">Very well.  The demons and spirits that guard this place may now believe that you are truly dead, but I would still be cautious if I were you....                                             But you still need a coin.  Hmm, well normally I wouldn't do this, but that fellow over there has me kind of worried -- I think he's plotting something.  If he has a coin, maybe you could get it from him somehow.</el:english>
+        <el:translation el:lang="de">Wohl getan. Die Dämonen und Geister, die diesen Ort bewachen, mögen nun glauben, dass du wahrhaftig ein Entleibter bist, dennoch würde ich an deiner Statt stets Vorsicht walten lassen ...                                       Aber du benötigst trotzdem noch eine Münze. Hmm, normalerweise ist es nicht meine Art, so etwas zu tun, aber diese Gestalt dort drüben hat mein Misstrauen erweckt, ich glaube, er führt etwas im Schilde. Falls er eine Münze bei sich haben sollte, magst du eine Möglichkeit ersinnen, wie sie ihren Besitzer wechselt.</el:translation>
+      </el:string>
+      <el:string el:key="ferry_coin">
+        <el:english el:translate="true">No!  I will not ferry you across unless you make a proper sacrifice, ridding yourself of anything that could be interpreted as a sign of life.  Now begone!</el:english>
+        <el:translation el:lang="de">Nein! Ich werde dich nicht hinübersetzen, solange du nicht ein angemessenes Opfer dargebracht hast, das dich von allem befreit, was als Lebenszeichen gedeutet werden könnte.</el:translation>
+      </el:string>
+      <el:string el:key="circle1_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto IV / Terzine 15">...for then I knew that beings of great worth / were here suspended in this Limbo.</el:english>
+        <el:translation el:lang="de">Groß war mein Schmerz, als er dies kund gegeben, / denn Leute großen Werthes zeigten sich, / die unentschieden hier im Vorhof schweben.</el:translation>
+      </el:string>
+      <el:string el:key="minos_intro">
+        <el:english el:translate="true">You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go back now, or forever face the consqeuences!</el:english>
+        <el:translation el:lang="de">Du darfst hier nicht sein! Ich, Minos, Richter über die Toten werde es nicht gestatten! Begib dich umgehend auf den Weg zurück, oder sei bereit, die Konsequenzen für deinen Ungehorsam zu tragen - bis in alle Ewigkeit.</el:translation>
+      </el:string>
+      <el:string el:key="minos_final">
+        <el:english el:translate="true">In that case, then begone!</el:english>
+        <el:translation el:lang="de">So sei es denn. Und nun hinfort mit dir!</el:translation>
+      </el:string>
+      <el:string el:key="minos_snarl">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto V / Terzine 2">There stands Minos, snarling, terrible. / He examines each offender at the entrance, / judges and dispatches as he encoils himself.</el:english>
+        <el:translation el:lang="de">Graus steht dort Minos, fletscht die Zähn’ und bringt / die Schuld ans Licht, wie tief sie sich verhehle, / urteilt, schickt fort - je wie er sich umschlingt.</el:translation>
+      </el:string>
+      <el:string el:key="circle2_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto V / Terzine 11">The hellish squall, which never rests, / sweeps spirits in its headlong rush...</el:english>
+        <el:translation el:lang="de">Der Höllenwindsbraut unaufhörlich Toben / reißt wirbelnd die gequälten Geister fort / und dreht sie um - nach unten und nach oben.</el:translation>
+      </el:string>
+      <el:string el:key="circle3_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VI / Terzine 3">I am in the third circle, of eternal, / hateful rain, cold and leaden, / changeless in its monotony.</el:english>
+        <el:translation el:lang="de">Dies war der dritte Kreis, den ich betrat, / von ew’gem, kaltem, maledeitem Regen / von gleicher Art und Regel früh und spat.</el:translation>
+      </el:string>
+      <el:string el:key="circle4_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VII / Terzine 9">...they, with great shouts, from opposite sides / were shoving burdens forward with their chests. / They crashed into each other, turned / and beat retreat, shoving their loads and shouting...</el:english>
+        <el:translation el:lang="de">Noch nirgend war die Schar so groß wie dort. / Laut heulend kamen sie von beiden Enden, / und wälzten Lasten mit den Brüsten fort.</el:translation>
+      </el:string>
+      <el:string el:key="circle5_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VII / Terzines 36 &amp; 37">This dreary stream, once it has reached /  these malignant, ashen slopes, / drains out into the swamp called Styx. / And I, my gaze transfixed, could see / people with angry faces in that bog, / naked, their bodies smeared with mud.</el:english>
+        <el:translation el:lang="de">Dann qualmt ein Sumpf, mit Namen Styx, entgegen, / dort wo der traur’ge Fluß vom Laufe ruht, / am Fuß des gräulichen Gestads gelegen. // Dort stand ich nun und sah nach jener Flut / und sah im Sumpfe Leute, kot’ge, nackte, / zugleich des Jammers Bilder und der Wut.</el:translation>
+      </el:string>
+      <el:string el:key="circle5_approach">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzine 23">...we approach the city known as Dis, / with its vast army and its burdened citizens.</el:english>
+        <el:translation el:lang="de">„Bald wird sich, Sohn, dir jene Stadt enthüllen,“ / so sprach mein guter Meister, „Dis genannt, / die scharenweis’ unsel’ge Bürger füllen.“</el:translation>
+      </el:string>
+      <el:string el:key="circle5_angels">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzines 28 - 31">At the threshold I saw more than a thousand angels / fallen from Heaven....they reined in their great disdain /  enough to say: 'You come -- alone.  Let him be gone, / who has so boldly made his way into this kingdom. / 'Let him retrace his reckless path alone...</el:english>
+        <el:translation el:lang="de">Wohl tausend standen vor dem Tor bereit, / vom Himmel hergestürzt ... Da legte sich ein wenig ihre Wut. / Sie sprachen: „Komm’ allein, laß geh’n den Toren, / der hier hereindrang mit so keckem Mut. // Find’ er den Weg, den sich sein Wahn erkoren, / allein zurück!“ ...</el:translation>
+      </el:string>
+      <el:string el:key="circle6_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 1">Now my master takes a hidden / path between the city's ramparts and the torments, / and I come close behind him...</el:english>
+        <el:translation el:lang="de">Fort ging nun - hier die Mauer, dort die Pein - / auf still verborgnem Pfad der edle Weise, / er mir voraus und ich ihm hinterdrein.</el:translation>
+      </el:string>
+      <el:string el:key="circle6_tombs">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 13">...his hands, ready, encouraging, / thrust me towards him among the tombs.</el:english>
+        <el:translation el:lang="de">Mein Führer, der mich schnell an mut’ger Hand / durch Gräberreih’n bis zu ihm mitgenommen, / sprach: „Was er fragt, das mach’ ihm klar bekannt.“</el:translation>
+      </el:string>
+      <el:string el:key="circle7_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XII / Terzines 8 &amp; 9">Like the bull that breaks its tether / just as it receives the mortal blow / and cannot run, but lunges here and there, // so raged the Minotaur.  My artful guide / called out: 'Run to the passage: / hurry down while he is in his fury.'</el:english>
+        <el:translation el:lang="de">So wie der Stier, vom Todesstreich versehrt, / emporsetzt und nicht gehen kann, nur springen, / und Satz um Satz hierhin und dorthin fährt, // so sahen wir den Minotaurus ringen. / Drum rief Virgil: „Jetzt weiter ohne Rast; / indess er tobt, ist’s gut hinab zu dringen.“</el:translation>
+      </el:string>
+      <el:string el:key="circle7_boil">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XII / Terzine 34">...we went on, / skirting the edge of the vermilion boil / from which the boiled cried out with piercing shrieks.</el:english>
+        <el:translation el:lang="de">Da solch Geleit uns Sicherheit verlieh, / so gingen wir am roten Sud von hinnen, / aus dem die Rotte der Gesottnen schrie.</el:translation>
+      </el:string>
+      <el:string el:key="circle7_nest">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XIII / Terzine 4">Here the filthy Harpies nest, / who drove the Trojans from the Strophades / with doleful prophecies of woe to come.</el:english>
+        <el:translation el:lang="de">Hier aber nisten die Harpy’n sich ein, / die, von den Inseln Troja’s Volk zu scheuchen, / es ängsteten mit Unglücks-Prophezein.</el:translation>
+      </el:string>
+      <el:string el:key="circle7_sand">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XIV / Terzines 4 &amp; 5">... Here, at the very edge, we stayed our steps / at an expanse of deep and arid sand...</el:english>
+        <el:translation el:lang="de">... Hier weilten wir an beider Kreise Rand, / wo ward gefunden ein tiefer, dürrer Sand ...</el:translation>
+      </el:string>
+      <el:string el:key="circle8_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XVIII / Terzine 3">A path that circles like a belt around / the base of that high rock runs round the pit, / its sides descending in ten ditches.</el:english>
+        <el:translation el:lang="de">Und zwischen Höhl’ und Felswand gehn im Runde / rings so die Dämme, daß der Täler zehn / Abschnitte bilden in dem tiefen Grunde.</el:translation>
+      </el:string>
+      <el:string el:key="circle9_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 8">Under my feet I saw a lake / so frozen that it seemed more glass than water. / Never in winter did the Austrian Danube / nor the far-off Don, under its frigid sky, / cover their currents with so thick a veil / as I saw there.</el:english>
+        <el:translation el:lang="de">Drum wandt’ ich mich, und vor mir hin erschien /  und unter meinen Füßen auch, ein Weiher, / der durch den Frost Glas, und nicht Wasser, schien.</el:translation>
+      </el:string>
+      <el:string el:key="circle9_center">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 25">...we made our way toward the center, / where all things that have weight converge, / and I was shivering in the eternal chill...</el:english>
+        <el:translation el:lang="de">Und weiter ging’s zum Mittelpunkt zu streben, / auf welchem ruht des ganzen Alls Gewicht; / Selbst wandelt’ ich durch ew’gen Frost voll Beben.</el:translation>
+      </el:string>
+      <el:string el:key="circle9_universe">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 3">It is no enterprise undertaken lightly -- / to describe the very bottom of the universe...</el:english>
+        <el:translation el:lang="de">Denn nicht ein Spiel ist ja mein Unterfangen, / den Grund des Alls dem Liede zu vertrau’n, / und nicht mit Kinderlallen auszulangen.</el:translation>
+      </el:string>
+      <el:string el:key="circle9_emperor">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzines 10 &amp; 11">The emperor of the woeful kingdom / rose from the ice below his breast, / and I in size am closer to a giant / than giants are when measured to his arms.</el:english>
+        <el:translation el:lang="de">Der Kaiser von dem tränenvollen Reiche / entragte mit der halben Brust dem Glas, / und wie ich eines Riesen Maß erreiche, / erreicht’ ein Riese seines Armes Maß.</el:translation>
+      </el:string>
+      <el:string el:key="circle9_fool">
+        <el:english el:translate="true">You refused many times to leave my kingdom -- now you shall pay the consequences for your foolishness!</el:english>
+        <el:translation el:lang="de">Oft genug hast du es abgelehnt, mein Reich zu verlassen - nun ist die Zeit gekommen, den Preis für diese Torheit zu bezahlen.</el:translation>
+      </el:string>
+      <el:string el:key="faithlessness">
+        <el:english el:translate="true">Faithlessness</el:english>
+        <el:translation el:lang="de">Ungläubigkeit</el:translation>
+      </el:string>
+      <el:string el:key="lust">
+        <el:english el:translate="true">Lust</el:english>
+        <el:translation el:lang="de">Sinnenlust</el:translation>
+      </el:string>
+      <el:string el:key="gluttony">
+        <el:english el:translate="true">Gluttony</el:english>
+        <el:translation el:lang="de">Völlerei</el:translation>
+      </el:string>
+      <el:string el:key="avarice">
+        <el:english el:translate="true">Avarice</el:english>
+        <el:translation el:lang="de">Geiz</el:translation>
+      </el:string>
+      <el:string el:key="sloth">
+        <el:english el:translate="true">Sloth</el:english>
+        <el:translation el:lang="de">Faulheit</el:translation>
+      </el:string>
+      <el:string el:key="heresy">
+        <el:english el:translate="true">Heresy</el:english>
+        <el:translation el:lang="de">Ketzerei</el:translation>
+      </el:string>
+      <el:string el:key="violence">
+        <el:english el:translate="true">Violence</el:english>
+        <el:translation el:lang="de">Gewalttätigkeit</el:translation>
+      </el:string>
+      <el:string el:key="fraud">
+        <el:english el:translate="true">Fraud</el:english>
+        <el:translation el:lang="de">Betrug</el:translation>
+      </el:string>
+      <el:string el:key="treachery">
+        <el:english el:translate="true">Treachery</el:english>
+        <el:translation el:lang="de">Verrat</el:translation>
+      </el:string>
+      <el:string el:key="circleo_intro">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 37">...passed the point / to which all weights are drawn from every side.</el:english>
+        <el:translation el:lang="de">Du warst’s, so lang’ ich mich hinabgesenkt; / allein den Punkt, der anzieht alle Schwere, / durchdrangest du, da ich mich umgeschwenkt.</el:translation>
+      </el:string>
+      <el:string el:key="circleo_heaven">
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 46 &amp; final verse">...climbed up... far enough to see, through a round opening, / a few of those fair things the heavens bear. / Then we came forth, to see again the stars.</el:english>
+        <el:translation el:lang="de">Da blickte durch der Felsschlucht ob’re Ründung / der schöne Himmel mir aus heitrer Ferne, / und wir entstiegen aus der engen Mündung. / Und traten vor zum Wiedersehn der Sterne.</el:translation>
+      </el:string>
+   </el:i18n>
+  </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Crabwise III" el:subtitle="" el:id="devnull38"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,9 +31,9 @@ ti["e"] = {"st_puzzle_blue", "pd", connections = "e", intensity = 0}
 ti["W"] = {"st_puzzle_blue", "pA", connections = "w", intensity = 0}
 ti["-"] = {"st_puzzle_blue", "pB", connections = "ew", intensity = 0}
 ti["E"] = {"st_puzzle_blue", "pC", connections = "e", intensity = 0}
-ti["a"] = ti({"fl_hay_framed"}) .. {"it_trigger", target = "toggleDoors", action = "signal", invisible = true}
+ti["a"] = {"it_trigger", target = "toggleDoors", action = "signal"}
 ti["A"] = {"st_door_a", "doors#"}
-ti["b"] = ti({"fl_hay_framed"}) .. {"it_trigger", target = "toggleBridges", action = "signal", invisible = true}
+ti["b"] = {"it_trigger", target = "toggleBridges", action = "signal"}
 ti["B"] = {"fl_bridge", "bridges#"}
 ti["1"] = {"st_pull", "nav01"}
 ti["2"] = {"st_swap"}
@@ -50,11 +50,11 @@ wo(ti, " ", {
     "# ws  ~~x~X        #",
     "#     ~x~~X        #",
     "##A#A###############",
-    "#       .....X     #",
-    "#       ..BBBX  E  #",
-    "#   4   ..B..+ b-b #",
-    "#       BBB..X  W  #",
-    "#       .....X     #",
+    "#      .....X      #",
+    "#      ..BBBX  E   #",
+    "#  4   ..B..+ bbb- #",
+    "#      BBB..X  W   #",
+    "#      .....X      #",
     "##################O#"})
 
 if wo["IsDifficult"] then
@@ -67,7 +67,7 @@ else
     wo:add({"ot_wire", anchor1 = "nav02", anchor2 = "pC"})
 end
 wo:add({"ot_counter", "toggleDoors", state = 0, target = "doors#*", action_2 = "open", action_1 = "close"})
-wo:add({"ot_counter", "toggleBridges", state = 0, target = "bridges#*", action_2 = "close", action_1 = "open"})
+wo:add({"ot_counter", "toggleBridges", state = 0, target = "bridges#*", action_3 = "close", action_2 = "open"})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="22" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,7 @@ ti["a"] = ti[" "] .. {"st_camouflage"}
 ti["b"] = {"fl_bright"} .. ti({"it_bottle"})
 ti["c"] = {"fl_lawn"} .. ti({"st_nil"}) .. ti({"it_nil"})
 ti["d"] = ti[" "] .. {"st_redrock"} --Walls
-ti["e"] = {"fl_slope_tw"} .. ti({"st_nil"})
+ti["e"] = {"fl_slope_te"} .. ti({"st_nil"})
 ti["f"] = {"fl_lawn"} --Audrey's floor
 ti["g"] = ti[" "] .. {"st_grate_cross"}
 ti["h"] = (ti({"fl_bright"}) .. {"it_hammer"}) .. {"st_plaster_hollow"}
@@ -55,13 +55,13 @@ ti["i"] = {"fl_mortar"} .. ti({"st_beads"}) --Window
 ti["j"] = {"fl_bright"} --Orin's floor
 ti["k"] = ti[" "] .. {"st_redbrown"} --Audrey's Walls
 ti["m"] = {"fl_plank"} .. ti({"it_coin_l"})
-ti["n"] = {"fl_slope_ts"} .. ti({"st_grate_cross"})
-ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=1}) .. {"st_camouflage"}
+ti["n"] = {"fl_slope_tn"} .. ti({"st_grate_cross"})
+ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=INDISPENSABLE}) .. {"st_camouflage"}
 ti["p"] = ti[" "] .. {"st_flat"}
 ti["q"] = ti[" "] .. {"st_woven"}
-ti["s"] = {"fl_slope_tn"} .. ti({"st_nil"})
+ti["s"] = {"fl_slope_ts"} .. ti({"st_nil"})
 ti["t"] = (ti({"fl_slope_tn"}) .. {"st_grate_cross"}) .. {"it_burnable"}
-ti["w"] = {"fl_slope_te"} .. ti({"st_nil"})
+ti["w"] = {"fl_slope_tw"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl_woven"}
 ti["z"] = {"fl_plank"}
@@ -73,9 +73,9 @@ ti["F"] = {"fl_plank"} .. ti({"it_seed"})
 ti["G"] = {"fl_plank"} .. ti({"st_lightglass_hollow"})
 ti["H"] = {"fl_brick"} .. ti({"it_meditation_hollow"})
 ti["I"] = ti["y"] .. {"#ac_pearl_white", owner=0, name="Seymour"}
-ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=0,essential=-1}
-ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=0,essential=-1}
-ti["L"] = ti["f"] .. {"#ac_pearl_white", name="Audrey", controllers=0,essential=-1}
+ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=CTRL_NONE, essential=-1}
+ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=CTRL_NONE, essential=-1}
+ti["L"] = ti["f"] .. {"#ac_pearl_white", name="Audrey", controllers=CTRL_NONE, essential=-1}
 ti["Y"] = ti[" "] .. {"st_portal"}
 ti["M"] = ti["Y"] .. {"#ac_horse", strength=3, name="horse", destination={"d1","d2","d3","d4"}} -- Chiffon, Crystal, Ronnette
 ti["O"] = ti[" "] .. {"st_panel", cluster=1}

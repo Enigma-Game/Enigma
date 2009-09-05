@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Restless Meditation" el:subtitle="Caution - Quick Sand!" el:id="20070623ral914"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 151 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 182 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,13 +21,13 @@ ti["#"] = {"st_box"}
 if wo["IsDifficult"] then
   wo["SwampSinkTime"] = 1.6
   ti["."] = {"it_meditation_hollow"}
-  ti["1"] = {"#ac_pearl", essential=1}
+  ti["1"] = {"#ac_pearl", essential=INDISPENSABLE}
   ti["*"] = ti[" "]
   ti["2"] = ti[" "]
 else
   wo["SwampSinkTime"] = 2.67
   ti["*"] = {"it_meditation_hollow"}
-  ti["2"] = {"#ac_pearl", essential=1}
+  ti["2"] = {"#ac_pearl", essential=INDISPENSABLE}
   ti["."] = ti[" "]
   ti["1"] = ti[" "]
 end
@@ -49,7 +49,7 @@ w, h = wo(ti, " ", {
     "####################"
 })
 
- ]]></el:luamain>
+    ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>

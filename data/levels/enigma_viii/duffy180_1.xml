@@ -25,7 +25,7 @@ ti["g"] = {"st_grate_cross"}
 ti["P"] = {"st_pull"}
 ti["S"] = {"st_switch", target="med#*", action="flip"}
 ti["*"] = {"st_brownie"}
-ti["w"] = {"#ac_pearl_white", owner=0, essential=1 }
+ti["w"] = {"#ac_pearl_white", essential=INDISPENSABLE }
 
 if wo["IsDifficult"] then
     ti["="] = {"st_swap"}

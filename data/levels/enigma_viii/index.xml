@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -13,7 +13,7 @@
     <level _seq="5" _title="The Red Room" _xpath="./joe29_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Enigmines" _xpath="./huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Red Cave" _xpath="./mecke21_2" author="mecke" ctrl="force" easy="true" id="mecke21" rel="2" rev="45" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Status code 302" _xpath="./devnull02_1" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Status code 302" _xpath="./devnull02_2" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="2" rev="10" score="2" target="time" unit="duration"/>
     <level _seq="9" _title="A Screenful of Secrets" _xpath="./mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="36" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Southside Life" _xpath="./mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Joona's Chess" _xpath="./joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -43,7 +43,7 @@
     <level _seq="35" _title="- Meditation -" _xpath="./raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Relaxing at the sea" _xpath="./devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Helios II" _xpath="./mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="26" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="180" score="2" target="time" unit="duration"/>
+    <level _seq="38" _title="Tutoxyd's Pyramid" _xpath="./ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="181" score="2" target="time" unit="duration"/>
     <level _seq="39" _title="Alternation I" _xpath="./mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Enigmaparcour II" _xpath="./mecke29_1" author="mecke" ctrl="force" easy="true" id="mecke29" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="41" _title=" - Meditation - " _xpath="./devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="8" score="1" target="time" unit="duration"/>
@@ -82,7 +82,7 @@
     <level _seq="74" _title="The Gordian Knot" _xpath="./ral15_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090312ral718" rel="1" rev="167" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Inverse Maze" _xpath="./ral44_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090325ral180" rel="1" rev="163" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Inverse Maze II" _xpath="./ral45_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090327ral218" rel="1" rev="170" score="1" target="time" unit="duration"/>
-    <level _seq="77" _title="Maze for Two II" _xpath="./ral23_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090330ral370" rel="2" rev="170" score="2" target="time" unit="duration"/>
+    <level _seq="77" _title="Maze for Two II" _xpath="./ral23_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090330ral370" rel="2" rev="182" score="2" target="time" unit="duration"/>
     <level _seq="78" _title="Fight of Elements" _xpath="./ral48_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090403ral538" rel="1" rev="172" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="New York Jungle" _xpath="./mecke32_1" author="mecke" ctrl="force" easy="false" id="mecke32" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Push? Pull? Rotate!" _xpath="./raoul33_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul33" rel="1" rev="3" score="1" target="time" unit="duration"/>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Across The Waterbyss" el:subtitle="Bridge Building In The High Mountains" el:id="harry03"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author  el:name="daydreamer" el:email="" el:homepage=""/>
+      <el:copyright>© 2009 daydreamer</el:copyright>
+      <el:license el:type="" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Many thanks to /dev/null (CMoP) for inspiration and feedback</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="14:41"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_himalaya"}
+ti["~"] = {"fl_water"}
+ti["-"] = {"fl_abyss"}
+ti["i"] = {"it_document", text="Swimmers only!"}
+ti["s"] = {"it_crack_s", spreading=0}
+ti["m"] = {"it_crack_m", spreading=0}
+ti["l"] = {"it_crack_l", spreading=0}
+ti["n"] = {"it_dynamite"}
+ti["o"] = {"it_shogun_s"}
+ti["w"] = {"it_magicwand"}
+ti["u"] = ti["~"] .. ti["w"]
+ti["p"] = ti["~"] .. {"it_surprise", selection={"=w"}}
+ti["x"] = {"it_bomb_black"}
+ti["y"] = {"it_yinyang"}
+ti["#"] = {"st_darkgray"}
+ti["I"] = {"st_ice"}
+ti["J"] = ti["~"] .. ti["I"]
+ti["K"] = ti["-"] .. ti["x"] .. ti["I"]
+ti["M"] = {"st_rawglass_movable"}
+ti["N"] = ti["~"] .. ti["y"] .. ti["M"]
+ti["O"] = {"st_oxyd_b"}
+ti["X"] = {"st_grate"}
+ti["U"] = ti["-"] .. ti["X"]
+ti["V"] = ti["~"] .. ti["X"]
+ti["T"] = ti["U"] .. ti["x"]
+ti["B"] = {"st_passage", color=BLACK, flavor="cross"}
+ti["W"] = {"st_passage", color=WHITE, flavor="cross"}
+ti["Y"] = ti["y"] .. {"st_blur_magic"}
+ti["Z"] = ti["w"] .. {"st_blur_straight"}
+ti["0"] = ti["~"] .. {"st_puzzle_blue_ew"}
+ti["1"] = ti["~"] .. {"st_puzzle_blue_ns"}
+ti["3"] = ti["u"] .. {"st_puzzle_blue_ne"}
+ti["5"] = ti["~"] .. {"st_puzzle_blue_sw"}
+ti["7"] = ti["~"] .. {"st_puzzle_blue_e"}
+ti["8"] = ti["p"] .. {"st_puzzle_blue_s"}
+ti["9"] = ti["-"] .. {"st_puzzle_blue_w"}
+ti["C"] = {"it_wormhole_off", destination = "dest_c"}
+ti["D"] = {"it_wormhole_off", destination = "dest_d"}
+ti["E"] = {"it_wormhole_off", destination = "dest_e"} .. ti["~"]
+ti["F"] = {"it_wormhole_off", destination = "dest_f"}
+ti["c"] = {"fl_himalaya", "dest_c"}
+ti["d"] = {"fl_water", "dest_d"}
+ti["e"] = {"fl_himalaya", "dest_e"} .. ti["x"]
+ti["f"] = {"fl_water", "dest_f"}
+ti["@"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#OB       -     M  #",
+    "#Bf - ~815~17~ KENM#",
+    "#*l    -    -   IM #",
+    "#TXXX~XXXVUXXX-XXXU#",
+    "#e~~~~~~~~--------D#",
+    "#n~~~0~~~~-----9--i#",
+    "#F~~~0~~~~--------c#",
+    "#UXXX~VVVXXXUUZYXXU#",
+    "# IM o mm -  omssl@#",
+    "#MCN~ -~ ~3~ ~- ~dW#",
+    "#  M      -      WO#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

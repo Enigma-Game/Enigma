@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pillar" el:subtitle="" el:id="raoul39"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["WormholeRange"] = 0.5
+
+ti["  "] = {"fl_rough"}
+ti["~~"] = {"fl_water"}
+ti["##"] = {"st_bluesand"}
+ti["%1"] = {"st_bluesand", cluster=1}
+ti["%2"] = {"st_bluesand", cluster=2}
+ti["BP"] = {"st_passage", flavor="frame", color=BLACK}
+ti["WP"] = {"st_passage", flavor="frame", color=WHITE}
+ti["B^"] = {"st_oneway", color=BLACK, orientation=NORTH}
+ti["B>"] = {"st_oneway", color=BLACK, orientation=EAST}
+ti["BV"] = {"st_oneway", color=BLACK, orientation=SOUTH}
+ti["B<"] = {"st_oneway", color=BLACK, orientation=WEST}
+ti["W^"] = {"st_oneway", color=WHITE, orientation=NORTH}
+ti["W>"] = {"st_oneway", color=WHITE, orientation=EAST}
+ti["WV"] = {"st_oneway", color=WHITE, orientation=SOUTH}
+ti["W<"] = {"st_oneway", color=WHITE, orientation=WEST}
+ti["w1"] = {"it_meditation_volcano", name="w1"}
+ti["wa"] = {"it_wormhole", destination="w1"}
+ti["w2"] = {"it_meditation_volcano", name="w2"}
+ti["wb"] = {"it_wormhole", destination="w2"}
+ti["w3"] = ti["WP"] .. {"it_meditation_volcano", name="w3"}
+ti["wc"] = ti["WP"] .. {"it_wormhole", destination="w3"}
+ti["w4"] = ti["WP"] .. {"it_meditation_volcano", name="w4"}
+ti["wd"] = ti["WP"] .. {"it_wormhole", destination="w4"}
+ti["b1"] = {"it_meditation_volcano", name="b1"}
+ti["ba"] = ti["BP"] .. {"it_wormhole", destination="b1"}
+ti["b2"] = {"it_meditation_volcano", name="b2"}
+ti["bb"] = ti["BP"] .. {"it_wormhole", destination="b2"}
+ti["P="] = {"st_puzzle", cluster=1}
+ti["Po"] = {"st_puzzle", cluster=1, hollow=true}
+ti["Q="] = ti["~~"] .. {"st_puzzle", cluster=1}
+ti["Ro"] = cond(wo["IsDifficult"], ti["P="], ti["Po"])
+ti["R="] = cond(wo["IsDifficult"], ti["Po"], ti["P="])
+ti["O1"] = {"st_oxyd", name="oxyd1#"}
+ti["O2"] = {"st_oxyd", name="oxyd2#"}
+ti["O3"] = {"st_oxyd", name="oxyd3#"}
+ti["O4"] = {"st_oxyd", name="oxyd4#"}
+ti["@1"] = ti["w2"] .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@2"] = ti["w1"] .. {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, "  ", {
+    "~~############%1%1##########~~~~~~~~~~~~~~~~~~",
+    "####          %1%1BPBPBPBP####~~~~~~~~~~~~~~~~",
+    "##  WPWPBPBP  B>BPBP####BPBP##########~~~~~~~~",
+    "##  WPO1O2BP  %1%1%2%2    ~~        ##~~~~~~~~",
+    "##  BPO2O1WP  %1%1%2%2~~  ~~        ##~~~~~~~~",
+    "##  BPBPWPWP  W<WPWPWPP=PoP=    @2  ##~~~~~~~~",
+    "##            ##WPbaBPP=BP##      ####~~~~~~~~",
+    "####B^####WV####WPWP##PoBP%1%1######~~~~~~~~~~",
+    "##      ##    ####WP##P=BP%1%1##~~~~~~~~~~~~~~",
+    "##  b1  ##      ##WP##P=BPBP##~~~~~~~~~~~~~~~~",
+    "##    ######  wa##WP##R=wcBP##~~~~~~~~~~~~~~~~",
+    "########~~####%1%1WPWPRow4BP##~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~%1%1BPBPP=BPBP%1%1~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~##BPw3PoWPWP%1%1####~~########",
+    "~~~~~~~~~~~~~~~~##BPwdP=##WP##wb  ######    ##",
+    "~~~~~~~~~~~~~~~~##BPBPRo##WP##      ##  b2  ##",
+    "~~~~~~~~~~~~~~##%1%1BPR=##WP####    ##      ##",
+    "~~~~~~~~~~######%1%1BPP=##WPWP####W^####BV####",
+    "~~~~~~~~####      ##BPP=BPbbWP##            ##",
+    "~~~~~~~~##  @1        PoWPWPWPW>  BPBPWPWP  ##",
+    "~~~~~~~~##        ~~  Q=%1%1%2%2  BPO3O4WP  ##",
+    "~~~~~~~~##        Q=PoP=%1%1%2%2  WPO4O3BP  ##",
+    "~~~~~~~~##########BPBP####BPBPB<  WPWPBPBP  ##",
+    "~~~~~~~~~~~~~~~~####BPBPBPBP%1%1          ####",
+    "~~~~~~~~~~~~~~~~~~##########%1%1############~~"})
+
+wo:shuffleOxyd({"oxyd1#*", "oxyd3#*", min=2}, {"oxyd2#*", "oxyd4#*", min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

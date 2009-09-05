@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Passage" el:subtitle="" el:id="just11"/>
+      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="4:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_mortar"}
+ti[" ~"] = {"fl_water"}
+ti[" -"] = {"fl_swamp"}
+ti[" ="] = {"fl_inverse"}
+ti["# "] = {"st_bluesand"}
+ti["G "] = {"st_rawglass"}
+ti["W "] = {"st_magic", flavor="brick"}
+ti["WW"] = {"st_brick"}
+ti["X "] = {"st_grate"}
+ti["D "] = {"st_death"}
+ti["+ "] = {"st_box"}
+ti["O>"] = {"st_oneway", orientation=EAST}
+ti["Bc"] = {"st_blocker"}
+ti["Bo"] = {"it_blocker"}
+ti["> "] = {"st_laser", orientation=EAST, state=ON}
+ti["< "] = {"st_laser", orientation=WEST, name="laser"}
+ti["Me"] = {"st_mirror", flavor="slab", orientation=EAST, transparent=true}
+ti["Ms"] = {"st_mirror", flavor="slab", orientation=SOUTH, transparent=true}
+ti["Mw"] = {"st_mirror", flavor="slab", orientation=WEST, transparent=true}
+ti["Te"] = {"st_mirror", flavor="triangle", orientation=EAST, transparent=true}
+ti["Tw"] = {"st_mirror", flavor="triangle", orientation=WEST, transparent=true}
+ti["TS"] = {"st_turnstile"}
+ti["Ta"] = {"st_turnstilearm", orientation=NORTH}
+ti["Tb"] = {"st_turnstilearm", orientation=EAST}
+ti["Tc"] = {"st_turnstilearm", orientation=SOUTH}
+ti["Td"] = {"st_turnstilearm", orientation=WEST}
+ti["L "] = {"st_lightpassenger"}
+ti["V "] = {"st_boulder", orientation=SOUTH, name="boulder"}
+ti["S "] = {"st_switch", target="trapped", _state=0}
+ti["P"] = {"st_puzzle_yellow"}
+ti[" |"] = ti[" ~"] .. {"it_strip_ns"}
+ti[" c"] = {"it_coin"}
+ti[" m"] = {"it_magicwand"}
+ti[" ."] = {"it_seed"}
+ti[" x"] = {"it_cross", name="cross"}
+ti[" o"] = {"it_vortex", name="vortex", destination="cross", state=CLOSED}
+ti[" t"] = {"it_trigger", target="vortex"}
+ti[" u"] = {"it_trigger", target="run_boulder", invisible=true}
+ti["d7"] = {"it_document", text="text7"}
+ti["d6"] = {"it_document", text="text6"}
+ti["d1"] = {"it_document", text="text1"}
+ti["OO"] = {"st_oxyd"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.puzzle(res.composer(ti),"P"), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "#                                     #           #   #   # # # D  -D  -    # ",
+    "#                                     #   # # #     BoO>    Ta  D  . -  D   # ",
+    "#                                         #       # Bc# # # TS  D  -   -D d6# ",
+    "#                                     # # #   # # #             D D  -  D   # ",
+    "#                                     #       #   #   # TSTb    D  -   -D   # ",
+    "#                       @@            # #   # #   #   # Tc  TSTbD    -D D   # ",
+    "#                       d7            #           #   #     Tc  D  -   -D   # ",
+    ">~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~L|X~ ~ ~ ~ ~ ~< # # #   # #   #   Ta    D D  -  D   # ",
+    "# # # # # # # # # # # # X # # # # # # #           O>Bc# TdTSTb# D  -   -D   # ",
+    "#                                     # # #   #   #   #   Tc    D    -D D d1# ",
+    "#                                     #           # V # #   #    u -   -D   S ",
+    "# # # # #   # # # # # # # # # # # # # # # # # #   # # # # # # # # # G-# # # # ",
+    "#           # X X X X X X X +   +   + #              = = = = = = = = = = = =# ",
+    "# D~D~ ~# # # X X X X X X X + +  m+   #              = = = = = = = = = = = =# ",
+    "#  ~ ~ ~# X X X X X X X X X +     +c  #              = = = = = = = = = = = =# ",
+    "#  ~D~D~# X X X X X X X X X + + + + + #             W W W W W W W W W W W W # ",
+    "#  ~ ~ ~# X X P0X X X X X X X X X X X             WWW G G G MeG G G TwG G G # ",
+    "#  t    # X X P0P0X P0X X X X X X X X #           MeG G G G TwG G G G G G G # ",
+    "#      o# X X X P0X P0X X X X X X X X #             W G G G G G G G G G G G # ",
+    "#       # X X X P0P0P0P0P0X X X X X X #             W G G G TeG G G G G MwG # ",
+    "#   OO  # X X P0P0XcP0X X X X X X X X #           MwG MwG G G G G G MsG G G # ",
+    "# OO xOO# X X X P0P0P0P0X X X X X X X #             W G G G G G > G G G MeG # ",
+    "#   OO  # X X X X X X X X X X X X X X #             W MwG G MeG G G G G G G # ",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "})
+
+function trapped(value, sender)
+    sender["_state"] = sender["_state"] +1
+    if sender["_state"] == 1 then
+        wo[sender+NW] = {"it_document", text="text2"}
+    elseif sender["_state"] == 2 then
+        wo[sender+NW] = {"it_document", text="text3"}
+    elseif sender["_state"] == 3 then
+        wo[sender+NW] = {"it_document", text="text4"}
+        no["laser"]:on()
+    elseif sender["_state"] == 4 then
+        wo[sender+NW] = {"it_document", text="text5"}
+        wo[sender+4*N+W] = ti["# "]
+    end
+end
+
+function run_boulder()
+    no["boulder"]:orientate(NORTH)
+end
+
+wo:shuffleOxyd()
+  ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Sorry, this switch is currently out of order.</el:english>
+        <el:translation el:lang="de">Dieser Schalter ist momentan leider außer Betrieb.</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">As I already told you, this switch is out of order!</el:english>
+        <el:translation el:lang="de">Ich habe Dir doch bereits mitgeteilt, dass dieser Schalter nicht funktioniert!</el:translation>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">How often are you going to try this?</el:english>
+        <el:translation el:lang="de">Wie oft willst Du es denn noch versuchen?</el:translation>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">Did anything happen? I'm not sure ...</el:english>
+        <el:translation el:lang="de">Tat sich da was? Ich bin nicht sicher ...</el:translation>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">Congrats, now it works again!</el:english>
+        <el:translation el:lang="de">Glückwunsch, jetzt funktioniert er wieder!</el:translation>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true">No hints available at the moment.</el:english>
+        <el:translation el:lang="de">Zur Zeit sind keine Tips verfügbar.</el:translation>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english el:translate="true">There is a passage right beneath this stone!</el:english>
+        <el:translation el:lang="de">Es gibt einen Durchgang direkt unter diesem Stein!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

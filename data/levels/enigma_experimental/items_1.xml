@@ -200,6 +200,9 @@ local items = {
 {"it_vortex", state=OPEN, _text="it_vortex, state=OPEN"},
 {"it_vortex", state=CLOSED, _text="it_vortex, state=CLOSED"},
 {"it_vortex", autoclose=true, _text="it_vortex, autoclose=true"},
+{"it_vortex", state=CLOSED, autoopen=true, _text="it_vortex, state=CLOSED, autoopen=true"},
+{"it_vortex", autoclose=true, autoopen=true, _text="it_vortex, autoclose=true, autoopen=true"},
+
 
 {"it_weight", _text="it_weight"},
 

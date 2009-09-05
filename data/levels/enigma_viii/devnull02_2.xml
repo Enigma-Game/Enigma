@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Status code 302" el:subtitle="RFC 2068, 10.3.3" el:id="devnull02"/>
+      <el:version el:score="2" el:release="2" el:revision="10" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:02" el:difficult="9:06"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+statS = {}
+for i = 1, 6 do
+  statS[i] = 1
+end
+
+ti["#"] = {"st_granite"}
+ti["+"] = {"st_rawglass"}
+ti[" "] = {"fl_dark"}
+ti["_"] = {"st_disco_dark"}
+ti[":"] = {"fl_tigris"}
+ti["*"] = {"st_granite_movable"}
+ti["."] = {"fl_abyss"}
+ti["H"] = {"st_box"}
+ti["R"] = {"st_tigris"}
+ti["S"] = {"st_swap"}
+ti["v"] = {"st_ghost_break"}
+ti["W"] = {"st_passage_white_frame"}
+ti["w"] = {"fl_fake_abyss"}
+ti["blackFloor"] = {"fl_yinyang_yin", invisible = true}
+ti["whiteFloor"] = {"fl_yinyang_yang", invisible = true}
+ti["X"] = {"st_grate_cross"}
+ti["x"] = ti["."] .. ti["X"]
+ti["I"] = {"st_grate_cross", "grate4White#"}
+ti["P"] = ti({"it_seed"}) .. {"st_lightpassenger"}
+ti["="] = {"fl_inverse_gray", "portals#"}
+ti["f"] = ti["."] .. {"it_floppy"}
+ti["V"] = {"st_laser", "laserN", orientation = SOUTH, state = ON}
+ti["8"] = {"st_switch_white", target = "laserN"}
+ti["^"] = {"st_laser", "laserS", orientation = NORTH, state = ON}
+ti["2"] = {"st_switch_black", target = "laserS"}
+ti["<"] = {"st_door", "doorOxydRoom",  faces = "ew", state = CLOSED}
+ti["M"] = {"st_door", "doorM", faces = "ew", state = CLOSED}
+ti["m"] = {"it_trigger", target = "doorM"}
+ti["N"] = {"st_door", "doorN", faces = "ew", state = CLOSED}
+ti["n"] = {"it_trigger", target = "doorN"}
+ti["-"] = {"st_door", "doors01#", faces = "ns", state = CLOSED}
+ti["|"] = {"st_blocker", "blocker"}
+ti["4"] = {"it_sensor", target = "openDoorOxydRoom", invisible = true}
+ti["5"] = ti["blackFloor"] .. {"it_sensor", target = "toggleMainSensor", invisible = true}
+ti["6"] = {"st_switch_white", target = "toggleMainSwitch"}
+ti["7"] = {"st_switch_black", target = "togglePortalsBlocker"}
+ti["9"] = {"it_trigger", target = "toggleGrates4White"}
+ti["a"] = {"it_trigger", "triggerA", target = "toggleTriggerABCD"}
+ti["b"] = {"it_trigger", "triggerB", target = "toggleTriggerABCD"}
+ti["c"] = {"it_trigger", "triggerC", target = "toggleTriggerABCD"}
+ti["d"] = {"it_trigger", "triggerD", target = "toggleTriggerABCD"}
+if wo["IsDifficult"] then
+    ti["u"] = ti["whiteFloor"] .. {"st_granite_hollow"}
+    ti["G"] = ti["blackFloor"] .. {"st_grate_framed"}
+    ti["Z"] = ti["x"]
+    ti["K"] = ti["whiteFloor"] .. {"st_knight"}
+    ti["B"] = {"st_passage_black_frame"}
+    ti["Y"] = {"st_blur_straight"}
+    ti["t"] = {"st_granite"}
+    ti["T"] = {"st_floppy", target = "toggleDoors01", action = "signal"}
+else
+    ti["u"] = {"st_granite_hollow"}
+    ti["G"] = ti[" "] .. ti["X"]
+    ti["Z"] = ti["X"]
+    ti["K"] = ti[" "]
+    ti["B"] = ti[" "]
+    ti["Y"] = {"st_switch_white", target = "createWormHole4Black"}
+    ti["t"] = {"st_floppy", target = "toggleDoors01", action = "signal"}
+    ti["T"] = ti["#"]
+end
+ti["k"] = {"it_coin_s"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["R"]
+ti["Q"] = {"#ac_marble_white"}
+
+wo(ti, " ", {
+    "____________________#########################################################",
+    "____________________# .HM   * 7#V+   +        #+++       * .9 +  ..        n#",
+    "____________________#H.H# # # .#8* S*++++++ +       +++++* .  I a....x...+++#",
+    "____________________#.H.# # # .#X    *    + ++++++++#    * .  + b..H.  H....#",
+    "__RRR_______________#fH.# #   .#Z   +++++ +           +++#    +  x ..H..HHHH#",
+    "__R___RR_@R_RRR_RR__###-t ######x +X+...+W+++++++++++++  #+ XX++++ ++     +.T",
+    "__RR__R__R__R_R_R___<4KK#BY5===GP** |.6.+              Qk**    ###  H...... #",
+    "__R___R__R__R_R_R___###-t ######x +X+...+W+++++++++++++  #+ XX++++ ++     +.T",
+    "__RRR_R__R__RRR_R___#fH.# uv  w#Z   +++++ +           +++#    +  x ..H..HHHH#",
+    "____________________#H..#vuvuvw#X    *    + ++++++++     * .  + d..H.  H....#",
+    "__RRRRRRRRRRRRRRRR__#.HH#vuvuvw#8* S*++++++ +       +++++* .  I c....x...+++#",
+    "____________________# .HN   uv2#^+   +      *  +++#      * .9 +  ..        m#",
+    "____________________#########################################################"})
+
+newStartMap = wo:newMap(" ", {
+    "                  ",
+    "                  ",
+    "                  ",
+    "                  ",
+    "  :::             ",
+    "  :   :: :: ::: ::",
+    "  ::  :  :  : : : ",
+    "  :   :  :  : : : ",
+    "  ::: :  :  ::: : ",
+    "                  ",
+    "  OOOOOOOOOOOOOOOO",
+    "                  ",
+    "                  "})
+
+g4Wpos = po(no["grate4White#*"])
+
+function toggleDisco(val, src)
+  src["target"] = DEFAULT
+  for i = 0, 19 do
+    for j = 0, 12 do
+      wo[{i,j}] = {"st_nil"}
+    end
+  end
+  wo:drawMap(ti, po( 0, 0), newStartMap)
+  wo:shuffleOxyd()
+end
+
+function createWormHole4Black()
+  wo[{ 9, 5}] = {"it_wormhole", destination = po(25.5, 6.5), strength = 1.0, range = 1.0}
+end
+
+function toggleMainSensor()
+  if wo["IsDifficult"] then
+    createWormHole4Black()
+  end
+  wo[no["portals#*"]] = {"st_portal"}
+end
+
+function openDoorOxydRoom()
+  wo[{ 9, 5}] = {"it_nil"}
+  no["doorOxydRoom"]:open()
+  wo[{39, 6}] = {"it_document", text = "BzG"}
+end
+
+function togglePortalsBlocker(val, src)
+  wo[no["portals#*"]] = {"st_nil"}
+  if val == true then
+    no["blocker"]:open()
+  else
+    no["blocker"]:close()
+  end
+end
+
+function toggleGrates4White(val, src)
+  if val == false then
+    wo[g4Wpos] = ti["X"]
+  else
+    st(g4Wpos):kill()
+  end
+end
+
+function toggleMainSwitch(val, src)
+  src["target"] = DEFAULT
+  wo[{27, 6}] = {"it_nil"}
+  wo[{55, 6}] = ti[" "]
+  if wo["IsDifficult"] then
+    wo[{58, 6}] = {"st_nil"}
+    wo[{38, 6}] = {"st_switch_black", target = "toggleDisco"}
+  else
+    toggleDisco(val, src)
+    no["doorM"]:open()
+    no["doorN"]:open()
+  end
+end
+
+function removeTrigger()
+  local getStoneA = st({64, 2})
+  local getStoneC = st({64,10})
+  local getStoneB = st({64, 3})
+  local getStoneD = st({64, 9})
+
+  if getStoneA:exists() and getStoneC:exists() and statS[5] == 1 then
+    wo[{64, 2}] = {"st_nil"}
+    wo[{64,10}] = {"st_nil"}
+    wo[{64, 2}] = {"it_nil"}
+    wo[{64,10}] = {"it_nil"}
+    wo[{64, 2}] = {"it_seed", "seedA"}
+    wo[{64,10}] = {"it_seed", "seedC"}
+    no["seedA"]:grow()
+    no["seedC"]:grow()
+    statS[5] = 0
+  end
+  if getStoneB:exists() and getStoneD:exists() and statS[6] == 1 then
+    wo[{64, 3}] = {"st_nil"}
+    wo[{64, 9}] = {"st_nil"}
+    wo[{64, 3}] = {"it_nil"}
+    wo[{64, 9}] = {"it_nil"}
+    wo[{64, 3}] = {"it_seed", "seedB"}
+    wo[{64, 9}] = {"it_seed", "seedD"}
+    no["seedB"]:grow()
+    no["seedD"]:grow()
+    statS[6] = 0
+  end
+end
+
+function toggleTriggerABCD(val, src)
+  if src == no["triggerA"] then
+    if statS[1] == 1 then
+      if (statS[3] == 0) then
+        removeTrigger()
+      end
+      statS[1] = 0
+    elseif statS[1] == 0 then
+      statS[1] = 1
+    end
+  end
+
+  if src == no["triggerB"] then
+    if statS[2] == 1 then
+      if statS[4] == 0 then
+        removeTrigger()
+      end
+      statS[2] = 0
+    elseif statS[2] == 0 then
+      statS[2] = 1
+    end
+  end
+
+  if src == no["triggerC"] then
+    if statS[3] == 1 then
+      if statS[1] == 0 then
+        removeTrigger()
+      end
+      statS[3] = 0
+    elseif statS[3] == 0 then
+      statS[3] = 1
+    end
+  end
+
+  if src == no["triggerD"] then
+    if statS[4] == 1 then
+      if statS[2] == 0 then
+        removeTrigger()
+      end
+      statS[4] = 0
+    elseif statS[4] == 0 then
+      statS[4] = 1
+    end
+  end
+end
+
+if not wo["IsDifficult"] then
+  wo[{32, 3}] = {"st_nil"}
+  wo[{32, 9}] = {"st_nil"}
+  wo[{33, 3}] = ti["X"]
+  wo[{33, 9}] = ti["X"]
+  wo[{35, 4}] = ti["X"]
+  wo[{35, 8}] = ti["X"]
+end
+
+wo:add(YIN, {"it_yinyang"})
+wo:add(YANG, {"it_yinyang"})
+
+wo:add({"ot_counter", "toggleDoors01", state = 0, target = "doors01#*", action_2 = "open", action_1 = "close"})
+
+if wo["CreatingPreview"] then
+  wo[{25, 6}] = {"#ac_marble_black"}
+else
+  wo[{ 9, 5}] = {"#ac_marble_black"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Hey, you've got godlike help? Is the hell hound on your trail? ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

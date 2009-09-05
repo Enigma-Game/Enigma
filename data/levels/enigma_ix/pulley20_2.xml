@@ -23,13 +23,12 @@ ti["c"] = {"st_door_a", name="Door1"}
 ti["h"] = {"st_box_hay"}
 ti["#"] = {"st_redbrown"}
 ti["r"] = {"st_box_rock"}
-ti["v"] = {"it_vortex_closed", name="vortex0", autoclose=true, destination = {"vortex1", "vortex0"}}
+ti["v"] = {"it_vortex_closed", name="vortex0", destination = {"vortex1", "vortex0"}, autoclose=true, autoopen=true}
 ti["x"] = ti[";"] .. {"st_portal"}
 ti["w"] = {"st_box_wood"}
 ti["B"] = ti[";"] .. {"it_key"}
 ti["H"] = ti[";"] .. {"st_box_hay"}
 ti["I"] = (ti[";"] .. {"st_box_hay"}) .. {"it_vortex_closed", name="vortex1", autoclose=true}
-ti["J"] = {"it_sensor_exit", target="vortex0", action="open"}
 ti["R"] = ti[";"] .. {"st_box_rock"}   -- floodable
 ti["S"] = (ti[";"] .. {"st_box_rock"}) .. {"it_seed"}
 ti["T"] = (ti[";"] .. {"st_box_rock"}) .. {"it_seed_hay"}
@@ -41,7 +40,7 @@ ti["@"] = {"#ac_marble_black"}
 wo(ti, " ", {
     "~;;###00000000#a##########################################",
     "#;v#@#HHHHHHHHc;;    ;;;;;;;;;;;;;;;;;;;;;;;x;;;;;;;;;;;;#",--01
-    "#;J# ########xRR;;   ;;r           ;        #   ;;;;;;;;;#",
+    "#; # ########xRR;;   ;;r           ;        #   ;;;;;;;;;#",
     "#;        ;;;;R;;;;;;;;            ;        1     ;;;;;;;#",
     "#;        ;;;;;;;#####xR###########R#########;;;;  ;;;;;;#",
     "#;;;;;;;  ;;;;;;  ;;;;#;;                   ;;;;;;;  ;;;;#",--05

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Maze for Two" el:subtitle="Keep distance!" el:id="20071017ral096"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 101 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 182 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -61,7 +61,7 @@ ox                = cond(wo["IsDifficult"], 2, 4)
 oy                = 2
 threshold         = cond(wo["IsDifficult"], 0.4, 0.0)
 threshold_border  = 0.17
-threshold_border2 = cond(wo["IsDifficult"], 0.1, 0.0)
+threshold_border2 = cond(wo["IsDifficult"], 0.0, 0.0)
 
 op  = po(ox, oy)
 mx  = 19 - ox

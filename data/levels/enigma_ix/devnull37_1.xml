@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hip to be square" el:subtitle="" el:id="devnull37"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="4:00" el:difficult="4:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowThreshold"] = po(0, 3)
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+wo["AllowSuicide"] = false
+
+ti[":"] = {"fl_hay_framed"}
+ti["~"] = {"fl_water"}
+ti["+"] = cond(wo["IsDifficult"], ti["~"] .. {"it_death"}, ti[":"])
+ti[" "] = ti["~"]
+ti["X"] = cond(wo["IsDifficult"], ti["~"], ti["~"] .. {"st_portal"})
+ti["!"] = ti[":"] .. {"it_bomb"}
+ti["W"] = ti[":"] .. {"st_box_hay"}
+ti["H"] = ti["W"] .. {"it_seed_hay"}
+ti["T"] = ti["+"] .. {"st_box_hay"}
+ti["R"] = ti["+"] .. {"st_rotator", movable = true}
+ti["o"] = {"st_oxyd_d", "oxydsNW#"}
+ti["O"] = {"st_oxyd_d", "oxydsSE#"}
+ti["@"] = ti[":"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "      o X o        ",
+    "o X o  ~W~         ",
+    " ~W~ XXW+W         ",
+    "XW+~:::W~:         ",
+    " ~~WXXXX:X         ",
+    "o X:X  X:XXXXX X O ",
+    "  X:X  X:::::!WW~  ",
+    " o :XXXX:R@XXX~+WX ",
+    "  ~~~::::::X  W:~  ",
+    " X:+HXXXXX:X O : O ",
+    "  ~W~    X:X  X:X O",
+    " o X o   X:XXXXW:~ ",
+    "         ~WW:::WTWX",
+    "         :+:XX ~~~ ",
+    "         ~W:  O X O",
+    "        O X O      "})
+
+wo:shuffleOxyd({"oxydsNW#*", min = 4}, {"oxydsSE#*", min = 4})
+if not wo["IsDifficult"] then
+    wo:add(YIN, {"it_wrench"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

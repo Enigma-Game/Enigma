@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="more is not less" el:subtitle="" el:id="devnull23"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:00" el:difficult="9:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti["  "] = {"fl_gray_framed", friction = 4.2}
+ti[" ."] = {"fl_water"}
+ti[" :"] = {"fl_gray", friction = 2.8}
+ti[" ^"] = {"fl_slope_pn"}
+ti["w "] = {"st_plaster_movable"}
+ti[" 0"] = {"it_trigger", target = "door0"}
+ti["0 "] = {"st_door_b", "door0", state = CLOSED}
+ti[" 1"] = {"it_trigger", target = "door1"}
+ti["1 "] = {"st_door_b", "door1", state = CLOSED}
+ti[" 2"] = {"it_trigger", target = "door2"}
+ti["2 "] = {"st_door_b", "door2", state = CLOSED}
+ti[" 3"] = {"it_trigger", target = "door3#*"}
+ti["3 "] = {"st_door_b", "door3#", state = CLOSED}
+ti[" 4"] = {"it_trigger", target = "door4#*"}
+ti["4 "] = {"st_door_b", "door4#", state = CLOSED}
+ti[" 5"] = {"it_trigger", target = {"door5", "door6"}}
+ti["5 "] = {"st_door_b", "door5", state = CLOSED}
+ti["6 "] = {"st_door_b", "door6", state = OPEN}
+ti["7 "] = {"st_door_b", "door7", state = CLOSED}
+ti[" 7"] = {"it_trigger", target = {"laser0", "door7"}}
+ti["8 "] = {"st_door_b", "door8#", state = CLOSED}
+ti[" 8"] = {"it_trigger", target = "door8#*"}
+ti["9 "] = {"st_door_b", "door9#", state = CLOSED}
+ti[" 9"] = {"it_trigger", target = "door9#*"}
+ti["@ "] = {"#ac_marble_black"}
+ti["a "] = {"#ac_pearl", ower = nil, controllers = CTRL_NONE, essential = INDISPENSABLE}
+ti["l "] = {"st_laser", "laser0", orientation = NORTH, state = OFF}
+ti[" l"] = {"st_switch", target = {"laser0", "door7"}}
+ti["m "] = {"st_mirror", movable = true}
+ti["M "] = {"st_mirror_triangle", movable = true}
+ti["d "] = {"st_death", invisible = true}
+ti[" x"] = ti["  "] .. {"it_extralife"}
+
+if wo["IsDifficult"] then
+    ti["block"] = {"st_flat_breakable", "gate%%"}
+    ti["o "] = {"st_oxyd", oxydcolor = OXYD_BLUE}
+    ti["Lt"] = {"st_laserswitch", "switchTop", target = {"door8#*", "checkState"}}
+    ti["Lb"] = {"st_laserswitch", "switchBottom", target = {"door9#*", "checkState"}}
+else
+    ti["block"] = {"st_flat"}
+    ti["o "] = {"st_nil"}
+    ti["Lt"] = {"st_oxyd", oxydcolor = OXYD_BLUE}
+    ti["Lb"] = {"st_oxyd", oxydcolor = OXYD_BLUE}
+end
+
+wo(res.composer(res.autotile(ti, {"b", "block"})), "  ", {
+    " . . . . . . . . . . . . . . . . . . .Lt . . . . . . . . . . . . . . . . . .o.",
+    " . l . . . . . . .             . . . . . . . . . . . . . . . . . . . . . . .3.",
+    " . : . . .       .   . . . . . .   . . . . .d   3         4           d  . . .",
+    " . : . .     .       .     . .  2      . . .     .   . . . . . . . .m5     . .",
+    " . : . .   2 . . .               . .   . . .   4 .         .d      . . . . . .",
+    " . ^ . . . . . .        m.   . . . .   . .8 9   d    . .   .     . .    d  . .",
+    " . ^ . .              m.        M   @ b1b2   . . .   .m    . 8 9         . . .",
+    " . ^ . .   . .   .      m.   . .     . . .9 8    . . .   . .       7  7  . . .",
+    " .1^ .   1   . . . . . .       . . . . . . .            d w      . .     . . .",
+    " .0^ . 0w          . .             . . . . . .d          .     3  6x     . . .",
+    " .a^ .       . .   .     .         . . . . . . . . . .  5            . . . . .",
+    " .l^ .       . .       . . . .     . . . . . . . . . . . . . . . . . . . . .4.",
+    " . . . . . . . . . . . . . . . . . . .Lb . . . . . . . . . . . . . . . . . .o."})
+
+function checkState(val, src)
+    if no["switchTop"]["state"] == ON and no["switchBottom"]["state"] == ON and ( -no["gate%1"] or -no["gate%2"] ) then
+        wo:add(YIN, {"it_document", text = "failed"})
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Mehr ist nicht weniger</el:translation>
+        <el:translation el:lang="fr">Plus n'est pas moins</el:translation>
+      </el:string>
+      <el:string el:key="failed">
+        <el:english el:translate="true">Sorry, but in difficult mode you need more ... Restart.</el:english>
+        <el:translation el:lang="de">Sorry, aber im schwierigen Modus bedarf es ein wenig mehr ... Neustart.</el:translation>
+        <el:translation el:lang="fr">Pardon, mais en mode difficile il faut plus ... De nouveau.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
