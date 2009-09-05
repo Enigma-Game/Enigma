@@ -89,7 +89,7 @@ namespace enigma
 
         void InhibitPickup (bool yesno);
         void PickupItem (Actor *a, enigma::GridPos p);
-        void PickupStoneAsItem (Actor *a, enigma::GridPos p);
+        bool PickupAsItem(Actor *a, GridObject *obj, std::string kind);
         void RotateInventory (int dir=1);
 
         void ActivateFirstItem();

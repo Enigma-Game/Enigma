@@ -61,7 +61,6 @@ namespace enigma {
         
         // Object interface.
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
 
         // Actor interface
         virtual bool on_collision(Actor *a);
@@ -77,7 +76,6 @@ namespace enigma {
         
         // Object interface.
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
 
         // Actor interface
         virtual bool on_collision(Actor *a);

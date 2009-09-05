@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Floors as of Enigma 1.10" el:subtitle="" el:id="floors"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -195,6 +195,12 @@ function set_floor(value, sender)
     if no["here"]:exists() then
         wo[no["here"]] = floors[sender.x-5]
     end
+end
+
+wo[{0,9}] = {"st_switch", target="chameleon"}
+wo[{1,9}] = {"it_document", text="Add st_chameleon on this row"}
+function chameleon(value, sender)
+    wo:drawBorder(sender + 6*E, wo["Width"] - 12, 1, {"st_chameleon"})
 end
  ]]></el:luamain>
     <el:i18n>

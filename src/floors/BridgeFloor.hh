@@ -54,7 +54,7 @@ namespace enigma {
         virtual void toggleState();
 
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
         virtual void on_creation(GridPos p);
                 
         // ModelCallback interface  - Animation callback

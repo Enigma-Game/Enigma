@@ -26,7 +26,7 @@
 
 namespace enigma {
     
-    MonoFlopStone::MonoFlopStone(bool lightsensitive, bool isOn) : Stone("st_monoflop") {
+    MonoFlopStone::MonoFlopStone(bool lightsensitive, bool isOn) {
         if (lightsensitive)
             objFlags |= OBJBIT_LASER;
         state = isOn ? ON_PENDING : OFF_NEW;

@@ -47,7 +47,7 @@ namespace enigma {
         Stone::on_creation(p);
 
         Item    *it = GetItem(p);
-        if (it && it->is_kind("it_blocker")) {
+        if (it && it->getClass() == "it_blocker") {
             KillItem(p);
         }
     }
@@ -70,7 +70,8 @@ namespace enigma {
         double dist = ecl::length(a->get_pos() - p.center());
 
         if (dist < BRAKE_RADIUS) {
-            player::PickupStoneAsItem(a, p);
+            if (player::PickupAsItem(a, this, "it_brake"))
+                KillStone(p);
         }
     }
     

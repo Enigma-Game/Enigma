@@ -42,6 +42,10 @@ namespace enigma {
     WorldProxy::WorldProxy() {
     }
 
+    std::string WorldProxy::getClass() const {
+        return "WorldProxy";
+    }
+    
     Value WorldProxy::getAttr(const std::string &key) const {
         if (key == "AllowSingleOxyds") {
             return server::AllowSingleOxyds;

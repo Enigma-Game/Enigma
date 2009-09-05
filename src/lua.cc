@@ -574,6 +574,28 @@ static int en_get_attrib(lua_State *L) {
 }
 
 static int
+en_get_class(lua_State *L)
+{
+    Object *obj = to_object(L,1);
+
+    if (!obj) {
+        throwLuaError(L, "GetClass: invalid object");
+        return 0;
+    }
+
+    try {
+        push_value(L, Value(obj->getClass()));
+    }  
+    catch (const XLevelRuntime &e) {
+        throwLuaError (L, e.what());
+    }
+    catch (...) {
+        throwLuaError (L, "uncaught exception");
+    }
+    return 1;
+}
+
+static int
 en_get_kind(lua_State *L)
 {
     Object *obj = to_object(L,1);
@@ -584,7 +606,7 @@ en_get_kind(lua_State *L)
     }
 
     try {
-        push_value(L, Value(obj->get_kind()));
+        push_value(L, Value(obj->getKind()));
     }  
     catch (const XLevelRuntime &e) {
         throwLuaError (L, e.what());
@@ -3406,6 +3428,7 @@ static CFunction levelfuncs[] = {
 
     {en_get_pos,            "GetPos"},
     {en_get_attrib,         "GetAttrib"},
+    {en_get_class,          "GetClass"},
     {en_get_kind,           "GetKind"},
     {en_is_same_object,     "IsSameObject"},
 

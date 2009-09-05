@@ -573,7 +573,7 @@ end
 -- it_strip --
 do
     DefSubimages("it_strip", {modelname="it_strip", w=4, h=4, startindex=0})
-    DefAlias("it_strip", "it_strip0")
+--    DefAlias("it_strip", "it_strip0")
 end
 
 ----------------------------------------
@@ -847,21 +847,21 @@ end
 do
     DefSubimages("st_bluesand", {modelname="st_bluesandx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_bluesand"..i, "st_bluesandx"..(i+1)) end
-    DefSolidStone("st_bluesand", "st_bluesandx1")
+--    DefSolidStone("st_bluesand", "st_bluesandx1")
 end
 
 -- st_brick --
 do
     DefSubimages("st_brick", {modelname="st_brickx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_brick"..i, "st_brickx"..(i+1)) end
-    DefSolidStone("st_brick", "st_brickx1")
+--    DefSolidStone("st_brick", "st_brickx1")
 end
 
 -- st_panel --
 do
     DefSubimages("st_panel", {modelname="st_panelx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_panel"..i, "st_panelx"..(i+1)) end
-    DefSolidStone("st_panel", "st_panelx1")
+--    DefSolidStone("st_panel", "st_panelx1")
 end
 
 -- st_boulder --
@@ -1599,7 +1599,7 @@ end
 
 -- st_magic --
 do
-    DefAlias("st_magic_brick", "st_brick")
+    DefAlias("st_magic_brick", "st_brick0")
     DefAlias("st_magic_oxyda", "st_oxyda")
     DefAlias("st_magic_oxydc", "st_oxydc")
 end

@@ -106,33 +106,12 @@ namespace enigma {
     
     Object::~Object() {
         freeId(id);
-    //cerr << "obj del " << id << " - " << this->get_kind() <<"\n";
+    //cerr << "obj del " << id << " - " << this->getKind() <<"\n";
     }
     
     int Object::getId() const {
         return id;
-    }
-    
-    const char * Object::get_kind() const {      // To be made pure virtual
-        AttribMap::const_iterator i = attribs.find("kind");
-        ASSERT(i != attribs.end() && i->second.getType() == Value::STRING, XLevelRuntime,
-                ecl::strf("Object: attribute kind not found - class '%s'", getClass().c_str()).c_str());
-        return i->second.get_string();
-    }
-    
-    // check kind of object
-    // kind_templ may contain wildcards ( ? and * )
-    bool Object::is_kind(const char *kind_templ) const {
-        return ecl::string_match(get_kind(), kind_templ);
-    }
-    
-    bool Object::is_kind(const string& kind_templ) const {
-        return ecl::string_match(get_kind(), kind_templ.c_str());
-    }
-    
-    std::string Object::getClass() const {
-        return get_kind();  // should be abstract, but until end of the reengineering we need compatibility
-    }
+    }    
     
     std::string Object::getKind() const {
         return ObjectValidator::instance()->getKind(this);
@@ -375,7 +354,7 @@ namespace enigma {
                             // we may need to translate the new API message to old API
                             obj_action = lua::NewMessageName(lua::LevelState(), *oit, action);
 //                            if (obj_action != action)
-//                                Log << "PerformAction renamed '" << action << "' to '" << obj_action << "' for receiver '" << (*oit)->get_kind() << "'\n";
+//                                Log << "PerformAction renamed '" << action << "' to '" << obj_action << "' for receiver '" << (*oit)->getKind() << "'\n";
                         }
                         // check if message is valid, otherwise ignore message
                         if (obj_action != "nop" && (*oit)->validateMessage(obj_action, messageValue))
@@ -457,7 +436,7 @@ namespace enigma {
     
         va_start(arg_ptr, format);
     
-        fprintf(stderr, "%p non-grid-\"%s\": ", this, get_kind());
+        fprintf(stderr, "%p non-grid-\"%s\": ", this, getKind().c_str());
         vfprintf(stderr, format, arg_ptr);
         fputc('\n', stderr);
     

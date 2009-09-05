@@ -45,7 +45,11 @@ namespace enigma {
 
 /* -------------------- DummyStone -------------------- */
 
-    DummyStone::DummyStone() : Stone("st_dummy"){
+    DummyStone::DummyStone() {
+    }
+    
+    std::string DummyStone::getClass() const {
+        return "st_dummy";
     }
     
     StoneResponse DummyStone::collision_response(const StoneContact &/*sc*/) {

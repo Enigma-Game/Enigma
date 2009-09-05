@@ -701,8 +701,12 @@ function enigma.MakeObject(name)
 end
 
 function enigma.GetKind(obj)
-    local _newname = enigma._GetKind(obj)
+    local _newname = enigma.GetClass(obj)
     local _oldname = RenamingObjectsNew2Old[_newname]
+    
+    if _oldname == nil then
+        _oldname = RenamingObjectsNew2Old[enigma._GetKind(obj)]
+    end
 
     if _newname == "st_key" then
         local code = enigma._GetAttrib(obj, "code")

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -88,14 +88,6 @@ namespace enigma {
         return pos.x >= 0;
     }
     
-    display::Model *GridObject::set_anim (const std::string &mname) 
-    {
-        set_model (mname);
-        display::Model *m = get_model();
-        m->set_callback(this);
-        return m;
-    }
-    
     bool GridObject::sound_event (const char *name, double vol)
     {
         return sound::EmitSoundEvent (name, get_pos().center(), getVolume(name, this, vol));
@@ -108,7 +100,7 @@ namespace enigma {
     
         va_start(arg_ptr, format);
     
-        fprintf(stderr, "%p \"%s\" at %i/%i: ", this, get_kind(), position.x, position.y);
+        fprintf(stderr, "%p \"%s\" at %i/%i: ", this, getKind().c_str(), position.x, position.y);
         vfprintf(stderr, format, arg_ptr);
         fputc('\n', stderr);
     
@@ -155,17 +147,20 @@ namespace enigma {
     }
     
     std::string GridObject::getModelName() const {
-        return get_kind();
+        return getClass();
     }
     
     void GridObject::init_model() {
-        DirectionBits c = getConnections();
-        if (c != NODIRBIT)
-            set_model(getModelName() + ecl::strf("%d", c));
-        else
-            set_model(getModelName());
+        set_model(getModelName());
     }
 
+    void GridObject::set_anim (const std::string &mname) 
+    {
+        set_model (mname);
+        display::Model *m = get_model();
+        m->set_callback(this);
+    }
+    
     DirectionBits GridObject::getConnections() const {
         if (Value v = getAttr("$connections"))
             return DirectionBits((int)v);

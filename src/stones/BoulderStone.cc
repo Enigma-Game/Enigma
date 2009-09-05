@@ -139,7 +139,7 @@ namespace enigma {
 
     void BoulderStone::on_floor_change() {
         Floor *fl = GetFloor(get_pos());
-        if (fl->is_kind("fl_abyss")) {
+        if (fl->getClass() == "fl_abyss") {
             state = FALLING;
             init_model();
         }
@@ -160,7 +160,7 @@ namespace enigma {
         if (state == FALLING)
             return;
 
-        if (impulse.sender && impulse.sender->is_kind("st_rotator")) {
+        if (impulse.sender && impulse.sender->getClass() == "st_rotator") {
             setDir(impulse.dir);  // activate
         }
         move_stone(impulse.dir);  // due to rotator and impulsestone

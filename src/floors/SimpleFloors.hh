@@ -70,7 +70,7 @@ namespace enigma {
         virtual std::string getClass() const;
         
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
     };
 
     /** 
@@ -99,7 +99,7 @@ namespace enigma {
         virtual std::string getClass() const;
         
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
     };
 
     /** 
@@ -161,12 +161,11 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
         virtual void setAttr(const std::string &key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
                 
         // Floor interface
         virtual ecl::V2 process_mouseforce (Actor *a, ecl::V2 force);

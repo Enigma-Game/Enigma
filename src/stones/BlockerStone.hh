@@ -48,6 +48,7 @@ namespace enigma {
         BlockerStone(bool solid);
         
         // Object interface
+        virtual std::string getClass() const;
         virtual BlockerStone *clone();
         virtual void dispose();
         virtual Value message(const Message &m);

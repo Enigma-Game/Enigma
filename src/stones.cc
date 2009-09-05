@@ -100,13 +100,10 @@ const StoneTraits &Stone::get_traits() const
     return default_traits;
 }
 
-const char *Stone::get_kind() const
-{
+std::string Stone::getClass() const {
     const StoneTraits &tr = get_traits();
-    if (tr.id != st_INVALID)
-        return tr.name;
-    else
-        return Object::get_kind();
+    ASSERT(tr.id != st_INVALID, XLevelRuntime, "Stone with invalid traits based class name");
+    return tr.name;
 }
 
 StoneResponse Stone::collision_response(const StoneContact &) {

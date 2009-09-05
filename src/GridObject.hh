@@ -103,7 +103,6 @@ namespace enigma {
 
         // Helper functions
         bool sound_event (const char *name, double vol = 1.0);
-        display::Model *set_anim (const std::string &mname);
 
         DirectionBits getConnections() const;
         virtual DirectionBits getFaces(bool actorInvisible = false) const;
@@ -111,11 +110,14 @@ namespace enigma {
         virtual double squareDistance(const Object *other) const;
         virtual bool isSouthOrEastOf(const Object *other) const;
 
+        virtual std::string getModelName() const;
+        virtual display::Model *get_model () = 0;
+
     protected:
         // GridObject interface
-        virtual std::string getModelName() const;
         virtual void set_model (const std::string &mname) = 0;
-        virtual display::Model *get_model () = 0;
+        void set_anim (const std::string &mname);
+
         virtual void kill_model (GridPos p) = 0;
 
         virtual void init_model();

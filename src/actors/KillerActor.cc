@@ -37,10 +37,6 @@ namespace enigma {
         return "ac_killer";
     }
 
-    const char *Killer::get_kind() const {
-        return "ac_killer";
-    }
-
     bool Killer::is_dead() const {
         return false;
     }

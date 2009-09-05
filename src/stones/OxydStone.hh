@@ -81,6 +81,7 @@ namespace enigma {
         OxydStone(std::string flavor = "b");
         
         // Object interface
+        virtual std::string getClass() const;
         virtual OxydStone * clone();
         virtual void dispose();
         virtual Value message(const Message &m);

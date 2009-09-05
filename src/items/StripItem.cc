@@ -37,7 +37,7 @@ namespace enigma {
     }
     
     std::string StripItem::getModelName() const {
-        return getClass();
+        return getClass() +  ecl::strf("%d", getConnections());
     }
     
     void StripItem::init_model() {

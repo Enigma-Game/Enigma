@@ -69,8 +69,12 @@ namespace enigma {
         Floor::on_creation(p);
     }
     
+    std::string ThiefFloor::getModelName() const {
+        return ecl::strf("fl_thief%d", ((objFlags & OBJBIT_MODEL) >> 24) + 1);
+    }
+    
     void ThiefFloor::init_model() {
-        std::string basename = ecl::strf("fl_thief%d", ((objFlags & OBJBIT_MODEL) >> 24) + 1);
+        std::string basename = getModelName();
         switch (state) {
             case IDLE:
             case CAPTURED:

@@ -43,6 +43,9 @@ namespace enigma {
     public:
         DummyStone();
     
+        // Object interface
+        virtual std::string getClass() const;
+
         // Stone interface
         virtual StoneResponse collision_response(const StoneContact &sc);
     };

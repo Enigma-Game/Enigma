@@ -331,6 +331,7 @@ namespace enigma {
 
     Object *MakeObject (const char *kind);
     Floor  *MakeFloor (const char *kind);
+    Item   *MakeItem (const char *kind);
     Stone  *MakeStone (const char *kind);
     Actor  *MakeActor (const char *kind);
 
@@ -348,17 +349,9 @@ namespace enigma {
 
     /* Register a new object. */
     void BootRegister(Object *obj, const char * kind = NULL, bool isRegistration = true);
-    void Register (Object *obj);
     void Register (const string &kind, Object *obj);
-    void Register (const string &kind, Floor *obj);
-    void Register (const string &kind, Stone *obj);
-    void RegisterActor (Actor *ac);
+//    void RegisterActor (Actor *ac);
 
-
-
-    void Register (const string &kind, Item *obj);
-    void RegisterItem (Item *it);
-    Item   *MakeItem (const char *kind);
 
     /* Shutdown object repository */
     void Repos_Shutdown();

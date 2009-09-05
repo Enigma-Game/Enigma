@@ -245,7 +245,7 @@ namespace enigma {
     }
     
     void BasicBall::animcb() {
-        string kind=get_kind();
+        std::string kind = getModelBaseName();
     
         switch (state) {
             case SHATTERING:
@@ -294,6 +294,10 @@ namespace enigma {
         }
     }
     
+    std::string BasicBall::getModelBaseName() const {
+        return getKind();
+    }
+    
     void BasicBall::sink(double dtime) {
         double sink_speed  = 0.0;
         double raise_speed = 0.0;   // at this velocity don't sink; above: raise
@@ -313,7 +317,7 @@ namespace enigma {
             sinkDepth += sinkSpeed*dtime;
     
             if (sinkDepth >= maxSinkDepth) {
-                set_model(string(get_kind())+"-sunk");
+                set_model(getModelBaseName() + "-sunk");
                 ai->vel = V2();     // stop!
                 sound_event ("swamp");
                 change_state(BUBBLING);
@@ -341,7 +345,7 @@ namespace enigma {
         if (newstate == state)
             return;
     
-        std::string kind = get_kind();
+        std::string kind = getModelBaseName();
         iState oldstate = (iState)state;
         
         if (oldstate == JUMPING) {
@@ -438,7 +442,7 @@ namespace enigma {
         switch (state) {
             case NORMAL:
                 if (sinkDepth > minSinkDepth && sinkDepth < maxSinkDepth) {
-                    set_sink_model(get_kind());
+                    set_sink_model(getModelBaseName());
                 }
                 else {
                     ActorInfo *ai = get_actorinfo();
@@ -472,7 +476,7 @@ namespace enigma {
     void BasicBall::set_shine_model (bool shinep)
     {
         if (shinep != lastshinep) {
-            string modelname = get_kind();
+            std::string modelname = getModelBaseName();
             if (shinep)
                 set_model (modelname + "-shine");
             else
@@ -524,6 +528,7 @@ namespace enigma {
             m_halosprite.move (get_pos());
         }
     }
+    
 
 /* -------------------- Marble  -------------------- */
     Marble::Marble(int color) : BasicBall(traits[color]) {
@@ -535,10 +540,6 @@ namespace enigma {
     
     std::string Marble::getClass() const {
         return "ac_marble";
-    }
-
-    const char *Marble::get_kind() const {
-        return getAttr("color") == BLACK ? "ac_marble_black" : "ac_marble_white";
     }
 
     int Marble::traitsIdx() const {
@@ -562,10 +563,6 @@ namespace enigma {
         return "ac_pearl";
     }
 
-    const char *Pearl::get_kind() const {
-        return "ac_pearl_white";
-    }
-    
     void Pearl::sink(double dtime) {
         if (server::GameCompatibility != GAMET_ENIGMA) {
             if (m_actorinfo.field->floor->isKind("fl_swamp"))  

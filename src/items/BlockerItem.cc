@@ -46,7 +46,7 @@ namespace enigma {
     Value BlockerItem::message(const Message &m) {
         if (m.message == "_init") { 
             if (Stone *st = GetStone(get_pos())) {
-                if (st->is_kind("st_boulder"))
+                if (st->getClass() == "st_boulder")
                     if (state == IDLE && server::GameCompatibility != GAMET_PEROXYD)
                         setIState(UNLOCKED);
                     else if (state == NEW || server::GameCompatibility != GAMET_PEROXYD)
@@ -121,7 +121,7 @@ namespace enigma {
     
     void BlockerItem::stone_change(Stone *st) {
         if (st != NULL) {
-            if (st->is_kind("st_boulder")) { // boulder arrived
+            if (st->getClass() == "st_boulder") { // boulder arrived
                 switch (state) {
                     case IDLE:
                         setIState(UNLOCKED);  // will grow when boulder moves away

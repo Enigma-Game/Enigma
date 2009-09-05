@@ -77,12 +77,12 @@ namespace enigma {
         // ignore any state change attempts
     }
     
-    void SlopeFloor::init_model()  {
+    std::string SlopeFloor::getModelName() const {
         std::string shape = getAttr("shape").to_string();
         if (shape == "")
-            set_model("fl_slope");
+            return "fl_slope";
         else
-            set_model(std::string("fl_slope_") + shape);
+            return std::string("fl_slope_") + shape;
     }
     
     void SlopeFloor::add_force(Actor *a, ecl::V2 &f) {

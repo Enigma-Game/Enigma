@@ -46,7 +46,7 @@ namespace enigma {
         virtual void setState(int extState);
 
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
                 
         // Floor interface
         virtual void add_force(Actor *, ecl::V2 &);

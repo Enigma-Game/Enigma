@@ -108,10 +108,6 @@ namespace enigma {
         return "ac_rotor";
     }
 
-    const char *Rotor::get_kind() const {
-        return "ac_rotor";
-    }
-
     bool Rotor::on_collision (Actor *a) {
         if (a->is_on_floor())
             SendMessage(a, "_shatter");
@@ -125,10 +121,6 @@ namespace enigma {
     }
 
     std::string Top::getClass() const {
-        return "ac_top";
-    }
-
-    const char *Top::get_kind() const {
         return "ac_top";
     }
 

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -25,10 +25,14 @@
 
 namespace enigma {
     
-    BlockerStone::BlockerStone(bool solid) : Stone (solid ? "st_blocker" : "st_blocker_new") {
+    BlockerStone::BlockerStone(bool solid) {
         state = solid ? SOLID : GROWING; 
     }
 
+    std::string BlockerStone::getClass() const {
+        return "st_blocker";
+    }
+    
     BlockerStone * BlockerStone::clone() {
         BlockerStone * dup = new BlockerStone(*this);
         NameObject(dup, "$BlockerStone#");  // auto name object to avoid problems with object values

@@ -25,7 +25,7 @@
 
 namespace enigma {
 
-    LaserSwitch::LaserSwitch() : Stone("st_laserswitch") {
+    LaserSwitch::LaserSwitch() {
         state = NEW;
     }
 

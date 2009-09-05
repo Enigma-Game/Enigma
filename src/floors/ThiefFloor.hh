@@ -58,6 +58,7 @@ namespace enigma {
         virtual void setState(int extState);
 
         // GridObject interface
+        virtual std::string getModelName() const;
         virtual void init_model();
         virtual void on_creation(GridPos p);
         virtual void actor_enter(Actor *a);

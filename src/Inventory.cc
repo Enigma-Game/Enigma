@@ -192,7 +192,7 @@ int Inventory::find(const std::string& kind, size_t start_idx) const
 {
     size_t size_ = size();
     for (size_t i = start_idx; i<size_; ++i) {
-        if (get_item(i)->is_kind(kind))
+        if (get_item(i)->isKind(kind))
             return static_cast<int> (i);
     }
     return -1;

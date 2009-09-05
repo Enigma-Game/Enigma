@@ -30,10 +30,6 @@ namespace enigma {
         return getAttr("$class").to_string();
     }
     
-    const char *ClusterStone::get_kind() const {
-        return getClass().c_str();
-    }
-    
     void ClusterStone::setAttr(const string& key, const Value &val) {
         if (key == "connections" || key == "faces" || key == "cluster") {
             Stone::setAttr(key, val);
@@ -64,7 +60,7 @@ namespace enigma {
     }
     
     std::string ClusterStone::getModelName() const {
-        return getClass();
+        return getClass() +  ecl::strf("%d", getConnections());
     }
 
     bool ClusterStone::is_removable() const {

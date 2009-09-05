@@ -45,24 +45,6 @@ namespace enigma {
         }   
     }
 
-    // temporary hack for backward compatibility during reengineering
-    const char * FloodStream::get_kind() const {
-        if (getAttr("faces").to_string() == "nesw")
-            switch (getTyp()) { 
-                case WATER : return "fl_water_framed";
-                case WOOD :  return "fl_wood_framed";
-                case HAY :   return "fl_hay_framed";
-                case ROCK :  return "fl_rock_framed";
-            }
-        else
-            switch (getTyp()) { 
-                case WATER : return "fl_water";
-                case WOOD :  return "fl_wood";
-                case HAY :   return "fl_hay";
-                case ROCK :  return "fl_rock";
-            }   
-    }
-        
     Value FloodStream::message(const Message &m) {
         if (m.message == "_checkflood") {
             Item *it = GetItem(get_pos());
@@ -86,14 +68,15 @@ namespace enigma {
             state = extState;
     }
     
-    void FloodStream::init_model()  {
-        bool isFramed = (getAttr("faces").to_string() == "nesw");
+    std::string FloodStream::getModelName() const {
+        std::string modelbase = getClass();
+        if (getAttr("faces").to_string() == "nesw")
+             modelbase += "_framed";
         if (getTyp() == WOOD) {
             int modelnr = (objFlags & OBJBIT_MODEL) >> 26;
-            set_model((std::string)get_kind() + ((modelnr == 0 )? "" : ecl::strf("%d", modelnr))); 
-        } else {
-            set_model(get_kind());
-        } 
+            modelbase += (modelnr == 0 ) ? "" : ecl::strf("%d", modelnr); 
+        }
+        return modelbase;
     }
     
     void FloodStream::on_creation(GridPos p) {

@@ -100,9 +100,6 @@ namespace enigma {
         
         /* ---------- depreceated methods ---------- */
 
-        bool is_kind(const char *kind) const;
-        bool is_kind(const string& kind) const;
-        virtual const char *get_kind() const;
         const AttribMap &get_attribs() const { return attribs; }  // just used by ObjectRepos::dump_info()        
 
         /* ---------- Helper routines ---------- */
@@ -121,7 +118,7 @@ namespace enigma {
          * both impleneted by the class "ClusterStone". In this case we talk about a 
          * common "familiy". 
          */
-        virtual std::string getClass() const;
+        virtual std::string getClass() const =0;
         
         /**
          * The most specific object category name. Many objects change their kind during
@@ -192,8 +189,8 @@ namespace enigma {
         Value getDefaultedAttr(const string &key, Value defaultValue) const;
         
         
-        virtual Object *clone()=0;
-        virtual void dispose()=0;
+        virtual Object *clone() =0;
+        virtual void dispose() =0;
 
         virtual void warning(const char *format, ...) const;
         virtual ObjectType getObjectType() const;

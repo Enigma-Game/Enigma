@@ -172,7 +172,7 @@ namespace enigma {
 
         /* ---------- Virtual functions ---------- */
         virtual Stone *clone() = 0;
-        const char *get_kind() const;
+        virtual std::string getClass() const;
 
         /* ---------- Stone interface (properties) ---------- */
 

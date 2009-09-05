@@ -74,11 +74,7 @@ namespace enigma {
     std::string PipeItem::getClass() const {
         return "it_pipe";
     }
-    
-    std::string PipeItem::getModelName() const {
-        return "it_pipe_";
-    }
-    
+        
     int PipeItem::traitsIdx() const {
         static int idx[] = { 0, 0, 1, 2, 3, 4, 5, 0, 6, 7, 8, 0, 9, 0, 0, 0};
         return idx[getConnections()];

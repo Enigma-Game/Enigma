@@ -41,7 +41,7 @@ namespace enigma {
     
     void ChameleonStone::init_model()  {
         if (Floor *fl = GetFloor(get_pos())) {
-            set_model(fl->get_kind());
+            set_model(fl->getModelName());
         } else
             ASSERT(false, XLevelRuntime, "Chameleon Stone: Floor must be set before stone");
     }

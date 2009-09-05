@@ -198,7 +198,7 @@ namespace enigma {
         void replace(std::string kind);
 
         /* ---------- Virtual functions ---------- */
-        const char *get_kind() const;
+        virtual std::string getClass() const;
         virtual Value getAttr(const std::string &key) const;
 
         void init_model();

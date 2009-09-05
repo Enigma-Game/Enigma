@@ -69,10 +69,10 @@ namespace enigma {
         return "fl_fake";
     }
     
-    void FakeFloor::init_model()  {
-        set_model("fl_fake_" + getAttr("flavor").to_string());
+    std::string FakeFloor::getModelName() const {
+        return "fl_fake_" + getAttr("flavor").to_string();
     }
-
+    
 /* -------------------- Ice -------------------- */
 
     IceFloor::IceFloor() : Floor ("fl_ice") {
@@ -92,8 +92,8 @@ namespace enigma {
         return "fl_inverse";
     }
     
-    void InverseFloor::init_model()  {
-        set_model("fl_inverse_" + getAttr("flavor").to_string());
+    std::string InverseFloor::getModelName() const {
+        return "fl_inverse_" + getAttr("flavor").to_string();
     }
 
 /* -------------------- Space -------------------- */
@@ -144,13 +144,6 @@ namespace enigma {
         return "fl_yinyang";
     }
     
-    const char *YinyangFloor::get_kind() const {   //just for st_chameleon support
-        if (state == YIN)
-           return (objFlags & OBJBIT_INVISIBLE) ? "fl_yinyang_yin_invisible" : "fl_yinyang_yin";
-        else
-           return (objFlags & OBJBIT_INVISIBLE) ? "fl_yinyang_yang_invisible" : "fl_yinyang_yang";
-    }
-    
     void YinyangFloor::setAttr(const std::string &key, const Value &val) {
         if (key == "invisible") {
             objFlags = (objFlags & ~OBJBIT_INVISIBLE) | (val.to_bool() ? OBJBIT_INVISIBLE : 0);
@@ -168,9 +161,9 @@ namespace enigma {
         return Floor::getAttr(key);
     }
         
-    void YinyangFloor::init_model()  {
-        set_model(ecl::strf("fl_yinyang_%s%s", (state == YIN) ? "yin" : "yang", 
-                objFlags & OBJBIT_INVISIBLE ? "_invisible" : ""));
+    std::string YinyangFloor::getModelName() const {
+        return ecl::strf("fl_yinyang_%s%s", (state == YIN) ? "yin" : "yang", 
+                objFlags & OBJBIT_INVISIBLE ? "_invisible" : "");
     }
     
     ecl::V2 YinyangFloor::process_mouseforce (Actor *a, ecl::V2 force) {

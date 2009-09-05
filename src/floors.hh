@@ -88,9 +88,6 @@ namespace enigma {
                const char *firetransform_ = "", const char *heattransform_ = "");
 
         // Object interface
-        virtual const char *get_kind() const;
-        Floor *clone();
-        void dispose();
         virtual Value message(const Message &m);
         virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;

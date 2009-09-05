@@ -261,7 +261,7 @@ bool player::WieldedItemIs (Actor *a, const string &kind)
 {
     if (Inventory *inv = GetInventory(a))
         if (Item *it = inv->get_item(0))
-            return it->is_kind(kind);
+            return it->isKind(kind);
     return false;
 }
 
@@ -581,23 +581,19 @@ void player::PickupItem (Actor *a, GridPos p)
     }
 }
 
-void player::PickupStoneAsItem (Actor *a, enigma::GridPos p) 
-{
-    if (Inventory *inv = MayPickup(a, GetField(p)->item, true)) {
-        if (Stone *stone = GetStone(p))  {
-            string kind = stone->get_kind();
-            if (kind[0] == 's') 
-                kind[0] = 'i';
-
-            if (Item *item = MakeItem(kind.c_str())) {
-                inv->add_item(item);
-                stone->transferIdentity(item);
-                KillStone(p);
-                player::RedrawInventory(inv);
-                sound::EmitSoundEvent ("pickup", p.center());
-            }
+bool player::PickupAsItem(Actor *a, GridObject *obj, std::string kind) {
+    if (Item *item = MakeItem(kind.c_str())) {
+        if (Inventory *inv = MayPickup(a, item, true)) {
+            inv->add_item(item);
+            obj->transferIdentity(item);
+            player::RedrawInventory(inv);
+            sound::EmitSoundEvent("pickup", a->get_pos());
+            return true;
+        } else {
+            DisposeObject(item);
         }
     }
+    return false;
 }
 
 void player::ActivateFirstItem() 

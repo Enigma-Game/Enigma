@@ -85,6 +85,7 @@ namespace enigma {
         virtual void animcb();
 
     protected:
+        virtual std::string getModelBaseName() const;
         virtual void sink(double dtime);
 
     private:
@@ -126,7 +127,6 @@ namespace enigma {
         
         // Object interface.
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
         
     private:
         int traitsIdx() const;
@@ -142,7 +142,6 @@ namespace enigma {
         
         // Object interface.
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
         
     protected:
         virtual void sink(double dtime);

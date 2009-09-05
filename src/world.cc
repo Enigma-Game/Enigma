@@ -1838,7 +1838,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     if (dst == NULL && dstloc.layer == GRID_ITEMS) {
         GridLoc altloc(GRID_STONES, dstloc.pos);
         dst = GetObject(altloc);
-        if (dst && !(dst->is_kind("st_blocker")))
+        if (dst && !(dst->isKind("st_blocker")))
             // just use blocker stone instead of blocker item as substitution
             dst = NULL;
     }
@@ -1850,26 +1850,26 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
         return; // ignore signal
     }
 //    Log << ecl::strf("AddSignal: Valid signal destination src=%i/%i-%d (%s) dest=%i/%i-%d (%s) msg='%s'\n",
-//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, src->get_kind(), dstloc.pos.x, dstloc.pos.y, dstloc.layer, dst->get_kind(), msg.c_str());
+//        srcloc.pos.x, srcloc.pos.y, srcloc.layer, src->getKind(), dstloc.pos.x, dstloc.pos.y, dstloc.layer, dst->getKind(), msg.c_str());
     
     Value dstValue(dst);
     
-    if (dst->is_kind("st_blocker") || dst->is_kind("st_blocker_new") ||
-            dst->is_kind("it_blocker")) {
+    if (dst->isKind("st_blocker") || dst->isKind("st_blocker_new") ||
+            dst->isKind("it_blocker")) {
         if (!dst->getAttr("name")) {
             NameObject(dst, ecl::strf("$!oxyd!blocker%d", dst->getId()));
         }
         dstValue = dst->getAttr("name");
     }
     
-    if (dst->is_kind("it_meditation_hill") || dst->is_kind("it_meditaion_bump") ||
-            dst->is_kind("it_meditation_hollow") || dst->is_kind("it_meditation_dent")) {
+    if (dst->isKind("it_meditation_hill") || dst->isKind("it_meditaion_bump") ||
+            dst->isKind("it_meditation_hollow") || dst->isKind("it_meditation_dent")) {
         if (!dst->getAttr("name"))
             NameObject(dst, ecl::strf("$!oxyd!hillhollow%d", dst->getId()));
         dstValue = dst->getAttr("name");
     }
     
-    if (src->is_kind("st_actorimpulse")) {
+    if (src->isKind("st_actorimpulse")) {
         ObjectList ol = src->getDefaultedAttr("$!oxyd!destinations", Value(Value::GROUP));
         ol.push_back(dstValue);
         src->setAttr("$!oxyd!destinations", ol);
@@ -1895,7 +1895,7 @@ void AddSignal (const GridLoc &srcloc, const GridLoc &dstloc, const string &msg)
     // activate which key hole
     if (src->getObjectType() == Object::ITEM) {
         ItemID src_id = get_id(dynamic_cast<Item *>(src));
-        if (src_id == it_key && dst->is_kind("st_key")) {
+        if (src_id == it_key && dst->isKind("st_key")) {
             dst->setAttr("code", src->getAttr("code"));
             return;
         }
@@ -2405,7 +2405,6 @@ namespace
     public:
         ObjectRepos();
         ~ObjectRepos();
-        void add_templ(Object *o);
         void add_templ (const string &name, Object *o);
         bool has_templ(const string &name);
         Object *make(const string &name);
@@ -2431,14 +2430,6 @@ ObjectRepos::~ObjectRepos()
 
 void ObjectRepos::add_templ (const string &kind, Object *o)
 {
-    if (has_templ(kind))
-        enigma::Log << "add_templ: redefinition of object `" <<kind<< "'.\n";
-    else
-        objmap[kind] = o;
-}
-
-void ObjectRepos::add_templ (Object *o) {
-    string kind = o->get_kind();
     if (has_templ(kind))
         enigma::Log << "add_templ: redefinition of object `" <<kind<< "'.\n";
     else
@@ -2503,11 +2494,7 @@ void BootRegister(Object *obj, const char * name, bool isRegistration) {
     } else {
         int count = 0;
         for (std::list<BootKindObject *>::iterator itr = templates.begin(); itr != templates.end(); ++itr) {
-            if ((*itr)->kind.empty()) {
-                Register((*itr)->object);
-            } else {
-                Register((*itr)->kind.c_str(), (*itr)->object);                
-            }
+            Register((*itr)->kind, (*itr)->object);
             delete (*itr);
             count++;
         }
@@ -2515,38 +2502,21 @@ void BootRegister(Object *obj, const char * name, bool isRegistration) {
     }
 }
 
-void Register (const string &kind, Object *obj) {
+void Register(const std::string &kind, Object *obj) {
     if (!repos)
         repos = new ObjectRepos;
-    if (kind.empty())
-        repos->add_templ(obj->get_kind(), obj);
-    else
-        repos->add_templ(kind, obj);
+    ASSERT(!kind.empty(), XLevelRuntime, "Registration of object without kind");
+    repos->add_templ(kind, obj);
 }
 
 
-void Register (Object *obj) {
-    Register (obj->get_kind(), obj);
-}
-
-void Register (const string &kind, Floor *obj)
-{
-    Object *o = obj;
-    Register(kind, o);
-}
-
-void Register (const string &kind, Stone *obj) {
-    Object *o = obj;
-    Register(kind, o);
-}
-
-void RegisterActor (Actor *actor) 
-{
-    Register(static_cast<Object*>(actor));
-    ActorID id = get_id(actor);
-    ASSERT (id != ac_INVALID, XLevelRuntime,
-        "RegisterActor: trying to register with invalid ID");
-}
+//void RegisterActor (Actor *actor) 
+//{
+//    Register(static_cast<Object*>(actor));
+//    ActorID id = get_id(actor);
+//    ASSERT (id != ac_INVALID, XLevelRuntime,
+//        "RegisterActor: trying to register with invalid ID");
+//}
 
 void Repos_Shutdown() {
     delete repos;
@@ -2581,6 +2551,9 @@ Floor* MakeFloor(const char *kind) {
     return dynamic_cast<Floor*>(MakeObject(kind));
 }
 
+Item * MakeItem(const char *kind) {
+    return dynamic_cast<Item*>(MakeObject(kind));
+}
 Stone * MakeStone (const char *kind) {
     return dynamic_cast<Stone*>(MakeObject(kind));
 }
@@ -2601,33 +2574,12 @@ void DefineSimpleFloor(const std::string &kind, double friction,
                               double mousefactor, bool burnable,
                               const std::string &firetransform)
 {
-    Register(new Floor(kind.c_str(), friction, mousefactor,
-             flf_default, burnable ? flft_burnable : flft_default,
-             firetransform.c_str(), ""));
+    // TBD
 }
 
 void DumpObjectInfo() {
     repos->dump_info();
 }
 
-/* ------------------- Item repository ------------------- */
 
-void Register (const string &kind, Item *obj) 
-{
-    Object *o = obj;
-    Register(kind, o);
-}
-
-void RegisterItem (Item *item) 
-{
-    Register(static_cast<Object*>(item));
-    ItemID id = get_id(item);
-    ASSERT(id != it_INVALID, XLevelRuntime,
-        "RegisterItem: trying to register with invalid ID");
-}
-
-
-Item * MakeItem(const char *kind) {
-    return dynamic_cast<Item*>(MakeObject(kind));
-}
 } // namespace enigma

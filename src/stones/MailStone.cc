@@ -26,7 +26,7 @@
 //#include "main.hh"
 
 namespace enigma {
-    MailStone::MailStone(Direction dir) : Stone("st_mail") {
+    MailStone::MailStone(Direction dir) {
         setAttr("orientation", Value(dir));
     }
     

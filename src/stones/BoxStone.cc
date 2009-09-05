@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -49,22 +49,6 @@ namespace enigma {
         return "st_box";
     }
     
-    const char *BoxStone::get_kind() const {
-        BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
-        switch (typ) {
-            case WOOD:
-                return "st_box_wood";
-            case WOOD1:
-                return "st_box_wood_h";
-            case WOOD2:
-                return "st_box_wood_v";
-            case HAY:
-                return "st_box_hay";
-            case ROCK:
-                return "st_box_rock";
-        }
-    }
-
     Value BoxStone::getAttr(const std::string &key) const {
         if (key == "flavor") {
             BoxStoneTyp typ = (BoxStoneTyp)((objFlags & OBJBIT_SUBTYP) >> 25);
@@ -173,7 +157,7 @@ namespace enigma {
         if (server::GameCompatibility != GAMET_ENIGMA && IsLevelBorder(p))
             return;
         if (Floor *oldfl = GetFloor(p)) {
-            const std::string &k = oldfl->get_kind();
+            std::string k = oldfl->getClass();
             if (objFlags & OBJBIT_BLOCKFIRE)
                 SendMessage(oldfl, "stopfire");
             if (k == "fl_abyss" || k == "fl_water" || k == "fl_swamp") {

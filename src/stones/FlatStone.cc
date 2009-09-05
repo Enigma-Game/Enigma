@@ -137,7 +137,7 @@ namespace enigma {
                     state == FALLING;
                     init_model();
                 }
-                else if ((objFlags & OBJBIT_MOVABLE) && ((fl->is_kind("fl_swamp") || fl->is_kind("fl_water")))) {
+                else if ((objFlags & OBJBIT_MOVABLE) && (fl->getClass() == "fl_swamp" || fl->getClass() =="fl_water")) {
                     sound_event("drown");
                     client::Msg_Sparkle(p.center());
                     KillStone(p);

@@ -68,11 +68,11 @@ E.g. it can be used to hide walls in easy game mode.
             // before stones are created.
             if (server::GetDifficulty() == DIFFICULTY_EASY) {
                 if (Stone *st = GetStone (get_pos())) {
-                    if (st->is_kind ("st_death") ||
-                        st->is_kind ("st_flash") ||
-                        st->is_kind ("st_thief"))
+                    if (st->getClass() == "st_death" ||
+                        st->getClass() == "st_flash" ||
+                        st->getClass() == "st_thief")
                     {
-                        SetStone (get_pos(), MakeStone ("st_flat"));
+                        SetStone (get_pos(), MakeStone("st_flat"));
                     }
                     else
                         KillStone(get_pos());

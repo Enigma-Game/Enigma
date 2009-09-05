@@ -39,7 +39,6 @@ namespace display
     public:
         virtual ~ModelCallback() {}
         virtual void animcb() = 0;
-        virtual bool isDisplayable() {return true;}
     };
 
     class Animation {

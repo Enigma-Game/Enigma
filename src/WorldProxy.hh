@@ -27,6 +27,7 @@ namespace enigma {
     public:
         static WorldProxy *instance();
         static void shutdown();
+        virtual std::string getClass() const;
         virtual Value getAttr(const string& key) const;
         virtual void setAttr(const string& key, const Value &val);
         

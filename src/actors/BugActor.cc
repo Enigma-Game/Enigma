@@ -34,10 +34,6 @@ namespace enigma {
         return "ac_bug";
     }
 
-    const char *Bug::get_kind() const {
-        return "ac_bug";
-    }
-
     bool Bug::is_dead() const {
         return false;
     }

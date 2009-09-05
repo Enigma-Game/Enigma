@@ -53,14 +53,13 @@ namespace enigma {
 
         // Object interface
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;
         virtual Value message(const Message &m);
         
         // StateObject interface
         virtual void setState(int extState);
 
         // GridObject interface
-        virtual void init_model();
+        virtual std::string getModelName() const;
         virtual void on_creation(GridPos p);
                 
         // Floor interface

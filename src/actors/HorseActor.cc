@@ -35,10 +35,6 @@ namespace enigma {
         return "ac_horse";
     }
 
-    const char *Horse::get_kind() const {
-        return "ac_horse";
-    }
-
     bool Horse::is_dead() const {
         return false;
     }

@@ -66,8 +66,7 @@ void Item::transform(std::string kind) {
     SetItem(get_pos(), newitem);
 }
 
-const char *Item::get_kind() const
-{
+std::string Item::getClass() const {
     return get_traits().name;
 }
 
@@ -82,9 +81,9 @@ const char *Item::get_kind() const
         return GridObject::getAttr(key);
     }
 
-string Item::get_inventory_model()
+std::string Item::get_inventory_model()
 {
-    return get_kind();
+    return getKind();
 }
 
 void Item::init_model()

@@ -229,7 +229,7 @@ void Actor::on_creation(const ecl::V2 &p)  {
     if (Value vy = getAttr("velocity_y")) {
         m_actorinfo.vel = V2(m_actorinfo.vel[0], vy);
     }
-    set_model(get_kind());
+    set_model(getKind());
     m_sprite.move(p);
     move();
 }

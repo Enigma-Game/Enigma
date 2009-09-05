@@ -113,10 +113,10 @@ namespace enigma {
         // no external states
     }
     
-    void StandardFloor::init_model()  {
+    std::string StandardFloor::getModelName() const {
         bool isFramed = (getAttr("faces").to_string() == "nesw");
-        set_model((StandardFloorNames[state].submodel.length() > 0 ? StandardFloorNames[state].submodel :
-                StandardFloorNames[state].classname) +  (isFramed ? "_framed" : ""));
+        return ((StandardFloorNames[state].submodel.length() > 0) ? StandardFloorNames[state].submodel :
+                StandardFloorNames[state].classname) +  (isFramed ? "_framed" : "");
     }
     
     BOOT_REGISTER_START

@@ -228,7 +228,7 @@ namespace enigma {
     
     void PlopStone::on_floor_change() {
         if (Floor *fl = GetFloor(get_pos())) {
-            const std::string &k = fl->get_kind();
+            std::string k = fl->getClass();
             if (k=="fl_water" || k=="fl_abyss" || k == "fl_swamp") {
                 sound_event("drown");
                 client::Msg_Sparkle(get_pos().center());

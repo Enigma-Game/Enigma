@@ -58,7 +58,6 @@ namespace enigma {
         virtual BoxStone* clone();
         virtual void dispose();
         virtual std::string getClass() const;
-        virtual const char *get_kind() const;  // for backward compatibility
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
         

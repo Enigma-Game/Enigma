@@ -95,8 +95,8 @@ namespace enigma {
             setState(0);
     }
 
-    void BridgeFloor::init_model()  {
-        set_model(model_basename() + ((state==OPEN) ? "open" : "closed"));
+    std::string BridgeFloor::getModelName() const {
+        return model_basename() + ((state==OPEN) ? "open" : "closed");
     }
     
     void BridgeFloor::on_creation(GridPos p) {

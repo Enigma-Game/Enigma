@@ -49,18 +49,6 @@ Floor::Floor (const FloorTraits &tr)
   fire_countdown(1)
 {}
 
-const char * Floor::get_kind() const {
-    return traits.name.c_str();
-}
-
-Floor *Floor::clone() {
-    return new Floor(*this);
-}
-
-void Floor::dispose() {
-    delete this;
-}
-
 Value Floor::message(const Message &m) {
     // "_init"     : Start burning, if "initfire" is set.
     // "heat"     : Heat the item, heat-transform floor
@@ -314,8 +302,8 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             // non-Enigma-compatibility-mode it should, when its neighbor
             // is of the same kind and burns also.
             if (Floor *fl = GetFloor(move(p, sourcedir))) {
-                string sourcekind = fl->get_kind();
-                string mykind = this->get_kind();
+                string sourcekind = fl->getClass();
+                string mykind = this->getClass();
                 if (no_closing_stone && sourcekind == mykind)
                     if (has_firetype(flft_fastfire))
                         return force_fire();
@@ -378,7 +366,7 @@ bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
     if (!doHeatTransform || get_heattransform(false) == "")
         return false;
     if (doHeatTransform && get_heattransform(false) != "" && !heating_animation) {
-        set_anim(((string) this->get_kind()) + "_heating");
+        set_anim(getClass() + "_heating");
         heating_animation = true;
     }
     return true;

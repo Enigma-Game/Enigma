@@ -840,11 +840,15 @@ namespace enigma {
     
     // Instance Methods
     
-    OxydStone::OxydStone(std::string flavor) : Stone("st_oxyd") {
+    OxydStone::OxydStone(std::string flavor) {
         setAttr("flavor", flavor);
         setAttr("oxydcolor", AUTO);
     }
     
+    std::string OxydStone::getClass() const {
+        return "st_oxyd";
+    }
+
     OxydStone * OxydStone::clone() { 
         OxydStone *o = new OxydStone(*this); 
         levelOxyds.push_back(o);

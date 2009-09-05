@@ -26,7 +26,7 @@
 
 namespace enigma {
     
-    TimerStone::TimerStone() : Stone("st_timer") {
+    TimerStone::TimerStone() {
         state = ON;
     }
     
