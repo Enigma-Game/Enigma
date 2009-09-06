@@ -1021,6 +1021,13 @@ function enigma.SetAttrib(obj, key, val)
      if key == "player" then
          _key = "owner"
      end
+     if key == "essential" then
+        if val == -1 then
+            _val = 1
+        elseif val == 1 then
+            _val = 2
+        end
+     end
      enigma._SetAttrib(obj, _key, _val)
 end
 
@@ -1157,6 +1164,13 @@ function enigma.GetAttrib(obj, key)
      end
      if key == "gohome" then
          if val == false then val = 0 else val = 1 end
+     end
+     if key == "essential" then
+        if val == 1 then
+            val = -1
+        elseif val == 2 then
+            val = 1
+        end
      end
      return val
 end

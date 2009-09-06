@@ -853,11 +853,6 @@
     </object>
     <object name="it_brake"/>
     <object name="it_brush"/>
-    <object name="it_cherry"/>
-    <object name="it_coin">
-      <attr name="coin_value" default="3"/>
-      <attr name="state" rw="r"/>
-    </object>
     <object name="it_burnable">
       <attr name="state" max="5" rw="r"/>
       <msg name="extinguish"/>
@@ -882,6 +877,12 @@
     </object>
     <object name="it_burnable_fireproof">
       <attr name="state" value="5"/>
+    </object>
+    <object name="it_cherry"/>
+    <object name="it_coffee"/>
+    <object name="it_coin">
+      <attr name="coin_value" default="3"/>
+      <attr name="state" rw="r"/>
     </object>
     <object name="it_coin_s">
       <attr name="state" value="0"/>
@@ -922,6 +923,7 @@
     <object name="it_document">
       <attr name="text"/>
     </object>
+    <object name="it_debris"/>
     <object name="it_drop"/>
     <object name="it_extinguisher">
       <attr name="state" max="2"/>
@@ -963,7 +965,6 @@
     </object>
     <object name="it_extralife"/>
     <object name="it_extralife_new" init="true"/>
-    <object name="it_floppy"/>
     <object name="it_flag">
       <attr name="color"/>
     </object>
@@ -973,6 +974,7 @@
     <object name="it_flag_white">
       <attr name="color" value="1"/>
     </object>
+    <object name="it_floppy"/>
     <object name="it_glasses">
       <attr name="state" max="31"/>
     </object>
@@ -985,6 +987,7 @@
       <attr name="code"/>
     </object>
     <object name="it_landmine"/>
+    <object name="it_magicwand"/>
     <object name="it_magnet">
       <attr name="range" default="nil"/>
       <attr name="strength" default="nil"/>
@@ -1077,6 +1080,7 @@
     <object name="it_puller_n">
       <attr name="orientation" value="3"/>
     </object>
+    <object name="it_ring"/>
     <object name="it_rubberband">
       <attr name="anchor2"/>
       <attr name="strength" default="10"/>
@@ -1123,6 +1127,7 @@
     <object name="it_shogun_l">
       <attr name="flavor" value="l"/>
     </object>
+    <object name="it_spoon"/>
     <object name="it_spring">
     </object>
     <object name="it_spring_keep">
@@ -1135,6 +1140,7 @@
     <object name="it_squashed">
       <msg name="_brush"/>
     </object>
+    <object name="it_squashed"/>
     <object name="it_strip">
       <attr name="connections"/>
       <attr name="friction"/>
@@ -1240,6 +1246,7 @@
     <object name="it_wrench"/>
     <object name="ot" abstract="true">
     </object>
+    <object name="it_yinyang"/>
     <object name="ot_counter">
       <msg name="signal"/>
     </object>

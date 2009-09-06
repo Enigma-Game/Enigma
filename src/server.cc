@@ -156,8 +156,8 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
             sound::StartLevelMusic(false);
             
         server::LoadedProxy = levelProxy;
-        server::PrepareLevel();
         IsLevelRestart = isRestart;
+        server::PrepareLevel();
 
         // clear inventory before level load and give us 2 extralives
         player::NewGame();

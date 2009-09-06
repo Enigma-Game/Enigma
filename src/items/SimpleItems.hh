@@ -172,14 +172,14 @@ namespace enigma {
     DEF_ITEM(Floppy, "it_floppy", it_floppy);
 
     /**
-     * MagicWand
-     */
-    DEF_ITEM(MagicWand, "it_magicwand", it_magicwand);
-
-    /**
      * Key
      */
     DEF_ITEM(Key, "it_key", it_key);
+
+    /**
+     * MagicWand
+     */
+    DEF_ITEM(MagicWand, "it_magicwand", it_magicwand);
 
     /**
      * Pencil

@@ -431,7 +431,7 @@ void player::CheckDeadActors() {
                 essId = a->get_traits().name;
             int essential = a->getAttr("essential");
             // count number of necessary actors per kind
-            if (essential == 1)
+            if (essential == 2)
                 --essMap[essId];
 
             if (!a->is_dead() ||
@@ -441,12 +441,12 @@ void player::CheckDeadActors() {
                     has_living_actor = true;
                 }
                 // count number of alive actors per kind
-                if (essential >= 0)
+                if (essential == 0 || essential == 2)
                     ++essMap[essId];
             }
             else {
                 // player is dead and could not resurrect
-                if (essential == -1) {
+                if (essential == 1) {
                     // actor is personnally essential but dead
                     new_game = true;
                 }
