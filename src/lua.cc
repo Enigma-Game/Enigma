@@ -1318,7 +1318,15 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
          lua_pushvalue(L, -2); // a copy of key for work
          if (!lua_isnumber(L, -1) && lua_isstring(L, -1)) {
             std::string key = lua_tostring(L, -1);
-            obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
+            try {
+                obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
+            }  
+            catch (const XLevelRuntime &e) {
+                throwLuaError (L, e.what());
+            }
+            catch (...) {
+                throwLuaError (L, "uncaught exception");
+            }
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
              if (!lua_isnumber(L, -2) && lua_isstring(L, -2))
                  obj->setAttrChecked("name", lua_tostring(L, -2));

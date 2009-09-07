@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -97,13 +97,16 @@ namespace enigma {
         return cloneAttribute;
     }
     
-    bool KindDescriptor::validateAttributeWrite(std::string key, Value val) {
+    ValidationResult KindDescriptor::validateAttributeWrite(std::string key, Value val) {
         std::map<std::string, AttributeDescriptor *>::iterator it = attributes.find(key);
         if (it == attributes.end())
-            return false;
+            return VALID_UNKNOWN_KEY;
+        else if (!it->second->isWritable())
+            return VALID_ACCESS_DENIED;
+        else if (val.getType() == Value::NIL)  // reset to default value
+            return VALID_OK;
         else
-            // TODO validate value - DEFAULT is the type that matches anything
-            return it->second->isWritable();
+            return it->second->checkValue(val);
     }
     
     bool KindDescriptor::validateAttributeRead(std::string key) {

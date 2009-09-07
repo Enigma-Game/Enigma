@@ -219,14 +219,24 @@ namespace enigma {
                     (*itr)->setAttr("fellows", olist2);
                 }
             }
-        } else if (key.find('_') == 0 || ObjectValidator::instance()->validateAttributeWrite(this, key, val)) {
-            if (key == "destination" || key.find("target") == 0)
-                 if (val.maybeNearestObjectReference())
-                     objFlags |= OBJBIT_INIT; 
-            setAttr(key, val);
-        } else
-            ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write not allowed for kind '%s'",
-                    key.c_str(), getKind().c_str()).c_str());
+        } else {
+            ValidationResult result = VALID_OK;
+            if (key.find('_') != 0) 
+                result = ObjectValidator::instance()->validateAttributeWrite(this, key, val);
+            if (result == VALID_OK) {
+                if (key == "destination" || key.find("target") == 0)
+                     if (val.maybeNearestObjectReference())
+                         objFlags |= OBJBIT_INIT; 
+                setAttr(key, val);
+            } else {
+                std::string reason;
+                if (result == VALID_UNKNOWN_KEY) reason = "attribute name unknown";
+                else if (result == VALID_ACCESS_DENIED) reason = "no write access allowed";
+                else if (result == VALID_TYPE_MISMATCH) reason = "value typ mismatch";
+                ASSERT(false, XLevelRuntime, ecl::strf("Object: attribute '%s' write failed for kind '%s', %s",
+                        key.c_str(), getKind().c_str(), reason.c_str()).c_str());
+            }
+        }
     }
     
     Value Object::getAttrChecked(const std::string &key) const {

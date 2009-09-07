@@ -902,6 +902,27 @@ function enigma.SetAttrib(obj, key, val)
      if key == "movable" then
          if val == 1 then _val = true else _val = false end
      end
+     if key == "burnable" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "eternal" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "fastfire" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "ignitable" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "initfire" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "noash" then
+         if val == 1 then _val = true else _val = false end
+     end
+     if key == "secure" then
+         if val == 1 then _val = true else _val = false end
+     end
      if key == "type" and _obj_name == "st-door" then
          _key = "faces"
          if val == "h" then _val = "ns" else _val = "ew" end

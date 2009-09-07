@@ -43,6 +43,14 @@ namespace enigma {
         OBJBIT_INIT          =  1<<11  ///< Object needs init message for @ finalization
     };
     
+    enum ValidationResult {
+        VALID_OK,
+        VALID_ACCESS_DENIED,
+        VALID_UNKNOWN_KEY,
+        VALID_TYPE_MISMATCH,
+        VALID_ILLEAGAL_VALUE
+    };    
+        
     class Value;
 
     /**

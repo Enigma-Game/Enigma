@@ -44,7 +44,6 @@ namespace enigma
      */
     class ObjectValidator {
     public:
-        
         static ObjectValidator *instance();
         static void didInitXML();
         
@@ -56,7 +55,7 @@ namespace enigma
         bool validateMessage(Object *obj, std::string msg, Value val);
         AttributeDescriptor *getDefaultAttributeDesc(std::string name);
         AttributeDescriptor *cloneAttribute(AttributeDescriptor *masterAttr);
-        bool validateAttributeWrite(const Object *obj, std::string key, Value val);
+        ValidationResult validateAttributeWrite(const Object *obj, std::string key, Value val);
         bool validateAttributeRead(const Object *obj, std::string key);
         Value getDefaultValue(const Object *obj, std::string key);
         std::string getKind(const Object *obj);

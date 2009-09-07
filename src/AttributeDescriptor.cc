@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -52,6 +52,39 @@ namespace enigma {
     
     Value AttributeDescriptor::getValue() {
         return value;
+    }
+    
+    ValidationResult AttributeDescriptor::checkValue(Value val) {
+        switch (type) {
+            case VAL_BOOL :
+                return val.getType() == Value::BOOL ? VALID_OK : VALID_TYPE_MISMATCH;
+                break;
+            case VAL_INT :
+                // TBD add int, min, max check
+                if (name != "code")
+                    return val.getType() == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
+                else
+                    return (val.getType() == Value::DOUBLE || val.getType() == Value::STRING)  ? 
+                            VALID_OK : VALID_TYPE_MISMATCH;                    
+                break;
+            case VAL_DOUBLE :
+                return val.getType() == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
+                break;
+            case VAL_STRING :
+                return val.getType() == Value::STRING  ? VALID_OK : VALID_TYPE_MISMATCH;
+                break;
+            case VAL_TOKENS : {
+                Value::Type vt = val.getType();
+                bool result = (vt == Value::STRING || vt == Value::TOKENS || vt == Value::OBJECT || vt == Value::GROUP);
+                if (name == "destination")
+                    return (result || vt == Value::POSITION)  ? VALID_OK : VALID_TYPE_MISMATCH;
+                else
+                    return result  ? VALID_OK : VALID_TYPE_MISMATCH;
+                break;
+            }
+            default :
+                return VALID_OK;
+        }
     }
     
     void AttributeDescriptor::setReadable(bool allowRead) {

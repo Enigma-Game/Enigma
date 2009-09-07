@@ -19,6 +19,7 @@
 #ifndef KINDDESCRIPTOR_HH_INCLUDED
 #define KINDDESCRIPTOR_HH_INCLUDED
 
+#include "Object.hh"
 #include "AttributeDescriptor.hh"
 #include "MessageDescriptor.hh"
 #include <list>
@@ -34,7 +35,7 @@ namespace enigma
         bool validateMessage(std::string msg);
         void addAttribute(std::string name);
         AttributeDescriptor * addModifiedAttribute(std::string name);
-        bool validateAttributeWrite(std::string key, Value val);
+        ValidationResult validateAttributeWrite(std::string key, Value val);
         bool validateAttributeRead(std::string key);
         Value getDefaultValue(std::string key);
         std::string getKind(const Object *obj);

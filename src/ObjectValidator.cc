@@ -184,10 +184,10 @@ namespace enigma {
         return clone;
     }
 
-    bool ObjectValidator::validateAttributeWrite(const Object *obj, std::string key, Value val) {
+    ValidationResult ObjectValidator::validateAttributeWrite(const Object *obj, std::string key, Value val) {
         KindDescriptor *kind = getKindDesc(obj->getClass());
         if (kind == NULL) {
-            return true;    // object is not under validator control - allow write
+            return VALID_OK;    // object is not under validator control - allow write
         }
         // state dependent target/action support
         if (key.find("target_") == 0)

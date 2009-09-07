@@ -20,6 +20,7 @@
 #define ATTRIBUTEDESCRIPTOR_HH_INCLUDED
 
 #include "Value.hh"
+#include "Object.hh"
 #include <string>
 
 namespace enigma
@@ -46,6 +47,7 @@ namespace enigma
         bool isWritable();
         Value getDefaultValue();
         Value getValue();
+        ValidationResult checkValue(Value val);
         void setReadable(bool allowRead);
         void setWritable(bool allowWrite);
         void setDefaultValue(const Value &newDefault);
