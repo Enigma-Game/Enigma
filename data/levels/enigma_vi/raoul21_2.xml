@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Cold Way" el:subtitle="" el:id="raoul21"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006,2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_water"}
+ti["-"] = {"fl_ivory"}
+ti["="] = {"fl_dark"}
+ti["#"] = ti["="] .. {"st_rawglass"}
+ti["%"] = ti["-"] .. {"st_rawglass"}
+ti["&"] = ti[" "] .. {"st_rawglass"}
+ti["W"] = {"st_magic_oxydc"}
+ti["Y"] = ti["-"] .. {"st_magic_oxydc"}
+ti["U"] = ti["="] .. {"st_ice"}
+if not wo["IsDifficult"] then
+    ti["z"] = ti({"fl_ice"}) .. {"it_pin"}
+    ti["Z"] = {"st_dispenser_extralife"}
+else
+    ti["z"] = ti[" "]
+    ti["Z"] = ti[" "]
+end
+ti["V"] = ti["="] .. {"st_blocker", name="blocker%%"}
+ti["t"] = ti[" "] .. {"it_trigger", name="trigger%%", target="blocker%%", action="open", invisible=wo["IsDifficult"]}
+ti["u"] = ti[" "] .. {"it_trigger", name="trigger%%", target="blocker%%", invisible=wo["IsDifficult"]}
+ti["*"] = ti["="] .. {"it_extralife"}
+ti["X"] = {"st_oxyd", flavor="c"}
+ti["@"] = ti["="] .. {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "i", "t"}, {"j", "r", "u", 10}, {"A", "R", "V"}), " ", {
+    "###&&&&&&##&&&&&D###",
+    "#@=      iR      =*#",
+    "#=U     &gfE   e U=#",
+    "&      & HFl&      &",
+    "%- -  &XW==WX&  - -%",
+    "%-  YapWJ==GWohY  -%",
+    "%zX -kWO=LM=NWj- XZ%",
+    "%-  YbnWI==KWrdY  -%",
+    "%- -  &XW==WX&  - -%",
+    "&      &m==q&      &",
+    "#==     &PQ&     U*#",
+    "#*U c    BC      ==#",
+    "###A&&&&&##&&&&&&###"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

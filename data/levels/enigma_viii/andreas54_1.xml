@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Minopal" el:subtitle="Every marble is the architect of its own fortune" el:id="andreas54"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author el:name="Andreas Lochmann, Ronald Lamprecht" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008, 2009 Andreas Lochmann, Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,12 +23,12 @@ ti[":"] = {"it_seed"}
 ti[";"] = {"it_seed", flavor="greenbrown"}
 ti["."] = {"st_oxyd", target = "oxyd_callback"} .. ti["~"]
 if wo["IsDifficult"] then
-    ti["@"] = {"#ac_pearl", owner = 0}
+    ti["@"] = {"#ac_pearl", owner = YIN}
     ti["F"] = {"st_quake"}
     ti["U"] = {"it_umbrella"}
     ti["u"] = ti["U"] .. ti["~"]
 else
-    ti["F"] = {"#ac_pearl", owner = 0}
+    ti["F"] = {"#ac_pearl", owner = YIN}
     ti["@"] = ti[" "]
     ti["U"] = ti[" "]
     ti["u"] = ti["~"]

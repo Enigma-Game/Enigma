@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Eternal Circulation" el:subtitle="" el:id="raoul03"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2005, 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:07" el:difficult="0:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_water"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["7"] = {"fl_slope_ose"}
+ti["9"] = {"fl_slope_osw"}
+ti["1"] = {"fl_slope_one"}
+ti["3"] = {"fl_slope_onw"}
+ti["s"] = {"fl_slope_ise"}
+ti["a"] = {"fl_slope_isw"}
+ti["w"] = {"fl_slope_ine"}
+ti["q"] = {"fl_slope_inw"}
+ti["#"] = {"st_granite"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["K"] = {"ac_killer", owner=DEFAULT, controllers=CTRL_NONE}
+ti["A"] = ti[">"] .. ti["K"]
+ti["B"] = ti["<"] .. ti["K"]
+ti["C"] = ti["<"] .. ti["K"]
+ti["D"] = ti[">"] .. ti["K"]
+ti["k"] = cond(wo["IsDifficult"], ti["K"], {"nil"})
+ti["E"] = ti["<"] .. ti["k"]
+ti["F"] = ti[">"] .. ti["k"]
+ti["G"] = ti[">"] .. ti["k"]
+ti["H"] = ti["<"] .. ti["k"]
+ti["@"] = ti["3"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#7vvvvvvvvvvvvvvvv9#",
+    "#>7vvvvv9797vvvvv9<#",
+    "#>>A>>>v<  >v<<<B<<#",
+    "#>>^q^wv<  >vq^w^<<#",
+    "#>>^<O>v<  >v<O>^<<#",
+    "#>>^avsv<  >vavs^<<#",
+    "#>>^<<<E<  >F>>>^<<#",
+    "#>1^^^^^3131^^^^^3<#",
+    "#>7     9797     9<#",
+    "#>1     31@1     3<#",
+    "#>7vvvvv9797vvvvv9<#",
+    "#>>v<<<H<  >G>>>v<<#",
+    "#>>vq^w^<  >^q^wv<<#",
+    "#>>v<O>^<  >^<O>v<<#",
+    "#>>vavs^<  >^avsv<<#",
+    "#>>D>>>^<  >^<<<C<<#",
+    "#>1^^^^^3131^^^^^3<#",
+    "#1^^^^^^^^^^^^^^^^3#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

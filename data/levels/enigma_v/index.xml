@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="41" title="Enigma V"/>
+  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="42" title="Enigma V"/>
 
   <attributes/>
 
@@ -42,7 +42,7 @@
     <level _seq="34" _title="Island of Safety" _xpath="./duffy27_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy27" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Tropical Island" _xpath="./andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Shipwreck" _xpath="./nat33_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze2" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Ghost Islands" _xpath="./raoul15_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Ghost Islands" _xpath="./raoul15_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="38" _title="Reach the Dock" _xpath="./duffy119_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Mount Etna" _xpath="./duffy61_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy61" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Giza Meditation -" _xpath="./raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -90,12 +90,12 @@
     <level _seq="82" _title="Dynamice" _xpath="./andreas20_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas20" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="83" _title="Randomizer" _xpath="./duffy115_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy115" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Cold Mail" _xpath="./andreas18_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas18" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="Life's Cross" _xpath="./raoul01_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Life's Cross" _xpath="./raoul01_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul01" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="86" _title="Frozen Magnets" _xpath="./andreas19_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas19" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="87" _title="Hail Storm" _xpath="./nat21_1" author="Nat Pryce" ctrl="force" easy="true" id="nat21" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Glacial Chasm" _xpath="./luc28_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Ice-Bomb" _xpath="./andreas21_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas21" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="90" _title="- Meditation -" _xpath="./raoul08_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul08" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="90" _title="- Meditation -" _xpath="./raoul08_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul08" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="91" _title="Firefox" _xpath="./ral01_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral003" rel="3" rev="72" score="3" target="time" unit="duration"/>
     <level _seq="92" _title="Enigris" _xpath="./ralf04_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf04" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="You need them" _xpath="./raoul11_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul11" rel="2" rev="1" score="1" target="time" unit="duration"/>

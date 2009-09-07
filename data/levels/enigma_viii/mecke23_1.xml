@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 38 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 39 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -65,7 +65,7 @@ ti["&&"] = ti[" &"] .. {"it_crack_m"}
 ti[" z"] = ti[" ."] .. {"st_stoneimpulse_hollow"}
 ti[" y"] = ti[" O"] .. {"st_stoneimpulse_hollow"}
 ti["* "] = ti["u "] .. {"#ac_marble_black"}
-ti["*w"] = ti[" '"] .. {"#ac_marble_white",essential=1}
+ti["*w"] = ti[" '"] .. {"#ac_marble_white", essential=INDISPENSABLE}
 ti["= "] = ti[" ."] .. {"it_seed"}
 ti[" ="] = {"fl_water"}
 ti[" b"] = {"it_dynamite"}

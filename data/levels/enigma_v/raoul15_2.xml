@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ghost Islands" el:subtitle="" el:id="raoul15"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006,2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:03"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeStrength"] = cond(wo["IsDifficult"], 18.0, 15.0)
+
+ti["  "] = {"fl_water"}
+ti["= "] = {"fl_gray"}
+ti["v "] = {"fl_slope_ps"}
+ti["^ "] = {"fl_slope_pn"}
+ti["> "] = {"fl_slope_pe"}
+ti["< "] = {"fl_slope_pw"}
+ti["7 "] = {"fl_slope_ose"}
+ti["9 "] = {"fl_slope_osw"}
+ti["1 "] = {"fl_slope_one"}
+ti["3 "] = {"fl_slope_onw"}
+ti["s "] = {"fl_slope_ise"}
+ti["a "] = {"fl_slope_isw"}
+ti["w "] = {"fl_slope_ine"}
+ti["q "] = {"fl_slope_inw"}
+ti[" D"] = {"st_death_invisible"}
+ti[" X"] = {"st_oxyd", name="island1#"}
+ti[" Y"] = {"st_oxyd", name="island2#"}
+ti[" Z"] = {"st_oxyd", name="island3#"}
+if wo["IsDifficult"] then
+    ti["- "] = ti["  "]
+    ti[" x"] = ti[" X"]
+    ti[" d"] = ti[" D"]
+else
+    ti["- "] = {"fl_swamp"}
+    ti[" x"] = ti[" D"]
+    ti[" d"] = {"st_nil"}
+end
+ti[" @"] = {"ac_marble_black"}
+
+wo(res.composer(ti), "  ", {
+    "= = = = 7 9     - 7 v v v v v 9         ",
+    "= - - - 1 3@    - > qY^ ^ ^ wY<         ",
+    "= -           - - > < qd^ wd> <         ",
+    "= - - - -   - - - > < < =D> > <         ",
+    "7 v v v v v v v v s < adv sd> < -       ",
+    "> qX^ ^ ^ ^ ^ wX= = aYv v v sY< -       ",
+    "> < qd^ ^ ^ wd> q ^ ^ ^ ^ ^ w < - -     ",
+    "> < < qx^ wx> > < - - - - - > a v v 9   ",
+    "> < < < =D> > > < - -     - > qZ^ wZ<   ",
+    "> < < axv sx> > < -         > < =D> <   ",
+    "> < adv v v sd> < -         > aZv sZ<   ",
+    "> aXv v v v v sX<           1 ^ ^ ^ 3   ",
+    "1 ^ ^ ^ ^ ^ ^ ^ 3                       "})
+
+wo:shuffleOxyd({"island1#*", max=2}, {"island2#*", max=1}, {"island3#*", max=1})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

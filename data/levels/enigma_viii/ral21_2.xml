@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Tutoxyd's Pyramid" el:subtitle="Marble Jones I" el:id="20070822ral291"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 181 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 183 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -319,12 +319,12 @@ ti["D8"] = ti["gw"] .. {"st_door_a", "door8"}
 ti["_C"] = ti["__"] .. {"st_chameleon"}
 ti["_T"] = ti["__"] .. {"st_invisible"} .. ti({"#ac_horse"})
 
-ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=1, owner=YIN, controllers=1}
-ti[" 2"] = ti["H#"] .. {"#ac_marble_white", "white", essential=0, owner=YANG, controllers=2}
-ti["c1"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid1"}
-ti["c2"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid2"}
-ti["c3"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid3"}
-ti["c4"] = ti["  "] .. {"#ac_pearl", essential=1, owner=DEFAULT, controllers=0, name="kid4"}
+ti[" 1"] = ti[",,"] .. {"#ac_marble_black", "black", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN}
+ti[" 2"] = ti["H#"] .. {"#ac_marble_white", "white", essential=DISPENSABLE, owner=YANG, controllers=CTRL_YANG}
+ti["c1"] = ti["  "] .. {"#ac_pearl", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE, name="kid1"}
+ti["c2"] = ti["  "] .. {"#ac_pearl", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE, name="kid2"}
+ti["c3"] = ti["  "] .. {"#ac_pearl", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE, name="kid3"}
+ti["c4"] = ti["  "] .. {"#ac_pearl", essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE, name="kid4"}
 ti[" 8"] = ti["  "] .. {"#ac_bug"}
 ti[" 3"] = ti["  "] .. {"#ac_killer", "killer"}
 ti[" 4"] = ti["  "] .. {"#ac_top", range=1.8, strength=30}
@@ -730,7 +730,7 @@ wo:add(YIN,  {"it_extralife"} .. ti({"it_extralife"}))
       </el:string>
       <el:string el:key="bug">
         <el:english el:translate="true" >Have a look at my collection!    A white scorpion   --   a rotodile   --  and a sand viper.  They cannot be sold.        But I can offer you a scarab that will be a better choice for you.</el:english>
-        <el:translation el:lang="de">Schauen Sie sich meine Sammlung an!    Ein weißer Skorpion   --    ein Rotodil  -- und eine Sandviper.  Sie können nicht verkauft werden.      Aber ich kann Ihnen ein Skarabäus anbieten, der eine bessere Wahl für Sie ist.</el:translation>
+        <el:translation el:lang="de">Schauen Sie sich meine Sammlung an!    Ein weißer Skorpion   --    ein Rotodil  -- und eine Sandviper.  Sie können nicht verkauft werden.      Aber ich kann Ihnen einen Skarabäus anbieten, der eine bessere Wahl für Sie ist.</el:translation>
       </el:string>
       <el:string el:key="barber">
         <el:english el:translate="true" >Ali Barber's shop for quick hair cuts. Want to know what is going on?  A thief is hanging around and nobody knows where the 4 pale kids that are playing with your horse came from.</el:english>

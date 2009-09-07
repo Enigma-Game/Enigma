@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="more is not less" el:subtitle="" el:id="devnull23"/>
-      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ ti[" 8"] = {"it_trigger", target = "door8#*"}
 ti["9 "] = {"st_door_b", "door9#", state = CLOSED}
 ti[" 9"] = {"it_trigger", target = "door9#*"}
 ti["@ "] = {"#ac_marble_black"}
-ti["a "] = {"#ac_pearl", ower = nil, controllers = CTRL_NONE, essential = INDISPENSABLE}
+ti["a "] = {"#ac_pearl", owner = DEFAULT, controllers = CTRL_NONE, essential = INDISPENSABLE}
 ti["l "] = {"st_laser", "laser0", orientation = NORTH, state = OFF}
 ti[" l"] = {"st_switch", target = {"laser0", "door7"}}
 ti["m "] = {"st_mirror", movable = true}

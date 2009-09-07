@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Passage" el:subtitle="" el:id="just11"/>
-      <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="9" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,7 +47,7 @@ ti["L "] = {"st_lightpassenger"}
 ti["V "] = {"st_boulder", orientation=SOUTH, name="boulder"}
 ti["S "] = {"st_switch", target="trapped", _state=0}
 ti["P"] = {"st_puzzle_yellow"}
-ti[" |"] = ti[" ~"] .. {"it_strip_ns"}
+ti[" |"] = {"it_cross"}
 ti[" c"] = {"it_coin"}
 ti[" m"] = {"it_magicwand"}
 ti[" ."] = {"it_seed"}

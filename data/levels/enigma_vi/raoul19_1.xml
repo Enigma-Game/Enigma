@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Zeus" el:subtitle="The master of flashes" el:id="raoul19"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,8 +23,8 @@ ti["X"] = {"st_grate", flavor="cross"}
 ti["!"] = {"st_flash"}
 ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
 ti["O"] = {"st_oxyd", flavor="d"}
-ti["1"] = {"#ac_marble_black", owner=0}
-ti["2"] = {"#ac_marble_white", essential=1}
+ti["1"] = {"#ac_marble_black"}
+ti["2"] = {"#ac_marble_white", essential=INDISPENSABLE}
 
 if wo["IsDifficult"] then
     map = {

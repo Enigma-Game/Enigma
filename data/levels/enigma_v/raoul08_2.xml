@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="raoul08"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006,2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:12" el:difficult="0:26"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_water"}
+ti["-"] = {"fl_sand"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["7"] = {"fl_slope_ose"}
+ti["9"] = {"fl_slope_osw"}
+ti["1"] = {"fl_slope_one"}
+ti["3"] = {"fl_slope_onw"}
+ti["o"] = ti["-"] .. {"it_meditation_hollow"}
+ti["a"] = ti["7"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["b"] = ti["9"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["c"] = ti["1"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["d"] = ti["3"] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+
+if wo["IsDifficult"] then
+    wo(ti, " ", {
+    "                    ",
+    "    avvvvvvvvvvb    ",
+    "7v9 >7vvvvvvvv9< 7v9",
+    ">o<->>7vvvvvv9<<->o<",
+    "1^3 >>>7vvvv9<<< 1^3",
+    "    >>>>7vv9<<<<    ",
+    "    >>>>>--<<<<<    ",
+    "    >>>>1^^3<<<<    ",
+    "7v9 >>>1^^^^3<<< 7v9",
+    ">o<->>1^^^^^^3<<->o<",
+    "1^3 >1^^^^^^^^3< 1^3",
+    "    c^^^^^^^^^^d    ",
+    "                    "})
+else
+    wo(ti, " ", {
+    "                    ",
+    "    7vvvvvvvvvvb    ",
+    "    >7vvvvvvvv9<    ",
+    "    >>7vvvvvv9<<    ",
+    "    >>>7vvvv9<<<    ",
+    "7v9 >>>>7vv9<<<< 7v9",
+    ">o<->>>>>--<<<<<->o<",
+    "1^3 >>>>1^^3<<<< 1^3",
+    "    >>>1^^^^3<<<    ",
+    "    >>1^^^^^^3<<    ",
+    "    >1^^^^^^^^3<    ",
+    "    c^^^^^^^^^^3    ",
+    "                    "})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

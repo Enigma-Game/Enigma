@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Red Room" el:subtitle="" el:id="joe29"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Joseph Dunne" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = wo["IsDifficult"]
+
+ti[" "] = {"fl_bluegray"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_redrock"}
+ti["="] = {"st_lightglass_hollow"}
+ti["F"] = {"st_redfiber"}
+ti["M"] = {"st_plop_slate"}
+ti["I"] = {"st_stoneimpulse"}
+ti["E"] = {"st_ice"}
+ti["S"] = {"st_swap"}
+ti["T"] = {"st_turnstile_green"}
+ti["A"] = {"st_turnstilearm_n"}
+ti["^"] = {"st_boulder", orientation=NORTH}
+ti["B"] = {"st_break_laser"}
+ti["L"] = {"st_laser", name="laser", orientation=NORTH}
+ti["l"] = {"st_switch", target="laser"}
+ti["d"] = {"it_dynamite"}
+ti["b"] = {"it_bomb_black"}
+ti["X"] = ti["F"] .. ti["b"]
+ti["+"] = ti["b"] .. {"st_box"}
+ti["D"] = ti["="] .. ti["d"]
+ti["o"] = ti["="] .. {"it_meditation_hollow"}
+ti["@"] = ti({"#ac_pearl", owner=YIN, controllers=CTRL_YIN}) .. {"it_yinyang"}
+ti["a"] = ti({"#ac_pearl", owner=YANG, controllers=CTRL_YANG}) .. {"it_yinyang"}
+
+if wo["IsDifficult"] then
+    wo(ti, " ", {
+    "####################",
+    "####################",
+    "####IA #==##########",
+    "##XXBT        ==####",
+    "#X##^# @  SM  E=####",
+    "#X####        ######",
+    "#X##==####-####==D##",
+    "#X##=         #==###",
+    "#X##=       a  M####",
+    "#X###X        S=####",
+    "##XXX#####o##===####",
+    "####################",
+    "####################"})
+else
+    wo(ti, " ", {
+    "####################",
+    "####################",
+    "#### B #############",
+    "####dX+       ######",
+    "#####XX@ M S S=#####",
+    "#####FXF     ==#####",
+    "#######F####-#######",
+    "######        ######",
+    "######    E a D#####",
+    "######        ######",
+    "######lL##o#########",
+    "####################",
+    "####################"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

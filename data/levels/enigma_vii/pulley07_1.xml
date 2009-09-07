@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="24" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="25" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -72,10 +72,10 @@ ti["E"] = {"fl_lawn"} .. ti({"it_cherry"})
 ti["F"] = {"fl_plank"} .. ti({"it_seed"})
 ti["G"] = {"fl_plank"} .. ti({"st_lightglass_hollow"})
 ti["H"] = {"fl_brick"} .. ti({"it_meditation_hollow"})
-ti["I"] = ti["y"] .. {"#ac_pearl_white", owner=0, name="Seymour"}
-ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=CTRL_NONE, essential=-1}
-ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=CTRL_NONE, essential=-1}
-ti["L"] = ti["f"] .. {"#ac_pearl_white", name="Audrey", controllers=CTRL_NONE, essential=-1}
+ti["I"] = ti["y"] .. {"#ac_pearl_white", owner=YIN, name="Seymour"}
+ti["J"] = ti["b"] .. {"#ac_pearl_white", name="Orin", controllers=CTRL_NONE, essential=INDISPENSABLE}
+ti["K"] = ti["z"] .. {"#ac_pearl_white", name="Mushnik", controllers=CTRL_NONE, essential=INDISPENSABLE}
+ti["L"] = ti["f"] .. {"#ac_pearl_white", name="Audrey", controllers=CTRL_NONE, essential=INDISPENSABLE}
 ti["Y"] = ti[" "] .. {"st_portal"}
 ti["M"] = ti["Y"] .. {"#ac_horse", strength=3, name="horse", destination={"d1","d2","d3","d4"}} -- Chiffon, Crystal, Ronnette
 ti["O"] = ti[" "] .. {"st_panel", cluster=1}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma VII"/>
 
   <attributes/>
 
@@ -24,7 +24,7 @@
     <level _seq="16" _title="Protected Exhibition" _xpath="./duffy156_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Upstairs Meditation" _xpath="./duffy138_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy138" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Speed Meditation" _xpath="./duffy148_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Pool with a pole" _xpath="./alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Pool with a pole" _xpath="./alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Meditation in Peace" _xpath="./ral20_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070502ral466" rel="2" rev="149" score="2" target="time" unit="duration"/>
     <level _seq="21" _title="Cold Meditation" _xpath="./ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Mountain Climbing" _xpath="./joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -82,8 +82,8 @@
     <level _seq="74" _title="Swapping Puzzle II" _xpath="./joe22_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe22" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Multiban" _xpath="./dpl01_2" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Riverside" _xpath="./johann02_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann02" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="77" _title="The Lone Ranger" _xpath="./pulley04_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="2" rev="20" score="2" target="time" unit="duration"/>
-    <level _seq="78" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="23" score="1" target="time" unit="duration"/>
+    <level _seq="77" _title="The Lone Ranger" _xpath="./pulley04_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="2" rev="21" score="2" target="time" unit="duration"/>
+    <level _seq="78" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="25" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Spaceship Control" _xpath="./safalra01_1" author="Safalra" ctrl="force" easy="false" id="safalra01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Ball Alley" _xpath="./johann01_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann01" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Action Potential" _xpath="./pulley02_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley02" rel="2" rev="8" score="1" target="time" unit="duration"/>

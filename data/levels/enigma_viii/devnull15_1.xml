@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="On belay?" el:subtitle="" el:id="devnull15"/>
-      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,7 +23,7 @@ if wo["IsDifficult"] then
     ti["L"] = {"st_switch_black", name = "switchH", action = "toggle", target = "@laserW#*"}
     ti["o"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
     ti["O"] = ti[" "]
-    ti["@"] = ti["."] .. {"#ac_marble_black", owner = 0}
+    ti["@"] = ti["."] .. {"#ac_marble_black", owner = YIN}
 else
     ti["."] = {"fl_dark"}
     ti["a"] = ti["."] .. {"it_pin"}
@@ -32,7 +32,7 @@ else
     ti["L"] = {"st_switch_white", name = "switchH", action = "toggle", target = "@laserW#*"}
     ti["o"] = ti[" "]
     ti["O"] = {"st_oxyd", oxydcolor = OXYD_PURPLE}
-    ti["@"] = ti["."] .. {"#ac_marble_white", owner = 0, controllers = 1}
+    ti["@"] = ti["."] .. {"#ac_marble_white", owner = YIN, controllers = CTRL_YIN}
 end
 
 ti["x"] = ti[" "] .. {"st_grate_cross"}

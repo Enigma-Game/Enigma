@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma IX"/>
 
   <attributes/>
 
@@ -23,7 +23,7 @@
     <level _seq="15" _title="At the pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Hide them" _xpath="./devnull44_1" author="/dev/null" ctrl="force" easy="false" id="devnull44" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Crabwise IV" _xpath="./devnull45_1" author="/dev/null" ctrl="force" easy="true" id="devnull45" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="more is not less" _xpath="./devnull23_1" author="/dev/null" ctrl="force" easy="true" id="devnull23" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="more is not less" _xpath="./devnull23_1" author="/dev/null" ctrl="force" easy="true" id="devnull23" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Hip to be square" _xpath="./devnull37_1" author="/dev/null" ctrl="force" easy="true" id="devnull37" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Across The Waterbyss" _xpath="./harry03_1" author="daydreamer" ctrl="force" easy="false" id="harry03" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Collapsing Building" _xpath="./pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="0" score="1" target="time" unit="duration"/>

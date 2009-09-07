@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Happy New Year" el:subtitle="" el:id="duffy76"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSingleOxyds"]= true
+wo["GlobalForce"] = po(0, 10)
+
+ti[" "] = {"fl_space"}
+ti["."] = {"fl_abyss"}
+ti["-"] = {"fl_ice"}
+ti["="] = {"st_invisible"}
+ti["#"] = ti["-"] .. ti["="]
+ti["S"] = ti["-"] .. {"st_switch", action="on", target="timer%%"}
+ti["W"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_WHITE, name="oxydwhite#"}
+ti["R"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_RED}
+ti["B"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_BLUE}
+ti["G"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_GREEN}
+ti["H"] = ti["."] .. {"st_oxyd", oxydcolor=OXYD_WHITE, name="helper%%"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"1", "3", "S"}, {"a", "c", "H"}), " ", {
+    "====================",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "=                  =",
+    "#------------------#",
+    "#------------------#c",
+    "#---------@--------#b",
+    "####1#####2####3####a"})
+
+wo:add({"ot_timer", name="timer%1", action="callback", target="animation", state=OFF, interval=0.1,
+                    _state=0, _pos=po(4,9), _start=10, _end=20, _size=2, _helper="helper%1"})
+wo:add({"ot_timer", name="timer%2", action="callback", target="animation", state=OFF, interval=0.1,
+                    _state=0, _pos=po(10,9), _start=10, _end=22, _size=1, _helper="helper%2"})
+wo:add({"ot_timer", name="timer%3", action="callback", target="animation", state=OFF, interval=0.1,
+                    _state=0, _pos=po(15,9), _start=10, _end=18, _size=2, _helper="helper%3"})
+
+local small = {" R ",
+               "RWR",
+               " R "}
+
+local big = {"  R  ",
+             " RWR ",
+             "RWWWR",
+             " RWR ",
+             "  R  "}
+
+local maps = {small, big}
+local colors = {"R", "B", "G"}
+
+function animation(value, sender)
+    sender._state = sender._state +1
+    if sender._state == sender._start and sender._state < sender._end then
+        sender._start = sender._start +2
+        wo[sender._pos] = {"st_nil"}
+        sender._pos = sender._pos + N
+        wo[sender._pos] = {"st_quake"}
+    elseif sender._state == sender._end then
+        sender:off()
+        local map = wo:newMap(" ", maps[sender._size])
+        local r = random(1, #colors)
+        map:replace("R", colors[r])
+        table.remove(colors, r)
+        wo:drawMap(ti, sender._pos + sender._size*NW, map)
+        print(sender._helper)
+        no["oxydwhite#*"]:open()
+        no[sender._helper]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

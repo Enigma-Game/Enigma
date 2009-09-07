@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sisyphus" el:subtitle="" el:id="nat13"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_water"}
+ti["="] = {"fl_gray"}
+ti["v"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["7"] = {"fl_slope_ose"}
+ti["9"] = {"fl_slope_osw"}
+ti["1"] = {"fl_slope_one"}
+ti["3"] = {"fl_slope_onw"}
+ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
+ti["O"] = {"st_oxyd"}
+ti["A"] = ti["="] .. {"#ac_marble_white", controllers=CTRL_NONE, essential=INDISPENSABLE}
+ti["@"] = ti["="] .. {"#ac_marble_black"}
+
+function passageresolver(key, x, y)
+    if key == "O" then
+        wo:drawMap(ti, po(x-1, y-1), "-", {"-W-",
+                                           "WOW",
+                                           "-W-"})
+        return ti({})
+    else
+        return ti[key]
+    end
+end
+
+wo(passageresolver, " ", {
+    "                                       ",
+    " Ovvvvvvvvvvvv97OvvvvvO97vvvvvvvvvvvvO ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >=@==<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >=A==<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
+    " O^^^^^^^^^^^^31O^^^^^O31^^^^^^^^^^^^O ",
+    "                                       "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

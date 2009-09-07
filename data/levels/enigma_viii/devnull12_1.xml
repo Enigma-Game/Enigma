@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title=" - Meditation - " el:id="devnull12"/>
-      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,33 +30,30 @@ ti["H"] = ti[" "] .. {"st_window_ew",   secure = true}
 ti["J"] = ti[" "] .. {"st_window_ns",   secure = true}
 ti["I"] = ti[" "] .. {"st_window_nes", secure = true}
 if wo["IsDifficult"] then
-    ti["h"] = ti[" "] .. {"it_meditation_volcano", essential = 1}
+    ti["h"] = ti[" "] .. {"it_meditation_volcano", essential=INDISPENSABLE}
 else
-    ti["h"] = ti[" "] .. {"it_meditation_dent", essential = 1}
+    ti["h"] = ti[" "] .. {"it_meditation_dent", essential=INDISPENSABLE}
 end
 ti["8"] = ti["h"] .. {"st_window_s", secure = true}
 ti["7"] = ti["h"] .. {"st_window_n", secure = true}
-ti["@"] = ti[" "] .. {"#ac_pearl_white", essential=INDISPENSABLE}
-ti["9"] = ti[" "] .. {"#ac_pearl_white", essential=INDISPENSABLE}
-ti["6"] = ti[" "] .. {"#ac_pearl_white", essential=INDISPENSABLE}
+ti["@"] = ti[" "] .. {"#ac_pearl_white"}
+ti["9"] = ti[" "] .. {"#ac_pearl_white"}
+ti["6"] = ti[" "] .. {"#ac_pearl_white"}
 
-wo(ti, " ",
--- 0         1         2
--- 0123456789012345678901
-{ "1NNNNNNNNNNNNNNNNNN2", --  0
-  "4hS S S S S S S S 8E", --  1
-  "WN N N N N N N N N 2", --  2
-  "WS S S S S S S S S 3", --  3
-  "1 N N N N N N N N NE", --  4
-  "4 S S S S S S S S SE", --  5
-  "WJ J J9J@J@J6J J J I", --  6
-  "1 N N N N N N N N NE", --  7
-  "WS S S S S S S S S 3", --  8
-  "1 N N N N N N N N NE", --  9
-  "WS S S S S S S S S 3", -- 10
-  "1hN N N N N N N N 7E", -- 11
-  "4SSSSSSSSSSSSSSSSSS3", -- 12
-})
+wo(ti, " ",{
+    "1NNNNNNNNNNNNNNNNNN2",
+    "4hS S S S S S S S 8E",
+    "WN N N N N N N N N 2",
+    "WS S S S S S S S S 3",
+    "1 N N N N N N N N NE",
+    "4 S S S S S S S S SE",
+    "WJ J J9J@J@J6J J J I",
+    "1 N N N N N N N N NE",
+    "WS S S S S S S S S 3",
+    "1 N N N N N N N N NE",
+    "WS S S S S S S S S 3",
+    "1hN N N N N N N N 7E",
+    "4SSSSSSSSSSSSSSSSSS3"})
 
 wo:add(YIN, {"it_wrench"})
  ]]></el:luamain>
