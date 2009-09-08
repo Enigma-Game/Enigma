@@ -55,26 +55,31 @@ namespace enigma {
     }
     
     ValidationResult AttributeDescriptor::checkValue(Value val) {
+        Value::Type vt = val.getType();
         switch (type) {
             case VAL_BOOL :
-                return val.getType() == Value::BOOL ? VALID_OK : VALID_TYPE_MISMATCH;
+                return vt == Value::BOOL ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
-            case VAL_INT :
-                // TBD add int, min, max check
-                if (name != "code")
-                    return val.getType() == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
-                else
-                    return (val.getType() == Value::DOUBLE || val.getType() == Value::STRING)  ? 
-                            VALID_OK : VALID_TYPE_MISMATCH;                    
-                break;
+            case VAL_INT : {
+                bool isNumber = (vt == Value::DOUBLE);
+                if (!isNumber && vt == Value::STRING) {
+                    if (name == "code" || name == "cluster")    // these attributes accept all strings
+                        return VALID_OK;
+                    std::string str = value.to_string();
+                    if (str[0] == '%')
+                        isNumber = true;
+                }
+                double d = val;
+                // TBD add int, min, max check                
+                return isNumber ? VALID_OK : VALID_TYPE_MISMATCH;
+            }
             case VAL_DOUBLE :
-                return val.getType() == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
+                return vt == Value::DOUBLE  ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             case VAL_STRING :
-                return val.getType() == Value::STRING  ? VALID_OK : VALID_TYPE_MISMATCH;
+                return vt == Value::STRING  ? VALID_OK : VALID_TYPE_MISMATCH;
                 break;
             case VAL_TOKENS : {
-                Value::Type vt = val.getType();
                 bool result = (vt == Value::STRING || vt == Value::TOKENS || vt == Value::OBJECT || vt == Value::GROUP);
                 if (name == "destination")
                     return (result || vt == Value::POSITION)  ? VALID_OK : VALID_TYPE_MISMATCH;
