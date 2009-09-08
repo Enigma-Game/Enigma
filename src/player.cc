@@ -164,13 +164,16 @@ void player::NewGame() {
     // calculate number of extralives
     for (int i=0; i<nplayers; ++i) {
         if (server::IsLevelRestart) {
-            // count existing number of extralives
-            int idxLife = -1;
-            extralives[i] = -1;
-            do {
-                ++extralives[i];
-                idxLife = players[i].inventory.find("it_extralife", ++idxLife);
-            } while (idxLife != -1);
+            if (server::ProvideExtralifes) {
+                // count existing number of extralives
+                int idxLife = -1;
+                extralives[i] = -1;
+                do {
+                    ++extralives[i];
+                    idxLife = players[i].inventory.find("it_extralife", ++idxLife);
+                } while (idxLife != -1);
+            } else 
+                extralives[i] = 0;
         } else {
             // new game provides 2 extralives
             extralives[i] = (server::ProvideExtralifes) ? 2 : 0;
