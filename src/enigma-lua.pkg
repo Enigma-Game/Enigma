@@ -92,8 +92,6 @@ module world
     Object *GetNamedObject(const char *name);
 
     void Resize(int w, int h);
-    void DefineSimpleFloor(const char *kind, double friction, double mousefactor,
-                           bool burnable, const char *firetransform);
 }
 
 /* -------------------- video.cc -------------------- */

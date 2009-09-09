@@ -1318,15 +1318,7 @@ static void setObjectAttributes(Object *obj, lua_State *L) {
          lua_pushvalue(L, -2); // a copy of key for work
          if (!lua_isnumber(L, -1) && lua_isstring(L, -1)) {
             std::string key = lua_tostring(L, -1);
-            try {
-                obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
-            }  
-            catch (const XLevelRuntime &e) {
-                throwLuaError (L, e.what());
-            }
-            catch (...) {
-                throwLuaError (L, "uncaught exception");
-            }
+            obj->setAttrChecked(key, to_value(L, -2));  // name set gets handeled by Object
          } else if (lua_tointeger(L, -1) == 2) {  // second entry without a string key is taken as name
              if (!lua_isnumber(L, -2) && lua_isstring(L, -2))
                  obj->setAttrChecked("name", lua_tostring(L, -2));
@@ -2263,7 +2255,16 @@ static int setObjectByTable(lua_State *L, double x, double y, bool onlyFloors = 
         return 0;
     }
     lua_pop(L, 1);   // object type
-    setObjectAttributes(obj, L);
+    try {
+        setObjectAttributes(obj, L);
+    } catch (const XLevelRuntime &e) {
+        DisposeObject(obj);  // obj not yet part of world - essential for OxydStone
+        throwLuaError (L, e.what());
+    } catch (...) {
+        DisposeObject(obj);
+        throwLuaError (L, "uncaught exception");
+    }
+    
     if (itemHolder != NULL) {
         if (obj->getObjectType() != Object::ITEM) {
             DisposeObject(obj);

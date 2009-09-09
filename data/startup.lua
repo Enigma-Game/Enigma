@@ -93,29 +93,4 @@ function LoadOptions (filename)
     dofile(filename)
 end
 
-------------------------------
--- Define the simple stones --
-------------------------------
-function def_stone(name, sound)
-    world.DefineSimpleStone(name,sound or "stone",0,0)
-end
-function def_stone_hollow(name)
-    world.DefineSimpleStone(name,"",1,0)
-end
-function def_stone_movable(name, sound)
-    world.DefineSimpleStoneMovable(name,sound or "stone",0)
-end
-
-
-------------------------------
--- Define the simple floors --
-------------------------------
-function def_floor(name, frict, mfactor, burnable, firetransform, frames)
-    world.DefineSimpleFloor(name, frict, mfactor, burnable, firetransform)
-    if frames then
-        world.DefineSimpleFloor(name.."_framed", frict, mfactor, burnable, firetransform)    
-    end
-end
-
--- Floor(kind, friction, adhesion, burnable, firetransform, frames)
 

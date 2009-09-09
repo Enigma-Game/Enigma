@@ -2509,15 +2509,6 @@ void Register(const std::string &kind, Object *obj) {
     repos->add_templ(kind, obj);
 }
 
-
-//void RegisterActor (Actor *actor) 
-//{
-//    Register(static_cast<Object*>(actor));
-//    ActorID id = get_id(actor);
-//    ASSERT (id != ac_INVALID, XLevelRuntime,
-//        "RegisterActor: trying to register with invalid ID");
-//}
-
 void Repos_Shutdown() {
     delete repos;
 }
@@ -2568,13 +2559,6 @@ void DisposeObject(Object *o) {
         UnnameObject(o);
         o->dispose();
     }
-}
-
-void DefineSimpleFloor(const std::string &kind, double friction,
-                              double mousefactor, bool burnable,
-                              const std::string &firetransform)
-{
-    // TBD
 }
 
 void DumpObjectInfo() {

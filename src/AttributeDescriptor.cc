@@ -65,7 +65,7 @@ namespace enigma {
                 if (!isNumber && vt == Value::STRING) {
                     if (name == "code" || name == "cluster")    // these attributes accept all strings
                         return VALID_OK;
-                    std::string str = value.to_string();
+                    std::string str = val.to_string();
                     if (str[0] == '%')
                         isNumber = true;
                 }

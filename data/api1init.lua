@@ -893,6 +893,9 @@ function enigma.SetAttrib(obj, key, val)
      if key == "invisible" then
          if val == 1 then _val = true else _val = false end
      end
+     if key == "loop" then
+         if val == 1 then _val = true else _val = false end
+     end
      if key == "orientation" and _obj_name == "st-mirror" then
          _val = (6 - val) % 4
      end
