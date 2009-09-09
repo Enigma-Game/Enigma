@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Logic Gates" el:subtitle="" el:id="20080601pulley001"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -79,7 +79,7 @@ wo(ti, " ", {
 --          1    1    2    2    3    3    4    4    5    5    6    6    7    7    8    8
 --0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5    0    5
 
-wo:add({"ot_timer", target="rotate", state=ON, interval=0.1, loop=true})
+wo:add({"ot_timer", target="rotate", interval=0.1})
 wo:shuffleOxyd()
 
 function flip(value, sender)

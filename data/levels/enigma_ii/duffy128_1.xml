@@ -234,7 +234,7 @@ lsnum2=lsnum2+1
         elseif c == "s" then --9-ur
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c == "t" then --9-ur
-           set_stone("st-timer",  i-1,  line, {loop=true,interval=.45,name="tt",action="callback",target="funcctchange"})
+           set_stone("st-timer",  i-1,  line, {interval=.45,name="tt",action="callback",target="funcctchange"})
         elseif c=="C" then
             set_attrib(laser(i-1,line, FALSE, EAST), "name", "laser1")
          elseif c=="/" then

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Laser Paradise" el:subtitle="" el:id="illmind05"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2005 illmind</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -93,37 +93,37 @@ set_stone("st-laser", 1,7, {name="ill25", on=FALSE, dir=EAST})
 set_stone("st-laser", 1,9, {name="ill26", on=TRUE, dir=EAST})
 
 -- southbound laser triggers
-set_stone("st-timer", 42,1, {loop=true, action="onoff", target="ill02", interval=5})
-set_stone("st-timer", 42,2, {loop=true, action="onoff", target="ill03", interval=4})
-set_stone("st-timer", 42,3, {loop=true, action="onoff", target="ill04", interval=5})
-set_stone("st-timer", 42,4, {loop=true, action="onoff", target="ill05", interval=4})
-set_stone("st-timer", 42,5, {loop=true, action="onoff", target="ill06", interval=5})
-set_stone("st-timer", 42,6, {loop=true, action="onoff", target="ill07", interval=4})
-set_stone("st-timer", 42,7, {loop=true, action="onoff", target="ill08", interval=5})
-set_stone("st-timer", 42,8, {loop=true, action="onoff", target="ill09", interval=4})
+set_stone("st-timer", 42,1, {action="onoff", target="ill02", interval=5})
+set_stone("st-timer", 42,2, {action="onoff", target="ill03", interval=4})
+set_stone("st-timer", 42,3, {action="onoff", target="ill04", interval=5})
+set_stone("st-timer", 42,4, {action="onoff", target="ill05", interval=4})
+set_stone("st-timer", 42,5, {action="onoff", target="ill06", interval=5})
+set_stone("st-timer", 42,6, {action="onoff", target="ill07", interval=4})
+set_stone("st-timer", 42,7, {action="onoff", target="ill08", interval=5})
+set_stone("st-timer", 42,8, {action="onoff", target="ill09", interval=4})
 
 -- northbound laser triggers
-set_stone("st-timer", 43,1, {loop=true, action="onoff", target="ill10", interval=5})
-set_stone("st-timer", 43,2, {loop=true, action="onoff", target="ill11", interval=4})
-set_stone("st-timer", 43,3, {loop=true, action="onoff", target="ill12", interval=5})
-set_stone("st-timer", 43,4, {loop=true, action="onoff", target="ill13", interval=4})
-set_stone("st-timer", 43,5, {loop=true, action="onoff", target="ill14", interval=5})
-set_stone("st-timer", 43,6, {loop=true, action="onoff", target="ill15", interval=4})
-set_stone("st-timer", 43,7, {loop=true, action="onoff", target="ill16", interval=5})
-set_stone("st-timer", 43,8, {loop=true, action="onoff", target="ill17", interval=4})
+set_stone("st-timer", 43,1, {action="onoff", target="ill10", interval=5})
+set_stone("st-timer", 43,2, {action="onoff", target="ill11", interval=4})
+set_stone("st-timer", 43,3, {action="onoff", target="ill12", interval=5})
+set_stone("st-timer", 43,4, {action="onoff", target="ill13", interval=4})
+set_stone("st-timer", 43,5, {action="onoff", target="ill14", interval=5})
+set_stone("st-timer", 43,6, {action="onoff", target="ill15", interval=4})
+set_stone("st-timer", 43,7, {action="onoff", target="ill16", interval=5})
+set_stone("st-timer", 43,8, {action="onoff", target="ill17", interval=4})
 
 -- westbound laser triggers
-set_stone("st-timer", 44,1, {loop=true, action="onoff", target="ill18", interval=5})
-set_stone("st-timer", 44,2, {loop=true, action="onoff", target="ill19", interval=4})
-set_stone("st-timer", 44,3, {loop=true, action="onoff", target="ill20", interval=5})
-set_stone("st-timer", 44,4, {loop=true, action="onoff", target="ill21", interval=4})
-set_stone("st-timer", 44,5, {loop=true, action="onoff", target="ill22", interval=5})
+set_stone("st-timer", 44,1, {action="onoff", target="ill18", interval=5})
+set_stone("st-timer", 44,2, {action="onoff", target="ill19", interval=4})
+set_stone("st-timer", 44,3, {action="onoff", target="ill20", interval=5})
+set_stone("st-timer", 44,4, {action="onoff", target="ill21", interval=4})
+set_stone("st-timer", 44,5, {action="onoff", target="ill22", interval=5})
 
 -- eastbound laser triggers
-set_stone("st-timer", 45,1, {loop=true, action="onoff", target="ill23", interval=4})
-set_stone("st-timer", 45,2, {loop=true, action="onoff", target="ill24", interval=5})
-set_stone("st-timer", 45,3, {loop=true, action="onoff", target="ill25", interval=4})
-set_stone("st-timer", 45,4, {loop=true, action="onoff", target="ill26", interval=5, name="ill27"})
+set_stone("st-timer", 45,1, {action="onoff", target="ill23", interval=4})
+set_stone("st-timer", 45,2, {action="onoff", target="ill24", interval=5})
+set_stone("st-timer", 45,3, {action="onoff", target="ill25", interval=4})
+set_stone("st-timer", 45,4, {action="onoff", target="ill26", interval=5, name="ill27"})
 
 -- override trigger switch
 set_stone("st-switch", 20,7, {on=0, action="onoff", target="ill27"})

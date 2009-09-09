@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Armageddon" el:subtitle="" el:id="duffy179"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -162,9 +162,9 @@ function renderLine( line, pattern)
             set_item("it-sensor",i-1,line,{action="callback",target="funcc2"})
             set_floor("fl-black",i-1,line,{burnable=TRUE,secure=TRUE,ignitable=TRUE})
         elseif c=="x" then
-            set_stone("st-timer",i-1,line,{on=0,loop=true,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+            set_stone("st-timer",i-1,line,{on=0,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
         elseif c=="3" then
-            set_stone("st-timer",i-1,line,{on=0,loop=true,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
+            set_stone("st-timer",i-1,line,{on=0,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
         elseif c=="X" then
             set_stone("st-death",i-1,line)
         elseif c=="n" then
@@ -296,9 +296,9 @@ function funcc3()
     enigma.SetAttrib(z1,"mouseforce",enigma.GetAttrib(z1,"mouseforce")+random(300)/400-.375)
     enigma.KillStone(0,0)
     if difficult then
-        set_stone("st-timer",0,0,{on=1,loop=true,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+        set_stone("st-timer",0,0,{on=1,interval=random(random(800)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
     else
-        set_stone("st-timer",0,0,{on=1,loop=true,interval=random(random(1600)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
+        set_stone("st-timer",0,0,{on=1,interval=random(random(1600)+1)/20+0.2,action="callback",target="funcc3",name="t1"})
     end
 end
 
@@ -316,7 +316,7 @@ function funcc4()
         end
     end
     enigma.KillStone(1,0)
-    set_stone("st-timer",1,0,{on=1,loop=true,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
+    set_stone("st-timer",1,0,{on=1,interval=random(random(600)+1)/20+0.2,action="callback",target="funcc4",name="t2"})
 end
 
 done=false

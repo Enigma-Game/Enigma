@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Fuse" el:subtitle="" el:id="capkoh02"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="capkoh" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 capkoh</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["."] = {"fl_hay", name="wall#"}
+ti["#"] = {"st_redbrown"}
+ti["H"] = {"st_redbrown_hollow", name="hollow"}
+ti["G"] = {"st_rawglass"}
+ti["R"] = {"st_granite"}
+ti["L"] = {"st_laser", orientation=NORTH, name="laser"}
+ti["D"] = ti({"st_brownie"}) .. {"it_coin_l"}
+ti["E"] = {"st_break_boulder"}
+ti["F"] = {"st_break_oxydc"}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["K"] = {"st_knight"}
+ti["S"] = {"st_coinslot", target="door%3", action="open"}
+ti["door"] = {"st_door", flavor="d", faces="ew", name="door%%"}
+ti["trigger"] = {"it_trigger", target="door%%", action="open"}
+ti["doc"] = {"it_document", text="text%%"}
+ti["l"] = {"it_trigger", target="laser"}
+ti["t"] = {"it_trigger", target="granite"}
+ti["u"] = {"it_trigger", target="wall"}
+ti["h"] = {"it_hammer"}
+ti["f"] = ti["F"] .. {"it_sword"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "b", "trigger"}, {"A", "C", "door"}, {"1", "3", "doc"}), " ", {
+    "#######################################",
+    "#>FEaEEEEEEEbEEEEEEEEt        EEEEEEEu#",
+    "##G####################################",
+    "#l  #       #        # #     # #### . #",
+    "#   # D   h # #      # # ### #    # . O",
+    "#   #       # #      # #   # #### # . #",
+    "#   #     #F# #    # # ### #    # # . #",
+    "# @ #  2  #FB #    # R K # ### ## # . #",
+    "#   #     #f# #    # # # # #S#    # . #",
+    "#   #     ###      # H #   # #### # . #",
+    "#   A       #  3   # # # # # #    C . O",
+    "#   #       #        # # #   # ## # . #",
+    "##L####################################"})
+
+wo:shuffleOxyd()
+
+function granite()
+    wo[no["hollow"]] = ti["R"]
+end
+
+function wall()
+    wo[no["wall#*"]] = ti["R"]
+    wo[no["door%3"]+SE] = {"it_document", text="text%1"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true">Dead end!</el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">There are two HIDDEN items!</el:english>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true">Third stone from the rock is the hole!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

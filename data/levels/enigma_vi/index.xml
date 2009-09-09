@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma VI"/>
+  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="52" title="Enigma VI"/>
 
   <attributes/>
 
@@ -69,7 +69,7 @@
     <level _seq="61" _title="River of Challenges" _xpath="./luc33_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc332006" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Hot Hurdle Race" _xpath="./ulf04_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20070124ulf019" rel="1" rev="93" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Playing with Lasers" _xpath="./just09_2" author="JuSt" ctrl="force" easy="false" id="just09_1" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Rotor Guards" _xpath="./duffy144_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy144" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Rotor Guards" _xpath="./duffy144_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy144" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Knight's Journey" _xpath="./johannes02_2" author="Johannes Laire" ctrl="force" easy="false" id="20061210johannes313" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="A Cooler Spot in Hell" _xpath="./andreas43_4" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas43" rel="4" rev="7" score="3" target="time" unit="duration"/>
     <level _seq="67" _title="Check the light" _xpath="./just10_4" author="JuSt" ctrl="force" easy="false" id="just10" rel="4" rev="9" score="3" target="time" unit="duration"/>

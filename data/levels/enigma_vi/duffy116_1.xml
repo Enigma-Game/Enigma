@@ -73,13 +73,13 @@ function renderLine( line, pattern)
         elseif c=="W" then
             fill_floor("fl-wood",i-1,line+1,5,8)
         elseif c=="T" then
-            set_stone("st-timer",i-1,line,{loop=true,interval=0.15,action="callback",target="funcc1"})
+            set_stone("st-timer",i-1,line,{interval=0.15,action="callback",target="funcc1"})
             set_floor("fl-gradient",i-1,line,{type=21})
         elseif c=="U" then
-            set_stone("st-timer",i-1,line,{loop=true,interval=0.15,action="callback",target="funcc3"})
+            set_stone("st-timer",i-1,line,{interval=0.15,action="callback",target="funcc3"})
             set_floor("fl-gradient",i-1,line,{type=21})
         elseif c=="V" then
-            set_stone("st-timer",i-1,line,{loop=true,interval=0.5,action="callback",target="funcc2"})
+            set_stone("st-timer",i-1,line,{interval=0.5,action="callback",target="funcc2"})
             set_floor("fl-gradient",i-1,line,{type=21})
         elseif c=="R" then
             set_stone("st-oneway", i-1,line, {orientation=enigma.EAST})

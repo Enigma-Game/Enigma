@@ -43,8 +43,7 @@ wo(ti, " ", {
     "X           #......#",
     "X o   o   o #.O..Q.#",
     "X           #......#",
-    "XXXXXXXXXXXX########"
-})
+    "XXXXXXXXXXXX########"})
 
 if wo["IsDifficult"] then
     wo:shuffleOxyd({"lefto#*", "righto#*", max = 4}, {"righto#*", min=0, max=0})

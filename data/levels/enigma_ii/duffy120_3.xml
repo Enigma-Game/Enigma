@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Snowing" el:subtitle="" el:id="duffy120"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn", name="lawn#"}
+ti["#"] = {"st_death"}
+ti["O"] = {"st_oxyd", name="oxyds#"}
+ti["*"] = cond(wo["IsDifficult"], {"#ac_top", range=30.0, strength=40.0}, {"#ac_top", range=30.0, strength=25.0})
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#       O  O       #",
+    "#    O        O    #",
+    "#  O            O  #",
+    "#                  #",
+    "#O                O#",
+    "#    *   ##  @     #",
+    "#O                O#",
+    "#                  #",
+    "#  O            O  #",
+    "#    O        O    #",
+    "#       O  O       #",
+    "####################"})
+
+wo:add({"ot_timer", target="snow", interval=0.2})
+wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
+
+local lawngrp = no["lawn#*"]:shuffle()
+
+function snow()
+    flake = lawngrp:sub(1)
+    wo[flake] = {"fl_ice"}
+    lawngrp = lawngrp - flake
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

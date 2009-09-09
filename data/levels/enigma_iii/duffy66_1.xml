@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tilt Control" el:subtitle="" el:id="duffy66"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,12 +23,6 @@ levelw=1+(19*rooms_wide) +1
 levelh=1+(12*rooms_high)
 
 create_world( levelw, levelh)
-
---for i=0,20 do
---   for j=0,13 do
---      set_floor("fl-gradient",i,j,{type=20})
---   end
---end
 
 fill_floor("fl-normal", 0,0,levelw,levelh)
 
@@ -663,7 +657,7 @@ else
         end
     end
 
-    set_stone("st-timer", 20,0, {loop=true, action="callback", target="timer_callback", interval=0.1})
+    set_stone("st-timer", 20,0, {action="callback", target="timer_callback", interval=0.1})
 end
     ]]></el:luamain>
     <el:i18n>

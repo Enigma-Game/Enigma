@@ -188,7 +188,7 @@ function timer_callback()
     tt = mod (tt+1, 10)
 end
 
-set_stone("st-timer", 39,0, {loop=true, action="callback", target="timer_callback", interval=0.5})
+set_stone("st-timer", 39,0, {action="callback", target="timer_callback", interval=0.5})
     ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

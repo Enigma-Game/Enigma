@@ -67,7 +67,7 @@ function set_wormholes(wh)
 
             -- the last room has no wormhole (no exit):
             if room_number == rooms_v*rooms_h then
-                -- Note: we will leave the two loops here and never an their "normal" end!
+                -- Note: we will leave the two loops here and never at their "normal" end!
                 return
             end
 
