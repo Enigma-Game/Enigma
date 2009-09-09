@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Pushing" el:subtitle="" el:id="just04"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_blueslab"}
+ti["#"] = {"st_purplegray"}
+ti["+"] = {"st_box"}
+ti["I"] = {"st_stoneimpulse"}
+ti["="] = {"st_redfiber"}
+ti["M"] = {"st_mirror", flavor="slab", transparent=true, orientation=SLASH}
+ti["N"] = {"st_mirror", flavor="slab", transparent=true, orientation=BACKSLASH}
+ti["T"] = {"st_mirror", flavor="triangle", orientation=SOUTH}
+ti["^"] = {"st_mirror", flavor="triangle", orientation=NORTH, movable=true}
+ti[">"] = {"st_laser", orientation=EAST, state=ON}
+ti["<"] = {"st_laser", orientation=WEST, state=ON, name="laser"}
+ti["l"] = {"it_trigger", target="laser"}
+ti["V"] = {"it_vortex", destination="out"}
+ti["v"] = {"it_vortex", name="out", autoclose=true}
+ti["door"] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["O"] = {"st_oxyd", name="left#"}
+ti["o"] = {"st_oxyd", name="right#"}
+ti["@"] = ti["l"] .. {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "e", "trigger"}, {"A", "E", "door"}), " ", {
+    "#######################################",
+    "#  =            =  #            M   #V#",
+    "#O =            = o# I          M   #A#",
+    "#  =            =  # I+aIIIIII  M   #B#",
+    "#O =        ^   = o# I       +  T  <#C#",
+    "#  =            =  # II      b  N   #D#",
+    "#O =            = o#  I  IIIII  N   #E#",
+    ">  =            =  #  II +      N     #",
+    "#O =    ^       = o#  d  c I    N     #",
+    "#  =            =  #  +  III+eI N     #",
+    "#O =            = o#  I       I N     #",
+    "#  =       v    =  #  IIIIIIIII M    @#",
+    "#######################################"})
+
+wo:shuffleOxyd({"left#*", "right#*", min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

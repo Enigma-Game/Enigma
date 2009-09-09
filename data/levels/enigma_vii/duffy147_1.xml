@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Comet" el:subtitle="" el:id="duffy147"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -54,7 +54,7 @@ function renderLine( line, pattern)
             set_actor("ac-killerball", i-.5,line+.5, {controllers=0})
             set_floor("fl-gradient",  i-1,  line, {type=4})
         elseif c=="T" then
-            set_stone("st-timer",i-1,line,{loop=1,interval=0.7,action="callback",target="funcc1"})
+            set_stone("st-timer",i-1,line,{loop=true,interval=0.7,action="callback",target="funcc1"})
         end
     end
 end

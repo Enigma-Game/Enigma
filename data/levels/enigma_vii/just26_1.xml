@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="The Walls" el:subtitle="" el:id="just26"/>
-     <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+     <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -47,12 +47,12 @@ draw_stones("st-glass2", {1, 12}, {1, 0}, 18)
 set_stone("st-mirror-3>", 0, 3)
 set_stones("st-mirror-p\\", {{4, 3}, {12, 4}, {4, 6}, {12, 8}})
 set_stones("st-mirror-p/", {{16, 3}, {8, 4}, {8, 6}, {16, 8}})
-set_stone("st-laser-w", 18, 3, {name="laser", on="0"})
+set_stone("st-laser-w", 18, 3, {name="laser", on=0})
 set_stone("st-rotator_move-left", 12, 10)
 set_stone("st-pull", 1, 11)
 
 -- Actor Layer
-set_actor("ac-blackball", 2.5, 10.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 2.5, 10.5, {player=0, mouseforce=1})
 
 oxyd_shuffle()
   ]]></el:luamain>

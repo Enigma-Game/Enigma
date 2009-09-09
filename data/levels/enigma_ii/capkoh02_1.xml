@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Fuse" el:subtitle="" el:id="capkoh02"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="capkoh" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 capkoh</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- Level had been automatically created with Star.LUA Editor v0.32 beta
-
 create_world(39, 13)
 oxyd_default_flavor="b"
 
@@ -29,7 +27,7 @@ end
 function grow_line()
   for i = 3, 11 do
     set_stone("st-rock1", 36, i)
-  end 
+  end
   document(35, 11, "text1")
 end
 
@@ -105,10 +103,10 @@ set_stone("st-coinslot", 28, 8, {action="openclose", target="door3"})
 set_stone("st-door", 4, 10, {name="door1", type="v"})
 set_stone("st-marble_hole", 21, 10)
 set_stone("st-door", 34, 10, {name="door3", type="v"})
-set_stone("st-laser", 2, 12, {name="laser1", dir=NORTH, on="0"})
+set_stone("st-laser", 2, 12, {name="laser1", dir=NORTH, on=0})
 
 -- Actor Layer
-set_actor("ac-blackball", 2.5, 7.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 2.5, 7.5, {player=0, mouseforce=1})
 
 oxyd_shuffle()
     ]]></el:luamain>
@@ -118,13 +116,13 @@ oxyd_shuffle()
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Dead end!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">There are two HIDDEN items!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">Third stone from the rock is the hole!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

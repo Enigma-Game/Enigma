@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Patterns" el:subtitle="" el:id="duffy128"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -234,7 +234,7 @@ lsnum2=lsnum2+1
         elseif c == "s" then --9-ur
             set_floor("fl-gradient",  i-1,  line, {type=10})
         elseif c == "t" then --9-ur
-           set_stone("st-timer",  i-1,  line, {loop=1,interval=.45,name="tt",action="callback",target="funcctchange"})
+           set_stone("st-timer",  i-1,  line, {loop=true,interval=.45,name="tt",action="callback",target="funcctchange"})
         elseif c=="C" then
             set_attrib(laser(i-1,line, FALSE, EAST), "name", "laser1")
          elseif c=="/" then

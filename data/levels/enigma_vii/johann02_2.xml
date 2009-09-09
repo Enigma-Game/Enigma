@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Riverside" el:subtitle="" el:id="johann02"/>
-      <el:version el:score="2" el:release="2" el:revision="0" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="-" el:homepage="-"/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -16,7 +16,8 @@
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
-    <el:luamain><![CDATA[levelw=39
+    <el:luamain><![CDATA[
+levelw=39
 levelh=25
 
 local flag = {0,0,0,0,0,0,0,0}
@@ -149,8 +150,8 @@ RenderItems(022, "                                       ")
 RenderItems(023, "                        F              ")
 RenderItems(024, "                                       ")
 
-set_actor("ac-blackball", 01.5, 01.5, {player="0", essential="1"})
-set_actor("ac-whiteball-small", 30.5, 23.5, {name="AC30-23", player="1", mouseforce="0", essential="1"})
+set_actor("ac-blackball", 01.5, 01.5, {player=0, essential=1})
+set_actor("ac-whiteball-small", 30.5, 23.5, {name="AC30-23", player=1, mouseforce=0, essential=1})
 set_floor("fl-leavesb", 30, 23, {name="FL30-23"})
 set_floor("fl-leavesb", 33, 17, {name="FL33-17"})
 set_floor("fl-leavesb", 33, 18, {name="FL33-18"})
@@ -167,8 +168,8 @@ set_stone("st-door-h", 34, 18, {name="ST34-18"})
 set_stone("st-door-h", 34, 19, {name="ST34-19"})
 set_stone("st-key_b", 36, 18, {target="fn02", action="callback"})
 set_item("it-document", 16, 10, {text="text1"})
-set_item("it-wormhole", 22, 21, {on="1", strength="10", range="5"})
-set_item("it-rubberband", 24, 23, {target="AC30-23", length="1", strength="100"})
+set_item("it-wormhole", 22, 21, {on=1, strength=10, range=5})
+set_item("it-rubberband", 24, 23, {target="AC30-23", length=1, strength=100})
 
 function fn01()
     if flag[1] == 1 then flag[1] = 0

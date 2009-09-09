@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="42" title="Enigma 0.92 - 2"/>
+  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -13,7 +13,7 @@
     <level _seq="5" _title="Spidering Around Death" _xpath="enigma_iii/martin89_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Brittle Floor!" _xpath="enigma_iii/martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Alcatraz" _xpath="enigma_vi/ralf14_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Snakes" _xpath="enigma_i/duffy19_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy19" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Snakes" _xpath="enigma_i/duffy19_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy19" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Push the Hammer" _xpath="enigma_iii/martin79_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin79" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Snow White -" _xpath="enigma_iii/ant15_2" author="Petr Machata" ctrl="force" easy="false" id="ant15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="FIRE, FIRE!" _xpath="enigma_iv/ss07_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss7" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -89,7 +89,7 @@
     <level _seq="81" _title="Lock Them In" _xpath="enigma_iii/duffy26_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Lost In Space" _xpath="enigma_iii/martin90_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Emergency Exit" _xpath="enigma_iii/ss05_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss5" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="Run!" _xpath="enigma_iii/duffy29_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy29" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Run!" _xpath="enigma_iii/duffy29_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy29" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Puzzling Controls" _xpath="enigma_ii/duffy30_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy30" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Khun Phan" _xpath="enigma_ii/ralf10_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Electric Funeral" _xpath="enigma_iv/ss15_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss15" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -101,7 +101,7 @@
     <level _seq="93" _title="Look Closely" _xpath="enigma_ii/martin102_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin102" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="94" _title=".-R-.-U-.-N-." _xpath="enigma_ii/martin103_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin103" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="Bavarian Madness" _xpath="enigma_iv/ss08_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss8" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="96" _title="The Builder" _xpath="enigma_iv/ss09_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss9" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="96" _title="The Builder" _xpath="enigma_iv/ss09_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss9" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Seven Friends" _xpath="enigma_iii/ss16_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss16" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="98" _title="Something Went Wrong" _xpath="enigma_iii/ss17_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss17" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Beam0r" _xpath="enigma_ii/peter01_2" author="Peter Santo" ctrl="force" easy="false" id="peter_001" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -146,17 +146,17 @@
     <level _seq="138" _title="Wildfire" _xpath="enigma_iv/duffy63_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy63" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="139" _title="Slinky Mayhem" _xpath="enigma_iii/duffy64_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy64" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="140" _title="Overwhelming" _xpath="enigma_iii/duffy65_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy65" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="141" _title="Tilt Control" _xpath="enigma_iii/duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="141" _title="Tilt Control" _xpath="enigma_iii/duffy66_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="Anticipation" _xpath="enigma_v/duffy67_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy67" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="143" _title="What a Mess" _xpath="enigma_iv/duffy68_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy68" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="144" _title="Tilt Maze" _xpath="enigma_iii/duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="144" _title="Tilt Maze" _xpath="enigma_iii/duffy69_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy69" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="145" _title="Build Up and Tear Down" _xpath="enigma_v/duffy70_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy70" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="146" _title="Don't Be Greedy" _xpath="enigma_v/duffy71_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy71" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="146" _title="Don't Be Greedy" _xpath="enigma_v/duffy71_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy71" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="147" _title="Where Am I?" _xpath="enigma_iv/duffy72_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy72" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="148" _title="Bizarro World" _xpath="enigma_iv/duffy73_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy73" rel="3" rev="24" score="2" target="time" unit="duration"/>
     <level _seq="149" _title="Solvable?" _xpath="enigma_v/barry01_2" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry01" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="150" _title="Where is it?" _xpath="enigma_iv/barry02_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry02" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="151" _title="Tool Time" _xpath="enigma_ii/barry03_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry03" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="151" _title="Tool Time" _xpath="enigma_ii/barry03_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry03" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="152" _title="(Counter)Clockwise" _xpath="enigma_i/wb13_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb13" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="153" _title="Hurry!" _xpath="enigma_iv/wb01_4" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="4" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="154" _title="Lotsa Triggers" _xpath="enigma_iii/wb03_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb3" rel="1" rev="0" score="1" target="time" unit="duration"/>

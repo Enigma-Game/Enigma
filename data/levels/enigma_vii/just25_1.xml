@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="No More Alternatives" el:subtitle="" el:id="just25"/>
-     <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+     <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -45,7 +45,7 @@ set_stone("st-shogun-m", 15, 1)
 set_stone("st-shogun-l", 4, 3)
 set_stone("st-swap", 11, 5)
 set_stone("st-pull", 15, 6)
-set_stone("st-laser-n", 9, 4, {name="laser1", on="0"})
+set_stone("st-laser-n", 9, 4, {name="laser1", on=0})
 set_stone("st-stoneimpulse_movable", 3, 6)
 set_stone("st-grate1", 11, 9)
 set_stone("st-rotator_move-right", 16, 9)
@@ -58,7 +58,7 @@ else
 end
 
 -- Actor Layer
-set_actor("ac-blackball", 11.5, 9.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 11.5, 9.5, {player=0, mouseforce=1})
 
 oxyd_shuffle()
   ]]></el:luamain>

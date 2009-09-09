@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Mountain Climbing II" el:subtitle="How Far Can You Get?" el:id="joe25"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
       <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -19,7 +19,7 @@ cells["'"]=cell{floor="fl-bluegray"}
 cells["."]=cell{floor="fl-bumps"}
 cells[" "]=cell{floor="fl-black"}
 cells["-"]=cell{floor="fl-space"}
-cells["`"]=cell{floor="fl-sahara"}
+cells[";"]=cell{floor="fl-sahara"}
 cells["w"]=cell{floor="fl-gradient2"}
 cells["y"]=cell{floor="fl-gradient7"}
 cells["d"]=cell{floor="fl-gradient3"}
@@ -39,8 +39,8 @@ cells["$"]=cell{stone="st-rock3"}
 cells["%"]=cell{stone="st-bumps"}
 cells["|"]=cell{stone="st-rock3_hole"}
 cells["o"]=cell{actor={"ac-whiteball-small", {player=0}}}
-cells["T"]=cell{actor={"ac-top", {range="8",force="10"}}}
-cells["R"]=cell{actor={"ac-rotor", {range="5",force="16"}}}
+cells["T"]=cell{actor={"ac-top", {range=8,force=10}}}
+cells["R"]=cell{actor={"ac-rotor", {range=5,force=16}}}
 cells["F"]=cell{item="it-flagwhite"}
 cells["+"]=cell{item="it-hollow"}
 cells[":"]=cell{item="it-extralife"}
@@ -48,7 +48,9 @@ cells["<"]=cell{item="it-tinyhill"}
 cells[">"]=cell{item="it-hill"}
 cells["1"]=cell{item={"it-document", {text="This is a SuperSecret!! Well done on finding it!!"}}}
 
-if difficult then    -- Normal Mode    level = {
+if difficult then
+    -- Normal Mode
+    level = {
         "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@",
         "#  qwwwe                   qwwwwwwwwwe#nxxxxxxxxxxxxxxxxv nxxxxxxxxxxxxxxxxx#          aa000'''''''nxxxxxxxxxxxxxv#",
         "@  a'''d           #       aqwwwwwwwed@d    qe00qe nxxxva#dnxxxxxxxxxxxxxxxx@          azxxxxxx#'''dnxxxxxxxvnxxva@",
@@ -112,27 +114,27 @@ if difficult then    -- Normal Mode    level = {
         "################################################################################################################$x$",
         "----------------------------------------------------------------------------------------------------------------$x$",
         "-------------------------------------------------------------------------------------$$$$$$$$$$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$````````$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$`1``````$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$````````$----$---$-----$$$$x$",
-        "-------------------------------------------------------------------------------------$````````$----$$$$$$$$--$Faa:$",
-        "-------------------------------------------------------------------------------------$````````$--------$-----$$$$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$-----------------$ $",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$;1;;;;;;$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$---$-----$$$$x$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$$$$$$$$--$Faa:$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$-----$$$$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$-----------------$ $",
         "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$ $",
-        "$000000000000000000$0000000zwwwwwwwwwe`nxxv$ddd0000000000$0a`d``````00```````nv$nxv`nxv$nxxv$||$cdddddazxxxxxxcdnv$",
-        "$0qwwwwwwwwwwwwwwe0$00000000qwwwwwwwed$dnva$ddd00qwwwwwe0$0a`d``````00``````$da`d`a0d`a$d``a$$|$xcddddzxxxxxxxxcyr$",
-        "$0a``````````````d0$00000000aqqwwwwedd$ddaa$ddd00aqwwwed0$wr`d00qwwwwwwwwe``$yr$ywr`ywr$ywwr```$xxcddd0000000000qe$",
-        "$0a``````````````d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$```d00a```00```d``$`0$`0`$$`$$$`$$$`$$xxxcdd0000000000a`$",
-        "$0a````nxxxxv````yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a`qwwwwe`d``$nv$nxv$qwe$xxc`nxv$xxxxcd0000000000zx$",
-        "$0a````d0000a`````````00000000000000$$$ddaa`ddd00aaa$dyww`````00a`a````d`d``$da`d`a`a0dT````d`a$xxxxxc000000qwwwww$",
-        "$0a````ywwwwr````nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a`zxxxxc`d``$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
-        "$0a T````````````d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$```d00a```00```d``$$$$$`$$$`$$$`$$$`$$zd0000000000aaqwww$",
-        "$`aT ````````````d0$00000000azxxxxxcdd$ddaa$ddd--aazxxxxv$xv`d00zxxxxxxxxc``$$$$nxv$nxv$c`a$nxv$dd0000000000aaaqww$",
-        "$`zxxxxxxxxxxxxxxc0$00000000zxxxxxxxcd$dyra$ddd--azxxxxxx$0a`d``````00``````$$$$d`a`d`aT``a`d`a$dywwwwwwwwweaaaaqw$",
-        "$```000000000000000$0000000qxxxxxxxxxc`ywwr$ddd--zxxxxxxx$0a`d``````00``````$$$$ywr$ywr$wwr$ywr`ywwwwwwwwwedaaaaaq$",
+        "$000000000000000000$0000000zwwwwwwwwwe;nxxv$ddd0000000000$0a;d;;;;;;00;;;;;;;nv$nxv;nxv$nxxv$||$cdddddazxxxxxxcdnv$",
+        "$0qwwwwwwwwwwwwwwe0$00000000qwwwwwwwed$dnva$ddd00qwwwwwe0$0a;d;;;;;;00;;;;;;$da;d;a0d;a$d;;a$$|$xcddddzxxxxxxxxcyr$",
+        "$0a;;;;;;;;;;;;;;d0$00000000aqqwwwwedd$ddaa$ddd00aqwwwed0$wr;d00qwwwwwwwwe;;$yr$ywr;ywr$ywwr;;;$xxcddd0000000000qe$",
+        "$0a;;;;;;;;;;;;;;d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$;;;d00a;;;00;;;d;;$;0$;0;$$;$$$;$$$;$$xxxcdd0000000000a;$",
+        "$0a;;;;nxxxxv;;;;yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a;qwwwwe;d;;$nv$nxv$qwe$xxc;nxv$xxxxcd0000000000zx$",
+        "$0a;;;;d0000a;;;;;;;;;00000000000000$$$ddaa;ddd00aaa$dyww;;;;;00a;a;;;;d;d;;$da;d;a;a0dT;;;;d;a$xxxxxc000000qwwwww$",
+        "$0a;;;;ywwwwr;;;;nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a;zxxxxc;d;;$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
+        "$0a T;;;;;;;;;;;;d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$;;;d00a;;;00;;;d;;$$$$$;$$$;$$$;$$$;$$zd0000000000aaqwww$",
+        "$;aT ;;;;;;;;;;;;d0$00000000azxxxxxcdd$ddaa$ddd--aazxxxxv$xv;d00zxxxxxxxxc;;$$$$nxv$nxv$c;a$nxv$dd0000000000aaaqww$",
+        "$;zxxxxxxxxxxxxxxc0$00000000zxxxxxxxcd$dyra$ddd--azxxxxxx$0a;d;;;;;;00;;;;;;$$$$d;a;d;aT;;a;d;a$dywwwwwwwwweaaaaqw$",
+        "$;;;000000000000000$0000000qxxxxxxxxxc;ywwr$ddd--zxxxxxxx$0a;d;;;;;;00;;;;;;$$$$ywr$ywr$wwr$ywr;ywwwwwwwwwedaaaaaq$",
         "$x$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
         "%x%----------------------------------------------------------------------------------------------------------------",
         "%x%------%%%%%%%---------------------------------------------------------------------------------------------------",
@@ -157,7 +159,12 @@ if difficult then    -- Normal Mode    level = {
         "%00000000a..ywwwwww%.....<..00< ......%..0aaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaaaa#d ''''''''''''   a#",
         "%00000000a R.......%.......  0 .......%..aaaaaaa0aaaaaaaa0aaaaaaa00aaaaaa0aaaaaaaaaaaaaaa0aaaaa#d                a#",
         "%00000000a  ............... 0000 .....%..aaaaaaaaaaa0000aaaaaaaaa00aaaaaaaaaaaaaaaaa0aaaaaaaaaa#ywwwwwwwwwwwwwwwwr#",
-        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",    }    else    -- Easy Mode    level = {        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@",
+        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",
+    }
+    else
+    -- Easy Mode
+    level = {
+        "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@",
         "#  qwwwe                   qwwwwwwwwwe#nxxxxxxxxxxxxxxxxv nxxxxxxxxxxxxxxxxx#          aa00''''''''nxxxxxxxxxxxxxv#",
         "@  a'''d           #       aqwwwwwwwed@d    qe00qe nxxxva#dnxxxxxxxxxxxxxxxx@          azxxxxxx#'''dnxxxxxxxvnxxva@",
         "#  a'''d        nxx@       aaqwwwwwedd#d    zc00zc dqweaa@ddnxxxxxxxxxxxxxxx#  R  R    zxxxxxxx@'''ddnxxxxxvad00aa#",
@@ -220,27 +227,27 @@ if difficult then    -- Normal Mode    level = {
         "################################################################################################################$x$",
         "----------------------------------------------------------------------------------------------------------------$x$",
         "-------------------------------------------------------------------------------------$$$$$$$$$$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$````````$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$`1``````$----$---$--------$x$",
-        "-------------------------------------------------------------------------------------$````````$----$---$-----$$$$x$",
-        "-------------------------------------------------------------------------------------$````````$----$$$$$$$$--$Faa:$",
-        "-------------------------------------------------------------------------------------$````````$--------$-----$$$$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$--------$--------$w$",
-        "-------------------------------------------------------------------------------------$````````$-----------------$ $",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$;1;;;;;;$----$---$--------$x$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$---$-----$$$$x$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$----$$$$$$$$--$Faa:$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$-----$$$$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$--------$--------$w$",
+        "-------------------------------------------------------------------------------------$;;;;;;;;$-----------------$ $",
         "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$|$$$$$$$$$$$$$$$$$$$ $",
-        "$000000000000000000$0000000qwwwwwwwwwe`nxxv$ddd0000000000$`d`d``````00```````nv$nxv`nxv$nxxv$||$cdddddazxxxxxxcdnv$",
-        "$0qwwwwwwwwwwwwwwe0$0000000aqwwwwwwwed$dnva$ddd00qwwwwwe0$`d`d``````00``````$da`d`a0d`a$d``a$$|$xcddddzxxxxxxxxcyr$",
-        "$0a``````````````d0$wwwwwwwraqqwwwwedd$ddaa$ddd00aqwwwed0$xc`d00qwwwwwwwwe``$yr$ywr`ywr$ywwr```$xxcddd0000000000qe$",
-        "$0a``````````````d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$```d00a```00```d``$`0$`0`$$`$$$`$$$`$$xxxcdd0000000000a`$",
-        "$0a````nxxxxv````yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a`qwwwwe`d``$nv$nxv$qwe$xxc`nxv$xxxxcd0000000000zx$",
-        "$0a````d0000a`````````00000000000000$$$ddaa`ddd00aaa$dyww`````00a`a````d`d``$da`d`a`a0dT````d`a$xxxxxc000000qwwwww$",
-        "$0a````ywwwwr````nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a`zxxxxc`d``$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
-        "$0a T````````````d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$```d00a```00```d``$$$$$`$$$`$$$`$$$`$$zd0000000000aaqwww$",
-        "$`aT ````````````d0$xxxxxxxvazxxxxxcdd$ddaa$ddd--aazxxxxv$we`d00zxxxxxxxxc``$$$$nxv$nxv$c`a$nxv$dd0000000000aaaqww$",
-        "$`zxxxxxxxxxxxxxxc0$0000000azxxxxxxxcd$dyra$ddd--azxxxxxx$`d`d``````00``````$$$$d`a`d`aT``a`d`a$dywwwwwwwwweaaaaqw$",
-        "$```000000000000000$0000000zxxxxxxxxxc`ywwr$ddd--zxxxxxxx$`d`d``````00``````$$$$ywr$ywr$wwr$ywr`ywwwwwwwwwedaaaaaq$",
+        "$000000000000000000$0000000qwwwwwwwwwe;nxxv$ddd0000000000$;d;d;;;;;;00;;;;;;;nv$nxv;nxv$nxxv$||$cdddddazxxxxxxcdnv$",
+        "$0qwwwwwwwwwwwwwwe0$0000000aqwwwwwwwed$dnva$ddd00qwwwwwe0$;d;d;;;;;;00;;;;;;$da;d;a0d;a$d;;a$$|$xcddddzxxxxxxxxcyr$",
+        "$0a;;;;;;;;;;;;;;d0$wwwwwwwraqqwwwwedd$ddaa$ddd00aqwwwed0$xc;d00qwwwwwwwwe;;$yr$ywr;ywr$ywwr;;;$xxcddd0000000000qe$",
+        "$0a;;;;;;;;;;;;;;d0$wwwwwwwwrazxxxxcdd$ddaa$ddd00aaqwedd0$;;;d00a;;;00;;;d;;$;0$;0;$$;$$$;$$$;$$xxxcdd0000000000a;$",
+        "$0a;;;;nxxxxv;;;;yw$wwwwwwwwwr000000dd$ddaa$ddd00aaa$ddyw$xxxc00a;qwwwwe;d;;$nv$nxv$qwe$xxc;nxv$xxxxcd0000000000zx$",
+        "$0a;;;;d0000a;;;;;;;;;00000000000000$$$ddaa;ddd00aaa$dyww;;;;;00a;a;;;;d;d;;$da;d;a;a0dT;;;;d;a$xxxxxc000000qwwwww$",
+        "$0a;;;;ywwwwr;;;;nx$xxxxxxxxxv000000dd$ddaa$ddd00aaa$ywww$wwwe00a;zxxxxc;d;;$yr$ywr$zxc$www$ywr$qe0000000000aqwwww$",
+        "$0a T;;;;;;;;;;;;d0$xxxxxxxxvqwwwwwedd$ddaa$ddd00aaa$$$$$$;;;d00a;;;00;;;d;;$$$$$;$$$;$$$;$$$;$$zd0000000000aaqwww$",
+        "$;aT ;;;;;;;;;;;;d0$xxxxxxxvazxxxxxcdd$ddaa$ddd--aazxxxxv$we;d00zxxxxxxxxc;;$$$$nxv$nxv$c;a$nxv$dd0000000000aaaqww$",
+        "$;zxxxxxxxxxxxxxxc0$0000000azxxxxxxxcd$dyra$ddd--azxxxxxx$;d;d;;;;;;00;;;;;;$$$$d;a;d;aT;;a;d;a$dywwwwwwwwweaaaaqw$",
+        "$;;;000000000000000$0000000zxxxxxxxxxc;ywwr$ddd--zxxxxxxx$;d;d;;;;;;00;;;;;;$$$$ywr$ywr$wwr$ywr;ywwwwwwwwwedaaaaaq$",
         "$x$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$",
         "%x%----------------------------------------------------------------------------------------------------------------",
         "%x%------%%%%%%%---------------------------------------------------------------------------------------------------",
@@ -265,7 +272,9 @@ if difficult then    -- Normal Mode    level = {
         "%00000000a..ywwwwww%.....<..00< ......%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaaaaaaaaaaaaaaaaaaaaaaaa#d ''''''''''''   a#",
         "%00000000a R.......%.......  0 .......%..aaaaaaa0aaaaaaaaaaaaaaaa00aaaaaa0aaaaaaaaaaaaaaa0aaaaa#d                a#",
         "%00000000a  ............... 0000 .....%..aaaaaaaaaaa0000aaaaaaaaa00aaaaaaaaaaaaaaaaa0aaaaaaaaaa#ywwwwwwwwwwwwwwwwr#",
-        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",    }end
+        "%%%%%%%%%%%%%%%%%%%%%%%%%%$||||||$%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%####################",
+    }
+end
 
 set_default_parent(cells[" "])
 create_world_by_map(level,cells)

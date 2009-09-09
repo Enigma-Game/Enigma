@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Table Hockey" el:subtitle="" el:id="capkoh01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="capkoh" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 capkoh</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,8 +16,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
--- Level had been automatically created with Star.LUA Editor v0.32 beta
-
 create_world(20, 13)
 oxyd_default_flavor="b"
 
@@ -39,7 +37,7 @@ set_item("it-hammer", 12, 1)
 set_item("it-trigger", 17, 2, {action="openclose", target="d1", invisible=FALSE})
 draw_items("it-yinyang", {2, 3}, {1, 0}, 2)
 set_item("it-pipe-h", 2, 7)
-set_item("it-magnet", 11, 7, {name="magnet1", strength="10", on="0"})
+set_item("it-magnet", 11, 7, {name="magnet1", strength=10, on=0})
 set_item("it-trigger", 2, 8, {action="callback", target="bolder", invisible=FALSE})
 set_item("it-trigger", 10, 8, {action="onoff", target="magnet1", invisible=FALSE})
 draw_items("it-pipe-h", {2, 10}, {0, 1}, 2)
@@ -68,7 +66,7 @@ draw_stones("st-stone_break", {5, 10}, {1, 0}, 3)
 draw_stones("st-marble", {19, 11}, {0, 1}, 2)
 draw_stones("st-marble", {1, 12}, {1, 0}, 3)
 draw_stones("st-marble", {7, 12}, {1, 0}, 12)
-set_stones("st-rubberband", {{17, 0}, {19, 2}}, {strength="10", length="2"})
+set_stones("st-rubberband", {{17, 0}, {19, 2}}, {strength=10, length=2})
 set_stones("st-grate3", {{14, 1}, {18, 5}})
 set_stone("st-actorimpulse", 19, 1)
 set_stone("st-bolder", 5, 2, {name="bolder1", direction=NORTH})
@@ -82,9 +80,9 @@ set_stone("st-glass", 4, 7)
 set_stones("st-stone_break", {{18, 9}, {5, 11}, {7, 11}, {18, 11}})
 
 -- Actor Layer
-set_actor("ac-blackball", 3, 3, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 3, 3, {player=0, mouseforce=1})
 set_actor("ac-horse", 12.5, 6.5)
-set_actor("ac-whiteball", 12.5, 9.5, {player="1", mouseforce="1"})
+set_actor("ac-whiteball", 12.5, 9.5, {player=1, mouseforce=1})
 
 oxyd_shuffle()
     ]]></el:luamain>

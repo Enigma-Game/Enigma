@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Seasonal Patterns" el:subtitle="" el:id="duffy164"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="stable"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["!"] = {"fl_abyss"}
+ti["A"] = {"fl_bluegreen"}
+ti["B"] = {"fl_redslab"}
+ti["C"] = {"fl_sand"}
+ti["D"] = {"fl_lawn"}
+ti["@"] = ti["D"] .. {"ac_marble", 0, 0.5}
+ti["#"] = {"st_greenbrown"}
+ti["N"] = {"st_greenbrown", _correct = NORTH}
+ti["E"] = {"st_greenbrown", _correct = EAST}
+ti["S"] = {"st_greenbrown", _correct = SOUTH}
+ti["W"] = {"st_greenbrown", _correct = WEST}
+ti["O"] = {"st_oxyd", "oxydo#", oxydcolor = OXYD_BLUE}
+ti["P"] = {"st_oxyd", "oxydo#", oxydcolor = OXYD_PURPLE}
+ti["Q"] = {"st_oxyd", "oxydu#", oxydcolor = OXYD_ORANGE}
+ti["R"] = {"st_oxyd", "oxydu#", oxydcolor = OXYD_GREEN}
+ti["n"] = {"st_fourswitch", "fourswitch#", target = "callback_fourswitch", state = NORTH}
+ti["e"] = {"st_fourswitch", "fourswitch#", target = "callback_fourswitch", state = EAST}
+ti["s"] = {"st_fourswitch", "fourswitch#", target = "callback_fourswitch", state = SOUTH}
+ti["w"] = {"st_fourswitch", "fourswitch#", target = "callback_fourswitch", state = WEST}
+ti["3"] = {"st_door_b", "oxyd_door#"}
+
+floors = {[NORTH] = ti["A"], [EAST] = ti["B"], [SOUTH] = ti["C"], [WEST] = ti["D"]}
+
+wo(ti, " ", {
+    "#SSWWNWWSSSSWWNWWSS#",  --  neswneswnnwsenwsen
+    "#neswneswnnwsenwsen#",  --  sswwnwwsssswwnwwss
+    "#                  #",  --     ^^        ^^
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#########  #########",
+    "#AAAAAAAABBAAAAAAAA#",
+    "#BCCCCCCDAADCCCCCCB#",
+    "#ADAAAABDBBDBAAAADA#",
+    "#ABBCCDCDDDDCDCCBBA#",
+    "#CACDBBCCD@CCBBDCAC#",
+    "#DCDADCDBCCBDCDADCD#",
+    "#CCDADCAADDAACDADCC#",
+    "#BBDADDABAABADDADBB#",
+    "#DDCAAACDDDDCAAACDD#",
+    "#DCDACADCDDCDACADCD#",
+    "#ABCDABCDAADCBADCBA#",
+    "#########33#########",
+    "!!!!!!!!#  #!!!!!!!!",
+    "!!!!!!!!#  #!!!!!!!!",
+    "!!!!!!!!#  #!!!!!!!!",
+    "!!!!!!!##  ##!!!!!!!",
+    "!!!!!!!#    #!!!!!!!",
+    "!!!!!!!O    O!!!!!!!",
+    "!!!!!!!P    P!!!!!!!",
+    "!!!!!!!#QRRQ#!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!",
+    "!!!!!!!!!!!!!!!!!!!!"})
+
+local fourswitches = no["fourswitch#*"]
+
+function callback_fourswitch(is_on, sender)
+    wo[sender + po(0,22)] = floors[sender.state]
+    for fourswitch in fourswitches do
+        if fourswitch.state ~= st(fourswitch + N)._correct then
+            no["oxyd_door#*"]:close()
+            return
+        end
+    end
+    no["oxyd_door#*"]:open()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

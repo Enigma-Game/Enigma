@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Puzzles" el:subtitle="look forward!" el:id="raoul26"/>
-      <el:version el:score="1" el:release="1" el:revision="26" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="27" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -33,7 +33,7 @@ function renderLine( line, pattern)
             oxyd(i-1,line)
         elseif c=="#" then
             set_stone("st-rock1",i-1,line)
-            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-black",i-1,line,{friction=7.0, mousefactor=2.0})
         elseif c=="G" then
             set_stone("st-glass",i-1,line)
         elseif c=="H" then
@@ -44,13 +44,13 @@ function renderLine( line, pattern)
             set_floor("fl-gradient1",i-1,line)
         elseif c=="D" then
             set_stone("st-death",i-1,line)
-            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-black",i-1,line,{friction=7.0, mousefactor=2.0})
         elseif c=="S" then
             set_stone("st-blue-sand",i-1,line)
         elseif c=="P" then
             set_stone("st-polarswitch",i-1,line)
         elseif c=="L" then
-            set_stone("st-laser",i-1,line,{dir=SOUTH,on=true})
+            set_stone("st-laser",i-1,line,{dir=SOUTH,on=TRUE})
         elseif c=="." then
             set_stone("st-stoneimpulse-hollow",i-1,line)
             set_floor("fl-water",i-1,line)
@@ -59,7 +59,7 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="E" then
             set_stone("st-oneway_black-e",i-1,line)
-            set_floor("fl-thief",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-thief",i-1,line,{friction=7.0, mousefactor=2.0})
         elseif c=="B" then
             set_stone("st-black1",i-1,line)
         elseif c=="X" then
@@ -69,7 +69,7 @@ function renderLine( line, pattern)
             set_floor("fl-water",i-1,line)
         elseif c=="Y" then
             set_stone("st-grate1",i-1,line)
-            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-black",i-1,line,{friction=7.0, mousefactor=2.0})
         elseif c=="W" then
             set_stone("st-wood",i-1,line)
         elseif c=="K" then
@@ -93,9 +93,9 @@ function renderLine( line, pattern)
             set_floor("fl-rough",i-1,line)
             set_item("it-extralife",i-1,line)
         elseif c=="t" then
-            set_floor("fl-thief",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-thief",i-1,line,{friction=7.0, mousefactor=2.0})
         elseif c=="=" then
-            set_floor("fl-black",i-1,line,{friction="7.0", mousefactor="2.0"})
+            set_floor("fl-black",i-1,line,{friction=7.0, mousefactor=2.0})
 
         elseif c=="@" then
             set_floor("fl-water",i-1,line)
@@ -230,7 +230,7 @@ end
 
 ---- FUNCTIONS ----
 function set_random_mirror(x,y,m)
-    r=random(1,4)  
+    r=random(1,4)
     strg={"|","/","-","\\"}
     kind=strg[r]
     set_stone("st-mirror-p"..kind..m,x,y)

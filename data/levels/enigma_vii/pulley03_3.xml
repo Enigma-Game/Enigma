@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Circulation" el:subtitle="" el:id="pulley03"/>
-      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -42,7 +42,7 @@ ti["x "] = (ti{"st_knight"} .. {"fl_wood"}) .. {"it_death"}
 ti["y "] = ti({"st_stoneimpulse_hollow"}) .. {"fl_slope_isw"} -- Down and left - gut
 ti["z "] = ti({"it_bottle_broken"}) .. {"fl_pinkbumps"}
 
-ti["B "] = {"st_timer", loop=1,interval=10,action="signal",target="peristalsis"}
+ti["B "] = {"st_timer", loop=true,interval=10,action="signal",target="peristalsis"}
 ti["D "] = {"st_oneway_white", state=SOUTH}
 ti["E "] = ti({"st_oneway_black", state=EAST}) .. {"fl_slope_te"}
 ti["F "] = {"fl_gravel"} -- Foot
@@ -85,7 +85,7 @@ ti["( "] = {"fl_slope_ine"} -- Up and right
 ti[") "] = {"fl_slope_inw"} -- Up and left
 
 ti["` "] = ti({"it_strip_ne"}) .. {"fl_water"}
-ti["~ "] = {"st_timer", loop=1,interval=0.25,action="callback",target="heartbeat"}
+ti["~ "] = {"st_timer", loop=true,interval=0.25,action="callback",target="heartbeat"}
 ti["_ "] = ti({"it_strip_es"}) .. {"fl_water"}
 ti["= "] = {"fl_tigris"} -- Gut
 ti["[ "] = ti({"it_strip_ew"}) .. {"fl_water"}

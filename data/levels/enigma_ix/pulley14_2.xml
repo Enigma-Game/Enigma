@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Pilgrim's Progress" el:subtitle="" el:id="20080101pulley001"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,7 +12,6 @@
       <el:score el:easy="-" el:difficult="5:17"/>
     </el:info>
     <el:luamain><![CDATA[
--- FLOORS
 ti["  "] = {"fl_lawn_b"} -- dark
 ti[" a"] = {"fl_pinkbumps"} -- Vanity Fair
 ti[" c"] = {"fl_bright"} -- Celestial City
@@ -457,11 +456,11 @@ wo[no["Key3"]] = ti({"st_chameleon"})
 
 wo[{2.5, 265.5}] = {"ac_marble_black", name="Christian"}
 wo[{2.5, 266.5}] = {"ac_horse", name="Burden"}
-wo[{1.5, 150.5}] = {"ac_rotor", name="Apollyon", range=30, gohome=0, strength=20, attacknearest = true}
+wo[{1.5, 150.5}] = {"ac_rotor", name="Apollyon", range=30, gohome=false, strength=20, attacknearest = true}
 wo[{29.5, 130.5}] = {"ac_marble_white", name="Faithful"}
 wo[{29.5, 117.5}] = {"ac_horse", strength=10, destination={"Horse%1", "Horse%2", "Horse%3", "Horse%4"}}
 wo[{28.5, 96.5}] = {"ac_marble_white", name="Hopeful"}
-wo[{48.5, 221.5}] = {"ac_top", range=10,gohome=0,strength=100}
+wo[{48.5, 221.5}] = {"ac_top", range=10, gohome=false, strength=100}
 
 wo:add({"ot_rubberband", anchor1="Burden", anchor2="Christian", length=1, strength=20, max=1.05, min=0.95})
 wo:add({"ot_rubberband", anchor1="Lion%1", anchor2="LionChain%1", length=4, strength=20, max=8, min=3.95})

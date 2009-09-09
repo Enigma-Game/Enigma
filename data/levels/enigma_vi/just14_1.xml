@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Devil's Bolder" el:subtitle="" el:id="just14"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -110,14 +110,14 @@ set_stones("st-pmirror", {{6, 5}, {13, 7}}, {movable=FALSE, transparent=FALSE, o
 set_stone("st-pmirror", 6, 11, {movable=FALSE, transparent=FALSE, orientation="1"})
 set_stone("st-pmirror", 13, 11, {movable=FALSE, transparent=TRUE, orientation="1"})
 
-set_stone("st-laser", 19, 5, {dir=WEST, on="1"})
+set_stone("st-laser", 19, 5, {dir=WEST, on=1})
 
 draw_stones("st-glass", {18, 7}, {0, 1}, 5)
 
 set_stone("st-bolder", 17, 1, {name="bolder1", direction=SOUTH})
 
 -- Actor Layer
-set_actor("ac-blackball", 6.5, 8.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 6.5, 8.5, {player=0, mouseforce=1})
 oxyd_shuffle()
   ]]></el:luamain>
     <el:i18n>

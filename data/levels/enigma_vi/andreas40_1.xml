@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Ariadne" el:subtitle="" el:id="andreas40"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -87,7 +87,7 @@ function setitrub1(x,y)
   targetnumber = targetnumber + 1
   set_stone("st-stone1", x, y - 1, {name = "target"..targetnumber})
   set_item("it-rubberband", x, y, {target = "target"..targetnumber,
-    scissor = TRUE, strength = 1})
+    scissor = true, strength = 1})
 end
 
 cells={}
@@ -118,7 +118,7 @@ items["!"]=cell{parent={{setitrub1}}}
 items["#"]=cell{item="it-key_b"}
 items["$"]=cell{item="it-key_a"}
 items["%"]=cell{item="it-yinyang"}
-items["&"]=cell{item={"it-rubberband", {target="whiteball", scissor = TRUE, strength = 1}}}
+items["&"]=cell{item={"it-rubberband", {target="whiteball", scissor = true, strength = 1}}}
 actors["!"]=cell{parent={{ac_rotor}}}
 actors["$"]=cell{parent={{ac_blackball}}}
 actors["%"]=cell{parent={{ac_whiteball}}}

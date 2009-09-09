@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
      <el:identity el:title="Pull the Puller" el:subtitle="" el:id="just28"/>
-     <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+     <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
      <el:copyright>Copyright © 2007 JuSt</el:copyright>
      <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -91,7 +91,7 @@ set_stone("st-door-h", 18, 12, {name="door2"})
 set_stone("st-door-h", 12, 12, {name="door3"})
 
 -- Actor Layer
-set_actor("ac-blackball", 18.5, 4.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 18.5, 4.5, {player=0, mouseforce=1})
 
 oxyd_shuffle()
 puzzle1()

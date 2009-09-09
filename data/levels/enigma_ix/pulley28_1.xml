@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Collapsing Building" el:subtitle="" el:id="20081018pulley001"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ else
 end
 ti["L"] = {"st_rotator_cw"}
 ti["R"] = {"st_rotator_ccw"}
-ti["S"] = {"st_switch", action="callback", target="collapse", safeaction="true"}
+ti["S"] = {"st_switch", action="callback", target="collapse", safeaction=true}
 ti["O"] = {"st_oxyd_e", name="oxydleft#", target="oxyd_callback"}
 ti["o"] = {"st_oxyd_e", name="oxydright#", target="oxyd_callback"}
 ti["*"] = {"st_oxyd_e", name="oxydend#", target="oxyd_callback"}

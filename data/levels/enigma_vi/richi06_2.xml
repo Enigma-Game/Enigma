@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="A-way" el:subtitle="Sunken Atlantis" el:id="richi06"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Richi Bützer" el:email="" el:homepage="enigma.mal2.ch"/>
       <el:copyright>Copyright © 2005 Richi Bützer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ wo(ti, "-", {
 function generate_way()
     x = 2
     y = math.random(1, 11)
-    perv_prev_dir = 2
+    prev_prev_dir = 2
     prev_dir = 2
     dir = 2
 

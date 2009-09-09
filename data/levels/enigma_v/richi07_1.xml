@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Print 23" el:subtitle="" el:id="richi07"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Richi Bützer" el:email="" el:homepage="enigma.mal2.ch"/>
       <el:copyright>Copyright © 2005 Richi Bützer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -111,7 +111,7 @@ oxyd(18,11)
 -- Other stuff
 set_item("it-document", 5,7, {text="text1"})
 set_item("it-document", 5,8, {text="text2"})
-set_actor("ac-blackball", 1.5, 6.5, {player="0", mouseforce="1", name="actor"})
+set_actor("ac-blackball", 1.5, 6.5, {player=0, mouseforce=1, name="actor"})
 
 -- Lua-Sektion
 -- lua-section

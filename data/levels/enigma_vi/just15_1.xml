@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Your Friend, the Light" el:subtitle="" el:id="just15"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -123,21 +123,21 @@ set_stones("st-pmirror", {{2, 0}, {19, 1}, {0, 11}}, {movable=FALSE, transparent
 set_stones("st-glass3", {{6, 14}, {8, 14}, {8, 16}, {2, 18}, {8, 18}, {6, 20}, {12, 20}, {15, 20}, {17, 20}, {8, 22}, {1, 23}})
 set_stone("st-door", 18, 15, {name="door2", type="h"})
 set_stone("st-door", 10, 12, {name="door1", type="h"})
-set_stone("st-laser", 18, 0, {dir=SOUTH, on="1"})
-set_stone("st-laser", 0, 2, {dir=EAST, on="1"})
-set_stone("st-laser", 18, 10, {dir=NORTH, on="1"})
-set_stone("st-laser", 1, 12, {name="laser4", dir=NORTH, on="1"})
-set_stone("st-laser",  1, 13, {name="laser10", dir=SOUTH, on="0"})
-set_stone("st-laser",  1, 24, {name="laser20", dir=NORTH, on="1"})
-set_stone("st-laser",  0, 19, {name="laser11", dir=EAST,  on="0"})
-set_stone("st-laser",  9, 19, {name="laser21", dir=WEST,  on="1"})
-set_stone("st-laser",  7, 13, {name="laser12", dir=SOUTH, on="0"})
-set_stone("st-laser",  7, 24, {name="laser22", dir=NORTH, on="1"})
-set_stone("st-laser",  0, 23, {name="laser13", dir=EAST,  on="0"})
-set_stone("st-laser", 19, 23, {name="laser23", dir=WEST,  on="1"})
-set_stone("st-laser", 14, 24, {name="laser14", dir=NORTH, on="0"})
-set_stone("st-laser", 14, 19, {name="laser24", dir=SOUTH, on="1"})
-set_stone("st-laser",  0, 21, {name="laser15", dir=EAST,  on="0"})
+set_stone("st-laser", 18, 0, {dir=SOUTH, on=1})
+set_stone("st-laser", 0, 2, {dir=EAST, on=1})
+set_stone("st-laser", 18, 10, {dir=NORTH, on=1})
+set_stone("st-laser", 1, 12, {name="laser4", dir=NORTH, on=1})
+set_stone("st-laser",  1, 13, {name="laser10", dir=SOUTH, on=0})
+set_stone("st-laser",  1, 24, {name="laser20", dir=NORTH, on=1})
+set_stone("st-laser",  0, 19, {name="laser11", dir=EAST,  on=0})
+set_stone("st-laser",  9, 19, {name="laser21", dir=WEST,  on=1})
+set_stone("st-laser",  7, 13, {name="laser12", dir=SOUTH, on=0})
+set_stone("st-laser",  7, 24, {name="laser22", dir=NORTH, on=1})
+set_stone("st-laser",  0, 23, {name="laser13", dir=EAST,  on=0})
+set_stone("st-laser", 19, 23, {name="laser23", dir=WEST,  on=1})
+set_stone("st-laser", 14, 24, {name="laser14", dir=NORTH, on=0})
+set_stone("st-laser", 14, 19, {name="laser24", dir=SOUTH, on=1})
+set_stone("st-laser",  0, 21, {name="laser15", dir=EAST,  on=0})
 if difficult then
     set_stone("st-lightpassenger", 1, 14, {interval=0.2})
 else
@@ -146,7 +146,7 @@ end
 set_stone("st-lightpassenger", 18, 8, {interval=0.1})
 
 -- Actor Layer
-set_actor("ac-blackball", 10.5, 7.5, {player="0", mouseforce="1"})
+set_actor("ac-blackball", 10.5, 7.5, {player=0, mouseforce=1})
 
 oxyd_shuffle()
   ]]></el:luamain>

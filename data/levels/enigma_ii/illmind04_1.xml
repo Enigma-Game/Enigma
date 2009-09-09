@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Knight Moves" el:subtitle="" el:id="illmind04"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2005 illmind</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -69,25 +69,25 @@ set_item("it-trigger", 18, 1, {action="openclose", target="illdoor20"})
 set_item("it-trigger", 18, 3, {action="openclose", target="illdoor21"})
 
 -- door timers
-set_stone("st-timer", 21,1, {loop=1, action="openclose", target="illdoor01", interval=3})
-set_stone("st-timer", 21,2, {loop=1, action="openclose", target="illdoor02", interval=2})
-set_stone("st-timer", 21,3, {loop=1, action="openclose", target="illdoor03", interval=3})
-set_stone("st-timer", 21,4, {loop=1, action="openclose", target="illdoor04", interval=4})
-set_stone("st-timer", 21,5, {loop=1, action="openclose", target="illdoor05", interval=3})
-set_stone("st-timer", 21,6, {loop=1, action="openclose", target="illdoor06", interval=2})
-set_stone("st-timer", 21,7, {loop=1, action="openclose", target="illdoor07", interval=3})
-set_stone("st-timer", 21,8, {loop=1, action="openclose", target="illdoor08", interval=4})
-set_stone("st-timer", 21,9, {loop=1, action="openclose", target="illdoor09", interval=3})
-set_stone("st-timer", 21,10, {loop=1, action="openclose", target="illdoor10", interval=2})
-set_stone("st-timer", 21,11, {loop=1, action="openclose", target="illdoor11", interval=3})
-set_stone("st-timer", 22,1, {loop=1, action="openclose", target="illdoor12", interval=4})
-set_stone("st-timer", 22,2, {loop=1, action="openclose", target="illdoor13", interval=3})
-set_stone("st-timer", 22,3, {loop=1, action="openclose", target="illdoor14", interval=2})
-set_stone("st-timer", 22,4, {loop=1, action="openclose", target="illdoor15", interval=3})
-set_stone("st-timer", 22,5, {loop=1, action="openclose", target="illdoor16", interval=4})
-set_stone("st-timer", 22,6, {loop=1, action="openclose", target="illdoor17", interval=3})
-set_stone("st-timer", 22,7, {loop=1, action="openclose", target="illdoor18", interval=2})
-set_stone("st-timer", 22,8, {loop=1, action="openclose", target="illdoor19", interval=3})
+set_stone("st-timer", 21,1, {loop=true, action="openclose", target="illdoor01", interval=3})
+set_stone("st-timer", 21,2, {loop=true, action="openclose", target="illdoor02", interval=2})
+set_stone("st-timer", 21,3, {loop=true, action="openclose", target="illdoor03", interval=3})
+set_stone("st-timer", 21,4, {loop=true, action="openclose", target="illdoor04", interval=4})
+set_stone("st-timer", 21,5, {loop=true, action="openclose", target="illdoor05", interval=3})
+set_stone("st-timer", 21,6, {loop=true, action="openclose", target="illdoor06", interval=2})
+set_stone("st-timer", 21,7, {loop=true, action="openclose", target="illdoor07", interval=3})
+set_stone("st-timer", 21,8, {loop=true, action="openclose", target="illdoor08", interval=4})
+set_stone("st-timer", 21,9, {loop=true, action="openclose", target="illdoor09", interval=3})
+set_stone("st-timer", 21,10, {loop=true, action="openclose", target="illdoor10", interval=2})
+set_stone("st-timer", 21,11, {loop=true, action="openclose", target="illdoor11", interval=3})
+set_stone("st-timer", 22,1, {loop=true, action="openclose", target="illdoor12", interval=4})
+set_stone("st-timer", 22,2, {loop=true, action="openclose", target="illdoor13", interval=3})
+set_stone("st-timer", 22,3, {loop=true, action="openclose", target="illdoor14", interval=2})
+set_stone("st-timer", 22,4, {loop=true, action="openclose", target="illdoor15", interval=3})
+set_stone("st-timer", 22,5, {loop=true, action="openclose", target="illdoor16", interval=4})
+set_stone("st-timer", 22,6, {loop=true, action="openclose", target="illdoor17", interval=3})
+set_stone("st-timer", 22,7, {loop=true, action="openclose", target="illdoor18", interval=2})
+set_stone("st-timer", 22,8, {loop=true, action="openclose", target="illdoor19", interval=3})
 
 -- stationary lasers
 set_stone("st-laser", 16, 2, {on=TRUE, dir=SOUTH, name="illkill01"})
@@ -102,16 +102,16 @@ set_stone("st-laser", 18, 8, {on=FALSE, dir=WEST, name="illkill09"})
 set_stone("st-laser", 18, 10, {on=TRUE, dir=WEST, name="illkill10"})
 
 -- laser timers
-set_stone("st-timer", 23,2, {loop=1, action="onoff", target="illkill01", interval=4})
-set_stone("st-timer", 23,3, {loop=1, action="onoff", target="illkill02", interval=4})
-set_stone("st-timer", 23,4, {loop=1, action="onoff", target="illkill03", interval=2})
-set_stone("st-timer", 23,5, {loop=1, action="onoff", target="illkill04", interval=2})
-set_stone("st-timer", 23,6, {loop=1, action="onoff", target="illkill05", interval=2})
-set_stone("st-timer", 23,7, {loop=1, action="onoff", target="illkill06", interval=3})
-set_stone("st-timer", 23,8, {loop=1, action="onoff", target="illkill07", interval=3})
-set_stone("st-timer", 23,9, {loop=1, action="onoff", target="illkill08", interval=3})
-set_stone("st-timer", 23,10, {loop=1, action="onoff", target="illkill09", interval=3})
-set_stone("st-timer", 23,11, {loop=1, action="onoff", target="illkill10", interval=3})
+set_stone("st-timer", 23,2, {loop=true, action="onoff", target="illkill01", interval=4})
+set_stone("st-timer", 23,3, {loop=true, action="onoff", target="illkill02", interval=4})
+set_stone("st-timer", 23,4, {loop=true, action="onoff", target="illkill03", interval=2})
+set_stone("st-timer", 23,5, {loop=true, action="onoff", target="illkill04", interval=2})
+set_stone("st-timer", 23,6, {loop=true, action="onoff", target="illkill05", interval=2})
+set_stone("st-timer", 23,7, {loop=true, action="onoff", target="illkill06", interval=3})
+set_stone("st-timer", 23,8, {loop=true, action="onoff", target="illkill07", interval=3})
+set_stone("st-timer", 23,9, {loop=true, action="onoff", target="illkill08", interval=3})
+set_stone("st-timer", 23,10, {loop=true, action="onoff", target="illkill09", interval=3})
+set_stone("st-timer", 23,11, {loop=true, action="onoff", target="illkill10", interval=3})
 
 
 
@@ -351,10 +351,10 @@ set_actor("ac-blackball", 1.5, 1.5, {player=0})
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text2">
         <el:english el:translate="false">illmind's  knight  moves  ...</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Meditation in Peace" el:subtitle="Funeral on Deep Sea" el:id="20070502ral466"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 149 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 184 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -44,7 +44,7 @@ ti["t"] = {"it_document", text="Health"}
 
 ti["2"] = {"#ac_pearl", owner=DEFAULT, controllers=CTRL_NONE, essential=INDISPENSABLE}
 
-ti["T"] = ti["~"] .. {"st_timer", invisible=1, interval=0.1, target="wave"}
+ti["T"] = ti["~"] .. {"st_timer", invisible=true, interval=0.1, target="wave"}
 
 wo(res.autotile(ti, {"a","d","dest"},{"A","D","hole"}), " ", {
     "T#..*     *     ..#~",

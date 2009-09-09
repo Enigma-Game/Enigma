@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Triggered Triggers" el:subtitle="" el:id="just19"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -57,7 +57,7 @@ function who_is_who()
             local myfloor = enigma.GetFloor(x, y)
             if enigma.GetKind(myfloor) == "fl-bridge" then
                 repeat
-                    rnd = random(1,16) 
+                    rnd = random(1,16)
                 until bridgename[rnd] > 0
                 bridgename[rnd] = 0
                 enigma.NameObject(myfloor, "bridge"..tostring(rnd))
@@ -126,28 +126,28 @@ draw_stones("st-brick", {1, 12}, {1, 0}, 3)
 draw_stones("st-brick", {5, 12}, {1, 0}, 3)
 draw_stones("st-brick", {9, 12}, {1, 0}, 2)
 draw_stones("st-brick", {12, 12}, {1, 0}, 7)
-set_stone("st-laser", 1, 0, {dir=SOUTH, on="1"})
-set_stone("st-timer", 20, 0, {action="callback", target="where_is_it", interval="0.1", name="timer1"})
-set_stone("st-laser", 19, 1, {dir=WEST, on="1"})
-set_stone("st-laser", 0, 2, {name="laser17", dir=EAST, on="1"})
-set_stone("st-laser", 0, 3, {name="laser18", dir=EAST, on="0"})
-set_stone("st-laser", 17, 3, {name="laser19", dir=WEST, on="0"})
-set_stone("st-laser", 18, 3, {dir=NORTH, on="1"})
-set_stone("st-laser", 2, 4, {name="laser20", dir=NORTH, on="0"})
-set_stone("st-laser", 3, 4, {name="laser21", dir=NORTH, on="0"})
-set_stone("st-laser", 4, 4, {name="laser22", dir=NORTH, on="0"})
-set_stone("st-laser", 5, 4, {name="laser23", dir=NORTH, on="0"})
-set_stone("st-laser", 6, 4, {name="laser24", dir=NORTH, on="0"})
-set_stone("st-laser", 7, 4, {name="laser25", dir=NORTH, on="0"})
-set_stone("st-laser", 8, 4, {name="laser26", dir=NORTH, on="0"})
-set_stone("st-laser", 9, 4, {name="laser27", dir=NORTH, on="0"})
-set_stone("st-laser", 10, 4, {name="laser28", dir=NORTH, on="0"})
-set_stone("st-laser", 11, 4, {name="laser29", dir=NORTH, on="0"})
-set_stone("st-laser", 12, 4, {name="laser30", dir=NORTH, on="0"})
-set_stone("st-laser", 13, 4, {name="laser31", dir=NORTH, on="0"})
-set_stone("st-laser", 14, 4, {name="laser32", dir=NORTH, on="0"})
-set_stone("st-laser", 15, 4, {name="laser33", dir=NORTH, on="0"})
-set_stone("st-laser", 16, 4, {name="laser34", dir=NORTH, on="0"})
+set_stone("st-laser", 1, 0, {dir=SOUTH, on=1})
+set_stone("st-timer", 20, 0, {action="callback", target="where_is_it", interval=0.1, name="timer1"})
+set_stone("st-laser", 19, 1, {dir=WEST, on=1})
+set_stone("st-laser", 0, 2, {name="laser17", dir=EAST, on=1})
+set_stone("st-laser", 0, 3, {name="laser18", dir=EAST, on=0})
+set_stone("st-laser", 17, 3, {name="laser19", dir=WEST, on=0})
+set_stone("st-laser", 18, 3, {dir=NORTH, on=1})
+set_stone("st-laser", 2, 4, {name="laser20", dir=NORTH, on=0})
+set_stone("st-laser", 3, 4, {name="laser21", dir=NORTH, on=0})
+set_stone("st-laser", 4, 4, {name="laser22", dir=NORTH, on=0})
+set_stone("st-laser", 5, 4, {name="laser23", dir=NORTH, on=0})
+set_stone("st-laser", 6, 4, {name="laser24", dir=NORTH, on=0})
+set_stone("st-laser", 7, 4, {name="laser25", dir=NORTH, on=0})
+set_stone("st-laser", 8, 4, {name="laser26", dir=NORTH, on=0})
+set_stone("st-laser", 9, 4, {name="laser27", dir=NORTH, on=0})
+set_stone("st-laser", 10, 4, {name="laser28", dir=NORTH, on=0})
+set_stone("st-laser", 11, 4, {name="laser29", dir=NORTH, on=0})
+set_stone("st-laser", 12, 4, {name="laser30", dir=NORTH, on=0})
+set_stone("st-laser", 13, 4, {name="laser31", dir=NORTH, on=0})
+set_stone("st-laser", 14, 4, {name="laser32", dir=NORTH, on=0})
+set_stone("st-laser", 15, 4, {name="laser33", dir=NORTH, on=0})
+set_stone("st-laser", 16, 4, {name="laser34", dir=NORTH, on=0})
 set_stones("st-brick", {{9, 7}, {10, 9}})
 if difficult then
     set_stone("st-lightpassenger", 1, 1, {interval=0.2})
@@ -156,8 +156,8 @@ else
 end
 
 -- Actor Layer
-set_actor("ac-blackball", 1.5, 5.5, {player="0", mouseforce="1", essential="1"})
-set_actor("ac-whiteball", 18.5, 11.5, {player="1", mouseforce="1"})
+set_actor("ac-blackball", 1.5, 5.5, {player=0, mouseforce=1, essential=1})
+set_actor("ac-whiteball", 18.5, 11.5, {player=1, mouseforce=1})
 
 oxyd_shuffle()
 who_is_who()

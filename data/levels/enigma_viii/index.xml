@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -105,7 +105,7 @@
     <level _seq="97" _title="Crabwise I" _xpath="./devnull34_2" author="/dev/null" ctrl="force" easy="true" id="devnull34" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="98" _title="Crabwise II" _xpath="./devnull35_2" author="/dev/null" ctrl="force" easy="true" id="devnull35" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="99" _title="Wired Strips" _xpath="./ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
-    <level _seq="100" _title="Pentachromos" _xpath="./cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="100" _title="Pentachromos" _xpath="./cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

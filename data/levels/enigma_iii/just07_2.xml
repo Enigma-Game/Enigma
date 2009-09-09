@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Manamana" el:subtitle="" el:id="just07"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_gravel"}
+ti["~ "] = {"fl_water"}
+ti[" #"] = {"st_brownpyramide"}
+ti[" B"] = {"st_break_boulder"}
+ti[" G"] = {"st_rawglass"}
+ti[" M"] = {"st_mirror", flavor="slab", orientation=SLASH}
+ti[" N"] = {"st_mirror", flavor="slab", orientation=BACKSLASH}
+ti[" n"] = {"st_mirror", flavor="slab", orientation=BACKSLASH, movable=true, transparent=true}
+ti[" T"] = {"st_mirror", flavor="triangle", orientation=WEST}
+ti[">1"] = {"st_laser", orientation=EAST, name="laser1"}
+ti[">2"] = {"st_laser", orientation=EAST, name="laser2"}
+ti["S1"] = {"st_switch", color=BLACK, target="laser1"}
+ti["S2"] = {"st_switch", color=WHITE, target="laser2"}
+ti["P"] = {"st_puzzle", color=YELLOW}
+ti["Q"] = {"st_puzzle", color=BLUE, intensity=0}
+ti[" h"] = {"it_hammer"}
+ti[" ."] = {"it_seed"}
+ti[" O"] = {"st_oxyd"}
+ti["@1"] = {"#ac_marble_black"}
+ti["@2"] = {"#ac_marble_white"}
+
+wo(res.puzzle(res.composer(ti), "P", "Q"), "  ", {
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #",
+    " #       #                   #     N    ~ ~ ~ ~N~ ~ ~ ~          #        ~  #",
+    " #       #  Q0Q0             #      >2  ~ ~ ~ ~ ~ ~T~.~. .~      #        ~  #",
+    " #  @1   #    Q0    P0P0P0   #          ~ ~ ~ ~ ~.~.~.~   ~               ~  #",
+    " #            Q0    P0 hP0         n    ~ ~.~.~.~.~ ~ ~   ~      #        ~  O",
+    " #       #   BQ0    P0P0P0   #          ~.~.~ ~ ~ ~ ~ ~   ~ ~ ~  #~ ~ ~ ~ ~  #",
+    " # # # # # # #Q5 # # # # # # # # #S1S2 # # # #~G #~G # # # # # # # # # # # # #",
+    " #       #    Q0             #          ~.~.~ ~ ~ ~ ~ ~          #        ~  #",
+    " #            Q0      P0P0P0P0          ~ ~.~.~ ~ ~ ~ ~          #        ~  O",
+    " #  @2   #    Q0      P0P0P0 #     n    ~ ~ ~.~.~.~.~.~                   ~  #",
+    " #       #    Q0      P0     #      >1  ~ ~ ~ ~T~ ~ ~.~          #        ~  #",
+    " #       #  Q0Q0             #     M    ~ ~ ~ ~ ~ ~M~.~. .~ ~ ~  #~ ~ ~ ~ ~  #",
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

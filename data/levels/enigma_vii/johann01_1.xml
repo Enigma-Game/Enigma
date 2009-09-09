@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Ball Alley" el:subtitle="" el:id="johann01"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Johann Freymuth" el:email="johannff@web.de"/>
       <el:copyright>Copyright © 2007 Johann Freymuth</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -11,7 +11,8 @@
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="0:39"/>
     </el:info>
-    <el:luamain><![CDATA[levelh = 13
+    <el:luamain><![CDATA[
+levelh = 13
 levelw = 20
 
 create_world(levelw, levelh)
@@ -91,7 +92,7 @@ function stop()
 end
 
 set_stone("st-timer", 0, 0, {name="timer", action="callback", target="stop", on=0, interval=2})
-set_item("it-sensor", 7, 1, {target="timer", action="on", on="0",})
+set_item("it-sensor", 7, 1, {target="timer", action="on", on=0,})
 
 set_stone("st-switch_white", 9, 11, {action="open", target="door"})
 set_stone("st-door_a", 11, 06, {name="door"})

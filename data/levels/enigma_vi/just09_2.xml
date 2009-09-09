@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Playing with Lasers" el:subtitle="" el:id="just09_1"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="0:26"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["G"] = {"st_rawglass"}
+ti["I"] = {"st_stoneimpulse"}
+ti["+"] = {"st_box"}
+ti["P"] = {"st_lightpassenger"}
+ti["M"] = {"st_mirror", flavor="slab", movable=true, orientation=VERTICAL}
+ti["^"] = {"st_laser", state=ON, orientation=NORTH}
+ti[">"] = {"st_laser", state=ON, orientation=EAST}
+ti["V"] = {"st_laser", state=ON, orientation=SOUTH}
+ti["<"] = {"st_laser", state=ON, orientation=WEST}
+ti["L"] = {"st_laser", state=ON, orientation=EAST, name="laser"}
+ti["t"] = {"it_trigger", target="laser", action="off"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "#V##################",
+    "#                  <",
+    "# XXXXXXXXXXXXXXXX #",
+    "# X       M        #",
+    "# X          GGGGX #",
+    "# XGGG    @ ~+IIGX #",
+    "# XGOG       GGGGX #",
+    "# XGGGXXXXXX   XXV #",
+    ">   P              #",
+    "# XXXXXXXXXX ####  #",
+    "L XXXXXXXXXX   t#  #",
+    "# XXXXXXXXXX #O >  #",
+    "##################^#"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

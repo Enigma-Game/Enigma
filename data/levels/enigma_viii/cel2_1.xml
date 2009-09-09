@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pentachromos" el:subtitle="Combined effort level 2" el:id="cel2"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author  el:name="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -91,9 +91,9 @@ ti["z]"] = ti["z "] .. {"st_rotator_cw"}
 ti["z["] = ti["z "] .. {"st_rotator_ccw"}
 ti["z)"] = ti["z "] .. {"st_rotator_cw_movable"}
 ti["z("] = ti["z "] .. {"st_rotator_ccw_movable"}
-ti["zX"] = ti["z "] .. {"st_mirror_slab_et", transparent = "true", movable = "true"}
-ti["zY"] = ti["z "] .. {"st_mirror_triangle_n", transparent = "true", movable = "true"}
-ti["zZ"] = ti["z "] .. {"st_mirror_slab_e", movable = "true"}
+ti["zX"] = ti["z "] .. {"st_mirror_slab_et", transparent = true, movable = true}
+ti["zY"] = ti["z "] .. {"st_mirror_triangle_n", transparent = true, movable = true}
+ti["zZ"] = ti["z "] .. {"st_mirror_slab_e", movable = true}
 ti["z1"] = ti["z "] .. {"st_laser_e", name = "Laser"}
 ti["z2"] = {"fl_bridge_gc", state = OPEN, name = "ChessDoor"}
 ti["z3"] = {"fl_bridge_gc", state = OPEN, name = "BackDoor"}

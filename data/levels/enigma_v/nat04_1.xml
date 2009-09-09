@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Walk The Plank" el:subtitle="" el:id="nat4"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -145,12 +145,12 @@ set_stone( "st-fakeoxyd", 76, ferry_y+2 )
 
 set_stone( "st-laser", 73, ferry_y-2, {name="laser1",dir=SOUTH,on=1} )
 set_stone( "st-timer", 73, ferry_y+4, 
-           {action="onoff",target="laser1",interval="1.75",
+           {action="onoff",target="laser1",interval=1.75,
             name="laser_timer1"} )
 
 set_stone( "st-laser", 75, ferry_y+4, {name="laser2",dir=NORTH,on=0} )
 set_stone( "st-timer", 75, ferry_y-2, 
-           {action="onoff",target="laser2",interval="1.75",
+           {action="onoff",target="laser2",interval=1.75,
             name="laser_timer2"} )
 
 SendMessage( "laser_timer1", "off" )

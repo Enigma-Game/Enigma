@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Lone Ranger" el:subtitle="" el:id="pulley04"/>
-      <el:version el:score="2" el:release="2" el:revision="21" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="22" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -53,7 +53,7 @@ ti["M"] = ti[" "] .. {"it_spoon"}
 ti["N"] = ti[" "] .. {"it_dynamite"}
 ti["O"] = ti["y"] .. {"st_invisible"} --Invisible stone on blue floor
 ti["P"] = ti[" "] .. {"st_door_a", name="Door1"} -- Tonto's prison door
-ti["Q"] = ti[" "] .. {"#ac_rotor", range=10, gohome=0}
+ti["Q"] = ti[" "] .. {"#ac_rotor", range=10, gohome=false}
 ti["R"] = ti["r"] .. {"st_invisible"} --Invisible stone on red floor
 ti["S"] = ti[" "] .. {"st_door_a", name="Door2"} -- Silver's prison door
 ti["T"] = ti["y"] .. {"st_thief"} --Thief on blue floor
