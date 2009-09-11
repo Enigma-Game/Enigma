@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Tilt Control" el:subtitle="" el:id="duffy66"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code >New API converted by Ronald Lamprecht</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7", friction=4.0}
+ti["."] = {"fl_abyss"}
+ti["~"] = {"fl_water", name="water"}
+ti["-"] = {"fl_metal_7", name="court#", friction=4.0}
+ti["#"] = {"st_greenbrown"}
+ti["="] = {"fl_slope_tw", strength=10}
+ti["<"] = {"st_oneway", orientation=WEST, name="oneway"} .. ti["="]
+ti["D"] = {"st_death"}
+ti["+"] = {"it_trigger", target="addslope", _force_x=0, _force_y=0}
+ti["N"] = {"it_trigger", target="addslope", _force_x=0, _force_y=-10}
+ti["E"] = {"it_trigger", target="addslope", _force_x=10, _force_y=0}
+ti["S"] = {"it_trigger", target="addslope", _force_x=0, _force_y=10}
+ti["W"] = {"it_trigger", target="addslope", _force_x=-10, _force_y=0}
+ti["o"] = {"st_oxyd", name="left#"}
+ti["O"] = {"st_oxyd", name="right#"}
+ti["@"] = {"#ac_marble_black"}
+ti["*"] = {"#ac_marble_white", name="white", essential=INDISPENSABLE} .. ti["="]
+
+wo(ti, " ", {
+    "##o###o####O#D#O##..",
+    "#+  N  +##-------#..",
+    "o       oO-------O..",
+    "#       ##-------###",
+    "#W  @  E#D---~---<*#",
+    "#       ##-------###",
+    "o       oO-------O..",
+    "#+  S  +##-------#..",
+    "##o###o####O#D#O##.."})
+
+wo:add({"ot_timer", target="float", interval=0.1, state=ON})
+wo:add({"ot_timer", target="chase", interval=1.0, state=ON})
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"left#*", max=2}, {"right#*", max=2})
+else
+    wo:shuffleOxyd({"left#*", max=1}, {"right#*", max=1})
+end
+
+local force_x = 0
+local force_y = 0
+local court = no["court#*"]
+function addslope(value, sender)
+    force_x = sender["_force_x"]
+    force_y = sender["_force_y"]
+    court["force_x"] = force_x
+    court["force_y"] = force_y
+end
+
+function float(value, sender)
+    wo[no["water"]] = ti["~"]
+end
+
+function chase(value, sender)
+    if wo["IsDifficult"] then
+        local white = no["white"]
+        if court[fl(white)] ~= nil then
+            local candidates = no["water"] + (po(0, 0) .. NEIGHBORS_4)
+            local mindist = 10000
+            local winner = nil
+            for i= 1, 5 do
+                local distvec = candidates[i] - white
+                local distsquare = distvec.x * distvec.x + distvec.y * distvec.y
+                if distsquare < mindist then
+                    winner = i
+                    mindist = distsquare
+                end
+            end
+            if i ~= 1 then
+                wo[no["water"]] = ti["-"]
+                wo[candidates[winner]] =  ti["~"]
+                court = no["court#*"]
+                court["force_x"] = force_x
+                court["force_y"] = force_y
+            end
+        end
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

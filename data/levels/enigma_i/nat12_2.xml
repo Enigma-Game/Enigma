@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Simon Says" el:subtitle="" el:id="nat12"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="stable"/>
+      <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_samba"}
+ti["#"] = {"st_purplegray"}
+ti["X"] = ti["-"] .. {"st_door", flavor="a", state=OPEN, name="doors#"}
+ti[">"] = {"st_mirror", flavor="triangle", orientation=EAST}
+ti["M"] = {"st_mirror", orientation=SLASH}
+ti["N"] = {"st_mirror", orientation=BACKSLASH}
+ti["<"] = {"st_laser", state=ON, orientation=WEST}
+ti["W"] = {"st_door", flavor="b", name="doorsl%%#"}
+ti["Q"] = ti["-"] .. {"st_quake", name="blinker#"}
+ti["S"] = ti["-"] .. {"st_switch", target="check"}
+ti["t"] = ti["-"] .. {"it_trigger", name="trigger", target="generate", _length=1}
+ti["T"] = {"st_timer", name="timer", state=OFF, target="blink", interval=1.0, _state=1}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"1", "8", "W"}), " ", {
+    "                    ",
+    " Q####Q####Q M5678O ",
+    " #S---S---S# 4      ",
+    " #---------# 3      ",
+    " #--XXXXX--# 2      ",
+    " #--X---X--# 1      ",
+    " QS@X-t-X-SQ >  < T ",
+    " #--X---X--# 1      ",
+    " #--XXXXX--# 2      ",
+    " #---------# 3      ",
+    " #S---S---S# 4      ",
+    " Q####Q####Q N5678O ",
+    "                    "})
+
+local sequence = {}
+local semaphor = false
+
+function generate(value, sender)
+    if value == true and semaphor == false then
+        semaphor = true
+        no["doors#*"]:close()
+        blinker = no["blinker#*"]:shuffle()
+        sequence = {}
+        for i = 1, sender["_length"] do
+            sequence[i] = blinker[i]
+        end
+        no["timer"]["_state"] = 1
+        no["timer"]:on()
+    end
+end
+
+function blink(value, sender)
+    if sender["_state"] <= #sequence then
+        sequence[sender["_state"]]:toggle()
+        sender["_state"] = sender["_state"] +1
+    else
+        sender:off()
+        no["doors#*"]:open()
+    end
+end
+
+local number = 1    -- which step of the sequence to check as next
+
+function check(value, sender)
+    qua = no["blinker#*"]:nearest(sender)
+    if qua == sequence[number] then
+        qua:toggle()
+        number = number +1
+    else
+        -- the sequence was wrong
+        no["doorsl*"]:close()
+        no["trigger"]["_length"] = 1    -- start again with sequence of length 1
+        sequence = {}
+        number = 1
+        semaphor = false    -- allow us to request a new challenge
+        return    -- to assure we get no problems with sequences of length 1
+    end
+    -- finally, the whole sequence was right
+    if number == #sequence +1 then
+        no["doorsl%"..#sequence.."#*"]:open()
+        no["trigger"]["_length"] = no["trigger"]["_length"] +1    -- next sequence will be 1 longer
+        sequence = {}
+        number = 1
+        semaphor = false    -- allow us to request a new challenge
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

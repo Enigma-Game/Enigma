@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tilt Maze" el:subtitle="" el:id="duffy69"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["."] = {"fl_metal_7", name="court#"}
+ti["-"] = {"fl_slope_tw"}
+ti["#"] = {"st_greenbrown"}
+ti["="] = ti["-"] .. {"st_oneway", orientation=WEST}
+ti["I"] = cond(wo["IsDifficult"], {"fl_water"}, {"st_actorimpulse"})
+ti["^"] = {"it_trigger", target="slope", _force_x=0, _force_y=-10}
+ti[">"] = {"it_trigger", target="slope", _force_x=10, _force_y=0}
+ti["V"] = {"it_trigger", target="slope", _force_x=0, _force_y=10}
+ti["<"] = {"it_trigger", target="slope", _force_x=-10, _force_y=0}
+ti["O"] = {"st_oxyd"}
+ti["A"] = ti["-"] .. {"#ac_marble_white", essential=INDISPENSABLE}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#                                     #",
+    "# @^ ############################# ^  #",
+    "# < >#I.#......I.......I...I#I..I#< > #",
+    "#  V #..#...I......I.......I#....# V  #",
+    "# ####......#I############....#..#### #",
+    "# #I....I..I#......I....I#..I.#.....# #",
+    "# #..########I.###.#.....#I...#II.II# #",
+    "# #..#..I...#..=A#.#I.#..########.### #",
+    "# #.....#...##I###.#..#..I.....I#...# #",
+    "# #I..I...I......I.#..#..I..I...#I#.# #",
+    "# #...#...#...I....#.I#I....I.......# #",
+    "# ################I#..############### #",
+    "# #I...I.....I.....#..#I...I...I....# #",
+    "# #..#....I.....#..#I.#..I...I...I.I# #",
+    "# #.I############I.#..I..######.II..# #",
+    "# #.......O#II.I#..#.....I...I#####.# #",
+    "# ##.#######....I..#I#####.I........# #",
+    "# #O.#I......I....I#I...I#.#######.I# #",
+    "# ####..III#########..I..#......I#### #",
+    "#  ^ #..I...I....III..#..#IIIII..# ^  #",
+    "# < >#I...I....I.....I#I........I#< > #",
+    "#  V ############################# V  #",
+    "#                                     #",
+    "#######################################"})
+
+local court = no["court#*"]
+function slope(value, sender)
+    court["force_x"] = sender["_force_x"]
+    court["force_y"] = sender["_force_y"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

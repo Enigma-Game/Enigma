@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -109,7 +109,7 @@
     <level _seq="101" _title="Oxyd-Puzzle" _xpath="enigma_v/raoul05_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul05" rel="2" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="102" _title="Keystone" _xpath="enigma_v/raoul12_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul12" rel="2" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="103" _title="Print 23" _xpath="enigma_v/richi07_1" author="Richi Bützer" ctrl="force" easy="false" id="richi07" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="104" _title="Laser Crossing" _xpath="enigma_v/luc24_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc24" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="104" _title="Laser Crossing" _xpath="enigma_v/luc24_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc24" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="105" _title="The Carousel" _xpath="enigma_v/luc30_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc30" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="106" _title="Ocean Cruising" _xpath="enigma_v/duffy131_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy131" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="107" _title="Pirates Island" _xpath="enigma_v/alain07_1" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -203,7 +203,7 @@
     <level _seq="195" _title="The Cube" _xpath="enigma_vi/malaire01_1" author="Markus Laire" ctrl="force" easy="true" id="20061120malaire901" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="196" _title="Puzzle Puzzles" _xpath="enigma_vi/raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="27" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Checkmate II" _xpath="enigma_vi/andreas35_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="2" rev="10" score="1" target="time" unit="duration"/>
-    <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_1" author="illmind" ctrl="force" easy="true" id="illmind12" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="198" _title="be quick or be dead" _xpath="enigma_vi/illmind12_2" author="illmind" ctrl="force" easy="true" id="illmind12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Tarzan" _xpath="enigma_vi/ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="200" _title="Simple Space" _xpath="enigma_vi/ulf02_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060628ulf002" rel="1" rev="0" score="1" target="time" unit="duration"/>
   </levels>

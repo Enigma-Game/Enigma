@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pull the Puller" el:subtitle="" el:id="just28"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="6:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_himalaya"}
+ti["< "] = {"fl_himalaya", push_directions="w"}   -- Use push_directions to assure the hollow cross
+ti["> "] = {"fl_himalaya", push_directions="e"}   -- stays where it is. This is important because we
+ti["^ "] = {"fl_himalaya", push_directions="n"}   -- want to see the item below.
+ti["V "] = {"fl_himalaya", push_directions="s"}
+ti["x "] = {"fl_himalaya", push_directions="nw"}
+ti["- "] = {"fl_abyss"}
+ti["~ "] = {"fl_swamp"}
+ti["b "] = {"fl_bridge", flavor="gc", name="bridge#", state=OPEN}
+ti[" #"] = {"st_brick"}
+ti[" X"] = {"st_grate", flavor="cross"}
+ti[" B"] = {"st_plop_slate"}
+ti[" P"] = {"st_pull"}
+ti[" C"] = {"st_chess", color=WHITE}
+ti[" G"] = {"st_lightglass"}
+ti[" R"] = {"st_rotator_cw"}
+ti[" S"] = {"st_rotator_ccw"}
+ti[" U"] = {"st_door", flavor="d", faces="ns", name="door1"}
+ti[" V"] = {"st_door", flavor="d", faces="ns", name="door2"}
+ti[" ="] = {"st_door", flavor="d", faces="ns", name="door3"}
+ti["m "] = {"it_magicwand"}
+ti["l "] = {"it_puller", orientation=WEST}
+ti["d "] = {"it_puller_s"}
+ti["w "] = {"it_wrench"}
+ti["s "] = {"it_trigger", target="door3"}
+ti["t "] = {"it_trigger", target="bridge#*"}
+ti["u "] = {"it_trigger", target="door1"}
+ti["v "] = {"it_trigger", target="door2"}
+ti["P"] = {"st_puzzle", color=YELLOW, algorithm="marked"}
+ti["Q"] = ti["d "] .. {"st_puzzle", color=YELLOW}
+ti[" O"] = {"st_oxyd"}
+ti[" @"] = {"#ac_marble_black"}
+
+wo(res.puzzle(res.composer(ti), "P", "Q"), "  ", {
+    " # # # # S R R R R R R R R R R R R # O #",
+    " #         # # # # # # # # # # # #s    O",
+    " #b b  # # # # # # # # # # # # # # # = #",
+    " #          ~ ~ ~ ~ ~ ~ ~ ~ ~  # # #   #",
+    " #          ~             ~ ~        @ #",
+    " #   X   # #   #   #   # #     # # # # #",
+    " # X X X #   B   B   B #  V V V   V    #",
+    " #   X   # B   B   B   #> P0P0P0P0P0<  #",
+    " # X X X #   B P B   B #> P0wGP0P0P0<  #",
+    " #   X   # B   B   Bm  #  P0P0P0Q5P0   #",
+    " # X C X #   B   B   B #> P0P0P0P0x    #",
+    " #  t    # B   B   B   #  ^ ^ ^        #",
+    " # # # # # # # #u  #v  #lU # # # # #lV #"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

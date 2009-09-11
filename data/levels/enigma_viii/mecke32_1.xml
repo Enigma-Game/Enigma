@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="New York Jungle" el:subtitle="Big Apple Blues" el:id="mecke32"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:24 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:26 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -38,7 +38,7 @@ ti[" %"] = {"st_greenbrown"}
 ti[" &"] = {"st_bluesand"}
 ti[" '"] = {"st_granite"}
 ti[" ("] = {"st_brick"}
-ti[" )"] = {"st_rotator_ccw", movable="false"}
+ti[" )"] = {"st_rotator_ccw"}
 ti[" *"] = {"st_puzzle_yellow", connections="ew"}
 ti[" y"] = {"it_yinyang"}
 ti[" +"] = {"st_shogun_s"}
@@ -92,7 +92,7 @@ ti[" a"] = {"it_pipe", connections="ew"}
 ti["b1"] = ti["$ "] .. {"it_pipe", connections="es"}
 ti["b2"] = ti["! "] .. {"st_floppy", target="door6", action="toggle"}
 ti["b3"] = ti["$ "] .. {"st_passage_white_frame"}
-ti["b4"] = ti["$ "] .. {"st_mail", orientation = NORTH}
+ti["b4"] = ti["$ "] .. {"st_mail", orientation=NORTH}
 ti[" H"] = {"st_yellow"}
 ti[" I"] = {"st_laser_s", state=ON}
 ti[" J"] = {"st_actorimpulse_invisible"}
@@ -111,16 +111,16 @@ ti[" c"] = {"it_spoon"}
 ti[" d"] = {"it_meditation_hill"}
 ti[" S"] = {"st_greenbrown_hollow"}
 ti["VS"] = ti["$ "] .. {"st_greenbrown_hollow"}
-ti[" <"] = {"st_coinslot",name = "conny", target="door4"}
+ti[" <"] = {"st_coinslot", name="conny", target="door4"}
 ti["DA"] = ti["$ "] .. {"it_coin_l"}
 ti["EA"] = ti["DA"] .. {"st_death_invisible"}
 ti["DB"] = ti["' "] .. {"st_grate_cross"}
 ti["EB"] = ti["DB"] .. {"it_shogun_l"}
-ti["TT"] = ti["# "] .. {"it_trigger", name = "triggery", target="door3"}
-ti["KA"] = ti["' "] .. {"it_glasses", state = SPOT_DEATH}
-ti["KB"] = ti["' "] .. {"it_glasses", state = SPOT_SENSOR}
-ti["KC"] = ti["' "] .. {"it_glasses", state = SPOT_TRAP}
-ti["GB"] = ti["$ "] .. {"it_sensor", invisible=true, name = "tsensory", target="door1", action="open"}
+ti["TT"] = ti["# "] .. {"it_trigger", name="triggery", target="door3"}
+ti["KA"] = ti["' "] .. {"it_glasses", state=SPOT_DEATH}
+ti["KB"] = ti["' "] .. {"it_glasses", state=SPOT_SENSOR}
+ti["KC"] = ti["' "] .. {"it_glasses", state=SPOT_TRAP}
+ti["GB"] = ti["$ "] .. {"it_sensor", invisible=true, name="tsensory", target="door1", action="open"}
 ti["GC"] = ti["+ "] .. {"it_trap"}
 ti["GD"] = ti["$ "] .. {"it_trap"}
 ti["GE"] = ti["$ "] .. {"it_seed_volcano"}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Kaleidoscope" el:subtitle="" el:id="duffy118"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7", name="floor#"}
+
+ti["1"] = {"fl_sand", name="floor#"}
+ti["2"] = {"fl_bluegreen", name="floor#"}
+ti["3"] = {"fl_space", name="floor#"}
+ti["4"] = {"fl_inverse", name="floor#"}
+ti["5"] = {"fl_lawn", name="floor#"}
+ti["6"] = {"fl_wood", name="floor#"}
+ti["7"] = {"fl_tigris", name="floor#"}
+ti["8"] = {"fl_ice", name="floor#"}
+ti["9"] = {"fl_metal", name="floor#"}
+ti["0"] = {"fl_metal_7", name="floor#"}
+ti["a"] = {"fl_pinkbumps", name="floor#"}
+ti["b"] = {"fl_marble", name="floor#"}
+ti["c"] = {"fl_sahara", name="floor#"}
+ti["d"] = {"fl_inverse_gray", name="floor#"}
+ti["e"] = {"fl_concrete", name="floor#"}
+ti["f"] = {"fl_redslab", name="floor#"}
+ti["g"] = {"fl_blueslab", name="floor#"}
+ti["h"] = {"fl_swamp", name="floor#"}
+ti["i"] = {"fl_rock", name="floor#"}
+ti["j"] = {"fl_gravel", name="floor#"}
+ti["k"] = {"fl_ivory", name="floor#"}
+ti["l"] = {"fl_red", name="floor#"}
+ti["m"] = {"fl_rough", name="floor#"}
+ti["n"] = {"fl_hay", name="floor#"}
+ti["o"] = {"fl_plank", name="floor#"}
+ti["p"] = {"fl_gray", name="floor#"}
+ti["q"] = {"fl_brick", name="floor#"}
+ti["r"] = {"fl_dunes", name="floor#"}
+ti["s"] = {"fl_white", name="floor#"}
+ti["t"] = {"fl_himalaya", name="floor#"}
+ti["u"] = {"fl_mortar", name="floor#"}
+ti["v"] = {"fl_dark", name="floor#"}
+ti["w"] = {"fl_bright", name="floor#"}
+ti["x"] = {"fl_bast", name="floor#"}
+ti["y"] = {"fl_bluegray", name="floor#"}
+ti["z"] = {"fl_woven", name="floor#"}
+ti["A"] = {"fl_platinum", name="floor#"}
+ti["B"] = {"fl_darkgray", name="floor#"}
+ti["C"] = {"fl_stone", name="floor#"}
+
+ti["#"] = {"st_death"}
+ti["T"] = {"#ac_top", range=100.0, strength=5.0}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black", name="ma"}
+
+local resolver = res.random(ti, "-",
+              {{"1", 3/108}, {"2", 3/108}, {"3", 6/108}, {"4", 6/108}, {"5", 3/180}, {"6", 4/108}, {"7", 2/108}, {"8", 4/108},
+              {"9", 3/108}, {"0", 3/108}, {"a", 3/108}, {"b", 2/108}, {"c", 2/108}, {"d", 4/108}, {"e", 2/108}, {"f", 3/108}, {"g", 3/108}, {"h", 4/108}, {"i", 3/108}, {"j", 3/108}, {"k", 3/108}, {"l", 3/108}, {"m", 3/108}, {"n", 3/108}, {"o", 4/108}, {"p", 3/108}, {"q", 8/108}, {"r", 3/108}, {"s", 1/108}, {"t", 2/108}, {"u", 2/108}, {"v", 1/108}, {"w", 1/108}, {"x", 1/108}, {"y", 3/108}, {"z", 1/108}, {"A", 1/108}, {"B", 1/108}, {"C", 2/108}})
+
+wo(resolver, " ", {
+    "####################",
+    "#-----O------O-----#",
+    "#-O------##------O-#",
+    "#------------------#",
+    "#---#--O----O--#---#",
+    "#------------------#",
+    "#O#--T--------@--#O#",
+    "#------------------#",
+    "#---#--O----O--#---#",
+    "#------------------#",
+    "#-O------##------O-#",
+    "#-----O------O-----#",
+    "####################"})
+
+wo:add({"ot_timer", target="refloor"})
+wo:shuffleOxyd()
+
+function refloor()
+    objs = no["floor#*"]:shuffle():sub(25)
+    for obj in objs do
+        wo:drawRect(obj, obj, "-", resolver)
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

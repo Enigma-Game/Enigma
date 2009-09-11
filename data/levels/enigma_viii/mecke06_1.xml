@@ -2,18 +2,16 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06" />
-      <el:version el:score="1" el:release="1" el:revision="$Revision:19$" el:status="released" />
-      <el:author el:name="mecke" el:email="" />
+      <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:20$" el:status="released"/>
+      <el:author el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
-      <el:license el:type="GPL v2.0 or above" el:open="true" />
-      <el:compatibility el:enigma="1.10" />
-      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time" />
-      <el:score el:easy="-" el:difficult="02:12" />
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="02:12"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti["  "] = {"fl_rough"}
 ti[" !"] = {"fl_red"}
 ti["1!"] = {"fl_red", name="1!"}
@@ -38,10 +36,10 @@ ti["r "] = {"#ac_top", range=5, strength=7}
 ti["a "] = {"#ac_bug"}
 ti["$ "] = {"st_oxyd_c"}
 ti["# "] = {"st_fake_oxydc"}
-ti["Y "] = {"st_timer",interval=5,invisible=0}
-ti["Z "] = {"st_timer",interval=3,invisible=0}
+ti["Y "] = {"st_timer", interval=5}
+ti["Z "] = {"st_timer", interval=3}
 ti["> "] = ti["  "] .. {"st_boulder_e"}
-ti["O "] = {"st_rotator_ccw", movable=false}
+ti["O "] = {"st_rotator_ccw"}
 ti["t1"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
 ti["t2"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
 ti["t6"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
@@ -51,7 +49,7 @@ ti["t3"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
 ti["t7"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
 ti["t8"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
 ti["t9"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
-ti["LS"] = ti["  "] .. {"st_laser_s",state=OFF, name="laser1"}
+ti["LS"] = ti["  "] .. {"st_laser_s", state=OFF, name="laser1"}
 ti["u1"] = ti["  "] .. {"it_trigger", target="maggi1",action="on"}
 ti["u2"] = ti["  "] .. {"it_trigger", target="maggi3",action="on"}
 ti["u3"] = ti["  "] .. {"it_trigger", target="maggi1",action="off"}
@@ -62,22 +60,20 @@ ti["m3"] = ti[" !"] .. {"it_magnet", name="maggi3",state=OFF, range=20, strength
 ti["m4"] = ti[" !"] .. {"it_magnet", name="maggi4",state=OFF, range=20, strength=20}
 ti["&h"] = ti[" !"] .. {"#ac_horse", name="horse", strength=7, destination={"1!","2!","3!","4!"}}
 
-local resolver = res.composer(ti)
-
-w, h = wo(resolver, "  ", {
-       "Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!          ",
-       "!!#!$!#!#!$!#!#!#!$!#!$!#!#!#!#!$!#!#!!!  O       ",
-       "!!#! E EdE E E E E E C C C C CdC C C$!!!  > t1  O ",
-       "!!$! s4! s ! s ! s ! ! s ! s ! s3! s#!!!  u1  t2  ",
-       "!!#! ! s !m1B! !a! ! !a! !B!m4 ! s !#!!!  t7  u3  ",
-       "!!#! sa! !r! ! ! ! ! ! ! ! ! ! ! ! s#!!!      t8  ",
-       "!!$! ! s ! ! !a!X!LS ! ! ! ! ! ! s !#!!!  u4  t3  ",
-       "!!#! s&h ! ! ! ! ! ! ! ! ! ! !a! ! s#!!!  t6      ",
-       "!!#! ! sa!m2B! ! !a! !r! !B!m3 ! s !#!!!  t9  t4  ",
-       "!!$! s1! s ! s ! s ! ! s ! s ! s2! s#!!!O t5  u2  ",
-       "!!#! D DdD D D D D D B B B B BdB B B$!!!      O   ",
-       "!!#!$!#!#!#!#!$!$!#!#!#!$!#!#!#!$!$!#!!!          ",
-       "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Z!B!B!B!B!B!"})
+wo(res.composer(ti), "  ", {
+    "Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!          ",
+    "!!#!$!#!#!$!#!#!#!$!#!$!#!#!#!#!$!#!#!!!  O       ",
+    "!!#! E EdE E E E E E C C C C CdC C C$!!!  > t1  O ",
+    "!!$! s4! s ! s ! s ! ! s ! s ! s3! s#!!!  u1  t2  ",
+    "!!#! ! s !m1B! !a! ! !a! !B!m4 ! s !#!!!  t7  u3  ",
+    "!!#! sa! !r! ! ! ! ! ! ! ! ! ! ! ! s#!!!      t8  ",
+    "!!$! ! s ! ! !a!X!LS ! ! ! ! ! ! s !#!!!  u4  t3  ",
+    "!!#! s&h ! ! ! ! ! ! ! ! ! ! !a! ! s#!!!  t6      ",
+    "!!#! ! sa!m2B! ! !a! !r! !B!m3 ! s !#!!!  t9  t4  ",
+    "!!$! s1! s ! s ! s ! ! s ! s ! s2! s#!!!O t5  u2  ",
+    "!!#! D DdD D D D D D B B B B BdB B B$!!!      O   ",
+    "!!#!$!#!#!#!#!$!$!#!#!#!$!#!#!#!$!$!#!!!          ",
+    "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Z!B!B!B!B!B!"})
 
 wo:shuffleOxyd()
  ]]></el:luamain>

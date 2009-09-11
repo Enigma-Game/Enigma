@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Earthlink" el:subtitle="" el:id="pulley15"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="9:35" el:difficult="10:35"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn_b"}
+ti["#"] = {"st_camouflage"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["^"] = {"st_oneway", orientation=NORTH}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["<"] = {"st_oneway", orientation=WEST}
+ti["+"] = {"st_box"}
+ti["I"] = {"st_stoneimpulse"}
+ti["i"] = ti({"fl_abyss"}) .. {"st_stoneimpulse_hollow"}
+ti["."] = {"st_stoneimpulse_hollow"}
+if wo["IsDifficult"] then
+    ti["-"] = ti[" "]
+    ti["N"] = ti["^"]
+    ti["E"] = ti[">"]
+    ti["S"] = ti["V"]
+    ti["W"] = ti["<"]
+    ti["Q"] = {"st_oxyd", oxydcolor=OXYD_QUAKE}
+else
+    ti["-"] = {"fl_red"}
+    ti["N"] = ti["#"]
+    ti["E"] = ti["#"]
+    ti["S"] = ti["#"]
+    ti["W"] = ti["#"]
+    ti["Q"] = {"st_oxyd", oxydcolor=OXYD_FAKE}
+end
+ti["x"] = ti["-"] .. ti["X"]
+ti["*"] = ti["-"] .. ti["+"]
+ti[","] = ti["-"] .. ti["."]
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "#####I-*iIII-*I#########.*-IIIi*-I#########I *iIII *I#########.*-IIIi*-I#########I *iIII *I#########.*-IIIi*-I#####",
+    "#######S####N#i#########I#x#I##x#I###########S####N#i#########I#x#I##x#I###########S####N#i#########I#x#I##x#I#####",
+    "Ii.............   #III##II,IIII,II##IIIi.............   #III##II,IIII,II##IIIi.............   #III##II,IIII,II##III",
+    "*#   .        .   #-#I####-###I-####I#*#   .        .   # #I####-###I-####I#*#   .        .   # #I####-###I-####I#*",
+    "-W   .        .   W*x,-----###I-----,x-W   .        .   W*x,-----###I-----,x-W   .        .   W*x,-----###I-----,x-",
+    "I#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III",
+    "I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I",
+    "i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i",
+    "*E   .        .   > X.     I###     .X+>   .        .   > X.     I###     .X+>   .        .   > X.     I###-----,x*",
+    "-#   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I###-####I#-",
+    "I#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII,II##III",
+    "#####i#S####^###########I#X##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####^###########I#X##I#x#I#####",
+    "#####.*-IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII-*I#####",
+    "#####I#x#I##X#I###########V####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##X#I###########V####N#i#####",
+    "III##II,IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #I",
+    "-#I####-###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   #-",
+    "*x,-----###I     .X <   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I     .X <   .        .   W*",
+    "i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i",
+    "I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I",
+    "III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #I",
+    "-x,-----I###     .X+>   .        .   > X.     I###     .X+>   .        .   > X.     I###     .X+>   .        .   E-",
+    "*#I####-I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #*",
+    "III##II,IIII.II##III#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII.II##III#   .............iI",
+    "#####I#x##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####N#######",
+    "#####I-*iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi*-I#####",
+    "#######S####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##x#I#####",
+    "Ii.............   #III##II.IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #III##II.IIII,II##III",
+    "*#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I-####I#*",
+    "-W   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I-----,x-",
+    "I#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III",
+    "I#   .   O    .   #I#I##############I#I#   .   O@   .   #I#I##############I#I#   .   O    .   #I#I##############I#I",
+    "i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i",
+    "*E   .        .   > X.     I###     .X+>   .        .   > X.     I###     .X+>   .        .   > X.     I###-----,x*",
+    "-#   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I###-####I#-",
+    "I#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII,II##III",
+    "#####i#S####^###########I#X##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####^###########I#X##I#x#I#####",
+    "#####.*-IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII-*I#####",
+    "#####I#x#I##X#I###########V####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##X#I###########V####N#i#####",
+    "III##II,IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #I",
+    "-#I####-###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   #-",
+    "*x,-----###I     .X <   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I     .X <   .        .   W*",
+    "i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i",
+    "I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I",
+    "III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #I",
+    "-x,-----I###     .X+>   .        .   > X.     I###     .X+>   .        .   > X.     I###     .X+>   .        .   E-",
+    "*#I####-I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I### ###II# #   .        .   #*",
+    "III##II,IIII.II##III#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII.II##III#   .............iI",
+    "#####I#x##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####N#######",
+    "#####I-*iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi*-I#####",
+    "#######S####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##x#I#####",
+    "Ii.............   #III##II.IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #III##II.IIII,II##III",
+    "*#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I-####I#*",
+    "-W   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I-----,x-",
+    "I#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III",
+    "I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I#   .   O    .   #I#I##############I#I",
+    "i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i",
+    "*E   .        .   > X.     I###     .X+>   .        .   > X.     I###     .X+>   .        .   > X.     I###-----,x*",
+    "-#   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I### ####I# #   .        .   #+#I#### I###-####I#-",
+    "I#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII.II##III#   .............iIII##II.IIII,II##III",
+    "#####i#S####^###########I#X##I#X#I#########i#V####^###########I#X##I#X#I#########i#V####^###########I#X##I#x#I#####",
+    "#####.*-IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII +I#########I+ IIIi+ I#########I +iIII-*I#####",
+    "#####I#x#I##X#I###########V####^#i#########I#X#I##X#I###########V####^#i#########I#X#I##X#I###########V####N#i#####",
+    "III##II,IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #III##II.IIII.II##IIIi.............   #I",
+    "-#I####-###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   # #I#### ###I ####I#+#   .        .   #-",
+    "*x,-----###I     .X <   .        .   <+X.     ###I     .X <   .        .   <+X.     ###I     .X <   .        .   W*",
+    "i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i#IIIIII#########III#   .        .   #i",
+    "I#I##############I#I#   .   O    .   #I#I##############I#I#   .   Q    .   #I#I##############I#I#   .   Q    .   #I",
+    "III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #III#########IIIIII#i#   .        .   #I",
+    "-x,-----I###-----,x*E   .        .   E-x,-----I###-----,x*E   .        .   E-x,-----I###-----,x*E   .        .   E-",
+    "*#I####-I###-####I#-#   .        .   #*#I####-I###-####I#-#   .        .   #*#I####-I###-####I#-#   .        .   #*",
+    "III##II,IIII,II##III#   .............iIII##II,IIII,II##III#   .............iIII##II,IIII,II##III#   .............iI",
+    "#####I#x##I#x#I#########i#S####N###########I#x##I#x#I#########i#S####N###########I#x##I#x#I#########i#S####N#######",
+    "#####I-*iIII-*I#########I*-IIIi*-.#########I-*iIII-*I#########I*-IIIi*-.#########I-*iIII-*I#########I*-IIIi*-.#####"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

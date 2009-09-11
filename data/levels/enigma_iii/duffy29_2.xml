@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Run!" el:subtitle="" el:id="duffy29"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code >New API converted by Ronald Lamprecht</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn", "court#"}
+ti["="] = {"fl_lawn"}
+ti["."] = {"fl_abyss", "court#"}
+ti[":"] = cond(wo["IsDifficult"], ti["."], ti[" "])
+ti["x"] = {"fl_abyss", "abyss"}
+ti["#"] = {"st_rawglass"}
+ti["*"] = ti["x"] .. ti["#"]
+ti["<"] = {"st_oneway", orientation=WEST} .. ti["="]
+ti["o"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black", "black"} .. ti["="]
+
+wo(ti, " ", {
+    "####o###o##o###o####",
+    "#:.:               #",
+    "#.*.# # # # # # # ##",
+    "o:.:               o",
+    "## # # # # # # # # #",
+    "o                  o",
+    "# # # # # # # # # ##",
+    "o                  o",
+    "## # # # # # # # # #",
+    "o                  o",
+    "# # # # # # # # ####",
+    "#                <@#",
+    "####o###o##o###o####"
+})
+
+wo:add({"ot_timer", target="chase", interval=cond(wo["IsDifficult"], 0.35, 0.50), state=ON})
+wo:shuffleOxyd()
+
+court = no["court#*"]
+black = no["black"]
+function chase(value, sender)
+    if court[fl(black)] ~= nil then
+        local abyss = no["abyss"]
+        local candidates = abyss + NEIGHBORS_4
+        local mindist = 10000
+        local winner = nil
+        for i= 1, 4 do
+            local distvec = candidates[i] - black
+            local distsquare = distvec.x * distvec.x + distvec.y * distvec.y
+            if distsquare < mindist then
+                winner = i
+                mindist = distsquare
+            end
+        end
+        wo[abyss + cond(wo["IsDifficult"], NEIGHBORS_8, NEIGHBORS_4)] = ti[" "]
+        wo[abyss] = ti[" "]
+        wo[candidates[winner]] =  ti["x"]
+        wo[candidates[winner] + cond(wo["IsDifficult"], NEIGHBORS_8, NEIGHBORS_4)] =  ti["."]
+        court = no["court#*"]
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="be quick or be dead" el:subtitle="" el:id="illmind12"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="stable"/>
+      <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
+      <el:copyright>Copyright © 2006 illmind</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSingleOxyds"] = true
+
+ti[" "] = {"fl_dark"}
+ti["x"] = {"fl_dark", name="pos%%#"}
+ti["#"] = {"st_granite"}
+ti["X"] = ti["#"] .. {"fl_dark", name="pos%%#"}
+ti["T"] = {"st_timer", interval=8, target="fossilize_diff"}
+ti["t"] = {"st_timer", interval=10, target="fossilize_easy"}
+ti["."] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble_black"}
+
+local positions = {}
+
+if wo["IsDifficult"] then
+    wo(res.autotile(ti, {"a", "m", "x"}), " ", {
+    "T###################",
+    "#.                @#",
+    "# agdjdjakkajdjdga #",
+    "# ie f ek  ke f ei #",
+    "# b c c bllb c c b #",
+    "# ih m hlmmlh m hi #",
+    "# f g g f  f g g f #",
+    "# ih m hlmmlh m hi #",
+    "# b c c bllb c c b #",
+    "# ie f ek  ke f ei #",
+    "# agdjdjakkajdjdga #",
+    "#                  #",
+    "####################"})
+
+    for i = 1, 14 do
+        positions[i] = no["pos%"..i.."#*"]
+    end
+else
+    wo(res.autotile(ti, {"A", "G", "X"}), " ", {
+    "t###################",
+    "#.                @#",
+    "# A D D F  F D D A #",
+    "#                  #",
+    "# B C C G  G C C B #",
+    "#                  #",
+    "# E E E E  E E E E #",
+    "#                  #",
+    "# B C C G  G C C B #",
+    "#                  #",
+    "# A D D F  F D D A #",
+    "#                  #",
+    "####################"})
+
+    positions[1] = no["pos%1#*"] + no["pos%6#*"]
+    positions[2] = no["pos%2#*"] + no["pos%7#*"]
+    positions[3] = no["pos%3#*"]
+    positions[4] = no["pos%4#*"]
+    positions[5] = no["pos%5#*"]
+    positions[6] = no["pos%6#*"] + no["pos%7#*"]
+end
+
+local oxyds = grp()
+local state = 1
+local max = 14
+
+function fossilize_diff()
+    if state < max then
+        wo[oxyds] = ti["#"]
+        oxyds = positions[state]
+        wo[oxyds] = ti["O"]
+        wo:shuffleOxyd()
+        state = state+1
+    end
+end
+
+function fossilize_easy()
+    wo[oxyds] = ti["#"]
+    oxyds = positions[state]
+    wo[oxyds] = ti["O"]
+    wo:shuffleOxyd()
+    state = state+1
+    if state > 6 then
+        state = 1
+    end
+end
+
+-- Init
+if wo["IsDifficult"] then
+    fossilize_diff()
+else
+    fossilize_easy()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">illmind's be quick or be dead</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

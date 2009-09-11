@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sisyphus" el:subtitle="" el:id="nat13"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Nat Pryce" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Nat Pryce</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -28,22 +28,11 @@ ti["9"] = {"fl_slope_osw"}
 ti["1"] = {"fl_slope_one"}
 ti["3"] = {"fl_slope_onw"}
 ti["W"] = {"st_passage", color=WHITE, flavor="frame"}
-ti["O"] = {"st_oxyd"}
+ti["O"] = {"st_oxyd", name="oxyds#"}
 ti["A"] = ti["="] .. {"#ac_marble_white", controllers=CTRL_NONE, essential=INDISPENSABLE}
 ti["@"] = ti["="] .. {"#ac_marble_black"}
 
-function passageresolver(key, x, y)
-    if key == "O" then
-        wo:drawMap(ti, po(x-1, y-1), "-", {"-W-",
-                                           "WOW",
-                                           "-W-"})
-        return ti({})
-    else
-        return ti[key]
-    end
-end
-
-wo(passageresolver, " ", {
+wo(ti, " ", {
     "                                       ",
     " Ovvvvvvvvvvvv97OvvvvvO97vvvvvvvvvvvvO ",
     " >====<<<<<<<<<>=======<>>>>>>>>>>===< ",
@@ -59,6 +48,12 @@ wo(passageresolver, " ", {
     "                                       "})
 
 wo:shuffleOxyd()
+
+for oxyd in no["oxyds#*"] do
+    wo:drawMap(ti, oxyd+NW, "-", {"-W-",
+                                  "WOW",
+                                  "-W-"})
+end
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

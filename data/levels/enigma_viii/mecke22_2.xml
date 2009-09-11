@@ -3,25 +3,19 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:85$" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:86$" el:status="released"/>
       <el:author  el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Clifford J.Tasner for testing and important ideas</el:credits>
       </el:comments>
       <el:score el:easy="78:58" el:difficult="78:58"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
-if wo ["IsDifficult"] then
-    enigma.SwampSinkSpeed = 3.0
-else
-    enigma.SwampSinkSpeed = 1.5
-end
+wo["SwampSinkTime"] = cond(wo["IsDifficult"], 3.0, 1.5)
 
 ti[" !"] = {"fl_swamp"}
 ti["! "] = {"st_death"}
@@ -210,11 +204,11 @@ ti["x1"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fou
 ti["x2"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchb", name="xx2"}
 ti["x3"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchc", name="xx3"}
 ti["x4"] = ti[" +"] .. {"st_fourswitch", action="callback", state=3, target="fourswitchd", name="xx4"}
-ti["YL"] = ti[" +"] .. {"st_timer",action="toggle",target="laser3#*",interval=4,invisible=0}
+ti["YL"] = ti[" +"] .. {"st_timer",action="toggle",target="laser3#*",interval=4}
 ti["XL"] = ti[" +"] .. {"st_laser_w",name="laser3#"}
 ti["LS"] = ti[" +"] .. {"st_laser_s",state=OFF}
 
-if wo ["IsDifficult"] then
+if wo["IsDifficult"] then
    ti["i+"] = ti[" +"] .. {"it_seed", flavor="greenbrown"}
    ti["rr"] = ti[" $"] .. {"#ac_rotor", range=3, strength=3}
    ti["ww"] = {"fl_water"}
@@ -246,9 +240,7 @@ else
    ti["LZ"] = ti[" ;"] .. {"it_flag_black"}
 end
 
-local resolver = res.composer(ti)
-
-w, h = wo(resolver, "  ", {
+wo(res.composer(ti), "  ", {
 -- 0001                10                  20                  30                  40                  50                  60        65        70    73            80    83  85  87  89  91
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!!!!!!!!!!!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
   "!! $ ! $ ! $ ! $ ! $ ! ! $ ! ! $ ! $ !!! ! !%! ! ! ! ! ! ! !BN ! ! ! ! ! ! !%!L*L*L*L*L!L!L$L!L$L$L!L!L!L!L*L*L*L*!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !?! ! 8F! , ! , ! , ! ,!!!! !!! !!! $!!!!",
@@ -346,11 +338,10 @@ w, h = wo(resolver, "  ", {
   "!! ! ' ! !-!-!-!-!-!-!-!b!b!-!-!-! ' ! ! ! # ! !C! !C! #C! !C! ! ! ! ! ! ! !%!D-?- - - - - - ! 5 5 ! - - - - -?-D-%! ! ! , & $ & , & $ & , & $ & , ! ! !%! + + !P! + !!! + !=l +!! ! + !P! + +!!",
   "!! ! ' ' ' ' ' ' ' ''' ' ' ' ' ' ' ' ! ! ! ! # !C! #C! !C! !C! ! ! ! ! ! ! !%! -.!?- - - ! ! ! 5 5 ! ! ! - -?-.! -%! ! ! , & & & , & & & , & & & , ! ! !%! + + $ + + + + + + + + + + + + + + +!!",
   "!! ! ! ! ! ! ! ! ! !V9 ! ! ! ! ! ! ! !!! ! ! ! #C! !C! !C! !C! ! ! ! ! ! ! !%! - -+-=! ! ! 5 5 5 5 5 5 ! !=!+- - -!! ! ! , ! ! ! , ! ! ! , ! ! ! , ! ! !%! + + + + + + + + + + + + + + + + + +!!",
-  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-})
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"})
 
 local ff = {0,0,0,0,0}
-fc = 0
+local fc = 0
 
 function fourswitcha()
     ff[1] = ff[1] + 1

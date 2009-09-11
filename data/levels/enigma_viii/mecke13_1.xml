@@ -3,20 +3,18 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Plutos Confusion" el:subtitle="The other side ..." el:id="mecke30"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 20 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 21 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10" />
-      <el:modes el:easy="false" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks to the Enigma Team for the new "wire function" and Ronald for puzzle idea.</el:credits>
       </el:comments>
       <el:score el:easy="-" el:difficult="08:27"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" "] = {"fl_fake_abyss"}
 ti["r"] = {"fl_red"}
 ti["z"] = {"fl_sahara"}
@@ -46,8 +44,8 @@ ti["!"] = {"it_death"}
 ti["d"] = {"it_document",text= "?"}
 ti["%"] = {"it_sword"}
 ti["B"] = {"st_rawglass"}
-ti["C"] = {"st_timer",interval=4,action="toggle",target="laser1",invisible=0}
-ti["c"] = {"st_timer",interval=4,action="toggle",target="laser2",invisible=0}
+ti["C"] = {"st_timer", interval=4, action="toggle", target="laser1"}
+ti["c"] = {"st_timer", interval=4, action="toggle", target="laser2"}
 ti["K"] = {"st_laser_s", name="laser1", state=OFF}
 ti["k"] = {"st_laser_n", name="laser2", state=OFF}
 ti["L"] = {"st_laser_s", name="laser", state=ON}
@@ -69,10 +67,10 @@ ti["6"] = ti["r"] .. {"st_plop_slate", "df6"}
 ti["7"] = ti["r"] .. {"st_plop_slate", "df7"}
 ti["8"] = ti["r"] .. {"st_plop_slate", "df8"}
 ti["l"] = ti["!"] .. {"st_polarswitch"}
-ti["Z"] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+ti["Z"] = {"st_timer", action="callback", target="hux", interval=11.9}
 ti["g"] = ti[" "] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["G"] = ti[" "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
-ti["m"] = ti[" "] .. {"it_magnet", name="maggi1",state=ON, range=20, strength=10}
+ti["m"] = ti[" "] .. {"it_magnet", name="maggi1", state=ON, range=20, strength=10}
 ti["U"] = {"st_oneway_black_w"}
 ti["V"] = {"st_passage_black_frame"}
 ti["n"] = ti[" "] .. ti["W"] .. {"st_chameleon"}
@@ -81,20 +79,20 @@ ti["O"] = ti[" "] .. {"st_lightglass_hollow"}
 ti["'"] = {"it_burnable_oil"}
 ti[":"] = {"it_burnable_burning"}
 
-w, h = wo(ti, " ", {
-"BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB",
-"TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
-"Bb~~~     ?     .   U    l       ...       TV T        s VT       br     .   l  Qq Q Q    =/==/ LLLLLLK  QQBbB",
-"Bb~~   ~  .  ~     ~T O ? l     .....       V  T #     s V ?                 V  Qq   Q    =/HH=  T  ddd  C BbB",
-"Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      slV   l    br   TTTTT l  Qq Q Q    =/HH=    Tddd  QQBbB",
-"B~ !   ~     ~H123 T~n ? n  l .........     V    T     s V   ?         T~~~T V Qq  Q Q    =/=/=     dTd .HHH B",
-"B%     ~     ~H4G5To  l  l    &&&&T&&&&    TV  R      TR VT  l    br   T~.~TlVT  RQR R ZWQ/z.//       0;iHpHgB",
-"B~ !   ~     ~H678 T~n ? n  l .........     V  # T     E V   ?         T~~~T V  q  Q Q    =/=/=     dTd .HHH B",
-"Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      ElV   l    br   TTTTT l   q Q Q    =/PH=    Tddd  QQBbB",
-"Bb~~   ~  .  ~     ~T O ? l     .....       V  T       E V ?                 V   q Q Q    =/PH=  T  ddd  c BbB",
-"Bb~~~     ?     .   U    l       ...       TV T        E VT       br     .   l   q Q Q    =/==/ vvvvvvk  QQBbB",
-"TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
-"BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB"})
+wo(ti, " ", {
+    "BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB",
+    "TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
+    "Bb~~~     ?     .   U    l       ...       TV T        s VT       br     .   l  Qq Q Q    =/==/ LLLLLLK  QQBbB",
+    "Bb~~   ~  .  ~     ~T O ? l     .....       V  T #     s V ?                 V  Qq   Q    =/HH=  T  ddd  C BbB",
+    "Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      slV   l    br   TTTTT l  Qq Q Q    =/HH=    Tddd  QQBbB",
+    "B~ !   ~     ~H123 T~n ? n  l .........     V    T     s V   ?         T~~~T V Qq  Q Q    =/=/=     dTd .HHH B",
+    "B%     ~     ~H4G5To  l  l    &&&&T&&&&    TV  R      TR VT  l    br   T~.~TlVT  RQR R ZWQ/z.//       0;iHpHgB",
+    "B~ !   ~     ~H678 T~n ? n  l .........     V  # T     E V   ?         T~~~T V  q  Q Q    =/=/=     dTd .HHH B",
+    "Bb~    ~     ~HyHyH~TO O l n l ...Y...     ?V   T      ElV   l    br   TTTTT l   q Q Q    =/PH=    Tddd  QQBbB",
+    "Bb~~   ~  .  ~     ~T O ? l     .....       V  T       E V ?                 V   q Q Q    =/PH=  T  ddd  c BbB",
+    "Bb~~~     ?     .   U    l       ...       TV T        E VT       br     .   l   q Q Q    =/==/ vvvvvvk  QQBbB",
+    "TXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!bbTXT",
+    "BTbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbwBTB"})
 
 function hux()
     wo:drawMap(ti, po(64, 2), " ",{"'",
