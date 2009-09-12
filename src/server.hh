@@ -111,6 +111,7 @@ namespace enigma_server
     extern ecl::V2  ConstantForce;  // global gravitation
     
     extern int      MaxOxydColor;
+    extern int      SubSoil;
 
     extern double   WaterSinkSpeed;
 

@@ -112,6 +112,8 @@ namespace enigma {
             return server::RubberViolationStrength;
         } else if (key == "SlopeStrength") {
             return server::SlopeForce;
+        } else if (key == "SubSoil") {
+            return server::SubSoil;
         } else if (key == "SwampSinkTime") {
             if (server::SwampSinkSpeed > 0) {
                 if (server::SwampSinkSpeed >= 10000)
@@ -221,6 +223,10 @@ namespace enigma {
             server::RubberViolationStrength = val;
         } else if (key == "SlopeStrength") {
             server::SlopeForce = val;
+        } else if (key == "SubSoil") {
+            server::SubSoil = val;
+            ASSERT(server::SubSoil >= 0 && server::SubSoil <= 2, XLevelRuntime,
+                    "Attribute 'SubSoil' value is out of range.");
         } else if (key == "SwampSinkTime") {
             if (val.getType() == Value::NIL)
                 server::SwampSinkSpeed = 0;

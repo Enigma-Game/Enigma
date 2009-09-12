@@ -166,8 +166,21 @@ namespace enigma {
                 replace("it_meditation_hollow");
             else if (state == 2)
                 replace("it_crack_m_water");
-            else
-                replace("it_debris");
+            else {
+                bool isAbyss = true;
+                if (server::SubSoil == 1)
+                    isAbyss = false;
+                else if (server::SubSoil == 2) {
+                    for (Direction d = NORTH; d != NODIR; d = previous(d)) {
+                        Floor *fl = GetFloor(move(get_pos(), d));
+                        if (fl != NULL && fl->getClass() == "fl_water") {
+                            isAbyss = false;
+                            break;
+                        }
+                    }
+                }
+                replace(isAbyss ? "it_debris" : "it_debris_water");
+            }
         else
             kill();
      }

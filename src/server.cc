@@ -127,6 +127,7 @@ int      server::MaxOxydColor;
 int32_t  server::RandomState;               // no Lua access
 double   server::RubberViolationStrength;
 double   server::SlopeForce;
+int      server::SubSoil;
 double   server::SwampSinkSpeed;
 double   server::WaterSinkSpeed;
 double   server::WormholeForce;
@@ -300,6 +301,7 @@ void server::PrepareLevel()
     server::MagnetForce       = 30;
     server::MagnetRange       = 10;
     server::MaxOxydColor      = 7;    // for compatibility
+    server::SubSoil           = 0;
     server::RubberViolationStrength = 50;
     server::WormholeForce     = 30;
     server::WormholeRange     = 10;

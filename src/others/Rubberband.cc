@@ -25,7 +25,7 @@
 #include "world.hh"
 
 namespace enigma {
-    Rubberband::Rubberband() {
+    Rubberband::Rubberband() : strength (10), outerThreshold (1), innerThreshold (0), minLength (0), maxLength (0) {
     }
     
     std::string Rubberband::getClass() const {
@@ -54,9 +54,9 @@ namespace enigma {
             } else
                 ASSERT(false, XLevelRuntime, "Rubberband: 'anchor2' is neither actor nor stone");
         } else if (key == "strength") {
-            strength = val;
+            strength =  (val.getType() == Value::NIL) ? 10.0 : (double)val;
         } else if (key == "length") {
-            outerThreshold = val;
+            outerThreshold = (val.getType() == Value::NIL) ? 1.0 : (double)val;
             ASSERT(outerThreshold >= 0, XLevelRuntime, "Rubberband: length is negative");
         } else if (key == "threshold") {
             innerThreshold = val;

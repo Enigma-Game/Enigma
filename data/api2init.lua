@@ -192,6 +192,11 @@ SPOT_TRAP           =  32
 COIN_IGNORE = -1
 COIN_REJECT = -2
 
+-- subsoil
+SUBSOIL_ABYSS = 0
+SUBSOIL_WATER = 1
+SUBSOIL_AUTO  = 2
+
 -- follower
 FOLLOW_NO     = 0
 FOLLOW_SCROLL = 1
