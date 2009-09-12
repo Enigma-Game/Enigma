@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Alternatives?" el:subtitle="" el:id="just24"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 JuSt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="0:43" el:difficult="1:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_mortar"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_woven"}
+ti["^"] = {"st_boulder", orientation=NORTH}
+ti["L"] = {"st_laser", orientation=NORTH, name="laser"}
+ti["M"] = {"st_mirror", flavor="triangle", orientation=WEST, transparent=true, movable=true}
+ti["S"] = {"st_swap"}
+ti["P"] = {"st_pull"}
+ti["I"] = {"st_stoneimpulse_movable"}
+ti["R"] = {"st_rotator", state=CW, movable=true}
+ti["1"] = {"st_shogun_s"}
+ti["2"] = {"st_shogun_m"}
+ti["o"] = {"it_shogun_l", target="laser"}
+ti["."] = {"it_seed"}
+ti["0"] = ti["."] .. {"st_shogun_l"}
+ti["w"] = cond(wo["IsDifficult"], {"it_wrench"}, {"it_magicwand"})
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = ti({"st_grate", flavor="cross"}) .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#O     ^       2#~O#",
+    "#              ##~~#",
+    "#   0          ##~~#",
+    "#        L       ~~#",
+    "#     M    S       #",
+    "#  I           P   #",
+    "#   ###   .  1     #",
+    "#   #w#            #",
+    "#   ###    @    R  #",
+    "#        o         #",
+    "#O                O#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -30,7 +30,7 @@ if wo ["IsDifficult"] then
     ti["y "] = {"fl_swamp"}
 else
     ti["  "] = {"fl_rough",burnable=true}
-    ti["H "] = {"fl_rough",burnable=true,securefire=true,"hotspot"}
+    ti["H "] = {"fl_rough",burnable=true,"hotspot"}
     ti["n1"] = {"fl_rough","knight1"}
     ti["n2"] = {"fl_rough","knight2"}
     ti["n3"] = {"fl_rough","break2"}

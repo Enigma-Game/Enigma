@@ -41,14 +41,7 @@ ti["Z "] = {"st_timer", interval=3}
 ti["> "] = ti["  "] .. {"st_boulder_e"}
 ti["O "] = {"st_rotator_ccw"}
 ti["t1"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t2"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t6"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t4"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t5"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t3"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
-ti["t7"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
-ti["t8"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
-ti["t9"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
+ti["t2"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
 ti["LS"] = ti["  "] .. {"st_laser_s", state=OFF, name="laser1"}
 ti["u1"] = ti["  "] .. {"it_trigger", target="maggi1",action="on"}
 ti["u2"] = ti["  "] .. {"it_trigger", target="maggi3",action="on"}
@@ -64,13 +57,13 @@ wo(res.composer(ti), "  ", {
     "Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!          ",
     "!!#!$!#!#!$!#!#!#!$!#!$!#!#!#!#!$!#!#!!!  O       ",
     "!!#! E EdE E E E E E C C C C CdC C C$!!!  > t1  O ",
-    "!!$! s4! s ! s ! s ! ! s ! s ! s3! s#!!!  u1  t2  ",
-    "!!#! ! s !m1B! !a! ! !a! !B!m4 ! s !#!!!  t7  u3  ",
-    "!!#! sa! !r! ! ! ! ! ! ! ! ! ! ! ! s#!!!      t8  ",
-    "!!$! ! s ! ! !a!X!LS ! ! ! ! ! ! s !#!!!  u4  t3  ",
-    "!!#! s&h ! ! ! ! ! ! ! ! ! ! !a! ! s#!!!  t6      ",
-    "!!#! ! sa!m2B! ! !a! !r! !B!m3 ! s !#!!!  t9  t4  ",
-    "!!$! s1! s ! s ! s ! ! s ! s ! s2! s#!!!O t5  u2  ",
+    "!!$! s4! s ! s ! s ! ! s ! s ! s3! s#!!!  u1  t1  ",
+    "!!#! ! s !m1B! !a! ! !a! !B!m4 ! s !#!!!  t2  u3  ",
+    "!!#! sa! !r! ! ! ! ! ! ! ! ! ! ! ! s#!!!      t2  ",
+    "!!$! ! s ! ! !a!X!LS ! ! ! ! ! ! s !#!!!  u4  t2  ",
+    "!!#! s&h ! ! ! ! ! ! ! ! ! ! !a! ! s#!!!  t1      ",
+    "!!#! ! sa!m2B! ! !a! !r! !B!m3 ! s !#!!!  t2  t1  ",
+    "!!$! s1! s ! s ! s ! ! s ! s ! s2! s#!!!O t1  u2  ",
     "!!#! D DdD D D D D D B B B B BdB B B$!!!      O   ",
     "!!#!$!#!#!#!#!$!$!#!#!#!$!#!#!#!$!$!#!!!          ",
     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Z!B!B!B!B!B!"})

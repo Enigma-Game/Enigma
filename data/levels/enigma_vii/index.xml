@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="58" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="59" title="Enigma VII"/>
 
   <attributes/>
 
@@ -62,8 +62,8 @@
     <level _seq="54" _title="Give more Way" _xpath="./just21_2" author="JuSt" ctrl="force" easy="true" id="just21" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Give Way 4 two" _xpath="./just22_2" author="JuSt" ctrl="force" easy="true" id="just22" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="56" _title="Lost in Time and Space" _xpath="./just23_2" author="JuSt" ctrl="force" easy="false" id="just23" rel="2" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="57" _title="Alternatives?" _xpath="./just24_1" author="JuSt" ctrl="force" easy="true" id="just24" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="No More Alternatives" _xpath="./just25_1" author="JuSt" ctrl="force" easy="true" id="just25" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Alternatives?" _xpath="./just24_2" author="JuSt" ctrl="force" easy="true" id="just24" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="No More Alternatives" _xpath="./just25_2" author="JuSt" ctrl="force" easy="true" id="just25" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="The Walls" _xpath="./just26_2" author="JuSt" ctrl="force" easy="true" id="just26" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Pull the Puller" _xpath="./just28_2" author="JuSt" ctrl="force" easy="false" id="just28" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
