@@ -337,20 +337,9 @@ namespace enigma {
 
     void DisposeObject(Object *o);
 
-    void DefineSimpleStone (const string &kind, const string &sound, 
-                            int hollow, int glass);
-
-    void DefineSimpleStoneMovable (const string &kind, const string &sound, 
-                                   int glass);
-
-    void DefineSimpleFloor(const string &kind, double friction,
-                           double mousefactor, bool burnable,
-                           const string &firetransform);
-
     /* Register a new object. */
     void BootRegister(Object *obj, const char * kind = NULL, bool isRegistration = true);
     void Register (const string &kind, Object *obj);
-//    void RegisterActor (Actor *ac);
 
 
     /* Shutdown object repository */

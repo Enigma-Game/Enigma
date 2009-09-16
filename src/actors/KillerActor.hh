@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,7 +39,6 @@ namespace enigma {
 
         // Actor interface
         virtual bool is_dead() const;
-        virtual bool has_shield() const;
         virtual bool on_collision(Actor *a);
     };
 

@@ -34,11 +34,11 @@ function res.puzzle_finalization(context)
 --        print("puzzle final - huddle of size "..#huddle)
     end
 --    print("puzzle final - num huddles "..#huddles)
-    
+
     -- shuffle huddles
     local width = wo["Width"]
     local height = wo["Height"]
-    local offsets = {po(-1,0), po(0,1), po(1,0), po(0,-1)}
+    local offsets = {W, S, E, N}
     local dirchars = {"w","s","e","n"}
     for h, huddle in ipairs(huddles) do
 --        print("puzzle final - shuffle huddle of size "..#huddle)
@@ -53,53 +53,70 @@ function res.puzzle_finalization(context)
             end
             intensity = math.max(intensity, puz["intensity"])
         end
+
         for puz in huddle do
             for dir, offset in ipairs(offsets) do
                 local cand = puz - offset
                 if cand:exists() then
                     local cfloor = fl(cand)
+
+                    local may_push = true
                     if pfloors[cfloor] == nil then
-                        local may_push = true
                         if algorithm == 1 then
                             local pushdirs = cfloor["push_directions"]
                             if type(pushdirs) ~= "string" or not pushdirs:find(dirchars[dir]) then
                                 may_push = false
                             end
                         end
-                        if may_push then
-                            local length = 1
-                            local lpos = puz + offset
-                            while lpos:exists() and pfloors[fl(lpos)] ~= nil do
-                                length = length + 1
-                                lpos = lpos + offset
-                            end
-                            if length > 1 then
-                                table.insert(pushes, {fl(puz), dir - 1, length})
---                                print("  push ("..cfloor.x..","..cfloor.y..") dir "..(dir-1).." length "..length)
+                    else  -- floor is under the puzzle but if its marked, the levelautor wants to shuffle from here
+                        may_push = false
+                        if algorithm == 1 then
+                            local pushdirs = cfloor["push_directions"]
+                            if type(pushdirs) == "string" and pushdirs:find(dirchars[dir]) then
+                                may_push = true
                             end
                         end
                     end
+
+                    -- Add all possible shuffles from current position to the table
+                    if may_push then
+                        local length = 1
+                        local lpos = puz + offset
+                        while lpos:exists() and pfloors[fl(lpos)] ~= nil do
+                            length = length + 1
+                            lpos = lpos + offset
+                        end
+                        if length > 1 then
+                            table.insert(pushes, {fl(puz), dir - 1, length})
+--                          print("  push ("..cfloor.x..","..cfloor.y..") dir "..(dir-1).." length "..length)
+                        end
+                    end
+
                 end
             end
         end
+
+        -- How many pull_rotations we try to do?
         intensity = intensity * #huddle
         if intensity > 0 then
             intensity = intensity + math.random(0, 1)
         end
+
+        -- and now, let's shuffle!
         while intensity > 0 and #pushes > 0 do
             local pidx = random(#pushes)  -- select a random push pos/dir
             local puzz = st(pushes[pidx][1])
             local dir = pushes[pidx][2]
             local length = pushes[pidx][3]
             local nextpuzz = st(puzz + offsets[dir + 1])
-            
+
             -- check for leading sequence of hollow puzzles
             while length > 2 and puzz["hollow"] and nextpuzz["hollow"] do
                 puzz = nextpuzz
                 nextpuzz = st(puzz + offsets[dir + 1])
                 length = length - 1
             end
-            
+
             if not nextpuzz["hollow"] then
                 puzz:pull_rotate(dir)
             end
@@ -148,7 +165,7 @@ function res.puzzle_newtile(key, template, suffix)
                             "n","nw","ns","nsw","ne","new","nes","nesw"})[connections]
                 end
             end
-            
+
             if result == nil then
                 result = ti(tile)
             else

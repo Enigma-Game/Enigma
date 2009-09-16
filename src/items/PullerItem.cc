@@ -35,7 +35,7 @@ namespace enigma {
     
     void PullerItem::setAttr(const string& key, const Value &val) {
         if (key == "orientation") {
-            objFlags = (objFlags & ~OBJBIT_ORIENTATION) | ((int)(val) >> 24);
+            objFlags = (objFlags & ~OBJBIT_ORIENTATION) | (((int)(val) << 24) & OBJBIT_ORIENTATION);
         }
         Item::setAttr(key, val);
     }

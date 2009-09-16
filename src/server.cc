@@ -119,6 +119,7 @@ double   server::FlatForce;
 double   server::FrictionFactor;
 int      server::GlassesVisibility;         // no Lua access
 int      server::ExtralifeGlasses;
+std::string server::FallenPuzzle;
 double   server::HoleForce;
 lev::levelStatusType   server::LevelStatus; // no Lua access
 double   server::MagnetForce;
@@ -285,27 +286,31 @@ void server::PrepareLevel()
     server::FollowMethod      = display::FOLLOW_FLIP;      // FLIP
     server::FollowThreshold   = 0.5;
     server::ShowMoves         = false;
-    server::Brittleness       = 0.5;
-    server::Fragility         = 1.0;
-    server::CrackSpreading    = 0.5;
-    server::ConstantForce       = ecl::V2(0, 0);
-    server::SlopeForce        = 25.0;
-    server::FlatForce         = 0.0;
-    server::FrictionFactor    = 1.0;
+
     server::GlassesVisibility = 0;     // nothing
-    server::ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
-    server::ElectricForce     = 15.0;
+    server::FlatForce         = 0.0;
+    server::ConstantForce     = ecl::V2(0, 0);
+    
+    // object class specific with Lua access 
+    server::Brittleness       = 0.5;
     server::BumperForce       = 200.0;
-    server::WaterSinkSpeed    = 10000;
-    server::SwampSinkSpeed    = 4;
+    server::CrackSpreading    = 0.5;
+    server::ElectricForce     = 15.0;
+    server::ExtralifeGlasses  = 19;  // death + hollow + lightpassenger
+    server::FallenPuzzle      = "fl_gray";
+    server::Fragility         = 1.0;
+    server::FrictionFactor    = 1.0;
+    server::HoleForce         = 1.0;
     server::MagnetForce       = 30;
     server::MagnetRange       = 10;
     server::MaxOxydColor      = 7;    // for compatibility
-    server::SubSoil           = 0;
     server::RubberViolationStrength = 50;
+    server::SlopeForce        = 25.0;
+    server::SubSoil           = 0;
+    server::SwampSinkSpeed    = 4;
+    server::WaterSinkSpeed    = 10000;
     server::WormholeForce     = 30;
     server::WormholeRange     = 10;
-    server::HoleForce         = 1.0;
 
     move_counter = 0;
 

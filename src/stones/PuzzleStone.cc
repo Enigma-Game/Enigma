@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,6 +20,7 @@
 
 #include "stones/PuzzleStone.hh"
 #include "errors.hh"
+#include "lua.hh"
 #include "main.hh"
 #include "player.hh"
 #include "server.hh"
@@ -128,7 +129,7 @@ namespace enigma {
 
     void PuzzleStone::init_model() {
         if (state == EXPLODING) {
-            set_anim("st-explosion");
+            set_anim("it_explosion");
             return;
         }
         int m = getConnections();
@@ -276,9 +277,29 @@ namespace enigma {
 
     void PuzzleStone::on_floor_change() {
         if (state == FALLING) {
+            GridPos p = get_pos();
             state = FALLEN;   // we need to mark the puzzle as the floor set recalls this methods
-            SetFloor(get_pos(), MakeFloor("fl_gray"));
-            KillStone(get_pos());
+            if (server::FallenPuzzle.find('=') == 0) {
+                if (lua::CallFunc(lua::LevelState(), "enigma.settile", server::FallenPuzzle.substr(1), this)) {
+                    throw XLevelRuntime(std::string("fallen puzzle set tile failed:\n")+lua::LastError(lua::LevelState()));
+                }
+            } else if (server::FallenPuzzle == "it_strip" || server::FallenPuzzle == "it_pipe") {
+                std::string con = getAttr("connections").to_string();
+                if (Item * it = GetItem(p)) {
+                    if (it->getClass() == server::FallenPuzzle) {
+                        if (server::FallenPuzzle == "it_strip")
+                            con += it->getAttr("connections").to_string();
+                        else  // pipe - keep old connections
+                            con = it->getAttr("connections").to_string();                        
+                    }
+                }
+                Item *it = MakeItem(server::FallenPuzzle.c_str());
+                it->setAttr("connections", con);
+                SetItem(p, it);
+            } else if (server::FallenPuzzle.find("fl_") == 0) {
+                SetFloor(p, MakeFloor(server::FallenPuzzle.c_str()));
+            }
+            KillStone(p);
         }
     }
     

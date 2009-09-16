@@ -120,6 +120,7 @@ namespace enigma_server
     
     extern int      GlassesVisibility;
     extern int      ExtralifeGlasses;
+    extern std::string FallenPuzzle;
     
     extern Value     FollowAction;
     extern bool      FollowGrid;

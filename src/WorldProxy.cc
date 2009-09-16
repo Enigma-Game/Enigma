@@ -94,6 +94,8 @@ namespace enigma {
             return server::ElectricForce;
         } else if (key == "ExtralifeGlasses") {
             return server::ExtralifeGlasses;
+        } else if (key == "FallenPuzzle") {
+            return server::FallenPuzzle;
         } else if (key == "Fragility") {
             return server::Fragility;
         } else if (key == "FrictionStrength") {
@@ -201,6 +203,8 @@ namespace enigma {
             server::ElectricForce = val;
         } else if (key == "ExtralifeGlasses") {
             server::ExtralifeGlasses = val;
+        } else if (key == "FallenPuzzle") {
+            server::FallenPuzzle = val.to_string();
         } else if (key == "Fragility") {
             server::Fragility = val;
         } else if (key == "FrictionStrength") {

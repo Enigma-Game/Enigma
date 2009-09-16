@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -41,10 +41,6 @@ namespace enigma {
         return false;
     }
     
-    bool Killer::has_shield() const {
-        return false;
-    }
-
     bool Killer::on_collision(Actor *a) {
         if (a->is_on_floor())
             SendMessage(a, "_shatter");
