@@ -7069,15 +7069,18 @@ and is filled with an initial set of objects that you can access and modify
 from this moment on.
 
 @menu
-* World Creation::   Set up world with objects
-* add::              Add single objects to the world or an inventory
-* drawBorder::       Draw a rectangular border with a tile
-* drawMap::          Draw objects given by a map of tile keys
-* drawRect::         Fill a complete rectangle with a tile
-* world floor::      Retrieval of floor objects
-* world item::       Retrieval of item objects
-* shuffleOxyd::      Oxyd Shuffling Rules
-* world stone::      Retrieval of stone objects
+* World Creation::        Set up world with objects
+* World Tile Set::        Index Operator @samp{[]} write
+* Global Attribute Set::  Index Operator @samp{[]} write
+* Global Attribute Get::  Index Operator @samp{[]} read
+* add::                   Add single objects to the world or an inventory
+* drawBorder::            Draw a rectangular border with a tile
+* drawMap::               Draw objects given by a map of tile keys
+* drawRect::              Fill a complete rectangle with a tile
+* world floor::           Retrieval of floor objects
+* world item::            Retrieval of item objects
+* shuffleOxyd::           Oxyd Shuffling Rules
+* world stone::           Retrieval of stone objects
 @end menu
 
 @c ----------------- World Creation --------------------
@@ -7148,6 +7151,70 @@ repository at the given key is taken. Otherwise the resolvers will be evaluated
 as explained in @ref{Resolver Chaining}.
 
 @end table
+
+@c ----------------- World Tile Set --------------------
+@node World Tile Set
+@subsection World Tile Set
+
+@table @asis
+@item @b{Syntax:}
+@b{wo}[<@i{object} | @i{position} | @i{table} | @i{group} | @i{polist}>] = @i{tile_declarations}
+
+@item @b{Details:}
+Index write accesses to an index that can be interpreted as a grid position or
+a list of grid positions allows you to set one or several new objects to the
+given positions according to the supplied tile declaration.
+
+@item @b{Syntax Samples:}
+@example
+@i{wo}[@i{no}["@var{myobjectname}"]] = @{"@b{st_chess}"@}
+@i{wo}[@i{po}(@var{3}, @var{4})] = @i{ti}["@var{x}"]
+@i{wo}[@{@var{2}, @var{5}@}] = @i{ti}["@var{x}"] .. @i{ti}["@var{y}"]
+@i{wo}[@i{no}["@var{floorgroup#*}"]] = @{"@b{it_burnable_oil}"@}
+@i{wo}[@i{no}["@var{myobjectname}"] + @b{NEIGHBORS_4}] = @i{ti}["@var{x}"]
+@end example
+@end table
+
+
+@c ----------------- Global Attribute Set --------------------
+@node Global Attribute Set
+@subsection Global Attribute Set
+
+@table @asis
+@item @b{Syntax:}
+@b{wo}["attritbutename"] = value
+
+@item @b{Details:}
+Write accesses to string type indices allows you to change @ref{Global Attributes}.
+Just existing attributes with write accessibility may be changed. Note that
+some attributes must be set prior @ref{World Creation} to take proper affect.
+
+@item @b{Syntax Samples:}
+@example
+@i{wo}["@b{ConserveLevel}"] = true
+@end example
+@end table
+
+
+@c ----------------- Global Attribute Get --------------------
+@node Global Attribute Get
+@subsection Global Attribute Get
+
+@table @asis
+@item @b{Syntax:}
+@var{var} = @b{wo}["attritbutename"]
+
+@item @b{Details:}
+Read accesses to string type indices allows you to retrieve @ref{Global Attributes}.
+Just existing attributes with read accessibility can be read. Note that
+some attributes report proper values just after @ref{World Creation}.
+
+@item @b{Syntax Samples:}
+@example
+@var{var} = @i{wo}["@b{IsDifficult}"]
+@end example
+@end table
+
 
 @c ----------------- add --------------------
 @node add
@@ -8677,6 +8744,7 @@ Constants for @ref{Pseudo Datatypes}.
 * meditation types::
 * glasses abilities::
 * coinslot acceptance::
+* subsoil kind::
 * screen scrolling::
 * map read directions::
 @end menu
@@ -8702,8 +8770,8 @@ that is appropriate for an object and do avoid using numbers.
 @item @samp{INVISIBLE} = @code{-1}, by @ref{it_crack}
 @item @samp{SMALL} = @code{0}, by @ref{it_crack}
 @item @samp{LARGE} = @code{2}, by @ref{it_crack}
-@item @samp{YIN} = @code{0}, by @ref{fl_yinyang}
-@item @samp{YANG} = @code{1}, by @ref{fl_yinyang}
+@item @samp{YIN} = @code{0}, by @ref{fl_yinyang} and all actors as @ref{owner} value
+@item @samp{YANG} = @code{1}, by @ref{fl_yinyang} and all actors as @ref{owner} value
 @item @samp{EMPTY} = @code{0}, by @ref{it_extinguisher}
 @item @samp{FULL} = @code{2}, by @ref{it_extinguisher}
 @item @samp{BROKEN} = @code{1}, by @ref{it_bottle}
@@ -8892,6 +8960,19 @@ numbers.
 @item @samp{COIN_REJECT} = @code{-2}, by @ref{st_coinslot}
 @end itemize
 
+@node subsoil kind
+@subsection subsoil kind
+
+Number constants for the global attribute @ref{SubSoil}. Please
+choose the constant that is appropriate for the coinslot and do avoid using
+numbers.
+
+@itemize @bullet
+@item @samp{SUBSOIL_ABYSS} = @code{0}, by @ref{it_explosion}
+@item @samp{SUBSOIL_WATER} = @code{1}, by @ref{it_explosion}
+@item @samp{SUBSOIL_AUTO} = @code{2}, by @ref{it_explosion}
+@end itemize
+
 @node screen scrolling
 @subsection screen scrolling
 
@@ -8946,6 +9027,7 @@ attributes of objects. Instead, you have to use @samp{index} and
 * CreatingPreview::
 * ElectricStrength::
 * ExtralifeGlasses::
+* FallenPuzzle::
 * FollowAction::
 * FollowGrid::
 * FollowMethod::
@@ -8966,6 +9048,7 @@ attributes of objects. Instead, you have to use @samp{index} and
 * SlopeStrength::
 * SublevelNumber::
 * SublevelTitle::
+* SubSoil::
 * SurviveFinish::
 * SwampSinkTime::
 * WaterSinkTime::
@@ -9131,6 +9214,31 @@ A sum out of the constants @samp{SPOT_DEATH}, @samp{SPOT_HOLLOW},
 @item @b{Default:} @ @ @code{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{it_extralife}
+@end table
+
+@node FallenPuzzle
+@subsection FallenPuzzle
+
+A global object replacement kind for @ref{st_puzzle}s fallen into @ref{fl_water}
+or @ref{fl_abyss}. Besides any floor kind you can use any key of a tile
+declaration preceeded by an equal sign @code{'='}. By this second method you
+can use attributed floor kinds with special values for friction and adhesion.
+
+Additionally you can set this global @samp{FallenPuzzle} attribute to 
+@code{"it_pipe"} or @code{"it_stip"}. In both cases fallen puzzle objects will
+be replaced by items of the given class with the identical connections as the
+fallen puzzle stones. Just in case that an item of the given class is already
+present at one of the affected grid positions the connections of these will be
+adjusted in a special way. An existing @code{"it_pipe"} remains unchanged, but
+an @code{"it_stip"} will add the connections of the fallen puzzle to its own
+connections.
+
+@table @asis
+@item @b{Type:} @ @ string
+@item @b{Values:} @ @ any floor object kind, @code{"it_strip"}, @code{"it_pipe"} or @code{"=key"}, whith key being a valid tile key
+@item @b{Default:} @ @ @code{"fl_gray"}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{st_puzzle}
 @end table
 
 @node FollowAction
@@ -9452,6 +9560,25 @@ the title given in the @ref{<identity>} element and the @ref{SublevelNumber}.
 @item @b{Default:} @ @ @code{""}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ no objects
+@end table
+
+@node SubSoil
+@subsection SubSoil
+
+A global variable that defines the subsoil which replaces a floor on its
+physical destruction. @ref{it_bomb}s and @ref{ot_cannonball}s can cause 
+@ref{it_explosion}_debris which in turn dissolves the floor to the base
+subsoil. The special value @code{SUBSOIL_AUTO} determines the subsoil based
+on the surrounding floors. Any @ref{fl_water} on a direct neighboring floor
+causes the floor to be replaced by water, too. Otherwise the default 
+@ref{fl_abyss} will be used as replacement.
+
+@table @asis
+@item @b{Type:} @ @ int
+@item @b{Values:} @ @ @code{SUBSOIL_ABYSS}, @code{SUBSOIL_WATER}, @code{SUBSOIL_AUTO}
+@item @b{Default:} @ @ @code{SUBSOIL_ABYSS}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ @ref{it_explosion}
 @end table
 
 @node SurviveFinish
@@ -12633,7 +12760,7 @@ The only method of handling seeds without activation are containment within a
 @table @asis
 @item @b{Attributes:}
 @table @asis
-@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"fake"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
+@item @b{flavor}, @ @ @i{values}: @code{"wood"}, @code{"hay"}, @code{"greenbrown"}, @code{"volcano"}; @ @ @i{default}: @code{"wood"}
 The type of the resulting stone.
 @item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 This attribute is transferred to the resulting stone. The @ref{st_volcano} and
@@ -13388,7 +13515,7 @@ The following variants do exist:
 @item @samp{nil} - no remnants.
 @item @samp{hollow} - leave an @ref{it_meditation}_hollow.
 @item @samp{crack} - make an @ref{it_crack}_water.
-@item @samp{debris} - dissolve the floor to @ref{fl_abyss}
+@item @samp{debris} - dissolve the floor to @ref{SubSoil}, which defaults to @ref{fl_abyss}
 @end itemize
 
 Note that you are not allowed to set or change the @samp{state} of an explosion
@@ -14192,7 +14319,7 @@ Switches the wormhole off.
 @tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
 @tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
 @item @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@tab                            @tab @yref{st_invisible}
+@tab                            @tab @yref{st_invisible} or @yref{st_ghost} 
 @tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
 @item @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
 @tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
@@ -17569,16 +17696,18 @@ Blue puzzle stones can be moved as single stones, cluster fragments and
 complete clusters by an actor pushing or a stone impulse by @ref{ot_wire} or
 @ref{st_stoneimpulse}. Of course all new positions of the moving puzzle must be
 free of other stones. If all new positions are @ref{fl_water} the blue puzzle
-will sink and leave @ref{fl_gray} thus building a bridge over water. The user
-can prohibit the sinking of the puzzle into water by pushing with a revealed
-@ref{it_magicwand}. If all new positions are @ref{fl_abyss} just complete blue
-clusters will sink and build a bridge. If all new positions are either abyss or
-water with at least one abyss floor just complete blue clusters will sink. Note
-that puzzles just sink on moves. Moving a blue fragment besides another fragment
-on abyss so that both fragments build a complete cluster will not sink the new
-cluster. It will sink as a whole on the next move. If two or more stones of a
-cluster receive wire impulses originating from a single event, the whole cluster
-will move multiple times. But it will sink on the first opportunity.
+will sink and leave an object of the kind given by the global attribute
+@ref{FallenPuzzle}. The replacement defaults to @ref{fl_gray} building a bridge
+over the water. The user can prohibit the sinking of the puzzle into water by
+pushing with a revealed @ref{it_magicwand}. If all new positions are 
+@ref{fl_abyss} just complete blue clusters will sink and build a bridge. If all
+new positions are either abyss or water with at least one abyss floor just 
+complete blue clusters will sink. Note that puzzles just sink on moves. Moving
+a blue fragment besides another fragment on abyss so that both fragments build
+a complete cluster will not sink the new cluster. It will sink as a whole on the
+next move. If two or more stones of a cluster receive wire impulses originating 
+from a single event, the whole cluster will move multiple times. But it will 
+sink on the first opportunity.
 
 Just single unconnected yellow puzzle stones can be moved by actors. They will
 neither sink in @ref{fl_water} nor fall in @ref{fl_abyss}. Any yellow cluster of
@@ -18073,8 +18202,8 @@ speed. On landing they cause actions on some objects and destroy others:
 @item @ref{it_dynamite} do ignite,
 @item @ref{it_crack} do crack,
 @item other indestructible items do remain and protect floors,
-@item other items are blown away,
-@item floors do crack to @ref{fl_abyss} if not indestructible as @ref{fl_water}, @ref{fl_swamp}, @ref{fl_abyss}.
+@item other items are blown away by an @ref{it_explosion}_debris that may destruct the floor,too,
+@item floors dissolve via an @ref{it_explosion}_debris if not being indestructible as @ref{fl_water}, @ref{fl_swamp}, @ref{fl_abyss}.
 @end itemize
 
 Actors will not be harmed by falling cannonballs.
@@ -19080,7 +19209,10 @@ of an @ref{it_drop}.
 
 The player that owns the actor. The owner gets all items picked up by an actor
 added to his inventory. The ownership of an actor does not influence the
-ability of a player to control the actors movements.
+ability of a player to control the actors movements. Note that you need to
+assign the value @code{DEFAULT} in Lua tables to set the value @code{nil} due to
+the well known Lua table @ref{Caveats}. The other two values @code{YIN} and
+@code{YANG} are common @ref{state values}.
 
 @table @asis
 @item @b{Type:} @ @ number
