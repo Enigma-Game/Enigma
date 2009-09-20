@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="9" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="10" title="Enigma IX"/>
 
   <attributes/>
 
@@ -29,8 +29,11 @@
     <level _seq="21" _title="Collapsing Building" _xpath="./pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Flashback" _xpath="./devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Pillar" _xpath="./raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="The Inferno" _xpath="./duffy181" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="20" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="20" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Caving" _xpath="./pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Flickering passages" _xpath="./duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Carcassonne" _xpath="./mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Building Blocks I" _xpath="./raoul37_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul37" rel="1" rev="5" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

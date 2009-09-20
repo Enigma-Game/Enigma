@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Rhapsody on Cracks" el:subtitle="The real value of coffee" el:id="20060510ral008"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 175 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 186 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006, 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -13,6 +13,7 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
 
 wo["CrackSpreading"] = cond(wo["IsDifficult"], 0.95, 0.75)
 
@@ -24,6 +25,7 @@ ti["p"] = {"it_coin_s"}
 ti["n"] = {"it_coin_m"}
 ti["d"] = {"it_coin_l"}
 ti["k"] = {"it_coffee"}
+ti["*"] = {"it_extralife"}
 ti["w"] = {"it_seed"}
 ti["#"] = {"st_rawglass"}
 ti["m"] = {"st_mail_e"}
@@ -75,6 +77,7 @@ wo(ti, " ", {
     "#D TwwG dxu  #r F  #",
     "#####H#xx##uu#######"
 })
+wo:add(YIN, ti["*"] .. ti["*"])
 wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
     ]]></el:luamain>
     <el:i18n>

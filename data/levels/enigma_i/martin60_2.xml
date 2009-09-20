@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title=".J.U.M.P." el:subtitle="" el:id="martin60"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_abyss"}
+ti["b"] = {"fl_brick"}
+ti["w"] = {"fl_wood"}
+ti["p"] = {"fl_plank"}
+ti["m"] = {"fl_metal_7"}
+ti["#"] = {"st_death"}
+ti["s"] = ti["b"] .. {"it_spring_keep"}
+ti["d"] = ti["w"] .. {"it_spring_drop"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["1"] = {"fl_abyss", name="randoxyd1#"}
+ti["2"] = {"fl_abyss", name="randoxyd2#"}
+ti["3"] = {"fl_wood", name="randoxyd3#"}
+ti["4"] = {"fl_plank", name="randoxyd4#"}
+ti["5"] = {"fl_brick", name="randoxyd5#"}
+ti["6"] = {"fl_metal_7", name="randoxyd6#"}
+ti["@"] = ti["w"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "#                                                        #",
+    "#                                                        #",
+    "#                                                        #",
+    "#           55555bbbb   wwwwwwww   pppp44444             #",
+    "#           5555bbbbb   wwwwwwww   ppppp4444             #",
+    "#           555bbbbbb   wwwwwwww   pppppp444             #",
+    "#           55bbbbbbb   wwwwwwww   ppppppp44             #",
+    "#           5bbbbbbbb   wwwwwwww   pppppppp4 mmmmm       #",
+    "#           bbbbbbbbb   wwwwwwww   ppppppppp mmmmm       #",
+    "#           bbbbbbbbb   wwwwwwww   ppppppppp mmmmm       #",
+    "#                                            mmmmm       #",
+    "#     wwwwww                                 mmmmm       #",
+    "#     wwwwww                11               mmmmm       #",
+    "#     wwwwww         wwwwwwww1               mmmmm       #",
+    "#     wwwwww         wwwwwwww1               mmmmm       #",
+    "#     wwwwww         wwwwwwww1                           #",
+    "#     wwwwww www     wwwwd@ww1                           #",
+    "#     wwwwww www     wwwwwwww1                  wwwwww   #",
+    "#            www            11                  wwwwww   #",
+    "#                      bbb                      wwwwww   #",
+    "#                      bbb        bbbbbbb       wwwwww   #",
+    "#            ppp       bbb        bbbbbbb       wwwwww   #",
+    "#   mmmmmm   ppp       bbb        bbbbbbb       wwwwww   #",
+    "#   6mmmmm   ppp       bbb        bbbbbbb       wwwww3   #",
+    "#   66mmmm   ppp       bbb        bbbbbbb       wwww33   #",
+    "#   666mmm ww          bsb        bbbbbbb       www333   #",
+    "#   6666mm ww          bbb  wwwww bbbbbbb       ww3333   #",
+    "#                      bbb  wwwww bbbbbbb                #",
+    "#                           wwwww                        #",
+    "#       ppppp               wwwww         mmmmm          #",
+    "#       ppppp  wwwwwwwwwwww wwwww         mmmmm          #",
+    "#       ppppp  wwwwwwwwwwww wwwww         mmmmm          #",
+    "#       ppppp              2wwwww2        mmmmm          #",
+    "#                          2222222                       #",
+    "#                                                        #",
+    "##########################################################"})
+
+for i=1, 6 do
+    wo[no["randoxyd"..i.."#*"]:shuffle()[1]] = ti["O"]
+end
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

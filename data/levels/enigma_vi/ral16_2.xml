@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Revolver" el:subtitle="Charging live ammunition" el:id="20070214ral703"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 146 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 186 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -40,11 +40,7 @@ ti["T"]  = {"st_turnstile_green"}
 ti["1"] = {"#ac_marble", "acBlack"}
 ti["h"] = {"#ac_horse"} .. ti["s"]
 
-if wo["IsDifficult"] then
-  ti["r"] = {"#ac_rotor", gohome=false, range=20, strength=30} .. ti["br"]
-else
-  ti["r"] = {"#ac_rotor", gohome=false, range=20, strength=15} .. ti["br"]
-end
+ti["r"] = {"#ac_rotor", gohome=false, range=20, strength=cond(wo["IsDifficult"], 30, 15)} .. ti["br"]
 
 w, h = wo(ti, " ", {
     "#x################x#",
@@ -69,8 +65,7 @@ wo:add({"ot_counter", "counter", state=8,
 wo:shuffleOxyd()
 
 function dobridge(value, sender)
-    fl(sender + {15, 1}):toggle()
-    fl(sender - {15, 1}):toggle()
+    fl(sender + po(15, 1) * cond(sender.x <10, 1, -1)):toggle()
 end
     ]]></el:luamain>
     <el:i18n>

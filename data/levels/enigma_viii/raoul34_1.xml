@@ -11,7 +11,7 @@
         <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="0:45" el:difficult="0:45"/>
+      <el:score el:easy="0:45" el:difficult="0:33"/>
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_water"}

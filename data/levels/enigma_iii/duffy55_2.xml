@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Build Up Speed" el:subtitle="" el:id="duffy55"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Converted to new API by daydreamer, July 2009.</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_hay"}
+ti["-"] = {"fl_abyss"}
+ti["."] = {"fl_metal"}
+ti["#"] = ti["."] .. {"st_greenbrown"}
+ti["Q"] = {"st_rubberband", "r1", strength=15}
+ti["R"] = {"st_rubberband", strength=15}
+ti["S"] = {"st_scissors"}
+ti["G"] = ti["."] .. {"st_door", "door1", faces="ew"}
+ti["T"] = ti["."] .. {"st_rubberband", strength=40, max=5}
+ti["X"] = ti["."] .. {"st_grate"}
+ti["0"] = ti["."] .. {"st_oxyd", "left#"}
+ti["1"] = ti["."] .. {"st_oxyd", "center#"}
+ti["2"] = ti["."] .. {"st_oxyd", "right#"}
+ti["j"] = {"it_springboard"}
+ti["m"] = {"it_magicwand"}
+ti["r"] = {"it_ring"}
+ti["t"] = {"it_trigger", target="door1"} .. ti["R"]
+ti["D"] = {"ac_top", 0.5, 0.97, range=0} .. {"ac_top", 0.5, 0.30, range=0} ..  ti["."]
+ti["E"] = {"ac_top", 0.5, 0.03, range=0} .. {"ac_top", 0.5, 0.70, range=0} ..  ti["."]
+ti["@"] = {"#ac_marble_black", "actor1"}
+
+wo(ti, " ", {
+    "------------------------------------------------------------------------------------------------",
+    "------------------------------------------------------------------------------------------------",
+    "-----                                                                                     m-----",
+    "-----     R                                                                             R  -----",
+    "-----            R               R        R            R         R        R                -----",
+    "-----                   R                                                        R         -----",
+    "-----                                                                                      -----",
+    "-----                                    R            R               R                    -----",
+    "-----      R         R        R                 R              R                      R    -----",
+    "-----                                                                        R             -----",
+    "-----                                                                                      -----",
+    "-----         --------------------------------------------------------------------         -----",
+    "-----         ------------------------####################------------------------         -----",
+    "-----  R      ------------------------#0................2#------------------------      R  -----",
+    "-----         ------------------------#..................#------------------------         -----",
+    "-----      R  ------------------------#....0........2....#------------------------         -----",
+    "-----         ------------------------#..................#------------------------         -----",
+    "-----         ------------------------D........11........#------------------------         -----",
+    "-----S   @ Q j------------------------.................TX#------------------------         -----",
+    "-----         ------------------------E........11........#------------------------         -----",
+    "-----         ------------------------#..................#------------------------ R       -----",
+    "-----    R    ------------------------#....0........2....#------------------------         -----",
+    "-----         ------------------------#..................#------------------------         -----",
+    "-----         ------------------------#0................2#------------------------       R -----",
+    "-----         ------------------------####################------------------------         -----",
+    "----- R       --------------------------------------------------------------------  R      -----",
+    "-----                                                                                      -----",
+    "-----     R           R          R                                  R                      -----",
+    "-----                                     R              R                       R         -----",
+    "-----                                              R                                       -----",
+    "-----       R                                                               R              -----",
+    "-----                             R                                                   R    -----",
+    "-----             R       R              R                           R                     -----",
+    "-----  R                                          R          R                             -----",
+    "-----                                                                                     r-----",
+    "------------------------------------------------------------------------------------------------",
+    "------------------------------------------------------------------------------------------------"})
+
+wo:add({"ot_rubberband", anchor1="actor1", anchor2="r1", strength=15})
+wo:shuffleOxyd({"left#*", max=0}, {"center#*", max=0}, {"right#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

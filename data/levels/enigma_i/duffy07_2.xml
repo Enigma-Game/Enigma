@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Jump!" el:subtitle="" el:id="duffy7"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -68,13 +68,13 @@ wo(ti, " ", {
     "#.....................88...22...           ... ..... ....#",
     "#....    .............8844444..            ... ..... ....#",
     "#...    ..............8844444..              .       ....#",
-    "#..    ............................................. ....#",
+    "###    ............................................. ....#",
     "#.O   .............................................. ....#",
     "#........................................................#",
     "##########################################################"})
 
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

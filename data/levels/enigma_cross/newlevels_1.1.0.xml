@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="64" title="Enigma 1.1 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="65" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -19,7 +19,7 @@
     <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Horseshoes" _xpath="enigma_vii/duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Impulse-phobia" _xpath="enigma_vii/duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Slopes, Jumps &amp; Falls" _xpath="enigma_vii/duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Arctic Jumping" _xpath="enigma_vii/duffy168_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -68,7 +68,7 @@
     <level _seq="60" _title="Lady in Red" _xpath="enigma_vii/just30_1" author="Just" ctrl="force" easy="true" id="just30" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Crawling the Abyss" _xpath="enigma_vii/sph02_2" author="ShadowPhrogg32642342" ctrl="force" easy="true" id="sph02" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Bold Boulder" _xpath="enigma_vii/ral14_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20061124ral279" rel="1" rev="127" score="1" target="time" unit="duration"/>
-    <level _seq="63" _title="Tinker, Tailor" _xpath="enigma_vii/andreas46_4" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas46" rel="4" rev="12" score="2" target="time" unit="duration"/>
+    <level _seq="63" _title="Tinker, Tailor" _xpath="enigma_vii/andreas46_4" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas46" rel="4" rev="13" score="2" target="time" unit="duration"/>
     <level _seq="64" _title="Elbow Society" _xpath="enigma_vii/andreas45_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas45" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="65" _title="Watchmaker" _xpath="enigma_vii/huesing01_1" author="Johannes Hüsing" ctrl="force" easy="false" id="huesing01" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Map it out II" _xpath="enigma_vii/manuel01_1" author="Manuel Eisentraut" ctrl="force" easy="true" id="manuel01" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -92,13 +92,13 @@
     <level _seq="84" _title="Southside Life" _xpath="enigma_viii/mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Joona's Chess" _xpath="enigma_viii/joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Helios I" _xpath="enigma_viii/mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="22" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="86" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="88" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Tilt Board" _xpath="enigma_viii/ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="89" _title="4 - 8 - 4" _xpath="enigma_viii/dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="5" score="3" target="time" unit="duration"/>
     <level _seq="90" _title="Impulsive Order" _xpath="enigma_viii/raywick05_2" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="2" rev="15" score="2" target="time" unit="duration"/>
     <level _seq="91" _title="Cross Mail" _xpath="enigma_viii/johann03_1" author="Johann Freymuth" ctrl="force" easy="false" id="johann03" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Color Maze" _xpath="enigma_viii/pulley16_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley16" rel="3" rev="10" score="3" target="time" unit="duration"/>
-    <level _seq="93" _title="Earthlink" _xpath="enigma_viii/pulley15_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="93" _title="Earthlink" _xpath="enigma_viii/pulley15_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Vanity's Constrictions" _xpath="enigma_viii/andreas53_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas53" rel="2" rev="10" score="2" target="time" unit="duration"/>
     <level _seq="95" _title="Weirdly Wired" _xpath="enigma_viii/andreas49_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas49" rel="1" rev="11" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Push Wires" _xpath="enigma_viii/ral24_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080708ral196" rel="1" rev="129" score="1" target="time" unit="duration"/>
@@ -201,8 +201,11 @@
     <level _seq="193" _title="Collapsing Building" _xpath="enigma_ix/pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Flashback" _xpath="enigma_ix/devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="Pillar" _xpath="enigma_ix/raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="20" score="1" target="time" unit="duration"/>
+    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="20" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Caving" _xpath="enigma_ix/pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="198" _title="Flickering passages" _xpath="enigma_ix/duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="199" _title="Carcassonne" _xpath="enigma_ix/mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="200" _title="Building Blocks I" _xpath="enigma_ix/raoul37_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul37" rel="1" rev="5" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

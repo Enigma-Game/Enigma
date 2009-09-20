@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="31" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="32" title="Enigma I"/>
 
   <attributes/>
 
@@ -42,7 +42,7 @@
     <level _seq="34" _title="Slalom" _xpath="./martin76_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin76" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="The Document" _xpath="./duffy04_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Space Travels" _xpath="./siegfried30_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10b" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title=".J.U.M.P." _xpath="./martin60_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title=".J.U.M.P." _xpath="./martin60_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="38" _title="Encased" _xpath="./xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Without Tremor" _xpath="./richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="./alain04_1" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -101,7 +101,7 @@
     <level _seq="93" _title="Time is Money" _xpath="./nat11_3" author="Nat Pryce" ctrl="force" easy="false" id="nat11" rel="3" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="94" _title="Growing The Doors" _xpath="./martin88_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin88" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="95" _title="Impulsive" _xpath="./ant13_1" author="Petr Machata" ctrl="force" easy="false" id="ant13" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="96" _title="Jump!" _xpath="./duffy07_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy7" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="96" _title="Jump!" _xpath="./duffy07_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy7" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Hit the Right One" _xpath="./martin77_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin77" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Island Paradise" _xpath="./duffy100_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy100" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="The Racetrack" _xpath="./martin31_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin31" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Carcassonne" el:subtitle="Inside the castle" el:id="mecke40"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:22 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Harry Bruder for testing and important ideas</el:credits>
+      </el:comments>
+      <el:score el:easy="28:53" el:difficult="25:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" _"] = {"fl_brick"}
+if wo ["IsDifficult"] then
+    ti[" !"] = {"fl_rock", fragility=0, secure=true}
+    ti[" %"] = {"fl_adhesionless"}
+    ti["@ "] = {"st_chess_white"}
+
+    ti["o9"] = ti[" _"] .. {"it_weight"}
+    ti["DD"] = ti[" !"] .. {"st_death"}
+    ti["dd"] = ti[" !"] .. {"st_death_invisible"}
+    ti["uu"] = ti["dd"] .. {"it_drop"}
+else
+    ti[" !"] = {"fl_rock", fragility=0, secure=true}
+    ti[" %"] = {"fl_aquamarine"}
+    ti["@ "] = {"it_burnable_oil"}
+    ti["o9"] = ti[" _"] .. {"it_bottle"}
+    ti["DD"] = ti[" !"] .. {"st_actorimpulse"}
+    ti["dd"] = ti[" !"] .. {"st_actorimpulse_invisible"}
+    ti["uu"] = ti["dd"] .. {"it_drop"}
+end
+ti["  "] = {"fl_abyss"}
+ti[" '"] = {"fl_space"}
+ti[" &"] = {"fl_rough"}
+ti[" $"] = {"fl_swamp"}
+ti[" #"] = {"fl_water"}
+ti["! "] = {"st_brownpyramide"}
+ti["# "] = {"st_purplegray"}
+ti["$ "] = {"st_redmarble"}
+ti["% "] = {"st_passage_black_frame"}
+ti["& "] = {"st_granite"}
+ti["= "] = {"st_knight"}
+ti["w "] = {"it_wormhole"}
+ti["' "] = {"st_yellow"}
+ti["( "] = {"st_box_wood"}
+ti["s "] = {"it_seed"}
+ti["m "] = {"it_magicwand"}
+ti["n "] = {"it_wrench"}
+ti[") "] = {"st_turnstilearm_n"}
+ti["* "] = {"st_turnstile"}
+ti["+ "] = {"st_turnstilearm_s"}
+ti[", "] = {"st_rubberband"}
+ti["- "] = {"st_oneway_black_s"}
+ti["o0"] = ti[" _"] .. {"it_springboard"}
+ti["o1"] = ti[" !"] .. {"st_oneway_w"}
+ti["o2"] = ti[" !"] .. {"st_oneway_e"}
+ti["o3"] = ti[" !"] .. {"st_chess_white"}
+ti["o4"] = ti[" !"] .. {"st_break_plain"}
+ti["o5"] = ti["o0"] .. {"st_window_n", secure=true}
+ti["o6"] = ti[" !"] .. {"st_switch_black", target={"free","bridgefree"}}
+ti["o7"] = ti["  "] .. {"st_door", faces="ns", name="free"}
+ti["o8"] = ti["o7"] .. {"fl_bridge_bs", name="bridgefree"}
+ti["p4"] = ti[" !"] .. {"st_switch_black", target="bridge1"}
+ti["p5"] = ti[" !"] .. {"st_switch_black", target="bridge2"}
+ti["pa"] = ti[" !"] .. {"st_switch_black", target="bridge3"}
+ti["pb"] = ti[" !"] .. {"st_switch_black", target="bridge4"}
+ti["p6"] = {"fl_bridge_bw", name="bridge1"}
+ti["p7"] = {"fl_bridge_be", name="bridge4"}
+ti["p8"] = {"fl_bridge_be", name="bridge2"}
+ti["p9"] = {"fl_bridge_bw", name="bridge3"}
+ti["_ "] = {"it_strip_ew"}
+ti["3 "] = {"st_thief"}
+ti["k "] = {"it_glasses_broken"}
+ti["p0"] = ti[" $"] .. {"st_magic_brick"}
+ti["p1"] = ti[" #"] .. {"it_puller_s"}
+ti["P2"] = ti[" #"] .. {"it_crack_m", flavor="water"}
+ti["p2"] = ti[" #"] .. {"it_crack_l", flavor="water"}
+ti["p3"] = ti[" %"] .. {"it_sword"}
+ti[". "] = {"st_grate_cross"}
+ti[": "] = {"st_passage_white_frame"}
+ti["e "] = {"it_extralife"}
+ti["/ "] = {"st_boulder_s"}
+ti["0 "] = {"st_swap"}
+ti["2 "] = {"st_mail_n"}
+ti["4 "] = {"st_laser_n", state=ON}
+ti["6 "] = {"st_beads"}
+ti["7 "] = {"st_turnstile_green"}
+ti["9 "] = {"st_passage_black_frame"}
+ti["~ "] = {"it_springboard"}
+ti["f "] = {"it_flag_black"}
+ti["^ "] = {"st_puzzle", connections="s"}
+ti["8 "] = {"st_puzzle", connections="n"}
+ti["; "] = {"st_window_n", secure=true}
+ti["v "] = {"it_pipe_ns"}
+ti["? "] = {"st_spitter"}
+ti["a "] = {"it_key"}
+ti["c "] = {"it_cherry"}
+ti["g "] = {"it_flag_white"}
+ti["B "] = {"st_coinslot"}
+ti["E "] = {"st_oneway_black_w"}
+ti["F "] = {"st_key"}
+ti["G "] = {"st_scissors"}
+ti["1 "] = ti[" !"] .. {"st_oxyd_d"}
+ti["yy"] = ti[" !"] .. {"st_beads"}
+ti["yB"] = ti[" !"] .. {"it_yinyang"}
+ti["MB"] = ti["yB"] .. {"#ac_marble_black"}
+ti["yw"] = ti[" !"] .. {"it_yinyang"}
+ti["MW"] = ti["yw"] .. {"#ac_marble_white"}
+ti["t "] = ti[" !"] .. {"#ac_top", range=2, strength=2}
+ti["j "] = ti[" !"] .. {"#ac_rotor", range=12, strength=12}
+ti["z1"] = ti[" !"] .. {"st_switch_black", action="open",target="vortex1"}
+ti["z3"] = ti[" !"] .. {"st_switch_white", action="open",target="vortex3"}
+ti["v1"] = ti[" #"] .. {"it_vortex_closed", name="vortex1", destination="vortex2"}
+ti["v2"] = ti[" !"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["v3"] = ti[" #"] .. {"it_vortex_closed", name="vortex3", destination="vortex4"}
+ti["v4"] = ti[" !"] .. {"it_vortex_open", name="vortex4", destination="vortex3"}
+ti["v5"] = ti[" !"] .. {"it_vortex_open", name="vortex5", destination="vortex4"}
+ti["opener1"] = ti[" !"] .. {"st_switch_white", target={"doora%%","bridgeb%%"}}
+ti["opener2"] = ti[" !"] .. {"st_door", faces="ns", name="doora%%"}
+ti["over"] = ti["  "] .. {"fl_bridge_bs", name="bridgeb%%"}
+ti["Y1"] = ti[" !"] .. {"st_switch", target="cher1"}
+ti["Y2"] = ti[" !"] .. {"st_switch", target="cher2"}
+ti["I "] = ti[" !"] .. {"st_timer", action="callback", target="burn", interval=11.9, invisible=false}
+ti["i "] = {"it_burnable_burning"}
+
+wo(res.composer(res.autotile(ti, {"q", "opener1"}, {"l", "opener2"}, {"Z", "over"})), "  ", {
+    "!!&!&!&!&!&!&!&!!!!!!!!!&!&!&!&!&!&!&!!!",
+    "#!#!#!#!#!#!#!#!v4 ! !v5#!#!#!#!#!#!#!#!",
+    "#! !)# !)# !)# ! !DDDD ! !)# !)# !)# !#!",
+    "#! #*! #*! #7! #:! ! !:! #7! #*! #*! ##!",
+    "#! !+# !+# !+# ! ! ! ! ! !+# !+# !+# !#!",
+    "#!(!!!.!!!.!!! !&!(!(!&! !!!.!!!.!!!(!#!",
+    "#!!$&! $!! $?! $&! ! !&! $?! $!! $&!!!#!",
+    "!$!$?#e!&! !!! !&!(!(!&! !!! !&!e!?#!$!$",
+    "!$&!!!e$&!e$?! #&! ! !&! #?!e$&!e$!!&!!$",
+    "!$p0?#e!&!e!&!e!&!.!.!&!e!&!e!&!e!?#p0!$",
+    "#! !DD $Y1 $&! $&!p6p8&! $&! $Y2 $DD !#!",
+    "#!p4DD#!#!#!#!pa#!p9p7#!pb#!#!#!#!DDp5#!",
+    "!!$!$!$!$!$!$!$!t!%!%!t!$!$!$!$!$!$!$!!!",
+    "$!'!'!'!'!'!'!'!-! ! !-!'!'!'!'!'!'!'!$!",
+    "$!'!(! ! ! ! !1! #(!(! #1! ! ! ! !(!'!$!",
+    "$!'! !(! ! !i! ! ! # # ! !i! ! !(! !'!$!",
+    "$!'! ! !(!@! ! ! # ! ! # ! !@!(! ! !'!$!",
+    "$!'! ! !@!1!@! # ! ! ! ! #@!1!@! ! !'!$!",
+    "I!'! #p2 # #(!@!@!@!@!@!@!(! # #p2 #'!$!",
+    "$!'! ! !@!1!@! # ! ! ! ! #@!1!@! ! !'!$!",
+    "$!'! ! !(!@! ! ! # ! ! # ! !@!(! ! !'!$!",
+    "$!'! !(! ! !i! ! ! # # ! !i! ! !(! !'!$!",
+    "$!'!(! ! ! ! !1! # ! ! #1! ! ! ! !(!'!$!",
+    "$!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!$!",
+    "!!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!!!",
+    ":! ! ! ! ! ! ! !c#m#g#c# ! ! ! ! ! ! !:!",
+    ":! !(! !(! !(! !p2p1p1P2 !(! !(! !(! !:!",
+    "$! !z3&!&!&!&!&!&!&!&!&!&!&!&!&!&!z1 !$!",
+    "$! !&! !(! ! ! ! #v1v3 # ! ! !(! !&! !$!",
+    "$! !&!.!.!.!.!.!.!.!.!.!.!.!.!.!.!&! !$!",
+    "$! !&!(!(!(!(!(!0!0!0!0!(!(!(!(!(!&! !$!",
+    "$! !&!.!.!.!.!.!.!.!.!.!.!.!.!.!.!&! !$!",
+    "$! !&!:!:!:!:!:!:!:!:!:!:!:!:!:!:!&! !$!",
+    "$! !&!/!/!/!/!/!/!/!/!/!/!/!/!/!/!&! !$!",
+    "$! !&!0!0!0!0!0!0!0!0!0!0!0!0!0!0!&! !$!",
+    "$! !&! ! ! ! ! ! ! ! ! ! ! ! ! ! !&! !$!",
+    "!! !&! !!!;_;_;_;_;_;_;_o5; o4 ! !&! !!!",
+    "%!=!&! !!!o8!!!!!!!!!!!!!!!!!!.! !&!=!%!",
+    "%! #&! !!!6!!!6!6!6!6!6!6!6!!!.! !&! #%!",
+    "%! !&! !!!6!!!6!!!!!!!!!!!6!!!.! !&! !%!",
+    "%# !&! !!!%!!!6!!!6!6!6!!!%!!!.! !&! !%#",
+    "%! !&! !!!o9!!6!!!o6!!6!!!o9!!.! !&! !%!",
+    "%! #&! !!!%!!!6!!!!!!!6!!!%!!!.! !&! #%!",
+    "%! !&! !!!6!!!MB6!6!6!6!!!6!!!.! !&! !%!",
+    "%# !&! !!!6!!!!!!!!!!!!!!!6!!!.! !&! !%#",
+    "%! !&! !!!6!6!6!6!6!6!6!6!6!!!.! !&! !%!",
+    "%! #&! !!!!!!!!!!!!!!!!!!!!!!!.! !&! #%!",
+    "%!=!&! !2!2!2!2!2!2!2!2!2!2!2!.! !&!=!%!",
+    "!! !&! !Z1Z2Z3Z4Z5=!Z6Z7Z8Z9Z0 ! !&! !!!",
+    "$! !!! !l1l2l3l4l5 'l6l7l8l9l0 ! !6! !$!",
+    "$! !&!:!4!4!4!4!4!4!4!4!4!4!4!!!:!&! !$!",
+    "$! !&! ! % % % % % % % % % % %k! !&! !$!",
+    "$! !&! ! & ! 'c' 'p3 'c' &E! &k! !&! !$!",
+    "$! !&!,! %(! & ! !3$ ! ! !o3 %MWG!&! !$!",
+    "$! !&! ! & ! 'c' 'v% 'c' &E! &k! !&! !$!",
+    "$!(!&! ! % % % %v%uuv% % % % %k! !&!(!$!",
+    "$!  o2 !q1q2q3q4q5 'q6q7q8q9q0!! !o1  $!",
+    "$! !&!&!&!&!&!&!&!&!&!&!&!&!&!&!&!&! !$!",
+    "$!(! _ $ _(!  ^!s# # #c#^!s (! _ $ _(!$!",
+    "$!s!(! !(!s 8!s! #c!s! # !8!c (! !(!s!$!",
+    "!!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!!!",
+    "$!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!$!",
+    "$!'! !(! ! !(! ! !(!(! ! !(! ! !(! !'!$!",
+    "$!'!(! !(!(! !(!(!9!9!(!(! !(!(!=!(!'!$!",
+    "$!'! !@! ! !(!9!9!9!9!9!9!(! ! !@! !'!$!",
+    "$!'!@!@!@!(!9!9! ! ! !j&9!9!(!@!@!@!'!$!",
+    "$!@!DD1!DD@!9! ! !f!f! ! !9!@!@!1!@!@!$!",
+    "$!'!@!@!@!(!9!9!v2 ! ! !9!9!(!@!DD@!'!$!",
+    "$!'! !@! ! !(!9!9!9!9!9!9!(! ! !@! !'!$!",
+    "$!'!(! !(!(! !(!(!9!9!(!(! !(!(!=!(!'!$!",
+    "$!'! !(! ! ! ! ! !(!(! ! !(! ! !(! !'!$!",
+    "$!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!'!$!",
+    "!!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!$!!!"})
+
+function cher1()
+    if wo["IsDifficult"] then
+        wo[{3,9}] = {"it_coin_l"}
+        wo[{5,8}] = {"it_squashed"}
+        wo[{7,9}] = {"it_spoon"}
+    else
+        wo[po(3,9) .. po(5,8) .. po(7,9)]= {"it_extralife"}
+    end
+end
+
+function cher2()
+    if wo["IsDifficult"] then
+        wo[{12,9}] = {"it_spoon"}
+        wo[{14,8}] = {"it_squashed"}
+        wo[{16,9}] = {"it_coin_l"}
+    else
+        wo[po(12,9) .. po(14,8) .. po(16,9)] = {"it_extralife"}
+    end
+end
+
+function burn(value, sender)
+    wo[po(6, 15) .. po(13, 15) .. po(6, 21) .. po(13, 21)] = cond(wo["IsDifficult"], {"it_burnable_burning"}, {"it_squashed"})
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

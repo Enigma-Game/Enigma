@@ -46,13 +46,13 @@ function change(value, sender)
     left = (all-cen):nearest(cen)
     right = (all-cen-left):nearest(cen)
     if not wo["IsDifficult"] or
-       no["red#*"][cen] and no["green#*"][left] and no["green#*"][right] or
-       no["green#*"][cen] and no["red#*"][left] and no["red#*"][right] then
+       (no["red#*"][cen] and no["green#*"][left] and no["green#*"][right] or
+        no["green#*"][cen] and no["red#*"][left] and no["red#*"][right]) then
         wo[cen] = ti[cen["_other"]]
         wo[left] = ti[left["_other"]]
         wo[right] = ti[right["_other"]]
     end
-    if #no["red#*"] == 0 or wo["IsDifficult"] and #no["red#*"] == 3 then
+    if #no["red#*"] == 0 or (wo["IsDifficult"] and #no["red#*"] == 3) then
         no["laser"]:on()
     end
 end

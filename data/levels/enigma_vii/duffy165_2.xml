@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Knot Garden" el:subtitle="" el:id="duffy165"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -30,15 +30,16 @@ ti["a"] = {"it_trigger", target="doora"}
 ti["b"] = {"it_trigger", action="close", target="doorb"}
 ti["t"] = {"it_document", text="text1"}
 ti["u"] = {"it_document", text="text2"}
-ti["o"] = {"st_fake_quake"}
-ti["O"] = {"st_oxyd"}
+ti["Q"] = {"st_fake_quake"}
+ti["O"] = {"st_oxyd", name="right#"}
+ti["o"] = {"st_oxyd", name="left#"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
     "##################################OO######################",
-    "###XXXXXXXX#OOOO##      ~#######O#  XXXXXXXXXX############",
-    "###X######X#    O#      ~#######~#II#########   +      ~O#",
-    "##    +      OOO## #####~#######        ##### @ #####+####",
+    "###XXXXXXXX#oooo##      ~#######O#  XXXXXXXXXX############",
+    "###X######X#    o#      ~#######~#II#########   +      ~O#",
+    "##    +      ooo## #####~#######        ##### @ #####+####",
     "## ############### #####~####### ###### #####   ##### ##a#",
     "## #####    u   B  #####~####### ######^###### ###### ## #",
     "#b b#####b b############~##    A +<            #O#### ## #",
@@ -53,10 +54,10 @@ wo(ti, " ", {
     "#b bbbbbbb b######## ### ## #~# # #######XXXX#X#~##O~  # #",
     "#b         b######## ### ## #O# # ###XXX####X#X#~#### ## #",
     "#bbbbbbbbbbb########     ## ### #+##XX#X#XXXX#X# + ##### #",
-    "###########################        ~to#XXX####XD         #",
+    "###########################        ~tQ#XXX####XD         #",
     "##########################################################"})
 
-wo:shuffleOxyd()
+wo:shuffleOxyd({"left#*", "right#*", min = 6, max = 6})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

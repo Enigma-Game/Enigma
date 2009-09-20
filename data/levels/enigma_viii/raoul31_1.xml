@@ -7,52 +7,43 @@
       <el:author  el:name="Raoul Bourquin" el:email="raoul@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-      </el:comments>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="0:24" el:difficult="0:33"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-if wo["IsDifficult"] then
-    wo["MeditationStrength"] = 4.0
-else
-    wo["MeditationStrength"] = 2.0
-end
+wo["MeditationStrength"] = cond(wo["IsDifficult"], 4.0, 2.0)
 
 ti[" "] = {"fl_ivory"}
 ti["-"] = {"fl_dark"}
 ti["."] = {"fl_abyss"}
-ti["#"] = {"st_panel", cluster = 1}
-ti["="] = {"st_panel", cluster = 2}
+ti["#"] = {"st_panel", cluster=1}
+ti["="] = {"st_panel", cluster=2}
 ti["u"] = {"it_meditation_hill"}
 ti["o"] = {"it_meditation_hollow"}
-ti["0"] = ti["u"] .. {"#ac_pearl_white", name="a"} 
-ti["O"] = ti["o"] .. {"#ac_pearl_white", "s#", owner=DEFAULT} 
-ti["q"] = {"it_rubberband", anchor2="@@s#*", length=5, strength=10, max=5}
+ti["0"] = ti["u"] .. {"#ac_pearl_white", name="a"}
+ti["O"] = ti["o"] .. {"#ac_pearl_white", name="s#", owner=DEFAULT}
+ti["q"] = {"it_rubberband", anchor2="@@s#*", length=5, strength=10.0, max=5.0}
 
-w, h = wo(ti, " ", {
-"....##=======##....",
-"...## -     - ##...",
-"..## -O-- --O- ##..",
-".##   - --- -   ##.",
-".#  q    -    q  #.",
-".=  -   ---   -  =.",
-".=q-O----0----O-q=.",
-".=  -   ---   -  =.",
-".#  q    -    q  #.",
-".##   - --- -   ##.",
-"..## -O-- --O- ##..",
-"...## -     - ##...",
-"....##=======##...."
-})
+wo(ti, " ", {
+    "....##=======##....",
+    "...## -     - ##...",
+    "..## -O-- --O- ##..",
+    ".##   - --- -   ##.",
+    ".#  q    -    q  #.",
+    ".=  -   ---   -  =.",
+    ".=q-O----0----O-q=.",
+    ".=  -   ---   -  =.",
+    ".#  q    -    q  #.",
+    ".##   - --- -   ##.",
+    "..## -O-- --O- ##..",
+    "...## -     - ##...",
+    "....##=======##...."})
   ]]></el:luamain>
     <el:i18n>
-	 <el:string el:key="title">
-	   <el:english el:translate="false"/>
-	 </el:string>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
    </el:i18n>
   </el:protected>
 </el:level>

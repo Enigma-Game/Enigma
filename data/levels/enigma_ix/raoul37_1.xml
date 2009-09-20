@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Building Blocks I" el:subtitle="" el:id="raoul37"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:37" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_dark"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_rawglass"}
+ti["*"] = {"st_grate_cross"}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["Q"] = {"st_puzzle", intensity=0, name="p1"}
+ti["R"] = {"st_puzzle", intensity=0, name="p2"}
+ti["S"] = {"st_puzzle", intensity=0, name="p3"}
+ti["T"] = {"st_puzzle", intensity=0, name="p4"}
+ti["U"] = {"st_puzzle", intensity=0, name="p5"}
+ti["V"] = {"st_puzzle", intensity=0, name="p6"}
+ti["W"] = {"st_puzzle", intensity=0, name="p7"}
+ti["X"] = {"st_puzzle", intensity=0, name="p8"}
+ti["Y"] = {"st_puzzle", intensity=0, name="p9"}
+ti["Z"] = {"st_puzzle", intensity=0, name="p10"}
+ti["A"] = {"st_puzzle", intensity=0, name="p11"}
+ti["w"] = {"it_surprise", selection="it_nil"}  -- keep dice :)
+ti["B"] = {"it_blocker", autoclose=true}
+ti["."] = ti["-"] .. {"it_seed"}
+ti["vortex"] = ti["-"] .. {"it_vortex", name="vo%%", destination={"vo%1", "vo%2", "vo%3", "vo%4", "vo%5", "vo%6", "vo%7", "vo%8", "vo%9", "vo%10", "vo%11", "vo%12", "vo%14"}}
+ti["n"] = {"it_vortex", name="vo%14", autoclose=true}
+ti[":"] = {"it_wormhole", destination="vo%13", strength=0.5, range=1.0}
+ti["O"] = {"st_oxyd", flavor="e", oxydcolor=OXYD_BLUE, name="oxyd#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "m", "vortex"}), " ", {
+    "-#############################",
+    "##                       B  :#",
+    "#      *                 #####",
+    "#            w        B ##----",
+    "#                 ..a.. #--###",
+    "#                 .fje. #-##O#",
+    "#  *       @      bkmidB#-#n #",
+    "#                 .glh. #-##O#",
+    "#                 ..c.. #--###",
+    "# w                   B ##----",
+    "#      *                 #####",
+    "##                   w   B  :#",
+    "-#############################"})
+
+if wo["IsDifficult"] then
+    wo:drawMap(res.puzzle(ti, "P", "Q", "R","S","T","U","V","W","X","Y"), po(5,4), "  ", {
+        "RaPGPAPCYo",
+        "POWIUFPOTd",
+        "PLPDPMQFPE",
+        "PFPDXGPHPB",
+        "VMPAPIPESI"})
+
+    wo:add({"ot_wire", anchor1="p1", anchor2="p2"})
+    wo:add({"ot_wire", anchor1="p2", anchor2="p3"})
+    wo:add({"ot_wire", anchor1="p3", anchor2="p4"})
+    wo:add({"ot_wire", anchor1="p4", anchor2="p1"})
+    wo:add({"ot_wire", anchor1="p5", anchor2="p6"})
+    wo:add({"ot_wire", anchor1="p6", anchor2="p7"})
+    wo:add({"ot_wire", anchor1="p7", anchor2="p8"})
+    wo:add({"ot_wire", anchor1="p8", anchor2="p5"})
+    wo:add({"ot_wire", anchor1="p2", anchor2="p6"})
+    wo:add({"ot_wire", anchor1="p4", anchor2="p8"})
+    wo:add({"ot_wire", anchor1="p5", anchor2="p9"})
+    wo:add({"ot_wire", anchor1="p7", anchor2="p9"})
+else
+    wo:drawMap(res.puzzle(ti, "P", "Q", "R","S","T","U","V","W","X","Y", "Z", "A"), po(5,4), "  ", {
+        "SiWOPCPCQo",
+        "ZNPiPfVKRf",
+        "PLPLYOTfPE",
+        "PFPDXcPJPJ",
+        "AlPAPIPEUi"})
+end
+
+if wo["CreatingPreview"] then
+    wo:drawMap(res.puzzle(ti, "P", "Q", "R","S","T","U","V","W","X","Y", "Z", "A"), po(5,4), "  ", {
+        "SiWoPcPcQo",
+        "ZnPiPfVkRf",
+        "PlPlYoTfPe",
+        "PfPdXcPjPj",
+        "AlPaPiPeUi"})
+end
+
+no["oxyd#*"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

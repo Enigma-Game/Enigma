@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bishop" el:subtitle="" el:id="duffy75"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Converted to new API by daydreamer, July 2009.</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_white"}
+ti["-"] = {"fl_abyss"}
+ti["O"] = {"st_oxyd"}
+ti["Q"] = {"st_quake"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "-----    ----    ----  --  --  --  --  --    ----    -----",
+    "-O   ----    ----  --  --  --  --  --    ----    ----   O-",
+    "-  Q ----    ----    --  --  --  --  --  ----    ---- Q  -",
+    "- Q  ----    ----    --  --  --  --  --  ----    ----  Q -",
+    "-    ----    ----  --  --  --  --  --    ----    ----    -",
+    " ----    ----    ----  --  --  --  --  --    ----    ---- ",
+    " ----    ----    --  --  --  --  --  ----    ----    ---- ",
+    " ----    ----    --  --  --  --  --  ----    ----    ---- ",
+    " ----    ----    ----  --  --  --  --  --    ----    ---- ",
+    "-    ----    ----  --  --  --  --  --    ----    ----    -",
+    "-    ----    ----    --  --  --  --      ----    ----    -",
+    "-    ----    ----    --  --  --  --  -   ----    ----    -",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    " ---   ---   ---   ---   --- @ ---   ---   ---   ---   ---",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    "-   ---   ---   ---   ---   ---   ---   ---   ---   ---   ",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    " ---   ---   ---   ---   ---   ---   ---   ---   ---   ---",
+    "-    ----    ----  --  --  --  --  --    ----    ----    -",
+    "-    ----    ----  --  --  --  --  --    ----    ----    -",
+    "-    ----    ----    --  --  --  --  --  ----    ----    -",
+    " ----    ----    --  --  --  --  --  ----    ----    ---- ",
+    " ----    ----    ----  --  --  --  --  --    ----    ---- ",
+    " ----    ----    ----  --  --  --  --  --    ----    ---- ",
+    " ----    ----    --  --  --  --  --  ----    ----    ---- ",
+    "-    ----    ----    --  --  --  --  --  ----    ----    -",
+    "- Q  ----    ----  --  --  --  --  --    ----    ----  Q -",
+    "-  Q ----    ----  --  --  --  --  --    ----    ---- Q  -",
+    "-O   ----    ----    --  --  --  --  --  ----    ----   O-",
+    "-----    ----    --  --  --  --  --  ----    ----    -----"})
+
+wo:add(YIN, {"it_spring_keep"})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

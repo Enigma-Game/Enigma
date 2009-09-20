@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="ZigZag" el:subtitle="" el:id="ralf06"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -27,29 +27,34 @@ ti["< "] = {"st_turnstilearm", orientation=WEST} .. ti({"it_trigger"})
 ti["L^"] = ti[".."] .. {"st_laser", orientation=NORTH, name="laser#"}
 ti["LV"] = ti[".."] .. {"st_laser", orientation=SOUTH, name="laser#"}
 ti["s "] = {"st_switch", target="laser#*"}
-ti["| "] = {"st_door", flavor="d", faces="ew", name="door%%#"}
-ti["= "] = {"st_door", flavor="d", faces="ew", state=OPEN, name="door%%#"}
+ti["sl"] = {"it_sensor", target="initbridge", action="close", invisible=true}
+ti["sr"] = {"it_sensor", target="initbridge", action="open", exit=true, invisible=true}
+ti["| "] = ti["sl"] .. {"st_door", flavor="d", faces="ew", name="door%%#"}
+ti["= "] = ti["sl"] .. {"st_door", flavor="d", faces="ew", state=OPEN, name="door%%#"}
+ti["|r"] = ti["sr"] .. {"st_door", flavor="d", faces="ew", name="door%%#"}
+ti["=r"] = ti["sr"] .. {"st_door", flavor="d", faces="ew", state=OPEN, name="door%%#"}
 ti["t "] = {"it_trigger", name="trigger%%", target="door%%#*"}
 ti["S "] = {"st_switch", target={"door%%#*", "bridge%%#*"}}
 ti["ee"] = {"it_extralife"}
 ti["O "] = ti[".."] .. {"st_oxyd"}
-ti["* "] = {"#ac_pearl", owner=YANG, controllers=CTRL_NONE}
-ti["@ "] = {"#ac_marble_black"}
+ti["* "] = {"#ac_pearl", owner=DEFAULT, controllers=CTRL_NONE}
+ti["--"] = {"fl_bridge", state=CLOSED, name="initbridge"}
+ti["@ "] = ti["--"] .. {"#ac_marble_black"}
 
-local resolver = res.autotile(ti, {"t", "t "}, {"|", "| "}, {"=", "= "}, {"-", "- "}, {"x", "x "}, {"S", "S "})
+local resolver = res.autotile(ti, {"t", "t "}, {"|", "| "}, {"=", "= "}, {"-", "- "}, {"x", "x "}, {"S", "S "}, {"%", "=r"}, {"&", "|r"})
 
 wo(resolver, "  ", {
     "I I I I I I I I I I I I I # # # # # # # ",
     "I ..I # # ..............I     # # # # # ",
-    "I # I     # # ......O ..I     |exe=e  s ",
+    "I # I     # # ......O ..I     |exe%e  s ",
     "I # < + > ^   # ......I I   -e# # # # # ",
-    "I #   te* + td# ....L^I #     |dxd=d  Se",
+    "I #   te* + td# ....L^I #     |dxd%d  Se",
     "I ..# #   V *   # # ..I I -d  # # # # # ",
-    "I ......# < + > ^   # ..I   @ |cxc=ceeSd",
+    "I ......# < + > ^   # ..I     |cxc%ceeSd",
     "I ......#   tc* + tb# ..I   -c# # # # # ",
-    "I ..LV....# #   V *   # I     |b  =b  Sc",
-    "I ............# < + > # I     # # # # # ",
-    "I ..O ........#   taI # I     =a  |a  Sb",
+    "I ..LV....# #   V *   # I     |b  %b  Sc",
+    "I ............# < + > # I @   # # # # # ",
+    "I ..O ........#   taI # I     =a  &a  Sb",
     "I ..............# # I ..I     # # # # # ",
     "I I I I I I I I I I I I I # # # # # # # "})
  ]]></el:luamain>

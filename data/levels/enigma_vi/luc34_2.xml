@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tandem Chess" el:subtitle="Work together!" el:id="luc342007"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_metal"}
+ti["B"] = {"st_passage", flavor="frame", color=BLACK}
+ti["W"] = {"st_passage", flavor="frame", color=WHITE}
+ti["C"] = {"st_chess"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="doors#"}
+ti["t"] = {"it_trigger", target="@doors#*"}
+ti["w"] = ti({"fl_bright"}) .. {"it_trigger", target="recolor", invisible=true, _color=WHITE}
+ti["b"] = ti({"fl_dark"}) .. {"it_trigger", target="recolor", invisible=true, _color=BLACK}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["A"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#   B  #    t # t# O",
+    "# ###  #   #  |  | #",
+    "# WW   B #b#BW#  # O",
+    "# ### ######BW######",
+    "# #C  ## t#   # #  #",
+    "#      B B| # #    #",
+    "# w # ##W##       ##",
+    "#     ##  # b  ##  #",
+    "#   A WW    #   #  #",
+    "# @   ##   ##Ww    #",
+    "#     ##         # #",
+    "####################"})
+
+function recolor(value, sender)
+    st(sender)["color"] = sender["_color"]
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Tandemschach</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Arbeitet zusammen!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

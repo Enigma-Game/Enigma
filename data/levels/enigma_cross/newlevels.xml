@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -66,7 +66,7 @@
     <level _seq="58" _title="White Contrast" _xpath="enigma_iii/illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Manamana" _xpath="enigma_iii/just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Bad Flowers" _xpath="enigma_iii/nat30_2" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="61" _title="Don't Touch" _xpath="enigma_iii/raoul07_3" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul07" rel="3" rev="3" score="3" target="time" unit="duration"/>
+    <level _seq="61" _title="Don't Touch" _xpath="enigma_iii/raoul07_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul07" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="62" _title="Laser Castle" _xpath="enigma_iii/andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Bump Ahead" _xpath="enigma_iii/illmind01_2" author="illmind" ctrl="force" easy="false" id="illmind01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Killer Hills" _xpath="enigma_iii/luc11_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -159,7 +159,7 @@
     <level _seq="151" _title="Meditation Disturbance" _xpath="enigma_vi/ral04_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="2" rev="143" score="1" target="time" unit="duration"/>
     <level _seq="152" _title="Banana Republic" _xpath="enigma_v/alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="2" rev="175" score="2" target="time" unit="duration"/>
+    <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="2" rev="186" score="2" target="time" unit="duration"/>
     <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="156" _title="Cold Way" _xpath="enigma_vi/raoul21_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul21" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="157" _title="Laserpowered" _xpath="enigma_vi/raoul20_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul20" rel="2" rev="4" score="1" target="time" unit="duration"/>

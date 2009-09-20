@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Flickering passages" el:subtitle="" el:id="duffy182"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author  el:name="Jacob Scott, Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2009 Jacob Scott, Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+wo["SlopeStrength"] = 30.0
+
+ti[" "] = cond(wo["IsDifficult"], {"fl_metal", friction=3.5}, {"fl_metal", friction=4.0})
+ti["~"] = {"fl_water"}
+ti["-"] = {"fl_water", friction=0.0} .. ti({"it_strip_ns", friction=0.0})
+ti["V"] = {"fl_slope_ps"}
+ti["^"] = {"fl_slope_pn"}
+ti["|"] = {"fl_slope_pn", friction=2.0}
+ti["#"] = {"st_greenbrown"}
+ti["X"] = {"st_greenbrown_hollow"}
+ti["+"] = {"st_box"}
+ti["*"] = cond(wo["IsDifficult"], ti["^"], ti["|"]) .. ti["+"]
+ti["W"] = {"st_passage", name="inner#", color=BLACK, flavor="frame"}
+ti["w"] = {"st_passage", name="outer#", color=BLACK, flavor="frame"}
+ti["b"] = {"st_passage", name="inner#", color=WHITE, flavor="frame"}
+ti["B"] = {"st_passage", name="outer#", color=WHITE, flavor="frame"}
+ti["I"] = {"st_stoneimpulse"}
+ti["i"] = ti["V"] .. {"st_stoneimpulse_hollow"}
+ti["J"] = ti["~"] .. {"st_stoneimpulse_hollow"}
+ti["j"] = ti["^"] .. {"st_stoneimpulse_hollow"}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["."] = cond(wo["IsDifficult"], ti["J"], ti["~"])
+ti["1"] = {"it_trigger", target="inner#*", action="signal"}
+ti["2"] = {"it_trigger", target="outer#*", action="signal"}
+ti["O"] = {"st_oxyd"}
+ti["A"] = cond(wo["IsDifficult"], ti["^"], ti["|"]) .. {"#ac_marble_black", controllers=CTRL_NONE, owner=DEFAULT}
+ti["@"] = {"#ac_marble_white", controllers=CTRL_YIN, owner=YIN}
+
+wo(ti, " ", {
+    "#######################################",
+    "#OWw   #OWW  w   w  WWO#  #wOw#   wwww#",
+    "#WWw   #######w w#######   www     wbb#",
+    "#www                               wbO#",
+    "#                        www       wbb#",
+    "#        wwwww     ww    wWw   b   wwb#",
+    "# www  @ wWOWw    wWWw   wOw  BOB  www#",
+    "#wwOw    wwwww    wWWw   wWw   b   wwW#",
+    "# www              ww    www       wWW#",
+    "#                                  wWO#",
+    "#w       wwwww         bbb        bbWW#",
+    "#Ww     #wWOWw#       bBOBb       bbww#",
+    "###################################V###",
+    "~~~~~~~~~~~~~~~~~~~#                ###",
+    "~~~~~~~~~~~~~~~~~~~#V##################",
+    "~~~~~~~~~~~~~~~~~~~# ##III#III#IIIIIII#",
+    "~~~~~~~~~~~~~~~~~~~#  #I#I#I#I#I### #I#",
+    "~~~~~~~~~~~~~~~~~~~##V#I#III#III#~#1+I#",
+    "~~~~~~~~~~~~~~~~~~~#  #I##########II#I#",
+    "~~~~~~~~~~~~~~~~~~~#V##IIIIIIIIIIII2+I#",
+    "~~~~~~~~~~~~~~~~~~~# XX#############II#",
+    "~~~~~~~~~~~~~~~~~~~#VViVVViVVViVVV..-~J",
+    "~~~~~~~~~~~~~~~~~~~#>#>#>#>#>#>#>XJJ*~J",
+    "~~~~~~~~~~~~~~~~~~~#I^^^j^^^j^^^jX#JA#J",
+    "~~~~~~~~~~~~~~~~~~~################JJJJ"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

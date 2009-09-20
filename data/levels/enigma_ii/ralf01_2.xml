@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Easy Shifting ..." el:subtitle="" el:id="ralf01"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_hay"}
+ti["-"] = {"fl_rough"}
+ti["#"] = {"st_greenbrown"}
+ti["H"] = {"st_greenbrown_hollow"}
+ti["M"] = {"st_ghost_greenbrown"}
+ti["G"] = {"st_ghost_break"} .. ti["-"]
+ti["D"] = {"st_death"}
+ti["*"] = {"st_brownie"}
+ti["<"] = {"st_laser", orientation=WEST, name="laser", state=ON}
+ti["S"] = {"st_switch", target="laser"}
+ti["m"] = {"it_magicwand"}
+ti["p"] = {"it_brush"}
+ti["h"] = {"it_hammer"}
+ti["t"] = {"it_document", text="text1"}
+ti["u"] = {"it_document", text="text2"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door%%"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["O"] = ti["-"] .. {"st_oxyd", oxydcolor=OXYD_BLUE}
+ti["o"] = ti["-"] .. {"st_oxyd", oxydcolor=OXYD_RED}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "g", "trigger"}, {"1", "4", "|"}, {"5", "7", "=", 5}), " ", {
+    "####################",
+    "#oG   4   3      -o#",
+    "#G-M###   #  DmD --#",
+    "##MHHaedfc##H###H###",
+    "#   #Hg#b##   M  2 #",
+    "#   <# # # *#### #u#",
+    "#   ## *** *   MM#H#",
+    "#   #  # @ #7# #   #",
+    "#   #5### ## # ##6##",
+    "#   #  1     ** # h#",
+    "#-- # ###  ###  M--#",
+    "#O- #  S#  #tHp #-O#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Dedicated to my friend Frank.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">This level is quite straightforward, isn't it? Just continue ... ;-)</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

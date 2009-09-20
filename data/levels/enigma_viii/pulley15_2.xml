@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Earthlink" el:subtitle="" el:id="pulley15"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -13,6 +13,8 @@
       <el:score el:easy="9:35" el:difficult="10:35"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["MaxOxydColor"] = OXYD_GRAY
+
 ti[" "] = {"fl_lawn_b"}
 ti["#"] = {"st_camouflage"}
 ti["X"] = {"st_grate", flavor="cross"}
@@ -37,7 +39,7 @@ else
     ti["E"] = ti["#"]
     ti["S"] = ti["#"]
     ti["W"] = ti["#"]
-    ti["Q"] = {"st_oxyd", oxydcolor=OXYD_FAKE}
+    ti["Q"] = {"st_oxyd"}
 end
 ti["x"] = ti["-"] .. ti["X"]
 ti["*"] = ti["-"] .. ti["+"]

@@ -10,7 +10,7 @@
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
       </el:compatibility>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="1:02"/>
     </el:info>
     <el:luamain><![CDATA[
