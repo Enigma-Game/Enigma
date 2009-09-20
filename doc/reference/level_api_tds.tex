@@ -1,0 +1,438 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{2}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+\Large{\textbf{Enigma Level API II}} \\
+\large{\textbf{task driven approach}} \\
+\end{center}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Position Tasks}
+
+\subsection*{Creating Positions}
+\begin{tabular}{@{}ll@{}}
+\verb!pos = po(7, 3)!      & "po()" to generate a position \\
+\verb!pos = po({7, 3})!    & using a table as argument \\
+\verb!pos = obj!           & every object is a valid position \\
+\verb!pos = po(12.3, 3.7)! & a position within a grid (for an actor)
+\end{tabular}
+
+\subsection*{Position Constants}
+\begin{tabular}{@{}ll@{}}
+\verb!{7,3}! & valid position for all arguments and operations
+\end{tabular}
+
+\subsection*{Coordinate Access}
+\begin{tabular}{@{}ll@{}}
+\verb!x,y = pos.x, pos.y!           & member access \\
+\verb!x,y = pos["x"], pos["y"]!     & member access \\
+\verb!x,y = pos:xy()!               & \\
+\verb!x,y = obj.x, obj.y!           & works on objects too \\
+\verb!x,y = obj:xy()!               &
+\end{tabular}
+
+\subsection*{Position Calculation}
+\begin{tabular}{@{}ll@{}}
+\verb!pos = obj + {2,7}!         & adding offset \\
+\verb!dpos = obj1 - obj2!        & difference vector \\
+\verb!dpos2 = 2 * dpos!          & scalar multiplication \\
+\verb!dpos3 = dpos / 2!          & \\
+\verb!dpos3 = (obj1 - obj2) / 2! & middle between objects
+\end{tabular}
+
+\subsection*{Center positions for set actors}
+\begin{tabular}{@{}ll@{}}
+\verb!pos_centered1 = pos + {0.5, 0.5 }! & by offset \\
+\verb!pos_centered2 = #pos!              & by special feature \\
+\verb!pos_centered3 = #obj!              &
+\end{tabular}
+
+\subsection*{Round a position to a grid}
+\begin{tabular}{@{}ll@{}}
+\verb!grid_pos = pos:grid()!                & to integer coordinates \\
+\verb!grid_pos = ((pos1 - pos2)/2):grid()!  &
+\end{tabular}
+
+\subsection*{Position comparison}
+\begin{tabular}{@{}ll@{}}
+\verb!pos_centered1 == pos_centered2! & Lua's equality operator \\
+\verb!pos_centered1 ~= pos_centered2! & Lua's inequality operator
+\end{tabular}
+
+\subsection*{Position existence}
+\begin{tabular}{@{}ll@{}}
+\verb!pos:exists()! &
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+
+
+
+\section*{Attribute Tasks}
+
+\subsection*{Single Attribute Setting}
+\begin{tabular}{@{}ll@{}}
+\verb!obj["destination"] = po(7,3)!  & simple object attribute \\
+\verb!wo["Brittleness"] = 7.0!       & global world attribute \\
+\verb!obj["_myattribute"] = "what"!  & userattribute                % ??
+\end{tabular}
+
+\subsection*{Multiple Attribute Setting}
+\begin{tabular}{@{}ll@{}}
+\verb!obj:set({target=mydoor, action="open"})! & set multiple attributes
+\end{tabular}
+
+\subsection*{Requesting Attributes}
+\begin{tabular}{@{}ll@{}}
+\verb!value = obj["attr_name"]!             & get the value \\
+\verb!value = obj.attr_name!                & \\
+\verb!value = wo["Brittleness"]!            & get the value of a global level constant \\
+\verb!if wo["IsDifficult"] then ... end!    & often used difficult-mode switch
+\end{tabular}
+
+\subsection*{Reset Attributes}
+\begin{tabular}{@{}ll@{}}
+\verb!obj["length"] = nil!     & the default length, e.g. '1' \\
+\verb!obj["color"] = nil!      & delete color attribute - no color \\
+\verb!obj["length"] = DEFAULT! & the default length, e.g. '1'
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+
+
+
+\section*{Object Tasks}
+
+\subsection*{Creating Objects}
+\begin{tabular}{@{}ll@{}}
+\verb!wo[pos] = {"st_chess", color=WHITE, name="Atrax"}! & on grid pos \\
+\verb!wo[#pos] = {"ac_bug"}!             & actor centered on grid pos \\
+\verb!wo[pos] = {"#ac_bug"}!             & actor centered on grid pos \\
+\verb!wo[pos] = {"ac_bug", 0.3, 0.7}!    & actor with offsets to pos \\
+\verb!wo[my_floor] = {"it_magicwand"}!   & set an wand on top of a given floor obj \\
+\verb!wo[pos] = ti["x"]!                 & tile based object definition
+\end{tabular}
+
+\subsection*{Object Naming}
+\begin{tabular}{@{}ll@{}}
+\verb!no["Atrax"] = obj!                            & \\
+\verb!wo[pos] = {"st_chess", name="Atrax"}!         & \\
+\verb!wo[pos] = {"st_chess", "Atrax", color=WHITE }!&
+\end{tabular}
+
+\subsection*{Object Autonaming}
+Each new object will have a unique name. \\
+\begin{tabular}{@{}ll@{}}
+\verb!wo[pos] = {"st_chess", name="Atrax#"}! & autonamed chesstones
+\end{tabular}
+
+\subsection*{Requesting Objects}
+\begin{tabular}{@{}ll@{}}
+\verb!obj = no["Atrax"]!        & named object retrieval from repository \\
+\verb!obj = fl(pos)!            & floor at pos \\
+\verb!obj = it(x,y)!            & item at pos \\
+\verb!obj = st(pos)!            & stone at pos \\
+\verb!obj = wo:it(pos)!         & item at pos \\
+\verb!my_item = it(my_floor)!   & get the item that is on top of the given floor
+\end{tabular}
+
+\subsection*{Killing Objects}
+\begin{tabular}{@{}ll@{}}
+\verb!wo[pos] = {"it_nil"}! & \\
+\verb!obj:kill()!           & be carefull with kill
+\end{tabular}
+
+\subsection*{Comparing Objects}
+\begin{tabular}{@{}ll@{}}
+\verb!obj1 == obj2! & \\
+\verb!obj1 ~= obj2! &
+\end{tabular}
+
+\subsection*{Existence of an object}
+\begin{tabular}{@{}ll@{}}
+\verb!obj:exists()!     & object exists? \\
+\verb!-obj!             & unary minus operator on object \\
+\verb!if -obj then ...! &
+\end{tabular}
+
+\subsection*{Messages}
+\begin{tabular}{@{}ll@{}}
+\verb!my_boulder:message("orientate", WEST)! & \\
+\verb!my_boulder:orientate(EAST)!            & \\
+\verb!my_door:open()!
+\end{tabular}
+
+\subsection*{Object Classification}
+\begin{tabular}{@{}ll@{}}
+\verb!obj:is("st_chess")!       & \\
+\verb!obj:is("st")!             & \\
+\verb!obj:is("st_chess_black")! &
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+
+
+
+\section*{Group Tasks}
+
+\subsection*{Creating Groups}
+\begin{tabular}{@{}ll@{}}
+\verb!group = no["Atrax#*"]!            & a group of all matching objects, wildcards "*","?" allowed \\
+\verb!group = grp(obj1, obj2, obj3)!    & a group of several objects \\
+\verb!group = grp({obj1, obj2, obj3})!  & a group of objects set up in a table \\
+\verb!group = grp()!                    & an empty group
+\end{tabular}
+
+\subsection*{Group Usage}
+\begin{tabular}{@{}ll@{}}
+\verb!floor_group["friction"] = 3.2!    & set attribute on all floors in the grou \\
+\verb!door_group:message("open")!       & send message to all members \\
+\verb!door_group:open()!                & open all doors in the group \\
+\verb!stone_group:kill()!               & \\
+\verb!wo[floor_group] = {"it_coin_m"}!  & add some money on all floor positions
+\end{tabular}
+\begin{tabular}{@{}ll@{}}
+\verb!wo[pos] = {"st_switch", target=door_group, action="open"}! & multitargets \\
+\verb!wo[pos] = {"st_switch", target="door#*", action="close"}!  &
+\end{tabular}
+
+\subsection*{Group Operations}
+\begin{tabular}{@{}ll@{}}
+\verb!doors_lasers = doorgrp + lasergrp!     & join of two groups \\
+\verb!lasergrp     = doors_lasers - doorgrp! & difference of two groups \\
+\verb!common_doors = doorgrp1 * doorgrp2!    & intersection of two groups
+\end{tabular}
+
+\subsection*{Group Members}
+\begin{tabular}{@{}ll@{}}
+\verb!count = #mygroup!      & -- number of objects in the group \\
+\verb!obj   = mygroup[5]!    & -- 5th object of the group \\
+\verb!obj   = mygroup[-1]!   & -- last object of the group \\
+\verb!for i = 1, #mygroup do obj = mygroup[i] ... end! & \\
+\verb!for obj in mygroup do ... end! & \\
+\end{tabular}
+
+\subsection*{Shuffled Group}
+\begin{tabular}{@{}ll@{}}
+\verb!shuffled_group = sorted_group:shuffle()!  & \\
+\verb!shuffled_group = no["Atrax#*"]:shuffle()! &
+\end{tabular}
+
+\subsection*{Sorted Group}
+\begin{tabular}{@{}ll@{}}
+\verb!sorted_group = group:sort("linear", po(2, 1))! & \\
+\verb!sorted_group = group:sort("linear")! & \\
+\verb!sorted_group = group:sort("circular")! & \\
+\verb!sorted_group = group:sort()! &
+\end{tabular}
+
+\subsection*{Subset Group}
+\begin{tabular}{@{}ll@{}}
+\verb!sub_group = group:sub(2)!     & -- first two objects \\
+\verb!sub_group = group:sub(-2)!    & -- last two objects \\
+\verb!sub_group = group:sub(2, 4)!  & -- objects from 2 to 4 \\
+\verb!sub_group = group:sub(2, -2)! & -- two objects starting with 2
+\end{tabular}
+
+\subsection*{Nearest Object}
+\begin{tabular}{@{}ll@{}}
+\verb!object = group:nearest(reference)! &
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Tiles}
+
+\subsection*{Tiles}
+\begin{tabular}{@{}ll@{}}
+\verb!ti["_"] = {"fl_sahara"}!  & simple tile \\
+\verb!ti["__"] = {"fl_sahara"}! & two char tile \\
+\verb!ti[".."] = {"fl_sand"}!   & \\
+\verb!ti["##"] = {"st blocker"}! &
+\end{tabular}
+\begin{tabular}{@{}ll@{}}
+\verb!ti["switch_template"] = {"st_switch"}! & tiles can hav arbitrary names too \\
+\verb!ti[".."] = {"fl_abyss"}!               & redefinition causes error \\
+\verb!ti[".w"] = ti[".."] .. {"it_magicwand"}! & concatenation of several tiles possible \\
+\verb!ti[" w"] = {"fl_abyss"} .. ti({"it_magicwand"})! & \\
+\end{tabular}
+
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Named Positions Tasks}
+\subsection*{Named Position Usage}
+\begin{tabular}{@{}ll@{}}
+\verb!obj["name"] = "anchor1"! & \\
+\verb!obj:kill()!              & \\
+\verb!pos = po["anchor1"]!     & position still available \\
+\verb!po["anchor2"] = pos!     &
+\end{tabular}
+
+\subsection*{Creating Position Lists}
+\begin{tabular}{@{}ll@{}}
+\verb!polist = po["deepwater#*"]! & positionlist with pos \\
+\verb!polist = po(grp)!           & of all group objects
+\end{tabular}
+
+\subsection*{Position List Usage}
+\begin{tabular}{@{}ll@{}}
+\verb!wo[polist] = ti["x"]! & \\
+\verb!grp = fl(polist)!     &
+\end{tabular}
+
+\subsection*{Position List Operations}
+\begin{tabular}{@{}ll@{}}
+\verb!wo[polist .. po["beach#*"]] = {"it_banana"}!
+\end{tabular}
+
+\subsection*{Position List Members}
+\begin{tabular}{@{}ll@{}}
+\verb!for i = 1, #pogrp do! & iterate over polist \\
+\verb!    wo[polist[i]] = {"it_cherry"}! \\
+\verb!end!
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Other}
+\subsection*{Nearest Object}
+\begin{tabular}{@{}ll@{}}
+\verb!ti["F"] = {"st_floppy", target="@door#*"}! & target is always the nearest door \\
+\verb!ti["B"] = {"st_blocker", name="door#"}!    & resolved at levelloadtime
+\end{tabular}
+\begin{tabular}{@{}ll@{}}
+\verb!ti["o"] = {"#ac_pearl_white", "s#", owner=DEFAULT}! & target is always the currently nearest actor \\
+\verb!ti["q"] = {"it_rubberband", anchor2="@@s#*"}!       & resolved at runtime when needed
+\end{tabular}
+
+\subsection*{Callbacks from switchlike objects}
+\verb!function my_callback(value, sender) ... end!
+Sender is the senderobject, value it's state.
+
+\subsection*{Checkerboard floor}
+\verb!ti["x"] = ti({"fl_rough_red", checkerboard=0}) .. {"fl_rough_blue", checkerboard=1}!
+
+
+\section*{World}
+\subsection*{World Initialization}
+\verb!width, height = wo(topresolver, defaultkey, map)!
+\verb!width, height = wo(topresolver, defaultkey, width, height)!
+
+\subsection*{World Advanced Methods}
+\verb!wo:add(tile_declarations)!
+\verb!wo:add(target, tile_declarations)!
+
+\verb!wo:drawBorder(upperleft_edge, lowerright_edge, tile)!
+\verb!wo:drawBorder(upperleft_edge, width, height, tile)!
+
+\verb!wo:drawMap(resolver, anchor, ignore, map, [readdir])!
+\verb!wo:drawMap(resolver, anchor, libmap-map, [readdir])!
+
+\verb!wo:drawRect(upperleft_edge, lowerright_edge, tile)!
+\verb!wo:drawRect(upperleft_edge, width, height, tile)!
+
+\verb!wo:shuffleOxyd(rules)! \\
+\verb!wo:shuffleOxyd()!
+\verb!wo:shuffleOxyd({no["borderoxyds#*"]:sort("circular"), circular=true})!
+\verb!wo:shuffleOxyd({"leftoxyds#*","rightoxyds#*", min=3, max=5})!
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Resolvers}
+\subsection*{Autotiling}
+\verb!res.autotile(subresolver, rules)!
+\verb!res.autotile(ti, {"A", "template_switch"}, {"L", "template_laser})!
+\verb!res.autotile(ti, {"a", "e", "template_trigger}, {"A", "E", "template_door"})!
+
+\subsection*{Composer}
+\verb!res.composer(subresolver)!
+\verb!res.composer(subresolver, sequence)!
+\begin{tabular}{@{}ll@{}}
+\verb!res.composer(ti)!         & \\
+\verb!res.composer(ti, "211")!  & decompose the last two chars together
+\end{tabular}
+
+\subsection*{Puzzler}
+load the library before use:
+\verb!<el:dependency el:path="lib/libpuzzle"!
+\verb! el:id="lib/libpuzzle" el:release="3" el:preload="true"/>!
+\verb!res.puzzle(subresolver, rules)!
+\begin{tabular}{@{}ll@{}}
+\verb!res.puzzle(ti, "B", "Y", "I", "M")!  & Don't forget appr. tile declarations
+\end{tabular}
+
+\subsection*{Random}
+\verb!res.random(subresolver, hits, replacements)!
+\verb!res.random(ti, "x", {"a", "b"})!
+\verb!res.random(ti, {{"x", "y"},{"i","j"}}, {{"a", 2}, {"b", 1}})!
+
+\subsection*{Custom Resolver}
+\verb!tile = myresolver(key, x, y)!
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt} \\
+Compiled from Enigma 1.10 reference manual by Raoul
+\end{center}
+
+\end{multicols}
+\end{document}

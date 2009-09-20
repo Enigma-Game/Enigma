@@ -1,0 +1,1170 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[landscape]{geometry}
+
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\begin{document}
+
+\begin{center}
+\Large{\textbf{Enigma Level API II}} \\
+\large{\textbf{Syntax sheet with examples}} \\
+\small{Compiled from Enigma 1.10 reference manual by Raoul}
+\end{center}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Position}
+
+\subsection*{Position Addition and Subtraction}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos <+|-> <pos | obj | cpos | polist>
+result = <pos | obj | cpos | polist> <+|-> pos
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = po(3, 4) + {1, 2}              -- = po(4, 6)
+newpos = myobject - po(1, 5)
+newpolist = po(2, 3) + NEIGHBORS_4      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
+newpolist = po["myfloor#*"] - po(3, 0)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Multiplication and Division}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos <*|/> number
+result = number * pos
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = 3 * po(3, 4)   -- = po(9, 12)
+newpos = po(2, 3) / 2   -- = po(1, 1.5)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Sign}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = -pos
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = -po(3, 4)   -- = po(-3, -4)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Center}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = #pos
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = #po(3, 4)   -- = po(3.5, 4.5)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Comparison}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos1 <==|~=> pos2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = po(3, 4) == po({3, 4})  -- = true
+bool = po(3, 4) == po(4, 3)    -- = false
+bool = po(3, 4) ~= po(4, 3)    -- = true
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Concatenation}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos1 .. <pos2 | polist>
+result = <pos1 | polist> .. pos2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpolist = po(3, 4) .. po(4, 4)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Coordinate Access}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos["x"]
+result = pos["y"]
+result1, result2 = pos:xy()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+number = po(3, 4)["x"]            -- = 3
+number = po(3, 4).x               -- = 3
+number = po(3, 4)["y"]            -- = 4
+number = po(3, 4).y               -- = 4
+number1, number2 = po(3, 4):xy()  -- = 3, 4
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Grid Rounding}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos:grid()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = po(3.2, 4.7):grid()    -- = 3, 4
+newpos = po(-2.4, -5.0):grid()  -- = -3, -5
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Existence}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = pos:exists()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+boolean = po(3.2, 4.7):exists()
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Object}
+
+\subsection*{Object Attribute Access}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj["attributename"]
+obj["attributename"] = value
+obj:set({attributename1=value1, attributename2=value2, ...})
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+value = obj["color"]
+value = obj.color
+obj["color"] = BLACK
+obj.color = BLACK
+obj:set({target=mydoor, action="open"})
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Messaging}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj:message("msg", value)
+result = obj:msg(value)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+value = obj:message("open")
+value = obj:open()
+value = obj:message("signal", 1)
+value = obj:signal(1)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Comparison}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj1 <==|~=> obj2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = obj1 == obj1  -- = true
+bool = obj1 == obj2  -- = false, if two different objects
+bool = obj1 ~= obj2  -- = true, if two different objects
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Existence}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = -obj
+result = obj:exists()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = -obj
+bool = obj:exists()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Kill}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+obj:kill()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+obj:kill()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Kind Check}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj:is("kind")
+result = obj:kind()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = obj:is("st_chess")
+string = obj:kind()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Coordinate Access}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj["x"]
+result = obj["y"]
+result1, result2 = obj:xy()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+number = obj["x"]
+number = obj.x
+number = obj["y"]
+number = obj.y
+number1, number2 = obj:xy()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Addition and Subtraction}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj <+|-> <pos | obj | cpos | polist>
+result = <pos | obj | cpos | polist> <+|-> obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = obj + {1, 2}
+newpos = myobject - obj
+newpolist = obj + NEIGHBORS_4
+newpolist = po["myfloor#*"] - obj
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Center}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = #obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpos = #obj   -- e.g. po(3.5, 4.5)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Join}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj + group
+result = group + obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 + grp(obj2, obj3, obj1)   -- = grp(obj1, obj2, obj3)
+newgroup = grp(obj2, obj3) + obj1         -- = grp(obj2, obj3, obj1)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Intersection}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj * group
+result = group * obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 * grp(obj1, obj2)  -- = grp(obj1)
+newgroup = grp(obj2) * obj1         -- = grp()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Object Difference}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = obj - group
+result = group - obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 - grp(obj2, obj1)  -- = grp()
+newgroup = grp(obj1, obj2) - obj1  -- = grp(obj2)
+\end{verbatim}
+\end{minipage}
+
+% too rarely used, see refman for details
+% \subsection*{Object Sound}
+% \begin{minipage}[t]{0.5\textwidth}
+% \begin{verbatim}
+% result = obj:sound("name", volume)
+% \end{verbatim}
+% \end{minipage}
+% \noindent
+% \begin{minipage}[t]{0.5\textwidth}
+% \begin{verbatim}
+% obj:sound("quake")
+% obj:sound("quake", 2)
+% \end{verbatim}
+% \end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Group}
+
+\subsection*{Group Messaging}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group:message("msg", value)
+result = group:msg(value)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+value = group:message("open")
+value = group:open()
+value = group:message("signal", 1)
+value = group:signal(1)
+value = group:kill()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Attribute Write}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+group["attributename"] = value
+group:set({attributename1=value1, attributename2=value2, ...})
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+group["color"] = BLACK
+group.color = BLACK
+group:set({target=mydoor, action="open"})
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Comparison}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group1 <==|~=> group2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = grp(obj1, obj2) == grp(obj2, obj1)  -- = true
+bool = grp(obj1, obj2) == grp(obj1, obj3)  -- = false, if different object contents
+bool = grp(obj1) ~= grp(obj2, obj1)        -- = true, if different object contents
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Length}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = #group
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+number = #grp(obj1, obj2)         -- = 2
+for i = 1, #group do obj = group[i] ... end
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Member Access}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group[index]
+result = group[obj]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+object = grp(obj1, obj2)[2]     -- = obj2
+object = grp(obj1, obj2)[-1]    -- = obj2
+object = grp(obj1, obj2)[0]     -- = NULL object
+for i = 1, #group do obj = group[i] ... end
+number = grp(obj1, obj2)[obj2]  -- = 2
+number = grp(obj1, obj2)[obj3]  -- = nil
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Loop}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+for obj in group do ... end
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+for obj in group do obj:toggle() end
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Join}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group + <obj | group>
+result = <obj | group> + group
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 + grp(obj2, obj3, obj1)   -- = grp(obj1, obj2, obj3)
+newgroup = grp(obj2, obj3) + grp(obj1, obj3)   -- = grp(obj2, obj3, obj1)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Intersection}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = <obj | group> * group
+result = group * <obj | group>
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 * grp(obj2, obj1)  -- = grp(obj1)
+newgroup = grp(obj1, obj2) * grp(obj2, obj1, obj3)  -- = grp(obj1, obj2)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Difference}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = <obj | group> - group
+result = group - <obj | group>
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = obj1 - grp(obj2, obj1)  -- = grp()
+newgroup = grp(obj1, obj2, obj3) - grp(obj2, obj4)  -- = grp(obj1, obj3)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Shuffle}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group:shuffle()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = grp(obj1, obj2)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Sorting}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group:sort("circular")
+result = group:sort("linear" <, direction>)
+result = group:sort()
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = grp(obj1, obj2, obj3):sort("linear", po(2,1))
+newgroup = grp(obj1, obj2, obj3):sort("circular")
+newgroup = grp(obj1, obj2, obj3):sort()
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Subset}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group:sub(number)
+result = group:sub(start, end)
+result = group:sub(start, -number)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = grp(obj1, obj2, obj3, obj4):sub(2)     -- = grp(obj1, obj2)
+newgroup = grp(obj1, obj2, obj3, obj4):sub(-2)    -- = grp(obj3, obj4)
+newgroup = grp(obj1, obj2, obj3, obj4):sub(2, 4)  -- = grp(obj2, obj3, obj4)
+newgroup = grp(obj1, obj2, obj3, obj4):sub(2, -2) -- = grp(obj2, obj3)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Group Nearest Object}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group:nearest(obj)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newobject = grp(obj1, obj2, obj3):nearest(obj4)
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{NamedObjects}
+
+\subsection*{NamedObjects Repository Request}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = no["name"]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+obj = no["mydoor"]       -- exact name match
+group = no["mydoors#*"]  -- any suffix
+group = no["mydoor?"]    -- just one char suffix
+group = no["mydoors?#*"] -- matches e.g. "mydoorsA#123435", "mydoorsB#1213"
+\end{verbatim}
+\end{minipage}
+
+\subsection*{NamedObjects Object Naming}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+no["name"] = obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+no["myobject"] = obj
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{PositionList}
+
+\subsection*{PositionList Comparison}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = polist1 <==|~=> polist2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+bool = (po(2,3).. po(5,7)) == (po(2,3) .. po(5,7))  -- = true
+bool = (po(2,3).. po(5,7)) == (po(4,0) .. po(5,7))  -- = false, different positions
+bool = (po(2,3).. po(5,7)) == (po(5,7) .. po(2,3))  -- = false, different sequence
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Length}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = #polist
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+number = #(po(2,3) .. po(5,7)) -- = 2
+for i = 1, #polist do pos = polist[i] ... end
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Member Access}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = group[index]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+pos = (po(2,3) .. po(5,7))[2]     -- = po(5,7)
+pos = (po(2,3) .. po(5,7))[-1]    -- = po(5,7)
+pos = (po(2,3) .. po(5,7))[0]     -- = nil
+for i = 1, #polist do pos = polist[i] ... end
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Concatenation}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = polist1 .. <pos | polist2>
+result = <pos | polist1> .. polist2
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpolist = po(po(2,3), po(5,7)) .. po(4, 4) -- = (2,3),(5,7),(4,4)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Translation}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = polist <+|-> <pos | obj | cpos>
+result = <pos | obj | cpos> <+|-> polist
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpolist = po(2, 3) + NEIGHBORS_4      -- po(1, 3) .. po(2, 4) .. po(3, 3) .. po(2, 2)
+newpolist = po["myfloor#*"] - po(3, 0)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Stretching}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = polist * number
+result = number * polist
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newpolist = 2 * NEIGHBORS_4              -- = po(9, 12)
+newpolist = (po(2,4) .. po(6,7)) * 1/2   -- = (1, 2), (3, 3.5)
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Positions Repository}
+
+\subsection*{Positions Repository Request}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = po["name"]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+pos = po["mydoor"]        -- exact name match
+polist = po["mydoors#*"]  -- any suffix
+polist = po["mydoor?"]    -- just one char suffix
+polist = po["mydoors?#*"] -- matches e.g. "mydoorsA#123435", "mydoorsB#1213"
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Positions Repository Storage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+po["name"] = obj
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+po["mypos"] = pos
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Position Convertion}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = po(<obj | pos | {x,y} | x,y>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+pos = po(pos2)
+pos = po(obj)
+pos = po({2, 4})
+pos = po(3, 7)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{PositionList Convertion}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = po(group | {pos1, pos2, pos3})
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+polist = po(group)
+polist = po({po(3, 7), po(2, 6)})
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Tile and Object Declaration}
+
+\subsection*{Tile concat}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = tile .. <tile | odecl>
+result = <tile | odecl> .. tile
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newtile = ti{st_chess"} .. {"fl_sahara"}
+newtile = ti{st_chess"} .. {"fl_sahara"} .. {"it_cherry"}   -- Lua error due to right to left evaluation
+newtile = (ti{st_chess"} .. {"fl_sahara"}) .. {"it_cherry"} -- evaluation order fixed
+newtile = ti{st_chess"} .. {"fl_sahara"} .. ti{"it_cherry"} -- converted one of the two critical declarations
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Tiles Repository}
+
+\subsection*{Tiles Storage}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+ti["key"] = <tile | odecl>
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+ti["#"] = tile
+ti["$"] = {st_chess"}
+ti["$"] = {st_switch"}   -- error of key reassignment
+ti["anykey"] = {st_chess"}
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Tiles Request}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = ti["key"]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+tile = ti["#"]
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Tile Convertion}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = ti(odecl)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+tile = ti({"st_chess"})
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{World}
+
+\subsection*{World Creation}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+width, height = wo(topresolver, defaultkey, map)
+width, height = wo(topresolver, libmap)
+width, height = wo(topresolver, defaultkey, width, height)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+w, h = wo(ti, "  ", 20, 13)
+w, h = wo(resolver, " ", {
+       "                    ",
+       ...
+       "                    "})
+w, h = wo(ti, mylibmap)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{add}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:add(tile_declarations)
+wo:add(target, tile_declarations)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:add({"ot_rubberband", anchor1="a1", anchor2="w", length=2, strength=80, threshold=0})
+wo:add(ti["r"] .. {"ot_wire", anchor1="w1", anchor2="w2"})
+wo:add(YIN, {"it_magicwand})
+wo:add(no["mybag"], {"it_magicwand} .. ti["h"] .. ti["c"])
+\end{verbatim}
+\end{minipage}
+
+\subsection*{World Tile Set}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo[<object | position | table | group | polist>] = tile_declarations
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo[no["myobjectname"]] = {"st_chess"}
+wo[po(3, 4)] = ti["x"]
+wo[{2, 5}] = ti["x"] .. ti["y"]
+wo[no["floorgroup#*"]] = {"it_burnable_oil"}
+wo[no["myobjectname"] + NEIGHBORS_4] = ti["x"]
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Global Attribute Set}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo["attritbutename"] = value
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo["ConserveLevel"] = true
+\end{verbatim}
+\end{minipage}
+
+\subsection*{Global Attribute Get}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+var = wo["attritbutename"]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+var = wo["IsDifficult"]
+\end{verbatim}
+\end{minipage}
+
+\subsection*{drawBorder}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawBorder(upperleft_edge, lowerright_edge, <tile | key, resolver>)
+wo:drawBorder(upperleft_edge, width, height, <tile | key, resolver>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawBorder(po(0, 0), wo["Width"], wo["Height"], ti["#"])
+wo:drawBorder(no["myRectUL"], no["myRectLR"], {"st_grate1"})
+wo:drawBorder(no["myRectUL"], no["myRectLR"], {"fl_water"} .. ti["X"])
+wo:drawBorder(no["myRectUL"], no["myRectLR"], "x", myresolver)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{drawMap}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawMap(resolver, anchor, ignore, map, [readdir])
+wo:drawMap(resolver, anchor, libmap-map, [readdir])
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawMap(ti, po(5, 7), "-", {"abcabc"})
+wo:drawMap(ti, anchor_object, "--", {"--##--##","##--##"})
+wo:drawMap(ti, {12, 5}, " ", {"122  221"}, MAP_ROT_CW)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{drawRect}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawRect(upperleft_edge, lowerright_edge, <tile | key, resolver>)
+wo:drawRect(upperleft_edge, width, height, <tile | key, resolver>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:drawRect(po(0, 0), wo["Width"], wo["Height"], ti[" "])
+wo:drawRect(no["myRectUL"], no["myRectLR"], {"fl_water"})
+wo:drawRect(no["myRectUL"], no["myRectLR"], {"fl_water"} .. ti["#"])
+wo:drawRect(no["myRectUL"], no["myRectLR"], "x", myresolver)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{world floor}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = wo:fl(<pos| {x,y} | x,y | obj | group | polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+use fl(...) instead
+\end{verbatim}
+\end{minipage}
+
+\subsection*{world item}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = wo:it(<pos | {x,y} | x,y | obj | group | polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+use it(...) instead
+\end{verbatim}
+\end{minipage}
+
+\subsection*{shuffleOxyd}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:shuffleOxyd(rules)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+wo:shuffleOxyd()
+wo:shuffleOxyd({no["borderoxyds#*"]:sort("circular"), circular=true})
+wo:shuffleOxyd({"leftoxyds#*","rightoxyds#*", min=3}, {"islandoxyds#*", max=0})
+\end{verbatim}
+\end{minipage}
+
+\subsection*{world stone}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = wo:st(<pos | {x,y} | x,y | obj | group | polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+use st(...) instead
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\section*{Functions}
+
+\subsection*{cond}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+cond(condition, iftrue, iffalse)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+ti["x"] = cond(wo["IsDifficult"], {"st_death"}, ti["#"])
+ti["D"] = cond(wo["IsDifficult"], {"st_death"}, {"nil"})
+\end{verbatim}
+\end{minipage}
+
+\subsection*{fl}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = fl(<pos | {x,y} | x,y | obj | group| polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+floor = fl(po(3, 5))
+floor = fl({3, 5})
+floor = fl(3, 5)
+floor = fl(mystone)
+group = fl(no["door#*"])
+group = fl(po(3, 5)..po(4, 2))
+\end{verbatim}
+\end{minipage}
+
+\subsection*{grp}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+grp(<{obj1,obj2,...} | obj1,obj2,... | group>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+newgroup = grp(obj1, obj2, obj3)
+newgroup = grp({obj1,obj2})
+newgroup = grp{}            -- empty group
+newgroup = grp(group)       -- a copy of group cleaned of invalid ‘NULL’ objects
+\end{verbatim}
+\end{minipage}
+
+\subsection*{it}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = it(<pos | {x,y} | x,y | obj | group | polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+item = it(po(3, 5))
+item = it({3, 5})
+item = it(3, 5)
+item = it(mystone)
+group = it(no["door#*"])
+group = it(po(3, 5)..po(4, 2))
+\end{verbatim}
+\end{minipage}
+
+\subsection*{ORI2DIR}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = ORI2DIR[orientation]
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+direction = ORI2DIR[NORTH]      -- N  = po(0, -1)
+direction = ORI2DIR[SOUTHEAST]  -- SE = po(1,  1)
+direction = ORI2DIR[NODIR]      --      po(0,  0)
+\end{verbatim}
+\end{minipage}
+
+\subsection*{random}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = random(< | n | l,u>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+float = random()          -- e.g. 0.402834
+integer = random(20)      -- e.g. 13
+integer = random(5, 10)   -- e.g. 5
+\end{verbatim}
+\end{minipage}
+
+\subsection*{st}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+result = st(<pos | {x,y} | x,y | obj | group | polist>)
+\end{verbatim}
+\end{minipage}
+\noindent
+\begin{minipage}[t]{0.5\textwidth}
+\begin{verbatim}
+stone = st(po(3, 5))
+stone = st({3, 5})
+stone = st(3, 5)
+stone = st(myfloor)
+group = st(no["cherry#*"])
+group = st(po(3, 5)..po(4, 2))
+\end{verbatim}
+\end{minipage}
+
+\begin{center}
+\rule{0.8\linewidth}{0.25pt}
+\end{center}
+
+\end{document}

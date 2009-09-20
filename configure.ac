@@ -68,6 +68,9 @@ fi
 dnl ---------- Texi2html ----------
 AC_PATH_PROG([TEXI2HTML], [texi2html], [""])
 
+dnl ---------- PdfLatex ----------
+AC_PATH_PROG([PDFLATEX], [pdflatex], [""])
+
 dnl ---------- ImageMagick ----------
 AC_PATH_PROG([CONVERT], [convert], [""])
 

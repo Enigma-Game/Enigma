@@ -1,0 +1,511 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+\Large{\textbf{Enigma Level API II}} \\
+\large{\textbf{Syntax Sheet}}
+\end{center}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+On syntax descriptions of datatype operators or methods we need to list allowed argument types.
+Often several types are possible and you are allowed to choose any of a list. In these cases we
+enlist the types enclosed by \verb!<! and \verb!>! and separated by \verb!|!. These
+characters are not part of the operator or method itself and should thus not be typed into
+the level code. Note that we keep square braces \verb![!, \verb!]! and curly braces \verb!{!, \verb!}!
+as literal Lua symbols. When these braces appear in the syntax you need to type them in the code.
+
+\section*{Types}
+
+\begin{description}
+  \item[position]A position within the world that can be described by an x and y coordinate.
+  \item[positions]The singleton type of the repository of all named positions.
+  \item[object]An Enigma object like a stone, item, floor, other. Any object is a position, too.
+  \item[group]A list of objects.
+  \item[namedobjects]The singleton type of the repository of all named objects.
+  \item[default]The singleton type of default values that can be used instead of Lua’s ‘nil’ in anonymous table tile definitions.
+  \item[tile]A description of one or several objects for a common grid position (floor, item, stone, actor)
+  \item[tiles]The singleton type of the repository of all tile instances.
+  \item[world]The singleton type of the world that contains all objects.
+  \item[position list]A list of positions.
+\end{description}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+
+\section*{Position}
+
+\subsection*{Addition/Subtraction}
+\begin{verbatim}
+result = pos <+|-> <pos | obj | cpos | polist>
+result = <pos | obj | cpos | polist> <+|-> pos
+\end{verbatim}
+
+\subsection*{Multiplication/Division}
+\begin{verbatim}
+result = pos <*|/> number
+result = number * pos
+\end{verbatim}
+
+\subsection*{Sign}
+\begin{verbatim}
+result = -pos
+\end{verbatim}
+
+\subsection*{Center}
+\begin{verbatim}
+result = #pos
+\end{verbatim}
+
+\subsection*{Comparison}
+\begin{verbatim}
+result = pos1 <==|~=> pos2
+\end{verbatim}
+
+\subsection*{Concatenation}
+\begin{verbatim}
+result = pos1 .. <pos2 | polist>
+result = <pos1 | polist> .. pos2
+\end{verbatim}
+
+\subsection*{Coordinate Access}
+\begin{verbatim}
+result = pos["x"]
+result = pos["y"]
+result1, result2 = pos:xy()
+\end{verbatim}
+
+\subsection*{Grid Rounding}
+\begin{verbatim}
+result = pos:grid()
+\end{verbatim}
+
+\subsection*{Existence}
+\begin{verbatim}
+result = pos:exists()
+\end{verbatim}
+
+
+
+\section*{Object}
+
+\subsection*{Attribute Access}
+\begin{verbatim}
+result = obj["attributename"]
+obj["attributename"] = value
+obj:set({attributename1=value1,
+         attributename2=value2, ...})
+\end{verbatim}
+
+\subsection*{Messaging}
+\begin{verbatim}
+result = obj:message("msg", value)
+result = obj:msg(value)
+\end{verbatim}
+
+\subsection*{Comparison}
+\begin{verbatim}
+result = obj1 <==|~=> obj2
+\end{verbatim}
+
+\subsection*{Existence}
+\begin{verbatim}
+result = -obj
+result = obj:exists()
+\end{verbatim}
+
+\subsection*{Kill}
+\begin{verbatim}
+obj:kill()
+\end{verbatim}
+
+\subsection*{Kind Checks}
+\begin{verbatim}
+result = obj:is("kind")
+result = obj:kind()
+\end{verbatim}
+
+\subsection*{Coordinate Access}
+\begin{verbatim}
+result = obj["x"]
+result = obj["y"]
+result1, result2 = obj:xy()
+\end{verbatim}
+
+\subsection*{Addition/Subtraction}
+\begin{verbatim}
+result = obj <+|-> <pos | obj | cpos | polist>
+result = <pos | obj | cpos | polist> <+|-> obj
+\end{verbatim}
+
+\subsection*{Center}
+\begin{verbatim}
+result = #obj
+\end{verbatim}
+
+\subsection*{Join}
+\begin{verbatim}
+result = obj + group
+result = group + obj
+\end{verbatim}
+
+\subsection*{Intersection}
+\begin{verbatim}
+result = obj * group
+result = group * obj
+\end{verbatim}
+
+\subsection*{Difference}
+\begin{verbatim}
+result = obj - group
+result = group - obj
+\end{verbatim}
+
+\subsection*{Sound}
+\begin{verbatim}
+result = obj:sound("name", volume)
+\end{verbatim}
+
+
+
+\section*{Group}
+
+\subsection*{Messaging}
+\begin{verbatim}
+result = group:message("msg", value)
+result = group:msg(value)
+\end{verbatim}
+
+\subsection*{Attribute Write}
+\begin{verbatim}
+group["attributename"] = value
+group:set({attributename1=value1,
+           attributename2=value2, ...})
+\end{verbatim}
+
+\subsection*{Comparison}
+\begin{verbatim}
+result = group1 <==|~=> group2
+\end{verbatim}
+
+\subsection*{Length/Size}
+\begin{verbatim}
+result = #group
+\end{verbatim}
+
+\subsection*{Member Access}
+\begin{verbatim}
+result = group[index]
+result = group[obj]
+\end{verbatim}
+
+\subsection*{Loop}
+\begin{verbatim}
+for obj in group do ... end
+\end{verbatim}
+
+\subsection*{Join}
+\begin{verbatim}
+result = group + <obj | group>
+result = <obj | group> + group
+\end{verbatim}
+
+\subsection*{Intersection}
+\begin{verbatim}
+result = <obj | group> * group
+result = group * <obj | group>
+\end{verbatim}
+
+\subsection*{Difference}
+\begin{verbatim}
+result = <obj | group> - group
+result = group - <obj | group>
+\end{verbatim}
+
+\subsection*{Shuffle}
+\begin{verbatim}
+result = group:shuffle()
+\end{verbatim}
+
+\subsection*{Sorting}
+\begin{verbatim}
+result = group:sort("circular")
+result = group:sort("linear" <, direction>)
+result = group:sort()
+\end{verbatim}
+
+\subsection*{Subset}
+\begin{verbatim}
+result = group:sub(number)
+result = group:sub(start, end)
+result = group:sub(start, -number)
+\end{verbatim}
+
+\subsection*{Nearest Object}
+\begin{verbatim}
+result = group:nearest(obj)
+\end{verbatim}
+
+
+
+\section*{NamedObjects}
+
+\subsection*{Repository Request}
+\begin{verbatim}
+result = no["name"]
+\end{verbatim}
+
+\subsection*{Object Naming}
+\begin{verbatim}
+no["name"] = obj
+\end{verbatim}
+
+
+
+\section*{PositionList}
+
+\subsection*{Comparison}
+\begin{verbatim}
+result = polist1 <==|~=> polist2
+\end{verbatim}
+
+\subsection*{Length}
+\begin{verbatim}
+result = #polist
+\end{verbatim}
+
+\subsection*{Member Access}
+\begin{verbatim}
+result = group[index]
+\end{verbatim}
+
+\subsection*{Concatenation}
+\begin{verbatim}
+result = polist1 .. <pos | polist2>
+result = <pos | polist1> .. polist2
+\end{verbatim}
+
+\subsection*{Translation}
+\begin{verbatim}
+result = polist <+|-> <pos | obj | cpos>
+result = <pos | obj | cpos> <+|-> polist
+\end{verbatim}
+
+\subsection*{Stretching}
+\begin{verbatim}
+result = polist * number
+result = number * polist
+\end{verbatim}
+
+
+
+\section*{Positions Repository}
+
+\subsection*{Repository Request}
+\begin{verbatim}
+result = po["name"]
+\end{verbatim}
+
+\subsection*{Repository Storage}
+\begin{verbatim}
+po["name"] = obj
+\end{verbatim}
+
+\subsection*{Position Convertion}
+\begin{verbatim}
+result = po(<obj | pos | {x, y} | x,y>)
+\end{verbatim}
+
+\subsection*{PositionList Convertion}
+\begin{verbatim}
+result = po(group | {pos1, pos2, pos3 })
+\end{verbatim}
+
+
+
+\section*{Tile and Object Declaration}
+
+\subsection*{Tile concat}
+\begin{verbatim}
+result = tile .. <tile | odecl>
+result = <tile | odecl> .. tile
+\end{verbatim}
+
+
+
+\section*{Tiles Repository}
+
+\subsection*{ Tiles Storage}
+\begin{verbatim}
+ti["key"] = <tile | odecl>
+\end{verbatim}
+
+\subsection*{Tiles Request}
+\begin{verbatim}
+result = ti["key"]
+\end{verbatim}
+
+\subsection*{ Tile Convertion}
+\begin{verbatim}
+result = ti(odecl)
+\end{verbatim}
+
+
+
+\section*{World}
+
+\subsection*{World Creation}
+\begin{verbatim}
+width, height = wo(topresolver, defaultkey, map)
+width, height = wo(topresolver, libmap)
+width, height = wo(topresolver, defaultkey, width, height)
+\end{verbatim}
+
+\subsection*{World Tile Set}
+\begin{verbatim}
+wo[<object | position | table |
+    group | polist>] = tile_declarations
+\end{verbatim}
+
+\subsection*{Global Attribute Set}
+\begin{verbatim}
+wo["attritbutename"] = value
+\end{verbatim}
+
+\subsection*{Global Attribute Get}
+\begin{verbatim}
+var = wo["attritbutename"]
+\end{verbatim}
+
+\subsection*{add}
+\begin{verbatim}
+wo:add(tile_declarations)
+wo:add(target, tile_declarations)
+\end{verbatim}
+
+\subsection*{drawBorder}
+\begin{verbatim}
+wo:drawBorder(upperleft_edge, lowerright_edge,
+              <tile | key, resolver>)
+wo:drawBorder(upperleft_edge, width, height,
+              <tile | key, resolver>)
+\end{verbatim}
+
+\subsection*{drawMap}
+\begin{verbatim}
+wo:drawMap(resolver, anchor, ignore, map, [readdir])
+wo:drawMap(resolver, anchor, libmap_map, [readdir])
+\end{verbatim}
+
+\subsection*{drawRect}
+\begin{verbatim}
+wo:drawRect(upperleft_edge, lowerright_edge,
+            <tile | key, resolver>)
+wo:drawRect(upperleft_edge, width, height,
+            <tile | key, resolver>)
+\end{verbatim}
+
+\subsection*{world floor}
+\begin{verbatim}
+result = wo:fl(<pos | {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+\subsection*{world item}
+\begin{verbatim}
+result = wo:it(<pos | {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+\subsection*{shuffleOxyd}
+\begin{verbatim}
+wo:shuffleOxyd(rules)
+\end{verbatim}
+
+\subsection*{world stone}
+\begin{verbatim}
+result = wo:st(<pos| {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+
+
+\section*{Functions}
+
+\subsection*{cond}
+\begin{verbatim}
+cond(condition, iftrue, iffalse)
+\end{verbatim}
+
+\subsection*{fl}
+\begin{verbatim}
+result = fl(<pos | {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+\subsection*{grp}
+\begin{verbatim}
+grp(<{obj1,obj2, ...} | obj1,obj2, ... | group>)
+\end{verbatim}
+
+\subsection*{it}
+\begin{verbatim}
+result = it(<pos | {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+\subsection*{ORI2DIR}
+\begin{verbatim}
+result = ORI2DIR[orientation]
+\end{verbatim}
+
+\subsection*{random}
+\begin{verbatim}
+result = random(<| n | l,u>)
+\end{verbatim}
+
+\subsection*{st}
+\begin{verbatim}
+result = st(<pos | {x, y} | x,y | obj | group | polist>)
+\end{verbatim}
+
+
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt} \\
+Compiled from Enigma 1.10 reference manual by Raoul
+\end{center}
+
+\end{multicols}
+\end{document}

@@ -1,0 +1,225 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+
+\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm}
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\begin{document}
+
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{1pt}
+
+\begin{center}
+\Large{\textbf{Enigma Level API II}} \\
+\large{\textbf{API constants}}
+\end{center}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt}
+\end{center}
+
+\section*{Common Constants}
+
+\subsection*{state values}
+\begin{tabular}{ll}
+\verb!OFF! & all switch like objects \\
+\verb!ON! & all switch like objects \\
+\verb!CLOSED! & all door like objects \\
+\verb!OPEN! & all door like objects \\
+\verb!IDLE! & other objects in the default passive state \\
+\verb!ACTIVE! & other objects in the active state \\
+\verb!OXYDPAIR! & just by \texttt{st\_oxyd} \\
+\verb!LIGHT! & by \texttt{st\_disco} \\
+\verb!MEDIUM! & by \texttt{st\_disco}, \texttt{it\_crack}, \texttt{it\_extinguisher} \\
+\verb!DARK! & by \texttt{st\_disco} \\
+\verb!FLOODING! & by \texttt{fl\_water}, \texttt{fl\_wood}, \texttt{fl\_hay}, \texttt{fl\_rock} \\
+\verb!INVISIBLE! & by \texttt{it\_crack} \\
+\verb!SMALL! & by \texttt{it\_crack} \\
+\verb!LARGE! & by \texttt{it\_crack} \\
+\verb!YIN! & by \texttt{fl\_yinyang} \\
+\verb!YANG! & by \texttt{fl\_yinyang} \\
+\verb!EMPTY! & by \texttt{it\_extinguisher} \\
+\verb!FULL! &  by \texttt{it\_extinguisher} \\
+\verb!BROKEN! &  by \texttt{it\_bottle} \\
+\verb!BREAKING! &  by \texttt{st\_quake} \\
+\verb!CW! &  clockwise, by \texttt{st\_rotator} \\
+\verb!CCW! & counterclockwise, by \texttt{st\_rotator}
+\end{tabular}
+
+\subsection*{color values}
+\begin{tabular}{ll}
+\verb!BLACK! & all black/white colored objects \\
+\verb!WHITE! & all black/white colored objects \\
+\verb!BLUE! & by \texttt{st\_puzzle} \\
+\verb!YELLOW! & by \texttt{st\_puzzle} \\
+\verb!NOCOLOR! & some objects, that exist in black, \\
+                & white variants, too, like \texttt{st\_switch}
+\end{tabular}
+
+\subsection*{actor controllers}
+\begin{tabular}{ll}
+\verb!CTRL_NONE! &  by all actors \\
+\verb!CTRL_YIN! &  by all actors \\
+\verb!CTRL_YANG! &  by all actors \\
+\verb!CTRL_YINYANG! &  by all actors
+\end{tabular}
+
+\subsection*{oxyd colors}
+\begin{tabular}{ll}
+\verb!OXYD_BLUE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_RED! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_GREEN! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_YELLOW! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_CYAN! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_PURPLE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_WHITE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_BLACK! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_GRAY! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_ORANGE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_PINE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_BROWN! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_AUTO! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_FAKE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_QUAKE! &  by \texttt{st\_oxyd} \\
+\verb!OXYD_BOLD! &  by \texttt{st\_oxyd}
+\end{tabular}
+
+\subsection*{orientations}
+\begin{tabular}{ll}
+\verb!RANDOMDIR! & by \texttt{st\_mirror} \\
+\verb!NODIR! & by \texttt{fl\_slope} \\
+\verb!WEST! & by all objects with 4 orientations \\
+\verb!SOUTH! & by all objects with 4 orientations \\
+\verb!EAST! & by all objects with 4 orientations \\
+\verb!NORTH! & by all objects with 4 orientations \\
+\verb!NORTHWEST! & by all objects with 8 orientations \\
+\verb!SOUTHWEST! & by all objects with 8 orientations \\
+\verb!SOUTHEAST! & by all objects with 8 orientations \\
+\verb!NORTHEAST! & by all objects with 8 orientations \\
+\verb!BACKSLASH! & by \texttt{st\_mirror} \\
+\verb!HORIZONTAL! & by \texttt{st\_mirror} \\
+\verb!SLASH! & by \texttt{st\_mirror} \\
+\verb!VERTICAL! & by \texttt{st\_mirror} \\
+\end{tabular}
+
+\subsection*{direction offsets}
+\begin{tabular}{ll}
+\verb!N = po(0, -1)! &  \\
+\verb!E = po(1, 0)! &  \\
+\verb!S = po(0, 1)! &  \\
+\verb!W = po(-1, 0)! &  \\
+\verb!NE = N + E! &  \\
+\verb!NW = N + W! &  \\
+\verb!SE = S + E! &  \\
+\verb!SW = S + W! &  \\
+\verb!NNE = N + NE! & by \texttt{st\_chess} \\
+\verb!ENE = E + NE! & by \texttt{st\_chess} \\
+\verb!ESE = E + SE! & by \texttt{st\_chess} \\
+\verb!SSE =  S + SE! & by \texttt{st\_chess} \\
+\verb!SSW =  S + SW! & by \texttt{st\_chess} \\
+\verb!WSW =  W + SW! & by \texttt{st\_chess} \\
+\verb!WNW =  W + NW! & by \texttt{st\_chess} \\
+\verb!NNW =  N + NW! & by \texttt{st\_chess}
+\end{tabular}
+
+\subsection*{position lists}
+\begin{tabular}{ll}
+\verb!NEIGHBORS_4 = W .. S .. E .. N! & \\
+\verb!NEIGHBORS_8 = NEIGHBORS_4 .. NW .. SW ..SE .. NE! & \\
+\verb!NEIGHBORS_CHESS = NNE .. ENE .. ESE .. SSE! & \\
+\verb! .. SSW .. WSW .. WNW .. NNW!
+\end{tabular}
+
+\subsection*{essentialness}
+\begin{tabular}{ll}
+\verb!DISPENSABLE! & by all actors and \texttt{it\_meditation} \\
+\verb!INDISPENSABLE! & by all actors and Section \texttt{it\_meditation} \\
+\verb!PERKIND! & by all actors
+\end{tabular}
+
+\subsection*{meditation types}
+\begin{tabular}{ll}
+\verb!MEDITATION_CALDERA! & by \texttt{it\_meditation} \\
+\verb!MEDITATION_HOLLOW! & by \texttt{it\_meditation} \\
+\verb!MEDITATION_DENT! & by \texttt{it\_meditation} \\
+\verb!MEDITATION_BUMP! & by \texttt{it\_meditation} \\
+\verb!MEDITATION_HILL! & by \texttt{it\_meditation} \\
+\verb!MEDITATION_VOLCANO! & by \texttt{it\_meditation}
+\end{tabular}
+
+\subsection*{glasses abilities}
+\begin{tabular}{ll}
+\verb!SPOT_NOTHING! & by \texttt{it\_glasses} \\
+\verb!SPOT_DEATH! & by \texttt{it\_glasses} \\
+\verb!SPOT_HOLLOW! & by \texttt{it\_glasses} \\
+\verb!SPOT_ACTORIMPULSE! & by \texttt{it\_glasses} \\
+\verb!SPOT_SENSOR! & by \texttt{it\_glasses} \\
+\verb!SPOT_LIGHTPASSENGER! & by \texttt{it\_glasses} \\
+\verb!SPOT_TRAP! & by \texttt{it\_glasses}
+\end{tabular}
+
+\subsection*{coinslot acceptance}
+\begin{tabular}{ll}
+\verb!COIN_IGNORE! & by \texttt{st\_coinslot} \\
+\verb!COIN_REJECT! & by \texttt{st\_coinslot}
+\end{tabular}
+
+\subsection*{subsoil kind}
+\begin{tabular}{ll}
+\verb!SUBSOIL_ABYSS! & by \texttt{it\_explosion} \\
+\verb!SUBSOIL_WATER! & by \texttt{it\_explosion} \\
+\verb!SUBSOIL_AUTO! & by \texttt{it\_explosion}
+\end{tabular}
+
+\subsection*{screen scrolling}
+\begin{tabular}{ll}
+\verb!FOLLOW_NO! & by global \texttt{FollowMethod} \\
+\verb!FOLLOW_SCROLL! & by global \texttt{FollowMethod} \\
+\verb!FOLLOW_FLIP! & by global \texttt{FollowMethod} \\
+\verb!FOLLOW_FULLSCREEN = po(19, 12)! & by global \texttt{FollowAction} \\
+\verb!FOLLOW_HALFSCREEN = po(9.5, 6)! & by global \texttt{FollowAction}
+\end{tabular}
+
+\subsection*{map read directions}
+\begin{tabular}{ll}
+\verb!MAP_IDENT! & no transformation \\
+\verb!MAP_ROT_CW! & rotate map 90 degrees clockwise \\
+\verb!MAP_ROT_180! & rotate map 180 degrees \\
+\verb!MAP_ROT_CCW! & rotate map 90 degrees counter-clockwise \\
+\verb!MAP_FLIP_BACKSLASH! & flip upper-left and lower-right corners \\
+\verb!MAP_FLIP_HORIZONTAL! & flip right and left \\
+\verb!MAP_FLIP_SLASH! & flip upper-right and lower-left corners \\
+\verb!MAP_FLIP_VERTICAL! & flip up and down
+\end{tabular}
+
+\begin{center}
+\rule{0.6\linewidth}{0.25pt} \\
+Compiled from Enigma 1.10 reference manual by Raoul
+\end{center}
+
+\end{multicols}
+\end{document}
