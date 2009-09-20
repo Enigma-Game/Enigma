@@ -3,8 +3,8 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 39 $" el:status="released"/>
-      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 40 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -15,8 +15,6 @@
       <el:score el:easy="79:15" el:difficult="68:29"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" #"] = {"fl_stone"}
 ti[" a"] = {"fl_rock"}
 ti[" ,"] = {"fl_concrete"}
@@ -223,9 +221,7 @@ else
     ti["L4"] = {"st_passage_black_frame"}
 end
 
-local resolver = res.composer(ti)
-
-w, h = wo(resolver, "  ", {
+wo(res.composer(ti), "  ", {
 -- 00010203040506070809101112131415161718AA20212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
   "7 7 7 7 7 - , # # # # # # # # # # # # D # # # # # # XX# # # # # # # # # # # D # # # # # 4 4 4 T # T 4 4 4 # # # # D # # # # # # # # # # # # , - 7 7 7 7 7 ",
   "7  _ 1 _7  aL3          XSL3          9                                     R  O          SP    nn    SP         OXF = = = =  L1XS          L1 a7  _ 1 _7 ",
@@ -280,7 +276,7 @@ w, h = wo(resolver, "  ", {
 })
 
 function settimer()
-    wo[{0, 1}] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+    wo[po(0, 1)] = {"st_timer", action="callback", target="hux", interval=11.9}
 end
 
 function hux()

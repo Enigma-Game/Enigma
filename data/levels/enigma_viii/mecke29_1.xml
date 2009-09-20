@@ -3,19 +3,18 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Enigmaparcour II" el:subtitle="Open the Doors" el:id="mecke29"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 17 $" el:status="released"/>
-      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 18 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
         <el:credits el:showinfo="true" el:showstart="false">Thanks for the new items in new API in this level"</el:credits>
       </el:comments>
       <el:score el:easy="12:36" el:difficult="14:13"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
 wo["ExtralifeGlasses"] = SPOT_DEATH + SPOT_TRAP
 
 if wo ["IsDifficult"] then
@@ -26,7 +25,6 @@ else
     ti["  "] = {"fl_rough"}
     ti[" v"] = {"fl_bluegreen"}
 end
-
 ti["' "] = {"it_trap"}
 ti["b "] = {"it_bomb_black"}
 ti[" ~"] = {"fl_water"}
@@ -81,7 +79,7 @@ ti["< "] = {"st_boulder_w"}
 ti["3 "] = ti[" v"] .. {"st_box_wood"}
 ti["2 "] = {"st_oneway_black", orientation=SOUTH}
 ti[" f"] = {"it_wrench"}
-ti["4 "] = ti[" f"] ..{"st_oneway", orientation=WEST}
+ti["4 "] = ti[" f"] .. {"st_oneway", orientation=WEST}
 ti["6 "] = {"st_oneway", orientation=EAST}
 ti["8 "] = {"st_oneway_white", orientation=NORTH}
 ti["Q "] = {"st_break_oxydc"}
@@ -131,11 +129,11 @@ ti["q "] = {"st_turnstilearm", orientation=SOUTH}
 ti["k "] = {"st_turnstilearm", orientation=WEST}
 ti["l "] = {"st_turnstilearm", orientation=EAST}
 ti[" *"] = {"it_extralife"}
-ti["v?"] = ti[" v"] ..  {"it_yinyang"}
-ti["* "] = ti["ii"] ..  {"#ac_marble_black"}
-ti["vv"] = ti[" v"] ..  {"fl_ice",name="hu"}
-ti[" ?"] = ti["wn"] ..  {"it_yinyang"}
-ti["? "] = ti[" ?"] ..  {"#ac_marble_white"}
+ti["v?"] = ti[" v"] .. {"it_yinyang"}
+ti["* "] = ti["ii"] .. {"#ac_marble_black"}
+ti["vv"] = ti[" v"] .. {"fl_ice",name="hu"}
+ti[" ?"] = ti["wn"] .. {"it_yinyang"}
+ti["? "] = ti[" ?"] .. {"#ac_marble_white"}
 ti["J "] = {"#ac_top", range=1, strength=1}
 ti["= "] = {"#ac_horse"}
 ti["$1"] = {"it_trigger", target="door#2"}
@@ -146,11 +144,11 @@ ti["$5"] = {"it_trigger", target="door#5"}
 ti["$6"] = {"it_trigger", target="door#6"}
 ti["$7"] = {"it_trigger", target="laser2"}
 ti["$8"] = {"it_trigger", target="door#4"}
-ti["V1"] = ti["  "] ..{"it_vortex_open", name="vortex1", destination="vortex2"}
-ti["V2"] = ti["  "] ..{"it_vortex_open", name="vortex2", destination="vortex4"}
-ti["V3"] = ti["  "] ..{"it_vortex_open", name="vortex3", destination="vortex5"}
-ti["V4"] = ti["  "] ..{"it_vortex_open", name="vortex4", destination="vortex3"}
-ti["V5"] = ti["  "] ..{"it_vortex_open", name="vortex5", destination="vortex1"}
+ti["V1"] = ti["  "] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
+ti["V2"] = ti["  "] .. {"it_vortex_open", name="vortex2", destination="vortex4"}
+ti["V3"] = ti["  "] .. {"it_vortex_open", name="vortex3", destination="vortex5"}
+ti["V4"] = ti["  "] .. {"it_vortex_open", name="vortex4", destination="vortex3"}
+ti["V5"] = ti["  "] .. {"it_vortex_open", name="vortex5", destination="vortex1"}
 ti[".g"] = {"it_glasses", state = SPOT_TRAP}
 ti[". "] = {"it_trap"}
 ti["PW"] = {"st_flash"}
@@ -162,12 +160,10 @@ ti["P4"] = {"st_puzzle_yellow_es"}
 ti["P5"] = {"st_puzzle_yellow_sw"}
 ti["P6"] = {"st_puzzle_yellow_nw"}
 ti["P7"] = {"st_puzzle_yellow_ne"}
-ti["mm"] = {"it_sensor",action="callback",target="settimer"}
-ti["mn"] = {"it_sensor",action="callback",target="wormy"}
+ti["mm"] = {"it_sensor", action="callback", target="settimer"}
+ti["mn"] = {"it_sensor", action="callback", target="wormy"}
 
-local resolver = res.composer(ti)
-
-w, h = wo(resolver, "  ", {
+w, h = wo(res.composer(ti), "  ", {
 -- 00010203040506070809101112131415161718192021222324
   "# # # # # # D1# # # # # D1# # # # # # # # # # # # ",
   "#      ~    3 '_b~D3b~'_3  . _       _$1# T T T # ",
@@ -183,30 +179,23 @@ w, h = wo(resolver, "  ", {
   "#   K2 zK4  #   h1G h1  #     8 5 8     # X6X9X7# ",
   "#  ~ ~   ~ ~D1$4K h1K $8D1K ! ! o ! ! K # X9X8X9# ",
   "#           L4  h1 _h1  L3            $6# T T T # ",
-  "# # # Y2# # D1# # # # # D1# # # Y1# # # # # # # # "
-})
+  "# # # Y2# # D1# # # # # D1# # # Y1# # # # # # # # "})
+
 function settimer()
-    wo[{0, 1}] = {"st_timer",action="callback",target="hux",interval=11.9,invisible=0}
+    wo[po(0, 1)] = {"st_timer", action="callback", target="hux", interval=11.9}
 end
 
 function hux()
-    wo[{15,1}]= {"it_burnable_oil"}
-    wo[{17,1}]= {"it_burnable_oil"}
-    wo[{16,1}]= {"it_burnable_burning"}
-    wo[{15,3}]= {"it_burnable_oil"}
-    wo[{17,3}]= {"it_burnable_oil"}
-    wo[{16,3}]= {"it_burnable_burning"}
+    wo[po(15,1) .. po(17,1) .. po(15,3) .. po(17,3)] = {"it_burnable_oil"}
+    wo[po(16,1) .. po(16,3)] = {"it_burnable_burning"}
 end
 
 function wormy ()
-    wo[{14,5}]= {"it_wormhole", range=1, strength=1, destination="hu"}
+    wo[po(14,5)] = {"it_wormhole", range=1, strength=1, destination="hu"}
 end
 
 function cher()
-    wo[{1,13}]= {"it_cherry"}
-    wo[{2,13}]= {"it_cherry"}
-    wo[{4,13}]= {"it_cherry"}
-    wo[{5,13}]= {"it_cherry"}
+    wo[po(1,13) .. po(2,13) .. po(4,13) .. po(5,13)] = {"it_cherry"}
 end
 
 wo:add({"ot_wire", anchor1="movy1", anchor2="movy2"})
