@@ -21,7 +21,6 @@
 -- Level API 2 as of Enigma 1.10 compatibility --
 -------------------------------------------------
 
-
 -----------------------------------------------
 -- Use Enigma internal random implementation --
 -----------------------------------------------
@@ -31,31 +30,46 @@ random = math.random
 -- randseed is issued by Enigma application and must not be disturbed
 math.randomseed = function () end
 
------------------------------
--- old stuff to be checked --
------------------------------
-
--- TODO remove Tick
-function Tick (deltatime)
-    -- do nothing by default
-end
-
-
-
-function PrintTable(t)
-    for i,v in pairs(t) do
-        if type(v)=="table" then
-            print (i.." - "..v[1]..","..v[2])
-        else
-            print (i.." - "..v)
+-----------------------------------------------
+-- Semi strict Lua - global typo detection   --
+-----------------------------------------------
+-- Limit Lua code read access to prior 'declared' global variables,
+-- that have been registered by a regular assignment (even assigning nil will
+-- do). C code will read access globals without check.
+-- This section is a slightly modified version of Lua's etc/strict.lua.
+-- We call it semi strict, as we still allow level authors to declare new
+-- globals inside a function. We just want to catch typos in global constants.
+do
+    local mt = getmetatable(_G)
+    if mt == nil then
+        mt = {}
+        setmetatable(_G, mt)
+    end
+    
+    mt.__declared = {}
+    
+    local function what ()
+      local d = debug.getinfo(3, "S")
+      return d and d.what or "C"
+    end
+    
+    mt.__newindex = function (t, n, v)
+        if not mt.__declared[n] then
+            mt.__declared[n] = true
         end
+        rawset(t, n, v)
+    end
+      
+    mt.__index = function (t, n)
+        if not mt.__declared[n]  and what() ~= "C"  then
+            error("variable '"..n.."' is not declared", 2)
+        end
+        return rawget(t, n)
     end
 end
-
-
-function Require(filename)
-    enigma.LoadLib(string.sub(filename,8,string.len(filename)-4))
-end
+-----------------------------
+-- Helper functions        --
+-----------------------------
 
 function enigma.settile(key, pos)
     wo[pos] = en.ti[key]

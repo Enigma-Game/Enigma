@@ -374,7 +374,7 @@ Value World::getNamedPosition(const std::string &name) {
     ecl::Dict<Value>::iterator found = namedPositions.find(wanted);
     if (found != namedPositions.end()) 
         return found->second;
-    Log << "Did not find named position: " << name << '\n';
+//    Log << "Did not find named position: " << name << '\n';
     return Value(GridPos(-1, -1));
 }
 
@@ -2514,7 +2514,7 @@ void Repos_Shutdown() {
 }
 
 Object * MakeObject(const char *kind) {
-    static Object *last_templ = 0;
+    static Object *last_templ = NULL;
     static string last_kind;
 
     if (last_kind != kind) {
@@ -2522,12 +2522,11 @@ Object * MakeObject(const char *kind) {
         last_templ = repos->get_template(kind);
     }
 
-    Object *o = 0;
+    Object *obj = NULL;
     if (last_templ)
-        o=last_templ->clone();
-    if (!o)
-        fprintf(stderr, "MakeObject: unkown object name `%s'\n",kind);
-    return o;
+        obj = last_templ->clone();
+    ASSERT(obj != NULL, XLevelRuntime, ecl::strf("MakeObject: unkown object name `%s'\n",kind).c_str());
+    return obj;
 }
 
 Object * GetObjectTemplate(const std::string &kind) {

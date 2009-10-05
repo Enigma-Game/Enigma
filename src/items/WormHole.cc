@@ -106,12 +106,12 @@ namespace enigma {
     bool WormHole::actor_hit(Actor *actor) {
         ASSERT((state & 4) == 0, XLevelRuntime, "WormHole:: Recursion detected!");
         if ((state & 2) == 0 && near_center_p(actor)) {   // may teleport
-            client::Msg_Sparkle (get_pos().center());
             ecl::V2 targetpos;
             if (getDestinationByIndex(0, targetpos)) {
-                sound_event ("warp");
+                client::Msg_Sparkle(get_pos().center());
+                sound_event("warp");
                 double latency = getAttr("interval");
-                if(latency > 0) {
+                if (latency > 0) {
                     state |= 2;  // mark engaged
                     GameTimer.set_alarm(this, latency, false);
                     init_model();

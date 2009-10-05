@@ -19,6 +19,7 @@
  */
 
 #include "stones/GhostStone.hh"
+#include "errors.hh"
 //#include "main.hh"
 #include "player.hh"
 
@@ -29,6 +30,21 @@ namespace enigma {
     
     std::string GhostStone::getClass() const {
         return "st_ghost";
+    }
+    
+    void GhostStone::setAttr(const string& key, const Value &val) {
+        if (key == "flavor") {
+            std::string fl = val.to_string();
+            if (fl == "purplemarble") state = PURPLEMARBLE;
+            else if (fl == "greenbrown") state = GREENBROWN;
+            else if (fl == "break") state = BREAK;
+            else
+                ASSERT(false, XLevelRuntime, ecl::strf("Ghost stone with illegal flavor value: %s", fl.c_str()).c_str());
+            if (isDisplayable())
+                init_model();
+            return;
+        } else
+            Stone::setAttr(key, val);
     }
     
     Value GhostStone::getAttr(const std::string &key) const {

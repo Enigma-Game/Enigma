@@ -19,6 +19,7 @@
  */
 
 #include "stones/MagicStone.hh"
+#include "errors.hh"
 //#include "main.hh"
 #include "player.hh"
 
@@ -29,6 +30,21 @@ namespace enigma {
     
     std::string MagicStone::getClass() const {
         return "st_magic";
+    }
+    
+    void MagicStone::setAttr(const string& key, const Value &val) {
+        if (key == "flavor") {
+            std::string fl = val.to_string();
+            if (fl == "brick") state = BRICK;
+            else if (fl == "oxyda") state = OXYDA;
+            else if (fl == "oxydc") state = OXYDC;
+            else
+                ASSERT(false, XLevelRuntime, ecl::strf("Magic stone with illegal flavor value: %s", fl.c_str()).c_str());
+            if (isDisplayable())
+                init_model();
+            return;
+        } else
+            Stone::setAttr(key, val);
     }
     
     Value MagicStone::getAttr(const std::string &key) const {
