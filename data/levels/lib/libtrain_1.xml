@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="library">
+      <el:identity el:title="" el:id="lib/libtrain"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="test"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="false" el:network="false"/>
+      <el:comments/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+res.train_railways = {}
+
+function res.train(subresolver, ...)
+    -- syntax: ... = <prefixkey>
+    assert_bool(is_resolver(subresolver), "res.train first argument (subresolver)", 2)
+    local args = {...}
+    local context = {res.train_implementation, res.train_finalization, subresolver}
+    
+    context.newori = {[WEST]={WEST, NORTH, SOUTH}, [SOUTH]={SOUTH, WEST, EAST},
+                      [EAST]={EAST, SOUTH, NORTH}, [NORTH]={NORTH, EAST, WEST}}
+    context.suffix = nil
+    context.suffix_init = false
+    context.hits = args
+    context.edges = {}
+    context.track = {}
+    context.trains = {}
+    context.railway = 0
+    context.subresolver = subresolver
+    
+    for i, v in ipairs(args) do
+        assert_type(v, "res.train argument "..i+1, 2, "string", "table")
+        if i > 1 and type(args[i]) == "string" then
+            context.hits[i] = {args[i]}
+        end
+    end
+    
+    if type(args[1]) == "table" then
+        context.suffix_init = true
+    else
+        context.suffix = args[1]
+    end
+    setmetatable(context, res.metatable)
+    table.insert(res.train_railways, context)
+    context.railway = #res.train_railways
+    return context
+end
+
+function res.train_implementation(context, evaluator, key, x, y)
+    if not context.suffix_init then
+        if #(context.suffix) >= #key then
+            context.suffix = nil
+            context.hits[1] = {context.hits[1]}
+        else  -- now we are sure we have a suffix as argument 2
+            table.remove(context.hits, 1)
+        end
+        context.suffix_init = true
+    end
+    
+    local replacement = nil
+    for i, hit in ipairs(context.hits) do
+        if hit[1] == key then
+--            print("train: direct hit '"..key.."'")
+            replacement = hit[2] or ""
+            if hit["edge"] == true then
+                table.insert(context.edges, po(x,y))
+            else
+                table.insert(context.track, po(x,y))
+            end
+            if hit["train"] ~= nil then
+                local newtrain = lib.lua.deep_copy(hit["train"])
+                newtrain["pos"] = po(x, y)
+                if newtrain["interval"] == nil then
+                    newtrain.interval=0.25
+                end
+                table.insert(context.trains, newtrain)
+                newtrain.index = #context.trains
+                newtrain.railway = context.railway
+                newtrain.tick = res.train_usertick
+            end
+            break
+        end
+    end
+    
+    if replacement == nil and context.suffix ~= nil and 
+            key:find(context.suffix, -#context.suffix, true) ~= nil then
+--        print("train: suffix found")
+        replacement = key:sub(1, -1 - #context.suffix) .. string.rep(" ", #context.suffix)
+--        print("train: suffix replacement '"..replacement.."'")
+        table.insert(context.track, po(x,y))
+    end
+    
+    if replacement == nil then
+        return evaluator(context[3], key, x, y)
+    else
+        return cond(replacement ~=  "", evaluator(context[3], replacement, x, y), {"nil"})
+    end
+end
+
+function res.train_finalization(context)
+    assert_bool(#context.edges == 0 or #context.edges == 2, "libtrain: illegal number of track edges:" .. #context.edges)
+    if #context.edges == 2 then
+        local minx = math.min(context.edges[1].x, context.edges[2].x)
+        local maxx = math.max(context.edges[1].x, context.edges[2].x)
+        local miny = math.min(context.edges[1].y, context.edges[2].y)
+        local maxy = math.max(context.edges[1].y, context.edges[2].y)
+        assert_bool(minx ~= maxx, "libtrain error: both edges in same column") 
+        assert_bool(miny ~= maxy, "libtrain error: both edges in same row")
+        table.insert(context.track, po(minx+1, miny))
+        table.insert(context.track, po(maxx-1, miny))
+        table.insert(context.track, po(maxx, miny+1))
+        table.insert(context.track, po(maxx, maxy-1))
+        table.insert(context.track, po(maxx-1, maxy))
+        table.insert(context.track, po(minx+1, maxy))
+        table.insert(context.track, po(minx, maxy-1))
+        table.insert(context.track, po(minx, miny+1))
+    end
+    local tracklength = 0
+    local train = lib.lua.deep_copy(context.trains[1])
+    local trainlength = 0
+    local startpos = train.pos
+    local positions = nil
+    repeat
+         res.train_move(context, train)
+         if positions == nil then
+             positions = train["pos"]
+         else
+             positions = positions .. train["pos"]
+         end
+         tracklength = tracklength + 1
+         trainlength = trainlength + 1
+         if train.length == trainlength then
+             local loco = lib.lua.deep_copy(train)
+             loco[1], loco[2] = loco[2], loco[1]
+             loco.length = nil
+             table.insert(context.trains, loco)
+             loco.index = #context.trains
+             loco.railway = context.railway
+             loco.tick = res.train_usertick
+             if type(loco.name) == "string" then
+                 loco.name = loco.name .. "_front"
+             end
+         end
+         for i, tr in ipairs(context.trains) do
+             if tr.pos == train.pos then
+                 for i = 1, #positions do
+                     local pos = positions[i]
+                     wo[pos] = wo:_evaluate(context.subresolver, tr[1], pos.x, pos.y)
+                 end
+                 train = lib.lua.deep_copy(tr)
+                 trainlength = 0
+                 positions = nil
+                 break
+             end
+         end
+    until train.pos == startpos or tracklength > 2000
+    
+    for i, tr in ipairs(context.trains) do
+        wo:add({"ot_timer", "res.train.timer", target="res.train_tick", interval=tr.interval, _railway=context.railway, _train=tr.index})
+        tr.timer = no["res.train.timer"]
+    end
+
+    return
+end
+
+
+function res.train_move(context, train)
+    for i=1,3 do
+        local neworientation = (context.newori[train.orientation])[i]
+        local newpos = train["pos"] + ORI2DIR[neworientation]
+        if newpos:exists() then
+            for j, trackpos in ipairs(context.track) do
+                if trackpos == newpos then
+                    train["pos"] = newpos
+                    train.orientation = neworientation
+                    return
+                end
+            end
+        end
+    end
+    train["pos"] = train["pos"] + ORI2DIR[train.orientation]
+end
+
+function res.train_tick(value, sender)
+    local context = res.train_railways[sender._railway]
+    local train = context.trains[sender._train]
+    res.train_move(context, train)
+    wo[train.pos] = wo:_evaluate(context.subresolver, train[1], train.pos.x, train.pos.y)
+end
+
+function res.train_usertick(train)
+    local context = res.train_railways[train.railway]
+    res.train_move(context, train)
+    wo[train.pos] = wo:_evaluate(context.subresolver, train[1], train.pos.x, train.pos.y)
+end
+    ]]></el:luamain>
+    <el:i18n>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -7240,8 +7240,8 @@ One or many other object declarations given as tiles or anonymous tables.
 @example
 wo:add(@{"ot_rubberband", anchor1="a1", anchor2="w", length=2, strength=80, threshold=0@})
 wo:add(ti["r"] .. @{"ot_wire", anchor1="w1", anchor2="w2"@})
-wo:add(YIN, @{"it_magicwand@})
-wo:add(no["mybag"], @{"it_magicwand@} .. ti["h"] .. ti["c"])
+wo:add(YIN, @{"it_magicwand"@})
+wo:add(no["mybag"], @{"it_magicwand"@} .. ti["h"] .. ti["c"])
 @end example
 
 @item @b{Details:}
@@ -8964,7 +8964,7 @@ numbers.
 @subsection subsoil kind
 
 Number constants for the global attribute @ref{SubSoil}. Please
-choose the constant that is appropriate for the coinslot and do avoid using
+choose the constant that is appropriate for the SubSoil and do avoid using
 numbers.
 
 @itemize @bullet
@@ -22630,6 +22630,7 @@ look which types of resolvers are available and how you can chain these resolver
 * res.maze::           Generate arbitrarily shaped mazes
 * res.puzzle::         Generate puzzle tiles and shuffle resulting puzzle clusters
 * res.random::         Choosing random tiles in a given distribution
+* res.train::          Set up floor chains that move on given railways
 @end menu
 
 @c ----------------- Resolver Chaining --------------------
@@ -23334,11 +23335,13 @@ to all sides.
 If you set the @samp{algorithm} on any of the puzzle stones to the value
 @code{"marked"} the resolver registers that the user has no free access, but
 just from positions that you did mark. You do mark a position by setting
-the attribute @ref{push_directions} on a floor. All floors adjacent to
-outer puzzle stones from which a user can push rotate a puzzle will be checked
-for this attribute. If its string value, a substring of @code{"nesw"}, contains
-the character of the required push direction this push event will take part
-in the random reverse shuffling process.
+the attribute @ref{push_directions} on a floor. All floors adjacent to puzzle
+stones, including floors beneath another puzzle stone, will be checked for this
+attribute. It is your responsibility to mark all floors and to ensure that
+the player has continuos access to these foors for solving the puzzle by
+push rotations. The attribute takes a string value, a substring of @code{"nesw"}.
+If it contains the character of the required push direction this push event will
+take part in the random reverse shuffling process.
 
 Note that hollow stones and their restriction of not being able to initiate a
 rotation if fully respected on shuffling.
@@ -23481,6 +23484,130 @@ tile key @samp{c} is used for another tile with the default floor. Thus we do
 need to use another unique key @samp{C} for the coin on our random floor.
 
 @end table
+
+@c ----------------- Train Resolver --------------------
+@node res.train
+@subsection res.train
+
+The train resolver supports you in the set up of train like wandering floor
+chains. Usually short passages of solid standard floors wander on a closed
+path of otherwise unpassable floors like @ref{fl_abyss} or @ref{fl_water}.
+
+The path itself is called railway, even though the name train does not really 
+fit the features of the wandering floor chains. But these names have been
+chosen by Petr Machata in his first implementation of a simple wandering floor
+feature.
+
+In contrast to real world train, the wandering floors themselves do not move at 
+all. Thus they do neither carry items or stones, nor do they allow an actor to
+rest on them and to be automatically transported along the path. The train
+is more like a curb wheel of a trunk. New floors are added to the front while
+trailing floors are removed. 
+
+Actually a chain of floors is composed of two train locos which move along the
+railway path. One at the front that sets floor of the standard passable kind and
+one at the end, or exactly one grid behind the end, that resets floor of the
+unpassable floor kind. 
+
+Usually both train locos move at the same speed keeping the passable floor
+chain length constant. But this resolver allows you to set up arbitrary
+number of train locos moving in arbitrary direction at arbitrary speed on a
+railway. But the resulting floor patterns will likely no longer behave like
+trains. Nevertheless we keep the name.
+
+Every railway path has to be described by a chained train resolver instance. The
+paths of different resolvers may cross each other, but crossing trains may cause
+unexpected results as the train locos just set floors without any respect to
+other trains. In future it is planned to add track and train line attributes, 
+which will allow even more complex railways.
+
+@table @asis
+@item @b{Syntax:}
+
+@b{res.train}(@i{subresolver}[, @i{suffix}][, @i{hits}])
+
+@table @asis
+@item @i{subresolver}
+Resolver to which unresolved requests should be forwarded. May be @samp{ti}
+as the final resolver of the resolver chain.
+@item @i{suffix}
+An optional key suffix string. Every grid position with a matching key is
+registered as part of the railway path.
+@item @i{hits} = @i{hit}, @i{hit}, ...
+One or many resolver key hits that will identify positions of the railway path
+with optional trains located on them.
+@item @i{hit} = @i{key} | @{@i{key} [, @i{subkey}][, edge=@i{edgevalue}][, train=@i{trainvalue}]@}
+Either a single tile key string or a table of a tile key string with an optional
+related tile subkey string and optional further arguments.
+@item @i{edgevalue}
+A railway position that marks one of two edges spanning a rectangular railway
+path.
+@item @i{trainvalue} = @{@i{successorkey} [, @i{predecessorkey}] [, length=@i{trainlength}] [, orientation=@i{traveldirection}] [, interval=@i{speed}] [, name=@i{namevalue}]@}
+A train loco that moves with the given speed interval, defaulting to 0.25 
+seconds per grid, and starting into the given traveldirection. The loco sets
+floors given by the sucessorkey string that will be resolved via the subresolver.
+If a trainlength is given, a second train loco is automatically created that
+preceeds this one by the given length. This front train loco will set floors
+defined by the predecessorkey string. If the train loco has an assigned name
+string, the front train loco will be named with an appended @code{"_front"}.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+res.train(ti, ".", @{" ^", train=@{" ~", " w", orientation=NORTH, length=6, interval=0.3@}@})
+res.train(ti, @{"e", edge=true@}, @{">", train=@{" w", orientation=EAST@}@}, @{"<", train=@{"~", orientation=WEST@}@})
+@end example
+
+@item @b{Details:}
+Every key in the map is checked against the given hit key strings. If it fits
+one of them the positition is added to the railway path and the subkey is used
+to set remaining objects via the subresolver onto the grid. If no subkey is
+given no additional objects are set.
+
+If the key is no hit, but a suffix string is given and matches the key, the
+position will be registered as part of the railway path, too. In this case
+the suffix part of the key will be replaced by space characters and the 
+resulting key will be resolved via the subresolver.
+
+There is no need of marking every grid position of a railway, what would be a 
+very annoying task if many stones and items are positioned on its path. By
+default every train moves straight forward. You just need to provide hints for
+positions where the train turns left or right. Marking the positions of the path
+that follow every turn is sufficient. 
+
+
+@item @b{Full Example:}
+@example
+ti["  "] = @{"fl_sahara"@}
+ti[" ~"] = @{"fl_water"@}
+ti[" w"] = @{"fl_wood"@}
+ti["# "] = @{"st_rawglass"@}
+ti[" @@"] = @{"#ac_marble"@}
+
+railway1 = res.train(ti, ".", @{"1^", train=@{" ~", " w", orientation=NORTH, length=6@}@})
+railway2 = res.train(railway1, @{"2e", edge=true@}, @{"2^", train=@{" ~", " w", orientation=NORTH, length=5@}@})
+
+wo(railway2, "  ", @{
+    "             .        ",
+    "   .                  ",
+    "              1^      ",
+    "                     @@",
+    "              #       ",
+    "          2e          ",
+    "                      ",
+    "                      ",
+    "  # #.            2^  ",
+    "       .              ",
+    "                  2e  ",
+    "               .      ",
+    "         .            "
+@})
+@end example
+The first railway has just marked the essential positions that define the
+path.
+@end table
+
+@c ----------------- General Features --------------------
 
 @node General Features
 @section General Features
