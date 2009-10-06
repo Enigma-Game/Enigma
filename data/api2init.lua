@@ -45,21 +45,21 @@ do
         mt = {}
         setmetatable(_G, mt)
     end
-    
+
     mt.__declared = {}
-    
+
     local function what ()
       local d = debug.getinfo(3, "S")
       return d and d.what or "C"
     end
-    
+
     mt.__newindex = function (t, n, v)
         if not mt.__declared[n] then
             mt.__declared[n] = true
         end
         rawset(t, n, v)
     end
-      
+
     mt.__index = function (t, n)
         if not mt.__declared[n]  and what() ~= "C"  then
             error("variable '"..n.."' is not declared", 2)
@@ -245,7 +245,7 @@ end
 -- Utility Methods --
 ---------------------
 
-wo:_register("drawMap", 
+wo:_register("drawMap",
     function (world, resolver, anchor, arg3, arg4, arg5)
         -- world, resolver, (position|object|table), string, (table|map), [int]
         -- world, resolver, (position|object|table), map, [int]
@@ -324,7 +324,7 @@ wo:_register("drawMap",
                 finalizeResolvers(context[3])
                 local finalizer = context[2]
                 if type(finalizer) == "function" then
-                     finalizer(context) 
+                     finalizer(context)
                 end
             end
         end
@@ -332,8 +332,8 @@ wo:_register("drawMap",
     end
 )
 
-wo:_register("drawBorder", 
-    function (world, arg1, arg2, arg3, arg4)
+wo:_register("drawBorder",
+    function (world, arg1, arg2, arg3, arg4, arg5)
         -- world, (position|object|table), width, height, (tile|table|key, resolver)
         -- world, (position|object|table), (position|object|table), (tile|table|key, resolver)
         assert_type(world, "wo:drawBorder self (world)", 2, "world")
@@ -345,7 +345,7 @@ wo:_register("drawBorder",
         if etype(arg2) == "number" then
             assert_type(arg3, "wo:drawBorder third argument (height)", 2, "positive integer")
             dest = po(origin.x + arg2 - 1, origin.y + arg3 - 1)
-            tile = arg4            
+            tile = arg4
             resolver = arg5
         else
             dest = po(arg2)
@@ -380,7 +380,7 @@ wo:_register("drawBorder",
     end
 )
 
-wo:_register("drawRect", 
+wo:_register("drawRect",
     function (world, arg1, arg2, arg3, arg4, arg5)
         -- world, (position|object|table), width, height, (tile|table|key, resolver)
         -- world, (position|object|table), (position|object|table), (tile|table|key, resolver)
@@ -440,14 +440,14 @@ end
 ---------------
 
 lib = {}
-setmetatable(lib, {__index = 
+setmetatable(lib, {__index =
     function (table, key)
         if type(key) == "string" then
             error("Library function named '"..key.."' not existing. A typo or a missing library dependency may cause this fault.", 2)
         else
             error("Library function access with a key of type '"..type(key).."'. A name is mandatory.", 2)
         end
-    end 
+    end
 })
 
 ---------------
@@ -455,14 +455,14 @@ setmetatable(lib, {__index =
 ---------------
 
 res = {}
-setmetatable(res, {__index = 
+setmetatable(res, {__index =
     function (table, key)
         if type(key) == "string" then
             error("Resolver named '"..key.."' not existing. A typo or a missing library dependency may cause this fault.", 2)
         else
             error("Resolver access with a key of type '"..type(key).."'. A name is mandatory.", 2)
         end
-    end 
+    end
 })
 res.metatable = {_type="resolver", _resolver=true}
 
@@ -516,7 +516,7 @@ function res.random(subresolver, hits, replacements)
                 hit_table[i] = v
             end
         end
-    end    
+    end
     local repl_table = {}
     if type(replacements) == "string" then
         repl_table[1] = {replacements, 1}
@@ -536,7 +536,7 @@ function res.random(subresolver, hits, replacements)
     for i, v in ipairs(repl_table) do
         repl_sum = repl_sum + v[2]
     end
-    local context = {res.random_implementation, nil, subresolver, hit_table, 
+    local context = {res.random_implementation, nil, subresolver, hit_table,
                      repl_table, repl_sum}
     setmetatable(context, res.metatable)
     return context
@@ -562,7 +562,7 @@ function res.autotile_newtile(key, template, substitution)
                         at[key] = val
                     end
                 else
-                    local tt = {} 
+                    local tt = {}
                     for j, token in ipairs(val) do
                         if type(token) == "string" then
                             tt[j] = string.gsub(token, "%%%%", "%%"..substitution)
@@ -594,7 +594,7 @@ function res.autotile_implementation(context, evaluator, key, x, y)
             if #rule == 4 then
                 offset = rule[4]
             end
-            
+
             if #rule[1] == #key and string.sub(key, 1, -2) == string.sub(rule[1], 1, -2)
                     and first <= candidate and candidate <= last then
                 local tile = evaluator(context[3], key, x, y)
@@ -633,7 +633,7 @@ function res.autotile(subresolver, ...)
             template_pos = 3
             string_pos = {1,2,3}
         end
-        
+
         for j, num in ipairs(string_pos) do
             assert_type(rule[string_pos[num]], "res.autotile rule " .. i .. ", position " .. num, 2, "string")
         end
@@ -643,7 +643,7 @@ function res.autotile(subresolver, ...)
         if #rule >= 3 then
             local first = string.byte(rule[1], #rule[1])
             local last  = string.byte(rule[2], #rule[2])
-            assert_bool(#rule[1] == #rule[2] and string.sub(rule[2], 1, -2) == string.sub(rule[1], 1, -2) and first <= last, 
+            assert_bool(#rule[1] == #rule[2] and string.sub(rule[2], 1, -2) == string.sub(rule[1], 1, -2) and first <= last,
                 "res.autotile: Rule " .. i .. " has bad range start-end strings.", 2)
         end
         assert_bool(ti[rule[template_pos]], "res.autotile: Missing template tile '" .. rule[template_pos] .. "'", 2)
@@ -718,7 +718,7 @@ end
 
 function is_resolver(resolver)
     local t = etype(resolver)
-    return (t == "tiles") or (t == "function") or (t == "resolver") or 
+    return (t == "tiles") or (t == "function") or (t == "resolver") or
         ((type(resolver) == "table") and getmetatable(resolver) and getmetatable(resolver)["_resolver"])
 end
 
@@ -727,7 +727,7 @@ assert_type = function (object, objname, level, ...)
     -- conditions in "...". Possible conditions are the lua- and usertype
     -- names and "map" (i.e. the results of etype), plus the strings
     -- "integer", "natural" (i.e. integer >= 0), "positive" (> 0), and
-    -- "non-negative" (>= 0). 
+    -- "non-negative" (>= 0).
     local conditions = {...}
     local fulfilled = false
     for k = 1, #conditions do

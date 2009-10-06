@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma V"/>
+  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma V"/>
 
   <attributes/>
 
@@ -45,7 +45,7 @@
     <level _seq="37" _title="Ghost Islands" _xpath="./raoul15_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="38" _title="Reach the Dock" _xpath="./duffy119_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Mount Etna" _xpath="./duffy61_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy61" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="- Giza Meditation -" _xpath="./raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="- Giza Meditation -" _xpath="./raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Clear the Path" _xpath="./duffy110_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy110" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Choo-Choo" _xpath="./duffy22_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy22" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Humid Maze" _xpath="./duffy133_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy133" rel="3" rev="5" score="2" target="time" unit="duration"/>
@@ -64,7 +64,7 @@
     <level _seq="56" _title="Banana Republic" _xpath="./alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="57" _title="Too Heavy?" _xpath="./martin101_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin101" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Now What?" _xpath="./duffy127_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="59" _title="Pneumatic Delivery" _xpath="./malla01_3" author="Manuel König" ctrl="force" easy="true" id="malla01" rel="3" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="59" _title="Pneumatic Delivery" _xpath="./malla01_3" author="Manuel König" ctrl="force" easy="true" id="malla01" rel="3" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="60" _title="Jumpin' Jack Flash" _xpath="./ss10_2" author="Sven Siggelkow" ctrl="force" easy="true" id="ss10" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Venice I" _xpath="./raoul16_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul16" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="No way out?" _xpath="./just08_1" author="JuSt" ctrl="force" easy="false" id="just08" rel="1" rev="4" score="1" target="time" unit="duration"/>

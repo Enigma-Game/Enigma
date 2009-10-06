@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="66" title="Enigma 1.1 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="67" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -29,7 +29,7 @@
     <level _seq="21" _title="Double Oneways" _xpath="enigma_vii/duffy172_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Wood - Water - Wood" _xpath="enigma_vii/duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Transpositions" _xpath="enigma_vii/duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Puppet" _xpath="enigma_vii/pulley06_3" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="3" rev="13" score="2" target="time" unit="duration"/>
+    <level _seq="24" _title="Puppet" _xpath="enigma_vii/pulley06_3" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="3" rev="14" score="2" target="time" unit="duration"/>
     <level _seq="25" _title="Restless Meditation" _xpath="enigma_vii/ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="182" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Ghost Driver" _xpath="enigma_vii/duffy176_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Re-entry Circuit" _xpath="enigma_vii/pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="8" score="1" target="time" unit="duration"/>
@@ -45,7 +45,7 @@
     <level _seq="37" _title="Double Sense" _xpath="enigma_vii/joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Double Sense II" _xpath="enigma_vii/joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Lightyears" _xpath="enigma_vii/duffy177_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy177" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="Zero Magnetism Lab" _xpath="enigma_vii/duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Zero Magnetism Lab" _xpath="enigma_vii/duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Armageddon" _xpath="enigma_vii/duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Mountain Climbing II" _xpath="enigma_vii/joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Minor Tangler" _xpath="enigma_vii/joe24_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -119,7 +119,7 @@
     <level _seq="111" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="112" _title="Relaxing at the sea" _xpath="enigma_viii/devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Helios II" _xpath="enigma_viii/mecke08_1" author="mecke" ctrl="force" easy="true" id="mecke08" rel="1" rev="26" score="1" target="time" unit="duration"/>
-    <level _seq="114" _title="Tutoxyd's Pyramid" _xpath="enigma_viii/ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="183" score="2" target="time" unit="duration"/>
+    <level _seq="114" _title="Tutoxyd's Pyramid" _xpath="enigma_viii/ral21_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070822ral291" rel="2" rev="188" score="2" target="time" unit="duration"/>
     <level _seq="115" _title="Alternation I" _xpath="enigma_viii/mecke17_1" author="mecke" ctrl="force" easy="false" id="mecke17" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="116" _title="Enigmaparcour II" _xpath="enigma_viii/mecke29_1" author="mecke" ctrl="force" easy="true" id="mecke29" rel="1" rev="18" score="1" target="time" unit="duration"/>
     <level _seq="117" _title="- Meditation -" _xpath="enigma_viii/devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="10" score="1" target="time" unit="duration"/>
@@ -187,7 +187,7 @@
     <level _seq="179" _title="Behind glass" _xpath="enigma_ix/rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="180" _title="Perennial Creek" _xpath="enigma_ix/pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="181" _title="Wired Strips" _xpath="enigma_viii/ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
-    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="183" _title="Wired pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="184" _title="Crabwise III" _xpath="enigma_ix/devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="185" _title="Bicolor" _xpath="enigma_ix/devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="3" score="1" target="time" unit="duration"/>

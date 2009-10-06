@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pneumatic Delivery" el:subtitle="" el:id="malla01"/>
-      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="6" el:status="released"/>
       <el:author  el:name="Manuel König" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Manuel König</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -42,9 +42,9 @@ ti["T<"] = ti[".."] .. {"st_turnstilearm", orientation = WEST}
 ti["ss"] = {"st_shogun_s"} .. ti({"it_shogun_l", target = "door3"})
 ti["sm"] = {"st_shogun_m"}
 ti["sl"] = {"st_shogun_l"}
-ti["d1"] = {"st_door", "door1", faces = "ew"}
-ti["d2"] = {"st_door", "door2", faces = "ns"}
-ti["d3"] = {"st_door", "door3", faces = "ew"}
+ti["d1"] = {"st_door", name = "door1", faces = "ew"}
+ti["d2"] = {"st_door", name = "door2", faces = "ns"}
+ti["d3"] = {"st_door", name = "door3", faces = "ew"}
 ti["mn"] = {"st_mail_n"}
 ti["me"] = {"st_mail_e"}
 ti["ms"] = {"st_mail_s"}
@@ -52,11 +52,11 @@ ti["m8"] = {"it_pipe_ns"}
 ti["m6"] = {"it_pipe_ew"}
 ti["m1"] = {"it_pipe_ne"}
 ti["m9"] = {"it_pipe_sw"}
-ti["t1"] = {"it_trigger", "trigger1", target = "toggleDoor1", action = "signal"}
+ti["t1"] = {"it_trigger", name = "trigger1", target = "toggleDoor1", action = "signal"}
 ti["Sb"] = {"st_switch_black", target = "stoneDoor"}
 ti["Sw"] = {"st_switch_white", target = "laser"}
 ti["4S"] = {"st_fourswitch", target = "mirrorMb"}
-ti["LL"] = {"st_laser", "laser", orientation = EAST, state = off}
+ti["LL"] = {"st_laser", "laser", orientation = EAST, state = OFF}
 ti["LS"] = {"st_laserswitch", target = "toggleDoor2", action = "signal"}
 ti["M/"] = {"st_mirror_slab", "mirrorMb", movable = false, transparent = false, orientation = EAST}
 ti["M-"] = {"st_mirror_slab", movable = true, transparent = false, orientation = SOUTH}
@@ -66,7 +66,7 @@ ti["Mv"] = {"st_mirror_triangle", movable = false, transparent = false, orientat
 ti["M<"] = {"st_mirror_triangle", movable = false, transparent = false, orientation = WEST}
 ti["h "] = {"it_hammer"}
 ti["%%"] = {"it_document", text = "text1"}
-ti["$$"] = {"st_tigris", "doorTigris"}
+ti["$$"] = {"st_tigris", name = "doorTigris"}
 ti["OO"] = {"st_oxyd", flavor = "d"}
 ti["@@"] = {"#ac_marble_black"}
 ti["**"] = {"#ac_marble_white"}

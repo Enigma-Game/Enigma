@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bizarro World" el:subtitle="" el:id="duffy73"/>
-      <el:version el:score="2" el:release="3" el:revision="24" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="25" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -16,12 +16,7 @@
     </el:info>
     <el:luamain><![CDATA[
 wo["SlopeStrength"] = -20
-
-if wo["IsDifficult"] then
-    wo["ElectricStrength"] = -15
-else
-    wo["ElectricStrength"] = -20
-end
+wo["ElectricStrength"] = cond(wo["IsDifficult"], -15.0, -20.0)
 
 ti[" "] = {"fl_abyss"}
 ti["l"] = {"fl_lawn"}
@@ -55,7 +50,7 @@ ti["o"] = {"st_oxyd"} .. ti["l"]
 ti["z"] = {"#ac_marble_black"} .. ti["l"]
 ti["y"] = {"ac_marble_white", 0, 0.5, adhesion=0} .. ti["l"]
 ti["g"] = {"st_grate_cross"} .. ti["l"]
-ti["x"] = {"it_trap", state=CLOSE} .. ti["."]
+ti["x"] = {"it_trap", state=CLOSED} .. ti["."]
 ti["S"] = {"it_spring_keep"} .. ti["l"]
 ti["F"] = {"it_flag_black"} .. ti["l"]
 ti["O"] = {"it_extralife"} .. ti["l"]
@@ -74,7 +69,7 @@ ti["H"] = {"st_break_oxydc"}
 ti["f"] = {"st_actorimpulse_invisible"}
 ti["q"] = {"st_passage_black_frame"} .. ti["l"]
 ti["w"] = {"st_passage_white_frame"} .. ti["l"]
-ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=CLOSE}
+ti["V"] = {"fl_bridge_bw", "trapwest", state=CLOSED} .. ti{"it_trap", state=CLOSED}
 ti["W"] = {"fl_fake_abyss", "trapeast"}
 ti["C"] = {"st_monoflop", interval=1.5, target="toggletraps"} .. ti["l"]
 ti["?"] = {"st_charge_plus"} .. ti["l"]
@@ -83,7 +78,6 @@ ti[":"] = {"st_charge_zero"} .. ti["A"]
 ti[";"] = {"st_invisible", "whitegate"} .. ti["l"]
 ti["2"] = {"st_switch", target="whiteswitch"} .. ti["l"]
 ti["m"] = {"it_document", text="text1"} .. ti["l"]
-
 if wo["IsDifficult"] then
     ti["p"] = ti["l"]
     ti["c"] = ti["x"]
@@ -94,7 +88,7 @@ else
     ti["G"] = ti["%"]
 end
 
-w,h = wo(ti, " ", {
+wo(ti, " ", {
     "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII",  -- 00
     "I         f               f                     f          f        f      f                 f        f              f           f                      f               f  I",  -- 01
     "I   f                                                                                                                                                                      I", -- 02
@@ -179,8 +173,7 @@ w,h = wo(ti, " ", {
     "I                                                                                                       f                                            f                     I", -- 81
     "If                                                                                                                                                           f             I", -- 82
     "I    f     f             f            f              f            f            f       f            f                f          f               f                     f    I", -- 83
-    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"  -- 84
-   })
+    "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"})
 
 trap = WEST
 function toggletraps(value, sender)
@@ -209,7 +202,7 @@ function toggletraps(value, sender)
     end
 end
 
-switch_count= 0
+switch_count = 0
 function whiteswitch(value, sender)
     switch_count = switch_count + cond(value, 1, -1)
     if switch_count == 4 then

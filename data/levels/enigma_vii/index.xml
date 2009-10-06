@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="60" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="61" title="Enigma VII"/>
 
   <attributes/>
 
@@ -53,7 +53,7 @@
     <level _seq="45" _title="Double Oneways" _xpath="./duffy172_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy172" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Wood - Water - Wood" _xpath="./duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Transpositions" _xpath="./duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Puppet" _xpath="./pulley06_3" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="3" rev="13" score="2" target="time" unit="duration"/>
+    <level _seq="48" _title="Puppet" _xpath="./pulley06_3" author="Mark Pulley" ctrl="force" easy="true" id="pulley06" rel="3" rev="14" score="2" target="time" unit="duration"/>
     <level _seq="49" _title="Restless Meditation" _xpath="./ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="182" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Ghost Driver" _xpath="./duffy176_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Re-entry Circuit" _xpath="./pulley05_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley05" rel="2" rev="8" score="1" target="time" unit="duration"/>
@@ -69,7 +69,7 @@
     <level _seq="61" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Double Sense II" _xpath="./joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Lightyears" _xpath="./duffy177_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy177" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Zero Magnetism Lab" _xpath="./duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Zero Magnetism Lab" _xpath="./duffy178_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy178" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Armageddon" _xpath="./duffy179_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy179" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Mountain Climbing II" _xpath="./joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Minor Tangler" _xpath="./joe24_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="2" rev="2" score="1" target="time" unit="duration"/>

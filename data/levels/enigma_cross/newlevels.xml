@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="57" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -115,7 +115,7 @@
     <level _seq="107" _title="Pirates Island" _xpath="enigma_v/alain07_1" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Tropical Island" _xpath="enigma_v/andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="Ghost Islands" _xpath="enigma_v/raoul15_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="110" _title="- Giza Meditation -" _xpath="enigma_v/raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="110" _title="- Giza Meditation -" _xpath="enigma_v/raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="111" _title="Humid Maze" _xpath="enigma_v/duffy133_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy133" rel="3" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="112" _title="Swamp of Balls" _xpath="enigma_v/luc08_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc08" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="113" _title="Designed with love" _xpath="enigma_v/just01_1" author="JuSt" ctrl="force" easy="false" id="just01" rel="1" rev="1" score="1" target="time" unit="duration"/>

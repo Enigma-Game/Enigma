@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pentachromos" el:subtitle="Combined effort level 2" el:id="cel2"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -129,18 +129,18 @@ ti["pj"]= ti["p "] .. {"st_jamb_black", name="Stonej"}
 ti["pk"]= ti["p "] .. {"st_jamb_black", name="Stonek"}
 ti["pl"]= ti["p "] .. {"it_sensor", invisible = true, target="GateL"}
 ti["pm"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_N"}
-ti["pn"]= ti["p "] .. {"st_door_d", state = OPEN, faces=ns, name="Gaten"}
-ti["po"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gateo"}
+ti["pn"]= ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gaten"}
+ti["po"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gateo"}
 ti["pp"]= ti["p "] .. {"st_door_a", name="Gatep"}
 ti["pq"]= ti["p "] .. {"st_door_a", name="Gateq"}
-ti["pr"]= ti["p "] .. {"st_door_d", state = OPEN, faces=ns, name="Gater"}
+ti["pr"]= ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gater"}
 ti["pt"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gatet"}
 ti["pu"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_U"}
 ti["pv"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_V"}
 ti["p+"] = {"fl_sand", name="dest"}
 ti["pw"]= ti["p "] .. {"it_vortex_closed", name="vortex_p_b", destination = "vortex_p", autoclose=true, autoopen=true}
 ti["px"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_X"}
-ti["py"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gatey"}
+ti["py"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gatey"}
 ti["pz"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gatey"}) .. {"st_oneway_black", state = EAST}
 ti["pA"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_A"}
 ti["pB"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_B"}
@@ -154,16 +154,16 @@ ti["pJ"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_J", target={"S
 ti["pK"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_K", target="Stonek", action="hit"}
 ti["pL"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="GateL"}
 ti["pM"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_M"}
-ti["pN"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_O"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_N"}
-ti["pO"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_P"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_O"}
-ti["pP"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_Q"}) .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_P"}
+ti["pN"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_O"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_N"}
+ti["pO"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_P"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_O"}
+ti["pP"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_Q"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_P"}
 ti["pQ"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_R"}) .. {"st_door_d_ew", state = CLOSED, name="Gate_Q"}
 ti["pR"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_R"}
 ti["pS"]= ti["p "] .. {"st_switch", target="Gate_*"}
-ti["pU"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_U"}
+ti["pU"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_U"}
 ti["pV"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_V"}
 ti["pW"]= ti["p "] .. {"st_switch", target={"Gaten", "Gatep", "Gater", "Gatet", "Gatey"}}
-ti["pX"]= ti["p "] .. {"st_door_d", state = CLOSED, faces=ns, name="Gate_X"}
+ti["pX"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_X"}
 ti["pY"]= ti["p "] .. {"st_switch", target={"Gateo", "Gatep", "Gateq", "Gatet", "Gatey"}}
 ti["pZ"]= ti["p "] .. {"st_switch", target={"Gaten", "Gateo", "Gateq", "Gater", "Gatey"}}
 ti["p1"]= ti["p "] .. {"it_key", code=6}
