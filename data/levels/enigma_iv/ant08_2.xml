@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Mourning Palace" el:subtitle="" el:id="ant08"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[":"] = {"fl_metal"}
+ti["-"] = {"fl_tigris"}
+ti["."] = {"fl_abyss"}
+ti["="] = {"fl_metal_7"}
+ti["#"] = {"st_rawglass"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+random = res.random(ti, " ", {{":", 10}, {"-", 1}})
+railway1 = res.train(random, {"1"}, {"a", train={".", "=", length=7, orientation=WEST, interval=0.15}})
+railway2 = res.train(railway1, {"2"}, {"b", train={".", "=", length=7, orientation=EAST, interval=0.15}},
+                                      {"c", train={".", "=", length=7, orientation=NORTH, interval=0.15}},
+                                      {"d", train={".", "=", length=7, orientation=WEST, interval=0.15}})
+railway3 = res.train(railway2, {"3"}, {"e", train={".", "=", length=7, orientation=WEST, interval=0.15}})
+railway4 = res.train(railway3, {"4"}, {"f", train={".", "=", length=7, orientation=EAST, interval=0.15}})
+railway5 = res.train(railway4, {"5"}, {"g", train={".", "=", length=7, orientation=EAST, interval=0.15}})
+
+wo(railway5, " ", {
+   "##########################################################",
+   "#.2........b.............................................#",
+   "#2O                ####################                O2#",
+   "#............2. # ..................d..................2.#",
+   "##############.   2#################################### ##",
+   "#.1..........#. # .#.........e......3.#.4............#.5.#",
+   "#.          1#. # .#3               O3#.           O4#. 5#",
+   "#.          .#. # . . .3..............#. ..........4.#. .#",
+   "#.  O    @  . .   .#. .################4 4############5 .#",
+   "#.          .#c # .#. .#.4..f........... .#.5g......... .#",
+   "#1          .#2   .#. 3 4O           O#  . 5O           .#",
+   "#.......a..1.#...2.#.3.#................4.#............5.#",
+   "##########################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

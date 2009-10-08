@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="alternate X" el:subtitle="" el:id="devnull29"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="19:11" el:difficult="19:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowThreshold"] = po(2, 2)
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+wo["CrackSpreading"] = 0.0
+
+ti[" "] = {"fl_rock"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_fake_oxyda"}
+ti["x"] = ti["."] .. {"st_grate_cross"}
+ti["+"] = {"st_box_rock"}
+ti["!"] = {"it_crack_l"}
+ti["-"] = ti["."] .. {"it_crack_l"}
+ti["s"] = {"it_seed_hay"}
+ti["K"] = {"st_chess_black"}
+ti["C"] = ti["K"] .. ti["!"]
+ti["Y"] = ti["K"] .. {"it_yinyang"}
+ti["H"] = ti["."] .. ti["s"] .. ti["K"]
+ti["k"] = {"st_chess_white"}
+ti["c"] = ti["k"] .. ti["!"]
+ti["y"] = {"it_bag", name="sackYinyang"}
+ti["S"] = ti["k"] .. {"it_bag", name="sackSeed"}
+ti["m"] = ti["k"] .. {"it_magicwand"}
+ti["l"] = cond(wo["IsDifficult"], ti["."], ti["."] .. {"it_extralife"})
+ti["X"] = ti["x"] .. {"it_document", text = "BzG"}
+ti["W"] = {"st_oxyd_a", oxydcolor = OXYD_WHITE}
+ti["B"] = {"st_oxyd_a", oxydcolor = OXYD_BLACK}
+ti["J"] = {"st_oxyd_a", oxydcolor = OXYD_BLUE}
+ti["@"] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(ti, " ", {
+    "#####J#############...................###################",
+    ".#W@ .S ..x    K. B#.................##.      l   .+. ##.",
+    "..##!  K   x + !.H.##...............##..   ..x....++ ##..",
+    "...## .+ C. x.. .!..##.............##     ..x.....  ##...",
+    "....##.+. .  x    ...##...........##.++.  .x.   .  ##....",
+    ".....## k ... x.. ..+ ##.........##.  + . x  .++  ##.....",
+    "......##     . x...    ##.......##    .+ x  ..   ##......",
+    ".......##   .!  x..   k ##.....##  .. ..x     +.##.......",
+    "........##  .    x..  +  ##...##.... ..x. ...K.##........",
+    ".........##  !.  .x.....+ ##.##.....+ x +...H ##.........",
+    "..........## ..+.  x...+. .###  +.. .xK ...  ##..........",
+    "...........##   ... x.. .+  # k ! k x  ...  ##...........",
+    "............##K  k+ .x... ..  +.k  x.K...  ##............",
+    ".............##  . k. xxxxxxXxxxxxx.  ...s##.............",
+    "............## k     x    +.k   .  x  k....##............",
+    "...........##       x k...+ #.  +.+.x  .....##...........",
+    "..........##  .... x  .+.  ###.......xkk.....##..........",
+    ".........##  ...  x.++ .+ ##.##... + .x k   ..##.........",
+    "........##  ...  x. ...  ##...##.....  x.  +  .##........",
+    ".......## K++   x. ...  ##.....##..... .x.....  ##.......",
+    "......## ..    x  ...  ##.......##... ++.x.   ...##......",
+    ".....##.  .k..x   ..  ##.........##..  .+ x +     ##.....",
+    "....##. + +. x .+ .  ##...........##..k.  .x + + +.##....",
+    "...##  .... x....+  ##.............##.K.  ..x k.....##...",
+    "..## +.....x  k  +.##...............##  ... mx  k !Y.##..",
+    ".##       l k     ##.................#W   k. yx.. .!+*B#.",
+    "###################...................#############J#####"})
+
+wo:add(no["sackSeed"], ti["s"])
+wo:add(no["sackYinyang"], {"it_yinyang"})
+if not wo["IsDifficult"] then
+    wo:add(YIN,  {"it_flag_black"})
+    wo:add(YIN,  {"it_pin"})
+    wo:add(YANG, {"it_flag_white"})
+    wo:add(YANG, {"it_pin"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Dedicated to RJ. Thanks alot for the 29 songs.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

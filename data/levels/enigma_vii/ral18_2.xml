@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Cold Meditation" el:subtitle="Freeze by the Power of Light" el:id="20070314ral728"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 187 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="18:53" el:difficult="54:52"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_blueslab"}
+ti["-"] = {"fl_abyss"}
+ti["="] = {"st_ice"} .. ti["-"]
+ti["#"] = {"st_redbrown"}
+ti["h"] = {"it_meditation"} .. ti["-"]
+ti["x"] = {"it_extralife"}
+ti["T"] = {"st_turnstile_green"}
+ti["L"] = {"st_laser_n", "laser-left"}
+ti["K"] = {"st_laser_s", "laser-right"}
+ti["k"] = {"st_switch", target="laser-right"}
+ti["l"] = {"st_switch", target="laser-left"}
+ti["M"] = {"st_mirror_slab_sm"}
+ti["m"] = {"st_mirror_slab_e"}
+ti["n"] = {"st_mirror_slab_w"}
+ti["o"] = {"st_mirror_slab_n"}
+ti["P"] = {"st_lightpassenger"} .. ti["-"]
+ti["G"] = {"st_lightglass_hollow"}
+
+ti["1"] = {"ac_pearl", essential=INDISPENSABLE}
+
+if wo["IsDifficult"] then
+    ti["^"] = ti["="]
+    ti["~"] = ti["-"]
+    ti["R"] = {"st_rotator_cw_movable"} .. ti["-"]
+    ti["r"] = ti[" "]
+    ti["+"] = ti["-"]
+    ti["N"] = {"st_turnstilearm_n"} .. ti["-"]
+    ti["S"] = {"st_turnstilearm_s"} .. ti["-"]
+    ti["w"] = ti[" "]
+    ti["W"] = ti[" "]
+    ti["v"] = ti[" "]
+    ti["V"] = ti[" "]
+else
+    ti["^"] = ti["-"]
+    ti["~"] = ti["="]
+    ti["r"] = {"st_rotator_cw_movable"}
+    ti["R"] = ti["-"]
+    ti["+"] = ti[" "]
+    ti["N"] = {"st_turnstilearm_n"}
+    ti["S"] = {"st_turnstilearm_s"}
+    ti["w"] = {"it_wormhole", destination="destleft", range=0.7, strength=1} .. ti["G"]
+    ti["W"] = {"it_wormhole", destination="destright", range=0.7, strength=1} .. ti["G"]
+    ti["v"] = {"fl_blueslab", "destleft"}
+    ti["V"] = {"fl_blueslab", "destright"}
+end
+
+wo(ti, " ", {
+    "###############K####",
+    "#m      ----      n#",
+    "#       --=-       k",
+    "#      N-^--w      #",
+    "#  T   +-~h-    M  #",
+    "#       -h--R      #",
+    "#ov1xr --P--- rx1Vo#",
+    "#  1   R--h-    1  #",
+    "#  M    -h~-+   T  #",
+    "#      W--^-S      #",
+    "l       -=--       #",
+    "#n      ----      m#",
+    "####L###############"
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Erstarre durch die Macht des Lichtes</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Inferno" el:subtitle="With respects to Dante Alighieri" el:id="duffy181"/>
-      <el:version el:score="1" el:release="2" el:revision="20" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="21" el:status="released"/>
       <el:author  el:name="Jacob Scott"/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -799,7 +799,7 @@ function initCircle6(stage)
     ti["6:"] = cond(easy, ti["6%"], ti["6`"])
     ti["6D"] = {"it_document", text="circle6_intro"}
     ti["6E"] = {"it_document", text="circle6_tombs"} .. ti["6."]
-    ti["6W"] = {"it_wormhole", destination="circle7_entry", strength=0} .. ti["6."]
+    ti["6W"] = {"it_wormhole", "circle6_exit", destination="circle7_entry", strength=0} .. ti["6."]
     ti["6U"] = {"st_laser_n", "circle6laser"}
     ti["6T"] = {"it_trigger", target="circle6laser"}
     ti["6y"] = {"#ac_marble_white", essential=DISPENSABLE, controllers=CTRL_NONE, owner=YANG} .. ti["6."]
@@ -808,7 +808,6 @@ function initCircle6(stage)
     ti["6l"] = {"it_sensor", "circle6_entry", invisible=true, target="enter_circle6"}
     ti["6'"] = {"it_sensor", "circle6_middle", invisible=true, target="enter_middle6"} .. ti["6`"]
     ti["6^"] = {"it_sensor", "circle6_final", invisible=true, target="enter_final6"} .. ti["6`"]
-    ti["6@"] = {"it_sensor", "circle6_exit", invisible=true} .. ti["6."]  -- dummy sensor to block drop of joker causing recursive wormholes
 
   elseif stage == 2 then
     resolver6 = res.autotile(resolver, {"51", "53", "5trigger"}, {"5A", "5C", "5door"})
@@ -847,7 +846,7 @@ function initCircle6(stage)
         "#%%%```%%%%%%%%%%%%#%```%%%`%```:`%`%%#h.$!$.....$!$.....#",
         "#%```%```%```````%%#%`%`%```%%%`%%%`%%#......$!$v..9.$!$.#",
         "#%%%`%%%%%`%%%%%`%%#%`%```%%%```%%%```^E..v..$1$.....$O$.#",
-        "#%````%`%``````%``````%%%```%`%```%%%%#.h....L.$...h.$@$.#",
+        "#%````%`%``````%``````%%%```%`%```%%%%#.h....L.$...h.$.$.#",
         "#%%%%`````%%%%%%%%%#%```%%%```%%%`````#O....h$w$..v..$W$F#",
         "#############################################$$$#####$$$##"
     })

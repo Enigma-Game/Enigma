@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Recover the Stone" el:subtitle="" el:id="joe28"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Joseph Dunne" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (October 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_fake_oxydc_open"}
+ti["X"] = {"st_grate_framed"}
+ti["s"] = {"st_shogun_s"}
+ti["doors"] = {"st_door_c", "doors%%"}
+ti["shogunDots"] = {"it_shogun_s", target = "doors%%"}
+ti["T"] = {"st_turnstile"}
+ti["N"] = {"st_turnstilearm_n"}
+ti["E"] = {"st_turnstilearm_e"}
+ti["S"] = {"st_turnstilearm_s"}
+ti["b"] = {"st_puzzle", connections = "s"}
+ti["h"] = {"st_puzzle", connections = "n"}
+ti["f"] = {"st_puzzle", connections = "es"}
+ti["a"] = {"st_puzzle", connections = "w"}
+ti["H"] = ti["."] .. ti["h"]
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"y", "z", "shogunDots"}, {"Y", "Z", "doors"}), " ", {
+    "####################",
+    "#        T N    ####",
+    "#        S T    ####",
+    "#       TE S    ####",
+    "#y      S T   s ####",
+    "###X#     S     ####",
+    "#OY@################",
+    "#OZ ###  #  ########",
+    "###X#    # s#   ####",
+    "#z    b  ....   ####",
+    "# fa  h   H..   ####",
+    "#        ....   ####",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

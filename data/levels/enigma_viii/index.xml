@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="60" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="61" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -56,7 +56,7 @@
     <level _seq="48" _title="On belay?" _xpath="./devnull15_1" author="/dev/null" ctrl="force" easy="true" id="devnull15" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Hang-dogging?" _xpath="./devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Alternation II" _xpath="./mecke31_1" author="mecke" ctrl="force" easy="false" id="mecke31" rel="1" rev="21" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Fifty Years Later ..." _xpath="./mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="40" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Fifty Years Later ..." _xpath="./mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="41" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Turbulencia" _xpath="./mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Techno Voodoo" _xpath="./mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="20" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Plutos World" _xpath="./mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="23" score="1" target="time" unit="duration"/>
@@ -75,7 +75,7 @@
     <level _seq="67" _title="Two Is A Company II" _xpath="./devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="68" _title="CrissCross" _xpath="./devnull26_1" author="/dev/null" ctrl="force" easy="true" id="devnull26" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="5 Days and 5 Nights" _xpath="./andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Babylon" _xpath="./mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Babylon" _xpath="./mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Two Is A Company III" _xpath="./devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Panelled Puzzle I" _xpath="./ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="179" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Panelled Puzzle II" _xpath="./ral33_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090308ral237" rel="1" rev="179" score="1" target="time" unit="duration"/>
@@ -93,7 +93,7 @@
     <level _seq="85" _title="Three Times Through" _xpath="./ais03_1" author="Alex Smith" ctrl="force" easy="true" id="20090316ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="From Six To Twenty-Six" _xpath="./ais04_1" author="Alex Smith" ctrl="force" easy="false" id="20090427ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Rainbow Adjacencies" _xpath="./ais05_1" author="Alex Smith" ctrl="force" easy="false" id="20090422ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="88" _title="Transforming Numbers" _xpath="./ais06_1" author="Alex Smith" ctrl="force" easy="false" id="20090406ais523002" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="88" _title="Number Crunching" _xpath="./ais06_2" author="Alex Smith" ctrl="force" easy="false" id="20090406ais523002" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="89" _title="Enigmaparcour III" _xpath="./mecke35_1" author="mecke" ctrl="force" easy="true" id="mecke35" rel="1" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Mazelets" _xpath="./raoul34_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul34" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="The Sum Of Its Parts" _xpath="./luc36" author="Lukas Schüller" ctrl="force" easy="true" id="luc362009" rel="1" rev="2" score="1" target="time" unit="duration"/>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Building Blocks I" el:subtitle="" el:id="raoul37"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -34,7 +34,7 @@ ti["X"] = {"st_puzzle", intensity=0, name="p8"}
 ti["Y"] = {"st_puzzle", intensity=0, name="p9"}
 ti["Z"] = {"st_puzzle", intensity=0, name="p10"}
 ti["A"] = {"st_puzzle", intensity=0, name="p11"}
-ti["w"] = {"it_surprise", selection="it_nil"}  -- keep dice :)
+ti["w"] = {"it_surprise", selection="=w"}  -- keep dice :)
 ti["B"] = {"it_blocker", autoclose=true}
 ti["."] = ti["-"] .. {"it_seed"}
 ti["vortex"] = ti["-"] .. {"it_vortex", name="vo%%", destination={"vo%1", "vo%2", "vo%3", "vo%4", "vo%5", "vo%6", "vo%7", "vo%8", "vo%9", "vo%10", "vo%11", "vo%12", "vo%14"}}

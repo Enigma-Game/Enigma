@@ -14,6 +14,7 @@
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
 wo["FollowThreshold"] = po(0, 3)
+wo["SubSoil"] = SUBSOIL_WATER
 wo["ProvideExtralifes"] = not wo["IsDifficult"]
 wo["AllowSuicide"] = false
 

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Choices, choices ..." el:subtitle="" el:id="20090508ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
+      <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="19:58"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for playtesting, finding shortcuts, and suggesting improvements</el:credits>
+      </el:comments>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["AllowSuicide"] = false
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["  "] = {"fl_dark", adhesion=2, friction=5}
+ti["W "] = {"fl_bright", adhesion=2, friction=5}
+ti["! "] = {"fl_abyss"}
+ti["~ "] = {"fl_water"}
+ti["x "] = {"fl_concrete", adhesion=2, friction=5}
+ti["r "] = {"fl_hay", adhesion=2, friction=2, initfire=true, eternal=true}
+ti["t "] = {"fl_thief"}
+ti["1#"] = {"st_concrete"}
+ti["2#"] = {"st_granite"}
+ti["3#"] = {"st_yellow"}
+ti["4#"] = {"st_concrete"}
+ti["5#"] = {"st_bluegray"}
+ti["7#"] = {"st_metal"}
+ti["~#"] = ti["~ "] .. {"st_bluesand", cluster=1}
+ti[" 8"] = {"st_grate"}
+ti[" ="] = {"st_rawglass"}
+ti["v="] = {"st_rawglass_movable"}
+ti[" +"] = {"st_box_wood"}
+ti[" *"] = {"st_brownie"}
+ti["CC"] = {"st_rotator_cw", movable=true}
+ti["GC"] = {"st_rotator_ccw", movable=true}
+ti[" V"] = {"st_plop"}
+ti[" W"] = {"st_passage_white_frame"}
+ti[" K"] = {"st_passage_black_frame"}
+ti[" G"] = {"st_darkglass"}
+ti[" -"] = {"st_door_d", name="openable_#", faces="ns"}
+ti[" |"] = {"st_door_d", name="openable_#", faces="ew"}
+ti["| "] = ti[" |"]
+ti["FS"] = {"st_floppy", action="signal", target="@openable_#*"}
+ti["CS"] = {"st_coinslot", action="signal", target="@openable_#*"}
+ti["C2"] = {"st_coinslot", action="open", target="@openable_#*", interval_s=0.1, interval_m=0.1, interval_l=0.1}
+ti["R+"] = {"st_turnstile_green"}
+ti["R>"] = {"st_turnstilearm_e"}
+ti["R<"] = {"st_turnstilearm_w"}
+ti["Rv"] = {"st_turnstilearm_s"}
+ti["R^"] = {"st_turnstilearm_n"}
+ti[" B"] = {"st_blur_magic", name="blurs_#"}
+ti[" H"] = {"st_break_black"}
+ti[" Z"] = {"st_break_white"}
+ti["AI"] = {"st_actorimpulse"}
+ti["SI"] = {"st_stoneimpulse"}
+ti["MI"] = {"st_stoneimpulse_movable"}
+ti["HI"] = {"st_stoneimpulse_hollow"}
+ti["BI"] = {"it_seed_greenbrown"}
+ti[" P"] = {"st_purplemarble"}
+ti["GP"] = {"st_ghost_purplemarble"}
+ti["RT"] = {"it_crack_l", fragility=1, spreading=0}
+ti[" Y"] = {"st_dispenser_dynamite", stock=0}
+ti["0b"] = {"st_oxyd_d", oxydcolor=OXYD_BLUE} .. ti["~ "]
+ti["0r"] = {"st_oxyd_a", oxydcolor=OXYD_RED}
+ti["0g"] = {"st_oxyd_d", oxydcolor=OXYD_GREEN}
+ti["0y"] = {"st_oxyd_b", oxydcolor=OXYD_YELLOW}
+ti["0c"] = {"st_oxyd_c", oxydcolor=OXYD_CYAN} .. ti["t "]
+ti["0p"] = {"st_oxyd_c", oxydcolor=OXYD_PURPLE}
+ti["0w"] = {"st_oxyd_b", oxydcolor=OXYD_WHITE}
+ti["0k"] = {"st_oxyd_b", oxydcolor=OXYD_BLACK}
+ti["0a"] = {"st_oxyd_a", oxydcolor=OXYD_GRAY}
+ti["0o"] = {"st_oxyd_a", oxydcolor=OXYD_ORANGE}
+ti["0e"] = {"st_oxyd_b", oxydcolor=OXYD_PINE}
+ti["0n"] = {"st_oxyd_a", oxydcolor=OXYD_BROWN}
+ti["L>"] = {"st_laser", state=ON, orientation=EAST}
+ti["L<"] = {"st_laser", state=ON, orientation=WEST}
+ti["Lv"] = {"st_laser", state=ON, orientation=SOUTH}
+ti["L^"] = {"st_laser", state=ON, orientation=NORTH}
+ti["M|"] = {"st_mirror"}
+ti["M<"] = {"st_mail_w"}
+ti["M>"] = {"st_mail_e"}
+ti["Mv"] = {"st_mail_s"}
+ti["M^"] = {"st_mail_n"}
+ti[" >"] = {"st_oneway", orientation=EAST}
+ti[" <"] = {"st_oneway", orientation=WEST}
+ti[" v"] = {"st_oneway", orientation=SOUTH}
+ti[" ^"] = {"st_oneway", orientation=NORTH}
+ti["K^"] = {"st_oneway_black", orientation=NORTH}
+ti["K>"] = {"st_oneway_black", orientation=EAST}
+ti["K<"] = {"st_oneway_black", orientation=WEST}
+ti["Kv"] = {"st_oneway_black", orientation=SOUTH}
+ti["~^"] = ti["K^"] .. ti["~ "]
+ti["~>"] = ti["K>"] .. ti["~ "]
+ti["~<"] = ti["K<"] .. ti["~ "]
+ti["~v"] = ti["Kv"] .. ti["~ "]
+ti["Bv"] = {"st_boulder", orientation=SOUTH}
+ti["B<"] = {"st_boulder", orientation=WEST}
+ti["B>"] = {"st_boulder", orientation=EAST}
+ti["B^"] = {"st_boulder", orientation=NORTH}
+ti["Y" ] = {"st_puzzle_yellow", intensity=2}
+ti["P" ] = {"st_puzzle_blue", intensity=0}
+ti[" a"] = {"it_banana"}
+ti[" b"] = {"it_brush"}
+ti[" c"] = {"it_coin_m"}
+ti[" d"] = {"it_drop"}
+ti[" e"] = {"it_seed"}
+ti["e "] = ti["! "] .. {"it_seed_greenbrown"}
+ti[" f"] = {"it_floppy"}
+ti[" g"] = {"it_flag_black"}
+ti[" h"] = {"it_hammer"}
+ti["i "] = {"it_bomb_white"}
+ti["j|"] = {"it_pipe_ns"}
+ti["j-"] = {"it_pipe_ew"}
+ti["jr"] = {"it_pipe_es"}
+ti["jl"] = {"it_pipe_ne"}
+ti["j`"] = {"it_pipe_sw"}
+ti["j/"] = {"it_pipe_nw"}
+ti["t|"] = ti["t "] .. ti["j|"]
+ti["t-"] = ti["t "] .. ti["j-"]
+ti["tr"] = ti["t "] .. ti["jr"]
+ti["tl"] = ti["t "] .. ti["jl"]
+ti["t`"] = ti["t "] .. ti["j`"]
+ti["t/"] = ti["t "] .. ti["j/"]
+ti["=|"] = ti[" ="] .. ti["j|"]
+ti["=-"] = ti[" ="] .. ti["j-"]
+ti["=r"] = ti[" ="] .. ti["jr"]
+ti["=l"] = ti[" ="] .. ti["jl"]
+ti["=`"] = ti[" ="] .. ti["j`"]
+ti["=/"] = ti[" ="] .. ti["j/"]
+ti["T|"] = ti[" ="] .. ti["t|"]
+ti["T-"] = ti[" ="] .. ti["t-"]
+ti["Tr"] = ti[" ="] .. ti["tr"]
+ti["Tl"] = ti[" ="] .. ti["tl"]
+ti["T`"] = ti[" ="] .. ti["t`"]
+ti["T/"] = ti[" ="] .. ti["t/"]
+ti[" k"] = {"it_key"}
+ti[" l"] = {"it_extralife"}
+ti[" m"] = {"it_magicwand"}
+ti[" n"] = {"it_spoon"}
+ti["o "] = {"it_bomb_black"}
+ti["o+"] = ti["o "] .. {"st_box_rock"}
+ti["p>"] = {"it_puller_e"}
+ti["p<"] = {"it_puller_w"}
+ti["pv"] = {"it_puller_s"}
+ti["p^"] = {"it_puller_n"}
+ti[" p"] = ti["p^"]
+ti[" q"] = {"it_meditation_dent"}
+ti["q "] = ti[" q"]
+ti["qq"] = {"it_meditation_hollow"} .. ti[" K"]
+ti["qY"] = {"st_puzzle_yellow",cluster=4} .. ti[" q"]
+ti["oY"] = {"st_puzzle_yellow",cluster=4} .. ti["o "]
+ti[" r"] = {"it_cherry"}
+ti[" s"] = {"it_spring_drop"}
+ti[" u"] = {"it_umbrella"}
+ti[" w"] = {"it_sword"}
+ti[" x"] = {"it_extinguisher"}
+ti[" y"] = {"it_dynamite"}
+ti[" z"] = {"it_wrench"}
+ti["KS"] = {"st_key", action="signal", target="@openable_#*"}
+ti["WS"] = {"st_knight"} .. ti[" q"]
+ti[" O"] = ti[" K"] .. {"#ac_marble_black", essential=INDISPENSABLE} .. ti({"it_yinyang"})
+ti[" o"] = ti[" W"] .. {"#ac_marble_white", essential=INDISPENSABLE} .. ti({"it_yinyang"})
+ti["D2"] = {"it_document", text="text2"}
+ti["D3"] = {"it_document", text="text3"}
+-- in easy mode, we give the player a free ring, and the items necessary
+-- to unlock each individual room. This makes the level much easier, but
+-- allows practising of any of the individual puzzles.
+if wo["IsDifficult"] then
+    ti["E1"] = ti[" K"] .. {"it_document", text="text1"}
+    ti["E "] = {"it_nil"}
+    ti["E`"] = {"it_nil"}
+    ti["E/"] = {"it_nil"}
+    ti["E2"] = {"it_nil"}
+    ti["E5"] = {"it_nil"}
+else
+    ti["E1"] = ti[" K"] .. {"it_ring"}
+    ti["E "] = ti["  "]
+    ti["E`"] = ti["j`"]
+    ti["E/"] = ti["j/"]
+    ti["E2"] = ti["jl"]
+    ti["E5"] = ti["jr"]
+end
+-- random locations for the items in room 3
+r3i = lib.math.permutation(4)
+r3il = {{" c"," k"},{"j`"," b"},{" w"," e"},{" a","pv"}}
+if random(2) == 1 then
+    ti["31"] = ti[(r3il[r3i[1]])[1]] .. ti["| "]
+    ti["32"] = ti[(r3il[r3i[1]])[2]] .. ti["| "]
+else
+    ti["32"] = ti[(r3il[r3i[1]])[1]] .. ti["| "]
+    ti["31"] = ti[(r3il[r3i[1]])[2]] .. ti["| "]
+end
+if random(2) == 1 then
+    ti["33"] = ti[(r3il[r3i[2]])[1]] .. ti["| "]
+    ti["34"] = ti[(r3il[r3i[2]])[2]] .. ti["| "]
+else
+    ti["34"] = ti[(r3il[r3i[2]])[1]] .. ti["| "]
+    ti["33"] = ti[(r3il[r3i[2]])[2]] .. ti["| "]
+end
+if random(2) == 1 then
+    ti["35"] = ti[(r3il[r3i[3]])[1]] .. ti["| "]
+    ti["36"] = ti[(r3il[r3i[3]])[2]] .. ti["| "]
+else
+    ti["36"] = ti[(r3il[r3i[3]])[1]] .. ti["| "]
+    ti["35"] = ti[(r3il[r3i[3]])[2]] .. ti["| "]
+end
+if random(2) == 1 then
+    ti["37"] = ti[(r3il[r3i[4]])[1]] .. ti["| "]
+    ti["38"] = ti[(r3il[r3i[4]])[2]] .. ti["| "]
+else
+    ti["38"] = ti[(r3il[r3i[4]])[1]] .. ti["| "]
+    ti["37"] = ti[(r3il[r3i[4]])[2]] .. ti["| "]
+end
+-- random locations for the items in room 5
+r5i = lib.math.permutation(2)
+r5il = {" s", " u"}
+ti["51"] = ti[r5il[r5i[1]]]
+ti["52"] = ti[r5il[r5i[2]]]
+-- random locations for the items in room 6
+r6i = lib.math.permutation(3)
+r6il = {" x","p^"," g"}
+ti["61"] = ti[r6il[r6i[1]]]
+ti["62"] = ti[r6il[r6i[2]]]
+ti["63"] = ti[r6il[r6i[3]]]
+-- random locations for the items in room 7
+r7i = lib.math.permutation(2)
+r7il = {" f", " x"}
+ti["71"] = ti[r7il[r7i[1]]]
+ti["72"] = ti[r7il[r7i[2]]]
+-- random locations for the items in room 8
+r8i = lib.math.permutation(2)
+r8il = {" w", " h"}
+ti["81"] = ti[r8il[r8i[1]]]
+ti["82"] = ti[r8il[r8i[2]]]
+-- random locations for the items in room 11
+r11i = lib.math.permutation(2)
+r11il = {" f", "jl"}
+ti["11"] = ti[r11il[r11i[1]]]
+ti["12"] = ti[r11il[r11i[2]]]
+
+wo(res.puzzle(res.composer(ti,"21"), "Y", "P"),"  ",{
+    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+    "WW K K K K K K K K K K K K K K K K K KWWrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKWW3#3#3#3#3#3#3#3#3#3#3#3#3#3#3#3#3#3#WW",
+    "WW K = = = = = = = = = = = = = = = = KWWrK                                rKWW3#                                3#WW",
+    "WW K =1#1#1#1#1#1# 8 81#1#1#1#1#1# = KWWrK  r r r r r r r r r   r r r r   rKWW3#                                3#WW",
+    "WW K =1#RTRTRTRTRTRTRTRTRTRTRTRT1# = KWWrK  r  u            r   r    zr   rKWW3#  3#3#C23#3#C23#3#C23#3#C23#3#3#3#WW",
+    "WW K =1#RT1#RT1#1#RT1#1#1#RT1#RT1# =1#WWrK  r r r r r r r r r   r r r r   rKWWCS KK>  31    33    35    37  K>  3#WW",
+    "WW K =1# b1# l1#0e    0e1# c1# k1# =  xqrK        0r            0r        rKxq | KK>  0o    3#    3#    0o  K>   *WW",
+    "WW K =1#RT1#RT1#1#1#RT1#1#RT1#RT1# =1#WWrK  r r r r   r r r r r r r r r   rKWW3# KK>  32    34    36    38  K>  3#WW",
+    "WW K =1#RTRTRTRTRTRTRTRTRTRTRTRT1# = KWWrK  r  f  r   r              kr   rKWW3#  3#3#C23#3#C23#3#C23#3#C23#3#3#3#WW",
+    "WW K =1#1#1#1#1#1# 8 81#1#1#1#1#1# = KWWrK  r r r r   r r r r r r r r r   rKWW3#                                3#WW",
+    "WW K = = = = = = =v=v= = = = = = = = KWWrK                                rKWW3#             K K K K            3#WW",
+    "WW K K K K K K K1#D3  1# K K K K K K KWWrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKrKWW3#3#3#3#3#3#3#3#CS -3#3#3#3#3#3#3#3#WW",
+    "WWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxqxqWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWW",
+    "WW~G~G~G~G~G~G~G~G~ ~ ~G~G~G~G~G~G~G~GWW K K K K K K K KWSWS K K K K K K K KWW K K K K K K K K B B K K K K K K KoK Y",
+    "WW~G    R^  R^   K     KR^         h~GWW K5#5#5#5#5#5# K K K K5#5#5#5#5#5# KWW Ki i i i i i  K K K Ki i i i i i  K Y",
+    "WW~G  R<R+R>R+R>R^    R+R+    R<R+R^~GWW K5#  HIMIHI  HIMIHIMIMIHIMI    5# KWW Ki  = =i   i=i=i= ^ =i  = = = =i  K Y",
+    "WW~G      R^    R+ K KRv    R^  R<R+~GWW K5#  HI5#5#  MIHI5#HI5#HI  HIHI5# KWW Ki  = =i    =i862i i= y +i8i i=i= K Y",
+    "WW~G  R^  R+R>  R<R+R>    R<R+   K K~GWW K5#MI  5#5#MI5#HIHIMI  5#MI  MI5# KWW K Ki  y  i    + = =       =i 63 > K Y",
+    "WW~GR<R+R>0g          R<R+R>0g K    ~ xqWS5#      MI515#5#5#5#52MI      5#WSxq B Ki  = = =    i          + =i=i= K Y",
+    "WW~G  Rv  R+R>  R<R+R>    R<R+   K K~GWW K5#MI  MI5#  MIHIHI5#MI5#5#  MI5# KWW K Ki i i i    = =i= =i= =i8 =D2i  K Y",
+    "WW~G      Rv    R+ K KR^    Rv  R<R+~GWW K5#HIHI  HI5#HI5#HIMI  5#5#HI  5# KWW Ki i    =  i i=i 61i   i   i=     K Y",
+    "WW~G  R<R+R>R+R>Rv    R+R+    R<R+Rv~GWW K5#    MIHIMIMIHIMIHI  HIMIHI  5# KWW Ki 0w   =     = vi=i=i= = = =0wi  K Y",
+    "WW~G    Rv  Rv   K     KRv         r~GWW K5#5#5#5#5#5# K K K K5#5#5#5#5#5# KWW Ki i i i=i i  K K K Ki i i i i i  K Y",
+    "WW~G~G~G~G~G~G~G~G~ ~ ~G~G~G~G~G~G~G~GWW K K K K K K K KWSWS K K K K K K K KWW K K K K K K K K B B K K K K K K K K Y",
+    "WWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWoWWWWWWWWWWWWWWWWxqxqWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWW Y",
+    "WW K K K K K K K K ^ ^ K K K K K K K KWW K K K K K K K K K K K K K K K K K KWW K K K K K K K K K K K K K K K K K K Y",
+    "WW K7#7#7#7#7#7#7# K K7#7#7#7#7#7#7# KWW K  P1P1P1P1P1P1P1P6P1P1P1P1P1P1   KWW K! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  KWW",
+    "WW K7#71Y1Y1Y1Y1Y1    Y1Y1Y1Y1Y1727# KWW K  P1  P2P2P2P3P3P8P3P2P2P2  P1   KWW K!  P P P P P P P P P P P P P P!  KWW",
+    "WW K7#Y1Y1 8Y1  Y1    Y1  Y1 8Y1Y17# KWW K  P6P3P3P1E5EnEbEcEdE`P1P3P3P6   KWW K!  K    GP                   P!  KWW",
+    "WW K7#Yb 8 8Y1Y1Y1    Y1Y1Y1 8 8Yb7# KWW K  P1P3P1P1P1EeEfEgEhP1P1P1P3P1   KWW K!  P0p  GP  GPGPGPGP  GPGP   P!  KWW",
+    "WW K K 80y 8Y1Y1        Y1Y1 80y 8 K KWW K  P6  P181P1Ez OE1EkP182P1  P6   KWW K!  P    GP   + m z +  GP     P!  KWW",
+    "WW K7# 8 8 8Y1            Y1 8 8 87# KWW K  P1P3P1P1P1ElEmEpErP1P1P1P3P1   KWW K!  PGP      GPGPGPGPGPGP  0p P!  KWW",
+    "WW K7# 8 8Y1Y1Y1Y1YhYjY1Y1Y1Y1 8 87# KWW K  P6P3P3P1E2EsEuEwExE/P1P3P3P6   KWW K!  P    GP        GP         P!  KWW",
+    "WW K7# 8 8 8 8Y1Y1    Y1Y1 8 8 8 87# KWW K  P1  P2P2P2P3P8P3P3P2P2P2  P1   KWW K!  P P P P P P P P P P P P P P!  KWW",
+    "WW K7#7#7#7#7#7#7# K K7#7#7#7#7#7#7# KWW K  P1P1P1P1P1P1P6P1P1P1P1P1P1P1   KWW K! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !  KWW",
+    "WW K K K K K K K K v v K K K K K K K KWW K K K K K K K K K K K K K K K K K KWW K K K K K K K K K K K K K K K K K KWW",
+    "WWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxqxqWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWW",
+    "WWqKqKqKqKqKqKqK=r KqK =qKqKqKqKqKqKqKWWqKqKqKqKqKqKqKqKqHqHqKqKqKqKqKqKqKqKWW K K K K K K K2# V V2# K K K K K K KWW",
+    "WWqKt t t t=t j`=|KSq- =j-t t t t=t qKWWqK cqKqHqHqHqHqKqKqKqKqHqHqHqHqK cqKWW K2#2#2#2#2#2# K K K K2#2#2#2#2#2# KWW",
+    "WWqKt=t t t t j|=| q q q qt t t  q qqKWWqKqKqKqHqHqHqZqZqZqZqZqZqHqHqHqKqKqKWW K2#  K>  K<  K<2#2#K>  K<  K<  2# KWW",
+    "WWqKt t t t t t tlT-t-t`t=0ct t  q = =WWqKqKqHqHqHqHqZBvqZqZBvqZqHqHqHqHqKqKWW K2#Kv2#K^2#Kv2#   k2#Kv2#Kv2#K^2# KWW",
+    "WWqKt trT-t`t t t t t=Tlt-t`t t= qKSqKxqqHqKqHqHqHqHqHqYqHqHqYqHqHqHqHqHqKqHxq2# K  K>  K>KvK<     VK<K>  K<  2# KWW",
+    "WWqKt t|0ctlt-T-M< m gt t t t M< qq|qKxqqHqKqHqHqHqHqZoYqHqHoYqZqHqHqHqHqKqHxq V KK^0aK^2#K>2#2# V2#Kv2#K^0aK^2# KWW",
+    "WWqKt T|t t t t t trT-t-T-t-T/t  q =qKxqqHqKqHqHqHqHqZoHqHqHoHqZqHqHqHqHqKqHxq2# K  K<  K>KvK<     VK<K>  K>  2# KWW",
+    "WWqKt t t t trt-T-T/t t t t t t  q = =WWqKqKqHqHqHqHqZ11qZqZ12qZqHqHqHqHqKqKWW K2#K^2#Kv2#K<2#   d2#Kv2#K^2#Kv2# KWW",
+    "WWqKt tlt-t-t  q qj/q q  =t t t  q qqKWWqKqKqKqHqHqHqZqZqZqZqZqZqHqHqHqKqKqKWW K2#  K<  K<  Kv2#2#K>  K>  K>  2# KWW",
+    "WWqKt t=t t M^ q =q-KS =q t t=t t t=qKWWqK cqKqHqHqHqHqKqKqKqKqHqHqHqHqK cqKWW K2#2#2#2#2#2# K K K K2#2#2#2#2#2# KWW",
+    "WWqKqKqKqKqKqKqK =qKqK =qKqKqKqKqKqKqKWWqKqKqKqKqKqKqKqKqHqHqKqKqKqKqKqKqKqKWW K K K K K K K2# V V2# K K K K K K KWW",
+    "WWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWxqxqWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWx x WWWWWWWWWWWWWWWWWW",
+    "WW~K~K~K~K~K~K~K~K~K~K~>~K~K~K~K~K~K~KWW K K K K K K K4# K K4# K K K K K K KWW!G!G!G!G!G!G!G!G! ! !G!G!G!G!G!G!G!GWW",
+    "WW~K~ ~ ~ ~ ~ ~ ~ ~ ~ ~>~ ~ ~ ~ ~ ~ ~KWW K + + + + + + + -FS + + + + + + + KWW!Go o o o o o oKo8o8oKo o o o o o !GWW",
+    "WW~K~ ~#~#~#~#~#~#~#~#~#~#~#~#~v~#~ ~KWW K + + + + + + + K + + + + + + + + KWW!Go M|M|M|M|M|oKoKoKoKM|M|M|M|M|o !GWW",
+    "WW~K~ ~#~ ~ ~ ~ ~ ~ ~ ~ ~*~ 0b~ ~#~ ~KWW K K + + + + +         + + + + + + KWW!Go o o M|o o o o   o M| w  o+o o !GWW",
+    "WW~^~^~#~ ~ ~#~ ~ ~#~#~#~#~ ~ ~ ~#~ ~KWWFS K           8GC   8 + + + + + K4#WW!GoKoKo M|o M|M|M|  M|M|M|M|  M|o !GWW",
+    "WW~K~ ~#~#~ ~ ~#~#~ ~ ~ ~#~#~#0b~#~ ~Kxq | K + + + + +         + + + + + K |xq! o8oKo M|o M| n  o+o o o o   o o !GWW",
+    "WW~K~ ~#~r~*~ ~ ~#~ ~#~ ~#~ ~ ~ ~#~v~vWW4# K + + + + +         + + + + + KFSWW!GoKoKo M|o M|M|M|M|M|M|o M|o 0ko !GWW",
+    "WW~K~ ~#~ ~z~#~ ~ ~ ~#~ ~ ~ ~#~ ~#~ ~KWW K K + +0n + + 8     8 + +0n b + + KWW!Go o o M|o M|o o o o o o o o M|o !GWW",
+    "WW~K~ ~#~#~#~#~#~#~#~#~#~#~#~#~v~#~ ~KWW K + + + + + +               + f + KWW!Go 0kM|M|o M|o M|M|M|M|o M|o o o !GWW",
+    "WW~K~ ~ ~ ~ ~ ~ ~<~ ~ ~ ~ ~ ~ ~ ~ ~ ~KWW K + + + + + + K K K K + + + + + + KWW!Go o o o o o o o o o o o o o M|L<!GWW",
+    "WW~K~K~K~K~K~K~K~<~K~K~K~K~K~K~K~K~K~KWW K K K K K K K K K K K K K K K K K KWW!G!G!G!G!G!G!G!G!G!G!G!G!G!G!G!G!G!GWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"})
+
+wo:add(YIN,{"it_extralife"})
+wo:add(YIN,{"it_extralife"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Before trying this level in hard mode, it's a good idea to switch to easy mode to practice on the individual puzzles.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">These dispensers are all empty ...</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">The glass next to this document can be pushed to let you back out.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

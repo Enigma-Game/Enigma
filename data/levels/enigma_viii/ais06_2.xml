@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Transforming Numbers" el:subtitle="" el:id="20090406ais523002"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:identity el:title="Number Crunching" el:subtitle="" el:id="20090406ais523002"/>
+      <el:version el:score="2" el:release="2" el:revision="6" el:status="released"/>
       <el:author  el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
       <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -11,7 +11,7 @@
         <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:score el:easy="-" el:difficult="0:16"/>
+      <el:score el:easy="-" el:difficult="0:15"/>
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_sand"}
@@ -133,27 +133,31 @@ if i1 ~= i5 and i2 ~= i5 and i3 ~= i5 and i4 ~= i5 then
         elseif m1 < m2 then x1 = m2 - m1
         else                x1 = m1 - m2 end
         for y2 = 1, 4 do
-            if     y2 == 1 then x2 = x1 + m3
-            elseif y2 == 2 then x2 = x1 * m3
-            elseif y2 == 4 then x2 = x1
-            elseif x1 < m3 then x2 = m3 - x1
-            else                x2 = x1 - m3 end
+            if     y2 == 1 then x2 = x1 + m3 x7 = m3 + m4
+            elseif y2 == 2 then x2 = x1 * m3 x7 = m3 * m4
+            elseif y2 == 4 then x2 = x1      x7 = m3
+            elseif x1 < m3 then x2 = m3 - x1 x7 = m3 - m4
+            else                x2 = x1 - m3 x7 = m3 - m4 end
+            if x7 < 0 then x7 = 0 - x7 end
             for y3 = 1, 4 do
-                if     y3 == 1 then x3 = x2 + m4 x5 = m4 + m5
-                elseif y3 == 2 then x3 = x2 * m4 x5 = m4 * m5
-                elseif y3 == 4 then x3 = x2      x5 = m4
-                elseif x2 < m4 then x3 = m4 - x2 x5 = m4 - m5
-                else                x3 = x2 - m4 x5 = m4 - m5 end
+                if     y3 == 1 then x3 = x2 + m4 x5 = m4 + m5 x8 = x1 + x7
+                elseif y3 == 2 then x3 = x2 * m4 x5 = m4 * m5 x8 = x1 * x7
+                elseif y3 == 4 then x3 = x2      x5 = m4      x8 = x1
+                elseif x2 < m4 then x3 = m4 - x2 x5 = m4 - m5 x8 = x1 - x7
+                else                x3 = x2 - m4 x5 = m4 - m5 x8 = x1 - x7 end
                 if x5 < 0 then x5 = 0 - x5 end
+                if x5 < 0 then x8 = 0 - x8 end
                 for y4 = 1, 4 do
-                    if     y4 == 1 then x4 = x3 + m5 x6 = x2 + x5
-                    elseif y4 == 2 then x4 = x3 * m5 x6 = x2 * x5
-                    elseif y4 == 4 then x4 = x3      x6 = x2
-                    elseif x3 < m5 then x4 = m5 - x3 x6 = x2 - x5
-                    else                x4 = x3 - m5 x6 = x2 - x5 end
+                    if     y4 == 1 then x4 = x3 + m5 x6 = x2 + x5 x9 = x8 + m5
+                    elseif y4 == 2 then x4 = x3 * m5 x6 = x2 * x5 x9 = x8 * m5
+                    elseif y4 == 4 then x4 = x3      x6 = x2      x9 = x8
+                    elseif x3 < m5 then x4 = m5 - x3 x6 = x2 - x5 x9 = x8 - m5
+                    else                x4 = x3 - m5 x6 = x2 - x5 x9 = x8 - m5 end
                     if x6 < 0 then x6 = 0 - x6 end
-                    pt[x4] = 1
-                    pt[x6] = 1
+                    if x9 < 0 then x9 = 0 - x9 end
+                    pt[x4] = 1 -- (((a+b)+c)+d)+e
+                    pt[x6] = 1 -- ((a+b)+c)+(d+e)
+                    pt[x9] = 1 -- ((a+b)+(c+d))+e
     end end end end
 end end end end end end end end end
 

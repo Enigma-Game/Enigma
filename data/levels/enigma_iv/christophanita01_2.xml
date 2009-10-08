@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Running Stone" el:subtitle="" el:id="christophanita_runningstone"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Christoph &amp; Anita" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © Christoph &amp; Anita</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_hay"}
+ti["- "] = {"fl_lawn"}
+ti["~ "] = {"fl_water"}
+ti[". "] = {"fl_sand"}
+ti[": "] = {"fl_dunes"}
+ti["^ "] = {"fl_slope_pn"}
+ti["v "] = {"fl_slope_ps"}
+ti["4 "] = {"fl_slope_pe"}
+ti["7 "] = {"fl_slope_ose"}
+ti["1 "] = {"fl_slope_one"}
+ti["6 "] = {"fl_slope_pw"}
+ti["3 "] = {"fl_slope_inw"}
+ti[" #"] = {"st_greenbrown"}
+ti[" H"] = {"st_greenbrown_hollow"}
+ti[" M"] = {"st_greenbrown_movable"}
+ti[" B"] = {"st_brick"}
+ti[" C"] = {"st_magic_brick"}
+ti[" &"] = {"st_blocker", name="blocker"}
+ti[" I"] = {"st_ghost_greenbrown"}
+ti[" G"] = {"st_rawglass"}
+ti[" F"] = {"st_rawglass_movable"}
+ti[" D"] = {"st_death"}
+ti[" E"] = {"st_death_invisible"}
+ti[" >"] = {"st_boulder", orientation=EAST}
+ti[" Q"] = {"st_quake"}
+ti[" ("] = {"st_mirror", orientation=BACKSLASH}
+ti[" )"] = {"st_mirror", orientation=SLASH}
+ti[" V"] = {"st_laser", orientation=SOUTH, name="laser"}
+ti[" S"] = {"st_switch", target="laser"}
+ti[" K"] = {"st_key", target="@door#*", code=1}
+ti[" ="] = ti({"fl_bluegreen"}) .. {"st_door", flavor="d", faces="ns", name="door#"}
+ti[" L"] = {"st_key", target="@door#*", code=2}
+ti[" |"] = {"st_door", flavor="d", faces="ew", name="door#"}
+ti["c "] = ti["- "] .. {"it_coin_m"}
+ti[" d"] = {"it_document", text="text1"}
+ti[" e"] = {"it_document", text="text2"}
+ti[" g"] = {"it_glasses"}
+ti[" h"] = {"it_hammer"}
+ti[" k"] = {"it_key", code=1}
+ti[" l"] = {"it_key", code=2}
+ti["m "] = {"it_magicwand"}
+ti[" s"] = {"it_spring_drop"}
+ti[" t"] = {"it_trigger", target="seed", action="grow"}
+ti["* "] = {"it_seed_volcano", name="seed"}
+ti[" O"] = {"st_oxyd"}
+ti[" @"] = {"#ac_marble_black"}
+
+wo(res.composer(ti), "  ", {
+    "-#-#-#-#-#-#-#-#-#-#-#-#-#-#~#~#~#~#~#~#",
+    "-#- -Q- - - - - - - - - - - ~ ~ ~ ~ ~G~#",
+    "-#->-M- -e- cM- - - cM- - - ~M~ ~ ~O~ ~#",
+    "-#-l- - - - - - - - - - - - ~ ~ ~G~E~E~#",
+    " # B B K = B B B B B B B B B~B~ ~ ~ ~ ~#",
+    " #         I                 #v v v v v#",
+    " # # H # # # # # # # # # #   #^ ^ ^ ^ ^#",
+    " #  *I                       #^ ^ ^ ^O^#",
+    " #   # # # # I #     # # #   @^ ^ ^ ^ ^#",
+    " #         # g #mH # # s #   #^ ^ ^ ^ ^#",
+    " # # # #   # # # O   #   #   #^ ^ ^ ^ ^#",
+    " # # # t M     H d           #^ ^ ^ ^ ^#",
+    " # # # # # # # # # # # # # # #^#^H^#^#^#",
+    "~#~ ~ ~ . . . . . . . . . .V.#. . 3 ^ .#",
+    "~#~ ~ ~ . . . . . . . . . . .#. . 6 .O.#",
+    "~#~ ~ ~ . . ~ ~ ~ ~ ~ ~ ~ . .#. .D.D.S.#",
+    "~#~ ~ ~ v v ~ ~ ~ ~ ~ ~ ~ . .#. .|. . .#",
+    "~#~ ~ ~ : : : : : ~ ~ ~ ~ . .#. .L.#.#.#",
+    "~#~ ~ ~ : : : : : ~ ~ ~ ~ . . . . 7 v .#",
+    "~#~ ~ ~ : : :O: : ~ ~ ~ ~ . . . . 4 .O.#",
+    "~#~ ~ ~ :k: : : :h~ ~ ~ ~ . . . . 1 ^ .#",
+    "~#~ ~ ~ : : : : : ~ ~ ~ ~ ~ .C.F.F.F.G.#",
+    "~#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .C. . . .I.#",
+    "~#~ ~ ~G~(~G~ ~ ~ ~ ~ ~ ~ ~).C.H.I. .O.#",
+    "~#~#~#~G~O~G~#~#~#~#~#~#~#~#.#.#.#.#.#.#"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Fight appearing lava.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">A hammer destroys some black stones.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

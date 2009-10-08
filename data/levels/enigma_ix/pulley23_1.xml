@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Volcano Day" el:subtitle="" el:id="pulley23"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:08"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rock"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_flat"}
+ti["="] = {"st_grate_cross"}
+ti["+"] = {"st_box"}
+ti["*"] = {"st_flat_breakable"}
+ti["&"] = {"st_stoneimpulse_movable"}
+ti["^"] = {"st_mail_n"}
+ti["door"] = {"st_door_c", name="Door%%"}
+ti["a"] = {"it_trigger", action="open",target="Door%1"}
+ti["A"] = {"st_switch", target="Door%2"}
+ti["B"] = {"st_switch", action={"toggle", "toggle"}, target={"Door%3", "Volcano%4"}}
+ti["D"] = {"st_key", code="%1", action="toggle", target="Door%4"}
+ti["C"] = {"st_switch", target="Door%5"}
+ti["E"] = {"st_key", code="%2", action="toggle", target="Door%6"}
+ti["F"] = {"st_key", code="%3", action={"toggle", "toggle"}, target={"Door%7", "Volcano%7"}}
+ti["key"] = {"it_key", code="%%"}
+ti["sensor"] = {"it_sensor", action="toggle", target="Volcano%%"}
+ti["t"] = {"it_trigger", action="toggle", target="Volcano%2"}
+ti["z"] = ti({"it_sensor", action="toggle", target="Volcano%8"}) .. {"st_door_c", name="Door%7"}
+ti["volcano"] = {"st_volcano", name="Volcano%%", secure=true}
+ti["."] = {"it_seed_volcano", secure=true}
+ti["!"] = {"it_dynamite"}
+ti["O"] = {"st_oxyd_e"}
+ti["@"] = cond(wo["CreatingPreview"], ti[" "], {"#ac_marble"})
+ti["?"] = cond(wo["CreatingPreview"], {"ac_marble"}, ti[" "])
+
+wo(res.autotile(ti, {"S", "Z", "volcano"}, {"1", "6", "door"}, {"s", "x", "sensor"}, {"d", "f", "key"}), " ", {
+    "#######################################B#####################################",
+    "#                 a#                  #  #     #     #   s                  #",
+    "#                  #  O   O    O   O  #  #     #     #   s                  #",
+    "#                  #                  #  #     #     #  ##################  #",
+    "#                  #      O    O      #  #  #  #  #  #  ##                  #",
+    "#       ##^##      #                  #  #  #  #  #  #  ##                  #",
+    "#       #   #      #  O   O  ? O   O  #  #  #  #  #  #  ##  #################",
+    "#       #   #      #                  #  #  #  #  #  #  ##                  #",
+    "#       #   #      #      O    O      #  #  #  #  #  #  ##                  #",
+    "#       ## ##      #                  #     #     #     ##################  #",
+    "#        # #       #  O   O    O   O  #     #     #     ##                  #",
+    "#        # #       #                  #     #     #      S                  #",
+    "##########z#########1#############################################  #########",
+    "W   =              #                  #                          #  #       #",
+    "#   =              #               e  #                          #5##       #",
+    "#   =   =          #                  #                                     #",
+    "#   =   =          #                  #                                     #",
+    "#   =   =          #                  #                                     #",
+    "#   =   = d        #                  #                                     #",
+    "#   =   =          #                  #                               A     #",
+    "#   =   =          #              .   #                                     #",
+    "#   =   =          #                  #                                     #",
+    "#       =          #                  #                                     #",
+    "#       = w        #                  #       ====                          V",
+    "##########3#####################4##############**############################",
+    "#        #         #                  =                  =                  #",
+    "#        #         #                  =                  =                  #",
+    "#        #         #                  =                  =                  #",
+    "#        ########  #                  =    &&&&&&&&&&    =                  #",
+    "#               # ##                  =   &&&&&&&&&&&&   =                  Y",
+    "# f             - +6         @        =   &&&&&D.&&&&&   =                  F",
+    "#               # ##                  =   &&&&&&&&&&&&   =                  #",
+    "#        ########  #                  =    &&&&&&&&&&    =                  #",
+    "#        #         #                  =                  =                  #",
+    "#        #         #                  =                  =                  #",
+    "#        #         Z                  =                  =                  #",
+    "##########         #======================================                  #",
+    "#       #          #                                                        #",
+    "#       #          #                                                        #",
+    "#       #          #                                                        #",
+    "#   #   #          #                                                        #",
+    "#   #   #          #                                                        #",
+    "#   #   #         u2                                     #################  #",
+    "#   #   #          #                                     #                  #",
+    "#   #   #          #                                     #                  #",
+    "C   #              #                                     #  #################",
+    "#   #              #                                     #                x!#",
+    "#   #              #                               t     #                x #",
+    "#U#############################################T###E#######################X#"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -4,7 +4,7 @@
     <el:info el:type="level">
       <el:identity el:title="Odyssey" el:subtitle="The Enigma Level" el:id="ant39"/>
       <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
-      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
@@ -21,55 +21,55 @@ ti["##"] = {"st_granite"}
 ti["=="] = {"st_rawglass"}
 ti["XX"] = {"st_grate_cross"}
 ti["MM"] = {"st_mirror", movable = true}
-ti["doors"] = {"st_door", "door%%#", faces = "ns", state = CLOSED}
+ti["doors"] = {"st_door", name = "door%%#", faces = "ns", state = CLOSED}
 ti["laserswitches"] = {"st_laserswitch", target = "door%%#*"}
-ti["LE"] = {"st_laser_e", "laserEast"}
+ti["LE"] = {"st_laser_e", name = "laserEast"}
 ti["SL"] = {"st_switch", target = "laserEast"}
 ti["++"] = {"st_box"}
 ti["ss"] = ti["++"] .. {"it_seed"}
-ti["P"] = {"st_puzzle_blue", intensity = 0}
-ti["OE"] = {"st_oxyd_c", "east#"}
-ti["OW"] = {"st_oxyd_c", "west#"}
-ti["@@"] = {"#ac_marble_black"}
+ti["P"] = {"st_puzzle", intensity = 0}
+ti["OE"] = {"st_oxyd_c", name = "east#"}
+ti["OW"] = {"st_oxyd_c", name = "west#"}
+ti["@@"] = {"#ac_marble"}
 
 wo(res.autotile(res.puzzle(ti, "P"), {"D", "doors"}, {"T", "laserswitches"}), "  ", {
-   "########################################",
-   "##                                    ##",
-   "##  ++  ++  ++  ++  ++    ++  ++  ++  ##",
-   "##....................................##",
-   "##....................................##",
-   "##....................................##",
-   "##....................................##",
-   "##                                    ##",
-   "##          ############  ########    ##",
-   "##          ##T1==              ##    ##",
-   "##          ######    PO        ##    ##",
-   "##            @@##    PO        ##    ##",
-   "######Pj##########    Pj        ########",
-   "##XX  PO    ==        Pj            XX##",
-   "##XX  MM    ==        Pj            XX##",
-   "##XX        ==        Pj      Pf    XX##",
-   "LEXX        ==              PjPj    XX##",
-   "##XX        ==              Pl      XX##",
-   "####XXXXXXXX##========##++  ##======####",
-   "##XX        ==        ++  ++        XX##",
-   "SLXX  ++    ==          ++          XX##",
-   "##XX++  ss  ==            PaPa      XX##",
-   "##XX  ss    ==      MMPj    ++++    XX##",
-   "##XX        ==      MM              XX##",
-   "######D1##########                ######",
-   "##              ##                ##  ##",
-   "##    ++    ######                ##  ##",
-   "##  ++  ++  ##T2==                ##  ##",
-   "##    ++    ############D2##########  ##",
-   "##                ##                  ##",
-   "##................##..................##",
-   "##................##..................##",
-   "##................##..................##",
-   "##................##..................##",
-   "##                ##                  ##",
-   "##                ##                  ##",
-   "##OW############OW##OE##############OE##"})
+    "########################################",
+    "##                                    ##",
+    "##  ++  ++  ++  ++  ++    ++  ++  ++  ##",
+    "##....................................##",
+    "##....................................##",
+    "##....................................##",
+    "##....................................##",
+    "##                                    ##",
+    "##          ############  ########    ##",
+    "##          ##T1==              ##    ##",
+    "##          ######    PO        ##    ##",
+    "##            @@##    PO        ##    ##",
+    "######Pj##########    Pj        ########",
+    "##XX  PO    ==        Pj            XX##",
+    "##XX  MM    ==        Pj            XX##",
+    "##XX        ==        Pj      Pf    XX##",
+    "LEXX        ==              PjPj    XX##",
+    "##XX        ==              Pl      XX##",
+    "####XXXXXXXX##========##++  ##======####",
+    "##XX        ==        ++  ++        XX##",
+    "SLXX  ++    ==          ++          XX##",
+    "##XX++  ss  ==            PaPa      XX##",
+    "##XX  ss    ==      MMPj    ++++    XX##",
+    "##XX        ==      MM              XX##",
+    "######D1##########                ######",
+    "##              ##                ##  ##",
+    "##    ++    ######                ##  ##",
+    "##  ++  ++  ##T2==                ##  ##",
+    "##    ++    ############D2##########  ##",
+    "##                ##                  ##",
+    "##................##..................##",
+    "##................##..................##",
+    "##................##..................##",
+    "##................##..................##",
+    "##                ##                  ##",
+    "##                ##                  ##",
+    "##OW############OW##OE##############OE##"})
 
 wo:shuffleOxyd({"west#*", max = 0}, {"east#*", max = 0})
  ]]></el:luamain>

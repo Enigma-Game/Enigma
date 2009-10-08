@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Circularity" el:subtitle="" el:id="ant10"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["-"] = ti({"fl_sahara", checkerboard=0}) .. {"fl_tigris", checkerboard=1}
+ti["."] = {"fl_samba"}
+ti["="] = {"fl_wood"}
+ti["#"] = {"st_tigris"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["O"] = ti["-"] .. {"st_oxyd"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+local delay = cond(wo["IsDifficult"], 0.2, 0.25)
+railway1 = res.train(ti, {"1", edge=true}, {"a", train={" ", "=", orientation=WEST, length=9, interval=delay}})
+railway2 = res.train(railway1, {"2", edge=true}, {"b", train={" ", ".", orientation=EAST, length=9, interval=delay}})
+railway3 = res.train(railway2, {"3", edge=true}, {"c", train={" ", "=", orientation=NORTH, length=9, interval=delay}})
+railway4 = res.train(railway3, {"4", edge=true}, {"d", train={" ", ".", orientation=NORTH, length=9, interval=delay}})
+railway5 = res.train(railway4, {"5", edge=true}, {"e", train={" ", "=", orientation=WEST, length=5, interval=delay}})
+
+wo(railway5, " ", {
+   "####################",
+   "#---     ##   a1---#",
+   "#-O- b   XX   2 -O-#",
+   "#---     ##  3  ---#",
+   "#---        4c  ---#",
+   "#---      e5    ---#",
+   "#      d -@        #",
+   "#---    5       ---#",
+   "#---   4        ---#",
+   "#---  3  ##     ---#",
+   "#-O- 2   XX     -O-#",
+   "#---1    ##     ---#",
+   "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

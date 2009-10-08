@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Naoussa" el:subtitle="Use ~all~ Stones" el:id="mecke37"/>
+      <el:version el:score="1" el:release="1" el:revision="29" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Harry Bruder for testing and feedback</el:credits>
+      </el:comments>
+      <el:score el:easy="35:12" el:difficult="44:02"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_woven"}
+ti["~"] = {"fl_water"}
+if wo ["IsDifficult"] then
+    ti["Z"] = {"fl_ivory"}
+    ti[";"] = {"st_knight"}
+    ti["X"] = ti["Z"] .. {"st_grate"}
+    ti["+"] = {"st_bluesand"}
+    ti[">"] = ti[";"]
+    ti["q"] = ti[" "] .. {"it_squashed"}
+    ti["triggy"] = {"it_trigger", target={"door%%","out"}}
+    ti["^"] = {"st_oxyd_a", oxydcolor=OXYD_QUAKE, noshuffle=true, name="out"}
+    ti["S"] = {"it_extralife"}
+else
+    ti["Z"] = {"fl_swamp"}
+    ti[";"] = {"it_extralife"}
+    ti["X"] = ti["Z"] .. {"it_burnable_oil"}
+    ti["+"] = {"st_bluesand"}
+    ti[">"] = {"st_oneway_black_e"}
+    ti["q"] = ti[" "] .. {"it_umbrella"}
+    ti["triggy"] = {"it_trigger", target="door%%"}
+    ti["^"] = {"it_umbrella"}
+    ti["S"] = {"it_drop"}
+end
+ti["x"] = ti[" "] ..{"it_coffee"}
+ti["="] = ti["~"] .. {"st_actorimpulse"}
+ti["!"] = ti[" "] .. {"st_actorimpulse"}
+ti["$"] = {"st_oxyd", flavor="d"}
+ti["%"] = {"st_bluegray"}
+ti["&"] = {"st_rotator_cw", movable=true}
+ti["-"] = {"st_stoneimpulse"}
+ti["'"] = {"st_stoneimpulse_hollow"}
+ti["*"] = {"st_stoneimpulse_movable"}
+ti["]"] = ti["~"] .. ti["'"]
+ti["["] = ti["~"] .. ti["*"]
+ti["Q"] = ti["~"] .. ti["'"]
+ti["Y"] = {"st_yellow"}
+ti[","] = {"st_death_movable"}
+ti["."] = {"st_box"}
+ti["/"] = {"st_bluegray_hollow"}
+ti["door"] = {"st_door", flavor="a", name="door%%"}
+ti["<"] = ti({"fl_thief"}) .. {"it_wrench"}
+ti["#"] = ti["~"] .. {"st_boulder_e"}
+ti["?"] = {"it_bottle"}
+ti["_"] = {"it_magicwand"}
+ti[":"] = {"it_glasses", state = SPOT_DEATH}
+ti["@"] = ti["S"] .. {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "i", "triggy"}, {"A", "I", "door"}), " ", {
+    "^~~~~~=~~~~~~~~~~+'-",
+    "~ /iY%$=~+ ++++Y++@-",
+    "#   ; H~~'    >''-*-",
+    "=  abY'~~', . +   ,-",
+    "=  cdYx/<&  , + -ABC",
+    "=  efY'  +    + -$$$",
+    "= ,ghY   +/  -+ -$$$",
+    "~  !;?  G$=- '  'DEF",
+    "]   - ?  +/  '+ / :+",
+    "'I  <- _ * ~  ,x / +",
+    "'Q' ?<! ?+X /'-X*'''",
+    "'Q[  ?</    'q$-   -",
+    "$Q &   <    '''/''''"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

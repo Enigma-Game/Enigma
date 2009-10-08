@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Upstream Journey" el:subtitle="" el:id="duffy58"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_dark"}
+ti["D"] = ti["-"] .. {"st_death"}
+ti["I"] = {"st_actorimpulse_invisible"}
+ti["1"] = ti["-"] .. {"it_vortex", name="group1#", destination="@group2#*"}
+ti["2"] = ti["-"] .. {"it_vortex", name="group2#", destination="@group3#*"}
+ti["3"] = ti["-"] .. {"it_vortex", name="group3#", destination="@group1#*"}
+ti["v"] = ti["-"] .. {"it_vortex", name="group1#", destination="final"}
+ti["w"] = ti["-"] .. {"it_vortex", name="final"}
+ti["O"] = {"st_oxyd", name="first#"}
+ti["o"] = {"st_oxyd", name="last#"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "                    ",
+    "   IIIIIIIIIIIIII   ",
+    "   I231231231231I   ",
+    " O--1 IIIIIIII 2--o ",
+    "   I3I        I3I   ",
+    "   I2I        I1I   ",
+    "   I1--O    o--2    ",
+    "   I3I        I3I   ",
+    "   I2I        I1I   ",
+    " O--1 DDDDDDDD 2--o ",
+    "   I32D1@DD-wDv3I   ",
+    "   IIIDDDDDDDDIII   ",
+    "                    "})
+
+wo:shuffleOxyd({"first#*", "last#*", min=3})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="38" title="Enigma 1.01 new"/>
+  <info enigma="1.10" group="Facets" location="15500" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma 1.01 new"/>
 
   <attributes/>
 
@@ -25,7 +25,7 @@
     <level _seq="17" _title="The wrong Place?" _xpath="enigma_vi/just17_2" author="JuSt" ctrl="force" easy="false" id="just17" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="18" _title="Your Friend, the Light" _xpath="enigma_vi/just15_1" author="JuSt" ctrl="force" easy="true" id="just15" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="jumping ball flash" _xpath="enigma_vi/illmind13_1" author="illmind" ctrl="force" easy="false" id="2007ill001" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Cold Meditation" _xpath="enigma_vii/ral18_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="1" rev="67" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Cold Meditation" _xpath="enigma_vii/ral18_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="2" rev="187" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Same task ..." _xpath="enigma_vi/raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Industrial Puzzles" _xpath="enigma_vi/raoul30_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="2" rev="7" score="2" target="time" unit="duration"/>
     <level _seq="23" _title="Odyssey" _xpath="enigma_vi/ant39_2" author="Petr Machata" ctrl="force" easy="false" id="ant39" rel="2" rev="1" score="2" target="time" unit="duration"/>
@@ -53,7 +53,7 @@
     <level _seq="45" _title="Mirror Sharing" _xpath="enigma_vii/duffy150_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy150" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="A Cooler Spot in Hell" _xpath="enigma_vi/andreas43_4" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas43" rel="4" rev="7" score="3" target="time" unit="duration"/>
     <level _seq="47" _title="Quadropolis" _xpath="enigma_vi/cel1_1" author="Johannes Laire, Jacob Scott, Raoul Bourquin, Andreas Lochmann" ctrl="force" easy="false" id="cel2007_364" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Polar Bears' Paradise" _xpath="enigma_vi/ral19_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="1" rev="68" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Polar Bears' Paradise" _xpath="enigma_vi/ral19_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="2" rev="185" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Open Path" _xpath="enigma_vii/duffy152_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy152" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Temple of Ganesha" _xpath="enigma_vii/duffy154_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy154" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Temple of Gold" _xpath="enigma_vii/duffy151_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="3" rev="7" score="3" target="time" unit="duration"/>

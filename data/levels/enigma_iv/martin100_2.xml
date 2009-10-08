@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title=".c.R.a.Z.y.W.o.R.l.D." el:subtitle="" el:id="martin100"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Martin Hawlisch, Ronald Lamprecht" el:email="ral@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Martinn Hawlisch, © 2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+
+ti[" "] = {"fl_fake_abyss"}
+ti["."] = {"fl_swamp"}
+ti["#"] = {"st_death"}
+ti["="] = {"st_death_movable"}
+ti["%"] = {"st_death_invisible"}
+ti["+"] = {"#ac_rotor"} .. ti["."]
+ti["t"] = {"#ac_top", range=0} .. ti{"it_coin_s"}
+ti["g"] = {"it_glasses"} .. ti["."]
+ti["o"] = {"it_meditation", essential=INDISPENSABLE}
+ti["*"] = {"#ac_pearl", controllers=CTRL_NONE, essential=INDISPENSABLE, owner=DEFAULT} .. ti["o"]
+ti["1"] = {"#ac_marble", controllers=CTRL_NONE, essential=INDISPENSABLE, owner=YIN} .. ti{"it_shogun_l"}
+ti["2"] = {"#ac_marble_white", controllers=CTRL_NONE, essential=INDISPENSABLE, owner=DEFAULT} .. ti{"it_springboard"}
+ti["O"] = {"st_oxyd"}
+ti["s"] = {"it_spring"}
+ti["<"] = {"st_laser_w", state=ON}
+ti[">"] = {"st_laser_e", state=ON}
+ti["b"] = {"it_bomb"}
+ti["u"] = {"it_umbrella"}
+ti["^"] = {"st_break_black"}
+ti["U"] = cond(wo["IsDifficult"], {"nil"}, ti["u"]) .. ti["."]
+ti["@"] = cond(wo["IsDifficult"], {"#ac_killer", owner=YIN, controllers=CTRL_YIN}, {"#ac_pearl"})
+
+wo(ti, " ", {
+    "#O###############O#",
+    "O+....  @   # s  2O",
+    "#.....      #    %#",
+    "#.....      #     #",
+    "#U.g..      #     #",
+    "##%####=##=##^^^^^#",
+    ">              u  <",
+    "#       bbb       #",
+    "#                 #",
+    "#    t   %   1    #",
+    "#                 #",
+    "O*       o       *O",
+    "#O###############O#"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

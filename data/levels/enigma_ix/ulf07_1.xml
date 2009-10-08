@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Poe's Nightmare" el:id="ulf07"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 120 $" el:status="stable"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="5:13" el:difficult="6:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["ActorimpulseStrength"] = 100
+
+-- VARIABLES --
+wr = 0.3    -- range of wormholes
+ws = 20     -- strength of wormholes
+
+if wo["IsDifficult"] then
+  f = 35   -- friction of fl_aquamarine
+  s = 100  -- force of slope
+  t = 25   -- force of straight stairs slope
+  c = 5    -- force of corner stairs slope
+  ci = 2   -- speed of crushing walls
+  exno = 3 -- no. of extralifes in dispenser
+  crg = 0.8 -- charge of killerballs
+else
+  f = 20   -- friction of fl_aquamarine
+  s = 50   -- force of slope
+  t = 15   -- force of straight stairs slope
+  c = 5    -- force of corner stairs slope
+  ci = 2.5 -- speed of crushing walls
+  exno = 2 -- no. of extralifes in dispenser
+  crg = 0.5 -- charge of killerballs
+end
+
+-- TILES --
+ti["  "] = {"fl_metal"}
+ti["##"] = {"fl_bright"} .. ti({"st_metal"})
+ti["as"] = {"fl_space"}
+ti["aw"] = {"st_box_wood"}
+ti["AS"] = {"fl_space", name="g2#"}
+ti["A1"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,13.5) ,range=wr, strength=ws, name="w01#"}
+ti["A2"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,23.5) ,range=wr, strength=ws, name="w02#"}
+ti["A3"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,15.5) ,range=wr, strength=ws, name="w03#"}
+ti["A4"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,13.5) ,range=wr, strength=ws, name="w04#"}
+ti["A5"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,17.5) ,range=wr, strength=ws, name="w05#"}
+ti["A6"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,15.5) ,range=wr, strength=ws, name="w06#"}
+ti["A7"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,21.5) ,range=wr, strength=ws, name="w07#"}
+ti["A8"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,23.5) ,range=wr, strength=ws, name="w08#"}
+ti["A9"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,21.5) ,range=wr, strength=ws, name="w09#"}
+ti["AA"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,17.5) ,range=wr, strength=ws, name="w10#"}
+ti["AB"] = ti["AS"] .. {"it_wormhole", destination=po(1.5,19.5) ,range=wr, strength=ws, name="w11#"}
+ti["AC"] = ti["AS"] .. {"it_wormhole", destination=po(15.5,19.5) ,range=wr, strength=ws, name="w12#"}
+ti["ad"] = ti["  "] .. {"it_vortex", destination=po(8.5,23.69)}
+ti["AM"] = {"fl_metal", name="g2#"}
+ti["af"] = ti["aw"] .. {"it_flag_black"}
+ti["ag"] = {"st_flat_breakable"}
+ti["ah"] = ti["aw"] .. {"it_hammer"}
+ti["ai"] = {"fl_bridge", name="bridge01#"}
+ti["aj"] = {"fl_bridge", name="bridge02#"}
+ti["ak"] = {"fl_bridge", name="bridge03#"}
+ti["al"] = {"it_trigger", action="callback", target="gravity00",invisible=true}
+ti["As"] = {"fl_space", name="g1#"}
+ti["Am"] = ti["As"] .. {"it_trigger",action="callback",target="ocb1",invisible=true}
+ti["An"] = ti["As"] .. {"it_trigger",action="callback",target="ocb2",invisible=true}
+ti["Ap"] = ti["As"] .. {"it_trigger",action="callback",target="ocb3",invisible=true}
+ti["aq"] = {"st_oneway_s"}
+ti["ar"] = {"st_oneway_n"}
+ti["at"] = {"fl_dark"} .. ti({"st_actorimpulse"})
+ti["au"] = {"it_trigger",action="callback", target="gravity01",invisible=true}
+ti["av"] = ti["  "] .. {"it_crack_l"}
+ti["ax"] = {"fl_abyss"}
+ti["ay"] = {"it_trigger",action="on",target="timer1",invisible=true}
+ti["az"] = {"st_door_d", faces="ns", name="dd00"}
+ti[".."] = {"st_switch_black",action="open",target="dd00"}
+ti["aA"] = {"st_laser_w",state=ON, name="laserA"}
+ti["aB"] = {"st_laser_w",state=ON, name="laserB"}
+ti["aC"] = {"st_laser_w",state=ON, name="laserC"}
+ti["aD"] = {"st_laser_w",state=ON, name="laserD"}
+ti["aE"] = {"st_laser_w",state=ON, name="laserE"}
+ti["aF"] = {"st_laser_w",state=ON, name="laserF"}
+ti["aG"] = {"st_laser_w",state=ON, name="laserG"}
+ti["aH"] = {"st_laser_w",state=ON, name="laserH"}
+ti["aI"] = {"st_laser_w",state=ON, name="laserI"}
+ti["aJ"] = {"st_laser_s",state=ON, name="laserJ"}
+ti["aK"] = {"st_laser_s",state=ON, name="laserK"}
+ti["aL"] = {"st_switch_black",action="callback",target="bhb"}
+ti["aM"] = {"st_switch_black",action="callback",target="bha"}
+ti["aN"] = {"st_switch_black",action="callback",target="bh3"}
+ti["aP"] = {"st_switch_black",action="callback",target="bh4"}
+ti["aQ"] = {"st_switch_black",action="callback",target="bh1"}
+ti["aR"] = {"st_switch_black",action="callback",target="bh5"}
+ti["aS"] = {"st_switch_black",action="callback",target="bh9"}
+ti["aT"] = {"st_switch_black",action="callback",target="bh8"}
+ti["aU"] = {"st_switch_black",action="callback",target="bh6"}
+ti["aV"] = {"st_switch_black",action="callback",target="bh7"}
+ti["aW"] = {"st_switch_black",action="callback",target="bhc"}
+ti["aX"] = {"fl_bridge_bs",name="bridge0"}
+ti["aZ"] = {"it_trigger",action="callback", target="close0",invisible=true}
+ti["ba"] = {"it_flag_black"}
+ti["bc"] = {"fl_fake_abyss"}
+ti["bd"] = {"st_boulder_n", name="boulder#"}
+ti["be"] = {"st_blocker"}
+ti["bh"] = {"fl_aquamarine",friction=f}
+ti["bf"] = ti["bh"] .. {"it_trigger",action="callback", target="toggleBoulder",invisible=true}
+ti["bi"] = {"st_door_d", faces="ew", state=OPEN, name="dd01"}
+ti["bj"] = {"it_trigger", action="open", target="dd01",invisible=true}
+ti["bk"] = {"it_trigger", action="callback", target="slope01",invisible=true}
+ti["bl"] = {"fl_slope_ps", strength=t}
+ti["bm"] = {"fl_slope_pn", strength=t}
+ti["bn"] = {"fl_slope_pe", strength=t}
+ti["bo"] = {"fl_slope_pw", strength=t}
+ti["bp"] = {"fl_slope_ose", strength=t}
+ti["bq"] = {"fl_slope_osw", strength=c}
+ti["br"] = {"fl_slope_one", strength=c}
+ti["bs"] = {"fl_slope_onw", strength=t}
+ti["bt"] = {"it_trigger",action="callback", target="cbridge05"}
+ti["bu"] = {"it_trigger",action="callback", target="cbridge06"}
+ti["bv"] = {"it_trigger",action="callback", target="cbridge07"}
+ti["bw"] = {"it_trigger",action="callback", target="cbridge08"}
+ti["bx"] = {"it_trigger",action="callback", target="cbridge09"}
+ti["by"] = {"it_trigger",action="callback", target="cbridge10"}
+ti["bz"] = {"it_trigger",action="callback", target="cbridge11"}
+ti["ca"] = {"it_trigger",action="callback", target="cbridge04"}
+ti["cb"] = {"fl_slope_osw", strength=c} .. ti["aw"]
+ti["cc"] = {"fl_slope_onw", strength=c}  .. ti["aw"]
+ti["cd"] = {"fl_slope_one", strength=c} .. ti["aw"]
+ti["ce"] = {"fl_slope_ose", strength=c} .. ti["aw"]
+ti["cf"] = {"fl_bridge_bs", name="bridge04#"}
+ti["cg"] = {"fl_bridge_bs", name="bridge05#"}
+ti["ch"] = {"fl_bridge_bs", name="bridge06#"}
+ti["ci"] = {"fl_bridge_bs", name="bridge07#"}
+ti["cj"] = {"fl_bridge_bs", name="bridge08#"}
+ti["ck"] = {"fl_bridge_bs", name="bridge09#"}
+ti["cl"] = {"fl_bridge_bs", name="bridge10#"}
+ti["cm"] = {"fl_bridge_bs", name="bridge11#"}
+ti["cn"] = {"st_door_d", faces="ew", name="dd02"}
+ti["co"] = {"st_switch_black", action="open", target="dd02"}
+ti["cp"] = ti["as"] .. {"it_spring_keep"}
+ti["cq"] = {"st_door_d", faces="ns", name="dd03"}
+ti["cr"] = {"it_sensor", invisible=true, action="callback", target="dd03trigger"}
+ti["cs"] = {"it_key", code=1}
+ti["ct"] = {"it_key", code=2}
+ti["cu"] = {"fl_lawn"}
+ti["cv"] = {"st_door_d", faces="ew", name="dd04"}
+ti["cw"] = {"fl_lawn"} .. ti({"st_door_d", faces="ew", name="dd05"})
+ti["cx"] = {"st_key", code=1, action="toggle", target="dd04"}
+ti["cy"] = {"st_key", code=2, action="toggle", target="dd05"}
+ti["cz"] = {"st_key", code=3, action="signal", target="dd06", state=OFF}
+ti["da"] = {"st_door_d", faces="ew", name="dd06"}
+ti["db"] = ti["ax"] .. {"st_invisible"}
+ti["dc"] = {"it_extralife"}
+ti["dd"] = {"st_switch_black", action="callback", target="lightswitch"}
+ti["de"] = ti["as"] .. {"it_landmine"}
+ti["df"] = ti["as"] .. {"it_death"}
+ti["dg"] = ti["as"] .. {"it_vortex", destination=po(37.5,35.5)}
+ti["dh"] = ti["as"] .. {"it_vortex", destination=po(20.5,35.5)}
+ti["di"] = ti["as"] .. {"it_vortex", destination=po(20.5,32.5)}
+ti["dj"] = ti["as"] .. {"it_vortex", destination=po(36.5,32.5)}
+ti["dk"] = {"fl_bright"} .. ti({"st_dispenser_extralife", stock=exno})
+ti["00"] = {"st_oxyd", flavor="a"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(ti, "  ", {
+--                                                          sections
+--     ,----------------- 0 -----------------,,---------------- 1 -----------------,,----------------- 2 -----------------,
+--     00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657
+      "####################################################################################################################", -- 00 \
+      "##AnAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsApAs##axaxaxaxaxaxavavavavavaxaxaxaxaxaxax##bdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbd##", -- 01 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavavaxavavavaxaxaxavaxavaxavavavax##bebebebebebebebebebebebebebebebebebe##", -- 02 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavaxaxavaxaxaxaxaxavaxavaxavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 03 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavavavavaxavavavavavaxavaxavavaxav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 04 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxaxaxaxaxaxaxavaxavaxavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 05
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxaxavavavavavavavavaxavaxavax##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 06 0
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxavavaxaxaxaxaxaxaxaxavaxavax##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 07
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxavaxaxavavavavaxavaxavaxavax##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 08 |
+      "##AsAsAsAsAsAsAsAsAmAsAsAsAsAsAsAsAsAs##  aZavaxavavavavaxaxavavavavavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcax##", -- 09 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##az##########axaxaxaxaxaxaxaxaxaxaxav##bebebebebebebebebebebebebebebebebebe##", -- 10 |
+      "..  aiaiaj  aiajakajajai  ajakakajak  al    ba    ##axaxaxaxaxaxaxaxax    bjbibfbhbhbhbhbhbhbhbhbhbhbhbhbhbhbhbh  ##", -- 11 |
+      "####################################aJaK########  ##axaxaxaxaxaxaxaxax  axax##axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax  ##", -- 12 <
+      "aQ  ad##ASASASASASASASASAS##ad  aP##              ##axaxaxaxaxaxaxaxax  axax##badc                                ##", -- 13 |
+      "########ASASASASASASASASAS##########  aI######dc####axaxaxaxaxaxaxaxax  axax##################  ####################", -- 14 |
+      "aN  ad##ASASASASASASASASAS##ad  aU##  aHaxaxaxaXaxaxaxaxaxaxaxaxaxaxax  axax##                bk              axax##", -- 15 |
+      "########ASASASASASASASASAS##########  aGaxaxaxdcaxaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 16 |
+      "aM  ad##ASASASASASASASASAS##ad  aR##  aFaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 17
+      "########ASASAAASA2ASACASAS##########  aEaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 18 1
+      "aL  ad##ASA6ASA7ASABASA9AS##ad  aW##  aDaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 19
+      "########A1ASA8ASA3ASA4ASA5##########  aCaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 20 |
+      "aV  ad##ASASASASASASASASAS##ad  aS##  aBaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 21 |
+      "########AMAMAMAMAMAMAMAMAM##########  aAaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 22 |
+      "aT  addkAMAMAMAMAMAMAMAMAMdkad  au    ##axaxax  axaxaxaxaxaxaxaxaxaxax  axax##                                axax##", -- 23 |
+      "######aratatatatatatatatat######ar######axaxax  axaxaxaxaxaxaxaxaxaxax  axax##  ####################################", -- 24 <
+      "ax####aqaqaqaqaqaqaqagaqaqaqaqaqaq####axaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##bnbnbncbbtaxbwaxaxaxaxaxaxaxaxaxaxax##", -- 25 |
+      "ax##        aw  aw    aw  aw    aw  ##axaxaxax  axaxaxaxaxaxaxaxaxaxax  axax##dbaxaxblaxaxcebnbnbnbnbnbnbnbnbncbbx##", -- 26 |
+      "ax##    aw    aw  afah  awaw  aw    ##axaxaxax  axaxaxaxax              axax##axaxaxblaxaxbmaxaxaxaxaxaxaxaxaxblax##", -- 27 |
+      "ax##  aw      aw    aw  aw    awaw  ##axaxaxax  axaxaxaxax  axaxaxaxaxaxaxax##axaxaxblaxaxbmaxbzceboboboboboboccax##", -- 28 |
+      "ax##      awaw  awaw  aw    awaw    ##axaxaxax  axaxaxaxax  axaxaxaxaxaxaxax##axaxaxblaxaxbmaxaxblaxaxaxaxaxaxbyax##", -- 29
+      "ax##    aw    aw  aw    awaw  awaw  ##axaxaxax              axaxaxaxaxaxaxax##axaxaxblaxaxbmaxaxbrbnbnbnbnbnbncbca##", -- 30 2
+      "ax##  aw    awawaw  awaw    aw  aw  ##ax############  ########################axaxaxblaxaxbmaxaxaxaxaxaxaxaxaxblax##", -- 31
+      "ax##    aw  aw  aw  awaw  awaw  aw  ##axctbaasdiasasasdiasasdiasasasdias  ####axaxaxblaxbvcdbobobobobobqaxaxaxblax##", -- 32 |
+      "ax##  aw    aw    aw  aw    aw      ##ax##as####dfdfdfdfdfdfdfdfdfdf####as####axaxaxblaxaxaxaxaxaxaxaxbmaxaxaxblax##", -- 33 |
+      "ax##      aw  awaw  aw  awaw    aw  ##ax##dh####dfdfdfdfdfdfdfdfdfdf####dj####axaxaxbrbnbnbnbnbnbnbnbnccbuaxaxblax##", -- 34 |
+      "ax##  aw    aw  away    aw  aw      ##axcsbaasasasasasdgdgdgdgasascpasasas  cncfcfcgcgchchcicicjcjckckclclcmcmcrbaco", -- 35 |
+      "ax################  ####################################################cq##########################################", -- 36 <
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax##                      ####cucucucucucucucucu", -- 37 |
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax############            ####cucucucucucu00cucu", -- 38 |
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax##            ####cucucucu00cucucucu", -- 39 |
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxax######################dd##axaxaxaxaxaxax##            ####cucucucucucu00cucu", -- 40 |
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxax##                      ##axaxaxaxaxaxax##            ####cucucucucucucucucu", -- 41
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxax##                      ##axaxaxaxaxaxax##            cvcwcucucucucucucucucu", -- 42 3
+      "axaxaxaxaxaxaxax##  ##axaxaxaxaxaxaxaxaxcz                      ##axaxaxaxaxaxax##            ####cucucucucucucucucu", -- 43
+      "axaxaxaxaxaxaxax##  ######################          @@          ##axaxaxaxaxaxax##            ####cucucucucucucucucu", -- 44 |
+      "axaxaxaxaxaxaxax##                      da                      ##axaxaxaxaxaxax##            ####cucucucucucu00cucu", -- 45 |
+      "axaxaxaxaxaxaxax##########################                      ##axaxaxaxaxaxax##            ####cucucucu00cucucucu", -- 46 |
+      "axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax##                      ##axaxaxaxaxaxax##            ####cucucucucucu00cucu", -- 47 |
+      "axaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxaxax##########################axaxaxaxaxaxax##########cxcy####cucucucucucucucucu"})-- 48 /
+--     00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657
+--     `----------------- 0 -----------------'`---------------- 1 -----------------'`----------------- 2 -----------------'
+
+-- GENERAL --
+wo:shuffleOxyd()
+
+-- create areas as position list
+function posArea(x,y,w,h)
+  local parea = false
+  for m=x, x+w-1 do
+    for n=y, y+h-1 do
+      if parea ~= false then
+        parea = parea .. po(m,n)
+      else
+        parea = po(m,n)
+      end
+    end
+  end
+  return parea
+end
+
+-- lightswitch area
+larea = posArea(20,41,12,7)
+
+-- SECTION 0,0 --
+
+-- set up upper pendulum
+wo[{9,1}] = {"st_grate_cross", name="grate0"}
+wo[{17.5,1.5}] = {"ac_killer", name="killerball0a"}
+wo[{9.5,9.5}] = {"ac_killer", name="killerball0b"}
+
+wo:add({"ot_rubberband", anchor1="killerball0a", anchor2="grate0", strength=80000, threshold=0, length=8, min=8, max=8})
+wo:add({"ot_rubberband", anchor1="killerball0b", anchor2="grate0", strength=80000, threshold=0, length=8, min=8, max=8})
+
+-- do not cross this line
+wo:drawRect(po(1,10), 18, 1, {"it_death"})
+
+-- start the upper pendulum
+function gravity00()
+ no["g1#*"].force_y = 20
+end
+
+-- the bridges (triggered by upper pendulum)
+b1 = 0
+b2 = 0
+b3 = 0
+
+function ocb1()
+   b1 = b1 + 1
+   if (b1 == 5) then
+     no["bridge01#*"]:toggle()
+     b1 = 0
+   end
+end
+
+function ocb2()
+   b2 = b2 + 1
+   if (b2 == 5) then
+     no["bridge02#*"]:toggle()
+     b2 = 0
+   end
+end
+
+function ocb3()
+   b3 = b3 + 1
+   if (b3 == 4) then
+     no["bridge03#*"]:toggle()
+     b3 = 0
+   end
+end
+
+
+-- SECTION 0,1 --
+
+-- set up lower pendulum
+wo[{8,17}] = {"st_grate_cross", name="grate1"}
+wo[{9,13.53}] = {"ac_killer", name="killerball1a", adhesion=100}
+wo[{8.53,13.5}] = {"ac_killer", name="killerball1c", adhesion=100}
+
+wo:add({"ot_rubberband", anchor1="killerball1a", anchor2="grate1", strength=100000, threshold=0, length=4, min=4, max=4})
+wo:add({"ot_rubberband", anchor1="killerball1c", anchor2="grate1", strength=100000, threshold=0, length=4, min=4, max=4})
+
+-- another one for difficult mode
+if wo["IsDifficult"] then
+  wo[{8.5,21.5}] = {"ac_killer", name="killerball1b", adhesion=100}
+  wo:add({"ot_rubberband", anchor1="killerball1b", anchor2="grate1", strength=100000, threshold=0, length=4, min=4, max=4})
+end
+
+-- start lower pendulum and charge balls
+function gravity01()
+  no["g2#*"].force_y = 20
+  no["killerball1a"].charge = crg
+  no["killerball1b"].charge = crg
+  no["killerball1c"].charge = crg
+end
+
+-- turn off lasers and kill wormholes
+function bh1()
+  no["w01#*"]:kill()
+  no["laserE"]:signal(0)
+end
+
+function bh3()
+  no["w03#*"]:kill()
+  no["laserC"]:signal(0)
+end
+
+function bh4()
+  no["w04#*"]:kill()
+  no["laserD"]:signal(0)
+end
+
+function bh5()
+  no["w05#*"]:kill()
+  no["laserF"]:signal(0)
+end
+
+function bh6()
+  no["w06#*"]:kill()
+  no["laserI"]:signal(0)
+end
+
+function bh7()
+  no["w07#*"]:kill()
+  no["laserJ"]:signal(0)
+end
+
+function bh8()
+  no["w08#*"]:kill()
+  no["laserH"]:signal(0)
+end
+
+function bh9()
+  no["w09#*"]:kill()
+  no["laserG"]:signal(0)
+end
+
+function bha()
+  no["w10#*"]:kill()
+  no["laserB"]:signal(0)
+end
+
+function bhb()
+  no["w11#*"]:kill()
+  no["laserA"]:signal(0)
+end
+
+function bhc()
+  no["w12#*"]:kill()
+  no["laserK"]:signal(0)
+end
+
+
+-- SECTION 0,2 --
+
+-- the crusher
+offset = 9
+wo[{0,48}] = {"st_timer", name="timer1", target="timer_handler", action="callback", interval=ci, invisible=true, state=OFF}
+
+function timer_handler()
+ if ( offset > 0 ) then
+   wo:drawRect(po(10-offset,26),1,10, ti["ax"] .. {"st_invisible"})
+   wo:drawRect(po(9+offset,26),1,10, ti["ax"] .. {"st_invisible"})
+   wo[{10-offset,26}] = {"st_nil"}
+   wo[{9+offset,26}] = {"st_nil"}
+   offset = offset - 1
+   wo:drawRect(po(10-offset,26),1,10, ti({"st_metal"}) .. {"it_explosion"})
+   wo:drawRect(po(9+offset,26),1,10, ti({"st_metal"}) .. {"it_explosion"})
+ end
+end
+
+
+-- SECTION 1,0 --
+
+function close0()
+  no["dd00"]:close()
+  no["bridge0"]:close()
+end
+
+
+-- SECTION 0,2
+
+function toggleBoulder()
+  no["boulder#*"]:flip()
+  no["dd01"]:close()
+  it({39,11}):kill()
+end
+
+
+-- SECTION 1,2 --
+
+function slope01()
+  wo:drawRect(po(39,15), po(54,23), {"fl_slope_pe", strength=s})
+end
+
+
+-- SECTION 1,3 --
+
+-- the darkened room
+light=0
+wo:drawRect(po(20,41), po(12,7), ti["bc"])
+
+-- the light switch
+function lightswitch()
+  if not no["firstkey"]:exists() then
+    wo[{30,45}] = {"it_key", code=3, name="firstkey"}
+  end
+  if no["timer2"]:exists() then
+    no["timer2"]:off()
+  end
+  lighttoggle()
+end
+
+-- stropo light for easy mode
+slight = 0
+function stropo()
+   slight = slight + 1
+   if (slight == 55) then
+     light = 0
+     lighttoggle()
+   end
+   if (slight == 56) then
+     light = 1
+     lighttoggle()
+     slight = 0
+   end
+end
+
+function lighttoggle()
+  if light == 0 then
+    box = "st_box_wood"
+    lfloor = "fl_metal"
+    light = 1
+  else
+    box = "st_invisible_movable"
+    lfloor = "fl_fake_abyss"
+    light = 0
+    if it({30,45}):exists() then
+      it({30,45}):kill()
+    end
+  end
+
+  boxpos = po["box1#*"]
+  wo[boxpos] = {box, name="box1#"}
+  wo[larea] = {lfloor}
+end
+
+-- setup room
+wo[larea] = {"fl_fake_abyss"}
+wo[{21,45}] = {"st_invisible_movable", name="box1#"}
+wo[{21, 45}] = {"st_invisible_movable", name="box1#"}
+wo[{22, 42}] = {"st_invisible_movable", name="box1#"}
+wo[{22, 43}] = {"st_invisible_movable", name="box1#"}
+wo[{22, 44}] = {"st_invisible_movable", name="box1#"}
+wo[{22, 46}] = {"st_invisible_movable", name="box1#"}
+wo[{23, 45}] = {"st_invisible_movable", name="box1#"}
+wo[{26, 42}] = {"st_invisible_movable", name="box1#"}
+wo[{26, 46}] = {"st_invisible_movable", name="box1#"}
+wo[{27, 42}] = {"st_invisible_movable", name="box1#"}
+wo[{28, 41}] = {"st_invisible_movable", name="box1#"}
+wo[{28, 43}] = {"st_invisible_movable", name="box1#"}
+wo[{29, 41}] = {"st_invisible_movable", name="box1#"}
+wo[{29, 43}] = {"st_invisible_movable", name="box1#"}
+wo[{29, 46}] = {"st_invisible_movable", name="box1#"}
+wo[{30, 42}] = {"st_invisible_movable", name="box1#"}
+wo[{30, 43}] = {"st_invisible_movable", name="box1#"}
+wo[{30, 45}] = {"st_invisible_movable", name="box1#"}
+wo[{30, 46}] = {"st_invisible_movable", name="box1#"}
+wo[{31, 43}] = {"st_invisible_movable", name="box1#"}
+
+
+-- SECTION 2,2 --
+
+function cbridge04()
+  no["bridge04#*"]:close()
+end
+
+function cbridge05()
+  no["bridge05#*"]:close()
+end
+
+function cbridge06()
+  no["bridge06#*"]:close()
+end
+
+function cbridge07()
+  no["bridge07#*"]:close()
+end
+
+function cbridge08()
+  no["bridge08#*"]:close()
+end
+
+function cbridge09()
+  no["bridge09#*"]:close()
+end
+
+function cbridge10()
+  no["bridge10#*"]:close()
+end
+
+function cbridge11()
+  no["bridge11#*"]:close()
+end
+
+function dd03trigger()
+  wo[{36,32}] = {"it_trigger", action="open", target="dd03", invisible=true}
+end
+
+-- DOCUMENTS --
+
+wo[{26, 44}] = {"it_document", text="text01"}
+wo[{9, 43}] = {"it_document", text="text02"}
+wo[{10, 25}] = {"it_document", text="text03"}
+wo[{15, 23}] = {"it_document", text="text04"}
+wo[{24, 13}] = {"it_document", text="text05"}
+wo[{35, 11}] = {"it_document", text="text06"}
+wo[{26, 31}] = {"it_document", text="text07"}
+wo[{47, 13}] = {"it_document", text="text08"}
+wo[{39, 24}] = {"it_document", text="text09"}
+wo[{40, 37}] = {"it_document", text="text10"}
+wo[{52, 42}] = {"it_document", text="text11"}
+
+
+-- OTHER --
+
+-- make life easier
+-- activate stropo light
+if not wo["IsDifficult"] then
+    wo[{1,48}] = {"st_timer", name="timer2", target="stropo", action="callback", interval=0.03, invisible=true, state=ON}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Poes Albtraum</el:translation>
+      </el:string>
+      <el:string el:key="text01">
+        <el:english el:translate="true">You find yourself in a dark, damb chamber. There's a light switch to the northeast and a passage to the west.</el:english>
+        <el:translation el:lang="de">Du befindest Dich in einem dunklen, feuchten Raum. Im Nordosten ist ein Lichtschalter und westlich von Dir ein Gang.</el:translation>
+      </el:string>
+      <el:string el:key="text02">
+        <el:english el:translate="true">The corridor leads northwards and opens into a dim lit room packed with crates. You have an uneasy feeling about what lies ahead of you.</el:english>
+        <el:translation el:lang="de">Der Gang führt nordwärts und öffnet sich zu einem Raum, der mit Kisten vollgestopft ist. Du hast ein ungutes Gefühl dabei weiterzugehen.</el:translation>
+      </el:string>
+      <el:string el:key="text03">
+        <el:english el:translate="true">Huh, that was close. The way behind you is blocked. Maybe you should look for a place to leave a flag?!</el:english>
+        <el:translation el:lang="de">Ups, das war knapp. Der Rückweg ist blockiert. Vielleicht solltest nach einem geeigneten Platz für die Flagge suchen?!</el:translation>
+      </el:string>
+      <el:string el:key="text04">
+        <el:english el:translate="true">To the east the passage is blocked by laser beams. To the west a tunnel leads to a large pendulum. At the wall you see a hole where your flag fits in. What now?</el:english>
+        <el:translation el:lang="de">Der Gang im Osten ist von Laserstrahlen blockiert. Nach Westen hin führt ein Tunnel zu einem großen Pendel. An der Wand siehst Du eine Halterung für ein Flagge. Was nun?</el:translation>
+      </el:string>
+      <el:string el:key="text05">
+        <el:english el:translate="true">Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what may lurk behind the next corner?</el:english>
+        <el:translation el:lang="de">Wände, die Dich zu erdrücken drohen, ein Pendel mit rasiermesserscharfen Klingen, Laserstrahlen ... was mag hinter der nächsten Ecke lauern?</el:translation>
+      </el:string>
+      <el:string el:key="text06">
+        <el:english el:translate="true">The room to the east does not look very stable, but does the passage to the south lead anywhere?</el:english>
+        <el:translation el:lang="de">Der Raum im Osten sieht nicht sonderlich vertrauenswürdig aus. Führt der Weg nach Süden irgendwo hin?</el:translation>
+      </el:string>
+      <el:string el:key="text07">
+        <el:english el:translate="true">Hmmm, these keys might prove useful.</el:english>
+        <el:translation el:lang="de">Hmmm, diese Schlüssel sehen nützlich aus</el:translation>
+      </el:string>
+      <el:string el:key="text08">
+        <el:english el:translate="true">Passing by the entrance you get a glimpse of the room to the south ... and suddenly feel very uneasy.</el:english>
+        <el:translation el:lang="de">Als Du am Eingang vorbeigehst, kannst Du einen Blick auf den Raum im Süden erhaschen ... und bekommst plötzlich ein ganz ungutes Gefühl.</el:translation>
+      </el:string>
+      <el:string el:key="text09">
+        <el:english el:translate="true">Uh-oh, the steps leading down are small and extremely slippery.</el:english>
+        <el:translation el:lang="de">Oh-oh, die Stufen, die herunterführen, sehen extrem schmal und glitschig aus.</el:translation>
+      </el:string>
+      <el:string el:key="text10">
+        <el:english el:translate="true">The passage opens into a room with a huge iron door to the east. The air seems to smell much fresher here.</el:english>
+        <el:translation el:lang="de">Der Weg öffnet sich zu einem Raum mit einer großen Eisentüre im Osten. Die Luft wirkt hier viel frischer.</el:translation>
+      </el:string>
+      <el:string el:key="text11">
+        <el:english el:translate="true">Congratulations! You've survived Poe's Nightmare.</el:english>
+        <el:translation el:lang="de">Glückwunsche! Du hast Poes Albtraum überlebt.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

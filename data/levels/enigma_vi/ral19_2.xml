@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Polar Bears' Paradise" el:subtitle="Witch Hunt on Ice" el:id="20070314ral394"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 185 $" el:status="released"/>
+      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2006,2009 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="17:17" el:difficult="25:34"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_water"}
+ti["."] = {"fl_ice"}
+ti["*"] = {"st_ice"} .. ti["."]
+ti["#"] = {"st_rawglass"}
+ti["s"] = {"it_seed"}
+ti["p"] = cond(wo["IsDifficult"], {"nil"}, {"it_pin"}) .. ti["."]
+ti["x"] = {"st_oxyd"}
+ti["v"] = {"it_wormhole", destination="dest_a", strength=1, range=1} .. ti["."]
+ti["w"] = {"it_wormhole", destination="dest_b", strength=1, range=1} .. ti["."]
+
+ti["1"] = {"#ac_marble_white", essential=INDISPENSABLE, owner=YIN, controllers=CTRL_YIN} .. {"it_yinyang"} .. ti["."]
+ti["2"] = {"#ac_marble_white", essential=INDISPENSABLE} .. {"it_yinyang"} .. ti["."]
+ti["3"] = {"ac_pearl", 0.5, 0, essential=INDISPENSABLE, owner=DEFAULT, controllers=CTRL_NONE} .. ti["."]
+
+ti["a"] = {"fl_ice", "dest_a"}
+ti["b"] = ti["3"] .. {"fl_ice", "dest_b"} 
+
+wo(ti, " ", {
+    "#############x####x#",
+    "#v..p..            x",
+    "#.1...    s     .. #",
+    "#....       s   b3 #",
+    "#...   s           #",
+    "#              s   #",
+    "#    s             x",
+    "x            s     #",
+    "#     s         ...#",
+    "# .a       s   .*..#",
+    "# 33    s     ...2.#",
+    "x            .....w#",
+    "#x####x#############"
+})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Eisbärenparadies</el:translation>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Treibjagd auf Eis</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

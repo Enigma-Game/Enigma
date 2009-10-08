@@ -3,8 +3,8 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 40 $" el:status="released"/>
-      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 41 $" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -20,7 +20,7 @@ ti[" a"] = {"fl_rock"}
 ti[" ,"] = {"fl_concrete"}
 ti[" &"] = {"fl_ice"}
 ti[" %"] = {"fl_gravel"}
-ti["  "] = {"fl_hay",{secure=TRUE}}
+ti["  "] = {"fl_hay", secure=true}
 ti[" o"] = {"fl_yinyang_yin_invisible"}
 ti[" *"] = {"fl_himalaya"}
 ti[" +"] = {"fl_sahara"}
@@ -29,7 +29,6 @@ ti[" ."] = {"fl_metal"}
 ti[" /"] = {"fl_woven"}
 ti[" O"] = {"fl_abyss"}
 ti[" 1"] = {"fl_red"}
-ti["/ "] = {"st-puzzle-new"}
 ti["$ "] = {"st_portal"}
 ti["% "] = {"st_redfiber"}
 ti["& "] = {"st_darkglass"}
@@ -44,8 +43,6 @@ ti[". "] = {"st_concrete"}
 ti["# "] = {"st_greenbrown"}
 ti["0 "] = {"st_brownie"}
 ti["1 "] = {"st_redbrown"}
-ti["2 "] = {"st_greenbrown-growing"}
-ti["3 "] = {"st_plop_slateer-growing"}
 ti["4 "] = {"st_darkglass_hollow"}
 ti["5 "] = {"st_brownpyramide"}
 ti["6 "] = {"st_metal"}
@@ -81,10 +78,10 @@ ti["bb"] = ti[" *"] .. {"it_bomb_black"}
 ti[" ~"] = ti[" ="] .. {"it_bomb_black"}
 ti[" _"] = ti[" ="] .. {"it_cherry"}
 ti[" 2"] = ti[" 1"] .. {"it_dynamite"}
-ti[" -"] = ti[" a"] .. {"it_bottle_broken", 0.5, 0.5}
+ti[" -"] = ti[" a"] .. {"it_bottle_broken"}
 ti["!1"] = ti[" ="] .. {"st_disco"}
-ti["!2"] = ti["!0"] .. {"st_disco",state=MEDIUM}
-ti["!3"] = ti["!0"] .. {"st_disco",state=DARK}
+ti["!2"] = ti["!0"] .. {"st_disco", state=MEDIUM}
+ti["!3"] = ti["!0"] .. {"st_disco", state=DARK}
 ti["!4"] = ti["!0"] .. {"st_disco"}
 ti["!5"] = ti["  "] .. {"st_disco"}
 ti["&1"] = ti[" &"] .. {"st_disco"}
@@ -92,14 +89,14 @@ ti["!6"] = ti["!5"] .. {"it_drop"}
 ti["!7"] = ti["!5"] .. {"it_coffee"}
 ti["!8"] = ti["!5"] .. {"it_bottle"}
 ti["!9"] = ti["!5"] .. {"it_spoon"}
-ti[" m"] = ti["!1"] .. {"it_magnet",state=ON,range=3,strength=7}
-ti["-m"] = ti["!1"] .. {"it_magnet",state=ON,range=5,strength=-7}
-ti["--"] = ti["!1"] .. {"it_magnet",state=ON,range=10,strength=-12}
+ti[" m"] = ti["!1"] .. {"it_magnet", state=ON, range=3, strength=7}
+ti["-m"] = ti["!1"] .. {"it_magnet", state=ON, range=5, strength=-7}
+ti["--"] = ti["!1"] .. {"it_magnet", state=ON, range=10, strength=-12}
 ti["Y "] = {"st_death"}
 ti["XX"] = ti[" O"] .. {"ac_top", 0.5, 0.5, range=1, strength=1}
 ti["XA"] = ti["8 "] .. {"ac_top", 0.5, 0.5, range=1, strength=1}
 ti["XS"] = ti[" +"] .. {"ac_top", 0.5, 0.5, range=5, strength=5}
-ti["XF"] = {"st_mail",orientation = EAST}
+ti["XF"] = {"st_mail", orientation=EAST}
 ti["DD"] = ti[" ."] .. {"it_death"}
 ti["BD"] = ti[" o"] .. {"it_death"}
 ti["BE"] = ti[" %"] .. {"it_death"}
@@ -107,8 +104,8 @@ ti["BF"] = ti["BE"] .. {"st_box_wood"}
 ti["BG"] = ti[" %"] .. {"st_box_wood"}
 ti["U1"] = ti[" ."] .. {"st_passage_white_frame"}
 ti["U2"] = ti[" ,"] .. {"st_passage_black_frame"}
-ti["U3"] = ti[" ,"] .. {"st_oneway",state=SOUTH,color=BLACK}
-ti["U4"] = ti[" ,"] .. {"st_oneway",state=NORTH,color=BLACK}
+ti["U3"] = ti[" ,"] .. {"st_oneway", orientation=SOUTH, color=BLACK}
+ti["U4"] = ti[" ,"] .. {"st_oneway", orientation=NORTH, color=BLACK}
 ti["P "] = ti[" ."] .. {"it_vortex_open"}
 ti["h "] = {"st_bluegray_hollow"}
 ti["A "] = {"st_brake"}
@@ -119,50 +116,49 @@ ti["D "] = ti[" ~"] .. {"st_grate_cross"}
 ti["E "] = {"st_rawglass_movable"}
 ti["F "] = {"st_rawglass"}
 ti["! "] = ti[" ."] .. {"it_wrench"}
-ti["p1"] = ti[" a"] .. {"it_pipe",connections = "ew"}
+ti["p1"] = ti[" a"] .. {"it_pipe", connections = "ew"}
 ti["p2"] = ti[" a"] .. {"it_flag_black"}
-ti["p3"] = ti[" a"] .. {"it-pipe",connections = "ne"}
 ti["p4"] = ti[" a"] .. {"it_flag_white"}
 ti["sq"] = {"it_squashed"}
 ti["ex"] = {"it_extralife"}
 ti["t "] = {"it_trigger", target="@olli#*"}
 ti["x "] = ti[" ."] .. {"st_oxyd", flavor="a",name="olli#"}
-ti["mm"] = ti[" ."] .. {"st_window_ew",secure=true}
-ti[" ?"] = ti["mm"] .. {"it_sensor",action="callback",target="settimer"}
-ti["O1"] = {"st_oneway",color=BLACK,state=EAST}
-ti["O2"] = {"st_oneway",color=BLACK,state=SOUTH}
-ti["O3"] = {"st_oneway",color=BLACK,state=WEST}
-ti["O4"] = {"st_oneway",color=BLACK,state=NORTH}
+ti["mm"] = ti[" ."] .. {"st_window_ew", secure=true}
+ti[" ?"] = ti["mm"] .. {"it_sensor", action="on", target="timer"}
+ti["O1"] = {"st_oneway", color=BLACK, orientation=EAST}
+ti["O2"] = {"st_oneway", color=BLACK, orientation=SOUTH}
+ti["O3"] = {"st_oneway", color=BLACK, orientation=WEST}
+ti["O4"] = {"st_oneway", color=BLACK, orientation=NORTH}
 ti["DG"] = {"it_bag"}
-ti[" f"] = ti[" 2"] .. {"st_window_e",secure=true}
-ti[" g"] = ti[" 2"] .. {"st_window_s",secure=true}
-ti[" h"] = ti[" 2"] .. {"st_window_w",secure=true}
-ti[" i"] = ti[" 2"] .. {"st_window_n",secure=true}
-ti[" e"] = ti[" ."] .. {"st_window_e",secure=true}
-ti[" s"] = ti[" ."] .. {"st_window_s",secure=true}
-ti[" w"] = ti[" ."] .. {"st_window_w",secure=true}
-ti[" n"] = ti[" ."] .. {"st_window_n",secure=true}
-ti["nn"] = ti["  "] .. {"st_window_ew",secure=true}
-ti["ff"] = ti["  "] .. {"st_window_e",secure=false}
-ti["hh"] = ti["  "] .. {"st_window_w",secure=false}
+ti[" f"] = ti[" 2"] .. {"st_window_e", secure=true}
+ti[" g"] = ti[" 2"] .. {"st_window_s", secure=true}
+ti[" h"] = ti[" 2"] .. {"st_window_w", secure=true}
+ti[" i"] = ti[" 2"] .. {"st_window_n", secure=true}
+ti[" e"] = ti[" ."] .. {"st_window_e", secure=true}
+ti[" s"] = ti[" ."] .. {"st_window_s", secure=true}
+ti[" w"] = ti[" ."] .. {"st_window_w", secure=true}
+ti[" n"] = ti[" ."] .. {"st_window_n", secure=true}
+ti["nn"] = ti["  "] .. {"st_window_ew", secure=true}
+ti["ff"] = ti["  "] .. {"st_window_e", secure=false}
+ti["hh"] = ti["  "] .. {"st_window_w", secure=false}
 ti["nc"] = ti["nn"] .. {"it_cherry"}
 ti["nd"] = ti[" +"] .. {"it_key", code=1}
 ti["ne"] = ti[" +"] .. {"it_key", code=2}
 ti["nf"] = ti[" +"] .. {"it_key", code=3}
-ti["ND"] = ti[" ."] .. {"st_key", code=1, target={"door#1"}}
-ti["NE"] = ti[" ."] .. {"st_key", code=2, target={"door#2"}}
-ti["NF"] = ti[" ."] .. {"st_key", code=3, target={"door#3"}}
-ti[":5"] = {"st_door",faces="ns",name="door#1"}
-ti[":6"] = {"st_door",faces="ns",name="door#2"}
-ti[":7"] = {"st_door",faces="ns",name="door#3"}
+ti["ND"] = ti[" ."] .. {"st_key", code=1, target="door#1"}
+ti["NE"] = ti[" ."] .. {"st_key", code=2, target="door#2"}
+ti["NF"] = ti[" ."] .. {"st_key", code=3, target="door#3"}
+ti[":5"] = {"st_door", faces="ns", name="door#1"}
+ti[":6"] = {"st_door", faces="ns", name="door#2"}
+ti[":7"] = {"st_door", faces="ns", name="door#3"}
 ti["2W"] = {"st_fourswitch",state=3, target="fans", action="inner_pull"}
-ti["3W"] = ti["= "] .. {"st_window_nw",secure=true, "fans"}
+ti["3W"] = ti["= "] .. {"st_window_nw", secure=true, name="fans"}
 ti["4W"] = {"st_fourswitch",state=2, target="hans", action="inner_pull"}
-ti["5W"] = ti["= "] .. {"st_window_ne",secure=true, "hans"}
+ti["5W"] = ti["= "] .. {"st_window_ne", secure=true, name="hans"}
 ti["6W"] = {"st_fourswitch",state=1, target="peter", action="inner_pull"}
-ti["7W"] = ti["= "] .. {"st_window_es",secure=true ,"peter"}
+ti["7W"] = ti["= "] .. {"st_window_es", secure=true , name="peter"}
 ti["8W"] = {"st_fourswitch",state=0, target="klaus", action="inner_pull"}
-ti["9W"] = ti["= "] .. {"st_window_sw", secure=true,"klaus"}
+ti["9W"] = ti["= "] .. {"st_window_sw", secure=true, name="klaus"}
 ti["v1"] = ti[" ."] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
 ti["v2"] = ti["E "] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["v3"] = ti[" ."] .. {"it_vortex_open", name="vortex3", destination="vortex4"}
@@ -180,10 +176,10 @@ ti["&8"] = {"fl_aquamarine", name="&8"}
 ti["&h"] = ti["&1"] .. {"ac_horse", name="horse", destination={"&5","&6","&7","&8"}}
 ti["&r"] = ti[" 1"] .. {"ac_rotor", 0.5, 0.5, range=5, strength=5}
 ti["t9"] = {"it_trigger", target="laser"}
-ti["PS"] = ti["  "] .. {"st_laserswitch",action="toggle", target={"trixi"}}
-ti[":9"] = {"st_door",faces="ns",name="trixi"}
+ti["PS"] = ti["  "] .. {"st_laserswitch", action="toggle", target="trixi"}
+ti[":9"] = {"st_door", faces="ns", name="trixi"}
 ti["PL"] = ti["  "] .. {"st_laser_s", name="laser", state=OFF}
-ti["PM"] = ti["  "] .. {"st_mirror", movable=true, transparent=true, orientation=2}
+ti["PM"] = ti["  "] .. {"st_mirror", movable=true, transparent=true, orientation=EAST}
 ti["PP"] = {"st_bluesand"}
 ti["PQ"] = {"st_brownie"}
 ti["PR"] = {"st_lightpassenger_off"}
@@ -208,11 +204,11 @@ ti["//"] = {"it_burnable_burning"}
 ti["o/"] = {"it_burnable_oil"}
 
 if wo ["IsDifficult"] then
-    ti["oo"] = ti[" o"].. {"it_coffee"}
-    ti["L1"] = {"st_oneway",state=EAST}
-    ti["L2"] = {"st_oneway",state=SOUTH}
-    ti["L3"] = {"st_oneway",state=WEST}
-    ti["L4"] = {"st_oneway",state=NORTH}
+    ti["oo"] = ti[" o"] .. {"it_coffee"}
+    ti["L1"] = {"st_oneway", state=EAST}
+    ti["L2"] = {"st_oneway", state=SOUTH}
+    ti["L3"] = {"st_oneway", state=WEST}
+    ti["L4"] = {"st_oneway", state=NORTH}
 else
     ti["oo"] = ti[" o"].. {"it_flag_black"}
     ti["L1"] = {"st_passage_black_frame"}
@@ -222,62 +218,59 @@ else
 end
 
 wo(res.composer(ti), "  ", {
--- 00010203040506070809101112131415161718AA20212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
-  "7 7 7 7 7 - , # # # # # # # # # # # # D # # # # # # XX# # # # # # # # # # # D # # # # # 4 4 4 T # T 4 4 4 # # # # D # # # # # # # # # # # # , - 7 7 7 7 7 ",
-  "7  _ 1 _7  aL3          XSL3          9                                     R  O          SP    nn    SP         OXF = = = =  L1XS          L1 a7  _ 1 _7 ",
-  "7  1x  17 XX, O2. 9 9 9 9 9           9       DD            DD              R   9 , - . 4 . . . - . . . 4 , - ,   9 D # . 9   9 9 9 9 9 . O2, XX7  1x  17 ",
-  "7  _ 1 _7 XX,   -                     9  a          DD                    DD9   R               nn            Y   R                     -   , XX7  _ 1 _7 ",
-  "7 7 7 7 7 XX, SBE v4                      !1           a a a a a a      !1  Y   R , - . 4 . 4 . - . 4 . 4 , - ,   Y 7 7 7 7 7         v6E SB, XX7 7 7 7 7 ",
-  "-  aXXXXXXY ,   -                     9 PTPTPTPTPTPT aPTPTPTPTPTPTPTPTPTz6z5R   9 nn        SB  E   SB        nn  , 7  _ 1 _7           -   , Y XXXXXX a- ",
-  ",   , , ,  o-   .                     9             PR              > RL    Y   9 , -  s s. . T 4 T . .  s s- ,   9 7  1x  17           .   -  o, , ,   , ",
-  "#   L1!0!0t Y K1-           7 7 7 7 7 Y Y   PW a a aQL a a a      Y Y Y !1  9   Y   XX          nc            9   Y 7  _ 1 _7         t - K4Y t !0!0L3  # ",
-  "# :1# 9 9  ;9 9 9           7  _ 1 _7 Y                               R *w  R   9               nc        DD  9   R 7 7 7 7 7         DD9 9 9  ;9 9 # :4# ",
-  "#        ;BF ;  SB          7  1x  17 Y D , - . , . . . - :5- . . . , - , D Y C 9 , - . , . . . - . . . . , - , C Y D , - . , . . 9   SBSB   ;BG ;      # ",
-  "#        ; ; ;  SB          7  _ 1 _7 Y                           E  = = = =  C bb              nn              bbC  =C  =C     Y . - C - . . ^1, - , 9 # ",
-  "#         ^     SB        t 7 7 7 7 7 Y                           E  = = = =# -  2, Y . T ZZ# Y Y Y # ZZT . Y ,  2- #  = = a a a a a a ;                # ",
-  "D R R R R R R R R R R R R R R R R R R D     NDexexex              E C C C D Y D !4, Y  . gZZ g O g O gZZ g .Y , !4# D R R R R R R R R R R R R   R R R R D ",
-  "#   .                                 R                           E         # 9 !4, Y  f .T 7 Y ' Y 7 T  . hY , !2Y #                                   # ",
-  "#    a&1&1&1&1&1&1&1&1&1&1&1&1&1&1&1&1 a                        C C         Y # !2, Y  f ov5 o s2W s ov7 o hY , !2# Y            a a a a a a  DG        # ",
-  "#   .                                 R                           E         # 9 !1, Y  fSW o3W .x  .5W oSW hY , !19 #                  a a a a a a      # ",
-  "#   .  m   m   m   mexex m   m   m   mY           # # # # # # # # # # # # # # # 4 , Y  OBD e .$ x $  . wBD OY , 4 # # # # # # # # # # # # # # ex# # # # # ",
-  "#   R R R R R R R R R R R R R R R R R Y      a a a a a a    ZZ          F p1# 9 p1, Y  eDD8WXA O*  OXA6WDD wY , p19 # p1F                   ZZ      !7  # ",
-  "#   9 &1&1&1&1&1&1&1&1&1&1&1. &1&1&1&1Y # R R R R # # # # # # # # # # # # # # # E #  ~ O o e o$ ! $  o w o O ~# E # # # # # # # # # # # # # # # # # # !6# ",
-  "#   9 &1&1&1&h&1&1&1&1&1&1&1SB&1&1, o Y D  a - a a - a a a =          E              ~ f o o9W o ? o7W o o h ~        E                    ; a -  !8!7  # ",
-  "#   9 &1&1&5&1&1&1&1&1&8&1&1. &1    sqY D  a a a a - a - a =          E              ~ f ov1 & i . i &v3 o h ~        E                    ; a aE  =R R # ",
-  "# SBR &1&1&1&1&1&1&1&1&1&1&1SB- C R  jY D  a a - a - a - a ;          E              ~ f .oo o n4W n ooo . h ~        E                    ; a -  !8!7  # ",
-  "# w29 w1&1&1&1&1&1. &1&1&1&1SBo o   sqE  ; a - - a - a a -, # # P # # # P # # # P #  ~ . i i i O i O i i i . ~# P # # # P # # # P # # # # # # # # # # !6# ",
-  "# SBR &1&1&1&1&1&1&1&1&1&1&1SB- C R  jY D  a - - a - - a -# # ,   ,   # , - , - , #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~, D ,   # , - , - , # , - , - ,       !7  # ",
-  "D   9 &1&1&6&1&1&1&1&1&7&1&1. &1    sqY D  - a a a - - a -- , - - - - , - - - - . , - . , . . . - . . . . , - , , - - - - , - - - , - - - - , ex# # # # D ",
-  "#   9 &1&1&1&1&1&1&1&1&1&1&1SB&1&1, o Y D  a a - a a a a -# R R R R R R R R R Y !1p4        E   F nf  !8          ,       9   PL                    PS  # ",
-  "#   9 &1&1&1&1&1&1&1&1&1&1&1. &1&1&1&1Y # R R R R R R R R R Y # R R R R R R R R   , - . , . 4 . - . .  -. , - ,           9           PMPM              # ",
-  "#   R R R R R R R R R R R R R R R R R Y hh a a a a a a a a a a a                            E   !1ne  !8          ,       9                             # ",
-  "#   . -m  -m  -m  -m!6ex-m  -m  -m  -mY   R 9 9 PQ!1  D PP9 9 Y ff   a a a a a a  , - . , . . . - . . . . , - , !1,       9  = = =    P P          = = =# ",
-  "#   .                                 Y   Sa9 9 SdD   !1Sb9 9 Scff a a a a a  DG                E                 ,       9  =t9 =                 = a =# ",
-  "#   .                                 Y hh a a a a!1  D  a a a a                Y , - . , . . . 4 . . . . , - , Y         9  = = =    P P          = = =# ",
-  "#   .                                 9 PTPTPTPTPTPT aPTPTPTPTPTPTPTPTPTPTPTO2Y                 nc                Y       9                             # ",
-  "#    a&1&1--&1&1&r&1&r&r&1&r&1&1--&1&1 a  &1&1&1&1&1&1&1&1&1&1&1          O3  D Y , - . , . . . 4 . . . . , - , Y         9 9 9 9 9 9 9 9 9 9 9 :99 9 9 # ",
-  "#   .                                 9 PTPTPTPTPTPTPQPTPTPTPTPTPTPTPTPTPTPTO4D   p2            E                 ,                                     # ",
-  "#   .                                 Y !6!1        C         !1              D   , - . , . . . - . . . . , - , !1,               C                     # ",
-  "#   . -m  -m  -m  -mexex-m  -m  -m  -mY           DDC DD                      Y SB              !1nd              ,               C                     # ",
-  "D R R R R R R R R R R R R R R R R R R D R R R R R R  =R R R R R R R R R R R D D   , - . , . . . - . . . . , - ,   D R R R R R R R  =R R R R R R R R R R D ",
-  "#         v     SB        t 7 7 7 7 7 Y   !1      -  =-                       D                 Y                 Y 7 7 7 7 7   -  =-   SB    v         # ",
-  "#        ; ; ;  SB          7  _ 1 _7 Y                                       D !8, - . , . . . - . . . . , - ,     7  _ 1 _7           SB   ; ; ;      # ",
-  "#        ;BF ;  SB          7  1x  17 Y   !1                                  D  =              !1                Y 7  1x  17     NF    SB   ;BF ;      # ",
-  "# :2# 9 9  ;9 9 9           7  _ 1 _7 Y                                       Y C , - . , . . . - . . . . , - ,   Y 7  _ 1 _7           9 9 9  ;9 9 # :3# ",
-  "#   L1!0!0t Y K2-           7 7 7 7 7 Y   !1                            !1!1!1!1!4!1!2!1E   Y   E   Y   !1!1!1!1!4Y 7 7 7 7 7 R R 9 R R - K3Y t !0!0L3  # ",
-  ",   , , ,  o-   .                     9                                 !1 -!1!4!4!4!1!1  E   E   E   E !1!1!2!1 aY !1!1    t           .   -  o, , ,   , ",
-  "-  aXXXXXXY ,   -                     9 !19                             !1!1!2!4D !4!4!4Y SBE   E SBE SB a!4!1!1!4!4!4!1                -   , Y XXXXXX a- ",
-  "7 7 7 7 7 XX, SBE v8                      9         NE                  !1 a!4!4!2!1!4!1  E   E kaE   E !1!4D !1!4D !4!1              v2E SB, XX7 7 7 7 7 ",
-  "7  _ 1 _7 XX,   -                     9 :69                             !4!4D !1!2Y !4 -E   E   Y   E   !1!4!1!1!4!1!4!4                -   , XX7  _ 1 _7 ",
-  "7  1x  17 XX, O4. 9 9 9 9 9           9                                  a!1!2!2!2!1!4 aSBE SBE   E SBY !1!4!4!4 a!1!2!1. 9 :79 9 9 9 9 . O4, XX7  1x  17 ",
-  "7  _ 1 _7  aL3          XSL3          9   !1                            !1!1 -D !2!1!1!1Y   E   Y   E   !1!1!1!1!1!1!1!1      L1XS          L1 a7  _ 1 _7 ",
-  "7 7 7 7 7 - , # # # # # # # # # # # # D # # # # # # # # # # # # # # # # # # D # D # # # # # # # # # # # # # # # # D # # # # # # # # # # # # , - 7 7 7 7 7 "
--- 0001020304050607080910111213141516171819AA212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
-})
+  -- 00010203040506070809101112131415161718AA20212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
+    "7 7 7 7 7 - , # # # # # # # # # # # # D # # # # # # XX# # # # # # # # # # # D # # # # # 4 4 4 T # T 4 4 4 # # # # D # # # # # # # # # # # # , - 7 7 7 7 7 ",
+    "7  _ 1 _7  aL3          XSL3          9                                     R  O          SP    nn    SP         OXF = = = =  L1XS          L1 a7  _ 1 _7 ",
+    "7  1x  17 XX, O2. 9 9 9 9 9           9       DD            DD              R   9 , - . 4 . . . - . . . 4 , - ,   9 D # . 9   9 9 9 9 9 . O2, XX7  1x  17 ",
+    "7  _ 1 _7 XX,   -                     9  a          DD                    DD9   R               nn            Y   R                     -   , XX7  _ 1 _7 ",
+    "7 7 7 7 7 XX, SBE v4                      !1           a a a a a a      !1  Y   R , - . 4 . 4 . - . 4 . 4 , - ,   Y 7 7 7 7 7         v6E SB, XX7 7 7 7 7 ",
+    "-  aXXXXXXY ,   -                     9 PTPTPTPTPTPT aPTPTPTPTPTPTPTPTPTz6z5R   9 nn        SB  E   SB        nn  , 7  _ 1 _7           -   , Y XXXXXX a- ",
+    ",   , , ,  o-   .                     9             PR              > RL    Y   9 , -  s s. . T 4 T . .  s s- ,   9 7  1x  17           .   -  o, , ,   , ",
+    "#   L1!0!0t Y K1-           7 7 7 7 7 Y Y   PW a a aQL a a a      Y Y Y !1  9   Y   XX          nc            9   Y 7  _ 1 _7         t - K4Y t !0!0L3  # ",
+    "# :1# 9 9  ;9 9 9           7  _ 1 _7 Y                               R *w  R   9               nc        DD  9   R 7 7 7 7 7         DD9 9 9  ;9 9 # :4# ",
+    "#        ;BF ;  SB          7  1x  17 Y D , - . , . . . - :5- . . . , - , D Y C 9 , - . , . . . - . . . . , - , C Y D , - . , . . 9   SBSB   ;BG ;      # ",
+    "#        ; ; ;  SB          7  _ 1 _7 Y                           E  = = = =  C bb              nn              bbC  =C  =C     Y . - C - . . ^1, - , 9 # ",
+    "#         ^     SB        t 7 7 7 7 7 Y                           E  = = = =# -  2, Y . T ZZ# Y Y Y # ZZT . Y ,  2- #  = = a a a a a a ;                # ",
+    "D R R R R R R R R R R R R R R R R R R D     NDexexex              E C C C D Y D !4, Y  . gZZ g O g O gZZ g .Y , !4# D R R R R R R R R R R R R   R R R R D ",
+    "#   .                                 R                           E         # 9 !4, Y  f .T 7 Y ' Y 7 T  . hY , !2Y #                                   # ",
+    "#    a&1&1&1&1&1&1&1&1&1&1&1&1&1&1&1&1 a                        C C         Y # !2, Y  f ov5 o s2W s ov7 o hY , !2# Y            a a a a a a  DG        # ",
+    "#   .                                 R                           E         # 9 !1, Y  fSW o3W .x  .5W oSW hY , !19 #                  a a a a a a      # ",
+    "#   .  m   m   m   mexex m   m   m   mY           # # # # # # # # # # # # # # # 4 , Y  OBD e .$ x $  . wBD OY , 4 # # # # # # # # # # # # # # ex# # # # # ",
+    "#   R R R R R R R R R R R R R R R R R Y      a a a a a a    ZZ          F p1# 9 p1, Y  eDD8WXA O*  OXA6WDD wY , p19 # p1F                   ZZ      !7  # ",
+    "#   9 &1&1&1&1&1&1&1&1&1&1&1. &1&1&1&1Y # R R R R # # # # # # # # # # # # # # # E #  ~ O o e o$ ! $  o w o O ~# E # # # # # # # # # # # # # # # # # # !6# ",
+    "#   9 &1&1&1&h&1&1&1&1&1&1&1SB&1&1, o Y D  a - a a - a a a =          E              ~ f o o9W o ? o7W o o h ~        E                    ; a -  !8!7  # ",
+    "#   9 &1&1&5&1&1&1&1&1&8&1&1. &1    sqY D  a a a a - a - a =          E              ~ f ov1 & i . i &v3 o h ~        E                    ; a aE  =R R # ",
+    "# SBR &1&1&1&1&1&1&1&1&1&1&1SB- C R  jY D  a a - a - a - a ;          E              ~ f .oo o n4W n ooo . h ~        E                    ; a -  !8!7  # ",
+    "# w29 w1&1&1&1&1&1. &1&1&1&1SBo o   sqE  ; a - - a - a a -, # # P # # # P # # # P #  ~ . i i i O i O i i i . ~# P # # # P # # # P # # # # # # # # # # !6# ",
+    "# SBR &1&1&1&1&1&1&1&1&1&1&1SB- C R  jY D  a - - a - - a -# # ,   ,   # , - , - , #  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~, D ,   # , - , - , # , - , - ,       !7  # ",
+    "D   9 &1&1&6&1&1&1&1&1&7&1&1. &1    sqY D  - a a a - - a -- , - - - - , - - - - . , - . , . . . - . . . . , - , , - - - - , - - - , - - - - , ex# # # # D ",
+    "#   9 &1&1&1&1&1&1&1&1&1&1&1SB&1&1, o Y D  a a - a a a a -# R R R R R R R R R Y !1p4        E   F nf  !8          ,       9   PL                    PS  # ",
+    "#   9 &1&1&1&1&1&1&1&1&1&1&1. &1&1&1&1Y # R R R R R R R R R Y # R R R R R R R R   , - . , . 4 . - . .  -. , - ,           9           PMPM              # ",
+    "#   R R R R R R R R R R R R R R R R R Y hh a a a a a a a a a a a                            E   !1ne  !8          ,       9                             # ",
+    "#   . -m  -m  -m  -m!6ex-m  -m  -m  -mY   R 9 9 PQ!1  D PP9 9 Y ff   a a a a a a  , - . , . . . - . . . . , - , !1,       9  = = =    P P          = = =# ",
+    "#   .                                 Y   Sa9 9 SdD   !1Sb9 9 Scff a a a a a  DG                E                 ,       9  =t9 =                 = a =# ",
+    "#   .                                 Y hh a a a a!1  D  a a a a                Y , - . , . . . 4 . . . . , - , Y         9  = = =    P P          = = =# ",
+    "#   .                                 9 PTPTPTPTPTPT aPTPTPTPTPTPTPTPTPTPTPTO2Y                 nc                Y       9                             # ",
+    "#    a&1&1--&1&1&r&1&r&r&1&r&1&1--&1&1 a  &1&1&1&1&1&1&1&1&1&1&1          O3  D Y , - . , . . . 4 . . . . , - , Y         9 9 9 9 9 9 9 9 9 9 9 :99 9 9 # ",
+    "#   .                                 9 PTPTPTPTPTPTPQPTPTPTPTPTPTPTPTPTPTPTO4D   p2            E                 ,                                     # ",
+    "#   .                                 Y !6!1        C         !1              D   , - . , . . . - . . . . , - , !1,               C                     # ",
+    "#   . -m  -m  -m  -mexex-m  -m  -m  -mY           DDC DD                      Y SB              !1nd              ,               C                     # ",
+    "D R R R R R R R R R R R R R R R R R R D R R R R R R  =R R R R R R R R R R R D D   , - . , . . . - . . . . , - ,   D R R R R R R R  =R R R R R R R R R R D ",
+    "#         v     SB        t 7 7 7 7 7 Y   !1      -  =-                       D                 Y                 Y 7 7 7 7 7   -  =-   SB    v         # ",
+    "#        ; ; ;  SB          7  _ 1 _7 Y                                       D !8, - . , . . . - . . . . , - ,     7  _ 1 _7           SB   ; ; ;      # ",
+    "#        ;BF ;  SB          7  1x  17 Y   !1                                  D  =              !1                Y 7  1x  17     NF    SB   ;BF ;      # ",
+    "# :2# 9 9  ;9 9 9           7  _ 1 _7 Y                                       Y C , - . , . . . - . . . . , - ,   Y 7  _ 1 _7           9 9 9  ;9 9 # :3# ",
+    "#   L1!0!0t Y K2-           7 7 7 7 7 Y   !1                            !1!1!1!1!4!1!2!1E   Y   E   Y   !1!1!1!1!4Y 7 7 7 7 7 R R 9 R R - K3Y t !0!0L3  # ",
+    ",   , , ,  o-   .                     9                                 !1 -!1!4!4!4!1!1  E   E   E   E !1!1!2!1 aY !1!1    t           .   -  o, , ,   , ",
+    "-  aXXXXXXY ,   -                     9 !19                             !1!1!2!4D !4!4!4Y SBE   E SBE SB a!4!1!1!4!4!4!1                -   , Y XXXXXX a- ",
+    "7 7 7 7 7 XX, SBE v8                      9         NE                  !1 a!4!4!2!1!4!1  E   E kaE   E !1!4D !1!4D !4!1              v2E SB, XX7 7 7 7 7 ",
+    "7  _ 1 _7 XX,   -                     9 :69                             !4!4D !1!2Y !4 -E   E   Y   E   !1!4!1!1!4!1!4!4                -   , XX7  _ 1 _7 ",
+    "7  1x  17 XX, O4. 9 9 9 9 9           9                                  a!1!2!2!2!1!4 aSBE SBE   E SBY !1!4!4!4 a!1!2!1. 9 :79 9 9 9 9 . O4, XX7  1x  17 ",
+    "7  _ 1 _7  aL3          XSL3          9   !1                            !1!1 -D !2!1!1!1Y   E   Y   E   !1!1!1!1!1!1!1!1      L1XS          L1 a7  _ 1 _7 ",
+    "7 7 7 7 7 - , # # # # # # # # # # # # D # # # # # # # # # # # # # # # # # # D # D # # # # # # # # # # # # # # # # D # # # # # # # # # # # # , - 7 7 7 7 7 "})
+  -- 0001020304050607080910111213141516171819AA212223242526272829303132333435363738BB404142434445464748495051525354555657CC596061626364656667686970717273747576
 
-function settimer()
-    wo[po(0, 1)] = {"st_timer", action="callback", target="hux", interval=11.9}
-end
+wo:add({"ot_timer", state=OFF, name="timer", action="callback", target="hux", interval=11.9})
 
 function hux()
     wo:drawMap(ti, po(31, 19), "  ",{"//////////////////////",
@@ -305,7 +298,7 @@ function death(value, sender)
 end
 
 function earth(value, sender)
-    wo[{25, 33}] = {"st_oneway",color=BLACK,state=SOUTH}
+    wo[{25, 33}] = {"st_oneway", color=BLACK, state=SOUTH}
     wo[{27, 33}] = {"st_brownie"}
 end
 
