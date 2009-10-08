@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tilt" el:subtitle="Oxyd Magnum 37" el:id="martin51"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -24,28 +24,28 @@ ti["6"] = {"st_door", name="dn", flavor="d", faces="ns"}
 ti["8"] = {"st_door", name="ds", flavor="d", faces="ns"}
 ti["7"] = {"st_door", name="de", flavor="d", faces="ew"}
 ti["9"] = {"st_door", name="dw", flavor="d", faces="ew"}
-ti["@"] = {"#ac_marble_black"}
 ti["."] = ti["-"] .. {"#ac_pearl"}
 ti["1"] = ti["-"] .. {"it_trigger", target="dn"}
 ti["2"] = ti["-"] .. {"it_trigger", target="de"}
 ti["3"] = ti["-"] .. {"it_trigger", target="ds"}
 ti["4"] = ti["-"] .. {"it_trigger", target="dw"}
-ti["5"] = ti["."] .. {"it_trigger", target="bridge", action=ONOFF, inverse=true}
+ti["5"] = ti["."] .. {"it_trigger", target="bridge", inverse=true}
+ti["@"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
-"######O#############",
-"#    # #           #",
-"#    #6#           #",
-"#    # #           #",
-"#    # #      ###  #",
-"###### ########1## #",
-"O 9   X @ 7 O#452# #",
-"###### ########3## #",
-"#    # #      ###  #",
-"#    # #           #",
-"#    #8#           #",
-"#    # #           #",
-"######O#############"})
+    "######O#############",
+    "#    # #           #",
+    "#    #6#           #",
+    "#    # #           #",
+    "#    # #      ###  #",
+    "###### ########1## #",
+    "O 9   X @ 7 O#452# #",
+    "###### ########3## #",
+    "#    # #      ###  #",
+    "#    # #           #",
+    "#    #8#           #",
+    "#    # #           #",
+    "######O#############"})
 
 wo:shuffleOxyd()
  ]]></el:luamain>

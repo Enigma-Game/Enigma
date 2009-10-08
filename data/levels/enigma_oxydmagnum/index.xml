@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20400" network="false" owner="Enigma Team" release="1" revision="4" title="Oxyd Magnum"/>
+  <info enigma="1.00" group="Déjà-vu" location="20400" network="false" owner="Enigma Team" release="1" revision="5" title="Oxyd Magnum"/>
 
   <attributes/>
 
@@ -23,7 +23,7 @@
     <level _seq="15" _title="Hover Doors" _xpath="./oxm27_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried81" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Land of Impulses" _xpath="./oxm28_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried89" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Follow the Light" _xpath="./oxm33_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin49" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Tilt" _xpath="./oxm37_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin51" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Tilt" _xpath="./oxm37_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin51" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Oxyd Magnum 40" _xpath="./oxm40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnum40" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Light and Doors" _xpath="./oxm58_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Sensor Fields" _xpath="./oxm78_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried84" rel="1" rev="0" score="1" target="time" unit="duration"/>
