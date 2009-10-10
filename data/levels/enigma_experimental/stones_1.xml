@@ -615,7 +615,6 @@ for i=1, #stones do
     wo[po(5+i, 2)] = ti["#"]
     wo[po(5+i, 3)] = ti["S"]
     wo[po(5+i, 4)] = {"it_document", text=stones[i]["_text"]}
-    wo[po(5+i, 5)] = {"it_pencil"}
 end
 
 -- Stones express worldwide:

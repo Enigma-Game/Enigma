@@ -1,0 +1,22 @@
+Shadow of the hollow stoneimpulse stone
+=======================================
+
+The image have a border with bordersize [px] and a ring with a thickness [px]
+
+        border  frame0  frame1  frame2  frame3  frame4
+
+gfx16   2       2       2       2       2       -       thickness of the ring  [px]
+                0       2       4       6       -       size of the inner hole [px]
+
+gfx32   3       3       3       3       3       -       thickness of the ring  [px]
+                0       4       8       12      -       size of the inner hole [px]
+
+gfx40   4       4       4       4       4       -       thickness of the ring  [px]
+                0       6       10      16      -       size of the inner hole [px]
+
+gfx48   5       5       5       5       5       -       thickness of the ring  [px]
+                0       6       12      18      -       size of the inner hole [px]
+
+gfx64   7       7       7       7       7       -       thickness of the ring  [px]
+                0       8       16      24      -       size of the inner hole [px]
+

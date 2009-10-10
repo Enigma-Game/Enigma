@@ -1188,15 +1188,28 @@ end
 
 -- st_stoneimpulse_hollow --
 do
-   local images = DefSubimages("st_stoneimpulse_hollow", {h=4})
-   DefShModel("st_stoneimpulse_hollow", images[1], "sh_floating")
-   local frames = {}
-   for i=1,4 do table.insert(frames, images[i]) end
-   DefAnim("stoneimpulse_hollow_anim1", BuildFrames(frames, 55))
-   DefShModel("st_stoneimpulse_hollow_anim1", "stoneimpulse_hollow_anim1", "sh_floating")
-   table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
-   DefAnim("stoneimpulse_hollow_anim2", ReverseFrames(BuildFrames(frames, 55)))
-   DefShModel("st_stoneimpulse_hollow_anim2", "stoneimpulse_hollow_anim2", "sh_floating")
+    local images = DefSubimages("st_stoneimpulse_hollow", {h=4})
+    local shadows = DefSubimages("sh_stoneimpulse_hollow", {h=4, imgw=ShadowSize, imgh=ShadowSize})
+
+    local framesfg = {}
+    local framesbg = {}
+    for i=1,4 do
+        table.insert(framesfg, images[i])
+        table.insert(framesbg, shadows[i])
+    end
+
+    DefShModel("st_stoneimpulse_hollow", framesfg[1], framesbg[1])
+
+    DefAnim("stoneimpulse-hollow-anim1-fg", BuildFrames(framesfg, 55))
+    DefAnim("stoneimpulse-hollow-anim1-bg", BuildFrames(framesbg, 55))
+    DefShModel("st_stoneimpulse_hollow_anim1", "stoneimpulse-hollow-anim1-fg", "stoneimpulse-hollow-anim1-bg")
+
+    table.insert(framesfg, images[4]) -- add 1 frame to make closing anim longer!
+    table.insert(framesbg, shadows[4]) -- add 1 frame to make closing anim longer!
+
+    DefAnim("stoneimpulse-hollow-anim2-fg", ReverseFrames(BuildFrames(framesfg, 55)))
+    DefAnim("stoneimpulse-hollow-anim2-bg", ReverseFrames(BuildFrames(framesbg, 55)))
+    DefShModel("st_stoneimpulse_hollow_anim2", "stoneimpulse-hollow-anim2-fg", "stoneimpulse-hollow-anim2-bg")
 end
 
 do

@@ -1,0 +1,38 @@
+Pencil item image data
+======================
+
+Sizes (width x hight) in px given in the Inkscape export dialog
+The ones with a "*" are the currently used gfx, the number
+behind the star is the offset: -1d = 1 px down.
+
+gfx16
+-----
+ 12 x 11   75.0 %
+ 14 x 13   87.5 %  *  -1d
+
+
+gfx32
+-----
+ 28 x 27   87.5 %  * -2d 
+ 30 x 29   93.75 %
+
+
+gfx40
+-----
+ 30 x 32   75 %  *  -2d
+
+
+gfx48
+-----
+ 40 x 38   83.3 %  *  -3d
+ 42 x 40   87.5 % 
+ 44 x 42   91.6 %
+
+
+gxf64
+-----
+ 44 x 42   68.75 %
+ 46 x 44   71.875 %
+ 48 x 45   75.0 %
+ 50 x 47   78.125 %  *  -3d
+
