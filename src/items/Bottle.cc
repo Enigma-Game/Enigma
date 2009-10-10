@@ -71,7 +71,7 @@ namespace enigma {
             std::string txt(v);
             // translate text
             txt = server::LoadedProxy->getLocalizedString(txt);
-            client::Msg_ShowText(txt, true);
+            client::Msg_ShowDocument(txt, true);
             return ITEM_KILL;          // remove from inventory
         } else if (state == IDLE) {
             if (!SendMessage(a, "_booze", getAttr("interval")).to_bool())

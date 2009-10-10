@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004 Daniel Heck
- * Copyright (C) 2006, 2007 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -69,8 +69,7 @@ namespace
     }
 
     /*! Generate the message that is displayed when the level starts. */
-    string displayedLevelInfo (lev::Proxy *level)
-    {
+    std::string displayedLevelInfo (lev::Proxy *level) {
         std::string text;
         std::string tmp;
 
@@ -120,6 +119,22 @@ Client::Client()
 Client::~Client() 
 {
     network_stop();
+}
+
+void Client::init() {
+    std::string command;
+    for (int i = 0; i < 10; i++) {
+        command = app.state->getString(ecl::strf("CommandHistory#%d", i).c_str());
+        if (command.size() > 0)
+            commandHistory.push_back(command);
+        else
+            break;
+    }
+}
+
+void Client::shutdown() {
+    for (int i = 0; i < commandHistory.size(); i++)
+        app.state->setProperty(ecl::strf("CommandHistory#%d", i).c_str(), commandHistory[i].c_str());
 }
 
 bool Client::network_start()
@@ -263,109 +278,119 @@ void Client::rotate_inventory (int direction)
 
 /* -------------------- Console related -------------------- */
 
-class HistoryProxy {
-    static int    instances;
-public:
-    static string content;
-
-    HistoryProxy();
-    ~HistoryProxy() {
-        if (!--instances) app.state->setProperty("CommandHistory", content);
-    }
-};
-
-string HistoryProxy::content;
-int    HistoryProxy::instances = 0;
-
-HistoryProxy::HistoryProxy() {
-    if (!instances++) {
-        content = app.state->getString("CommandHistory");
-        if (content.find(HSEP) == string::npos) content = string(1, HSEP);
-    }
-}
-
-static void user_input_history_append(const string& text, bool at_end = true) {
-    HistoryProxy history;
-    size_t       old_pos = history.content.find(string(1, HSEP)+text+HSEP);
-
-    if (old_pos != string::npos)
-        history.content.erase(old_pos, text.length()+1);
-
-    if (at_end)
-        history.content += text+HSEP;
-    else
-        history.content = string(1, HSEP)+text+history.content;
-}
-
-void Client::process_userinput()
-{
-    if (m_user_input != "") {
-        STATUSBAR->hide_text();
-        string commands = m_user_input;
-
-        user_input_history_append(m_user_input);
-        m_user_input = "";
-
-        size_t sep_pos;
-        while ((sep_pos = commands.find_first_of(';')) != string::npos) {
-            string first_command = commands.substr(0, sep_pos);
-            commands.erase(0, sep_pos+1);
-            server::Msg_Command (first_command);
+void Client::process_userinput() {
+    // no addition of existing commands to history
+    if (consoleIndex == 1) {
+        for (int i = 0; i < commandHistory.size(); i++) {
+            if (newCommand == commandHistory[i]) {
+                // take existing history command instead of new command
+                consoleIndex = i + 2;
+                break;
+            }
         }
-        server::Msg_Command (commands); // last command
     }
+    // resort history with selected command at bottom
+    if (consoleIndex == 1) {
+        if (commandHistory.size() < 10)
+             commandHistory.push_back(std::string(""));
+        for (int i = 8; i >= 0; i--) {
+            if (i < commandHistory.size() - 1)
+                commandHistory[i+1] = commandHistory[i];
+        }
+    } else if (consoleIndex > 1) {
+        newCommand = commandHistory[consoleIndex - 2];
+        for (int i = consoleIndex - 3; i >= 0; i--) {
+            if (i < commandHistory.size())
+                commandHistory[i+1] = commandHistory[i];
+        }
+    } else { // document history or inventory
+        return;
+    }
+    commandHistory[0] = newCommand;
+    newCommand = "";
+    consoleIndex = 0;
+    STATUSBAR->hide_text();
+    server::Msg_Command(commandHistory[0]);
 }
 
-void Client::user_input_append (char c) {
-    m_user_input += c;
-    Msg_ShowText (m_user_input, false);
+void Client::user_input_append(char c) {
+    if (consoleIndex <= 0) {
+        consoleIndex = 1;
+        newCommand = c;
+    } else if (consoleIndex == 1) {
+        newCommand += c;
+    } else {
+        newCommand =  commandHistory[consoleIndex - 2] + c;
+        consoleIndex = 1;
+    }
+    Msg_ShowText(newCommand, false);
 }
 
-void Client::user_input_backspace ()
-{
-    if (!m_user_input.empty()) {
-        m_user_input.erase (m_user_input.size()-1, 1);
-        if (!m_user_input.empty()) {
-            // still not empty
-            Msg_ShowText (m_user_input, false);
+void Client::user_input_backspace() {
+    if (consoleIndex == 1) {
+        newCommand.erase(newCommand.size() - 1, 1); 
+        if (!newCommand.empty())
+            Msg_ShowText(newCommand, false);
+        else {
+            consoleIndex = 0;
+            STATUSBAR->hide_text();
+        }
+    } else if (consoleIndex > 1) {
+        newCommand =  commandHistory[consoleIndex - 2];
+        newCommand.erase(newCommand.size() - 1, 1); 
+        if (!newCommand.empty()) {
+            consoleIndex = 1;
+            Msg_ShowText(newCommand, false);
         } else {
-            // empty
+            consoleIndex = 0;
             STATUSBAR->hide_text();
         }
     }
 }
-void Client::user_input_previous ()
-{
-    HistoryProxy history;
-    size_t       last_start = history.content.find_last_of(HSEP, history.content.length()-2);
 
-    if (last_start != string::npos) {
-        string prev_input = history.content.substr(last_start+1, history.content.length()-last_start-2);
-        history.content.erase(last_start+1);
-        user_input_history_append(m_user_input, false);
-        m_user_input      = prev_input;
-
-        if (m_user_input.empty())
+void Client::user_input_previous() {
+    if (consoleIndex < 0) {
+        ++consoleIndex;
+        int docIndex = documentHistory.size() + consoleIndex;
+        if (docIndex < documentHistory.size()) {
+            Msg_ShowText(documentHistory[docIndex], true);
+        } else {
+            consoleIndex = 0;
             STATUSBAR->hide_text();
-        else
-            Msg_ShowText (m_user_input, false);
+        }
+    } else if (consoleIndex == 0) {
+        if (newCommand.length() > 0) {
+            consoleIndex = 1;
+            Msg_ShowText(newCommand, false);
+        } else if (commandHistory.size() > 0) {
+            consoleIndex = 2;
+            Msg_ShowText(commandHistory[0], false);
+        }
+    } else if (consoleIndex <= commandHistory.size()) {
+        ++consoleIndex;
+        Msg_ShowText(commandHistory[consoleIndex - 2], false);
+    } else {  // top of history or new command without history
+        consoleIndex = 0;
+        STATUSBAR->hide_text();
     }
 }
-void Client::user_input_next ()
-{
-    HistoryProxy history;
-    size_t       first_end = history.content.find_first_of(HSEP, 1);
 
-    if (first_end != string::npos) {
-        string next_input = history.content.substr(1, first_end-1);
-        history.content.erase(0, first_end);
-        user_input_history_append(m_user_input);
-        m_user_input      = next_input;
-
-        if (m_user_input.empty())
+void Client::user_input_next() {
+    if (consoleIndex <= 0) {
+        --consoleIndex;
+        int docIndex = documentHistory.size() + consoleIndex;
+        if (docIndex >= 0) {
+            Msg_ShowText(documentHistory[docIndex], true);
+        } else {
+            consoleIndex = 0;
             STATUSBAR->hide_text();
-        else
-            Msg_ShowText (m_user_input, false);
+        }
+    } else if (consoleIndex == 1 || (consoleIndex == 2 && newCommand.size() == 0)) {
+        consoleIndex = 0;
+        STATUSBAR->hide_text();
+    } else if (consoleIndex > 1) {
+        --consoleIndex;
+        Msg_ShowText(consoleIndex == 1 ? newCommand : commandHistory[consoleIndex - 2], false);
     }
 }
 
@@ -832,26 +857,25 @@ void Client::level_loaded(bool isRestart)
     video::SetCaption(ecl::strf(_("Enigma pack %s - level #%d: %s"), ind->getName().c_str(),
             ind->getCurrentLevel(), curProxy->getTitle().c_str()).c_str());
 
-    string hunted = init_hunted_time();   // sets m_hunt_against_time (used below)
+    std::string hunted = init_hunted_time();   // sets m_hunt_against_time (used below)
+    documentHistory.clear();
+    consoleIndex = 0;
 
     // show level information (name, author, etc.)
-    {
-        string displayed_info = "";
-        if (m_hunt_against_time>0) {
-            if (hunted == "you")
-                displayed_info = _("Your record: ");
-            else
-                displayed_info = _("World record to beat: ");
-            displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
-                    m_hunt_against_time%60);
+    std::string displayed_info = "";
+    if (m_hunt_against_time>0) {
+        if (hunted == "you")
+            displayed_info = _("Your record: ");
+        else
+            displayed_info = _("World record to beat: ");
+        displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
+                m_hunt_against_time%60);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
-            Msg_ShowText (displayed_info, true, 4.0);
-        }
-        else {
-            displayed_info = displayedLevelInfo(curProxy);
-            Msg_ShowText (displayed_info, true, 2.0);
-        }
+        Msg_ShowDocument(displayed_info, true, 4.0);
+    } else {
+        displayed_info = displayedLevelInfo(curProxy);
+        Msg_ShowDocument(displayed_info, true, 2.0);
     }
 
     sound::StartLevelMusic();
@@ -885,9 +909,24 @@ void Client::error (const string &text)
     draw_screen();
 }
 
-
+void Client::registerDocument(std::string text) {
+    documentHistory.push_back(text);
+    consoleIndex = -1;
+}
+
+void Client::finishedText() {
+    consoleIndex = 0;
+}
+
 /* -------------------- Functions -------------------- */
 
+void client::ClientInit() {
+    CLIENT.init();
+}
+
+void client::ClientShutdown() {
+    CLIENT.shutdown();
+}
 
 bool client::NetworkStart() 
 {
@@ -976,10 +1015,17 @@ void client::Msg_Sparkle (const ecl::V2 &pos) {
 }
 
 
-void client::Msg_ShowText
-(const std::string &text, bool scrolling, double duration)
-{
+void client::Msg_ShowText(const std::string &text, bool scrolling, double duration) {
     STATUSBAR->show_text (text, scrolling, duration);
+}
+
+void client::Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
+    CLIENT.registerDocument(text);
+    Msg_ShowText(text, scrolling, duration);
+}
+
+void client::Msg_FinishedText() {
+    CLIENT.finishedText();
 }
 
 void client::Msg_Error (const std::string &text)

@@ -24,9 +24,10 @@
  */
 
 #include "display_internal.hh"
+#include "client.hh"
 #include "errors.hh"
-#include "video.hh"
 #include "main.hh"
+#include "video.hh"
 
 #include "ecl_sdl.hh"
 #include "ecl.hh"
@@ -240,6 +241,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
         m_textview.draw (gc, r);
     }
     else {
+        client::Msg_FinishedText();
         int itemsize = static_cast<int>(vminfo->tile_size * 1.25);
         int x = m_itemarea.x;
         for (unsigned i=0; i<m_models.size(); ++i) {

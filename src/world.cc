@@ -2389,6 +2389,7 @@ void InitWorld() {
     Object::bootFinished();
     BootRegister(NULL, NULL, false);
     InitLasers();
+    client::ClientInit();
 }
 
 void ShutdownWorld() {
@@ -2396,6 +2397,7 @@ void ShutdownWorld() {
     player::PlayerShutdown();
     Repos_Shutdown();
     WorldProxy::shutdown();
+    client::ClientShutdown();
 }
 
 /* -------------------- Object repository -------------------- */

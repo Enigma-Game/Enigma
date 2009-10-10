@@ -318,6 +318,9 @@ void Application::init(int argc, char **argv)
     // set message language
     init_i18n();
     
+    // initialize application state
+    state = StateManager::instance();
+
     // ----- Object declarations
     ObjectValidator::didInitXML();  // enable initialization
     ObjectValidator::instance();    // force early initialization (an optional statement)
@@ -375,9 +378,6 @@ void Application::init(int argc, char **argv)
 
     // ----- Load models
     display::Init(ap.show_fps);
-
-    // initialize application state
-    state = StateManager::instance();
 
     // ----- Load level packs -- needs state
     lev::Index::initGroups();

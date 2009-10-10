@@ -1,6 +1,26 @@
+/*
+ * Copyright (C) 2003,2004,2005 Daniel Heck
+ * Copyright (C) 2009 Ronald Lamprecht
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *  
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ *
+ */
 #include "gui/Menu.hh"
 #include "video.hh"
 #include "ecl_buffer.hh"
+#include <vector>
 
 namespace
 {
@@ -101,6 +121,9 @@ namespace
         Client();
         ~Client();
 
+        void init();
+        void shutdown();
+        
         void tick (double dtime);
         void stop() { m_state = cls_idle; }
         bool network_start();
@@ -119,8 +142,12 @@ namespace
 
         void mark_cheater() { m_cheater = true; }
         void easy_going() { m_hunt_against_time = false; }
+        void registerDocument(std::string text);
+        void finishedText();
+        
     private:
 
+        
         std::string init_hunted_time();
 
 
@@ -157,8 +184,13 @@ namespace
         int         m_hunt_against_time;
         bool        m_cheater;
 
-        string      m_user_input;
-        string      m_error_message;
+        std::string newCommand;
+        std::vector<std::string> commandHistory;
+        std::vector<std::string> documentHistory;
+        int consoleIndex;
+        
+        std::string      m_user_input;
+        std::string      m_error_message;
 
         std::auto_ptr<video::TransitionEffect> m_effect;
         ENetHost   *m_network_host;
