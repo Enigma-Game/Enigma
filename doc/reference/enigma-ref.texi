@@ -6659,7 +6659,7 @@ multiple concatenations or not.
 Note that due to the value nature of position lists the concatenation creates
 a new value. This is an expensive operation. When you are collecting potentially
 large number of positions in a loop, you should not concat each new candidate
-to an existing position list. Avoid the creation of numerous position list 
+to an existing position list. Avoid the creation of numerous position list
 values and collect the positions in a standard Lua table. Convert this table
 at the end to a position list (@xref{PositionList Conversion}).
 
@@ -6883,7 +6883,7 @@ of declarations in the tile.
 @obindex st_nil
 @obindex nil
 Even though in most cases you use object declarations and tiles to set objects
-you may need in some advanced usage cases to supply such a datatype in 
+you may need in some advanced usage cases to supply such a datatype in
 situations where you want to add nothing at all or even want to kill an
 possibly existing object. In these cases you can supply on of the pseudo object
 kind names @code{"fl_nil"}, @code{"it_nil"}, @code{"st_nil"} or @code{"nil"}.
@@ -8762,6 +8762,7 @@ that is appropriate for an object and do avoid using numbers.
 @item @samp{OPEN} = @code{1}, all door like objects
 @item @samp{IDLE} = @code{0}, other objects in the default passive state
 @item @samp{ACTIVE} = @code{1}, other objects in the active state
+@item @samp{INACTIVE} = @code{2}, other objects in the inactive state
 @item @samp{OXYDPAIR} = @code{2}, just by @ref{st_oxyd}
 @item @samp{LIGHT} = @code{0}, by @ref{st_disco}
 @item @samp{MEDIUM} = @code{1}, by @ref{st_disco}, @ref{it_crack}, @ref{it_extinguisher}
@@ -9224,7 +9225,7 @@ or @ref{fl_abyss}. Besides any floor kind you can use any key of a tile
 declaration preceeded by an equal sign @code{'='}. By this second method you
 can use attributed floor kinds with special values for friction and adhesion.
 
-Additionally you can set this global @samp{FallenPuzzle} attribute to 
+Additionally you can set this global @samp{FallenPuzzle} attribute to
 @code{"it_pipe"} or @code{"it_stip"}. In both cases fallen puzzle objects will
 be replaced by items of the given class with the identical connections as the
 fallen puzzle stones. Just in case that an item of the given class is already
@@ -9566,11 +9567,11 @@ the title given in the @ref{<identity>} element and the @ref{SublevelNumber}.
 @subsection SubSoil
 
 A global variable that defines the subsoil which replaces a floor on its
-physical destruction. @ref{it_bomb}s and @ref{ot_cannonball}s can cause 
+physical destruction. @ref{it_bomb}s and @ref{ot_cannonball}s can cause
 @ref{it_explosion}_debris which in turn dissolves the floor to the base
 subsoil. The special value @code{SUBSOIL_AUTO} determines the subsoil based
 on the surrounding floors. Any @ref{fl_water} on a direct neighboring floor
-causes the floor to be replaced by water, too. Otherwise the default 
+causes the floor to be replaced by water, too. Otherwise the default
 @ref{fl_abyss} will be used as replacement.
 
 @table @asis
@@ -14097,7 +14098,7 @@ Vortices can be @samp{OPEN} or @samp{CLOSED}. Of course an actor can enter just
 an open vortex. Closed vortices at the destination are opened automatically.
 By default such vortices remain open. By usage of the attribute @samp{autoclose}
 you can configure a vortex to close after an actor has been emitted. This helps
-the user to leave the vortex by keeping the marble from being reinserted into 
+the user to leave the vortex by keeping the marble from being reinserted into
 the vortex. Of course an autoclose disables the user to return, too. If this
 is not your intention you set additionally the attribute @samp{autoopen} to
 @code{true}. The vortex will reopen again when the marble leaves the closed
@@ -14319,7 +14320,7 @@ Switches the wormhole off.
 @tab @image{images/st_greenbrown, 12mm} @tab @yref{st_greenbrown}
 @tab @image{images/st_greengray, 12mm} @tab @yref{st_greengray}
 @item @image{images/st_ice, 12mm} @tab @yref{st_ice}
-@tab                            @tab @yref{st_invisible} or @yref{st_ghost} 
+@tab                            @tab @yref{st_invisible} or @yref{st_ghost}
 @tab @image{images/st_jamb_black, 12mm} @tab @yref{st_jamb}_black
 @item @image{images/st_jamb_white, 12mm} @tab @yref{st_jamb}_white
 @tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
@@ -17059,7 +17060,7 @@ as a mandatory semi-transparent pair of sheets.
 @item @b{state}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}; @ @ @i{default}: @code{NORTH}; @ @ @xref{state}
 The orientation of the mirror. For a triangular mirror it is the triangle's
 pointing direction. For a planar mirror it is the reflection direction of an
-incoming northbound beam. 
+incoming northbound beam.
 @item @b{orientation}, @ @ @i{values}: @code{NORTH}, @code{EAST}, @code{SOUTH}, @code{WEST}, @code{RANDOMDIR}; @ @ @i{default}: @code{NORTH}
 The orientation of the mirror. For a triangular mirror it is the triangle's
 pointing direction. For a planar mirror it is the reflection direction of an
@@ -17699,14 +17700,14 @@ free of other stones. If all new positions are @ref{fl_water} the blue puzzle
 will sink and leave an object of the kind given by the global attribute
 @ref{FallenPuzzle}. The replacement defaults to @ref{fl_gray} building a bridge
 over the water. The user can prohibit the sinking of the puzzle into water by
-pushing with a revealed @ref{it_magicwand}. If all new positions are 
+pushing with a revealed @ref{it_magicwand}. If all new positions are
 @ref{fl_abyss} just complete blue clusters will sink and build a bridge. If all
-new positions are either abyss or water with at least one abyss floor just 
+new positions are either abyss or water with at least one abyss floor just
 complete blue clusters will sink. Note that puzzles just sink on moves. Moving
 a blue fragment besides another fragment on abyss so that both fragments build
 a complete cluster will not sink the new cluster. It will sink as a whole on the
-next move. If two or more stones of a cluster receive wire impulses originating 
-from a single event, the whole cluster will move multiple times. But it will 
+next move. If two or more stones of a cluster receive wire impulses originating
+from a single event, the whole cluster will move multiple times. But it will
 sink on the first opportunity.
 
 Just single unconnected yellow puzzle stones can be moved by actors. They will
@@ -23493,21 +23494,21 @@ The train resolver supports you in the set up of train like wandering floor
 chains. Usually short passages of solid standard floors wander on a closed
 path of otherwise unpassable floors like @ref{fl_abyss} or @ref{fl_water}.
 
-The path itself is called railway, even though the name train does not really 
+The path itself is called railway, even though the name train does not really
 fit the features of the wandering floor chains. But these names have been
 chosen by Petr Machata in his first implementation of a simple wandering floor
 feature.
 
-In contrast to real world train, the wandering floors themselves do not move at 
+In contrast to real world train, the wandering floors themselves do not move at
 all. Thus they do neither carry items or stones, nor do they allow an actor to
 rest on them and to be automatically transported along the path. The train
 is more like a curb wheel of a trunk. New floors are added to the front while
-trailing floors are removed. 
+trailing floors are removed.
 
 Actually a chain of floors is composed of two train locos which move along the
 railway path. One at the front that sets floor of the standard passable kind and
 one at the end, or exactly one grid behind the end, that resets floor of the
-unpassable floor kind. 
+unpassable floor kind.
 
 Usually both train locos move at the same speed keeping the passable floor
 chain length constant. But this resolver allows you to set up arbitrary
@@ -23518,7 +23519,7 @@ trains. Nevertheless we keep the name.
 Every railway path has to be described by a chained train resolver instance. The
 paths of different resolvers may cross each other, but crossing trains may cause
 unexpected results as the train locos just set floors without any respect to
-other trains. In future it is planned to add track and train line attributes, 
+other trains. In future it is planned to add track and train line attributes,
 which will allow even more complex railways.
 
 @table @asis
@@ -23543,7 +23544,7 @@ related tile subkey string and optional further arguments.
 A railway position that marks one of two edges spanning a rectangular railway
 path.
 @item @i{trainvalue} = @{@i{successorkey} [, @i{predecessorkey}] [, length=@i{trainlength}] [, orientation=@i{traveldirection}] [, interval=@i{speed}] [, name=@i{namevalue}]@}
-A train loco that moves with the given speed interval, defaulting to 0.25 
+A train loco that moves with the given speed interval, defaulting to 0.25
 seconds per grid, and starting into the given traveldirection. The loco sets
 floors given by the sucessorkey string that will be resolved via the subresolver.
 If a trainlength is given, a second train loco is automatically created that
@@ -23566,14 +23567,14 @@ given no additional objects are set.
 
 If the key is no hit, but a suffix string is given and matches the key, the
 position will be registered as part of the railway path, too. In this case
-the suffix part of the key will be replaced by space characters and the 
+the suffix part of the key will be replaced by space characters and the
 resulting key will be resolved via the subresolver.
 
-There is no need of marking every grid position of a railway, what would be a 
+There is no need of marking every grid position of a railway, what would be a
 very annoying task if many stones and items are positioned on its path. By
 default every train moves straight forward. You just need to provide hints for
 positions where the train turns left or right. Marking the positions of the path
-that follow every turn is sufficient. 
+that follow every turn is sufficient.
 
 
 @item @b{Full Example:}

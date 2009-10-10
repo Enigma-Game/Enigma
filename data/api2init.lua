@@ -86,6 +86,7 @@ CLOSED    = 0
 OPEN      = 1
 IDLE      = 0
 ACTIVE    = 1
+INACTIVE  = 2
 OXYDPAIR  = 2
 LIGHT     = 0
 MEDIUM    = 1
