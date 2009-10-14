@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Green Hell" el:subtitle="Exploration Trip to Green Waters" el:id="mecke22"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision:88$" el:status="released"/>
-      <el:author  el:name="mecke" el:email=""/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision:89$" el:status="released"/>
+      <el:author el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -128,6 +128,8 @@ ti["jx"] = ti[" +"] .. {"it_glasses"}
 ti["=-"] = ti[" -"] .. {"st_rawglass_movable"}
 ti["=+"] = ti[" +"] .. {"st_rawglass_movable"}
 ti["=!"] = ti[" !"] .. {"st_rawglass_movable"}
+ti["pp"] = ti[" !"] .. {"st_plop_slate"}
+ti["pq"] = ti[" -"] .. {"st_plop_slate"}
 ti["c!"] = ti["c "] .. {"fl_swamp"}
 ti["e-"] = ti["=-"] .. {"it_cherry"}
 ti["e!"] = ti[" !"] .. {"it_cherry"}
@@ -138,11 +140,11 @@ ti["b3"] = ti[" 3"] .. {"it_bomb_black"}
 ti["b#"] = ti[" #"] .. {"it_bomb_black"}
 ti["s$"] = ti[" $"] .. {"it_squashed"}
 ti["v1"] = ti["=!"] .. {"it_vortex_open", name="vortex1", destination="vortex2"}
-ti["v2"] = ti["=-"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
+ti["v2"] = ti["pq"] .. {"it_vortex_open", name="vortex2", destination="vortex1"}
 ti["v3"] = ti["c!"] .. {"it_vortex_open", name="vortex3", destination="vortex4"}
-ti["v4"] = ti["=-"] .. {"it_vortex_open", name="vortex4", destination="vortex3"}
+ti["v4"] = ti["pq"] .. {"it_vortex_open", name="vortex4", destination="vortex3"}
 ti["v5"] = ti["//"] .. {"it_vortex_open", name="vortex5", destination="vortex6"}
-ti["v6"] = ti["=+"] .. {"it_vortex_open", name="vortex6", destination="vortex5"}
+ti["v6"] = ti["pp"] .. {"it_vortex_open", name="vortex6", destination="vortex5"}
 ti["v7"] = ti["c!"] .. {"it_vortex_open", name="vortex7", destination="vortex8"}
 ti["v8"] = ti["=-"] .. {"it_vortex_open", name="vortex8", destination="vortex7"}
 ti["v9"] = ti[" +"] .. {"it_vortex_open", name="vortex9", destination="vortey9"}
@@ -196,17 +198,18 @@ ti["g1"] = ti[" +"] .. {"st_door",faces="ns",name="door1#"}
 ti["g2"] = ti[" +"] .. {"st_door_a",name="door2#"} --middleearth
 ti["g4"] = ti[" +"] .. {"st_door_a",name="door4#"} --fourswitchroom
 ti["g3"] = ti[" +"] .. {"st_door",faces="ns",name="door3#"}
-ti["x1"] = ti[" +"] .. {"st_fourswitch",state=NORTH ,name="fs1", target="laseron", action="callback"}
-ti["x2"] = ti[" +"] .. {"st_fourswitch",state=NORTH ,name="fs2", target="laseron", action="callback"}
-ti["x3"] = ti[" +"] .. {"st_fourswitch",state=NORTH ,name="fs3", target="laseron", action="callback"}
-ti["x4"] = ti[" +"] .. {"st_fourswitch",state=NORTH ,name="fs4", target="laseron", action="callback"}
-ti["x5"] = ti[" +"] .. {"st_fourswitch",state=NORTH }
-ti["x6"] = ti[" +"] .. {"st_fourswitch",state=EAST }
-ti["x7"] = ti[" +"] .. {"st_fourswitch",state=WEST }
-ti["x8"] = ti[" +"] .. {"st_fourswitch",state=SOUTH }
-ti["YL"] = ti[" +"] .. {"st_timer", action="toggle", target="laser3#*", interval=4}
-ti["XL"] = ti[" +"] .. {"st_laser_w", name="laser3#"}
-ti["LS"] = ti[" +"] .. {"st_laser_s", state=OFF, name="laserworld"}
+ti["x1"] = ti[" +"] .. {"st_fourswitch",state= NORTH ,name="fs1", target="laseron", action="callback"}
+ti["x2"] = ti[" +"] .. {"st_fourswitch",state= NORTH ,name="fs2", target="laseron", action="callback"}
+ti["x3"] = ti[" +"] .. {"st_fourswitch",state= NORTH ,name="fs3", target="laseron", action="callback"}
+ti["x4"] = ti[" +"] .. {"st_fourswitch",state= NORTH ,name="fs4", target="laseron", action="callback"}
+ti["x5"] = ti[" +"] .. {"st_fourswitch",state= NORTH }
+ti["x6"] = ti[" +"] .. {"st_fourswitch",state= EAST }
+ti["x7"] = ti[" +"] .. {"st_fourswitch",state= WEST }
+ti["x8"] = ti[" +"] .. {"st_fourswitch",state= SOUTH }
+ti["YL"] = ti[" +"] .. {"st_timer",action="toggle",target="laser3#*",interval=4}
+ti["XL"] = ti[" +"] .. {"st_laser_w",name="laser3#"}
+ti["LS"] = ti[" +"] .. {"st_laser_s",state=OFF, name="laserworld"}
+
 if wo["IsDifficult"] then
    ti["i+"] = ti[" +"] .. {"it_seed", flavor="greenbrown"}
    ti["rr"] = ti[" $"] .. {"#ac_rotor", range=3, strength=3}
@@ -218,8 +221,9 @@ if wo["IsDifficult"] then
    ti[" <"] = {"fl_slope_ose"}
    ti[" ="] = {"fl_slope_onw"}
    ti["r5"] = ti[" ;"] .. {"it_trigger", target="olle5"}
-   ti["h5"] = ti[" ,"] .. {"fl_bridge", name="olle5"}
-   ti["XZ"] = ti[" ;"] .. {"it_trigger", target="liz1#*"}
+   ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
+   ti["XZ"] = ti[" ;"] .. {"it_trigger",target="liz1#*"}
+   ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}
    ti["LZ"] = ti[" ;"] .. {"it_burnable_oil"}
 else
    ti["i+"] = ti[" +"] .. {"it_dynamite"}
@@ -233,11 +237,11 @@ else
    ti[" <"] = {"fl_lawn_d4"}
    ti[" ="] = {"fl_lawn_d4"}
    ti["r5"] = ti[" ;"] .. {"it_trigger", target={"olle5","liz1#*"}}
-   ti["h5"] = ti[" ,"] .. {"fl_bridge", name="olle5"}
+   ti["h5"] = ti[" ,"] .. {"fl_bridge",name="olle5"}
    ti["XZ"] = ti[" 5"] .. {"st_puzzle_yellow_ne"}
+   ti["LL"] = ti[" +"] .. {"st_laser_n",name="liz1#",state=OFF}
    ti["LZ"] = ti[" ;"] .. {"it_flag_black"}
 end
-ti["LL"] = ti[" +"] .. {"st_laser_n", name="liz1#", state=OFF}
 
 wo(res.composer(ti), "  ", {
 -- 0001                10                  20                  30                  40                  50                  60        65        70    73            80    83  85  87  89  91
@@ -330,14 +334,15 @@ wo(res.composer(ti), "  ", {
   "!! ! ' ! ' ' ' ' ' ''' ' ' ' ' ' ' ' ! ! ! ! # !C! #C! !C! !C! ! ! ! ! ! ! !%! 0 0 0 0 4 4 ; 4 4 4 4 ; 4 4 6 6 6 6%! ! & & & $ & & & $ & & & $ & & & ! !%! + + $ $ $ $ $ $ $ $ $ $ $ $ $ $ + +!!",
   "!! ! ' ! '-!-!3!0!-!-!-!-!-!-!-!-! ' ! ! ! # ! !C! !C! #C! !C! ! ! ! ! ! ! !%! 0 0 0 0 $ $ $ $ $ $ $ $ $ $ 6 6 6 6%! ! ! , & $ & , & $ & , & $ & , & ! !%! + + + + + + + + + + + + + + + + + +!!",
   "!! ! ' ! 'b! ' ' ' ''' ' ' ' ' ',! ' ! ! # ! ! !C! !C! !C! #C! ! ! ! ! , ! !%! 1 1 1 1 $ $ $ $F$F$ $ $ $ $ . . . .%! ! !F, &F$ &F, &F$ &F, &F$ &F, & ! !%! + $ +?%?%?% !?!?!?! !?$?$?$ ! ! + +!!",
-  "!! ! 'b!,'0!-' ! ! ! ! ! ! !-!b'-!,'0! # ! ! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 1 1 $ $ $F$ $ $F$ $ $ $ . . . .%! ! ! , & $ & , & $ & , & $ & , & !+!%! + + +?%LS?% !?!Y!?! !?$.!?$ ! ! +v6!!",
-  "!! !''n!''.!b''' '''v9'' '''b!''A!''b! - -v8 -/-@-/-@-/-@//-@- - -!/ -e- ! ,%! 1 1 1 2 $ $F$ $ $ $ $F$ $ $ 7 . . .%! ! !+, &+$ &+, &+$ &+, &+$ &+, &M&!& & + + $?%?%?% !?!?!?! !?$?$?$ ! ! + +!!",
-  "!! ! '*!-'n!3! ! ! ! ! ! ! !n!-'b!-'3! # ! ! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 2 2 $ $ $F$ $ $F$ $ $ $ 7 7 . .%! ! ! ,f& $ & , & $ & , & $f& , ! !+!%! + + + + + + + + + + + + + + + + + +!!",
+  "!! ! 'b!,'0!-' ! ! ! ! ! ! !-!b'-!,'0! # !f! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 1 1 $ $ $F$ $ $F$ $ $ $ . . . .%! ! ! , & $ & , & $ & , & $ & , & !+!%! + + +?%LS?% !?!Y!?! !?$.!?$ ! ! +v6!!",
+  "!! !''n!''.!b''' '''v9'' '''b!''A!''b! -f-v8f-/-@-/-@-/-@//-@- - -!/ -e- ! ,%! 1 1 1 2 $ $F$ $ $ $ $F$ $ $ 7 . . .%! ! !+, &+$ &+, &+$ &+, &+$ &+, &M&!& & + + $?%?%?% !?!?!?! !?$?$?$ ! ! + +!!",
+  "!! ! '*!-'n!3! ! ! ! ! ! ! !n!-'b!-'3! # !f! ! !C! !C! !C! !C! ! ! ! ! ! ! !%! 1 1 2 2 $ $ $F$ $ $F$ $ $ $ 7 7 . .%! ! ! ,f& $ & , & $ & , & $f& , ! !+!%! + + + + + + + + + + + + + + + + + +!!",
   "!! ! ' ! '1' ' ' ' ''' ' ' ' ' 'A! ' ! ! # ! ! !C! !C! !C! #C! ! ! ! ! , ! !%! 2 2 2 2 $ $ $ $!$!$ $ $ $ $ 7 7 7 7%! ! !F, &F$ &F, &F$ &F, &F$ &F, ! ! !%! + $!! ! +P! ! +%! ! + !j$ +!! ! + +!!",
   "!! ! ' ! !-!-!-!-!-!-!-!b!b!-!-!-! ' ! ! ! # ! !C! !C! #C! !C! ! ! ! ! ! ! !%!D-?- - - - - - ! 5 5 ! - - - - -?-D-%! ! ! , & $ & , & $ & , & $ & , ! ! !%! + + !P! + !!! + !=l +!! ! + !P! + +!!",
   "!! ! ' ' ' ' ' ' ' ''' ' ' ' ' ' ' ' ! ! ! ! # !C! #C! !C! !C! ! ! ! ! ! ! !%! -.!?- - - ! ! ! 5 5 ! ! ! - -?-.! -%! ! ! , & & & , & & & , & & & , ! ! !%! + + $ + + + + + + + + + + + + + + +!!",
   "!! ! ! ! ! ! ! ! ! !V9 ! ! ! ! ! ! ! !!! ! ! ! #C! !C! !C! !C! ! ! ! ! ! ! !%! - -+-=! ! ! 5 5 5 5 5 5 ! !=!+- - -!! ! ! , ! ! ! , ! ! ! , ! ! ! , ! ! !%! + + + + + + + + + + + + + + + + + +!!",
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!F!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"})
+
 
 function laseron(value, sender)
     if no["fs1"]["state"] == NORTH and no["fs2"]["state"] == EAST and no["fs3"]["state"] == WEST and no["fs4"]["state"] == SOUTH then

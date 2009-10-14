@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Drunkard's Walk" el:subtitle="" el:id="duffy105"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="stable"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by R. Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_blueslab"}
+ti["X"] = {"st_death"}
+ti["b"] = {"it_bottle"}
+ti["o"] = {"it_meditation"}
+ti["*"] = {"#ac_pearl", essential=INDISPENSABLE}
+ti["@"] = ti["*"] .. {"it_wormhole", destination="drunken", strength=0} .. ti["X"]
+ti["."] = {"fl_blueslab", "drunken"}
+
+ti["O"] = cond(wo["IsDifficult"], ti["o"], ti[" "])
+ti["q"] = cond(wo["IsDifficult"], ti[" "], ti["o"])
+ti[":"] = cond(wo["IsDifficult"], ti["*"], ti[" "])
+
+wo(ti, " ", {
+    "@XXXXXXXXXXXXXXXXXXX",
+    "X                  X",
+    "X          X    o  X",
+    "X     *            X",
+    "X          X  X   XX",
+    "X     *         o  X",
+    "X bX  . :  X   OqO X",
+    "X     *         o  X",
+    "X          X  X   XX",
+    "X     *            X",
+    "X          X    o  X",
+    "X                  X",
+    "XXXXXXXXXXXXXXXXXXXX"
+})
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

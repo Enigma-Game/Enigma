@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="38" title="Enigma III"/>
+  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma III"/>
 
   <attributes/>
 
@@ -78,7 +78,7 @@
     <level _seq="70" _title="Overwhelming" _xpath="./duffy65_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy65" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Break Down the Wall" _xpath="./duffy107_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy107" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="One-Way Streets" _xpath="./duffy109_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy109" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="73" _title="Killer Hills" _xpath="./luc11_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="Killer Hills" _xpath="./luc11_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="74" _title="The Exchange" _xpath="./raywick04_2" author="Ray Wick" ctrl="force" easy="true" id="RayWick004" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Fox in the Henhouse" _xpath="./nat26_1" author="Nat Pryce" ctrl="force" easy="false" id="nat26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Bumperball" _xpath="./duffy15_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy15" rel="2" rev="3" score="1" target="time" unit="duration"/>
@@ -86,7 +86,7 @@
     <level _seq="78" _title="Run!" _xpath="./duffy29_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy29" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Dance with the Death" _xpath="./luc05_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc05" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Lock Them In" _xpath="./duffy26_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy26" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Remote Control" _xpath="./luc22_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc22" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Remote Control" _xpath="./luc22_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc22" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="82" _title="Walk the Dog" _xpath="./luc04_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="In Sync" _xpath="./daniel06_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="84" _title="Tilt Control" _xpath="./duffy66_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="2" rev="3" score="2" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="33" title="Enigma 0.92 - 3"/>
+  <info enigma="1.10" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma 0.92 - 3"/>
 
   <attributes/>
 
@@ -43,7 +43,7 @@
     <level _seq="35" _title="Guardian Angel" _xpath="enigma_iii/duffy102_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy102" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Bungeeball" _xpath="enigma_ii/duffy103_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy103" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Termites" _xpath="enigma_iv/duffy104_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy104" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Drunkard's Walk" _xpath="enigma_iv/duffy105_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy105" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Drunkard's Walk" _xpath="enigma_iv/duffy105_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy105" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="39" _title="Under the Radar" _xpath="enigma_iv/duffy106_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy106" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Break Down the Wall" _xpath="enigma_iii/duffy107_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy107" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Security Guards" _xpath="enigma_i/duffy108_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy108" rel="1" rev="2" score="1" target="time" unit="duration"/>

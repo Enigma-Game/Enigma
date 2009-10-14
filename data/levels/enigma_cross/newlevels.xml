@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="58" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="59" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -69,10 +69,10 @@
     <level _seq="61" _title="Don't Touch" _xpath="enigma_iii/raoul07_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul07" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="62" _title="Laser Castle" _xpath="enigma_iii/andreas04_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas04" rel="1" rev="17" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Bump Ahead" _xpath="enigma_iii/illmind01_2" author="illmind" ctrl="force" easy="false" id="illmind01" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="64" _title="Killer Hills" _xpath="enigma_iii/luc11_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Killer Hills" _xpath="enigma_iii/luc11_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc11" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="65" _title="Fox in the Henhouse" _xpath="enigma_iii/nat26_1" author="Nat Pryce" ctrl="force" easy="false" id="nat26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Dance with the Death" _xpath="enigma_iii/luc05_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc05" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Remote Control" _xpath="enigma_iii/luc22_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc22" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Remote Control" _xpath="enigma_iii/luc22_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc22" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="68" _title="Walk the Dog" _xpath="enigma_iii/luc04_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Triple Threat" _xpath="enigma_iii/illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Changing Positions" _xpath="enigma_iii/luc27_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc27" rel="2" rev="2" score="1" target="time" unit="duration"/>

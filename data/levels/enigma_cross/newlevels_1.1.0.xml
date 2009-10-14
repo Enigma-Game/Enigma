@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="68" title="Enigma 1.1 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="69" title="Enigma 1.1 new"/>
 
   <attributes/>
 
@@ -14,7 +14,7 @@
     <level _seq="6" _title="Super Puzzle" _xpath="enigma_vii/joe11_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe11" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Pantograph" _xpath="enigma_vii/duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Advanced Space Tubes" _xpath="enigma_vii/duffy161_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy161" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -52,9 +52,9 @@
     <level _seq="44" _title="Circulation" _xpath="enigma_vii/pulley03_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley03" rel="3" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="45" _title="Maze for Two" _xpath="enigma_vii/ral22_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="2" rev="182" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Making Shapes" _xpath="enigma_vii/joe18_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe18" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Clever Pushing" _xpath="enigma_vii/joe19_3" author="Joseph Dunne" ctrl="force" easy="false" id="joe19" rel="3" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="48" _title="Using Rotators" _xpath="enigma_vii/joe20_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe20" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="49" _title="Swapping Puzzle" _xpath="enigma_vii/joe21_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe21" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Clever Pushing" _xpath="enigma_vii/joe19_3" author="Joseph Dunne" ctrl="force" easy="false" id="joe19" rel="3" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="48" _title="Using Rotators" _xpath="enigma_vii/joe20_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe20" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Swapping Puzzle" _xpath="enigma_vii/joe21_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe21" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Swapping Puzzle II" _xpath="enigma_vii/joe22_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe22" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Multiban" _xpath="enigma_vii/dpl01_2" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Riverside" _xpath="enigma_vii/johann02_2" author="Johann Freymuth" ctrl="force" easy="false" id="johann02" rel="2" rev="1" score="2" target="time" unit="duration"/>
@@ -75,7 +75,7 @@
     <level _seq="67" _title="Underground Temple" _xpath="enigma_vii/joe12_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe_12" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="68" _title="Mountain Climbing III" _xpath="enigma_vii/joe26_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe26" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Recover the Stone" _xpath="enigma_vii/joe28_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe28" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Pick-Up" _xpath="enigma_vii/joe27_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe27" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Pick-Up" _xpath="enigma_vii/joe27_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="A Kind of Magic" _xpath="enigma_vii/just37_2" author="JuSt" ctrl="force" easy="true" id="JuStA Kind of Magic" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Blue Screen Of Death" _xpath="enigma_vii/pulley10_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley10" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="73" _title="Audience in Venice" _xpath="enigma_vii/mecke09_2" author="mecke" ctrl="force" easy="true" id="mecke9" rel="2" rev="41" score="1" target="time" unit="duration"/>
@@ -92,7 +92,7 @@
     <level _seq="84" _title="Southside Life" _xpath="enigma_viii/mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Joona's Chess" _xpath="enigma_viii/joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Helios I" _xpath="enigma_viii/mecke07_1" author="mecke" ctrl="force" easy="false" id="mecke48" rel="1" rev="22" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="88" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="The Green Hell" _xpath="enigma_viii/mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="89" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Tilt Board" _xpath="enigma_viii/ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="89" _title="4 - 8 - 4" _xpath="enigma_viii/dpl03_3" author="Dominik Leipold" ctrl="force" easy="true" id="20070821dpl003" rel="3" rev="5" score="3" target="time" unit="duration"/>
     <level _seq="90" _title="Impulsive Order" _xpath="enigma_viii/raywick05_2" author="Ray Wick" ctrl="force" easy="true" id="raywick5" rel="2" rev="15" score="2" target="time" unit="duration"/>
@@ -213,6 +213,7 @@
     <level _seq="205" _title="Once, No More No Less" _xpath="enigma_ix/ais07_1" author="Alex Smith" ctrl="force" easy="false" id="20090602ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="206" _title="Choices, choices ..." _xpath="enigma_ix/ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="207" _title="Perfect Trajectory" _xpath="enigma_ix/ais09_1" author="Alex Smith" ctrl="force" easy="true" id="20090923ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="208" _title="Odyssey in Space" _xpath="enigma_ix/duffy183_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy183" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

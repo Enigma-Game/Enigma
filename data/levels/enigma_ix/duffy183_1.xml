@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Odyssey in Space" el:subtitle="Spaceballs" el:id="duffy183"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by R. Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_space"}
+ti["!"] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["m"] = {"fl_metal"}
+ti["n"] = {"fl_metal_7n"}
+ti["l"] = {"fl_lawn"}
+ti["s"] = {"fl_swamp"}
+ti["i"] = {"fl_inverse"}
+ti["y"] = {"fl_bluegreen"}
+ti["a"] = {"fl_sand"}
+ti["I"] = {"fl_ice"}
+ti["#"] = {"st_tigris"}
+ti["%"] = {"st_purplegray"}
+ti["^"] = {"st_granite"}
+ti["@"] = {"st_purplemarble"}
+ti["u"] = {"st_magic_brick"}
+ti["|"] = {"st_break_laser"} .. ti["m"]
+ti["e"] = ti["u"] .. {"it_surprise"}
+ti["_"] = {"st_rawglass"}
+ti["X"] = {"st_death"}
+ti["x"] = {"st_death_invisible"}
+ti["F"] = {"st_actorimpulse"}
+ti["/"] = {"st_actorimpulse_invisible"}
+ti[">"] = ti["/"] .. ti["l"]
+ti[";"] = {"st_invisible"} .. ti["l"]
+ti["o"] = {"st_oxyd_a"}
+ti["*"] = {"st_brownie"}
+ti["z"] = {"#ac_marble_black"} .. ti["m"] .. {"it_yinyang"}
+ti["Y"] = {"#ac_marble_white"} .. ti{"it_yinyang"}
+ti["<"] = {"#ac_pearl", controllers=CTRL_NONE, owner=YANG} .. ti["l"]
+ti["g"] = {"st_grate_cross"}
+ti["+"] = {"st_box_wood"}
+ti["H"] = {"it_hammer"}
+ti["D"] = {"it_dynamite"}
+ti["R"] = {"it_ring"}
+ti["U"] = {"it_umbrella"}
+ti["O"] = {"it_extralife"}
+ti["Z"] = ti["U"] .. ti["i"]
+ti["v"] = ti["U"] .. ti["l"]
+ti["A"] = ti["U"] .. ti["s"]
+ti[":"] = ti["O"] .. ti["l"]
+ti["P"] = {"it_pin"} .. ti["m"]
+ti["E"] = ti["O"] .. ti["m"]
+ti["k"] = {"it_key"}
+ti["L"] = {"st_laser_s", "laser1"}
+ti["S"] = {"st_switch", target="laser1"}
+ti["$"] = {"st_break_oxydc"}
+ti["0"] = {"it_floppy"} .. ti["*"]
+ti["f"] = {"st_floppy", target="door1"}
+ti["K"] = {"st_key", target="door2"}
+ti["5"] = {"st_door_d", "door1", faces="ns"}
+ti["-"] = {"st_door_d", "door2", faces="ns"}
+ti["W"] = {"st_passage_white", flavor = "square"}
+ti["B"] = {"st_passage_black", flavor = "square"}
+ti["?"] = {"st_knight"}
+ti["w"] = {"it_flag_white"}
+ti["b"] = {"it_flag_black"}
+ti["d"] = {"it_document", text="Danger!"}
+ti["="] = {"fl_lawn", "wormdest"}
+ti["T"] = {"it_wormhole", strength=0, destination="wormdest"}
+ti["C"] = {"it_vortex", destination="vortex2"} .. ti["_"]
+ti["c"] = {"it_vortex", "vortex2"} .. ti["l"]
+ti["2"] = {"fl_slope_ps"}
+ti["8"] = {"fl_slope_pn"}
+ti["6"] = {"fl_slope_pe"}
+ti["4"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["."] = {"st_magic_oxydc"}
+ti[","] = ti["."] .. {"it_cherry"}
+ti["M"] = {"it_magicwand"}
+ti["q"] = {"st_mirror_slab", orientation=SOUTH, movable=true} .. ti["i"]
+ti["Q"] = {"st_mirror_slab", orientation=SOUTH, movable=true} .. ti["m"]
+ti["&"] = {"it_meditation_hill"} .. ti["i"]
+ti["t"] = {"it_trigger", target="door3"}
+ti["V"] = {"st_door_d", "door3", faces="ew"} .. ti["l"]
+ti["r"] = {"st_break_oxydc"} .. ti{"it_surprise"}
+ti["h"] = ti["m"] .. ti["_"]
+ti["j"] = ti["i"] .. ti["_"]
+ti["G"] = ti["y"] .. ti["_"]
+ti["J"] = ti["s"] .. ti["_"]
+ti["N"] = ti["l"] .. ti["_"]
+ti["p"] = ti["O"] .. ti["_"]
+ti["("] = ti["O"] .. ti["l"]
+ti[")"] = ti["U"] .. ti["l"]
+
+wo(ti, " ", {
+    "#########################################################################################################################################################",
+    "#                                                                                                                                                       #",
+    "#                                                                                                                                                       #",
+    "#                                                                                                 +++     n                         ss         aaa      #",
+    "#             mm                                          ii                               ll     +o+    nnn                       ssss        aaaaaaa  #",
+    "#           mmmmm                                       iiiiiii                            lll  +++l+++  nnn                       ssssss      aaaaaaa  #",
+    "#          mmmmm                          $$$$           iiiii                             llll +glclg+ nnn                         ssssss     aaa  aa  #",
+    "#           mmmm                          $UU$           iiii                              lll  +++l+++                             ssssss     aaaaaaa  #",
+    "#            mm              yy           $$$$           iiiii                                    +g+                     ^          sssss      aaaaa   #",
+    "#                           yyyy                         iii                           mmm        +++                      ^           ss       aaaaa   #",
+    "#                           yyyyy                                                m       mm                                 ^^                   aaa    #",
+    "#                           yyyyy                                                m         mm             llll                ^                         #",
+    "#                            yy                                                  m  * * *  mm            lllll                 ^                        #",
+    "#                                                                                m   * *   mm           llllll    sss          ^                        #",
+    "#                                                              X X               m  * 0 *                lllll    sssssss       ^      sssssss          #",
+    "#                                                                 X            sss   * *                  lll     sss   s           ssss     ssss       #",
+    "#                                                                  X           ss   * * *  sss                          s          ss                   #",
+    "#           nnnnn                                      m m m        X           s           ss                          s         @s      LSss  s       #",
+    "#           nnnnnn   O        ssssssss                  m m m                   ssssiiss sssss                          sssssss    @   @     ssss       #",
+    "#          nnnnnnn            s      s                   m m m            nn     sss  ss ss                                   ss  s  @                  #",
+    "#           nnnnnnn     ss    s ???? s   iiii             m m m          nnnn                       @                          ssss     @   @           #",
+    "#             nnnnn     ss  U s ?M ? s  iiiii              m m m         nnnnn                    @@ @   @                        s    @                #",
+    "#                             s ? O? s iiiiiiii             m m m       nnnnnn                        @@@                         s       n             #",
+    "#                             s ???? s  i iiii               m m m        nnn                                                     sss   @ n             #",
+    "#                             s      s   iiiiii                                                                  %                     s@ n             #",
+    "#                             ssssssss  iiiiii                                                    yy   y yy       %                  ss   n             #",
+    "#                         sss                                                      %             yyy yyyyyyy       %      32222221      @ n       yyy   #",
+    "#                        ssss  u uu                                               %              y  y    yyyy      %      6    o 4        n      yyyy   #",
+    "#           U            ssss       aaa                           III              %                        y       %     6      4        n      yyyy   #",
+    "#                          u   uuu  aaa             @           IZIIIII             %               . , .   y             6   7887        n      yyyy   #",
+    "#                           u  ueu   aa              @          IIIIIZI  o          %          yy  X ,,, X y O            6   4           n       yy    #",
+    "#       yy                     uuu                   @          OIIIIIII                       y    . , .  yy             6   122221      n             #",
+    "#     yyyyy              X  u       u                @           IIIZIII            %             y        yy             6        4      n             #",
+    "#    yyyyyyy $$$        X    ii     u                 @          IIIIIII           %             yy y     yy              6  ^     4      n             #",
+    "#    yyyyyy  $o$       X     iii   u                   @           III                           yy  yy               X   6      o 4      n             #",
+    "#     yyyyy  $$$      X                     mm          @                                             yyy yy           X  988889   4      n             #",
+    "#        y           X                     mmm         @                                               yyyy                    6   4      n             #",
+    "#                   X                      mPmm                                                                     l          98887      n             #",
+    "#                  X                     mmmmmm                    m     U                                        llll                                  #",
+    "#                 X                      mmEmmm                 mmmmmmm             y                            lll:ll                                 #",
+    "#                                          mm          X        m  m  m           yyyy           ss               llll                                  #",
+    "#     mmmm                                            X         m mmm m          yyyyyy         ssss             lllll                                  #",
+    "#    mmmmm                                                     mmmmzmmmm         yyyyyy         ssss               lll                          aaaa    #",
+    "#    mmmm                                                       m mmm m           yyyyy         ss                                              aaaa    #",
+    "#   mmmmmmm                 iii                                 m  m  m           yyyy                                                           aaa    #",
+    "#    mmmm                  iiii                     U      o    mmmmmmm          yyyU                            %%%%%%%%%%%%%%%%%%%%%           aa     #",
+    "#                         iiiii                                    m                                             %yy      lll      yy%               O  #",
+    "#                                                                                                  aaaaaa        %yy      lll      yy%                  #",
+    "#                                                                                                   aaaaa        %  & XXXX% %XXXX &  %                  #",
+    "#                                                                                                  aaaaaa        %  & X         X &  %                  #",
+    "#                        mmm                                                                       aaaaa         %  & X iii iii X &  %                  #",
+    "#                       mmmm                              ____                                      aaaa         %  & X i     i X &  %                  #",
+    "#                       mmm             ____   ____      _______     nnn                             aa          %  & X i  s  i X &  %                  #",
+    "#                                       ____________________________  nnnn                                       %  & X i  s  i X &  %                  #",
+    "#                                   mmm ____________________________  nnn       X                                %  & X i  s  i X &  %   ss             #",
+    "#                  nnn              mmm ___hhh_____jj____jjjj________  nn                                        %  & X i  s  i X &  %  sss             #",
+    "#                 nnnn              mm  ____hh_____jj__X___jj_________        X U          l                     %  & X i  s  i X &  %  ssss            #",
+    "#                  nnnn                _________X__________j____X______                 lllll                    %  & X i  s  i X &  %  ssss  WWWWWWWWWW#",
+    "#                  nnnn                ________X___JJJJ________________                llllll                    %  & X i  s  i X &  %   sss  Wlllllllll#",
+    "#                 nnnn                 ______GG____JJJJJJJJJJ_________                 lllll           ssss      %T & X i  s  i X & T%        Wl;>;;;;;l#",
+    "#                        *******       ______GG___XXXXXXXXXXJ_________                 lllll            ssss     %%%%%f%%%%5%%%%%%%%%%        Wl;lllll;l#",
+    "#                        *ggggg*       __________Jj___jGp_GXJ_X_______                 llllll          sssss             ^                    Wl;l;;;l;l#",
+    "#        ll              *gH  g*        _____X____XXXXXG_CGXJ________                   lllll         sssss         mm   ^                    Wl;l;l;l;;#",
+    "#     llllll             *g = g*         __________JJJXXXXXXJ__NN___                    ll             sss         mmm  ^     ii              Wl;l;l;lll#",
+    "#     lllllll            *g   g*         _____X_J___JJJJJJJJJ_NNN___                            %                       ^  iiiiii             Wl;lll;l;l#",
+    "#    llllllll            *ggggg*         ______J_______JJJJJJ_NNN____       mmm                 %                        ^  iiiiii            Wl;l;l;l;l#",
+    "#    llll/lll            *******        _____________________________     mmmmm                %                        ^  iiiiiii     $$$    Wl;l;l;l;l#",
+    "#    lll:lllll                          _____________________________     mmmEmm    %         %                        ^    iiiiii     $r$    Wl;;;l;;>l#",
+    "#     llllllll                          __  ___   ____________  __         mmmmm     %%              aaaa        ^   ^^        iii     $$$    Wlllll;lll#",
+    "#      lllllll                                     __      __                             nn          aaa         ^^^                         Wlll(l;l###",
+    "#         llll                                                               sssssssss  nnnnn        aaAa               nnn                   Wlllll;lVo#",
+    "#                                          yyyyy                         @  sssssssssss  nnnn        aaaa               nnn           79      Wlllll;;###",
+    "#                                           yyyy                         @  ss???????ss  nnnnn         a                 nn           13      Wll)llllll#",
+    "#                                          yyyyy       XXX              @   ss?  U  ?ss nnnnnn                                                Wlllllltll#",
+    "#                      788889               yyy        XXX             @    ss? ioi ?ss  nnnn                                                 Wlllllllll#",
+    "#             mmmm     4    6                          XXX              @   ss?  O  ?ss  nn                     nnnnnnnnnnn                   Wlllll>lll#",
+    "#             mEmm     4 U  6            ^^                             @   ss???????ss               31        n         n       llll        Wlllllllll#",
+    "#             mmmm     4    6             ^^^                           @   sssssssssss               97        n         n      lllll        WWWWWWWWWW#",
+    "#             mmmm     4    9889             ^                         @     sssssssss                          n  WWWWW  n       llll                  #",
+    "#             m m    787       6                           s          @                                         n  W   W  n      llll       lll         #",
+    "#                    4     o   6   aaaa                   ssss          sss       %%%                           n  W Y W  n       lll     llllll        #",
+    "#                    4         6   aAaa           aa      ssss  s ss   sssss     %               lll            n  W   W  n        O      llllll        #",
+    "#                    12222222223  aaaaa         aaAa     ssssss s   ssssssss                     ll             n  WWWWW  n               lllll         #",
+    "#                                 aaaa           aaa      sss         ssssss                     lvl            n         n                             #",
+    "#                                 $$$$                                   ss                     llll            n         n                             #",
+    "#                                 $@u@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@            X                lll  X         nnnnnnnnnnn                             #",
+    "#             %%%                 $@      x   xx                   @           X                ll       ssss                                   mmm     #",
+    "#             %                    @mE  mmx nnn x             nnn  @                       O              ssss                        mm       mmQmm    #",
+    "#           %%%                    @mm dmm x nn   ii   x yy   nnn  @                         nnn   iii   ssss           iiii       mmmmmm      mmmmmmm  #",
+    "#     mmm   %%       aaaaa         @      x       ii   x yy   x    @   @@@@@@@@@             nnn    iiii  sss         iiiis        mmmmmm    @  mm|||mm #",
+    "#     mmm           aaaaaa         @x  Fxx   x       F i  y   x    @@@@@nn     @    mmm     nnnn O iiii               iiqsss       mmmmmm   @   mm|o|m  #",
+    "#      Emm          aaaaaa         @   x mm       ll  F F    x  mmg+     @ <<g +   mmEm      nnn    iii              iiiisss        mmmm    @   mm|||m  #",
+    "#     mmmm           aaaaa         @      x       ll     F  i   mmg+     @ <<g +   mmmm  X                   X      iiiisssss        mm        mmmmmmm  #",
+    "#                    aaaa          @ yyy   x  xx     y      i x    @@@@@nn     @     mm                      X       iiisssss                  mmmmmm   #",
+    "#                                  @ yyy        x x x y    F       @   @@@@@@@@@                                                               mmm      #",
+    "#                                  @  yy    mm         y    F      @                                                                                    #",
+    "###################################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#####################################################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="Danger!">
+        <el:english el:translate="true">Danger!</el:english>
+        <el:translation el:lang="de">Gefahr!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

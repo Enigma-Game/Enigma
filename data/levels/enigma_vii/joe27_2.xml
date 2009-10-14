@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pick-Up" el:subtitle="" el:id="joe27"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Joseph Dunne" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Joseph Dunne</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,11 +31,11 @@ wo(res.composer(res.puzzle(ti, "P")), "  ", {
     "########################################",
     "########################################",
     "########################################",
-    "##############PfPePePePePePc############",
-    "##############Pj          Pj############",
-    "##############Pj z    OO  Pj############",
-    "##############Pj          Pj############",
-    "##############PlPePePePePePi############",
+    "##############P0P0P0P0P0P0P0############",
+    "##############P0          P0############",
+    "##############P0 z    OO  P0############",
+    "##############P0          P0############",
+    "##############P0P0P0P0P0P0P0############",
     "########################################",
     "########################################",
     "########################################",
