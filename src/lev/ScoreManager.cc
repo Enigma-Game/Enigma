@@ -181,7 +181,8 @@ namespace enigma { namespace lev {
 #endif
                 
             }
-            if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+            if (app.domParserSchemaResolver->didResolveSchema() &&  doc != NULL 
+                    && !app.domParserErrorHandler->getSawErrors()) {
                 propertiesElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                         Utf8ToXML("properties").x_str())->item(0));
                 levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
@@ -288,8 +289,10 @@ namespace enigma { namespace lev {
                 }
                 
             }
-            if(app.domParserErrorHandler->getSawErrors()) {
+            if (app.domParserErrorHandler->getSawErrors()) {
                 errMessage = errStream.str();
+            } else if (!app.domParserSchemaResolver->didResolveSchema()) {
+                errMessage = "Wrong XML document - expected a score, got something else!";
             }
             app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
         }

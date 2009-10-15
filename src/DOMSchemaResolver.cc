@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,14 +23,8 @@
 #include "XMLtoLocal.hh"
 #include "LocalToXML.hh"
 #include <xercesc/dom/DOM.hpp>
-#if _XERCES_VERSION >= 30000
 #include <xercesc/framework/Wrapper4InputSource.hpp>
 #include <xercesc/framework/LocalFileInputSource.hpp>
-
-#else
-#include <xercesc/framework/Wrapper4InputSource.hpp>
-#include <xercesc/framework/LocalFileInputSource.hpp>
-#endif
 
 #include <iostream>
 
@@ -85,6 +79,7 @@ namespace enigma
 // W3C implementation:
 //                 DOMLSInput * inSrc = app.domImplementationLS->createLSInput();
 //                 inSrc->setSystemId(LocalToXML(&schemaPath).x_str()));
+                resolveStatus = true;
                 return inSrc;
             } else {
                 Log << "DOMSchemaResolver: schema file '" 
@@ -113,6 +108,7 @@ namespace enigma
             if (result) {
                 DOMInputSource * inSrc = new Wrapper4InputSource(new LocalFileInputSource(
                         LocalToXML(&schemaPath).x_str()));
+                resolveStatus = true;
                 return inSrc;
             } else {
                 Log << "DOMSchemaResolver: schema file '" 

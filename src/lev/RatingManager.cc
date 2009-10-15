@@ -132,7 +132,8 @@ namespace enigma { namespace lev {
             app.domParserSchemaResolver->resetResolver();
             app.domParserSchemaResolver->addSchemaId("ratings.xsd","ratings.xsd");
             DOMDocument *doc = app.domParser->parseURI(path.c_str());
-            if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+            if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                    && !app.domParserErrorHandler->getSawErrors()) {
                 DOMElement *updateElem = 
                         dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                         Utf8ToXML("update").x_str())->item(0));

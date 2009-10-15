@@ -656,14 +656,17 @@ namespace enigma { namespace lev {
                         levelCode.size(), absLevelPath.c_str(), false)));
                 doc = app.domParser->parse(*domInputLevelSource);
 #endif
-                if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                        && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagNameNS(
                             levelNS, Utf8ToXML("info").x_str())->item(0));
                     stringList = doc->getElementsByTagNameNS(levelNS, 
                             Utf8ToXML("string").x_str());
                 }
-                if(app.domParserErrorHandler->getSawErrors()) {
+                if (app.domParserErrorHandler->getSawErrors()) {
                     errMessage = errStream.str();
+                } else if (!app.domParserSchemaResolver->didResolveSchema()) {
+                    errMessage = "Wrong XML document - expected a level, got something else!";
                 }
                 app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
             }

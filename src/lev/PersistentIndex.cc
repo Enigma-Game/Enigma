@@ -365,7 +365,8 @@ namespace enigma { namespace lev {
 #endif
                 }
 
-                if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                        && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                             Utf8ToXML("info").x_str())->item(0));
                     updateElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
@@ -374,8 +375,10 @@ namespace enigma { namespace lev {
                             Utf8ToXML("levels").x_str())->item(0));
                 }
 
-                if(app.domParserErrorHandler->getSawErrors()) {
+                if (app.domParserErrorHandler->getSawErrors()) {
                     errMessage = errStream.str();
+                } else if (!app.domParserSchemaResolver->didResolveSchema()) {
+                    errMessage = "Wrong XML document - expected a levelpack index, got something else!";
                 }
                 app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
             }
@@ -732,14 +735,17 @@ namespace enigma { namespace lev {
                     app.domParserSchemaResolver->resetResolver();
                     app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
                     doc = app.domParser->parseURI(indexTemplatePath.c_str());
-                    if (doc != NULL && !app.domParserErrorHandler->getSawErrors()) {
+                    if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                            && !app.domParserErrorHandler->getSawErrors()) {
                         infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                                 Utf8ToXML("info").x_str())->item(0));
                         levelsElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                                 Utf8ToXML("levels").x_str())->item(0));
                     }
-                    if(app.domParserErrorHandler->getSawErrors()) {
+                    if (app.domParserErrorHandler->getSawErrors()) {
                         errMessage = errStream.str();
+                    } else if (!app.domParserSchemaResolver->didResolveSchema()) {
+                        errMessage = "Wrong XML document - expected a levelpack index, got something else!";
                     }
                     app.domParserErrorHandler->reportToNull();  // do not report to errStream any more
                 }
