@@ -2,7 +2,7 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Same task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
+      <el:identity el:title="Same Task ..." el:subtitle="... different Mirrors" el:id="raoul29"/>
       <el:version el:score="1" el:release="1" el:revision="12" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
@@ -12,8 +12,6 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" "] = {"fl_metal"}
 ti["-"] = {"fl_abyss"}
 ti["G"] = {"st_darkglass"}
@@ -37,10 +35,10 @@ ti["A"] = ti["y"] .. {"#ac_marble_black", essential=INDISPENSABLE}
 ti["B"] = ti["y"] .. {"#ac_marble_white", essential=INDISPENSABLE}
 if  wo["IsDifficult"]  then
     ti["~"] = {"fl_abyss", friction=0.25}
-    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=20, range=15, prefercurrent=1}
+    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=20, range=15, prefercurrent=0.0}
 else
     ti["~"] = {"fl_abyss", friction=0.1}
-    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=10, range=15, prefercurrent=1}
+    ti["*"] = ti["~"] .. {"ac_rotor", 0.0, 0.5, strength=10, range=15, prefercurrent=0.0}
 end
 
 wo(ti, " ", {

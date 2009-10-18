@@ -8,12 +8,10 @@
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false" el:control="force" el:scoreunit="duration" el:scoretarget="time"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="25:13" el:difficult="29:14"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" !"] = {"fl_abyss"}
 ti["! "] = {"st_puzzle", connections="nesw"}
 ti["# "] = {"st_death"}

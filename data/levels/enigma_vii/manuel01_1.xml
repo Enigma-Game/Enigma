@@ -451,7 +451,7 @@ end
 		 <el:english el:translate="false"/>
 	 </el:string>
 	 <el:string el:key="subtitle">
-		 <el:english el:translate="false"/>
+		 <el:english el:translate="true"/>
 	 </el:string>
 	 <el:string el:key="text1">
 		 <el:english el:translate="true">Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue oxyd ...</el:english>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma IX"/>
 
   <attributes/>
 
@@ -14,24 +14,24 @@
     <level _seq="6" _title="Symopal" _xpath="./andreas58_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas58" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="The Pilgrim's Progress" _xpath="./pulley14_2" author="Mark Pulley" ctrl="force" easy="false" id="20080101pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="8" _title="Logic Gates" _xpath="./pulley17_2" author="Mark Pulley" ctrl="force" easy="true" id="20080601pulley001" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="9" _title="Behind glass" _xpath="./rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Behind Glass" _xpath="./rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Perennial Creek" _xpath="./pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="11" _title="Wired Pulls" _xpath="./raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Crabwise III" _xpath="./devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Bicolor" _xpath="./devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="lower i" _xpath="./devnull39_1" author="/dev/null" ctrl="force" easy="true" id="devnull39" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="At the pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="At the Pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Hide them" _xpath="./devnull44_1" author="/dev/null" ctrl="force" easy="false" id="devnull44" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Crabwise IV" _xpath="./devnull45_1" author="/dev/null" ctrl="force" easy="true" id="devnull45" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="more is not less" _xpath="./devnull23_1" author="/dev/null" ctrl="force" easy="true" id="devnull23" rel="1" rev="11" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Hip to be square" _xpath="./devnull37_1" author="/dev/null" ctrl="force" easy="true" id="devnull37" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Across The Waterbyss" _xpath="./harry03_1" author="daydreamer" ctrl="force" easy="false" id="harry03" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Hip to be Square" _xpath="./devnull37_1" author="/dev/null" ctrl="force" easy="true" id="devnull37" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Across the Waterbyss" _xpath="./harry03_1" author="daydreamer" ctrl="force" easy="false" id="harry03" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Collapsing Building" _xpath="./pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Flashback" _xpath="./devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Pillar" _xpath="./raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Caving" _xpath="./pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Flickering passages" _xpath="./duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Flickering Passages" _xpath="./duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Carcassonne" _xpath="./mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Building Blocks I" _xpath="./raoul37_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul37" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Naoussa" _xpath="./mecke37_1" author="mecke" ctrl="force" easy="true" id="mecke37" rel="1" rev="29" score="1" target="time" unit="duration"/>

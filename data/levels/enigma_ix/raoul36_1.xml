@@ -64,6 +64,9 @@ no["oxyd#*"]:peepall()
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

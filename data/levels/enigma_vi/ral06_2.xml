@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Rhapsody on Cracks" el:subtitle="The real value of coffee" el:id="20060510ral008"/>
-      <el:version el:score="2" el:release="2" el:revision="$Revision: 186 $" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision: 189 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006, 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -81,6 +81,13 @@ wo:add(YIN, ti["*"] .. ti["*"])
 wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
     ]]></el:luamain>
     <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Der wahre Wert von Kaffee</el:translation>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

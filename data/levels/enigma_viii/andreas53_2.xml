@@ -59,14 +59,14 @@ for j in no["anchor%*"] do
   wo:add({"ot_wire", anchor1 = j, anchor2 = no[j._mytarget]})
 end
 
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="subtitle">
         <el:english el:translate="true" el:comment="A wordplay to describe a room crowded with hand mirrors."/>
-    <el:translation el:lang="de">Das Handspiegelkabinett</el:translation>
+        <el:translation el:lang="de">Das Handspiegelkabinett</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true">Ever tried to look at the back of your head in the mirror?</el:english>
