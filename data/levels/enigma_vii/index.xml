@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="63" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="64" title="Enigma VII"/>
 
   <attributes/>
 
@@ -17,8 +17,8 @@
     <level _seq="9" _title="Open Path" _xpath="./duffy152_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy152" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="./edward30_1" author="Edward" ctrl="force" easy="true" id="edward30" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Laser Squad" _xpath="./duffy153_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy153" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="12" _title="Free Riders" _xpath="./duffy155_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Oneway for White" _xpath="./duffy157_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy157" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Free Riders" _xpath="./duffy155_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy155" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Oneway for White" _xpath="./duffy157_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy157" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="The Wild Hunt" _xpath="./duffy159_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy159" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Widgets in the Attic" _xpath="./duffy158_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy158" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Protected Exhibition" _xpath="./duffy156_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy156" rel="2" rev="4" score="1" target="time" unit="duration"/>
@@ -35,7 +35,7 @@
     <level _seq="27" _title="- Meditation -" _xpath="./joe04_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="- Meditation -" _xpath="./joe05_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Working Outwards" _xpath="./joe06_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe6" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Super Puzzle" _xpath="./joe11_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe11" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Super Puzzle" _xpath="./joe11_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe11" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Pantograph" _xpath="./duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Advanced Space Tubes" _xpath="./duffy161_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy161" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Deserted Island" _xpath="./joe08_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="2" rev="2" score="1" target="time" unit="duration"/>

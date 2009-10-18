@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Super Puzzle" el:subtitle="" el:id="joe11"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (October 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_sahara"}
+ti[" -"] = {"fl_red"}
+ti[" ."] = {"fl_lawn"}
+ti["77"] = {"fl_slope_ose"}
+ti["88"] = {"fl_slope_ps"}
+ti["99"] = {"fl_slope_osw"}
+ti["44"] = {"fl_slope_pe"}
+ti["66"] = {"fl_slope_pw"}
+ti["11"] = {"fl_slope_one"}
+ti["22"] = {"fl_slope_pn"}
+ti["33"] = {"fl_slope_onw"}
+ti["^^"] = {"fl_slope_ine"}
+ti[">>"] = {"fl_slope_ise"}
+ti["vv"] = {"fl_slope_isw"}
+ti["<<"] = {"fl_slope_inw"}
+ti["##"] = {"st_bluesand"}
+ti["=="] = {"st_yellow"}
+ti["vortexR"] = {"it_vortex", destination = "R%%", state = OPEN}
+ti["vortexS"] = {"it_vortex", destination = "S%%", state = OPEN}
+ti["roomR"] = {"fl_red", "R%%"}
+ti["roomS"] = {"fl_sahara", "S%%"}
+ti["o "] = {"it_meditation"}
+ti["P"] = {"st_puzzle_yellow", intensity = 0}
+ti["@ "] = {"#ac_pearl"}
+
+local resPuzzle = res.puzzle(ti, "P")
+local resAutotile = res.autotile(resPuzzle, {"r", "vortexR"}, {"s", "vortexS"}, {"R", "roomR"}, {"S", "roomS"})
+
+if wo["IsDifficult"] then
+    wo(res.composer(resAutotile), "  ", {
+        "######################################################################################################################################################################################################################################",
+        "##778888888888888888888888888888888899##RA  77888888888888888888888888888899##RB  77888888888888888888888888888899##RC -77888888888888888888888888888899##RD -447788888888888888888888888899==##SE  77888888888888888888888888888899##",
+        "##44                                66##    44                            66## -  44                            66## -  44                            66## - -4444                        vv99##    44 . . . . . . . . . . . . . .66##",
+        "##44                                66##7788>>                            66##7788>>  PaPePnPePlPePkPePe        66##7788>>                            66##8888>>44    PoPkPiPdPfPcPg        66##7788>> . . . . . . . . . . . . . .66##",
+        "##44                                66##44                                66##44      PmPc##########PePe        66##44                                66##778888>>    PaPaPlPfPlPnPo        66##44 . . . . . . . . . . . . . . . .66##",
+        "##44              PmPiPn####        66##44            PePlPf####          66##44      PePf##      ##PnPb        66##44          PmPhPgPbPe            66##44          PnPePiPiPkPbPk        66##44 .Pb . .Pb .o  .PfPePa .PfPePa .66##",
+        "##44              PkPcPorA##        66##44            PaPjPdrB##          66##44      PePa##  rC    PePb        66##44          PlPiPfPcPb##          66##44          PgPlPgsEPjPlPc        66##44 .PnPc .Pj . . .Pj . . .Pj . . .66##",
+        "##44              PlPgPf####        66##44            PiPcPe####          66##44      PjPe##      ##PcPb        66##44          PaPiPdPjrD##          66##44          PiPbPcPjPjPmPn        66##44 .PjPlPcPj .Pb .Pj . . .PnPePa .66##",
+        "##11^^                              66##44                                66##44      PgPn##########PjPf        66##44          PePnPoPe####          66##44          PfPaPmPbPhPmPi        66##44 .Pj .PlPk .Pj .Pj . . .Pj . . .66##",
+        "##@ 44                              66##44                                66##44      PiPiPiPiPlPhPdPbPl        66##44                                66##44          PjPlPcPaPfPcPf        66##44 .Ph . .Ph .Ph .PlPePa .PlPePa .66##",
+        "##77>>                              66##44                                66##44                                66##44                                66##11^^                            <<33##44 . . . . . . . . . . . . . . . .66##",
+        "##112222222222222222222222222222222233##112222222222222222222222222222222233##112222222222222222222222222222222233##112222222222222222222222222222222233##==11222222222222222222222222222233==##112222222222222222222222222222222233##",
+        "######################################################################################################################################################################################################################################"})
+else
+    wo(res.composer(resAutotile), "  ", {
+        "######################################################################################################################################################################################################################################",
+        "##778888888888888888888888888888888899##RA  77888888888888888888888888888899##RB  77888888888888888888888888888899##RC -77888888888888888888888888888899##RD -447788888888888888888888888899==##SE  77888888888888888888888888888899##",
+        "##44                                66##    44                            66## -  44                            66## -  44                            66## - -4444                        vv99##    44                            66##",
+        "##44                                66##7788>>                            66##7788>>                            66##7788>>                            66##8888>>44                          66##7788>>                            66##",
+        "##44                                66##44                                66##44              ##                66##44                PiPnPm          66##778888>>          PePlPc          66##44                                66##",
+        "##44                PkPf####        66##44            PjPcPb####          66##44          PmPbPfPlPc            66##44                PfPoPg          66##44              ##PiPnPb          66##44   -     -  o    - - -   - - -  66##",
+        "##44              PoPcPfrA##        66##44            PdPjPmrB##          66##44          PePerCPgPj            66##44                PcPdPj          66##44              ##sEPdPk          66##44   - -   -       -       -      66##",
+        "##44              PmPlPi####        66##44            PlPiPb####          66##44          PePhPePjPi            66##44                PcPlPi          66##44              ##PdPbPo          66##44   -   - -   -   -       - - -  66##",
+        "##11^^                              66##44                                66##44              ##                66##44                ##rD##          66##44                PcPiPl          66##44   -     -   -   -       -      66##",
+        "##@ 44                              66##44                                66##44                                66##44                ######          66##44                                66##44   -     -   -   - - -   - - -  66##",
+        "##77>>                              66##44                                66##44                                66##44                                66##11^^                            <<33##44                                66##",
+        "##112222222222222222222222222222222233##112222222222222222222222222222222233##112222222222222222222222222222222233##112222222222222222222222222222222233##==11222222222222222222222222222233==##112222222222222222222222222222222233##",
+        "######################################################################################################################################################################################################################################"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

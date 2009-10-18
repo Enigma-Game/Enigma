@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="14" title="Enigma IX"/>
 
   <attributes/>
 
@@ -42,6 +42,9 @@
     <level _seq="34" _title="Choices, choices ..." _xpath="./ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Perfect Trajectory" _xpath="./ais09_1" author="Alex Smith" ctrl="force" easy="true" id="20090923ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Odyssey in Space" _xpath="./duffy183_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy183" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Oh nO" _xpath="./devnull43_1" author="/dev/null" ctrl="force" easy="false" id="devnull43" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="FizzBuzz" _xpath="./ais10_1" author="Alex Smith" ctrl="force" easy="true" id="ais10" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Changing conditions" _xpath="./devnull01_2" author="/dev/null" ctrl="force" easy="false" id="devnull01" rel="2" rev="5" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

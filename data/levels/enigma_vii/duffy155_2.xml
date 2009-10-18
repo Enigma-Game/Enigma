@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Free Riders" el:subtitle="Left or Right Drive?" el:id="duffy155"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_hay"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greenbrown"}
+ti["X"] = {"st_grate", flavor="cross"}
+ti["*"] = {"st_puzzle", connections="nesw"}
+ti["B"] = {"st_passage", flavor="frame", color=BLACK}
+ti["W"] = {"st_passage", flavor="frame", color=WHITE}
+ti["!"] = {"st_nil"}
+ti["t"] = {"it_trigger", target="set_free", _pos=E}
+ti["u"] = {"it_trigger", target="set_free", _pos=7*W}
+ti["O"] = {"st_oxyd"}
+ti["A"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#OW       *    * BO#",
+    "#W     *    *     B#",
+    "#X    * *    *    X#",
+    "#X ***        *** X#",
+    "#X** **   *  ** **X#",
+    "#t* @ **    ** A *u#",
+    "#X** **  *   ** **X#",
+    "#X ***  *     *** X#",
+    "#X         *      X#",
+    "#W      * *  *    B#",
+    "#OW *            BO#",
+    "####################"})
+
+wo:shuffleOxyd()
+
+function set_free(value, sender)
+    sender["target"] = DEFAULT
+    wo:drawMap(ti, sender+sender["_pos"], " ", {"!!!!!!!"})
+    wo:drawMap(ti, po(9,1), " ", {"~~", "~~", "~~", "~~", "~~", "~~", "~~", "~~", "~~", "~~", "~~"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

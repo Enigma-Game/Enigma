@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Changing conditions" el:subtitle="" el:id="devnull01"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008, 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="8:05"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_bridge_gc", state = CLOSED}
+ti["#"] = {"st_fake_oxydc_open"}
+ti["="] = {"st_fake_oxydc"}
+ti["X"] = {"st_grate_framed"}
+ti["."] = {"fl_abyss"}
+ti["_"] = {"fl_fake_abyss"}
+ti["*"] = {"st_magic_oxydc"}
+ti["+"] = {"st_rawglass_movable"}
+ti["a"] = {"fl_bridge_gc", "floorA#", state = OPEN}
+ti["A"] = {"it_trigger", target = "floorA#*"}
+ti["b"] = {"fl_bridge_gc", "floorB#", state = OPEN}
+ti["B"] = {"it_trigger", target = "floorB#*"}
+ti["c"] = {"fl_bridge_gc", "floorC#", state = OPEN}
+ti["C"] = {"it_trigger", target = "floorC#*"}
+ti["d"] = {"fl_bridge_gc", "floorD#", state = OPEN}
+ti["D"] = {"it_trigger", target = {"tSquare", "floorD#*"}, action = "signal"}
+ti["n"] = {"fl_bridge_gc", "floorN", state = OPEN}
+ti["p"] = ti({"it_document", text = "text1"}) .. {"fl_bridge_gc", "floorP", state = CLOSED}
+ti["e"] = ti["+"] .. {"fl_bridge_gc", "floorE", state = CLOSED}
+ti["E"] = {"it_trigger", target = {"tSquare", "floorN", "floorP", "floorE"}, action = "signal"}
+ti["f"] = {"fl_bridge_gc", "floorF", state = OPEN}
+ti["F"] = {"it_trigger", target = {"tSquare", "floorF"}, action = "signal"}
+ti["g"] = {"fl_bridge_gc", "floorG#", state = OPEN}
+ti["G"] = {"it_trigger", target = {"tSquare", "floorG#*"}, action = "signal"}
+ti["H"] = {"it_trigger", target = {"floorP"}}
+ti["i"] = ti["+"] .. {"fl_bridge_gc", "floorI", state = OPEN}
+ti["I"] = {"it_trigger", target = {"floorI", "floorN", "floorD#*"}}
+ti["j"] = {"fl_bridge_gc", "floorJ#", state = OPEN}
+ti["J"] = {"it_trigger", target = {"floorN", "floorD#*"}}
+ti["k"] = {"fl_bridge_gc", "floorK", state = OPEN}
+ti["K"] = {"it_trigger", target = "floorK"}
+ti["m"] = {"fl_bridge_gc", "floorS#", state = OPEN}
+ti["s"] = {"fl_bridge_gc", "floorS#", state = CLOSED}
+ti["S"] = {"st_switch_black", target = {"floorS#*", "floorE"}}
+ti["T"] = {"st_switch_black", target = {"floorS#*", "floorA#*", "floorZ"}}
+ti["t"] = {"fl_bridge_gc", "floorT", state = OPEN}
+ti["z"] = {"fl_bridge_gc", "floorZ", state = OPEN}
+ti["q"] = ti["_"] .. {"it_trigger", target = "t2", invisible = true}
+ti["Q"] = ti["."] .. {"it_document", text = "BzG"}
+ti["o"] = {"st_oxyd_c", "oxydG1#"}
+ti["O"] = {"st_oxyd_c", "oxydG2#"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##O#####O#=######O##",
+    "O t  X#Xa# X#CSB#@ O",
+    "#a+f  +  +  #m b#  #",
+    "#Io##+# c# +#   #  #",
+    "#JOd do  ##s## ## ##",
+    "Tpi * #  #  bK  #  #",
+    "#Hod gO#n#  #   #  #",
+    "#.O##+#  ## #+++#  #",
+    "#. + g+  #    + #+ #",
+    "# + + ##e##c#A#    #",
+    "#+ + +#ED + #o.o.o.#",
+    "= + + #GF # zk_q..Q=",
+    "##=######=#o#o#=#=##"})
+
+wo:shuffleOxyd({"oxydG1#*", max = 0}, {"oxydG2#*", max = 0})
+wo:add({"ot_counter", "tSquare", state = 0, target = "floorT", action_4 = "close", action_3 = "open"})
+
+function t2(val, src)
+    src["target"] = DEFAULT
+    wo[{14,11}] = {"it_document", text = "text2"}
+end
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Welcome cheater. Just changing conditions? I've created this level in remembrance of a song written by P.F. Sloan and performed by Barry McGuire.</el:english>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false">You can't reach the other document.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="false">"Don't you understand what I'm tryin' to say?"</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

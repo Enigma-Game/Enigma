@@ -62,13 +62,15 @@ wo(res.composer(res.puzzle(ti, "P")), "  ", {
     "##                      PiPhPa  GG__  ##",
     "##RF                      XX          ##",
     "########################################"})
+wo:add(YIN, {"it_document", text = "text1"})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Moving Arrow Stones can fall down holes but cannot fall into water.</el:english>
+        <el:english el:translate="true">The moving boulder can fall down holes but cannot fall into water.</el:english>
+        <el:translation el:lang="de">Der sich bewegende Boulder stürzt in Abgründe, versinkt jedoch nicht im Wasser.</el:translation>
       </el:string>
     </el:i18n>
   </el:protected>

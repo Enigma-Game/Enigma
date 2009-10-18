@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oil Trace" el:subtitle="Mark stones burnable" el:id="raoul25"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:38"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_flat"}
+ti["X"] = {"st_flat_breakable"}
+ti["b"] = {"it_brush"}
+ti["c"] = {"it_cross"}
+ti["d"] = {"it_dynamite"}
+ti["h"] = {"it_hammer"}
+ti["o"] = {"it_burnable_oil"}
+ti["p"] = {"it_pencil"}
+ti["-"] = {"fl_sahara", secure=true} .. ti["o"]
+ti["F"] = {"st_flat_burnable"} .. ti["~"]
+ti["B"] = {"st_flat_movable"} .. ti["-"]
+ti["G"] = {"st_grate", flavor="cross"} .. ti["-"]
+ti["H"] = {"st_grate", flavor="cross"} .. ti["~"]
+ti["Y"] = ti["-"] .. {"st_flat_breakable"}
+ti["Z"] = ti["~"] .. {"st_flat_breakable"}
+ti["O"] = ti["~"] .. {"st_oxyd"}
+ti["@"] = {"ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#  #ppp#d#GG-~#~-GG#",
+    "# @#~p~#-BG~-~~--~G#",
+    "#  #~b##-B-~-~--~--#",
+    "#  #~d#--B-~---~--~#",
+    "#  ##X#Y~#--~###B###",
+    "#-    #-~#~-##-GG--#",
+    "#--  h#--B--#-~HH~-#",
+    "#F#ZZ###-B-~#GHOOHG#",
+    "#-----c#-B--BGHOOHG#",
+    "#-~~~###-#-~#-~HH~-#",
+    "#--------#~~#--GG-##",
+    "###################~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
