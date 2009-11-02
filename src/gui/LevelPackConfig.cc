@@ -108,7 +108,7 @@ namespace enigma { namespace gui {
         
         if (indexName.empty())
             // new levelpack
-            packIndex = new lev::PersistentIndex(" ", false, false,
+            packIndex = new lev::PersistentIndex(" ", false, true, false,
                     INDEX_DEFAULT_PACK_LOCATION,  "", 
                     INDEX_STD_FILENAME, lev::Index::getCurrentGroup()); // mark as incomplete
         else

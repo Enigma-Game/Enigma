@@ -449,7 +449,11 @@ namespace enigma { namespace lev {
                 basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
                 Readfile(ifs, levelCode);
             }
-            std::string oPath = newBasePath + "/" + newPackPath + "/" + filename;
+            // auto-create the destination directory if necessary
+            std::string directory = newBasePath + "/" + newPackPath;
+            if (!ecl::FolderExists(directory))
+                ecl::FolderCreate (directory);
+            std::string oPath =  directory + "/" + filename;
             if (backup) {
                 std::remove((oPath + "~").c_str());
                 std::rename(oPath.c_str(), (oPath + "~").c_str());
@@ -554,7 +558,7 @@ namespace enigma { namespace lev {
                 throw XLevelLoading("Unknown file extension in " + absLevelPath);
             }
         } else {
-                throw XLevelLoading("Unknown file extension in " + absLevelPath);
+            throw XLevelLoading("Unknown file extension in " + absLevelPath);
         }
 
         // preload file into buffer
