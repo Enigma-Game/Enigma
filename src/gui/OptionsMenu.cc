@@ -323,7 +323,7 @@ namespace enigma { namespace gui {
     int GammaButton::get_value() const
     { 
         double gamma = options::GetDouble ("Gamma");
-        int value = round_down<int>(gamma * 5.0);
+        int value = round_down<int>(gamma * 5.0 + 0.1);
         return value;
     }
     

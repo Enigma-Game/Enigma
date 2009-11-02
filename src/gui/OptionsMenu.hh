@@ -126,7 +126,7 @@ namespace enigma { namespace gui {
         void set_value(int value);
         std::string get_text(int value) const;
     public:
-        GammaButton ();        
+        GammaButton();        
     };
     
 /* -------------------- Functions -------------------- */
