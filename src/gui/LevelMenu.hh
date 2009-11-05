@@ -91,6 +91,7 @@ namespace enigma { namespace gui {
         void on_action(Widget *);
     public:
         AdvanceModeButton();
+        virtual void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
         void update();
     };

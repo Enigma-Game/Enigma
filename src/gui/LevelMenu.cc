@@ -493,40 +493,44 @@ namespace enigma { namespace gui {
         
     void AdvanceModeButton::update() {
         switch (app.state->getInt("NextLevelMode")) {
-        case lev::NEXT_LEVEL_UNSOLVED :
-            ImageButton::set_images("ic-unsolved", "par");
-            break;
-        case lev::NEXT_LEVEL_OVER_PAR :
-            ImageButton::set_images("par", "ic-worldrecord");
-            break;
-        case lev::NEXT_LEVEL_NOT_BEST :
-            ImageButton::set_images("ic-worldrecord", "ic-strictlynext");
-            break;
-        case lev::NEXT_LEVEL_STRICTLY : // use as default, too
-        default:
-            ImageButton::set_images("ic-strictlynext","ic-unsolved");
-            break;        
+            case lev::NEXT_LEVEL_UNSOLVED :
+                ImageButton::set_images("ic-unsolved", "par");
+                break;
+            case lev::NEXT_LEVEL_OVER_PAR :
+                ImageButton::set_images("par", "ic-worldrecord");
+                break;
+            case lev::NEXT_LEVEL_NOT_BEST :
+                ImageButton::set_images("ic-worldrecord", "ic-strictlynext");
+                break;
+            case lev::NEXT_LEVEL_STRICTLY : // use as default, too
+            default:
+                ImageButton::set_images("ic-strictlynext","ic-unsolved");
+                break;        
         }
     }
     
-    void AdvanceModeButton::on_action(Widget *) 
-    {
+    void AdvanceModeButton::on_action(Widget *) {
         switch (app.state->getInt("NextLevelMode")) {
-        case lev::NEXT_LEVEL_STRICTLY :
-            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_UNSOLVED);
-            break;        
-        case lev::NEXT_LEVEL_UNSOLVED :
-            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_OVER_PAR);
-            break;
-        case lev::NEXT_LEVEL_OVER_PAR :
-            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
-            break;
-        case lev::NEXT_LEVEL_NOT_BEST :
-        default:
-            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_STRICTLY);
+            case lev::NEXT_LEVEL_STRICTLY :
+                app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_UNSOLVED);
+                break;        
+            case lev::NEXT_LEVEL_UNSOLVED :
+                app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_OVER_PAR);
+                break;
+            case lev::NEXT_LEVEL_OVER_PAR :
+                app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
+                break;
+            case lev::NEXT_LEVEL_NOT_BEST :
+            default:
+                app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_STRICTLY);
         }
         update();
         invalidate();
+    }
+    
+    void AdvanceModeButton::draw(ecl::GC &gc, const ecl::Rect &r) {
+        update();
+        ImageButton::draw(gc, r);
     }
     
 }} // namespace enigma::gui

@@ -560,7 +560,7 @@ void server::Msg_Command (const string &cmd)
         else
             client::Msg_ShowText("Already in easy mode.", false, 2);
     }
-    else if (cmd == "noeasy") {
+    else if (cmd == "regular" || cmd == "noeasy") {
         if (app.state->getInt("Difficulty") == DIFFICULTY_EASY) {
             app.state->setProperty("Difficulty", DIFFICULTY_HARD);
             if (curProxy->hasEasyMode()) {
@@ -575,22 +575,22 @@ void server::Msg_Command (const string &cmd)
             client::Msg_ShowText("Already in normal mode.", false, 2);
     }
     else if (cmd == "time") {
-        if (options::GetBool("TimeHunting") == false) {
+        if (app.state->getInt("NextLevelMode") != lev::NEXT_LEVEL_NOT_BEST) {
             client::Msg_ShowText("Restarting in time-hunt mode", false, 2);
-            options::SetOption("TimeHunting", true);
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
             server::Msg_Command("restart");
         }
         else
             client::Msg_ShowText("Already in time-hunt mode.", false, 2);
     }
     else if (cmd == "notime") {
-        if (options::GetBool("TimeHunting")) {
-            client::Msg_ShowText("Switched to easy-going mode", false, 2);
-            options::SetOption("TimeHunting", false);
+        if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
+            client::Msg_ShowText("Switched to normal mode", false, 2);
+            app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_STRICTLY);
             client::Msg_Command("easy_going");
         }
         else
-            client::Msg_ShowText("Already in easy-going mode.", false, 2);
+            client::Msg_ShowText("Already in normal mode.", false, 2);
     }
     else if (cmd == "info") {
         string infotext       = 
