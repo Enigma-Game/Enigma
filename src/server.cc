@@ -555,7 +555,7 @@ void server::Msg_Command (const string &cmd)
                 server::Msg_Command("restart");
             }
             else
-                client::Msg_ShowText("No easymode available.", false, 2);
+                client::Msg_ShowText("No easy mode available.", false, 2);
         }
         else
             client::Msg_ShowText("Already in easy mode.", false, 2);
@@ -564,33 +564,33 @@ void server::Msg_Command (const string &cmd)
         if (app.state->getInt("Difficulty") == DIFFICULTY_EASY) {
             app.state->setProperty("Difficulty", DIFFICULTY_HARD);
             if (curProxy->hasEasyMode()) {
-                client::Msg_ShowText("Restarting in normal mode", false, 2);
+                client::Msg_ShowText("Restarting in regular difficulty mode", false, 2);
                 server::Msg_Command("restart");
             }
             else {
-                client::Msg_ShowText("No difference between easy and normal.", false, 2);
+                client::Msg_ShowText("No difference between easy and regular difficulty.", false, 2);
             }
         }
         else
             client::Msg_ShowText("Already in normal mode.", false, 2);
     }
-    else if (cmd == "time") {
+    else if (cmd == "hunt") {
         if (app.state->getInt("NextLevelMode") != lev::NEXT_LEVEL_NOT_BEST) {
-            client::Msg_ShowText("Restarting in time-hunt mode", false, 2);
+            client::Msg_ShowText("Restarting in world record hunt mode", false, 2);
             app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_NOT_BEST);
             server::Msg_Command("restart");
         }
         else
-            client::Msg_ShowText("Already in time-hunt mode.", false, 2);
+            client::Msg_ShowText("Already in world record hunt mode.", false, 2);
     }
-    else if (cmd == "notime") {
+    else if (cmd == "nohunt") {
         if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
-            client::Msg_ShowText("Switched to normal mode", false, 2);
+            client::Msg_ShowText("Switched back to standard mode", false, 2);
             app.state->setProperty("NextLevelMode", lev::NEXT_LEVEL_STRICTLY);
             client::Msg_Command("easy_going");
         }
         else
-            client::Msg_ShowText("Already in normal mode.", false, 2);
+            client::Msg_ShowText("Already in standard mode.", false, 2);
     }
     else if (cmd == "info") {
         string infotext       = 
@@ -611,7 +611,7 @@ void server::Msg_Command (const string &cmd)
         server::Msg_Command_jumpto(args);
     }
     else if (cmd == "help") {
-        client::Msg_ShowText("suicide, restart, abort, easy, noeasy, time, notime, jumpto, find, info", true);
+        client::Msg_ShowText("suicide, restart, abort, easy, regular, hunt, nohunt, jumpto, find, info", true);
     }
     else if (cmd == "cheats") {
         client::Msg_ShowText("god, collision  -- Be aware: you'll get no medals!", true);
