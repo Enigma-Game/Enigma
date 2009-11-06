@@ -130,7 +130,7 @@ namespace enigma { namespace lev {
         
 //        static void checkCandidate(PersistentIndex * candidate);
         static void checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned =true, 
-                bool isAuto =false, bool isSystemCross =false, 
+                bool isAuto =false, bool isSystemCross =false, bool isUserCross =false, 
                 double defaultLocation =INDEX_DEFAULT_PACK_LOCATION, std::string anIndexName ="",
                 std::string theIndexFilename =INDEX_STD_FILENAME, std::string aGroupName =INDEX_DEFAULT_GROUP);
         // legacy 0.92

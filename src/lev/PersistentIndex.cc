@@ -66,11 +66,11 @@ namespace enigma { namespace lev {
     std::vector<PersistentIndex *> PersistentIndex::indexCandidates;
     
     void PersistentIndex::checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned,
-            bool isAuto, bool isSystemCross, double defaultLocation, std::string anIndexName, 
-            std::string theIndexFilename, std::string aGroupName) {
+            bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation, 
+            std::string anIndexName, std::string theIndexFilename, std::string aGroupName) {
         int minRevision = 0;
         int systemPackIndex = -1;
-        if (!isAuto) {
+        if (!isAuto && !isUserCross) {
             for (int i = 0; i < indexCandidates.size(); i++) {
                 if (indexCandidates[i]->packPath == thePackPath) {
                     if (!systemOnly && isSystemCross) {   // a system cross index update like enigma_cross
@@ -207,7 +207,7 @@ namespace enigma { namespace lev {
                 if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
                         (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
 //                            Log << "enigma cross check: " << dirEntry.name << "\n"; 
-                    checkCandidate("enigma_cross", true, false, false, true,
+                    checkCandidate("enigma_cross", true, false, false, true, false,
                             INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
                 }
             }
@@ -285,7 +285,7 @@ namespace enigma { namespace lev {
         while (dirIter->get_next(dirEntry)) {
             if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
                     (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
-                checkCandidate("enigma_cross", false, false, false, true,
+                checkCandidate("enigma_cross", false, false, false, true, false,
                         INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
             }
         }
@@ -296,7 +296,7 @@ namespace enigma { namespace lev {
         while (dirIter->get_next(dirEntry)) {
             if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
                     (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
-                checkCandidate("cross", false, true, false, false,
+                checkCandidate("cross", false, true, false, false, true,
                         INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
             }
         }
