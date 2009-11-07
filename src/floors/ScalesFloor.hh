@@ -16,52 +16,54 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef BAGITEM_HH
-#define BAGITEM_HH
+#ifndef SCALESFLOOR_HH
+#define SCALESFLOOR_HH
 
-#include "items.hh"
-#include "Inventory.hh"
-#include <vector>
+#include "floors.hh"
 
 namespace enigma {
-    /**
+
+    /** 
+     * 
      */
-    class BagItem : public Item, public ItemHolder {
-        DECL_ITEMTRAITS;
-
-    private:
-       enum { BAGSIZE = 13 };
-         
-    public:
-        BagItem();
-        ~BagItem();
-
-        // Object interface
-        virtual BagItem *clone();
-        virtual void dispose();
-        virtual std::string getClass() const;
-        virtual Value getAttr(const std::string &key) const;
-        virtual Value message(const Message &m);
- 
-        // GridObject interface
-        virtual void on_creation(GridPos p);
-        virtual void on_removal(GridPos p);
-        virtual void setOwner(int player);
-        virtual void setOwnerPos(GridPos po);
-
-        // Item interface
-        virtual bool actor_hit(Actor *a);
-    
-        // ItemHolder interface
-        virtual bool is_full() const;
-        virtual bool is_empty() const;
-        virtual void add_item (Item *it);
-        virtual Item *yield_first();
+    class ScalesFloor : public Floor {
+        CLONEOBJ(ScalesFloor);
         
     private:
-        std::vector<Item *> m_contents;
+        enum iState {
+            OFF,    ///< 
+            ON      ///< 
+        };
+
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_STONE =   1<<24,   ///< pressed by a stone
+        };
+    public:
+        ScalesFloor(std::string flavor);
+
+        // Object interface
+        virtual std::string getClass() const;
+        virtual void setAttr(const string& key, const Value &val);
+        virtual Value message(const Message &m);
+        
+        // StateObject interface
+        virtual void setState(int extState);
+
+        // GridObject interface
+        virtual std::string getModelName() const;
+        virtual void on_creation(GridPos p);
+        virtual void actor_enter(Actor *a);
+        virtual void actor_leave(Actor *a);
+                
+        // Floor interface
+        virtual void stone_change(Stone *st);
+
+    private:
+        // Methods
+        bool weightActors();
+        void updateIState(bool refuseAction = false);
     };
-   
+
 } // namespace enigma
 
 #endif

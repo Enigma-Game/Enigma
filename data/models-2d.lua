@@ -441,6 +441,17 @@ do
     end
 end
 
+
+-- scales
+
+do
+    DefAlias("fl_scales_platinum_released", "fl_platinum_framed")
+    DefAlias("fl_scales_platinum_pressed", "fl_platinum")
+    DefAlias("fl_scales_gray_released", "fl_gray_framed")
+    DefAlias("fl_scales_gray_pressed", "fl_gray")
+    DefAlias("fl_scales_brick_released", "fl_brick_framed")
+    DefAlias("fl_scales_brick_pressed", "fl_brick")
+end
 ------------------------
 -- Heating animations --
 ------------------------

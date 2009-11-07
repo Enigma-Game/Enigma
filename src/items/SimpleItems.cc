@@ -438,6 +438,11 @@ namespace enigma {
         
     void Weight::setOwner(int player) {
         Value oldPlayer = getOwner();
+        if (player == -1) {
+            GridPos p = getOwnerPos();
+            if (p.x >= 0)
+                SendMessage(GetFloor(p), "_add_mass", -(double)getAttr("mass"), this);
+        }
         Item::setOwner(player);
         if (oldPlayer.getType() != Value::NIL && oldPlayer != -1 ) {
             Inventory *i = player::GetInventory(oldPlayer);
@@ -451,6 +456,26 @@ namespace enigma {
         }
     }
 
+    void Weight::on_creation(GridPos p) {
+        Item::on_creation(p);
+        SendMessage(GetFloor(p), "_add_mass", getAttr("mass"), this);
+    }
+    
+    void Weight::on_removal(GridPos p) {
+        SendMessage(GetFloor(get_pos()), "_add_mass", -(double)getAttr("mass"), this);
+        Item::on_removal(p);
+    }
+    
+    void Weight::setOwnerPos(GridPos po) {
+        if (po == GridPos(-1, -1)) {
+            GridPos p = getOwnerPos();
+            if (p.x >= 0)
+                SendMessage(GetFloor(p), "_add_mass", -(double)getAttr("mass"), this);
+        }
+        Item::setOwnerPos(po);
+        SendMessage(GetFloor(po), "_add_mass", getAttr("mass"), this);        
+    }
+    
     ItemAction Weight::activate(Actor *, GridPos p) {
         return ITEM_KEEP;
     }

@@ -135,12 +135,13 @@ Actor::Actor (const ActorTraits &tr)
                 m_actorinfo.mass = get_traits().default_mass + 
                         (double)(player::GetInventory(this)->getAttr("mass"));
                 ASSERT(m_actorinfo.mass > 0, XLevelRuntime, "Actor mass <= 0!");
-                Log << "Actor new mass " << m_actorinfo.mass << "\n";
+                SendMessage(GetFloor(get_gridpos()), "_update_mass", true, this);
+//                Log << "Actor new mass " << m_actorinfo.mass << "\n";
             }
         } else if (m.message == "_update_pin") {
             if (getAttr("owner") == m.value) {
                 spikes = (player::GetInventory(this)->find("it_pin")) != -1;
-                Log << "Actor has spikes " << spikes << "\n";
+//                Log << "Actor has spikes " << spikes << "\n";
             }
         }
         return StateObject::message(m);

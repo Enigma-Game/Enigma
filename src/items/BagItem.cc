@@ -55,6 +55,29 @@ namespace enigma {
         return "it_bag";
     }
     
+    Value BagItem::getAttr(const std::string &key) const {
+        if (key == "mass") {
+            double mass = 0.0;
+            std::vector<Item *> contents = m_contents;
+            for (std::vector<Item *>::iterator itr = contents.begin(); itr != contents.end(); ++itr) {
+                Value v = (*itr)->getAttr("mass");
+                if (v.getType() == Value::DOUBLE)
+                    mass += (double)v; 
+            }
+            return mass;
+        } else
+            return Item::getAttr(key);
+    }
+
+    Value BagItem::message(const Message &m) {
+        if (m.message == "_init") {
+            for (std::vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr) {
+                SendMessage(*itr, "_init", Value());
+            }
+        }
+        return Item::message(m);
+    }
+    
     void BagItem::on_creation(GridPos p) {
         GridObject::on_creation(p);
         for (std::vector<Item *>::iterator itr = m_contents.begin(); itr != m_contents.end(); ++itr)

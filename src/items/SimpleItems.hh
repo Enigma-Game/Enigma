@@ -323,6 +323,9 @@ namespace enigma {
         
         // GridObject interface
         virtual void setOwner(int player);
+        virtual void on_creation(GridPos p);
+        virtual void on_removal(GridPos p);
+        virtual void setOwnerPos(GridPos po);
 
         // Item interface
         virtual ItemAction activate(Actor* a, GridPos p);

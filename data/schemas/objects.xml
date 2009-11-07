@@ -658,6 +658,22 @@
     <object name="fl_sand_framed">
       <attr name="faces" value="nesw"/>
     </object>
+    <object name="fl_scales">
+      <attr name="flavor" default="platinum"/>
+      <attr name="min" default="1.8"/>
+      <attr name="friction" default="4.0"/>
+      <attr name="adhesion" default="2.0"/>
+      <msg name="_init"/>
+    </object>
+    <object name="fl_scales_brick">
+      <attr name="flavor" value="brick"/>
+    </object>
+    <object name="fl_scales_gray">
+      <attr name="flavor" value="gray"/>
+    </object>
+    <object name="fl_scales_platinum">
+      <attr name="flavor" value="platinum"/>
+    </object>
     <object name="fl_slope_pw">
       <attr name="shape" value="pw"/>
     </object>
@@ -813,7 +829,9 @@
       <attr name="freezable"/>
       <msg name="_freeze"/>
     </object>
-    <object name="it_bag"/>
+    <object name="it_bag">
+      <attr name="mass" default="0.0" rw="r"/>
+    </object>
     <object name="it_banana"/>
     <object name="it_blocker">
       <attr name="autoclose"/>
