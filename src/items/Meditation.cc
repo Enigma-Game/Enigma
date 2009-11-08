@@ -138,7 +138,8 @@ namespace enigma {
         static const double MINTIME = 1.0;
         ItemID id = get_id(this);
     
-        if (whiteball == NULL && !a->is_flying() && !a->is_dead() && get_id(a) == ac_pearl_white && isMeditating(a)) {
+        if (whiteball == NULL && !a->is_flying() && !a->is_dead() 
+                && (get_id(a) == ac_pearl_white || get_id(a) == ac_pearl_black) && isMeditating(a)) {
             // meditatist entered a free hollow
             whiteball  = a;
             enter_time = server::LevelTime;
@@ -222,7 +223,8 @@ namespace enigma {
         std::vector<Actor*> actors;
         GetActorsInsideField(get_pos(), actors);
         for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr) {
-            if (!(*itr)->is_flying() &&  whiteball==NULL && get_id(*itr)==ac_pearl_white && isMeditating(*itr)) {
+            if (!(*itr)->is_flying() &&  whiteball==NULL 
+                    && (get_id(*itr)==ac_pearl_white || get_id(*itr)==ac_pearl_black) && isMeditating(*itr)) {
                  // meditatist entered a free hollow
                 whiteball  = *itr;
                 enter_time = server::LevelTime;

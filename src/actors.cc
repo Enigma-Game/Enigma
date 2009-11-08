@@ -309,7 +309,7 @@ void Actor::set_anim (const string &modelname) {
 bool Actor::can_move() const { 
     if (Stone *st = GetStone (get_gridpos())) {
         if (!server::NoCollisions || !(get_traits().id_mask &
-                        (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white)))
+                        (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white | 1<<ac_pearl_black)))
             return !st->is_sticky(this);
     }
     return true;

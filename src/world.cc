@@ -438,7 +438,7 @@ void World::add_actor (Actor *a, const V2 &pos)
         a->on_creation(pos);
     }
     
-    if (get_id(a) == ac_pearl_white)
+    if (get_id(a) == ac_pearl_white || get_id(a) == ac_pearl_black)
         ChangeMeditation(+1, 0, 0, 0);
 }
 
@@ -1008,7 +1008,7 @@ void World::find_stone_contacts(Actor *a, StoneContact &c0, StoneContact &c1,
     double x = ai.pos[0];
     double y = ai.pos[1];
     bool noCollisions = server::NoCollisions  && 
-                (a->get_traits().id_mask & (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white));
+                (a->get_traits().id_mask & (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white | 1<<ac_pearl_black));
     
     // info about a Window stone on the Gridpos of the actor that may cause
     // contacts within the grid
@@ -1153,7 +1153,7 @@ void World::handle_stone_contact (StoneContact &sc)
     double     restitution = 1.0; //0.85;
 
     if (server::NoCollisions && (sc.stoneid != st_borderstone) && 
-                a->get_traits().id_mask & (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white))
+                a->get_traits().id_mask & (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white | 1<<ac_pearl_black))
         return;
 
     Contact contact (sc.contact_point, sc.normal);
