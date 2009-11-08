@@ -30,14 +30,15 @@ namespace enigma {
         ac_marble_white  = 1,
         ac_pearl_black   = 2,
         ac_pearl_white   = 3,
-        ac_killer     = 4,
-        ac_rotor      = 5,
-        ac_top        = 6,
-        ac_horse      = 7,
-        ac_bug        = 8,
-        ac_cannonball = 9,
-        ac_spermbird  = 10,
-        ac_LAST       = 10,
+        ac_killer_black  = 4,
+        ac_killer_white  = 5,
+        ac_rotor      = 6,
+        ac_top        = 7,
+        ac_horse      = 8,
+        ac_bug        = 9,
+        ac_cannonball = 10,
+        ac_spermbird  = 11,
+        ac_LAST       = 11,
         ac_COUNT
     };
 

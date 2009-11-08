@@ -29,10 +29,10 @@ namespace enigma {
      */
     class Killer : public Actor {
         CLONEACTOR(Killer);
-        DECL_ACTORTRAITS;
+        DECL_ACTORTRAITS_ARRAY(2, traitsIdx());
  
    public:
-        Killer();
+        Killer(int color);
         
         // Object interface.
         virtual std::string getClass() const;
@@ -40,6 +40,8 @@ namespace enigma {
         // Actor interface
         virtual bool is_dead() const;
         virtual bool on_collision(Actor *a);
+    private:
+        int traitsIdx() const;
     };
 
 } // namespace enigma

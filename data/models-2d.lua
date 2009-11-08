@@ -211,7 +211,8 @@ end
 
 -- ac-killerball --
 do
-    DefAlias("ac_killer", "ac_pearl_white")
+    DefAlias("ac_killer_black", "ac_pearl_black")
+    DefAlias("ac_killer_white", "ac_pearl_white")
 end
 
 ----------------------------

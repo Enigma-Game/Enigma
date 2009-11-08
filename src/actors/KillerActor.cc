@@ -27,9 +27,9 @@ namespace enigma {
 
 /* -------------------- Killer  -------------------- */
 
-    Killer::Killer() : Actor (traits) {
+    Killer::Killer(int color) : Actor (traits[color]) {
         setAttr("adhesion", Value(2.0));
-        setAttr("color", Value(WHITE));
+        setAttr("color", Value(color));
         setAttr("controllers", Value(3));
     }
 
@@ -47,10 +47,19 @@ namespace enigma {
         return false;
     }
     
-    ActorTraits Killer::traits = {"ac_killer", ac_killer, 1<<ac_killer, 13.0/64, 0.7};
+    int Killer::traitsIdx() const {
+        return getAttr("color");
+    }
+
+    ActorTraits Killer::traits[2] = {
+        {"ac_killer_white", ac_killer_white, 1<<ac_killer_white, 13.0/64, 0.7},
+        {"ac_killer_black", ac_killer_black, 1<<ac_killer_black, 13.0/64, 0.7}
+    };
     
     BOOT_REGISTER_START
-        BootRegister(new Killer(), "ac_killer");
+        BootRegister(new Killer(1), "ac_killer");
+        BootRegister(new Killer(1), "ac_killer_white");
+        BootRegister(new Killer(0), "ac_killer_black");
     BOOT_REGISTER_END
 
 } // namespace enigma

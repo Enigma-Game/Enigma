@@ -515,7 +515,7 @@ void OxydLoader::load_actors ()
         case MarbleType_Meditation:
             if (have_black_marble && !level.getHarmlessMeditationMarbles()) {
                 // # example: Oxyd Extra #28
-                ac = MakeActor ("ac_killer");
+                ac = MakeActor("ac_killer");
                 ac->setAttr("adhesion", 1.0);
                 ac->setAttr("controllers", 3);
             }
