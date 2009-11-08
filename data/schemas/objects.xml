@@ -256,6 +256,9 @@
       <msg name="_shield"/>
       <msg name="_suicide"/>
     </object>
+    <object name="ac_pearl_black">
+      <attr name="color" value="0"/>
+    </object>
     <object name="ac_pearl_white">
       <attr name="color" value="1"/>
     </object>
