@@ -123,15 +123,15 @@ do
     local images, frames, shadows
 
     -- Normal white pearl
-    SpriteImage("sh-whiteball-small", 0.4, 0.41)
+    SpriteImage("sh_pearl", 0.4, 0.41)
     SpriteImage("ac_pearl_white", 0.5, 0.43)
-    DefShModel("ac_pearl_white", "ac_pearl_white", "sh-whiteball-small")
+    DefShModel("ac_pearl_white", "ac_pearl_white", "sh_pearl")
     DefAlias("ac_pearl_white-shine", "ac_pearl_white")
 
     -- Normal black pearl
     -- Use shadow from black pearl
     SpriteImage("ac_pearl_black", 0.5, 0.43)
-    DefShModel("ac_pearl_black", "ac_pearl_black", "sh-whiteball-small")
+    DefShModel("ac_pearl_black", "ac_pearl_black", "sh_pearl")
     DefAlias("ac_pearl_black-shine", "ac_pearl_black")
 
     -- Falling white pearl
@@ -158,7 +158,7 @@ do
 
     -- Jumping white pearl
     images  = SpriteImages("ac_pearl_white_jump", 4)
-    shadows = SpriteImages("sh-whiteball-small-jump", 4, 0.4)
+    shadows = SpriteImages("sh_pearl_jump", 4, 0.4)
     frames  = {}
     for i=1,4 do
         DefShModel("sb-jump"..i, images[i], shadows[i])
@@ -222,7 +222,7 @@ end
 -- ac-bug --
 do
     SpriteImage("ac_bug",0.5,0.44)
-    DefShModel("ac_bug", "ac_bug", "sh-whiteball-small")
+    DefShModel("ac_bug", "ac_bug", "sh_pearl")
 end
 
 -- ac-cannonball --
@@ -486,15 +486,19 @@ end
 
 
 -- scales
-
 do
-    DefAlias("fl_scales_platinum_released", "fl_platinum_framed")
-    DefAlias("fl_scales_platinum_pressed", "fl_platinum")
-    DefAlias("fl_scales_gray_released", "fl_gray_framed")
-    DefAlias("fl_scales_gray_pressed", "fl_gray")
-    DefAlias("fl_scales_brick_released", "fl_brick_framed")
-    DefAlias("fl_scales_brick_pressed", "fl_brick")
+    local scales = DefSubimages("fl_scales", {h=2})
+
+    display.DefineComposite("fl_scales_platinum_released", "fl_platinum", scales[1])
+    display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
+
+    display.DefineComposite("fl_scales_gray_released", "fl_gray", scales[1])
+    display.DefineComposite("fl_scales_gray_pressed", "fl_gray", scales[2])
+
+    display.DefineComposite("fl_scales_brick_released", "fl_brick", scales[1])
+    display.DefineComposite("fl_scales_brick_pressed", "fl_brick", scales[2])
 end
+
 ------------------------
 -- Heating animations --
 ------------------------
