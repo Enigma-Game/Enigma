@@ -123,19 +123,19 @@ do
     local images, frames, shadows
 
     -- Normal white pearl
-    SpriteImage ("sh-whiteball-small", 0.4, 0.41)
-    SpriteImage ("ac_pearl_white", 0.5, 0.43)
+    SpriteImage("sh-whiteball-small", 0.4, 0.41)
+    SpriteImage("ac_pearl_white", 0.5, 0.43)
     DefShModel("ac_pearl_white", "ac_pearl_white", "sh-whiteball-small")
-    DefAlias ("ac_pearl_white-shine", "ac_pearl_white")
+    DefAlias("ac_pearl_white-shine", "ac_pearl_white")
 
     -- Normal black pearl
     -- Use shadow from black pearl
-    SpriteImage ("ac_pearl_black", 0.5, 0.43)
+    SpriteImage("ac_pearl_black", 0.5, 0.43)
     DefShModel("ac_pearl_black", "ac_pearl_black", "sh-whiteball-small")
-    DefAlias ("ac_pearl_black-shine", "ac_pearl_black")
+    DefAlias("ac_pearl_black-shine", "ac_pearl_black")
 
     -- Falling white pearl
-    images = SpriteImages ("ac_pearl_white_fall", 5, 0.5, 0.43)
+    images = SpriteImages("ac_pearl_white_fall", 5, 0.5, 0.43)
     table.insert(images, "invisible")
     DefAnim("ac_pearl_white-fall", ComposeFrames(images,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_white-fallen", "invisible")
@@ -146,7 +146,7 @@ do
     DefAnim("ac_pearl_white-disappear", BuildFrames(images, 25))
 
     -- Falling black pearl
-    images = SpriteImages ("ac_pearl_black_fall", 5, 0.5, 0.43)
+    images = SpriteImages("ac_pearl_black_fall", 5, 0.5, 0.43)
     table.insert(images, "invisible")
     DefAnim("ac_pearl_black-fall", ComposeFrames(images,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_black-fallen", "invisible")
@@ -157,7 +157,7 @@ do
     DefAnim("ac_pearl_black-disappear", BuildFrames(images, 25))
 
     -- Jumping white pearl
-    images  = SpriteImages("ac-whiteball-small-jump", 4)
+    images  = SpriteImages("ac_pearl_white_jump", 4)
     shadows = SpriteImages("sh-whiteball-small-jump", 4, 0.4)
     frames  = {}
     for i=1,4 do
@@ -168,7 +168,7 @@ do
 
     -- Jumping black pearl
     -- Use shadow from white pearl
-    images  = SpriteImages("ac-whiteball-small-jump", 4)
+    images  = SpriteImages("ac_pearl_black_jump", 4)
     frames  = {}
     for i=1,4 do
         DefShModel("sb-jump"..i, images[i], shadows[i])
@@ -177,35 +177,35 @@ do
     DefAnim("ac_pearl_black-jump", PingPong(BuildFrames(frames, 70)))
 
     -- Sinking white pearl
-    DefAlias ("ac_pearl_white-sink0", "ac_pearl_white_fall1")
-    DefAlias ("ac_pearl_white-sink1", "ac_pearl_white_fall2")
-    DefAlias ("ac_pearl_white-sink2", "ac_pearl_white_fall3")
-    DefAlias ("ac_pearl_white-sink3", "ac_pearl_white_fall3")
-    DefAlias ("ac_pearl_white-sink4", "ac_pearl_white_fall4")
-    DefAlias ("ac_pearl_white-sink5", "ac_pearl_white_fall4")
-    DefAlias ("ac_pearl_white-sink6", "ac_pearl_white_fall5")
-    DefAlias ("ac_pearl_white-sunk", "invisible")
+    DefAlias("ac_pearl_white-sink0", "ac_pearl_white_fall1")
+    DefAlias("ac_pearl_white-sink1", "ac_pearl_white_fall2")
+    DefAlias("ac_pearl_white-sink2", "ac_pearl_white_fall3")
+    DefAlias("ac_pearl_white-sink3", "ac_pearl_white_fall3")
+    DefAlias("ac_pearl_white-sink4", "ac_pearl_white_fall4")
+    DefAlias("ac_pearl_white-sink5", "ac_pearl_white_fall4")
+    DefAlias("ac_pearl_white-sink6", "ac_pearl_white_fall5")
+    DefAlias("ac_pearl_white-sunk", "invisible")
 
     -- Sinking black pearl
-    DefAlias ("ac_pearl_black-sink0", "ac_pearl_black-fall1")
-    DefAlias ("ac_pearl_black-sink1", "ac_pearl_black-fall2")
-    DefAlias ("ac_pearl_black-sink2", "ac_pearl_black-fall3")
-    DefAlias ("ac_pearl_black-sink3", "ac_pearl_black-fall3")
-    DefAlias ("ac_pearl_black-sink4", "ac_pearl_black-fall4")
-    DefAlias ("ac_pearl_black-sink5", "ac_pearl_black-fall4")
-    DefAlias ("ac_pearl_black-sink6", "ac_pearl_black-fall5")
-    DefAlias ("ac_pearl_black-sunk", "invisible")
+    DefAlias("ac_pearl_black-sink0", "ac_pearl_black_fall1")
+    DefAlias("ac_pearl_black-sink1", "ac_pearl_black_fall2")
+    DefAlias("ac_pearl_black-sink2", "ac_pearl_black_fall3")
+    DefAlias("ac_pearl_black-sink3", "ac_pearl_black_fall3")
+    DefAlias("ac_pearl_black-sink4", "ac_pearl_black_fall4")
+    DefAlias("ac_pearl_black-sink5", "ac_pearl_black_fall4")
+    DefAlias("ac_pearl_black-sink6", "ac_pearl_black_fall5")
+    DefAlias("ac_pearl_black-sunk", "invisible")
 
     -- Shattering white pearl
-    images = SpriteImages ("ac-whiteball-small-shatter", 5)
+    images = SpriteImages("ac-whiteball-small-shatter", 5)
     DefAnim("ac_pearl_white-shatter", BuildFrames(images, 60))
-    SpriteImage ("ac-whiteball-small-shattered")
+    SpriteImage("ac-whiteball-small-shattered")
     DefAlias("ac_pearl_white-shattered", "ac-whiteball-small-shattered")
 
     -- Shattering black pearl
-    images = SpriteImages ("ac-whiteball-small-shatter", 5)
+    images = SpriteImages("ac-whiteball-small-shatter", 5)
     DefAnim("ac_pearl_black-shatter", BuildFrames(images, 60))
-    SpriteImage ("ac-whiteball-small-shattered")
+    SpriteImage("ac-whiteball-small-shattered")
     DefAlias("ac_pearl_black-shattered", "ac-whiteball-small-shattered")
 end
 
