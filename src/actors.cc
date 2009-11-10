@@ -120,6 +120,8 @@ Actor::Actor (const ActorTraits &tr)
             return adhesion;
         } else if (key == "charge") {
             return m_actorinfo.charge;
+        } else if (key == "mass") {
+            return m_actorinfo.mass;
         } else
             return StateObject::getAttr(key);
     }

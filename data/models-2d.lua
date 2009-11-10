@@ -489,14 +489,24 @@ end
 do
     local scales = DefSubimages("fl_scales", {h=2})
 
-    display.DefineComposite("fl_scales_platinum_released", "fl_platinum", scales[1])
-    display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
+    display.DefineComposite("fl_scales_brick_released", "fl_brick", scales[1])
+    display.DefineComposite("fl_scales_brick_pressed", "fl_brick", scales[2])
+
+    display.DefineComposite("fl_scales_bridgewood_released", "fl_bridge_bw_closed", scales[1])
+    display.DefineComposite("fl_scales_bridgewood_pressed", "fl_bridge_bw_closed", scales[2])
+
+    display.DefineComposite("fl_scales_concrete_released", "fl_concrete", scales[1])
+    display.DefineComposite("fl_scales_concrete_pressed", "fl_concrete", scales[2])
+
+    display.DefineComposite("fl_scales_darkgray_released", "fl_darkgray", scales[1])
+    display.DefineComposite("fl_scales_darkgray_pressed", "fl_darkgray", scales[2])
 
     display.DefineComposite("fl_scales_gray_released", "fl_gray", scales[1])
     display.DefineComposite("fl_scales_gray_pressed", "fl_gray", scales[2])
 
-    display.DefineComposite("fl_scales_brick_released", "fl_brick", scales[1])
-    display.DefineComposite("fl_scales_brick_pressed", "fl_brick", scales[2])
+    display.DefineComposite("fl_scales_platinum_released", "fl_platinum", scales[1])
+    display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
+
 end
 
 ------------------------

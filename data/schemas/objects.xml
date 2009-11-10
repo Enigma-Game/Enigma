@@ -199,6 +199,7 @@
       <attr name="essential"/>
       <attr name="essential_id"/>
       <attr name="charge"/>
+      <attr name="mass" rw="r"/>
       <attr name="velocity_x"/>
       <attr name="velocity_y"/>
       <msg name="_freeze"/>
@@ -675,6 +676,15 @@
     </object>
     <object name="fl_scales_brick">
       <attr name="flavor" value="brick"/>
+    </object>
+    <object name="fl_scales_bridgewood">
+      <attr name="flavor" value="bridgewood"/>
+    </object>
+    <object name="fl_scales_concrete">
+      <attr name="flavor" value="concrete"/>
+    </object>
+    <object name="fl_scales_darkgray">
+      <attr name="flavor" value="darkgray"/>
     </object>
     <object name="fl_scales_gray">
       <attr name="flavor" value="gray"/>

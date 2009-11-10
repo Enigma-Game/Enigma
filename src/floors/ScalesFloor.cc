@@ -29,7 +29,7 @@ namespace enigma {
     ScalesFloor::ScalesFloor(std::string flavor) : Floor("fl_scales")  {
         Floor::setAttr("flavor", flavor);
         Floor::setAttr("$mass", 0.0);
-//        Floor::setAttr("burnable", flavor != "gc");
+        Floor::setAttr("burnable", flavor == "bridgewood");
         state = OFF;
     }
     
@@ -40,9 +40,9 @@ namespace enigma {
     void ScalesFloor::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
-            ASSERT(flavor == "brick" || flavor == "gray" || flavor == "platinum", XLevelRuntime, "ScalesFloor illegal flavor value");
+            ASSERT(flavor == "brick" || flavor == "bridgewood" || flavor == "concrete" || flavor == "darkgray" || flavor == "gray" || flavor == "platinum", XLevelRuntime, "ScalesFloor illegal flavor value");
             Floor::setAttr("flavor", val);
-//            Floor::setAttr("burnable", flavor != "gc");
+            Floor::setAttr("burnable", flavor == "bridgewood");
             if (isDisplayable()) {
                 init_model();    // need to redisplay after attribute set
             }
@@ -138,7 +138,7 @@ namespace enigma {
             state = ON;
         }
 
-Log << "Scales update old state " << oldState << " - new state " << state << " refuse action " << refuseAction << "\n";
+//Log << "Scales update old state " << oldState << " - new state " << state << " refuse action " << refuseAction << "\n";
     
         if (oldState != state) {
             init_model();
@@ -155,10 +155,13 @@ Log << "Scales update old state " << oldState << " - new state " << state << " r
     }
 
     BOOT_REGISTER_START
-        BootRegister(new ScalesFloor("platinum"), "fl_scales");
-        BootRegister(new ScalesFloor("platinum"), "fl_scales_platinum");
+        BootRegister(new ScalesFloor("darkgray"), "fl_scales");
         BootRegister(new ScalesFloor("brick"), "fl_scales_brick");
+        BootRegister(new ScalesFloor("bridgewood"), "fl_scales_bridgewood");
+        BootRegister(new ScalesFloor("concrete"), "fl_scales_concrete");
+        BootRegister(new ScalesFloor("darkgray"), "fl_scales_darkgray");
         BootRegister(new ScalesFloor("gray"), "fl_scales_gray");
+        BootRegister(new ScalesFloor("platinum"), "fl_scales_platinum");
     BOOT_REGISTER_END
 
 } // namespace enigma
