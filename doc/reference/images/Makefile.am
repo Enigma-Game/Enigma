@@ -9,6 +9,7 @@ SIMPLEPNG = \
 	ac_horse.png \
 	ac_marble_black.png \
 	ac_marble_white.png \
+	ac_pearl_black.png \
 	ac_pearl_white.png \
 	ac_rotor.png \
 	ac_top.png \
@@ -26,6 +27,8 @@ SIMPLEPNG = \
 	fl_metal_2.png fl_metal_3.png fl_metal_4.png fl_metal_5.png \
 	fl_metal_6.png fl_metal_7.png \
 	fl_samba_2.png \
+	fl_scales_bridge_bw_closed.png fl_scales_brick.png fl_scales_concrete.png \
+	fl_scales_darkgray.png fl_scales_gray.png fl_scales_platinum.png \
 	fl_slope.png fl_slope_2.png fl_slope_3.png fl_slope_4.png \
 	fl_slope_b.png fl_slope_b2.png fl_slope_b3.png fl_slope_b4.png \
 	fl_slope_c.png fl_slope_c2.png fl_slope_c3.png fl_slope_c4.png \
@@ -344,6 +347,9 @@ all: $(PNGLIST)
 
 %_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/floor_frame.png $@
+
+fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
 
 st_laser_%.png: $(GFXDIR)/st-laser-%.png $(GFXDIR)/st-laser-base.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $(GFXDIR)/st-laser-base.png $< $@

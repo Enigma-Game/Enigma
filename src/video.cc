@@ -861,7 +861,9 @@ const string& video::GetCaption()
 void video::UpdateGamma()
 {
     float gamma = static_cast<float> (app.prefs->getDouble ("Gamma"));
-    SDL_SetGamma (gamma, gamma, gamma);
+    if (gamma < 0.25)  
+        gamma = 0.25;  // Windows does not set gamma for values < 0.2271
+    int result = SDL_SetGamma (gamma, gamma, gamma);
 }
 
 void video::Screenshot (const std::string &fname) 

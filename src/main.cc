@@ -59,6 +59,7 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XercesVersion.hpp>
+#include <SDL_image.h>
 
 
 #ifdef MACOSX
@@ -345,6 +346,10 @@ void Application::init(int argc, char **argv)
     }
     atexit(SDL_Quit);
     SDL_EnableUNICODE(1);
+    SDL_version* vi = SDL_Linked_Version();
+    Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+    vi = IMG_Linked_Version();
+    Log <<  ecl::strf("SDL <Image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 
     // ----- Initialize video subsystem
     video::Init();

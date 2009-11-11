@@ -70,6 +70,7 @@ described in the following chapters.
 * Locating Resources::
 * Startup Switches::
 * User Options::
+* Inventory Console::          Command and document text history
 * Level Info::
 * Handicap and PAR::           Background to score evaluation and HCP
 * User Sound Sets::            How to create and install sound themes
@@ -295,6 +296,94 @@ your old data is necessary, since with the next start, Enigma will locate user d
 location exclusively.
 
 @end table
+
+
+@node Inventory Console
+@section Inventory Console
+
+The lower right window area that usually shows the inventory items and scrolls
+the texts of activated document items allows the user to reread previous 
+document texts, to enter textual commands and to reissue previous commands.
+
+You can issue a command by usage of the keyboard. Just enter the command string
+and activate the command by a finishing @key{return} stroke. The following
+commands are supported:
+
+@table @asis
+@item @b{help}
+List all public available commands.
+@item @b{abort}
+Abort level and return to level selection menu. Same as @key{Alt X}
+@item @b{April 1st}
+Just a joke.
+@item @b{cheats}
+List level developer cheat commands for fast testing.
+@item @b{collision}
+Developer cheat that disables collisions between stones and marbles or pearls.
+Once used no score will be recorded if the level is successfully finished.
+@item @b{easy}
+Restart level in easy difficulty mode.
+@item @b{find} search_string
+Searches levels in all levelpacks that contain matching string in either
+the level's title, author's name or the file name.
+@item @b{god}
+Developer cheat that protects the actors assigned to the current player like
+the activation of an @ref{it_umbrella} does. Once used no score will be 
+recorded if the level is successfully finished.
+@item @b{hunt}
+Switch to world record hunting mode. Same as toggling the left most button
+in the level selection menu to the world icon.
+@item @b{info}
+Show info about level like the levelpack, position within levelpack, the file
+location, the title, author, version and the level internal id.
+@item @b{jumpto} levelpack,position
+Directly start the given level. The levelpack is identified by its title. The
+position is the number within the levelpack. E.g. @code{jumpto Enigma IV,33}.
+@item @b{nohunt}
+Switch off the world record hunting mode. Same as toggling the left most button
+in the level selection menu to the marble icon.
+@item @b{regular}
+Restart level in regular difficulty mode
+@item @b{restart}
+Restart level in currently selected difficulty mode.
+@item @b{suicide}
+Kill actors, but continue level if possible. Same as @key{F3}.
+@end table
+
+Both, the commands and the displayed document text have a history. You recall
+the history by usage of the up and down arrows. 
+
+@itemize @bullet
+@item @b{inventory} --> jump to start
+@item @b{command #10}, oldest command in history
+@item @b{command #9}
+@item @dots{}
+@item @b{command #2}
+@item @b{command #1}, last executed command
+@item @b{command under edition}, just if the last edited command has not been executed
+@item @b{inventory} <-- start
+@item @b{document #1}, last viewed document
+@item @b{document #2}, previous viewed document
+@item @dots{}
+@item @b{document #n}, first viewed document
+@item @b{level title, subtitle, author}, as shown on level start
+@item @b{inventory} --> jump to start
+@end itemize
+
+Starting with the inventory item display the up arrow shows the previously
+submitted commands. Just by another @key{return} you can reissue a command.
+The history will be resorted with the last command at the position direktly 
+above the inventory. You can edit history commands anytime like you can insert 
+a new command. If you do not finish a command by a @key{return} the string will
+still be recorded and presented as the first command above the inventory. The
+command history is persistent.
+
+The document history can be recalled by usage of the down arrow. All level 
+documents previously displayed can be redisplayed. Additionally the initial
+level info displayed on the level start can be read again.
+
+Both histories revolve to the item inventory when the up or down keys are
+used beyond the oldest command or message.
 
 @node Level Info
 @section Level Info
@@ -3587,7 +3676,7 @@ Ending Conditions - the mystery of Oxyds and Meditation
 * Named Positions::               Positions as successors of killed Floors
 * Callbacks and Load Balancing::
 * Level Restart::
-* Ending Conditions::
+* Ending Conditions::             Meditation vs. Oxydpairs
 @end menu
 
 @c ----------------- Library Preloading --------------------
@@ -3770,6 +3859,69 @@ global and res.*.function
 @node Ending Conditions
 @subsection Ending Conditions
 
+Two essential questions remain to be answered. When and under which conditions
+is a level successfully finished. How do I declare a level as being a
+meditation level in opposite to a standard oxyd pair opening level.
+
+In fact there is no 'meditation' flag, neither within the XML Level 
+@ref{Info metadata} nor as one of the @ref{Global Attributes}. That means there
+is no formal distinction between both level 'types'. But there are two different
+types of ending conditions. Both are checked permanently and whichever
+is fulfilled first wins. Thus Enigma allows you to write true hybrid levels
+that provide @ref{st_oxyd} as well as @ref{it_meditation} allowing the user
+to solve the level by two totally different means.
+
+The main way to end the game is to fulfill the oxyd pair opening condition:
+
+The game is over when the user succeeds in opening all regular colored 
+@ref{st_oxyd}s by pairs.
+
+This implies that there is at least one pair of regular colored oxyd stones
+and that all oxyd colors appear in even number of instances. Whereas you will
+always add at least one pair of oxyds for a standard level, you may simply loose
+track of the number of instances. Therefore the engine will permanently check at
+runtime that every oxyd color appears in an even number of instances. Any 
+violation causes an error. In case you will add or delete oxyd stones you
+need to disable this checking by setting the global attribute 
+@ref{AllowSingleOxyds} to @code{true}. Now it is your reponsibility as an
+author to ensure that the level remains solvable by adding or removing pairs
+only. 
+
+The second way to end the game is to fulfill the meditation condition:
+
+All @ref{ac_pearl}s must reside for at least one second within the uneven area
+of an @ref{it_meditation}, all @ref{it_meditation} marked as @code{essential}
+must be occupied and the number of @ref{ac_pearl}s must be equal to the number
+of occupied @ref{it_meditation}s.
+
+This implies again that there exists at least one @ref{ac_pearl} and that
+no two pearls can reside within the same @ref{it_meditation}. There must be at
+least the same number of @ref{it_meditation} as of @ref{ac_pearl}, but there may
+be more @ref{it_meditation}s as long as they are not marked as being essential.
+A surplus of @ref{it_meditation} can easily occur due to explosions of
+@ref{it_dynamite}.
+
+A level that should be solved by fulfillment of the meditation condition can
+contain @ref{st_oxyd} and by setting @ref{AllowSingleOxyds} to @code{true} you
+can add odd numbers of oxyd stones of a color. On the other hand you can add
+@ref{ac_pearl} to a level that should be solved by fulfillment of the oxyd pair
+condition. But you must carefully check that the user can not rest the pearls in
+given @ref{it_meditation} or can create @ref{it_meditation} by @ref{it_dynamite}.
+Marking more @ref{it_meditation} as @code{essential} than existing 
+@ref{ac_pearl}s can avoid shortcuts.
+
+A level that is set up to allow the user to fulfill both conditions is called
+a hybrid level. Of course it is a difficult task to provide equivalent solutions
+for both approaches.
+
+Independent of the condition type all actors marked as @code{essential} need to
+be alive at the moment the condition is fulfilled. Mainly in existing legacy 
+levels but may in some very carefully designed future levels the author may
+allow the user to sacrify an actor to fulfill the condition by setting the 
+global attribute @ref{SurviveFinish} to @code{false}. In this case a mable
+may shatter while the condition is fulfilled. Of course the essential actor
+may not shatter in advance, because as soon as the shattering is over the
+essential actor will cause a level restart, if it can not be resurrected.
 
 @c ===================  Lua API  =======================
 @node Lua API
@@ -9753,6 +9905,12 @@ Positive number are attracting, negative numbers are repelling.
 @tab @image{images/fl_sahara, 12mm} @tab @yref{fl_sahara}
 @item @image{images/fl_samba, 12mm} @tab @yref{fl_samba}
 @tab @image{images/fl_sand, 12mm} @tab @yref{fl_sand}
+@tab @image{images/fl_scales_brick, 12mm} @tab @yref{fl_scales}_brick
+@item @image{images/fl_scales_bridge_bw_closed, 12mm} @tab @yref{fl_scales}_bridgewood
+@tab @image{images/fl_scales_concrete, 12mm} @tab @yref{fl_scales}_concrete
+@tab @image{images/fl_scales_darkgray, 12mm} @tab @yref{fl_scales}_darkgray
+@item @image{images/fl_scales_gray, 12mm} @tab @yref{fl_scales}_gray
+@tab @image{images/fl_scales_platinum, 12mm} @tab @yref{fl_scales}_platinum
 @tab @image{images/fl_slope_f, 12mm} @tab @yref{fl_slope}
 @item @image{images/fl_slope, 12mm} @tab @yref{fl_slope}_ps
 @tab @image{images/fl_slope_c, 12mm} @tab @yref{fl_slope}_ise
@@ -10922,6 +11080,7 @@ Diagonal woven white floor with black shadows.
 * fl_ice::            Slippery frozen water
 * fl_inverse::        Accelerate into the inverse direction
 * fl_rock::           Floodable Rock Floor
+* fl_scales::         Weight dependent Trigger
 * fl_slope::          Slopes in various shapes
 * fl_swamp::          Sticky sinkable Floor
 * fl_thief::          Hidden Thief
@@ -11193,6 +11352,76 @@ Number of seconds .
 @item @image{images/fl_rock, 12mm} @b{fl_rock}
 @item @image{images/fl_rock_framed, 12mm} @b{fl_rock_framed}: faces = @code{"nesw"}
 @end table
+@end table
+
+@c ----------------- Scales Floor --------------------
+@node fl_scales
+@subsection fl_scales
+@obindex fl_scales
+
+The scales floor is a trigger that reacts on the mass load of actors and items
+atop or any stones that may press it. It performs actions when it is initially
+pressed and again when it releases. A pressed trigger is in state @samp{ON} and
+will send an action value of @samp{true}, a released trigger is in state 
+@samp{OFF} and will send an action value of @samp{false}.
+
+Only actors moving on the floor can press scales. An actor jumping over a
+scale will not press it. An actor jumping on a scale will release and press
+it again. But anyway the mass of all actors and items atop will be measured and
+compared to the given @code{min} attribute. The default triggering mass is 1.8.
+This mass is given by two @ref{ac_marble} or three @ref{ac_pearl}. Any item
+like @ref{it_weight} or weights in an @ref{it_bag} that are either dropped on
+top of scales or carried by any actor in the players inventory is added to the
+actors basic mass.
+
+Just solid stones will press the scales when pushed onto it. Floating, hollow
+stones will generally not press the scales with the exception of the hollow,
+central puzzle stone (@pxref{st_puzzle}).
+
+There is no way to set the state of a trigger manually. But the state can
+nevertheless be read. At initialization a scales floor that is pressed by 
+objects will start in state @samp{ON} without sending actions due to the
+@ref{Snapshot Principle}.
+
+Scales trigger with a click sound.
+
+Scales are given in several flavors. They are similar to the @ref{it_trigger}
+in respect to their features. Visually they look similar to frames, but are
+well distinguishable. It is deprecated to use invisible @ref{it_trigger} on
+a framed floor as a substitution for scales.
+
+Alternative items that react just on actors are @ref{it_sensor} and
+@ref{it_cross}. 
+
+@table @asis
+@item @b{Attributes:}
+@table @asis
+@item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
+The current switch state - @samp{ON} for pressed scales, @samp{OFF} for a
+released scales.
+@item @b{flavor}, @ @ @i{values}: @code{"brick"}, @code{"bridgewood"}, @code{"concrete"}, @code{"darkgray"}, @code{"gray"}, @code{"platinum"}; @ @ @i{default}: @code{"darkgray"}
+The base floor type of the scales.
+@item @b{adhesion}, @ @ @i{values}: number; @ @ @i{default}: 2.0 @ @ @xref{adhesion}
+@item @b{friction}, @ @ @i{values}: number; @ @ @i{default}: 4.0 @ @ @xref{friction}
+@item @b{burnable}, @ @ @i{values}: boolean; @ @ @i{default}: depends on @code{flavor} @ @ @xref{burnable}
+True if flavor is @code{"bridgewood"}, false otherwise.
+@item @b{min} @ @ @i{values}: positive float number; @ @ @i{default}: @code{+1.8}
+Mass unit is the mass of an @ref{ac_marble}
+@end table
+
+@item @b{Messages:} none
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+
+@item @b{Variants:}
+@table @asis
+@item @image{images/fl_scales_brick, 12mm} @b{fl_scales_brick}: flavor = @code{"brick"}
+@item @image{images/fl_scales_bridge_bw_closed, 12mm} @b{fl_scales_bridgewood}: flavor = @code{"bridgewood"}
+@item @image{images/fl_scales_concrete, 12mm} @b{fl_scales_concrete}: flavor = @code{"concrete"}
+@item @image{images/fl_scales_darkgray, 12mm} @b{fl_scales_darkgray}: flavor = @code{"darkgray"}
+@item @image{images/fl_scales_gray, 12mm} @b{fl_scales_gray}: flavor = @code{"gray"}
+@item @image{images/fl_scales_platinum, 12mm} @b{fl_scales_platinum}: flavor = @code{"platinum"}
+@end table
+
 @end table
 
 @c ----------------- Slope Floor --------------------
@@ -11771,6 +12000,9 @@ grid position filled up with the stolen items.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.0}; @ @ @i{access}: @code{read only}
+Sum of masses of all contained items. Currently just the @ref{it_weight} has a
+mass.
 @end table
 
 @item @b{Messages:} none
@@ -14044,8 +14276,9 @@ You can make the trigger invisible by setting its attribute. Be aware that it
 still produces its click-sounds and the user will notice that actors cannot drop
 items onto the same grid position.
 
-Alternative objects that react just on actors are @ref{it_sensor} and
-@ref{it_cross}.
+Alternative items that react just on actors are @ref{it_sensor} and
+@ref{it_cross}. Another switch that reacts on the actors mass and stones are
+the @ref{fl_scales}.
 
 @table @asis
 @item @b{Attributes:}
@@ -19281,6 +19514,12 @@ player @ref{fl_thief} and @ref{st_thief} will steal items from it.
 
 @table @asis
 @item @b{Attributes:} common actor attributes
+@table @asis
+@item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{0.0}; @ @ @xref{adhesion}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.7}; @ @ @i{access}: read only
+@end table
 
 @item @b{Messages:} none
 
@@ -19325,6 +19564,7 @@ values if you want a player to control a horse directly.
 A path given by a sequence of positions.
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+10.0}
 A scalar factor for the horse force that drive it to the next destination.
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{1.2}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -19359,11 +19599,12 @@ Note that even though a killer looks quite dangerous, @ref{fl_thief} and
 @item @b{Attributes:}
 
 @table @asis
-@item @b{color} @ @ @i{values}: @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
 The color of the killer.
 @item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{2.0}; @ @ @xref{adhesion}
-@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
+@item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_YINYANG}; @ @ @xref{controllers}
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.7}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -19372,6 +19613,8 @@ The color of the killer.
 
 @table @asis
 @item @image{images/ac_pearl_white, 14mm} @b{ac_killer}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
+@item @image{images/ac_pearl_black, 14mm} @b{ac_killer_black}: color = @code{BLACK}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
+@item @image{images/ac_pearl_white, 14mm} @b{ac_killer_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{nil}
 @end table
 
 @end table
@@ -19404,6 +19647,7 @@ The color of the marble.
 @item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
 @end table
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{1.0}; @ @ @i{access}: read only
 
 @item @b{Messages:} none
 
@@ -19439,12 +19683,13 @@ changes due to events and can be read only.
 
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ALIVE}, @code{DEAD}; @ @ @i{default}: @code{ALIVE}; @ @ @xref{state}; @ @ @i{access}: read only
-@item @b{color} @ @ @i{values}: @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
+@item @b{color} @ @ @i{values}: @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{WHITE}; @ @ @i{access}: read only
 The color of the pearl.
 @item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
 @item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
 @end table
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.7}; @ @ @i{access}: read only
 
 @item @b{Messages:} none
 
@@ -19452,6 +19697,7 @@ The color of the pearl.
 
 @table @asis
 @item @image{images/ac_pearl_white, 14mm} @b{ac_pearl}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
+@item @image{images/ac_pearl_black, 14mm} @b{ac_pearl_black}: color = @code{BLACK}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @item @image{images/ac_pearl_white, 14mm} @b{ac_pearl_white}: color = @code{WHITE}, controllers = @code{CTRL_YINYANG}, owner = @code{YIN}
 @end table
 
@@ -19508,6 +19754,7 @@ Behaviour of a rotor with multiple victims in range
 Likelihood of attack strategy. You will usually use this attribute in
 combination with @samp{attacknearest} set to @samp{true}. The Level
 @samp{Toreador} is an example of the behavior of such rotors.
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.8}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -19565,6 +19812,7 @@ Behaviour of a top with multiple victims in range
 Likelihood of attack strategy. You will usually use this attribute in
 combination with @samp{attacknearest} set to @samp{true}. The Level
 @samp{Toreador} is an example of the behavior of such rotors.
+@item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.8}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
@@ -20125,7 +20373,7 @@ separator. Can be @samp{nil}.
 
 @item @b{Syntax Samples:}
 @example
-a = @{1, 5=2, "Hello", other_table = @{x = 4, y = 5, z = "World"@}@}
+a = @{1, [5]=2, "Hello", other_table = @{x = 4, y = 5, z = "World"@}@}
 lib.lua.print_table(a, nil, -1)
 lib.lua.print_table(a, "--> ")
 @end example
@@ -24849,12 +25097,32 @@ them (see @code{oxyd1}-compatibility).
 @need 200
 @item @b{st-bigbluesand-sw} @expansion{} @code{st_bluesand_sw}, @pxref{st_bluesand}
 @item @b{st-bigbluesand-w} @expansion{} @code{st_bluesand_w}, @pxref{st_bluesand}
+@item @b{st-bigbrick-e} @expansion{} @code{st_brick_e}, @pxref{st_brick}
+@item @b{st-bigbrick-es} @expansion{} @code{st_brick_es}, @pxref{st_brick}
+@need 200
+@item @b{st-bigbrick-esw} @expansion{} @code{st_brick_esw}, @pxref{st_brick}
+@item @b{st-bigbrick-ew} @expansion{} @code{st_brick_ew}, @pxref{st_brick}
+@item @b{st-bigbrick-n} @expansion{} @code{st_brick_n}, @pxref{st_brick}
+@item @b{st-bigbrick-ne} @expansion{} @code{st_brick_ne}, @pxref{st_brick}
+@need 200
+@item @b{st-bigbrick-nes} @expansion{} @code{st_brick_nes}, @pxref{st_brick}
+@item @b{st-bigbrick-nesw} @expansion{} @code{st_brick_nesw}, @pxref{st_brick}
+@item @b{st-bigbrick-new} @expansion{} @code{st_brick_new}, @pxref{st_brick}
+@item @b{st-bigbrick-ns} @expansion{} @code{st_brick_ns}, @pxref{st_brick}
+@need 200
+@item @b{st-bigbrick-nsw} @expansion{} @code{st_brick_nsw}, @pxref{st_brick}
+@item @b{st-bigbrick-nw} @expansion{} @code{st_brick_nw}, @pxref{st_brick}
+@item @b{st-bigbrick-s} @expansion{} @code{st_brick_s}, @pxref{st_brick}
+@item @b{st-bigbrick-sw} @expansion{} @code{st_brick_sw}, @pxref{st_brick}
+@need 200
+@item @b{st-bigbrick-w} @expansion{} @code{st_brick_w}, @pxref{st_brick}
 @item @b{st-blackballs} @expansion{} @code{st_jamb_black}, @pxref{st_jamb}
 @item @b{st-black1} @expansion{} @code{st_passage_black_square}, @pxref{st_passage}
-@need 200
 @item @b{st-black2} @expansion{} @code{st_passage_black_slash}, @pxref{st_passage}
+@need 200
 @item @b{st-black3} @expansion{} @code{st_passage_black_cross}, @pxref{st_passage}
 @item @b{st-black4} @expansion{} @code{st_passage_black_frame}, @pxref{st_passage}
+@item @b{st-block} @expansion{} @ref{st_plop}
 @item @b{st-blocker} @expansion{} @ref{st_blocker}
 @need 200
 @item @b{st-blocker-growing} @expansion{} @code{st_blocker_new}, @pxref{st_blocker}
@@ -24868,36 +25136,16 @@ them (see @code{oxyd1}-compatibility).
 @item @b{st-bolder-s} @expansion{} @code{st_boulder_s}, @pxref{st_boulder}
 @need 200
 @item @b{st-bolder-w} @expansion{} @code{st_boulder_w}, @pxref{st_boulder}
+@item @b{st-bombs} @expansion{} @code{st_dispenser_bombblack}, @pxref{st_dispenser}
 @item @b{st-brake} @expansion{} @ref{st_brake}
 @item @b{st-break_acblack} @expansion{} @code{st_break_black}, @pxref{st_break}
-@item @b{st-break_acwhite} @expansion{} @code{st_break_white}, @pxref{st_break}
 @need 200
+@item @b{st-break_acwhite} @expansion{} @code{st_break_white}, @pxref{st_break}
 @item @b{st-break_bolder} @expansion{} @code{st_break_boulder}, @pxref{st_break}
 @item @b{st-break_gray} @expansion{} @code{st_break_plain}, @pxref{st_break}
-@item @b{st-brick} @expansion{} @ref{st_brick}
-@item @b{st-bigbrick-e} @expansion{} @code{st_brick_e}, @pxref{st_brick}
-@need 200
-@item @b{st-bigbrick-es} @expansion{} @code{st_brick_es}, @pxref{st_brick}
-@item @b{st-bigbrick-esw} @expansion{} @code{st_brick_esw}, @pxref{st_brick}
-@item @b{st-bigbrick-ew} @expansion{} @code{st_brick_ew}, @pxref{st_brick}
-@item @b{st-bigbrick-n} @expansion{} @code{st_brick_n}, @pxref{st_brick}
-@need 200
-@item @b{st-bigbrick-ne} @expansion{} @code{st_brick_ne}, @pxref{st_brick}
-@item @b{st-bigbrick-nes} @expansion{} @code{st_brick_nes}, @pxref{st_brick}
-@item @b{st-bigbrick-nesw} @expansion{} @code{st_brick_nesw}, @pxref{st_brick}
-@item @b{st-bigbrick-new} @expansion{} @code{st_brick_new}, @pxref{st_brick}
-@need 200
-@item @b{st-bigbrick-ns} @expansion{} @code{st_brick_ns}, @pxref{st_brick}
-@item @b{st-bigbrick-nsw} @expansion{} @code{st_brick_nsw}, @pxref{st_brick}
-@item @b{st-bigbrick-nw} @expansion{} @code{st_brick_nw}, @pxref{st_brick}
-@item @b{st-bigbrick-s} @expansion{} @code{st_brick_s}, @pxref{st_brick}
-@need 200
-@item @b{st-bigbrick-sw} @expansion{} @code{st_brick_sw}, @pxref{st_brick}
-@item @b{st-bigbrick-w} @expansion{} @code{st_brick_w}, @pxref{st_brick}
-@item @b{st-block} @expansion{} @ref{st_plop}
-@item @b{st-bombs} @expansion{} @code{st_dispenser_bombblack}, @pxref{st_dispenser}
-@need 200
 @item @b{st-break_invisible} @expansion{} @code{st_ghost_break}, @pxref{st_ghost}
+@need 200
+@item @b{st-brick} @expansion{} @ref{st_brick}
 @item @b{st-brick_magic} @expansion{} @code{st_magic_brick}, @pxref{st_magic}
 @item @b{st-brownie} @expansion{} @ref{st_brownie}
 @item @b{st-bug} @expansion{} @code{st_break_bug}, @pxref{st_break}
