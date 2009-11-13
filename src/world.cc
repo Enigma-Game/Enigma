@@ -1711,7 +1711,10 @@ bool WorldInitLevel() {
     }
         
     server::InitMoveCounter();
-    STATUSBAR->show_move_counter (server::ShowMoves);
+    STATUSBAR->show_move_counter(server::ShowMoves);
+    STATUSBAR->setCMode(server::NoCollisions);
+    STATUSBAR->setBasicModes(std::string() + (server::GameCompatibility == GAMET_ENIGMA ? "" : "x") 
+            + (server::IsDifficult ? "" : "e"));
 
     display::FocusReferencePoint();
 

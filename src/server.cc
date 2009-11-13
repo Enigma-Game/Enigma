@@ -544,6 +544,7 @@ void server::Msg_Command (const string &cmd)
         else
             client::Msg_ShowText ("collision handling enabled", false, 2);
         client::Msg_Command("cheater");
+        STATUSBAR->setCMode(server::NoCollisions);
     }
 
     // ------------------------------ quick options

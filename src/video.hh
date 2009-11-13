@@ -70,6 +70,7 @@ namespace video
         ecl::Rect      gamearea;
         ecl::Rect      statusbararea;
         ecl::Rect      sb_timearea;
+        ecl::Rect      sb_modesarea;
         ecl::Rect      sb_movesarea;
         ecl::Rect      sb_itemarea;
         ecl::Rect      sb_textarea;

@@ -69,7 +69,8 @@ namespace display
         void hide_text();
 
         void show_move_counter (bool active);
-        void show_odometer (bool active);
+        void setCMode(bool flag);
+        void setBasicModes(std::string flags);
 
         void set_speed (double speed);
         void set_travelled_distance (double distance);
@@ -85,9 +86,10 @@ namespace display
         bool   m_showtime_p;
         int    m_counter;
         bool   m_showcounter_p;
-        bool   m_showodometer_p;
         bool   m_interruptible; // Current text message may be interrupted
         bool m_text_active;
+        bool cMode;  // collision mode flag
+        std::string basicModes;  // set by world on start of level
     };
 
 

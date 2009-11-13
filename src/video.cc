@@ -341,6 +341,7 @@ namespace
             Rect (0, 0, 640, 416),           // game area
             Rect (0, 416, 640, 64),          // statusbar area
             Rect (10, 425, 117, 43),         // time area
+            Rect (100, 419, 28, 43),         // modes area
             Rect (100, 425, 30, 43),         // moves area
             Rect (152, 433, 490, 52),        // inventory area
             Rect (150, 434, 475, 35),        // text area
@@ -358,6 +359,7 @@ namespace
             Rect (0, 0, 640, 416),           // game area
             Rect (0, 416, 640, 64),          // statusbar area
             Rect (15, 420, 110, 40),         // time area
+            Rect (100, 420, 31, 40),         // modes area
             Rect (100, 420, 30, 40),         // moves area
             Rect (152, 433, 490, 52),        // inventory area
             Rect (150, 434, 475, 35),        // text area
@@ -375,6 +377,7 @@ namespace
             Rect (0, 0, 800, 520),           // game area
             Rect (0, 520, 800, 80),          // statusbar area
             Rect (15, 540, 140, 40),         // time area
+            Rect (125, 529, 31, 40),         // modes area
             Rect (125, 540, 30, 40),         // moves area
             Rect (192, 539, 610, 46),        // inventory area
             Rect (185, 545, 600, 39),        // text area
@@ -392,6 +395,7 @@ namespace
             Rect (32, 0, 960, 624),          // game area
             Rect (32, 624, 960, 96),         // statusbar area
             Rect (50, 640, 170, 60),         // time area
+            Rect (185, 634, 34, 60),         // modes area
             Rect (185, 640, 30, 60),         // moves area
             Rect (260, 650, 710, 46),        // inventory area
             Rect (260, 655, 710, 40),        // text area
@@ -409,6 +413,7 @@ namespace
             Rect (0, 0, 960, 624),           // game area
             Rect (0, 624, 960, 96),          // statusbar area
             Rect (18, 640, 170, 60),         // time area
+            Rect (153, 634, 34, 60),         // modes area
             Rect (153, 640, 30, 60),         // moves area
             Rect (228, 650, 710, 46),        // inventory area
             Rect (228, 655, 710, 40),        // text area
@@ -426,6 +431,7 @@ namespace
             Rect (160, 0, 960, 624),         // game area
             Rect (160, 624, 960, 96),        // statusbar area
             Rect (178, 640, 170, 60),        // time area
+            Rect (313, 640, 30, 60),         // modes area
             Rect (313, 640, 30, 60),         // moves area
             Rect (388, 650, 710, 46),        // inventory area
             Rect (388, 655, 710, 40),        // text area
@@ -443,6 +449,7 @@ namespace
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
             Rect (24, 853, 227, 80),         // time area //TODO
+            Rect (204, 853, 40, 80),         // modes area //TODO
             Rect (204, 853, 40, 80),         // moves area //TODO
             Rect (304, 867, 947, 61),        // inventory area //TODO
             Rect (304, 873, 947, 53),        // text area //TODO
@@ -460,6 +467,7 @@ namespace
             Rect (80, 0, 1280, 832),         // game area
             Rect (80, 832, 1280, 128),       // statusbar area
             Rect (104, 853, 227, 80),        // time area //TODO
+            Rect (284, 853, 40, 80),         // modes area //TODO
             Rect (284, 853, 40, 80),         // moves area //TODO
             Rect (384, 867, 947, 61),        // inventory area //TODO
             Rect (384, 873, 947, 53),        // text area //TODO
@@ -477,6 +485,7 @@ namespace
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
             Rect (18, 640, 170, 60),         // time area //TODO
+            Rect (153, 640, 30, 60),         // modes area //TODO
             Rect (153, 640, 30, 60),         // moves area //TODO
             Rect (228, 650, 710, 46),        // inventory area //TODO
             Rect (228, 655, 710, 40),        // text area //TODO
@@ -494,6 +503,7 @@ namespace
             Rect (200, 0, 1280, 832),        // game area
             Rect (200, 832, 1280, 128),      // statusbar area
             Rect (224, 853, 227, 80),        // time area //TODO
+            Rect (404, 853, 40, 80),         // modes area //TODO
             Rect (404, 853, 40, 80),         // moves area //TODO
             Rect (504, 867, 947, 61),        // inventory area //TODO
             Rect (504, 873, 947, 53),        // text area //TODO
@@ -510,8 +520,9 @@ namespace
             60, 39, "-60x39",                // thumbnail size/extension
             Rect (0, 0, 320, 208),           // game area
             Rect (0, 208, 320, 32),          // statusbar area
-            Rect (5, 212, 587, 21),          // time area
-            Rect (50, 212, 15, 21),          // moves area
+            Rect (5, 212, 65, 21),           // time area
+            Rect (50, 210, 14, 21),          // modes area
+            Rect (50, 220, 15, 21),          // moves area
             Rect (76, 216, 245, 26),         // inventory area
             Rect (75, 217, 237, 17),         // text area
             true, true,                      // available window, fullscreen

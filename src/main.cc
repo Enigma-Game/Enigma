@@ -346,7 +346,7 @@ void Application::init(int argc, char **argv)
     }
     atexit(SDL_Quit);
     SDL_EnableUNICODE(1);
-    SDL_version* vi = SDL_Linked_Version();
+    const SDL_version* vi = SDL_Linked_Version();
     Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
     vi = IMG_Linked_Version();
     Log <<  ecl::strf("SDL <Image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);

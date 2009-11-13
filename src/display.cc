@@ -66,7 +66,6 @@ Rect round_grid (const dRect &r, double w, double h) {
     return s;
 }
 
-
 /* -------------------- Local variables -------------------- */
 
 namespace
@@ -81,7 +80,6 @@ namespace
 
 }
 
-
 //======================================================================
 // STATUS BAR
 //======================================================================
@@ -96,7 +94,6 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
   m_showtime_p (true),
   m_counter (0),
   m_showcounter_p(false),
-  m_showodometer_p(false),
   m_interruptible(true),
   m_text_active(false)
 {
@@ -147,19 +144,15 @@ void StatusBarImpl::show_move_counter (bool active)
         m_changedp      = true;
     }
 }
-
-void StatusBarImpl::show_odometer (bool active) 
-{
-    if (active != m_showodometer_p) {
-        m_showodometer_p = active;
-        m_changedp = true;
-    }
+void StatusBarImpl::setCMode(bool flag) {
+    cMode = flag;
+    m_changedp = true;
 }
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
+void StatusBarImpl::setBasicModes(std::string flags) {
+    basicModes = flags;
+    m_changedp = true;
+}
 
 void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     const video::VMInfo *vminfo = video::GetInfo();
@@ -176,18 +169,30 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
 //     frame (gc, vminfo->sb_movesarea);
 //     frame (gc, vminfo->sb_itemarea);
 
-    if (m_showtime_p || m_showcounter_p) {
-        const int  BUFSIZE     = 8;
-        char       buf[BUFSIZE];
-        int        xsize_time  = 0;
-        int        xsize_moves = 0;
-        Surface   *s_time      = 0;
-        Surface   *s_moves     = 0;
-        Font      *timefont    = enigma::GetFont ("timefont");
-        Font      *movesfont   = enigma::GetFont ("smallfont");
-        ScreenArea timearea    = vminfo->sb_timearea;
-        ScreenArea movesarea   = vminfo->sb_movesarea;
+    int        x;
+    int        y;
+    std::string text;
+    int        xsize_time  = 0;
+    int        xsize_moves = 0;
+    int        xsize_modes = 0;
+    Surface   *s_time      = 0;
+    Surface   *s_moves     = 0;
+    Surface   *s_modes     = 0;
+    Font      *timefont    = enigma::GetFont("timefont");
+    Font      *movesfont   = enigma::GetFont("smallfont");
+    Font      *modesfont   = enigma::GetFont("modesfont");
+    ScreenArea timearea    = vminfo->sb_timearea;
+    ScreenArea modesarea   = vminfo->sb_modesarea;
+    ScreenArea movesarea   = vminfo->sb_movesarea;
 
+    // draw modes indicators
+    s_modes = modesfont->render(((cMode ? "c" : "") + basicModes).c_str());
+    xsize_modes = s_modes->width();
+    x = modesarea.x + modesarea.w - xsize_modes;
+    y = modesarea.y;
+    blit(gc, x, y, s_modes);
+    
+    if (m_showtime_p || m_showcounter_p) {
         if (m_showtime_p) {
             double     abstime       = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
             int        minutes       = static_cast<int>(abstime/60);
@@ -197,24 +202,21 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
                 minutes = 99;
                 seconds = 59;
             }
-            snprintf(buf, BUFSIZE,
-                     m_leveltime >= 0 ? "%d:%02d" : "-%d:%02d",
-                     minutes, seconds);
-            s_time = timefont->render(buf);
+            text = ecl::strf(m_leveltime >= 0 ? "%d:%02d" : "-%d:%02d", minutes, seconds);
+            s_time = timefont->render(text.c_str());
             xsize_time = s_time->width();
         }
 
         if (m_showcounter_p) {
-            int len = snprintf(buf, BUFSIZE, "%d", m_counter);
-            s_moves     = movesfont->render(buf);
+            text = ecl::strf("%d", m_counter);
+            s_moves     = movesfont->render(text.c_str());
             xsize_moves = s_moves->width();
         }
 
-
         if (m_showtime_p) {
             if (m_showcounter_p) { // time + moves
-                int x = timearea.x + (movesarea.x - timearea.x - xsize_time)/2;
-                int y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
+                x = timearea.x + (movesarea.x - timearea.x - xsize_time)/2;
+                y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
                 blit(gc, x, y, s_time);
                 
                 x = movesarea.x + (movesarea.w - xsize_moves)/2;
@@ -222,8 +224,8 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
                 blit(gc, x, y, s_moves);
             }
             else { // only time
-                int x = timearea.x + (timearea.w - xsize_time)/2;
-                int y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
+                x = timearea.x + (timearea.w - xsize_time)/2;
+                y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
                 blit(gc, x, y, s_time);
             }
         }
@@ -297,7 +299,6 @@ void StatusBarImpl::new_world() {
     m_changedp    = true;
 }
 
-
 /* -------------------- TextDisplay implementation -------------------- */
 
 TextDisplay::TextDisplay (Font &f)
@@ -409,7 +410,6 @@ void TextDisplay::draw (ecl::GC &gc, const ScreenArea &r) {
 
 
 
-
 //======================================================================
 // DISPLAY ENGINE
 //======================================================================

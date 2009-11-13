@@ -208,7 +208,8 @@ namespace display
         virtual void hide_text() = 0;
 
         virtual void show_move_counter (bool active) = 0;
-        virtual void show_odometer (bool active)     = 0;
+        virtual void setCMode(bool flag) = 0;
+        virtual void setBasicModes(std::string flags) = 0;
 
         virtual void set_time (double time) = 0;
         virtual void set_speed (double speed) = 0;
@@ -220,7 +221,6 @@ namespace display
 
 #define STATUSBAR display::GetStatusBar()
 
-
 /* -------------------- Constants -------------------- */
 
     const int MIN_TextSpeed = 1;
@@ -237,8 +237,8 @@ namespace display
         SHOW_ITEMS     = 0x04,
         SHOW_SHADES    = 0x08,
         SHOW_SPRITES   = 0x10,
-	SHOW_TIME      = 0x20,
-	SHOW_INVENTORY = 0x40,
+        SHOW_TIME      = 0x20,
+        SHOW_INVENTORY = 0x40,
         SHOW_ALL       = 0x7f
     };
 
