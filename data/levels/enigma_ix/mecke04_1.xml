@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tour de France" el:subtitle="Marbleix and Pearlix I" el:id="mecke04"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:12 $" el:status="released"/>
+      <el:author el:name="mecke" el:email=""/>
+      <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht for important ideas and testing</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_red"}
+ti[" _"] = {"fl_thief"}
+ti[" 0"] = {"fl_wood"}
+ti[" !"] = {"fl_lawn_a"}
+ti[" -"] = {"fl_sahara"}
+ti[" &"] = {"fl_samba"}
+ti[" '"] = {"fl_red"}
+ti[" #"] = {"fl_water"}
+ti[" $"] = {"fl_sand"}
+ti[" ("] = {"fl_swamp"}
+ti[" )"] = {"fl_abyss"}
+ti[" ,"] = {"fl_slope_pw"}
+ti[" ."] = {"fl_hay", secure=true}
+ti[" +"] = {"fl_himalaya"}
+ti[" *"] = {"fl_slope_inw"}
+ti["$ "] = {"st_break_boulder"}
+ti["% "] = {"st_actorimpulse_invisible"}
+ti["& "] = {"st_magic"}
+ti["' "] = {"st_brownie"}
+ti["( "] = {"st_fourswitch"}
+ti["* "] = {"st_woven"}
+ti["+ "] = {"st_camouflage"}
+ti["! "] = {"st_metal"}
+ti["# "] = {"st_disco_medium"}
+ti[", "] = {"st_box_wood"}
+ti["- "] = {"st_granite_hollow"}
+ti["~ "] = {"st_chess_black"}
+ti[". "] = {"st_beads"}
+ti["/ "] = {"st_pull"}
+ti["0 "] = {"st_greengray"}
+ti["1 "] = {"st_knight"}
+ti["2 "] = {"st_rubberband"}
+ti["3 "] = {"st_death"}
+ti["4 "] = {"st_rawglass"}
+ti["5 "] = {"st_actorimpulse"}
+ti["6 "] = {"st_key"}
+ti["7 "] = {"st_oneway_n"}
+ti["8 "] = {"st_granite"}
+ti[";0"] = ti[" !"] .. {"st_switch", target="rouen1"}
+ti[";1"] = ti[" !"] .. {"st_coinslot", target="lutetia1", action="open"}
+ti[";2"] = ti[" !"] .. {"st_coinslot", target="lutetia2", action="open"}
+ti[";3"] = ti[" !"] .. {"st_switch", target="reims1", action="toggle"}
+ti[";4"] = ti[" +"] .. {"st_switch", target="nice1", action="toggle"}
+ti[";5"] = ti[" +"] .. {"st_switch", target="nice2", action="toggle"}
+ti[";7"] = ti[" +"] .. {"st_fourswitch", state=EAST,name="ff1",
+                         target_3="romans", action_3="toggle",
+                         target_1="loser", action_1="toggle"}
+ti[";8"] = ti[" +"] .. {"st_timer", action="callback", target="fire", interval=12}
+ti[";9"] = ti[" +"] .. {"st_timer", action="toggle", target="lasertunier#*", interval=4}
+ti["90"] = ti[" )"] .. {"fl_bridge_bw", name="rouen1"}
+ti["91"] = ti[" +"] .. {"st_door_a", name="lutetia1"}
+ti["92"] = ti[" +"] .. {"st_door_a", name="lutetia2"}
+ti["93"] = ti[" +"] .. {"st_door_a", name="reims1"}
+ti["94"] = ti[" +"] .. {"st_door_a", name="nice1"}
+ti["95"] = ti[" +"] .. {"st_door_a", name="nice2"}
+ti["96"] = ti[" +"] .. {"st_fourswitch", state=WEST, target_2="transfer", name="nice3", action_2="flip"}
+ti["97"] = ti[" +"] .. {"st_oneway_black", state=WEST, name="transfer"}
+ti["98"] = ti[" +"] .. {"st_laserswitch"}
+ti["99"] = ti[" +"] .. {"st_laser_n", name="lasertunier#"}
+ti["_1"] = ti[" !"] .. {"st_switch", target="sea1"}
+ti["_2"] = ti[" +"] .. {"st_door_a", name="sea1"}
+ti[": "] = {"st_plaster"}
+ti["< "] = {"st_yellow"}
+ti["= "] = {"st_oxyd_d"}
+ti["> "] = {"st_panel"}
+ti["? "] = {"st_passage_black_cross"} .. ti{"it_document", text="text13"}
+ti["@ "] = {"st_oneway_w"}
+ti["A "] = {"st_oneway_e"}
+ti["B "] = {"st_oneway_s"}
+ti["C "] = {"st_redmarble"}
+ti["E "] = {"st_scissors"}
+ti["D "] = {"st_door", faces="ew"}
+ti["F1"] = ti[" !"] .. {"st_door", faces="ns", name="romans"}
+ti["F2"] = ti[" !"] .. {"st_door", faces="ns", name="loser"}
+ti["G "] = {"st_grate_cross"}
+ti["H "] = {"st_ghost_break"}
+ti["I "] = {"st_disco_dark"}
+ti["J "] = {"st_rotator_ccw"}
+ti["K "] = {"st_boulder_n"}
+ti["P "] = {"st_boulder_s"}
+ti["L "] = {"st_boulder_e"}
+ti["M "] = {"st_boulder_w"}
+ti["O "] = {"st_oneway_black", state=WEST}
+ti["a "] = {"it_bottle"}
+ti["i0"] = ti[" !"] .. {"st_granite_hollow"}
+ti["i3"] = ti[" '"] .. {"it_weight"}
+ti["i4"] = ti["i0"] .. {"it_coin_l"}
+ti["i5"] = ti[" !"] .. {"it_sword"}
+ti["i6"] = ti["i5"] .. {"st_window_s", secure=true}
+ti["i7"] = ti["i5"] .. {"st_window_n", secure=true}
+ti["i8"] = ti[" !"] .. {"st_window_s", secure=true}
+ti["i9"] = ti[" !"] .. {"st_window_n", secure=true}
+ti["c "] = {"it_glasses"}
+ti["e "] = {"it_glasses_broken"}
+ti["g "] = {"it_hill_s"}
+ti["f "] = {"it_flag_white"}
+ti["h "] = {"it_hammer"}
+ti["j "] = {"it_sword"}
+ti["k "] = {"it_magicwand"}
+ti["l "] = {"it_cherry"}
+ti["n "] = {"it_shogun_s"}
+ti["t "] = {"it_strip", connections="ew"}
+ti["u0"] = ti[" !"] .. {"it_burnable_burning"}
+ti["u1"] = ti[" !"] .. {"it_drop"}
+ti["u2"] = ti[" !"] .. {"it_seed"}
+ti["u3"] = ti[" !"] .. {"it_burnable_oil"}
+ti["u4"] = ti[" $"] .. {"it_coffee"}
+ti["u5"] = ti[" #"] .. {"it_umbrella"}
+ti["u6"] = ti[" #"] .. {"it_blocker"}
+ti["i2"] = ti[" #"] .. {"it_trigger", action={"turn", "turn"}, target={"lilli1","mizzi1"}}
+ti["u7"] = ti[" &"] .. {"it_springboard"}
+ti["u8"] = ti[" !"] .. {"it_bag"}
+ti["u9"] = ti[" !"] .. {"it_spoon"}
+ti["ua"] = ti[" !"] .. {"it_ring"}
+ti["p "] = ti[" !"] .. {"st_disco_light"}
+ti["q "] = ti[" !"] .. {"st_brownie"}
+ti["kk"] = ti[" !"] .. {"st_knight"}
+ti["mm"] = ti[" !"] .. {"st_thief"}
+ti["dd"] = ti[" #"] .. {"st_death"}
+ti["di"] = ti[" #"] .. {"st_death_invisible"}
+ti["ll"] = ti[" $"] .. {"st_disco_light"}
+ti["i1"] = ti["p "] .. {"it_cherry"}
+ti["N "] = {"st_laser_w", name="lilli1", state=ON}
+ti[") "] = {"st_laser_e", name="mizzi1", state=ON}
+ti["superwormy"] = ti[" !"] .. {"it_wormhole", name="s%%", destination="y%%", range=1, strength=1}
+ti["hyperwormy"] = ti[" !"] .. {"it_squashed", name="y%%"}
+ti["superkey"] = ti[" !"] .. {"it_key", name="w%%", code="z%%"}
+ti["hyperkey"] = ti[" !"] .. {"st_key", code="z%%", action="toggle", target="j%%"}
+ti["festival"] = ti[" !"] .. {"st_door", faces="ew", name="j%%"}
+ti["supervortex"] = ti["p "] .. {"it_vortex_open", name="v%%", destination="b%%"}
+ti["hypervortex"] = ti["q "] .. {"it_vortex_open", name="b%%", destination="v%%"}
+ti["d1"] = ti[" !"] .. {"it_document", text="text1"}
+ti["d2"] = ti[" !"] .. {"it_document", text="text2"}
+ti["d3"] = ti[" !"] .. {"it_document", text="text3"}
+ti["d4"] = ti[" !"] .. {"it_document", text="text4"}
+ti["d5"] = ti[" !"] .. {"it_document", text="text5"}
+ti["d6"] = ti[" !"] .. {"it_document", text="text6"}
+ti["d7"] = ti[" !"] .. {"it_document", text="text7"}
+ti["d8"] = ti[" !"] .. {"it_document", text="text8"}
+ti["d9"] = ti[" !"] .. {"it_document", text="text9"}
+ti["^1"] = ti[" !"] .. {"it_document", text="text11"}
+ti["^2"] = ti[" !"] .. {"it_document", text="text12"}
+ti["d0"] = ti[" !"] .. {"it_document", text="text10"}
+ti["dg"] = ti["  "] .. {"it_flag_white"}
+ti["^4"] = ti[" !"] .. {"st_fake_oxydd"}
+ti["^5"] = {"fl_slope_ps"}
+ti["^9"] = {"fl_slope_pn"}
+ti["^0"] = {"fl_slope_pw"}
+ti["^6"] = ti["^5"] .. {"st_break"}
+ti["^3"] = {"fl_ice"}
+ti["^7"] = {"it_extralife"} .. ti["^3"]
+ti["^8"] = ti["^3"] .. {"it_document", text="text14"}
+ti["X "] = {"#ac_marble_black"}
+ti["r "] = {"#ac_top", range=1, strength=7}
+ti["^r"] = ti["r "] .. ti["^3"]
+
+railway1 = res.train(ti,{"ee", edge=true}, {"ea", train={" #", " 0", orientation=WEST, length=5}})
+railway2 = res.train(railway1,{"eh"}, {"ed", train={" #", " 0", orientation=EAST, length=6, interval=0.3}})
+railway3 = res.train(railway2,{"ei", edge=true}, {"ej", train={" #", " 0", orientation=WEST, length=3}})
+railway4 = res.train(railway3,{"ek", edge=true}, {"el", train={" #", " 0", orientation=SOUTH, length=3}})
+
+local autotiler = res.autotile(railway4, {"v", "supervortex"} ,{"b", "hypervortex"} ,{"s", "superwormy"}, {"y", "hyperwormy"}, {"w", "superkey"}, {"z", "hyperkey"}, {"j", "festival"})
+
+wo(res.composer(autotiler), "  ", {
+    "!! ! ! ! ! ! !+! ! ! !0! !#!#!0!0!+!0!!!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!",
+    " ! ! ! ! ! !#!+! !ei0###ej0#0#####+# #0! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !0! ! ! #1! !1! !1! !1! !1! !1! !1! !0!0!",
+    " ! ! ! ! ! ! ! !+! #+!0!+!+!*!0!+!####0! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !0! ! ! #l(l(l(l(l(l(l(l(l(l(l(l(l( !0!0!",
+    " ! ! ! ! ! ! !+! ! # # # # # # # # #ei # # # # # # # # # # # # # # # ! ! ! !0! ! !1#l(.!.!.!.!.!.!.!.!.!.!.!l(1!0!0!",
+    " ! ! ! ! !ek+#0# # #+!#!#!1! !0!+! & & & &d3 ! ! #:!:!:!:!:!:!:!:! # !b2 ! !0! ! ! #l(.!~!~!~!~!~!~!~!~!~!~!l( !0!0!",
+    " ! !#! ! !+# !0!#! # !+! !#! !+!0! ! !0! & !1!1! #2! !;1<!<!<! !2! # ! ! ! !0! ! !1#l(.!~!~!~!~!~!~!~!~!~!~!l(1!0!0!",
+    " ! !#! ! !## !0!0! #0!w0.).).).).).) !0! & &1&u7 # ! !91w1 !92 ! !t#t! & & & & &t(t#l(.!~!~!~!~!~!w2~!~!~!~!l(4's20!",
+    " ! ! ! ! !el ! !0! #+! !.) & & & &.)0!0! ! !1!1! #2! !;2<!<!<! !2! # ! ! ! !0! ! !1#l(.!~!~!~!~!~!~!~!~!~!~!l(1!0!0!",
+    " ! ! ! !#!0#*#+#+#ek+! !.) &'! ! &.) !0! ! ! ! ! #:!:!:!:!:!:!:!:! # ! ! ! !0! ! ! #l(.!~!~!~!~!~!~!~!~!~!~!l( !0!0!",
+    "#!#! ! !#! !'! ! ! # (#!.) &'!,! &.)0!0! ! ! ! ! # # # # # # # # # # # # # # # # #1#l(.!.!.!.!.!.!.!.!.!.!.!l(1!0!0!",
+    " ! ! ! !#! !,!'! ! # # & & &'! ! &.) !0! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !0! ! !d4l(l(l(l(l(l(l(l(l(l(l(l(l( !0!0!",
+    " ! ! ! ! #b1 ! ! ! # # !.) &'! ! &.) !0! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !0! ! ! !1! !1! !1! !1! !1! !1! !1! !0!0!",
+    " # # # # # # # # # # # !.) &'! ! &.) !!!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!",
+    " # # # # # # # ! ! ! # !.) &'!>! &.) !0!/!/(/!/!/!/!#! ! ! ! ! ! !0!0!0!0!0!0!+!+!+! # # # # # # # # # # # #+!+!+!0!",
+    " # # !#!#! ! ! ! ! ! #2!.) &'! ! &.)0! #/! !;3 (/! !#! ! ! ! ! ! ! ! !0!0!0!0!+!+! #.)J).).).).).).).).#.).).).)+!0!",
+    " # !#! !#!#! !d2 &1&90 & & &'! ! &.) !0!/!/!/!/!2!2!2!2!2!2!2!2!2!2! ! ! !0!0!+!+! #.)i2u6u6u6u6u6L#u6u6L#u6i2J)+!0!",
+    " # !#!'! ! ! !#!#! # #2!.) &'! ! &.) !+!#!/!#! !2! ! ! ! ! ! ! ! ! !2! ! ! !0!+! # !.)u6A!B!7!7!7!7!7! #B!w4u6.)+!0!",
+    " ##!'! !'!#! ! ! # # ! !.) &'!,! &.)+!0!y2#! (2!1!2! + + + + !:! ! ! !2! ! !+!+! #d6.)u6A!B!@!@!@!!!@! #A!A!u6.)+!0!",
+    " ##!'!;0'!#! ! ! # ! ! !.) & & & &.) !0!0!d5 !1!931! + + + +:!>!:!:!w3E!2!e!u21! , ,,,u6A!!!7! # #N# # #A!1!u6.)+!0!",
+    " # ##!'! !y1 ! ! # ! ! !.).).).).).) ! #0! ! !2!1!2! + + + + !:! ! ! !2! ! !+!+! # !.)u6A!B!@! #@!!!@!@!A!A!u6.)+!0!",
+    " # ##! !#!#! ! # # ! ! ! ! !0!0! !+! # #0! ! ! !2! ! ! ! ! ! ! ! ! !2! ! ! !+!+! # !.)u6A!B!7! #7!7!7!7!A!A!P#.)+!0!",
+    " # # ! ! ! ! # # ! ! ! ! ! ! ! !0! ! # #0!0!5! !2!2!2!2!2!2!2!2!2!2! ! ! ! !+!+! # !.)K#A!B!@! # !A!A!A!A!A!u6.)+!0!",
+    " # # ! ! # # # ! ! ! ! ! ! ! !0! ! # # #0!0!0! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !+!+!+! #J)i2u6u6u6 &M#u6u6u6u6u6i2.)+!0!",
+    " # # # # # # # # # # # # # # #%# # # # #0!0!0!0!0! ! ! ! ! ! ! ! ! ! ! !b3 !+!+!+! #.).).).).)G&.).).).).).)J).)+!0!",
+    " #%#%#%#%#%#%#%#%#%#%#%#%#%#%#%# # # #0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!0!+!+!+!+! # # # # # & # # # # # #+!+!+!0!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!",
+    " # # # ! # ! # ! # # !,!,!,!,!%! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !+!0! ! ! ! ! ! ! ! 0 ! ! !I! , ! ! !I!0!8!8!8!8!8! *^0 *8! * ! *8!^3^3^3^3^38!",
+    " # # # # # # # ! ! ! ! ! !,!,!,!,! ! !b8 ! ! ! !1!1! ! ! !1!1! ! ! !1!1! ! !+!0! ! !%! ! ! ! ! 0 0I!mm !%!8!I!8! !0!8! * ! *8!^5r!^98!^58!^98!^3^3^3^r^38!",
+    " # # # ! # # ! !*!*!*! ! ! ! !,!,!,!,! ! ! ! ! !1!1! ! ! !1!1! ! ! !1!1! ! !+!0! !I! ! !%!2! ! !%! ! ! ! ! !%!8!I!0!8!^58!^98!^5r!^98!^68!^98!^38!^3^3^38!",
+    " # ! ! ! ! ! !i1*!i4*!.!*!*!v0 !v6,!,!,!,! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !+!0!%! !I! ! ! ! !I! 0H!%! !I!%!8! # !0!8!^58!^98!^58!^98!^58!^98!^38!^3^38!8!",
+    " ! ! ! !*!*!.! !.!/!X!/!-!*! ! !v5 !i1,!,!,!,! ! ! ! ! ! ! ! ! ! !5! ! ! ! !+!0! ! !H! !I! ! ! ! ! !mmI!E! ! ! ! !0!8!^58!^98!^68!^98!^58!^98!^58!^3^3^38!",
+    " ! ! ! !*!-!/! !i3u1^2.!*!*! ! ! ! ! !.!.!,!,!,!,!,!,! ! ! !r!r!5!=!5!r!r! !+!0! ! !+!%! ! !H! 0 0I! ! !%!I!8!8!8!0!8!^58!^98!^58!^98!^58!^98!^58!^r^3^3^4",
+    " !v3v2 !*!*!.! ! ! !v1 !/! !i1 ! ! ! !.!.!u8 !,!,!,! !,! ! !r!?!7!A!B!?!r! !+!0!u1mm ! ! ! ! !d0 ! ! !%!8! ! * !I!0!8!^58!^98!^58!^98!^58!^98!^58!^3^3^38!",
+    " ! ! ! ! ! ! !.!/!.!v4*!-!*! ! !v7v8 !,!,!,!,!,!r!r!,!,! ! !5!@!7!A!B!7!5! !+!0!%! !%! ! !%!I! 0H! ! ! !I!8!8!8!I!0!8!^58!^98!^58! * ! *8!^98!^58!8!^3^38!",
+    " ! !v9 ! ! ! !*!i4*! !*!*!*! ! ! !,!,!,!,! !s17!r!i5,!,! !5!=!@!7!?!B!7!=!5!+!0! !8!I!+!H! !mm 0 0%! !2! !%!h!8! !0!8!^58!^98!^58!r!r!r!8!^98!^58!^3^3^3^4",
+    " # ! ! ! ! ! !*!*!*! ! ! ! ! !,!,!,!,! !,!,!,!,!,!,! !,! ! !5!@!7!A!B!7!5! !+!0! ! !H! !%! !%! ! !H!%! ! ! ! !8!dg^0 ! *8!^9r!^58!8!8!8!8!^98!^58!^7^3^38!",
+    " # # # # # ! ! ! ! ! ! ! !,!,!,!,!%!%!,!,!,!,!,!,!,!,!,! ! !r!?!7!A!B!?!r! !+!0! !H!I! !ua ! !H!H0 ! ! !I!mm !8!I!0!8!8!8! *^0 *^0 #d1 #^6 *^0 *8!^3^3^88!",
+    " #%#%#%#%#%#%#%#%#%#%#%#%#%#%#%!%!%!%!*! ! ! ! ! ! ! ! ! ! !r!r!5!=!5!r!r! !+!0!H!H!H!H!H!H!H!H! 0n!H!H!H!H!H!8!8!0!8!8!8!8!8!8!8!8!8!8!8!8!8!8!8!^48!^48!",
+    " # # # # # # # # # # # # # # # # # # #*! ! ! ! ! ! ! ! ! ! ! ! ! !5! ! ! ! !+!0! !C!C!C! !<!<!<! + ! # - # # - # # #",
+    " # # # # # # # # # # # # # # # # # # #*! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !+!0!+!;4 (@! !<!w594 +n! # # # # # # # #",
+    " # # # # # #dd # # # # # # # # # # # #*! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !+!0! !C!C!C! !<!<!<! + ! # - # # - # # #",
+    " # # #ehed # # # # # # # # # # # # # #*!3!98z198z29898z39898z598z698+!C!F1C!+!0! ! !b4 ! ! ! !d7 +n! # # # # # # # #",
+    " # # # # # # # # #ehdi # #eheh # # # #*!C! !i5 !i6i8i6i8i6i8i6i8i6i8C! ! ! !C!0! !C!C!C! !<!<!<! + !C!C!C!C!C! # # #",
+    " # # #di # # # # # #eh # # # # # # #eh ! ! !;9 !j1j2j3j4j5j6j7j8j9j0 , !;7 !b0 !+!;5 (@! !<!9695 +n!A!k!97s3_1 # # #",
+    " # #eh # # # # # # # # # # # # #dd # #*!C! !i5 !i7i9i7i9i7i9i7i9i7i9C! ! ! !C!0! !C!C!C! !<!<!<! + !C!C!C!C!C! # # #",
+    " # # # # # # # # # # # # # # # # #eh #*!3!99z099z99999z49999z899z799+!C!F2C!+!0! ! ! ! ! ! ! ! ! +n! ! ! ! ! ! # # #",
+    " $ # # #dd # # # ! # # # #dd # # # # #*!u9u9u9u9u9u9u9u9u9u9u9u9u9u9u9 ! ! !*!0!u4u4u4u4u4u4u4u4y3u4u4u4u4u4u4 # # #",
+    " $ $ $ $ $ $ $r$ $ $r$ $ $ $ $ $ # # #*!b7 ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !*! #u5u5u5u5u5u5u5u5_2u5u5u5u5u5u5 # # #",
+    " $ $ $ $r$ $ $ $ $ $ $ $ $r$ $ $ # # #*! ! !r! !r! !r! !r! !r! !r! ! ! ! ! !*! #ee # #ea # # # # # # # # # # # # # #",
+    " # # # # # # # # ! # # # # # # # # # #*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*! # # # # # # # # # # # # # # # # # # #",
+    " # #a!)!a!a!a!a!e! # # # # # # # # !&! ! !0!i1b5 !8!8!8!8!8!8!8!1! !1!8! ! !:! # # # # # # # # #ee # # # # # # # # #",
+    " # # ! ! ! ! # # # # # # ! !&! !&! !&! !0!0! !8!8!8!8!8!8!8!8! ! !1! !8! ! !:! # # # # # # # # # # # # # # # # # # #",
+    " # # !b6 ! # # # # # ! !,! !&!&!&! !&! !0! ! ! !8! !8!8!8! !8! * !8! ! !8! !:!u3 ( (u3u3u3u3u3u3u3u3u3u3u0 (b9w62!0!",
+    " # #w9 # # # # ! ! !,! !&! !&! !&!&!&! !0! ! !8! !8!8! ! ! !8! ! *8!1! !8! !:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!G!:!1!:!0!",
+    " # # # # # ! ! !,! !&! !&!&!&! !&! !&! ! ! ! !8! !8! ! !1! !8! ! !8!8! *8!8!:!:!:!a.G.a.G.a.:!a.:.a.:.a.:.a.a! !:!0!",
+    " # # ! ! ! ! ! !&!$! !$!&!&!&!&!&!&!&! ! ! !0!8!8! ! !8! ! ! !8!1! !8! ! !8!8! !:! .:.:.:.G.:. .G. .:. . . . ! !:!0!",
+    "$!$!$!&!&!&!&!&! ! !&! !&! !&!&!&!w8&! ! ! !0!8!8! ! !8!8! ! *8!8! ! *8!1! !G! !:!G.G. .:. .G. _:. .:. .:. .:!:!:!0!",
+    " ! !a! ! ! ! !$! ! !$! !$! !$!h!&!$!&! ! !*!*!*!8!i1 * !8! ! ! !8!8! ! !8!8!8!G!:! .:. _:!:.:. .:.G.:. .:. . ! !:!0!",
+    " ! !&!&!&!&!&!&!&!&!&!&!&!1!&!1!&!1!&! ! !*!4!*!d9 !*!/!8!8! !1! !8!8! * ! !:! _G!:.:. .G. .:.:.:. _G. .:. .:!G!:!0!",
+    " ! !a!a!a!a!a!a!e! ! !^1 ! !/! !/! !/! ! !*!/!/! * !*!4!8!8!8!8! * !8!8! !1!:!:!G! .G.:.:. .:. .:. .:. .:. _ !d8:!0!",
+    " !&!&!&!&!&!&!&!&!&!&!&!&!&!&!&!&!&!&! ! ! */!/! !*!*!8!8!8! !8!8! ! !-! ! !:! !:! .G. .G.G.:. .:. .:. .:. .:!r!:!0!",
+    "!! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !!! !4!/!4!w7 *8!8!8!8!8! !8!8!8!8!8!8!:!:!;8:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!:!0!"})
+
+wo:shuffleOxyd()
+
+function fire()
+    wo:drawMap(ti, po(42, 51), "  ",{"u3u3u3u3u3u3u3u3u3u3u0"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" el:comment="not translate the names from Marbleix and Pearlix"/>
+        <el:translation el:lang="de">Marbleix und Pearlix I</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="not translate 'en Tour'">Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for self defence!</el:english>
+        <el:translation el:lang="de">Doping 'en Tour' nicht erlaubt für ein Abkürzen, Doping ist nur erlaubt zur Selbstverteidigung!</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true" el:comment="not translate Rotomagus">Rotomagus - Rouen</el:english>
+        <el:translation el:lang="de">Rotomagus - Rouen</el:translation>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true" el:comment="not translate Lutetia">Lutetia - Paris</el:english>
+        <el:translation el:lang="de">Lutetia - Paris</el:translation>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true" el:comment="not translate Camaracum">Camaracum - Cambrai</el:english>
+        <el:translation el:lang="de">Camaracum - Cambrai</el:translation>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true" el:comment="not translate Durocortorum">Durocortorum - Rheims</el:english>
+        <el:translation el:lang="de">Durocortorum - Reims</el:translation>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true" el:comment="not translate Lugdunum">Lugdunum - Lyons</el:english>
+        <el:translation el:lang="de">Lugdunum - Lyon</el:translation>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english el:translate="true" el:comment="not translate Nicae">Nicae - Nice</el:english>
+        <el:translation el:lang="de">Nicae - Nizza</el:translation>
+      </el:string>
+      <el:string el:key="text8">
+        <el:english el:translate="true" el:comment="not translate Massilia">Massilia - Marseilles</el:english>
+        <el:translation el:lang="de">Massilia - Marseille</el:translation>
+      </el:string>
+      <el:string el:key="text9">
+        <el:english el:translate="true" el:comment="not translate Aginum">Aginum - Agen</el:english>
+        <el:translation el:lang="de">Aginum - Agen</el:translation>
+      </el:string>
+      <el:string el:key="text10">
+        <el:english el:translate="true" el:comment="not translate Detour de Tour">Detour de Tour - Detour of the Tour</el:english>
+        <el:translation el:lang="de">Detour de Tour - Umleitung der Tour</el:translation>
+      </el:string>
+      <el:string el:key="text11">
+        <el:english el:translate="true" el:comment="not translate Burdigala">Burdigala - Bordeaux</el:english>
+        <el:translation el:lang="de">Burdigala - Bordeaux</el:translation>
+      </el:string>
+      <el:string el:key="text12">
+        <el:english el:translate="true" el:comment="not translate Gallia est omnis">Gallia est ommnis ... - Whole Gaul is ...</el:english>
+        <el:translation el:lang="de">Gallia est ommnis ... - Ganz Gallien ist ...</el:translation>
+      </el:string>
+      <el:string el:key="text13">
+        <el:english el:translate="true" el:comment="not translate Veni Vidi Vici">Veni, vidi, vici - I came, I saw, I conquered</el:english>
+        <el:translation el:lang="de">Veni, vidi, vici - Ich kam, ich sah, ich siegte</el:translation>
+      </el:string>
+      <el:string el:key="text14">
+        <el:english el:translate="true">Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour</el:english>
+        <el:translation el:lang="de">Willkommen in L’Alpe d’Huez. Schade, es ist noch kein Etappenziel der Tour</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

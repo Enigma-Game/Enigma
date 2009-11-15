@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="8" el:status="stable"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -56,7 +56,7 @@ ti["BN"] = {"st_boulder", orientation = NORTH}  -- one can use the second entry 
 ti["BS"] = {"st_boulder", orientation = SOUTH}  -- but it's not a must.
 ti["D1"] = {"st_door", "d1", faces = "ew"}  -- As another aided recall, the number in the name of
 ti["D2"] = {"st_door", "d2", faces = "sn"}  -- each door is used in the tilekey.
-ti["D3"] = {"st_door", "d3", faces = "sn"}
+ti["D3"] = {"st_door", "d3", faces = "we"}
 ti["D4"] = {"st_door", "d4", faces = "sn"} .. ti[". "]
 ti["D5"] = {"st_door", "d5", faces = "sn"} .. ti[". "]
 ti["D6"] = {"st_door", "d6", faces = "sn"}
@@ -66,14 +66,14 @@ ti[".G"] = ti["G "] .. ti[". "]
 ti["I "] = {"st_actorimpulse"} .. ti[". "]
 ti["K "] = {"st_knight"}
 ti["L "] = {"st_laser", "l1", state = OFF, orientation = WEST}
-ti["N1"] = {"st_oneway", color = WHITE, orientation = WEST} .. ti[". "]
+ti["N1"] = {"st_oneway", color = WHITE, orientation = WEST} .. ti["4 "]
 ti["N2"] = {"st_oneway", color = BLACK, orientation = NORTH} .. ti[". "]
 ti["N3"] = {"st_oneway", orientation = SOUTH} .. ti[". "]
-ti["N4"] = {"st_oneway", color = WHITE, orientation = SOUTH} .. ti[". "]
+ti["N4"] = {"st_oneway", color = WHITE, orientation = SOUTH} .. ti["2 "]
 ti["O "] = {"st_oxyd", flavor = "a"}
 ti["P "] = {"st_purplegray"}
 ti["Q "] = {"st_quake"}
-ti["R "] = {"st_brownie"} .. ti({"#ac_rotor", gohome = false, strength = 20, range = 8}) .. ti[". "]
+ti["R "] = {"st_brownie"} .. ti({"#ac_rotor", gohome = false, strength = 12, range = 8, prefercurrent=1.0}) .. ti[". "]
 ti["S "] = {"st_plop"}
 ti["S3"] = {"st_switch", target = "d3"}
 ti["SB"] = {"st_laserswitch", target = "b1"}
@@ -86,6 +86,7 @@ ti["d*"] = {"it_document", text = "text%%"}  -- These entries are used for autot
 ti["e*"] = {"it_document", text = "text%%"} .. ti[". "]
 ti["l "] = {"it_extralife"}
 ti[".l"] = ti["l "] .. ti[". "]
+ti[".F"] = ti["F "] .. ti[". "]
 ti["p "] = {"#ac_pearl", owner = DEFAULT, controllers = DEFAULT} .. ti[". "]
 ti["s "] = {"it_spade"}
 ti["t "] = {"#ac_top", strength = 10, range = 7}
@@ -94,7 +95,8 @@ ti["t2"] = {"it_trigger", target = "d2"}
 ti["t4"] = {"it_trigger", target = "d4"} .. ti[". "]
 ti["t5"] = {"it_trigger", target = "d5"} .. ti[". "]
 ti["t6"] = {"it_trigger", target = "d6"} .. ti[". "]
-ti["tR"] = {"it_trigger", invisible = true, target = "call_rotor"} .. ti[". "]  -- See below for callback function.
+ti["tR"] = {"it_sensor_exit", invisible = true, target = "call_rotor"} .. ti["R "]  -- See below for callback function.
+ti[".R"] = {"fl_hay", "rotortext"}
 ti["w "] = {"it_magicwand"}
 ti["x "] = {"it_spoon"} .. ti[". "]
 ti["y "] = {"it_dynamite"}
@@ -125,24 +127,24 @@ wo(res.autotile(ti, {"d", "d*"}, {"e", "e*"}), "  ",
     "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # D6# # # # # # # # # # # # # # # # # # # # # # # # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! # # # # # # # # # # # # # # # # # # # # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#D5.#. . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! # Q                                 Q # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#.#.#.#D4.#. . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #               O     O               # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#I .#.#.#.#.#~ ~ ~ ~ ~ .#.#.#. . . . . . . . . . . . . . . . . . . . . . t6. . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #           O             O           # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#eQ. . . . I ~ ~ ~ .#.#.#. . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #       O                     O       # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#. .#.#.#. .#~ .#.#.#. . . . . . . . . . . . . . . . . . . . . . .G. . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #   O                             O   # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#. .#~ .#. .#.#.#. . . . . . . . . . . . . . . . . . . . . . . .GR tR. . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #                                     # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#N4.#~ .#. 4 N1. . . . . . . . . . . . . . . . . . . . . . . . . .G. . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #   O                             O   # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#2 .#~ .#N2.#.#. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !         O                     O       # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ .#.#.#.#.#.#.#.#.#.#I 2 .#~ I p 4 . . . eX. . . . . . . . . . . . . . . . .l. . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #           O             O           # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ .#3 4 4 4 4 4 4 4 4 4 7 .#.#.#.#.#x . . . . . . . . . . . . . . . . . . . . . . eR. . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #     dV        O     O               # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ .#2 I .#.#.#.#.#.#.#.#.#.#. 4 4 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! # Q                                 Q # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ .#2 .#~ ~ ~ ~ ~ ~ ~ ~ ~ .#. # # # D3# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
-    "~ ~ ~ ~ ~ .#2 .#~ ~ ~ ~ ~ ~ ~ ~ ~ .#. #                                     #                   X                 #             ~ ~ ~ ~         dGS ~ ~                               # ! ! ! #                     r r r r r r r r # ",
-    "~ ~ ~ ~ ~ .#2 .#~ ~ ~ ~ ~ ~ ~ ~ ~ .#. #                                     #                                     #             ~ ~ ~ ~           S ~ ~                               # ! ! ! #                     r r r r r r r r # ",
-    "~ ~ ~ ~ ~ .#2 I .#.#.#.#.#.#~ ~ ~ .#! #                                     #                                     #   +         ~ ~ ~ ~     B G   S ~ ~                               # ! ! ! # m m m m m m m m m # r r r r r r r r # ",
-    "~ ~ ~ ~ ~ .#9 6 6 6 6 6 1 .#~ ~ ~ .#! #               dA                    #             X                       #       +     ~ ~ ~ ~     + B   S ~ ~             P P P             # ! ! ! # m m m m m m m m m #                 # ",
-    "~ ~ ~ ~ ~ .#.#.#.#.#.#I 2 .#~ ~ ~ .#N3#                           #         #             X                       #             ~ ~ ~ ~           S ~ ~           P P ! P P           # # # # #             dJ    #                 # ",
-    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#2 .#~ ~ ~ .#t5#                   @       #               dC      X                 dD    F       +     ~ ~ ~ ~   dF      S ~ ~       dH  P ! ! ! P           t       F   dI              # i i i i i i i i # ",
-    "~ ~ ~ .#.#.#~ ~ ~ ~ ~ .#2 .#~ ~ ~ .#.##                           #   dW    #                         X           #     +       ~ ~ ~ ~           S ~ ~           P P ! P P           # # # # #                   # i i i i i i i i # ",
-    "~ ~ ~ .#t4.#~ ~ ~ ~ ~ .#2 .#~ ~ ~ ~ ~ #                                     #                         X           #             ~ ~ ~ ~     + B   S ~ ~             P P P             # ! ! ! #                   # i i i i i i i i # ",
+    "~ .#.#.#.#.#.#.#.#.#.#.#.#.#.#I .#.#.#.#.#.#~ .#I .#~ .#.#.#. . . . . . . . . . . . . . . . . . . . . . t6. . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #           O             O           # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ I . . . . . . . . . . . . . eQ. . . . . I ~ .#p .#.#.#. . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #       O                     O       # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#.#.#.#.#.#.#.#.#.#.#.#. .#.#.#.#. .#~ .#8 .#. . . . . . . . . . . . . . . . . . . . . . .G. . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #   O                             O   # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#. .#~ ~ .#. .#.#.#. . . . . . . . . . . . . . . . . . . . . . . .GtR. . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #                                     # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#N4.#~ ~ .#. 4 N1. . . . . . . . . . . . . . . . . . . . . . . . . .G. . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #   O                             O   # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#2 .#~ ~ .#N2.#.#. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !         O                     O       # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ .#.#.#.#.#.#.#.#.#.#2 .#~ ~ I . 4 . . . eX. . . . . . . . . . . . . . . . .l. . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #           O             O           # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ .#3 4 4 4 4 4 4 4 4 7 .#.#.#.#.#.#x . . . . . . . . . . . . . . . . . . . .R. . eR. . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! #     dV        O     O               # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ .#2 I .#.#.#.#.#.#.#.#.#. . 4 . 4 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . # ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! # Q                                 Q # ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+    "~ .#. .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. . . # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "~ .#. .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. .#.##                                     #                   X                 #             ~ ~ ~ ~         dGS ~ ~                               # ! ! ! #                     r r r r r r r r # ",
+    "~ .#I .#~ .#2 .#~ ~ ~ ~ ~ ~ ~ .#. .#.##                                     #                                     #             ~ ~ ~ ~           S ~ ~                               # ! ! ! #                     r r r r r r r r # ",
+    "~ ~ ~ ~ ~ .#2 I .#.#.#.#.#.#~ .#. .F. D3                                    #                                     #   +         ~ ~ ~ ~     B G   S ~ ~                               # ! ! ! # m m m m m m m m m # r r r r r r r r # ",
+    "~ ~ ~ ~ ~ .#9 6 6 6 6 6 1 .#~ .#. .#. #               dA                    #             X                       #       +     ~ ~ ~ ~     + B   S ~ ~             P P P             # ! ! ! # m m m m m m m m m #                 # ",
+    "~ ~ ~ ~ ~ .#.#.#.#.#.#I 2 .#~ .#! .#. #                           #         #             X                       #             ~ ~ ~ ~           S ~ ~           P P ! P P           # # # # #             dJ    #                 # ",
+    "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ .#2 .#~ .#N3.#. #                   @       #               dC      X                 dD    F       +     ~ ~ ~ ~   dF      S ~ ~       dH  P ! ! ! P           t       F   dI              # i i i i i i i i # ",
+    "~ ~ ~ .#.#.#~ ~ ~ ~ ~ .#2 .#~ .#t5.#. #                           #   dW    #                         X           #     +       ~ ~ ~ ~           S ~ ~           P P ! P P           # # # # #                   # i i i i i i i i # ",
+    "~ ~ ~ .#t4.#~ ~ ~ ~ ~ .#2 .#~ .#.#.#.##                                     #                         X           #             ~ ~ ~ ~     + B   S ~ ~             P P P             # ! ! ! #                   # i i i i i i i i # ",
     "~ ~ ~ .#8 I .#.#.#.#.#I 2 .#~ ~ ~ ~ ~ #     dB                              #                         X           #   dE        ~ ~ ~ ~     B G   S ~ ~                               # ! ! ! # # # # # # # # # # # i i i i i i i i # ",
     "~ ~ ~ .#9 4 4 4 4 4 4 4 7 .#~ ~ ~ ~ ~ #                                     #                                     #             ~ ~ ~ ~           S ~ ~                               # ! ! ! # X           = = =                   # ",
     "~ ~ ~ .#.#.#.#.#.#.#.#.#.#.#~ ~ ~ ~ ~ #                                     #               X                     #             ~ ~ ~ ~           S ~ ~                               # ! ! ! # X           = = =                   # ",
@@ -181,8 +183,8 @@ wo:shuffleOxyd()
 --    document set, no matter how often call_rotor is called.
 
 function call_rotor(is_on, sender)
-    if st(sender):exists() and (not sender._done) then
-        wo[no["d3"]] = {"it_document", text = "text%Z"}
+    if (not sender._done) then
+        wo[no["rotortext"]] = {"it_document", text = "text%Z"}
         sender._done = true
     end
 end

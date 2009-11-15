@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="5 Days and 5 Nights" el:subtitle="" el:id="andreas56"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_GRAY}
 ti["Y"] = {"st_yinyang", loop = false, target = "change_design"}
 ti["B"] = {"st_blur_cross"}
 ti["S"] = {"st_surprise", selection = {"st_passage_black", "st_passage_white"}}
-ti["@"] = {"#ac_marble", essential = INDISPENSABLE}
+ti["@"] = {"#ac_pearl_black", essential = INDISPENSABLE, controllers = CTRL_YIN, owner = YIN}
 
 if wo["IsDifficult"] then
     ti["%"] = {"#ac_killer", controllers = CTRL_YANG, adhesion = 0.7, owner = YANG}

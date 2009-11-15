@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Manuevre" el:subtitle="" el:id="joe13"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (November 2009)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+ti["."] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["7"] = {"fl_slope_ose"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_osw"}
+ti["4"] = {"fl_slope_pe"}
+ti["6"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_one"}
+ti["2"] = {"fl_slope_pn"}
+ti["3"] = {"fl_slope_onw"}
+ti["^"] = {"fl_slope_ine"}
+ti[">"] = {"fl_slope_ise"}
+ti["v"] = {"fl_slope_isw"}
+ti["<"] = {"fl_slope_inw"}
+ti["#"] = {"st_bluesand"}
+ti["="] = {"st_yellow"}
+ti["+"] = {"st_box"}
+ti["vortABCD"] = {"it_vortex", destination = "destABCD%%", state = OPEN}
+ti["vortEFGH"] = {"it_vortex", destination = "destEFGH%%", state = OPEN}
+ti["destABCD"] = {"fl_slope_pn", "destABCD%%"}
+ti["destEFGH"] = {"fl_sahara", "destEFGH%%"}
+if wo["IsDifficult"] then
+    ti["_"] = ti["="]
+    ti[":"] = ti["~"]
+    ti[";"] = ti[" "]
+    ti["-"] = ti["="]
+    ti["z"] = ti["="]
+    ti["Z"] = ti["="]
+    ti["y"] = ti["="]
+    ti["Y"] = ti["="]
+    ti["x"] = ti["="]
+    ti["5"] = ti["4"]
+else
+    ti["_"] = ti[" "]
+    ti[":"] = ti[" "]
+    ti[";"] = ti["~"]
+    ti["-"] = ti[" "]
+    ti["z"] = ti["4"]
+    ti["Z"] = ti["6"]
+    ti["y"] = ti["8"]
+    ti["Y"] = ti["2"]
+    ti["x"] = ti["<"]
+    ti["5"] = ti["6"]
+end
+ti["o"] = {"it_meditation"}
+ti["@"] = {"#ac_pearl", essential = INDISPENSABLE}
+
+local resAutotile = res.autotile(ti, {"A", "D", "vortABCD"}, {"E", "H", "vortEFGH"}, {"a", "d", "destABCD"}, {"e", "h", "destEFGH"})
+wo(resAutotile, " ", {
+    "#######################################",
+    "#<2^<22^6644<2^46e#<2^<2^<2^<2^<2^<22^#",
+    "#6-4v88>6644v8>46f#6-46-46-46-46G46--4#",
+    "#6-4###############v8>v8>v8>v8>v8>v88>#",
+    "#6 4#x22^56565656g#~#<2^<2^<2^<2^<2^<^#",
+    "#6=4#6<^z##########~#6-46-46H46-46F464#",
+    "#6 4#Z644#6666656h#:#v8>v8>v8>v8>v8>v>#",
+    "#6-4#664z#36666####:####<222222222222^#",
+    "#v8>#Z644#23666#__   __#6<2222222222^4#",
+    "#<2^#6v>z#8=366###   ###6v8888888=E=44#",
+    "#v8>#v88>#8=236# +; ;+ #6=8888888888>4#",
+    "#o=o#o=  #o=223#a#   #d#v888888888888>#",
+    "##################+ +##################",
+    "#        <22222^6= = =7888888888888889#",
+    "# -   -  6<222^46=b=c=4<222222222222^6#",
+    "#        66<2^446=====46<2222222Y22^46#",
+    "==.     =666=444666=44466<22^=2222^446#",
+    "=@.-    =6666444666=44z666<^4=222^44=6#",
+    "==.     =6666444666=444666644=A=8>44C6#",
+    "#@    - =666644z666=44466Z644=8888>4=6#",
+    "##      =666v>44666=444666644==7888>46#",
+    "#@  -   =66v88>466v8>44666=44==47888>6#",
+    "##      =6v888=46vy88>466v8>4=8>4<2^<3#",
+    "#@      =v88888>v88888>6v888>=78>3B46D#",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

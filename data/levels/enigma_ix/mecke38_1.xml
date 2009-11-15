@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Reflections I" el:subtitle="" el:id="mecke_sess01"/>
+      <el:version el:score="1" el:release="1" el:revision="13" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 mecke, dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+ti["_"] = {"fl_swamp"}
+ti["."] = {"st_flat_breakable"}
+ti["x"] = {"st_rawglass_quad"}
+ti["#"] = {"st_granite"}
+ti["N"] = {"st_laser_n", "laserN"}
+ti["n"] = {"st_switch_white", target = {"laserN", "whitesource"}}
+ti["S"] = {"st_laser_s", "laserS"}
+ti["s"] = {"st_switch_black", target = "laserS"}
+ti["B"] = {"st_passage_black_frame"}
+ti["W"] = {"st_passage_white_frame"}
+ti["M"] = {"st_mirror_slab_s", movable = true}
+ti["m"] = ti["_"] .. ti["M"]
+ti["T"] = {"st_thief", "thieves#"}
+ti["t"] = {"st_thief"}
+ti["C"] = {"st_chess_black"}
+ti["a"] = {"it_magicwand"}
+ti[";"] = {"it_dynamite"}
+ti[":"] = ti["."] .. ti[";"]
+ti["O"] = {"st_oxyd_a", oxydcolor = OXYD_RED}
+ti["@"] = {"#ac_marble_black"}
+ti["*"] = {"#ac_marble_white"}
+ti["w"] = ti["*"] .. {"it_vortex_closed", "whitesource", destination = "whitegate"}
+ti["u"] = {"it_vortex_closed", "whitegate", autoclose=true}
+if wo["IsDifficult"] then
+    ti["I"] = {"st_stoneimpulse_movable"}
+    ti["+"] = {"st_flat_movable"}
+    ti["-"] = {"fl_water"}
+    ti["<"] = {"fl_inverse"}
+    ti["D"] = ti[";"]
+    ti["!"] = ti[" "]
+    ti["y"] = ti["~"] .. ti["w"]
+    ti["v"] = ti["u"]
+    ti["d"] = ti[";"]
+    ti["A"] = ti["a"]
+    ti["="] = {"it_burnable_oil"}
+    ti["e"] = ti[" "]
+else
+    ti["I"] = {"st_stoneimpulse"}
+    ti["+"] = {"st_flat_breakable"}
+    ti["-"] = ti[" "]
+    ti["D"] = {"st_dispenser_dynamite"}
+    ti["<"] = {"fl_yinyang_yang_invisible"}
+    ti["!"] = ti[";"]
+    ti["y"] = ti["*"]
+    ti["v"] = ti[" "]
+    ti["d"] = ti[" "]
+    ti["A"] = ti[" "]
+    ti["="] = ti[" "]
+    ti["e"] = {"it_spade"}
+end
+
+wo(ti, " ", {
+    "##S###############O#",
+    "#;........#D.#  e#W#",
+    "#........M##.#!# B #",
+    "#.:..M...:.....# xI#",
+    "#.x:..#....##.M..#=#",
+    "s@.-.;.+.x.+.....#A#",
+    "################## #",
+    "ny   a   ~      v#d#",
+    "#     <     <<_  #=#",
+    "# TTTmTTTTTTTTTTTxI#",
+    "# ~a     _<< <a< W #",
+    "#at       <C < < #B#",
+    "##N##II###########O#"})
+
+local thieves = no["thieves#*"]:shuffle()
+if wo["IsDifficult"] then
+    wo[thieves:sub(2)] = ti[";"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

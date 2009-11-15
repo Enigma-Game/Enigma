@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="61" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="62" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -174,7 +174,7 @@
     <level _seq="166" _title="Twisting by the pool" _xpath="enigma_vi/alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="167" _title="Hot Meditation" _xpath="enigma_vi/ral08_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060527ral010" rel="2" rev="167" score="1" target="time" unit="duration"/>
     <level _seq="168" _title="Pool with a pole" _xpath="enigma_vii/alain28_2" author="Alain Busser" ctrl="force" easy="false" id="alain28" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="169" _title="Jump into Meditation" _xpath="enigma_vi/ral07_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="1" rev="42" score="1" target="time" unit="duration"/>
+    <level _seq="169" _title="Jump into Meditation" _xpath="enigma_vi/ral07_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060525ral009" rel="2" rev="190" score="1" target="time" unit="duration"/>
     <level _seq="170" _title="- Meditation -" _xpath="enigma_vi/raoul18_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul18" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="171" _title="Step gently!" _xpath="enigma_vi/malla03_2" author="Manuel König" ctrl="force" easy="true" id="malla03" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="172" _title="Houdini" _xpath="enigma_vi/ral11_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060816ral719" rel="3" rev="147" score="2" target="time" unit="duration"/>

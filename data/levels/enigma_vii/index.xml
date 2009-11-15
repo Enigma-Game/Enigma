@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="64" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="65" title="Enigma VII"/>
 
   <attributes/>
 
@@ -39,10 +39,10 @@
     <level _seq="31" _title="Pantograph" _xpath="./duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Advanced Space Tubes" _xpath="./duffy161_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy161" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Deserted Island" _xpath="./joe08_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="34" _title="The Fortress" _xpath="./joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="35" _title="Manuevre" _xpath="./joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="The Fortress" _xpath="./joe09_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Manuevre" _xpath="./joe13_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Mayan Meditation" _xpath="./duffy162_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Horseshoes" _xpath="./duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Horseshoes" _xpath="./duffy163_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Knot Garden" _xpath="./duffy165_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Impulse-phobia" _xpath="./duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Slopes, Jumps &amp; Falls" _xpath="./duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -102,7 +102,7 @@
     <level _seq="94" _title="Pick-Up" _xpath="./joe27_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="A Kind of Magic" _xpath="./just37_2" author="JuSt" ctrl="force" easy="true" id="JuStA Kind of Magic" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Blue Screen Of Death" _xpath="./pulley10_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley10" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="97" _title="Audience in Venice" _xpath="./mecke09_2" author="mecke" ctrl="force" easy="true" id="mecke9" rel="2" rev="41" score="1" target="time" unit="duration"/>
+    <level _seq="97" _title="Audience in Venice" _xpath="./mecke09_2" author="mecke" ctrl="force" easy="true" id="mecke9" rel="2" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Black Liberation" _xpath="./mecke11_2" author="mecke" ctrl="force" easy="true" id="mecke11" rel="2" rev="44" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Jack-Of-All-Trades" _xpath="./mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="49" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>

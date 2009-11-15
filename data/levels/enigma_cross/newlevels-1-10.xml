@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="71" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="72" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -15,10 +15,10 @@
     <level _seq="7" _title="Pantograph" _xpath="enigma_vii/duffy160_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy160" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Advanced Space Tubes" _xpath="enigma_vii/duffy161_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy161" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Deserted Island" _xpath="enigma_vii/joe08_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe8" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="The Fortress" _xpath="enigma_vii/joe09_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe9" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Manuevre" _xpath="enigma_vii/joe13_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe13" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Mayan Meditation" _xpath="enigma_vii/duffy162_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy162" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Horseshoes" _xpath="enigma_vii/duffy163_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Horseshoes" _xpath="enigma_vii/duffy163_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Knot Garden" _xpath="enigma_vii/duffy165_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy165" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Impulse-phobia" _xpath="enigma_vii/duffy166_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy166" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Slopes, Jumps &amp; Falls" _xpath="enigma_vii/duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -78,7 +78,7 @@
     <level _seq="70" _title="Pick-Up" _xpath="enigma_vii/joe27_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="A Kind of Magic" _xpath="enigma_vii/just37_2" author="JuSt" ctrl="force" easy="true" id="JuStA Kind of Magic" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Blue Screen Of Death" _xpath="enigma_vii/pulley10_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley10" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="73" _title="Audience in Venice" _xpath="enigma_vii/mecke09_2" author="mecke" ctrl="force" easy="true" id="mecke9" rel="2" rev="41" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="Audience in Venice" _xpath="enigma_vii/mecke09_2" author="mecke" ctrl="force" easy="true" id="mecke9" rel="2" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Black Liberation" _xpath="enigma_vii/mecke11_2" author="mecke" ctrl="force" easy="true" id="mecke11" rel="2" rev="44" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Jack-Of-All-Trades" _xpath="enigma_vii/mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="49" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Enigmaparcour I" _xpath="enigma_viii/mecke15_1" author="mecke" ctrl="force" easy="true" id="mecke15" rel="1" rev="36" score="1" target="time" unit="duration"/>
@@ -113,7 +113,7 @@
     <level _seq="105" _title="Colored Turnstiles" _xpath="enigma_viii/andreas51_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas51" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="106" _title="Sanssouci" _xpath="enigma_viii/mecke05_1" author="mecke" ctrl="force" easy="true" id="mecke05" rel="1" rev="40" score="1" target="time" unit="duration"/>
     <level _seq="107" _title="Wired Shogun" _xpath="enigma_viii/ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="129" score="1" target="time" unit="duration"/>
-    <level _seq="108" _title="Scarlet's Necklace" _xpath="enigma_viii/ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="166" score="1" target="time" unit="duration"/>
+    <level _seq="108" _title="Scarlett's Necklace" _xpath="enigma_viii/ral30_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080814ral422" rel="1" rev="191" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="- Meditation -" _xpath="enigma_viii/raoul31_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul31" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="110" _title=" - Meditation - " _xpath="enigma_viii/devnull06_1" author="/dev/null" ctrl="force" easy="true" id="devnull06" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="111" _title=" - Meditation - " _xpath="enigma_viii/devnull07_1" author="/dev/null" ctrl="force" easy="true" id="devnull07" rel="1" rev="8" score="1" target="time" unit="duration"/>
@@ -144,11 +144,11 @@
     <level _seq="136" _title="Minopal" _xpath="enigma_viii/andreas54_1" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas54" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="137" _title="Mole Hill Meditation" _xpath="enigma_viii/ral43_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090112ral228" rel="1" rev="139" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Involution" _xpath="enigma_viii/raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="139" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="139" _title="Near Halley I" _xpath="enigma_viii/devnull19_1" author="/dev/null" ctrl="force" easy="true" id="devnull19" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="140" _title="Two Is A Company I" _xpath="enigma_viii/devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="Two Is A Company II" _xpath="enigma_viii/devnull25_1" author="/dev/null" ctrl="force" easy="true" id="devnull25" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="142" _title="CrissCross" _xpath="enigma_viii/devnull26_1" author="/dev/null" ctrl="force" easy="true" id="devnull26" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="143" _title="5 Days and 5 Nights" _xpath="enigma_viii/andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="143" _title="5 Days and 5 Nights" _xpath="enigma_viii/andreas56_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas56" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="144" _title="Babylon" _xpath="enigma_viii/mecke27_1" author="mecke" ctrl="force" easy="true" id="mecke27" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="145" _title="Two Is A Company III" _xpath="enigma_viii/devnull27_1" author="/dev/null" ctrl="force" easy="false" id="devnull27" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="146" _title="Panelled Puzzle I" _xpath="enigma_viii/ral32_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080820ral639" rel="1" rev="179" score="1" target="time" unit="duration"/>
@@ -187,10 +187,10 @@
     <level _seq="179" _title="Behind Glass" _xpath="enigma_ix/rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="180" _title="Perennial Creek" _xpath="enigma_ix/pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="181" _title="Wired Strips" _xpath="enigma_viii/ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
-    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="183" _title="Wired Pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="184" _title="Crabwise III" _xpath="enigma_ix/devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="185" _title="Bicolor" _xpath="enigma_ix/devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="184" _title="Crabwise III" _xpath="enigma_ix/devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="185" _title="Bicolor" _xpath="enigma_ix/devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="186" _title="lower i" _xpath="enigma_ix/devnull39_1" author="/dev/null" ctrl="force" easy="true" id="devnull39" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="187" _title="At the Pool" _xpath="enigma_ix/devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="188" _title="Hide them" _xpath="enigma_ix/devnull44_1" author="/dev/null" ctrl="force" easy="false" id="devnull44" rel="1" rev="2" score="1" target="time" unit="duration"/>
@@ -217,6 +217,10 @@
     <level _seq="209" _title="Oh nO" _xpath="enigma_ix/devnull43_1" author="/dev/null" ctrl="force" easy="false" id="devnull43" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="210" _title="FizzBuzz" _xpath="enigma_ix/ais10_1" author="Alex Smith" ctrl="force" easy="true" id="ais10" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="211" _title="Changing conditions" _xpath="enigma_ix/devnull01_2" author="/dev/null" ctrl="force" easy="false" id="devnull01" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="212" _title="Reflections I" _xpath="enigma_ix/mecke38_1" author="mecke" ctrl="force" easy="true" id="mecke_sess01" rel="1" rev="13" score="1" target="time" unit="duration"/>
+    <level _seq="213" _title="Tour de France" _xpath="enigma_ix/mecke04_1" author="mecke" ctrl="force" easy="false" id="mecke04" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="214" _title="Escape in Chains" _xpath="enigma_ix/duffy184_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy184" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="215" _title="Meditation Sorting" _xpath="enigma_ix/wesley02_1" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

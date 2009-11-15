@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Horseshoes" el:subtitle="" el:id="duffy163"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_hay"}
+ti["="] = {"fl_space"}
+ti["-"] = {"fl_bridge", flavor="gc", name="bridge", state=OPEN}
+ti["#"] = {"st_death"}
+ti["*"] = {"st_greenbrown"}
+ti["^"] = ti["."] .. {"st_oneway", orientation=NORTH, name="oneways#"}
+ti[">"] = ti["."] .. {"st_oneway", orientation=EAST, name="oneways#"}
+ti["<"] = ti["."] .. {"st_oneway", orientation=WEST, name="oneways#"}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["W"] = ti["="] .. {"st_oneway", orientation=WEST}
+ti["+"] = ti["."] .. {"it_extralife"}
+ti["s"] = ti["."] .. {"it_spring_drop"}
+ti["m"] = {"it_magnet", state=ON}
+ti["n"] = ti["."] .. ti["m"]
+ti["o"] = ti["="] .. {"it_magnet", state=ON, name="magneto"}
+ti["p"] = {"it_magnet", state=OFF, name="magnetp"}
+ti["q"] = {"it_magnet", state=OFF, name="magnetq"}
+ti["r"] = {"it_magnet", name="magnets#"}
+ti["P"] = {"st_switch", target="magnetp", name="anchor"}
+ti["Q"] = {"st_switch", target="magnetq"}
+ti["S"] = {"st_switch", target="@oneways#*", action="flip"}
+ti["T"] = {"st_switch", target={"magnets#*", "bridge"}}
+ti["U"] = {"st_switch", target={"magnets#*", "bridge"}, action={"off", "open"}}
+ti["R"] = {"st_switch", target={"magneto", "passage"}, action={"off", "callback"}}
+ti["!"] = ti["."] .. {"st_nil"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "######***##****###*****####****###***####*******##########",
+    "# .....=....==.....===......==.....=....+*T+.....        #",
+    "# . ***V****VV*****VVV******VV*****V****.*******........ #",
+    "# . *......    ...s......===..<...     R.#      -      . #",
+    "# . *.+.***                    ...     *.# ........... . #",
+    "# . *...*    ############      === *****.# ...r....... . #",
+    "# . * .   m         #P..#==========W==...# .. ....r. . . #",
+    "# n   ..    .....   #Q..#==========Wo=...# .....r..... . #",
+    "# .    .. ...   .   #####      === #     # .r.......r. . #",
+    "# .     ...     .              === ####### ..... ..... = #",
+    "# .             .              ... #       ...r...r... . #",
+    "# ..==.+       ... S***        ... # ===.T  .......... . #",
+    "# ..  .  .............*         .  # ===.. .....  ...  . #",
+    "#     .  .     ... **.*         . ## ===.. ..r........ = #",
+    "# ..  .  .      =   *.*   m     . #  ===.. ..........r . #",
+    "# ..==.. .      =   *.*         . #  =   . r ... ....  . #",
+    "# =   ..>.     ==   *.*  ****** . #  .   .   .......   . #",
+    "# =   S  .     ==   *.****....* . *  . O...O .......   = #",
+    "# .      .    ===   *....>.@......<...*******.......   . #",
+    "# .     ... m ===   ******....*   *  ............     S. #",
+    "# .     ...   ===        **^***   *  S                 . #",
+    "# ..... ...  ====         *.* ************************U. #",
+    "#   ...      ..           *.*    .............<......... #",
+    "#   ...      ..           *.*    .*********************. #",
+    "#   ===      ..           *.*    .* m   m              = #",
+    "#    ===     ..            .     .                     . #",
+    "#    ===     ..======    S...   ...=========...        . #",
+    "#     ===    ..=======    .+.......=========.......... . #",
+    "#     ===    .    ======  ...   ...=========...      . . #",
+    "#      ==    .     =====   .                         . . #",
+    "#      =...  .  p    ====  .          m   m          . . #",
+    "# ....  ...  .        ===  .    * * * * * * *        . . #",
+    "# .  ......  .    q   ===  . ......................... . #",
+    "# .          .        ...... . *****************       . #",
+    "# ...=..=..=..        ...... ....s     ................+ #",
+    "#                             * * * * * * *              #",
+    "##########################################################"})
+
+function passage(value, sender)
+    sender["target"] = DEFAULT
+    wo:drawMap(ti, no["anchor"]+ENE, " ", {"**", " !", " !", "********   ****"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

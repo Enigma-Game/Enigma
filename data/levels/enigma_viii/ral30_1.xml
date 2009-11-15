@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
-      <el:identity el:title="Scarlet's Necklace" el:subtitle="Who did broke the pearl necklace?" el:id="20080814ral422"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 166 $" el:status="released"/>
+      <el:identity el:title="Scarlett's Necklace" el:subtitle="Who broke the pearl necklace?" el:id="20080814ral422"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 191 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,7 +12,7 @@
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="false">Pearl theme inspired by Jacob Scott, Scarlett story by Andreas Lochmann</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Pearl theme inspired by Jacob Scott, Scarlet story by Andreas Lochmann</el:credits>
       </el:comments>
       <el:score el:easy="5:54" el:difficult="10:47"/>
     </el:info>
@@ -20,6 +20,7 @@
 wo["ConserveLevel"] = true
 
 ti[" "] = {"fl_dark"}
+ti["f"] = {"fl_dark", "f%%"}
 ti["="] = {"fl_bridge_bw", "bridge#"}
 ti["x"] = {"it_shogun_s", "x%%"}
 
@@ -46,11 +47,11 @@ ti["("] = {"st_window_sw", secure=true}
 ti["d"] = {"it_document", text="story"}
 
 if wo["IsDifficult"] then
-    ti["S"] = {"st_coinslot", target="check"}
+    ti["T"] = {"st_coinslot", target="check"}
     ti["s"] = {"st_yellow"}
     ti["c"] = {"it_coin_s"}
 else
-    ti["S"] = {"st_switch", target="check"}
+    ti["T"] = {"st_switch", target="check"}
     ti["s"] = {"st_granite"}
     ti["c"] = ti[" "]
 end
@@ -69,18 +70,18 @@ function myres(key, x, y)
    end
 end
 
-w, h = wo(res.autotile(myres,{"0","9","x"}), " ", {
-"{--------sS--------}",
+w, h = wo(res.autotile(myres,{"0","9","x"}, {"K","S","f"}), " ", {
+"{--------sT--------}",
 ".     cccccccc     |",
 ".0                9|",
-".                  |",
+".K                S|",
 ".      G JH I      |",
 ". 1   A B  C D   8 |",
-".       E  F       |",
+". L     E  F     R |",
 ".  2      @     7  |",
-".        cd        |",
+".   M    cd    Q   |",
 ".    3        6    |",
-".       4  5       |",
+".     N 4 O5 P     |",
 "(________  ________)",
 "X=== =  =  =  = ===X"
 })
@@ -88,7 +89,7 @@ w, h = wo(res.autotile(myres,{"0","9","x"}), " ", {
 pearls = no["pearl#*"]:shuffle()
 
 function check(value, sender)
-    if value or sender:is("st_switch") then
+    if value or sender:is("st_switch") then  -- ignore coinslot off event
         no["bridge#*"]:open()
         no["oxyd"]:closeall()
         for i = 1, #pearls + 1 do
@@ -101,8 +102,9 @@ function check(value, sender)
                     wo:add({"ot_wire", wirename, anchor1=pearl, anchor2=pearl_right})
                     pearl["_wires"] = cond(pearl["_wires"] == 1, 2, 1)
                     pearl_right["_wires"] = cond(pearl_right["_wires"] == 1, 2, 1)
+                elseif -no["wire"..pearls[pearl_right].."_"..pearls[pearl]] then
+                    wo[no["f%"..i]] = {"it_document", text="fault"}
                 end
-                wires = pearl["wires"]
                 if pearl["_wires"] == 2 then
                     fl(pearl.x, h-1):close()
                 end
@@ -120,7 +122,10 @@ end
         <el:english el:translate="true"/>
       </el:string>
       <el:string el:key="story">
-        <el:english el:translate="true" >Mrs. Scarlet's wonderful pearl necklace tore, and all the colorful pearls rolled onto the floor. Mrs. Scarlet doesn't remember the sequence, but she knows that adjacent pearls connect, when placed on dots when the switch flipped.</el:english>
+        <el:english el:translate="true" >Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she knows that succeeding pearls connect, when each is placed on a neigboring dot and a coin is inserted into the slot.</el:english>
+      </el:string>
+      <el:string el:key="fault">
+        <el:english el:translate="true" >You did invert the sequence of this pair of pearls. You need to correct this fault to finish the necklace.</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

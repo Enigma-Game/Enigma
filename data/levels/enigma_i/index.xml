@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="32" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="33" title="Enigma I"/>
 
   <attributes/>
 
@@ -75,7 +75,7 @@
     <level _seq="67" _title="Black Lava" _xpath="./ant12_2" author="Petr Machata" ctrl="force" easy="false" id="ant12" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="68" _title="Laser Arena" _xpath="./andreas14_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas14" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Advanced Lasers" _xpath="./luc23_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc23" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="- Meditation -" _xpath="./ant24_2" author="Petr Machata" ctrl="force" easy="false" id="ant24" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="- Meditation -" _xpath="./ant24_2" author="Petr Machata" ctrl="force" easy="false" id="ant24" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Spiral Race" _xpath="./wb06_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Way To Go" _xpath="./daniel09_1" author="Daniel Heck" ctrl="force" easy="false" id="mirrors" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Formentera!" _xpath="./luc06_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc06" rel="2" rev="1" score="1" target="time" unit="duration"/>

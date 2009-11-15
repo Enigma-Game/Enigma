@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Escape in Chains" el:subtitle="Beware of shady mates!" el:id="duffy184"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by R. Lamprecht</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["SlopeStrength"] = 35
+
+ti[" "] = {"fl_hay"}
+ti["I"] = {"fl_ice"}
+ti["="] = {"fl_space"}
+ti["D"] = {"fl_dunes"}
+ti["i"] = {"fl_inverse"}
+ti["f"] = {"fl_bast"}
+ti["C"] = {"fl_metal_7n"}
+ti["#"] = {"st_tigris"}
+ti["P"] = {"st_charge_plus"}
+ti["M"] = {"st_charge_minus"}
+ti["S"] = {"st_scissors"}
+ti["B"] = {"st_window_s", secure=true} .. ti["f"]
+ti["X"] = {"st_death"}
+ti["H"] = {"st_break_black"}
+ti["F"] = {"st_actorimpulse"}
+ti[","] = ti["F"]  .. ti["I"]
+ti["o"] = {"st_oxyd"}
+ti["J"] = {"it_landmine"}
+ti[":"] = ti["f"]  .. ti["J"]
+ti[";"] = ti["I"]  .. ti["J"]
+ti["h"] = {"it_hammer"} .. ti["D"]
+ti["z"] = {"#ac_marble", "me"}
+ti["k"] = {"#ac_killer", "killer", controllers=CTRL_NONE}
+ti["d"] = {"fl_slope_ps"}
+ti["u"] = {"fl_slope_pn"}
+ti["r"] = {"fl_slope_pe"}
+ti["l"] = {"fl_slope_pw"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["a"] = {"it_trigger", target="cutcounter", action="signal"}
+ti["A"] = {"st_door_a", "cutter", state = OPEN}
+ti["p"] = cond(wo["IsDifficult"], ti["F"], ti["P"])
+ti["m"] = cond(wo["IsDifficult"], ti["F"], ti["M"])
+
+wo(ti, " ", {
+    "##########################################################",
+    "#o    X            #IIIIIIIIIIIIIIIIII#    ===     J     #",
+    "#     X   XX  XXX  #IIIIIIIIIIII;IIIII#    ===           #",
+    "#  X  X    X       #IIIIIIIIIIIIIIIIII#    ===     J     #",
+    "#  X  XX   X   BBBB#IIIIIIIIIIIIIIIIII#    ===     ###A###",
+    "#  X  X    X   B   #  IIIIII##IIIIII  #    ===     #aBfBa#",
+    "#  X  H   JX   B      IIIIII##IIIIII       ===     #fffff#",
+    "#  X  X    X   B   #IIIIIIII##IIIIIIII#    ===     #XXXaa#",
+    "#  X  XX   X   BBBB#IIIIIIIIIIIIIIII###    ===     #aaaaa#",
+    "#  X  X    X       #IIIIIIIIIIIIIIIIII#    ===     #aaXXX#",
+    "#     X   XX  XXX  #III;IIIIIIIIIIII  #    ===     #aaaaaS",
+    "#o    X            #IIIIIIIIIIIIIIII  #    ===     #aaaXaM",
+    "##################################### ####################",
+    "#  F            F  #     iiiii    X # #   DDDDDDDD J==   #",
+    "#J    J X  X J    J#     iiiii X      #   DDDDDDDD  == J #",
+    "#                  #     iiiii  31    #   DDDDDDDDJ ==   #",
+    "#  3d1  J  J  3d1  #     iiiii  9731  #   DDDDDDDD  ==J  #",
+    "#  rCl        rCl        iiiii    97  #   DDDDDDDD J==   #",
+    "# prCl   zk   rClm       iiiii  79        DDDDDDDD  == J #",
+    "#  rCl        rCl        iiiii  lr   X#   DDDDDDDD J==   #",
+    "#  9u7  J  J  9u7  #     iiiii  lr    #   DDDDDDDD  ==J  #",
+    "#                  #     iiiii  13 79 #   DDDDDDDDJ ==   #",
+    "#J    J X  X J    J#     iiiii     13 #   DDDDDDDD  == J #",
+    "#  F            F  #     iiiii  X     #   DDDDDDDD J==   #",
+    "#######################################################  #",
+    "#       F      F   #   ffffff#fffff       #    rrll   #  #",
+    "#  F III    F      #   ffff:fffffff   JJ  #J  ######  #uu#",
+    "#    III       ff  #   ffffffffffff   #  ## J ###### ##dd#",
+    "#F J IIIF DDD  ff  #   ffffffffffff   #  #   J#      #B  #",
+    "#      J  DhD J    #   f#fffff:ffff   ## #  ###JJJ## #B  #",
+    "#PFFM   J DDD Fii  J   ffffffffffff   #  #uu#     #  #   #",
+    "#   ====F  31  ii  #   fffffff#ffff   #  #dd#  #### ##   #",
+    "#F  ====   97  ii  #   ffffffffffff   # ##  #X #    #IIII#",
+    "#    F31 IIF CCC  F#   fff:fffff#ff   #CCCC #  #    #IIII#",
+    "#  J  97 II  CCC J #   ffffffffffff   #CCCC## X#   ##IIII#",
+    "#F      F     F    #   f#ffffffffff   #CCCC    #    ;IIII,",
+    "##########################################################"
+})
+
+wo:add({"ot_rubberband", anchor1="me", anchor2="killer", length=1.2, strength=15, max=5})
+wo:add({"ot_counter", "cutcounter", state=0, target="cutter", action_0="open", action_1="close"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Hüte dich vor fragwürdigen Gefährten!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

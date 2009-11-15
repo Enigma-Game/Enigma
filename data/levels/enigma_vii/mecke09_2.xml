@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Audience in Venice" el:subtitle="Press the Triggers" el:id="mecke9"/>
-      <el:version el:score="1" el:release="2" el:revision="$Revision: 41 $" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 42 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -143,12 +143,12 @@ ti["= "] = {"st_key", code=1, name= "oklli1", target= "lezy2", action="toggle"}
 ti["t1"] = ti[" %"] .. {"it_trigger", target="olli1", action="toggle"}
 ti["t2"] = ti[" 1"] .. {"it_trigger", target="olli2", action="toggle"}
 ti["t3"] = ti[" /"] .. {"it_trigger", target="olli3", action="toggle"}
-ti["t4"] = ti[" ,"] .. {"it_trigger", target="olli4", action="toggle"}
+ti["t4"] = ti[" %"] .. {"it_trigger", target="olli4", action="toggle"}
 ti["t5"] = ti[" %"] .. {"it_trigger", target="olli5", action="toggle"}
 ti["t6"] = ti[" %"] .. {"it_trigger", target="olli6", action="toggle"}
 ti["t7"] = ti[" %"] .. {"it_trigger", target="olli7", action="toggle"}
 ti["t8"] = ti[" !"] .. {"it_trigger", target="lezy1", action="toggle"}
-ti["t9"] = ti[" %"] .. {"it_trigger", target="olli9", action="toggle"}
+ti["t9"] = ti[" ,"] .. {"it_trigger", target="olli9", action="toggle"}
 ti["~ "] = {"st_laser_e", name="lezy1"}
 ti["- "] = {"st_laser_n", name="lezy2"}
 ti["d1"] = ti[" /"] .. {"st_door", faces="ew", name= "olli1"}

@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pentachromos" el:subtitle="Combined effort level 2" el:id="cel2"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
-      <el:author  el:name="Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="stable"/>
+      <el:author  el:name="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
-        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
@@ -21,14 +21,22 @@ wo["MaxOxydColor"] = OXYD_BROWN
 ti["j "] = {"fl_lawn"}
 ti["j0"] = {"fl_water"}
 ti["j,"] = {"fl_red"}
+ti["js"] = ti["j "] .. {"it_sensor", invisible=true, target="dest_enter"}
+ti["je"] = ti["j "] .. {"it_sensor_exit", invisible=true, target="dest_exit"}
 ti["j*"] = ti["j "] .. {"st_stoneimpulse"}
 ti["j{"] = ti["j "] .. {"st_rotator_ccw"}
 ti["j#"] = ti["j "] .. {"st_bluesand"}
 ti["j%"] = ti["j "] .. {"st_yellow"}
 ti["j&"] = ti["j "] .. {"st_grate_cross"}
+ti["jg"] = ti["js"] .. {"st_grate_cross"}
 ti["j$"] = ti["j "] .. {"st_box_wood"}
-ti["j8"] = ti["j "] .. {"st_boulder_n"}
+ti["j8"] = ti["js"] .. {"st_boulder_n"}
 ti["j!"] = ti["j "] .. {"st_swap"}
+ti["j^"] = ti["js"] .. {"st_swap"}
+ti["jx"] = ti["js"] .. {"st_puzzle_blue_s"}
+ti["jw"] = ti["js"] .. {"st_puzzle_blue_n"}
+ti["ja"] = ti["js"] .. {"st_puzzle_blue_w"}
+ti["jd"] = ti["js"] .. {"st_puzzle_blue_e"}
 ti["j)"] = ti["j "] .. {"st_oneway_n"}
 ti["j("] = ti["j "] .. {"st_oneway_s"}
 ti["jW"] = ti["j "] .. {"st_puzzle_blue_n"}
@@ -46,32 +54,73 @@ ti["j`"] = ti["j "] .. {"it_key", code=8}
 ti["j~"] = ti["j "] .. {"it_key", code=3}
 ti["jv"] = ti["j "] .. {"it_vortex_closed", name="vortex_j_b", destination="vortex_j", autoclose=true, autoopen=true}
 
+map_joseph = {
+    "####################00000000000000000000",
+    "################   **0000000000000000000",
+    "##&&  ~& &    **)#(#*###0000000000000000",
+    "##0$*%%%%%%%# #!0#0 DA&#0000000000000000",
+    "#0000%,,,,,%C R 0#0#  `#0000000000000000",
+    "#0007%%%%%,%EVQ 0#0#####0000000000000000",
+    "#{000000#%%%    000#00000000000000000000",
+    "#0000000##         #00000000000000000000",
+    "#ssxss####   X DZ  #00000000000000000000",
+    "#ssdwsg##    R# R  #00000000000000000000",
+    "#e^^as8gg       R  #00000000000000000000",
+    "#vesssg##          #00000000000000000000",
+    "###**###############00000000000000000000"
+}
+
+function dest_enter(value, sender)
+    no["vortex_j"]["destination"] = sender
+end
+
+function dest_exit(value, sender)
+    no["vortex_j"]["destination"] = no["vortex_j_b"]
+end
+
+
 -- Ronald Lamprecht
 
 ti["r "] = {"fl_lawn", friction=6.0}
 ti["r~"] = {"fl_abyss"}
-ti["r#"] = ti["r "] .. {"st_granite"}
-ti["re"] = ti["r "] .. {"it_vortex_closed", name="vortexRale", destination = "vortex_r", autoclose=true, autoopen=true}
-ti["rs"] = (ti["r "] .. {"it_vortex_closed", name="vortexRals", autoclose=true}) .. {"st_shogun_s"}
-ti["rm"] = (ti["r "] .. {"it_vortex_closed", name="vortexRalm", autoclose=true}) .. {"st_shogun_m"}
-ti["rl"] = (ti["r "] .. {"it_vortex_closed", name="vortexRall", autoclose=true}) .. {"st_shogun_l"}
-ti["rI"] = ti["r "] .. {"st_stoneimpulse"}
-ti["rd"] = ti["r "] .. {"it_shogun_l", target="ral_door1", action="toggle"}
-ti["rh"] = ti["r "] .. {"st_door_d_ew", name="ral_door1"}
-ti["rW"] = ti["r "] .. {"st_box_wood"}
-ti["rX"] = ti["r "] .. {"st_swap"}
-ti["rt"] = ti["r "] .. {"it_trigger", target="ral_bridge1a", action="toggle"}
-ti["ru"] = ti["r "] .. {"it_trigger", target="ral_bridge2b", action="toggle"}
-ti["rv"] = ti["r "] .. {"it_trigger", target="ral_bridge3c", action="toggle"}
-ti["ra"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge1a"}
-ti["rb"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge2b"}
-ti["rc"] = {"fl_bridge_bw", state = OPEN, name="ral_bridge3c"}
-ti["r."] = ti({"fl_abyss"}) .. {"it_seed"}
-ti["rf"] = {"fl_lawn"} .. ti({"it_floppy"})
-ti["rF"] = {"fl_lawn"} .. ti({"st_floppy", target="ral_fdoor", action="toggle"})
-ti["rG"] = ti["r "] .. {"st_door_d_ew", name="ral_fdoor"}
-ti["rj"] = {"fl_lawn", friction=6.0} .. ti({"it_key", code=1})
-ti["rK"] = {"fl_lawn", friction=6.0} .. ti({"it_key", code=4})
+ti["r#"] = {"st_granite"} .. ti["r "]
+ti["re"] = {"it_vortex_closed", name="vortexRale", destination = "vortex_r", autoclose=true, autoopen=true} .. ti["r "]
+ti["rs"] = {"it_vortex_closed", name="vortexRals", destination = "vortex_r", autoclose=true, autoopen=true} .. {"st_shogun_s"} .. ti["r "]
+ti["rm"] = {"it_vortex_closed", name="vortexRalm", destination = "vortex_r", autoclose=true, autoopen=true} .. {"st_shogun_m"} .. ti["r "]
+ti["rl"] = {"it_vortex_closed", name="vortexRall", destination = "vortex_r", autoclose=true, autoopen=true} .. {"st_shogun_l"} .. ti["r "]
+ti["rI"] = {"st_stoneimpulse"} .. ti["r "]
+ti["rd"] = {"it_shogun_l", target="ral_bridge4"} .. ti["r "]
+ti["rg"] = {"st_grate"} .. ti["r "]
+ti["rW"] = {"st_box_wood"} .. ti["r "]
+ti["rX"] = {"st_swap"} .. ti["r "]
+ti["rt"] = {"it_trigger", target="ral_bridge1a"} .. ti["r "]
+ti["ru"] = {"it_trigger", target="ral_bridge2b"} .. ti["r "]
+ti["rv"] = {"it_trigger", target="ral_bridge3c"} .. ti["r "]
+ti["ra"] = {"fl_bridge_bw", state=OPEN, name="ral_bridge1a"}
+ti["rb"] = {"fl_bridge_bw", state=OPEN, name="ral_bridge2b"}
+ti["rc"] = {"fl_bridge_bw", state=OPEN, name="ral_bridge3c"}
+ti["r."] = {"fl_abyss"} .. ti{"it_seed"}
+ti["rf"] = {"fl_lawn"} .. ti{"it_floppy"}
+ti["rF"] = {"fl_lawn"} .. ti{"st_floppy", target="ral_fdoor"}
+ti["rG"] = {"st_door_d_ew", name="ral_fdoor"} .. ti["r "]
+ti["rj"] = {"it_key", code=1} .. ti{"fl_bridge_bw", state=OPEN, name="ral_bridge4"}
+ti["rK"] = {"it_key", code=4} .. ti["r "]
+
+map_ronald = {
+    "#######################################",
+    "#            ~~~~~~#                  #",
+    "#                #~~~~~~~~~~~~~~~~~~~ #",
+    "#     I~~    ~#          ~~~~~~~~~~~~ #",
+    "#     Is     ~#          ~~~~~~~~~~~~ #",
+    "###   I~~    ~#          ~~~~~~   ~~~ #",
+    "#jG e Im  gd ~~~ WtXuWv  .a.b.c K ...f#",
+    "##F   I~~    ~#          ~~~~~~   ~~~ #",
+    "#     Il     ~#          ~~~~~~~~~~~~ #",
+    "#     I~~    ~#          ~~~~~~~~~~~~ #",
+    "#                #~~~~~~~~~~~~~~~~~~~ #",
+    "#            ~~~~~~#                  #",
+    "#######################################"
+}
 
 -- Dominik Lehmann
 
@@ -316,20 +365,6 @@ ti["9e"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9E"}
 
 ti["@@"] = ti["  "] .. {"#ac_marble"}
 
-map_ronald = {"r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#",
-              "r#r r r r r r r r r r r r r~r~r~r~r~r~r#r r r r r r r r r r r r r r r r r r r#",
-              "r#r r r r r r r r r r r r r r r r r#r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r r r r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r r r r r r rIrsr r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r#r#r#r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r r r r~r~r~r r#",
-              "r#rjrhrGr rer rIrmr r rdr r~r~r~r rWrtrXrurWrvr r r.rar.rbr.rcr rKr r.r.r.rfr#",
-              "r#r#r#rFr r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r r r r~r~r~r r#",
-              "r#r r r r r r rIrlr r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r r r r r r rIr~r~r r r r~r#r r r r r r r r r r r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r r r r r r r r r r r r r r r r r#r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r~r r#",
-              "r#r r r r r r r r r r r r r~r~r~r~r~r~r#r r r r r r r r r r r r r r r r r r r#",
-              "r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#r#"}
-
 map_dominik = {"z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#",
                "z#z z z z6z#z z z3z z@zhzizjz#z!z9z8z7z#",
                "z#z z+z zez#z z z#z4z[z#z#z#z#z#z#z#z z#",
@@ -372,19 +407,6 @@ map_mark = {"p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#",
             "p#ppp pqp#p1p>p p>p pEp pQp pKp p>p+pwp#",
             "p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#"}
 
-map_joseph = {"j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#",
-              "j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#j j j j*j*",
-              "j#j#j&j&j j j~j&j j&j j j j j*j*j)j#j(j#j*j#j#j#",
-              "j#j#j0j$j*j%j%j%j%j%j%j%j#j j#j!j0j#j0j jDjAj&j#",
-              "j#j0j0j0j0j%j,j,j,j,j,j%jCj jRj j0j#j0j#j j j`j#",
-              "j#j0j0j0j7j%j%j%j%j%j,j%jEjVjQj j0j#j0j#j#j#j#j#",
-              "j#j{j0j0j0j0j0j0j#j%j%j%j j j j j0j0j0j#",
-              "j#j0j0j0j0j0j0j0j#j#j j j j j j j j j j#",
-              "j#j j jXj j j#j#j#j#j j j jXj jDjZj j j#",
-              "j#j j jDjWj j&j#j#j j j j jRj#j jRj j j#",
-              "j#j j!j!jAj j8j&j&j j j j j j j jRj j j#",
-              "j#jvj j j j j&j#j#j j j j j j j j j j j#",
-              "j#j#j#j*j*j#j#j#j#j#j#j#j#j#j#j#j#j#j#j#"}
 
 map_main = {" # # # # # # #7a #3a #5a #6d #3d #9c # #",
             "j#j    a   P1A  2A  4A  9C  8B  3D  7Ej#",
@@ -412,13 +434,17 @@ map_main = {" # # # # # # #7a #3a #5a #6d #3d #9c # #",
             "j# 0j j j  0j p p p p p p r  0r r r  0r#",
             "j#j#j#j#j#j#j#p#p#p#p#p#p#r#r#r#r#r#r#r#"}
 
-wo(ti, "~~", 153, 37)
-wo:drawMap(ti, po(0,0), "??", map_ronald)
+wo(ti, "  ", 153, 37)
+
+--dm = wo:newMap("j ", map_joseph):defuse()
+--dm[2]:print()
+
+wo:drawMap(ti, po(0,0), "r" * wo:newMap("?", map_ronald))
 wo:drawMap(ti, po(57,0), "??", map_dominik)
 wo:drawMap(ti, po(95,0), "??", map_lukas)
 wo:drawMap(ti, po(133,0), "??", map_main)
 wo:drawMap(ti, po(57,24), "??", map_mark)
-wo:drawMap(ti, po(95,24), "??", map_joseph)
+wo:drawMap(ti, po(0,24), "j" * wo:newMap("?", map_joseph))
 wo:add({"ot_counter", "LaserFunc", state = 0, target_3 = "ItemDoor2", action_3 = "close"})
 wo:shuffleOxyd()
  ]]></el:luamain>
