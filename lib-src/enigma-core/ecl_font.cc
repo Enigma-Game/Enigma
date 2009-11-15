@@ -204,17 +204,8 @@ ecl::LoadBitmapFont(const char * imgname, const char * descrname)
 
 
 
-#ifndef HAVE_SDLTTF
-
-Font *ecl::LoadTTF (const char * /*filename*/, int /*ptsize*/, int, int, int)
-{
-    return 0;
-}
-
-#else /* if defined (HAVE_SDLTTF) */
-
 //
-// TrueType fonts (using SDL_ttf if available)
+// TrueType fonts 
 //
 #include "SDL_ttf.h"
 
@@ -302,11 +293,11 @@ int TrueTypeFont::get_width(const char *str, Font * altFont)
 
 Font *ecl::LoadTTF (const char *filename, int ptsize, int r, int g, int b)
 {
-    if (TTF_Init()) {
-        // Error initializing TTF engine
+    if (!TTF_WasInit() && TTF_Init()==-1) {
+        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", SDL_GetError());
+        exit(1);
     }
     TTF_Font *font = TTF_OpenFont (filename, ptsize);
     return (font) ? new TrueTypeFont (font, r, g, b) : 0;
 }
 
-#endif

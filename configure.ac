@@ -120,40 +120,48 @@ LIBS="$LIBS $SDL_LIBS"
 
 dnl ----------------------------------------
 dnl Check for SDL image library
-dnl Check for SDL mixer library
 dnl ----------------------------------------
 AC_CHECK_LIB(SDL_image,main,,[AC_MSG_ERROR([SDL_image is required to compile Enigma])])
+
+SDL_LIBS="$SDL_LIBS -lSDL_image"
+
+AC_CHECK_LIB(SDL_image, IMG_Init, have_img_init="yes", have_img_init="no")
+if test "$have_img_init" = yes; then
+  AC_DEFINE(SDL_IMG_INIT, , [Whether SDL_image library provides init])
+fi
+
+dnl ----------------------------------------
+dnl Check for SDL mixer library
+dnl ----------------------------------------
 AC_CHECK_LIB(SDL_mixer,main,,[AC_MSG_ERROR([SDL_mixer is required to compile Enigma])])
 
-SDL_LIBS="$SDL_LIBS -lSDL_image -lSDL_mixer"
+SDL_LIBS="$SDL_LIBS -lSDL_mixer"
 
 AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
-
 if test "$have_mix_quickload" = no; then
   AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
+fi
+
+AC_CHECK_LIB(SDL_mixer, Mix_Init, have_mix_init="yes", have_mix_init="no")
+if test "$have_mix_init" = yes; then
+  AC_DEFINE(SDL_MIX_INIT, , [Whether SDL_mixer library provides init])
 fi
 
 dnl ----------------------------------------
 dnl Check for SDL_ttf library
 dnl ---------------------------------------
-if test "$MINGW32" = yes; then
-  AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf >= 2.0.6 is required to compile Enigma])])
-  AC_DEFINE(HAVE_SDLTTF, , [Whether SDL_ttf library was found during configure])
-else
-  AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
-  AC_RUN_IFELSE([AC_LANG_SOURCE(
-        [[#include <SDL_ttf.h>
-	  int main(int argc, char *argv[]) {
-	  if (TTF_MAJOR_VERSION < 2)
-            return 1;
-          else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6) 
-            return 1;
-          return 0;}]])],
-      [AC_MSG_RESULT([found])],
-      [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
-  AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma])])
-  AC_DEFINE(HAVE_SDLTTF, , [Whether SDL_ttf library was found during configure])
-fi
+AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
+AC_RUN_IFELSE([AC_LANG_SOURCE(
+    [[#include <SDL_ttf.h>
+      int main(int argc, char *argv[]) {
+      if (TTF_MAJOR_VERSION < 2)
+	return 1;
+      else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6) 
+	return 1;
+      return 0;}]])],
+  [AC_MSG_RESULT([found])],
+  [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
+AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma])])
 
 SDL_LIBS="$SDL_LIBS -lSDL_ttf"
 

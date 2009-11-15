@@ -36,14 +36,11 @@ namespace sound
 
 /* -------------------- Interface Functions -------------------- */
 
-    void Init();
+    void Init(bool withMusic =true, bool withSound =true);
     void Shutdown();
 
     void Tick(double dtime);
 
-    void DisableSound();
-    void EnableSound();
-    void DisableMusic();
     bool PlayMusic(const std::string &name, double position = 0.0);
     void FadeoutMusic(bool blocking =true);
 
