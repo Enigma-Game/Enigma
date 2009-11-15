@@ -159,7 +159,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
 
-    blit(gc, a.x, a.y, enigma::GetImage ("inventory", ".jpg"));
+    blit(gc, a.x, a.y, enigma::GetImage ("inventory", ".png"));
 
 
 //     set_color (gc, 255, 0, 0);
