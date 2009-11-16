@@ -880,7 +880,9 @@ void Application::shutdown()
 #ifdef SDL_IMG_INIT
     IMG_Quit();
 #endif
+    ClearFontCache();
     TTF_Quit();
+    ClearImageCache();
     delete ::nullbuffer;
 }
 
