@@ -115,6 +115,16 @@ bool SoundEngine_SDL::init()
             return false;
         }
 
+        const SDL_version* vi = Mix_Linked_Version();
+        Log <<  ecl::strf("SDL_mixer Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+#ifdef SDL_MIX_INIT
+        int mix_flags = MIX_INIT_MOD;
+        if (Mix_Init(mix_flags) & mix_flags != mix_flags) {
+            Log << ecl::strf( "Couldn't initialize SDL_mixer: %s\n", Mix_GetError());
+            return false;
+        }
+#endif
+
         // Initialize SDL_mixer lib
         if (Mix_OpenAudio(m_freq, m_format, m_channels, 1024) < 0) {
             fprintf(stderr, "Couldn't open mixer: %s\n", Mix_GetError());
@@ -142,6 +152,9 @@ void SoundEngine_SDL::shutdown()
         Mix_CloseAudio();
         clear_cache();
         SDL_DestroyMutex (m_mutex);
+#ifdef SDL_MIX_INIT
+        Mix_Quit();
+#endif
         m_initialized = false;
     }
 }
@@ -361,8 +374,10 @@ namespace
 
 /* -------------------- Functions -------------------- */
 
-void sound::Init() 
+void sound::Init(bool withMusic, bool withSound) 
 {
+    sound_enabled = withSound;
+    music_enabled = withMusic;
     if (!sound_engine.get()) {
         sound_engine.reset(new SoundEngine_SDL);
     }
@@ -372,6 +387,7 @@ void sound::Init()
     }
     else {
         sound_enabled = false;
+        music_enabled = false;
         sound_engine.reset(new SoundEngine_Null);
     }
 }
@@ -387,20 +403,6 @@ void sound::Tick (double dtime)
     sound_engine->tick (dtime);
 }
 
-void sound::DisableSound() {
-    if (sound_enabled) {
-        sound_enabled = false;
-        Shutdown();
-    }
-}
-
-void sound::EnableSound() {
-    if (!sound_enabled) {
-        sound_enabled = true;
-        Init();
-    }
-}
-
 void sound::TempDisableSound() {
     sound_enabled_temp = sound_enabled;
     sound_enabled      = false;
@@ -408,10 +410,6 @@ void sound::TempDisableSound() {
 
 void sound::TempReEnableSound() {
     sound_enabled = sound_enabled_temp;
-}
-
-void sound::DisableMusic() {
-    music_enabled = false;
 }
 
 void sound::SetListenerPosition (const ecl::V2 &pos) 

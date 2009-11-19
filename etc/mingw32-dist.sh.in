@@ -6,7 +6,7 @@ VERSION=@PACKAGE_VERSION@
 DDIR="`pwd`/Enigma-$VERSION"
 SDIR=@top_srcdir@
 BDIR=@top_builddir@
-DLLDEFAULTS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng libpng1 zlib zlib-1"
+DLLDEFAULTS="SDL SDL_image SDL_mixer SDL_ttf jpeg zlib1 libfreetype-6 libpng12-0 mikmod"
 
 if [ "$ENIGMADEVDLLS" != "" ]; then
   DLLS=$ENIGMADEVDLLS

@@ -56,7 +56,9 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XercesVersion.hpp>
-
+#include <SDL_image.h>
+#include <SDL_mixer.h>
+#include <SDL_ttf.h>
 
 #ifdef MACOSX
 // for search paths
@@ -301,7 +303,7 @@ void Application::init(int argc, char **argv)
 
     // ----- Initialize SDL library
 #ifdef WIN32
-    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that favors GDI which crashes on SetGamma
+//    SDL_putenv("SDL_VIDEODRIVER=directx");  //needed for SDL 1.2.12 that favors GDI which crashes on SetGamma
 #endif
     int sdl_flags = SDL_INIT_VIDEO;
     if (enigma::WizardMode)
@@ -312,6 +314,25 @@ void Application::init(int argc, char **argv)
     }
     atexit(SDL_Quit);
     SDL_EnableUNICODE(1);
+    const SDL_version* vi = SDL_Linked_Version();
+    Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+    
+    vi = TTF_Linked_Version();
+    Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+    if(TTF_Init() == -1) {
+        fprintf(stderr, "Couldn't initialize SDL_ttf: %s\n", TTF_GetError());
+        exit(1);
+    }
+
+    vi = IMG_Linked_Version();
+    Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
+#ifdef SDL_IMG_INIT
+    int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
+    if (IMG_Init(img_flags) & img_flags != img_flags) {
+        fprintf(stderr, "Couldn't initialize SDL_image: %s\n", IMG_GetError());
+        exit(1);
+    }
+#endif
 
     // ----- Initialize video subsystem
     video::Init();
@@ -323,11 +344,7 @@ void Application::init(int argc, char **argv)
 
 
     // ----- Initialize sound subsystem
-    if (ap.nosound)
-        sound::DisableSound();
-    else if (ap.nomusic)
-        sound::DisableMusic();
-    sound::Init();
+    sound::Init(!ap.nomusic, !ap.nosound);
     lua::CheckedDoFile (L, app.systemFS, "sound-defaults.lua");
     lua::DoSubfolderfile (L, "soundsets", "soundset.lua");
 
@@ -794,6 +811,12 @@ void Application::shutdown()
     enet_deinitialize();
     lua::ShutdownGlobal();
     XMLPlatformUtils::Terminate();
+#ifdef SDL_IMG_INIT
+    IMG_Quit();
+#endif
+    ClearFontCache();
+    TTF_Quit();
+    ClearImageCache();
     delete ::nullbuffer;
 }
 

@@ -176,14 +176,10 @@ namespace sound
 
 /* -------------------- Functions -------------------- */
 
-    void Init();
+    void Init(bool withMusic =true, bool withSound =true);
     void Shutdown();
 
     void Tick (double dtime);
-
-    void DisableSound();
-    void EnableSound();
-    void DisableMusic();
 
     void TempDisableSound();
     void TempReEnableSound();

@@ -488,6 +488,10 @@ ecl::Font *enigma::GetFont (const char *name)
     return font_cache.get(name);
 }
 
+void enigma::ClearFontCache() {
+    font_cache.clear();
+}
+
 ecl::Surface *enigma::LoadImage(const char *name) 
 {
     string filename;

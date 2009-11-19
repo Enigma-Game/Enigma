@@ -103,20 +103,24 @@ Extract zip-bin to GnuWin32
 
 Install upx anywhere in PATH
 
-SDL-devel-1.2.9-mingw32.tar.gz
+SDL-devel-1.2.14-mingw32.tar.gz
   extract to a workdir
-  move include/* to include/SDL
-  edit Makefile CROSS_PATH to /mingw
-  edit bin/i386-mingw32msvc-sdl-config  prefix to /mingw
-  make cross
-  cp /mingw/bin/i386-mingw32msvc-sdl-config /mingw/bin/sdl-config
-  cp bin/*.dll to enigma/etc and a second copy to enigma
+  cp -rv bin lib share include /mingw/
+  sed 's|^prefix=.*|prefix=/minw/|' <bin/sdl-config > /mingw/bin/i386-mingw32msvc-sdl-config
+  cp /mingw/share/aclocal/sdl.m4 /share/aclocal/
+  cp bin/*.dll to enigma/etc
 
-SDL_ttf-devel-2.0.7-VC6.zip, SDL_mixer-devel-1.2.6-VC6.zip, SDL_image-devel-1.2.4-VC6.zip
+SDL_ttf-devel-2.0.9-VC8.zip, SDL_mixer-devel-1.2.11-VC.zip, SDL_image-devel-1.2.10-VC.zip
   extract
   cp includes to /mingw/include/SDL
   cp lib/*.lib to /mingw/lib
   cp lib/*.dll to enigma/etc
+
+libpng-1.2.18.tar.gz
+  extract to workdir
+  ./configure --prefix=/mingw
+  make
+  make install
 
 zlib-1.2.3-lib.zip, libpng-1.2.8-lib.zip
   extract
@@ -129,7 +133,6 @@ xerces-c
   make install
   
 enigma
-  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg libpng13 zlib"
   ./autogen.sh
   ./configure
   cd etc
