@@ -17,9 +17,9 @@ Libraries:
 ----------
 SDL-devel       1.2.14 - 1.2.9	(no 1.2.10 on Mac, no 1.2.12,1.2.13 on Win!) 
                 http://www.libsdl.org/download-1.2.php
-                SDL-devel-1.2.14-mingw32.tar.gz (Mingw32)
+                SDL-devel-1.2.14-mingw32.tar.gz (Mingw32) +  fix r5262
                 
-SDL_ttf-devel   2.0.9 -  2.0.6
+SDL_ttf-devel   2.0.10 -  2.0.6
                 http://www.libsdl.org/projects/SDL_ttf/
                 SDL_ttf-devel-2.0.9-VC8.zip (W)
                 
@@ -27,7 +27,7 @@ SDL_mixer-devel 1.2.11 - 1.2.7
                 http://www.libsdl.org/projects/SDL_mixer/
                 SDL_mixer-devel-1.2.11-VC.zip (W)
                 
-SDL_image-devel 1.2.10
+SDL_image-devel 1.2.10 - 1.2.6
                 http://www.libsdl.org/projects/SDL_image/
                 SDL_image-devel-1.2.10-VC.zip (W)
 
@@ -92,7 +92,7 @@ upx             3.04 -  1.2.5
 ccache          2.4 (L)
                 http://ccache.samba.org/
                 
-NSIS            2.29, 2.27, 2.21 (W)
+NSIS            >= 2.45 (W)
                 http://nsis.sourceforge.net
 
 ImageMagick     

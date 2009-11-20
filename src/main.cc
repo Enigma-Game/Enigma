@@ -345,7 +345,7 @@ void Application::init(int argc, char **argv)
         fprintf(stderr, "Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
-    atexit(SDL_Quit);
+    std::atexit(SDL_Quit);
     SDL_EnableUNICODE(1);
     const SDL_version* vi = SDL_Linked_Version();
     Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);

@@ -110,7 +110,7 @@ SDL-devel-1.2.14-mingw32.tar.gz
   cp /mingw/share/aclocal/sdl.m4 /share/aclocal/
   cp bin/*.dll to enigma/etc
 
-SDL_ttf-devel-2.0.9-VC8.zip, SDL_mixer-devel-1.2.9-VC.zip, SDL_image-devel-1.2.8-VC.zip
+SDL_ttf-devel-2.0.9-VC8.zip, SDL_mixer-devel-1.2.11-VC.zip, SDL_image-devel-1.2.10-VC.zip
   extract
   cp includes to /mingw/include/SDL
   cp lib/*.lib to /mingw/lib
@@ -121,7 +121,6 @@ libpng-1.2.18.tar.gz
   ./configure --prefix=/mingw
   make
   make install
-  cp /mingw/bin/libpng12-0.dll to enigma/etc
   
 zlib-1.2.3-lib.zip
   extract
@@ -136,7 +135,6 @@ xerces-c
   make install
   
 enigma
-  export ENIGMADEVDLLS="SDL SDL_image SDL_mixer SDL_ttf jpeg zlib1 libfreetype-6 libogg-0 libpng12-0 libtiff-3 libvorbis-0 libvorbisfile-3 smpeg"
   ./autogen.sh
   ./configure
   cd etc
