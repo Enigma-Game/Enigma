@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Claustrophobia" el:subtitle="Every pencil must go" el:id="20090926ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="stable"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false">Thanks to oracle for help with the code</el:credits>
+      </el:comments>
+      <el:score el:easy="0:57" el:difficult="3:46"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["SlopeStrength"] = 65
+
+ti["."] = {"fl_dark"} .. ti({"it_squashed"})
+ti[","] = ti["."] .. {"it_pencil", "pencils_#"}
+ti[";"] = cond(wo["IsDifficult"], ti[","], ti["."])
+ti["A"] = ti["."] .. {"fl_dark", "digit1"}
+ti["B"] = ti[";"] .. {"fl_dark", "digit2"}
+ti[" "] = {"fl_space"}
+ti["#"] = {"st_metal"}
+ti["3"] = {"st_puzzle", connections="ns"}
+ti["4"] = {"st_puzzle", connections="ew"}
+ti["1"] = ti["3"] .. ti[" "]
+ti["2"] = ti["4"] .. ti[" "]
+ti["5"] = ti["1"] .. {"fl_slope_pn", strength=2000}
+ti["6"] = ti["2"] .. {"fl_slope_pw", strength=2000}
+ti["7"] = ti["1"] .. {"fl_slope_ps", strength=2000}
+ti["9"] = ti["2"] .. {"fl_slope_pe", strength=2000}
+ti["8"] = {"st_grate"} .. ti[" "]
+ti["x"] = {"st_lightglass_hollow"} .. ti["."]
+ti["X"] = {"st_lightglass_hollow"} .. ti[","]
+ti["W"] = {"#ac_marble_white"} .. ti({"fl_slope_isw"})
+ti["w"] = {"#ac_marble_white"} .. ti({"fl_slope_ine"})
+ti["$"] = {"st_dispenser_extralife"}
+ti["<"] = {"st_oneway_w"} .. ti({"fl_slope_isw"})
+ti[">"] = {"st_oneway_e"} .. ti({"fl_slope_ine"})
+ti["^"] = {"st_oneway_n"} .. ti({"fl_slope_inw"})
+ti["v"] = {"st_oneway_s"} .. ti({"fl_slope_ise"})
+ti["E"] = {"st_oxyd", "oxyd1", oxydcolor=OXYD_BLUE}
+ti["F"] = {"st_oxyd", "oxyd2", oxydcolor=OXYD_BLUE}
+ti["G"] = {"st_oxyd", "oxyd3", oxydcolor=OXYD_BLUE}
+ti["H"] = {"st_oxyd", "oxyd4", oxydcolor=OXYD_BLUE}
+ti["@"] = {"#ac_marble"} .. ti[","]
+
+wo(ti,".",{
+    "####################$$$$$$$$$$$$$$$$$$####################",
+    "#                  #                  <<<<W#             #",
+    "#                  #                  <<<<##             #",
+    "#                  #                  <<<<#              #",
+    "#                  #                  <<<<#              #",
+    "#                  #888888888888888888#####              #",
+    "#                  #111111111111111111#                  #",
+    "###                #111111111111111111#                  #",
+    "#W####             #111111111111111111#                  #",
+    "#vvvv#             #111111111111111111#                  #",
+    "#vvvv#             #111111111111111111#                  #",
+    "#vvvv#             #555555555555555555#                  #",
+    "#vvvv##############E333333333333333333F###################",
+    "$       822222222264.;.;.;.;.;.;.;.;.;492222222228       $",
+    "$       822222222264;.;A;.;.;.B.;.;.;.492222222228       $",
+    "$       822222222264.;.,.,.,.,.,.,.,.;492222222228       $",
+    "$       822222222264;.,.,.,.,.,.,.,.;.492222222228       $",
+    "$       822222222264.;.,.,.XxXx,.,.,.;492222222228       $",
+    "$       822222222264;.,.,.,x@$X.,.,.;.492222222228       $",
+    "$       822222222264.;.,.,.XxXx,.,.,.;492222222228       $",
+    "$       822222222264;.,.,.,.,.,.,.,.;.492222222228       $",
+    "$       822222222264.;.,.,.,.,.,.,.,.;492222222228       $",
+    "$       822222222264;.;.;.;.;.;.;.;.;.492222222228       $",
+    "$       822222222264.;.;.;.;.;.;.;.;.;492222222228       $",
+    "###################H333333333333333333G##############^^^^#",
+    "#                  #777777777777777777#             #^^^^#",
+    "#                  #111111111111111111#             #^^^^#",
+    "#                  #111111111111111111#             #^^^^#",
+    "#                  #111111111111111111#             ####w#",
+    "#                  #111111111111111111#                ###",
+    "#                  #111111111111111111#                  #",
+    "#              #####888888888888888888#                  #",
+    "#              #>>>>                  #                  #",
+    "#              #>>>>                  #                  #",
+    "#             ##>>>>                  #                  #",
+    "#             #w>>>>                  #                  #",
+    "####################$$$$$$$$$$$$$$$$$$####################"})
+
+wo:add({"ot_timer", interval=0.1, action="callback", target="countpencils"})
+
+oldcount = 1000
+digitfloors = {"fl_dark","fl_bright"}
+digitshapes = {
+{{1,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,1}},
+{{1,1,2,1,1},
+ {1,2,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,2,2,2,1}},
+{{1,2,2,2,1},
+ {2,1,1,1,2},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {1,2,2,2,1},
+ {2,1,1,1,1},
+ {2,1,1,1,1},
+ {2,1,1,1,1},
+ {2,2,2,2,2}},
+{{2,2,2,2,1},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {1,2,2,2,1},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {2,2,2,2,1}},
+{{1,1,2,1,1},
+ {1,2,2,1,1},
+ {2,1,2,1,1},
+ {2,1,2,1,1},
+ {2,2,2,2,2},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1}},
+{{2,2,2,2,2},
+ {2,1,1,1,1},
+ {2,1,1,1,1},
+ {2,1,1,1,1},
+ {2,2,2,2,1},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {2,2,2,2,1}},
+{{1,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,1},
+ {2,1,1,1,1},
+ {2,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,1}},
+{{2,2,2,2,2},
+ {1,1,1,1,2},
+ {1,1,1,2,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1},
+ {1,1,2,1,1}},
+{{1,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,1}},
+{{1,2,2,2,1},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,2},
+ {1,1,1,1,2},
+ {1,1,1,1,2},
+ {2,1,1,1,2},
+ {1,2,2,2,1}}
+}
+
+pens = no["pencils_#*"]
+
+function countpencils()
+    pens = grp(pens)
+    c = #pens
+    if c < oldcount then
+        d = lib.math.digits(c,10)
+        if d[1] == nil then d[1] = 0 end
+        if d[2] == nil then d[2] = 0 end
+        for x = 1,5 do for y = 1,9 do
+            f1 = digitfloors[digitshapes[d[2]+1][y][x]]
+            f2 = digitfloors[digitshapes[d[1]+1][y][x]]
+            if fl(no["digit1"] + {x-1,y-1})["_t"] ~= f1 then
+                wo[no["digit1"] + {x-1,y-1}] = {f1, cond(x == 1 and y == 1, "digit1", nil), _t=f1}
+            end
+            if fl(no["digit2"] + {x-1,y-1})["_t"] ~= f2 then
+                wo[no["digit2"] + {x-1,y-1}] = {f2, cond(x == 1 and y == 1, "digit2", nil), _t=f2}
+            end
+        end end
+        oldcount = c
+        if not wo["IsDifficult"] then c = c * 2 end
+        if c <= 75 then no["oxyd1"]:open() end
+        if c <= 50 then no["oxyd2"]:open() end
+        if c <= 25 then no["oxyd3"]:open() end
+        if c <=  0 then no["oxyd4"]:open() end
+    end
+end
+
+countpencils()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false" />
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

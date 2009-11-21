@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Nabokos" el:subtitle="Build me a Sokoban" el:id="20090926ais523003"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="stable"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:30" el:difficult="0:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = true
+
+ti[" "]={"fl_bright"}
+ti["."]={"fl_abyss"}
+ti["#"]={"st_panel",cluster=1}
+ti["+"]={"st_box"}
+ti["8"]={"st_lightglass_hollow","grates_#"}
+ti["9"]={"fl_bright","safepos_#"} .. ti["8"]
+ti["^"]={"fl_water","water_#"} .. ti["8"]
+ti["q"]={"it_burnable_ash"} .. ti({"fl_dark"})
+ti[":"]={"it_seed","boxes_#"} .. ti["8"]
+ti[";"]={"it_surprise",selection={"=Z"}} .. ti["8"]
+ti["Z"]={"it_blocker","walls_#",autoclose=true} .. ti({"st_nil"})
+if wo["IsDifficult"] then
+    ti["1"]={"it_document",text="text1"} .. ti["9"]
+    ti["e"]=ti[";"]
+else
+    ti["1"]={"it_document",text="text2"} .. ti["9"]
+    ti["e"]=ti["8"]
+end
+ti["|"]={"st_door_d","togglables_#",faces="ew",state=CLOSED} .. ti["q"]
+ti["!"]={"st_door_d","togglables_#",faces="ew",state=OPEN}   .. ti["q"]
+ti["S"]={"st_switch_instant",action="callback",target="startsolve"}
+ti["~"]={"st_timer","solvetimer",state=OFF,interval=0.1,action="callback",target="solveiter"} .. ti["."]
+ti["s"]={"st_timer","movetimer",state=OFF,interval=0.1,action="callback",target="moveiter"} .. ti["."]
+ti["0"]={"st_oxyd_a"}
+ti["X"]={"st_oxyd_a", "bottomoxyd"}
+ti["W"]={"#ac_marble_white", "whitemarble"} .. ti["q"] .. ti({"fl_dark","whitespot"})
+ti["@"]={"#ac_marble_black"} .. ti["q"] .. ti({"fl_dark","startspot"})
+
+-- The level map
+w, h = wo(ti," ",{
+"#######",
+"0W|q!@S",
+"###q###",
+"#99199#",
+"#9:::9#",
+"#98889#",
+"#98e89#",
+"#9;;;9#",
+"###^###",
+"..#^#..",
+"..#^#..",
+"..~Xs.."
+})
+wo:shuffleOxyd()
+-- Solving is spread over time to prevent the game becoming unresponsive
+function arrangement(x1,y1,x2,y2,x3,y3)
+    if y1 > 8 then y1 = 8 end
+    if y2 > 8 then y1 = 2 end
+    if y3 > 8 then y1 = 3 end
+    local c1 = x1 * 10 + y1
+    local c2 = x2 * 10 + y2
+    local c3 = x3 * 10 + y3
+    if c1 < c2 then t = c1; c1 = c2; c2 = t end
+    if c2 < c3 then t = c2; c2 = c3; c3 = t end
+    if c1 < c2 then t = c1; c1 = c2; c2 = t end
+    return c1 * 10000 + c2 * 100 + c3
+end
+function afromtable(t)
+    return arrangement(t[1][1],t[1][2],t[2][1],t[2][2],t[3][1],t[3][2])
+end
+function areplace(t,ox,oy,nx,ny)
+    if t[1][1] == ox and t[1][2] == oy then
+        return arrangement(nx,ny,t[2][1],t[2][2],t[3][1],t[3][2])
+    end
+    if t[2][1] == ox and t[2][2] == oy then
+        return arrangement(t[1][1],t[1][2],nx,ny,t[3][1],t[3][2])
+    end
+    if t[3][1] == ox and t[3][2] == oy then
+        return arrangement(t[1][1],t[1][2],t[2][1],t[2][2],nx,ny)
+    end
+    assert_bool(false,"areplace target not found")
+end
+function tablefroma(a)
+    local x1,y1,x2,y2,x3,y3
+    y3 = a % 10; a = (a - y3) / 10
+    x3 = a % 10; a = (a - x3) / 10
+    y2 = a % 10; a = (a - y2) / 10
+    x2 = a % 10; a = (a - x2) / 10
+    y1 = a % 10; a = (a - y1) / 10
+    x1 = a % 10
+    return {{x1,y1},{x2,y2},{x3,y3}}
+end
+function unblocked(bp,wp,x,y)
+    if #bp >= 1 then for a = 1,#bp do
+        if bp[a][1] == x and bp[a][2] == y then return false end
+    end end
+    if #wp >= 1 then for a = 1,#wp do
+        if wp[a][1] == x and wp[a][2] == y then return false end
+    end end
+    return true
+end
+startedalready = false
+routethrough = {}
+stepsneeded = {}
+debugmode = false
+siperstep = 100   -- high: good performance, low: good responsiveness
+
+-- Variables used by the solver
+    local a = {}  -- the working array
+    local s = {}  -- set of reachable positions on this step
+    local t = {}  -- set of reachable positions on the next step
+    local r = {}  -- array that allows calculation of the route afterwards
+    local tc = 0  -- number of elements in t
+    local sc = 0  -- number of elements in s
+    local si = 0  -- currently considered element in s
+    local bc = 0  -- count of remaining boxes
+    local wc = 0  -- count of walls
+    local bp = {} -- box positions
+    local pc = 0  -- code for current box positions
+    local wp = {} -- wall positions
+    local x  = 0  -- marble x being considered
+    local y  = 0  -- marble y being considered
+    local n  = 0  -- step number being considered
+
+function startsolve()
+    if startedalready then return end
+    startedalready = true
+    no["togglables_#*"]:toggle()
+    no["grates_#*"]:kill()
+    -- extra insurance against mispushes
+    for p in no["safepos_#*"] do
+        if not -st(p) then
+            -- an invisible grate
+            wo[p] = {"st_door_b","invisigrates_#",state=OPEN}
+        end
+    end
+    wo["ShowMoves"] = true
+
+    -- To get the minimum number of pushes, we solve the Sokoban puzzle by brute force.
+    -- If there's a box at c5, the first move is obviously to push it to c4.
+    -- From then on, the only places it makes sense to push boxes are in the rectangle
+    -- from b1 to d4, and into the goal; there are 299 possible box arrangements.
+    -- For each of these 299 arrangements we have a table stating how soon the white
+    -- marble can be at each of the 25 relevant locations; this table will be rather
+    -- sparse and so not slow down the solver that much.
+    for b in no["boxes_#*"] do
+        if not b:is("st_box") and not b:is("fl_wood") then -- still a seed
+            wo:add(YIN,{"it_spoon"})
+            wo:add(YIN,{"it_document",text="text3"})
+            no["startspot"]:sound("pickup")
+            return
+        end
+        if b.y < 3 then -- jamming the entrance
+            return
+        end
+        bc = bc + 1
+        bp[bc] = {b.x,b.y}
+        if b.y > 8 then bp[bc] = {b.x,8} end
+    end
+    if bc < 3 then
+        wo:add(YIN,{"it_spoon"})
+        wo:add(YIN,{"it_document",text="text3"})
+        no["startspot"]:sound("pickup")
+        return
+    end
+    for w in no["walls_#*"] do
+        if w:is("st_blocker") then -- not a seed
+            if w.y < 3 then -- jamming the entrance
+                return
+            end
+            wc = wc + 1
+            wp[wc] = {w.x,w.y}
+        end
+    end
+    a[afromtable(bp)] = {}
+    for i=1,5 do a[afromtable(bp)][i] = {} end
+    a[afromtable(bp)][3][2] = 0 -- initial condition
+    s[1] = {afromtable(bp),{3,2}}
+    sc = 1
+    si = 1
+    no["solvetimer"]:on()
+end
+function solveiter()
+    if sc <= 0 or r[38383837] ~= nil then
+        no["solvetimer"]:off()
+        aftersolve()
+        return
+    end
+    assert_bool(n<100,"Sanity check in Sokoban solver failed: iterations too high")
+    while si <= sc do
+        pc = s[si][1]
+        bp = tablefroma(pc)
+        x = s[si][2][1]
+        y = s[si][2][2]
+        -- Consider moves for the marble
+        if x > 1 and y > 2 and unblocked(bp,wp,x-1,y) and a[pc][x-1][y] == nil then
+            a[pc][x-1][y] = n
+            sc = sc + 1
+            s[sc] = {pc,{x-1,y}}
+            r[pc*100+(x-1)*10+y] = {pc,{x,y}}
+            if debugmode then print(n .. ": (" .. pc ..") move W from (" .. x .. ", " .. y ..")") end
+        end
+        if x < 5 and y > 2 and unblocked(bp,wp,x+1,y) and a[pc][x+1][y] == nil then
+            a[pc][x+1][y] = n
+            sc = sc + 1
+            s[sc] = {pc,{x+1,y}}
+            r[pc*100+(x+1)*10+y] = {pc,{x,y}}
+            if debugmode then print(n .. ": (" .. pc ..") move E from (" .. x .. ", " .. y ..")") end
+        end
+        if y > 3 and unblocked(bp,wp,x,y-1) and a[pc][x][y-1] == nil then
+            a[pc][x][y-1] = n
+            sc = sc + 1
+            s[sc] = {pc,{x,y-1}}
+            r[pc*100+x*10+y-1] = {pc,{x,y}}
+            if debugmode then print(n .. ": (" .. pc ..") move N from (" .. x .. ", " .. y ..")") end
+        end
+        if y < 7 and unblocked(bp,wp,x,y+1) and a[pc][x][y+1] == nil then
+            a[pc][x][y+1] = n
+            sc = sc + 1
+            s[sc] = {pc,{x,y+1}}
+            r[pc*100+x*10+y+1] = {pc,{x,y}}
+            if debugmode then print(n .. ": (" .. pc ..") move S from (" .. x .. ", " .. y ..")") end
+        end
+        -- Consider moving stones
+        if x > 3 and not unblocked(bp,{},x-1,y) and unblocked(bp,wp,x-2,y) then
+            local npc = areplace(bp,x-1,y,x-2,y)
+            if a[npc] == nil or a[npc][x][y] == nil then
+                if a[npc] == nil then
+                    a[npc] = {}
+                    for i=1,5 do a[npc][i] = {} end
+                end
+                a[npc][x][y] = n + 1
+                tc = tc + 1
+                t[tc] = {npc,{x,y}}
+                r[npc*100+x*10+y] = {pc,{x,y},{-1,0}}
+                if debugmode then print(n .. ": (" .. pc ..") push W from (" .. x .. ", " .. y ..")") end
+            end
+        end
+        if x < 3 and not unblocked(bp,{},x+1,y) and unblocked(bp,wp,x+2,y) then
+            local npc = areplace(bp,x+1,y,x+2,y)
+            if a[npc] == nil or a[npc][x][y] == nil then
+                if a[npc] == nil then
+                    a[npc] = {}
+                    for i=1,5 do a[npc][i] = {} end
+                end
+                a[npc][x][y] = n + 1
+                tc = tc + 1
+                t[tc] = {npc,{x,y}}
+                r[npc*100+x*10+y] = {pc,{x,y},{1,0}}
+                if debugmode then print(n .. ": (" .. pc ..") push E from (" .. x .. ", " .. y ..")") end
+            end
+        end
+        if y > 5 and not unblocked(bp,{},x,y-1) and unblocked(bp,wp,x,y-2) then
+            local npc = areplace(bp,x,y-1,x,y-2)
+            if a[npc] == nil or a[npc][x][y] == nil then
+                if a[npc] == nil then
+                    a[npc] = {}
+                    for i=1,5 do a[npc][i] = {} end
+                end
+                a[npc][x][y] = n + 1
+                tc = tc + 1
+                t[tc] = {npc,{x,y}}
+                r[npc*100+x*10+y] = {pc,{x,y},{0,-1}}
+                if debugmode then print(n .. ": (" .. pc ..") push N from (" .. x .. ", " .. y ..")") end
+            end
+        end
+        if y < 6 and not unblocked(bp,{},x,y+1) and unblocked(bp,wp,x,y+2) then
+            local npc = areplace(bp,x,y+1,x,y+2)
+            if a[npc] == nil or a[npc][x][y] == nil then
+                if a[npc] == nil then
+                    a[npc] = {}
+                    for i=1,5 do a[npc][i] = {} end
+                end
+                a[npc][x][y] = n + 1
+                tc = tc + 1
+                t[tc] = {npc,{x,y}}
+                r[npc*100+x*10+y] = {pc,{x,y},{0,1}}
+                if debugmode then print(n .. ": (" .. pc ..") push S from (" .. x .. ", " .. y ..")") end
+            end
+        end
+        -- Consider pushing stones into the goal area
+        -- Instead of tracking stone locations inside the goal area, we act as if any
+        -- number of stones can be pushed to (3,8)
+        if x == 3 and y == 6 and not unblocked(bp,{},3,7) then
+            local npc = areplace(bp,3,7,3,8)
+            if a[npc] == nil or a[npc][x][y] == nil then
+                if a[npc] == nil then
+                    a[npc] = {}
+                    for i=1,5 do a[npc][i] = {} end
+                end
+                a[npc][x][y] = n + 1
+                tc = tc + 1
+                t[tc] = {npc,{x,y}}
+                r[npc*100+x*10+y] = {pc,{x,y},{0,1}}
+                if debugmode then print(n .. ": (" .. pc ..") push to goal") end
+            end
+        end
+        assert_bool(sc<7500,"Infinite loop in Sokoban solution: sc is too high")
+        assert_bool(tc<7500,"Infinite loop in Sokoban solution: tc is too high")
+        si = si + 1
+        if si % siperstep == 0 and r[38383837] == nil then return end
+    end
+    n = n + 1
+    s = t
+    sc = tc
+    si = 1
+    t = {}
+    tc = 0
+end
+function aftersolve()
+    if r[38383837] == nil then
+        no["togglables_#*"]:toggle()
+        no["invisigrates_#*"]:kill()
+        wo:add(YIN,{"it_document",text="text5"})
+        no["startspot"]:sound("pickup")
+        wo[no["whitespot"]] = {"fl_dark",force_x=-5}
+        return
+    end
+    -- Calculate the route through
+    pc = 38383837
+    local opc = 38383839 -- so the white marble opens the oxyd
+    while pc ~= nil do
+        routethrough[pc] = opc
+        opc = pc
+        if r[pc] == nil then
+            pc = nil
+        else
+            pc = r[pc][1]*100+r[pc][2][1]*10+r[pc][2][2]
+        end
+    end
+    no["movetimer"]:on()
+end
+
+-- Variables used in moving around
+    local lx = 1 -- Last x position of the white marble
+    local ly = 1 -- Last y position of the white marble
+    local ux = 1 -- Last x position of the white marble other than the current one
+    local uy = 1 -- Last y position of the white marble other than the current one
+    local ax = 3 -- x location of the grid the white marble is aiming for
+    local ay = 2 -- x location of the grid the white marble is aiming for
+    local lastchange = 0 -- number of moves since we changed position
+
+function moveiter()
+    -- We want the white marble to move quickly and turn quickly.
+    -- Therefore, we use a large slope force and a larger friction, to make turning work correctly.
+    local x, y = no["whitemarble"]:xy()
+    local yy
+    local res = 0
+    if x ~= lx or y ~= ly then -- reset floor, record ux/uy
+        wo[{lx,ly}] = {fl({lx,ly}):kind()}
+        if ly < 8 then
+            ux = lx
+            uy = ly
+        end
+        lastchange = 0
+    else
+        lastchange = lastchange + 1
+    end
+    lx = x
+    ly = y
+    bc = 0
+    for b in no["boxes_#*"] do
+        bc = bc + 1
+        bp[bc] = {b.x,b.y}
+        if b.y > 8 then bp[bc] = {3,8} end
+    end
+    while bc < 3 do
+        bc = bc + 1
+        bp[bc] = {3,8}
+    end
+    yy = y
+    if yy > 7 then yy = 7 end
+    pc = afromtable(bp) * 100 + x * 10 + yy
+    if routethrough[pc] ~= nil then
+        if pc % 100 == routethrough[pc] % 100 then
+            ax = x + r[routethrough[pc]][3][1]
+            ay = y + r[routethrough[pc]][3][2]
+            res = 1
+        else
+            ay = routethrough[pc] % 10
+            ax = ((routethrough[pc] - ay) / 10) % 10
+            res = 2
+        end
+    elseif ax == x and ay == y then
+        if y > 7 then
+            ay = 7
+            res = 3
+            -- the point to return to is just before we started pushing into the
+            -- goal, which must have been from (3,6)
+            ux = 3
+            uy = 6
+        else
+            -- we might not have been able to stop after pushing a box, or we
+            -- might have bounced; in both cases, return to where we pushed from
+            -- to continue the recorded sequence
+            ax = ux
+            ay = uy
+            res = 4
+        end
+    end
+    -- special case for pushing blocks into the goal
+    if -st({3,8}) then ax = 3; ay = 9; res = 5 end
+    if -st({3,9}) then ax = 3; ay = 10; res = 6 end
+    if afromtable(bp) == 383838 then ax = 3; ay = 11; res = 7 end
+    -- move us off a block if we're stuck
+    if lastchange >= 5 and lastchange % 5 < 2 then res = 8 end
+    if debugmode then
+        print("At (" .. x .. ", " .. y .. "), aiming for (" .. ax .. ", " .. ay .. "), reason " .. res)
+    end
+    wo[{lx,ly}] = {fl({lx,ly}):kind(), friction=250,
+                   force_x=(ax-x)*cond(res==1,2500,cond(res==8,-400-lastchange*3,1500))+(random(20)-random(20))*(ay-y),
+                   force_y=(ay-y)*cond(res==1,2500,cond(res==8,-400-lastchange*3,1500))+(random(20)-random(20))*(ax-x)}
+    if no["bottomoxyd"].state ~= CLOSED then
+        no["movetimer"]:off()
+        wo[{lx,ly}] = {fl({lx,ly}):kind()}
+        if n + 2 < cond(wo["IsDifficult"], 30, 25) then
+            wo:add(YIN,{"it_spoon"})
+            wo:add(YIN,{"it_document",text="text6"})
+            no["startspot"]:sound("pickup")
+        else
+            wo:add(YIN,{"it_document",text="text7"})
+            no["startspot"]:sound("pickup")
+            no["togglables_#*"]:open()
+        end
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false" />
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" />
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Build me a solvable Sokoban puzzle that will take me 30 pushes or more to solve. The seeds grow into boxes; the dice grow into walls.</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Build me a solvable Sokoban puzzle that will take me 25 pushes or more to solve. The seeds grow into boxes; the dice grow into walls.</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">I can't solve that puzzle; there aren't enough boxes! Use the spoon, and next time make sure the boxes finish growing before hitting the switch.</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">I don't think that puzzle can be solved. If you think you can prove me wrong, go get the oxyd!</el:english>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true">That puzzle was too easy! Use the spoon, and give me a harder one next time!</el:english>
+      </el:string>
+      <el:string el:key="text7">
+        <el:english el:translate="true">Thanks for that excellent puzzle, I really enjoyed solving it!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

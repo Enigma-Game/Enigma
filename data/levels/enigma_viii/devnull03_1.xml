@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="27" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="28" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -86,7 +86,7 @@ ti["K"] = {"st_switch", name = "switchK", action = "toggle", target = "@laserN#*
 ti["L"] = {"st_switch", name = "switchL", action = "toggle", target = "laserS3"}
 ti["0"] = ti["."] .. {"it_trigger", name = "trigger00", action = "toggle", target = "bridge00#*"}
 ti["1"] = {"it_trigger", name = "trigger01", action = "callback", target = "bridge01"}
-ti["2"] = ti["J"] .. {"it_trigger", name = "trigger02", action = "callback", target = "bridge02"}
+ti["2"] = ti["J"] .. {"it_trigger", name = "trigger02", action = "callback", target = "bridge02", safeaction = true}
 ti["3"] = {"it_trigger", name = "trigger03", action = "callback", target = "bridge03"}
 ti["!"] = ti["."] .. {"it_sensor", name = "sensor01", action = "open", target = "bridge02#*", invisible = true}
 ti["@"] = ti["."] .. {"#ac_marble_black"}

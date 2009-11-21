@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="alternate X" el:subtitle="" el:id="devnull29"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="9" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.10" />
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="19:11" el:difficult="19:11"/>
     </el:info>
@@ -23,7 +23,6 @@ ti["#"] = {"st_fake_oxyda"}
 ti["x"] = ti["."] .. {"st_grate_cross"}
 ti["+"] = {"st_box_rock"}
 ti["!"] = {"it_crack_l"}
-ti["-"] = ti["."] .. {"it_crack_l"}
 ti["s"] = {"it_seed_hay"}
 ti["K"] = {"st_chess_black"}
 ti["C"] = ti["K"] .. ti["!"]
@@ -31,8 +30,9 @@ ti["Y"] = ti["K"] .. {"it_yinyang"}
 ti["H"] = ti["."] .. ti["s"] .. ti["K"]
 ti["k"] = {"st_chess_white"}
 ti["c"] = ti["k"] .. ti["!"]
-ti["y"] = {"it_bag", name="sackYinyang"}
-ti["S"] = ti["k"] .. {"it_bag", name="sackSeed"}
+ti["z"] = ti["k"] .. ti["."]
+ti["y"] = {"it_bag", "sackYinyang"}
+ti["S"] = ti["k"] .. {"it_bag", "sackSeed"}
 ti["m"] = ti["k"] .. {"it_magicwand"}
 ti["l"] = cond(wo["IsDifficult"], ti["."], ti["."] .. {"it_extralife"})
 ti["X"] = ti["x"] .. {"it_document", text = "BzG"}
@@ -49,13 +49,13 @@ wo(ti, " ", {
     "...## .+ C. x.. .!..##.............##     ..x.....  ##...",
     "....##.+. .  x    ...##...........##.++.  .x.   .  ##....",
     ".....## k ... x.. ..+ ##.........##.  + . x  .++  ##.....",
-    "......##     . x...    ##.......##    .+ x  ..   ##......",
+    "......##  !  . x...    ##.......##    .+ x  ..   ##......",
     ".......##   .!  x..   k ##.....##  .. ..x     +.##.......",
     "........##  .    x..  +  ##...##.... ..x. ...K.##........",
     ".........##  !.  .x.....+ ##.##.....+ x +...H ##.........",
     "..........## ..+.  x...+. .###  +.. .xK ...  ##..........",
-    "...........##   ... x.. .+  # k ! k x  ...  ##...........",
-    "............##K  k+ .x... ..  +.k  x.K...  ##............",
+    "...........##   ..z x.. .+  # k ! k x  ...  ##...........",
+    "............##K  k+ .x... ..  +.c  x.K...  ##............",
     ".............##  . k. xxxxxxXxxxxxx.  ...s##.............",
     "............## k     x    +.k   .  x  k....##............",
     "...........##       x k...+ #.  +.+.x  .....##...........",
