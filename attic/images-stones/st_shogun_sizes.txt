@@ -1,0 +1,23 @@
+Sizes for the shogun stones
+===========================
+
+|----------------------+----------+----------+----------+----------+----------|
+|                      | Gfx16    | Gfx32    | Gfx40    | Gfx48    | Gfx64    |
+|----------------------+----------+----------+----------+----------+----------|
+|----------------------+----------+----------+----------+----------+----------|
+| Size of the hole     |          |          |          |          |          |
+| [px] and [% of tile] |          |          |          |          |          |
+|----------------------+----------+----------+----------+----------+----------|
+| Shogun small         | 6   37.5 | 12  37.5 | 16  40.0 | 20  41.6 | 24  37.5 |
+| Shogun medium        | 8   50.0 | 18  56.3 | 24  60.0 | 28  58.3 | 36  56.3 |
+| Shogun large         | 12  75.0 | 24  75.0 | 32  80.0 | 36  75.0 | 48  75.0 |
+|----------------------+----------+----------+----------+----------+----------|
+
+The size of the hole is the exact size which fits to the
+shadow models pixel by pixel. There may be some semitransparent
+pixels inside of this radius, but none outside.
+
+The shadow model has a black circle with the same radius centered
+at the coordinate (tilewidth/2, tilewidth/2). From this circle another
+one with same radius and centered at position (tilewidth/2+offset, tilewidth/2+offset)
+is subtracted. The offset is shadowsize - tilesize.
