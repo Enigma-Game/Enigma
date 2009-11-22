@@ -37,17 +37,16 @@ do
     local images,frames,shadows
 
     -- Normal black marble
-    images = SpriteImages("ac_marble_black", 2, 0.5, 0.32)
-    shadows = SpriteImage("sh-blackball", 0.4, 0.29)
-    DefShModel("ac_marble_black", "ac_marble_black1", "sh-blackball")
-    DefShModel("ac_marble_black-shine", "ac_marble_black2", "sh-blackball")
+    images = SpriteImages("ac_marble_black", 2, 0.5, 0.31)
+    shadows = SpriteImage("sh_marble", 0.4, 0.29)
+    DefShModel("ac_marble_black", "ac_marble_black1", "sh_marble")
+    DefShModel("ac_marble_black-shine", "ac_marble_black2", "sh_marble")
 
     -- Normal white marble
     -- Use shadow from black marble
-    DefAlias("sh-whiteball", "sh-blackball")
-    images = SpriteImages("ac_marble_white", 2, 0.5, 0.32)
-    DefShModel("ac_marble_white", "ac_marble_white1", "sh-whiteball")
-    DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh-whiteball")
+    images = SpriteImages("ac_marble_white", 2, 0.5, 0.31)
+    DefShModel("ac_marble_white", "ac_marble_white1", "sh_marble")
+    DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
 
     -- Falling black marble
     images = SpriteImages("ac-blackball-fall", 10)

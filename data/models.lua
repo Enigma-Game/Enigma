@@ -295,7 +295,7 @@ end
 function SpriteImages(spriteimg, n, offsetfactor, padding)
     local factor = offsetfactor or 0.5
     local offset = -SpriteSize * factor
-    local pad = (padding or 0) * TileSize
+    local pad = math.floor( (padding or 0) * TileSize )
     return DefSubimages(spriteimg,
                          {h = n, imgw=SpriteSize, imgh=SpriteSize,
                              xoff = offset, yoff = offset, padding=pad})
@@ -304,8 +304,8 @@ end
 function SpriteImage(spriteimg, offsetfactor, padding)
     local factor = offsetfactor or 0.5
     local offset = -SpriteSize * factor
-    local padding = (padding or 0) * TileSize
-    return DefImage(spriteimg, {xoff = offset, yoff = offset, padding=padding})
+    local pad = math.floor( (padding or 0) * TileSize )
+    return DefImage(spriteimg, {xoff = offset, yoff = offset, padding=pad})
 end
 
 function SpriteWithShadow()
