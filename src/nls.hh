@@ -40,6 +40,7 @@ namespace nls
         { "українська", "uk_UA", "flags25x15/ua" },
         { "беларуская", "be_BY", "flags25x15/by" },
         { "Ελληνικά",   "el_GR", "flags25x15/gr" },
+        { "Polski",     "pl_PL", "flags25x15/pl" },
     };
 }
 
