@@ -130,6 +130,7 @@ static void usage()
            "    --nomusic      Disable music\n"
            "    --nosound      Disable music and sound effects\n"
            "    --pref -p file Use filename or dirname for preferences\n"
+           "    --redirect     Redirect stdout/stderr to files on user path\n"
            "    --showfps      Show the framerate (FPS) during the Game\n"
            "    --version      Print the executable's version number\n"
            "    --window -w    Run in a window; do not enter fullscreen mode\n"
@@ -147,7 +148,7 @@ namespace
 
         // Variables.
         bool nosound, nomusic, show_help, show_version, do_log, do_assert, force_window;
-        bool dumpinfo, makepreview, show_fps;
+        bool dumpinfo, makepreview, show_fps, redirect;
         string gamename;
         string datapath;
         string preffilename;
@@ -173,7 +174,7 @@ namespace
 AP::AP() : ArgParser (app.args.begin(), app.args.end())
 {
     nosound  = nomusic = show_help = show_version = do_log = do_assert = force_window = false;
-    dumpinfo = makepreview = show_fps = false;
+    dumpinfo = makepreview = show_fps = redirect = false;
     gamename = "";
     datapath = "";
     preffilename = PREFFILENAME;
@@ -189,6 +190,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&dumpinfo,             "dumpinfo");
     def (&makepreview,          "makepreview");
     def (&show_fps,             "showfps");
+    def (&redirect,             "redirect");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);
@@ -286,28 +288,30 @@ void Application::init(int argc, char **argv)
     systemCmdDataPath = ap.datapath;
     initSysDatapaths(ap.preffilename);
 
-    // redirect stdout, stderr for Windows
+    // redirect stdout, stderr
 #ifdef WIN32
-    FILE *newfp;
-    newfp = std::freopen((userStdPath + "/Output.log").c_str(), "w", stdout);
-    if ( newfp == NULL ) {  // This happens on NT
-        newfp = fopen((userStdPath + "/Output.log").c_str(), "w");
-        if (newfp) {  // in case stdout is a macro
-            *stdout = *newfp;
-        }
-    }
-    setvbuf(stdout, NULL, _IOLBF, BUFSIZ);   // Line buffered
-    
-    newfp = std::freopen((userStdPath + "/Error.log").c_str(), "w", stderr);
-    if ( newfp == NULL ) {  // This happens on NT
-        newfp = fopen((userStdPath + "/Error.log").c_str(), "w");
-        if (newfp) {  // in case stderr is a macro
-            *stderr = *newfp;
-        }
-    }
-    setbuf(stderr, NULL);   // No buffering
+    ap.redirect = true;
 #endif
-
+    if (ap.redirect) {
+        FILE *newfp;
+        newfp = std::freopen((userStdPath + "/Output.log").c_str(), "w", stdout);
+        if ( newfp == NULL ) {  // This happens on NT
+            newfp = fopen((userStdPath + "/Output.log").c_str(), "w");
+            if (newfp) {  // in case stdout is a macro
+                *stdout = *newfp;
+            }
+        }
+        setvbuf(stdout, NULL, _IOLBF, BUFSIZ);   // Line buffered
+        
+        newfp = std::freopen((userStdPath + "/Error.log").c_str(), "w", stderr);
+        if ( newfp == NULL ) {  // This happens on NT
+            newfp = fopen((userStdPath + "/Error.log").c_str(), "w");
+            if (newfp) {  // in case stderr is a macro
+                *stderr = *newfp;
+            }
+        }
+        setbuf(stderr, NULL);   // No buffering
+    }
 
     // initialize logfile -- needs ap
     if (ap.do_log) 
@@ -316,6 +320,7 @@ void Application::init(int argc, char **argv)
         enigma::Log.rdbuf(::nullbuffer);
     
     // postponed system datapath logs
+    Log << "Enigma " << getVersionInfo() << "\n";
     Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
     Log << "docPath = \"" << docPath << "\"\n"; 
     Log << "l10nPath = \"" << l10nPath << "\"\n"; 
