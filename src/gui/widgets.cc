@@ -948,8 +948,8 @@ void ImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
 /* -------------------- BorderlessImageButton -------------------- */
 
 BorderlessImageButton::BorderlessImageButton(const string &unselected,
-    const string &selected, const string &mouseover, ActionListener *al)
-: fname_sel(selected), fname_unsel(unselected), fname_mouse(mouseover)
+    const string &selected, const string &mouseover, bool isSelected, ActionListener *al)
+: fname_sel(selected), fname_unsel(unselected), fname_mouse(mouseover), state (isSelected)
 {
     set_listener(al);
 }
@@ -962,7 +962,7 @@ void BorderlessImageButton::set_images(const string &unselected,
 }
 
 void BorderlessImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
-    string &fname = m_activep ? fname_mouse : (is_pressed() ? fname_sel : fname_unsel);
+    string &fname = m_activep ? fname_mouse : (state ? fname_sel : fname_unsel);
 
     if (Surface *s = enigma::GetImage(fname.c_str())) {
         int w=s->width();
@@ -973,3 +973,11 @@ void BorderlessImageButton::draw(ecl::GC &gc, const ecl::Rect &r) {
     }
 }
 
+void BorderlessImageButton::setState(bool isSelected) {
+    state = isSelected;
+    invalidate();
+}
+
+bool BorderlessImageButton::getState() const {
+    return state;
+}

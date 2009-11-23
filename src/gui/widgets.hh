@@ -473,13 +473,17 @@ namespace enigma { namespace gui {
         BorderlessImageButton(const std::string &unselected,
                               const std::string &selected,
                               const std::string &mouseover,
+                              bool isSelected =false,
                               ActionListener    *al = 0);
         void set_images(const std::string &unselected, const std::string &selected,
                         const std::string &mouseover);
+        void setState(bool isSelected);
+        bool getState() const;
         // Widget interface.
         virtual void draw(ecl::GC &gc, const ecl::Rect &r);
     private:
         std::string fname_sel, fname_unsel, fname_mouse;
+        bool state;
     };
 
 }} // namespace enigma::gui

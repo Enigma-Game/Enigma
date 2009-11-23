@@ -377,15 +377,18 @@ namespace enigma { namespace gui {
         //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
         BuildHList l(this, Rect(ly, 10, 30, 20), 5);
         //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
-        language.clear();
-        if(!vshrink)
+        if(!vshrink) {
+            std::string curname = ecl::SysMessageLocaleName();
+            curname = curname.substr(0, curname.find('.'));
             for (size_t i=1; i<NUMENTRIES(nls::languages); ++i) {
                 BorderlessImageButton *but = new BorderlessImageButton(
                     nls::languages[i].flagimage + string("-shaded"),
                     nls::languages[i].flagimage,
-                    nls::languages[i].flagimage, this);
-                language.push_back(l.add(but));
+                    nls::languages[i].flagimage, curname == nls::languages[i].localename, this);
+                l.add(but);
+                flags.push_back(but);
             }
+        }
     }
     
     void MainMenu::draw_background(ecl::GC &gc) 
@@ -451,14 +454,19 @@ namespace enigma { namespace gui {
     #endif
         } else if (w == quit) {
             Menu::quit();
-        } else if (language.size() > 0) {
+        } else if (flags.size() > 0) {
             for (size_t i=1; i<NUMENTRIES(nls::languages); ++i)
-                if (w == language[i-1]) {
+                if (w == flags[i-1]) {
                     options::SetOption ("Language", nls::languages[i].localename);
                     app.setLanguage(nls::languages[i].localename);
                 }
         } else
             return;
+        // need to update flags
+        std::string curname = ecl::SysMessageLocaleName();
+        curname = curname.substr(0, curname.find('.'));
+        for (int i = 0; i < flags.size(); i++)
+            flags[i]->setState(curname == nls::languages[i+1].localename);
         invalidate_all();
     }
     

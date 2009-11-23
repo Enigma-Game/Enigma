@@ -21,7 +21,9 @@
 #define GUI_MAINMENU_HH_INCLUDED
 
 #include "gui/Menu.hh"
+#include "gui/widgets.hh"
 
+#include <list>
 #include <vector>
 
 namespace enigma { namespace gui {
@@ -54,7 +56,7 @@ namespace enigma { namespace gui {
         Widget *help;
         Widget *quit;
         Widget *lpack;
-        std::vector <Widget*> language;
+        std::vector<BorderlessImageButton*> flags;
     };
 
 /* -------------------- MainHelpMenu -------------------- */
