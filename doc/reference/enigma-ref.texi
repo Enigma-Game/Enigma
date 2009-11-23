@@ -84,8 +84,8 @@ your own new levels, you may need to know where Enigma stores the resources and 
 can control them.
 
 Enigma maintains several paths for control of load and storage of files. You
-can list these paths either by pressing @key{F2} within the main menu, or by
-starting Enigma with the switch @option{--log} (@pxref{Startup Switches}) and looking at the
+can list these paths either in the help submenu paths, or by starting Enigma
+with the switch @option{--log} (@pxref{Startup Switches}) and looking at the
 console output.
 
 @table @asis
@@ -120,9 +120,14 @@ are stored at this path.
 
 A backup of this directory is mandatory!
 
-The standard location is the directory @samp{.enigma} at your @env{HOME}
-directory. For @env{HOME}-less Windows users, it is the @samp{Application Data\Enigma}
-directory.
+The standard location is the directory @samp{.enigma} in your @env{HOME}
+directory. For @env{HOME}-less Windows users, it is the folder 
+@samp{%APPDATA%\Enigma}, what resolves to the subfolder 
+@samp{Application Data\Enigma} on XP/2000 or @samp{AppData\Roaming\Enigma} on
+Vista/Windows 7 located within your user data folder.
+
+This standard location of the user path is the location of logging and error
+output files, too.
 
 You can define your own path within the @ref{User Options}. By doing so, you can store your
 Enigma user data on a memory stick or on a shared partition, and use them alternatively from
@@ -170,10 +175,13 @@ assumes it to to be an update to the zip.
 @node Startup Switches
 @section Startup Switches
 
-Besides starting Enigma by clicking on an installation-provided icon or start menu entry, you
-can start Enigma from a shell or commandline. With release 1.00, the Windows version
-supports this feature without restrictions. Although playing the distributed levels using this
-feature is not necessary, you may take advantage of this feature in special or advanced usage.
+Besides starting Enigma by clicking on an installation-provided icon or start
+menu entry, you can start Enigma from a shell or commandline. This allows you
+to add a selection of startup switches that are valid for just a single run.
+
+For repeated usage of constant startup switches you can create an desktop icon
+or start menu entry and append the startup switch to the target string of the
+Enigma application executable.
 
 The following list explains the supported user options. If an option is listed with a long name
 preceded by two minus signs, and with a one-character abbreviation preceded by one minus
@@ -203,8 +211,11 @@ for Russian.
 
 @item @b{-@w{}-log}
 This switch turns on logging of internal information to the standard output.
-Windows users will find an file called @samp{stdout.txt} in the current working
-directory. The output will, for example, list the paths described in @ref{Locating Resources}.
+Windows users will find an file called @samp{Output.log} in the standard
+@samp{User Path} folder. An additional file @samp{Error.log} lists severe
+error messages.
+
+The output will, for example, list the paths described in @ref{Locating Resources}.
 
 @item @b{-@w{}-nograb}
 A switch for Enigma developers that causes Enigma not to grab the mouse. You can hardly
@@ -253,9 +264,9 @@ A Unix user may start Enigma with the following command:
 A Windows user may start Enigma from the command line (please adjust the Enigma
 installation path):
 
-@code{C:\programs\Enigma-1.00\enigma.exe demo_simple.xml}
+@code{C:\Programs\Enigma\enigma.exe --log demo_simple.xml}
 
-You will find these levels in a levelpack called @samp{Startup Levels}, which is
+You will find these levels in the levelpack called @samp{Startup Levels}, which is
 only visible by default if you supplied levels on the commandline.
 
 @node User Options

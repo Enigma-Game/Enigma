@@ -278,19 +278,48 @@ void Application::init(int argc, char **argv)
         isMakePreviews = true;
     }
 
+    // initialize assertion stop flag
+    if (ap.do_assert)
+        enigma::noAssert = false;
+
+    // initialize system datapaths -- needs ap
+    systemCmdDataPath = ap.datapath;
+    initSysDatapaths(ap.preffilename);
+
+    // redirect stdout, stderr for Windows
+#ifdef WIN32
+    FILE *newfp;
+    newfp = std::freopen((userStdPath + "/Output.log").c_str(), "w", stdout);
+    if ( newfp == NULL ) {  // This happens on NT
+        newfp = fopen((userStdPath + "/Output.log").c_str(), "w");
+        if (newfp) {  // in case stdout is a macro
+            *stdout = *newfp;
+        }
+    }
+    setvbuf(stdout, NULL, _IOLBF, BUFSIZ);   // Line buffered
+    
+    newfp = std::freopen((userStdPath + "/Error.log").c_str(), "w", stderr);
+    if ( newfp == NULL ) {  // This happens on NT
+        newfp = fopen((userStdPath + "/Error.log").c_str(), "w");
+        if (newfp) {  // in case stderr is a macro
+            *stderr = *newfp;
+        }
+    }
+    setbuf(stderr, NULL);   // No buffering
+#endif
+
+
     // initialize logfile -- needs ap
     if (ap.do_log) 
         enigma::Log.rdbuf(cout.rdbuf());
     else
         enigma::Log.rdbuf(::nullbuffer);
-
-    // initialize assertion stop flag
-    if (ap.do_assert)
-        enigma::noAssert = false;
-
-    // initialize system datapaths -- needs ap, log
-    systemCmdDataPath = ap.datapath;
-    initSysDatapaths(ap.preffilename);
+    
+    // postponed system datapath logs
+    Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
+    Log << "docPath = \"" << docPath << "\"\n"; 
+    Log << "l10nPath = \"" << l10nPath << "\"\n"; 
+    Log << "prefPath = \"" << prefPath << "\"\n"; 
 
     // initialize XML -- needs log, datapaths
     initXerces();
@@ -534,7 +563,6 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     systemFS->append_dir(systemAppDataPath);
     if (!systemCmdDataPath.empty())
          systemFS->prepend_dir(systemCmdDataPath);
-    Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
     
     // docPath
     docPath = DOCDIR;    // defined in src/Makefile.am 
@@ -545,7 +573,6 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 #elif MACOSX
     docPath = progDir + "/../Resources/doc";
 #endif
-    Log << "docPath = \"" << docPath << "\"\n"; 
     
     // l10nPath
     l10nPath = LOCALEDIR;    // defined in src/Makefile.am
@@ -556,9 +583,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 #elif MACOSX
     l10nPath = progDir + "/../Resources/locale";
 #endif
-    Log << "l10nPath = \"" << l10nPath << "\"\n"; 
-    
-    
+
     // prefPath
     if (prefFilename.find_first_of(ecl::PathSeparators) != std::string::npos) {
         // pref is a path - absolute or home relative
@@ -593,7 +618,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
                 fprintf(stderr, _("Error Application Data directory does not exist.\n"));
                 exit(1);
             }
-        Log << "winAppDataPath " << winAppDataPath << "\n";
+//        Log << "winAppDataPath " << winAppDataPath << "\n";
         userStdPath = winAppDataPath;
         prefPath = winAppDataPath + ecl::PathSeparator + "." + prefFilename;
 #endif
@@ -601,7 +626,6 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         fprintf(stderr, _("Error Home directory does not exist.\n"));
         exit(1);
     }
-    Log << "prefPath = \"" << prefPath << "\"\n"; 
 }
 
 void Application::initXerces() {
