@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Crabwise III" el:subtitle="" el:id="devnull38"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -32,9 +32,9 @@ ti["e"] = {"st_puzzle_blue", "pd", connections = "e", intensity = 0}
 ti["W"] = {"st_puzzle_blue", "pA", connections = "w", intensity = 0}
 ti["-"] = {"st_puzzle_blue", "pB", connections = "ew", intensity = 0}
 ti["E"] = {"st_puzzle_blue", "pC", connections = "e", intensity = 0}
-ti["a"] = {"it_trigger", target = "toggleDoors", action = "signal"}
+ti["a"] = {"fl_scales", target = "toggleDoors", action = "signal", flavor= "concrete", min = 0.9}
 ti["A"] = {"st_door_a", "doors#"}
-ti["b"] = {"it_trigger", target = "toggleBridges", action = "signal"}
+ti["b"] = {"fl_scales", target = "toggleBridges", action = "signal", flavor= "concrete", min = 0.9}
 ti["B"] = {"fl_bridge", "bridges#"}
 ti["1"] = {"st_pull", "nav01"}
 ti["2"] = {"st_swap"}

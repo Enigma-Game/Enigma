@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Floors as of Enigma 1.10" el:subtitle="" el:id="floors"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -126,6 +126,13 @@ local floors = {
 {"fl_inverse_gray", _text="fl_inverse_gray"},
 {"fl_rock", _text="fl_rock"},
 {"fl_rock_framed", _text="fl_rock_framed"},
+{"fl_scales", _text="fl_scales, default"},
+{"fl_scales_brick", _text="fl_scales_brick"},
+{"fl_scales_bridgewood", _text="fl_scales_bridgewood"},
+{"fl_scales_concrete", _text="fl_scales_concrete"},
+{"fl_scales_darkgray", _text="fl_scales_darkgray"},
+{"fl_scales_gray", _text="fl_scales_gray"},
+{"fl_scales_platinum", _text="fl_scales_platinum"},
 {"fl_slope", _text="fl_slope, default"},
 {"fl_slope", slope=WEST, shape="pw", _text="fl_slope, slope=WEST, shape=\"pw\""},
 {"fl_slope", slope=SOUTH, shape="ps", _text="fl_slope, slope=SOUTH, shape=\"ps\""},

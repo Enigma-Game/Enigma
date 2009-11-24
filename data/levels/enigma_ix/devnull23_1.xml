@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="more is not less" el:subtitle="" el:id="devnull23"/>
-      <el:version el:score="1" el:release="1" el:revision="11" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="13" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,32 +12,30 @@
       <el:score el:easy="2:00" el:difficult="9:00"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti["  "] = {"fl_gray_framed", friction = 4.2}
 ti[" ."] = {"fl_water"}
 ti[" :"] = {"fl_gray", friction = 2.8}
 ti[" ^"] = {"fl_slope_pn"}
 ti["w "] = {"st_plaster_movable"}
-ti[" 0"] = {"it_trigger", target = "door0"}
+ti[" 0"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door0"}
 ti["0 "] = {"st_door_b", "door0", state = CLOSED}
-ti[" 1"] = {"it_trigger", target = "door1"}
+ti[" 1"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door1"}
 ti["1 "] = {"st_door_b", "door1", state = CLOSED}
-ti[" 2"] = {"it_trigger", target = "door2"}
+ti[" 2"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door2"}
 ti["2 "] = {"st_door_b", "door2", state = CLOSED}
-ti[" 3"] = {"it_trigger", target = "door3#*"}
+ti[" 3"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door3#*"}
 ti["3 "] = {"st_door_b", "door3#", state = CLOSED}
-ti[" 4"] = {"it_trigger", target = "door4#*"}
+ti[" 4"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door4#*"}
 ti["4 "] = {"st_door_b", "door4#", state = CLOSED}
-ti[" 5"] = {"it_trigger", target = {"door5", "door6"}}
+ti[" 5"] = {"fl_scales", flavor = "gray", min = 0.9, target = {"door5", "door6"}}
 ti["5 "] = {"st_door_b", "door5", state = CLOSED}
 ti["6 "] = {"st_door_b", "door6", state = OPEN}
 ti["7 "] = {"st_door_b", "door7", state = CLOSED}
-ti[" 7"] = {"it_trigger", target = {"laser0", "door7"}}
+ti[" 7"] = {"fl_scales", flavor = "gray", min = 0.9, target = {"laser0", "door7"}}
 ti["8 "] = {"st_door_b", "door8#", state = CLOSED}
-ti[" 8"] = {"it_trigger", target = "door8#*"}
+ti[" 8"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door8#*"}
 ti["9 "] = {"st_door_b", "door9#", state = CLOSED}
-ti[" 9"] = {"it_trigger", target = "door9#*"}
+ti[" 9"] = {"fl_scales", flavor = "gray", min = 0.9, target = "door9#*"}
 ti["@ "] = {"#ac_marble_black"}
 ti["a "] = {"#ac_pearl", owner = DEFAULT, controllers = CTRL_NONE, essential = INDISPENSABLE}
 ti["l "] = {"st_laser", "laser0", orientation = NORTH, state = OFF}
