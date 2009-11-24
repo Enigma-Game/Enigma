@@ -95,8 +95,6 @@ function copy_data
     mkdir $DDIR/data/soundsets 
     mkdir $DDIR/data/soundsets/enigma 
     cp -p $SDIR/data/soundsets/enigma/*.wav $DDIR/data/soundsets/enigma
-    mkdir $DDIR/data/thumbs
-    cp -p $SDIR/data/thumbs/README $DDIR/data/thumbs
     
     echo "... copying locales:"
     mkdir $DDIR/data/locale

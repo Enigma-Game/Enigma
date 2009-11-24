@@ -242,6 +242,13 @@ user data in a single directory that can be stored anywhere, e.g. on a USB stick
 You always need to call Enigma with the above switch to use this new set up.
 Remember that a path with spaces needs to be quoted.
 
+@item @b{-@w{}-redirect}
+Redirect the @samp{stdout} and @samp{stderr} to files named @samp{Output.log}
+and @samp{Error.log} on the standard user path (@pxref{Locating Resources}).
+For Windows this option is always @code{true}, but the usage of this option
+is useful on any operating system if Enigma is started via a desktop icon or
+a menu button.
+
 @item @b{-@w{}-showfps}
 Show the framerate (FPS) during the game.
 
