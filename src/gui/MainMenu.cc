@@ -377,6 +377,7 @@ namespace enigma { namespace gui {
         //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
         BuildHList l(this, Rect(ly, 10, 30, 20), 5);
         //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
+        flags.clear();  // remove old flags on screen resolution changes
         if(!vshrink) {
             std::string curname = ecl::SysMessageLocaleName();
             curname = curname.substr(0, curname.find('.'));
@@ -467,6 +468,7 @@ namespace enigma { namespace gui {
         curname = curname.substr(0, curname.find('.'));
         for (int i = 0; i < flags.size(); i++)
             flags[i]->setState(curname == nls::languages[i+1].localename);
+                
         invalidate_all();
     }
     
