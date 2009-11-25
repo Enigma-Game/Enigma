@@ -1021,6 +1021,7 @@
     <object name="it_hammer_new" init="true"/>
     <object name="it_key">
       <attr name="code"/>
+      <attr name="invisible" default="true"/>
     </object>
     <object name="it_landmine"/>
     <object name="it_magicwand"/>
@@ -1721,6 +1722,7 @@
       <attr name="burnable" value="true"/>
     </object>
     <object name="st_floppy">
+      <attr name="secure" default="true"/>
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>
@@ -1795,6 +1797,8 @@
     </object>
     <object name="st_key">
       <attr name="code"/>
+      <attr name="secure" default="true"/>
+      <attr name="invisible" default="true"/>
       <msg name="on"/>
       <msg name="off"/>
       <msg name="signal"/>

@@ -43,6 +43,9 @@ namespace enigma {
     public:
         FloppySwitch();
 
+        // Object interface
+        virtual void setAttr(const string& key, const Value &val);
+
         // StateObject interface
         virtual void setState(int extState);
 

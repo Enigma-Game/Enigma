@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  * Copyright (C) 2008 Raoul Bourquin
  *
  * This program is free software; you can redistribute it and/or
@@ -28,6 +28,24 @@ namespace enigma {
     KeySwitch::KeySwitch() : Stone () {
     }
 
+    void KeySwitch::setAttr(const string& key, const Value &val) {
+        if (key == "target") {
+            Stone::setAttr("destination", val);
+        } else if (key == "invisible") {
+            if (isDisplayable() && (getAttr("invisible").to_bool() != val.to_bool())) {
+                Stone::setAttr(key, val);
+                init_model();
+                return; 
+            }
+        } else if (key == "code") {
+            Stone::setAttr(key, val);
+            if (isDisplayable())
+                init_model();
+            return;            
+        }
+        Stone::setAttr(key, val);
+    }
+    
     void KeySwitch::setState(int extState) {
         if (isDisplayable()) {
             if (state == OFF && extState != state) {
@@ -46,7 +64,12 @@ namespace enigma {
     }
 
     void KeySwitch::init_model() {
-        set_model(ecl::strf("st_key_%s", state == ON ? "on" : "off"));
+        bool showCode = !getAttr("invisible").to_bool();
+        int code = getAttr("code");
+        if (showCode && code >= 1 && code <= 8)
+            set_model(ecl::strf("st_key_%d_%s", code, state == ON ? "on" : "off"));
+        else
+            set_model(ecl::strf("st_key_%s", state == ON ? "on" : "off"));
     }
 
     void KeySwitch::actor_hit(const StoneContact &sc) {
@@ -57,21 +80,35 @@ namespace enigma {
         bool toggle = false;
 
         if (server::GameCompatibility == enigma::GAMET_ENIGMA) {
-            if (state == ON) {
-                if (!inv->is_full()) {
-                    Item *key = MakeItem("it_key");
-                    key->setAttr("code", getAttr("code"));
-                    inv->add_item(key);
-                    toggle = true;
+            const GridPos apos = sc.actor->get_gridpos();
+            bool safe = true;
+            ecl::V2 dest;
+            int idx = 0;
+            if (server::EnigmaCompatibility >= 1.10 && getAttr("secure").to_bool()) {
+                while (getDestinationByIndex(idx++, dest)) {
+                    if (apos == (GridPos)dest)
+                        safe = false;
                 }
             }
-            else if (check_matching_key(inv)) {
-                DisposeObject(inv->yield_first());
-                toggle = true;
+            if (safe) {
+                if (state == ON) {
+                    if (!inv->is_full()) {
+                        Item *key = MakeItem("it_key");
+                        key->setAttr("code", getAttr("code"));
+                        key->setAttr("invisible", getAttr("invisible"));
+                        inv->add_item(key);
+                        toggle = true;
+                    }
+                } else if (check_matching_key(inv)) {
+                    Item * it  = inv->yield_first();
+                    if (!(it->getAttr("invisible").to_bool()))
+                        setAttr("invisible", false);
+                    DisposeObject(it);
+                    toggle = true;
+                }
+                player::RedrawInventory (inv);
             }
-            player::RedrawInventory (inv);
-        }
-        else {
+        } else {
             if (check_matching_key(inv))
                 toggle = true;
         }
@@ -84,8 +121,7 @@ namespace enigma {
          return "metal";
     }
 
-    bool KeySwitch::check_matching_key(enigma::Inventory *inv)
-    {
+    bool KeySwitch::check_matching_key(enigma::Inventory *inv) {
         Item *it = inv->get_item(0);
         return (it
              && it->isKind("it_key")

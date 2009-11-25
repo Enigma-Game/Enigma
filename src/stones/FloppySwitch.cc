@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  * Copyright (C) 2008 Raoul Bourquin
  *
  * This program is free software; you can redistribute it and/or
@@ -28,6 +28,13 @@ namespace enigma {
     FloppySwitch::FloppySwitch() : Stone () {
     }
 
+    void FloppySwitch::setAttr(const string& key, const Value &val) {
+        if (key == "target") {
+            Stone::setAttr("destination", val);
+        }
+        Stone::setAttr(key, val);
+    }
+    
     void FloppySwitch::setState(int extState) {
         if (isDisplayable()) {
             if (extState != state) {
@@ -46,17 +53,29 @@ namespace enigma {
 
     void FloppySwitch::actor_hit(const StoneContact &sc) {
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
-            if (state == ON) {
-                if (!inv->is_full()) {
-                    inv->add_item (MakeItem("it_floppy"));
-                    setState(OFF);
+            const GridPos apos = sc.actor->get_gridpos();
+            bool safe = true;
+            ecl::V2 dest;
+            int idx = 0;
+            if (server::EnigmaCompatibility >= 1.10 && getAttr("secure").to_bool()) {
+                while (getDestinationByIndex(idx++, dest)) {
+                    if (apos == (GridPos)dest)
+                        safe = false;
                 }
             }
-            else if (player::WieldedItemIs (sc.actor, "it_floppy")) {
-                DisposeObject(inv->yield_first());
-                setState(ON);
+            if (safe) {
+                if (state == ON) {
+                    if (!inv->is_full()) {
+                        inv->add_item (MakeItem("it_floppy"));
+                        setState(OFF);
+                    }
+                }
+                else if (player::WieldedItemIs (sc.actor, "it_floppy")) {
+                    DisposeObject(inv->yield_first());
+                    setState(ON);
+                }
+                player::RedrawInventory (inv);
             }
-            player::RedrawInventory (inv);
         }
     }
 

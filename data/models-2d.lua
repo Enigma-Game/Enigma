@@ -592,9 +592,14 @@ end
 -------------------------
 
 do
-    DefAlias("it-key_a", "it-key")
-    DefAlias("it-key_b", "it-key")
-    DefAlias("it-key_c", "it-key")
+    DefAlias("it_key_1", "it_key")
+    DefAlias("it_key_2", "it_key")
+    DefAlias("it_key_3", "it_key")
+    DefAlias("it_key_4", "it_key")
+    DefAlias("it_key_5", "it_key")
+    DefAlias("it_key_6", "it_key")
+    DefAlias("it_key_7", "it_odometer")
+    DefAlias("it_key_8", "it_key")
 end
 
 --------------------------------------------------------------
@@ -892,6 +897,25 @@ do
     DefStone("st_blur_straight", "sh_round")
     DefStone("st_blur_cross", "sh_round")
     DefStone("st_yinyang_inactive", "sh_round")
+end
+
+do
+    DefAlias("st_key_1_off", "st_key_off")
+    DefAlias("st_key_2_off", "st_key_off")
+    DefAlias("st_key_3_off", "st_key_off")
+    DefAlias("st_key_4_off", "st_key_off")
+    DefAlias("st_key_5_off", "st_key_off")
+    DefAlias("st_key_6_off", "st_key_off")
+    DefAlias("st_key_7_off", "st_floppy_off")
+    DefAlias("st_key_8_off", "st_key_off")
+    DefAlias("st_key_1_on", "st_key_on")
+    DefAlias("st_key_2_on", "st_key_on")
+    DefAlias("st_key_3_on", "st_key_on")
+    DefAlias("st_key_4_on", "st_key_on")
+    DefAlias("st_key_5_on", "st_key_on")
+    DefAlias("st_key_6_on", "st_key_on")
+    DefAlias("st_key_7_on", "st_floppy_on")
+    DefAlias("st_key_8_on", "st_key_on")
 end
 
 ---------------------

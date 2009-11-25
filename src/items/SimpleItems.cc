@@ -235,6 +235,29 @@ namespace enigma {
         {"it_flag_white", it_flag_white,  itf_none, 0.0},
     };
 
+/* -------------------- Key -------------------- */
+
+    Key::Key() {
+    }
+    
+    void Key::setAttr(const string& key, const Value &val) {
+        Item::setAttr(key, val);
+        if (key == "invisible" || key == "code") {
+            player::RedrawInventory();
+        }
+    }
+    
+    std::string Key::get_inventory_model() {
+        bool showCode = !getAttr("invisible").to_bool();
+        int code = getAttr("code");
+        if (showCode && code >= 1 && code <= 8)
+            return ecl::strf("it_key_%d", code);
+        else
+            return "it_key";        
+    }
+    
+    DEF_ITEMTRAITS(Key, "it_key", it_key);
+    
 /* -------------------- Pencil -------------------- */
 
     Pencil::Pencil() {

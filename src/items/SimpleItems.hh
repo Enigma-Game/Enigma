@@ -174,7 +174,20 @@ namespace enigma {
     /**
      * Key
      */
-    DEF_ITEM(Key, "it_key", it_key);
+    class Key : public Item {
+        CLONEOBJ(Key);
+        DECL_ITEMTRAITS;
+
+    public:
+        Key();
+        
+        // Object interface
+        virtual void setAttr(const string& key, const Value &val);
+        
+        // Item interface
+        virtual std::string get_inventory_model();
+    };
+
 
     /**
      * MagicWand

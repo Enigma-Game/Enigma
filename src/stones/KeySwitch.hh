@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009 Ronald Lamprecht
  * Copyright (C) 2008 Raoul Bourquin
  *
  * This program is free software; you can redistribute it and/or
@@ -45,6 +45,9 @@ namespace enigma {
         enum iState { OFF, ON };
     public:
         KeySwitch();
+
+        // Object interface
+        virtual void setAttr(const string& key, const Value &val);
 
         // StateObject interface
         virtual void setState(int extState);
