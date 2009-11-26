@@ -12673,18 +12673,27 @@ flickering of repeated item transformations.
 A key activates an @ref{st_key} when inserted by hitting the stone with
 the key as first item in the players inventory.
 
+Usually the @samp{code} of the key is not visually unveiled. But if you
+set @samp{invisible} to the value @samp{false} the code becomes visible for
+number code values @samp{1} to @samp{8}. The code is just visible, when the
+key is part of the inventory. This helps the user to distinguish multiple keys
+in the inventory and to assign them to the matching @ref{st_key}s.
+
+An @samp{invisible} key reveals its code when being inserted in a matching, 
+unveiled @ref{st_key}. The code remains visible, when the user withdraws the
+key from the stone and adds it to his inventory.
+
 @table @asis
 
 @item @b{Attributes:}
 @table @asis
+@item @b{code}, @ @ @i{values}: number or string; @ @ @i{default}: @code{1}
+The code of a key must match that of an @ref{st_key} to unlock it.
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+A visible key unveils its @samp{code} by a color spot when being lifted.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
-@end table
-
-@table @asis
-@item @b{code}, @ @ @i{values}: number or string; @ @ @i{default}: @code{1}
-The code of a key must match that of an @ref{st_key} to unlock it.
 @end table
 
 @item @b{Messages:} none
@@ -16486,12 +16495,26 @@ the floppy switch with a floppy being the first item.
 On a second hit the switch is deactivated and the inserted floppy is returned
 to the players inventory.
 
+Floppy stones are often used as openers for an adjacent @ref{st_door} that is
+declared as its @samp{target}. But there is the inherent danger that an actor
+passing the door accidentially hits the neighboring floppy stone, causing the floppy
+to be pulled out again and the door to be closed immediately. Of couse this 
+would shatter any @ref{ac_marble} or @ref{ac_pearl}. But a @samp{secure} floppy
+stone checks that the hitting actor is not positioned on one of the floppy stones
+target positions. It refuses any actions caused by such critical hits. Note
+that in case the target is a callback function that closes the adjacent door,
+there will be still no protection. A floppy stone with @samp{secure} value 
+@samp{false} would accept any hits and shatter marbles as it has been standard
+on older Enigma releases and is still in modes besides Enigma.
+
 @table @asis
 @item @b{Attributes:}
 
 @table @asis
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF}; @ @ @xref{state}
 Current activity state of the floppy stone.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Protect actors on target positions by neglecting their hits.
 @end table
 
 @item @b{Messages:}
@@ -16850,6 +16873,27 @@ the key switch with a key being the first item. Just keys with a matching
 On a second hit the switch is deactivated and the inserted key is returned
 to the player's inventory.
 
+Key stones are often used as openers for an adjacent @ref{st_door} that is
+declared as its @samp{target}. But there is the inherent danger that an actor
+passing the door accidentially hits the neighboring key stone, causing the key
+to be pulled out again and the door to be closed immediately. Of couse this 
+would shatter any @ref{ac_marble} or @ref{ac_pearl}. But a @samp{secure} key
+stone checks that the hitting actor is not positioned on one of the key stones
+target positions. It refuses any actions caused by such critical hits. Note
+that in case the target is a callback function that closes the adjacent door,
+there will be still no protection. A key stone with @samp{secure} value 
+@samp{false} would accept any hits and shatter marbles as it has been standard
+on older Enigma releases and is still in modes besides Enigma.
+
+Usually the @samp{code} of the key stone is not visually unveiled. But if you
+set @samp{invisible} to the value @samp{false} the code becomes visible for
+number code values @samp{1} to @samp{8}. This helps the user to distinguish
+the stones and to assign the correct @ref{it_key} when multiple instances are
+present.
+
+An @samp{invisible} key stone reveals its code when a matching, unveiled
+@ref{it_key} gets inserted.
+
 @table @asis
 @item @b{Attributes:}
 
@@ -16858,6 +16902,10 @@ to the player's inventory.
 Current activity state of the key stone.
 @item @b{code}, @ @ @i{values}: number or string; @ @ @i{default}: @code{1}:
 The code that is required to activate this switch.
+@item @b{secure} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Protect actors on target positions by neglecting their hits.
+@item @b{invisible} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+A visible key stone unveils its @samp{code} by a color spot.
 @end table
 
 @item @b{Messages:}
