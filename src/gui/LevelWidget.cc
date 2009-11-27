@@ -62,7 +62,6 @@ namespace enigma { namespace gui {
         img_hard        = enigma::GetImage("completed");
         img_changed     = enigma::GetImage("changed");
         img_unavailable = enigma::GetImage("unavailable");
-//        img_unknown     = enigma::GetImage("unknown");
         img_par         = enigma::GetImage("par");
         img_wrEasy      = enigma::GetImage("ic-wr-easy");
         img_wrDifficult = enigma::GetImage("ic-wr-difficult");

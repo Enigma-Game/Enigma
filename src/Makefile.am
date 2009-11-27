@@ -41,9 +41,6 @@ enigma_SOURCES = 		\
 	display.cc 		\
 	display_internal.hh	\
 	d_engine.hh		\
-	editor.cc 		\
-	editor.hh 		\
-	editor_impl.hh		\
 	enigma.cc 		\
 	enigma.hh		\
 	errors.hh		\
@@ -72,8 +69,6 @@ enigma_SOURCES = 		\
 	lua.hh			\
 	lua-display.cc 		\
 	lua-display.hh		\
-	lua-editor.cc 		\
-	lua-editor.hh		\
 	lua-enigma.cc 		\
 	lua-enigma.hh		\
 	lua-global.cc 		\
@@ -457,7 +452,6 @@ tolua:
 	@if [ "x${TOLUA}" != "x" ]; then \
 		echo "Running ${TOLUA}..."; \
 		${TOLUA} -H lua-display.hh -n display -o lua-display.cc display-lua.pkg; \
-		${TOLUA} -H lua-editor.hh -n editor -o lua-editor.cc editor-lua.pkg; \
 		${TOLUA} -H lua-enigma.hh -n enigma -o lua-enigma.cc enigma-lua.pkg; \
 		${TOLUA} -H lua-global.hh -n global -o lua-global.cc global-lua.pkg; \
 		${TOLUA} -H lua-ecl.hh -n px -o lua-ecl.cc ecl-lua.pkg; \

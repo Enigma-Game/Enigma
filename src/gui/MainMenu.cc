@@ -33,7 +33,6 @@
 #include "world.hh"
 
 #include "netgame.hh"
-#include "editor.hh"
 
 
 using namespace ecl;
@@ -364,7 +363,6 @@ namespace enigma { namespace gui {
         levelpack = b.add(new StaticTextButton(N_("Level Pack"), this));
 #ifdef ENABLE_EXPERIMENTAL
         m_netgame   = b.add(new StaticTextButton(N_("Network Game"), this));
-        leveled     = b.add(new StaticTextButton(N_("Editor"), this));
 #endif
         options     = b.add(new StaticTextButton(N_("Options"), this));
 #if 0
@@ -450,8 +448,6 @@ namespace enigma { namespace gui {
     #ifdef ENABLE_EXPERIMENTAL
         } else if (w == m_netgame) {
             ShowNetworkMenu();
-        } else if (w == leveled) {
-            editor::Run();
     #endif
         } else if (w == quit) {
             Menu::quit();
