@@ -556,7 +556,6 @@ do
         "it_glasses",
         "it_glasses_broken",
         "it_hammer",
-        "it_key",
         "it_landmine",
         "it_magicwand",
         "it_odometer",
@@ -591,17 +590,6 @@ end
 -- Simple item aliases --
 -------------------------
 
-do
-    DefAlias("it_key_1", "it_key")
-    DefAlias("it_key_2", "it_key")
-    DefAlias("it_key_3", "it_key")
-    DefAlias("it_key_4", "it_key")
-    DefAlias("it_key_5", "it_key")
-    DefAlias("it_key_6", "it_key")
-    DefAlias("it_key_7", "it_odometer")
-    DefAlias("it_key_8", "it_key")
-end
-
 --------------------------------------------------------------
 -- Multiple-Image-Items, non animated, e.g. it-burnable-oil --
 --------------------------------------------------------------
@@ -614,6 +602,11 @@ end
 -- it_dummy
 do
     DefTiles("it_dummy", {"it_dummy", "it_dummy_egg"})
+end
+
+-- it_key --
+do
+    DefTiles("it_key", {"it_key", "it_key_1", "it_key_2", "it_key_3", "it_key_4", "it_key_5", "it_key_6", "it_key_7", "it_key_8"})
 end
 
 -- Oil --
@@ -866,8 +859,6 @@ do
     DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st_portal_horse", "sh_portal_horse")
     DefStone("st_greenbrown", "sh_round")
-    DefStone("st_key_off", "sh_round")
-    DefStone("st_key_on", "sh_round")
     DefStone("st_redbrown", "sh_round")
     DefStone("st_metal")
     DefStone("st_redrock")
@@ -899,23 +890,16 @@ do
     DefStone("st_yinyang_inactive", "sh_round")
 end
 
+-- st_key --
 do
-    DefAlias("st_key_1_off", "st_key_off")
-    DefAlias("st_key_2_off", "st_key_off")
-    DefAlias("st_key_3_off", "st_key_off")
-    DefAlias("st_key_4_off", "st_key_off")
-    DefAlias("st_key_5_off", "st_key_off")
-    DefAlias("st_key_6_off", "st_key_off")
-    DefAlias("st_key_7_off", "st_floppy_off")
-    DefAlias("st_key_8_off", "st_key_off")
-    DefAlias("st_key_1_on", "st_key_on")
-    DefAlias("st_key_2_on", "st_key_on")
-    DefAlias("st_key_3_on", "st_key_on")
-    DefAlias("st_key_4_on", "st_key_on")
-    DefAlias("st_key_5_on", "st_key_on")
-    DefAlias("st_key_6_on", "st_key_on")
-    DefAlias("st_key_7_on", "st_floppy_on")
-    DefAlias("st_key_8_on", "st_key_on")
+    local images_on =  DefSubimages("st_key_on", {modelname="st_key_on", w=1, h=9})
+    local images_off = DefSubimages("st_key_off", {modelname="st_key_off", w=1, h=9})
+    DefRoundStone("st_key_on", images_on[1])
+    DefRoundStone("st_key_off", images_off[1])
+    for i=1,8 do
+        DefRoundStone("st_key_"..i.."_on", images_on[i+1])
+        DefRoundStone("st_key_"..i.."_off", images_off[i+1])
+    end
 end
 
 ---------------------
