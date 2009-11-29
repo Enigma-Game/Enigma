@@ -811,7 +811,7 @@ Progress(40, "Loading stone models")
 do
     DefImage("sh_solid")
     DefImage("sh_round")
-    DefImage("sh_round2")
+    DefImage("sh_rounded")
     DefImage("sh_grate_cross")
     DefImage("sh_grate_framed")
     DefImage("sh_portal_horse")
@@ -1887,7 +1887,7 @@ do
         for i=1,4 do
                 mname = basename .. i
                 DefOverlay (mname .. "-ovl", {baseimg, overlays[i]})
-                DefShModel(mname, mname .. "-ovl", "sh_round2")
+                DefShModel(mname, mname .. "-ovl", "sh_rounded")
         end
     end
 
@@ -1897,17 +1897,17 @@ do
     mirrorp_transp1 = FrameNames("st-mirrortempl", 13, 16)
     mirrorp_transp2 = FrameNames("st-mirrortempl", 17, 20)
 
-    make_mirror("st-3mirror-mo", "st-mirror-movable", mirror3_opaque)
-    make_mirror("st-3mirror-so", "st-mirror-static",  mirror3_opaque)
-    make_mirror("st-3mirror-mt", "st-mirror-movable", mirror3_transp)
-    make_mirror("st-3mirror-st", "st-mirror-static",  mirror3_transp)
+    make_mirror("st-3mirror-mo", "st_mirror_movable", mirror3_opaque)
+    make_mirror("st-3mirror-so", "st_mirror_static",  mirror3_opaque)
+    make_mirror("st-3mirror-mt", "st_mirror_movable", mirror3_transp)
+    make_mirror("st-3mirror-st", "st_mirror_static",  mirror3_transp)
 
-    make_mirror("st-pmirror-mo", "st-mirror-movable", mirrorp_opaque)
-    make_mirror("st-pmirror-so", "st-mirror-static",  mirrorp_opaque)
-    make_mirror("st-pmirror-mt", "st-mirror-movable", mirrorp_transp1)
-    make_mirror("st-pmirror-st", "st-mirror-static",  mirrorp_transp1)
-    make_mirror("st-pmirror-mf", "st-mirror-movable", mirrorp_transp2)
-    make_mirror("st-pmirror-sf", "st-mirror-static",  mirrorp_transp2)
+    make_mirror("st-pmirror-mo", "st_mirror_movable", mirrorp_opaque)
+    make_mirror("st-pmirror-so", "st_mirror_static",  mirrorp_opaque)
+    make_mirror("st-pmirror-mt", "st_mirror_movable", mirrorp_transp1)
+    make_mirror("st-pmirror-st", "st_mirror_static",  mirrorp_transp1)
+    make_mirror("st-pmirror-mf", "st_mirror_movable", mirrorp_transp2)
+    make_mirror("st-pmirror-sf", "st_mirror_static",  mirrorp_transp2)
 end
 
 --------------------------
