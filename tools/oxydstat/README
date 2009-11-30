@@ -1,9 +1,0 @@
-
-The Makefile allows to generate statistics and information files for
-all installed oxyd levelpacks. It assumes that they are installed in
-
-    $ENIGMA/data
-
-The script 00search.pl allows to search all installed oxyd levelpacks
-for specific objects or object combinations.
-

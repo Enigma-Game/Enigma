@@ -824,6 +824,7 @@ do
     DefImage("sh_brake")
     DefImage("sh_floating")
     DefImage("sh_jamb")
+    DefImage("sh_beads")
     -- Note: Window shadows are defined where needed.
 end
 
@@ -831,7 +832,7 @@ end
 -- simple stones --
 -------------------
 do
-    DefStone("st_beads", "sh_glass")
+    DefStone("st_beads", "sh_beads")
     DefStone("st_passage_black_square", "sh_round")
     DefStone("st_passage_black_slash", "sh_passage_slash")
     DefStone("st_passage_black_cross", "sh_passage_cross")
@@ -874,7 +875,7 @@ do
     DefStone("st_concrete", "sh_round")
     DefStone("st_ancient", "sh_round")
     DefStone("st_brownmarble")
-    DefStone("st_rubberband")
+    DefStone("st_rubberband", "sh_round")
     DefStone("st_brownpyramide")
     DefStone("st_redmarble")
     DefStone("st_surprise", "sh_round")
