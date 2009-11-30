@@ -66,6 +66,7 @@ namespace video
         ecl::Rect      area;             // Area that is used for display
         int            mbg_offsetx, mbg_offsety; // offsets for menu background image
         int            thumbw, thumbh;   // Width and height of thumbnails
+        int            thumbborder_width;//
         std::string    thumbsext;        // extension added to thumbnails files and dirs
         ecl::Rect      gamearea;
         ecl::Rect      statusbararea;

@@ -65,7 +65,7 @@ namespace enigma { namespace gui {
         void scroll_up(int lines);
         void scroll_down(int lines);
         void set_selected (int newfirst, int newsel);
-        bool draw_level_preview (ecl::GC &gc, int x, int y, 
+        bool draw_level_preview (ecl::GC &gc, int x, int y, int borderWidth,
                lev::Proxy *proxy, bool selected, bool isCross, bool locked,
                bool allowGeneration, bool &didGenerate);
 

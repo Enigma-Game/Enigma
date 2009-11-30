@@ -337,7 +337,7 @@ namespace
             "models-32.lua", "gfx32/",       // initscript, dir
             Rect (0, 0, 640, 480),           // display area
             0, 0,                            // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 640, 416),           // game area
             Rect (0, 416, 640, 64),          // statusbar area
             Rect (10, 425, 117, 43),         // time area
@@ -355,7 +355,7 @@ namespace
             "models-32.lua", "gfx32/",       // initscript, dir
             Rect (0, 0, 640, 480),           // display area
             0, 0,                            // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 640, 416),           // game area
             Rect (0, 416, 640, 64),          // statusbar area
             Rect (15, 420, 110, 40),         // time area
@@ -373,7 +373,7 @@ namespace
             "models-40.lua", "gfx40/",       // initscript, dir
             Rect (0, 0, 800, 600),           // display area
             0, 0,                            // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 800, 520),           // game area
             Rect (0, 520, 800, 80),          // statusbar area
             Rect (15, 540, 140, 40),         // time area
@@ -391,7 +391,7 @@ namespace
             "models-48.lua", "gfx48/",       // initscript, dir
             Rect (32, 0, 960, 720),          // display area
             -128, -96,                       // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (32, 0, 960, 624),          // game area
             Rect (32, 624, 960, 96),         // statusbar area
             Rect (50, 640, 170, 60),         // time area
@@ -409,7 +409,7 @@ namespace
             "models-48.lua", "gfx48/",       // initscript, dir
             Rect (0, 0, 960, 720),           // display area
             -192, -144,                      // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 960, 624),           // game area
             Rect (0, 624, 960, 96),          // statusbar area
             Rect (18, 640, 170, 60),         // time area
@@ -427,7 +427,7 @@ namespace
             "models-48.lua", "gfx48/",       // initscript, dir
             Rect (160, 0, 960, 720),         // display area
             -192, -96,                       // menu background image offsets 
-            120, 78, "",                     // thumbnail size/extension
+            120, 78, 4, "",                  // thumbnail size/extension
             Rect (160, 0, 960, 624),         // game area
             Rect (160, 624, 960, 96),        // statusbar area
             Rect (178, 640, 170, 60),        // time area
@@ -445,7 +445,7 @@ namespace
             "models-64.lua", "gfx64/",       // initscript, dir
             Rect (0, 0, 1280, 960),          // display area
             -400, -90,                       // menu background image offsets 
-            160, 104, "-160x104",            // thumbnail size/extension
+            160, 104, 5, "-160x104",         // thumbnail size/extension
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
             Rect (24, 853, 227, 80),         // time area //TODO
@@ -463,7 +463,7 @@ namespace
             "models-64.lua", "gfx64/",       // initscript, dir
             Rect (80, 0, 1280, 960),         // display area
             -400, -90,                       // menu background image offsets 
-            160, 104, "-160x104",            // thumbnail size/extension
+            160, 104, 5, "-160x104",         // thumbnail size/extension
             Rect (80, 0, 1280, 832),         // game area
             Rect (80, 832, 1280, 128),       // statusbar area
             Rect (104, 853, 227, 80),        // time area //TODO
@@ -481,7 +481,7 @@ namespace
             "models-64.lua", "gfx64/",       // initscript, dir
             Rect (0, 0, 1280, 960),          // display area
             -400, -26,                       // menu background image offsets 
-            160, 104, "-160x104",            // thumbnail size/extension
+            160, 104, 5, "-160x104",         // thumbnail size/extension
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
             Rect (18, 640, 170, 60),         // time area //TODO
@@ -499,7 +499,7 @@ namespace
             "models-64.lua", "gfx64/",       // initscript, dir
             Rect (200, 0, 1280, 960),        // display area
             -0, -0,                          // menu background image offsets 
-            160, 104, "-160x104",            // thumbnail size/extension
+            160, 104, 5, "-160x104",         // thumbnail size/extension
             Rect (200, 0, 1280, 832),        // game area
             Rect (200, 832, 1280, 128),      // statusbar area
             Rect (224, 853, 227, 80),        // time area //TODO
@@ -517,7 +517,7 @@ namespace
             "models-16.lua", "gfx16/",       // initscript, dir
             Rect (0, 0, 320, 240),           // display area
             0, 0,                            // menu background image offsets 
-            60, 39, "-60x39",                // thumbnail size/extension
+            60, 39, 2, "-60x39",             // thumbnail size/extension
             Rect (0, 0, 320, 208),           // game area
             Rect (0, 208, 320, 32),          // statusbar area
             Rect (5, 212, 65, 21),           // time area

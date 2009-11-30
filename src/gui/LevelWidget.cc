@@ -65,8 +65,8 @@ namespace enigma { namespace gui {
         img_par         = enigma::GetImage("par");
         img_wrEasy      = enigma::GetImage("ic-wr-easy");
         img_wrDifficult = enigma::GetImage("ic-wr-difficult");
-        img_border      = enigma::GetImage("thumbborder");
-        img_editborder  = enigma::GetImage("editborder");
+        img_border      = enigma::GetImage(("thumbborder" + vminfo.thumbsext).c_str());
+        img_editborder  = enigma::GetImage(("editborder" + vminfo.thumbsext).c_str());
     }
     
     void LevelWidget::syncFromIndexMgr() {
@@ -208,7 +208,7 @@ namespace enigma { namespace gui {
         }
     }
                 
-    bool LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, 
+    bool LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, int borderWidth,
             lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
@@ -218,7 +218,7 @@ namespace enigma { namespace gui {
             return false;
    
         if (selected) {
-            blit (gc, x-4, y-4, displayEditBorder ? img_editborder : img_border);
+            blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
         }
         else {
@@ -267,7 +267,7 @@ namespace enigma { namespace gui {
         
             // Add warning sign if level has been changed since player solved it
             if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
-                blit (gc, x-3, y-3, img_changed);
+                blit(gc, x-3, y-3, img_changed);
         
             // Add icon if worldrecord or par
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty"))) {
@@ -292,6 +292,7 @@ namespace enigma { namespace gui {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int imgw = vminfo.thumbw;       // Size of the preview images
         const int imgh = vminfo.thumbh;
+        const int bwidth = vminfo.thumbborder_width;
     
         const int hgap = Max(0, (get_w() - width*buttonw) / (width));
         const int vgap = Max(0, (get_h() - height*buttonh)/ (height-1));
@@ -325,7 +326,7 @@ namespace enigma { namespace gui {
                 int imgy = ypos + 4;
                 if (levelProxy != NULL) {
                     bool didGenerate;
-                    bool didDraw = draw_level_preview (gc, imgx, imgy, levelProxy, 
+                    bool didDraw = draw_level_preview(gc, imgx, imgy, bwidth, levelProxy, 
                             i == iselected, !curIndex->isSource(levelProxy), 
                             !curIndex->mayPlayLevel(i+1),
                             allowGeneration, didGenerate);
