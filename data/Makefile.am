@@ -6,8 +6,6 @@ pkgdata_DATA = \
 	enigma_conf.lua \
 	models.lua \
 	models-2d.lua \
-	models-oxyd.lua \
-	models-editor.lua \
 	models-16.lua \
 	models-32.lua \
 	models-40.lua \

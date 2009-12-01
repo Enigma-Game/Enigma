@@ -128,7 +128,7 @@ do
     DefAlias("ac_pearl_white-shine", "ac_pearl_white")
 
     -- Normal black pearl
-    -- Use shadow from black pearl
+    -- Use shadow from white pearl
     SpriteImage("ac_pearl_black", 0.5, 0.43)
     DefShModel("ac_pearl_black", "ac_pearl_black", "sh_pearl")
     DefAlias("ac_pearl_black-shine", "ac_pearl_black")
@@ -505,7 +505,6 @@ do
 
     display.DefineComposite("fl_scales_platinum_released", "fl_platinum", scales[1])
     display.DefineComposite("fl_scales_platinum_pressed", "fl_platinum", scales[2])
-
 end
 
 ------------------------
@@ -638,7 +637,6 @@ end
 -- it_strip --
 do
     DefSubimages("it_strip", {modelname="it_strip", w=4, h=4, startindex=0})
---    DefAlias("it_strip", "it_strip0")
 end
 
 ----------------------------------------
@@ -706,7 +704,6 @@ do
 
     local frames = BuildFrames({"it_crack_water4", "it_crack_water5", "it_crack_water6", "it_crack_water7", "it_crack_water8"},120)
     DefAnim("it_crack_water_anim", frames)
-
 end
 
 -- it_death --
@@ -923,21 +920,18 @@ end
 do
     DefSubimages("st_bluesand", {modelname="st_bluesandx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_bluesand"..i, "st_bluesandx"..(i+1)) end
---    DefSolidStone("st_bluesand", "st_bluesandx1")
 end
 
 -- st_brick --
 do
     DefSubimages("st_brick", {modelname="st_brickx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_brick"..i, "st_brickx"..(i+1)) end
---    DefSolidStone("st_brick", "st_brickx1")
 end
 
 -- st_panel --
 do
     DefSubimages("st_panel", {modelname="st_panelx",w=4,h=4})
     for i=0,15 do DefSolidStone("st_panel"..i, "st_panelx"..(i+1)) end
---    DefSolidStone("st_panel", "st_panelx1")
 end
 
 -- st_boulder --

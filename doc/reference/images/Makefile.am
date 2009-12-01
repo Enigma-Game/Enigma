@@ -354,11 +354,11 @@ fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
 st_laser_%.png: $(GFXDIR)/st-laser-%.png $(GFXDIR)/st-laser-base.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $(GFXDIR)/st-laser-base.png $< $@
 
-st_mirror_static_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st-mirror-static.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st-mirror-static.png $< $@
+st_mirror_static_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_static.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_static.png $< $@
 
-st_mirror_movable_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st-mirror-movable.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st-mirror-movable.png $< $@
+st_mirror_movable_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_movable.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_movable.png $< $@
 
 %_thief.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_template.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_template.png thief_template.png
