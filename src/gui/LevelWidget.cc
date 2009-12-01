@@ -89,9 +89,8 @@ namespace enigma { namespace gui {
         curIndex->setScreenFirstPosition(ifirst);
     }
         
-    void LevelWidget::realize (const ecl::Rect &area_)
-    {
-        Widget::realize (area_);
+    void LevelWidget::realize(const ecl::Rect &area_) {
+        Widget::realize(area_);
         width = area_.w / buttonw;
         height = area_.h / buttonh;
     }
@@ -102,7 +101,7 @@ namespace enigma { namespace gui {
         }
     }
         
-    void LevelWidget::scroll_up (int nlines) 
+    void LevelWidget::scroll_up(int nlines) 
     {
         int newFirst = ifirst;
         int newSelected = iselected;
@@ -113,7 +112,7 @@ namespace enigma { namespace gui {
             if (newSelected < newFirst)
                 newSelected += width;
         }
-        set_selected (newFirst, newSelected);
+        set_selected(newFirst, newSelected);
     }
     
     void LevelWidget::scroll_down(int nlines) 
@@ -133,11 +132,11 @@ namespace enigma { namespace gui {
                     newSelected -= width;
             }
         }
-        set_selected (newFirst, newSelected);
+        set_selected(newFirst, newSelected);
     }
     
     void LevelWidget::page_up() {
-        set_selected ((ifirst >= width*height ? ifirst - width*height : 0), 
+        set_selected((ifirst >= width*height ? ifirst - width*height : 0), 
                 (iselected >= width*height ? iselected - width*height : 0));
         syncToIndexMgr();
     }
@@ -150,7 +149,7 @@ namespace enigma { namespace gui {
         // make sure last page is shown as a whole
         int first = std::min<int> (lastPageFirst, ifirst + width*height);
         //    set_selected (first, s-1);
-        set_selected (first, iselected + width*height);
+        set_selected(first, iselected + width*height);
         syncToIndexMgr();
     }
     
@@ -166,12 +165,12 @@ namespace enigma { namespace gui {
         syncToIndexMgr();
     }
     
-    void LevelWidget::set_current (int newsel)
+    void LevelWidget::set_current(int newsel)
     {
-        set_selected (ifirst, newsel);
+        set_selected(ifirst, newsel);
     }
     
-    void LevelWidget::set_selected (int newfirst, int newsel)
+    void LevelWidget::set_selected(int newfirst, int newsel)
     {
         int numlevels = curIndex->size();
         newsel = Clamp<int> (newsel, 0, numlevels-1);
@@ -182,7 +181,7 @@ namespace enigma { namespace gui {
         if (newsel >= newfirst+width*height)
             newfirst = (newsel/width-height+1)*width;
     
-        newfirst = Clamp<int> (newfirst, 0, numlevels-1);
+        newfirst = ecl::Clamp<int>(newfirst, 0, numlevels-1);
         if (newfirst < 0) newfirst = 0;
     
         size_t oldsel = iselected;
@@ -208,7 +207,7 @@ namespace enigma { namespace gui {
         }
     }
                 
-    bool LevelWidget::draw_level_preview (ecl::GC &gc, int x, int y, int borderWidth,
+    bool LevelWidget::draw_level_preview(ecl::GC &gc, int x, int y, int borderWidth,
             lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
         // Draw button with level preview
@@ -220,8 +219,7 @@ namespace enigma { namespace gui {
         if (selected) {
             blit (gc, x - borderWidth, y - borderWidth, displayEditBorder ? img_editborder : img_border);
             blit (gc, x, y, img);
-        }
-        else {
+        } else {
             img->set_alpha (127);
             blit (gc, x, y, img);
             img->set_alpha(255);
@@ -287,8 +285,7 @@ namespace enigma { namespace gui {
         return true;
     }
     
-    void LevelWidget::draw (ecl::GC &gc, const ecl::Rect &r)
-    {
+    void LevelWidget::draw(ecl::GC &gc, const ecl::Rect &r) {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int imgw = vminfo.thumbw;       // Size of the preview images
         const int imgh = vminfo.thumbh;
@@ -300,10 +297,8 @@ namespace enigma { namespace gui {
         unsigned i=ifirst;          // level index
         bool allowGeneration = true;
     
-        for (int y=0; y<height; y++)
-        {
-            for (int x=0; x<width; x++, i++)
-            {
+        for (int y=0; y<height; y++) {
+            for (int x=0; x<width; x++, i++) {
                 if (i >= curIndex->size())
                     goto done_painting;
     
@@ -322,8 +317,8 @@ namespace enigma { namespace gui {
                 }
                 // Draw level preview
                 lev::Proxy *levelProxy = curIndex->getProxy(i);
-                int imgx = xpos+(buttonw-imgw)/2;
-                int imgy = ypos + 4;
+                int imgx = xpos + (buttonw-imgw)/2;
+                int imgy = ypos + bwidth;
                 if (levelProxy != NULL) {
                     bool didGenerate;
                     bool didDraw = draw_level_preview(gc, imgx, imgy, bwidth, levelProxy, 
@@ -355,11 +350,11 @@ namespace enigma { namespace gui {
             }
         }
         done_painting:
-        m_areas.resize (i-ifirst); // Remove unused areas (if any) from the list
+        m_areas.resize(i-ifirst); // Remove unused areas (if any) from the list
         return;
     }
     
-    void LevelWidget::tick (double time) {
+    void LevelWidget::tick(double time) {
         if (!isInvalidateUptodate) {
             // invalidate just 1 button for redraw
             bool isFirst = true;
@@ -378,112 +373,108 @@ namespace enigma { namespace gui {
         }
     }
     
-    bool LevelWidget::on_event(const SDL_Event &e) 
-    {
+    bool LevelWidget::on_event(const SDL_Event &e) {
         bool handled = Widget::on_event(e);
     
         switch (e.type) {
-        case SDL_MOUSEMOTION:
-            if (get_area().contains(e.motion.x, e.motion.y)) {
-                int newsel=iselected;
-                for (unsigned i=0; i<m_areas.size(); ++i)
-                    if (m_areas[i].contains(e.motion.x, e.motion.y))
-                    {
-                        newsel = ifirst+i;
-                        break;
-                    }
-                set_current(newsel);
-                handled = true;
-            }
-            break;
-        case SDL_MOUSEBUTTONDOWN:
-            if (get_area().contains(e.button.x, e.button.y))
-                handled = handle_mousedown (&e);
-            break;
-        case SDL_KEYDOWN:
-            handled = handle_keydown (&e);
-            break;
+            case SDL_MOUSEMOTION:
+                if (get_area().contains(e.motion.x, e.motion.y)) {
+                    int newsel=iselected;
+                    for (unsigned i=0; i<m_areas.size(); ++i)
+                        if (m_areas[i].contains(e.motion.x, e.motion.y))
+                        {
+                            newsel = ifirst+i;
+                            break;
+                        }
+                    set_current(newsel);
+                    handled = true;
+                }
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                if (get_area().contains(e.button.x, e.button.y))
+                    handled = handle_mousedown (&e);
+                break;
+            case SDL_KEYDOWN:
+                handled = handle_keydown (&e);
+                break;
         }
         syncToIndexMgr();
         return handled;
     }
     
-    bool LevelWidget::handle_mousedown (const SDL_Event *e) 
-    {
+    bool LevelWidget::handle_mousedown(const SDL_Event *e) {
         switch (e->button.button) {
-        case SDL_BUTTON_LEFT:
-            for (unsigned i=0; i<m_areas.size(); ++i)
-                if (m_areas[i].contains(e->button.x, e->button.y))
-                {
-                    sound::EmitSoundEvent ("menuok");
-                    iselected = ifirst+i;
-                    syncToIndexMgr();
-                    if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
-                        // control key pressed - level inspector
+            case SDL_BUTTON_LEFT:
+                for (unsigned i=0; i<m_areas.size(); ++i)
+                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    {
+                        sound::EmitSoundEvent ("menuok");
+                        iselected = ifirst+i;
+                        syncToIndexMgr();
+                        if (SDL_GetModState() & KMOD_CTRL && !(SDL_GetModState() & KMOD_SHIFT)) {
+                            // control key pressed - level inspector
+                            LevelInspector m(curIndex->getProxy(iselected));
+                            m.manage();
+                            get_parent()->draw_all();
+                        } else {
+                            // no control key - start level
+                            trigger_action();
+                        }
+                        return true;
+                    }
+                break;
+            case SDL_BUTTON_RIGHT: 
+                for (unsigned i=0; i<m_areas.size(); ++i)
+                    if (m_areas[i].contains(e->button.x, e->button.y))
+                    {
+                        sound::EmitSoundEvent ("menuok");
+                        iselected = ifirst+i;
+                        syncToIndexMgr();
                         LevelInspector m(curIndex->getProxy(iselected));
                         m.manage();
                         get_parent()->draw_all();
-                    } else {
-                        // no control key - start level
-                        trigger_action();
+                        return true;
                     }
-                    return true;
-                }
-            break;
-        case SDL_BUTTON_RIGHT: 
-            for (unsigned i=0; i<m_areas.size(); ++i)
-                if (m_areas[i].contains(e->button.x, e->button.y))
-                {
-                    sound::EmitSoundEvent ("menuok");
-                    iselected = ifirst+i;
-                    syncToIndexMgr();
-                    LevelInspector m(curIndex->getProxy(iselected));
-                    m.manage();
-                    get_parent()->draw_all();
-                    return true;
-                }
-            break;
-        case 4: scroll_down(1); return true;
-        case 5: scroll_up(1); return true;
+                break;
+            case 4: scroll_down(1); return true;
+            case 5: scroll_up(1); return true;
         }
         return false;
     }
     
-    bool LevelWidget::handle_keydown (const SDL_Event *e)
-    {
+    bool LevelWidget::handle_keydown(const SDL_Event *e) {
         switch (e->key.keysym.sym) {
-    
-        case SDLK_t:
-            // Generate new level preview for current level
-            preview_cache->updatePreview(curIndex->getProxy(iselected));
-            invalidate();
-            break;
-        
-        case SDLK_LEFT:  
-            if (!(SDL_GetModState() & KMOD_ALT)) {
-                set_current (iselected>1 ? iselected-1 : 0); 
+            case SDLK_t:
+                // Generate new level preview for current level
+                preview_cache->updatePreview(curIndex->getProxy(iselected));
+                invalidate();
                 break;
-            } else
-                return false;
-        case SDLK_RIGHT:
-            if (!(SDL_GetModState() & KMOD_ALT)) {
-                 set_current (iselected+1);
-                 break;
-            } else
-                return false;
-        case SDLK_DOWN:  set_current (iselected+width); break;
-        case SDLK_UP:    set_current (iselected>width ? iselected-width : 0); break;
-        case SDLK_PAGEDOWN: page_down(); break;
-        case SDLK_PAGEUP: page_up(); break;
-        case SDLK_HOME: start(); break;
-        case SDLK_END: end(); break;
-    
-        case SDLK_RETURN:
-            trigger_action();
-            break;
-    
-        default:
-            return false;           // key not handled
+            
+            case SDLK_LEFT:  
+                if (!(SDL_GetModState() & KMOD_ALT)) {
+                    set_current (iselected>1 ? iselected-1 : 0); 
+                    break;
+                } else
+                    return false;
+            case SDLK_RIGHT:
+                if (!(SDL_GetModState() & KMOD_ALT)) {
+                     set_current (iselected+1);
+                     break;
+                } else
+                    return false;
+            case SDLK_DOWN:  set_current (iselected+width); break;
+            case SDLK_UP:    set_current (iselected>width ? iselected-width : 0); break;
+            case SDLK_PAGEDOWN: page_down(); break;
+            case SDLK_PAGEUP: page_up(); break;
+            case SDLK_HOME: start(); break;
+            case SDLK_END: end(); break;
+        
+            case SDLK_RETURN:
+                trigger_action();
+                break;
+        
+            default:
+                return false;           // key not handled
         }
         return true;
     }

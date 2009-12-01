@@ -1,50 +1,53 @@
-Building Enigma under MacOS X 10.5, 10.4 and 10.3.9
+Building Enigma under MacOS X 106, 10.5, and 10.4
 
 Overview:
 ---------
 
 Due to which machines are available to Enigma developers, the latest
-version of Enigma has only been built under MacOS X 10.5. The
-instructions for building under older versions of MacOS X have been
-removed from this README as there can be no assurance that they would
-continue to work. Note that the Enigma Mac developers all have Apple's
-free Xcode development environment installed on their machines. Even
-though the build process is not run under Xcode, there may be some
-things that would not work if Xcode had never been installed.
+version of Enigma has only been built under MacOS X 10.6. The
+instructions for building should apply identically under 10.4 and 10.5.
+The latest SDL library package no longer supports earlier versions of
+Mac OS and so Enigma has dropped support for 10.3 or earlier.
+Note that even though the build process is not run under Xcode,
+it does require that Xcode, which includes a number of developer tools,
+has been installed on the build machine.
 
 Enigma is built from the command line using make. There is a make
 target that will create a Mac OS application bundle in a compressed
 disk image file, enigma.dmg. That file can be copied to a Mac without
 any special runtime environment having to be installed, and the Enigma
-app simply dropped into a folder to be ready to run.
+app simply dropped into a folder to be ready to run. The following
+instructions allow you to build a universal binary that will run
+on both PowerPc and Intel Macs running MacOS 10.4 or later.
 
 You do need some other packages installed in order to build Enigma on
-your MacOS X system.
+your MacOS X system. Earlier versions of this README used packages
+installed from Macports. That is no longer necessary.
 
-Building under MacOS 10.5:
---------------------------
+Step 1: Install libjpeg and libpng downloaded from
+http://ethan.tira-thompson.org/Mac_OS_X_Ports.html
+Download the combined package dmg file from that page, open it in
+Finder and double click on the mpkg installation file.
 
-The build process has only been tested using packages installed from
-MacPorts (formerly called DarwinPorts). It may well be possible to use
-the equivalent packages from Fink or by downloading and building the
-packages and all of their dependencies from the various project source
-sites, but that has not been tested. MacPorts seems to provide the
-easiest way to get a working build environment for Enigma.
+Step 2: Download the xerces-c precompiled binaries for MacOS 10.4
+both Intel and PPC from http://xerces.apache.org/xerces-c/download.cgi
+Each of them will contain a lib/libxerces-c.a file. Use lipo to combine
+them into one universal binary file. For example, if you put the files into
+separate directories named ppc and x86 and wanted to create the universal
+binary in the current directory, the command line would look like 
 
-There are several problems preventing being able to build Enigma as a
-universal binary on a single machine, including the smpeg package
-build process using ar to unpack separately built library files to
-combine them, a misfeature in QuickTime endian support that breaks
-SDL_mixer when it is compiled for the ppc architecture on an Intel
-host, and Enigma's use of the -M compiler options in building the lua
-code. Instructions for creating a universal binary of Enigma by
-combining separate builds on Intel and PPC machines are included
-below.
+ lipo -create ppc/libxerces-c.a x86/libxerces-c.a -output libxerces-c.a
 
-Step 1 Install SDL frameworks: Download the binary packages for Mac OS
+Put the universal binary of libxerces-c.a in /usr/local/lib/
+
+Copy the include directory contents from the download to /usr/local/include/
+and the pkgconfig directory contents to /usr/local/lib/pkgconfig/
+You can use either the PPC or Intel version as they are the same.
+
+Step 3 Install SDL frameworks: Download the binary packages for Mac OS
 X from the SDL project web site for the current stable version of SDL
-(SDL 1.2 at the time of this writing), SDL_image, SDL_ttf, and
-SDL_mixer. The four URLs to find them are:
+(SDL 1.2 at the time of this writing. Enigma does not yet support SDL 1.3),
+SDL_image, SDL_ttf, and SDL_mixer. The four URLs to find them are:
 
 http://www.libsdl.org/
 http://www.libsdl.org/projects/SDL_image/
@@ -55,149 +58,61 @@ Each download is a dmg file that when opened contains a Framework
 directory, e.g., SDL.framework. Copy each of those directories into
 /Library/Frameworks/ to install it.
 
-Step 2 Install MacPorts:
+Step 4. Install gettext in /usr/local as a universal binary
+ a) Download the latest source tarball of gettext from
+http://www.gnu.org/software/gettext/#TOCdownloading
+ b) Untar it into a convenient directory for building it.
+ c) Build it using the following shell script. If you name the file
+for example builduniversal.sh, make it executable and put it in 
+your path, you would cd to the root directory
+of the source tarball you unpacked and use the command lines
 
-Basic instruction for installing Macports is outside the scope of this
-README, but it is pretty much a matter of finding the MacPorts web
-site, downloading and running their install package, and then checking
-to make sure that you have a ~/.profile file that adds
-/opt/local/bin to your path. For more information see the
-documentation at the MacPorts web site.
+  builduniversal.sh
+  make
+  sudo make install
 
-NOTE: Do not install any Macports packages after you install Macports
-until you have completed steps 2a through 2c below.
+Here is the contents of builduniversal.sh:
 
-NOTE: If you already use Macports, you may want to rename /opt/local
-to save your existing installation, re-install Macports in order
-to set up a build environment just for Enigma, set it up according to
-the instructions below, then save that by renaming the new /opt/local
-to somehing like /opt/local-enigma. It is likely that you want to do
-that if you are going to build on MacOS 10.5 for a 10.3.9+ or 10.4+
-target, as that requires Macports to be configured specially.
+#!/bin/sh
+# build a package for universal 10.4+ if it is configured in standard way
+# does the configure and make but not the make install
+# You can add arguments to be passed to configure
+# You can pass in prefix values in CFLAGS, CXXFLAGS, LDFLAGS environment variables
+MACOSX_DEPLOYMENT_TARGET=10.4 \
+UNIFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4 -arch i386 -arch ppc" \
+CC=/usr/bin/gcc-4.0 \
+CXX=/usr/bin/g++-4.0 \
+CFLAGS="$CFLAGS $UNIFLAGS" \
+CXXFLAGS="$CXXFLAGS $NIFLAGS" \
+LDFLAGS="$LDFLAGS $UNIFLAGS  -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk" \
+./configure --disable-dependency-tracking $*
 
-NOTE: ImageMagick is required to build the documentation. There are
-difficulties installing ImageMagick using Macports customised for
-building Enigma on MacOS 10.5 for deployment on 10.3.9+ or 10.4. If
-you are building Enigma that way, download the ImageMagick binaries
-tar file from
+Step 5. Install SDL packages from source
+The build process requires the SDL libraries to be installed in /usr/local
+in addition to the frameworks you installed in step 3.
+ a) Download the source file tarballs from the same web pages you downloaded the frameworks.
+ b) Unpack the tarballs in some convenient directory for building them
+ c) Building SDL is a bit complicated to get a universal build. It comes with a
+   script for doing so build-scripts/fatbuild.sh, but the version included with
+   SDL-1.2.14 is buggy. You have to replace it with one downloaded from the
+   bug report about it: http://bugzilla.libsdl.org/attachment.cgi?id=453
+   Remember to chmod +x the file after you download it to make it executable.
+   It is an attachment to bug report http://bugzilla.libsdl.org/show_bug.cgi?id=867
+   Once you have the proper fatbuild.sh in place to build SDL you run
+
+     build-scripts/fatbuild.sh
+     sudo build-scripts/fatbuild.sh install
+
+ d) Build SDL_image, SDL_mixer, and SDL_ttf using  builduniversal.sh and sudo make install
+    just like you did with gettext
+
+Step 6. Install ImageMagick (required to build the documentation)
+Download the ImageMagick binaries from
 http://www.imagemagick.org/script/binary-releases.php#macosx
-and install according to the directions there. Be sure to export
-MAGICK_HOME as described there,
+and install according to the directions there.
+IMPORTANT: Be sure to export MAGICK_HOME as described there,
 
-Step 2a Fix up an autconf problem:
-
-I don't know if this is the most correct way to fix a problem with
-some builds not seeing some MacPorts installed packages, but it does
-work. Create a file named /usr/share/aclocal/dirlist that contains
-just the one line
-
-/opt/local/share/aclocal
-
-Step 2b. (Optional) Set up deployment target if different from the OS
-version and architecture which you are building on
-
-Building on 10.5 Intel to deploy on 10.4 or 10.5 Intel, or 
-Building on 10.5 ppc to deploy on 10.3.9+ ppc
-
-Note: See the section below for using Intel and PPC 10.5 Macs,
-combining the results to get one Universal 10.3.9+ build.
-
-Before intalling any packages, edit
-/opt/local/etc/macports/macports.conf and change the following three
-options to the values shown. On the Intel machine, use
-
-universal_target        10.4
-universal_sysroot	/Developer/SDKs/MacOSX10.4u.sdk
-universal_archs		i386
-
-On the PPC machine use
-
-universal_target        10.3
-universal_sysroot	/Developer/SDKs/MacOSX10.3.9.sdk
-universal_archs		ppc
-
-Save the file, then edit
-/opt/local/etc/macports/variants.conf
-adding the line at the end of the file
-+universal
-
-Make sure you make this change before you sudo port install any specific
-packages. Note that these changes are not suitable for general
-installations of Macports and should be used only within a Macports
-installation that you intend to use for the Enigma build
-environment. You don't need to do this step and therefore don't need a
-special copy of Macports that is only for building Enigma if you are building to
-target only your own version of MacOS and your own architecture.
-
-Step 2c Deal with an idiosynchratic package
-
-The build environment for Enigma will require installing libtool in
-Macports. That package has a listed build dependency on automake which
-in turn has dependencies that bring in all of perl and other large
-packages. MacOS 10.5 has a sufficiently current automake, so the
-dependency can simply be removed before installing libtool. Edit the
-Portfile for libtool using the following command, substituting your
-favorite editor for nano if you don't want the default vim or whatever
-is specified in the EDITOR environment variable:
-
- sudo port edit --editor nano libtool
-
-and remove the line that specifies a build dependency on
-automake. This step is not necessary if you already have perl5
-installed in MacPorts, as it is just to let you avoid that
-installation. Then install it with the following option:
-
- sudo port install libtool -universal
-
-NOTE: If you ever do a port sync or port selfupgrade on this
-installation it will wipe out this change, so you would have to edit
-it again before doing a port upgrade to avoid downloading and
-installing automake and the large packages it requires.
-
-Step 2d. Fix the xercesc package
-
-Edit the portfile of the xercesc package using the command
-
- sudo port edit --editor nano xercesc
-
-and after the closing bracket of the darwin 8 section insert the
-following section if on an Intel Mac, or the second one if on a PPC
-
-platform universal {
-	configure.env-append    MACOSX_DEPLOYMENT_TARGET=10.4
-	build.env-append        MACOSX_DEPLOYMENT_TARGET=10.4
-	configure.pre_args-append	-c /usr/bin/gcc-4.0 -x /usr/bin/g++-4.0 \
-		-z -isysroot -z /Developer/SDKs/MacOSX10.4u.sdk -z -mmacosx-version-min=10.4 \
-		-l -isysroot -l /Developer/SDKs/MacOSX10.4u.sdk -l -mmacosx-version-min=10.4 \
-		-l -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk
-}
-
-
-platform universal {
-	configure.env-append    MACOSX_DEPLOYMENT_TARGET=10.3
-	build.env-append        MACOSX_DEPLOYMENT_TARGET=10.3
-	configure.pre_args-append	-c /usr/bin/gcc-4.0 -x /usr/bin/g++-4.0 \
-		-z -isysroot -z /Developer/SDKs/MacOSX10.3.9.sdk -z -mmacosx-version-min=10.3 \
-		-l -isysroot -l /Developer/SDKs/MacOSX10.3.9.sdk -l -mmacosx-version-min=10.3 \
-		-l -Wl,-syslibroot,/Developer/SDKs/MacOSX10.3.9.sdk
-}
-
-NOTE: If you ever do a port sync or port selfupgrade on this
-installation it will wipe out this change, so you would have to edit
-it again before doing a port upgrade to ensure it builds properly.
-
-Step 3. Install the remaining required Macports packages
-
- At a Terminal.app command line, run the commands
-
- sudo port install libiconv gettext libsdl libsdl_mixer libsdl_image libsdl_ttf xercesc
-
-Wait a long time for it to finish. If you want to see more output
-scroll by on your terminal to keep from being bored while waiting (and
-to know that the build is not hung), use
-the -d option, as in sudo port -d install etc.
-
-Step 4 Build Enigma:
+Step 7 Build Enigma:
 
 Important: The configure step requires you to be logged in with access
 to the window system, i.e., either at the Mac keyboard or using remote
@@ -205,70 +120,20 @@ screen sharing, and in a Terminal.app comand line. It will hang trying
 to test the SDL library if you are using ssh to log in remotely with no
 GUI screen.
 
-At the Terminal.app command line, cd to the Enigma directory tree and
-type the correct set of commands below depending on what you are doing:
+At the Terminal.app command line, set up your environment with the following
 
-a) simple case, building to target your own platform only:
+export MACOSX_DEPLOYMENT_TARGET=10.4
 
- ./autogen.sh
- env CPPFLAGS="-I/opt/local/include" LDFLAGS="-L/opt/local/lib" ./configure
- make gmo 
- make
- make macapp
+Then cd to the Enigma directory tree and
+run the following commands which make use of the builduniversal.sh
+script file that was listed in step 4.
 
-b) building on a 10.5 Intel machine to target 10.4+ Intel
-
- export MACOSX_DEPLOYMENT_TARGET=10.4
- export SDK=/Developer/SDKs/MacOSX10.4u.sdk
- ./autogen.sh
- env CPPFLAGS="-I/opt/local/include -mmacosx-version-min=10.4 -isysroot ${SDK}" LDFLAGS="-L/opt/local/lib -mmacosx-version-min=10.4 -isysroot ${SDK} -Wl,-syslibroot,${SDK}" ./configure
- make gmo 
- make
- make macapp
-
-c) building on a 10.5 PPC machine to target 10.3.9+ PPC
-
- export MACOSX_DEPLOYMENT_TARGET=10.3
- export SDK=/Developer/SDKs/MacOSX10.3.9.sdk
- ./autogen.sh
- env CPPFLAGS="-I/opt/local/include -mmacosx-version-min=10.3 -isysroot ${SDK}" LDFLAGS="-L/opt/local/lib -mmacosx-version-min=10.3 -isysroot ${SDK} -Wl,-syslibroot,${SDK}" ./configure
- make gmo 
- make
- make macapp
+./autogen.sh
+CFLAGS="-I/usr/local/include" CXXFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib" builduniversal.sh
+make gmo
+make
+make macapp
 
 That's it! If it all works, there will be a copy of enigma.dmg in the
 etc/ subdirectory and a copy of Enigma.app in etc/macfiles/
 subdirectory.
-
-Step 5. (optional) Creating a universal binary with support for 10.3.9+
-
-To get a Universal binary, you must create separate builds on a PPC
-and an Intel Mac, then combine them to form one Universal
-build. Follow the instructions above to get a build for 10.4+ on the
-Intel machine and for 10.3.9+ on the PPC machine.
-
-On the PPC machine, go into the directory tree of the resulting
-Enigma.app, either using a terminal command line or in the finder
-using control-click Show Package Contents, and copy the file
-Enigma.app/Contents/MacOS/enigma to the Intel machine where you name
-the file enigma-ppc and place it in Enigma.app/Contents/MacOS/
-there. On the Intel machine rename the file
-Enigma.app/Contents/MacOS/enigma to enigma-intel. Now that you have
-the two versions of that file with suitable names, in a Terminal.app
-command line cd into the Enigma.app/Contents/MacOS/ directory and run
-the following command
-
- lipo -create enigma-intel enigma-ppc -output enigma
-
-Delete enigma-intel and enigma-ppc
-
-At this point, if you want, you can verify that the Enigma.app on the
-Intel machine runs fine on both the Intel and the PPC machines.
-
-To recreate the etc/enigma.dmg file with the new app, first delete or
-rename the etc/enigma.dmg file, then cd to the src/ directory and run
-the command
-
- make bundle-dmg
-
-----------------------------

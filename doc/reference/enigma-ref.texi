@@ -3953,8 +3953,8 @@ being nearly transparent on writing basic standard levels. Indeed there is no
 reason to dig into this language at the very beginning.
 
 With the second Lua API version, as of Enigma 1.10, we designed an optimized
-way of describing levels in a very short and readable manner. Thus we like to
-introduce you to this API by giving several examples from a basic level to most
+way of describing levels in a very short and readable manner. Thus we would like
+to introduce you to this API by giving several examples from a basic level to most
 thrilling dynamic real Enigma levels. You should be able to start your first
 experiments just after reading the first example with its explanations.
 
@@ -4005,7 +4005,7 @@ the Enigma levelpacks.
 @subsection Basic Example
 
 Let us view the source code. We did add a line count in the first two columns
-for reference purpose within this section. These line count number are not part
+for reference purpose within this section. These line count numbers are not part
 of the source code itself!
 
 @example
@@ -4232,9 +4232,9 @@ any objects at all.
 Another object group is an @ref{st_turnstile} cluster with one arm disconnected.
 The first two definitions are straight forward. But in line 42 we precede the
 arm's definition by another tile reference. It is the abyss tile defined in
-line 19. By concatenation, the two dots @b{..}, of a tile and a object
-definition we can define a new that is composed of both objects. In this case
-we define a turnstile arm on top of an abyss floor.
+line 19. By concatenation, the two dots @b{..}, of a tile and an object
+definition we can define a new tile that is composed of both objects. In this
+case we define a turnstile arm on top of an abyss floor.
 
 You may be wondering why we did not define floors for the other stone and item
 tiles. We make use of the tile definition in line 18 that we will declare
@@ -4251,7 +4251,7 @@ we concatenate two object definitions for a single tile. Both are floors. That
 means for each grid position we try to set both floor types, but just one meets
 the checkerboard condition and will be set.
 
-Please notice that we did convert one one the floor object definitions to a tile
+Please notice that we did convert one the floor object definitions to a tile
 definition by the function call @samp{ti()}. This is necessary as Lua does not
 know how to concatenate two anonymous tables. One argument of the concatenation
 has to be a tile.
@@ -4275,8 +4275,8 @@ This is simply done by preceding the actor's kind by a hash sign @samp{#}.
 We encourage every level author to provide an easy mode for the levels. This
 is an example how to define mode dependent tiles. Like in line 16 we access
 a world attribute. But this time it is a read access of @ref{IsDifficult}.
-In easy mode we want a @ref{it_strip} on top of water floor that allows the
-marble to pass and press the trigger. In difficult mode the there should be
+In easy mode we want an @ref{it_strip} on top of the water floor that allows the
+marble to pass and press the trigger. In difficult mode there should be
 no passage. Thus the special tile is identical to the water tile defined in
 line 20.
 
@@ -4304,7 +4304,7 @@ how the keys should be resolved. The second argument is the key of our default
 floor. The third argument is the map as a table of strings, one for every line.
 
 The world initialization returns the width and height of our world which are
-calculated by the maps size.
+calculated by the map's size.
 
 @example
 70    @i{wo}:@b{shuffleOxyd}()
@@ -4384,7 +4384,7 @@ Whenever the marble hits and turns an @ref{st_turnstile} it performs its actions
 on the targets. Here the author makes clever usage of multitargets and
 multiactions as described in @ref{Target - Action}. On every turn of a red
 turnstile all objects named @samp{red#*}, that are all our blockers on a red
-floor, will be send a message @samp{open}, whereas all blocks on a green floor,
+floor, will be sent a message @samp{open}, whereas all blocks on a green floor,
 the second target group, receives the second action message @samp{close}. It is
 essential to choose the @samp{open}, @samp{close} messages instead of
 @samp{toggle}, as more than one red turnstile may be turned in sequence, but
@@ -4488,7 +4488,7 @@ set other objects relatively to given ones.
 @end example
 Anonymous tables with just two number values can be used in many cases directly as
 a position constant. In case of errors, e.g. when operators are not well defined
-like addition of two constants what result in an attempt of adding two Lua
+like addition of two constants, which results in an attempt of adding two Lua
 tables, use the function @samp{po()} to convert the constant.
 
 @item @b{Coordinate Access:}
@@ -4588,7 +4588,7 @@ Attributes of objects and the world can be read like Lua table key values.
 @var{obj}["@b{color}"]  = nil       -- delete color attribute - no color
 @var{obj}["@b{length}"] = @i{DEFAULT}   -- the default length, e.g. @samp{1}
 @end example
-Any object attribute can be reset to its default value, what is the attributes
+Any object attribute can be reset to its default value, which is the attribute's
 "delete" operation, by assigning it the Lua @samp{nil} or the Enigma
 @samp{DEFAULT} value.
 
@@ -8821,7 +8821,7 @@ Just objects in state @samp{OPEN} will be closed. An object in state
 @node ignite
 @subsection ignite
 
-Sets fire to a floor if its burnable (@pxref{Fire Spreading}) or start an
+Sets fire to a floor if it is burnable (@pxref{Fire Spreading}) or start an
 explosion or shattering of items like @ref{it_dynamite}, @ref{it_bomb} or
 stones like @ref{st_ice}, @ref{st_dispenser} and many more.
 
@@ -8834,7 +8834,7 @@ stones like @ref{st_ice}, @ref{st_dispenser} and many more.
 @node heat
 @subsection heat
 
-Sets fire to a floor if its burnable (@pxref{Fire Spreading}) or causes a
+Sets fire to a floor if it is burnable (@pxref{Fire Spreading}) or causes a
 @ref{Heat-Transformation} on a floor or other objects like @ref{st_ice} that
 starts melting. Some objects do react on a heat message like on an @ref{ignite}
 message by explosions or shattering.
@@ -8848,7 +8848,7 @@ message by explosions or shattering.
 @node setfire
 @subsection setfire
 
-Sets fire to a floor if its burnable (@pxref{Fire Spreading}).
+Sets fire to a floor if it is burnable (@pxref{Fire Spreading}).
 
 @table @asis
 @item @b{Value:} @ @ -
@@ -9019,13 +9019,13 @@ choose the constant that is appropriate for an object and do avoid using numbers
 @item @samp{RANDOMDIR} = @code{-2}, by @ref{st_mirror}
 @item @samp{NODIR} = @code{-1}, by @ref{fl_slope}
 @item @samp{WEST} = @code{0}, by all objects with 4 orientations
-@item @samp{SOUTH} = @code{1}, by all actors with 4 orientations
-@item @samp{EAST} = @code{2}, by all actors with 4 orientations
-@item @samp{NORTH} = @code{3}, by all actors with 4 orientations
+@item @samp{SOUTH} = @code{1}, by all objects with 4 orientations
+@item @samp{EAST} = @code{2}, by all objects with 4 orientations
+@item @samp{NORTH} = @code{3}, by all objects with 4 orientations
 @item @samp{NORTHWEST} = @code{4}, by all objects with 8 orientations
-@item @samp{SOUTHWEST} = @code{5}, by all actors with 8 orientations
-@item @samp{SOUTHEAST} = @code{6}, by all actors with 8 orientations
-@item @samp{NORTHEAST} = @code{7}, by all actors with 8 orientations
+@item @samp{SOUTHWEST} = @code{5}, by all objects with 8 orientations
+@item @samp{SOUTHEAST} = @code{6}, by all objects with 8 orientations
+@item @samp{NORTHEAST} = @code{7}, by all objects with 8 orientations
 @end itemize
 
 Just for @ref{st_mirror} another alternative orientation notation exists:
