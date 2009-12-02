@@ -28,14 +28,13 @@ namespace enigma {
 
     Actor *replace_actor(Actor *olda, Actor *newa) {
         ActorInfo *info = newa->get_actorinfo();
-        info->pos = olda->get_pos();
         info->vel = olda->get_vel();
 
         if (Value v = olda->getAttr("owner")) {
             player::ReplaceActor((int)v, olda, newa);
         }
 
-        AddActor (newa);
+        AddActor(olda->get_pos()[0], olda->get_pos()[1], newa);
         if (!YieldActor (olda)) {
             enigma::Log << "Strange: could not remove old actor\n";
         }

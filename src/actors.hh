@@ -85,6 +85,7 @@ namespace enigma {
         double mass;            // Mass
         double radius;          // Radius of the ball
         bool   grabbed;         // Actor not controlled by the physics engine
+        bool   created;         // Actor has already been created
         bool   ignore_contacts; // Do not perform collision handling
 
 	// Variables used internally by the physics engine

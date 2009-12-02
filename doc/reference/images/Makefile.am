@@ -361,22 +361,22 @@ st_mirror_movable_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_mo
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_movable.png $< $@
 
 %_thief.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_template.png thief_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< thief_base.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite thief_base.png thief_template.png $@
-	rm thief_template.png thief_base.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_template.png template_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	rm base_$@ template_$@
 
 %_thief_capture.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_capture_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_capture_template.png thief_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< thief_base.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite thief_base.png thief_template.png $@
-	rm thief_template.png thief_base.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_capture_template.png template_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	rm base_$@ template_$@
 
 %_thief_drunken.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_drunken_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $(GFXDIR)/thief_drunken_template.png thief_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< thief_base.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite thief_base.png thief_template.png $@
-	rm thief_template.png thief_base.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $(GFXDIR)/thief_drunken_template.png template_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	rm base_$@ template_$@
 
 ac_%.png: $(GFXDIR)/ac_%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 60x60+0+0 $< $@

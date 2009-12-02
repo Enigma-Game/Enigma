@@ -98,6 +98,7 @@ Actor::Actor (const ActorTraits &tr)
     // copy default properties to dynamic properties
     m_actorinfo.mass = tr.default_mass;
     m_actorinfo.radius = tr.radius;
+    m_actorinfo.created = false;
 
     ASSERT(m_actorinfo.radius <= get_max_radius(), XLevelRuntime, "Actor: radius of actor too large");
 }
@@ -225,12 +226,15 @@ void Actor::init() {
 }
 
 void Actor::on_creation(const ecl::V2 &p)  {
-    startingpos = get_pos();
-    if (Value vx = getAttr("velocity_x")) {
-        m_actorinfo.vel = V2(vx,  m_actorinfo.vel[1]);
-    }
-    if (Value vy = getAttr("velocity_y")) {
-        m_actorinfo.vel = V2(m_actorinfo.vel[0], vy);
+    if (!m_actorinfo.created) { // avoid reinitialization on it_drop usage
+        m_actorinfo.created = true;
+        startingpos = get_pos();
+        if (Value vx = getAttr("velocity_x")) {
+            m_actorinfo.vel = V2(vx,  m_actorinfo.vel[1]);
+        }
+        if (Value vy = getAttr("velocity_y")) {
+            m_actorinfo.vel = V2(m_actorinfo.vel[0], vy);
+        }
     }
     set_model(getKind());
     m_sprite.move(p);

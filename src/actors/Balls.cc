@@ -191,11 +191,16 @@ namespace enigma {
     }
     
     void BasicBall::on_creation(const ecl::V2 &p) {
+        bool recreation = m_actorinfo.created;
         Actor::on_creation(p);
-        if (server::CreatingPreview)
+        if (server::CreatingPreview) {
             change_state(NORMAL);
-        else
+        } else if (recreation) {   // end of it_drop
+            change_state(NORMAL);  // marble may be in any state
+            ReleaseActor(this);    // in case it has been already NORMAL
+        } else { 
             change_state(APPEARING);
+        }
     }
 
     void BasicBall::think(double dtime)  {
