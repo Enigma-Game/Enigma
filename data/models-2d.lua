@@ -812,7 +812,7 @@ do
     DefImage("sh_grate_cross")
     DefImage("sh_grate_framed")
     DefImage("sh_portal_horse")
-    DefImage("sh_glass")
+    DefImage("sh_rawglass")
     DefImage("sh_rawglass_quad")
     DefImage("sh_passage_frame")
     DefImage("sh_passage_slash")
@@ -848,11 +848,11 @@ do
     DefStone("st_floppy_off", "sh_round")
     DefStone("st_floppy_on", "sh_round")
     DefStone("st_box_rock", "sh_round")
-    DefStone("st_rawglass", "sh_glass")
+    DefStone("st_rawglass", "sh_rawglass")
     DefStone("st_rawglass_quad", "sh_rawglass_quad")
-    DefStone("st_lightglass", "sh_glass")
-    DefStone("st_darkglass", "sh_glass")
-    DefStone("st_redfiber", "sh_glass")
+    DefStone("st_lightglass", "sh_rawglass")
+    DefStone("st_darkglass", "sh_rawglass")
+    DefStone("st_redfiber", "sh_rawglass")
     DefStone("st_grate_cross", "sh_grate_cross")
     DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st_portal_horse", "sh_portal_horse")
@@ -1055,17 +1055,17 @@ end
 
 -- st_ice --
 do
-    DefStone("st_ice", "sh_glass")
+    DefStone("st_ice", "sh_rawglass")
 
     local images = DefSubimages("st_ice_break", {h=5})
     local frames = BuildFrames(images,50)
     DefAnim("st_ice_break-anim", frames)
-    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh_glass")
+    DefShModel("st_ice_breaking", "st_ice_break-anim", "sh_rawglass")
 
     images = DefSubimages("st_ice_melting", {h=10})
     frames = BuildFrames(images,200)
     DefAnim("st_ice_melt-anim", frames)
-    DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_glass")
+    DefShModel("st_ice_melting", "st_ice_melt-anim", "sh_rawglass")
 end
 
 -- st_knight --
@@ -1105,14 +1105,14 @@ end
 -- st_lightpassenger --
 do
     local img = DefSubimages("st_lightpassenger", {h=7})
-    DefShModel("st_lightpassenger", img[1], "sh_glass")
+    DefShModel("st_lightpassenger", img[1], "sh_rawglass")
     DefImage("st_lightpassenger_offx", {filename = "st_lightpassenger_off"})
-    DefShModel("st_lightpassenger_off", "st_lightpassenger_offx", "sh_glass")
+    DefShModel("st_lightpassenger_off", "st_lightpassenger_offx", "sh_rawglass")
     DefAlias("st_lightpassenger_hidden", "st_darkglass")
     -- Blink animation
     local frames = {img[2], img[3], img[4], img[5], img[6], img[7]}
     DefAnim("st_lightpassenger_blink1", PingPong(BuildFrames(frames, 75)), true)
-    DefShModel("st_lightpassenger_blink", "st_lightpassenger_blink1", "sh_glass")
+    DefShModel("st_lightpassenger_blink", "st_lightpassenger_blink1", "sh_rawglass")
     -- Break animation
     img = DefSubimages("st_lightpassenger_break", {h=7})
     local anim_v, anim_h, anim_hv = {}, {}, {}
@@ -1166,7 +1166,7 @@ do
    DefSubimages("st_swap",{modelname="st-swap-fg",h=5})
    DefSubimages("sh_pull",{h=4, imgw=ShadowSize, imgh=ShadowSize})
 
-   DefShModel("st_pull",   "st-pull-fg1", "sh_glass")
+   DefShModel("st_pull",   "st-pull-fg1", "sh_rawglass")
    DefShModel("st_pull_n", "st-pull-fg2", "sh_pull1")
    DefShModel("st_pull_s", "st-pull-fg3", "sh_pull2")
    DefShModel("st_pull_e", "st-pull-fg4", "sh_pull3")
