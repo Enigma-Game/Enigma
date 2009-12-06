@@ -1318,14 +1318,14 @@ do
     DefRoundStone("st_monoflop", "st_monoflop1")
     DefAnim("st_monoflop_anim", BuildFrames (images, 180), 1)
     DefShModel("st_monoflop_anim", "st_monoflop_anim", "sh_round")
-end
+ end
+
 -- laserswitch --
 do
     DefStone("st_laserswitch0", "sh_round", {filename="st_oxydb"})
     DefAnimImages("laserswitch-blink", RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
     DefShModel("st_laserswitch1", "laserswitch-blink", "sh_round")
 end
-
 
 -- st_turnstile --
 do
@@ -1548,6 +1548,12 @@ do
        c="sh_solid",
        d="sh_solid",
     }
+    local shadow_open = {
+       a="sh_round",
+       b="sh_round",
+       c="sh_solid",
+       d="sh_round",
+    }
     local fopening = {
         a = BuildFrames(DefSubimages("st_oxyda_opening", {h=9}), 60),
         b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 40),
@@ -1586,7 +1592,7 @@ do
         DefOverlay(n..1, img)
         DefOverlay(n..2, {baseimg[flavor], colorspots[color+1]})
         DefAnim(n.."_anim", BuildFrames({n..1,n..2}, 500), 1)
-        DefShModel(n, n.."_anim", shadow[flavor])
+        DefShModel(n, n.."_anim", shadow_open[flavor])
     end
 
     function mkopened(flavor, color)
@@ -1604,7 +1610,7 @@ do
         DefAnim(n.."_anim", frames, true)
 
         -- and finally add a shadow to make the model complete
-        DefShModel(n, n.."_anim", shadow[flavor])
+        DefShModel(n, n.."_anim", shadow_open[flavor])
     end
 
     function mkpseudo(flavor, color)
@@ -1632,7 +1638,6 @@ do
     function mkoxyd(flavor)
         DefStone("st_oxyd"..flavor, shadow[flavor])
         DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
---        DefSolidStone("st_fake_oxyd"..flavor, "st_oxyd"..flavor)
         img = DefImage("st_oxyd"..flavor.."_open")
         DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
 
