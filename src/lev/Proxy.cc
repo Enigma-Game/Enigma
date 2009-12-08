@@ -1170,7 +1170,7 @@ namespace enigma { namespace lev {
                 XMLString::release(&revisionDigits);
             } else {
                 // "$Revision$" - level not stored in repository yet
-                revisionNumber ==  0;
+                revisionNumber = 0;
             }
         }
         return revisionNumber;

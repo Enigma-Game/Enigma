@@ -4,7 +4,7 @@ SUBDIRS = images
 
 HTML = enigma-ref.html
 
-refdir=@datadir@/doc/enigma/reference
+refdir=@docdir@/reference
 ref_DATA = $(HTML) ant_lua.txt sounds.txt soundset.lua lua2xml xml2lua
 
 EXTRA_DIST = enigma-ref.texi enigma-t2h.init level_api_syntax.tex level_api_constants.tex level_api_syntax_examples.tex level_api_tds.tex $(ref_DATA)

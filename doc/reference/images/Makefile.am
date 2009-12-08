@@ -340,7 +340,7 @@ THIEVES = st_thief.png st_thief_capture.png st_thief_drunken.png \
 
 PNGLIST = $(SIMPLEPNG) $(FRAMABLEFLOORS) $(FRAMEDFLOORS) $(LASERS) $(THIEVES)
 
-pngdir = @datadir@/doc/enigma/reference/images
+pngdir = @docdir@/reference/images
 png_DATA = $(PNG) $(PNGLIST)
 
 all: $(PNGLIST)
@@ -477,4 +477,5 @@ ac_%.png: $(GFXDIR)/ac_%.png
 CLEANFILES = $(PNGLIST)
 
 EXTRA_DIST = $(PNG)
+
 

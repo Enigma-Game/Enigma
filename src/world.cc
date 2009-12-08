@@ -2530,13 +2530,13 @@ Object * MakeObject(const char *kind) {
     Object *obj = NULL;
     if (last_templ)
         obj = last_templ->clone();
-    ASSERT(obj != NULL, XLevelRuntime, ecl::strf("MakeObject: unkown object name `%s'\n",kind).c_str());
+    ASSERT(obj != NULL, XLevelRuntime, ecl::strf("MakeObject: unknown object name `%s'\n",kind).c_str());
     return obj;
 }
 
 Object * GetObjectTemplate(const std::string &kind) {
     if (!repos->has_templ(kind)) {
-        cerr << "GetObjectTemplate: unkown object name `" <<kind<< "'.\n";
+        cerr << "GetObjectTemplate: unknown object name `" <<kind<< "'.\n";
         return 0;
     } else
         return repos->get_template(kind);

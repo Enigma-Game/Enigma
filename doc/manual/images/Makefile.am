@@ -1,6 +1,6 @@
 PNG = $(wildcard $(srcdir)/*.png)
 
-pngdir=@datadir@/doc/enigma/manual/images
+pngdir=@docdir@/manual/images
 png_DATA=$(PNG)
 
 EXTRA_DIST = $(PNG)

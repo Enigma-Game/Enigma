@@ -516,7 +516,7 @@ std::string Application::getVersionInfo() {
     else {
         versionInfo =  "v" PACKAGE_VERSION 
             " (development version - v" + 
-            ecl::strf("%.2f",ENIGMACOMPATIBITLITY) + " compatibilty branch)";
+            ecl::strf("%.2f",ENIGMACOMPATIBITLITY) + " compatibility branch)";
     }
     return versionInfo;
 }
