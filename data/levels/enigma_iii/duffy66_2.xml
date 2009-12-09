@@ -71,7 +71,7 @@ function chase(value, sender)
         if court[fl(white)] ~= nil then
             local candidates = no["water"] + (po(0, 0) .. NEIGHBORS_4)
             local mindist = 10000
-            local winner = nil
+            local winner = 1
             for i= 1, 5 do
                 local distvec = candidates[i] - white
                 local distsquare = distvec.x * distvec.x + distvec.y * distvec.y
@@ -80,7 +80,7 @@ function chase(value, sender)
                     mindist = distsquare
                 end
             end
-            if i ~= 1 then
+            if winner ~= 1 then
                 wo[no["water"]] = ti["-"]
                 wo[candidates[winner]] =  ti["~"]
                 court = no["court#*"]

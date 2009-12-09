@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Pentachromos" el:subtitle="Combined effort level 2" el:id="cel2"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="stable"/>
       <el:author  el:name="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Joseph Dunne, Ronald Lamprecht, Dominik Lehmann, Mark Pulley, Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -50,8 +50,8 @@ ti["jZ"] = ti["j "] .. {"st_puzzle_blue_sw"}
 ti["jC"] = ti["j "] .. {"st_puzzle_blue_es"}
 ti["jE"] = ti["j "] .. {"st_puzzle_blue_ne"}
 ti["j7"] = ti["j "] .. {"it_blocker"}
-ti["j`"] = ti["j "] .. {"it_key", code=8}
-ti["j~"] = ti["j "] .. {"it_key", code=3}
+ti["j`"] = ti["j "] .. {"it_key", code=8, invisible=false}
+ti["j~"] = ti["j "] .. {"it_key", code=3, invisible=false}
 ti["jv"] = ti["j "] .. {"it_vortex_closed", name="vortex_j_b", destination="vortex_j", autoclose=true, autoopen=true}
 
 map_joseph = {
@@ -67,8 +67,7 @@ map_joseph = {
     "#ssdwsg##    R# R  #00000000000000000000",
     "#e^^as8gg       R  #00000000000000000000",
     "#vesssg##          #00000000000000000000",
-    "###**###############00000000000000000000"
-}
+    "###**###############00000000000000000000"}
 
 function dest_enter(value, sender)
     no["vortex_j"]["destination"] = sender
@@ -77,7 +76,6 @@ end
 function dest_exit(value, sender)
     no["vortex_j"]["destination"] = no["vortex_j_b"]
 end
-
 
 -- Ronald Lamprecht
 
@@ -103,8 +101,8 @@ ti["r."] = {"fl_abyss"} .. ti{"it_seed"}
 ti["rf"] = {"fl_lawn"} .. ti{"it_floppy"}
 ti["rF"] = {"fl_lawn"} .. ti{"st_floppy", target="ral_fdoor"}
 ti["rG"] = {"st_door_d_ew", name="ral_fdoor"} .. ti["r "]
-ti["rj"] = {"it_key", code=1} .. ti{"fl_bridge_bw", state=OPEN, name="ral_bridge4"}
-ti["rK"] = {"it_key", code=4} .. ti["r "]
+ti["rj"] = {"it_key", code=1, invisible=false} .. ti{"fl_bridge_bw", state=OPEN, name="ral_bridge4"}
+ti["rK"] = {"it_key", code=4, invisible=false} .. ti["r "]
 
 map_ronald = {
     "#######################################",
@@ -119,16 +117,15 @@ map_ronald = {
     "#     I~~    ~#          ~~~~~~~~~~~~ #",
     "#                #~~~~~~~~~~~~~~~~~~~ #",
     "#            ~~~~~~#                  #",
-    "#######################################"
-}
+    "#######################################"}
 
 -- Dominik Lehmann
 
 ti["z "] = {"fl_dark"}
 ti["z#"] = {"st_redrock"}
 ti["z."] = ti["z "] .. {"it_vortex_closed", name="vortex_z_b", destination = "vortex_z", autoclose=true, autoopen=true}
-ti["z@"] = ti["z "] .. {"it_key", code=2}
-ti["z!"] = ti["z "] .. {"it_key", code=5}
+ti["z@"] = ti["z "] .. {"it_key", code=2, invisible=false}
+ti["z!"] = ti["z "] .. {"it_key", code=5, invisible=false}
 ti["z="] = ti["z "] .. {"it_document", text = "text1"}
 ti["z/"] = {"fl_red"} .. ti({"st_rawglass"})
 ti["z+"] = ti["z "] .. {"st_box_wood"}
@@ -162,60 +159,90 @@ ti["zi"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "tog
 ti["zj"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = "toggle", target = "ItemDoor1"})
 ti["zk"] = {"fl_yinyang_yin"} .. ti({"it_trigger", invisible=true, action = {"toggle", "toggle"}, target = {"HorseDoor", "UpperDoor"}})
 
+map_dominik = {
+    "####################",
+    "#   6#  3 @hij#!987#",
+    "# + e#  #4[####### #",
+    "#  #### #f &   #k# #",
+    "# da    #g #    %# #",
+    "##2#    a# ##  (%# #",
+    "#  # # Z #   #(  #.#",
+    "#  X   # #  #  ) # #",
+    "## # #Y# #%   )  ] #",
+    "1  /     /B  #  ## #",
+    "# ######a##5#####  #",
+    "#  ~              =#",
+    "####################"}
+
 -- Mark Pulley
 
 ti["p "] = {"fl_sand"}
-ti["p#"]= ti["p "] .. {"st_jamb_black"}
-ti["p&"]= ti["p "] .. {"st_fake_oxydb"}
-ti["p>"]= ti["p "] .. {"st_oneway_black", state = EAST}
-ti["pa"]= ti["p "] .. {"st_oneway_black", state = SOUTH}
-ti["pb"]= ti["p "] .. {"it_sensor", invisible = true, target={"Gaten", "Gateo", "Gatep", "Gateq", "Gater", "Gatet", "Gatey"},
+ti["p#"] = ti["p "] .. {"st_jamb_black"}
+ti["p&"] = ti["p "] .. {"st_fake_oxydb"}
+ti["p>"] = ti["p "] .. {"st_oneway_black", state = EAST}
+ti["pa"] = ti["p "] .. {"st_oneway_black", state = SOUTH}
+ti["pb"] = ti["p "] .. {"it_sensor", invisible = true, target={"Gaten", "Gateo", "Gatep", "Gateq", "Gater", "Gatet", "Gatey"},
                                                       action={"open", "close", "close", "close", "open", "close", "close"}}
-ti["pg"]= ti["p "] .. {"st_jamb_black", name="Stoneg"}
-ti["ph"]= ti["p "] .. {"st_jamb_black", name="Stoneh"}
-ti["pi"]= ti["p "] .. {"st_jamb_black", name="Stonei"}
-ti["pj"]= ti["p "] .. {"st_jamb_black", name="Stonej"}
-ti["pk"]= ti["p "] .. {"st_jamb_black", name="Stonek"}
-ti["pl"]= ti["p "] .. {"it_sensor", invisible = true, target="GateL"}
-ti["pm"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_N"}
-ti["pn"]= ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gaten"}
-ti["po"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gateo"}
-ti["pp"]= ti["p "] .. {"st_door_a", name="Gatep"}
-ti["pq"]= ti["p "] .. {"st_door_a", name="Gateq"}
-ti["pr"]= ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gater"}
-ti["pt"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gatet"}
-ti["pu"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_U"}
-ti["pv"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_V"}
+ti["pg"] = ti["p "] .. {"st_jamb_black", name="Stoneg"}
+ti["ph"] = ti["p "] .. {"st_jamb_black", name="Stoneh"}
+ti["pi"] = ti["p "] .. {"st_jamb_black", name="Stonei"}
+ti["pj"] = ti["p "] .. {"st_jamb_black", name="Stonej"}
+ti["pk"] = ti["p "] .. {"st_jamb_black", name="Stonek"}
+ti["pl"] = ti["p "] .. {"it_sensor", invisible = true, target="GateL"}
+ti["pm"] = ti["p "] .. {"it_sensor", invisible = true, target="Gate_N"}
+ti["pn"] = ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gaten"}
+ti["po"] = ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gateo"}
+ti["pp"] = ti["p "] .. {"st_door_a", name="Gatep"}
+ti["pq"] = ti["p "] .. {"st_door_a", name="Gateq"}
+ti["pr"] = ti["p "] .. {"st_door_d", state = OPEN, faces="ns", name="Gater"}
+ti["pt"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gatet"}
+ti["pu"] = ti["p "] .. {"it_sensor", invisible = true, target="Gate_U"}
+ti["pv"] = ti["p "] .. {"it_sensor", invisible = true, target="Gate_V"}
 ti["p+"] = {"fl_sand", name="dest"}
-ti["pw"]= ti["p "] .. {"it_vortex_closed", name="vortex_p_b", destination = "vortex_p", autoclose=true, autoopen=true}
-ti["px"]= ti["p "] .. {"it_sensor", invisible = true, target="Gate_X"}
-ti["py"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gatey"}
-ti["pz"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gatey"}) .. {"st_oneway_black", state = EAST}
-ti["pA"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_A"}
-ti["pB"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_B"}
-ti["pC"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_C"}
-ti["pD"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_D"}
-ti["pE"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_E"}
-ti["pG"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_G", target={"Stoneg","Stoneh"}, action={"hit","hit"}}
-ti["pH"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_H"}
-ti["pI"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_I", target={"Stonei", "Stonej"}, action={"hit","hit"}}
-ti["pJ"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_J", target={"Stonej","Stonek"}, action={"hit","hit"}}
-ti["pK"]= ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_K", target="Stonek", action="hit"}
-ti["pL"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="GateL"}
-ti["pM"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_M"}
+ti["pw"] = ti["p "] .. {"it_vortex_closed", name="vortex_p_b", destination = "vortex_p", autoclose=true, autoopen=true}
+ti["px"] = ti["p "] .. {"it_sensor", invisible = true, target="Gate_X"}
+ti["py"] = ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gatey"}
+ti["pz"] = (ti["p "] .. {"it_sensor", invisible = true, target="Gatey"}) .. {"st_oneway_black", state = EAST}
+ti["pA"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_A"}
+ti["pB"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_B"}
+ti["pC"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_C"}
+ti["pD"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_D"}
+ti["pE"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_E"}
+ti["pG"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_G", target={"Stoneg","Stoneh"}, action={"hit","hit"}}
+ti["pH"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_H"}
+ti["pI"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_I", target={"Stonei", "Stonej"}, action={"hit","hit"}}
+ti["pJ"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_J", target={"Stonej","Stonek"}, action={"hit","hit"}}
+ti["pK"] = ti["p "] .. {"st_door_d_ew", state = OPEN, name="Gate_K", target="Stonek", action="hit"}
+ti["pL"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="GateL"}
+ti["pM"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_M"}
 ti["pN"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_O"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_N"}
 ti["pO"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_P"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_O"}
 ti["pP"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_Q"}) .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_P"}
 ti["pQ"]= (ti["p "] .. {"it_sensor", invisible = true, target="Gate_R"}) .. {"st_door_d_ew", state = CLOSED, name="Gate_Q"}
-ti["pR"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_R"}
-ti["pS"]= ti["p "] .. {"st_switch", target="Gate_*"}
-ti["pU"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_U"}
-ti["pV"]= ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_V"}
-ti["pW"]= ti["p "] .. {"st_switch", target={"Gaten", "Gatep", "Gater", "Gatet", "Gatey"}}
-ti["pX"]= ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_X"}
-ti["pY"]= ti["p "] .. {"st_switch", target={"Gateo", "Gatep", "Gateq", "Gatet", "Gatey"}}
-ti["pZ"]= ti["p "] .. {"st_switch", target={"Gaten", "Gateo", "Gateq", "Gater", "Gatey"}}
-ti["p1"]= ti["p "] .. {"it_key", code=6}
+ti["pR"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_R"}
+ti["pS"] = ti["p "] .. {"st_switch", target="Gate_*"}
+ti["pU"] = ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_U"}
+ti["pV"] = ti["p "] .. {"st_door_d_ew", state = CLOSED, name="Gate_V"}
+ti["pW"] = ti["p "] .. {"st_switch", target={"Gaten", "Gatep", "Gater", "Gatet", "Gatey"}}
+ti["pX"] = ti["p "] .. {"st_door_d", state = CLOSED, faces="ns", name="Gate_X"}
+ti["pY"] = ti["p "] .. {"st_switch", target={"Gateo", "Gatep", "Gateq", "Gatet", "Gatey"}}
+ti["pZ"] = ti["p "] .. {"st_switch", target={"Gaten", "Gateo", "Gateq", "Gater", "Gatey"}}
+ti["p1"] = ti["p "] .. {"it_key", code=6, invisible=false}
+
+map_mark = {
+    "####################",
+    "#v        L #    Rl#",
+    "###&#X#&#&# # g&####",
+    "#u    &xV A # G > S#",
+    "#&#&#&#U#&# #&hP# ##",
+    "#W#Y#Z& & B # H & &#",
+    "#       # ##&Ni&# ##",
+    "#n#&#&# # C # I    #",
+    "# & ta& #&# #mj&#  #",
+    "#o#r#zb # D # J &  #",
+    "# & &y& # #&#&kO#  #",
+    "#p q#1> > E Q K >+w#",
+    "####################"}
 
 -- Lukas Schüller
 
@@ -242,8 +269,23 @@ ti["lw"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor4"}
 ti["lx"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor5"}
 ti["ly"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucDoor6"}
 ti["lz"] = ti["l "] .. {"it_trigger", action = "toggle", target = "LucLaser"}
-ti["l?"] = ti["l "] .. {"it_key", code=7}
+ti["lk"] = ti["l "] .. {"it_key", code=7, invisible=false}
 ti["l0"] = ti["l "] .. {"it_vortex_closed", name="vortex_l_b", destination="vortex_l", autoclose=true, autoopen=true}
+
+map_lukas = {
+    "~##################~",
+    "~## ##    #    ~~##~",
+    "~##k## +# X* * ~~##~",
+    "~##&## +  #  ### s#~",
+    "~#   # +# *  #  tu#~",
+    "~# 0 X  ++  ## ## #~",
+    "~#   # +# *  #  wx#~",
+    "~## ## +  #  ### y#~",
+    "~#z ## +# X* * ~~##~",
+    "~##~##    #    ~~##~",
+    "~## ###############~",
+    "~##v 1 2 3 4 5 6 <#~",
+    "~##################~"}
 
 -- End room
 
@@ -318,7 +360,6 @@ ti["9B"] = ti["  "] .. {"st_door_b", name = "9B"}
 ti["9C"] = ti["  "] .. {"st_door_b", name = "9C"}
 ti["9D"] = ti["  "] .. {"st_door_b", name = "9D"}
 ti["9E"] = ti["  "] .. {"st_door_b", name = "9E"}
-
 ti["1a"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1A"}
 ti["1b"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1B"}
 ti["1c"] = ti["  "] .. {"st_key", code=1, action = "toggle", target = "1C"}
@@ -362,51 +403,7 @@ ti["9b"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9B"}
 ti["9c"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9C"}
 ti["9d"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9D"}
 ti["9e"] = ti["  "] .. {"st_floppy", action = "toggle", target = "9E"}
-
 ti["@@"] = ti["  "] .. {"#ac_marble"}
-
-map_dominik = {"z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#",
-               "z#z z z z6z#z z z3z z@zhzizjz#z!z9z8z7z#",
-               "z#z z+z zez#z z z#z4z[z#z#z#z#z#z#z#z z#",
-               "z#z z z#z#z#z#z z#zfz z&z z z z#zkz#z z#",
-               "z#z zdzaz z z z z#zgz z#z z z z z%z#z z#",
-               "z#z#z2z#z z z z zaz#z z#z#z z z(z%z#z z#",
-               "z#z z z#z z#z zZz z#z z z z#z(z z z#z.z#",
-               "z#z z zXz z z z#z z#z z z#z z z)z z#z z#",
-               "z#z#z z#z z#zYz#z z#z%z z z z)z z z]z z#",
-               "z1z z z/z z z z z z/zBz z z#z z z#z#z z#",
-               "z#z z#z#z#z#z#z#zaz#z#z5z#z#z#z#z#z z z#",
-               "z#z z z~z z z z z z z z z z z z z z z=z#",
-               "z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#z#"}
-
-map_lukas = {"l~l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~",
-             "l~l#l#l l#l#l l l l l#l l l l l~l~l#l#l~",
-             "l~l#l#l?l#l#l l+l#l lXl*l l*l l~l~l#l#l~",
-             "l~l#l#l&l#l#l l+l l l#l l l#l#l#l lsl#l~",
-             "l~l#l l l l#l l+l#l l*l l l#l l ltlul#l~",
-             "l~l#l l0l lXl l l+l+l l l#l#l l#l#l l#l~",
-             "l~l#l l l l#l l+l#l l*l l l#l l lwlxl#l~",
-             "l~l#l#l l#l#l l+l l l#l l l#l#l#l lyl#l~",
-             "l~l#lzl l#l#l l+l#l lXl*l l*l l~l~l#l#l~",
-             "l~l#l#l~l#l#l l l l l#l l l l l~l~l#l#l~",
-             "l~l#l#l l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~",
-             "l~l#l#lvl l1l l2l l3l l4l l5l l6l l<l#l~",
-             "l~l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l#l~"}
-
-map_mark = {"p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#",
-            "p#pvp p p p p p p p pLp p#p p p p pRplp#",
-            "p#p#p#p&p#pXp#p&p#p&p#p p#p pgp&p#p#p#p#",
-            "p#pup p p p p&pxpVp pAp p#p pGp p>p pSp#",
-            "p#p&p#p&p#p&p#pUp#p&p#p p#p&phpPp#p p#p#",
-            "p#pWp#pYp#pZp&p p&p pBp p#p pHp p&p p&p#",
-            "p#p p p p p p p p#p p#p#p&pNpip&p#p p#p#",
-            "p#pnp#p&p#p&p#p p#p pCp p#p pIp p p p p#",
-            "p#p p&p ptpap&p p#p&p#p p#pmpjp&p#p p p#",
-            "p#pop#prp#pzpbp p#p pDp p#p pJp p&p p p#",
-            "p#p p&p p&pyp&p p#p p#p&p#p&pkpOp#p p p#",
-            "p#ppp pqp#p1p>p p>p pEp pQp pKp p>p+pwp#",
-            "p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#p#"}
-
 
 map_main = {" # # # # # # #7a #3a #5a #6d #3d #9c # #",
             "j#j    a   P1A  2A  4A  9C  8B  3D  7Ej#",
@@ -436,15 +433,13 @@ map_main = {" # # # # # # #7a #3a #5a #6d #3d #9c # #",
 
 wo(ti, "  ", 153, 37)
 
---dm = wo:newMap("j ", map_joseph):defuse()
---dm[2]:print()
-
 wo:drawMap(ti, po(0,0), "r" * wo:newMap("?", map_ronald))
-wo:drawMap(ti, po(57,0), "??", map_dominik)
-wo:drawMap(ti, po(95,0), "??", map_lukas)
+wo:drawMap(ti, po(57,0), "z" * wo:newMap("?", map_dominik))
+wo:drawMap(ti, po(95,0), "l" * wo:newMap("?", map_lukas))
 wo:drawMap(ti, po(133,0), "??", map_main)
-wo:drawMap(ti, po(57,24), "??", map_mark)
+wo:drawMap(ti, po(57,24), "p" * wo:newMap("?", map_mark))
 wo:drawMap(ti, po(0,24), "j" * wo:newMap("?", map_joseph))
+
 wo:add({"ot_counter", "LaserFunc", state = 0, target_3 = "ItemDoor2", action_3 = "close"})
 wo:shuffleOxyd()
  ]]></el:luamain>

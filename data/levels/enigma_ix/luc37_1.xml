@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Floodoban" el:subtitle="Make Your Own Puzzle!" el:id="luc372009"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+          <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">
+          Window display inspired by Alex Smith's level "Transforming Numbers".
+        </el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rock"}
+ti["."] = {"fl_sand", floodable=true}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_darkgray"}
+ti["r"] = {"st_box_rock"}
+ti["R"] = ti["."] .. {"st_box_rock"}
+ti["B"] = ti["."] .. {"st_grate"}
+ti[">"] = ti["."] .. {"st_oneway_e"}
+ti["x"] = {"it_cross"}
+ti["S"] = {"fl_water_source", interval=0.1}
+ti["|"] = ti["."] .. {"st_door", name="flood_gate#", faces="ew"}
+ti["F"] = {"st_switch", action="open", target="flood_gate#*"}
+ti["C"] = {"st_switch", target="createBox"}
+ti["="] = {"st_door", "oxyd_gate", faces="ns"}
+ti["*"] = {"it_trigger", action="signal", target="sokoCount"}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~    #.B....B.#    ~",
+    "~   *#B....B.B#  ~ ~",
+    "#=#* #...B..B.#  rR~",
+    "# # *#..B.B....x@rR~",
+    "O #  ....B....#  rR~",
+    "O #RR#.......B#  ~ ~",
+    "###RR#B...B.B.|..  ~",
+    "S|...#.B.B.B.B#C###~",
+    "#F.B..B...B...#    ~",
+    "~.B.B.........#    ~",
+    "~..B.........B#    ~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:add({"ot_counter", "sokoCount", action_2="close", target_2="oxyd_gate", action_3="open", target_3="oxyd_gate"})
+
+-- some positions:
+pos_w=po(15,4)        -- new box
+pos_t1=po(16,10)    -- first digit, upper square
+pos_t2=po(18,10)    -- second digit, upper square
+pos_b1=po(16,11)    -- first digit, lower square
+pos_b2=po(18,11)    -- second digit, lower square
+
+-- total number of wood boxes that can be created via switch
+total_boxes=26
+
+-- window constellations, taken from Alex Smith's level "Transforming Numbers":
+topseg  = { "new",   "e", "nes", "nes", "esw", "nsw", "nsw",  "ne","nesw","nesw"}
+botseg  = { "esw",   "e",  "sw",  "es",   "e",  "es", "esw",   "e", "esw",  "es"}
+
+-- update display to show how many boxes can still be created:
+function updateDisplay()
+    if(total_boxes==0) then
+        second_digit=0
+    else
+        digits=lib.math.digits(total_boxes, 10)
+        second_digit=digits[1]
+        st(pos_t1):kill()
+        st(pos_b1):kill()
+        if(#digits>1) then
+            first_digit=digits[2]
+            wo[pos_t1] = {"st_window", secure=true, faces=topseg[first_digit+1]}
+            wo[pos_b1] = {"st_window", secure=true, faces=botseg[first_digit+1]}
+        end
+    end
+    wo[pos_t2] = {"st_window", secure=true, faces=topseg[second_digit+1]}
+    wo[pos_b2] = {"st_window", secure=true, faces=botseg[second_digit+1]}
+end
+
+-- try to create a new box:
+function createBox()
+    if(st(pos_w):exists() or total_boxes==0) then
+        return
+    end
+    wo[pos_w] = {"st_box"}
+    total_boxes=total_boxes-1
+    updateDisplay()
+end
+
+updateDisplay()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

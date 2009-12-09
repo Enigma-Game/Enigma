@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="17" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="18" title="Enigma IX"/>
 
   <attributes/>
 
@@ -51,6 +51,7 @@
     <level _seq="43" _title="Meditation Sorting" _xpath="./wesley02_1" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Claustrophobia" _xpath="./ais11_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Nabokos" _xpath="./ais12_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523003" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Floodoban" _xpath="./luc37_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc372009" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

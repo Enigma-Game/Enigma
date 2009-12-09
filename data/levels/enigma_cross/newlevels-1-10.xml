@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="74" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="75" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -187,7 +187,7 @@
     <level _seq="179" _title="Behind Glass" _xpath="enigma_ix/rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="180" _title="Perennial Creek" _xpath="enigma_ix/pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="181" _title="Wired Strips" _xpath="enigma_viii/ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
-    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="182" _title="Pentachromos" _xpath="enigma_viii/cel2_1" author="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="183" _title="Wired Pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="184" _title="Crabwise III" _xpath="enigma_ix/devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="185" _title="Bicolor" _xpath="enigma_ix/devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="4" score="1" target="time" unit="duration"/>
@@ -223,6 +223,7 @@
     <level _seq="215" _title="Meditation Sorting" _xpath="enigma_ix/wesley02_1" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="216" _title="Claustrophobia" _xpath="enigma_ix/ais11_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="217" _title="Nabokos" _xpath="enigma_ix/ais12_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523003" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="218" _title="Floodoban" _xpath="enigma_ix/luc37_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc372009" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
