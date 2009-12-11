@@ -243,14 +243,18 @@ namespace enigma { namespace gui {
     
     void MainHelpMenu::on_action(gui::Widget *w) {
         if (w == homepage) {
+            video::SetFullscreen(false);
             ecl::BrowseUrl("http://www.enigma-game.org");            
         } else if (w == docs) {
+            video::SetFullscreen(false);
             ecl::BrowseUrl("file://" + app.docPath + "/index.html");
         } else if (w == paths) {
             showPaths();
         } else if (w == autofolder) {
+            video::SetFullscreen(false);
             ecl::ExploreFolder(ecl::BeautifyPath(app.userPath + "/levels/auto"));
         } else if (w == scorefolder) {
+            video::SetFullscreen(false);
             ecl::ExploreFolder(ecl::BeautifyPath(app.userPath));
         } else if (w == credits) {
             displayInfo(credit_text, 6);

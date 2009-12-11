@@ -85,7 +85,7 @@ namespace video
     void Shutdown();
 
     void ChangeVideoMode();
-    bool SetFullscreen(bool onoff);
+    bool SetFullscreen(bool on);
 
     /*! Switch between windowed and fullscreen mode. Return true if
        fullscreen mode is active afterwards. */
