@@ -33,6 +33,7 @@ namespace enigma {
 
         st_actorimpulse,
         st_actorimpulse_invisible,
+        st_barrier,
         st_borderstone,
         st_box,
         st_box_wood_growing,

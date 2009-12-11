@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 Daniel Heck
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -44,7 +45,8 @@ namespace enigma
         void add_item (Item *i);
         virtual void takeItemsFrom(ItemHolder *ih);
         virtual Item *yield_first();
-
+        virtual bool containsKind(std::string kind) const;
+        
         // ---------- Methods ----------
 
         void assignOwner(int playerId);

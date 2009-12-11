@@ -57,7 +57,8 @@ namespace enigma {
         virtual bool is_empty() const;
         virtual void add_item (Item *it);
         virtual Item *yield_first();
-        
+        virtual bool containsKind(std::string kind) const;
+                
     private:
         std::vector<Item *> m_contents;
     };

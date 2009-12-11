@@ -1349,6 +1349,9 @@
       <msg name="_performaction"/>
       <msg name="_trigger"/>
     </object>
+    <object name="st_barrier">
+      <attr name="flavor" default="all"/>
+    </object>
     <object name="st_beads"/>
     <object name="st_blocker_new" init="true">
     </object>

@@ -301,6 +301,8 @@ enigma_SOURCES = 		\
 	others/Wire.hh		\
 	stones/ActorImpulseStone.cc	\
 	stones/ActorImpulseStone.hh	\
+	stones/BarrierStone.cc   \
+	stones/BarrierStone.hh   \
 	stones/BlockerStone.cc	\
 	stones/BlockerStone.hh	\
 	stones/BoulderStone.cc	\

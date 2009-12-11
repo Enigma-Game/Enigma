@@ -34,7 +34,7 @@ namespace enigma {
     BagItem::~BagItem() {
         // Bags on the grid are disposed, but bags in the inventory need to be
         // delete their contents on the destructor
-        ecl::delete_sequence (m_contents.begin(), m_contents.end());
+        ecl::delete_sequence(m_contents.begin(), m_contents.end());
     }
     
     BagItem * BagItem::clone() {
@@ -145,6 +145,20 @@ namespace enigma {
             return it;
         }
         return NULL;
+    }
+    
+    bool BagItem::containsKind(std::string kind) const {
+        std::vector<Item *> contents = m_contents;
+        for (std::vector<Item *>::iterator itr = contents.begin(); itr != contents.end(); ++itr) {
+            if ((*itr)->isKind(kind))
+                return true;
+            else {
+                ItemHolder * ith = dynamic_cast<ItemHolder *>(*itr);
+                if (ith != NULL && ith->containsKind(kind))
+                    return true;
+            }
+        }
+        return false;
     }
     
     DEF_ITEMTRAITS(BagItem, "it_bag", it_bag);    

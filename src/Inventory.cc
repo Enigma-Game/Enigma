@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2006 Daniel Heck
+ * Copyright (C) 2009 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -196,6 +197,21 @@ int Inventory::find(const std::string& kind, size_t start_idx) const
             return static_cast<int> (i);
     }
     return -1;
+}
+
+bool Inventory::containsKind(std::string kind) const {
+    size_t size_ = size();
+    for (size_t i = 0; i<size_; ++i) {
+        Item * it = get_item(i);
+        if (it->isKind(kind))
+            return true;
+        else {
+            ItemHolder * ith = dynamic_cast<ItemHolder *>(it);
+            if (ith != NULL && ith->containsKind(kind))
+                return true;
+        }
+    }
+    return false;
 }
 
 } // namespace enigma
