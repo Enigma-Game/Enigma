@@ -105,6 +105,12 @@ namespace enigma {
         // Object interface
         virtual std::string getClass() const;
 
+        // GridObject interface
+        virtual void init_model();
+        
+        // ModelCallback interface  - Animation callback
+        virtual void animcb();
+
         // Stone interface
         virtual void actor_hit(const StoneContact &sc);
     };

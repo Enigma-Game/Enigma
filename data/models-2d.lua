@@ -1040,8 +1040,12 @@ end
 
 -- st-flash --
 do
-    local images = DefSubimages("st_flash", {h=1})
+    local images = DefSubimages("st_flash", {h=6})
     DefSolidStone("st_flash", "st_flash1")
+    table.remove(images,1)
+    local frames = BuildFrames(images,50)
+    DefAnim("st_flash_anim", frames)
+    DefSolidStone("st_flash-anim", "st_flash_anim")
 end
 
 -- st_fourswitch --

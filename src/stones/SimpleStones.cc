@@ -156,10 +156,19 @@ namespace enigma {
         return "st_flash";
     }
         
+    void FlashStone::init_model() {
+        set_model("st_flash");
+    }
+    
+    void FlashStone::animcb() {
+        init_model();
+    }
+
     void FlashStone::actor_hit(const StoneContact &sc) {
         if (Actor *other = FindOtherMarble(sc.actor)) {
             other->add_force (distortedVelocity(sc.actor->get_vel(), 20));
         }
+        set_anim("st_flash-anim");
     }
 
 /* -------------------- Grate stone -------------------- */
