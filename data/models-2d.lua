@@ -1306,10 +1306,11 @@ end
 
 -- st_timer --
 do
-    local images = DefSubimages("st_timer", {h=4})
-    DefAnim("timer_anim", BuildFrames(images, 120), 1)
+    local images = DefSubimages("st_timer", {h=5})
+    local timerframes = {"st_timer3", "st_timer2", "st_timer1", "st_timer2", "st_timer3", "st_timer4", "st_timer5", "st_timer4"}
+    DefAnim("timer_anim", BuildFrames(timerframes, 120), 1)
     DefRoundStone("st_timer", "timer_anim")
-    DefRoundStone("st_timeroff", "st_timer1")
+    DefRoundStone("st_timeroff", "st_timer3")
 end
 
 -- st_monoflop, st_laserswitch --
