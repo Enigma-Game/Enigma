@@ -1935,27 +1935,29 @@ end
 
 -- Barrier stone --
 do
-    local items = {"it_bag", "it_banana", "it_bomb", "it_bomb_black", "it_bomb_white", 
+    local items = {"it_bag", "it_banana", "it_bomb", "it_bomb_black", "it_bomb_white",
                    "it_bottle", "it_brake",
                    "it_brush", "it_cherry", "it_coffee", "it_coin", "it_coin_s", "it_coin_m",
-                   "it_coin_l", "it_document", "it_drop", "it_dynamite", "it_extinguisher", 
+                   "it_coin_l", "it_document", "it_drop", "it_dynamite", "it_extinguisher",
                    "it_extinguisher_empty", "it_extinguisher_full", "it_extinguisher_medium",
                    "it_extralife", "it_flag", "it_flag_black", "it_flag_white",
                    "it_floppy", "it_glasses", "it_glasses_broken", "it_hammer", "it_key",
                    "it_magicwand", "it_pencil", "it_pin", "it_pipe", "it_pipe_w", "it_pipe_w",
-                   "it_pipe_sw", "it_pipe_e", "it_pipe_ew", "it_pipe_es", 
+                   "it_pipe_sw", "it_pipe_e", "it_pipe_ew", "it_pipe_es",
                    "it_pipe_n", "it_pipe_nw", "it_pipe_ns", "it_pipe_ne",
                    "it_puller", "it_puller_w", "it_puller_s", "it_puller_e", "it_puller_n",
                    "it_ring", "it_rubberband", "it_seed", "it_seed_wood", "it_seed_hay",
                    "it_seed_greenbrown", "it_seed_volcano",
                    "it_spade", "it_spoon", "it_spring", "it_spring_keep", "it_spring_drop",
-                   "it_surprise", "it_sword", "it_umbrella", 
+                   "it_surprise", "it_sword", "it_umbrella",
                    "it_wrench", "it_yinyang"}
-    local stonebase = "st_pull"
+    local stonebase = DefImage("st_barrier")
     for _, it in pairs(items) do
-        display.DefineComposite("st_barrier_"..it, stonebase, it)
+        display.DefineComposite("st_barrier_"..it.."_fg", stonebase, it)
+        DefShModel("st_barrier_"..it, "st_barrier_"..it.."_fg", "sh_solid")
     end
-    display.DefineComposite("st_barrier_all", stonebase, "it_dummy")
+    display.DefineComposite("st_barrier_all_fg", stonebase, "it_dummy")
+    DefShModel("st_barrier_all", "st_barrier_all_fg", "sh_solid")
 end
 
 --------------------------------------------------------------------------------
