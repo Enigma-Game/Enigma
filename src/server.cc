@@ -88,6 +88,7 @@ bool     server::NoCollisions = false;
 bool     server::AllowSingleOxyds;
 bool     server::AllowSuicide;
 bool     server::AllowTogglePlayer;
+bool     server::AutoRespawn;
 bool     server::CreatingPreview = false;   // read only for Lua
 bool     server::ConserveLevel;
 bool     server::IsDifficult;               // read only for Lua
@@ -281,6 +282,7 @@ void server::PrepareLevel()
     server::AllowSingleOxyds  = false;
     server::AllowSuicide      = true;
     server::AllowTogglePlayer = true;
+    server::AutoRespawn       = false;
     server::FollowAction      = GridPos(19, 12);   // inner space of a room
     server::FollowGrid        = true;
     server::FollowMethod      = display::FOLLOW_FLIP;      // FLIP

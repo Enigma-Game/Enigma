@@ -204,17 +204,20 @@ namespace enigma {
 
         /* ---------- Variables ---------- */
         ActorInfo             m_actorinfo;
+        bool         centerRespawn;   // default, like on flag drop or sink, fall, shatter
+        bool         inplaceRespawn;  // respawn on exactly last valid position, use on suicide to prevent shortcuts
     private:
         Actor       *left;   // x-coordinate sorted double linked list
         Actor       *right;
         display::SpriteHandle m_sprite;
-        ecl::V2                startingpos;
-        ecl::V2                respawnpos;
-        bool                  use_respawnpos;
-        bool                  spikes; // set by "it-pin"
-        int                   controllers;
-        double                adhesion;
-        GridPos               last_gridpos;   // last pos handled by actor move
+        ecl::V2      startingpos;
+        ecl::V2      respawnpos;
+        bool         flagRespawn;
+        bool         firstGridStep;
+        bool         spikes; // set by "it-pin"
+        int          controllers;
+        double       adhesion;
+        GridPos      last_gridpos;   // last pos handled by actor move
     };
 
     inline ActorID get_id (Actor *a) {

@@ -90,7 +90,7 @@ Actor::Actor (const ActorTraits &tr)
   m_actorinfo(),
   m_sprite(),
   startingpos(), 
-  respawnpos(), use_respawnpos(false),
+  respawnpos(), flagRespawn(false), centerRespawn (true), inplaceRespawn (false),
   spikes(false), controllers (0), left (NULL), right (NULL)
 {
     setAttr("adhesion", 0.0);
@@ -190,21 +190,21 @@ void Actor::think(double /*dtime*/) {
 void Actor::set_respawnpos(const V2& p)
 {
     respawnpos     = p;
-    use_respawnpos = true;
+    flagRespawn = true;
 }
 
 void Actor::remove_respawnpos() {
-    use_respawnpos = false;
+    flagRespawn = false;
 }
 
 void Actor::find_respawnpos() {
-//    V2& what_pos = use_respawnpos ? respawnpos : startingpos;
+//    V2& what_pos = flagRespawn ? respawnpos : startingpos;
 //    FreeRespawnLocationFinder unblocked(what_pos, *this);
 //    what_pos = unblocked.get_position();
 }
 
 const V2& Actor::get_respawnpos() const {
-    return use_respawnpos ? respawnpos : startingpos;
+    return flagRespawn ? respawnpos : startingpos;
 }
 
 const V2 &Actor::get_startpos() const {
@@ -212,8 +212,29 @@ const V2 &Actor::get_startpos() const {
 }
 
 void Actor::respawn() {
-    V2 p =(use_respawnpos) ? respawnpos : startingpos;
-    warp (p);
+    ecl::V2 p = startingpos; // default respawn on initial position
+    if (flagRespawn || server::AutoRespawn) {
+        if (inplaceRespawn)
+            p = respawnpos;
+        else if (centerRespawn)
+            p = GridPos(respawnpos).center();
+        else {  // respawn in nearest edge of grid (thus avoiding laser beams)
+            p = respawnpos;
+            GridPos gp(respawnpos);
+            double dx = respawnpos[0] - gp.x;
+            double dy = respawnpos[1] - gp.y;
+            if (dx > 0.28 && dx < 0.5)
+                p[0] = gp.x + 0.28;
+            else if (dx < 0.72 && dx >= 0.5)
+                p[0] = gp.x + 0.72;
+                
+            if (dy > 0.28 && dy < 0.5)
+                p[1] = gp.y + 0.28;
+            else if (dy < 0.72 && dy >= 0.5)
+                p[1] = gp.y + 0.72;
+       }
+    }
+    warp(p);
     on_respawn(p);
 }
 
@@ -242,6 +263,7 @@ void Actor::on_creation(const ecl::V2 &p)  {
 }
 
 void Actor::on_respawn (const ecl::V2 &/*pos*/) {
+    centerRespawn = true;
 }
 
 void Actor::warp(const ecl::V2 &newpos) {
@@ -263,6 +285,7 @@ void Actor::move ()
             // Actor entered a new field -> notify floor and item objects
             // first leave old - avoid the possibility that an actor presses
             // two triggers at once.
+            firstGridStep = true;
             if (const Field *of = GetField(last_gridpos)) {
                 if (Floor *fl = of->floor)
                     fl->actor_leave(this);
@@ -283,6 +306,13 @@ void Actor::move ()
 
         if (Stone *st = m_actorinfo.field->stone)
             st->actor_inside (this);
+        
+        if (firstGridStep) {
+            firstGridStep = false;
+        } else if (!flagRespawn && !isMoribund())
+            if (m_actorinfo.field->floor->getAdhesion() != 0) {
+                respawnpos = m_actorinfo.pos;
+        }
     }
     last_gridpos = m_actorinfo.gridpos;
 }

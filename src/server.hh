@@ -95,6 +95,9 @@ namespace enigma_server
     // Allow F3
     extern bool     AllowSuicide;
     
+    // Respawn on last secure position
+    extern bool     AutoRespawn;
+    
     // level compatibility
     extern double   EnigmaCompatibility;
    

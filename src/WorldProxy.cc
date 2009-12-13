@@ -51,6 +51,8 @@ namespace enigma {
             return server::AllowSingleOxyds;
         } else if (key == "AllowSuicide") {
             return server::AllowSuicide;
+        } else if (key == "AutoRespawn") {
+            return server::AutoRespawn;
         } else if (key == "TogglePlayerOnDeath") {
             return server::AllowTogglePlayer;
         } else if (key == "ConserveLevel") {
@@ -145,6 +147,8 @@ namespace enigma {
             server::AllowSingleOxyds = val.to_bool();
         } else if (key == "AllowSuicide") {
             server::AllowSuicide = val.to_bool();
+        } else if (key == "AutoRespawn") {
+            server::AutoRespawn = val.to_bool();
         } else if (key == "TogglePlayerOnDeath") {
             server::AllowTogglePlayer = val.to_bool();
         } else if (key == "ConserveLevel") {

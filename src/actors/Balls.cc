@@ -45,9 +45,11 @@ namespace enigma {
                     change_state_noshield(SHATTERING);
                     handled = true;
                 } else if (m.message == "_suicide") {
+                    inplaceRespawn = true;
                     change_state(SHATTERING);
                     handled = true;
                 } else if (m.message == "_laserhit") {
+                    centerRespawn = false;
                     change_state_noshield(SHATTERING);
                     handled = true;
                 } else if (m.message == "_fall") {
