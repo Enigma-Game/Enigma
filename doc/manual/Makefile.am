@@ -6,7 +6,7 @@ TEXI = $(wildcard $(srcdir)/enigma*.texi)
 HTML = $(addprefix $(if $(builddir), $(builddir)/,), $(addsuffix .html, $(basename $(notdir $(TEXI)))))
 
 
-htmldir=@datadir@/doc/enigma/manual
+htmldir=@docdir@/manual
 html_DATA = $(HTML)
 
 EXTRA_DIST = $(TEXI) $(html_DATA)

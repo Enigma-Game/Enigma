@@ -2019,13 +2019,13 @@ Object * world::MakeObject(const char *kind) {
     if (last_templ)
         o=last_templ->clone();
     if (!o)
-        fprintf(stderr, "MakeObject: unkown object name `%s'\n",kind);
+        fprintf(stderr, "MakeObject: unknown object name `%s'\n",kind);
     return o;
 }
 
 Object * world::GetObjectTemplate(const std::string &kind) {
     if (!repos->has_templ(kind)) {
-        cerr << "GetObjectTemplate: unkown object name `" <<kind<< "'.\n";
+        cerr << "GetObjectTemplate: unknown object name `" <<kind<< "'.\n";
         return 0;
     } else
         return repos->get_template(kind);
