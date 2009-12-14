@@ -1563,7 +1563,7 @@ do
         a = BuildFrames(DefSubimages("st_oxyda_opening", {h=9}), 60),
         b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 40),
         c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
-        d = BuildFrames(DefSubimages("st_oxydd_opening", {h=5}), 70),
+        d = BuildFrames(DefSubimages("st_oxydd_opening", {h=10}), 35),
     }
     local fclosing = {
         a = ReverseFrames(fopening["a"]),
