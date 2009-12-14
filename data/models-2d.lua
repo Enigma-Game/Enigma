@@ -71,8 +71,8 @@ do
     DefAnim("ac_marble_white-disappear", BuildFrames(images, 25))
 
     -- Jumping black marble
-    images  = SpriteImages("ac-blackball-jump", 4)
-    shadows = SpriteImages("sh-blackball-jump", 4, 0.4)
+    images  = SpriteImages("ac_marble_black_jump", 4)
+    shadows = SpriteImages("sh_marble_jump", 4, 0.4)
     frames  = {}
     for i=1,4 do
         DefShModel("bb-jump"..i, images[i], shadows[i])
@@ -82,7 +82,7 @@ do
 
     -- Jumping white marble
     -- Use shadow from black marble
-    images  = SpriteImages("ac-whiteball-jump", 4)
+    images  = SpriteImages("ac_marble_white_jump", 4)
     frames  = {}
     for i=1,4 do
         DefShModel("wb-jump"..i, images[i], shadows[i])
