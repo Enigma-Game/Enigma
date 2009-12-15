@@ -49,7 +49,7 @@ do
     DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
 
     -- Falling black marble
-    images = SpriteImages("ac-blackball-fall", 10)
+    images = SpriteImages("ac_marble_black_fall", 10)
     frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
     DefAnim("ac_marble_black-fall", frames)
     DefAlias("ac_marble_black-fallen", "invisible")
@@ -60,7 +60,7 @@ do
     DefAnim("ac_marble_black-disappear", BuildFrames(images, 25))
 
     -- Falling white marble
-    images = SpriteImages("ac-whiteball-fall", 10)
+    images = SpriteImages("ac_marble_white_fall", 10)
     frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
     DefAnim("ac_marble_white-fall", frames)
     DefAlias("ac_marble_white-fallen", "invisible")
