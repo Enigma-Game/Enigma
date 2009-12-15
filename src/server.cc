@@ -156,7 +156,7 @@ void load_level(lev::Proxy *levelProxy, bool isRestart)
     try {
     Uint32 start_tick_time = SDL_GetTicks();   // meassure time for level loading
         if (!CreatingPreview)
-            sound::StartLevelMusic(false);
+            sound::StartLevelLoadMusic();
             
         server::LoadedProxy = levelProxy;
         IsLevelRestart = isRestart;

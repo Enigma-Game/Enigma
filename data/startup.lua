@@ -50,6 +50,7 @@ options = {
     MusicVolume      = 1.0,
     StereoSeparation = 10.0,
 
+    -- TODO: These two entries are obsolete and should be removed from enigmarc.xml as well.
     MenuMusicFile  = "sound/menu.s3m",
     LevelMusicFile = "sound/Emilie.xm",
 

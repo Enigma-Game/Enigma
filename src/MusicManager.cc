@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Andreas Lochmann
+ * Copyright (C) 2007,2008,2009 Andreas Lochmann
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -34,22 +34,19 @@ using namespace sound;
 
 /* -------------------- Interface Functions -------------------- */
 
-bool sound::StartMenuMusic()
+void sound::StartMenuMusic()
 {
-    if(MusicManager::instance()->getMusicContext() != MUSIC_MENU) {
-        sound::FadeoutMusic();
-        MusicManager::instance()->setMusicContext(MUSIC_MENU);
-    }
+    MusicManager::instance()->setMusicContext(MUSIC_MENU);
 }
 
-bool sound::StartLevelMusic(bool blocking)
+void sound::StartLevelLoadMusic()
 {
-    if(MusicManager::instance()->getMusicContext() != MUSIC_GAME) {
-        sound::FadeoutMusic(blocking);
-        if (!blocking)
-            return true;
-        MusicManager::instance()->setMusicContext(MUSIC_GAME);
-    }
+    MusicManager::instance()->setMusicContext(MUSIC_LEVEL_LOADING);
+}
+
+void sound::StartLevelMusic()
+{
+    MusicManager::instance()->setMusicContext(MUSIC_GAME);
 }
 
 void sound::SetInGameMusicActive(bool active)
@@ -73,7 +70,6 @@ void sound::InitMusic()
 }
 
 void sound::DefineMusicSingle(std::string title, std::string filename) {
-    // TODO: include play_till, replay_from, volume etc
     if(filename == "") {
         Log << "Warning: Tried to define music single '" << title
             << "' without file name. Skipped.\n";
@@ -123,64 +119,109 @@ MusicManager* MusicManager::instance() {
 }
 
 MusicManager::MusicManager()
-: music_singles(), music_queues(), active_music_queue(""),
-  music_context(MUSIC_NONE)
+: music_singles(), music_queues(), active_music_queue_title(""),
+  wait_length(-1), music_context(MUSIC_NONE), is_waiting(false)
 {}    
 
 void MusicManager::tick(double dtime)
 {
     static double cumulated_dtime = 0;
-    cumulated_dtime += dtime;
-    if((cumulated_dtime > 0.2) || (dtime < 0.0)) {
-        if(!sound::IsMusicPlaying()) {
-            // Music has ended or not even begun
+    if(!sound::IsMusicPlaying()) {
+        if(is_waiting && (dtime > 0.0)) {
+            // No music is playing, but we are actively counting seconds:
+            // This is a silent phase of determined length ("waiting").
+            cumulated_dtime += dtime;
+            if(cumulated_dtime > wait_length) {
+                cumulated_dtime = 0;
+                stopWaiting();
+                music_queues[active_music_queue_title].onWaitEnded();
+            }        
+        } else {
+            // Music has really ended or not even begun.
             switch(MusicManager::instance()->getMusicContext()) {
+                case MUSIC_NONE:
+                    break;
                 case MUSIC_MENU:
-                    if(active_music_queue != "")
-                        music_queues[active_music_queue].next();                
+                    if(active_music_queue_title != "")
+                        music_queues[active_music_queue_title].onMusicEnded(false);
+                    break;
+                case MUSIC_LEVEL_LOADING:
+                    // Fadeout ended while level is still loading.
+                    // Just wait until load is complete.
                     break;
                 case MUSIC_GAME:
                     // TODO
                     //if (options::GetBool("InGameMusic")) {
                     //}
                     break;
-            }
-        } else {
-            // Music is still running. Check if we should reloop.
-            if(getCurrentMusicTitle() != "") {
-                music_singles[getCurrentMusicTitle()].maybeLoopBack();
+                default:
+                    Log << "Error: getMusicContext() returns an invalid type. Will ignore this.\n";
             }
         }
-        cumulated_dtime = 0;
     }
+}
+
+void MusicManager::setMusicContext(MusicContext new_context)
+{
+    if(new_context == music_context)
+        return;  // Nothing to do.
+
+    switch(new_context) {
+        case MUSIC_MENU:
+            sound::FadeoutMusic();
+            stopWaiting();
+            if(active_music_queue_title != "") {
+                // onMusicEnded(true) means: force music, no waiting!
+                music_queues[active_music_queue_title].onMusicEnded(true);
+            }
+            music_context = new_context;
+            break;
+        case MUSIC_LEVEL_LOADING:
+            sound::FadeoutMusic(false);
+            stopWaiting();
+            music_context = new_context;
+            break;
+        case MUSIC_GAME:        
+            sound::FadeoutMusic(true);
+            stopWaiting();
+            music_context = new_context;
+            // We do not force music here, but leave it to "tick" to handle.
+            break;
+        case MUSIC_NONE:
+            sound::FadeoutMusic(false);
+            break;
+    }    
 }
 
 void MusicManager::init()
 {
     // TODO: This is only temporary. Information will come 
     // from an xml file later.
-    music_singles["Esprit Loop"] =
-        MusicSingle("Esprit Loop", "music/menu/esprit.ogg", 178180, 10690, 21600, true);
     music_singles["Esprit"] =
-        MusicSingle("Esprit", "music/menu/esprit.ogg", 178180, 10690, 21600, false);
+        MusicSingle("Esprit", "music/menu/esprit.ogg");
+    music_singles["Enigma Rag"] =
+        MusicSingle("Enigma Rag", "music/menu/enigma_rag.ogg");
     music_singles["Pentagonal Dreams"] =
-        MusicSingle("Pentagonal Dreams", "music/menu/menu.s3m");
+        MusicSingle("Pentagonal Dreams", "music/menu/pentagonal_dreams.s3m");
 
     music_queues["Default"] = MusicQueue("Default", 0);
-    music_queues["Default"].appendSingle("Esprit");
-    music_queues["Default"].appendSingle("Pentagonal Dreams");
+    music_queues["Default"].appendSingle("Esprit", false);
+    music_queues["Default"].appendSingle("Esprit", false);
+    music_queues["Default"].appendSingleThenWait("Esprit", true, 8.0);
+    music_queues["Default"].appendSingleThenWait("Enigma Rag", true, 8.0);
+    music_queues["Default"].appendSingleThenWait("Pentagonal Dreams", true, 8.0);
 
     music_queues["Esprit"] = MusicQueue("Esprit", 1);
-    music_queues["Esprit"].appendSingle("Esprit");
+    music_queues["Esprit"].appendSingle("Esprit", false);
 
-    music_queues["Pentagonal Dreams"] = MusicQueue("Pentagonal Dreams", 2);
-    music_queues["Pentagonal Dreams"].appendSingle("Pentagonal Dreams");
+    music_queues["Enigma Rag"] = MusicQueue("Enigma Rag", 2);
+    music_queues["Enigma Rag"].appendSingleThenWait("Enigma Rag", false, 8.0);
 
-    music_queues["Loop test"] = MusicQueue("Loop test", 3);
-    music_queues["Loop test"].appendSingle("Esprit Loop");
+    music_queues["Pentagonal Dreams"] = MusicQueue("Pentagonal Dreams", 3);
+    music_queues["Pentagonal Dreams"].appendSingle("Pentagonal Dreams", true);
 
     app.state->setProperty("MenuMusicQueue", "Default");
-    active_music_queue = "Default";
+    active_music_queue_title = "Default";
     setMusicContext(MUSIC_MENU);
     tick(-1);
 }
@@ -194,7 +235,24 @@ bool MusicManager::defineMusicSingle(std::string title, std::string filename)
 
 bool MusicManager::playMusicSingle(std::string title)
 {
+    if(music_singles.find(title) == music_singles.end()) {
+        // Single doesn't exist! Returning "false" will make the queue
+        // mark its entry as "no_music", so this single will be ignored.
+        return false;
+    }
     return music_singles[title].start();
+}
+
+void MusicManager::setWaiting(float seconds)
+{
+    is_waiting = true;
+    wait_length = seconds;
+}
+
+void MusicManager::stopWaiting()
+{
+    is_waiting = false;
+    wait_length = -1;
 }
 
 bool MusicManager::setActiveMusicQueue(std::string music_queue_title)
@@ -209,15 +267,15 @@ bool MusicManager::setActiveMusicQueue(std::string music_queue_title)
     }
     // Stop current music and leave this queue.
     sound::FadeoutMusic();
-    if (active_music_queue != "")
-        music_queues[active_music_queue].leave();
+    if (active_music_queue_title != "")
+        music_queues[active_music_queue_title].leave();
     // Switch to new queue if possible.
     if (music_queues[music_queue_title].next()) {
-        active_music_queue = music_queue_title;
+        active_music_queue_title = music_queue_title;
         Log << "Switched to menu music queue '" << music_queue_title << "'.\n";
         return true;
     } else {
-        active_music_queue = "";
+        active_music_queue_title = "";
         Log << "Warning: Problems loading menu music queue '" << music_queue_title << "'.\n";
         return false;
     }
@@ -243,8 +301,8 @@ int MusicManager::getMenuMusicQueueCount()
 }
 
 std::string MusicManager::getCurrentMusicTitle() {
-    if(sound::IsMusicPlaying() && (active_music_queue != ""))
-        return music_queues[active_music_queue].getCurrentMusicTitle();
+    if(sound::IsMusicPlaying() && (active_music_queue_title != ""))
+        return music_queues[active_music_queue_title].getCurrentMusicTitle();
     else
         return "";
 }
@@ -256,31 +314,9 @@ bool MusicSingle::start()
 {
     if(title == MusicManager::instance()->getCurrentMusicTitle())
         return true;
-    sound::FadeoutMusic();
-    if(sound::PlayMusic(filename)) {
-        start_time = SDL_GetTicks();
+    if(sound::PlayMusic(filename))
         return true;
-    }
     return false;
-}
-
-bool MusicSingle::maybeLoopBack()
-{
-    Uint32 current_ticks = SDL_GetTicks();
-    if((allows_loop) && (current_ticks >= start_time + loop_end)) {
-        Uint32 position = current_ticks + loop_start - start_time - loop_end;
-        if(loop_end > loop_start)
-            while(position >= loop_end)
-                position = position + loop_start - loop_end;
-        start_time = current_ticks - position;
-        sound::StopMusic();
-        if(sound::PlayMusic(filename, position/1000.0)) {
-            start_time = current_ticks - position;
-            return true;
-        } else
-            return false;
-    } else
-        return false;
 }
 
 /* -------------------- Music Queue -------------------- */
@@ -290,46 +326,149 @@ std::string MusicQueue::getCurrentMusicTitle()
     if(current_position_in_queue == -1)
         return "";
     else
-        return single_title[current_position_in_queue];
+        return queue_entry[current_position_in_queue].title;
 }
 
-void MusicQueue::appendSingle(std::string title)
+void MusicQueue::appendSingle(std::string title, bool fadeout_on_end)
 {
-    single_title.push_back(title);
+    MusicQueueEntry new_entry;
+    new_entry.type = MUSICQUEUE_SINGLE;
+    new_entry.title = title;
+    new_entry.fadeout_on_end = fadeout_on_end;
+    // TODO: fadeout_on_end currently doesn't work, as the music
+    //       ends before it is noticed that the next entry of the
+    //       queue should be read.
+    new_entry.wait_length = -1;
+    new_entry.no_music = false;
+    queue_entry.push_back(new_entry);
+}
+
+void MusicQueue::appendSingleThenWait(std::string title, bool fadeout_on_end, float seconds)
+{
+    appendSingle(title, fadeout_on_end);
+    (queue_entry.back()).wait_length = seconds;
+}
+
+void MusicQueue::appendWait(float seconds)
+{
+    MusicQueueEntry new_entry;
+    new_entry.type = MUSICQUEUE_WAIT;
+    new_entry.title = "";
+    new_entry.fadeout_on_end = false;
+    new_entry.wait_length = seconds;
+    new_entry.no_music = true;
+    queue_entry.push_back(new_entry);
 }
 
 bool MusicQueue::start()
 {
-    if(single_title.size() > 0) {
-        current_position_in_queue = 0;
-        return MusicManager::instance()->playMusicSingle(single_title[0]);
-    } else
-        return false;
+    current_position_in_queue = -1;
+    return next();
+    // We explicitly allow the queue to start silent.
+    // Otherwise use next(true), i.e. force_music.
+    // "next()" will also take care of empty queues.
 }
 
-bool MusicQueue::next()
+bool MusicQueue::next(bool force_music)
 {
-    if(current_position_in_queue == -1)
-        // Queue did not start yet. Request first title instead.
-        return start();
-    else {
-        // TODO: Add random
-        current_position_in_queue++;
-        if(current_position_in_queue >= single_title.size())
-            current_position_in_queue = 0;
-        std::string single = single_title[current_position_in_queue];
-        Log << "Play next in queue " << title << ": " << single << ".\n";
-        return MusicManager::instance()->playMusicSingle(single);
+    if(defunc)
+        return false;
+
+    if(queue_entry.size() <= 0) {
+        Log << "Music queue is empty. No music will be played.\n";
+        return false;
     }
+
+    if(current_position_in_queue != -1) {
+        // Another queue entry ended before this. Maybe we have to fade out.
+        MusicQueueEntry old_entry = queue_entry[current_position_in_queue];
+        if(old_entry.fadeout_on_end && sound::IsMusicPlaying())
+            sound::FadeoutMusic();
+    }
+
+    // Jump to next position in queue.
+    // TODO: Add random
+    current_position_in_queue = (current_position_in_queue + 1) % queue_entry.size();
+
+    MusicQueueEntry current_entry = queue_entry[current_position_in_queue];
+    bool success = false;
+    switch(current_entry.type) {
+        case MUSICQUEUE_SINGLE:
+            Log << "Play next in queue " << title << ": " << current_entry.title << ".\n";
+            success = MusicManager::instance()->playMusicSingle(current_entry.title);
+            queue_entry[current_position_in_queue].no_music = !success;
+            if(!success)
+                assureQueueHasMusic();
+            return success;
+            break;
+        case MUSICQUEUE_WAIT:
+            if(force_music)
+                return false;  // this will cause "tick" to call "next" again.
+            Log << "Music queue starts waiting (" << current_entry.wait_length << "s).\n";
+            MusicManager::instance()->setWaiting(current_entry.wait_length);
+            return true;
+            break;
+        default:
+            Log << "Error: Current music queue entry is of invalid type. Will ignore this.\n";
+            return false;
+    }
+}
+
+bool MusicQueue::onMusicEnded(bool force_music)
+{
+    if((current_position_in_queue >= 0) && (current_position_in_queue < queue_entry.size())) {
+        MusicQueueEntry current_entry = queue_entry[current_position_in_queue];
+        if((current_entry.wait_length > 0) && (!current_entry.no_music) && (!force_music))
+        {
+            Log << "Music queue starts conditional waiting (" << current_entry.wait_length << "s).\n";
+            MusicManager::instance()->setWaiting(current_entry.wait_length);
+            return true;
+        } else
+            return next(force_music);
+    }
+    return start();
+}
+
+bool MusicQueue::onWaitEnded()
+{
+    return next();
 }
 
 void MusicQueue::leave()
 {
-    /*! We have the following choices, to determine where
-      to start the queue next time. Remember that "next"
-      will be called and auto-increase current_position_in_queue.
+    /*! We have the following choices to determine where to start the queue
+      next time. Remember that "next" will be called and auto-increase
+      current_position_in_queue.
       Complete reset: current_position_in_queue = -1;
-      Start with second song: current_position_in_queue = 0;
-      Restart the current: decrease current_position_in_queue by one
-      Start the next position in queue: don't change anything. */
+      Start with n-th song: current_position_in_queue = n - 2;
+      Restart the current: decrease current_position_in_queue by one.
+      Start the next position in queue: don't change anything.
+      However, what we want is: Jump to the next real music, skip all kinds of
+      silent breaks. Cycle through until the end of the queue; if nothing is
+      found, always start the queue from the beginning. */
+    int total = queue_entry.size();
+    while(   (queue_entry[(current_position_in_queue + 1) % total].type != MUSICQUEUE_SINGLE)
+          && (current_position_in_queue < total)) {
+        current_position_in_queue++;
+    }
+    if(current_position_in_queue >= total)
+        current_position_in_queue = -1;
 }
+
+void MusicQueue::assureQueueHasMusic()
+{
+    /*! This is called when a queue might have no music at all,
+      e.g. because all of its referenced files don't exist. Each time a
+      file is missing, its entry is changed to "no_music = true". Pure
+      waiting phases have "no_music = true" just as well. If all entries
+      are "no_music = true", then the queue is set to "defunc = true". */
+    bool queue_has_no_music = true;
+    for(std::vector<MusicQueueEntry>::const_iterator iter = queue_entry.begin();
+            iter != queue_entry.end(); ++iter)
+        queue_has_no_music = queue_has_no_music && (*iter).no_music;
+    if(queue_has_no_music) {
+        defunc = true;
+        Log << "Warning: Queue " << title << " has no playable music! (Files missing?) Deactivated it.\n";
+    }
+}
+
