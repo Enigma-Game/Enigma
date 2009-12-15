@@ -307,9 +307,9 @@ void Actor::move ()
         if (Stone *st = m_actorinfo.field->stone)
             st->actor_inside (this);
         
-        if (firstGridStep) {
+        if (firstGridStep && !is_flying()) {
             firstGridStep = false;
-        } else if (!flagRespawn && !isMoribund())
+        } else if (!flagRespawn && !isMoribund() && !is_flying())
             if (m_actorinfo.field->floor->getAdhesion() != 0) {
                 respawnpos = m_actorinfo.pos;
         }
