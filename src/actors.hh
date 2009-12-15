@@ -131,7 +131,7 @@ namespace enigma {
 
         virtual bool on_collision(Actor *a);
         virtual void on_creation(const ecl::V2 &pos);
-        virtual void on_respawn (const ecl::V2 &pos);
+        virtual void on_respawn(const ecl::V2 &pos);
 
         virtual bool is_dead() const = 0;
         virtual bool isMoribund() const {return is_dead(); }

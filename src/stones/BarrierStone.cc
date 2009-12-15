@@ -49,7 +49,7 @@ namespace enigma {
     }
     
     bool BarrierStone::is_removable() const {
-        return false;
+        return !getAttr("static").to_bool();
     }
     
     bool BarrierStone::is_sticky (const Actor *) const {

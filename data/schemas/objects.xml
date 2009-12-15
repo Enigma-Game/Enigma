@@ -1351,6 +1351,7 @@
     </object>
     <object name="st_barrier">
       <attr name="flavor" default="all"/>
+      <attr name="static" default="true"/>
     </object>
     <object name="st_beads"/>
     <object name="st_blocker_new" init="true">

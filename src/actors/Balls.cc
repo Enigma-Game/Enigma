@@ -233,6 +233,7 @@ namespace enigma {
     }
     
     void BasicBall::on_respawn (const ecl::V2 &pos) {
+            Actor::on_respawn(pos);
             // notify objects on grid about the death - used by it_trigger, sensor, meditation
             SendMessage(GetFloor(get_gridpos()), "_dying", false, this);
             SendMessage(GetItem(get_gridpos()), "_dying", false, this);
