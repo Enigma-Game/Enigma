@@ -91,8 +91,8 @@ do
     DefAnim("ac_marble_white-jump", PingPong(BuildFrames(frames, 70)))
 
     -- Sinking black marble
-    shadows = SpriteImages("sh-blackball-sink", 7, 0.4)
-    images = SpriteImages("fg-blackball-sink", 7)
+    shadows = SpriteImages("sh_marble_sink", 7, 0.4)
+    images = SpriteImages("ac_marble_black_sink", 7)
     for i=1,table.getn(images) do
         DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
     end
@@ -100,7 +100,7 @@ do
 
     -- Sinking white marble
     -- Use shadow from black marble
-    images = SpriteImages("fg-whiteball-sink", 7)
+    images = SpriteImages("ac_marble_white_sink", 7)
     for i=1,table.getn(images) do
         DefShModel("ac_marble_white-sink"..(i-1), images[i], shadows[i])
     end
