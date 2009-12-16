@@ -120,6 +120,7 @@ SIMPLEPNG = \
 	it_yinyang.png \
 	st_actorimpulse.png \
 	st_ancient.png \
+	st_barrier.png \
 	st_beads.png \
 	st_blocker.png \
 	st_bluegray.png \
@@ -275,7 +276,7 @@ SIMPLEPNG = \
 	st_switch_black.png \
 	st_switch_white.png \
 	st_tigris.png \
-	st_timer.png st_timer_2.png \
+	st_timer.png st_timer_3.png \
 	st_turnstile.png \
 	st_turnstile_green.png \
 	st_volcano_growing.png \
