@@ -107,14 +107,14 @@ do
     DefAlias("ac_marble_white-sunk", "invisible")
 
     -- Shattering black marble
-    Sprite({name="ac-blackball-shatter", nimages=5, framelen=60})
-    DefAlias("ac_marble_black-shatter", "ac-blackball-shatter")
-    DefAlias("ac_marble_black-shattered", "ac-blackball-shatter5")
+    Sprite({name="ac_marble_black_shatter", nimages=5, framelen=60})
+    DefAlias("ac_marble_black-shatter", "ac_marble_black_shatter")
+    DefAlias("ac_marble_black-shattered", "ac_marble_black_shatter5")
 
     -- Shattering white marble
-    Sprite({name="ac-whiteball-shatter", nimages=5, framelen=60})
-    DefAlias("ac_marble_white-shatter", "ac-whiteball-shatter")
-    DefAlias("ac_marble_white-shattered", "ac-whiteball-shatter5")
+    Sprite({name="ac_marble_white_shatter", nimages=5, framelen=60})
+    DefAlias("ac_marble_white-shatter", "ac_marble_white_shatter")
+    DefAlias("ac_marble_white-shattered", "ac_marble_white_shatter5")
 end
 
 -- ac_pearl --
