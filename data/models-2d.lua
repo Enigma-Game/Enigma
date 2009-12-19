@@ -861,7 +861,7 @@ do
     DefStone("st_metal")
     DefStone("st_redrock")
     DefStone("st_granite", "sh_round")
-    DefStone("st_darkgray")
+    DefStone("st_darkgray", "sh_rounded")
     DefStone("st_plaster")
     DefStone("st_flat")
     DefStone("st_flat_cracked")
@@ -968,10 +968,10 @@ end
 -- st_chage_plus, st_charge_zero, st_charge_minus --
 do
     function def_chargestone(basename)
-        local n=DefSubimages(basename, {h=2})
-        DefSolidStone(basename, n[1])
-        DefAnim(basename.."-animfg", {{n[2], 140}})
-        DefSolidStone(basename.."_anim", basename.."-animfg")
+        local images = DefSubimages(basename, {h=2})
+	DefShModel(basename, images[1], "sh_rounded")
+        DefAnim(basename.."-animfg", {{images[2], 140}})
+        DefShModel(basename.."_anim", basename.."-animfg", "sh_rounded")
     end
 
     def_chargestone("st_charge_plus")
