@@ -1221,10 +1221,9 @@ end
 
 -- st_scissors --
 do
-    DefStone("st_scissors", "sh_round")
-
-    local images = DefSubimages("st_scissors_snip", {h=1})
-    DefAnim("st_scissors_snip_anim", BuildFrames(images, 130))
+    local images = DefSubimages("st_scissors", {h=2})
+    DefRoundStone("st_scissors", images[1])
+    DefAnim("st_scissors_snip_anim", {{images[2], 130}})
     DefShModel("st_scissors_snip", "st_scissors_snip_anim", "sh_round")
 end
 
