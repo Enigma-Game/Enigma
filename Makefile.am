@@ -38,6 +38,10 @@ pdf:
 	cd doc/reference/images && $(MAKE) pdf
 	cd doc/reference && $(MAKE) pdf
 
+.PHONY: splitman
+splitman:
+	cd doc/reference && $(MAKE) splitman
+
 .PHONY: doxygen
 doxygen:
 	cd doc && $(MAKE) doxygen

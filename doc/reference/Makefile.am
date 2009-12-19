@@ -12,6 +12,9 @@ EXTRA_DIST = enigma-ref.texi enigma-t2h.init level_api_syntax.tex level_api_cons
 MOSTLYCLEANFILES = enigma-ref.{at,ats,aux,cp,cps,fn,fns,ky,log,ms,mss,ob,obs,pg,toc,tp,vr,vrs} level_api_syntax.{aux,log} level_api_constants.{aux,log} level_api_syntax_examples.{aux,log} level_api_tds.{aux,log}
 CLEANFILES = enigma-ref.{pdf,html} level_api_syntax.pdf level_api_constants.pdf level_api_syntax_examples.pdf level_api_tds.pdf
 
+clean-local:
+	-rm -rf enigma-ref
+
 enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	@if [ "${TEXI2HTML}" ]; then \
 	  echo "Creating reference manual"; \
@@ -21,6 +24,11 @@ enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	  echo "Warning: texi2html not found"; \
 	fi
 
+.PHONY: splitman
+splitman:
+	${TEXI2HTML} -split chapter -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi
+
+.PHONY: pdf
 pdf:
 	$(MAKE) -C images
 	$(MAKE) pdf_local
