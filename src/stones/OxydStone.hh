@@ -74,6 +74,8 @@ namespace enigma {
         };
         enum LogType {NOTHING, SOLUTION, COUNT, ALL};
             
+        static void prepareLevel();
+
         static unsigned short numColorsAvailable();
         static void addShuffleRule(RuleType type, unsigned short limit, Value group1, Value group2 = Value());
         static void shuffleColors(LogType logFlag = NOTHING);

@@ -838,6 +838,13 @@ namespace enigma {
         isInit = false;
     }
     
+    void OxydStone::prepareLevel() {
+        int remnants = levelOxyds.size();
+        levelOxyds.clear();
+        invalidateShuffle();
+        ASSERT(remnants == 0, XLevelRuntime, "OxydStone: last level did not free all oxyds!");
+    }
+    
     // Instance Methods
     
     OxydStone::OxydStone(std::string flavor) {

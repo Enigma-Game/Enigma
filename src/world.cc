@@ -29,6 +29,7 @@
 #include "main.hh"
 #include "stones_internal.hh"
 #include "WorldProxy.hh"
+#include "stones/OxydStone.hh"
 
 #include <iostream>
 #include <algorithm>
@@ -1668,6 +1669,7 @@ void WorldPrepareLevel ()
     Resize (20, 13);             // delete old world with all its objects
     GridObject::prepareLevel();  // clear lists of no longer existing objects
     LaserBeam::prepareLevel();   // clear lists of no longer existing objects
+    OxydStone::prepareLevel();   // clear lists of no longer existing objects
 }
 
 bool WorldInitLevel() {
