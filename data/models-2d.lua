@@ -50,25 +50,35 @@ do
 
     -- Falling black marble
     images = SpriteImages("ac_marble_black_fall", 10)
-    frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
-    DefAnim("ac_marble_black-fall", frames)
+    shadows = SpriteImages("sh_marble_fall", 10, 0.4)
+    frames = {}
+    for i=1,table.getn(images) do
+       DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
+       frames[i] = "ac_marble_black-sink"..(i-1)
+    end
+    DefAnim("ac_marble_black-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_black-fallen", "invisible")
 
     -- Appearing / disappearing black marble
     -- use the images from falling black marble
-    DefAnim("ac_marble_black-appear", ReverseFrames(BuildFrames(images, 25)))
-    DefAnim("ac_marble_black-disappear", BuildFrames(images, 25))
+    DefAnim("ac_marble_black-appear", ReverseFrames(BuildFrames(frames, 25)))
+    DefAnim("ac_marble_black-disappear", BuildFrames(frames, 25))
 
     -- Falling white marble
+    -- Use shadow from black marble
     images = SpriteImages("ac_marble_white_fall", 10)
-    frames = ComposeFrames(images,{70,65,60,55,50,50,50,50,50,50,50})
-    DefAnim("ac_marble_white-fall", frames)
+    frames = {}
+    for i=1,table.getn(images) do
+       DefShModel("ac_marble_white-sink"..(i-1), images[i], shadows[i])
+       frames[i] = "ac_marble_white-sink"..(i-1)
+    end
+    DefAnim("ac_marble_white-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_white-fallen", "invisible")
 
     -- Appearing / disappearing white marble
     -- use the images from falling white marble
-    DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(images, 25)))
-    DefAnim("ac_marble_white-disappear", BuildFrames(images, 25))
+    DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(frames, 25)))
+    DefAnim("ac_marble_white-disappear", BuildFrames(frames, 25))
 
     -- Jumping black marble
     images  = SpriteImages("ac_marble_black_jump", 4)

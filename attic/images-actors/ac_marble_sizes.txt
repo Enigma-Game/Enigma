@@ -75,6 +75,33 @@ Physical radius of marbles is 19/64 tiles.
 | frame 5                                           | 14  87.50 | 28  87.50 | 34  85.0  | 42  87.50 | 56  87.50 |
 |---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
 |---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
+| Data for fall shadow models                       |           |           |           |           |           |
+|---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
+| Shadow size in fall models [px] and [% of tile]   |           |           |           |           |           |
+| frame 1                                           | 10  62.50 | 18  56.25 | 22  55.00 | 26  54.16 | 36  56.25 |
+| frame 2                                           | 8   50.00 | 16  50.00 | 20  50.00 | 24  50.00 | 32  50.00 |
+| frame 3                                           | 8   50.00 | 14  43.75 | 18  45.00 | 22  45.83 | 28  43.75 |
+| frame 4                                           | 6   37.50 | 12  37.50 | 16  40.00 | 18  37.50 | 24  37.50 |
+| frame 5                                           | 6   37.50 | 10  31.25 | 12  30.00 | 14  29.16 | 20  31.25 |
+| frame 6                                           | 4   25.00 | 8   25.00 | 10  25.00 | 12  25.00 | 16  25.00 |
+| frame 7                                           | 4   25.00 | 6   18.75 | 8   20.00 | 10  20.83 | 12  18.75 |
+| frame 8                                           | 2   12.50 | 4   12.50 | 6   15.00 | 6   12.50 | 8   12.50 |
+| frame 9                                           | 2   12.50 | 2    6.25 | 4   10.00 | 4    8.33 | 4    6.25 |
+| frame 10                                          | 0    0.00 | 0    0.00 | 0    0.00 | 0    0.00 | 0    0.00 |
+|---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
+| Shadow shift to top left in fall models [px]      |           |           |           |           |           |
+| frame 1                                           | 0         | 0         | 0         | 0         | 0         |
+| frame 2                                           | 0         | 1         | 1         | 1         | 1         |
+| frame 3                                           | 0         | 1         | 1         | 2         | 2         |
+| frame 4                                           | 1         | 2         | 2         | 3         | 3         |
+| frame 5                                           | 1         | 2         | 3         | 3         | 4         |
+| frame 6                                           | 1         | 3         | 3         | 4         | 5         |
+| frame 7                                           | 2         | 3         | 4         | 5         | 6         |
+| frame 8                                           | 2         | 4         | 4         | 5         | 7         |
+| frame 9                                           | 2         | 4         | 5         | 6         | 8         |
+| frame 10                                          | -         | -         | -         | -         | -         |
+|---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
+|---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
 | Data for sink shadow models                       |           |           |           |           |           |
 |---------------------------------------------------+-----------+-----------+-----------+-----------+-----------|
 | Model image size [px]                             | 20 x 140  | 40 x 280  | 50 x 350  | 60 x 420  | 80 x 560  |
@@ -102,8 +129,8 @@ Physical radius of marbles is 19/64 tiles.
 Reference for jump, fall and sink models was gfx32. Other resolutions
 adapted s.t. percent-of-tilesize values match best.
 
-Note: To improve the sink illusion, the shadows are shifted towards the marble (to the top left)
-while the marble is sinking. We define two conditions that hold:
+Note: To improve the sink/fall illusion, the shadows are shifted towards the marble (to
+the top left) while the marble is sinking/falling. We define two conditions that hold:
 first:  the shadow of the first frame is not shifted at all.
 second: the shadow of the last frame is exactly centered below the marble.
 
