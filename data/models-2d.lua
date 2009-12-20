@@ -1337,7 +1337,9 @@ do
 -- laserswitch --
 do
     DefStone("st_laserswitch0", "sh_round", {filename="st_oxydb"})
-    DefAnimImages("laserswitch-blink", RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))), {loop=1})
+    local images = DefSubimages("st_quake", {h=4})
+    local frames = BuildFrames(RepeatAnim(PingPong(images)), 50 )
+    DefAnim("laserswitch-blink", frames, true)
     DefShModel("st_laserswitch1", "laserswitch-blink", "sh_round")
 end
 
@@ -1764,11 +1766,11 @@ end
 -- st_quake --
 do
     DefStone("st_quake", "sh_round", {filename="st_oxydb"})
-    DefAnimImages("quaking",
-        RepeatAnim(PingPong(BuildFrames(FrameNames("st_fakeoxyd_blink", 1,4),50))))
-    DefRoundStone("st_quaking", "quaking")
-
-    namelist = DefSubimages("st_quake_break",{h=6})
+    local images = DefSubimages("st_quake", {h=4})
+    local frames = BuildFrames(RepeatAnim(PingPong(images)), 50)
+    DefAnim("quaking", frames)
+    DefShModel("st_quaking", "quaking", "sh_round")
+    local namelist = DefSubimages("st_quake_break",{h=6})
     DefAnim("quakebreak_anim", BuildFrames(namelist,50))
     DefRoundStone("st_quakebreak_anim", "quakebreak_anim")
 end
