@@ -1104,30 +1104,42 @@ do
     end
 end
 
--- st-laser --
+-- st_laser --
 do
-    function make_laser(dir)
-        laseron=FrameNames("st-laser"..dir, 1, 9)
+   local laserbase = DefImage("st_laser_base")
+   local photons = DefSubimages("st_laser_photons", {w=4, h=9})
+   
+   -- deactivated laser
+   DefMultipleComposite("laser-n", {laserbase, photons[1]})
+   DefRoundStone("st-laser-n", "laser-n")
+   DefMultipleComposite("laser-e", {laserbase, photons[10]})
+   DefRoundStone("st-laser-e", "laser-e")
+   DefMultipleComposite("laser-s", {laserbase, photons[19]}) 
+   DefRoundStone("st-laser-s", "laser-s")
+   DefMultipleComposite("laser-w", {laserbase, photons[28]})
+   DefRoundStone("st-laser-w", "laser-w")
+      
+   -- activated laser
+   local frames = {{},{},{},{}}
+   for i=0,8 do
+      frames[1][i] = "photons-n" .. i
+      DefMultipleComposite(frames[1][i], {laserbase, photons[1+i]})
+      frames[2][i] = "photons-e" .. i
+      DefMultipleComposite(frames[2][i], {laserbase, photons[10+i]})
+      frames[3][i] = "photons-s" .. i
+      DefMultipleComposite(frames[3][i], {laserbase, photons[19+i]})
+      frames[4][i] = "photons-w" .. i
+      DefMultipleComposite(frames[4][i], {laserbase, photons[28+i]})
+   end
 
-        -- deactivated laser
-        DefOverlay("laser"..dir, {"st-laser-base", laseron[1]})
-        DefRoundStone("st-laser"..dir, "laser"..dir)
-
-        -- activated laser
-        names = {}
-        for i=1,table.getn(laseron) do
-                names[i] = "st-laseron"..dir .. format("_%04d", i)
-                DefOverlay (names[i], {"st-laser-base", laseron[i]})
-        end
-        frames = BuildFrames(names, 100)
-        DefAnim("st-laseron-anim"..dir, frames, 1)
-        DefRoundStone("st-laseron"..dir, "st-laseron-anim"..dir)
-    end
-
-    make_laser("-e")
-    make_laser("-s")
-    make_laser("-w")
-    make_laser("-n")
+   DefAnim("st-laseron-anim-n", BuildFrames(frames[1],100), true)
+   DefRoundStone("st-laseron-n", "st-laseron-anim-n")
+   DefAnim("st-laseron-anim-e", BuildFrames(frames[2],100), true)
+   DefRoundStone("st-laseron-e", "st-laseron-anim-e")
+   DefAnim("st-laseron-anim-s", BuildFrames(frames[3],100), true)
+   DefRoundStone("st-laseron-s", "st-laseron-anim-s")
+   DefAnim("st-laseron-anim-w", BuildFrames(frames[4],100), true)
+   DefRoundStone("st-laseron-w", "st-laseron-anim-w")
 end
 
 -- st_lightpassenger --
