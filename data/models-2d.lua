@@ -220,16 +220,14 @@ do
     DefAlias("ac_pearl_white-sunk", "invisible")
 
     -- Shattering black pearl
-    images = SpriteImages("ac-whiteball-small-shatter", 5)
-    DefAnim("ac_pearl_black-shatter", BuildFrames(images, 60))
-    SpriteImage("ac-whiteball-small-shattered")
-    DefAlias("ac_pearl_black-shattered", "ac-whiteball-small-shattered")
+    Sprite({name="ac_pearl_black_shatter", nimages=5, framelen=60})
+    DefAlias("ac_pearl_black-shatter", "ac_pearl_black_shatter")
+    DefAlias("ac_pearl_black-shattered", "ac_pearl_black_shatter5")
 
     -- Shattering white pearl
-    images = SpriteImages("ac-whiteball-small-shatter", 5)
-    DefAnim("ac_pearl_white-shatter", BuildFrames(images, 60))
-    SpriteImage("ac-whiteball-small-shattered")
-    DefAlias("ac_pearl_white-shattered", "ac-whiteball-small-shattered")
+    Sprite({name="ac_pearl_white_shatter", nimages=5, framelen=60})
+    DefAlias("ac_pearl_white-shatter", "ac_pearl_white_shatter")
+    DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")
 end
 
 -- ac-killerball --
