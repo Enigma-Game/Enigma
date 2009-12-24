@@ -1104,40 +1104,34 @@ end
 
 -- st_laser --
 do
-   local laserbase = DefImage("st_laser_base")
-   local photons = DefSubimages("st_laser_photons", {w=4, h=9})
-   
-   -- deactivated laser
-   DefMultipleComposite("laser-n", {laserbase, photons[1]})
-   DefRoundStone("st-laser-n", "laser-n")
-   DefMultipleComposite("laser-e", {laserbase, photons[10]})
-   DefRoundStone("st-laser-e", "laser-e")
-   DefMultipleComposite("laser-s", {laserbase, photons[19]}) 
-   DefRoundStone("st-laser-s", "laser-s")
-   DefMultipleComposite("laser-w", {laserbase, photons[28]})
-   DefRoundStone("st-laser-w", "laser-w")
-      
-   -- activated laser
-   local frames = {{},{},{},{}}
+   local images = DefSubimages("st_laser", {w=4,h=9})
+   local imagesn = {}
+   local imagese = {}
+   local imagess = {}
+   local imagesw = {}
    for i=0,8 do
-      frames[1][i] = "photons-n" .. i
-      DefMultipleComposite(frames[1][i], {laserbase, photons[1+i]})
-      frames[2][i] = "photons-e" .. i
-      DefMultipleComposite(frames[2][i], {laserbase, photons[10+i]})
-      frames[3][i] = "photons-s" .. i
-      DefMultipleComposite(frames[3][i], {laserbase, photons[19+i]})
-      frames[4][i] = "photons-w" .. i
-      DefMultipleComposite(frames[4][i], {laserbase, photons[28+i]})
+      imagesn[i] = images[1+i]
+      imagese[i] = images[10+i]
+      imagess[i] = images[19+i]
+      imagesw[i] = images[28+i]
+      -- slicing like in python would be nice here :-)
    end
 
-   DefAnim("st-laseron-anim-n", BuildFrames(frames[1],100), true)
-   DefRoundStone("st-laseron-n", "st-laseron-anim-n")
-   DefAnim("st-laseron-anim-e", BuildFrames(frames[2],100), true)
-   DefRoundStone("st-laseron-e", "st-laseron-anim-e")
-   DefAnim("st-laseron-anim-s", BuildFrames(frames[3],100), true)
-   DefRoundStone("st-laseron-s", "st-laseron-anim-s")
-   DefAnim("st-laseron-anim-w", BuildFrames(frames[4],100), true)
-   DefRoundStone("st-laseron-w", "st-laseron-anim-w")
+   -- deactivated laser
+   DefShModel("st-laser-n", imagesn[1], "sh_rounded")
+   DefShModel("st-laser-e", imagese[1], "sh_rounded")
+   DefShModel("st-laser-s", imagess[1], "sh_rounded")
+   DefShModel("st-laser-w", imagesw[1], "sh_rounded")
+
+   -- activated laser
+   DefAnim("st-laseron-anim-n", BuildFrames(imagesn,100), true)
+   DefShModel("st-laseron-n", "st-laseron-anim-n", "sh_rounded")
+   DefAnim("st-laseron-anim-e", BuildFrames(imagese,100), true)                                                                                       
+   DefShModel("st-laseron-e", "st-laseron-anim-e", "sh_rounded")
+   DefAnim("st-laseron-anim-s", BuildFrames(imagess,100), true)                                                                                       
+   DefShModel("st-laseron-s", "st-laseron-anim-s", "sh_rounded")
+   DefAnim("st-laseron-anim-w", BuildFrames(imagesw,100), true)                                                                                       
+   DefShModel("st-laseron-w", "st-laseron-anim-w", "sh_rounded")
 end
 
 -- st_lightpassenger --
@@ -1569,13 +1563,10 @@ do
     local colorspots = FrameNames("st_oxyd_color", 1, num_colors)
     AddFrameNames(colorspots, "st_oxyd_color", 96, 97)
     local blink_ovls = FrameNames("st_oxyd_blink", 1, 5)
-    local pseudospots = {}
-    pseudospots[-3] = FrameNames("st_oxyd_pseudo_3", 1, 4)
-    pseudospots[-4] = FrameNames("st_oxyd_pseudo_4", 1, 8)
 
--- Define "fading in" and "fading out" animations for oxyd stones.
--- These two animations are combined with the stone images to
--- produce the opening and closing animations for oxyd stones.
+    -- Define "fading in" and "fading out" animations for oxyd stones.
+    -- These two animations are combined with the stone images to
+    -- produce the opening and closing animations for oxyd stones.
     local baseimg = {
         a="st_oxyda_open",
         b="st_oxydb_open",
@@ -1652,27 +1643,33 @@ do
         -- and finally add a shadow to make the model complete
         DefShModel(n, n.."_anim", shadow_open[flavor])
     end
-
+    
     function mkpseudo(flavor, color)
-        local n = "st_oxyd" .. flavor .. "_pseudo" .. color
-        local names = {}
-
-        for i=1, table.getn(pseudospots[color]) do
-            local images={baseimg[flavor],pseudospots[color][i]}
-            names[i] = n .. format("_%04d", i)
-            DefOverlay(names[i], images)
-        end
-
-        -- compose these images into an animation
-        if (color == -3) then
-            frames = RepeatAnim(PingPong(BuildFrames(names, 50)),2)
-        elseif (color == -4) then
-            frames = RepeatAnim(BuildFrames(names, 100),2)
-        end
-        DefAnim(n.."_anim", frames, false)
-
-        -- and finally add a shadow to make the model complete
-        DefShModel(n, n.."_anim", shadow[flavor])
+       -- the name of the new model
+       local name = "st_oxyd" .. flavor .. "_pseudo" .. color
+       
+       -- prepare the frames of the animation
+       if (color == -3) then
+	  local quake_spot = DefSubimages("st_oxyd_quake", {w=1,h=4})
+	  local names = {}	
+	  for i=1, 4 do
+	     names[i] = name .. i
+	     DefMultipleComposite(names[i], {baseimg[flavor], quake_spot[i]})
+	  end
+	  frames = RepeatAnim(PingPong(BuildFrames(names, 50)), 2)
+       elseif (color == -4) then
+	  local shuffle_spot = DefSubimages("st_oxyd_shuffle", {w=1,h=8})
+	  local names = {}	
+	  for i=1, 8 do
+	     names[i] = name .. i
+	     DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
+	  end	   
+	  frames = RepeatAnim(BuildFrames(names, 100),2)
+       end
+       
+       -- finally define the animation and add a shadow to make the model complete
+       DefAnim(name.."_anim", frames, false)
+       DefShModel(name, name.."_anim", shadow[flavor])
     end
 
     function mkoxyd(flavor)
@@ -1695,20 +1692,22 @@ do
         mkpseudo(flavor, -3)
         mkopenclose(flavor, -4)
         mkpseudo(flavor, -4)
-    end
+     end
+
+    -- Make all the models and animations for the oxyd flavors a,b,c,d
     mkoxyd("a")
     mkoxyd("b")
     mkoxyd("c")
     mkoxyd("d")
-
-    -- flavors 'e'
+    
+    -- And now for flavor 'e'
     for color = 0, num_colors - 1 do
-        DefOverlay("st_oxyde"..color.."_peep", {"st_oxydb_open", colorspots[color+1], "st_oxyde"})
-        DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
-        DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
-        DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
-        DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
-        DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
+       DefOverlay("st_oxyde"..color.."_peep", {"st_oxydb_open", colorspots[color+1], "st_oxyde"})
+       DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
+       DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
+       DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
+       DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
+       DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
     end
     DefAlias("st_oxyde", "st_oxydb")
     DefAlias("st_fake_oxyde", "st_oxydb")
