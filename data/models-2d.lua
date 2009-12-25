@@ -1559,169 +1559,164 @@ end
 -- them automatically.
 
 do
-    local num_colors = 12
-    local colorspots = FrameNames("st_oxyd_color", 1, num_colors)
-    AddFrameNames(colorspots, "st_oxyd_color", 96, 97)
-    local blink_ovls = FrameNames("st_oxyd_blink", 1, 5)
+   local num_colors = 12
 
-    -- Define "fading in" and "fading out" animations for oxyd stones.
-    -- These two animations are combined with the stone images to
-    -- produce the opening and closing animations for oxyd stones.
-    local baseimg = {
-        a="st_oxyda_open",
-        b="st_oxydb_open",
-        c="st_oxydc_open",
-        d="st_oxydd_open",
-    }
-    local shadow = {
-       a="sh_round",
-       b="sh_round",
-       c="sh_solid",
-       d="sh_solid",
-    }
-    local shadow_open = {
-       a="sh_round",
-       b="sh_round",
-       c="sh_solid",
-       d="sh_round",
-    }
-    local fopening = {
-        a = BuildFrames(DefSubimages("st_oxyda_opening", {h=10}), 35),
-        b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 25),
-        c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
-        d = BuildFrames(DefSubimages("st_oxydd_opening", {h=10}), 35),
-    }
-    local fclosing = {
-        a = ReverseFrames(fopening["a"]),
-        b = ReverseFrames(fopening["b"]),
-        c = ReverseFrames(fopening["c"]),
-        d = ReverseFrames(fopening["d"]),
-    }
+   -- Some images we will need later on
+   local colordots = DefSubimages("st_oxyd_colordots", {w=4,h=4})
+   local questmark = DefImage("st_oxyd_questmark")
+   local blink_ovals = DefSubimages("st_oxyd_blink", {w=1,h=5})
+   local quake_spot = DefSubimages("st_oxyd_quake", {w=1,h=4})
+   local shuffle_spot = DefSubimages("st_oxyd_shuffle", {w=1,h=8})
+   local oxyde = DefImage("st_oxyde")
 
-    function mkopenclose(flavor, color)
-        local n = "st_oxyd" .. flavor .. color
-        local fadein = "oxyd"..flavor.."_fadein"
-        local fadeout= "oxyd"..flavor.."_fadeout"
-        local spotcolor = color
+   -- Define "fading in" and "fading out" animations for oxyd stones.
+   -- These two animations are combined with the stone images to
+   -- produce the opening and closing animations for oxyd stones.
+   local baseimg = {
+      a="st_oxyda_open",
+      b="st_oxydb_open",
+      c="st_oxydc_open",
+      d="st_oxydd_open",
+   }
+   local shadow = {
+      a="sh_round",
+      b="sh_round",
+      c="sh_solid",
+      d="sh_solid",
+   }
+   local shadow_open = {
+      a="sh_round",
+      b="sh_round",
+      c="sh_solid",
+      d="sh_round",
+   }
+   local fopening = {
+      a = BuildFrames(DefSubimages("st_oxyda_opening", {h=10}), 35),
+      b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 25),
+      c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
+      d = BuildFrames(DefSubimages("st_oxydd_opening", {h=10}), 35),
+   }
+   local fclosing = {
+      a = ReverseFrames(fopening["a"]),
+      b = ReverseFrames(fopening["b"]),
+      c = ReverseFrames(fopening["c"]),
+      d = ReverseFrames(fopening["d"]),
+   }
+   
+   -- The open/close animation of oxyd stones
+   function mkopenclose(flavor, color)
+      local name = "st_oxyd" .. flavor .. color
+      local fadein = "oxyd"..flavor.."_fadein"
+      local fadeout= "oxyd"..flavor.."_fadeout"
+      -- Magic numbers for pseudo oxyds which need model number "-3" and "-4"
+      -- but are subimage #15 and #16
+      if color < 0 then
+	 color = color +18
+      end
+      DefMultipleComposite(name.."_base", {baseimg[flavor], colordots[color+1]})
+      DefMultipleComposite(name.."_opening_fg", {name.."_base", fadein})
+      DefMultipleComposite(name.."_closing_fg", {name.."_base", fadeout})
+      DefShModel (name.."_opening", name.."_opening_fg", shadow[flavor])
+      DefShModel (name.."_closing", name.."_closing_fg", shadow[flavor])
+   end
+   
+   -- The blinking question mark animation of single open oxyds
+   function mkblink(flavor, color)
+      local name = "st_oxyd"..flavor..color.."_blink"
+      DefMultipleComposite(name..1, {baseimg[flavor], colordots[color+1], questmark})
+      DefMultipleComposite(name..2, {baseimg[flavor], colordots[color+1]})
+      DefAnim(name.."_anim", BuildFrames({name..1, name..2}, 500), true)
+      DefShModel(name, name.."_anim", shadow_open[flavor])
+   end
+   
+   -- The animation of pairwise open oxyds
+   function mkopened(flavor, color)
+      local name = "st_oxyd" .. flavor .. color .. "_open"
+      local names = {}
+      for i=1,5 do
+	 names[i] = name .. i
+	 DefMultipleComposite(names[i], {baseimg[flavor], colordots[color+1], blink_ovals[i]})
+      end
+      DefAnim(name.."_anim", PingPong(BuildFrames(names, 100)), true)
+      DefShModel(name, name.."_anim", shadow_open[flavor])
+   end
+   
+   -- The "open" state animation of the pseudo oxyds "quake" and "shuffle"
+   function mkpseudo(flavor, color)
+      local name = "st_oxyd" .. flavor .. "_pseudo" .. color
+      local names = {}	
+      if (color == -3) then
+	 for i=1,4 do
+	    names[i] = name .. i
+	    DefMultipleComposite(names[i], {baseimg[flavor], quake_spot[i]})
+	 end
+	 frames = RepeatAnim(PingPong(BuildFrames(names, 50)), 2)
+      elseif (color == -4) then
+	 for i=1,8 do
+	    names[i] = name .. i
+	    DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
+	 end	   
+	 frames = RepeatAnim(BuildFrames(names, 100),2)
+      end
+      DefAnim(name.."_anim", frames, false)
+      DefShModel(name, name.."_anim", shadow[flavor])
+   end
 
-        if (color >= 0) then
-            spotcolor = color + 1 -- oxyd color 0..num_colors-1, file 1.., frames 1..
-        else
-            spotcolor = 100 + color -- pseudo colors
-        end
+   -- Now really make the oxyds, calling the functions defined above
+   function mkoxyd(flavor)
+      DefStone("st_oxyd"..flavor, shadow[flavor])
+      DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
+      local img = DefImage("st_oxyd"..flavor.."_open")
+      DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
+      local fadein = "oxyd"..flavor.."_fadein"
+      local fadeout= "oxyd"..flavor.."_fadeout"
+      DefAnim(fadein, fopening[flavor])
+      DefAnim(fadeout, fclosing[flavor])
+      -- The regular oxyds are position 1 to 12 in the
+      -- colordots image
+      for color = 0, num_colors do
+	 mkopenclose(flavor, color)
+	 mkblink(flavor, color)
+	 mkopened(flavor, color)
+      end
+      -- Position 13, 14 are currently empty
+      -- The shuffle and quake oxyds are number 15
+      -- and 16 in colordots image.
+      -- BUT they require modelnames with "-3" and "-4"
+      mkopenclose(flavor, -3)
+      mkpseudo(flavor, -3)
+      mkopenclose(flavor, -4)
+      mkpseudo(flavor, -4)
+   end
 
-        DefOverlay(n.."_base", {baseimg[flavor], colorspots[spotcolor]})
-        display.DefineComposite(n.."_opening_fg", n.."_base", fadein)
-        display.DefineComposite(n.."_closing_fg", n.."_base", fadeout)
-        DefShModel (n.."_opening", n.."_opening_fg", shadow[flavor])
-        DefShModel (n.."_closing", n.."_closing_fg", shadow[flavor])
-    end
-
-    function mkblink(flavor, color)
-        local n = "st_oxyd"..flavor..color.."_blink"
-        local img={baseimg[flavor],colorspots[color+1], "st_oxyd_questmark"}
-        DefOverlay(n..1, img)
-        DefOverlay(n..2, {baseimg[flavor], colorspots[color+1]})
-        DefAnim(n.."_anim", BuildFrames({n..1,n..2}, 500), 1)
-        DefShModel(n, n.."_anim", shadow_open[flavor])
-    end
-
-    function mkopened(flavor, color)
-        local n = "st_oxyd" .. flavor .. color .. "_open"
-        local names = {}
-
-        for i=1, table.getn(blink_ovls) do
-            local images={baseimg[flavor],colorspots[color+1],blink_ovls[i]}
-            names[i] = n .. format("_%04d", i)
-            DefOverlay(names[i], images)
-        end
-
-        -- compose these images into an animation
-        frames = PingPong(BuildFrames(names, 100))
-        DefAnim(n.."_anim", frames, true)
-
-        -- and finally add a shadow to make the model complete
-        DefShModel(n, n.."_anim", shadow_open[flavor])
-    end
-    
-    function mkpseudo(flavor, color)
-       -- the name of the new model
-       local name = "st_oxyd" .. flavor .. "_pseudo" .. color
-       
-       -- prepare the frames of the animation
-       if (color == -3) then
-	  local quake_spot = DefSubimages("st_oxyd_quake", {w=1,h=4})
-	  local names = {}	
-	  for i=1, 4 do
-	     names[i] = name .. i
-	     DefMultipleComposite(names[i], {baseimg[flavor], quake_spot[i]})
-	  end
-	  frames = RepeatAnim(PingPong(BuildFrames(names, 50)), 2)
-       elseif (color == -4) then
-	  local shuffle_spot = DefSubimages("st_oxyd_shuffle", {w=1,h=8})
-	  local names = {}	
-	  for i=1, 8 do
-	     names[i] = name .. i
-	     DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
-	  end	   
-	  frames = RepeatAnim(BuildFrames(names, 100),2)
-       end
-       
-       -- finally define the animation and add a shadow to make the model complete
-       DefAnim(name.."_anim", frames, false)
-       DefShModel(name, name.."_anim", shadow[flavor])
-    end
-
-    function mkoxyd(flavor)
-        DefStone("st_oxyd"..flavor, shadow[flavor])
-        DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
-        img = DefImage("st_oxyd"..flavor.."_open")
-        DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
-
-        local fadein = "oxyd"..flavor.."_fadein"
-        local fadeout= "oxyd"..flavor.."_fadeout"
-        DefAnim(fadein, fopening[flavor])
-        DefAnim(fadeout, fclosing[flavor])
-
-        for color = 0, num_colors - 1 do
-            mkopenclose(flavor, color)
-            mkblink(flavor, color)
-            mkopened(flavor, color)
-        end
-        mkopenclose(flavor, -3)
-        mkpseudo(flavor, -3)
-        mkopenclose(flavor, -4)
-        mkpseudo(flavor, -4)
-     end
-
-    -- Make all the models and animations for the oxyd flavors a,b,c,d
-    mkoxyd("a")
-    mkoxyd("b")
-    mkoxyd("c")
-    mkoxyd("d")
-    
-    -- And now for flavor 'e'
-    for color = 0, num_colors - 1 do
-       DefOverlay("st_oxyde"..color.."_peep", {"st_oxydb_open", colorspots[color+1], "st_oxyde"})
-       DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
-       DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
-       DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
-       DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
-       DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
-    end
-    DefAlias("st_oxyde", "st_oxydb")
-    DefAlias("st_fake_oxyde", "st_oxydb")
-    DefAlias("st_fake_oxyde_open", "st_fake_oxydb_open")
-    DefAlias("st_oxyde-3_opening", "st_oxydb-3_opening")
-    DefAlias("st_oxyde_pseudo-3", "st_oxydb_pseudo-3")
-    DefAlias("st_oxyde-3_closing", "st_oxydb-3_closing")
-    DefOverlay("st_oxyde-3_peep", {"st_oxydb_open", colorspots[97], "st_oxyde"})
-    DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh_round")
-    DefAlias("st_oxyde-4_opening", "st_oxydb-4_opening")
-    DefAlias("st_oxyde_pseudo-4", "st_oxydb_pseudo-4")
-    DefAlias("st_oxyde-4_closing", "st_oxydb-4_closing")
-    DefOverlay("st_oxyde-4_peep", {"st_oxydb_open", colorspots[96], "st_oxyde"})
-    DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
+   -- Make all the models and animations for the oxyd flavors a,b,c,d
+   mkoxyd("a")
+   mkoxyd("b")
+   mkoxyd("c")
+   mkoxyd("d")
+   
+   -- And now for flavor 'e'
+   for color = 0, num_colors - 1 do
+      DefMultipleComposite("st_oxyde"..color.."_peep", {"st_oxydb_open", colordots[color+1], oxyde})
+      DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
+      DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
+      DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
+      DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
+      DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
+   end
+   DefMultipleComposite("st_oxyde-3_peep", {"st_oxydb_open", colordots[16], oxyde})
+   DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh_round")
+   DefMultipleComposite("st_oxyde-4_peep", {"st_oxydb_open", colordots[15], oxyde})
+   DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
+   DefAlias("st_oxyde", "st_oxydb")
+   DefAlias("st_fake_oxyde", "st_oxydb")
+   DefAlias("st_fake_oxyde_open", "st_fake_oxydb_open")
+   DefAlias("st_oxyde-3_opening", "st_oxydb-3_opening")
+   DefAlias("st_oxyde_pseudo-3", "st_oxydb_pseudo-3")
+   DefAlias("st_oxyde-3_closing", "st_oxydb-3_closing")
+   DefAlias("st_oxyde-4_opening", "st_oxydb-4_opening")
+   DefAlias("st_oxyde_pseudo-4", "st_oxydb_pseudo-4")
+   DefAlias("st_oxyde-4_closing", "st_oxydb-4_closing")
 end
 
 -- st_magic --
