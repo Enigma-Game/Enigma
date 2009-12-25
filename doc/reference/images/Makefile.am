@@ -167,7 +167,6 @@ SIMPLEPNG = \
 	st_dispenser_extralife.png \
 	st_door_d_ew.png st_door_d_ew_g.png \
 	st_door_d_ns.png st_door_d_ns_7.png \
-	st_fakeoxyd_blink_0003.png \
 	st_flash.png \
 	st_flat.png \
 	st_flat_break.png \
@@ -187,6 +186,8 @@ SIMPLEPNG = \
 	st_key_off.png \
 	st_key_on.png \
 	st_knight.png \
+	st_laser.png st_laser_b.png st_laser_c.png st_laser_d.png \
+	st_laser_6.png st_laser_b6.png st_laser_c6.png st_laser_d6.png \
 	st_lightglass.png \
 	st_lightpassenger.png \
 	st_mail.png st_mail_2.png st_mail_3.png st_mail_4.png \
@@ -214,11 +215,11 @@ SIMPLEPNG = \
 	st_oxydc.png st_oxydc_open.png \
 	st_oxydd.png \
 	st_oxyde.png \
-	st_oxyd_color_0001.png st_oxyd_color_0002.png st_oxyd_color_0003.png \
-	st_oxyd_color_0004.png st_oxyd_color_0005.png st_oxyd_color_0006.png \
-	st_oxyd_color_0007.png st_oxyd_color_0008.png st_oxyd_color_0009.png \
-	st_oxyd_color_0010.png st_oxyd_color_0011.png st_oxyd_color_0012.png \
-	st_oxyd_color_0096.png st_oxyd_color_0097.png \
+	st_oxyd_colordots.png st_oxyd_colordots_b.png st_oxyd_colordots_c.png \
+	st_oxyd_colordots_2.png st_oxyd_colordots_b2.png st_oxyd_colordots_c2.png \
+	st_oxyd_colordots_3.png st_oxyd_colordots_b3.png st_oxyd_colordots_c3.png \
+	st_oxyd_colordots_4.png st_oxyd_colordots_b4.png st_oxyd_colordots_c4.png \
+	st_oxyd_colordots_d3.png st_oxyd_colordots_d4.png \
 	st_panel.png st_panel_2.png st_panel_3.png st_panel_4.png \
 	st_panel_b.png st_panel_b2.png st_panel_b3.png st_panel_b4.png \
 	st_panel_c.png st_panel_c2.png st_panel_c3.png st_panel_c4.png \
@@ -254,6 +255,7 @@ SIMPLEPNG = \
 	st_puzzle_yellow_hollow_b.png st_puzzle_yellow_hollow_b2.png st_puzzle_yellow_hollow_b3.png st_puzzle_yellow_hollow_b4.png \
 	st_puzzle_yellow_hollow_c.png st_puzzle_yellow_hollow_c2.png st_puzzle_yellow_hollow_c3.png st_puzzle_yellow_hollow_c4.png \
 	st_puzzle_yellow_hollow_d.png st_puzzle_yellow_hollow_d2.png st_puzzle_yellow_hollow_d3.png st_puzzle_yellow_hollow_d4.png \
+	st_quake_3.png \
 	st_quake_break.png \
 	st_rawglass.png \
 	st_rawglass_quad.png \
@@ -331,15 +333,10 @@ FRAMABLEFLOORS = \
 
 FRAMEDFLOORS = $(addsuffix _framed.png, $(basename $(FRAMABLEFLOORS)))
 
-LASERS = st_laser_w_0001.png st_laser_w_0006.png \
-	st_laser_s_0001.png st_laser_s_0006.png \
-	st_laser_e_0001.png st_laser_e_0006.png \
-	st_laser_n_0001.png st_laser_n_0006.png
-
 THIEVES = st_thief.png st_thief_capture.png st_thief_drunken.png \
 	fl_thief.png fl_thief_capture.png fl_thief_drunken.png
 
-PNGLIST = $(SIMPLEPNG) $(FRAMABLEFLOORS) $(FRAMEDFLOORS) $(LASERS) $(THIEVES)
+PNGLIST = $(SIMPLEPNG) $(FRAMABLEFLOORS) $(FRAMEDFLOORS) $(THIEVES)
 
 pngdir = @docdir@/reference/images
 png_DATA = $(PNG) $(PNGLIST)
@@ -351,9 +348,6 @@ all: $(PNGLIST)
 
 fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
-
-st_laser_%.png: $(GFXDIR)/st-laser-%.png $(GFXDIR)/st-laser-base.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $(GFXDIR)/st-laser-base.png $< $@
 
 st_mirror_static_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_static.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_static.png $< $@
@@ -412,6 +406,9 @@ ac_%.png: $(GFXDIR)/ac_%.png
 %_b4.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+144 $< $@
 
+%_b6.png: $(GFXDIR)/%.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+240 $< $@
+
 %_c.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+0 $< $@
 
@@ -424,6 +421,9 @@ ac_%.png: $(GFXDIR)/ac_%.png
 %_c4.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+144 $< $@
 
+%_c6.png: $(GFXDIR)/%.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+240 $< $@
+
 %_d.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+0 $< $@
 
@@ -435,6 +435,9 @@ ac_%.png: $(GFXDIR)/ac_%.png
 
 %_d4.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+144 $< $@
+
+%_d6.png: $(GFXDIR)/%.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+240 $< $@
 
 %_e.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+0 $< $@

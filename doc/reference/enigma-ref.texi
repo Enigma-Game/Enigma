@@ -14623,7 +14623,7 @@ Switches the wormhole off.
 @tab @image{images/st_key_off, 12mm} @tab @yref{st_key}_off
 @item @image{images/st_key_on, 12mm} @tab @yref{st_key}_on
 @tab @image{images/st_knight, 12mm} @tab @yref{st_knight}
-@tab @image{images/st_laser_w_0001, 12mm} @tab @yref{st_laser}
+@tab @image{images/st_laser_d, 12mm} @tab @yref{st_laser}
 @item @image{images/st_lightglass, 12mm} @tab @yref{st_lightglass}
 @tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
 @tab @image{images/st_mail, 12mm} @tab @yref{st_mail}
@@ -14639,7 +14639,7 @@ Switches the wormhole off.
 @item @image{images/st_oneway_b, 12mm} @tab @yref{st_oneway}_black
 @tab @image{images/st_oneway_c, 12mm} @tab @yref{st_oneway}_white
 @tab @image{images/st_oxyda, 12mm} @tab @yref{st_oxyd}_a
-@item @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b
+@item @image{images/st_oxydb, 12mm} @tab @yref{st_oxyd}_b or @yref{st_quake} @* or @yref{st_laserswitch}
 @tab @image{images/st_oxydc, 12mm} @tab @yref{st_oxyd}_c
 @tab @image{images/st_oxydd, 12mm} @tab @yref{st_oxyd}_d
 @item @image{images/st_oxyde, 12mm} @tab @yref{st_oxyd}_e
@@ -16458,7 +16458,7 @@ any color spot.
 @item @b{Variants:}
 @multitable @columnfractions .08 .42 .08 .42
 @item @image{images/st_oxydb, 12mm} @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{IDLE}
-@tab @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{ACTIVE}
+@tab @image{images/st_quake_3, 12mm} @b{st_fake_quake}: flavor=@code{"quake"}, state=@code{ACTIVE}
 @item @image{images/st_oxyda, 12mm} @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{CLOSED}
 @tab @image{images/st_oxyda_open, 12mm} @b{st_fake_oxyda}: flavor=@code{"oxyda"}, state=@code{OPEN}
 @item @image{images/st_oxydb, 12mm} @b{st_fake_oxydb}: flavor=@code{"oxydb"}, state=@code{CLOSED}
@@ -17103,14 +17103,14 @@ Turn orientation in opposite turning direction as defined by attribute
 
 @item @b{Variants:}
 @multitable @columnfractions .08 .42 .08 .42
-@item @image{images/st_laser_w_0001, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{OFF}
-@tab @image{images/st_laser_w_0006, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{ON}
-@item @image{images/st_laser_s_0001, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{OFF}
-@tab @image{images/st_laser_s_0006, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{ON}
-@item @image{images/st_laser_e_0001, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{OFF}
-@tab @image{images/st_laser_e_0006, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{ON}
-@item @image{images/st_laser_n_0001, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{OFF}
-@tab @image{images/st_laser_n_0006, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{ON}
+@item @image{images/st_laser_d, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{OFF}
+@tab @image{images/st_laser_d6, 12mm}@tab @b{st_laser_w}: orientation = @code{WEST}, state = @code{ON}
+@item @image{images/st_laser_c, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{OFF}
+@tab @image{images/st_laser_c6, 12mm}@tab @b{st_laser_s}: orientation = @code{SOUTH}, state = @code{ON}
+@item @image{images/st_laser_b, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{OFF}
+@tab @image{images/st_laser_b6, 12mm}@tab @b{st_laser_e}: orientation = @code{EAST}, state = @code{ON}
+@item @image{images/st_laser, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{OFF}
+@tab @image{images/st_laser_6, 12mm}@tab @b{st_laser_n}: orientation = @code{NORTH}, state = @code{ON}
 @end multitable
 @end table
 
@@ -17197,7 +17197,7 @@ the light change with proper actions.
 
 @table @asis
 @item @image{images/st_oxydb, 12mm} @b{st_laserswitch}: state = @code{OFF}
-@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_laserswitch}: state = @code{ON}
+@item @image{images/st_quake_3, 12mm} @b{st_laserswitch}: state = @code{ON}
 @end table
 @end table
 
@@ -17748,20 +17748,20 @@ closed state and the way of opening differ in the following way:
 @end table
 @item @b{oxydcolor}, @ @ @i{values}: @code{OXYD_AUTO}, @code{OXYD_FAKE}, @code{OXYD_QUAKE}, @code{OXYD_BOLD}, @code{OXYD_BLUE}, @code{OXYD_RED}, @code{OXYD_GREEN}, @code{OXYD_YELLOW}, @code{OXYD_CYAN}, @code{OXYD_PURPLE}, @code{OXYD_WHITE}, @code{OXYD_BLACK}, @code{OXYD_GRAY}, @code{OXYD_ORANGE}, @code{OXYD_PINE}, @code{OXYD_BROWN}; @ @ @i{default}: @code{OXYD_AUTO}
 @multitable @columnfractions .08 .17 .08 .17 .08 .17 .08 .17
-@item @image{images/st_oxyd_color_0001, 10mm}@tab @code{OXYD_BLUE}
-@tab @image{images/st_oxyd_color_0002, 10mm}@tab @code{OXYD_RED}
-@tab @image{images/st_oxyd_color_0003, 10mm}@tab @code{OXYD_GREEN}
-@tab @image{images/st_oxyd_color_0004, 10mm}@tab @code{OXYD_YELLOW}
-@item @image{images/st_oxyd_color_0005, 10mm}@tab @code{OXYD_CYAN}
-@tab @image{images/st_oxyd_color_0006, 10mm}@tab @code{OXYD_PURPLE}
-@tab @image{images/st_oxyd_color_0007, 10mm}@tab @code{OXYD_WHITE}
-@tab @image{images/st_oxyd_color_0008, 10mm}@tab @code{OXYD_BLACK}
-@item @image{images/st_oxyd_color_0009, 10mm}@tab @code{OXYD_GRAY}
-@tab @image{images/st_oxyd_color_0010, 10mm}@tab @code{OXYD_ORANGE}
-@tab @image{images/st_oxyd_color_0011, 10mm}@tab @code{OXYD_PINE}
-@tab @image{images/st_oxyd_color_0012, 10mm}@tab @code{OXYD_BROWN}
-@item @image{images/st_oxyd_color_0097, 10mm}@tab @code{OXYD_QUAKE}
-@tab @image{images/st_oxyd_color_0096, 10mm}@tab @code{OXYD_BOLD}
+@item @image{images/st_oxyd_colordots, 10mm}@tab @code{OXYD_BLUE}
+@tab @image{images/st_oxyd_colordots_2, 10mm}@tab @code{OXYD_RED}
+@tab @image{images/st_oxyd_colordots_3, 10mm}@tab @code{OXYD_GREEN}
+@tab @image{images/st_oxyd_colordots_4, 10mm}@tab @code{OXYD_YELLOW}
+@item @image{images/st_oxyd_colordots_b, 10mm}@tab @code{OXYD_CYAN}
+@tab @image{images/st_oxyd_colordots_b2, 10mm}@tab @code{OXYD_PURPLE}
+@tab @image{images/st_oxyd_colordots_b3, 10mm}@tab @code{OXYD_WHITE}
+@tab @image{images/st_oxyd_colordots_b4, 10mm}@tab @code{OXYD_BLACK}
+@item @image{images/st_oxyd_colordots_c, 10mm}@tab @code{OXYD_GRAY}
+@tab @image{images/st_oxyd_colordots_c2, 10mm}@tab @code{OXYD_ORANGE}
+@tab @image{images/st_oxyd_colordots_c3, 10mm}@tab @code{OXYD_PINE}
+@tab @image{images/st_oxyd_colordots_c4, 10mm}@tab @code{OXYD_BROWN}
+@item @image{images/st_oxyd_colordots_d3, 10mm}@tab @code{OXYD_QUAKE}
+@tab @image{images/st_oxyd_colordots_d4, 10mm}@tab @code{OXYD_BOLD}
 @end multitable
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
@@ -18308,7 +18308,7 @@ Toggles stone to @samp{BREAKING}
 
 @table @asis
 @item @image{images/st_oxydb, 12mm} @b{st_quake}: state = @code{IDLE}
-@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_quake}: state = @code{ACTIVE}
+@item @image{images/st_quake_3, 12mm} @b{st_quake}: state = @code{ACTIVE}
 @item @image{images/st_quake_break, 12mm} @b{st_quake}: state = @code{BREAKING}
 @end table
 @end table
