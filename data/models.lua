@@ -168,19 +168,22 @@ end
 -- yields {"hello_0001", "hello_0002"}.
 -- [Filenames like this are created by Gimp's "Video/Split Image.."
 -- tool.]
-function FrameNames(prefix, first, last)
-    local fn = {}
-    for i=first,last do
-	    table.insert(fn, prefix .. format("_%04d", i))
-    end
-    return fn
-end
 
-function AddFrameNames(fn, prefix, first, last)
-    for i=first,last do
-	    table.insert(fn, i, prefix .. format("_%04d", i))
-    end
-end
+-- DEPRECEATED
+
+-- function FrameNames(prefix, first, last)
+--     local fn = {}
+--     for i=first,last do
+-- 	    table.insert(fn, prefix .. format("_%04d", i))
+--     end
+--     return fn
+-- end
+
+-- function AddFrameNames(fn, prefix, first, last)
+--     for i=first,last do
+-- 	    table.insert(fn, i, prefix .. format("_%04d", i))
+--     end
+-- end
 
 -- Build a list of frames from a list of model names and a constant
 -- duration.

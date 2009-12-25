@@ -1916,32 +1916,26 @@ end
 --      2       west      "<"        "\"
 --      3       north     "^"        "|"
 --      4       east      ">"        "/"
+--
+-- The models are stored in the file from top to bottom as north, east, south, west
+-- in each column, therefore we need the mapping (i+1)%4+1
 do
-    function make_mirror(basename, baseimg, overlays)
-        for i=1,4 do
-                mname = basename .. i
-                DefOverlay (mname .. "-ovl", {baseimg, overlays[i]})
-                DefShModel(mname, mname .. "-ovl", "sh_rounded")
-        end
-    end
-
-    mirror3_opaque = FrameNames("st-mirrortempl", 1, 4)
-    mirror3_transp = FrameNames("st-mirrortempl", 5, 8)
-    mirrorp_opaque = FrameNames("st-mirrortempl", 9, 12)
-    mirrorp_transp1 = FrameNames("st-mirrortempl", 13, 16)
-    mirrorp_transp2 = FrameNames("st-mirrortempl", 17, 20)
-
-    make_mirror("st-3mirror-mo", "st_mirror_movable", mirror3_opaque)
-    make_mirror("st-3mirror-so", "st_mirror_static",  mirror3_opaque)
-    make_mirror("st-3mirror-mt", "st_mirror_movable", mirror3_transp)
-    make_mirror("st-3mirror-st", "st_mirror_static",  mirror3_transp)
-
-    make_mirror("st-pmirror-mo", "st_mirror_movable", mirrorp_opaque)
-    make_mirror("st-pmirror-so", "st_mirror_static",  mirrorp_opaque)
-    make_mirror("st-pmirror-mt", "st_mirror_movable", mirrorp_transp1)
-    make_mirror("st-pmirror-st", "st_mirror_static",  mirrorp_transp1)
-    make_mirror("st-pmirror-mf", "st_mirror_movable", mirrorp_transp2)
-    make_mirror("st-pmirror-sf", "st_mirror_static",  mirrorp_transp2)
+   local mst = DefSubimages("st_mirror_static", {w=5,h=4})
+   local mmo = DefSubimages("st_mirror_movable", {w=5,h=4})
+   local names_st = {"st-3mirror-so", "st-3mirror-st", "st-pmirror-so", "st-pmirror-st", "st-pmirror-sf"}
+   local names_mo = {"st-3mirror-mo", "st-3mirror-mt", "st-pmirror-mo", "st-pmirror-mt", "st-pmirror-mf"}
+   -- static mirrors
+   for j=0,4 do
+      for i=1,4 do
+	 DefShModel(names_st[j+1]..((i+1)%4+1), mst[j*4+i], "sh_rounded")
+      end
+   end
+   -- movable mirrors
+   for j=0,4 do
+      for i=1,4 do
+	 DefShModel(names_mo[j+1]..((i+1)%4+1), mmo[j*4+i], "sh_rounded")
+      end
+   end
 end
 
 --------------------------
