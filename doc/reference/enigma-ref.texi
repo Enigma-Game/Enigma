@@ -14628,11 +14628,11 @@ Switches the wormhole off.
 @tab @image{images/st_lightpassenger, 12mm} @tab @yref{st_lightpassenger}
 @tab @image{images/st_mail, 12mm} @tab @yref{st_mail}
 @item @image{images/st_metal, 12mm} @tab @yref{st_metal}
-@tab @image{images/st_mirror_static_04, 12mm} @tab @yref{st_mirror}_triangle
-@tab @image{images/st_mirror_static_08, 12mm} @tab @yref{st_mirror}_triangle
-@item @image{images/st_mirror_static_12, 12mm} @tab @yref{st_mirror}_slab
-@tab @image{images/st_mirror_static_16, 12mm} @tab @yref{st_mirror}_slab
-@tab @image{images/st_mirror_static_20, 12mm} @tab @yref{st_mirror}_sheets
+@tab @image{images/st_mirror_static_2, 12mm} @tab @yref{st_mirror}_triangle
+@tab @image{images/st_mirror_static_b2, 12mm} @tab @yref{st_mirror}_triangle
+@item @image{images/st_mirror_static_c2, 12mm} @tab @yref{st_mirror}_slab
+@tab @image{images/st_mirror_static_d2, 12mm} @tab @yref{st_mirror}_slab
+@tab @image{images/st_mirror_static_e2, 12mm} @tab @yref{st_mirror}_sheets
 @item @image{images/st_monoflop, 12mm} @tab @yref{st_monoflop}
 @tab @image{images/st_monoflop_2, 12mm} @tab @yref{st_monoflop}
 @tab @image{images/st_oneway, 12mm} @tab @yref{st_oneway}
@@ -17488,46 +17488,46 @@ Turn the orientation in turning direction as defined by attribute
 
 @item @b{Variants:}
 @multitable @columnfractions .08 .42 .08 .42
-@item @image{images/st_mirror_static_03, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_03, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_04, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_04, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_01, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_01, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_02, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_02, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_07, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_07, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_08, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_08, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_05, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_05, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_06, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_06, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_11, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_11, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_12, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_12, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_09, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_09, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_10, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
-@tab @image{images/st_mirror_movable_10, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
-@item @image{images/st_mirror_static_15, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_15, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_16, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_16, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_13, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_13, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_14, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_14, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_19, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_19, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_20, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_20, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_17, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_17, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
-@item @image{images/st_mirror_static_18, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
-@tab @image{images/st_mirror_movable_18, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_2, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_2, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_3, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_3, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_4, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_4, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_b, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_b, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_b2, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_b2, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_b3, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_b3, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_b4, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_b4, 12mm}@tab @b{st_mirror_triangle}: flavor=@code{triangle}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_c, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_c, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_c2, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_c2, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_c3, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_c3, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_c4, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{false}
+@tab @image{images/st_mirror_movable_c4, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{false}, movable = @code{true}
+@item @image{images/st_mirror_static_d, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_d, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_d2, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_d2, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_d3, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_d3, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_d4, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_d4, 12mm}@tab @b{st_mirror_slab}: flavor=@code{slab}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_e, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_e, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{NORTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_e2, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_e2, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{EAST}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_e3, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_e3, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{SOUTH}, transparent = @code{true}, movable = @code{true}
+@item @image{images/st_mirror_static_e4, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{false}
+@tab @image{images/st_mirror_movable_e4, 12mm}@tab @b{st_mirror_sheets}: flavor=@code{sheets}, state = @code{WEST}, transparent = @code{true}, movable = @code{true}
 @end multitable
 
 @end table
@@ -19217,7 +19217,7 @@ Activates an inactive volcano stone.
 @table @asis
 @item @image{images/st_flat, 12mm} @b{st_volcano}: state = @code{IDLE}
 @item @image{images/st_flat, 12mm} @b{st_volcano_idle}: state = @code{IDLE}
-@item @image{images/st_fakeoxyd_blink_0003, 12mm} @b{st_volcano_active}: state = @code{ACTIVE}
+@item @image{images/st_quake_3, 12mm} @b{st_volcano_active}: state = @code{ACTIVE}
 @item @image{images/it_seed, 12mm} @b{st_volcano_new}:
 An active volcano starting in the seed like phase.
 @item @image{images/st_volcano_growing, 12mm} @b{st_volcano_growing}:

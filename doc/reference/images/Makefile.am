@@ -192,20 +192,20 @@ SIMPLEPNG = \
 	st_lightpassenger.png \
 	st_mail.png st_mail_2.png st_mail_3.png st_mail_4.png \
 	st_metal.png \
-	st_mirror_static_01.png st_mirror_static_02.png st_mirror_static_03.png \
-	st_mirror_static_04.png st_mirror_static_05.png st_mirror_static_06.png \
-	st_mirror_static_07.png st_mirror_static_08.png st_mirror_static_09.png \
-	st_mirror_static_10.png st_mirror_static_11.png st_mirror_static_12.png \
-	st_mirror_static_13.png st_mirror_static_14.png st_mirror_static_15.png \
-	st_mirror_static_16.png st_mirror_static_17.png st_mirror_static_18.png \
-	st_mirror_static_19.png st_mirror_static_20.png \
-	st_mirror_movable_01.png st_mirror_movable_02.png st_mirror_movable_03.png \
-	st_mirror_movable_04.png st_mirror_movable_05.png st_mirror_movable_06.png \
-	st_mirror_movable_07.png st_mirror_movable_08.png st_mirror_movable_09.png \
-	st_mirror_movable_10.png st_mirror_movable_11.png st_mirror_movable_12.png \
-	st_mirror_movable_13.png st_mirror_movable_14.png st_mirror_movable_15.png \
-	st_mirror_movable_16.png st_mirror_movable_17.png st_mirror_movable_18.png \
-	st_mirror_movable_19.png st_mirror_movable_20.png \
+	st_mirror_static.png st_mirror_static_2.png st_mirror_static_3.png \
+	st_mirror_static_4.png st_mirror_static_b.png st_mirror_static_b2.png \
+	st_mirror_static_b3.png st_mirror_static_b4.png st_mirror_static_c.png \
+	st_mirror_static_c2.png st_mirror_static_c3.png st_mirror_static_c4.png \
+	st_mirror_static_d.png st_mirror_static_d2.png st_mirror_static_d3.png \
+	st_mirror_static_d4.png st_mirror_static_e.png st_mirror_static_e2.png \
+	st_mirror_static_e3.png st_mirror_static_e4.png \
+	st_mirror_movable.png st_mirror_movable_2.png st_mirror_movable_3.png \
+	st_mirror_movable_4.png st_mirror_movable_b.png st_mirror_movable_b2.png \
+	st_mirror_movable_b3.png st_mirror_movable_b4.png st_mirror_movable_c.png \
+	st_mirror_movable_c2.png st_mirror_movable_c3.png st_mirror_movable_c4.png \
+	st_mirror_movable_d.png st_mirror_movable_d2.png st_mirror_movable_d3.png \
+	st_mirror_movable_d4.png st_mirror_movable_e.png st_mirror_movable_e2.png \
+	st_mirror_movable_e3.png st_mirror_movable_e4.png \
 	st_monoflop.png st_monoflop_2.png \
 	st_oneway.png st_oneway_2.png st_oneway_3.png st_oneway_4.png \
 	st_oneway_b.png st_oneway_b2.png st_oneway_b3.png st_oneway_b4.png \
@@ -349,12 +349,6 @@ all: $(PNGLIST)
 fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
 
-st_mirror_static_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_static.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_static.png $< $@
-
-st_mirror_movable_%.png: $(GFXDIR)/st-mirrortempl_00%.png $(GFXDIR)/st_mirror_movable.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite $(GFXDIR)/st_mirror_movable.png $< $@
-
 %_thief.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_template.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_template.png template_$@
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
@@ -444,6 +438,12 @@ ac_%.png: $(GFXDIR)/ac_%.png
 	
 %_e2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+48 $< $@
+
+%_e3.png: $(GFXDIR)/%.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+96 $< $@
+
+%_e4.png: $(GFXDIR)/%.png
+	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+191+144 $< $@
 
 %_f.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+240+0 $< $@
