@@ -35,30 +35,30 @@ Progress(0, "Loading actor models")
 -- ac_marble --
 do
     local images,frames,shadows
-
+    
     -- Normal black marble
     images = SpriteImages("ac_marble_black", 2, 0.5, 0.31)
     shadows = SpriteImage("sh_marble", 0.4, 0.29)
     DefShModel("ac_marble_black", "ac_marble_black1", "sh_marble")
     DefShModel("ac_marble_black-shine", "ac_marble_black2", "sh_marble")
-
+    
     -- Normal white marble
     -- Use shadow from black marble
     images = SpriteImages("ac_marble_white", 2, 0.5, 0.31)
     DefShModel("ac_marble_white", "ac_marble_white1", "sh_marble")
     DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
-
+    
     -- Falling black marble
     images = SpriteImages("ac_marble_black_fall", 10)
     shadows = SpriteImages("sh_marble_fall", 10, 0.4)
     frames = {}
     for i=1,table.getn(images) do
-       DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
-       frames[i] = "ac_marble_black-sink"..(i-1)
+        DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_marble_black-sink"..(i-1)
     end
     DefAnim("ac_marble_black-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_black-fallen", "invisible")
-
+    
     -- Appearing / disappearing black marble
     -- use the images from falling black marble
     DefAnim("ac_marble_black-appear", ReverseFrames(BuildFrames(frames, 25)))
@@ -69,12 +69,12 @@ do
     images = SpriteImages("ac_marble_white_fall", 10)
     frames = {}
     for i=1,table.getn(images) do
-       DefShModel("ac_marble_white-sink"..(i-1), images[i], shadows[i])
-       frames[i] = "ac_marble_white-sink"..(i-1)
+        DefShModel("ac_marble_white-sink"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_marble_white-sink"..(i-1)
     end
     DefAnim("ac_marble_white-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_white-fallen", "invisible")
-
+    
     -- Appearing / disappearing white marble
     -- use the images from falling white marble
     DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(frames, 25)))
@@ -107,7 +107,7 @@ do
         DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
     end
     DefAlias("ac_marble_black-sunk", "invisible")
-
+    
     -- Sinking white marble
     -- Use shadow from black marble
     images = SpriteImages("ac_marble_white_sink", 7)
@@ -130,19 +130,19 @@ end
 -- ac_pearl --
 do
     local images, frames, shadows
-
+    
     -- Normal black pearl
     SpriteImage("ac_pearl_black", 0.5, 0.43)
     SpriteImage("sh_pearl", 0.4, 0.41)
     DefShModel("ac_pearl_black", "ac_pearl_black", "sh_pearl")
     DefAlias("ac_pearl_black-shine", "ac_pearl_black")
-
+    
     -- Normal white pearl
     -- Use shadow from black pearl
     SpriteImage("ac_pearl_white", 0.5, 0.43)
     DefShModel("ac_pearl_white", "ac_pearl_white", "sh_pearl")
     DefAlias("ac_pearl_white-shine", "ac_pearl_white")
-
+    
     -- Falling black pearl
     images = SpriteImages("ac_pearl_black_fall", 5, 0.5, 0.43)
     shadows = SpriteImages("sh_pearl_fall", 5, 0.4, 0.43)
@@ -150,34 +150,34 @@ do
     table.insert(shadows, "invisible")
     frames = {}
     for i=1,table.getn(images) do
-       DefShModel("ac_pearl_black-fall"..(i-1), images[i], shadows[i])
-       frames[i] = "ac_pearl_black-fall"..(i-1)
+        DefShModel("ac_pearl_black-fall"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_pearl_black-fall"..(i-1)
     end
     DefAnim("ac_pearl_black-fall", ComposeFrames(frames,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_black-fallen", "invisible")
-
+    
     -- Appearing / disappearing black pearl
     -- use the images from falling black pearl
     DefAnim("ac_pearl_black-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_pearl_black-disappear", BuildFrames(frames, 25))
-
+    
     -- Falling white pearl
     -- Use shadows from falling black pearl
     images = SpriteImages("ac_pearl_white_fall", 5, 0.5, 0.43)
     table.insert(images, "invisible")
     frames = {}
     for i=1,table.getn(images) do
-       DefShModel("ac_pearl_white-fall"..(i-1), images[i], shadows[i])
-       frames[i] = "ac_pearl_white-fall"..(i-1)
+        DefShModel("ac_pearl_white-fall"..(i-1), images[i], shadows[i])
+        frames[i] = "ac_pearl_white-fall"..(i-1)
     end
     DefAnim("ac_pearl_white-fall", ComposeFrames(frames,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_white-fallen", "invisible")
-
+    
     -- Appearing / disappearing white pearl
     -- use the images from falling white pearl
     DefAnim("ac_pearl_white-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_pearl_white-disappear", BuildFrames(frames, 25))
-
+    
     -- Jumping black pearl
     images  = SpriteImages("ac_pearl_black_jump", 4)
     shadows = SpriteImages("sh_pearl_jump", 4, 0.4)
@@ -227,7 +227,7 @@ do
     -- Shattering white pearl
     Sprite({name="ac_pearl_white_shatter", nimages=5, framelen=60})
     DefAlias("ac_pearl_white-shatter", "ac_pearl_white_shatter")
-    DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")
+    DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")     
 end
 
 -- ac-killerball --
@@ -275,7 +275,7 @@ end
 do
     local fg = SpriteImages("ac_top", 9, 0.5, 0.3)
     local bg = SpriteImage("sh_top", 0.4, 0.3)
-
+    
     frames = {}
     for i=1,9 do
         DefShModel("ac-top"..i, fg[i], bg)
@@ -374,7 +374,6 @@ do
         end
     end
 end
-
 
 -----------------------------------------
 -- Special Floors
@@ -497,8 +496,8 @@ do
         DefAlias("fl_bridge_"..suff.."_closed", "fl_bridge_bw_closed")
 
         local namelist=DefSubimages("fl_bridge_"..suff, {h=7})
-	table.insert(namelist, 1, bridge_c)
-	table.insert(namelist, bridge_o)
+        table.insert(namelist, 1, bridge_c)
+        table.insert(namelist, bridge_o)
         local frames = BuildFrames(namelist,70)
         DefAnim("fl_bridge_"..suff.."_opening", frames)
         DefAnim("fl_bridge_"..suff.."_closing", ReverseFrames(frames))
@@ -509,7 +508,7 @@ end
 -- scales
 do
     local scales = DefSubimages("fl_scales", {h=2})
-
+    
     display.DefineComposite("fl_scales_brick_released", "fl_brick", scales[1])
     display.DefineComposite("fl_scales_brick_pressed", "fl_brick", scales[2])
 
@@ -538,7 +537,7 @@ do
         local frames = BuildFrames(images, 240)
         DefAnim(basemodel.."_heating", frames);
     end
-
+    
     heating_animation("fl_ice")
     heating_animation("fl_water")
     heating_animation("fl_swamp")
@@ -595,7 +594,7 @@ do
         "it_weight",
         "it_wrench"
     }
-
+    
     DefImages(itemlist)
 
     DefImage("it_brake", {filename="st_brake"})
@@ -643,7 +642,7 @@ end
 -- it_pipe --
 do
     DefTiles("it_pipe", {"it_pipe_e", "it_pipe_s", "it_pipe_es", "it_pipe_sw", "it_pipe_ew",
-                            "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns"})
+                         "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns"})
 end
 
 -- it-trigger --
@@ -676,8 +675,7 @@ end
 do
     local images = DefSubimages("it_bomb_white_burning", {h=9})
     local frames = BuildFrames(images, 100)
-    DefAnim("it_bomb_white_burning", frames
-    )
+    DefAnim("it_bomb_white_burning", frames)
     local frames = BuildFrames({"it_bomb_white_burning8", "it_bomb_white_burning9"},120)
     DefAnim("it_bomb_white_exploding", frames)
 end
@@ -930,7 +928,7 @@ end
 do
     namelist = DefSubimages("st_actorimpulse", {h=3})
     shnamelist = DefSubimages("sh_actorimpulse", {h=3,imgw=ShadowSize,imgh=ShadowSize})
-
+    
     DefAnim("st-ai-fg", PingPong(BuildFrames(namelist, 30)))
     DefAnim("st-ai-sh", PingPong(BuildFrames(shnamelist, 30)))
     DefShModel("st_actorimpulse_anim", "st-ai-fg", "st-ai-sh")
@@ -991,7 +989,7 @@ end
 do
     function def_chargestone(basename)
         local images = DefSubimages(basename, {h=2})
-	DefShModel(basename, images[1], "sh_rounded")
+        DefShModel(basename, images[1], "sh_rounded")
         DefAnim(basename.."-animfg", {{images[2], 140}})
         DefShModel(basename.."_anim", basename.."-animfg", "sh_rounded")
     end
@@ -1104,34 +1102,34 @@ end
 
 -- st_laser --
 do
-   local images = DefSubimages("st_laser", {w=4,h=9})
-   local imagesn = {}
-   local imagese = {}
-   local imagess = {}
-   local imagesw = {}
-   for i=0,8 do
-      imagesn[i] = images[1+i]
-      imagese[i] = images[10+i]
-      imagess[i] = images[19+i]
-      imagesw[i] = images[28+i]
-      -- slicing like in python would be nice here :-)
-   end
+    local images = DefSubimages("st_laser", {w=4,h=9})
+    local imagesn = {}
+    local imagese = {}
+    local imagess = {}
+    local imagesw = {}
+    for i=0,8 do
+        imagesn[i] = images[1+i]
+        imagese[i] = images[10+i]
+        imagess[i] = images[19+i]
+        imagesw[i] = images[28+i]
+        -- slicing like in python would be nice here :-)
+    end
 
-   -- deactivated laser
-   DefShModel("st-laser-n", imagesn[1], "sh_rounded")
-   DefShModel("st-laser-e", imagese[1], "sh_rounded")
-   DefShModel("st-laser-s", imagess[1], "sh_rounded")
-   DefShModel("st-laser-w", imagesw[1], "sh_rounded")
-
-   -- activated laser
-   DefAnim("st-laseron-anim-n", BuildFrames(imagesn,100), true)
-   DefShModel("st-laseron-n", "st-laseron-anim-n", "sh_rounded")
-   DefAnim("st-laseron-anim-e", BuildFrames(imagese,100), true)                                                                                       
-   DefShModel("st-laseron-e", "st-laseron-anim-e", "sh_rounded")
-   DefAnim("st-laseron-anim-s", BuildFrames(imagess,100), true)                                                                                       
-   DefShModel("st-laseron-s", "st-laseron-anim-s", "sh_rounded")
-   DefAnim("st-laseron-anim-w", BuildFrames(imagesw,100), true)                                                                                       
-   DefShModel("st-laseron-w", "st-laseron-anim-w", "sh_rounded")
+    -- deactivated laser
+    DefShModel("st-laser-n", imagesn[1], "sh_rounded")
+    DefShModel("st-laser-e", imagese[1], "sh_rounded")
+    DefShModel("st-laser-s", imagess[1], "sh_rounded")
+    DefShModel("st-laser-w", imagesw[1], "sh_rounded")
+    
+    -- activated laser
+    DefAnim("st-laseron-anim-n", BuildFrames(imagesn,100), true)
+    DefShModel("st-laseron-n", "st-laseron-anim-n", "sh_rounded")
+    DefAnim("st-laseron-anim-e", BuildFrames(imagese,100), true)                                                                                       
+    DefShModel("st-laseron-e", "st-laseron-anim-e", "sh_rounded")
+    DefAnim("st-laseron-anim-s", BuildFrames(imagess,100), true)                                                                                       
+    DefShModel("st-laseron-s", "st-laseron-anim-s", "sh_rounded")
+    DefAnim("st-laseron-anim-w", BuildFrames(imagesw,100), true)                                                                                       
+    DefShModel("st-laseron-w", "st-laseron-anim-w", "sh_rounded")
 end
 
 -- st_lightpassenger --
@@ -1149,12 +1147,12 @@ do
     img = DefSubimages("st_lightpassenger_break", {h=7})
     local anim_v, anim_h, anim_hv = {}, {}, {}
     for j = 1, 7 do
-      anim_v[j] = "st_lightpassenger_break_v"..j
-      display.DefineComposite(anim_v[j], "it_laser_v", img[j])
-      anim_h[j] = "st_lightpassenger_break_h"..j
-      display.DefineComposite(anim_h[j], "it_laser_h", img[j])
-      anim_hv[j] = "st_lightpassenger_break_hv"..j
-      display.DefineComposite(anim_hv[j], "it_laser_hv", img[j])
+        anim_v[j] = "st_lightpassenger_break_v"..j
+        display.DefineComposite(anim_v[j], "it_laser_v", img[j])
+        anim_h[j] = "st_lightpassenger_break_h"..j
+        display.DefineComposite(anim_h[j], "it_laser_h", img[j])
+        anim_hv[j] = "st_lightpassenger_break_hv"..j
+        display.DefineComposite(anim_hv[j], "it_laser_hv", img[j])
     end
     DefAnim("st_lightpassenger_break_v", BuildFrames(anim_v, 50), false)
     DefAnim("st_lightpassenger_break_h", BuildFrames(anim_h, 50), false)
@@ -1194,21 +1192,21 @@ end
 
 -- st_pull, st_swap --
 do
-   DefSubimages("st_pull",{modelname="st-pull-fg",h=5})
-   DefSubimages("st_swap",{modelname="st-swap-fg",h=5})
-   DefSubimages("sh_pull",{h=4, imgw=ShadowSize, imgh=ShadowSize})
+    DefSubimages("st_pull",{modelname="st-pull-fg",h=5})
+    DefSubimages("st_swap",{modelname="st-swap-fg",h=5})
+    DefSubimages("sh_pull",{h=4, imgw=ShadowSize, imgh=ShadowSize})
 
-   DefShModel("st_pull",   "st-pull-fg1", "sh_rawglass")
-   DefShModel("st_pull_n", "st-pull-fg2", "sh_pull1")
-   DefShModel("st_pull_s", "st-pull-fg3", "sh_pull2")
-   DefShModel("st_pull_e", "st-pull-fg4", "sh_pull3")
-   DefShModel("st_pull_w", "st-pull-fg5", "sh_pull4")
+    DefShModel("st_pull",   "st-pull-fg1", "sh_rawglass")
+    DefShModel("st_pull_n", "st-pull-fg2", "sh_pull1")
+    DefShModel("st_pull_s", "st-pull-fg3", "sh_pull2")
+    DefShModel("st_pull_e", "st-pull-fg4", "sh_pull3")
+    DefShModel("st_pull_w", "st-pull-fg5", "sh_pull4")
 
-   DefShModel("st_swap",   "st-swap-fg1", "sh_round")
-   DefShModel("st_swap_n", "st-swap-fg2", "sh_pull1")
-   DefShModel("st_swap_s", "st-swap-fg3", "sh_pull2")
-   DefShModel("st_swap_e", "st-swap-fg4", "sh_pull3")
-   DefShModel("st_swap_w", "st-swap-fg5", "sh_pull4")
+    DefShModel("st_swap",   "st-swap-fg1", "sh_round")
+    DefShModel("st_swap_n", "st-swap-fg2", "sh_pull1")
+    DefShModel("st_swap_s", "st-swap-fg3", "sh_pull2")
+    DefShModel("st_swap_e", "st-swap-fg4", "sh_pull3")
+    DefShModel("st_swap_w", "st-swap-fg5", "sh_pull4")
 end
 
 -- st-puzzle* --
@@ -1275,16 +1273,16 @@ end
 -- (anim2) is longer than the opening animation (anim1). Otherwise
 -- impulse stones do not work properly!
 do
-   local images = DefSubimages("st_stoneimpulse", {h=6})
-   DefRoundStone("st_stoneimpulse", images[1])
-   DefRoundStone("st_stoneimpulse_steady", images[6])
-   local frames = {}
-   for i=1,4 do table.insert(frames, images[i]) end
-   DefAnim("stoneimpulse_anim1", BuildFrames(frames, 55))
-   DefRoundStone("st_stoneimpulse_anim1", "stoneimpulse_anim1")
-   table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
-   DefAnim("stoneimpulse_anim2", ReverseFrames(BuildFrames(frames, 55)))
-   DefRoundStone("st_stoneimpulse_anim2", "stoneimpulse_anim2")
+    local images = DefSubimages("st_stoneimpulse", {h=6})
+    DefRoundStone("st_stoneimpulse", images[1])
+    DefRoundStone("st_stoneimpulse_steady", images[6])
+    local frames = {}
+    for i=1,4 do table.insert(frames, images[i]) end
+    DefAnim("stoneimpulse_anim1", BuildFrames(frames, 55))
+    DefRoundStone("st_stoneimpulse_anim1", "stoneimpulse_anim1")
+    table.insert(frames, images[4]) -- add 1 frame to make closing anim longer!
+    DefAnim("stoneimpulse_anim2", ReverseFrames(BuildFrames(frames, 55)))
+    DefRoundStone("st_stoneimpulse_anim2", "stoneimpulse_anim2")
 end
 
 -- st_stoneimpulse_hollow --
@@ -1350,7 +1348,7 @@ do
     DefRoundStone("st_monoflop", "st_monoflop1")
     DefAnim("st_monoflop_anim", BuildFrames (images, 180), 1)
     DefShModel("st_monoflop_anim", "st_monoflop_anim", "sh_round")
- end
+end
 
 -- laserswitch --
 do
@@ -1385,61 +1383,61 @@ end
 
 -- growing stones, st_box, st_flhay, greenbrown seed, st-volcano, st-blocker --
 do
-   local shadows=DefSubimages("sh_round_growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
+    local shadows=DefSubimages("sh_round_growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
-   -- Wooden (box) stones --
-   do
-      DefSubimages("st_box_wood", {modelname="st_box_wood_fg",h=2})
-      DefShModel("st_box_wood1", "st_box_wood_fg1", "sh_round")
-      DefShModel("st_box_wood2", "st_box_wood_fg2", "sh_round")
+    -- Wooden (box) stones --
+    do
+        DefSubimages("st_box_wood", {modelname="st_box_wood_fg",h=2})
+        DefShModel("st_box_wood1", "st_box_wood_fg1", "sh_round")
+        DefShModel("st_box_wood2", "st_box_wood_fg2", "sh_round")
 
-      local images=DefSubimages("st_box_wood_growing", {h=3})
-      DefAnim("st_box_wood_growing_fg", BuildFrames(images, 130))
-      DefAnim("st_box_wood_growing_bg", BuildFrames(shadows, 130))
-      DefShModel("st_box_wood_growing", "st_box_wood_growing_fg", "st_box_wood_growing_bg")
-   end
+        local images=DefSubimages("st_box_wood_growing", {h=3})
+        DefAnim("st_box_wood_growing_fg", BuildFrames(images, 130))
+        DefAnim("st_box_wood_growing_bg", BuildFrames(shadows, 130))
+        DefShModel("st_box_wood_growing", "st_box_wood_growing_fg", "st_box_wood_growing_bg")
+    end
 
-   -- Greenbrown seed growing --
-   do
-      local images=DefSubimages("st_greenbrown_growing", {h=3})
-      DefAnim("st_greenbrown_growing_fg", BuildFrames(images, 130))
-      DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
-      DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
-   end
+    -- Greenbrown seed growing --
+    do
+        local images=DefSubimages("st_greenbrown_growing", {h=3})
+        DefAnim("st_greenbrown_growing_fg", BuildFrames(images, 130))
+        DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
+        DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
+    end
 
-   -- st_box_hay, hay seed growing --
-   do
-      DefStone("st_box_hay", "sh_round")
+    -- st_box_hay, hay seed growing --
+    do
+        DefStone("st_box_hay", "sh_round")
 
-      local images=DefSubimages("st_box_hay_growing", {h=3})
-      DefAnim("st_box_hay_growing_fg", BuildFrames(images, 130))
-      DefAnim("st_box_hay_growing_bg", BuildFrames(shadows, 130))
-      DefShModel("st_box_hay_growing", "st_box_hay_growing_fg", "st_box_hay_growing_bg")
-   end
+        local images=DefSubimages("st_box_hay_growing", {h=3})
+        DefAnim("st_box_hay_growing_fg", BuildFrames(images, 130))
+        DefAnim("st_box_hay_growing_bg", BuildFrames(shadows, 130))
+        DefShModel("st_box_hay_growing", "st_box_hay_growing_fg", "st_box_hay_growing_bg")
+    end
 
-   -- volcano growing --
-   do
-      local images=DefSubimages("st_volcano_growing", {h=3})
-      DefAnim("volcano-growing-fg", BuildFrames(images, 80))
-      DefAnim("volcano-growing-bg", BuildFrames(shadows, 80))
-      DefShModel("st_volcano_growing", "volcano-growing-fg", "volcano-growing-bg")
-   end
+    -- volcano growing --
+    do
+        local images=DefSubimages("st_volcano_growing", {h=3})
+        DefAnim("volcano-growing-fg", BuildFrames(images, 80))
+        DefAnim("volcano-growing-bg", BuildFrames(shadows, 80))
+        DefShModel("st_volcano_growing", "volcano-growing-fg", "volcano-growing-bg")
+    end
 
-   -- Blocker stone --
-   do
-      local n=DefSubimages("st_blocker", {h=4})
-      DefShModel("st_blocker", n[1], "sh_round")
-      frames={}
-      for i=4,2,-1 do
-         table.insert(frames, "st_blocker"..i)
-      end
-      DefAnim("blocker_growing_fg", BuildFrames(frames, 60))
-      DefAnim("blocker_growing_bg", BuildFrames(shadows, 60))
-      DefAnim("blocker_shrinking_fg", ReverseFrames(BuildFrames(frames, 60)))
-      DefAnim("blocker_shrinking_bg", ReverseFrames(BuildFrames(shadows, 60)))
-      DefShModel("st_blocker_shrinking", "blocker_shrinking_fg", "blocker_shrinking_bg");
-      DefShModel("st_blocker_growing", "blocker_growing_fg", "blocker_growing_bg");
-   end
+    -- Blocker stone --
+    do
+        local n=DefSubimages("st_blocker", {h=4})
+        DefShModel("st_blocker", n[1], "sh_round")
+        frames={}
+        for i=4,2,-1 do
+            table.insert(frames, "st_blocker"..i)
+        end
+        DefAnim("blocker_growing_fg", BuildFrames(frames, 60))
+        DefAnim("blocker_growing_bg", BuildFrames(shadows, 60))
+        DefAnim("blocker_shrinking_fg", ReverseFrames(BuildFrames(frames, 60)))
+        DefAnim("blocker_shrinking_bg", ReverseFrames(BuildFrames(shadows, 60)))
+        DefShModel("st_blocker_shrinking", "blocker_shrinking_fg", "blocker_shrinking_bg");
+        DefShModel("st_blocker_growing", "blocker_growing_fg", "blocker_growing_bg");
+    end
 end
 
 -- st-window --
@@ -1451,7 +1449,7 @@ do
                              green = DefSubimages("st_window_green_break", {h=4})}
 
     local function name(combination, separator)
-      return combination.normal_faces..separator..combination.scratched_faces
+        return combination.normal_faces..separator..combination.scratched_faces
     end
 
     -- The window images are constructed in two steps.
@@ -1497,16 +1495,16 @@ do
                     -- First, increase the "number" of faces.
                     if new_digit == 1 then
                         new_combination.normal_faces = new_combination.normal_faces
-                                + ({1,2,4,8})[direction]
+                            + ({1,2,4,8})[direction]
                     elseif new_digit == 2 then
                         new_combination.scratched_faces = new_combination.scratched_faces
-                                + ({1,2,4,8})[direction]
+                            + ({1,2,4,8})[direction]
                     end
                     -- Now compose the shadow image.
                     display.DefineComposite(
-                            "sh_window"..name(new_combination, "-"),
-                            "sh_window"..name(old_combination, "-"),
-                            "sh_window"..(direction + ({0,4})[new_digit]))
+                        "sh_window"..name(new_combination, "-"),
+                        "sh_window"..name(old_combination, "-"),
+                        "sh_window"..(direction + ({0,4})[new_digit]))
                 end
             end
         end
@@ -1528,10 +1526,10 @@ do
             local breaking_window_names = {}
             for j = 1, table.getn(breaking_images[color]) do
                 breaking_window_names[j] =
-                          "st-window_"..color.."_breaking"..name1.."-"..j
+                    "st-window_"..color.."_breaking"..name1.."-"..j
                 display.DefineComposite(breaking_window_names[j],
-                          fg_window[color][total_faces + 1],
-                          breaking_images[color][j])
+                                        fg_window[color][total_faces + 1],
+                                        breaking_images[color][j])
             end
             local frames = BuildFrames(breaking_window_names, 130)
             DefAnim("st-window_"..color..name2.."_anim_fg", frames)
@@ -1559,164 +1557,165 @@ end
 -- them automatically.
 
 do
-   local num_colors = 12
+    local num_colors = 12
 
-   -- Some images we will need later on
-   local colordots = DefSubimages("st_oxyd_colordots", {w=4,h=4})
-   local questmark = DefImage("st_oxyd_questmark")
-   local blink_ovals = DefSubimages("st_oxyd_blink", {w=1,h=5})
-   local quake_spot = DefSubimages("st_oxyd_quake", {w=1,h=4})
-   local shuffle_spot = DefSubimages("st_oxyd_shuffle", {w=1,h=8})
-   local oxyde = DefImage("st_oxyde")
+    -- Some images we will need later on
+    local colordots = DefSubimages("st_oxyd_colordots", {w=4,h=4})
+    local questmark = DefImage("st_oxyd_questmark")
+    local blink_ovals = DefSubimages("st_oxyd_blink", {w=1,h=5})
+    local quake_spot = DefSubimages("st_oxyd_quake", {w=1,h=4})
+    local shuffle_spot = DefSubimages("st_oxyd_shuffle", {w=1,h=8})
+    local oxyde = DefImage("st_oxyde")
 
-   -- Define "fading in" and "fading out" animations for oxyd stones.
-   -- These two animations are combined with the stone images to
-   -- produce the opening and closing animations for oxyd stones.
-   local baseimg = {
-      a="st_oxyda_open",
-      b="st_oxydb_open",
-      c="st_oxydc_open",
-      d="st_oxydd_open",
-   }
-   local shadow = {
-      a="sh_round",
-      b="sh_round",
-      c="sh_solid",
-      d="sh_solid",
-   }
-   local shadow_open = {
-      a="sh_round",
-      b="sh_round",
-      c="sh_solid",
-      d="sh_round",
-   }
-   local fopening = {
-      a = BuildFrames(DefSubimages("st_oxyda_opening", {h=10}), 35),
-      b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 25),
-      c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
-      d = BuildFrames(DefSubimages("st_oxydd_opening", {h=10}), 35),
-   }
-   local fclosing = {
-      a = ReverseFrames(fopening["a"]),
-      b = ReverseFrames(fopening["b"]),
-      c = ReverseFrames(fopening["c"]),
-      d = ReverseFrames(fopening["d"]),
-   }
-   
-   -- The open/close animation of oxyd stones
-   function mkopenclose(flavor, color)
-      local name = "st_oxyd" .. flavor .. color
-      local fadein = "oxyd"..flavor.."_fadein"
-      local fadeout= "oxyd"..flavor.."_fadeout"
-      -- Magic numbers for pseudo oxyds which need model number "-3" and "-4"
-      -- but are subimage #15 and #16
-      if color < 0 then
-	 color = color +18
-      end
-      DefMultipleComposite(name.."_base", {baseimg[flavor], colordots[color+1]})
-      DefMultipleComposite(name.."_opening_fg", {name.."_base", fadein})
-      DefMultipleComposite(name.."_closing_fg", {name.."_base", fadeout})
-      DefShModel (name.."_opening", name.."_opening_fg", shadow[flavor])
-      DefShModel (name.."_closing", name.."_closing_fg", shadow[flavor])
-   end
-   
-   -- The blinking question mark animation of single open oxyds
-   function mkblink(flavor, color)
-      local name = "st_oxyd"..flavor..color.."_blink"
-      DefMultipleComposite(name..1, {baseimg[flavor], colordots[color+1], questmark})
-      DefMultipleComposite(name..2, {baseimg[flavor], colordots[color+1]})
-      DefAnim(name.."_anim", BuildFrames({name..1, name..2}, 500), true)
-      DefShModel(name, name.."_anim", shadow_open[flavor])
-   end
-   
-   -- The animation of pairwise open oxyds
-   function mkopened(flavor, color)
-      local name = "st_oxyd" .. flavor .. color .. "_open"
-      local names = {}
-      for i=1,5 do
-	 names[i] = name .. i
-	 DefMultipleComposite(names[i], {baseimg[flavor], colordots[color+1], blink_ovals[i]})
-      end
-      DefAnim(name.."_anim", PingPong(BuildFrames(names, 100)), true)
-      DefShModel(name, name.."_anim", shadow_open[flavor])
-   end
-   
-   -- The "open" state animation of the pseudo oxyds "quake" and "shuffle"
-   function mkpseudo(flavor, color)
-      local name = "st_oxyd" .. flavor .. "_pseudo" .. color
-      local names = {}	
-      if (color == -3) then
-	 for i=1,4 do
-	    names[i] = name .. i
-	    DefMultipleComposite(names[i], {baseimg[flavor], quake_spot[i]})
-	 end
-	 frames = RepeatAnim(PingPong(BuildFrames(names, 50)), 2)
-      elseif (color == -4) then
-	 for i=1,8 do
-	    names[i] = name .. i
-	    DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
-	 end	   
-	 frames = RepeatAnim(BuildFrames(names, 100),2)
-      end
-      DefAnim(name.."_anim", frames, false)
-      DefShModel(name, name.."_anim", shadow[flavor])
-   end
+    -- Define "fading in" and "fading out" animations for oxyd stones.
+    -- These two animations are combined with the stone images to
+    -- produce the opening and closing animations for oxyd stones.
+    local baseimg = {
+        a="st_oxyda_open",
+        b="st_oxydb_open",
+        c="st_oxydc_open",
+        d="st_oxydd_open",
+    }
+    local shadow = {
+        a="sh_round",
+        b="sh_round",
+        c="sh_solid",
+        d="sh_solid",
+    }
+    local shadow_open = {
+        a="sh_round",
+        b="sh_round",
+        c="sh_solid",
+        d="sh_round",
+    }
+    local fopening = {
+        a = BuildFrames(DefSubimages("st_oxyda_opening", {h=10}), 35),
+        b = BuildFrames(DefSubimages("st_oxydb_opening", {h=14}), 25),
+        c = BuildFrames(DefSubimages("st_oxydc_opening", {h=5}), 70),
+        d = BuildFrames(DefSubimages("st_oxydd_opening", {h=10}), 35),
+    }
+    local fclosing = {
+        a = ReverseFrames(fopening["a"]),
+        b = ReverseFrames(fopening["b"]),
+        c = ReverseFrames(fopening["c"]),
+        d = ReverseFrames(fopening["d"]),
+    }
+    
+    -- The open/close animation of oxyd stones
+    function mkopenclose(flavor, color)
+        local name = "st_oxyd" .. flavor .. color
+        local fadein = "oxyd"..flavor.."_fadein"
+        local fadeout= "oxyd"..flavor.."_fadeout"
+        -- Magic numbers for pseudo oxyds which need model number "-3" and "-4"
+        -- but are subimage #15 and #16
+        if color < 0 then
+            color = color +18
+        end
+        DefMultipleComposite(name.."_base", {baseimg[flavor], colordots[color+1]})
+        DefMultipleComposite(name.."_opening_fg", {name.."_base", fadein})
+        DefMultipleComposite(name.."_closing_fg", {name.."_base", fadeout})
+        DefShModel (name.."_opening", name.."_opening_fg", shadow[flavor])
+        DefShModel (name.."_closing", name.."_closing_fg", shadow[flavor])
+    end
+    
+    -- The blinking question mark animation of single open oxyds
+    function mkblink(flavor, color)
+        local name = "st_oxyd"..flavor..color.."_blink"
+        DefMultipleComposite(name..1, {baseimg[flavor], colordots[color+1], questmark})
+        DefMultipleComposite(name..2, {baseimg[flavor], colordots[color+1]})
+        DefAnim(name.."_anim", BuildFrames({name..1, name..2}, 500), true)
+	--DefAnim(name.."_anim", ComposeFrames({name..1,name..2}, {800, 1200}), true)
+        DefShModel(name, name.."_anim", shadow_open[flavor])
+    end
+    
+    -- The animation of pairwise open oxyds
+    function mkopened(flavor, color)
+        local name = "st_oxyd" .. flavor .. color .. "_open"
+        local names = {}
+        for i=1,5 do
+            names[i] = name .. i
+            DefMultipleComposite(names[i], {baseimg[flavor], colordots[color+1], blink_ovals[i]})
+        end
+        DefAnim(name.."_anim", PingPong(BuildFrames(names, 100)), true)
+        DefShModel(name, name.."_anim", shadow_open[flavor])
+    end
+    
+    -- The "open" state animation of the pseudo oxyds "quake" and "shuffle"
+    function mkpseudo(flavor, color)
+        local name = "st_oxyd" .. flavor .. "_pseudo" .. color
+        local names = {}        
+        if (color == -3) then
+            for i=1,4 do
+                names[i] = name .. i
+                DefMultipleComposite(names[i], {baseimg[flavor], quake_spot[i]})
+            end
+            frames = RepeatAnim(PingPong(BuildFrames(names, 50)), 2)
+        elseif (color == -4) then
+            for i=1,8 do
+                names[i] = name .. i
+                DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
+            end    
+            frames = RepeatAnim(BuildFrames(names, 100),2)
+        end
+        DefAnim(name.."_anim", frames, false)
+        DefShModel(name, name.."_anim", shadow[flavor])
+    end
 
-   -- Now really make the oxyds, calling the functions defined above
-   function mkoxyd(flavor)
-      DefStone("st_oxyd"..flavor, shadow[flavor])
-      DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
-      local img = DefImage("st_oxyd"..flavor.."_open")
-      DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
-      local fadein = "oxyd"..flavor.."_fadein"
-      local fadeout= "oxyd"..flavor.."_fadeout"
-      DefAnim(fadein, fopening[flavor])
-      DefAnim(fadeout, fclosing[flavor])
-      -- The regular oxyds are position 1 to 12 in the
-      -- colordots image
-      for color = 0, num_colors do
-	 mkopenclose(flavor, color)
-	 mkblink(flavor, color)
-	 mkopened(flavor, color)
-      end
-      -- Position 13, 14 are currently empty
-      -- The shuffle and quake oxyds are number 15
-      -- and 16 in colordots image.
-      -- BUT they require modelnames with "-3" and "-4"
-      mkopenclose(flavor, -3)
-      mkpseudo(flavor, -3)
-      mkopenclose(flavor, -4)
-      mkpseudo(flavor, -4)
-   end
+    -- Now really make the oxyds, calling the functions defined above
+    function mkoxyd(flavor)
+        DefStone("st_oxyd"..flavor, shadow[flavor])
+        DefShModel("st_fake_oxyd"..flavor, "st_oxyd"..flavor, shadow[flavor])
+        local img = DefImage("st_oxyd"..flavor.."_open")
+        DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
+        local fadein = "oxyd"..flavor.."_fadein"
+        local fadeout= "oxyd"..flavor.."_fadeout"
+        DefAnim(fadein, fopening[flavor])
+        DefAnim(fadeout, fclosing[flavor])
+        -- The regular oxyds are position 1 to 12 in the
+        -- colordots image
+        for color = 0, num_colors do
+            mkopenclose(flavor, color)
+            mkblink(flavor, color)
+            mkopened(flavor, color)
+        end
+        -- Position 13, 14 are currently empty
+        -- The shuffle and quake oxyds are number 15
+        -- and 16 in colordots image.
+        -- BUT they require modelnames with "-3" and "-4"
+        mkopenclose(flavor, -3)
+        mkpseudo(flavor, -3)
+        mkopenclose(flavor, -4)
+        mkpseudo(flavor, -4)
+    end
 
-   -- Make all the models and animations for the oxyd flavors a,b,c,d
-   mkoxyd("a")
-   mkoxyd("b")
-   mkoxyd("c")
-   mkoxyd("d")
-   
-   -- And now for flavor 'e'
-   for color = 0, num_colors - 1 do
-      DefMultipleComposite("st_oxyde"..color.."_peep", {"st_oxydb_open", colordots[color+1], oxyde})
-      DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
-      DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
-      DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
-      DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
-      DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
-   end
-   DefMultipleComposite("st_oxyde-3_peep", {"st_oxydb_open", colordots[16], oxyde})
-   DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh_round")
-   DefMultipleComposite("st_oxyde-4_peep", {"st_oxydb_open", colordots[15], oxyde})
-   DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
-   DefAlias("st_oxyde", "st_oxydb")
-   DefAlias("st_fake_oxyde", "st_oxydb")
-   DefAlias("st_fake_oxyde_open", "st_fake_oxydb_open")
-   DefAlias("st_oxyde-3_opening", "st_oxydb-3_opening")
-   DefAlias("st_oxyde_pseudo-3", "st_oxydb_pseudo-3")
-   DefAlias("st_oxyde-3_closing", "st_oxydb-3_closing")
-   DefAlias("st_oxyde-4_opening", "st_oxydb-4_opening")
-   DefAlias("st_oxyde_pseudo-4", "st_oxydb_pseudo-4")
-   DefAlias("st_oxyde-4_closing", "st_oxydb-4_closing")
+    -- Make all the models and animations for the oxyd flavors a,b,c,d
+    mkoxyd("a")
+    mkoxyd("b")
+    mkoxyd("c")
+    mkoxyd("d")
+    
+    -- And now for flavor 'e'
+    for color = 0, num_colors - 1 do
+        DefMultipleComposite("st_oxyde"..color.."_peep", {"st_oxydb_open", colordots[color+1], oxyde})
+        DefShModel("st_oxyde"..color, "st_oxyde"..color.."_peep", "sh_round")
+        DefAlias("st_oxyde"..color.."_opening", "st_oxydb"..color.."_opening")
+        DefAlias("st_oxyde"..color.."_closing", "st_oxydb"..color.."_closing")
+        DefAlias("st_oxyde"..color.."_blink", "st_oxydb"..color.."_blink")
+        DefAlias("st_oxyde"..color.."_open", "st_oxydb"..color.."_open")
+    end
+    DefMultipleComposite("st_oxyde-3_peep", {"st_oxydb_open", colordots[16], oxyde})
+    DefShModel("st_oxyde-3", "st_oxyde-3_peep", "sh_round")
+    DefMultipleComposite("st_oxyde-4_peep", {"st_oxydb_open", colordots[15], oxyde})
+    DefShModel("st_oxyde-4", "st_oxyde-4_peep", "sh_round")
+    DefAlias("st_oxyde", "st_oxydb")
+    DefAlias("st_fake_oxyde", "st_oxydb")
+    DefAlias("st_fake_oxyde_open", "st_fake_oxydb_open")
+    DefAlias("st_oxyde-3_opening", "st_oxydb-3_opening")
+    DefAlias("st_oxyde_pseudo-3", "st_oxydb_pseudo-3")
+    DefAlias("st_oxyde-3_closing", "st_oxydb-3_closing")
+    DefAlias("st_oxyde-4_opening", "st_oxydb-4_opening")
+    DefAlias("st_oxyde_pseudo-4", "st_oxydb_pseudo-4")
+    DefAlias("st_oxyde-4_closing", "st_oxydb-4_closing")
 end
 
 -- st_magic --
@@ -1795,27 +1794,27 @@ end
 
 -- st-spitter --
 do
-     local images = DefSubimages("st_spitter_idle", {h=6})
-     local frames = BuildFrames(images,150)
-     DefAnim("st_spitter_active", frames, true)
-     DefShModel("st_spitter_active", "st_spitter_active", "sh_round")
-     DefShModel("st_spitter_idle", "st_spitter_idle1",  "sh_round")
+    local images = DefSubimages("st_spitter_idle", {h=6})
+    local frames = BuildFrames(images,150)
+    DefAnim("st_spitter_active", frames, true)
+    DefShModel("st_spitter_active", "st_spitter_active", "sh_round")
+    DefShModel("st_spitter_idle", "st_spitter_idle1",  "sh_round")
 
-     local images = DefSubimages("st_spitter_spitting", {h=6})
-     local frames = BuildFrames(images,175)
-     DefAnim("st_spitter_spitting", frames)
-     DefShModel("st_spitter_spitting", "st_spitter_spitting", "sh_round")
+    local images = DefSubimages("st_spitter_spitting", {h=6})
+    local frames = BuildFrames(images,175)
+    DefAnim("st_spitter_spitting", frames)
+    DefShModel("st_spitter_spitting", "st_spitter_spitting", "sh_round")
 
-     local images = DefSubimages("st_spitter_loading", {h=6})
-     local frames = BuildFrames(images,100)
-     frames[6][2] = 50
-     DefAnim("st_spitter_loading", frames)
-     DefShModel("st_spitter_loading", "st_spitter_loading", "sh_round")
+    local images = DefSubimages("st_spitter_loading", {h=6})
+    local frames = BuildFrames(images,100)
+    frames[6][2] = 50
+    DefAnim("st_spitter_loading", frames)
+    DefShModel("st_spitter_loading", "st_spitter_loading", "sh_round")
 
-     local images = DefSubimages("st_spitter_breaking", {h=6})
-     local frames = BuildFrames(images,100)
-     DefAnim("st_spitter_breaking", frames)
-     DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh_round")
+    local images = DefSubimages("st_spitter_breaking", {h=6})
+    local frames = BuildFrames(images,100)
+    DefAnim("st_spitter_breaking", frames)
+    DefShModel("st_spitter_breaking", "st_spitter_breaking", "sh_round")
 
 end
 
@@ -1920,22 +1919,22 @@ end
 -- The models are stored in the file from top to bottom as north, east, south, west
 -- in each column, therefore we need the mapping (i+1)%4+1
 do
-   local mst = DefSubimages("st_mirror_static", {w=5,h=4})
-   local mmo = DefSubimages("st_mirror_movable", {w=5,h=4})
-   local names_st = {"st-3mirror-so", "st-3mirror-st", "st-pmirror-so", "st-pmirror-st", "st-pmirror-sf"}
-   local names_mo = {"st-3mirror-mo", "st-3mirror-mt", "st-pmirror-mo", "st-pmirror-mt", "st-pmirror-mf"}
-   -- static mirrors
-   for j=0,4 do
-      for i=1,4 do
-	 DefShModel(names_st[j+1]..((i+1)%4+1), mst[j*4+i], "sh_rounded")
-      end
-   end
-   -- movable mirrors
-   for j=0,4 do
-      for i=1,4 do
-	 DefShModel(names_mo[j+1]..((i+1)%4+1), mmo[j*4+i], "sh_rounded")
-      end
-   end
+    local mst = DefSubimages("st_mirror_static", {w=5,h=4})
+    local mmo = DefSubimages("st_mirror_movable", {w=5,h=4})
+    local names_st = {"st-3mirror-so", "st-3mirror-st", "st-pmirror-so", "st-pmirror-st", "st-pmirror-sf"}
+    local names_mo = {"st-3mirror-mo", "st-3mirror-mt", "st-pmirror-mo", "st-pmirror-mt", "st-pmirror-mf"}
+    -- static mirrors
+    for j=0,4 do
+        for i=1,4 do
+            DefShModel(names_st[j+1]..((i+1)%4+1), mst[j*4+i], "sh_rounded")
+        end
+    end
+    -- movable mirrors
+    for j=0,4 do
+        for i=1,4 do
+            DefShModel(names_mo[j+1]..((i+1)%4+1), mmo[j*4+i], "sh_rounded")
+        end
+    end
 end
 
 --------------------------
@@ -1989,47 +1988,47 @@ end
 Progress(95, "Loading Sprite Effects")
 
 Sprite({
-    name     = "ring-anim",
-    nimages  = 8,
-    framelen = 50,
-    padding  = 0.3
-})
+           name     = "ring-anim",
+           nimages  = 8,
+           framelen = 50,
+           padding  = 0.3
+       })
 
 Sprite({
-    name     = "ac-drowned",
-    nimages  = 5,
-    framelen = 80,
-    padding  = 0.3
-})
+           name     = "ac-drowned",
+           nimages  = 5,
+           framelen = 80,
+           padding  = 0.3
+       })
 
 -- Halo --
 Sprite({
-    name     = "halo",
-    nimages  = 2,
-    framelen = 30,
-    loop     = true
-})
+           name     = "halo",
+           nimages  = 2,
+           framelen = 30,
+           loop     = true
+       })
 
 Sprite({
-    name     = "halo-blink",
-    nimages  = 2,
-    framelen = 30,
-    loop     = true
-})
+           name     = "halo-blink",
+           nimages  = 2,
+           framelen = 30,
+           loop     = true
+       })
 
 -- Halo for small balls --
 Sprite({
-    name     = "halo-small",
-    nimages  = 2,
-    framelen = 30,
-    loop     = true
-})
+           name     = "halo-small",
+           nimages  = 2,
+           framelen = 30,
+           loop     = true
+       })
 
 Sprite({
-    name     = "halo-small-blink",
-    nimages  = 2,
-    framelen = 30,
-    loop     = true
-})
+           name     = "halo-small-blink",
+           nimages  = 2,
+           framelen = 30,
+           loop     = true
+       })
 
 Progress(100, "Loading Enigma Levels")
