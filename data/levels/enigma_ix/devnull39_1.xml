@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="lower i" el:subtitle="" el:id="devnull39"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,9 +14,9 @@
     <el:luamain><![CDATA[
 wo["FollowMethod"] = FOLLOW_SCROLL
 wo["FollowThreshold"] = po(0, 0)
+wo["AutoRespawn"] = wo["IsDifficult"]
 wo["AllowSuicide"] = false
 wo["ProvideExtralifes"] = not wo["IsDifficult"]
-wo["FrictionStrength"] = cond(wo["IsDifficult"], 1.5, 1.0)
 wo["WormholeRange"] = 0.0
 
 ti["~"] = {"fl_water"}
@@ -57,7 +57,9 @@ wo(res.autotile(ti, {"a", "h", "bridges"}, {"A", "H", "triggers"}), " ", {
     "############"})
 
 wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
-if not wo["IsDifficult"] then
+if wo["IsDifficult"] then
+    wo:add(YIN, {"it_extralife"})
+else
     wo:add(YIN, {"it_pin"})
 end
  ]]></el:luamain>

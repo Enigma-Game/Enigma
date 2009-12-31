@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="65" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="66" title="Enigma VII"/>
 
   <attributes/>
 
@@ -23,7 +23,7 @@
     <level _seq="15" _title="Widgets in the Attic" _xpath="./duffy158_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy158" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Balance Beam" _xpath="./mecke03_1" author="mecke" ctrl="force" easy="true" id="mecke03" rel="1" rev="37" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Recover the Stone" _xpath="./joe28_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe28" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Hip to be Square" _xpath="./devnull37_1" author="/dev/null" ctrl="force" easy="true" id="devnull37" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Hip to be Square" _xpath="./devnull37_1" author="/dev/null" ctrl="force" easy="true" id="devnull37" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Comet" _xpath="./duffy147_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy147" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Under control?" _xpath="./devnull09_1" author="/dev/null" ctrl="force" easy="true" id="devnull09" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Give Way" _xpath="./just20_2" author="JuSt" ctrl="force" easy="false" id="just20" rel="2" rev="3" score="1" target="time" unit="duration"/>

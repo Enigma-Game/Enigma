@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="At the Pool" el:subtitle="" el:id="devnull36"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -12,16 +12,13 @@
       <el:score el:easy="6:00" el:difficult="6:00"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["AutoRespawn"] = wo["IsDifficult"]
 wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
 
 ti[" "] = {"fl_rock"}
 ti["~"] = {"fl_water"}
-if wo["IsDifficult"] then
-    ti["#"] = ti["~"] .. {"st_grate_cross"}
-    wo["ProvideExtralifes"] = false
-else
-    ti["#"] = ti["~"] .. {"st_portal"}
-end
+ti["#"] = cond(wo["IsDifficult"], ti["~"] .. {"st_grate_cross"}, ti["~"] .. {"st_portal"})
 ti["W"] = {"st_box_rock"}
 ti["D"] = {"st_door", "door#", faces = "ew"}
 ti["keys"] = {"it_key", code = "%%"}
@@ -46,6 +43,9 @@ wo(res.autotile(ti, {"a", "b", "keys"}, {"A", "B", "holes"}), " ", {
   "##o#A##########B#o##"})
 
 wo:shuffleOxyd({"oxydsCenter#*", max = 0}, {"oxydsBorder#*", max = 0})
+if wo["IsDifficult"] then
+    wo:add(YIN, {"it_extralife"})
+end
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

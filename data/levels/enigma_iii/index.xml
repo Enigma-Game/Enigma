@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma III"/>
+  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma III"/>
 
   <attributes/>
 
@@ -65,7 +65,7 @@
     <level _seq="57" _title="Manamana" _xpath="./just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Sacrifice" _xpath="./duffy49_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy49" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Double-Maze" _xpath="./duffy09_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy9" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Bad Flowers" _xpath="./nat30_2" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="2" rev="3" score="2" target="time" unit="duration"/>
+    <level _seq="60" _title="Bad Flowers" _xpath="./nat30_2" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="61" _title="Fool the Warden" _xpath="./duffy37_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy37" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Don't Touch" _xpath="./raoul07_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul07" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="63" _title="Emergency Exit" _xpath="./ss05_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss5" rel="2" rev="1" score="1" target="time" unit="duration"/>
