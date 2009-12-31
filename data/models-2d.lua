@@ -1623,8 +1623,7 @@ do
         local name = "st_oxyd"..flavor..color.."_blink"
         DefMultipleComposite(name..1, {baseimg[flavor], colordots[color+1], questmark})
         DefMultipleComposite(name..2, {baseimg[flavor], colordots[color+1]})
-        DefAnim(name.."_anim", BuildFrames({name..1, name..2}, 500), true)
-	--DefAnim(name.."_anim", ComposeFrames({name..1,name..2}, {800, 1200}), true)
+        DefAnim(name.."_anim", ComposeFrames({name..1,name..2}, {800, 1200}), true)
         DefShModel(name, name.."_anim", shadow_open[flavor])
     end
     
