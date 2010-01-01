@@ -879,7 +879,7 @@ do
     DefStone("st_greenbrown", "sh_round")
     DefStone("st_redbrown", "sh_round")
     DefStone("st_metal")
-    DefStone("st_redrock")
+    DefStone("st_redrock", "sh_rounded")
     DefStone("st_granite", "sh_round")
     DefStone("st_darkgray", "sh_rounded")
     DefStone("st_plaster")
