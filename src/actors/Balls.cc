@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008,2009 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -234,11 +234,11 @@ namespace enigma {
     
     void BasicBall::on_respawn (const ecl::V2 &pos) {
             Actor::on_respawn(pos);
+            change_state(APPEARING);
             // notify objects on grid about the death - used by it_trigger, sensor, meditation
             SendMessage(GetFloor(get_gridpos()), "_dying", false, this);
             SendMessage(GetItem(get_gridpos()), "_dying", false, this);
             SendMessage(GetStone(get_gridpos()), "_dying", false, this);
-            change_state(APPEARING);
     }
 
     void BasicBall::move_screen() {
@@ -355,6 +355,7 @@ namespace enigma {
     
         std::string kind = getModelBaseName();
         iState oldstate = (iState)state;
+        state = newstate;
         
         if (oldstate == JUMPING) {
             // notify objects on grid about the landing - used by it_trigger
@@ -368,7 +369,6 @@ namespace enigma {
         sinkDepth = minSinkDepth;
         sinkModel = -1;
     
-        state = newstate;
         switch (newstate) {
             case NORMAL:
                 if (oldstate == APPEARING) {
