@@ -2,6 +2,7 @@
 #define DISPLAY_INTERNAL_HH
 
 #include "display.hh"
+#include "enigma.hh"
 
 namespace display
 {
@@ -64,7 +65,7 @@ namespace display
 
         // StatusBar interface.
         void set_time (double time);
-        void set_inventory (const std::vector<std::string> &modelnames);
+        void set_inventory(enigma::Player activePlayer, const std::vector<std::string> &modelnames);
         void show_text (const std::string &str, bool scrolling, double duration);
         void hide_text();
 
@@ -79,6 +80,7 @@ namespace display
     private:
         ScreenArea     m_itemarea;
         std::vector<Model*> m_models;
+        enigma::Player         player;
         bool           m_changedp;
         TextDisplay    m_textview;
 

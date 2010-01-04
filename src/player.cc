@@ -664,6 +664,6 @@ void player::RedrawInventory()
         Item *it = inv->get_item(i);
         modelnames.push_back(it->get_inventory_model());
     }
-    STATUSBAR->set_inventory (modelnames);
+    STATUSBAR->set_inventory(CurrentPlayer() == 0 ? YIN : YANG, modelnames);
 }
 

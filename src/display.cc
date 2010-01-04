@@ -159,7 +159,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
 
-    blit(gc, a.x, a.y, enigma::GetImage ("inventory", ".png"));
+    blit(gc, a.x, a.y, enigma::GetImage(player == enigma::YIN ? "inventory" : "inventory", ".png"));
 
 
 //     set_color (gc, 255, 0, 0);
@@ -256,8 +256,8 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
 }
 
 
-void StatusBarImpl::set_inventory (const std::vector<std::string> &modelnames)
-{
+void StatusBarImpl::set_inventory(enigma::Player activePlayer, const std::vector<std::string> &modelnames) {
+    player = activePlayer;
     if (m_text_active && m_interruptible) {
         hide_text();
     }

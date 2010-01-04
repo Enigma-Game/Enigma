@@ -200,7 +200,7 @@ namespace display
     class StatusBar {
     public:
         virtual ~StatusBar() {}
-        virtual void set_inventory (const std::vector<std::string> &modelnames) = 0;
+        virtual void set_inventory(enigma::Player activePlayer, const std::vector<std::string> &modelnames) = 0;
 
         virtual void show_text (const std::string &str, 
                                 bool scrolling, 
