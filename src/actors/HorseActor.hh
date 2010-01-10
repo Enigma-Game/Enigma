@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -32,23 +32,34 @@ namespace enigma {
         CLONEACTOR(Horse);
         DECL_ACTORTRAITS;
  
+    private:
+        enum ObjectPrivatFlagsBits {
+            OBJBIT_AUTOMOVE     =  1<<24,   ///< Actor is moved automatically 
+            OBJBIT_NEWDEST      =  1<<25,   ///< Actor's destination or strength has changed
+            OBJBIT_STEADY       =  1<<26    ///< Force on actor directs always to next destination
+        };
    public:
         Horse();
         
         // Object interface.
         virtual std::string getClass() const;
-
+        virtual Value getAttr(const std::string &key) const;
+        virtual void setAttr(const string& key, const Value &val);
+ 
         // Actor interface
         virtual bool is_dead() const;
-        virtual void think (double dtime);
+        virtual void think(double dtime);
+        virtual void stoneBounce(const StoneContact &sc);
 
     private:
         // Variables
-        int m_targetidx;
-        ecl::V2 m_target;
+        double strength;
+        Value destination;
+        int destidx;
+        ecl::V2 target;
         
         // Private methods
-        void update_target();
+        void updateTarget(bool touched =false);
     };
 
 } // namespace enigma

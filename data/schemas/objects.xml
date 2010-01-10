@@ -22,6 +22,7 @@
     <attr name="counterclock" type="bool" default="false" rw="rw"/>
     <attr name="checkerboard" type="int" default="nil" rw="rw"/>
     <attr name="destination" type="tokens" default="nil" rw="rw"/>
+    <attr name="destidx" type="int" default="0" min="0" max="999" rw="rw"/>
     <attr name="essential" type="int" default="0" min="0" max="2" rw="rw"/>
     <attr name="essential_id" type="string" default="nil" rw="rw"/>
     <attr name="eternal" type="bool" default="false" rw="rw"/>
@@ -209,6 +210,9 @@
     </object>
     <object name="ac_horse">
       <attr name="destination"/>
+      <attr name="destidx"/>
+      <attr name="loop" default="true"/>
+      <attr name="steady" default="true"/>
       <attr name="strength" default="10.0"/>
     </object>
     <object name="ac_killer">

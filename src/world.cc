@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
- * Copyright (C) 2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -1175,6 +1175,7 @@ void World::handle_stone_contact (StoneContact &sc)
                     if (slow_collision) stone->actor_touch(sc);
                     else stone->actor_hit(sc);
 
+                    a->stoneBounce(sc);
                     if (!slow_collision) {
                         client::Msg_Sparkle (sc.contact_point);
                         double volume = std::max (0.25, length(ai.vel)/8);

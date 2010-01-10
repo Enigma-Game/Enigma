@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -67,6 +68,8 @@ namespace enigma {
 #define MAX_CONTACTS 7
 
     struct Field;
+    struct StoneContact;
+
     /*!  
      * This class contains the information the physics engine
      * maintains about dynamic objects ("actors").
@@ -165,6 +168,7 @@ namespace enigma {
         void show();
 
         void add_force (const ecl::V2 &f);
+        virtual void stoneBounce(const StoneContact &sc) {};
 
         /* ---------- Accessors ---------- */
         ActorInfo *get_actorinfo();
