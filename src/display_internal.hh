@@ -80,7 +80,7 @@ namespace display
     private:
         ScreenArea     m_itemarea;
         std::vector<Model*> m_models;
-        enigma::Player         player;
+        enigma::Player player;
         bool           m_changedp;
         TextDisplay    m_textview;
 
@@ -91,6 +91,8 @@ namespace display
         bool   m_interruptible; // Current text message may be interrupted
         bool m_text_active;
         bool cMode;  // collision mode flag
+        int  playerImage;
+        double playerImageDuration;
         std::string basicModes;  // set by world on start of level
     };
 

@@ -160,6 +160,10 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     clip(gc, intersect(a, r));
 
     blit(gc, a.x, a.y, enigma::GetImage(player == enigma::YIN ? "inventory" : "inventory", ".png"));
+    
+    // draw player indicator
+    blit(gc, a.x + 150, a.y + 22, enigma::GetImage("st_yinyang", ".png"), 
+            Rect (0, playerImage * vminfo->tile_size, vminfo->tile_size, vminfo->tile_size));
 
 
 //     set_color (gc, 255, 0, 0);
@@ -241,10 +245,9 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
 
     if (m_text_active) {
         m_textview.draw (gc, r);
-    }
-    else {
+    } else {
         client::Msg_FinishedText();
-        int itemsize = static_cast<int>(vminfo->tile_size * 1.25);
+        int itemsize = static_cast<int>(vminfo->tile_size * 1.125);
         int x = m_itemarea.x;
         for (unsigned i=0; i<m_models.size(); ++i) {
             Model *m = m_models[i];
@@ -279,7 +282,15 @@ void StatusBarImpl::show_text (const std::string &str, bool scrolling, double du
     m_changedp = true;
 }
 
-void StatusBarImpl::tick (double dtime) {
+void StatusBarImpl::tick(double dtime) {
+    // Animation of player indicator
+    playerImageDuration += dtime;
+    if ((player * 3 != playerImage) && (playerImageDuration > 0.2)) {
+        playerImage = (++playerImage) % 6;
+        playerImageDuration = 0;
+        m_changedp = true;
+    }
+
     // Update text display
     if (m_text_active) {
         m_textview.tick (dtime);
@@ -297,6 +308,8 @@ void StatusBarImpl::new_world() {
     m_leveltime   = 0;
     m_text_active = false;
     m_changedp    = true;
+    player = enigma::YIN;
+    playerImageDuration = 0;
 }
 
 /* -------------------- TextDisplay implementation -------------------- */

@@ -343,7 +343,7 @@ namespace
             Rect (10, 425, 117, 43),         // time area
             Rect (100, 419, 28, 43),         // modes area
             Rect (100, 425, 30, 43),         // moves area
-            Rect (152, 433, 490, 52),        // inventory area
+            Rect (200, 433, 490, 52),        // inventory area
             Rect (150, 434, 475, 35),        // text area
             true, true,                      // available window, fullscreen
             "-0-","-0-"                      // fallback modes window, fullscreen
@@ -361,7 +361,7 @@ namespace
             Rect (15, 420, 110, 40),         // time area
             Rect (100, 420, 31, 40),         // modes area
             Rect (100, 420, 30, 40),         // moves area
-            Rect (152, 433, 490, 52),        // inventory area
+            Rect (200, 433, 490, 52),        // inventory area
             Rect (150, 434, 475, 35),        // text area
             false, false,                    // 640x512 is deprecated!
             "-0-","-0-"                      // fallback modes window, fullscreen
@@ -379,7 +379,7 @@ namespace
             Rect (15, 540, 140, 40),         // time area
             Rect (125, 529, 31, 40),         // modes area
             Rect (125, 540, 30, 40),         // moves area
-            Rect (192, 539, 610, 46),        // inventory area
+            Rect (252, 539, 610, 46),        // inventory area
             Rect (185, 545, 600, 39),        // text area
             true, true,                      // available window, fullscreen
             "-2-0-","-2-0-"                  // fallback modes window, fullscreen
@@ -397,7 +397,7 @@ namespace
             Rect (50, 640, 170, 60),         // time area
             Rect (185, 634, 34, 60),         // modes area
             Rect (185, 640, 30, 60),         // moves area
-            Rect (260, 650, 710, 46),        // inventory area
+            Rect (332, 650, 710, 46),        // inventory area
             Rect (260, 655, 710, 40),        // text area
             true, true,                      // available window, fullscreen
             "-3-2-0-","-3-2-0-"              // fallback modes window, fullscreen
@@ -415,7 +415,7 @@ namespace
             Rect (18, 640, 170, 60),         // time area
             Rect (153, 634, 34, 60),         // modes area
             Rect (153, 640, 30, 60),         // moves area
-            Rect (228, 650, 710, 46),        // inventory area
+            Rect (300, 650, 710, 46),        // inventory area
             Rect (228, 655, 710, 40),        // text area
             true, true,                      // available window, fullscreen
             "-4-2-0-","-4-2-0-"              // fallback modes window, fullscreen
@@ -433,7 +433,7 @@ namespace
             Rect (178, 640, 170, 60),        // time area
             Rect (313, 640, 30, 60),         // modes area
             Rect (313, 640, 30, 60),         // moves area
-            Rect (388, 650, 710, 46),        // inventory area
+            Rect (460, 650, 710, 46),        // inventory area
             Rect (388, 655, 710, 40),        // text area
             false, true,                     // available window, fullscreen
             "-0-","-5-0-"                    // fallback modes window, fullscreen
@@ -451,7 +451,7 @@ namespace
             Rect (24, 853, 227, 80),         // time area //TODO
             Rect (204, 853, 40, 80),         // modes area //TODO
             Rect (204, 853, 40, 80),         // moves area //TODO
-            Rect (304, 867, 947, 61),        // inventory area //TODO
+            Rect (400, 867, 947, 61),        // inventory area //TODO
             Rect (304, 873, 947, 53),        // text area //TODO
             true, true,                      // available window, fullscreen
             "-6-4-2-0-","-6-4-2-0-"          // fallback modes window, fullscreen
@@ -469,7 +469,7 @@ namespace
             Rect (104, 853, 227, 80),        // time area //TODO
             Rect (284, 853, 40, 80),         // modes area //TODO
             Rect (284, 853, 40, 80),         // moves area //TODO
-            Rect (384, 867, 947, 61),        // inventory area //TODO
+            Rect (480, 867, 947, 61),        // inventory area //TODO
             Rect (384, 873, 947, 53),        // text area //TODO
             false, true,                     // available window, fullscreen
             "-0-","-7-0-"                    // fallback modes window, fullscreen
@@ -487,7 +487,7 @@ namespace
             Rect (18, 640, 170, 60),         // time area //TODO
             Rect (153, 640, 30, 60),         // modes area //TODO
             Rect (153, 640, 30, 60),         // moves area //TODO
-            Rect (228, 650, 710, 46),        // inventory area //TODO
+            Rect (324, 650, 710, 46),        // inventory area //TODO
             Rect (228, 655, 710, 40),        // text area //TODO
             false, true,                     // available window, fullscreen
             "-0-","-8-0-"                    // fallback modes window, fullscreen
@@ -505,7 +505,7 @@ namespace
             Rect (224, 853, 227, 80),        // time area //TODO
             Rect (404, 853, 40, 80),         // modes area //TODO
             Rect (404, 853, 40, 80),         // moves area //TODO
-            Rect (504, 867, 947, 61),        // inventory area //TODO
+            Rect (600, 867, 947, 61),        // inventory area //TODO
             Rect (504, 873, 947, 53),        // text area //TODO
             false, true,                     // available window, fullscreen
             "-0-","-9-0-"                    // fallback modes window, fullscreen
@@ -523,7 +523,7 @@ namespace
             Rect (5, 212, 65, 21),           // time area
             Rect (50, 210, 14, 21),          // modes area
             Rect (50, 220, 15, 21),          // moves area
-            Rect (76, 216, 245, 26),         // inventory area
+            Rect (100, 216, 245, 26),         // inventory area
             Rect (75, 217, 237, 17),         // text area
             true, true,                      // available window, fullscreen
             "-10-0-","-10-0-"                // fallback modes window, fullscreen
