@@ -3971,7 +3971,7 @@ that additional @ref{Advanced Features} are described in a separate chapter.
 * Basic Lua Examples::
 * API 2 Overview::
 * Advanced Lua Examples::
-* Introduction Datatypes::
+* Introduction to Datatypes::
 * Position::
 * Object::
 * Group::
@@ -4075,7 +4075,7 @@ of the source code itself!
 64        "@var{F    ~   B   ~+++++#}",
 65        "@var{# 1  ~   B   #+++++#}",
 66        "@var{S   v~V  B   D+++++#}",
-67        "@var{####################}"@}
+67        "@var{####################}"
 68    @})
 69
 70    @i{wo}:@b{shuffleOxyd}()
@@ -4294,7 +4294,7 @@ line 20.
 64        "@var{F    ~   B   ~+++++#}",
 65        "@var{# 1  ~   B   #+++++#}",
 66        "@var{S   v~V  B   D+++++#}",
-67        "@var{####################}"@}
+67        "@var{####################}"
 68    @})
 @end example
 
@@ -4607,7 +4607,7 @@ For reference details @pxref{Object}.
 @i{wo}[#@var{pos}] = @{"@b{ac_bug}"@}              -- actor centered on grid pos
 @i{wo}[@var{pos}]  = @{"#@b{ac_bug}"@}             -- actor centered on grid pos
 @i{wo}[@var{pos}]  = @{"@b{ac_bug}", @var{0.3}, @var{0.7}@}    -- actor with offsets to pos
-@i{wo}[@var{my_floor}] = @{"@b{it_magicwand}"@}    -- set an wand on top of a given floor object
+@i{wo}[@var{my_floor}] = @{"@b{it_magicwand}"@}    -- set a wand on top of a given floor object
 @i{wo}[@var{pos}]  = @i{ti}["@var{x}"]                 -- tile based object definition
 @end example
 Besides map based object creation, that you saw in the previous basic examples,
@@ -4672,7 +4672,7 @@ ignore the attempt.
 @var{obj1} == @var{obj2}
 @var{obj1} ~= @var{obj2}
 @end example
-Objects can be directly compared on equality or inequality. It is a identity
+Objects can be directly compared on equality or inequality. It is an identity
 comparison that acknowledges that you have two references of the same object.
 
 @item @b{Existence of an object}
@@ -4682,8 +4682,8 @@ comparison that acknowledges that you have two references of the same object.
 if -@var{obj} then ...
 @end example
 Object references may get invalid due to objects being killed. In most cases
-this no problem as requests to invalid objects will simply be ignored. But if
-the level logic depends on the existence of an object you can call the
+this creates no problem as requests to invalid objects will simply be ignored. 
+But if the level logic depends on the existence of an object you can call the
 @samp{exists()} method or simply precede the reference by the unary minus
 @samp{-} operator. Both ways return a simple bool value stating if the object
 reference is still valid.
@@ -4939,7 +4939,7 @@ implement your own level ideas.
 @subsection Color Maze
 
 Let us view the Lua source code part. We did add a line count in the first two
-columns for reference purpose within this section. These line count number are
+columns for reference purpose within this section. These line count numbers are
 not part of the source code itself!
 
 @example
@@ -5057,7 +5057,7 @@ objects like the glass stone will never be set on default usage.
 10    @i{ti}["@var{$}"] = @{"@b{fl_lawn_b}", "@var{green#}", @var{_color}="@var{green}"@}
 @end example
 Every floor object is autonamed for later group access purposes. Additionally
-every floor objects sets a user attribute prefixed in its name by an underscore
+every floor object sets a user attribute prefixed in its name by an underscore
 @samp{_}. This attribute stores a string that we need later on in the callback
 function.
 
@@ -5425,7 +5425,7 @@ finished. The last 9 stones have just one wire.
 @end example
 Now we wire these remaining 9 stones in sequence, in a closed circle. That gives
 each stone 2 additional wires. We do this by connecting each of the stones 4 to
-11 with is successor and finally connecting stone 12 to stone 4, what is done
+11 with its successor and finally connecting stone 12 to stone 4, what is done
 by the modulo operation. This completes the level for the regular mode.
 As preparation for the easy mode we do autoname these additional wires.
 
@@ -5451,10 +5451,10 @@ When the user switches off again, the wires should be recreated. That is done
 by the same code as lines 65 to 68. Note that is essential that we stored and
 kept the used wire permutation in the variable @samp{wire_p}.
 
-@c ----------------- Introduction Datatypes --------------------
+@c ----------------- Introduction to Datatypes --------------------
 
-@node Introduction Datatypes
-@section Introduction Datatypes
+@node Introduction to Datatypes
+@section Introduction to Datatypes
 
 Before describing the datatypes in detail let us look at the used common
 concepts and conventions.
@@ -5531,7 +5531,7 @@ Values are always constant. They can never be modified. You assign a value to
 a variable. On calculations you may assign another value to the same variable.
 But the original value does never get modified. That should be obvious if you
 think of values like @samp{true} or numbers like @samp{7}. But it is even true
-for strings like @code{"hello"}. When you append two string you get a new
+for strings like @code{"hello"}. When you append two strings you get a new
 string. But the components themselves do not change. All "string modifying"
 methods do return a new string with the resulting value. Thus a variable
 containing the value of the original string still contains the unmodified value.
@@ -5539,7 +5539,7 @@ containing the value of the original string still contains the unmodified value.
 Tables are of a totally opposite nature. They represent data containers. In Lua
 you are just handling references to these containers. When you add or change
 a value within the container the table reference remains unmodified but the table
-contents changes. Thus two variable containing both references two the same
+contents changes. Thus two variable containing both references to the same
 table will afterwards both reference the same modified table.
 
 We will denote for every new data type the character of being a value or a
@@ -5563,13 +5563,13 @@ seamlessly.
 @cindex overloading
 The number of usable operators is limited by Lua. Thus an addition of two data
 by the @samp{+} operator causes different actions depending on the involved data
-themselves. An addition of two positions results in an vectorial addition. But
+themselves. An addition of two positions results in a vectorial addition. But
 the addition of two groups results in a join of the groups. This reuse of a
 single operator is called @samp{overloading}.
 
 Overloading combined with polymorphism can cause situations that are ambiguous
 by design. E.g. we decided to allow the addition of a position with an object
-resulting in the vectorial addition of the objects position to the first one.
+resulting in the vectorial addition of the object's position to the first one.
 At the same time we want to be able to join an object with an existing group
 by usage of the @samp{+} operator. But what should be the result of an addition
 of two objects? The vectorial addition of their positions, or the join of both
@@ -5598,7 +5598,7 @@ The API provides @ref{Common Constants} for all pseudo datatypes, all written in
 upper case letters only. You should use exclusively these constants and never
 their equivalent basic number or other type values. The usage of the constants
 makes the level code readable and upward compatible if we ever should have the
-need of changing the assigned values or transforming the pseudo datatype to a
+need of changing the assigned values or transforming the pseudo datatype to
 another datatype.
 
 There is one abstract datatype that needs to be mentioned, as it uses two
@@ -5629,7 +5629,7 @@ But you can calculate with positions by usage of operators. When you add two
 position values you receive the resulting position as a new value.
 
 In contrast to @ref{Object}s positions have an unlimited lifetime and will never
-cease to exist. Thus you can store position values in a global variables and
+cease to exist. Thus you can store position values in global variables and
 keep them as long as you need. The values are constant and will not change even
 if the objects from which they have been derived have meanwhile moved to another
 grid or even been killed.
@@ -5638,7 +5638,7 @@ Position values are not limited to valid world coordinates. Both coordinates
 can take every positive or negative number and zero, too. Thus you can calculate
 with positions and use them to express offsets between two other positions.
 
-Positions are are created by the @ref{Positions Repository} singleton handle,
+Positions are created by the @ref{Positions Repository} singleton handle,
 that allows you to convert coordinates, objects, position constants into
 positions. The handle allows you to retrieve existing named positions, too.
 Furtheron positions are implicitly created as return values of many operations.
@@ -5671,11 +5671,11 @@ result = @i{pos} <@b{+}|@b{-}> <@i{pos} | @i{obj} | @i{cpos} | @i{polist}>
 result = <@i{pos} | @i{obj} | @i{cpos} | @i{polist}> <@b{+}|@b{-}> @i{pos}
 
 @item @b{Details:}
-When a position is added to or subtracted from another position or data
+When a position is added to, or subtracted from another position or data
 convertible to a position the result is the position value representing the
 vectorial addition or difference of both arguments.
 
-If a position is added to subtracted from a position list a new list is created
+If a position is added to, or subtracted from a position list a new list is created
 with the positions representing the sum or difference of the position with every
 member of the supplied position list.
 
@@ -5896,8 +5896,8 @@ read accesses you may want to prior check the existence of an object as you
 would get @samp{nil} values on access of @samp{NULL} references.
 
 Objects take attributes that you access by Lua index methods. Additional to
-the object specific attributes you are free to store your own customer
-attributes on any object. Customer attributes are any indices starting with an
+the object specific attributes you are free to store your own custom
+attributes on any object. Custom attributes are any indices starting with an
 underscore @samp{_} as prefix to their name.
 
 The real world objects are created by assigning a tile declaration to
@@ -5997,7 +5997,7 @@ reference is invalid the message is simply ignored.
 result = @i{obj1} <==|~=> @i{obj2}
 
 @item @b{Details:}
-A comparison of two object values. Two objects values are equal if both
+A comparison of two object values. Two object values are equal if both
 reference the same, still existing world object. Otherwise they are unequal.
 
 @item @b{Syntax Samples:}
@@ -6114,7 +6114,7 @@ When an object is added to or subtracted from another position or data
 convertible to a position the result is the position value representing the
 vectorial addition or difference of both positions.
 
-If an object is added to subtracted from a position list a new list is created
+If an object is added to or subtracted from a position list a new list is created
 with the positions representing the sum or difference of the position with every
 member of the supplied position list.
 
@@ -6241,10 +6241,10 @@ to @samp{1}.
 A group is a sorted set of @ref{Object}s. Every object can be contained just
 in one instance in the group. In contrast to a Lua table the group is a constant
 value datatype. Once you retrieved a group it can not be modified. But you can
-calculate and and apply operators like join, intersection and difference on
+calculate and apply operators like join, intersection and difference on
 groups and generate thereby other group values as results.
 
-Even though groups as values are long living you should be carefully in keeping
+Even though groups as values are long living you should be careful in keeping
 a group longer than a callback evaluation. Groups contain object references and
 objects can be killed. Thus a prior retrieved group may contain invalid
 object references on a subsequent callback evaluation. This may be uncritical
@@ -6452,7 +6452,7 @@ result = <@i{obj}|@i{group}> + @i{group}
 
 
 @item @b{Details:}
-A new set containing any object of of both arguments just once, is returned. The
+A new set containing any object of both arguments just once, is returned. The
 object sequence is maintained. If an object is member of both arguments the new
 group will contain just one object reference, namely the first one in sequence.
 
@@ -6474,7 +6474,7 @@ result = <@i{obj}|@i{group}> * @i{group}
 result = @i{group} * <@i{obj}|@i{group}>
 
 @item @b{Details:}
-A new set containing just those objects that a contained in both arguments. The
+A new set containing just those objects that are contained in both arguments. The
 objects are returned in the same sequence as they appear in the first argument.
 
 @item @b{Syntax Samples:}
@@ -6516,7 +6516,7 @@ result = @i{group}:shuffle()
 
 @item @b{Details:}
 Returns a new group with the same objects in another random sequence. Note that
-all invalid @samp{NULL} object reference are removed in the resulting group by
+all invalid @samp{NULL} object references are removed in the resulting group by
 this method call.
 
 @item @b{Syntax Samples:}
@@ -6611,7 +6611,7 @@ result = @i{group}:nearest(@i{obj})
 @item @b{Details:}
 Returns the object contained in the group that is nearest to the given reference
 object. The distances are calculated exactly without rounding actor positions.
-In case two object have the same distance from the reference object one is
+In case two objects have the same distance from the reference object one is
 chosen by chance as the result.
 
 @item @b{Syntax Samples:}
@@ -6627,7 +6627,7 @@ chosen by chance as the result.
 @section NamedObjects
 
 The datatype NamedObjects is used by just one object, the singleton repository
-of named objects. Whenever you name an object, @xref{Object Naming}, this
+of named objects. Whenever you name an object, @pxref{Object Naming}, this
 repository registers its name and allows you to retrieve the object lateron
 by providing its name.
 
@@ -6682,7 +6682,7 @@ no["@i{name}"] = @i{obj}
 @item @b{Details:}
 Index write accesses to the singleton allows you to name or rename objects. Note
 that you can name or rename objects by @ref{Object} attribute writes, too.
-The objects name is stored as attribute @code{"name"}. Both ways of naming
+The object's name is stored as attribute @code{"name"}. Both ways of naming
 an object are totally equivalent.
 
 @item @b{Syntax Samples:}
@@ -7027,7 +7027,7 @@ and all attributes. The object declaration comes in three minor variations:
 @end example
 
 The first entry, the one stored at table position @samp{1}, has always to be
-the kind name of an supported Enigma object. In the first example all other
+the kind name of a supported Enigma object. In the first example all other
 table entries are key value pairs with the key being the attribute name. The
 second example uses the shortcut of specifying the name attribute value as
 second table entry, that will be stored at table position @samp{2}. It has to
@@ -7054,8 +7054,8 @@ of declarations in the tile.
 @obindex nil
 Even though in most cases you use object declarations and tiles to set objects
 you may need in some advanced usage cases to supply such a datatype in
-situations where you want to add nothing at all or even want to kill an
-possibly existing object. In these cases you can supply on of the pseudo object
+situations where you want to add nothing at all or even want to kill a
+possibly existing object. In these cases you can supply one of the pseudo object
 kind names @code{"fl_nil"}, @code{"it_nil"}, @code{"st_nil"} or @code{"nil"}.
 While the first three pseudo kinds will kill existing objects on the given
 layer, the last pseudo kind will just do nothing. It is equivalent, but more
@@ -7082,7 +7082,7 @@ world in easy mode.
 The second sample uses the pseudo to kill the @ref{st_surprise} even when
 no substitution stone is being set.
 
-The last example of an @ref{Custom Resolver} provides a solution of avoiding
+The last example of a @ref{Custom Resolver} provides a solution for avoiding
 the change of the world on a given key in the world map. Usually you will always
 set at least a floor object. But if you draw a map during runtime there is no
 longer the need of setting inital floors. In cases where this can not be handled
@@ -7138,12 +7138,12 @@ useful conversions of table based object declarations to tiles.
 Being a singleton you can not create a new Tiles repository. The singleton is
 stored at the global variable @samp{ti} on level load.
 
-The repositories stores tiles for given string keys. The key strings can be
+The repository stores tiles for given string keys. The key strings can be
 of any length. Due to Lua limitations they need to be composed of printable
 7-bit ASCII characters.
 
 You can assign a tile to every key just once. A reassign causes an error. On
-one hand this allow internal implementation optimization, but on the other hand
+one hand this allows internal implementation optimization, but on the other hand
 an unforeseen key reassignment is the most common level coding error that
 needs to be reported.
 
@@ -7447,7 +7447,7 @@ Height of the rectangle.
 A tile or an object declaration.
 @item @i{key}
 A key string to be resolved via the given resolver.
-@item @i{key}
+@item @i{resolver}
 A resolver to be used for resolving the key to a valid tile.
 @end table
 
@@ -7603,7 +7603,7 @@ Height of the rectangle.
 A tile or an object declaration.
 @item @i{key}
 A key string to be resolved via the given resolver.
-@item @i{key}
+@item @i{resolver}
 A resolver to be used for resolving the key to a valid tile.
 @end table
 
@@ -8042,7 +8042,7 @@ object, polist, group, table.
 @subsection cond
 
 @samp{cond} is a conditional assignment, a substitution for the ternary
-@samp{?:} operator of C-like languages. Note however, that it is not a
+@samp{?:} operator of C-like languages. Note however, that it is not an
 equivalent substitution but just a workaround with some subtle side effects.
 
 @table @asis
@@ -8081,7 +8081,7 @@ Another Enigma example that will cause errors is:
 @example
 @var{w},@var{h} = @i{cond}(@i{wo}["@b{IsDifficult}"], @i{wo}(@i{ti}, " ", @var{map1}), @i{wo}(@i{ti}, " ", @var{map2}))
 @end example
-Both, the second and the third argument will be evaluate. Thus two contradicting
+Both, the second and the third argument will be evaluated. Thus two contradicting
 attempts to create a new world will be made causing the second one to fail. Use
 the following statement instead:
 @example
@@ -8129,7 +8129,7 @@ special types are @code{"object"}, @code{"position"}, @code{"tile"},
 be returned.
 
 @item @i{"table"}
-If @code{var} is a table, it's metatable will be queried. If there is an entry
+If @code{var} is a table, its metatable will be queried. If there is an entry
 @samp{_type}, this entry will be used as @code{etype}. Most important examples
 of this kind are @ref{libmap}-maps, @ref{Resolvers} and @ref{res.maze} with its
 mazes and cells. So @samp{etype} will return @code{"map"}, @code{"resolver"},
@@ -9066,7 +9066,7 @@ instead.
 @node position lists
 @subsection position lists
 
-Position list constants. Please choose these constant that is appropriate for a
+Position list constants. Please choose the constant that is appropriate for a
 calculation and do avoid using the trivial position lists instead.
 
 @itemize @bullet
@@ -9441,7 +9441,7 @@ connections.
 
 @table @asis
 @item @b{Type:} @ @ string
-@item @b{Values:} @ @ any floor object kind, @code{"it_strip"}, @code{"it_pipe"} or @code{"=key"}, whith key being a valid tile key
+@item @b{Values:} @ @ any floor object kind, @code{"it_strip"}, @code{"it_pipe"} or @code{"=key"}, with key being a valid tile key
 @item @b{Default:} @ @ @code{"fl_gray"}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_puzzle}
@@ -19697,13 +19697,46 @@ release @ref{ac_marble}s and @ref{ac_pearl}s should be able to ride on it.
 In contrast to the main actors it can not jump or pass an @ref{it_vortex}, and
 will not sink, fall or shatter. A horse is immortal.
 
-A horse is preset to its standard attribute values, that make it a passive
-actor. But nevertheless a horse may move its own way. By usage of the attributes
-@samp{destination} and @samp{strength} you can mark a path marked by an
-arbitrary number of positions given as destinations. The horse will try to reach
-the destinations one in a row with a force given by the strength attribute. As
-soon as one destination has been reached the horse targets for the next position
-and will start over again as soon as the last position has been reached.
+By default a horse is a passive actor. But nevertheless a horse may move along
+its own path. A set of attributes let you control the movement in various ways.
+
+The most simple approach just uses the attributes @samp{destination} and 
+@samp{strength}. You can mark a path marked by an arbitrary number of positions
+given as @ref{destination}s. The horse will try to reach the destinations one
+in a row with a force given by the strength attribute. As soon as one 
+destination has been reached the horse targets for the next position and will
+start over again as soon as the last position has been reached. In this 
+@samp{steady} mode the horse is continously accelerated into the direction of
+the next destination target. If it misses the destination on the first approach
+it will return by a loop again until it finally passes the target position. This
+approach is rather crude and not well suited for a precise control needed if the
+horse should hit certain stones or move on a well defined trajectory.
+
+Setting @samp{steady} to the value @code{false} causes another accelaration 
+algorithm that will decelerate the horse on approach to its target position.
+This allows a very precise control over the path taken by the horse.
+
+Furtheron you can request anytime the index of the current destination target. You
+can even set @samp{destidx} anytime. Note that this index counts the destination
+targets starting with 0 and taking every position into account, which might not
+be in sync with the destination token number in case a single token part 
+addresses several positions at a time.
+
+Furtheron you can control the behaviour of the horse when it reaches the last
+destination target. It either stops or restarts if the attribute @samp{loop}
+is set to @code{true}.
+
+Setting either @samp{destination} to @code{nil}, @samp{destidx} or @samp{strength}
+to a negative value caues the horse to stop its automatic travel.
+
+On its move a horse tries to reach the target position. But if the target
+position is blocked by a stone, the horse continues its travel targeting the
+next destination position as soon as it hits the stone. Thus you can use the
+horse to toggle @ref{st_switch} and other active stones.
+
+Whenever the horse reaches a target position it will perform its action. You
+can reset the @samp{destination} and other attributes within the callback to 
+define a new destination target.
 
 Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
 values if you want a player to control a horse directly.
@@ -19717,12 +19750,27 @@ values if you want a player to control a horse directly.
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
 @item @b{destination}, @ @ @i{values}: position or tokens; @ @ @i{default}: @code{nil} @ @ @xref{destination}
 A path given by a sequence of positions.
+@item @b{destidx} @ @ @i{values}: integer number; @ @ @i{default}: @code{0}
+The index of the targeted destination.
+@item @b{loop} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Flag that determines whether @samp{destidx} is reset to its default when the
+last destination has been reached.
 @item @b{strength} @ @ @i{values}: float number; @ @ @i{default}: @code{+10.0}
 A scalar factor for the horse force that drive it to the next destination.
+@item @b{steady} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}
+Flag that determines the chosen acceleration algorithm. On steady force the
+actor is continuously accelerated in direction to the next destination. If it
+misses the destination it will loop. If steady is false the force will switch
+its sign as soon as the actor reaches a critical distance. Thus the actor will
+reach the destination with nearly no remaining speed.
 @item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{1.2}; @ @ @i{access}: read only
 @end table
 
 @item @b{Messages:} none
+
+@item @b{Action:} @ @ @xref{target}, @ @ @xref{action}
+Performed on every reached destination position or on stone hits when the
+destination position if blocked by a stone.
 
 @item @b{Variants:}
 
