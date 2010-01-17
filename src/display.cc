@@ -95,7 +95,8 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
   m_counter (0),
   m_showcounter_p(false),
   m_interruptible(true),
-  m_text_active(false)
+  m_text_active(false),
+  playerImage(0)
 {
     const video::VMInfo *vminfo = video::GetInfo();
     m_itemarea = vminfo->sb_itemarea;
@@ -162,8 +163,11 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     blit(gc, a.x, a.y, enigma::GetImage(player == enigma::YIN ? "inventory" : "inventory", ".png"));
     
     // draw player indicator
-    blit(gc, a.x + 150, a.y + 22, enigma::GetImage("st_yinyang", ".png"), 
-            Rect (0, playerImage * vminfo->tile_size, vminfo->tile_size, vminfo->tile_size));
+    int ts = vminfo->tile_size;
+    int xoff = 35*ts/8;
+    int yoff =  4*ts/8 + vminfo->sb_coffsety;
+//    blit(gc, a.x + xoff, a.y + yoff, enigma::GetImage("player_switch_anim", ".png"), 
+//            Rect (0, playerImage * ts, ts, ts));
 
 
 //     set_color (gc, 255, 0, 0);
@@ -285,8 +289,8 @@ void StatusBarImpl::show_text (const std::string &str, bool scrolling, double du
 void StatusBarImpl::tick(double dtime) {
     // Animation of player indicator
     playerImageDuration += dtime;
-    if ((player * 3 != playerImage) && (playerImageDuration > 0.2)) {
-        playerImage = (++playerImage) % 6;
+    if ((player * 12 != playerImage) && (playerImageDuration > 0.1)) {
+        playerImage = (++playerImage) % 24;
         playerImageDuration = 0;
         m_changedp = true;
     }

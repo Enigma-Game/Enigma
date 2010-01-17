@@ -75,6 +75,7 @@ namespace video
         ecl::Rect      sb_movesarea;
         ecl::Rect      sb_itemarea;
         ecl::Rect      sb_textarea;
+        int            sb_coffsety;      // center offset of statusbar due to top black lines 
         bool           w_available;        // Is this video mode available?
         bool           f_available;        // Is this video mode available?
         std::string    fallback_window;    // hyphen seperated list of modes e.g. "-7-4-2-0-"
