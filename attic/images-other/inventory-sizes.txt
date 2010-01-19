@@ -1,0 +1,40 @@
+Sizes for the inventory models
+==============================
+
+|----------------------------+-------+-------+-------+-------+-------|
+|                            | Gfx16 | Gfx32 | Gfx40 | Gfx48 | Gfx64 |
+|----------------------------+-------+-------+-------+-------+-------|
+| Thickness of border [px]   |     4 |     8 |    10 |    12 |    16 |
+|  this is tilesize/4        |       |       |       |       |       |
+|----------------------------+-------+-------+-------+-------+-------|
+| Black rows at top [px]     |     0 |     1 |     2 |     2 |     3 |
+|----------------------------+-------+-------+-------+-------+-------|
+| Parameters for GIMP filter |       |       |       |       |       |
+|  depth                     |     1 |     2 |     2 |     2 |     2 |
+|  size                      |     1 |     2 |     2 |     2 |     2 |
+|  soften                    |     2 |     2 |     2 |     3 |     3 |
+|----------------------------+-------+-------+-------+-------+-------|
+
+Other parameters for the gimp filter "Layer Effects" > "Bevel and Emboss..."
+- style: inner bevel
+- direction: up
+- surface contour: linear
+- angle: 135
+- altitude: 30
+- gloss contour: linear
+- highlight mode color: (140,140,140)
+- shadow mode color: (80,80,80)
+- everything else: default
+
+Player switch anim
+------------------
+Border around anim:
+ Outer radius: tilesize
+ Inner radius: tilesize/2
+
+Animation diameter: tilesize/2
+
+x-coordinate of anim. center: 39/8*tilesize
+
+
+// EOF

@@ -160,14 +160,13 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     ScreenArea a = get_area();
     clip(gc, intersect(a, r));
 
-    blit(gc, a.x, a.y, enigma::GetImage(player == enigma::YIN ? "inventory" : "inventory", ".png"));
+    blit(gc, a.x, a.y, enigma::GetImage(player == enigma::YIN ? "inventory_yin" : "inventory_yang", ".png"));
     
     // draw player indicator
     int ts = vminfo->tile_size;
     int xoff = 35*ts/8;
     int yoff =  4*ts/8 + vminfo->sb_coffsety;
-//    blit(gc, a.x + xoff, a.y + yoff, enigma::GetImage("player_switch_anim", ".png"), 
-//            Rect (0, playerImage * ts, ts, ts));
+    blit(gc, a.x + xoff, a.y + yoff, enigma::GetImage("player_switch_anim", ".png"), Rect (0, playerImage * ts, ts, ts));
 
 
 //     set_color (gc, 255, 0, 0);
