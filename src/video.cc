@@ -344,7 +344,7 @@ namespace
             Rect (100, 419, 28, 43),         // modes area
             Rect (100, 425, 30, 43),         // moves area
             Rect (200, 433, 490, 52),        // inventory area
-            Rect (150, 434, 475, 35),        // text area
+            Rect (180, 434, 444, 35),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-0-","-0-"                      // fallback modes window, fullscreen
@@ -382,7 +382,7 @@ namespace
             Rect (125, 529, 31, 40),         // modes area
             Rect (125, 540, 30, 40),         // moves area
             Rect (252, 539, 610, 46),        // inventory area
-            Rect (185, 545, 600, 39),        // text area
+            Rect (225, 545, 555, 39),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-2-0-","-2-0-"                  // fallback modes window, fullscreen
@@ -401,7 +401,7 @@ namespace
             Rect (185, 634, 34, 60),         // modes area
             Rect (185, 640, 30, 60),         // moves area
             Rect (332, 650, 710, 46),        // inventory area
-            Rect (260, 655, 710, 40),        // text area
+            Rect (302, 655, 666, 40),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-3-2-0-","-3-2-0-"              // fallback modes window, fullscreen
@@ -420,7 +420,7 @@ namespace
             Rect (153, 634, 34, 60),         // modes area
             Rect (153, 640, 30, 60),         // moves area
             Rect (300, 650, 710, 46),        // inventory area
-            Rect (228, 655, 710, 40),        // text area
+            Rect (270, 655, 666, 40),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-4-2-0-","-4-2-0-"              // fallback modes window, fullscreen
@@ -458,7 +458,7 @@ namespace
             Rect (204, 853, 40, 80),         // modes area //TODO
             Rect (204, 853, 40, 80),         // moves area //TODO
             Rect (376, 867, 947, 61),        // inventory area //TODO
-            Rect (360, 873, 947, 53),        // text area //TODO
+            Rect (360, 873, 888, 53),        // text area //TODO
             1,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-6-4-2-0-","-6-4-2-0-"          // fallback modes window, fullscreen
@@ -496,7 +496,7 @@ namespace
             Rect (153, 640, 30, 60),         // modes area //TODO
             Rect (153, 640, 30, 60),         // moves area //TODO
             Rect (324, 650, 710, 46),        // inventory area //TODO
-            Rect (228, 655, 710, 40),        // text area //TODO
+            Rect (360, 655, 888, 40),        // text area //TODO
             0,                               // statusbar coffsety
             false, true,                     // available window, fullscreen
             "-0-","-8-0-"                    // fallback modes window, fullscreen
@@ -534,7 +534,7 @@ namespace
             Rect (50, 210, 14, 21),          // modes area
             Rect (50, 220, 15, 21),          // moves area
             Rect (100, 216, 245, 26),         // inventory area
-            Rect (75, 217, 237, 17),         // text area
+            Rect (90, 217, 222, 17),         // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-10-0-","-10-0-"                // fallback modes window, fullscreen
