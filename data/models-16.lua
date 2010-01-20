@@ -1,7 +1,7 @@
 TileSize = 16
 SpriteSize = 20
 ShadowSize = 21
-DefineFont ("timefont", "vera_sans.ttf", 18, "timefont", 180, 180, 180)
+DefineFont ("timefont", "DejaVuSansCondensed.ttf", 18, "timefont", 180, 180, 180)
 DefineFont ("smallalternative", "DejaVuSansCondensed.ttf", 7, "menufont")
 DefineFont ("modesfont", "DejaVuSansCondensed.ttf", 9, "menufont", 70, 120, 255)
 DefineFont ("menufont", "DejaVuSansCondensed.ttf", 9, "menufont")

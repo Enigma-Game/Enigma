@@ -96,7 +96,9 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
   m_showcounter_p(false),
   m_interruptible(true),
   m_text_active(false),
-  playerImage(0)
+  player (enigma::YIN),
+  playerImage (0),
+  playerImageDuration (0)
 {
     const video::VMInfo *vminfo = video::GetInfo();
     m_itemarea = vminfo->sb_itemarea;
@@ -198,18 +200,28 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     x = modesarea.x + modesarea.w - xsize_modes;
     y = modesarea.y;
     blit(gc, x, y, s_modes);
+    delete s_modes;
     
     if (m_showtime_p || m_showcounter_p) {
         if (m_showtime_p) {
-            double     abstime       = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
-            int        minutes       = static_cast<int>(abstime/60);
-            int        seconds       = static_cast<int>(abstime) % 60;
+            double abstime   = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
+//            abstime += 59*60;  for testing purposes
+            int hours   = static_cast<int>(abstime / 3600);
+            int minutes = static_cast<int>((abstime - 3600 * hours) / 60);
+            int seconds = static_cast<int>(abstime) % 60;
 
             if (minutes >= 100) {
                 minutes = 99;
                 seconds = 59;
             }
-            text = ecl::strf(m_leveltime >= 0 ? "%d:%02d" : "-%d:%02d", minutes, seconds);
+            if (hours == 0) {
+                text = ecl::strf("%d'%02d\"", minutes, seconds);
+            } else {
+                if (vminfo->tile_size >= 40)
+                    text = ecl::strf("%d:%02d'%02d\"", hours, minutes, seconds);
+                else
+                    text = ecl::strf("%d:%02d'", hours, minutes);
+            }
             s_time = timefont->render(text.c_str());
             xsize_time = s_time->width();
         }
@@ -312,6 +324,7 @@ void StatusBarImpl::new_world() {
     m_text_active = false;
     m_changedp    = true;
     player = enigma::YIN;
+    playerImage = 0;
     playerImageDuration = 0;
 }
 

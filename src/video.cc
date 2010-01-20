@@ -340,11 +340,11 @@ namespace
             120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 640, 416),           // game area
             Rect (0, 416, 640, 64),          // statusbar area
-            Rect (10, 425, 117, 43),         // time area
-            Rect (100, 419, 28, 43),         // modes area
+            Rect (10, 428, 117, 43),         // time area
+            Rect (100, 422, 28, 43),         // modes area
             Rect (100, 425, 30, 43),         // moves area
             Rect (200, 433, 490, 52),        // inventory area
-            Rect (180, 434, 444, 35),        // text area
+            Rect (180, 436, 444, 35),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-0-","-0-"                      // fallback modes window, fullscreen
@@ -378,11 +378,11 @@ namespace
             120, 78, 4, "",                  // thumbnail size/extension
             Rect (0, 0, 800, 520),           // game area
             Rect (0, 520, 800, 80),          // statusbar area
-            Rect (15, 540, 140, 40),         // time area
-            Rect (125, 529, 31, 40),         // modes area
-            Rect (125, 540, 30, 40),         // moves area
+            Rect (16, 540, 140, 40),         // time area
+            Rect (140, 530, 31, 40),         // modes area
+            Rect (140, 540, 30, 40),         // moves area
             Rect (252, 539, 610, 46),        // inventory area
-            Rect (225, 545, 555, 39),        // text area
+            Rect (225, 547, 555, 39),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-2-0-","-2-0-"                  // fallback modes window, fullscreen
@@ -398,7 +398,7 @@ namespace
             Rect (32, 0, 960, 624),          // game area
             Rect (32, 624, 960, 96),         // statusbar area
             Rect (50, 640, 170, 60),         // time area
-            Rect (185, 634, 34, 60),         // modes area
+            Rect (198, 634, 34, 60),         // modes area
             Rect (185, 640, 30, 60),         // moves area
             Rect (332, 650, 710, 46),        // inventory area
             Rect (302, 655, 666, 40),        // text area
@@ -417,10 +417,10 @@ namespace
             Rect (0, 0, 960, 624),           // game area
             Rect (0, 624, 960, 96),          // statusbar area
             Rect (18, 640, 170, 60),         // time area
-            Rect (153, 634, 34, 60),         // modes area
+            Rect (166, 636, 34, 60),         // modes area
             Rect (153, 640, 30, 60),         // moves area
             Rect (300, 650, 710, 46),        // inventory area
-            Rect (270, 655, 666, 40),        // text area
+            Rect (270, 656, 666, 40),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-4-2-0-","-4-2-0-"              // fallback modes window, fullscreen
@@ -439,7 +439,7 @@ namespace
             Rect (313, 640, 30, 60),         // modes area
             Rect (313, 640, 30, 60),         // moves area
             Rect (460, 650, 710, 46),        // inventory area
-            Rect (388, 655, 710, 40),        // text area
+            Rect (388, 654, 710, 40),        // text area
             0,                               // statusbar coffsety
             false, true,                     // available window, fullscreen
             "-0-","-5-0-"                    // fallback modes window, fullscreen
@@ -454,11 +454,11 @@ namespace
             160, 104, 5, "-160x104",         // thumbnail size/extension
             Rect (0, 0, 1280, 832),          // game area
             Rect (0, 832, 1280, 128),        // statusbar area
-            Rect (24, 853, 227, 80),         // time area //TODO
+            Rect (24, 857, 227, 80),         // time area //TODO
             Rect (204, 853, 40, 80),         // modes area //TODO
             Rect (204, 853, 40, 80),         // moves area //TODO
             Rect (376, 867, 947, 61),        // inventory area //TODO
-            Rect (360, 873, 888, 53),        // text area //TODO
+            Rect (360, 884, 888, 53),        // text area //TODO
             1,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
             "-6-4-2-0-","-6-4-2-0-"          // fallback modes window, fullscreen
@@ -530,10 +530,10 @@ namespace
             60, 39, 2, "-60x39",             // thumbnail size/extension
             Rect (0, 0, 320, 208),           // game area
             Rect (0, 208, 320, 32),          // statusbar area
-            Rect (5, 212, 65, 21),           // time area
-            Rect (50, 210, 14, 21),          // modes area
+            Rect (3, 212, 65, 21),           // time area
+            Rect (52, 210, 14, 21),          // modes area
             Rect (50, 220, 15, 21),          // moves area
-            Rect (100, 216, 245, 26),         // inventory area
+            Rect (100, 216, 245, 26),        // inventory area
             Rect (90, 217, 222, 17),         // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
