@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Poe's Nightmare" el:id="ulf07"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 120 $" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 121 $" el:status="stable"/>
       <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -556,7 +556,7 @@ end
         <el:translation el:lang="de">Poes Albtraum</el:translation>
       </el:string>
       <el:string el:key="text01">
-        <el:english el:translate="true">You find yourself in a dark, damb chamber. There's a light switch to the northeast and a passage to the west.</el:english>
+        <el:english el:translate="true">You find yourself in a dark, damp chamber. There's a light switch to the northeast and a passage to the west.</el:english>
         <el:translation el:lang="de">Du befindest Dich in einem dunklen, feuchten Raum. Im Nordosten ist ein Lichtschalter und westlich von Dir ein Gang.</el:translation>
       </el:string>
       <el:string el:key="text02">

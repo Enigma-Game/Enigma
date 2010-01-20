@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Inferno" el:subtitle="With respects to Dante Alighieri" el:id="duffy181"/>
-      <el:version el:score="1" el:release="2" el:revision="21" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="22" el:status="released"/>
       <el:author  el:name="Jacob Scott"/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -1483,7 +1483,7 @@ end
         <el:translation el:lang="de">Groß war mein Schmerz, als er dies kund gegeben, / denn Leute großen Werthes zeigten sich, / die unentschieden hier im Vorhof schweben.</el:translation>
       </el:string>
       <el:string el:key="minos_intro">
-        <el:english el:translate="true">You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go back now, or forever face the consqeuences!</el:english>
+        <el:english el:translate="true">You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go back now, or forever face the consequences!</el:english>
         <el:translation el:lang="de">Du darfst hier nicht sein! Ich, Minos, Richter über die Toten werde es nicht gestatten! Begib dich umgehend auf den Weg zurück, oder sei bereit, die Konsequenzen für deinen Ungehorsam zu tragen - bis in alle Ewigkeit.</el:translation>
       </el:string>
       <el:string el:key="minos_final">

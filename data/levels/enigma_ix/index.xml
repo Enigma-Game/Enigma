@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="19" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="20" title="Enigma IX"/>
 
   <attributes/>
 
@@ -13,7 +13,7 @@
     <level _seq="5" _title="At the Pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Pillar" _xpath="./raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Flickering Passages" _xpath="./duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Wired Pulls" _xpath="./raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Wired Pulls" _xpath="./raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Su Dyxo" _xpath="./ais33_1" author="Alex Smith" ctrl="force" easy="true" id="20090525ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Speed Meditation" _xpath="./duffy148_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Bicolor" _xpath="./devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="5" score="1" target="time" unit="duration"/>
@@ -47,9 +47,9 @@
     <level _seq="39" _title="Building Blocks I" _xpath="./raoul37_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul37" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="See Saw Meditation" _xpath="./duffy180_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy180" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Push? Pull? Rotate!" _xpath="./raoul33_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul33" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="42" _title="Poe's Nightmare" _xpath="./ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="ulf07" rel="1" rev="120" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Poe's Nightmare" _xpath="./ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="ulf07" rel="1" rev="121" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Wood - Water - Wood" _xpath="./duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Choices, choices ..." _xpath="./ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
   </levels>
 

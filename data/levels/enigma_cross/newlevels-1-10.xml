@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="77" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="78" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -188,7 +188,7 @@
     <level _seq="180" _title="Perennial Creek" _xpath="enigma_ix/pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="181" _title="Wired Strips" _xpath="enigma_viii/ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="182" _title="Pentachromos" _xpath="enigma_vii/cel2_1" author="J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" ctrl="force" easy="false" id="cel2" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="183" _title="Wired Pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="183" _title="Wired Pulls" _xpath="enigma_ix/raoul36_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul36" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="184" _title="Crabwise III" _xpath="enigma_viii/devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="185" _title="Bicolor" _xpath="enigma_ix/devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="186" _title="lower i" _xpath="enigma_ix/devnull39_1" author="/dev/null" ctrl="force" easy="true" id="devnull39" rel="1" rev="5" score="1" target="time" unit="duration"/>
@@ -201,7 +201,7 @@
     <level _seq="193" _title="Collapsing Building" _xpath="enigma_ix/pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Flashback" _xpath="enigma_ix/devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="Pillar" _xpath="enigma_ix/raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="21" score="1" target="time" unit="duration"/>
+    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Caving" _xpath="enigma_viii/pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="Flickering Passages" _xpath="enigma_ix/duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Carcassonne" _xpath="enigma_ix/mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="22" score="1" target="time" unit="duration"/>
@@ -209,7 +209,7 @@
     <level _seq="201" _title="Naoussa" _xpath="enigma_ix/mecke37_1" author="mecke" ctrl="force" easy="true" id="mecke37" rel="1" rev="29" score="1" target="time" unit="duration"/>
     <level _seq="202" _title="alternate X" _xpath="enigma_viii/devnull29_2" author="/dev/null" ctrl="force" easy="true" id="devnull29" rel="2" rev="9" score="2" target="time" unit="duration"/>
     <level _seq="203" _title="Volcano Day" _xpath="enigma_viii/pulley23_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley23" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="204" _title="Poe's Nightmare" _xpath="enigma_ix/ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="ulf07" rel="1" rev="120" score="1" target="time" unit="duration"/>
+    <level _seq="204" _title="Poe's Nightmare" _xpath="enigma_ix/ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="ulf07" rel="1" rev="121" score="1" target="time" unit="duration"/>
     <level _seq="205" _title="Once, No More No Less" _xpath="enigma_ix/ais07_1" author="Alex Smith" ctrl="force" easy="false" id="20090602ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="206" _title="Choices, choices ..." _xpath="enigma_ix/ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="207" _title="Perfect Trajectory" _xpath="enigma_vii/ais09_1" author="Alex Smith" ctrl="force" easy="true" id="20090923ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
