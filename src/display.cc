@@ -98,7 +98,8 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
   m_text_active(false),
   player (enigma::YIN),
   playerImage (0),
-  playerImageDuration (0)
+  playerImageDuration (0),
+  widthInit (false)
 {
     const video::VMInfo *vminfo = video::GetInfo();
     m_itemarea = vminfo->sb_itemarea;
@@ -203,27 +204,50 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     delete s_modes;
     
     if (m_showtime_p || m_showcounter_p) {
-        if (m_showtime_p) {
-            double abstime   = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
+        double abstime   = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
 //            abstime += 59*60;  for testing purposes
-            int hours   = static_cast<int>(abstime / 3600);
-            int minutes = static_cast<int>((abstime - 3600 * hours) / 60);
-            int seconds = static_cast<int>(abstime) % 60;
+        int hours   = static_cast<int>(abstime / 3600);
+        int minutes = static_cast<int>((abstime - 3600 * hours) / 60);
+        int seconds = static_cast<int>(abstime) % 60;
+        bool showHours = false;
+        bool showMinutes = true;
+        bool showSeconds = true;
 
-            if (minutes >= 100) {
-                minutes = 99;
-                seconds = 59;
+        if (hours >= 10) {
+            hours = 9;
+            minutes = 59;
+            seconds = 59;
+        }
+        if (m_showtime_p) {
+            
+            if (!widthInit) {
+                maxWidthDigit = 0;
+                for (int i = 0; i < 10; i++) {
+                    widthDigit[i] = timefont->get_width('0'+i);
+                    maxWidthDigit = ecl::Max(maxWidthDigit, widthDigit[i]);
+                }
+                widthColon = timefont->get_width(':');
+                widthApos = timefont->get_width('\'');
+                widthQuote = timefont->get_width('\"');
+                
+                widthInit = true;
             }
+            
             if (hours == 0) {
-                text = ecl::strf("%d'%02d\"", minutes, seconds);
+                if (minutes < 10)
+                    showMinutes = false;
             } else {
-                if (vminfo->tile_size >= 40)
-                    text = ecl::strf("%d:%02d'%02d\"", hours, minutes, seconds);
-                else
-                    text = ecl::strf("%d:%02d'", hours, minutes);
+                showHours = true;
+                if (vminfo->tile_size >= 40) {
+                    showMinutes = true;
+                 } else {
+                    showSeconds = false;
+                }
             }
-            s_time = timefont->render(text.c_str());
-            xsize_time = s_time->width();
+            xsize_time = (showHours ? maxWidthDigit + widthColon : 0)
+                       + (showMinutes ? maxWidthDigit : 0)
+                       + maxWidthDigit + widthApos
+                       + (showSeconds ? 2 * maxWidthDigit + widthQuote: 0);
         }
 
         if (m_showcounter_p) {
@@ -234,17 +258,46 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
 
         if (m_showtime_p) {
             if (m_showcounter_p) { // time + moves
-                x = timearea.x + (movesarea.x - timearea.x - xsize_time)/2;
-                y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
-                blit(gc, x, y, s_time);
-                
                 x = movesarea.x + (movesarea.w - xsize_moves)/2;
                 y = movesarea.y + (movesarea.h + timefont->get_lineskip())/2 - movesfont->get_lineskip() - 4;
                 blit(gc, x, y, s_moves);
+
+                x = timearea.x + (movesarea.x - timearea.x - xsize_time)/2;
+                y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
             }
             else { // only time
                 x = timearea.x + (timearea.w - xsize_time)/2;
                 y = timearea.y + (timearea.h - timefont->get_lineskip())/2;
+            }
+            // draw time in pixel stable positions
+            if (showHours) {
+                text = ecl::strf("%d:", hours);
+                s_time = timefont->render(text.c_str());
+                blit(gc, x + maxWidthDigit - widthDigit[hours], y, s_time);
+                delete s_time;
+                x += maxWidthDigit + widthColon;
+            }
+            text = ecl::strf("%d", minutes);
+            s_time = timefont->render(text.c_str());
+            if (showMinutes) {
+                blit(gc, x + maxWidthDigit - widthDigit[minutes/10], y, s_time);
+                x += 2 * maxWidthDigit;
+            } else {
+                blit(gc, x + maxWidthDigit - widthDigit[minutes%10], y, s_time);
+                x += maxWidthDigit;
+            }
+            delete s_time;
+            s_time = timefont->render("'");
+            blit(gc, x, y, s_time);
+            x += widthApos;
+            if (showSeconds) {
+                delete s_time;
+                text = ecl::strf("%02d", seconds);
+                s_time = timefont->render(text.c_str());
+                blit(gc, x + maxWidthDigit - widthDigit[seconds/10], y, s_time);
+                delete s_time;
+                x += 2 * maxWidthDigit;
+                s_time = timefont->render("\"");
                 blit(gc, x, y, s_time);
             }
         }

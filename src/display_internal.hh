@@ -94,6 +94,12 @@ namespace display
         int  playerImage;
         double playerImageDuration;
         std::string basicModes;  // set by world on start of level
+        int widthDigit[10];
+        int widthColon;
+        int widthApos;
+        int widthQuote;
+        int maxWidthDigit;
+        bool widthInit;
     };
 
 

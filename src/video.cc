@@ -343,7 +343,7 @@ namespace
             Rect (10, 428, 117, 43),         // time area
             Rect (100, 422, 28, 43),         // modes area
             Rect (100, 425, 30, 43),         // moves area
-            Rect (200, 433, 490, 52),        // inventory area
+            Rect (188, 433, 490, 52),        // inventory area
             Rect (180, 436, 444, 35),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
@@ -381,7 +381,7 @@ namespace
             Rect (16, 540, 140, 40),         // time area
             Rect (140, 530, 31, 40),         // modes area
             Rect (140, 540, 30, 40),         // moves area
-            Rect (252, 539, 610, 46),        // inventory area
+            Rect (235, 539, 610, 46),        // inventory area
             Rect (225, 547, 555, 39),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
@@ -400,7 +400,7 @@ namespace
             Rect (50, 640, 170, 60),         // time area
             Rect (198, 634, 34, 60),         // modes area
             Rect (185, 640, 30, 60),         // moves area
-            Rect (332, 650, 710, 46),        // inventory area
+            Rect (314, 650, 710, 46),        // inventory area
             Rect (302, 655, 666, 40),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
@@ -419,7 +419,7 @@ namespace
             Rect (18, 640, 170, 60),         // time area
             Rect (166, 636, 34, 60),         // modes area
             Rect (153, 640, 30, 60),         // moves area
-            Rect (300, 650, 710, 46),        // inventory area
+            Rect (282, 650, 710, 46),        // inventory area
             Rect (270, 656, 666, 40),        // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
@@ -438,7 +438,7 @@ namespace
             Rect (178, 640, 170, 60),        // time area
             Rect (313, 640, 30, 60),         // modes area
             Rect (313, 640, 30, 60),         // moves area
-            Rect (460, 650, 710, 46),        // inventory area
+            Rect (400, 650, 710, 46),        // inventory area
             Rect (388, 654, 710, 40),        // text area
             0,                               // statusbar coffsety
             false, true,                     // available window, fullscreen
@@ -533,7 +533,7 @@ namespace
             Rect (3, 212, 65, 21),           // time area
             Rect (52, 210, 14, 21),          // modes area
             Rect (50, 220, 15, 21),          // moves area
-            Rect (100, 216, 245, 26),        // inventory area
+            Rect (94, 216, 245, 26),         // inventory area
             Rect (90, 217, 222, 17),         // text area
             0,                               // statusbar coffsety
             true, true,                      // available window, fullscreen
