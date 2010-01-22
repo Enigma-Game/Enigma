@@ -584,9 +584,13 @@ namespace enigma { namespace lev {
         if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
             difficulty = DIFFICULTY_HARD;
         
-        if (score > SCORE_MAX)
-            score = SCORE_MAX;  // distinguish from SCORE_SOLVED levels
-            
+        if (score > SCORE_MAX2)
+            score = SCORE_MAX2;  // distinguish from SCORE_SOLVED levels
+        
+        // limit API 1 levels to 99'59", avoiding display problems within older releases
+        if (levelProxy->getEnigmaCompatibility() < 1.10 && score > SCORE_MAX1)
+            score = SCORE_MAX1;
+        
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
@@ -1039,10 +1043,10 @@ namespace enigma { namespace lev {
                             easyScore != SCORE_UNSOLVED;
                     
                     // limit scores to 99*60+59 - they need to fit in a short for XML
-                    if (diffScore > SCORE_MAX)
-                        diffScore = SCORE_MAX;
-                    if (easyScore > SCORE_MAX)
-                        easyScore = SCORE_MAX;
+                    if (diffScore > SCORE_MAX1)
+                        diffScore = SCORE_MAX1;
+                    if (easyScore > SCORE_MAX1)
+                        easyScore = SCORE_MAX1;
                     
                     std::map<std::string,  DOMElement *>::iterator itx;
                     // do we have to update a score entry for a higher version ?

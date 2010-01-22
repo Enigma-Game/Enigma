@@ -636,9 +636,15 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
     
     std::string LevelInspector::scoreToString(int score, lev::Proxy *aLevel) {
         if (aLevel->getScoreUnit() == lev::duration) 
-            if (score >= 0 && score <= (99*60+59))
-                return ecl::strf("%2d:%02d", score/60, score%60);
-            else
+            if (score >= 0) {
+                int hours = score / 3600;
+                int minutes = (score - 3600 * hours) / 60;
+                int seconds = score % 60;
+                if (hours > 0)
+                    return ecl::strf("%2d:%02d'", hours, minutes);
+                else
+                    return ecl::strf("%2d'%02d\"", minutes, seconds);
+            } else
                 return "  -  ";
         else
             if (score >= 0 && score <= 9999)

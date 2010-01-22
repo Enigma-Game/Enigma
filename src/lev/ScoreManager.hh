@@ -32,7 +32,8 @@
 namespace enigma { namespace lev {
     // Constants
     enum { 
-        SCORE_MAX = 99*60+59,
+        SCORE_MAX1 = 99*60+59,
+        SCORE_MAX2 = 32767,   // 9:06'07" (xs:short)
         SCORE_UNSOLVED  = -1,
         SCORE_SOLVED   = -2 
     };
