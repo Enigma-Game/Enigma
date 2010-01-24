@@ -42,7 +42,6 @@ SIMPLEPNG = \
 	fl_yinyang_yin.png \
 	it_bag.png \
 	it_banana.png \
-	it_blocker.png \
 	it_bomb_black.png \
 	it_bomb_white.png \
 	it_bottle_idle.png \
@@ -122,7 +121,7 @@ SIMPLEPNG = \
 	st_ancient.png \
 	st_barrier.png \
 	st_beads.png \
-	st_blocker.png \
+	st_blocker.png st_blocker_4.png\
 	st_bluegray.png \
 	st_bluesand.png st_bluesand_2.png st_bluesand_3.png st_bluesand_4.png \
 	st_bluesand_b.png st_bluesand_b2.png st_bluesand_b3.png st_bluesand_b4.png \

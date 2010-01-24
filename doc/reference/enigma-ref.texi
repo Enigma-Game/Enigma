@@ -11795,7 +11795,7 @@ switched off by the attribute @samp{invisible}.
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/it_bag, 12mm} @tab @yref{it_bag}
 @tab @image{images/it_banana, 12mm} @tab @yref{it_banana}
-@tab @image{images/it_blocker, 12mm} @tab @yref{it_blocker}
+@tab @image{images/st_blocker_4, 12mm} @tab @yref{it_blocker}
 @item @image{images/it_bomb_black, 12mm} @tab @yref{it_bomb}_black
 @tab @image{images/it_bomb_white, 12mm} @tab @yref{it_bomb}_white
 @tab @image{images/it_bottle_idle, 12mm} @tab @yref{it_bottle}
@@ -13488,9 +13488,9 @@ successor. The value will be @code{true} to express the open state.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_blocker, 12mm} @b{it_blocker}
+@item @image{images/st_blocker_4, 12mm} @b{it_blocker}
 A standard blocker item.
-@item @image{images/it_blocker, 12mm} @b{it_blocker_new}
+@item @image{images/st_blocker_4, 12mm} @b{it_blocker_new}
 A blocker that just finished shrinking. Mainly used internally as the direct
 successor of an @ref{st_blocker}. But it may be useful to generate an initial
 snapshot of a moving boulder over a blocker line, too. See example levels.
