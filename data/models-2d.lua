@@ -557,7 +557,6 @@ do
         "it_banana",
         "it_bomb_black",
         "it_bomb_white",
-        "it_blocker",
         "it_bottle_idle",
         "it_bottle_broken",
         "it_brush",
@@ -1425,9 +1424,13 @@ do
 
     -- Blocker stone --
     do
-        local n=DefSubimages("st_blocker", {h=4})
+        local n = DefSubimages("st_blocker", {h=4})
+	-- blocker stone
         DefShModel("st_blocker", n[1], "sh_round")
-        frames={}
+	-- blocker item
+	DefAlias("it_blocker", n[4])
+	-- open/close animation
+        frames = {}
         for i=4,2,-1 do
             table.insert(frames, "st_blocker"..i)
         end
