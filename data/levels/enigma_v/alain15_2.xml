@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Hobbyte" el:subtitle="Black Bilball the hobbyte" el:id="alain15"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SwampSinkTime"] = 0.5
+
+ti[" "] = {"fl_lawn_b"}
+ti["."] = {"fl_lawn_b", name="toburn#"}
+ti["-"] = {"fl_swamp"}
+ti["#"] = {"st_ancient"}
+ti["+"] = {"st_granite"}
+ti["D"] = {"st_death_invisible"}
+ti["k"] = {"st_invisible"}
+ti["K"] = {"st_knight"}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["w"] = {"st_chess", color=WHITE}
+ti["i"] = ti["-"] .. {"st_chameleon"} .. ti({"it_glasses"})
+ti["l"] = ti[" "] .. {"st_chameleon"}
+ti["j"] = {"it_sword"}
+ti["d"] = {"it_document", text="text1"}
+ti["r"] = {"it_ring"}
+ti["t"] = {"it_trigger", invisible=true, action="setfire", target="toburn#*"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti," ",{
+    "####################",
+    "#OK              KO#",
+    "#KK              KK#",
+    "#DDDDDDDDDDDDDD DDD#",
+    "#                  #",
+    "#D DDDDDDDDDDDDDDDD#",
+    "#                  #",
+    "#  @  d     kkklkkk#",
+    "#----       kllllll#",
+    "#----    t  klkkkkk#",
+    "#-r--   +.+ klkl> j#",
+    "#i---   +.+ klllk  #",
+    "#########w##########"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="an attempt has been made to imitate the language Aragorn uses in Tolkien's 'the 2 towers', which itself is an imitation of the ancient english Shakespeare wrote; the most faithful way to translate this is then to use a medieval-looking language.">Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, and numerous art the Ghostes who lye in the waye to them; many art the adventurers who tryed to steale Aylendil the Sworde but none has ever come back. Hazy is the swampe where the Magick of the Ancients is buryed; the lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ...</el:english>
+        <el:translation el:lang="fr">Puyssants sont les Chevalyers des Temps Anciens qui gardent les Pyerres oxyd elfyques, et nombreux sont les Espryts qui hantent le chemin qui y conduyt; bien des aventuryers ont voulu voler la Dague Magyque mais personne n'en est revenu. Brumeux est le Marais qui recouvre la Magye des Ancyens; l'antre de Blanc-Cheval le Dragon tu ayviteras, de peur que de son sommeyl il sorte ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

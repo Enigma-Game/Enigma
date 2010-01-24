@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="Riot in the Ghetto" el:id="alain14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ActorimpulseStrength"] = 200
+
+ti[" "] = {"fl_concrete"}
+ti["#"] = {"st_concrete"}
+ti["I"] = {"st_actorimpulse"}
+ti["door"] = {"st_door_d", faces="ns", name="door%%"}
+ti["D"] = {"st_door_d", faces="ew", name="door%4"}
+ti["switch"] = {"st_switch", target="door%%"}
+ti["o"] = {"it_meditation_hollow"}
+ti["q"] = {"#ac_top", range=40, strength=20, gohome=false}
+ti["@"] = {"#ac_pearl_black"}
+
+wo(res.autotile(ti, {"1", "4", "switch"}, {"A", "C", "door"}), " ", {
+    "o                  o",
+    " ################A# ",
+    " #@            @# # ",
+    " # IIIIIIIIIIII # # ",
+    " # Iq        qI #B# ",
+    " # I 1 2  3 4 I # # ",
+    " # I          I # # ",
+    " # I 4 3  2 1 I #C# ",
+    " # Iq        qI # # ",
+    " # IIIIIIIIIIII # # ",
+    " #@            @D # ",
+    " ################## ",
+    "o                  o"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="A bayou by you" el:subtitle="" el:id="alain21"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:15"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_swamp"}
+ti["~"] = {"fl_water"}
+ti["="] = {"fl_lawn", name="trapdoor#"}
+ti["A"] = {"st_ancient"}
+ti["#"] = {"st_granite"}
+ti["M"] = {"st_granite_movable"}
+ti["D"] = {"st_death"}
+ti["P"] = {"st_passage", flavor="frame", color=BLACK}
+ti["d"] = {"it_document", text="text1"}
+ti["u"] = {"it_umbrella"}
+ti["t"] = {"it_trigger", action="callback", target="flytox"}
+ti["1"] = ti{"#ac_rotor", range=40, strength=20}
+ti["2"] = ti{"#ac_top", range=40, strength=20}
+ti["3"] = ti{"#ac_top", range=20, strength=15}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"ac_marble"}
+
+wo(ti, " ", {
+    "    ----------------------------------------------------------------------------        -----------------",
+    " @d---------------------                -----  -----   ----    ---------------      D    ----------------",
+    "    --------    -----      ---------    -----  ---  -  --       ---------------         -----------------",
+    " --   ------       --   ------     ----   -----  -  --  -   ---   ------------           --------   -----",
+    "---   -----   ---      -------  --  ----   -----   ----    -----   ---------    -------   ------  2  ----",
+    "----   ---   -----    -------  ----  ----   ----------    ------   -------     ---------   ------    ----",
+    "-----   --   ------   ------  ------  ----   -------    -------   ------    -------  ----   ------   ----",
+    "------       -------  ------  -----  ------            -------   ------   --------  u ----   ------  ----",
+    "------     ---~~----  ------------  --------          --------   -----   ----------    ----   -----------",
+    "------   ----~~~---     ---------  ---------  -----      ------   ---   ------------   ------   ---------",
+    "------   ---~~~---  -    -------  ----------  --------      ----       --------    --   -------    ------",
+    "--  ---   --~~---  ---   -------    ---------  -----------    ----    ---------      -   -------     ----",
+    "-  u ---   -~~---  -----  ------  u  ---------  -------------   --------------   --   -   -----       ---",
+    "--   ----   -~~--  -----  -------    ----------  -------------   ------~~----   -----     ----    #    --",
+    "---   ---   --~~--  ----  --------   -----------  ------   ----   ----~~~~---   -------  -----   #OM   --",
+    "----   --   --~~---  ----  -------  -----~~~-----  ------   ----   ---~~~~---   -------  ------   #   ---",
+    "----   ---   -------  ----  -----  ------~~~~-----  ------   ---   ---~~~---    -------  --------    ----",
+    "----   ----   ------   ----  ---  -------~~~~------ ------ u ---   ---~~~--      -------  ------   ------",
+    "-----   ----   ----  u  ----  -  ------~~~~~~~----- ------   ---   ---~~--         ------  -----   ------",
+    "----    -----   ----    ----    -------~~~~~~------ -------  ---   -------   PPPPP=  -----  -----   -----",
+    "----  u  ----   ------  -----  --------~~~~~~------D--------      --------  tP    =   -----  ----   -----",
+    "-----   ------   ------------  --------~~~~~~------ ---------    ----------  P    =   ------  -    ------",
+    "-----   ------   -----------  --------~~~~~-------  ----------   -----~~~~-- PPPPP=  -------      ----~~-",
+    "-----   -------        ----  ---------~~~~~-------  -----------   ---~~~~~--        ------     ------~~~~",
+    "------   ------              ---------~~~~-------    -----~~----   --~~~---    ---   ----   --------~~~~~",
+    "-------   ------  -----      ----------~~-------      -----~~----   ------   ------   --   --------~~~~~~",
+    "-------   ------  -------     -----------------    #   -----~~----    ---   --------      --------~~~~~~~",
+    "-------    AAAA    ----- AAPAA  ---------------   #O#  ------~~-----       ----------    -------~~~~~~~~~",
+    "-------    A3      ----- A   A    -------------    M   ------~~~------    -----~~~-------------~~~~~111~~",
+    "---------- AAAA    ----  A   A     --------------    --------~~~~--------------~~~~-----------~~~~~~111~~",
+    "----------------  -----  A A A     --------------------------~~~~~-------------~~~~-----------~~~~~~~~~~~",
+    "------------------------ M   M    ----------------------------~~~~~~-----------~~~~~----------~~~~~~~~~~~",
+    "-------------------------        -----------------------------~~~~~~-----------~~~~~----------~~~~~~~~~~~"})
+
+function flytox(value, sender)
+   sender["target"] = DEFAULT
+   wo[no["trapdoor#*"]] = ti["P"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="alligators=tops, mosquitoes=tops and zombies=death stones">The most dangerous animals of the bayou are the alligators, the mosquitoes ... and the zombies! (But the zombies at least, don't move ...)</el:english>
+        <el:translation el:lang="fr">Les animaux les plus dangereux du bayou sont les alligators, les moustiques ... et les zombies! Mais les zombies, au moins, ne bougent pas ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
