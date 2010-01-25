@@ -863,7 +863,6 @@ do
     DefStone("st_camouflage")
     DefStone("st_dummy")
     DefImage("st-easymode")
-    DefStone("st_flat_fire")
     DefStone("st_floppy_off", "sh_round")
     DefStone("st_floppy_on", "sh_round")
     DefStone("st_box_rock", "sh_round")
@@ -882,8 +881,6 @@ do
     DefStone("st_granite", "sh_round")
     DefStone("st_darkgray", "sh_rounded")
     DefStone("st_plaster")
-    DefStone("st_flat")
-    DefStone("st_flat_cracked")
     DefStone("st_purplemarble")
     DefStone("st_tigris")
     DefStone("st_purplegray")
@@ -1220,18 +1217,22 @@ do
     for i=32,63  do DefShModel("st_puzzle"..i, "st_puzzlex"..i, "sh_puzzle_hollow") end
 end
 
--- st_flat_break --
+-- st_flat --
 do
+    local images = DefSubimages("st_flat", {h=4})
+    -- flat stone
+    DefShModel("st_flat", images[1], "sh_solid")
+    -- flat stone fall anim
+    DefAnim("st_flat_falling", BuildFrames(images, 100))
+    -- st_flat_break
     local images = DefSubimages("st_flat_break", {h=6})
-    DefAnim("flat_break-anim",BuildFrames(images,50))
+    DefAnim("flat_break-anim", BuildFrames(images, 50))
     DefSolidStone("st_flat_breaking", "flat_break-anim")
     DefAlias("st_plaster_breaking", "st_flat_breaking")
-end
-
--- st-rock3-falling --
-do
-    local images = DefSubimages("st_flat_falling", {h=4})
-    DefAnim("st_flat_falling", BuildFrames(images, 100))
+    -- cracked flat
+    DefStone("st_flat_cracked")
+    -- burnable flat
+    DefStone("st_flat_fire")
 end
 
 -- st_rotator --
