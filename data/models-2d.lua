@@ -874,7 +874,6 @@ do
     DefStone("st_grate_cross", "sh_grate_cross")
     DefStone("st_grate_framed", "sh_grate_framed")
     DefStone("st_portal_horse", "sh_portal_horse")
-    DefStone("st_greenbrown", "sh_round")
     DefStone("st_redbrown", "sh_round")
     DefStone("st_metal")
     DefStone("st_redrock", "sh_rounded")
@@ -1397,11 +1396,15 @@ do
         DefShModel("st_box_wood_growing", "st_box_wood_growing_fg", "st_box_wood_growing_bg")
     end
 
-    -- Greenbrown seed growing --
+    -- Greenbrown stone --
     do
-        local images=DefSubimages("st_greenbrown_growing", {h=3})
-        DefAnim("st_greenbrown_growing_fg", BuildFrames(images, 130))
-        DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
+        local images = DefSubimages("st_greenbrown", {h=4})
+	-- stone
+	DefShModel("st_greenbrown", images[1], "sh_round")
+	-- grow anim
+	table.remove(images,1)
+        DefAnim("st_greenbrown_growing_fg", ReverseFrames(BuildFrames(images, 130)))
+	DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
         DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
     end
 
