@@ -1386,7 +1386,7 @@ do
 
     -- Wooden (box) stones --
     do
-        DefSubimages("st_box_wood", {modelname="st_box_wood_fg",h=2})
+        DefSubimages("st_box_wood", {modelname="st_box_wood_fg", h=2})
         DefShModel("st_box_wood1", "st_box_wood_fg1", "sh_round")
         DefShModel("st_box_wood2", "st_box_wood_fg2", "sh_round")
 
@@ -1399,28 +1399,30 @@ do
     -- Greenbrown stone --
     do
         local images = DefSubimages("st_greenbrown", {h=4})
-	-- stone
-	DefShModel("st_greenbrown", images[1], "sh_round")
-	-- grow anim
-	table.remove(images,1)
+        -- stone
+        DefShModel("st_greenbrown", images[1], "sh_round")
+        -- grow anim
+        table.remove(images, 1)
         DefAnim("st_greenbrown_growing_fg", ReverseFrames(BuildFrames(images, 130)))
-	DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
+        DefAnim("st_greenbrown_growing_bg", BuildFrames(shadows, 130))
         DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
     end
 
-    -- st_box_hay, hay seed growing --
+    -- st_box_hay --
     do
-        DefStone("st_box_hay", "sh_round")
-
-        local images=DefSubimages("st_box_hay_growing", {h=3})
-        DefAnim("st_box_hay_growing_fg", BuildFrames(images, 130))
+        local images = DefSubimages("st_box_hay", {h=4})
+        -- stone
+        DefShModel("st_box_hay", images[1], "sh_round")
+        -- grow anim
+        table.remove(images, 1)
+        DefAnim("st_box_hay_growing_fg", ReverseFrames(BuildFrames(images, 130)))
         DefAnim("st_box_hay_growing_bg", BuildFrames(shadows, 130))
         DefShModel("st_box_hay_growing", "st_box_hay_growing_fg", "st_box_hay_growing_bg")
     end
 
-    -- volcano growing --
+    -- Volcano growing --
     do
-        local images=DefSubimages("st_volcano_growing", {h=3})
+        local images = DefSubimages("st_volcano_growing", {h=3})
         DefAnim("volcano-growing-fg", BuildFrames(images, 80))
         DefAnim("volcano-growing-bg", BuildFrames(shadows, 80))
         DefShModel("st_volcano_growing", "volcano-growing-fg", "volcano-growing-bg")
@@ -1428,12 +1430,12 @@ do
 
     -- Blocker stone --
     do
-        local n = DefSubimages("st_blocker", {h=4})
-	-- blocker stone
-        DefShModel("st_blocker", n[1], "sh_round")
-	-- blocker item
-	DefAlias("it_blocker", n[4])
-	-- open/close animation
+        local images = DefSubimages("st_blocker", {h=4})
+        -- blocker stone
+        DefShModel("st_blocker", images[1], "sh_round")
+        -- blocker item
+        DefAlias("it_blocker", images[4])
+        -- open/close animation
         frames = {}
         for i=4,2,-1 do
             table.insert(frames, "st_blocker"..i)
