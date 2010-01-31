@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="20" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="21" title="Enigma IX"/>
 
   <attributes/>
 
@@ -51,6 +51,7 @@
     <level _seq="43" _title="Wood - Water - Wood" _xpath="./duffy173_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy173" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Choices, choices ..." _xpath="./ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Puzzle Shift" _xpath="./zephyr01_1" author="Zephyr" ctrl="force" easy="false" id="zephyr01" rel="1" rev="4" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

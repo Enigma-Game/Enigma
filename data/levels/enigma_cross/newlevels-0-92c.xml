@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="34" title="Enigma 0.92 - 3"/>
+  <info enigma="1.10" group="Facets" location="15300" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma 0.92 - 3"/>
 
   <attributes/>
 
@@ -67,7 +67,7 @@
     <level _seq="59" _title="Elaborate" _xpath="enigma_v/duffy126_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy126" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Now What?" _xpath="enigma_v/duffy127_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Patterns" _xpath="enigma_ii/duffy128_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy128" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="62" _title="Island Labyrinth" _xpath="enigma_v/duffy129_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy129" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Island Labyrinth" _xpath="enigma_v/duffy129_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy129" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="In Sync" _xpath="enigma_iii/daniel06_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="64" _title="How Many Spirals?" _xpath="enigma_iv/nat23_1" author="Nat Pryce" ctrl="force" easy="true" id="nat23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="65" _title="Stay in the Spotlight" _xpath="enigma_ii/nat24_1" author="Nat Pryce" ctrl="force" easy="false" id="nat24" rel="1" rev="0" score="1" target="time" unit="duration"/>

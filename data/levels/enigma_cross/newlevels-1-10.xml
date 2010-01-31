@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="78" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="79" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -224,6 +224,7 @@
     <level _seq="216" _title="Claustrophobia" _xpath="enigma_viii/ais11_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="217" _title="Nabokos" _xpath="enigma_ix/ais12_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523003" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="218" _title="Floodoban" _xpath="enigma_ix/luc37_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc372009" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="219" _title="Puzzle Shift" _xpath="enigma_ix/zephyr01_1" author="Zephyr" ctrl="force" easy="false" id="zephyr01" rel="1" rev="4" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

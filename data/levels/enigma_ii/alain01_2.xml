@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Buridan" el:subtitle="An illustration of the famous Epimenides paradox" el:id="alain01"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -17,30 +17,33 @@ ti["-"] = {"fl_space"}
 ti["#"] = {"st_bluesand", cluster=1}
 ti["*"] = {"st_quake"}
 ti["F"] = {"st_fake_quake"}
+ti["K"] = {"st_knight"}
 ti["+"] = {"st_box_hay"}
-ti["doors"] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["doorns"] = {"st_door", flavor="d", faces="ns", name="door%%"}
+ti["doorew"] = {"st_door", flavor="d", faces="ew", name="door%%"}
 ti["triggers"] = {"it_trigger", target="door%%"}
-ti["h"] = ti[" "] .. {"st_chameleon"} .. ti({"it_hammer"})
+ti["r"] = ti[" "] .. {"st_chameleon"} .. ti({"it_hammer"})
 ti["t"] = {"fl_bluegreen", name="destw"} .. ti({"it_document", text="text1"})
 ti["u"] = {"fl_bluegreen", name="destv"} .. ti({"it_document", text="text2"})
 ti["v"] = {"it_wormhole", strength=0, range=0, destination="destv"}
 ti["w"] = {"it_wormhole", strength=0, range=0, destination="destw"}
+ti["s"] = {"it_sword"}
 ti["O"] = {"st_oxyd", flavor="c"}
 ti["@"] = {"#ac_marble"}
 
-wo(res.autotile(ti, {"1", "4", "triggers"}, {"a", "d", "doors"}), " ", {
+wo(res.autotile(ti, {"1", "9", "triggers"}, {"a", "d", "doorns"}, {"e", "i", "doorew", 5}), " ", {
     "####################",
-    "#hF        *  34  *#",
-    "#dF          *12*  #",
-    "#cF*********++++++*#",
+    "#s#  hgfei  ##34# ##",
+    "#d# r#####   K12K 9#",
+    "#c####FFFFFF++++++K#",
     "#bF       *       +#",
-    "#aF ***** * *****  #",
+    "#aF ***** * ***** 8#",
     "# * *vv-* * *ww-* +#",
-    "# * *O*-*@* *O*-*  #",
+    "# * *O*-*@* *O*-* 7#",
     "# * *** * * *** * +#",
-    "# *    t* *    u*  #",
+    "# *    t* *    u* 6#",
     "# ******* ******* +#",
-    "#                  #",
+    "#                 5#",
     "####################"})
  ]]></el:luamain>
     <el:i18n>

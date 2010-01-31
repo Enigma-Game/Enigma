@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Hobbyte" el:subtitle="Black Bilball the hobbyte" el:id="alain15"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -45,7 +45,7 @@ wo(ti," ",{
     "#----       kllllll#",
     "#----    t  klkkkkk#",
     "#-r--   +.+ klkl> j#",
-    "#i---   +.+ klllk  #",
+    "#--i-   +.+ klllk  #",
     "#########w##########"})
  ]]></el:luamain>
     <el:i18n>

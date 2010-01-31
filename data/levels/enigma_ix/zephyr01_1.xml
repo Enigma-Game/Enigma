@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+ <el:protected>
+   <el:info el:type="level">
+     <el:identity el:title="Puzzle Shift" el:subtitle="" el:id="zephyr01"/>
+     <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+     <el:author el:name="Zephyr" el:email=""/>
+     <el:copyright>Copyright © 2009 Zephyr</el:copyright>
+     <el:license el:type="GPL v2.0 or above" el:open="true"/>
+     <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+     </el:compatibility>
+     <el:modes el:easy="false" el:single="true" el:network="false"/>
+     <el:score el:easy="-" el:difficult="22:52"/>
+   </el:info>
+   <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_FLIP
+wo["FollowGrid"] = true
+
+ti["  "] = {"fl_gray"}
+ti[" -"] = {"fl_abyss"}
+ti[" ."] = {"fl_lawn_b"}
+ti[" ,"] = {"fl_sahara"}
+ti[" _"] = {"fl_blueslab"}
+ti[" ="] = {"fl_redslab"}
+ti["X "] = {"st_grate"}
+ti["G "] = {"st_rawglass"}
+ti["# "] = {"st_camouflage"}
+ti["+ "] = {"st_yellow"}
+ti["* "] = {"st_fake_oxydc"}
+ti["W "] = {"st_redrock"}
+ti["P"] = ti[" ."] .. {"st_puzzle", intensity=0}
+ti["Q"] = ti[" ,"] .. {"st_puzzle", intensity=0}
+ti["R"] = ti[" _"] .. {"st_puzzle", intensity=0}
+ti["S"] = ti[" ="] .. {"st_puzzle", intensity=0}
+ti["T"] = ti[" -"] .. {"st_puzzle", intensity=0}
+ti["A "] = ti["G "]..{"it_puller_n"}
+ti["B "] = ti["G "]..{"it_puller_e"}
+ti["C "] = ti["G "]..{"it_puller_s"}
+ti["D "] = ti["G "]..{"it_puller_w"}
+ti["H "] = {"st_switch", target="setpuller", _type="it_puller_n"}
+ti["I "] = {"st_switch", target="setpuller", _type="it_puller_e"}
+ti["J "] = {"st_switch", target="setpuller", _type="it_puller_s"}
+ti["K "] = {"st_switch", target="setpuller", _type="it_puller_w"}
+ti["O1"] = {"st_oxyd_e", name="oxyd#", oxydcolor=OXYD_GREEN}
+ti["O2"] = {"st_oxyd_e", name="oxyd#", oxydcolor=OXYD_YELLOW}
+ti["O3"] = {"st_oxyd_e", name="oxyd#", oxydcolor=OXYD_BLUE}
+ti["O4"] = {"st_oxyd_e", name="oxyd#", oxydcolor=OXYD_RED}
+ti["O5"] = {"st_oxyd_e", name="oxyd#", oxydcolor=OXYD_WHITE}
+ti["@ "] = {"#ac_marble"}
+
+wo(res.composer(res.puzzle(ti, "P", "Q", "R", "S", "T")), "  ", {
+    "#.#.#.#.#.#.#.#.#.#.#. - - - - - - - -+,+,+,+,+,+,+,+,+,+,+,+,+, - - - - - -*_*_*_*_*_*_*_*_*_*_*_*_*_ - - - - - -W=W=W=W=W=W=W=W=W=W=W=W=W= - - - - - - -",
+    "#.X.X.X.X.X.X.X.X.X.#. - - - - - - - -+,X,X,X,X,X,X,X,X,X,X,X,+, - - - - - -*_X_X_X_X_X_X_X_X_X_X_X_*_ - - - - - -W=X=X=X=X=X=X=X=X=X=X=X=W= - - - - - - -",
+    "#.X.X.X.X.X.X.X.X.X.#. - - - - - - - -+,X,X,X,X,X,X,X,X,X,X,X,+, - - - - - -*_X_X_X_X_X_X_X_X_X_X_X_*_ - - - - - -W=X=X=X=X=X=X= =X=X=X=X=W= - - - - - - -",
+    "#.X.X.X.X. .PbP0X.X.#. - - - - - - - -+,X,X,X,X, ,Q0P1Q1 ,X,X,+, - - - - - -*_X_X_X_X_ _ _X_X_X_X_X_*_ - - - - - -W=X=X=X=X= =S0S1S0 =X=X=W= - - - - - - -",
+    "#.X.X.X.X.P1PaP0X.X.#. -O1 -O1 -O1 - -+,X,X,X,X,Q0Q0Q1Q1 ,X,X,+, -O2 -O2 - -*_X_X_X_X_ _R0R1R1X_X_X_*_ -O3 -O3 - -W=X=X=X=X=SfS0SjS0ScX=X=W= -O4 -O4 - - -",
+    "#.@.X.P  .P1P0P1 . . -                 ,X,X,Q0Q0 , ,+,Q0Qc , , - -           _X_X_R0R0 _R0RcRjR0 _ _ - -       -   =X=X=S0S0 = =W=SdSc = = - -         -O5",
+    "#.X.X.X.X.P0P0P1X.X.#. -O1 -O1 -O1 - -+,X,X,X,X,Q0Q0 ,Q1 ,X,X,+, -O2 -O2 - -*_X_X_R0R0 _R1RaRbRj _ _ - - - - -T  -W=X=X=S0S0 =S0 =S1Sa = = - - - - - -T  -",
+    "#.X.X.X.X. .PbPbX.X.#. - - - - - - - -+,X,X,X,X,Q0Q0Q1Q1 ,X,X,+, - - - - - -*_X_X_X_X_ _RjRfR0X_X_X_*_           -W=X=X=X=X=S0S0S0Sj =X=X=W=            O5",
+    "#.X.X.X.X.X.X.X.X.X.#. - - - - - - - -+,X,X,X,X,X,X,X,X,X,X,X,+, - - - - - -*_X_X_X_X_ _ _X_X_X_X_X_*_ -O3 -O3 - -W=X=X=X=X=X=S0 = =X=X=X=W= -O4 -O4 - - -",
+    "#.X.X.X.X.X.X.X.X.X.#. - - - - - - - -+,X,X,X,X,X,X,X,X,X,X,X,+, - - - - - -*_X_X_X_X_X_X_X_X_X_X_X_*_ - - - - - -W=X=X=X=X=X=X=X=X=X=X=X=W= - - - - - - -",
+    "#.#.#.H.#.I.#.J.#.K.#. - - - - - - - -+,H,+,I,+,J,+,K,+,+,+,+,+, - - - - - -*_*_*_*_*_H_*_I_*_J_*_K_*_ - - - - - -W=H=W=I=W=J=W=K=W=W=W=W=W= - - - - - - -",
+    " - -#.A.#.B.#.C.#.D.#. - - - - - - - -+,A,+,B,+,C,+,D,+, - - - - - - - - - - - - - -*_A_*_B_*_C_*_D_*_ - - - - - -W=A=W=B=W=C=W=D=W= - - - - - - - - - - -",
+    " - -#.#.#.#.#.#.#.#.#. - - - - - - - -+,+,+,+,+,+,+,+,+, - - - - - - - - - - - - - -*_*_*_*_*_*_*_*_*_ - - - - - -W=W=W=W=W=W=W=W=W= - - - - - - - - - - -"})
+
+no["oxyd#*"][1]:message("peepall")
+
+function setpuller(value, sender)
+    wo:add(YIN,{sender["_type"]})
+end
+]]></el:luamain>
+   <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+ </el:protected>
+</el:level>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Island Labyrinth" el:subtitle="" el:id="duffy129"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -56,7 +56,7 @@ ti["/"] = {"st_mirror", flavor="slab", orientation=SLASH, movable=true}
 ti["L"] = {"st_laser", orientation=EAST, state=ON, name="laser"}
 ti["a"] = {"st_oneway", color=BLACK, orientation=NORTH}
 ti["t"] = {"st_oneway", color=BLACK, orientation=SOUTH}
-ti["A"] = {"st_door", flavor="d", faces="ns", name="door1#", state=OPEN}
+ti["A"] = {"st_door", flavor="d", faces="ns", name="door1#", state=CLOSED}
 ti["P"] = {"st_switch", target="door1#*"}
 ti["5"] = {"st_door", flavor="d", faces="ns", name="door3"}
 ti["U"] = {"st_switch", target="door3"}
