@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -101,8 +101,10 @@ namespace enigma {
     
     void Switch::actor_hit(const StoneContact &sc) {
         int ic = iColor();
-        if (ic == 0 || (ic == 1 && get_id(sc.actor) == ac_marble_black)
-                 || (ic == 2 && get_id (sc.actor) == ac_marble_white))  // TODO why no small whiteballs?
+        Value accolorv = sc.actor->getAttr("color");
+        int accolor = accolorv ? (int)accolorv + 1 : 0;
+        
+        if (ic == 0 || ic == accolor)
             setState(ON - state);  // switch on only if OFF, switch off only if ON, otherwise ignore
     }
 
