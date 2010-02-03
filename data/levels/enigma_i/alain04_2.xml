@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="" el:id="alain04"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="0:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ActorimpulseStrength"] = 600
+
+ti[" "] = {"fl_lawn_a"}
+ti["#"] = {"st_granite"}
+ti["G"] = {"st_lightglass"}
+ti["*"] = {"st_actorimpulse", invisible=true}
+ti["worm"] = {"it_wormhole", name="worm#", strength=0, interval=0.05, _dest="dest%%"}
+ti["dest"] = {"fl_lawn_a", "dest%%"}
+ti["O"] = {"it_meditation_hollow"}
+ti["@"] = {"#ac_pearl"}
+
+wo(res.autotile(ti, {"a", "h", "worm"}, {"1", "8", "dest"}), " ", {
+    "####################",
+    "#******************#",
+    "#*a2a*b8b**c5c*d3d*#",
+    "#*eO * @f**g@ * Oh*#",
+    "#*a a*b b**c c*d d*#",
+    "#******************#",
+    "#GGGGGGGGGGGGGGGGGG#",
+    "#******************#",
+    "#*e6e*f4f**g1g*h7h*#",
+    "#*aO * @b**c@ * Od*#",
+    "#*e e*f f**g g*h h*#",
+    "#******************#",
+    "####################"})
+
+for w in no["worm#*"] do
+    w["destination"] = no[w["_dest"]] + po(random()* 2.6 - 0.8, random()* 2.6 + 0.2)
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

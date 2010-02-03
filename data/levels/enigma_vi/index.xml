@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="59" title="Enigma VI"/>
+  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="60" title="Enigma VI"/>
 
   <attributes/>
 
@@ -75,7 +75,7 @@
     <level _seq="67" _title="Check the light" _xpath="./just10_4" author="JuSt" ctrl="force" easy="false" id="just10" rel="4" rev="9" score="3" target="time" unit="duration"/>
     <level _seq="68" _title="The Passage" _xpath="./just11_2" author="JuSt" ctrl="force" easy="false" id="just11" rel="2" rev="9" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Devil's Bolder" _xpath="./just14_1" author="JuSt" ctrl="force" easy="true" id="just14" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="70" _title="Twisting by the pool" _xpath="./alain23_1" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Twisting by the pool" _xpath="./alain23_2" author="Alain Busser" ctrl="force" easy="true" id="alain23" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Revolver" _xpath="./ral16_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070214ral703" rel="2" rev="186" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="Same Task ..." _xpath="./raoul29_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul29" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="ZigZag" _xpath="./ralf06_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="2" rev="4" score="2" target="time" unit="duration"/>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enigmastermind" el:subtitle="" el:id="alain16"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Game code by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="2:14"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_dark"}
+ti["#"] = {"st_rawglass"}
+ti["t"] = {"it_document", text="text1"}
+ti["u"] = {"it_document", text="text2"}
+ti["a"] = {"fl_water", name="c_%1", _id=1}
+ti["b"] = {"fl_lawn", name="c_%2", _id=2}
+ti["c"] = {"fl_red", name="c_%3", _id=3}
+ti["d"] = {"fl_sahara", name="c_%4", _id=4}
+ti["e"] = {"fl_sand", name="c_%5", _id=5}
+ti["f"] = {"fl_redslab", name="c_%6", _id=6}
+ti["colchooser"] = {"st_switch", name="chooser_c_%%", target="color_chooser", _col="c_%%", _col_choosen=false}
+ti["poschooser"] = {"st_switch", name="chooser_p_%%", target="set_color", _pos="p_%%", _pos_used=false}
+ti["X"] = {"st_switch", name="evaluator", target="evaluate", _rounds=5, _active=true}
+ti["="] = {"st_door", name="thedoor", flavor="d", faces="ew"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble", name="ball", _col="c_%1", _col_already_used=false}
+
+wo(res.autotile(ti, {"A", "F", "colchooser"}, {"1", "4", "poschooser"})," ",{
+    "#O#O#O#O#O#O########",
+    "#           =    Aa#",
+    "#############    Bb#",
+    "# # # # # # 1    Cc#",
+    "# # # # # # 2 t  Dd#",
+    "# # # # # # 3    Ee#",
+    "# # # # # # 4    Ff#",
+    "#############  @ ###",
+    "# # # # # # #    # #",
+    "# # # # # # #    # #",
+    "# # # # # # #    # #",
+    "# # # # # # #u   # #",
+    "#############X######"})
+
+wo:shuffleOxyd()
+
+local colors = {"fl_water", "fl_lawn", "fl_red", "fl_sahara", "fl_sand", "fl_redslab"}
+
+function color_chooser(value, sender)
+    if not sender["_col_choosen"] then
+        wo[no["chooser_"..no["ball"]["_col"]] + E] = {"st_nil"}
+        no["ball"]["_col"] = sender["_col"]
+        no["ball"]["_col_already_used"] = false   -- player has choosen a new color
+        wo[sender + E] = {"st_lightglass"}
+    end
+end
+
+function set_color(value, sender)
+    if no["evaluator"]["_active"] and not sender["_pos_used"] and not no["ball"]["_col_already_used"] then
+        sender["_pos_used"] = true                                  -- mark the choosen position as used
+        no["chooser_"..no["ball"]["_col"]]["_col_choosen"] = true   -- mark the choosen color as used
+        no["ball"]["_col_already_used"] = true                      -- every color can be set only once
+        wo[sender + 2*no["evaluator"]["_rounds"]*W + W] = {colors[no[no["ball"]["_col"]]["_id"]], name="guess_"..no["evaluator"]["_rounds"].."_#"}
+    end
+end
+
+function evaluate(value, sender)
+    if #no["guess_"..sender["_rounds"].."_#*"] ~= 4 then
+        return   -- only operate on a full guess
+    end
+    if sender["_active"] then
+        -- check user guess
+        anchorpos = no["chooser_p_%1"] + 2*no["evaluator"]["_rounds"]*W +W
+        local correct_pos = 0
+        local correct_col = 0
+        for i=0, 3 do
+            col_to_check = fl(anchorpos+i*S):kind()
+            if col_to_check == solution[i+1] then
+                -- color at correct position
+                correct_pos = correct_pos +1
+            else
+                -- check if color appears in solution, this implies color at wrong position
+                for j=1,4 do
+                    if col_to_check == solution[j] then
+                        correct_col = correct_col +1
+                        break
+                    end
+                end
+            end
+        end
+        -- give feedbac
+        local k = 0
+        for i=1, correct_pos do
+            wo[anchorpos + 5*S + k*S] = {"st_break_black"}
+            k = k+1
+        end
+        for i=1, correct_col do
+            wo[anchorpos + 5*S + k*S] = {"st_break_white"}
+            k = k+1
+        end
+        if correct_pos == 4 then
+            -- solution found, stop the game and open the door
+            sender["_active"] = false
+            no["thedoor"]:open()
+        elseif sender["_rounds"] == 0 then
+	    -- no more tries left, game over and print solution
+	    sender["_active"] = false
+	    for i=1,4 do
+		wo[sender + 5*E + (5-i)*N] = {solution[i]}
+	    end
+	    wo[no["thedoor"]] = {"st_death"}
+	else
+            -- prepare for next round
+            sender["_rounds"] = sender["_rounds"] -1
+	    no["chooser_c*"]["_col_choosen"] = false
+	    no["chooser_p*"]["_pos_used"] = false
+	    no["ball"]["_col_already_used"] = false
+        end
+    end
+end
+
+-- set up game
+local perm = lib.math.permutation(6)
+solution = {colors[perm[1]], colors[perm[2]], colors[perm[3]], colors[perm[4]]}
+wo[no["chooser_"..no["ball"]["_col"]] + E] = {"st_lightglass"}
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Each color appears once. Each correct color produces whites in the wrong place, blacks in the right one.</el:english>
+        <el:translation el:lang="fr">Chaque couleur n'existe qu'une fois au plus; un blanc pour une couleur bonne; un noir pour une couleur bonne et au bon endroit.</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">This switch is to validate your guess.</el:english>
+        <el:translation el:lang="fr">Ce bouton valide votre choix.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

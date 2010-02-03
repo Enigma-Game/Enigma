@@ -29,7 +29,7 @@ ti["c"] = {"fl_slope_inw"}
 ti["d"] = {"fl_slope_ine"}
 ti["#"] = {"st_metal"}
 ti["D"] = {"st_door", flavor="b", name="door#"}
-ti["S"] = {"st_switch", action="callback", target="death", safeaction=true}
+ti["S"] = {"st_switch", target="death", safeaction=true}
 ti["O"] = {"st_oxyd", name="oxyd#"}
 ti["@"] = ti["."] .. {"#ac_marble_black", name="ball"}
 

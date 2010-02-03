@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Sierpinski" el:subtitle="" el:id="alain10"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:20"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_space"}
+ti["-"] = {"fl_blueslab", name="path#"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"#ac_marble"}
+wo(ti, " ", 150, 100)
+
+function turn_cw(dir)
+    return po(-dir.y, dir.x)
+end
+
+function turn_ccw(dir)
+    return po(dir.y, -dir.x)
+end
+
+function draw_part()
+    wo[pos] = ti["-"]
+    pos = pos + dir
+    wo[pos] = ti["-"]
+    pos = pos + dir
+end
+
+function sierpinski(lev)
+    if lev == 1 then
+	draw_part()
+	dir = turn_ccw(dir)
+	draw_part()
+	dir = turn_cw(dir)
+	draw_part()
+	dir = turn_cw(dir)
+	draw_part()
+	draw_part()
+	dir = turn_ccw(dir)
+	draw_part()
+	dir = turn_ccw(dir)
+	draw_part()
+	dir = turn_cw(dir)
+	draw_part()
+    else
+	sierpinski(lev-1)
+	dir = turn_ccw(dir)
+	sierpinski(lev-1)
+	dir = turn_cw(dir)
+	sierpinski(lev-1)
+	dir = turn_cw(dir)
+	sierpinski(lev-1)
+	sierpinski(lev-1)
+	dir = turn_ccw(dir)
+	sierpinski(lev-1)
+	dir = turn_ccw(dir)
+	sierpinski(lev-1)
+	dir = turn_cw(dir)
+	sierpinski(lev-1)
+    end
+end
+
+pos = po(4,46)
+dir = E
+wo[pos] = ti["O"]
+sierpinski(3)
+wo[pos] = ti["O"]
+wo[no["path#*"]:shuffle()[1]] = ti["@"]
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

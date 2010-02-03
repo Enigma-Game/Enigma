@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Life Game" el:subtitle="A tribute to John H. Conway" el:id="alain13"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>Game code by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="0:17"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_blueslab"}
+ti["-"] = {"fl_blueslab", name="lifeground#"}
+ti["."] = {"fl_ice", name="lifetarget#"}
+ti["startpos"] = {"fl_aquamarine", name="lifestart%%"}
+ti["#"] = {"st_beads"}
+ti["B"] = {"st_beads", name="playgroundborder#"}
+ti["p"] = ti["#"] .. {"it_pencil"}
+ti["q"] = ti["#"] .. {"it_brush"}
+ti["switch"] = {"st_switch", name="switch%%", target="add_cell", _pos="lifestart%%"}
+ti["S"] = {"st_switch", target="timer"}
+ti["C"] = {"st_switch", target="clear_cells"}
+ti["T"] = {"st_timer", name="timer", state=OFF, interval=cond(wo["IsDifficult"],0.1,1.0), target="evolution"}
+ti["W"] = {"st_mirror_triangle", orientation=SOUTH}
+ti["L"] = {"st_laser", name="laser", orientation=NORTH}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"1", "9", "switch"}, {"a", "i", "startpos"}), " ", {
+    "O    W             O",
+    "#####L##############",
+    "#        BBBBBBBBBBB",
+    "#        B---------B",
+    "# 1 2 3  B-.-.-----B",
+    "#        B---.-----B",
+    "# 4 5 6  B---abc---B",
+    "#        B---def---B",
+    "# 7 8 9  B---ghi---B",
+    "#        B---.-----B",
+    "#   @    B-.-------B",
+    "#        B--.------B",
+    "#Sp#T#qC#BBBBBBBBBBB"})
+
+playground = no["lifeground#*"] + no["lifetarget#*"] + no["lifestart*"]
+playgroundborder = no["playgroundborder#*"]
+
+oldcells = grp()  -- cells in the n-th generation
+newcells = grp()  -- cells in the n+1-th generation
+
+function add_cell(value, sender)
+    if no["timer"]["state"] == ON then
+        return   -- its not allowed to modify cells during the evolution
+    end
+    if value then
+        oldcells = oldcells + no[sender["_pos"]]
+        wo[no[sender["_pos"]]] = {"st_spitter"}
+    else
+        oldcells = oldcells - no[sender["_pos"]]
+        wo[no[sender["_pos"]]] = {"st_nil"}
+    end
+end
+
+function clear_cells()
+    no["timer"]:off()
+    wo[playground] = {"st_nil"}
+    no["switch*"]:off()
+end
+
+function evolution()
+    newcells = grp()
+    for localpos in playground do
+        local neighbors = st(po(localpos) + NEIGHBORS_8) - playgroundborder
+        -- classical game of life rules
+        if #neighbors == 3 or ( st(localpos):is("st_spitter") and #neighbors == 2 ) then
+            newcells = newcells + localpos
+        end
+    end
+    -- update cells and redraw only necessary ones
+    wo[oldcells - newcells] = {"st_nil"}
+    wo[newcells - oldcells] = {"st_spitter"}
+    oldcells = newcells
+    -- check ending condition
+    if no["lifetarget#*"] - newcells == grp() then
+        no["timer"]:off()
+        no["laser"]:on()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="fr">Le jeu de la Vie</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

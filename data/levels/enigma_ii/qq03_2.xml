@@ -23,8 +23,7 @@ ti["t"] = {"it_trigger", target="door%%"}
 ti["O"] = {"st_oxyd", name="oxyd%%"}
 ti["@"] = {"#ac_marble_black"}
 
-local resolver = res.autotile(ti, {"a", "h", "t"}, {"A", "H", "-"}, {"1", "8", "O"})
-wo(resolver, " ", {
+wo(res.autotile(ti, {"a", "h", "t"}, {"A", "H", "-"}, {"1", "8", "O"}), " ", {
     "####################",
     "##                ##",
     "#> a b c d e f g h<#",
@@ -39,7 +38,7 @@ wo(resolver, " ", {
     "# #1#2#3#4#5#6#7#8##",
     "####################"})
 
-wo:shuffleOxyd({no["oxyd??"]:sort(), linear=true})
+wo:shuffleOxyd({no["oxyd*"]:sort(), linear=true})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Cluenigma" el:subtitle="" el:id="alain12"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Game code by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="0:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["#"] = {"st_tigris"}
+ti["+"] = {"st_lightglass"}
+ti["*"] = {"st_redmarble"}
+ti["!"] = {"st_passage", color=WHITE, flavor="cross"}
+ti["="] = {"st_door_d", name="door", faces="ns"}
+ti["a"] = {"fl_water", name="p_%1"}
+ti["b"] = {"fl_sahara", name="p_%2"}
+ti["c"] = {"fl_redslab", name="p_%3"}
+ti["d"] = {"fl_lawn_b", name="p_%4"}
+ti["e"] = {"fl_white", name="p_%5"}
+ti["f"] = {"fl_red", name="p_%6"}
+ti["g"] = {"it_bomb_black", name="i_%1"}
+ti["h"] = {"it_sword", name="i_%2"}
+ti["i"] = {"it_bottle", name="i_%3"}
+ti["j"] = {"it_wrench", name="i_%4"}
+ti["k"] = {"it_dynamite", name="i_%5"}
+ti["l"] = {"it_hammer", name="i_%6"}
+ti["m"] = {"fl_water", name="r_%1"}
+ti["n"] = {"fl_sahara", name="r_%2"}
+ti["o"] = {"fl_redslab", name="r_%3"}
+ti["p"] = {"fl_lawn_b", name="r_%4"}
+ti["q"] = {"fl_white", name="r_%5"}
+ti["r"] = {"fl_red", name="r_%6"}
+ti["person"] = {"st_switch", target="person", _id="%%"}
+ti["weapon"] = {"st_switch", target="item", _id="%%"}
+ti["room"] = {"st_switch", target="room" , _id="%%"}
+ti["X"] = {"st_switch", name="justice", target="evaluate", _person="p_%2", _room="r_%3", _item="i_%1", _murderer="p_%1", _scene="r_%1", _weapon="i_%1"}
+ti["Y"] = {"fl_tigris", name="docspot"} .. ti({"it_document", text="text1"})
+ti["?"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"A", "F", "person"}, {"G", "L", "weapon"}, {"M", "R", "room"}), " ", {
+    "####################",
+    "#?                ?#",
+    "#********=*********#",
+    "#            MNOPQR#",
+    "#+++  +++          #",
+    "#+aA  +gG  Y  *****#",
+    "#+bB  +hH     *m*p*#",
+    "#+cC  +iI  @  *****#",
+    "#+dD  +jJ     *n*q*#",
+    "#+eE  +kK     *****#",
+    "#+fF  +lL     *o*r*#",
+    "#+++  +++  X  *****#",
+    "####################"})
+
+function person(value, sender)
+    wo[no[no["justice"]["_person"]] + W] = ti["+"]
+    no["justice"]["_person"] = "p_"..sender["_id"]
+    wo[no[no["justice"]["_person"]] + W] = ti["!"]
+end
+
+function item(value, sender)
+    wo[no[no["justice"]["_item"]] + W] = ti["+"]
+    no["justice"]["_item"] = "i_"..sender["_id"]
+    wo[no[no["justice"]["_item"]] + W] = ti["!"]
+end
+
+function room(value, sender)
+    wo[no[no["justice"]["_room"]]] = {"st_nil"}
+    no["justice"]["_room"] = "r_"..sender["_id"]
+    wo[no[no["justice"]["_room"]]] = ti["!"]
+end
+
+function evaluate(value, sender)
+    suspects = {}
+    suspects[1] = ( no["justice"]["_person"] == no["justice"]["_murderer"] )
+    suspects[2] = ( no["justice"]["_item"] == no["justice"]["_weapon"] )
+    suspects[3] = ( no["justice"]["_room"] == no["justice"]["_scene"] )
+
+    if suspects[1] and suspects[2] and suspects[3] then
+        no["door"]:open()
+    else
+        perm = lib.math.permutation(3)
+        if suspects[perm[1]] ~= true then
+            sentence(perm[1])
+        elseif suspects[perm[2]] ~= true then
+            sentence(perm[2])
+        elseif suspects[perm[3]] ~= true then
+            sentence(perm[3])
+        end
+    end
+end
+
+function sentence(n)
+    if n == 1 then
+        wo[no["docspot"]] = {"it_document", text="text_"..no["justice"]["_person"]}
+    elseif n == 2 then
+        wo[no["docspot"]] = {"it_document", text="text_"..no["justice"]["_item"]}
+    elseif n == 3 then
+        wo[no["docspot"]] = {"it_document", text="text_r_%1"}
+    end
+end
+
+-- Init
+-- Remark: the probability that the first random guess is the good one is 1/216
+-- This explains the world record
+no["justice"]["_person"] = "p_%"..random(1,6)
+no["justice"]["_item"] = "i_%"..random(1,6)
+no["justice"]["_room"] = "r_%"..random(1,6)
+no["justice"]["_murderer"] = "p_%"..random(1,6)
+no["justice"]["_weapon"] = "i_%"..random(1,6)
+no["justice"]["_scene"] = "r_%"..random(1,6)
+wo[no[no["justice"]["_person"]] + W] = ti["!"]
+wo[no[no["justice"]["_item"]] + W] = ti["!"]
+wo[no[no["justice"]["_room"]]] = ti["!"]
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="The persons and objects are from the Agatha-Christie-like game 'Cluedo'; their names tend to change from country to country; Mr. White has been changed to 'Whiteball' to make it more 'enigma'.">Your uncle Sir Blackball has been murdered last night in his manor, in one of his 6 rooms, by one of the weapons which are in the cellar; the suspects are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you must find who killed your uncle, where and how.</el:english>
+        <el:translation el:lang="fr">Votre oncle Sir Blackball est mort cette nuit dans l'une des six chambres de son manoir; le meurtrier s'est servi de l'une des armes qui sont dans l'armoire du vestibule; les suspects sont la timide Madame Pervenche, le secret Colonel Moutarde, le distrait Professeur Violet, l'actif Docteur Olive, la femme de chambre Madame Blancheboule, et la magnifique Mademoiselle Rose ... Vous devez trouver qui est le meutrier de votre oncle, quelle est l'arme du crime et quel est le lieu du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_r_%1">
+        <el:english el:translate="true">This room is not the crime scene.</el:english>
+        <el:translation el:lang="fr">Cette chambre n'est pas le lieu du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_p_%1">
+        <el:english el:translate="true">The murderer is not Mrs Peacock.</el:english>
+        <el:translation el:lang="fr">Madame Pervenche n'est pas le meutrier.</el:translation>
+      </el:string>
+      <el:string el:key="text_p_%2">
+        <el:english el:translate="true">The murderer is not Colonel Mustard.</el:english>
+         <el:translation el:lang="fr">Le Colonel Moutarde n'est pas le meutrier.</el:translation>
+     </el:string>
+      <el:string el:key="text_p_%3">
+        <el:english el:translate="true">The murderer is not Professor Plum.</el:english>
+        <el:translation el:lang="fr">Le Professeur Violet n'est pas le meutrier.</el:translation>
+      </el:string>
+      <el:string el:key="text_p_%4">
+        <el:english el:translate="true">The murderer is not Reverend Green.</el:english>
+        <el:translation el:lang="fr">Le docteur Olive n'est pas le meutrier.</el:translation>
+      </el:string>
+      <el:string el:key="text_p_%5">
+        <el:english el:translate="true">The murderer is not Mrs Whiteball.</el:english>
+        <el:translation el:lang="fr">Madame Blancheboule n'est pas le meutrier.</el:translation>
+      </el:string>
+      <el:string el:key="text_p_%6">
+        <el:english el:translate="true">The murderer is not Miss Scarlett.</el:english>
+        <el:translation el:lang="fr">Mademoiselle Rose n'est pas le meutrier.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%1">
+        <el:english el:translate="true">Sir Blackball has not been killed with the bomb.</el:english>
+        <el:translation el:lang="fr">La bombe n'est pas l'arme du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%2">
+        <el:english el:translate="true">Sir Blackball has not been killed with the dagger.</el:english>
+        <el:translation el:lang="fr">La dague n'est pas l'arme du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%3">
+        <el:english el:translate="true">Sir Blackball has not been killed with poison.</el:english>
+        <el:translation el:lang="fr">Le poison n'est pas l'arme du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%4">
+        <el:english el:translate="true">Sir Blackball has not been killed with the wrench.</el:english>
+        <el:translation el:lang="fr">La clef anglaise n'est pas l'arme du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%5">
+        <el:english el:translate="true">Sir Blackball has not been killed with the candlestick.</el:english>
+        <el:translation el:lang="fr">Le chandelier n'est pas l'arme du crime.</el:translation>
+      </el:string>
+      <el:string el:key="text_i_%6">
+        <el:english el:translate="true">Sir Blackball has not been killed with the hammer.</el:english>
+        <el:translation el:lang="fr">Le marteau n'est pas l'arme du crime.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

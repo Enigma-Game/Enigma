@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="30" title="Tutorial"/>
+  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="31" title="Tutorial"/>
 
   <attributes/>
 
@@ -24,7 +24,7 @@
     <level _seq="16" _title="Welcome" _xpath="enigma_i/welcometopack1_3" author="Daniel Heck" ctrl="force" easy="true" id="welcome" rel="3" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="17" _title="Rollercoaster" _xpath="enigma_ii/jc02_1" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="The Doors" _xpath="enigma_i/siegfried11_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level4a" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="19" _title="Sierpinski" _xpath="enigma_iv/alain10_1" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Sierpinski" _xpath="enigma_iv/alain10_2" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="enigma_i/alain03_2" author="Alain Busser" ctrl="force" easy="false" id="alain03" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="(Counter)Clockwise" _xpath="enigma_i/wb13_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb13" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="22" _title="Hurry!" _xpath="enigma_i/jc01_2" author="Jens-Christian Korth" ctrl="force" easy="true" id="jc01" rel="2" rev="6" score="2" target="time" unit="duration"/>

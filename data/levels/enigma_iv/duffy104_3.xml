@@ -3,21 +3,21 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Termites" el:subtitle="" el:id="duffy104"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = false
 
-ti[" "] = {"fl_hay"}
+ti[" "] = {"fl_wood"}
 ti["#"] = {"st_lightglass"}
-ti["+"] = {"st_box_hay"}
+ti["+"] = cond(wo["IsDifficult"], {"st_box"}, {"st_puzzle"})
 ti["-"] = {"st_door", flavor="d", faces="ns", name="door#"}
 ti["F"] = {"st_floppy", target="@door#*"}
 ti["f"] = {"it_floppy"}

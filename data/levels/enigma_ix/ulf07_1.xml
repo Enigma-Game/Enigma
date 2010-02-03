@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Poe's Nightmare" el:id="ulf07"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 121 $" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 122 $" el:status="stable"/>
       <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -108,7 +108,7 @@ ti["be"] = {"st_blocker"}
 ti["bh"] = {"fl_aquamarine",friction=f}
 ti["bf"] = ti["bh"] .. {"it_trigger",action="callback", target="toggleBoulder",invisible=true}
 ti["bi"] = {"st_door_d", faces="ew", state=OPEN, name="dd01"}
-ti["bj"] = {"it_trigger", action="open", target="dd01",invisible=true}
+ti["bj"] = {"it_trigger", action="callback", target="setupBoulder",invisible=true}
 ti["bk"] = {"it_trigger", action="callback", target="slope01",invisible=true}
 ti["bl"] = {"fl_slope_ps", strength=t}
 ti["bm"] = {"fl_slope_pn", strength=t}
@@ -170,9 +170,9 @@ wo(ti, "  ", {
 --     ,----------------- 0 -----------------,,---------------- 1 -----------------,,----------------- 2 -----------------,
 --     00010203040506070809101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657
       "####################################################################################################################", -- 00 \
-      "##AnAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsApAs##axaxaxaxaxaxavavavavavaxaxaxaxaxaxax##bdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbd##", -- 01 |
+      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxaxaxaxaxavavavavavaxaxaxaxaxaxax##bdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbdbd##", -- 01 |
       "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavavaxavavavaxaxaxavaxavaxavavavax##bebebebebebebebebebebebebebebebebebe##", -- 02 |
-      "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavaxaxavaxaxaxaxaxavaxavaxavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 03 |
+      "##AnAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsApAs##axavaxaxavaxaxaxaxaxavaxavaxavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 03 |
       "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axavavavavaxavavavavavaxavaxavavaxav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 04 |
       "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxaxaxaxaxaxaxavaxavaxavaxavav##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 05
       "##AsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAsAs##axaxavaxaxavavavavavavavavaxavaxavax##bcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbcbc##", -- 06 0
@@ -401,11 +401,16 @@ end
 -- SECTION 0,2
 
 function toggleBoulder()
-  no["boulder#*"]:flip()
+  no["boulder#*"]:orientate(SOUTH)
   no["dd01"]:close()
-  it({39,11}):kill()
 end
 
+function setupBoulder()
+  no["dd01"]:open()
+  wo:drawRect(po(39,1),18,1, ti["bd"])
+  wo:drawRect(po(39,2),18,1, ti["be"])
+  wo:drawRect(po(39,10),18,1, ti["be"])
+end
 
 -- SECTION 1,2 --
 

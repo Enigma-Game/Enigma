@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Zero Magnetism Lab II" el:subtitle="" el:id="duffy185"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_space"}
+ti["="] = {"fl_abyss"}
+ti["#"] = {"st_greenbrown"}
+ti["D"] = {"st_door", flavor="a", name="doors#"}
+ti["m"] = ti["-"] .. {"it_magnet", name="magnets#"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "O #@-----mm------# O",
+    "# #--------------# #",
+    "# #-m----------m-# #",
+    "# #--------------# #",
+    "# D--------------D #",
+    "# D---m--==--m---D #",
+    "# D--------------D #",
+    "# #--------------# #",
+    "# #-m----------m-# #",
+    "# #--------------# #",
+    "O #------mm------# O",
+    "####################"})
+
+wo:add({"ot_timer", target="toggle_magnets", interval=1.0, _count=0})
+wo:add(YIN, {"it_spring_keep"})
+wo:shuffleOxyd()
+
+function toggle_magnets(value, sender)
+    no["magnets#*"]:shuffle():sub(3):toggle()
+    sender["_count"] = sender["_count"] + 1
+    if sender["_count"] == 45 then
+	no["doors#*"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
