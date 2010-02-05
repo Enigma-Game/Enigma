@@ -15789,7 +15789,7 @@ then secure fire burning.
 @item @image{images/st_box_wood_2, 12mm} @b{st_box_wood_v}: flavor=@code{"wood"}
 @item @image{images/st_box_wood_growing, 12mm} @b{st_box_wood_growing}: flavor=@code{"wood"}
 @item @image{images/st_box_hay, 12mm} @b{st_box_hay}: flavor=@code{"hay"}
-@item @image{images/st_box_hay_growing, 12mm} @b{st_box_hay_growing}: flavor=@code{"hay"}
+@item @image{images/st_box_hay_4, 12mm} @b{st_box_hay_growing}: flavor=@code{"hay"}
 @item @image{images/st_box_rock, 12mm} @b{st_box_rock}: flavor=@code{"rock"}
 @end table
 
@@ -18855,8 +18855,8 @@ A classical on/off switch that toggles its state on actors hitting the stone.
 Of course other objects can send messages on actions to make this switch turning.
 
 Three variants of the switch do exist. A neutral, grey colored one that reacts
-on any actor hits, and a black and a white colored switch. These last switches
-will react only if hit by marbles of matching color.
+on any actor hits, and a black and a white colored switch. These last two 
+switches will react only if hit by actors of matching color.
 
 If a switch turns on or off there will be a short delay until it reaches the
 new state and performs it actions. If you need a switch without delay you
@@ -18869,8 +18869,8 @@ need to set the @samp{instant} attribute.
 @item @b{state}, @ @ @i{values}: @code{ON}, @code{OFF}; @ @ @i{default}: @code{OFF} @ @ @xref{state}
 @item @b{color} @ @ @i{values}: @code{nil}, @code{BLACK}, @code{WHITE}; @ @ @i{default}: @code{nil}
 The color of the switch that needs to match the hitting actor to cause a toggle.
-The default @samp{nil} color is a grey switch that matches all actors, marbles
-of any color as well as all other actors.
+The default @samp{nil} color is a grey switch that matches all actors, marbles,
+pearls or killers of any color as well as all other actors.
 @item @b{instant} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 A default switch requires a short time equivalent to the animation until the
 new state is reached and the actions are performed. An instant switch jumps
@@ -19539,9 +19539,9 @@ The players that can control the actor by their mouse movements.
 @node color
 @subsection color
 
-The logical color of the actor. All actors besides @ref{ac_marble}s and
-@ref{ac_pearl}s will report color @code{nil}. The color of an actor can not be
-changed, it is a read only attribute.
+The logical color of the actor. All actors besides @ref{ac_marble}s, 
+@ref{ac_pearl}s and @ref{ac_killer}s will report color @code{nil}. The color of
+an actor can not be changed, it is a read only attribute.
 
 @table @asis
 @item @b{Type:} @ @ number

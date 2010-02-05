@@ -130,7 +130,7 @@ SIMPLEPNG = \
 	st_blur_cross.png \
 	st_blur_straight.png \
 	st_boulder.png st_boulder_b.png st_boulder_c.png st_boulder_d.png \
-	st_box_hay.png st_box_hay_growing.png \
+	st_box_hay.png st_box_hay_4.png \
 	st_box_rock.png \
 	st_box_wood.png st_box_wood_2.png st_box_wood_growing.png \
 	st_brake.png \
