@@ -71,6 +71,10 @@ namespace enigma {
     
     void BlurStone::actor_hit(const StoneContact &sc) {
         Value color = sc.actor->getAttr("color");
+
+        if (server::GameCompatibility != GAMET_ENIGMA && sc.actor->getClass() != "ac_marble")
+            return;
+            
         if (state != MAGIC || player::WieldedItemIs (sc.actor, "it_magicwand") 
                 || player::WieldedItemIs (sc.actor, "it_brush")) {
             if (color && ((state == STRAIGHT && color == WHITE) || (state >= CROSS && color == BLACK))) {

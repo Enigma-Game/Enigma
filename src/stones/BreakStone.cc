@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -76,6 +76,10 @@ namespace enigma {
     void BreakStone::actor_hit(const StoneContact &sc) {
         int t = typ();
         Value color = sc.actor->getAttr("color");
+        
+        if ((t == ACBLACK || t == ACWHITE) && server::GameCompatibility != GAMET_ENIGMA && sc.actor->getClass() != "ac_marble")
+            return Stone::actor_hit(sc);
+            
         if ((player::WieldedItemIs(sc.actor, "it_hammer") &&  (t == PLAIN || t == OXYDC || t == BOULDER
                 || (color && ((color == BLACK && t == ACBLACK)||(color == WHITE && t == ACWHITE)))))
                 || (t == BUG && get_id(sc.actor) == ac_bug))

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2006 Daniel Heck
- * Copyright (C) 2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -567,7 +567,8 @@ Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying)
     bool dont_pickup = players[iplayer].inhibit_pickup 
         || (!allowFlying && a->is_flying())
         || !inv->willAddItem(it)
-        || a->is_dead();
+        || a->is_dead()
+        || (server::GameCompatibility != GAMET_ENIGMA && a->getClass() != "ac_marble");
 
     return dont_pickup ? 0 : inv;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -42,15 +42,15 @@ namespace enigma {
                 
                 Actor *a = dynamic_cast<Actor *>(o);
                 int c = getAttr("color");
-                if ((a && a->getAttr("color") && a->getAttr("color") == c) || 
+                if ((a != NULL && (server::GameCompatibility == GAMET_ENIGMA || a->getClass() == "ac_marble") &&
+                        a->getAttr("color") && a->getAttr("color") == c) || 
                         (m.sender->getObjectType() != Object::ITEM && m.message == "signal")) {
                     if (p.y == sender->get_pos().y) {
                         SendMessage (GetStone (move (p, EAST)),  "signal", 1.0);
                         SendMessage (GetStone (move (p, WEST)),  "signal", 1.0);
                         SendMessage (GetStone (move (p, NORTH)), "signal", 0.0);
                         SendMessage (GetStone (move (p, SOUTH)), "signal", 0.0);
-                    }
-                    else {
+                    } else {
                         SendMessage (GetStone (move (p, EAST)),  "signal", 0.0);
                         SendMessage (GetStone (move (p, WEST)),  "signal", 0.0);
                         SendMessage (GetStone (move (p, NORTH)), "signal", 1.0);

@@ -806,7 +806,7 @@ void Client::level_finished()
             else {
                 text = "";
             }
-            text += strf("%d:%02d ", static_cast<int> (behind/60)%100, behind%60);
+            text += strf("%d'%02d\" ", static_cast<int> (behind/60)%100, behind%60);
             if (with_par) 
                 text += _("behind world record.");
             else

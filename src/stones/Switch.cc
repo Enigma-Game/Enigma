@@ -104,7 +104,7 @@ namespace enigma {
         Value accolorv = sc.actor->getAttr("color");
         int accolor = accolorv ? (int)accolorv + 1 : 0;
         
-        if (ic == 0 || ic == accolor)
+        if (ic == 0 || (ic == accolor && (server::GameCompatibility == GAMET_ENIGMA || sc.actor->getClass() == "ac_marble")))
             setState(ON - state);  // switch on only if OFF, switch off only if ON, otherwise ignore
     }
 

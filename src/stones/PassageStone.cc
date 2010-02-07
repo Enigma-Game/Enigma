@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -85,6 +85,10 @@ namespace enigma {
     
     StoneResponse PassageStone::collision_response(const StoneContact &sc) {
         Value accolor = sc.actor->getAttr("color"); 
+        
+        if (server::GameCompatibility != GAMET_ENIGMA && sc.actor->getClass() != "ac_marble")
+            return STONE_REBOUND;
+            
         if (state == BLACK) {
             return (accolor && accolor == BLACK) ?  STONE_PASS : STONE_REBOUND;
         }
