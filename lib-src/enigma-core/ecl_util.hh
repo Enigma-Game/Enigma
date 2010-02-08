@@ -246,6 +246,7 @@ namespace ecl
     */
 
     std::string strf(const char *format, ...) __attribute__((format(printf, 1, 2)));
+    std::string timeformat(int duration);
 
     std::string concat_paths(const std::string& path, const std::string& filename);
     

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004,2005,2006 Daniel Heck
- * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -364,20 +364,18 @@ namespace enigma { namespace gui {
                 string wr_name = ratingMgr->getBestScoreHolder(curProxy, difficulty);
                 bool  wr_name_displayed = false;
     
-                string your_time;
-                string wr_text;
+                std::string your_time;
+                std::string wr_text;
     
                 if (best_user_time>0) {
-                    your_time = strf(_("Your time: %d:%02d"),
-                             best_user_time/60, best_user_time%60);
+                    your_time = _("Your time: ") + ecl::timeformat(best_user_time);
     
                     if (wr_time>0) {
                         int below = wr_time - best_user_time;
                         if (below == 0)
                             wr_text = _("That's world record.");
                         else if (below>0)
-                            wr_text = strf(_("That's %d:%02d below world record."),
-                                    below/60, below%60);
+                            wr_text = ecl::strf(_("That's %s below world record."), ecl::timeformat(below).c_str());
                     }
                 }
     
@@ -386,10 +384,10 @@ namespace enigma { namespace gui {
                         wr_name_displayed = true;
                     } else
                         if (is_par || par_time < 0)
-                            wr_text = strf(_("World record: %d:%02d"), wr_time/60, wr_time%60);
+                            wr_text = _("World record: ") + ecl::timeformat(wr_time);
                         else
-                            wr_text = strf(_("Par: %d:%02d World record: %d:%02d"), 
-                                    par_time/60, par_time%60, wr_time/60, wr_time%60);
+                            wr_text = _("Par: ") + ecl::timeformat(par_time) + " " +  
+                                    _("World record: ") + ecl::timeformat(wr_time);
                 }
     
                 if (!your_time.empty())
@@ -402,11 +400,12 @@ namespace enigma { namespace gui {
                         if (!tmp.empty())
                             wr_name = tmp;
                         if (is_par || par_time < 0)
-                            wr_text = strf(_("World record by %s: %d:%02d"), 
-                                    wr_name.c_str(), wr_time/60, wr_time%60);
+                            wr_text = ecl::strf(_("World record by %s: "), wr_name.c_str()) +
+                                    ecl::timeformat(wr_time);
                         else
-                            wr_text = strf(_("Par: %d:%02d World record by %s: %d:%02d"), 
-                                    par_time/60, par_time%60, wr_name.c_str(), wr_time/60, wr_time%60);
+                            wr_text = _("Par: ") + ecl::timeformat(par_time) + " " +
+                                    ecl::strf(_("World record by %s: "), wr_name.c_str()) + 
+                                    ecl::timeformat(wr_time);
                     }
                     lbl_levelinfo->set_text(your_time + wr_text);
                 } while (!hl_info_stat->fits() && wr_name_displayed && (wr_cut < 20));

@@ -92,6 +92,16 @@ std::string ecl::strf(const char *format, ...) {
     }
 }
 
+std::string ecl::timeformat(int duration) {
+    int hours   = duration / 3600;
+    int minutes = (duration - 3600 * hours) / 60;
+    int seconds = duration % 60;
+    if (hours > 0)
+        return ecl::strf("%d:%02d'%02d\"", hours, minutes, seconds);
+    else
+        return ecl::strf("%d'%02d\"", minutes, seconds);
+}
+
     // string_match accepts simple wildcards
     // '?' means 'any character'
     // '*' means '0 or more characters'

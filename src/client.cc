@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004 Daniel Heck
- * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -806,7 +806,7 @@ void Client::level_finished()
             else {
                 text = "";
             }
-            text += strf("%d'%02d\" ", static_cast<int> (behind/60)%100, behind%60);
+            text += ecl::timeformat(behind);
             if (with_par) 
                 text += _("behind world record.");
             else
@@ -843,10 +843,6 @@ void Client::level_finished()
         m_state = cls_finished;
 }
 
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#endif
-
 void Client::level_loaded(bool isRestart)
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
@@ -868,8 +864,7 @@ void Client::level_loaded(bool isRestart)
             displayed_info = _("Your record: ");
         else
             displayed_info = _("World record to beat: ");
-        displayed_info += ecl::strf("%d:%02d", (m_hunt_against_time/60)%100, 
-                m_hunt_against_time%60);
+        displayed_info += ecl::timeformat(m_hunt_against_time);
 //+ _(" by ") +hunted;
 // makes the string too long in many levels
         Msg_ShowDocument(displayed_info, true, 4.0);
