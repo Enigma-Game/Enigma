@@ -1697,13 +1697,17 @@ Follower::Follower (DisplayEngine *e) : m_boundary_x (0.5), m_boundary_y (0.5), 
 double Follower::get_hoff() const 
 { 
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.w / m_engine->get_tilew() -m_boundary_x*2; 
+    double result = gamearea.w / m_engine->get_tilew() -m_boundary_x*2;
+    ASSERT(result > 0, XLevelRuntime, "FollowThreshold must be less than half of level width/height and 10/6.5");
+    return result;
 }
 
 double Follower::get_voff() const 
 {
     ScreenArea gamearea = m_engine->get_area();
-    return gamearea.h / m_engine->get_tileh() -m_boundary_y*2;
+    double result = gamearea.h / m_engine->get_tileh() -m_boundary_y*2;
+    ASSERT(result > 0, XLevelRuntime, "FollowThreshold must be less than half of level width/height and 10/6.5");
+    return result;
 }
 
 void Follower::center(const ecl::V2 &point) 
