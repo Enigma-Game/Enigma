@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -45,6 +45,8 @@ namespace enigma {
         virtual void tick(double dt);
         
     private:
+        void shatterActors();
+
         display::SpriteHandle sprite;
         ecl::V2 pos;
     };

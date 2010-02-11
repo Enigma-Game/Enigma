@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -39,12 +39,16 @@ namespace enigma {
             SendMessage (st, "_cannonball");
         } else if (Item *it = GetItem(p)) {
             if (!has_flags(it, itf_indestructible))
-                SetItem (p, MakeItem("it_explosion_debris"));
-            else
+                SetItem(p, MakeItem("it_explosion_debris"));
+            else {
                 SendMessage (it, "_cannonball");
+                shatterActors();
+            }
         } else if (Floor *fl = GetFloor(p)) {
             if (fl->is_destructible())
-                SetItem (p, MakeItem("it_explosion_debris"));
+                SetItem(p, MakeItem("it_explosion_debris"));
+            else
+                shatterActors();
         }
         KillOther(this);
     }
@@ -62,6 +66,14 @@ namespace enigma {
     void CannonBall::tick(double dt) {
         pos += (ecl::V2)getAttr("$ball_velocity") * dt;
         sprite.move(pos);
+    }
+    
+    void CannonBall::shatterActors() {
+        std::vector<Actor*> actors;
+        GetActorsInsideField(GridPos(pos), actors);
+        for (std::vector<Actor*>::iterator itr = actors.begin(); itr != actors.end(); ++itr)
+            if (!((*itr)->is_flying()))
+                SendMessage((*itr), "_shatter");
     }
 
     BOOT_REGISTER_START
