@@ -561,6 +561,7 @@ do
         "it_bottle_broken",
         "it_brush",
         "it_cherry",
+        "it_coin",
         "it_coin_s",
         "it_coin_m",
         "it_coin_l",
