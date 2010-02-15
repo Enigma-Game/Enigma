@@ -2,8 +2,8 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Tour de France" el:subtitle="Marbleix and Pearlix I" el:id="mecke04"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:12 $" el:status="released"/>
+      <el:identity el:title="Tour de France" el:subtitle="Marblics and Pearlics I" el:id="mecke04"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:14 $" el:status="released"/>
       <el:author el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -254,8 +254,8 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="subtitle">
-        <el:english el:translate="true" el:comment="not translate the names from Marbleix and Pearlix"/>
-        <el:translation el:lang="de">Marbleix und Pearlix I</el:translation>
+        <el:english el:translate="true" el:comment="not translate the names from Marblics and Pearlics"/>
+        <el:translation el:lang="de">Marblics und Pearlics I</el:translation>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="true" el:comment="not translate 'en Tour'">Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for self defence!</el:english>

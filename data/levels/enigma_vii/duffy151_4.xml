@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Temple of Gold" el:subtitle="" el:id="duffy151"/>
+      <el:version el:score="3" el:release="4" el:revision="9" el:status="released"/>
+      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false">Ronald Lamprecht for fixes, some patterns and difficult mode</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ActorimpulseStrength"] = 1000
+wo["SlopeStrength"] = 50
+wo["WormholeStrength"] = 0
+
+ti["  "] = {"fl_sahara"}
+ti[", "] = {"fl_sahara", name="panchor"}
+ti["- "] = {"fl_abyss"}
+ti["= "] = {"fl_abyss", friction=100}
+ti["~ "] = {"fl_swamp"}
+ti["_ "] = {"fl_inverse"}
+ti["^ "] = {"fl_slope_pn"}
+ti["> "] = {"fl_slope_pe"}
+ti["v "] = {"fl_slope_ps"}
+ti["< "] = {"fl_slope_pw"}
+ti["1 "] = {"fl_slope_osw"}
+ti["3 "] = {"fl_slope_ose"}
+ti["7 "] = {"fl_slope_onw"}
+ti["9 "] = {"fl_slope_one"}
+ti[":n"] = {"fl_bridge", name="bridgesw#", flavor="bn"}
+ti[":e"] = {"fl_bridge", name="bridgesw#", flavor="be"}
+ti[":s"] = {"fl_bridge", name="bridgesw#", flavor="bs"}
+ti[":w"] = {"fl_bridge", name="bridgesw#", flavor="bw"}
+ti[" #"] = {"st_yellow"}
+ti[" %"] = {"st_flat"}
+ti[" +"] = {"st_box"}
+ti[" *"] = {"st_brownie"}
+ti["**"] = {"st_brownie", name="anchor"}
+ti[" X"] = {"st_death"}
+ti[" A"] = {"st_actorimpulse", invisible=true}
+ti[" B"] = {"st_break_bug"}
+ti[" C"] = {"st_coinslot", target="@doors#*"}
+ti[" F"] = {"st_fake_oxydd"}
+ti[" G"] = {"st_grate"}
+ti[" H"] = {"st_plaster_breakable"}
+ti[" I"] = {"st_stoneimpulse"}
+ti[" J"] = {"st_flat_movable"}
+ti[" K"] = {"st_flat_breakable"}
+ti[" M"] = {"st_mirror", transparent=true, orientation=BACKSLASH}
+ti[" N"] = {"st_mirror", orientation=BACKSLASH}
+ti[" P"] = {"st_passage", flavor="frame", color=BLACK}
+ti[" /"] = ti["  "] .. {"st_chameleon"}
+ti[" <"] = {"st_laser", orientation=WEST, name="laser"}
+ti[" ="] = {"st_door", flavor="d", faces="ns", name="doors#"}
+ti["=4"] = {"st_door", flavor="d", faces="ns", name="door4"}
+ti["=5"] = {"st_door", flavor="d", faces="ns", name="door5"}
+ti["=b"] = {"st_door", flavor="b", name="door1"}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["Q"] = ti["- "] .. {"st_puzzle", intensity=0}
+ti["YY"] = {"st_puzzle", name="piece", color=YELLOW}
+ti["b "] = {"it_bomb_black"}
+ti["c "] = {"it_coin"}
+ti[" c"] = {"it_cherry"}
+ti[" e"] = {"it_extralife"}
+ti[" h"] = {"it_hammer"}
+ti[" j"] = {"it_springboard"}
+ti[" ."] = {"it_seed"}
+ti[" ,"] = {"it_seed_volcano"}
+ti["t1"] = {"it_trigger", action="on", target="laser", invisible=true}
+ti["t3"] = {"it_trigger", target="door1"}
+ti["t4"] = {"it_trigger", target="door4"}
+ti["t5"] = {"it_trigger", target="door5"}
+ti["t6"] = ti[" P"] .. {"it_trigger", target="bridgesw#*"}
+ti["w1"] = {"it_wormhole", destination="dest1"}
+ti["w3"] = ti[" *"] .. {"it_wormhole", destination="dest3"}
+ti["w4"] = {"it_wormhole", destination="dest4"}
+ti["w5"] = {"it_wormhole", destination="dest5"}
+ti["v1"] = {"fl_sahara", name="dest1"}
+ti["v2"] = ti[" e"] .. {"fl_sahara", name="dest2"}
+ti["v3"] = {"fl_sahara", name="dest3"}
+ti["v4"] = {"fl_slope_ose", name="dest4"}
+ti["v5"] = {"fl_slope_ose", name="dest5"}
+if wo["IsDifficult"] then
+    ti[" x"] = ti["  "]
+    ti[" y"] = ti[" +"]
+    ti[" d"] = ti["_ "]
+    ti["t2"] = {"it_trigger", action="signal", target="counter"}
+    ti[". "] = ti["- "]
+    ti[";o"] = {"fl_bridge", name="bridgesc1#", flavor="gc", state=OPEN}
+    ti[";c"] = {"fl_bridge", name="bridgesc2#", flavor="gc", state=CLOSED}
+    ti["w2"] = {"it_wormhole", destination="dest2"}
+    ti[" Q"] = ti["  "]
+    ti[" a"] = ti["  "]
+    ti[" D"] = ti[" C"]
+    ti[" -"] = ti[" ="]
+    ti["Y"] = {"st_puzzle", color=YELLOW}
+else
+    ti[" x"] = ti[" +"]
+    ti[" y"] = ti["  "]
+    ti[" d"] = ti[" c"]
+    ti["t2"] = ti["  "]
+    ti[". "] = ti["  "]
+    ti[";o"] = ti["  "]
+    ti[";c"] = ti["  "]
+    ti["w2"] = ti["  "]
+    ti[" Q"] = ti[" P"]
+    ti[" a"] = ti["b "]
+    ti[" D"] = ti["  "]
+    ti[" -"] = ti["  "]
+    ti["Y"] = {"st_puzzle", color=YELLOW, intensity=0}
+end
+ti[" O"] = {"st_oxyd", flavor="d"}
+ti["BB"] = {"ac_bug", 0.0, 0.5}
+ti["HH"] = {"ac_horse", name="horse"}
+ti["R1"] = {"#ac_rotor", strength=30}
+ti["R2"] = {"ac_rotor", strength=110}
+ti["TT"] = {"#ac_top", strength=80}
+ti["AA"] = cond(wo["CreatingPreview"], {"#ac_marble_black"}, ti["  "])
+ti["@@"] = cond(wo["CreatingPreview"], ti["  "], {"#ac_marble_black"})
+
+wo(res.composer(res.puzzle(ti, "P", "Q", "Y")), "  ", {
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #",
+    " #              t1                     # H     H     H     H         H   H   H   H     H H                         #                              b b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #              t1              w1     # H   H   H H   H     H   H   H H   H   H   H H y   H                       #                              b b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #              t1        v3           #   HTT H     H   H H   H H   H   H H H H   H     H                         #                              b b+b  #_ _ _ _ _ _ _ _ _ _ _ _d_ _ _ _ _ _  #",
+    " #              t1                     #   H   H H   H H F H       H H     H H   H   H H                           #                              b b bJb _K_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " # * * * * * * * * # # # # # # # # # # # H         H H       H H   H   H H       H                                 #                             xb b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #                 *                   #   H H   H H O HTT H F   H   H H   H H   H H                               #                              b+b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #                 *               .   #   H   H     HTT H   H H   H   H H   H H H                                 #                              b b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #                 *                   # H   HTT H H   H F H     H   H H   H H   H                                 #                              b b b  #_ _ _ _d_ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #                 *                   # H   H H   H H   H   H HTT       H     H                               G                                  bxb b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _c_ _ _ _  #",
+    " #                 # , , , , , , , , # #   H   H     H   H   H H   H H H   H H H                                   #                              b b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " #                 # N M M M M M M M < # H   H   H     H   H   H   H   H     H H                                   #                              b b b  #_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _  #",
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #",
+    " #t2                                t2 #               *   *     *           #                                     # #     #   #         #           #   #                                     #",
+    " #     P P P P P P P P P P P P P P     #               *   *   * *           #                                     #   #     #   #   #     #     #     # #                                     #",
+    " #     P        . . .            P     # %             * *w3 *   *                                                 #               #     #     #   #     #                                     #",
+    " #     P        .  O.            P     #   %         *     *   *             #                                     # #     #   #       #     #       #                                   j jP0 #",
+    " #     P    . . ;c;o;c. .        P     #     %         * * * * *             #                                     #   #     #     #       #     #     # #- - - - - - - - - - - - - QeQ0Q0Q0Q0-#",
+    " #     P    .  F;ov2;o F. w2     P     #       %              v1             #                  R1                 #     #     #     #   #   #     #     #- - - - - - - - - - - - - - - - - - -#",
+    " #     P    . . ;c;o;c. .        P     #         %                           #                                     #       #     #     #       #     #           a                   #   j j   #",
+    " #     P        .  F.            P     #          =b      AA       # # # # # #                                     #   #     #     #       #     #     # #            **    Ph       #         #",
+    " #     P        . . .            P     #             %             #t3       #                                           #     #     #   #     #     #   #                    Pf     #         #",
+    " #     P P P P P P P P P P P P P P                     %           #         #                                     #   #   #       #   #     #     #     #          Pe  HH           #         #",
+    " #t2                                t2 #                 %         Q         #                                     # #         #         #       #       #                           #         #",
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #         #",
+    " #                                     #                                     #                                    -          X                           #- - - -                              #",
+    " #                                     #                                     #                                    -          X                       e   #- - - -                              #",
+    " #      w4                             P                                     #                                    -          X                           #- - - -                              #",
+    " #        v5v v 1                      #                                     #                                     #         X # # D - # = C # # # # # # #- t4- -                              #",
+    " #        > 3 1 <                      #                                     #                                     #         X         #                 #- - - -                              #",
+    " #        > 9 7 <                      #                  @@                 G                                     #         X         #                 #- - - -                              #",
+    " #        9 ^ ^ 7                      #                                     #                    YY               #         X         #    v41          #- - - -                              #",
+    " #                                     #                                     #                                     #         X         #    9 7          #- t5- -                              #",
+    " #                                     #                                     #                                     #         X         #                 #- - - -                              #",
+    " #                                     #                                     #                                     #         X         #        w5       #- - - -                              #",
+    " #                                     #                                     #                                     #                   P                 #- - - -                              #",
+    " # # # # # #   # # # # # # # # # # # # # # # # # # # B B B # # # # # # # # # # # # # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #=4 # # # # # # # #=5 # # # # #",
+    " #              - - - -                #                            - - - -  #            = = = =                  #                                     #       #   #             #   #       #",
+    " #              - - - -                #                       +  - - - - -  #            = = = =                  #                                     #   #   #   #   # # # #   #   #   #   #",
+    " #              - - - -                #                     +- - - - - - -  #              = = = =        +       #              Y0Y0Y0                 #   #   #   #   #         #   #   #   #",
+    " #              - - - -                #                   +  - - - - - - -  #              = = = =        +                      Y0 FY0                 #   #   #   #   #   # # # #   #   #   #",
+    " #              - - - -                #                 +- - - - - - - - -  #         +    = = = =                #          Y0Y0Y0  Y0Y0Y0             #   #       #   #             #   #   #",
+    " #           j  - - - -    j           #               +  - - - -#- - - - -  #       +        = = = =              #          Y0 F       OY0             #   # # # # #   # # # # # # # #   #   #",
+    " #              - - - -                #             +- - - - - -            #                = = = =              #          Y0Y0Y0  Y0Y0Y0             #           #                     #   #",
+    " #              - - - -                #              - - - - - -            #                = = = = =     c      #              Y0 FY0                 # # # # #   # # # # # # # # # # # #   #",
+    " #              - - - -                #          - - - - - - -              #                  = = = =            #              Y0Y0Y0,                #           #       #             #   #",
+    " #              - - - -                #        - - - - - - -          h     #                  = = = = =          #                                     #   # # # # #   #   #   # # # #   #   #",
+    " #              - - - -                #      - - - - - - - -                #                  = = = = =          #                                     #               #   #         #       #",
+    " # # # # # # # # # # # # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # #   # # # # # # # # # #   # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # P # # # #   # # # # #",
+    " # A A A A A A A A A A A A   A A A A A #                                     #             #                       #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~  #       P I~*~ ~ ~ ~  #",
+    " # A                                 A #                                     #             #   # # # # # # # # # # #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~  #         #~*~ ~ ~ ~  #",
+    " # A    3 v v v v v v v v v v 1      A #              :n. :n                 #             #   #       #   #   X   #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~  #    R2   #~ ~ ~ ~ ~  #",
+    " # A    > 3 v v v v v v v v 1 <      A #              .  F.                  #             #   #   X   #   #       #           / / / / / / / /           #~ ~ ~ ~ ~ ~ ~  #         #~ ~ ~ ~ ~  #",
+    " # A    > > 3 v v v v v v 1 < <      A #          :w. .  y. . :e             #             #   #   #   #   #   X   #           / / / / / / / /           #~ ~ ~ ~ ~ ~ ~  # # # # # #~ ~ ~ ~ ~  #",
+    " # A    > > >       BB    < < <      A #t6        .  F yc  y F.                            #   #   #   X   #   #   #           X / / / / / / /            ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # A    > > 9 ^ ^ ^ ^ ^ ^ 7 < <      A #          :w. .  y. . :e             #             #   X   #       #   #   #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # A    > 9 ^ ^ ^ ^ ^ ^ ^ ^ 7 <      A #              .  O.                  #             #       #   X   #   #               X / / / / / / /           #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # A    9 ^ ^ ^ ^ ^ ^ ^ ^ ^ ^ 7      A #              :s. :s                 #             #   X   #   #   #   #   #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # A                                 A #                                     #             #   #   #   #   X   #   #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # A A A A A A A A A A A A A A A A A A #                                     #             #   #   #   #       #   #           X / / / / / / /           #~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  #",
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #"})
+
+wo:add({"ot_rubberband", anchor1="horse", anchor2="anchor", strength=5, length=6})
+wo:add({"ot_counter", name="counter", state=0, target={"bridgesc1#*", "bridgesc2#*"}, action_3={"open", "close"}, action_4={"close", "open"}})
+wo:shuffleOxyd()
+
+function postinit()
+    local edge = st(no["panchor"] + W)
+    no["piece"]["connections"] = edge["connections"]
+    edge:kill()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

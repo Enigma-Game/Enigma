@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="66" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="67" title="Enigma VII"/>
 
   <attributes/>
 
@@ -105,7 +105,7 @@
     <level _seq="97" _title="Water Galore" _xpath="./ral49_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090620ral141" rel="1" rev="178" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Arctic Jumping" _xpath="./duffy168_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy168" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="The Green Hell" _xpath="./mecke22_2" author="mecke" ctrl="force" easy="true" id="mecke22" rel="2" rev="89" score="1" target="time" unit="duration"/>
-    <level _seq="100" _title="Temple of Gold" _xpath="./duffy151_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="3" rev="7" score="3" target="time" unit="duration"/>
+    <level _seq="100" _title="Temple of Gold" _xpath="./duffy151_4" author="Jacob Scott" ctrl="force" easy="true" id="duffy151" rel="4" rev="9" score="3" target="time" unit="duration"/>
   </levels>
 
 </index>

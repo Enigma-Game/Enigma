@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sierpinski" el:subtitle="" el:id="alain10"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -17,7 +17,8 @@ wo["FollowMethod"] = FOLLOW_SCROLL
 wo["FollowAction"] = FOLLOW_HALFSCREEN
 
 ti[" "] = {"fl_space"}
-ti["-"] = {"fl_blueslab", name="path#"}
+ti["-"] = {"fl_metal_2", name="path#"}
+ti[","] = {"fl_metal_6", name="path#"}
 ti["O"] = {"st_oxyd", flavor="a"}
 ti["@"] = {"#ac_marble"}
 wo(ti, " ", 150, 100)
@@ -33,41 +34,41 @@ end
 function draw_part()
     wo[pos] = ti["-"]
     pos = pos + dir
-    wo[pos] = ti["-"]
+    wo[pos] = ti[","]
     pos = pos + dir
 end
 
 function sierpinski(lev)
     if lev == 1 then
-	draw_part()
-	dir = turn_ccw(dir)
-	draw_part()
-	dir = turn_cw(dir)
-	draw_part()
-	dir = turn_cw(dir)
-	draw_part()
-	draw_part()
-	dir = turn_ccw(dir)
-	draw_part()
-	dir = turn_ccw(dir)
-	draw_part()
-	dir = turn_cw(dir)
-	draw_part()
+        draw_part()
+        dir = turn_ccw(dir)
+        draw_part()
+        dir = turn_cw(dir)
+        draw_part()
+        dir = turn_cw(dir)
+        draw_part()
+        draw_part()
+        dir = turn_ccw(dir)
+        draw_part()
+        dir = turn_ccw(dir)
+        draw_part()
+        dir = turn_cw(dir)
+        draw_part()
     else
-	sierpinski(lev-1)
-	dir = turn_ccw(dir)
-	sierpinski(lev-1)
-	dir = turn_cw(dir)
-	sierpinski(lev-1)
-	dir = turn_cw(dir)
-	sierpinski(lev-1)
-	sierpinski(lev-1)
-	dir = turn_ccw(dir)
-	sierpinski(lev-1)
-	dir = turn_ccw(dir)
-	sierpinski(lev-1)
-	dir = turn_cw(dir)
-	sierpinski(lev-1)
+        sierpinski(lev-1)
+        dir = turn_ccw(dir)
+        sierpinski(lev-1)
+        dir = turn_cw(dir)
+        sierpinski(lev-1)
+        dir = turn_cw(dir)
+        sierpinski(lev-1)
+        sierpinski(lev-1)
+        dir = turn_ccw(dir)
+        sierpinski(lev-1)
+        dir = turn_ccw(dir)
+        sierpinski(lev-1)
+        dir = turn_cw(dir)
+        sierpinski(lev-1)
     end
 end
 

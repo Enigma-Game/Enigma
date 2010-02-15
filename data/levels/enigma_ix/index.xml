@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="22" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma IX"/>
 
   <attributes/>
 
@@ -18,7 +18,7 @@
     <level _seq="10" _title="Speed Meditation" _xpath="./duffy148_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy148" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Bicolor" _xpath="./devnull31_1" author="/dev/null" ctrl="force" easy="false" id="devnull31" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Perennial Creek" _xpath="./pulley20_2" author="Mark Pulley" ctrl="force" easy="true" id="20080614pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="13" _title="Tour de France" _xpath="./mecke04_1" author="mecke" ctrl="force" easy="false" id="mecke04" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Tour de France" _xpath="./mecke04_1" author="mecke" ctrl="force" easy="false" id="mecke04" rel="1" rev="14" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Floodoban" _xpath="./luc37_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc372009" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Escape in Chains" _xpath="./duffy184_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy184" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Nabokos" _xpath="./ais12_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523003" rel="1" rev="4" score="1" target="time" unit="duration"/>
@@ -53,7 +53,8 @@
     <level _seq="45" _title="Choices, choices ..." _xpath="./ais08_1" author="Alex Smith" ctrl="force" easy="true" id="20090508ais523001" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Puzzle Shift" _xpath="./zephyr01_1" author="Zephyr" ctrl="force" easy="false" id="zephyr01" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Zero Magnetism Lab II" _xpath="./duffy185_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy185" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Suckerfish I" _xpath="./devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Suckerfish I" _xpath="./devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Splinter" _xpath="./devnull66_1" author="/dev/null" ctrl="force" easy="false" id="devnull66" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

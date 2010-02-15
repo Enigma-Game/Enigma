@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma II"/>
+  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma II"/>
 
   <attributes/>
 
@@ -28,7 +28,7 @@
     <level _seq="20" _title="- Meditation -" _xpath="./andreas17_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas17" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Growing Boxes" _xpath="./luc26_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Kaleidoscope" _xpath="./duffy118_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy118" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Enigmastermind" _xpath="./alain16_2" author="Alain Busser" ctrl="force" easy="false" id="alain16" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Enigmastermind" _xpath="./alain16_2" author="Alain Busser" ctrl="force" easy="false" id="alain16" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Gopher It" _xpath="./nat34_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze3" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Look Closely" _xpath="./martin102_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin102" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Arcoculture" _xpath="./ant17_1" author="Petr Machata" ctrl="force" easy="false" id="ant17" rel="1" rev="0" score="1" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma IV"/>
 
   <attributes/>
 
@@ -23,7 +23,7 @@
     <level _seq="15" _title="Graduated Puzzles" _xpath="./duffy94_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy94" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Running Stone" _xpath="./christophanita01_2" author="Christoph &amp; Anita" ctrl="force" easy="false" id="christophanita_runningstone" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="17" _title="Flood Gates" _xpath="./nat08_2" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Sierpinski" _xpath="./alain10_2" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="18" _title="Sierpinski" _xpath="./alain10_2" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="19" _title="Labyrinth of Puzzles" _xpath="./duffy35_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy35" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Meditation Puzzle" _xpath="./duffy01_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy1" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="NO Trespassing" _xpath="./martin104_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin104" rel="2" rev="1" score="1" target="time" unit="duration"/>

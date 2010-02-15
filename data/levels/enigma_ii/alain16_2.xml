@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Enigmastermind" el:subtitle="" el:id="alain16"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
       <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -28,11 +28,11 @@ ti["d"] = {"fl_sahara", name="c_%4", _id=4}
 ti["e"] = {"fl_sand", name="c_%5", _id=5}
 ti["f"] = {"fl_redslab", name="c_%6", _id=6}
 ti["colchooser"] = {"st_switch", name="chooser_c_%%", target="color_chooser", _col="c_%%", _col_choosen=false}
-ti["poschooser"] = {"st_switch", name="chooser_p_%%", target="set_color", _pos="p_%%", _pos_used=false}
+ti["poschooser"] = {"st_switch", name="chooser_p_%%", target="set_color", _col=""}
 ti["X"] = {"st_switch", name="evaluator", target="evaluate", _rounds=5, _active=true}
 ti["="] = {"st_door", name="thedoor", flavor="d", faces="ew"}
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble", name="ball", _col="c_%1", _col_already_used=false}
+ti["@"] = {"#ac_marble", name="ball", _col="c_%1", _col_used=false}
 
 wo(res.autotile(ti, {"A", "F", "colchooser"}, {"1", "4", "poschooser"})," ",{
     "#O#O#O#O#O#O########",
@@ -55,25 +55,26 @@ local colors = {"fl_water", "fl_lawn", "fl_red", "fl_sahara", "fl_sand", "fl_red
 
 function color_chooser(value, sender)
     if not sender["_col_choosen"] then
-        wo[no["chooser_"..no["ball"]["_col"]] + E] = {"st_nil"}
-        no["ball"]["_col"] = sender["_col"]
-        no["ball"]["_col_already_used"] = false   -- player has choosen a new color
-        wo[sender + E] = {"st_lightglass"}
+        wo[no["marker"]] = {"st_nil"}
+        wo[sender + E] = {"st_lightglass", name="marker"}
+        no["ball"]["_col"] = sender["_col"]    -- store the color choosen
+        no["ball"]["_col_used"] = false        -- and assure its not used yet
     end
 end
 
 function set_color(value, sender)
-    if no["evaluator"]["_active"] and not sender["_pos_used"] and not no["ball"]["_col_already_used"] then
-        sender["_pos_used"] = true                                  -- mark the choosen position as used
-        no["chooser_"..no["ball"]["_col"]]["_col_choosen"] = true   -- mark the choosen color as used
-        no["ball"]["_col_already_used"] = true                      -- every color can be set only once
+    if no["evaluator"]["_active"] and not no["ball"]["_col_used"] then
+        no["chooser_"..sender["_col"]]["_col_choosen"] = false       -- reallow the overwritten color if any
+        no["chooser_"..no["ball"]["_col"]]["_col_choosen"] = true    -- mark the choosen color as used
+        sender["_col"] = no["ball"]["_col"]                          -- store the current color at senders position
         wo[sender + 2*no["evaluator"]["_rounds"]*W + W] = {colors[no[no["ball"]["_col"]]["_id"]], name="guess_"..no["evaluator"]["_rounds"].."_#"}
+        no["ball"]["_col_used"] = true                               -- every color can be set only once
     end
 end
 
 function evaluate(value, sender)
     if #no["guess_"..sender["_rounds"].."_#*"] ~= 4 then
-        return   -- only operate on a full guess
+        return    -- only operate on a full guess
     end
     if sender["_active"] then
         -- check user guess
@@ -95,7 +96,7 @@ function evaluate(value, sender)
                 end
             end
         end
-        -- give feedbac
+        -- give feedback
         local k = 0
         for i=1, correct_pos do
             wo[anchorpos + 5*S + k*S] = {"st_break_black"}
@@ -110,18 +111,18 @@ function evaluate(value, sender)
             sender["_active"] = false
             no["thedoor"]:open()
         elseif sender["_rounds"] == 0 then
-	    -- no more tries left, game over and print solution
-	    sender["_active"] = false
-	    for i=1,4 do
-		wo[sender + 5*E + (5-i)*N] = {solution[i]}
-	    end
-	    wo[no["thedoor"]] = {"st_death"}
-	else
-            -- prepare for next round
+            -- no more tries left, game over and print solution
+            sender["_active"] = false
+            for i=1,4 do
+                wo[sender + 5*E + (5-i)*N] = {solution[i]}
+            end
+            wo[no["thedoor"]] = {"st_death"}
+        else
+            -- some tries left, prepare for next round
             sender["_rounds"] = sender["_rounds"] -1
-	    no["chooser_c*"]["_col_choosen"] = false
-	    no["chooser_p*"]["_pos_used"] = false
-	    no["ball"]["_col_already_used"] = false
+            no["chooser_c*"]["_col_choosen"] = false
+            no["chooser_p*"]["_col"] = ""
+            no["ball"]["_col_used"] = false
         end
     end
 end
@@ -129,7 +130,7 @@ end
 -- set up game
 local perm = lib.math.permutation(6)
 solution = {colors[perm[1]], colors[perm[2]], colors[perm[3]], colors[perm[4]]}
-wo[no["chooser_"..no["ball"]["_col"]] + E] = {"st_lightglass"}
+wo[no["chooser_"..no["ball"]["_col"]] + E] = {"st_lightglass", name="marker"}
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

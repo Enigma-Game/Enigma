@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Suckerfish I" el:subtitle="" el:id="devnull51"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009, 2010 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="true">Valuable improvements (coding, layout, design) by Raoul Bourquin. Thanks alot.</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Valuable improvements (coding, layout, design) by Raoul Bourquin. Thanks alot.</el:credits>
       </el:comments>
       <el:score el:easy="-" el:difficult="12:34"/>
     </el:info>
@@ -110,15 +110,15 @@ wo(res.composer(resAutotile), "  ", {
     " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
     " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
     " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
-    " . .k4    F       B6F       F  . . . . . . . .      f               f f W7 . .",
-    " . .  ts      F   F     F      . . . . . . . .  F F F F H F F F F F F H H Z. .",
-    " . .  te  S s.   .f   F        . .V4 . . .V1 .  H F Hwf H F H H H H F H kYZ. .",
-    " . .       .   .T.teF     F    . . ; ;Mel; ; .F H F F H H F H F F F F H   Z. .",
-    " . .   .  S. .  ts   .  < H<      v6 . . .v3  DyHdH F F H H H F H H F F m Z. .",
-    " . . .T. . .   . .  F     F    . . ;l;Mw ; ; .F F H H F H H F F F H F H   Z. .",
-    " . .   .s.S     + f  .F        . .V0 . . .V5 .  F F H F F H H H H H F H k2Z. .",
-    " . . . .   .  F   F     F      . . . . . . . .  F H H H F F H F F F F H H Z. .",
-    " . .k3    F       W5F       F  . . . . . . . .      F               F f B8 . .",
+    " . .k4    F       B6F       F  . . . . . . . .      f         f     f f W7 . .",
+    " . .   .      F   F     F      . . . . . . . .f F F F F f F F F F F F H H Z. .",
+    " . .  te  S s.   .f   F        . .V4 . . .V1 .  H F H f H F H H H H F H kYZ. .",
+    " . .       .   .T.teF     F    . . ; ;Mel; ; .F H F F H f F f F F F F H   Z. .",
+    " . .   .  S. .  ts   .  < H<      v6 . . .v3  DyHdH F F H H H mwf.H F F m Z. .",
+    " . . .T. . .   . .  F     F    . . ;l;Mw ; ; .F F H H F H f F F F H F H   Z. .",
+    " . .   .s.S     + f  .F        . .V0 . . .V5 .  F F H F F H H f H H F H k2Z. .",
+    " . . . .   .  F   F     F      . . . . . . . .f F H H H F F H F F F F H H Z. .",
+    " . .k3    F       W5F       F  . . . . . . . .      F         f     F f B8 . .",
     " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .",
     " . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ."})
  ]]></el:luamain>
