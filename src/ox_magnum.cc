@@ -254,7 +254,7 @@ const char *oxyd::oxydmag_stone_map[256] = {
     "st_purplemarble",          // OxydMagnum stone 0x87 (was st-rock1, but the pic has straight edges and surfaces)
     0,                          // OxydMagnum stone 0x88 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
     0,                          // OxydMagnum stone 0x89 (Level 121 ?)(in normal Oxyd Magnum Levels unused!)
-    "st_brownpyramide",         // OxydMagnum stone 0x8a
+    "st_brownpyramid",         // OxydMagnum stone 0x8a
     "st_purplegray",            // OxydMagnum stone 0x8b
     "st_passage_white_square",  // OxydMagnum stone 0x8c
     "st_passage_black_square",  // OxydMagnum stone 0x8d

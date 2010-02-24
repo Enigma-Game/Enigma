@@ -286,7 +286,7 @@ const char *oxyd::oxyd1_stone_map[256] = {
     "st_darkgray",              // Oxyd1 stone 0x87
     UNUSED,                     // Oxyd1 stone 0x88
     UNUSED,                     // Oxyd1 stone 0x89
-    "st_brownpyramide",         // Oxyd1 stone 0x8a
+    "st_brownpyramid",         // Oxyd1 stone 0x8a
     "st_bluesand",              // Oxyd1 stone 0x8b
     "st_passage_white_square",  // Oxyd1 stone 0x8c
     "st_passage_black_square",  // Oxyd1 stone 0x8d

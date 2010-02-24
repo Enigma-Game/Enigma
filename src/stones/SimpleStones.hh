@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2008 Andreas Lochmann
- * Copyright (C) 2008,2009 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -56,12 +56,12 @@ namespace enigma {
     };
     
     /** 
-     * BrownPyramide
+     * BrownPyramid
      */
-    class BrownPyramide : public Stone {
-        CLONEOBJ(BrownPyramide);
+    class BrownPyramid : public Stone {
+        CLONEOBJ(BrownPyramid);
     public:
-        BrownPyramide();
+        BrownPyramid();
         
          // Object interface
         virtual std::string getClass() const;

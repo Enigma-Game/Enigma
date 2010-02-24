@@ -889,7 +889,7 @@ do
     DefStone("st_ancient", "sh_round")
     DefStone("st_brownmarble")
     DefStone("st_rubberband", "sh_round")
-    DefStone("st_brownpyramide")
+    DefStone("st_brownpyramid")
     DefStone("st_redmarble")
     DefStone("st_surprise", "sh_round")
     DefStone("st_passage_white_square", "sh_round")
@@ -1987,8 +1987,7 @@ do
         display.DefineComposite("st_barrier_"..it.."_fg", stonebase, it)
         DefShModel("st_barrier_"..it, "st_barrier_"..it.."_fg", "sh_solid")
     end
-    display.DefineComposite("st_barrier_all_fg", stonebase, "it_dummy")
-    DefShModel("st_barrier_all", "st_barrier_all_fg", "sh_solid")
+    DefShModel("st_barrier_all", stonebase, "sh_solid")
 end
 
 --------------------------------------------------------------------------------

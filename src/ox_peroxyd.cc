@@ -344,7 +344,7 @@ const char *oxyd::peroxyd_stone_map[256] = {
     "st_blocker",               // PerOxyd stone 0x99
     "st_grate_cross",           // PerOxyd stone 0x9a
     "st_metal_hollow",          // PerOxyd stone 0x9b
-    "st_brownpyramide",         // PerOxyd stone 0x9c
+    "st_brownpyramid",          // PerOxyd stone 0x9c
     "st_quake",                 // PerOxyd stone 0x9d
     "st_turnstile_red",         // PerOxyd stone 0x9e
     "st_turnstilearm_n",        // PerOxyd stone 0x9f

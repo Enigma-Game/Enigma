@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
  * Copyright (C) 2008 Andreas Lochmann
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -87,15 +87,15 @@ namespace enigma {
         }
     }
 
-/* -------------------- BrownPyramide stone -------------------- */
-    BrownPyramide::BrownPyramide() : Stone ("st_brownpyramide") {
+/* -------------------- BrownPyramid stone -------------------- */
+    BrownPyramid::BrownPyramid() : Stone ("st_brownpyramid") {
     }
     
-    std::string BrownPyramide::getClass() const {
-        return "st_brownpyramide";
+    std::string BrownPyramid::getClass() const {
+        return "st_brownpyramid";
     }
 
-    Value BrownPyramide::message(const Message &m) {
+    Value BrownPyramid::message(const Message &m) {
         if (m.message == "_cannonball") {
             KillStone(get_pos());
             return Value();
@@ -335,7 +335,7 @@ namespace enigma {
         BootRegister(new BlurStone(0), "st_blur_straight");
         BootRegister(new BlurStone(1), "st_blur_cross");
         BootRegister(new BlurStone(2), "st_blur_magic");
-        BootRegister(new BrownPyramide(), "st_brownpyramide");
+        BootRegister(new BrownPyramid(), "st_brownpyramid");
         BootRegister(new ChargeStone(0.0), "st_charge");
         BootRegister(new ChargeStone(0.0), "st_charge_zero");
         BootRegister(new ChargeStone(1.0), "st_charge_plus");

@@ -146,7 +146,7 @@ SIMPLEPNG = \
 	st_brick_d.png st_brick_d2.png st_brick_d3.png st_brick_d4.png \
 	st_brownie.png \
 	st_brownmarble.png \
-	st_brownpyramide.png \
+	st_brownpyramid.png \
 	st_camouflage.png \
 	st_charge_minus.png \
 	st_charge_plus.png \
