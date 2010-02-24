@@ -13010,6 +13010,10 @@ The length smaller than the natural length below which inverted forces are appli
 The minimum length at which actors bounce.
 @item @b{max} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
+@item @b{scissor} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
+Rubberband cutting behaviour on connection. On a value of @code{true} the 
+activation of this rubberband will cut all existing rubberbands which are
+currently connected to the activating actor.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
 @item @b{liftable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{liftable}
 @item @b{portable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{portable}
@@ -14584,7 +14588,7 @@ Switches the wormhole off.
 @tab @image{images/st_brick, 12mm} @tab @yref{st_brick}
 @item @image{images/st_brownie, 12mm} @tab @yref{st_brownie}
 @tab @image{images/st_brownmarble, 12mm} @tab @yref{st_brownmarble}
-@tab @image{images/st_brownpyramide, 12mm} @tab @yref{st_brownpyramide}
+@tab @image{images/st_brownpyramid, 12mm} @tab @yref{st_brownpyramid}
 @item @image{images/st_camouflage, 12mm} @tab @yref{st_camouflage}
 @tab @image{images/st_charge_minus, 12mm} @tab @yref{st_charge}_minus
 @tab @image{images/st_charge_plus, 12mm} @tab @yref{st_charge}_plus
@@ -15332,7 +15336,7 @@ to use @samp{st_panel} with the attributes @samp{cluster} and @samp{faces}.
 * st_box::             Movable, Floor building Box
 * st_brake::           Brake for moving Boulders
 * st_break::           Breakable Stone of various Flavors
-* st_brownpyramide::   Brown gray pyramid shaped stone
+* st_brownpyramid::   Brown gray pyramid shaped stone
 * st_chameleon::       Floor Mimic
 * st_charge::          Electrical Charger
 * st_chess::           Movable Chess Knight Stone
@@ -15902,10 +15906,10 @@ Break stone with exception of flavor @code{"bug"}.
 
 @end table
 
-@c ----------------- Brownpyramide Stone --------------------
-@node st_brownpyramide
-@subsection st_brownpyramide
-@obindex st_brownpyramide
+@c ----------------- Brownpyramid Stone --------------------
+@node st_brownpyramid
+@subsection st_brownpyramid
+@obindex st_brownpyramid
 
 A brown gray pyramid shaped stone. This stone is just standard stone besides
 the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
@@ -15914,7 +15918,7 @@ the fact that it can be destroyed by an @ref{ot_cannonball} emitted by an
 @table @asis
 @item @b{Variants:}
 @table @asis
-@item @image{images/st_brownpyramide, 12mm} @b{st_brownpyramide}
+@item @image{images/st_brownpyramid, 12mm} @b{st_brownpyramid}
 @end table
 @end table
 
@@ -18585,7 +18589,7 @@ speed. On landing they cause actions on some objects and destroy others:
 @item @ref{st_stoneimpulse} do pulse,
 @item @ref{st_yinyang} do toggle,
 @item @ref{st_puzzle} do explode completely connected clusters,
-@item @ref{st_brownpyramide} do break,
+@item @ref{st_brownpyramid} do break,
 @item @ref{st_spitter} do break, if not being @samp{secure}
 @item other stones do remain unmodified and protect items and floors,
 @item @ref{it_dynamite} do ignite,
@@ -18612,7 +18616,7 @@ a sequence of @samp{hit} actions.
 Note that the destruction of target objects can have unexpected side effects
 on the destination sequence. If you list three @ref{st_stoneimpulse} as
 destinations they will be targeted in the given sequence as none of them
-gets destroyed. But if you list three @ref{st_brownpyramide} the first
+gets destroyed. But if you list three @ref{st_brownpyramid} the first
 cannonball destroys the first target, leaving two valid destinations. The
 spitter now targets the second target of its list, which happens to evaluate
 to the third brown pyramid stone. Finally the destination list has just one
@@ -25618,7 +25622,7 @@ them (see @code{oxyd1}-compatibility).
 @item @b{st-stoneimpulse-hollow} @expansion{} @code{st_stoneimpulse_hollow}, @pxref{st_stoneimpulse}
 @item @b{st-stoneimpulse_movable} @expansion{} @code{st_stoneimpulse_movable}, @pxref{st_stoneimpulse}
 @need 200
-@item @b{st-stone1} @expansion{} @ref{st_brownpyramide}
+@item @b{st-stone1} @expansion{} @ref{st_brownpyramid}
 @item @b{st-stone2} @expansion{} @ref{st_redmarble}
 @item @b{st-stone_break} @expansion{} @code{st_break_oxydc}, @pxref{st_break}
 @item @b{st-surprise} @expansion{} @ref{st_surprise}
