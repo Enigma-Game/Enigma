@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Fifty Years Later ..." el:subtitle="Survival Training in wasted Landscapes ..." el:id="mecke23"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 41 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 42 $" el:status="released"/>
       <el:author  el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -44,7 +44,7 @@ ti["# "] = {"st_greenbrown"}
 ti["0 "] = {"st_brownie"}
 ti["1 "] = {"st_redbrown"}
 ti["4 "] = {"st_darkglass_hollow"}
-ti["5 "] = {"st_brownpyramide"}
+ti["5 "] = {"st_brownpyramid"}
 ti["6 "] = {"st_metal"}
 ti["7 "] = {"st_yellow"}
 ti["8 "] = {"st_beads"}

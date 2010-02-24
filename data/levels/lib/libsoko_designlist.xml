@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="library">
       <el:identity el:title="" el:id="lib/libsoko_designlist"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author el:name="Enigma Team" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007, 2008, 2009 Enigma Team</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -1118,9 +1118,9 @@ lib.soko_designlist.list = {
                  alg = "block"}},
 [115] = {inf = {"fl_platinum", "fl_bright", res = RESOLVE_CHECKERBOARD},
          outf = {"fl_space", "fl_abyss", res = RESOLVE_CHECKERBOARD},
-         wall = "st_brownpyramide",
+         wall = "st_brownpyramid",
          box = "st_darkglass_movable",
-         door = "st_brownpyramide",
+         door = "st_brownpyramid",
          open_door = "st_grate_cross",
          oxyd = "a",
          endp = {wall = "st_grate_cross",
@@ -1129,16 +1129,16 @@ lib.soko_designlist.list = {
                  alg = "block"}},
 [116] = {inf = "fl_wood_framed",
          outf = "fl_water",
-         wall = "st_brownpyramide",
+         wall = "st_brownpyramid",
          box = "st_granite_movable",
-         door = "st_brownpyramide",
+         door = "st_brownpyramid",
          open_door = "st_grate_cross",
          oxyd = "b",
          endp = {goal = "st_granite_hollow",
                  alg = "ralf"}},
 [117] = {inf = "fl_dark",
-         outf = "st_brownpyramide",
-         wall = "st_brownpyramide",
+         outf = "st_brownpyramid",
+         wall = "st_brownpyramid",
          box = "st_rawglass_movable",
          door = "st_door_a",
          oxyd = "d",
@@ -1336,7 +1336,7 @@ lib.soko_designlist.list = {
                  alg = "ralf"}},
 [140] = {inf = ti{"fl_bast", friction = 3.0},
          outf = {"fl_lawn_e4", "fl_lawn_e2", "fl_lawn_e1", "fl_lawn_e3", res = RESOLVE_WAVES},
-         wall = {"st_brownpyramide", "fl_lawn_b"},
+         wall = {"st_brownpyramid", "fl_lawn_b"},
          box = "st_brownie",
          door = "st_door_a",
          oxyd = "d",

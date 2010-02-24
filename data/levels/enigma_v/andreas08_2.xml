@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tropical Island" el:subtitle="" el:id="andreas08"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -44,7 +44,7 @@ ti["B"] = ti[":"] .. {"st_brownie"}
 ti["G"] = ti[":"] .. {"st_greenbrown"}
 ti["H"] = ti["_"] .. {"st_greenbrown"}
 ti["I"] = ti["."] .. {"st_greenbrown"}
-ti["P"] = ti["_"] .. {"st_brownpyramide"}
+ti["P"] = ti["_"] .. {"st_brownpyramid"}
 ti["X"] = ti["-"] .. ti({"st_grate_cross"})
 ti["s"] = ti[":"] .. {"it_seed"}
 ti["t"] = ti["_"] .. {"#ac_top", range = 10, strength = 10, gohome = false}

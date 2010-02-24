@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="23" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="24" title="Enigma IX"/>
 
   <attributes/>
 
@@ -24,7 +24,7 @@
     <level _seq="16" _title="Nabokos" _xpath="./ais12_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523003" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Behind Glass" _xpath="./rudolf01_1" author="Rudolf" ctrl="force" easy="false" id="rudolf01" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Flashback" _xpath="./devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Carcassonne" _xpath="./mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Carcassonne" _xpath="./mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Hide them" _xpath="./devnull44_1" author="/dev/null" ctrl="force" easy="false" id="devnull44" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Oh nO" _xpath="./devnull43_1" author="/dev/null" ctrl="force" easy="false" id="devnull43" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Across the Waterbyss" _xpath="./harry03_1" author="daydreamer" ctrl="force" easy="false" id="harry03" rel="1" rev="4" score="1" target="time" unit="duration"/>

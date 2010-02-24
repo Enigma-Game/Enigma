@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="50" title="Enigma V"/>
+  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma V"/>
 
   <attributes/>
 
@@ -40,7 +40,7 @@
     <level _seq="32" _title="Walk The Plank" _xpath="./nat04_1" author="Nat Pryce" ctrl="force" easy="false" id="nat4" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Pirates Island" _xpath="./alain07_1" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Island of Safety" _xpath="./duffy27_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy27" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="35" _title="Tropical Island" _xpath="./andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Tropical Island" _xpath="./andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Shipwreck" _xpath="./nat33_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze2" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Ghost Islands" _xpath="./raoul15_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="38" _title="Reach the Dock" _xpath="./duffy119_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy119" rel="2" rev="2" score="1" target="time" unit="duration"/>

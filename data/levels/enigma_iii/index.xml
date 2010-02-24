@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="40" title="Enigma III"/>
+  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="41" title="Enigma III"/>
 
   <attributes/>
 
@@ -62,7 +62,7 @@
     <level _seq="54" _title="White Contrast" _xpath="./illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Tricks" _xpath="./duffy84_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy84" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Space Fishing" _xpath="./martin73_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin73" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="57" _title="Manamana" _xpath="./just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Manamana" _xpath="./just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Sacrifice" _xpath="./duffy49_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy49" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Double-Maze" _xpath="./duffy09_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy9" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Bad Flowers" _xpath="./nat30_2" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="2" rev="4" score="2" target="time" unit="duration"/>
@@ -88,7 +88,7 @@
     <level _seq="80" _title="Lock Them In" _xpath="./duffy26_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Remote Control" _xpath="./luc22_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc22" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="82" _title="Walk the Dog" _xpath="./luc04_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc04" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="83" _title="In Sync" _xpath="./daniel06_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="83" _title="In Sync" _xpath="./daniel06_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel6" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="84" _title="Tilt Control" _xpath="./duffy66_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy66" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="85" _title="Lost In Space" _xpath="./martin90_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Triple Threat" _xpath="./illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>

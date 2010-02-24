@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="56" title="Enigma IV"/>
 
   <attributes/>
 
@@ -49,7 +49,7 @@
     <level _seq="41" _title="Block the Way" _xpath="./raywick03_4" author="Ray Wick" ctrl="force" easy="true" id="RayWick003" rel="4" rev="4" score="4" target="time" unit="duration"/>
     <level _seq="42" _title="The Race" _xpath="./duffy11_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy11" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="43" _title="Limited Supplies" _xpath="./duffy130_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy130" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="Patterns of Impulse" _xpath="./andreas11_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas11" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="Patterns of Impulse" _xpath="./andreas11_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas11" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Ball and Chain" _xpath="./duffy41_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy41" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Stay There!" _xpath="./ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="47" _title="Just Moving Blocks?" _xpath="./duffy05_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy5" rel="2" rev="4" score="2" target="time" unit="duration"/>
@@ -82,7 +82,7 @@
     <level _seq="74" _title="Seed Puzzle 2" _xpath="./duffy93_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy93" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="75" _title="Electrickery" _xpath="./nat17_2" author="Nat Pryce" ctrl="force" easy="false" id="nat17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="Speed Jump" _xpath="./duffy44_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy44" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="77" _title="Bolder Run" _xpath="./just02_2" author="JuSt" ctrl="force" easy="false" id="just02" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="77" _title="Bolder Run" _xpath="./just02_2" author="JuSt" ctrl="force" easy="false" id="just02" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="Excruciating" _xpath="./duffy90_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy90" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Cannonball" _xpath="./ant11_1" author="Petr Machata" ctrl="force" easy="false" id="ant11" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Electric Funeral" _xpath="./ss15_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss15" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -90,9 +90,9 @@
     <level _seq="82" _title="Laser Pushing" _xpath="./just04_2" author="JuSt" ctrl="force" easy="false" id="just04" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Friction Nightmare" _xpath="./luc01_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc01" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Prison Yard" _xpath="./nat20_1" author="Nat Pryce" ctrl="force" easy="true" id="nat20" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="85" _title="Bad Nightmare" _xpath="./duffy117_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy117" rel="3" rev="5" score="2" target="time" unit="duration"/>
+    <level _seq="85" _title="Bad Nightmare" _xpath="./duffy117_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy117" rel="3" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="86" _title="Laser Games" _xpath="./mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="10" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Worse Nightmare" _xpath="./duffy124_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy124" rel="3" rev="5" score="2" target="time" unit="duration"/>
+    <level _seq="87" _title="Worse Nightmare" _xpath="./duffy124_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy124" rel="3" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="88" _title="Squaring the Circle" _xpath="./nat16_2" author="Nat Pryce" ctrl="force" easy="true" id="nat16" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Pain" _xpath="./ant27_2" author="Petr Machata" ctrl="force" easy="false" id="ant27" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="Drunkard's Walk" _xpath="./duffy105_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy105" rel="2" rev="2" score="2" target="time" unit="duration"/>

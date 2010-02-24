@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Carcassonne" el:subtitle="Inside the castle" el:id="mecke40"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:22 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:23 $" el:status="released"/>
       <el:author el:name="mecke" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -39,7 +39,7 @@ ti[" '"] = {"fl_space"}
 ti[" &"] = {"fl_rough"}
 ti[" $"] = {"fl_swamp"}
 ti[" #"] = {"fl_water"}
-ti["! "] = {"st_brownpyramide"}
+ti["! "] = {"st_brownpyramid"}
 ti["# "] = {"st_purplegray"}
 ti["$ "] = {"st_redmarble"}
 ti["% "] = {"st_passage_black_frame"}

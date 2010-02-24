@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Bad Nightmare" el:subtitle="" el:id="duffy117"/>
-      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:version el:score="2" el:release="3" el:revision="6" el:status="released"/>
       <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,7 +25,7 @@ end
 
 ti[" "] = {"fl_blueslab"}
 ti[":"] = {"fl_space"}
-ti["#"] = {"st_brownpyramide"}
+ti["#"] = {"st_brownpyramid"}
 ti["X"] = {"st_death"}
 ti["Q"] = {"st_break_oxydc"}
 ti["^"] = {"st_boulder_n"}
@@ -44,7 +44,7 @@ ti["o"] = {"st_oxyd"} .. ti[":"]
 ti["k"] = {"#ac_top", range = 6 ,strength = 10}
 ti["@"] = {"#ac_marble_black"}
 
-w, h = wo(ti, " ", {
+wo(ti, " ", {
     "#######################################XXXXXXXXXXXXXXXXXXX",
     "#           #..  ..#. . . . . . x . . #    XX      X     X",
     "#  l        #..  ..# . . . . . . . . .#            X     X",
