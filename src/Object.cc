@@ -224,7 +224,7 @@ namespace enigma {
             if (key.find('_') != 0) 
                 result = ObjectValidator::instance()->validateAttributeWrite(this, key, val);
             if (result == VALID_OK) {
-                if (key == "destination" || key.find("target") == 0)
+                if (key == "destination" || key.find("target") == 0 || key.find("anchor") == 0)
                      if (val.maybeNearestObjectReference())
                          objFlags |= OBJBIT_INIT; 
                 setAttr(key, val);
@@ -427,13 +427,18 @@ namespace enigma {
             modified |= (*tit).finalizeNearestObjectReference(this);
         }
         if (modified) {
-            setAttr(attr, targets);
+            if (attr.find("anchor") == 0) {
+                setAttr(attr, targets.front());  // do not store as token to allow direct object access
+            } else
+                setAttr(attr, targets);
         }
     }
     
     void Object::finalizeNearestObjectReferences() {
         finalizeNearestObjectReferences("target");
         finalizeNearestObjectReferences("destination");
+        finalizeNearestObjectReferences("anchor1");
+        finalizeNearestObjectReferences("anchor2");
         int min = getAttr("$minState");
         int max = getAttr("$maxState");
         for (int i = min; i <= max; i++) {
