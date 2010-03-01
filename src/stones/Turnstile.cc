@@ -321,29 +321,18 @@ namespace enigma {
                      ac_target_pos.y + 0.5 + (clockwise ? offset[0] : -offset[0]), false);
 
             if (Stone *st = GetStone(ac_target_pos)) {
-
                 // destination is blocked
-
                 TurnstileArm *arm = dynamic_cast<TurnstileArm*>(st);
                 if (arm && !compatible) { // if blocking stone is turnstile arm -> hit it!
-                    const int impulse_dir[2][8] = {
+                    ASSERT(idx_target % 2 == 0, XLevelRuntime, "Turnstile tried to warp actor aside of pivot.");
+                    const Direction impulse_dir[2][4] = {
                         // anticlockwise
-                        { SOUTHBIT|WESTBIT, WESTBIT, NORTHBIT|WESTBIT, NORTHBIT,
-                          NORTHBIT|EASTBIT, EASTBIT, SOUTHBIT|EASTBIT, SOUTHBIT },
-                        // clockwise
-                        { NORTHBIT|EASTBIT, EASTBIT, SOUTHBIT|EASTBIT, SOUTHBIT,
-                          SOUTHBIT|WESTBIT, WESTBIT, NORTHBIT|WESTBIT, NORTHBIT }
+                        { WEST, NORTH, EAST, SOUTH},
+                        // clockwise                   
+                        { NORTH, EAST, SOUTH, WEST},
                     };
 
-                    DirectionBits possible_impulses =
-                        static_cast<DirectionBits>(impulse_dir[clockwise][idx_target]);
-
-                    for (int d = 0; d<4; ++d)
-                        if (has_dir(possible_impulses, Direction(d)))
-                            ac->send_impulse(ac_target_pos, Direction(d));
-
-    //                 if (GetStone(ac_target_pos) == 0)  // arm disappeared
-    //                     break;
+                    ac->send_impulse(ac_target_pos, impulse_dir[clockwise][idx_target/2]);
                 }
             }
         }
