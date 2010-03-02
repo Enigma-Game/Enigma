@@ -549,6 +549,9 @@ for k,v in pairs(RenamingObjectsNew2Old) do
 end
 
 function enigma.MakeObject(name)
+    if name.sub(2,2) == "_" then
+        error("Unknown object kind '"..name.."' in api 1.")
+    end
     if name == "ac-whiteball-small" then
         local obj = enigma._MakeObject("ac_pearl_white")
         enigma._SetAttrib(obj, "owner", nil)
@@ -696,7 +699,7 @@ function enigma.MakeObject(name)
     if newname ~= nil then
         return enigma._MakeObject(newname)
     else
-        return enigma._MakeObject(name)
+        error("Unknown object kind '"..name.."' in api 1.")
     end
 end
 
