@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="60" title="Enigma VI"/>
+  <info enigma="1.10" group="Enigma" location="10700" network="false" owner="Enigma Team" release="1" revision="61" title="Enigma VI"/>
 
   <attributes/>
 
@@ -60,7 +60,7 @@
     <level _seq="52" _title="Checkmate II" _xpath="./andreas35_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas35" rel="2" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Bodyguard" _xpath="./ral10_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060730ral012" rel="2" rev="161" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="be quick or be dead" _xpath="./illmind12_2" author="illmind" ctrl="force" easy="true" id="illmind12" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="55" _title="Puzzle Puzzles" _xpath="./raoul26_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="1" rev="27" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="Puzzle Puzzles" _xpath="./raoul26_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul26" rel="2" rev="30" score="2" target="time" unit="duration"/>
     <level _seq="56" _title="Tarzan" _xpath="./ulf03_1" author="Ulf Stegemann" ctrl="force" easy="true" id="20060629ulf003" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Counterclockwise" _xpath="./ulf05_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20070126ulf020" rel="2" rev="99" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Chess and Boxes" _xpath="./johannes01_2" author="Johannes Laire" ctrl="force" easy="false" id="20061201johannes313" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -103,7 +103,7 @@
     <level _seq="95" _title="Pleasure Garden" _xpath="./duffy134_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy134" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Construction Workers" _xpath="./duffy142_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy142" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="City Life" _xpath="./joona03_1" author="Joona Laire" ctrl="force" easy="true" id="20061119joona503" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Industrial Puzzles" _xpath="./raoul30_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="2" rev="7" score="2" target="time" unit="duration"/>
+    <level _seq="98" _title="Industrial Puzzles" _xpath="./raoul30_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul30" rel="3" rev="8" score="2" target="time" unit="duration"/>
     <level _seq="99" _title="Polar Bears' Paradise" _xpath="./ral19_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral394" rel="2" rev="185" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="The Aztec Temple" _xpath="./zogga01_2" author="Dominik Lehmann" ctrl="force" easy="true" id="zogga01" rel="2" rev="2" score="2" target="time" unit="duration"/>
   </levels>

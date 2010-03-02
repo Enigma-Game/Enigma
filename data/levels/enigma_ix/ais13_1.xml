@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Seasonal Timings" el:subtitle="5, 8, or 10 seconds?" el:id="ais13"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:21" el:difficult="0:22"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Code improvements by Ronald Lamprecht</el:credits>
+      </el:comments>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["."] = {"fl_bridge_gc", state=CLOSED}
+ti[" "] = {"fl_abyss"}
+ti["r"] = {"fl_red"}
+ti["b"] = {"fl_bluegray"}
+ti["g"] = {"fl_lawn"}
+ti["y"] = {"fl_sahara"}
+ti["*"] = {"fl_bluegray", name="pearlspot"}
+ti[","] = {"fl_water"} .. {"it_strip_s"} .. ti({"st_passage_black_cross"})
+ti["#"] = {"st_granite"}
+ti["R"] = {"st_redrock"}
+ti["B"] = {"st_bluesand"}
+ti["G"] = {"st_camouflage"}
+ti["Y"] = {"st_yellow"}
+ti["L"] = ti["r"] .. {"st_barrier", flavor="it_cherry"}
+ti["x"] = ti["r"] .. {"st_beads"}
+ti["M"] = ti["b"] .. {"st_barrier", flavor="it_drop"}
+ti["N"] = ti["g"] .. {"st_barrier", flavor="it_umbrella"}
+ti["O"] = ti["y"] .. {"st_barrier", flavor="it_hammer"}
+ti["+"] = ti["y"] .. {"st_break"} .. ti["y"]
+ti["K"] = cond(wo["IsDifficult"], {"st_passage_black_cross"}, {"st_grate"})
+ti["^"] = ti["."] .. {"st_oneway", orientation=NORTH}
+ti[">"] = ti["."] .. {"st_oneway", orientation=EAST}
+ti["v"] = ti["."] .. {"st_oneway", orientation=SOUTH}
+ti["<"] = ti["."] .. {"st_oneway", orientation=WEST}
+ti["1"] = ti["."] .. {"it_cherry"}
+ti["2"] = ti["."] .. {"it_drop"}
+ti["3"] = ti["."] .. {"it_umbrella"}
+ti["4"] = ti["."] .. {"it_hammer"}
+ti["m"] = {"st_oxyd_e", name="oxyds_#", oxydcolor=OXYD_BLUE}
+ti["l"] = {"st_oxyd_e", name="oxyds_#", oxydcolor=OXYD_RED}
+ti["n"] = {"st_oxyd_e", name="oxyds_#", oxydcolor=OXYD_GREEN}
+ti["o"] = {"st_oxyd_e", name="oxyds_#", oxydcolor=OXYD_YELLOW}
+ti["@"] = ti["."] .. {"#ac_marble"}
+
+wo(ti," ",{
+    "    RlRlR    ",
+    " ###RLxrR### ",
+    " #  RvR^R  # ",
+    " #         # ",
+    "GGG KKKKK BBB",
+    "ng< K4.3K <Mm",
+    "G,G K.@.K B*B",
+    "nN> K2.1K >bm",
+    "GGG KKKKK BBB",
+    " #         # ",
+    " #  YvY^Y  # ",
+    " ###Yy+OY### ",
+    "    YoYoY    "})
+
+local pearlspot = #po["pearlspot"]
+ti["pearl"] = {"ac_pearl_white", name="pearl#", owner=YANG, controllers=CTRL_NONE, essential=DISPENSABLE}
+wo[pearlspot + NW/4] = ti["pearl"]
+wo[pearlspot + SW/4] = ti["pearl"]
+wo[pearlspot + SE/4] = ti["pearl"]
+wo[pearlspot + NE/4] = ti["pearl"]
+local pearls = no["pearl#*"]:sort("circular")
+wo:add({"ot_rubberband", anchor1=pearls[1], anchor2=pearls[2], length=0.500, min=0.475, max=0.525})
+wo:add({"ot_rubberband", anchor1=pearls[2], anchor2=pearls[3], length=0.500, min=0.475, max=0.525})
+wo:add({"ot_rubberband", anchor1=pearls[3], anchor2=pearls[4], length=0.500, min=0.475, max=0.525})
+wo:add({"ot_rubberband", anchor1=pearls[4], anchor2=pearls[1], length=0.500, min=0.475, max=0.525})
+wo:add({"ot_rubberband", anchor1=pearls[1], anchor2=pearls[3], length=0.707, min=0.682, max=0.732})
+wo:add({"ot_rubberband", anchor1=pearls[2], anchor2=pearls[4], length=0.707, min=0.682, max=0.732})
+wo:add(YANG, {"it_drop"})    -- prevent pearls from entering the barrier
+no["oxyds_#*"][1]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

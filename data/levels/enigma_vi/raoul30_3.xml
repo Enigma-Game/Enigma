@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Industrial Puzzles" el:subtitle="" el:id="raoul30"/>
+      <el:version el:score="2" el:release="3" el:revision="8" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:credits el:showinfo="true " el:showstart="false ">Thanks to Andreas Geldmacher for debugging this level.</el:credits></el:comments>
+      <el:score el:easy="-" el:difficult="4:54"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[". "] = {"fl_abyss"}
+ti["- "] = {"fl_brick"}
+ti["b1"] = {"fl_bridge", flavor="gc", name="bridge1", state=CLOSED}
+ti["b2"] = {"fl_bridge", flavor="gc", name="bridge2", state=CLOSED}
+ti[" #"] = {"st_brick"}
+ti[" W"] = {"st_magic_brick"}
+ti[" G"] = {"st_rawglass"}
+ti[" H"] = {"st_rawglass_movable"}
+ti[" X"] = {"st_grate"}
+ti[" I"] = {"st_stoneimpulse"}
+ti[" J"] = {"st_stoneimpulse_hollow"}
+ti[" U"] = {"st_oneway", orientation=SOUTH}
+ti[" ="] = {"st_oneway", orientation=WEST, color=BLACK}
+ti[" R"] = {"st_rubberband"}
+ti[" Q"] = {"st_quake"}
+ti["L>"] = {"st_laser", orientation=EAST, state=ON} 
+ti["L<"] = {"st_laser", name="laser", orientation=WEST, state=OFF} 
+ti[" ^"] = {"st_mirror", flavor="triangle", orientation=NORTH}
+ti[" >"] = {"st_mirror", flavor="triangle", orientation=EAST}
+ti[" V"] = {"st_mirror", flavor="triangle", orientation=SOUTH}
+ti[" <"] = {"st_mirror", flavor="triangle", orientation=WEST}
+ti[" N"] = {"st_mirror", transparent=true, orientation=RANDOMDIR}
+ti[" A"] = {"st_polarswitch", state=OFF}
+ti[" B"] = {"st_polarswitch", state=ON}
+ti[" M"] = {"st_mail", orientation=WEST}
+ti[" T"] = {"st_turnstile_green"}
+ti[" 2"] = {"st_turnstilearm_s"}
+ti[" 6"] = {"st_turnstilearm_e"}
+ti[" 8"] = {"st_turnstilearm_n"}
+ti["Y"] = {"st_puzzle", color=YELLOW}
+ti[" y"] = {"st_puzzle", color=YELLOW, cluster=1}
+ti["P"] = {"st_puzzle", intensity=0}
+ti[" p"] = {"st_puzzle", cluster=1}
+ti[" D"] = {"st_door", name="door#", flavor="a"}
+ti["K1"] = {"st_key", target="door#*", code=1}
+ti["K2"] = {"st_key", target="laser", code=2}
+ti[" c"] = {"it_crack_m"}
+ti["m "] = {"it_magicwand"}
+ti[" o"] = {"it_vortex", state=CLOSED}
+ti["p "] = {"it_puller_w"}
+ti["s "] = ti[". "] .. {"it_seed"}
+ti["v "] = {"it_seed_volcano"}
+ti["| "] = ti[". "] .. {"it_strip_nsw"}
+ti["3 "] = ti[". "] .. {"it_strip_nw"}
+ti["7 "] = ti[". "] .. {"it_strip_es"}
+ti["9 "] = ti[". "] .. {"it_strip_sw"}
+ti["5 "] = ti[". "] .. {"it_strip_e"}
+ti["k "] = {"it_key", code=1}
+ti["l "] = {"it_key", code=2}
+ti["j "] = {"it_key", code=3}
+ti["t1"] = {"it_trigger", target="bridge1", action="open"}
+ti["t2"] = {"it_trigger", target="bridge2", action="open"}
+ti[" t"] = {"it_trigger", target="grate"}
+ti[" O"] = {"st_oxyd"}
+ti["@@"] = ti[" X"] .. {"#ac_marble"}
+
+wo(res.composer(res.puzzle(ti, "Y", "P")), "- ", {
+    "-#-#-#-#-#-V-W-W-N-N-N-W-W-V-A-G-G-I-I-I",
+    "-#@@-X9y-#-X- - - -c-o- - -W-X-GY0Pbp8-I",
+    "-#mX7y3y- .X- -R- -#-I-#- -W- -XY0Y0Ph-I",
+    "-#5y|y- - - - - -I-It2- b1-H- - - Y0Y0-G",
+    "-O-#- - -#sW-#- -#- . - -Hb2-H- - - -G-G",
+    "-A-X- - -t. -#- t1- . -G->->-B-G- - -X->",
+    "-D-#-#-I-#. -#-I-I-I-G-X->-B-<-X-G-#-U-D",
+    "-<vX- - - - .J- - - - -G-B-<-<-G- - -X-A",
+    "jG-G- - -#sW-I- -I- - - -H-X-H- - -X-#-O",
+    "-GY0Y0- . - - - -#-I- - - -H- - - Y0Y0-#",
+    "-I-pY0Y0- -Q- - - -#-#-#- -W-X- Y0Y0Pb-#",
+    "-Ilp-2Y0-G-X-=- - - - - - -W-X-#Y0-Tk6K1",
+    "-I-I-I-G-G-^L<L>-W-W-W-W-W-^-M-#-#-#K2-#"})
+
+function grate(value, sender)
+    sender["target"] = DEFAULT
+    wo[sender+4*S+E] = ti[" X"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

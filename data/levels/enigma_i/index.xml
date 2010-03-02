@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="37" title="Enigma I"/>
 
   <attributes/>
 
@@ -22,16 +22,16 @@
     <level _seq="14" _title="Slippery Slopes" _xpath="./martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Three Plugs" _xpath="./martin83_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin83" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Is It Easy?" _xpath="./martin06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="17" _title="Ice Skating" _xpath="./siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Hostile World" _xpath="./rb01_1" author="Roberto Bardin" ctrl="force" easy="true" id="rb01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Ice Skating" _xpath="./siegfried22_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Hostile World" _xpath="./rb01_2" author="Roberto Bardin" ctrl="force" easy="true" id="rb01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="The Big Swamp" _xpath="./luc10_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc10" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="- Meditation -" _xpath="./siegfried33_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation1" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Do Not Dive" _xpath="./martin74_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Do Not Dive" _xpath="./martin74_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Bendixxon" _xpath="./alain06_2" author="Alain Busser" ctrl="force" easy="false" id="alain06" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Lissajous" _xpath="./andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Over the Ditch" _xpath="./martin78_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Over the Ditch" _xpath="./martin78_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Brittle Planks" _xpath="./martin92_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin92" rel="2" rev="1" score="2" target="time" unit="duration"/>
-    <level _seq="26" _title="Uhh-Steady!" _xpath="./siegfried05_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level2f" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Uhh-Steady!" _xpath="./siegfried05_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level2f" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="27" _title="Lissajous' Revenge" _xpath="./andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Mossy Paths" _xpath="./martin02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="No Jumping Necessary" _xpath="./duffy46_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy46" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -66,7 +66,7 @@
     <level _seq="58" _title="Islands" _xpath="./duffy10_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy10" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="59" _title="Simon Says" _xpath="./nat12_2" author="Nat Pryce" ctrl="force" easy="false" id="nat12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="- Meditation -" _xpath="./siegfried35_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation14" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="61" _title="Feel Your Way" _xpath="./siegfried06_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level3a" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="61" _title="Feel Your Way" _xpath="./siegfried06_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Good Luck!" _xpath="./siegfried08_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3d" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Tubes" _xpath="./siegfried09_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3e" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="64" _title="Turbulence" _xpath="./duffy24_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy24" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -86,7 +86,7 @@
     <level _seq="78" _title="Confetti" _xpath="./duffy74_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy74" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Why So Slow?" _xpath="./jc03_1" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="- Meditation -" _xpath="./siegfried38_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation5" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Where's The Gardener?" _xpath="./siegfried28_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9e" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Where's The Gardener?" _xpath="./siegfried28_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level9e" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="A Narrow Path" _xpath="./martin66_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin66" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Watery Grave" _xpath="./martin37_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin37" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Escher's World" _xpath="./ant09_2" author="Petr Machata" ctrl="force" easy="false" id="ant09" rel="2" rev="1" score="1" target="time" unit="duration"/>

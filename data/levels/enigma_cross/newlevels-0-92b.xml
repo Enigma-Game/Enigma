@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="49" title="Enigma 0.92 - 2"/>
+  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="50" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Do Not Dive" _xpath="enigma_i/martin74_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Do Not Dive" _xpath="enigma_i/martin74_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin74" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Three Plugs" _xpath="enigma_i/martin83_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin83" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="3" _title="The Far Side" _xpath="enigma_ii/martin75_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin75" rel="2" rev="5" score="2" target="time" unit="duration"/>
-    <level _seq="4" _title="Over the Ditch" _xpath="enigma_i/martin78_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Over the Ditch" _xpath="enigma_i/martin78_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin78" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Spidering Around Death" _xpath="enigma_iii/martin89_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin89" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Brittle Floor!" _xpath="enigma_iii/martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Alcatraz" _xpath="enigma_vi/ralf14_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf14" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -63,7 +63,7 @@
     <level _seq="55" _title="Arcoculture" _xpath="enigma_ii/ant17_1" author="Petr Machata" ctrl="force" easy="false" id="ant17" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Overshoot" _xpath="enigma_iii/ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Slide it in" _xpath="enigma_iv/ss13_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss13" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="Do It Yourself" _xpath="enigma_ii/martin97_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin97" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Do It Yourself" _xpath="enigma_ii/martin97_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin97" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="If They'd Just Hold Still" _xpath="enigma_i/duffy21_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy21" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Too Heavy?" _xpath="enigma_v/martin101_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin101" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Island of Safety" _xpath="enigma_v/duffy27_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy27" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -87,7 +87,7 @@
     <level _seq="79" _title="Be Faster!" _xpath="enigma_iv/martin98_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin98" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Teamwork" _xpath="enigma_iii/duffy25_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy25" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Lock Them In" _xpath="enigma_iii/duffy26_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy26" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Lost In Space" _xpath="enigma_iii/martin90_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Lost In Space" _xpath="enigma_iii/martin90_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin90" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Emergency Exit" _xpath="enigma_iii/ss05_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Run!" _xpath="enigma_iii/duffy29_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy29" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Puzzling Controls" _xpath="enigma_ii/duffy30_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy30" rel="1" rev="1" score="1" target="time" unit="duration"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="33" title="Tutorial"/>
+  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="34" title="Tutorial"/>
 
   <attributes/>
 
@@ -41,7 +41,7 @@
     <level _seq="33" _title="Push Them In" _xpath="enigma_ii/nat05_2" author="Andreas Persenius, Nat Pryce" ctrl="force" easy="false" id="nat5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Without Tremor" _xpath="enigma_i/richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Slippery Slopes" _xpath="enigma_i/martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Ice Skating" _xpath="enigma_i/siegfried22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Ice Skating" _xpath="enigma_i/siegfried22_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Sok It To 'Em" _xpath="enigma_i/nat07_2" author="Nat Pryce" ctrl="force" easy="false" id="nat7" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Lasers and Mirrors" _xpath="./a_tut04_2" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut04" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Light Switches" _xpath="enigma_i/martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>

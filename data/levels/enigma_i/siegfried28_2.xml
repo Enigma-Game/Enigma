@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Where's The Gardener?" el:subtitle="" el:id="level9e"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["-"] = {"fl_abyss"}
+ti["A"] = {"fl_slope_inw"}
+ti["B"] = {"fl_slope_ine"}
+ti["C"] = {"fl_slope_isw"}
+ti["D"] = {"fl_slope_ise"}
+ti["h"] = {"it_meditation_hollow"}
+ti["d"] = {"it_meditation_dent"}
+ti["p"] = {"it_meditation_bump"}
+ti["H"] = {"it_meditation_hill"}
+ti["."] = {"it_crack_s"}
+ti[","] = {"it_crack_m"}
+ti[";"] = {"it_crack_l"}
+ti["s"] = {"it_spade"}
+ti[":"] = ti["d"] .. {"fl_metal_7", name="dest"}
+ti["*"] = {"it_wormhole", destination="dest", range=0, strength=1}
+ti["="] = ti["s"] .. {"st_oneway_w"}
+ti["<"] = ti["*"] .. {"st_oneway_w"}
+ti["#"] = ti["-"] .. {"st_purplemarble"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#------------------#",
+    "#---     d  ------ #",
+    "#.;<hAB p  H=   H-O#",
+    "#,.- CD ---d- O -- #",
+    "#.H- O H- ---AB -p #",
+    "#O -    -p   CD -  #",
+    "#p ------AB@   p- d#",
+    "# AB   d CD H ---hO#",
+    "# CDOH -p------   p#",
+    "#:   ---  h    H --#",
+    "#------------------#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

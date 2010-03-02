@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Push? Pull!" el:subtitle="" el:id="level1c"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti["- "] = {"fl_abyss"}
+ti[" #"] = {"st_greenbrown"}
+ti[" G"] = {"st_rawglass"}
+ti[" X"] = {"st_grate"}
+ti[" S"] = {"st_swap"}
+ti[" M"] = {"st_mirror", orientation=BACKSLASH}
+ti[" T"] = {"st_switch", target="laser"}
+ti[" L"] = {"st_laser", orientation=EAST, state=ON, name="laser"}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["Q"] = ti["- "] .. {"st_puzzle", intensity=0}
+ti["d "] = {"it_document", text="text1"}
+ti[" O"] = {"st_oxyd"}
+ti[" @"] = {"ac_marble"}
+
+wo(res.composer(res.puzzle(ti, "P", "Q")), "  ", {
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #",
+    " # O           X                       #                                   O #",
+    " L  - - - - - -X- - - - - - - - - -    G                      - - - - -  M   #",
+    " #  - - - - - dX- - - - - - - - - -    #                      - - - - -      #",
+    " #  - - - - -  X- - - - - - - - - -    #        Pe            - - - - -      #",
+    " #  - - - - -  X- - - - - - - - - -    #                      - - - - -      #",
+    " #  - - - - -  X- - - - - - - - - -    # X S X                - - - - -      #",
+    " #  - - - - -  X- - - - - - - - - -    # # X S # # # # # # #  - - - - -      #",
+    " #  - - - - -  X T- Q0Q0Q0Q0Q0P0P0P0P0Pe                Ph    - - - - -      #",
+    " #  - - - - -  X  - - - - - -   - - -  #                Pc    - - - - -      #",
+    " #  - - - - -  X  - - - - - -   - - -  #             @        - - - - -      #",
+    " # O           X                - - -  #                                   O #",
+    " # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Restart with F3 ...</el:english>
+        <el:translation el:lang="de">Neustart mit F3 ...</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

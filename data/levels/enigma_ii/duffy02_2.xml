@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Disappearing Block" el:subtitle="" el:id="duffy2"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_hay"}
+ti[":"] = {"fl_space"}
+ti["."] = {"fl_metal"}
+ti["-"] = {"fl_inverse"}
+ti["#"] = {"st_greenbrown"}
+ti["H"] = {"st_greenbrown_hollow"}
+ti["$"] = {"st_break_oxydc"}
+ti["B"] = ti[":"] .. {"st_brownie"}
+ti["<"] = {"st_boulder", orientation=WEST}
+ti["V"] = {"st_boulder", orientation=SOUTH}
+ti["L"] = {"st_laser", orientation=EAST, state=ON}
+ti["|"] = {"st_door", faces="ew", name="doors#"}
+ti["="] = {"st_door", faces="ns", name="door"}
+ti["K"] = {"st_key", target="@doors#*"}
+ti["u"] = {"it_trigger", target="@doors#*"}
+ti["v"] = ti[":"] .. {"it_trigger", target="door"}
+ti["Z"] = {"st_door_b", name="disblock"}
+ti["t"] = {"it_trigger", invisible=true, action="open", target="disblock"}
+ti["h"] = {"it_hammer"}
+ti["k"] = {"it_key"}
+ti["w"] = {"it_magicwand"}
+ti["O"] = {"st_oxyd", name="left#"}
+ti["o"] = {"st_oxyd", name="right#"}
+ti["@"] = {"ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "# h |O#            # $V#-:::::::::::: #",
+    "# #####            # $<#-:::::::::::: #",
+    "#                 ## $<#-:::::..::::: #",
+    "#         @        # $<#-::v::..::::#=#",
+    "#                # # $<#-:::::::::::# #",
+    "L                Z # $<|.:::::::::::# #",
+    "#                #t# $<#-:::::B..:::# #",
+    "#                  H $<#-::::::..:::# #",
+    "#                  # $<#-:::::::##### #",
+    "# #####            # $<#-:::::::#ow  k#",
+    "#    O#K           ###u##############o#",
+    "#######################################"})
+
+wo:shuffleOxyd({no["left#*"], no["right#*"], min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
