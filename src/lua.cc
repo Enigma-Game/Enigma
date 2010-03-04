@@ -1685,18 +1685,29 @@ static int intersectGroupBase(lua_State *L, bool isIntersect, bool equal =false)
     }
     std::list<Object *> objects;
     std::set<Object *> objSet;
+    int size1 = 0;
+    int size2 = 0;
+    int sizeresult = 0;
     
     if (is_group(L, 2)) {
         lua_getmetatable(L, 2);
         int numObjects = lua_objlen(L, -1);
         for (int i = 1; i <= numObjects; ++i) {
             lua_rawgeti(L, -1, i);  // the object
-            objSet.insert(to_object(L, -1));
+            Object * obj = to_object(L, -1);
+            if (obj != NULL) {
+                size2++;
+                objSet.insert(obj);
+            }
             lua_pop(L, 1);          // the object        
         }
         lua_pop(L, 1);          // the metatable        
     } else {
-        objSet.insert(to_object(L, 2));
+        Object * obj = to_object(L, 2);
+        if (obj != NULL) {
+            size2++;
+            objSet.insert(obj);
+        }
     }
     
     if (is_group(L, 1)) {
@@ -1705,26 +1716,33 @@ static int intersectGroupBase(lua_State *L, bool isIntersect, bool equal =false)
         for (int i = 1; i <= numObjects; ++i) {
             lua_rawgeti(L, -1, i);  // the object
             Object * obj = to_object(L, -1);
-            if ((isIntersect && objSet.find(obj) != objSet.end()) ||
-                    (!isIntersect && objSet.find(obj) == objSet.end()))
-                objects.push_back(obj);
+            if (obj != NULL) {
+                size1++;
+                if ((isIntersect && objSet.find(obj) != objSet.end()) ||
+                        (!isIntersect && objSet.find(obj) == objSet.end())) {
+                    objects.push_back(obj);
+                    sizeresult++;
+                }
+            }
             lua_pop(L, 1);          // the object        
         }
         lua_pop(L, 1);          // the metatable        
     } else {
-        Object * obj = to_object(L, 2);
-        if ((isIntersect && objSet.find(obj) != objSet.end()) ||
-                (!isIntersect && objSet.find(obj) == objSet.end()))
-            objects.push_back(obj);
+        Object * obj = to_object(L, 1);
+        if (obj != NULL) {
+            size1++;
+            if ((isIntersect && objSet.find(obj) != objSet.end()) ||
+                    (!isIntersect && objSet.find(obj) == objSet.end())) {
+                objects.push_back(obj);
+                sizeresult++;
+            }
+        }
     }
     if (!equal)
         return pushNewGroup(L, objects);
     else {
         // check on equality
-        // remove NULL objects first
-        pushNewGroup(L, objects);
-        objects = toObjectList(L, -1);
-        return !objects.size();
+        return (size1 == size2) && (sizeresult == 0);
     }    
 }
 
