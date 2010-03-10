@@ -177,7 +177,7 @@ SIMPLEPNG = \
 	st_granite.png \
 	st_grate_cross.png \
 	st_grate_framed.png \
-	st_greenbrown.png st_greenbrown_growing.png \
+	st_greenbrown.png st_greenbrown_4.png \
 	st_greengray.png \
 	st_ice.png \
 	st_jamb_black.png \
