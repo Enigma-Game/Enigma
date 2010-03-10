@@ -19,6 +19,19 @@
 @defindex at
 @defindex ms
 
+@c Macro for pdf(tex) and html reference
+@ifhtml
+@macro yref {name}
+@ref{\name\}
+@end macro
+@end ifhtml
+
+@iftex
+@macro yref {name}
+\name\
+@end macro
+@end iftex
+
 @contents
 
 @ifnottex
@@ -9243,22 +9256,6 @@ global value is only used if no object specific value is set.
 @item @b{Support:} @ @ @ref{st_actorimpulse}
 @end table
 
-@node AllowSuicide
-@subsection AllowSuicide
-
-A global variable that enables the user to commit suicide with all owned
-actors by pressing @samp{F3}. As this legacy feature can cause unexpected
-shortcuts, you can deny this freedom. A single actor suicide as committed by
-activation of an @ref{it_spoon} is not affected by this global variable.
-
-@table @asis
-@item @b{Type:} @ @ bool
-@item @b{Values:} @ @ @code{true}, @code{false}
-@item @b{Default:} @ @ @code{true}
-@item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ no object
-@end table
-
 @node AllowSingleOxyds
 @subsection AllowSingleOxyds
 
@@ -9275,6 +9272,22 @@ detection of uneven oxyd numbers.
 @item @b{Default:} @ @ @code{false}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ @ref{st_oxyd}
+@end table
+
+@node AllowSuicide
+@subsection AllowSuicide
+
+A global variable that enables the user to commit suicide with all owned
+actors by pressing @samp{F3}. As this legacy feature can cause unexpected
+shortcuts, you can deny this freedom. A single actor suicide as committed by
+activation of an @ref{it_spoon} is not affected by this global variable.
+
+@table @asis
+@item @b{Type:} @ @ bool
+@item @b{Values:} @ @ @code{true}, @code{false}
+@item @b{Default:} @ @ @code{true}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ no object
 @end table
 
 @node AutoRespawn
@@ -9536,20 +9549,6 @@ to get larger. This default is superseded by @ref{fragility (floor)} and
 @item @b{Support:} @ @ @ref{it_crack} and @ref{Floor Objects}
 @end table
 
-@node GlobalForce
-@subsection GlobalForce
-
-A global constant force that is added to every actor on every grid. The force
-is given as a vector constant by a value of type @ref{Position}.
-
-@table @asis
-@item @b{Type:} @ @ @ref{Position}
-@item @b{Values:} @ @ pair of float numbers
-@item @b{Default:} @ @ @code{po(0.0, 0.0)}
-@item @b{Access:} @ @ read/write
-@item @b{Support:} @ @ all floors
-@end table
-
 @node FrictionStrength
 @subsection FrictionStrength
 
@@ -9561,6 +9560,20 @@ force applied to actors.
 @item @b{Type:} @ @ number
 @item @b{Values:} @ @ float number
 @item @b{Default:} @ @ @code{1.0}
+@item @b{Access:} @ @ read/write
+@item @b{Support:} @ @ all floors
+@end table
+
+@node GlobalForce
+@subsection GlobalForce
+
+A global constant force that is added to every actor on every grid. The force
+is given as a vector constant by a value of type @ref{Position}.
+
+@table @asis
+@item @b{Type:} @ @ @ref{Position}
+@item @b{Values:} @ @ pair of float numbers
+@item @b{Default:} @ @ @code{po(0.0, 0.0)}
 @item @b{Access:} @ @ read/write
 @item @b{Support:} @ @ all floors
 @end table
@@ -9896,29 +9909,6 @@ Positive number are attracting, negative numbers are repelling.
 @node Floor Overview
 @section Floor Overview
 
-@c todo: generate images in local directory.
-@c ( rotate image only if portrait: convert -rotate "90>" filename )
-@c   cut images which are not square (i.e. reduce to single tile)
-@c   adjust dpi for pdf (see images/Makefile): convert -density 112x112 $< $@
-@c   cropping: convert -crop 48x48+0+0 filename
-@c -> Makefile?
-
-@c wie werden die framed-varianten erzeugt?
-@c allg: wie werden / wurden die tiles erzeugt?
-
-@c - distribute images with documentation
-
-@c Macro for pdf(tex) and html reference
-@macro yref {name}
-@c @image{images/\name\} @tab
-@ifhtml
-@ref{\name\}
-@end ifhtml
-@iftex
-\name\
-@end iftex
-@end macro
-@c
 @multitable @columnfractions .08 .25 .08 .25 .09 .25
 @item @image{images/fl_abyss, 12mm} @tab @yref{fl_abyss}
 @tab @image{images/fl_adhesionless, 12mm} @tab @yref{fl_adhesionless}
