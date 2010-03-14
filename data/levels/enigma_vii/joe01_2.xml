@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Advancing" el:subtitle="" el:id="joe01"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (March 2010)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti["~~"] = {"fl_water"}
+ti[".."] = {"fl_sahara"}
+ti["::"] = {"fl_space"}
+ti["##"] = {"st_bluesand"}
+ti["WW"] = {"st_yellow"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["R"] = {"st_puzzle_yellow", intensity = 0}
+ti["++"] = {"st_box"}
+ti["oo"] = {"it_meditation"}
+ti["@@"] = {"#ac_pearl", essential = INDISPENSABLE}
+
+wo(res.puzzle(ti, "P", "R"), "  ", {
+    "############################WW##########WW##########################::::::::::::::::",
+    "##@@P0~~..~~~~..##~~    ####~~  ~~++  ####~~++~~++~~++~~          ##::::::::::::::::",
+    "##..P0++..~~~~++++  ++~~####Rb~~++    ####++++~~WWWWWWWWP0P0++++  ######::::::::::::",
+    "##......P0......##~~++P0P0WW~~++  ++  ####~~~~    WW~~~~~~++  ~~++....##::::::::::::",
+    "##..P1P1P0..~~~~##  ++~~~~##Rh~~  ########  P0P0P1~~~~~~++  P0........##::::::::::::",
+    "######......##~~##++++~~WWP0P0++~~~~~~####  ~~P2P1    WW~~RdP0..++..P0##::::::::::::",
+    "##  ##########P0P0P1~~~~~~~~  ~~~~~~~~~~~~~~  P2WWWW~~WWWWWW..P0P1P1P0##::::::::::::",
+    "##  ~~~~  ++~~    P1~~~~WW      ~~~~~~####    ++~~Rd~~WW......P0~~..~~##::::::::::::",
+    "##    ~~WWWW~~P0  WWWWWWWW  ########++####  ++++~~P0P0WW......~~~~~~..##::::::::::::",
+    "####~~P0P0  ~~P0~~~~++................####        ~~~~~~~~..++~~~~..~~WWWWWWWWWWWWWW",
+    "::##    ++++######~~++....########..++################..P0~~++..~~++~~~~  Ra  RaooWW",
+    "::##~~  ++~~##::####......##::::##....####::::::::::##..P0..~~++..~~..WWWWWWWWWWWWWW",
+    "::############::::##########::::##########::::::::::######WW~~WW########::::::::::::",
+    "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::WWWWWW::::::::::::::::::::"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

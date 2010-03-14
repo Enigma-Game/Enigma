@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Anticipation" el:subtitle="" el:id="duffy67"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by Raoul, mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeStrength"] = 20
+
+ti["   "] = {"fl_abyss"}
+ti["-  "] = {"fl_metal"}
+ti["^  "] = {"fl_slope_pn"}
+ti[">  "] = {"fl_slope_pe"}
+ti["V  "] = {"fl_slope_ps"}
+ti["<  "] = {"fl_slope_pw"}
+ti["1  "] = {"fl_slope_isw"}
+ti["7  "] = {"fl_slope_inw"}
+ti["  #"] = {"st_purplegray"}
+ti[" * "] = {"it_wormhole", name="wormhole#", strength=3.0, _predest="%%"}
+ti["  o"] = {"it_meditation_hollow"}
+ti[" @ "] = {"#ac_pearl", name="%%"}
+
+wo(res.composer(res.autotile(ti, {" *", " * "}, {" @", " @ "}), "122"), "   ", {
+    "- #- #> #> #> #> #> #> #> #> #1 #   - #- #- #               ",
+    "- #- o>@1>  >  >  >  >  >  1  V #   - #- o- #   - #- #< #1 #",
+    "- #- #> #> #> #> #> #> #1 #V  V #   V #V@4V #   - #-*41  ^ #",
+    "                        - #-*2- #   - #-*5- #   - #- #^  ^ #",
+    "   - #- #- #            - #- #- #   - #- #- #      ^ #^@3^ #",
+    "   - #-*1- #                                       - #- o- #",
+    "   ^ #^  ^ #   - #- #< #< #< #< #< #< #< #- #- #   - #- #- #",
+    "   ^ #^@6^ #   - #-*6<  <  <  <  <  <  <@5- o- #            ",
+    "   - #- o- #   - #- #< #< #< #< #< #< #< #- #- #   - #- #- #",
+    "   - #- #- #                                       - #-*3- #",
+    "                     - #- #> #> #> #> #> #> #> #> #7 #^  ^ #",
+    "                     - #- o>@2>  >  >  >  >  >  >  >  7  ^ #",
+    "                     - #- #> #> #> #> #> #> #> #> #> #> #7 #"})
+
+for hole in no["wormhole#*"] do
+    hole["destination"] = fl(no[hole["_predest"]])
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

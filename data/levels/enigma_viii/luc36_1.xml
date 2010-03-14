@@ -4,7 +4,7 @@
     <el:info el:type="level">
       <el:identity el:title="The Sum of its Parts" el:id="luc362009"/>
       <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
-      <el:author  el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
       <el:copyright>Copyright © 2009 Lukas Schüller</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -22,10 +22,10 @@ ti["SS"] = {"st_swap"}
 ti["KK"] = {"st_chess"}
 if wo["IsDifficult"] then
     ti["BB"] = {"st_brownie"}
-    ti["b*"] = {"st_brownie", "bw%%"}
+    ti["b*"] = {"st_brownie", name="bw%%"}
 else
     ti["BB"] = {"st_box"}
-    ti["b*"] = {"st_box", "bw%%"}
+    ti["b*"] = {"st_box", name="bw%%"}
 end
 ti["HH"] = {"st_box_hay"}
 ti["LL"] = {"st_laser", name="laser", orientation=SOUTH}
@@ -53,11 +53,7 @@ ti["v2"] = {"it_vortex", name="vortex2", destination="vortex1"}
 ti["OO"] = {"st_oxyd_d"}
 ti["@@"] = {"#ac_marble"}
 
-autoCoins = res.autotile(ti, {"C","C*"}, {"=","=*"}, {"|","|*"}, {"b","b*"})
-randomWalls = res.random(autoCoins, "##", {"#a","#b"})
-
-wo(randomWalls, "  ", {
-  -- 000102030405060708091011121314151617181920212223242526
+wo(res.random(res.autotile(ti, {"C","C*"}, {"=","=*"}, {"|","|*"}, {"b","b*"}), "##", {"#a","#b"}), "  ", {
     "######################################################",
     "############        ##########################    BX##",
     "##x1x1  ####BBBBBB  ######      ########LLSW##O^##  ##",

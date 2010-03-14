@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Double Sense" el:subtitle="" el:id="joe14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Joseph Dunne" el:email="josephdunne1993@hotmail.com" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Joseph Dunne</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (January 2010)</el:code></el:comments>
+      <el:score el:easy="0:15" el:difficult="0:25"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti["#"] = {"st_metal"}
+ti[" "] = {"fl_metal_7"}
+ti["~"] = {"fl_water"}
+ti[":"] = {"fl_space"}
+ti["-"] = {"fl_abyss"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_osw"}
+ti["6"] = {"fl_slope_pw"}
+ti["3"] = {"fl_slope_onw"}
+ti["2"] = {"fl_slope_pn"}
+ti["1"] = {"fl_slope_one"}
+ti["4"] = {"fl_slope_pe"}
+ti["7"] = {"fl_slope_ose"}
+ti["V"] = {"st_boulder", orientation = SOUTH}
+ti["v"] = cond(wo["IsDifficult"], ti["V"], ti[" "])
+ti["u"] = cond(wo["IsDifficult"], ti[" "], ti["V"])
+ti["B"] = {"st_blocker"}
+ti["o"] = {"it_meditation"}
+ti["@"] = {"#ac_pearl", essential = INDISPENSABLE}
+
+wo(ti, " ", {
+    ":##################:",
+    ":#              v #:",
+    ":#      v v       #:",
+    ":#                #:",
+    ":#  vv    v       #:",
+    ":#     v    v v   #:",
+    ":# v              #:",
+    ":#       v v      #:",
+    ":#           vvv  #:",
+    ":#       v        #:",
+    ":# v       v      #:",
+    ":#   v       v    #:",
+    ":#     v       v  #:",
+    ":#       v        #:",
+    ":#vvv  v v  vvvv  #:",
+    ":#       v  v v   #:",
+    ":#      vv    v   #:",
+    ":# v   vv  vv     #:",
+    ":#     v    v     #:",
+    ":#   v v  v v v   #:",
+    ":#            v   #:",
+    ":#v    v      v   #:",
+    ":#     vv  vvvv   #:",
+    ":#  v             #:",
+    ":#                #:",
+    ":#     V  V     u #:",
+    ":#  V          V  #:",
+    ":#      V   V     #:",
+    ":#    V V V   V   #:",
+    ":#V               #:",
+    ":#  V      V V    #:",
+    ":#     V V        #:",
+    ":#V         V     #:",
+    ":#  V             #:",
+    ":#      V         #:",
+    ":#   V    V    V  #:",
+    ":# V  V       V   #:",
+    ":#         V   V  #:",
+    ":#V   V           #:",
+    ":#                #:",
+    ":#VVVVVVVV  VVVV  #:",
+    ":#                #:",
+    ":# V              #:",
+    ":#V V     V       #:",
+    ":#   V       V    #:",
+    ":#            V   #:",
+    ":#                #:",
+    ":#V V   V    V V  #:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#78888888888889~##:",
+    ":#4      @     6Bo#:",
+    ":#12222222222223~##:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#~~~~~~~~~~~~~~~##:",
+    ":#78888888888889~##:",
+    ":#4      @     6Bo#:",
+    ":#12222222222223~##:",
+    ":#---------------##:"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

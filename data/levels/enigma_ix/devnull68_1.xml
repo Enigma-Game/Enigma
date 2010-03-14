@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Crescent Wrench" el:subtitle="" el:id="devnull68"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks alot to Raoul Bourquin for the idea.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_concrete"}
+ti[" ."] = {"fl_abyss"}
+ti["+ "] = {"st_box_rock"}
+ti["T "] = {"st_turnstile", flavor = "green"}
+ti["S "] = {"st_turnstilearm", orientation = SOUTH}
+ti["E "] = {"st_turnstilearm", orientation = EAST}
+ti["W "] = {"st_turnstilearm", orientation = WEST}
+ti["N "] = {"st_turnstilearm", orientation = NORTH}
+ti["c "] = {"it_crack_l", spreading = 0, fragility = 1}
+ti["o "] = {"it_meditation"}
+ti["@0"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    " . . . . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . . .   .         .",
+    " . .@1     .o N. . .     . .T.  S.W.@0 .",
+    " . .  S.   . .T. . .         .         .",
+    " . .  E.   .   .       . . . . . . . . .",
+    " . .       . . . . . . .o.+. .+   N  . .",
+    " . . .T. . . . .   . .T. . . . .T. . . .",
+    " .       . . . .       .   . .c      . .",
+    " .             .   . . .   . .   .   . .",
+    " . . . . . .   .   . . .   . .  E.   . .",
+    " . . . . . .       . . .             . .",
+    " . . . . . . . . . . . . . . . . . . . ."})
+
+wo:add(YIN, {"it_wrench"})
+wo:add(YANG, {"it_wrench"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

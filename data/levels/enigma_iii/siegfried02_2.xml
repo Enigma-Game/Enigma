@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Swap Swap" el:subtitle="" el:id="level1f"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gray"}
+ti["#"] = {"st_metal"}
+ti["X"] = {"st_grate"}
+ti["W"] = {"st_swap"}
+ti["S"] = {"st_shogun_sml"}
+ti["|"] = {"st_door", faces="ew", name="door"}
+ti["s"] = {"it_shogun_l", target="door"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#                #O#",
+    "#                # #",
+    "#      XXX       # #",
+    "#      # #       # #",
+    "#      WSX       # #",
+    "# @ X##   ##X    | #",
+    "#   X   #   X    # #",
+    "#   X###s###X    # #",
+    "#                # #",
+    "#                # #",
+    "#                #O#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

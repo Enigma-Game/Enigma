@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="67" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="68" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -35,15 +35,15 @@
     <level _seq="27" _title="Tilt Board" _xpath="./ulf06_2" author="Ulf Stegemann" ctrl="force" easy="true" id="20080529ulf118" rel="2" rev="116" score="2" target="time" unit="duration"/>
     <level _seq="28" _title="The Walls" _xpath="./just26_2" author="JuSt" ctrl="force" easy="true" id="just26" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Filler" _xpath="./devnull33_1" author="/dev/null" ctrl="force" easy="false" id="devnull33" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="- Meditation -" _xpath="./devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="- Meditation -" _xpath="./devnull04_1" author="/dev/null" ctrl="force" easy="true" id="devnull04" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Push Wires" _xpath="./ral24_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080708ral196" rel="1" rev="129" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Maze for Two" _xpath="./ral22_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="2" rev="182" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="2 + 2" _xpath="./devnull11_1" author="/dev/null" ctrl="force" easy="true" id="devnull11" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Maze for Two II" _xpath="./ral23_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20090330ral370" rel="2" rev="182" score="2" target="time" unit="duration"/>
     <level _seq="35" _title="Wired Five" _xpath="./ral25_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080721ral073" rel="1" rev="183" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Double Sense" _xpath="./joe14_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Double Sense" _xpath="./joe14_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Elbow Society" _xpath="./andreas45_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas45" rel="2" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="38" _title="Double Sense II" _xpath="./joe15_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Double Sense II" _xpath="./joe15_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Wired Strips" _xpath="./ral38_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081223ral510" rel="1" rev="151" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="mad-ill-tation" _xpath="./illmind14_2" author="illmind" ctrl="force" easy="false" id="ill0907-01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Transpositions" _xpath="./duffy174_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy174" rel="2" rev="3" score="1" target="time" unit="duration"/>
@@ -89,7 +89,7 @@
     <level _seq="81" _title="Mountain Climbing" _xpath="./joe10_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Slopes, Jumps &amp; Falls" _xpath="./duffy167_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy167" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Caving" _xpath="./pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="84" _title="Mountain Climbing II" _xpath="./joe25_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Mountain Climbing II" _xpath="./joe25_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe25" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Underground Temple" _xpath="./joe12_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe_12" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="86" _title="Volcano Day" _xpath="./pulley23_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley23" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="87" _title="Mountain Climbing III" _xpath="./joe26_1" author="Joseph Dunne" ctrl="force" easy="true" id="joe26" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -100,7 +100,7 @@
     <level _seq="92" _title="Path Through Flood" _xpath="./pulley24_1" author="Mark Pulley" ctrl="force" easy="false" id="20080803pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Number Crunching" _xpath="./ais06_2" author="Alex Smith" ctrl="force" easy="false" id="20090406ais523002" rel="2" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="94" _title="FizzBuzz" _xpath="./ais10_1" author="Alex Smith" ctrl="force" easy="true" id="ais10" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="95" _title="The Sum of its Parts" _xpath="./luc36" author="Lukas Schüller" ctrl="force" easy="true" id="luc362009" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="95" _title="The Sum of its Parts" _xpath="./luc36_1" author="Lukas Schüller" ctrl="force" easy="true" id="luc362009" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Claustrophobia" _xpath="./ais11_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Changing conditions" _xpath="./devnull01_2" author="/dev/null" ctrl="force" easy="false" id="devnull01" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Afraid of water" _xpath="./devnull32_1" author="/dev/null" ctrl="force" easy="true" id="devnull32" rel="1" rev="3" score="1" target="time" unit="duration"/>

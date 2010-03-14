@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enigris" el:subtitle="" el:id="ralf04"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="stable"/>
+      <el:author el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API game code by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_sahara"}
+ti["."] = {"fl_tigris"}
+ti["="] = {"fl_sahara", name="top#"}
+ti[","] = {"fl_bluegray", name="preview#"}
+ti[";"] = {"fl_bluegray", name="anchor"}
+ti["#"] = ti["."] .. {"st_rawglass", name="room#"}
+ti["%"] = {"st_brick", name="wall#"}
+ti["L"] = {"st_laser", name="laser1", orientation=NORTH, state=ON}
+ti["l"] = {"st_laser", name="laser2", orientation=NORTH, state=ON}
+ti["A"] = {"st_brownie", name="figure#"}
+ti["B"] = {"st_tigris", name="figure#"}
+ti["C"] = {"st_rawglass", name="figure#"}
+ti["D"] = {"st_bluegray", name="figure#"}
+ti["E"] = {"st_panel", name="figure#"}
+ti["F"] = {"st_metal", name="figure#"}
+ti["G"] = {"st_break_oxydc", name="figure#"}
+ti["H"] = {"st_fake_quake", name="figure#"}
+ti["a"] = {"st_rotator_cw"}
+ti["b"] = {"st_rotator_ccw"}
+ti["c"] = {"st_boulder", orientation=WEST}
+ti["d"] = {"st_boulder", orientation=EAST}
+ti["e"] = {"st_boulder", orientation=SOUTH}
+ti["&"] = ti[" "] .. {"st_invisible"}
+ti["!"] = {"st_nil"}
+ti["?"] = {"it_cherry", name="tester#"}
+ti[">"] = ti["."] .. {"it_trigger", target="handler", _id="goeast"}
+ti["V"] = ti["."] .. {"it_trigger", target="handler", _id="gosouth"}
+ti["<"] = ti["."] .. {"it_trigger", target="handler", _id="gowest"}
+ti["1"] = ti["."] .. {"it_trigger", target="transform", _kind=1}
+ti["2"] = ti["."] .. {"it_trigger", target="transform", _kind=2}
+ti["T"] = {"st_timer", target="step", interval=1.0, name="timer", state=ON}
+ti["O"] = {"st_oxyd", name="wall#"}
+ti["o"] = {"st_oxyd", name="wall#", target="timer", action="off"}
+ti["@"] = ti["."] .. {"#ac_marble_black", name="blackball"}
+
+wo(ti, "-", {
+    "O===========o       ",
+    "%-----------% ;,,,, ",
+    "%-----------% ,,,,, ",
+    "%-----------% ,,,,, ",
+    "%-----------% ,,,,, ",
+    "%-----------% ,,,,, ",
+    "%-----------%   T   ",
+    "%-----------% a###b ",
+    "%-----------% #1.2# ",
+    "%-----------% #.@.# ",
+    "%-----------%&c<.>d&",
+    "%-----------% ##V## ",
+    "L-----------l  #e#  ",
+    "%%%%%%%%%%%%%   &   "})
+
+wo:add({"ot_timer", name="goeast", state=OFF, interval=0.25, target="move", _direction=E})
+wo:add({"ot_timer", name="gowest", state=OFF, interval=0.25, target="move", _direction=W})
+wo:add({"ot_timer", name="gosouth", state=OFF, interval=0.08, target="move", _direction=S})
+
+-- This is the trigger callback that handles the repeated events.
+-- If the trigger value is true the move function is called immediately
+-- and a timer is started that repeates this event. If the trigger value is
+-- false (the trigger was left), the timer is stopped.
+function handler(value, sender)
+    if value then
+        move(true, no[sender["_id"]])
+        no[sender["_id"]]:on()
+    else
+        no[sender["_id"]]:off()
+    end
+end
+
+-- The data used by the enigris engine
+local tra = {MAP_ROT_CW, MAP_ROT_CCW}
+local solid_walls = po(no["wall#*"] + no["laser?"])
+local filled_area = po(grp())
+local lines = {}
+for i=1,12 do
+    lines[i] = po(no["top#*"]) + i*S
+end
+local cur_pos
+local next_pos
+local material
+local brickid
+local stonekind = {"A", "B", "C", "D", "E", "F", "G", "H"}
+local glasspos = no["laser1"]
+
+local figures = {}
+figures[1] = {"XX",
+              "XX"}
+
+figures[2] = {" X ",
+              "XXX"}
+
+figures[3] = {" XX",
+              "XX "}
+
+figures[4] = {"XX ",
+              " XX"}
+
+figures[5] = {"X  ",
+              "XXX"}
+
+figures[6] = {"  X",
+              "XXX"}
+
+figures[7] = {"XXXX"}
+
+local cur_figuremap
+local next_figuremap
+local cur_clearmap
+local next_clearmap
+local cur_testmap
+
+function choose_brick()
+    brickid = math.random(1,7)
+    material = math.random(1,8)
+end
+
+function set_figure(value, sender)
+    figure = figures[brickid]
+    cur_figuremap = wo:newMap(" ", figure)
+    cur_figuremap:replace("X", stonekind[material])
+    next_figuremap = cur_figuremap ^ MAP_IDENT
+    cur_clearmap = wo:newMap(" ", figure)
+    cur_clearmap:replace("X", "!")
+    next_clearmap = cur_clearmap ^ MAP_IDENT
+    cur_testmap = wo:newMap(" ", figure)
+    cur_testmap:replace("X", "?")
+    -- position of new figure
+    cur_pos = po(math.random(1,12-cur_figuremap["width"]), 1-cur_figuremap["height"])
+    next_pos = cur_pos
+    redraw()
+end
+
+function draw_preview()
+    wo[no["preview#*"]] = {"st_nil"}
+    fmap = wo:newMap(" ", figures[brickid])
+    fmap:replace("X", stonekind[material])
+    wo:drawMap(ti, no["anchor"]+po(5-fmap["width"],5-fmap["height"])/2, fmap)
+    st(no["preview#*"])["name"] = DEFAULT
+end
+
+function redraw()
+    wo:drawMap(ti, cur_pos, cur_clearmap)
+    wo:drawMap(ti, next_pos, next_figuremap)
+    cur_clearmap = next_clearmap
+    cur_figuremap = next_figuremap
+end
+
+function glass()
+    glasspos = glasspos + N
+    if st(glasspos):is("st_oxyd") then
+        glasspos = no["laser2"] + N
+    end
+    wo[glasspos] = ti["-"] .. {"st_rawglass", name="glasses#"}
+end
+
+-- Can we do a given transform?
+function can_transform(transformation)
+    wo:drawMap(ti, cur_pos, cur_testmap ^ transformation)
+    local testbricks = no["tester#*"]
+    intersection = fl(filled_area .. solid_walls) * fl(testbricks)
+    testbricks:kill()
+    return #intersection == 0
+end
+
+-- Transform the brick iff we can transform
+function transform(value, sender)
+    if not value or no["timer"]["state"] == OFF then return end
+    if can_transform(tra[sender["_kind"]]) then
+        next_clearmap = cur_clearmap ^ tra[sender["_kind"]]
+        next_figuremap = cur_figuremap ^ tra[sender["_kind"]]
+        cur_testmap = cur_testmap ^ tra[sender["_kind"]]
+        redraw()
+    end
+end
+
+-- Can we move into a given direction?
+function can_move(direction)
+    cur_fig = po(no["figure#*"])
+    if #cur_fig == 4 or (#cur_fig > 0 and direction == S) then
+        next_fig = cur_fig + direction
+        intersection = fl(filled_area .. solid_walls) * fl(next_fig)
+        return #intersection == 0
+    end
+    return false
+end
+
+-- Move the brick iff we can move
+function move(value, sender)
+    if no["timer"]["state"] == OFF then return end
+    if can_move(sender["_direction"]) then
+        next_pos = cur_pos + sender["_direction"]
+        redraw()
+        cur_pos = next_pos
+    end
+end
+
+-- Fix a brick at current position
+function stuck()
+    filled_area = filled_area .. po(no["figure#*"])
+    no["figure#*"]["name"] = "fixed_ones#"   
+end
+
+-- Test for full lines
+function test_lines(value, sender)
+    for ind,line in ipairs(lines) do
+        if #(fl(filled_area) * fl(line)) == 11 then
+            collapse(ind)
+            glass()
+        end
+    end
+    --   speedup()
+end
+
+-- Move all lines above a full one down
+function collapse(above)
+    for i = above, 1, -1 do
+        wo[lines[i]] = {"st_nil"}    
+        for curpos in fl(lines[i]) do
+            stone = st(curpos + N):kind()
+            if stone ~= "" then
+                wo[curpos] = {stone, name="fixed_ones#"}
+            end
+        end
+    end
+    -- finally update the filled area
+    filled_area = po(no["fixed_ones#*"])
+end
+
+-- A enigris timestep
+function step(value, sender)
+    if #no["figure#*"] == 0 then
+        -- we need a new brick
+        set_figure()
+        -- and prepare the next one
+        choose_brick()
+        draw_preview()
+    elseif can_move(S) then
+        -- move the brick down
+        move(true, no["gosouth"])
+    else
+        -- can not move the brick further down
+        stuck()
+        test_lines()
+        end_check()
+	-- force a new brick right now
+	step()
+    end
+end
+
+-- Enigris ending conditions
+function end_check()
+    intersection = no["top#*"] * fl(filled_area)
+    if #intersection ~= 0 then
+        -- the tower reached the top
+        no["timer"]:off()
+        wo[filled_area] = {"st_death"}
+        wo[no["room#*"]] = {"st_death"}
+    end
+end
+
+function speedup()
+    -- code to increase the speed
+    -- of the falling blocks.
+end
+
+choose_brick()
+draw_preview()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

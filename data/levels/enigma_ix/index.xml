@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="25" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="26" title="Enigma IX"/>
 
   <attributes/>
 
@@ -56,6 +56,7 @@
     <level _seq="48" _title="Suckerfish I" _xpath="./devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Splinter" _xpath="./devnull66_1" author="/dev/null" ctrl="force" easy="false" id="devnull66" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Seasonal Timings" _xpath="./ais13_1" author="Alex Smith" ctrl="force" easy="true" id="ais13" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Crescent Wrench" _xpath="./devnull68_1" author="/dev/null" ctrl="force" easy="false" id="devnull68" rel="1" rev="3" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
