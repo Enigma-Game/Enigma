@@ -198,6 +198,7 @@ RenamingObjectsNew2Old = {
     it_meditation_dent = "it-tinyhollow",
     it_meditation_bump = "it-tinyhill",
     it_meditation_hill = "it-hill",
+    it_odometer = "it-odometer",
     it_pencil = "it-pencil",
     it_pin = "it-pin",
     it_pipe_w = "it-pipe-w",

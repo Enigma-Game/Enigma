@@ -4,7 +4,7 @@ xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd 28" el:subtitle="Per.Oxyd 28" el:id="20070104ulf016"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 94 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 95 $" el:status="released"/>
       <el:author  el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -52,7 +52,7 @@ set_item("it-seed",11,8)
 set_item("it-surprise",12,8)
 set_item("it-flagwhite",13,8)
 set_item("it-key",14,8)
-set_item("it_odometer",15,8)
+set_item("it-odometer",15,8)
 set_item("it-coin1",16,8)
 set_item("it-coin1",17,8)
 set_item("it-document",18,8,{text="text1"})

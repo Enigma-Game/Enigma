@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="68" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="69" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -80,7 +80,7 @@
     <level _seq="72" _title="Crabwise I" _xpath="./devnull34_2" author="/dev/null" ctrl="force" easy="true" id="devnull34" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="73" _title="Plutos World" _xpath="./mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="74" _title="Crabwise II" _xpath="./devnull35_2" author="/dev/null" ctrl="force" easy="true" id="devnull35" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="75" _title="More or Less Wired" _xpath="./ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="176" score="1" target="time" unit="duration"/>
+    <level _seq="75" _title="More or Less Wired" _xpath="./ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="194" score="1" target="time" unit="duration"/>
     <level _seq="76" _title="New York Jungle" _xpath="./mecke32_1" author="mecke" ctrl="force" easy="false" id="mecke32" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="77" _title="Crabwise III" _xpath="./devnull38_1" author="/dev/null" ctrl="force" easy="true" id="devnull38" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="78" _title="Plutos Confusion" _xpath="./mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="21" score="1" target="time" unit="duration"/>

@@ -3,9 +3,9 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="More or Less Wired" el:subtitle="The Gods must be weird" el:id="20081229ral"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 176 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 194 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
-      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2008,2010 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
@@ -23,7 +23,7 @@ ti["O"] = {"st_oxyd_a"} .. ti["~"]
 ti["#"] = {"st_door_a", "d#"}
 
 ti["boxes"] = {"st_box_hay", "box%%"}
-ti["x"] = {"it_trigger", target="check"}
+ti["x"] = {"it_trigger", target="check", action="signal"}
 
 ti["@"] = {"ac_marble", 0, 0.5}
 
