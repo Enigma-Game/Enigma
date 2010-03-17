@@ -108,6 +108,23 @@ RESOLVE_LINES = 3
 RESOLVE_WAVES = 4
 RESOLVE_ORIENTED = 5
 
+-- The MAXDESIGN-constant is a read-only list to hold the number of available
+-- designs in each version of Enigma.
+MAXDESIGN = {}
+MAXDESIGN[1.1] = 150
+setmetatable(MAXDESIGN,
+    {__index = function(self, key)
+         if rawget(self, key) == nil then
+             error("The requested designs are not available -- maybe you tried to run "
+                 .."this level with an outdated version of Enigma?", 2)
+         else
+             return rawget(self, key)
+         end
+     end,
+     __newindex = function(self, key, value)
+         error("The MAXDESIGN-constant is read-only.", 2)
+     end})
+
 -- The default design must not be nested!
 lib.soko_designlist.default = {
     wall = "st_plaster",
@@ -321,7 +338,7 @@ lib.soko_designlist.list = {
                  give = "it_sword",
                  alg = "block"}},
  [23] = {inf = "fl_wood",
-         outf = "fl_abyss",
+         outf = {"fl_abyss", {"it_nil", "it_crack_s", "it_crack_m", "it_crack_l", res = {RESOLVE_RANDOM, 20, 1, 1, 1}}},
          wall = {"st_rawglass", {"fl_wood", "fl_abyss", res = RESOLVE_CHECKERBOARD}},
          box = "st_plop",
          door = {"st_blocker", "fl_wood"},
@@ -430,7 +447,7 @@ lib.soko_designlist.list = {
          box = "st_plop",
          door = "st_blocker",
          oxyd = "b",
-         endp = {goal = "fl_swamp",
+         endp = {goal = {"fl_swamp", "it_nil"},
                  alg = "ralf"}},
  [36] = {inf = "fl_bright",
          outf = "fl_abyss",
@@ -708,7 +725,10 @@ lib.soko_designlist.list = {
          oxyd = "b",
          endp = {alg = "circle"}},
  [68] = {inf = "fl_samba",
-         outf = "fl_space",
+         outf = {"fl_water", "fl_samba",
+                 {"fl_samba", ti{"it_crack_s", flavor = "water"}},
+                 {"fl_samba", ti{"it_crack_m", flavor = "water"}},
+                 {"fl_samba", ti{"it_crack_l", flavor = "water"}}, res = RESOLVE_WAVES},
          wall = "st_tigris",
          box = "st_brownie",
          door = "st_door_a",
@@ -1156,7 +1176,12 @@ lib.soko_designlist.list = {
          endp = {goal = "st_rawglass",
                  alg = "vortex"}},
 [119] = {inf = "fl_redslab",
-         outf = {"fl_blueslab", "st_disco_light"},
+         outf = {"fl_blueslab", "st_disco_light",
+                 {"it_nil",
+                  ti{"it_crack_s", flavor = "water"},
+                  ti{"it_crack_m", flavor = "water"},
+                  ti{"it_crack_l", flavor = "water"},
+                  res = {RESOLVE_RANDOM, 3, 1, 1, 1}}},
          wall = "st_redmarble",
          box = "st_plop",
          door = "st_door_a",
@@ -1334,7 +1359,7 @@ lib.soko_designlist.list = {
          endp = {inf = {"fl_white", "fl_fake_abyss", res = RESOLVE_CHECKERBOARD},
                  goal = {"st_nil", "it_nil", {"fl_white", "fl_fake_abyss", res = RESOLVE_CHECKERBOARD}},
                  alg = "ralf"}},
-[140] = {inf = ti{"fl_bast", friction = 3.0},
+[140] = {inf = ti{"fl_bast", friction = 7.0, adhesion = 2.0},
          outf = {"fl_lawn_e4", "fl_lawn_e2", "fl_lawn_e1", "fl_lawn_e3", res = RESOLVE_WAVES},
          wall = {"st_brownpyramid", "fl_lawn_b"},
          box = "st_brownie",
@@ -1380,10 +1405,10 @@ lib.soko_designlist.list = {
          outf = {"fl_sand", {"it_landmine", "it_bottle_broken", "it_nil", res = {RESOLVE_RANDOM, 3, 1, 15}}},
          wall = {"st_greenbrown", "fl_sand"},
          box = "st_lightglass_movable",
-         door = "st_door_a",
+         door = {"st_door_a", ti{"fl_dunes", friction = 3.0, adhesion = 1.0}},
          oxyd = "a",
          endp = {goal = "st_lightglass_hollow",
-                 alg = "allcrack", max_pairs = 1}},
+                 alg = "ralf"}},
 [146] = {inf = "fl_dark",
          outf = {"fl_abyss", {"st_grate_cross", "st_nil", res = {RESOLVE_RANDOM, 1, 10}}},
          wall = "st_granite",

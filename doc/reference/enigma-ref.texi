@@ -23020,6 +23020,7 @@ Optionally, see below.
 @item @b{Syntax Samples:}
 @example
 lib.soko.create_sokoball(many_levels, 13, 48)
+lib.soko.create_sokoball(many_levels, 12, nil, MAXDESIGN[1.1])
 @end example
 
 @item @b{Details:}
@@ -23038,8 +23039,22 @@ design number.
 
 *Uniquely means: The design might change when the design list is enlarged.
 
+The number of available designs is 150 in Enigma 1.1, which equals the constant
+@code{MAXDESIGN[1.1]}. However, further versions of Enigma might support more
+designs. If a multilevel is loaded with a (numerically given) maxdesign number
+which is larger than the number of available designs, only those levels will be
+available for play whose calculated design number is supported, all others will
+show an error message. However, it is better to use the MAXDESIGN-constants.
+These will always raise an error, when the requested designs are not available.
+The MAXDESIGN-constants are read-only.
+
+If both the design argument as well as the maxdesign-number are
+omitted, the original 150 designs will be used as fallback, no matter which
+version of Enigma is running.
+
 To define own designs, please consult
-@samp{data/levels/lib/libsoko_designlist.xml}.
+@samp{data/levels/lib/libsoko_designlist.xml}
+or use @ref{libimport} in the first place.
 
 Returns width and height of new Enigma level.
 @end table

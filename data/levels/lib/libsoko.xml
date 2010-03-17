@@ -37,6 +37,7 @@ lib.soko.ignore_key = "Ig"  -- This key may not appear in any Sokoban-level.
 -- RESOLVE_LINES = 3
 -- RESOLVE_WAVES = 4
 -- RESOLVE_ORIENTED = 5
+-- MAXDESIGN
 GOAL_HOOK_DEFAULT = 0
 GOAL_HOOK_RALF = 1
 lib.soko.MAX_HEIGHT = 10000  -- If you have to change this, change it before any other call to lib.soko.
@@ -220,7 +221,18 @@ function lib.soko.design_from_description(map, design_description, maxdesignnumb
     else
         assert_type(map, "lib.soko.design_from_description first argument", 2, "map")
         design = lib.lua.deep_copy(lib.soko_designlist.list[lib.soko.number_from_level(
-                     map, maxdesignnumber or #lib.soko_designlist.list)])
+                     map, maxdesignnumber or MAXDESIGN[1.1])])
+    end
+    if (design == nil) then
+        error("The requested design is not available -- maybe you tried to run "
+            .."this level with an outdated version of Enigma?", 3)
+    end
+    if (type(design) ~= "table") then
+        error("libsoko: Internal error: The requested design is not of type table, "
+            .."but of type " .. type(design) .. ".", 3)    
+    end
+    if design.endp == nil then
+        design.endp = {}
     end
     return design
 end
@@ -871,7 +883,7 @@ end
 function lib.soko.endphase_allcrack()
     for j = 1, #lib.soko.polist.way do
         if not -it(lib.soko.polist.way[j]) then
-            wo[lib.soko.polist.way[j]] = {"it_crack_m"}
+            wo[lib.soko.polist.way[j]] = {"it_crack", flavor = "water", state = MEDIUM}
         end
     end  
 end
@@ -948,7 +960,10 @@ function lib.soko.create_sokoball(multilevel, sublevel_number, designarg, maxdes
     map:paste(small_map, po(dx, dy))
     map.defaultkey = "  "
 
-    wo["ConserveLevel"] = false
+    -- Global variables
+    wo["ConserveLevel"] = true
+    wo["AutoRespawn"] = true
+    wo["AllowSuicide"] = false
     wo["ShowMoves"] = true
     wo["FollowGrid"] = false
     wo["FollowMethod"] = FOLLOW_SCROLL
