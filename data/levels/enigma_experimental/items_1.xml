@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Items as of Enigma 1.10" el:subtitle="" el:id="items"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
-      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="experimental"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -18,16 +18,16 @@ local items = {
 
 {"it_banana", _text="it_banana"},
 
+{"it_blocker", _text="it_blocker, default"},
+{"it_blocker", state=OPEN, _text="it_blocker, state=OPEN"},
+{"it_blocker", autoclose=true, _text="it_blocker, autoclose=true"},
+
 {"it_bomb", _text="it_bomb, default"},
 {"it_bomb_black", _text="it_bomb_black"},
 {"it_bomb_white", _text="it_bomb_white"},
 
 {"it_bottle", _text="it_bottle"},
 {"it_bottle_broken", _text="it_bottle_broken"},
-
-{"it_blocker", _text="it_blocker, default"},
-{"it_blocker", state=OPEN, _text="it_blocker, state=OPEN"},
-{"it_blocker", autoclose=true, _text="it_blocker, autoclose=true"},
 
 {"it_brake", _text="it_brake"},
 
@@ -84,8 +84,8 @@ local items = {
 {"it_extralife", _text="it_extralife"},
 
 {"it_flag", _text="it_flag"},
-{"it_flag_black", _text="it_flag"},
-{"it_flag_white", _text="it_flag"},
+{"it_flag_black", _text="it_flag_black"},
+{"it_flag_white", _text="it_flag_white"},
 
 {"it_floppy", _text="it_floppy"},
 
@@ -129,9 +129,9 @@ local items = {
 {"it_pipe", connections="ne", _text="it_pipe, connections=\"ne\""},
 
 {"it_puller", _text="it_puller, default"},
-{"it_puller_w",_text="it_puller_w"},
+{"it_puller_w", _text="it_puller_w"},
 {"it_puller_s", _text="it_puller_s"},
-{"it_puller_e",_text="it_puller_e"},
+{"it_puller_e", _text="it_puller_e"},
 {"it_puller_n", _text="it_puller_n"},
 
 {"it_ring", _text="it_ring"},
@@ -203,7 +203,6 @@ local items = {
 {"it_vortex", state=CLOSED, autoopen=true, _text="it_vortex, state=CLOSED, autoopen=true"},
 {"it_vortex", autoclose=true, autoopen=true, _text="it_vortex, autoclose=true, autoopen=true"},
 
-
 {"it_weight", _text="it_weight"},
 
 {"it_wormhole", _text="it_wormhole, default"},
@@ -217,6 +216,7 @@ local items = {
 }
 
 wo["FollowMethod"] = FOLLOW_SCROLL
+wo["AutoRespawn"] = true
 
 ti[" "] = {"fl_sahara"}
 ti["#"] = {"st_rawglass"}

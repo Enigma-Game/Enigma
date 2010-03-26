@@ -471,6 +471,8 @@ do
     DefAlias("fl-space-force", "fl_space")
     DefAlias("fl_samba_h", "fl_samba1")
     DefAlias("fl_samba_v", "fl_samba2")
+    DefAlias("fl_samba_h_framed", "fl_samba1_framed")
+    DefAlias("fl_samba_v_framed", "fl_samba2_framed")
 end
 
 ----------------------

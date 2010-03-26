@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="All Floors as of Enigma 1.10" el:subtitle="" el:id="floors"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="experimental"/>
-      <el:author  el:name="Raoul Bourquin" el:email=""/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="experimental"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -94,10 +94,14 @@ local floors = {
 {"fl_rough_framed", _text="fl_rough_framed"},
 {"fl_sahara", _text="fl_sahara"},
 {"fl_sahara_framed", _text="fl_sahara_framed"},
+{"fl_samba", _text="fl_samba"},
+{"fl_samba_h", _text="fl_samba_h"},
+{"fl_samba_v", _text="fl_samba_v"},
+{"fl_samba_framed", _text="fl_samba_framed"},
+{"fl_samba_h_framed", _text="fl_samba_h_framed"},
+{"fl_samba_v_framed", _text="fl_samba_v_framed"},
 {"fl_sand", _text="fl_sand"},
 {"fl_sand_framed", _text="fl_sand_framed"},
-{"fl_samba", _text="fl_samba"},
-{"fl_samba_framed", _text="fl_samba_framed"},
 {"fl_space", _text="fl_space"},
 {"fl_stone", _text="fl_stone"},
 {"fl_stone_framed", _text="fl_stone_framed"},
@@ -161,7 +165,7 @@ local floors = {
 {"fl_swamp", _text="fl_swamp"},
 {"fl_thief", _text="fl_thief"},
 {"fl_water", _text="fl_water"},
-{"fl_water_source", _text="fl_water"},
+{"fl_water_source", _text="fl_water_source"},
 {"fl_wood", _text="fl_wood"},
 {"fl_wood_h", _text="fl_wood_h"},
 {"fl_wood_v", _text="fl_wood_v"},
@@ -176,6 +180,7 @@ local floors = {
 }
 
 wo["FollowMethod"] = FOLLOW_SCROLL
+wo["AutoRespawn"] = true
 
 ti[" "] = {"fl_sahara"}
 ti["#"] = {"st_rawglass"}
