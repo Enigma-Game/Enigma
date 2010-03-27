@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Near Halley II" el:subtitle="" el:id="devnull46"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to daydreamer for testing, tips and inspiration.</el:credits>
+      </el:comments>
+      <el:score el:easy="4:44" el:difficult="5:55"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "=  "
+
+ti["  "] = {"fl_ice"}
+ti[".."] = {"fl_abyss"}
+ti["##"] = ti["  "] .. {"st_rawglass"}
+ti["bo"] = ti["  "] .. {"st_passage_black_frame"}
+ti["wo"] = ti["  "] .. {"st_passage_white_frame"}
+ti["oo"] = ti["  "] .. {"st_oxyd", name = "east#"}
+ti["OO"] = ti["  "] .. {"st_oxyd", name = "west#"}
+ti["P"] = ti["  "] .. {"st_puzzle", intensity = 4}
+ti["J"] = ti["  "] .. {"st_puzzle", intensity = 0}
+ti["j"] = ti[".."] .. {"st_puzzle", intensity = 0}
+ti["@1"] = ti["  "] .. {"#ac_marble_black", essential = INDISPENSABLE}
+ti["@2"] = ti["  "] .. {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.puzzle(ti, "j", "J", "P", "S"), "..", {
+    "OOjh................................wooo",
+    "  jb..JBJE          Ja    jEjE......wo  ",
+    "  wo..jc##bobo##OO  Jdoo######......####",
+    "####..jjjejh  ##..bobo..##..............",
+    "..##........  ####    ####......####....",
+    "..########..####        ......####......",
+    "................JlJe    ..##............",
+    "  @1    ........        ................",
+    "    ..........##..j1j1..##........  @2  ",
+    "  ....  ......##..wowo..##......  P1P1  ",
+    "      P1P1......OO    oo......    P1P2  ",
+    "  P1P1P1  ........  ............P2P2P2  ",
+    "          ....##........##......        "})
+
+wo:shuffleOxyd({"east#*", max = 0}, {"west#*", max = 0})
+wo:add(YIN, {"it_magicwand"})
+wo:add(YANG, {"it_magicwand"})
+if not wo["IsDifficult"] then
+    wo:add(YIN, {"it_pin"})
+    wo:add(YANG, {"it_pin"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

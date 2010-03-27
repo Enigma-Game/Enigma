@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Involution" el:subtitle="" el:id="raoul32"/>
-      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
       <el:author  el:name="Raoul Bourquin" el:email=""/>
       <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -14,28 +14,24 @@
     <el:luamain><![CDATA[
 ti[" "] = {"fl_rough"}
 ti["."] = {"fl_water"}
-if wo["IsDifficult"] then
-    ti[","] = ti["."]
-else
-    ti[","] = ti[" "]
-end
+ti[","] = cond(wo["IsDifficult"], ti["."], ti[" "])
 ti["Y"] = {"st_yinyang_active"}
-ti["y"] = ti["."] .. {"st_yinyang", loop=false}
-ti["B"] = {"st_passage", flavor="frame", color=BLACK, name="passageb#"}
-ti["W"] = {"st_passage", flavor="frame", color=WHITE, name="passagew#"}
-ti[">"] = {"st_oneway", color=BLACK, orientation=EAST, name="onewaye#"}
-ti["^"] = {"st_oneway", color=BLACK, orientation=NORTH, name="onewayn#"}
-ti["V"] = {"st_oneway", color=BLACK, orientation=SOUTH, name="oneways#"}
+ti["y"] = ti["."] .. {"st_yinyang", target="clear_selection", loop=false}
+ti["B"] = {"st_passage", flavor="frame", color=BLACK}
+ti["W"] = {"st_passage", flavor="frame", color=WHITE}
+ti[">"] = {"st_oneway", color=BLACK, orientation=EAST}
+ti["^"] = {"st_oneway", color=BLACK, orientation=NORTH}
+ti["V"] = {"st_oneway", color=BLACK, orientation=SOUTH}
 ti["#"] = {"st_yinyang", target="switch_doors"}
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"#ac_marble_white"}
-ti["2"] = {"#ac_marble_black"}
+ti["A"] = {"#ac_marble_black"}
 
 wo(ti, " ", {
     "....................",
     "..#B#B#B#B#.........",
     "..B W W B B....y....",
-    "#B#W#B#B#B#B#..,. 2 ",
+    "#B#W#B#B#B#B#..,. A ",
     "B W B B W B B..,, O ",
     "#W#B#W#^#B#W#.......",
     "B@B B B B W >  .Y   ",
@@ -55,14 +51,16 @@ function switch_doors(value, sender)
         local neighbours = fl(sender + NEIGHBORS_4)
         local door = st((oldneighbours * neighbours))
         if #door > 0 then
-            door = door[1]
-            -- Generic code for "toggling" colors that works for passages and oneways:
-            door["color"] = WHITE - door["color"]
+            door[1]["color"] = WHITE - door[1]["color"]    -- Generic code for "toggling" colors that works for passages and oneways
             oldneighbours = grp()
         else
             oldneighbours = neighbours
         end
     end
+end
+
+function clear_selection()
+    oldneighbours = grp()
 end
  ]]></el:luamain>
     <el:i18n>

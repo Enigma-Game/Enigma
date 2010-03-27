@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma 0.92 - 2"/>
+  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="52" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -92,7 +92,7 @@
     <level _seq="84" _title="Run!" _xpath="enigma_iii/duffy29_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy29" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Puzzling Controls" _xpath="enigma_ii/duffy30_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy30" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="86" _title="Khun Phan" _xpath="enigma_ii/ralf10_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="87" _title="Electric Funeral" _xpath="enigma_iv/ss15_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss15" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Electric Funeral" _xpath="enigma_iv/ss15_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss15" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="88" _title="Alien Glyphs" _xpath="enigma_ii/duffy31_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy31" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="More Space Tubes" _xpath="enigma_i/duffy33_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy33" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="esprit 48" _xpath="enigma_esprit/esprit48_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp48" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -160,7 +160,7 @@
     <level _seq="152" _title="(Counter)Clockwise" _xpath="enigma_i/wb13_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb13" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="153" _title="Hurry!" _xpath="enigma_iv/wb01_4" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="4" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="154" _title="Lotsa Triggers" _xpath="enigma_iii/wb03_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb3" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="155" _title="Annoying little balls" _xpath="enigma_i/wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="155" _title="Annoying little balls" _xpath="enigma_i/wb09_3" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="3" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="156" _title="Bridge Builders" _xpath="enigma_iii/wb04_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="157" _title="Easy Skyscraper" _xpath="enigma_iii/wb07_1" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb7" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="158" _title="Spiral Race" _xpath="enigma_i/wb06_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb6" rel="2" rev="1" score="1" target="time" unit="duration"/>

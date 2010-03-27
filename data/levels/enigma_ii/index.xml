@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="41" title="Enigma II"/>
+  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="42" title="Enigma II"/>
 
   <attributes/>
 
@@ -104,7 +104,7 @@
     <level _seq="96" _title="Friend or Foe?" _xpath="./andreas05_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas05" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="97" _title="Tool Time" _xpath="./barry03_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry03" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Light Barriers" _xpath="./qq01_1" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq1" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="99" _title="Domain of Mysteries" _xpath="./siegfried31_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Domain of Mysteries" _xpath="./siegfried31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Patterns" _xpath="./duffy128_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy128" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 

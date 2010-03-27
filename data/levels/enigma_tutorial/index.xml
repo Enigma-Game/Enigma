@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="34" title="Tutorial"/>
+  <info enigma="1.10" group="Enigma" location="10100" network="false" owner="Enigma Team" release="1" revision="35" title="Tutorial"/>
 
   <attributes/>
 
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Items" _xpath="./a_tut05_2" author="Andreas Lochmann" ctrl="force" easy="false" id="a_tut05" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Flying" _xpath="enigma_i/luc07_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc07" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="54" _title="Annoying little balls" _xpath="enigma_i/wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="54" _title="Annoying little balls" _xpath="enigma_i/wb09_3" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="3" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="The Grim Reaper" _xpath="enigma_i/daniel11_1" author="Daniel Heck" ctrl="force" easy="true" id="space" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Back And Forth" _xpath="enigma_ii/martin26_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin26" rel="3" rev="3" score="2" target="time" unit="duration"/>

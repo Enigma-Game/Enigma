@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="38" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="39" title="Enigma I"/>
 
   <attributes/>
 
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Deadly Cross" _xpath="./martin84_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="The Enigmhanoi Towers" _xpath="./alain05_2" author="Alain Busser" ctrl="force" easy="true" id="alain05" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mirror Room" _xpath="./luc12_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc12" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="54" _title="Annoying little balls" _xpath="./wb09_2" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="54" _title="Annoying little balls" _xpath="./wb09_3" author="Jon 'WB' Sneyers" ctrl="force" easy="false" id="wb9" rel="3" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Mirror Room II" _xpath="./luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Castle Maze" _xpath="./luc19_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Light Switches" _xpath="./martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>

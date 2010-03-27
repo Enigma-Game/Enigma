@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="45" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -145,7 +145,7 @@
     <level _seq="137" _title="Question of Speed" _xpath="enigma_ii/siegfried32_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="138" _title="Pain" _xpath="enigma_iv/ant27_2" author="Petr Machata" ctrl="force" easy="false" id="ant27" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="139" _title="- Meditation -" _xpath="enigma_iv/ant23_2" author="Petr Machata" ctrl="force" easy="true" id="ant23" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="140" _title="Domain of Mysteries" _xpath="enigma_ii/siegfried31_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="140" _title="Domain of Mysteries" _xpath="enigma_ii/siegfried31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="2" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

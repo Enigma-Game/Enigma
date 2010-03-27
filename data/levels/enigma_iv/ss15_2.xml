@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Electric Funeral" el:subtitle="" el:id="ss15"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["   "] = {"fl_lawn"}
+ti[".  "] = {"fl_gravel"}
+ti["  #"] = {"st_granite"}
+ti["o  "] = ti[".  "] .. {"it_meditation_hollow"}
+ti["  P"] = {"st_charge_plus"}
+ti["  M"] = {"st_charge_minus"}
+ti["  Z"] = {"st_charge_zero"}
+ti[" * "] = {"ac_pearl", name="pearl%%"}
+
+wo(res.composer(res.autotile(ti, {" *", " * "}), "122"), "   ", {
+    "  #  #  #  #  #  #  #  #  #  M  #  #  #  #  #  #  #  Z  #",
+    "  #                                                     #",
+    "  #                *a    *e                             #",
+    "  #             *k          *b                          #",
+    "  #                  .  o*fo*co  .                      #",
+    "  #                  o  .  .*d.*io                      #",
+    "  P                  o  .*h. P.  o                      P",
+    "  #                  o  .  .  .  o                      #",
+    "  #                  .  o*jo*go  .                      #",
+    "  #                      *l                             #",
+    "  #                                                     #",
+    "  #                                                     #",
+    "  #  Z  #  #  #  #  #  #  #  M  #  #  #  #  #  #  #  #  #"})
+
+pearls = no["pearl*"]:sort()
+for i=1,#pearls-1 do
+    wo:add({"ot_rubberband", length=1.0, strength=6.0, anchor1=pearls[i], anchor2=pearls[i+1]})
+end
+wo:add({"ot_rubberband", length=1.0, strength=6.0, anchor1=pearls[1], anchor2=pearls[#pearls]})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Domain of Mysteries" el:subtitle="" el:id="level11a"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>new API converted by mecke</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_metal_7"}
+ti["-"] = {"fl_abyss"}
+ti["9"] = {"fl_slope_tn"}
+ti["!"] = {"fl_slope_te"}
+ti["0"] = {"fl_slope_ts"}
+ti["?"] = {"fl_slope_tw"}
+ti["3"] = {"fl_slope_pe"}
+ti["1"] = {"fl_slope_ps"}
+ti["2"] = {"fl_slope_pn"}
+ti["4"] = {"fl_slope_pw"}
+ti["5"] = {"fl_slope_ose"}
+ti["6"] = {"fl_slope_osw"}
+ti["7"] = {"fl_slope_one"}
+ti["8"] = {"fl_slope_onw"}
+ti["#"] = {"st_purplemarble"}
+ti["X"] = {"st_grate_framed"}
+ti["="] = {"st_break_oxydc"}
+ti[":"] = {"st_ghost_break"}
+ti[";"] = {"st_ghost_purplemarble"}
+ti["+"] = {"st_box"}
+ti["V"] = {"st_oneway_s"}
+ti["^"] = {"st_oneway_n"}
+ti[">"] = {"st_oneway_e"}
+ti["<"] = {"st_oneway_w"}
+ti["door"] = {"st_door", flavor="a", name="door%%"}
+ti["open"] = {"it_trigger", action="open", target="door%%", invisible=true}
+ti["close"] = {"it_trigger", action="close", target="door%%", invisible=true}
+ti["wormhole"] = {"it_wormhole", destination="dest%%", range=1.0, strength=10.0}
+ti["whdest"] = {"fl_metal_7", name="dest%%"}
+ti["I"] = {"fl_metal_7", name="dest%1"} .. ti({"it_trigger", action="close", target="door%2", invisible=true})
+ti["b"] = {"it_brush"}
+ti["h"] = {"it_hammer"}
+ti["s"] = ti["="] .. {"it_spring_keep"}
+ti["t"] = {"fl_metal_7", name="dest%5"} .. ti({"it_document", text="text1"})
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"fl_metal_7", name="dest%4"} .. ti({"#ac_marble"})
+
+wo(res.autotile(ti, {"A", "B", "door"}, {"o", "p", "open"}, {"c", "d", "close"}, {"i", "m", "wormhole"}, {"I", "K", "whdest"}), " ", {
+    "511111111111111111111111111111111111116",
+    "3l???????????????????????????????????i4",
+    "30#^#^###^#####^#####^##^############94",
+    "30# # # #     #   #   # + + ##   ;;t#94",
+    "30# # #   ####### # ###+ = = #  ;:::#94",
+    "30#     #   #     # #m: + + +# ;;::;#94",
+    "30##### #O#   # # # #### +h+ #;:O;:;#94",
+    "30#==== #######O# #    #+ + +#;:;;:;#94",
+    "30#=### #  XX ######## #K+ + #;::::;#94",
+    "30#=s#= B  ## #o     # #+ + +#;;;;;;#94",
+    "30########dXX #A## @ # ##############94",
+    "30#      # ## # c#   # -------------#94",
+    "30###### # XX ## #####    --  ---  b#94",
+    "30#O #   # ## #        -------------#94",
+    "30## # # # XXd# -----  ##############94",
+    "30#  # # # ## # --#--           #   #94",
+    "30#  # # # XXI# -----  ####### ## # #94",
+    "30## # # # ## #                   # #94",
+    "30<    #J# XXp# ;;; ;;:;:; ;;; #### #94",
+    "30# ## # # ## # ;O; ;O:;O; ;O;    # >94",
+    "30#  # # # XX # ;:; ;;:;;; ;:; #  ###94",
+    "30#  #   # ## #                #    #94",
+    "30##V#####V##V########V###V#######V##94",
+    "3k!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!j4",
+    "722222222222222222222222222222222222228"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Press F3 or finish.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
