@@ -946,6 +946,10 @@ namespace enigma { namespace lev {
                         Downloadfile(extUrl, extCode);
                         
                         // save a local copy
+                        std::string directory;
+                        if (ecl::split_path(absExtPath, &directory, 0) && !ecl::FolderExists(directory)) {
+                            ecl::FolderCreate (directory);
+                        }
                         ofstream ofs(absExtPath.c_str(), ios::binary | ios::out);
                         ofs.write(&extCode[0], extCode.size());
                         ofs.close();
