@@ -396,6 +396,10 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/enigma_microban/Makefile
            data/levels/enigma_mas_microban/Makefile
            data/levels/pentomino_i/Makefile
+           data/levels/soko/Makefile
+           data/levels/soko/skinner_microban01/Makefile
+           data/levels/soko/skinner_microban02/Makefile
+           data/levels/soko/skinner_microban03/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile

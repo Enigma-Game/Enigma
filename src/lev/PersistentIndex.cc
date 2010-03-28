@@ -163,7 +163,7 @@ namespace enigma { namespace lev {
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                         dirEntry.name != ".svn" && dirEntry.name != "enigma_cross" && 
-                        dirEntry.name != "sokoballs") {
+                        dirEntry.name != "soko") {
                     candidates.insert(dirEntry.name);
                 }
                 else {
@@ -175,16 +175,16 @@ namespace enigma { namespace lev {
             }
             delete dirIter;
             // check for sokoball levelpacks
-            dirIter = DirIter::instance(sysPaths[i] + "/levels/sokoballs");
+            dirIter = DirIter::instance(sysPaths[i] + "/levels/soko");
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                         dirEntry.name != ".svn") {
-                    candidates.insert("sokoballs/" + dirEntry.name);
+                    candidates.insert("soko/" + dirEntry.name);
                 }
                 else {
                     std::string::size_type zipPos = dirEntry.name.rfind(".zip");
                     if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
-                        candidates.insert("sokoballs/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                        candidates.insert("soko/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
                     }
                 }
             }
@@ -240,7 +240,7 @@ namespace enigma { namespace lev {
             if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                     dirEntry.name != ".svn" && dirEntry.name != "auto" &&
                     dirEntry.name != "cross" && dirEntry.name != "enigma_cross" && 
-                    dirEntry.name != "legacy_dat" &&  dirEntry.name != "sokoballs") {
+                    dirEntry.name != "legacy_dat" &&  dirEntry.name != "soko") {
                     candidates2.insert(dirEntry.name);
             }
             else {
@@ -252,16 +252,16 @@ namespace enigma { namespace lev {
         }
         delete dirIter;
         // User Path: register sokoballs
-        dirIter = DirIter::instance(app.userPath + "/levels/sokoballs");
+        dirIter = DirIter::instance(app.userPath + "/levels/soko");
         while (dirIter->get_next(dirEntry)) {
             if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                     dirEntry.name != ".svn") {
-                    candidates2.insert("sokoballs/" + dirEntry.name);
+                    candidates2.insert("soko/" + dirEntry.name);
             }
             else {
                 std::string::size_type zipPos = dirEntry.name.rfind(".zip");
                 if (zipPos != std::string::npos && zipPos == dirEntry.name.size() - 4) {
-                        candidates2.insert("sokoballs/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
+                        candidates2.insert("soko/" + dirEntry.name.substr(0, dirEntry.name.size() - 4));
                 }
             }
         }
@@ -605,7 +605,7 @@ namespace enigma { namespace lev {
             // generate usabale path name and check it it usable
             if (fileName == "cross" || fileName == "enigma_cross" ||
                     fileName == "legacy_dat" || fileName == "auto" ||
-                    fileName == "sokoballs" || fileName == "history") {
+                    fileName == "soko" || fileName == "history") {
                 return false;
             } 
             // check if the name would conflict with existing files
@@ -618,7 +618,7 @@ namespace enigma { namespace lev {
                 return false;
             }
             if (packPath == " ") {
-                packPath = (isSokoball ? "sokoballs/" : "") + fileName;
+                packPath = (isSokoball ? "soko/" : "") + fileName;
                 indexFilename = INDEX_STD_FILENAME;
             } else
                 indexFilename = fileName + ".xml";

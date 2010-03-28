@@ -276,7 +276,7 @@ namespace enigma { namespace gui {
         } else {
             levelmodeWidget = new Image(isPersistent && !(persIndex->isCross()) ?
                     "ic-link_copy" : "ic-link");
-            sokoballValueWidget = new Label(isPersistent && (persIndex->getPackPath().find("sokoballs/") == 0) ? "yes" : "no");
+            sokoballValueWidget = new Label(isPersistent && (persIndex->getPackPath().find("soko/") == 0) ? "yes" : "no");
         }
         defLocationValueLabel = new Label(ecl::strf("%g", packIndex->getDefaultLocation()));
         releaseValueLabel = new Label(isPersistent ? ecl::strf("%d", persIndex->getRelease()) : "-");
@@ -423,7 +423,7 @@ namespace enigma { namespace gui {
             newtitle = newtitle.substr(0 , lastChar + 1);
             newtitle = newtitle.substr(newtitle.find_first_not_of(" "));
             if (newtitle != persIndex->getName()) {
-                bool isSokoball = persIndex->getPackPath().find("sokoballs/");
+                bool isSokoball = persIndex->getPackPath().find("soko/");
                 if (isNewIndex) {
                     // check for filename usability of title
                     const std::string validChars("_- .#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");

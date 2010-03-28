@@ -5,6 +5,7 @@ SUBDIRS = enigma_tutorial enigma_i enigma_ii enigma_iii enigma_iv enigma_v \
 	enigma_experimental enigma_demolevels \
 	enigma_cross \
 	pentomino_i \
+	soko \
 	patches lib
 
 pkgdatadir = $(datadir)/@PACKAGE@/levels
