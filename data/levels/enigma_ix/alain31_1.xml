@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Mike's hammer" el:subtitle="hammer nocturne" el:id="alain31"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>Initial level by Ray Wick, with pieces of code by Another and Oracle</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="0:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_platinum"}
+ti["?"] = {"fl_platinum_framed"}
+ti["!"] = {"fl_platinum_framed", name="goal#"}
+ti["#"] = {"st_beads"}
+ti["$"] = {"st_flat_breakable"}
+ti["|"] = {"it_brush"}
+ti["A"] = ti["?"] .. {"it_coin_l", name="mark#"}
+ti["B"] = ti["!"] .. {"it_coin_l", name="mark#"}
+ti["C"] = ti["?"] .. {"it_coin_m", name="mark#"}
+ti["D"] = ti["!"] .. {"it_coin_m", name="mark#"}
+ti["E"] = ti["?"] .. {"it_coin_s", name="mark#"}
+ti["F"] = ti["!"] .. {"it_coin_s", name="mark#"}
+ti["a"] = ti["#"] .. {"#ac_marble_black", owner=YANG, controllers=CTRL_YANG} -- Miss Blackball
+ti["b"] = ti["#"] .. {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG} -- Miss Whiteball
+ti["c"] = ti["#"] .. {"#ac_pearl", owner=YANG, controllers=CTRL_YANG}        -- Miss Pearl
+ti["d"] = ti["#"] .. {"#ac_top", range=0, strength=0}                        -- Miss Top is a model
+ti["e"] = ti["#"] .. {"#ac_rotor", range=0, strength=0}                      -- Miss Rotor
+ti["f"] = ti["#"] .. {"it_document"}                                         -- the poet
+ti["g"] = ti["#"] .. {"it_floppy"}                                           -- the hacker
+ti["h"] = ti["#"] .. {"it_key"}                                              -- the locksmith
+ti["i"] = ti["#"] .. {"it_magicwand"}                                        -- the magician
+ti["j"] = ti["#"] .. {"it_extinguisher"}                                     -- the firewoman
+ti["k"] = ti["#"] .. {"it_glasses"}
+ti["l"] = ti["#"] .. {"it_ring"}
+ti["m"] = ti["#"] .. {"it_umbrella"}
+ti["n"] = ti["#"] .. {"it_weight"}
+ti["o"] = ti["#"] .. {"it_bag"}
+ti["document"] = {"it_document", text="text%%"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+ti["S"] = ti["@"] .. {"fl_scales_platinum", name="supply", min=0.9, target="pencil"}
+
+wo(res.autotile(ti, {"0", "9", "document"}), " ", {
+   "#abcdeOklmno#",
+   "fA!???$D????#",
+   "g!A???$?C?!?#",
+   "h??A!?$?!C??#",
+   "i???A! ??!C?#",
+   "j??!?A ????D#",
+   "O$$$  S  $$$O",
+   "kE!??? 0    #",
+   "l?E?!?  123 #",
+   "m??E?!$ 456 #",
+   "n!??E?$ 789 #",
+   "o??!?E$    |#",
+   "######O######"})
+
+local coins = no["mark#*"]
+local goals = no["goal#*"]
+
+function pencil(value, sender)
+    if value then
+	wo[no["supply"]] = cond(coins == it(goals), {"it_hammer"}, {"it_pencil"})
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true">Each of the 6 women has a profession; and each of them carries or wears only one of the items.</el:english>
+        <el:translation el:lang="fr">Chaque homme a un métier, et porte un objet. Chaque objet n'est porté que par un homme.</el:translation>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true">Miss Black's best friends are the poet and the locksmith.</el:english>
+        <el:translation el:lang="fr">Les meilleurs amis de BouleNoire sont le poète et le serrurier.</el:translation>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true">Miss Black, Miss White and Miss Pearl are impressed by the magician's talent.</el:english>
+        <el:translation el:lang="fr">BouleNoire, BouleBlanche et Bille admirent le talent du magicien.</el:translation>
+      </el:string>
+      <el:string el:key="text%4">
+        <el:english el:translate="true">Miss Pearl tells jokes to the poet, the hacker and the locksmith.</el:english>
+        <el:translation el:lang="fr">Bille raconte des blagues au poète, à l'informaticien et au serrurier.</el:translation>
+      </el:string>
+      <el:string el:key="text%5">
+        <el:english el:translate="true">The hacker, the locksmith and the firewoman enjoy looking at their reflection in the glasses.</el:english>
+        <el:translation el:lang="fr">L'informaticien, le serrurier et le pompier s'admirent dans les lunettes de soleil de leur interlocuteur.</el:translation>
+      </el:string>
+      <el:string el:key="text%6">
+        <el:english el:translate="true">The magician carries the umbrella.</el:english>
+        <el:translation el:lang="fr">Le magicien porte un parapluie.</el:translation>
+      </el:string>
+      <el:string el:key="text%7">
+        <el:english el:translate="true">Neither the magician nor the firewoman are permitted to wear the ring.</el:english>
+        <el:translation el:lang="fr">Le magicien n'a pas le droit de porter une bague. Le pompier non plus.</el:translation>
+      </el:string>
+      <el:string el:key="text%8">
+        <el:english el:translate="true">Miss Black, Miss White and Miss Rotor like to tease the girl with the ring.</el:english>
+        <el:translation el:lang="fr">BouleNoire, BouleBlanche et Rotor taquinent l'homme à la bague.</el:translation>
+      </el:string>
+      <el:string el:key="text%9">
+        <el:english el:translate="true">Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a bag and certainly not a weight.</el:english>
+        <el:translation el:lang="fr">Toupie se sent léger: Il ne porte ni parapluie, ni sac et sûrement pas de poids!</el:translation>
+      </el:string>
+      <el:string el:key="text%10">
+        <el:english el:translate="true">Sometimes, Miss White and Miss Pearl help their friend to carry her weight.</el:english>
+        <el:translation el:lang="fr">Parfois, BouleBlanche et Bille aident leur ami à supporter le poids de son fardeau.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

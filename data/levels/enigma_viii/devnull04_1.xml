@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="" el:id="devnull04"/>
-      <el:version el:score="1" el:release="1" el:revision="12" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="13" el:status="released"/>
       <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="true">A variation of a Meditation created by Raoul Bourquin</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">A variation of a Meditation created by Raoul Bourquin</el:credits>
       </el:comments>
       <el:score el:easy="0:25" el:difficult="0:30"/>
     </el:info>
@@ -19,7 +19,7 @@ local f = cond(wo["IsDifficult"], 35.0, 25.0)
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_gray"}
-ti[":"] = cond(wo["IsDifficult"], {"fl_abyss"}, {"st_invisible"})
+ti[":"] = cond(wo["IsDifficult"], ti[" "], {"st_invisible"})
 ti["d"] = {"fl_slope_ps"}
 ti["u"] = {"fl_slope_pn"}
 ti["r"] = {"fl_slope_pe"}
@@ -43,10 +43,10 @@ ti["^"] = {"fl_slope_ps", force_y =  f}
 ti["v"] = {"fl_slope_pn", force_y = -f}
 ti["<"] = {"fl_slope_pe", force_x =  f}
 ti[">"] = {"fl_slope_pw", force_x = -f}
-ti["9"] = ti["D"] .. {"#ac_pearl_white", essential = INDISPENSABLE}
-ti["8"] = ti["U"] .. {"#ac_pearl_white", essential = INDISPENSABLE}
-ti["7"] = ti["L"] .. {"#ac_pearl_white", essential = INDISPENSABLE}
-ti["6"] = ti["R"] .. {"#ac_pearl_white", essential = INDISPENSABLE}
+ti["9"] = ti["D"] .. {"#ac_pearl", essential = INDISPENSABLE}
+ti["8"] = ti["U"] .. {"#ac_pearl", essential = INDISPENSABLE}
+ti["7"] = ti["L"] .. {"#ac_pearl", essential = INDISPENSABLE}
+ti["6"] = ti["R"] .. {"#ac_pearl", essential = INDISPENSABLE}
 
 wo(ti, " ", {
     "                    ",

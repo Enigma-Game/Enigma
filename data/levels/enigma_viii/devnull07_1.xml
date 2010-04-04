@@ -3,50 +3,40 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title=" - Meditation - " el:subtitle="" el:id="devnull07"/>
-      <el:version el:score="1" el:release="1" el:revision="8" el:status="released"/>
-      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="true">Inspired by Jacob Scott's Nightmares. Thanks alot.</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Inspired by Jacob Scott's Nightmares. Thanks alot.</el:credits>
       </el:comments>
       <el:score el:easy="0:40" el:difficult="1:00"/>
     </el:info>
     <el:luamain><![CDATA[
-if wo["IsDifficult"] then
-    f = -2.5
-else
-    f = -1.0
-end
-
-ti[" "] = {"fl_blueslab", friction = f}
+ti[" "] = cond(wo["IsDifficult"], {"fl_blueslab", friction=-2.5}, {"fl_blueslab", friction=-1.0})
 ti["."] = {"fl_redslab"}
+ti[","] = {"fl_redslab", friction=1.0}
 ti["#"] = {"st_purplegray"}
-ti[","] = {"fl_redslab", friction = 1.0}
 ti["o"] = ti[","] .. {"it_meditation_hollow"}
-ti["1"] = ti[" "] .. {"#ac_pearl_white", owner = 0, essential = 1}
-ti["2"] = ti[" "] .. {"#ac_pearl_white", owner = 0, essential = 1}
+ti["@"] = {"#ac_pearl", owner=YIN, essential=INDISPENSABLE}
 
-width, height = wo(ti, " ",
--- 0         1         2
--- 0123456789012345678901
-{ "####################",
-  "#      #.   .#,   ,#",
-  "# 1    #  #  #  o  #",
-  "#.####.#  #  #,   ,#",
-  "#.    .#  #  ###  ##",
-  "#.  # .#  #.    ,, #",
-  "#.  # .., ##########",
-  "#.  # .#  #.    ,, #",
-  "#.    .#  #  ###  ##",
-  "#.####.#  #  #,   ,#",
-  "# 2    #  #  #  o  #",
-  "#      #.   .#,   ,#",
-  "####################"
-})
-    ]]></el:luamain>
+wo(ti, " ", {
+    "####################",
+    "#      #.   .#,   ,#",
+    "# @    #  #  #  o  #",
+    "#.####.#  #  #,   ,#",
+    "#.    .#  #  ###  ##",
+    "#.  # .#  #.    ,, #",
+    "#.  # .., ##########",
+    "#.  # .#  #.    ,, #",
+    "#.    .#  #  ###  ##",
+    "#.####.#  #  #,   ,#",
+    "# @    #  #  #  o  #",
+    "#      #.   .#,   ,#",
+    "####################"})
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

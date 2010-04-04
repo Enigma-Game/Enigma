@@ -12,7 +12,7 @@
       </el:compatibility>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="true">Thanks to Ronald Lamprecht and Andreas Lochmann for help.</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Ronald Lamprecht and Andreas Lochmann for help.</el:credits>
       </el:comments>
       <el:score el:easy="-" el:difficult="23:53"/>
     </el:info>

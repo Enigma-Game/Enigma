@@ -3,64 +3,62 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Shop Of Horrors" el:subtitle="Watch out, here comes Audrey II!" el:id="pulley07"/>
-      <el:version el:score="1" el:release="1" el:revision="25" el:status="released"/>
-      <el:author  el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="26" el:status="released"/>
+      <el:author el:name="Mark Pulley" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Mark Pulley</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
-       <el:credits el:showinfo="true" el:showstart="true">
-       This level is based on the 1982 musical "Little Shop Of Horrors.
-       </el:credits>
+        <el:credits el:showinfo="true" el:showstart="true">This level is based on the 1982 musical "Little Shop Of Horrors".</el:credits>
       </el:comments>
       <el:score el:easy="-" el:difficult="2:58"/>
     </el:info>
     <el:luamain><![CDATA[
 ti[" "] = {"fl_brick"}
-ti["1"] = ti[" "] .. {"st_scissors", action="callback", target="Grow1"} -- Orin being eaten by Audrey II
-ti["2"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow2"} -- Orin swallowed by Audrey II
-ti["3"] = ti[" "] .. {"st_scissors", action="callback", target="Grow3"} -- Mushnik being eaten by Audrey II
-ti["4"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow4"} -- Mushnik swallowed by Audrey II
-ti["5"] = ti[" "] .. {"st_scissors", action="callback", target="Grow5"} -- Audrey being eaten by Audrey II
-ti["6"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow6"} -- Audrey swallowed by Audrey II
-ti["7"] = (ti({"fl_slope_te"}) .. {"it_trigger", action="callback", target="Grow7"}) .. {"st_oneway_w"} -- Seymour being eaten by Audrey II
-ti["8"] = (ti[" "] .. {"st_grate_cross"}) .. {"it_trigger", action="callback", target="Grow8"} -- Seymour swallowed by Audrey II
+ti["1"] = ti[" "] .. {"st_scissors", target="Grow1"}                               -- Orin being eaten by Audrey II
+ti["2"] = ti[" "] .. {"st_grate"} .. ti({"it_trigger", target="Grow2"})            -- Orin swallowed by Audrey II
+ti["3"] = ti[" "] .. {"st_scissors", target="Grow3"}                               -- Mushnik being eaten by Audrey II
+ti["4"] = ti[" "] .. {"st_grate"} .. ti({"it_trigger", target="Grow4"})            -- Mushnik swallowed by Audrey II
+ti["5"] = ti[" "] .. {"st_scissors", target="Grow5"}                               -- Audrey being eaten by Audrey II
+ti["6"] = ti[" "] .. {"st_grate"} .. ti({"it_trigger", target="Grow6"})            -- Audrey swallowed by Audrey II
+ti["7"] = {"fl_slope_te"} .. {"it_trigger", target="Grow7"} .. ti({"st_oneway_w"}) -- Seymour being eaten by Audrey II
+ti["8"] = ti[" "] .. {"st_grate"} .. ti({"it_trigger", target="Grow8"})            -- Seymour swallowed by Audrey II
 ti["9"] = ti[" "] .. {"st_door", name="Door1", flavor="a"} -- Mushnik's door
 ti["0"] = ti[" "] .. {"st_door", name="Door2", flavor="a"} -- Audrey's door
-ti["!"] = (ti({"fl_bright"}) .. {"st_plaster_hollow"}) .. {"it_rubberband", anchor2="Orin", length=1,strength=10}
-ti["@"] = (ti({"fl_plank"}) .. {"st_turnstilearm_w"}) .. {"it_rubberband", anchor2="Mushnik", length=1,strength=10}
-ti["#"] = {"fl_lawn"} .. ti({"it_rubberband", anchor2="Audrey", length=1,strength=10})
-ti["-"] = {"fl_bright"} .. ti({"it_key", code="1"}) -- Mushnik's key
-ti["_"] = {"fl_plank"} .. ti({"it_key", code="2"}) -- Audrey's key
-ti["("] = ti[" "] .. {"st_key", code="1", action="toggle", target="Door1"} -- Mushnik's lock
-ti[")"] = ti[" "] .. {"st_key", code="2", action="toggle", target="Door2"} -- Audrey's lock
+ti["!"] = {"fl_bright"} .. {"st_plaster_hollow"} .. ti({"it_rubberband", anchor2="Orin", length=1, strength=10})
+ti["@"] = {"fl_plank"} .. {"st_turnstilearm_w"} .. ti({"it_rubberband", anchor2="Mushnik", length=1, strength=10})
+ti["#"] = {"fl_lawn"} .. ti({"it_rubberband", anchor2="Audrey", length=1, strength=10})
+ti["-"] = {"fl_bright"} .. ti({"it_key", code=1})          -- Mushnik's key
+ti["_"] = {"fl_plank"} .. ti({"it_key", code=2})           -- Audrey's key
+ti["("] = ti[" "] .. {"st_key", code=1, target="Door1"}    -- Mushnik's lock
+ti[")"] = ti[" "] .. {"st_key", code=2, target="Door2"}    -- Audrey's lock
 ti[";"] = {"fl_plank"} .. ti({"st_turnstilearm_w"})
 ti[":"] = {"fl_plank"} .. ti({"st_turnstilearm_e"})
 ti["|"] = {"fl_plank"} .. ti({"st_turnstilearm_n"})
 ti[","] = {"fl_plank"} .. ti({"st_turnstilearm_s"})
 ti["."] = ti[" "] .. {"st_turnstile_green"}
-ti["?"] = (ti({"fl_plank"}) .. {"st_turnstilearm_w"}) .. {"it_seed"}
+ti["?"] = {"fl_plank"} .. {"st_turnstilearm_w"} .. ti({"it_seed"})
 ti["/"] = {"st_turnstilearm_n"} .. ti({"fl_bright"})
 ti["+"] = {"st_turnstilearm_n"} .. ti({"fl_lawn"})
 ti["a"] = ti[" "] .. {"st_camouflage"}
 ti["b"] = {"fl_bright"} .. ti({"it_bottle"})
-ti["c"] = {"fl_lawn"} .. ti({"st_nil"}) .. ti({"it_nil"})
-ti["d"] = ti[" "] .. {"st_redrock"} --Walls
+ti["c"] = {"fl_lawn"} .. {"st_nil"} .. ti({"it_nil"})
+ti["d"] = ti[" "] .. {"st_redrock"}
 ti["e"] = {"fl_slope_te"} .. ti({"st_nil"})
-ti["f"] = {"fl_lawn"} --Audrey's floor
-ti["g"] = ti[" "] .. {"st_grate_cross"}
-ti["h"] = (ti({"fl_bright"}) .. {"it_hammer"}) .. {"st_plaster_hollow"}
-ti["i"] = {"fl_mortar"} .. ti({"st_beads"}) --Window
-ti["j"] = {"fl_bright"} --Orin's floor
-ti["k"] = ti[" "] .. {"st_redbrown"} --Audrey's Walls
+ti["f"] = {"fl_lawn"}                       --Audrey's floor
+ti["g"] = ti[" "] .. {"st_grate"}
+ti["h"] = {"fl_bright"} .. {"it_hammer"} .. ti({"st_plaster_hollow"})
+ti["i"] = {"fl_mortar"} .. ti({"st_beads"})
+ti["j"] = {"fl_bright"}                     --Orin's floor
+ti["k"] = ti[" "] .. {"st_redbrown"}        --Audrey's Walls
 ti["m"] = {"fl_plank"} .. ti({"it_coin_l"})
-ti["n"] = {"fl_slope_tn"} .. ti({"st_grate_cross"})
-ti["o"] = (ti[" "] .. {"it_meditation_hollow", essential=INDISPENSABLE}) .. {"st_camouflage"}
+ti["n"] = {"fl_slope_tn"} .. ti({"st_grate"})
+ti["o"] = ti[" "] .. {"it_meditation_hollow", essential=INDISPENSABLE} .. ti({"st_camouflage"})
 ti["p"] = ti[" "] .. {"st_flat"}
 ti["q"] = ti[" "] .. {"st_woven"}
 ti["s"] = {"fl_slope_ts"} .. ti({"st_nil"})
-ti["t"] = (ti({"fl_slope_tn"}) .. {"st_grate_cross"}) .. {"it_burnable"}
+ti["t"] = {"fl_slope_tn"} .. {"st_grate"} .. ti({"it_burnable"})
 ti["w"] = {"fl_slope_tw"} .. ti({"st_nil"})
 ti["x"] = ti[" "] .. {"st_scissors"}
 ti["y"] = {"fl_woven"}
@@ -82,47 +80,45 @@ ti["O"] = ti[" "] .. {"st_panel", cluster=1}
 ti["P"] = {"fl_bright"} .. ti({"st_flat_breakable"})
 ti["Q"] = ti[" "] .. {"st_plaster_hollow"}
 ti["R"] = ti[" "] .. {"st_plaster"}
-ti["S"] = (ti({"fl_slope_tn"}) .. {"st_oneway", orientation=SOUTH}) .. {"it_burnable"}
+ti["S"] = {"fl_slope_tn"} .. {"st_oneway", orientation=SOUTH} .. ti({"it_burnable"})
 ti["T"] = {"fl_plank"} .. ti({"it_coffee"})
-ti["W"] = (ti({"fl_slope_te"}) .. {"st_oneway", orientation=WEST}) .. {"it_burnable"}
+ti["W"] = {"fl_slope_te"} .. {"st_oneway", orientation=WEST} .. ti({"it_burnable"})
 ti["X"] = ti[" "] .. {"st_brick"}
 ti["["] = ti[" "] .. {"st_portal", name="d1"}
 ti["]"] = ti[" "] .. {"st_portal", name="d2"}
 ti["{"] = ti[" "] .. {"st_portal", name="d3"}
 ti["}"] = ti[" "] .. {"st_portal", name="d4"}
 
---|         1    1   |2    2    3    3  | 4    4    5    5 |  6    6    7    7|   8    8    9   9|
---|1   5    0    5   |0    5    0    5  | 0    5    0    5 |  0    5    0    5|   0    5    0   4|
-w, h = wo(ti, " ",{
- "qqqqqqqqqqqqqqqqqqqqMYYMYYMYYYYYYYY[YYpppppppppppppppppppp",
- "qyyyyyyyyyyIyyyyyyyqYY}YYYYYYYYYYYYYYYpjQbQjjbRjbjjjjQjbjp", -- 1
- "qyyyyyyyyyyyyyyyyyyqYYYXXXXXXXXXXXXYYYpjRDRDRjRjRRDRR!RRjp",
- "qyyyyyyyyyyyyyyyyyyq       H          pjRbbbRjRjjbjjjRjQjp",
- "iyyyyyyyyyyyyyyyyyyq                  pjRjDjRQRDRRRDjDjRRp",
- "iyyyyyyyyyyyyyyyyyyy                  pQRjRjRjRJjj-RjRbQji", -- 5
- "iyyayayyyyyyyyyyyyyq                  jjRjhjRjRjbjbRjRRRji",
- "iyacccayyyyyyyyyyyyq                  pjRjRjjjRbjjj/jPjQji",
- "iyac1cayyyyyyyyyyyyi      H           pjRbDRRRDRiiR.bRPRRp",
- "qyacccayyyyyyyyyyyyi             H    pjDjjjQjbjjbjjjRjbjp",
- "qyyaaayyyyyyyyyyyyyi                  pjRRRRRiiiiiiRRDRRPp", --10
- "qaoaoaoaoayyyyyyyyyq                  pbjjjjQjjbjjjQjbjjjp",
- "qqqqqqqqqqqqqqqqqqqq                  pppppppiiiiiippppppp",
- "dmdzzzzdTzzzz|Tzzzzd                  kffffffffffffffffffk",
- "dmm.:zzdzzzz;.:z|Tzd                  kfOOOOOOOOOOOOOOOOfk",
- "dmm,z|zd@.:dzzd;.zzi   H              kfOffffffOfffffffOfk", --15
- "ddddz.dzFzBdzz.:.:di                  kfOfOOOOfOfOOOOOfOfk",
- "izzzzG|;.:Tdzz,z,zzi          H       kfOfOffffOfffffOfOfi",
- "i.:d;..zzzzdTzzzd|zd                  kfOfOfOOOOOOOOfOfOfi",
- "i,z|zTddd?.dz|zzz.z9                  kfOfOfff+fOffffOfOfi",
- "izz.zzdzzz,d;.z|z,z(                  0fOfOOOf.LO#fOOOfOfk", --20
- "dz|,;.;.:zzdz|;.:zzd                  )fOffffOOOOOOffffOfk",
- "dz.:z|z,z;.:;.z,z.:dYYYXXXXXXXXXXXXYYYkfOOOOfkEAEAkfOOOOfk",
- "d_dzz.Tdzz,zz,TzzdKdYYYYYYYYYYYYYYY]YYkffffffkAEAEkffffffk", --23
- "ddddddddddddddddddddYY{YYYYYYYYYYYYYYYkkkkkkkkkkkkkkkkkkkk"})
+wo(ti, " ",{
+    "qqqqqqqqqqqqqqqqqqqqMYYMYYMYYYYYYYY[YYpppppppppppppppppppp",
+    "qyyyyyyyyyyIyyyyyyyqYY}YYYYYYYYYYYYYYYpjQbQjjbRjbjjjjQjbjp",
+    "qyyyyyyyyyyyyyyyyyyqYYYXXXXXXXXXXXXYYYpjRDRDRjRjRRDRR!RRjp",
+    "qyyyyyyyyyyyyyyyyyyq       H          pjRbbbRjRjjbjjjRjQjp",
+    "iyyyyyyyyyyyyyyyyyyq                  pjRjDjRQRDRRRDjDjRRp",
+    "iyyyyyyyyyyyyyyyyyyy                  pQRjRjRjRJjj-RjRbQji",
+    "iyyayayyyyyyyyyyyyyq                  jjRjhjRjRjbjbRjRRRji",
+    "iyacccayyyyyyyyyyyyq                  pjRjRjjjRbjjj/jPjQji",
+    "iyac1cayyyyyyyyyyyyi      H           pjRbDRRRDRiiR.bRPRRp",
+    "qyacccayyyyyyyyyyyyi             H    pjDjjjQjbjjbjjjRjbjp",
+    "qyyaaayyyyyyyyyyyyyi                  pjRRRRRiiiiiiRRDRRPp",
+    "qaoaoaoaoayyyyyyyyyq                  pbjjjjQjjbjjjQjbjjjp",
+    "qqqqqqqqqqqqqqqqqqqq                  pppppppiiiiiippppppp",
+    "dmdzzzzdTzzzz|Tzzzzd                  kffffffffffffffffffk",
+    "dmm.:zzdzzzz;.:z|Tzd                  kfOOOOOOOOOOOOOOOOfk",
+    "dmm,z|zd@.:dzzd;.zzi   H              kfOffffffOfffffffOfk",
+    "ddddz.dzFzBdzz.:.:di                  kfOfOOOOfOfOOOOOfOfk",
+    "izzzzG|;.:Tdzz,z,zzi          H       kfOfOffffOfffffOfOfi",
+    "i.:d;..zzzzdTzzzd|zd                  kfOfOfOOOOOOOOfOfOfi",
+    "i,z|zTddd?.dz|zzz.z9                  kfOfOfff+fOffffOfOfi",
+    "izz.zzdzzz,d;.z|z,z(                  0fOfOOOf.LO#fOOOfOfk",
+    "dz|,;.;.:zzdz|;.:zzd                  )fOffffOOOOOOffffOfk",
+    "dz.:z|z,z;.:;.z,z.:dYYYXXXXXXXXXXXXYYYkfOOOOfkEAEAkfOOOOfk",
+    "d_dzz.Tdzz,zz,TzzdKdYYYYYYYYYYYYYYY]YYkffffffkAEAEkffffffk",
+    "ddddddddddddddddddddYY{YYYYYYYYYYYYYYYkkkkkkkkkkkkkkkkkkkk"})
 
-wo[{4, 5}] = {"it_document", text="feed"} -- Feed Me
-wo[{38, 6}] = {"it_document", text="Orin"} -- Orin Quote
-wo[{38, 21}] = {"it_document", text="Audrey"} -- Audrey Quote
+wo[{4, 5}] = {"it_document", text="feed"}      -- Feed Me
+wo[{38, 6}] = {"it_document", text="Orin"}     -- Orin Quote
+wo[{38, 21}] = {"it_document", text="Audrey"}  -- Audrey Quote
 wo[{19, 20}] = {"it_document", text="Mushnik"} -- Mushnik Quote
 
 function Grow1() -- Grows Audrey II
@@ -223,8 +219,7 @@ function Grow8() -- End
     "asasasasaaa     ",
     "agagagagaa      "})
 end
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

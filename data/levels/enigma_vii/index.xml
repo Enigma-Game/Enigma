@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="69" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="70" title="Enigma VII"/>
 
   <attributes/>
 
@@ -86,7 +86,7 @@
     <level _seq="78" _title="Swapping Puzzle II" _xpath="./joe22_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe22" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="79" _title="Sokopal" _xpath="./andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="7" score="2" target="time" unit="duration"/>
     <level _seq="80" _title="Cold Meditation" _xpath="./ral18_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070314ral728" rel="2" rev="187" score="1" target="time" unit="duration"/>
-    <level _seq="81" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="25" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="Little Shop Of Horrors" _xpath="./pulley07_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley07" rel="1" rev="26" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Watchmaker" _xpath="./huesing01_1" author="Johannes Hüsing" ctrl="force" easy="false" id="huesing01" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="83" _title="Tinker, Tailor" _xpath="./andreas46_4" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas46" rel="4" rev="13" score="2" target="time" unit="duration"/>
     <level _seq="84" _title="Oneway for White" _xpath="./duffy157_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy157" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -95,7 +95,7 @@
     <level _seq="87" _title="The Lone Ranger" _xpath="./pulley04_2" author="Mark Pulley" ctrl="force" easy="false" id="pulley04" rel="2" rev="22" score="2" target="time" unit="duration"/>
     <level _seq="88" _title="The Show Jumper" _xpath="./andreas47_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas47" rel="1" rev="12" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Horseshoes" _xpath="./duffy163_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy163" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="90" _title="Relaxing at the sea" _xpath="./devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="23" score="1" target="time" unit="duration"/>
+    <level _seq="90" _title="Relaxing at the sea" _xpath="./devnull08_1" author="/dev/null" ctrl="force" easy="true" id="devnull08" rel="1" rev="24" score="1" target="time" unit="duration"/>
     <level _seq="91" _title="Jack-Of-All-Trades" _xpath="./mecke12_2" author="mecke" ctrl="force" easy="true" id="mecke12" rel="2" rev="49" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Reflections I" _xpath="./alias01_1" author="Alan Smithee" ctrl="force" easy="true" id="alias01" rel="1" rev="13" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Ghost Driver" _xpath="./duffy176_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy176" rel="2" rev="1" score="1" target="time" unit="duration"/>

@@ -3,14 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Crabwise II" el:subtitle="" el:id="devnull35"/>
-      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
-      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
-        <el:credits el:showinfo="true" el:showstart="true">Thanks to daydreamer (CMoSCR)</el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to daydreamer (CMoSCR)</el:credits>
       </el:comments>
       <el:score el:easy="3:00" el:difficult="5:00"/>
     </el:info>
@@ -23,12 +23,12 @@ ti["#"] = ti({"fl_abyss"}) .. {"st_redrock"}
 ti["="] = ti["#"] .. {"it_death"}
 ti["~"] = cond(wo["IsDifficult"], ti["-"], ti["#"])
 ti["."] = cond(wo["IsDifficult"], ti["-"], ti[" "])
-ti["X"] = {"st_grate_cross"}
+ti["X"] = {"st_grate"}
 ti["R"] = {"st_box_rock"}
-ti["box"] = {"st_box_hay", "box%%"}
-ti["pull"] = {"st_pull", "pull%%"}
-ti["O"] = {"st_oxyd_a", static = true, oxydcolor = OXYD_RED}
-ti["@"] = {"#ac_marble_black"}
+ti["box"] = {"st_box_hay", name="box%%"}
+ti["pull"] = {"st_pull", name="pull%%"}
+ti["O"] = {"st_oxyd_a", static=true, oxydcolor=OXYD_RED}
+ti["@"] = {"#ac_marble"}
 
 wo(res.autotile(ti, {"1", "2", "box"}, {"3", "4", "pull"}), " ", {
     "####################",
@@ -45,8 +45,8 @@ wo(res.autotile(ti, {"1", "2", "box"}, {"3", "4", "pull"}), " ", {
     "#-  #     =        #",
     "O4################2O"})
 
-wo:add({"ot_wire", anchor1 = "box%1", anchor2 = "pull%1"})
-wo:add({"ot_wire", anchor1 = "box%2", anchor2 = "pull%2"})
+wo:add({"ot_wire", anchor1="box%1", anchor2="pull%1"})
+wo:add({"ot_wire", anchor1="box%2", anchor2="pull%2"})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
