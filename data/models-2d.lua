@@ -572,6 +572,7 @@ do
         "it_drop",
         "it_dynamite",
         "it_extralife",
+        "it_flag",
         "it_flag_black",
         "it_flag_white",
         "it_floppy",
