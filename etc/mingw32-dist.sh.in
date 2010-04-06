@@ -62,12 +62,19 @@ function copy_levels
     cplffiles data/levels data/levels lua
     cplffiles data/levels data/levels txt
     cplffiles data/levels data/levels xml
-    for folder in `(cd $SDIR/data/levels && ls -F)| grep / | grep -v CVS`; do 
+    for folder in `(cd $SDIR/data/levels && ls -F)| grep / `; do 
 	mkdir $DDIR/data/levels/$folder; 
 	cp -p $SDIR/data/levels/$folder/*.png $DDIR/data/levels/$folder
         cplffiles data/levels/$folder data/levels/$folder lua
         cplffiles data/levels/$folder data/levels/$folder txt
         cplffiles data/levels/$folder data/levels/$folder xml
+    done
+    for folder in `(cd $SDIR/data/levels/soko && ls -F)| grep / `; do 
+	mkdir $DDIR/data/levels/soko/$folder; 
+	cp -p $SDIR/data/levels/soko/$folder/*.png $DDIR/data/levels/soko/$folder
+        cplffiles data/levels/soko/$folder data/levels/soko/$folder lua
+        cplffiles data/levels/soko/$folder data/levels/soko/$folder txt
+        cplffiles data/levels/soko/$folder data/levels/soko/$folder xml
     done
 }
 

@@ -31,10 +31,10 @@ SDL_image-devel 1.2.10 - 1.2.6
                 http://www.libsdl.org/projects/SDL_image/
                 SDL_image-devel-1.2.10-VC.zip (W)
 
-Xerces-C        3.0.1     2.4 - 2.8 (L)   < 2.3 (L); 3.0 < r671894
+Xerces-C        3.1    2.4 - 2.8 (L)   < 2.3 (L); 3.0 < r671894
 Apache          2.7 : http://xml.apache.org/xerces-c/download.cgi
                       Linux: use rpm spec 
-                3.0 : https://svn.apache.org/repos/asf/xerces/c/trunk
+                3.0++ : https://svn.apache.org/repos/asf/xerces/c/trunk
                       Linux: ./configure --prefix=/mysweethome; make; install)
                       Windows: see doc/README.mingw
 
@@ -46,7 +46,7 @@ zlib            1.2.3
 /GnuWin32       http://gnuwin32.sourceforge.net/packages/zlib.htm
                 Binaries + Developer files (W)
 		
-curl		7.15.5 (earlier versions should work, too)
+curl		7.20.0 (earlier versions should work, too)
 		http://curl.haxx.se/
 		just http,ftp,ipv6 support are required
 
