@@ -1,0 +1,17 @@
+Sizes for hollow puzzle stone shadow
+====================================
+
+|-------------------------------+-------+---------+---------+---------+---------|
+|                               | Gfx16 | Gfx32   | Gfx40   | Gfx48   | Gfx64   |
+|-------------------------------+-------+---------+---------+---------+---------|
+| Dimensions of the hole [px]   | 8 x 8 | 16 x 16 | 20 x 20 | 24 x 24 | 32 x 32 |
+|-------------------------------+-------+---------+---------+---------+---------|
+| Size of the inner border [px] | 0     | 1       | 1       | 2       | 2       |
+|-------------------------------+-------+---------+---------+---------+---------|
+
+The "inner border" is just the same image as the hollow but with a smaller hole
+and with 50% transparency.
+
+The shadow models are just a properly moved black version of the hollow stones
+with some unnecessary parts removed. The shadow image must not take into account
+the transparent inner border of the stone.
