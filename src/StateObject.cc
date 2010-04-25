@@ -35,7 +35,11 @@ namespace enigma {
         if (m.message == "toggle") {
             toggleState();
         } else if (m.message == "signal") {
-            int v = m.value;    // action bools are converted to int
+            int v;
+            if (m.value.getType() == Value::DOUBLE || m.value.getType() == Value::STRING)
+                v = m.value;
+            else  // convert object and other types to true
+                v = (m.value.to_bool()) ? 1 : 0; 
             if (v >= 0)
                 setState(v % 2);  // allow fourswitches to send dir as signal value
             return Value();

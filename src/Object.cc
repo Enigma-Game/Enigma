@@ -381,9 +381,7 @@ namespace enigma {
     }
     
     Value Object::invertActionValue(const Value &val) const {
-        if (val.getType() == Value::BOOL)   // bool values may be inverted
-            return !val.to_bool();  // invert value
-        return val;
+        return !val.to_bool();  // invert and convert value to bool
     }
     
     /* Send an impulse to position 'dest' into direction dir.  If 'dest'

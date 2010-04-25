@@ -14046,9 +14046,9 @@ Shape transformation. See text above.
 
 The sensor item is a switch on top of a floor that reacts on actors passing it.
 It performs actions on actors either entering or exiting the sensors grid
-depending on its attribute @samp{exit}. It will send an action value of
-@samp{true} but of course the @ref{inverse} attribute can be used to send an
-action value of @samp{false} instead.
+depending on its attribute @samp{exit}. It will send the causing actor as action
+value, which evaluates like @samp{true} in Lua, but nevertheless the @ref{inverse}
+attribute can be used to send an action value of @samp{false} instead.
 
 Any actors passing the grid, either on the floor or jumping over it will be
 detected.
