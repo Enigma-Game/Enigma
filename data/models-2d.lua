@@ -751,8 +751,9 @@ end
 
 -- it_puller --
 do
-    local images = {"it_puller_n", "it_puller_e", "it_puller_s", "it_puller_w"}
+    local images = {"it_puller_n", "it_puller_e", "it_puller_s", "it_puller_w", "it_puller"}
     DefTiles("it_puller", images)
+    table.remove(images, 5)
     local frames = BuildFrames(images, 100)
     DefAnim("it_puller_active", RepeatAnim(frames, 4), false)
 end
