@@ -109,7 +109,7 @@ namespace enigma { namespace gui {
                 imgCache.store(previewSubPath, surface); // insert in imgCache
                 savePreview(levelProxy, surface);        // save on filesystem
             } else {
-                surface = enigma::GetImage("error");
+                surface = enigma::GetImage(("error" + vminfo.thumbsext).c_str());
             }
             didGenerate = true;
         }
