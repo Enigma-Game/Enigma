@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -133,8 +133,11 @@ namespace enigma {
         GridPos p = get_pos();
         Value vc = getAttr("color");
         sound_event(vc == BLACK ? "bomb_black" : "bomb_white");
+        int id = getId();
         SendExplosionEffect(p, vc == BLACK ? EXPLOSION_BLACKBOMB : EXPLOSION_WHITEBOMB);  // may kill the bomb by another explosion1 set by brake
-        replace("it_explosion_debris");
+
+        if (Object::getObject(id) != NULL)   // not killed?
+            replace("it_explosion_debris");
     }
 
     int Bomb::traitsIdx() const {
