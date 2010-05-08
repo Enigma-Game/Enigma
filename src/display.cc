@@ -205,7 +205,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     
     if (m_showtime_p || m_showcounter_p) {
         double abstime   = m_leveltime >= 0 ? m_leveltime : fabs(floor(m_leveltime));
-//            abstime += 59*60;  for testing purposes
+//            abstime += 63*60;  //for testing purposes
         int hours   = static_cast<int>(abstime / 3600);
         int minutes = static_cast<int>((abstime - 3600 * hours) / 60);
         int seconds = static_cast<int>(abstime) % 60;
@@ -240,7 +240,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
                 showHours = true;
                 if (vminfo->tile_size >= 40) {
                     showMinutes = true;
-                 } else {
+                } else {
                     showSeconds = false;
                 }
             }
@@ -277,12 +277,14 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
                 delete s_time;
                 x += maxWidthDigit + widthColon;
             }
-            text = ecl::strf("%d", minutes);
-            s_time = timefont->render(text.c_str());
             if (showMinutes) {
+				text = ecl::strf("%02d", minutes);
+				s_time = timefont->render(text.c_str());
                 blit(gc, x + maxWidthDigit - widthDigit[minutes/10], y, s_time);
                 x += 2 * maxWidthDigit;
             } else {
+				text = ecl::strf("%d", minutes);
+				s_time = timefont->render(text.c_str());
                 blit(gc, x + maxWidthDigit - widthDigit[minutes%10], y, s_time);
                 x += maxWidthDigit;
             }
