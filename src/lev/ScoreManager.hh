@@ -67,12 +67,11 @@ namespace enigma { namespace lev {
          * in an outdated score version.
          * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD
          */
+        bool isObsolete(lev::Proxy *levelProxy, int difficulty);
+        /**
+         */
         bool isOutdated(lev::Proxy *levelProxy, int difficulty);
         /**
-         * Returns the best score that the user has reached for the given 
-         * difficulty so far or -1 for not yet solved in the current score
-         * version.
-         * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD
          */
         int getBestUserScore(lev::Proxy *levelProxy, int difficulty);
         /**

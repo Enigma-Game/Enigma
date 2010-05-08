@@ -539,7 +539,7 @@ namespace enigma { namespace lev {
             return false;
     }
 
-    bool ScoreManager::isOutdated(lev::Proxy *levelProxy, int difficulty) {
+    bool ScoreManager::isObsolete(lev::Proxy *levelProxy, int difficulty) {
         ecl::Assert <XFrontend> (difficulty >= DIFFICULTY_EASY &&  
                 difficulty <= DIFFICULTY_HARD, "ScoreManager::isOutdated illegal difficulty");
         if (difficulty == DIFFICULTY_EASY && !levelProxy->hasEasyMode())
@@ -556,6 +556,10 @@ namespace enigma { namespace lev {
             return true;
         } else
             return false;
+    }
+
+    bool ScoreManager::isOutdated(lev::Proxy *levelProxy, int difficulty) {
+        return false;
     }
 
     int ScoreManager::getBestUserScore(lev::Proxy *levelProxy, int difficulty) {

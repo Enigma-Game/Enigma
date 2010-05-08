@@ -60,13 +60,15 @@ namespace enigma { namespace gui {
         img_feather     = enigma::GetImage("ic-feather");
         img_easy        = enigma::GetImage("completed-easy");
         img_hard        = enigma::GetImage("completed");
-        img_changed     = enigma::GetImage("changed");
+        img_obsolete     = enigma::GetImage(("ic-obsolete" + vminfo.thumbsext).c_str());
+        img_outdated     = enigma::GetImage(("ic-outdated" + vminfo.thumbsext).c_str());
         img_unavailable = enigma::GetImage("unavailable");
         img_par         = enigma::GetImage("par");
         img_wrEasy      = enigma::GetImage("ic-wr-easy");
         img_wrDifficult = enigma::GetImage("ic-wr-difficult");
         img_border      = enigma::GetImage(("thumbborder" + vminfo.thumbsext).c_str());
         img_editborder  = enigma::GetImage(("editborder" + vminfo.thumbsext).c_str());
+        thumbmode       = (vminfo.thumbw == 160) ? 2 : ((vminfo.thumbw == 120) ? 1 : 0);
     }
     
     void LevelWidget::syncFromIndexMgr() {
@@ -207,6 +209,10 @@ namespace enigma { namespace gui {
         }
     }
                 
+    int LevelWidget::thumb_off(int small, int medium, int large) {
+    	return (thumbmode == 2) ? large : ((thumbmode == 1) ? medium : small);
+    }
+
     bool LevelWidget::draw_level_preview(ecl::GC &gc, int x, int y, int borderWidth,
             lev::Proxy *proxy, bool selected, bool isCross, bool locked,
             bool allowGeneration, bool &didGenerate) { 
@@ -251,29 +257,31 @@ namespace enigma { namespace gui {
             if (app.state->getInt("Difficulty") == DIFFICULTY_HARD) {
                 // draw golden medal over silber medal
                 if (useAsEasy != NULL)
-                    blit (gc, x, y, useAsEasy);
+                    blit (gc, x+thumb_off(3,3,24), y, useAsEasy);
                 if (useAsDifficult != NULL)
-                    blit (gc, x+5, y, useAsDifficult);
+                    blit (gc, x+thumb_off(8,8,29), y, useAsDifficult);
             }
             else {
                 // draw silver medal over golden medal
                 if (useAsDifficult != NULL)
-                    blit (gc, x+5, y, useAsDifficult);
+                    blit (gc, x+thumb_off(8,8,29), y, useAsDifficult);
                 if (useAsEasy != NULL)
-                    blit (gc, x, y, useAsEasy);
+                    blit (gc, x+thumb_off(3,3,24), y, useAsEasy);
             }
         
             // Add warning sign if level has been changed since player solved it
-            if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
-                blit(gc, x-3, y-3, img_changed);
+            if (scoreMgr->isObsolete(proxy, app.state->getInt("Difficulty")))
+                blit(gc, x-2, y-2, img_obsolete);
+            else if (scoreMgr->isOutdated(proxy, app.state->getInt("Difficulty")))
+                blit(gc, x-2, y-2, img_outdated);
         
             // Add icon if worldrecord or par
             if (scoreMgr->bestScoreReached(proxy, app.state->getInt("Difficulty"))) {
-                blit(gc, x+35, y+5, 
+                blit(gc, x+thumb_off(5,35,59), y+thumb_off(2,5,20),
                         (app.state->getInt("Difficulty") != DIFFICULTY_HARD &&
                         proxy->hasEasyMode()) ? img_wrEasy : img_wrDifficult);
             } else if (scoreMgr->parScoreReached(proxy, app.state->getInt("Difficulty"))){
-                blit(gc, x+30, y+12, img_par);
+                blit(gc, x+thumb_off(33,33,55), y+thumb_off(12,12,12), img_par);
             }
         } else {
             // Draw solved/changed icons on top of level preview

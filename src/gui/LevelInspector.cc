@@ -590,12 +590,12 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         } else {
             blit (gc, vminfo->width/2-(vshrink?2-10:4-20), vmargin+5*(vshrink?12:25)+4*vspacing+vspacing2, img_hard);
         }
-        Surface *img_changed = enigma::GetImage("changed");
+        Surface *img_outdated = enigma::GetImage("ic-outdated-120x78");
         ratingInherited = lev::ScoreManager::instance()->isRatingInherited(levelProxy);
         if (ratingInherited) {
             int numLines = vminfo->height < 400 ? 10 :(vminfo->height < 500 ? 14 :(vminfo->height < 650 ? 18 : 19));
-            blit (gc, hmargin+(vshrink?55+5+20:110+10+40), vmargin + numLines*(vshrink?12:25) +
-                    (numLines-3)*vspacing + 3*vspacing2, img_changed);        
+            blit (gc, hmargin+(vshrink?55+5+20:110+10+40), vmargin + numLines*(vshrink?18:25) +
+                    (numLines-3)*vspacing + 3*vspacing2 - 6, img_outdated);
         }
     }
     

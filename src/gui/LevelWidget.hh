@@ -65,6 +65,7 @@ namespace enigma { namespace gui {
         void scroll_up(int lines);
         void scroll_down(int lines);
         void set_selected (int newfirst, int newsel);
+        int thumb_off(int small, int medium, int large);
         bool draw_level_preview (ecl::GC &gc, int x, int y, int borderWidth,
                lev::Proxy *proxy, bool selected, bool isCross, bool locked,
                bool allowGeneration, bool &didGenerate);
@@ -86,6 +87,7 @@ namespace enigma { namespace gui {
         int  height;    // number of buttons in a column
         int  buttonw;   // pixelwidth of a button
         int  buttonh;   // pixelheight of a button
+        int  thumbmode; // size mode of thumb
         std::vector<ecl::Rect>  m_areas; // Screen areas occupied by level previews
         std::vector<bool> pending_redraws;
         bool isInvalidateUptodate;
@@ -97,7 +99,8 @@ namespace enigma { namespace gui {
         ecl::Surface *img_feather;
         ecl::Surface *img_easy;
         ecl::Surface *img_hard;
-        ecl::Surface *img_changed;
+        ecl::Surface *img_obsolete;
+        ecl::Surface *img_outdated;
         ecl::Surface *img_unavailable;
     //    Surface *img_unknown;
         ecl::Surface *img_par;
