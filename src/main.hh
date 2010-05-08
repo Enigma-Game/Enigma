@@ -23,6 +23,8 @@
 #define ENIGMACOMPATIBITLITY 1.10
 #define PREFFILENAME "enigmarc.xml"
 #define RATINGSFILENAME "ratings.xml"
+#define TRUSTED_RELEASE 0.92
+#define ASSURED_RELEASE 1.00
 
 #include "file.hh"
 #include "PreferenceManager.hh"

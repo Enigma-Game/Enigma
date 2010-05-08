@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -559,7 +559,33 @@ namespace enigma { namespace lev {
     }
 
     bool ScoreManager::isOutdated(lev::Proxy *levelProxy, int difficulty) {
-        return false;
+        DOMElement * level = getCreateLevel(levelProxy);
+        if (level == NULL || XMLString::parseInt(level->getAttribute(
+                Utf8ToXML("version").x_str())) != levelProxy->getScoreVersion()) {
+            return false;  // unsolved, thus not outdated
+        }
+        const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
+        int score1 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        if (score1 < 0) return false;
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str());
+        double rel1 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel1 = result->getValue();
+            delete result;
+        }
+        if (rel1 >= ASSURED_RELEASE) return false;
+
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2" : "easy2").x_str());
+        int score2 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2rel" : "easy2rel").x_str());
+        double rel2 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel2 = result->getValue();
+            delete result;
+        }
+        return (score2 >= 0 && rel2 >= ASSURED_RELEASE) ? false : true;
     }
 
     int ScoreManager::getBestUserScore(lev::Proxy *levelProxy, int difficulty) {
@@ -575,7 +601,28 @@ namespace enigma { namespace lev {
         }
         const XMLCh *attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1" : "easy1").x_str());
         int score = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
-        return (score < 0) ? SCORE_UNSOLVED : score;
+        if (score < 0) return SCORE_UNSOLVED;
+
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff1rel" : "easy1rel").x_str());
+        double rel1 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel1 = result->getValue();
+            delete result;
+        }
+        if (rel1 >= TRUSTED_RELEASE) return score;
+
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2" : "easy2").x_str());
+        int score2 = (XMLString::stringLen(attr) > 0) ? XMLString::parseInt(attr) : -1;
+        if (score2 < 0) return SCORE_UNSOLVED;
+        attr = level->getAttribute(Utf8ToXML((difficulty == DIFFICULTY_HARD) ? "diff2rel" : "easy2rel").x_str());
+        double rel2 = 0.92; // default
+        if (XMLString::stringLen(attr) > 0) {
+            XMLDouble * result = new XMLDouble(attr);
+            rel2 = result->getValue();
+            delete result;
+        }
+        return (rel1 >= TRUSTED_RELEASE) ? score2 : SCORE_UNSOLVED;
     }
 
     void ScoreManager::updateUserScore(lev::Proxy *levelProxy, int difficulty, 
@@ -598,7 +645,7 @@ namespace enigma { namespace lev {
         if (!hasValidUserId) {
             finishUserId(std::time(NULL) & 0xFFFF);
         }
-        
+
         DOMElement * level = getCreateLevel(levelProxy);
         
         // get the current newest scoreversion of the level - it exists now
@@ -673,13 +720,13 @@ namespace enigma { namespace lev {
             } else if (score < score2) {
                 // score better than previous second best score
                 if (rel2 <= enigmaRelease) {
+                    // limit score hunt to newest enigma release
                     score2 = score;
                     rel2 = enigmaRelease;
                     score2mod = true;
                 }
-            } else if (rel2 < enigmaRelease) {
-                // we remember the second best score played with the most recent 
-                // Enigma version
+            } else if (rel2 < TRUSTED_RELEASE) {
+                // we remember the second best score played with a trusted release
                 score2 = score;
                 rel2 = enigmaRelease;
                 score2mod = true;
@@ -752,7 +799,7 @@ namespace enigma { namespace lev {
                     return;  // avoid deleting existing scores
             }
             // reset the score to solved but no score value
-            updateUserScore(levelProxy, difficulty, 99*60+59); // store max possible score
+            updateUserScore(levelProxy, difficulty, SCORE_MAX2); // store max possible score
             level = getLevel(levelProxy);
             // check if score is created - it may be NULL if level is not released
             if (level != NULL && XMLString::parseInt(level->getAttribute(
@@ -769,7 +816,7 @@ namespace enigma { namespace lev {
         int size = ind->size();
         int num = 0;
         for (i=0 ; i < size; i++) {
-            if (isSolved(ind->getProxy(i),difficulty))
+            if (isSolved(ind->getProxy(i), difficulty))
                 num++;
         }
         return num;
@@ -780,7 +827,7 @@ namespace enigma { namespace lev {
         int size = ind->size();
         int num = 0;
         for (i=0 ; i < size; i++) {
-            if (bestScoreReached(ind->getProxy(i),difficulty))
+            if (bestScoreReached(ind->getProxy(i), difficulty))
                 num++;
         }
         return num;
@@ -791,7 +838,7 @@ namespace enigma { namespace lev {
         int size = ind->size();
         int num = 0;
         for (i=0 ; i < size; i++) {
-            if (parScoreReached(ind->getProxy(i),difficulty))
+            if (parScoreReached(ind->getProxy(i), difficulty))
                 num++;
         }
         return num;

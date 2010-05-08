@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -35,11 +35,11 @@ namespace enigma { namespace lev {
         SCORE_MAX1 = 99*60+59,
         SCORE_MAX2 = 32767,   // 9:06'07" (xs:short)
         SCORE_UNSOLVED  = -1,
-        SCORE_SOLVED   = -2 
+        SCORE_SOLVED   = -2
     };
 
     /**
-     * A singelton manager for user scores.
+     * A singleton manager for user scores.
      * 
      * There are 2 small paradigm shifts in 0.92 scores and 1.00 scores:<p>
      * There is no longer a separate "finished" flag but levels that have
@@ -61,24 +61,40 @@ namespace enigma { namespace lev {
          * in any score version.
          * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD, DIFFICULTY_ANY
          */
-        bool isSolved(lev::Proxy *levelProxy, int difficulty); 
+        bool isSolved(lev::Proxy *levelProxy, int difficulty);
+
         /**
-         * Returns true if the level has only been solved for the given difficulty
-         * in an outdated score version.
+         * Returns true when the level has only been solved for the given difficulty
+         * in an obsolete level score version.
          * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD
          */
         bool isObsolete(lev::Proxy *levelProxy, int difficulty);
+
         /**
+         * Reports whether the score played for this level is out dated.
+         * The score is out dated, when the level has not been solved with
+         * an Enigma release, that is assured to be trusted by the upcoming
+         * next release. In other words the user should replay this level
+         * to avoid this level no longer being counted solved with the next
+         * Enigma release.
+         * @arg difficulty  DIFFICULTY_EASY, DIFFICULTY_HARD
          */
         bool isOutdated(lev::Proxy *levelProxy, int difficulty);
+
         /**
+         * Reports the best trusted score that the user played for the given
+         * level in its score release.
          */
         int getBestUserScore(lev::Proxy *levelProxy, int difficulty);
+
         /**
-         * 
+         * Update the saved score of the given level with a new value. The score may
+         * either be stored as best ever score or as best score with recent Enigma version
+         * depending on prior values.
          */
         void updateUserScore(lev::Proxy *levelProxy, int difficulty, int score,
                 double enigmaRelease = app.getEnigmaVersion());
+
         /**
          * Returns true if the users best score is equal or better than the
          * official best score for the given difficulty
