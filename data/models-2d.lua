@@ -1977,7 +1977,7 @@ do
                    "it_extinguisher_empty", "it_extinguisher_full", "it_extinguisher_medium",
                    "it_extralife", "it_flag", "it_flag_black", "it_flag_white",
                    "it_floppy", "it_glasses", "it_glasses_broken", "it_hammer", "it_key",
-                   "it_magicwand", "it_pencil", "it_pin", "it_pipe", "it_pipe_w", "it_pipe_w",
+                   "it_magicwand", "it_pencil", "it_pin", "it_pipe", "it_pipe_w", "it_pipe_s",
                    "it_pipe_sw", "it_pipe_e", "it_pipe_ew", "it_pipe_es",
                    "it_pipe_n", "it_pipe_nw", "it_pipe_ns", "it_pipe_ne",
                    "it_puller", "it_puller_w", "it_puller_s", "it_puller_e", "it_puller_n",
