@@ -644,8 +644,12 @@ end
 
 -- it_pipe --
 do
+    -- first two rows are pipe models for the pipe item
+    -- second two rows are the models used for the barrier stone
     DefTiles("it_pipe", {"it_pipe_e", "it_pipe_s", "it_pipe_es", "it_pipe_sw", "it_pipe_ew",
-                         "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns"})
+                         "it_pipe_w", "it_pipe_n", "it_pipe_ne", "it_pipe_nw", "it_pipe_ns", "it_pipe_nil",
+                         "pipe_e", "pipe_s", "pipe_es", "pipe_sw", "pipe_ew",
+                         "pipe_w", "pipe_n", "pipe_ne", "pipe_nw", "pipe_ns", "pipe"})
 end
 
 -- it-trigger --
@@ -1977,9 +1981,7 @@ do
                    "it_extinguisher_empty", "it_extinguisher_full", "it_extinguisher_medium",
                    "it_extralife", "it_flag", "it_flag_black", "it_flag_white",
                    "it_floppy", "it_glasses", "it_glasses_broken", "it_hammer", "it_key",
-                   "it_magicwand", "it_pencil", "it_pin", "it_pipe", "it_pipe_w", "it_pipe_s",
-                   "it_pipe_sw", "it_pipe_e", "it_pipe_ew", "it_pipe_es",
-                   "it_pipe_n", "it_pipe_nw", "it_pipe_ns", "it_pipe_ne",
+                   "it_magicwand", "it_pencil", "it_pin",
                    "it_puller", "it_puller_w", "it_puller_s", "it_puller_e", "it_puller_n",
                    "it_ring", "it_rubberband", "it_seed", "it_seed_wood", "it_seed_hay",
                    "it_seed_greenbrown", "it_seed_volcano",
@@ -1991,6 +1993,14 @@ do
         display.DefineComposite("st_barrier_"..it.."_fg", stonebase, it)
         DefShModel("st_barrier_"..it, "st_barrier_"..it.."_fg", "sh_solid")
     end
+    -- Pipe barriers need an extra solution as they use models that are different from the pipe item models
+    local pipes = {"pipe_w", "pipe_s", "pipe_sw", "pipe_e", "pipe_ew", "pipe_es", "pipe_n",
+                   "pipe_nw", "pipe_ns", "pipe_ne", "pipe"}
+    for _, it in pairs(pipes) do
+        display.DefineComposite("st_barrier_it_"..it.."_fg", stonebase, it)
+        DefShModel("st_barrier_it_"..it, "st_barrier_it_"..it.."_fg", "sh_solid")
+    end
+    -- And the all-blocking barrier
     DefShModel("st_barrier_all", stonebase, "sh_solid")
 end
 
