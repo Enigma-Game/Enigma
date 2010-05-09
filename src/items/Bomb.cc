@@ -133,11 +133,13 @@ namespace enigma {
         GridPos p = get_pos();
         Value vc = getAttr("color");
         sound_event(vc == BLACK ? "bomb_black" : "bomb_white");
-        int id = getId();
-        SendExplosionEffect(p, vc == BLACK ? EXPLOSION_BLACKBOMB : EXPLOSION_WHITEBOMB);  // may kill the bomb by another explosion1 set by brake
+        Item *newitem = MakeItem("it_explosion_debris");
+        transferName(newitem);
 
-        if (Object::getObject(id) != NULL)   // not killed?
-            replace("it_explosion_debris");
+        SendExplosionEffect(p, vc == BLACK ? EXPLOSION_BLACKBOMB : EXPLOSION_WHITEBOMB);  
+        
+        //the bomb may be killed by another explosion (e.g. st_brake)
+        SetItem(p, newitem);     // enforce a floor destructing explosion
     }
 
     int Bomb::traitsIdx() const {
