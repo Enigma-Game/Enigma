@@ -14154,10 +14154,13 @@ A static jump facility that lets @ref{Flying Actors} jump on passing its center
 square. A springboard can catapult any number of actors anytime with an idle
 reloading time after an activation.
 
-Another catapulting, but portal item is @ref{it_spring}.
+A springboard positioned on top of a floor can not be picked up. But nevertheless
+as being portable, it can be added to the initial inventory, to an @ref{it_bag}
+or can be picked up as a result of a @ref{it_surprise}.
+
+Another catapulting, but liftable item is @ref{it_spring}.
 
 @table @asis
-
 @item @b{Attributes:}
 @table @asis
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}

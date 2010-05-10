@@ -1,4 +1,4 @@
-Building Enigma under MacOS X 106, 10.5, and 10.4
+Building Enigma under MacOS X 10.6, 10.5, and 10.4
 
 Overview:
 ---------
@@ -22,60 +22,30 @@ on both PowerPc and Intel Macs running MacOS 10.4 or later.
 
 You do need some other packages installed in order to build Enigma on
 your MacOS X system. Earlier versions of this README used packages
-installed from Macports. That is no longer necessary.
+installed from Macports. That is no longer necessary. These instructions
+have you install packages in /usr/local. It is possible for libraries in
+that directory to conflict with other version of the same library that
+have been installed by Macports in its default /opt/local directory.
+If you normally use Macports, it may be advisable to temporarily rename
+/opt/local and your current /usr/local to get them out of the way,
+install your Enigma build environment in a  fresh /usr/local, then
+rename that to something like /usr/local-enigma to save it for the next
+time you need to build Enigma, restoring the original /opt/local and /usr/local.
 
-Step 1: Install libjpeg and libpng downloaded from
-http://ethan.tira-thompson.org/Mac_OS_X_Ports.html
-Download the combined package dmg file from that page, open it in
-Finder and double click on the mpkg installation file.
+Step 0: Create a text file to contain a shell script that you will use to
+build universal binaries that will work for MacOS 10.4, 10.5, and 10.6.
+You can name the file whatever you like, but in this README it will be
+referred to as builduniversal.sh. Place it somewhere convenient such as
+in a ~/bin directory. If you place it there and make ~/bin part of your PATH,
+you can refer to builduniversal.sh just by name in command lines and scripts.
+If you don't place it in your PATH make sure that you use the full path name
+wherever there is a command in the following that just says builduniversal.sh.
 
-Step 2: Download the xerces-c precompiled binaries for MacOS 10.4
-both Intel and PPC from http://xerces.apache.org/xerces-c/download.cgi
-Each of them will contain a lib/libxerces-c.a file. Use lipo to combine
-them into one universal binary file. For example, if you put the files into
-separate directories named ppc and x86 and wanted to create the universal
-binary in the current directory, the command line would look like 
-
- lipo -create ppc/libxerces-c.a x86/libxerces-c.a -output libxerces-c.a
-
-Put the universal binary of libxerces-c.a in /usr/local/lib/
-
-Copy the include directory contents from the download to /usr/local/include/
-and the pkgconfig directory contents to /usr/local/lib/pkgconfig/
-You can use either the PPC or Intel version as they are the same.
-
-Step 3 Install SDL frameworks: Download the binary packages for Mac OS
-X from the SDL project web site for the current stable version of SDL
-(SDL 1.2 at the time of this writing. Enigma does not yet support SDL 1.3),
-SDL_image, SDL_ttf, and SDL_mixer. The four URLs to find them are:
-
-http://www.libsdl.org/
-http://www.libsdl.org/projects/SDL_image/
-http://www.libsdl.org/projects/SDL_ttf/
-http://www.libsdl.org/projects/SDL_mixer/
-
-Each download is a dmg file that when opened contains a Framework
-directory, e.g., SDL.framework. Copy each of those directories into
-/Library/Frameworks/ to install it.
-
-Step 4. Install gettext in /usr/local as a universal binary
- a) Download the latest source tarball of gettext from
-http://www.gnu.org/software/gettext/#TOCdownloading
- b) Untar it into a convenient directory for building it.
- c) Build it using the following shell script. If you name the file
-for example builduniversal.sh, make it executable and put it in 
-your path, you would cd to the root directory
-of the source tarball you unpacked and use the command lines
-
-  builduniversal.sh
-  make
-  sudo make install
-
-Here is the contents of builduniversal.sh:
+Here are the contents of builduniversal.sh:
 
 #!/bin/sh
 # build a package for universal 10.4+ if it is configured in standard way
-# does the configure and make but not the make install
+# does the configure but not the make or make install
 # You can add arguments to be passed to configure
 # You can pass in prefix values in CFLAGS, CXXFLAGS, LDFLAGS environment variables
 MACOSX_DEPLOYMENT_TARGET=10.4 \
@@ -87,32 +57,86 @@ CXXFLAGS="$CXXFLAGS $NIFLAGS" \
 LDFLAGS="$LDFLAGS $UNIFLAGS  -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk" \
 ./configure --disable-dependency-tracking $*
 
-Step 5. Install SDL packages from source
-The build process requires the SDL libraries to be installed in /usr/local
-in addition to the frameworks you installed in step 3.
- a) Download the source file tarballs from the same web pages you downloaded the frameworks.
- b) Unpack the tarballs in some convenient directory for building them
- c) Building SDL is a bit complicated to get a universal build. It comes with a
-   script for doing so build-scripts/fatbuild.sh, but the version included with
-   SDL-1.2.14 is buggy. You have to replace it with one downloaded from the
-   bug report about it: http://bugzilla.libsdl.org/attachment.cgi?id=453
-   Remember to chmod +x the file after you download it to make it executable.
-   It is an attachment to bug report http://bugzilla.libsdl.org/show_bug.cgi?id=867
-   Once you have the proper fatbuild.sh in place to build SDL you run
+Step 0b: You must make sure that the following is executed in any shell that you
+use during the build process. Either type this at the command line when you open
+a shell or put it in your ~/.profile file so it is executed automatically when you
+open a command line shell
 
+export MACOSX_DEPLOYMENT_TARGET=10.4
+
+Step 1. Download the required SDL 1.2.x libraries and related packages. At each
+of the following web pages you will find both a prebuilt binary framework
+for MacOS X in the form of a .dmg file, and the sources in the form of a
+compressed tar file (tar.gz, also called a 'tarball'). You will need to download both of
+those for each of the four packeges listed below. Note that there is a version 1.3.x
+of SDL that Enigma does not support. You need SDL 1.2.14, which is the last
+to be released in the 1.2. series. The other packages have their own version numbers.
+
+SDL         http://www.libsdl.org/
+SDL_image   http://www.libsdl.org/projects/SDL_image/
+SDL_ttf     http://www.libsdl.org/projects/SDL_ttf/
+SDL_mixer   http://www.libsdl.org/projects/SDL_mixer/
+
+Step 2: For each of the four .dmg files downloaded in Step 1, double click
+the dmg file to open it in the Finder, then drag the Framework folder that is revealed
+into the /Library/Frameworks folder. Note that the system may ask you to enter
+your password to authenticate yourself as an administrator. We will use the
+four tarballs of source code you downloaded in a later step.
+
+Step 3: Download the source tarballs of the following libraries from the
+web sites that are indicated. In each case download the latest stable version.
+
+libjpeg  http://www.ijg.org/
+libpng   http://www.libpng.org/pub/png/libpng.html
+xerces-c http://xerces.apache.org/xerces-c/build-3.html
+gettext  http://www.gnu.org/software/gettext/#TOCdownloading
+
+Step 5. Unpack each of the source tarballs in any convenient directory.
+Each will go into its own subdirectory, as the tarballs are set up that way.
+
+Step 6: Install the SDL library. This is the trickiest one to build as it requires a
+special build script that is downloaded from a bug report about SDL. The steps to build it:
+
+Step 6a. Download the build script to some convenient directory.
+This command will get the file, naming it fatbuild.sh in the
+current directory.
+
+ curl -o fatbuild.sh "http://bugzilla.libsdl.org/attachment.cgi?id=453"
+
+Step 6b. Copy the downloaded fatbuild.sh file to the build-scripts
+subdirectory of the unpacked SDL sources, replacing the original one that is there,
+then cd to the sources directory. For example,
+
+ cp fatbuild.sh SDL-1.2.14/build-scripts/
+ cd SDL-1.2.14
+
+Step 6c: Build SDL using the following commands. The export command doesn't have to
+be repeated if you remembered to do it as mentioned in Step 0b.
+
+     export MACOSX_DEPLOYMENT_TARGET=10.4
      build-scripts/fatbuild.sh
      sudo build-scripts/fatbuild.sh install
 
- d) Build SDL_image, SDL_mixer, and SDL_ttf using  builduniversal.sh and sudo make install
-    just like you did with gettext
+Step 7. Install each of the other seven packages that you downloaded source tarballs for
+by unpacking them (each will go into its own subdirectory), cd to its directory,
+and run the commands (assuming you have placed builduniversal.sh in your PATH)
 
-Step 6. Install ImageMagick (required to build the documentation)
-Download the ImageMagick binaries from
-http://www.imagemagick.org/script/binary-releases.php#macosx
-and install according to the directions there.
-IMPORTANT: Be sure to export MAGICK_HOME as described there,
+ builduniversal.sh
+ make
+ sudo make install
 
-Step 7 Build Enigma:
+Step 8. Install ImageMagick, which is needed to generate the documentation
+during the build process. ImageMagick will not be part of Enigma, so it does not
+have to built as a universal binary as long as it can run on the build computer.
+To build it, download the current sources of ImageMagick from
+  ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
+untar it into a convenient directory, cd to it, and build with the commands
+
+ ./configure
+ make
+ sudo make install
+
+Step 9. Build Enigma:
 
 Important: The configure step requires you to be logged in with access
 to the window system, i.e., either at the Mac keyboard or using remote
@@ -120,13 +144,15 @@ screen sharing, and in a Terminal.app comand line. It will hang trying
 to test the SDL library if you are using ssh to log in remotely with no
 GUI screen.
 
-At the Terminal.app command line, set up your environment with the following
-
-export MACOSX_DEPLOYMENT_TARGET=10.4
+Remember to perform Step 0b each time you open a new Termnal.app window.
 
 Then cd to the Enigma directory tree and
 run the following commands which make use of the builduniversal.sh
-script file that was listed in step 4.
+script file that was listed in step 0 and is assumed to be in your PATH
+
+Important: If you have built in the Enigma directory tree before and
+made some change to the build environment, use make distclean to ensure
+that there are no files from the old build interfering with the new build
 
 ./autogen.sh
 CFLAGS="-I/usr/local/include" CXXFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib" builduniversal.sh
