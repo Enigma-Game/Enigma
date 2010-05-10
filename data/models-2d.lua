@@ -613,6 +613,9 @@ end
 -- Simple item aliases --
 -------------------------
 
+-- necessary for barrier stone
+DefAlias("it_bottle", "it_bottle_idle")
+
 --------------------------------------------------------------
 -- Multiple-Image-Items, non animated, e.g. it-burnable-oil --
 --------------------------------------------------------------
@@ -1986,7 +1989,7 @@ do
                    "it_ring", "it_rubberband", "it_seed", "it_seed_wood", "it_seed_hay",
                    "it_seed_greenbrown", "it_seed_volcano",
                    "it_spade", "it_spoon", "it_spring", "it_spring_keep", "it_spring_drop",
-                   "it_surprise", "it_sword", "it_umbrella", "it_weight",
+                   "it_springboard", "it_surprise", "it_sword", "it_umbrella", "it_weight",
                    "it_wrench", "it_yinyang"}
     local stonebase = DefImage("st_barrier")
     for _, it in pairs(items) do
