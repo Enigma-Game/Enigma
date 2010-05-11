@@ -32,6 +32,12 @@ install your Enigma build environment in a  fresh /usr/local, then
 rename that to something like /usr/local-enigma to save it for the next
 time you need to build Enigma, restoring the original /opt/local and /usr/local.
 
+One step in the build process uses the program mkalias which is part of osxutils,
+a package that can be downloaded from http://sourceforge.net/projects/osxutils/
+under the terms of the GNU GPL. It installs into /usr/local. If you are
+using a special version of /usr/local for the Enigma build, be sure to install
+osxutils after you have switched to that /usr/local.
+
 Step 0: Create a text file to contain a shell script that you will use to
 build universal binaries that will work for MacOS 10.4, 10.5, and 10.6.
 You can name the file whatever you like, but in this README it will be
@@ -53,7 +59,7 @@ UNIFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4 -a
 CC=/usr/bin/gcc-4.0 \
 CXX=/usr/bin/g++-4.0 \
 CFLAGS="$CFLAGS $UNIFLAGS" \
-CXXFLAGS="$CXXFLAGS $NIFLAGS" \
+CXXFLAGS="$CXXFLAGS $UNIFLAGS" \
 LDFLAGS="$LDFLAGS $UNIFLAGS  -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk" \
 ./configure --disable-dependency-tracking $*
 
