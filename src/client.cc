@@ -442,6 +442,16 @@ void Client::on_keydown(SDL_Event &e)
             break;
         };
     }
+    else if (keymod & KMOD_META) {
+        switch (keysym) {
+            case SDLK_q:    // Mac OS X application quit sequence
+                app.bossKeyPressed = true;
+                abort();
+                break;
+            default:
+                break;
+        };
+    }
     else {
         switch (keysym) {
         case SDLK_ESCAPE:

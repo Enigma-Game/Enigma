@@ -135,9 +135,10 @@ namespace enigma { namespace gui {
             return;
         }
         
-        // Boss quit key Shift && ESC
-        if (e.type == SDL_KEYDOWN &&  e.key.keysym.sym == SDLK_ESCAPE && 
-                e.key.keysym.mod & KMOD_SHIFT) {
+        // Boss quit key Shift && ESC or Mac OS X application quit sequence
+        if (e.type == SDL_KEYDOWN && ((e.key.keysym.sym == SDLK_ESCAPE && 
+                (e.key.keysym.mod & KMOD_SHIFT)) || (e.key.keysym.sym == SDLK_q && 
+                (e.key.keysym.mod & KMOD_META)))) {
             abort();
             app.bossKeyPressed = true;
             return;
