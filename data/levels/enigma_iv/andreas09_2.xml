@@ -3,31 +3,22 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Flagstone Reaper" el:subtitle="" el:id="andreas09"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
-      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-      </el:comments>
       <el:score el:easy="01:08" el:difficult="01:06"/>
     </el:info>
     <el:luamain><![CDATA[
-
-clock_to_delta_pos = { [NORTH] = po(0, -1),
-                       [EAST] = po(1, 0),
-                       [SOUTH] = po(0, 1),
-                       [WEST] = po(-1, 0) }
-  
 ti["~"] = {"fl_abyss"}
 ti["_"] = {"fl_bast",     _floor = "~"}
 ti["1"] = {"fl_sahara",   _floor = "_", _item = "it_magicwand"}
 ti["2"] = {"fl_red",      _floor = "_", _item = "it_umbrella"}
 ti["3"] = {"fl_bluegray", _floor = "_", _item = "it_sword"}
 ti["4"] = {"fl_tigris",   _floor = "_", _item = "it_hammer"}
-ti["5"] = {"fl_gray",     _floor = "_", _item = "it-pin"}      
+ti["5"] = {"fl_gray",     _floor = "_", _item = "it_pin"}      
 ti["#"] = {"st_purplegray"}
 ti["O"] = {"st_oxyd", flavor = "a", oxydcolor = OXYD_WHITE}
 ti["@"] = {"#ac_marble", adhesion = 1}
@@ -41,7 +32,7 @@ ti["B"] = {"st_break_black"}
 ti["M"] = {"st_magic_brick"}
 ti["K"] = {"st_knight"}
 
-w, h = wo(res.random(ti, " ", {"1", "2", "3", "4", "5"}), " ", 
+wo(res.random(ti, " ", {"1", "2", "3", "4", "5"}), " ", 
        {"T################LL#",
         "#C              Gd~S",
         "#               #BM#",
@@ -59,41 +50,38 @@ w, h = wo(res.random(ti, " ", {"1", "2", "3", "4", "5"}), " ",
 wo:shuffleOxyd()
 
 function callback_timer()
-  if no["clock"]:exists() then
-    local clock_state = no["clock"].state
-    local old_pos = po(no["clock"])
-    local clock_pos = old_pos + clock_to_delta_pos[clock_state]
-    if clock_pos.x > 19 then  clock_pos.x = 19  end
-    if clock_pos.x <  0 then  clock_pos.x =  0  end
-    if clock_pos.y > 12 then  clock_pos.y = 12  end
-    if clock_pos.y <  0 then  clock_pos.y =  0  end
-    -- Change item (if existent)
-    if fl(old_pos)._item and it(old_pos):exists() then
-      wo[old_pos] = {fl(old_pos)._item}
+    if no["clock"]:exists() then
+        local clock_state = no["clock"].state
+        local old_pos = po(no["clock"])
+        local clock_pos = old_pos + ORI2DIR[clock_state]
+        -- The clock is blocked by stones, so we don't need to
+        -- clip clock_pos to the level size.
+        -- Change item (if existent)
+        if fl(old_pos)._item and it(old_pos):exists() then
+            wo[old_pos] = ti[fl(old_pos)._item]
+        end
+        -- Change floor
+        if fl(old_pos)._floor then
+            wo[old_pos] = ti[fl(old_pos)._floor]
+        end
+        -- Change direction (yes, prior to move)
+        if wo["IsDifficult"] and (random(1,4) == 1) then
+            if (clock_state == NORTH) or (clock_state == SOUTH) then
+                clock_state = ({EAST, WEST})[random(2)]
+            else
+                clock_state = ({NORTH, SOUTH})[random(2)]
+            end
+        end
+        -- Move stone
+        if not st(clock_pos):exists() then
+            wo[old_pos] = {"st_nil"}
+            wo[clock_pos] = ti["C"]
+        end
+        -- Adapt direction
+        no["clock"].state = clock_state
     end
-    -- Change floor
-    if fl(old_pos)._floor then
-      wo[old_pos] = ti[fl(old_pos)._floor]
-    end
-    -- Change direction (yes, prior to move)
-    if wo["IsDifficult"] and (random(1,4) == 1) then
-      if (clock_state == NORTH) or (clock_state == SOUTH) then
-        clock_state = ({EAST, WEST})[random(2)]
-      else
-        clock_state = ({NORTH, SOUTH})[random(2)]
-      end
-    end
-    -- Move stone
-    if not st(clock_pos):exists() then
-      wo[old_pos] = {"st_nil"}
-      wo[clock_pos] = ti["C"]
-    end
-    -- Adapt direction
-    no["clock"].state = clock_state
-  end
 end
-
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="true"/>

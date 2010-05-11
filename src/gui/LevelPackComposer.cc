@@ -385,7 +385,7 @@ namespace enigma { namespace gui {
         video::SetCaption(("Enigma - Level Pack Composer"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         if (isModified)
-	  blit(gc, 0,0, enigma::GetImage(("ic-obsolete" + vminfo->thumbsext).c_str()));
+          blit(gc, 0,0, enigma::GetImage(("ic-obsolete" + vminfo->thumbsext).c_str()));
     }
     
 

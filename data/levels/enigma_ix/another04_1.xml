@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enibricks" el:subtitle="" el:id="another04"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
+      <el:author el:name="Another" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Another</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Raoul and Ronald for valuable suggestions and code samples.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["MaxOxydColor"] = OXYD_YELLOW
+wo["ActorimpulseStrength"] = 10.0
+
+local s = 1 / math.sqrt(2)
+
+ti[" "] = {"fl_sand", adhesion=0, friction=-0.01}
+ti["~"] = {"fl_water"} .. ti({"it_sensor", invisible=true, target="next"})
+ti["-"] = {"fl_redslab_framed"}
+ti["^"] = {"it_meditation_bump", essential=INDISPENSABLE}    -- Meditation bumps to add some random motion
+ti["<"] = {"fl_slope_osw"} .. ti({"st_oneway", orientation=WEST})
+ti["V"] = ti["^"] .. {"fl_slope_ps"}
+ti["#"] = {"st_rawglass"}
+ti["X"] = {"st_break_black"}
+ti["Y"] = cond(wo["IsDifficult"], {"st_break_white"}, ti["X"])
+ti["panel"] = {"st_panel", name="bumper#", cluster=0}
+ti["panelleft"] = {"st_actorimpulse", name="bumper#", hit_distortion_xx=s, hit_distortion_xy=s, hit_distortion_yx=-s, hit_distortion_yy=s}
+ti["panelright"] = {"st_actorimpulse", name="bumper#", hit_distortion_xx=s, hit_distortion_xy=-s, hit_distortion_yx=s, hit_distortion_yy=s}
+ti["."] = ti["-"] .. {"it_sensor", invisible=true, target="move_paddle"}
+ti[","] = cond(wo["IsDifficult"], ti["."], ti["-"])
+ti["*"] = ti["^"] .. {"fl_slope_ps", name="startpos"}
+ti["p"] = {"#ac_pearl_black", owner=YANG, controllers=CTRL_NONE, essential=DISPENSABLE, _vortex="vortex3"}
+ti["q"] = {"#ac_pearl_black", owner=YANG, controllers=CTRL_NONE, essential=PERKIND, _vortex="vortex2"}
+ti["1"] = ti["#"] .. {"it_vortex", name="vortex1", state=CLOSED, destination="startpos"} .. ti["q"]
+ti["2"] = ti["#"] .. {"it_vortex", name="vortex2", state=CLOSED, destination="startpos"} .. ti["p"]
+ti["3"] = ti["#"] .. {"it_vortex", name="vortex3", state=CLOSED, destination="startpos"} .. ti["p"]
+ti["O"] = {"st_oxyd_e"}                                                                              
+ti["@"] = ti["."] .. {"#ac_marble", name="marble"}
+
+wo(ti, " ", {
+    "OOOOOOOOOOOOOOOOOO3#",
+    "XXXXXXXXXXXXXXXXXX2#",
+    "XXYXXXYXXXXYXXXYXX1*",
+    "XXXXXXXXXXXXXXXXXX#V",
+    "XXXYXXXYXXYXXXYXXX#V",
+    "XXXXXXXXXXXXXXXXXX#V",
+    "                  <<",
+    "                  ##",
+    "                  ##",
+    "                  ##",
+    "                  ##",
+    "~~~~~~~~~~~~~~~~~~##",
+    "-,........@.....,-##"})
+
+wo:add(YANG, {"it_hammer"})
+wo:shuffleOxyd()
+
+local panels = cond(wo["IsDifficult"], N, N .. NW .. NE)
+local offset = cond(wo["IsDifficult"], E, 2*E)
+
+function move_paddle(value, sender)
+    wo[no["bumper#*"]] = {"st_nil"}
+    wo[sender + panels] = ti["panel"]
+    wo[sender + N - offset] = ti["panelleft"]
+    wo[sender + N + offset] = ti["panelright"]
+end
+
+function next(value, sender)
+    no[value["_vortex"]]:open()
+end
+
+move_paddle(true, it(no["marble"]))
+no["vortex1"]:open()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

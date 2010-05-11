@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Suckerfish I" el:subtitle="" el:id="devnull51"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2009, 2010 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -54,7 +54,7 @@ ti[" h"] = {"it_hammer"}
 ti[" w"] = {"it_wrench"}
 ti[" d"] = {"it_document", text = "text1"}
 ti["keys"] = ti["  "] .. {"it_key", code = "%%", invisible = false}
-ti["doors"] = {"st_door_b", name = "doorK%%", faces = "ew"}
+ti["doors"] = {"st_door_b", name = "doorK%%"}
 ti["lockD"] = {"st_key", code = "%%", target = "doorK%%", invisible = false}
 ti["lockB"] = {"st_key", code = "%%", target = "bridgeB%%#*", invisible = false}
 ti["lockW"] = {"st_key", code = "%%", target = "bridgeW%%#*", invisible = false}

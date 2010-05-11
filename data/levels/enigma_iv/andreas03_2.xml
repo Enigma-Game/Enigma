@@ -3,33 +3,17 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="How solid?" el:subtitle="" el:id="andreas03"/>
-      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
-      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments>
-      </el:comments>
       <el:score el:easy="01:00" el:difficult="01:25"/>
     </el:info>
     <el:luamain><![CDATA[
-
 wo["ConserveLevel"] = false
 wo["AllowSingleOxyds"] = true  -- clock may damage oxyd stones
-
-if wo["IsDifficult"] then
-  clock_to_delta_pos = { [NORTH] = po(0, 1),
-                         [EAST] = po(1, 0),
-                         [SOUTH] = po(0, -1),
-                         [WEST] = po(-1, 0) }
-else
-  clock_to_delta_pos = { [NORTH] = po(0, -1),
-                         [EAST] = po(1, 0),
-                         [SOUTH] = po(0, 1),
-                         [WEST] = po(-1, 0) }
-end
 
 ti[" "] = {"fl_brick"}
 ti["#"] = {"st_brick"} .. ti({"fl_abyss"})
@@ -41,7 +25,7 @@ ti["T"] = {"st_timer", "timer", target = "callback_timer", state = OFF, interval
 ti["C"] = {"st_fourswitch", "clock"}
 ti["S"] = {"st_switch", target = "counter", action = "signal"}
 
-w, h = wo(ti, " ",
+wo(ti, " ",
        {"####################",
         "#T##################",
         "##@     # ###     ##",
@@ -60,25 +44,32 @@ wo:shuffleOxyd()
 
 wo:add({"ot_counter", "counter", target_3 = "timer", action_3 = "on"})
 
-function callback_timer()
-  if no["clock"]:exists() then
-    local clock_state = no["clock"].state
-    local clock_pos = po(no["clock"]) + clock_to_delta_pos[clock_state]
-    if clock_pos.x > 19 then  clock_pos.x = 19  end
-    if clock_pos.x <  0 then  clock_pos.x =  0  end
-    if clock_pos.y > 12 then  clock_pos.y = 12  end
-    if clock_pos.y <  0 then  clock_pos.y =  0  end
-    wo[no["clock"]] = {"st_nil"}
-    if not (st(clock_pos):is("st_timer")) then
-      wo[clock_pos] = ti["C"]
-      no["clock"].state = clock_state
-    else -- hit the timer!
-      wo[{2, 3}] = {"it-document", text = "text1"}
-    end
-  end
+if not wo["IsDifficult"] then
+    clock_to_delta_pos = ORI2DIR
+else
+    clock_to_delta_pos = {[WEST]=W, [SOUTH]=N, [EAST]=E, [NORTH]=S}
 end
 
-    ]]></el:luamain>
+function callback_timer(value, sender)
+    if no["clock"]:exists() then
+        local clock_state = no["clock"].state
+        local clock_pos = po(no["clock"]) + clock_to_delta_pos[clock_state]
+        -- stop clock at the worlds border
+        if not clock_pos:exists() then
+            sender:off()
+            return
+        end
+        wo[no["clock"]] = {"st_nil"}
+        if not (st(clock_pos):is("st_timer")) then
+            wo[clock_pos] = ti["C"]
+            no["clock"].state = clock_state
+        else -- hit the timer!
+            sender:off()
+            wo[{2, 3}] = {"it_document", text = "text1"}
+        end
+    end
+end
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

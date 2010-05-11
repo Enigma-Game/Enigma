@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Tomb" el:subtitle="" el:id="ant04"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -18,29 +18,29 @@
 wo["FollowMethod"] = FOLLOW_SCROLL
 
 ti["  "] = {"fl_sand"}
-ti["##"] = {"st_greenbrown"}
 ti[".."] = {"fl_abyss"}
-ti["xx"] = {"st_grate_cross"}
-ti["ww"] = {"st_box"}
+ti["##"] = {"st_greenbrown"}
+ti["XX"] = {"st_grate"}
+ti["++"] = {"st_box"}
 ti["doorns"] = {"st_door", name="door%%", faces = "ns"}
 ti["doorew"] = {"st_door", name="door%%", faces = "ew"}
 ti["trigger"] = {"it_trigger", target="door%%"}
 ti["P"] = {"st_puzzle_blue", intensity = 0}
-ti["OO"] = {"st_oxyd", "oxyds#"}
+ti["OO"] = {"st_oxyd", name="oxyds#"}
 ti["@@"] = {"#ac_marble_black"}
 
 wo(res.puzzle(res.autotile(ti, {"D", "doorew"}, {"E", "doorns"}, {"t", "trigger"}), "P"), "  ", {
     "......####################..........######################",
-    "########xxxx##tb####xxxx##..........##  ww    ww  ....OO##",
-    "##      xx          ww  ##############      wwww  ....OO##",
-    "##  @@  ##  ##xx##  tcxx  Db        ####  wwww    ....OO##",
-    "##te    xx  td    ww####Ec##  ####    ##  ww      ....OO##",
-    "##ww####xxxx######  ##    ##PePO####Ed##Ee####ww  ....OO##",
-    "##    ########  PdPe  Pe  ..      POtaPa    ##    ....OO##",
+    "########XXXX##tb####XXXX##..........##  ++    ++  ....OO##",
+    "##      XX          ++  ##############      ++++  ....OO##",
+    "##  @@  ##  ##XX##  tcXX  Db        ####  ++++    ....OO##",
+    "##te    XX  td    ++####Ec##  ####    ##  ++      ....OO##",
+    "##++####XXXX######  ##    ##PePE####Ed##Ee####++  ....OO##",
+    "##    ########  PdPe  Pe  ..      PEtaPa    ##    ....OO##",
     "####        Da            ################################",
     "..##########################.............................."})
 
-wo:shuffleOxyd({no["oxyds#*"]:sort(), linear = true})
+wo:shuffleOxyd({no["oxyds#*"]:sort("linear"), linear = true})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Ariadne" el:subtitle="" el:id="andreas40"/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2010 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="01:17"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = false
+wo["SlopeStrength"] = 10
+
+ti[" "] = {"fl_marble", "maze_floor#"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_wood_framed"}
+ti["#"] = {"st_brownmarble"}
+ti["P"] = {"st_plop"}
+ti["X"] = {"st_key", code = 1, target = "bridgecounter", action = "signal"}
+ti["Y"] = {"st_key", code = 2, target = "bridgecounter", action = "signal"}
+ti["B"] = {"st_passage_black_frame"}
+ti["W"] = {"st_passage_white_frame"}
+ti["bridge"] = {"fl_bridge", state = OPEN, flavor = "bn", name = "bridge#"}
+ti["b"] = ti["B"] .. ti["bridge"]
+ti["w"] = ti["W"] .. ti["bridge"]
+ti["R"] = {"st_brownpyramid", "pyramid#"}
+ti["O"] = {"st_oxyd", flavor = "d", oxydcolor = OXYD_BROWN}
+ti["@"] = {"#ac_marble", essential = INDISPENSABLE} .. ti["."] .. {"it_yinyang"}
+ti["&"] = {"#ac_marble_white", "whitemarble", essential = INDISPENSABLE} .. ti["."] .. {"it_yinyang"}
+ti["r"] = {"it_rubberband", anchor2 = "@pyramid#*", scissor = true, strength = 1}
+ti["s"] = {"it_rubberband", anchor2 = "whitemarble", scissor = true, strength = 1} .. ti["."]
+ti["x"] = {"it_key", code = 1}
+ti["y"] = {"it_key", code = 2}
+ti["abyss"] = {"fl_abyss"}
+ti["space"] = {"fl_space"}
+ti["$"] = {"#ac_horse", "horse", steady = false, target = "minotaur_reached_target", strength = 20, loop = true}
+ti["!"] = {"#ac_rotor", "rotor"}
+
+wo(ti, " ",
+       {"~~~~###############~",
+        "~~~~# P     P     #~",
+        "~#X.B P PPP PPPPP #~",
+        "~##.B   P P       #~",
+        "~#Y.B PPP PPPRPPP #~",
+        "~~~~# Px    PrP   #~",
+        "#####PPPP PPP P PP#~",
+        "# $!P     P       #~",
+        "# PPP P P P PPP P #~",
+        "# P   P P   PyP P #~",
+        "# P PPP RPPPP PRP #~",
+        "#   P   r P    rP #~",
+        "#PP RPP PPPPPPP P #~",
+        "#   r P   P   P   #~",
+        "# PPP PPP P P PPP #~",
+        "#   P   P   P     #~",
+        "#PP PPP RP#########~",
+        "#     P r #~...~...~",
+        "#PP P PPP #~.O.~.O.~",
+        "# P P     #~...~...~",
+        "# P RPPPPP#~#w#~#b#~",
+        "# P r P   B........~",
+        "# P P P P B..@.s.&.~",
+        "#   P   P B........~",
+        "###########~~~~~~~~~"})
+
+wo:add({"ot_counter", "bridgecounter", target_2 = "openfloor"})
+wo:add({"ot_rubberband", anchor1 = "rotor", anchor2 = "horse", strength = 100, length = 1})
+wo:add({"ot_timer", interval = 1.0, target = "minotaur_timer"})
+
+maze_floor = po(no["maze_floor#*"])
+
+function openfloor()
+    no["bridgecounter"].action = "nop"
+    no["bridge#*"]:close()
+    wo[maze_floor] = ti["abyss"]  -- just to let all st_plop disappear
+    wo[maze_floor] = ti["space"]
+end
+
+no["horse"].destination = po(fl(no["horse"])) + po(-1, 0) + po(0.5, 0.5)
+
+minotaur_timeout = false
+function minotaur_timer()
+    if minotaur_timeout then
+        minotaur_reached_target()    
+    end
+    minotaur_timeout = true
+end
+
+function minotaur_reached_target()
+    local horse = no["horse"]
+    local dirs = po(grp({}))
+    local old_dest = horse._old_destination or po(fl(horse))
+    local old_dir = horse._old_direction or NEIGHBORS_4[1]
+    local new_dir = -old_dir
+    for j = 1, #NEIGHBORS_4 do
+        if      (new_dir ~= NEIGHBORS_4[j])
+            and (not -st(old_dest + NEIGHBORS_4[j])) then
+            dirs = dirs .. NEIGHBORS_4[j]
+        end
+    end
+    if #dirs ~= 0 then
+        new_dir = dirs[math.random(#dirs)]
+    end
+    horse.destination = old_dest + new_dir + po(0.5, 0.5)
+    horse._old_destination = old_dest + new_dir
+    horse._old_direction = new_dir
+    minotaur_timeout = false
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
