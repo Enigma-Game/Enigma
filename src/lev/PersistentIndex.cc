@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006,2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2006,2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -415,8 +415,9 @@ namespace enigma { namespace lev {
                 app.domParserSchemaResolver->resetResolver();
                 app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
                 if (update) {
-                    // local xml file or URL
-                    doc = app.domParser->parseURI(indexUrl.c_str());
+                    if (!Robinson)
+                        // local xml file or URL
+                        doc = app.domParser->parseURI(indexUrl.c_str());
                 } else {
                     // preloaded  xml or zipped xml
 #if _XERCES_VERSION >= 30000
@@ -442,7 +443,9 @@ namespace enigma { namespace lev {
                             Utf8ToXML("levels").x_str())->item(0));
                 }
 
-                if (app.domParserErrorHandler->getSawErrors()) {
+                if (update && Robinson) {
+                    errMessage = "Robinson rejects update.";
+                } else if (app.domParserErrorHandler->getSawErrors()) {
                     errMessage = errStream.str();
                 } else if (!app.domParserSchemaResolver->didResolveSchema()) {
                     errMessage = "Wrong XML document - expected a levelpack index, got something else!";

@@ -101,6 +101,7 @@ namespace enigma
 
     //! If true, do not ``grab'' the mouse and keyboard
     bool   Nograb            = false;
+    bool Robinson = false;   // do not connect to internet if true
 }
 
 /*! The stream object that is used for logging messages.  As defined
@@ -131,6 +132,7 @@ static void usage()
            "    --nosound      Disable music and sound effects\n"
            "    --pref -p file Use filename or dirname for preferences\n"
            "    --redirect     Redirect stdout/stderr to files on user path\n"
+           "    --robinson     avoid connections to the internet\n"
            "    --showfps      Show the framerate (FPS) during the Game\n"
            "    --version      Print the executable's version number\n"
            "    --window -w    Run in a window; do not enter fullscreen mode\n"
@@ -191,6 +193,7 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (&makepreview,          "makepreview");
     def (&show_fps,             "showfps");
     def (&redirect,             "redirect");
+    def (&Robinson,             "robinson");
     def (&force_window,         "window", 'w');
     def (OPT_GAME,              "game", true);
     def (OPT_DATA,              "data", 'd', true);

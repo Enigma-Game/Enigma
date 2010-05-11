@@ -117,7 +117,7 @@ namespace enigma { namespace lev {
             // is no reason to store the cache.
             loadURI(userRatingPath);
         }
-        if (app.prefs->getBool("RatingsAutoUpdate") == true)
+        if (!Robinson && app.prefs->getBool("RatingsAutoUpdate") == true)
             update();
     }
     

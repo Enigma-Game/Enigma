@@ -251,6 +251,7 @@ namespace enigma
     //---------- Command line options ----------//
     extern bool   WizardMode;
     extern bool   Nograb;
+    extern bool   Robinson;
 }
 
 #endif

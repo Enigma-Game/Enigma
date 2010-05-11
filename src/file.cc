@@ -411,6 +411,7 @@ bool enigma::Copyfile(std::string fromPath, std::string toPath) {
     }
     
     void enigma::Downloadfile(std::string url, ByteVec &dst) {
+        ASSERT(!Robinson, XLevelLoading,  ("Robinson rejects load of '" + url + "'").c_str());
         ASSERT(curl_easy_setopt(easycurl, CURLOPT_URL, url.c_str()) == CURLE_OK, XLevelLoading, 
                 ("Curl url error on '" + url + "'").c_str());
         ASSERT(curl_easy_setopt(easycurl, CURLOPT_WRITEFUNCTION, curl_writefunction) == CURLE_OK, XLevelLoading, 
