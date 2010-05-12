@@ -538,7 +538,7 @@ bundle-doc:
 	cp $(top_builddir)/ACKNOWLEDGEMENTS $(bundle_doc)/
 	cp $(top_builddir)/etc/README-SDL.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/index.html $(bundle_doc)/
-	mkalias -r $(bundle_doc)/index.html $(bundle_root)/index.html
+	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/images/enigma.css $(bundle_doc)/images/
