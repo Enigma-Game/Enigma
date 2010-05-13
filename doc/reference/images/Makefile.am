@@ -100,8 +100,7 @@ SIMPLEPNG = \
 	it_spade.png \
 	it_spoon.png \
 	it_springboard.png \
-	it_spring_drop.png \
-	it_spring_keep.png \
+	it_spring.png it_spring_2.png \
 	it_squashed.png \
 	it_strip.png it_strip_2.png it_strip_3.png it_strip_4.png \
 	it_strip_b.png it_strip_b2.png it_strip_b3.png it_strip_b4.png \

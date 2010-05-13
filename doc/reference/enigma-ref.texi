@@ -11841,8 +11841,8 @@ switched off by the attribute @samp{invisible}.
 @tab @image{images/it_spade, 12mm} @tab @yref{it_spade}
 @tab @image{images/it_spoon, 12mm} @tab @yref{it_spoon}
 @item @image{images/it_springboard, 12mm} @tab @yref{it_springboard}
-@tab @image{images/it_spring_drop, 12mm} @tab @yref{it_spring}_drop
-@tab @image{images/it_spring_keep, 12mm} @tab @yref{it_spring}_keep
+@tab @image{images/it_spring_2, 12mm} @tab @yref{it_spring}_drop
+@tab @image{images/it_spring, 12mm} @tab @yref{it_spring}_keep
 @item @image{images/it_squashed, 12mm} @tab @yref{it_squashed}
 @tab @image{images/it_strip_b2, 12mm} @tab @yref{it_strip}_ew
 @tab @image{images/it_surprise, 12mm} @tab @yref{it_surprise}
@@ -13157,9 +13157,9 @@ facility that can not be picked up by an actor is the @ref{it_springboard}.
 @item @b{Messages:} none
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_spring_keep, 12mm} @b{it_spring}
-@item @image{images/it_spring_keep, 12mm} @b{it_spring_keep}
-@item @image{images/it_spring_drop, 12mm} @b{it_spring_drop}
+@item @image{images/it_spring, 12mm} @b{it_spring}
+@item @image{images/it_spring, 12mm} @b{it_spring_keep}
+@item @image{images/it_spring_2, 12mm} @b{it_spring_drop}
 @end table
 @end table
 

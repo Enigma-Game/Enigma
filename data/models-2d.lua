@@ -588,8 +588,6 @@ do
         "it_rubberband",
         "it_spade",
         "it_spoon",
-        "it_spring_keep",
-        "it_spring_drop",
         "it_squashed",
         "it_surprise",
         "it_sword",
@@ -655,7 +653,17 @@ do
                          "pipe_w", "pipe_n", "pipe_ne", "pipe_nw", "pipe_ns", "pipe"})
 end
 
--- it-trigger --
+-- it_spring --
+do
+    DefTiles("it_spring", {"it_spring_keep", "it_spring_drop", "it_spring"})
+end
+
+-- it_strip --
+do
+    DefSubimages("it_strip", {modelname="it_strip", w=4, h=4, startindex=0})
+end
+
+-- it_trigger --
 do
     DefTiles("it_trigger", {"it_trigger_up","it_trigger_down"})
 end
@@ -663,11 +671,6 @@ end
 -- it_yinyang --
 do
     DefTiles("it_yinyang", {"it_yinyang", "it_yangyin"})
-end
-
--- it_strip --
-do
-    DefSubimages("it_strip", {modelname="it_strip", w=4, h=4, startindex=0})
 end
 
 ----------------------------------------
