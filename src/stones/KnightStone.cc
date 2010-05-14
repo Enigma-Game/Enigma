@@ -24,6 +24,7 @@
 //#include "main.hh"
 #include "nls.hh"
 #include "player.hh"
+#include "laser.hh"
 
 namespace enigma {
 
@@ -55,6 +56,7 @@ namespace enigma {
             if (player::WieldedItemIs(sc.actor, "it_sword")) {
                 state += 1;
                 if (state == maxState()) {
+                    MaybeRecalcLight(get_pos());
                     client::Msg_ShowText(N_("All right, we'll call it a draw"), false, 4.0);
                 }
                 init_model();
