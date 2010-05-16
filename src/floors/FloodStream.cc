@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -81,6 +81,15 @@ namespace enigma {
     
     void FloodStream::on_creation(GridPos p) {
         Floor::on_creation(p);
+
+        if (getTyp() == WATER) {   // do flood some items
+            Item *it = GetItem(p);
+            if (it != NULL && (it->isKind("it_meditation_hollow") || it->isKind("it_meditation_dent")
+                    || it->isKind("it_meditation_caldera") || it->isKind("it_crack")
+                    || it->isKind("it_burnable_ash")))
+                KillItem(p);
+        }
+
         if (state == FLOODING)
             GameTimer.set_alarm(this, (double)getAttr("interval"), false);
     }

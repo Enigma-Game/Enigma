@@ -492,6 +492,7 @@
       <attr name="friction" default="0.1"/>
       <attr name="adhesion" default="0.1"/>
       <attr name="$heattransform" default="fl_water"/>
+      <attr name="$firetransform" default="fl_water"/>
     </object>
     <object name="fl_inverse">
       <attr name="flavor" default="white"/>
@@ -784,6 +785,7 @@
       <attr name="friction" default="13.0"/>
       <attr name="adhesion" default="1.0"/>
       <attr name="$heattransform" default="fl_dunes"/>
+      <attr name="$firetransform" default="fl_dunes"/>
     </object>
     <object name="fl_thief">
       <attr name="friction" default="4.5"/>
@@ -802,6 +804,7 @@
     <object name="fl_water" super="fl_floodstream">
       <attr name="friction" default="5.0"/>
       <attr name="adhesion" default="1.0"/>
+      <attr name="noash" default="true"/>
       <attr name="$heattransform" default="fl_swamp"/>
     </object>
     <object name="fl_white" super="fl_standard">

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -59,13 +59,13 @@ namespace enigma {
     void IceBlock::animcb() {
         GridPos p = get_pos();
         if (state == BREAKING) {
-            setNoAbyssFloor(p, "fl_ice");
-            setNoAbyssFloor(move(p, NORTH), "fl_ice");
-            setNoAbyssFloor(move(p, EAST), "fl_ice");
-            setNoAbyssFloor(move(p, SOUTH), "fl_ice");
-            setNoAbyssFloor(move(p, WEST), "fl_ice");
+            setCheckedFloor(p, "fl_ice");
+            setCheckedFloor(move(p, NORTH), "fl_ice");
+            setCheckedFloor(move(p, EAST), "fl_ice");
+            setCheckedFloor(move(p, SOUTH), "fl_ice");
+            setCheckedFloor(move(p, WEST), "fl_ice");
         } else {  // MELTING
-            setNoAbyssFloor(p, "fl_water");
+            setCheckedFloor(p, "fl_water");
         }
         KillStone(p);
     }
@@ -108,10 +108,15 @@ namespace enigma {
         return (itd != NULL && itd->isKind("it_bomb") && !isFrozenBomb);
     }
     
-    void IceBlock::setNoAbyssFloor(const GridPos &p, std::string kind) const {
+    void IceBlock::setCheckedFloor(const GridPos &p, std::string kind) const {
         Floor *fl = GetFloor(p);
+        Item *it = GetItem(p);
         if (fl == NULL || !fl->isKind("fl_abyss"))
             SetFloor(p, MakeFloor(kind.c_str()));
+        if (it != NULL && (it->isKind("it_meditation_hollow") || it->isKind("it_meditation_dent")
+                || it->isKind("it_meditation_caldera") || it->isKind("it_crack")
+                || it->isKind("it_burnable_ash")))
+            KillItem(p);
     }
     
     DEF_TRAITSM(IceBlock, "st_ice", st_ice, MOVABLE_STANDARD);

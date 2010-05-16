@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -61,7 +61,7 @@ namespace enigma {
         virtual bool on_move(const GridPos &origin);
         
     private:
-        void setNoAbyssFloor(const GridPos &p, std::string kind) const;
+        void setCheckedFloor(const GridPos &p, std::string kind) const;
     };
 
 } // namespace enigma
