@@ -262,6 +262,11 @@ For Windows this option is always @code{true}, but the usage of this option
 is useful on any operating system if Enigma is started via a desktop icon or
 a menu button.
 
+@item @b{-@w{}-robinson}
+Disable all connections to the internet. No automatic updates will take place 
+and all user initiated requests that would require an internet connection will
+fail with an error message.
+
 @item @b{-@w{}-showfps}
 Show the framerate (FPS) during the game.
 

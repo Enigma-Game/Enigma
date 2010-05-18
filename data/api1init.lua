@@ -1244,6 +1244,7 @@ MessageRenaming = {
     st_lightpassenger__trigger = "toggle",
     st_lightpassenger__onoff = "toggle",
     st_mirror__trigger = "turn",
+    st_oneway__direction = "orientate",
     st_oxyd__trigger = "open",
     st_passage__trigger = "signal",
     st_flat__trigger = "signal",
