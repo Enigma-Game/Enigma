@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="88" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="89" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -239,6 +239,7 @@
     <level _seq="231" _title="Offshore" _xpath="enigma_ix/devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="232" _title="Smuggling" _xpath="enigma_ix/raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="233" _title="What I Don't Have" _xpath="enigma_ix/ais14_1" author="Alex Smith" ctrl="force" easy="true" id="20091216ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="234" _title="Panic Room" _xpath="enigma_ix/ral53_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080131ral603" rel="1" rev="206" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
