@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Offshore" el:subtitle="" el:id="devnull64"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:00" el:difficult="4:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "=  "
+
+ti["  "] = {"fl_samba"}
+ti["~~"] = {"fl_water"}
+ti["BB"] = cond(wo["IsDifficult"], {"st_barrier", flavor="it_magicwand"}, ti["  "])
+ti["OO"] = {"st_oxyd"}
+ti["oo"] = cond(wo["IsDifficult"], ti["OO"], ti["~~"])
+ti["00"] = cond(wo["IsDifficult"], ti["~~"], ti["OO"])
+ti["@@"] = {"#ac_marble_black"}
+ti["P"] = {"st_puzzle_blue", intensity = 0}
+ti["Q"] = {"st_puzzle_yellow"}
+
+wo(res.puzzle(ti, "P", "Q"), "  ", {
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~oo~~",
+    "~~~~          ~~      ~~~~~~~~~~~~~~~~OO",
+    "~~~~~~        ~~      ~~~~  ~~~~~~~~~~~~",
+    "~~~~~~      ~~~~      ~~~~Pb  Pj~~~~~~~~",
+    "~~~~~~~~Q0  BB                  ~~~~~~~~",
+    "~~  Q0Q0Q0  ~~        ~~~~        ~~~~~~",
+    "~~@@PfPaQ0  ~~~~~~  ~~~~OO~~~~~~  ~~~~~~",
+    "~~      Q0  ~~~~~~~~OO~~~~OO~~~~  ~~~~~~",
+    "~~  Q0Q0Q0  ~~~~      ~~  ~~~~~~  ~~~~~~",
+    "~~  PdPiQ0  ~~~~          OO~~~~  ~~~~~~",
+    "~~          ~~~~        ~~Pe  Pe  ~~~~~~",
+    "~~~~~~~~~~~~~~~~~~    ~~~~~~~~~~~~~~~~00",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"})
+wo:shuffleOxyd()
+wo:add(YIN, {"it_magicwand"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

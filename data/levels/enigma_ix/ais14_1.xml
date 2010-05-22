@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="What I Don't Have" el:subtitle="" el:id="20091216ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="5:16"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_ivory"}
+ti["."] = {"it_burnable_fireproof"}
+ti[","] = {"fl_space"}
+ti["#"] = {"st_redrock"}
+ti["+"] = {"st_break"} .. ti["."]
+ti["-"] = {"st_barrier", flavor="it_banana"} .. ti[","]
+ti["^"] = {"st_mail_n"}
+ti["b"] = {"it_banana"} .. ti[","]
+ti["B"] = {"st_barrier", flavor="it_banana"} .. ti["."]
+ti["c"] = {"it_coffee"} .. ti[","]
+ti["C"] = {"st_barrier", flavor="it_coffee"} .. ti["."]
+ti["f"] = {"it_floppy"} .. ti[","]
+ti["F"] = {"st_barrier", flavor="it_floppy"} .. ti["."]
+ti["h"] = {"it_hammer"} .. ti[","]
+ti["H"] = {"st_barrier", flavor="it_hammer"} .. ti["."]
+ti["m"] = {"it_magicwand"} .. ti[","]
+ti["M"] = {"st_barrier", flavor="it_magicwand"} .. ti["."]
+ti["r"] = {"it_wrench"} .. ti[","]
+ti["R"] = {"st_barrier", flavor="it_wrench"} .. ti["."]
+if wo["IsDifficult"] then
+    ti["e"] = {"it_seed"}
+    ti["E"] = {"st_barrier", flavor="it_seed"} .. ti["."]
+    ti["g"] = {"it_yinyang"}
+    ti["G"] = {"st_barrier", flavor="it_yinyang"} .. ti["."]
+    ti["n"] = {"it_spoon"}
+    ti["N"] = {"st_barrier", flavor="it_spoon"} .. ti["."]
+    ti["p"] = {"it_pencil"}
+    ti["P"] = {"st_barrier", flavor="it_pencil"} .. ti["."]
+    ti["s"] = {"it_spring_keep"}
+    ti["S"] = {"st_barrier", flavor="it_spring_keep"} .. ti["."]
+    ti["y"] = {"it_dynamite"}
+    ti["Y"] = {"st_barrier", flavor="it_dynamite"} .. ti["."]
+else
+    ti["e"] = {"it_spade"}
+    ti["E"] = {"st_barrier", flavor="it_spade"} .. ti["."]
+    ti["g"] = {"it_coin_s"}
+    ti["G"] = {"st_barrier", flavor="it_coin_s"} .. ti["."]
+    ti["n"] = {"it_coin_m"}
+    ti["N"] = {"st_barrier", flavor="it_coin_m"} .. ti["."]
+    ti["p"] = {"it_key"}
+    ti["P"] = {"st_barrier", flavor="it_key"} .. ti["."]
+    ti["s"] = {"it_spring_drop"}
+    ti["S"] = {"st_barrier", flavor="it_spring_drop"} .. ti["."]
+    ti["y"] = {"it_coin_l"}
+    ti["Y"] = {"st_barrier", flavor="it_coin_l"} .. ti["."]
+end
+ti["@"] = {"#ac_marble"} .. ti["."]
+ti["&"] = {"#ac_marble_white",velocity_y=5} .. ti[","]
+ti["O"] = {"st_oxyd_a"}
+
+wo(ti," ",{
+    "####################",
+    "#@+YECB#RYG#BRC#GYP#",
+    "# ##H#GNH#RNP#GNR#H#",
+    "#^##GEY#GHG#GHF#EBS#",
+    "#&##S#PsF#MpG#GyM#E#",
+    "#b##CYH#MSE#NYN#FCN#",
+    "#c##G#FCN#FGM#RMG#B#",
+    "#f##MEY#HGN#YHC#HSF#",
+    "#r##H#RnY#YeP#GgY#E#",
+    "#m##PYE#GHM#SCM#FBY#",
+    "#-##F#GYE#GCY#HPM#N#",
+    "#h##EPB#CBR#HGY#CR+O",
+    "##################O#"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

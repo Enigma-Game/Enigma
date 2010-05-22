@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Flagstone Reaper" el:subtitle="" el:id="andreas09"/>
-      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -58,7 +58,7 @@ function callback_timer()
         -- clip clock_pos to the level size.
         -- Change item (if existent)
         if fl(old_pos)._item and it(old_pos):exists() then
-            wo[old_pos] = ti[fl(old_pos)._item]
+            wo[old_pos] = {fl(old_pos)._item}
         end
         -- Change floor
         if fl(old_pos)._floor then

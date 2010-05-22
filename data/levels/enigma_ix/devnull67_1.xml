@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Down In The Bottom" el:subtitle="" el:id="devnull67"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="7:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_blueslab"}
+ti[" ."] = {"fl_abyss"}
+ti["laserS"] = {"st_laser_s", name = "laser%%"}
+ti["laserN"] = {"st_laser_n", name = "laser%%"}
+ti["toggleLaser"] = {"fl_scales_bridgewood", target = "laser%%"}
+ti["T "] = {"fl_scales_bridgewood", target = {"laser%1", "laser%0"}}
+ti["# "] = {"st_lightpassenger"}
+ti["x "] = {"st_shogun_s"}
+ti["X "] = {"st_shogun_m"}
+ti[": "] = {"it_seed"}
+ti[" o"] = {"it_meditation_dent", essential = INDISPENSABLE}
+ti["blockSt"] = {"st_blocker", name = "blocker%%#"}
+ti["blockStA"] = ti[" ."] .. {"st_blocker", name = "blocker%%#"}
+ti["blockIt"] = {"it_blocker", name = "blocker%%#"}
+ti["bridge"] = {"fl_bridge_bw", name = "bridge%%"}
+ti["dotS"] = ti[" ."] .. {"it_shogun_s", name = "dotS%%", target = "blocker%%#*"}
+ti["dotCL"] = ti[" ."] .. {"it_shogun_s", name = "dotCL%%", target = "laser%%"}
+ti["dotCLBB"] = ti[" ."] .. {"it_shogun_s", name = "dotCLBB%%", target = {"laser%%", "bridge%%", "blocker%%#*"}}
+ti["dotM"] = ti[" ."] .. {"it_shogun_m", name = "dotM%%", target = "blocker%%#*"}
+ti["@0"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"G", "blockSt"}, {"A", "blockStA"}, {"K", "blockIt"}, {"S", "laserS"}, {"N", "laserN"}, 
+                                 {"d", "dotS"}, {"m", "dotM"}, {"c", "dotCL"}, {"C", "dotCLBB"}, {"t", "toggleLaser"}, {"-", "bridge"})), "  ", {
+    " . . . . . . . . .S0S1 . . . . . . . . .",
+    " .@0   . . . . . .#.#. . . . . .    @1 .",
+    " .  x.       . . . . .            X.   .",
+    " .   .   .   . . . . . .   . .   . . . .",
+    " .   .   .         .t0 .   . .         .",
+    " .   .   . .   . . . . .   . . .   .   .",
+    " .   .     .   . .T  . .       .   .   .",
+    " .     .   .   . . . . .   . .         .",
+    " . .   .       . . .t1 .   .     . . . .",
+    " . .       .   . . . . .       . . . . .",
+    " . .   . . . .             .         . .",
+    " . .G0 . .  d0 . . . . .       . .G1 . .",
+    " .     . .         .t0 . . . . . .     .",
+    " .   . .     . . . . . . . . . . . .   .",
+    " .  X      . . . .t1 . . . . .         .",
+    " . . . .         . . . .         .   . .",
+    " . .       . .   . . . . . .x.       . .",
+    " . .   . . .                 .d1 .   . .",
+    " . .           . . . . . . . .         .",
+    " .     .   .   . .T  . . . . .   .     .",
+    " .     .   . . . . . . .         . .   .",
+    " .   . .     .             . . . . .   .",
+    " .   . . .   . . . . . .               .",
+    " .                m2m3     . . . .   . .",
+    " . .G2 . . . . . .d4d5 . . . . . .G3 . .",
+    " . .x  . . . . . . . . . . . . . .     .",
+    " .         . . . . . . .       . .x.   .",
+    " .   . .        -2:.:.-3   .           .",
+    " .       .     . .     .   . .   . .   .",
+    " .  c0   . .   . .     .       .  c1   .",
+    " .   .           .     . . .   .       .",
+    " .     . .A4 .   .     . . .A5 . . . . .",
+    " . . . . .C2 . . .     . . .C3 . . . . .",
+    " . . . . . . . . .     . . . . . . . . .",
+    " . . . . . . . .K2    K3 . . . . . . . .",
+    " . o              #.#.               o .",
+    " . . . . . . . . .N2N3 . . . . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

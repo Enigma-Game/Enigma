@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Smuggling" el:subtitle="" el:id="raoul40"/>
+      <el:version el:score="1" el:release="1" el:revision="10" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2010 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:07"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti["  "] = {"fl_wood"}
+ti["~ "] = {"fl_water"}
+ti[" #"] = {"st_purplemarble"}
+ti[" G"] = {"st_rawglass"}
+ti[" g"] = {"st_rawglass_movable"}
+ti[" X"] = {"st_grate", flavor="framed"} 
+ti[" +"] = {"st_box"}
+ti[" Q"] = {"st_quake"}
+ti[" H"] = {"st_break_oxydc"}
+ti[" K"] = {"st_knight"}
+ti[" D"] = {"st_death"}
+ti[" R"] = {"st_rotator"}
+ti[" >"] = {"st_oneway", orientation=EAST, color=BLACK}
+ti[" <"] = {"st_oneway", orientation=WEST, color=BLACK}
+ti[" M"] = {"st_mirror", orientation=RANDOMDIR}
+ti["BM"] = {"st_mirror", orientation=BACKSLASH}
+ti[" m"] = {"st_mirror", orientation=RANDOMDIR, movable=true}
+ti["Sm"] = {"st_mirror", orientation=SLASH, movable=true}
+ti["Vm"] = {"st_mirror", orientation=VERTICAL, movable=true, transparent=true}
+ti["Bm"] = {"st_mirror", orientation=BACKSLASH, movable=true}
+ti["L1"] = {"st_laser", orientation=WEST, state=ON, name="laser1"}
+ti["L2"] = {"st_laser", orientation=SOUTH, state=OFF, name="laser2"}
+ti["S1"] = {"st_key", target="laser1"}
+ti["C2"] = {"st_coinslot", target="laser2"}
+ti["prohibit"] = {"it_sensor", invisible=true}  -- disallow dropping seeds under barrier stones
+ti[" B"] = {"st_barrier"}
+ti["cB"] = ti["prohibit"] .. {"st_barrier", flavor="it_coin_m"}
+ti["sB"] = ti["prohibit"] .. {"st_barrier", flavor="it_sword"}
+ti["hB"] = ti["prohibit"] .. {"st_barrier", flavor="it_hammer"}
+ti["eB"] = ti["prohibit"] .. {"st_barrier", flavor="it_extralife"}
+ti[".B"] = ti["prohibit"] .. {"st_barrier", flavor="it_seed"}
+ti["jB"] = ti["prohibit"] .. {"st_barrier", flavor="it_spring"}
+ti["bB"] = ti["prohibit"] .. {"st_barrier", flavor="it_bottle"}
+ti["rB"] = ti["prohibit"] .. {"st_barrier", flavor="it_brush"}
+ti["c "] = {"it_coin_m"}
+ti["e "] = {"it_extralife"}
+ti[". "] = {"it_seed"}
+ti["h "] = {"it_hammer"}
+ti["s "] = {"it_spring_keep"}
+ti["b "] = {"it_bomb_black"}
+ti["w "] = {"it_wrench"}
+ti["r "] = {"it_brush"}
+ti["u "] = {"it_bag"}
+ti["k "] = {"it_key"}
+ti["x "] = {"it_bottle_broken"}
+ti["y "] = {"it_cross"}
+ti["p "] = {"it_pin"}
+ti["m "] = {"it_magicwand"}
+ti["o "] = {"it_weight"}
+ti["l "] = {"it_surprise", selection="=i "}
+ti["i "] = {"it_bottle"}
+ti[" O"] = {"st_oxyd"}
+ti[" @"] = {"#ac_marble"}
+
+wo(res.composer(ti), "  ", {
+    " # #L2 # #~  # # # # #~H # # # # #~O~G~D",
+    " #   K   # # #  hB   + H    xgb  g~ ~Q~G",
+    "C2w  G    e      #   m   m GVm.GyG~ ~ ~O",
+    " #.GBm G m   M   #    h  G   G.B G g G #",
+    " #s  G   G    l  #   m GSm GBm   # H H #",
+    " #   m GBm G m   #.  Gu  G       # # K #",
+    " #    m  G   G  sB GBm GBm  BM   G    L1",
+    " #.  M   m GSm GjB  kg    p     hB  o  #",
+    " #.B #sB # # # # #hB # # # # G.B #cB # #",
+    " #       #r  #i      <.  #       #    S1",
+    " # # @   # H #   # B #  bB  eX   B     R",
+    "~  # #  eB  rB   >       #     # # #c  #",
+    "~ ~  # # # # # # # # # # # # # #~  # # #"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

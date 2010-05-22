@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Panic Room" el:subtitle="" el:id="20080131ral603"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 206 $" el:status="released"/>
+      <el:author el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2010 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="2:13" el:difficult="2:26"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_wood", ignitable=true, secure=true}
+ti[":"] = {"fl_stone", friction=4}
+ti["#"] = {"st_granite"}
+ti["$"] = cond(wo["IsDifficult"], ti["#"], {"nil"})
+ti["%"] = {"st_brownie"}
+ti["*"] = ti[":"]  .. cond(wo["IsDifficult"], {"nil"}, ti["%"])
+ti["y"] = {"it_dynamite"}
+ti["trigger"] = {"it_trigger", target="door%%"}
+ti["door"] = {"st_door_d", "door%%", faces="ns"}
+ti["w"] = {"st_box"}
+ti["o"] = {"st_oxyd"}
+ti["f"] = {"it_extinguisher"}
+ti["x"] = {"it_pencil"}
+ti["X"] = {"it_cross"}
+ti["p"] = {"it_puller_n"}
+ti["@"] = {"#ac_marble"}
+
+myres = res.autotile(ti, {"a", "e", "trigger"}, {"A", "E", "door"})
+w, h = wo(myres, " ", {
+    "owwwwo##############",
+    "w    #             #",
+    "w  w # ::::::::::: #",
+    "wfw$$# :  p  : p : #",
+    "w  w # :     a   : #",
+    "w    # :b::::::::: #",
+    "#E#### :  * e %    #",
+    "#D#    :  :::::::  #",
+    "#C#  :@:  : c   :  #",
+    "#B#  : : x  ::: :y #",
+    "#A#  : ::::::::d:: #",
+    "#    :             #",
+    "####################"
+})
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+

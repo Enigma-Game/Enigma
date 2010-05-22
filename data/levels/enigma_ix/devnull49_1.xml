@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="double you" el:subtitle="" el:id="devnull49"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="true">Major improvements by daydreamer. Thanks alot.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="6:46"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowThreshold"] = po(3, 3)
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["SubSoil"] = SUBSOIL_WATER
+
+ti["  "] = {"fl_concrete"}
+ti[" ."] = {"fl_abyss"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_granite"}
+ti["X "] = {"st_blur_cross"}
+ti["x "] = {"st_blur"}
+ti["+ "] = {"st_box_rock"}
+ti["trigger"] = {"fl_scales", flavor= "concrete", target = "blocker%%", min = 0.4}
+ti["blocker"] = {"st_blocker", "blocker%%"}
+ti["rocker"] = ti[" ~"] .. {"st_blocker", "blocker%%"}
+ti["B "] = {"st_passage_black", flavor ="cross"}
+ti["W "] = {"st_passage_white", flavor ="cross"}
+ti["C "] = {"st_chess_white"}
+ti[" s"] = {"it_seed_hay"}
+ti[" w"] = {"it_magicwand"}
+ti[" !"] = {"it_crack_l", flavor = "water"}
+ti[" d"] = ti[" ."] .. {"it_document", text = "BzG"}
+ti["O "] = {"st_oxyd_a", oxydcolor = OXYD_BLACK}
+ti["o "] = {"st_oxyd_a", oxydcolor = OXYD_WHITE}
+ti["0 "] = {"st_oxyd_a", oxydcolor = OXYD_GRAY}
+ti["@ "] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN}
+ti["* "] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG}
+
+wo(res.composer(res.autotile(ti, {"t", "trigger"}, {"b", "blocker"}, {"r", "rocker"})), "  ", {
+    " . . .#.#.#.#.#.#.#.#. . . . . . . . . . . . . . . . . .#.#.#.#.#.#.#.#. . . .",
+    " . .#.O. ~ ~  Bs ~ ~O.#. . . . . . .#.#d#. . . . . . .#.o. ~ ~ ~  B tYo.#. . .",
+    " . .#.   ~ ~@  ~ ~B~ ~#. . . . . .#.#.#.#.#. . . . . .#.bz ~ ~ ~*  ~ ~ ~#. . .",
+    " . .#.tzW  ~B  ~+    ~#. . . . .#.#.  tA  #.#. . . . .#.ry ~ ~ ~   ~ ~ ~#. . .",
+    " . .#. ~ ~ ~  B~ ~+  ~#. . . .#.#.  +~th+~  #.#. . . .#. ~   ~ ~C  ~   ~#. . .",
+    " . .#. ~ ~ ~bb ~B~    #. . .#.#. ~ ~+  ~+    ~#.#. . .#.+ tZ+   bA ~  +~#. . .",
+    " . .#. ~tD ~tAB~ ~+ + #. .#.#. ! ! ~ ~ ~ ~ ~+  ~#.#. .#. ~+    ~ ~tb   ~#. . .",
+    " . .#.+   + B  ~ ~bYbZ#.#.#.     ~ ~ ~ ~ ~ ~      #.#.#.  +  ~ ~ ~ ~td+ #. . .",
+    " . .#. ~+~   ~ ~ ~  + #.#.   ~ ~ ~ ~ ~ ~ ~ ~ ~ !W  !#.#.tBW  ~ ~ ~ ~ ~  #. . .",
+    " . .#. ~+    ~ ~   ~tC    W +~ ~bg+   tE   ~W~tc      ty  bB   ~     ~  #. . .",
+    " . .#. ~bc   ~ ~  W +~W    ~ ! ~bf ~#.#.#.x X W~ ~ ~ ~ ~bE ~ ~ ~ ~   ~  #. . .",
+    " . .#. ~+  ~ ~ ~ ~ ~ ! ~ ~ ~  +  ~#.#.#.#.#.x x W~ ~ ~ ~ ~ ~ ~ ~ ~      #. . .",
+    " . .#. ~bd ~ ~ ~ ~ ~   ~ ~ ~    #.#. . . .#.#.     ~ ~ ~ ~ ~     ~ ~+  ~#. . .",
+    " . .#.  te   ~ ~ ~     ~ ~    #.#. . . . . .#.#.     ~ ~ ~tg   ~   ~bC ~#. . .",
+    " . .#.       ~ ~   ~ ~ ~    #.#. . . . . . . .#.#.     ~ ~ ~       ~te ~#. . .",
+    " . .#. ~      be   ~ ~    #.#. . . . . . . . . .#.#.bh+  ~X Bw+~   ~bD ~#. . .",
+    " . .#.0. ~ ~ ~          #.#. . . . . . . . . . . .#.#. ~ ~ ~tfW      ~0.#. . .",
+    " . . .#.#.#.#.#.#.#.#.#.#. . . . . . . . . . . . . .#.#.#.#.#.#.#.#.#.#. . . ." })
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">"I shoulda known better than to play with loaded dice." - Really? ;-)</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

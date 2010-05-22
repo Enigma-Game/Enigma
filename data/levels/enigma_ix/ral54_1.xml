@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Trade Barriers" el:subtitle="" el:id="20100514ral450"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 204 $" el:status="released"/>
+      <el:author el:name="Ronald Lamprecht" el:email="ral@users.berlios.de" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:24" el:difficult="2:14"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["ConserveLevel"] = true
+wo["AutoRespawn"] = true
+
+ti[" "] = {"fl_sand"}
+ti["~"] = {"fl_water"}
+ti["A"] = {"st_barrier", flavor="all"}
+ti["C"] = {"st_barrier", flavor="it_coin"}
+ti["P"] = {"st_barrier", flavor="it_pipe_ns"}
+ti["R"] = {"st_barrier", flavor="it_pipe"}
+ti["H"] = {"st_barrier", flavor="it_hammer"}
+ti["U"] = {"st_barrier", flavor="it_umbrella"}
+ti["#"] = {"st_brick"}
+ti["W"] = {"st_break_white"}
+ti["k"] = ti["W"] .. ti["~"]
+ti["Z"] = {"st_break_black"}
+ti["X"] = {"st_oxyd_a"}
+ti["K"] = {"st_knight"}
+ti["?"] = {"st_magic", flavor="brick"}
+ti["B"] = {"st_boulder_w"}
+ti["L"] = {"st_laser_e", state=ON}
+ti["M"] = {"st_mail_n"}
+ti["+"] = {"st_plop"}
+ti["%"] = {"st_mirror_slab", movable=true}
+ti[">"] = {"st_oneway_e"}
+ti["@"] = {"#ac_marble"}
+ti["2"] = {"it_coin_s"}
+ti["5"] = {"it_coin_m"}
+ti["b"] = {"it_bag"}
+ti["d"] = {"it_dynamite"}
+ti["s"] = {"it_spade"}
+ti["w"] = {"it_magicwand"}
+ti["("] = {"it_pipe_ne"}
+ti[")"] = {"it_pipe_sw"}
+ti["/"] = {"it_pipe_es"}
+ti["|"] = {"it_pipe_ns"}
+ti["-"] = {"it_pipe_ew"}
+ti["o"] = {"it_meditation_volcano"}
+ti["."] = {"it_blocker"}
+ti[","] = {"it_squashed"}
+ti["p"] = {"it_brush"}
+
+ti["J"] = cond(wo["IsDifficult"], ti["Z"], ti["K"])
+ti["I"] = cond(wo["IsDifficult"], ti["K"], ti[" "])
+
+w, h = wo(ti, " ", {
+   "~ZXZ~~ZXZ~~ZXZ~~ZXZ~",
+   "~ZZZ  ZJZ  ZJZ  ZZZ~",
+   "~      I   I       ~",
+   "WWWWWWW##K##WWWWWWWW",
+   "~,,,,,,#dpd#,,,,,,,~",
+   "~~~~~~k#~~~#k~~~~~~~",
+   "~L w  ~? b ? As>%+~~",
+   "~     ~##U## ~~~~ ~~",
+   "~~o   H      R /(- ~",
+   "~~~~~~~      ~~~)| ~",
+   "~M 2  ~  @  ~~ ~~~ ~",
+   "~ 5   C     PB ....~",
+   "~~~~~~~~~~~~~~~~~~~~"
+})
+
+wo:shuffleOxyd()
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

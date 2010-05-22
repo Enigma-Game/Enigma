@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="28" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="29" title="Enigma IX"/>
 
   <attributes/>
 
@@ -60,6 +60,12 @@
     <level _seq="52" _title="Near Halley II" _xpath="./devnull46_1" author="/dev/null" ctrl="force" easy="true" id="devnull46" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Mike's hammer" _xpath="./alain31_1" author="Alain Busser" ctrl="force" easy="false" id="alain31" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Enibricks" _xpath="./another04_1" author="Another" ctrl="force" easy="true" id="another04" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="Down In The Bottom" _xpath="./devnull67_1" author="/dev/null" ctrl="force" easy="false" id="devnull67" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Trade Barriers" _xpath="./ral54_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20100514ral450" rel="1" rev="204" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Offshore" _xpath="./devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="59" _title="Smuggling" _xpath="./raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="What I Don't Have" _xpath="./ais14_1" author="Alex Smith" ctrl="force" easy="true" id="20091216ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
