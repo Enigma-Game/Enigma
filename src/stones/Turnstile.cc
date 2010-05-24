@@ -254,6 +254,10 @@ namespace enigma {
         std::vector<Actor*>::iterator iter = actorsInRange.begin(), end = actorsInRange.end();
         for (; iter != end; ++iter) {
             Actor *ac = *iter;
+            
+            if (ac->isMoribund())
+                continue;
+            
             const V2 &ac_center = ac->get_pos();
             GridPos   ac_pos(ac_center);
             int dx  = ac_pos.x-pv_pos.x;
