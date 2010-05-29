@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Automaton Magic" el:subtitle="" el:id="ant07"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
-      <el:author  el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="2" el:revision="7" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -12,14 +12,12 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["ConserveLevel"] = true
-
 ti[" "] = {"fl_sand"}
 ti["~"] = {"fl_water"}
 ti["#"] = ti["~"] .. {"st_greenbrown"}
 ti["O"] = ti["~"] .. {"st_oxyd", flavor="a", name="oxyds#"}
-ti["m"] = ti[" "] .. {"it_magicwand"}
-ti["B"] = ti[" "] .. {"st_boulder_e", "the_boulder"}
+ti["m"] = {"it_magicwand"}
+ti["B"] = {"st_boulder_e", name="the_boulder"}
 ti["+"] = ti["~"] .. {"it_trigger", target="turn_boulder", action_1="callback", invisible=true}
 ti["A"] = {"ac_marble_black", 0.0, 0.5}
 
@@ -45,7 +43,7 @@ function turn_boulder(state, sender)
 end
 
 wo:shuffleOxyd({no["oxyds#*"]:sort("circular"), circular=true})
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -88,7 +88,7 @@
     <level _seq="80" _title="Black Lava" _xpath="enigma_i/ant12_2" author="Petr Machata" ctrl="force" easy="false" id="ant12" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="81" _title="Flood Gates" _xpath="enigma_iv/nat08_2" author="Nat Pryce" ctrl="force" easy="false" id="nat8" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="82" _title="Balancing Act" _xpath="enigma_i/nat09_2" author="Nat Pryce" ctrl="force" easy="false" id="nat9" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_1" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="Automaton Magic" _xpath="enigma_ii/ant07_2" author="Petr Machata" ctrl="force" easy="false" id="ant07" rel="2" rev="7" score="2" target="time" unit="duration"/>
     <level _seq="84" _title="Sheet Of Ice" _xpath="enigma_v/martin58_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin58" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="No Trespassing" _xpath="enigma_peroxyd/peroxydlink65_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level7c" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="86" _title=".J.U.M.P." _xpath="enigma_i/martin60_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin60" rel="2" rev="1" score="2" target="time" unit="duration"/>

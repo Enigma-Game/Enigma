@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="NO Trespassing" el:subtitle="" el:id="martin104"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
-      <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="3" el:revision="2" el:status="released"/>
+      <el:author el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martinn Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -22,7 +22,7 @@ ti["~"] = {"fl_water"}
 ti["."] = {"it_landmine"}
 ti["d"] = {"it_document", text="text1"}
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble_black"}
+ti["@"] = {"#ac_marble"}
 
 wo(ti, " ", {
     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",

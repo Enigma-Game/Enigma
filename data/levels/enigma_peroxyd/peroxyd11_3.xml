@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd 11" el:subtitle="Per.Oxyd 11" el:id="ss_pox11"/>
+      <el:version el:score="3" el:release="3" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal"}
+ti["-"] = {"fl_space"}
+ti[":"] = {"fl_abyss"}
+ti["#"] = {"st_metal"}
+ti["%"] = {"st_metal", name="hole"}
+ti["C"] = {"st_coinslot", target="the_door"}
+ti["D"] = {"st_death"}
+ti["="] = {"st_door", flavor="d", faces="ns", name="the_door"}
+ti["d"] = {"it_document", text="text1"}
+ti["s"] = {"it_spring_keep"}
+ti["1"] = {"it_coin_s"}
+ti["2"] = {"it_coin_m"}
+ti["3"] = {"it_coin_l"}
+ti["c"] = {"it_coffee"}
+ti["m"] = ti["-"] .. {"it_magnet", name="magnets1#"}
+ti["t"] = ti["-"] .. {"it_trigger", target="@magnets1#*"}
+ti["n"] = ti["-"] .. {"it_magnet", name="magnets2#"}
+ti["u"] = ti["-"] .. {"it_trigger", target="@magnets2#*"}
+ti["x"] = {"fl_ivory"} .. ti({"it_cross", interval=6, target="make_hole"})
+ti["."] = {"it_crack_i"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "#                                                        #",
+    "#                                                        #",
+    "#                                                        #",
+    "#                                                        #",
+    "#                  D######################################",
+    "#                  -----------mtnumtnu------------------O#",
+    "#                  D######################################",
+    "#                                                        #",
+    "#                                                        #",
+    "#                                                        #",
+    "#                                                        #",
+    "#                  ####################                  #",
+    "#                  #                  #                D=#",
+    "#                  #                  #                C-#",
+    "#                  #                  #               s#-#",
+    "#                  #     x            #                #-#",
+    "#                  #                  #                #-#",
+    "#                  %        d   @     #                #-#",
+    "#                  #                  #                #-#",
+    "#                  #                  #                #-#",
+    "#                  #                  #                #-#",
+    "#                  #                  #                #-#",
+    "#                  #                  #                #-#",
+    "#                  ####################                #-#",
+    "#                                                      #-#",
+    "#                                                      #-#",
+    "#                                                      #-#",
+    "#                                                      #-#",
+    "# .                                                    #-#",
+    "#  .  .                                                #-#",
+    "#:::::::                                               #-#",
+    "# 3    :                                               #-#",
+    "#   c  :                                               #-#",
+    "# 1  1 :                                               #-#",
+    "#1 2   :                                               #O#",
+    "##########################################################"})
+
+function make_hole(value, sender)
+    wo[no["hole"]] = {"it_document", text="text2"} .. ti({"st_metal_hollow"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Rest on the bright spot for a minute.</el:english>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="true">You'll do anything you're told!</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>
