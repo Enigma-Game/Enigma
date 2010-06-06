@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Rainbow~Meditation" el:subtitle="~Polychromie~ 1" el:id="mecke25"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision:12 $" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:41" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+local f = cond(wo["IsDifficult"], -1.5, -0.7)
+
+if wo["IsDifficult"] then
+    ti["& "] = {"fl_bluegray"}
+    ti["% "] = {"fl_swamp"}
+    ti[" Y"] = {"st_surprise"}
+    ti[" c"] = {"it_cherry"}
+else
+    ti["% "] = {"fl_bluegray"}
+    ti["& "] = {"fl_swamp"}
+    ti[" Y"] = {"st_chameleon"}
+    ti[" c"] = {"it_surprise"}
+end
+ti["$ "] = {"fl_ice"}
+ti["' "] = {"fl_lawn_c4", friction=f}
+ti["( "] = {"fl_blueslab", friction=f}
+ti[") "] = {"fl_redslab"}
+ti["* "] = {"fl_metal_7n", friction=f}
+ti["+ "] = {"fl_inverse_white"}
+ti[", "] = {"fl_red"}
+ti["- "] = {"fl_tigris"}
+ti[". "] = {"fl_marble", friction=f}
+ti["/ "] = {"fl_sahara", friction=f}
+ti["0 "] = {"fl_ivory"}
+ti["1 "] = {"fl_gravel"}
+ti["2 "] = {"fl_slope_ise"}
+ti["# "] = {"fl_slope_inw"}
+ti["3 "] = {"fl_yinyang_yin"}
+ti["! "] = {"fl_yinyang_yang", friction=f}
+ti[" X"] = {"st_disco_medium"}
+ti[" C"] = {"st_chameleon"}
+ti[" s"] = {"it_seed_volcano"}
+ti[" u"] = {"it_umbrella"}
+ti["%o"] = ti["% "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[")o"] = ti[") "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[",o"] = ti[", "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti["0o"] = ti["0 "] .. ti[" C"] .. {"it_meditation_hollow"}
+ti[" *"] = {"#ac_pearl", essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    "!X#X#X$X$X%X%X&X&X'X'X(X(X)X)X+X+X,X,X-X",
+    "#X$ $ $ % % & & ' 's(s( ) ) + + , , - -X",
+    "#X$C$ %o% &C& 'C' (Y(c) )C+ +C, ,o- -C.X",
+    "$X$ % % & & ' ' ( (s)s) + + , , - - . .X",
+    "$X%C% &C& 'C' (C(*)c)Y+*+C, ,C- -C. .C/X",
+    "%X% & & ' ' ( ( ) )s+s+ , , - - . . / /X",
+    "%X&C& 'C' (C( )C) +Y+c, ,C- -C. .C/ /C0X",
+    "&X& ' ' ( ( ) ) + +s,s, - - . . / / 0 0X",
+    "&X'C' (C( )C) +C+*,c,Y-*-C. .C/ /C0 0C1X",
+    "'X' ( ( ) ) + + , ,s-s- . . / / 0 0 1 1X",
+    "(X(C( )o) +C+ ,C, -Y-c. .C/ /C0 0o1 1C2X",
+    "(X( ) ) + + , , - -s.s. / / 0 0 1 1 2 2X",
+    ")X)X)X)X+X,X,X-X-X.X.X/X/X0X0X1X1X2X2X3X"})                                        
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

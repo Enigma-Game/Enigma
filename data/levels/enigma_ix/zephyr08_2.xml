@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dorothy" el:subtitle="" el:id="zephyr08"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Zephyr" el:email=""/>
+      <el:copyright>Copyright © 2009 Zephyr</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="10:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti["+ "] = {"fl_brick"}
+ti["; "] = {"fl_ivory"}
+ti[", "] = {"fl_lawn_b"}
+ti[". "] = {"fl_aquamarine"}
+ti["~ "] = {"fl_water"}
+ti[": "] = {"fl_ice", adhesion=0.02, friction=0.0}
+ti["_ "] = {"fl_samba"}
+ti[" Q"] = {"fl_wood", eternal=true, name="flare#"}
+ti["la"] = {"fl_lawn_a"}
+ti["lc"] = {"fl_lawn_c1"}
+ti["ld"] = {"fl_lawn_c2"}
+ti["le"] = {"fl_lawn_c3"}
+ti["lf"] = {"fl_lawn_c4"}
+ti["lg"] = {"fl_lawn_d1"}
+ti["lh"] = {"fl_lawn_d2"}
+ti["li"] = {"fl_lawn_d3"}
+ti["lj"] = {"fl_lawn_d4"}
+ti["lk"] = {"fl_lawn_e1"}
+ti["ll"] = {"fl_lawn_e2"}
+ti["lm"] = {"fl_lawn_e3"}
+ti["ln"] = {"fl_lawn_e4"}
+ti["-a"] = {"fl_red"}
+ti["-c"] = {"fl_blueslab"}
+ti["-d"] = {"fl_himalaya"}
+ti["-f"] = {"fl_redslab"}
+ti["-g"] = {"fl_sahara"}
+ti["-h"] = {"fl_sand"}
+ti["-i"] = {"fl_tigris"}
+ti["1="] = {"st_camouflage"}
+ti["2="] = {"st_granite"}
+ti["3="] = {"st_pinkbumps"}
+ti["4="] = {"st_greenbrown"}
+ti["5="] = {"st_darkgray"}
+ti["6="] = {"st_redbrown"}
+ti["7="] = {"st_greengray"}
+ti["8="] = {"st_redrock"}
+ti[" #"] = {"st_bluesand", cluster=1}
+ti[" *"] = {"st_camouflage_hollow"}
+ti[" G"] = {"st_rawglass"}
+ti[" W"] = ti({"st_granite_hollow"}) .. {"it_wormhole", destination=po(35,5), strength=0.0}
+ti[" X"] = {"st_spitter"}
+ti[" M"] = {"st_passage_white", flavor="cross"}
+ti[" C"] = {"st_mail_e"}
+ti[" L"] = {"st_mail_w"}
+ti[" i"] = {"st_portal_pearl"}
+ti[" >"] = {"st_oneway_e"}
+ti[" ^"] = {"st_oneway_black", orientation=NORTH}
+ti[" q"] = {"st_turnstile"}
+ti[" s"] = {"st_turnstilearm_e"}
+ti[" t"] = {"st_turnstilearm_s"}
+ti[" u"] = {"st_turnstilearm_w"}
+ti[" z"] = ti[" t"] .. {"it_spoon"}
+ti[" w"] = {"st_switch"}
+ti[" x"] = {"st_fourswitch"}
+ti[" E"] = {"st_box_hay"}
+ti[" F"] = {"st_flash"}
+ti[" N"] = {"st_lightglass"}
+ti[" J"] = {"st_ghost_break"}
+ti[" K"] = {"st_break_oxydc"}
+ti[" r"] = ti({"fl_bright"}) .. {"st_lightglass_movable"}
+ti["P"] = {"st_puzzle_blue", intensity=0}
+ti["Q"] = ti[". "] .. {"st_puzzle_blue", intensity=0}
+ti["R"] = ti[", "] .. {"st_puzzle_blue", intensity=0}
+ti[" ."] = {"it_trap"}
+ti[" n"] = {"it_magicwand"}
+ti[" ?"] = {"it_document", text="text%%"}
+ti[" y"] = {"it_seed"}
+ti[" A"] = {"it_spring_drop"}
+ti[" B"] = {"it_brush"}
+ti[" D"] = {"it_hammer"}
+ti[" H"] = {"it_yinyang"}
+ti[" I"] = {"it_puller_n"}
+ti[" P"] = {"it_glasses", state=SPOT_DEATH+SPOT_HOLLOW+SPOT_TRAP}
+ti[" g"] = {"st_door", faces="ns", name="doory#"}
+ti[" h"] = {"it_trigger", action="signal", target="@doory#*"}
+ti[" S"] = {"st_scissors", action="open", target="door_scarecrow"}
+ti[" T"] = {"st_door", name="door_scarecrow", faces="ew"}
+ti[" U"] = {"st_box", name="pole_scarecrow"}
+ti["r "] = {"#ac_rotor"}
+ti[" k"] = {"#ac_rotor", range=15.0, strength=0.0, name="minion#"}
+ti[" m"] = {"#ac_top", range=15.0, strength=0.0, name="minion#"}
+ti[" l"] = {"#ac_bug"}
+ti[" p"] = {"#ac_rotor", strength=0.0, range=20.0, name="WestWitch"}
+ti[" o"] = {"it_trigger", target="WickedWitch", invisible=true}
+ti[" v"] = {"#ac_top", range=15.0, strength=2.0}
+ti[" V"] = {"#ac_horse", name="scarecrow"}
+ti[" Y"] = {"it_key", code="winkie"}
+ti[" )"] = {"st_key", code="winkie", target="door_winkie"}
+ti[" ["] = {"st_door", faces="ew", name="door_winkie"}
+ti[" _"] = {"it_trigger", invisible=true, target="Minion"}
+ti[" Z"] = ti[" *"] .. ti[" A"]
+ti[" O"] = {"st_oxyd_e", oxydcolor=OXYD_PINE, name="oxyd#"}
+ti[" @"] = {"ac_marble_black"}
+ti[" %"] = {"#ac_marble_white"}
+
+local story = res.autotile(ti, {" 0", " 8", " ?"})
+local randomLawn = res.random(story, "  ", {"la", ", ", "lc", "ld", "le", "lf", "lg", "lh", "li", "lj", "lk", "ll", "lm", "ln"})
+local randomFloors = res.random(randomLawn, "- ", {"-a", ". ", "-c", "-d", "la", "-f", "-g", "-h", "-i"})
+local randomStones = res.random(randomFloors, " =", {"1=", "2=", "3=", "4=", "5=", "6=", "7=", "8="})
+local compose = res.composer(randomStones)
+
+wo(res.puzzle(compose, "P", "Q", "R"), "  ", {
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = # # # # # # = = O W     = h = = =                                       O = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = #_ _ _ _  # = = =           = = =,g = = = = = = = = = = = = = # # # # # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = G_ _ _ _  #           = =           = = = = = =           = = #_ _ _ _  # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = #_ _ _@_  G = = O     = = O =     = = = =                   ArG_ _ _ _  # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = #_ _ _ _  # = = =     = = = =     O = =                       #_ _ _ _  G = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = # # # 0 # #   O =           =     = =                         #_ _ _ _  # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = O       O                       = =                         # # # 1 # # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = =           = =     O = =       = = =              +                  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = = O       = = O         = = =   O = = =            +                  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = = =     O = = =         O = = = = = = = =          +                  = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = = = = = = = = = = = = = = = = = = = = = = = =      +              = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = =  +    = = = = = = = = = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = = =                     = = = =-.- -.- -.- -.- + - -.- -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N,w,x,x,x,w,N,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = =                           = =- -.- -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N,w, , . , , ,w,N Q,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = =             S                 =-.- -.- -.- -.- + - -.- -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, ,x, .y, ,x, ,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = =                               =- -.- -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = B T                                 =-.- -.- -.- + - + - -.- -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, ,x, . , ,x, ,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = =                             =- -.- -.- + - -.- + - -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = = =                         2+ + - -.- + - -.- -.- + - -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, ,x, . , ,x, ,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = =         =   =               =- + - -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = =         = = U * V             =-.- + - + - -.- + - + - -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, ,x, . , ,x, ,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = =         = = = = =               =- -.- -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = = = = = = = = = =         = = =-.- -.- -.- -.- + - -.- -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N,N,N.8,N,N,N,N,N,N,N,N,N = = = = = = = = = = = = = = = = = = =",
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = = =+  = = = = = = = = = = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N,N,N,N.^,N,N,N,N Q,N,N,N,N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N",
+    " = = = =~    E~  E  ~      C       = = =-.- + - + - -.- + - -.- -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N,N,N. ,N,N,N,N,N,N,N,N,N;N:n;o; ; ; ; ; ; ; ; ; ; ; ; ; ;  h;N",
+    " = = = = E         = = = = =       F = =- + - -.- + - -.- + - -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N,NRl, Qc, Rl,N,N Q,N,N,N,N;N;N;N;N;N;N;N; ; ; ; ; ;N;N;N;N;N;N;N",
+    " =     D % = = = = =    ~  =       = = =-.- -.- -.- -.- -.- + - -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,NRi, Qf, Ri,N,N,N,N,N,N,N;N; ; ; ;N; ; ; ;N; ;N; ; ; ;N; ; ; ;N",
+    " =   = = = =~     P0P0P1~  =         = =- + - -.- + - -.- -.- + - + - + - -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N;N u q s r; ; ; ; ;p; ; ; ; ;N u q s;N",
+    " =         =P0    P0P0P1P0 = =         =-.- -.- -.- + - -.- -.- -.- -.- + -  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, , , .N, , , ,N,N,N,N,N,N;N;  t; ;N; ; ; ;N; ;N; ; ; ;N;  z; ;N",
+    " =         =P0      P1P1P0 = =         =- + - -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N,N,NRlQfRb,N,N,N Q,N,N,N,N;N;N;N; ;N; ; ; ; ; ; ; ; ; ;N; ;N;N;N",
+    " =~ ~             P0P0P2   = =       3+ + - -.- -.- + - + - -.- -.- -.- + -  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, , RhQaRc, , ,N,N,N,N,N,N;N; ; ; ;N; ; ; ; ; ; ; ; ; ;N; ; ; ;N",
+    " =~ ~             P0P0     =           =- -.- -.- -.- -.- + - + - + - + - -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N, , , . , , , ,N Q,N,N,N,N;N; ; ; ;N; ; ; ; ; ; ; ; ; ;N; ; ; ;N",
+    " =  P0    ~       ~ ~   ~  = =         =-.- -.- -.- -.- -.- + - -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N, , , .N, , , ,N,N,N,N,N,N;N; ; ; ;N;N;N;N;N; ;N;N;N;N;N; ; ; ;N",
+    " =  P0    ~ ~     ~ ~   ~  = = =     = =- -.- -.- -.- -.- -.- -.- -.- -.- -. = = = = = = = = = = = = = = = = = = =,N,N,N,N,N Q,N,N,NRlQfRb,N,N,N Q,N,N,N,N;N; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;N",
+    " =  P0  ~ ~ ~ P0P0~ ~   ~  = = = = = = =-.- -.- -.- -.- -.- + - -.- -.- -.-  = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,6, RhQiRc, ,Y,N,N,N,N,N,N;N; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ;N",
+    " = = = = = = = = = = = =   = = = = = = = = = = = = = = = = =+  = = = = = = = = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N, , . , , ,N,N,N,N,N,N,N;N;N;N;N;N;N;N;N;N:g;N;N;N;N;N;N;N;N;N",
+    " = = = = = = = = = =       L           =-.- -.- -.- -.- -.- + - -.- -.- -.-  =- -.- -.- -.- + - + - -.- -.- -.- -.,N,.,.,.,N X......... ...... X,N,.,.,.,N;N; ; : : : : : : : : : : : : : ; ; ;N",
+    " = = = = = = = = = =   H   = = = = =   =- -.- -.- -.- -.- -.- -.- -.- -.- -. =-.- + - -.- + - -.- + - -.- + - + - ,N,.,X,.,N... . . ... ........,N,.,X,.,N;N; :k: : : : : : : : : : : : : :m; ;N",
+    " = = = = = = = = = =       = = = = =   =-.- -.- -.- -.- -.- + - -.- -.- -.-  =- + - + - -.- -.- -.- -.- + - -.- + ,N,.,.,.,N... ... . . ........,N,.,.,.,N;N: : : : : : : : : : : : : : : : : ;N",
+    " = = = Z * *    ~ ~ ~ ~    = = = = =   =- -.- -.- -.- -.- -.- -.- -.- -.- -. =-.- -.- -.- + - -.- + - -.- -.- -.- ,N,.,.,.,N... ................,N,.,.,.,N;N: : : : : : : : : : : : : : : : : ;N",
+    " = = = * * =    ~          = = = = =   =-.- -.- -.- -.- -.- + - -.- -.- -.-  =- + - + - -.- -.- + - -.- + - -.- + + +5,P, , . . . . . . . . . . , , , : : :7:_: : : : : : : : : : : : : : : : ;N",
+    " = = = * = =~ ~ ~ ~ ~ ~ ~  = = = = =   =- + - + - + - + - + - + - + - + - + + + - -.- -.- + - -.- -.- -.- + - -.- ,N,.,.,.,N....................,N,.,.,.,N;N: : : : : : : : : : : : : : : : : ;N",
+    " = = =    ~ ~              = = = = = 4+ + - -.- -.- -.- -.- + - -.- -.- -.-  =- -.- + - -.- -.- + - -.- -.- + - -.,N,.,.,.,N X................ X,N,.,.,.,N;N: : : : : : : : : : : : : : : : : ;N",
+    " = * *    ~ ~ ~ ~ ~ ~ ~ ~  = = = = =   =- -.- -.- -.- -.- -.- -.- -.- -.- -. =-.- + - -.- + - -.- -.- -.- -.- + - ,N,.,X,.,N,N,N,N,N,N,N,N,N,N,N,N,.,X,.,N;N: : : : : : : : : : : : : : : :k; ;N",
+    " = * =~ ~ ~                = = = = =   =-.- -.- -.- -.- -.- + - -.- -.- -.-  =- + - -.- + - -.- + - -.- -.- -.- -.,N,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,N;N: : : : : : : : : : : : : : : ; ; ;N",
+    " =~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  = = = = =   =- -.- -.- -.- -.- -.- -.- -.- -.- -. =-.- -.- + - -.- -.- + - + - -.- + - ,N,.,X,.,.,.,X,.,.,X,X,.,.,X,.,.,.,X,.,N;N; :m: : : : : : : : ;N;N );N;N;N;N;N",
+    " =                         >           =-.- -.- -.- -.- -.- + - -.- -.- -.-  =- + - + - -.- -.- -.- -.- + - + - -.,N,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,.,N;N; ; : : : : : : : :l:>: :[: :h:>; ;N",
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =+  = = = = = = = = = = = = = = = = = = = = = = = = = =,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N,N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N;N",
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = = = I K   J H = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =",
+    " = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ="})
+
+no["oxyd#*"]:peepall()
+no["flare#*"]:setfire()
+wo:add({"ot_rubberband", anchor1="scarecrow", anchor2="pole_scarecrow", length=5.0, strength=50.0, max=2.0})
+
+function WickedWitch()
+    no["WestWitch"]["strength"] = 100.0
+end
+
+function Minion()
+    no["minion#*"]["strength"] = 0.2
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text%1">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">Dorothy left the house to play with her little dog Toto, when suddenly the sky turned dark and a giant tornado rushed across Kansas.</el:english>
+      </el:string>
+      <el:string el:key="text%2">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">The Good Witch of the North speaks: 'Your house has killed the ruler of this land, the Wicked Witch of the East. Take her Silver Shoes and follow the Yellow Brick Road to Emerald City, where the Wizard of Oz should be more than pleased to help you return home. Go with my blessings!'</el:english>
+      </el:string>
+      <el:string el:key="text%3">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it agrees to join her for an audience with the Wizard of Oz to ask him for a brain. 'If only you could release me from this pole, that is ...'</el:english>
+      </el:string>
+      <el:string el:key="text%4">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join you on your journey, Dorothy, for I need to ask the Wizard why I did not receive a heart, I fear I'm stuck here. It would be nice if you could help me out a bit ...'</el:english>
+      </el:string>
+      <el:string el:key="text%5">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">Among the shallow waters of a merry creek, the Cowardly Lion sits shivering of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! Let's see the Wizard of Oz, maybe he can do something to give you courage!'</el:english>
+      </el:string>
+      <el:string el:key="text%6">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">The gate guardian says: 'Welcome to Emerald City! Please always wear these spectacles, or the splendid brilliance of the Wizard's city may blind you. The Wizard resides to the north.'</el:english>
+      </el:string>
+      <el:string el:key="text%7">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz, will help Thee find what Thou are looking for. However before Thou may pass here and see me, travel on to Winkie Country and defeat my arch rival, the Wicked Witch of the West.'</el:english>
+      </el:string>
+      <el:string el:key="text%8">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">This is the domain of the Wicked Witch of the West. She sends her minions against Dorothy and her friends. To destroy the witch, they need to steal her magic wand, kept deep inside her ice fortress.</el:english>
+      </el:string>
+      <el:string el:key="text%9">
+        <el:english el:translate="true" el:comment="Story in the style of &quot;Wizard of Oz&quot;">Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she realizes that he is nothing more but a humbug. Watching him flee with his hot-air balloon, Dorothy loses all hope of ever returning home. All that's left of the Wizard is now his shrinkable cupboard.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

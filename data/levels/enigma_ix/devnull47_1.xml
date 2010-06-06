@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Load Balancing" el:subtitle="" el:id="devnull47"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="2:30" el:difficult="6:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["-"] = cond(wo["IsDifficult"], ti["~"], ti["#"])
+ti["_"] = cond(wo["IsDifficult"], ti["~"], ti[" "])
+ti["A"] = {"st_door_a", name = "doorA#"}
+ti["a"] = {"fl_scales", flavor = "concrete", target = "doorA#*", min = 0.6}
+ti["B"] = {"st_door_a", name = "doorB#"}
+ti["b"] = {"fl_scales", flavor = "concrete", target = "doorB#*", min = cond(wo["IsDifficult"], 1.2, 0.6)}
+ti["doorsCD"] = {"st_door_a", name = "doorCD%%#"}
+ti["scalesCD"] = {"fl_scales", flavor = "concrete", target = "doorCD%%#*", min = cond(wo["IsDifficult"], 1.8, 0.6)}
+ti["+"] = {"st_granite_movable"}
+ti["="] = {"st_box_rock"}
+ti["X"] = {"st_grate"}
+ti["Z"] = {"st_chess_black"}
+ti["O"] = {"st_oxyd_a", name = "east#"}
+ti["o"] = {"st_oxyd_a", name = "west#"}
+ti["0"] = cond(wo["IsDifficult"], {"st_oxyd_a", name = "center#"}, ti["#"])
+ti["*"] = {"#ac_pearl_black", controllers = CTRL_NONE, essential = INDISPENSABLE}
+ti["W"] = ti["*"] .. ti["+"]
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"C", "D", "doorsCD"}, {"c", "d", "scalesCD"}), " ", {
+    "##################0#",
+    "o    A  Xc b aX  # #",
+    "#A#W##  ---~---  # O",
+    "oZ   ~= ~~~~~~~  # #",
+    "######  ~~- -~~  # O",
+    "0    B _~- @ -~_ # #",
+    "#  ###  -     -  D O",
+    "0    B           # #",
+    "######  -     -  # O",
+    "o    C _~- * -~_ # #",
+    "#od###  ~~- -~~  # O",
+    "o    C  ~~~~~~~  # #",
+    "##################0#"})
+
+if wo["IsDifficult"] then
+    wo:shuffleOxyd({"east#*", max = 0}, {"center#*", max = 0}, {"west#*", max = 0})
+else
+    wo:shuffleOxyd({"east#*", max = 0}, {"west#*", max = 0})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

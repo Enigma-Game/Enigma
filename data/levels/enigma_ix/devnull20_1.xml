@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Trickshot?" el:subtitle="" el:id="devnull20"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="1:51" el:difficult="2:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_dark", adhesion = cond(wo["IsDifficult"], 1.2, 0.6)}
+ti[" :"] = {"fl_bridge_gc", adhesion = cond(wo["IsDifficult"], 1.5, 0.9), state = CLOSED}
+ti[" ."] = {"fl_abyss"}
+ti[" -"] = {"fl_bridge_bw"}
+ti["bb"] = {"fl_bridge_bn", name = "bridgeBlack#", state = OPEN}
+ti["bw"] = {"fl_bridge_bn", name = "bridgeWhite#", state = OPEN}
+ti["n "] = {"st_window_n", secure = true}
+ti["e "] = {"st_window_e", secure = true}
+ti["s "] = {"st_window_s", secure = true}
+ti["w "] = {"st_window_w", secure = true}
+ti["1 "] = {"st_window_nw", secure = true}
+ti["2 "] = {"st_window_ne", secure = true}
+ti["3 "] = {"st_window_es", secure = true}
+ti["4 "] = {"st_window_sw", secure = true}
+ti["= "] = {"st_box"}
+ti["0b"] = ti["  "] .. {"it_trigger", target = "bridgeBlack#*"}
+ti["0w"] = ti["  "] .. {"it_trigger", target = "bridgeWhite#*"}
+ti["R "] = {"st_rotator", movable = true, counterclock = false}
+ti["r "] = {"st_rotator", movable = false, counterclock = true}
+ti["T "] = {"st_turnstile", flavor = "green"}
+ti["N "] = {"st_turnstilearm", orientation = NORTH}
+ti["E "] = {"st_turnstilearm", orientation = EAST}
+ti["S "] = {"st_turnstilearm", orientation = SOUTH}
+ti["W "] = {"st_turnstilearm", orientation = WEST}
+if wo["IsDifficult"] then
+    ti["X "] = {"st_rotator", movable = false, counterclock = true}
+    ti["d "] = {"it_nil"}
+    ti["bo"] = ti[" :"] .. {"st_passage_black_square"}
+    ti["wo"] = ti["  "] .. {"st_passage_white_square"}
+else
+    ti["X "] = {"st_rotator", movable = false, counterclock = false}
+    ti["d "] = {"it_document", text = "text1"}
+    ti["bo"] = ti[" :"] .. {"st_passage_black_frame"}
+    ti["wo"] = ti["  "] .. {"st_passage_white_frame"}
+end
+ti["O "] = {"st_oxyd", static = true, oxydcolor = OXYD_GREEN}
+ti["@ "] = {"#ac_marble_black", essential = INDISPENSABLE}
+ti["* "] = {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    "1 n n n n n.1.n.n.n.n.n.n.2.n.n.n.n.n.2.",
+    "w =        .w. .boboO. . .e. . . : : :e.",
+    "w =   = =  .w. .bo . . . .e. . . :@: :e.",
+    "w. . . .   .w. . . . . . .e. . . :d: :e.",
+    "w. . .=-   . . .= bwbw :r.e. . . :N: :e.",
+    "w.  R      . . .   . . : .e. .X. .T.E.e.",
+    "w. . .   . .w. .0b . .0w .e. . . : . .e.",
+    "w.W.T. .X. .w. .   . . : . . . : :R: :e.",
+    "w.  S    . .w.r.  bbbb=: . . . :=- . .e.",
+    "w.  d    . .w. . . . . . .e. . : . . .e.",
+    "w.  *    . .w. . . . .wo .e. .=:=: :=:e:",
+    "w.       . .w. . .O.wowo .e. . : : :=:e:",
+    "4.s.s.s.s.s.4.s.s.s.s.s.s.3.s.s:s:s:s:3:"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Kunststoß?</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english>Sorry. The trickshot is not available in easy mode.</el:english>
+        <el:translation el:lang="de">Sorry. Aber den Kunststoß gibt's im einfachen Modus nicht.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

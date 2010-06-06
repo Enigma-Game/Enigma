@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Light Life" el:subtitle="" el:id="zephyr03"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Zephyr" el:email=""/>
+      <el:copyright>Copyright © 2009 Zephyr</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="false" el:network="true"/>
+      <el:score el:easy="-" el:difficult="0:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_bright"}
+ti["-"] = {"fl_bright", name="firefloor#", eternal=true, burnable=true}
+ti["#"] = {"st_rawglass"}
+ti["D"] = {"st_door_a", name="door#"}
+ti["^"] = {"st_laser_n", name="laser#"}
+ti[">"] = {"st_laser_e", name="laser#"}
+ti["V"] = {"st_laser_s", name="laser#"}
+ti["<"] = {"st_laser_w", name="laser#"}
+ti["S"] = {"st_switch", target={"laser#*", "door#*"}, action={"on", "open"}}
+ti["*"] = {"it_wormhole", destination=po(6,6), range=0.0}
+ti["@"] = {"#ac_marble_black"}
+ti["A"] = {"#ac_marble_white"}
+ti["O"] = {"st_oxyd_a"}
+
+wo(ti, " ", {
+    "@          A",
+    "    ----    ",
+    "  ---VV---  ",
+    "  -O-##-O-  ",
+    " ---D  D--- ",
+    " ->#    #<- ",
+    " ->#    #<- ",
+    " ---D  D--- ",
+    "  -O-##-O-  ",
+    "  ---^^---  ",
+    "    ----    ",
+    "*          S"})
+
+wo:shuffleOxyd()
+no["firefloor#*"]:setfire()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="30" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="31" title="Enigma IX"/>
 
   <attributes/>
 
@@ -61,12 +61,21 @@
     <level _seq="53" _title="Mike's hammer" _xpath="./alain31_1" author="Alain Busser" ctrl="force" easy="false" id="alain31" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Enibricks" _xpath="./another04_1" author="Another" ctrl="force" easy="true" id="another04" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Down In The Bottom" _xpath="./devnull67_1" author="/dev/null" ctrl="force" easy="false" id="devnull67" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Trade Barriers" _xpath="./ral54_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20100514ral450" rel="1" rev="204" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="Offshore" _xpath="./devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Offshore" _xpath="./devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Smuggling" _xpath="./raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="What I Don't Have" _xpath="./ais14_1" author="Alex Smith" ctrl="force" easy="true" id="20091216ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Panic Room" _xpath="./ral53_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080131ral603" rel="1" rev="206" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Light Life" _xpath="./zephyr03_1" author="Zephyr" ctrl="force" easy="false" id="zephyr03" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="Life Seed" _xpath="./zephyr06_1" author="Zephyr" ctrl="force" easy="false" id="zephyr06" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Life Strip, Stripped Pipe" _xpath="./zephyr22_1" author="Zephyr" ctrl="force" easy="false" id="zephyr22" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="65" _title="Dorothy" _xpath="./zephyr08_2" author="Zephyr" ctrl="force" easy="false" id="zephyr08" rel="2" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="66" _title="Trickshot?" _xpath="./devnull20_1" author="/dev/null" ctrl="force" easy="true" id="devnull20" rel="1" rev="9" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Snippet for One" _xpath="./devnull41_2" author="/dev/null" ctrl="force" easy="true" id="devnull41" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="Snippet for Two" _xpath="./devnull42_1" author="/dev/null" ctrl="force" easy="false" id="devnull42" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="69" _title="Load Balancing" _xpath="./devnull47_1" author="/dev/null" ctrl="force" easy="true" id="devnull47" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Rainbow~Meditation" _xpath="./mecke25_1" author="mecke" ctrl="force" easy="true" id="mecke25" rel="1" rev="12" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
