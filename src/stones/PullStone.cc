@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2008 Ronald Lamprecht
+ * Copyright (C) 2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -77,7 +77,8 @@ namespace enigma {
             return;
 
         GridPos oldPos = get_pos();
-        GridPos newPos = move(oldPos, reverse(impulse.dir));
+        Direction dir = reverse(impulse.dir);
+        GridPos newPos = move(oldPos, dir);
         Stone *otherStone = GetStone(newPos);
     
         if (!IsInsideLevel(newPos) || (otherStone && (!otherStone->is_removable() || 
@@ -109,15 +110,40 @@ namespace enigma {
         for (std::vector<Actor*>::iterator i = found_actors.begin(); i != e; ++i) {
             Actor *actor = *i;
             GridPos actor_pos(actor->get_pos());
+            double r = get_radius(actor);
     
             if (actor_pos == newPos) { // if the actor is in the dest field
                 actors.push_back(actor);
                 SendMessage(actor, "_freeze");
 
-                ecl::V2 mid_dest = actor->get_pos();
-                mid_dest[0] = ecl::Clamp<double> (mid_dest[0], oldPos.x+0.01, oldPos.x+0.99);
-                mid_dest[1] = ecl::Clamp<double> (mid_dest[1], oldPos.y+0.01, oldPos.y+0.99);
-                WarpActor(actor, mid_dest[0], mid_dest[1], false);                
+                ecl::V2 dest = actor->get_pos();
+                dest[0] = ecl::Clamp<double> (dest[0], oldPos.x+0.01, oldPos.x+0.99);
+                dest[1] = ecl::Clamp<double> (dest[1], oldPos.y+0.01, oldPos.y+0.99);
+
+                if (dir == EAST || dir == WEST) {
+                    Stone *obstacle = GetStone(move(oldPos, NORTH));
+                    if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                            has_dir(obstacle->getFaces(), SOUTH)) || obstacle->is_sticky(actor))) {
+                        dest[1] = ecl::Max(dest[1], oldPos.y + r);
+                    }
+                    obstacle = GetStone(move(oldPos, SOUTH));
+                    if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                            has_dir(obstacle->getFaces(), NORTH)) || obstacle->is_sticky(actor))) {
+                        dest[1] = ecl::Min(dest[1], oldPos.y + 1 - r);
+                    }
+                } else if (dir == NORTH || dir == SOUTH) {
+                    Stone *obstacle = GetStone(move(oldPos, WEST));
+                    if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                            has_dir(obstacle->getFaces(), EAST)) || obstacle->is_sticky(actor))) {
+                        dest[0] = ecl::Max(dest[0], oldPos.x + r);
+                    }
+                    obstacle = GetStone(move(oldPos, EAST));
+                    if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                            has_dir(obstacle->getFaces(), WEST)) || obstacle->is_sticky(actor))) {
+                        dest[0] = ecl::Min(dest[0], oldPos.x + 1 - r);
+                    }
+                }
+                WarpActor(actor, dest[0], dest[1], false);
             }
         }
         vanishStone->setAttr("$frozen_actors", actors);

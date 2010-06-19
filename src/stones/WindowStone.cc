@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007, 2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -268,24 +268,40 @@ namespace enigma {
                             // we do not have to worry about the level border as no face can be pushed to the border
                             if (dir == EAST || dir == WEST) {
                                 dest[0] = (dir == EAST) ? (w_pos.x + 1 + r) : (w_pos.x - r) ;
-                                if (stone && has_dir(stone->getFaces(), NORTH))
+                                if (stone && has_dir(stone->getFaces(), NORTH)) {
                                    dest[1] = ecl::Max(dest[1], w_pos.y + r + eps);
-                                else if (GetStone(move(w_pos, NORTH)) != NULL)
-                                   dest[1] = ecl::Max(dest[1], w_pos.y + r);
-                                if (stone && has_dir(stone->getFaces(), SOUTH))
+                                } else {
+                                   Stone *obstacle = GetStone(move(w_pos_neighbor, NORTH));
+                                   if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                                           has_dir(obstacle->getFaces(), SOUTH)) || obstacle->is_sticky(a)))
+                                       dest[1] = ecl::Max(dest[1], w_pos.y + r);
+                                }
+                                if (stone && has_dir(stone->getFaces(), SOUTH)) {
                                    dest[1] = ecl::Min(dest[1], w_pos.y + 1 - r - eps);
-                                else if (GetStone(move(w_pos, SOUTH)) != NULL)
-                                   dest[1] = ecl::Min(dest[1], w_pos.y + 1 - r);
+                                } else {
+                                   Stone *obstacle = GetStone(move(w_pos_neighbor, SOUTH));
+                                   if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                                           has_dir(obstacle->getFaces(), NORTH)) || obstacle->is_sticky(a)))
+                                       dest[1] = ecl::Min(dest[1], w_pos.y + 1 - r);
+                                }
                             } else {
                                 dest[1] = (dir == SOUTH) ? (w_pos.y + 1 + r): ((dir == NORTH) ? (w_pos.y - r) : dest[1]);
-                                if (stone && has_dir(stone->getFaces(), WEST))
+                                if (stone && has_dir(stone->getFaces(), WEST)) {
                                    dest[0] = ecl::Max(dest[0], w_pos.x + r + eps);
-                                else if (GetStone(move(w_pos, WEST)) != NULL)
-                                   dest[0] = ecl::Max(dest[0], w_pos.x + r);
-                                if (stone && has_dir(stone->getFaces(), EAST))
+                                } else {
+                                   Stone *obstacle = GetStone(move(w_pos_neighbor, WEST));
+                                   if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                                           has_dir(obstacle->getFaces(), EAST)) || obstacle->is_sticky(a)))
+                                       dest[0] = ecl::Max(dest[0], w_pos.x + r);
+                                }
+                                if (stone && has_dir(stone->getFaces(), EAST)) {
                                    dest[0] = ecl::Min(dest[0], w_pos.x + 1 - r - eps);
-                                else if (GetStone(move(w_pos, EAST)) != NULL)
-                                   dest[0] = ecl::Min(dest[0], w_pos.x + 1 - r);
+                                } else {
+                                   Stone *obstacle = GetStone(move(w_pos_neighbor, EAST));
+                                   if ((obstacle != NULL) && (((obstacle->get_traits().id == st_window) &&
+                                           has_dir(obstacle->getFaces(), WEST)) || obstacle->is_sticky(a)))
+                                       dest[0] = ecl::Min(dest[0], w_pos.x + 1 - r);
+                                }
                             }
                             WarpActor(a, dest[0], dest[1], true);
                         }
