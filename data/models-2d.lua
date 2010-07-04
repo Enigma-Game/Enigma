@@ -557,8 +557,6 @@ do
     itemlist = {
         "it_bag",
         "it_banana",
-        "it_bomb_black",
-        "it_bomb_white",
         "it_bottle_idle",
         "it_bottle_broken",
         "it_brush",
@@ -677,19 +675,30 @@ end
 -- Animated Items and Item Animations --
 ----------------------------------------
 
--- Burning black bomb --
+-- Bombs
 do
-    local images = DefSubimages("it_bomb_black_burning", {h=9})
+    DefSubimages("it_bomb", {modelname="it_bomb", w=3, h=10})
+
+    -- Black and white bombs --
+    DefAlias("it_bomb_black", "it_bomb1")
+    DefAlias("it_bomb_white", "it_bomb11")
+
+    -- Bombs for barrier stone --
+    DefAlias("bomb_black", "it_bomb21")
+    DefAlias("bomb_white", "it_bomb22")
+    DefAlias("bomb", "it_bomb23")
+
+    -- Burning black bomb --
+    local images = {"it_bomb2", "it_bomb3", "it_bomb4", "it_bomb5", "it_bomb6", "it_bomb7", "it_bomb8", "it_bomb9", "it_bomb10"}
     local frames = BuildFrames(images, 100)
     DefAnim("it_bomb_black_burning", frames)
-end
 
--- Burning white bomb --
-do
-    local images = DefSubimages("it_bomb_white_burning", {h=9})
+    -- Burning white bomb --
+    images = {"it_bomb12", "it_bomb13", "it_bomb14", "it_bomb15", "it_bomb16", "it_bomb17", "it_bomb18", "it_bomb19", "it_bomb20"}
     local frames = BuildFrames(images, 100)
     DefAnim("it_bomb_white_burning", frames)
-    local frames = BuildFrames({"it_bomb_white_burning8", "it_bomb_white_burning9"},120)
+
+    local frames = BuildFrames({"it_bomb19", "it_bomb20"}, 120)
     DefAnim("it_bomb_white_exploding", frames)
 end
 
@@ -1980,8 +1989,7 @@ end
 
 -- Barrier stone --
 do
-    local items = {"it_bag", "it_banana", "it_bomb", "it_bomb_black", "it_bomb_white",
-                   "it_bottle", "it_brake",
+    local items = {"it_bag", "it_banana", "it_bottle", "it_brake",
                    "it_brush", "it_cherry", "it_coffee", "it_coin", "it_coin_s", "it_coin_m",
                    "it_coin_l", "it_document", "it_drop", "it_dynamite", "it_extinguisher",
                    "it_extinguisher_empty", "it_extinguisher_full", "it_extinguisher_medium",
@@ -2003,6 +2011,12 @@ do
     local pipes = {"pipe_w", "pipe_s", "pipe_sw", "pipe_e", "pipe_ew", "pipe_es", "pipe_n",
                    "pipe_nw", "pipe_ns", "pipe_ne", "pipe"}
     for _, it in pairs(pipes) do
+        display.DefineComposite("st_barrier_it_"..it.."_fg", stonebase, it)
+        DefShModel("st_barrier_it_"..it, "st_barrier_it_"..it.."_fg", "sh_solid")
+    end
+    -- Bomb barriers need an extra solution as they use models that are different from the bomb item models
+    local bombs = {"bomb", "bomb_black", "bomb_white"}
+    for _, it in pairs(bombs) do
         display.DefineComposite("st_barrier_it_"..it.."_fg", stonebase, it)
         DefShModel("st_barrier_it_"..it, "st_barrier_it_"..it.."_fg", "sh_solid")
     end
