@@ -42,8 +42,7 @@ SIMPLEPNG = \
 	fl_yinyang_yin.png \
 	it_bag.png \
 	it_banana.png \
-	it_bomb_black.png \
-	it_bomb_white.png \
+	it_bomb.png it_bomb_b.png \
 	it_bottle_idle.png \
 	it_bottle_broken.png \
 	it_brush.png \
@@ -433,7 +432,7 @@ ac_%.png: $(GFXDIR)/ac_%.png
 
 %_e.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+0 $< $@
-	
+
 %_e2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+48 $< $@
 
@@ -445,31 +444,31 @@ ac_%.png: $(GFXDIR)/ac_%.png
 
 %_f.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+240+0 $< $@
-	
+
 %_f2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+240+48 $< $@
 
 %_g.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+288+0 $< $@
-	
+
 %_g2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+288+48 $< $@
 
 %_h.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+336+0 $< $@
-	
+
 %_h2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+336+48 $< $@
 
 %_i.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+384+0 $< $@
-	
+
 %_i2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+384+48 $< $@
 
 %_j.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+432+0 $< $@
-	
+
 %_j2.png: $(GFXDIR)/%.png
 	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+432+48 $< $@
 

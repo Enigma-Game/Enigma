@@ -11791,8 +11791,8 @@ switched off by the attribute @samp{invisible}.
 @item @image{images/it_bag, 12mm} @tab @yref{it_bag}
 @tab @image{images/it_banana, 12mm} @tab @yref{it_banana}
 @tab @image{images/st_blocker_4, 12mm} @tab @yref{it_blocker}
-@item @image{images/it_bomb_black, 12mm} @tab @yref{it_bomb}_black
-@tab @image{images/it_bomb_white, 12mm} @tab @yref{it_bomb}_white
+@item @image{images/it_bomb, 12mm} @tab @yref{it_bomb}_black
+@tab @image{images/it_bomb_b, 12mm} @tab @yref{it_bomb}_white
 @tab @image{images/it_bottle_idle, 12mm} @tab @yref{it_bottle}
 @item @image{images/it_bottle_broken, 12mm} @tab @yref{it_bottle}_broken
 @tab @image{images/st_brake, 12mm} @tab @yref{it_brake}
@@ -13547,9 +13547,9 @@ Ignite the fuse.
 
 @item @b{Variants:}
 @table @asis
-@item @image{images/it_bomb_black, 12mm} @b{it_bomb}: color = @code{BLACK}
-@item @image{images/it_bomb_black, 12mm} @b{it_bomb_black}: color = @code{BLACK}
-@item @image{images/it_bomb_white, 12mm} @b{it_bomb_white}: color = @code{WHITE}
+@item @image{images/it_bomb, 12mm} @b{it_bomb}: color = @code{BLACK}
+@item @image{images/it_bomb, 12mm} @b{it_bomb_black}: color = @code{BLACK}
+@item @image{images/it_bomb_b, 12mm} @b{it_bomb_white}: color = @code{WHITE}
 @end table
 
 @end table
