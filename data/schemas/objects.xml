@@ -491,6 +491,7 @@
     <object name="fl_ice">
       <attr name="friction" default="0.1"/>
       <attr name="adhesion" default="0.1"/>
+      <attr name="noash" default="true"/>
       <attr name="$heattransform" default="fl_water"/>
       <attr name="$firetransform" default="fl_water"/>
     </object>
@@ -784,6 +785,7 @@
     <object name="fl_swamp">
       <attr name="friction" default="13.0"/>
       <attr name="adhesion" default="1.0"/>
+      <attr name="noash" default="true"/>
       <attr name="$heattransform" default="fl_dunes"/>
       <attr name="$firetransform" default="fl_dunes"/>
     </object>
@@ -806,6 +808,7 @@
       <attr name="adhesion" default="1.0"/>
       <attr name="noash" default="true"/>
       <attr name="$heattransform" default="fl_swamp"/>
+      <attr name="$firetransform" default="fl_swamp"/>
     </object>
     <object name="fl_white" super="fl_standard">
       <attr name="faces"/>
