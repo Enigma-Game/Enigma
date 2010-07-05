@@ -618,7 +618,7 @@ DefAlias("it_bottle", "it_bottle_idle")
 
 -- it_extinguisher --
 do
-    DefTiles("it_extinguisher", {"it_extinguisher_full", "it_extinguisher_medium", "it_extinguisher_empty"})
+    DefTiles("it_extinguisher", {"it_extinguisher_full", "it_extinguisher_medium", "it_extinguisher_empty", "it_extinguisher"})
 end
 
 -- it_dummy
