@@ -1037,8 +1037,10 @@ namespace enigma { namespace lev {
                         // overwrite the english key only if text is provided
                         english = tmp;
                     }
+                    bool translate = boolValue(englishElem->getAttributeNS(levelNS,
+                                Utf8ToXML("translate").x_str()));
                     // we got the final english string 
-                    if (lang == "en") {
+                    if ((lang == "en") || !translate) {
                         translation = english;
                         translFound = true;
                     }
