@@ -4926,7 +4926,7 @@ position list, too.
 
 @item @b{Position List Members:}
 @example
-for @var{i} = 1, #@var{pogrp} do
+for @var{i} = 1, #@var{polist} do
     @i{wo}[@var{polist}[@var{i}]] = @{"@b{it_cherry}"@}
 end
 @end example
@@ -20712,6 +20712,7 @@ It preloads automatically the library @ref{liblua}.
 * lib.math.cyclic_permutation:: Random cyclic permutation.
 * lib.math.digits::             Decomposes a number into digits for an arbitrary base.
 * lib.math.manhattan_distance:: Calculates the Manhattan distance of positions.
+* lib.math.mark_components::    Calculate connected components of a group of floors.
 * lib.math.permutation::        Random permutation.
 * lib.math.random_vector::      A table with random entries.
 * lib.math.steps::              A function to classify a number in intervals.
@@ -20977,6 +20978,73 @@ lib.math.manhattan_distance(no["marble"], no["othermarble"])
 The Manhattan distance counts the minimal number of pushes necessary to push a
 wood stone from one position to another. Its unit balls are squares with the
 diagonals parallel to the x- and y-axis (rhombi).
+
+@item @b{Full Example:}
+@example
+@end example
+@end table
+
+@c ----------------- mark_components --------------------
+
+@node lib.math.mark_components
+@subsection lib.math.mark_components
+
+@samp{mark_components} calculates the connected components of a group of
+floors. Two floors are directly connected if their difference is within a given
+polist (or @code{NEIGHBORS_4}, by default). A table is returned holding a
+list of groups, each group is a complete connected component.
+In turn, an attribute is attached to each floor of the group which holds the
+number of its component. The name of this attribute can be chosen freely.
+
+@table @asis
+@item @b{Syntax:}
+@b{lib.math.mark_components}(@i{group}, @i{attribute_name} [, @i{neighborhood} [, 
+@i{exclusive_attribute}]])
+
+@table @asis
+@item @i{group}
+A group of floors.
+
+@item @i{attribute_name}
+A non-empty string. Typically, this is the title of a user attribute, so it
+should start with an underscore @samp{_}, unless you want to feat the
+information directly to a non-user attribute which takes numerical values.
+
+@item @i{neighborhood}
+A symmetric polist (see details). Defaults to @code{NEIGHBORS_4}, which results
+in a calculation of path-connected components.
+
+@item  @i{exclusive_attribute}
+A boolean (@code{false} by default) which can be set to @code{true}, if there is
+no other floor which uses an attribute named @i{attribute_name}.
+@end table
+
+@item @b{Syntax Samples:}
+@example
+lib.math.mark_components(all_floors, "_component")
+local number = #lib.math.mark_components(all_floors, "_component", NEIGHBORS_CHESS .. NEIGHBORS_4)
+local lines = lib.math.mark_components(all_floors, "_linenumber", po(-1, 0) .. po(1, 0), true)
+@end example
+
+@item @b{Details:}
+@samp{mark_components} returns a Lua-table of groups, the table has natural numbers
+as indizes counting up starting from @code{1}, s.t. you can access the total
+number of components via @samp{#}. Each entry of the table is a subgroup of
+@code{group}, a complete connected component. The sequence of the components is
+determined by the sequence of the floors in @code{group}.
+
+You have to choose an attribute, as it is used during the calculation.
+Note that all prior information saved in this attribute is lost.
+Also note that choosing a read-only attribute results in an error.
+
+The chosen neighborhood has to be a symmetric polist, i.e. if it contains the
+position @code{po(x, y)} it also has to contain the position @code{po(-x, -y)}
+at some point. Mathematically speaking, we analyze the connected components of
+an undirected graph, not of a directed graph.
+
+If you know that there is no other floor which uses the attribute
+@code{attribute_name}, you may set @samp{exclusive_attribute} to @samp{true}.
+This will result in a much faster algorithm.
 
 @item @b{Full Example:}
 @example

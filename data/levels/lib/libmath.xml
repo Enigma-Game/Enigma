@@ -30,6 +30,7 @@
 --   lib.math.permutation(n)
 --   lib.math.cyclic_permutation(n)  
 --   lib.math.random_vector(number, ...)
+--   lib.math.mark_components(group, attribute_name, neighborhood, exclusive_attribute)
 -- Additional mathematically relevant functions are part of liblua and api2init:
 --   lib.lua.mod(value, modul)
 --   cond(condition, iftrue, iffalse)
@@ -245,6 +246,83 @@ function lib.math.random_vector(number, ...)
         result[j] = math.random(...)
     end
     return result
+end
+
+-- Analyze the connected components of a group GROUP of floors.
+-- Two floors are directly connected if their difference is in the polist
+-- NEIGHBORHOOD, which has to be symmetric. A table is returned holding a
+-- list of groups, each group is a complete connected component of GROUP.
+-- In turn, each object in GROUP is attached an attribute with title
+-- ATTRIBUTE_NAME, which holds the number of its component.
+-- Note that any prior information in this attribute is lost.
+-- If the attribute is not used by any other floor of the level, you may
+-- set EXCLUSIVE_ATTRIBUTE to "true", which will result in a faster
+-- algorithm.
+-- Default NEIGHBORHOOD is NEIGHBORS_4.
+function lib.math.mark_components(group, attribute_name, neighborhood, exclusive_attribute)
+    assert_type(group, "lib.math.mark_components first argument (object group)", 2, "group")
+    assert_type(attribute_name, "lib.math.mark_components second argument (attribute name)", 2, "non-empty string")
+    assert_type(neighborhood, "lib.math.mark_components third argument (neighborhood)", 2, "polist", "nil")
+    assert_type(exclusive_attribute, "lib.math.mark_components fourth argument (attribute name is exclusive)",
+                2, "boolean", "nil")
+    -- Check that GROUP is a group of floors.
+    for obj in group do
+        if not obj:is("fl") then
+            error("lib.math.mark_components first argument must be a group of "
+             .. "floors, but contains " .. obj:kind() .. ".", 2)
+        end
+    end
+    -- Check that NEIGHBORHOOD is symmetric.
+    if neighborhood and (neighborhood ~= NEIGHBORS_8) and (neighborhood ~= NEIGHBORS_CHESS) then
+        for j = 1, #neighborhood do
+            local found = false
+            for k = 1, #neighborhood do
+                found = found or (neighborhood[j] == -neighborhood[k])
+            end
+            if not found then
+                error("lib.math.mark_components second argument must be a "
+                      .. "symmetric polist, i.e. each negative of each position must be in the "
+                      .. "polist as well.", 2)
+            end
+        end
+    end
+    local neigh = neighborhood or NEIGHBORS_4
+    -- Start analyzing the components.
+    local component = {}
+    group[attribute_name] = 0
+    -- Default recursive function.
+    local function mark_component(obj, current)
+        if (obj[attribute_name] or -1) == 0 then
+            obj[attribute_name] = current
+            component[current] = component[current] + obj
+            for next_obj in fl(neigh + po(obj)) * group do
+                mark_component(next_obj, current)
+            end
+        end
+    end
+    -- If we know that the attribute ATTRIBUTE_NAME is not used by any
+    -- other floor, we might choose another, faster algorithm.
+    local function mark_component_use_exclusiveness(obj, current)
+        obj[attribute_name] = current
+        component[current] = component[current] + obj
+        for next_obj in fl(neigh + po(obj)) do
+            if (next_obj[attribute_name] or -1) == 0 then
+                mark_component_use_exclusiveness(next_obj, current)
+            end
+        end
+    end
+    -- Now loop over all floors of the group.
+    for obj in group do
+        if obj[attribute_name] == 0 then
+            component[1 + #component] = grp()
+            if exclusive_attribute then
+                mark_component_use_exclusiveness(obj, #component)
+            else
+                mark_component(obj, #component)
+            end
+        end    
+    end
+    return component    
 end
 
     ]]></el:luamain>

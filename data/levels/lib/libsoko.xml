@@ -369,6 +369,10 @@ end
 ------------------------------------------------------------------------
 
 function lib.soko.setup_attributes_and_polists(map)
+    -- Temporarily change the defaultkey of the map to the outf-key.
+    local current_defaultkey = map.defaultkey
+    map.defaultkey = "- "
+    -- Prepare position lists
     lib.soko.polist = {}
     for _, field in pairs({"way", "wall", "outf", "goal", "wall_one", "wall_two"}) do
         lib.soko.polist[field] = po(grp())
@@ -377,8 +381,12 @@ function lib.soko.setup_attributes_and_polists(map)
         lib.soko.polist[field] = lib.soko.polist[field] .. pos
         lib.soko.area[pos]["is_"..field] = true
     end
-    for x = 0, map.width do
-        for y = 0, map.height do
+    -- Traverse the complete map and analyze each position into which
+    -- polist it belongs. Additionally surround the map with outf-positions;
+    -- this is easily possible as map[...] returns an outf-key for these
+    -- positions, which are out of its scope.
+    for x = -1, map.width do
+        for y = -1, map.height do
             local key = map[{x,y}]
             local key1 = string.sub(key, 1, 1)
             local key2 = string.sub(key, 2, 2)
@@ -403,6 +411,7 @@ function lib.soko.setup_attributes_and_polists(map)
             end
         end
     end
+    map.defaultkey = current_defaultkey
     
     lib.soko.polist.inf = lib.soko.polist.way .. lib.soko.polist.wall
     
@@ -439,17 +448,18 @@ function lib.soko.setup_attributes_and_polists(map)
         end
     end
     -- polist.wall_two
-    -- There are four conditions for an element of polist.wall_two:
+    -- There are five conditions for an element of polist.wall_two:
     -- (i) it's near a wall_one, (ii) it's not a wall_one,
-    -- (iii) it's wall or outside, (iii) it's not near a way.
-    -- In addition, the neighboring wall_one are added into the list.
+    -- (iii) it's wall or outside, (iv) it's not near a way.
+    -- In addition, the neighboring wall_ones are added into the list.
     for i = 1, #lib.soko.polist.wall_one do
         local wall_one = lib.soko.polist.wall_one[i]
         for j = 1, #NEIGHBORS_4 do
             local delta = NEIGHBORS_4[j]
             local check = wall_one + delta
-            if not (lib.soko.area[check].is_way or lib.soko.area[check].is_wall_one
-                    or ((lib.soko.area[check].ways or 0) > 0)) then
+            if      map:covers(check)
+                and not (lib.soko.area[check].is_way or lib.soko.area[check].is_wall_one
+                         or ((lib.soko.area[check].ways or 0) > 0)) then
                 mark_as(check, "wall_two")
                 lib.soko.area[check].wall_one =
                     (lib.soko.area[check].wall_one or po(grp())) .. wall_one
@@ -468,10 +478,15 @@ function lib.soko.prepare_endphase(map, design)
     assert_type(design.endp.alg, "libsoko design endphase algorithm", 2, "nil", "string")
     design.endp.alg = design.endp.alg or lib.lua.deep_copy(lib.soko_designlist.default.endp.alg)
 
+    -- if there is more than one connected component, choose endphase "circle"
+    if #lib.math.mark_components(fl(lib.soko.polist.way), "_pathcomponent", NEIGHBORS_4, true) ~= 1 then
+        design.endp.alg = lib.lua.deep_copy(lib.soko_designlist.default.endp.alg)
+    end
+
     -- save map and design for later
     lib.soko.map = map
     lib.soko.design = design
-    
+
     -- prepare oxyds and blockers (a "blocker" is a generalized door)
     local alg = design.endp.alg
     if       (alg == "circle")
@@ -552,7 +567,7 @@ function lib_soko_endphase()
     elseif type(give) ~= "nil" then
         error("libsoko: Error in design: Can't give something of type "..type(v)..".", 2)
     end
-
+    
     if alg == "circle" then
         lib.soko.endphase_circle()
     elseif alg == "outside" then
@@ -670,8 +685,11 @@ function lib.soko.endphase_set_block_oxyds(max_pairs)
     -- Choose some appropriate subset
     local number_pairs = lib.math.steps(#oxyds, {4, 8, 16, 28}) + 1
     if number_pairs < 2 then
-        -- Not enough places? Choose "circle"-algorithm instead.
+        -- Not enough places? Choose "circle"-algorithm instead and set
+        -- remaining polists to empty groups (nec. for endphase_set_knocking).
         lib.soko.design.endp.alg = "circle"
+        lib.soko.polist.oxyd = po(grp())
+        lib.soko.polist.blocker = po(grp())
         return
     end
     if max_pairs and tonumber(max_pairs) and (tonumber(max_pairs) >= 1) then
@@ -741,6 +759,9 @@ function lib.soko.endphase_set_outside_oxyds(max_pairs)
 end
 
 function lib.soko.endphase_set_knocking()
+    -- If no suitable places for blockers were found, the algorithm has already
+    -- been changed to "circle" by endphase_set_block_oxyds. In this case,
+    -- polist.blocker is the empty group and nothing will happen.
     local blockers = po(fl(lib.soko.polist.blocker):shuffle())
     -- set attributes of doors
     for j = 1, #blockers do
@@ -815,32 +836,16 @@ end
 function lib.soko.endphase_vortex()
     local list_way = (fl(lib.soko.polist.way) + fl(lib.soko.polist.blocker))
                                               - fl(lib.soko.polist.goal)
-    local component = {}
-    list_way._component = nil
-    -- Analyse connected components of list_way
-    local function mark_component(floor, current)
-        if not floor._component then
-            floor._component = current
-            component[current].floors = component[current].floors + floor
-            for next_floor in fl(NEIGHBORS_4 + po(floor)) * list_way do
-                mark_component(next_floor, current)
-            end
-        end
-    end
-    for floor in list_way do
-        if not floor._component then
-            component[1 + #component] = {has_oxyds = false, floors = grp()}
-            mark_component(floor, #component)
-        end    
-    end
+    local component = lib.math.mark_components(list_way, "_component", NEIGHBORS_4, true)
     -- If only one component, exit, player will find his or her way alone.
     if #component < 2 then
         return
     end
     -- Analyse oxyds and to which components they belong to.
+    local component_has_oxyds = {}    
     for floor in fl(lib.soko.polist.blocker) do
         if floor._component then
-            component[floor._component].has_oxyds = true
+            component_has_oxyds[floor._component] = true
         else
             error("lib.soko.endphase_vortes: Error in component calculation.")
         end
@@ -851,7 +856,7 @@ function lib.soko.endphase_vortex()
     local u = {}  -- helper table: all components except t
     local marble_component = fl(no["marble#*"][1])._component
     for j = 1, #component do
-        if component[j].has_oxyds or (j == marble_component) then
+        if component_has_oxyds[j] or (j == marble_component) then
             table.insert(t, component[j])
         else
             table.insert(u, component[j])
@@ -867,16 +872,16 @@ function lib.soko.endphase_vortex()
     local connect = lib.math.cyclic_permutation(#component)
     -- Shuffle floors of each component.
     for j = 1, #component do
-        component[j].floors = (component[j].floors):shuffle()
+        component[j] = component[j]:shuffle()
     end    
     -- Now set and connect the vortices
     for j = 1, #component do
-        local dest = po(component[connect[j]].floors[1])
+        local dest = po(component[connect[j]][1])
         -- Remember: We also allow (we need!) vortices at old blocker-positions.
         -- There could still be a stone over this. This stone might be st_blocker,
         -- which turns to it_blocker and has therefore to be removed.
-        st(component[j].floors[1]):kill()
-        wo[component[j].floors[1]] = {"it_vortex_open", destination = dest}
+        st(component[j][1]):kill()
+        wo[component[j][1]] = {"it_vortex_open", destination = dest}
     end
 end
 
@@ -950,9 +955,15 @@ function lib.soko.create_sokoball(multilevel, sublevel_number, designarg, maxdes
     local small_map = lib.import.map_sokoban(multilevel, sublevel_number)
     local design = lib.soko.design_from_description(small_map, designarg, maxdesignnumber)
 
-    -- Extend map to 20x13 if possible
+    -- Extend map to 20x13 if possible, throw an error if level exceeds
+    -- MAX_HEIGHT. We add three additional rows, which are used to surround
+    -- the level with "virtual" positions in lib.soko.area; these are set
+    -- in lib.soko.setup_attributes_and_polists() below.
     local final_width = math.max(20, small_map.width)
     local final_height = math.max(13, small_map.height)
+    if small_map.height + 3 > lib.soko.MAX_HEIGHT then
+        error("lib.soko: Level exceeds maximum height.", 2)
+    end
     local map = wo:newMap("- ", final_width, final_height)
     local dx = math.floor((final_width - small_map.width) / 2)
     local dy = math.floor((final_height - small_map.height) / 2)
