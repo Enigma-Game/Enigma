@@ -787,6 +787,11 @@ do
         "it_seed4", "it_seed5",
     }
     DefAnim("it_seed_growing", BuildFrames(frames, 120))
+    -- Other subkinds
+    DefAlias("it_seed_wood", "it_seed1")
+    DefAlias("it_seed_greenbrown", "it_seed1")
+    DefAlias("it_seed_hay", "it_seed1")
+    DefAlias("it_seed_volcano", "it_seed1")
 end
 
 -- it_sensor --
