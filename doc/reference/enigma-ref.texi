@@ -3272,8 +3272,8 @@ that is evaluated when it gets accessed. By prefixing a name with @samp{@@@@}
 the reference will not get finalized on initialization but remains dynamic.
 
 @example
-ti["c"] = @{it_coin_s", "magic#"@}
-ti["v"] = @{it_vortex", destination="@@@@magic#*"@}
+ti["c"] = @{"it_coin_s", "magic#"@}
+ti["v"] = @{"it_vortex", destination="@@@@magic#*"@}
 @end example
 
 Setting three magic coins and one vortex in your map will teleport the marble
