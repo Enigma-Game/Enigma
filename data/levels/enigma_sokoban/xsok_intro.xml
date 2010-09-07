@@ -40,7 +40,7 @@ document(xlo+1,ylo+1,"text1")
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="false">Welcome to the world of Sokoban. The following levels were converted from various sokoban level packages with the friendly permission of their authors. All have been play-tested, so - whether you believe or not - they are always solvable."</el:english>
+        <el:english el:translate="false">Welcome to the world of Sokoban. The following levels were converted from various sokoban level packages with the friendly permission of their authors. All have been play-tested, so - whether you believe or not - they are always solvable.</el:english>
       </el:string> 
     </el:i18n>
   </el:protected>
