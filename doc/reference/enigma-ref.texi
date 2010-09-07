@@ -1872,7 +1872,7 @@ and system identification of the level.
 @item @b{title}, @i{required}
 The English title of the level. The string can contain arbitrary characters
 that are displayable by Enigma's font and XML conformant. Just in case of
-@ref{Multilevel files} a trailing hash sign has a special meaning. Anyway please
+@ref{Multilevel Files} a trailing hash sign has a special meaning. Anyway please
 make sure that the title is not too long, since Enigma will use it on the level
 selection menu. Translations of the title can be provided in the
 @ref{Internationalization (i18n)} sections.
@@ -23445,7 +23445,7 @@ w, h = wo(resolver, " ", @{
 @end example
 A more elaborate example can be found in @ref{Orthogonal Autotiling}.
 
-@item @b{Caveats:}
+@item @b{Caveats:}@anchor{Caveats}
 Do not use the hash sign @samp{#} as suffix character for key length 2 and
 above autotiled keys. A key @code{"A#"} could result in an unexpected @samp{%%}
 substitution in the name attribute. A name @code{"sample%%"} would be
