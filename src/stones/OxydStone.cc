@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -20,6 +20,7 @@
 
 #include "stones/OxydStone.hh"
 #include "errors.hh"
+#include "lua.hh"
 #include "main.hh"
 #include "server.hh"
 #include "world.hh"
@@ -972,12 +973,12 @@ namespace enigma {
         else if (state == OPENING)
             set_iState(OPEN_SINGLE);
         else if (state == OPEN_PAIR)     // end of opening anim for second oxyd in a pair
-            set_iState(OPEN_PAIR);       // set the right model
+            set_iState(OPEN_PAIR);        // set the right model
         else if (state == OPEN_SINGLE)   // pseudo animation
             set_iState(CLOSING);
     }
     
-    void OxydStone::on_creation (GridPos p) {
+    void OxydStone::on_creation(GridPos p) {
         setClosedModel(true);
         activatePhoto();
         Stone::on_creation(p);
@@ -1059,6 +1060,7 @@ namespace enigma {
                 if (can_open) {
                     pairCandidate->set_iState(OPEN_PAIR);
                     set_iState(OPEN_PAIR);
+                    setAttr("$pairid", pairCandidate->getId());
                 } else {
                     pairCandidate->set_iState(CLOSING);
                     set_iState(OPENING);
@@ -1115,7 +1117,6 @@ namespace enigma {
                     didShuffle = true;
                 }
                 setClosedModel();
-//                set_model(string("st_oxyd")+flavor);
                 break;
         
             case OPEN_SINGLE:
@@ -1170,10 +1171,35 @@ namespace enigma {
                 }
                 break;
         }
-        // perform action
-        if (((int)getAttr("oxydcolor") > AUTO && oldExtState != externalState() && (oldExtState != 1 || externalState() != 2)) // avoid second action of paired oxyd that changes from single to pair open state
-                || didShuffle || didQuake)
+        // perform action and transformations
+        if (((int)getAttr("oxydcolor") > AUTO && oldExtState != externalState() && oldExtState == 0) // just one action on pair opening
+                || didShuffle || didQuake) {
             performAction(externalState() != 0);
+        } else if ((int)getAttr("oxydcolor") > AUTO && oldExtState == 2 && oldExtState == externalState()) {
+            // transformations after pair opening finished
+            if (Value v = getAttr("selection")) {
+                TokenList tl = v;
+                ASSERT(tl.size() > 0 && tl.size() <= 2 , XLevelRuntime,"Oxyd stone with illegal 'selection' attribute");
+                sound_event("stonetransform");
+                std::string firstname = tl.front().to_string();
+                std::string lastname = tl.back().to_string();
+                GridObject *pairedoxyd = dynamic_cast<GridObject *>(getObject(getAttr("$pairid")));
+                if (firstname.find('=') == 0) {
+                    if (lua::CallFunc(lua::LevelState(), "enigma.settile", firstname.substr(1), pairedoxyd)) {
+                        throw XLevelRuntime(std::string("oxyd stone set tile failed:\n")+lua::LastError(lua::LevelState()));
+                    }
+                } else {
+                    ReplaceStone(pairedoxyd->get_pos(), MakeStone(firstname.c_str()));
+                }
+                if (lastname.find('=') == 0) {
+                    if (lua::CallFunc(lua::LevelState(), "enigma.settile", lastname.substr(1), this)) {
+                        throw XLevelRuntime(std::string("oxyd stone set tile failed:\n")+lua::LastError(lua::LevelState()));
+                    }
+                } else {
+                    ReplaceStone(get_pos(), MakeStone(lastname.c_str()));
+                }
+            }
+        }
     }
     
 

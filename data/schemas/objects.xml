@@ -1939,21 +1939,6 @@
       <msg name="on"/>
       <msg name="signal"/>
     </object>
-    <object name="st_oxyd">
-      <attr name="flavor"/>
-      <attr name="noshuffle"/>
-      <attr name="oxydcolor"/>
-      <attr name="static"/>
-      <msg name="closeall"/>
-      <msg name="peepall"/>
-      <msg name="shuffle"/>
-      <msg name="_trigger"/>
-      <msg name="_cannonball"/>
-      <msg name="_init"/>
-      <msg name="open"/>
-      <msg name="close"/>
-      <msg name="signal"/>
-    </object>
     <object name="st_oneway" states="4">
       <attr name="color"/>
       <attr name="orientation"/>
@@ -1967,6 +1952,22 @@
     <object name="st_oneway_white">
       <attr name="color" value="1"/>
     </object>
+    <object name="st_oxyd">
+      <attr name="flavor"/>
+      <attr name="noshuffle"/>
+      <attr name="oxydcolor"/>
+      <attr name="static"/>
+      <attr name="selection"/>
+      <msg name="closeall"/>
+      <msg name="peepall"/>
+      <msg name="shuffle"/>
+      <msg name="_trigger"/>
+      <msg name="_cannonball"/>
+      <msg name="_init"/>
+      <msg name="open"/>
+      <msg name="close"/>
+      <msg name="signal"/>
+    </object>
     <object name="st_oxyd_a">
       <attr name="flavor" value="a"/>
     </object>
@@ -1978,6 +1979,9 @@
     </object>
     <object name="st_oxyd_d">
       <attr name="flavor" value="d"/>
+    </object>
+    <object name="st_oxyd_e">
+      <attr name="flavor" value="e"/>
     </object>
     <object name="st_panel" super="st_clusterstone"/>
     <object name="st_panel_w">
