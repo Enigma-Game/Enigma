@@ -607,13 +607,17 @@ void player::ActivateFirstItem()
 
     if (inv.size() > 0) {
         Item *it = inv.get_item (0);
-        Actor *ac = 0;
+        Actor *ac = NULL;
         GridPos p;
         bool can_drop_item = false;
-        if (!players[icurrent_player].actors.empty()) {
-            ac = players[icurrent_player].actors[0];
-            p = GridPos(ac->get_pos());
-            can_drop_item = ac->can_drop_items();
+        std::vector<Actor *>::iterator itr;
+        for (itr = players[icurrent_player].actors.begin();
+                itr != players[icurrent_player].actors.end() && ac == NULL ; itr++) {
+            if (!(*itr)->is_dead()) {
+                ac = *itr;
+                p = GridPos(ac->get_pos());
+                can_drop_item = ac->can_drop_items();
+            }
         }
 
         switch (it->activate(ac, p)) {
