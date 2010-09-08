@@ -6729,10 +6729,12 @@ As @ref{Position}s are values that never become invalid, position lists once
 created will never change or get invalid. They are true values themselves. Thus
 they are the containers of choice for longterm storage.
 
-You can easily transform a group into a position list by the @ref{Positions Repository}
-singleton by the simple expression @samp{po(group)}. And you can retrieve all
-@ref{Object}s of a basic kind located along a position list path by
-@ref{Functions} like @samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
+You can easily create a position list by @ref{PositionList Conversion}, which
+is featured by the @ref{Positions Repository} singleton and allows you to 
+transform a group into a position list by  by the simple expression 
+@samp{po(group)}. On the other hand you can retrieve all @ref{Object}s of a 
+basic kind located along a position list path by @ref{Functions} like 
+@samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
 
 As a unique floor object is guaranteed to be on every grid position, you can
 convert a given list of unique grid positions to a group of floors without
@@ -7025,6 +7027,7 @@ members in the same sequence.
 @example
 @var{polist} = @i{po}(@var{group})
 @var{polist} = @i{po}(@{@i{po}(@var{3}, @var{7}), @i{po}(@var{2}, @var{6})@})
+@var{polist} = @i{po}(@{@})  -- an empty position list
 @end example
 @end table
 
@@ -17732,6 +17735,40 @@ At initialization an oxyd that is exposed to laser light will start in state
 An oxyd that is swapped in or out of a laser beam will act on the light change
 with proper actions.
 
+Every opened oxyd causes an action call. The action call for an opened oxyd pair
+occurs just once when the second oxyd starts opening, whereas the bold and quake
+oxyd will perform the action after completion of their task and animation. Thus
+you are allowed to kill quake and bold oxyds within their action as long as you
+properly set @ref{safeaction} to @code{true}.
+
+For a replacement of an opened pair of oxyd stones, what can be seen in the
+"opal" levels, the action call is not directly suitable, because the second
+oxyd did not yet show its matching color. Furtheron you would have to keep track
+of the oxyds to find the matching partner for the second oxyd. For this reason
+you can directly declare replacements that should be set when an oxyd pair
+is opened. The replacement takes place as soon as the second oxyd finishes the
+opening animation. Like the @ref{st_surprise} the oxyd allows you to set
+the @samp{selection} attribute with tokens of strings. Every string needs either
+to be an @ref{Object Kind} or a tile key prefixed by an equal sign @samp{=}.
+
+@example
+ti["n"] = @{"st_nil"@}
+ti["g"] = @{"st_granite"@}
+ti["s"] = @{"st_oxyd_e", selection=@{"=n", "=g"@}@}
+@end example
+
+The first token defines the replacement for the oxyd stone that has been opened
+first, the last token defines the replacement for the matching oxyd stone that
+has been opened afterwards. In case of a single token both oxyd stones are being
+replaced by equivalent stones.
+
+The tile declarations referenced by a key may even contain objects besides
+stone. But you should make rare and proper usage of this feature.
+
+The oxyd stone is killed by any replacement stone set to the grid position.
+If your selection does not resolve to a stone you may need to add @code{"st_nil"}
+to the replacement tile declaration.
+
 @table @asis
 @item @b{Attributes:}
 
@@ -17762,12 +17799,13 @@ closed state and the way of opening differ in the following way:
 @tab @image{images/st_oxyd_colordots_c2, 10mm}@tab @code{OXYD_ORANGE}
 @tab @image{images/st_oxyd_colordots_c3, 10mm}@tab @code{OXYD_PINE}
 @tab @image{images/st_oxyd_colordots_c4, 10mm}@tab @code{OXYD_BROWN}
-@item @image{images/st_oxyd_colordots_d3, 10mm}@tab @code{OXYD_QUAKE}
-@tab @image{images/st_oxyd_colordots_d4, 10mm}@tab @code{OXYD_BOLD}
+@item @image{images/st_oxyd_colordots_d3, 10mm}@tab @code{OXYD_BOLD}
+@tab @image{images/st_oxyd_colordots_d4, 10mm}@tab @code{OXYD_QUAKE}
 @end multitable
 @item @b{noshuffle} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 @item @b{static} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
 Static oxyds are neither swappable nor pullable.
+@item @b{selection}, @ @ @i{values}: tokens of stone kinds and tile keys; @ @ @i{default}: no replacement
 @end table
 
 @item @b{Messages:}
@@ -19851,8 +19889,8 @@ The color of the marble.
 @item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
 @item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
-@end table
 @item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{1.0}; @ @ @i{access}: read only
+@end table
 
 @item @b{Messages:} none
 
@@ -19893,8 +19931,8 @@ The color of the pearl.
 @item @b{adhesion} @ @ @i{values}: number; @ @ @i{default}: @code{1.0}; @ @ @xref{adhesion}
 @item @b{controllers} @ @ @i{values}: @code{CTRL_NONE}, @code{CTRL_YIN}, @code{CTRL_YANG}, @code{CTRL_YINYANG}; @ @ @i{default}: @code{CTRL_NONE}; @ @ @xref{controllers}
 @item @b{owner} @ @ @i{values}: @code{YIN}, @code{YANG}, @code{nil}; @ @ @i{default}: @code{nil}; @ @ @xref{owner}
-@end table
 @item @b{mass} @ @ @i{values}: positive float number; @ @ @i{default}: @code{0.7}; @ @ @i{access}: read only
+@end table
 
 @item @b{Messages:} none
 
