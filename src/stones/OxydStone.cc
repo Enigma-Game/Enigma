@@ -1184,12 +1184,14 @@ namespace enigma {
                 std::string firstname = tl.front().to_string();
                 std::string lastname = tl.back().to_string();
                 GridObject *pairedoxyd = dynamic_cast<GridObject *>(getObject(getAttr("$pairid")));
-                if (firstname.find('=') == 0) {
-                    if (lua::CallFunc(lua::LevelState(), "enigma.settile", firstname.substr(1), pairedoxyd)) {
-                        throw XLevelRuntime(std::string("oxyd stone set tile failed:\n")+lua::LastError(lua::LevelState()));
+                if (pairedoxyd != NULL) {
+                    if (firstname.find('=') == 0) {
+                        if (lua::CallFunc(lua::LevelState(), "enigma.settile", firstname.substr(1), pairedoxyd)) {
+                            throw XLevelRuntime(std::string("oxyd stone set tile failed:\n")+lua::LastError(lua::LevelState()));
+                        }
+                    } else {
+                        ReplaceStone(pairedoxyd->get_pos(), MakeStone(firstname.c_str()));
                     }
-                } else {
-                    ReplaceStone(pairedoxyd->get_pos(), MakeStone(firstname.c_str()));
                 }
                 if (lastname.find('=') == 0) {
                     if (lua::CallFunc(lua::LevelState(), "enigma.settile", lastname.substr(1), this)) {
