@@ -1,18 +1,21 @@
 # German translation for Enigma.
 # Copyright (C) 2004 Daniel Heck
+#
 # Daniel Heck <dheck@gmx.de>, 2004.
-# 
+# Andreas Abraham, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma 1.00\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-21 21:47+0100\n"
-"PO-Revision-Date: 2006-12-11 17:05+0100\n"
-"Last-Translator: Daniel Heck <dheck@gmx.de>\n"
-"Language-Team: Enigma developers <enigma-devel@nongnu.org>\n"
+"PO-Revision-Date: 2010-09-12 20:06+0200\n"
+"Last-Translator: Andreas Abraham\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/server.cc:184 src/server.cc:198 src/gui/LevelInspector.cc:201
 msgid "Server Error: could not load level '"
@@ -637,33 +640,30 @@ msgid "%d%% solved"
 msgstr "%d%% gelöst"
 
 #: src/gui/LevelMenu.cc:371
-#, fuzzy
 msgid "Your time: "
-msgstr "Ihre Zeit: %d:%02d"
+msgstr "Ihre Zeit: "
 
 #: src/gui/LevelMenu.cc:376
 msgid "That's world record."
 msgstr "Weltrekord!"
 
 #: src/gui/LevelMenu.cc:378
-#, fuzzy, c-format
+#, c-format
 msgid "That's %s below world record."
-msgstr "%d:%02d unter Rekord."
+msgstr "Das ist %s unter dem Weltrekord."
 
 #: src/gui/LevelMenu.cc:387 src/gui/LevelMenu.cc:390
-#, fuzzy
 msgid "World record: "
-msgstr "Ihr Rekord: "
+msgstr "Weltrekord: "
 
 #: src/gui/LevelMenu.cc:389 src/gui/LevelMenu.cc:406
-#, fuzzy
 msgid "Par: "
-msgstr "Ziel: "
+msgstr "Par: "
 
 #: src/gui/LevelMenu.cc:403 src/gui/LevelMenu.cc:407
-#, fuzzy, c-format
+#, c-format
 msgid "World record by %s: "
-msgstr "Rekord von %s: %d:%02d"
+msgstr "Rekord von %s: "
 
 #: src/gui/LevelMenu.cc:439
 msgid "No further unsolved level available!"
@@ -806,21 +806,18 @@ msgid "Update Pack"
 msgstr "Aktualisiere"
 
 #: src/gui/LevelPackConfig.cc:419
-msgid ""
-"Error: empty title not allowed - press \"Undo\" to exit without modifications"
+msgid "Error: empty title not allowed - press \"Undo\" to exit without modifications"
 msgstr ""
 "Fehler: ein leerer Titel ist nicht erlaubt - klicken Sie \"Undo\" zum "
 "Verlassen ohne Änderungen"
 
 #: src/gui/LevelPackConfig.cc:432
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr ""
-"Fehler: benutzen Sie nur \"a-zA-Z0-9 _-#\" für den Titel des Levelpakets"
+msgstr "Fehler: benutzen Sie nur \"a-zA-Z0-9 _-#\" für den Titel des Levelpakets"
 
 #: src/gui/LevelPackConfig.cc:443
 msgid "Error: title already in use - choose another title"
-msgstr ""
-"Fehler: dieser Titel ist schon vergeben - bitte wählen Sie einen anderen"
+msgstr "Fehler: dieser Titel ist schon vergeben - bitte wählen Sie einen anderen"
 
 #: src/gui/LevelPackMenu.cc:46
 msgid "Left column:"
@@ -831,9 +828,8 @@ msgid "Levelpack groups"
 msgstr "Levelpaket Gruppen"
 
 #: src/gui/LevelPackMenu.cc:47
-#, fuzzy
 msgid "Right columns:"
-msgstr "Rechte Spalte:"
+msgstr "Rechte Spalten:"
 
 #: src/gui/LevelPackMenu.cc:47
 msgid "Levelpacks of selected group"
@@ -918,8 +914,7 @@ msgstr "Einfache Suche:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:43
 msgid "case independent search in title, author, filename"
-msgstr ""
-"Suche in Titel, Autorname, Dateiname unabhängig von Gross-/Kleinschreibung."
+msgstr "Suche in Titel, Autorname, Dateiname unabhängig von Gross-/Kleinschreibung."
 
 #: src/gui/LevelInspector.cc:179
 msgid "Screenshot"
@@ -1512,19 +1507,17 @@ msgstr ""
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:45
-#, fuzzy
 msgid ""
 "That was a rotor (similar to a top).  Some levels have many rotors and tops "
 "to make them difficult.                            However, maybe this rotor "
 "has a purpose; maybe you could get it on that trigger near where the spoon "
 "was.                      It might be convenient to close the gate."
 msgstr ""
-"Das war ein Rotor (ähnlich zu einem Kreisel). Einige Level haben viele "
+"Das war ein Rotor (ähnlich einem Kreisel). Einige Level haben viele "
 "Rotoren oder Kreisel, um sie interessanter zu "
 "machen.                            Wie auch immer, vielleicht hat dieser "
-"Rotor einen Zweck; Vielleicht kannst Du ihn auf den Bodenschalter locken, "
-"dort wo der Löffel lag.                      So könnte es möglich sein, eine "
-"Türe zu öffnen."
+"Rotor einen Zweck; vielleicht kannst Du ihn auf den Bodenschalter locken, "
+"dort wo der Löffel lag.                      Es könnte praktisch sein die Türe zu schliessen."
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -1537,10 +1530,8 @@ msgstr ""
 "der anderen Seite herunterzudrücken.    Versuche sie dort zu benutzen!"
 
 #: po/level_i18n.cc:50
-msgid ""
-"Remember?  There are different kinds of floors.  And these are steep ..."
-msgstr ""
-"Erinnerst Du Dich?  Es gibt verschiedene Böden.  Diese hier haben Gefälle ..."
+msgid "Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr "Erinnerst Du Dich?  Es gibt verschiedene Böden.  Diese hier haben Gefälle ..."
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -1555,8 +1546,7 @@ msgstr ""
 #  level: "Meditation 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:55 po/level_i18n.cc:117
-msgid ""
-"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgid "Move all small marbles into the holes. Only one marble per hole is allowed."
 msgstr ""
 "Lege alle kleinen Kugeln in die Mulden. Nur eine Kugel pro Mulde ist "
 "gewinnbringend."
@@ -1865,8 +1855,7 @@ msgstr ""
 msgid ""
 "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
 "stone."
-msgstr ""
-"Wartungscode: Metall-Stein-Stein-Stein-Rot-Gelb-Gelb-Rot-Rot-Stein-Stein."
+msgstr "Wartungscode: Metall-Stein-Stein-Stein-Rot-Gelb-Gelb-Rot-Rot-Stein-Stein."
 
 #  level: "Welcome"
 #  author: "Daniel Heck" email ""
@@ -1916,8 +1905,7 @@ msgstr ""
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:690
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
-msgstr ""
-"Warnung: Wenn die Felder des einen Kriegers leer sind, gewinnt der andere."
+msgstr "Warnung: Wenn die Felder des einen Kriegers leer sind, gewinnt der andere."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2070,32 +2058,36 @@ msgstr "Hüte dich vor fragwürdigen Gefährten!"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:827
+#, fuzzy
 msgid ""
 "I your dear friend am in myself undone, by reason of a Burden that lieth "
 "hard upon me."
 msgstr ""
+"Ich, dein guter Freund, bin durch die Bürde, die schwer auf mir lastet, "
+"selbst ruiniert."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:829
+#, fuzzy
 msgid "Do you see yonder Wicket Gate?"
-msgstr ""
+msgstr "Siehst Du dort drüben das gefährliche Tor?"
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:831
-msgid ""
-"They drew nigh to a very miry Slough. The name of the Slough was Despond."
-msgstr ""
+#, fuzzy
+msgid "They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr "Sie zogen in die Nähe eines Sumpfes. Der Name des Sumpfs war Verzagen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:833
 msgid "Knock, and it shall be opened unto you."
-msgstr ""
+msgstr "Klopfe und es soll Dir geöffnet werden."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2106,21 +2098,24 @@ msgid ""
 "to tumble, and so continued to do, till it came to the mouth of the "
 "Sepulchre, where it fell in, and I saw it no more."
 msgstr ""
+"Seine Bürde löste sich von seiner Schulter und fiel von seinem Rücken und begann "
+"zu taumeln und hörte nicht auf bis sie an den Rand des "
+"Grabes kam, wo sie hinabfiel und ich sie nicht mehr sah."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:837
 msgid "They came to the foot of the hill Difficulty."
-msgstr ""
+msgstr "Sie kamen an den Fuße des schwierigen Berges."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:839
-msgid ""
-"There was a very stately palace before him, the name of which was Beautiful."
-msgstr ""
+#, fuzzy
+msgid "There was a very stately palace before him, the name of which was Beautiful."
+msgstr "Es lag ein stattlicher Palast vor ihm, sein Name war Schönheit."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2130,6 +2125,8 @@ msgid ""
 "He had gone but a little way, before he espied a foul Fiend coming over the "
 "field to meet him."
 msgstr ""
+"Er war nicht weit gegangen, da erspähte er schon einen bösen Geist der über das "
+"Feld kam um ihn zu treffen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2139,13 +2136,15 @@ msgid ""
 "At the end of this Valley was another, called, The Valley of the Shadow Of "
 "Death."
 msgstr ""
+"Am Ende diesen Tales kam ein weiteres, genannt das Tal "
+"des Schatten des Todes."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:845
 msgid "He saw Faithful before him on his Journey."
-msgstr ""
+msgstr "Er sah die Gläubigen vor ihm auf seiner Reise."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2155,63 +2154,72 @@ msgid ""
 "As they went on, Faithful, as he chanced to look to one side, saw a man "
 "whose name was Talkative."
 msgstr ""
+"Wie sie weitergingen, Gläubig, traute er sich auf eine Seite zu sehen und sah einen Mann "
+"dessen Name Redselig war."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:849
-msgid ""
-"They presently saw a Town before them, and the name of that Town is Vanity."
-msgstr ""
+msgid "They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr "Sie sahen sogleich einen Ort vor sich und der Name des Ortes war Einbildung."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:851
+#, fuzzy
 msgid ""
 "Christian went not forth alone; for there was one whose name was Hopeful who "
 "joined himself unto him."
-msgstr ""
+msgstr "Christian ging nicht alleine voran; es gab einen, sein Name war Erwartungsvoll, der sich mit ihm verband."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:853
+#, fuzzy
 msgid ""
 "There was on the Left Hand of the road a Meadow, and a Stile to go over into "
 "it, and that meadow is called By-Path-Meadow."
 msgstr ""
+"Auf der Linken Seite der Strasse war eine Wiese, und ein Zauntritt der darüber in "
+"sie führte, und diese Wiese wird genannt Am-Weg-Wiese."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:855
+#, fuzzy
 msgid ""
 "Now there was, not far from the place where they lay, a castle, called "
 "Doubting-Castle, the owner of which was Giant Despair."
 msgstr ""
+"Nunmehr war dort, nicht weit von dem Platz wo sie lagen, eine Burg, genannt "
+"Zweifel-Schloss, dessen Besitzer war Gewaltige Verzweiflung."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:857
+#, fuzzy
 msgid "They went then till they came to the Delectable Mountains."
-msgstr ""
+msgstr "Sie schritten voran bis sie zu den Reizenden Bergen kamen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:859
+#, fuzzy
 msgid "Beware of the Flatterer."
-msgstr ""
+msgstr "Hüte Dich vor dem Schmeichler."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan - exact quote is 'Follow me, said the man, it is thither that I am going' - a couple of words have been changed to make sense out of context."
 #: po/level_i18n.cc:861
-msgid ""
-"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
-msgstr ""
+msgid "Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr "Folge mir, sagte der Schmeichler, ich gehe in die Himmlische Stadt."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2220,7 +2228,7 @@ msgstr ""
 msgid ""
 "They came into a certain Country, whose air naturally tended to make one "
 "drowzy."
-msgstr ""
+msgstr "Sie kamen in ein gewisses Land, dessen Luft dazu neigte einen schlaftrunken zu machen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2229,16 +2237,19 @@ msgstr ""
 msgid ""
 "The Pilgrims were got over the Enchanted ground, and entering into the "
 "Country of Beulah."
-msgstr ""
+msgstr "Die Pilger kamen über das verzauberte Reich und zogen in das Land von Beluah."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:867
+#, fuzzy
 msgid ""
 "There was then in that place one Vain-Hope, a ferryman, that with his boat "
 "helped him over."
 msgstr ""
+"An diesem Ort gab es eine vergebliche Hoffnung, ein Fährmann, der ihm mit seinem Boot "
+"hinüber half."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -2249,22 +2260,29 @@ msgid ""
 "the men that went with them, said, You must go through, or you cannot come "
 "at the Gate."
 msgstr ""
+"Beim Anblick des Flusses waren die Pilger daher sehr bestürzt, aber "
+"die Männer die mit Ihnen gingen sagten, Ihr müsst hindurch gehen, oder "
+"Ihr könnt das Tor nicht erreichen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:871
+#, fuzzy
 msgid "I looked in after them; and behold the City shone like the Sun."
-msgstr ""
+msgstr "Ich schaute nach ihnen; und erblickte die Stadt wie die Sonne erstrahlen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan - quote taken from the section of the Shepherds in the Delectable Mountains"
 #: po/level_i18n.cc:873
+#, fuzzy
 msgid ""
 "They also thought they heard there a rumbling noise, as of fire, and a Cry "
 "of some tormented, and that they smelt the scent of Brimstone."
 msgstr ""
+"Sie dachten auch dass sie ein polterndes Geräusch hörten, wie von Feuer, und ein Schrei "
+"wie von einem Gequälten, und dass sie den Duft von Schwefel rochen."
 
 #  level: "Odyssey in Space"
 #  author: "Jacob Scott" email ""
@@ -2277,8 +2295,7 @@ msgstr "Gefahr"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:903
 msgid "Place 9 different items in each row, column, and 3x3 box."
-msgstr ""
-"Platziere 9 unterschiedliche Werkzeuge in jede Reihe, Spalte und Quadrat"
+msgstr "Platziere 9 unterschiedliche Werkzeuge in jede Reihe, Spalte und Quadrat"
 
 #  level: "Su Dyxo"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -2363,8 +2380,7 @@ msgstr "und zerstöre die Puzzle nicht"
 #  level: "Sunrise Sunset"
 #  author: "Mark Pulley" email ""
 #: po/level_i18n.cc:940
-msgid ""
-"Choose your hemisphere: left switch for northern, right switch for southern."
+msgid "Choose your hemisphere: left switch for northern, right switch for southern."
 msgstr ""
 "Wähle Deine Hemisphäre: Linker Schalter für Norden, rechter Schalter für "
 "Süden"
@@ -2381,8 +2397,7 @@ msgstr "Mehr ist nicht weniger"
 #  use: "Sorry, aber im schwierigen Modus bedarf es ein wenig mehr ... Neustart."
 #: po/level_i18n.cc:949
 msgid "Sorry, but in difficult mode you need more ... Restart."
-msgstr ""
-"Sorry, aber im schwierigen Modus bedarf es ein wenig mehr ... Neustart."
+msgstr "Sorry, aber im schwierigen Modus bedarf es ein wenig mehr ... Neustart."
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -2434,10 +2449,8 @@ msgstr ""
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:964
-msgid ""
-"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
-msgstr ""
-"Das Puzzle war zu einfach! Benutze den Löffel und mache es für mich schwerer!"
+msgid "That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr "Das Puzzle war zu einfach! Benutze den Löffel und mache es für mich schwerer!"
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -2559,7 +2572,6 @@ msgstr ""
 #  author: "Jacob Scott" email ""
 #  use: "Du darfst hier nicht sein! Ich, Minos, Richter über die Toten werde es nicht gestatten! Begib dich umgehend auf den Weg zurück, oder sei bereit, die Konsequenzen für deinen Ungehorsam zu tragen - bis in alle Ewigkeit."
 #: po/level_i18n.cc:995
-#, fuzzy
 msgid ""
 "You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
 "back now, or forever face the consequences!"
@@ -2686,8 +2698,7 @@ msgstr ""
 #  comment: "Dante 'Devine Comedy': Canto X / Terzine 13"
 #  use: "Mein Führer, der mich schnell an mut’ger Hand / durch Gräberreih’n bis zu ihm mitgenommen, / sprach: „Was er fragt, das mach’ ihm klar bekannt.“"
 #: po/level_i18n.cc:1024
-msgid ""
-"...his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgid "...his hands, ready, encouraging, / thrust me towards him among the tombs."
 msgstr ""
 "Mein Führer, der mich schnell an mut’ger Hand / durch Gräberreih’n bis zu "
 "ihm mitgenommen, / sprach: „Was er fragt, das mach’ ihm klar bekannt.“"
@@ -2917,7 +2928,6 @@ msgstr "Poes Albtraum"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #  use: "Du befindest Dich in einem dunklen, feuchten Raum. Im Nordosten ist ein Lichtschalter und westlich von Dir ein Gang."
 #: po/level_i18n.cc:1087
-#, fuzzy
 msgid ""
 "You find yourself in a dark, damp chamber. There's a light switch to the "
 "northeast and a passage to the west."
@@ -3005,8 +3015,7 @@ msgstr ""
 #  use: "Oh-oh, die Stufen, die herunterführen, sehen extrem schmal und glitschig aus."
 #: po/level_i18n.cc:1103
 msgid "Uh-oh, the steps leading down are small and extremely slippery."
-msgstr ""
-"Oh-oh, die Stufen, die herunterführen, sehen extrem schmal und glitschig aus."
+msgstr "Oh-oh, die Stufen, die herunterführen, sehen extrem schmal und glitschig aus."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -3176,15 +3185,14 @@ msgstr "Veni, vidi, vici - Ich kam, ich sah, ich siegte"
 #  use: "Willkommen in L’Alpe d’Huez. Schade, es ist noch kein Etappenziel der Tour"
 #: po/level_i18n.cc:1188
 msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
-msgstr ""
-"Willkommen in L’Alpe d’Huez. Schade, es ist noch kein Etappenziel der Tour"
+msgstr "Willkommen in L’Alpe d’Huez. Schade, es ist noch kein Etappenziel der Tour"
 
 #  level: "Suckerfish I"
 #  author: "/dev/null" email ""
 #  use: "Kein Durchblick? Wie wär's mit einem Besuch beim Optiker?"
 #: po/level_i18n.cc:1193
 msgid "No clear view? How about visiting an opitician?"
-msgstr ""
+msgstr "Kein Durchblick? Wie wär's mit einem Besuch beim Optiker?"
 
 #  level: "Choices, choices ..."
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -3238,9 +3246,8 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Verloren ... 'SHIFT+F3'!!!"
 #: po/level_i18n.cc:1269
-#, fuzzy
 msgid "Doomed ... 'SHIFT+F3'!!!"
-msgstr "Arme kleine schwarze Murmel ... 'UmschalT+F3'!!!"
+msgstr "Arme kleine schwarze Murmel ... 'Umschalt+F3'!!!"
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
@@ -3298,16 +3305,14 @@ msgstr ""
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:1310
 msgid "There are different kinds of seeds ... Try to use them!"
-msgstr ""
-"Es gibt verschiedene Sorten von Samen ... Versuche sie richtig zu benutzen!"
+msgstr "Es gibt verschiedene Sorten von Samen ... Versuche sie richtig zu benutzen!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #  comment: "read from the right"
 #: po/level_i18n.cc:1312
 msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
-msgstr ""
-"Gnuthcir eredna eid Ehcusrev! Nessuard hcan Egew Iewz? legeisP legeisP ..."
+msgstr "Gnuthcir eredna eid Ehcusrev! Nessuard hcan Egew Iewz? legeisP legeisP ..."
 
 #  level: "Road to Eden"
 #  author: "Alain Busser" email ""
@@ -3390,8 +3395,7 @@ msgstr "Meinem Freund Frank gewidmet."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:1480
 msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
-msgstr ""
-"Dieser Level ist recht geradlinig, nicht wahr? Mache einfach weiter ... ;-)"
+msgstr "Dieser Level ist recht geradlinig, nicht wahr? Mache einfach weiter ... ;-)"
 
 #  level: "Pharaoh's Tomb"
 #  author: "Siegfried Fennig" email ""
@@ -3428,8 +3432,7 @@ msgstr "Dieser Schalter bestätigt Deinen Vorschlag."
 #  use: "Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
 #: po/level_i18n.cc:1513
 msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
-msgstr ""
-"Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
+msgstr "Das erste Ziel unseres Denkens werde:           Luft und Feuer, Wasser, Erde."
 
 #  level: "Moure-Switches"
 #  author: "Andreas Lochmann" email ""
@@ -4175,10 +4178,8 @@ msgstr "Mache einen Regenschirm."
 #  author: "Manuel König" email ""
 #  use: "Das ist mein erstes Level; ich habe es meinem Vater gewidmet. Ich hoffe, dass es euch Spaß macht!"
 #: po/level_i18n.cc:3556
-msgid ""
-"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
-msgstr ""
-"Dies ist mein erstes Level, gewidmet meinem Vater. Ich hoffe es gefällt Dir!"
+msgid "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr "Dies ist mein erstes Level, gewidmet meinem Vater. Ich hoffe es gefällt Dir!"
 
 #  level: "Catwalk Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4252,8 +4253,7 @@ msgstr "shh ... horche!"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3617
 msgid "This is a meditation landscape: put a small marble into every hole ..."
-msgstr ""
-"Dies ist eine Meditationslandschaft: lege eine kleine Kugel in jedes Loch ..."
+msgstr "Dies ist eine Meditationslandschaft: lege eine kleine Kugel in jedes Loch ..."
 
 #  level: "Laser Path"
 #  author: "Andreas Lochmann" email ""
@@ -4389,14 +4389,13 @@ msgstr "Pirateninsel"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:3753
 msgid "The pirates have lost several hidden things on this island ..."
-msgstr ""
-"Die Piraten haben auf dieser Insel einige versteckte Dinge dagelassen ..."
+msgstr "Die Piraten haben auf dieser Insel einige versteckte Dinge dagelassen ..."
 
 #  level: "Island of Safety"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3772
 msgid "Keypad Corners"
-msgstr ""
+msgstr "Ziffernblock Ecken"
 
 #  level: "A bayou by you"
 #  author: "Alain Busser" email ""
@@ -4603,6 +4602,7 @@ msgstr ""
 #  author: "Alain Busser" email ""
 #  comment: "an attempt has been made to imitate the language Aragorn uses in Tolkien's 'the 2 towers', which itself is an imitation of the ancient english Shakespeare wrote; the most faithful way to translate this is then to use a medieval-looking language."
 #: po/level_i18n.cc:3928
+#, fuzzy
 msgid ""
 "Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
 "and numerous art the Ghostes who lye in the waye to them; many art the "
@@ -4610,6 +4610,11 @@ msgid ""
 "back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
 "lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
 msgstr ""
+"Mächtig sind die Ritter der hohen Alter, die die elbischen Oxid-Steine bewahren, "
+"und zahlreich sind die Geister die auf dem Weg zu ihnen liegen; viele Abenteurer "
+"haben versucht das Schwerte Aylendil zu stehlen, aber keiner kam je zurück. "
+"Dunst liegt über dem Sumpfe in dem der Zauber der Alten begraben ist; das Lager "
+"des weißen Pferds das der Drache fürchte ihn zu wecken …"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4648,8 +4653,7 @@ msgstr ""
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  use: "Oh! Das Labyrinth ist unvollständig! Unternimm etwas um das Labyrinth zu reparieren bevor Du es zerstörst."
 #: po/level_i18n.cc:3941
-msgid ""
-"OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
+msgid "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
 "Oh! Das Labyrinth ist unvollständig! Unternimm etwas um das Labyrinth zu "
 "reparieren bevor Du es zerstörst."
@@ -4888,7 +4892,7 @@ msgstr "Uhrmacher"
 #  use: "repariere das Uhrwerk"
 #: po/level_i18n.cc:4065
 msgid "Mend the clockwork"
-msgstr "repariere das Uhrwerk"
+msgstr "Repariere das Uhrwerk"
 
 #  level: "Watchmaker"
 #  author: "Johannes Hüsing" email "hannes@ruhrau.de"
@@ -5125,10 +5129,8 @@ msgstr ""
 #  level: "Enigmines"
 #  author: "Brian Huffman" email ""
 #: po/level_i18n.cc:4187
-msgid ""
-"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
-msgstr ""
-"Benutze den Schalter, um aufzudecken, aber auch um 10 Sekunden zu verlieren."
+msgid "Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr "Benutze den Schalter, um aufzudecken, aber auch um 10 Sekunden zu verlieren."
 
 #  level: "Ghost Driver"
 #  author: "Jacob Scott" email ""
@@ -5452,7 +5454,7 @@ msgstr "Glückwunsch, jetzt funktioniert er wieder!"
 #  use: "Zur Zeit sind keine Tips verfügbar."
 #: po/level_i18n.cc:4480
 msgid "No hints available at the moment."
-msgstr "Zur Zeit sind keine Tips verfügbar."
+msgstr "Zur Zeit sind keine Tipps verfügbar."
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
@@ -5523,7 +5525,7 @@ msgstr "Löcher!"
 #  use: "Ob Schachfiguren laserresistent sind?"
 #: po/level_i18n.cc:4534
 msgid "Are chess knights resistent to laser beams?"
-msgstr ""
+msgstr "Ob Schachfiguren laserresistent sind?"
 
 #  level: "Hot Hurdle Race"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5623,8 +5625,7 @@ msgstr "Dieser Wächter scheint nicht besonders aufmerksam zu sein."
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:4673
-msgid ""
-"This lake was obviously made by Goshers. I think the correct way is south."
+msgid "This lake was obviously made by Goshers. I think the correct way is south."
 msgstr ""
 "Dieser See wurde offensichtlich von Goshers angelegt. Ich denke der Weg nach "
 "Süden ist der Richtige."
@@ -5744,8 +5745,7 @@ msgstr "Xila weiss, wie man den See trocken legt!"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:4685
 msgid "You were lucky to find this hole. It prevents you from drowning."
-msgstr ""
-"Du Glücklicher hast dieses Loch gefunden. Es rettet Dich vor dem Ertrinken."
+msgstr "Du Glücklicher hast dieses Loch gefunden. Es rettet Dich vor dem Ertrinken."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -5783,8 +5783,7 @@ msgstr ""
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:4690
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr ""
-"\"Gratulation. Du bist in diesen alten Aztekentempel hinein gekommen.\""
+msgstr "\"Gratulation. Du bist in diesen alten Aztekentempel hinein gekommen.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -5921,6 +5920,8 @@ msgid ""
 "Quickly ...                                                                             "
 "or trickily!"
 msgstr ""
+"Schnell ...                                                                             "
+"oder trickreich!"
 
 #  level: "Correspondence Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -5985,7 +5986,7 @@ msgstr "Treibjagd auf Eis"
 #  use: "Der wahre Wert von Kaffee"
 #: po/level_i18n.cc:4820
 msgid "The real value of coffee"
-msgstr ""
+msgstr "Der wahre Wert von Kaffee"
 
 #  level: "Oxyd Drilling"
 #  author: "Jacob Scott" email ""
@@ -6283,8 +6284,7 @@ msgstr ""
 #  use: "Beseitige alle Teile der Grabplatte, bevor Tutoxyd heraufbeschwört wird."
 #: po/level_i18n.cc:4914
 msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
-msgstr ""
-"Beseitige alle Teile der Grabplatte, bevor Tutoxyd heraufbeschwört wird."
+msgstr "Beseitige alle Teile der Grabplatte, bevor Tutoxyd heraufbeschwört wird."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -6327,6 +6327,8 @@ msgid ""
 "Counting the first pearl as 1, you must save every pearl that's a multiple "
 "of 3 or of 5 (or both)."
 msgstr ""
+"Zählt man die erste Perle mit 1, so muss man jede Perle bewahren die ein Vielfaches "
+"von 3 oder 5 ist (oder beiden)."
 
 #  level: "Danger Flag"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -6353,7 +6355,7 @@ msgstr "Wechselspiel ins Dunkle"
 #  use: "Hintenrum IV"
 #: po/level_i18n.cc:4945
 msgid "Crabwise IV"
-msgstr ""
+msgstr "Hintenrum IV"
 
 #  level: "Number Crunching"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -6411,7 +6413,7 @@ msgstr "Suche nach dem geeignetsten Ort, um zu zünden"
 #  use: "Hintenrum III"
 #: po/level_i18n.cc:5043
 msgid "Crabwise III"
-msgstr ""
+msgstr "Hintenrum III"
 
 #  level: "Crabwise I"
 #  author: "/dev/null" email ""
@@ -6678,8 +6680,7 @@ msgstr ""
 #  author: "mecke" email ""
 #  use: "Lustig: Eine Fontäne steuert den Verkehr"
 #: po/level_i18n.cc:5303
-msgid ""
-"It's funny that a fountain in Central Park should control the traffic flow."
+msgid "It's funny that a fountain in Central Park should control the traffic flow."
 msgstr "Lustig: Eine Fontäne steuert den Verkehr"
 
 #  level: "New York Jungle"
@@ -6693,8 +6694,7 @@ msgstr "Willkommen in Chinatown"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:5363
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr ""
-"Legen Sie den Hammer neben ein Pentomino und betätigen Sie den Schalter!"
+msgstr "Legen Sie den Hammer neben ein Pentomino und betätigen Sie den Schalter!"
 
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
