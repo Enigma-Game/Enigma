@@ -278,7 +278,7 @@ void Actor::warp(const ecl::V2 &newpos) {
         SendMessage(*itr, "_recheck");
 }
 
-void Actor::move () 
+void Actor::move()
 {
     if (m_actorinfo.field) {
         if (m_actorinfo.gridpos != last_gridpos) {
@@ -317,7 +317,7 @@ void Actor::move ()
     last_gridpos = m_actorinfo.gridpos;
 }
 
-void Actor::move_screen () {
+void Actor::move_screen() {
     m_sprite.move (m_actorinfo.pos);
 }
 
@@ -325,7 +325,7 @@ void Actor::set_model(const string &name) {
     m_sprite.replace_model (display::MakeModel(name));
 }
 
-void Actor::animcb () {
+void Actor::animcb() {
 }
 
 

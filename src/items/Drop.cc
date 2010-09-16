@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2009 Ronald Lamprecht
+ * Copyright (C) 2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -29,8 +29,10 @@ namespace enigma {
     Actor *replace_actor(Actor *olda, Actor *newa) {
         ActorInfo *info = newa->get_actorinfo();
         info->vel = olda->get_vel();
+        info->charge = olda->get_actorinfo()->charge;
 
-        if (Value v = olda->getAttr("owner")) {
+        Value v = olda->getAttr("owner");
+        if (v) {
             player::ReplaceActor((int)v, olda, newa);
         }
 
@@ -38,6 +40,8 @@ namespace enigma {
         if (!YieldActor (olda)) {
             enigma::Log << "Strange: could not remove old actor\n";
         }
+        SendMessage(newa, "_update_mass", v);
+        SendMessage(newa, "_update_pin", v);
         olda->hide();
         newa->show();
         return olda;
@@ -94,7 +98,7 @@ namespace enigma {
             }
             rotor->setAttr("essential_id", Value(essId));
 
-            replace_actor (a, rotor);
+            replace_actor(a, rotor);
 
             GameTimer.set_alarm (new DropCallback (rotor, a),
                                         ROTOR_LIFETIME,
