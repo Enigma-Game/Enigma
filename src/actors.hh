@@ -79,6 +79,7 @@ namespace enigma {
 
         ecl::V2 pos;            // Absolute position
         GridPos gridpos;        // Grid position for pos
+        GridPos last_gridpos;   // last pos handled by actor move
         const Field *field;     // Field of pos
         ecl::V2 vel;            // Velocity
         ecl::V2 frozen_vel;     // Velocity backup for forzen actors
@@ -221,7 +222,6 @@ namespace enigma {
         bool         spikes; // set by "it-pin"
         int          controllers;
         double       adhesion;
-        GridPos      last_gridpos;   // last pos handled by actor move
     };
 
     inline ActorID get_id (Actor *a) {

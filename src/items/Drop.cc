@@ -30,6 +30,7 @@ namespace enigma {
         ActorInfo *info = newa->get_actorinfo();
         info->vel = olda->get_vel();
         info->charge = olda->get_actorinfo()->charge;
+        info->last_gridpos = olda->get_actorinfo()->gridpos;
 
         Value v = olda->getAttr("owner");
         if (v) {

@@ -281,12 +281,12 @@ void Actor::warp(const ecl::V2 &newpos) {
 void Actor::move()
 {
     if (m_actorinfo.field) {
-        if (m_actorinfo.gridpos != last_gridpos) {
+        if (m_actorinfo.gridpos != m_actorinfo.last_gridpos) {
             // Actor entered a new field -> notify floor and item objects
             // first leave old - avoid the possibility that an actor presses
             // two triggers at once.
             firstGridStep = true;
-            if (const Field *of = GetField(last_gridpos)) {
+            if (const Field *of = GetField(m_actorinfo.last_gridpos)) {
                 if (Floor *fl = of->floor)
                     fl->actor_leave(this);
                 if (Item *it = of->item)
@@ -314,7 +314,7 @@ void Actor::move()
                 respawnpos = m_actorinfo.pos;
         }
     }
-    last_gridpos = m_actorinfo.gridpos;
+    m_actorinfo.last_gridpos = m_actorinfo.gridpos;
 }
 
 void Actor::move_screen() {
