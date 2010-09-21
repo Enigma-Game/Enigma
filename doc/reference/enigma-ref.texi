@@ -183,7 +183,7 @@ resource that you expect to find at @samp{dirname/filename} may be stored in a z
 named @samp{dirname.zip}. The path of the file within the zip can be either
 @samp{dirname/filename} or @samp{./filename}. In case a resource is provided
 in zipped and unzipped form, the plain file stored in a directory wins, since Enigma
-assumes it to to be an update to the zip.
+assumes it to be an update to the zip.
 
 @node Startup Switches
 @section Startup Switches
@@ -1741,7 +1741,7 @@ after the last author's review.
 @item @b{/level/public/i18n}, @i{optional, single occurrence}
 
 This public i18n section contains further translations supplied for the level. They
-may derive from the author or other sources. The translators  will
+may derive from the author or other sources. The translators will
 validate these translations, and they continue in use if the translators do not
 supply corrected versions. See @ref{Internationalization (i18n)}.
 
@@ -1827,7 +1827,7 @@ All information about @ref{<compatibility>} to Enigma releases, dependencies
 from libraries, external data and the editor program that generated the level.
 
 @item @b{modes}, @i{required}
-The @ref{<modes>} that the level supports, such as difficulty, network  and control.
+The @ref{<modes>} that the level supports, such as difficulty, network and control.
 
 @item @b{comments}, @i{optional}
 Optional comments, such as credits, dedication and code comments. See @ref{<comments>}.
@@ -1968,11 +1968,11 @@ independent from the scoring and release version number.
 
 If Enigma finds two levelfiles in its data search paths with identical filenames,
 id, score and release version, it will load the one with the higher revision number.
-This feature guarantees that  an older level revision stored on the user's
+This feature guarantees that an older level revision stored on the user's
 home level directory cannot supersede a new revision of a level distributed with a new
 Enigma release. Online updates will check the level revision numbers, too.
 
-Although  the revision evaluates to a number, the attribute can take a second
+Although the revision evaluates to a number, the attribute can take a second
 string format as the literal keyword @samp{$Revision$}. This
 @url{http://subversion.tigris.org/, Subversion} format allows level authors to
 let their Subversion repository automatically insert the level revision number. They must simply
@@ -2179,7 +2179,7 @@ may be legal.
 @item @b{path}, @i{required}
 The resource path of the external data file without its suffix @samp{.txt}. The
 path has to be either of the format @code{"./name"} for an external data file
-that is locally  stored in the same folder as the level file, or will be saved
+that is locally stored in the same folder as the level file, or will be saved
 at this position when it gets downloaded. Or the path can be of the format
 @code{"externaldata/name"} for shared external data files, that are referenced
 by multiple level files stored at different folders. The external data file will
@@ -2591,7 +2591,7 @@ comments; we decided to support a similar Lua-compatible XML format. We call it
 --xml--     <el:info el:type="level">
 --xml--       <el:identity el:title="Demo Simple" el:id="20060210ral001"/>
 --xml--       <el:version el:score="1" el:release="1" el:revision="0" el:status="stable"/>
---xml--       <el:author  el:name="Ronald Lamprecht"/>
+--xml--       <el:author el:name="Ronald Lamprecht"/>
 --xml--       <el:copyright>Copyright @copyright{} 2006 Ronald Lamprecht</el:copyright>
 --xml--       <el:license el:type="GPL2" el:open="true">GPL v2.0 or above</el:license>
 --xml--       <el:compatibility el:enigma="0.92"/>
@@ -2669,7 +2669,7 @@ attributes in the @ref{<version>} element.
 If Enigma loads a new level version, which differs just in the @samp{@b{revision}}, we speak of
 an @samp{@b{update}}. You can perform updates automatically and replace old versions with
 the updates, since the author guarantees them to be compatible in scoring and
-dependencies. The  author should provide a download address for automatic updates in the
+dependencies. The author should provide a download address for automatic updates in the
 protected info element:
 
 @example
@@ -2779,7 +2779,7 @@ Let's look at the essential XML parts of a library:
 @node Maintaining a Library
 @subsection Maintaining a Library
 
-Libraries may exist in different releases and revisions. Library versions that differ simply  in the
+Libraries may exist in different releases and revisions. Library versions that differ simply in the
 revision, denote compatible versions. Library versions that introduce incompatibilities must
 differ in the release number. However, since existing levels may depend on the legacy behavior
 of the older release, you must maintain both library release versions and distribute them with
@@ -2935,7 +2935,7 @@ tile.
 @cindex grid position
 But most objects like stones can only be placed on the fixed integral grid
 positions. Even if you try to put a stone on @{1.5,@ 2.5@} it will be put on
-on the grid position @{1,@ 2@}. Thus we speak of a @dfn{grid position} if just the
+the grid position @{1,@ 2@}. Thus we speak of a @dfn{grid position} if just the
 integral part is taken into account. You may note that a tile is positioned
 according to its upper left corner. Actually the upper and the left edge are
 part of a tile, whereas the right and lower edge belong to the neighbour tiles.
@@ -3254,7 +3254,7 @@ will change. But in many cases this means that the volatile object reference
 will brake, too. For the sake of the level authors the identity of the object
 will be transferred even if the reference gets invalid. And like the user
 attributes the name is part of the object identity. Thus if you name an
-@ref{st_blocker} and it it shrinks to an @ref{it_blocker} you will retrieve this
+@ref{st_blocker} and it shrinks to an @ref{it_blocker} you will retrieve this
 item if you ask the name object repository for the named object.
 
 When an object like a door is completely killed, e.g. by an @ref{it_seed},
@@ -3348,7 +3348,7 @@ you request a nil valued attribute you will always receive the Lua value
 
 A group is an ordered set of @ref{Object Reference}s. As all contained objects
 must exist this value is seldom used for attributes in object declarations.
-But is is very useful for postprocessing of objects and for usage within
+But it is very useful for postprocessing of objects and for usage within
 @ref{Callback Function}s.
 
 The most complex attribute value type are the tokens. Their purpose is the
@@ -3563,6 +3563,7 @@ hand.
 @node Callback Function
 @subsection Callback Function
 
+@findex Callback Function
 @cindex callback function
 The most powerful extension to the @ref{Target - Action} paradigm that you can
 think of are callback functions. Instead of a target object as receiver of an
@@ -4033,7 +4034,7 @@ of the source code itself!
  4       <el:info el:type="level">
  5         <el:identity el:title="Basic Level" el:subtitle="" el:id="20080721ral513"/>
  6         <el:version el:score="1" el:release="1" el:revision="$Revision: 1170 $" el:status="experimental"/>
- 7         <el:author  el:name="Ronald Lamprecht" el:email="ral@@users.berlios.de"/>
+ 7         <el:author el:name="Ronald Lamprecht" el:email="ral@@users.berlios.de"/>
  8         <el:copyright>Copyright @copyright{} 2008 Ronald Lamprecht</el:copyright>
  9         <el:license el:type="GPL v2.0 or above" el:open="true"/>
 10         <el:compatibility el:enigma="@var{1.10}"/>
@@ -4457,7 +4458,7 @@ The singleton type of the repository of all named objects.
 @item @b{default:} @i{preset variable:} @code{@b{DEFAULT}}; @ @ @xref{Object Attributes}
 The singleton type of default values that can be used instead of Lua's @samp{nil}
 in anonymous table tile definitions.
-@item @b{tile:}@ @ @xref{Tile and Object Declaration	}
+@item @b{tile:}@ @ @xref{Tile and Object Declaration}
 A description of one or several objects for a common grid position (floor, item,
 stone, actor)
 @item @b{tiles:} @i{preset variable:} @code{@b{ti}}; @ @ @xref{Tiles Repository}
@@ -5928,7 +5929,7 @@ directly used as a position without explicit conversion. Just special methods
 like existence differ on both datatypes. Of course all objects placed in the
 world are limited to positions within the world. But be aware that portable
 @ref{Item Objects} can well be part of a player's inventory and thus report a
-position  outside of the world. Actors will always report positions rounded to
+position outside of the world. Actors will always report positions rounded to
 the containing grid. This feature is legacy. As Lua code is anyway inappropriate
 to handle actor movements we maintained this rounding feature.
 
@@ -6058,7 +6059,7 @@ still exists, otherwise false is returned for @samp{NULL} object references.
 @item @b{Details:}
 Kills the object at once. Note that you should never kill a sender object
 within a callback action. If you have need of killing the sender then add
-the attribute @ref{safeaction} as explained in @ref{Target - Action }.
+the attribute @ref{safeaction} as explained in @ref{Target - Action}.
 
 @item @b{Syntax Samples:}
 @example
@@ -6731,7 +6732,7 @@ they are the containers of choice for longterm storage.
 
 You can easily create a position list by @ref{PositionList Conversion}, which
 is featured by the @ref{Positions Repository} singleton and allows you to 
-transform a group into a position list by  by the simple expression 
+transform a group into a position list by the simple expression 
 @samp{po(group)}. On the other hand you can retrieve all @ref{Object}s of a 
 basic kind located along a position list path by @ref{Functions} like 
 @samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
@@ -7891,6 +7892,7 @@ implemented as simple functions.
 
 @node assert_bool
 @subsection assert_bool
+@findex assert_bool
 
 The function @samp{assert_bool} throws an error if a given condition doesn't hold.
 
@@ -7944,6 +7946,7 @@ See Lua's manual for more detailed information about the @samp{error}-function.
 
 @node assert_type
 @subsection assert_type
+@findex assert_type
 
 The function @samp{assert_type} throws an error if the first argument is not of one of the
 specified types.
@@ -8117,6 +8120,7 @@ will occur.
 @c ----------------- etype --------------------
 @node etype
 @subsection etype
+@findex etype
 
 The function @samp{etype()} returns the advanced type of its argument.
 
@@ -8163,6 +8167,7 @@ through @samp{_type} whenever you use metatables on your own.
 @c ----------------- fl --------------------
 @node fl
 @subsection fl
+@findex fl
 
 The function @samp{fl()} retrieves the floor objects for the given position or
 positions.
@@ -8199,6 +8204,7 @@ In any case you can send messages to the result value.
 @c ----------------- grp --------------------
 @node grp
 @subsection grp
+@findex grp
 
 The function @samp{grp()} builds a @ref{Group} out of its argument @ref{Object}s.
 
@@ -8229,6 +8235,7 @@ be omitted.
 @c ----------------- it --------------------
 @node it
 @subsection it
+@findex it
 
 The function @samp{it()} retrieves the item objects for the given position or
 positions.
@@ -8288,6 +8295,7 @@ the related orientations.
 @c ----------------- random --------------------
 @node random
 @subsection random
+@findex random
 
 The function @samp{random()} is a syntax compatible replacement for the standard
 Lua function @samp{math.random()}. Both names refer to the same Enigma random
@@ -8320,6 +8328,7 @@ randomseed can not be modified by the level itself.
 @c ----------------- st --------------------
 @node st
 @subsection st
+@findex st
 
 The function @samp{st()} retrieves the stone objects for the given position or
 positions.
@@ -8357,6 +8366,7 @@ In any case you can send messages to the result value.
 @c ----------------- usertype --------------------
 @node usertype
 @subsection usertype
+@findex usertype
 
 The function @samp{usertype()} returns type info for Enigma data types.
 
@@ -8708,7 +8718,7 @@ to use the world's @samp{add} method.
 @subsection fellows
 
 An attribute that gives you access to the group of all objects that are currently
-connected either by an @ref{ot_rubberband} or an  @ref{ot_wire}.
+connected either by an @ref{ot_rubberband} or an @ref{ot_wire}.
 
 Note that this attribute is read only. It is just for evaluation of the current
 level state. But to add new rubberbands or wires you need to use the
@@ -9112,7 +9122,7 @@ is appropriate for an object and do avoid using numbers.
 @subsection meditation types
 
 Number constants for @ref{it_meditation} attribute @ref{state}. Please choose
-the  constant that is appropriate for an object and do avoid using numbers.
+the constant that is appropriate for an object and do avoid using numbers.
 
 @itemize @bullet
 @item @samp{MEDITATION_CALDERA} = @code{-3}, by @ref{it_meditation}
@@ -12631,7 +12641,7 @@ All these features are configurable by the constants @samp{SPOT_DEATH},
 @samp{SPOT_HOLLOW}, @samp{SPOT_LIGHTPASSENGER}, @samp{SPOT_SENSOR},
 @samp{SPOT_TRAP} and @samp{SPOT_ACTORIMPULSE}. You can set the @samp{state}
 attribute to a sum of these constants that should apply to given glasses. The
-default is for  backward compatibility
+default is for backward compatibility
 @samp{SPOT_DEATH + SPOT_HOLLOW + SPOT_LIGHTPASSENGER}. When a player wears
 several glasses he spots everything that any of the glasses could spot.
 
@@ -20470,6 +20480,7 @@ You can load it by adding an @samp{dependency} element to the
 
 @node lib.lua.combine_tables
 @subsection lib.lua.combine_tables
+@findex lib.lua.combine_tables
 
 @samp{combine_tables} combines all entries of a set or table of tables into one
 common table (i.e., it joins the subtables). As some of the subtables can have
@@ -20511,6 +20522,7 @@ holding design information), @samp{combine_tables} can be useful.
 
 @node lib.lua.deep_copy
 @subsection lib.lua.deep_copy
+@findex lib.lua.deep_copy
 
 @samp{deep_copy} returns a copy of its argument, where table entries are
 not copied as memory references (like Lua typically does), but complete
@@ -20549,6 +20561,7 @@ Userdata (like tiles and positions) is not guaranteed to be deep-copied.
 
 @node lib.lua.mod
 @subsection lib.lua.mod
+@findex lib.lua.mod
 
 A wrapper for the modulo operation.
 
@@ -20594,6 +20607,7 @@ to be @code{0 <= r < modul}.
 
 @node lib.lua.print_table
 @subsection lib.lua.print_table
+@findex lib.lua.print_table
 
 @samp{print_table} is a debug command, which uses the API's @samp{print}
 command to recursively print its argument to the standard output.
@@ -20640,6 +20654,7 @@ is not meant as an element of gameplay.
 
 @node lib.lua.shuffle
 @subsection lib.lua.shuffle
+@findex lib.lua.shuffle
 
 @samp{shuffle} randomly resorts its argument, a numerical table.
 
@@ -20693,6 +20708,7 @@ Mirroring Maps} to shuffle the columns.
 
 @node lib.lua.to_string
 @subsection lib.lua.to_string
+@findex lib.lua.to_string
 
 @samp{to_string} is a debug function. It may take anything as argument, and
 tries to return a sensible string describing the type and, if possible, the
@@ -20760,6 +20776,7 @@ It preloads automatically the library @ref{liblua}.
 
 @node lib.math.combinations
 @subsection lib.math.combinations
+@findex lib.math.combinations
 
 @samp{lib.math.combinations} returns a table of all combinations of
 @samp{depth} entries, each of which is chosen from @samp{digits}.
@@ -20800,6 +20817,7 @@ of depth @samp{depth}.
 
 @node lib.math.cubic_polynomial
 @subsection lib.math.cubic_polynomial
+@findex lib.math.cubic_polynomial
 
 @samp{cubic_polynomial} returns the result of the following polynomial with
 coefficients in @samp{a}:
@@ -20861,6 +20879,7 @@ w, h = wo(myresolver, " ", @{
 
 @node lib.math.cyclic_permutation
 @subsection lib.math.cyclic_permutation
+@findex lib.math.cyclic_permutation
 
 @samp{cyclic_permutation} returns a random permutation (i.e. a random shuffling)
 of the numbers 1 to @samp{n}, which is cyclic: There exists a closed path from
@@ -20937,6 +20956,7 @@ end
 
 @node lib.math.digits
 @subsection lib.math.digits
+@findex lib.math.digits
 
 @samp{lib.math.digits} returns a table whose elements are the digits of
 @samp{number} in base @samp{base}. @samp{base} can be a positive integer (e.g.
@@ -20984,6 +21004,7 @@ lib.math.digits(x, @{0,1,2,3,4,5,6,7,8,9,"A","B","C","D","E","F"@})
 
 @node lib.math.manhattan_distance
 @subsection lib.math.manhattan_distance
+@findex lib.math.manhattan_distance
 
 @samp{manhattan_distance} calculates the Manhattan distance between two
 positions @samp{pos1} and @samp{pos2}, which is
@@ -21026,6 +21047,7 @@ diagonals parallel to the x- and y-axis (rhombi).
 
 @node lib.math.mark_components
 @subsection lib.math.mark_components
+@findex lib.math.mark_components
 
 @samp{mark_components} calculates the connected components of a group of
 floors. Two floors are directly connected if their difference is within a given
@@ -21093,6 +21115,7 @@ This will result in a much faster algorithm.
 
 @node lib.math.permutation
 @subsection lib.math.permutation
+@findex lib.math.permutation
 
 @samp{permutation} returns a random permutation (i.e. a random shuffling) of the
 numbers 1 to @samp{n}.
@@ -21124,6 +21147,7 @@ assignment of action/target-pairs ("Which trigger to which door?").
 
 @node lib.math.random_vector
 @subsection lib.math.random_vector
+@findex lib.math.random_vector
 
 @samp{random_vector} returns a table of @samp{n} random entries.
 
@@ -21168,6 +21192,7 @@ create random patterns, see @ref{lib.math.cubic_polynomial} and
 
 @node lib.math.steps
 @subsection lib.math.steps
+@findex lib.math.steps
 
 @samp{steps} takes a number @samp{d} and a table of numbers as arguments and
 returns the index of the first number larger or equal @samp{d}, minus one.
@@ -21671,6 +21696,7 @@ the map (to analyse space characters).
 
 @node newMap
 @subsection newMap
+@findex lib.map.newMap
 
 @samp{wo:newMap} takes a default key, and a premap or width and height as
 arguments, and returns a libmap-map.
@@ -21734,6 +21760,8 @@ newcopy = wo:newMap(mymap.defaultkey, mymap)
 
 @node Map Entry Request
 @subsection Map Entry Request
+@findex lib.map.get
+@findex lib.map.set
 
 You may request and set single entries within a libmap-map, using the
 index-operator @samp{[]}.
@@ -21799,6 +21827,7 @@ Floating-point coordinates are always rounded to a grid position
 
 @node Map Transformation
 @subsection Map Transformation
+@findex lib.map.transform
 
 You may transform any libmap-map according to the eight map transformation
 constants given in @ref{Rotating and Mirroring Maps}.
@@ -21838,6 +21867,7 @@ After a transformation, height and width of a map might have swapped.
 
 @node Map Horizontal Concatenation
 @subsection Map Horizontal Concatenation
+@findex lib.map.concat_horizontally
 
 You may glue libmap-maps one after another in horizontal direction using
 @samp{..}. Note the similarity to the meaning of @samp{..} in the context of
@@ -21875,6 +21905,7 @@ position to gain a rectangular map is subsequently set to this default key.
 
 @node Map Vertical Concatenation
 @subsection Map Vertical Concatenation
+@findex lib.map.concat_vertically
 
 You may glue libmap-maps on top of each other in vertical direction using
 @samp{+}. Compare with the meaning of @samp{..} (see
@@ -21911,6 +21942,7 @@ position to gain a rectangular map is subsequently set to this default key.
 
 @node Map Fusing
 @subsection Map Fusing
+@findex lib.map.fuse
 
 You may fuse libmap-maps in the way described in @ref{Connecting Two Maps}, by
 interpreting the two keys of the two maps at a position as parts of a combined
@@ -21947,6 +21979,7 @@ then is that each tile key is concatenated with the given string.
 
 @node Map Default Keys
 @subsection Map Default Keys
+@findex lib.map.set_default_key
 
 A libmap-map always includes a default key, which is used in various places
 throughout the library. It is the placeholder whenever a key out of scope of
@@ -22028,6 +22061,8 @@ restrictedmap = (mymap:defuse())[1] * (mymap:defuse())[3]
 
 @node Map Width and Height
 @subsection Map Width and Height
+@c @findex lib.map.width
+@c @findex lib.map.height
 
 A libmap-map always includes its width and height. These determine for example
 the exact position of the second map during a concatenation (see
@@ -22071,6 +22106,7 @@ so the lower-right corner is @code{@{width - 1, height - 1@}}.
 
 @node lib.map.covers
 @subsection lib.map.covers
+@findex lib.map.covers
 
 @code{covers} checks whether a position is within the scope of a map.
 
@@ -22113,6 +22149,7 @@ information when you use positions of the level world.
 
 @node lib.map.defuse
 @subsection lib.map.defuse
+@findex lib.map.defuse
 
 @code{defuse} returns a table of maps of keylength one, which correspond to the
 first, second, n-th character of each key at each position, respectively.
@@ -22170,6 +22207,7 @@ The inverse of defusing is @ref{Map Fusing}.
 
 @node lib.map.extend
 @subsection lib.map.extend
+@findex lib.map.extend
 
 @code{extend} changes a map in-place such that it covers a given position. If
 the position already is within the scope of the map, nothing happens.
@@ -22206,6 +22244,7 @@ Floating-point coordinates are rounded to a grid position
 
 @node lib.map.match
 @subsection lib.map.match
+@findex lib.map.match
 
 You may use @code{match} to search for patterns or keys within a map.
 @code{match} then returns a position list of grid positions.
@@ -22310,6 +22349,7 @@ Floating-point coordinates are rounded to a grid position
 
 @node lib.map.paste
 @subsection lib.map.paste
+@findex lib.map.paste
 
 @code{paste} copies a map into another map at a given position. This command
 works in-place, i.e. the receiving map is changed, instead of returning a new map.
@@ -22396,6 +22436,7 @@ changes done by the first entry.
 
 @node lib.map.print
 @subsection lib.map.print
+@findex lib.map.print
 
 @code{print} prints a map to standard output. You may use this command for
 debugging purposes, or to support development or translation of a level, but it
@@ -22455,6 +22496,7 @@ mymap:print(false, "    \"", "\",")
 
 @node lib.map.replace
 @subsection lib.map.replace
+@findex lib.map.replace
 
 @code{replace} replaces all occurrences of a single tile key in a map in-place
 with another tile key.
@@ -22501,6 +22543,7 @@ See also @ref{lib.map.replace_outside} and
 
 @node lib.map.replace_outside
 @subsection lib.map.replace_outside
+@findex lib.map.replace_outside
 
 @code{replace_outside} is a very specialized command, which is used to replace
 all occurrences of a tile key which are connected to the border of the map by a
@@ -22543,6 +22586,7 @@ silently ignored, but throw an error message.
 
 @node lib.map.sub
 @subsection lib.map.sub
+@findex lib.map.sub
 
 @code{sub} returns a copy of a rectangular section of a map as a new map.
 
@@ -22594,6 +22638,7 @@ coordinates are shifted accordingly.
 
 @node lib.map.trim
 @subsection lib.map.trim
+@findex lib.map.trim
 
 @code{trim} returns the smallest rectangular section of a map as new map such
 that its border consists of a given tile key only, i.e. it trims the original
@@ -22696,6 +22741,8 @@ oldtrafo = MAP_ALL[no["stone_a"]["_mytrafo"]]
 
 @node Map Transformation Composition and Powers
 @subsection Map Transformation Composition and Powers
+@findex lib.map.transformation_compose
+@findex lib.map.transformation_power
 
 The transformation constants (see @ref{map read directions},
 @ref{Rotating and Mirroring Maps}, @ref{Map Transformation}) can be composed
@@ -22811,6 +22858,7 @@ which works just as well(see @ref{Map Transformation Composition and Powers}).
 
 @node Random Map Transformations
 @subsection Random Map Transformations
+@findex lib.map.random_transformation
 
 libmap provides the function @code{lib.map.random_transformation()} to pick one
 of the eight transformations by random.
@@ -22838,6 +22886,7 @@ transformations switch height and width of the map they are applied to.
 @c ----------------- libimport --------------------
 @node libimport
 @section libimport
+@findex lib.import
 
 libimport is dedicated to parse level files of other games or formats and
 typically returns @ref{libmap}-maps. In this context, the word "level" refers to
@@ -22875,6 +22924,7 @@ It preloads automatically the libraries @ref{libmap} and @ref{liblua}.
 
 @node lib.import.unpack_multilevel
 @subsection lib.import.unpack_multilevel
+@findex lib.import.unpack_multilevel
 
 @samp{unpack_multilevel} extracts a level from a multilevel string. For this,
 it needs a regexp describing a single level line.
@@ -22914,6 +22964,7 @@ of the table. Hence, at least the line endings have to be dealt with.
 
 @node lib.import.uncompress_rle
 @subsection lib.import.uncompress_rle
+@findex lib.import.uncompress_rle
 
 @samp{uncompress_rle} takes a string as argument and returns a decoded version
 without run-length encoding.
@@ -22955,6 +23006,7 @@ line}-character is represented by @samp{\n} in Lua.
 
 @node lib.import.level_to_map
 @subsection lib.import.level_to_map
+@findex lib.import.level_to_map
 
 @samp{level_to_map} breaks a level string down into a table of strings, which
 is then converted into a @ref{libmap}-map.
@@ -22991,6 +23043,7 @@ one line ending. Otherwise, the returned map will be too short or too long.
 
 @node lib.import.map_sokoban
 @subsection lib.import.map_sokoban
+@findex lib.import.map_sokoban
 
 @samp{map_sokoban} takes a Sokoban multilevel as argument, and returns a
 beautified @ref{libmap}-map.
@@ -23051,6 +23104,7 @@ default key. Hence, if you want to paste the map into another one
 @c ----------------- map_wanderer --------------------
 @node lib.import.map_wanderer
 @subsection lib.import.map_wanderer
+@findex lib.import.map_wanderer
 
 @samp{map_wanderer} takes a Wanderer monolevel as argument, and returns a
 @ref{libmap}-map. Note that Enigma does not yet have the necessary game objects
@@ -23096,6 +23150,7 @@ function currently is only of use to developers.
 @c ----------------- libsoko --------------------
 @node libsoko
 @section libsoko
+@findex lib.soko.create_sokoball
 
 This library is described as of release 1.
 
@@ -23224,8 +23279,8 @@ required by the process of handling its own keys.
 
 The last resolver in the chain will either use the @ref{Tiles Repository}
 @samp{ti} as its subresolver or a @ref{Custom Resolver} function, which will be
-@samp{ti} based, too
-.
+@samp{ti} based, too.
+
 A typical resolver chain will look like:
 
 
@@ -23287,6 +23342,7 @@ wo:shuffleOxyd()
 
 @node Custom Resolver
 @subsection Custom Resolver
+@findex custom resolver
 
 A customer resolver is a function in the level that allows a dynamic remapping
 of tiles. When this function is registered in the resolver chain it is called
@@ -23315,7 +23371,7 @@ It has to return the final tile that should be drawn at the given position.
 This can be done by statement @samp{return ti["k"]}, which references the tile
 already declared in the tiles map.
 
-If no suited tile is already declared you can alternatively return a new tile
+If no suitable tile was declared you can alternatively return a new tile
 like @samp{return ti(@{"st_switch", state=ON@})}.
 
 If you decide not to draw any tile at all, you must return an empty tile
@@ -23368,6 +23424,7 @@ w, h = wo(myresolver, " ", @{
 
 @node res.autotile
 @subsection res.autotile
+@findex res.autotile
 
 Autotiling reduces the number of required tile declarations by generating them
 according to given simple rules. The most common application are a bunch of
@@ -23496,6 +23553,7 @@ substituted by @code{"sample%#"} which is a name that will be autonumbered
 
 @node res.composer
 @subsection res.composer
+@findex res.composer
 
 The composer resolver reduces the number of required tile declarations by
 generating them by composition of base tiles. Even small levels and nearly
@@ -23553,7 +23611,7 @@ tiles. Subkeys are keys with all but some characters replaced by a whitespace
 The search sequence is given by the optional second argument and defaults to
 @code{"123456789"}. In the first step all character positions marked by a
 @samp{1} in the sequence string are maintained in the key string and all others
-are replaced by whitespace. In the second step all  character positions marked
+are replaced by whitespace. In the second step all character positions marked
 by a @samp{2} in the sequence string are maintained in the key string and all
 others are replaced by whitespace. This procedure continues until the number
 equals the key length. All generated subkeys are resolved by the subresolver
@@ -23643,6 +23701,7 @@ w, h = wo(resolver, "  ", @{
 @c ----------------- Maze Resolver --------------------
 @node res.maze
 @subsection res.maze
+@findex res.maze
 
 The maze resolver supports you in the creation of quite arbitrary mazes. The
 shape is no longer limited to boring rectangular areas of one grid thick walls
@@ -23708,7 +23767,7 @@ separated by a comma.
 Values for given keys that may occur in any sequence in the anonymous table.
 @item @i{area_value} = @{<@i{rectangular_area} | @i{marked_area}>@}
 The maze area specification, that is either defined as an rectangular area
-or an area marked in the the world's map.
+or an area marked in the world's map.
 @item @i{rectangular_area} = @i{anchor}, @i{width}, @i{height}
 An rectangular area that is given by an anchor position within the world and
 two numbers for the width and height measured in maze cells.
@@ -23754,12 +23813,15 @@ Instead of kernel and wall tile keys you can supply a @ref{libmap} map of a
 complete cell. The map can provide arbitrary tiles for cell kernels larger than
 a single grid. The walls can differ on the south and east side, too.
 @item @i{other_renderer} = @i{renderer}  [, @i{other_renderer_args}]
-Enlisting of a a renderer function followed by its specific arguments.
+Enlisting of a renderer function followed by its specific arguments.
 @item @i{renderer}
 The function that does the rendering. By default it is
 @samp{lib.maze.renderer_standard} with the above given arguments. Other supplied
 renderers are @samp{lib.maze.renderer_window} and
 @samp{lib.maze.renderer_strip}
+@findex lib.maze.renderer_standard
+@findex lib.maze.renderer_window
+@findex lib.maze.renderer_strip
 
 @item @i{persistence}
 A boolean flag that defaults to @samp{false}. You need to set it to @samp{true}
@@ -23792,6 +23854,7 @@ To be written.
 
 @node res.puzzle
 @subsection res.puzzle
+@findex res.puzzle
 
 The puzzle resolver helps you to reduce the number of required tile declarations
 for clusters of @ref{st_puzzle} stones. By usage of the @samp{cluster} attribute
@@ -23960,6 +24023,7 @@ w, h = wo(resolver, "  ", @{
 
 @node res.random
 @subsection res.random
+@findex res.random
 
 With map based level description you have explicit control about the objects
 being set on every single grid. But sometimes you may want to introduce some
@@ -24063,6 +24127,7 @@ need to use another unique key @samp{C} for the coin on our random floor.
 @c ----------------- Train Resolver --------------------
 @node res.train
 @subsection res.train
+@findex res.train
 
 The train resolver supports you in the set up of train like wandering floor
 chains. Usually short passages of solid standard floors wander on a closed
@@ -24457,7 +24522,7 @@ preferred method.
 Fire that burns under a stone is not allowed to spread; the only exceptions are
 floating stones like @ref{st_grate}, and those stones that are destroyed by fire
 anyway (@ref{st_box}_wood, @ref{st_box}_hay, @ref{st_flat}_burnable,
-@ref{st_flat}_moveburnable). In contrast to this, fire might also  spread to
+@ref{st_flat}_moveburnable). In contrast to this, fire might also spread to
 under a movable stone, but not further.
 
 You can stop fire with @code{it_extinguisher}, which creates the fireproof
@@ -24798,6 +24863,7 @@ and the finalizer.
 
 @node Resolver Configurator
 @subsection Resolver Configurator
+@findex res.resolvername
 
 The configurator is the function that is being called, when the author
 supplies the resolver specific parameters.
@@ -24879,6 +24945,7 @@ end
 
 @node Resolver Implementation
 @subsection Resolver Implementation
+@findex res.composer_implementation
 
 When the map gets evaluated on the world creation the top resolver is asked
 for every key to return the valid tile declaration. This is done with the
@@ -24966,6 +25033,7 @@ end
 
 @node Resolver Finalizer
 @subsection Resolver Finalizer
+@findex res.resolver_finalization
 
 If the @ref{Resolver Configurator} provides a finalizer function in its context
 this function will be called once when all tiles from the map have been set.
@@ -25062,7 +25130,7 @@ ultimately opened (pairs must be hit with some time delay).
 (see @ref{Fire Spreading}).
 @item @ref{it_squashed} and @ref{it_cross} can't be removed with
 @ref{it_brush}.
-@item Only function of @ref{it_pencil} is to turn
+@item The only function of @ref{it_pencil} is to turn
 @ref{st_flat} and its movable variant into the burnable variants.
 @item @ref{it_bottle} doesn't break when a stone is pushed over it.
 @item @ref{st_swap} and @ref{st_pull} may not swap/pull into the level
