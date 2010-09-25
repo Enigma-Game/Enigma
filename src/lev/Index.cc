@@ -636,6 +636,7 @@ namespace enigma { namespace lev {
             nextMode = NEXT_LEVEL_UNSOLVED;
             break;
         default:
+            // raise error
             break;
         };
 
@@ -644,7 +645,7 @@ namespace enigma { namespace lev {
         int newPos = currentPosition;
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-        int    difficulty     = app.state->getInt("Difficulty");
+        int difficulty = app.state->getInt("Difficulty");
         
         while (newPos < max - 1 && !found) {
             ++newPos;
@@ -671,8 +672,6 @@ namespace enigma { namespace lev {
             else
                 found = true;
         }
-        if (!found)
-            newPos = 0; // ?
             
         currentPosition = newPos;
         return found;        
