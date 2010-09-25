@@ -889,13 +889,16 @@ bool ValueButton::update_value(int old_value, int new_value) {
 void ValueButton::on_action(Widget *) {
     int incr = 1;
     bool stop = false;
-    if (getLastUpSym() == SDLK_PAGEDOWN || getLastUpButton() == SDL_BUTTON_RIGHT ||
-            getLastUpButton() == 5) {  // wheel down
+    if (getLastUpSym() == SDLK_PAGEDOWN || 
+        getLastUpButton() == SDL_BUTTON_RIGHT ||
+        getLastUpButton() == 5) {  // wheel down
         incr = -1;
     }
-    if (getLastUpSym() == SDLK_PAGEDOWN || getLastUpSym() == SDLK_PAGEUP ||
-            getLastUpButton() == SDL_BUTTON_RIGHT ||
-            getLastUpButton() ==  4 || getLastUpButton() == 5) {
+    if (getLastUpSym() == SDLK_PAGEDOWN || 
+        getLastUpSym() == SDLK_PAGEUP ||
+        getLastUpButton() == SDL_BUTTON_RIGHT ||
+        getLastUpButton() == SDL_BUTTON_LEFT  ||
+        getLastUpButton() ==  4 || getLastUpButton() == 5) {
         stop = true;
     }
     if (inc_value(incr)) {
