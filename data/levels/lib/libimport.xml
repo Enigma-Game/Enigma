@@ -43,7 +43,7 @@ function lib.import.unpack_multilevel(multilevel, sublevel_number, format)
     local level = ""
     -- search the correct sublevel by pattern matching, line for line
     local in_level = false
-    for line in string.gmatch(multilevel, "([^\n\|]*)[\n\|]") do
+    for line in string.gmatch(multilevel, "([^\r\n\|]*)[\r\n\|]") do
         local start_match, end_match = string.find(line, lib.import.line_regexp[format])
         if (start_match == 1) and (end_match == string.len(line)) then
             if not in_level then
