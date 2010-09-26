@@ -1,7 +1,10 @@
 
 PNG = first_level.png construction.png ralD006_1.png
 
-GFXDIR = ../../../data/gfx48
+CONVERTOPT = -density 112x112 -units PixelsPerCentimeter
+
+# Enable out of source build
+GFXDIR = $(abs_srcdir)/../../../data/gfx48
 
 # List of files to copy from GFXDIR
 SIMPLEPNG = \
@@ -341,142 +344,140 @@ png_DATA = $(PNG) $(PNGLIST)
 all: $(PNGLIST)
 
 %_framed.png: $(GFXDIR)/%.png $(GFXDIR)/floor_frame.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/floor_frame.png $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 -composite $< $(GFXDIR)/floor_frame.png $@
 
 fl_scales_%.png: $(GFXDIR)/fl_%.png $(GFXDIR)/fl_scales.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 -composite $< $(GFXDIR)/fl_scales.png  $@
 
 %_thief.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_template.png template_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+288 $(GFXDIR)/thief_template.png template_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ template_$@ $@
 	rm base_$@ template_$@
 
 %_thief_capture.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_capture_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $(GFXDIR)/thief_capture_template.png template_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+288 $(GFXDIR)/thief_capture_template.png template_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ template_$@ $@
 	rm base_$@ template_$@
 
 %_thief_drunken.png: $(GFXDIR)/%_bluegray.png $(GFXDIR)/thief_drunken_template.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $(GFXDIR)/thief_drunken_template.png template_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< base_$@
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -composite base_$@ template_$@ $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $(GFXDIR)/thief_drunken_template.png template_$@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< base_$@
+	$(CONVERT) $(CONVERTOPT) -composite base_$@ template_$@ $@
 	rm base_$@ template_$@
 
 ac_%.png: $(GFXDIR)/ac_%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 60x60+0+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 60x60+0+0 $< $@
 
 %_2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+48 $< $@
 
 %_3.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+96 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+96 $< $@
 
 %_4.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+144 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+144 $< $@
 
 %_5.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+192 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+192 $< $@
 
 %_6.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+240 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+240 $< $@
 
 %_7.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+288 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+288 $< $@
 
 %_b.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+0 $< $@
 
 %_b2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+48 $< $@
 
 %_b3.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+96 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+96 $< $@
 
 %_b4.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+144 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+144 $< $@
 
 %_b6.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+48+240 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+48+240 $< $@
 
 %_c.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+0 $< $@
 
 %_c2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+48 $< $@
 
 %_c3.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+96 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+96 $< $@
 
 %_c4.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+144 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+144 $< $@
 
 %_c6.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+96+240 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+96+240 $< $@
 
 %_d.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+0 $< $@
 
 %_d2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+48 $< $@
 
 %_d3.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+96 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+96 $< $@
 
 %_d4.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+144 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+144 $< $@
 
 %_d6.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+144+240 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+144+240 $< $@
 
 %_e.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+192+0 $< $@
 
 %_e2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+192+48 $< $@
 
 %_e3.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+192+96 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+192+96 $< $@
 
 %_e4.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+191+144 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+191+144 $< $@
 
 %_f.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+240+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+240+0 $< $@
 
 %_f2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+240+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+240+48 $< $@
 
 %_g.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+288+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+288+0 $< $@
 
 %_g2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+288+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+288+48 $< $@
 
 %_h.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+336+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+336+0 $< $@
 
 %_h2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+336+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+336+48 $< $@
 
 %_i.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+384+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+384+0 $< $@
 
 %_i2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+384+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+384+48 $< $@
 
 %_j.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+432+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+432+0 $< $@
 
 %_j2.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+432+48 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+432+48 $< $@
 
 %.png: $(GFXDIR)/%.png
-	$(CONVERT) -density 112x112 -units PixelsPerCentimeter -crop 48x48+0+0 $< $@
+	$(CONVERT) $(CONVERTOPT) -crop 48x48+0+0 $< $@
 
 CLEANFILES = $(PNGLIST)
 
 EXTRA_DIST = $(PNG)
-
-

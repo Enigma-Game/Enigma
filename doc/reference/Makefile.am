@@ -19,14 +19,14 @@ enigma-ref.html: $(srcdir)/enigma-ref.texi $(srcdir)/enigma-t2h.init
 	@if [ "${TEXI2HTML}" ]; then \
 	  echo "Creating reference manual"; \
 	  echo "... texi2html ..."; \
-	  ${TEXI2HTML} -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi; \
+	  ${TEXI2HTML} -I . -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi; \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
 
 .PHONY: splitman
 splitman:
-	${TEXI2HTML} -split chapter -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi
+	${TEXI2HTML} -split chapter -I . -Verbose -init_file $(srcdir)/enigma-t2h.init $(srcdir)/enigma-ref.texi
 
 .PHONY: pdf
 pdf:
