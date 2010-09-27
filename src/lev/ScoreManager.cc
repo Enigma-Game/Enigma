@@ -138,7 +138,7 @@ namespace enigma { namespace lev {
                 hasValidStateUserId = true;
                 Log << "User id '" << stateUserId << "'\n";
             } else 
-                Log << "Bad user id '" << ecl::strf("%.4lX %.4lX %.4lX %.4lX",i1, i2,i3, i4) << "'\n";
+                Log << "Bad user id '" << ecl::strf("%.4X %.4X %.4X %.4X", i1, i2, i3, i4) << "'\n";
                 
         }
         
@@ -240,7 +240,7 @@ namespace enigma { namespace lev {
                         hasValidUserId = true;
                     } else {
                         // create first part of user id based on time stamp
-                        userId = ecl::strf("%.8lX", Rand(false));
+                        userId = ecl::strf("%.8X", Rand(false));
                         // we need a second random part as 2 users may start Enigma
                         // within the same second - we postpone this part till we save
                     }
@@ -325,7 +325,7 @@ namespace enigma { namespace lev {
         s2 >> std::hex >> i2;
         i3 = id3 & 0xFFFF;
         i4 = (i1 ^ i2 ^ i3);
-        userId += ecl::strf("%.4lX%.4lX",i3, i4);
+        userId += ecl::strf("%.4X%.4X",i3, i4);
         app.state->setProperty("UserId", userId);
         setProperty("UserId", userId);
         hasValidUserId = true;
@@ -338,7 +338,7 @@ namespace enigma { namespace lev {
         
         while (len--)
             r = (r<<8 & 0xFFFF) ^ ctab[(r >> 8) ^ *p++];
-        return ecl::strf("%.4lX", r); 
+        return ecl::strf("%.4X", r); 
     }
 
     bool ScoreManager::save() {
@@ -362,14 +362,14 @@ namespace enigma { namespace lev {
             setProperty("UserId1.00", userId);
             app.state->setProperty("UserId1.00", userId);
             unsigned id1 = Rand(false) & 0xFFFF;
-            userId.replace(0, 4, ecl::strf("%.4lX",id1));
+            userId.replace(0, 4, ecl::strf("%.4X",id1));
             unsigned id2, id3, id4;
             std::istringstream s2(userId.substr(4, 4));
             std::istringstream s3(userId.substr(8, 4));
             s2 >> std::hex >> id2;
             s3 >> std::hex >> id3;
             id4 = (id1 ^ id2 ^ id3);
-            userId.replace(12, 4, ecl::strf("%.4lX",id4));
+            userId.replace(12, 4, ecl::strf("%.4X",id4));
             app.state->setProperty("UserId", userId);
             setProperty("UserId", userId);
             Log << "new id: " << userId << "\n";
@@ -433,7 +433,9 @@ namespace enigma { namespace lev {
 //            result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
                 if (j==1)
                     (app.domSer)->setFilter(&serialFilter);
-                std::string contents(XMLtoUtf8(app.domSer->writeToString(doc)).c_str());
+                XMLCh* XMLString = app.domSer->writeToString(doc);
+                std::string contents(XMLtoUtf8(XMLString).c_str());
+                XMLString::release(&XMLString); 
                 if (j==1)
                     (app.domSer)->setFilter(NULL);
                 contents.replace(contents.find("UTF-16"), 6, "UTF-8"); // adapt encoding info
