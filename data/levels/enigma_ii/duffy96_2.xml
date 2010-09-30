@@ -288,9 +288,9 @@ function funcc11()
     ff10=0
 
     if fff1+fff2+fff3+fff4+fff5+fff6+fff7+fff8+fff9+fff10==10 then
-        print ("Ok")
+--        print ("Ok")
         if dooropen==0 then
-            print ("OkOk")
+--            print ("OkOk")
             SendMessage("door1","open")
             dooropen=1
         end
