@@ -45,9 +45,11 @@ namespace enigma {
             state = 0;
             
             // old Enigma versions did issue performAction what is incompatible
+            int id = getId();
             updateIState(countActors(),
                     server::EnigmaCompatibility >= 1.10 || server::GameCompatibility != GAMET_ENIGMA); 
-            init_model();
+            if (Object::getObject(id) != NULL)   // not killed?
+                init_model();
             return Value();
         } else if (m.message == "_jumping" ) {
             updateIState(m.value.to_bool() ? -1 : +1);
@@ -73,8 +75,10 @@ namespace enigma {
     
     void Trigger::on_creation(GridPos p) {
         state = 0;
+        int id = getId();
         updateIState(countActors(), true);
-        init_model();
+        if (Object::getObject(id) != NULL)   // not killed?
+            init_model();
     }
         
     void Trigger::init_model() {
