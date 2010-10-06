@@ -1,5 +1,6 @@
 ------------------------------------------------------------------------
 -- Copyright (C) 2002,2003,2004,2005 Daniel Heck
+-- Copyright (C) 2009,2010 Raoul Bourquin
 --
 -- This program is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU General Public License
@@ -35,19 +36,19 @@ Progress(0, "Loading actor models")
 -- ac_marble --
 do
     local images,frames,shadows
-    
+
     -- Normal black marble
     images = SpriteImages("ac_marble_black", 2, 0.5, 0.31)
     shadows = SpriteImage("sh_marble", 0.4, 0.29)
     DefShModel("ac_marble_black", "ac_marble_black1", "sh_marble")
     DefShModel("ac_marble_black-shine", "ac_marble_black2", "sh_marble")
-    
+
     -- Normal white marble
     -- Use shadow from black marble
     images = SpriteImages("ac_marble_white", 2, 0.5, 0.31)
     DefShModel("ac_marble_white", "ac_marble_white1", "sh_marble")
     DefShModel("ac_marble_white-shine", "ac_marble_white2", "sh_marble")
-    
+
     -- Falling black marble
     images = SpriteImages("ac_marble_black_fall", 10)
     shadows = SpriteImages("sh_marble_fall", 10, 0.4)
@@ -58,7 +59,7 @@ do
     end
     DefAnim("ac_marble_black-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_black-fallen", "invisible")
-    
+
     -- Appearing / disappearing black marble
     -- use the images from falling black marble
     DefAnim("ac_marble_black-appear", ReverseFrames(BuildFrames(frames, 25)))
@@ -74,7 +75,7 @@ do
     end
     DefAnim("ac_marble_white-fall", ComposeFrames(frames,{70,65,60,55,50,50,50,50,50,50,50}))
     DefAlias("ac_marble_white-fallen", "invisible")
-    
+
     -- Appearing / disappearing white marble
     -- use the images from falling white marble
     DefAnim("ac_marble_white-appear", ReverseFrames(BuildFrames(frames, 25)))
@@ -92,8 +93,8 @@ do
 
     -- Jumping white marble
     -- Use shadow from black marble
-    images  = SpriteImages("ac_marble_white_jump", 4)
-    frames  = {}
+    images = SpriteImages("ac_marble_white_jump", 4)
+    frames = {}
     for i=1,4 do
         DefShModel("wb-jump"..i, images[i], shadows[i])
         table.insert(frames, "wb-jump"..i)
@@ -107,7 +108,7 @@ do
         DefShModel("ac_marble_black-sink"..(i-1), images[i], shadows[i])
     end
     DefAlias("ac_marble_black-sunk", "invisible")
-    
+
     -- Sinking white marble
     -- Use shadow from black marble
     images = SpriteImages("ac_marble_white_sink", 7)
@@ -130,19 +131,19 @@ end
 -- ac_pearl --
 do
     local images, frames, shadows
-    
+
     -- Normal black pearl
     SpriteImage("ac_pearl_black", 0.5, 0.43)
     SpriteImage("sh_pearl", 0.4, 0.41)
     DefShModel("ac_pearl_black", "ac_pearl_black", "sh_pearl")
     DefAlias("ac_pearl_black-shine", "ac_pearl_black")
-    
+
     -- Normal white pearl
     -- Use shadow from black pearl
     SpriteImage("ac_pearl_white", 0.5, 0.43)
     DefShModel("ac_pearl_white", "ac_pearl_white", "sh_pearl")
     DefAlias("ac_pearl_white-shine", "ac_pearl_white")
-    
+
     -- Falling black pearl
     images = SpriteImages("ac_pearl_black_fall", 5, 0.5, 0.43)
     shadows = SpriteImages("sh_pearl_fall", 5, 0.4, 0.43)
@@ -155,12 +156,12 @@ do
     end
     DefAnim("ac_pearl_black-fall", ComposeFrames(frames,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_black-fallen", "invisible")
-    
+
     -- Appearing / disappearing black pearl
     -- use the images from falling black pearl
     DefAnim("ac_pearl_black-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_pearl_black-disappear", BuildFrames(frames, 25))
-    
+
     -- Falling white pearl
     -- Use shadows from falling black pearl
     images = SpriteImages("ac_pearl_white_fall", 5, 0.5, 0.43)
@@ -172,12 +173,12 @@ do
     end
     DefAnim("ac_pearl_white-fall", ComposeFrames(frames,{70,65,60,55,50,30}))
     DefAlias("ac_pearl_white-fallen", "invisible")
-    
+
     -- Appearing / disappearing white pearl
     -- use the images from falling white pearl
     DefAnim("ac_pearl_white-appear", ReverseFrames(BuildFrames(frames, 25)))
     DefAnim("ac_pearl_white-disappear", BuildFrames(frames, 25))
-    
+
     -- Jumping black pearl
     images  = SpriteImages("ac_pearl_black_jump", 4)
     shadows = SpriteImages("sh_pearl_jump", 4, 0.4)
@@ -190,8 +191,8 @@ do
 
     -- Jumping white pearl
     -- Use shadow from black pearl
-    images  = SpriteImages("ac_pearl_white_jump", 4)
-    frames  = {}
+    images = SpriteImages("ac_pearl_white_jump", 4)
+    frames = {}
     for i=1,4 do
         DefShModel("sb-jump"..i, images[i], shadows[i])
         table.insert(frames, "sb-jump"..i)
@@ -227,7 +228,7 @@ do
     -- Shattering white pearl
     Sprite({name="ac_pearl_white_shatter", nimages=5, framelen=60})
     DefAlias("ac_pearl_white-shatter", "ac_pearl_white_shatter")
-    DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")     
+    DefAlias("ac_pearl_white-shattered", "ac_pearl_white_shatter5")
 end
 
 -- ac-killerball --
@@ -275,7 +276,7 @@ end
 do
     local fg = SpriteImages("ac_top", 9, 0.5, 0.3)
     local bg = SpriteImage("sh_top", 0.4, 0.3)
-    
+
     frames = {}
     for i=1,9 do
         DefShModel("ac-top"..i, fg[i], bg)
@@ -379,7 +380,7 @@ end
 -- Special Floors
 -----------------------------------------
 
--- gradients
+-- slopes --
 do
     DefSubimages("fl_slope", {w=6, h=4, modelname="fl_slope"})
     DefAlias("fl_slope", "fl_slope21")
@@ -483,13 +484,10 @@ end
 do
     DefImage("fl_bridge_gc_open")
     DefImage("fl_bridge_gc_closed")
-    local namelist=DefSubimages("fl_bridge_gc", {h=10})
+    local namelist = DefSubimages("fl_bridge_gc", {h=10})
     local frames = BuildFrames(namelist,70)
     DefAnim("fl_bridge_gc_opening", ReverseFrames(frames))
     DefAnim("fl_bridge_gc_closing", frames)
-end
-
-do
     local bridge_o = DefImage("fl_bridge_bw_open")
     local bridge_c = DefImage("fl_bridge_bw_closed")
 
@@ -497,7 +495,7 @@ do
         DefAlias("fl_bridge_"..suff.."_open", "fl_bridge_bw_open")
         DefAlias("fl_bridge_"..suff.."_closed", "fl_bridge_bw_closed")
 
-        local namelist=DefSubimages("fl_bridge_"..suff, {h=7})
+        local namelist = DefSubimages("fl_bridge_"..suff, {h=7})
         table.insert(namelist, 1, bridge_c)
         table.insert(namelist, bridge_o)
         local frames = BuildFrames(namelist,70)
@@ -506,11 +504,10 @@ do
     end
 end
 
-
 -- scales
 do
     local scales = DefSubimages("fl_scales", {h=2})
-    
+
     display.DefineComposite("fl_scales_brick_released", "fl_brick", scales[1])
     display.DefineComposite("fl_scales_brick_pressed", "fl_brick", scales[2])
 
@@ -539,7 +536,7 @@ do
         local frames = BuildFrames(images, 240)
         DefAnim(basemodel.."_heating", frames);
     end
-    
+
     heating_animation("fl_ice")
     heating_animation("fl_water")
     heating_animation("fl_swamp")
@@ -593,7 +590,7 @@ do
         "it_weight",
         "it_wrench"
     }
-    
+
     DefImages(itemlist)
 
     DefImage("it_brake", {filename="st_brake"})
@@ -807,8 +804,8 @@ end
 -- it_shogun --
 do
     NewAnim("it_shogun_s", {img="it_shogun_s", h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it_shogun_m", {img="it_shogun_m",   h=3, speed=160, pingpong=1, loop=1})
-    NewAnim("it_shogun_l", {img="it_shogun_l",   h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_m", {img="it_shogun_m", h=3, speed=160, pingpong=1, loop=1})
+    NewAnim("it_shogun_l", {img="it_shogun_l", h=3, speed=160, pingpong=1, loop=1})
 end
 
 -- it_springboard --
@@ -934,7 +931,7 @@ end
 
 -- st_key --
 do
-    local images_on =  DefSubimages("st_key_on", {modelname="st_key_on", w=1, h=9})
+    local images_on = DefSubimages("st_key_on", {modelname="st_key_on", w=1, h=9})
     local images_off = DefSubimages("st_key_off", {modelname="st_key_off", w=1, h=9})
     DefRoundStone("st_key_on", images_on[1])
     DefRoundStone("st_key_off", images_off[1])
@@ -952,7 +949,7 @@ end
 do
     namelist = DefSubimages("st_actorimpulse", {h=3})
     shnamelist = DefSubimages("sh_actorimpulse", {h=3,imgw=ShadowSize,imgh=ShadowSize})
-    
+
     DefAnim("st-ai-fg", PingPong(BuildFrames(namelist, 30)))
     DefAnim("st-ai-sh", PingPong(BuildFrames(shnamelist, 30)))
     DefShModel("st_actorimpulse_anim", "st-ai-fg", "st-ai-sh")
@@ -980,17 +977,17 @@ end
 
 -- st_boulder --
 do
-    local img=DefSubimages("st_boulder", {w=4,h=3})
-    local imgfall=DefSubimages("st_boulder_fall", {w=4,h=3})
+    local img = DefSubimages("st_boulder", {w=4,h=3})
+    local imgfall = DefSubimages("st_boulder_fall", {w=4,h=3})
 
     function def_boulder(orient, start)
-        local animname="st_boulder"..orient.."a"
-        local frames={img[start], img[start+1], img[start+2]}
+        local animname = "st_boulder"..orient.."a"
+        local frames = {img[start], img[start+1], img[start+2]}
         DefAnim(animname, BuildFrames(frames, 120), false)
         DefShModel("st_boulder_"..orient, animname, "sh_round")
 
-        animname="st_boulder_"..orient.."_fall_anim"
-        frames={imgfall[start],imgfall[start+1],imgfall[start+2]}
+        animname = "st_boulder_"..orient.."_fall_anim"
+        frames = {imgfall[start],imgfall[start+1],imgfall[start+2]}
         DefAnim(animname, BuildFrames(frames, 120), false)
     end
 
@@ -1144,15 +1141,15 @@ do
     DefShModel("st-laser-e", imagese[1], "sh_rounded")
     DefShModel("st-laser-s", imagess[1], "sh_rounded")
     DefShModel("st-laser-w", imagesw[1], "sh_rounded")
-    
+
     -- activated laser
     DefAnim("st-laseron-anim-n", BuildFrames(imagesn,100), true)
     DefShModel("st-laseron-n", "st-laseron-anim-n", "sh_rounded")
-    DefAnim("st-laseron-anim-e", BuildFrames(imagese,100), true)                                                                                       
+    DefAnim("st-laseron-anim-e", BuildFrames(imagese,100), true)
     DefShModel("st-laseron-e", "st-laseron-anim-e", "sh_rounded")
-    DefAnim("st-laseron-anim-s", BuildFrames(imagess,100), true)                                                                                       
+    DefAnim("st-laseron-anim-s", BuildFrames(imagess,100), true)
     DefShModel("st-laseron-s", "st-laseron-anim-s", "sh_rounded")
-    DefAnim("st-laseron-anim-w", BuildFrames(imagesw,100), true)                                                                                       
+    DefAnim("st-laseron-anim-w", BuildFrames(imagesw,100), true)
     DefShModel("st-laseron-w", "st-laseron-anim-w", "sh_rounded")
 end
 
@@ -1337,10 +1334,8 @@ do
     DefAnim("stoneimpulse-hollow-anim2-fg", ReverseFrames(BuildFrames(framesfg, 55)))
     DefAnim("stoneimpulse-hollow-anim2-bg", ReverseFrames(BuildFrames(framesbg, 55)))
     DefShModel("st_stoneimpulse_hollow_anim2", "stoneimpulse-hollow-anim2-fg", "stoneimpulse-hollow-anim2-bg")
-end
 
-do
-    local images = DefSubimages("st_stoneimpulse_break", {h=8})
+    images = DefSubimages("st_stoneimpulse_break", {h=8})
     DefAnim("st_stoneimpulse_breaking", BuildFrames(images,50))
 end
 
@@ -1393,13 +1388,12 @@ do
     DefAnim("turnstile_anim", ReverseFrames(BuildFrames(images, 30)))
     DefSolidStone("st_turnstile", images[1])
     DefSolidStone("st_turnstile_anim", "turnstile_anim")
+    -- turnstle arms --
+    DefAlias("st_turnstile_e", "st_puzzle1")
+    DefAlias("st_turnstile_w", "st_puzzle4")
+    DefAlias("st_turnstile_s", "st_puzzle8")
+    DefAlias("st_turnstile_n", "st_puzzle2")
 end
-
--- st-turnstle, arms --
-DefAlias("st_turnstile_e", "st_puzzle1")
-DefAlias("st_turnstile_w", "st_puzzle4")
-DefAlias("st_turnstile_s", "st_puzzle8")
-DefAlias("st_turnstile_n", "st_puzzle2")
 
 -- st-turnstile-green --
 do
@@ -1413,7 +1407,7 @@ end
 do
     local shadows=DefSubimages("sh_round_growing", {h=3,imgw=ShadowSize,imgh=ShadowSize})
 
-    -- Wooden (box) stones --
+    -- Wooden box --
     do
         DefSubimages("st_box_wood", {modelname="st_box_wood_fg", h=2})
         DefShModel("st_box_wood1", "st_box_wood_fg1", "sh_round")
@@ -1437,7 +1431,7 @@ do
         DefShModel("st_greenbrown_growing", "st_greenbrown_growing_fg", "st_greenbrown_growing_bg")
     end
 
-    -- st_box_hay --
+    -- Hay box --
     do
         local images = DefSubimages("st_box_hay", {h=4})
         -- stone
@@ -1638,7 +1632,7 @@ do
         c = ReverseFrames(fopening["c"]),
         d = ReverseFrames(fopening["d"]),
     }
-    
+
     -- The open/close animation of oxyd stones
     function mkopenclose(flavor, color)
         local name = "st_oxyd" .. flavor .. color
@@ -1655,7 +1649,7 @@ do
         DefShModel (name.."_opening", name.."_opening_fg", shadow[flavor])
         DefShModel (name.."_closing", name.."_closing_fg", shadow[flavor])
     end
-    
+
     -- The blinking question mark animation of single open oxyds
     function mkblink(flavor, color)
         local name = "st_oxyd"..flavor..color.."_blink"
@@ -1664,7 +1658,7 @@ do
         DefAnim(name.."_anim", ComposeFrames({name..1,name..2}, {800, 1200}), true)
         DefShModel(name, name.."_anim", shadow_open[flavor])
     end
-    
+
     -- The animation of pairwise open oxyds
     function mkopened(flavor, color)
         local name = "st_oxyd" .. flavor .. color .. "_open"
@@ -1676,11 +1670,11 @@ do
         DefAnim(name.."_anim", PingPong(BuildFrames(names, 100)), true)
         DefShModel(name, name.."_anim", shadow_open[flavor])
     end
-    
+
     -- The "open" state animation of the pseudo oxyds "quake" and "shuffle"
     function mkpseudo(flavor, color)
         local name = "st_oxyd" .. flavor .. "_pseudo" .. color
-        local names = {}        
+        local names = {}
         if (color == -3) then
             for i=1,4 do
                 names[i] = name .. i
@@ -1691,7 +1685,7 @@ do
             for i=1,8 do
                 names[i] = name .. i
                 DefMultipleComposite(names[i], {baseimg[flavor], shuffle_spot[i]})
-            end    
+            end
             frames = RepeatAnim(BuildFrames(names, 100),2)
         end
         DefAnim(name.."_anim", frames, false)
@@ -1705,7 +1699,7 @@ do
         local img = DefImage("st_oxyd"..flavor.."_open")
         DefShModel("st_fake_oxyd"..flavor.."_open", img, shadow[flavor])
         local fadein = "oxyd"..flavor.."_fadein"
-        local fadeout= "oxyd"..flavor.."_fadeout"
+        local fadeout = "oxyd"..flavor.."_fadeout"
         DefAnim(fadein, fopening[flavor])
         DefAnim(fadeout, fclosing[flavor])
         -- The regular oxyds are position 1 to 12 in the
@@ -1730,7 +1724,7 @@ do
     mkoxyd("b")
     mkoxyd("c")
     mkoxyd("d")
-    
+
     -- And now for flavor 'e'
     for color = 0, num_colors - 1 do
         DefMultipleComposite("st_oxyde"..color.."_peep", {"st_oxydb_open", colordots[color+1], oxyde})
@@ -1764,10 +1758,8 @@ end
 
 -- st_door_d --
 do
-    local f,img,sh
-
-    img=DefSubimages("st_door_d_ns", {h=7})
-    sh=DefSubimages("sh_doorh", {h=7,imgw=ShadowSize,imgh=ShadowSize})
+    local img = DefSubimages("st_door_d_ns", {h=7})
+    local sh = DefSubimages("sh_doorh", {h=7,imgw=ShadowSize,imgh=ShadowSize})
     DefShModel("st_door_d_ns_open", img[1], sh[1])
     DefShModel("st_door_d_ns_closed", img[7], sh[7])
     DefAnim("doorh-opening-fg", ReverseFrames(BuildFrames(img, 60)))
@@ -1777,8 +1769,8 @@ do
     DefAnim("doorh-closing-bg", BuildFrames(sh, 60))
     DefShModel("st_door_d_ns_closing", "doorh-closing-fg", "doorh-closing-bg")
 
-    img=DefSubimages("st_door_d_ew", {w=7})
-    sh=DefSubimages("sh_doorv", {w=7,imgw=ShadowSize,imgh=ShadowSize})
+    img = DefSubimages("st_door_d_ew", {w=7})
+    sh = DefSubimages("sh_doorv", {w=7,imgw=ShadowSize,imgh=ShadowSize})
     DefShModel("st_door_d_ew_open", img[1], sh[1])
     DefShModel("st_door_d_ew_closed", img[7], sh[7])
     DefAnim("doorv-opening-fg", ReverseFrames(BuildFrames(img, 60)))
@@ -1802,7 +1794,7 @@ end
 do
     DefAlias("st_door_b_open", "invisible")
     DefAlias("st_door_b_closed", "st_flat")
-    local img=DefSubimages("st_door_b", {modelname="doorb", h=8})
+    local img = DefSubimages("st_door_b", {modelname="doorb", h=8})
     local f = BuildFrames(img,60)
     DefAnim("st_door_b_opening", f)
     DefAnim("st_door_b_closing", ReverseFrames(f))
@@ -1812,7 +1804,7 @@ end
 do
     DefAlias("st_door_c_open", "st_grate_framed")
     DefAlias("st_door_c_closed", "st_flat")
-    frames=BuildFrames({"st_door_c_closed","st_door_c_open"},60)
+    frames = BuildFrames({"st_door_c_closed","st_door_c_open"},60)
     DefAnim("st_door_c_opening", frames)
     DefAnim("st_door_c_closing", ReverseFrames(frames))
 end
@@ -1947,11 +1939,11 @@ end
 --
 -- The numbers map to actual orientations as follows:
 --
---   NUMBER    TRIANG.M.   PLANE M.
---      1       south     "v"        "-"
---      2       west      "<"        "\"
---      3       north     "^"        "|"
---      4       east      ">"        "/"
+--   NUMBER  ORIENTATION  TRIANG.M.  PLANE M.
+--      1    south        "V"        "-"
+--      2    west         "<"        "\"
+--      3    north        "^"        "|"
+--      4    east         ">"        "/"
 --
 -- The models are stored in the file from top to bottom as north, east, south, west
 -- in each column, therefore we need the mapping (i+1)%4+1

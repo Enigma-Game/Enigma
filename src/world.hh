@@ -296,7 +296,7 @@ namespace enigma {
     Stone *YieldStone(GridPos p);
     void   KillStone(GridPos p);
     void   MoveStone(GridPos oldPos, GridPos newPos);
-    void TouchStone(GridPos pos);
+    void   TouchStone(GridPos pos);
 
 /* -------------------- Items -------------------- */
 

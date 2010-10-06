@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006,2007 Raoul Bourquin
+ * Copyright (C) 2006,2007,2010 Raoul Bourquin
  * Copyright (C) 2008 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
@@ -36,23 +36,22 @@ namespace enigma {
         // TODO: Target for black and target for white marble?
         // TODO: MultiplayerGame: Defaulttarget is second actor!
 
-        // Get actor or stone with the name, given in "connect_to":
+        // Get actor or stone with the name given by the attribute "anchor2":
         ObjectList ol = getAttr("anchor2").getObjectList(a);
         
-        // Target does NOT exist, Drop Item
+        // If the anchor given by the attribute "anchor2" does not exist we just drop the item.
         if (ol.size() == 0)
             return ITEM_DROP;
 
         Object *anchor2 = ol.front();
             
-        // The mode attribute "scissor" defines, if when using an it-rubberband,
-        // other rubberbands to the actor will be cut of or not, true means they will. false is default.
+        // The attribute "scissor" defines, if when using the it_rubberband,
+        // other rubberbands to the actor will be cut of or not.
         bool isScissor = to_bool(getAttr("scissor"));
-
         if (isScissor)
             SendMessage(a, "disconnect");
 
-        sound_event ("rubberband");
+        sound_event("rubberband");
         
         bool alreadyConnected = false;
         ObjectList rubbers = a->getAttr("rubbers");
@@ -62,12 +61,13 @@ namespace enigma {
                 break;
             }
         }
+
         if (!alreadyConnected && anchor2 != a) { // It's not allowed to connect a rubberband to self.
             Object *obj = MakeObject("ot_rubberband");
             int id = obj->getId();
             obj->setAttr("anchor1", a);
             obj->setAttr("anchor2", anchor2);
-            obj->setAttr("strength", getAttr("strength"));
+            obj->setAttr("strength", getAttr("strength"));          
             obj->setAttr("length", getAttr("length"));
             obj->setAttr("threshold", getAttr("threshold"));
             obj->setAttr("max", getAttr("max"));
