@@ -1,11 +1,12 @@
 /*
  * Copyright (C) 2008,2009 Ronald Lamprecht
+ * Copyright (C) 2010 Raoul Bourquin
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -16,18 +17,17 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-
 #include "others/Rubberband.hh"
 #include "actors.hh"
 #include "errors.hh"
-//#include "main.hh"
+#include "main.hh"
 #include "server.hh"
 #include "world.hh"
 
 namespace enigma {
     Rubberband::Rubberband() : strength (10), outerThreshold (1), innerThreshold (0), minLength (0), maxLength (0) {
     }
-    
+
     std::string Rubberband::getClass() const {
         return "ot_rubberband";
     }
@@ -57,7 +57,7 @@ namespace enigma {
             strength =  (val.getType() == Value::NIL) ? 10.0 : (double)val;
         } else if (key == "length") {
             outerThreshold = (val.getType() == Value::NIL) ? 1.0 : (double)val;
-            ASSERT(outerThreshold >= 0, XLevelRuntime, "Rubberband: length is negative");
+            ASSERT((outerThreshold >= 0) || (outerThreshold == -1.0), XLevelRuntime, "Rubberband: length is negative");
         } else if (key == "threshold") {
             innerThreshold = val;
             ASSERT(innerThreshold >= 0, XLevelRuntime, "Rubberband: inner threshold is negative");
@@ -70,7 +70,7 @@ namespace enigma {
         }
         Other::setAttr(key, val);
     }
-    
+
     Value Rubberband::getAttr(const std::string &key) const {
         if (key == "anchor1") {
             return anchor1;
@@ -89,7 +89,7 @@ namespace enigma {
         }
         return Other::getAttr(key);
     }
-    
+
     Value Rubberband::message(const Message &m) {
         if (m.message == "_recheck") {
             ecl::V2 v = posAnchor2() - anchor1->get_pos();
@@ -105,10 +105,10 @@ namespace enigma {
             if (violating) {
                 performAction(false);
             }
-            return Value(); 
+            return Value();
         } else if (m.message == "_performaction") {
             performAction(true);
-            return Value();             
+            return Value();
         }
         return Other::message(m);
     }
@@ -116,33 +116,40 @@ namespace enigma {
     void Rubberband::postAddition() {
         ASSERT(anchor1 != NULL, XLevelRuntime, "Rubberband: 'anchor1' is no actor");
         ASSERT(anchor2.ac != NULL, XLevelRuntime, "Rubberband: 'anchor2' is neither actor nor stone");
+        // If the length value is negative (magic value -1.0) the we use the
+        // current distance between the two anchors as the rubberband length.
+        // Otherwise the length given by the corresponding "length" attribute is used.
+        if (outerThreshold == -1.0) {
+            outerThreshold = length(posAnchor2() - anchor1->get_pos());
+            enigma::Log << "Created rubberband with a length of: " << outerThreshold << "\n";
+        }
         model = display::AddRubber(anchor1->get_pos(), posAnchor2(), 240, 140, 20, true);  // orange
         SendMessage(this, "_recheck");
     }
-    
+
     void Rubberband::preRemoval() {
         model.kill();
         switchAnchor(anchor1, NULL, anchor2Object());
-        switchAnchor(anchor2Object(), NULL, anchor1);        
+        switchAnchor(anchor2Object(), NULL, anchor1);
     }
-    
+
     void Rubberband::tick(double dt) {
         model.update_first(anchor1->get_pos());
         model.update_second(posAnchor2());
     }
-    
+
     void Rubberband::applyForces(double dt) {
         const double eps = 0.02;  // epsilon distant limit for contacts
         ecl::V2 v = posAnchor2() - anchor1->get_pos();
         double len = ecl::length(v);
         ecl::V2 force;
-        
+
         // revalidate pending max/min violations
         if ((objFlags & OBJBIT_MAXVIOLATION) && len <= maxLength)
             objFlags &= ~OBJBIT_MAXVIOLATION;
         if ((objFlags & OBJBIT_MINVIOLATION) && len >= minLength)
             objFlags &= ~OBJBIT_MINVIOLATION;
-        
+
         if (minLength + eps <= len && (len <= maxLength -eps || maxLength == 0)) {
             // length within the purly force controlled min/max limited region
             if (len == 0) {
@@ -152,14 +159,14 @@ namespace enigma {
             } else if (len < innerThreshold) {
                 force = v * strength * (len - innerThreshold)/len;
             }
-        
+
             ActorInfo *ai = anchor1->get_actorinfo();
             ai->force += force;
             if (!(objFlags & OBJBIT_STONE)) {
                 ai = anchor2.ac->get_actorinfo();
                 ai->force -= force;
             }
-                
+
         } else if (objFlags & OBJBIT_STONE) {
             // min/max handling for stone contected rubberbands
             ActorInfo *ai = anchor1->get_actorinfo();
@@ -174,13 +181,13 @@ namespace enigma {
             if ((!isMin && (force1 > 0)) || (!isMax && (force1 < 0)))
                 force1 = 0;
             ai->force -= force1 * vn;
-            
+
             double relspeed = ai->vel * vn;   // positive for shrinking dist
             if (!isMin && (relspeed > 0) || !isMax && (relspeed < 0))
                 relspeed = 0;
             force = - (1 + 0.8 / numRubbers) * relspeed * vn / dt * ai->mass;  // damping for inverse friction and multiconnections
 //            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
-            
+
             // in case one actor is blocked the length can exceed the limits due to later force corrections
             // in the last timestep - we need to correct possible small errors before they sum up
             if (isMax && (len > maxLength) && (relspeed <= 0) && !(objFlags & OBJBIT_MAXVIOLATION)) {
@@ -196,14 +203,14 @@ namespace enigma {
                 }
                 force = (ai->mass * dlen / dt / dt) * vn;
             }
-            
+
             // eliminate limit violations by moderate forces
             if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
                 force += server::RubberViolationStrength * vn;
             } else if (isMin && (objFlags & OBJBIT_MINVIOLATION)) {
                 force -= server::RubberViolationStrength * vn;
             }
-            
+
             ai->collforce += force;
         } else {
             // two actors bouncing on min/max limits
@@ -216,19 +223,19 @@ namespace enigma {
             bool isBoth = isMax && isMin;
             if (isBoth) {
                 isMax = (len > (maxLength - minLength)/2);
-                isMin = !isMax; 
+                isMin = !isMax;
             }
             ObjectList rl1 = anchor1->getAttr("rubbers");
             ObjectList rl2 = anchor2.ac->getAttr("rubbers");
             int numRubbers = rl1.size() + rl2.size() - 1;
-            
-            // redistribute other force components in rubber direction according 
+
+            // redistribute other force components in rubber direction according
             // to the mass of actors to move the complex but to avoid length change
-            
+
             // component of other forces in rubber direction
             double force1 = vn * ai1->force;
             double force2 = vn * ai2->force;
-            
+
             // limit to min/max affected forces
             if ((!isMin && (force1 > 0)) || (!isMax && (force1 < 0)))
                 force1 = 0;
@@ -236,14 +243,14 @@ namespace enigma {
                 force2 = 0;
             ai1->force += (-force1 + (force1 + force2) * (ai1->mass)/mass) * vn;
             ai2->force += (-force2 + (force1 + force2) * (ai2->mass)/mass) * vn;
-            
+
             // bounce if min/max rules are violated
             double relspeed = vn * (ai2->vel - ai1->vel);  // speed of band extension
             double dmu = 2 * ai1->mass * ai2->mass / (ai1->mass + ai2->mass);
 
             if (isMax && (relspeed < 0) || isMin && (relspeed >0))
                 relspeed = 0;
-                
+
             force = (dmu * relspeed / dt) * vn;
             force = force * (0.5 + 0.4 / numRubbers);   // damping for inverse friction and multicollision
 
@@ -262,7 +269,7 @@ namespace enigma {
                 }
                 force = (dmu * dlen / dt / dt) * vn;
             }
-            
+
             // eliminate limit violations by moderate forces
             if (isMax && (objFlags & OBJBIT_MAXVIOLATION)) {
                 force += server::RubberViolationStrength * vn;
@@ -276,15 +283,15 @@ namespace enigma {
         }
 
     }
-    
+
     Object * Rubberband::anchor2Object() const {
         return (objFlags & OBJBIT_STONE) ? (Object *)anchor2.st : (Object *)anchor2.ac;
     }
-    
+
     ecl::V2 Rubberband::posAnchor2() const {
         return (objFlags & OBJBIT_STONE) ? anchor2.st->getOwnerPos().center() : anchor2.ac->get_pos();
     }
-    
+
     void Rubberband::switchAnchor(Object *oldAnchor, Object *newAnchor, Object *otherAnchor) {
         if (oldAnchor != NULL) {
             ObjectList olist = oldAnchor->getAttr("rubbers");
@@ -304,7 +311,7 @@ namespace enigma {
                     olist.erase(it);
                 }
                 otherAnchor->setAttr("fellows", olist);
-            }            
+            }
         }
         if (newAnchor != NULL) {
             ObjectList olist;
@@ -326,7 +333,7 @@ namespace enigma {
                         }
                     }
                 }
-                
+
                 // add both anchors to each others fellows list
                 olist = newAnchor->getAttr("fellows");
                 olist.push_back(otherAnchor);

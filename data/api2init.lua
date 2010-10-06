@@ -207,6 +207,9 @@ SPOT_TRAP           =  32
 COIN_IGNORE = -1
 COIN_REJECT = -2
 
+-- rubberbands
+AUTOLENGTH = -1
+
 -- subsoil
 SUBSOIL_ABYSS = 0
 SUBSOIL_WATER = 1

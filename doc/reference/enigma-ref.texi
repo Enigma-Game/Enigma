@@ -8945,6 +8945,7 @@ Constants for @ref{Pseudo Datatypes}.
 * meditation types::
 * glasses abilities::
 * coinslot acceptance::
+* rubberband length::
 * subsoil kind::
 * screen scrolling::
 * map read directions::
@@ -9160,6 +9161,17 @@ numbers.
 @itemize @bullet
 @item @samp{COIN_IGNORE} = @code{-1}, by @ref{st_coinslot}
 @item @samp{COIN_REJECT} = @code{-2}, by @ref{st_coinslot}
+@end itemize
+
+@node rubberband length
+@subsection rubberband length
+
+Number constant for @ref{it_rubberband}, @ref{st_rubberband} and @ref{ot_rubberband}
+attribute @samp{length}. Please choose the constant that is appropriate for the
+rubberband length and do avoid using numbers.
+
+@itemize @bullet
+@item @samp{AUTOLENGTH} = @code{-1}, by @ref{it_rubberband}, @ref{st_rubberband} and @ref{ot_rubberband}
 @end itemize
 
 @node subsoil kind
@@ -13010,7 +13022,7 @@ Object reference or name of an actor or a stone that the rubber will be
 connected to. The reference will be evaluated on item activation.
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number or @code{AUTOLENGTH}; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
 @item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
@@ -18486,7 +18498,7 @@ itself again from the rubberband stone.
 @table @asis
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number or @code{AUTOLENGTH}; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
 @item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
@@ -20167,6 +20179,9 @@ where the rubberband starts to apply the opposite directed forces onto the
 actors, like a spring would do. Thus a positive @samp{strength} would lead to a
 repelling force, a negative one to an attracting force. A rubberband with a
 length in between @samp{threshold} and @samp{length} will apply no forces.
+If you set the attribute @samp{length} to the value @code{AUTOLENGTH}, the
+length of the rubberband is determined from the distance of its two endpoints
+at the time of creation.
 
 In some cases you do want to limit the length of the rubberband. You can do this
 by setting @samp{min} and @samp{max} attributes. Actors will bounce on these
@@ -20206,7 +20221,7 @@ connected to. Note that the reference will be immediately evaluated and thus the
 actor or stone must exist already.
 @item @b{strength} @ @ @i{values}: number; @ @ @i{default}: @code{10.0}
 The force strength.
-@item @b{length} @ @ @i{values}: positive number; @ @ @i{default}: @code{1.0}
+@item @b{length} @ @ @i{values}: positive number or @code{AUTOLENGTH}; @ @ @i{default}: @code{1.0}
 The natural length above which forces are applied.
 @item @b{threshold} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The length smaller than the natural length below which inverted forces are applied.
