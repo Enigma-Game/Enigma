@@ -71,7 +71,7 @@ namespace enigma { namespace lev {
         int minRevision = 0;
         int systemPackIndex = -1;
         if (!isAuto && !isUserCross) {
-            for (int i = 0; i < indexCandidates.size(); i++) {
+            for (unsigned i = 0; i < indexCandidates.size(); i++) {
                 if (indexCandidates[i]->packPath == thePackPath) {
                     if (!systemOnly && isSystemCross) {   // a system cross index update like enigma_cross
 //                        Log << "cross update check : " << theIndexFilename << "\n";
@@ -135,7 +135,7 @@ namespace enigma { namespace lev {
                 }
             } else {
                 // check for levelpacks that would be overriden by the button name
-                for (int i = 0; i < indexCandidates.size(); i++) {
+                for (unsigned i = 0; i < indexCandidates.size(); i++) {
                     if (indexCandidates[i]->getName() == candidate->getName()) {
                         // always prefer the first one, the one with more official background
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- name duplicate\n";
@@ -158,7 +158,7 @@ namespace enigma { namespace lev {
         std::vector<std::string> sysPaths = app.systemFS->getPaths();
         std::set<std::string> candidates;
         std::set<std::string> candidates2;
-        for (int i = 0; i < sysPaths.size(); i++) {
+        for (unsigned i = 0; i < sysPaths.size(); i++) {
             dirIter = DirIter::instance(sysPaths[i] + "/levels");
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
@@ -174,6 +174,7 @@ namespace enigma { namespace lev {
                 }
             }
             delete dirIter;
+            // delete [] ( reinterpret_cast<DirIter *>( dirIter ) ); // ??
             // check for sokoball levelpacks
             dirIter = DirIter::instance(sysPaths[i] + "/levels/soko");
             while (dirIter->get_next(dirEntry)) {
@@ -201,7 +202,7 @@ namespace enigma { namespace lev {
         }
 
         //add system cross indices
-        for (int i = 0; i < sysPaths.size(); i++) {
+        for (unsigned i = 0; i < sysPaths.size(); i++) {
             dirIter = DirIter::instance(sysPaths[i] + "/levels/enigma_cross");
             while (dirIter->get_next(dirEntry)) {
                 if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
@@ -302,7 +303,7 @@ namespace enigma { namespace lev {
         }
         delete dirIter;
         
-        for (int i = 0; i < indexCandidates.size(); i++) {
+        for (unsigned i = 0; i < indexCandidates.size(); i++) {
             Index::registerIndex(indexCandidates[i]);
         }
 	
@@ -337,9 +338,9 @@ namespace enigma { namespace lev {
     PersistentIndex::PersistentIndex(std::string thePackPath, bool loadSystemFS, bool userOwned, 
             bool autoLoading, double defaultLocation, std::string anIndexName, 
             std::string theIndexFilename, std::string aGroupName) : 
-            Index(anIndexName, aGroupName, defaultLocation), packPath (thePackPath), isAuto (autoLoading),
-            indexFilename(theIndexFilename), isModified (false),
-            isUserOwned (userOwned), isEditable (true), release (1), revision (1),
+            Index(anIndexName, aGroupName, defaultLocation), packPath (thePackPath), isModified (false),
+            isUserOwned (userOwned), isEditable (true), isAuto (autoLoading), 
+            indexFilename(theIndexFilename), release (1), revision (1),
             compatibility (1.00), doc(NULL) {
 //        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
         load(loadSystemFS);
@@ -1227,7 +1228,7 @@ namespace enigma { namespace lev {
                 if (getline(is, line)) {
                     // we read the index in binary mode and have to strip of the \n for
                     // windows
-                    if (line[line.size()-1] = '\n') {
+                    if (line[line.size()-1] == '\n') {
                         line.resize(line.size()-1);
                     }
                     indexName = line;

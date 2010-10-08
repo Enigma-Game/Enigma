@@ -35,7 +35,7 @@ using namespace ecl;
 using namespace std;
 
 void Font::render(const GC &gc, int x, int y, std::string text,
-        Font * altFont, int maxwidth) {
+                  Font * altFont, int maxwidth) {
     render(gc, x, y, text.c_str());
 }
 
@@ -114,7 +114,7 @@ BitmapFont::BitmapFont(Surface *s, const char *descr)
         char_rects[c].y = 0;
         char_rects[c].h = s->height();
         advance[c] = adv;
-        if (adv = 0)
+        if (adv == 0)
             std::cout << "BitFont 0\n";
     }
 }
