@@ -63,9 +63,9 @@ namespace enigma { namespace lev {
          * The registration of a level.
          * @arg levelPath  as stored in indices or entered on the commandline.
          *            valid formats are: 
-         *            welcome, ./firefox, stable/welcome:, ftp://..., #oxyd#17
+         *            welcome, ./firefox, stable/welcome:, ftp://..., \#oxyd#17
          * @arg indexPath  a path identifier of the index in strict standard form:
-         *            stable, "", #commandline, #history, #oxyd, http://...
+         *            stable, "", \#commandline, \#history, \#oxyd, http://...
          *            resource path level packs use the subdirectory name below
          *            levels or "", zipped packs the filename without suffix
          * @arg levelId  the version independent level id as used for scoring
@@ -127,7 +127,7 @@ namespace enigma { namespace lev {
         
         /**
          * the levels file address that can be used independent of a level pack
-         * as a crossreference. (stable/welcome, #oxyd#17, http://..., ~/test)
+         * as a crossreference. (stable/welcome, \#oxyd#17, http://..., ~/test)
          */
         std::string getNormFilePath();
         
@@ -169,7 +169,7 @@ namespace enigma { namespace lev {
         bool isLibraryFlag;
         bool isMultiFlag;
         pathType normPathType;
-        std::string normFilePath; // stable/welcome, #oxyd#17, http://..., ~/test
+        std::string normFilePath; // stable/welcome, \#oxyd#17, http://..., ~/test
         std::string absLevelPath;
         int quantity;
         std::string id; // level id - old filename or indexname

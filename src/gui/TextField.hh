@@ -30,11 +30,12 @@ namespace enigma { namespace gui {
      * home and end are supported. As a widget it handels utf-8 strings. But
      * in contrast to other widget there is of course no gettext l10n translation.
      * This widget is designed to be part of a menu.
-     * <par>
-     * ToDo: supply full Linux umlaut support;
-     *       add hook for external or subclass char insertion validation 
-     *         (NumberField, ...);
-     *       move mouse cursor out of Textfield without deselection
+     * <P>
+     * ToDo: 
+     *   - supply full Linux umlaut support;
+     *   - add hook for external or subclass char insertion validation (NumberField, ...);
+     *   - move mouse cursor out of Textfield without deselection
+     * </P>
      */
     class TextField : public Button {
     public:

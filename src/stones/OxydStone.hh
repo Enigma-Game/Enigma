@@ -36,12 +36,12 @@ the shape on the oxyd stone.
 \b Note: You should usually not to create Oxyd stones manually
 with \c set_stone(). Use the predefined \c oxyd() function instead.
 
-\subsection oxyda Attributes
+\section oxyda Attributes
 
 - \b flavor      "a", "b", "c", "d", or "e"
 - \b color       number between 0 and 7
 
-\subsection oxydm Messages
+\section oxydm Messages
 
 - \b closeall    close all oxyd stones
 - \b shuffle     interchange the colors of the oxyd stones in the current landscape
