@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="48" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -132,7 +132,7 @@
     <level _seq="124" _title="Slinky-Racing" _xpath="enigma_iv/duffy14_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy14" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="125" _title="Boulder-Puzzle" _xpath="enigma_iv/duffy06_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy6" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="126" _title="Wild" _xpath="enigma_iii/ant28_2" author="Petr Machata" ctrl="force" easy="false" id="ant28" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="127" _title="The Document" _xpath="enigma_i/duffy04_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="127" _title="The Document" _xpath="enigma_i/duffy04_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="128" _title="Double-Maze" _xpath="enigma_iii/duffy09_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy9" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="129" _title="- Meditation -" _xpath="enigma_peroxyd/peroxydlink60_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation17" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="130" _title="Chained" _xpath="enigma_iv/ant22_2" author="Petr Machata" ctrl="force" easy="true" id="ant22" rel="2" rev="4" score="2" target="time" unit="duration"/>

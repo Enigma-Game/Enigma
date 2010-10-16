@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Island Hopping I" el:subtitle="" el:id="devnull58"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009, 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="20:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["AutoRespawn"] = true
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti["#"] = {"st_redrock"}
+ti["~"] = {"fl_water"}
+ti[" "] = {"fl_dark_framed"}
+ti["B"] = {"st_passage_black", flavor ="frame"}
+ti["W"] = {"st_passage_white", flavor ="frame"}
+ti["Y"] = {"st_blur_cross"}
+ti["y"] = {"st_blur"}
+ti["b"] = ti["B"] .. {"fl_dark_framed", name = "destBlack"}
+ti["w"] = ti["W"] .. {"fl_dark_framed", name = "destWhite"}
+ti["<"] = {"it_wormhole", destination = "destWhite", strength = 0.5, range = 0.2}
+ti[">"] = {"it_wormhole", destination = "destBlack", strength = 0.5, range = 0.2}
+ti["."] = {"st_oxyd_e", selection = {"=Y", "=y"}}
+ti["O"] = {"st_oxyd_a", noshuffle = true, oxydcolor = OXYD_BLACK}
+ti["0"] = {"st_oxyd_a", noshuffle = true, oxydcolor = OXYD_WHITE}
+ti["P"] = {"st_oxyd_e", name = "peepAll", selection = {"=Y", "=y"}}
+ti["@"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["*"] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(ti, " ", {
+    "~~~0~~~~~~~~~~~~O~~~",
+    "~~#W#    ~~    #B#~~",
+    "~#...... ~~ ......#~",
+    "OB...... ~~ ......W0",
+    "~#...... ~~ ......#~",
+    "~#Y..... ~~ .....Y#~",
+    "~#wY>## @~~* ##<Yb#~",
+    "~#Y..... ~~ .....Y#~",
+    "~#...... ~~ ......#~",
+    "0W..P... ~~ ......BO",
+    "~#...... ~~ ......#~",
+    "~~#B#    ~~    #W#~~",
+    "~~~O~~~~~~~~~~~~0~~~"})
+
+wo:shuffleOxyd()
+no["peepAll"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

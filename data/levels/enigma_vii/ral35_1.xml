@@ -3,9 +3,9 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Coober Pedy Opals" el:subtitle="Crocodile Harry's Dream" el:id="20081207ral610"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 127 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 210 $" el:status="released"/>
       <el:author el:name="Ronald Lamprecht, Andreas Lochmann" el:email="ral@users.berlios.de" el:homepage=""/>
-      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2008,2010 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
       </el:compatibility>
@@ -20,11 +20,12 @@ wo["AllowSingleOxyds"] = true
 ti[" "] = {"fl_wood_framed"}
 ti["~"] = {"fl_water"}
 ti[":"] = {"it_seed"}
-ti[";"] = {"it_seed", flavor="greenbrown"}
 ti["@"] = {"#ac_pearl"}
 ti["F"] = {"st_quake"}
-ti["."] = {"st_oxyd_e", target = "oxyd_callback"} .. ti["~"]
-ti["*"] = {"st_oxyd_e", "ox", target = "oxyd_callback"} .. ti["~"]
+ti["N"] = {"st_nil"}
+ti["P"] = {"st_greenbrown_growing"}
+ti["."] = {"st_oxyd_e", selection={"=P", "=N"}}
+ti["*"] = {"st_oxyd_e", "ox", selection={"=P", "=N"}}
 
 w, h = wo(ti, " ", {
  -- 01234567890123456789
@@ -42,17 +43,6 @@ w, h = wo(ti, " ", {
    "~~~~~~~~~~~~~~~~~~~",
    "~~~~~~~~~~~~~~~~~~~"
 })
-
-function oxyd_callback(is_on, sender)
-    if sender.state == OXYDPAIR then
-        oxyds = grp(sender, last_oxyd)
-        wo[sender] = ti[":"]
-        wo[last_oxyd] = ti[";"] 
-        it(oxyds):grow()
-    elseif sender.state == OPEN then
-        last_oxyd = sender
-    end
-end
 
 wo:shuffleOxyd()
 

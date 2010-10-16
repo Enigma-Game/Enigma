@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Take Your Time!" el:subtitle="" el:id="hadas06"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="Jonatan and Daniel Hadas" el:email=""/>
+      <el:copyright>Copyright © 2010 Jonatan and Daniel Hadas</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_sahara"}
+ti["~"] = {"fl_water"}
+ti["s"] = cond(wo["IsDifficult"], {"fl_swamp"}, ti[" "])
+ti["#"] = {"st_greenbrown"}
+ti["X"] = {"st_grate"}
+ti["+"] = {"st_box"}
+ti["F"] = {"st_flash"}
+ti["i"] = {"st_invisible"}
+ti["l"] = {"st_plop"}
+ti["L"] = cond(wo["IsDifficult"], ti["l"], ti[" "])
+ti["M"] = cond(wo["IsDifficult"], ti["L"], ti["l"])
+ti["P"] = {"st_passage", flavor="square"}
+ti["Q"] = {"st_passage", flavor="cross"}
+ti["q"] = cond(wo["IsDifficult"], ti[" "], ti["Q"])
+ti[">"] = ti["~"] .. {"st_boulder_e"}
+ti["c"] = {"st_break_oxydc"}
+ti["b"] = ti["s"] .. {"st_break_boulder"}
+ti["B"] = cond(wo["IsDifficult"], ti["s"], ti["b"])
+ti["d"] = {"it_document", text="text1"}
+ti["h"] = {"it_hammer"}
+ti["m"] = {"it_magicwand"}
+ti["e"] = {"it_landmine"}
+ti["f"] = cond(wo["IsDifficult"], ti["e"], ti[" "])
+ti["R"] = {"#ac_rotor", gohome=true, range=10, attacknearest=true, strength=30}
+ti["O"] = {"st_oxyd"}
+ti["A"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##~#######################################################",
+    "#O~                #O                O#i   i i   i i   iO#",
+    "~~~                #                  #i ii    ii    iii #",
+    "# ~                                   c     ii iiiii     #",
+    "# ~       ##########                  #iiiii i i   i i ii#",
+    "# ~             l  #                  #i ii    i i i i   #",
+    "# ~     h ######  lX         @        #i   i i i      ii #",
+    "# ~       #      l #                  #  i ii  i iiiiiii #",
+    "# ~       #  ####X##                  # ii i  i     i    #",
+    "# ~       # L l  +X#                  #  i   ii ii ii  i #",
+    "# ~       # LLM  + #                  #i iiiiii ii  iiiii#",
+    "#O~      d# L l XXX#O                O#           i     O#",
+    "##~######c###################P################PPPP########",
+    "#O>sBBBbbsssssssss #                  #Oq    Q    Q    qO#",
+    "# ~############### #                  #qq    ######    qq#",
+    "# ~                #                  #                  #",
+    "# ~                #         F        #                  #",
+    "# ~                #                  #                  #",
+    "# ~       m        #                  #         R        #",
+    "# ~                #                  #                  #",
+    "# ~                ####################                  #",
+    "# ~                #       e f f      #                  #",
+    "# ~ ################fe      fAe     ef#qq              qq#",
+    "#O> sssssssssssssss#Of     f f e    fO#Oq              qO#",
+    "##~#######################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+	<el:english el:translate="false">Do you really have time for reading?</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

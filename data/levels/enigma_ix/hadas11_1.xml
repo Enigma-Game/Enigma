@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Rush Hour" el:subtitle="" el:id="hadas11"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="Jonatan Hadas" el:email=""/>
+      <el:copyright>Copyright © 2010 Jonatan Hadas</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_abyss"}
+ti["#"] = {"st_greenbrown"}
+ti["X"] = {"st_grate"}
+ti["A"] = {"st_puzzle", connections="w", name="a"}
+ti["B"] = {"st_puzzle", connections="w", name="b"}
+ti["C"] = {"st_puzzle", connections="ew", name="c"}
+ti["D"] = {"st_puzzle", connections="ew", name="d"}
+ti["E"] = {"st_puzzle", connections="s", name="e"}
+ti["F"] = {"st_puzzle", connections="s", name="f"}
+ti["G"] = {"st_puzzle", connections="s", name="g"}
+ti["H"] = {"st_puzzle", connections="s", name="h"}
+ti["I"] = {"st_puzzle", connections="s", name="i"}
+ti["J"] = {"st_puzzle", connections="ns", name="j"}
+ti["K"] = {"st_puzzle", connections="ns", name="k"}
+ti["<"] = {"st_puzzle", connections="e"}
+ti[">"] = {"st_puzzle", connections="w"}
+ti["^"] = {"st_puzzle", connections="s"}
+ti["v"] = {"st_puzzle", connections="n"}
+ti["a"] = {"st_brownie", name="box%0"}
+ti["+"] = {"st_box", name="box%%"}
+ti["O"] = {"st_oxyd"}
+ti["/"] = cond(wo["IsDifficult"], ti["-"], ti["-"] .. {"it_magicwand"})
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"b", "k", "+"}), " ", {
+    "####################",
+    "#X  XdXXaXXcXXbX  X#",
+    "#g#  #  #  #  #  #h#",
+    "#X        @       X#",
+    "#X   ##########   X#",
+    "#X   ####OO####  #e#",
+    "#i#  ##  GH<B##   X#",
+    "#X   ##  vv^E##  #k#",
+    "#X   #O <A Kv-/   X#",
+    "#X   #O^I  vF##   X#",
+    "#j#  ##Jv<C>v##  #f#",
+    "#X   ##v<D>  ##   X#",
+    "#########OO#########"})
+
+wo:add({"ot_wire", anchor1 = "box%0", anchor2 = "a"})
+wo:add({"ot_wire", anchor1 = "box%1", anchor2 = "b"})
+wo:add({"ot_wire", anchor1 = "box%2", anchor2 = "c"})
+wo:add({"ot_wire", anchor1 = "box%3", anchor2 = "d"})
+wo:add({"ot_wire", anchor1 = "box%4", anchor2 = "e"})
+wo:add({"ot_wire", anchor1 = "box%5", anchor2 = "f"})
+wo:add({"ot_wire", anchor1 = "box%6", anchor2 = "g"})
+wo:add({"ot_wire", anchor1 = "box%7", anchor2 = "h"})
+wo:add({"ot_wire", anchor1 = "box%8", anchor2 = "i"})
+wo:add({"ot_wire", anchor1 = "box%9", anchor2 = "j"})
+wo:add({"ot_wire", anchor1 = "box%10", anchor2 = "k"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

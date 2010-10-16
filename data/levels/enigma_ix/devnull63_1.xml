@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Island Hopping III" el:subtitle="" el:id="devnull63"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="4:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["AutoRespawn"] = true
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti["  "] = {"fl_rock"}
+ti[" ~"] = {"fl_water"}
+ti["L "] = {"st_disco_light"}
+ti["X "] = {"st_box_hay"}
+ti["N "] = {"st_nil"}
+ti["B"] = {"st_passage_black", flavor ="frame"}
+ti["W"] = {"st_passage_white", flavor ="frame"}
+ti["wormholeSrcBlack"] = {"it_wormhole", destination = "destBlack%%", strength = 0.5, range = 0.2}
+ti["wormholeSrcWhite"] = {"it_wormhole", destination = "destWhite%%", strength = 0.5, range = 0.2}
+ti["wormholeDestBlack"] = {"fl_rock", name = "destBlack%%"}
+ti["wormholeDestWhite"] = {"fl_rock", name = "destWhite%%"}
+ti["d "] = {"it_document", text = "text"}
+ti["0 "] = {"st_oxyd_e", name = "opal", selection = {"=X ", "=N "}}
+ti["O "] = {"st_oxyd_b", noshuffle = true, oxydcolor = OXYD_BLACK}
+ti["o "] = {"st_oxyd_b", noshuffle = true, oxydcolor = OXYD_WHITE}
+ti["@0"] = {"#ac_pearl_black", owner = YIN, controllers = CTRL_YIN, essential = INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner = YANG, controllers = CTRL_YANG, essential = INDISPENSABLE}
+
+wo(res.autotile(res.composer(ti), {"B", "wormholeSrcBlack"}, {"W", "wormholeSrcWhite"}, {"b", "wormholeDestBlack"}, {"w", "wormholeDestWhite"}), "  ", {
+    "L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~",
+    "L~L~0 0 0 0 0  ~L~L~L~bcL~L~  0 L~0 L~L~",
+    "L~0           0 L~L~O~L~o~L~0       0 L~",
+    "L~L~  0 @1btWt ~L~L~L~L~L~L~ ~Bt0 wtL~L~",
+    "L~0   0   0   0 L~L~Wcd~ ~L~0       0 L~",
+    "L~L~0   0   0  ~L~L~L~ ~ ~ ~ ~0  ~0   L~",
+    "L~L~L~L~L~L~L~ ~  L~L~   ~L~L~L~L~L~L~L~",
+    "L~  0  ~0  ~ ~ ~ ~L~L~L~ ~0   0   0 L~L~",
+    "L~0       0 L~ ~d~BcL~L~0   0   0   0 L~",
+    "L~L~bb0 Wb ~L~L~L~L~L~L~ ~Bbwb@00   L~L~",
+    "L~0       0 L~o~L~O~L~L~0           0 L~",
+    "L~L~0 L~0   L~L~wcL~L~L~ ~0 0 0 0 0 L~L~",
+    "L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~L~"})
+
+wo:shuffleOxyd()
+no["opal"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text">
+        <el:english el:translate="true">Attention! One way ticket to the the island.</el:english>
+        <el:translation el:lang="de">Vorsicht! Der Sprung zur nächsten Insel ist eine Einbahnstraße.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

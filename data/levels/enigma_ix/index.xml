@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="31" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="32" title="Enigma IX"/>
 
   <attributes/>
 
@@ -63,7 +63,7 @@
     <level _seq="55" _title="Down In The Bottom" _xpath="./devnull67_1" author="/dev/null" ctrl="force" easy="false" id="devnull67" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Trade Barriers" _xpath="./ral54_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20100514ral450" rel="1" rev="204" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="Offshore" _xpath="./devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Offshore" _xpath="./devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Smuggling" _xpath="./raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="What I Don't Have" _xpath="./ais14_1" author="Alex Smith" ctrl="force" easy="true" id="20091216ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="61" _title="Panic Room" _xpath="./ral53_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080131ral603" rel="1" rev="206" score="1" target="time" unit="duration"/>
@@ -76,6 +76,23 @@
     <level _seq="68" _title="Snippet for Two" _xpath="./devnull42_1" author="/dev/null" ctrl="force" easy="false" id="devnull42" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="69" _title="Load Balancing" _xpath="./devnull47_1" author="/dev/null" ctrl="force" easy="true" id="devnull47" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Rainbow~Meditation" _xpath="./mecke25_1" author="mecke" ctrl="force" easy="true" id="mecke25" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="71" _title="Double Barrier" _xpath="./hadas03_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas03" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Forget Me Not" _xpath="./hadas04_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas04" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="Take Your Time!" _xpath="./hadas06_1" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas06" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="74" _title="Lose Control" _xpath="./hadas07_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas07" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="75" _title="Rush Hour" _xpath="./hadas11_1" author="Jonatan Hadas" ctrl="force" easy="true" id="hadas11" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="76" _title="Duopal Variation I" _xpath="./devnull52_1" author="/dev/null" ctrl="force" easy="true" id="devnull52" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="77" _title="Duopal Variation II" _xpath="./devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="78" _title="Two Is A Company V" _xpath="./devnull54_1" author="/dev/null" ctrl="force" easy="false" id="devnull54" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="79" _title="traceroute I" _xpath="./devnull55_1" author="/dev/null" ctrl="force" easy="true" id="devnull55" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="80" _title="traceroute II" _xpath="./devnull56_1" author="/dev/null" ctrl="force" easy="true" id="devnull56" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="81" _title="More Gaps I" _xpath="./devnull57_1" author="/dev/null" ctrl="force" easy="false" id="devnull57" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Island Hopping I" _xpath="./devnull58_1" author="/dev/null" ctrl="force" easy="false" id="devnull58" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="More Gaps II" _xpath="./devnull59_1" author="/dev/null" ctrl="force" easy="false" id="devnull59" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title=" - Meditation - " _xpath="./devnull60_1" author="/dev/null" ctrl="force" easy="false" id="devnull60" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="85" _title="Island Hopping II" _xpath="./devnull62_1" author="/dev/null" ctrl="force" easy="true" id="devnull62" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="86" _title="Island Hopping III" _xpath="./devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="87" _title="Interlude I" _xpath="./devnull65_1" author="/dev/null" ctrl="force" easy="false" id="devnull65" rel="1" rev="4" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

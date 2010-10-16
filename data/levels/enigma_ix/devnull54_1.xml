@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Two Is A Company V" el:subtitle="" el:id="devnull54"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009, 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="5:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["#"] = {"st_redrock"}
+ti[" "] = {"fl_concrete"}
+ti["~"] = {"fl_water"}
+ti["B"] = {"st_door_a", name = "doorWhite"}
+ti["W"] = {"st_door_a", name = "doorBlack"}
+ti["b"] = ti["~"] .. {"it_shogun_l", target = "doorWhite"}
+ti["w"] = ti["~"] .. {"it_shogun_l", target = "doorBlack"}
+ti["u"] = {"st_blocker", name = "blockerBlack#"}
+ti["U"] = {"st_blocker", name = "blockerWhite#"}
+ti["t"] = {"fl_scales_concrete", target = "scalesBlack", action = "signal"}
+ti["T"] = {"fl_scales_concrete", target = "scalesWhite", action = "signal"}
+ti["S"] = {"st_shogun", flavor = "sml"}
+ti["o"] = {"st_oxyd_a", name = "north#"}
+ti["O"] = {"st_oxyd_a", name = "south#"}
+ti["@"] = {"#ac_marble_black"}
+ti["A"] = {"#ac_marble_white"}
+
+wo(ti, " ", {
+    "##################o#",
+    "# ~       A       Wo",
+    "# T  ~ ~ ~ ~~  ~S  #",
+    "#~~~T  ~ ~ ~~ ~ ~  #",
+    "#~ ~~~T    ~~t~    #",
+    "#~u~ ~~~~  w~U~t~  #",
+    "#~T~u~ ~~##~~ ~U~t~#",
+    "#~ ~T~u~b  ~~~~ ~U~#",
+    "#    ~T~~~   t ~~ ~#",
+    "# ~ ~~ ~~ ~  ~ t ~~#",
+    "#  S ~ ~~  ~   ~ t #",
+    "OB       @         #",
+    "#O##################"})
+
+wo:shuffleOxyd({"north#*", max = 0}, {"south#*", max = 0})
+wo:add({"ot_counter", "scalesBlack", state = 0, target = "blockerBlack#*", action_3 = "open", action_2 = "close"})
+wo:add({"ot_counter", "scalesWhite", state = 0, target = "blockerWhite#*", action_3 = "open", action_2 = "close"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

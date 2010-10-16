@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Document" el:subtitle="An English text based riddle" el:id="duffy4"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="stable"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[ 
+ti[" "] = {"fl_lawn"}
+ti["-"] = {"fl_space"}
+ti["."] = {"fl_space", name="codedrop", _currentdoor=1, _currentcode="_____"}
+ti[","] = {"fl_lawn", name="infodrop"}
+ti["#"] = {"st_rawglass"}
+ti["/"] = {"it_magicwand"}
+ti["I"] = ti["#"] .. ti["/"] .. {"fl_ice"}
+ti["L"] = ti["#"] .. ti["/"] .. {"fl_abyss"}
+ti["T"] = ti["#"] .. ti["/"] .. {"fl_marble"}
+ti["K"] = ti["#"] .. ti["/"] .. {"fl_bluegreen"}
+ti["Y"] = ti["#"] .. ti["/"] .. {"fl_sand"}
+ti["R"] = ti["#"] .. ti["/"] .. {"fl_wood"}
+ti["G"] = ti["#"] .. ti["/"]
+ti["letter"] = {"st_switch", name="letter%%", target="get_code"}
+ti["Z"] = {"st_switch", target="set_documents"}
+ti["d1"] = {"it_document", text="text1"}
+ti["d2"] = {"it_document", text="text2"}
+ti["d3"] = {"it_document", text="text3"}
+ti["d4"] = {"it_document", text="text4"}
+ti["A"] = {"st_door", name="1", flavor="d", faces="ns", _code="OPEN!"}
+ti["B"] = {"st_door", name="2", flavor="d", faces="ns", _code="CLOSE"}
+ti["C"] = {"st_door", name="3", flavor="d", faces="ns", _code="FOUR."}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "y", "letter"}), " ", {
+    "#######################################",
+    "#                   #O               O#",
+    "#    edcba          #########C#########",
+    "#                   #########B#########",
+    "#    jihgf          #########AZ########",
+    "#                            ,        #",
+    "#    onmlk  @                         #",
+    "#                            ILT      #",
+    "#    tsrqp                   -.K      #",
+    "#                            GRY      #",
+    "#    yxwvu                            #",
+    "#                                     #",
+    "#######################################"})
+
+
+local letters = {"_","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ",".","!","?",","}
+
+function get_code()
+    -- Translate binary numbers into letters and compose letters to words
+    word = ""
+    for row=0,4 do
+	charcode = 0
+	for col=1,5 do
+	    if no["letter%" .. tostring(5*row + col)]["state"] == ON then
+		charcode = charcode + math.pow(2,col-1)
+	    end
+	end
+	word = word .. letters[charcode+1]
+    end
+    no["codedrop"]["_currentcode"] = word
+    wo[no["codedrop"]] = {"it_document", text=word}
+end
+
+function set_documents()
+    -- Open the door if the code is correct
+    if no[no["codedrop"]["_currentdoor"]]["_code"] == no["codedrop"]["_currentcode"] and  no["codedrop"]["_currentdoor"] <= 3 then
+	no[no["codedrop"]["_currentdoor"]]:open()
+	no["codedrop"]["_currentdoor"] = no["codedrop"]["_currentdoor"] + 1
+    end
+    -- Pose the next question
+    if no["codedrop"]["_currentdoor"] == 1 then
+	wo[no["infodrop"]] = ti["d1"]
+    elseif no["codedrop"]["_currentdoor"] == 2 then
+	wo[no["1"]] = ti["d2"]
+    elseif no["codedrop"]["_currentdoor"] == 3 then
+	wo[no["2"]] = ti["d3"]
+    elseif no["codedrop"]["_currentdoor"] > 3 then
+	wo[no["3"]] = ti["d4"]
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false">What do you want the first gate to do?</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="false">Opposite</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="false">If ten equals three, five equals four, two equals three, four equals four, and thirteen equals eight, what does nine equal?</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="false">Congratulations!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

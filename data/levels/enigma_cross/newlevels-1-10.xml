@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="90" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="91" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -135,9 +135,9 @@
     <level _seq="127" _title="Techno Voodoo" _xpath="enigma_viii/mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="20" score="1" target="time" unit="duration"/>
     <level _seq="128" _title="Plutos World" _xpath="enigma_viii/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="129" _title="Plutos Confusion" _xpath="enigma_viii/mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="21" score="1" target="time" unit="duration"/>
-    <level _seq="130" _title="Coober Pedy Opals" _xpath="enigma_vii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="127" score="1" target="time" unit="duration"/>
-    <level _seq="131" _title="Butterfly Opals" _xpath="enigma_vii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="127" score="1" target="time" unit="duration"/>
-    <level _seq="132" _title="Brilliant Opals" _xpath="enigma_vii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="166" score="1" target="time" unit="duration"/>
+    <level _seq="130" _title="Coober Pedy Opals" _xpath="enigma_vii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="210" score="1" target="time" unit="duration"/>
+    <level _seq="131" _title="Butterfly Opals" _xpath="enigma_vii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="210" score="1" target="time" unit="duration"/>
+    <level _seq="132" _title="Brilliant Opals" _xpath="enigma_vii/ral37_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081212ral162" rel="1" rev="212" score="1" target="time" unit="duration"/>
     <level _seq="133" _title="Squared Microwire" _xpath="enigma_viii/ral39_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081227ral230" rel="1" rev="150" score="1" target="time" unit="duration"/>
     <level _seq="134" _title="More or Less Wired" _xpath="enigma_viii/ral42_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081229ral" rel="1" rev="194" score="1" target="time" unit="duration"/>
     <level _seq="135" _title="Sokopal" _xpath="enigma_vii/andreas55_2" author="Andreas Lochmann, Ronald Lamprecht" ctrl="force" easy="true" id="andreas55" rel="2" rev="7" score="2" target="time" unit="duration"/>
@@ -236,7 +236,7 @@
     <level _seq="228" _title="Down In The Bottom" _xpath="enigma_ix/devnull67_1" author="/dev/null" ctrl="force" easy="false" id="devnull67" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="229" _title="double you" _xpath="enigma_ix/devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="230" _title="Trade Barriers" _xpath="enigma_ix/ral54_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20100514ral450" rel="1" rev="204" score="1" target="time" unit="duration"/>
-    <level _seq="231" _title="Offshore" _xpath="enigma_ix/devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="231" _title="Offshore" _xpath="enigma_ix/devnull64_1" author="/dev/null" ctrl="force" easy="true" id="devnull64" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="232" _title="Smuggling" _xpath="enigma_ix/raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="233" _title="What I Don't Have" _xpath="enigma_ix/ais14_1" author="Alex Smith" ctrl="force" easy="true" id="20091216ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="234" _title="Panic Room" _xpath="enigma_ix/ral53_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080131ral603" rel="1" rev="206" score="1" target="time" unit="duration"/>
@@ -249,6 +249,23 @@
     <level _seq="241" _title="Snippet for Two" _xpath="enigma_ix/devnull42_1" author="/dev/null" ctrl="force" easy="false" id="devnull42" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="242" _title="Load Balancing" _xpath="enigma_ix/devnull47_1" author="/dev/null" ctrl="force" easy="true" id="devnull47" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="243" _title="Rainbow~Meditation" _xpath="enigma_ix/mecke25_1" author="mecke" ctrl="force" easy="true" id="mecke25" rel="1" rev="12" score="1" target="time" unit="duration"/>
+    <level _seq="244" _title="Double Barrier" _xpath="enigma_ix/hadas03_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas03" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="245" _title="Forget Me Not" _xpath="enigma_ix/hadas04_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas04" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="246" _title="Take Your Time!" _xpath="enigma_ix/hadas06_1" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas06" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="247" _title="Lose Control" _xpath="enigma_ix/hadas07_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas07" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="248" _title="Rush Hour" _xpath="enigma_ix/hadas11_1" author="Jonatan Hadas" ctrl="force" easy="true" id="hadas11" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="249" _title="Duopal Variation I" _xpath="enigma_ix/devnull52_1" author="/dev/null" ctrl="force" easy="true" id="devnull52" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="250" _title="Duopal Variation II" _xpath="enigma_ix/devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="251" _title="Two Is A Company V" _xpath="enigma_ix/devnull54_1" author="/dev/null" ctrl="force" easy="false" id="devnull54" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="252" _title="traceroute I" _xpath="enigma_ix/devnull55_1" author="/dev/null" ctrl="force" easy="true" id="devnull55" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="253" _title="traceroute II" _xpath="enigma_ix/devnull56_1" author="/dev/null" ctrl="force" easy="true" id="devnull56" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="254" _title="More Gaps I" _xpath="enigma_ix/devnull57_1" author="/dev/null" ctrl="force" easy="false" id="devnull57" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="255" _title="Island Hopping I" _xpath="enigma_ix/devnull58_1" author="/dev/null" ctrl="force" easy="false" id="devnull58" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="256" _title="More Gaps II" _xpath="enigma_ix/devnull59_1" author="/dev/null" ctrl="force" easy="false" id="devnull59" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="257" _title=" - Meditation - " _xpath="enigma_ix/devnull60_1" author="/dev/null" ctrl="force" easy="false" id="devnull60" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="258" _title="Island Hopping II" _xpath="enigma_ix/devnull62_1" author="/dev/null" ctrl="force" easy="true" id="devnull62" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="259" _title="Island Hopping III" _xpath="enigma_ix/devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="260" _title="Interlude I" _xpath="enigma_ix/devnull65_1" author="/dev/null" ctrl="force" easy="false" id="devnull65" rel="1" rev="4" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

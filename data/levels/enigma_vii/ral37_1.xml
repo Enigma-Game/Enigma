@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Brilliant Opals" el:subtitle="The journey is the reward" el:id="20081212ral162"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 166 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 212 $" el:status="released"/>
       <el:author el:name="Ronald Lamprecht, Andreas Lochmann" el:email="ral@users.berlios.de" el:homepage=""/>
-      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:copyright>Copyright © 2008,2010 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:score el:easy="17:51" el:difficult="13:23"/>
+      <el:score el:easy="6:00" el:difficult="7:30"/>
     </el:info>
     <el:luamain><![CDATA[
 
@@ -17,20 +17,23 @@ wo["ConserveLevel"] = true
 wo["MaxOxydColor"] = cond(wo["IsDifficult"], OXYD_BROWN, OXYD_ORANGE)
 wo["AllowSingleOxyds"] = true
 
-ti[" "] = {"fl_wood_framed"}
+ti[" "] = {"fl_lawn_e4", friction=4.5}
 ti["~"] = {"fl_water"}
 ti[":"] = {"it_seed"}
-ti[";"] = {"it_seed_greenbrown"}
+ti["P"] = {"st_panel", cluster=1}
+ti["N"] = {"st_nil"}
 ti["@"] = {"#ac_pearl"}
-ti["B"] = {"st_oxyd_e", oxydcolor=OXYD_BOLD, noshuffle=true, target = "shuffle"} .. ti["~"] .. ti[":"]
-ti["."] = {"st_oxyd_e", target = "oxyd_callback"} .. ti["~"]
-ti["+"] = {"st_oxyd_e", "ox", target = "oxyd_callback"} .. ti["~"]
+ti["B"] = {"st_oxyd_e", oxydcolor=OXYD_BOLD, noshuffle=true, safeaction=true, target = "shuffle"}
+ti["."] = {"st_oxyd_e", selection={"=P", "=N"}}
+ti["+"] = {"st_oxyd_e", "ox", selection={"=P", "=N"}}
 
 if wo["IsDifficult"] then
   ti["*"] = ti["B"]
   ti["#"] = ti["."]
+  ti["%"] = ti["."]
 else
   ti["*"] = ti[" "]
+  ti["%"] = ti[" "]
   ti["#"] = ti["B"]
 end
 
@@ -39,33 +42,22 @@ w, h = wo(ti, " ", {
    "~~~~~~+..~...~~~~~~",
    "~~~~~...~.~...~~~~~",
    "~~~~...~...~...~~~~",
-   "~~~...*.....*...~~~",
+   "~~~...*..%..*...~~~",
    "~~...~... ...~...~~",
    "~...~...# #...~...~",
-   "...~...  @  ...~...",
+   "...~..%  @  %..~...",
    "~...~...# #...~...~",
    "~~...~... ...~...~~",
-   "~~~...*.....*...~~~",
+   "~~~...*..%..*...~~~",
    "~~~~...~...~...~~~~",
    "~~~~~...~.~...~~~~~",
    "~~~~~~...~...~~~~~~"
 })
 
-last_oxyd = 0
-function oxyd_callback(is_on, sender)
-    if sender.state == OXYDPAIR then
-        oxyds = grp(sender, last_oxyd)
-        wo[sender] = ti[":"]
-        wo[last_oxyd] = ti[";"]
-        it(oxyds):grow()
-    elseif sender.state == OPEN then
-        last_oxyd = sender
-    end
-end
 
 function shuffle(value, sender)
     sender:peepall()
-    it(sender):grow()
+    sender:kill()
 end
 
 wo:shuffleOxyd()

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Lose Control" el:subtitle="" el:id="hadas07"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:author el:name="Daniel Hadas" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Daniel Hadas</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["="] = {"fl_bluegray"}
+ti["-"] = cond(wo["IsDifficult"], ti[" "], ti["="])
+ti["#"] = {"st_granite"}
+ti["%"] = ti["="] .. {"st_granite"}
+ti["D"] = {"st_death"}
+ti[">"] = {"st_mail_e"}
+ti["<"] = {"st_mail_w"}
+ti["J"] = cond(wo["IsDifficult"], ti["="] .. {"it_springboard"}, ti["="])
+ti["j"] = cond(wo["IsDifficult"], ti[" "], ti["="] .. {"it_springboard"})
+ti["y"] = ti["="] .. {"it_yinyang"}
+ti["R"] = ti["="] .. {"st_oxyd", name="right#"}
+ti["L"] = ti["="] .. {"st_oxyd", name="left#"}
+ti["B"] = ti["y"] .. {"#ac_marble_black"}
+ti["W"] = ti["="] .. {"#ac_marble_white"}
+
+wo(ti, " ", {
+    "%L%##############%R%",
+    "L==      D       ==R",
+    "%==      D       ==%",
+    "L==      D    -====R",
+    "%========<   jJ==W=%",
+    "L==      D    -====R",
+    "%==      DD      ==%",
+    "L====-    D      ==R",
+    "%=B==Jj   >========%",
+    "L====-    D      ==R",
+    "%==       D      ==%",
+    "L==       D      ==R",
+    "%L%##############%R%"})
+
+wo:shuffleOxyd({"left#*","right#*", min=8})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+	<el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
