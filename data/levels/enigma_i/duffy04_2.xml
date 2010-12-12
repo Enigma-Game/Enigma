@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Document" el:subtitle="An English text based riddle" el:id="duffy4"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="stable"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
       <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -95,7 +95,7 @@ end
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="subtitle">
-        <el:english el:translate="false"/>
+        <el:english el:translate="true"/>
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">What do you want the first gate to do?</el:english>

@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Puzzle Puzzles" el:subtitle="look forward!" el:id="raoul26"/>
-      <el:version el:score="2" el:release="2" el:revision="30" el:status="stable"/>
+      <el:version el:score="2" el:release="2" el:revision="31" el:status="released"/>
       <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -74,25 +74,25 @@ ti[" w"] = {"it_magicwand"}
 ti["x "] = {"it_cross"}
 ti["* "] = {"it_wormhole", destination="dest", strength=0}
 if wo["IsDifficult"] then
-   ti["_ "] = ti["~ "]
-   ti[": "] = ti["- "]
-   ti[" %"] = ti[" a"]
-   ti[" &"] = {"st_nil"}
-   ti[" U"] = {"st_nil"}
-   ti[" k"] = {"it_nil"}
-   ti[" Z"] = ti[" X"]
-   ti[" z"] = {"st_nil"}
-   ti["; "] = ti["- "]
+    ti["_ "] = ti["~ "]
+    ti[": "] = ti["- "]
+    ti[" %"] = ti[" a"]
+    ti[" &"] = {"st_nil"}
+    ti[" U"] = {"st_nil"}
+    ti[" k"] = {"it_nil"}
+    ti[" Z"] = ti[" X"]
+    ti[" z"] = {"st_nil"}
+    ti["; "] = ti["- "]
 else
-   ti["_ "] = ti["- "]
-   ti[": "] = ti["~ "]
-   ti[" %"] = {"st_box"}
-   ti[" &"] = ti[" B"]
-   ti[" U"] = ti[" G"]
-   ti[" k"] = ti[" a"]
-   ti[" Z"] = {"st_nil"}
-   ti[" z"] = ti[" X"]
-   ti["; "] = ti["- "] .. {"it_puller_n"}
+    ti["_ "] = ti["- "]
+    ti[": "] = ti["~ "]
+    ti[" %"] = {"st_box"}
+    ti[" &"] = ti[" B"]
+    ti[" U"] = ti[" G"]
+    ti[" k"] = ti[" a"]
+    ti[" Z"] = {"st_nil"}
+    ti[" z"] = ti[" X"]
+    ti["; "] = ti["- "] .. {"it_puller_n"}
 end
 ti[" O"] = {"st_oxyd", flavor="d"}
 ti[" @"] = {"#ac_marble"}
@@ -124,7 +124,7 @@ wo(res.composer(res.puzzle(ti,"Y", "P")), "- ", {
     "~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~G-N- - - - - - - - - - - ~&-m- - - - - - -S-S~ ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~G~ ~ ~ ~ ~ ~G-G~G~ ~ - - - -C-S-S-S- - - -S~S~S~S~S",
     "~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ _ : ~ ~ ~k~ -S-S. -R-S~ ~ ~ ~ ",
-    "~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ _ : ~ ~ ~k~Z~ -S~ -S~S~ ~ ~ ~ ",
+    "~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ _ : ~ ~ ~k~Z~ -S~a-S~S~ ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ - -G~ ~ ~ ~ ~ ~ -G~ ~ ~ ~ -G~ ~ ~ _ : ~ ~a~Z~ 4 ^S^ ^S2 ~ ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ -G- - - - - - - - - -G~ ~ -U-U-U_ _ _ : ~a~a~Z4 3 = =w= 1 2 ~ ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ ~ ~ ~ -G- ~ ~ ~ -Uc -U_ ~&~ :k~a~ 4 3 =z= P1= =z1 2 ~ ~ ",
@@ -132,9 +132,9 @@ wo(res.composer(res.puzzle(ti,"Y", "P")), "- ", {
     "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~ ~ ~ _ :k_%_ < = P0P0YbP0P0= > ~ ~ ",
     "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - ~ ~ ~ ~ ~ ~ ~ ~ _ ->-=,F< = = P0P0P0= = > ~ ~ ",
     "-G-H-H-H~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G- ~ ~ ~ ~ ~ ~ ~ ~ ~ ~G-H~G8 9 =z= P0= =z7 6 ~ ~ ",
-    "-G7@9 -H- - - - - - - - - - - - - -G~ ~ ~ ~ ~ ~ ~S~G~Sh ~ ~ 8 9 = =d= 7 6 ~ ~ ~ ",
-    "-G1 3 -H~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ ~ ~ ~ ~ ~G* cH- ~ ~ ~ 8 V V V 6 ~ ~ ~ ~ ",
-    "-G-G-G-G~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~S~G~S~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ "})
+    "-G7@9 -H- - - - - - - - - - - - - -G~ ~ ~ ~ ~ ~ ~S~G~Sh ~S~ 8 9 = =d= 7 6 ~ ~ ~ ",
+    "-G1 3 -H~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ -G~ ~ ~ ~ ~ ~ ~ ~G* cH- ~G~ ~ 8 V V V 6 ~ ~ ~ ~ ",
+    "-G-G-G-G~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~S~G~S~ ~S~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ "})
 
 wo:shuffleOxyd()
  ]]></el:luamain>

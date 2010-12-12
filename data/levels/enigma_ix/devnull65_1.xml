@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Interlude I" el:subtitle="" el:id="devnull65"/>
-      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="5" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2010 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -23,19 +23,16 @@ ti[" ~"] = {"fl_abyss"}
 ti["# "] = {"st_bluegray"}
 ti["+ "] = {"st_granite_movable"}
 ti["s "] = {"it_seed_hay"}
-ti["D "] = cond(wo["IsDifficult"], ti["+ "], ti[" ."])
-ti["E "] = cond(wo["IsDifficult"], ti["# "], ti["+ "])
 ti["B "] = {"st_passage_black", flavor = "frame"}
 ti["W "] = {"st_passage_white", flavor = "frame"}
-ti["Y "] = cond(wo["IsDifficult"], ti["s "] .. {"st_bluegray_hollow"}, ti["# "])
+ti["Y "] = ti["s "] .. {"st_bluegray_hollow"}
 ti["N "] = {"st_nil"}
 ti["H "] = {"st_box_hay"}
-ti[" !"] = cond(wo["IsDifficult"], ti["s "], ti[" ."])
 ti["b "] = {"fl_scales_darkgray", target = "scalesBlack", action = "signal"}
 ti[" b"] = {"fl_bridge_gc", name = "bridgeBlack#"}
 ti["w "] = {"fl_scales_platinum", target = "scalesWhite", action = "signal"}
 ti[" w"] = {"fl_bridge", name = "bridgeWhite#", flavor = "gc"}
-ti["X "] = cond(wo["IsDifficult"], ti["s "] .. {"st_barrier", flavor="it_seed"}, ti["H "])
+ti["X "] = ti["s "] .. {"st_barrier", flavor="it_seed"}
 ti["P "] = {"st_oxyd_e", name = "opals#", selection = {"=H ", "=N "}, oxydcolor = OXYD_BLACK}
 ti["Q "] = {"st_oxyd_e", name = "opals#", selection = {"=H ", "=N "}, oxydcolor = OXYD_WHITE}
 ti["O "] = {"st_oxyd", noshuffle = true, oxydcolor = OXYD_GRAY}
@@ -47,22 +44,18 @@ wo(res.composer(ti), "  ", {
     " ~ ~O~ ~ ~P.Q.P.Q. ~ ~#:#:#:#:#:#:#:#: ~",
     " ~ ~ ~ ~ ~B~BbBbBb ~ ~#:w. :#: : : :#: ~",
     " ~ ~ ~ ~ ~ ~ ~ b ~ ~ ~#: : : : :+:w.#: ~",
-    " ~ ~ ~ ~ ~X s @0 ~ ~ ~#: :#:E: :#:w.#: ~",
+    " ~ ~ ~ ~ ~X s @0 ~ ~ ~#: :#:#: :#:w.#: ~",
     " ~#.#.#.+. ~ ~ ~ ~ ~ ~#:w. :+:+: : :#: ~",
-    " ~#. .D. .#.#.#.#. ~ ~#:#:#:#: : : :#: ~",
-    " ~#.D.+. . . . .#. ~ ~ ~ ~ ~ ~D:D:#:#: ~",
+    " ~#. .+. .#.#.#.#. ~ ~#:#:#:#: : : :#: ~",
+    " ~#.+.+. . . . .#. ~ ~ ~ ~ ~ ~+:+:#:#: ~",
     " ~#. . . .+. . .#. ~ ~ ~@1s-X- ~ ~ ~ ~ ~",
     " ~#.#.#.#.#.b. .#. ~ ~ ~ w ~ ~ ~ ~ ~ ~ ~",
-    " ~ ~ ~ ~ ~#.b.b.Y! ~ ~WwWwWwW~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~#.b.b.Y  ~ ~WwWwWwW~ ~ ~ ~ ~ ~",
     " ~ ~ ~ ~ ~#.#.#.#. ~ ~P.Q.P.Q. ~ ~O~ ~ ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"})
 
 wo:add({"ot_counter", "scalesBlack", state = 0, target = "bridgeBlack#*", action_3 = "close", action_2 = "open"})
 wo:add({"ot_counter", "scalesWhite", state = 0, target = "bridgeWhite#*", action_4 = "close", action_3 = "open"})
-
-if not wo["IsDifficult"] then
-    no["opals#*"]:peepall()
-end
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

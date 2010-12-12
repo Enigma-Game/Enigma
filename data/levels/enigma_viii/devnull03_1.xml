@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Multi-lane" el:subtitle="" el:id="devnull03"/>
-      <el:version el:score="1" el:release="1" el:revision="28" el:status="released"/>
-      <el:author  el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="1" el:revision="30" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
@@ -17,14 +17,12 @@
       <el:score el:easy="-" el:difficult="23:53"/>
     </el:info>
     <el:luamain><![CDATA[
-statS = {}
-for i = 0, 5 do
-    statS[i] = 0
-end
+wo["AllowSuicide"] = false
 
 ti[" "] = {"fl_abyss"}
 ti["."] = {"fl_dark"}
 ti["#"] = {"st_granite"}
+ti["Z"] = cond(wo["IsDifficult"], ti["#"], {"fl_bridge_gc", name = "bridgeZ#"})
 ti["W"] = {"st_box_wood_v"}
 ti["w"] = ti["."] .. ti["W"]
 ti["q"] = ti["w"] .. {"it_extralife"}
@@ -48,18 +46,21 @@ ti["r"] = ti["."] .. {"st_rotator", movable = true, counterclock = true}
 ti["mailer"] = {"st_mail_s"}
 ti["m"] = ti["mailer"] .. {"it_pipe_sw"}
 ti["M"] = ti["mailer"] .. {"it_pipe_es"}
+ti["="] = cond(wo["IsDifficult"], ti["."] .. {"st_door", faces = "ns"}, ti["."])
 ti["x"] = {"st_grate_cross"}
 ti["X"] = ti["."] .. {"st_grate_cross"}
-ti["="] = ti["."] .. {"st_door", faces = "ns"}
-ti["o"] = {"st_oxyd"}
 ti[":"] = {"fl_bridge_bn", name = "bridgeFloppyBlack#"}
 ti["9"] = {"fl_bridge_bn", name = "bridgeFloppyWhite#"}
 ti["8"] = {"fl_bridge_bw", name = "bridge02#", state = CLOSED}
 ti["7"] = {"fl_bridge_bw", state = CLOSED}
+ti["6"] = {"fl_bridge_gc", name = "bridge06#"}
 ti["5"] = {"fl_bridge_bw", name = "bridge00#"}
+ti["4"] = {"fl_bridge_gc", name = "bridge04#"}
+ti["("] = {"fl_bridge_gc", name = "bridgeEasyWhite#"}
+ti[")"] = {"fl_bridge_gc", name = "bridgeEasyBlack#"}
 ti["J"] = {"fl_fake_abyss"}
-ti[">"] = {"it_pipe_ne"}
-ti["<"] = {"it_pipe_nw"}
+ti[">"] = ti["4"] .. {"it_pipe_ne"}
+ti["<"] = ti["4"] .. {"it_pipe_nw"}
 ti["_"] = {"it_pipe_ew"}
 ti["}"] = ti["."] .. {"it_pipe_es"}
 ti["{"] = ti["."] .. {"it_pipe_sw"}
@@ -70,81 +71,83 @@ ti["E"] = {"it_key", code = 3}
 ti["f"] = ti["."] .. {"it_key", code = 4}
 ti["F"] = {"it_key", code = 2}
 ti["u"] = ti["."] .. {"it_floppy"}
-ti["v"] = ti["."] .. {"it_floppy"}
 ti["s"] = ti["."] .. {"it_seed"}
 ti["S"] = ti["w"] .. {"it_seed"}
 ti["t"] = {"it_wrench"}
-ti["y"] = ti["w"] .. {"it_yinyang"}
+ti["y"] = ti["w"] .. {"it_yinyang", name = "yinyang#"}
 ti["%"] = ti["."] .. {"it_document", text = "doc1"}
 ti["z"] = {"it_document", text = "BzG"}
-ti["U"] = {"st_floppy", name = "floppyU", action = "toggle", target = "bridgeFloppyBlack#*"}
-ti["V"] = {"st_floppy", name = "floppyV", action = "toggle", target = "bridgeFloppyWhite#*"}
-ti["G"] = {"st_switch", name = "switchG", action = "toggle", target = "laserS1"}
-ti["H"] = {"st_switch", name = "switchH", action = "toggle", target = "@laserW#*"}
-ti["I"] = {"st_switch", name = "switchI", action = "toggle", target = "laserS2"}
-ti["K"] = {"st_switch", name = "switchK", action = "toggle", target = "@laserN#*"}
-ti["L"] = {"st_switch", name = "switchL", action = "toggle", target = "laserS3"}
+ti["U"] = {"st_floppy", name = "floppyU", target = "bridgeFloppyBlack#*"}
+ti["V"] = {"st_floppy", name = "floppyV", target = "bridgeFloppyWhite#*"}
+ti["G"] = {"st_switch", name = "switchG", target = "laserS1"}
+ti["H"] = {"st_switch", name = "switchH", target = "@laserW#*"}
+ti["I"] = {"st_switch", name = "switchI", target = "laserS2"}
+ti["K"] = {"st_switch", name = "switchK", target = "@laserN#*"}
+ti["L"] = {"st_switch", name = "switchL", target = "laserS3"}
 ti["0"] = ti["."] .. {"it_trigger", name = "trigger00", action = "toggle", target = "bridge00#*"}
 ti["1"] = {"it_trigger", name = "trigger01", action = "callback", target = "bridge01"}
 ti["2"] = ti["J"] .. {"it_trigger", name = "trigger02", action = "callback", target = "bridge02", safeaction = true}
 ti["3"] = {"it_trigger", name = "trigger03", action = "callback", target = "bridge03"}
-ti["!"] = ti["."] .. {"it_sensor", name = "sensor01", action = "open", target = "bridge02#*", invisible = true}
-ti["@"] = ti["."] .. {"#ac_marble_black"}
-ti["*"] = ti["."] .. {"#ac_marble_white"}
+ti["!"] = ti["."] .. {"it_sensor", name = "sensor01#", action = "open", target = "bridge02#*", invisible = true}
+ti[","] = {"fl_bridge_gc", state = CLOSED}
+ti["j"] = ti[")"] .. {"st_grate_cross"}
+ti["P"] = cond(wo["IsDifficult"], ti["."], ti["."] .. {"it_pin"})
+ti["Y"] = ti[","] .. {"it_yinyang"}
 ti["~"] = {"fl_bluegray"}
-ti["("] = {"fl_bridge_gc", state = CLOSED}
-ti[";"] = ti["("] .. {"it_yinyang"}
-ti["R"] = ti["~"] .. {"it_document", text = "doc2"}
-ti["&"] = ti["."] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
-ti["["] = ti["("] .. {"it_sensor", name = "sensorEW01", action = "callback", target ="sensorEasyWhite01", invisible = true}
-ti["]"] = ti["."] .. {"it_sensor", name = "sensorEB01", action = "callback", target ="sensorEasyBlack01", invisible = true}
+ti["R"] = ti["~"] .. {"it_document", name = "docs#", text = "doc2"}
+ti["&"] = ti["."] .. {"it_wormhole", name = "wormholeEasyBlack", destination = "blackStart", strength = 1.0, range = 1.0}
+ti["["] = ti[","] .. {"it_sensor", name = "sensorEW01", action = "callback", target ="sensorEasyBW", invisible = true, safeaction = true}
+ti["]"] = ti["."] .. {"it_sensor", name = "sensorEB01", action = "callback", target ="sensorEasyBW", invisible = true, safeaction = true}
+ti["$"] = {"st_granite", name = "anchor"}
+ti["o"] = {"st_oxyd"}
+ti["blackMarble"] = {"fl_dark", name = "blackStart"} .. ti({"#ac_marble_black"})
+ti["@"] = cond(wo["IsDifficult"], ti["blackMarble"], ti["blackMarble"] .. {"it_wormhole", name = "wormhole4Black", destination = po(10,18.5), strength = 1.0, range = 1.0, safeaction = true})
+ti["*"] = ti["."] .. {"#ac_marble_white"}
 
-mainMap = wo:newMap(" ",
-{ "##n##################################l                    ###########iI######################gG#",
-  "# p                                                                     ..w   w w            pu#",
-  "#          2                                                            ..wwwwww..             #",
-  "# ....                ... ............                                  ....    w      ...   Wt#",
-  "# ..-.                .           9                                         #  q       .r.   w #",
-  "#......               7           w                        ..               # x x      ..w   .w#",
-  "#*w....    .........!w.           .                       www               # .              w@#",
-  "#%w   .    .....r...!.y888v       .                       ...               #  w      .w.    ww#",
-  "#..   ..w...........!w.           .                       ......w w.w..     h ww0...55.w.  w   h",
-  "#............         8           f                       ...        y.     H   w     .ww      H",
-  "#      ......         .           9                       xx        .       x.ww-     ... w.  :#",
-  "#                      ..............S                    ..........X.X.....X w .             e#",
-  "######################################                    k#####################################",
-  "#                                    #########.##.#########                                    #",
-  "#                                     #......#.##.#......#                                     #",
-  "#                                     #..o...#=##=#...o..#                                     #",
-  "#                                     #...o..#.##.#..o...#                                     #",
-  "#######################################..o...# ## #...o..#                                     #",
-  "#;((((((((((((([~~R~R~~].............&#...o....##....o...#                                     #",
-  "#######################################..o...######...o..#                                     #",
-  "#                                     #...o..#    #..o...#                                     #",
-  "#                                     #..o...#    #...o..#                                     #",
-  "#                                     #...o..#    #..o...#                                     #",
-  "#                                     #......#z  z#......#                                     #",
-  "################################################################################################"
-})
+mainMap = wo:newMap(" ", {
+    "##n##################################l$                   ###########iI######################gG#",
+    "# p                                                                     ..w   w w            pu#",
+    "#          2                                                            ..wwwwww..             #",
+    "# ....                ... ............                                  ....    w      ...   Wt#",
+    "# ..-.                .           9                                         #  q       .r.   w #",
+    "#P.....               7           w                        ..               # x x      ..w   Pw#",
+    "#*w....    .........!w.           .                       www               # .              w@#",
+    "#%w   .    .....r...!.y888u       .                       ...               #  w      .w.    ww#",
+    "#..   ..w...........!w.           .                       ......w w.w..     h ww0...55.w.  w   h",
+    "#............         8           f                       ...        y.     H   w     .ww      H",
+    "#      ......         .           9                       xx        .       x.ww-     ... w.  :#",
+    "#                      ..............S                    ..........X.X.....X w .             e#",
+    "######################################                    k#####################################",
+    "#                  #                 #########.##.#########                                    #",
+    "#                  #                  #......#.##.#......#                                     #",
+    "#                  #                  #..o...#=##=#...o..#                                     #",
+    "#                  #                  #...o..#.##.#..o...#                                     #",
+    "####################                  #..o...# ## #...o..#                                     #",
+    "#Y,,,,[~~RR~~]....&#                  #...o....ZZ....o...#                                     #",
+    "####################                  #..o...######...o..#                                     #",
+    "#                  #                  #...o..#    #..o...#                                     #",
+    "#                  #                  #..o...#    #...o..#                                     #",
+    "#                  #                  #...o..#    #..o...#                                     #",
+    "#                  #                  #......#z  z#......#                                     #",
+    "################################################################################################"})
 
-easyCenterWhiteMap = wo:newMap(" ",
-  { "####################",
+easyCenterWhiteMap = wo:newMap(" ", {
+    "####################",
     "# 3                #",
     "    x              #",
     "F                  #",
     "#        ##        #",
     "#        ##        #",
-    ".        ##        #",
+    ".  ((((  ##        #",
     "#...#bB# ##        #",
     "#.#.##s#.##        #",
     "#.#..###.##        #",
     "dD##.....##        #",
     "  ######X######### #",
-    "LV#    #.##.#    ###"
-  })
+    "LV#    #.##.#    ###"})
 
-easyCenterBlackMap = wo:newMap(" ",
-  { "####################",
+easyCenterBlackMap = wo:newMap(" ", {
+    "####################",
     "#                1 #",
     "#              x    ",
     "#                  E",
@@ -155,114 +158,71 @@ easyCenterBlackMap = wo:newMap(" ",
     "#        ##w#s##.#w#",
     "#        ##.###..#.#",
     "#        ##.....##Aa",
-    "# #########x######  ",
-    "###    #.## #    #UK"
-  })
+    "# #########j######  ",
+    "###    #.##)#    #UK"})
 
-normalCenterMap = wo:newMap(" ",
-  { "####################",
+normalCenterMap = wo:newMap(" ", {
+    "####################",
      "# 3              1 #",
-     "    x    ><    x    ",
-     "F                  E",
-     "#        ## . w   w#",
-     "#        ## ww   w.#",
-     ".        ## w w w  .",
+     "    x  64><46  x    ",
+     "F      6    6      E",
+     "#    446 ## . w   w#",
+     "#    6   ## ww   w.#",
+     ".    64  ## w w w  .",
      "#...#bB# ## #Cc#. .#",
      "#.#.##s#.##w#s##.#w#",
      "#}#..###.##.###..#{#",
      "dD##....|##|....##Aa",
      "  m#####|##|#####M  ",
-     "LV _____+__+_____ UK"
-  })
-
-function createEasyPassage()
-    wo[{47,18}] = {"st_nil"}
-    wo[{48,18}] = {"st_nil"}
-    wo[{47,18}] = {"fl_bluegray"}
-    wo[{48,18}] = {"fl_bluegray"}
-end
+     "LV _____+__+_____ UK"})
 
 function bridge01()
     if wo["IsDifficult"] then
-        for x = 46, 49 do
-            wo[{ x, 2}] = {"fl_bridge_gc", state = CLOSED}
-        end
-        for x = 43, 44 do
-            wo[{ x, 4}] = {"fl_bridge_gc", state = CLOSED}
-        end
-        wo[{44, 6}] = {"fl_bridge_gc", state = CLOSED}
+        no["bridge04#*"]:close()
     else
-        wo[{49,11}] = {"fl_bluegray"}
-        wo[{49,12}] = {"fl_bluegray"}
-        createEasyPassage()
+        no["bridgeEasyBlack#*"]:close()
+        no["bridgeZ#*"]:close()
     end
 end
 
 function bridge02()
-    wo[{11, 2}] = {"it_nil"}
-    if (statS[2] == 0) then
-        wo[{23, 7}] = {"fl_bridge_bw", state = CLOSED}
-        wo[{24, 7}] = {"fl_bridge_bw", state = CLOSED}
-        wo[{25, 7}] = {"fl_bridge_bw", state = CLOSED}
-        wo[{22, 9}] = {"fl_bridge_bw", state = CLOSED}
-    end
-    for i = 6, 8 do
-        wo[{20, i}] = {"it_nil"}
-    end
+    no["trigger02"]:kill()
+    no["bridge02#*"]:close()
+    no["sensor01#*"]:kill()
 end
 
 function bridge03()
     if wo["IsDifficult"] then
-        for y = 2, 3 do
-            wo[{50, y}] = {"fl_bridge_gc", state = CLOSED}
-        end
-        for y = 2, 4 do
-            wo[{45, y}] = {"fl_bridge_gc", state = CLOSED}
-        end
-        for y = 5, 6 do
-            wo[{43, y}] = {"fl_bridge_gc", state = CLOSED}
-        end
+        no["bridge06#*"]:close()
     else
-        for x = 41,44 do
-            wo[{ x, 6}] = {"fl_bluegray"}
-        end
-        createEasyPassage()
+        no["bridgeEasyWhite#*"]:close()
+        no["bridgeZ#*"]:close()
     end
 end
 
-function sensorEasyWhite01()
-    color = "white"
-    wo[{18,18}] = {"st_granite"}
-    wo[{19,18}] = {"fl_abyss"}
-    wo[{20,18}] = {"st_granite"}
-    wo:drawMap(ti, po(38, 0), easyCenterWhiteMap)
-end
-
-function sensorEasyBlack01()
-    wo[{18,18}] = {"st_granite"}
-    wo[{19,18}] = ti["J"] .. {"it_wormhole", destination = po(94.5, 6.5), strength = 1.0, range = 1.0}
-    wo[{20,18}] = {"st_granite"}
-    wo[{94,6}] = {"it_nil"}    -- remove wormhole
-    wo:drawMap(ti, po(38, 0), easyCenterBlackMap)
+function sensorEasyBW(value, source)
+    wo:drawMap(ti, no["sensorEW01"]+E, " ", {"~~##~~"})
+    if source == no["sensorEW01"] then
+        wo:drawMap(ti, no["anchor"], easyCenterWhiteMap)
+    else
+        no["wormhole4Black"]:kill()    -- remove wormhole
+        wo:drawMap(ti, no["anchor"], easyCenterBlackMap)
+    end
+    no["sensorEB01"]:kill()
+    no["sensorEW01"]:kill()
 end
 
 -- create world
-width, height = wo(ti," ", mainMap)
+wo(ti," ", mainMap)
 
 if wo["IsDifficult"] then
-    wo:drawMap(ti, po(38, 0), normalCenterMap)
+    wo:drawMap(ti, no["anchor"], normalCenterMap)
 else
-    wo[{ 1, 5}] = {"it_pin"}
-    wo[{94, 5}] = {"it_pin"}
-    wo[{94, 6}] = {"it_wormhole", destination = po(19.5,18.5), strength = 1.0, range = 1.0}
-    wo[{22, 7}] = {"it_nil"}    -- white yinyang
-    wo[{69, 9}] = {"it_nil"}    -- black yinyang
-    wo[{46,15}] = {"st_nil"}    -- white door
-    wo[{49,15}] = {"st_nil"}    -- black door
+    no["yinyang#*"]:kill()
 end
 
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
