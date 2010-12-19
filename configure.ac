@@ -398,6 +398,20 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/soko/skinner_microban01/Makefile
            data/levels/soko/skinner_microban02/Makefile
            data/levels/soko/skinner_microban03/Makefile
+           data/levels/soko/skinner_microban04/Makefile
+           data/levels/soko/skinner_microban05/Makefile
+           data/levels/soko/skinner_sasquatch01/Makefile
+           data/levels/soko/skinner_sasquatch02/Makefile
+           data/levels/soko/skinner_sasquatch03/Makefile
+           data/levels/soko/skinner_sasquatch04/Makefile
+           data/levels/soko/skinner_sasquatch05/Makefile
+           data/levels/soko/skinner_sasquatch06/Makefile
+           data/levels/soko/skinner_sasquatch07/Makefile
+           data/levels/soko/skinner_sasquatch08/Makefile
+           data/levels/soko/skinner_sasquatch09/Makefile
+           data/levels/soko/skinner_sasquatch10/Makefile
+           data/levels/soko/skinner_sasquatch11/Makefile
+           data/levels/soko/skinner_sasquatch12/Makefile
            data/levels/lib/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile

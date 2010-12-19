@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="multilevel" el:quantity="50">
+      <el:identity el:title="Sasquatch XI #" el:subtitle="" el:id="sasquatch11"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="test"/>
+      <el:author el:name="David W. Skinner" el:email="" el:homepage="http://users.bentonrea.com/~sasquatch/sokoban/index.html"/>
+      <el:copyright>This Frame Copyright © 2010 by Enigma Team, uploaded level source Copyright © by David W. Skinner</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true">
+        The license applies to this frame file. Please check the uploaded externaldata file or the level authors homepage for his license.
+      </el:license>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libsoko" el:id="lib/libsoko" el:release="1" el:preload="true"/>
+        <el:externaldata el:path="externaldata/skinner_sasquatch11" el:url="http://users.bentonrea.com/~sasquatch/sokoban/s11"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+lib.soko.create_sokoball(wo:externalData("externaldata/skinner_sasquatch11"), wo["SublevelNumber"])
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
