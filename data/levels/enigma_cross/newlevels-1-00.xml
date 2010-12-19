@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="73" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="74" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -126,7 +126,7 @@
     <level _seq="118" _title="Venice II" _xpath="enigma_v/raoul17_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul17" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="119" _title="Walking around" _xpath="enigma_v/just05_2" author="JuSt" ctrl="force" easy="false" id="just05" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="120" _title="Trigger Happy" _xpath="enigma_v/xerxes03_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes03" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="121" _title="Gods of Enigma" _xpath="enigma_v/mp01_1" author="moonpearl" ctrl="force" easy="false" id="mp01" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="121" _title="Gods of Enigma" _xpath="enigma_v/mp01_2" author="moonpearl" ctrl="force" easy="false" id="mp01" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="122" _title="Gods of Enigma II" _xpath="enigma_v/mp02_1" author="moonpearl" ctrl="force" easy="false" id="mp02" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="123" _title="- Meditation -" _xpath="enigma_v/alain14_2" author="Alain Busser" ctrl="force" easy="false" id="alain14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="124" _title="Frogger" _xpath="enigma_v/luc20_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc20" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -145,7 +145,7 @@
     <level _seq="137" _title="- Meditation -" _xpath="enigma_v/raoul08_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul08" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="138" _title="Firefox" _xpath="enigma_v/ral01_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral003" rel="3" rev="72" score="3" target="time" unit="duration"/>
     <level _seq="139" _title="You need them" _xpath="enigma_v/raoul11_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul11" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="140" _title="Pipes and Plumbing" _xpath="enigma_v/andreas27_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas27" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="140" _title="Pipes and Plumbing" _xpath="enigma_v/andreas27_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="141" _title="The Chamber" _xpath="enigma_v/luc31_3" author="Lukas Schüller" ctrl="force" easy="false" id="luc31" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="142" _title="Spacestation" _xpath="enigma_v/raoul23_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul23" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="143" _title="A-way" _xpath="enigma_vi/richi06_2" author="Richi Bützer" ctrl="force" easy="true" id="richi06" rel="2" rev="4" score="1" target="time" unit="duration"/>

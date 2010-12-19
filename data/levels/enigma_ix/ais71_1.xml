@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Origami" el:subtitle="" el:id="ais71"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+-- Band tolerances are so small, to ensure level logic, that settings this much
+-- higher leads to occasion sudden bursts of rubber-band vibration
+wo["RubberViolationStrength"] = 20
+
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_granite"}
+ti["o"] = {"it_trigger", action="signal", target="@doors_#*"}
+ti["X"] = {"st_door_a", name="doors_#"}
+ti["<"] = {"st_oneway_black_w"}
+ti["O"] = {"st_oxyd_a"}
+ti["x"] = {"fl_lawn", name="pearlposition_#"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+"#O#############",
+"#X#          o#",
+"#X#          o#",
+"#X#  xxxxxxx o#",
+"#X#  xxxxxxx o#",
+"#X#  xxxxxxx o#",
+"#X<@ xxxxxxx o#",
+"#X#  xxxxxxx o#",
+"#X#  xxxxxxx o#",
+"#X#  xxxxxxx o#",
+"#X#          o#",
+"#X#          o#",
+"#O#############"})
+
+local i
+-- Generate 11 pearls, one for each of the dents. Enigma dislikes more than 7
+-- objects occupying the same position at once, so instead of generating all
+-- pearls in the centre and perturbing them randomly, we generate all pearls
+-- on random squares and let them fall into position from there
+local positions = no["pearlposition_#*"]
+for i = 1,11 do
+    local p = positions:shuffle()[1]
+    positions = positions - p
+    -- a high initial velocity is needed to ensure long rubber bands expand
+    -- to the correct length; it also helps to scramble the pearls further
+    wo[p] = {"#ac_pearl", ("pearl_"..i), _p=i, controllers=CTRL_NONE,
+             velocity_x=random()*900-450, velocity_y=random()*900-450}
+end
+-- Randomly create a spanning tree between the pearls
+local notintree = no["pearl_*"]:shuffle()
+local intree = grp(notintree[1])
+notintree = notintree - intree[1]
+for i = 1,10 do
+    local l = 99
+    -- reduce probability of very long bands, as they tend to make the
+    -- level too easy
+    while l > i+1 do    
+        notintree = notintree:shuffle()
+        intree = intree:shuffle()
+        l = math.abs(notintree[1]["_p"] - intree[1]["_p"])
+    end
+    wo:add({"ot_rubberband", anchor1=notintree[1], anchor2=intree[1], length=l, min=l-0.04, max=l+0.04})
+    intree = intree + notintree[1]
+    notintree = notintree - notintree[1]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

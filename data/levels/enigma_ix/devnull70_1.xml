@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Interlude III" el:subtitle="" el:id="devnull70"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="8:58"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti["floor"] = {"it_burnable_fireproof"}
+ti["  "] = ti["floor"] .. {"fl_red_framed", friction = 5.0, adhesion = 3.0}
+ti["# "] = ti["floor"] .. {"st_rawglass_quad"}
+ti["N "] = ti["floor"] .. {"st_nil"}
+ti["H "] = ti["floor"] .. {"st_rawglass_movable"}
+ti["scalesBlack"] = ti["floor"] .. {"fl_scales_platinum", target = {"toggleDoors", "bridgeBlack%%"}, action = "signal", min = 0.6}
+ti["scalesWhite"] = ti["floor"] .. {"fl_scales_platinum", target = {"toggleDoors", "bridgeWhite%%"}, action = "signal", min = 0.6}
+ti["bridgeBlack"] = {"fl_bridge_gc", name = "bridgeBlack%%"}
+ti["bridgeWhite"] = {"fl_bridge_gc", name = "bridgeWhite%%"}
+ti["boxBlack"] = ti["  "] .. {"st_box_rock", name = "boxBlack%%"}
+ti["boxWhite"] = ti["  "] .. {"st_box_rock", name = "boxWhite%%"}
+ti["D "] = ti["floor"] .. {"st_door", name = "door#"}
+ti["0 "] = {"st_oxyd_e", name = "opals#", selection = {"=# ", "=N "}}
+ti["O "] = {"st_oxyd", noshuffle = true, oxydcolor = OXYD_BLACK}
+ti["o "] = {"st_oxyd", noshuffle = true, oxydcolor = OXYD_WHITE}
+ti["@ "] = ti["  "] .. {"#ac_marble_black", essential = INDISPENSABLE}
+ti["* "] = ti["  "] .. {"#ac_marble_white", essential = INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"M", "boxBlack"}, {"m", "boxWhite"}, {"S", "scalesBlack"}, {"s", "scalesWhite"}, {"B", "bridgeBlack"}, {"b", "bridgeWhite"})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "# 0   0     0     * #               Sb# ",
+    "#                 # O Ba#   #   # # # # ",
+    "# 0   ma0 mb0     sb#   #   #   # Mb  # ",
+    "# 0   0 mc0 md    #     #   #   #   # # ",
+    "#                 0 #   Sc  Md  Bb    # ",
+    "# 0   #     #     #     # Sa# # #     # ",
+    "# 0   0           sa#   # Ma          # ",
+    "#       # # # 0   # Mc  # Bd# # # # # # ",
+    "#       bbsd  0   0 #   #             # ",
+    "# #     # 0   # # #     # # # # # # Bc# ",
+    "# sc    bd#     bao #   Sd# bc        # ",
+    "# # # # D # # # # # # # # # D # # # # # ",
+    "#       BC    #   # o BA#   BD        # ",
+    "#   # # # sC# #   sB#   0 0 # # 0 0   # ",
+    "#           # mC  # 0 SDBB        #   # ",
+    "# # # # #   #       # 0 # # 0     #   # ",
+    "#       #         # SA      #   0 # 0 # ",
+    "#   #   # # # # bB  #       MB  # 0   # ",
+    "#   # bC      mB  # 0   0 0     0 SC  # ",
+    "#   # sD# # #   sA  #         # # MC  # ",
+    "#   # mD    # #   # SB  MA0     0     # ",
+    "#       #   # mAbAO #   0 MD  0 # 0   # ",
+    "#         bD      # @                 # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:add({"ot_wire", anchor1 = "boxBlack%A", anchor2 = "boxWhite%A"})
+wo:add({"ot_wire", anchor1 = "boxBlack%B", anchor2 = "boxWhite%B"})
+wo:add({"ot_wire", anchor1 = "boxBlack%C", anchor2 = "boxWhite%C"})
+wo:add({"ot_wire", anchor1 = "boxBlack%D", anchor2 = "boxWhite%D"})
+wo:add({"ot_wire", anchor1 = "boxBlack%a", anchor2 = "boxWhite%a"})
+wo:add({"ot_wire", anchor1 = "boxBlack%b", anchor2 = "boxWhite%b"})
+wo:add({"ot_wire", anchor1 = "boxBlack%c", anchor2 = "boxWhite%c"})
+wo:add({"ot_wire", anchor1 = "boxBlack%d", anchor2 = "boxWhite%d"})
+
+wo:add({"ot_counter", name = "toggleDoors", state = 0, target = "door#*", action_15 = "close", action_16 = "open"})
+
+wo:shuffleOxyd()
+no["opals#*"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Zwischenspiel II</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

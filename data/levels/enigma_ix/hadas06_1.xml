@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Take Your Time!" el:subtitle="" el:id="hadas06"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author el:name="Jonatan and Daniel Hadas" el:email=""/>
       <el:copyright>Copyright © 2010 Jonatan and Daniel Hadas</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ ti["F"] = {"st_flash"}
 ti["i"] = {"st_invisible"}
 ti["l"] = {"st_plop"}
 ti["L"] = cond(wo["IsDifficult"], ti["l"], ti[" "])
-ti["M"] = cond(wo["IsDifficult"], ti["L"], ti["l"])
+ti["M"] = cond(wo["IsDifficult"], ti[" "], ti["l"])
 ti["P"] = {"st_passage", flavor="square"}
 ti["Q"] = {"st_passage", flavor="cross"}
 ti["q"] = cond(wo["IsDifficult"], ti[" "], ti["Q"])

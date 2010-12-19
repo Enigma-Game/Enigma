@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Lose Control" el:subtitle="" el:id="hadas07"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author el:name="Daniel Hadas" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2010 Daniel Hadas</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -25,25 +25,27 @@ ti["j"] = cond(wo["IsDifficult"], ti[" "], ti["="] .. {"it_springboard"})
 ti["y"] = ti["="] .. {"it_yinyang"}
 ti["R"] = ti["="] .. {"st_oxyd", name="right#"}
 ti["L"] = ti["="] .. {"st_oxyd", name="left#"}
-ti["B"] = ti["y"] .. {"#ac_marble_black"}
-ti["W"] = ti["="] .. {"#ac_marble_white"}
+ti["l"] = cond(wo["IsDifficult"], ti["L"], ti["#"])
+ti["r"] = cond(wo["IsDifficult"], ti["R"], ti["#"])
+ti["@"] = ti["y"] .. {"#ac_marble_black"}
+ti["A"] = ti["="] .. {"#ac_marble_white"}
 
 wo(ti, " ", {
     "%L%##############%R%",
     "L==      D       ==R",
     "%==      D       ==%",
     "L==      D    -====R",
-    "%========<   jJ==W=%",
-    "L==      D    -====R",
+    "%========<   jJ==A=%",
+    "l==      D    -====r",
     "%==      DD      ==%",
-    "L====-    D      ==R",
-    "%=B==Jj   >========%",
+    "l====-    D      ==r",
+    "%=@==Jj   >========%",
     "L====-    D      ==R",
     "%==       D      ==%",
     "L==       D      ==R",
     "%L%##############%R%"})
 
-wo:shuffleOxyd({"left#*","right#*", min=8})
+wo:shuffleOxyd({"left#*","right#*", min=#no["left#*"]})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

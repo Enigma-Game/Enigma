@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Thread-safe I" el:subtitle="" el:id="devnull61"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti["floor"] = {"it_burnable_fireproof"}
+ti["  "] = ti["floor"] .. {"fl_bright_framed", friction = 5.0, adhesion = 3.0}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = ti["floor"] .. {"st_rawglass_quad"}
+ti["N "] = ti["floor"] .. {"st_nil"}
+ti[" s"] = ti["floor"] .. {"fl_scales_darkgray", target = "toggleDoor", action = "signal"}
+ti["boulderTop"] = ti[" ."] .. {"st_boulder_n", name = "boulders%%"}
+ti["boulderBottom"] = ti[" ."] .. {"st_boulder_s", name = "boulders%%"}
+ti["scale"] = ti["floor"] .. {"fl_scales_darkgray", target = "boulders%%", action_1 = "flip"}
+ti["D "] = {"st_blocker", name = "door#", state = CLOSED}
+ti["box"] = ti["  "] .. {"st_box_rock", name = "box%%"}
+ti["O "] = {"st_oxyd_a", name = "opalsLeft#", selection = {"=box", "=N "}}
+ti["o "] = {"st_oxyd_e", name = "opalsRight#", selection = {"=box", "=N "}}
+ti["P "] = {"st_oxyd_e", noshuffle = true, selection = {"=box", "=N "} ,oxydcolor = OXYD_BLACK}
+ti["p "] = {"st_oxyd_e", noshuffle = true, selection = {"=box", "=N "}, oxydcolor = OXYD_WHITE}
+ti["0 "] = {"st_oxyd", noshuffle = true, oxydcolor = OXYD_GRAY}
+ti["@ "] = ti["  "] .. {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"v", "boulderTop"}, {"^", "boulderBottom"}, {"M", "box"}, {"S", "scale"})), "  ", {
+    "# # # # # # # # O O O O # # # # # # # # ",
+    "# SA        # p         D os          # ",
+    "#   SBSC    # # ^A^B^C^D# os      MA  # ",
+    "#       SD    # # # # # # os          # ",
+    "#             #  . . . .# os          # ",
+    "# # # # # # Ma#  . . . .# #           # ",
+    "0  .P    .p   D  . . . .  D         @ 0 ",
+    "# # # # # # Mb#  . . . .# #           # ",
+    "#             #  . . . .# os          # ",
+    "#       SE    # # # # # # os          # ",
+    "#   SGSF    # # vHvGvFvE# os      MB  # ",
+    "# SH        # P         D os          # ",
+    "# # # # # # # # O O O O # # # # # # # # "})
+
+wo:shuffleOxyd({"opalsRight#*", max = 0}, {"opalsLeft#*", max = 0})
+wo:add({"ot_wire", anchor1 = "box%A", anchor2 = "box%a"})
+wo:add({"ot_wire", anchor1 = "box%B", anchor2 = "box%b"})
+wo:add({"ot_counter", name = "toggleDoor", state = 8, target = "door#*", action_0 = "open", action_1 = "close"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

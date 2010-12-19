@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="92" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="93" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -252,7 +252,7 @@
     <level _seq="244" _title="Double Barrier" _xpath="enigma_ix/hadas03_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas03" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="245" _title="Forget Me Not" _xpath="enigma_ix/hadas04_1" author="Daniel Hadas" ctrl="force" easy="false" id="hadas04" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="246" _title="Take Your Time!" _xpath="enigma_ix/hadas06_1" author="Jonatan and Daniel Hadas" ctrl="force" easy="true" id="hadas06" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="247" _title="Lose Control" _xpath="enigma_ix/hadas07_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas07" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="247" _title="Lose Control" _xpath="enigma_ix/hadas07_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas07" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="248" _title="Rush Hour" _xpath="enigma_ix/hadas11_1" author="Jonatan Hadas" ctrl="force" easy="true" id="hadas11" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="249" _title="Duopal Variation I" _xpath="enigma_ix/devnull52_1" author="/dev/null" ctrl="force" easy="true" id="devnull52" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="250" _title="Duopal Variation II" _xpath="enigma_ix/devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -265,7 +265,15 @@
     <level _seq="257" _title=" - Meditation - " _xpath="enigma_ix/devnull60_1" author="/dev/null" ctrl="force" easy="false" id="devnull60" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="258" _title="Island Hopping II" _xpath="enigma_ix/devnull62_1" author="/dev/null" ctrl="force" easy="true" id="devnull62" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="259" _title="Island Hopping III" _xpath="enigma_ix/devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="260" _title="Interlude I" _xpath="enigma_ix/devnull65_1" author="/dev/null" ctrl="force" easy="false" id="devnull65" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="260" _title="Interlude I" _xpath="enigma_ix/devnull65_1" author="/dev/null" ctrl="force" easy="false" id="devnull65" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="261" _title="Thread-safe I" _xpath="enigma_ix/devnull61_1" author="/dev/null" ctrl="force" easy="false" id="devnull61" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="262" _title="Interlude II" _xpath="enigma_ix/devnull69_1" author="/dev/null" ctrl="force" easy="false" id="devnull69" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="263" _title="Interlude III" _xpath="enigma_ix/devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="264" _title="Thread-safe II" _xpath="enigma_ix/devnull71_1" author="/dev/null" ctrl="force" easy="false" id="devnull71" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="265" _title="Distribution Meditation" _xpath="enigma_ix/ais70_1" author="Alex Smith" ctrl="force" easy="false" id="ais70" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="266" _title="Origami" _xpath="enigma_ix/ais71_1" author="Alex Smith" ctrl="force" easy="false" id="ais71" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="267" _title="Marching Formation" _xpath="enigma_ix/ais73_1" author="Alex Smith" ctrl="force" easy="false" id="ais73" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="268" _title="The Brimmed Boot" _xpath="enigma_ix/devnull73_2" author="/dev/null" ctrl="force" easy="false" id="devnull73" rel="2" rev="7" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

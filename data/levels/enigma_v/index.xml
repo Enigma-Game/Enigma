@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="52" title="Enigma V"/>
+  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma V"/>
 
   <attributes/>
 
@@ -72,7 +72,7 @@
     <level _seq="64" _title="Walking around" _xpath="./just05_2" author="JuSt" ctrl="force" easy="false" id="just05" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="65" _title="Elaborate" _xpath="./duffy126_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy126" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Trigger Happy" _xpath="./xerxes03_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes03" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="67" _title="Gods of Enigma" _xpath="./mp01_1" author="moonpearl" ctrl="force" easy="false" id="mp01" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="Gods of Enigma" _xpath="./mp01_2" author="moonpearl" ctrl="force" easy="false" id="mp01" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="68" _title="Stealing from Thieves" _xpath="./duffy78_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy78" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="69" _title="Gods of Enigma II" _xpath="./mp02_1" author="moonpearl" ctrl="force" easy="false" id="mp02" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="- Meditation -" _xpath="./alain14_2" author="Alain Busser" ctrl="force" easy="false" id="alain14" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -99,7 +99,7 @@
     <level _seq="91" _title="Firefox" _xpath="./ral01_3" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060213ral003" rel="3" rev="72" score="3" target="time" unit="duration"/>
     <level _seq="92" _title="Enigris" _xpath="./ralf04_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf04" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="93" _title="You need them" _xpath="./raoul11_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul11" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="94" _title="Pipes and Plumbing" _xpath="./andreas27_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas27" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="94" _title="Pipes and Plumbing" _xpath="./andreas27_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas27" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="95" _title="You Must Be Kidding" _xpath="./duffy91_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy91" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="The Chamber" _xpath="./luc31_3" author="Lukas Schüller" ctrl="force" easy="false" id="luc31" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Automaton" _xpath="./duffy95_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy95" rel="2" rev="2" score="1" target="time" unit="duration"/>

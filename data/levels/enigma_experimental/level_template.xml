@@ -4,7 +4,7 @@
     <el:info el:type="level">
       <el:identity el:title="New API level template" el:subtitle="" el:id="level_template"/>
       <el:version el:score="1" el:release="1" el:revision="1" el:status="experimental"/>
-      <el:author  el:name="AUTHOR" el:email=""/>
+      <el:author el:name="AUTHOR" el:email=""/>
       <el:copyright>Copyright © YEAR AUTHOR</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>

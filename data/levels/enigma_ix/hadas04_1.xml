@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Forget Me Not" el:subtitle="" el:id="hadas04"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="stable"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author el:name="Daniel Hadas" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2010 Daniel Hadas</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -36,7 +36,6 @@ wo(ti, "-", {
     "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"})
 
 wo:shuffleOxyd()
-
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

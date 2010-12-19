@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pipes and Plumbing" el:subtitle="" el:id="andreas27"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006, 2009 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false">
+          Thanks for the idea to Ronald Lamprecht, who tested
+          this level in Enigma and real life!
+        </el:credits>
+      </el:comments>
+      <el:score el:easy="01:42" el:difficult="01:57"/>
+    </el:info>
+    <el:luamain><![CDATA[
+
+wo["SlopeStrength"] = 0.4
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_rock", _flood = "~"}
+ti["~"] = {"fl_water", "water#"}
+ti["-"] = {"fl_wood_framed", "wood#"} .. ti{"st_nil"}
+ti["#"] = {"st_plop"} .. ti{"fl_stone"}
+ti["M"] = {"st_mail_n"}
+ti["X"] = {"st_grate_cross"} .. ti{"fl_slope_pn"}
+ti["Y"] = {"st_grate_cross"}
+ti["1"] = {"st_switch", target = "switch_call", instant = true}
+ti["2"] = {"st_switch", target = "sensor_call", instant = true}
+ti["B"] = {"st_box"} .. ti{"fl_rock", _flood = "-"}
+ti["O"] = {"st_oxyd", flavor = "b"}
+ti["T"] = {"st_timer", target = "check_pipe_exit", interval = 0.01}
+ti["s"] = ti["X"] .. {"it_sensor", target = "sensor_call", invisible = true}
+ti["@"] = {"#ac_marble"}
+ti["%"] = ti["X"] .. {"it_banana", "pipe_exit"} .. ti{"#ac_marble_white", "white_marble"}
+
+wo(ti, " ", {
+       "####################",
+       "#                #B#",
+       "TM#              #B#",
+       "#s#              #BO",
+       "#X# @            #B#",
+       "#X#              #B#",
+       "#X#      Y1      #B#",
+       "#X#              #B#",
+       "#X#              #B#",
+       "#X#              #BO",
+       "#X#              #B#",
+       "#%2              BB#",
+       "####################"})
+
+pipes = {"it_pipe_ns", "it_pipe_ew", "it_pipe_sw", "it_pipe_es", "it_pipe_ne", "it_pipe_nw"}
+
+for _, entry in pairs(pipes) do
+    ti[entry] = {entry}
+end
+
+function setwater(x,y)
+    if fl(x,y)._flood then
+        wo[{x,y}] = ti[fl(x,y)._flood]
+    end
+end
+
+function setwood(x,y)
+    if -st(x,y) and st(x,y):is("st_box") then
+        setwater(x,y)
+    end
+end
+
+pipe_exit = no["pipe_exit"]
+white_marble = no["white_marble"]
+
+function check_pipe_exit(is_on, sender)
+    if not po(pipe_exit):exists() then
+        return
+    end
+    local pos = po(pipe_exit)
+    wo[pos] = {"it_burnable"}  -- no further pipe pieces may be added
+    setwater(pos.x, pos.y)
+    sender.state = OFF
+    wo:add({"ot_timer", interval = 0.51, target = "flood"})
+end
+
+function flood(is_on, sender)
+    water_floors = no["water#*"]
+    wood_floors = no["wood#*"]
+    for floor in water_floors do
+        floor.name = ""
+        local x, y = floor:xy()
+        setwater(x-1,y)
+        setwater(x+1,y)
+        setwater(x,y+1)
+        setwater(x,y-1)
+        if random(1,3) == 1 then  setwater(x+1,y+1)  end
+        if random(1,3) == 1 then  setwater(x+1,y-1)  end
+        if random(1,3) == 1 then  setwater(x-1,y+1)  end
+        if random(1,3) == 1 then  setwater(x-1,y-1)  end
+    end
+    for floor in wood_floors do
+        floor.name = ""
+        local x, y = floor:xy()
+        setwood(x-1,y)
+        setwood(x+1,y)
+        setwood(x,y+1)
+        setwood(x,y-1)    
+    end
+end
+
+function switch_call()
+    if wo["IsDifficult"] then
+        wo[{9, 6}] = ti[pipes[random(1,6)]]
+    else
+        wo[{9, 6}] = ti[pipes[random(1,5)]]
+    end
+end
+
+function sensor_call()
+  wo["SlopeStrength"] = 10
+end
+
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
