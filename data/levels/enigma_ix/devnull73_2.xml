@@ -9,7 +9,7 @@
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="4:56"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["AllowSuicide"] = false
