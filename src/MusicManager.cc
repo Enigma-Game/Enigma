@@ -220,8 +220,18 @@ void MusicManager::init()
     music_queues["Pentagonal Dreams"] = MusicQueue("Pentagonal Dreams", 3);
     music_queues["Pentagonal Dreams"].appendSingle("Pentagonal Dreams", true);
 
-    app.state->setProperty("MenuMusicQueue", "Default");
-    active_music_queue_title = "Default";
+    active_music_queue_title = app.state->getString("MenuMusicQueue");
+    // Set the default menu music queue, if saved queue doesn't exist.
+    if(music_queues.find(active_music_queue_title) == music_queues.end())
+    {
+        Log << "Warning: Did not find specified menu music queue '"
+            << active_music_queue_title << "', will switch to default.\n";
+        active_music_queue_title = "Default";
+        app.state->setProperty("MenuMusicQueue", active_music_queue_title);
+    }
+    
+    // setMusicContext will set active_music_queue_title as well;
+    // after this, tick will start the music.
     setMusicContext(MUSIC_MENU);
     tick(-1);
 }
