@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008,2009 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -1511,7 +1511,7 @@ static int objectEquality(lua_State *L) {
     return 1;
 }
 
-static int objectExistance(lua_State *L) { 
+static int objectExistence(lua_State *L) {
     // object type is guaranteed
     if (lua_gettop(L) < 1 || !is_object(L, 1)) {
         throwLuaError(L, "Syntax error - usage of '.' instead of ':'");
@@ -1621,30 +1621,25 @@ static int groupMessage(lua_State *L) {
     return numObjects >= 1 ? 1 : 0;  // return last message value if group was not empty
 }
 
-std::vector<std::string> messageLIFO;
 
 static int objectDirectMessage(lua_State *L) {
     // object, value
-    std::string message = messageLIFO.back();
-    messageLIFO.pop_back();
     if (lua_gettop(L) < 1 || !is_object(L, 1)) {
         throwLuaError(L, "Message error: no target object - may be caused by usage of '.' instead of ':'");
         return 0;
     }
-    lua_pushstring(L, message.c_str());
+    lua_pushvalue(L, lua_upvalueindex(1));  // retrieve message from closure
     lua_insert(L, 2);    // message below optional value
     return objectMessage(L);
 }
 
 static int groupDirectMessage(lua_State *L) {
     // group, value
-    std::string message = messageLIFO.back();
-    messageLIFO.pop_back();
     if (lua_gettop(L) < 1 || !is_group(L, 1)) {
         throwLuaError(L, "Message error: no target group - may be caused by usage of '.' instead of ':'");
         return 0;
     }
-    lua_pushstring(L, message.c_str());
+    lua_pushvalue(L, lua_upvalueindex(1));  // retrieve message from closure
     lua_insert(L, 2);    // message below optional value
     return groupMessage(L);
 }
@@ -1862,8 +1857,7 @@ static int dispatchObjectReadAccess(lua_State *L) {
         if ((keyStr.find('_') != 0) && ((obj != NULL && obj->validateMessage(keyStr, Value(Value::DEFAULT))) 
                 || (obj == NULL && (keyStr == "exists" || keyStr == "kill")))) {
             // it is a valid public message - try to send it
-            messageLIFO.push_back(keyStr);
-            lua_pushcfunction(L, objectDirectMessage);
+            lua_pushcclosure(L, objectDirectMessage, 1);  // store message name in closure
         } else if (obj != NULL) {
             val = obj->getAttrChecked(keyStr);
             // user attribute, existing system attribute or nil if no object
@@ -3130,8 +3124,7 @@ static int dispatchGroupReadAccess(lua_State *L) {
             lua_pushcfunction(L, iter->second);
         } else {
             // try to send message to all objects
-            messageLIFO.push_back(keyStr);
-            lua_pushcfunction(L, groupDirectMessage);
+            lua_pushcclosure(L, groupDirectMessage, 1);  // store message name in closure
         }
     } else {
         lua_getmetatable(L, 1);
@@ -3515,12 +3508,12 @@ static CFunction objectOperations[] = {
     {addPositions,                  "__add"},      //  obj + obj
     {subPositions,                  "__sub"},      //  obj - obj
     {centerPosition,                "__len"},      //  #obj
-    {objectExistance,               "__unm"},      //  -obj
+    {objectExistence,               "__unm"},      //  -obj
     {0,0}
 };
 
 static CFunction objectMethods[] = {
-    {objectExistance,               "exists"},
+    {objectExistence,               "exists"},
     {objectIsKind,                  "is"},
     {objectGetKind,                 "kind"},
     {killObject,                    "kill"},
