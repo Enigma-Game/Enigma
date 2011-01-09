@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------
--- Copyright (C) 2008,2009 Ronald Lamprecht
+-- Copyright (C) 2008,2009,2010,211 Ronald Lamprecht
 --
 -- This program is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU General Public License
@@ -546,15 +546,16 @@ function res.random(subresolver, hits, replacements)
     return context
 end
 
-function res.autotile_newtile(key, template, substitution)
+function res.autotile_newtile(context, evaluator, key, x, y, template, substitution)
     local decl = template:_declaration()  -- get a deep copy
     local result
     for i, tile in ipairs(decl) do
         if type(tile) == "string" then
+            local subkey = string.gsub(tile, "%%%%", substitution)
             if result == nil then
-                result = ti[tile]
+                result = evaluator(context[3], subkey, x, y)
             else
-                result = result .. ti[tile]
+                result = result .. evaluator(context[3], subkey, x, y)
             end
         else
             local at = {}   -- attribute table
@@ -603,7 +604,7 @@ function res.autotile_implementation(context, evaluator, key, x, y)
                     and first <= candidate and candidate <= last then
                 local tile = evaluator(context[3], key, x, y)
                 if tile == nil then
-                    res.autotile_newtile(key, ti[rule[3]], candidate - first + offset)
+                    res.autotile_newtile(context, evaluator, key, x, y, ti[rule[3]], candidate - first + offset)
                     return ti[key]
                 else
                     return tile
@@ -613,7 +614,7 @@ function res.autotile_implementation(context, evaluator, key, x, y)
             -- prefix based substitution
             local tile = evaluator(context[3], key, x, y)
             if tile == nil then
-                res.autotile_newtile(key, ti[rule[2]], string.sub(key, #(rule[1]) + 1))
+                res.autotile_newtile(context, evaluator, key, x, y, ti[rule[2]], string.sub(key, #(rule[1]) + 1))
                 return ti[key]
             else
                 return tile

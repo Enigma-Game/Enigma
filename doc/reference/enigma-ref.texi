@@ -23501,10 +23501,13 @@ res.autotile(ti, @{"a", "e", "template_trigger@}, @{"A", "E", "template_door"@}
 Prefix rules need a key length of at least 2. You can not use it with maps
 of just one character per tile. The resolver will create a tile declaration for
 any tile key in the map that matches the given prefix. A copy of the template
-will be taken and all occurrences of the two characters @samp{%%} will be
-substituted by a single percent sign followed by the suffix of the used tile
-key. Thus a key of @samp{AD} will target the laser @samp{laser%D}. You need to
-use the key @samp{LD} in the map for the matching laser.
+will be taken.
+
+Within this copy of the template all occurrences of the two characters @samp{%%}
+in explicit object declarations will be substituted by a single percent sign 
+followed by the suffix of the used tile key. Thus a key of @samp{AD} will target
+the laser @samp{laser%D}. You need to use the key @samp{LD} in the map for the 
+matching laser.
 
 Rangerules match any tile key in the given range. It can well be used in one
 character key maps. But it can be used in multicharacter maps, too. In this case
@@ -23523,6 +23526,19 @@ be:
 @example
 ti["template"] = ti["~"] .. ti(@{"it_trigger", target=@{"door%%#*","laser%%"@}@}) .. @{"st_grate1"@}
 @end example
+
+A pattern substitution can even take place on a key of a referenced base tile.
+Every occurrence of the two characters @samp{%%} in the key will be substituted
+by the suffix of the used tile key without a preceeding percent sign. E.g. the
+template:
+
+@example
+ti["template"] = ti["P%%"] .. @{"st_floppy", target="laser%%"@}
+@end example
+
+applied to a key with the suffix @samp{d} will result in a base tile key @samp{Pd}.
+This feature is especially useful if the autotile resolver is chained to 
+another subresolver which generates the base tiles.
 
 @item @b{Full Example:}
 @example

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002,2003,2004 Daniel Heck
- * Copyright (C) 2007,2008,2009,2010 Ronald Lamprecht
+ * Copyright (C) 2007,2008,2009,2010,2011 Ronald Lamprecht
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -3004,19 +3004,6 @@ static int appendTile(lua_State *L) {
 
 MethodMap tilesMethodeMap;
 
-static int dispatchTilesReadAccess(lua_State *L) {
-//    Log << "Tiles read key - " << lua_tostring(L, 2) << "\n";
-    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
-        throwLuaError(L, "Tiles: key is not a string");
-        return 0;
-    }
-    lua_getmetatable(L, 1);
-    lua_rawgeti(L, -1, 1);    // content table
-    lua_pushvalue(L, 2);      // copy key
-    lua_rawget(L, -2);        // check for existing entry in table
-    return 1;
-}
-
 static int dispatchTilesWriteAccess(lua_State *L) {
 //    Log << "Tiles write key - " << lua_tostring(L, 2) << "\n";
     if (server::EnigmaCompatibility < 1.10) {
@@ -3048,6 +3035,31 @@ static int dispatchTilesWriteAccess(lua_State *L) {
     lua_pushvalue(L, 3);
     lua_rawset(L, -3);        // store tile value for key
     return 0;
+}
+
+static int dispatchTilesReadAccess(lua_State *L) {
+//    Log << "Tiles read key - " << lua_tostring(L, 2) << "\n";
+    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
+        throwLuaError(L, "Tiles: key is not a string");
+        return 0;
+    }
+    std::string key = lua_tostring(L, 2);
+    lua_getmetatable(L, 1);
+    lua_rawgeti(L, -1, 1);    // content table
+    lua_pushvalue(L, 2);      // copy key
+    lua_rawget(L, -2);        // check for existing entry in table
+    if (lua_isnil(L, -1) && key.find("%%") != string::npos) {  // autotile wildcard
+        // insert a dummy tile declaration
+        lua_pop(L, 3);            // cleanup stack
+        lua_newtable(L);          // dummy declaration as value for key
+        dispatchTilesWriteAccess(L); // insert dummy entry
+        // get entry as return value
+        lua_getmetatable(L, 1);
+        lua_rawgeti(L, -1, 1);    // content table
+        lua_pushvalue(L, 2);      // copy key
+        lua_rawget(L, -2);        // get entry in table
+    }
+    return 1;
 }
 
 static int pushNewTiles(lua_State *L) {
