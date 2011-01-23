@@ -3048,16 +3048,21 @@ static int dispatchTilesReadAccess(lua_State *L) {
     lua_rawgeti(L, -1, 1);    // content table
     lua_pushvalue(L, 2);      // copy key
     lua_rawget(L, -2);        // check for existing entry in table
-    if (lua_isnil(L, -1) && key.find("%%") != string::npos) {  // autotile wildcard
-        // insert a dummy tile declaration
-        lua_pop(L, 3);            // cleanup stack
-        lua_newtable(L);          // dummy declaration as value for key
-        dispatchTilesWriteAccess(L); // insert dummy entry
-        // get entry as return value
-        lua_getmetatable(L, 1);
-        lua_rawgeti(L, -1, 1);    // content table
-        lua_pushvalue(L, 2);      // copy key
-        lua_rawget(L, -2);        // get entry in table
+    if (lua_isnil(L, -1)) {
+        if (key.find("%%") != string::npos) {  // autotile wildcard
+            // insert a dummy tile declaration
+            lua_pop(L, 3);            // cleanup stack
+            lua_newtable(L);          // dummy declaration as value for key
+            dispatchTilesWriteAccess(L); // insert dummy entry
+            // get entry as return value
+            lua_getmetatable(L, 1);
+            lua_rawgeti(L, -1, 1);    // content table
+            lua_pushvalue(L, 2);      // copy key
+            lua_rawget(L, -2);        // get entry in table
+        } else {
+            throwLuaError(L, ecl::strf("Tiles: undefined key '%s'", key.c_str()).c_str());
+            return 0;
+        }
     }
     return 1;
 }
