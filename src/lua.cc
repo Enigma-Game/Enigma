@@ -2985,7 +2985,11 @@ static int tileDeclaration(lua_State *L) {
 
 static int appendTile(lua_State *L) {
     // (tile|table) .. (tile|table)
-    if (!((is_tile(L, 1)||is_table(L, 1)) && (is_tile(L, 1)||is_table(L, 1)))) {
+    if (lua_isnil(L, 2)) {
+        // catch otherwise undetected ti["x"] access with not existing key
+        throwLuaError(L, "Tile concat of not existing second argument");
+        return 0;
+    } else if (!((is_tile(L, 1)||is_table(L, 1)) && (is_tile(L, 2)||is_table(L, 2)))) {
         throwLuaError(L, "Tile concat of unsupported types");
         return 0;
     }
@@ -3048,22 +3052,20 @@ static int dispatchTilesReadAccess(lua_State *L) {
     lua_rawgeti(L, -1, 1);    // content table
     lua_pushvalue(L, 2);      // copy key
     lua_rawget(L, -2);        // check for existing entry in table
-    if (lua_isnil(L, -1)) {
-        if (key.find("%%") != string::npos) {  // autotile wildcard
-            // insert a dummy tile declaration
-            lua_pop(L, 3);            // cleanup stack
-            lua_newtable(L);          // dummy declaration as value for key
-            dispatchTilesWriteAccess(L); // insert dummy entry
-            // get entry as return value
-            lua_getmetatable(L, 1);
-            lua_rawgeti(L, -1, 1);    // content table
-            lua_pushvalue(L, 2);      // copy key
-            lua_rawget(L, -2);        // get entry in table
-        } else {
-            throwLuaError(L, ecl::strf("Tiles: undefined key '%s'", key.c_str()).c_str());
-            return 0;
-        }
+    if (lua_isnil(L, -1) && (key.find("%%") != string::npos)) {  // autotile wildcard
+        // insert a dummy tile declaration
+        lua_pop(L, 3);            // cleanup stack
+        lua_newtable(L);          // dummy declaration as value for key
+        dispatchTilesWriteAccess(L); // insert dummy entry
+        // get entry as return value
+        lua_getmetatable(L, 1);
+        lua_rawgeti(L, -1, 1);    // content table
+        lua_pushvalue(L, 2);      // copy key
+        lua_rawget(L, -2);        // get entry in table
     }
+    // nil is returned as valid value for not existing keys, what is evaluated
+    // by resolvers like autotile to trigger the generation of missing tile
+    // declarations
     return 1;
 }
 
