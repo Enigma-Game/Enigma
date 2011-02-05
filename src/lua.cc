@@ -87,6 +87,8 @@ namespace enigma { namespace lua {
     lua_State *level_state = 0;  // level-local state
     lua_State *global_state = 0; // global Lua state
 
+    static int tilesReadAccess(lua_State *L, bool direct);
+
     lua::Error _lua_err_code (int i)
     {
         switch (i) {
@@ -2394,8 +2396,8 @@ static int evaluateKey(lua_State *L) {
     int y = lua_tointeger(L, -1);
     
     if (is_tiles(L, -4)) {
-        lua_pushvalue(L, -3);       // duplicate key
-        lua_gettable(L, -5);        // get tile entry in table, remove key duplicate
+        lua_pop(L, 2);                // remove x,y
+        tilesReadAccess(L, false);   // directly read tiles without error corrections
         return 1;
     } else if (lua_isfunction(L, -4)) {
         lua_pushvalue(L, -4);       // duplicate function
@@ -3009,64 +3011,75 @@ static int appendTile(lua_State *L) {
 MethodMap tilesMethodeMap;
 
 static int dispatchTilesWriteAccess(lua_State *L) {
+    // tiles, key, value
 //    Log << "Tiles write key - " << lua_tostring(L, 2) << "\n";
     if (server::EnigmaCompatibility < 1.10) {
         throwLuaError(L, "Mismatch of new API 2 syntax with level compatibility < 1.10");
         return 0;
     }
-    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
+    if (!lua_isstring(L, -2)) {     // sideeffect: numbers are converted to string
         throwLuaError(L, "Tiles: key is not a string");
         return 0;
     }
-    if (is_table(L, 3) || is_tile(L, 3)) {
+    if (is_table(L, -1) || is_tile(L, -1)) {
         // convert table to a tile
-        pushNewTile(L, 1, lua_tostring(L, 2));
-        lua_remove(L, 3);   
+        pushNewTile(L, 1, lua_tostring(L, -2));
+        lua_remove(L, -2);
     } else {
         throwLuaError(L, "Tiles: value is not a tile or table");
         return 0;
     }
-    lua_getmetatable(L, 1);
-    lua_rawgeti(L, -1, 1);   // content table
-    lua_pushvalue(L, 2);      // copy key
+    lua_getmetatable(L, -3);
+    lua_rawgeti(L, -1, 1);    // content table
+    lua_pushvalue(L, -4);     // copy key
     lua_rawget(L, -2);        // check for existing entry in table
     if (!lua_isnil(L, -1)) {
-        throwLuaError(L, ecl::strf("Tiles: redefinition of key '%s'", lua_tostring(L, 2)).c_str());
+        throwLuaError(L, ecl::strf("Tiles: redefinition of key '%s'", lua_tostring(L, -4)).c_str());
         return 0;
     }
     lua_pop(L, 1);            // remove nil
-    lua_pushvalue(L, 2);
-    lua_pushvalue(L, 3);
+    lua_pushvalue(L, -4);     // key
+    lua_pushvalue(L, -4);     // tile as value
     lua_rawset(L, -3);        // store tile value for key
+    lua_pop(L, 2);            // remove metatable and content table
     return 0;
 }
 
-static int dispatchTilesReadAccess(lua_State *L) {
+static int tilesReadAccess(lua_State *L, bool direct) {
 //    Log << "Tiles read key - " << lua_tostring(L, 2) << "\n";
-    if (!lua_isstring(L, 2)) {     // sideeffect: numbers are converted to string
+    if (!lua_isstring(L, -1)) {     // sideeffect: numbers are converted to string
         throwLuaError(L, "Tiles: key is not a string");
         return 0;
     }
-    std::string key = lua_tostring(L, 2);
-    lua_getmetatable(L, 1);
+    std::string key = lua_tostring(L, -1);
+    lua_getmetatable(L, -2);
     lua_rawgeti(L, -1, 1);    // content table
-    lua_pushvalue(L, 2);      // copy key
+    lua_pushvalue(L, -3);     // copy key
     lua_rawget(L, -2);        // check for existing entry in table
-    if (lua_isnil(L, -1) && (key.find("%%") != string::npos)) {  // autotile wildcard
-        // insert a dummy tile declaration
-        lua_pop(L, 3);            // cleanup stack
-        lua_newtable(L);          // dummy declaration as value for key
-        dispatchTilesWriteAccess(L); // insert dummy entry
-        // get entry as return value
-        lua_getmetatable(L, 1);
-        lua_rawgeti(L, -1, 1);    // content table
-        lua_pushvalue(L, 2);      // copy key
-        lua_rawget(L, -2);        // get entry in table
+    if (direct && lua_isnil(L, -1)) {
+        if ((key.find("%%") != string::npos)) {  // autotile wildcard
+            // insert a dummy tile declaration
+            lua_pop(L, 3);            // cleanup stack
+            lua_newtable(L);          // dummy declaration as value for key
+            dispatchTilesWriteAccess(L); // insert dummy entry
+            // get entry as return value
+            lua_getmetatable(L, -2);
+            lua_rawgeti(L, -1, 1);    // content table
+            lua_pushvalue(L, -4);     // copy key
+            lua_rawget(L, -2);        // get entry in table
+        } else {
+            throwLuaError(L, ecl::strf("Tiles: undefined key '%s'", key.c_str()).c_str());
+            return 0;
+        }
     }
     // nil is returned as valid value for not existing keys, what is evaluated
     // by resolvers like autotile to trigger the generation of missing tile
     // declarations
     return 1;
+}
+
+static int dispatchTilesReadAccess(lua_State *L) {
+    return tilesReadAccess(L, true);
 }
 
 static int pushNewTiles(lua_State *L) {
