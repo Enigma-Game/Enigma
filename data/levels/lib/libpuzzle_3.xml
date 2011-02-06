@@ -180,7 +180,7 @@ function res.puzzle_implementation(context, evaluator, key, x, y)
     for i, prefix in ipairs (context[4]) do
         if key:find(prefix, 1, true) == 1 then
             -- prefix based substitution
-            if ti[key] == nil then
+            if evaluator(context[3], key, x, y) == nil then
                 local template = ti[prefix]
                 local suffix = key:sub(#(prefix) + 1)
                 assert_bool(template, "Resolver puzzle missing template rule '" ..prefix.."'.", 2)
