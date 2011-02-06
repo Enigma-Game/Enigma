@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma II"/>
+  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma II"/>
 
   <attributes/>
 
@@ -33,7 +33,7 @@
     <level _seq="25" _title="Look Closely" _xpath="./martin102_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin102" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Arcoculture" _xpath="./ant17_1" author="Petr Machata" ctrl="force" easy="false" id="ant17" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Twelve Doors" _xpath="./nat06_2" author="Nat Pryce" ctrl="force" easy="false" id="nat6" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Guitar" _xpath="./guy01_1" author="Guy Busser" ctrl="force" easy="false" id="guy01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Guitar" _xpath="./guy01_2" author="Guy Busser" ctrl="force" easy="false" id="guy01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Corridors" _xpath="./siegfried29_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="- Meditation -" _xpath="./siegfried34_1" author="anonymous" ctrl="force" easy="false" id="meditation13" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Path in the Stars" _xpath="./duffy80_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy80" rel="2" rev="3" score="2" target="time" unit="duration"/>
@@ -102,7 +102,7 @@
     <level _seq="94" _title="Snowing" _xpath="./duffy120_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy120" rel="3" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="95" _title="Eraser Please!" _xpath="./martin39_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin39" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Friend or Foe?" _xpath="./andreas05_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas05" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="97" _title="Tool Time" _xpath="./barry03_1" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry03" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="97" _title="Tool Time" _xpath="./barry03_2" author="Barry &amp; Lori Mead" ctrl="force" easy="false" id="barry03" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="98" _title="Light Barriers" _xpath="./qq01_1" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq1" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="99" _title="Domain of Mysteries" _xpath="./siegfried31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level11a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="Patterns" _xpath="./duffy128_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy128" rel="1" rev="2" score="1" target="time" unit="duration"/>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tool Time" el:subtitle="" el:id="barry03"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Barry &amp; Lori Mead" el:email="bmead15@cox.net" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Barry &amp; Lori Mead</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API converted by /dev/null (Feb 2011)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["~"] = {"fl_abyss"}
+ti[":"] = {"fl_space"}
+ti["#"] = {"st_granite"}
+ti["+"] = {"st_granite_hollow"}
+ti["X"] = {"st_grate"}
+ti["K"] = {"st_knight"}
+ti["H"] = {"st_break_oxydc"}
+ti["="] = {"st_ghost_purplemarble"}
+ti["*"] = {"st_ghost_break"}
+ti["A"] = {"st_door", name = "doorA", faces = "ns"}
+ti["a"] = {"st_floppy", target = "doorA"}
+ti["B"] = {"st_door", name = "doorB", faces = "ew"}
+ti["b"] = {"it_trigger", target = "doorB"}
+ti["C"] = {"st_door", name = "doorC", faces = "ns"}
+ti["c"] = {"st_coinslot", target = "doorC", action = "open"}
+ti["|"] = {"st_door", name = "doorD", faces = "ew", state = OPEN}
+ti["<"] = {"it_trigger", target = "doorD", action = "close"}
+ti[">"] = {"it_trigger", target = "doorD", action = "open"}
+ti["L"] = {"st_laser_s", name = "laser"}
+ti["l"] = {"it_trigger", target = "laser"}
+ti["V"] = {"st_oneway_s"}
+ti["Z"] = {"st_oneway_s", name ="oneway"}
+ti["S"] = {"st_switch", target = "oneway", action="flip"}
+ti["h"] = ti[" "] .. ti({"st_chameleon"}) .. {"it_hammer"}
+ti["s"] = ti[" "] .. ti({"st_chameleon"}) .. {"it_seed"}
+ti["p"] = ti[" "] .. ti({"st_chameleon"}) .. {"it_brush"}
+ti["f"] = ti[":"] .. ti({"st_chameleon"}) .. {"it_floppy"}
+ti["e"] = {"it_coffee"}
+ti["2"] = {"it_coin_s"}
+ti["0"] = {"it_coin_l"}
+ti["d"] = {"it_document", text = "text1"}
+ti["O"] = {"st_oxyd_b"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#O  =        =#O#c X              ~~~p#",
+    "#== =    =   =#C#  X    KKKKK     ~O~ #",
+    "#   =    =   =     X    KH*HK     ~~~ #",
+    "# ===    =   ======X    K*O*K         #",
+    "#        =        =X    KH*HK         #",
+    "#=========  =======X    KKKKK         #",
+    "#           =    O=X                  #",
+    "#===== ====== == ==X   ***     ########",
+    "#O     =       =   X   *O*     #     ##",
+    "#  ===== ======= b X   ***     #V### ##",
+    "#        =         X           | <KH>O#",
+    "#=========*========#+##################",
+    "#           ::::::f#d   =        L    #",
+    "#           ::::::O#=== =             #",
+    "#           ########    =             #",
+    "#####              # ====     @      l#",
+    "# 0 #      *K*K*   #                  #",
+    "# 2 #      KKKKK   #==                #",
+    "# 2 B      *KOK*   #O*       HHH      #",
+    "#####      KKKKK   #==       HOH      #",
+    "#          *K*K*   #         HHH      #",
+    "##A#a              #               ##Z#",
+    "#O O#                             h#~e#",
+    "#########+##########################+##",
+    "#                  #     #O           #",
+    "#O                 +*   s#S           #",
+    "#######################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Make a Sword, &amp; Umbrella.</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

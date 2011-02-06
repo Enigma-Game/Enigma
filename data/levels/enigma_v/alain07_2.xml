@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pirates Island" el:subtitle="" el:id="alain07"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:38"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn_a"}
+ti["^"] = ti[" "] .. {"st_chameleon"}
+ti["~"] = {"fl_water"}
+ti["1"] = {"fl_water", name="sand1#"}
+ti["2"] = {"fl_water", name="sand2#"}
+ti["."] = {"fl_sand"}
+ti["-"] = {"fl_himalaya"}
+ti["+"] = {"st_box_wood"}
+ti["C"] = {"st_coinslot", target="sand", _region=1}
+ti["D"] = {"st_coinslot", target="sand", _region=2}
+ti["e"] = {"it_document", text="text1"}
+ti["s"] = ti["^"] .. {"it_seed"}
+ti["c"] = ti["^"] .. {"it_coin_l"}
+ti["b"] = {"it_bottle"}
+ti["("] = {"it_banana"}
+ti["O"] = {"st_oxyd",flavor="a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti," ",{
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~...~~~~~~~~~~~~..~~~~~~~~O~~~~~~~~",
+    "~~~~~..O..~~~~~~~~~.. ..~~~~~~~~~~~~~~~~",
+    "~~~~~~...~~~~~~~~~.. b ..~~~~~...~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~.. ..~~~~~~+O..~~~~~~",
+    "~~~~~~~~~~~~~.~~~~~~...~~~~~~~...~~~~~~~",  
+    "~~~~~~~~~~~~...~~~~~~~~~~~~~~~~2~~~~~~~~",
+    "~~~.......... ....~~~~~~~~~~~~~22~~~~~~~",
+    "~~...       ^^^^...~~~~~~~~~~~~222~~~~~~",
+    "~..^^^     ^^^c..~~~~~~~~~~~~.....~~~~~~",
+    "~..^^^   @   ^^^..~~~~~~~~~~~..   ..~~~~",
+    "~~..^^        ......~~~~~~~~~..  ..~~~~~",
+    "~~~..^^^^^^   ..+  ...~~~~~...   b..~~~~",
+    "~~~.. ^^s^^  ..     ........   ^^^^..~~~",
+    "~~~~..^^^^^            ^^^^^^^^^^^^c.~~~",
+    "~~~~~.. ^^^  --       ^^^^^^^^ (^^^^.~~~",
+    "~~.~~~.. ^^ ----e   ^^^s^^^^^ ((   ..~~~",
+    "~...~~~..    -C--- ^^^^^^^^ (((   ..~~~~",
+    "~.s.~~~~..    --D-  ^^^^^^  ((   ..~~~~~",
+    "~. ..~~11..    --    ...    (   ..~~~~~~",
+    "~.O.111111....    .......      ..~~~~~~~",
+    "~...~~~~~11.........~~~~........~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"}) 
+
+wo:shuffleOxyd()
+
+function sand(value, sender)
+    wo[no["sand"..sender["_region"].."#*"]] = ti["."]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" el:comment="There are coins and wood boxes (pirate's troves) and alimentary junks like seeds, empty bottles and bananas."/>
+        <el:translation el:lang="fr">Ile aux pirates</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">The pirates have lost several hidden things on this island ...</el:english>
+        <el:translation el:lang="fr">Les pirates ont perdu beaucoup d'objets dans le sous-sol ...</el:translation>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

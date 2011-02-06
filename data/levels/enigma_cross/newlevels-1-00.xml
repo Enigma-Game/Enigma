@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="74" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="75" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -35,7 +35,7 @@
     <level _seq="27" _title="- Meditation -" _xpath="enigma_ii/andreas17_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas17" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Growing Boxes" _xpath="enigma_ii/luc26_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Enigmastermind" _xpath="enigma_ii/alain16_2" author="Alain Busser" ctrl="force" easy="false" id="alain16" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Guitar" _xpath="enigma_ii/guy01_1" author="Guy Busser" ctrl="force" easy="false" id="guy01" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Guitar" _xpath="enigma_ii/guy01_2" author="Guy Busser" ctrl="force" easy="false" id="guy01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Koosnab" _xpath="enigma_ii/rb02_2" author="Roberto Bardin" ctrl="force" easy="false" id="rb02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="More Black Holes" _xpath="enigma_ii/luc18_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc18" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Robin's Wood" _xpath="enigma_ii/andreas13_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas13" rel="2" rev="3" score="1" target="time" unit="duration"/>
@@ -77,7 +77,7 @@
     <level _seq="69" _title="Triple Threat" _xpath="enigma_iii/illmind10_1" author="illmind" ctrl="force" easy="false" id="illmind10" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Changing Positions" _xpath="enigma_iii/luc27_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Waterworld" _xpath="enigma_iii/illmind11_2" author="illmind" ctrl="force" easy="true" id="illmind11" rel="2" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="72" _title="Wood robbing" _xpath="enigma_iv/alain08_1" author="Alain Busser" ctrl="force" easy="false" id="alain08" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Wood robbing" _xpath="enigma_iv/alain08_2" author="Alain Busser" ctrl="force" easy="false" id="alain08" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="73" _title="Hurry!" _xpath="enigma_iv/wb01_4" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="4" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="74" _title="Antimaze" _xpath="enigma_iv/luc02_3" author="Lukas Schüller" ctrl="force" easy="false" id="luc02" rel="3" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="Sierpinski" _xpath="enigma_iv/alain10_2" author="Alain Busser" ctrl="force" easy="false" id="alain10" rel="2" rev="2" score="2" target="time" unit="duration"/>
@@ -96,7 +96,7 @@
     <level _seq="88" _title="Friction Nightmare" _xpath="enigma_iv/luc01_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc01" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="89" _title="Laser Games" _xpath="enigma_iv/mp03_1" author="moonpearl" ctrl="force" easy="false" id="mp03" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="90" _title="April 1st" _xpath="enigma_v/alain11_1" author="Alain Busser" ctrl="force" easy="false" id="alain11" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="91" _title="Send me the keys !" _xpath="enigma_v/alain09_1" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="91" _title="Send me the keys !" _xpath="enigma_v/alain09_2" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Laser Path" _xpath="enigma_v/andreas06_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="2" rev="15" score="2" target="time" unit="duration"/>
     <level _seq="93" _title="Hobbyte" _xpath="enigma_v/alain15_2" author="Alain Busser" ctrl="force" easy="false" id="alain15" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Water Castle" _xpath="enigma_v/luc21_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc21" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -112,7 +112,7 @@
     <level _seq="104" _title="Laser Crossing" _xpath="enigma_v/luc24_2" author="Lukas Schüller" ctrl="force" easy="true" id="luc24" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="105" _title="The Carousel" _xpath="enigma_v/luc30_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc30" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="106" _title="Ocean Cruising" _xpath="enigma_v/duffy131_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy131" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="107" _title="Pirates Island" _xpath="enigma_v/alain07_1" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="107" _title="Pirates Island" _xpath="enigma_v/alain07_2" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="108" _title="Tropical Island" _xpath="enigma_v/andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="109" _title="Ghost Islands" _xpath="enigma_v/raoul15_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul15" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="110" _title="- Giza Meditation -" _xpath="enigma_v/raoul02_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul02" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -157,7 +157,7 @@
     <level _seq="149" _title="Orbitting" _xpath="enigma_vi/andreas26_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="150" _title="Evil" _xpath="enigma_vi/spaceman04_1" author="Spaceman" ctrl="force" easy="false" id="spaceman4" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="151" _title="Meditation Disturbance" _xpath="enigma_vi/ral04_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060429ral006" rel="2" rev="143" score="1" target="time" unit="duration"/>
-    <level _seq="152" _title="Banana Republic" _xpath="enigma_v/alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="152" _title="Banana Republic" _xpath="enigma_v/alain26_3" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="153" _title="Zeus" _xpath="enigma_vi/raoul19_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul19" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="154" _title="Rhapsody on Cracks" _xpath="enigma_vi/ral06_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20060510ral008" rel="2" rev="189" score="2" target="time" unit="duration"/>
     <level _seq="155" _title="Prepare Your Defense" _xpath="enigma_vi/duffy132_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy132" rel="2" rev="2" score="2" target="time" unit="duration"/>

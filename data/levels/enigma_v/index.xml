@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma V"/>
+  <info enigma="1.10" group="Enigma" location="10600" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma V"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack5_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="April 1st" _xpath="./alain11_1" author="Alain Busser" ctrl="force" easy="false" id="alain11" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Send me the keys !" _xpath="./alain09_1" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Send me the keys !" _xpath="./alain09_2" author="Alain Busser" ctrl="force" easy="false" id="alain09" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Laser Path" _xpath="./andreas06_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas06" rel="2" rev="15" score="2" target="time" unit="duration"/>
     <level _seq="5" _title="Hobbyte" _xpath="./alain15_2" author="Alain Busser" ctrl="force" easy="false" id="alain15" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="6" _title="Water Castle" _xpath="./luc21_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc21" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -38,7 +38,7 @@
     <level _seq="30" _title="Two Billiard Tables" _xpath="./duffy32_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy32" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="31" _title="Ocean Cruising" _xpath="./duffy131_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy131" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Walk The Plank" _xpath="./nat04_1" author="Nat Pryce" ctrl="force" easy="false" id="nat4" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Pirates Island" _xpath="./alain07_1" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Pirates Island" _xpath="./alain07_2" author="Alain Busser" ctrl="force" easy="false" id="alain07" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Island of Safety" _xpath="./duffy27_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy27" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Tropical Island" _xpath="./andreas08_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas08" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Shipwreck" _xpath="./nat33_2" author="Nat Pryce" ctrl="force" easy="false" id="natmaze2" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -61,7 +61,7 @@
     <level _seq="53" _title="A bayou by you" _xpath="./alain21_2" author="Alain Busser" ctrl="force" easy="false" id="alain21" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="54" _title="Mirror Shop" _xpath="./siegfried25_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level9a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Blet" _xpath="./alain24_2" author="Alain Busser" ctrl="force" easy="true" id="alain24" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="56" _title="Banana Republic" _xpath="./alain26_2" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="56" _title="Banana Republic" _xpath="./alain26_3" author="Alain Busser" ctrl="force" easy="true" id="alain26" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="57" _title="Too Heavy?" _xpath="./martin101_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin101" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Now What?" _xpath="./duffy127_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy127" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Pneumatic Delivery" _xpath="./malla01_3" author="Manuel König" ctrl="force" easy="true" id="malla01" rel="3" rev="6" score="2" target="time" unit="duration"/>

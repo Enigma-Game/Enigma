@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="59" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="60" title="Enigma IV"/>
 
   <attributes/>
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack4_2" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="2" _title="Happy New Year" _xpath="./duffy76_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy76" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Wood robbing" _xpath="./alain08_1" author="Alain Busser" ctrl="force" easy="false" id="alain08" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Wood robbing" _xpath="./alain08_2" author="Alain Busser" ctrl="force" easy="false" id="alain08" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Termites" _xpath="./duffy104_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy104" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="5" _title="Hurry!" _xpath="./wb01_4" author="Jon 'WB' Sneyers" ctrl="force" easy="true" id="wb1" rel="4" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="6" _title="TNT Shortage?" _xpath="./siegfried74_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried74" rel="1" rev="0" score="1" target="time" unit="duration"/>

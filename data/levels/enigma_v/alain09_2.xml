@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Send me the keys !" el:subtitle="" el:id="alain09"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["."] = {"fl_mortar"}
+ti["#"] = {"st_jamb_black"}
+ti["R"] = ti({"fl_space"}) .. {"st_rawglass"}
+ti["X"] = {"st_grate_cross"}
+ti["+"] = {"st_box_wood"}
+ti["<"] = {"st_mail_w"}
+ti[">"] = {"st_mail_e"}
+ti["door"] = {"st_door_d", faces="ns", name="door%%"}
+ti["keyhole"] = {"st_key", target="door%%"}
+ti["k"] = {"it_key"}
+ti["l"] = ti["+"] .. ti["k"]
+ti["-"] = {"it_pipe_ew"}
+ti["|"] = {"it_pipe_ns"}
+ti["1"] = {"it_pipe_ne"}
+ti["3"] = {"it_pipe_sw"}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["A"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"K","N","keyhole"}, {"D","G","door"}), " ", {
+    "####################",
+    "#......>RRR  -|-1-3#",
+    "#XXXXXX  #R   ---  #",
+    "#X + +X  #RR       #",
+    "#X+ l X  #     KL  #",
+    "#X lk+X  RRR<  MN  #",  
+    "#X+ l X  #         #",
+    "#X + +X  #...#D#...#",
+    "#X+ + X  #. .#E#.A.#",
+    "#XXXXXX  #...#F#...#",
+    "#   @    #####G#####",
+    "#   d    #O       O#",
+    "####################"}) 
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="fr">Envoie-moi les clefs!</el:translation>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">ALL the keys!!!</el:english>
+        <el:translation el:lang="fr">TOUTES les clefs!!!</el:translation>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>

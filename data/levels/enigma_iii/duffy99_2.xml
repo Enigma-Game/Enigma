@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Blocks and Water" el:subtitle="" el:id="duffy99"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -22,7 +22,7 @@ ti["+"] = {"st_box"}
 ti["#"] = {"st_granite"}
 ti["%"] = ti["~"] .. {"st_greenbrown"}
 ti["X"] = {"st_grate", flavor="cross"}
-ti["x"] = ti["~"] .. ti["x"]
+ti["x"] = ti["~"] .. ti["X"]
 ti["o"] = {"st_oxyd", name="land#"}
 ti["O"] = ti["~"] .. {"st_oxyd", name="water#"}
 ti["@"] = {"ac_marble_black", 0.0, 0.5}

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Banana Republic" el:subtitle="" el:id="alain26"/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="Alain Busser" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Alain Busser</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:46" el:difficult="1:52"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_lawn_a"}
+ti["-"] = {"fl_swamp"}
+ti["."] = {"fl_sand"}
+ti["#"] = {"st_lightglass"}
+ti["+"] = {"st_box_wood"}
+ti["K"] = {"st_knight"}
+ti["V"] = {"st_laser_s", name="laser", state=ON}
+ti["C"] = {"st_coinslot", name="slot", target="add_sword"}
+ti["a"] = {"st_key", target="info"}
+ti["="] = {"st_door_d", faces="ns", name="door1"}
+ti["k"] = {"it_key"}
+ti["("] = {"it_banana"}
+ti["d"] = {"it_dynamite"}
+ti["b"] = {"it_bomb_black"}
+ti["i"] = {"it_document", text="text1"}
+ti["j"] = {"it_document", text="text3"}
+ti["c"] = {"it_coin_s"}
+ti["t"] = {"it_trigger", invisible=true, target="laser", action="off"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["*"] = {"#ac_top", range=10.0, strength=cond(wo["IsDifficult"],20.0,8.0), gohome=true}
+ti["@"] = {"#ac_marble_black"}
+
+local choices = lib.lua.shuffle({"c", "c", "c", "t", "t", "t"})
+
+function resolver_coins(key, x, y)
+    if key == "!" then
+        return ti[table.remove(choices)]
+    else
+        return ti[key]
+    end
+end
+
+wo(resolver_coins," ",{
+    "---------------------------------------",
+    "---------------------------------------",
+    "----......-----------------------------",
+    "---........-------------------.....----",
+    "--..*####*..-----------------..***..---",  
+    "--.. #!!# ..-----------------..*k*..---",
+    "--..b#!!# ..-----------------..***..---",
+    "--.. #a=# ..------------------.....----",
+    "---...**...----------------------------",
+    "----......-----------------------------",
+    "----------------......-----------------",
+    "---------------..@..i..----------------",
+    "--------------..    j ..---------------",
+    "--------------..  V(+(..---------------",
+    "--------------..   (((..---------------",  
+    "--------------..      ..---------------",
+    "--------------..   b  ..---------------",
+    "---------------........----------------",
+    "------......----......------.......----",
+    "-----..   d..--------------..KKKKK..---",
+    "-----..b C ..--------------..KOKOK..---",
+    "-----...  ...--------------..KKKKK..---",
+    "------......----------------.......----",
+    "---------------------------------------",
+    "---------------------------------------"})
+
+function add_sword()
+    wo[no["slot"] + E] = {"it_sword"}
+end
+
+function info()
+    wo[no["laser"] + ENE] = {"it_document", text="text2"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true" el:comment="This is not real spanish, only an ambience">Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!</el:english>
+        <el:translation el:lang="fr">El Dictator a muchos pesetas dans son coffre de cristal mais muchos guardians; Caramba! Bola Negra n'a que des frutos et un lasero!!!</el:translation>
+      </el:string> 
+      <el:string el:key="text2">
+        <el:english el:translate="false">You have been seen using a forbidden key; costa guardia are chasing you now; El Dictator too.</el:english>
+        <el:translation el:lang="fr">On vous a vu utiliser une clef interdite; les costa guardia vous pourchassent!</el:translation>
+      </el:string> 
+      <el:string el:key="text3">
+        <el:english el:translate="false">Hasta la Enigma !!!</el:english>
+      </el:string> 
+    </el:i18n>
+  </el:protected>
+</el:level>
