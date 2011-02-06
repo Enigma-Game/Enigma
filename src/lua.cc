@@ -88,6 +88,7 @@ namespace enigma { namespace lua {
     lua_State *global_state = 0; // global Lua state
 
     static int tilesReadAccess(lua_State *L, bool direct);
+    static bool customResolution = false;
 
     lua::Error _lua_err_code (int i)
     {
@@ -2397,7 +2398,7 @@ static int evaluateKey(lua_State *L) {
     
     if (is_tiles(L, -4)) {
         lua_pop(L, 2);                // remove x,y
-        tilesReadAccess(L, false);   // directly read tiles without error corrections
+        tilesReadAccess(L, false);    // directly read tiles without error corrections
         return 1;
     } else if (lua_isfunction(L, -4)) {
         lua_pushvalue(L, -4);       // duplicate function
@@ -2423,7 +2424,9 @@ static int evaluateKey(lua_State *L) {
         lua_pushvalue(L, -6);       // duplicate key
         lua_pushvalue(L, -6);       // duplicate x
         lua_pushvalue(L, -6);       // duplicate y
+        customResolution = true;    // let custom resolver directly read tiles without error corrections
         int retval=lua_pcall(L, 5, 1, 0);     // resolver(context,evaluator,key,x,y) ->  tile
+        customResolution = false;
         if (retval!=0) { 
             throwLuaError(L, ecl::strf("Error within tile key resolver: \n  %s", lua_tostring(L, -1)).c_str());
             return 0;
@@ -3079,7 +3082,7 @@ static int tilesReadAccess(lua_State *L, bool direct) {
 }
 
 static int dispatchTilesReadAccess(lua_State *L) {
-    return tilesReadAccess(L, true);
+    return tilesReadAccess(L, !customResolution);
 }
 
 static int pushNewTiles(lua_State *L) {
