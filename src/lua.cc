@@ -3066,7 +3066,7 @@ static int tilesReadAccess(lua_State *L, bool direct) {
             lua_newtable(L);          // dummy declaration as value for key
             dispatchTilesWriteAccess(L); // insert dummy entry
             // get entry as return value
-            lua_getmetatable(L, -2);
+            lua_getmetatable(L, -3);
             lua_rawgeti(L, -1, 1);    // content table
             lua_pushvalue(L, -4);     // copy key
             lua_rawget(L, -2);        // get entry in table
