@@ -25125,7 +25125,70 @@ English titles preferred - use subtitle, too
 
 @node Tile Key Recommendation
 @section Tile Key Recommendation
-space for default
+
+The following guidelines are not compulsory, but we nevertheless encourage
+them, as they ease the development of new and the maintenance of old levels.
+
+@itemize @bullet
+@item Stones use capital letters, items small letters, floors use punctuation marks.
+@item The default floor is @code{" "}. The second most important floor typically is  
+@code{"_"} or @code{"."}. It's a good idea to use tile keys for floors, which are
+small and don't obstruct the view on the more important objects, like
+stones and items. Important floors (like bridges) may have letters or
+numbers to emphasize their importance (a bridge could be @code{"b"}, or a
+number to use autotiling).
+@item Water typically is @code{"~"}, as the tilde is a small character which resembles
+a wave. Similarly, an abyss can be well described by @code{"_"}, as the underscore
+resembles a hole.
+@item On a German keyboard, the four characters @code{"."}, @code{","}, @code{":"} and @code{";"} are
+arranged in a square, so you can easily use them to arrange quadruples
+of floors, like lawn pieces of different brightness.
+On a US keyboard, you can use @code{","}, @code{"."}, @code{"<"} and @code{">"} to the same purpose.
+Another quadruple of characters are the arithmetic operators @code{"+"}, @code{"-"},@code{"*"}, and @code{"/"}.
+@item Slopes can be described using @code{"<"}, @code{">"}, @code{"v"} and @code{"^"}. As you see, we
+encourage you to use the letter @code{"v"} for a floor at this point, as it
+resembles an arrow pointing down. For slant slopes, it's a good idea to
+use either numbers (following the number keypad on your keyboard), or
+quadruple characters like @code{"."}, @code{","}, @code{":"}, @code{";"} or arithmetic operators.
+@item Although it fits nicely to @code{"/"}, it's not a good idea to use the backslash
+as a tile key, as it has to be masked to work correctly. Similarly, we
+disencourage the use of brackets as tile keys.
+@item The most important simple stone should be @code{"#"}, all other stones should
+use their first letter, like ``laser'' -> @code{"L"}, ``switch'' -> @code{"S"}, ``box'' -> @code{"B"}.
+If two stones have the same first letter, the more important one should
+be given priority (@code{"L"} for laser instead of @code{"L"} for @code{"st_lightglass"},
+@code{"G"} for @code{"st_lightglass"} instead of @code{"G"} for @code{"st_greenbrown"}).
+@item Orientable stones like boulders or lasers should use @code{"N"}, @code{"E"}, @code{"S"}, @code{"W"}
+if they appear in more than one orientation.
+@item Stones of the same kind, which appear several times in different ways
+(like switches with different actions) should use consecutive letter
+(@code{"S"}, @code{"T"}, @code{"U"}, ...) or numbers.
+@item Oxyd stones should use @code{"O"} or @code{"0"}. If you put several different oxyd
+stones, e.g. of different colors, make use of consecutive letters (@code{"P"},
+@code{"Q"}, @code{"R"} ...) or numbers.
+@item If you want to put mirrors, it's a good idea to use characters resembling
+the orientation of the mirror, i.e. @code{"|"}, @code{"-"}, and @code{"/"}. As the backslash
+is no good tile key, you may use @code{"&"} or @code{"Q"} instead, as these characters
+include a prominent slant line similar to the backslash. Triangular
+mirrors are best written with @code{"<"}, @code{">"}, @code{"v"} and @code{"^"}.
+@item For rotator stones, it's a good idea to use @code{"R"} and @code{"L"} for clockwise
+(right) and counter-clockwise (left) rotating stones. As an alternative,
+you might want to use characters which are written in either clockwise
+or counter-clockwise manner, like @code{"p"} and @code{"q"}. Note that this might
+depend on your handwriting.
+@item Documents can use either @code{"d"}, or @code{"i"} (for @code{"information"}), as @code{"d"} is
+used more often (e.g. for autotiling purposes). If several documents
+appear in the level, you can use consecutive letters (@code{"i"}, @code{"j"}, @code{"k"} ...).
+Remember that you can take advantage of autotiling if you have lots of
+different documents in your level.
+@item Coins can be written with @code{"c"}, with @code{"$"} or with numbers resembling their worth.
+@item Marbles should be @code{"@@"}, all other actors should use small letters
+(@code{"t"} for ac_top, @code{"p"} for ac_pearl, ...), or large punctuation marks.
+@item For autotiling, it's a good idea to use @code{"X"}, @code{"Y"}, @code{"x"}, @code{"y"}, @code{"*"}, @code{"?"} and
+similar characters which associate themselves with variables as template
+keys. Another possibility is to use a full word like @code{"door"} or @code{"switch"}
+as template tile key, which has the advantage of being easier 
+@end itemize
 
 @node Easy Mode Hints
 @section Easy Mode Hints
