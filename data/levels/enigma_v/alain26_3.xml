@@ -24,7 +24,7 @@ ti["#"] = {"st_lightglass"}
 ti["+"] = {"st_box_wood"}
 ti["K"] = {"st_knight"}
 ti["V"] = {"st_laser_s", name="laser", state=ON}
-ti["C"] = {"st_coinslot", name="slot", target="add_sword"}
+ti["C"] = {"st_coinslot", name="slot", target="add_sword", action_1="callback", action_0="nop"}
 ti["a"] = {"st_key", target="info"}
 ti["="] = {"st_door_d", faces="ns", name="door1"}
 ti["k"] = {"it_key"}
@@ -76,11 +76,11 @@ wo(resolver_coins," ",{
     "---------------------------------------",
     "---------------------------------------"})
 
-function add_sword()
+function add_sword(value, sender)
     wo[no["slot"] + E] = {"it_sword"}
 end
 
-function info()
+function info(value, sender)
     wo[no["laser"] + ENE] = {"it_document", text="text2"}
 end
  ]]></el:luamain>
