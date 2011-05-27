@@ -997,17 +997,17 @@ function enigma.SetAttrib(obj, key, val)
              enigma._SetAttrib(obj, "shape", "ter")
              enigma._SetAttrib(obj, "slope", 7)
          elseif val == 17 then
-             enigma._SetAttrib(obj, "shape", "tnr")
-             enigma._SetAttrib(obj, "slope", 4)
-         elseif val == 18 then
              enigma._SetAttrib(obj, "shape", "tnl")
              enigma._SetAttrib(obj, "slope", 7)
+         elseif val == 18 then
+             enigma._SetAttrib(obj, "shape", "tnr")
+             enigma._SetAttrib(obj, "slope", 4)
          elseif val == 19 then
-             enigma._SetAttrib(obj, "shape", "tsl")
-             enigma._SetAttrib(obj, "slope", 5)
-         elseif val == 20 then
              enigma._SetAttrib(obj, "shape", "tsr")
              enigma._SetAttrib(obj, "slope", 6)
+         elseif val == 20 then
+             enigma._SetAttrib(obj, "shape", "tsl")
+             enigma._SetAttrib(obj, "slope", 5)
          elseif val == 21 then
              enigma._SetAttrib(obj, "shape", "ts")
              enigma._SetAttrib(obj, "slope", 1)
