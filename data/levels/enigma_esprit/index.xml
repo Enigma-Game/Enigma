@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="8" title="Esprit"/>
+  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="9" title="Esprit"/>
 
   <attributes/>
 
@@ -16,7 +16,7 @@
     <level _seq="8" _title="esprit 8" _xpath="./esprit08_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp08" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="esprit 9" _xpath="./esprit09_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp09" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="- Meditation -" _xpath="./esprit10_1" author="anonymous" ctrl="force" easy="false" id="meditation10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="esprit 11" _xpath="./esprit11_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp11" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="esprit 11" _xpath="./esprit11_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp11" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="esprit 12" _xpath="./esprit12_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp12" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Spin Cycle" _xpath="./esprit13_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin34" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="esprit 14" _xpath="./esprit14_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin56" rel="1" rev="0" score="1" target="time" unit="duration"/>

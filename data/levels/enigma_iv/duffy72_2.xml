@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Where Am I?" el:subtitle="" el:id="duffy72"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments><el:code>New API and easy mode by /dev/null (Feb 2011)</el:code></el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if not wo["IsDifficult"] then
+    wo["AutoRespawn"] = true
+    wo["SlopeStrength"] = 15.0
+end
+
+ti[" "] = {"fl_abyss"}
+ti["."] = {"fl_hay"}
+ti[","] = {"fl_metal_7"}
+ti["-"] = {"fl_ice"}
+ti["="] = {"fl_space"}
+ti["A"] = ti[" "] .. {"st_actorimpulse"}
+ti["B"] = ti[","] .. {"st_actorimpulse"}
+ti["C"] = ti["-"] .. {"st_actorimpulse"}
+ti["D"] = cond(wo["IsDifficult"], {"st_death"}, ti({"st_rawglass"}) .. {"it_death"})
+ti["!"] = cond(wo["IsDifficult"], ti[" "], ti({"st_rawglass"}) .. {"it_death"})
+ti["E"] = ti["."] .. {"it_springboard"}
+ti["F"] = ti["-"] .. {"it_springboard"}
+ti["z"] = ti["."] .. {"it_extralife"}
+ti["Z"] = cond(wo["IsDifficult"], ti["."], ti["z"])
+ti["y"] = ti["-"] .. {"it_extralife"}
+ti["Y"] = cond(wo["IsDifficult"], ti["-"], ti["y"])
+ti["x"] = ti["="] .. {"it_extralife"}
+ti["7"] = {"fl_slope_inw"}
+ti["8"] = {"fl_slope_pn"}
+ti["9"] = {"fl_slope_ine"}
+ti["6"] = {"fl_slope_pe"}
+ti["3"] = {"fl_slope_ise"}
+ti["2"] = {"fl_slope_ps"}
+ti["1"] = {"fl_slope_isw"}
+ti["4"] = {"fl_slope_pw"}
+ti["a"] = ti["."] .. {"it_vortex", name = "vortexA", destination = "vortexB"}
+ti["b"] = ti["."] .. {"it_vortex", name = "vortexB", destination = "vortexC"}
+ti["c"] = ti["."] .. {"it_vortex", name = "vortexC", destination = "vortexD"}
+ti["d"] = ti["."] .. {"it_vortex", name = "vortexD", destination = "vortexA"}
+ti["e"] = ti["."] .. {"it_vortex", name = "vortexE", destination = "vortexF"}
+ti["f"] = ti["."] .. {"it_vortex", name = "vortexF", destination = "vortexG"}
+ti["g"] = ti["."] .. {"it_vortex", name = "vortexG", destination = "vortexH"}
+ti["h"] = ti[","] .. {"it_vortex", name = "vortexH", destination = "vortexI"}
+ti["i"] = ti["."] .. {"it_vortex", name = "vortexI", destination = "vortexE"}
+ti["j"] = ti["."] .. {"it_vortex", name = "vortexJ", destination = "vortexK"}
+ti["k"] = ti["."] .. {"it_vortex", name = "vortexK", destination = "vortexL"}
+ti["l"] = ti["."] .. {"it_vortex", name = "vortexL", destination = "vortexA"}
+ti["m"] = ti["."] .. {"it_vortex", name = "vortexM", destination = "vortexN"}
+ti["n"] = ti["."] .. {"it_vortex", name = "vortexN", destination = "vortexO"}
+ti["o"] = ti[","] .. {"it_vortex", name = "vortexO", destination = "vortexM"}
+ti["p"] = ti["."] .. {"it_vortex", name = "vortexP", destination = "vortexQ"}
+ti["q"] = ti["."] .. {"it_vortex", name = "vortexQ", destination = "vortexR"}
+ti["r"] = ti[","] .. {"it_vortex", name = "vortexR", destination = "vortexP"}
+ti["s"] = ti["-"] .. {"it_vortex", name = "vortexS", destination = "vortexT"}
+ti["t"] = ti["."] .. {"it_vortex", name = "vortexT"}
+ti["u"] = ti[","] .. {"it_vortex", name = "vortexU"}
+ti["O"] = cond(wo["IsDifficult"], {"st_oxyd"}, {"st_oxyd_e"})
+ti["0"] = cond(wo["IsDifficult"], {"st_oxyd"}, {"st_oxyd_e", name = "peepAll"})
+ti["*"] = {"#ac_rotor", range = 5.0, strength = cond(wo["IsDifficult"], 10.0, 5.0)}
+ti["+"] = ti["."] .. {"#ac_rotor", range = 2.0, strength = 50.0}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "                                                                                                                   ",
+    "                                                             BBBBBBBBBBBB                                          ",
+    "                            ..m             A CCCCCCCCCC     B7888888889B                                          ",
+    "                        ... E .        A----- C--s----sC     B4788!!8896B                                          ",
+    "                        tZt             -   - C-s-sCs--C   ,,,4478888966,,,                                        ",
+    "          D... ... .... ... ..E         -   - CssCCCs-sC   , B4447889666B ,           D                  D         ",
+    "         Dd..t tzt t..t     tZ.O        -   - C---Cs---C  O, B4!44ro66!6B ,O         DkD                Dq0        ",
+    "          D... ... .... ... ..E         -   - CsC-Cs-CsC   , B4441223666B ,           D                  D         ",
+    "                        tZt             ---C--y---Cs---C   ,,,4412222366,,,                                        ",
+    "                        ... E .         C -   CsssCsss-C     B4122!!2236B                                          ",
+    "                            ..p        j- -   CCCCCCCCYC     B1222222223B                                          ",
+    "                                        ---           -      BBBBBBBBBBBB                                          ",
+    "                                                      -                                                            ",
+    "        ...                                           F                           O                                ",
+    "        .+.                                                                       , 7u,,,u9                        ",
+    "        ...                                           F                           , u     u                        ",
+    "        . .                                           -                           , , 7u9 ,                        ",
+    "        . .                  D                 DD     -            D              , , u u ,                        ",
+    "       Oz g                 OlD               Dae@----yA          OnD             , , h , ,                        ",
+    "        . .                  D                 DD     -            D              , u   u ,                        ",
+    "        . .                                           -                           , 1u,u3 ,                        ",
+    "        ...                                           F                           u       u                        ",
+    "        .+.                                                                       1u,,,,,u3                        ",
+    "        ...                                           F                                                            ",
+    "                                                      -                                                            ",
+    "                                                      -                                                            ",
+    "                                         789   789   789                                                           ",
+    "                                        O4z6===4.6===4.6                                                           ",
+    "                                         123   123   123                                                           ",
+    "          D                  O            =     =     =            D                  D                            ",
+    "         DfD                DbD           =    *x*    =           OcD                OiO                           ",
+    "          O                  D            =     =     =            O                  D                            ",
+    "                                         789   789   789                                                           ",
+    "                                        O4t6===4.6===4z6                                                           ",
+    "                                         123   123   123                                                           ",
+    "                                                                                                                   ",
+    "                                                                                                                   "})
+
+wo:shuffleOxyd()
+if not wo["IsDifficult"] then
+    no["peepAll"]:peepall()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

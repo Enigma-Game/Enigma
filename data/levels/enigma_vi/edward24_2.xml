@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Wormhole Madness!" el:subtitle="" el:id="edward24"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author  el:name="Edward" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Edward</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>new API converted by Raoul, mecke</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="20:05"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["f"] = {"fl_slope_osw"}
+ti["g"] = {"fl_slope_ose"}
+ti["h"] = {"fl_slope_onw"}
+ti["i"] = {"fl_slope_one"}
+ti[","] = {"fl_dark", name="dest#"}
+ti["."] = {"fl_dark", name="startfloor#", friction=0.1, adhesion=0.1} 
+ti["#"] = {"st_rawglass"}
+ti[">"] = {"st_oneway_e"}
+ti["<"] = {"st_oneway_w"}
+ti["^"] = {"st_oneway_n"}
+ti["v"] = {"st_oneway_s"}
+ti["x"] = {"st_brick"}
+ti["M"] = {"st_magic"}
+ti["0"] = {"st_knight"} 
+ti["="] = {"st_laser_e", state=ON}
+ti["&"] = {"st_break_boulder"}
+ti["F"] = {"st_puzzle_yellow_ne"}
+ti["G"] = {"st_puzzle_yellow_es"}
+ti["H"] = {"st_puzzle_yellow_sw"}
+ti["K"] = {"st_puzzle_yellow_ns"}
+ti["N"] = {"st_puzzle_yellow_nw"}
+ti["Q"] = {"st_puzzle_yellow_ew"}
+ti["!"] = ti[">"] .. {"it_hammer"}
+ti["'"] = ti["v"] .. {"it_coin_m"}
+ti["2"] = ti["&"] .. {"it_coin_m"}
+ti["3"] = ti["&"] .. {"it_coin_l"}
+ti["r"] = ti["0"] .. {"it_coin_s"}
+ti["n"] = ti["0"] .. {"it_coin_m"}
+ti["m"] = ti["0"] .. {"it_coin_l"}
+ti["p"] = ti["K"] .. {"it_coin_s"}
+ti["q"] = ti["Q"] .. {"it_magicwand"}
+ti["|"] = {"st_mirror_slab", movable=false, orientation=EAST, transparent=true}
+ti["-"] = {"st_mirror_slab", movable=false, orientation=WEST, transparent=true}
+ti["?"] = {"st_mirror_slab", movable=false, transparent=false, orientation=RANDOMDIR}
+ti["C"] = {"st_coinslot", target="@door#*"} 
+ti["a"] = {"st_door", faces="ns", name="door#"}
+ti["b"] = {"st_door", faces="ew", name="door#"}
+ti["D"] = {"st_coinslot", target="door"} 
+ti["d"] = {"st_door", faces="ns", name="door"}
+ti["$"] = {"#ac_killer", controllers=CTRL_NONE, owner=nil}
+ti["j"] = ti["$"] .. {"fl_slope_twl"}
+ti["k"] = ti["$"] .. {"fl_slope_tel"}
+ti["l"] = ti["$"] .. {"fl_slope_tnl"}
+ti["y"] = ti["$"] .. {"fl_slope_tsl"}
+ti["X"] = {"st_oxyd_a"}
+ti["@"] = ti["."] .. {"ac_marble_black", 0, 0.5}
+
+wo(ti, " ", {
+    "=##################-################-####################-",
+    "#  M        M   M  #                #                    #",
+    "# ,M MMM MM   M   M#     ,          #                   ,#",
+    "#M M M   ?MMMMMMMM?#                #                    #",
+    "#M M M MMM   M   M #                #         x^x        #",
+    "#    M M   M   M   #       FGH      #        xgyfx       #",
+    "#MMMM  MMMM  M MMMM#       pXp      #        <kXj!       #",
+    "#   M M MXM M      #       NqQ      #        xilhx       #",
+    "# M M M MMM M MMMMM#                #         x'x        #",
+    "# M   M M M M M    #                #                    #",
+    "# M  MM M M M M MM #                #                    #",
+    "# M M   M   M   M  x                ?                    #",
+    "# MM  M MMMMMMM M M#v################vx##################|",
+    "#    MM         M  >..................<                  #",
+    "|#################?#..................#                  #",
+    "#                  #..................#                  #",
+    "#                  #..................#       &2&        #",
+    "#                  #..................#       3X3        #",
+    "# ,     m0n        #..........@.......#       &3&       ,#",
+    "#       0X0        #..................#                  #",
+    "#       r0n        #..................#                  #",
+    "#                  #..................#                  #",
+    "#                  #..................#?#################|",
+    "#                  >..................<                  #",
+    "|##################x^############x###^x                  #",
+    "#  x   x   x   x   x ?           ?    #                  #",
+    "#x   x   x   x   x x #                #                  #",
+    "#  xxDxxxxxxxxxxxCax #                #                  #",
+    "# xx     C   x     x #                #                  #",
+    "#  b xxxdxax x xxxxx #        #       #         #        #",
+    "#x Cxx   xXx x x   x #       #X# ?    #        #X#       #",
+    "#  x x xxxxx x   x x #        #       #         #        #",
+    "# xx x x   x xxxxx x #                #                  #",
+    "#xxx x   x   x     x #                #                  #",
+    "#  xxxxxxxxxxxaxxxCx #                #                  #",
+    "# ,                  #   ,            #                 ,#",
+    "-####################-################-##################|"})
+
+local holes = no["startfloor#*"]:sub(8):shuffle()
+local dests = no["dest#*"]
+
+for i=1,#holes  do
+    wo[holes[i]] = {"it_wormhole", destination=dests[i]}
+end
+
+wo:shuffleOxyd()    
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
