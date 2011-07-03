@@ -31,6 +31,7 @@
 #include <string>
 #include <ctime>
 #include <stdexcept>
+#include <cstddef>
 
 // #include <boost.h>  Contents of boost.h
 

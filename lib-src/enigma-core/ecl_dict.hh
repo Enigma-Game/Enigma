@@ -21,6 +21,7 @@
 
 #include "ecl_error.hh"
 #include <utility>
+#include <cstddef>
 
 namespace ecl
 {
