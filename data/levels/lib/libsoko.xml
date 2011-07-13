@@ -43,6 +43,7 @@ GOAL_HOOK_RALF = 1
 lib.soko.MAX_HEIGHT = 10000  -- If you have to change this, change it before any other call to lib.soko.
 
 lib.soko.resolver_info = {}
+lib.soko.ti_defined = {}
 lib.soko.area = {}
 lib.soko.endphase_started = false
 lib.soko.initially_completed_goals = 0
@@ -246,17 +247,17 @@ function lib.soko.define_tiles(design)
         if type(field) == "string" then
             if (field == "st_door") or (field == "st_door_d") then
                 lib.soko.resolver_info[key] = {RESOLVE_ORIENTED}
-                ti[key .. ":" .. NORTH] = {"st_door", faces = "sn"}
-                ti[key .. ":" .. SOUTH] = {"st_door", faces = "sn"}
-                ti[key .. ":" .. EAST] = {"st_door", faces = "ew"}
-                ti[key .. ":" .. WEST] = {"st_door", faces = "ew"}
+                set_ti(key .. ":" .. NORTH, {"st_door", faces = "sn"})
+                set_ti(key .. ":" .. SOUTH, {"st_door", faces = "sn"})
+                set_ti(key .. ":" .. EAST,  {"st_door", faces = "ew"})
+                set_ti(key .. ":" .. WEST,  {"st_door", faces = "ew"})
             else
-                ti[key] = {field}
+                set_ti(key, {field})
             end
         elseif usertype(field) == "tile" then
-            ti[key] = field
+            set_ti(key, field)
         elseif type(field) == "nil" then
-            ti[key] = {}
+            set_ti(key, {})
         elseif type(field) == "table" then
             for j, subfield in pairs(field) do
                 if j ~= "res" then
@@ -306,14 +307,26 @@ function lib.soko.define_tiles(design)
         field_to_tiles(design.endp[field_name], key .. ":endp")
     end
 
-    ti["O "] = {"st_oxyd", "oxyd#", flavor = design.oxyd or lib.soko_designlist.default.oxyd}
+    set_ti("O ", {"st_oxyd", "oxyd#", flavor = design.oxyd or lib.soko_designlist.default.oxyd})
     if design.white then
-        ti["@ "] = {"#ac_marble_white", "marble#", owner = YIN, controllers = CTRL_YIN}
-        ti["n "] = {"st_chess_white"}
+        set_ti("@ ", {"#ac_marble_white", "marble#", owner = YIN, controllers = CTRL_YIN})
+        set_ti("n ", {"st_chess_white"})
     else
-        ti["@ "] = {"#ac_marble", "marble#"}
-        ti["n "] = {"st_chess"}
+        set_ti("@ ", {"#ac_marble", "marble#"})
+        set_ti("n ", {"st_chess"})
     end    
+end
+
+function set_ti(key, tile)
+    ti[key] = tile
+    lib.soko.ti_defined[key] = true
+end
+function get_ti(key)
+    if lib.soko.ti_defined[key] then
+        return ti[key]
+    else
+        return nil
+    end
 end
 
 function lib.soko.resolver(key, x, y)
@@ -321,7 +334,7 @@ function lib.soko.resolver(key, x, y)
     local count = (lib.soko.resolver_info[key] or {})._count
     local resolve_to = nil
     if not method then
-        return ti[key]
+        return get_ti(key)
     elseif method == RESOLVE_ALL then
         local tile = ti{}
         for j = 1, count do
@@ -611,7 +624,7 @@ function lib.soko.endphase_circle()
     if pos.y >  6 then  pos = pos + {0,-2}  end
     st(NEIGHBORS_8 + (pos + po(1, 1))):kill()
     it(NEIGHBORS_8 + (pos + po(1, 1))):kill()
-    ti["Q "] = {"st_quake"}
+    set_ti("Q ", {"st_quake"})
     wo:drawMap(lib.soko.resolver, pos + po(-1, -1), "i ", {
         "i O O O i ",
         "O       O ",
@@ -638,7 +651,7 @@ function lib.soko.endphase_set_hide_oxyds(max_pairs)
     end
     places = (places:shuffle()):sub(2 * number_pairs)
     -- Draw the oxyds and save positions in map and polists.
-    wo[places] = ti["O "]
+    wo[places] = get_ti("O ")
     wo:shuffleOxyd()
     lib.soko.map[po(places)] = "O "
     lib.soko.polist.oxyd = po(places)
@@ -697,7 +710,7 @@ function lib.soko.endphase_set_block_oxyds(max_pairs)
     end
     oxyds = (fl(oxyds):shuffle()):sub(2 * number_pairs)
     -- Draw the oxyds and save positions in map and polists.
-    wo[oxyds] = ti["O "]
+    wo[oxyds] = get_ti("O ")
     wo:shuffleOxyd()
     lib.soko.map[oxyds] = "O "
     lib.soko.polist.oxyd = po(oxyds)
@@ -749,7 +762,7 @@ function lib.soko.endphase_set_outside_oxyds(max_pairs)
     end
     places = (places:shuffle()):sub(2 * number_pairs)
     -- Draw the oxyds and save positions in map and polists.
-    wo[places] = ti["O "]
+    wo[places] = get_ti("O ")
     wo:shuffleOxyd()
     lib.soko.map[po(places)] = "O "
     lib.soko.polist.oxyd = po(places)
@@ -820,7 +833,7 @@ function lib_soko_endphase_call_fourswitch(is_on, sender)
                 return
             end
         end
-        wo[lib.soko.fourswitchs] = ti["O "]
+        wo[lib.soko.fourswitchs] = get_ti("O ")
         wo:shuffleOxyd()
     else
         -- Trigger all lower fourswitchs and recreate if neccessary.
@@ -954,7 +967,6 @@ end
 function lib.soko.create_sokoball(multilevel, sublevel_number, designarg, maxdesignnumber)
     local small_map = lib.import.map_sokoban(multilevel, sublevel_number)
     local design = lib.soko.design_from_description(small_map, designarg, maxdesignnumber)
-
     -- Extend map to 20x13 if possible, throw an error if level exceeds
     -- MAX_HEIGHT. We add three additional rows, which are used to surround
     -- the level with "virtual" positions in lib.soko.area; these are set
