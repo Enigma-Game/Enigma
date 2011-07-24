@@ -213,6 +213,7 @@ end
 
 function lib.soko.design_from_description(map, design_description, maxdesignnumber)
     assert_type(design_description, "lib.soko.design_from_description second argument", 2, "nil", "positive integer", "table")
+    assert_type(maxdesignnumber, "lib.soko.design_from_description third argument", 2, "nil", "positive integer")
     -- choose design
     local design = {}
     if type(design_description) == "number" then
@@ -951,6 +952,11 @@ end
 -- Interface functions
 ------------------------------------------------------------------------
 
+-- Syntax:
+--   create_sokoball(multilevel, sublevel_number, args)
+-- with
+--   args = { design = DESIGNARG, maxdesign = MAXDESIGNNUMBER }
+--
 -- create_sokoball creates a sokoball-level from the string MULTILEVEL.
 -- This string can be a multilevel, in which case SUBLEVEL_NUMBER
 -- determines the number of the level, starting with 1. Default is 1.
@@ -964,7 +970,23 @@ end
 -- when the design list is enlarged.
 -- Returns width and height of new level.
 --
-function lib.soko.create_sokoball(multilevel, sublevel_number, designarg, maxdesignnumber)
+function lib.soko.create_sokoball(multilevel, sublevel_number, args)
+    assert_type(multilevel, "lib.soko.create_sokoball first argument", 2, "non-empty string")
+    assert_type(sublevel_number, "lib.soko.create_sokoball second argument", 2, "nil", "positive integer")
+    assert_type(args, "lib.soko.create_sokoball third argument", 2, "table", "nil")
+    local designarg = nil
+    local maxdesignnumber = nil
+    for key, entry in pairs(args or {}) do
+        if key == "design" then
+            assert_type(entry, "lib.soko.create_sokoball argument \"design\"", 2, "nil", "positive integer", "table")
+            designarg = entry
+        elseif key == "maxdesign" then
+            assert_type(entry, "lib.soko.create_sokoball argument \"maxdesign\"", 2, "nil", "positive integer")
+            maxdesignnumber = entry
+        else
+            error("lib.soko: Unsupported argument " .. key .. " to create_sokoball.", 2)
+        end
+    end
     local small_map = lib.import.map_sokoban(multilevel, sublevel_number)
     local design = lib.soko.design_from_description(small_map, designarg, maxdesignnumber)
     -- Extend map to 20x13 if possible, throw an error if level exceeds

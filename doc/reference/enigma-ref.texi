@@ -23184,7 +23184,7 @@ The only function which is meant to be used in levels is
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.soko.create_sokoball}(@i{multilevel}, @i{sublevel_number}, @i{design}, @i{maxdesignnumber})
+@b{lib.soko.create_sokoball}(@i{multilevel}, @i{sublevel_number}, @i{args})
 
 @table @asis
 @item @i{multilevel}
@@ -23194,17 +23194,23 @@ A multilevel string in the sense of @ref{libimport}.
 A number determining the number of the level in @code{multilevel}. Default is
 @samp{1}.
 
+@item @i{args}
+A table holding optional information to construct the level,
+default is @{@}. The following keywords are currently supported,
+all other keywords will return an error:
+@table @asis
 @item @i{design}
-Optionally a number or a design table, see below.
+A number or a design table, see below.
 
-@item @i{maxdesignnumber}
-Optionally, see below.
+@item @i{maxdesign}
+A number, see below.
+@end table
 @end table
 
 @item @b{Syntax Samples:}
 @example
-lib.soko.create_sokoball(many_levels, 13, 48)
-lib.soko.create_sokoball(many_levels, 12, nil, MAXDESIGN[1.1])
+lib.soko.create_sokoball(many_levels, 13, @{design = 48@})
+lib.soko.create_sokoball(many_levels, 12, @{maxdesign = MAXDESIGN[1.1]@})
 @end example
 
 @item @b{Details:}
@@ -23218,7 +23224,7 @@ to the list of predefined designs in @code{libsoko_designlist.xml}, or a table
 with the corresponding design entries. A missing entry will be interpreted as
 the entry from lib.soko_designlist.default. If the @samp{design} variable is
 omitted, a check-number is created from the level which uniquely* determines
-a design from the design list, with @code{maxdesignnumber} as highest possible
+a design from the design list, with @code{maxdesign} as highest possible
 design number.
 
 *Uniquely means: The design might change when the design list is enlarged.
