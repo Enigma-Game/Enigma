@@ -84,7 +84,7 @@ int IMG_SavePNG_RW(SDL_Surface *face, SDL_RWops *src) {
                 png_bytep *row_pointers = 0;
 
                 /* Set error handling. */
-                if (setjmp(png_ptr->jmpbuf)) {
+                if (setjmp(png_jmpbuf(png_ptr))) {
                     IMG_SetError("Error writing the PNG file");
                 }
                 else {
