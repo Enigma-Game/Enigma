@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="multilevel" el:quantity="8">
       <el:identity el:title="Sasquatch XII #" el:subtitle="" el:id="sasquatch12"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="test"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author el:name="David W. Skinner" el:email="" el:homepage="http://users.bentonrea.com/~sasquatch/sokoban/index.html"/>
       <el:copyright>This Frame Copyright © 2010 by Enigma Team, uploaded level source Copyright © by David W. Skinner</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true">
@@ -11,14 +11,14 @@
       </el:license>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libsoko" el:id="lib/libsoko" el:release="1" el:preload="true"/>
-        <el:externaldata el:path="externaldata/skinner_sasquatch12" el:url="http://users.bentonrea.com/~sasquatch/sokoban/s12"/>
+        <el:externaldata el:path="./skinner_sasquatch12" el:url="http://users.bentonrea.com/~sasquatch/sokoban/s12"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
 
-lib.soko.create_sokoball(wo:externalData("externaldata/skinner_sasquatch12"), wo["SublevelNumber"])
+lib.soko.create_sokoball(wo:externalData("./skinner_sasquatch12"), wo["SublevelNumber"])
 
  ]]></el:luamain>
     <el:i18n>
