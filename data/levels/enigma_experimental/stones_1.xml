@@ -401,8 +401,8 @@ local stones = {
 {"st_plop", _text="st_plop, default"},
 {"st_plop_slate", _text="st_plop_slate"}, -- flavor attributes?
 
-{"st_polarswitch", _text="st_oplarswitch, default"},
-{"st_polarswitch", state=ON, _text="st_oplarswitch, state=ON"},
+{"st_polarswitch", _text="st_polarswitch, default"},
+{"st_polarswitch", state=ON, _text="st_polarswitch, state=ON"},
 {"st_polarswitch", state=OFF, _text="st_polarswitch, state=OFF"},
 
 {"st_portal", _text="st_portal, default"},
