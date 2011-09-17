@@ -7139,10 +7139,10 @@ two rightmost tokens is a tile.
 
 @item @b{Syntax Samples:}
 @example
-@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@}
-@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @{"@b{it_cherry}"@}   -- Lua error due to right to left evaluation
-@var{newtile} = (@i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@}) .. @{"@b{it_cherry}"@} -- evaluation order fixed
-@var{newtile} = @i{ti}@{@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @i{ti}@{"@b{it_cherry}"@} -- converted one of the two critical declarations
+@var{newtile} = @i{ti}@{"@b{st_chess}"@} .. @{"@b{fl_sahara}"@}
+@var{newtile} = @i{ti}@{"@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @{"@b{it_cherry}"@}   -- Lua error due to right to left evaluation
+@var{newtile} = (@i{ti}@{"@b{st_chess}"@} .. @{"@b{fl_sahara}"@}) .. @{"@b{it_cherry}"@} -- evaluation order fixed
+@var{newtile} = @i{ti}@{"@b{st_chess}"@} .. @{"@b{fl_sahara}"@} .. @i{ti}@{"@b{it_cherry}"@} -- converted one of the two critical declarations
 @end example
 
 @end table
@@ -7195,9 +7195,9 @@ new tile to key to which previously another tile has been assigned.
 @item @b{Syntax Samples:}
 @example
 @i{ti}["@var{#}"] = @var{tile}
-@i{ti}["@var{$}"] = @{@b{st_chess}"@}
-@i{ti}["@var{$}"] = @{@b{st_switch}"@}   -- error of key reassignment
-@i{ti}["@var{anykey}"] = @{@b{st_chess}"@}
+@i{ti}["@var{$}"] = @{"@b{st_chess}"@}
+@i{ti}["@var{$}"] = @{"@b{st_switch}"@}   -- error of key reassignment
+@i{ti}["@var{anykey}"] = @{"@b{st_chess}"@}
 @end example
 @end table
 
@@ -7238,8 +7238,8 @@ Converts a table based object declaration to a new tile value.
 
 @item @b{Syntax Samples:}
 @example
-@var{tile} = @i{ti}(@{@b{st_chess}"@})
-@var{tile} = @i{ti}@{@b{st_chess}"@}   -- Lua syntax equivalence
+@var{tile} = @i{ti}(@{"@b{st_chess}"@})
+@var{tile} = @i{ti}@{"@b{st_chess}"@}   -- Lua syntax equivalence
 @end example
 @end table
 
@@ -7557,46 +7557,46 @@ use it within the world creation in a resolver.
 
 @item @b{Full Example:}
 @example
-ti[" "] = @{"fl_plank"@}
-ti["X"] = @{"st_oxyd"@}
-ti["B"] = @{"st_passage_black", flavor="frame"@}
-ti["W"] = @{"st_passage_white", flavor="frame"@}
-ti["y"] = @{"it_yinyang"@}
-ti["1"] = ti["y"] .. @{"#ac_marble_black"@}
-ti["2"] = ti["y"] .. @{"#ac_marble_white"@}
-
-function myresolver(key, x, y)
-    if key == "w" then
-        wo:drawMap(ti, po(x-1, y-1), "-", @{"-W-",
-                                           "WXW",
-                                           "-W-"@})
-        return ti(@{@})
-    elseif key == "b" then
-        wo:drawMap(ti, po(x-1, y-1), "-", @{"-B",
-                                           "BXB",
-                                           "-B"@})
-        return ti(@{@})
-    else
-        return ti[key]
-    end
-end
-
-w, h = wo(myresolver, " ", @{
-"                    ",
-"  b         b       ",
-"       w       w    ",
-"                    ",
-"                    ",
-"   w                ",
-"         12      b  ",
-"              w     ",
-"         w          ",
-"      b             ",
-"   w           b    ",
-"         b          ",
-"                    "
-@})
-wo:shuffleOxyd()
+01    @i{ti}["@var{ }"] = @{"@b{fl_plank}"@}
+02    @i{ti}["@var{X}"] = @{"@b{st_oxyd}"@}
+03    @i{ti}["@var{B}"] = @{"@b{st_passage_black}", @b{flavor}="@var{frame}"@}
+04    @i{ti}["@var{W}"] = @{"@b{st_passage_white}", @b{flavor}="@var{frame}"@}
+05    @i{ti}["@var{y}"] = @{"@b{it_yinyang}"@}
+06    @i{ti}["@var{1}"] = @{"@b{#ac_marble_black}"@}
+07    @i{ti}["@var{2}"] = @{"@b{#ac_marble_white}"@}
+08
+09    function @var{myresolver}(@var{key}, @var{x}, @var{y})
+10        if @var{key} == "@b{w}" then
+11            @i{wo}:@b{drawMap}(ti, po(x-1, y-1), "-", @{"-W-",
+12                                               "WXW",
+13                                               "-W-"@})
+14            return @i{ti}(@{@})
+15        elseif @var{key} == "@b{b}" then
+16            @i{wo}:@b{drawMap}(ti, po(x-1, y-1), "-", @{"-B",
+17                                               "BXB",
+18                                               "-B"@})
+19            return @i{ti}(@{@})
+20        else
+21            return @i{ti}[@var{key}]
+22        end
+23    end
+24    
+25    w, h = @i{wo}(@i{myresolver}, "@var{ }", @{
+26      "                    ",
+27      "  b         b       ",
+28      "       w       w    ",
+29      "                    ",
+30      "                    ",
+31      "   w                ",
+32      "         12      b  ",
+33      "              w     ",
+34      "         w          ",
+35      "      b             ",
+36      "   w           b    ",
+37      "         b          ",
+38      "                    "
+39    @})
+40    @i{wo}:@b{shuffleOxyd}()
 @end example
 @end table
 
@@ -7804,35 +7804,35 @@ count before trying to log the solutions.
 
 @item @b{Full Example:}
 @example
-wo["ConserveLevel"] = false
-
-ti["~"] = @{"fl_water"@}
-ti[" "] = @{"fl_plank"@}
-ti["c"] = @{"it_crack_l", brittleness=0@}
-ti["^"] = @{"st_oneway_n"@}
-ti["1"] = @{"ac_marble_black", 0, 0.5@}
-
-ti["x"] = @{"st_oxyd", "island#"@}
-ti["y"] = @{"st_oxyd", "left#"@}
-ti["z"] = @{"st_oxyd", "right#"@}
-
-w, h = wo(ti, " ", @{
-"~~x  x  x  x  x  x~~",
-"~~                ~~",
-"~~~~^~~~~~~~~~~^~~~~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~       cccc       ~",
-"y       ~~~~       z",
-"~~~~c~~~~~~~~~~c~~~~",
-"~~                ~~",
-"~~        1       ~~"
-@})
-
-wo:shuffleOxyd(@{"island#*", min=3, linear=true@}, @{"left#*","right#*", max=2, min=2@})
+01    @i{wo}["@b{ConserveLevel}"] = @var{false}
+02
+03    @i{ti}["@var{~}"] = @{"@b{fl_water}"@}
+04    @i{ti}["@var{ }"] = @{"@b{fl_plank}"@}
+05    @i{ti}["@var{c}"] = @{"@b{it_crack_l}", @b{brittleness}=@var{0}@}
+06    @i{ti}["@var{^}"] = @{"@b{st_oneway_n}"@}
+07    @i{ti}["@var{1}"] = @{"@b{ac_marble_black}", 0, 0.5@}
+08
+09    @i{ti}["@var{x}"] = @{"@b{st_oxyd}", "island#"@}
+10    @i{ti}["@var{y}"] = @{"@b{st_oxyd}", "left#"@}
+11    @i{ti}["@var{z}"] = @{"@b{st_oxyd}", "right#"@}
+12
+13    w, h = @i{wo}(@i{ti}, "@var{ }", @{
+14      "@var{~~x  x  x  x  x  x~~}",
+15      "@var{~~                ~~}",
+16      "@var{~~~~^~~~~~~~~~~^~~~~}",
+17      "@var{y       ~~~~       z}",
+18      "@var{~       cccc       ~}",
+19      "@var{y       ~~~~       z}",
+20      "@var{~       cccc       ~}",
+21      "@var{y       ~~~~       z}",
+22      "@var{~       cccc       ~}",
+23      "@var{y       ~~~~       z}",
+24      "@var{~~~~c~~~~~~~~~~c~~~~}",
+25      "@var{~~                ~~}",
+26      "@var{~~        1       ~~}"
+27    @})
+28
+29    @i{wo}:@b{shuffleOxyd}(@{"@b{island#*}", @b{min}=@var{3}, @b{linear}=@var{true}@}, @{"@b{left#*}","@b{right#*}", @b{max}=@var{2}, @b{min}=@var{2}@})
 @end example
 
 This level uses 14 oxyds. The 6 oxyds in the upper row are on an island that

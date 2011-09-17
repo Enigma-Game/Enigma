@@ -149,7 +149,7 @@ Decide where to install the cross compiler. The project default is
 only cross compile user you can install it in your homedir, too.
 
 Let us call the installation base path CROSSPREFIX and TARGET the system we 
-build for (default: i586-minge32msvc). Then we will define
+build for (default: i586-mingw32msvc). Then we will define
 CROSSPATH = CROSSPREFIX/TARGET  (default:/usr/i586-mingw32msvc/i586-mingw32msvc)
 
 etc/build-cross.sh copy as root or user to a workdir
