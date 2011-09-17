@@ -396,6 +396,9 @@ Mix_Chunk *SoundEngine_SDL::cache_sound(const std::string &name)
         std::string filename;
         if (app.resourceFS->findFile("soundsets/" + name + ".wav", filename))
              ch = Mix_LoadWAV(filename.c_str());
+        else 
+            // Sounds from other resources shoudl return correct error:
+            Mix_SetError("Sound not found in resources.");
         if (ch != 0)
             wav_cache.insert(name, ch);
         else
@@ -536,7 +539,7 @@ Mix_Chunk* SoundEngine_SDL::ChunkFromRaw (const Uint8 *buf, Uint32 len,
     SDL_AudioCVT cvt;
     if (!SDL_BuildAudioCVT (&cvt, sformat, schannels, dfreq,
                             dformat, dchannels, dfreq))
-        return 0;
+        return 0; // memory leak!
 
     cvt.buf = (Uint8*) malloc(newlen * cvt.len_mult);
     cvt.len = newlen;

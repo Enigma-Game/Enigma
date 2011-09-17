@@ -320,17 +320,17 @@ soundtable_oxyd = {
     fakeoxyd       = "",
     falldown       = "",
     finished       = { file="OXFINITO.SDD", global=true },
-    floordestroy   = "OXCRASH2",
+    floordestroy   = "OXCRASH2.SDD",
     fourswitch     = "",
     glass          = "OXKLICK1.SDD",
     hitfloor       = "OXKLICK1.SDD",
     impulse        = "OXWOUOU.SDD",
     intro          = { file="OXINTRO.SDD", global=true },
     invrotate      = { file="OXINVROT.SDD", global=true },
-    itemtransform  = "OXMAGIC1.SDD",
+    itemtransform  = "OXMAGIC.SDD",
     jump           = "OXJUMP.SDD",
     jumppad        = "",
-    landmine       = "explosion1",
+    landmine       = "enigma/explosion1",
     laserloop      = "",
     laseron        = "OXLASER.SDD",
     laseroff       = "",
@@ -389,7 +389,7 @@ soundtable_oxyd = {
 copy_missing (soundtable_enigma, soundtable_oxyd)
 
 soundtable_oxm = {
-    turnstileleft = "OXTURNL.SDD",
+    turnstileleft  = "OXTURNL.SDD",
     turnstileright = "OXTURNL.SDD"
 }
 copy_missing (soundtable_oxyd, soundtable_oxm)
@@ -404,5 +404,3 @@ AddSoundSet ("Magnum*", soundtable_oxm)
 AddSoundSet ("Enigma", soundtable_enigma)
 
 ActivateSoundSet ("Enigma")
-
-
