@@ -134,7 +134,7 @@ namespace enigma {
             GridPos p = get_pos();
             if (Floor *fl = GetFloor(p)) {
                 if (fl->isKind("fl_abyss")) {
-                    state == FALLING;
+                    state = FALLING;
                     init_model();
                 }
                 else if ((objFlags & OBJBIT_MOVABLE) && (fl->getClass() == "fl_swamp" || fl->getClass() =="fl_water")) {
