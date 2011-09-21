@@ -47,8 +47,8 @@ namespace enigma {
             setDir(to_direction(m.value));
             return Value();
         } else if ((m.message == "turn" || m.message == "turnback") && state != FALLING && isDisplayable()) {
-            setDir((m.message == "turn" && !getAttr("counterclock").to_bool() || 
-                    m.message == "turnback" && getAttr("counterclock").to_bool())
+            setDir(((m.message == "turn" && !getAttr("counterclock").to_bool()) || 
+                    (m.message == "turnback" && getAttr("counterclock").to_bool()))
                     ? rotate_cw(getDir()) : rotate_ccw(getDir()));
             return Value();
         } else if (m.message == "flip" && state != FALLING && isDisplayable()) {
@@ -67,7 +67,7 @@ namespace enigma {
         return 0;   // no external states
     }
     
-    void BoulderStone::setState(int extState) {
+    void BoulderStone::setState(int /*extState*/) {
         // no external states
     }
     
