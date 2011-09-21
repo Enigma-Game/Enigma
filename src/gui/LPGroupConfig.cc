@@ -38,7 +38,7 @@ namespace enigma { namespace gui {
         groups = lev::Index::getGroupNames();
         
         position = -1;
-        for (int i = 0; i < groups.size(); i++) {
+        for (unsigned i = 0; i < groups.size(); i++) {
             if (groups[i] == groupName) {
                 position = i;
                 break;
@@ -117,8 +117,8 @@ namespace enigma { namespace gui {
     void LPGroupConfig::updateGroupList() {
         pre2Group->set_text((position > 1) ? groups[position - 2] : "");
         pre1Group->set_text((position > 0) ? groups[position - 1] : "");
-        post1Group->set_text((position < groups.size() - 1) ? groups[position + 1] : "");
-        post2Group->set_text((position < groups.size() - 2) ? groups[position + 2] : "");        
+        post1Group->set_text((position < (int)groups.size() - 1) ? groups[position + 1] : "");
+        post2Group->set_text((position < (int)groups.size() - 2) ? groups[position + 2] : "");        
     }
     
     bool LPGroupConfig::doChanges() {
@@ -136,7 +136,7 @@ namespace enigma { namespace gui {
         newName = newName.substr(newName.find_first_not_of(" "));
         
         // check if new group name is unique
-        for (int i = 0; i < groups.size(); i++) {
+        for (int i = 0; i < (int) groups.size(); i++) {
             if (i != position && groups[i] == newName) {
                 errorLabel->set_text(N_("Error: group name is a duplicate of an existing group"));
                 return false;
@@ -187,7 +187,7 @@ namespace enigma { namespace gui {
                 invalidate_all();
             }
         } else if (w == scrollDown) {
-            if (position < groups.size() - 1) {
+            if (position < (int)groups.size() - 1) {
                 std::string tmp = groups[position];
                 groups[position] = groups[position + 1];
                 groups[position + 1] = tmp;

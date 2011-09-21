@@ -93,7 +93,6 @@ namespace enigma { namespace gui {
 
         const video::VMInfo &vminfo = *video::GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
-        video::VideoModes vm = vminfo.videomode;
         video::VideoTileType vtt = vminfo.tt;
         
         int preview_y = param[vtt].vmargin + 2*param[vtt].vgap_info + param[vtt].vgap_info_prev;
@@ -263,7 +262,7 @@ namespace enigma { namespace gui {
                 lev::Proxy::releaseCache();
             }
     
-            if ((unsigned)ilevel < ind->size()) {
+            if (ilevel < (int)ind->size()) {
                 if (ind->mayPlayLevel(ilevel+1)) {
                     game::StartGame();
                     ilevel = ind->getCurrentPosition();
@@ -286,7 +285,8 @@ namespace enigma { namespace gui {
         } else if (w == end) {
             levelwidget->end();
         } else if (w == but_next) {
-            next_unsolved();
+            next_unsolved(); 
+            // if we jump to first level the view is not updated to levelwidget->start()
         } else if (w == but_levelpack) {
             main_quit = false;
             Menu::quit();
@@ -318,8 +318,6 @@ namespace enigma { namespace gui {
             lbl_levelinfo->set_text ("-");
         }
         else {
-            int iselected = ind->getCurrentPosition();
-    
             // Display levelpack statistics (percentage of solved levels)
     
             if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) {
@@ -355,7 +353,7 @@ namespace enigma { namespace gui {
             }
             else {
                 // TODO prepare for scores that are not time based!
-                char txt[200];
+                // char txt[200];
                 lev::RatingManager *ratingMgr = lev::RatingManager::instance();
                 int wr_time    = ratingMgr->getBestScore(curProxy, difficulty);
                 int par_time   = ratingMgr->getParScore(curProxy, difficulty);

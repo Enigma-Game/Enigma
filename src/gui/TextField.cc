@@ -38,8 +38,8 @@ using namespace std;
 #define SCREEN ecl::Screen::get_instance()
 
 TextField::TextField(const std::string &t, ActionListener *al) : cursorTime(0),
-        showCursor(true), isLastActionReturn (false), invalidChars(""),
-        isLimitedToValidChars(false), maxChars(-1) {
+        showCursor(true), isLimitedToValidChars(false), invalidChars(""), 
+        maxChars(-1), isLastActionReturn (false) {
     menufont = enigma::GetFont("menufont");
     
     set_listener(al);
@@ -244,8 +244,8 @@ bool TextField::on_event(const SDL_Event &e) {
                             sound::EmitSoundEvent ("menustop");
                             break;
                         }
-                        if ((maxChars >= 0 && (charSizesPreCursor.size() + charSizesPostCursor.size()) >= maxChars) ||
-                                realChar < 0x100 && invalidChars.find((char)realChar) != std::string::npos) {
+                        if (((maxChars >= 0 && (int)(charSizesPreCursor.size() + charSizesPostCursor.size()) >= maxChars)) ||
+                            (realChar < 0x100 && invalidChars.find((char)realChar) != std::string::npos)) {
                             // string too long or invalid char
                             sound::EmitSoundEvent ("menustop");
                             break;

@@ -139,6 +139,9 @@ namespace enigma { namespace gui {
         RatingsUpdateButton() : BoolOptionButton("RatingsAutoUpdate", N_("Auto"), N_("Never"), this) {}
     };
 
+    struct ScoreUploadButton : public BoolOptionButton {
+        ScoreUploadButton() : BoolOptionButton("ScoreAutoUpload", N_("Always"), N_("Never"), this) {}
+    };
 
 
     /* -------------------- VideoModeButton -------------------- */
@@ -336,13 +339,12 @@ namespace enigma { namespace gui {
     /* -------------------- Options Menu -------------------- */
     
     OptionsMenu::OptionsMenu(ecl::Surface *background_)
-    : back(NULL),  //(new StaticTextButton(N_("Back"), this)),
-      background(background_), previous_caption(video::GetCaption()),
-      pagesVList(NULL), commandHList(NULL), optionsVList(NULL),
+    : pagesVList(NULL), commandHList(NULL), optionsVList(NULL), back(NULL), 
       language(NULL), but_main_options(NULL), but_video_options(NULL),
       but_audio_options(NULL), but_config_options(NULL), fullscreen(NULL),
       videomode(NULL), userNameTF(NULL), userPathTF(NULL),
-      userImagePathTF(NULL), menuMusicTF(NULL)
+      userImagePathTF(NULL), menuMusicTF(NULL), 
+      background(background_), previous_caption(video::GetCaption())
     {
         center();
         close_page();
@@ -355,9 +357,6 @@ namespace enigma { namespace gui {
 
     void OptionsMenu::open_page(OptionsPage new_page) {
         const video::VMInfo *vminfo = video::GetInfo();
-        const int vshrink = vminfo->width < 640 ? 1 : 0;
-        int hmargin = vshrink ? 5 : (vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 80));
-        video::VideoModes vm = vminfo->videomode;
         video::VideoTileType vtt = vminfo->tt;
         int vh = vminfo->area.x;
         int vv = (vminfo->height - vminfo->area.h)/2;
@@ -492,6 +491,9 @@ namespace enigma { namespace gui {
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
                 OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
                 OPTIONS_NEW_LB(N_("Ratings update: "), new RatingsUpdateButton())
+#ifdef ENABLE_EXPERIMENTAL
+                OPTIONS_NEW_LB(N_("Score upload: "), new ScoreUploadButton())
+#endif
                 userNameTF = new TextField(app.state->getString("UserName"));
                 userNameTF->setMaxChars(20);
                 userNameTF->setInvalidChars("+");

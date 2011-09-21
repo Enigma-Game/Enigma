@@ -470,7 +470,7 @@ namespace enigma { namespace gui {
         // need to update flags
         std::string curname = ecl::SysMessageLocaleName();
         curname = curname.substr(0, curname.find('.'));
-        for (int i = 0; i < flags.size(); i++)
+        for (unsigned int i = 0; i < flags.size(); i++)
             flags[i]->setState(curname == nls::languages[i+1].localename);
                 
         invalidate_all();

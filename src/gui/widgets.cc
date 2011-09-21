@@ -180,7 +180,7 @@ void Container::remove_child (Widget *w) {
 }
 
 void Container::exchange_child (Widget *oldChild, Widget *newChild) {
-    for (int i = 0; i < m_widgets.size(); i++) {
+    for (unsigned int i = 0; i < m_widgets.size(); i++) {
         if (m_widgets[i] == oldChild) {
             m_widgets[i] = newChild;
             newChild->set_parent(this);

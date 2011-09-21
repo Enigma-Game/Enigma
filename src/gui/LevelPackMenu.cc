@@ -50,9 +50,9 @@ namespace enigma { namespace gui {
         0
     };
     
-    LevelPackMenu::LevelPackMenu() : packsHList (NULL), groupsVList (NULL),
-            scrollLeft (NULL), scrollRight (NULL), scrollUp (NULL),
-            scrollDown (NULL), isLevelMenuSubmenu (false) {
+    LevelPackMenu::LevelPackMenu() : packsHList (NULL), scrollLeft (NULL), 
+            scrollRight (NULL), scrollUp (NULL), scrollDown (NULL), 
+            groupsVList (NULL), isLevelMenuSubmenu (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         vm = vminfo.videomode;
@@ -247,8 +247,8 @@ namespace enigma { namespace gui {
             }
         }
         
-        bool needRightScroll = packCount > nextPack + param[vtt].rows * param[vtt].packcolumns;
-        bool needLeftScroll = nextPack > 0;
+        bool needRightScroll = ((int)packCount > nextPack + param[vtt].rows * param[vtt].packcolumns);
+        bool needLeftScroll = (nextPack > 0);
 
         lev::Index::setGroupSelectedColumn(curGroupName, colCurrentIndex);
         groupLastSelectedIndex[curGroupName] = lev::Index::getCurrentIndex()->getName();
@@ -366,7 +366,7 @@ namespace enigma { namespace gui {
             invalidate_all();
         } else if (w == but_level) {
             LevelMenu m;
-            if (!m.manage() && isLevelMenuSubmenu || m.isMainQuit()) {
+            if ((!m.manage() && isLevelMenuSubmenu) || m.isMainQuit()) {
                 // ESC in LevelMenu in case we are a submenu of LevelMenu or
                 // Main button has been pressed in LevelMenu 
                 Menu::quit();
@@ -380,7 +380,7 @@ namespace enigma { namespace gui {
             if (ml.isSearchQuit()) {
                 // show search result levelpack
                 LevelMenu ml;
-                if (!ml.manage() && isLevelMenuSubmenu || ml.isMainQuit()) {
+                if ((!ml.manage() && isLevelMenuSubmenu) || ml.isMainQuit()) {
                     // ESC in LevelMenu in cade we are a submenu of LevelMenu or
                     // Main button has been pressed in LevelMenu
                     Menu::quit();
@@ -425,7 +425,7 @@ namespace enigma { namespace gui {
                 m.manage();
             } else {
                 LevelMenu m;
-                if (!m.manage() && isLevelMenuSubmenu || m.isMainQuit()) {
+                if ((!m.manage() && isLevelMenuSubmenu) || m.isMainQuit()) {
                     // ESC in LevelMenu in case we are a submenu of LevelMenu or
                     // Main button has been pressed in LevelMenu
                     Menu::quit();
@@ -456,14 +456,14 @@ namespace enigma { namespace gui {
     }
     
     void LevelPackMenu::updateHighlight() {
-        for (int i = 0; i < packButtons.size(); i++) {
+        for (unsigned i = 0; i < packButtons.size(); i++) {
             TextButton * button = packButtons[i];
             if (button->get_text() == lev::Index::getCurrentIndex()->getName())
                 button->setHighlight(true);
             else
                 button->setHighlight(false);      
         }
-        for (int i = 0; i < groupButtons.size(); i++) {
+        for (unsigned i = 0; i < groupButtons.size(); i++) {
             TextButton * button = groupButtons[i];
             if (button->get_text() == lev::Index::getCurrentGroup())
                 button->setHighlight(true);

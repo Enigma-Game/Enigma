@@ -33,7 +33,7 @@ using namespace std;
 namespace enigma { namespace gui {
     GroupButton::GroupButton(std::vector<std::string> groups, int pos) : 
             ValueButton(0, groups.size() - 1), 
-            position (pos), groupNames (groups) {
+            groupNames (groups), position (pos) {
         init();
     }
     
@@ -101,8 +101,8 @@ namespace enigma { namespace gui {
     /* -------------------- LevelPackConfig -------------------- */
     
     LevelPackConfig::LevelPackConfig(std::string indexName, std::string groupName,
-            bool forceGroupReasign) : isReasignOnly (forceGroupReasign), 
-            undo_quit (false), didEditMetaData (false), titleTF (NULL) {
+            bool forceGroupReasign) : titleTF (NULL), isReasignOnly (forceGroupReasign), 
+            didEditMetaData (false), undo_quit (false) {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
         
@@ -135,7 +135,7 @@ namespace enigma { namespace gui {
         intialGroupPosition = groups.size() - 1;   // INDEX_EVERY_GROUP as default
         // mark index's default group with square brackets and find current group
         bool defaultGroupFound = false;
-        for (int i = 0; i < groups.size(); i++) {
+        for (unsigned i = 0; i < groups.size(); i++) {
             if (groups[i] == packIndex->getGroupName()) {
                 intialGroupPosition = i;
             }
@@ -151,10 +151,10 @@ namespace enigma { namespace gui {
 
         // index location list setup
         std::vector<lev::Index *> * allIndices = lev::Index::getGroup(INDEX_ALL_PACKS);
-        for (int i = 0; i < allIndices->size(); i++)
+        for (unsigned i = 0; i < allIndices->size(); i++)
             locationList.push_back((*allIndices)[i]->getName());
         position = -1;
-        for (int i = 0; i < locationList.size(); i++) {
+        for (unsigned i = 0; i < locationList.size(); i++) {
             if (locationList[i] == indexName) {
                 position = i;
                 break;
@@ -369,8 +369,8 @@ namespace enigma { namespace gui {
         pre2Index->set_text((position > 1) ? locationList[position - 2] : "");
         pre1Index->set_text((position > 0) ? locationList[position - 1] : "");
         thisIndex->set_text(didEditMetaData ? titleTF->getText() : packIndex->getName());
-        post1Index->set_text((position < locationList.size() - 1) ? locationList[position + 1] : "");
-        post2Index->set_text((position < locationList.size() - 2) ? locationList[position + 2] : "");        
+        post1Index->set_text((position < (int)locationList.size()-1) ? locationList[position + 1] : "");
+        post2Index->set_text((position < (int)locationList.size()-2) ? locationList[position + 2] : "");        
     }
     
     void LevelPackConfig::switchToMetadataEdit() {
@@ -556,7 +556,7 @@ namespace enigma { namespace gui {
                 invalidate_all();
             }
         } else if (w == scrollDown) {
-            if (position < locationList.size() - 1) {
+            if (position < (int) locationList.size() - 1) {
                 std::string tmp = locationList[position];
                 locationList[position] = locationList[position + 1];
                 locationList[position + 1] = tmp;

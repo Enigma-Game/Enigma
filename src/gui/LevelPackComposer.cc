@@ -274,8 +274,6 @@ namespace enigma { namespace gui {
      
      void LevelPackComposer::on_action(Widget *w) {
         if (w==levelwidget) {
-            lev::Index *ind = lev::Index::getCurrentIndex();
-            int ilevel = ind->getCurrentPosition();
             if (w->lastModifierKeys() & KMOD_SHIFT) {
                 lev::Variation var;
                 lev::Proxy * curProxy = lev::Index::getCurrentProxy();

@@ -58,19 +58,19 @@ namespace enigma { namespace gui {
 
 
         Widget *pgup, *pgdown, *start, *end;
-        Widget      *but_advancemode;      // Next unsolved level button
+        Widget      *but_advancemode;   // Next unsolved level button
         Widget      *but_next;
         Widget      *but_back;          // "Back" button
-        Widget      *but_difficulty;        // "Difficulty" button
+        Widget      *but_difficulty;    // "Difficulty" button
         TextButton  *but_levelpack;     // "Levelpack" button
         HList       *hl_info_stat;
         Label       *lbl_lpinfo;        // Levelpack information
-        Label       *lbl_statistics;        // percentage solved
+        Label       *lbl_statistics;    // percentage solved
         Label       *lbl_levelname;
         Label       *lbl_levelinfo;
         LevelWidget *levelwidget;
-        string       shown_text; // info text (disappears automatically)
-        double       shown_text_ttl; // rest duration for shown_text
+        string       shown_text;        // info text (disappears automatically)
+        double       shown_text_ttl;    // rest duration for shown_text
         bool         main_quit;
     };
 

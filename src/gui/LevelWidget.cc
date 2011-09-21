@@ -42,8 +42,8 @@ namespace enigma { namespace gui {
     
     LevelWidget::LevelWidget(bool withScoreIcons, bool withEditBorder) : 
             displayScoreIcons (withScoreIcons), displayEditBorder (withEditBorder),
-            width (0), height (0), m_areas(),
-            listener(0), isInvalidateUptodate (true), lastUpdate (0)
+            listener(0), width (0), height (0), m_areas(), 
+            isInvalidateUptodate (true), lastUpdate (0)
     {
         const video::VMInfo &vminfo = *video::GetInfo();
         const int vshrink = vminfo.width < 640 ? 1 : 0;
@@ -193,7 +193,7 @@ namespace enigma { namespace gui {
     
             if (!m_areas.empty()) {
                 sound::EmitSoundEvent ("menumove");
-                if (oldsel != newsel) 
+                if ((int)oldsel != newsel) 
                     sound::EmitSoundEvent ("menuswitch");
                 invalidate();
             }
@@ -307,7 +307,7 @@ namespace enigma { namespace gui {
     
         for (int y=0; y<height; y++) {
             for (int x=0; x<width; x++, i++) {
-                if (i >= curIndex->size())
+                if ((int)i >= curIndex->size())
                     goto done_painting;
     
                 int xpos = get_x() + hgap/2 + x*(buttonw + hgap);
@@ -330,7 +330,7 @@ namespace enigma { namespace gui {
                 if (levelProxy != NULL) {
                     bool didGenerate;
                     bool didDraw = draw_level_preview(gc, imgx, imgy, bwidth, levelProxy, 
-                            i == iselected, !curIndex->isSource(levelProxy), 
+                            (int) i == iselected, !curIndex->isSource(levelProxy), 
                             !curIndex->mayPlayLevel(i+1),
                             allowGeneration, didGenerate);
                     if (didGenerate) {
@@ -350,7 +350,7 @@ namespace enigma { namespace gui {
                 // Draw level name
                 Font    *smallfnt = enigma::GetFont("levelmenu");
                 Font    *altsmallfnt = enigma::GetFont("smallalternative");;
-                std::string caption = levelProxy->getTitle();
+                std::string caption = levelProxy->getTitle(); // TODO: may be null! Otherise line 330 redundant
                 smallfnt->render (gc,
                           xpos + buttonw/2 - ecl::Min(smallfnt->get_width(caption.c_str(), altsmallfnt)/2, (buttonw+hgap)/2),
                           imgy + imgh + 2,
@@ -366,7 +366,7 @@ namespace enigma { namespace gui {
         if (!isInvalidateUptodate) {
             // invalidate just 1 button for redraw
             bool isFirst = true;
-            for (int i = 0; i < pending_redraws.size(); i++) {
+            for (unsigned i = 0; i < pending_redraws.size(); i++) {
                 if (pending_redraws[i] == true) {
                     if (isFirst) {
                         invalidate_area(m_areas[i]);

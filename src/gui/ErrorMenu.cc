@@ -29,17 +29,19 @@ namespace enigma { namespace gui {
     /* -------------------- HelpMenu -------------------- */
 
     ErrorMenu::ErrorMenu(std::string message, std::string quitTitle) : 
-            text (message), rejectQuit (false), laterQuit (false),
-            quit (new gui::StaticTextButton(quitTitle, this)) {
+        text (message), quit (new gui::StaticTextButton(quitTitle, this)),
+        rejectQuit (false), laterQuit (false) {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
-        add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
+        add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), 
+                       vshrink?75:150, vshrink?42:40));
     }
     
     ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle) : 
-            text (message), rejectQuit (false), laterQuit (false),
+            text (message), 
             quit (new gui::StaticTextButton(quitTitle, this)),
-            reject (new gui::StaticTextButton(rejectTitle, this)) {
+            reject (new gui::StaticTextButton(rejectTitle, this)),
+            rejectQuit (false), laterQuit (false) {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
         add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));
@@ -48,10 +50,10 @@ namespace enigma { namespace gui {
     
     ErrorMenu::ErrorMenu(std::string message, std::string quitTitle, std::string rejectTitle,
             std::string laterTitle) : 
-            text (message), rejectQuit (false), laterQuit (false),
-            quit (new gui::StaticTextButton(quitTitle, this)),
+            text (message), quit (new gui::StaticTextButton(quitTitle, this)),
             reject (new gui::StaticTextButton(rejectTitle, this)),
-            later (new gui::StaticTextButton(laterTitle, this)) {
+            later (new gui::StaticTextButton(laterTitle, this)),
+            rejectQuit (false), laterQuit (false) {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
         add(quit, Rect(vminfo->width-(vshrink?85:170), vminfo->height-(vshrink?30:60), vshrink?75:150, vshrink?42:40));

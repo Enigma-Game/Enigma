@@ -174,9 +174,10 @@ namespace enigma { namespace gui {
      };
     
 LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
-        levelProxy(aLevel), isDeveloperMode(showDeveloperInfo), annotation (new TextField()),
         back (new StaticTextButton(N_("Ok"), this)),
-        screenshot (new StaticTextButton(N_("Screenshot"), this))
+        screenshot (new StaticTextButton(N_("Screenshot"), this)),
+        annotation (new TextField()), levelProxy(aLevel),        
+        isDeveloperMode(showDeveloperInfo)
     {
         bool didGenerate;  // dummy
         previewImage = LevelPreviewCache::instance()->getPreview(aLevel, true, didGenerate);
@@ -186,12 +187,13 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         vspacing2 = vminfo->height < 400 ? 8 :(vminfo->height < 500 ? 16 :(vminfo->height < 650 ? 14 : 16));
         vmargin = vminfo->height < 400 ? 5 :(vminfo->height < 500 ? 10 :(vminfo->height < 650 ?  20 : 30));
         hmargin = vminfo->width < 640 ? 5 : (vminfo->width < 660 ? 10 : (vminfo->width < 900 ? 20 : 30));
-        bool highres = vminfo->height > 650 ? true : false;
         bool lowres = vminfo->height < 600 ? true : false;
         bool lowlowres = vminfo->height < 400 ? true : false;
     
-        add(back, Rect(vminfo->width-(vshrink?65:130)-2*hmargin,vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
-        add(screenshot, Rect(vminfo->width-(vshrink?130:260)-3*hmargin,vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
+        add(back, Rect(vminfo->width-(vshrink?65:130)-2*hmargin,
+                       vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
+        add(screenshot, Rect(vminfo->width-(vshrink?130:260)-3*hmargin,
+                             vminfo->height-(vshrink?25:50),vshrink?65:130,vshrink?17:35));
     
         try {
             aLevel->loadMetadata(true);
@@ -340,7 +342,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
                 '8', " 0123456789", HALIGN_LEFT));
         version.add(new MonospacedLabel(ecl::strf("%6d", aLevel->getRevisionNumber()).c_str(),
                 '8', " 0123456789", HALIGN_LEFT));
-        if (!lowres)
+        if (!lowres) {
             if (aLevel->getLevelStatus() == lev::STATUS_RELEASED)
                 version.add(new Label(N_("released"), HALIGN_LEFT));
             else if (aLevel->getLevelStatus() == lev::STATUS_STABLE)
@@ -351,6 +353,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
                 version.add(new Label(N_("experimental"), HALIGN_LEFT));
             else
                 version.add(new Label(N_("unknown"), HALIGN_LEFT));
+        }
         
         switch (aLevel->getControl()) {
             case lev::force:
@@ -599,7 +602,7 @@ LevelInspector::LevelInspector(lev::Proxy *aLevel, bool showDeveloperInfo):
         }
     }
     
-    void LevelInspector::tick(double dtime) {
+    void LevelInspector::tick(double /*dtime*/) {
     }
 
     std::string LevelInspector::ratingToString(int value) {
