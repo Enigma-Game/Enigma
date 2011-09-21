@@ -44,7 +44,7 @@ namespace enigma {
 
     Value CoinSlot::getAttr(const std::string &key) const {
         if (key == "instant") {
-            return (bool)(objFlags & OBJBIT_INSTANT != 0);
+            return (bool)((objFlags & OBJBIT_INSTANT) != 0);
         }
         return Stone::getAttr(key);
     }
@@ -73,7 +73,7 @@ namespace enigma {
         return state % 2; 
     }
 
-    void CoinSlot::setState(int extState) {
+    void CoinSlot::setState(int /*extState*/) {
         return;   // ignore any write attempts
     }
 
@@ -108,19 +108,21 @@ namespace enigma {
             
         if (enigma::Inventory *inv = player::GetInventory(sc.actor)) {
             if (Item *it = inv->get_item(0)) {
-                ItemID id = get_id(it);
-                if (id == it_coin_s || id == it_coin_m || id == it_coin_l) {
+                ItemID ID = get_id(it);
+                if (ID == it_coin_s || ID == it_coin_m || ID == it_coin_l) {
                     double interval;
                     if (server::EnigmaCompatibility < 1.10) 
                         interval = it->getAttr("coin_value");
                     else {
-                        switch (id) {
+                        switch (ID) {
                             case it_coin_s:
                                 interval = getAttr("interval_s"); break;
                             case it_coin_m:
                                 interval = getAttr("interval_m"); break;
                             case it_coin_l:
                                 interval = getAttr("interval_l"); break;
+                            default:
+                                ; // ignore 
                         }
                         if (interval == -2)  // reject coin
                             return;
