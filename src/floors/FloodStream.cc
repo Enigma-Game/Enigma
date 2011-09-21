@@ -62,7 +62,7 @@ namespace enigma {
                 GameTimer.set_alarm(this, (double)getAttr("interval"), false);
             }
         } else if (extState == IDLE) {
-            state == IDLE;
+            state = IDLE;
             GameTimer.remove_alarm(this);
         } else
             state = extState;

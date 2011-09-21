@@ -54,7 +54,6 @@ namespace enigma {
     }
 
     void DummyFloor::actor_contact(Actor *) {
-        static int lastCode = -1;
         int code = getAttr("code");
         Log << ecl::strf("Entering floor 0x%x\n", code);
     }

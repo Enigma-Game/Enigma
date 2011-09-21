@@ -107,7 +107,6 @@ namespace enigma {
     }
 
     void ThiefFloor::animcb() {
-        Floor *newfloor;
         switch (state) {
             case EMERGING:
                 doSteal();
