@@ -27,7 +27,7 @@ namespace enigma {
 
 /* -------------------- Horse  -------------------- */
 
-    Horse::Horse() : Actor (traits), destidx(0), target(), strength(10) {
+    Horse::Horse() : Actor (traits), strength(10), destidx(0), target() {
         objFlags |= OBJBIT_STEADY;
     }
 

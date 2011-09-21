@@ -72,9 +72,9 @@ namespace enigma {
         while((a = air_it.next()) != NULL) {
             if (a->is_movable() && !a->is_invisible()) {
                 V2 v = a->get_pos() - get_pos();
-                if (attacknearest && !attackCurrentOnly ||
-                        attackCurrentOnly && a == player::GetMainActor(
-                        player::CurrentPlayer())) {
+                if ((attacknearest && !attackCurrentOnly) ||
+                    (attackCurrentOnly && a == player::GetMainActor(
+                     player::CurrentPlayer()))) {
                     if (!target || (length(v) < length(target_vec))) {
                         target = a;
                         target_vec = v;

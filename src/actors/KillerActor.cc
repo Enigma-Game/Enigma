@@ -52,8 +52,8 @@ namespace enigma {
     }
 
     ActorTraits Killer::traits[2] = {
-        {"ac_killer_white", ac_killer_white, 1<<ac_killer_white, 13.0/64, 0.7},
-        {"ac_killer_black", ac_killer_black, 1<<ac_killer_black, 13.0/64, 0.7}
+        {"ac_killer_white", ac_killer_white, 1<<ac_killer_white, 13.0/64, 0.7f},
+        {"ac_killer_black", ac_killer_black, 1<<ac_killer_black, 13.0/64, 0.7f}
     };
     
     BOOT_REGISTER_START
