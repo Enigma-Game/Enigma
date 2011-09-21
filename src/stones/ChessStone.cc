@@ -269,13 +269,13 @@ namespace enigma {
         if(state == IDLE) {
             Stone::setAttr("color", color);
             objFlags &= ~OBJBIT_NEWCOLOR;
-            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : false;
+            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : 0;
             if (isDisplayable())
                 init_model();
         } else {
             // Remember this color and set it the next time IDLE is set.
             objFlags &= ~OBJBIT_NEWCOLOR;
-            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : false;
+            objFlags |= (color == 1) ? OBJBIT_NEWCOLOR : 0;
         }
     }
     

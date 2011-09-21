@@ -105,7 +105,7 @@ namespace enigma {
         return 0;
     }
     
-    void WindowStone::setState(int extState) {
+    void WindowStone::setState(int /*extState*/) {
         // ignore any state access
     }
 
@@ -138,7 +138,7 @@ namespace enigma {
         }
     }
     
-    bool WindowStone::allowsSpreading(Direction dir, bool isFlood) const {
+    bool WindowStone::allowsSpreading(Direction dir, bool /*isFlood*/) const {
         return (dir != NODIR) ? !has_dir(getFaces(), dir) : true;
     }
     
@@ -179,11 +179,11 @@ namespace enigma {
         }
     }
     
-    bool WindowStone::is_sticky(const Actor *a) const  {
+    bool WindowStone::is_sticky(const Actor */*a*/) const  {
         return false;
     }
     
-    bool WindowStone::on_move(const GridPos &origin) {
+    bool WindowStone::on_move(const GridPos &/*origin*/) {
         // do not shatter actors
         return true;
     }
@@ -243,12 +243,12 @@ namespace enigma {
                 // move items
                 Item *it = GetItem(w_pos);
                 Item *it_neighbor = GetItem(w_pos_neighbor);
-                if (it != NULL && !it->isStatic())
+                if (it != NULL && !it->isStatic()) {
                     if (it_neighbor == NULL)
                         SetItem(w_pos_neighbor, YieldItem(w_pos));
                     else
                         SetItem(w_pos, MakeItem("it-squashed"));
-                
+                }                
                 // move actors
                 std::vector<Actor*> found_actors;
                 const double range_one_field = 1.415 + Actor::get_max_radius(); // approx. 1 field [ > sqrt(1+1) ]

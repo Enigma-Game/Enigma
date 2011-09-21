@@ -89,7 +89,7 @@ namespace enigma {
         
         ObjectList objects = v;
         uint32_t groupOxydMask = 0;
-        int count = 0;
+        unsigned count = 0;
         for (ObjectList::iterator i = objects.begin(); i != objects.end(); ++i) {
             for(unsigned short j = 0; j < levelOxyds.size(); ++j) {
                 if ((*i) == levelOxyds[j]) {

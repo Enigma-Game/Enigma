@@ -202,7 +202,7 @@ namespace enigma {
             skateDir = (toSouth == 1) ? SOUTH : (toSouth == -1) ? NORTH :
                 (toWest == 1) ? WEST : (toWest == -1) ? EAST : NODIR;
             objFlags &= ~OBJBIT_SKATEDIR;
-            objFlags |= ((int)skateDir + 1 << 24); // store new dir
+            objFlags |= (((int)skateDir + 1) << 24); // store new dir
             if (skateDir == NODIR && state != BLINK) {
                 // No direction but lighted? Seems to be lasers from
                 // two opposite directions. Be sure and then start blinking.

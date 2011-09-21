@@ -123,8 +123,8 @@ namespace enigma {
             setAttr("state", m.value);   // enforce value check
             return Value();
         } else if ((m.message == "turn" || m.message == "turnback")) {
-            setAttr("state", (m.message == "turn" && !getAttr("counterclock").to_bool() || 
-                    m.message == "turnback" && getAttr("counterclock").to_bool())
+            setAttr("state", ((m.message == "turn" && !getAttr("counterclock").to_bool()) || 
+                              (m.message == "turnback" && getAttr("counterclock").to_bool()))
                     ? rotate_cw((Direction)state) : rotate_ccw((Direction)state));
             return Value();
         } else if (m.message == "signal") {
@@ -148,7 +148,7 @@ namespace enigma {
     }
 
     void MirrorStone::setState(int extState) {
-        bool changed = (extState != state);
+        // bool changed = (extState != state);
         
         state = extState;
         
@@ -221,13 +221,13 @@ namespace enigma {
         uint16_t outCandidates = outDirs[index];
         DirectionBits result = NODIRBIT;
         if (objFlags & NORTHBIT)
-            result = (DirectionBits)(result | (outCandidates>>12) & ALL_DIRECTIONS);
+            result = (DirectionBits)(result | ((outCandidates>>12) & ALL_DIRECTIONS));
         if (objFlags & EASTBIT)
-            result = (DirectionBits)(result | (outCandidates>>8) & ALL_DIRECTIONS);
+            result = (DirectionBits)(result | ((outCandidates>>8) & ALL_DIRECTIONS));
         if (objFlags & SOUTHBIT)
-            result = (DirectionBits)(result | (outCandidates>>4) & ALL_DIRECTIONS);
+            result = (DirectionBits)(result | ((outCandidates>>4) & ALL_DIRECTIONS));
         if (objFlags & WESTBIT)
-            result = (DirectionBits)(result | (outCandidates) & ALL_DIRECTIONS);
+            result = (DirectionBits)(result | ((outCandidates) & ALL_DIRECTIONS));
         
         return result;
     }

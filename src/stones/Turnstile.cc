@@ -55,8 +55,8 @@ namespace enigma {
                 rotate(m.value == 0, NULL, NULL);
             return Value();
         } else if ((m.message == "turn" || m.message == "turnback")) {
-            rotate((m.message == "turn" && !getAttr("counterclock").to_bool() ||
-                    m.message == "turnback" && getAttr("counterclock").to_bool()), NULL, NULL);
+            rotate(((m.message == "turn" && !getAttr("counterclock").to_bool()) ||
+                    (m.message == "turnback" && getAttr("counterclock").to_bool())), NULL, NULL);
             return Value();
         }
         return Stone::message(m);
@@ -66,7 +66,7 @@ namespace enigma {
         return 0;
     }
 
-    void TurnstilePivot::setState(int extState) {
+    void TurnstilePivot::setState(int /*extState*/) {
         // ignore all state settings
     }
 
@@ -144,7 +144,7 @@ namespace enigma {
         }
 
         if (can_rotate) {
-            int id = getId();
+            int ID = getId();
             sound_event (clockwise ? "turnstileright" : "turnstileleft");
             sound_event("movesmall");
 
@@ -153,14 +153,14 @@ namespace enigma {
             rotate_arms(arms, clockwise);
             handleActorsAndItems(clockwise, impulse_sender);
 
-            if (Object::getObject(id) == NULL)   // Killed? Then forget the rest.
+            if (Object::getObject(ID) == NULL) // Killed? Then forget the rest.
                 return can_rotate;
 
             Direction dir = to_direction(getAttr("orientation"));
-            dir = clockwise ? rotate_cw(dir) : rotate_ccw(dir);
+            dir = clockwise ? rotate_cw(dir) : rotate_ccw(dir); // ???
             Stone::setAttr("orientation", dir);
 
-            for (Direction dir = WEST; dir != NODIR; dir = next(dir)) {
+            for (dir = WEST; dir != NODIR; dir = next(dir)) {
                 if (TurnstileArm * ta = dynamic_cast<TurnstileArm *>(GetStone(move(get_pos(), dir)))) {
                     if (ta != initiator) {
                         Impulse rotationImpulse(this, ta->get_pos(), dir, false);
@@ -418,7 +418,7 @@ namespace enigma {
             { ROTL, stay, ROTR, stay }  // north arm
         };
 
-        int id = getId();
+        int ID = getId();
         TurnstilePivot *pivot = getPivot();
 
         if (pivot != NULL) {
@@ -440,7 +440,7 @@ namespace enigma {
             move_stone(impulse.dir);
         }
 
-        if (Object::getObject(id) != NULL)   // not killed - on pivot action?
+        if (Object::getObject(ID) != NULL)   // not killed - on pivot action?
             propagateImpulse(impulse);
     }
 

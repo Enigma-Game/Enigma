@@ -118,14 +118,14 @@ namespace enigma {
         return state == NEW;
     }
     
-    bool VolcanoStone::is_transparent(Direction d) const {
+    bool VolcanoStone::is_transparent(Direction /*d*/) const {
         return false;
     }
-    bool VolcanoStone::is_sticky(const Actor *a) const {
+    bool VolcanoStone::is_sticky(const Actor */*a*/) const {
         return state != NEW;
     }
     
-    StoneResponse VolcanoStone::collision_response(const StoneContact &sc) {
+    StoneResponse VolcanoStone::collision_response(const StoneContact &/*sc*/) {
         return state != NEW ? STONE_REBOUND : STONE_PASS;
     }
     
@@ -182,6 +182,7 @@ namespace enigma {
             if (v != this && v != NULL && v->externalState() == 1)
                 return true;
         }
+        return false;
     }
     
     DEF_TRAITSM(VolcanoStone, "st_volcano", st_volcano, MOVABLE_BREAKABLE);

@@ -70,7 +70,7 @@ namespace enigma {
             OBJBIT_NEWCOLOR      =  1<<24, ///< change to this color next time possible
             OBJBIT_FALL          =  1<<25, ///< fall next time possible
             OBJBIT_SINK          =  1<<26, ///< sink next time possible
-            OBJBIT_CAPTURE_RETRY = 31<<27  ///< count retries for capturing
+            OBJBIT_CAPTURE_RETRY =  1<<27  ///< count retries for capturing
         };
 
     public:

@@ -117,7 +117,7 @@ namespace enigma {
     }
     
     StoneResponse BlockerStone::collision_response(const StoneContact &sc) {
-        return (server::GameCompatibility == GAMET_PEROXYD && state == GROWING || state == SHRINKING)
+        return ((server::GameCompatibility == GAMET_PEROXYD && state == GROWING) || state == SHRINKING)
                 ? STONE_PASS : STONE_REBOUND;
     }
 
