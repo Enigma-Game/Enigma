@@ -133,7 +133,7 @@ namespace enigma {
         switchAnchor(anchor2Object(), NULL, anchor1);
     }
 
-    void Rubberband::tick(double dt) {
+    void Rubberband::tick(double /*dt*/) {
         model.update_first(anchor1->get_pos());
         model.update_second(posAnchor2());
     }
@@ -183,7 +183,7 @@ namespace enigma {
             ai->force -= force1 * vn;
 
             double relspeed = ai->vel * vn;   // positive for shrinking dist
-            if (!isMin && (relspeed > 0) || !isMax && (relspeed < 0))
+            if ((!isMin && (relspeed > 0)) || (!isMax && (relspeed < 0)))
                 relspeed = 0;
             force = - (1 + 0.8 / numRubbers) * relspeed * vn / dt * ai->mass;  // damping for inverse friction and multiconnections
 //            Log << "Rubber stone force "<< force1 << "  " <<relspeed<< "\n";
@@ -248,7 +248,7 @@ namespace enigma {
             double relspeed = vn * (ai2->vel - ai1->vel);  // speed of band extension
             double dmu = 2 * ai1->mass * ai2->mass / (ai1->mass + ai2->mass);
 
-            if (isMax && (relspeed < 0) || isMin && (relspeed >0))
+            if ((isMax && (relspeed < 0)) || (isMin && (relspeed >0)))
                 relspeed = 0;
 
             force = (dmu * relspeed / dt) * vn;
