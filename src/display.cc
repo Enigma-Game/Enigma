@@ -88,6 +88,7 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
 : Window(area),
   m_itemarea (),
   m_models(),
+  player (enigma::YIN),
   m_changedp(false),
   m_textview (*enigma::GetFont("statusbarfont")),
   m_leveltime (0),
@@ -96,7 +97,6 @@ StatusBarImpl::StatusBarImpl (const ScreenArea &area)
   m_showcounter_p(false),
   m_interruptible(true),
   m_text_active(false),
-  player (enigma::YIN),
   playerImage (0),
   playerImageDuration (0),
   widthInit (false)
@@ -304,8 +304,8 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
             }
         }
         else {                  // only moves            
-            int x = timearea.x + (timearea.w - xsize_moves)/2;
-            int y = timearea.y + (timearea.h - movesfont->get_lineskip())/2;
+            x = timearea.x + (timearea.w - xsize_moves)/2;
+            y = timearea.y + (timearea.h - movesfont->get_lineskip())/2;
             blit(gc, x, y, s_moves);
         }
 
@@ -318,7 +318,7 @@ void StatusBarImpl::redraw (ecl::GC &gc, const ScreenArea &r) {
     } else {
         client::Msg_FinishedText();
         int itemsize = static_cast<int>(vminfo->tile_size * 1.125);
-        int x = m_itemarea.x;
+        x = m_itemarea.x;
         for (unsigned i=0; i<m_models.size(); ++i) {
             Model *m = m_models[i];
             m->draw(gc, x, m_itemarea.y);
@@ -356,7 +356,7 @@ void StatusBarImpl::tick(double dtime) {
     // Animation of player indicator
     playerImageDuration += dtime;
     if ((player * 12 != playerImage) && (playerImageDuration > 0.1)) {
-        playerImage = (++playerImage) % 24;
+        playerImage = (playerImage+1) % 24;
         playerImageDuration = 0;
         m_changedp = true;
     }
@@ -711,13 +711,14 @@ void DisplayEngine::update_layer (DisplayLayer *l, WorldArea wa)
     for (int x=wa.x; x<x2; x++, xpos += m_tilew) {
         int ypos = ypos0;
         for (int y=wa.y; y<y2; y++, ypos += m_tileh) {
-            if (m_redrawp(x,y) == 1)
+            if (m_redrawp(x,y) == 1) {
                 if (y<y2m1 && m_redrawp(x,y+1) == 1) {
                     l->draw (gc, WorldArea(x,y,1,2), xpos, ypos);
                     y++;
                     ypos += m_tileh;
                 } else
                     l->draw (gc, WorldArea(x,y,1,1), xpos, ypos);
+            }
         }
     }
     l->draw_onepass (gc);
@@ -1056,7 +1057,7 @@ void DL_Sprites::draw (ecl::GC &gc, const WorldArea &a, int /*x*/, int /*y*/)
 
 
 void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc, const WorldArea &a) {
-    SpriteList &sl = sprites;
+//    SpriteList &sl = sprites;
 
 //    for (unsigned i=0, sl_size=sl.size() ; i<sl_size; ++i) {
 //        Sprite *s = sl[i];
@@ -1077,7 +1078,7 @@ void DL_Sprites::draw_sprites (bool drawshadowp, GC &gc, const WorldArea &a) {
     }
 }
 
-void DL_Sprites::draw_onepass (ecl::GC &gc)
+void DL_Sprites::draw_onepass (ecl::GC &/*gc*/)
 {
 //     draw_sprites (false, gc);
 }
@@ -1258,7 +1259,7 @@ void DL_Lines::kill_line (unsigned id) {
         m_rubbers.erase(i);
 }
 
-void DL_Lines::new_world (int w, int h) {
+void DL_Lines::new_world (int /*w*/, int /*h*/) {
     m_rubbers.clear();
     m_id = 1;
 }
