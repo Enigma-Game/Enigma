@@ -58,7 +58,7 @@ namespace enigma {
             KillStone(get_pos());
             return Value();
         } else if (m.message == "_model_reanimated") {
-            state == IDLE;  // revoke activation of on_move() to allow swapping actor to retreat
+            state = IDLE;  // revoke activation of on_move() to allow swapping actor to retreat
         }
         return Stone::message(m);
     }
