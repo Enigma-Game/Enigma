@@ -230,6 +230,7 @@ namespace enigma { namespace gui {
                     break;
                 case SDLK_F7:
                     lev::Index::getCurrentIndex()->updateFromFolder();
+                    lev::Index::getCurrentIndex()->updateFromProxies();
                     draw_all();
                     break;
                 case SDLK_u: {
