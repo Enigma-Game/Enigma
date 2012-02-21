@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="35" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="36" title="Enigma IX"/>
 
   <attributes/>
 
@@ -99,9 +99,13 @@
     <level _seq="91" _title="Thread-safe II" _xpath="./devnull71_1" author="/dev/null" ctrl="force" easy="false" id="devnull71" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="92" _title="Distribution Meditation" _xpath="./ais70_1" author="Alex Smith" ctrl="force" easy="false" id="ais70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Origami" _xpath="./ais71_1" author="Alex Smith" ctrl="force" easy="false" id="ais71" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="94" _title="Marching Formation" _xpath="./ais73_1" author="Alex Smith" ctrl="force" easy="false" id="ais73" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="95" _title="The Brimmed Boot" _xpath="./devnull73_2" author="/dev/null" ctrl="force" easy="false" id="devnull73" rel="2" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="94" _title="Marching Formation" _xpath="./ais73_2" author="Alex Smith" ctrl="force" easy="true" id="ais73" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="95" _title="A Little Tropical Castle" _xpath="./mecke16_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="Waterloo" _xpath="./ral55_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20100610ral768" rel="1" rev="208" score="1" target="time" unit="duration"/>
+    <level _seq="97" _title="Reddish" _xpath="./devnull87_1" author="/dev/null" ctrl="force" easy="false" id="devnull87" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="98" _title="Steering The Flood" _xpath="./ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="99" _title="Stackable" _xpath="./devnull91_1" author="/dev/null" ctrl="force" easy="false" id="devnull91" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="100" _title="Enigmas wildcat" _xpath="./cel3_1" author="Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" ctrl="force" easy="false" id="cel3" rel="1" rev="31" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

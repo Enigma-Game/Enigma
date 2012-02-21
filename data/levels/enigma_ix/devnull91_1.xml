@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Stackable" el:subtitle="" el:id="devnull91"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" ."] = {"fl_lawn"}
+ti["  "] = ti[" ."] .. {"st_pull"}
+ti[" !"] = {"fl_abyss"}
+ti["# "] = {"st_bluesand", cluster = 1}
+ti["Q "] = {"st_pull"}
+ti["P "] = {"st_swap"}
+ti["S "] = {"st_shogun_s"}
+ti["M "] = {"st_shogun_m"}
+ti["L "] = {"st_shogun_l"}
+ti["triggers"] = ti["  "] .. {"it_trigger", target = "door%%#*"}
+ti["doors"] = {"st_door", name = "door%%#", faces = "ew"}
+ti["X "] = ti({"it_shogun_l", target = "door%e#*"})
+ti["Ol"] = {"st_oxyd_a", name = "oxydsLeft#", static = true}
+ti["Or"] = {"st_oxyd_a", name = "oxydsRight#", static = true}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"t", "triggers"}, {"D", "doors"}), " .", {
+    " ! ! ! !# # # # # # # # # # #  ! ! ! !",
+    " ! ! ! !# OlDc          DdOr#  ! ! ! !",
+    "# # # # # # # S   M   L # # # # # # # ",
+    "# OlDa .#   tdQ   @     tc  #  .DbOr# ",
+    "# # #  .De        P         De .# # # ",
+    "# OlDd .#   ta          tb  #  .DcOr# ",
+    "# # # # # # #     X     # # # # # # # ",
+    " ! ! ! !# OlDb          DaOr#  ! ! ! !",
+    " ! ! ! !# # # # # # # # # # #  ! ! ! !"})
+
+wo:shuffleOxyd({"oxydsLeft#*", max = 0}, {"oxydsRight#*", max = 0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Steering The Flood" el:subtitle="" el:id="ais46"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:20" el:difficult="1:18"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_rough", floodable=true}
+ti["~"] = {"fl_water"}
+ti["s"] = {"fl_water_source"}
+ti["#"] = {"st_plaster"}
+ti["B"] = {"st_dispenser_bombblack"}
+ti["Y"] = {"st_dispenser_dynamite"}
+ti["+"] = {"st_box"}
+ti["p"] = {"st_plop"}
+ti[">"] = {"st_laser_e", state=ON}
+ti["0"] = {"st_oxyd_e", "oxyd0_#"}
+ti["1"] = {"st_oxyd_e", "oxyd1_#"}
+ti["2"] = {"st_oxyd_e", "oxyd2_#"}
+ti["("] = {"st_window", faces="w", secure=true}
+if wo["IsDifficult"] then
+    ti["3"] = {"st_oxyd_e", "oxyd3_#"}
+    ti["4"] = {"st_oxyd_e", "oxyd4_#"}
+    ti["x"] = ti["+"]
+    ti["_"] = {"st_window", faces="s", secure=true}
+    ti["="] = {"st_window", faces="ns", secure=true}
+    ti["'"] = {"st_window", faces="n", secure=true}
+    ti["["] = {"st_window", faces="w", secure=true}
+else
+    ti["3"] = ti[" "]
+    ti["4"] = ti[" "]
+    ti["x"] = ti[" "]
+    ti["_"] = ti[" "]
+    ti["="] = ti[" "]
+    ti["'"] = ti[" "]
+    ti["["] = ti[" "]
+end
+ti["O"]={"#ac_marble_black"} .. ti({"fl_wood_framed"})
+
+wo(ti," ",{
+    "##B#################",
+    ">+(         ____ +0#",
+    ">+(           x3[###",
+    ">+(          '== +1#",
+    ">+(           x4[###",
+    ">+(           '' +2#",
+    "spO              ###",
+    ">+(           __ +0#",
+    ">+(           x3[###",
+    ">+(          _== +1#",
+    ">+(           x4[###",
+    ">+(         '''' +2#",
+    "##Y#################"})
+
+wo:shuffleOxyd({"oxyd1_#*",max=0},{no["oxyd0_#*"]+no["oxyd2_#*"],max=1})
+no["oxyd0_#*"][1]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

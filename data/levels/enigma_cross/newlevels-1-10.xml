@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="96" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="97" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -272,9 +272,13 @@
     <level _seq="264" _title="Thread-safe II" _xpath="enigma_ix/devnull71_1" author="/dev/null" ctrl="force" easy="false" id="devnull71" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="265" _title="Distribution Meditation" _xpath="enigma_ix/ais70_1" author="Alex Smith" ctrl="force" easy="false" id="ais70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="266" _title="Origami" _xpath="enigma_ix/ais71_1" author="Alex Smith" ctrl="force" easy="false" id="ais71" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="267" _title="Marching Formation" _xpath="enigma_ix/ais73_1" author="Alex Smith" ctrl="force" easy="false" id="ais73" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="268" _title="The Brimmed Boot" _xpath="enigma_ix/devnull73_2" author="/dev/null" ctrl="force" easy="false" id="devnull73" rel="2" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="267" _title="Marching Formation" _xpath="enigma_ix/ais73_2" author="Alex Smith" ctrl="force" easy="true" id="ais73" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="268" _title="A Little Tropical Castle" _xpath="enigma_ix/mecke16_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="269" _title="Waterloo" _xpath="enigma_ix/ral55_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20100610ral768" rel="1" rev="208" score="1" target="time" unit="duration"/>
+    <level _seq="270" _title="Reddish" _xpath="enigma_ix/devnull87_1" author="/dev/null" ctrl="force" easy="false" id="devnull87" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="271" _title="Steering The Flood" _xpath="enigma_ix/ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="272" _title="Stackable" _xpath="enigma_ix/devnull91_1" author="/dev/null" ctrl="force" easy="false" id="devnull91" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="273" _title="Enigmas wildcat" _xpath="enigma_ix/cel3_1" author="Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" ctrl="force" easy="false" id="cel3" rel="1" rev="31" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

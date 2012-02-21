@@ -2,21 +2,25 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Marching Formation" el:subtitle="" el:id="ais73"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:identity el:title="Marching Formation" el:subtitle="No sharing!" el:id="ais73"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
       <el:copyright>Copyright © 2010 Alex Smith</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10" />
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:score el:easy="-" el:difficult="1:06"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="1:06" el:difficult="1:36"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ConserveLevel"] = false
 
-ti[" "]={"fl_lawn"}
-ti["~"]={"fl_water"}
-ti["o"]={"it_meditation_hollow"}
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+if wo["IsDifficult"] then
+    ti["o"] = {"it_meditation_hollow"} .. ti({"fl_scales_bridgewood", friction=4, adhesion=1.5, min=0.8, action="callback", target="burnme", safeaction=true})
+else
+    ti["o"] = {"it_meditation_hollow"}
+end
 ti["@"]={"#ac_pearl", essential=INDISPENSABLE}
 
 wo(ti," ",{
@@ -33,9 +37,16 @@ wo(ti," ",{
     "~ @@@          ~   ~",
     "~              ~   ~",
     "~~~~~~~~~~~~~~~~~~~~"})
+
+function burnme(signal, caller)
+    wo[caller] = {"it_burnable_ignited"}
+end
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+      <el:string el:key="subtitle">
         <el:english el:translate="true" />
       </el:string>
     </el:i18n>

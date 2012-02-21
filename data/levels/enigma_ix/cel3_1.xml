@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Enigmas wildcat" el:subtitle="Katherina Victoria's six playgrounds" el:id="cel3"/>
+      <el:version el:score="1" el:release="1" el:revision="31" el:status="released"/>
+      <el:author el:name="Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" el:email=""/>
+      <el:copyright>Copyright © 2010, 2011 Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SubSoil"] = SUBSOIL_WATER
+
+ti["~ "] = {"fl_water"}
+ti["  "] = {"fl_water"}
+ti[". "] = {"fl_sand", burnable=false}
+ti[", "] = {"fl_swamp"}
+ti["- "] = {"fl_wood", burnable=false}
+ti["_ "] = {"fl_rough", burnable=false}
+ti["; "] = {"fl_sahara", burnable=false}
+ti[": "] = {"fl_wood", eternal = true, burnable = true, initfire = true}
+ti["/ "] = {"fl_concrete"}
+ti["* "] = {"fl_red"}
+ti["^ "] = {"fl_platinum"}
+ti["= "] = {"fl_swamp"}
+ti["$ "] = {"fl_ice"}
+ti["% "] = {"fl_aquamarine"}
+ti["? "] = {"fl_pinkbumps"}
+ti[" s"] = {"it_burnable_ash"}
+ti[" !"] = {"st_spitter"}
+ti[" /"] = {"it_strip_ns"}
+ti[" T"] = ti[" s"] .. {"st_rawglass"}
+ti[" %"] = {"it_trap", state=OPEN}
+ti[" x"] = {"it_cross"}
+ti["+0"] = {"fl_water"}
+ti["+1"] = {"fl_water"}
+ti["+2"] = {"fl_water"}
+ti["+3"] = {"fl_water"}
+ti["+4"] = {"fl_water"}
+ti["+5"] = {"fl_water"}
+ti["+6"] = {"fl_water"}
+ti["+7"] = {"fl_water"}
+ti["+8"] = {"fl_water"}
+ti["+9"] = {"fl_water"}
+ti["+a"] = {"fl_water"}
+ti["+b"] = {"fl_water"}
+ti["+c"] = {"fl_water"}
+ti["+d"] = {"fl_water"}
+ti[" #"] = {"st_rawglass"}
+ti[" &"] = {"st_panel", cluster=0}
+ti[" S"] = {"st_window_e", secure=true}
+ti[" R"] = {"st_death_invisible"}
+ti[" G"] = {"st_rawglass_quad"}
+ti[" M"] = {"st_rawglass_movable"}
+ti[" ^"] = {"st_oneway", color=BLACK, orientation=NORTH}
+ti[" >"] = {"st_oneway", color=BLACK, orientation=EAST}
+ti[" V"] = {"st_oneway", color=BLACK, orientation=SOUTH}
+ti[" <"] = {"st_oneway", color=BLACK, orientation=WEST}
+ti[" +"] = {"st_box"}
+ti[" E"] = {"st_dispenser_extralife"}
+ti[" *"] = {"it_vortex", name="vortex", state=CLOSED, autoopen=true}
+ti[" t"] = {"it_cross", target="update_respwan", interval=0.05, _offset=po(0.5,0.5)}
+ti["O1"] = {"st_oxyd", oxydcolor = OXYD_ORANGE}
+ti[" D"] = ti["  "] .. {"it_document", text = "remember Katherina Victoria, illminds beautiful cat..."}
+ti[" @"] = ti[" *"] .. {"#ac_marble"}
+
+local randoms = res.random(res.random(res.random(res.random(ti, "+6", {"~ ", "* ", "/ ", ". "}), "+2", {"~ ", "_ ", "- ", "^ ", "% "}), "+8", {"/ ", "~ ", ". ", ", ", "; "}), "+1", {"~ ", ". ", "$ ", "- ", "_ "} )
+
+maze0 = res.maze(randoms, {area={"+0"}, kernel={0,0}})
+maze1 = res.maze(maze0, {area={"+1"}, kernel={0,0}})
+maze2 = res.maze(maze1, {area={"+2"}, kernel={0,0}})
+maze3 = res.maze(maze2, {area={"+3"}, kernel={0,0}})
+maze4 = res.maze(maze3, {area={"+4"}, kernel={0,0}})
+maze5 = res.maze(maze4, {area={"+5"}, kernel={0,0}})
+maze6 = res.maze(maze5, {area={"+6"}, kernel={0,0}})
+maze7 = res.maze(maze6, {area={"+7"}, kernel={0,0}})
+maze8 = res.maze(maze7, {area={"+8"}, kernel={0,0}})
+maze9 = res.maze(maze8, {area={"+9"}, kernel={0,0}})
+maze10 = res.maze(maze9, {area={"+a"}, kernel={0,0}})
+maze11 = res.maze(maze10, {area={"+b"}, kernel={0,0}})
+maze12 = res.maze(maze11, {area={"+c"}, kernel={0,0}})
+maze13 = res.maze(maze12, {area={"+d"}, kernel={0,0}})
+
+wo(res.composer(maze13), "  ", {
+"~ ~ ~ ~ ~ ~ ~ -&~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ",
+"~             +a                      - - - - - - - - - - - - - - - - - - - -                                     - - - - - - - - - - - - - - - - - - - -                   O1                ~ ",
+"~           +a+a+a                    - - - - - - - - - - - - - - - - - - - -                                     - - - - - - - - - - - - - - - - - - - -                   +b                ~ ",
+"~         +a+a+a+a+a                  - - - - - - - - - - - - - - - - - - - -                 +3+3O1              - - - - - - - - - - - - - - - - - - - -                 +b+b+b              ~ ",
+"~       +a+a+a+a+a+a+a                - - - - - - - - - - - - - - - - - - - -               +3+3+3+3              - - - - - - - - - - - - - - - - - - - -               +b+b+b+b+b            ~ ",
+"~   O1+a+a+a+a~E+a+a+a+a #    +1+1+1+1->-t- - - - - - - - - - - - - - - - -t- +3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3+3- - - - - - - - - - - - - - - - - - - -       -&-&  +b+b+b+b+b+b+b  -&-&    ~ ",
+"~       +a+a+a+a+a+a+a      +1+1+1+1+1->-t- - - - - - - - - - - - - - - - -t- +3+3+3+3+3+3+3+3    +3+3+3+3+3+3+3+3- -t- - - - - - - - - - - - - - - - - -     -&-&  +b+b+b+b~E+b+b+b+b  -&-&  ~ ",
+"~         +a+a+a+a+a      +1+1+1+1+1+1->-t- - - - - - - - - - - - - - - - -t- +3+3+3+3+3+3+3        +3+3+3+3+3+3+3- - - - - - - - - - - - - - - - - - - -       -&-&  +b+b+b+b+b+b+b  -&-&    ~ ",
+"~           +a+a+a      +1+1+1+1+1    - - - - - - - - - - - - - - - - - - - -             +3        +3            - - - - - - - - - - - - - - - - - - - -               +b+b+b+b+b            ~ ",
+"~             +a      +1+1+1+1        - - - - - - - - - - - - - - - - - - - -             +3+3    +3+3            - - - - - - - - - - - - - - - - - - - -                 +b+b+b              ~ ",
+"~              /    +1+1+1+1          - - - - - - - - - - - - - - - - - - - -               +3+3+3+3              - - - - - - - - - - - - - - - - - - - -                   +b                ~ ",
+"~             +1+1+1+1+1+1            - - - - - - - - - - - - - - - - - - - -                 +3+3                - - - - - - - - - - - -t- - - - - - - -                   +b                ~ ",
+"~               +1+1+1+1              - - - - - - - - - -t-t- - - - - - - - -                                     - - - - - - - - - - - - - - - - - - - -                   +b                ~ ",
+"~               +1+1+1+1                            +4+4+4+4+4+4                              +4+4         &                          +9+9+9+9+9                            +b                ~ ",
+"~               +1+1+1+1                              +4+4+4+4                  +4+4+4+4+4+4+4+4+4O1     & & & &                  +9+9+9+9                                   /                ~ ",
+"~               +1+1+1+1                                +4+4                  +4+4+4+4+4+4+4+4+4+4                              +9+9+9                  +9                  +9                ~ ",
+"~               +1+1+1+1                                +4+4                  +4+4+4                                            +9+9                  +9+9+9              +9+9                ~ ",
+"~               +1+1+1+1                    +1+1        +4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4                                +9+9+9+9+9+9+9+9+9+9+9+9  +9+9+9+9+9+9+9+9+9                  ~ ",
+"~             +1+1+1+1                      +1O1+1      +4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4     &                          +9+9+9+9+9+9+9+9+9+9  O1  +9+9+9+9+9+9+9+9+9                ~ ",
+"~           +1+1+1+1+1                      +1+1+1        +4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4+4   & &                              +9+9+9+9+9+9+9+9+9  +9+9+9+9+9+9+9+9+9+9                ~ ",
+"~         +1+1+1    +1+1                  +1+1                                                +4+4     & &                            +9              +9+9+9              +9+9                ~ ",
+"~       +1+1+1        +1+1+1            +1+1                                                  +4+4                                +9+9+9                +9                +9+9+9              ~ ",
+"~     +1+1+1              +1+1+1+1+1+1+1+1                                                    +4+4                                +9                                    +9+9+9+9+9            ~ ",
+"~   +1+1+1                +1+1+1+1+1+1+1                                                                                          +9  +9~E          +7                +9+9+9+9+9+9+9    :     ~ ",
+"- -#  +1+1-#- - - - - - - - - - - - - -                  #                            ^s      ?s                                  +9+9+9+9          +7+7+7                +9  +9                ",
+"- - -t-t- - - - - - - - - - - - - - - -                                               ^T^T^T^T?s R                                    +9    +7+7+7  +7                    -t  -t                ",
+"- - - - - - - - - - - - - - - - - - - -                 +0                            .T !*T !?s R                                          +7  +7+7+7                                          ",
+"- - - - - - - - - - - - - - - - - - - -               +0+0+0                          .T*T*&*T?s R                                        +7+7+7    +7:                                         ",
+"- - - - - - - - - - - - - - - - - - - -             +0+0+0+0+0                        .T.T*@/s?s   R                                      +7  +7         t                                      ",
+"- - - - - - - - - - - - - - - - - - - -           +0+0+0+0+0+0+0                        .T/s/s       S-++7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7 t                                      ",
+"- - - - - - - - - - - - - - - - - - - -      #O1+0+0+0+0~E+0+0+0+0+0+0+0+0+0+0+0+0+0+0 D/s/s^s       S- -+-++7+7+7+7+7+7+7+7+7+7+7+7+7+7+7O1+7  +7+7+7+7 t                                      ",
+"- - - - - - - - - - - - - - - - - - - -           +0+0+0+0+0+0+0                      ?s^s^s^s^T     S-++7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7+7 t                                      ",
+"- - - - - - - - - - - - - - - - - - - -             +0+0+0+0+0                        ?s?s?s-s-T                                          +7  +7                                                ",
+"- - - - - - - - - - - - - - - - - - - -               +0+0+0                          .s.s?s-s-s                                          +7+7+7    +7:                                         ",
+"- - - - - - - - - - - - - - - - - - - -                 +0                            .s_+_+-s/s      *s                                    +7  +7+7+7                                          ",
+"- - - -t- - - - - - - - - - - - - - - -                                               .s.s_+_+/s      *s                                    +7+7+7  +7                    -t  -t                ",
+"- -#+2+2+2-#- - - - - - - - - - - - - -                  #                                _+/s/s/s*s*s*s                                            +7+7+7                                      ",
+"~   +2+2+2+2              +2+2+2+2+2+2+2                                                                                                            +7                +8+8+8+8+8+8+8    :     ~ ",
+"~     +2+2+2+2          +2+2+2+2+2+2+2+2+2                                                    +5+5                                                                      +8+8+8+8+8            ~ ",
+"~       +2+2+2+2      +2+2+2          +2+2+2                                        +5        +5+5     &                                                +8                +8+8+8              ~ ",
+"~         +2+2+2+2+2+2+2+2              +2+2+2+2                                  +5+5+5      +5+5   & &                                              +8+8+8              +8+8                ~ ",
+"~           +2+2+2+2+2+2+2+2              +2+2+2+2            +5+5+5+5      +5+5+5+5+5+5+5+5+5+5+5   & &                +8+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8  +8+8+8+8+8+8+8+8+8+8                ~ ",
+"~             +2+2+2  +2+2+2+2            +2+2O1+2          +5+5+5+5+5+5  +5+5+5+5+5  +5+5+5+5+5+5                    +8+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8  O1  +8+8+8+8+8+8+8+8+8                ~ ",
+"~             +2+2      +2+2+2              +2+2          +5+5+5+5+5+5+5+5+5+5+5+5      +5+5+5+5                    +8+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8+8  +8+8+8+8+8+8+8+8+8                  ~ ",
+"~           +2+2+2      +2+2+2                          +5+5+5+5      +5+5+5                                      +8+8+8                              +8+8+8              +8+8                ~ ",
+"~           +2+2+2+2  +2+2+2                            . ; .           +5                   &                  +8+8+8                                  +8                +8+8                ~ ",
+"~           +2+2+2+2+2+2+2+2+2                          ; ; ;                                &                +8+8+8                                                         /                ~ ",
+"~           +2+2+2  +2+2+2+2                               t                               & & &              +8+8                                                          +d                ~ ",
+"~            /        +2+2+2          - - - - - - - - - - - - - - - - - - - -                                 +8+8- - - - - - - - - - - - - - - - - - - -                   +d                ~ ",
+"~           +c        +2+2+2          - - - - - - - - - - - - - - - - - - - -                                 +8+8- - - - - - - - - - - - - - - - - - - -                   +d                ~ ",
+"~           +c        +2+2+2          - - - - - - - - - - - - - - - - - - - -                                 +8+8- - - - - - - - - - - - - - - - - - - -                   +d                ~ ",
+"~           +c        +2+2+2          - - - - - - - - - - - - - - - - - - - -                                 +8+8- - - - - - - - - - - - - - - - - - - -                 +d+d+d              ~ ",
+"~         +c+c+c      +2+2+2          - - - - - - - - - - - - - - - - - - - -                                 +8+8- - - - - - - - - - - - - - - - - - - -               +d+d+d+d+d            ~ ",
+"~       +c+c+c+c+c-&-&  +2+2+2+2+2+2+2-t- - - - - - - - - - - - - - - - - - -t+6+6+6+6+6+6                    +8+8- - - - - - - - - - - - - - - - - - - -             +d+d+d+d+d+d+d          ~ ",
+"~     +c+c+c+c+c+c+c-&-&  +2+2+2+2+2+2-t- - - - - - - - - - - - - - - - - - -t+6+6+6+6+6+6+6+6                  +8-t- - - - - - - - - - - - - - - - - - -        #  +d+d+d+d~E+d+d+d+d   #    ~ ",
+"~ O1+c+c+c+c~E+c+c+c+c-&-&  +2+2+2+2+2-t- - - - - - - - - - - - - - - - - - -t+6+6+6+6+6+6+6+6+6  ~E              - - - - - - - - - - - - - - - - - - - -             +d+d+d+d+d+d+d          ~ ",
+"~     +c+c+c+c+c+c+c-&-&              - - - - - - - - - - - - - - - - - - - -             +6+6+6+6+6+6            - - - - - - - - - - - - - - - - - - - -               +d+d+d+d+d            ~ ",
+"~       +c+c+c+c+c-&-&                - - - - - - - - - - - - - - - - - - - -                 +6+6+6+6+6+6+6+6+6+6- -t- - - - - - - - - - - - - - - - - -                 +d+d+d              ~ ",
+"~         +c+c+c                      - - - - - - - - - - - - - - - - - - - -                     +6+6+6+6+6+6+6+6- -t- - - - - - - - - - - - - - - - - -                   +d                ~ ",
+"~           +c                        - - - - - - - - - - - - - - - - - - - -                         +6+6+6+6+6+6- -t- - - - - - - - - - - - - - - - - -                   O1                ~ ",
+"~ ~ ~ ~ ~ ~ ~#~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ - - - - - - - - - - - - - - - - - - - - ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ "})
+
+maze0(18,4)[EAST] = true
+
+maze1(16,0)[EAST] = true
+maze1(16,1)[EAST] = true
+maze1(16,2)[EAST] = true
+maze1(1,19)[SOUTH] = true
+maze1(5,6)[NORTH] = true
+
+maze2(16,17)[EAST] = true
+maze2(16,18)[EAST] = true
+maze2(16,19)[EAST] = true
+maze2(1,0)[NORTH] = true
+maze2(4,11)[SOUTH] = true
+
+maze3(0,2)[WEST] = true
+maze3(0,3)[WEST] = true
+maze3(0,4)[WEST] = true
+maze3(17,2)[EAST] = true
+maze3(17,3)[EAST] = true
+maze3(17,4)[EAST] = true
+
+maze4(2,0)[NORTH] = true
+maze4(3,0)[NORTH] = true
+maze4(21,9)[SOUTH] = true
+
+maze5(0,6)[SOUTH] = true
+maze5(2,6)[SOUTH] = true
+maze5(19,0)[NORTH] = true
+
+maze6(0,0)[WEST] = true
+maze6(0,1)[WEST] = true
+maze6(0,2)[WEST] = true
+maze6(17,4)[EAST] = true
+maze6(17,5)[EAST] = true
+maze6(17,6)[EAST] = true
+
+maze7(0,6)[WEST] = true
+maze7(2,7)[WEST] = true
+maze7(0,8)[WEST] = true
+maze7(21,6)[EAST] = true
+maze7(21,7)[EAST] = true
+maze7(21,8)[EAST] = true
+
+maze8(1,17)[EAST] = true
+maze8(30,0)[NORTH] = true
+maze8(31,0)[NORTH] = true
+maze8(32,0)[NORTH] = true
+maze8(31,8)[SOUTH] = true
+
+maze9(4,0)[NORTH] = true
+maze9(5,0)[NORTH] = true
+maze9(6,0)[NORTH] = true
+maze9(7,0)[NORTH] = true
+maze9(21,11)[SOUTH] = true
+maze9(21,11)[EAST] = true
+maze9(22,10)[SOUTH] = true
+maze9(23,11)[SOUTH] = true
+maze9(23,11)[WEST] = true
+maze9(22,2)[NORTH] = true
+
+maze10(4,8)[SOUTH] = true
+maze11(4,11)[SOUTH] = true
+maze12(4,0)[NORTH] = true
+maze13(4,0)[NORTH] = true
+
+maze0:render(lib.maze.renderer_strip, "+0")
+maze1:render(lib.maze.renderer_strip, "+2")
+maze2:render(lib.maze.renderer_strip, "+2")
+maze3:render(lib.maze.renderer_strip, "+1")
+maze4:render(lib.maze.renderer_strip, "+1")
+maze5:render(lib.maze.renderer_strip, "+1")
+maze6:render(lib.maze.renderer_strip, "+6")
+maze7:render(lib.maze.renderer_strip, "+1")
+maze8:render(lib.maze.renderer_strip, "+8")
+maze9:render(lib.maze.renderer_strip, "+8")
+maze10:render(lib.maze.renderer_strip, "+0")
+maze11:render(lib.maze.renderer_strip, "+0")
+maze12:render(lib.maze.renderer_strip, "+0")
+maze13:render(lib.maze.renderer_strip, "+0")
+
+function update_respwan(value, sender)
+    no["vortex"]["destination"] = sender + sender["_offset"]
+end
+
+--------------------------------------------------------------------------------
+--- ais room ---
+--------------------------------------------------------------------------------
+
+ti["a "] = {"fl_sand", floodable=false}
+ti["a."] = {"fl_rough", floodable=true}
+ti["a-"] = {"fl_water"}
+ti["a~"] = {"fl_water_source", interval=0.5} .. ti({"it_strip_ns"})
+ti["a#"]={"st_ancient"}
+ti["a+"]={"st_box"} .. ti["a."]
+ti["a^"]={"st_laser_n", state=ON}
+ti["aR"] = ti["a "] .. {"st_rawglass"}
+ti["aP"] = ti["a "] .. {"st_lightpassenger"}
+ti["aN"]={"st_mirror_slab", state=WEST}
+ti["aX"]={"st_door_a", "flooddoors_#"} .. ti["a."]
+ti["aS"]={"st_switch", target="flooddoors_#*"}
+ti["ax"]={"st_door_a", "laserdoors_#", state=OPEN}
+ti["aL"]={"st_laserswitch", target="@laserdoors_#*"}
+ti["a0"]={"st_oxyd"}
+ti["a["]={"st_window_w",   secure=true} .. ti["a."]
+ti["a]"]={"st_window_e",   secure=true} .. ti["a."]
+ti["a'"]={"st_window_n",   secure=true} .. ti["a."]
+ti["a_"]={"st_window_s",   secure=true} .. ti["a."]
+ti["ar"]={"st_window_nw",  secure=true} .. ti["a."]
+ti["a`"]={"st_window_ne",  secure=true} .. ti["a."]
+ti["al"]={"st_window_sw",  secure=true} .. ti["a."]
+ti["a/"]={"st_window_es",  secure=true} .. ti["a."]
+ti["a="]={"st_window_ns",  secure=true} .. ti["a."]
+ti["aI"]={"st_window_ew",  secure=true} .. ti["a."]
+ti["aU"]={"st_window_esw", secure=true} .. ti["a."]
+ti["a)"]={"st_window_nes", secure=true} .. ti["a."]
+ti["a("]={"st_window_nsw", secure=true} .. ti["a."]
+ti["aG"] = ti["a "] .. {"st_rawglass_movable"}
+ti["a|"] = ti["a-"] .. ti({"it_strip_ns"}) .. {"st_rawglass_movable"}
+ti["a>"] = ti["a-"] .. {"it_strip_w"}
+ti["aQ"] = ti["aR"] .. ti["a-"]
+ti["ae"] = ti["a "] .. {"it_seed"}
+ti["aB"] = {"st_barrier", flavor = "it_seed"}
+ti["aC"] = ti["a-"] .. {"st_barrier", flavor = "it_seed"}
+
+pmap_ais = {"--CBB---------------",
+            "-R PRRRRRRRRRRRRNRRR",
+            "-Reer`''''=='==`xL+R",
+            "-Reer].''[[.[..[+++R",
+            "-Ree.(`'''I.=).U ^+R",
+            "-Q~X..]`.[I/.__]xL+R",
+            "-Q~X.`..'.[]./]_+++R",
+            "-Q~X.l=)==`]__]] ^+R",
+            "-R  .[./__.]_].]xL+R",
+            "-R S[r[..[I.]].[+++R",
+            "-R  l__lll===/_)^^+R",
+            "-RP?RRRRRRRRRRRRRRRR",
+            "--BBB---------------"}
+
+map_ais = wo:newMap(" ", pmap_ais)
+
+wo:drawMap(ti, po(0,24), "a?", "a" * map_ais)
+
+--------------------------------------------------------------------------------
+--- mecke room ---
+--------------------------------------------------------------------------------
+
+ti["  i"] = {"fl_sahara", secure=true}
+ti["m  "] = {"fl_bright", secure=true}
+ti["  ~"] = {"fl_water", secure=true, burnable = false}
+ti["  r"] = {"fl_sand", secure=true}
+ti["  +"] = {"fl_bright", secure=true}
+ti["  $"] = {"fl_red", eternal = true, burnable = true, initfire = true}
+ti["m.~"] = ti["  ~"] .. {"it_seed"}
+ti[" s "] = {"it_burnable_ignited"}
+ti["  c"] = {"it_spade"}
+ti[" b "] = {"it_bomb_black"}
+ti["  b"] = {"it_bomb_black"}
+ti["  *"] = {"it_trap", state=OPEN}
+ti[" * "] = {"it_trap", state=OPEN}
+ti["  m"] = {"it_meditation"}
+ti[" n "] = {"it_crack_l", flavor="water"}
+ti["  &"] = {"it_glasses", state=SPOT_TRAP}
+ti["  ;"] = {"it_dynamite"}
+ti["  o"] = {"it_coffee"}
+ti[" B "] = {"st_window_w", secure=true}
+ti[" C "] = {"st_window_s", secure=true}
+ti[" D "] = {"st_window_e", secure=true}
+ti[" E "] = {"st_window_n", secure=true}
+ti[" G "] = ti["  i"] .. {"st_redfiber"}
+ti[" N "] = ti["  i"] .. {"st_window_n", secure=true}
+ti[" M "] = ti["  i"] .. {"st_window_s", secure=true}
+ti["  O"] = ti["  i"] .. {"st_window_ns", secure=true}
+ti[" s~"] = ti["  ~"] .. {"it_burnable_burning"}
+ti[" ? "] = ti["  $"] .. {"st_grate_cross"}
+ti[" A "] = ti["  i"] .. {"st_disco_light"}
+ti[" V "] = ti["  r"] .. {"it_seed_volcano"}
+ti[" < "] = ti["m.~"] .. {"st_boulder_w", name="bouldery"}
+ti[" X "] = {"st_grate_cross"}
+ti["ml1"] = {"st_laser_w", state=ON, name="liz1"}
+ti["ml2"] = {"st_laser_w", state=ON, name="liz2"}
+ti["ml3"] = {"st_laser_w", state=ON, name="liz3"}
+ti["mL1"] = {"st_laserswitch", action="toggle", target="switchy1"}
+ti[" # "] = {"st_purplegray"} --purplegray
+ti[" & "] = {"st_granite_hollow"}
+ti[" F "] = {"st_fourswitch", state=WEST, action={"turn", "turn", "turn"}, target={"bouldery", "liz1", "liz2"}}
+ti[" / "] = {"st_swap"}
+ti[" d "] = {"st_flat"}
+ti[" = "] = {"st_oneway_w", color=BLACK}
+ti["keydoor"] = ti["m  "] .. {"st_door_a", action="toggle", name="doory%%"}
+ti["keytrig"] = ti["m  "] .. ti[" X "] .. {"it_trigger", action="toggle", target="doory%%"}
+ti["mjd"] = ti["m  "] .. ti[" X "] .. {"it_trigger", action="open", target="doorX"}
+ti["my3"] = ti["m  "] .. ti[" X "] .. {"it_trigger", action="toggle", target="switchy2"}
+ti["my4"] = ti["m  "] .. {"it_sensor", action="open", target={"doorwest", "switch_3"}}
+ti["my5"] = ti["m  "] .. {"st_door_a", name="doorwest"}
+ti["my7"] = ti["m  "] .. {"st_door_c", name="doorX"}
+ti["  %"] = ti["my4"] .. {"fl_bridge_gc", state=OPEN, name="switchy1"}
+ti["my9"] = ti["m  "] .. {"fl_bridge_gc", state=OPEN, name="switchy2"}
+ti["mz1"] = ti["m  "] .. {"st_door_c", state=OPEN}
+ti["mz2"] = ti["  $"] .. {"st_door_c", state=OPEN}
+ti["mz6"] = ti["  ~"] .. {"it_strip_sw"}
+ti["mz7"] = ti["  ~"] .. {"it_strip_es"}
+ti["mz8"] = ti["  ~"] .. {"it_strip_nw"}
+ti["mz9"] = ti["  ~"] .. {"it_strip_ne"}
+ti["mja"] = ti["  i"] .. {"st_switch", action="close", target="switch_4"}
+ti["mjb"] = ti["  i"] .. {"st_mirror_triangle", state = WEST, transparent = false, movable = false}
+ti["mjc"] = ti["m  "] .. {"fl_bridge_gc", state=OPEN, name="switch_3"}
+ti["mje"] = ti["m  "] .. {"fl_bridge_gc", state=OPEN, name="switch_4"}
+ti[" H "] = ti["  i"] .. {"st_oneway_s", color=BLACK}
+
+ti[" ( "] = {"st_oneway_n", color=BLACK}
+ti[" ) "] = {"st_oneway_s", color=BLACK}
+
+pmap_mecke = {" ~# G & # # ? # # ) ) = # # ? ? ? # #  ~",
+          "#  i i i i i i i i iL1 i ~ ~ ~*~ ~ ~ ~# ",
+          "#  i ~ ~B E B B D  ~ ~ ~=1    # t1    # ",
+          "# H  ; ~D A :2A Dc ~l1 ~  X X X X X   & ",
+          "z1jc ~*~C :3/ y3B  ~ ~ ~  X d .~d X   z2",
+          "= d G  $B A :4A Cb ~ ~ ~  Xb.~.~.~X   d ",
+          "y5 %jbl3C D C D B*!2!3!4  X*.~jd< F !1ja",
+          "= y7G  $B B C D D b~ ~ ~ bX .~.~.~X   d ",
+          "z2 i ~*~D C :1D D  ~ ~ ~  X d .~d X   z2",
+          "# .~ ~ ~B D C D Bm ~l2 ~  X X XoX X   & ",
+          "#  i ~ ~B C B B D  ~ ~ ~      #     =1# ",
+          "# y9 inije i i i i i#  i ~ ~ ~*~ ~ ~ ~# ",
+          " ~& G # # & ? # # ( ( = # # ? ? ? # #  ~"}
+
+map_mecke = wo:newMap("  ", pmap_mecke)
+
+local railway1 = res.train(ti, {"m=1", edge=true}, {"mt1", train={"  ~", "  r", orientation=WEST, length=15}})
+local autotiler = res.autotile(railway1, {"m:", "keytrig"},  {"m!", "keydoor"})
+wo:drawMap(res.composer(autotiler), po(76,24), "m??", "m" * map_mecke) --Raouls world
+
+--------------------------------------------------------------------------------
+--- pulley room ---
+--------------------------------------------------------------------------------
+
+-- Fixes needed: if possible, disable switching of st_polarswitch by marble (is
+-- there an alternative that can only be switched by the sensors but not by the marble?)
+-- If fix is possible, then st_window can be removed.
+
+ti["p  "] = {"fl_sand", floodable=false, secure=true}
+ti["p. "] = {"fl_gravel", floodable=false, secure=true}
+ti["pw "] = ti({"fl_water"}) .. {"it_strip_s"}
+ti["p$$"] = {"st_lightglass"} .. ti({"fl_red", eternal = true, burnable = true, initfire = true})
+ti["p# "] = {"st_lightglass"}
+ti["ps "] = {"fl_slope"}
+ti["pI "] = ti({"st_puzzle_blue", cluster=2}) .. ti({"it_strip_n"}) .. {"fl_water"}
+ti["pi "] = ti({"st_puzzle_blue", cluster=2}) .. {"fl_slope"}
+ti["pL "] = ti({"st_mirror_slab_w"}) .. {"fl_slope"}
+ti["p/ "] = ti({"st_mirror_slab_e"}) .. {"fl_slope"}
+ti["p< "] = ti({"st_laser", state=ON, orientation=WEST, name="startlaser"}) .. {"fl_wood", burnable=false}
+ti["pU*"] = {"st_laser", orientation=NORTH, name = "laserP%%"}
+ti["pD*"] = {"st_laser", orientation=SOUTH, name = "laserP%%"}
+ti["p**"] = {"st_laserswitch", target = "laserP%%"}
+ti["pQ "] = {"st_laserswitch", target = "laserP#*"}
+ti["pd "] = {"st_door_b", name = "laserP#"}
+ti["pG*"] = {"st_polarswitch", name = "glassP%%"}
+ti["pg*"] = {"it_sensor", action="signal", target = "glassP%%"}
+ti["pV*"] = ti({"st_door", name = "doorP%%#", faces = "ew", state = CLOSED}) .. {"fl_sand"}
+ti["pv*"] = ti({"st_door", name = "doorP%%#", faces = "ew", state = OPEN}) .. {"fl_sand"}
+ti["pH*"] = ti({"st_door", name = "doorP%%#", faces = "ns", state = CLOSED}) .. {"fl_sand"}
+ti["ph*"] = ti({"st_door", name = "doorP%%#", faces = "ns", state = OPEN}) .. {"fl_sand"}
+ti["pS*"] = {"st_switch", target = "doorP%%#*"}
+ti["pf*"] = {"st_window_s", secure=true} .. ti({"it_sensor", action="signal", target = "glassP%%"})
+ti["p_ "] = {"st_window_s", secure=true} .. ti({"fl_sand", floodable=false, secure=true})
+ti["p~ "] = {"st_window_n", secure=true} .. ti({"fl_slope", floodable=false, secure=true})
+ti["p} "] = {"st_window_e", secure=true} .. ti({"fl_slope", floodable=false, secure=true})
+ti["p+ "] = {"st_window_ne", secure=true} .. ti({"fl_slope", floodable=false, secure=true})
+ti["p= "] = {"st_window_nw", secure=true} .. ti({"fl_slope", floodable=false, secure=true})
+
+pmap_pulley =   {"/ GaGbGcGdGeGfGgGhGiGjGkGlGmGnGoGpGqGrL ",
+                 "# = ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ + Gs",
+                 "# i $$$$$$$$$$$$$$$$$$$$$$SK$$$$$$$$} Gt",
+                 "# I $$gaVPgcVPgfvP    VLgeVLgdVKgbVK} Gu",
+                 "U1w $$HPSIhDSJHP$$HAHASMhL$$hGSFhK$$s *2",
+                 "  s vPghvDgjVDglvA    vAgkvGgiVGgg$$s d ",
+                 "  s $$HJSBHDSPhE$$HAHASEHC$$HG$$HFSDs d ",
+                 "  s vJgnvJgpVEgrVE    vCgqvCgoVFgm$$s d ",
+                 "*1s $$HJ$$hISChE$$HBHBSLHC$$HH$$hFSNhOD2",
+                 "# s $$gtVIgvVIgxvB    vBgwvHguvHgsVOg3# ",
+                 "# hP$$$$SOhI$$hP$$HBHBSAHM$$HHSGhNSHHO# ",
+                 "# _ _ _ _ _     vB    VMgyvMfzVNf1VNf2# ",
+                 "L GyGvG1GwG2# # <     # Q # G3# Gz# Gx/ "}
+
+map_pulley = wo:newMap("  ", pmap_pulley)
+
+wo:drawMap(res.autotile(ti,{"pU","pU*"},{"pD","pD*"},{"pH","pH*"},{"ph","ph*"},{"pV","pV*"},{"pv","pv*"},
+                           {"pS","pS*"},{"p*","p**"},{"pG","pG*"},{"pg","pg*"},{"pf","pf*"}), po(19,0), "p??", "p" * map_pulley)
+
+--------------------------------------------------------------------------------
+--- /dev/null room ---
+--------------------------------------------------------------------------------
+
+local dev0redFriction = 6.4
+local dev0redAdhesion = 2.0
+local dev0rotorRange = 2.5
+local dev0rotorStrength = -13.0
+
+ti["d  "] = {"fl_red_framed", name = "dev0coblmf#", burnable = true, initfire = false, adhesion = dev0redAdhesion, friction = dev0redFriction}
+ti["d ."] = {"fl_abyss"}
+ti["d ~"] = {"fl_water"}
+ti["d< "] = ti["d  "] .. {"st_oneway_w", color=BLACK}
+ti["d> "] = ti["d  "] .. {"st_oneway_e", color=BLACK}
+ti["dX."] = ti["d ."] .. {"st_grate"}
+ti["d _"] = {"fl_sahara_framed", burnable = false}
+ti["d ;"] = {"fl_red_framed", burnable = false}
+ti["d -"] = {"fl_sahara_framed", name = "dev0coblmf#", burnable = true}
+ti["d_ "] = ti["dX."] .. {"it_sensor", name = "dev0sensor", safeaction = true, invisible = false, target = "dev0initFire"}
+ti["d__"] = ti["d_ "] .. ti["d _"]
+ti["d ,"] = {"fl_fake_abyss", name = "dev0coblmf#", burnable = true, initfire = false, fastfire = true}
+ti["d !"] = {"fl_red_framed", name = "dev0coblmf#", eternal = true, burnable = true, initfire = false, adhesion = dev0redAdhesion, friction = dev0redFriction}
+ti["d^_"] = ti["d _"] .. {"it_springboard"}
+ti["d l"] = ti["d ;"] .. {"it_shogun_s", name = "dev0dots", target = "dev0bridge", action = "signal"}
+ti["d r"] = ti["d ;"] .. {"it_shogun_s", name = "dev0dots", target = "dev0bridge", action = "signal"}
+ti["d8!"] = ti["d !"] .. {"st_window_n"}
+ti["d8l"] = ti["d l"] .. {"st_window_n"}
+ti["d8r"] = ti["d r"] .. {"st_window_n"}
+ti["d6!"] = ti["d !"] .. {"st_window_e"}
+ti["d2!"] = ti["d !"] .. {"st_window_s"}
+ti["d2."] = ti["d ."] .. {"st_window_s"}
+ti["d4!"] = ti["d !"] .. {"st_window_w"}
+ti["d7!"] = ti["d !"] .. {"st_window_nw"}
+ti["d9!"] = ti["d !"] .. {"st_window_ne"}
+ti["d3!"] = ti["d !"] .. {"st_window_es"}
+ti["d1!"] = ti["d !"] .. {"st_window_sw"}
+ti["dI."] = ti["d ."] .. {"st_stoneimpulse"}
+ti["d* "] = {"#ac_rotor", range = dev0rotorRange, strength = dev0rotorStrength, gohome = false}
+ti["dY "] = ti["d _"] .. {"st_blocker", name = "dev0blockerY#"}
+ti["dZ "] = ti["d _"] .. {"st_blocker", name = "dev0blockerZ#"}
+ti["d y"] = {"fl_fake_abyss", name = "dev0floorY#", burnable = true, initfire = false, eternal = true, adhesion = dev0redAdhesion, friction = dev0redFriction}
+ti["d*Y"] = ti["d* "] .. ti["d _"] .. {"it_trigger", name = "dev0triggerY", target = "dev0toggleObjects"}
+ti["d z"] = {"fl_red_framed", name = "dev0floorZ#", burnable = true, initfire = false, eternal = true, adhesion = dev0redAdhesion, friction = dev0redFriction}
+ti["d*Z"] = ti["d* "] .. ti["d _"] .. {"it_trigger", name = "dev0triggerZ", target = "dev0toggleObjects"}
+ti["dXz"] = ti["d z"] .. {"st_grate"}
+ti["dB "] = {"fl_bridge_gc", name = "dev0bridges#"}
+ti["d s"] = ti["d ;"] .. {"it_shogun_s", name = "dev0dots", target = "dev0bridge", action = "signal"}
+ti["dS,"] = ti["d ,"] .. {"st_shogun_s"}
+ti["dO "] = {"st_oxyd"}
+
+wo:add({"ot_counter", name = "dev0bridge", state = 0, target= "dev0bridges#*", action_2 = "close", action_1 = "open"})
+
+function dev0initFire()
+    no["dev0sensor"]:kill()
+    no["dev0coblmf#*"]:setfire()
+end
+
+function dev0toggleObjects(val, src)
+    if src == no["dev0triggerZ"] and val == false then
+        wo[no["dev0floorZ#*"]] = ti["d ,"]
+        no["dev0blockerZ#*"]:toggle()
+    end
+    if src == no["dev0triggerY"] and val == false then
+        wo[no["dev0floorY#*"]] = ti["d ,"]
+        no["dev0blockerY#*"]:toggle()
+    end
+end
+
+pmap_dev0 = {
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~Z  _Y  ~ ~ ~ ~ ~ ~ ~ ~",
+    "7!8!8!8!8!8!8!8!8!8l__8r8!8!8!8!8!8!8!9!",
+    "4! -   -   -   y  Y    -   z   - . . .6!",
+    "4!   ! ! ! ! ! ! -   -   - . .   - . .6!",
+    "4! -   -   ! ! ! !^_ ! ! . .I. .   - .6!",
+    "1! ! y ! - ! ! ! ! . ! ! ! ! -  Z    -3!",
+    "< B    !   ,   ,   , ! ! ! ! y !   -B > ",
+    "<    ! !I.   ,   ,   ! , - , - , ! !  > ",
+    "< X. . . .^_ .Z    . .Y  , - ,^_ . .X.> ",
+    "7! ! ! ! . . ! , z . . , , ! . . . . .9!",
+    "4! . . . ,^_ ! , . . . . , !^_ , . . .6!",
+    "4! . .*Z , , ! ,S,XzXzS, , ! , ,*Y . .6!",
+    "4! . . . . , ! , , ! ! , , ! , . . . .6!",
+    "1!2!2!2!2.2.2!2!2!2!2!2!2!2!2.2.2!2!2!3!"}
+
+map_dev0 = wo:newMap("  ", pmap_dev0)
+wo:drawMap(ti, po(19, 47), "d??", "d" * map_dev0)
+
+--------------------------------------------------------------------------------
+--- Zephyr room ---
+--------------------------------------------------------------------------------
+
+wo["FallenPuzzle"] = "it_strip"
+
+ti["z "] = {"fl_concrete"}
+ti["z-"] = {"fl_water"}
+ti["z>"] = {"st_oneway", orientation=EAST, color=BLACK}
+ti["z#"] = ti["z "] .. {"st_ancient"}
+ti["ze"] = ti["z-"] .. {"it_strip_e"}
+ti["zi"] = ti["z "] .. {"it_magicwand"}
+ti["zm"] = ti["z "] .. {"st_barrier", flavor = "it_magicwand"}
+ti["zn"] = ti["z-"] .. {"it_strip_n"}
+ti["zs"] = ti["z-"] .. {"it_strip_s"}
+ti["zw"] = ti["z-"] .. {"it_strip_w"}
+ti["zB"] = ti["z "] .. {"st_puzzle_blue", cluster=1}
+ti["zX"] = ti["z-"] .. {"st_oxyd"}
+
+pmap_zephyr = {"-###################",
+               "-#---       -      #",
+               "-----   BB  ## BBB #",
+               "-----    B  ## B B #",
+               "----e  BBBB #  BB  #",
+               "-----   B   # #    #",
+               "m ---   BB  # ######",
+               "# ---       #neBB  #",
+               "################## #",
+               "> BBi w--  B    --n#",
+               "> #BB --e BB BBBw--#",
+               ">     ---       ---#",
+               "####################"}
+
+map_zephyr = wo:newMap(" ", pmap_zephyr)
+
+wo:drawMap(res.puzzle(ti, "zB"), po(57,48), "z?", "z" * map_zephyr)
+
+--------------------------------------------------------------------------------
+--- Hairball room ---
+--------------------------------------------------------------------------------
+
+ti["h "] = {"fl_concrete"}
+ti["h,"] = {"fl_swamp"}
+ti["h#"] = {"st_pinkbumps"}
+ti["h="] = ti["h,"] .. {"st_rawglass_quad"}
+ti["h_"] = {"fl_abyss"}
+ti["hD"] = {"st_death"}
+ti["h+"] = {"st_box"}
+ti["ha"] = {"it_squashed"} .. ti({"fl_scales", min=0.8, target="door2"})
+ti["hs"] = {"it_bottle_broken"} .. ti({"fl_scales", "triggerbridge", min=0.8, target="door3"})
+ti["hc"] = {"it_squashed"} .. ti({"fl_scales", min=0.8, target="door4"})
+ti["hP"] = {"st_mirror_triangle", movable=true, state=NORTH}
+ti["hM"] = {"st_mirror_slab", movable=true, state=NORTH}
+ti["h|"] = {"st_mirror_slab", transparent=true, state=NORTH}
+ti["hv"] = {"st_oneway_s", color=BLACK}
+ti["h>"] = {"st_oneway_e", color=BLACK}
+ti["hL"] = {"st_laser_e", "laser"}
+ti["hQ"] = {"st_switch", action="callback", target={"clearbottle","door1"}}
+ti["h-"] = {"fl_bridge_gc", state=OPEN}
+ti["hR"] = {"st_switch", target="laser"}
+ti["hb"] = {"fl_bridge_gc", "bridgemid", state=OPEN}
+ti["h1"] = {"fl_bridge_gc", "bridges#", state=OPEN} .. ti({"st_door_a", faces="ew", "door1"})
+ti["h2"] = {"fl_bridge_gc", "bridges#", state=OPEN} .. ti({"st_door_a", faces="ew", "door2"})
+ti["h3"] = {"fl_bridge_gc", "bridges#", state=OPEN} .. ti({"st_door_a", faces="ew", "door3"})
+ti["h4"] = {"fl_bridge_gc", "bridges#", state=OPEN} .. ti({"st_door_a", faces="ew", "door4"})
+ti["hS"] = {"st_laserswitch", target="toggleBridges", action = "signal"}
+ti["h~"] = {"st_timer", "timer", action="open", target="bridgemid", interval=3.0, loop=false, state=OFF}
+ti["hT"] = {"fl_bright"} .. ti({"it_sensor", action={"close","signal"}, target={"bridgemid","timer"}})
+ti["ht"] = {"fl_dark"} .. ti({"it_sensor", action="open", target="bridgemid"})
+
+function clearbottle(signal, caller)
+    if signal then
+        wo[no["triggerbridge"]] = {"it_squashed"}
+    else
+        wo[no["triggerbridge"]] = {"it_bottle_broken"}
+    end
+end
+wo:add({"ot_counter", name = "toggleBridges", state = 0, target = "bridges#*", action_4 = "close", action_3 = "open"})
+
+pmap_hb = {
+    "~####S############R#",
+    "#=  =            #,#",
+    "#  += ==== =====P#,#",
+    "#    P     =   = #,#",
+    "#   = ==== = = = #,#",
+    "#==== > +- = = = # #",
+    ">   = ==v= = = =   #",
+    "#   M      =T= =  =#",
+    "#==== ===    b     #",
+    "Q   =  == ==_=D=== #",
+    "S==a_s    S 1234   #",
+    "#L=|_c ==== ====   #",
+    "#####S#####vvvvR####"}
+
+map_hb = wo:newMap(" ", pmap_hb)
+
+wo:drawMap(ti, po(57,0), "??", "h" * map_hb)
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true"></el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

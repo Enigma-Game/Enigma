@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Reddish" el:subtitle="" el:id="devnull87"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="3:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = false
+
+ti["# "] = {"st_pinkbumps"}
+ti["+ "] = {"st_pull"}
+ti["- "] = {"st_lightglass_hollow"}
+ti["  "] = {"fl_pinkbumps"}
+ti[" ."] = {"fl_abyss"}
+ti["shoguns"] = ti({"st_shogun", flavor = "sm"}) .. {"it_shogun_m", target = "inner%%"}
+ti["innerDoors"] = {"st_door_d", name = "inner%%", faces = "ns"}
+ti["dots"] = ti["- "] .. {"it_shogun_m", target = "outer%%"}
+ti["outerDoors"] = {"st_door_d", name = "outer%%", faces = "ns"}
+ti["O "] = {"st_oxyd_d", oxydcolor = OXYD_RED}
+ti["@ "] = ti["- "] .. {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"_", "innerDoors"}, {"S", "shoguns"}, {"=", "outerDoors"}, {"o", "dots"})), "  ", {
+    " .O. . . . . . . . .O. .",
+    "# =0#. . . . . . .#.=1# ",
+    "#._0#  . . . . . .# _1#.",
+    "#.- #.#.#.#.#.#.#.#.- #.",
+    "#.- - - - - - - - - - #.",
+    "#.- - S0- - - - S1- - #.",
+    "#.- - - + - - @ - - - #.",
+    "#.#.- - o0    o1- - #.#.",
+    " .#.#.#.#.#.#.#.#.#.#. ."})
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
