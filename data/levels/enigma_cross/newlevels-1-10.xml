@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="97" title="Enigma 1.10 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="98" title="Enigma 1.10 new"/>
 
   <attributes/>
 
@@ -133,7 +133,7 @@
     <level _seq="125" _title="Fifty Years Later ..." _xpath="enigma_viii/mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="42" score="1" target="time" unit="duration"/>
     <level _seq="126" _title="Turbulencia" _xpath="enigma_viii/mecke19_1" author="mecke" ctrl="force" easy="true" id="mecke19" rel="1" rev="22" score="1" target="time" unit="duration"/>
     <level _seq="127" _title="Techno Voodoo" _xpath="enigma_viii/mecke06_1" author="mecke" ctrl="force" easy="false" id="mecke06" rel="1" rev="20" score="1" target="time" unit="duration"/>
-    <level _seq="128" _title="Plutos World" _xpath="enigma_viii/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="23" score="1" target="time" unit="duration"/>
+    <level _seq="128" _title="Plutos World" _xpath="enigma_viii/mecke16_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="129" _title="Plutos Confusion" _xpath="enigma_viii/mecke13_1" author="mecke" ctrl="force" easy="false" id="mecke30" rel="1" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="130" _title="Coober Pedy Opals" _xpath="enigma_vii/ral35_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral610" rel="1" rev="210" score="1" target="time" unit="duration"/>
     <level _seq="131" _title="Butterfly Opals" _xpath="enigma_vii/ral36_1" author="Ronald Lamprecht, Andreas Lochmann" ctrl="force" easy="true" id="20081207ral708" rel="1" rev="210" score="1" target="time" unit="duration"/>
@@ -273,7 +273,7 @@
     <level _seq="265" _title="Distribution Meditation" _xpath="enigma_ix/ais70_1" author="Alex Smith" ctrl="force" easy="false" id="ais70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="266" _title="Origami" _xpath="enigma_ix/ais71_1" author="Alex Smith" ctrl="force" easy="false" id="ais71" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="267" _title="Marching Formation" _xpath="enigma_ix/ais73_2" author="Alex Smith" ctrl="force" easy="true" id="ais73" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="268" _title="A Little Tropical Castle" _xpath="enigma_ix/mecke16_1" author="mecke" ctrl="force" easy="false" id="mecke16" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="268" _title="A Little Tropical Castle" _xpath="enigma_ix/mecke02_1" author="mecke" ctrl="force" easy="false" id="mecke02" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="269" _title="Waterloo" _xpath="enigma_ix/ral55_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20100610ral768" rel="1" rev="208" score="1" target="time" unit="duration"/>
     <level _seq="270" _title="Reddish" _xpath="enigma_ix/devnull87_1" author="/dev/null" ctrl="force" easy="false" id="devnull87" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="271" _title="Steering The Flood" _xpath="enigma_ix/ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
