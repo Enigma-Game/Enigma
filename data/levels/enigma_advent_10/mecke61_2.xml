@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Rudi on Trigger" el:subtitle="Press the Triggers" el:id="mecke61"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="15:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_bluegray"}
+ti[" #"] = {"fl_water"}
+ti[" $"] = {"fl_metal_7"}
+ti[" %"] = {"fl_red"}
+ti["( "] = {"st_oxyd_d"}
+ti[" '"] = {"fl_space"}
+ti[" &"] = {"fl_redslab"}
+ti[" ("] = {"fl_sahara"}
+ti[" Q"] = {"it_trigger", target="lasy", action="toggle"}
+ti[" @"] = ti[" Q"] .. {"#ac_marble_black"}
+ti[") "] = {"st_laser_s", state=ON, name="lasy"}
+ti["' "] = {"st_portal_horse"}
+ti["! "] = {"st_mirror_slab_em"}
+ti["$ "] = {"st_mirror_slab_st"}
+ti["% "] = {"st_mirror_slab_w"}
+ti["* "] = {"st_mirror_slab_e"}
+ti["/ "] = {"st_puzzle_blue", connections = "s"}
+ti["+ "] = {"st_puzzle_blue", connections = "e"}
+ti[", "] = {"st_puzzle_blue", connections = "es"}
+ti["0 "] = {"st_puzzle_blue", connections = "nes"}
+ti["1 "] = {"st_puzzle_blue", connections = "nw"}
+ti["2 "] = {"st_puzzle_blue", connections = "w"}
+ti["3 "] = {"st_puzzle_blue", connections = "esw"}
+ti["4 "] = {"st_puzzle_blue", connections = "sw"}
+ti["5 "] = {"st_puzzle_blue", connections = "ne"}
+ti["6 "] = {"st_puzzle_blue", connections = "nesw"}
+ti["7 "] = {"st_puzzle_blue", connections = "ew"}
+ti[". "] = {"st_puzzle_blue", connections = "n"}
+ti["- "] = {"st_puzzle_blue", connections = "ns"}
+ti["j "] = {"it_puller_s"}
+ti["J "] = {"it_bottle_idle"}
+ti["ttemplate"] = ti["  "] .. {"it_trigger", target="uha%%"}
+ti["utemplate"] = ti["  "] .. {"it_trigger", target="uhb%%"}
+ti["vtemplate"] = ti["  "] .. {"it_trigger", target="uhc%%"}
+ti["wtemplate"] = ti["  "] .. {"it_trigger", target="uhd%%"}
+ti["atemplate"] = ti[" #"] .. {"st_door", faces="ew", name="uha%%"}
+ti["btemplate"] = ti[" #"] .. {"st_door", faces="ew", name="uhb%%"}
+ti["ctemplate"] = ti[" #"] .. {"st_door", faces="ew", name="uhc%%"}
+ti["dtemplate"] = ti[" #"] .. {"st_door", faces="ew", name="uhd%%"}
+ti["mtemplate"] = ti["  "] .. {"it_trigger", target="uhe%%"}
+ti["ntemplate"] = ti["  "] .. {"it_trigger", target="uhf%%"}
+ti["otemplate"] = ti["  "] .. {"it_trigger", target="uhg%%"}
+ti["etemplate"] = ti[" #"] .. {"st_door", faces="ns", name="uhe%%"}
+ti["ftemplate"] = ti[" #"] .. {"st_door", faces="ns", name="uhf%%"}
+ti["gtemplate"] = ti[" #"] .. {"st_door", faces="ns", name="uhg%%"}
+
+local autotiler = res.autotile(ti, {"t", "ttemplate"}, {"u", "utemplate"}, {"v", "vtemplate"}, {"w", "wtemplate"},
+                                   {"a", "atemplate"}, {"b", "btemplate"}, {"c", "ctemplate"}, {"d", "dtemplate"},
+                                   {"m", "mtemplate"}, {"n", "ntemplate"}, {"o", "otemplate"}, {"e", "etemplate"},
+                                   {"f", "ftemplate"}, {"g", "gtemplate"})
+
+wo(res.composer(autotiler), "  ", {
+    "! a1a2a3a4a5a6a7a8a9b1b2b3b4b5b6b7b8b9%#'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'(",
+    "e1'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%g5'& &/& & & &/& & &,&3&2& & &/& &/$ &'(",
+    "e2'                               J '%(#'& $0$2$ $,$1$ $ $5$1$ $ $ $5$7$1$ &'(",
+    "e3'                                 '%'#'&+$1$ $ $-$ $ $ $ $ $ $ $ $ $ $ $ &'(",
+    "e4'                                  % # & $ $ $ $.$ $/$ $ $+$7$4$ $ $ $ $ &'(",
+    "e5'                                  %   &,$2$ $ $ $ $-$ $ $ $ $-$ $ $ $ $ &'(",
+    "e6'                                  % # &-$ $+$3$2$ $-$ $ $ $ $.$ $/$ $ $ &'(",
+    "e7'                 (                %   &-$ $ $-$ $ $-$ $ $ $ $ $ $0$2$ $ &'(",
+    "e8'             t1  t2  t3           % # &.$ $ $.$ $ $.$ $ $ $ $ $ $-$ $ $ &'(",
+    "e9'             t4t5t6t7t8           %   & $ $ $ $ $ $ $ $ $/$ $ $ $.$ $ $ &'(",
+    "g3'           t9u1                   % # & $ $ $ $ $ $ $ $+$6$2$ $ $ $ $ $ &'(",
+    "g4'       u2u3u4                     %   & $ $+$4$ $ $ $ $ $.$ $ $ $ $ $ $ &'(",
+    "$ '       u5u6u7                     %   & $ $ $5$4$ $ $ $ $ $ $,$2$ $ $ $(&'(",
+    "g2'         u8u9                     %   & $ $ $ $.$ $ $ $ $ $ $-$ $ $ $ $ &'(",
+    "g1'         v1v2v3                   % # & $ $ $ $ $ $ $ $ $ $+$1$ $ $ $ $ &'(",
+    "f9'         v4v5v6v7v8v9w1w2w3w4     %   & $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ &'(",
+    "f8'         w7w8w9m1m2m3m4m5  w5     % # & $ $ $ $ $ $ $ ' $ $ $ $ $ $ $ $ &'(",
+    "f7'           m6m7m8m9n1n2n3  w6(    %   & $ $ $ $ $ $ ' ( ' $ $ $ $ $ $ $ &'(",
+    "f6'           n4n5      n6n7         % # & $ $ $ $ $ ' ( $ ( ' $ $ $ $ $ $ &'(",
+    "f5'           n8n9      o1o2         %   & $ $ $ $j' ( $ @ $ (j' $ $ $ $ $ &'(",
+    "f4'           o5          o3         % # & $ $ $ $ $ ' ( $ ( ' $ $ $ $ $ $ &'(",
+    "f3'           o6          o4        '%'#'& $ $ $ $ $ $ ' ( ' $ $ $ $ $ $ $ &'(",
+    "f2'                                 '%)#'& $ $ $ $ $ $ $ ' $ $ $ $ $ $ $ $ &'(",
+    "f1'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%'%g6'& & & & & & & & & & & & & & & & & &'(",
+    "% c1c2c3c4c5c6c7c8c9d1d2d3d4d5d6d7d8d9* '&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'&'("})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Christmas Thieves" el:subtitle="" el:id="andreas61"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>newAPI converted by mecke</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="03:04"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn_b"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_camouflage"}
+ti["T"] = {"st_thief"}
+ti["p"] = {"it_coin_s"}
+ti["s"] = {"it_springboard"}
+ti["1"] = {"it_key", code="ka"}
+ti["2"] = {"it_key", code="kb"}
+ti["3"] = {"it_key", code="kc"}
+ti["A"] = {"st_key", code="ka", target="da"}
+ti["a"] = ti["2"] .. {"st_door_a", name="da"}
+ti["B"] = {"st_key", code="kb", target="db"}
+ti["b"] = ti["3"] .. {"st_door_a", name="db"}
+ti["C"] = {"st_key", code="kc", target="dc"}
+ti["c"] = {"st_door", flavor="a", name="dc"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "###############T########T##############",
+    "#Oc  ###  s~~s      T##T    T####T#####",
+    "####s##T #####T T## ###  ~~  #T    p###",
+    "#  s~s   ###### ### B## #~~~    ~~~ T##",
+    "#b##s###O###T##s#T#T###s###~~~~~~~#  ##",
+    "#### #p 1###  s~s     s~s   ######## ##",
+    "#T   Tp@ ### ##s##T####s###    #####s##",
+    "#  T##p p#   ## ####### T#####  ####~##",
+    "# #####s## ###Ts###T##T   a###T ####~##",
+    "T  T  s~s  ## s~s       #A#T     ###s##",
+    "##   T#s####T #s###T#T##T##  ##T T   ##",
+    "C  ####       T             T###   T  #",
+    "########T###########T#T##T######T######"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

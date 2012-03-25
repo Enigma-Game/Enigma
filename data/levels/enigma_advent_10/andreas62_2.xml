@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Preparing the Sleigh" el:subtitle="" el:id="andreas62"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>Converted to newAPI by /dev/null, February 2012</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_rough"}
+ti[" ."] = {"fl_ice"}
+ti[" ~"] = {"fl_water"}
+ti[" -"] = {"fl_lawn"}
+ti[" _"] = {"fl_hay"}
+ti["# "] = {"st_camouflage"}
+ti["* "] = {"st_redbrown"}
+ti["H "] = {"st_brownpyramid"}
+ti["C "] = {"st_chess_black"}
+ti["I "] = {"st_invisible"}
+ti["R "] = {"st_granite"}
+ti["b "] = {"it_bag"}
+ti["T "] = {"it_trigger", target="toggleDoor", action="signal"}
+ti[" +"] = {"fl_lawn", name="door"}
+ti["N "] = {"st_nil"}
+ti["O "] = {"st_oxyd_a"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.composer(ti), "  ", {
+    "# # # # # # # # # R-R-R-R-R-R-# # # # # ",
+    "# # # # # # # # # # # # R-R-# # # # # # ",
+    "# R-# # # H-H- - - -O # # R-# # # # # # ",
+    "# R-R-O  - - - -H-H-H-H-H-# # # # #  ~ ~",
+    "# R-R-R-# #  - - -H- -# # # # #  ~ ~ ~ ~",
+    "# # R-R-R-# #  - - -# # # # # #  ~ ~# # ",
+    "# # # # # # # #  -# # # # # #  ~ ~ ~ ~ ~",
+    "# # # # # # # #  -# # # #  ~ ~ ~ ~ ~# # ",
+    "# # # # # # # #  -# #  ~ ~ ~ ~ ~ ~# # # ",
+    "# # # # # #  ~ ~   ~ ~ ~ ~ ~ ~# # # # # ",
+    "# # # #  ~ ~ ~ ~   ~ ~ ~# # # # # # # # ",
+    "# # # #  ~ ~# #  -# # # # # # # # # # # ",
+    "# # #  ~ ~ ~# # #+# # # # # # # # # # # ",
+    "# # #  -C~ ~ - - - - -C- - - -# # # # # ",
+    "# R- - - ~ ~ ~ ~ - - -R-R-R- -C- - -# # ",
+    "# #  - -C-   ~ ~  C- - - -C- - - - - -# ",
+    "# #  -      C     # # # #        - - -# ",
+    "R-        R-    # # # # # #  ~  R-C- -# ",
+    " ~ . .      R-    # # # #  ~ ~  R-R- -# ",
+    " ~ . . . . .    R-R-  #  ~ ~        # # ",
+    " ~ . .* *  . . . .        R-    @   # # ",
+    " ~ . .* b_ _ _*  . .     . . . . .# # # ",
+    " ~ ~ .* * * * * * T * T * T * T  . . .# ",
+    " ~ ~ ~ ~ ~ .* * * T * T * T * T  . . .# ",
+    " ~ ~ ~ ~ ~ ~ ~ ~I~I~I~I~I~I~I~I~I~ ~ ~ ~"})
+
+wo:add(YIN, {"it_extralife"})
+wo:add({"ot_counter", name="toggleDoor", state=0, target_8="openDoor", target_7="closeDoor"})
+
+function openDoor()
+    wo[no["door"]] = ti["N "] .. ti[" +"]
+end
+
+function closeDoor()
+    wo[no["door"]] = ti["# "] .. ti[" +"]
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

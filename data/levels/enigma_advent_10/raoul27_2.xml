@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Schwarz-Weiss-Gebäck" el:subtitle="" el:id="raoul27"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_mortar"}
+ti["~"] = {"fl_water"}
+ti["B"] = {"st_passage", flavor="frame", color=BLACK}
+ti["W"] = {"st_passage", flavor="frame", color=WHITE}
+ti["^"] = {"st_oneway", color=BLACK, orientation=NORTH}
+ti[">"] = {"st_oneway", color=BLACK, orientation=EAST}
+ti["V"] = {"st_oneway", color=BLACK, orientation=SOUTH}
+ti["<"] = {"st_oneway", color=BLACK, orientation=WEST}
+ti["2"] = {"st_oneway", color=WHITE, orientation=NORTH}
+ti["6"] = {"st_oneway", color=WHITE, orientation=EAST}
+ti["8"] = {"st_oneway", color=WHITE, orientation=SOUTH}
+ti["4"] = {"st_oneway", color=WHITE, orientation=WEST}
+ti["F"] = {"st_quake"}
+ti["X"] = {"st_fake_oxydb"}
+ti["#"] = {"st_fake_quake"}
+ti["G"] = cond(wo["IsDifficult"], ti["F"], ti["#"])
+ti["g"] = cond(wo["IsDifficult"], ti["F"], ti[" "])
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["A"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~XXXX ######## XXXX~",
+    "~OB g #      # g WO~",
+    "~XX   # XXXX #   XX~",
+    "~OW G^# X~~X #8G BO~",
+    "~XX 6    ~~    < XX~",
+    "~OB GG@ F~~F AGG WO~",
+    "~XX >    ~~    4 XX~",
+    "~OW G2# X~~X #VG BO~",
+    "~XX   # XXXX #   XX~",
+    "~OB g #      # g WO~",
+    "~XXXX ######## XXXX~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

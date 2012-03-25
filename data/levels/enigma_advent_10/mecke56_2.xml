@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Noel III" el:subtitle="Another Tree?" el:id="mecke56"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author  el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="04:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bright"}
+ti["_"] = {"fl_space"}
+ti["-"] = {"fl_bluegray"}
+ti["l"] = {"fl_lawn_d1"}
+ti["e"] = {"fl_lawn_e1"}
+ti["r"] = {"fl_red"}
+ti[":"] = {"fl_blueslab"}
+ti["("] = {"st_oxyd_a"}
+ti[")"] = {"st_quake"}
+ti["*"] = ti["l"] .. {"st_oneway_e"}
+ti["&"] = ti["l"] .. {"st_oneway_w"}
+ti["%"] = ti["l"] .. {"st_oneway_s"}
+ti["'"] = ti["l"] .. {"st_oneway_n"}
+ti["+"] = {"st_flash"}
+ti[","] = {"st_yellow"}
+ti["y"] = ti["r"] .. {"it_yinyang"}
+ti["g"] = ti["y"] .. {"st_rawglass"}
+ti["!"] = {"st_rawglass_movable"}
+ti["#"] = {"st_passage_white", flavor = "frame"}
+ti["$"] = ti["y"] .. {"st_actorimpulse"}
+ti["P"] = ti["-"] .. {"st_passage_white", flavor = "frame"}
+ti["@"] = ti["r"] .. {"#ac_marble_black"}
+ti["Q"] = ti["r"] .. {"#ac_marble_white"}
+ti["1"] = {"it_vortex", name="a1", destination="a2"}
+ti["2"] = {"it_vortex", name="a2", destination="a1"}
+ti["i"] = {"it_dynamite"}
+ti["j"] = {"it_bag"}
+ti["k"] = {"it_weight"}
+ti["N"] = ti["l"] .. {"it_crack_s"}
+ti["m"] = ti["l"] .. {"it_meditation_bump"}
+ti["J"] = ti["l"] .. {"it_bag"}
+ti["K"] = ti["l"] .. {"it_weight"}
+ti["M"] = ti["l"] .. {"it_meditation_hill"}
+ti["~"] = ti["!"] .. {"it_magicwand"}
+ti["/"] = ti["~"] .. {"fl_bluegray"}
+
+wo(ti, " ", {
+    "_________P__+++_____",
+    "-/------PiP---+++-+-",
+    "/@/----Pi(iP----++--",
+    "-/----Pie)li#----+--",
+    "-----PieN(Nli#--+,+-",
+    "----PieNN)NNli#--+--",
+    "   #iemmm(mmmli#    ",
+    "   #l%%%%)%%%%l#    ",
+    "   #jjJJJQJJJjj#    ",
+    "   #l&&&&)****l#    ",
+    "   #kkKKKKKKKkk#    ",
+    ":1 #lMMMM)MMMMl# g2:",
+    ":::#$:l''(''l:$#::::"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

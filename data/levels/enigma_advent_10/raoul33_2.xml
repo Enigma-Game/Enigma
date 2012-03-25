@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Rubberpuzzling" el:subtitle="" el:id="raoul33"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007, 2012 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+	<el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="6:47"/>
+    </el:info>
+    <el:luamain><![CDATA[
+if not wo["IsDifficult"] then
+    wo["SlopeStrength"] = 18.0
+end
+
+ti[" "] = {"fl_gray"}
+ti["~"] = {"fl_water"}
+ti["<"] = {"fl_slope", shape="pw", slope=WEST}
+ti[">"] = {"fl_slope", shape="pe", slope=EAST}
+ti["-"] = cond(wo["IsDifficult"], ti["<"], ti[" "])
+ti["&"] = {"st_purplemarble"}
+ti["%"] = {"st_brownmarble"}
+ti["W"] = ti["-"] .. {"st_passage", color=BLACK, flavor="frame"}
+ti["w"] = ti["<"] .. {"st_passage", flavor="frame"}
+ti["K"] = ti["~"] .. {"st_passage", color=WHITE, flavor="frame"}
+ti["B"] = ti[">"] .. {"it_springboard"}
+ti["S"] = {"st_scissors", action="open", target="door%%"}
+ti["H"] = ti["-"] .. {"st_door", flavor="d", faces="ew", name="door%%"}
+ti["r"] = {"it_rubberband", anchor2="white", length=4, strength=20}
+ti["G"] = ti["r"] .. {"st_grate_framed"}
+ti["P"] = {"st_puzzle", color=YELLOW, cluster=1}
+ti["p"] = {"st_puzzle", color=YELLOW, cluster=1, hollow=true}
+ti["g"] = cond(wo["IsDifficult"], ti["r"] .. ti["p"], ti["G"])
+ti["O"] = {"st_oxyd"}
+ti["A"] = ti["<"] .. {"#ac_marble_white", name="white"}
+ti["@"] = ti[">"] .. {"#ac_marble_black"}
+
+wo(res.puzzle(res.autotile(res.random(ti,"#", {"&", "%"}) ,{"1", "5", "S"}, {"a", "f", "H"}), "P", "p"), " ", {
+    "####################",
+    "#~><<##>>>>><-1-aWO#",
+    "#~><<#PG>>>><---####",
+    "OKB<<<PPP>>><-2-bWw#",
+    "#~><<<<GP#>><---##O#",
+    "#~><<<PPP>>><---####",
+    "OKB<A<PgP>@><-3-cWO#",
+    "#~><<<PPP>>><---####",
+    "#~><<#PG>>>><---##O#",
+    "OKB<<<PPP>>><-4-dWw#",
+    "#~><<<<GP#>><---####",
+    "#~><<<<<##>><-5-eWO#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Boulder...Race" el:subtitle="Over the Hills..." el:id="mecke55"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="02:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rough"}
+ti["_"] = {"fl_red"}
+ti["!"] = {"it_squashed"}
+ti["#"] = {"fl_water"}
+ti["w"] = {"st_box_wood"}
+ti["a"] = {"st_brownie"}
+ti["$"] = {"fl_space"}
+ti["o"] = {"st_oxyd_b"}
+ti["b"] = ti["#"] .. {"st_boulder_e"}
+ti["@"] = ti["!"] .. {"#ac_marble_black"}
+ti["x"] = {"it_dynamite"}
+ti["m"] = ti["#"] .. {"it_magicwand"}
+ti["%"] = ti["_"] .. {"it_seed_greenbrown"}
+
+wo(ti, " ", {
+    "aaaaaaaaaaaaaaaaaaaa",
+    "ao#!!!!!$%%$!!!!!boa",
+    "ax#!!!!!!!!!!!!!!#xa",
+    "ao#!!!!!$%%$!!!!!boa",
+    "ax#!!!!!!!!!!!!!!#xa",
+    "ao#!!!!!%%%%!!!!!boa",
+    "ax#!!@w!!!!!!!!m!#xa",
+    "ao#!!!!!%%%%!!!!!boa",
+    "ax#!!!!!!!!!!!!!!#xa",
+    "ao#!!!!!$%%$!!!!!boa",
+    "ax#!!!!!!!!!!!!!!#xa",
+    "ao#!!!!!$%%$!!!!!boa",
+    "aaaaaaaaaaaaaaaaaaaa"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

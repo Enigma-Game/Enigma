@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
+
+  <info enigma="1.00" group="Facets" location="69000" network="false" owner="Enigma Team" release="1" revision="1" title="Advent 2010"/>
+
+  <attributes/>
+
+  <levels>
+    <level _seq="1" _title="Meditation I" _xpath="./mecke50_2" author="mecke" ctrl="force" easy="false" id="mecke50" rel="2" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Schwarz-Weiss-Gebäck" _xpath="./raoul27_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul27" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Noel I" _xpath="./mecke51_2" author="mecke" ctrl="force" easy="false" id="mecke51" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Decorations" _xpath="./andreas59_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas59" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Meditation II" _xpath="./mecke52_2" author="mecke" ctrl="force" easy="false" id="mecke52" rel="2" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="The Brimmed Boot" _xpath="./devnull73_2" author="/dev/null" ctrl="force" easy="false" id="devnull73" rel="2" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Maze for Two" _xpath="enigma_viii/ral22_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20071017ral096" rel="2" rev="182" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Black And White Cookie" _xpath="./devnull74_2" author="/dev/null" ctrl="force" easy="false" id="devnull74" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Noel II" _xpath="./mecke53_2" author="mecke" ctrl="force" easy="false" id="mecke53" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Rubberpuzzling" _xpath="./raoul33_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul33" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Meditation III" _xpath="./mecke54_2" author="mecke" ctrl="force" easy="false" id="mecke54" rel="2" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Boulder...Race" _xpath="./mecke55_2" author="mecke" ctrl="force" easy="false" id="mecke55" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Break On Through" _xpath="./devnull72_2" author="/dev/null" ctrl="force" easy="false" id="devnull72" rel="2" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="Stairway to Heaven" _xpath="./zephyr30_1" author="Zephyr" ctrl="force" easy="true" id="zephyr30" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="TODO" _xpath="lib/todo" author="Martin Hawlisch" ctrl="force" easy="false" id="todo" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Noel III" _xpath="./mecke56_2" author="mecke" ctrl="force" easy="false" id="mecke56" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Little Ice Cave I" _xpath="./mecke57_2" author="mecke" ctrl="force" easy="false" id="mecke57" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Meditation IV" _xpath="./mecke58_2" author="mecke" ctrl="force" easy="false" id="mecke58" rel="2" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Spirit I" _xpath="./mecke59_2" author="mecke" ctrl="force" easy="false" id="mecke59" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Christmas Thieves" _xpath="./andreas61_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas61" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Mid-Night-Sun" _xpath="./mecke60_2" author="mecke" ctrl="force" easy="false" id="mecke60" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Preparing the Sleigh" _xpath="./andreas62_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas62" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Rudi on Trigger" _xpath="./mecke61_2" author="mecke" ctrl="force" easy="false" id="mecke61" rel="2" rev="2" score="1" target="time" unit="duration"/>
+  </levels>
+
+</index>

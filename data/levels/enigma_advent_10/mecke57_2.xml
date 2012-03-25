@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Little Ice Cave I" el:subtitle="Ice and Stones" el:id="mecke57"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="05:28"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_ice"}
+ti["/"] = {"fl_space"}
+ti["a"] = {"fl_aquamarine"}
+ti["s"] = {"fl_sahara"}
+ti["e"] = {"fl_water"}
+ti["E"] = {"fl_metal_7"}
+ti["r"] = {"fl_rough"}
+ti["&"] = {"st_oxyd_d"}
+ti["%"] = ti[" "] .. {"st_brownie"}
+ti["6"] = ti["a"] .. {"st_brownie"}
+ti["("] = ti[" "] .. {"st_bluesand"}
+ti["+"] = ti[" "] .. {"st_rawglass"}
+ti["#"] = ti[" "] .. {"st_rawglass_movable"}
+ti["?"] = ti["s"] .. {"st_rawglass_movable"}
+ti["7"] = ti["r"] .. {"st_rawglass_movable"}
+ti["8"] = ti["?"] .. {"it_pin"}
+ti["!"] = ti["e"] .. {"st_magic_oxydc"}
+ti[")"] = ti[" "] .. {"st_concrete"}
+ti["$"] = ti[" "] .. {"st_greengray"}
+ti["1"] = ti[" "] .. {"st_purplegray"}
+ti["2"] = ti[" "] .. {"st_quake"}
+ti["3"] = ti[" "] .. {"st_knight"}
+ti["4"] = ti[" "] .. {"st_oneway_n"}
+ti["5"] = ti[" "] .. {"st_magic_brick"}
+ti["0"] = ti[" "] .. {"st_boulder_e"}
+ti["'"] = ti[" "] .. {"st_break_oxydc"}
+ti[","] = ti["a"] .. {"st_box_wood"}
+ti["."] = ti["a"] .. {"st_actorimpulse"}
+ti["-"] = ti["a"] .. {"st_oneway_s"}
+ti["*"] = ti[" "] .. {"st_passage_black", flavor="frame"}
+ti["T"] = ti["."] .. {"it_sword"}
+ti["t"] = ti[" "] .. {"it_trigger", target="B1"}
+ti["b"] = {"fl_bridge_gc", state=CLOSED, name="B1"}
+ti["u"] = {"it_magicwand"}
+ti["h"] = {"it_hammer"}
+ti["H"] = {"it_sword"}
+ti["c"] = {"it_cherry"}
+ti["z"] = {"it_squashed"}
+ti["d"] = {"it_crack_l"}
+ti["j"] = {"it_flag_black"}
+ti["J"] = {"it_blocker"}
+ti["^"] = ti["a"] .. {"it_puller_n"}
+ti["w"] = ti["e"] .. {"it_strip_ns"}
+ti["W"] = ti["w"] .. {"st_box_wood"}
+ti["9"] = ti["6"] .. {"it_extralife"}
+ti["R"] = ti["a"] .. {"#ac_top", range=2, strength=2}
+ti["@"] = ti["s"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "!!!!!!!!!!!!!!!!!!!!",
+    "!@rb&esjJJa^a01&1&1!",
+    "!787$$d(((,a,(1aWe1!",
+    "!srsssst++a,a+12151!",
+    "!$$$$$$$$$,a,$1*1*1!",
+    "! c ssseeeaaa+13131!",
+    "!%%%''')))))))14&41!",
+    "! % '''$aaRaa$% % %!",
+    "! c '''$aa6aa$ % % !",
+    "!%%%'''*a6.6a*% z %!",
+    "! % '''$a-6-a$ % % !",
+    "! h '''$%aRa%$%u%H%!",
+    "!!!!!!!!!!!!!!!!!!!!"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

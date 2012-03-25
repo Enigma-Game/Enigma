@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Noel I" el:subtitle="Ice and Abyss?" el:id="mecke51"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="01:14"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_ice"}
+ti["~"] = {"fl_swamp"}
+ti["!"] = {"fl_space"}
+ti["%"] = {"fl_lawn_b"}
+ti["$"] = {"fl_abyss"}
+ti["o"] = {"st_oxyd_d"}
+ti["f"] = {"it_flag_black"}
+ti["j"] = {"it_yinyang"}
+ti["J"] = ti["$"] .. {"it_yinyang"}
+ti["@"] = ti["J"] .. {"#ac_marble_black"}
+ti["Q"] = ti["f"] .. {"#ac_marble_white"}
+ti["q"] = ti["@"] .. {"st_beads"}
+ti["I"] = {"it_dynamite"}
+ti["B"] = {"st_brownie"}
+ti["?"] = {"it_crack_l"}
+ti["/"] = {"it_pin"}
+ti["&"] = {"fl_lawn_e4"}
+ti["P"] = ti["&"] .. {"it_pin"}
+ti["x"] = ti["I"] .. {"st_actorimpulse_invisible"}
+ti["W"] = {"st_passage_white", flavor = "frame"}
+ti["Y"] = ti["~"] .. {"st_passage_black", flavor = "frame"}
+ti["C"] = ti["W"] .. {"it_cherry"}
+ti["M"] = ti["W"] .. {"it_dynamite"}
+ti["m"] = ti["$"] .. {"it_magicwand"}
+ti["n"] = ti["~"] .. {"it_magicwand"}
+ti["="] = {"st_beads"}
+ti["'"] = ti["&"] .. {"st_beads"}
+ti["z"] = ti["&"] .. {"it_yinyang"}
+ti["*"] = ti["~"] .. {"st_blur_magic"}
+
+wo(ti, " ", {
+    "!!!      x      !!!!",
+    "!!      xnx     !!!!",
+    "!      x% %x      !!",
+    "! m$m  % % % YYY   !",
+    "  $q$ % %Q% %YoY    ",
+    "  m$m x%???%xYYY    ",
+    "      %?B B?%       ",
+    "   Y x?B&B&B?M=W    ",
+    "  YC*%? BzB ?'o=    ",
+    "   *% ?B&B&B?W'W    ",
+    "   x%  ?B&B?  %x    ",
+    "   %/  &???&  /%    ",
+    "   %  &  P  &  %    "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

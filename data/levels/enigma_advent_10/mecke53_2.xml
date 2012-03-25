@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Noel II" el:subtitle="Just a Tree" el:id="mecke53"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="03:18"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["!"] = {"st_quake"}
+ti["~"] = {"fl_water"}
+ti["&"] = {"st_shogun_s"}
+ti["'"] = {"st_shogun_m"}
+ti["$"] = {"st_shogun_l"}
+ti["O"] = {"st_oxyd_a"}
+ti["%"] = {"st_oneway_e"}
+ti["*"] = {"st_oneway_w"}
+ti["@"] = {"#ac_marble_black"}
+ti["#"] = ti["~"] .. {"st_camouflage_movable"}
+ti["x"] = {"it_dynamite"}
+ti["a"] = ti["$"] .. {"it_shogun_s"}
+ti["b"] = ti["$"] .. {"it_shogun_l", target="b"}
+ti["c"] = ti["'"] .. {"it_shogun_l", target="c"}
+ti["h"] = ti["'"] .. {"it_shogun_s"}
+ti["d"] = {"it_shogun_l", target="d"}
+ti["e"] = {"it_shogun_l", target="e"}
+ti[")"] = {"st_door", flavor = "d", faces = "ew"}
+ti["B"] = {"st_door", flavor = "d", faces = "ew", name="b"}
+ti["C"] = {"st_door", flavor = "d", faces = "ew", name="c"}
+ti["D"] = {"st_door", flavor = "d", faces = "ew", name="d"}
+ti["E"] = {"st_door", flavor = "d", faces = "ew", name="e"}
+
+wo(ti, " ", {
+    "                    ",
+    "         xx         ",
+    "       x ## x       ",
+    "       ! OO !       ",
+    "     x # DE # x     ",
+    "     !&##OO##&!     ",
+    "@    %   ))   *     ",
+    "   x ####OO#### x   ",
+    "   !  d  BC  e  !   ",
+    "   #     ))     #   ",
+    "   ######OO######   ",
+    "    b h  ))  a c    ",
+    "         ))         "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

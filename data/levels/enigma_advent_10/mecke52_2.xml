@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Meditation II" el:subtitle="Sunday II" el:id="mecke52"/>
+      <el:version el:score="1" el:release="2" el:revision="6" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Thomas Bernhardt</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="00:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["!"] = {"fl_space"}
+ti["#"] = {"fl_abyss"}
+ti["$"] = {"fl_normal"}
+ti["*"] = {"fl_rough"}
+ti[")"] = {"fl_swamp"}
+ti[":"] = {"it_squashed"}
+ti["%"] = ti[":"] .. {"fl_lawn_d1"}
+ti["&"] = ti[":"] .. {"fl_lawn_d2"}
+ti["-"] = ti[":"] .. {"fl_lawn_d4"}
+ti["+"] = ti[":"] .. {"fl_aquamarine"}
+ti["r"] = ti[":"] .. {"fl_redslab"}
+ti["("] = ti["r"] .. {"st_grate_cross"}
+ti["."] = {"fl_yinyang_yin_invisible"}
+ti["'"] = ti["."] .. {"it_squashed"}
+ti["@"] = {"#ac_pearl_white"}
+ti["q"] = ti["*"] .. {"#ac_pearl_white"}
+ti["Q"] = ti["q"] .. {"it_meditation_hollow"}
+ti["G"] = ti["Q"] .. {"st_rawglass"}
+ti["x"] = ti["@"] .. {"it_squashed"}
+ti["1"] = ti["x"] .. {"fl_slope_ps"}
+ti["2"] = ti["x"] .. {"fl_slope_pn"}
+ti["d"] = ti[")"] .. {"it_dynamite"}
+ti["D"] = ti["#"] .. {"it_dynamite"}
+ti["s"] = ti["#"] .. {"it_strip_ew"}
+ti["S"] = ti["#"] .. {"it_strip_ns"}
+ti["A"] = ti["."] .. {"st_actorimpulse"}
+ti["Y"] = ti["!"] .. {"st_yellow"}
+
+wo(ti, " ", {
+    "!!!!!!!!!!!!!!!!#!!!",
+    "!!!!#!!!!!!!!!!#-#!!",
+    "!!!#&##########-'-#!",
+    "!!#&.&ss&ss&ss-'.'-#",
+    "!!##&###S##S###-'-#!",
+    "!!!#S#(((1G(((##-#!!",
+    "!!!#%#DdYrrYdD##S!!!",
+    "!!!#%#(((G2(((##'#!!",
+    "!##%'%##S##S###&'&#!",
+    "#%%'A'%s&ss&ss''A''#",
+    "!##%'%#########&'&#!",
+    "!!!#%#!!!!!!!!!#'#!!",
+    "!!!#%#!!!!!!!!!!#!!!"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

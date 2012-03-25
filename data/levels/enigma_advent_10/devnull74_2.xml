@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Black And White Cookie" el:subtitle="" el:id="devnull74"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010, 2012 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = false
+
+ti["W "] = {"st_passage_white_square"}
+ti["B "] = {"st_passage_black_square"}
+ti["  "] = {"fl_white"}
+ti[" ."] = {"fl_fake_abyss"}
+ti["# "] = {"st_darkglass_movable"}
+ti["+ "] = {"st_rawglass_movable"}
+ti["O "] = {"st_oxyd", oxydcolor = OXYD_BLACK}
+ti["0 "] = {"st_oxyd", oxydcolor = OXYD_WHITE}
+ti["* "] = {"#ac_marble_white", essential = INDISPENSABLE}
+ti["@ "] = {"#ac_marble_black", essential = INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    " . . . . . .B.B.B.B.W.W W.W.W. . . . . .",
+    " . . . . .B.B.B. . .B.B.W W W W.W. . . .",
+    " . . . .B.B. . .#. . . .B.W W @ W W. . .",
+    " . . .B.B. .#. .#.#.B.#. .B.W     W. . .",
+    " . .B.B. .#. .B. . . .#. .B.W W + W W. .",
+    " . .B.B.#. .#.B.0.0.#. .#. .B.W     W. .",
+    " . .B. . . .#.B.0.0. .#.#. .B.W   + W W.",
+    " .B.B. .#.#. .B. . . .#. . .B.W +   W W.",
+    " .B.B.#. .#.#. .#.#.B. . .B.W W       W.",
+    " .B. . .#. . .#. . .#.#. .B.W   +   + W.",
+    " .B.#.#.#. .#.#.#.#. .B.B.W W +   +   W.",
+    "B.B. . . .#. .#. . .B.W W W   +   +   W.",
+    "B.B.#.#.#. .#. .B.B.W W     +   +   W W.",
+    "B. . .#. . .B.B.B.W     + + + +     W W.",
+    "B.#. . .#.B.B.W W W + + +   +   + + W. .",
+    "B. .#.#. .B.W       +   +   +       W. .",
+    "B. . . .B.B.W   + W +   + + + +   W W. .",
+    "B.B. . .B.W   +         W     + + W W. .",
+    "B.B.#. .B.W     +   O O W + +     W. . .",
+    " .B. . .B.W     + + O O W   + + W W. . .",
+    " .B.B.#.B.B W + +   +   W +     W W. . .",
+    " . .B. . .B.W     W +   +     W W. . . .",
+    " . .B.B.*.B.B.W   +     +   W W. . . . .",
+    " . . .B.B.B.B.B.W W     W W W. . . . . .",
+    " . . . . .B.B.B.B.B.W.W.W.W. . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

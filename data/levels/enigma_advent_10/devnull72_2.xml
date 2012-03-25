@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Break On Through" el:subtitle="To The Other Side" el:id="devnull72"/>
+      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_redslab"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_granite"}
+ti["+"] = ti({"it_wrench"}) .. {"st_box_hay"}
+ti["doors"] = {"st_door", name ="door%%", faces = "ns", state = CLOSED}
+ti["triggers"] = ti["~"] .. {"it_trigger", target = "door%%", action_1 = "open", invisible = true}
+ti[">"] = {"st_boulder_e"}
+ti["<"] = {"st_boulder_w"}
+ti["H"] = {"st_pull"}
+ti["S"] = {"st_swap"}
+ti["X"] = {"st_blocker"}
+ti["R"] = {"st_rotator", movable = true, counterclock = true}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black"}
+ti["*"] = {"#ac_marble_white"}
+
+wo(res.autotile(ti, {"1", "2", "triggers"}, {"3", "4", "doors"}), " ", {
+    "####################",
+    "OS     #~~~~~~~~~~~O",
+    "#H*  #<#~~~~~~~~~~~#",
+    "# R  ###~~~~~~~~~~~#",
+    "#      ~~1~~X~X#####",
+    "#   #######~~+     #",
+    "#3#~#  ~~~~~~  #~#4#",
+    "#     +~~#######   #",
+    "#####X~X~~2~~      #",
+    "#~~~~~~~~~~~###  R #",
+    "#~~~~~~~~~~~#>#  @H#",
+    "O~~~~~~~~~~~#     SO",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

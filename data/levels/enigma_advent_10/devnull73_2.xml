@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Brimmed Boot" el:subtitle="" el:id="devnull73"/>
+      <el:version el:score="1" el:release="2" el:revision="7" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="4:56"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti[" "] = {"fl_dunes", friction = 3.0}
+ti["."] = {"fl_rough"}
+ti["#"] = {"st_redmarble"}
+ti["="] = {"st_fake_oxyda"}
+ti["_"] = {"st_fake_oxydb"}
+ti["+"] = {"st_redbrown_movable"}
+ti["P"] = {"st_pull"}
+ti["t"] = {"it_trigger", target = "passage", action = "signal"}
+ti["T"] = {"st_door", name = "passageDoors#", flavor = "a"}
+ti["a"] = {"it_trigger", target = "doorA"}
+ti["A"] = {"st_door", name = "doorA", flavor = "a"}
+ti["b"] = {"it_trigger", target = "bridge"}
+ti["B"] = {"fl_bridge", name = "bridge", flavor = "bw", friction = 3.0}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "....................",
+    ".........##########.",
+    ".........#aP@P#ttt#.",
+    "..........# # Ptb#..",
+    "..........#t#t#tt#..",
+    "..........#P+P#P#...",
+    "..........# P P #...",
+    ".........##=  # #...",
+    "...OO...# + B=  ##..",
+    "..OTT###      =A #..",
+    "..OTTTTTT  __    #..",
+    "...OOOO____.._____..",
+    "...................."})
+
+wo:add({"ot_counter", name = "passage", state = 0, target = "passageDoors#*", action_8 = "open", action_7 = "close"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
