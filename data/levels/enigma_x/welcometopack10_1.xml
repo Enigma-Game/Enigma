@@ -2,23 +2,23 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack9"/>
+      <el:identity el:title="Welcome" el:subtitle="" el:id="welcometopack10"/>
       <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2009 Raoul Bourquin</el:copyright>
+      <el:copyright>Copyright © 2012 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-wo["MaxOxydColor"] = OXYD_ORANGE
+wo["MaxOxydColor"] = OXYD_PINE
 
-ti[" "] = {"fl_lawn"}
-ti["#"] = {"st_granite"}
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_tigris"}
 if wo["IsDifficult"] then
     ti["Q"] = {"st_quake", name="quake"}
-    ti["T"] = {"st_timer", interval=50.0, target="quake"}
+    ti["T"] = {"st_timer", interval=55.0, target="quake"}
 else
     ti["Q"] = ti["#"]
     ti["T"] = ti["#"]
@@ -31,19 +31,19 @@ ti["@"] = {"#ac_marble_black"}
 wo(ti, " ", {
     "####################",
     "#                  #",
-    "#  O  O      o  o  #",
+    "#    o        O    #",
+    "#        @d        #",
+    "#  o o o    O O O  #",
     "#                  #",
-    "#   O  O    o  o   #",
+    "T o  O  o  O  o  O Q",
     "#                  #",
-    "Q @  O  O  o  o  d T",
+    "#  O O O    o o o  #",
     "#                  #",
-    "#   O  O    o  o   #",
-    "#                  #",
-    "#  O  O      o  o  #",
+    "#    O        o    #",
     "#                  #",
     "####################"})
 
-wo:shuffleOxyd({"left#*", "right#*", min=4, max=6})
+wo:shuffleOxyd({"left#*", "right#*", min=5, max=7})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
@@ -51,7 +51,7 @@ wo:shuffleOxyd({"left#*", "right#*", min=4, max=6})
         <el:translation el:lang="de">Willkommen</el:translation>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">Welcome to Enigma IX</el:english>
+        <el:english el:translate="true">Welcome to Enigma X</el:english>
       </el:string>
     </el:i18n>
   </el:protected>
