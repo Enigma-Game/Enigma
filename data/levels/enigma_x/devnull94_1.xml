@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Two Halfs" el:subtitle="" el:id="devnull94"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti[" ~"] = {"fl_abyss"}
+ti["  "] = {"fl_bridge_bw", state=CLOSED}
+ti["X "] = {"st_grate"}
+ti["+ "] = {"st_box"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti[" -"] = {"fl_bridge_bw", name="bridges#"}
+ti["- "] = {"fl_scales_bridgewood", target={"toggleBridges", "closeOxyds"}, action="signal"}
+ti["O "] = {"st_oxyd_a", name="oxydBlack#", oxydcolor=OXYD_BLACK}
+ti["0 "] = {"st_oxyd_a", name="oxydWhite#", oxydcolor=OXYD_WHITE}
+ti["o "] = {"st_oxyd_a", oxydcolor=OXYD_GRAY}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    " ~ ~X~X~X~X~X~X~ ~ ~ ~ ~X~X~X~X~X~X~ ~ ~",
+    " ~ ~X~0 B     X~ ~ ~ ~ ~X~O  ~W o X~ ~ ~",
+    " ~ ~X~B -     X~ ~ ~ ~ ~X~B  ~- W X~ ~ ~",
+    " ~ ~X~    + W X~ ~ ~ ~ ~X~  W     X~ ~ ~",
+    " ~ ~X~ ~W B + X~X~X~X~X~X~W       X~ ~ ~",
+    " ~ ~X~  W   +      - -     ~      X~ ~ ~",
+    " ~ ~X~  W    ~  @1 - -@0    W B  ~X~ ~ ~",
+    " ~ ~X~  W   +      - -    +       X~ ~ ~",
+    " ~ ~X~  W   + X~X~X~X~X~X~+   +   X~ ~ ~",
+    " ~ ~X~  W  ~  X~ ~ ~ ~ ~X~     ~  X~ ~ ~",
+    " ~ ~X~B -  ~W X~ ~ ~ ~ ~X~B   - W X~ ~ ~",
+    " ~ ~X~o B  ~O X~ ~ ~ ~ ~X~    W 0 X~ ~ ~",
+    " ~ ~X~X~X~X~X~X~ ~ ~ ~ ~X~X~X~X~X~X~ ~ ~"})
+
+function closeOxyds()
+    no["oxydBlack#*"]:close()
+    no["oxydWhite#*"]:close()
+end
+
+wo:add({"ot_counter", name="toggleBridges", state=0, target="bridges#*", action_4="close", action_3="open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

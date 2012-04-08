@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Spacer VI" el:subtitle="" el:id="devnull83"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010, 2011 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks alot for the absolutely great resolver feature in the new API. :-)</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "=  "
+
+ti["  "] = {"fl_wood_h"}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = {"st_metal"}
+ti["Q"] = {"st_puzzle_blue"}
+ti["scales"] = ti["Q%%"] ..  {"fl_scales_bridgewood", target="bridge%%"}
+ti["bridges"] = {"fl_bridge", name="bridge%%", flavor="bw", state=OPEN}
+ti["O "] = {"st_oxyd", flavor="a", oxydcolor=OXYD_ORANGE}
+ti["0 "] = {"st_oxyd", flavor="a", oxydcolor=OXYD_RED}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.autotile(res.puzzle(res.composer(ti), "Q"), {"P", "scales"},{"-", "bridges"}), "  ", {
+    " .#.#.#.#.#.#.#.#. . . . .",
+    " .#.    #.      #. . . . .",
+    " .#.  Pc        #. . . . .",
+    " .#.    #.#.Ph#.#. .O. . .",
+    "#.#.#.    #.     . . .O. .",
+    "#.  Pd  Pe#.     .-h . .0.",
+    "#.        #.#.   .-c-e-d .",
+    "#.#.#.    #.     . . . .0.",
+    " . .#.           . . . . .",
+    " . .#.  #.#.#.   . . . . .",
+    " . .#.        @ #. . . . .",
+    " . .#.#.#.#.#.#.#. . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

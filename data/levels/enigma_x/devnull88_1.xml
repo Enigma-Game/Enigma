@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Do Me a Favor" el:subtitle="" el:id="devnull88"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:46"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "= :"
+
+ti["  "] = {"fl_concrete"}
+ti[" :"] = {"fl_hay_framed"}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = {"st_redrock"}
+ti["C "] = {"st_chess_black"}
+ti["c "] = {"st_chess_white"}
+ti["s "] = {"it_seed_hay"}
+ti["Tn"] = {"fl_scales_concrete", target="doorS"}
+ti["Ts"] = ti["c "] .. {"fl_scales_concrete", target="doorN"}
+ti["Dn"] = {"st_door", name="doorN", faces="ns"}
+ti["Ds"] = {"st_door", name="doorS", faces="ew"}
+ti[" !"] = ti[" ."] .. {"it_document", text="BzG"}
+ti["P"] = {"st_puzzle", intensity=0}
+ti["Q"] = ti[" ."] .. {"st_puzzle", intensity=0}
+ti["Ob"] = {"st_oxyd_a", name="oxydBlack#", oxydcolor=OXYD_BLACK}
+ti["Ow"] = {"st_oxyd_a", name="oxydWhite#", oxydcolor=OXYD_WHITE}
+ti["Og"] = {"st_oxyd_a", name="oxydGrey#", oxydcolor=OXYD_GRAY}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.puzzle(ti, "P", "Q")), "  ", {
+    "#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.",
+    "#.           . . . . .  #.    #.      #.",
+    "#.    C      .s.s.s.s.  C   #.    #.  #.",
+    "#.  @0C C C s.s.#! .s.  #.      #.#.Tn#.",
+    "#.    C      .s.s.s.s.Ts#.#.      #.  #.",
+    "#.           . . . . .        #.      #.",
+    "#.#.#.#.#.#.#.#.Qbc #.#.#.#.#.#.#.#.Dn#.",
+    "#.           . . . . .    #.    #.Ob  #.",
+    "#.  PaPhPg   . . . . .    #.    #.Ob  #.",
+    "#.  @1Pe     . . . . .          #.OgOg#.",
+    "#.  PmPjPd   . .c. . .#.    #.#.#.  Ow#.",
+    "#.           . . . . .      Ds      Ow#.",
+    "#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#."})
+
+wo:shuffleOxyd({"oxydBlack#*"}, {"oxydWhite#*"}, {"oxydGrey#*"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">This level was created while listening to Guy Davis' Call down the thunder. Thanks alot.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

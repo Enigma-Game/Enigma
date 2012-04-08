@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Island Puzzles" el:subtitle="" el:id="devnull111"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="12:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_concrete"}
+ti[" ~"] = {"fl_water"}
+ti["+ "] = {"st_disco_light"}
+ti["7 "] = {"st_window", faces="nw" ,secure=true}
+ti["8 "] = {"st_window", faces="n" ,secure=true}
+ti["9 "] = {"st_window", faces="ne" ,secure=true}
+ti["6 "] = {"st_window", faces="e" ,secure=true}
+ti["3 "] = {"st_window", faces="se" ,secure=true}
+ti["2 "] = {"st_window", faces="s" ,secure=true}
+ti["1 "] = {"st_window", faces="sw" ,secure=true}
+ti["4 "] = {"st_window", faces="w" ,secure=true}
+ti[" ."] = ti[" ~"] .. ti["+ "]
+ti["P"] = ti[" ~"] .. {"st_puzzle_yellow", intensity=1}
+ti["Q"] = {"st_puzzle_yellow", intensity=1}
+ti["vortex"] = {"it_vortex", name="vortex%%", autoclose=true, autoopen=true, destination="v%%"}
+ti["vortexDest"] = {"fl_concrete", name="v%%"}
+ti["O "] = {"it_meditation_hollow", essential=INDISPENSABLE}
+ti[" 0"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti[" 1"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(res.puzzle(ti, "P", "Q"), {"V", "vortex"}, {"v", "vortexDest"})), "  ", {
+    " . . . . . . . . . . . . . . . .P1 .P1 .",
+    " .             . . . . . . . .P1P1P1P19 ",
+    " .P1P1Q1P1P1   . . . . . . . . .P1V8Q161",
+    " .P1 .V1 .P1 1 . . . ~2~2~ ~ .P1P1Q1Q13 ",
+    " .P1P1P1P1P1   . . .6~v8O 4~ . .P1 .Q1 .",
+    " . . . . . . . .P1P1P1Q1  4~ . .  v9   .",
+    " . . . . . . ~2~Q1O O Q18~ ~ . . . . . .",
+    " . . . . . .6~  Q1P1P1P1 . . . . . . . .",
+    " . . .  v1 .6~O v24~ . . .  P1P1P1P1P1 .",
+    "P1P1P1Q1   . ~8~8~ ~ . . . 0 .P1V9P1 . .",
+    " .Q1V2Q1 . . . . . . . . .  P1P1Q1P1P1 .",
+    "7 Q1Q1P1P1 . . . . . . . .             .",
+    "103  . . . . . . . . . . . . . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

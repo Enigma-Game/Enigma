@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chess Challenge II" el:subtitle="Inverted Positions" el:id="harry08"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author el:name="daydreamer" el:email=""/>
+      <el:copyright>Copyright © 2009 daydreamer</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:credits el:showinfo="false" el:showstart="false"></el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["-"] = {"fl_ice", checkerboard=0}   .. ti({"fl_inverse", checkerboard=1})
+ti[" "] = {"fl_water", checkerboard=0} .. ti({"fl_inverse", checkerboard=1})
+ti["#"] = {"st_rawglass"}
+ti["B"] = {"st_chess_black"}
+ti["W"] = {"st_chess_white"}
+ti["b"] = ti["B"] .. ti[" "]
+ti["w"] = ti["W"] .. ti[" "]
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+ti["*"] = {"#ac_marble_white"}
+
+wo(ti, "-", {
+    "###################",
+    "O b --B-----W-- w O",
+    "W#  W---W B---B  #B",
+    "O w --W-----B-- b O",
+    "B#  B---B-W---W  #W",
+    "O b --B-*-@-W-- w O",
+    "W#  W---W-B---B  #B",
+    "O w --W-----B-- b O",
+    "B#  B---B-W---W  #W",
+    "O b --B-----W-- w O",
+    "W#  W---W-B---B  #B",
+    "###################"})
+
+wo:add(YIN, {"it_magicwand"} .. {"it_yinyang"} .. ti({"it_spring_keep"}))
+wo:add(YANG, {"it_magicwand"} .. {"it_yinyang"} .. ti({"it_spring_keep"}))
+ ]]></el:luamain>
+  <el:i18n>
+    <el:string el:key="title">
+      <el:english el:translate="false"/>
+    </el:string>
+    <el:string el:key="subtitle">
+      <el:english el:translate="false"/>
+    </el:string>
+  </el:i18n>
+  </el:protected>
+</el:level>

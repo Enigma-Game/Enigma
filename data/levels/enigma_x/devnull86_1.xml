@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Blocked II" el:subtitle="" el:id="devnull86"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["FallenPuzzle"] = "=  "
+
+ti["  "] = {"fl_red", adhesion=2.0, friction=7.0}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = {"st_bluesand"}
+ti["P"] = ti[" ."] .. {"st_puzzle", color=YELLOW, intensity=0}
+ti["Q"] = {"st_puzzle", color=YELLOW, intensity=0}
+ti["O "] = {"st_oxyd", flavor="d", oxydcolor=OXYD_ORANGE}
+ti["o "] = {"st_oxyd", flavor="d", oxydcolor=OXYD_RED}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.puzzle(ti, "P", "Q")), "  ", {
+    " . . . . . . . . . . . . . . . . .",
+    " . . . . . . . . . . . .#.     . .",
+    " . .O. . . . . . .     .#.    @1 .",
+    " .o.Qb . . . . .PdQeQlQcQcQh     .",
+    " . .QaQe          QlQi#. .Qf     .",
+    " . . . . . . . .Po . . . . . . . .",
+    " . . . . . . . .Po . . . . . . . .",
+    " . .QeQf          QfQa#. .Qd     .",
+    " .o.Qh . . . . .PaQeQmQeQbQi     .",
+    " . .O. . . . . . .     .#.    @0 .",
+    " . . . . . . . . . . . .#.     . .",
+    " . . . . . . . . . . . . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Left Lost?" el:subtitle="" el:id="devnull112"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti[" ."] = {"fl_abyss"}
+ti["  "] = {"fl_bridge_bw", state=CLOSED}
+ti["+ "] = {"st_box"}
+ti["# "] = {"st_bluesand", cluster=1}
+ti["V "] = {"st_boulder", orientation=NORTH, name="boulder#"}
+ti["blocker"] = {"st_blocker", name="blocker%%"}
+ti["trigger"] = {"fl_scales_bridgewood", min=0.6, target="triggerHandling", _b="blocker%%"}
+ti["O "] = ti[" ."] .. {"st_oxyd_d"}
+ti["@0"] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"B", "blocker"}, {"T", "trigger"})), "  ", {
+    "#.#.#.#.#. . . . . .",
+    "#.V @0V #. . . . . .",
+    "#.Bl  Br#. . . . . .",
+    "#.  +   #. . . . . .",
+    "#.+. .+ #. . . . . .",
+    "#.Bl+ Br#. . . . . .",
+    "#.+.  + #. . . . . .",
+    "#.      #. . . . . .",
+    "#.      #.#.#.#.#.#.",
+    "#.   .Tr   . .  B O.",
+    "#.  +.            #.",
+    "#.Tl       . .  B O.",
+    "#.#.#.#.#.#.#.#.#.#."})
+
+function triggerHandling(val, src)
+    no[src["_b"]]:open()
+    no["boulder#*"]:turn()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

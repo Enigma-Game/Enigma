@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Island Journey" el:subtitle="" el:id="devnull114"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" />
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="3:33"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_hay"}
+ti[" ~"] = {"fl_water"}
+ti["+ "] = {"st_box_hay"}
+ti["S "] = {"st_turnstile", name="ts#", flavor="red", action="turn", target="ts#*"}
+ti["T "] = {"st_turnstile", name="ts#", flavor="green", action="turn", target="ts#*", counterclock=true}
+ti["8 "] = {"st_turnstilearm", orientation=NORTH}
+ti["4 "] = {"st_turnstilearm", orientation=WEST}
+ti["2 "] = {"st_turnstilearm", orientation=SOUTH}
+ti["6 "] = {"st_turnstilearm", orientation=EAST}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["Ob"] = ti[" ~"] .. {"st_oxyd", name="oxydBlack#", oxydcolor=OXYD_BLACK}
+ti["Ow"] = ti[" ~"] .. {"st_oxyd", name="oxydWhite#", oxydcolor=OXYD_WHITE}
+ti["@0"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~B   8~       ~ ~    W Ob ~ ~ ~ ~ ~",
+    " ~ ~ ~   ~S~ ~ ~8~ ~T~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~4  ~ ~  B    ~ ~@0     ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~   ~ ~ ~ ~ ~T~ ~+~2~+~T~ ~ ~Ow ~ ~",
+    " ~ ~ ~ ~T~ ~ ~ ~ ~2~ ~W @1 ~2~  B    ~ ~",
+    " ~ ~ ~  2~   ~ ~   ~+~ ~ ~ ~ ~W  ~ ~ ~ ~",
+    " ~ ~ ~W  ~   ~ ~  +~  8~ ~ ~ ~   ~ ~ ~ ~",
+    " ~ ~ ~Ow ~W    ~   ~ ~S~6~ ~S~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~S~6      ~    2~  B Ob ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

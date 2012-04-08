@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Inside Puzzling" el:subtitle="" el:id="raoul39"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="raoul@users.berlios.de"/>
+      <el:copyright>Copyright © 2010 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="8:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_rough"}
+ti["-"] = {"fl_water"}
+ti["#"] = {"st_bluesand", cluster=1}
+ti["%"] = {"st_rawglass"}
+ti["="] = {"st_rawglass_quad"}
+ti["o"] = {"st_puzzle"}
+ti["a"] = {"fl_rough", push_directions="sw", name="dest1"}   .. {"it_vortex", state=CLOSED, destination="dest2", autoclose=true} .. ti["o"]
+ti["b"] = {"fl_rough", push_directions="sw", name="dest2"}   .. {"it_vortex", state=CLOSED, destination="dest3", autoclose=true} .. ti["o"]
+ti["c"] = {"fl_rough", push_directions="nesw", name="dest3"} .. {"it_vortex", state=CLOSED, destination="dest4", autoclose=true} .. ti["o"]
+ti["d"] = {"fl_rough", push_directions="ne", name="dest4"}   .. {"it_vortex", state=CLOSED, destination="dest5", autoclose=true} .. ti["o"]
+ti["e"] = {"fl_rough", push_directions="ne", name="dest5"}   .. {"it_vortex", state=CLOSED, destination="dest1", autoclose=true} .. ti["o"]
+ti["P"] = {"st_puzzle", algorithm="marked"}
+ti["Q"] = {"st_puzzle", hollow=true}
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_BLUE}
+ti["@"] = ti["c"] .. {"#ac_marble", name="marble"}
+
+local spanning_tree = res.maze(ti, {area={po(8, 4), 5, 5}, spacing={0,0}})
+
+wo(res.autotile(spanning_tree), " ", {
+    "--------------------",
+    "--------------------",
+    "------###---###-----",
+    "------#%#=O=#%#-----",
+    "------##ooooa##-----",
+    "-------=ooobo=------",
+    "-------Ooo@ooO------",
+    "-------=odooo=------",
+    "------##eoooo##-----",
+    "------#%#=O=#%#-----",
+    "------###---###-----",
+    "--------------------",
+    "--------------------"})
+
+wo:add(YIN, {"it_magicwand"})
+wo:add({"ot_timer", target="reopen", interval=5})
+
+function reopen()
+    vortex = it(no["marble"])
+    if vortex:exists() then
+        vortex:open()
+    end
+end
+
+local conns_from = {[SOUTH]="s", [EAST]="e"}
+local conns_to = {[SOUTH]="n", [EAST]="w"}
+for cell in spanning_tree do
+    for dir, odir in pairs({[SOUTH]=S, [EAST]=E}) do
+        if cell[dir] == true then
+            st(cell:pos()).connections = st(cell:pos()).connections .. conns_from[dir]
+            st(cell:pos()+odir).connections = st(cell:pos()+odir).connections .. conns_to[dir]
+        end
+    end
+end
+
+function create_map()
+    connmap = {}
+    conns = {w="a", s="b", sw="c", e="d", ew="e", es="f", esw="g", n="h", nw="i", ns="j", nsw="k", ne="l", new="m", nes="n", nesw="o"}
+    sp = po(8, 4)
+    p = sp
+    for row = 1, 5 do
+        rcons = ""
+        for col = 1, 5 do
+            rcons = rcons .. conns[st(p)["connections"]]
+            p = p + E
+        end
+        connmap[row] = rcons
+        p = sp + row*S
+    end
+    return connmap
+end
+
+puzzlestones = {"PPPPQ",
+                "PPPQP",
+                "PPQPP",
+                "PQPPP",
+                "QPPPP"}
+
+puzzlemap = wo:newMap(" ", puzzlestones)
+connections = wo:newMap(" ", create_map())
+wo:drawMap(res.puzzle(ti, "P", "Q"), po(8,4), puzzlemap * connections)
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

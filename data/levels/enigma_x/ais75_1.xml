@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Volatile Storage" el:subtitle="Handle with care!" el:id="ais75"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:25" el:difficult="3:30"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_samba"}
+ti["!"] = {"fl_abyss"}
+ti["#"] = {"st_metal"}
+ti["+"] = {"st_puzzle_yellow"}
+ti["a"] = {"it_trigger", target="doorA_#*"}
+ti["b"] = {"it_trigger", target="doorB_#*"}
+ti["c"] = {"it_trigger", target="doorC_#*"}
+ti["d"] = {"it_trigger", target="doorD_#*"}
+ti["A"] = {"st_door_a", name="doorA_#"}
+ti["B"] = {"st_door_a", name="doorB_#"}
+ti["C"] = {"st_door_a", name="doorC_#"}
+ti["D"] = {"st_door_a", name="doorD_#"}
+ti["E"] = {"it_sensor_exit", invisible=false, action="callback", target="newpuzzle", safeaction=true}
+ti["e"] = cond(wo["IsDifficult"], ti[" "], {"it_surprise", selection={"=E"}})
+ti["0"]={"st_oxyd_b"}
+ti["@"]={"#ac_pearl_black"}
+
+wo(ti," ",{
+    "#############!!!!!!!",
+    "#a         b#!!!!!!!",
+    "#           #!!!!!!!",
+    "#           #######!",
+    "#   +++++   #0A B0#!",
+    "#   +   +   #A   B#!",
+    "#   + @ +      e  #!",
+    "#   +   +   #C   D#!",
+    "#   +++++   #0C D0#!",
+    "#           #######!",
+    "#           #!!!!!!!",
+    "#c         d#!!!!!!!",
+    "#############!!!!!!!"})
+
+wo:shuffleOxyd()
+
+function newpuzzle(signal, caller)
+    wo[caller] = ti["+"]
+    wo[caller] = {"it_nil"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="true"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

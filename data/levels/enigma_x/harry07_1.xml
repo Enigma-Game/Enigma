@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Springtime Again" el:subtitle="The principles of playing chess in flight" el:id="harry07"/>
+      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:author el:name="daydreamer" el:email=""/>
+      <el:copyright>Copyright © 2009 daydreamer</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+	<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+      </el:comments>
+      <el:score el:easy="13:07" el:difficult="24:12"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ShowMoves"] = true
+wo["InfiniteReincarnation"] = not wo["IsDifficult"]
+
+ti["~"] = {"fl_water"}
+ti["-"] = ti({"fl_sand", checkerboard=0}) .. {"fl_rock", checkerboard=1}
+ti["#"] = {"st_rawglass_quad"}
+ti["X"] = {"st_passage", color=BLACK, flavor="cross"}
+ti["Y"] = {"st_passage", color=WHITE, flavor="cross"}
+ti["B"] = {"st_chess"}
+ti["W"] = {"st_chess_white"}
+ti["b"] = ti["B"] .. ti["~"]
+ti["w"] = ti["W"] .. ti["~"]
+ti["x"] = {"it_extralife"}
+ti["s"] = {"it_spring_keep"}
+ti["y"] = {"it_yinyang"}
+ti["E"] = cond(wo["IsDifficult"], ti["B"] .. ti["x"], ti["B"])
+ti["e"] = cond(wo["IsDifficult"], ti["W"] .. ti["x"], ti["W"])
+ti["O"] = {"st_oxyd", "right#"}
+ti["o"] = {"st_oxyd", "left#"}
+ti["@"] = {"#ac_marble"}
+ti["*"] = {"#ac_marble_white"}
+
+wo(ti, "-", {
+    "########B-EW########",
+    "oXWb-#WB~--~WB#-wBYO",
+    "WB#~WB-#be-w#-WE~#WB",
+    "oXWb-#WW~-*~BB#-wBYO",
+    "WB#~eB-#b-Bw#-WB~#WB",
+    "oXWb-#WB~--~WB#-wBYO",
+    "WB#~WB-#bW-w#-WB~#WB",
+    "oXWb-#WW~--~BB#-wBYO",
+    "WB#~eB-#b-Ew#-WB~#WB",
+    "oXWb-#WB~@-~WB#-wBYO",
+    "WB#~WB-#be-w#-WE~#WB",
+    "oXWb-#WW~--~BB#-wBYO",
+    "WB##WB-######-WB##WB"})
+
+wo:add(YIN,  ti["s"] .. ti["y"])
+wo:add(YANG, ti["s"] .. ti["y"])
+wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+	<el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+	<el:english el:translate="false"/>
+      </el:string>
+  </el:i18n>
+  </el:protected>
+</el:level>

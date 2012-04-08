@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Shogun Connection II" el:subtitle="" el:id="devnull103"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2011 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:06"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_rock"}
+ti["# "] = ti({"fl_gravel"}) .. {"st_rawglass_quad"}
+ti["shogunS"] = {"st_shogun", name="shogunS%%", flavor="s"}
+ti["shogunM"] = {"st_shogun", name="shogunM%%", flavor="m"}
+ti["shogunL"] = {"st_shogun", name="shogunL%%", flavor="l"}
+ti["dotL"] = {"it_shogun_l", target="toggleDoors", action="signal"}
+ti["D "] = {"st_door", name="door#"}
+ti["OB"] = {"st_oxyd_c", oxydcolor=OXYD_BLACK}
+ti["OG"] = {"st_oxyd_c", oxydcolor=OXYD_GRAY}
+ti["OW"] = {"st_oxyd_c", oxydcolor=OXYD_WHITE}
+ti["OO"] = {"st_oxyd_c", oxydcolor=OXYD_ORANGE}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"S", "shogunS"}, {"M", "shogunM"}, {"L", "shogunL"}, {"l", "dotL"})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "#                 #                 @1# ",
+    "#   Lw  OB        #     #       # SW  # ",
+    "#   OO  lb  OGMw  #         la  MW    # ",
+    "#   Sw  OW        #     #       # LW  # ",
+    "#                 #                   # ",
+    "# # # # # # # # D # # D # # # # # # # # ",
+    "#                   #                 # ",
+    "#     #       # SB  #         OW  Lb  # ",
+    "#     MB  lA        #   MbOG  lB  OO  # ",
+    "#     #       # LB  #         OB  Sb  # ",
+    "# @0                #                 # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:add({"ot_wire", anchor1="shogunS%B", anchor2="shogunM%b"})
+wo:add({"ot_wire", anchor1="shogunM%B", anchor2="shogunL%b"})
+wo:add({"ot_wire", anchor1="shogunL%B", anchor2="shogunS%b"})
+wo:add({"ot_wire", anchor1="shogunS%W", anchor2="shogunM%w"})
+wo:add({"ot_wire", anchor1="shogunM%W", anchor2="shogunL%w"})
+wo:add({"ot_wire", anchor1="shogunL%W", anchor2="shogunS%w"})
+
+wo:add({"ot_counter", name="toggleDoors", state=0, target="door#*", action_3="close", action_4="open"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

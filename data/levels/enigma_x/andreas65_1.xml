@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pulling on the Rings" el:subtitle="" el:id="andreas65"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+	<el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="2:15"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_wood"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_redmarble"}
+ti["T"] = ti({"st_pull"}) .. ti({"it_trigger", name="trigger#", action_0="open", action_1="close"})
+ti["D"] = {"st_door", "door#", flavor="a"}
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "..##################",
+    "..#T    T   T   T  #",
+    "..# ## ### ### ### #",
+    "..#T##T###T###T###T#",
+    "### ## ### ### ### #",
+    "#    T   T@ T   T  #",
+    "#D# ### ### ### ## #",
+    "#D#T###T###T###T##T#",
+    "#D# ### ### ### ## #",
+    "#D#  T   T   T    T#",
+    "#D##################",
+    "#DDDDDDDDDDDDDDDDD#.",
+    "##OOOOOOOOOOOOOOOO#."})
+
+perm = lib.math.permutation(22)
+triggers = no["trigger#*"]
+doors = no["door#*"]
+
+for j = 1, 22 do
+    triggers[j].target = doors[perm[j]]
+end
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
+
