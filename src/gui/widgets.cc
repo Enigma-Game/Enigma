@@ -199,8 +199,8 @@ void Container::draw (ecl::GC& gc, const ecl::Rect &r) {
 }
 
 void Container::draw_all() {
-        invalidate_all();
-        refresh();
+    invalidate_all();
+    refresh();
 }
     
 void Container::reconfigure_child (Widget *)

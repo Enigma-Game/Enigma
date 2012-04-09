@@ -59,7 +59,7 @@ namespace enigma { namespace gui {
     }
     
     GameMenu::~GameMenu() {
-        delete(zoomed);
+        delete zoomed;
     }
     
     void GameMenu::draw_background(ecl::GC &gc) 

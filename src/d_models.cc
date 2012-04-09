@@ -649,5 +649,4 @@ namespace display
     {
         return 0;
     }
-
 }

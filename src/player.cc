@@ -368,7 +368,7 @@ void player::AddActor (unsigned iplayer, Actor *a)
 }
 
 bool player::HasActor(unsigned iplayer, Actor *a) {
-    if (iplayer >= 0 && iplayer < players.size()) {
+    if (iplayer < players.size()) {
         for (int i = 0; i < players[iplayer].actors.size(); i++) {
             if (players[iplayer].actors[i] == a)
                 return true;

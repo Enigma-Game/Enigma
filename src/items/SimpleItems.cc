@@ -265,13 +265,11 @@ namespace enigma {
     
     ItemAction Pencil::activate(Actor *a, GridPos p) {
         if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
-            if (Item *it=GetItem(p)) {
+            if (GetItem(p))
                 return ITEM_KEEP;
-            }
             // If the actor is flying and tries to make a cross, drop the it-pencil
-            if (a->is_flying()) {
+            if (a->is_flying())
                 return ITEM_DROP;
-            }
 
             Floor *fl = GetFloor(p);
             std::string floor = fl->getClass();
@@ -387,6 +385,7 @@ namespace enigma {
                 return ITEM_KEEP;
             }
         }
+        return ITEM_KEEP;
     }
     
     int Spring::traitsIdx() const {

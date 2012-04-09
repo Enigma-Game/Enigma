@@ -166,7 +166,7 @@ namespace enigma {
     bool PropertyManager::hasProperty(const XMLCh * key, DOMElement ** element) {
         ASSERT(propertiesElem != NULL, XFrontend, "");
         bool propFound = false;
-        DOMElement * property;
+        DOMElement * property = NULL;
 
 // Xerces 3.0 has no full XPath support - otherwise the following simple
 // statement would suffice and not be aborted with NOT_SUPPORTED_ERR.

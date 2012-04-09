@@ -80,7 +80,7 @@ namespace enigma { namespace lev {
         else
             groupName = anIndex->indexGroup;  // use index default group
             
-        std::vector<Index *> * group;
+        std::vector<Index *> * group = NULL;
         
         // if no prefs ask for index default group
         

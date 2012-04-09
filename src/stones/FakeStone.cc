@@ -44,7 +44,7 @@ namespace enigma {
             else if (fl == "oxyde") typ = OXYDE;
             else
                 ASSERT(false, XLevelRuntime, ecl::strf("Fake stone with illegal flavor value: %s", fl.c_str()).c_str());
-            objFlags = objFlags & OBJBIT_SUBTYP | (typ << 24);
+            objFlags = (objFlags & OBJBIT_SUBTYP) | (typ << 24);
             if (isDisplayable())
                 init_model();
             return;

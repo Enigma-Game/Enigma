@@ -37,7 +37,7 @@ namespace enigma {
     void SeedItem::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
-            int code;
+            int code = 0;
             if (flavor == "wood") code = 0;
             else if (flavor == "greenbrown") code = 1;
             else if (flavor == "volcano") code = 2;

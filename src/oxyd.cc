@@ -133,7 +133,7 @@ namespace
         return GridLoc (tab[a.getGridType()], GridPos(a.getX(), a.getY()));
     }
 
-    string patchfile_name (enigma::GameType t, size_t index, bool twoplayers)
+    string patchfile_name (enigma::GameType t, int index, bool twoplayers)
     {
         string patchfile = "levels/patches/";
         switch (t) {
@@ -652,8 +652,8 @@ void OxydLoader::connect_signals ()
         int nrec = level.getNumRecipients(sender);
         for (int irec=0; irec<nrec; ++irec) {
             SignalLocation recipient = level.getRecipient(sender, irec);
-            GridLoc src = to_gridloc(sender);
-            GridLoc dst = to_gridloc(recipient);
+            GridLoc src = ::to_gridloc(sender);
+            GridLoc dst = ::to_gridloc(recipient);
             AddSignal (src, dst, "signal");
         }
     }
@@ -963,8 +963,8 @@ GameInfo::GameInfo (OxydVersion ver_, const string &game_, const string &datfile
 {
     string alt_datfile_name = "levels/legacy_dat/" + datfile_name_;
     string fname;
-    if (searchDAT && app.resourceFS->findFile (datfile_name_, datfile_path) ||
-            app.resourceFS->findFile (alt_datfile_name, datfile_path)) {
+    if (searchDAT && (app.resourceFS->findFile (datfile_name_, datfile_path) ||
+            app.resourceFS->findFile (alt_datfile_name, datfile_path))) {
         enigma::Log << "Found " << game << " data file\n";
         m_present = true;
         openDatFile();

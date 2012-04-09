@@ -39,9 +39,6 @@ namespace ecl
         typedef typename std::list<value_type>::iterator iterator;
         typedef typename std::list<value_type>::const_iterator const_iterator;
 
-        //	
-        // Lookup of keys
-        //
         iterator find (const key_type &key) {
             iterator i=this->begin(), e=this->end();
             for (; i!=e; ++i) 
@@ -61,14 +58,14 @@ namespace ecl
         VAL &operator[] (const key_type &key) { 
             iterator i=find(key);
             if (i==this->end())
-                i=insert(this->end(), make_pair(key, VAL()));
+                i=this->insert(this->end(), make_pair(key, VAL()));
             return i->second;
         }
         
         void remove_key(const key_type &key) {
             iterator i = find(key);
             if (i != this->end())
-                erase(i);
+                this->erase(i);
         }
     };
 }

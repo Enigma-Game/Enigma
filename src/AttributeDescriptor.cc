@@ -69,7 +69,7 @@ namespace enigma {
                     if (str[0] == '%')
                         isNumber = true;
                 }
-                double d = val;
+                //  double d = val;
                 // TBD add int, min, max check                
                 return isNumber ? VALID_OK : VALID_TYPE_MISMATCH;
             }

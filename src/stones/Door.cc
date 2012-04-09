@@ -111,7 +111,6 @@ namespace enigma {
     }
     
     StoneResponse Door::collision_response(const StoneContact &sc) {
-        Direction cf = contact_face(sc);
         if (state == OPEN)
             return STONE_PASS;
         else {

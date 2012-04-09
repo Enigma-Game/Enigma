@@ -62,39 +62,6 @@ namespace enigma
         DirIter();
     };
 
-    /* -------------------- FileHandles --------------------*/
-// 
-//     class FileHandle {
-//     public:
-//         virtual ~FileHandle() {}
-// 
-//         // FileHandle interface.
-//         virtual bool   exists() const = 0;
-//         virtual void   read (ByteVec &buffer) = 0;
-//     };
-// 
-//     class FileHandle_Dir : public FileHandle {
-//         std::string m_name;
-//         std::string m_path;
-//         bool m_exists;          // File exists
-// 
-//     public:
-//         FileHandle_Dir (const std::string &name);
-// 
-//         // FileHandle interface.
-//         bool   exists() const;
-//         void   read (ByteVec &buffer);
-//     };
-// 
-//     class FileHandle_Zip : public FileHandle {
-//     public:
-//         FileHandle_Zip();
-// 
-//         // FileHandle interface.
-//         bool   exists() const;
-//         void   read (ByteVec &buffer);
-//     };
-    
     /**
      * A GameFS is a list of directories that are searched when
      * Enigma tries to find a data file (for example a png image). The
@@ -150,8 +117,6 @@ namespace enigma
         bool findFile(const string &filename, string &dest, 
                 std::auto_ptr<std::istream> &isptr) const;
                 
-//      FileHandle *findFile (const FileName &);
-
         /**
          * Search first occurence of a file on the GameFS. The file can be
          * a path component like "levels/index.lua". If the file can not be

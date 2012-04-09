@@ -65,7 +65,7 @@ namespace enigma {
     
     void Hammer::alarm() {
         objFlags &= ~OBJBIT_NEW;
-        DirectionBits db = updateCurrentLightDirs();
+        updateCurrentLightDirs();
         activatePhoto();        
     }
     

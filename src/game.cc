@@ -123,5 +123,3 @@ void game::ResetGameTimer()
 {
     last_tick_time=SDL_GetTicks();
 }
-
-

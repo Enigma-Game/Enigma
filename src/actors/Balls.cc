@@ -494,7 +494,7 @@ namespace enigma {
     }
     
     void BasicBall::update_halo() {
-        HaloState newstate = m_halostate;
+        HaloState newstate;
     
         if (m_shield_rest_time <= 0)
             newstate = NOHALO;

@@ -227,7 +227,7 @@ void handle_server_packet (Buffer &buf)
     obuf << Uint16(84);
     obuf << string("Enigma");
     server_peer->send_reliable (obuf, 1);
-    printf ("CL: sending message %u\n", obuf.size());
+    printf ("CL: sending message %u\n", (unsigned)obuf.size());
 }
 
 void netgame::Join (std::string hostname, int port)

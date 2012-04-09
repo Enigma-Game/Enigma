@@ -119,7 +119,7 @@ namespace enigma { namespace lua {
                 // lua code loaded from string
                 std::string code = dbgInfo.source;
                 std::string::size_type slashPosFilenameEnd = code.find('\n');
-                std::string::size_type slashPosLineStart;
+                std::string::size_type slashPosLineStart = 0;
                 std::string::size_type slashPosLineEnd = slashPosFilenameEnd;
                 for (int i = 1; i < dbgInfo.currentline; i++) {
                     slashPosLineStart = slashPosLineEnd;

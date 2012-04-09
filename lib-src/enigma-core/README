@@ -41,7 +41,3 @@ video.hh        Class wrappers and some higher level operations SDL's
                 video operations; useful, but incomplete and in need of
                 a better design.
 
-windows.hh      Attempt at a reusable window manager that keeps track
-                of the stacking order, dirty rectangles, etc.  Needs a
-                little more work to make it really useful.
-

@@ -160,7 +160,7 @@ namespace enigma {
     protected:
         /**
          * Hook of laser light recalculation that is called for photo active objects
-         * everytime the illumination from any side of the grid did change. You need
+         * every time the illumination from any side of the grid did change. You need
          * to activate a GridObject first by calling "activatePhoto()". On removal of
          * an activated GridObject "deactivatePhoto()" is automatically executed. All
          * reported directions are the directions the laser beams are bound to, not

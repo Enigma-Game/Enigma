@@ -123,8 +123,8 @@ namespace enigma {
          * is a class with "st_panel_n", "st_panel_s",... as kinds. A gaming object
          * class is often implemented as a separate C++ class. But sometimes several 
          * gaming classes share a single C++ class. E.g. "st_panel", "st_bluesand" are
-         * both impleneted by the class "ClusterStone". In this case we talk about a 
-         * common "familiy". 
+         * both implemented by the class "ClusterStone". In this case we talk about a 
+         * common "family". 
          */
         virtual std::string getClass() const =0;
         
@@ -233,7 +233,7 @@ namespace enigma {
         
         /**
          * A central managed container for 32 single bit flags to be used by 
-         * subclasses. Object is reponsible of efficiently cloning, saving and
+         * subclasses. Object is reponsible for efficiently cloning, saving and
          * restoring these flags on demand. Subclasses use the bits as follows:
          * 
          * - Bit 0-15 are reserved for classes Object to GridObject
@@ -244,7 +244,7 @@ namespace enigma {
          * 
          * See enumeration ObjectFlagsBits for Bitmasks of Bit 0-15. Note that
          * Bitmasks would not have been an alternative as the subclasses may
-         * and will use the upper bits in a quite different mannor. 
+         * and will use the upper bits in a quite different manner.
          */
         uint32_t  objFlags;
         

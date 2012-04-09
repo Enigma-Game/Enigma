@@ -116,26 +116,12 @@ Field::~Field()
 
 /* -------------------- StoneContact -------------------- */
 
-//StoneContact::StoneContact(Actor *a, GridPos p,
-//                           const V2 &cp, const V2 &n)
-//: actor(a), stonepos(p),
-//  response(STONE_PASS),
-//  contact_point(cp),
-//  normal(n),
-//  is_collision(false),
-//  ignore (false),
-//  new_collision(false),
-//  is_contact(true)
-//{}
-
 StoneContact::StoneContact() : is_collision (false), ignore (false), new_collision (false),
   is_contact (false), outerCorner (false) {
 }
 
 DirectionBits contact_faces(const StoneContact &sc)
 {
-//    using namespace enigma;
-
     int dirs = NODIRBIT;
 
     if (sc.normal[0] < 0)
@@ -228,7 +214,7 @@ World::World(int ww, int hh) : fields(ww,hh), preparing_level(true),
         leftmost_actor (NULL), rightmost_actor (NULL), numMeditatists (0), 
         indispensableHollows (0), engagedIndispensableHollows(0), engagedDispensableHollows (0),
         registerCriticalPositions (false), scrambleIntensity(10) // difficult default
-        {
+{
     w = ww;
     h = hh;
 }
@@ -659,7 +645,7 @@ ecl::V2 World::get_global_force (Actor *a){
       false and nothing else is done.
 
    2) The stone and the actor are in contact. In this case, `c' is
-      filled with the contact information and `is_contact'p is set to
+      filled with the contact information and `is_contact' is set to
       true.
 
    3) The stone and the actor are _not_ in contact.  In this case, `c'
@@ -692,17 +678,15 @@ void World::find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
 
     bool isWindow = stone->get_traits().id == st_window;
     DirectionBits wsides = NODIRBIT;
-    if (isWindow) {
+    if (isWindow)
         wsides = stone->getFaces(a->is_invisible());
-    }
     
     const ActorInfo &ai = *a->get_actorinfo();
     double r = ai.radius;
 
     int x = p.x, y = p.y;
-
-    double ax = ai.pos[0];
-    double ay = ai.pos[1];
+    double ax = ai.pos[0], ay = ai.pos[1];
+    
 //    const double contact_e = 0.02;
     const double erad_const = 2.0/32;      // edge radius
     const double erad_window_const = 1.5/32; // edge radius for window - the windows glass
@@ -948,7 +932,7 @@ void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2,
     } else if (s0 && s2 && c0.response==STONE_REBOUND && c2.response==STONE_REBOUND) {
         // join stones to a block without rounded edges
         find_contact_with_stone(a, p2, c2, winFacesActorStone, false, s2);  // contact with straight neighbour only
-        if (c2.normal*(a->get_actorinfo()->vel) >= 0 /* &&  s2 has restituion 1.0 */)  // leaving a oneway or door
+        if (c2.normal*(a->get_actorinfo()->vel) >= 0 /* &&  s2 has restitution 1.0 */)  // leaving a oneway or door
             find_contact_with_stone(a, p0, c0, winFacesActorStone, true, s0);          // collide with diagonal stone
         find_contact_with_stone(a, p1, c1, winFacesActorStone, true, s1);   // register contact without collision
     } else {
@@ -966,23 +950,23 @@ void World::find_contact_with_edge(Actor *a, GridPos p0, GridPos p1, GridPos p2,
  * @arg p   the grid position of the actor and the Window stone
  * @arg c0  a contact info for a east or west contact. The normal has no need of being intialized
  * @arg c1  a contact info for a noth or south contact. The normal has no need of being intialized
- * @arg winFacesActorStone  the faces of a Window stone on the actors grid position
+ * @arg windowFaces  the faces of a Window stone on the actors grid position
  */
 void World::find_contact_with_window(Actor *a, GridPos p, StoneContact &c0, StoneContact &c1,
-        DirectionBits winFacesActorStone) {
-    if (winFacesActorStone != NODIRBIT) {
-        // as the actor cannot contact two opposite faces at the same time
-        // we reuse the contact structure for optimization
-        if (winFacesActorStone&WESTBIT) 
-            find_contact_with_stone(a, p, c0, WESTBIT);
-        if ((winFacesActorStone&EASTBIT) && c0.is_contact == false)
-            find_contact_with_stone(a, p, c0, EASTBIT);
-        if (winFacesActorStone&SOUTHBIT) 
-            find_contact_with_stone(a, p, c1, SOUTHBIT);
-        if ((winFacesActorStone&NORTHBIT) && c1.is_contact == false)
-            find_contact_with_stone(a, p, c1, NORTHBIT);
-    }
-    
+        DirectionBits windowFaces) {
+    if (windowFaces == NODIRBIT)
+        return;
+
+    // as the actor cannot contact two opposite faces at the same time
+    // we reuse the contact structure for optimization
+    if (windowFaces & WESTBIT) 
+        find_contact_with_stone(a, p, c0, WESTBIT);
+    if ((windowFaces & EASTBIT) && c0.is_contact == false)
+        find_contact_with_stone(a, p, c0, EASTBIT);
+    if (windowFaces & SOUTHBIT) 
+        find_contact_with_stone(a, p, c1, SOUTHBIT);
+    if ((windowFaces & NORTHBIT) && c1.is_contact == false)
+        find_contact_with_stone(a, p, c1, NORTHBIT);
 }
 
 /**
@@ -1594,7 +1578,6 @@ void World::tick_sound_dampings ()
         counter = 0;
         SoundDampingList::iterator i = level->sound_dampings.begin(),
             end = level->sound_dampings.end();
-        int count = 0;
         while (i != end) {
             if(i->tick()) // return true if damping entry should be deleted
                 i = level->sound_dampings.erase(i);

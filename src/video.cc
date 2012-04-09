@@ -36,7 +36,6 @@
 #include "options.hh"
 #include "main.hh"
 #include "ecl.hh"
-#include "SDL.h"
 #include <cassert>
 #include <cstdio>
 #include <fstream>
@@ -131,9 +130,8 @@ void Video_SDL::set_caption(const char *str) {
 
 bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
 {
-    static bool firstInit = true;
-    
 #ifndef MACOSX
+    static bool firstInit = true;
     if (firstInit) {
         // Set the caption icon -- due to SDL doc it has to be set before first SDL_SetVideoMode() !!
         // In praxis this SetIcon does not work for Linux, nor is it necessary for OSX.
@@ -761,10 +759,7 @@ void video::Init()
     }
     vidmode = video::GetBestUserMode(isFullScreen);
     
-    int oldvidmode = vidmode;
-
     video_engine = new Video_SDL();
-
 
     assert(bpp==16 || bpp==32);
     int fallback_sequence = 1;
@@ -885,7 +880,7 @@ void video::UpdateGamma()
     float gamma = static_cast<float> (app.prefs->getDouble ("Gamma"));
     if (gamma < 0.25)  
         gamma = 0.25;  // Windows does not set gamma for values < 0.2271
-    int result = SDL_SetGamma (gamma, gamma, gamma);
+    SDL_SetGamma (gamma, gamma, gamma);
 }
 
 void video::Screenshot (const std::string &fname) 

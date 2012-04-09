@@ -28,6 +28,7 @@ namespace ecl
     extern unsigned hash(const std::string &key);
 
     class XInvalidKey : XGeneric {
+    public:
         XInvalidKey () : XGeneric("invalid dictionary key")
         {}
     };

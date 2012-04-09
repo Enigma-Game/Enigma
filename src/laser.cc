@@ -149,7 +149,7 @@ void LaserBeam::emit_from(GridPos p, Direction dir)
 bool LaserBeam::actor_hit(Actor *actor) {
     DirectionBits directions = (DirectionBits)(objFlags & 15);
 
-    double r = get_radius(actor);
+//    double r = get_radius(actor);
     ecl::V2 p = actor->get_pos();
     GridPos gp = get_pos();
 
@@ -158,7 +158,7 @@ bool LaserBeam::actor_hit(Actor *actor) {
     double dy = fabs(p[1] - gp.y - 0.5);
 
     if ((directions & (EASTBIT | WESTBIT) && dy < 0.21) ||
-            (directions & (NORTHBIT | SOUTHBIT)) && dx < 0.21) {
+            (directions & (NORTHBIT | SOUTHBIT) && dx < 0.21)) {
         SendMessage(actor, "_laserhit");
     }
 

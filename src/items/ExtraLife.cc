@@ -19,9 +19,6 @@
  */
 
 #include "items/ExtraLife.hh"
-//#include "errors.hh"
-//#include "main.hh"
-//#include "server.hh"
 #include "player.hh"
 #include "world.hh"
 
@@ -71,7 +68,7 @@ namespace enigma {
     
     void ExtraLife::alarm() {
         objFlags &= ~OBJBIT_NEW;
-        DirectionBits db = updateCurrentLightDirs();
+        updateCurrentLightDirs();
         activatePhoto();        
     }
 

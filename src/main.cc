@@ -17,7 +17,6 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-
 #include "main.hh"
 #include "display.hh"
 #include "lua.hh"
@@ -169,7 +168,6 @@ namespace
 
         void on_option (int id, const string &param);
         void on_argument (const string &arg);
-
     };
 }
 
@@ -257,7 +255,6 @@ void Application::init(int argc, char **argv)
     if (CFStringGetFileSystemRepresentation(cffileStr, localbuffer, cfmax)) {
       progCallPath = localbuffer; // error skips this and defaults to argv[0] which works for most purposes
     }
-    CFRelease(mainBundle);
     CFRelease(cfurlmain);
     CFRelease(cffileStr);
 #endif
@@ -535,13 +532,13 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     bool progDirExists = split_path(progCallPath, &progDir, &progName);
     std::string systemPath = SYSTEM_DATA_DIR; // substituted by configure.ac
     bool haveHome = (getenv("HOME") != 0);
+    
+    
 #ifdef __MINGW32__
     // windows standard user specific application data directory path
     std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
 #endif
 
-    // systemFS
-    systemFS = new GameFS();
 #ifdef __MINGW32__
     if (!progDirExists) {
         // filename only -- working dir should be on enigma as enigma
@@ -568,6 +565,9 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     // Unix -- we get our data path from the installation
     systemAppDataPath = systemPath;
 #endif
+    
+    // systemFS
+    systemFS = new GameFS();
     systemFS->append_dir(systemAppDataPath);
     if (!systemCmdDataPath.empty())
          systemFS->prepend_dir(systemCmdDataPath);
@@ -832,12 +832,7 @@ void Application::init_i18n()
 
 void Application::setLanguage(std::string newLanguage)
 {
-    if (newLanguage == "") {
-        language = defaultLanguage;
-    }
-    else {
-        language = newLanguage;
-    }
+    language = newLanguage.empty() ? defaultLanguage : newLanguage;
     nls::SetMessageLocale(language);
 }
 
@@ -918,7 +913,7 @@ void Application::shutdown()
     delete ::nullbuffer;
 }
 
-int main(int argc, char** argv) 
+int main(int argc, char **argv) 
 {
     try {
         app.init(argc,argv);

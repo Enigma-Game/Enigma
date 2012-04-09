@@ -65,8 +65,6 @@ namespace enigma
      */
     class Application {
     public:
-        static Application *get_instance();
-
         Application();
 
         void init(int argc, char **argv);
@@ -233,8 +231,6 @@ namespace enigma
         
         void init_i18n();
     };
-
-#define APP enigma::Application::get_instance()
 
     extern Application app;
 

@@ -49,8 +49,8 @@ namespace ecl
 
 /* -------------------- Locales -------------------- */
 
-    std::string SysMessageLocaleName ();
+    std::string SysMessageLocaleName();
 
-    std::string GetLanguageCode (const std::string &localename);
+    std::string GetLanguageCode(const std::string &localename);
 }
 #endif

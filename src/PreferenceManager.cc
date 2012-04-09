@@ -59,7 +59,7 @@ namespace enigma {
     
     PreferenceManager::PreferenceManager() {
         std::string prefTemplatePath;
-        bool haveXMLProperties = (ecl::FileExists(app.prefPath)) ? true : false;
+        bool haveXMLProperties = ecl::FileExists(app.prefPath);
         
         if (!app.systemFS->findFile( std::string("schemas/") + PREFFILENAME , prefTemplatePath)) {
             cerr << "Preferences: no template found\n";

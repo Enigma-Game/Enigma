@@ -23,8 +23,10 @@
 #include "ecl_fwd.hh"
 #include "lev/Proxy.hh"
 
-namespace enigma_game
+namespace enigma
 {
+namespace game {
+
     using enigma_levels::LevelPack;
     using enigma_levels::Level;
 
@@ -35,11 +37,7 @@ namespace enigma_game
     /*! Draw a level preview into video::BackBuffer().  Return true if
       successful. */
     bool DrawLevelPreview (ecl::GC &, enigma::lev::Proxy *levelProxy);
-
+}
 }
 
-namespace enigma
-{
-    namespace game = enigma_game;
-}
 #endif

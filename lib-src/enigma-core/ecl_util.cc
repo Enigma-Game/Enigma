@@ -80,7 +80,7 @@ std::string ecl::strf(const char *format, ...) {
         length = vsnprintf(buffer, buf_size, format, argPtr);
         va_end(argPtr);
         
-        if (length >= 0 && length < buf_size - 1) 
+        if (length < buf_size - 1) 
             // string fits into current buffer
             return std::string(buffer, length);
 

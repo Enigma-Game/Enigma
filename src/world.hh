@@ -93,8 +93,7 @@ namespace enigma {
      * This structure stores all the information that is necessary to
      * handle collisions between stones and actors. 
      */
-    struct StoneContact
-    {
+    struct StoneContact {
         // Variables.
         Actor           *actor;
         GridPos         stonepos;
@@ -112,10 +111,6 @@ namespace enigma {
         std::string sound;
 
         // Constructor.
-//        StoneContact (Actor *a,
-//                      GridPos stonepos,
-//                      const V2 & contact_point,
-//                      const V2 & surface_normal);
         StoneContact();
     };
 
