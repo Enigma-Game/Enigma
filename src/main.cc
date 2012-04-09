@@ -58,6 +58,7 @@
 #include <xercesc/util/XMLUniDefs.hpp>
 #include <xercesc/util/PlatformUtils.hpp>
 #include <xercesc/util/XercesVersion.hpp>
+#include "SDL_main.h"
 #include <SDL_image.h>
 #include <SDL_mixer.h>
 #include <SDL_ttf.h>
@@ -258,7 +259,12 @@ void Application::init(int argc, char **argv)
     CFRelease(cfurlmain);
     CFRelease(cffileStr);
 #endif
-    copy(argv+1, argv+argc, back_inserter(args));
+    for (int i=1; i<argc; i++) {
+        if (0 == strcmp(argv[i], "-NSDocumentRevisionsDebugMode"))
+            i++;
+        else
+            args.push_back(argv[i]);
+    }
     
     // parse commandline arguments -- needs args
     AP ap;
