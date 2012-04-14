@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Springtime Again" el:subtitle="The principles of playing chess in flight" el:id="harry07"/>
-      <el:version el:score="1" el:release="1" el:revision="6" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
       <el:author el:name="daydreamer" el:email=""/>
       <el:copyright>Copyright © 2009 daydreamer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
       <el:comments>
 	<el:credits el:showinfo="false" el:showstart="false"></el:credits>
       </el:comments>
@@ -29,13 +29,12 @@ ti["b"] = ti["B"] .. ti["~"]
 ti["w"] = ti["W"] .. ti["~"]
 ti["x"] = {"it_extralife"}
 ti["s"] = {"it_spring_keep"}
-ti["y"] = {"it_yinyang"}
 ti["E"] = cond(wo["IsDifficult"], ti["B"] .. ti["x"], ti["B"])
 ti["e"] = cond(wo["IsDifficult"], ti["W"] .. ti["x"], ti["W"])
 ti["O"] = {"st_oxyd", "right#"}
 ti["o"] = {"st_oxyd", "left#"}
-ti["@"] = {"#ac_marble"}
-ti["*"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble", essential=INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential=INDISPENSABLE}
 
 wo(ti, "-", {
     "########B-EW########",
@@ -52,8 +51,8 @@ wo(ti, "-", {
     "oXWb-#WW~--~BB#-wBYO",
     "WB##WB-######-WB##WB"})
 
-wo:add(YIN,  ti["s"] .. ti["y"])
-wo:add(YANG, ti["s"] .. ti["y"])
+wo:add(YIN,  ti["s"])
+wo:add(YANG, ti["s"])
 wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
  ]]></el:luamain>
     <el:i18n>

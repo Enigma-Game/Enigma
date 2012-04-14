@@ -3,12 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Chess Challenge II" el:subtitle="Inverted Positions" el:id="harry08"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
       <el:author el:name="daydreamer" el:email=""/>
       <el:copyright>Copyright © 2009 daydreamer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
       <el:comments>
         <el:credits el:showinfo="false" el:showstart="false"></el:credits>
       </el:comments>
@@ -23,8 +23,8 @@ ti["W"] = {"st_chess_white"}
 ti["b"] = ti["B"] .. ti[" "]
 ti["w"] = ti["W"] .. ti[" "]
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble_black"}
-ti["*"] = {"#ac_marble_white"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential=INDISPENSABLE}
 
 wo(ti, "-", {
     "###################",
@@ -40,8 +40,8 @@ wo(ti, "-", {
     "W#  W---W-B---B  #B",
     "###################"})
 
-wo:add(YIN, {"it_magicwand"} .. {"it_yinyang"} .. ti({"it_spring_keep"}))
-wo:add(YANG, {"it_magicwand"} .. {"it_yinyang"} .. ti({"it_spring_keep"}))
+wo:add(YIN, {"it_magicwand"} .. ti({"it_spring_keep"}))
+wo:add(YANG, {"it_magicwand"} .. ti({"it_spring_keep"}))
  ]]></el:luamain>
   <el:i18n>
     <el:string el:key="title">

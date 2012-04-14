@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="1" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma X"/>
 
   <attributes/>
 
@@ -16,16 +16,16 @@
     <level _seq="8" _title="Spacer V" _xpath="./devnull82_1" author="/dev/null" ctrl="force" easy="false" id="devnull82" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="9" _title="Spacer VI" _xpath="./devnull83_1" author="/dev/null" ctrl="force" easy="false" id="devnull83" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Spacer VII" _xpath="./devnull85_1" author="/dev/null" ctrl="force" easy="false" id="devnull85" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Springtime Again" _xpath="./harry07_1" author="daydreamer" ctrl="force" easy="true" id="harry07" rel="1" rev="6" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Springtime Again" _xpath="./harry07_1" author="daydreamer" ctrl="force" easy="true" id="harry07" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="Island Puzzles" _xpath="./devnull111_1" author="/dev/null" ctrl="force" easy="false" id="devnull111" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Chess Challenge II" _xpath="./harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Chess Challenge II" _xpath="./harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Vapid" _xpath="./devnull122_1" author="/dev/null" ctrl="force" easy="false" id="devnull122" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Don Quixote" _xpath="./zephyr36_1" author="Zephyr" ctrl="force" easy="true" id="zephyr36" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="16" _title="Blocked I" _xpath="./devnull84_1" author="/dev/null" ctrl="force" easy="false" id="devnull84" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Blocked II" _xpath="./devnull86_1" author="/dev/null" ctrl="force" easy="false" id="devnull86" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Island Journey" _xpath="./devnull114_1" author="/dev/null" ctrl="force" easy="false" id="devnull114" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Parabola" _xpath="./hairball12_1" author="Hairball" ctrl="force" easy="false" id="hairball12" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Inside Puzzling" _xpath="./raoul39_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Inside Puzzling" _xpath="./raoul41_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul41" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Shogun Connection I" _xpath="./devnull102_1" author="/dev/null" ctrl="force" easy="false" id="devnull102" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Shogun Connection II" _xpath="./devnull103_1" author="/dev/null" ctrl="force" easy="false" id="devnull103" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Shogun Connection III" _xpath="./devnull105_1" author="/dev/null" ctrl="force" easy="false" id="devnull105" rel="1" rev="1" score="1" target="time" unit="duration"/>
