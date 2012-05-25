@@ -7,38 +7,38 @@
 
   <levels>
     <level _seq="1" _title="Welcome" _xpath="./welcometopack10_1" author="Raoul Bourquin" ctrl="force" easy="true" id="welcometopack10" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Pulling on the Rings" _xpath="./andreas65_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas65" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Volatile Storage" _xpath="./ais75_1" author="Alex Smith" ctrl="force" easy="true" id="ais75" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Spacer I" _xpath="./devnull78_1" author="/dev/null" ctrl="force" easy="false" id="devnull78" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Volatile Storage" _xpath="./ais75_1" author="Alex Smith" ctrl="force" easy="true" id="ais75" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Spacer I" _xpath="./devnull78_1" author="/dev/null" ctrl="force" easy="false" id="devnull78" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="No pearl diving I" _xpath="./devnull92_1" author="/dev/null" ctrl="force" easy="false" id="devnull92" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="5" _title="Spacer II" _xpath="./devnull79_1" author="/dev/null" ctrl="force" easy="false" id="devnull79" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Spacer III" _xpath="./devnull80_1" author="/dev/null" ctrl="force" easy="false" id="devnull80" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Spacer IV" _xpath="./devnull81_1" author="/dev/null" ctrl="force" easy="false" id="devnull81" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Spacer V" _xpath="./devnull82_1" author="/dev/null" ctrl="force" easy="false" id="devnull82" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Spacer VI" _xpath="./devnull83_1" author="/dev/null" ctrl="force" easy="false" id="devnull83" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="Spacer VII" _xpath="./devnull85_1" author="/dev/null" ctrl="force" easy="false" id="devnull85" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="Springtime Again" _xpath="./harry07_1" author="daydreamer" ctrl="force" easy="true" id="harry07" rel="1" rev="7" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Island Puzzles" _xpath="./devnull111_1" author="/dev/null" ctrl="force" easy="false" id="devnull111" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Chess Challenge II" _xpath="./harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="14" _title="Vapid" _xpath="./devnull122_1" author="/dev/null" ctrl="force" easy="false" id="devnull122" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="Don Quixote" _xpath="./zephyr36_1" author="Zephyr" ctrl="force" easy="true" id="zephyr36" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="Blocked I" _xpath="./devnull84_1" author="/dev/null" ctrl="force" easy="false" id="devnull84" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="Blocked II" _xpath="./devnull86_1" author="/dev/null" ctrl="force" easy="false" id="devnull86" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Island Journey" _xpath="./devnull114_1" author="/dev/null" ctrl="force" easy="false" id="devnull114" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Parabola" _xpath="./hairball12_1" author="Hairball" ctrl="force" easy="false" id="hairball12" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Inside Puzzling" _xpath="./raoul41_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul41" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Shogun Connection I" _xpath="./devnull102_1" author="/dev/null" ctrl="force" easy="false" id="devnull102" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="Shogun Connection II" _xpath="./devnull103_1" author="/dev/null" ctrl="force" easy="false" id="devnull103" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Shogun Connection III" _xpath="./devnull105_1" author="/dev/null" ctrl="force" easy="false" id="devnull105" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="What a ..." _xpath="./devnull30_2" author="/dev/null" ctrl="force" easy="true" id="devnull30" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="Left Lost?" _xpath="./devnull112_1" author="/dev/null" ctrl="force" easy="false" id="devnull112" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Blocking Puzzles I" _xpath="./devnull126_1" author="/dev/null" ctrl="force" easy="false" id="devnull126" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="27" _title="Pony trek" _xpath="./devnull106_1" author="/dev/null" ctrl="force" easy="false" id="devnull106" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="See my pony run" _xpath="./devnull107_1" author="/dev/null" ctrl="force" easy="false" id="devnull107" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Two Halfs" _xpath="./devnull94_1" author="/dev/null" ctrl="force" easy="false" id="devnull94" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Do Me a Favor" _xpath="./devnull88_1" author="/dev/null" ctrl="force" easy="false" id="devnull88" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="No pearl dinving I" _xpath="./devnull92_1" author="/dev/null" ctrl="force" easy="false" id="devnull92" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="No pearl diving II" _xpath="./devnull115_1" author="/dev/null" ctrl="force" easy="false" id="devnull115" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Team Trial" _xpath="./devnull120_1" author="/dev/null" ctrl="force" easy="false" id="devnull120" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Left Lost?" _xpath="./devnull112_1" author="/dev/null" ctrl="force" easy="false" id="devnull112" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Blocked I" _xpath="./devnull84_1" author="/dev/null" ctrl="force" easy="false" id="devnull84" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Spacer III" _xpath="./devnull80_1" author="/dev/null" ctrl="force" easy="false" id="devnull80" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Island Journey" _xpath="./devnull114_1" author="/dev/null" ctrl="force" easy="false" id="devnull114" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Inside Puzzling" _xpath="./raoul41_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul41" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="Spacer IV" _xpath="./devnull81_1" author="/dev/null" ctrl="force" easy="false" id="devnull81" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Two Halfs" _xpath="./devnull94_1" author="/dev/null" ctrl="force" easy="false" id="devnull94" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="No pearl diving II" _xpath="./devnull115_1" author="/dev/null" ctrl="force" easy="false" id="devnull115" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Interlude II" _xpath="./devnull69_1" author="/dev/null" ctrl="force" easy="false" id="devnull69" rel="1" rev="5" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="What a ..." _xpath="./devnull30_2" author="/dev/null" ctrl="force" easy="true" id="devnull30" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Spacer V" _xpath="./devnull82_1" author="/dev/null" ctrl="force" easy="false" id="devnull82" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Island Hopping III" _xpath="./devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Team Trial" _xpath="./devnull120_1" author="/dev/null" ctrl="force" easy="false" id="devnull120" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Spacer VI" _xpath="./devnull83_1" author="/dev/null" ctrl="force" easy="false" id="devnull83" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Interlude III" _xpath="./devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Near Halley II" _xpath="./devnull46_1" author="/dev/null" ctrl="force" easy="true" id="devnull46" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Chess Challenge II" _xpath="./harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Duopal Variation II" _xpath="./devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Blocked II" _xpath="./devnull86_1" author="/dev/null" ctrl="force" easy="false" id="devnull86" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="At the Pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Spacer VII" _xpath="./devnull85_1" author="/dev/null" ctrl="force" easy="false" id="devnull85" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Steering The Flood" _xpath="./ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="See my pony run" _xpath="./devnull107_1" author="/dev/null" ctrl="force" easy="false" id="devnull107" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Reddish" _xpath="./devnull87_1" author="/dev/null" ctrl="force" easy="false" id="devnull87" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Suckerfish I" _xpath="./devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="7" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Pony trek" _xpath="./devnull106_1" author="/dev/null" ctrl="force" easy="false" id="devnull106" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Enigmas wildcat" _xpath="./cel3_1" author="Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" ctrl="force" easy="false" id="cel3" rel="1" rev="31" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>
