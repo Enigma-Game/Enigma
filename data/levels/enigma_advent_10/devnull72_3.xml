@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Break On Through" el:subtitle="To The Other Side" el:id="devnull72"/>
-      <el:version el:score="1" el:release="2" el:revision="5" el:status="released"/>
+      <el:version el:score="1" el:release="3" el:revision="6" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
-      <el:copyright>Copyright © 2010 dev0</el:copyright>
+      <el:copyright>Copyright © 2010, 2012 dev0</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="true"/>
-      <el:score el:easy="-" el:difficult="-"/>
+      <el:score el:easy="-" el:difficult="4:24"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["AllowSuicide"] = false
@@ -19,7 +19,7 @@ ti["~"] = {"fl_water"}
 ti["#"] = {"st_granite"}
 ti["+"] = ti({"it_wrench"}) .. {"st_box_hay"}
 ti["doors"] = {"st_door", name ="door%%", faces = "ns", state = CLOSED}
-ti["triggers"] = ti["~"] .. {"it_trigger", target = "door%%", action_1 = "open", invisible = true}
+ti["triggers"] = ti["~"] .. {"it_trigger", target = "door%%", action = "open", invisible = true}
 ti[">"] = {"st_boulder_e"}
 ti["<"] = {"st_boulder_w"}
 ti["H"] = {"st_pull"}

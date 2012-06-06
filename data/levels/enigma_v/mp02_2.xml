@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Gods of Enigma II" el:subtitle="" el:id="mp02"/>
-      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="4" el:status="released"/>
       <el:author  el:name="moonpearl" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 moonpearl</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -210,7 +210,7 @@ itmap={"                                                          ",--0
        "        !                                                 ",
        "                                                     $$$  ",--5
        "                                                 %        ",
-       "                                                       &$ ",
+       "                                                $      &$ ",
        "                                       $$              $  ",
        "                                       $$                 ",
        " !         #      !                    $$                 ",--10
@@ -312,19 +312,19 @@ set_actor("ac-blackball",13.5,10.5,{player=0})
       </el:string>
       <el:string el:key="text2">
         <el:english el:translate="true">Fire burns and destroys ... Want to remove blocking stones? Then dig your way to the Holy Hammer!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">Try again! Bwahahahaha!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text4">
         <el:english el:translate="true">Earth fills and lasts ... Want to replace missing floors? Then build your way to the Holy Seed!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text5">
         <el:english el:translate="true">Air blows and goes by ... Want to jump across the void? Then make your way to the Holy Spring!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text6">
         <el:english el:translate="true">Water waves and shifts ... Want to trade minds with your partner? Then find your way to the Holy Yin-Yang!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
