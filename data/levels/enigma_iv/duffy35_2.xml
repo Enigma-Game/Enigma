@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Labyrinth of Puzzles" el:subtitle="" el:id="duffy35"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="stable"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_hay"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_sand"}
+ti[","] = {"fl_lawn_a"}
+ti["="] = {"fl_space"}
+ti["-"] = {"fl_metal"}
+ti["_"] = {"fl_ice"}
+ti["#"] = {"st_greenbrown"}
+ti["^"] = {"st_rawglass"}
+ti["*"] = {"st_brownie"}
+ti["g"] = {"st_grate_cross"}
+ti["+"] = {"st_box"}
+ti["s"] = {"st_stoneimpulse"}
+ti["S"] = {"st_stoneimpulse", hollow=true}
+ti["X"] = {"st_blur_cross"}
+ti["P"] = {"st_ghost_purplemarble"}
+ti["I"] = {"st_invisible"}
+ti["Q"] = {"st_dispenser_bombblack"}
+ti["r"] = ti["_"] .. {"st_break_oxydc"}
+ti["&"] = ti["*"] .. {"it_hammer"}
+ti["W"] = ti[","] .. ti["#"]
+ti["!"] = ti["~"] .. ti["#"]
+ti["x"] = ti["."] .. ti["g"]
+ti["z"] = ti[","] .. ti["g"]
+ti["c"] = ti[","] .. ti["+"]
+ti["n"] = ti["."] .. ti["+"]
+ti["%"] = ti["~"] .. ti["^"]
+ti["G"] = ti["="] .. ti["#"]
+ti["l"] = {"st_oneway", orientation=WEST}
+ti["R"] = {"st_oneway", orientation=EAST}
+ti["u"] = {"st_oneway", orientation=NORTH}
+ti["b"] = {"st_passage", flavor="frame", color=BLACK}
+ti["w"] = {"st_passage", flavor="frame", color=WHITE}
+ti["L"] = {"st_laser", name="laser", orientation=NORTH, state=ON}
+ti["M"] = ti[","] .. {"st_laser", name="laser2", orientation=SOUTH, state=OFF}
+ti["$"] = {"st_mirror", flavor="slab", movable=true, orientation=WEST}
+ti["/"] = ti[","] .. ti["$"]
+ti["("] = ti["~"] .. ti["$"]
+ti["k"] = {"it_key", code=1}
+ti["K"] = {"st_key", code=1, target="door5"}
+ti["v"] = {"it_key", code=2}
+ti["V"] = {"st_key", code=2, target="door3"}
+ti["8"] = ti["="] .. {"it_key", code=3}
+ti["6"] = ti["="] .. {"st_key", code=3, target="door4"}
+ti["f"] = ti["."] .. {"it_floppy"}
+ti["F"] = {"st_floppy", target="laser2"}
+ti["a"] = {"it_trigger", target="door1"}
+ti["3"] = {"it_coin_m"}
+ti["N"] = {"st_coinslot", action="open", target="door6"}
+ti["y"] = {"st_door", flavor="d", faces="ns", name="door1"}
+ti["B"] = {"st_door", flavor="d", faces="ew", name="door2"}
+ti["C"] = {"st_door", flavor="d", faces="ns", name="door3"}
+ti["5"] = {"st_door", name="door4", flavor="b"}
+ti["2"] = {"st_door", name="door5", flavor="b"}
+ti["4"] = {"st_door", flavor="d", faces="ew", name="door6"}
+ti["J"] = {"st_door", flavor="d", faces="ew", name="door7"}
+ti["<"] = {"st_door", flavor="d", faces="ew", name="door8"}
+ti["9"] = {"st_switch", target="door2"}
+ti["j"] = {"st_switch", target="door7"}
+ti["H"] = {"st_switch", target="door8"}
+ti["p"] = {"it_brush"}
+ti["O"] = ti["_"] .. {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+ti["A"] = {"#ac_marble_white"}
+
+wo(ti, " ", {
+    "ssssssssssssss###############################################################",
+    "s @                                #                   #                  A #",
+    "s ####### ######################## # #u#####b######### #y############ ##### #",
+    "s # # # # #.......#              # # #     # #   v     #         #        # #",
+    "# # # # # #.~~~~~.# ############ # # # ### # #   #########       ######## # #",
+    "# # # # # #.~~~~~.# #          # #   w #   # #   *SSSSSSS#    # ###SSSSS# # #",
+    "# # # # # #.~~a~~.# # ######## # ##### # ### #   #######S#    #sSSSS # S# # #",
+    "# # # # # #.~~~~~.# # #        # ~~~~### # # #         #S######      & S# # #",
+    "# # #   # #.~~~~~.# # # ##########   #   * # #         #SSSSSSSSSSSSSSSS# # #",
+    "# # # # # #.~~~~~.# # #      #   #   ####u## #     ###################### # #",
+    "# # # # # #.~~~~~.# # ## ###   # #  +  sskl  #  L  #          B           # #",
+    "# # #K# # #.~~~~~.# # #  #Q##### #  +  #sss### ##### ########## ########### #",
+    "# # ### # #.~~~~~.# # # ##     # #  ## #######       #          #N          #",
+    "# #     # #..nnx..# # #  #  $    #   +   #   ######### ####################=#",
+    "# #####    ,cc,cc,# # ## # ###########    I# I         #==================G=#",
+    "#          ,,,,,,,#   #  #,,,,,,,,M#      ## ## ########==================G=#",
+    "# #####################CF#,,cccc,,,#I# #  I#  # #=========================G=#",
+    "# b         g +g         ^,,c,,/,W,# # # # ## # #===---======G============G=#",
+    "# ########################,,z,,c,,,# # #I#    # #===---=====G=====--===--=G=#",
+    "# #                      #,,cccc,,,# # # ## #   #===---====G======--===--=G=#",
+    "# # #################### #.........#   #    #####==========G==============G=#",
+    "# #         #V           #~~~~~~~~~### # ####==============GGGGGG=========G=#",
+    "# ######### ##############~!~~~~~%~~~#   #===========---===G========--====G=#",
+    "# R   #   #    #95       #(~~~%~~~~~~#####===========---===G========--====G=#",
+    "# ### # # #### ####~+sss #!~~!%~~~~~f#    =================G6=============G=#",
+    "# #   # #    #  # # ###ss############# ####################################=#",
+    "# # ### ####### # #   #                234  X X X #    P   P      P       #=#",
+    "# #       #   # # ### # ##################  X X X # PP   P   P PPPP PPPPP #=#",
+    "# #######   # # #   # # #OOOOOOOOOOOOOOOO#XXX X X #  PP  PP P     P     P #=#",
+    "# l   # # ### # # # # # #rrrrrrrrrrrrrrrr#    X X #P  PPPP P  PPP PPP P P #=#",
+    "# ### # # #   # # #   # #rrrrrrrrrrrrrrrr#XXXXX X #        PPPP P   P P P #=#",
+    "# # # #   # ### # ### # #rrrrrrrrrrrrrrrr#      X # P PP PP   P   P PPP P #=#",
+    "# # # #####     # # ### #rrrrrrrrrrrrrrrr#XXXXXXX ### #  PP P PPPPP     P #=#",
+    "# #         ##### # # # #rrrrrrrrrrrrrrrr#          p #P    P  P    PPP P #=#",
+    "# ###########           #rrrrrrrrrrrrrrrr##############PPPPPPPPPPPPPP   P #=#",
+    "#             ###########rrrrrrrrrrrrrrrr< J   X         P        P P PPP #=#",
+    "###############         ##################b#w# X ######P PPPPPPPP P   P   #=#",
+    "                                         #H#j#####     P        P PPPPP PP#=#",
+    "                                         #####         PPPPPPPP P         #=#",
+    "                                                              P PPPPPPPPP #=#",
+    "                                                              P           #=#",
+    "                                                              PPPPPPPPPPPP#=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                          #=#",
+    "                                                                         ##=#",
+    "                                                                         #8=#",
+    "                                                                         ####"})
+
+wo:shuffleOxyd()
+    ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
