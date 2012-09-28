@@ -2,10 +2,10 @@
 @afourpaper
 
 @c @include{version.texi}
-@set VERSION 1.00
+@set VERSION 1.20
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck and other contributors
 
 La copie et la distribution de ce fichier, avec ou sans modification,
 sont autoris@'es sans royalty @`a condition que la notice de copyright
@@ -16,10 +16,11 @@ et la pr@'esente notice soient pr@'eserv@'ees.
 @settitle Enigma Manual
 @titlepage
 @center @image{images/logo}
+@sp 1
 @center @titlefont{Manuel Enigma}
 @center for version @value{VERSION}
 @sp 2
-@center Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -34,7 +35,7 @@ et la pr@'esente notice soient pr@'eserv@'ees.
 Ce manuel d@'ecrit comment installer Enigma et y jouer.  Il correspond
 @`a Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
 
 La copie et la distribution de ce fichier, avec ou sans modification,
 sont autoris@'es sans royalty @`a condition que la notice de copyright

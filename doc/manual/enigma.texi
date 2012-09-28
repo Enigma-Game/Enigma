@@ -1,10 +1,10 @@
 \input texinfo                              @c -*- texinfo -*-
 @afourpaper
 
-@set VERSION 1.01
+@set VERSION 1.20
 
 @copying
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -19,7 +19,7 @@ notice and this notice are preserved.
 @center @titlefont{Enigma Manual}
 @center for version @value{VERSION}
 @sp 2
-@center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck (@email{dheck@@gmx.de})
+@c @center Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck (@email{dheck@@gmx.de})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -34,7 +34,7 @@ notice and this notice are preserved.
 This manual describes how to install and play Enigma, and corresponds
 to Enigma version @value{VERSION}.
 
-Copyright @copyright{} 2003, 2004, 2005, 2006, 2007 Daniel Heck and other contributors
+Copyright @copyright{} 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012 Daniel Heck (@email{dheck@@gmx.de}) and other contributors
 
 Copying and distribution of this file, with or without modification,
 are permitted in any medium without royalty provided the copyright
@@ -90,11 +90,11 @@ d@'ej@`a-vu.  However, over the years, Enigma has absorbed ideas
 from countless other popular games, and added its own unique twists
 to each of them.
 @c Did you ever play Sokoban?
-@c with chess horses to be pushed? 
+@c with chess horses to be pushed?
 @c Experience your d@'ej@`a-vu's for some games in single
 @c levels -- for others, like Sokoban, in complete levelpacks of many levels.
 
-Enigma is available for Windows, Mac OS X, and most flavors of Linux and other 
+Enigma is available for Windows, Mac OS X, and most flavors of Linux and other
 modern Unices. It has been translated into many languages. Even this manual is
 available in several languages.
 
@@ -106,7 +106,7 @@ You can always reach the Enigma developers by email at
 
 Enigma is free software, i.e., we encourage you to copy it and give
 it to your friends (@pxref{Distributing Enigma}), or to send them a link
-to our download page.  Enigma is developed by a small group 
+to our download page.  Enigma is developed by a small group
 of volunteers, all of us working in our free time.  If you like the
 game, please send us an email.  It's probably the only reward
 we will ever get in return for the countless hours we have put
@@ -227,13 +227,13 @@ previous sentence depends on the mode that you selected
 with the leftmost icon button in the bottom row.
 
 @itemize @bullet
-@item 
+@item
 A steady black marble icon stands for ``strictly next''. You will get the next level
 in the level pack, regardless of whether you already solved that level
 or not.
 
 @item
-The icon that displays medals that are ready for awarding stands for the next 
+The icon that displays medals that are ready for awarding stands for the next
 unsolved mode. In this mode, the @key{>>|} buttons moves to the next
 unsolved level.
 
@@ -241,7 +241,7 @@ unsolved level.
 The speeding black marble icon stands for the par mode. Par is the professional
 average rating for a level.  This represents a score that a skilled player should
 be able to reach. Levels where your score is equal to or lower than this
-par value will be marked with the speeding marble icon. 
+par value will be marked with the speeding marble icon.
 In this mode the
 @key{>>|}  button moves to the next level with a score below par.
 
@@ -249,15 +249,15 @@ In this mode the
 Finally, a world class icon is provided for the world record hunt mode. If your score
 is the best score ever recorded, you will be honored with the world record icon.
 If you select this mode, you will play the level repeatedly until you
-reach the world record. 
+reach the world record.
 
 @c Of course, a world record is a rare event. Still, you may
 @c use this mode just for training purposes and to lower your score a little bit.
 @end itemize
 
 A small red triangle with an exclamation mark in the upper left corner may
-label the level. This sign should inform you that the level was updated 
-since you last solved it.  You will probably see this only when you update 
+label the level. This sign should inform you that the level was updated
+since you last solved it.  You will probably see this only when you update
 Enigma to a newer version.
 
 You can navigate the level menu with the following keys:
@@ -270,7 +270,7 @@ Return to the last menu
 Display help
 
 @item @key{F5}
-Move to next level, identical to the @key{>>|} button 
+Move to next level, identical to the @key{>>|} button
 
 @item Arrows
 Change selected level
@@ -290,30 +290,30 @@ Move to previous level pack
 @subsection The Level Pack Menu
 
 Enigma comes with many levels.  Many, many levels, in fact.  To keep
-things orderly, we have organized them into ``level packs''.  And 
-because every release of Enigma added more levels, we even 
+things orderly, we have organized them into ``level packs''.  And
+because every release of Enigma added more levels, we even
 had to organize the level packs themselves into ``groups''.  But
 luckily, this is all a lot easier than it sounds.
 
 To select the level pack, you have to enter the ``Level Pack'' menu,
 which is accessible from the main menu or the level menu.
 
-This menu shows the groups in the left column and the level packs of the 
+This menu shows the groups in the left column and the level packs of the
 selected group in the other columns to the right.  The official groups
 that ship with Enigma are the following:
 
 @itemize @bullet
-@item @b{Enigma} - levels that are written just for Enigma 
+@item @b{Enigma} - levels that are written just for Enigma
 @item @b{D@'ej@`a-vu} - levels that you may have seen before
 @item @b{Sokoban}
 @item @b{Facets} - special sortings and views of the levels above
-@item @b{User} - personal levels and level packs like History, automatically generated by the 
+@item @b{User} - personal levels and level packs like History, automatically generated by the
 system for the user.
 @item @b{Development} - templates and unfinished levels from the Enigma Team
 @item @b{All Packs}
 @end itemize
 
-A left click selects a group or a level pack. 
+A left click selects a group or a level pack.
 
 For descriptions of further features of level packs, see @ref{User
 Level Packs}.
@@ -395,23 +395,23 @@ score. Some statistics about how many players solved a level are even provided.
 Besides all the other information that is described in detail in the Reference
 Manual, you can enter a small annotation to a level and can rate the level.
 
-Please note, the annotation text field may allow you to enter only ASCII 
+Please note, the annotation text field may allow you to enter only ASCII
 characters, depending on the system in which Enigma is running.
 
 The rating is your personal impression of the level. @samp{-} stands for no
 opinion. 0 - for very bad, 5 - for average, 10 - for best of the best. The ratings
 will be sent back with your scores (@pxref{Registering Scores}).
 
-Last but not least, you can use the Level Inspector to view screen shots that 
+Last but not least, you can use the Level Inspector to view screen shots that
 you made while playing a level (@pxref{Controls}).
 
 @node Rules of the Game, Controls, Getting Started, The Game
 @section Rules of the Game
 
 @menu
-* Normal landscapes::           
-* Two-player landscapes::       
-* Meditation landscapes::       
+* Normal landscapes::
+* Two-player landscapes::
+* Meditation landscapes::
 @end menu
 
 
@@ -529,7 +529,7 @@ Quit game immediately
 Display help screen
 
 @item @key{F3}
-Kill the current marble 
+Kill the current marble
 
 @item @key{Shift-F3}
 Restart the current level
@@ -570,8 +570,8 @@ show you the most important objects and ideas, and some of the easier
 levels of Enigma.
 
 @menu
-* Items::                       
-* Stones::                      
+* Items::
+* Stones::
 @end menu
 
 @c @node Special Objects,,,
@@ -585,7 +585,7 @@ levels of Enigma.
 
 @menu
 * Explosives::                  Dynamite and bombs
-* Umbrellas::                   
+* Umbrellas::
 * Flags::                       Setting the respawn point
 @end menu
 
@@ -609,7 +609,7 @@ quickly if you see them burn!
 
 @image{images/it-umbrella,,0.7cm}
 
-Use umbrellas to make your marble invulnerable for a short time 
+Use umbrellas to make your marble invulnerable for a short time
 (ten seconds to be exact).  When you activate an umbrella, a white
 halo will appear around your marble for as long as the protection lasts.
 If the halo starts to blink, you have three seconds to move your marble
@@ -633,17 +633,17 @@ point of the black and the white marble respectively.
 @c @subsection Elastic Band
 
 @node Stones,  , Items, Some Game Objects
-@section Stones  
+@section Stones
 
 @menu
-* Lethal Stones::               
-* Swap Stones::                 
-* Mirrors::                     
-* Oneway Stones::                
-* Shogun Stones::               
-* Bolder Stones::             
-* Puzzle Stones::               
-* Mail Stones::                 
+* Lethal Stones::
+* Swap Stones::
+* Mirrors::
+* Oneway Stones::
+* Shogun Stones::
+* Bolder Stones::
+* Puzzle Stones::
+* Mail Stones::
 * Chess Stones::
 @end menu
 
@@ -739,9 +739,9 @@ hole on it, then push a small-holed stone into the bigger one.
 
 @image{images/st-bolder,,0.7cm}
 
-Bolder stones move in the direction shown by the arrow on them 
-until they bump into another stone.  Maybe they block your 
-way, and you have to get rid of them someway. However, never, 
+Bolder stones move in the direction shown by the arrow on them
+until they bump into another stone.  Maybe they block your
+way, and you have to get rid of them someway. However, never,
 never stand in front of one, as it shatters your marble
 instantly, when the bolder stone overruns it!
 
@@ -752,26 +752,26 @@ stones in several ways @enddots{}
 @node Puzzle Stones, Mail Stones, Bolder Stones, Stones
 @subsection Puzzle Stones
 
-Puzzle stones derive their name from the fact you can put individual 
+Puzzle stones derive their name from the fact you can put individual
 stones together like the pieces of a puzzle.  Puzzle stones have
 sockets on some or all of their four sides, which can attach to sockets
 on adjacent stones.  Once linked up, groups of puzzle stones move as a
 unit.  You can use these blocks, for example, to build bridges across an
 abyss or water.
 
-When you hit them with a magic wand, puzzle stones behave differently.  
+When you hit them with a magic wand, puzzle stones behave differently.
 If the block of puzzle stones is fully connected (i.e., it has no open
 sockets), the block immediately starts to explode, stone by stone.  If
 the block is not fully connected, the stones in the row or column that
 you hit shift by one place, either horizontally or vertically.
- 
+
 There's a rare variant of the common puzzle stone that behaves a
-little differently.  Its main habitat are the levels of Oxyd 1, 
+little differently.  Its main habitat are the levels of Oxyd 1,
 and it's recognizable by the color of its pipes, which is orange
 instead of the usual blue.  You cannot move these puzzle stones as a
 unit. They behave like the blue puzzle stones do when you hit them
 with a magic wand: The block explodes if it's fully connected, or
-you shuffle the touched row or column of the block.  
+you shuffle the touched row or column of the block.
 
 @node Mail Stones, Chess Stones, Puzzle Stones, Stones
 @subsection Mail Stones
@@ -833,10 +833,10 @@ knights and horses.
 @samp{User} group has three level packs that are initially empty:
 @samp{Auto Folder}, @samp{History} and @samp{Search Result}.
 
-You can search in the pool of levels by clicking on the @samp{Search} 
-button in the level pack menu. Just move the mouse to the text field 
-and enter the string to search. You may search within author, title 
-and file name. The search is case insensitve. For example, 
+You can search in the pool of levels by clicking on the @samp{Search}
+button in the level pack menu. Just move the mouse to the text field
+and enter the string to search. You may search within author, title
+and file name. The search is case insensitve. For example,
 you can search for the string ``jump''. Enigma provides the resulting levels
 as a level pack called ``Search Results''.
 
@@ -857,7 +857,7 @@ Please read the Reference Manual for more details.
 
 If you are afraid of losing all your scores due to a hard drive
 failure, or if you want to transfer your scores from one computer to
-another, knowing how to back up Enigma's status information is helpful.  
+another, knowing how to back up Enigma's status information is helpful.
 To do that, first look up @samp{User Path} from Enigma's
 @ref{Game options} menu.  You can simply back up that folder---the
 important files are @samp{enigma.score} and @samp{state.xml}.
@@ -895,12 +895,12 @@ read the Reference Manual.
 @node User Sound Sets, , Updating Enigma, Advanced Topics
 @section User Sound Sets
 
-A sound set is the sum of all sounds that appear in the game and the menus. 
+A sound set is the sum of all sounds that appear in the game and the menus.
 Enigma 1.01 and above allows you to switch between the default sound set and
 sound sets you downloaded from the internet or created yourself.
 
 To install a downloaded sound set, close Enigma and create a subdirectory named
-@samp{soundsets} in your @samp{User Path}. Unpack the downloaded 
+@samp{soundsets} in your @samp{User Path}. Unpack the downloaded
 sound set if neccessary. Its files should all be inside one directory with the
 name of the soundset, e.g. @samp{MyGreatSounds15}. Move this directory into the
 @samp{soundsets} directory. Check that the @samp{soundset.lua} file is now
@@ -937,12 +937,12 @@ easier to solve in easy game mode (@pxref{The Level Menu}).
 @section Walkthrough for Advanced Tutorial
 
 The landscapes in the ``Tutorial'' level pack are supposed to be easy,
-except for the last one, which is not @enddots{}  Jacob Scott 
+except for the last one, which is not @enddots{}  Jacob Scott
 contributed this section of the manual.
 
 This walkthrough is for my level ``Advanced Tutorial'' in the
 ``Tutorial'' level pack (to change level packs, click on ``Level Pack''
-at the bottom-left of the screen and select a level pack). You should 
+at the bottom-left of the screen and select a level pack). You should
 read all the documents in a room as soon as possible while you
 are playing.
 
@@ -952,14 +952,14 @@ opens and shows a color.  If you hit two oxyd stones of the same color in
 a row, they will both stay open.  Once you've matched up all pairs of
 oxyd stones in a level, you have completed the level.
 
-The ``Advanced Tutorial'' level contains about twenty rooms, 
-organized into three separate areas.  In the first area, you will 
-encounter some of the basic blocks and floor types you will see in 
-other Enigma levels, and solve a couple of simple puzzles.  
-The second area is more challenging and will introduce you 
+The ``Advanced Tutorial'' level contains about twenty rooms,
+organized into three separate areas.  In the first area, you will
+encounter some of the basic blocks and floor types you will see in
+other Enigma levels, and solve a couple of simple puzzles.
+The second area is more challenging and will introduce you
 to a useful technique in out-thinking an active enemy.  The
 third and final area leads you to experiment with more advanced
-interactions between Enigma objects.  In this particular level, you 
+interactions between Enigma objects.  In this particular level, you
 will find all of the oxyd stones in a single room at the end of area 3.
 
 @subsection Area 1
@@ -1056,7 +1056,7 @@ the bridge to the room below you.  Hit the switch to close the gate and
 return to the room where you initially started.  You will no longer be
 able to see the rotor (it won't be in the room where you will be) but
 if you look carefully, you will be able to see where it is.  The goal
-here is to get the rotor to go to a trigger and open a gate for you, 
+here is to get the rotor to go to a trigger and open a gate for you,
 without exposing yourself to any danger.  Get the rotor to follow you from
 the top-right to the top-left of this room.  It should be
 pushed to the left by some slopes.  Bring the rotor down on the left
@@ -1131,7 +1131,7 @@ Put the first shogun stone in the upper left corner, and the second
 one @emph{above} the rightmost shogun dot.
 
 @item I/31: Where Am I?
-Make use of the wooden stones if you have lost your way. 
+Make use of the wooden stones if you have lost your way.
 
 @item I/32: The Grim Reaper
 Ever thought of turning your mouse upside-down???
@@ -1149,7 +1149,7 @@ stones with a laser beam.
 One of the blue dots behaves differently.  Make use of that fact!
 
 @item I/80: Meditation
-Align the marbles horizontally. 
+Align the marbles horizontally.
 
 @item II/15: Knock Knock!
 Knock the walls.
@@ -1180,10 +1180,10 @@ It's time to learn a few things about object transformations.
 Experiment!
 
 @item II/69: Question of Speed
-Or rather: Question of Seed???  
+Or rather: Question of Seed???
 
 @item II/77: Push Your Way
-Find the magic wand first! 
+Find the magic wand first!
 
 @item II/97: Tool Time
 Hide dangerous tools from children.
@@ -1201,7 +1201,7 @@ number.
 @item III/16: Control Panel
 The message in the left room tells you how to arrange the blocks on the
 first rows of triggers.  From there, use the color codes indicated in
-the left room. 
+the left room.
 
 @item III/22: Portable Laser
 Be grateful!
@@ -1239,10 +1239,10 @@ room without activating the lower switch. The many switches on the
 lower left all do the same.
 
 @item IV/25: Light Switches
-Jam the lasers in case you're not fast enough. 
+Jam the lasers in case you're not fast enough.
 
 @item IV/27: Robbery
-Enter the bank through cracks in the floor. 
+Enter the bank through cracks in the floor.
 
 @item IV/34: Running Rings
 Learn from ``Pharaoh's Tombs''.
@@ -1326,10 +1326,10 @@ floor.  Then search for the second screen with the ``hidden treasure''.
 @chapter Credits
 
 @menu
-* Main developers::             
-* Special Thanks::              
-* Contributors::                
-* Utilized Software::           
+* Main developers::
+* Special Thanks::
+* Contributors::
+* Utilized Software::
 @end menu
 
 
@@ -1472,7 +1472,7 @@ For various smaller contributions, thanks go to:
 
 @table @strong
 
-@item SDL 
+@item SDL
 @uref{http://www.libsdl.org/}
 
 @item SDL_image
