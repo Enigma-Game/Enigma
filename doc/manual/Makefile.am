@@ -12,17 +12,13 @@ html_DATA = $(HTML)
 EXTRA_DIST = $(TEXI) $(html_DATA)
 
 MOSTLYCLEANFILES = enigma{,_de,_fr}.{at,ats,aux,cp,cps,fn,fns,ky,log,ms,mss,ob,obs,pg,toc,tp,vr,vrs}
-CLEANFILES = enigma{,_de,_fr}.{pdf,html}
+CLEANFILES = enigma{,_de,_fr}.{pdf,html} enigma_ru.html
 
 
 %.html : %.texi
 	@if [ "${TEXI2HTML}" ]; then \
-	  if test "$<" = "enigma_ru.texi"; then \
-            echo "skip ru manual"; \
-          else \
-            echo "Running texi2html"; \
-	    ${TEXI2HTML} -nosec_nav $<; \
-          fi \
+	  echo "Running texi2html"; \
+	  ${TEXI2HTML} -nosec_nav $<; \
 	else \
 	  echo "Warning: texi2html not found"; \
 	fi
