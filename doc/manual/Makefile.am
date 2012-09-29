@@ -12,8 +12,7 @@ html_DATA = $(HTML)
 EXTRA_DIST = $(TEXI) $(html_DATA)
 
 MOSTLYCLEANFILES = enigma{,_de,_fr}.{at,ats,aux,cp,cps,fn,fns,ky,log,ms,mss,ob,obs,pg,toc,tp,vr,vrs}
-CLEANFILES = enigma{,_de,_fr}.{pdf,html} enigma_ru.html
-
+CLEANFILES = enigma{,_de,_fr,_ru}.html enigma{,_de,_fr}.pdf
 
 %.html : %.texi
 	@if [ "${TEXI2HTML}" ]; then \
@@ -23,6 +22,7 @@ CLEANFILES = enigma{,_de,_fr}.{pdf,html} enigma_ru.html
 	  echo "Warning: texi2html not found"; \
 	fi
 
+# No pdf file of russian manual because Texinfo does still NOT support cyrrillic characters in pdf output
 pdf: enigma.pdf enigma_de.pdf enigma_fr.pdf
 
 %.pdf: %.texi
