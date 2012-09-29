@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dreidel" el:subtitle="" el:id="andreas63"/>
+      <el:version el:score="1" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.0"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="01:46" el:difficult="02:59"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelw = 20
+levelh = 13
+create_world(levelw, levelh)
+
+mainfloor = "fl-samba"
+drawfloor = "fl-gravel"
+mainstone = "st-rock1"
+bstone = "st-rock1"
+fill_floor(mainfloor, 0, 0, levelw, levelh)
+oxyd_default_flavor="c"
+
+doors = {}
+switches = {}
+
+function renderLine(line, pattern)
+    for j = 1, strlen(pattern) do
+        local c = strsub(pattern, j, j)
+        if c == " " then
+            set_floor(mainfloor, j-1, line)
+        elseif c == "#" then
+            set_stone(mainstone, j-1, line)
+        elseif c == "B" then
+            set_stone(bstone, j-1, line)
+        elseif c == "F" then
+            set_stone("st-fourswitch", j-1, line, {name = "dreidel", action = "callback", target = "dreidelturn"})
+        elseif c == "T" then
+            set_stone("st-timer", j-1, line, {action = "callback", target = "timer", interval = 0.1})
+        elseif c == "O" then
+            oxyd(j-1, line)
+        elseif c == "S" then
+            set_stone(mainstone, j-1, line)
+            table.insert(switches, {j-1, line})
+        elseif c == "D" then
+            table.insert(doors, {j-1, line})
+            set_stone("st-door-h", j-1, line, {name = "door" .. (j-1) .. "_" .. line})
+        elseif c == "@" then
+            set_actor("ac-blackball", j-1 + 0.5, line + 0.5)
+        end
+    end
+end
+
+function renderLine2(line, pattern)
+    for j = 1, strlen(pattern) do
+        local c = strsub(pattern, j, j)
+        local newfloor = mainfloor
+        if c == "p" then
+            newfloor = drawfloor
+        end
+        if enigma.GetKind(enigma.GetFloor(j-1, line)) ~= newfloor then
+            set_floor(newfloor, j-1, line)
+        end
+    end
+end
+
+renderLine( 0, "BBBBBBBBBBBBBBBBBBBB")
+renderLine( 1, "BBB##############BBB")
+renderLine( 2, "BBO##O##O##O##O##OBB")
+renderLine( 3, "BSD#SD#SD##DS#DS#DSB")
+renderLine( 4, "B                  B")
+renderLine( 5, "B                  B")
+renderLine( 6, "B      @    F      T")
+renderLine( 7, "B                  B")
+renderLine( 8, "B                  B")
+renderLine( 9, "BSD#SD#SD##DS#DS#DSB")
+renderLine(10, "BBO##O##O##O##O##OBB")
+renderLine(11, "BBB##############BBB")
+renderLine(12, "BBBBBBBBBBBBBBBBBBBB")
+
+oxyd_shuffle()
+enigma.ConserveLevel = TRUE
+
+dreidelstate = 0
+dreidelcount = 0
+waitforaction = 0
+dooropen = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+removeswitches = 0
+
+function dreidelturn()
+    if waitforaction ~= 0 then
+        return
+    end
+    if dreidelcount == 0 then
+        dreidelcount = 12 + math.random(20)
+    else
+        dreidelcount = dreidelcount - 1
+    end
+    dreidelstate = (dreidelstate + 1) % 4
+    if dreidelcount == 0 then
+        if dreidelstate == 0 then
+            drawnun()
+            SendMessage(enigma.GetStone(2, 2), "closeall")
+        elseif dreidelstate == 1 then
+            drawgimel()
+            for j = 1, 12 do
+                if dooropen[j] == 0 then
+                    set_stone("st-switch", switches[j][1], switches[j][2], {action = "callback", target = "switchopen" .. j})
+                    waitforaction = waitforaction + 1
+                end
+            end
+            if waitforaction > 2 then
+                waitforaction = 2
+            end
+        elseif dreidelstate == 2 then
+            drawhei()
+            for j = 1, 12 do
+                if dooropen[j] == 0 then
+                    set_stone("st-switch", switches[j][1], switches[j][2], {action = "callback", target = "switchopen" .. j})
+                    waitforaction = waitforaction + 1
+                end
+            end
+            if waitforaction > 1 then
+                waitforaction = 1
+            end
+        elseif dreidelstate == 3 then
+            drawshin()
+            for j = 1, 12 do
+                if dooropen[j] == 1 then
+                    set_stone("st-switch", switches[j][1], switches[j][2], {action = "callback", target = "switchclose" .. j})
+                    waitforaction = waitforaction + 1
+                end
+            end
+            if difficult then
+                if waitforaction > 2 then
+                    waitforaction = 2
+                end
+            else
+                if waitforaction > 1 then
+                    waitforaction = 1
+                end
+            end
+        end
+    end
+end
+
+function timer()
+    if dreidelcount > 0 then
+        SendMessage(enigma.GetNamedObject("dreidel"), "trigger")
+    end
+    if removeswitches == 1 then
+        for j = 1, 12 do
+            set_stone(mainstone, switches[j][1], switches[j][2])
+        end
+        removeswitches = 0
+    end
+end
+
+function switchopen1()  doormessage(1, 1)  end
+function switchopen2()  doormessage(2, 1)  end
+function switchopen3()  doormessage(3, 1)  end
+function switchopen4()  doormessage(4, 1)  end
+function switchopen5()  doormessage(5, 1)  end
+function switchopen6()  doormessage(6, 1)  end
+function switchopen7()  doormessage(7, 1)  end
+function switchopen8()  doormessage(8, 1)  end
+function switchopen9()  doormessage(9, 1)  end
+function switchopen10()  doormessage(10, 1)  end
+function switchopen11()  doormessage(11, 1)  end
+function switchopen12()  doormessage(12, 1)  end
+function switchclose1()  doormessage(1, 0)  end
+function switchclose2()  doormessage(2, 0)  end
+function switchclose3()  doormessage(3, 0)  end
+function switchclose4()  doormessage(4, 0)  end
+function switchclose5()  doormessage(5, 0)  end
+function switchclose6()  doormessage(6, 0)  end
+function switchclose7()  doormessage(7, 0)  end
+function switchclose8()  doormessage(8, 0)  end
+function switchclose9()  doormessage(9, 0)  end
+function switchclose10()  doormessage(10, 0)  end
+function switchclose11()  doormessage(11, 0)  end
+function switchclose12()  doormessage(12, 0)  end
+
+function doormessage(j, m)
+    if waitforaction == 0 then
+        return
+    end
+    if dooropen[j] == m then
+        return
+    end
+    waitforaction = waitforaction - 1
+    if waitforaction == 0 then
+        removeswitches = 1
+    end
+    dooropen[j] = m
+    if m == 0 then
+        SendMessage(enigma.GetStone(doors[j][1], doors[j][2]), "close")
+    else
+        SendMessage(enigma.GetStone(doors[j][1], doors[j][2]), "open")
+    end
+end
+
+function drawnun()
+    renderLine2( 4, "B    ppp           B")
+    renderLine2( 5, "B       p          B")
+    renderLine2( 6, "B       p   F      T")
+    renderLine2( 7, "B       p          B")
+    renderLine2( 8, "B    pppp          B")
+end
+
+function drawgimel()
+    renderLine2( 4, "B      p           B")
+    renderLine2( 5, "B       p          B")
+    renderLine2( 6, "B      pp   F      T")
+    renderLine2( 7, "B     p p          B")
+    renderLine2( 8, "B    p  p          B")
+end
+
+function drawhei()
+    renderLine2( 4, "B    ppp           B")
+    renderLine2( 5, "B       p          B")
+    renderLine2( 6, "B    p  p   F      T")
+    renderLine2( 7, "B    p  p          B")
+    renderLine2( 8, "B    p  p          B")
+end
+
+function drawshin()
+    renderLine2( 4, "B                  B")
+    renderLine2( 5, "B   p p p          B")
+    renderLine2( 6, "B   p p p   F      T")
+    renderLine2( 7, "B   p p p          B")
+    renderLine2( 8, "B    ppp           B")
+end
+
+for j = 1, 12 do
+    if dooropen[j] == 0 then
+        set_stone("st-switch", switches[j][1], switches[j][2], {action = "callback", target = "switchopen" .. j})
+        waitforaction = 1
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

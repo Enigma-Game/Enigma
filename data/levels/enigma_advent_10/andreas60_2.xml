@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pac Marble II" el:subtitle="" el:id="andreas60"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.0">
+        <el:dependency el:path="lib/ant" el:id="lib/ant" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/andreas_ghosts" el:id="lib/andreas_ghosts" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="05:31"/>
+    </el:info>
+    <el:luamain><![CDATA[
+levelh = 25
+levelw = 39
+
+function file_oxyd(x,y,f)
+    oxyd_default_flavor=f
+    oxyd(x,y)
+    set_floor("fl-normal",x,y)
+end
+
+function ac_blackball(x,y)
+    set_actor("ac-blackball",x+0.5,y+0.5)
+    set_floor("fl-normal",x,y)
+end
+
+cells={}
+cells["#"] = cell{stone="st-brick", floor="fl-normal"}
+cells["O"] = cell{parent={{file_oxyd,"d"}}}
+cells[" "] = cell{parent={{ghosts_set_rail,1,"fl-gray"}}, floor="fl-normal"}
+cells["g"] = cell{parent={{ghosts_set_ghost,"ac-top",1, ghosts_direction_intelligent,{range=0,force=5,gohome=FALSE}}}, floor = "fl-normal"}
+cells["@"] = cell{parent={{ac_blackball}}}
+cells["e"] = cell{item="it-extralife", floor="fl-normal"}
+cells["u"] = cell{item="it-umbrella", floor="fl-normal"}
+
+level={"#######################################",
+       "#     #    #    # O#   O##           ##",
+       "# O##    O    #   ## #  #  #########  #",
+       "# #    # g  #    # # g# #    g    O#  #",
+       "# # ##    #    #   # #  # # ##  ####  #",
+       "# # ####     #    ##  # # #          ##",
+       "#      ######### ##  #  # #  #######  #",
+       "#####        #          # ##      ##  #",
+       "#   g  # ##  #  #    #  # e##### g #  #",
+       "# ######  #  #  #u  u#  ##            #",
+       "# #O   ## #     ######  ############# #",
+       "# ## #  # #  #                 g   O# #",
+       "#  # #    #  ################  ###  # #",
+       "#  #   # ##                      #  # #",
+       "#  # ### #O    g  #####  #   #   #  # #",
+       "#    #   ######## #      # # ##     # #",
+       "# #  # # g   #    #  O####    g #O# # #",
+       "# #  # ##### # #  #      #O##       # #",
+       "# ## #    O# # #  #####  ###  #  #  # #",
+       "# O# #     # #    #      #O  ##  #  # #",
+       "#  # #O    # ###  # ######  ##      # #",
+       "#  # ##### #            #  ##   # ### #",
+       "#  #     # ###   ###### # ##    #     #",
+       "#     @               #         #  O  #",
+       "#######################################"}
+
+create_world_by_map(level)
+oxyd_shuffle()
+ghosts_init(0,0)
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
