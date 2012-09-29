@@ -1,5 +1,5 @@
 \input texinfo                              @c -*- texinfo -*-
-@set VERSION 1.10
+@set VERSION 1.20
 @setfilename enigma-ref.info
 @settitle Enigma Reference Manual
 @documentencoding US-ASCII
@@ -134,8 +134,8 @@ are stored at this path.
 A backup of this directory is mandatory!
 
 The standard location is the directory @samp{.enigma} in your @env{HOME}
-directory. For @env{HOME}-less Windows users, it is the folder 
-@samp{%APPDATA%\Enigma}, what resolves to the subfolder 
+directory. For @env{HOME}-less Windows users, it is the folder
+@samp{%APPDATA%\Enigma}, what resolves to the subfolder
 @samp{Application Data\Enigma} on XP/2000 or @samp{AppData\Roaming\Enigma} on
 Vista/Windows 7 located within your user data folder.
 
@@ -263,7 +263,7 @@ is useful on any operating system if Enigma is started via a desktop icon or
 a menu button.
 
 @item @b{-@w{}-robinson}
-Disable all connections to the internet. No automatic updates will take place 
+Disable all connections to the internet. No automatic updates will take place
 and all user initiated requests that would require an internet connection will
 fail with an error message.
 
@@ -338,7 +338,7 @@ location exclusively.
 @section Inventory Console
 
 The lower right window area that usually shows the inventory items and scrolls
-the texts of activated document items allows the user to reread previous 
+the texts of activated document items allows the user to reread previous
 document texts, to enter textual commands and to reissue previous commands.
 
 You can issue a command by usage of the keyboard. Just enter the command string
@@ -364,7 +364,7 @@ Searches levels in all levelpacks that contain matching string in either
 the level's title, author's name or the file name.
 @item @b{god}
 Developer cheat that protects the actors assigned to the current player like
-the activation of an @ref{it_umbrella} does. Once used no score will be 
+the activation of an @ref{it_umbrella} does. Once used no score will be
 recorded if the level is successfully finished.
 @item @b{hunt}
 Switch to world record hunting mode. Same as toggling the left most button
@@ -387,7 +387,7 @@ Kill actors, but continue level if possible. Same as @key{F3}.
 @end table
 
 Both, the commands and the displayed document text have a history. You recall
-the history by usage of the up and down arrows. 
+the history by usage of the up and down arrows.
 
 @itemize @bullet
 @item @b{inventory} --> jump to start
@@ -408,13 +408,13 @@ the history by usage of the up and down arrows.
 
 Starting with the inventory item display the up arrow shows the previously
 submitted commands. Just by another @key{return} you can reissue a command.
-The history will be resorted with the last command at the position direktly 
-above the inventory. You can edit history commands anytime like you can insert 
+The history will be resorted with the last command at the position direktly
+above the inventory. You can edit history commands anytime like you can insert
 a new command. If you do not finish a command by a @key{return} the string will
 still be recorded and presented as the first command above the inventory. The
 command history is persistent.
 
-The document history can be recalled by usage of the down arrow. All level 
+The document history can be recalled by usage of the down arrow. All level
 documents previously displayed can be redisplayed. Additionally the initial
 level info displayed on the level start can be read again.
 
@@ -3900,7 +3900,7 @@ Two essential questions remain to be answered. When and under which conditions
 is a level successfully finished. How do I declare a level as being a
 meditation level in opposite to a standard oxyd pair opening level.
 
-In fact there is no 'meditation' flag, neither within the XML Level 
+In fact there is no 'meditation' flag, neither within the XML Level
 @ref{Info metadata} nor as one of the @ref{Global Attributes}. That means there
 is no formal distinction between both level 'types'. But there are two different
 types of ending conditions. Both are checked permanently and whichever
@@ -3910,19 +3910,19 @@ to solve the level by two totally different means.
 
 The main way to end the game is to fulfill the oxyd pair opening condition:
 
-The game is over when the user succeeds in opening all regular colored 
+The game is over when the user succeeds in opening all regular colored
 @ref{st_oxyd}s by pairs.
 
 This implies that there is at least one pair of regular colored oxyd stones
 and that all oxyd colors appear in even number of instances. Whereas you will
 always add at least one pair of oxyds for a standard level, you may simply loose
 track of the number of instances. Therefore the engine will permanently check at
-runtime that every oxyd color appears in an even number of instances. Any 
+runtime that every oxyd color appears in an even number of instances. Any
 violation causes an error. In case you will add or delete oxyd stones you
-need to disable this checking by setting the global attribute 
+need to disable this checking by setting the global attribute
 @ref{AllowSingleOxyds} to @code{true}. Now it is your reponsibility as an
 author to ensure that the level remains solvable by adding or removing pairs
-only. 
+only.
 
 The second way to end the game is to fulfill the meditation condition:
 
@@ -3944,7 +3944,7 @@ can add odd numbers of oxyd stones of a color. On the other hand you can add
 @ref{ac_pearl} to a level that should be solved by fulfillment of the oxyd pair
 condition. But you must carefully check that the user can not rest the pearls in
 given @ref{it_meditation} or can create @ref{it_meditation} by @ref{it_dynamite}.
-Marking more @ref{it_meditation} as @code{essential} than existing 
+Marking more @ref{it_meditation} as @code{essential} than existing
 @ref{ac_pearl}s can avoid shortcuts.
 
 A level that is set up to allow the user to fulfill both conditions is called
@@ -3952,9 +3952,9 @@ a hybrid level. Of course it is a difficult task to provide equivalent solutions
 for both approaches.
 
 Independent of the condition type all actors marked as @code{essential} need to
-be alive at the moment the condition is fulfilled. Mainly in existing legacy 
+be alive at the moment the condition is fulfilled. Mainly in existing legacy
 levels but may in some very carefully designed future levels the author may
-allow the user to sacrify an actor to fulfill the condition by setting the 
+allow the user to sacrify an actor to fulfill the condition by setting the
 global attribute @ref{SurviveFinish} to @code{false}. In this case a mable
 may shatter while the condition is fulfilled. Of course the essential actor
 may not shatter in advance, because as soon as the shattering is over the
@@ -4701,7 +4701,7 @@ comparison that acknowledges that you have two references of the same object.
 if -@var{obj} then ...
 @end example
 Object references may get invalid due to objects being killed. In most cases
-this creates no problem as requests to invalid objects will simply be ignored. 
+this creates no problem as requests to invalid objects will simply be ignored.
 But if the level logic depends on the existence of an object you can call the
 @samp{exists()} method or simply precede the reference by the unary minus
 @samp{-} operator. Both ways return a simple bool value stating if the object
@@ -6731,10 +6731,10 @@ created will never change or get invalid. They are true values themselves. Thus
 they are the containers of choice for longterm storage.
 
 You can easily create a position list by @ref{PositionList Conversion}, which
-is featured by the @ref{Positions Repository} singleton and allows you to 
-transform a group into a position list by the simple expression 
-@samp{po(group)}. On the other hand you can retrieve all @ref{Object}s of a 
-basic kind located along a position list path by @ref{Functions} like 
+is featured by the @ref{Positions Repository} singleton and allows you to
+transform a group into a position list by the simple expression
+@samp{po(group)}. On the other hand you can retrieve all @ref{Object}s of a
+basic kind located along a position list path by @ref{Functions} like
 @samp{st(polist)}, @samp{it(polist)} and @samp{fl(polist)}.
 
 As a unique floor object is guaranteed to be on every grid position, you can
@@ -7580,7 +7580,7 @@ use it within the world creation in a resolver.
 21            return @i{ti}[@var{key}]
 22        end
 23    end
-24    
+24
 25    w, h = @i{wo}(@i{myresolver}, "@var{ }", @{
 26      "                    ",
 27      "  b         b       ",
@@ -9324,12 +9324,12 @@ activation of an @ref{it_spoon} is not affected by this global variable.
 @subsection AutoRespawn
 
 A global variable that determines, if in absence of an @ref{it_flag} drop given
-respawn position, the last recorded secure actor position should be taken 
+respawn position, the last recorded secure actor position should be taken
 instead of the starting position, in case the actor dies and is resurrected.
 
 The recorded auto respawn position will be appropriate for common actor deaths
-like sinking in @ref{fl_water}, falling into @ref{fl_abyss}, hitting of 
-@ref{st_death}, slipping from an @ref{it_strip}, being hit by an 
+like sinking in @ref{fl_water}, falling into @ref{fl_abyss}, hitting of
+@ref{st_death}, slipping from an @ref{it_strip}, being hit by an
 @ref{it_laserbeam}. Even a jump into one these lethal destinations resurrects
 the actor onto the position from where the actor started its jump. There is no
 danger of being resurrected on floors without @ref{adhesion (floor)}.
@@ -9339,12 +9339,12 @@ On drop of a flag, the flag position remains the valid respawn position until
 a flag is picked up. After a pickup of the flag, what delete the flag defined
 position the AutoRespawn position gets active until a flag is dropped again.
 
-Deaths caused by actor collisions, @ref{it_crack} and floor shattering 
+Deaths caused by actor collisions, @ref{it_crack} and floor shattering
 explosions can lead to leathal AutoRespawn positions. Either avoid setting
 AutoRespawn to @code{true} in such cases or provide an @ref{it_flag} in such
 cases.
 
-Shortcuts introduced by AutoRespawn are unlikely, but not generally impossible. 
+Shortcuts introduced by AutoRespawn are unlikely, but not generally impossible.
 
 @table @asis
 @item @b{Type:} @ @ bool
@@ -11435,7 +11435,7 @@ Number of seconds .
 The scales floor is a trigger that reacts on the mass load of actors and items
 atop or any stones that may press it. It performs actions when it is initially
 pressed and again when it releases. A pressed trigger is in state @samp{ON} and
-will send an action value of @samp{true}, a released trigger is in state 
+will send an action value of @samp{true}, a released trigger is in state
 @samp{OFF} and will send an action value of @samp{false}.
 
 Only actors moving on the floor can press scales. An actor jumping over a
@@ -11452,7 +11452,7 @@ stones will generally not press the scales with the exception of the hollow,
 central puzzle stone (@pxref{st_puzzle}).
 
 There is no way to set the state of a trigger manually. But the state can
-nevertheless be read. At initialization a scales floor that is pressed by 
+nevertheless be read. At initialization a scales floor that is pressed by
 objects will start in state @samp{ON} without sending actions due to the
 @ref{Snapshot Principle}.
 
@@ -11464,7 +11464,7 @@ well distinguishable. It is deprecated to use invisible @ref{it_trigger} on
 a framed floor as a substitution for scales.
 
 Alternative items that react just on actors are @ref{it_sensor} and
-@ref{it_cross}. 
+@ref{it_cross}.
 
 @table @asis
 @item @b{Attributes:}
@@ -12735,7 +12735,7 @@ number code values @samp{1} to @samp{8}. The code is just visible, when the
 key is part of the inventory. This helps the user to distinguish multiple keys
 in the inventory and to assign them to the matching @ref{st_key}s.
 
-An @samp{invisible} key reveals its code when being inserted in a matching, 
+An @samp{invisible} key reveals its code when being inserted in a matching,
 unveiled @ref{st_key}. The code remains visible, when the user withdraws the
 key from the stone and adds it to his inventory.
 
@@ -13031,7 +13031,7 @@ The minimum length at which actors bounce.
 @item @b{max} @ @ @i{values}: positive number or zero; @ @ @i{default}: @code{0.0}
 The maximum length at which actors bounce.
 @item @b{scissor} @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{false}
-Rubberband cutting behaviour on connection. On a value of @code{true} the 
+Rubberband cutting behaviour on connection. On a value of @code{true} the
 activation of this rubberband will cut all existing rubberbands which are
 currently connected to the activating actor.
 @item @b{freezable}, @ @ @i{values}: @code{true}, @code{false}; @ @ @i{default}: @code{true}; @ @ @i{access}: @code{read only} @ @ @xref{freezable}
@@ -15496,11 +15496,11 @@ service. The barrier performs a deep check investigating not only the top level
 of the actor's inventory. Every @ref{it_bag} will be checked recursively, too,
 ensuring that no instance of the searched item can pass the barrier.
 
-The @samp{flavor} attribute determines the blocked item kind. The string 
+The @samp{flavor} attribute determines the blocked item kind. The string
 @code{"all"} blocks any item. Any string containing an @ref{Object Kind}
 will block items of just the given kind. Of course you can use just kinds of
-@ref{portable} items. E.g. a @samp{flavor} of @code{"it_flag_white"} will just 
-block actors that carry a white @ref{it_flag}, while @code{"it_flag"} would 
+@ref{portable} items. E.g. a @samp{flavor} of @code{"it_flag_white"} will just
+block actors that carry a white @ref{it_flag}, while @code{"it_flag"} would
 block actors carrying flags of any color. The blocked item kind is indicated on
 top of the barrier stone.
 
@@ -15511,7 +15511,7 @@ Multiple actors assigned to a single player are another potential shortcut of
 barrier stones.
 
 As barrier stones are usually bound to their initial position to fulfill their
-item blocking task, they are kept from being swapped of pulled by the 
+item blocking task, they are kept from being swapped of pulled by the
 @samp{static} attribute's default of @code{true}.
 
 @table @asis
@@ -16614,12 +16614,12 @@ to the players inventory.
 Floppy stones are often used as openers for an adjacent @ref{st_door} that is
 declared as its @samp{target}. But there is the inherent danger that an actor
 passing the door accidentially hits the neighboring floppy stone, causing the floppy
-to be pulled out again and the door to be closed immediately. Of couse this 
+to be pulled out again and the door to be closed immediately. Of couse this
 would shatter any @ref{ac_marble} or @ref{ac_pearl}. But a @samp{secure} floppy
 stone checks that the hitting actor is not positioned on one of the floppy stones
 target positions. It refuses any actions caused by such critical hits. Note
 that in case the target is a callback function that closes the adjacent door,
-there will be still no protection. A floppy stone with @samp{secure} value 
+there will be still no protection. A floppy stone with @samp{secure} value
 @samp{false} would accept any hits and shatter marbles as it has been standard
 on older Enigma releases and is still in modes besides Enigma.
 
@@ -16992,12 +16992,12 @@ to the player's inventory.
 Key stones are often used as openers for an adjacent @ref{st_door} that is
 declared as its @samp{target}. But there is the inherent danger that an actor
 passing the door accidentially hits the neighboring key stone, causing the key
-to be pulled out again and the door to be closed immediately. Of couse this 
+to be pulled out again and the door to be closed immediately. Of couse this
 would shatter any @ref{ac_marble} or @ref{ac_pearl}. But a @samp{secure} key
 stone checks that the hitting actor is not positioned on one of the key stones
 target positions. It refuses any actions caused by such critical hits. Note
 that in case the target is a callback function that closes the adjacent door,
-there will be still no protection. A key stone with @samp{secure} value 
+there will be still no protection. A key stone with @samp{secure} value
 @samp{false} would accept any hits and shatter marbles as it has been standard
 on older Enigma releases and is still in modes besides Enigma.
 
@@ -18917,7 +18917,7 @@ A classical on/off switch that toggles its state on actors hitting the stone.
 Of course other objects can send messages on actions to make this switch turning.
 
 Three variants of the switch do exist. A neutral, grey colored one that reacts
-on any actor hits, and a black and a white colored switch. These last two 
+on any actor hits, and a black and a white colored switch. These last two
 switches will react only if hit by actors of matching color.
 
 If a switch turns on or off there will be a short delay until it reaches the
@@ -19601,7 +19601,7 @@ The players that can control the actor by their mouse movements.
 @node color
 @subsection color
 
-The logical color of the actor. All actors besides @ref{ac_marble}s, 
+The logical color of the actor. All actors besides @ref{ac_marble}s,
 @ref{ac_pearl}s and @ref{ac_killer}s will report color @code{nil}. The color of
 an actor can not be changed, it is a read only attribute.
 
@@ -19762,26 +19762,26 @@ will not sink, fall or shatter. A horse is immortal.
 By default a horse is a passive actor. But nevertheless a horse may move along
 its own path. A set of attributes let you control the movement in various ways.
 
-The most simple approach just uses the attributes @samp{destination} and 
+The most simple approach just uses the attributes @samp{destination} and
 @samp{strength}. You can mark a path marked by an arbitrary number of positions
 given as @ref{destination}s. The horse will try to reach the destinations one
-in a row with a force given by the strength attribute. As soon as one 
+in a row with a force given by the strength attribute. As soon as one
 destination has been reached the horse targets for the next position and will
-start over again as soon as the last position has been reached. In this 
+start over again as soon as the last position has been reached. In this
 @samp{steady} mode the horse is continously accelerated into the direction of
 the next destination target. If it misses the destination on the first approach
 it will return by a loop again until it finally passes the target position. This
 approach is rather crude and not well suited for a precise control needed if the
 horse should hit certain stones or move on a well defined trajectory.
 
-Setting @samp{steady} to the value @code{false} causes another accelaration 
+Setting @samp{steady} to the value @code{false} causes another accelaration
 algorithm that will decelerate the horse on approach to its target position.
 This allows a very precise control over the path taken by the horse.
 
 Furtheron you can request anytime the index of the current destination target. You
 can even set @samp{destidx} anytime. Note that this index counts the destination
 targets starting with 0 and taking every position into account, which might not
-be in sync with the destination token number in case a single token part 
+be in sync with the destination token number in case a single token part
 addresses several positions at a time.
 
 Furtheron you can control the behaviour of the horse when it reaches the last
@@ -19797,7 +19797,7 @@ next destination position as soon as it hits the stone. Thus you can use the
 horse to toggle @ref{st_switch} and other active stones.
 
 Whenever the horse reaches a target position it will perform its action. You
-can reset the @samp{destination} and other attributes within the callback to 
+can reset the @samp{destination} and other attributes within the callback to
 define a new destination target.
 
 Note that you need to set @samp{controllers} as well as @samp{adhesion} to proper
@@ -21073,7 +21073,7 @@ number of its component. The name of this attribute can be chosen freely.
 
 @table @asis
 @item @b{Syntax:}
-@b{lib.math.mark_components}(@i{group}, @i{attribute_name} [, @i{neighborhood} [, 
+@b{lib.math.mark_components}(@i{group}, @i{attribute_name} [, @i{neighborhood} [,
 @i{exclusive_attribute}]])
 
 @table @asis
@@ -23510,9 +23510,9 @@ any tile key in the map that matches the given prefix. A copy of the template
 will be taken.
 
 Within this copy of the template all occurrences of the two characters @samp{%%}
-in explicit object declarations will be substituted by a single percent sign 
+in explicit object declarations will be substituted by a single percent sign
 followed by the suffix of the used tile key. Thus a key of @samp{AD} will target
-the laser @samp{laser%D}. You need to use the key @samp{LD} in the map for the 
+the laser @samp{laser%D}. You need to use the key @samp{LD} in the map for the
 matching laser.
 
 Rangerules match any tile key in the given range. It can well be used in one
@@ -23543,7 +23543,7 @@ ti["template"] = ti["P%%"] .. @{"st_floppy", target="laser%%"@}
 @end example
 
 applied to a key with the suffix @samp{d} will result in a base tile key @samp{Pd}.
-This feature is especially useful if the autotile resolver is chained to 
+This feature is especially useful if the autotile resolver is chained to
 another subresolver which generates the base tiles.
 
 @item @b{Full Example:}
@@ -25137,7 +25137,7 @@ them, as they ease the development of new and the maintenance of old levels.
 
 @itemize @bullet
 @item Stones use capital letters, items small letters, floors use punctuation marks.
-@item The default floor is @code{" "}. The second most important floor typically is  
+@item The default floor is @code{" "}. The second most important floor typically is
 @code{"_"} or @code{"."}. It's a good idea to use tile keys for floors, which are
 small and don't obstruct the view on the more important objects, like
 stones and items. Important floors (like bridges) may have letters or
@@ -25193,7 +25193,7 @@ different documents in your level.
 @item For autotiling, it's a good idea to use @code{"X"}, @code{"Y"}, @code{"x"}, @code{"y"}, @code{"*"}, @code{"?"} and
 similar characters which associate themselves with variables as template
 keys. Another possibility is to use a full word like @code{"door"} or @code{"switch"}
-as template tile key, which has the advantage of being easier 
+as template tile key, which has the advantage of being easier
 @end itemize
 
 @node Easy Mode Hints
