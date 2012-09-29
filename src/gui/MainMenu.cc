@@ -102,7 +102,7 @@ namespace enigma { namespace gui {
 
     /* -------------------- Help menu -------------------- */
     static const char *credit_text[] = {
-        N_("Main developers of the 1.10 release:"),
+        N_("Main developers of the 1.20 release:"),
         N_("  RONALD LAMPRECHT (lead)"),
         "  RAOUL BOURQUIN",
         "  ANDREAS LOCHMANN",
@@ -119,7 +119,7 @@ namespace enigma { namespace gui {
         N_("Enigma is free software and may be distributed under the"),
         N_("terms of the GNU General Public License, version 2."),
         " ",
-        N_("Copyright (C) 2002-2009 Daniel Heck and contributors."),
+        N_("Copyright (C) 2002-2012 Daniel Heck and contributors."),
         0,
         N_("Main developer of all releases:"),
         " ",
