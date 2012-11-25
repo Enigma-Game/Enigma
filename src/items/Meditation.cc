@@ -20,7 +20,7 @@
 
 #include "items/Meditation.hh"
 
-//#include "main.hh"
+#include "main.hh"
 #include "world.hh"
 
 namespace enigma {
@@ -75,6 +75,7 @@ namespace enigma {
             if (whiteball == m.sender && m.value.to_bool() == true)
                 // meditatist left hollow (warp, ...)
                 deregisterWhiteball();            
+            return Value();
         } else
             return Item::message(m);
     }
