@@ -417,6 +417,7 @@ AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile
            data/levels/patches/Makefile
            data/fonts/Makefile
            data/music/Makefile
+           data/music/game/Makefile
            data/music/menu/Makefile
            data/soundsets/Makefile
            data/soundsets/enigma/Makefile

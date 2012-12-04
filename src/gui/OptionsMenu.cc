@@ -509,10 +509,10 @@ namespace enigma { namespace gui {
             case OPTIONS_AUDIO:
                 OPTIONS_NEW_LB(N_("Sound set: "), new SoundSetButton())
                 OPTIONS_NEW_LB(N_("Menu music: "), new MenuMusicButton)
+                OPTIONS_NEW_LB(N_("Music ingame: "), new InGameMusicButton)
                 OPTIONS_NEW_LB(N_("Sound volume: "), new SoundVolumeButton())
                 OPTIONS_NEW_LB(N_("Music volume: "), new MusicVolumeButton())
                 OPTIONS_NEW_LB(N_("Stereo: "), new StereoButton())
-                //...("Music ingame: ", new InGameMusicButton)
                 break;
             case OPTIONS_CONFIG:
                 OPTIONS_NEW_LB(N_("Language: "), language = new LanguageButton(this))

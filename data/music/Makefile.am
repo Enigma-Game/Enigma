@@ -1,4 +1,4 @@
-SUBDIRS = menu
+SUBDIRS = menu game
 
 pkgdatadir = $(datadir)/@PACKAGE@/music
 pkgdata_DATA = 

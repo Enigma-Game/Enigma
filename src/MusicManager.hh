@@ -31,7 +31,10 @@ namespace sound
 
 /* -------------------- Interface Functions -------------------- */
 
-    void DefineMusicSingle(std::string title, std::string filename);
+    void DefineMusicSingle(std::string title, std::string filename,
+        float affinity_intelligence = 0, float affinity_dexterity = 0,
+        float affinity_patience = 0, float affinity_knowledge = 0,
+        float affinity_speed = 0);
 
     void StartMenuMusic();
     void StartLevelLoadMusic();
@@ -45,6 +48,8 @@ namespace sound
     int GetOptionMenuMusic();
     void SetOptionMenuMusic(int value);
     std::string GetOptionMenuMusicText(int value);
+    // TODO: Add Get/SetOptionInGameMusic*. Currently we have no need
+    // for them, however. There is no option button either.
 
 /* -------------------- Music and MusicQueue -------------------- */
 
@@ -56,17 +61,32 @@ namespace sound
 
     class MusicSingle {
     public:
-        MusicSingle(std::string title_, std::string filename_, bool fadeout_ = false)
-        : title(title_), filename(filename_) {}
+        MusicSingle(std::string title_, std::string filename_,
+            float aff_int = 0, float aff_dex = 0, float aff_pat = 0,
+            float aff_kno = 0, float aff_spe = 0)
+        : title(title_), filename(filename_), affinity_intelligence(aff_int),
+        affinity_dexterity(aff_dex), affinity_patience(aff_pat),
+        affinity_knowledge(aff_kno), affinity_speed(aff_spe) {}
 
         MusicSingle()
-        : title(""), filename("") {}
+        : title(""), filename(""), affinity_intelligence(0),
+        affinity_dexterity(0), affinity_patience(0),
+        affinity_knowledge(0), affinity_speed(0) {}
 
         bool start();
+        float affinity(float lev_int, float lev_dex, float lev_pat,
+                       float lev_kno, float lev_spe);
 
     private:
-        std::string title;
-        std::string filename;
+        std::string    title;
+        std::string    filename;
+        float          affinity_intelligence;
+        float          affinity_dexterity;
+        float          affinity_patience;
+        float          affinity_knowledge;
+        float          affinity_speed;
+        // The affinity-floats measure how suitable the single is
+        // for a level, based on its public ratings.
     };
 
     enum MusicQueueEntryType { MUSICQUEUE_SINGLE, MUSICQUEUE_WAIT };
@@ -80,17 +100,31 @@ namespace sound
         // no_music is a boolean to mark queue entries that do not play music, 
         // be it because e.g. they are waiting phases, or because their file is
         // missing. Queues without any music are eventually stopped this way.
+        float                 points_transient;
+        float                 points_level;
+        float                 points_total;
+        // points_* are used to measure the suitability of the queue entry
+        // for a specific level. points_transient contains positive points
+        // for a single which is playing just now and should not be
+        // interrupted, and negative points for singles that have been
+        // played recently. points_level is calculated based on the
+        // single's affinity to the current level. points_totel is the
+        // sum of both, plus a small random number for variation.
     } MusicQueueEntry;
+
+    enum MusicQueueShuffleType { MUSICQUEUE_NEXT, MUSICQUEUE_RANDOM, MUSICQUEUE_LEVEL };
 
     class MusicQueue {
     public:
-        MusicQueue(std::string title_, int button_position_)
+        MusicQueue(std::string title_, MusicQueueShuffleType shuffle_type_, int button_position_)
         : title(title_), button_position(button_position_),
-          current_position_in_queue(-1), queue_entry(), defunc(false) {}
+          current_position_in_queue(-1), queue_entry(), defunc(false),
+          shuffle_type(shuffle_type_) {}
 
         MusicQueue()
         : title(""), button_position(-1),
-          current_position_in_queue(-1), queue_entry(), defunc(false) {}
+          current_position_in_queue(-1), queue_entry(), defunc(false),
+          shuffle_type(MUSICQUEUE_NEXT) {}
 
         bool start();                // Start queue from the beginning.
         bool next(bool force_music = false);  // Execute next queue entry (e.g. play music).
@@ -104,13 +138,15 @@ namespace sound
         void appendSingle(std::string title, bool fadeout_on_end);
         void appendSingleThenWait(std::string title, bool fadeout_on_end, float seconds);
         void appendWait(float seconds);
+        void calculate_level_points();
 
     private:
-        int current_position_in_queue;
-        std::string title;
-        int button_position;
-        std::vector<MusicQueueEntry> queue_entry;
-        bool defunc;
+        int                           current_position_in_queue;
+        std::string                   title;
+        int                           button_position;
+        std::vector<MusicQueueEntry>  queue_entry;
+        MusicQueueShuffleType         shuffle_type;
+        bool                          defunc;
         // defunc is true if the queue should be stopped, e.g. because it
         // doesn't contain any music. Does not apply to empty queues.
     };
@@ -139,18 +175,27 @@ namespace sound
 
         void setMusicContext(MusicContext new_context);
         MusicContext getMusicContext() { return music_context; }
+        void setInGameMusicActive(bool active);
 
-        bool defineMusicSingle(std::string title, std::string filename);
+        bool defineMusicSingle(std::string title, std::string filename,
+            float affinity_intelligence, float affinity_dexterity, float affinity_patience,
+            float affinity_knowledge, float affinity_speed);
         bool playMusicSingle(std::string title);
+        MusicSingle getMusicSingle(std::string title);
         std::string getCurrentMusicTitle();
         void setWaiting(float seconds);
         void stopWaiting();
 
-        // --------- Interface to options menu -----------
         bool setActiveMusicQueue(std::string music_queue_title);
-        std::string getMusicQueueByPosition(int button_position);
         std::string getActiveMusicQueueTitle() { return active_music_queue_title; }
+
+        // --------- Interface to options menu -----------
+        bool setMenuMusicQueue(std::string music_queue_title);
+        bool setInGameMusicQueue(std::string music_queue_title);
+        std::string getMenuMusicQueueTitle()   { return menu_music_queue_title; }
+        std::string getInGameMusicQueueTitle() { return ingame_music_queue_title; }
         int getMenuMusicQueueCount();
+        std::string getMusicQueueByPosition(int button_position);
         int getMusicQueueButtonPosition(std::string music_queue_title) {
             return music_queues[music_queue_title].getButtonPosition();
         }
@@ -159,13 +204,16 @@ namespace sound
         MusicManager();
         
     private:
-        static MusicManager *theSingleton;
+        static MusicManager     *theSingleton;
         MusicSingleRepository    music_singles;
         MusicQueueRepository     music_queues;
         std::string              active_music_queue_title;
+        std::string              ingame_music_queue_title;
+        std::string              menu_music_queue_title;
         float                    wait_length;   // in seconds
         MusicContext             music_context;
         bool                     is_waiting;    // true if a silent break is inserted
+        bool                     ingame_music_active;
     };
     
 }
