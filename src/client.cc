@@ -797,8 +797,10 @@ void Client::level_finished()
         else if (level_time<best_user_time)
             if (par_time >= 0 && level_time <= par_time)
                 text = _("New personal record - better than par!");
-            else if (par_time >= 0)
-                text = _("New personal record, but over par!");
+            // Uncomment the following lines to show the "but over par!"-part.
+            // (This has been criticised as demoralizing.)
+            //else if (par_time >= 0)
+            //    text = _("New personal record, but over par!");
             else
                 text = _("New personal record!");
     }
@@ -829,8 +831,10 @@ void Client::level_finished()
     if (text.length() == 0) {
         if (par_time >= 0 && level_time <= par_time)
             text = _("Level finished - better than par!");
-        else if (par_time >= 0)
-            text = _("Level finished, but over par!");
+        // Uncomment the following lines to show the "but over par!"-part.
+        // (This has been criticised as demoralizing.)
+        //else if (par_time >= 0)
+        //    text = _("Level finished, but over par!");
         else
             text = _("Level finished!");
     }
