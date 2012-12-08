@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -28,18 +28,18 @@ namespace enigma {
     BurnableItem::BurnableItem(int type) {
         state = type;
     }
-    
+
     std::string BurnableItem::getClass() const {
         return "it_burnable";
     }
-    
+
     Value BurnableItem::message(const Message &m) {
         if (m.message == "extinguish") {   // stop / never start burning
             state = FIREPROOF;
             init_model();
             return Value();
-        } else if (m.message == "_brush" && (state == ASH || state == FIREPROOF) ||
-                (m.message == "_freeze" && state != OIL)) {
+        } else if ((m.message == "_brush" && (state == ASH || state == FIREPROOF)) ||
+		   (m.message == "_freeze" && state != OIL)) {
             kill();   // The brush cleans the floor
             return Value();
         } else if (Floor *fl = GetFloor(get_pos())) {
@@ -48,23 +48,23 @@ namespace enigma {
         }
         return Item::message(m);
     }
-    
+
     void BurnableItem::setState(int extState) {
         // ignore set state attempts
     }
-    
+
     void BurnableItem::init_model() {
         if (state == OIL) {
             set_model(ecl::strf("it_burnable_oil%d", IntegerRand(1, 4)));  // TODO store and keep model subtyp!
         } else
             Item::init_model();
     }
-    
+
     void BurnableItem::animcb() {
         if(Floor *fl = GetFloor(get_pos()))
             fl->on_burnable_animcb(state == IGNITE);
     }
-    
+
     bool BurnableItem::actor_hit(Actor *a) {
         if (state == IGNITE || state == BURNING)
             SendMessage(a, "_shatter");
@@ -74,7 +74,7 @@ namespace enigma {
     int BurnableItem::traitsIdx() const {
         return state;
     }
-    
+
     ItemTraits BurnableItem::traits[6] = {
         {"it_burnable_invisible", it_burnable_invisible, itf_static, 0.0},
         {"it_burnable_oil",       it_burnable_oil,       itf_static | itf_freezable, 0.0},

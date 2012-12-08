@@ -105,14 +105,14 @@ ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
         }
         return GridObject::getAttr(key);
     }
-    
+
     void Floor::on_creation(GridPos p) {
         if (Value v = GridObject::getAttr("adhesion"))
             adhesion = v;
         if (Value v = GridObject::getAttr("friction"))
             friction = v;
         GridObject::on_creation(p);
-        
+
         if (server::WorldInitialized && has_firetype(flft_initfire))
             force_fire();
     }
@@ -121,36 +121,36 @@ void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
 //     sinkspeed = raisespeed = 0.0;
 }
 
-double Floor::get_friction() const 
-{ 
-    return friction; 
+double Floor::get_friction() const
+{
+    return friction;
 }
 
-    double Floor::getAdhesion() const { 
-        return adhesion; 
+    double Floor::getAdhesion() const {
+        return adhesion;
     }
 
-bool Floor::is_destructible() const 
+bool Floor::is_destructible() const
 {
     return true;
 }
 
-bool Floor::is_freeze_check() const 
+bool Floor::is_freeze_check() const
 {
     return to_bool(this->getAttr("freeze_check"));
 }
 
-void Floor::set_model (const std::string &mname) 
+void Floor::set_model (const std::string &mname)
 {
     display::SetModel (GridLoc(GRID_FLOOR, get_pos()), mname);
 }
 
-display::Model *Floor::get_model () 
+display::Model *Floor::get_model ()
 {
     return display::GetModel (GridLoc(GRID_FLOOR, get_pos()));
 }
 
-void Floor::kill_model (GridPos p) 
+void Floor::kill_model (GridPos p)
 {
     display::KillModel (GridLoc (GRID_FLOOR, p));
 }
@@ -286,9 +286,9 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                 if (   (get_fire_countdown() == 0) || (flhf == flhf_message)
                     || (has_firetype(flft_fastfire))
                     || (((bool) (flhf & flhf_last)) && has_firetype(flft_secure)))
-                    return force_fire();            
+                    return force_fire();
                 fire_countdown = max(fire_countdown - 1, 0);
-            }        
+            }
         }
     } else {  // non-Enigma-mode
         if (has_firetype(flft_burnable) || flhf == flhf_message) {
@@ -304,11 +304,12 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
             if (Floor *fl = GetFloor(move(p, sourcedir))) {
                 string sourcekind = fl->getClass();
                 string mykind = this->getClass();
-                if (no_closing_stone && sourcekind == mykind)
+                if (no_closing_stone && sourcekind == mykind) {
                     if (has_firetype(flft_fastfire))
                         return force_fire();
                     else
                         this->setAttr("burnable", true);
+		}
             }
         }
     }
@@ -343,7 +344,7 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     if (doItem)
         if (Item *it = GetItem(get_pos()))
             if (to_int(SendMessage(it, "heat", Value(sourcedir))) != 0.0)
-                reaction_happened = true;        
+                reaction_happened = true;
     // Maybe also transform floor?
     reaction_happened = on_heattransform(sourcedir, flhf) || reaction_happened;
     // Maybe transform stone, or stone blocks fire?
@@ -388,13 +389,14 @@ bool Floor::stop_fire(bool is_message) {
 
     // is_message indicates use of the stopfire-message,
     // so we have to check if there is fire at all.
-    if (is_message)
+    if (is_message) {
         if (Item *it = GetItem(p)) {
             ItemID id = get_id(it);
             if (id != it_burnable_burning && id != it_burnable_ignited)
                 return false;  // no fire
         } else
             return false; // no item == no fire
+    }
 
     KillItem(p);
     fire_countdown = 1;
@@ -403,12 +405,12 @@ bool Floor::stop_fire(bool is_message) {
     // Remember, at this point "this" may be destroyed.
     if (!GetFloor(p)->has_firetype(flft_noash))
         SetItem(p, MakeItem("it_burnable_ash"));
-    return true; // fire extinguished  
+    return true; // fire extinguished
 }
 
 void Floor::on_burnable_animcb(bool justIgnited) {
     GridPos p = get_pos();
-    // 
+    //
     SendMessage(GetStone(p), "_fire");
 
     // Will we stop this time with burning?
@@ -449,7 +451,7 @@ bool Floor::has_firetype(FloorFireType selector) {
                 return (selector == flft_burnable) && !has_flags(it, itf_fireproof);
         }
     }
-    bool dflt = (server::GameCompatibility == GAMET_ENIGMA) 
+    bool dflt = (server::GameCompatibility == GAMET_ENIGMA)
             && (traits.firetype & selector);
     // In non-Enigma-modes, without items on them, all floors behave the same:
     switch (selector) {

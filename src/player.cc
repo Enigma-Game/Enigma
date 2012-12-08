@@ -93,7 +93,7 @@ PlayerInfo::PlayerInfo ()
 /* -------------------- LevelLocalData -------------------- */
 
 
-void LevelLocalData::respawn_dead_actors(double dtime) 
+void LevelLocalData::respawn_dead_actors(double dtime)
 {
     for (unsigned i=0; i<respawn_list.size(); ) {
         RespawnInfo &info = respawn_list[i];
@@ -102,7 +102,7 @@ void LevelLocalData::respawn_dead_actors(double dtime)
         if (info.time_left < 0) {
 //             if (lua::CallFunc (lua::LevelState(), "Respawn", Value()) != 0) {
 //                 throw enigma_levels::XLevelRuntime(string("Calling 'Respawn' failed:\n")+lua::LastError(lua::LevelState()));
-                
+
             info.actor->respawn();
             respawn_list.erase(respawn_list.begin()+i);
             continue;           // don't increment i
@@ -111,7 +111,7 @@ void LevelLocalData::respawn_dead_actors(double dtime)
     }
 }
 
-void LevelLocalData::resurrect_actor (Actor *a) 
+void LevelLocalData::resurrect_actor (Actor *a)
 {
     const double RESPAWN_TIME = 1.5;
 
@@ -122,7 +122,7 @@ void LevelLocalData::resurrect_actor (Actor *a)
     respawn_list.push_back(RespawnInfo(a, RESPAWN_TIME));
 }
 
-bool LevelLocalData::remove_extralife (Actor *a) 
+bool LevelLocalData::remove_extralife (Actor *a)
 {
     Inventory *inv = player::GetInventory(a);
     int        idx = inv->find("it_extralife");
@@ -172,7 +172,7 @@ void player::NewGame() {
                     ++extralives[i];
                     idxLife = players[i].inventory.find("it_extralife", ++idxLife);
                 } while (idxLife != -1);
-            } else 
+            } else
                 extralives[i] = 0;
         } else {
             // new game provides 2 extralives
@@ -189,7 +189,7 @@ void player::NewGame() {
         for (int j = 0 ; j < extralives[i]; j++)
             inv->add_item(MakeItem("it_extralife"));
     }
-    
+
     unassignedActors.clear();
     leveldat.reset();
 }
@@ -198,7 +198,7 @@ void player::AddYinYang ()
 {
     for (unsigned i=0; i<players.size(); ++i) {
         Inventory *inv = GetInventory (i);
-        if (inv->find("it_yinyang") == -1) 
+        if (inv->find("it_yinyang") == -1)
             inv->add_item(MakeItem("it_yinyang"));
     }
 }
@@ -210,7 +210,7 @@ void player::LevelLoaded(bool isRestart)
     RedrawInventory ();
 }
 
-void player::PrepareLevel() 
+void player::PrepareLevel()
 {
     // Clear up the inventories of all players: keep only extra lifes.
     for (unsigned iplayer=0; iplayer<players.size(); ++iplayer)
@@ -231,7 +231,7 @@ void player::PrepareLevel()
     leveldat = LevelLocalData();
 }
 
-void player::LevelFinished(int stage) 
+void player::LevelFinished(int stage)
 {
     for (unsigned i=0; i<players.size(); ++i) {
         for (unsigned j=0; j<players[i].actors.size(); ++j) {
@@ -246,13 +246,13 @@ void player::LevelFinished(int stage)
     }
 }
 
-Inventory * player::GetInventory (int iplayer) 
+Inventory * player::GetInventory (int iplayer)
 {
     return &players[iplayer].inventory;
 }
 
 
-Inventory * player::GetInventory (Actor *a) 
+Inventory * player::GetInventory (Actor *a)
 {
     if (Value v = a->getAttr("owner"))
         return GetInventory((int)v);
@@ -260,7 +260,7 @@ Inventory * player::GetInventory (Actor *a)
 }
 
 
-bool player::WieldedItemIs (Actor *a, const string &kind) 
+bool player::WieldedItemIs (Actor *a, const string &kind)
 {
     if (Inventory *inv = GetInventory(a))
         if (Item *it = inv->get_item(0))
@@ -273,7 +273,7 @@ int player::CurrentPlayer() {
     return icurrent_player;
 }
 
-void player::SetCurrentPlayer(unsigned iplayer) 
+void player::SetCurrentPlayer(unsigned iplayer)
 {
     if (iplayer >= players.size())
         Log << ecl::strf("SetCurrentPlayer: no such player %d\n", iplayer);
@@ -297,7 +297,7 @@ unsigned player::NumberOfRealPlayers() {
 }
 
 /*! Sets respawn positions for black or white actors. */
-void player::SetRespawnPositions(GridPos pos, Value color) 
+void player::SetRespawnPositions(GridPos pos, Value color)
 {
     ecl::V2 center = pos.center();
 
@@ -327,7 +327,7 @@ void player::RemoveRespawnPositions(Value color) {
     }
 }
 
-void player::Suicide() 
+void player::Suicide()
 {
     for (unsigned i=0; i<players.size(); ++i) {
         vector<Actor *> &al = players[i].actors;
@@ -353,7 +353,7 @@ Actor *player::ReplaceActor (unsigned iplayer, Actor *old, Actor *a)
 }
 
 
-void player::AddActor (unsigned iplayer, Actor *a) 
+void player::AddActor (unsigned iplayer, Actor *a)
 {
     if (iplayer >= players.size())
         server::RaiseError ("Invalid actor number");
@@ -377,7 +377,7 @@ bool player::HasActor(unsigned iplayer, Actor *a) {
     return false;
 }
 
-void player::SwapPlayers() 
+void player::SwapPlayers()
 {
     if (NumberOfRealPlayers() >= 2) {
         SetCurrentPlayer(1-icurrent_player);
@@ -396,7 +396,7 @@ static bool has_extralive(unsigned pl, unsigned num) {
     return true;
 }
 
-static bool resurrect_actor (unsigned pl, Actor *a) 
+static bool resurrect_actor (unsigned pl, Actor *a)
 {
     assert(server::ConserveLevel); // no resurrection otherwise!
 
@@ -422,8 +422,8 @@ void player::CheckDeadActors() {
     for (int pl = -1; pl<(int)players.size(); ++pl) {  // -1 are unassigned actors
         vector<Actor*>& actors  = (pl == -1) ? unassignedActors : players[pl].actors;
         bool            has_living_actor = false;  // controllable and living
-        std::map<std::string, int> essMap; 
-        std::map<std::string, int>::iterator itEss; 
+        std::map<std::string, int> essMap;
+        std::map<std::string, int>::iterator itEss;
 
         for (size_t i=0; i<actors.size(); ++i) {
             Actor *a = actors[i];
@@ -466,19 +466,20 @@ void player::CheckDeadActors() {
                 toggle_to_player = pl;
         }
         else {
-            if (pl == icurrent_player)
+            if (pl == icurrent_player) {
                 // check if player has yinyang for single gamer mode
                 if (player::GetInventory(pl)->find("it_yinyang",0) >= 0)
                     toggle_player = true;
                 else
                     new_game = true;
+	    }
         }
     }
 
     // if no_living_player -> toggle_player is true and toggle_to_player is NO_PLAYER
     // => new_game is set to true below
 
-    if ((server::ConserveLevel == false) && !server::IsRestartingLevel() && 
+    if ((server::ConserveLevel == false) && !server::IsRestartingLevel() &&
             (new_game || (toggle_player && toggle_to_player == NO_PLAYER))) {
         // check if we have enough extralives for a restart instead of new game
         std::vector<int> numDead;
@@ -522,13 +523,13 @@ void player::CheckDeadActors() {
     }
 }
 
-Actor *player::GetMainActor (unsigned iplayer) 
+Actor *player::GetMainActor (unsigned iplayer)
 {
     vector<Actor *> &actors = players[iplayer].actors;
     return actors.empty() ? 0 : actors[0];
 }
 
-void player::Tick(double dtime) 
+void player::Tick(double dtime)
 {
     STATUSBAR->set_counter (server::GetMoveCounter());
 
@@ -554,7 +555,7 @@ void player::InhibitPickup(bool flag) {
 
 /*! Return pointer to inventory if actor may pick up items, 0
    otherwise. */
-Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying) 
+Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying)
 {
     int iplayer=-1;
     if (Value v = a->getAttr("owner")) iplayer = v;
@@ -564,7 +565,7 @@ Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying)
     }
 
     Inventory *inv = GetInventory(iplayer);
-    bool dont_pickup = players[iplayer].inhibit_pickup 
+    bool dont_pickup = players[iplayer].inhibit_pickup
         || (!allowFlying && a->is_flying())
         || !inv->willAddItem(it)
         || a->is_dead()
@@ -573,7 +574,7 @@ Inventory *player::MayPickup(Actor *a, Item *it, bool allowFlying)
     return dont_pickup ? 0 : inv;
 }
 
-void player::PickupItem (Actor *a, GridPos p) 
+void player::PickupItem (Actor *a, GridPos p)
 {
     if (Inventory *inv = MayPickup(a, GetField(p)->item)) {
         if (Item *item = YieldItem(p)) {
@@ -600,7 +601,7 @@ bool player::PickupAsItem(Actor *a, GridObject *obj, std::string kind) {
     return false;
 }
 
-void player::ActivateFirstItem() 
+void player::ActivateFirstItem()
 {
     Inventory &inv = players[icurrent_player].inventory;
 
@@ -639,7 +640,7 @@ void player::ActivateFirstItem()
     }
 }
 
-void player::RotateInventory(int dir) 
+void player::RotateInventory(int dir)
 {
     sound::EmitSoundEvent ("invrotate", ecl::V2());
     Inventory &inv = players[icurrent_player].inventory;
@@ -656,7 +657,7 @@ void player::RotateInventory(int dir)
     function does nothing. */
 void player::RedrawInventory (Inventory *inv)
 {
-    if (inv == GetInventory (CurrentPlayer())) 
+    if (inv == GetInventory (CurrentPlayer()))
         RedrawInventory();
 }
 

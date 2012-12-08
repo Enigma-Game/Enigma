@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -38,19 +38,20 @@ namespace enigma {
         NameObject(dup, "$BlockerItem#");  // auto name object to avoid problems with object values
         return dup;
     }
-    
+
     void BlockerItem::dispose() {
         delete this;
     }
 
     Value BlockerItem::message(const Message &m) {
-        if (m.message == "_init") { 
+        if (m.message == "_init") {
             if (Stone *st = GetStone(get_pos())) {
-                if (st->getClass() == "st_boulder")
+                if (st->getClass() == "st_boulder") {
                     if (state == IDLE && server::GameCompatibility != GAMET_PEROXYD)
                         setIState(UNLOCKED);
                     else if (state == NEW || server::GameCompatibility != GAMET_PEROXYD)
                         setIState(LOCKED);
+		}
             }
             return Item::message(m);    // pass on init message
         } else if (m.message =="_performaction") {
@@ -59,7 +60,7 @@ namespace enigma {
         }
         return Item::message(m);
     }
-    
+
     void BlockerItem::toggleState() {
         if (state == UNLOCKED) {  // revoke pending grow/close
             setIState(LOCKED);
@@ -68,11 +69,11 @@ namespace enigma {
             setState(0);  // close
         }
     }
-    
+
     int BlockerItem::externalState() const {
         return 1;   // always open -- st_blocker is closed
     }
-    
+
     void BlockerItem::setState(int extState) {
         if (isDisplayable())
             stone_change(GetStone(get_pos()));
@@ -89,12 +90,12 @@ namespace enigma {
                     break;                // will close anyway when stone is removed
                 case IDLE:
                 case NEW:
-                    grow();                    
+                    grow();
                     break;
             }
         }
     }
-    
+
     void BlockerItem::on_creation(GridPos p) {
         if (state == NEW) {
             GameTimer.set_alarm(this, 0.5, false);
@@ -110,7 +111,7 @@ namespace enigma {
     void BlockerItem::init_model() {
         set_model("it_blocker");
     }
-    
+
     void BlockerItem::actor_leave(Actor *a) {
         if (Value v = getAttr("autoclose")) {
             if (v.to_bool()) {
@@ -118,7 +119,7 @@ namespace enigma {
             }
         }
     }
-    
+
     void BlockerItem::stone_change(Stone *st) {
         if (st != NULL) {
             if (st->getClass() == "st_boulder") { // boulder arrived
@@ -183,13 +184,13 @@ namespace enigma {
             state = newState;
         }
     }
-    
+
     void BlockerItem::grow() {
         Stone *st = MakeStone("st_blocker_new");
         SetStone(get_pos(), st);
         transferIdentity(st);
         if (Value v = getAttr("autoclose"))
-            st->setAttr("autoclose", v); 
+            st->setAttr("autoclose", v);
         SendMessage(st, "_performaction");
         kill();
     }

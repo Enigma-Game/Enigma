@@ -57,12 +57,12 @@ extern "C" {
 #include "lua.h"
 #include "lauxlib.h"
 #include "lexerproxy.h"
-#endif 
+#endif
 
 
 using namespace std;
 using namespace enigma;
-XERCES_CPP_NAMESPACE_USE 
+XERCES_CPP_NAMESPACE_USE
 
 namespace enigma { namespace lev {
     // http://enigma-game.org/schema/level/1
@@ -70,7 +70,7 @@ namespace enigma { namespace lev {
             chLatin_h, chLatin_t, chLatin_t, chLatin_p, chColon, chForwardSlash,
             chForwardSlash, chLatin_e, chLatin_n, chLatin_i, chLatin_g, chLatin_m,
             chLatin_a, chDash, chLatin_g, chLatin_a, chLatin_m, chLatin_e,
-            chPeriod, chLatin_o, chLatin_r, chLatin_g, chForwardSlash, 
+            chPeriod, chLatin_o, chLatin_r, chLatin_g, chForwardSlash,
             chLatin_s, chLatin_c, chLatin_h, chLatin_e, chLatin_m, chLatin_a,
             chForwardSlash, chLatin_l, chLatin_e, chLatin_v, chLatin_e,
             chLatin_l, chForwardSlash, chDigit_1, chNull
@@ -88,7 +88,7 @@ namespace enigma { namespace lev {
     }
 
     Proxy *Proxy::cachedLevel = NULL;
-    
+
     void Proxy::releaseCache() {
         if (cachedLevel != NULL)
             cachedLevel->release();
@@ -103,14 +103,14 @@ namespace enigma { namespace lev {
         std::string theNormLevelPath;
         bool isMulti = false;
         std::string fileId;
-        unsigned subnum; 
-        
+        unsigned subnum;
+
         // Multilevel
         if (levelId[levelId.size() - 1] == ']') {
             isMulti = true;
             std::string::size_type numpos = levelId.find_last_of("[");
             ASSERT(numpos != std::string::npos, XLevelPackInit, "Proxy - invalid multilevel id");
-            ASSERT(levelId.find_first_not_of("0123456789", numpos+1) == levelId.size() -1, 
+            ASSERT(levelId.find_first_not_of("0123456789", numpos+1) == levelId.size() -1,
                     XLevelPackInit, "Proxy - invalid multilevel id");
             std::istringstream subnumstr(levelId.substr(numpos + 1, levelId.size() - numpos - 2));
             subnumstr >> std::dec >> subnum;
@@ -149,7 +149,7 @@ namespace enigma { namespace lev {
                 }
             }
         }
-        
+
         // search for existing proxy
         // we use a combined key to support pack indices to reference
         // different releases of a level at the same path -- this is an
@@ -163,11 +163,11 @@ namespace enigma { namespace lev {
             Proxy * candidate = i->second;
             return candidate;
         }
-        
+
         if (!isMulti) {
             // create new proxy
             theProxy = new Proxy(false, thePathType, theNormLevelPath, levelId, levelTitle,
-                levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
+                levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode,
                 levelCompatibilty, status, levelRevision);
             cache.insert(std::make_pair(cacheKey, theProxy));
             return theProxy;
@@ -181,18 +181,18 @@ namespace enigma { namespace lev {
             } else {
                 // create new multilevel file proxy
                 fileProxy = new Proxy(false, thePathType, theNormLevelPath, fileId, levelTitle,
-                    levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode, 
+                    levelAuthor, levelScoreVersion, levelRelease, levelHasEasymode,
                     levelCompatibilty, status, levelRevision);
                 cache.insert(std::make_pair(multiCacheKey, fileProxy));
             }
             // create sublevel proxy
             theProxy = new SubProxy(fileProxy, subnum, thePathType, theNormLevelPath, levelId, levelTitle);
             cache.insert(std::make_pair(cacheKey, theProxy));
-            return theProxy;            
+            return theProxy;
         }
-        
+
     }
-    
+
     Proxy * Proxy::autoRegisterLevel(std::string indexPath, std::string filename, int subNum) {
         Proxy *theProxy = new Proxy(false, pt_resource, indexPath + "/" + filename , "", "",
             "unknown", 1, 0, false, GAMET_UNKNOWN, STATUS_UNKNOWN);
@@ -214,7 +214,7 @@ namespace enigma { namespace lev {
         } else {
             // eliminate duplicates and register
 //            Log << "autoRegisterLevel register '" << indexPath << "/"<< filename << " Title: " << theProxy->getTitle() <<"\n";
-            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() + 
+            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() +
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
             if (i != cache.end()) {
@@ -222,13 +222,13 @@ namespace enigma { namespace lev {
 //                Log << "duplicate Proxy - " << cacheKey <<"\n";
                 theProxy = i->second;
             } else {
-                cache.insert(std::make_pair(cacheKey, theProxy));        
+                cache.insert(std::make_pair(cacheKey, theProxy));
             }
         }
         // multilevel
-        if ((theProxy != NULL) && 
+        if ((theProxy != NULL) &&
                 (theProxy->isMultiFlag)) {
-            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() + ecl::strf("[%d]", subNum) + 
+            std::string cacheKey = theProxy->getNormFilePath() + theProxy->getId() + ecl::strf("[%d]", subNum) +
                     ecl::strf("%d", theProxy->getReleaseVersion());
             std::map<std::string, Proxy *>::iterator i = cache.find(cacheKey);
             if (i != cache.end()) {
@@ -258,7 +258,7 @@ namespace enigma { namespace lev {
             return other.low.find(low) != string::npos;
         }
     };
-    
+
     Index * searchIndex;
     LowerCaseString searchText("");
     void do_search(const std::map<std::string, Proxy *>::value_type pair) {
@@ -271,7 +271,7 @@ namespace enigma { namespace lev {
 //            Log << "Search result: " << pair.first << " - is - " << candidate->getTitle() << "\n";
         }
     }
-    
+
     std::string Proxy::search(std::string text) {
         searchIndex = Index::findIndex("Search Result");
         // assert searchIndex
@@ -280,7 +280,7 @@ namespace enigma { namespace lev {
         std::for_each(cache.begin(), cache.end(), do_search);
         return (searchIndex->size() > 0) ? searchIndex->getName() : "";
     }
-    
+
     void Proxy::countLevels() {
         int countProxy = 0;
         int countLegacy = 0;
@@ -303,8 +303,8 @@ namespace enigma { namespace lev {
             else
                 countReleased++;
         }
-        
-        Log << "Proxy count: " << countReleased <<" released, " 
+
+        Log << "Proxy count: " << countReleased <<" released, "
             << countStable << " stable, " << countLegacy << " legacy, "
             << countProxy << " total\n";
     }
@@ -329,19 +329,19 @@ namespace enigma { namespace lev {
     Proxy::Proxy(bool proxyIsLibrary, pathType thePathType, std::string theNormLevelPath,
             std::string levelId, std::string levelTitle, std::string levelAuthor,
             int levelScoreVersion, int levelRelease, bool levelHasEasymode,
-            GameType levelCompatibilty,levelStatusType status, int levelRevision) :  
-            isLibraryFlag (proxyIsLibrary), isMultiFlag (false), normPathType(thePathType), normFilePath(theNormLevelPath), 
+            GameType levelCompatibilty,levelStatusType status, int levelRevision) :
+            isLibraryFlag (proxyIsLibrary), isMultiFlag (false), normPathType(thePathType), normFilePath(theNormLevelPath),
             quantity (1), id(levelId), title(levelTitle), author(levelAuthor),
             scoreVersion(levelScoreVersion), releaseVersion(levelRelease),
-            revisionNumber(levelRevision), hasEasyModeFlag(levelHasEasymode), 
-            engineCompatibility(levelCompatibilty), levelStatus (status), 
+            revisionNumber(levelRevision), hasEasyModeFlag(levelHasEasymode),
+            engineCompatibility(levelCompatibilty), levelStatus (status),
             scoreUnit (duration), doc(NULL), loadtime (0) {
     }
-        
+
     Proxy::~Proxy() {
         this->release();
     }
-    
+
     void Proxy::release() {
         if (doc != NULL) {
             doc->release();
@@ -352,15 +352,15 @@ namespace enigma { namespace lev {
             releaseLibs();
         }
     }
-    
+
     std::string Proxy::getNormFilePath() {
         return normFilePath;
     }
-    
+
     std::string Proxy::getNormLevelPath() {
         return normFilePath;
     }
-    
+
     std::string Proxy::getLocalSubstitutionLevelPath() {
         std::string result = getNormLevelPath();
         std::string::size_type pos;
@@ -368,7 +368,7 @@ namespace enigma { namespace lev {
         pos = result.find("://");
         if (pos != std::string::npos)
             result.replace(pos, 2,"");
-        
+
         // substitute all filesystem uncommon chars to '_'
         const std::string validChars("\\_-/.~#0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         pos = result.find_first_not_of(validChars, 0);
@@ -378,7 +378,7 @@ namespace enigma { namespace lev {
         }
         return result;
     }
-    
+
     Proxy::pathType Proxy::getNormPathType() {
         return normPathType;
     }
@@ -386,11 +386,11 @@ namespace enigma { namespace lev {
     std::string Proxy::getAbsLevelPath() {
         return absLevelPath;
     }
-    
+
     void Proxy::loadLevel() {
         load(false, true);
     }
-    
+
     Proxy * Proxy::copy(std::string newBasePath, std::string newPackPath, bool backup) {
         bool useFileLoader = false;
         bool isXML = true;
@@ -402,42 +402,42 @@ namespace enigma { namespace lev {
 
         if (normPathType == pt_oxyd) {
             return NULL;
-        
+
         // resolve resource path to filepath
-        } else if (normPathType == pt_absolute || normPathType == pt_url) { 
+        } else if (normPathType == pt_absolute || normPathType == pt_url) {
             absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
-            if(!app.resourceFS->findFile("levels/" + normFilePath + ".xml", 
+            if(!app.resourceFS->findFile("levels/" + normFilePath + ".xml",
                         absLevelPath, isptr) &&
-                    !app.resourceFS->findFile("levels/" + normFilePath + ".lua", 
+                    !app.resourceFS->findFile("levels/" + normFilePath + ".lua",
                         absLevelPath, isptr)) {
                 return NULL;
             }
         } else
             // error unknown type
             return NULL;
-        
+
         size_t lastSlash = absLevelPath.rfind ('/');
         if (lastSlash == std::string::npos) {
             filename = absLevelPath;
         } else {
             filename = absLevelPath.substr(lastSlash + 1);
         }
-        
+
         // xml or lua
         size_t extbegin = filename.rfind('.');
         if (extbegin != string::npos) {
             std::string ext = filename.substr(extbegin);
-        
+
             if ( ext != ".lua" && ext!= ".ell" && ext != ".xml" && ext != ".elx") {
                 return NULL;
             } else {
-                filenameBase = filename.substr(0, extbegin); 
+                filenameBase = filename.substr(0, extbegin);
             }
         } else {
                 return NULL;
         }
-        
+
         // load
         if (normPathType != pt_url) {
             // preload plain Lua file or zipped level
@@ -467,17 +467,17 @@ namespace enigma { namespace lev {
             // load XML via Xerces
             return NULL;
         }
-        
+
         // create new proxy
         return registerLevel(std::string("./")+filenameBase, newPackPath, id, title,
-                        author, scoreVersion, releaseVersion, hasEasyModeFlag, 
+                        author, scoreVersion, releaseVersion, hasEasyModeFlag,
                         engineCompatibility, levelStatus, revisionNumber);
     }
-    
+
     void Proxy::loadMetadata(bool expectLevel) {
         load(true, expectLevel);
     }
-    
+
     void Proxy::load(bool onlyMetadata, bool expectLevel) {
         if (doc != NULL) {
             if (onlyMetadata)
@@ -497,14 +497,14 @@ namespace enigma { namespace lev {
         ByteVec levelCode;
         std::string errMessage;
         absLevelPath = "";
-        
+
         // release current proxy
         if (!isLibraryFlag) {
             if (cachedLevel != NULL)
                 cachedLevel->release();
             cachedLevel = this;
         }
-        
+
         // handle oxyd first
         if (normPathType == pt_oxyd) {
             if(onlyMetadata)
@@ -528,14 +528,14 @@ namespace enigma { namespace lev {
                 throw XLevelLoading("Missing oxyd levelpack for: " + normFilePath);
             }
             return;
-            
+
         // resolve resource path to filepath
-        } else if (normPathType == pt_absolute || normPathType == pt_url) { 
+        } else if (normPathType == pt_absolute || normPathType == pt_url) {
             absLevelPath = normFilePath;
         } else if(normPathType == pt_resource) {
-            if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml", 
+            if(!app.resourceFS->findFile ("levels/" + normFilePath + ".xml",
                         absLevelPath, isptr) &&
-                    !app.resourceFS->findFile ("levels/" + normFilePath + ".lua", 
+                    !app.resourceFS->findFile ("levels/" + normFilePath + ".lua",
                         absLevelPath, isptr)) {
                 std::string type = isLibraryFlag ? "library " : "level ";
                 throw XLevelLoading("Could not find " + type + normFilePath );
@@ -543,13 +543,13 @@ namespace enigma { namespace lev {
         } else
             // error unknown type
             return;
-        
-        
+
+
         // xml or lua
         size_t extbegin = absLevelPath.rfind ('.');
         if (extbegin != string::npos) {
             std::string ext = absLevelPath.substr(extbegin);
-        
+
             if (normPathType != pt_url && (ext == ".lua" || ext == ".ell")) {
                 isXML = false;  // preliminary - may still be lua commented xml
             } else if (ext == ".xml" || ext == ".elx") {
@@ -573,7 +573,7 @@ namespace enigma { namespace lev {
             basic_ifstream<char> ifs(absLevelPath.c_str(), ios::binary | ios::in);
             Readfile (ifs, levelCode);
         }
- 
+
         if(!isXML) {
             if (levelCode.size() >= 8 && std::string("--xml-- ").compare(
                     0, 8, &(levelCode[0]), 8) == 0) {
@@ -598,7 +598,7 @@ namespace enigma { namespace lev {
                 doc = NULL;
                 const char *buffer = reinterpret_cast<const char *>(&levelCode[0]);
                 // add debugging info to lua code
-                std::string luaCode = "--@" + absLevelPath + "\n" + 
+                std::string luaCode = "--@" + absLevelPath + "\n" +
                             buffer;
                 lua_State *L = lua::LevelState();
                 if (luaL_dostring(L, luaCode.c_str() ) != 0) {
@@ -612,7 +612,7 @@ namespace enigma { namespace lev {
                     releaseVersion = 1;
             }
         }
-        
+
         if (isXML) {
             // count XML header lines for proper Lua line count messages
             static const char *luaId = "<el:luamain><![CDATA[";
@@ -639,7 +639,7 @@ namespace enigma { namespace lev {
                     }
                 }
             }
-            
+
             // load XML
             try {
                 std::ostringstream errStream;
@@ -647,24 +647,24 @@ namespace enigma { namespace lev {
                 app.domParserErrorHandler->reportToOstream(&errStream);
                 app.domParserSchemaResolver->resetResolver();
                 app.domParserSchemaResolver->addSchemaId("level.xsd","level.xsd");
-                
+
                 // preloaded lua-commented xml or zipped xml
 #if _XERCES_VERSION >= 30000
                 std::auto_ptr<DOMLSInput> domInputLevelSource ( new Wrapper4InputSource(
                         new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
                         levelCode.size(), absLevelPath.c_str(), false)));
                 doc = app.domParser->parse(domInputLevelSource.get());
-#else    
+#else
                 std::auto_ptr<Wrapper4InputSource> domInputLevelSource ( new Wrapper4InputSource(
                         new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(levelCode[0])),
                         levelCode.size(), absLevelPath.c_str(), false)));
                 doc = app.domParser->parse(*domInputLevelSource);
 #endif
-                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL
                         && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagNameNS(
                             levelNS, Utf8ToXML("info").x_str())->item(0));
-                    stringList = doc->getElementsByTagNameNS(levelNS, 
+                    stringList = doc->getElementsByTagNameNS(levelNS,
                             Utf8ToXML("string").x_str());
                 }
                 if (app.domParserErrorHandler->getSawErrors()) {
@@ -678,7 +678,7 @@ namespace enigma { namespace lev {
                 errMessage = "Unexpected XML Exception on load of level\n";
             }
             if (!errMessage.empty()) {
-                release();           // empty or errornous doc 
+                release();           // empty or errornous doc
                 Log << errMessage;   // make long error messages readable
                 throw XLevelLoading (errMessage);
 // todo: check metadata, handle shadowed levels
@@ -705,7 +705,7 @@ namespace enigma { namespace lev {
                 hasNetworkMode();
                 getScoreUnit();
                 getEngineCompatibility();
-                if (!onlyMetadata){   
+                if (!onlyMetadata){
                     if (!isLibraryFlag != expectLevel)
                         throw XLevelLoading(ecl::strf("Level - Library mismatch on %s", normFilePath.c_str()));
                     loadDoc();
@@ -714,17 +714,17 @@ namespace enigma { namespace lev {
         }
         loadtime = (SDL_GetTicks() - start_tick_time)/1000.0;
     }
-    
+
     void Proxy::loadDoc() {
         if (getEnigmaCompatibility() > ENIGMACOMPATIBITLITY)
-            throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above", 
+            throw XLevelLoading(ecl::strf("Level is incompatible: %s requires Enigma %.2f or above",
                     absLevelPath.c_str(), getEnigmaCompatibility()));
         if (this == cachedLevel) {    // just level - no libs
             server::SetCompatibility(this);
             server::EnigmaCompatibility = getEnigmaCompatibility();
             server::TwoPlayerGame = hasNetworkMode();
             server::LevelStatus = getLevelStatus();
-            lua_evaluate_assert = (server::LevelStatus == STATUS_RELEASED || server::LevelStatus == STATUS_STABLE) 
+            lua_evaluate_assert = (server::LevelStatus == STATUS_RELEASED || server::LevelStatus == STATUS_STABLE)
                     ? false || !noAssert : true;
             if (server::EnigmaCompatibility < 1.10) {
                 server::AllowSingleOxyds = true;
@@ -753,15 +753,15 @@ namespace enigma { namespace lev {
                 int         depRelease;
                 bool        depPreload;
                 std::string depUrl;
-                depPath = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                depPath = XMLtoUtf8(depElem->getAttributeNS(levelNS,
                         Utf8ToXML("path").x_str())).c_str();
-                depId = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                depId = XMLtoUtf8(depElem->getAttributeNS(levelNS,
                         Utf8ToXML("id").x_str())).c_str();
-                depRelease = XMLString::parseInt(depElem->getAttributeNS(levelNS, 
+                depRelease = XMLString::parseInt(depElem->getAttributeNS(levelNS,
                         Utf8ToXML("release").x_str()));
-                depPreload = boolValue(depElem->getAttributeNS(levelNS, 
+                depPreload = boolValue(depElem->getAttributeNS(levelNS,
                             Utf8ToXML("preload").x_str()));
-                depUrl = XMLtoUtf8(depElem->getAttributeNS(levelNS, 
+                depUrl = XMLtoUtf8(depElem->getAttributeNS(levelNS,
                         Utf8ToXML("url").x_str())).c_str();
 //                Log << "Deps: Path="<<depPath<<" Id="<< depId <<" Rel="<< depRelease <<" Prel="<< depPreload<< " Url=" << depUrl<<"\n";
                 // load every dependency just once and break circular dependencies
@@ -771,20 +771,21 @@ namespace enigma { namespace lev {
             }
         }
     }
-    
+
     void Proxy::registerPreloadDependency(std::string depPath, std::string depId,
             int depRelease, bool depPreload, std::string depUrl) {
         // check if lib is already registered
         for (int i=0 ; i<loadedLibs.size(); i++) {
-            if (loadedLibs[i]->getId() == depId)
+            if (loadedLibs[i]->getId() == depId) {
                 if (loadedLibs[i]->getReleaseVersion() !=  depRelease)
                     throw XLevelLoading(ecl::strf("declaration of incompatible library version: '%s' release %d - release %d already loaded",
                             depId.c_str(), depRelease, loadedLibs[i]->getReleaseVersion()));
                 else
                     return;
-        }        
+	    }
+        }
         for (int i=0 ; i<registeredLibs.size(); i++) {
-            if (registeredLibs[i]->getId() == depId)
+            if (registeredLibs[i]->getId() == depId) {
                 if (registeredLibs[i]->getReleaseVersion() !=  depRelease) {
                     throw XLevelLoading(ecl::strf("declaration of incompatible library version: '%s' release %d - release %d already registered",
                             depId.c_str(), depRelease, registeredLibs[i]->getReleaseVersion()));
@@ -797,8 +798,9 @@ namespace enigma { namespace lev {
                     // same lib and again no preload
                     return;
                 }
-        } 
-        
+	    }
+        }
+
         // resolve relative lib paths
         if (depPath.find("./") == 0) {
             // relative lib path
@@ -829,9 +831,9 @@ namespace enigma { namespace lev {
             } catch (XLevelLoading &err) {
                 delete depProxy;
                 throw err;
-            } 
+            }
         }
-                
+
         // load and register lib
         if (depPreload) {
             loadedLibs.push_back(depProxy);
@@ -839,9 +841,9 @@ namespace enigma { namespace lev {
         } else {
             registeredLibs.push_back(depProxy);
         }
-        
+
     }
-    
+
     void Proxy::loadDependency(std::string depId) {
         // check if lib is already loaded
         for (int i=0 ; i<loadedLibs.size(); i++) {
@@ -849,7 +851,7 @@ namespace enigma { namespace lev {
                 // library is already loaded
                 return;
         }
-        
+
         for (int i=0 ; i<registeredLibs.size(); i++) {
             if (registeredLibs[i]->getId() == depId) {
                 // library is registered to be loaded - do it
@@ -874,7 +876,7 @@ namespace enigma { namespace lev {
             // xml levels have to register used libraries as dependencies
             throw XLevelLoading("load attempt of undeclared library");
     }
-    
+
     void Proxy::processExternaldata() {
         if (doc != NULL) {
             DOMNodeList *extList = infoElem->getElementsByTagNameNS(
@@ -883,16 +885,16 @@ namespace enigma { namespace lev {
                 DOMElement *extElem = dynamic_cast<DOMElement *>(extList->item(i));
                 std::string extNormPath;
                 std::string extUrl;
-                extNormPath = XMLtoUtf8(extElem->getAttributeNS(levelNS, 
+                extNormPath = XMLtoUtf8(extElem->getAttributeNS(levelNS,
                         Utf8ToXML("path").x_str())).c_str();
-                extUrl = XMLtoUtf8(extElem->getAttributeNS(levelNS, 
+                extUrl = XMLtoUtf8(extElem->getAttributeNS(levelNS,
                         Utf8ToXML("url").x_str())).c_str();
 //                Log << "EData: Path="<<extNormPath<< " Url=" << extUrl<<"\n";
                 // load every external data resource just once even if multiple urls are given
                 if (externalData.find(extNormPath) == externalData.end()) {
                     std::auto_ptr<std::istream> isptr;
                     ByteVec extCode;
-                    
+
                     std::string extFilename;
                     std::string extPath;
                     bool isLocal = true;
@@ -911,16 +913,16 @@ namespace enigma { namespace lev {
                     } else {
                         ASSERT(false, XLevelLoading, ("Invalid external data path '" + extNormPath + "'").c_str());
                     }
-                    
+
                     // TODO check extFilename no further /, no suffix, legal chars
-                    
+
                     // resolve resource path to filepath
                     std::string absExtPath;
 //                    Log << "External data extPath " << extPath << "\n";
                     bool haveLocalCopy = true;
                     if (normPathType == pt_absolute) {
                         absExtPath = extPath;
-                    } else { 
+                    } else {
                         haveLocalCopy = app.resourceFS->findFile("levels/" + extPath, absExtPath, isptr);
                     }
 
@@ -936,7 +938,7 @@ namespace enigma { namespace lev {
                         else
                             haveLocalCopy = false;
                     }
-                    
+
                     if (!haveLocalCopy) {
                         // need to download via curl
                         absExtPath = app.userPath + "/levels/" + extPath;
@@ -944,7 +946,7 @@ namespace enigma { namespace lev {
 
                         // TODO try catch assertions with proper handling, checksums
                         Downloadfile(extUrl, extCode);
-                        
+
                         // save a local copy
                         std::string directory;
                         if (ecl::split_path(absExtPath, &directory, 0) && !ecl::FolderExists(directory)) {
@@ -955,11 +957,11 @@ namespace enigma { namespace lev {
                         ofs.close();
                         if (ofs.fail())
                             Log << "External data failed to write local copy to '" << absExtPath << "'\n";
-                        
+
                         // terminate the yet unterminated code string
                         extCode.push_back(0);
                     }
-                    
+
                     std::string extString = reinterpret_cast<const char *>(&extCode[0]);
                     Log << "External data loaded:\n" << extNormPath << "\n";
 //                    Log << "External data loaded:\n" << extString << "\n";
@@ -968,13 +970,13 @@ namespace enigma { namespace lev {
             }
         }
     }
-    
+
     std::string Proxy::getExternalData(std::string pathId) {
         std::map<std::string, std::string>::iterator itr = externalData.find(pathId); // [] access would create map entries!
         ASSERT(itr != externalData.end(), XLevelRuntime, ("Unknown external data access '" + pathId + "'\n").c_str());
         return itr->second;
     }
-    
+
     void Proxy::loadLuaCode() {
         lua_State *L = lua::LevelState();
         DOMNodeList * luamainList = doc->getElementsByTagNameNS(levelNS, Utf8ToXML("luamain").x_str());
@@ -997,7 +999,7 @@ namespace enigma { namespace lev {
         std::string english = key;
         std::string translation;
         std::string lang = ecl::GetLanguageCode (app.language);
-        
+
         // add handling for calls besides level run: info from cache
         if (doc == NULL) {
             if (key == "title")
@@ -1005,31 +1007,31 @@ namespace enigma { namespace lev {
             else
                 return key;
         }
-        
+
         if (key == "title" || key == "subtitle") {
             // get the english originals from the identity attributes
-            DOMElement *identityElem = 
+            DOMElement *identityElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
-            english = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+            english = XMLtoUtf8(identityElem->getAttributeNS(levelNS,
                     Utf8ToXML(&key).x_str())).c_str();
             if (key == "title")
                 title = english;  // update cash
         }
-        
+
         bool translFound = false;
         bool keyFound = false;
         bool protectedString = true;
         for (int i = 0, l = stringList-> getLength();  i < l && !translFound; i++) {
             DOMElement *stringElem = dynamic_cast<DOMElement *>(stringList->item(i));
-            if (key == XMLtoUtf8(stringElem->getAttributeNS(levelNS, 
+            if (key == XMLtoUtf8(stringElem->getAttributeNS(levelNS,
                     Utf8ToXML("key").x_str())).c_str()) {
                 keyFound = true;
-                // 2 strings with matching key may be found: 
+                // 2 strings with matching key may be found:
                 // first the protected, then the public one
                 if (protectedString) {
                     // resolve english text from string->english subelement
-                    DOMElement *englishElem = 
+                    DOMElement *englishElem =
                          dynamic_cast<DOMElement *>(stringElem->getElementsByTagNameNS(
                          levelNS, Utf8ToXML("english").x_str())->item(0));
                     std::string tmp = XMLtoUtf8(englishElem->getTextContent()).c_str();
@@ -1039,7 +1041,7 @@ namespace enigma { namespace lev {
                     }
                     bool translate = boolValue(englishElem->getAttributeNS(levelNS,
                                 Utf8ToXML("translate").x_str()));
-                    // we got the final english string 
+                    // we got the final english string
                     if ((lang == "en") || !translate) {
                         translation = english;
                         translFound = true;
@@ -1051,7 +1053,7 @@ namespace enigma { namespace lev {
                             levelNS, Utf8ToXML("translation").x_str());
                     for (int i = 0, l = translList-> getLength();  i < l && !translFound; i++) {
                         DOMElement *translElem = dynamic_cast<DOMElement *>(translList->item(i));
-                        if (lang == XMLtoUtf8(translElem->getAttributeNS(levelNS, 
+                        if (lang == XMLtoUtf8(translElem->getAttributeNS(levelNS,
                                 Utf8ToXML("lang").x_str())).c_str()) {
                             translation = XMLtoUtf8(translElem->getTextContent()).c_str();
                             translFound = true;
@@ -1079,29 +1081,29 @@ namespace enigma { namespace lev {
          }
         return (translFound ? translation : english);
     }
-    
+
     std::string Proxy::getType() {
         if (doc != NULL) {
-            return XMLtoUtf8(infoElem->getAttributeNS(levelNS, 
+            return XMLtoUtf8(infoElem->getAttributeNS(levelNS,
                     Utf8ToXML("type").x_str())).c_str();
         } else
             return "";
     }
-    
+
     int Proxy::getQuantity() {
         if (doc != NULL) {
-            quantity = XMLString::parseInt(infoElem->getAttributeNS(levelNS, 
+            quantity = XMLString::parseInt(infoElem->getAttributeNS(levelNS,
                     Utf8ToXML("quantity").x_str()));
         }
         return quantity;
     }
-    
+
     bool Proxy::updateId() {
         if (doc != NULL) {
-            DOMElement *identityElem = 
+            DOMElement *identityElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
-            std::string docId = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+            std::string docId = XMLtoUtf8(identityElem->getAttributeNS(levelNS,
                     Utf8ToXML("id").x_str())).c_str();
             if (id.empty() || id[0] == '_') {
                 // set yet undetermined id (auto folder, command line,...)
@@ -1112,28 +1114,28 @@ namespace enigma { namespace lev {
         }
         return true;
     }
-    
+
     std::string Proxy::getId() {
         return id;
     }
-    
+
     int Proxy::getScoreVersion() {
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("version").x_str())->item(0));
-            scoreVersion = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+            scoreVersion = XMLString::parseInt(versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("score").x_str()));
         }
         return scoreVersion;
     }
-    
+
     bool Proxy::updateReleaseVersion() {
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("version").x_str())->item(0));
-            int docRelease = XMLString::parseInt(versionElem->getAttributeNS(levelNS, 
+            int docRelease = XMLString::parseInt(versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("release").x_str()));
             if (releaseVersion == 0) {
                 // set yet undetermined version
@@ -1145,17 +1147,17 @@ namespace enigma { namespace lev {
         }
         return true;
     }
-    
+
     int Proxy::getReleaseVersion() {
         return releaseVersion;
     }
-    
+
     int Proxy::getRevisionNumber() {
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("version").x_str())->item(0));
-            const XMLCh * revision = versionElem->getAttributeNS(levelNS, 
+            const XMLCh * revision = versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("revision").x_str());
             unsigned int len = XMLString::stringLen(revision);
             int start = -1;
@@ -1181,13 +1183,13 @@ namespace enigma { namespace lev {
         }
         return revisionNumber;
     }
-    
+
     levelStatusType Proxy::getLevelStatus() {
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("version").x_str())->item(0));
-            std::string status = XMLtoUtf8(versionElem->getAttributeNS(levelNS, 
+            std::string status = XMLtoUtf8(versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("status").x_str())).c_str();
             if (status == "released")
                 levelStatus = STATUS_RELEASED;
@@ -1200,13 +1202,13 @@ namespace enigma { namespace lev {
         }
         return levelStatus;
     }
-    
+
     std::string Proxy::getAuthor() {
         if (doc != NULL) {
-            DOMElement *authorElem = 
+            DOMElement *authorElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("author").x_str())->item(0));
-            author = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+            author = XMLtoUtf8(authorElem->getAttributeNS(levelNS,
                     Utf8ToXML("name").x_str())).c_str();
         }
         return author;
@@ -1214,10 +1216,10 @@ namespace enigma { namespace lev {
 
     std::string Proxy::getTitle() {
         if (doc != NULL) {
-            DOMElement *identityElem = 
+            DOMElement *identityElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("identity").x_str())->item(0));
-            title = XMLtoUtf8(identityElem->getAttributeNS(levelNS, 
+            title = XMLtoUtf8(identityElem->getAttributeNS(levelNS,
                     Utf8ToXML("title").x_str())).c_str();
         }
         return title;
@@ -1225,10 +1227,10 @@ namespace enigma { namespace lev {
 
     bool Proxy::hasEasyMode() {
         if (doc != NULL) {
-            DOMElement *modesElem = 
+            DOMElement *modesElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            hasEasyModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+            hasEasyModeFlag = boolValue(modesElem->getAttributeNS(levelNS,
                         Utf8ToXML("easy").x_str()));
         }
         return hasEasyModeFlag;
@@ -1236,10 +1238,10 @@ namespace enigma { namespace lev {
 
     bool Proxy::hasSingleMode() {
         if (doc != NULL) {
-            DOMElement *modesElem = 
+            DOMElement *modesElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            hasSingleModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+            hasSingleModeFlag = boolValue(modesElem->getAttributeNS(levelNS,
                         Utf8ToXML("single").x_str()));
         }
         return hasSingleModeFlag;
@@ -1247,10 +1249,10 @@ namespace enigma { namespace lev {
 
     bool Proxy::hasNetworkMode() {
         if (doc != NULL) {
-            DOMElement *modesElem = 
+            DOMElement *modesElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            hasNetworkModeFlag = boolValue(modesElem->getAttributeNS(levelNS, 
+            hasNetworkModeFlag = boolValue(modesElem->getAttributeNS(levelNS,
                         Utf8ToXML("network").x_str()));
         }
         return hasNetworkModeFlag;
@@ -1259,22 +1261,22 @@ namespace enigma { namespace lev {
     std::string Proxy::getContact() {
         std::string contact;
         if (doc != NULL) {
-            DOMElement *authorElem = 
+            DOMElement *authorElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("author").x_str())->item(0));
-            contact = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+            contact = XMLtoUtf8(authorElem->getAttributeNS(levelNS,
                     Utf8ToXML("email").x_str())).c_str();
         }
         return contact;
     }
-    
+
     std::string Proxy::getHomepage() {
         std::string homepage;
         if (doc != NULL) {
-            DOMElement *authorElem = 
+            DOMElement *authorElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("author").x_str())->item(0));
-            homepage = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+            homepage = XMLtoUtf8(authorElem->getAttributeNS(levelNS,
                     Utf8ToXML("homepage").x_str())).c_str();
         }
         return homepage;
@@ -1283,10 +1285,10 @@ namespace enigma { namespace lev {
     double Proxy::getEnigmaCompatibility() {
         double value = 0.92;
         if (doc != NULL) {
-            DOMElement *compatibilityElem = 
+            DOMElement *compatibilityElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("compatibility").x_str())->item(0));
-            XMLDouble * result = new XMLDouble(compatibilityElem->getAttributeNS(levelNS, 
+            XMLDouble * result = new XMLDouble(compatibilityElem->getAttributeNS(levelNS,
                     Utf8ToXML("enigma").x_str()));
             value = result->getValue();
             delete result;
@@ -1296,10 +1298,10 @@ namespace enigma { namespace lev {
 
     GameType Proxy::getEngineCompatibility() {
         if (doc != NULL) {
-            DOMElement *authorElem = 
+            DOMElement *authorElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("compatibility").x_str())->item(0));
-            engineCompatibility = GetGameType(XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+            engineCompatibility = GetGameType(XMLtoUtf8(authorElem->getAttributeNS(levelNS,
                     Utf8ToXML("engine").x_str())).c_str());
         }
         return engineCompatibility;
@@ -1309,10 +1311,10 @@ namespace enigma { namespace lev {
     controlType Proxy::getControl() {
         controlType control = force;
         if (doc != NULL) {
-            DOMElement *authorElem = 
+            DOMElement *authorElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            std::string controlString = XMLtoUtf8(authorElem->getAttributeNS(levelNS, 
+            std::string controlString = XMLtoUtf8(authorElem->getAttributeNS(levelNS,
                     Utf8ToXML("control").x_str())).c_str();
             if (controlString == "balance")
                 control = balance;
@@ -1326,10 +1328,10 @@ namespace enigma { namespace lev {
 
     scoreUnitType Proxy::getScoreUnit() {
         if (doc != NULL) {
-            DOMElement *modesElem = 
+            DOMElement *modesElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            std::string txt = XMLtoUtf8(modesElem->getAttributeNS(levelNS, 
+            std::string txt = XMLtoUtf8(modesElem->getAttributeNS(levelNS,
                         Utf8ToXML("scoreunit").x_str())).c_str();
             if (txt == "number")
                 scoreUnit = number;
@@ -1339,28 +1341,28 @@ namespace enigma { namespace lev {
         }
         return scoreUnit;
     }
-    
+
     std::string Proxy::getScoreTarget() {
         std::string title = "time";
         if (doc != NULL) {
-            DOMElement *modesElem = 
+            DOMElement *modesElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("modes").x_str())->item(0));
-            title = XMLtoUtf8(modesElem->getAttributeNS(levelNS, 
+            title = XMLtoUtf8(modesElem->getAttributeNS(levelNS,
                         Utf8ToXML("scoretarget").x_str())).c_str();
         }
         return title;
     }
-    
+
     std::string Proxy::getCredits(bool infoUsage) {
         std::string credits;
         std::string attribute = infoUsage ? "showinfo" : "showstart";
         if (doc != NULL) {
-            DOMElement *creditsElem = 
+            DOMElement *creditsElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("credits").x_str())->item(0));
             if (creditsElem != NULL)  // element is optional
-                if (boolValue(creditsElem->getAttributeNS(levelNS, 
+                if (boolValue(creditsElem->getAttributeNS(levelNS,
                         Utf8ToXML(attribute.c_str()).x_str())))
                     credits = XMLtoUtf8(creditsElem->getTextContent()).c_str();
         }
@@ -1371,11 +1373,11 @@ namespace enigma { namespace lev {
         std::string dedication;
         std::string attribute = infoUsage ? "showinfo" : "showstart";
         if (doc != NULL) {
-            DOMElement *dedicationElem = 
+            DOMElement *dedicationElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("dedication").x_str())->item(0));
             if (dedicationElem != NULL)  // element is optional
-                if (boolValue(dedicationElem->getAttributeNS(levelNS, 
+                if (boolValue(dedicationElem->getAttributeNS(levelNS,
                         Utf8ToXML(attribute.c_str()).x_str())))
                     dedication = XMLtoUtf8(dedicationElem->getTextContent()).c_str();
         }
@@ -1384,22 +1386,22 @@ namespace enigma { namespace lev {
     int Proxy::getEasyScore() {
         int score = -1;
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("score").x_str())->item(0));
-            score = scoreText2Int(XMLtoUtf8(versionElem->getAttributeNS(levelNS, 
+            score = scoreText2Int(XMLtoUtf8(versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("easy").x_str())).c_str());
         }
         return score;
     }
-    
+
     int Proxy::getDifficultScore() {
         int score = -1;
         if (doc != NULL) {
-            DOMElement *versionElem = 
+            DOMElement *versionElem =
                     dynamic_cast<DOMElement *>(infoElem->getElementsByTagNameNS(
                     levelNS, Utf8ToXML("score").x_str())->item(0));
-            score = scoreText2Int(XMLtoUtf8(versionElem->getAttributeNS(levelNS, 
+            score = scoreText2Int(XMLtoUtf8(versionElem->getAttributeNS(levelNS,
                     Utf8ToXML("difficult").x_str())).c_str());
         }
         return score;
@@ -1417,7 +1419,7 @@ namespace enigma { namespace lev {
                         atoi(text.substr(colon+1).c_str());
         }
     }
-    
+
     double Proxy::getLoadtime() {
         return loadtime;
     }

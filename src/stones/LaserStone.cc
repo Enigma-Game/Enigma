@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -27,7 +27,7 @@
 namespace enigma {
 
     LaserStone::InstanceList LaserStone::instances;
-    
+
     void LaserStone::reemit_all() {
         for (InstanceList::iterator it = instances.begin(); it != instances.end(); ++it) {
             (*it)->emit_light();
@@ -37,22 +37,22 @@ namespace enigma {
     LaserStone::LaserStone(Direction dir) {
         setAttr("orientation", Value(dir));
     }
-    
+
     std::string LaserStone::getClass() const {
         return "st_laser";
     }
-    
+
     LaserStone *LaserStone::clone() {
         LaserStone *o = new LaserStone(*this);
         instances.push_back(o);
         return o;
     }
-    
+
     void LaserStone::dispose() {
         instances.erase(find(instances.begin(), instances.end(), this));
         delete this;
     }
-    
+
     void LaserStone::setAttr(const string& key, const Value &val) {
         if (isDisplayable())
             if (key == "orientation") {
@@ -63,24 +63,24 @@ namespace enigma {
             }
         Stone::setAttr(key, val);
     }
-    
+
     Value LaserStone::message(const Message &m) {
         if (m.message == "orientate" && isDisplayable()) {
             setAttr("orientation", m.value);
             return Value();
         } else if ((m.message == "turn" || m.message == "turnback") && isDisplayable()) {
-            setAttr("orientation", (m.message == "turn" && !getAttr("counterclock").to_bool() || 
-                    m.message == "turnback" && getAttr("counterclock").to_bool())
+            setAttr("orientation", ((m.message == "turn" && !getAttr("counterclock").to_bool()) ||
+				    (m.message == "turnback" && getAttr("counterclock").to_bool()))
                     ? rotate_cw(getOrientation()) : rotate_ccw(getOrientation()));
             return Value();
         }
         return Stone::message(m);
     }
-    
+
     int LaserStone::externalState() const {
         return state % 2;
     }
-    
+
     void LaserStone::setState(int extState) {
         if (isDisplayable()) {
             switch (state) {
@@ -96,18 +96,18 @@ namespace enigma {
                 case NEW_OFF:
                 case NEW_ON:
                     if (state != extState + 2)
-                        state += 2;   // remember pending other state 
+                        state += 2;   // remember pending other state
                     break;
                 case NEW_OFF_PENDING_ON:
                 case NEW_ON_PENDING_OFF:
                     if (state == extState + 4)
                         state -= 2;   // remember pending other state
-                    break; 
+                    break;
             }
         } else  // object initialisation
             state = extState;
     }
-    
+
     void LaserStone::toggleState() {
         switch (state) {
             case OFF:
@@ -128,19 +128,19 @@ namespace enigma {
         mname += to_suffix(getOrientation());
         set_model(mname);
     }
-    
+
     void LaserStone::on_creation (GridPos p) {
         if (state == ON)
             RecalcLight();
         Stone::on_creation(p);
     }
-    
+
     void LaserStone::on_removal(GridPos p) {
         GameTimer.remove_alarm(this);
         state &= 1;
         Stone::on_removal(p);
     }
-    
+
     DirectionBits LaserStone::emissionDirections() const {
         if (externalState() == 1) {
             return to_bits(getOrientation());
@@ -171,12 +171,12 @@ namespace enigma {
             init_model();
         }
     }
-    
+
     void LaserStone::emit_light() {
         if (externalState() == 1)
             LaserBeam::emit_from(get_pos(), getOrientation());
     }
-    
+
     Direction LaserStone::getOrientation() const {
         return to_direction(getAttr("orientation"));
     }

@@ -74,7 +74,7 @@
 using namespace std;
 using namespace ecl;
 using namespace enigma;
-XERCES_CPP_NAMESPACE_USE 
+XERCES_CPP_NAMESPACE_USE
 
 #ifdef WIN32
 // LoadImage is a Syscall on Windows, which gets defined to LoadImageA
@@ -94,7 +94,7 @@ namespace
 namespace enigma
 {
     Application app;
-    
+
     bool noAssert = true;      // block expensive assert evaluations by default
 
     bool   WizardMode        = false;
@@ -106,7 +106,7 @@ namespace enigma
 
 /*! The stream object that is used for logging messages.  As defined
   here, it is not connected to any file or buffer.
-  
+
   (Note: I think writing to a stream without a streambuffer *should*
   be a no-op, but it leads to crashes with g++ 2.95.  to circumvent
   this, Log is initialized with a dummy streambuf in init(). ) */
@@ -200,11 +200,11 @@ AP::AP() : ArgParser (app.args.begin(), app.args.end())
     def (OPT_PREF,              "pref", 'p', true);
 }
 
-void AP::on_option (int id, const string &param) 
+void AP::on_option (int id, const string &param)
 {
     switch (id) {
     case OPT_GAME:
-        gamename = param; 
+        gamename = param;
         break;
     case OPT_DATA:
 // we should be able to add several paths -- file.cc has does not yet support this
@@ -222,7 +222,7 @@ void AP::on_option (int id, const string &param)
     }
 }
 
-void AP::on_argument (const string &arg) 
+void AP::on_argument (const string &arg)
 {
     levelnames.push_back (arg);
 }
@@ -242,7 +242,7 @@ Application::Application() : wizard_mode (false), nograb (false), language (""),
 }
 
 
-void Application::init(int argc, char **argv) 
+void Application::init(int argc, char **argv)
 {
     sscanf(PACKAGE_VERSION, "%4lf", &enigmaVersion);
 
@@ -265,7 +265,7 @@ void Application::init(int argc, char **argv)
         else
             args.push_back(argv[i]);
     }
-    
+
     // parse commandline arguments -- needs args
     AP ap;
     ap.parse();
@@ -277,7 +277,7 @@ void Application::init(int argc, char **argv)
         if (ap.show_help) usage();
         exit(0);
     }
-    
+
     //
     if (ap.makepreview) {
         ap.force_window = true;
@@ -308,7 +308,7 @@ void Application::init(int argc, char **argv)
             }
         }
         setvbuf(stdout, NULL, _IOLBF, BUFSIZ);   // Line buffered
-        
+
         newfp = std::freopen((userStdPath + "/Error.log").c_str(), "w", stderr);
         if ( newfp == NULL ) {  // This happens on NT
             newfp = fopen((userStdPath + "/Error.log").c_str(), "w");
@@ -320,21 +320,21 @@ void Application::init(int argc, char **argv)
     }
 
     // initialize logfile -- needs ap
-    if (ap.do_log) 
+    if (ap.do_log)
         enigma::Log.rdbuf(cout.rdbuf());
     else
         enigma::Log.rdbuf(::nullbuffer);
-    
+
     // postponed system datapath logs
     Log << "Enigma " << getVersionInfo() << "\n";
-    Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n"; 
-    Log << "docPath = \"" << docPath << "\"\n"; 
-    Log << "l10nPath = \"" << l10nPath << "\"\n"; 
-    Log << "prefPath = \"" << prefPath << "\"\n"; 
+    Log << "systemFS = \"" << systemFS->getDataPath() << "\"\n";
+    Log << "docPath = \"" << docPath << "\"\n";
+    Log << "l10nPath = \"" << l10nPath << "\"\n";
+    Log << "prefPath = \"" << prefPath << "\"\n";
 
     // initialize XML -- needs log, datapaths
     initXerces();
-    
+
     // initialize LUA - Run initialization scripts
     lua_State *L = lua::GlobalState();
     lua::CheckedDoFile(L, app.systemFS, "startup.lua");
@@ -343,9 +343,9 @@ void Application::init(int argc, char **argv)
     if (!options::Load()) {
         fprintf(stderr, _("Error in configuration file.\n"));
       	fprintf(stderr, "%s\n", lua::LastError (lua::GlobalState()).c_str());
-    }     
+    }
     prefs = PreferenceManager::instance();
-    
+
     if (ap.force_window) {
         app.prefs->setProperty("FullScreen", false);
     }
@@ -356,10 +356,10 @@ void Application::init(int argc, char **argv)
 
     // initialize user data paths -- needs preferences, system datapaths
     initUserDatapaths();
-    
+
     // set message language
     init_i18n();
-    
+
     // initialize application state
     state = StateManager::instance();
 
@@ -389,7 +389,7 @@ void Application::init(int argc, char **argv)
     SDL_EnableUNICODE(1);
     const SDL_version* vi = SDL_Linked_Version();
     Log << ecl::strf("SDL Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
-    
+
     vi = TTF_Linked_Version();
     Log <<  ecl::strf("SDL_ttf Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
     if(TTF_Init() == -1) {
@@ -401,7 +401,7 @@ void Application::init(int argc, char **argv)
     Log <<  ecl::strf("SDL_image Version: %u.%u.%u\n", vi->major, vi->minor, vi->patch);
 #ifdef SDL_IMG_INIT
     int img_flags = IMG_INIT_PNG | IMG_INIT_JPG;
-    if (IMG_Init(img_flags) & img_flags != img_flags) {
+    if (IMG_Init(img_flags) & (img_flags != img_flags)) {
         fprintf(stderr, "Couldn't initialize SDL_image: %s\n", IMG_GetError());
         exit(1);
     }
@@ -426,7 +426,7 @@ void Application::init(int argc, char **argv)
         fprintf (stderr, "An error occurred while initializing Curl.\n");
         exit (1);
     }
-    
+
     // ----- Initialize UDP network layer
     if (enet_initialize() != 0) {
         fprintf (stderr, "An error occurred while initializing ENet.\n");
@@ -455,13 +455,13 @@ void Application::init(int argc, char **argv)
     }
 
     lev::Proxy::countLevels();
-    
+
     // ----- Initialize sound tables -- needs sound, oxyd, video (error messages!)
     sound::InitSoundSets();
 
     // ----- Initialize music -- needs application state
     sound::InitMusic();
-    
+
 #if MACOSX
     updateMac1_00();
 #endif
@@ -469,7 +469,7 @@ void Application::init(int argc, char **argv)
     // initialize random
     enigma::Randomize(false);
     enigma::Randomize(true);
-    
+
     //
     if (isMakePreviews) {
         app.state->setProperty("Difficulty", DIFFICULTY_HARD); // will not be saved
@@ -479,7 +479,7 @@ void Application::init(int argc, char **argv)
         std::string message = ecl::strf("Make %d previews on system path '%s'",
                 size, systemAppDataPath.c_str());
         Log << message;
-            
+
         Screen *scr = video::GetScreen();
         GC gc (scr->get_surface());
         Font *f = enigma::GetFont("menufont");
@@ -491,14 +491,14 @@ void Application::init(int argc, char **argv)
         vline(gc, 470, 280, 20);
         scr->update_all ();
         scr->flush_updates();
-        
+
         int i = 0;
         for (int m=0; m<3; m++) {
             switch (m) {
                 case 0 : video::SetThumbInfo(120, 78, ""); break;
                 case 1 : video::SetThumbInfo(160, 104, "-160x104"); break;
                 case 2 : video::SetThumbInfo(60, 39, "-60x39"); break;
-            }        
+            }
             for (it = proxies.begin(); it != proxies.end(); it++, i++) {
                 Log << "Make preview " << (*it)->getId() << "\n";
                 gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
@@ -510,7 +510,7 @@ void Application::init(int argc, char **argv)
         Log << "Maske preview finished succesfully\n";
         return;
     }
-    
+
     // initialize score -- needs random init
     lev::ScoreManager::instance();
 }
@@ -520,8 +520,8 @@ std::string Application::getVersionInfo() {
     if (enigmaVersion >= ENIGMACOMPATIBITLITY)
         versionInfo = "v" PACKAGE_VERSION;
     else {
-        versionInfo =  "v" PACKAGE_VERSION 
-            " (development version - v" + 
+        versionInfo =  "v" PACKAGE_VERSION
+            " (development version - v" +
             ecl::strf("%.2f",ENIGMACOMPATIBITLITY) + " compatibility branch)";
     }
     return versionInfo;
@@ -538,8 +538,8 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     bool progDirExists = split_path(progCallPath, &progDir, &progName);
     std::string systemPath = SYSTEM_DATA_DIR; // substituted by configure.ac
     bool haveHome = (getenv("HOME") != 0);
-    
-    
+
+
 #ifdef __MINGW32__
     // windows standard user specific application data directory path
     std::string winAppDataPath = ecl::ApplicationDataPath() + "/Enigma";
@@ -564,22 +564,22 @@ void Application::initSysDatapaths(const std::string &prefFilename)
     // then chdir to ../Resources. The original SDL implementation chdirs to
     // "../../..", i.e. the directory the bundle is placed in. This breaks
     // the self-containedness.
-	
+
     systemAppDataPath = progDir + "/../Resources/data";
-    
+
 #else
     // Unix -- we get our data path from the installation
     systemAppDataPath = systemPath;
 #endif
-    
+
     // systemFS
     systemFS = new GameFS();
     systemFS->append_dir(systemAppDataPath);
     if (!systemCmdDataPath.empty())
          systemFS->prepend_dir(systemCmdDataPath);
-    
+
     // docPath
-    docPath = DOCDIR;    // defined in src/Makefile.am 
+    docPath = DOCDIR;    // defined in src/Makefile.am
 #ifdef __MINGW32__
     if (progDirExists) {
         docPath = progDir;
@@ -587,7 +587,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
 #elif MACOSX
     docPath = progDir + "/../Resources/doc";
 #endif
-    
+
     // l10nPath
     l10nPath = LOCALEDIR;    // defined in src/Makefile.am
 #ifdef __MINGW32__
@@ -649,17 +649,17 @@ void Application::initXerces() {
         // If more than the error messages should be influenced we would
         // have to terminate and reinit after reading the user prefs.
         XMLPlatformUtils::Initialize();
-        
+
         // Initialize transcoding service for XML <-> utf8
-        XMLTransService::Codes initResult;        
+        XMLTransService::Codes initResult;
         xmlUtf8Transcoder = XMLPlatformUtils::fgTransService->
-                makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult, 
-                4096); // the block size is irrelevant for utf-8                  
+                makeNewTranscoderFor(XMLRecognizer::UTF_8, initResult,
+                4096); // the block size is irrelevant for utf-8
         if (initResult != XMLTransService::Ok) {
             fprintf(stderr, _("Error in XML initialization.\n"));
             exit(1);
         }
-        
+
         static const XMLCh ls[] = { chLatin_L, chLatin_S, chNull };
         static const XMLCh core[] = { chLatin_C, chLatin_O,  chLatin_R, chLatin_E, chNull };
         domImplementationLS = (DOMImplementationLS*)
@@ -684,11 +684,11 @@ void Application::initXerces() {
 
         domSer = domImplementationLS->createLSSerializer();
         config = domSer->getDomConfig();
-        
+
         config->setParameter(XMLUni::fgDOMWRTFormatPrettyPrint, true);
         config->setParameter(XMLUni::fgDOMErrorHandler, domSerErrorHandler);
 
-#else    
+#else
         domParser = domImplementationLS->createDOMBuilder(DOMImplementationLS::MODE_SYNCHRONOUS, 0);
 
         domParser->setFeature(XMLUni::fgDOMNamespaces, true);
@@ -707,8 +707,8 @@ void Application::initXerces() {
     catch (...) {
         fprintf(stderr, _("Error in XML initialization.\n"));
         exit(1);
-    }     
-}	
+    }
+}
 
 void Application::initUserDatapaths() {
     // userPath
@@ -730,24 +730,24 @@ void Application::initUserDatapaths() {
     } else {
         userPath = XMLtoLocal(Utf8ToXML(userPath.c_str()).x_str()).c_str();
     }
-    Log << "userPath = \"" << userPath << "\"\n"; 
-    
+    Log << "userPath = \"" << userPath << "\"\n";
+
     // userImagePath
     userImagePath = prefs->getString("UserImagePath");
     if (userImagePath.empty()) {
 #ifdef MACOSX
-        userImagePath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path 
+        userImagePath = userStdPathMac1_00;  // empty prefs user path is 1.00 std user path
 #else
         userImagePath = userStdPath;
 #endif
     } else {
         userImagePath = XMLtoLocal(Utf8ToXML(userImagePath.c_str()).x_str()).c_str();
     }
-    Log << "userImagePath = \"" << userImagePath << "\"\n"; 
+    Log << "userImagePath = \"" << userImagePath << "\"\n";
 
     // resourceFS
     resourceFS = new GameFS();
-    resourceFS->append_dir(systemAppDataPath);    
+    resourceFS->append_dir(systemAppDataPath);
 #ifdef MACOSX
     // set user-visible data paths -- use it for resource paths
     NSSearchPathEnumerationState cur=NSStartSearchPathEnumeration(NSLibraryDirectory, NSAllDomainsMask);
@@ -759,11 +759,11 @@ void Application::initUserDatapaths() {
     }
 #endif
     if (!systemCmdDataPath.empty())
-	resourceFS->prepend_dir(systemCmdDataPath);    
+	resourceFS->prepend_dir(systemCmdDataPath);
     resourceFS->prepend_dir(userPath);
     if (userImagePath != userPath)
         resourceFS->prepend_dir(userImagePath);
-    Log << "resourceFS = \"" << resourceFS->getDataPath() << "\"\n"; 
+    Log << "resourceFS = \"" << resourceFS->getDataPath() << "\"\n";
 
     // create levels/auto, levels/cross, levels/legacy_dat on userPath
     if (!ecl::FolderExists(userPath + "/levels/auto"))
@@ -773,14 +773,14 @@ void Application::initUserDatapaths() {
     if (!ecl::FolderExists(userPath + "/levels/externaldata"))
         ecl::FolderCreate (userPath + "/levels/externaldata");
     if (!ecl::FolderExists(userPath + "/levels/legacy_dat"))
-        ecl::FolderCreate (userPath + "/levels/legacy_dat");   
+        ecl::FolderCreate (userPath + "/levels/legacy_dat");
     if (!ecl::FolderExists(userPath + "/backup"))
-        ecl::FolderCreate (userPath + "/backup");   
+        ecl::FolderCreate (userPath + "/backup");
 }
 
 #ifdef MACOSX
 void Application::updateMac1_00() {
-    if (prefs->getInt("_MacUpdate1.00") == 0 && 
+    if (prefs->getInt("_MacUpdate1.00") == 0 &&
             prefs->getString("UserPath").empty() &&
             prefs->getString("UserImagePath").empty()) {
         gui::ErrorMenu m(ecl::strf(N_("Mac OS X upgrade from Enigma 1.00\n\nThe default user data path has changed from\n  %s \n\nto the visible data path\n  %s \n\nIf ok Enigma will move your data to this new location.\nNote that you have to restart Enigma once for completion of this update."), userStdPathMac1_00.c_str(), userStdPath.c_str()),
@@ -792,7 +792,7 @@ void Application::updateMac1_00() {
             prefs->setProperty("_MacUpdate1.00", 0);
         } else {  // OK move now
             Log << "Mac update\n";
-            // move 
+            // move
             std::system(ecl::strf("mkdir '%s' && cd ~/.enigma && tar -cf - * | (cd '%s' && tar -xf -) && cd ~ && rm -rf ~/.enigma", userStdPath.c_str(), userStdPath.c_str()).c_str());
             setUserPath("");
             setUserImagePath("");
@@ -807,7 +807,7 @@ void Application::updateMac1_00() {
 void Application::init_i18n()
 {
     // Initialize the internationalization subsystem
-    
+
     // priorities:
     // language: command-line --- user option --- system (environment)
     // defaultLanguage: command-line --- system (environment)
@@ -821,7 +821,7 @@ void Application::init_i18n()
         if (app.language == "") {
             app.language = app.defaultLanguage;
         }
-    }   
+    }
 
 #if defined(ENABLE_NLS)
 
@@ -846,15 +846,15 @@ void Application::setUserPath(std::string newPath) {
     std::string prefUserPath = (newPath == userStdPath) ? "" : newPath;
     if ((prefUserPath.empty() && userPath != userStdPath) || (!prefUserPath.empty() && prefUserPath != userPath)) {
         // set the new userPath - used for saves
-        if (prefUserPath.empty())    
+        if (prefUserPath.empty())
             userPath = userStdPath;
         else
             userPath = prefUserPath;
-        
+
         // load all resources primarily from the new path but keep the old user path
         // because the user could not yet copy his user data to the new location
         resourceFS->prepend_dir(userPath);
-        
+
         // set the new path as the users preference - the standard path is saved as ""
 #ifdef MACOSX
         // 1.00 uses "" as "~/.enigma" - we have to store the complete path
@@ -868,11 +868,11 @@ void Application::setUserImagePath(std::string newPath) {
     std::string prefUserImagePath = (newPath == userStdPath) ? "" : newPath;
     if ((prefUserImagePath.empty() && userImagePath != userStdPath) || (!prefUserImagePath.empty() && prefUserImagePath != userImagePath)) {
         // set the new userImagePath - used for saves
-        if (prefUserImagePath.empty())    
+        if (prefUserImagePath.empty())
             userImagePath = userStdPath;
         else
             userImagePath = prefUserImagePath;
-                
+
         // load all resources primarily from the new path but keep the old user path
         // because the user could not yet copy his user data to the new location
         if (userImagePath != userPath)
@@ -889,14 +889,14 @@ void Application::setUserImagePath(std::string newPath) {
 
 /* -------------------- Functions -------------------- */
 
-void Application::shutdown() 
+void Application::shutdown()
 {
     oxyd::Shutdown();
     enigma::ShutdownWorld();
     display::Shutdown();
     if (!isMakePreviews) { // avoid saves on preview generation
         lev::RatingManager::instance()->save();
-        if (lev::PersistentIndex::historyIndex != NULL) 
+        if (lev::PersistentIndex::historyIndex != NULL)
             lev::PersistentIndex::historyIndex->save();
         lev::ScoreManager::instance()->shutdown();
         app.state->shutdown();
@@ -919,7 +919,7 @@ void Application::shutdown()
     delete ::nullbuffer;
 }
 
-int main(int argc, char **argv) 
+int main(int argc, char **argv)
 {
     try {
         app.init(argc,argv);

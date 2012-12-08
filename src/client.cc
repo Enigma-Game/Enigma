@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -82,13 +82,13 @@ namespace
             text += _(" by ") + tmp;
         tmp = level->getLocalizedString("subtitle");
         if (!tmp.empty() && tmp != "subtitle")
-           text += string(" - \"")+ tmp + "\""; 
+           text += string(" - \"")+ tmp + "\"";
         tmp = level->getCredits(false);
         if (!tmp.empty())
-            text += string(" - Credits: ")+ tmp; 
+            text += string(" - Credits: ")+ tmp;
         tmp = level->getDedication(false);
         if (!tmp.empty())
-            text += string(" - Dedication: ")+ tmp; 
+            text += string(" - Dedication: ")+ tmp;
         return text;
     }
 }
@@ -106,17 +106,17 @@ namespace
 
 /* -------------------- Client class -------------------- */
 
-Client::Client() 
+Client::Client()
 : m_state (cls_idle),
   m_levelname(),
   m_hunt_against_time(0),
-  m_cheater(false), 
+  m_cheater(false),
   m_user_input()
 {
     m_network_host = 0;
 }
 
-Client::~Client() 
+Client::~Client()
 {
     network_stop();
 }
@@ -148,7 +148,7 @@ bool Client::network_start()
                                        14400 / 8 /* 56K modem with 14 Kbps upstream bandwidth */);
 
     if (m_network_host == NULL) {
-        fprintf (stderr, 
+        fprintf (stderr,
                  "An error occurred while trying to create an ENet client host.\n");
         return false;
     }
@@ -164,14 +164,14 @@ bool Client::network_start()
     sv_address.port = 12345;
 
     /* Initiate the connection, allocating the two channels 0 and 1. */
-    m_server = enet_host_connect (m_network_host, &sv_address, 2);    
-    
+    m_server = enet_host_connect (m_network_host, &sv_address, 2);
+
     if (m_server == NULL) {
-       fprintf (stderr, 
+       fprintf (stderr,
                 "No available peers for initiating an ENet connection.\n");
        return false;
     }
-    
+
     // Wait up to 5 seconds for the connection attempt to succeed.
     ENetEvent event;
     if (enet_host_service (m_network_host, &event, 5000) > 0 &&
@@ -204,7 +204,7 @@ void Client::network_stop ()
 
 /* ---------- Event handling ---------- */
 
-void Client::handle_events() 
+void Client::handle_events()
 {
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
@@ -244,13 +244,13 @@ void Client::handle_events()
     }
 }
 
-void Client::update_mouse_button_state() 
+void Client::update_mouse_button_state()
 {
     int b = SDL_GetMouseState(0, 0);
     player::InhibitPickup((b & SDL_BUTTON(1)) || (b & SDL_BUTTON(3)));
 }
 
-void Client::on_mousebutton(SDL_Event &e) 
+void Client::on_mousebutton(SDL_Event &e)
 {
     if (e.button.state == SDL_PRESSED) {
         if (e.button.button == 1) {
@@ -328,7 +328,7 @@ void Client::user_input_append(char c) {
 
 void Client::user_input_backspace() {
     if (consoleIndex == 1) {
-        newCommand.erase(newCommand.size() - 1, 1); 
+        newCommand.erase(newCommand.size() - 1, 1);
         if (!newCommand.empty())
             Msg_ShowText(newCommand, false);
         else {
@@ -337,7 +337,7 @@ void Client::user_input_backspace() {
         }
     } else if (consoleIndex > 1) {
         newCommand =  commandHistory[consoleIndex - 2];
-        newCommand.erase(newCommand.size() - 1, 1); 
+        newCommand.erase(newCommand.size() - 1, 1);
         if (!newCommand.empty()) {
             consoleIndex = 1;
             Msg_ShowText(newCommand, false);
@@ -394,7 +394,7 @@ void Client::user_input_next() {
     }
 }
 
-void Client::on_keydown(SDL_Event &e) 
+void Client::on_keydown(SDL_Event &e)
 {
     SDLKey keysym = e.key.keysym.sym;
     SDLMod keymod = e.key.keysym.mod;
@@ -404,7 +404,7 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_a:
             server::Msg_Command ("restart");
             break;
-        case SDLK_F3: 
+        case SDLK_F3:
             if (keymod & KMOD_SHIFT) {
                 // force a reload from file
                 lev::Proxy::releaseCache();
@@ -416,12 +416,12 @@ void Client::on_keydown(SDL_Event &e)
     }
     else if (keymod & KMOD_ALT) {
         switch (keysym) {
-        case SDLK_x: 
+        case SDLK_x:
             abort(); break;
         case SDLK_t:
             if (enigma::WizardMode) {
                 Screen *scr = video::GetScreen();
-                ecl::TintRect(scr->get_surface (), display::GetGameArea(), 
+                ecl::TintRect(scr->get_surface (), display::GetGameArea(),
                              100, 100, 100, 0);
                 scr->update_all();
             }
@@ -469,11 +469,11 @@ void Client::on_keydown(SDL_Event &e)
         case SDLK_F2:
             // display hint
             break;
-        case SDLK_F3: 
+        case SDLK_F3:
             if (keymod & KMOD_SHIFT)
                 server::Msg_Command ("restart");
             else
-                server::Msg_Command ("suicide"); 
+                server::Msg_Command ("suicide");
             break;
 
         case SDLK_F4: Msg_AdvanceLevel(lev::ADVANCE_STRICTLY); break;
@@ -531,7 +531,7 @@ static const char *helptext_ingame[] = {
     0
 };
 
-void Client::show_help() 
+void Client::show_help()
 {
     server::Msg_Pause (true);
     video::TempInputGrab grab(false);
@@ -551,7 +551,7 @@ void Client::show_help()
     server::Msg_Pause (false);
     game::ResetGameTimer();
 
-    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST) 
+    if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST)
         server::Msg_Command ("restart"); // inhibit cheating
 
 }
@@ -566,7 +566,7 @@ void Client::show_menu(bool isESC) {
         if (server::MenuCount > 10)
             mark_cheater();
     }
-    
+
     server::Msg_Pause (true);
 
     ecl::Screen *screen = video::GetScreen();
@@ -586,7 +586,7 @@ void Client::show_menu(bool isESC) {
 
     server::Msg_Pause (false);
     game::ResetGameTimer();
-    
+
     if (isESC)  // protection against ESC D.o.S. attacks
         server::LastMenuTime = server::LevelTime;
 }
@@ -609,7 +609,7 @@ void Client::draw_screen()
         const video::VMInfo *vminfo = video::GetInfo();
         int width = vminfo->width - 120;
         for (unsigned i=0; i<lines.size(); ) {
-            std::string::size_type breakPos = ecl::breakString (f, lines[i], 
+            std::string::size_type breakPos = ecl::breakString (f, lines[i],
                                                                 " ", width);
             f->render(gc, x,  y, lines[i].substr(0,breakPos).c_str());
             y += yskip;
@@ -631,7 +631,7 @@ void Client::draw_screen()
 }
 
 
-std::string Client::init_hunted_time() 
+std::string Client::init_hunted_time()
 {
     std::string hunted;
     m_hunt_against_time = 0;
@@ -640,7 +640,7 @@ std::string Client::init_hunted_time()
         lev::ScoreManager *scm = lev::ScoreManager::instance();
         lev::Proxy *curProxy = ind->getCurrent();
         lev::RatingManager *ratingMgr = lev::RatingManager::instance();
-        
+
         int   difficulty     = app.state->getInt("Difficulty");
         int   wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
         int   best_user_time = scm->getBestUserScore(curProxy, difficulty);
@@ -659,7 +659,7 @@ std::string Client::init_hunted_time()
     return hunted;
 }
 
-void Client::tick (double dtime) 
+void Client::tick (double dtime)
 {
     const double timestep = 0.01; // 10ms
 
@@ -701,7 +701,7 @@ void Client::tick (double dtime)
                     string message;
 
                     if (wr_time>0 && (best_user_time<0 || best_user_time>wr_time)) {
-                        message = string(_("Too slow for ")) + 
+                        message = string(_("Too slow for ")) +
                             ratingMgr->getBestScoreHolder(curProxy, difficulty) +
                             ".. [Ctrl-A]";
                     }
@@ -742,7 +742,7 @@ void Client::tick (double dtime)
         break;
     case cls_abort:
         break;
-    case cls_error: 
+    case cls_error:
         {
             SDL_Event e;
             while (SDL_PollEvent(&e)) {
@@ -760,7 +760,7 @@ void Client::tick (double dtime)
     }
 }
 
-void Client::level_finished() 
+void Client::level_finished()
 {
     lev::Index *ind = lev::Index::getCurrentIndex();
     lev::ScoreManager *scm = lev::ScoreManager::instance();
@@ -775,11 +775,11 @@ void Client::level_finished()
 
     string      text;
     bool        timehunt_restart = false;
-    
+
     std::string par_name  = ratingMgr->getBestScoreHolder(curProxy, difficulty);
     for (int cut = 2; par_name.length() > 55; cut++)
         par_name  = ratingMgr->getBestScoreHolder(curProxy, difficulty, cut);
-    
+
     if (wr_time > 0) {
         if (best_user_time<0 || best_user_time>wr_time) {
             if (level_time == wr_time)
@@ -794,7 +794,7 @@ void Client::level_finished()
             if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST)
                 timehunt_restart = true; // when hunting yourself: Equal is too slow
         }
-        else if (level_time<best_user_time)
+        else if (level_time<best_user_time) {
             if (par_time >= 0 && level_time <= par_time)
                 text = _("New personal record - better than par!");
             // Uncomment the following lines to show the "but over par!"-part.
@@ -803,6 +803,7 @@ void Client::level_finished()
             //    text = _("New personal record, but over par!");
             else
                 text = _("New personal record!");
+	}
     }
 
     if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST &&
@@ -819,7 +820,7 @@ void Client::level_finished()
                 text = "";
             }
             text += ecl::timeformat(behind);
-            if (with_par) 
+            if (with_par)
                 text += _("behind world record.");
             else
                 text += _("behind your record.");
@@ -853,7 +854,7 @@ void Client::level_finished()
 
     if (timehunt_restart)
         server::Msg_Command("restart");
-    else 
+    else
         m_state = cls_finished;
 }
 
@@ -911,7 +912,7 @@ void Client::handle_message (Message *m) { // @@@ unused
     }
 }
 
-void Client::error (const string &text) 
+void Client::error (const string &text)
 {
     m_error_message = text;
     m_state = cls_error;
@@ -937,7 +938,7 @@ void client::ClientShutdown() {
     CLIENT.shutdown();
 }
 
-bool client::NetworkStart() 
+bool client::NetworkStart()
 {
     return CLIENT.network_start();
 }
@@ -999,7 +1000,7 @@ void client::Msg_Command(const string& cmd) {
     }
 }
 
-void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos) 
+void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
 {
     if (iplayer == (unsigned)player::CurrentPlayer()) {
         sound::SetListenerPosition (pos);
@@ -1007,7 +1008,7 @@ void client::Msg_PlayerPosition (unsigned iplayer, const V2 &pos)
     }
 }
 
-void client::Msg_PlaySound (const std::string &wavfile, 
+void client::Msg_PlaySound (const std::string &wavfile,
                             const ecl::V2 &pos,
                             double relative_volume)
 {
