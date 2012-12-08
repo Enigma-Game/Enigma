@@ -63,6 +63,8 @@ namespace enigma {
                 case 2 : return "volcano"; break;
                 case 3 : return "hay"; break;
             }
+            // Undefined: Throw an error.
+            throw XLevelRuntime("SeedItem with undefined type!");
         } else
             return Item::getAttr(key);
     }

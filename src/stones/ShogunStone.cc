@@ -213,7 +213,7 @@ namespace enigma {
         for (int check = ShogunStone::U; check > 0; check = check >> 1)
             if (holes & check)
                 return check;
-        ASSERT(false, XLevelRuntime, "ShogunStone: internal error - no holes");
+        throw XLevelRuntime("ShogunStone: internal error - no holes");
     }
     
     void ShogunStone::addSubHoles(int holes) {

@@ -122,8 +122,8 @@ namespace enigma {
         void markList(PuzzleList &list, bool visited);
         bool checkConnected(PuzzleList &todo, PuzzleStone *source, Direction dir, int color);
         bool findFragment(PuzzleList &cluster, bool keepMarked = false);
-        bool checkNeighbor(PuzzleList &todo, PuzzleStone *source, Direction dir, int color);
-        bool findAdjacents(PuzzleList &huddle);
+        void checkNeighbor(PuzzleList &todo, PuzzleStone *source, Direction dir, int color);
+        void findAdjacents(PuzzleList &huddle);
         int  findLine(PuzzleList &line, Direction dir, int color);
         
         bool moveCluster(bool waterSink, Direction dir, bool checkOnly = false);

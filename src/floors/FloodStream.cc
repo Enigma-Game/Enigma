@@ -19,7 +19,7 @@
 
 #include "floors/FloodStream.hh"
 
-//#include "errors.hh"
+#include "errors.hh"
 //#include "main.hh"
 #include "world.hh"
 
@@ -42,7 +42,9 @@ namespace enigma {
             case WOOD :  return "fl_wood";
             case HAY :   return "fl_hay";
             case ROCK :  return "fl_rock";
-        }   
+        }
+        // Undefined: Throw an error.
+        throw XLevelRuntime("FloodStream with undefined type!");
     }
 
     Value FloodStream::message(const Message &m) {

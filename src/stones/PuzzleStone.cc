@@ -372,7 +372,7 @@ namespace enigma {
         return is_complete;
     }
 
-    bool PuzzleStone::checkNeighbor(PuzzleList &todo, PuzzleStone *source, Direction dir, int color) {
+    void PuzzleStone::checkNeighbor(PuzzleList &todo, PuzzleStone *source, Direction dir, int color) {
         GridPos newpos = move(source->get_pos(), dir);
         if (PuzzleStone *pz = dynamic_cast<PuzzleStone*>(GetStone(newpos))) {
             if (!(pz->objFlags & OBJBIT_VISITED) && (pz->getAttr("color") == color)) {
@@ -382,7 +382,7 @@ namespace enigma {
         }
     }
 
-    bool PuzzleStone::findAdjacents(PuzzleList &huddle) {
+    void PuzzleStone::findAdjacents(PuzzleList &huddle) {
         PuzzleList todo;
         todo.push_back(this);
         markPuzzle(true);

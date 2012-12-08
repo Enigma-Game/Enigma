@@ -790,7 +790,7 @@ namespace enigma {
                 return i;
             mask >>= 1;
         }
-        ASSERT(false, XLevelRuntime, "Oxyd shuffle - oxydId attempt to convert bad mask");
+        throw XLevelRuntime("Oxyd shuffle - oxydId attempt to convert bad mask");
     }
     
     void OxydStone::log_shuffle_basis() {

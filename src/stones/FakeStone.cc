@@ -126,6 +126,8 @@ namespace enigma {
             case OXYDE:
                 return "oxyde";
         }
+        // Undefined: Throw an error.
+        throw XLevelRuntime("FakeStone with undefined type!");
     }
     
     BOOT_REGISTER_START

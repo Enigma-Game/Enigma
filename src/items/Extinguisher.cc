@@ -76,6 +76,7 @@ namespace enigma {
             // Redraw the player's inventory, the visual representation of
             // the extinguisher has changed.
             player::RedrawInventory();
+            return ITEM_KEEP;
         } else
             return ITEM_DROP;
     }

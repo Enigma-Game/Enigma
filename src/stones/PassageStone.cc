@@ -104,7 +104,7 @@ namespace enigma {
             case 2 : return "cross";
             case 3 : return "frame";
         }
-        ASSERT(false, XLevelRuntime, "PassageStone unknown flavor");
+        throw XLevelRuntime("PassageStone unknown flavor");
     }
 
     int PassageStone::traitsIdx() const {

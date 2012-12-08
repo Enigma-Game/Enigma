@@ -2515,6 +2515,7 @@ static int finalizeResolvers(lua_State *L) {
             lua_pop(L, 1);  // nil
         }
     }
+    return 0;
 }
 
 static int createWorld(lua_State *L) {
