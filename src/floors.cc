@@ -391,8 +391,8 @@ bool Floor::stop_fire(bool is_message) {
     // so we have to check if there is fire at all.
     if (is_message) {
         if (Item *it = GetItem(p)) {
-            ItemID id = get_id(it);
-            if (id != it_burnable_burning && id != it_burnable_ignited)
+            ItemID theid = get_id(it);
+            if (theid != it_burnable_burning && theid != it_burnable_ignited)
                 return false;  // no fire
         } else
             return false; // no item == no fire

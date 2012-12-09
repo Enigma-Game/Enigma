@@ -110,7 +110,7 @@ void Item::processLight(Direction d) {
         GridObject::processLight(d);
 }
 
-double Item::getFriction(ecl::V2 pos, double defaultFriction, Actor *a) {
+double Item::getFriction(ecl::V2 position, double defaultFriction, Actor *a) {
     return defaultFriction;
 }
 

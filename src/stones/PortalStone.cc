@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -26,11 +26,11 @@ namespace enigma {
     PortalStone::PortalStone(int typ) : Stone() {
         state = typ;
     }
-    
+
     std::string PortalStone::getClass() const {
         return "st_portal";
     }
-    
+
     Value PortalStone::getAttr(const std::string &key) const {
         if (key == "flavor") {
             switch (state) {
@@ -46,7 +46,7 @@ namespace enigma {
     void PortalStone::setState(int extState) {
         // no external states
     }
-    
+
     void PortalStone::init_model() {
         switch (state) {
             default:
@@ -56,19 +56,19 @@ namespace enigma {
                 break;
         }
     }
-    
+
     bool PortalStone::is_floating() const {
         return true;
     }
-    
+
     StoneResponse PortalStone::collision_response(const StoneContact &sc) {
-        ActorID id = get_id(sc.actor);
-        if ((state == HORSE && id == ac_horse) || (state == PEARL && id == ac_pearl_white))
+        ActorID theid = get_id(sc.actor);
+        if ((state == HORSE && theid == ac_horse) || (state == PEARL && theid == ac_pearl_white))
             return STONE_PASS;
         else
             return STONE_REBOUND;
     }
-    
+
     DEF_TRAITS(PortalStone, "st_portal", st_portal);
 
     BOOT_REGISTER_START

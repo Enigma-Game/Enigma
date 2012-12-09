@@ -7,7 +7,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,9 +29,9 @@
 
 namespace enigma {
     ThiefFloor::ThiefFloor() : Floor("fl_thief", 4.5, 1.5), victimId (0), bag (NULL) {
-        
+
     }
-    
+
     ThiefFloor::~ThiefFloor() {
         if (bag != NULL)
             delete bag;
@@ -40,9 +40,9 @@ namespace enigma {
     std::string ThiefFloor::getClass() const {
         return "fl_thief";
     }
-    
+
     Value ThiefFloor::message(const Message &m) {
-        if (m.message == "_capture" && (state == IDLE || state == DRUNKEN) && isDisplayable()) {            
+        if (m.message == "_capture" && (state == IDLE || state == DRUNKEN) && isDisplayable()) {
             // add items on grid pos that can be picked up to our bag
             Item * it =  GetItem(get_pos());
             if (it != NULL && !(it->get_traits().flags & itf_static) && bag != NULL) {
@@ -59,26 +59,26 @@ namespace enigma {
         }
         return Floor::message(m);
     }
-   
+
     void ThiefFloor::setState(int extState) {
         // block all state writes
     }
-    
+
     void ThiefFloor::on_creation(GridPos p) {
         objFlags |= (IntegerRand(0, 3) << 24);
         Floor::on_creation(p);
     }
-    
+
     std::string ThiefFloor::getModelName() const {
         return ecl::strf("fl_thief%d", ((objFlags & OBJBIT_MODEL) >> 24) + 1);
     }
-    
+
     void ThiefFloor::init_model() {
         std::string basename = getModelName();
         switch (state) {
             case IDLE:
             case CAPTURED:
-                set_model(basename); 
+                set_model(basename);
                 break;
             case EMERGING:
                 set_anim(basename + "_emerge");
@@ -97,7 +97,7 @@ namespace enigma {
                 break;
         }
     }
-    
+
     void ThiefFloor::actor_enter(Actor *a) {
         if (state == IDLE && a->is_on_floor()) {
             state = EMERGING;
@@ -130,7 +130,7 @@ namespace enigma {
 
     void ThiefFloor::doSteal() {
         bool didSteal = false;
-        
+
         // the actor that hit the thief may no longer exist!
         if (Actor *victim = dynamic_cast<Actor *>(Object::getObject(victimId))) {
             if (Value owner = victim->getAttr("owner")) {
@@ -158,10 +158,10 @@ namespace enigma {
             if (!(it->get_traits().flags & itf_static)) {
                 if (bag == NULL) {
                     bag = MakeItem("it_bag");
-                    bag->setOwnerPos(get_pos());                
+                    bag->setOwnerPos(get_pos());
                 }
-                Item *it = YieldItem(get_pos());
-                dynamic_cast<ItemHolder *>(bag)->add_item(it);
+                Item *theit = YieldItem(get_pos());
+                dynamic_cast<ItemHolder *>(bag)->add_item(theit);
                 didSteal = true;
                 if (it->getKind() == "it_bottle_idle")
                     state = DRUNKEN;
@@ -170,7 +170,7 @@ namespace enigma {
         if (didSteal)
             sound_event("thief");
     }
-        
+
     BOOT_REGISTER_START
         BootRegister(new ThiefFloor(), "fl_thief");
     BOOT_REGISTER_END

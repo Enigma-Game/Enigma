@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -22,7 +22,7 @@
 #include "GridObject.hh"
 
 namespace enigma {
-    
+
     enum ItemID {
         it_INVALID = -1,
         it_FIRST = 0,
@@ -50,7 +50,7 @@ namespace enigma {
         it_cherry_crushed,
         it_coffee,
         it_coin_s,
-        it_coin_m, 
+        it_coin_m,
         it_coin_l,
         it_crack_i,
         it_crack_s,
@@ -203,7 +203,7 @@ namespace enigma {
 
         void init_model();
         virtual void processLight(Direction d);
-        virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
+        virtual double getFriction(ecl::V2 position, double defaultFriction, Actor *a);
         virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
 
         /* ---------- Item interface ---------- */
@@ -211,7 +211,7 @@ namespace enigma {
         virtual Item *clone() = 0;
 
         virtual const ItemTraits &get_traits() const = 0;
-        
+
         virtual bool isStatic() const;   // not liftable
         virtual bool isPortable() const;
         virtual bool isFreezable() const;
@@ -220,7 +220,7 @@ namespace enigma {
           case the Floor::actor_contact() will not be called
           automatically; this must be done from `Item::actor_hit' (if
           at all). */
-        virtual bool covers_floor(ecl::V2 pos, Actor *a) const { return false; }
+        virtual bool covers_floor(ecl::V2 position, Actor *a) const { return false; }
 
         /*! Return the force an item exerts on actor `a'.  This is
           used by sloped and hills for force fields that are local to
@@ -254,11 +254,11 @@ namespace enigma {
 
         /* Called when item is activated by the owner of `a'. */
         virtual ItemAction activate(Actor* a, GridPos p);
-        
+
         virtual std::list<GridPos> warpSpreadPos(bool isWater);
     protected:
         virtual Object::ObjectType getObjectType() const {return Object::ITEM;}
-        
+
         // GridObject interface
         virtual void set_model (const std::string &mname) {
             display::SetModel(GridLoc(GRID_ITEMS, get_pos()), mname);
@@ -279,7 +279,7 @@ namespace enigma {
 /* -------------------- Inline functions -------------------- */
 
     /*! Return unique item type identifier. */
-    inline ItemID get_id (Item *it) { 
+    inline ItemID get_id (Item *it) {
         if (it)
             return it->get_traits().id;
         return it_none;
@@ -290,8 +290,8 @@ namespace enigma {
     }
 
 /* -------------------- Functions -------------------- */
-    
-    
+
+
 /* --------------------  Item Macros -------------------- */
 
 #define DEF_ITEM(classname, kindname, kindid)   \
@@ -328,7 +328,7 @@ namespace enigma {
 
 #define DEF_ITEMTRAITSR(classname, name, id, radius)         \
     ItemTraits classname::traits = { name, id, 0, radius }
-    
+
 } // namespace enigma
 
 #endif

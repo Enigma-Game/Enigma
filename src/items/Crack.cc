@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -30,11 +30,11 @@ namespace enigma {
         if (isWater)
             objFlags |= OBJBIT_TYP;
     }
-    
+
     std::string Crack::getClass() const {
         return "it_crack";
     }
-    
+
     void Crack::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             std::string flavor = val.to_string();
@@ -50,7 +50,7 @@ namespace enigma {
         }
         Item::setAttr(key, val);
     }
-    
+
     Value Crack::getAttr(const std::string &key) const {
         if (key == "flavor") {
             return objFlags & OBJBIT_TYP ? "water" : "abyss";
@@ -72,20 +72,20 @@ namespace enigma {
         }
         return Item::message(m);
     }
-    
+
     int Crack::maxState() const {
         return DISSOLVING;
     }
-    
+
     int Crack::minState() const {
         return INVISIBLE;
     }
-    
+
     void Crack::toggleState() {
         if (state < DISSOLVING)
             setState(state + 1);
     }
-    
+
     void Crack::init_model() {
         switch (state) {
             case INVISIBLE :
@@ -99,7 +99,7 @@ namespace enigma {
                 set_anim(ecl::strf("it_crack_%s_anim", objFlags & OBJBIT_TYP ? "water" : "abyss"));
         }
     }
-    
+
     void Crack::actor_enter(Actor *a) {
         if (a->is_on_floor()) {
             crack();
@@ -114,15 +114,15 @@ namespace enigma {
                                 if (!(objFlags & OBJBIT_TYP))    // no water crack caused neighbor cracking
                                     SendMessage(it, "crack");
                             } else {
-                                double spreading = getDefaultedAttr("spreading", server::CrackSpreading); 
+                                double spreading = getDefaultedAttr("spreading", server::CrackSpreading);
                                 if (DoubleRand(0, 0.9999) < spreading) {
-                                    Item *it = MakeItem("it_crack_i");
-                                    it->setAttr("flavor", getAttr("flavor"));
+                                    Item *theit = MakeItem("it_crack_i");
+                                    theit->setAttr("flavor", getAttr("flavor"));
                                     if (Value v = getAttr("fragility"))
-                                        it->setAttr("fragility", v);
+                                        theit->setAttr("fragility", v);
                                     if (Value v = getAttr("spreading"))
-                                        it->setAttr("spreading", v);
-                                    SetItem(p, it);
+                                        theit->setAttr("spreading", v);
+                                    SetItem(p, theit);
                                 }
                             }
                         }
@@ -131,30 +131,30 @@ namespace enigma {
             }
         }
     }
-    
+
     void Crack::animcb() {
         GridPos p= get_pos();
         SetFloor(p, MakeFloor(objFlags & OBJBIT_TYP ? "fl_water" :"fl_abyss"));
         KillItem(p);
     }
-    
+
     void Crack::crack() {
         Floor *fl = GetFloor(get_pos());
         if (fl != NULL && fl->is_destructible()) {
             Value v = fl->getAttr("fragility");
             double fragility = getDefaultedAttr("fragility", v ? v : Value(server::Fragility));
-            double spreading = getDefaultedAttr("spreading", server::CrackSpreading); 
+            double spreading = getDefaultedAttr("spreading", server::CrackSpreading);
             if (((state == INVISIBLE) && (DoubleRand(0, 0.9999) < spreading)) || (DoubleRand(0, 0.9999) < fragility)) {
                 toggleState();
                 sound_event("crack");
             }
         }
     }
-        
+
     int Crack::traitsIdx() const {
         return state < DISSOLVING ? state + 1 : 3;
     }
-    
+
     ItemTraits Crack::traits[4] = {
         {"it_crack_i",  it_crack_i,  itf_static | itf_fireproof | itf_indestructible, 0.0},
         {"it_crack_s",  it_crack_s,  itf_static | itf_fireproof | itf_indestructible, 0.0},

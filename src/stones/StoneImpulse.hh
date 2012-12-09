@@ -25,44 +25,44 @@
 
 namespace enigma {
 
-    /** 
-     * 
+    /**
+     *
      * It is essential for the propagation of impulses, that the expanding phase
      * of a stoneimpulse is slightly shorter than the shrinking phase. This is
      * currently achieved by the animation sequence. This mismatch is responsible
      * for blocking impulse waves from backfiring.
-     * 
-     * 
+     *
+     *
      */
     class StoneImpulse : public Stone {
         CLONEOBJ(StoneImpulse);
         DECL_TRAITS_ARRAY(4, traitsIdx());
     private:
         enum iState {
-            IDLE,        ///<  
-            EXPANDING,   ///<  
+            IDLE,        ///<
+            EXPANDING,   ///<
             SHRINKING,   ///<
             BREAKING
         };
-        
+
         enum ObjectPrivatFlagsBits {
-            OBJBIT_MOVABLE     =  1<<24,   ///< Object is movable 
+            OBJBIT_MOVABLE     =  1<<24,   ///< Object is movable
             OBJBIT_HOLLOW      =  1<<25,   ///< hollow stoneimpulse
-            OBJBIT_STEADY      =  1<<26,   ///< continuous laser light causes repeating impulses 
+            OBJBIT_STEADY      =  1<<26,   ///< continuous laser light causes repeating impulses
             OBJBIT_REPULSE     =  1<<27,   ///< pending impulse
             OBJBIT_NOBACKFIRE  =  1<<28,   ///< avoid sending impulse back into incoming direction
-            OBJBIT_PROPAGATE   =  1<<29,   ///< only for movable SI to  mark impulse propagation on shrinking 
+            OBJBIT_PROPAGATE   =  1<<29,   ///< only for movable SI to  mark impulse propagation on shrinking
             OBJBIT_LASERIDLE   =  1<<31,   ///< not steady stoneimpulse did run singleton pulse and is idle but still enlighted
         };
     public:
-        StoneImpulse(bool isSteady, bool isHollow, bool isMovable, bool isActive);
-        
+        StoneImpulse(bool isSteadyStone, bool isHollowStone, bool isMovableStone, bool isActiveStone);
+
         // Object interface
         virtual std::string getClass() const;
         virtual void setAttr(const string& key, const Value &val);
         virtual Value getAttr(const std::string &key) const;
         virtual Value message(const Message &m);
-        
+
         // StateObject interface
         virtual void setState(int extState);
 
@@ -70,10 +70,10 @@ namespace enigma {
         virtual void init_model();
         virtual void on_creation(GridPos p);
         virtual void lightDirChanged(DirectionBits oldDirs, DirectionBits newDirs);
-        
+
         // ModelCallback interface
         virtual void animcb();
-        
+
         // Stone interface
         virtual bool is_floating() const;
         virtual StoneResponse collision_response(const StoneContact &sc);
@@ -82,7 +82,7 @@ namespace enigma {
         virtual void on_impulse(const Impulse& impulse);
 //        virtual void on_move();
         virtual FreezeStatusBits get_freeze_bits();
-        
+
     private:
         void setIState(int newState, Direction incoming = NODIR);
         void propagateImpulse(const Impulse& impulse);
@@ -93,4 +93,3 @@ namespace enigma {
 } // namespace enigma
 
 #endif
-

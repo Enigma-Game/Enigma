@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -51,7 +51,7 @@ namespace enigma {
     class DropCallback : public enigma::TimeHandler {
         Actor *rotor;
         Actor *old;
-    
+
     public:
         DropCallback (Actor *rotor_, Actor *old_)
         : rotor (rotor_), old (old_)
@@ -75,14 +75,14 @@ namespace enigma {
     std::string Drop::getClass() const {
         return "it_drop";
     }
-        
+
     ItemAction Drop::activate(Actor *a, GridPos) {
         const double ROTOR_LIFETIME = 5.0;
 
         int     iplayer = a->getAttr("owner");
-        ActorID id      = get_id (a);
+        ActorID theid   = get_id (a);
 
-        if (id == ac_marble_black || id == ac_marble_white) {
+        if (theid == ac_marble_black || theid == ac_marble_white) {
             // Kill ALL rubberbands connected with the actor:
             SendMessage(a, "disconnect");
             Actor *rotor = MakeActor("ac_rotor");
@@ -107,7 +107,7 @@ namespace enigma {
         }
         return ITEM_KILL;          // remove from inventory
     }
-    
+
     DEF_ITEMTRAITS(Drop, "it_drop", it_drop);
 
     BOOT_REGISTER_START

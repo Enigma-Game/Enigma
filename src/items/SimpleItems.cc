@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -32,7 +32,7 @@ namespace enigma {
 
     Banana::Banana() {
     }
-    
+
     void Banana::processLight(Direction d) {
         sound_event("itemtransform");
         transform("it_cherry");
@@ -46,23 +46,23 @@ namespace enigma {
 
 
 /* -------------------- Brush -------------------- */
-   
+
     Brush::Brush() {
     }
-    
+
     ItemAction Brush::activate(Actor *a, GridPos p) {
         if (Item *it = GetItem(p))
             SendMessage (it, "_brush");
         return ITEM_DROP;
     }
-    
+
     DEF_ITEMTRAITSF(Brush, "it_brush", it_brush, itf_inflammable);
 
 /* -------------------- Cherry -------------------- */
 
     Cherry::Cherry() {
     }
-    
+
     ItemAction Cherry::activate(Actor *actor, GridPos p) {
         if (SendMessage(actor, "_invisibility").to_bool())
             return ITEM_KILL;
@@ -74,20 +74,20 @@ namespace enigma {
     void Cherry::on_stonehit(Stone *) {
         transform("it_squashed");
     }
-    
+
     void Cherry::on_drop(Actor *a) {
-        transform("it_squashed");        
+        transform("it_squashed");
     }
 
     DEF_ITEMTRAITS(Cherry, "it_cherry", it_cherry);
 
 /* -------------------- Death Item  -------------------- */
-    
+
     DeathItem::DeathItem() {
     }
-    
-    void DeathItem::animcb() { 
-        set_model("it_death"); 
+
+    void DeathItem::animcb() {
+        set_model("it_death");
         state = 0;
      }
 
@@ -102,7 +102,7 @@ namespace enigma {
         }
         return false;
     }
-    
+
     DEF_ITEMTRAITSF(DeathItem, "it_death", it_death, itf_static | itf_indestructible);
 
 /* -------------------- Debris -------------------- */
@@ -110,8 +110,8 @@ namespace enigma {
     Debris::Debris(int type) {
         state = type;
     }
-    
-    void Debris::animcb() { 
+
+    void Debris::animcb() {
         SetFloor(get_pos(), MakeFloor(state == 0 ? "fl_abyss" : "fl_water"));
         kill();
      }
@@ -124,18 +124,18 @@ namespace enigma {
     int Debris::traitsIdx() const {
         return ecl::Clamp<int>(state, 0, 1);
     }
-    
+
     ItemTraits Debris::traits[2] = {
         {"it_debris", it_debris,  itf_static | itf_animation | itf_indestructible | itf_fireproof, 0.0},
         {"it_debris_water", it_debris_water,  itf_static | itf_animation | itf_indestructible | itf_fireproof, 0.0},
     };
-    
+
 /* -------------------- Explosion -------------------- */
 
     Explosion::Explosion(int strength) {
         state = strength;
     }
-    
+
     std::string Explosion::getClass() const {
         return "it_explosion";
     }
@@ -150,16 +150,16 @@ namespace enigma {
         }
         return Item::message(m);
     }
-    
+
     void Explosion::setState(int extState) {
         // no state writes
     }
-    
+
     void Explosion::init_model() {
         set_anim("it_explosion");
     }
-    
-    void Explosion::animcb() { 
+
+    void Explosion::animcb() {
         Floor *fl = GetFloor(get_pos());
         if (state != 0 && fl->is_destructible())
             if (state == 1)
@@ -172,8 +172,8 @@ namespace enigma {
                     isAbyss = false;
                 else if (server::SubSoil == 2) {
                     for (Direction d = NORTH; d != NODIR; d = previous(d)) {
-                        Floor *fl = GetFloor(move(get_pos(), d));
-                        if (fl != NULL && fl->getClass() == "fl_water") {
+                        Floor *thefl = GetFloor(move(get_pos(), d));
+                        if (thefl != NULL && thefl->getClass() == "fl_water") {
                             isAbyss = false;
                             break;
                         }
@@ -189,11 +189,11 @@ namespace enigma {
         SendMessage(actor, "_shatter");
         return false;
     }
-     
+
     int Explosion::traitsIdx() const {
         return ecl::Clamp<int>(state, 0, 3);
     }
-    
+
     ItemTraits Explosion::traits[4] = {
         {"it_explosion_nil",  it_explosion_nil, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
         {"it_explosion_hollow",  it_explosion_hollow, itf_static | itf_animation | itf_indestructible | itf_norespawn | itf_fireproof, 0.0},
@@ -206,30 +206,30 @@ namespace enigma {
     FlagItem::FlagItem(int type) {
         Item::setAttr("color", type);
     }
-    
+
     std::string FlagItem::getClass() const {
         return "it_flag";
     }
-    
+
     void FlagItem::setAttr(const string& key, const Value &val) {
         if (key == "color") {
             if ((int)val < 0 || (int)val > 1)
                 return;
         }
         Item::setAttr(key, val);
-    }        
+    }
     void FlagItem::on_drop(Actor *a) {
         player::SetRespawnPositions(get_pos(), getAttr("color"));
     }
-    
+
     void FlagItem::on_pickup(Actor *a) {
         player::RemoveRespawnPositions(getAttr("color"));
     }
-    
+
     int FlagItem::traitsIdx() const {
         return getAttr("color");
     }
-    
+
     ItemTraits FlagItem::traits[2] = {
         {"it_flag_black", it_flag_black,  itf_none, 0.0},
         {"it_flag_white", it_flag_white,  itf_none, 0.0},
@@ -239,30 +239,30 @@ namespace enigma {
 
     Key::Key() {
     }
-    
+
     void Key::setAttr(const string& key, const Value &val) {
         Item::setAttr(key, val);
         if (key == "invisible" || key == "code") {
             player::RedrawInventory();
         }
     }
-    
+
     std::string Key::get_inventory_model() {
         bool showCode = !getAttr("invisible").to_bool();
         int code = getAttr("code");
         if (showCode && code >= 1 && code <= 8)
             return ecl::strf("it_key_%d", code);
         else
-            return "it_key";        
+            return "it_key";
     }
-    
+
     DEF_ITEMTRAITS(Key, "it_key", it_key);
-    
+
 /* -------------------- Pencil -------------------- */
 
     Pencil::Pencil() {
     }
-    
+
     ItemAction Pencil::activate(Actor *a, GridPos p) {
         if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
             if (GetItem(p))
@@ -292,18 +292,18 @@ namespace enigma {
         }
         return ITEM_KEEP;
     }
-    
+
     DEF_ITEMTRAITS(Pencil, "it_pencil", it_pencil);
-    
+
 /* -------------------- Pin -------------------- */
     Pin::Pin() {
     }
-    
+
     void Pin::setOwner(int player) {
         Value oldPlayer = getOwner();
         Item::setOwner(player);
         if (oldPlayer.getType() != Value::NIL && oldPlayer != -1 ) {
-            BroadcastMessage("_update_pin", oldPlayer, GRID_NONE_BIT, true);            
+            BroadcastMessage("_update_pin", oldPlayer, GRID_NONE_BIT, true);
         }
         if (player != -1) {
             BroadcastMessage("_update_pin", player, GRID_NONE_BIT, true);
@@ -314,7 +314,7 @@ namespace enigma {
 
     Ring::Ring() {
     }
-    
+
     ItemAction Ring::activate(Actor *a, GridPos p) {
         if (a->isMoribund())
             return ITEM_KEEP;
@@ -335,7 +335,7 @@ namespace enigma {
 
     Spade::Spade() {
     }
-    
+
     ItemAction Spade::activate(Actor *a, GridPos p) {
         if (Item *it=GetItem(p)) {
             sound::EmitSoundEvent("spade", p.center());
@@ -351,7 +351,7 @@ namespace enigma {
 
     Spoon::Spoon() {
     }
-    
+
     ItemAction Spoon::activate(Actor *a, GridPos) {
         SendMessage(a, "_suicide");
         return ITEM_DROP;
@@ -363,14 +363,14 @@ namespace enigma {
     Spring::Spring(int type) {
         state = type;
     }
-    
+
     std::string Spring::getClass() const {
         return "it_spring";
     }
     void Spring::setState(int extState) {
         // block all write attempts
     }
-    
+
     ItemAction Spring::activate(Actor *a, GridPos p) {
         if (state == KEEP) {
             SendMessage(a, "_jump");
@@ -387,11 +387,11 @@ namespace enigma {
         }
         return ITEM_KEEP;
     }
-    
+
     int Spring::traitsIdx() const {
         return ecl::Clamp<int>(state, 0, 1);
     }
-    
+
     ItemTraits Spring::traits[2] = {
         {"it_spring_keep", it_spring_keep,  itf_none, 0.0},
         {"it_spring_drop", it_spring_drop,  itf_none, 0.0},
@@ -400,7 +400,7 @@ namespace enigma {
 /* -------------------- Springboard -------------------- */
     Springboard::Springboard() {
     }
-    
+
     bool Springboard::actor_hit(Actor *a) {
         const double MAXDIST = 0.3;
         double ycenter = get_pos().y + 0.5;
@@ -418,12 +418,12 @@ namespace enigma {
     }
 
     DEF_ITEMTRAITSF(Springboard, "it_springboard", it_springboard, itf_static | itf_portable | itf_freezable);
-    
+
 /* -------------------- Squashed Cherry -------------------- */
 
     Squashed::Squashed() {
     }
-    
+
     Value Squashed::message (const Message &m) {
         if (enigma_server::GameCompatibility == GAMET_ENIGMA) {
             if (m.message == "_brush" || m.message == "_freeze") {
@@ -439,7 +439,7 @@ namespace enigma {
 /* -------------------- Weight item -------------------- */
     Weight::Weight() {
     }
-    
+
     void Weight::setAttr(const string& key, const Value &val) {
         if (key == "mass") {
             double oldMass = getAttr("mass");
@@ -456,8 +456,8 @@ namespace enigma {
             return;
         }
         Item::setAttr(key, val);
-    }        
-        
+    }
+
     void Weight::setOwner(int player) {
         Value oldPlayer = getOwner();
         if (player == -1) {
@@ -469,7 +469,7 @@ namespace enigma {
         if (oldPlayer.getType() != Value::NIL && oldPlayer != -1 ) {
             Inventory *i = player::GetInventory(oldPlayer);
             i->setAttr("mass", (double)i->getAttr("mass") - (double)getAttr("mass"));
-            BroadcastMessage("_update_mass", oldPlayer, GRID_NONE_BIT, true);            
+            BroadcastMessage("_update_mass", oldPlayer, GRID_NONE_BIT, true);
         }
         if (player != -1) {
             Inventory *i = player::GetInventory(player);
@@ -482,12 +482,12 @@ namespace enigma {
         Item::on_creation(p);
         SendMessage(GetFloor(p), "_add_mass", getAttr("mass"), this);
     }
-    
+
     void Weight::on_removal(GridPos p) {
         SendMessage(GetFloor(get_pos()), "_add_mass", -(double)getAttr("mass"), this);
         Item::on_removal(p);
     }
-    
+
     void Weight::setOwnerPos(GridPos po) {
         if (po == GridPos(-1, -1)) {
             GridPos p = getOwnerPos();
@@ -495,33 +495,33 @@ namespace enigma {
                 SendMessage(GetFloor(p), "_add_mass", -(double)getAttr("mass"), this);
         }
         Item::setOwnerPos(po);
-        SendMessage(GetFloor(po), "_add_mass", getAttr("mass"), this);        
+        SendMessage(GetFloor(po), "_add_mass", getAttr("mass"), this);
     }
-    
+
     ItemAction Weight::activate(Actor *, GridPos p) {
         return ITEM_KEEP;
     }
-    
+
     DEF_ITEMTRAITS(Weight, "it_weight", it_weight);
 
 /* -------------------- YinYang item -------------------- */
     Yinyang::Yinyang() {
     }
-    
+
     std::string Yinyang::get_inventory_model() {
         if (player::CurrentPlayer() == 0)
             return "it_yinyang";
         else
             return "it_yangyin";
     }
-    
+
     ItemAction Yinyang::activate(Actor *a, GridPos p) {
         // Switch to other marble
         player::SwapPlayers();
         sound::EmitSoundEvent("switchplayer", p.center());
         return ITEM_KEEP;
     }
-    
+
     DEF_ITEMTRAITS(Yinyang, "it_yinyang", it_yinyang);
 
 

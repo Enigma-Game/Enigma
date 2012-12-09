@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -29,7 +29,7 @@ namespace enigma {
 
     const double BasicBall::SHIELD_TIME = 10.0;
 
-    BasicBall::BasicBall(const ActorTraits &tr) : Actor (tr), 
+    BasicBall::BasicBall(const ActorTraits &tr) : Actor (tr),
             sinkDepth (minSinkDepth), sinkModel (-1),
             lastshinep (false), vortex_normal_time (0), m_halosprite (),
             m_shield_rest_time (0), m_halostate (NOHALO),
@@ -117,9 +117,9 @@ namespace enigma {
             default:
                 break;
         }
-    
+
         // Shield, booze and invisibility can be activated in all states except DEAD
-    
+
         if (state != DEAD) {
             if (m.message == "_shield" && getAttr("owner").getType() != Value::DEFAULT &&  getAttr("owner") ==  (int)m.value) {
                 m_shield_rest_time += SHIELD_TIME;
@@ -135,15 +135,15 @@ namespace enigma {
                 return true;
             }
         }
-    
+
         return handled ? Value() : Actor::message(m);
     }
-    
+
 
     int BasicBall::externalState() const {
         return state == DEAD ? 1 : 0;
     }
-    
+
     void BasicBall::setState(int extState) {
         // no change possible
     }
@@ -151,47 +151,47 @@ namespace enigma {
     bool BasicBall::is_dead() const {
         return state == DEAD;
     }
-    
+
     bool BasicBall::isMoribund() const {
         return state == DEAD || state == SHATTERING || state==BUBBLING || state==FALLING || state==RESURRECTED;
     }
-    
+
     bool BasicBall::is_movable() const {
-        return (state!=DEAD && state!=RESURRECTED && state!=APPEARING && state!=DISAPPEARING); 
+        return (state!=DEAD && state!=RESURRECTED && state!=APPEARING && state!=DISAPPEARING);
     }
-    
+
     bool BasicBall::is_flying() const {
         return state == JUMPING;
     }
-    
+
     bool BasicBall::is_on_floor() const {
         return state == NORMAL || state == JUMP_VORTEX || state==APPEARING;
     }
-    
+
     bool BasicBall::is_drunken() const {
         return m_drunk_rest_time>0;
     }
-    
+
     bool BasicBall::is_invisible() const {
         return m_invisible_rest_time>0;
     }
-    
+
     bool BasicBall::can_drop_items() const {
         return state == NORMAL || state == JUMP_VORTEX || state==JUMPING;
     }
-    
+
     bool BasicBall::can_pickup_items() const {
         return state == NORMAL || state == JUMP_VORTEX;
     }
-    
+
     bool BasicBall::can_be_warped() const {
         return state==NORMAL;
     }
-    
+
     bool BasicBall::has_shield() const {
         return m_shield_rest_time > 0;
     }
-    
+
     void BasicBall::on_creation(const ecl::V2 &p) {
         bool recreation = m_actorinfo.created;
         Actor::on_creation(p);
@@ -200,7 +200,7 @@ namespace enigma {
         } else if (recreation) {   // end of it_drop
             change_state(NORMAL);  // marble may be in any state
             ReleaseActor(this);    // in case it has been already NORMAL
-        } else { 
+        } else {
             change_state(APPEARING);
         }
     }
@@ -208,14 +208,14 @@ namespace enigma {
     void BasicBall::think(double dtime)  {
         if (m_invisible_rest_time > 0)
             m_invisible_rest_time -= dtime;
-    
+
         // Update protection shield
-        if (m_shield_rest_time > 0) 
+        if (m_shield_rest_time > 0)
             m_shield_rest_time -= dtime;
-    
+
         switch (state) {
-            case NORMAL: 
-                if (m_drunk_rest_time > 0) 
+            case NORMAL:
+                if (m_drunk_rest_time > 0)
                     m_drunk_rest_time -= dtime;
                 sink (dtime);
                 break;
@@ -228,10 +228,10 @@ namespace enigma {
             default:
                 break;
         }
-    
+
         Actor::think(dtime);
     }
-    
+
     void BasicBall::on_respawn (const ecl::V2 &pos) {
             Actor::on_respawn(pos);
             change_state(APPEARING);
@@ -246,15 +246,15 @@ namespace enigma {
         update_halo();
         Actor::move_screen();
     }
-    
+
     void BasicBall::hide() {
         Actor::hide();
         disable_shield();
     }
-    
+
     void BasicBall::animcb() {
         std::string kind = getModelBaseName();
-    
+
         switch (state) {
             case SHATTERING:
                 set_model(kind+"-shattered");
@@ -290,8 +290,8 @@ namespace enigma {
             case RISING_VORTEX: {
                 set_model(kind);
                 if (Item *it = GetItem(get_gridpos())) {
-                    ItemID id = get_id(it);
-                    if (id == it_vortex_open || id == it_vortex_closed) 
+                    ItemID theid = get_id(it);
+                    if (theid == it_vortex_open || theid == it_vortex_closed)
                         SendMessage(it, "_passed"); // closes some vortex
                 }
                 change_state(JUMP_VORTEX);
@@ -301,20 +301,20 @@ namespace enigma {
                 break;
         }
     }
-    
+
     std::string BasicBall::getModelBaseName() const {
         return getKind();
     }
-    
+
     void BasicBall::sink(double dtime) {
         double sink_speed  = 0.0;
         double raise_speed = 0.0;   // at this velocity don't sink; above: raise
-    
+
         Floor *fl = m_actorinfo.field->floor;
         Item *it = m_actorinfo.field->item;
         if (!(it != NULL && it->covers_floor(get_pos(), this)) && fl != NULL)
             fl->get_sink_speed (sink_speed, raise_speed);
-        
+
         if (sink_speed == 0.0 || has_shield()) {
             sinkDepth = minSinkDepth;
             sinkModel = -1;
@@ -323,7 +323,7 @@ namespace enigma {
             ActorInfo *ai = get_actorinfo();
             double sinkSpeed = sink_speed * (1 - length(ai->vel) / raise_speed);
             sinkDepth += sinkSpeed*dtime;
-    
+
             if (sinkDepth >= maxSinkDepth) {
                 set_model(getModelBaseName() + "-sunk");
                 ai->vel = V2();     // stop!
@@ -331,44 +331,44 @@ namespace enigma {
                 change_state(BUBBLING);
             }
             else {
-                if (sinkDepth < minSinkDepth) 
+                if (sinkDepth < minSinkDepth)
                     sinkDepth = minSinkDepth;
             }
         }
     }
-    
+
     void BasicBall::disable_shield() {
         if (has_shield()) {
             m_shield_rest_time = 0;
             update_halo();
         }
     }
-    
+
     void BasicBall::change_state_noshield(iState newstate) {
         if (!has_shield())
             change_state(newstate);
     }
-    
+
     void BasicBall::change_state(iState newstate) {
         if (newstate == state)
             return;
-    
+
         std::string kind = getModelBaseName();
         iState oldstate = (iState)state;
         state = newstate;
-        
+
         if (oldstate == JUMPING) {
             // notify objects on grid about the landing - used by it_trigger
             SendMessage(GetStone(get_gridpos()), "_jumping", false);
             SendMessage(GetItem(get_gridpos()), "_jumping", false);
             SendMessage(GetFloor(get_gridpos()), "_jumping", false);
         }
-    
+
         // Whatever happened to the ball, the sink depth
         // should be returned to zero.
         sinkDepth = minSinkDepth;
         sinkModel = -1;
-    
+
         switch (newstate) {
             case NORMAL:
                 if (oldstate == APPEARING) {
@@ -377,7 +377,7 @@ namespace enigma {
                 }
                 ReleaseActor(this);
                 break;
-        
+
             case SHATTERING:
                 if (get_id (this) == ac_marble_white)
                     sound_event("shattersmall");
@@ -386,7 +386,7 @@ namespace enigma {
                 GrabActor(this);
                 set_anim(kind+"-shatter");
                 break;
-        
+
             case BUBBLING:
                 GrabActor(this);
         //         sound::PlaySound("drown");
@@ -398,7 +398,7 @@ namespace enigma {
                 GrabActor(this);
                 set_anim(kind+"-fall");
                 break;
-            case DEAD: 
+            case DEAD:
                 disable_shield();
                 m_drunk_rest_time = 0;
                 m_invisible_rest_time = 0;
@@ -440,13 +440,13 @@ namespace enigma {
                 break;
         }
     }
-    
+
     void BasicBall::update_model() {
         if (m_invisible_rest_time > 0)
             get_sprite().hide();
-        else 
+        else
             get_sprite().show();
-    
+
         switch (state) {
             case NORMAL:
                 if (sinkDepth > minSinkDepth && sinkDepth < maxSinkDepth) {
@@ -456,7 +456,7 @@ namespace enigma {
                     ActorInfo *ai = get_actorinfo();
                     int xpos = ecl::round_nearest<int> (ai->pos[0] * 32.0);
                     int ypos = ecl::round_nearest<int> (ai->pos[1] * 32.0);
-        
+
                     bool shinep = ((xpos + ypos) % 2) != 0;
                     set_shine_model (shinep);
                 }
@@ -465,22 +465,22 @@ namespace enigma {
                 break;
         }
     }
-    
+
     void BasicBall::set_sink_model(const string &m) {
         int modelnum = ecl::round_down<int>(sinkDepth);
-    
+
         if (!has_shield() && modelnum != sinkModel) {
             ASSERT(modelnum >= minSinkDepth && modelnum < maxSinkDepth, XLevelRuntime,
                 "BasicBall: set_sink_model called though modelnum incorrect");
-    
+
             string img = m+"-sink";
             img.append(1, static_cast<char>('0'+modelnum));
             set_model(img);
-    
+
             sinkModel = modelnum;
         }
     }
-    
+
     void BasicBall::set_shine_model (bool shinep)
     {
         if (shinep != lastshinep) {
@@ -492,28 +492,28 @@ namespace enigma {
             lastshinep = shinep;
         }
     }
-    
+
     void BasicBall::update_halo() {
         HaloState newstate;
-    
+
         if (m_shield_rest_time <= 0)
             newstate = NOHALO;
         else if (m_shield_rest_time <= 3.0)
             newstate = HALOBLINK;
         else
             newstate = HALONORMAL;
-    
+
         if (newstate != m_halostate) {
             double radius = get_actorinfo()->radius;
             string halokind;
-        
+
             // Determine which halomodel has to be used:
             if (radius == 19.0/64) { // Halo for normal balls
                 halokind = "halo";
             } else if (radius == 13.0f/64) { // Halo for small balls
                 halokind = "halo-small";
             }
-    
+
             if (m_halostate == NOHALO){
                 m_halosprite = display::AddSprite (get_pos(), halokind.c_str());
             }
@@ -536,7 +536,7 @@ namespace enigma {
             m_halosprite.move (get_pos());
         }
     }
-    
+
 
 /* -------------------- Marble  -------------------- */
     Marble::Marble(int color) : BasicBall(traits[color]) {
@@ -545,7 +545,7 @@ namespace enigma {
         setAttr("owner", color == BLACK ? YIN : YANG);
         setAttr("controllers", color == BLACK ? 1 : 2);
     }
-    
+
     std::string Marble::getClass() const {
         return "ac_marble";
     }
@@ -573,7 +573,7 @@ namespace enigma {
 
     void Pearl::sink(double dtime) {
         if (server::GameCompatibility != GAMET_ENIGMA) {
-            if (m_actorinfo.field->floor->isKind("fl_swamp"))  
+            if (m_actorinfo.field->floor->isKind("fl_swamp"))
                 return;    // do not sink pearls in swamp in oxyd modes
         }
         BasicBall::sink(dtime);
@@ -587,7 +587,7 @@ namespace enigma {
         {"ac_pearl_black", ac_pearl_black, 1<<ac_pearl_black, 13.0/64, 0.7},
         {"ac_pearl_white", ac_pearl_white, 1<<ac_pearl_white, 13.0/64, 0.7},
     };
-    
+
     BOOT_REGISTER_START
         BootRegister(new Marble(0), "ac_marble");
         BootRegister(new Marble(0), "ac_marble_black");

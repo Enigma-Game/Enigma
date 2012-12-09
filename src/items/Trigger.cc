@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -31,9 +31,9 @@ namespace enigma {
     Trigger::Trigger() {
         setAttr("invisible", false);
     }
-    
+
     Value Trigger::message (const Message &m) {
-        if (m.message == "signal" && (server::GameCompatibility != GAMET_ENIGMA || 
+        if (m.message == "signal" && (server::GameCompatibility != GAMET_ENIGMA ||
                 server::EnigmaCompatibility < 1.10)) {
             performAction(m.value.to_bool());  // convert 1/0 values to true/false
             return Value();
@@ -43,12 +43,12 @@ namespace enigma {
             // actor_enter due to actors on_creation.
             // Thus we need to reset and recount the actors:
             state = 0;
-            
+
             // old Enigma versions did issue performAction what is incompatible
-            int id = getId();
+            int theid = getId();
             updateIState(countActors(),
-                    server::EnigmaCompatibility >= 1.10 || server::GameCompatibility != GAMET_ENIGMA); 
-            if (Object::getObject(id) != NULL)   // not killed?
+                    server::EnigmaCompatibility >= 1.10 || server::GameCompatibility != GAMET_ENIGMA);
+            if (Object::getObject(theid) != NULL)   // not killed?
                 init_model();
             return Value();
         } else if (m.message == "_jumping" ) {
@@ -64,23 +64,23 @@ namespace enigma {
         }
         return Item::message(m);
     }
-        
+
     int Trigger::externalState() const {
         return state != 0 ? 1 : 0;
     }
-    
+
     void Trigger::setState(int extState) {
         return;   // ignore any write attempts
     }
-    
+
     void Trigger::on_creation(GridPos p) {
         state = 0;
-        int id = getId();
+        int theid = getId();
         updateIState(countActors(), true);
-        if (Object::getObject(id) != NULL)   // not killed?
+        if (Object::getObject(theid) != NULL)   // not killed?
             init_model();
     }
-        
+
     void Trigger::init_model() {
         if (getAttr("invisible").to_bool())
             set_model("invisible");
@@ -89,21 +89,21 @@ namespace enigma {
         else
             set_model("it_trigger_up");
     }
-    
+
     void Trigger::actor_enter(Actor *a) {
         if (!(a->is_flying() || a->isMoribund()))
             updateIState(+1, !server::WorldInitialized);
     }
-    
+
     void Trigger::actor_leave(Actor *a) {
         if (!(a->is_flying() || a->isMoribund()))
             updateIState(-1, !server::WorldInitialized);
     }
-    
+
     void Trigger::stone_change(Stone *) {
         updateIState(0);
     }
-    
+
     int Trigger::countActors() {
         std::vector<Actor*> actors;
         GetActorsInsideField(get_pos(), actors);
@@ -112,21 +112,21 @@ namespace enigma {
             if (!((*itr)->is_flying() || (*itr)->isMoribund())) count++;
         return count;
     }
-    
+
     void Trigger::updateIState(int diffActors, bool refuseAction) {
         int oldState = state;
-        
+
         state += 2 * diffActors;
-        
+
         Stone *st = GetStone(get_pos());
         state &= ~1;  // delete stone pressure bit
         if (st != NULL && (!st->is_floating() || st->getClass() == "st_puzzle")) {
             // Hack to make hollow puzzle stones press triggers
             state |= 1;   // add stone pressure bit
         }
-                
+
 //        Log << "Trigger update old state " << oldState << " - new state " << state << " refuse action " << refuseAction << "\n";
-    
+
         if ((oldState == 0 && state != 0) || (oldState != 0 && state == 0)) {
             init_model();
             if (!refuseAction) {

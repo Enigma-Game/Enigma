@@ -27,31 +27,31 @@ namespace enigma {
     class StripItem : public Item {
         CLONEOBJ(StripItem);
         DECL_ITEMTRAITS_ARRAY(16, traitsIdx());
-        
+
     public:
         static void setup();
-                
+
         StripItem(std::string connections);
-        
+
         // Object interface
         virtual std::string getClass() const;
 
         // StateObject interface
         virtual void setState(int extState);
-        
+
         // GridObject interface
         virtual std::string getModelName() const;
         virtual void init_model();
-                
+
         // Items interface
-        virtual bool covers_floor(ecl::V2 pos, Actor *a) const;
-        virtual double getFriction(ecl::V2 pos, double defaultFriction, Actor *a);
+        virtual bool covers_floor(ecl::V2 position, Actor *a) const;
+        virtual double getFriction(ecl::V2 position, double defaultFriction, Actor *a);
         virtual ecl::V2 calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce);
-        
+
     private:
         int traitsIdx() const;
     };
-    
+
 } // namespace enigma
 
 #endif

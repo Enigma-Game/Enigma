@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -30,7 +30,7 @@ namespace enigma {
 /* -------------------- Surprise stone -------------------- */
     SurpriseStone::SurpriseStone() : Stone ("st_surprise") {
     }
-    
+
     std::string SurpriseStone::getClass() const {
         return "st_surprise";
     }
@@ -48,7 +48,7 @@ namespace enigma {
                 "st_flat_breaking"
             };
             if (Value v = Stone::getAttr(key))
-                return v; 
+                return v;
             else {
                 TokenList tl;
                 for (int i = 0; i < 8; i++)
@@ -62,16 +62,16 @@ namespace enigma {
         } else
             return Stone::getAttr(key);
     }
-    
+
     void SurpriseStone::actor_hit(const StoneContact &sc) {
-        int id = getId();
+        int theid = getId();
             performAction(true);    // may kill the stone!
-        
-        if (Object::getObject(id) != NULL) {  // not killed?
+
+        if (Object::getObject(theid) != NULL) {  // not killed?
             TokenList tl = getAttr("selection");
             int idx = enigma::IntegerRand(1, tl.size()) - 1;
             TokenList::iterator itr = tl.begin();
-            for (int i = 0; i < idx; i++, ++itr); 
+            for (int i = 0; i < idx; i++, ++itr);
             sound_event("stonetransform");
             std::string name = (*itr).to_string();
             if (name.find('=') == 0) {
@@ -83,11 +83,11 @@ namespace enigma {
             }
         }
     }
-    
+
     FreezeStatusBits SurpriseStone::get_freeze_bits() {
         return FREEZEBIT_IRREGULAR;
     }
-    
+
     DEF_TRAITS(SurpriseStone, "st_surprise", st_surprise);
 
     BOOT_REGISTER_START

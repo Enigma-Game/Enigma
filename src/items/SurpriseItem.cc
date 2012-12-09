@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -30,7 +30,7 @@ namespace enigma {
 /* -------------------- Surprise item -------------------- */
     SurpriseItem::SurpriseItem() : Item() {
     }
-    
+
     std::string SurpriseItem::getClass() const {
         return "it_surprise";
     }
@@ -45,7 +45,7 @@ namespace enigma {
                 "it_hammer"
             };
             if (Value v = Item::getAttr(key))
-                return v; 
+                return v;
             else {
                 TokenList tl;
                 for (int i = 0; i < 5; i++)
@@ -55,16 +55,16 @@ namespace enigma {
         } else
             return Item::getAttr(key);
     }
-    
+
     void SurpriseItem::on_drop(Actor *a) {
-        int id = getId();
+        int theid = getId();
             performAction(true);    // may kill the stone!
-        
-        if (Object::getObject(id) != NULL) {  // not killed?
+
+        if (Object::getObject(theid) != NULL) {  // not killed?
             TokenList tl = getAttr("selection");
             int idx = enigma::IntegerRand(1, tl.size()) - 1;
             TokenList::iterator itr = tl.begin();
-            for (int i = 0; i < idx; i++, ++itr); 
+            for (int i = 0; i < idx; i++, ++itr);
             std::string name = (*itr).to_string();
             if (name.find('=') == 0) {
                 if (lua::CallFunc(lua::LevelState(), "enigma.settile", name.substr(1), this)) {
@@ -75,7 +75,7 @@ namespace enigma {
             }
         }
     }
-    
+
     DEF_ITEMTRAITS(SurpriseItem, "it_surprise", it_surprise);
 
     BOOT_REGISTER_START

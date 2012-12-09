@@ -58,7 +58,7 @@ void Stone::transform(std::string kind) {
 
 /*! Determine whether the actor hitting the stone can move stone
   and return either the direction the stone should move or NODIR. */
-Direction get_push_direction (const StoneContact &sc) 
+Direction get_push_direction (const StoneContact &sc)
 {
     ActorInfo *ai  = sc.actor->get_actorinfo();
     Direction  dir = contact_face(sc);
@@ -72,7 +72,7 @@ Direction get_push_direction (const StoneContact &sc)
 
 /* Move a stone (by sending an impulse) Called when an actor hits a
    stone. */
-bool maybe_push_stone (const StoneContact &sc) 
+bool maybe_push_stone (const StoneContact &sc)
 {
     Direction dir = get_push_direction(sc);
     if (dir != enigma::NODIR) {
@@ -111,7 +111,7 @@ StoneResponse Stone::collision_response(const StoneContact &) {
 }
 
 
-void Stone::actor_hit(const StoneContact &sc) 
+void Stone::actor_hit(const StoneContact &sc)
 {
     if (is_movable())
         maybe_push_stone (sc);
@@ -122,10 +122,10 @@ void Stone::actor_touch(const StoneContact &sc) {
 
 void Stone::on_impulse(const Impulse& impulse) {
     if (is_movable()) {
-        int id = getId();
+        int theid = getId();
         move_stone(impulse.dir);    // may kill the stone!
-        
-        if (Object::getObject(id) != NULL)   // not killed?
+
+        if (Object::getObject(theid) != NULL)   // not killed?
             propagateImpulse(impulse);
     }
 }
@@ -156,18 +156,18 @@ const char * Stone::collision_sound() {
 bool Stone::move_stone(GridPos newPos, const char *soundevent) {
     if (isDisplayable()) {
         GridPos p      = get_pos();
-    
+
         if (!GetStone(newPos)) {
             sound_event (soundevent);
-    
+
             MoveStone(p, newPos);
             server::IncMoveCounter();
-    
+
             if (on_move(p)) {
                 if (Item *it = GetItem(newPos))
                     it->on_stonehit(this);
             }
-    
+
             return true;
         }
         return false;
@@ -179,7 +179,7 @@ bool Stone::move_stone(Direction dir) {
 }
 
 bool Stone::on_move(const GridPos &origin) {
-    if (!is_floating()) 
+    if (!is_floating())
         ShatterActorsInsideField (get_pos());
     return true;
 }
@@ -227,7 +227,7 @@ ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
             }
         }
     }
-    
+
     void Stone::autoLeaveCluster() {
         GridPos p = get_pos();
         for (int i = WEST; i <= NORTH; i++) {
@@ -254,7 +254,7 @@ FreezeStatusBits Stone::get_freeze_bits() {
 
 FreezeStatusBits Stone::get_freeze_bits(GridPos p) {
     Stone *st = GetStone(p);
-    if(st == NULL) 
+    if(st == NULL)
         return FREEZEBIT_NO_STONE;
     return st->get_freeze_bits();
 }
@@ -289,7 +289,7 @@ bool Stone::freeze_check() {
     //
     // First block: #    Centered at the box "$", there are four orientations
     //              $#   of this pattern.
-    // 
+    //
     // Second block: $$  Each of the "$" can be movable or persistent.
     //               $$  Centered at one of them, there are again four
     //                   different orientation.
@@ -310,12 +310,12 @@ bool Stone::freeze_check() {
        || ((ms_n & p) && (ms_w & p))
        || ((ms_s & p) && (ms_e & p))
        || ((ms_s & p) && (ms_w & p))
-       
+
        || ((ms_n & pm) && (ms_nw & pm) && (ms_w & pm))
        || ((ms_n & pm) && (ms_ne & pm) && (ms_e & pm))
        || ((ms_s & pm) && (ms_sw & pm) && (ms_w & pm))
        || ((ms_s & pm) && (ms_se & pm) && (ms_e & pm))
-       
+
        || ((ms_n & pm) && (ms_e & p) && (ms_nw & p))
        || ((ms_n & pm) && (ms_w & p) && (ms_ne & p))
        || ((ms_s & pm) && (ms_e & p) && (ms_sw & p))

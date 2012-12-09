@@ -6,7 +6,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -45,7 +45,7 @@ namespace enigma {
     std::string Vortex::getClass() const {
         return "it_vortex";
     }
-    
+
     Value Vortex::message(const Message &m) {
         if (m.message == "_passed" && getAttr("autoclose").to_bool()) {
             setState(0);
@@ -58,7 +58,7 @@ namespace enigma {
     int Vortex::externalState() const {
         return (state >= CLOSED && state <= CLOSING) ? 0 : 1 ;
     }
-    
+
     void Vortex::setState(int extState) {
         if (isDisplayable()) {
             if (extState == 1) {  // open
@@ -87,14 +87,14 @@ namespace enigma {
                 state = 1 - extState;
         }
     }
-        
+
     void Vortex::toggleState() {
         if (state == OPEN || state == OPENING)
             setState(0);
         else
             setState(1);
     }
-    
+
     void Vortex::init_model() {
         switch(state) {
             case WARPING:
@@ -103,21 +103,21 @@ namespace enigma {
             case SWALLOWING:
                 set_model("it_vortex_open");
                 break;
-            case CLOSED: 
+            case CLOSED:
                 set_model("it_vortex_closed"); break;
-            case OPENING: 
+            case OPENING:
                 set_anim("it_vortex_opening"); break;
-            case CLOSING: 
+            case CLOSING:
                 set_anim("it_vortex_closing"); break;
         }
     }
-    
+
     void Vortex::on_removal(GridPos p) {
         Item::on_removal(p);
         ASSERT(state != WARPING && state != SWALLOWING && state != EMITTING,
             XLevelRuntime, "Tried to kill a busy vortex. Please use another way.");
     }
-    
+
     void Vortex::animcb() {
         if (state == CLOSING) {
             state = CLOSED;
@@ -129,25 +129,25 @@ namespace enigma {
             BroadcastMessage("_checkflood", true, GRID_FLOOR_BIT);
         }
     }
-    
-    bool Vortex::covers_floor(ecl::V2 pos, Actor *a) const {
-        if (GridPos(pos) != get_pos())
+
+    bool Vortex::covers_floor(ecl::V2 position, Actor *a) const {
+        if (GridPos(position) != get_pos())
             return false;
-        return (length(pos - get_pos().center()) < 0.25);
+        return (length(position - get_pos().center()) < 0.25);
     }
 
     bool Vortex::actor_hit(Actor *actor) {
         if (state == OPEN && (length((actor->get_pos()) - get_pos().center()) < 0.25) && actor->can_be_warped())
             prepare_for_warp(actor);
-        else if (state == CLOSED && (length((actor->get_pos()) - get_pos().center()) > 0.25) && 
+        else if (state == CLOSED && (length((actor->get_pos()) - get_pos().center()) > 0.25) &&
                 getAttr("autoopen").to_bool())
             toggleState();
         return false;
     }
-    
+
     std::list<GridPos> Vortex::warpSpreadPos(bool isWater) {
         std::list<GridPos> results;
-        if (externalState() > 0) { // open -> may spread 
+        if (externalState() > 0) { // open -> may spread
             ecl::V2 targetpos;
             int idx = 0;
             while (getDestinationByIndex(idx++, targetpos)) {
@@ -163,7 +163,7 @@ namespace enigma {
         }
         return results;
     }
-    
+
     void Vortex::alarm() {
         if (state == WARPING) {
             perform_warp();
@@ -176,25 +176,25 @@ namespace enigma {
         } else
             ASSERT (0, XLevelRuntime, "Vortex: alarm called with inconsistent state");
     }
-    
+
     void Vortex::prepare_for_warp (Actor *actor) {
         SendMessage(actor, "_fallvortex");
         setAttr("$dest_idx", 0);
         setAttr("$grabbed_actor", actor);
         state = SWALLOWING;
-    
+
         GameTimer.set_alarm(this, 0.4, false);
     }
-    
+
     void Vortex::emit_actor(Vortex *destVortex) {
         if (destVortex == NULL)   // destination vortex got killed in meantime
-            destVortex = this;    // reemit from source vortex 
+            destVortex = this;    // reemit from source vortex
         V2 v(destVortex->get_pos().center());
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, v[0], v[1], false);
             SendMessage(actor, "_rise");
             if (destVortex != this) {
-                bool isScissor = to_bool(getDefaultedAttr("scissor", 
+                bool isScissor = to_bool(getDefaultedAttr("scissor",
                         (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
                 if (isScissor)
                     SendMessage(actor, "disconnect");
@@ -205,7 +205,7 @@ namespace enigma {
             setState(0);
         if (this != destVortex)
             performAction(getAttr("$grabbed_actor"));
-    
+
         setAttr("$grabbed_actor", (Object *)NULL);
     }
 
@@ -214,7 +214,7 @@ namespace enigma {
         if (Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"))) {
             WarpActor(actor, target[0], target[1], false);
             SendMessage(actor, "_appear");
-            bool isScissor = to_bool(getDefaultedAttr("scissor", 
+            bool isScissor = to_bool(getDefaultedAttr("scissor",
                     (server::EnigmaCompatibility >= 1.10) || server::GameCompatibility != GAMET_ENIGMA));
             if (isScissor)
                 SendMessage(actor, "disconnect");
@@ -222,7 +222,7 @@ namespace enigma {
         state = OPEN;
         if (getAttr("autoclose").to_bool())
             setState(0);
-    
+
         performAction(getAttr("$grabbed_actor"));
         setAttr("$grabbed_actor", (Object *)NULL);
     }
@@ -231,21 +231,21 @@ namespace enigma {
         Actor *actor = dynamic_cast<Actor *>((Object *)getAttr("$grabbed_actor"));
         if (actor == NULL)
             return;
-    
+
         ASSERT (state == WARPING, XLevelRuntime, "Vortex: perform_warp called with inconsistent state");
-    
+
         V2 v_target;
-    
+
         // is another target position defined?
         int dest_idx = getAttr("$dest_idx");
         if (Object::getDestinationByIndex(dest_idx, v_target)) {
             GridPos  p_target(v_target);
-    
+
             Vortex *v = dynamic_cast<Vortex*>(GetItem(p_target));
-    
+
             if (v) {                // Destination is also a vortex
                 Stone *st = GetStone(p_target);
-    
+
                 if (st && st->is_sticky(actor)) {
                     // is destination vortex blocked? redirect
                     setAttr("$dest_idx", dest_idx + 1);
@@ -260,7 +260,7 @@ namespace enigma {
                             // destination is open
                             emit_actor(v);
                             break;
-        
+
                         case CLOSED:
                         case CLOSING:
                             // destination is closed

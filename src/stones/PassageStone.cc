@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -24,15 +24,15 @@
 
 namespace enigma {
 
-    PassageStone::PassageStone(int color, int flavor) : Stone() {
+    PassageStone::PassageStone(int color, int theflavor) : Stone() {
         state = color;
-        objFlags |= (flavor << 24);
+        objFlags |= (theflavor << 24);
     }
-    
+
     std::string PassageStone::getClass() const {
         return "st_passage";
     }
-    
+
     void PassageStone::setAttr(const string& key, const Value &val) {
         if (key == "color") {
             Stone::setAttr("state", val);
@@ -53,7 +53,7 @@ namespace enigma {
         } else
             Stone::setAttr(key, val);
     }
-    
+
     Value PassageStone::getAttr(const std::string &key) const {
         if (key == "color") {
             return state;
@@ -62,7 +62,7 @@ namespace enigma {
         }
         return Stone::getAttr(key);
     }
-    
+
     Value PassageStone::message(const Message &m) {
         if (m.message == "signal" || m.message == "_trigger") {
             toggleState();
@@ -70,7 +70,7 @@ namespace enigma {
         }
         return Stone::message(m);
     }
-    
+
     void PassageStone::init_model()  {
         set_model(ecl::strf("st_passage_%s_%s", (state == BLACK) ? "black" : "white", flavor().c_str()));
     }
@@ -78,17 +78,17 @@ namespace enigma {
     bool PassageStone::is_floating() const {
         return true;
     }
-    
+
     bool PassageStone::is_transparent (Direction d) const {
         return true;
     }
-    
+
     StoneResponse PassageStone::collision_response(const StoneContact &sc) {
-        Value accolor = sc.actor->getAttr("color"); 
-        
+        Value accolor = sc.actor->getAttr("color");
+
         if (server::GameCompatibility != GAMET_ENIGMA && sc.actor->getClass() != "ac_marble")
             return STONE_REBOUND;
-            
+
         if (state == BLACK) {
             return (accolor && accolor == BLACK) ?  STONE_PASS : STONE_REBOUND;
         }
@@ -96,7 +96,7 @@ namespace enigma {
             return (accolor && accolor == WHITE) ?  STONE_PASS : STONE_REBOUND;
         }
     }
-    
+
     std::string PassageStone::flavor() const {
         switch ((objFlags & OBJBIT_FLAVOR) >> 24) {
             case 0 : return "square";
@@ -121,7 +121,7 @@ namespace enigma {
         {"st_passage_white_cross",  st_passage_white_cross,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
         {"st_passage_white_frame",  st_passage_white_frame,  stf_transparent, material_stone, 1.0, MOVABLE_PERSISTENT},
     };
-    
+
     BOOT_REGISTER_START
         BootRegister(new PassageStone(BLACK, 0), "st_passage");
         BootRegister(new PassageStone(BLACK, 0), "st_passage_black");

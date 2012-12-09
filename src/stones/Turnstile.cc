@@ -254,10 +254,10 @@ namespace enigma {
         std::vector<Actor*>::iterator iter = actorsInRange.begin(), end = actorsInRange.end();
         for (; iter != end; ++iter) {
             Actor *ac = *iter;
-            
+
             if (ac->isMoribund())
                 continue;
-            
+
             const V2 &ac_center = ac->get_pos();
             GridPos   ac_pos(ac_center);
             int dx  = ac_pos.x-pv_pos.x;
@@ -332,7 +332,7 @@ namespace enigma {
                     const Direction impulse_dir[2][4] = {
                         // anticlockwise
                         { WEST, NORTH, EAST, SOUTH},
-                        // clockwise                   
+                        // clockwise
                         { NORTH, EAST, SOUTH, WEST},
                     };
 
@@ -410,8 +410,8 @@ namespace enigma {
     }
 
     void TurnstileArm::on_impulse(const Impulse& impulse) {
-        enum Action { ROTL, ROTR, stay };
-        static Action actions[4][4] = {
+        enum ArmAction { ROTL, ROTR, stay };
+        static ArmAction actions[4][4] = {
             { stay, ROTL, stay, ROTR }, // west arm
             { ROTR, stay, ROTL, stay }, // south arm
             { stay, ROTR, stay, ROTL }, // east arm
@@ -422,7 +422,7 @@ namespace enigma {
         TurnstilePivot *pivot = getPivot();
 
         if (pivot != NULL) {
-            Action a = actions[state][impulse.dir];
+            ArmAction a = actions[state][impulse.dir];
             if (a != stay) {
                 bool clockwise = (a == ROTR);
                 Actor *actor = dynamic_cast<Actor*>(impulse.sender);
@@ -466,6 +466,4 @@ namespace enigma {
         BootRegister(new TurnstileArm(NORTH), "st_turnstilearm_n");
     BOOT_REGISTER_END
 
-
 } // namespace enigma
-

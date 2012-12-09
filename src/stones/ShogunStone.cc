@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -27,11 +27,11 @@ namespace enigma {
     ShogunStone::ShogunStone(int holes) : Stone () {
         objFlags |= holes << 24;
     }
-    
+
     ShogunStone* ShogunStone::clone() {
         return new ShogunStone(*this);
     }
-    
+
     void ShogunStone::dispose() {
          if (subShogun != NULL) {
             SendMessage(subShogun, "disconnect");
@@ -45,7 +45,7 @@ namespace enigma {
     std::string ShogunStone::getClass() const {
         return "st_shogun";
     }
-    
+
     void ShogunStone::setAttr(const string& key, const Value &val) {
         if (key == "flavor") {
             ASSERT(!isDisplayable(), XLevelRuntime, "ShogunStone: attempt to reflavor an existing shogun");
@@ -65,7 +65,7 @@ namespace enigma {
         }
         Stone::setAttr(key, val);
     }
-    
+
     Value ShogunStone::getAttr(const string &key) const {
         if (key == "flavor") {
             std::string result;
@@ -81,7 +81,7 @@ namespace enigma {
         } else
             return Stone::getAttr(key);
     }
-    
+
     Value ShogunStone::message(const Message &m) {
         if (m.message == "kill") {
             if (yieldShogun()) {
@@ -98,17 +98,17 @@ namespace enigma {
     void ShogunStone::setState(int extState) {
         // reject any write attempts
     }
-    
+
     void ShogunStone::init_model() {
         set_model(ecl::strf("st_shogun%d", getHoles()/S));
     }
-    
+
     void ShogunStone::setOwnerPos(GridPos po) {
         Stone::setOwnerPos(po);
         if (subShogun != NULL)
             subShogun->setOwnerPos(po);
     }
-    
+
     void ShogunStone::on_creation(GridPos p) {
         Stone::on_creation(p);
         if (subShogun != NULL)
@@ -142,7 +142,7 @@ namespace enigma {
             }
         }
     }
-    
+
     void ShogunStone::on_removal(GridPos p) {
         if (subShogun != NULL)
             subShogun->setOwnerPos(GridPos(-1,-1));
@@ -163,14 +163,14 @@ namespace enigma {
             if (nss != NULL)
                 fitsNeighborShogun = (nss->getHoles() & (2*ownHole() -1)) == 0;
         }
-        
+
         if ((subShogun == NULL) && ((st == NULL) || fitsNeighborShogun)) {  // can we move?
             // first remove from current position
             if (!yieldShogun())
                 return;            // being swapped or pulled
-            
+
             sound_event("movesmall");
-            
+
             // then put to new position
             if (st == NULL) {
                 SetStone(newPos, this);
@@ -185,29 +185,29 @@ namespace enigma {
                 s->subShogun = this;
                 superShogun = s;
 
-                nss->init_model();     // display new hole         
+                nss->init_model();     // display new hole
                 setOwnerPos(newPos);   // the stone is owned at the new position
                 TouchStone(newPos);
             }
-            
+
             server::IncMoveCounter();
             ShatterActorsInsideField(newPos);
             if (server::GameCompatibility != GAMET_ENIGMA) {
                 if (Item *it = GetItem(newPos)) {
-                    ItemID id = get_id(it);
+                    ItemID theid = get_id(it);
                     if ((server::GameCompatibility != GAMET_OXYD1 && server::GameCompatibility != GAMET_OXYDMAGNUM) ||
-                            (id != it_cherry && id != it_bomb))
+                            (theid != it_cherry && theid != it_bomb))
                         it->on_stonehit(this);
                 }
             }
         }
         propagateImpulse(impulse);
     }
-    
+
     int ShogunStone::getHoles() const {
         return (objFlags & OBJBIT_HOLES) >> 24;
     }
-    
+
     int ShogunStone::ownHole() const {
         int holes = getHoles();
         for (int check = ShogunStone::U; check > 0; check = check >> 1)
@@ -215,27 +215,27 @@ namespace enigma {
                 return check;
         throw XLevelRuntime("ShogunStone: internal error - no holes");
     }
-    
+
     void ShogunStone::addSubHoles(int holes) {
         objFlags |= holes <<24;
     }
-    
+
     void ShogunStone::removeSubHoles(int holes) {
         objFlags &= ~(holes <<24);
     }
-    
+
     void ShogunStone::removeAllSubHoles() {
         int hole = ownHole();
         objFlags &= ~OBJBIT_HOLES;
         objFlags |= hole <<24;
     }
-    
+
     bool ShogunStone::yieldShogun() {
         if (isDisplayable() && subShogun == NULL) {
             YieldStone(get_pos());
         } else if (isDisplayable()) {
             // top most shogun moved by wire or killed
-            GridPos oldPos = get_pos(); 
+            GridPos oldPos = get_pos();
             YieldStone(oldPos);
             subShogun->superShogun = NULL;
             SetStone(oldPos, subShogun);
@@ -246,7 +246,7 @@ namespace enigma {
             ShogunStone *oss = dynamic_cast<ShogunStone *>(GetStone(getOwnerPos()));
             if (oss == NULL)   // we are swapped or pulled and impulsed by wire
                 return false;        // forget impulse
-            
+
             ASSERT(superShogun != NULL, XLevelRuntime, "Shogun: missing super shogun");
             superShogun->subShogun = subShogun;
             superShogun->removeSubHoles(ownHole());
@@ -264,13 +264,13 @@ namespace enigma {
         }
         return true;
     }
-    
+
     FreezeStatusBits ShogunStone::get_freeze_bits() {
         return (getHoles() == S) ? FREEZEBIT_STANDARD : FREEZEBIT_NO_STONE;
     }
-    
+
     DEF_TRAITSM(ShogunStone, "st_shogun", st_shogun, MOVABLE_IRREGULAR);
-    
+
     BOOT_REGISTER_START
         BootRegister(new ShogunStone(4), "st_shogun");
         BootRegister(new ShogunStone(4), "st_shogun_s");
