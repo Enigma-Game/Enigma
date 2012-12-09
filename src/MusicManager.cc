@@ -361,7 +361,8 @@ bool MusicManager::setMenuMusicQueue(std::string music_queue_title)
         return true;
     menu_music_queue_title = music_queue_title;
     if(getMusicContext() == MUSIC_MENU)
-        setActiveMusicQueue(music_queue_title);
+        return setActiveMusicQueue(music_queue_title);
+    return true;
 }
 
 bool MusicManager::setInGameMusicQueue(std::string music_queue_title)
@@ -374,7 +375,8 @@ bool MusicManager::setInGameMusicQueue(std::string music_queue_title)
         return true;
     ingame_music_queue_title = music_queue_title;
     if(getMusicContext() == MUSIC_GAME)
-        setActiveMusicQueue(music_queue_title);
+        return setActiveMusicQueue(music_queue_title);
+    return true;
 }
 
 std::string MusicManager::getMusicQueueByPosition(int button_position)
