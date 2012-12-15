@@ -892,7 +892,7 @@ void video::Screenshot (const std::string &fname)
     }
 
     ecl::SavePNG (ecl::Grab(SCREEN->get_surface(), video_modes[current_video_mode].area), fname);
-    enigma::Log << "Wrote screenshot to '" << fname << "\n";
+    enigma::Log << "Wrote screenshot to '" << fname << "'\n";
 }
 
 /* -------------------- Special Effects -------------------- */
