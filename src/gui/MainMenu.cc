@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
- 
+
 #include "gui/MainMenu.hh"
 #include "gui/LevelMenu.hh"
 #include "gui/OptionsMenu.hh"
@@ -40,7 +40,7 @@ using namespace std;
 
 namespace enigma { namespace gui {
 /* -------------------- Helper routines -------------------- */
-    
+
     /*! Change the video mode.  Because this opens a new screen with a
       new resolution, the display engine must be re-initialized to
       load the appropriate models. */
@@ -54,60 +54,62 @@ namespace enigma { namespace gui {
         display::Shutdown();
         display::Init();
     }
-    
+
 
     /* -------------------- NetworkMenu -------------------- */
-    
+
     NetworkMenu::NetworkMenu ()
     {
         const video::VMInfo *vminfo = video::GetInfo();
-    
+
         BuildVList b(this, Rect((vminfo->width - 150)/2,150,150,40), 5);
         startgame = b.add(new StaticTextButton(N_("Start Game"), this));
         m_joingame = b.add(new StaticTextButton(N_("Join Game"), this));
         m_back = b.add(new StaticTextButton(N_("Back"), this));
     }
-    
+
     NetworkMenu::~NetworkMenu ()
     {
     }
-    
+
     bool NetworkMenu::on_event (const SDL_Event &e)
     {
         return false;
     }
-    
+
     void NetworkMenu::on_action(gui::Widget *w)
     {
         if (w == startgame) {
             netgame::Start();
-        } 
+        }
         else if (w == m_joingame) {
             netgame::Join("localhost", 12345);
         }
         if (w == m_back)
             Menu::quit();
     }
-    
+
     void NetworkMenu::draw_background(ecl::GC &gc)
     {
         video::SetCaption (("Enigma - Network Menu"));
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
     }
-    
+
     void NetworkMenu::tick(double dtime)
     {
     }
-    
+
 
     /* -------------------- Help menu -------------------- */
     static const char *credit_text[] = {
         N_("Main developers of the 1.20 release:"),
+        " ",
         N_("  RONALD LAMPRECHT (lead)"),
         "  RAOUL BOURQUIN",
         "  ANDREAS LOCHMANN",
         " ",
         N_("Special Thanks To:"),
+        " ",
         N_("  DANIEL HECK (project founder)"),
         N_("  MEINOLF SCHNEIDER (game idea, level design)"),
         " ",
@@ -121,7 +123,7 @@ namespace enigma { namespace gui {
         " ",
         N_("Copyright (C) 2002-2012 Daniel Heck and contributors."),
         0,
-        N_("Main developer of all releases:"),
+        N_("Main developers of all releases:"),
         " ",
         "  Raoul Bourquin  (Level admin. & design, all over invaluable additions)",
         "  Siegfried Fennig  (Level design, graphics)",
@@ -136,19 +138,20 @@ namespace enigma { namespace gui {
         "  Ralf Westram  (Programming, level design)",
         0,
         N_("Special Thanks:"),
+        " ",
         "  Johannes Fortmann  (Mac OS X port, some programming, graphics)",
         "  illmind  (Forum mag-heut.net administration, Level design)",
-// waiting for licence to add the sounds
-//        "  \'Cellar of Rats\'  (Sound effects)", 
+        // waiting for licence to add the sounds
+        // "  \'Cellar of Rats\'  (Sound effects)",
         "  Jennifer Robertson  (Graphics second generation)",
         "  Jeremy Sawicki  (Oxydlib)",
         "  Erich Schubert  (Debian/Ubuntu packages, level design)",
-        "  Lukas Schüller  (Level design)",
-        "  Andrew \'Necros\' Sega (Menu music \'Pentagonal Dreams\')",
+        "  Andrew \'Necros\' Sega  (Menu music \'Pentagonal Dreams\')",
         "  David W. Skinner  (Many Sokoban Levels)",
         "  Clifford J. Tasner  (Music second generation, Proof reading)",
         0,
         N_("Contributors:"),
+        " ",
         "  Roberto Bardin  (Level design)",
         "  Thomas Bernhardt  (Level design)",
         "  Helge Blohmer  (Level design)",
@@ -157,78 +160,85 @@ namespace enigma { namespace gui {
         "  Alain Busser  (Level design, French translation, manual)",
         "  Guy Busser  (Level design)",
         "  Richi Bützer  (Level design)",
-        "  Capkoh  (Level design)",
+        "  capkoh  (Level design)",
         "  Manfredi Carta  (Level design)",
         "  Christoph & Anita  (Level design)",
+        "  daydreamer  (Level design)",
         "  Дремук Сергей - Serge Dremuk  (Russian translation)",
-        "  Manfredi Carta  (Level design)",
         "  Joseph Dunne  (Level design)",
         "  Xerxes M. Dynatos  (Level design)",
         "  Edward  (Level design)",
         "  Manuel Eisentraut  (Level design)",
         "  Stephanie Fabian  (Invaluable bug reports)",
+        0,
         "  Johann Freymuth  (Invaluable bug reports)",
         "  Roberto García (Spanish translation)",
         "  Andy Geldmacher  (Level design)",
         "  Edwin Groothuis  (FreeBSD port)",
-        0,
+        "  Daniel Hadas  (Level design)",
+        "  Jonatan Hadas  (Level design)",
+        "  Hairball  (Level design)",
         "  Immanuel Herrmann  (Level design)",
         "  Brian Huffman  (Level design)",
         "  Johannes Hüsing  (Level design)",
         "  Máté Lehel Juhász  (Hungarian translation)",
         "  Samuele Kaplun  (Italian translation)",
-        "  Jens-Christian Korth  (Level design)",
         "  Manuel König  (Level design, bug reports)",
+        "  Jens-Christian Korth  (Level design)",
         "  Johannes Laire  (Level design)",
         "  Joona Laire  (Level design)",
         "  Markus Laire  (Level design)",
         "  Dominik Lehmann  (Level design)",
         "  Dominik Leipold  (Level design)",
         "  Edward Leuf  (Feedback, bug reports)",
-        "  Lurcane  (Level design)",
+        0,
         "  Ingo van Lil  (Feedback, bug reports)",
         "  Frank van der Loo  (Dutch translation)",
+        "  Lurcane  (Level design)",
         "  Sidney Markowitz  (Mac OS X port)",
         "  Barry & Lori Mead  (Level design)",
         "  Linda Mihalic  (English proof reading)",
         "  moonpearl  (Level design)",
-        "  Stephen Morley (Safalra)   (Level design)",
-        "  Krishnamurti L.L.V. Nunes (Portuguese translation)",
+        "  Stephen Morley (Safalra)  (Level design)",
+        "  Krishnamurti Lelis Lima Vieira Nunes  (Portuguese translation)",
         "  Daniel Nylander  (Swedish translation)",
-        0,
         "  Andreas Persenius  (Level design)",
         "  Mark Pulley  (Level design)",
         "  Rudolf  (Level design)",
         "  Peter Santo  (Level design)",
         "  Tobias Schmidbauer  (Windows installer and icon)",
+        "  Lukas Schüller  (Level design)",
         "  Achim Settelmeier  (RPM specfile)",
         "  ShadowPhrogg32642342 (Dániel Borbély)  (Level design)",
         "  Alex Smith  (Level design)",
+        "  Alan Smithee  (Level design)",
+        0,
         "  Jon Sneyers  (Level design)",
         "  Spaceman  (Level design)",
         "  Ulf Stegemann  (Level design)",
         "  Jürgen Sticht  (Level design)",
-        "  Mikke Surakka (Finnish translation)",
+        "  Mikke Surakka  (Finnish translation)",
         "  Andrzej Szombierski  (Level design)",
         "  Tacvek  (Lua 5.1 upgrade)",
         "  James Taylor  (Level design)",
         "  Michael Terry  (.desktop file)",
         "  Ray Wick  (Level design)",
         "  Joe Wreschnig  (Manual page)",
+        "  Zephyr  (Level design)",
         "  Юрий Жиромский - Yuriy Zhyromskiy  (Russian Manual)",
         "  /dev/null  (Level design)",
         0,
     };
-    
+
     MainHelpMenu::MainHelpMenu () {
         const video::VMInfo *vminfo = video::GetInfo();
         const bool vshrink = vminfo->width < 640 ;
-    
+
         BuildVList b = vshrink? BuildVList(this, Rect(40, 40, 100, 25), 3)
                 : BuildVList(this, Rect((vminfo->width - 150)/2, vminfo->tt ? 80 : 150, 150, 40), 7);
         BuildVList br = vshrink? BuildVList(this, Rect(180, 40, 100, 25), 4) : BuildVList(this, Rect(0, 0, 0, 0), 0);
         BuildVList *brp = vshrink? &br : &b;
-        
+
         homepage = b.add(new StaticTextButton(N_("Homepage"), this));
         docs = b.add(new StaticTextButton(N_("Documentation"), this));
         paths = b.add(new StaticTextButton(N_("Paths"), this));
@@ -237,18 +247,18 @@ namespace enigma { namespace gui {
         credits = brp->add(new StaticTextButton(N_("Credits"), this));
         back = brp->add(new StaticTextButton(N_("Back"), this));
     }
-    
+
     MainHelpMenu::~MainHelpMenu () {
     }
-    
+
     bool MainHelpMenu::on_event (const SDL_Event &e)  {
         return false;
     }
-    
+
     void MainHelpMenu::on_action(gui::Widget *w) {
         if (w == homepage) {
             video::SetFullscreen(false);
-            ecl::BrowseUrl("http://www.enigma-game.org");            
+            ecl::BrowseUrl("http://www.enigma-game.org");
         } else if (w == docs) {
             video::SetFullscreen(false);
             ecl::BrowseUrl("file://" + app.docPath + "/index.html");
@@ -261,22 +271,22 @@ namespace enigma { namespace gui {
             video::SetFullscreen(false);
             ecl::ExploreFolder(ecl::BeautifyPath(app.userPath));
         } else if (w == credits) {
-            displayInfo(credit_text, 6);
+            displayInfo(credit_text, 7);
         } else if (w == back) {
             Menu::quit();
         } else
             return;
         invalidate_all();
     }
-    
+
     void MainHelpMenu::draw_background(ecl::GC &gc) {
         video::SetCaption (("Enigma - Help Menu"));
         blit(gc, 0,0, enigma::GetImage("menu_bg", ".jpg"));
     }
-    
+
     void MainHelpMenu::tick(double dtime) {
     }
-    
+
     void MainHelpMenu::showPaths() {
         const char *pathtext[25];
         std::string pathstrings[25];
@@ -285,7 +295,7 @@ namespace enigma { namespace gui {
         const video::VMInfo *vminfo = video::GetInfo();
         int width = vminfo->width - 80;
         int i = 0;
-        
+
         pathtext[i++] = N_("Preferences Path:");
         work = ecl::BeautifyPath(app.prefPath);
         do {
@@ -348,14 +358,14 @@ namespace enigma { namespace gui {
         pathtext[i++] = 0;
         displayInfo(pathtext, 1);
     }
-    
+
     /* -------------------- Main menu -------------------- */
-    MainMenu::MainMenu() 
+    MainMenu::MainMenu()
     {
         build_menu();
     }
-    
-    void MainMenu::build_menu() 
+
+    void MainMenu::build_menu()
     {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
@@ -378,7 +388,7 @@ namespace enigma { namespace gui {
 #endif
         help        = brp->add(new StaticTextButton(N_("Help"), this));
         quit        = brp->add(new StaticTextButton(N_("Quit"), this));
-        
+
         int ly = vminfo->width - 5 - 35*(NUMENTRIES(nls::languages) - 1);
         //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
         BuildHList l(this, Rect(ly, 10, 30, 20), 5);
@@ -397,16 +407,16 @@ namespace enigma { namespace gui {
             }
         }
     }
-    
-    void MainMenu::draw_background(ecl::GC &gc) 
+
+    void MainMenu::draw_background(ecl::GC &gc)
     {
         const video::VMInfo *vminfo = video::GetInfo();
-    
+
         video::SetCaption (("Enigma - Main Menu"));
         sound::StartMenuMusic();
-    
+
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
-    
+
         Font *f = enigma::GetFont("levelmenu");
         Surface * logo(enigma::GetImage("enigma_logo3"));
         int x0=(vminfo->width - logo->width())/2;
@@ -418,7 +428,7 @@ namespace enigma { namespace gui {
         blit(gc, x0, y0[vminfo->tt], logo);
         f->render (gc, 5, vminfo->height - 20, app.getVersionInfo().c_str());
     }
-    
+
     bool MainMenu::on_event (const SDL_Event &e) {
         switch (e.type) {
             case SDL_KEYDOWN:
@@ -439,9 +449,9 @@ namespace enigma { namespace gui {
         return false;
     }
 
-    void MainMenu::on_action(Widget *w) 
+    void MainMenu::on_action(Widget *w)
     {
-        if (w == startgame) {            
+        if (w == startgame) {
             LevelPackMenu m;
             m.manageLevelMenu();
         } else if (w == levelpack) {
@@ -452,7 +462,7 @@ namespace enigma { namespace gui {
         } else if (w == help) {
             MainHelpMenu m;
             m.manage();
-    
+
     #ifdef ENABLE_EXPERIMENTAL
         } else if (w == m_netgame) {
             ShowNetworkMenu();
@@ -472,11 +482,11 @@ namespace enigma { namespace gui {
         curname = curname.substr(0, curname.find('.'));
         for (unsigned int i = 0; i < flags.size(); i++)
             flags[i]->setState(curname == nls::languages[i+1].localename);
-                
+
         invalidate_all();
     }
-    
-    void MainMenu::tick(double /* dtime */) 
+
+    void MainMenu::tick(double /* dtime */)
     {
         bool isFullScreen = app.prefs->getBool("FullScreen");
         if (app.selectedVideoMode != video::GetVideoMode()
@@ -489,15 +499,15 @@ namespace enigma { namespace gui {
             invalidate_all();
         }
     }
-    
+
 /* -------------------- Functions -------------------- */
-    
+
     void ShowMainMenu() {
         MainMenu m;
         m.manage();
     }
-        
-    void ShowNetworkMenu() 
+
+    void ShowNetworkMenu()
     {
         NetworkMenu m;
         m.manage();
