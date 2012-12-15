@@ -1236,7 +1236,6 @@ Enigma. Здесь Вы найдете лазеры, зеркала и монеты. Вам прийдется решить простую
 @section Главные разработчики
 
 @table @strong
-
 @item Raoul Bourquin
 Руководство уровнями и дизайн, бесценные дополнения по всем вопросам
 
@@ -1279,30 +1278,34 @@ XML, графический интерфейс, программирование основной части, документация
 @item Johannes Fortmann
 Портирование на Mac OS X, немного программирования, графика
 
-@item Dustin Norlander
-Дизайнер шрифта "Dustismo"
-
-@item Jeremy Sawicki
-Переработка формата файла Oxyd, Oxydlib
-
-@item Erich Schubert
-Пакеты для Debian/Ubuntu
-
-@item Meinolf Schneider
-Оригинальная идея игры--@emph{Спасибо}!
-
-@item Andrew ``Necros'' Sega
-Музыка в меню (@emph{Pentagonal Dreams})
+@item illmind
+Forum mag-heut.net administration, Level design
 
 @c Ожидается лицензия на добавление звуков
 @c @item ``Cellar of Rats''
 @c Звуковые эффекты
 
+@item Jennifer Robertson
+Graphics second generation
+
+@item Jeremy Sawicki
+Переработка формата файла Oxyd, Oxydlib
+
+@item Meinolf Schneider
+Оригинальная идея игры--@emph{Спасибо}!
+
+@item Erich Schubert
+Пакеты для Debian/Ubuntu
+
+@item Andrew ``Necros'' Sega
+Музыка в меню (@emph{Pentagonal Dreams})
+
 @item David W. Skinner
 Много уровней для Сокобана с сайта
 @uref{http://users.bentonrea.com/~sasquatch/sokoban}
 
-
+@item Clifford J. Tasner
+Music second generation, Proof reading
 @end table
 
 @node Помощники, Используемое программное обеспечение, Особые благодарности, Благодарности
@@ -1311,124 +1314,78 @@ XML, графический интерфейс, программирование основной части, документация
 Наша признательность различным меньшим помощникам:
 
 @itemize @bullet
-
-@item
-Roberto Bardin (Дизайн уровней)
-
-@item
-Alain Busser (Дизайн уровней, французский перевод игры и руководства)
-
-@item
-Guy Busser (Дизайн уровней)
-
-@item
-Richi B@"utzer (Дизайн уровней)
-
-@item
-capkoh (Дизайн уровней)
-
-@item
-Serge Dremuk (Русский перевод)
-
-@item
-Xerxes M. Dynatos (Дизайн уровней)
-
-@item
-Edward (Дизайн уровней)
-
-@item
-Stephanie Fabian (Бесценные сообщения об ошибках)
-
-@item
-Roberto Garc@'ia (Испанский перевод)
-
-@item
-Edwin Groothuis (Портирование на FreeBSD)
-
-@item
-Immanuel Herrmann (Дизайн уровней)
-
-@item
-illmind (Дизайн уровней)
-
-@item
-M@'at@'e Lehel Juh@'asz (Венгерский перевод)
-
-@item
-Samuele Kaplun (Итальянский перевод)
-
-@item
-Jens-Christian Korth (Дизайн уровней)
-
-@item
-Manuel K@"onig (Дизайн уровней, сообщения об ошибках)
-
-@item
-Markus Laire (Дизайн уровней)
-
-@item
-Dominik Lehmann (Дизайн уровней)
-
-@item
-Edward Leuf (Отзывы, сообщения об ошибках)
-
-@item
-Ingo van Lil (Отзывы, сообщения об ошибках)
-
-@item
-Frank van der Loo (Немецкий перевод)
-
-@item
-Sidney Markowitz (Портирование на Mac OS X)
-
-@item
-moonpearl (Дизайн уровней)
-
-@item
-Krishnamurti Lelis Lima Vieira Nunes (Португальский перевод)
-
-@item
-Daniel Nylander (Шведский перевод)
-
-@item
-Peter Santo (Дизайн уровней)
-
-@item
-Lukas Sch@"uller (Дизайн уровней)
-
-@item
-Achim Settelmeier (специальный файл RPM)
-
-@item
-Jon Sneyers (Дизайн уровней)
-
-@item
-Spaceman (Дизайн уровней)
-
-@item
-Ulf Stegemann (Дизайн уровней)
-
-@item
-J@"urgen Sticht (Дизайн уровней)
-
-@item
-Andrzej Szombierski (Дизайн уровней)
-
-@item
-Tacvek (Обновление Lua 5.1)
-
-@item
-Michael Terry (Файл .desktop)
-
-@item
-Ray Wick (Дизайн уровней)
-
-@item
-Joe Wreschnig (Руководство)
-
-@item
-Yuriy Zhyromskiy (Русский перевод руководства)
-
+@item Roberto Bardin (Дизайн уровней)
+@item Thomas Bernhardt (Дизайн уровней)
+@item Helge Blohmer (Дизайн уровней)
+@item Nathan Bronecke (Дизайн уровней)
+@item Harry Bruder (LotM articles)
+@item Alain Busser (Дизайн уровней, французский перевод игры и руководства)
+@item Guy Busser (Дизайн уровней)
+@item Richi B@"utzer (Дизайн уровней)
+@item capkoh (Дизайн уровней)
+@item Manfredi Carta (Дизайн уровней)
+@item Christoph & Anita (Дизайн уровней)
+@item daydreamer (Дизайн уровней)
+@item Serge Dremuk (Русский перевод)
+@item Joseph Dunne (Дизайн уровней)
+@item Xerxes M. Dynatos (Дизайн уровней)
+@item Edward (Дизайн уровней)
+@item Manuel Eisentraut (Дизайн уровней)
+@item Stephanie Fabian (Бесценные сообщения об ошибках)
+@item Johann Freymuth (Дизайн уровней)
+@item Roberto Garc@'ia (Испанский перевод)
+@item Andy Geldmacher (Дизайн уровней)
+@item Edwin Groothuis (Портирование на FreeBSD)
+@item Daniel Hadas (Дизайн уровней)
+@item Jonatan Hadas (Дизайн уровней)
+@item Hairball (Дизайн уровней)
+@item Immanuel Herrmann (Дизайн уровней)
+@item M@'at@'e Lehel Juh@'asz (Венгерский перевод)
+@item Johannes H@"using (Дизайн уровней)
+@item Brian Huffman (Дизайн уровней)
+@item Samuele Kaplun (Итальянский перевод)
+@item Jens-Christian Korth (Дизайн уровней)
+@item Manuel K@"onig (Дизайн уровней, сообщения об ошибках)
+@item Johannes Laire (Дизайн уровней)
+@item Joona Laire (Дизайн уровней)
+@item Markus Laire (Дизайн уровней)
+@item Dominik Lehmann (Дизайн уровней)
+@item Dominik Leipold (Дизайн уровней)
+@item Edward Leuf (Отзывы, сообщения об ошибках)
+@item Ingo van Lil (Отзывы, сообщения об ошибках)
+@item Frank van der Loo (Немецкий перевод)
+@item Sidney Markowitz (Портирование на Mac OS X)
+@item Barry & Lori Mead (Дизайн уровней)
+@item Lurcane (Дизайн уровней)
+@item Linda Mihalic (English proof reading)
+@item moonpearl (Дизайн уровней)
+@item Krishnamurti Lelis Lima Vieira Nunes (Португальский перевод)
+@item Daniel Nylander (Шведский перевод)
+@item Andreas Persenius (Дизайн уровней)
+@item Mark Pulley (Дизайн уровней)
+@item Rudolf (Дизайн уровней)
+@item Stephen Morley (Safalra) (Дизайн уровней)
+@item Peter Santo (Дизайн уровней)
+@item Tobias Schmidbauer (Windows installer and icon)
+@item Lukas Sch@"uller (Дизайн уровней)
+@item Achim Settelmeier (специальный файл RPM)
+@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Дизайн уровней)
+@item Jon Sneyers (Дизайн уровней)
+@item Alex Smith (Дизайн уровней)
+@item Alan Smithee (Дизайн уровней)
+@item Spaceman (Дизайн уровней)
+@item Ulf Stegemann (Дизайн уровней)
+@item J@"urgen Sticht (Дизайн уровней)
+@item Mikke Surakka (Finnish translation)
+@item Andrzej Szombierski (Дизайн уровней)
+@item Tacvek (Обновление Lua 5.1)
+@item James Taylor (Дизайн уровней)
+@item Michael Terry (Файл .desktop)
+@item Ray Wick (Дизайн уровней)
+@item Joe Wreschnig (Руководство)
+@item Zephyr (Дизайн уровней)
+@item Yuriy Zhyromskiy (Русский перевод руководства)
+@item /dev/null (Дизайн уровней)
 @end itemize
 
 @node Используемое программное обеспечение,  , Помощники, Благодарности

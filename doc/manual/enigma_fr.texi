@@ -197,7 +197,7 @@ menu des niveaux, qui ressemble @`a ceci:
 Cet @'ecran est divis@'e en trois parties: Celle du haut contient des informations
 @`a propos du niveau et du paquet de niveaux courants, celle du milieu montre une
 vue a@'erienne des niveaux actuellement disponibles, et celle du bas est une
-rang@'ee de boutons (comme mon visage ).
+rang@'ee de boutons (comme mon visage).
 
 On peut se d@'eplacer dans la liste des niveaux en utilisant les boutons en forme
 de fl@`eches sur la droite, ou bien en utilisant les fl@`eches du clavier. Pour
@@ -1199,7 +1199,6 @@ Assurez-vous un acc@`es @`a la chambre avec l'interrupteur; ensuite cherchez le 
 @section D@'eveloppeurs principaux
 
 @table @strong
-
 @item Raoul Bourquin
 Administration et conception de niveaux, plus d'autres choses inestimables
 
@@ -1242,30 +1241,34 @@ Programmation, conception de niveaux
 @item Johannes Fortmann
 Portage Mac OS X , un peu de programmation, graphismes
 
-@item Dustin Norlander
-Auteur de la police ``Dustismo''
-
-@item Jeremy Sawicki
-Ing@'eni@'erie inverse sur le format de fichier d'Oxyd, Oxydlib
-
-@item Erich Schubert
-paquets Debian/Ubuntu
-
-@item Meinolf Schneider
-Id@'ee initiale du jeu --@emph{Merci}!
-
-@item Andrew ``Necros'' Sega
-Musique du menu (@emph{Pentagonal Dreams})
+@item illmind
+Forum mag-heut.net administration, Conception de niveaux
 
 @c waiting for licence to add the sounds
 @c @item ``Cellar of Rats''
 @c Sound effects
 
+@item Jennifer Robertson
+Graphics second generation
+
+@item Jeremy Sawicki
+Ing@'eni@'erie inverse sur le format de fichier d'Oxyd, Oxydlib
+
+@item Meinolf Schneider
+Id@'ee initiale du jeu --@emph{Merci}!
+
+@item Erich Schubert
+paquets Debian/Ubuntu
+
+@item Andrew ``Necros'' Sega
+Musique du menu (@emph{Pentagonal Dreams})
+
 @item David W. Skinner
 Beaucoup de niveau Sokoban, de
 @uref{http://users.bentonrea.com/~sasquatch/sokoban}
 
-
+@item Clifford J. Tasner
+Music second generation, Proof reading
 @end table
 
 @node Contributeurs, Logiciels utilis@'es, Remerciements sp@'eciaux, Cr@'edits
@@ -1274,125 +1277,78 @@ Beaucoup de niveau Sokoban, de
 Pour diverses contributions, merci @`a:
 
 @itemize @bullet
-
-@item
-Roberto Bardin (conception de niveaux)
-
-@item
-Alain Busser (conception de niveaux, traduction fran@,{c}aise, la pr@'esente version du manuel)
-(@emph{autor@'ef@'erence quand tu nous tiens}!)
-
-@item
-Guy Busser (conception de niveaux)
-
-@item
-Richi B@"utzer (conception de niveaux)
-
-@item
-capkoh (conception de niveaux)
-
-@item
-Serge Dremuk (traduction russe)
-
-@item
-Xerxes M. Dynatos (conception de niveaux)
-
-@item
-Edward (conception de niveaux)
-
-@item
-Stephanie Fabian (d@'etection inestimable de bogues)
-
-@item
-Roberto Garc@'ia (traduction espagnole)
-
-@item
-Edwin Groothuis (portage FreeBSD)
-
-@item
-Immanuel Herrmann (conception de niveaux)
-
-@item
-illmind (conception de niveaux)
-
-@item
-M@'at@'e Lehel Juh@'asz (traduction hongroise)
-
-@item
-Samuele Kaplun (traduction italienne)
-
-@item
-Jens-Christian Korth (conception de niveaux)
-
-@item
-Manuel K@"onig (conception de niveaux, d@'etection de bogues)
-
-@item
-Markus Laire (conception de niveaux)
-
-@item
-Dominik Lehmann (conception de niveaux)
-
-@item
-Edward Leuf (Feedback, d@'etection de bogues)
-
-@item
-Ingo van Lil (Feedback, d@'etection de bogues)
-
-@item
-Frank van der Loo (traduction n@'eerlandaise)
-
-@item
-Sidney Markowitz (portage Mac OS X )
-
-@item
-moonpearl (conception de niveaux)
-
-@item
-Krishnamurti Lelis Lima Vieira Nunes (traduction portugaise)
-
-@item
-Daniel Nylander (traduction su@'edoise)
-
-@item
-Peter Santo (conception de niveaux)
-
-@item
-Lukas Sch@"uller (conception de niveaux)
-
-@item
-Achim Settelmeier (sp@'ecification RPM)
-
-@item
-Jon Sneyers (conception de niveaux)
-
-@item
-Spaceman (conception de niveaux)
-
-@item
-Ulf Stegemann (conception de niveaux)
-
-@item
-J@"urgen Sticht (conception de niveaux)
-
-@item
-Mikke Surakka (traduction finlandaise)
-
-@item
-Andrzej Szombierski (conception de niveaux)
-
-@item
-Tacvek (mise @`a niveau Lua 5.1)
-
-@item
-Michael Terry (fichier .desktop)
-
-@item
-Ray Wick (conception de niveaux)
-
-@item
-Joe Wreschnig (page Manual)
-
+@item Roberto Bardin (conception de niveaux)
+@item Thomas Bernhardt (conception de niveaux)
+@item Helge Blohmer (conception de niveaux)
+@item Nathan Bronecke (conception de niveaux)
+@item Harry Bruder (LotM articles)
+@item Alain Busser (conception de niveaux, traduction fran@,{c}aise, la pr@'esente version du manuel)
+@item Guy Busser (conception de niveaux)
+@item Richi B@"utzer (conception de niveaux)
+@item capkoh (conception de niveaux)
+@item Manfredi Carta (conception de niveaux)
+@item Christoph & Anita (conception de niveaux)
+@item daydreamer (conception de niveaux)
+@item Serge Dremuk (traduction russe)
+@item Joseph Dunne (conception de niveaux)
+@item Xerxes M. Dynatos (conception de niveaux)
+@item Edward (conception de niveaux)
+@item Manuel Eisentraut (conception de niveaux)
+@item Stephanie Fabian (d@'etection inestimable de bogues)
+@item Johann Freymuth (conception de niveaux)
+@item Roberto Garc@'ia (traduction espagnole)
+@item Andy Geldmacher (conception de niveaux)
+@item Edwin Groothuis (portage FreeBSD)
+@item Daniel Hadas (conception de niveaux)
+@item Jonatan Hadas (conception de niveaux)
+@item Hairball (conception de niveaux)
+@item Immanuel Herrmann (conception de niveaux)
+@item M@'at@'e Lehel Juh@'asz (traduction hongroise)
+@item Johannes H@"using (conception de niveaux)
+@item Brian Huffman (conception de niveaux)
+@item Samuele Kaplun (traduction italienne)
+@item Jens-Christian Korth (conception de niveaux)
+@item Manuel K@"onig (conception de niveaux, d@'etection de bogues)
+@item Johannes Laire (conception de niveaux)
+@item Joona Laire (conception de niveaux)
+@item Markus Laire (conception de niveaux)
+@item Dominik Lehmann (conception de niveaux)
+@item Dominik Leipold (conception de niveaux)
+@item Edward Leuf (Feedback, d@'etection de bogues)
+@item Ingo van Lil (Feedback, d@'etection de bogues)
+@item Frank van der Loo (traduction n@'eerlandaise)
+@item Sidney Markowitz (portage Mac OS X)
+@item Barry & Lori Mead (conception de niveaux)
+@item Lurcane (conception de niveaux)
+@item Linda Mihalic (English proof reading)
+@item moonpearl (conception de niveaux)
+@item Krishnamurti Lelis Lima Vieira Nunes (traduction portugaise)
+@item Daniel Nylander (traduction su@'edoise)
+@item Andreas Persenius (conception de niveaux)
+@item Mark Pulley (conception de niveaux)
+@item Rudolf (conception de niveaux)
+@item Stephen Morley (Safalra) (conception de niveaux)
+@item Peter Santo (conception de niveaux)
+@item Tobias Schmidbauer (Windows installer and icon)
+@item Lukas Sch@"uller (conception de niveaux)
+@item Achim Settelmeier (sp@'ecification RPM)
+@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (conception de niveaux)
+@item Jon Sneyers (conception de niveaux)
+@item Alex Smith (conception de niveaux)
+@item Alan Smithee (conception de niveaux)
+@item Spaceman (conception de niveaux)
+@item Ulf Stegemann (conception de niveaux)
+@item J@"urgen Sticht (conception de niveaux)
+@item Mikke Surakka (traduction finlandaise)
+@item Andrzej Szombierski (conception de niveaux)
+@item Tacvek (mise @`a niveau Lua 5.1)
+@item James Taylor (conception de niveaux)
+@item Michael Terry (fichier .desktop)
+@item Ray Wick (conception de niveaux)
+@item Joe Wreschnig (page Manual)
+@item Zephyr (conception de niveaux)
+@item Yuriy Zhyromskiy (Russian Manual)
+@item /dev/null (conception de niveaux)
 @end itemize
 
 @node Logiciels utilis@'es,  , Contributeurs, Cr@'edits
