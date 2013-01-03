@@ -3,16 +3,16 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Springtime Again" el:subtitle="The principles of playing chess in flight" el:id="harry07"/>
-      <el:version el:score="1" el:release="1" el:revision="7" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="9" el:status="released"/>
       <el:author el:name="daydreamer" el:email=""/>
       <el:copyright>Copyright © 2009 daydreamer</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="true"/>
       <el:comments>
-	<el:credits el:showinfo="false" el:showstart="false"></el:credits>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to /dev/null for testing and feedback</el:credits>
       </el:comments>
-      <el:score el:easy="13:07" el:difficult="24:12"/>
+      <el:score el:easy="11:11" el:difficult="20:09"/>
     </el:info>
     <el:luamain><![CDATA[
 wo["ShowMoves"] = true
@@ -33,35 +33,35 @@ ti["E"] = cond(wo["IsDifficult"], ti["B"] .. ti["x"], ti["B"])
 ti["e"] = cond(wo["IsDifficult"], ti["W"] .. ti["x"], ti["W"])
 ti["O"] = {"st_oxyd", "right#"}
 ti["o"] = {"st_oxyd", "left#"}
-ti["@"] = {"#ac_marble", essential=INDISPENSABLE}
-ti["*"] = {"#ac_marble_white", essential=INDISPENSABLE}
+ti["@"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["*"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
 
 wo(ti, "-", {
-    "########B-EW########",
+    "WB##WB-#B-EW#-WB##WB",
     "oXWb-#WB~--~WB#-wBYO",
-    "WB#~WB-#be-w#-WE~#WB",
-    "oXWb-#WW~-*~BB#-wBYO",
-    "WB#~eB-#b-Bw#-WB~#WB",
+    "WB#~WB-#be-w#-WB~#WB",
+    "oXWb-#eW~-*~BE#-wBYO",
+    "WB#~eB-#b-Bw#-WE~#WB",
     "oXWb-#WB~--~WB#-wBYO",
     "WB#~WB-#bW-w#-WB~#WB",
     "oXWb-#WW~--~BB#-wBYO",
-    "WB#~eB-#b-Ew#-WB~#WB",
-    "oXWb-#WB~@-~WB#-wBYO",
-    "WB#~WB-#be-w#-WE~#WB",
+    "WB#~eB-#b-Ew#-WE~#WB",
+    "oXWb-#eB~@-~WE#-wBYO",
+    "WB#~WB-#be-w#-WB~#WB",
     "oXWb-#WW~--~BB#-wBYO",
-    "WB##WB-######-WB##WB"})
+    "####################"})
 
-wo:add(YIN,  ti["s"])
+wo:add(YIN, ti["s"])
 wo:add(YANG, ti["s"])
 wo:shuffleOxyd({"left#*", max=0}, {"right#*", max=0})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
-	<el:english el:translate="false"/>
+        <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="subtitle">
-	<el:english el:translate="false"/>
+        <el:english el:translate="false"/>
       </el:string>
-  </el:i18n>
+    </el:i18n>
   </el:protected>
 </el:level>
