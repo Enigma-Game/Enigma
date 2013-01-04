@@ -137,9 +137,11 @@ AC_CHECK_LIB(SDL_mixer,main,,[AC_MSG_ERROR([SDL_mixer is required to compile Eni
 
 SDL_LIBS="$SDL_LIBS -lSDL_mixer"
 
-AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
-if test "$have_mix_quickload" = no; then
-  AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
+if test "$MINGW32" = no; then
+  AC_CHECK_LIB(SDL_mixer, Mix_QuickLoad_RAW, have_mix_quickload="yes", have_mix_quickload="no")
+  if test "$have_mix_quickload" = no; then
+    AC_MSG_ERROR([SDL_mixer >= 1.2.5 is required to compile Enigma])
+  fi
 fi
 
 AC_CHECK_LIB(SDL_mixer, Mix_Init, have_mix_init="yes", have_mix_init="no")
@@ -150,17 +152,19 @@ fi
 dnl ----------------------------------------
 dnl Check for SDL_ttf library
 dnl ---------------------------------------
-AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
-AC_RUN_IFELSE([AC_LANG_SOURCE(
-    [[#include <SDL_ttf.h>
-      int main(int argc, char *argv[]) {
-      if (TTF_MAJOR_VERSION < 2)
-	return 1;
-      else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6) 
-	return 1;
-      return 0;}]])],
-  [AC_MSG_RESULT([found])],
-  [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
+if test "$MINGW32" = no; then
+  AC_MSG_CHECKING([for SDL_ttf >=2.0.6])
+  AC_RUN_IFELSE([AC_LANG_SOURCE(
+      [[#include <SDL_ttf.h>
+        int main(int argc, char *argv[]) {
+        if (TTF_MAJOR_VERSION < 2)
+          return 1;
+        else if (TTF_MAJOR_VERSION == 2 && TTF_MINOR_VERSION == 0 && TTF_PATCHLEVEL < 6) 
+          return 1;
+        return 0;}]])],
+    [AC_MSG_RESULT([found])],
+    [AC_MSG_ERROR([SDL_ttf >= 2.0.6 not found.])])
+fi
 AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma])])
 
 SDL_LIBS="$SDL_LIBS -lSDL_ttf"
@@ -176,10 +180,10 @@ LIBS="$LIBS_NOSDL"
 dnl ----------------------------------------
 dnl Check for libpng
 dnl ---------------------------------------
-if test "$MINGW32" = yes; then
-  AC_CHECK_LIB(png12,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
-else
+if test "$MINGW32" = no; then
   AC_CHECK_LIB(png,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
+dnl else
+dnl   AC_CHECK_LIB(png12,png_create_write_struct,,[AC_MSG_ERROR([libpng is required to compile Enigma])])
 fi
 
 dnl ----------------------------------------
@@ -217,7 +221,11 @@ fi
 dnl ----------------------------------------
 dnl Check for libcurl
 dnl ---------------------------------------
-AC_CHECK_LIB(curl,curl_global_init,,[AC_MSG_ERROR([libcurl is required to compile Enigma])])
+if test "$MINGW32" = yes; then
+  AC_CHECK_LIB(curl,main,,[AC_MSG_ERROR([libcurl is required to compile Enigma])])
+else
+  AC_CHECK_LIB(curl,curl_global_init,,[AC_MSG_ERROR([libcurl is required to compile Enigma])])
+fi
 
 dnl ----------------------------------------
 dnl Activate optimizations when profiling, to get rid of
