@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="62" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="63" title="Enigma IV"/>
 
   <attributes/>
 
@@ -17,7 +17,7 @@
     <level _seq="9" _title="Doors Galore" _xpath="./raywick01_3" author="Ray Wick" ctrl="force" easy="true" id="RayWick001" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="10" _title="Slide it in" _xpath="./ss13_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss13" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Switch-Switch" _xpath="./raywick02_3" author="Ray Wick" ctrl="force" easy="true" id="RayWick002" rel="3" rev="1" score="3" target="time" unit="duration"/>
-    <level _seq="12" _title="Slinky-Racing" _xpath="./duffy14_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy14" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Slinky-Racing" _xpath="./duffy14_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy14" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Chained" _xpath="./ant22_2" author="Petr Machata" ctrl="force" easy="true" id="ant22" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="14" _title="Too Hot" _xpath="./martin94_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin94" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="Graduated Puzzles" _xpath="./duffy94_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy94" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -50,7 +50,7 @@
     <level _seq="42" _title="The Race" _xpath="./duffy11_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy11" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="43" _title="Limited Supplies" _xpath="./duffy130_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy130" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Patterns of Impulse" _xpath="./andreas11_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas11" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="45" _title="Ball and Chain" _xpath="./duffy41_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy41" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="Ball and Chain" _xpath="./duffy41_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy41" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Stay There!" _xpath="./ralf05_3" author="Ralf Westram" ctrl="force" easy="false" id="ralf05" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="47" _title="Just Moving Blocks?" _xpath="./duffy05_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy5" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Artillery" _xpath="./duffy111_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy111" rel="1" rev="1" score="1" target="time" unit="duration"/>

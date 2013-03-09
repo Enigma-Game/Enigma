@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Slinky-Racing" el:subtitle="" el:id="duffy14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_bluegreen"}
+ti["7"] = {"fl_slope_ise"}
+ti["9"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_inw"}
+ti["1"] = {"fl_slope_ine"}
+ti["v"] = {"fl_slope_ps"}
+ti["<"] = {"fl_slope_pw"}
+ti["^"] = {"fl_slope_pn"}
+ti["~"] = {"fl_water"}
+ti["!"] = cond(wo["IsDifficult"], ti["~"], ti[" "])
+ti["#"] = {"st_greenbrown"}
+ti["="] = {"st_stoneimpulse"}
+ti["+"] = {"st_box"}
+ti["X"] = {"st_grate"}
+ti["."] = {"it_bomb"}
+ti["*"] = ti["="] .. ti["."]
+ti["A"] = {"it_magnet", name="magnetA"}
+ti["B"] = {"it_magnet", name="magnetB"}
+ti["a"] = {"it_trigger", target="magnetA", action_0="on"}
+ti["b"] = {"it_trigger", target="magnetB", action_0="on"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#      ~ +  !    !        +           #",
+    "# +======== ! ====       ====  7v9    #",
+    "#X#     +.*.. =..=========..= 7vvv9   #",
+    "#     ===X==*==.............=7vvvv99  #",
+    "#~~==== =.......=========...======<<9 #",
+    "#  =    ====..A.=       =.B.....O=<<<9#",
+    "#  +X      =....=       =........=<<<<#",
+    "#b# #     ==..===   !   =.......O=<<<3#",
+    "#a###     =...=     !   ==========<<3 #",
+    "#   #     =====     !   !      1^^33  #",
+    "#  @#              ~~        !! 1^3   #",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Way To Go" el:subtitle="" el:id="mirrors"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Daniel Heck" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Daniel Heck</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gray"}
+ti["#"] = {"st_rawglass"}
+ti["L"] = {"st_laser_e", state=ON}
+ti["S"] = {"st_shogun_s"}
+ti["^"] = {"st_mirror_triangle", state=NORTH, transparent=true}
+ti["v"] = {"st_mirror_triangle", state=SOUTH, transparent=true}
+ti["|"] = {"st_mirror_slab", state=NORTH}
+ti[")"] = {"st_mirror_slab", state=EAST}
+ti["("] = {"st_mirror_slab", state=WEST}
+ti["a"] = {"it_shogun_s", target="door2"}
+ti["b"] = {"it_shogun_s", target={"door3", "door4"}}
+ti["c"] = {"it_shogun_s", target="door4", action="close"}
+ti["d"] = {"it_shogun_s", target="door2", action="open"}
+ti["e"] = {"it_shogun_s", target={"door1", "door3"}}
+ti["f"] = {"it_shogun_s", target={"door1", "door4"}}
+ti["1"] = {"st_door_d", faces="ew", name="door1"}
+ti["2"] = {"st_door_d", faces="ew", name="door2"}
+ti["3"] = {"st_door_d", faces="ew", name="door3"}
+ti["4"] = {"st_door_d", faces="ew", name="door4"}
+ti["O"] = {"st_oxyd", oxydcolor=OXYD_RED}
+ti["0"] = {"st_oxyd", oxydcolor=OXYD_BLUE}
+ti["@"] = {"#ac_marble_black", name="black"}
+
+wo(ti, " ", {
+    "0##################O",
+    ")                  (",
+    "#                  #",
+    "#                  #",
+    "#      a  b  c     #",
+    "(####           ^  #",
+    "L1234  S  S  S  | @#",
+    ")####           v  #",
+    "#      d  e  f     #",
+    "#                  #",
+    "#                  #",
+    "(                  )",
+    "O##################0"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
