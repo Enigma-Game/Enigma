@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="77" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="78" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -31,7 +31,7 @@
     <level _seq="23" _title="Balance" _xpath="enigma_i/erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="- Meditation -" _xpath="enigma_i/raoul04_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Enignimm" _xpath="enigma_ii/ral52_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20091215ral591" rel="1" rev="193" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="One Way Ticket" _xpath="enigma_ii/luc25_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="One Way Ticket" _xpath="enigma_ii/luc25_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="- Meditation -" _xpath="enigma_ii/andreas17_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas17" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Growing Boxes" _xpath="enigma_ii/luc26_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc26" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Enigmastermind" _xpath="enigma_ii/alain16_2" author="Alain Busser" ctrl="force" easy="false" id="alain16" rel="2" rev="5" score="1" target="time" unit="duration"/>
@@ -40,7 +40,7 @@
     <level _seq="32" _title="More Black Holes" _xpath="enigma_ii/luc18_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc18" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Robin's Wood" _xpath="enigma_ii/andreas13_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Road to Eden" _xpath="enigma_ii/alain22_1" author="Alain Busser" ctrl="force" easy="false" id="alain22" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="35" _title="Disk Royal" _xpath="enigma_ii/illmind02_1" author="illmind" ctrl="force" easy="false" id="illmind02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Disk Royal" _xpath="enigma_ii/illmind02_2" author="illmind" ctrl="force" easy="false" id="illmind02" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Spaceless" _xpath="enigma_ii/andreas02_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas02" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Laser Paradise" _xpath="enigma_ii/illmind05_1" author="illmind" ctrl="force" easy="false" id="illmind05" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Spaceleast" _xpath="enigma_ii/andreas15_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas15" rel="2" rev="5" score="1" target="time" unit="duration"/>
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Turn Around" _xpath="enigma_ii/andreas07_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas07" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Shoals" _xpath="enigma_ii/nat27_2" author="Nat Pryce" ctrl="force" easy="false" id="nat27" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Shifting Shoals" _xpath="enigma_ii/nat28_1" author="Nat Pryce" ctrl="force" easy="false" id="nat28" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Dirt Clod" _xpath="enigma_ii/xerxes02_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Dirt Clod" _xpath="enigma_ii/xerxes02_2" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes02" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Friend or Foe?" _xpath="enigma_ii/andreas05_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas05" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Teamplay Doors" _xpath="enigma_iii/luc09_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc09" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Deadend" _xpath="enigma_iii/daniel07_2" author="Daniel Heck" ctrl="force" easy="false" id="deadend" rel="2" rev="1" score="1" target="time" unit="duration"/>

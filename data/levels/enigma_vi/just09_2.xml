@@ -3,13 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Playing with Lasers" el:subtitle="" el:id="just09_1"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
-      <el:author  el:name="JuSt" el:email="" el:homepage=""/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="JuSt" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005 JuSt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="0:26"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -20,7 +19,9 @@ ti["~"] = {"fl_water"}
 ti["#"] = {"st_granite"}
 ti["X"] = {"st_grate", flavor="cross"}
 ti["G"] = {"st_rawglass"}
+ti["H"] = {"st_rawglass_movable"}
 ti["I"] = {"st_stoneimpulse"}
+ti["J"] = {"st_stoneimpulse_movable"}
 ti["+"] = {"st_box"}
 ti["P"] = {"st_lightpassenger"}
 ti["M"] = {"st_mirror", flavor="slab", movable=true, orientation=VERTICAL}
@@ -29,9 +30,10 @@ ti[">"] = {"st_laser", state=ON, orientation=EAST}
 ti["V"] = {"st_laser", state=ON, orientation=SOUTH}
 ti["<"] = {"st_laser", state=ON, orientation=WEST}
 ti["L"] = {"st_laser", state=ON, orientation=EAST, name="laser"}
+ti["m"] = {"it_magicwand"}
 ti["t"] = {"it_trigger", target="laser", action="off"}
 ti["O"] = {"st_oxyd"}
-ti["@"] = {"#ac_marble_black"}
+ti["@"] = ti["m"] .. {"#ac_marble_black"}
 
 wo(ti, " ", {
     "#V##################",
@@ -39,8 +41,8 @@ wo(ti, " ", {
     "# XXXXXXXXXXXXXXXX #",
     "# X       M        #",
     "# X          GGGGX #",
-    "# XGGG    @ ~+IIGX #",
-    "# XGOG       GGGGX #",
+    "# XGGG    @ ~+JIGX #",
+    "# XGOG       GHGGX #",
     "# XGGGXXXXXX   XXV #",
     ">   P              #",
     "# XXXXXXXXXX ####  #",

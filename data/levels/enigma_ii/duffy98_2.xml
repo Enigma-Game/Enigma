@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Solar System" el:subtitle="" el:id="duffy98"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti["*"] = {"it_magnet", state=ON}
+ti[" "] = {"fl_space"}
+ti["~"] = {"fl_water"}
+ti[","] = {"fl_metal"}
+ti["-"] = {"fl_ice"}
+ti["j"] = {"fl_lawn_a"}
+ti["r"] = {"fl_red"}
+ti["k"] = {"fl_dark"}
+ti["l"] = {"fl_pinkbumps"}
+ti["u"] = {"fl_redslab"}
+ti["s"] = {"fl_rock"}
+ti["t"] = {"fl_blueslab"}
+ti["v"] = {"fl_sahara"}
+ti["w"] = {"fl_swamp"}
+ti["Y"] = {"fl_sahara", burnable=true, noash=true, secure=true, initfire=true}
+ti["Z"] = {"fl_sahara", burnable=true, noash=true, secure=true, initfire=true}
+ti["J"] = ti["~"] .. ti["*"]
+ti["K"] = ti["k"] .. ti["*"]
+ti["L"] = ti["l"] .. ti["*"]
+ti["R"] = ti["r"] .. ti["*"]
+ti["S"] = ti["s"] .. ti["*"]
+ti["T"] = ti["t"] .. ti["*"]
+ti["U"] = ti["u"] .. ti["*"]
+ti["V"] = ti["v"] .. ti["*"]
+ti["W"] = ti["w"] .. ti["*"]
+ti["#"] = ti[","] .. {"st_purplemarble"}
+ti["!"] = ti["k"] .. {"st_death"}
+ti["="] = ti["V"] .. ti["*"] .. {"st_greenbrown"}
+ti["+"] = ti["j"] .. {"st_box_wood"}
+ti["f"] = ti["j"] .. {"it_flag_black"}
+ti["^"] = ti[","] .. {"it_umbrella"}
+ti["x"] = ti[","] .. {"it_extralife"}
+ti["h"] = ti[","] .. {"it_ring"}
+ti["oxyd"] = {"st_oxyd"}
+ti["0"] = ti["u"] .. ti["oxyd"]
+ti["1"] = ti["W"] .. ti["oxyd"]
+ti["2"] = ti["j"] .. ti["oxyd"]
+ti["3"] = ti["l"] .. ti["oxyd"]
+ti["4"] = ti["r"] .. ti["oxyd"]
+ti["5"] = ti["V"] .. ti["oxyd"]
+ti["6"] = ti["s"] .. ti["oxyd"]
+ti["7"] = ti["t"] .. ti["oxyd"]
+ti["8"] = ti["k"] .. ti["oxyd"]
+ti["9"] = ti["V"] .. ti["oxyd"]
+ti["@"] = ti[","] .. {"ac_marble_black", 0.0, 0.5}
+
+wo(ti, " ", {
+    "                                                                                                                                                                                               ",
+    "                                                                                                                                                                                               ",
+    "                                                                                   !                  rr                                                                                       ",
+    "                                                                                                    rrrrrr                                                                                     ",
+    "                          ######                                                                  rrrrrrrrrr                                                                                   ",
+    "                      ^,, #x^^x# ,,^                                                             rrrrrrrrrrrr                                                                                  ",
+    "                      x,^,h,,@,h,^,x                                                            rrrrrrrrrrrrrr                                                                                 ",
+    "                      ^,, #x^^x# ,,^                                                           rrrrrrrrrrrrrrrr                                                                                ",
+    "                          ######                                                               rrrrrrrrr4rrrrrr                                                                                ",
+    "                                                             jjj                              rrrrrrrrrrrrrrrrrr                                                                               ",
+    "                                                           jjjjjjj                            rrrrrrrrrrrrrrrrrr                                                                    kk8        ",
+    "                                                          ~jjjjjjjj                          rrrrrrrrrRRrrrrrrrrr                                                                   kKk        ",
+    "                                                         ~~jj2j~~~~~                         rrrrrrrrRRRRrrrrrrrr                                                                   kkk        ",
+    "                                                        jjjjjjj~~~~~j                        rrrrrrrrrRRrrrrrrrrr                                                                              ",
+    "                                                        j+jjj~~~~~jjj                !!       rrrrrrrrrrrrrrrrrr                                                                               ",
+    "                                                       jj+jj~~~~~jjjjj               !!       rrrrrrrrrrrrrrrrrr                                                                               ",
+    "Z                                                      jjjj~~~J~~j++jj                         rrrrrrrrrrrrrrrr                                                                                ",
+    "ZY                                                     jjjj~~~~~~jjjjj                         rrrrrrrrrrrrrrrr                                                                                ",
+    "ZYY                                                     j~~~~~jj2jjjj                           rrrrrrrrrrrrrr                                                                                 ",
+    "ZYY                                                     j~~~~jjjjj~~j                            rrrrrrrrrrrr                                                                                  ",
+    "ZYYY                                                     ~~~~jjjj~~~                              rrrrrrrrrr                                                                                   ",
+    "ZYYY                                                      ~jjjfjj~~                                 rrrrrr                                                                                     ",
+    "ZYYYY                                                      jjjjjj~                                    rr                                                                                       ",
+    "ZYYYY                                                        jjj                                                                           sss                                                 ",
+    "ZYYYYY                                                                                                                                   sssssss                                               ",
+    "ZYYYYY        uuu                                                                                                                       sssssssss                                              ",
+    "ZYYYYYY      uuuuu                                                                                                                      sssssssss                                              ",
+    "ZYYYYYY     uuuuuuu                                                                                                                    sssssssssss                                             ",
+    "====YYYY    uuuU0uu                                                                                                                    ssssSSSssss                                             ",
+    "====YYYY    uuuuuuu                                                                               !!                                   sssssssssss                                             ",
+    "====YYYY     uuuuu                                                                                !!                                    sssss6sss                                              ",
+    "====YYYY      uuu                                                               llll                                                    sssssssss                                              ",
+    "====YYYY                           ww                                          llllll                                                    sssssss                                               ",
+    "ZYYYYYY                          wwwwww                                       llllllll                                                     sss                                                 ",
+    "ZYYYYYY                         wwwwwwww                                     llllllllll                                                                                                        ",
+    "ZYYYYY                         wwwwwwwwww                                   llllllllllll                                                                                                       ",
+    "ZYYYYY                        wwwwwwwwwwww                                  llllllllllll                         !!                                                                            ",
+    "ZYYYY                         wwwwwwwwwwww                                  lllllLLlllll                         !!                                                                            ",
+    "ZYYYY                        wwwwwwwwwwwwww                                 llllllllllll                                                                                                       ",
+    "ZYYY                         wwwwwWWWWwwwww                                 lllllll3llll                                                                                                       ",
+    "ZYYY                         wwwwwwwwwwwwww                                  llllllllll                                                                                                        ",
+    "ZYY                           wwwwwwwwwwww                                    llllllll                                                                               ttt                       ",
+    "ZYY                           www1wwwwwwww                                     llllll                               -------                                         ttttt                      ",
+    "ZY                             wwwwwwwwww                                       llll                              ---     ---                                      tt7tttt                     ",
+    "Z                               wwwwwwww                                                                         --   vvv   --                                     tttTttt                     ",
+    "                                 wwwwww                                                                         --  vvvvvvv  --                                    ttttttt                     ",
+    "                                   ww                                                                           -  vvvvvvvvv  -                                     ttttt                      ",
+    "                                                                                                               -- vvvvvvvvvvv --                                     ttt                       ",
+    "                                                                                                 !!            -  vvvvvvvvvvv  -                                                               ",
+    "                                                                                                 !!            - vvvvvvvvvvvvv -                                                               ",
+    "                                                                                                 !!            - vvvvvVVVvvvvv -                                                               ",
+    "                                                                                                               - vvvvvvvvvvvvv -                                                               ",
+    "                                                                                                               -  vvvvv5vvvvv  -                                                               ",
+    "                                                                                                               -- vvvvvvvvvvv --                                                               ",
+    "                                                                                                                -  vvvvvvvvv  -                                                                ",
+    "                                                                                                                --  vvvvvvv  --                                                                ",
+    "                                                                                      !!                         --   vvv   --                                                                 ",
+    "                                                                                      !!                          ---     ---                                                                  ",
+    "                                                                                                                    -------                                                                    ",
+    "                                                                                                                                                                                               ",
+    "                                                                                                                                                                                               "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

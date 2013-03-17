@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="One Way Ticket" el:subtitle="" el:id="luc25"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_lawn_a"}
+ti["#"] = {"st_greenbrown"}
+ti["="] = {"st_greenbrown_hollow"}
+ti["+"] = {"st_greenbrown_movable"}
+ti["|"] = {"st_door_d", name="door#", faces="ew"}
+ti["-"] = {"st_door_d", name="door#", faces="ns"}
+ti["F"] = {"st_floppy", target="@door#*"}
+ti["keyHoles"] = {"st_key", target="@door#*", code="%%"}
+ti["keys"] = {"it_key", code="%%"}
+ti["t"] = {"it_trigger", target="@door#*", action="close", invisible=true}
+ti["X"] = {"fl_lawn_a", name="anchor"}
+ti["S"] = {"st_switch", target="drawLine"}
+ti["f"] = {"it_floppy"}
+ti["O"] = {"st_oxyd_c"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "b", "keys"}, {"A", "B", "keyHoles"}), " ", {
+    "#######################################",
+    "#O#      ##a       #O                O#",
+    "#-A      ##        =                  #",
+    "#        ##        #                  #",
+    "#        ##        #                  #",
+    "#        F#        #                  #",
+    "#@       | t       #        S         #",
+    "#        ##        #                  #",
+    "#        ##        #                  #",
+    "#        ##        #                  #",
+    "#-B    X ##        #                  #",
+    "#O#     f##b       #O                O#",
+    "#######################################"})
+
+wo:shuffleOxyd()
+
+function drawLine(value, sender)
+    sender["target"] = DEFAULT
+    wo:drawMap(res.autotile(ti), no["anchor"], " ", {"  +="})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

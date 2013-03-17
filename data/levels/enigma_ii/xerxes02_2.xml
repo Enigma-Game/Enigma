@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dirt Clod" el:subtitle="" el:id="xerxes02"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Xerxes M. Dynatos" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Xerxes M. Dynatos</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["WormholeRange"] = 0.0
+wo["WormholeStrength"] = 0.0
+
+ti[" "] = {"fl_himalaya"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_himalaya", name="home"}
+ti["#"] = {"st_greenbrown"}
+ti["="] = {"st_greenbrown_hollow"}
+ti["+"] = ti({"fl_brick"}) .. {"st_box_wood"}
+ti["G"] = {"st_lightglass_hollow"}
+ti["Q"] = {"st_quake"}
+ti["|"] = {"st_door_d", faces="ew"}
+ti["/"] = {"st_door_b"}
+ti["A"] = {"st_door_d", name="doorA", faces="ew"}
+ti["B"] = {"st_door_d", name="doorB", faces="ew"}
+ti["C"] = {"st_door_b", name="doorC"}
+ti["D"] = {"st_door_b", name="doorD"}
+ti["E"] = {"st_door_d", name="doorE", faces="ew"}
+ti["a"] = {"st_key", target="doorA", code="1"}
+ti["b"] = {"st_floppy", target="doorB"}
+ti["c"] = {"st_switch", target="doorC"}
+ti["d"] = {"st_coinslot", target="doorD"}
+ti["e"] = {"st_switch", target="doorE"}
+ti["k"] = ti["="] .. {"it_key", code="1"}
+ti["f"] = ti["="] .. {"it_floppy"}
+ti["m"] = ti["="] .. {"it_coin_s"}
+ti["<"] = ti["="] .. {"it_wormhole", destination="home"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "############################################################",
+    "#=================##########################################",
+    "#=###############=####<##=######<#####e######<#######==#####",
+    "#=#         O    B          O         D      +  ~ O      ###",
+    "#=#         O    #          O         /      +  ~       # f#",
+    "#=#  .      O    #          O         |      +  ~ O    #  ##",
+    "#=#@        =    #          G         /     +   ~     #   ##",
+    "#=#         k    a          O         /    +    ~    ##   <#",
+    "#=#         =    A          G         |     +   ~    E    ##",
+    "#=#         O    #          O         /   +     ~ O ##    ##",
+    "#=#              #          G         /    +    ~   #     =#",
+    "#=#         O    |          O         C   +     ~ O#     Q##",
+    "#=##==########=###m###=############=##########=#########=###",
+    "#=##<=########=#######<############=##########=#########=###",
+    "#=###=########=####################=##########=#########=###",
+    "#=###==========###################==========c==#########=###",
+    "#=###########################################d##########=###",
+    "#=######################################################===#",
+    "#=########################################################=#",
+    "# =================     ================================ #=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "########################################################=#=#",
+    "############===##=   =##= =###################= =#=  =##=#=#",
+    "#########O##=#=##=###=##=#=###################= =#=##=##=#=#",
+    "########<    #====###=  =#=====     ===========#===##=== #=#",
+    "#########=#################################=##############b#",
+    "############################################################",
+    "############################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
