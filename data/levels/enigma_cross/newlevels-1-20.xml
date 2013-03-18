@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="104" title="Enigma 1.20 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="105" title="Enigma 1.20 new"/>
 
   <attributes/>
 
@@ -218,7 +218,7 @@
     <level _seq="210" _title="FizzBuzz" _xpath="enigma_viii/ais10_1" author="Alex Smith" ctrl="force" easy="true" id="ais10" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="211" _title="Changing conditions" _xpath="enigma_viii/devnull01_2" author="/dev/null" ctrl="force" easy="false" id="devnull01" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="212" _title="Reflections I" _xpath="enigma_vii/alias01_1" author="Alan Smithee" ctrl="force" easy="true" id="alias01" rel="1" rev="13" score="1" target="time" unit="duration"/>
-    <level _seq="213" _title="Tour de France" _xpath="enigma_ix/mecke04_2" author="mecke" ctrl="force" easy="false" id="mecke04" rel="2" rev="16" score="2" target="time" unit="duration"/>
+    <level _seq="213" _title="Tour de France" _xpath="enigma_ix/mecke04_3" author="mecke" ctrl="force" easy="false" id="mecke04" rel="3" rev="17" score="3" target="time" unit="duration"/>
     <level _seq="214" _title="Escape in Chains" _xpath="enigma_ix/duffy184_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy184" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="215" _title="Meditation Sorting" _xpath="enigma_viii/wesley02_1" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="216" _title="Claustrophobia" _xpath="enigma_viii/ais11_1" author="Alex Smith" ctrl="force" easy="true" id="20090926ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
