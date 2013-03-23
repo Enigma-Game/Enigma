@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="49" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="50" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -53,7 +53,7 @@
     <level _seq="45" _title="The Sargasso Sea" _xpath="enigma_iii/martin17_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Moonwalking" _xpath="enigma_oxyd/oxyd52_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060629ulf006" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Painting" _xpath="enigma_ii/siegfried21_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6d" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Tricks &amp; Traps" _xpath="enigma_iii/siegfried04_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level2d" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Tricks &amp; Traps" _xpath="enigma_iii/siegfried04_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level2d" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Duck and Cover" _xpath="enigma_i/nat02_2" author="Nat Pryce" ctrl="force" easy="true" id="nat2" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="Eraser Please!" _xpath="enigma_ii/martin39_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin39" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="51" _title="Uhh-Steady!" _xpath="enigma_i/siegfried05_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level2f" rel="2" rev="1" score="2" target="time" unit="duration"/>

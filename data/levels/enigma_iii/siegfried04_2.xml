@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Tricks &amp; Traps" el:subtitle="" el:id="level2d"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_lawn"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_greenbrown"}
+ti["= "] = {"st_rawglass"}
+ti["+ "] = {"st_brownie"}
+ti["X "] = {"st_grate"}
+ti["W "] = {"st_swap"}
+ti["s "] = {"st_shogun_s"}
+ti["m "] = {"st_shogun_m"}
+ti["l "] = {"st_shogun_l"}
+ti["M "] = {"st_shogun_sm"}
+ti["S "] = {"st_shogun_sl"}
+ti["L "] = {"st_shogun_ml"}
+ti[" s"] = {"it_shogun_s"}
+ti[" m"] = {"it_shogun_m"}
+ti[" l"] = {"it_shogun_l"}
+ti["R>"] = {"st_laser_e", name="laserEast", state=ON}
+ti["( "] = {"st_mirror_triangle", state=WEST, transparent=true}
+ti["/ "] = {"st_mirror_slab", state=EAST, transparent=false}
+ti["_ "] = {"st_mirror_slab", state=SOUTH, transparent=false, movable=true}
+ti["T "] = {"st_switch", target="laserEast"}
+ti["V "] = {"st_oneway_s"}
+ti["< "] = {"st_oneway_w"}
+ti["R<"] = {"st_laser_w", state=ON}
+ti["^ "] = {"st_mirror_triangle", state=SOUTH, transparent=true}
+ti["dotL"] = {"it_shogun_l", target="door%%#*"}
+ti["o5"] = ti["X "] .. {"it_shogun_s", target="door%5#*"}
+ti["o6"] = {"it_shogun_s", target="door%6#*"}
+ti["P"] = {"st_puzzle_blue", intensity=0}
+ti["doorH"] = {"st_door_d", name="door%%#", faces="ns"}
+ti["doorV"] = {"st_door_d", name="door%%#", faces="ew"}
+ti["Q "] = {"st_fake_quake"}
+ti["O "] = {"st_oxyd"}
+ti[" @"] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(res.puzzle(ti, "P"), {"|", "doorV"}, {"-", "doorH"}, {"0", "dotL"})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "# ^ ^ ^ ^ ^ ^ ^ |4|3|2|1R<            #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "#                                     #                                     # ",
+    "# = = = = = = = = = = = = = = = = = = # = = = = = = = = = = = = = = = = = = # ",
+    "#           #             PfPePePePePe  PePePePePa                          # ",
+    "#                         Pi# # # # X #                                     # ",
+    "#   #   #   #   m           # o5s   O #     #               X X X X X W X X # ",
+    "#   # 04#     l X S X X X X # # # # # #   # #               X               # ",
+    "#   # 03#   #   L   M X X X X X X W   #     #     +         X               # ",
+    "#   # 02#     PdX S   X               PdPa+ #               X               # ",
+    "#   # 01#   #   m   X X   X@X X X X   #     #               X               # ",
+    "#   #   #                   # # # # # #     # X X X X X X X   X X X X X X X # ",
+    "#   # # #   #               |1|2|3|6O #   # #   X                           # ",
+    "#                           # # # # # #     #   X                           # ",
+    "#           #                         #                                     # ",
+    "# = -5= = = = = = = = = = = = = = = = # # # #   # # # # # # # # # # # # # # # ",
+    "#                                     # +   +   +   +   +   +   +   +   +   # ",
+    "#   # # # # # # # # # # # # # # # #   #   +   +   +   +   +   +   +   +   + # ",
+    "#   #         #           #       #   # +   +   +   +   +   +   +   +   +   # ",
+    "#   #   #     #   #   #   #   #   #   #   +   +   +   +   +   +   +   +   + # ",
+    "#   #   #     #   #   #   #   #   #   # +   +   +   +   +   +   +   +   +   # ",
+    "#   #   #     #   #   #   #   #   #   #   +   +   +   +   +   +   +   +   + # ",
+    "#   #   #     #   #   #   #   #   #   # +   +   +   +   +   +   +   +   +   # ",
+    "#   #   #     #   #   #   #   #   #   #   +   +   +   +   +   +   +   +   + # ",
+    "#   #   #     #   #   #   #  s#   #   # +   +   +   +   +   +   +   +   +   # ",
+    "#   #   #     #   #   #   #   #   #   #   +   +   +   +   +   +   +   +   + # ",
+    "#   #   #  l  #   #   #   #   #   #   # +   +   +   +   +   +   +   +   +   # ",
+    "#   #   #     #   #   #   #   #       # # # # # # # # # # # # # # #   # # # # ",
+    "#   #   #     #   #   #   #   # # # # #  ~ ~ ~ ~ ~             ~ ~ ~   ~ ~ ~# ",
+    "#   #   #     #   #   #   #           #  ~                             ~ ~ ~# ",
+    "#   #   #     #   #   #   # # # # #   #  ~       ~ ~ ~ ~ ~ ~ ~ ~ ~     ~ ~ ~# ",
+    "#   #   #     #   #   #               #  ~    = = = = = = = = = = = V = = = # ",
+    "#   #   #   O #   #   # # # # # # # # #  ~  _ =  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~ ~# ",
+    "#   #   # # # #   #                  l#  ~    <                        ~ ~ ~# ",
+    "#             #   # # # # # l         #       =  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~ ~# ",
+    "# # # # # #   #           #     Q     #    ~  =  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~ ~# ",
+    "#             # Q       O #           #   s   =  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~ ~ ~# ",
+    "#   # # # # # # # # # # # # # # # #   #    ~  =       T                ~ ~ ~# ",
+    "#       o6              sm                    R> ~(~ ~ ~ ~/~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

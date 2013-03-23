@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Black Diamond Course" el:subtitle="" el:id="duffy28"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_abyss"}
+ti["#"] = {"st_death"}
+ti["*"] = {"st_greenbrown"}
+ti["a"] = {"fl_lawn"}
+ti["x"] = {"it_extralife"}
+ti["y"] = {"it_flag"}
+ti["z"] = ti["a"] .. {"it_spring_keep"}
+ti["b"] = {"fl_sand"}
+ti["B"] = cond(wo["IsDifficult"], ti["b"], ti["b"] .. ti["y"])
+ti["c"] = {"fl_bluegreen"}
+ti["C"] = cond(wo["IsDifficult"], ti["c"], ti["c"] .. ti["x"])
+ti["d"] = {"fl_inverse"}
+ti["e"] = {"fl_ice"}
+ti["E"] = cond(wo["IsDifficult"], ti["e"], ti["e"] .. ti["x"])
+ti["f"] = {"fl_marble"}
+ti["g"] = {"fl_wood"}
+ti["h"] = {"fl_hay"}
+ti["i"] = {"fl_dunes"}
+ti["j"] = {"fl_brick"}
+ti["k"] = {"fl_gray"}
+ti["l"] = {"fl_plank"}
+ti["m"] = {"fl_metal"}
+ti["n"] = {"fl_metal_7"}
+ti["o"] = {"fl_rough"}
+ti["O"] = cond(wo["IsDifficult"], ti["o"], ti["o"] .. ti["y"])
+ti["p"] = {"fl_space"}
+ti["q"] = {"fl_aquamarine"}
+ti["r"] = ti["a"] .. {"st_chameleon"}
+ti["s"] = {"fl_bast"}
+ti["0"] = {"st_oxyd"}
+ti["@"] = ti["a"] .. {"#ac_marble_black", name="black"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "#            c   #       jjj              #           ff #",
+    "# aaaa bb  ccccc #     jjj j   kkkk   iii #   gg     fff #",
+    "# a@za bBb ccccc #   jjj jjj   kk k   iii # gggg    ffff #",
+    "# aaaa     ccc c #   j jjj j   kkkk   ii  #   ggg    fff #",
+    "#                #   jjj jjj   kkk           d        ff #",
+    "######    ddd     #    jjj j    k      h    ddd          #",
+    "#     ee   ddd    #      jjj           hhh ddddd  #    p #",
+    "#fff eeee dddd    #                         ddd   #   pp #",
+    "#fff eeee  ddd    #   ll       ##########    d    #   pp #",
+    "#f   eee      #####   lllll    #         #        #   pp #",
+    "#ff  eeEe  ###    #   0lll0   ##  oOoooo  #####          #",
+    "#fff      #   j    #        ## #  oooooo                 #",
+    "#       ##  jjj     #######*  r * oo  oo  jjjjjjj   # dd #",
+    "#ggg   #  jjjjj   #    kkk rrrrr* oo  oo  jjjjj     # dd #",
+    "#ggg  #    jjjjj #   kkkkk rrrrr* oooooo   jjj  aa  # dd #",
+    "#gg  # oo   jjjj #    kkkk rrrrr* oooooo   j    aaa # dd #",
+    "#gg # oooo    jj                        e      aaaa #    #",
+    "#gg   oooo  # jj       qqq #sssss#  eeeeee        a #    #",
+    "#      ooo #    #     qqqq #sssss# eeeeee #              #",
+    "#      oo  #     pppp  qqq # ssss#  eeeee #  bbbbb   ccc #",
+    "#mmm      # iiii pppp  qqqq#l  s# nn      #  bbbb   cccc #",
+    "#mmmmmmm # iiiii pppp  qqq #lll nnnnnn    #    bb   ccCc #",
+    "#mmmmmm  #  iii           # lll nnnn      #    bb  ccccc #",
+    "##########################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
