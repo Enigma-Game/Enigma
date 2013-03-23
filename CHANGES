@@ -1,3 +1,49 @@
+Changes in Version 1.20
+=======================
+
+User-Visible changes
+--------------------
+
+    - added ingame music by Taztunes (deactivated by default)
+    - removed "over par" notification
+    - 78 new Enigma levels, 95 new Pentomino levels and
+        1077 imported Sokoban levels
+
+
+Changes in Version 1.10  (Released only for level authors and testers)
+=======================
+
+User-Visible changes
+--------------------
+
+    - new objects: wires, st_barrier, opal oxyds, drunken thiefs,
+        st_yinyang, st_dispenser_extralife, fl_scales, framed floors,
+        it_meditation_volcano, it_meditation_caldera, puzzle singletons,
+        mirror sheets, bigbricks in wood and blue-sand decor, cracks
+        with water beneath, black pearls, and st_rawglass_quad
+    - vastly extended st_window, hollow puzzles, it_strip
+    - color coding for keys and locks
+    - four new oxyd colors and shuffle oxyds
+    - many improved images for higher resolutions
+    - new images for coins
+    - extra lifes now look like batteries to not confuse them with ac_pearl
+
+Internal changes
+----------------
+
+    - new API, involving a reengineering of many objects, a consistent
+        naming scheme for all objects, and a rewrite of almost every level 
+    - new libraries:
+        liblua, libmath, libmap to ease programming of complex levels
+        libpuzzle, libtrain to ease programming of large puzzles and trains
+        libimport, libpento, libsoko to generate or import complete levels
+          from different formats
+    - internal maze generation
+    - internal flood generation
+    - improved it_rubberband, st_surprise and it_surprise
+    - itemfreeze stone now is an own object st_ice
+
+
 Changes in Version 1.01
 =======================
 
