@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Where is it?" el:subtitle="" el:id="barry02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Barry &amp; Lori Mead" el:email="bmead15@cox.net" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Barry &amp; Lori Mead</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_abyss"}
+ti["_"] = {"fl_space"}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = {"st_greenbrown_movable"}
+ti["-"] = {"st_greenbrown_hollow"}
+ti["B"] = {"st_break_oxydc"}
+ti["X"] = {"st_grate"}
+ti["="] = {"st_ghost_purplemarble"}
+ti["V"] = {"st_ghost_break"}
+ti["^"] = {"st_boulder_n"}
+ti["I"] = {"st_stoneimpulse"}
+ti["Y"] = {"st_door", name="doorY", faces="ew"}
+ti["y"] = {"it_trigger", target="doorY"}
+ti["Z"] = {"st_door", name="doorZ", faces="ew"}
+ti["F"] = {"st_floppy", target="doorZ"}
+ti["h"] = {"it_hammer"}
+ti["c"] = {"it_crack_s", fragility=0.0, spreading=0.0}
+ti["!"] = {"it_trap"}
+ti["b"] = {"it_brush"}
+ti["f"] = ti["+"] .. {"it_floppy"}
+ti[";"] = ti["+"] .. {"it_spring_drop"}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#OY          =    X#=     = O    ===#F#",
+    "###======    =    X#= =   =    =    # #",
+    "#    =  = =  =    X#= ==  ========= # #",
+    "#         =  =    X+   =            # #",
+    "#===== =======    X#====            # #",
+    "#       =   =     X######-########### #",
+    "#====== = = ======X#   =    O~~       #",
+    "#         =       X# = =  ccc~~     ###",
+    "#============V=====# =      O~~     Zh#",
+    "######=V V===   VOX# ###########==#####",
+    "###=  V =   V   V=X#       !!!!!!!!!!!#",
+    "####B###############-##################",
+    "#y             O# b#  =              O#",
+    "#              X#  #  =    =      =   #",
+    "#              X#  #  =    =      ====#",
+    "#     ==  ==   X;  # =======          #",
+    "#     =    =   X#  #       =    ======#",
+    "#======= ===   X#  #            =  @  #",
+    "I          =   X#  ######====== =     #",
+    "I ======I===   X#  ## O##       =     #",
+    "#         I    X## ##++ X       =     #",
+    "#         =    X## ## f #===    =     #",
+    "#======== =    X## #  + #             #",
+    "I         =    O## ##########+#########",
+    "I #######I######+ +    ___________   O#",
+    "#       d         ^I   ___________    #",
+    "#II####################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Paint Ahead!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
