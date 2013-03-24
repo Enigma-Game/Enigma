@@ -175,7 +175,7 @@ namespace enigma {
     }
 
     bool PuzzleStone::is_sticky(const Actor *a) const {
-        return !(objFlags & OBJBIT_HOLLOW);
+        return !((objFlags & OBJBIT_HOLLOW) || state == EXPLODING);
     }
 
     bool PuzzleStone::allowsSpreading(Direction dir) const {
