@@ -50,7 +50,7 @@ namespace enigma {
         V2 get_force(Actor *a) {
             if (a->is_flying() || a->is_dead())
                 return V2();
-            else 
+            else
                 return force * a->get_mouseforce();
         }
 
@@ -89,7 +89,7 @@ namespace enigma {
         DelayedImpulse& operator = (const DelayedImpulse& other); // forbidden
     public:
         DelayedImpulse(const Impulse& impulse_, double delay_, const Stone *receiver_)
-                : impulse(impulse_), delay(delay_), receiver(receiver_), 
+                : impulse(impulse_), delay(delay_), receiver(receiver_),
                 isReferenced(false), isObsolete(false) {}
 
         DelayedImpulse(const DelayedImpulse& other)
@@ -110,19 +110,19 @@ namespace enigma {
         bool is_sender(const Stone *target) const {
             return target == impulse.sender;
         }
-        
+
         bool is_referenced() const {
             return isReferenced;
         }
-        
+
         void mark_referenced(bool state) {
             isReferenced =  state;
         }
-        
+
         bool is_obsolete() const {
             return isObsolete;
         }
-        
+
         void mark_obsolete() {
             isObsolete = true;
         }
@@ -138,7 +138,7 @@ namespace enigma {
             //
             // Possible fix : add unique ID to all objects
 
-            if (is_receiver(target)) { 
+            if (is_receiver(target)) {
                 // if object did not change since impulse was initiated
                 target->on_impulse(impulse);
             }
@@ -175,12 +175,14 @@ namespace enigma {
     public:
         Floor *yield(GridPos p) {
             Floor *f = Layer<Floor>::yield(p);
-            if (Value v = f->getAttr("name")) {
-                NamePosition(p, v.to_string());
+            if (f != NULL) {
+                if (Value v = f->getAttr("name")) {
+                    NamePosition(p, v.to_string());
+                }
             }
             return f;
         }
-        
+
         void set(GridPos p, Floor *x) {
             Floor *f = get(p);
             if (f != NULL) {
@@ -190,7 +192,7 @@ namespace enigma {
             }
             Layer<Floor>::set(p, x);
         }
-        
+
         Floor *raw_get(Field &f) { return f.floor; }
         void raw_set(Field &f, Floor *x) { f.floor = x;}
     };
@@ -279,7 +281,7 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void namePosition(Value po, const std::string &name);
         Value getNamedPosition(const std::string &name);
         PositionList getPositionList(const std::string &tmpl, Object *reference = NULL);
-        
+
         void tick (double dtime);
         void remove (ForceField *ff);
 
@@ -303,10 +305,10 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         void advance_actor (Actor *a, double &dt);
         void move_actors (double dtime);
-        void find_contact_with_stone(Actor *a, GridPos p, StoneContact &c, 
+        void find_contact_with_stone(Actor *a, GridPos p, StoneContact &c,
                 DirectionBits winFacesActorStone = NODIRBIT,
                 bool isRounded = true, Stone *st = NULL);
-        void find_contact_with_edge(Actor *a, GridPos pe, GridPos p1, GridPos p2, 
+        void find_contact_with_edge(Actor *a, GridPos pe, GridPos p1, GridPos p2,
                 StoneContact &c0, StoneContact &c1, StoneContact &c2,
                 DirectionBits winFacesActorStone = NODIRBIT);
         void find_contact_with_window(Actor *a, GridPos p, StoneContact &c0, StoneContact &c1,
@@ -322,8 +324,8 @@ typedef list<sound::SoundDamping> SoundDampingList;
         void doPerformPendingActions();
 
     public:
-    
-        static const double contact_e;  // epsilon distant limit for contacts 
+
+        static const double contact_e;  // epsilon distant limit for contacts
 
         /* ---------- Variables ---------- */
 
@@ -332,13 +334,13 @@ typedef list<sound::SoundDamping> SoundDampingList;
         ForceList            forces;
         ActorList            actorlist; // List of movable, dynamic objects
         Actor               *leftmost_actor;   // sorted double linked list of actors
-        Actor               *rightmost_actor;  
+        Actor               *rightmost_actor;
         OtherList            others;
         RubberbandList       rubberbands;
         MouseForce           m_mouseforce;
         ecl::V2              globalForce;
         int                  scrambleIntensity;
-        int                  numMeditatists; 
+        int                  numMeditatists;
         int                  indispensableHollows;
         int                  engagedIndispensableHollows;
         int                  engagedDispensableHollows;
@@ -363,6 +365,5 @@ typedef list<sound::SoundDamping> SoundDampingList;
 
         list<Scramble> scrambles;
     };
-    
-} // namespace enigma
 
+} // namespace enigma
