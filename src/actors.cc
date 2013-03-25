@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2002,2003,2004,2005 Daniel Heck
  * Copyright (C) 2008,2009 Ronald Lamprecht
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
@@ -44,7 +44,7 @@ const double Actor::max_radius = 24.0/64;
 
 /* -------------------- ActorsInRangeIterator -------------------- */
 
-ActorsInRangeIterator::ActorsInRangeIterator(Actor *center, double range, 
+ActorsInRangeIterator::ActorsInRangeIterator(Actor *center, double range,
         unsigned type_mask) : centerActor (center), previousActor (center),
         dir (WEST), rangeDist (range), typeMask (type_mask) {
     xCenter = center->m_actorinfo.pos[0];
@@ -60,7 +60,7 @@ Actor * ActorsInRangeIterator::next() {
                 previousActor = previousActor->right;
             }
         }
-        if (dir == WEST && (previousActor == NULL 
+        if (dir == WEST && (previousActor == NULL
                 || xCenter - previousActor->m_actorinfo.pos[0] > rangeDist)) {
             previousActor = centerActor->right;
             dir = EAST;
@@ -73,7 +73,7 @@ Actor * ActorsInRangeIterator::next() {
         }
         unsigned id_mask = previousActor->get_traits().id_mask;
         if (id_mask & typeMask) {
-            if (length(previousActor->m_actorinfo.pos - centerActor->m_actorinfo.pos) 
+            if (length(previousActor->m_actorinfo.pos - centerActor->m_actorinfo.pos)
                     < rangeDist) {
                 ready = true;
             }
@@ -89,7 +89,7 @@ Actor::Actor (const ActorTraits &tr)
 : StateObject(tr.name),
   m_actorinfo(),
   m_sprite(),
-  startingpos(), 
+  startingpos(),
   respawnpos(), flagRespawn(false), centerRespawn (true), inplaceRespawn (false),
   spikes(false), controllers (0), left (NULL), right (NULL)
 {
@@ -106,7 +106,7 @@ Actor::Actor (const ActorTraits &tr)
     void Actor::setAttr(const string& key, const Value &val) {
         if (key == "controllers") {
             controllers = val;
-        } else if (key == "adhesion") { 
+        } else if (key == "adhesion") {
             adhesion = val;
         } else if (key == "charge") {
             m_actorinfo.charge = val;
@@ -117,7 +117,7 @@ Actor::Actor (const ActorTraits &tr)
     Value Actor::getAttr(const std::string &key) const {
         if (key == "controllers") {
             return controllers;
-        } else if (key == "adhesion") { 
+        } else if (key == "adhesion") {
             return adhesion;
         } else if (key == "charge") {
             return m_actorinfo.charge;
@@ -132,10 +132,10 @@ Actor::Actor (const ActorTraits &tr)
             m_actorinfo.frozen_vel = m_actorinfo.vel;
             m_actorinfo.vel = ecl::V2();
         } else if (m.message == "_revive") {
-            m_actorinfo.vel = m_actorinfo.frozen_vel;        
+            m_actorinfo.vel = m_actorinfo.frozen_vel;
         } else if (m.message == "_update_mass") {
             if (getAttr("owner") == m.value) {
-                m_actorinfo.mass = get_traits().default_mass + 
+                m_actorinfo.mass = get_traits().default_mass +
                         (double)(player::GetInventory(this)->getAttr("mass"));
                 ASSERT(m_actorinfo.mass > 0, XLevelRuntime, "Actor mass <= 0!");
                 SendMessage(GetFloor(get_gridpos()), "_update_mass", true, this);
@@ -154,12 +154,12 @@ bool Actor::on_collision(Actor *a) {
     return false;
 }
 
-ActorInfo *Actor::get_actorinfo() { 
-    return &m_actorinfo; 
+ActorInfo *Actor::get_actorinfo() {
+    return &m_actorinfo;
 }
 
 const ActorInfo &Actor::get_actorinfo() const {
-    return m_actorinfo; 
+    return m_actorinfo;
 }
 
 const ecl::V2 &Actor::get_pos() const
@@ -227,7 +227,7 @@ void Actor::respawn() {
                 p[0] = gp.x + 0.28;
             else if (dx < 0.72 && dx >= 0.5)
                 p[0] = gp.x + 0.72;
-                
+
             if (dy > 0.28 && dy < 0.5)
                 p[1] = gp.y + 0.28;
             else if (dy < 0.72 && dy >= 0.5)
@@ -306,12 +306,22 @@ void Actor::move()
 
         if (Stone *st = m_actorinfo.field->stone)
             st->actor_inside (this);
-        
+
         if (firstGridStep && !is_flying()) {
             firstGridStep = false;
-        } else if (!flagRespawn && !isMoribund() && !is_flying())
-            if (m_actorinfo.field->floor->getAdhesion() != 0) {
-                respawnpos = m_actorinfo.pos;
+        } else if (!flagRespawn && !isMoribund() && !is_flying()) {
+            Floor *fl = m_actorinfo.field->floor;
+            if (fl != NULL) {
+                if (fl->getAdhesion() != 0) {
+                    respawnpos = m_actorinfo.pos;
+                }
+            } else {
+                // Should never happen but occurs when there is no floor set
+                // in the level. The (only?) way to get this is loading old
+                // API levels which do not set a floor for all tiles in the world.
+                // Note that in the new API we have a default floor in any case.
+                Log << "Warning: no floor type set for current tile!\n";
+            }
         }
     }
     m_actorinfo.last_gridpos = m_actorinfo.gridpos;
@@ -342,7 +352,7 @@ void Actor::set_anim (const string &modelname) {
     get_sprite().set_callback (this);
 }
 
-bool Actor::can_move() const { 
+bool Actor::can_move() const {
     if (Stone *st = GetStone (get_gridpos())) {
         if (!server::NoCollisions || !(get_traits().id_mask &
                         (1<<ac_marble_white | 1<<ac_marble_black | 1<<ac_pearl_white | 1<<ac_pearl_black)))
