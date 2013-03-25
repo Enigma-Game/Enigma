@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Holes!" el:subtitle="" el:id="edward14"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Edward" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Edward</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="1:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark"}
+ti["*"] = {"it_vortex", name="vortex#"}
+ti["-"] = ti["*"] .. {"fl_bright", name="dest#"}
+ti["."] = ti["*"] .. {"fl_dark", name="dest#"}
+ti["#"] = {"st_rawglass"}
+ti["O"] = {"st_oxyd", name="upperoxyds#"}
+ti["o"] = {"st_oxyd", name="loweroxyds#"}
+ti["A"] = ti["."] .. {"#ac_marble_white"}
+ti["@"] = ti["."] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#O....O...O...O...O#",
+    "#..................#",
+    "#..--..-.-.-.-.--..#",
+    "#.-..-.-.-.-.-.-.-.#",
+    "#.-..-.-.-.-.-.-.-.#",
+    "#.-..-A.-...-@.-.-.#",
+    "#.-..-.-.-..-..-.-.#",
+    "#.-..-.-.-..-..-.-.#",
+    "#..--..-.-..-..--..#",
+    "#..................#",
+    "#o....o...o...o...o#",
+    "####################"})
+
+function postinit()
+    vortices = no["vortex#*"]
+    destinations = no["dest#*"]:shuffle()
+    for idx =1, #vortices do
+        vortices[idx]["destination"] = destinations[idx]
+    end
+end
+
+wo:shuffleOxyd({"upperoxyds#*","loweroxyds#*", min=3, max=5})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

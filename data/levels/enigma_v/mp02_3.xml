@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Gods of Enigma II" el:subtitle="" el:id="mp02"/>
+      <el:version el:score="2" el:release="3" el:revision="5" el:status="released"/>
+      <el:author el:name="moonpearl" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 moonpearl</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_metal_7"}
+ti[" !"] = {"fl_abyss"}
+ti[" -"] = {"fl_blueslab"}
+ti["# "] = {"st_invisible"}
+ti["X "] = {"st_grate"}
+ti["B "] = {"st_passage_black"}
+ti["W "] = {"st_passage_white"}
+ti["> "] = {"st_oneway_e"}
+ti["= "] = {"st_plaster_breakable"}
+ti["Y "] = {"st_blur_cross"}
+ti["V0"] = ti["  "] .. ti["> "] .. {"it_wormhole", destination="fire", strength=0.0}
+ti["V2"] = ti[" -"] .. {"it_vortex_open", destination="earth"}
+ti["V4"] = ti[" -"] .. {"it_vortex_open", destination="air"}
+ti["V6"] = ti[" -"] .. {"it_vortex_open", destination="water"}
+
+-- fire
+ti[" ."] = {"fl_pinkbumps"}
+ti["v0"] = ti["> "] .. {"fl_pinkbumps", name="fire"}
+ti["V1"] = ti[" ."] .. {"it_vortex_open", destination="start"}
+ti["M "] = {"st_redmarble"}
+ti["* "] = {"st_dispenser_bombblack"}
+ti["V "] = {"st_oneway_s"}
+ti["d "] = {"it_dynamite"}
+ti[" d"] = ti[" ."] .. {"it_dynamite"}
+ti["h "] = {"it_hammer"}
+ti["p "] = {"it_spade"}
+
+-- earth
+ti[" ;"] = {"fl_lawn_b"}
+ti["v2"] = {"fl_lawn_b", name="earth"}
+ti["V3"] = ti[" ;"] .. {"it_vortex_open", destination="start"}
+ti[" :"] = ti({"it_crack_l"}) .. {"fl_wood"}
+ti["P "] = {"st_plop"}
+ti["+ "] = {"st_box_wood"}
+ti["s "] = {"it_seed_wood"}
+
+--air
+ti[" _"] = {"fl_ivory"}
+ti["v4"] = {"fl_ivory", name="air"}
+ti["V5"] = ti[" _"] .. {"it_vortex_open", destination="start"}
+ti["G "] = {"st_rawglass"}
+ti["J "] = {"it_spring_drop"}
+ti["j "] = {"it_spring_keep"}
+
+-- water
+ti[" ,"] = {"fl_sand"}
+ti["v6"] = {"fl_sand", name="water"}
+ti["V7"] = ti[" ,"] .. {"it_vortex_open", destination="start"}
+ti[" ~"] = {"fl_water"}
+ti["D "] = {"st_death_invisible"}
+ti["S "] = {"st_bluesand"}
+ti["K "] = {"st_knight"}
+ti["L "] = {"st_laser_e", name="laser"}
+ti["T "] = {"it_trigger", target="laser"}
+ti["y "] = {"it_yinyang"}
+
+ti["N "] = {"it_extralife"}
+ti["1 "] = {"it_document", text="text1"}
+ti["2 "] = {"it_document", text="text2"}
+ti["3 "] = {"it_document", text="text3"}
+ti["4 "] = {"it_document", text="text4"}
+ti["5 "] = {"it_document", text="text5"}
+ti["6 "] = {"it_document", text="text6"}
+ti["O1"] = {"st_oxyd_d", oxydcolor=OXYD_BLUE}
+ti["O2"] = {"st_oxyd_d", oxydcolor=OXYD_RED}
+ti["O3"] = {"st_oxyd_d", oxydcolor=OXYD_GREEN}
+ti["O4"] = {"st_oxyd_d", oxydcolor=OXYD_YELLOW}
+ti["O5"] = {"st_oxyd_d", oxydcolor=OXYD_WHITE}
+ti["@0"] = ti({"fl_blueslab", name="start"}) .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = ti[" -"] .. {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    "O1B X  ! ! ! ! ! ! ! ! ! ! ! ! ! !X O5X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.",
+    "B N-X Y      ! ! ! ! ! !        X X  -X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.2.M. . . .=. . .M. . .=. . .M. . .O2M.",
+    "X  - -Y- -   ! ! ! ! ! !   - - -X- - -V0#! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!v0 .M. . . .M. . .=. . .M. . .=. . . .M.",
+    "W @1X Y         O4   ! !   -    X X  -X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.V.M. . . .M.M.=.M. . .M.M.M.M.M.=.M.M.",
+    "O5W X  ! ! !   -N-   ! !   -   ! !X X X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M. . . . . .M. . .M.M.M.M.M. . . . . .M.",
+    " ! ! ! ! ! !  V6 -   ! !   -   ! ! ! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M. . . . . .M. . .M.*.*.*.M. .d.d.d. .M.",
+    " ! ! ! ! ! !         ! !   -   ! ! ! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M. . . . . .M.=.M.M.*.h.*.M.M.M.M.M.M.M.",
+    " ! ! ! ! ! ! ! ! ! ! ! !   -   ! ! ! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.X.X.X. . .M. . .=.*dV1*.M. . .M.p.d.M.",
+    "X X X  ! ! ! ! ! ! ! ! !   -   ! !X X X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.d.d.X. . .M. . .M.*.*.*d=. . .M.d. .M.",
+    "X O3X!X                    -    = X V2X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.d.d.X. . .M.M.M.M.M.M.M.M.M.=.M.M.=.M.",
+    "X N- !X- - - - - - - -1- -@0 - -=- -N-X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.d.d.X. . .=. . .M. . . .M. . .=. . .M.",
+    "X V4X!X                         = X O2X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.d.d.X. . .M. . .=. . . .=. . .M. . .M.",
+    "X X X! ! ! ! ! ! ! ! ! ! ! ! ! ! !X X X #! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.M.",
+    "#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    "P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!",
+    "P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_G_G_G_ ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    "P;v2 ; ! ;+; ! ;+; ! ; ; ; ! ; ; ! ! !P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_v4 _G_ !G_G_G_G_ ! ! ! ! !G_G_G_G_ !",
+    "P; ; ; : ; ; ! ; ; ! ; ; ; : ; ; : ; ;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _5_G_ !G_O4 _ _ ! ! ! ! ! _ _J_ _ !",
+    "P; ;4; ! ! ! ! ! ! ! ! : !+! ! ! ! ; ;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _J_G_ !G_ _ _ _ !G_ _ _ ! _ _ _ _ !",
+    "P; : ! !+; ; ! ;+; ; !+; ; :+; ; ! ;+;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#! ! ! ! ! ! ! ! ! ! !G_ _J_ ! ! ! ! ! !",
+    "P; ; ; : ; ; ! ; ; ; ! ; ; ! ; ; ! ! !P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _ _G_ !G_ _ _ _ !G_ _ _ !G_ _ _G_ !",
+    "P; ; ; ! ! ! ! ! ! ! ! ;+; ! : ! ! ; ;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _ _G_ !G_ _J_ _ !G_ _ _ !G_J_ _G_ !",
+    "P; ! : ! ;+; ; : ;V3 ! ! ! ! ; ; : ; ;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_J_ _G_ !G_ _ _ _ ! ! ! ! !G_ _ _G_ !",
+    "P;3; ; ! ; ; ; !s; ; ! ; ; ! ; ; ! ; ;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#! ! ! ! ! ! ! ! ! ! ! _J_G_ ! ! ! ! ! !",
+    "P; ; ; ! ! : : ! : ! ! ; ; ! ! : ! ! !P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _ _J_ !G_G_G_G_ ! _ _G_ !G_j_ _G_ !",
+    "P; ! ! ! ! ; ; ! ; ; ! ! ! ! ! ;+; ; !P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_ _ _ _ ! _ _ _J_ ! _ _G_ !G_ _ _G_ !",
+    "P;O3 ; ; !+; ; ! ; ; : ; ; ; ! ; ; ; !P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!G_G_G_G_ ! _ _ _ _ ! _ _G_ !G_ _V5G_ !",
+    "P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#! ! ! ! ! ! ! ! ! ! ! ! ! ! !G_G_G_G_ !",
+    "P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P;P! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!#!",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ~ ~ ~ ~D~ ~ ~ ~ ~ , , , , ~ ~ ~ ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ,v6 , ~D~ ~ , , , , , , , , , ~ ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ,6, , ~D~ ~ ,D,D,D,D~D~D~D, , ~ ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ , , , ~D~ , ,D,O1 ~ ~ ~ , , , , ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~L~ , , ,S~D~ , ,D~ , , , , , , , , ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ , , , ~D, , ~D~ ~ ~D,D~D~D~ , , ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ,T, ~ ~D, , ,D~ ~ ~D~ ~ ~ , , , ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ , , ~ ~D, , ,D~ ~ ~D~ ~ , , , , ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ , , ~ ~D~ ~ ,D, ~ ~D~K,K,K,K,K,K,D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ~ , , , , , , , ~ ~D~ , ,y,V7 , ,D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~ ~ ~ ~ ~ , , , , ~ ~ ~D~ ~ , , , ~ ~D~",
+    " ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !D~D~D~D~D~D~D~D~D~D~D~D~D~D~D~D,D~D~D~D~"})
+
+wo:add(YANG, {"it_yinyang"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">You again! We won't let you pass this time! See these Oxyds? You can't reach them unless you rob our Four Holy Items! But they are well guarded! Bwahahahaha!</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Fire burns and destroys ... Want to remove blocking stones? Then dig your way to the Holy Hammer!</el:english>
+      </el:string>
+      <el:string el:key="text3">
+        <el:english el:translate="true">Try again! Bwahahahaha!</el:english>
+      </el:string>
+      <el:string el:key="text4">
+        <el:english el:translate="true">Earth fills and lasts ... Want to replace missing floors? Then build your way to the Holy Seed!</el:english>
+      </el:string>
+      <el:string el:key="text5">
+        <el:english el:translate="true">Air blows and goes by ... Want to jump across the void? Then make your way to the Holy Spring!</el:english>
+      </el:string>
+      <el:string el:key="text6">
+        <el:english el:translate="true">Water waves and shifts ... Want to trade minds with your partner? Then find your way to the Holy Yin-Yang!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
