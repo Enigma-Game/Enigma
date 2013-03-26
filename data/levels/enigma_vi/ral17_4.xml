@@ -3,8 +3,8 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Turnstiles for Two" el:subtitle="Rhapsody on Turnstiles in Blue and Green" el:id="20070314ral189"/>
-      <el:version el:score="2" el:release="3" el:revision="$Revision: 190 $" el:status="released"/>
-      <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:version el:score="4" el:release="4" el:revision="$Revision: 191 $" el:status="released"/>
+      <el:author el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2006,2007,2008,2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -127,8 +127,12 @@ wo(ti, " ", {
     "####################"
 })
 
+if wo["IsDifficult"] then
+    wo:add(YANG, {"it_bag"})
+end
+
 wo:shuffleOxyd({"last#*", min=1}, {"top#*", "bottom#*", min=2})
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
