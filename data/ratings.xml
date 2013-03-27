@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ratings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ratings.xsd">
-  <update date="2012-04-15T14:41:29Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i037.xml"/>
+  <update date="2013-03-27T15:58:49Z" delay="5" urlFull="http://www.nongnu.org/enigma/ratings/ratings.xml" urlIncremental="http://www.nongnu.org/enigma/ratings/ratings_i037.xml"/>
   <levels>
     <level avgur="-1" bsd="-1" bsdh="" bse="1621" bseh="mecke" dex="4" id="20060213ral003" int="4" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="1" solvpd="0" solvpe="55" spe="3" sv="1"/>
     <level avgur="72" bsd="168" bsdh="Malla" bse="192" bseh="Moneymaker" dex="4" id="20060213ral003" int="4" kno="5" pard="540" pare="520" pat="4" solvnd="7" solvne="10" solvpd="388" solvpe="555" spe="3" sv="2"/>
@@ -49,6 +49,7 @@
     <level avgur="65" bsd="63" bsdh="Moneymaker" bse="70" bseh="Moneymaker" dex="3" id="20070214ral703" int="2" kno="5" pard="204" pare="221" pat="4" solvnd="37" solvne="48" solvpd="2055" solvpe="2666" spe="4" sv="1"/>
     <level avgur="82" bsd="570" bsdh="dev0" bse="491" bseh="dev0" dex="4" id="20070314ral189" int="4" kno="5" pard="1328" pare="1219" pat="3" solvnd="11" solvne="10" solvpd="611" solvpe="555" spe="2" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20070314ral189" int="4" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="2"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="20070314ral189" int="4" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="2" sv="4"/>
     <level avgur="69" bsd="697" bsdh="Moneymaker" bse="527" bseh="dev0" dex="4" id="20070314ral394" int="3" kno="5" pard="1845" pare="1269" pat="5" solvnd="11" solvne="13" solvpd="611" solvpe="722" spe="1" sv="1"/>
     <level avgur="75" bsd="1422" bsdh="dev0" bse="699" bseh="daydreamer" dex="4" id="20070314ral728" int="5" kno="6" pard="3568" pare="1861" pat="5" solvnd="6" solvne="8" solvpd="333" solvpe="444" spe="1" sv="1"/>
     <level avgur="56" bsd="46" bsdh="Moneymaker" bse="47" bseh="Moneymaker" dex="2" id="20070406joona005" int="2" kno="3" pard="70" pare="71" pat="2" solvnd="63" solvne="66" solvpd="3500" solvpe="3666" spe="4" sv="1"/>
@@ -672,6 +673,7 @@
     <level avgur="55" bsd="57" bsdh="Moneymaker" bse="75" bseh="Duffy" dex="5" id="duffy33" int="2" kno="3" pard="152" pare="-1" pat="4" solvnd="18" solvne="0" solvpd="1000" solvpe="0" spe="3" sv="1"/>
     <level avgur="64" bsd="159" bsdh="Stupid" bse="280" bseh="Duffy" dex="2" id="duffy34" int="3" kno="4" pard="459" pare="-1" pat="4" solvnd="76" solvne="0" solvpd="4222" solvpe="0" spe="1" sv="1"/>
     <level avgur="87" bsd="540" bsdh="Moneymaker" bse="560" bseh="Duffy" dex="3" id="duffy35" int="4" kno="4" pard="1302" pare="-1" pat="3" solvnd="53" solvne="0" solvpd="2944" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="duffy35" int="4" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
     <level avgur="44" bsd="15" bsdh="Medimaster" bse="34" bseh="Duffy" dex="3" id="duffy36" int="3" kno="4" pard="53" pare="-1" pat="3" solvnd="93" solvne="0" solvpd="5166" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="duffy36" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="2"/>
     <level avgur="45" bsd="23" bsdh="Moneymaker" bse="62" bseh="Johannes" dex="3" id="duffy37" int="4" kno="4" pard="84" pare="-1" pat="3" solvnd="80" solvne="0" solvpd="4444" solvpe="0" spe="1" sv="1"/>
@@ -841,6 +843,7 @@
     <level avgur="67" bsd="118" bsdh="Moneymaker" bse="-1" bseh="" dex="3" id="just07" int="4" kno="6" pard="394" pare="-1" pat="3" solvnd="60" solvne="0" solvpd="3333" solvpe="0" spe="2" sv="1"/>
     <level avgur="66" bsd="143" bsdh="Moneymaker" bse="-1" bseh="" dex="4" id="just08" int="3" kno="4" pard="527" pare="-1" pat="4" solvnd="48" solvne="0" solvpd="2666" solvpe="0" spe="2" sv="1"/>
     <level avgur="61" bsd="14" bsdh="Stupid+Moneymaker" bse="-1" bseh="" dex="2" id="just09_1" int="3" kno="5" pard="38" pare="-1" pat="3" solvnd="40" solvne="0" solvpd="2222" solvpe="0" spe="4" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="just09_1" int="3" kno="5" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="2"/>
     <level avgur="55" bsd="12" bsdh="Moneymaker" bse="-1" bseh="" dex="3" id="just10" int="4" kno="6" pard="40" pare="-1" pat="3" solvnd="31" solvne="0" solvpd="1722" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="just10" int="4" kno="6" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="3"/>
     <level avgur="64" bsd="91" bsdh="Moneymaker" bse="-1" bseh="" dex="3" id="just11" int="3" kno="5" pard="250" pare="-1" pat="4" solvnd="21" solvne="0" solvpd="1166" solvpe="0" spe="1" sv="1"/>
@@ -1102,6 +1105,7 @@
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="mecke02" int="4" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="5" id="mecke03" int="2" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="mecke04" int="5" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="mecke04" int="5" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="3"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="5" id="mecke05" int="3" kno="5" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="3" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="mecke06" int="2" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="5" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="3" id="mecke08" int="4" kno="5" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="5" sv="1"/>
@@ -1162,6 +1166,7 @@
     <level avgur="76" bsd="177" bsdh="Moneymaker" bse="-1" bseh="" dex="4" id="mp01" int="3" kno="4" pard="435" pare="-1" pat="3" solvnd="29" solvne="0" solvpd="1611" solvpe="0" spe="4" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="mp01" int="3" kno="4" pard="-1" pare="-1" pat="3" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="4" sv="2"/>
     <level avgur="83" bsd="128" bsdh="Moneymaker" bse="-1" bseh="" dex="4" id="mp02" int="4" kno="4" pard="379" pare="-1" pat="2" solvnd="45" solvne="0" solvpd="2500" solvpe="0" spe="1" sv="1"/>
+    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="4" id="mp02" int="4" kno="4" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
     <level avgur="53" bsd="42" bsdh="Daisy" bse="-1" bseh="" dex="2" id="mp03" int="3" kno="3" pard="220" pare="-1" pat="3" solvnd="100" solvne="0" solvpd="5555" solvpe="0" spe="1" sv="1"/>
     <level avgur="50" bsd="50" bsdh="Moneymaker" bse="84" bseh="Duffy" dex="2" id="nat1" int="3" kno="2" pard="91" pare="-1" pat="2" solvnd="149" solvne="0" solvpd="8277" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="nat1" int="3" kno="2" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="2"/>
@@ -1441,7 +1446,6 @@
     <level avgur="54" bsd="14" bsdh="Stupid+Moneymaker" bse="23" bseh="Raoul" dex="1" id="richi07" int="4" kno="6" pard="34" pare="-1" pat="2" solvnd="49" solvne="0" solvpd="2722" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="2" id="rudolf01" int="3" kno="4" pard="-1" pare="-1" pat="4" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
     <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="1" id="safalra01" int="3" kno="6" pard="-1" pare="-1" pat="2" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="1" sv="1"/>
-    <level avgur="-1" bsd="-1" bsdh="" bse="-1" bseh="" dex="0" id="sasquatch04[4]" int="0" kno="0" pard="-1" pare="-1" pat="0" solvnd="0" solvne="0" solvpd="0" solvpe="0" spe="0" sv="1"/>
     <level avgur="32" bsd="10" bsdh="Stupid+Medimaster+Moneymaker" bse="12" bseh="Duffy" dex="2" id="sesame" int="2" kno="4" pard="22" pare="-1" pat="1" solvnd="128" solvne="0" solvpd="7111" solvpe="0" spe="1" sv="1"/>
     <level avgur="62" bsd="45" bsdh="Moneymaker" bse="75" bseh="Duffy" dex="3" id="siegfried100" int="3" kno="3" pard="92" pare="-1" pat="3" solvnd="103" solvne="0" solvpd="5722" solvpe="0" spe="3" sv="1"/>
     <level avgur="56" bsd="26" bsdh="Moneymaker" bse="74" bseh="Johannes" dex="4" id="siegfried101" int="3" kno="4" pard="78" pare="-1" pat="3" solvnd="86" solvne="0" solvpd="4777" solvpe="0" spe="3" sv="1"/>
