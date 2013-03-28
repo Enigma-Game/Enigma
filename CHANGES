@@ -5,10 +5,15 @@ User-Visible changes
 --------------------
 
     - added ingame music by Taztunes (deactivated by default)
-    - removed "over par" notification
-    - 78 new Enigma levels, 95 new Pentomino levels and
-        1077 imported Sokoban levels
+    - removed "over par" notification by general request
+    - 78 new Enigma levels (now a total of 956 levels, plus 21 tutorials)
+    - replaced old Sokoban levels by 1077 imported Sokoball levels
+    - 95 new Pentomino levels
 
+Internal changes
+----------------
+
+    - many bug fixes
 
 Changes in Version 1.10  (Released only for level authors and testers)
 =======================
@@ -27,6 +32,7 @@ User-Visible changes
     - many improved images for higher resolutions
     - new images for coins
     - extra lifes now look like batteries to not confuse them with ac_pearl
+    - tutorial level for st_chess
 
 Internal changes
 ----------------
@@ -42,7 +48,6 @@ Internal changes
     - internal flood generation
     - improved it_rubberband, st_surprise and it_surprise
     - itemfreeze stone now is an own object st_ice
-
 
 Changes in Version 1.01
 =======================
