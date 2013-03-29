@@ -20,7 +20,7 @@
 #ifndef ENIGMA_MAIN_HH
 #define ENIGMA_MAIN_HH
 
-#define ENIGMACOMPATIBITLITY 1.10
+#define ENIGMACOMPATIBITLITY 1.20
 #define PREFFILENAME "enigmarc.xml"
 #define RATINGSFILENAME "ratings.xml"
 #define TRUSTED_RELEASE 0.92
