@@ -99,6 +99,9 @@ function copy_data
     mkdir $DDIR/data/music
     mkdir $DDIR/data/music/menu
     cp -p $SDIR/data/music/menu/*.{ogg,s3m} $DDIR/data/music/menu
+    mkdir $DDIR/data/music
+    mkdir $DDIR/data/music/game
+    cp -p $SDIR/data/music/game/*.{ogg,s3m} $DDIR/data/music/game
     mkdir $DDIR/data/soundsets 
     mkdir $DDIR/data/soundsets/enigma 
     cp -p $SDIR/data/soundsets/enigma/*.wav $DDIR/data/soundsets/enigma
