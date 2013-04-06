@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Set Me Free" el:subtitle="" el:id="illmind06"/>
-      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
+      <el:version el:score="3" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © 2005 illmind</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -20,26 +20,26 @@ ti["  "] = {"fl_dark"}
 ti["##"] = {"st_granite"}
 ti[".."] = {"st_grate_cross"}
 ti["SS"] = {"st_swap"}
-ti["doors"] = {"st_door", "door%%#", faces="ew", state = CLOSED}
-ti["triggers"] = {"it_trigger", target = "door%%#*"} .. ti({"#ac_marble_white"})
-ti["d1"] = {"it_document", text = "text1"}
-ti["O1"] = {"st_oxyd_d", "west#"}
-ti["O2"] = {"st_oxyd_d", "east#"}
+ti["doors"] = {"st_door", name="door%%#", faces="ew", state=CLOSED}
+ti["triggers"] = {"it_trigger", target="door%%#*"} .. ti({"#ac_marble_white", essential=INDISPENSABLE})
+ti["d1"] = {"it_document", text="text1"}
+ti["O1"] = {"st_oxyd_d", name="west#"}
+ti["O2"] = {"st_oxyd_d", name="east#"}
 ti["@@"] = {"#ac_marble_black"}
 
 wo(res.autotile(ti, {"D", "doors"}, {"T", "triggers"}), "  ", {
     "########################################",
-    "##T1..##........................##..T2##", 
-    "##....##........SS....SS........##....##", 
-    "########........................########", 
-    "##......SS  ################  SS......##", 
-    "##......    ####O1####O2####    ......##", 
-    "##......d1  D2D4  ####  D1D3  @@......##", 
-    "##......    ####O1####O2####    ......##", 
-    "##......SS  ################  SS......##", 
-    "########........................########", 
-    "##....##........SS....SS........##....##", 
-    "##T3..##........................##..T4##", 
+    "##T1..##........................##..T2##",
+    "##....##........SS....SS........##....##",
+    "########........................########",
+    "##......SS  ################  SS......##",
+    "##......    ####O1####O2####    ......##",
+    "##......d1  D2D4  ####  D1D3  @@......##",
+    "##......    ####O1####O2####    ......##",
+    "##......SS  ################  SS......##",
+    "########........................########",
+    "##....##........SS....SS........##....##",
+    "##T3..##........................##..T4##",
     "########################################"})
 
 wo:shuffleOxyd({"west#*", max=0}, {"east#*", max=0})
@@ -50,7 +50,7 @@ wo:shuffleOxyd({"west#*", max=0}, {"east#*", max=0})
       </el:string>
       <el:string el:key="text1">
         <el:english el:translate="false">illmind's  set  me  free  ...  with  special  thanks  to  CAPtainKOH  for  help!</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
