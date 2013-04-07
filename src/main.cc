@@ -507,7 +507,7 @@ void Application::init(int argc, char **argv)
                 scr->flush_updates();
             }
         }
-        Log << "Maske preview finished succesfully\n";
+        Log << "Make preview finished succesfully\n";
         return;
     }
 
