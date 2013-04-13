@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Letter Bomb" el:subtitle="Oxyd Link 31" el:id="oxydlink31"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_tigris"}
+ti["+"] = {"st_box"}
+ti["D"] = {"st_dispenser"}
+ti["B"] = {"st_passage_black"}
+ti["W"] = {"st_passage_white"}
+ti["N"] = {"st_mail_n"}
+ti["S"] = {"st_mail_s"}
+ti["n"] = {"it_pipe_ne"}
+ti["e"] = {"it_pipe_es"}
+ti["s"] = {"it_pipe_sw"}
+ti["w"] = {"it_pipe_nw"}
+ti["-"] = {"it_pipe_ew"}
+ti["|"] = {"it_pipe_ns"}
+ti["!"] = {"it_dynamite"}
+ti["1"] = {"it_document", text="text1"}
+ti["2"] = {"it_document", text="text2"}
+ti["O"] = {"st_oxyd_d"}
+ti["*"] = {"#ac_marble_white", essential=INDISPENSABLE}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~OB##BO~~~~~~#N####~",
+    "~B1! |B~~~~~~#2e|s#~",
+    "~#  +|#~~~~~~#!||-#~",
+    "~#w+*+#~~~~~~#+|+-#~",
+    "~#----D~~~~~~Dn+@-#~",
+    "~#ne- #~~~~~~W----W~",
+    "~####S#~~~~~~OW##WO~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Everything's been counted carefully!</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="true">Parts of the tubes disappear during detonation!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

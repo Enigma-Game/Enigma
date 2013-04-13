@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="7" title="Oxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="8" title="Oxyd"/>
 
   <attributes/>
 
@@ -49,7 +49,7 @@
     <level _seq="41" _title="Airlock" _xpath="./oxydlink17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level8b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="OxydLink 23" _xpath="./oxydlink23_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried104" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Preferences" _xpath="./oxydlink28_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10d" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="Letter Bomb" _xpath="./oxydlink31_1" author="Siegfried Fennig" ctrl="force" easy="false" id="oxydlink31" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="Letter Bomb" _xpath="./oxydlink31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="oxydlink31" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Oxyd Link 33" _xpath="./oxydlink33_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p33" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Mirror III" _xpath="./oxydlink41_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried80" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="My Way, Your Way" _xpath="./oxydlink46_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10e" rel="1" rev="0" score="1" target="time" unit="duration"/>
