@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Island of Mirrors" el:subtitle="Oxyd Extra 23" el:id="oxe23"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd.extra"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_tigris"}
+ti["L"] = {"st_laser_n", name="laser"}
+ti["S"] = {"st_switch", target="laser"}
+ti["1"] = {"st_mirror_triangle", name="m%1", state=NORTH}
+ti["2"] = {"st_mirror_slab", name="m%2", state=WEST}
+ti["3"] = {"st_mirror_triangle", name="m%3", state=SOUTH}
+ti["4"] = {"st_mirror_triangle", name="m%4", state=SOUTH}
+ti["5"] = {"st_mirror_slab", name="m%5", state=SOUTH, transparent=true}
+ti["6"] = {"st_mirror_triangle", name="m%6", state=WEST}
+ti["7"] = {"st_mirror_slab", name="m%7", state=SOUTH}
+ti["8"] = {"st_mirror_triangle", name="m%8", state=WEST}
+ti["switch"] = {"st_switch", target="m%%", action_1="turn", action_0="turnback"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"A", "H", "switch"}), " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~#~~~#~~~~~~~O~~~O~~",
+    "~       ~~~~       ~",
+    "~ A B C ~~~~ 1 2 3 O",
+    "~       #~~~       ~",
+    "~ D E F ~~~O 4 5 6 ~",
+    "~  @    ~~~~       ~",
+    "# G   H ~~~~ 7   8 O",
+    "~       ~~~~       ~",
+    "~~~~S~~~#~~~~~~L~O~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

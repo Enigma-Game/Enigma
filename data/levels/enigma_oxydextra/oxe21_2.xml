@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Bug" el:subtitle="Oxyd Extra 21" el:id="oxe21"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Petr Machata" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Petr Machata</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd.extra"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_bast"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_plaster"}
+ti["="] = {"st_break_oxydc"}
+ti["<"] = {"st_oneway_white_w"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["*"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+ti["+"] = {"#ac_pearl_white", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "~~~~~~~#############",
+    "########           #",
+    "O           #   #  #",
+    "######## #         #",
+    "O=======    #   #  #",
+    "######## #  @      #",
+    "O      <    O # * ##",
+    "######## #  +      #",
+    "O=======    #   #  #",
+    "######## #         #",
+    "O           #   #  #",
+    "########           #",
+    "~~~~~~~#############"})
+
+wo:shuffleOxyd()
+wo:add(YANG, {"it_hammer"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

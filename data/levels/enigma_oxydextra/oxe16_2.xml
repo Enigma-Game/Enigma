@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="The Chase" el:subtitle="Oxyd Extra 16" el:id="level5c"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd.extra"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["."] = {"fl_abyss"}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = {"st_box"}
+ti["T"] = {"st_death"}
+ti["V"] = {"st_oneway_s"}
+ti["S"] = {"st_coinslot", target="lb", instant=true}
+ti["-"] = {"fl_bridge_bn", name="lb"}
+ti["bridges"] = {"fl_bridge_bs", name="bridge%%"}
+ti["floppies"] = {"st_floppy", target="bridge%%"}
+ti["2"] = {"it_coin_s"}
+ti["0"] = {"it_coin_l"}
+ti["f"] = {"it_floppy"}
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"a", "e", "bridges"}, {"A", "E", "floppies"}), " ", {
+    "##########################################################",
+    "#O      #         T                             T0       #",
+    "#       #         T                             T        #",
+    "#       -         T               T             T        #",
+    "#       #                         T                      #",
+    "#O      #                         T                      #",
+    "#######S#V###########################################.   #",
+    "#         A .      #        .C        #       . E     .  #",
+    "#   2   ##### + .  b    .  #####  +  .d      +##### +  . #",
+    "#  f @    #   +    #     ++  #    +   #     +   #    ++  #",
+    "#         a    + #####    +  c . .+ #####   + . e .    + #",
+    "#         #      . B  .      #        D .       #        #",
+    "##########################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
