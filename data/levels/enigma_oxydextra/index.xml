@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20500" network="false" owner="Enigma Team" release="1" revision="2" title="Oxyd Extra"/>
+  <info enigma="1.00" group="Déjà-vu" location="20500" network="false" owner="Enigma Team" release="1" revision="3" title="Oxyd Extra"/>
 
   <attributes/>
 
@@ -17,7 +17,7 @@
     <level _seq="9" _title="Paper Chase" _xpath="./oxe12_2" author="Petr Machata" ctrl="force" easy="false" id="oxe12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Mirror Moves" _xpath="./oxe13_2" author="Petr Machata" ctrl="force" easy="false" id="oxe13" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Ice Breaker" _xpath="./oxe14_2" author="Petr Machata" ctrl="force" easy="false" id="oxe14" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="The Chase" _xpath="./oxe16_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level5c" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="The Chase" _xpath="./oxe16_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level5c" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="13" _title="Shogun Master" _xpath="./oxe18_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="- Meditation -" _xpath="./oxe20_2" author="" ctrl="force" easy="false" id="meditation4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="The Bug" _xpath="./oxe21_2" author="Petr Machata" ctrl="force" easy="false" id="oxe21" rel="2" rev="1" score="1" target="time" unit="duration"/>

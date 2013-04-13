@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Chase" el:subtitle="Oxyd Extra 16" el:id="level5c"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -18,7 +18,7 @@ ti["#"] = {"st_greenbrown"}
 ti["+"] = {"st_box"}
 ti["T"] = {"st_death"}
 ti["V"] = {"st_oneway_s"}
-ti["S"] = {"st_coinslot", target="lb", instant=true}
+ti["S"] = {"st_coinslot", target="lb", interval_l=20.0, instant=true}
 ti["-"] = {"fl_bridge_bn", name="lb"}
 ti["bridges"] = {"fl_bridge_bs", name="bridge%%"}
 ti["floppies"] = {"st_floppy", target="bridge%%"}
