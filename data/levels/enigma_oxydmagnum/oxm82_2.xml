@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Puller Mailing" el:subtitle="Oxyd Magnum 82" el:id="magnum82"/>
+      <el:version el:score="1" el:release="2" el:revision="4" el:status="released"/>
+      <el:author el:name="anonymous" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © anonymous</el:copyright>
+      <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd.magnum"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gravel"}
+ti["#"] = {"st_woven"}
+ti["S"] = {"st_mail_s"}
+ti["T"] = {"st_turnstile"}
+ti["8"] = {"st_turnstilearm_n"}
+ti["6"] = {"st_turnstilearm_e"}
+ti["2"] = {"st_turnstilearm_s"}
+ti["4"] = {"st_turnstilearm_w"}
+ti["doors"] = {"st_door", name="door%%", faces="ns"}
+ti["slots"] = {"st_coinslot", target="door%%"}
+ti["5"] = {"it_coin_m"}
+ti["z"] = {"it_flag"}
+ti["y"] = {"it_cherry"}
+ti["x"] = {"it_coffee"}
+ti["s"] = {"it_spade"}
+ti["-"] = {"it_pipe_ew"}
+ti["|"] = {"it_pipe_ns"}
+ti["7"] = {"it_pipe_es"}
+ti["3"] = {"it_pipe_nw"}
+ti["1"] = {"it_pipe_ne"}
+ti["^"] = {"it_puller_n"}
+ti[">"] = {"it_puller_e"}
+ti["v"] = {"it_puller_s"}
+ti["<"] = {"it_puller_w"}
+ti["0"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"A", "P", "doors"}, {"a", "p", "slots"}), " ", {
+    "#######################################",
+    "#  #>#v#<#^#-#s#|#7#        #### 8 ##0#",
+    "#5 # # # # #-# #3#|#        # 8  T6## #",
+    "#  aAbBcCdDeEfFgGhH#        84T4T2 ## #",
+    "#     5        5   #        T 8   8 # #",
+    "# 5 @   5 5  5            S 24T4T6T6  #",
+    "#                  #        # 8#  8 # #",
+    "# 5iIjJkKlLmMnNoOpP#        #4T   T6# #",
+    "#  #7#-# # #-# # #<#        #  T T6 # #",
+    "#  #1#|#z#0#-#y#x#<#        #  2 2 ## #",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

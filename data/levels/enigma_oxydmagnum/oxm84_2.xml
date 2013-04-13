@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Turnstiles" el:subtitle="Oxyd Magnum 84" el:id="siegfried82"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd.magnum"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["#"] = {"st_purplegray"}
+ti["X"] = {"st_grate"}
+ti["V"] = {"st_oneway_s"}
+ti["+"] = {"st_shogun_s"}
+ti["T"] = {"st_turnstile"}
+ti["8"] = {"st_turnstilearm_n"}
+ti["6"] = {"st_turnstilearm_e"}
+ti["2"] = {"st_turnstilearm_s"}
+ti["4"] = {"st_turnstilearm_w"}
+ti["doors"] = {"st_door", name="door%%", faces="ew"}
+ti["dots"] = {"it_shogun_s", target="door%%"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble_black", -0.5, 0.0}
+
+wo(res.autotile(ti, {"a", "h", "dots"}, {"A", "H", "doors"}), " ", {
+    "####################",
+    "#                  #",
+    "#  XXXXXXXXXXXXXX  #",
+    "#  X+8 + + 8  8+X  #",
+    "#  X T 4T6 T6 T X  #",
+    "#  Xa2bc8de2fg2hX  #",
+    "#  X4T64T 4T64T6X  #",
+    "#  X+   2 + +  +X  #",
+    "#  XXXXXXXXXXXXXX  #",
+    "#         @        #",
+    "#########VV#########",
+    "O A B C D  E F G H O",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
