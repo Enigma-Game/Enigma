@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="9" title="Esprit"/>
+  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="10" title="Esprit"/>
 
   <attributes/>
 
@@ -44,7 +44,7 @@
     <level _seq="36" _title="esprit 37" _xpath="./esprit37_3" author="Sven Siggelkow" ctrl="force" easy="true" id="ss_esp37" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="37" _title="esprit 38" _xpath="./esprit38_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp38" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="esprit 39" _xpath="./esprit39_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp39" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="- Meditation -" _xpath="./esprit40_2" author="anonymous" ctrl="force" easy="false" id="meditation7" rel="2" rev="0" score="2" target="time" unit="duration"/>
+    <level _seq="39" _title="- Meditation -" _xpath="./esprit40_3" author="anonymous" ctrl="force" easy="false" id="meditation7" rel="3" rev="1" score="3" target="time" unit="duration"/>
     <level _seq="40" _title="esprit 41" _xpath="./esprit41_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp41" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="esprit 42" _xpath="./esprit42_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp42" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="esprit 43" _xpath="./esprit43_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp43" rel="1" rev="0" score="1" target="time" unit="duration"/>
