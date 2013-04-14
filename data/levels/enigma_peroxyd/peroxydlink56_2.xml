@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Everything Changes" el:subtitle="Per.Oxyd Link 56" el:id="level7d"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal_7"}
+ti["~"] = {"fl_water"}
+ti["X"] = {"st_grate_framed"}
+ti["S"] = {"st_swap"}
+ti["+"] = {"st_blur_cross"}
+ti["b"] = ti["~"] .. {"st_passage_black", flavor="frame"}
+ti["w"] = ti["~"] .. {"st_passage_white", flavor="frame"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["O"] = {"st_oxyd", flavor="d", name="oxydsBlack#"}
+ti["0"] = {"st_oxyd", flavor="d", name="oxydsWhite#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "bBB              WWw",
+    "wWB              WBb",
+    "0WB XXXXXXXXXXXX WBO",
+    "wWBXXX++++++++XXXWBb",
+    "bBBXX++SSSSSS++XXWWw",
+    "   XX++S @A S++XX  ~",
+    "wWWXX++SSSSSS++XXBBb",
+    "bBWXXX++++++++XXXBWw",
+    "OBW XXXXXXXXXXXX BW0",
+    "bBW              BWw",
+    "wWW              BBb",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Stay Open" el:subtitle="Per.Oxyd Link 48" el:id="siegfried94"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_greengray"}
+ti["+"] = {"st_box"}
+ti["blockers"] = {"st_blocker", name="blocker%%"}
+ti["triggers"] = {"it_trigger", target="blocker%%"}
+ti["O"] = {"st_oxyd", flavor="c", name="oxydsLeft#"}
+ti["0"] = {"st_oxyd", flavor="c", name="oxydsRight#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["*"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.autotile(ti, {"A", "F", "triggers"}, {"a", "f", "blockers"}), " ", {
+    "####################",
+    "####################",
+    "#   ###  #     #   #",
+    "# #+     b  ##  +#e#",
+    "# a   #### B      E#",
+    "# + ~~~~ @*c~~~~ ###",
+    "# + ~OO~#  C~00~   #",
+    "##A ~OO~ D##~00~F  #",
+    "# ##~~~~ d #~~~~f###",
+    "# +     # + +# # + #",
+    "#       #    #     #",
+    "####################",
+    "####################"})
+
+wo:shuffleOxyd({"oxydsLeft#*", max=0}, {"oxydsRight#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

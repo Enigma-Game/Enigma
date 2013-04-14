@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Crisscross" el:subtitle="Per.Oxyd Link 45" el:id="martin62"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_marble"}
+ti["#"] = {"st_redbrown"}
+ti["X"] = {"st_grate"}
+ti["P"] = {"st_puzzle", cluster=1, intensity=0}
+ti["Q"] = {"st_puzzle", cluster=2, intensity=0}
+ti["O"] = {"st_oxyd_d", name="oxydsBlack#"}
+ti["0"] = {"st_oxyd_d", name="oxydsWhite#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.puzzle(ti, "P", "Q"), " ", {
+    "####################",
+    "#A #  #  #  #  #   O",
+    "#   #  X  #  X  #  #",
+    "# X PX QO PX QO PX #",
+    "## PPPQQQPPPQQQPPP##",
+    "#   P  Q  P  Q  P  #",
+    "# X Q0 PX QO PX QX #",
+    "## QQQPPPQQQPPPQQQ##",
+    "#   Q  P  Q  P  Q  #",
+    "# X  X  0  X  0  X #",
+    "#  #  X  #  #  X   #",
+    "#   #  #  #  #  # @#",
+    "#0##################"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

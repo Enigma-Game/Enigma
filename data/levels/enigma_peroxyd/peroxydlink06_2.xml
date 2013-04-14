@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd Link 6" el:subtitle="Per.Oxyd Link 6" el:id="peroxyd2p6"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:23"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_concrete"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_darkgray"}
+ti["B"] = {"st_passage_black"}
+ti["W"] = {"st_passage_white"}
+ti["P"] = {"st_puzzle", cluster=1, intensity=0}
+ti["O"] = {"st_oxyd", flavor="b", name="oxydsBlack#"}
+ti["0"] = {"st_oxyd", flavor="b", name="oxydsWhite#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.puzzle(ti, "P"), " ", {
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "#######################################",
+    "#BBB               #               WWW#",
+    "#BOB               #               W0W#",
+    "#BBB       @       #               WWW#",
+    "#WWW               #               BBB#",
+    "#W0W               #               BOB#",
+    "#WWW         # ######### #         BBB#",
+    "#BBB                               WWW#",
+    "#BOB         #PPPPPPPPPP #         W0W#",
+    "#BBB         #P    #   P #         WWW#",
+    "##############P #######P ##############",
+    "#WWW         #P    #   P #         BBB#",
+    "#W0W         #P        P #         BOB#",
+    "#WWW       A  PPPPPPPPPP           BBB#",
+    "#BBB         # ######### #         WWW#",
+    "#BOB               #               W0W#",
+    "#BBB               #               WWW#",
+    "#WWW               #               BBB#",
+    "#W0W               #               BOB#",
+    "#WWW               #               BBB#",
+    "#######################################",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

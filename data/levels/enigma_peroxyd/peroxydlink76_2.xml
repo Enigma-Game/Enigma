@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Not That Way" el:subtitle="Per.Oxyd Link 76" el:id="siegfried86"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti["  "] = {"fl_gray"}
+ti[" ~"] = {"fl_abyss"}
+ti["# "] = {"st_greenbrown"}
+ti["+ "] = {"st_box"}
+ti["B^"] = {"st_oneway_black", orientation=NORTH}
+ti["B>"] = {"st_oneway_black", orientation=EAST}
+ti["Bv"] = {"st_oneway_black", orientation=SOUTH}
+ti["B<"] = {"st_oneway_black", orientation=WEST}
+ti["W^"] = {"st_oneway_white", orientation=NORTH}
+ti["W>"] = {"st_oneway_white", orientation=EAST}
+ti["Wv"] = {"st_oneway_white", orientation=SOUTH}
+ti["W<"] = {"st_oneway_white", orientation=WEST}
+ti["OB"] = {"st_oxyd", flavor="c", name="oxydsBlack#"}
+ti["OW"] = {"st_oxyd", flavor="c", name="oxydsWhite#"}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.autotile(ti), "  ", {
+    " ~ ~ ~ ~OW ~ ~ ~OB ~ ~ ~OW ~ ~ ~OB ~ ~ ~",
+    " ~# # # W^# # # B^# # # W^# # # B^# #  ~",
+    "OBB<  #       W>    Bv              W>OW",
+    " ~#     +   +   B<  W^  # #   #   + #  ~",
+    "OWW<  #   #   # # B^W^#     W<  +   B>OB",
+    " ~#   +   #     B<@1@0W>  + #   #   #  ~",
+    "OBB<  # #   #   # WvBv# #     B^    W>OW",
+    " ~#     +     B>  +     #   #   +   #  ~",
+    "OWW<      # W^      #       #       B>OB",
+    " ~# # # Bv# # # Wv# # # Bv# # # Wv# #  ~",
+    " ~ ~ ~ ~OB ~ ~ ~OW ~ ~ ~OB ~ ~ ~OW ~ ~ ~"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

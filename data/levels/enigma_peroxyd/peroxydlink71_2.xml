@@ -15,6 +15,7 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
 wo["ProvideExtralifes"] = false
 
 ti[" "] = {"fl_bluegreen"}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oops, Sorry!" el:subtitle="Per.Oxyd Link 2" el:id="level7f"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["#"] = {"st_tigris"}
+ti["P"] = {"st_puzzle", cluster=1, intensity=0}
+ti["O"] = {"st_oxyd", flavor="b", name="oxydsBlack#"}
+ti["0"] = {"st_oxyd", flavor="b", name="oxydsWhite#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.puzzle(ti, "P"), " ", {
+    "####################",
+    "#        ##        #",
+    "# P OP O ## 0P 0P  #",
+    "# P  P   ##  P  P  #",
+    "# P@ P   ##  P  P  #",
+    "# P  P   ##  P  P  #",
+    "#PPPPPPPPPPPPPPPPP #",
+    "# P  P   ##  P  P  #",
+    "# P  P   ##  PA P  #",
+    "# P  P   ##  P  P  #",
+    "# P OP O ## 0P 0P  #",
+    "#        ##        #",
+    "####################"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

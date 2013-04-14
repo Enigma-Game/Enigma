@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd Link 13" el:subtitle="Per.Oxyd Link 13" el:id="peroxyd2p13"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_samba"}
+ti["##"] = {"st_redbrown"}
+ti["=="] = {"st_stoneimpulse"}
+ti["P"] = {"st_puzzle", cluster=1, intensity=0}
+ti["Q"] = {"st_puzzle", intensity=0}
+ti["OO"] = {"st_oxyd", flavor="b", name="oxydsLeft#"}
+ti["00"] = {"st_oxyd", flavor="b", name="oxydsRight#"}
+ti["@@"] = {"ac_marble_black", essential=INDISPENSABLE}
+ti["AA"] = {"ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.puzzle(ti, "P", "Q"), "  ", {
+    "####################################################################################################################",
+    "##        ####      ##                      ##                ##  ####                  P2                        ##",
+    "##    @@    ##                              ##    ######        P1                      P2Qb  Qc                  ##",
+    "##        P1        P2P2P2P2P2P2P2P2P2P2P2    P1P1P1  ##    P1P1P1P1P1                  P2QlQbQh                  ##",
+    "##        P1        P2                      ######P1  ##        P1                          Qh                  00##",
+    "##########P1########P2########==##OO##############P1  ##OO######P1##################################################",
+    "##        P1        P2                ##          P1  ##        P1                          Qb                  00##",
+    "##        P1P2P2P2P2P2      P1P1P1P1P1##          P1        P1P1P1P1P1                  P2QfQhQb                  ##",
+    "##    AA    ##                ##  ##                  ##        P1                      P2Qh  Qi                  ##",
+    "##          ##                ##  ##  ##              ##    ####  ##                    P2                        ##",
+    "####################################################################################################################"})
+
+wo:shuffleOxyd({"oxydsLeft#*", max=0}, {"oxydsRight#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

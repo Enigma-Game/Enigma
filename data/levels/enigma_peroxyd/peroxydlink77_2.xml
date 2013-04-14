@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Snugly Packed II" el:subtitle="Per.Oxyd Link 77" el:id="siegfried87"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_gray"}
+ti["#"] = {"st_purplegray"}
+ti["="] = {"st_lightglass"}
+ti["5"] = {"st_turnstile"}
+ti["8"] = {"st_turnstilearm_n"}
+ti["6"] = {"st_turnstilearm_e"}
+ti["2"] = {"st_turnstilearm_s"}
+ti["4"] = {"st_turnstilearm_w"}
+ti["B"] = {"st_oneway_black", orientation=EAST}
+ti["W"] = {"st_oneway_white", orientation=EAST}
+ti["b"] = {"st_switch_black", target="toggleLaser", action="signal"}
+ti["w"] = {"st_switch_white", target="toggleLaser", action="signal"}
+ti["L"] = {"st_laser_e", name="laser"}
+ti["|"] = {"st_mirror_slab", state=WEST, transparent=true}
+ti["/"] = {"st_mirror_slab", state=EAST}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd", flavor="b"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#==============#==##",
+    "O=  8  8  8  8 =  |#",
+    "#=  5645645645 #O  #",
+    "#=       8   2AB   #",
+    "#=45645 45 456 #b  #",
+    "O= 2  28  8  8 =d |#",
+    "#=  56456456 56#w  #",
+    "#=  2          W   #",
+    "#=45645 45 456@#   #",
+    "O= 2  2  2  2  =  |#",
+    "#==============L==/#",
+    "####################"})
+
+wo:shuffleOxyd()
+wo:add({"ot_counter", "toggleLaser", state=0, target="laser", action_1="off", action_2="on"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Nothing can stop us!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
