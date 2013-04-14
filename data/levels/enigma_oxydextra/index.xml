@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20500" network="false" owner="Enigma Team" release="1" revision="3" title="Oxyd Extra"/>
+  <info enigma="1.00" group="Déjà-vu" location="20500" network="false" owner="Enigma Team" release="1" revision="4" title="Oxyd Extra"/>
 
   <attributes/>
 
@@ -21,7 +21,7 @@
     <level _seq="13" _title="Shogun Master" _xpath="./oxe18_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin28" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="- Meditation -" _xpath="./oxe20_2" author="" ctrl="force" easy="false" id="meditation4" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="The Bug" _xpath="./oxe21_2" author="Petr Machata" ctrl="force" easy="false" id="oxe21" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="Remote Control" _xpath="./oxe22_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5d" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Remote Control" _xpath="./oxe22_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level5d" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="17" _title="Island of Mirrors" _xpath="./oxe23_2" author="Petr Machata" ctrl="force" easy="false" id="oxe23" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Sheet Of Waters" _xpath="./oxe25_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin29" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Knocking" _xpath="./oxe27_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin64" rel="2" rev="1" score="1" target="time" unit="duration"/>
