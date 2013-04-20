@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Break the Circle" el:subtitle="Per.Oxyd 82" el:id="siegfried102"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_rough"}
+ti["_"] = {"fl_rough", name="dest"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_brownpyramid"}
+ti["="] = {"st_stoneimpulse"}
+ti["X"] = {"st_grate"}
+ti["S"] = {"st_swap"}
+ti["-"] = {"st_blocker"}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["K"] = {"st_break_boulder"}
+ti["^"] = {"st_boulder_n"}
+ti["R"] = {"st_rotator_cw_movable"}
+ti["L"] = {"st_rotator_ccw_movable"}
+ti["doors"] = {"st_door_a", name="door%%"}
+ti["flops"] = {"st_monoflop", target="door%%"}
+ti["+"] = {"st_brake"}
+ti["*"] = {"it_wormhole", destination="dest", range=1.0, strength=10}
+ti["f"] = {"it_flag"}
+ti["w"] = {"it_wrench"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "c", "flops"}, {"A", "C", "doors"}), " ", {
+    "####################",
+    "##R     R          #",
+    "#R                 #",
+    "#      #-##        #",
+    "##-#####w@#        #",
+    "#    *#+fS#####    #",
+    "# K   #XX-XXXX#    #",
+    "# K   #XS##R#X#    #",
+    "# K   #XR   #X#    #",
+    "# K   #X# #^#X#    #",
+    "# K   #X#   RX#    #",
+    "# K   #X#R###X#    #",
+    "# K   #XXXXXXX#    #",
+    "# K   #########    #",
+    "# K   #            #",
+    "# K   #            #",
+    "# K   #            #",
+    "#   ###            #",
+    "#   #===============",
+    "#         =     =  =",
+    "#_L ====a ===== >  =",
+    "#~~~=     =   =C= #=",
+    "#~~~=Ab====Bc = #OS=",
+    "#~O~=       =   = #=",
+    "####================"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

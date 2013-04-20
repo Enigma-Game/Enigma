@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Snugly Packed" el:subtitle="Per.Oxyd 17" el:id="siegfried85"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_granite"}
+ti["="] = {"st_lightglass"}
+ti[">"] = {"st_oneway_e"}
+ti["5"] = {"st_turnstile"}
+ti["8"] = {"st_turnstilearm_n"}
+ti["6"] = {"st_turnstilearm_e"}
+ti["2"] = {"st_turnstilearm_s"}
+ti["4"] = {"st_turnstilearm_w"}
+ti["L"] = {"st_laser_e", name="laser"}
+ti["|"] = {"st_mirror_slab", state=WEST, transparent=true}
+ti["/"] = {"st_mirror_slab", state=EAST}
+ti["_"] = {"it_trigger", target="laser"}
+ti["O"] = {"st_oxyd_b"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "####################",
+    "############## > ###",
+    "#============= = ###",
+    "O=  8  8  8  8 =  |#",
+    "#=  5645645645 =   #",
+    "#=       8   2@=   #",
+    "#=45645 45 456 =   #",
+    "O= 2  2        =  |#",
+    "#===============_==#",
+    "##################=#",
+    "###############L==/#",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

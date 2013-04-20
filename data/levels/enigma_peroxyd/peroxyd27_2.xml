@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd #27" el:subtitle="Per.Oxyd 27" el:id="20060629ulf008"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="00:18" el:difficult="00:27"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = not wo["IsDifficult"]
+
+ti["."] = {"fl_concrete"}
+ti[" "] = {"fl_swamp"}
+ti["~"] = {"fl_abyss"}
+ti["X"] = ti["~"] .. {"st_grate", name="grate"}
+ti["O"] = ti["~"] .. {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black", name="black"}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~O~",
+    "~~~~~~O............~",
+    "O....... ~       ~.~",
+    "~.                .~",
+    "~.    ~   ~~~ ~   .~",
+    "~.       @~X~    ~.~",
+    "~. ~   ~  ~~~     .~",
+    "~.            ~ ...~",
+    "~.......   ~    .O~~",
+    "~O~~~~~..........~~~",
+    "~~~~~~~~~~~~O~~~~~~~"})
+
+wo:shuffleOxyd()
+
+if wo["IsDifficult"] then
+    wo:add({"ot_rubberband", anchor1="black", anchor2="grate", strength=7, length=2})
+    wo:add(YIN, {"it_document", text="text2"})
+else
+    wo:add({"ot_rubberband", anchor1="black", anchor2="grate", strength=4, length=2})
+    wo:add(YIN, {"it_document", text="text1"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english>If you think that's too easy, try "Difficulty: Normal".</el:english>
+        <el:translation el:lang="de">Falls Dir das zu einfach ist, versuche die normale Schwierigkeitstufe.</el:translation>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english>If you think that's too hard, try "Difficulty: Easy".</el:english>
+        <el:translation el:lang="de">Falls Dir das zu schwer ist, versuche die leichte Schwierigkeitstufe.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

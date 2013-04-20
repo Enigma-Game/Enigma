@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Plumbing" el:subtitle="Per.Oxyd 79" el:id="level7e"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_sahara"}
+ti["~~"] = {"fl_water"}
+ti["##"] = {"st_tigris"}
+ti["XX"] = {"st_grate"}
+ti["TT"] = ti["~~"] .. {"st_death"}
+ti["P"] = {"st_puzzle", cluster=1, intensity=0}
+ti["Q"] = {"st_puzzle", intensity=0}
+ti["MP"] = {"it_magicwand"} .. ti({"st_puzzle", intensity=0, connections="s"})
+ti["OO"] = {"st_oxyd_d"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.puzzle(ti, "P", "Q"), "  ", {
+    "##############################################################################",
+    "##OO            ~~~~~~~~~~~~~~~~~~~~        OO  XXXXXX  ~~~~~~            OO##",
+    "##              ~~~~TT~~~~~~~~~~~~~~            XXXXXX  ~~~~~~              ##",
+    "##              TT~~~~~~TT~~~~~~TT~~            XXXXXX  ~~~~~~              ##",
+    "##      QdP1P3  ~~~~~~~~~~TT~~~~~~~~            XXXXXX  ~~~~~~        OO    ##",
+    "##  P1P1P1P1P3P3~~~~~~~~~~~~TT~~~~TT    Qe  MP    QaQe  ~~~~~~~~~~          ##",
+    "##        P2P2  ~~~~~~~~~~~~~~~~~~~~        Qj  QfQlQc  ~~~~~~~~~~~~~~      ##",
+    "##      P2P2P1  ~~TT~~~~~~~~~~~~~~TT    Qj  Qh  QiQdQe  ~~~~~~~~~~~~~~~~    ##",
+    "##  @@  P1P1P1  ~~~~~~~~TT~~~~~~~~~~            XXXXXX          ~~~~~~~~    ##",
+    "##              ~~~~TT~~~~~~~~~~~~~~            XXXXXX          ~~~~~~~~    ##",
+    "##              ~~~~~~~~~~TT~~~~~~~~            XXXXXX          ~~~~~~~~    ##",
+    "##              ~~~~~~~~~~~~~~~~~~~~  OO        XXXXXX    OO    ~~~~~~~~    ##",
+    "##############################################################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

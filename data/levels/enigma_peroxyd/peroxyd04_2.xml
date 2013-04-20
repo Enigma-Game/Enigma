@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Open Sesame" el:subtitle="Per.Oxyd 4" el:id="sesame"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Daniel Heck" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Daniel Heck</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_metal"}
+ti["doors"] = {"st_door", name="door%%", faces="ew"}
+ti["dots"] = {"it_shogun_l", target="door%%"}
+ti["S"] = {"st_shogun_sml"}
+ti["O"] = {"st_oxyd_b"}
+ti["@"] = {"#ac_marble_black", -0.5, 0.0}
+
+wo(res.autotile(ti, {"A", "B", "doors"}, {"a", "b", "dots"}), " ", {
+    "####################",
+    "#    #        #    #",
+    "# O  #        B    #",
+    "#    #        #    #",
+    "#    #        #    #",
+    "#    #        #    #",
+    "#    #   ab   #    #",
+    "#    #    S   #    #",
+    "#    #        #    #",
+    "#    #    @   #    #",
+    "#    A        #  O #",
+    "#    #        #    #",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

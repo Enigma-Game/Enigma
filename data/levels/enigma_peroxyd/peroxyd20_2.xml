@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="Per.Oxyd 20" el:id="daniel3"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Daniel Heck" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Daniel Heck</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_granite"}
+ti["o"] = {"it_meditation"}
+ti["A"] = {"#ac_pearl_white", name="left", essential=INDISPENSABLE}
+ti["@"] = {"#ac_pearl_white", name="right", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#    o@      Ao    #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "####################"})
+
+wo:add({"ot_rubberband", anchor1="left", anchor2="right", strength=4, length=4})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd 28" el:subtitle="Per.Oxyd 28" el:id="20070104ulf016"/>
+      <el:version el:score="1" el:release="2" el:revision="$Revision: 96 $" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="01:19" el:difficult="01:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_rough"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_granite"}
+ti["="] = {"st_flat_breakable"}
+ti["V"] = {"st_boulder_s"}
+ti["<"] = {"st_boulder_w"}
+ti["B"] = {"st_dispenser_bombblack"}
+ti["1"] = {"it_pipe_ne"}
+ti["9"] = {"it_pipe_sw"}
+ti["b"] = {"it_bag"}
+ti["c"] = {"it_cherry"}
+ti["d"] = {"it_document", text = "text1"}
+ti["e"] = {"it_coffee"}
+ti["f"] = {"it_flag_black"}
+ti["F"] = {"it_flag_white"}
+ti["h"] = {"it_hammer"}
+ti["k"] = {"it_key"}
+ti["m"] = {"it_magnet"}
+ti["p"] = {"it_pin"}
+ti["r"] = {"it_surprise"}
+ti["s"] = {"it_spade"}
+ti["u"] = {"it_umbrella"}
+ti["y"] = {"it_floppy"}
+ti["2"] = {"it_coin_s"}
+ti["5"] = {"it_coin_m"}
+ti["!"] = {"it_dynamite"}
+ti["."] = {"it_seed"}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "##########################################################",
+    "########   ##   ####  V#==###########==V# ################",
+    "######## # ## # ####  B#==###########==B# ################",
+    "######## # ## # ####  B#==###########==B# ################",
+    "######## # ## # ####  B#==###########==B# ################",
+    "O@       #    #    =  B#==     =<<<  ==B# =============< O",
+    "######## ############# #==########### # # ################",
+    "######## #b.rFke22dh!# #==########### # # ################",
+    "######## #mpsfk552ce!# #==########### # # ################",
+    "#######1 19199y5u2cc!#    ########### #   ################",
+    "##########################################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english>Umbrellas protect you against oncoming boulder!</el:english>
+        <el:translation el:lang="de">Selbstmordversuch mit Schirm.</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

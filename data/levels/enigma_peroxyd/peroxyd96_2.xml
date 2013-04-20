@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="No Safety Net" el:subtitle="Per.Oxyd 96" el:id="siegfried90"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gray"}
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_sand"}
+ti["-"] = {"fl_slope_pe"}
+ti["#"] = {"st_shogun_sml"}
+ti["M"] = {"st_shogun_sl"}
+ti["S"] = {"st_shogun_s"}
+ti["L"] = {"st_shogun_l"}
+ti["="] = {"st_granite"}
+ti["I"] = {"st_stoneimpulse"}
+ti["+"] = {"st_box"}
+ti["X"] = {"st_scissors"}
+ti["B"] = {"st_rubberband"}
+ti["<"] = {"st_oneway", orientation=WEST}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["m"] = ti["+"] .. {"it_magicwand"}
+ti["s"] = ti["+"] .. {"it_spring"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "IIIIIIIIIIIIIIIII######################",
+    "I              OI                #    #",
+    "I IIIIIIIIIIIIIIIIII ########### #    #",
+    "I IO  LLLLL   >    I #           #    #",
+    "I MI  SSSSS  IIIILSI # ###########    #",
+    "I IIIIIIIIII <  ILSI #           #    #",
+    "I IO  IMLMMIIISLI  I ####### #####    #",
+    "I =      S      I II I       #        #",
+    "I IIIIIIIIIIIISLI ILSI #######        #",
+    "I                  S I  #             #",
+    "I#III= =######IIIIIIII# #             #",
+    "I    = =~~~~~~~~~~~~~-# #             #",
+    "I    = =~~~~~~~~~~~~~-# #             #",
+    "#    = =~~~~~~~~~~~~~-             O  #",
+    "#    = =~~~~~~~~~~~~~- .....          #",
+    "#  O = =~~~~~~~~~~~~~- .....          #",
+    "#    ===~~~~~~~~~~~~~- .....          #",
+    "#       ~~~~~~~~~~~~~- .....      +   #",
+    "#~~~~~~~~~~~~~~~~~~~~#####X#######+####",
+    "#~~~~~~~~~~~~~~~~~~~~#                #",
+    "#~~~~~~~~~~~~~~~~~~~~#          m     #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-   s            #",
+    "#~~~~~~~~~~~~~~~~~~~~-             B  #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-          B     #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-      B    B    #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-          O @   #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#~~~~~~~~~~~~~~~~~~~~-                #",
+    "#######################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

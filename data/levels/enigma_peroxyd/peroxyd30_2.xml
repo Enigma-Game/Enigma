@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation - " el:subtitle="Per.Oxyd 30" el:id="peroxyd30"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_gray"}
+ti["."] = {"fl_abyss"}
+ti["7"] = {"fl_slope_ose"}
+ti["8"] = {"fl_slope_ps"}
+ti["9"] = {"fl_slope_osw"}
+ti["6"] = {"fl_slope_pw"}
+ti["3"] = {"fl_slope_onw"}
+ti["2"] = {"fl_slope_pn"}
+ti["1"] = {"fl_slope_one"}
+ti["4"] = {"fl_slope_pe"}
+ti["o"] = {"it_meditation"}
+ti["A"] = cond(wo["IsDifficult"], {"#ac_pearl_white", name="uno", 0.5, 0.0, controllers=CTRL_NONE, owner=nil, essential=INDISPENSABLE},
+                                  {"#ac_pearl_white", name="uno", 0.5, 0.0, essential=INDISPENSABLE})
+ti["B"] = {"#ac_pearl_white", name="due", 0.5, 0.0, essential=INDISPENSABLE}
+ti["C"] = cond(wo["IsDifficult"], {"#ac_pearl_white", name="tre", 0.5, 0.0, controllers=CTRL_NONE, owner=nil, essential=INDISPENSABLE},
+                                  {"#ac_pearl_white", name="tre", 0.5, 0.0, essential=INDISPENSABLE})
+
+wo(ti, " ", {
+    "....................",
+    ".788888888888888889.",
+    ".4       A     o  6.",
+    ".122222222222222223.",
+    "....................",
+    ".788888888888888889.",
+    ".4       Bo       6.",
+    ".122222222222222223.",
+    "....................",
+    ".788888888888888889.",
+    ".4  o    C        6.",
+    ".122222222222222223.",
+    "...................."})
+
+wo:add({"ot_rubberband", anchor1="uno", anchor2="due", strength=4, length=3})
+wo:add({"ot_rubberband", anchor1="tre", anchor2="due", strength=4, length=3})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

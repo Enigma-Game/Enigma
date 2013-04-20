@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Still Swapping?" el:subtitle="Per.Oxyd 8" el:id="20060629ulf007"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2006 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="01:28"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_plank"}
+ti["#"] = {"st_tigris"}
+ti["X"] = {"st_grate"}
+ti["S"] = {"st_swap"}
+ti["^"] = {"st_oneway_black", orientation=NORTH}
+ti[">"] = {"st_oneway_black", orientation=EAST}
+ti["v"] = {"st_oneway_black", orientation=SOUTH}
+ti["<"] = {"st_oneway_black", orientation=WEST}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#O     X#O    # O#O#",
+    "#      ^#     #  # #",
+    "##v#####XXXSX##  < #",
+    "#  #O >       <  #X#",
+    "#  #  #   Od  SX^###",
+    "#  #XX#   @   #X   #",
+    "# X####     #XXS   #",
+    "# S      ###X#X#   #",
+    "# X#     #O   #   O#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english>Bricks change!</el:english>
+        <el:translation el:lang="de">Steine ändern sich!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="- Meditation -" el:subtitle="Per.Oxyd 80" el:id="daniel5"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Daniel Heck" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Daniel Heck</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_metal"}
+ti["~"] = {"fl_abyss"}
+ti["7"] = {"fl_slope_inw"}
+ti["8"] = {"fl_slope_pn"}
+ti["9"] = {"fl_slope_ine"}
+ti["6"] = {"fl_slope_pe"}
+ti["3"] = {"fl_slope_ise"}
+ti["2"] = {"fl_slope_ps"}
+ti["1"] = {"fl_slope_isw"}
+ti["4"] = {"fl_slope_pw"}
+ti["o"] = {"it_meditation"}
+ti["pearl"] = {"ac_pearl_white", name="pearl%%"}
+
+wo(res.autotile(ti, {"a", "d", "pearl"}), " ", {
+    "~~~~~~~~~~~~~~~~~~",
+    "~7888888888888889~",
+    "~4              6~",
+    "~4    o         6~",
+    "~4     d c  o   6~",
+    "~4      o       6~",
+    "~4  o    b      6~",
+    "~4              6~",
+    "~4       a      6~",
+    "~1222222222222223~",
+    "~~~~~~~~~~~~~~~~~~"})
+
+wo:add({"ot_rubberband", anchor1="pearl%3", anchor2="pearl%1", strength=6})
+wo:add({"ot_rubberband", anchor1="pearl%3", anchor2="pearl%2", strength=6})
+wo:add({"ot_rubberband", anchor1="pearl%3", anchor2="pearl%4", strength=6})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd 88" el:subtitle="Per.Oxyd 88" el:id="peroxyd88"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="per.oxyd"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, April 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:25"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_flat"}
+ti["B"] = {"st_rubberband"}
+ti["X"] = {"st_rubberband", name="start"}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd_a"}
+ti["@"] = {"#ac_marble_black", name="black"}
+
+wo(ti, " ", {
+    "######O#######O#####",
+    "#~~~~   ~~~~~   ~~~#",
+    "#~~~    ~   ~    ~~#",
+    "#~~ B ~ X ~ B ~ B ~#",
+    "#       @  d       #",
+    "O   ~   ~   ~   ~  O",
+    "#                  #",
+    "#~ B ~ B ~ B ~ B ~~#",
+    "#~~    ~   ~    ~~~#",
+    "#~~~   ~~~~~   ~~~~#",
+    "#####O#######O######"})
+
+wo:shuffleOxyd()
+wo:add({"ot_rubberband", anchor1="black", anchor2="start", strength=60, length=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Watch out for water holes!</el:english>
+        <el:translation el:lang="de">Beachten Sie die Wasserlöcher!</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
