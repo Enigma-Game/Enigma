@@ -102,6 +102,7 @@ namespace enigma {
             return Value();
         } else if (m.message == "_model_reanimated" && state != BREAKING) {
             // we are swapped in or out of a laser beam
+            updateCurrentLightDirs();
             if ((objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS))
                 init_model();     // replace potential bogus model
             else if (!(objFlags & OBJBIT_STEADY) && (objFlags & OBJBIT_LIGHTNEWDIRS) && !(objFlags & OBJBIT_LASERIDLE))
@@ -114,6 +115,7 @@ namespace enigma {
                setIState(EXPANDING);     // replace potential bogus model
             return Value();
         } else if (m.message == "ignite") {
+            updateCurrentLightDirs();
             if ((server::GameCompatibility != GAMET_ENIGMA && state == IDLE) || (objFlags & OBJBIT_LIGHTNEWDIRS)) {
                 state = BREAKING;
                 init_model();
