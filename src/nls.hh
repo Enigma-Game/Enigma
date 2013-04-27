@@ -26,21 +26,22 @@ namespace nls
     
     const Language languages[] = {
         { "default",    "",      "par" },
+        { "беларуская", "be_BY", "flags25x15/by" },
+        { "Česky",      "cs_CZ", "flags25x15/cz" },
         { "Deutsch",    "de_DE", "flags25x15/de" },
+        { "Ελληνικά",   "el_GR", "flags25x15/gr" },
         { "English",    "en_EN", "flags25x15/gb" },
         { "Español",    "es_ES", "flags25x15/es" },
+        { "Suomi",      "fi_FI", "flags25x15/fi" },
         { "Français",   "fr_FR", "flags25x15/fr" },
+        { "Magyar",     "hu_HU", "flags25x15/hu" },
         { "Italiano",   "it_IT", "flags25x15/it" },
         { "Nederlands", "nl_NL", "flags25x15/nl" },
-        { "Svenska",    "sv_SE", "flags25x15/se" },
-        { "Русский",    "ru_RU", "flags25x15/ru" },
-        { "Magyar",     "hu_HU", "flags25x15/hu" },
-        { "Português",  "pt_BR", "flags25x15/pt" },
-        { "Suomi",      "fi_FI", "flags25x15/fi" },
-        { "українська", "uk_UA", "flags25x15/ua" },
-        { "беларуская", "be_BY", "flags25x15/by" },
-        { "Ελληνικά",   "el_GR", "flags25x15/gr" },
         { "Polski",     "pl_PL", "flags25x15/pl" },
+        { "Português",  "pt_BR", "flags25x15/pt" },
+        { "Русский",    "ru_RU", "flags25x15/ru" },
+        { "Svenska",    "sv_SE", "flags25x15/se" },
+        { "українська", "uk_UA", "flags25x15/ua" },
     };
 }
 
