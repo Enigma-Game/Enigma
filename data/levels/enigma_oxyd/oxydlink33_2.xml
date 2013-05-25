@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd Link 33" el:subtitle="Oxyd Link 33" el:id="oxyd2p33"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2005,2006 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, Mai 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:17"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_rock"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = {"st_granite"}
+ti["<"] = {"st_oneway_black_w"}
+ti[">"] = {"st_oneway_white_e"}
+ti["P"] = {"st_puzzle_yellow", cluster=1}
+ti["Q"] = ti["~"] .. ti["P"]
+ti["O"] = {"st_oxyd", name="oxydsBlack#"}
+ti["0"] = {"st_oxyd", name="oxydsWhite#"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.puzzle(ti, "P", "Q"), " ", {
+    "####~~~~~~~~~~~~####",
+    "O  ####~~~~~~####  0",
+    "#  <  ########  >  #",
+    "#  #     PQQQ#  #  #",
+    "#  #  ###P####  #  #",
+    "#  #A #~#P#~~# @#  #",
+    "#  #  #~#P####  #  #",
+    "#  #  #~#       #  #",
+    "#  <  #~######  >  #",
+    "O  ####~~~~~~####  0",
+    "####~~~~~~~~~~~~####"})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

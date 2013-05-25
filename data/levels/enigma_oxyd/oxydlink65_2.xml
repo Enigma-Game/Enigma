@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Parcours" el:subtitle="Oxyd Link 65" el:id="level8a"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, Mai 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["#"] = {"st_purplemarble"}
+ti["+"] = {"st_box"}
+ti["Y"] = {"st_blur_cross"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "####################",
+    "#  #############  BO",
+    "#  W+    B+    W   #",
+    "#  #Y#Y#Y#Y#Y#Y#   #",
+    "#  B+    W+    B   #",
+    "# @#Y#Y#Y#Y#Y#Y#   #",
+    "#  W+    B+    W   #",
+    "# A#Y#Y#Y#Y#Y#Y#   #",
+    "#  B+    W+    B   #",
+    "#  #Y#Y#Y#Y#Y#Y#   #",
+    "#  W+    B+    W   #",
+    "#  #############  WO",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

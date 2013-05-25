@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Advance Planning" el:subtitle="Oxyd Link 14" el:id="siegfried76"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, Mai 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_rough"}
+ti["# "] = {"st_tigris"}
+ti["* "] = {"st_lightglass"}
+ti["= "] = {"st_lightglass_hollow"}
+ti["L "] = {"st_laser_n", state=ON}
+ti["slab"] = {"st_mirror_slab", name="mirror%%", state=NORTH, movable=true}
+ti["slabT"] = {"st_mirror_slab", name="mirror%%", state=NORTH, transparent=true, movable=true}
+ti["triangle"] = {"st_mirror_triangle", name="mirror%%", state=SOUTH, movable=true}
+ti["fourS"] = {"st_fourswitch", target="mirror%%"}
+ti["laserS"] = {"st_laserswitch", target="door%%"}
+ti["doorsV"] = {"st_door_d", name="door%%", faces="ew"}
+ti["doorsH"] = {"st_door_d", name="door%%", faces="ns"}
+ti[" ,"] = {"it_document"}
+ti["O "] = {"st_oxyd_d"}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.autotile(res.composer(ti), {"4", "fourS"}, {"|", "slab"}, {"/", "slabT"}, {"T", "triangle"},
+                                  {"S", "laserS"}, {"V", "doorsV"}, {"H", "doorsH"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "# * * * * * * * * * * * * * * * * * * # ",
+    "# = =               4a              4b# ",
+    "# = =                 = = =           # ",
+    "# = =   4c            = = =           # ",
+    "#                     = 4d4e4f        # ",
+    "#       4g4h4i      4j  4k4l4m        # ",
+    "#     4n4o                            # ",
+    "# = =     4p4q                        # ",
+    "# = =                     = = =       # ",
+    "# = =                     = = =   @1  # ",
+    "# * * * * * * *,*,* *,* * * * * * * * # ",
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "# # #             # # #         # # # # ",
+    "# # #             * |a*           * |b# ",
+    "# O V1  * *       * * # H3#       * * # ",
+    "# # S1* /c*           S3O # * *       # ",
+    "#     * * * * *   *,* # TdTeTf*       # ",
+    "#     * TgThTi*   * /j* TkTlTm*       # ",
+    "#   * TnTo* * *   * * * * * * *       # ",
+    "# # S2* * Tp/q*                       # ",
+    "# O V2    * * *           S4H4#       # ",
+    "# # #                     # O #       # ",
+    "# # #                     # # #   @0L # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="false"> </el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
