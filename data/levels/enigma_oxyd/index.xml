@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="11" title="Oxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="12" title="Oxyd"/>
 
   <attributes/>
 
@@ -42,7 +42,7 @@
     <level _seq="34" _title="So Many Doors" _xpath="./oxyd93_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Oxyd 95" _xpath="./oxyd95_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070103ulf014" rel="1" rev="69" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Oxyd Link 1" _xpath="./oxydlink01_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p1" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Land of the Doors" _xpath="./oxydlink02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin65" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Land of the Doors" _xpath="./oxydlink02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin65" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Oxyd Link 3" _xpath="./oxydlink03_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p3" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="Black or White" _xpath="./oxydlink05_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin42" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="Advance Planning" _xpath="./oxydlink14_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried76" rel="2" rev="1" score="1" target="time" unit="duration"/>

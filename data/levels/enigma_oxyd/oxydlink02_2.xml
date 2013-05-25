@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Land of the Doors" el:subtitle="Oxyd Link 2" el:id="martin65"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
@@ -22,7 +22,7 @@ ti["doors"] = {"st_door", name="door%%", faces="ew"}
 ti["triggers"] = {"it_trigger", target="door%%", invisible=true, action="open"}
 ti["O"] = {"st_oxyd", flavor="d", name="oxydsBlack#"}
 ti["0"] = {"st_oxyd", flavor="d", name="oxydsWhite#"}
-ti["A"] = {"#ac_marble_white"}
+ti["*"] = {"#ac_marble_white"}
 ti["@"] = {"#ac_marble_black"}
 
 wo(res.autotile(ti, {"A", "H", "doors"}, {"a", "h", "triggers"}), " ", {
@@ -44,7 +44,7 @@ wo(res.autotile(ti, {"A", "H", "doors"}, {"a", "h", "triggers"}), " ", {
     "#    #### ####     #",
     "#    aE0# #0Fb   0 #",
     "#    #### ####     #",
-    "#        A         #",
+    "#        *         #",
     "#    #### ####     #",
     "#    cG0# #0Hd   0 #",
     "#    #### ####     #",
