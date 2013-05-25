@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="ATARI Nostalgia" el:subtitle="Oxyd 5" el:id="siegfried99"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, Mai 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti["  "] = {"fl_concrete"}
+ti[" ~"] = {"fl_abyss"}
+ti["# "] = {"st_brownpyramid"}
+ti["* "] = {"st_plaster"}
+ti["+ "] = {"st_shogun_s"}
+ti["doorsN"] = {"st_door_d", name="door%%", faces="ns"}
+ti["doorsS"] = ti[" ~"] .. {"st_door_d", name="door%%", faces="ns"}
+ti["switches"] = {"st_switch", target="door%%"}
+ti["o "] = {"it_shogun_s", target="door%1"}
+ti[". "] = {"it_shogun_s"}
+ti[" y"] = {"it_cherry"}
+ti[" t"] = {"it_document", text="text1"}
+ti[" s"] = {"it_coffee"}
+ti[" u"] = {"it_umbrella"}
+ti["O "] = {"st_oxyd", flavor="d"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.autotile(res.composer(ti), {"-", "doorsN"}, {"=", "doorsS"}, {"S", "switches"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # ",
+    "# O *                             * O # ",
+    "S7 u*                             *  u# ",
+    "# -6*                             * -8# ",
+    "#                 o .                 # ",
+    "#                                     # ",
+    "#                                     # ",
+    "#                                     # ",
+    "#                                     # ",
+    "# -2*                             * -4# ",
+    "S3 u*             @               *  uS5",
+    "# O *                             * O # ",
+    "# + + + +u+ + + + + + + + + + + + + + # ",
+    "# * * *  ~ ~ ~ ~         ~ ~ ~ ~* * * # ",
+    "# * S8*  ~ ~ ~ ~ ~ u y ~ ~ ~ ~ ~* S6* # ",
+    "# * =7*  ~ ~ ~ ~ ~ s t ~ ~ ~ ~ ~* =5* # ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "# * =1*  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~* =3* # ",
+    "# * S2*  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~* S4* # ",
+    "# * * *  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~* * * # ",
+    "# # # # # # # # # # # # # # # # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Umbrellas prevent free fall!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -8,7 +8,7 @@
       <el:copyright>Copyright © 2005 Raoul Bourquin</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10" el:engine="oxyd1">
-       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="1:54"/>
@@ -19,8 +19,8 @@ ti["#"] = {"st_metal"}
 ti["H"] = {"st_metal_hollow"}
 ti["-"] = {"fl_fake"}
 ti["X"] = {"st_brick", cluster=1}
-ti["P"]  = {"st_puzzle_yellow", cluster=1}
-ti["p"]  = {"st_puzzle_yellow", cluster=1}
+ti["P"] = {"st_puzzle_yellow", cluster=1}
+ti["p"] = {"st_puzzle_yellow", cluster=1}
 ti["o"] = ti["p"] .. {"it_meditation"}
 ti["O"] = ti["P"] .. {"it_meditation"}
 ti["@"] = {"ac_pearl", 0.0, 0.5}

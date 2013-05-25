@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Twin Rooms" el:subtitle="Oxyd 23" el:id="siegfried71"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Siegfried Fennig" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Siegfried Fennig</el:copyright>
+      <el:license el:type="GPL version 2" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, Mai 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["WormholeRange"] = 1.0
+wo["WormholeStrength"] = 10.0
+
+ti["."] = {"fl_wood"}
+ti[" "] = {"fl_rough"}
+ti["~"] = {"fl_abyss"}
+ti["#"] = ti["."] .. {"st_purplegray"}
+ti["*"] = {"st_granite"}
+ti["="] = {"st_granite_hollow"}
+ti["I"] = {"st_invisible"}
+ti["J"] = ti["."] .. {"st_invisible"}
+ti["X"] = {"st_rawglass"}
+ti["W"] = ti["."] .. {"st_break_white"}
+ti["w"] = ti["~"] .. {"st_break_white"}
+ti["_"] = ti["."] .. {"st_actorimpulse"}
+ti["P"] = ti["."] .. {"st_plop"}
+ti["^"] = ti["."] .. {"st_oneway_n"}
+ti["<"] = ti["."] .. {"st_oneway_w"}
+ti["+"] = ti["."] .. {"st_box"}
+ti["-"] = ti["~"] .. {"st_box"}
+ti["9"] = {"st_laser_w", name="laser0", state=ON}
+ti["1"] = {"st_laser_s", name="laser1"}
+ti["2"] = {"st_laser_s", name="laser2"}
+ti["3"] = {"st_laser_w", name="laser3"}
+ti["4"] = {"st_laser_s", name="laser4"}
+ti["5"] = {"st_switch", target={"laser1", "laser3"}}
+ti["6"] = {"st_switch", target={"laser2", "laser4"}}
+ti["S"] = {"st_switch"}
+ti["d"] = {"it_document", text="text1"}
+ti["a"] = {"fl_wood", name="destA"}
+ti["b"] = ti["="] .. {"fl_rough", name="destB"}
+ti["c"] = ti["="] .. {"fl_rough", name="destC"}
+ti["A"] = {"it_wormhole", destination="destA"}
+ti["B"] = ti["."] .. {"it_wormhole", destination="destB"}
+ti["C"] = ti["+"] .. {"it_wormhole", destination="destC"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["0"] = ti["."] .. {"st_oxyd", flavor="a"}
+ti["@"] = ti["a"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "       4            ",
+    "*******X**********S*",
+    "*      I * I      O*",
+    "* *b**=* = *=**I*  *",
+    "* *A=  * * I  * *  *",
+    "* * *  * * *  = *  *",
+    "* I *I**=* =  * *I**",
+    "* *    = I *  *    *",
+    "* ==**** * **=**I***",
+    "* * I  * =         *",
+    "* * *  * *         *",
+    "* * *  1 *         *",
+    "*d* *    *         *",
+    "*******X**********5*",
+    "*      I * I      O*",
+    "* *c**=* = *=**I*  *",
+    "* *A=  * * I  * *  *",
+    "* * *  * * *  = *  *",
+    "* I *I**=* =  * *I**",
+    "* *    = I *  *    *",
+    "* ==**** * **=**I***",
+    "* * I  * =         *",
+    "* * *  * *         *",
+    "* * *  2 *         *",
+    "*d* *    *         *",
+    "*******X**********6*",
+    "                    ",
+    "                    ",
+    "                    ",
+    "                    ",
+    "WWWWWWWWWWWWWWWWWWW9",
+    "WWWWWWWWWWWWWWWWWWW3",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~w~~~~~~~~~~~~",
+    "~~~~~#~w~~~~~~~~~~~~",
+    "~#.....W...#~......~",
+    "#~.~~~~W##....~#~~.~",
+    "0.-~~~~W####.~.....#",
+    "#.~....W..B#.0.~~#.~",
+    "~._.~.#W#.##.~.....J",
+    "#..J...W.@...~#.~~.~",
+    "#.###~~W.#.#......P~",
+    "~^#....W.#.#.J###~.#",
+    "~...0_.W.#.#.P..<..#",
+    "~~~~~~~w~~.#.~~~~~0~",
+    "~~~~~~~w~~.#.~~~~~~~",
+    "~~~~~~~w~~+..~~~~~~~",
+    "~~~~~~~w~~.~~~~~~~~~",
+    "~~~~~~~w~~.~~~~~~~~~",
+    "~~~~~~~w~~.~~~~~~~~~",
+    "~~~~~~~w~~.~~~~~~~~~",
+    "~~~~~~~w~~C~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Don't believe all that you see!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

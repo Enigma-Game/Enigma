@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="12" title="Oxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="13" title="Oxyd"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="Oxyd 1" _xpath="./oxyd01_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd1" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="Minor Obstacle" _xpath="./oxyd02_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried70" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="Target Practice" _xpath="./oxyd03_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin03" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="Up And Down" _xpath="./oxyd04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin21" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="ATARI Nostalgia" _xpath="./oxyd05_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried99" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Bridge The Gap" _xpath="./oxyd07_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin32" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="Linear Accelerator" _xpath="./oxyd08_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin36" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="Demolition Squad" _xpath="./oxyd09_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried75" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="- Meditation -" _xpath="./oxyd10_1" author="Daniel Heck" ctrl="force" easy="false" id="daniel1" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="Oxyd 11" _xpath="./oxyd11_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf009" rel="1" rev="70" score="1" target="time" unit="duration"/>
-    <level _seq="11" _title="On the Flip Side" _xpath="./oxyd13_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="Oxyd 15" _xpath="./oxyd15_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf010" rel="1" rev="69" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Look Alike" _xpath="./oxyd16_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin61" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="14" _title="Oxyd 17" _xpath="./oxyd17_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf011" rel="1" rev="69" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="More Speed" _xpath="./oxyd18_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin63" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="Oxyd 20" _xpath="./oxyd20_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd20" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="Bad Punball" _xpath="./oxyd22_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin59" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="Twin Rooms" _xpath="./oxyd23_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried71" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="Oxyd 1" _xpath="./oxyd01_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd1" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="Minor Obstacle" _xpath="./oxyd02_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried70" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="Target Practice" _xpath="./oxyd03_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin03" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="Up And Down" _xpath="./oxyd04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin21" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="ATARI Nostalgia" _xpath="./oxyd05_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried99" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="Bridge The Gap" _xpath="./oxyd07_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin32" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="Linear Accelerator" _xpath="./oxyd08_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin36" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="Demolition Squad" _xpath="./oxyd09_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried75" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="- Meditation -" _xpath="./oxyd10_2" author="Daniel Heck" ctrl="force" easy="false" id="daniel1" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="Oxyd 11" _xpath="./oxyd11_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf009" rel="2" rev="71" score="1" target="time" unit="duration"/>
+    <level _seq="11" _title="On the Flip Side" _xpath="./oxyd13_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin10" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="Oxyd 15" _xpath="./oxyd15_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf010" rel="2" rev="70" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Look Alike" _xpath="./oxyd16_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin61" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="Oxyd 17" _xpath="./oxyd17_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20061221ulf011" rel="2" rev="70" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="More Speed" _xpath="./oxyd18_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin63" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Oxyd 20" _xpath="./oxyd20_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd20" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="Bad Punball" _xpath="./oxyd22_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin59" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="Twin Rooms" _xpath="./oxyd23_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried71" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Proper Order" _xpath="./oxyd26_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried79" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Oxyd 28" _xpath="./oxyd28_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070104ulf017" rel="1" rev="70" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="- Meditation -" _xpath="./oxyd30_1" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation9" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="Oxyd 31" _xpath="./oxyd31_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20061222ulf012" rel="1" rev="69" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Oxyd 28" _xpath="./oxyd28_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20070104ulf017" rel="2" rev="71" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="- Meditation -" _xpath="./oxyd30_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation9" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Oxyd 31" _xpath="./oxyd31_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20061222ulf012" rel="2" rev="70" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Tunnel System" _xpath="./oxyd33_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried98" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Oxyd 37" _xpath="./oxyd37_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060629ulf005" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="The Amazing Maze" _xpath="./oxyd38_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss_ox38" rel="1" rev="0" score="1" target="time" unit="duration"/>
