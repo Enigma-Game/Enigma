@@ -2,6 +2,7 @@
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 # Frank van der Loo <frank_l@linuxmail.org>, 2004.
+# Els van Eijk <kejevek49@zonnet.nl>, 2013.
 #
 #: po/level_i18n.cc:3497
 msgid ""
@@ -10,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-12 21:19+0200\n"
 "PO-Revision-Date: 2007-05-22 22:45+0100\n"
-"Last-Translator: Frank van der Loo <frank_l@linuxmail.org>\n"
+"Last-Translator: Els van Eijk <kejevek49@zonnet.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
@@ -52,20 +53,19 @@ msgstr "Verwissel items"
 
 #: src/client.cc:519 src/gui/LevelMenu.cc:193 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
-msgstr "Escape:"
+msgstr "Escapetoets:"
 
 #: src/client.cc:519
 msgid "Show game menu"
 msgstr "Toon spel menu"
 
 #: src/client.cc:520
-#, fuzzy
 msgid "Shift+Escape:"
-msgstr "Escape:"
+msgstr "Shift+Escape:"
 
 #: src/client.cc:520
 msgid "Quit game immediately"
-msgstr ""
+msgstr "Stop dit spel onmiddellijk"
 
 #: src/client.cc:521
 msgid "F1:"
@@ -104,13 +104,12 @@ msgid "F5:"
 msgstr "F5:"
 
 #: src/client.cc:526
-#, fuzzy
 msgid "F6:"
-msgstr "F9:"
+msgstr "F6:"
 
 #: src/client.cc:526
 msgid "Jump back to last level"
-msgstr ""
+msgstr "Ga terug naar het vorige level"
 
 #: src/client.cc:527
 msgid "F10:"
@@ -137,7 +136,6 @@ msgid "Return to level menu"
 msgstr "Terug naar level menu"
 
 #: src/client.cc:540
-#, fuzzy
 msgid "Skip to next level for best score hunt"
 msgstr "Naar volgend level voor topscore-jacht"
 
@@ -151,7 +149,7 @@ msgstr "Te langzaam voor "
 
 #: src/client.cc:709
 msgid "You are slow today.. [Ctrl-A]"
-msgstr "U bent langzaam vandaag.. [Ctrl-A]"
+msgstr "Je bent langzaam vandaag.. [Ctrl-A]"
 
 #: src/client.cc:786
 msgid "Exactly the world record of "
@@ -163,7 +161,7 @@ msgstr "Geweldig! Een nieuw wereldrecord!"
 
 #: src/client.cc:793
 msgid "Again your personal record..."
-msgstr "Weer uw persoonlijke record..."
+msgstr "Weer je persoonlijke record..."
 
 #: src/client.cc:799
 msgid "New personal record - better than par!"
@@ -175,7 +173,7 @@ msgstr "Nieuw persoonlijk record!"
 
 #: src/client.cc:817
 msgid "Your record, "
-msgstr "Uw record, "
+msgstr "Je record, "
 
 #: src/client.cc:824
 msgid "behind world record."
@@ -183,7 +181,7 @@ msgstr "boven het wereldrecord."
 
 #: src/client.cc:826
 msgid "behind your record."
-msgstr "boven uw record."
+msgstr "boven je record."
 
 #: src/client.cc:834
 msgid "Level finished - better than par!"
@@ -204,7 +202,7 @@ msgstr "Enigma pack %s - level #%d: %s"
 
 #: src/client.cc:879
 msgid "Your record: "
-msgstr "Uw record: "
+msgstr "Je record: "
 
 #: src/client.cc:881
 msgid "World record to beat: "
@@ -244,10 +242,20 @@ msgid ""
 "If ok Enigma will move your data to this new location.\n"
 "Note that you have to restart Enigma once for completion of this update."
 msgstr ""
+"Mac OS X upgrade van Enigma 1.00\n"
+"\n"
+"Het standaard gebruikers gegevenspad is veranderd van\n"
+" %s\n"
+"\n"
+in het zichtbare gegevenspad\n"
+" %s \n
+"\n"
+"Indien OK dan zal Enigma je gegevens naar deze nieuwe locatie verplaatsen. \n"
+"Je moet Enigma opnieuw opstarten om deze update af te ronden."
 
 #: src/main.cc:787
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: src/main.cc:787 src/gui/OptionsMenu.cc:139 src/gui/OptionsMenu.cc:143
 msgid "Never"
@@ -255,7 +263,7 @@ msgstr "Nooit"
 
 #: src/main.cc:787
 msgid "Remind"
-msgstr ""
+msgstr "Herinner"
 
 #: src/main.cc:933
 msgid ""
@@ -274,9 +282,8 @@ msgid "Start Game"
 msgstr "Start Spel"
 
 #: src/gui/MainMenu.cc:67
-#, fuzzy
 msgid "Join Game"
-msgstr "Doe mee met Spel"
+msgstr "Speel het Spel"
 
 #: src/gui/MainMenu.cc:68 src/gui/MainMenu.cc:248
 #: src/gui/ScreenshotViewer.cc:34
@@ -284,9 +291,8 @@ msgid "Back"
 msgstr "Terug"
 
 #: src/gui/MainMenu.cc:105
-#, fuzzy
 msgid "Main developers of the 1.20 release:"
-msgstr "Hoofd ontwikkelaars van versie 1.20:"
+msgstr "Belangrijkste ontwerpers van versie 1.20:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -302,7 +308,7 @@ msgstr "  DANIEL HECK (project oprichter)"
 
 #: src/gui/MainMenu.cc:114
 msgid "  MEINOLF SCHNEIDER (game idea, level design)"
-msgstr "  MEINOLF SCHNEIDER (spel idee, level ontwerp)"
+msgstr "  MEINOLF SCHNEIDER (spelidee, levelontwerp)"
 
 #: src/gui/MainMenu.cc:116
 msgid "Please refer to the manual or the next pages for full credits."
@@ -325,14 +331,12 @@ msgid "terms of the GNU General Public License, version 2."
 msgstr "regels van de GNU General Public License, versie 2."
 
 #: src/gui/MainMenu.cc:124
-#, fuzzy
 msgid "Copyright (C) 2002-2012 Daniel Heck and contributors."
-msgstr "Copyright (C) 2002-2006 Daniel Heck en medewerkers."
+msgstr "Copyright (C) 2002-2012 Daniel Heck en medewerkers."
 
 #: src/gui/MainMenu.cc:126
-#, fuzzy
 msgid "Main developers of all releases:"
-msgstr "Hoofd ontwikkelaar van alle versies:"
+msgstr "Belangrijkste ontwerpers van alle versies:"
 
 #: src/gui/MainMenu.cc:140
 msgid "Special Thanks:"
@@ -343,45 +347,40 @@ msgid "Contributors:"
 msgstr "Medewerkers:"
 
 #: src/gui/MainMenu.cc:242
-#, fuzzy
 msgid "Homepage"
-msgstr "Homepage: "
+msgstr "Startpagina: "
 
 #: src/gui/MainMenu.cc:243
-#, fuzzy
 msgid "Documentation"
-msgstr "Locatie"
+msgstr "Documentatie"
 
 #: src/gui/MainMenu.cc:244 src/gui/OptionsMenu.cc:415
 msgid "Paths"
-msgstr ""
+msgstr "Paden"
 
 #: src/gui/MainMenu.cc:245
-#, fuzzy
 msgid "Locate Auto"
-msgstr "Locatie"
+msgstr "Locatie van je eigen levels"
 
 #: src/gui/MainMenu.cc:246
-#, fuzzy
 msgid "Locate Score"
-msgstr "Locatie"
+msgstr "Locatie van je score"
 
 #: src/gui/MainMenu.cc:247
 msgid "Credits"
-msgstr "Credits"
+msgstr "Verdienste"
 
 #: src/gui/MainMenu.cc:299
 msgid "Preferences Path:"
 msgstr "Voorkeurenpad:"
 
 #: src/gui/MainMenu.cc:309
-#, fuzzy
 msgid "User Path:"
 msgstr "Gebruikerspad:"
 
 #: src/gui/MainMenu.cc:319
 msgid "User Image Path:"
-msgstr ""
+msgstr "Gebruikerspad voor afbeeldingen:"
 
 #: src/gui/MainMenu.cc:329
 msgid "System Path:"
@@ -408,13 +407,12 @@ msgid "Options"
 msgstr "Opties"
 
 #: src/gui/MainMenu.cc:387
-#, fuzzy
 msgid "Update"
 msgstr "Update Pack"
 
 #: src/gui/MainMenu.cc:389
 msgid "Help"
-msgstr ""
+msgstr "Help"
 
 #: src/gui/OptionsMenu.cc:92 src/gui/OptionsMenu.cc:113
 msgid "muted"
@@ -422,11 +420,11 @@ msgstr "stil"
 
 #: src/gui/OptionsMenu.cc:126
 msgid "Music in game"
-msgstr "Muziek in het spel"
+msgstr "Muziek tijdens spel"
 
 #: src/gui/OptionsMenu.cc:126
 msgid "No music in game"
-msgstr "Geen muziek in het spel"
+msgstr "Geen muziek tijdens spel"
 
 #: src/gui/OptionsMenu.cc:131 src/gui/OptionsMenu.cc:135
 #: src/gui/OptionsMenu.cc:264 src/gui/LevelPackConfig.cc:94
@@ -444,7 +442,7 @@ msgstr "Auto"
 
 #: src/gui/OptionsMenu.cc:143
 msgid "Always"
-msgstr ""
+msgstr "Altijd"
 
 #: src/gui/OptionsMenu.cc:252
 msgid "reversed"
@@ -464,22 +462,20 @@ msgid "unknown"
 msgstr "onbekend"
 
 #: src/gui/OptionsMenu.cc:407
-#, fuzzy
 msgid "Main"
-msgstr "Hoofd Menu"
+msgstr "Hoofdmenu"
 
 #: src/gui/OptionsMenu.cc:409
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: src/gui/OptionsMenu.cc:411
-#, fuzzy
 msgid "Audio"
-msgstr "Auto"
+msgstr "Audio"
 
 #: src/gui/OptionsMenu.cc:413
 msgid "Config"
-msgstr ""
+msgstr "instellingen"
 
 #: src/gui/OptionsMenu.cc:434 src/gui/LevelPackComposer.cc:121
 #: src/gui/LevelPackConfig.cc:345 src/gui/LPGroupConfig.cc:102
@@ -501,24 +497,23 @@ msgstr "Video modus: "
 
 #: src/gui/OptionsMenu.cc:490 src/gui/OptionsMenu.cc:519
 msgid "Mouse speed: "
-msgstr "Muis snelheid: "
+msgstr "Muissnelheid: "
 
 #: src/gui/OptionsMenu.cc:491 src/gui/OptionsMenu.cc:513
 msgid "Sound volume: "
-msgstr "Geluid volume: "
+msgstr "Geluidsvolume: "
 
 #: src/gui/OptionsMenu.cc:492 src/gui/OptionsMenu.cc:514
 msgid "Music volume: "
-msgstr "Muziek volume: "
+msgstr "Muziekvolume: "
 
 #: src/gui/OptionsMenu.cc:493 src/gui/OptionsMenu.cc:521
 msgid "Ratings update: "
 msgstr "Update waarderingen: "
 
 #: src/gui/OptionsMenu.cc:495
-#, fuzzy
 msgid "Score upload: "
-msgstr "Score: "
+msgstr "Score upload: "
 
 #: src/gui/OptionsMenu.cc:500 src/gui/OptionsMenu.cc:525
 msgid "User name: "
@@ -526,50 +521,47 @@ msgstr "Gebruikersnaam: "
 
 #: src/gui/OptionsMenu.cc:507
 msgid "Gamma correction: "
-msgstr "Gamma correctie: "
+msgstr "Gammacorrectie: "
 
 #: src/gui/OptionsMenu.cc:510
 msgid "Sound set: "
-msgstr "Geluid set: "
+msgstr "Geluidsinstelling: "
 
 #: src/gui/OptionsMenu.cc:511
 msgid "Menu music: "
-msgstr ""
+msgstr "Muziekmenu"
 
 #: src/gui/OptionsMenu.cc:512
-#, fuzzy
 msgid "Music ingame: "
-msgstr "Muziek in het spel"
+msgstr "Muziek tijdens het spel"
 
 #: src/gui/OptionsMenu.cc:515
 msgid "Stereo: "
 msgstr "Stereo: "
 
 #: src/gui/OptionsMenu.cc:520
-#, fuzzy
 msgid "Text speed: "
-msgstr "Muis snelheid: "
+msgstr "Tekstsnelheid: "
 
 #: src/gui/OptionsMenu.cc:530
 msgid "User path: "
-msgstr ""
+msgstr "Gebruikerspad"
 
 #: src/gui/OptionsMenu.cc:533
 msgid "User image path: "
-msgstr ""
+msgstr "Gebruikerspad afbeeldingen"
 
 #: src/gui/LevelMenu.cc:47 src/gui/LevelPackMenu.cc:67
 msgid "Main Menu"
-msgstr "Hoofd Menu"
+msgstr "Hoofdmenu"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Skip to main menu"
-msgstr "Naar hoofd menu"
+msgstr "Direct naar hoofdmenu"
 
 #: src/gui/LevelMenu.cc:196
-#, fuzzy
 msgid "Update levelpack"
-msgstr "Update Pack"
+msgstr "Update levelpack"                 
 
 #: src/gui/LevelMenu.cc:197
 msgid "Arrows:"
@@ -596,9 +588,8 @@ msgid "Previous/next levelpack"
 msgstr "Vorige/volgende levelset"
 
 #: src/gui/LevelMenu.cc:200
-#, fuzzy
 msgid "Mark current level as unsolved"
-msgstr "Markeer huidig level als Onopgelost"
+msgstr "Markeer huidig level als onopgelost"
 
 #: src/gui/LevelMenu.cc:202
 msgid "Alt+Return:"
@@ -614,7 +605,7 @@ msgstr "Linkermuisknop:"
 
 #: src/gui/LevelMenu.cc:204 src/gui/LevelPackMenu.cc:49
 msgid "Right or control click:"
-msgstr "Rechter- of Ctrl+muisknop:"
+msgstr "Rechter- of Ctrl + muisknop:"
 
 #: src/gui/LevelMenu.cc:204
 msgid "Inspect selected level"
@@ -630,7 +621,7 @@ msgstr "Selecteer volgend onopgelost level"
 
 #: src/gui/LevelMenu.cc:275
 msgid "You are not allowed to play this level yet."
-msgstr "U mag dit level nog niet spelen."
+msgstr "Je mag dit level nog niet spelen."
 
 #: src/gui/LevelMenu.cc:312 src/gui/LevelPackComposer.cc:348
 #, c-format
@@ -638,14 +629,14 @@ msgid "%s: %d levels"
 msgstr "%s: %d levels"
 
 #: src/gui/LevelMenu.cc:326
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% best"
 msgstr "%d%% topscore"
 
 #: src/gui/LevelMenu.cc:331
-#, fuzzy, c-format
+#, c-format
 msgid "%d%% par, hcp %.1f"
-msgstr "%d%% par"
+msgstr "%d%% par, hcp %.1f"
 
 #: src/gui/LevelMenu.cc:335
 #, c-format
@@ -653,33 +644,30 @@ msgid "%d%% solved"
 msgstr "%d%% opgelost"
 
 #: src/gui/LevelMenu.cc:370
-#, fuzzy
 msgid "Your time: "
-msgstr "Uw beste tijd: "
+msgstr "Je beste tijd: "
 
 #: src/gui/LevelMenu.cc:375
 msgid "That's world record."
 msgstr "Dat is een wereldrecord."
 
 #: src/gui/LevelMenu.cc:377
-#, fuzzy, c-format
+#, c-format
 msgid "That's %s below world record."
-msgstr "Dat is %d:%02d onder het wereldrecord."
+msgstr "Dat is %s onder het wereldrecord."
 
 #: src/gui/LevelMenu.cc:386 src/gui/LevelMenu.cc:389
-#, fuzzy
 msgid "World record: "
-msgstr "Uw record: "
+msgstr "Wereldrecord: "
 
 #: src/gui/LevelMenu.cc:388 src/gui/LevelMenu.cc:405
-#, fuzzy
 msgid "Par: "
-msgstr "Doel: "
+msgstr "Par: "
 
 #: src/gui/LevelMenu.cc:402 src/gui/LevelMenu.cc:406
 #, fuzzy, c-format
 msgid "World record by %s: "
-msgstr "Wereldrecord van %s: %d:%02d"
+msgstr "Wereldrecord door %s: "
 
 #: src/gui/LevelMenu.cc:438
 msgid "No further unsolved level available!"
@@ -723,7 +711,7 @@ msgstr "Alt linker pijltjestoets:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
-msgstr "Verwissel level met voorganger"
+msgstr "Verwissel level met de voorgaande"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Alt right arrow:"
@@ -731,7 +719,7 @@ msgstr "Alt rechter pijltjestoets:"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Exchange level with successor"
-msgstr "Verwissel level met opvolger"
+msgstr "Verwissel level met volgende"
 
 #: src/gui/LevelPackComposer.cc:49
 msgid "Delete:"
@@ -743,7 +731,7 @@ msgstr "Verwijder level"
 
 #: src/gui/LevelPackComposer.cc:50
 msgid "Update index from levels"
-msgstr "Update index vanuit levels"
+msgstr "Index bijwerken vanuit levels"
 
 #: src/gui/LevelPackComposer.cc:55
 msgid "F10"
@@ -789,27 +777,28 @@ msgstr "Bewerk Metadata"
 
 #: src/gui/LevelPackConfig.cc:239
 msgid "Release:"
-msgstr ""
+msgstr "Uitgave"
 
 #: src/gui/LevelPackConfig.cc:240
 msgid "Revision:"
-msgstr ""
+msgstr "Revisie"
 
 #: src/gui/LevelPackConfig.cc:241
 msgid "Compatibility:"
-msgstr ""
+msgstr "Bruikbaar met"
 
 #: src/gui/LevelPackConfig.cc:242
 msgid "Default Location:"
-msgstr "Standaard Locatie:"
+msgstr "Standaardlocatie:"
 
 #: src/gui/LevelPackConfig.cc:243
 msgid "Level types:"
-msgstr "Level types:"
+msgstr "Leveltypes:"
 
 #: src/gui/LevelPackConfig.cc:335
 msgid "Please reasign levelpack to another group for group deletion"
-msgstr ""
+msgstr "Alstublieft, verwijs levelpack naar een andere groep om "
+"de hele groep te verwijderen"
 
 #: src/gui/LevelPackConfig.cc:338
 msgid "Compose Pack"
@@ -823,12 +812,12 @@ msgstr "Update Pack"
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without modifications"
 msgstr ""
-"Fout: lege titel niet toegestaan - \"Ongedan maken\" sluit af zonder "
+"Fout: zonder titel niet toegestaan - druk \"Ongedaan maken\" sluit af zonder "
 "wijzigingen"
 
 #: src/gui/LevelPackConfig.cc:432
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr "Fout: gebruik alleen \"a-zA-Z0-9_-#\" voor levelpack titels"
+msgstr "Fout: gebruik alleen \"a-zA-Z0-9_-#\" voor levelpacktitels"
 
 #: src/gui/LevelPackConfig.cc:443
 msgid "Error: title already in use - choose another title"
@@ -848,7 +837,7 @@ msgstr "Rechter kolommen:"
 
 #: src/gui/LevelPackMenu.cc:47
 msgid "Levelpacks of selected group"
-msgstr "Levelpacks of geselecteerde groep"
+msgstr "Levelpacks van geselecteerde groep"
 
 #: src/gui/LevelPackMenu.cc:48
 msgid "Select group or levelpack"
@@ -883,8 +872,8 @@ msgid ""
 "Error: empty group name not allowed - press \"Undo\" to exit without "
 "modifications"
 msgstr ""
-"Fout: lege naam niet toegestaan - \"Ongedaan maken\" sluit af zonder "
-"wijzigingen"
+"Fout: zonder groepsnaam niet toegestaan - druk \"Ongedaan maken\" sluit af zonder "
+"wijzigingen" 
 
 #: src/gui/LPGroupConfig.cc:141
 msgid "Error: group name is a duplicate of an existing group"
@@ -904,7 +893,7 @@ msgstr "Fout: groep niet leeg"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Page Up:"
-msgstr "Page Up:"
+msgstr "Pagina omhoog:"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Show previous screenshot"
@@ -912,7 +901,7 @@ msgstr "Toon vorige schermafdruk"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
-msgstr "Page Down:"
+msgstr "Pagina zakken:"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Show next screenshot"
@@ -929,7 +918,7 @@ msgstr "Oppervlakkig Zoeken:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:43
 msgid "case independent search in title, author, filename"
-msgstr "hoofdletterongevoelig zoeken naar titel, auteur, bestandsnaam"
+msgstr "niet hoofdlettergevoelig zoeken naar titel, auteur, bestandsnaam"
 
 #: src/gui/LevelInspector.cc:178
 msgid "Screenshot"
@@ -985,7 +974,7 @@ msgstr "Scores"
 
 #: src/gui/LevelInspector.cc:287
 msgid "You: "
-msgstr "U: "
+msgstr "Jij: "
 
 #: src/gui/LevelInspector.cc:288
 msgid "World: "
@@ -1018,15 +1007,15 @@ msgstr "Status: "
 
 #: src/gui/LevelInspector.cc:321
 msgid "Release: "
-msgstr ""
+msgstr "Uitgave"
 
 #: src/gui/LevelInspector.cc:322
 msgid "Revision: "
-msgstr ""
+msgstr "Revisie"
 
 #: src/gui/LevelInspector.cc:325
 msgid "Control: "
-msgstr ""
+msgstr "Controle"
 
 #: src/gui/LevelInspector.cc:326
 msgid "Target: "
@@ -1057,7 +1046,6 @@ msgid "balance"
 msgstr "balans"
 
 #: src/gui/LevelInspector.cc:366
-#, fuzzy
 msgid "key"
 msgstr "sleutel"
 
@@ -1067,11 +1055,11 @@ msgstr "tijd"
 
 #: src/gui/LevelInspector.cc:375
 msgid "pushes"
-msgstr ""
+msgstr "zetten"
 
 #: src/gui/LevelInspector.cc:376
 msgid "moves"
-msgstr ""
+msgstr "stappen"
 
 #: src/gui/LevelInspector.cc:393
 msgid "World Record Holders: "
@@ -1079,7 +1067,7 @@ msgstr "Wereldrecordhouders: "
 
 #: src/gui/LevelInspector.cc:454
 msgid "Credits: "
-msgstr "Credits: "
+msgstr "Met dank aan: "
 
 #: src/gui/LevelInspector.cc:465
 msgid "Dedication: "
@@ -1091,19 +1079,19 @@ msgstr "Levelpad: "
 
 #: src/gui/LevelInspector.cc:498
 msgid "Id: "
-msgstr ""
+msgstr "Identiteit"
 
 #: src/gui/LevelInspector.cc:500
 msgid "Load time: "
-msgstr ""
+msgstr "Laadtijd"
 
 #: src/gui/LevelInspector.cc:505
 msgid "Compatibility: "
-msgstr ""
+msgstr "Bruikbaar met"
 
 #: src/gui/LevelInspector.cc:513
 msgid "Annotation: "
-msgstr ""
+msgstr "Kanttekening"
 
 #: src/gui/LevelInspector.cc:518
 msgid "Rating: "
@@ -1131,10 +1119,9 @@ msgstr "Level Afbreken"
 
 #: src/lev/Proxy.cc:204
 msgid "Error on auto registration of levelfile: "
-msgstr "Fout bij autoregistratie van levelbestand: "
+msgstr "Fout bij autoregistratie van het levelbestand: "
 
 #: src/lev/Proxy.cc:206
-#, fuzzy
 msgid ""
 "Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
 "\n"
@@ -1145,18 +1132,17 @@ msgstr ""
 #: src/lev/Proxy.cc:208 src/lev/PersistentIndex.cc:477 src/d_models.cc:236
 #: src/d_models.cc:249 src/PreferenceManager.cc:181 src/StateManager.cc:178
 msgid "Continue"
-msgstr "Verder gaan"
+msgstr "Doorgaan"
 
 #: src/lev/PersistentIndex.cc:463
-#, fuzzy
 msgid "Error on  update of levelpack index: \n"
-msgstr "Fout bij  registratie van levelpack index: \n"
+msgstr "Fout tijdens bijwerken van levelpack index: \n"
 
 #: src/lev/PersistentIndex.cc:465
 msgid ""
 "Note: the current version will be reloaded!\n"
 "\n"
-msgstr ""
+msgstr "Let op: de huidige versie wordt herladen!\n"
 
 #: src/lev/PersistentIndex.cc:472
 msgid "Error on  registration of levelpack index: \n"
@@ -1178,7 +1164,7 @@ msgstr "Kan '%s' niet vinden.\n"
 #: src/lua.cc:3897 src/lua.cc:3904
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
-msgstr "Uw installatie is mogelik incompleet of ongeldig.\n"
+msgstr "Uw installatie is mogelijk incompleet of ongeldig.\n"
 
 #: src/lua.cc:3903
 #, c-format
@@ -1198,11 +1184,11 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Deze fout kan er voor zorgen dat het programma zich raar gedraagt!"
+"Deze fout kan er voor zorgen dat het programma zich vreemd gedraagt!"
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
-msgstr ""
+msgstr "OK,het is gelijkspel"
 
 #  level: "Unfair!"
 #  author: "Petr Machata" email ""
@@ -1211,14 +1197,14 @@ msgid ""
 "I don't believe that you are the Marble. I won't let you pass until you "
 "prove me wrong: you have to be faster than my champion!"
 msgstr ""
-"I geloof niet dat u de Knikker bent. Ik laat u niet door tot u uzelf bewezen "
-"hebt: u moet sneller zijn dan mijn kampioen!"
+"Ik geloof niet dat je de Knikker bent. Ik laat je niet door tot je jezelf bewezen "
+"hebt: je moet sneller zijn dan mijn kampioen!"
 
 #  level: "Unfair!"
 #  author: "Petr Machata" email ""
 #: po/level_i18n.cc:14
 msgid "Congratulations! You may pass!"
-msgstr "Gefeliciteerd! U mag door!"
+msgstr "Gefeliciteerd! Je mag door!"
 
 #  level: "The Sargasso Sea"
 #  author: "Martin Hawlisch" email ""
@@ -1230,7 +1216,7 @@ msgstr "Dit level is veel groter! Druk op F3!"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:55
 msgid "The danger is not visible!!!"
-msgstr "Het gevaar is onzichtbaar!!!"
+msgstr "Het gevaar is niet zichtbaar!!!"
 
 #  level: "Automatic Transmission"
 #  author: "Jacob Scott" email ""
@@ -1254,13 +1240,13 @@ msgstr "Dit is het controlepaneel."
 #  author: "Richi Bützer" email ""
 #: po/level_i18n.cc:84
 msgid "Risk your life ..."
-msgstr "Riskeer uw leven ..."
+msgstr "Riskeer je leven ..."
 
 #  level: "Emergency Exit"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:103
 msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
-msgstr "Dam #3 lijkt erg instabiel. Wees snel of dood."
+msgstr "Toevoercontrole Dam #3 lijkt erg instabiel. Wees snel of dood."
 
 #  level: "Deadend"
 #  author: "Daniel Heck" email ""
@@ -1272,7 +1258,7 @@ msgstr "Kijk goed!"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:144
 msgid "A castle lies before you ... beware of guardians!"
-msgstr "Een kasteel ligt voor u ... pas op voor bewakers!"
+msgstr "Een kasteel ligt voor je ... pas op voor bewakers!"
 
 #  level: "Block its way!"
 #  author: "Jon 'WB' Sneyers" email ""
@@ -1326,7 +1312,7 @@ msgid ""
 "One  more  and  you  won't  get  this  hammer  until  you  don't  need  it  "
 "anymore!"
 msgstr ""
-"Nog  een  keer  en  u  krijgt  deze  hamer  niet  tot  u  hem  niet  meer  "
+"Nog  een  keer  en  je  krijgt  deze  hamer  pas als  je  hem  niet  meer  "
 "nodig  hebt!"
 
 #  level: "- Snow White -"
@@ -1345,19 +1331,19 @@ msgstr "Start opnieuw met F3 ..."
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:242
 msgid "when  you've  been  particular  places"
-msgstr "als  u  in  bepaalde  plaatsen  bent"
+msgstr "als  je  op  bepaalde  plaatsen  bent"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:244
 msgid "that  you  know  you've  never  seen  before"
-msgstr "die  u  nog  nooit  eerder  hebt  gezien"
+msgstr "die  je  nog  nooit  eerder  hebt  gezien"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
 #: po/level_i18n.cc:246
 msgid "can  you  be  sure?"
-msgstr "weet  u  dat  dan  zeker?"
+msgstr "weet  je  dat  dan  zeker?"
 
 #  level: "deja-vu"
 #  author: "illmind" email "support@mag-heut.net"
@@ -1396,7 +1382,7 @@ msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
 msgstr ""
-"Verplaats  zoveel  stenen  om  net  in  de  volgende  kamer  te  kijken  ..."
+"Verplaats  genoeg  stenen  om  net  in  de  volgende  kamer  te kunnen kijken  ..."
 
 #  level: "The Turtle"
 #  author: "Petr Machata" email ""
@@ -1404,31 +1390,35 @@ msgstr ""
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
-msgstr ""
+msgstr 
+"Welkom in de controlekamer. Gebruik de triggers en schakelaars"
+"om de route van de schildpad te plannen." Schakelaars met de klok mee: Toevoegen,"
+"gaan en herstart."
+
 
 #  level: "Jump And Run"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:308
 msgid "Watch your step!"
-msgstr "Pas op waar u loopt!"
+msgstr "Pas op waar je loopt!"
 
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:357
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr ""
+msgstr "Leg de hamer naast een pentomino en gebruik de schakelaar"
 
 #  level: ""
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:358
 msgid "Drop the hammer on side of a pentomino, not beneath it!"
-msgstr ""
+msgstr "Leg de hamer naast een pentomino, niet eronder."           
 
 #  level: "Movement 2"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:413
 msgid "Prepare for even more mouse gymnastics in the next levels."
-msgstr "In de volgende levels wacht nog meer muisgymnastiek."
+msgstr "Bereid je voor op nog meer muisgymnastiek In de volgende levels."
 
 #  level: "Movement 4"
 #  author: "Martin Hawlisch" email ""
@@ -1449,7 +1439,7 @@ msgid ""
 "The blue stones are Oxyd stones. Open them by touching them with your black "
 "marble."
 msgstr ""
-"De blauwe stenen zijn Oxyd stenen. Open ze door ze aan te raken met uw "
+"De blauwe stenen zijn Oxyd stenen. Open ze door ze aan te raken met je "
 "zwarte knikker."
 
 #  level: "Advanced Tutorial"
@@ -1459,7 +1449,7 @@ msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
 msgstr ""
-"Welkom bij Enigma!  Deze tutorial die ik (Jacob Scott) heb gemaakt leert u "
+"Welkom bij Enigma!  Deze tutorial, die ik (Jacob Scott) heb gemaakt, leert je "
 "hoe het gespeeld wordt."
 
 #  level: "Advanced Tutorial"
@@ -1472,11 +1462,11 @@ msgid ""
 "with the 'Esc' key).  While these messages are being displayed, don't click "
 "any buttons or push any keys or the message will stop."
 msgstr ""
-"U speelt met de zwarte bal.  Rol over een object heen om het op te pakken.  "
-"U kunt tegen de meeste muren stuiteren (probeer maar eens), maar vermijd de "
-"blauwe vloer onderaan de kamer (howel, probeer eens om er in te vallen en "
+"Je speelt met de zwarte bal.  Rol over een object heen om het op te pakken.  "
+"Je kunt tegen de meeste muren stuiteren (probeer maar eens), maar vermijd de "
+"blauwe vloer onderaan de kamer (hoewel, probeer eens om er in te vallen en "
 "start het level opnieuw met de 'Esc' toets).  Druk op geen enkele knop of "
-"toets terwijl deze berichten getoond worden of het bereicht zal stoppen."
+"toets terwijl deze berichten getoond worden of het bericht zal stoppen."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1491,8 +1481,8 @@ msgid ""
 "Enigma is full of puzzles of various types.  In the next room, you will "
 "encounter your first one."
 msgstr ""
-"Enigma zit vol met verschillende typen puzzels.  In de volgend kamer vindt u "
-"uw eerste."
+"Enigma zit vol met verschillende soorten puzzels.  In de volgend kamer vind je "
+"je eerste."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1501,7 +1491,7 @@ msgid ""
 "You can't walk on water!  Try pushing the blocks into the water to get to "
 "the other side."
 msgstr ""
-"U kunt niet lopen over water! Probeer de blokken in het water te duwen om "
+"Je kunt niet lopen op water! Probeer de blokken in het water te duwen om "
 "aan de andere kant te komen."
 
 #  level: "Advanced Tutorial"
@@ -1511,8 +1501,8 @@ msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
 msgstr ""
-"Let op u kunt geen rij van twee of meer blokken duwen.  Blokken kunnen ook "
-"niet op hetzelfde vierkant als een rooster zijn, u wel."
+"Let op je kunt geen rij van twee of meer blokken duwen.  Blokken kunnen ook "
+"niet op hetzelfde vierkant als een rooster zijn, jij wel."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1535,11 +1525,11 @@ msgid ""
 "Try to find a way to get past and into the next room (you can use the blocks "
 "in the center of the room as barricades)."
 msgstr ""
-"Dat ding is een top -- hij zal uw bal vernietigen als ze elkaar raken.  "
-"Verder, zo lang als u dicht genoeg in de beurt bent zal de top u "
-"achtervolgen.  Als u sterft begint u opnieuw in het begin van het level (als "
-"u ballen over hebt).  Probeer om langs de top en in de volgende kamer te "
-"komen (u kunt de blokken in het midden gebruiken als versperring)."
+"Dat ding is een top -- hij zal je bal vernietigen als ze elkaar raken.  "
+"Verder, zo lang als je dicht genoeg in de beurt bent zal de top je "
+"achtervolgen.  Als je sterft begin je opnieuw in het level (als "
+"je ballen over hebt).  Probeer om langs de top en in de volgende kamer te "
+"komen (je kunt de blokken in het midden gebruiken als versperring)."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1548,7 +1538,7 @@ msgid ""
 "Good job!  Notice that the top can't go beneath that block with a black "
 "outline -- you're safe."
 msgstr ""
-"Goed gedaan!  De top kan niet door dat blok met een zwarte rand -- u bent "
+"Goed gedaan!  De top kan niet door dat blok met een zwarte rand -- je bent "
 "veilig."
 
 #  level: "Advanced Tutorial"
@@ -1562,7 +1552,7 @@ msgid ""
 "The grayish floors are slopes.  The white floor is inverse-floor (you will "
 "see)."
 msgstr ""
-"De grijze vloeren zijn hellend.  De witte vloer is een inverse-vloer (u "
+"De grijzige vloeren zijn hellend.  De witte vloer is een andersom-vloer (je "
 "merkt het wel)."
 
 #  level: "Advanced Tutorial"
@@ -1571,7 +1561,8 @@ msgstr ""
 msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
-msgstr ""
+msgstr "Kijk wat er gebeurt als je over de triggers rolt. Probeer of je de extra bal"
+"kunt pakken"
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1580,7 +1571,7 @@ msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
 msgstr ""
-"Dat is dynamiet.  Laat eens een paar staven vallen naast die geelachtige "
+"Dat is dynamiet.  Laat eens een paar staven vallen naast die gelige "
 "muur (en ga uit de weg)."
 
 #  level: "Advanced Tutorial"
@@ -1593,23 +1584,21 @@ msgstr ""
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:443
-#, fuzzy
 msgid ""
 "Those things are boulders -- try moving one of the tan blocks.  Don't fall "
 "into the water or abyss (the black floor)."
 msgstr ""
-"Deze dingen zijn bolders -- probeer een van de geelbruine blokken te "
+"Deze dingen zijn bulldozers -- probeer een van de geelbruine blokken te "
 "verplaatsen. Val niet in het water of de afgrond (de zwarte vloer)."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:444
-#, fuzzy
 msgid ""
 "Take the magic wand and hit a boulder.  Try to let the row of three boulders "
 "pass the large column."
 msgstr ""
-"Pak de toverstaf en raak een bolder. Probeer om de rij van drie bolders de "
+"Pak de toverstaf en raak een bulldozer aan. Probeer om de rij van drie bulldozers de "
 "grote kolom te laten passeren."
 
 #  level: "Advanced Tutorial"
@@ -1625,8 +1614,8 @@ msgid ""
 "It appears to be a simple room, but you're getting an extra ball anyway.  "
 "Maybe there is a reason ..."
 msgstr ""
-"Het lijkt een simpele kamer te zijn, maar u krijgt toch een extra bal. "
-"Misschien is er reden voor ..."
+"Het lijkt een simpele kamer te zijn, maar je krijgt toch een extra bal. "
+"Misschien is er een reden voor ..."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1635,8 +1624,8 @@ msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!  "
 "Use the mirrors to direct the beam."
 msgstr ""
-"Probeer om de laserstraal die zwarte steen te laten raken, maar wordt er "
-"niet zelf door geraakt!  Gebruik de spiegels om de straal te richten."
+"Probeer de zwarte steen te raken met de laserstraal, maar wordt er "
+"niet zelf door geraakt!  Gebruik de spiegels om de lichtstraal te richten."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1650,7 +1639,7 @@ msgstr ""
 "Veel objecten veranderen als ze geraakt worden door een laserstraal.  "
 "Probeer eens om wat munten te raken met de laserstraal.  Probeer ook eens om "
 "een blok over een munt te duwen.  De stenen aan de rechterkant zijn ridders "
-"-- u moet ze bevechten (raken) met een zwaard (vooraan in uw inventaris) om "
+"-- je moet ze bevechten (raken) met een zwaard (vooraan in uw inventaris) om "
 "er door te kunnen."
 
 #  level: "Advanced Tutorial"
@@ -1660,7 +1649,7 @@ msgid ""
 "Do you have any umbrellas?  Each one will give you approximately ten seconds "
 "of protection from danger (such as falling)."
 msgstr ""
-"Heeft u paraplu's?  Een paraplu beschermt u (bijvoorbeeld tegen vallen) voor "
+"Heb je paraplu's?  Een paraplu beschermt je (bijvoorbeeld tegen vallen) voor "
 "ongeveer tien seconden."
 
 #  level: "Advanced Tutorial"
@@ -1669,7 +1658,10 @@ msgstr ""
 msgid ""
 "Those black stones are quake stones -- they reset all progress made with the "
 "oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
-msgstr ""
+msgstr 
+"De zwarte stenen zijn aardbevingsstenen -- Alle oxyds worden opnieuw gestart"
+"als je ze aanraakt. De andere stenen zijn oxydstenen. Zoek ze twee aan twee bij elkaar "
+"om te winnen"
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1684,16 +1676,16 @@ msgid ""
 "restart at the beginning of the level if you have any balls left (and you "
 "will lose one of the balls)."
 msgstr ""
-"Het gebied onderin het scherm is uw inventaris -- alles wat u oppakt gaat "
-"daarheen (het maximum is twaalf).  Gebruik de rechter muisknop of the 'tab' "
+"Het gebied onderin het scherm is je inventaris -- alles wat je oppakt gaat "
+"daarheen (het maximum is twaalf).  Gebruik de rechtermuisknop of the 'tab' "
 "toets om door de inventaris te scrollen.  Klik op de linker muisknop om een "
 "object te laten vallen of te gebruiken.  Sommige objecten, zoals documenten "
-"(deze bijvoorbeeld), kunt u niet laten vallen en worden in plaats daarvan "
-"gebruikt.  De twee ballen in uw inventaris zijn uw extra levens -- als u "
-"dood gaat in dit level en u heeft ballen over, begint u opnieuw aan het "
-"begin van het level (en u verliest een van de ballen)."
+"(deze bijvoorbeeld), kun je niet laten vallen en worden in plaats daarvan "
+"gebruikt.  De twee ballen in je inventaris zijn je extra levens -- als je "
+"dood gaat in dit level en je hebt ballen over, begin je opnieuw aan het "
+"level (en je verliest een van de ballen)." 
 
-#  level: "Advanced Tutorial"
+#  level: "Advanced Tutorial"                                                   
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:452
 msgid ""
@@ -1707,7 +1699,14 @@ msgid ""
 "will need to go in with it but you can't go through the white one-way "
 "block.                            Take the spoon and use it once the white "
 "ball is through (hit it hard)."
-msgstr ""
+msgstr "Natuurlijk moet u door de gesloten poorten bovenin het scherm gaan."
+"Probeer de helling beneden aan het scherm af te gaan om te zien wat daar links zit."
+"Maak je nog geen zorgen om de trigger onderaan de afgrond.               "Als je de"
+"kleine witte bal door de eenrichtingssteen kunt slaan, rolt die misschien"
+"tot op de trigger"                                                     "Jij "
+"moet er ook in, maar je kunt niet door door de witte ingang"
+              "Neem de lepel en gebruik die een keer zodra de witte bal er door is"
+""(Raak hem hard!).
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
@@ -1719,14 +1718,13 @@ msgid ""
 "window -- bridge the water before you do anything with it."
 msgstr ""
 "De steen rechtsboven is een schakelaar.  Raak hem aan -- het is "
-"waarschijnlijk nuttig.  In dit geval opent en sluit hij een deur (Herinnert "
-"u zich een deur die u niet open kreeg?).  De blauwe lijn is een raam -- maak "
-"een brug over het water voor u er iets mee doet."
+"waarschijnlijk nuttig.  In dit geval opent en sluit hij een deur (Herinner "
+"je je een deur die je niet open kreeg?).  De blauwe lijn is een raam -- maak "
+"een brug over het water voor je er iets mee doet."
 
 #  level: "Advanced Tutorial"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:454
-#, fuzzy
 msgid ""
 "That was a rotor (similar to a top).  Some levels have many rotors and tops "
 "to make them difficult.                            However, maybe this rotor "
@@ -1734,47 +1732,47 @@ msgid ""
 "was.                      It might be convenient to close the gate."
 msgstr ""
 "Dat was een rotor (lijkt op een top).  Sommige levels hebben veel rotors en "
-"tops om ze moeilijk te maken.                            Howel deze rotor "
-"misschien een doel heeft; misschien kunt u het "
+"tops om ze moeilijk te maken.                            Hoewel deze rotor "
+" een doel heeft; misschien kun je hem op de trigger krijgen, in de buurt"
+"van de lepel. Het kan handig zijn om de poort te sluiten"
 
 #  level: "Meditation 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:461
 msgid ""
 "Move all small marbles into the holes. Only one marble per hole is allowed."
-msgstr "Beweeg alle kleine knikkers in de gaten. Slechts een knikker per gat."
+msgstr "Stop alle kleine knikkers in de gaten. Slechts een knikker per gat"
+"toegestaan."
 
 #  level: "Movement 1"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:465
 msgid "Learn to move your black ball properly."
-msgstr "Leer om met uw zwarte bal te bewegen."
+msgstr "Leer om soepel met je zwarte bal te bewegen."
 
 #  level: "Bye!"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:469
-#, fuzzy
 msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
 "despair if you don't get through it at the first time.   Bye!"
 msgstr ""
-"Maar voor dit, kijk eens naar het laatste tutoriallevel die Jacob voor u "
-"gemaakt heeft.   Zie het als een examen, als u wilt.   Het is vrij moeilijk, "
-"dus wanhoop niet als u er niet doorheen komt de eerste keer.   Dag!"
+"Maar eerst, kijk eens naar het laatste tutoriallevel dat Jacob voor je "
+"gemaakt heeft.   Zie het als een examen, als je wilt.   Het is vrij moeilijk, "
+"dus wanhoop niet als je er de eerste keer niet doorheen komt.   Dag!"
 
 #  level: "Bye!"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:470
-#, fuzzy
 msgid ""
 "Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
 "levels a second time in the Enigma packs, together with many new and much "
 "more difficult ones.   Just don't give up on them!"
 msgstr ""
-"Nou, ik hoop dat u dit tutorial-pack leuk vond.   U zult de meeste van deze "
-"levels nog eens terugzien in de Enigma packs, samen met veel nieuwe en veel "
-"moeilijkere levels.   Geef het dus niet op!"
+"Nou, ik hoop dat je dit tutorialpack leuk vond.   Je zult de meeste van deze "
+"levels nog eens terugzien in de Enigmapacks, samen met nieuwere en veel "
+"moeilijkere levels.   Dus, geef het niet op!"
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -1782,7 +1780,8 @@ msgstr ""
 msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
-msgstr ""
+msgstr "Dit houten blok kan verzet worden en is zwaar genoeg om de trigger"
+"in te drukken. Probeer hem er op te krijgen!"
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -1790,7 +1789,7 @@ msgstr ""
 msgid ""
 "Remember?  There are different kinds of floors.  And these are steep ..."
 msgstr ""
-"Weet u nog?  Er zijn verschillende soorten vloeren.  En deze zijn steil ..."
+"Weet je het nog?  Er zijn verschillende soorten vloeren.  En deze zijn steil ..."
 
 #  level: "Blocks and Slopes"
 #  author: "Andreas Lochmann" email ""
@@ -1798,7 +1797,8 @@ msgstr ""
 msgid ""
 "Is there more one can do with wooden blocks?   Yes!  Just explore the next "
 "levels."
-msgstr "Kan men meer doen met houten blokken?   Ja!  Zie de volgende levels."
+msgstr "Is er meer dat je kunt doen met houten blokken?   Ja!  Onderzoek de"
+"volgende levels maar."
 
 #  level: "Chess Stones"
 #  author: "Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" email ""
@@ -1806,7 +1806,9 @@ msgstr "Kan men meer doen met houten blokken?   Ja!  Zie de volgende levels."
 msgid ""
 "The stone with the horse's head is called ''chess stone''. Watch how the "
 "other marble hits one of them to move it. The angle is important."
-msgstr ""
+msgstr""
+"De steen met het paardenhoofd is een schaaksteen. Kijk hoe de andere knikker"
+"hem raakt om 'm te bewegen. De hoek waaronder je 'm raakt is belangrijk."
 
 #  level: "Chess Stones"
 #  author: "Raoul Bourquin, ShadowPhrogg32642342, Andreas Lochmann" email ""
@@ -1814,7 +1816,9 @@ msgstr ""
 msgid ""
 "Now try to move these chess stones onto the triggers. They always move two "
 "steps plus one step."
-msgstr ""
+msgstr "" 
+"Probeer nu de schaakstenen op de triggers te krijgen. Zij doen altijd"
+"twee stappen plus een."
 
 #  level: "Timers"
 #  author: "Andreas Lochmann" email ""
@@ -1823,7 +1827,9 @@ msgid ""
 "This oscillating stone is a timer-stone. You cannot interact with it, but "
 "nevertheless be aware when you see one: After some time-period anything "
 "might happen ..."
-msgstr ""
+msgstr""
+"Deze oscillerende steen is een tijdsteen. Je kunt er niet mee 'praten',
+"maar let op als je deze steen ziet: Na enige tijd kan er van alles gebeuren..."
 
 #  level: "Timers"
 #  author: "Andreas Lochmann" email ""
@@ -1833,20 +1839,20 @@ msgid ""
 "can only pass them in one direction.                Mazes are cherished "
 "elements of Enigma - you will see lots of them."
 msgstr ""
-"De stenen met pijlen zijn eenrichtings-stenen. Zoals u misschien al geraden "
-"hebt, kunt u ze slechts in een richting passeren.                Doolhoven "
-"zijn geliefde elementen van Enigma - u zult er veel zien."
+"De stenen met pijlen zijn eenrichtingsstenen. Zoals je misschien al geraden "
+"hebt, kun je ze slechts in één richting passeren.                Doolhoven "
+"zijn geliefde elementen van Enigma - je zult er veel zien."
 
 #  level: "Timers"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:487
-#, fuzzy
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
 msgstr ""
-"Goed gedaan!   Laten we eens wat voorbeeldlevels spelen van de "
-"daadwerkelijke Enigma packs als u dit level hebt opgelost."
+"Goed gedaan!   Als je dit level hebt opgelost, dan spelen we een paar"
+"voorbeeldlevels uit de Enigmapacks. "
+
 
 #  level: "Floors 1"
 #  author: "Martin Hawlisch" email ""
@@ -1872,20 +1878,21 @@ msgstr "Verdrink niet in het moeras."
 msgid ""
 "Those doors on the right block your way to the oxyds ... on the left you see "
 "some triggers. Maybe they are somehow connected?"
-msgstr ""
+msgstr
+"De deuren rechts blokkeren je weg naar de oxyds... links zijn een paar" 
+"triggers. Misschien hebben ze iets met elkaar te maken?"
 
 #  level: "Lasers and Mirrors"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:507
-#, fuzzy
 msgid ""
 "The bright light beam is a laser beam.   Don't get too close to it!   But it "
 "has its uses ...    You can use the mirrors to direct the laser to its "
 "targets.   From these, only the light-gray ones are movable, just try it!"
 msgstr ""
-"De heldere lichtstraal is een laserstraal.  Kom niet te dicht bij!  Maar hij "
-"is bruikbaar ...U kunt de laser op de doelen richten met spiegels.  Alleen "
-"de lichtgrijze spiegels zijn verplaatsbaar, probeer maar!"
+"De heldere lichtstraal is een laserstraal.  Kom niet te dichtbij!  Maar hij "
+"is bruikbaar ... Je kunt de laser met spiegels op een doel richten."
+"De lichtgrijze spiegels zijn verplaatsbaar, probeer maar!"
 
 #  level: "Movement 5"
 #  author: "Martin Hawlisch" email ""
@@ -1903,7 +1910,7 @@ msgstr "Neem de tijd ..."
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:519
 msgid "Careful - you can not swim in the water."
-msgstr "Pas op - u kunt niet zwemmen in water."
+msgstr "Pas op - je kunt niet zwemmen in het water."
 
 #  level: "Items"
 #  author: "Andreas Lochmann" email ""
@@ -1913,8 +1920,8 @@ msgid ""
 "bottom of the screen.   And guess what these three items down there can be "
 "used to."
 msgstr ""
-"Gebruik de rechtermuisknop om door uw inventaris te gaan, het is de balk "
-"onderin het scherm.   En raad eens waar de drie items hieronder voor "
+"Gebruik de rechtermuisknop om door je inventaris te gaan, het is de balk "
+"onderin het scherm.   En raad eens waarvoor de drie items hieronder"
 "gebruikt kunnen worden."
 
 #  level: "Items"
@@ -1926,8 +1933,8 @@ msgid ""
 "And if you have problems with a level - take a look at the manual:   For "
 "some levels, there are hints."
 msgstr ""
-"Er zijn veel verschillende items in Enigma, net als speciale vloeren en "
-"stenen. Laten we eens meer daadwerkelijke Enigma levels bekijken!   En als u "
+"Er zijn veel verschillende items in Enigma, en ook speciale vloeren en "
+"stenen. Laten we eens echte Enigma levels bekijken!   En als je "
 "problemen hebt met een level - kijk eens in de handleiding:   Er zijn hints "
 "voor sommige levels."
 
@@ -1960,20 +1967,20 @@ msgstr "Wie weet, spreekt niet (Lao Tse)"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:612
 msgid "You can fly for a short time if you use the umbrella."
-msgstr "U kunt korte tijd vliegen, als u de paraplu gebruikt."
+msgstr "Je kunt even vliegen als je de paraplu gebruikt."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #  comment: "because there is a 'w' letter in 'awale' as many 'w' letters have been used in these texts; it is not necessary to translate this feature"
 #: po/level_i18n.cc:621
 msgid "The witch of this switch waits for your wish."
-msgstr "De heks van de schakelaar wacht op uw wens."
+msgstr "De heks van deze schakelaar wacht op je wens."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:623
 msgid "The witch of this switch resets the awale game."
-msgstr "De heks van deze schakelaar reset het awale spel."
+msgstr "De heks van deze schakelaar herstart het awalespel."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -1982,7 +1989,7 @@ msgid ""
 "A turn consists in taking the walnuts of a row behind the windowy walls and "
 "sowing them 1 by 1 in the following rows."
 msgstr ""
-"Een beurt bestaat uit een rij walnoten vanachter de raamachtige muren te "
+"Een beurt bestaat er uit een rij walnoten vanachter de raamachtige muren te "
 "pakken en 1 voor 1 aan te leggen aan de volgende rijen."
 
 #  level: "Enigmawale"
@@ -2022,7 +2029,7 @@ msgstr ""
 #: po/level_i18n.cc:633
 msgid "Congratulations! You are the most aware awale player of the valley ..."
 msgstr ""
-"Gefeliciteerd! U bent de meest oplettende awale speler van de vallei ..."
+"Gefeliciteerd! je bent de meest oplettende awalespeler van het dal ..."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2031,8 +2038,8 @@ msgid ""
 "Lost in the savannah? Don't wait and walk on the way to the reset switch on "
 "the far left ..."
 msgstr ""
-"Verdwaald in de savanne? Wacht niet en ga op weg naar de reset schakelaar "
-"helemaal links ..."
+"Verdwaald in de savanne? Wacht niet en ga op weg naar de herstelschakelaar "
+"uiterst links ..."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2044,7 +2051,7 @@ msgstr "Controleer uw keuze hier."
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:639
 msgid "Reset the game."
-msgstr "Reset het spel."
+msgstr "Herstart het spel."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2063,13 +2070,16 @@ msgid ""
 "At the end of a turn, if the last stone falls in a nonempty row, one takes "
 "the stones of the facing row if there is any, and repeats a turn."
 msgstr ""
+"Aan het eind van een beurt als de laatste steen niet in een lege rij valt, "
+"dan neem je de stenen van de tegenoverliggende rij als die er is en herhaal"
+"je een beurt."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:645
 msgid "A turn begins in one of the leftmost rows, unless impossible."
 msgstr ""
-"Een beurt begint in een van meest linkse rijen, tenzij dat onmogelijk is."
+"Een beurt begint in een van de meest linkse rijen, tenzij dat onmogelijk is."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2078,12 +2088,14 @@ msgid ""
 "At the end of the game (if one player cannot move anymore), the player who "
 "has the most stones wins."
 msgstr ""
+"Aan het einde van het spel (als een speler niet verder kan), dan wint de speler"
+"die de meeste stenen heeft."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:649
 msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
-msgstr "Een gele staan is gelijk aan 10 blauwe stenen (en 2 bruine stenen)."
+msgstr "Een gele steen is gelijk aan 10 blauwe stenen (en 2 bruine stenen)."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
@@ -2098,20 +2110,20 @@ msgid ""
 "This katro game comes from Madagascar; in Easy mode there is an african "
 "Awale."
 msgstr ""
-"Dit katro spel komt uit Madagascar; in de makkelijke modus is er een "
+"Dit katrospel komt uit Madagascar; in de makkelijke modus is er een "
 "afrikaanse Awale."
 
 #  level: "Enigmawale"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:655
 msgid "Only reset or 'Shift+F3' can make things evolve ..."
-msgstr "Alleen reset of 'Shift+F3' kan iets laten gebeuren ..."
+msgstr "Alleen herstart of 'Shift+F3' kan iets laten gebeuren ..."
 
 #  level: "The Document"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:710
 msgid "An English text based riddle"
-msgstr ""
+msgstr "Raadsel gebaseerd op engelse tekst"
 
 #  level: "Welcome to the Machine"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -2129,20 +2141,20 @@ msgid ""
 "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
 "stone."
 msgstr ""
-"Beheer code: metaal-steen-steen-steen-rood-geel-geel-rood-rood-steen-steen."
+"Onderhoudscode: metaal-steen-steen-steen-rood-geel-geel-rood-rood-steen-"
+"steen."
 
 #  level: "The Grim Reaper"
 #  author: "Daniel Heck" email ""
 #: po/level_i18n.cc:726
-#, fuzzy
 msgid "The Grim Reaper"
-msgstr "De Dood"
+msgstr "De Grimmige Oogster"
 
 #  level: "Mirror Room II"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:831
 msgid "Same room, new mirrors ..."
-msgstr "Zelfde kamer, nieuwe spiegels ..."
+msgstr "Zelfde ruimte, nieuwe spiegels ..."
 
 #  level: "Moonwalking"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -2159,15 +2171,14 @@ msgstr "Openingstijden van 8:00 tot 16:00"
 #  level: "Oxyd 15"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:935 po/level_i18n.cc:4958
-#, fuzzy
 msgid "It's easier with spikes!"
-msgstr "Het is makkelijker met een schep!"
+msgstr "Het is makkelijker met spijkers!"
 
 #  level: "Scrooge"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:942
 msgid "You really will need every penny!"
-msgstr "U heeft echt elke cent nodig!"
+msgstr "Je hebt echt elke cent nodig!"
 
 #  level: "Minor Obstacle"
 #  author: "Siegfried Fennig" email ""
@@ -2179,7 +2190,7 @@ msgstr "Laat er licht zijn!"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:959
 msgid "You need to be fast!"
-msgstr "U moet snel zijn!"
+msgstr "Je moet snel zijn!"
 
 #  level: "Letter Bomb"
 #  author: "Siegfried Fennig" email ""
@@ -2215,7 +2226,7 @@ msgstr "In hemelsnaam ... verdrink niet!"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:1009
 msgid "Don't believe all that you see!"
-msgstr "Geloof niet alles wat u ziet!"
+msgstr "Geloof niet alles wat je ziet!"
 
 #  level: "Oxyd 31"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -2227,7 +2238,7 @@ msgstr "Rotaryrotaryrot..."
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:1019
 msgid "Nothing but thieves!! Try the mailbox."
-msgstr "Alleen maar dieven!! Probeer de brievenbus."
+msgstr "Niks anders dan dieven!! Probeer de brievenbus."
 
 #  level: "Soaring High"
 #  author: "Siegfried Fennig" email ""
@@ -2239,7 +2250,7 @@ msgstr "Geen probleem! Makkie!"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:1027
 msgid "It was easy, wasn't it!"
-msgstr "Dat was makkelijk, nietwaar!"
+msgstr "Een makkie toch, nietwaar!"
 
 #  level: "esprit 7"
 #  author: "Sven Siggelkow" email ""
@@ -2263,25 +2274,25 @@ msgstr "Zondag, bloedige zondag!"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:1130
 msgid "If you think this is too easy, then play -Bavarian Madness-"
-msgstr ""
+msgstr "Als je dit te makkelijk vindt, speel dan -Bavarian Madness-"
 
 #  level: "esprit 94"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:1140
 msgid "If you haven't won, you've lost!"
-msgstr "Als u niet gewonnen hebt, hebt u verloren!"
+msgstr "Als je niet gewonnen hebt, heb je verloren!"
 
 #  level: "Bank-O-Mat"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:1153
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
-msgstr "Sorry voor het ongemak, maar de Bank-O-Mat is leeg."
+msgstr "Sorry voor het ongemak, maar de Geld-au-tomaat is leeg."
 
 #  level: "esprit 3"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:1205
 msgid "Can you see the hidden oxyd stones?"
-msgstr "Kunt u de verborgen oxyd stenen zien?"
+msgstr "Kun je de verborgen oxydstenen zien?"
 
 #  level: "esprit 8"
 #  author: "Sven Siggelkow" email ""
@@ -2317,7 +2328,7 @@ msgstr "Het is makkelijker met een schep!"
 #  author: "Andreas Lochmann, Ronald Lamprecht" email ""
 #: po/level_i18n.cc:1353
 msgid "Every marble is the architect of its own fortune"
-msgstr ""
+msgstr "Iedere knikker is de architect van zijn eigen rijkdom"
 
 #  level: "Enigmines"
 #  author: "Brian Huffman" email ""
@@ -2325,7 +2336,8 @@ msgstr ""
 msgid ""
 "Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
 "= 4, Deep Blue = 5, Deep Red = 6 ..."
-msgstr ""
+msgstr "Kijk uit voor mijnen!         wit=0, blauw=1, zwart=2, rood=3, geel=4,"
+"donkerblauw=5,donkerrood=6..."
 
 #  level: "Enigmines"
 #  author: "Brian Huffman" email ""
@@ -2334,6 +2346,8 @@ msgid ""
 "Hint: Mines are never located along the edges.  If you still get stuck, look "
 "behind the wall!"
 msgstr ""
+"Hint: Mijnen liggen nooit langs de kanten. Als je niet verder kunt, kijk "
+"achter de muur"
 
 #  level: "Enigmines"
 #  author: "Brian Huffman" email ""
@@ -2341,12 +2355,13 @@ msgstr ""
 msgid ""
 "Hit the switch to uncover one tile, but you will have to wait 10 seconds."
 msgstr ""
+"Tik de schakelaar aan om een tegel te zien, maar je moet 10 seconden wachten."
 
 #  level: "Enigmaparcour II"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1364 po/level_i18n.cc:1630
 msgid "Open the Doors"
-msgstr ""
+msgstr "Open de deuren"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
@@ -2358,40 +2373,42 @@ msgstr "Welkom bij Enigma VII"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1383
 msgid "Take the first exit"
-msgstr ""
+msgstr "Neem de eerste uitgang"
 
 #  level: "Lady in Red"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1387
 msgid "Lady in Red"
-msgstr ""
+msgstr "Dame in het rood"
 
-#  level: "Pentachromos"
+#  level: "Pentachromos"             
 #  author: "J.Dunne, R.Lamprecht, D.Lehmann, M.Pulley, L.Schüller" email ""
 #: po/level_i18n.cc:1391
 msgid ""
 "Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
 "confusion being blackball's brain's blind."
-msgstr ""
+msgstr "" 
+"O, raadselachtig raadsel, regeer mijn knikker's betekenisloos brein, ga door"
+"met verwarring zaaien, houd knikker's brein blind."
 
 #  level: "Circulation"
 #  author: "Mark Pulley" email ""
 #  comment: "Your job is to 'collect' oxygen from the lungs (by opening the switch), then deliver the oxygen to the tissues (by touching the oxyds)."
 #: po/level_i18n.cc:1405
 msgid "Carry that oxygen around."
-msgstr ""
+msgstr "Verspreid de zuurstof"
 
 #  level: "Cold Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1416
 msgid "Freeze by the Power of Light"
-msgstr ""
+msgstr "Bevries door de Kracht van het Licht"
 
 #  level: "Map it out II"
 #  author: "Manuel Eisentraut" email ""
 #: po/level_i18n.cc:1438
 msgid "4D Confusion ..."
-msgstr ""
+msgstr "4D verwarring"
 
 #  level: "Map it out II"
 #  author: "Manuel Eisentraut" email ""
@@ -2402,6 +2419,9 @@ msgid ""
 "position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
 msgstr ""
+"Ooit een 4D doolhof in kaart gebracht? Het is tijd om in vier dimensies te leren"
+"denken.... Een paar aanwijzingen: Het doolhof is 4x4x4x4; je huidge positie is"
+"(2|3|3|2); in alle 16 hoeken van de hyperkubus is een blauwe oxyd..."
 
 #  level: "Map it out II"
 #  author: "Manuel Eisentraut" email ""
@@ -2412,44 +2432,47 @@ msgid ""
 "position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
 msgstr ""
+"Ooit een 4D doolhof in kaart gebracht? Het is tijd om in 4 dimensies te leren"
+"denken... Een paar aanwijzingen: Het doolhof is 3x3x3x3; je huidige positie is"
+"(2|2|2|2); in alle 16 hoeken van de hyperkubus is een blauwe oxyd..."
 
 #  level: "Jack-Of-All-Trades"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1457
 msgid "Jack-Of-All-Trades"
-msgstr ""
+msgstr "Van alle markten thuis"
 
 #  level: "Jack-Of-All-Trades"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1459
 msgid "Find The Paradise"
-msgstr ""
+msgstr "Vind Het Paradijs"
 
 #  level: "- Meditation -"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:1463
 msgid "Can you relax amid all this chaos?"
-msgstr "Kunt u ontspannen in deze chaos?"
+msgstr "Kun je ontspannen middenin deze chaos?"
 
 #  level: "Recover the Stone"
 #  author: "Joseph Dunne" email ""
 #: po/level_i18n.cc:1479
 msgid "Recover the Stone"
-msgstr ""
+msgstr "Verover de Steen"
 
 #  level: "Watchmaker"
 #  author: "Johannes Hüsing" email "hannes@ruhrau.de"
 #  use: "Klokkenmaker"
 #: po/level_i18n.cc:1492
 msgid "Watchmaker"
-msgstr ""
+msgstr ""Klokkenmaker"
 
 #  level: "Watchmaker"
 #  author: "Johannes Hüsing" email "hannes@ruhrau.de"
 #  use: "repareer het uurwerk"
 #: po/level_i18n.cc:1496
 msgid "Mend the clockwork"
-msgstr ""
+msgstr ""Repareer het uurwerk"
 
 #  level: "Watchmaker"
 #  author: "Johannes Hüsing" email "hannes@ruhrau.de"
@@ -2458,14 +2481,16 @@ msgid ""
 "Don't close the pools before the clockwork is done, unless you are Fred "
 "Astaire"
 msgstr ""
+"Sluit de zwembaden niet voor de klok gemaakt is, tenzij je Fred"
+"Astaire bent. "
 
 #  level: "Scarlett's Necklace"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1501
 msgid "Who broke the pearl necklace?"
-msgstr ""
+msgstr "Wie brak de parelketting?"
 
-#  level: "Scarlett's Necklace"
+#  level: "Scarlett's Necklace" 
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1502
 msgid ""
@@ -2473,21 +2498,27 @@ msgid ""
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
 "knows that succeeding pearls connect, when each is placed on a neigboring "
 "dot and a coin is inserted into the slot."
-msgstr ""
+msgstr "" 
+"Mevr. Scarlett's prachtige parelsnoer brak en alle kleurige parels, rolden "
+"op de grond. Mevr. Scarlett herinnert zich de volgorde niet, maar ze weet dat"
+"opeenvolgende parels, zich verbinden als ze naast elkaar geplaatst worden"
+"en er een munt in het muntslot wordt gedaan."
 
-#  level: "Scarlett's Necklace"
+#  level: "Scarlett's Necklace" 
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1503
 msgid ""
 "You did invert the sequence of this pair of pearls. You need to correct this "
 "fault to finish the necklace."
 msgstr ""
+"Je draaide de volgorde van dit parelpaar om. Je moet deze fout verbeteren om"
+"de ketting af te maken. "
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1508
-msgid "Hey, where am i now?"
-msgstr ""
+msgid "Hey, where am I now?"
+msgstr "Hè, waar ben ik nu?""
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
@@ -2496,99 +2527,101 @@ msgid ""
 "Moments ago i've been at home and wanted to take care about my two oxyd "
 "stones."
 msgstr ""
+"Zojuist was ik thuis en wilde voor mijn twee oydstenen zorgen.
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1512
-msgid "And now i'm stranded in this weird forest. How can i escape from here?"
-msgstr ""
+msgid "And now I'm stranded in this weird forest. How can I escape from here?"
+msgstr "Ën nu ben ik in dit vreemde bos gestrand. Hoe kan ik hiervandaan ontsnappen?"
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1514
 msgid ""
-"If i should have a look-around? Perhaps i can find some things that could "
+"If I should have a look-around? Perhaps I can find some things that could "
 "help me to find an exit."
 msgstr ""
+"Als ik eens rondkeek? Misschien vind ik dingen die me helpen de uitgang te"
+"vinden."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1516
 msgid "WARNING: Highest caution is necessary."
-msgstr ""
+msgstr "WAARSCHUWING: Opperste voorzichtigheid is geboden."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1518
 msgid "Wild buffaloes are crossing the way."
-msgstr ""
+msgstr "Wilde buffels kruisen het pad."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1520
 msgid "Help me, the forest is on fire!"
-msgstr ""
+msgstr "Help me, het bos staat in brand."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1522
 msgid "A herd of wild horses blocks the way."
-msgstr ""
+msgstr "Ëen kudde wilde paarden blokkeert de weg."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1524
 msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
-msgstr ""
+msgstr "Ëen gehucht met omheining, een paar hutjes, een meertje, een paar balen stro."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1526
 msgid "If there is finally an exit?"
-msgstr ""
+msgstr "Ïs er eindelijk een uitgang?"
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1528
 msgid "I'm afraid, i need some assistance!"
-msgstr ""
+msgstr "Ik ben bang dat ik wat hulp nodig heb."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1530
 msgid "Filling station for empty extinguishers."
-msgstr ""
+msgstr "Vulstation voor lege brandblussers."
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1532
-#, fuzzy
 msgid "Watch out: Angry mosquitoes!"
-msgstr "Pas op waar u loopt!"
+msgstr "Pas op: Kwaaie muskieten!"
 
 #  level: "Lost in Time and Space"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:1534
 msgid "Useful things may also be hidden!"
-msgstr ""
+msgstr "Bruikbare spullen kunnen ook verborgen zijn!"
 
 #  level: "Using Rotators"
 #  author: "Joseph Dunne" email "josephdunne1993@hotmail.com"
 #: po/level_i18n.cc:1545
 msgid "The moving boulder can fall down holes but cannot fall into water."
-msgstr ""
+msgstr "De bewegende zwerfkei kan in gaten vallen maar valt niet in het water."
 
 #  level: "Brilliant Opals"
 #  author: "Ronald Lamprecht, Andreas Lochmann" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1556
 msgid "The journey is the reward"
-msgstr ""
+msgstr "De reis is de beloning"
 
 #  level: "Meditation in Peace"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1561
 msgid "Funeral on Deep Sea"
-msgstr ""
+msgstr "Begrafenis in de Diepzee"
 
 #  level: "Meditation in Peace"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -2597,200 +2630,201 @@ msgid ""
 "Warning: Do not play this level for more than 10 minutes - you may suffer "
 "sea sickness yourself!"
 msgstr ""
+"Waarschuwing: Speel dit level niet langer dan 10 minuten - je kunt zeeziek"
+"worden!"
 
 #  level: "Enigmaparcour III"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1580
 msgid "Open the Doors, Open the Oxyds"
-msgstr ""
+msgstr "Open de deuren, open de Oxyds"
 
 #  level: "Spaceship Control"
 #  author: "Safalra" email ""
 #: po/level_i18n.cc:1593
 msgid "Spaceship Control"
-msgstr ""
+msgstr "Ruimteschip Commandocentrum"
 
 #  level: "Spaceship Control"
 #  author: "Safalra" email ""
 #: po/level_i18n.cc:1594
 msgid "Bound to the blue nowhere"
-msgstr ""
+msgstr "Onderweg naar het blauwe niets"
 
 #  level: "Free Riders"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1598
 msgid "Left or Right Drive?"
-msgstr ""
+msgstr "Linker of rechter rijbaan?"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1603
 msgid "Feed me!"
-msgstr ""
+msgstr "Geef me te eten!"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1605
 msgid "Beware of Sadistic Dentist!"
-msgstr ""
+msgstr "Pas op Sadistische Tandarts!"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1607
 msgid "The innocent victim."
-msgstr ""
+msgstr "Het onschuldige slachtoffer"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1609
 msgid "Office of your boss."
-msgstr ""
+msgstr "Het kantoor van je baas"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1611
 msgid "Aaaaaarrrrggghhhhhh!!!!!"
-msgstr ""
+msgstr "Aaaaaarrrrggghhhhhh!!!!!"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1613
 msgid "Everyone has gone, but the plant's still hungry!"
-msgstr ""
+msgstr "Iedereen is weg, maar de plant is nog steeds hongerig!"
 
 #  level: "Little Shop Of Horrors"
 #  author: "Mark Pulley" email ""
 #  comment: ""
 #: po/level_i18n.cc:1615
 msgid "No! No! Aaaarrrrgggghhhh!"
-msgstr ""
+msgstr "Nee! Nee!  Aaaarrrrggghhhh!"
 
 #  level: "Action Potential"
 #  author: "Mark Pulley" email ""
 #: po/level_i18n.cc:1622
 msgid "Bridge those synapses!"
-msgstr ""
+msgstr "Verbind die synapsen!"
 
 #  level: "Knot Garden"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1643
 msgid "You shouldn't have done that."
-msgstr ""
+msgstr "Dat had je niet moeten doen."
 
 #  level: "Knot Garden"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1644
 msgid "Careful."
-msgstr ""
+msgstr "Voorzichtig"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1658
 msgid "Audience in Venice"
-msgstr ""
+msgstr "Toehoorders in Venetië"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1660
 msgid "Press the Triggers"
-msgstr ""
+msgstr "Druk de triggers in"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1662
-#, fuzzy
 msgid "Welcome to Venice"
-msgstr "Welkom bij Enigma V"
+msgstr "Welkom in Venetië"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1664
 msgid "Welcome to the Audience"
-msgstr ""
+msgstr "Welcome bij de Toehoorders"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1666
 msgid "rialto"
-msgstr ""
+msgstr "rialto"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1668
 msgid "... under construction"
-msgstr ""
+msgstr "onderhoud"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1670
 msgid "try the boulders as gondola"
-msgstr ""
+msgstr "probeer de zwerfkeien als gondel"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1672
 msgid "piazza san marco"
-msgstr ""
+msgstr "San Marcoplein"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1674
 msgid "danger"
-msgstr ""
+msgstr "gevaar"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1676
 msgid "san giorgio"
-msgstr ""
+msgstr "San Giorgio"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1678
 msgid "guardian ducale"
-msgstr ""
+msgstr "paleiswacht"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1680
 msgid "gondoliere on strike"
-msgstr ""
+msgstr "gondelier in staking"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1682
 msgid "palace ducale"
-msgstr ""
+msgstr "het Dogenpaleis"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1684
 msgid "look at san michele"
-msgstr ""
+msgstr "kijk naar San Michele"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1686
 msgid "use the gondola below"
-msgstr ""
+msgstr "gebruik de gondel daarbeneden"
 
 #  level: "Audience in Venice"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1688
 msgid "hurry to san giorgio"
-msgstr ""
+msgstr "haast je naar San Giorgio"
 
 #  level: "Perfect Trajectory"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:1695
 msgid "Perfect Trajectory"
-msgstr ""
+msgstr "Volmaakt Traject"
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
@@ -2800,118 +2834,117 @@ msgid ""
 "Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
 "been captured."
 msgstr ""
+"Je trouwe vriend Tonto, je paard Zilver en Tonto's paard Scout zijn"
+"gevangen genomen"
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
 #  comment: "The glasses represent the mask the Lone Ranger used to hide his real identity."
 #: po/level_i18n.cc:1705
-#, fuzzy
 msgid "Don't forget your disguise!"
-msgstr "Ren voor uw leven!"
+msgstr "Vergeet je vermomming niet!"
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
 #  comment: "John Reid is the real name of the Lone Ranger. When five of his friends were killed, he was left for dead. He buried them, and made a sixth empty grave for himself, so everyone else thought he was dead too."
 #: po/level_i18n.cc:1707
 msgid "Here lies the grave of John Reid."
-msgstr ""
+msgstr "Dit is het graf van John Reid. "
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
 #  comment: "Said by the Lone Ranger as his horse Silver started galloping."
 #: po/level_i18n.cc:1709
 msgid "Hi-yo Silver, away!"
-msgstr ""
+msgstr "Hi-yo Silver, vooruit!"
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
 #  comment: "This was said at the end of most episodes of The Lone Ranger."
 #: po/level_i18n.cc:1711
 msgid "Who was that masked man?"
-msgstr ""
+msgstr "Wie was die gemaskerde man?"
 
 #  level: "The Lone Ranger"
 #  author: "Mark Pulley" email ""
 #  comment: "The tomb is empty because you faked your death."
 #: po/level_i18n.cc:1713
 msgid "Hey! This tomb is empty!"
-msgstr ""
+msgstr "Hé! Dit graf is leeg!"
 
 #  level: "Remote Meditation"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:1727
-#, fuzzy
 msgid "Remote Meditation"
-msgstr "- Meditatie -"
+msgstr "Meditatie op afstand "
 
 #  level: "Inverse Maze II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1738
-#, fuzzy
 msgid "Change guaranteed"
-msgstr "Verander muis snelheid"
+msgstr "Verandering gegarandeerd"
 
 #  level: "The Green Hell"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1743
 msgid "The Green Hell"
-msgstr ""
+msgstr "De Groene Hel"
 
 #  level: "The Green Hell"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1745
 msgid "Exploration Trip to Green Waters"
-msgstr ""
+msgstr "Onderzoeksreis naar Groene Wateren"
 
 #  level: "Riverside"
 #  author: "Johann Freymuth" email "-"
 #: po/level_i18n.cc:1750
 msgid "Riverside"
-msgstr ""
+msgstr "Rivieroever"
 
 #  level: "Riverside"
 #  author: "Johann Freymuth" email "-"
 #: po/level_i18n.cc:1752
 msgid "Wrong side!                   F3"
-msgstr ""
+msgstr "Verkeerde oever"
 
 #  level: "Restless Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1766
-#, fuzzy
 msgid "Restless Meditation"
-msgstr "Catwalk Meditatie"
+msgstr "Rusteloze Meditatie"
 
 #  level: "Restless Meditation"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:1768
 msgid "Caution - Quick Sand!"
-msgstr ""
+msgstr "Pas op - DrijfZand"
 
 #  level: "Minor Tangler"
 #  author: "Joseph Dunne" email "josephdunne1993@hotmail.com"
 #: po/level_i18n.cc:1778
 msgid "Clue: The starting point is where all dead marbles go"
-msgstr ""
+msgstr "Tip: De start is waar alle dode knikkers zijn"
 
 #  level: "Rainbow Adjacencies"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:1782
 msgid "Rainbow Adjacencies"
-msgstr ""
+msgstr "Aaneengesloten regenboog"
+
 
 #  level: "The Wild Hunt"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:1793
 msgid "The Wild Hunt"
-msgstr ""
+msgstr "De wilde jacht"
 
 #  level: "Balance Beam"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:1801
 #, fuzzy
 msgid "Balance Beam"
-msgstr "balans"
+msgstr "Evenwichtsbalk"
 
 #  level: "Color Maze"
 #  author: "Mark Pulley" email ""
@@ -2920,6 +2953,8 @@ msgid ""
 "This is a color maze. You have to work out what order you need to traverse "
 "the colored floors in order to reach the oxyds."
 msgstr ""
+'Dit is een gekleurd doolhof. Je moet de goede volgorde uitzoeken van de gekleurde"
+"vloer om bij de oxyds te komen."
 
 #  level: "Black Holes"
 #  author: "Siegfried Fennig" email ""
@@ -2937,7 +2972,7 @@ msgstr "is  zwart  altijd  mooi?"
 #  author: "Barry & Lori Mead" email "bmead15@cox.net"
 #: po/level_i18n.cc:2192
 msgid "Make a Sword, & Umbrella."
-msgstr "Maak een Zwaard, & Paraplu."
+msgstr "Maak een Zwaard, en Paraplu."
 
 #  level: "The Fuse"
 #  author: "capkoh" email ""
@@ -2955,7 +2990,7 @@ msgstr "Er zijn twee VERBORGEN items!"
 #  author: "capkoh" email ""
 #: po/level_i18n.cc:2216
 msgid "Third stone from the rock is the hole!"
-msgstr ""
+msgstr "3e Steen vanaf de rots is de doorgang"
 
 #  level: "Laser Magic"
 #  author: "Petr Machata" email ""
@@ -2967,7 +3002,7 @@ msgstr "Probeer nogmaals ..."
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:2242
 msgid "Take some money and build yourself the tools you need."
-msgstr "Pak wat geld en bouw de gereedschappen die u nodig hebt."
+msgstr "Pak wat geld en bouw de gereedschappen die je nodig hebt."
 
 #  level: "Pharaoh's Tomb"
 #  author: "Siegfried Fennig" email ""
@@ -2979,7 +3014,7 @@ msgstr "Sommige stenen zijn verplaatsbaar."
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:2247
 msgid "You lost!"
-msgstr "U heeft verloren!"
+msgstr "Je hebt verloren!"
 
 #  level: "Road to Eden"
 #  author: "Alain Busser" email ""
@@ -2992,7 +3027,7 @@ msgstr "Weg naar Eden"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:2263
 msgid "Just a hint: Try the easy-mode first ..."
-msgstr "Een hint: Probeer de makkelijke modus eerst ..."
+msgstr "Slechts een hint: Probeer de makkelijke modus eerst ..."
 
 #  level: "Turn Around"
 #  author: "Andreas Lochmann" email ""
@@ -3003,7 +3038,6 @@ msgstr "Denk niet te lang na ... het is makkelijk!"
 #  level: "Enignimm"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2270
-#, fuzzy
 msgid "Doomed ... 'SHIFT+F3'!!!"
 msgstr "Arme kleine zwarte bal ... 'SHIFT+F3'!!!"
 
@@ -3011,7 +3045,7 @@ msgstr "Arme kleine zwarte bal ... 'SHIFT+F3'!!!"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:2292
 msgid "You'd need a portable box!"
-msgstr "U hebt een verplaatsbare doos nodig!"
+msgstr "Je hebt een draagbare doos nodig!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -3020,7 +3054,7 @@ msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
 "away quickly)"
 msgstr ""
-"Gefeliciteerd! U heeft een zaad gevonden! Gebruik het achter het rooster (en "
+"Gefeliciteerd! Je hebt een zaadje gevonden! Gebruik het achter het rooster (en "
 "ga er snel achter vandaan)"
 
 #  level: "Growing Boxes"
@@ -3031,9 +3065,9 @@ msgid ""
 "box ...                                           but maybe you can use the "
 "3rd seed differently!"
 msgstr ""
-"U kunt een gesloten brug niet vullen met een "
-"doos ...                                           maar misschien kunt u het "
-"3e zaad op een andere manier gebruiken!"
+"Je kunt een gesloten brug niet vullen met een "
+"doos ...                                           maar misschien kun je het "
+"3e zaadje op een andere manier gebruiken!"
 
 #  level: "Growing Boxes"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -3064,7 +3098,7 @@ msgstr "Welkom bij Enigma II"
 #  author: "Andreas Lochmann" email ""
 #  comment: "The sequence of the four elements is important, as they are connected to the colors of the floor."
 #: po/level_i18n.cc:2331
-msgid "Our full attention this is worth:           Air and Fire, Water, Earth."
+msgid "Our full attention this is worth:           Air and Fire, Water, Earth."                
 msgstr ""
 "Dit verdient onze volledige aandacht:           Lucht en Vuur, Water, Aarde."
 
@@ -3076,21 +3110,21 @@ msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
 msgstr ""
-"En als uw antwoord niet gevonden kan worden           schaam u, ogen "
-"richting de grond!"
+"En als je antwoord niet wordt gevonden           schaam je, richt je ogen "
+"naar de grond!"
 
 #  level: "Pentomino I"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:2344
 msgid "Five form twelve!"
-msgstr ""
+msgstr "Vijf maken er twaalf"
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
 #  comment: "wordplay between 'right' (converse of left) and 'right' (true); not necessary to translate."
 #: po/level_i18n.cc:2350
 msgid "The other document lies and the left wormhole is the right one."
-msgstr "Het ander document liegt en het linker wormgat is de juiste."
+msgstr "Het andere document liegt en het linker wormgat is het juiste."
 
 #  level: "Buridan"
 #  author: "Alain Busser" email ""
@@ -3100,7 +3134,7 @@ msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
 msgstr ""
-"Het andere document vertelt de waarheid en het andere wormgat is de juiste."
+"Het andere document vertelt de waarheid en het andere wormgat is het juiste."
 
 #  level: "Khun Phan"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -3109,12 +3143,14 @@ msgid ""
 "One of the puzzle stones needs to be placed onto the trigger "
 "field.                       Guess which ... :)"
 msgstr ""
+"Een van de puzzelstenen moet op het triggerveld geplaatst worden."
+"Raad welke ...: )"
 
 #  level: "Khun Phan"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:2361
 msgid "The level preview might help ..."
-msgstr ""
+msgstr "De level preview kan helpen ..."
 
 #  level: "Knight Moves"
 #  author: "illmind" email "support@mag-heut.net"
@@ -3131,7 +3167,6 @@ msgstr "Opgedragen aan mijn vriend Frank."
 #  level: "Easy Shifting ..."
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
 #: po/level_i18n.cc:2400
-#, fuzzy
 msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
 msgstr "Dit level is vrij eenvoudig, nietwaar? Ga maar door .. ;-)"
 
@@ -3143,6 +3178,9 @@ msgid ""
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-"
 "F3.)"
 msgstr ""
+"Een steen, een boom en bomen wees drie, -- om de vijand te verslaan, -- "
+"Ertussen ligt misschien -- een Geheime Weg! -- (Als je dit ziet, klik shift-"
+"F3.)" 
 
 #  level: "It's Magic"
 #  author: "Martin Hawlisch" email ""
@@ -3157,7 +3195,7 @@ msgid ""
 "Each color appears once. Each correct color produces whites in the wrong "
 "place, blacks in the right one."
 msgstr ""
-"Elke kleur verschijnt maximaal een keer; elke goede kleur levert wit op als "
+"Elke kleur verschijnt slechts één keer; elke goede kleur levert wit op als "
 "hij op de verkeerde plek staat, zwart als hij op de goede plek staat."
 
 #  level: "Enigmastermind"
@@ -3170,7 +3208,7 @@ msgstr "Deze schakelaar controleert uw gok."
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:2486
 msgid "Press F3 or finish."
-msgstr "Druk op F3 op los op."
+msgstr "Druk op F3 of finish."
 
 #  level: "Demo I18N"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3196,26 +3234,26 @@ msgstr "Het correcte, niet het rechter!"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2605
 msgid "Just a Dance ?"
-msgstr ""
+msgstr "Slechts een dans?"
 
 #  level: "Maze for Two II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2616 po/level_i18n.cc:2971
 msgid "Keep distance!"
-msgstr ""
+msgstr "Houd afstand!"
 
 #  level: "Maze for Two II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2618 po/level_i18n.cc:2973
 msgid "Help! I can't see the forest for the trees!"
-msgstr ""
+msgstr "Help! Ik zie door de bomen het bos niet meer!"
 
 #  level: "Inkblot 1"
 #  author: "Nathan Bronecke" email "npb-engimalevel@rbepan.net"
 #  comment: "the common name of the Rorschach test is inkblot test; this title just refers to the level's visual appearance"
 #: po/level_i18n.cc:2623
 msgid "Inkblot 1"
-msgstr ""
+msgstr "Inktvlek 1"
 
 #  level: "mad-ill-tation"
 #  author: "illmind" email "illmind@mag-heut.net"
@@ -3224,105 +3262,109 @@ msgid ""
 "... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
 "the past. thank you. ..."
 msgstr ""
+"... illmind's mad-ill-tation ... een eerbetoon aan esprit meditation levels uit"
+"het verleden. Dank je wel.
 
 #  level: "Plutos Confusion"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2653
 msgid "Plutos Confusion"
-msgstr ""
+msgstr "Pluto's verwarring"
 
 #  level: "Plutos Confusion"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2655
 msgid "Dont eat cherries"
-msgstr ""
+msgstr "Eet geen kersen"
 
 #  level: "Crabwise IV"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:2663
 msgid "Crabwise IV"
-msgstr ""
+msgstr "Krabwijze IV"
 
 #  level: "Rhythm of Space"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2677
 msgid "Only A Labyrinth"
-msgstr ""
+msgstr "Alleen maar een doolhof"
 
 #  level: "Number Crunching"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:2681
 msgid "Number Crunching"
-msgstr ""
+msgstr "cijfers kraken"
 
 #  level: "Crabwise I"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:2686
 msgid "Crabwise I"
-msgstr ""
+msgstr "Krabwijze I"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:2692
 #, fuzzy
 msgid "Welcome to Enigma VIII"
-msgstr "Welkom bij Enigma III"
+msgstr "Welkom bij Enigma VIII"
 
 #  level: "Ball Alley"
 #  author: "Johann Freymuth" email "johannff@web.de"
 #: po/level_i18n.cc:2706
 msgid "Ball Alley"
-msgstr ""
+msgstr "Ballenpad"
 
 #  level: "Missing Oxyds?"
 #  author: "Manfredi Carta" email ""
 #: po/level_i18n.cc:2719
 msgid "Missing Oxyds?"
-msgstr ""
+msgstr "Vermiste Oxyds?"
 
 #  level: "Missing Oxyds?"
 #  author: "Manfredi Carta" email ""
 #: po/level_i18n.cc:2723
 msgid "Not everything is as it seems ..."
-msgstr ""
+msgstr "Niet alles is wat het lijkt ..."
 
 #  level: "Missing Oxyds?"
 #  author: "Manfredi Carta" email ""
 #: po/level_i18n.cc:2727
 msgid "Make sure you find all of them"
-msgstr ""
+msgstr "Zorg er voor ze allemaal te vinden"
 
 #  level: "FizzBuzz"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:2740
 msgid "FizzBuzz"
-msgstr ""
+msgstr "FizzBuzz"
 
 #  level: "FizzBuzz"
-#  author: "Alex Smith" email "ais523@bham.ac.uk"
+#  author: "Alex Smith" email "ais523@bham.ac.uk"             
 #: po/level_i18n.cc:2741
 msgid ""
 "Counting the first pearl as 1, you must save every pearl that's a multiple "
 "of 3 or of 5 (or both)."
 msgstr ""
+"Tel de eerste parel als 1, je moet iedere parel redden die een veelvoud"
+"is van 3 of van 5 (of van allebei)."
 
 #  level: "Alternation II"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2758
 msgid "Alternation II"
-msgstr ""
+msgstr "Afwisseling II"
 
 #  level: "Alternation II"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2760
 msgid "Alternation in a Dark Area"
-msgstr ""
+msgstr "Afwisseling in een Donker gebied"
 
 #  level: "Helios I"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2768 po/level_i18n.cc:2935
 msgid "Use the Lightpassenger"
-msgstr ""
+msgstr "Gebruik de Lichtpassagier"
 
 #  level: "Multi-lane"
 #  author: "/dev/null" email ""
@@ -3331,29 +3373,35 @@ msgid ""
 "Attention! The trigger in the abyss is a weird one. It disappears when "
 "touched ..."
 msgstr ""
+"Let op! De trigger in de afgrond is een vreemde. Hij verdwijnt bij aanraking ..."
 
 #  level: "Multi-lane"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:2775
 msgid "Go left to play the white part. Go right to play the black part."
-msgstr ""
+msgstr "Ga naar links voor het witte deel. Ga naar rechts voor het zwarte deel."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2783
 msgid "Tutoxyd's Pyramid"
-msgstr ""
+msgstr "Tutoxyd's Pyramide"
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2785
 msgid ""
-"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "                          
 "training camp?  Got everything you ordered:  some money  --  40 marbleons -- "
 "and a horse outside this shopping center.    Many adventurers lost their "
 "life in this pyramid.    Beware of the dangerous sand vipers and "
 "Enighomathep's curses."
 msgstr ""
+"Welkom Mr. Jones! Terug van je \"Alternatives\" and \"The Walls\" "
+"trainingskamp? Hier is alles wat je bestelde: beetje geld -- 40 marbloens -- "
+"en een paard buiten voor het winkelcentrum.  Veel avonturiers verloren hun"
+"leven in deze pyramide.  Houd rekening met de gevaarlijke zandadders en"
+"Enighomateph's vervloekingen."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3363,6 +3411,9 @@ msgid ""
 "were the most usefull items in this desert. But nobody was willing to spend "
 "2 marbleons.  ---  Now a blacksmith offers his service."
 msgstr ""
+"Mr. Regenmaker bezat deze winkel. Hij hield vol dat zijn paraplu's de meest"
+"bruikbare voorwerpen in deze woestijn waren. Maar niemand wilde er 2 marbloenen"
+"aan uitgeven. ---  Nu biedt een smid zijn diensten aan."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3371,6 +3422,8 @@ msgid ""
 "Safety Precaution: in case one of these dangerous animals escapes, the gates "
 "of the shopping center will be closed immediately!"
 msgstr ""
+"Veiligheidsmaatregel: als één van deze gevaarlijke dieren ontsnapt, worden de"
+"hekken van het winkelcentrum onmiddellijk gesloten!"
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3380,6 +3433,8 @@ msgid ""
 "that he loved cherries. He ate so many of them that he sometimes became "
 "invisible."
 msgstr ""
+"Er is niet veel bekend over Enighomathep, de architect van de pyramide. Er wordt"
+"gezegd dat hij van kersen hield. Hij at er zoveel dat hij soms onzichtbaar werd."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3389,6 +3444,9 @@ msgid ""
 "and a sand viper.  They cannot be sold.        But I can offer you a scarab "
 "that will be a better choice for you."
 msgstr ""
+"Bekijk mijn verzameling eens!   Een witte schorpioen  --  een rotodil -- "
+"en een zandadder. Ze zijn niet te koop.   Maar ik kan je een scarabee aanbieden,"
+"dat is een betere keus voor je. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3398,6 +3456,9 @@ msgid ""
 "thief is hanging around and nobody knows where the 4 pale kids that are "
 "playing with your horse came from."
 msgstr ""
+"Ali Kapper's winkel voor snel knippen. Wil je weten wat er aan de hand is? "
+"een dief loopt vrij rond en niemand weet waar de vier bleke kinderen, die met "
+"je paard spelen, vandaan komen. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3406,6 +3467,9 @@ msgid ""
 "Home of the last adventurer who never returned.   Said he would drill for "
 "oil -- but no one believed him."
 msgstr ""
+"Huis van de laatste avonturier die nooit terugkeerde. Zei dat hij naar "
+"olie wilde boren -- maar niemand geloofde hem."
+
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3414,6 +3478,8 @@ msgid ""
 "Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
 "remain undone until you prove worthy!"
 msgstr ""
+"Wees vervloekt voor het onderzoeken van Tutoxyd's laatste geheim -- mag je "
+"huiswerk ongedaan blijven totdat je waardig bent bewezen!"
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3423,6 +3489,9 @@ msgid ""
 "litter the environment.   But the pyramid magically repairs itself every "
 "time an adventurer gives up."
 msgstr ""
+Het is jammer dat sommige onderzoekers dit historisch monument beschadigen"
+"en de omgeving vervuilen. Maar de pyramide herstelt zichzelf wonderbaarlijk"
+"iedere keer dat een avonturier opgeeft. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3431,6 +3500,8 @@ msgid ""
 "Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
 "feet!"
 msgstr ""
+Wees vervloekt voor het verstoren van Tutoxyd's rust -- mag de aarde onder"
+"je voeten verdwijnen!"
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3439,6 +3510,8 @@ msgid ""
 "Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under "
 "your control!"
 msgstr ""
+"Wees vervloekt voor het verstoren van Tutoxyd's rust -- mogen je benen niet "
+"langer onder je controle zijn!  "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3447,6 +3520,8 @@ msgid ""
 "Trapped?   Either wait for a stupid tourist willing to exchange positions "
 "with you by using a magic ring - or press Shift F3"
 msgstr ""
+"Opgesloten? Wacht op een stomme toerist die met jou van plaats wil wisselen "
+"door een magische ring te gebruiken - of druk Shift F3 "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3455,12 +3530,15 @@ msgid ""
 "Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
 "please send a letter."
 msgstr ""
+"Privé eigendom! Deze grond behoort aan Mr. Witolie. Indien afwezig, stuur "
+"een brief. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2811
 msgid "Invoice -- 40 marbleons for 20 barrels of oil."
-msgstr ""
+msgstr "Factuur -- 40 marbloenen for 20 vaten olie. "
+
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3470,36 +3548,45 @@ msgid ""
 "everyone his personal fortune color. As all visitors tried to touch it, we "
 "had to set up some protection."
 msgstr ""
+"Welkom vreemdeling -- bekijk onze heilige steen. Er wordt gezegd dat hij aan"
+iedereen zijn persoonlijke gelukskleur laat zien.Omdat alle bezoekers probeerden"
+"hem aan te raken, moesten we enige bescherming plaatsen. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2815
 msgid ""
-"May I ask for a donation. Just a few bugs - throw the donation into the holy "
+"May I ask for a donation. Just a few bugs - throw the donation into the holy "        
 "fire. Tutoxyd will be grateful."
 msgstr ""
+"Mag ik een bijdrage vragen? Slechts een paar offers - werp de bijdrage in"
+"het heilig vuur. Tutoxyd zal zeer dankbaar zijn. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2817
 msgid ""
-"Mr. Whiteoil, we finished our library reserach. Enighomathep reports that 4 "
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
 "keys are required. One key got lost immediately after sealing the pyramid. "
 "One is hidden at the border of the pyramid. For the others you have to "
 "demonstrate boldness and cleverness."
 msgstr ""
+"Mr. Witolie, We hebben ons archiefonderzoek klaar. Enighomathep meldt dat er 4"
+"sleutels nodig zijn. Één sleutel ging onmiddellijk verloren na het verzegelen "
+"van de pyramide. Één is aan de rand van de pyramide verborgen. Voor de anderen"
+"zul je dapper en slim moeten zijn."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2819
 msgid "Facing Death you can walk without fear."
-msgstr ""
+msgstr "De Dood aanschouwend kun je zonder angst lopen. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2821
 msgid "Sorry, the useful item that was hidden here has been stolen."
-msgstr ""
+msgstr "Sorry, het bruikbare voorwerp dat hier verborgen was, is gestolen."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3509,22 +3596,29 @@ msgid ""
 "Have a look at all these little funny sticks that they used to fight the "
 "curses."
 msgstr ""
+"Grafrovers worden vervloekt bevroren in steen of vloer, in alle eeuwigheid"
+"Bekijk al deze grappige kleine stokjes die ze gebruikten om de"
+"vervloekingen te bevechten."
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2825
 msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
-msgstr ""
+msgstr "Verwijder alle delen van de gedenksteen aleer Tutoxyd op te roepen. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2827
 msgid ""
-"Who dares to dirsturb my peace? Stranger - you have proven to be honorable. "
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
 "Bring back my children for a joint meditation. But beware that upon seeing "
 "me they may want to join me instead of meditate. I make you responsible for "
 "the security of my children."
 msgstr ""
+"Wie durft mijn rust te verstoren? Vreemdeling - je hebt bewezen eerbaar te zijn. "
+"Breng mijn kinderen terug voor een gezamenlijke meditatie. Maar pas er voor op "
+"dat als ze mij zien, zij zich bij mij willen voegen in plaats van mediteren."
+"Ik maak jou verantwoordelijk voor de veiligheid van mijn kinderen. "
 
 #  level: "Tutoxyd's Pyramid"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -3533,18 +3627,20 @@ msgid ""
 "You are bringing back my children. As soon as they come to rest, I will "
 "deliver you from Enighomathep's curses so you may seek your next adventure."
 msgstr ""
+"Je komt mijn kinderen terugbrengen. Zodra ze rusten zal ik je bevrijden"
+"van Enighomathep's vervloekingen zodat je je volgend avontuur kunt zoeken."
 
 #  level: "Crabwise II"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:2834
 msgid "Crabwise II"
-msgstr ""
+msgstr "Crabwijze II"
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2857
 msgid "Welcome to Liberty Island, New York City"
-msgstr ""
+msgstr "Welkom op Vrijheidseiland, New York City"
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
@@ -3553,6 +3649,8 @@ msgid ""
 "To get a fuller picture of New York City, you should view it through every "
 "pair of glasses you can find."
 msgstr ""
+"Om een beter beeld van New York City te krijgen, moet je door iedere"
+"bril kijken die je kunt vinden."
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
@@ -3561,6 +3659,8 @@ msgid ""
 "There's always a terrible traffic jam on Broadway at Times Square.  It's a "
 "pity you don't have time to see a show!"
 msgstr ""
+"Er is altijd een verschrikkelijke verkeerschaos op Broadway bij Times Square. "
+"Het is jammer dat je geen tijd hebt om een show te zien."
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
@@ -3569,6 +3669,8 @@ msgid ""
 "Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
 "music, and use the shogun to open some gates!"
 msgstr ""
+"Charles Ives was de componist van \ "Central Park in the Dark\". Geniet van"
+"zijn muziek en gebruik de shogunsteen om een paar poorten te openen."
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
@@ -3577,6 +3679,8 @@ msgid ""
 "These mechanized traffic signals are strange.  An outbound traffic sensor at "
 "Central park seems to be responsible for this street.  Use your glasses!"
 msgstr ""
+"Deze geautomatiseerde verkeerslichten zijn vreemd. Een uitgaande verkeerssensor"
+"bij Central Park lijkt verantwoordelijk voor deze straat. Gebruik je bril! " 
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
@@ -3584,172 +3688,171 @@ msgstr ""
 msgid ""
 "It's funny that a fountain in Central Park should control the traffic flow."
 msgstr ""
+"Het is grappig dat een fontein in Central Park de verkeersstroom zou controleren."
 
 #  level: "New York Jungle"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2869
-#, fuzzy
 msgid "Welcome to Chinatown"
-msgstr "Welkom bij Enigma V"
+msgstr "Welkom in Chinatown""
 
 #  level: "Vanity's Constrictions"
 #  author: "Andreas Lochmann" email ""
 #  comment: "A wordplay to describe a room crowded with hand mirrors."
 #: po/level_i18n.cc:2875
 msgid "The Hand Mirror Cabinet"
-msgstr ""
+msgstr "De handspiegel kamer"
 
 #  level: "Vanity's Constrictions"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:2877
 msgid "Ever tried to look at the back of your head in the mirror?"
-msgstr ""
+msgstr "Ooit geprobeerd om in een spiegel de achterkant van je hoofd te bekijken? "
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2882
 msgid "Start the next explosion at brick 17 (counting from left)!"
-msgstr ""
+msgstr "Start de volgende explosie bij steen 17 (Vanaf links geteld)!"
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2884
 msgid "Hint: The white ball's got the key."
-msgstr ""
+msgstr "Hint: De witte bal heeft de sleutel."
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2886
 msgid "Use of ring only allowed on marked areas."
-msgstr ""
+msgstr "Het gebruik van de ring is slechts toegestaan op aangewezen plaatsen."
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2890
 msgid "Caution! Don't use for bridge-building!"
-msgstr ""
+msgstr "Voorzichtig! Niet gebruiken om bruggen te bouwen!"
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2892
 msgid "Looks pretty dark!"
-msgstr ""
+msgstr "Dat ziet er duister uit! "
 
 #  level: "4 - 8 - 4"
 #  author: "Dominik Leipold" email ""
 #: po/level_i18n.cc:2894
 msgid "Prevent theft! Don't leave valuables in your inventory!"
-msgstr ""
+msgstr "Voorkom diefstal! Laat geen waardevolle voorwerpen achter "
+"in je inventaris!"
 
 #  level: "Plutos World"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2917
 msgid "Deep ..."
-msgstr ""
+msgstr "Diep..."
 
 #  level: "Danger Flag"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:2924
 msgid "Danger Flag"
-msgstr ""
+msgstr "Waarschuwingsvlag"
 
 #  level: "A Screenful of Secrets"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2943
-#, fuzzy
 msgid "My First Level"
-msgstr "Level Afbreken"
+msgstr "Mijn eerste level"
 
 #  level: "A Screenful of Secrets"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2945
 msgid "Secrets? Use the items, ... use the glasses ..."
-msgstr ""
+msgstr "Geheimen? Gebruik de voorwerpen, ... gebruik de bril ..."
 
 #  level: "Sanssouci"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2959
 msgid "A Baroque Game"
-msgstr ""
+msgstr "Een barokspel"
 
 #  level: "Turbulencia"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2964
 msgid "Meditation! Silence? ... Have a Look ..."
-msgstr ""
+msgstr "Meditatie! Stilte? ... Kijk eens ..."
 
 #  level: "Turbulencia"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:2966
 msgid "These stormy days ..."
-msgstr ""
+msgstr "Deze stormachtige dagen ..."
 
 #  level: "Symopal"
 #  author: "Andreas Lochmann, Ronald Lamprecht" email ""
 #: po/level_i18n.cc:2977
 msgid "It's not symmetric!"
-msgstr ""
+msgstr "Het is niet symmetrisch!"
 
 #  level: "Crawling the Abyss"
 #  author: "ShadowPhrogg32642342" email "shadowphrogg32642342@gmail.com"
 #: po/level_i18n.cc:2987
 msgid "There's more help than you first think!"
-msgstr ""
+msgstr "Er is meer help dan je zou denken!"
 
 #  level: "Mountain Climbing II"
 #  author: "Joseph Dunne" email "josephdunne1993@hotmail.com"
 #: po/level_i18n.cc:3001
 msgid "This is a SuperSecret!! Well done on finding it!!"
-msgstr ""
+msgstr "Dit is een supergeheim! Gefeliciteerd met deze vondst!!"
 
 #  level: "Crabwise III"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:3018
 msgid "Crabwise III"
-msgstr ""
+msgstr "Crabwijze III"
 
 #  level: "Slopes, Jumps & Falls"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3022
-#, fuzzy
 msgid "Floating ..."
-msgstr "Waardering: "
+msgstr "Zwevend ..."
 
 #  level: "Slopes, Jumps & Falls"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3023
 msgid "Don't be afraid -- It's only a ten mile drop!"
-msgstr ""
+msgstr "Wees niet bang -- Het is maar een val van 10 mijl! "
 
 #  level: "Volcano Day"
 #  author: "Mark Pulley" email ""
 #: po/level_i18n.cc:3027
 msgid "Listen for the best place for an explosion"
-msgstr ""
+msgstr "Luister voor de beste plaats voor een explosie"
 
 #  level: "Fifty Years Later ..."
 #  author: "mecke" email ""
 #: po/level_i18n.cc:3035
 msgid "Survival Training in wasted Landscapes ..."
-msgstr ""
+msgstr "Survivaltraining in verwoeste landschappen ..."
 
 #  level: "Claustrophobia"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:3039
 msgid "Every pencil must go"
-msgstr ""
+msgstr "Ieder potlood moet weg"
 
 #  level: "Alternation I"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:3047
 msgid "Alternation I"
-msgstr ""
+msgstr "Afwisseling I"
 
 #  level: "Alternation I"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:3049
 msgid "Alternation in a Blue Area"
-msgstr ""
+msgstr "Afwisseling in een Blauw Gebied"
 
 #  level: "Pirates Island"
 #  author: "Alain Busser" email ""
@@ -3763,13 +3866,13 @@ msgstr "Pirateneiland"
 #: po/level_i18n.cc:3075
 msgid "The pirates have lost several hidden things on this island ..."
 msgstr ""
-"De piraten zijn verschillende verborgen dingen kwijtgeraakt op dit eiland ..."
+"De piraten zijn op dit eiland verschillende verborgen dingen kwijtgeraakt  ..."
 
 #  level: "The Prison"
 #  author: "Martin Hawlisch" email ""
 #: po/level_i18n.cc:3085
 msgid "Warning ... ... thieves!"
-msgstr "Warschuwing ... ... dieven!"
+msgstr "Waarschuwing ... ... dieven!"
 
 #  level: "Doors forever"
 #  author: "JuSt" email ""
@@ -3781,7 +3884,7 @@ msgstr "Kijk overal goed naar!"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:3102
 msgid "Do you need a helping hand?"
-msgstr ""
+msgstr "Heb je een helpende hand nodig?"
 
 #  level: "Send me the keys !"
 #  author: "Alain Busser" email ""
@@ -3805,13 +3908,13 @@ msgstr "Maak een paraplu."
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3129
 msgid "Keypad Corners"
-msgstr ""
+msgstr "Numeriek toetsenbord"
 
 #  level: "Laser Path"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:3139
 msgid "Try the easy mode first ..."
-msgstr "Probeer de makkelijke modus eerst ..."
+msgstr "Probeer de makkelijke modus eerst ..."   
 
 #  level: "Print 23"
 #  author: "Richi Bützer" email ""
@@ -3820,18 +3923,17 @@ msgid ""
 "If you have never heard about Brainf***, visit e.g. http://en.wikipedia.org/"
 "wiki/Brainfuck before you try to solve this level."
 msgstr ""
-"Als u nog nooit van Brainf*** gehoord hebt, bezoek bijv. http://en.wikipedia."
-"org/wiki/Brainfuck voor u probeert dit level op te lossen."
+"Als je nog nooit van Brainf*** gehoord hebt, bezoek bijv. http://en.wikipedia."
+"org/wiki/Brainfuck voor je probeert dit level op te lossen."
 
 #  level: "Walk The Plank"
 #  author: "Nat Pryce" email ""
 #: po/level_i18n.cc:3159
-#, fuzzy
 msgid ""
 "Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
 "in the wrong direction."
 msgstr ""
-"Hier ligt de piraat Zwartbal, achtergelaten in 1802 nadat hij in de "
+"Hier ligt de piraat Zwartbal, gestrand in 1802 nadat hij in de "
 "verkeerde richting reisde."
 
 #  level: "Walk The Plank"
@@ -3841,7 +3943,7 @@ msgid ""
 "To cure sea sickness hold a large bank note between your teeth and lean over "
 "the side."
 msgstr ""
-"Om zeeziekte te genezen moet u een groot bankbiljet tussen uw tanden houden "
+"Om zeeziekte te genezen moet je een groot bankbiljet tussen je tanden houden "
 "en over de reling leunen."
 
 #  level: "Jumpin' Jack Flash"
@@ -3883,7 +3985,7 @@ msgid ""
 "Didn't your mother tell you that you should not spend your money in such a "
 "careless manner?"
 msgstr ""
-"Heeft uw moeder u nooit verteld dat u uw geld niet zo zorgeloos moet "
+"Heeft je moeder je nooit verteld dat je je geld niet zo zorgeloos moet "
 "uitgeven?"
 
 #  level: "April 1st"
@@ -3906,8 +4008,8 @@ msgid ""
 "them unless you rob our Four Holy Items! But they are well guarded! "
 "Bwahahahaha!"
 msgstr ""
-"U weer! Deze keer laten we u er niet door! Ziet u deze Oxyds? U kunt er niet "
-"bij tenzij u onze Vier Heilige Items steelt! Maar ze worden goed bewaakt! "
+" Jij weer! Deze keer laten we je er niet door! Zie je deze Oxyds? Je kunt er niet "
+"bij tenzij je onze Vier Heilige voorwerpen steelt! Maar ze worden goed bewaakt! "
 "Bwahahahaha!"
 
 #  level: "Gods of Enigma II"
@@ -3917,14 +4019,14 @@ msgid ""
 "Fire burns and destroys ... Want to remove blocking stones? Then dig your "
 "way to the Holy Hammer!"
 msgstr ""
-"Vuur brandt en vernietigt ... Wilt u blokkerende stenen weghalen? Graaf dan "
-"uw weg naar de Heilige Hamer!"
+"Vuur brandt en vernietigt ... Wil je blokkerende stenen weghalen? Graaf dan "
+"je weg naar de Heilige Hamer!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3233
 msgid "Try again! Bwahahahaha!"
-msgstr "Probeer opnieuw! Fwahahaha!"
+msgstr "Probeer opnieuw! Bwahahaha!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
@@ -3933,7 +4035,7 @@ msgid ""
 "Earth fills and lasts ... Want to replace missing floors? Then build your "
 "way to the Holy Seed!"
 msgstr ""
-"Aarde vult en blijft ... Wilt u ontbrekende vloeren vervangen? Bouw dan uw "
+"Aarde vult en blijft ... Wil je ontbrekende vloeren vervangen? Bouw dan je "
 "weg naar het Heilige Zaad!"
 
 #  level: "Gods of Enigma II"
@@ -3943,8 +4045,8 @@ msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
 msgstr ""
-"Lucht blaast en gaat voorbij ... Wilt u over de leegte heenspringen? Zorg er "
-"dan voor dat u de Heilige Veer bereikt!"
+"Lucht blaast en gaat voorbij ... Wilt je over de leegte heenspringen? Zorg er "
+"dan voor dat je de Heilige Veer bereikt!"
 
 #  level: "Gods of Enigma II"
 #  author: "moonpearl" email ""
@@ -3953,7 +4055,7 @@ msgid ""
 "Water waves and shifts ... Want to trade minds with your partner? Then find "
 "your way to the Holy Yin-Yang!"
 msgstr ""
-"Water golft en bweegt ... Wilt u wisselen met uw partner? Zoek dan uw weg "
+"Water golft en beweegt ... Wil je wisselen met je partner? Zoek dan je weg "
 "naar de Heilige Yin-Yang!"
 
 #  level: "No way out?"
@@ -3972,7 +4074,7 @@ msgstr "Mist u iets?"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:3252
 msgid "Catwalk Meditation"
-msgstr "Catwalk Meditatie"
+msgstr "Catwalk Meditatie"                     
 
 #  level: "Tropical Island"
 #  author: "Andreas Lochmann" email ""
@@ -3981,26 +4083,26 @@ msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
 msgstr ""
-"Waarom moet er altijd een actieve vulkaan en een dorp vol knikker-etende "
+"Waarom moet er altijd een actieve vulkaan en een dorp vol knikkeretende "
 "inboorlingen zijn op een tropisch eiland?"
 
 #  level: "Designed with love"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:3270
 msgid "Did you really think this one was so easy!?"
-msgstr "Dacht u echt dat deze zo makkelijk zou zijn?"
+msgstr "Dacht je echt dat deze zo makkelijk zou zijn?"
 
 #  level: "Designed with love"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:3272
 msgid "Did you forget something?"
-msgstr "Bent u niets vergeten?"
+msgstr "Ben je niets vergeten?"
 
 #  level: "Designed with love"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:3274
 msgid "Go on! There's no way back now!"
-msgstr "Ga door! Er is geen weg meer terug!"
+msgstr "Ga door! Er is nu geen weg meer terug!"
 
 #  level: "Designed with love"
 #  author: "JuSt" email ""
@@ -4013,15 +4115,16 @@ msgstr "STOP! Niet hierheen! Er is een kortere weg ..."
 #: po/level_i18n.cc:3278
 msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
-"would help you a lot if you go bac"
+"would help you a lot if you go back"
 msgstr ""
+"Er is een schakelaar één stap naar links. Als je 'm ingedrukt kunt houden, helpt "
+"dat veel als je teruggaat."
 
 #  level: "Life's Cross"
 #  author: "Raoul Bourquin" email "raoul@users.berlios.de"
 #: po/level_i18n.cc:3299
-#, fuzzy
 msgid "Could you need something?"
-msgstr "Heeft u iets nodig?"
+msgstr "Zou je iets kunnen gebruiken?"
 
 #  level: "Pneumatic Delivery"
 #  author: "Manuel König" email ""
@@ -4029,7 +4132,7 @@ msgstr "Heeft u iets nodig?"
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
 msgstr ""
-"Dit is mijn eerste landschap, opgedragen aan mijn vader. I hoop dat u het "
+"Dit is mijn eerste landschap, opgedragen aan mijn vader. Ik hoop dat je het "
 "leuk vindt!"
 
 #  level: "Ice-Bomb"
@@ -4039,13 +4142,15 @@ msgid ""
 "Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
 "Laser ...?"
 msgstr ""
+"Herinner je je Seed Puzzle 2? Daar was net zo'n probleem. Of was het Portable "
+"Laser?"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Set fire or die"
 #: po/level_i18n.cc:3326
 msgid "Fire or be fired"
-msgstr "Steek in brand of sterf"
+msgstr "Ontbrand of ontslag"
 
 #  level: "Firefox"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4056,8 +4161,8 @@ msgid ""
 "cellar if a wall of fire were approaching? Be a Firefox - you have the first "
 "5 items to deal with, no more no less!"
 msgstr ""
-"Denk u dat een bosjesman een brandblusser gaat zoeken in de kelder als er "
-"een muur van vlammen aankomt? Wees een Vuurvos - u hebt de eerste 5 items om "
+"Denk je dat een bosjesman een brandblusser gaat zoeken in de kelder als er "
+"een muur van vlammen aankomt? Wees een Vuurvos - je hebt de eerste 5 voorwerpen om "
 "mee te werken, niet meer en niet minder!"
 
 #  level: "Firefox"
@@ -4067,7 +4172,7 @@ msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
 msgstr ""
-"U kunt vuur blussen met water. Dit is een goede plek om uw blusser te "
+"Je kunt vuur blussen met water. Dit is een goede plek om je blusser te "
 "vullen. Let op, water is schaars!"
 
 #  level: "Firefox"
@@ -4076,7 +4181,7 @@ msgstr ""
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
 msgstr ""
-"OEPS! Het doolhof is kapot! Repareer het doolhof voor u het vernietigt."
+"OEPS! Het doolhof is kapot! Repareer het doolhof voor je het vernietigt."
 
 #  level: "Psycho Pushing"
 #  author: "Sven Siggelkow" email ""
@@ -4099,50 +4204,50 @@ msgid ""
 "worth!"
 msgstr ""
 "Pas op, vreemdeling! De oude goden van Enigma hebben vallen uitgezet om hun "
-"heilige Oxyds te beschermen! U moet de Vier Testen doorstaan om uw "
+"heilige Oxyds te beschermen! Je moet de Vier Testen doorstaan om je "
 "waardigheid te bewijzen!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3343
 msgid "Prove your speed in the Test of Fire!"
-msgstr "Bewijs uw snelheid in de VuurTest!"
+msgstr "Bewijs je snelheid in de VuurTest!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3344
 msgid "You have proven your worth! The ancients grant you a FLAG!"
-msgstr "U heeft bewezen waardig te zijn! De ouden belonen u met een VLAG!"
+msgstr "Je hebt bewezen waardig te zijn! De Ouden belonen je met een VLAG!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3345
 msgid "Prove your intelligence in the Test of Earth!"
-msgstr "Bewijs uw intelligentie in de AardeTest!"
+msgstr "Bewijs je intelligentie in de AardeTest!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3346
 msgid "You have proven your worth! The ancients grant you a SPRING!"
-msgstr "U heeft bewezen waardig te zijn! De ouden belonen u met een VEER!"
+msgstr "Je hebt bewezen waardig te zijn! De Ouden belonen je met een VEER!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3347
 msgid "Prove your dexterity in the Test of Air!"
-msgstr "Bewijs uw handigheid in de LuchtTest!"
+msgstr "Bewijs je handigheid in de LuchtTest!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3348
 msgid "You have proven your worth! The ancients grant you a NAIL!"
-msgstr "U heeft bewezen waardig te zijn! De ouden belonen u met een SPIJKER!"
+msgstr "Je hebt bewezen waardig te zijn! De Ouden belonen je met een SPIJKER!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
 #: po/level_i18n.cc:3349
 msgid "Prove your patience in the Test of Water!"
-msgstr "Bewijs uw geduld in de WaterTest!"
+msgstr "Bewijs je geduld in de WaterTest!"
 
 #  level: "Gods of Enigma"
 #  author: "moonpearl" email ""
@@ -4152,7 +4257,7 @@ msgid ""
 "Bwahahahaha!"
 msgstr ""
 "Dit kan niet waar zijn! Geen sterveling kan onze Heilige Oxyds bereiken! "
-"Bewijs uzelf nogmaals! Fwahahaha!"
+"Bewijs jezelf nogmaals! Bwahahahaha!"
 
 #  level: "Banana Republic"
 #  author: "Alain Busser" email ""
@@ -4163,7 +4268,7 @@ msgid ""
 "guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
 msgstr ""
 "Caramba!! El Dictator heeft muchos pesos in zijn kristallen kluis maar ook "
-"muchos costa guardia; Hay!! Arme Bola Negra heeft alleen frutos en een "
+"muchos costa guardia; Hay!! Arme Bola Negra heeft alleen fruitos en een "
 "lasero!!!"
 
 #  level: "A bayou by you"
@@ -4191,7 +4296,7 @@ msgstr "Wordt niet aangetrokken!"
 
 #  level: "Hobbyte"
 #  author: "Alain Busser" email ""
-#  comment: "an attempt has been made to imitate the language Aragorn uses in Tolkien's 'the 2 towers', which itself is an imitation of the ancient english Shakespeare wrote; the most faithful way to translate this is then to use a medieval-looking language."
+#  comment: "an attempt has been made to imitate the language Aragorn used in Tolkien's 'the 2 towers', which itself is an imitation of the ancient english Shakespeare wrote; the most faithful way to translate this is then to use a medieval-looking language."
 #: po/level_i18n.cc:3409
 msgid ""
 "Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
@@ -4200,6 +4305,13 @@ msgid ""
 "back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
 "lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
 msgstr ""
+"Machtig zijn de Ridders der Oude Dagen die de Elfse Oxydstenen hoeden,"
+"en talrijk de Geesten die je onderweg hinderen; talrijk ook de avonturiers" 
+"die proberen Aylendil het Zwaard te stelen maar geen keerde ooit terug."
+"Nevelig is het moeras waar de Magie van de Ouden begraven is; het nest van "
+"Whitehorse de Draak zul je vermijden uit angst hem te doen ontwaken ...'                            
+
+
 
 #  level: "Blet"
 #  author: "Alain Busser" email ""
@@ -4208,8 +4320,8 @@ msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares "
 "change as well; you must get as many green squares as possible."
 msgstr ""
-"Als u de kleur van een vierkant verandert, veranderen de kleuren van de 2 "
-"dichtstbijzijnde vierkanten ook; u moet zoveel mogelijk groene vierkanten "
+"Als je de kleur van een vierkant verandert, veranderen de kleuren van de 2 "
+"dichtstbijzijnde vierkanten ook; je moet zoveel mogelijk groene vierkanten "
 "krijgen."
 
 #  level: "Blet"
@@ -4219,7 +4331,7 @@ msgid ""
 "You are only allowed to change a color when it is surrounded by the other "
 "color."
 msgstr ""
-"U mag alleen een kleur veranderen als het omgeven is door de andere kleur."
+"Je mag alleen een kleur veranderen als het omgeven is door de andere kleur."
 
 #  level: "Elaborate"
 #  author: "Jacob Scott" email ""
@@ -4231,56 +4343,56 @@ msgstr "Het is niet zo makkelijk."
 #  author: "Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" email ""
 #: po/level_i18n.cc:3496
 msgid "Enigmas wildcat"
-msgstr ""
+msgstr "?Enigma's wildcat"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:3506
 #, fuzzy
 msgid "Welcome to Enigma X"
-msgstr "Welkom bij Enigma II"
+msgstr "Welkom bij Enigma X"               
 
 #  level: "Steering The Flood"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:3513
 msgid "Steering The Flood"
-msgstr ""
+msgstr "Bestuur de Vloed"
 
 #  level: "Interlude II"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:3524
 msgid "Interlude II"
-msgstr ""
+msgstr "Interlude II"
 
 #  level: "Volatile Storage"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:3546
 msgid "Volatile Storage"
-msgstr ""
+msgstr "Veranderlijke opslag"
 
 #  level: "Volatile Storage"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:3547
 msgid "Handle with care!"
-msgstr ""
+msgstr "Behandel voorzichtig"
 
 #  level: "Island Hopping III"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:3558
-msgid "Attention! One way ticket to the the island."
-msgstr ""
+msgid "Attention! One way ticket to the island."
+msgstr "Attentie! Enkele reis naar het eiland."
 
 #  level: "Suckerfish I"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:3578
-msgid "No clear view? How about visiting an opitician?"
-msgstr ""
+msgid "No clear view? How about visiting an optician?"
+msgstr "Geen helder zicht? Wat denk je van een bezoekje aan de opticien?"
 
 #  level: "Interlude III"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:3598
 msgid "Interlude III"
-msgstr ""
+msgstr "Interlude III"
 
 #  level: "Still Swapping?"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -4298,7 +4410,7 @@ msgstr "Heeft u uw vlag meegenomen?"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:3655
 msgid "... did it!"
-msgstr ""
+msgstr "... gedaan!"
 
 #  level: "Snugly Packed II"
 #  author: "Siegfried Fennig" email ""
@@ -4311,43 +4423,41 @@ msgstr "Niets kan ons tegenhouden!"
 #: po/level_i18n.cc:3703
 #, fuzzy
 msgid "Umbrellas protect you against oncoming boulder!"
-msgstr "Paraplu's beschermen u tegen boulders!"
+msgstr "Paraplu's beschermen u tegen boulders!"                 
 
 #  level: "Per.Oxyd 11"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3710
 msgid "Rest on the bright spot for a minute."
-msgstr ""
+msgstr "Rust een minuutje op de heldere plek."
 
 #  level: "Per.Oxyd 11"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:3711
 msgid "You'll do anything you're told!"
-msgstr ""
+msgstr "Je zult alles doen wat je wordt gezegd!"
 
 #  level: "Per.Oxyd #27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:3731
-#, fuzzy
 msgid "If you think that's too easy, try \"Difficulty: Normal\"."
 msgstr ""
-"Als u dat te makkelijk vindt, probeer het eens met moeilijkheidsgraad "
-"\"Normaal\"."
+"Als je dat te makkelijk vindt, probeer het met \"Moeilijkheidsgraad:  "
+"Normaal\"."
 
 #  level: "Per.Oxyd #27"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:3733
-#, fuzzy
 msgid "If you think that's too hard, try \"Difficulty: Easy\"."
 msgstr ""
-"Als u dat te moeilijk vindt, probeer het eens met moeilijkheidsgraad "
-"\"Makkelijk\"."
+"Als je dat te moeilijk vindt, probeer het met \"Moeilijkheidsgraad: "
+"Makkelijk\"."
 
 #  level: "Gardening Work"
 #  author: "Siegfried Fennig" email ""
 #: po/level_i18n.cc:3743
 msgid "Dig in ..."
-msgstr ""
+msgstr "Schep op"
 
 #  level: "Handle With Care"
 #  author: "Martin Hawlisch" email ""
@@ -4359,13 +4469,13 @@ msgstr "Sommige stenen en rijen stenen kunnen verplaatst worden!"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:3783
 msgid "Watch out for water holes!"
-msgstr ""
+msgstr "Let op de watergaten!"
 
 #  level: "Bodyguard"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:3794
 msgid "In the line of thieves"
-msgstr ""
+msgstr "In de linie van dieven"
 
 #  level: "Bodyguard"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4377,31 +4487,31 @@ msgstr "Sleutels van links naar rechts zijn NO, NW, ZO, ZW."
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:3818
 msgid "Mark stones burnable"
-msgstr ""
+msgstr "Gemerkte stenen branden"
 
 #  level: "jumping ball flash"
 #  author: "illmind" email "illmind@mag-heut.net"
 #: po/level_i18n.cc:3822
 msgid "illmind's jumping ball flash ..."
-msgstr ""
+msgstr "illmind's jumping ball flash ..."
 
 #  level: "jumping ball flash"
 #  author: "illmind" email "illmind@mag-heut.net"
 #: po/level_i18n.cc:3823
 msgid "... of heaven comes the beast from the ..."
-msgstr ""
+msgstr "... uit de hemel komt het beest van de ..."
 
 #  level: "jumping ball flash"
 #  author: "illmind" email "illmind@mag-heut.net"
 #: po/level_i18n.cc:3824
 msgid "... t r a p p e d ..."
-msgstr ""
+msgstr "...g e v a n g e n ..."
 
 #  level: "Rhapsody on Cracks"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:3832
 msgid "The real value of coffee"
-msgstr ""
+msgstr "De werkelijke waarde van koffie"
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4413,9 +4523,9 @@ msgid ""
 "to be a relic of the ancient Aztec empire. But the temple is in surprisingly "
 "good condition ..."
 msgstr ""
-"Welkom in Mexico! Acht uur geleden arriveerde uw vliegtuig op het \"Coatlicue"
-"\" vliegveld. Een klein dorp omgeven door onbekend jungle terrein. U bevindt "
-"zich nu voor een indrukwekkende tempel, die een overblijfsel uit de Azteekse "
+"Welkom in Mexico! Acht uur geleden arriveerde je vliegtuig op vliegveld \"Coatlicue\."
+"Een klein dorp omgeven door onbekend jungle terrein. Je bevindt je"
+"nu voor een indrukwekkende tempel, die een overblijfsel uit de Azteekse "
 "tijd lijkt te zijn. Maar de tempel is in verrassend goede staat ..."
 
 #  level: "The Aztec Temple"
@@ -4429,10 +4539,10 @@ msgid ""
 "relic a fortress\", you think, \"this cannot be legal, for Goshers received "
 "funding from the UK Government. I'll try to call him to account!\""
 msgstr ""
-"Naast de reusachtige deuren van de tempel ziet u een verchroomd bordje: "
+"Naast de reusachtige deuren van de tempel zie je een verchroomd bordje: "
 "\"Gerestaureerd door: G. G. Goshers, A.D. 1998\". En het kleinere bordje "
-"daaronder: \"Eigendom van G. G. Goshers. Verboden toegang!\". Nu ziet u de "
-"hondenkennels gebouwd langs de voorzijde van de tempel. U denkt \"Goshers "
+"daaronder: \"Eigendom van G. G. Goshers. Verboden toegang!\". Nu zie je de "
+"hondenkennels gebouwd langs de voorzijde van de tempel. Je denkt \"Goshers "
 "heeft een fort gemaakt van deze oude tempel\", \"dit kan niet toegestaan "
 "zijn, aangezien Goshers geld heeft gekregen van de overheid van het VK. Ik "
 "zal hem eens bellen ter verantwoording!\""
@@ -4460,7 +4570,7 @@ msgid ""
 "you touch could be the last thing you touch!\""
 msgstr ""
 "Er is een inscriptie op de oude muur, met in het Spaans de tekst: \"Pas op! "
-"Wat u aanraakt kan het laatste zijn dat u zult aanraken!\""
+"Wat je aanraakt kan het laatste zijn dat je zult aanraken!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4482,10 +4592,10 @@ msgid ""
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
 "chrome signs. It says: \"Natives’ prison\"."
 msgstr ""
-"Dit gebouw hier beneden lijkt op een gevangen. Eens kijken of ik achter het "
+"Dit gebouw hier beneden lijkt op een gevangenis. Eens kijken of ik achter het "
 "doel ervan kan komen ... Ah, weer een verchroomd bordje. Goshers lijkt van "
-"verchroomde bordjes te houden. De tekst erop: \"Gevangenis voor inboorlingen"
-"\"."
+"verchroomde bordjes te houden. De tekst luidt: \"Gevangenis voor inboorlingen\"."   
+
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4494,7 +4604,7 @@ msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
 msgstr ""
-"Het was een goed idee om de gevangenis voorbij te gaan. Maar nu moet u dit "
+"Het was een goed idee om de gevangenis voorbij te gaan. Maar nu moet je dit "
 "meer oversteken. Wees zuinig met deze dozen!"
 
 #  level: "The Aztec Temple"
@@ -4507,12 +4617,12 @@ msgid ""
 "of the Aztecs. It might be helpful to be accompanied by someone, who knows "
 "the secrets of the jungle and this temple ..."
 msgstr ""
-"Nu, terwijl u door de ramen van de gevangis kijkt, ziet u een gevangen "
+"Nu, terwijl je door de ramen van de gevangis kijkt, zie je een gevangen "
 "vrouwelijke inboorling. Het lijkt er op dat Goshers alle inboorlingen "
 "gevangen heeft genomen, die hem gestoord hebben bij zijn \"werk\"; proberen "
 "de tempel binnen te komen en rijk te worden van de schatten van de Azteken. "
 "Het kan handig zijn om vergezeld te worden door iemand die de geheimen van "
-"de jungele en deze tempel kent ..."
+"de jungle en deze tempel kent ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4536,8 +4646,8 @@ msgid ""
 "Xila!\", you tell him in broken English. After he introduced himself as "
 "well, both of you begin to work out a plan against the evil G. G. Goshers."
 msgstr ""
-"U ontmoet de Engelse avonturier voor de gevangenis. \"Hallo, ik ben Xila!\", "
-"zeg u in gebroken Engels. Nadat hij zich ook heeft voorgesteld beginnen "
+"Je ontmoet de Engelse avonturier voor de gevangenis. \"Hallo, ik ben Xila!\", "
+"zeg je in gebroken Engels. Nadat hij zich ook heeft voorgesteld beginnen "
 "jullie een plan te maken tegen de slechte G. G. Goshers."
 
 #  level: "The Aztec Temple"
@@ -4554,7 +4664,7 @@ msgstr ""
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:3864
 msgid "You wonder what this switch could trigger."
-msgstr "U vraagt u af waar deze schakelaar voor dient."
+msgstr "Je vraagt je af waar deze schakelaar voor dient."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4566,13 +4676,13 @@ msgstr "Xila weet hoe ze een meer moet laten leeglopen!"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:3866
 msgid "You were lucky to find this hole. It prevents you from drowning."
-msgstr "U heeft geluk gehad dat u dit gat vond. Het voorkomt dat u verdrinkt."
+msgstr "Je hebt geluk gehad dat je dit gat vond. Het voorkomt dat je verdrinkt."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:3867
 msgid "This glass stone must fulfill a purpose ..."
-msgstr "Deze glazen steen heeft niet noodzakelijk een doel ..."
+msgstr "Deze glazen steen moet toch ergens voor dienen ..."
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4595,7 +4705,7 @@ msgid ""
 "very dangerous. Without a sword you'll never be able to enter. Be careful. "
 "There are not only knights, but also thieves."
 msgstr ""
-"Nadat de enorme deuren van de oude tempel open gingen, ziet u, dat de ingang "
+"Nadat de reusachtige deuren van de oude tempel open gingen, ziet u, dat de ingang "
 "bewaakt wordt door 11 ridders, bewapend met speren. Deze bewakers zijn erg "
 "gevaarlijk. Zonder een zwaard zal het u nooit lukken binnen te komen. Wees "
 "voorzichtig. Er zijn niet alleen ridders, maar ook dieven."
@@ -4605,7 +4715,7 @@ msgstr ""
 #: po/level_i18n.cc:3871
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
 msgstr ""
-"\"Gefeliciteerd. Het is u gelukt deze oude Azteekse tempel binnen te gaan.\""
+"\"Gefeliciteerd. Het is je gelukt deze oude Azteekse tempel binnen te gaan.\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4614,7 +4724,7 @@ msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
 msgstr ""
-"\"U bent slimmer dan ik dacht. Maar u zult nooit de schatkamer bereiken of "
+"\"Je bent slimmer dan ik dacht. Maar je zult nooit de schatkamer bereiken of "
 "hieruit ontsnappen!\""
 
 #  level: "The Aztec Temple"
@@ -4625,13 +4735,13 @@ msgid ""
 "by just killing you!\""
 msgstr ""
 "\"Ik, Goshers, kan me ontdoen van een van mijn aardsvijanden simpelweg door "
-"u te vermoorden!\""
+"je te vermoorden!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
 #: po/level_i18n.cc:3874
 msgid "\"Run for your life!\""
-msgstr "\"Ren voor uw leven!\""
+msgstr "\"Ren voor je leven!\""
 
 #  level: "The Aztec Temple"
 #  author: "Dominik Lehmann" email ""
@@ -4642,26 +4752,32 @@ msgid ""
 "ended the evil career of Gerald Gregory Goshers. Congratulations on the "
 "success of your expedition!"
 msgstr ""
+"Xila en jij zijn zojuist de Diamant Kamer van de oude Aztectempel binnen gegaan. Door"
+"hem mee terug te nemen naar Groot Brittannië en aan de politie uit te leveren, heb je"
+"de kwaadaardige carrière van Gerald Gregory Goshers beëindigd. Gefeliciteerd met het"
+"succes van je expeditie!"
 
 #  level: "Oxyd Drilling"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3879
 msgid "Useful unsuccessful drillings"
-msgstr ""
+msgstr "Bruikbare mislukte boringen"
 
 #  level: "Pleasure Garden"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3896
 msgid "Pleasure Garden"
-msgstr ""
+msgstr "Pleziertuin"
 
 #  level: "Pleasure Garden"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3897
 msgid ""
-"Quickly ...                                                                             "
+"Quickly ..."
 "or trickily!"
 msgstr ""
+"Snel ..."
+"of verraderlijk!"
 
 #  level: "Edwards Mountain"
 #  author: "Edward" email ""
@@ -4673,19 +4789,19 @@ msgstr "Edwards Berg"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:3912
 msgid "Toreador"
-msgstr "Toreador"
+msgstr "Stierenvechter"
 
 #  level: "One-Way Woods"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3917
 msgid "One-Way Woods"
-msgstr ""
+msgstr "Eenrichtingsverkeer"
 
 #  level: "One-Way Woods"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3918
 msgid "Recycling by Swapping"
-msgstr ""
+msgstr "Hergebruik door wisselen"
 
 #  level: "Blitz Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
@@ -4715,13 +4831,13 @@ msgstr "Welkom bij Enigma VI"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3964
 msgid "Magic Trinity"
-msgstr ""
+msgstr "Magische Drieëenheid"
 
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:3969
 msgid "The art of steering a quadriga"
-msgstr "Het besturen van een quadriga"
+msgstr "Het besturen van een vierspan"
 
 #  level: "Ben Hur"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4757,9 +4873,8 @@ msgstr "Er zijn minimaal twee patronen om door de muur heen te breken."
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
 #: po/level_i18n.cc:3996
-#, fuzzy
 msgid "It is a well known secret that a few prisoners did escape."
-msgstr "Het is een bekend geheim dat een aantal gevangenen zijn ontsnapt."
+msgstr "Het is een publiek geheim dat een aantal gevangenen is ontsnapt."
 
 #  level: "Alcatraz"
 #  author: "Ralf Westram" email ""
@@ -4771,56 +4886,55 @@ msgstr "Een raam in de muur zou erg leuk zijn."
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4011
 msgid "Sorry, this switch is currently out of order."
-msgstr ""
+msgstr "Sorry, deze schakelaar is tijdelijk buiten dienst."
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4013
 msgid "As I already told you, this switch is out of order!"
-msgstr ""
+msgstr "Zoals ik je al zei, deze schakelaar is buiten dienst!"
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4015
 msgid "How often are you going to try this?"
-msgstr ""
+msgstr "Hoe vaak ga je dit nog proberen?"
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4017
 msgid "Did anything happen? I'm not sure ..."
-msgstr ""
+msgstr "Gebeurde er iets? Ik weet het niet zeker ..."
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4019
-#, fuzzy
 msgid "Congrats, now it works again!"
-msgstr "Gefeliciteerd! (of probeer opnieuw)"
+msgstr "Gefeliciteerd! Nu functioneert het weer"
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4021
 msgid "No hints available at the moment."
-msgstr ""
+msgstr "Momenteel geen hints beschikbaar"
 
 #  level: "The Passage"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4023
 msgid "There is a passage right beneath this stone!"
-msgstr ""
+msgstr "Er is een doorgang precies onder deze steen!"
 
 #  level: "Correspondence Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:4031
 msgid "Correspondence Chess"
-msgstr ""
+msgstr "Correspondentie Schaak"
 
 #  level: "Correspondence Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:4033
 msgid "Send smartly!"
-msgstr ""
+msgstr "Verstuur slim!"
 
 #  level: "Tarzan"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -4838,49 +4952,49 @@ msgstr "illminds wees snel of dood"
 #  author: "Edward" email ""
 #: po/level_i18n.cc:4070
 msgid "Dialers"
-msgstr ""
+msgstr "Wijzers"
 
 #  level: "Tandem Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:4084
 msgid "Tandem Chess"
-msgstr ""
+msgstr "Duo Schaak"
 
 #  level: "Tandem Chess"
 #  author: "Lukas Schüller" email "Lucky_Luc@web.de"
 #: po/level_i18n.cc:4086
 msgid "Work together!"
-msgstr ""
+msgstr "Samenwerken!"
 
 #  level: "Polar Bears' Paradise"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:4103
 msgid "Polar Bears' Paradise"
-msgstr ""
+msgstr "IJsberen paradijs"
 
 #  level: "Polar Bears' Paradise"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:4105
 msgid "Witch Hunt on Ice"
-msgstr ""
+msgstr "Heksenjacht op IJs"
 
 #  level: "Check the light"
 #  author: "JuSt" email ""
 #: po/level_i18n.cc:4119
 msgid "Are chess knights resistent to laser beams?"
-msgstr ""
+msgstr "Zijn de paarden bestand tegen laserstralen?"
 
 #  level: "Rotor Guards"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4127
 msgid "Rotor Guards"
-msgstr ""
+msgstr "Rotorbewakers"
 
 #  level: "Rotor Guards"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4129
 msgid "Hoisting guards with their own petard"
-msgstr ""
+msgstr "Bewakers verschalken met hun eigen voetzoeker"
 
 #  level: "Meditation Disturbance"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4900,14 +5014,14 @@ msgstr "Geraakt door een op hol geslagen paard"
 #  comment: "Escape as unchaining"
 #: po/level_i18n.cc:4152
 msgid "Escape by Chaining Thieves"
-msgstr ""
+msgstr "Ontsnap door dieven in de boeien te slaan"
 
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #  comment: "Characters of Michael Ende's fantasy novel 'The Neverending Story'"
 #: po/level_i18n.cc:4155
 msgid "Remember Atreyu's horse Atrax!"
-msgstr "Onthoud Atreyu's paard Atrax!"
+msgstr "Herinner je Atreyu's paard Atrax!"
 
 #  level: "Houdini"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -4937,7 +5051,7 @@ msgstr "Een gesloten deur geeft een beter overzicht!"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:4186
 msgid "Charging live ammunition"
-msgstr ""
+msgstr "Laden met levende munitie"
 
 #  level: "Procrustes"
 #  author: "Andreas Lochmann" email ""
@@ -4955,19 +5069,19 @@ msgstr "Speel op tijd de bal over"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4216
 msgid "Hot Hurdle Race"
-msgstr "Hete Hordeloop"
+msgstr "Vurige Hordeloop"
 
 #  level: "Hot Hurdle Race"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4218
 msgid "Run for your life!"
-msgstr "Ren voor uw leven!"
+msgstr "Ren voor je leven!"
 
 #  level: "Choices, choices ..."
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4288
 msgid "Choices, choices ..."
-msgstr ""
+msgstr "Keuzes, keuzes"
 
 #  level: "Choices, choices ..."
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -4976,24 +5090,25 @@ msgid ""
 "Before trying this level in hard mode, it's a good idea to switch to easy "
 "mode to practice on the individual puzzles."
 msgstr ""
+"Oefen de puzzels apart in de makkelijke modus, voordat je de moeilijke modus speelt."
 
 #  level: "Choices, choices ..."
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4290
 msgid "These dispensers are all empty ..."
-msgstr ""
+msgstr "Deze automaten zijn allemaal leeg"                              
 
 #  level: "Choices, choices ..."
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4291
 msgid "The glass next to this document can be pushed to let you back out."
-msgstr ""
+msgstr "Het glas naast het document zit voor de uitgang"
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4302
 msgid "Poe's Nightmare"
-msgstr ""
+msgstr "Poe's Nachtmerrie"
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5001,7 +5116,8 @@ msgstr ""
 msgid ""
 "You find yourself in a dark, damp chamber. There's a light switch to the "
 "northeast and a passage to the west."
-msgstr ""
+msgstr "Je bevind je in een donkere vochtige ruimte. Er is een lichtschakelaar"
+"in het noordoosten en een doorgang in het westen."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5010,6 +5126,8 @@ msgid ""
 "The corridor leads northwards and opens into a dim lit room packed with "
 "crates. You have an uneasy feeling about what lies ahead of you."
 msgstr ""
+"De gang leidt noordwaarts naar een schemerige kamer volgepakt met kratten"
+"Je hebt een onbehaaglijk gevoel over wat je te wachten staat."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5018,6 +5136,8 @@ msgid ""
 "Huh, that was close. The way behind you is blocked. Maybe you should look "
 "for a place to leave a flag?!"
 msgstr ""
+"Hu, dat was op het nippertje. De weg achter je is geblokkeerd. Misschien"
+"je een plek zoeken om een vlag neer te leggen."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5027,6 +5147,8 @@ msgid ""
 "leads to a large pendulum. At the wall you see a hole where your flag fits "
 "in. What now?"
 msgstr ""
+In het oosten is de doorgang geblokkeerd door laserstralen. In het westen"
+"leidt een tunnel naar een grote slinger. In de muur zie je een gat waar de vlag in kan. Wat nu?
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5035,6 +5157,8 @@ msgid ""
 "Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
 "may lurk behind the next corner?"
 msgstr ""
+"Krimpende kamers, een slinger met vlijmscherpe bladen, laserstralen ... wat"
+"loert er om de volgende hoek?"
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5043,12 +5167,14 @@ msgid ""
 "The room to the east does not look very stable, but does the passage to the "
 "south lead anywhere?"
 msgstr ""
+"De kamer in het oosten lijkt niet erg stabiel, maar gaat de doorgang in het"
+"zuiden ergens naar toe?"
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4316
 msgid "Hmmm, these keys might prove useful."
-msgstr ""
+msgstr "Hmmm, deze sleutels kunnen handig zijn."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5057,12 +5183,14 @@ msgid ""
 "Passing by the entrance you get a glimpse of the room to the south ... and "
 "suddenly feel very uneasy."
 msgstr ""
+"Naar binnengaand zie je een glimp van de kamer in het zuiden ... en"
+"plotseling voel je je niet op je gemak."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4320
 msgid "Uh-oh, the steps leading down are small and extremely slippery."
-msgstr ""
+msgstr "O.o, de treden naar beneden zijn smal en uitermate slipperig.""
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
@@ -5071,18 +5199,20 @@ msgid ""
 "The passage opens into a room with a huge iron door to the east. The air "
 "seems to smell much fresher here."
 msgstr ""
+"De doorgang leidt naar een kamer met in het oosten een reusachtige"
+"ijzeren deur. De lucht lijkt hier frisser te ruiken."
 
 #  level: "Poe's Nightmare"
 #  author: "Ulf Stegemann" email "ulf-enigma@zeitform.de"
 #: po/level_i18n.cc:4324
 msgid "Congratulations! You've survived Poe's Nightmare."
-msgstr ""
+msgstr "Gefeliciteerd! Je hebt Poe's nachtmerrie overleefd."
 
 #  level: "Escape in Chains"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4347
 msgid "Beware of shady mates!"
-msgstr ""
+msgstr "Pas op voor duistere vrienden!"
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5091,12 +5221,14 @@ msgid ""
 "Each of the 6 women has a profession; and each of them carries or wears only "
 "one of the items."
 msgstr ""
+"Alle 6 vrouwen hebben een beroep; en ieder van hen draagt slechts één van de"
+"voorwerpen.
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:4354
 msgid "Miss Black's best friends are the poet and the locksmith."
-msgstr ""
+msgstr "Mevrouw Black's beste vrienden zijn de dichter en de slotenmaker"
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5104,12 +5236,14 @@ msgstr ""
 msgid ""
 "Miss Black, Miss White and Miss Pearl are impressed by the magician's talent."
 msgstr ""
+"Mevrouw Black, Mevrouw White en Mevrouw Pearl zijn onder de indruk van het talent"
+"van de goochelaar."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:4358
 msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
-msgstr ""
+msgstr "Mevrouw Pearl vertelt grappen aan de dichter, de hacker en de slotenmaker."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5118,18 +5252,20 @@ msgid ""
 "The hacker, the locksmith and the firewoman enjoy looking at their "
 "reflection in the glasses."
 msgstr ""
+"De hacker, de slotenmaker en de brandweervrouw genieten van hun weerspiegeling"
+"in hun bril."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:4362
 msgid "The magician carries the umbrella."
-msgstr ""
+msgstr "de goochelaar draagt de paraplu"
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:4364
 msgid "Neither the magician nor the firewoman are permitted to wear the ring."
-msgstr ""
+msgstr "Noch de goochelaar noch de brandweervrouw mogen de ring dragen."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5137,6 +5273,8 @@ msgstr ""
 msgid ""
 "Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
 msgstr ""
+"Mevrouw Zwart, Mevrouw White en Mevrouw Rotor houden ervan het meisje met"
+"de ring te plagen."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5145,6 +5283,8 @@ msgid ""
 "Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
 "bag and certainly not a weight."
 msgstr ""
+"Mevrouw Top is liever onbelemmerd; ze draagt geen paraplu, geen tas, en zeker"
+"geen gewicht."
 
 #  level: "Mike's hammer"
 #  author: "Alain Busser" email ""
@@ -5152,49 +5292,49 @@ msgstr ""
 msgid ""
 "Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
 msgstr ""
+"Soms helpen Mevrouw White en Mevrouw Pearl hun vriendin met het dragen van het gewicht."
 
 #  level: "Once, No More No Less"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4380
 msgid "Once, No More No Less"
-msgstr ""
+msgstr "Één keer, niet Meer niet Minder"
 
 #  level: "Seasonal Timings"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4387
 msgid "Seasonal Timings"
-msgstr ""
+msgstr "Seizoensgebonden"
 
 #  level: "Seasonal Timings"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4388
 msgid "5, 8, or 10 seconds?"
-msgstr ""
+msgstr "5, 8 of 10 seconden?"
 
 #  level: "Wired Pulls"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:4392
 msgid "and do not destroy the puzzles"
-msgstr ""
+msgstr "en vernietig de puzzels niet"
 
 #  level: "Welcome"
 #  author: "Raoul Bourquin" email ""
 #: po/level_i18n.cc:4398
-#, fuzzy
 msgid "Welcome to Enigma IX"
-msgstr "Welkom bij Enigma II"
+msgstr "Welkom bij Enigma IX"
 
 #  level: "Interlude I"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:4427
 msgid "Interlude I"
-msgstr ""
+msgstr "Interlude I"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4438
 msgid "With respects to Dante Alighieri"
-msgstr ""
+msgstr "met respect voor Dante Alighieri"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5204,6 +5344,8 @@ msgid ""
 "leave it switched off, if you like to face easier challenges with less "
 "jokers."
 msgstr ""
+"Zet aan, als je liever de gewone moeilijkheidsgraad speelt met veel jokers, of"
+"laat het uit, als je liever de makkelijke uitdaging aangaat met minder jokers,
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5213,6 +5355,8 @@ msgid ""
 "BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
 "ABANDON ALL HOPE, YOU WHO ENTER HERE."
 msgstr ""
+"VÓÓR MIJ ER WAS NIETS DAN EEUWIGHEID, / OOK IK DUUR EEUWIG. / "
+"gEEF OP AL HOOP, GIJ DIE HIER BINNENGAAT."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5222,6 +5366,8 @@ msgid ""
 "...stilled the shaggy jowls / of the pilot of the livid marsh, / about whose "
 "eyes burned wheels of flame."
 msgstr ""
+"... kalmeerden de ruige wangen / van de oude veerman-op-het-grauwe-water, /die"
+"vlammekringen had rondom zijn ogen."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5234,6 +5380,12 @@ msgid ""
 "symbol of life on that altar to keep the guards at bay, and then perhaps I "
 "will consider taking you across."
 msgstr ""
+"Ik ben Charon, veerman van de onderwereld. Ik zal je door de gevaarlijke moerassen"
+"van Acheron loodsen, maar het is niet goedkoop.                      Wacht!"
+"Je lijkt nog levend te zijn ..."
+"Dat kan niet zijn -- alleen de doden mogen hier binnengaan. Snel -- offer een"
+"symbool voor leven op dat altaar om de wachters tegen te houden, en dan, misschien, zal ik"
+"er over denken je over te zetten."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5246,6 +5398,12 @@ msgid ""
 "me kind of worried -- I think he's plotting something.  If he has a coin, "
 "maybe you could get it from him somehow."
 msgstr ""
+"Prima. De duivels en geesten die deze plaats bewaken geloven nu misschien"
+"dat je echt dood bent, maar ik zou nog steeds heel voorzichtig zijn, als ik"
+"jou was...                                          Maar je hebt nog steeds"
+"een munt nodig. Hmm, normaal zou ik dit niet doen, maar dat figuur daar baart me"
+"zorgen -- Ik denk dat hij iets van plan is. Als hij een munt heeft, "
+"kun je die misschien op één of andere manier van hem krijgen."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5255,6 +5413,8 @@ msgid ""
 "yourself of anything that could be interpreted as a sign of life.  Now "
 "begone!"
 msgstr ""
+"Nee, ik zet je niet over zolang je geen echt offer pleegt, bevrijdt jezelf van"
+"alles dat als een teken van leven kan worden opgevat. Nu, verdwijn!"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5264,6 +5424,8 @@ msgid ""
 "...for then I knew that beings of great worth / were here suspended in this "
 "Limbo."
 msgstr ""
+"...pas toen wist ik dat wezens van grote waarde / hier in dit voorgeborchte"
+"moesten verblijven."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5272,12 +5434,14 @@ msgid ""
 "You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
 "back now, or forever face the consequences!"
 msgstr ""
+Jij kunt niet hier zijn! Ik, Minos, rechter van de doden, zal het niet toestaan. Ga"
+"terug nu, of aanvaardt voor eeuwig de gevolgen!"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4459
 msgid "In that case, then begone!"
-msgstr ""
+msgstr "In dat geval, dan verdwijn!"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5287,6 +5451,8 @@ msgid ""
 "There stands Minos, snarling, terrible. / He examines each offender at the "
 "entrance, / judges and dispatches as he encoils himself."
 msgstr ""
+"Daar staat Minos, grauwend en snauwend. / Hij onderzoekt iedere overtreder bij de "
+"ingang, / oordeelt en verwijst, zijn staart kronkelend."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5296,6 +5462,8 @@ msgid ""
 "The hellish squall, which never rests, / sweeps spirits in its headlong "
 "rush..."
 msgstr ""
+"De helse windvlaag, die nooit rust, / veegt geesten voorover ten val... 
+
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5305,6 +5473,8 @@ msgid ""
 "I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
 "changeless in its monotony."
 msgstr ""
+"Ik ben in de derde cirkel, van eeuwige, / gehate regen, koud en loodzwaar, /"
+"onveranderlijk monotoon."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5315,6 +5485,9 @@ msgid ""
 "forward with their chests. / They crashed into each other, turned / and beat "
 "retreat, shoving their loads and shouting..."
 msgstr ""
+"... zij, luid krijsend, / van tegenoverliggende zijden / verschoven lasten"
+"voorwaarts met hun borst. / Zij botsten op elkaar, draaiden om / bliezen de aftocht / "
+"duwden hun ladingen, schreeuwend ..."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5326,6 +5499,10 @@ msgid ""
 "see / people with angry faces in that bog, / naked, their bodies smeared "
 "with mud."
 msgstr ""
+"Deze droeve geul, zodra het bereikt / de verderfelijke grauwe hellingen, /"
+"mondt uit in het moeras Styx geheten. / En ik, mijn blik gefixeerd, zag / "
+" mensen met kwade tronies in dat slijk, / naakt, hun lichamen met modder "
+"besmeurd. /"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5335,6 +5512,8 @@ msgid ""
 "...we approach the city known as Dis, / with its vast army and its burdened "
 "citizens."
 msgstr ""
+"... we naderen de stad, bekend als Dis, / met zijn leger "
+"zwaarbelaste burgers."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5346,6 +5525,10 @@ msgid ""
 "Let him be gone, / who has so boldly made his way into this kingdom. / 'Let "
 "him retrace his reckless path alone..."
 msgstr ""
+"Op de drempel zag ik meer dan duizend wezens / uit de Hemel verbannen..."
+"zij beteugelden hun grote ongenoegen / genoeg te zeggen: 'Jij komt -- alleen. "
+"Laat hem verdwijnen, / die zo stoutmoedig zijn weg in dit Rijk gevonden heeft. /"
+"''Laat hem alleen op zijn roekeloze schreden terugkeren..."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5355,6 +5538,8 @@ msgid ""
 "Now my master takes a hidden / path between the city's ramparts and the "
 "torments, / and I come close behind him..."
 msgstr ""
+"Nu neemt mijn Meester een verborgen / pad tussen de versterkingen van de "
+"stad en de kwellingen, / en ik loop vlak achter hem ..."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5363,6 +5548,8 @@ msgstr ""
 msgid ""
 "...his hands, ready, encouraging, / thrust me towards him among the tombs."
 msgstr ""
+"... zijn handen, klaar, aanmoedigend, / werpen me in zijn richting tussen"
+"de graven."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5374,6 +5561,10 @@ msgid ""
 "artful guide / called out: 'Run to the passage: / hurry down while he is in "
 "his fury.'"
 msgstr ""
+"Gelijk de stier, die met geweld zich losrukt / juist als hij de doodsteek"
+"heeft ontvangen / en niet verder kan, maar her- en derwaarts tuimelt, // zo ging"
+"de Minotaur te keer. Mijn kundige gids / riep uit: 'Ren naar de doorgang: / "
+"Haast je, terwijl hij tekeergaat.'"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5383,6 +5574,8 @@ msgid ""
 "...we went on, / skirting the edge of the vermilion boil / from which the "
 "boiled cried out with piercing shrieks."
 msgstr ""
+"...we trokken verder, / rakelings langs het kokendhete purper / van waaruit"
+"de gekookten hartverscheurend krijsten. "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5392,6 +5585,8 @@ msgid ""
 "Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
 "with doleful prophecies of woe to come."
 msgstr ""
+"Hier nestelen de afzichterlijke harpijen, / die de Trojanen van de Strofaden "
+"verdreven / met droevige voorspellingen van naderend onheil. "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5401,6 +5596,7 @@ msgid ""
 "... Here, at the very edge, we stayed our steps / at an expanse of deep and "
 "arid sand..."
 msgstr ""
+"... Hier bleven we stilstaan, aan de zoom / van een vlakte van diep en droog zand "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5410,6 +5606,8 @@ msgid ""
 "A path that circles like a belt around / the base of that high rock runs "
 "round the pit, / its sides descending in ten ditches."
 msgstr ""
+"Een pad dat slingert - als een riem - rond / de voet van die torenhoge rots "
+"loopt naar de diepte, / zijn zijden dalen neer in tien valleien. "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5421,6 +5619,10 @@ msgid ""
 "under its frigid sky, / cover their currents with so thick a veil / as I saw "
 "there."
 msgstr ""
+"Onder mijn voeten zag ik een meer / zo bevroren dat het meer glas leek dan water. /"
+"Nooit in de winter zag ik de Oostenrijkse Donau / noch de verdergelegen Don, "
+"onder zijn ijskoude hemel, / hun stroom bedekken met zo'n dikke sluier / als "
+"ik daar zag. "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5430,6 +5632,8 @@ msgid ""
 "...we made our way toward the center, / where all things that have weight "
 "converge, / and I was shivering in the eternal chill..."
 msgstr ""
+"... we baanden ons een weg naar het midden, / waar alles dat gewicht heeft "
+"samenkomt, / en ik huiverde in de eeuwige koude ..."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5439,6 +5643,8 @@ msgid ""
 "It is no enterprise undertaken lightly -- / to describe the very bottom of "
 "the universe..."
 msgstr ""
+"Het is geen taak gemakkelijk ondernomen -- / om de bodem van het universum"
+"te beschrijven..."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5449,6 +5655,9 @@ msgid ""
 "and I in size am closer to a giant / than giants are when measured to his "
 "arms."
 msgstr ""
+"De keizer van het rijk der smarten / ontsteeg het ijs vanaf zijn borst, / "
+"en ik ben in grootte een reus nabij / dan reuzen zijn, afgemeten aan zijn "
+"armen. "
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5457,60 +5666,62 @@ msgid ""
 "You refused many times to leave my kingdom -- now you shall pay the "
 "consequences for your foolishness!"
 msgstr ""
+"Je weigerde diverse malen mijn rijk te verlaten -- nu zul je voor de gevolgen"
+"van je dwaasheid betalen!"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4517
 msgid "Faithlessness"
-msgstr ""
+msgstr "Ontrouw"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4519
 msgid "Lust"
-msgstr ""
+msgstr "Begeerte"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4521
 msgid "Gluttony"
-msgstr ""
+msgstr "Gulzigheid"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4523
 msgid "Avarice"
-msgstr ""
+msgstr "Hebzucht"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4525
 msgid "Sloth"
-msgstr ""
+msgstr "Luiheid"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4527
 msgid "Heresy"
-msgstr ""
+msgstr "Ketterij"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4529
 msgid "Violence"
-msgstr ""
+msgstr "Geweld"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4531
 msgid "Fraud"
-msgstr ""
+msgstr "Bedrog"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4533
 msgid "Treachery"
-msgstr ""
+msgstr "Verraad"
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5518,6 +5729,8 @@ msgstr ""
 #: po/level_i18n.cc:4536
 msgid "...passed the point / to which all weights are drawn from every side."
 msgstr ""
+"...voorbij het punt / waartoe al het gewicht van alle kanten wordt"
+"aangetrokken."
 
 #  level: "The Inferno"
 #  author: "Jacob Scott" email ""
@@ -5528,12 +5741,15 @@ msgid ""
 "those fair things the heavens bear. / Then we came forth, to see again the "
 "stars."
 msgstr ""
+"...omhoog geklommen... ver genoeg om te zien, door een ronde opening, / een paar"
+"van de schoonste zaken die de hemelen herbergen. / Toen kwamen we te voorschijn, 
+"om nog eens de sterren te zien. "
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4555
 msgid "Build me a Sokoban"
-msgstr ""
+msgstr "Bouw een Sokoban"
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5542,6 +5758,8 @@ msgid ""
 "Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
 "solve. The seeds grow into boxes; the dice grow into walls."
 msgstr ""
+"Bouw een oplosbare Sokoban voor me, die me 30 zetten of meer kost om op te "
+"lossen. De zaden groeien uit tot stenen; de dobbelstenen tot muren."
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5550,6 +5768,8 @@ msgid ""
 "Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
 "solve. The seeds grow into boxes; the dice grow into walls."
 msgstr ""
+"Bouw een oplosbare Sokoban voor me, die me 25 zetten of meer kost om op te "
+"lossen. De zaden groeien uit tot stenen; de dobbelstenen tot muren."
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5558,6 +5778,9 @@ msgid ""
 "I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
 "next time make sure the boxes finish growing before hitting the switch."
 msgstr ""
+"Ik kan deze puzzel niet oplossen; er zijn niet genoeg stenen! Gebruik de "
+"lepel en zorg er de volgende keer voor dat de stenen volgroeid zijn alvorens"
+"de schakelaar aan te raken."
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5566,6 +5789,8 @@ msgid ""
 "I don't think that puzzle can be solved. If you think you can prove me "
 "wrong, go get the oxyd!"
 msgstr ""
+"Ik denk niet dat de puzzel opgelost kan worden. Als je denkt dat je mijn ongelijk"
+"kan bewijzen, ga naar de oxyd!"
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5573,61 +5798,64 @@ msgstr ""
 msgid ""
 "That puzzle was too easy! Use the spoon, and give me a harder one next time!"
 msgstr ""
+"Die puzzel was te makkelijk! Gebruik de lepel en geef me volgende keer een moeilijke!"
 
 #  level: "Nabokos"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4561
 msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
 msgstr ""
+"Dank je wel voor de uitmuntende puzzel, ik genoot werkelijk van het oplossen!"
 
 #  level: "more is not less"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:4570
 msgid "more is not less"
-msgstr ""
+msgstr "meer is niet minder"
 
 #  level: "more is not less"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:4573
 msgid "Sorry, but in difficult mode you need more ... Restart."
-msgstr ""
+msgstr "Sorry, maar op de moeilijke manier heb je meer nodig ... Restart"
 
 #  level: "Naoussa"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:4577
 msgid "Use ~all~ Stones"
-msgstr ""
+msgstr "Gebruik~alle~Stenen"
 
 #  level: "Marching Formation"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4614
 msgid "Marching Formation"
-msgstr ""
+msgstr "Marcheer Formatie"
 
 #  level: "Marching Formation"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4615
-#, fuzzy
 msgid "No sharing!"
-msgstr "Het is een ring!"
+msgstr "Niet delen!"
 
 #  level: "Trickshot?"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:4653
 msgid "Trickshot?"
-msgstr ""
+msgstr "Trucschot?"
 
 #  level: "Trickshot?"
 #  author: "/dev/null" email ""
 #: po/level_i18n.cc:4655
 msgid "Sorry. The trickshot is not available in easy mode."
-msgstr ""
+msgstr "Sorry. Het trucschot is in de gemakkelijke versie niet beschikbaar.""
 
 #  level: "Su Dyxo"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4659
 msgid "Place 9 different items in each row, column, and 3x3 box."
 msgstr ""
+"Leg 9 verschillende voorwerpen in iedere rij, kolom, "
+"en 3x3 vierkant"
 
 #  level: "Su Dyxo"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
@@ -5637,24 +5865,30 @@ msgid ""
 "see if any of your items are misplaced, or which locations you can deduce "
 "items for next; you can only get 1 hint per minute this way, though."
 msgstr ""
+"Leg 9 verschillende voorwerpen in iedere rij, kolom, en 3x3 vierkant. Tik de"
+"schakelaar aan en kijk of voorwerpen verkeerd zijn geplaatst, of op welke plaatsen"
+"je volgende voorwerpen kunt plaatsen; je kunt op deze manier echter maar één hint"
+"per minuut krijgen."
 
 #  level: "Babylon"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:4667
-msgid "This is Babylon. Be careful, stranger! It's dangerous to go insid"
+msgid "This is Babylon. Be careful, stranger! It's dangerous to go inside"
 msgstr ""
+"Dit is Babylon. Wees voorzichtig, vreemdeling! Het is gevaarlijk"
+"binnen te treden"
 
 #  level: "Babylon"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:4670
 msgid "Try to find the mechanism to open the gate, stranger"
-msgstr ""
+msgstr "Zoek het mechanisme om de poort te openen, vreemdeling"
 
 #  level: "Babylon"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:4671
 msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
-msgstr ""
+msgstr "Wees bevreesd voor het ~water~ , het is zo diep, *hihi*, nietwaar. Ja???"
 
 #  level: "Sunrise Sunset"
 #  author: "Mark Pulley" email ""
@@ -5662,6 +5896,8 @@ msgstr ""
 msgid ""
 "Choose your hemisphere: left switch for northern, right switch for southern."
 msgstr ""
+"Kies je halfrond: linker schakelaar voor het noordelijke, rechter schakelaar"
+"voor het zuidelijke."
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5671,6 +5907,8 @@ msgid ""
 "Dorothy left the house to play with her little dog Toto, when suddenly the "
 "sky turned dark and a giant tornado rushed across Kansas."
 msgstr ""
+"Dorothy verliet het huis om met haar hondje Toto te spelen toen plotseling"
+"de lucht donker werd en een reusachtige tornado over Kansas trok."
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5682,6 +5920,10 @@ msgid ""
 "Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
 "than pleased to help you return home. Go with my blessings!'"
 msgstr ""
+"De Goede Heks van het Noorden sprak: 'Jouw huis heeft de koning van dit land"
+"gedood, de  Slechte Heks van het Oosten:  'neem haar Zilveren Schoenen en volg "
+"de Gele Steenweg naar Smaragdstad, waar de Tovenaar van Oz je heel graag wil helpen"
+"om naar huis terug te keren. Ga met zijn zegen!'"
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5692,6 +5934,10 @@ msgid ""
 "agrees to join her for an audience with the Wizard of Oz to ask him for a "
 "brain. 'If only you could release me from this pole, that is ...'"
 msgstr ""
+"Een vogelverchrikker hangt hulpeloos aan een paal. Na met Dorothy gesproken"
+"te hebben, stemt hij toe om met haar mee te gaan voor een audiëntie met de "
+"Tovenaar van Oz om hem om hersenen te vragen. 'Kon je me maar van deze paal"
+"bevrijden, dat is ...'"
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5703,6 +5949,10 @@ msgid ""
 "receive a heart, I fear I'm stuck here. It would be nice if you could help "
 "me out a bit ...'"
 msgstr ""
+"De roestige Blikken Houtman kan zelf niet meer bewegen. 'Maar ik wil je vergezellen"
+"op je reis, Dorothy, want ik moet de Tovenaar vragen waarom ik geen hart"
+"heb gekregen, Ik ben bang dat ik hier vastzit. Het zou fijn zijn als je mij een"
+"beetje kon helpen ...'"
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5713,6 +5963,10 @@ msgid ""
 "of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
 "Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
 msgstr ""
+"Langs de ondiepe wateren van een kabbelend beekje, zat de Bange Leeuw, huiverend"
+"van angst. Dorothy roept: 'Leeuw, het is niet breed! Je kan over de beek springen!"
+"Laten we naar de Tovenaar van Oz gaan, misschien kan hij iets doen om je moed"
+"te geven."
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5723,6 +5977,8 @@ msgid ""
 "spectacles, or the splendid brilliance of the Wizard's city may blind you. "
 "The Wizard resides to the north.'"
 msgstr ""
+"De poortwachter zegt: 'Welkom in Smaragdstad! Draag a.u.b. altijd deze bril."
+"anders kan de rijke schittering van de Tovenaars stad je verblinden."
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5734,6 +5990,10 @@ msgid ""
 "here and see me, travel on to Winkie Country and defeat my arch rival, the "
 "Wicked Witch of the West.'"
 msgstr ""
+"Een bulderende stem dondert door de gang: Ik, de wonderbaarlijke tovenaar van"
+"Oz, zal je helpen vinden waar gij naar zoekt. Echter, voordat je er door mag"
+"en mij zien, reis naar Winkieland en versla mijn aartsrivaal, de Slechte heks"
+"van het Westen.'"
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5744,6 +6004,9 @@ msgid ""
 "against Dorothy and her friends. To destroy the witch, they need to steal "
 "her magic wand, kept deep inside her ice fortress."
 msgstr ""
+"Dit is het gebied van de Slechte Heks van het Westen. Zij stuurt haar knechten"
+"naar Dorothy en haar vrienden. Om de heks te verslaan, moeten zij haar toverstaf"
+"stelen, diep verborgen in haar ijspaleis."
 
 #  level: "Dorothy"
 #  author: "Zephyr" email ""
@@ -5755,6 +6018,10 @@ msgid ""
 "hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
 "left of the Wizard is now his shrinkable cupboard."
 msgstr ""
+"Nu Dorothy eindelijk gearriveerd is bij het onderkomen van de wonderbaarlijke"
+"Tovenaar, realiseert zij zich dat hij alleen maar gebakken lucht is. Ziend hoe"
+"hij vlucht in zijn heteluchtballon, verliest Dorothy alle hoop om ooit thuis" 
+"te komen.Alles dat er nu overblijft van de Tovenaar is zijn krimpende keukenkastje." 
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5764,13 +6031,14 @@ msgid ""
 "I your dear friend am in myself undone, by reason of a Burden that lieth "
 "hard upon me."
 msgstr ""
+"Ik, je goede vriend, ben zelf ontredderd, door een Last die mij zwaar weegt."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4706
 msgid "Do you see yonder Wicket Gate?"
-msgstr ""
+msgstr "Zie je daar verderop het Hek bij de Poort?"
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5779,13 +6047,14 @@ msgstr ""
 msgid ""
 "They drew nigh to a very miry Slough. The name of the Slough was Despond."
 msgstr ""
+"Zij naderden een Modderpoel. De naam de Modderpoel was Wanhoop."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4710
 msgid "Knock, and it shall be opened unto you."
-msgstr ""
+msgstr "Klop, en het zal voor je worden opengedaan."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5796,13 +6065,15 @@ msgid ""
 "to tumble, and so continued to do, till it came to the mouth of the "
 "Sepulchre, where it fell in, and I saw it no more."
 msgstr ""
+"Zijn Last gelost van zijn schouders, viel van zijn rug en rolde voort, tot het"
+"bij de opening van het Graf kwam, waar het in viel en ik het niet meer zag."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4714
 msgid "They came to the foot of the hill Difficulty."
-msgstr ""
+msgstr "Zij kwamen aan de voet van de heuvel Moeilijk."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5811,6 +6082,7 @@ msgstr ""
 msgid ""
 "There was a very stately palace before him, the name of which was Beautiful."
 msgstr ""
+"Er was een erg statig paleis voor hem, de naam was Mooi. "
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5820,6 +6092,8 @@ msgid ""
 "He had gone but a little way, before he espied a foul Fiend coming over the "
 "field to meet him."
 msgstr ""
+"Hij was maar een beetje gevorderd, voordat hij een Kwade Geest over het veld "
+"zag komen om hem te ontmoeten."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5829,13 +6103,15 @@ msgid ""
 "At the end of this Valley was another, called, The Valley of the Shadow Of "
 "Death."
 msgstr ""
+"Aan het eind van deze vallei was er weer een, genoemd, De Vallei van de Schaduw van"
+""de Dood. "
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4722
 msgid "He saw Faithful before him on his Journey."
-msgstr ""
+msgstr "Hij zag Trouw voor hem op zijn Reis."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5845,6 +6121,8 @@ msgid ""
 "As they went on, Faithful, as he chanced to look to one side, saw a man "
 "whose name was Talkative."
 msgstr ""
+"Toen ze verdergingen, zag Trouw, kijkend naar een kant, een man, wiens"
+"naam Spraakzaam was."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5853,6 +6131,7 @@ msgstr ""
 msgid ""
 "They presently saw a Town before them, and the name of that Town is Vanity."
 msgstr ""
+"Zij zagen een Stad voor hen, en de naam van die Stad is IJdelheid."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5862,6 +6141,8 @@ msgid ""
 "Christian went not forth alone; for there was one whose name was Hopeful who "
 "joined himself unto him."
 msgstr ""
+"Christian ging niet alleen verder; want er was één wiens naam Hoopvol was, die"
+"zich bij hem voegde."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5871,6 +6152,8 @@ msgid ""
 "There was on the Left Hand of the road a Meadow, and a Stile to go over into "
 "it, and that meadow is called By-Path-Meadow."
 msgstr ""
+"Er was aan de linkerkant van de weg een Weiland, en een overstap over het hek"
+"en dat weiland wordt Naast-Pad-Weiland genoemd."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5880,20 +6163,22 @@ msgid ""
 "Now there was, not far from the place where they lay, a castle, called "
 "Doubting-Castle, the owner of which was Giant Despair."
 msgstr ""
+"Nu was er, niet ver van de plaats waar ze lagen, een kasteel, genaamd"
+"Twijfelburcht, de eigenaar was Reus Wanhoop. "
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4734
 msgid "They went then till they came to the Delectable Mountains."
-msgstr ""
+msgstr "Zij gingen verder tot ze bij de Verrukkelijke Bergen waren."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4736
 msgid "Beware of the Flatterer."
-msgstr ""
+msgstr "Pas op de Vleier."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5902,6 +6187,7 @@ msgstr ""
 msgid ""
 "Follow me, said the Flatterer, it is to the Coelestial City that I am going."
 msgstr ""
+"Volg me, zei de Vleier, ik ben op weg naar de Hemelse Stad."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5911,6 +6197,8 @@ msgid ""
 "They came into a certain Country, whose air naturally tended to make one "
 "drowzy."
 msgstr ""
+"Zij kwamen in een bepaald Land waarvan de lucht geneigd was iedereen"
+"doezelig te maken"
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5920,6 +6208,8 @@ msgid ""
 "The Pilgrims were got over the Enchanted ground, and entering into the "
 "Country of Beulah."
 msgstr ""
+"De pelgrims waren de Betoverde Grond voorbij en gingen het Land van"" 
+"Beulah binnen."
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5929,6 +6219,8 @@ msgid ""
 "There was then in that place one Vain-Hope, a ferryman, that with his boat "
 "helped him over."
 msgstr ""
+"Er was daar een zekere Ijdele-Hoop, een veerman, die hem met zijn boot"
+"overzette".
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5939,13 +6231,16 @@ msgid ""
 "the men that went with them, said, You must go through, or you cannot come "
 "at the Gate."
 msgstr ""
+"Bij het zien van deze Rivier, waren de pelgrims zeer ontsteld, maar de man "
+"die hen vergezelde, zei, Jullie moeten verder gaan, anders kom je niet"
+"bij de Poort. "
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
 #  comment: "Quote from 'The Pilgrim's Progress' by John Bunyan."
 #: po/level_i18n.cc:4748
 msgid "I looked in after them; and behold the City shone like the Sun."
-msgstr ""
+msgstr "Ik keek na hen, en waarlijk de Stad schitterde als de Zon.""
 
 #  level: "The Pilgrim's Progress"
 #  author: "Mark Pulley" email ""
@@ -5955,6 +6250,8 @@ msgid ""
 "They also thought they heard there a rumbling noise, as of fire, and a Cry "
 "of some tormented, and that they smelt the scent of Brimstone."
 msgstr ""
+"Zij dachten ook dat ze een donderend geluid hoorden, als van vuur, en een Schreeuw"
+"van gekwelden, en dat ze de geur van Zwavel roken."
 
 #  level: "Panelled Puzzle II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -5963,6 +6260,8 @@ msgid ""
 "There are 19 fully connected puzzle piece arrangements, but just 9 of them "
 "are reachable from this first distribution."
 msgstr ""
+"Er zijn 19 volledig verbonden puzzels, maar er zijn er slechts 9 bereikbaar"
+"bij deze eerste verdeling."
 
 #  level: "Panelled Puzzle II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -5971,6 +6270,8 @@ msgid ""
 "This second distribution can just be converted to any of the other 10 "
 "arrangements."
 msgstr ""
+"Deze tweede verdeling kan alleen in één van de andere tien puzzels"
+"worden omgezet."
 
 #  level: "Panelled Puzzle II"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -5979,26 +6280,27 @@ msgid ""
 "There are just two symmetric puzzle piece arrangements that both are "
 "reachable."
 msgstr ""
+"Er zijn slechts twee symmetrische puzzels, die allebei bereikbaar zijn.
 
 #  level: "Behind Glass"
 #  author: "Rudolf" email ""
 #: po/level_i18n.cc:4793
 #, fuzzy
 msgid "Search it."
-msgstr "Zoeken"
+msgstr "Zoek het"
 
 #  level: "Odyssey in Space"
 #  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:4807
 msgid "Danger!"
-msgstr ""
+msgstr "Gevaar"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate the names from Marblics and Pearlics"
 #: po/level_i18n.cc:4822
 msgid "Marblics and Pearlics I"
-msgstr ""
+msgstr "Marblics en Pearlics I"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
@@ -6008,109 +6310,110 @@ msgid ""
 "Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
 "self defence!"
 msgstr ""
+"Doping 'en Tour' niet toegestaan voor sluipwegen, doping alleen toegestaan"
+"uit zelfverdediging."
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Rotomagus"
 #: po/level_i18n.cc:4828
 msgid "Rotomagus - Rouen"
-msgstr ""
+msgstr "Rotomagus - Rouaan"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Lutetia"
 #: po/level_i18n.cc:4831
 msgid "Lutetia - Paris"
-msgstr ""
+msgstr "Lutetia - Parijs"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Camaracum"
 #: po/level_i18n.cc:4834
 msgid "Camaracum - Cambrai"
-msgstr ""
+msgstr "Camaracum - Kamerijk"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Durocortorum"
 #: po/level_i18n.cc:4837
 msgid "Durocortorum - Rheims"
-msgstr ""
+msgstr "Durocortorum - Reims"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Lugdunum"
 #: po/level_i18n.cc:4840
 msgid "Lugdunum - Lyons"
-msgstr ""
+msgstr "Lugdunum - Lyon"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Nicae"
 #: po/level_i18n.cc:4843
 msgid "Nicae - Nice"
-msgstr ""
+msgstr "Nicae - Nice"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Massilia"
 #: po/level_i18n.cc:4846
 msgid "Massilia - Marseilles"
-msgstr ""
+msgstr "Massilia - Marseille"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Aginum"
 #: po/level_i18n.cc:4849
 msgid "Aginum - Agen"
-msgstr ""
+msgstr "Aginum - Agen"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Detour de Tour"
 #: po/level_i18n.cc:4852
 msgid "Detour de Tour - Detour of the Tour"
-msgstr ""
+msgstr "Detour de Tour - Omweg van de Tour"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Burdigala"
 #: po/level_i18n.cc:4855
 msgid "Burdigala - Bordeaux"
-msgstr ""
+msgstr "Burdigala - Bordeaux"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Gallia omnis divisa est"
 #: po/level_i18n.cc:4858
 msgid "Gallia omnis divisa est... - The whole of Gaul is divided... "
-msgstr ""
+msgstr "Gallia omnis divisa est ... - Heel Gallië is verdeeld..."
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #  comment: "not translate Veni Vidi Vici"
 #: po/level_i18n.cc:4861
 msgid "Veni, vidi, vici - I came, I saw, I conquered"
-msgstr ""
+msgstr "Veni, vidi, vici - Ik kwam, ik zag, Ik overwon"
 
 #  level: "Tour de France"
 #  author: "mecke" email ""
 #: po/level_i18n.cc:4863
 msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
-msgstr ""
+msgstr "Welkom in Alpe d'Huez. Sorry, het is nog geen deel van de Tour"
 
 #  level: "Distribution Meditation"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4870
-#, fuzzy
 msgid "Distribution Meditation"
-msgstr "Catwalk Meditatie"
+msgstr "Loopplank Meditatie"
 
 #  level: "Origami"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4886
 msgid "Origami"
-msgstr ""
+msgstr "Origami"
 
 #  level: "Panelled Puzzle I"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -6119,6 +6422,8 @@ msgid ""
 "There are 56 fully connected puzzle piece arrangements, but just 34 of them "
 "are reachable from this first distribution."
 msgstr ""
+"Er zijn 56 volledig verbonden puzzels, maar slechts 34 ervan zijn bereikbaar"
+"bij deze eerste verdeling."
 
 #  level: "Panelled Puzzle I"
 #  author: "Ronald Lamprecht" email "ral@users.berlios.de"
@@ -6127,12 +6432,14 @@ msgid ""
 "This second distribution can just be converted to any of the other 28 "
 "arrangements."
 msgstr ""
+"Deze tweede verdeling kan alleen naar één van de andere 28 mogelijkheden"
+"worden omgezet."
 
 #  level: "What I Don't Have"
 #  author: "Alex Smith" email "ais523@bham.ac.uk"
 #: po/level_i18n.cc:4900
 msgid "What I Don't Have"
-msgstr ""
+msgstr "Wat ik niet Heb"
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
@@ -6144,7 +6451,7 @@ msgstr "Het Levensspel"
 #  author: "Sven Siggelkow" email ""
 #: po/level_i18n.cc:5024
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
-msgstr "Alfred Nobel zegt: Dit is duidelijk een meditatie landschap!"
+msgstr "Alfred Nobel zegt: Dit is duidelijk een meditatielandschap!"
 
 #  level: "Bizarro World"
 #  author: "Jacob Scott" email ""
@@ -6157,7 +6464,7 @@ msgstr ".nemok et remak edneglov ed ni mo nereinam eewt njiz rE"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:5067
 msgid "The Flagstone Reaper"
-msgstr ""
+msgstr "De Flagstone Oogster"
 
 #  level: "The Flagstone Reaper"
 #  author: "Andreas Lochmann" email ""
@@ -6169,6 +6476,10 @@ msgid ""
 "on this side ...    The reaper passing by ...    Could know the reason "
 "why!     (orig. by Herman's Hermits)   "
 msgstr ""
+"Geen hint vandaag ...  Deze flagstones verdwijnen ... Het document staat"
+"alleen ... Waarom is het zo alleen? -- Deze hint vandaag ... Waarom is het"
+"aan deze kant ... De oogster gaat voorbij ...   Zou de reden kunnen weten!"
+"(orig. door Herman's Hermits)
 
 #  level: "The Race"
 #  author: "Jacob Scott" email ""
@@ -6207,7 +6518,7 @@ msgstr "Gefeliciteerd, avonturier!  Het is u gelukt!"
 #  author: "Christoph & Anita" email ""
 #: po/level_i18n.cc:5100
 msgid "Fight appearing lava."
-msgstr ""
+msgstr "Bestrijd verschijnende lava."
 
 #  level: "Running Stone"
 #  author: "Christoph & Anita" email ""
@@ -6266,7 +6577,7 @@ msgstr ""
 "de verlegen Mevr Pauw, de geheimzinnige Kolonel Mosterd, de verstrooide "
 "Professor Pruim, de mysterieuze Pastoor Groen, de zuster Mevr Witbal, die "
 "het lijk ontdekte, en Juffrouw Scarlett wiens schoonheid fataal kan zijn ... "
-"u moet uitzoeken wie uw oom heeft vermoord, waar en hoe."
+"je moet uitzoeken wie je oom heeft vermoord, waar en hoe."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
@@ -6320,31 +6631,31 @@ msgstr "Dhr Zwarbal is niet vermoord met de bom."
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:5254
 msgid "Sir Blackball has not been killed with the dagger."
-msgstr "Dhr Zwarbal is niet vermoord met de dolk."
+msgstr "Dhr Zwartbal is niet vermoord met de dolk."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:5256
 msgid "Sir Blackball has not been killed with poison."
-msgstr "Dhr Zwarbal is niet vermoord met vergif."
+msgstr "Dhr Zwartbal is niet vermoord met vergif."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:5258
 msgid "Sir Blackball has not been killed with the wrench."
-msgstr "Dhr Zwarbal is niet vermoord met de sleutel."
+msgstr "Dhr Zwartbal is niet vermoord met de Engelse sleutel."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:5260
 msgid "Sir Blackball has not been killed with the candlestick."
-msgstr "Dhr Zwarbal is niet vermoord met de kandelaar."
+msgstr "Dhr Zwartbal is niet vermoord met de kandelaar."
 
 #  level: "Cluenigma"
 #  author: "Alain Busser" email ""
 #: po/level_i18n.cc:5262
 msgid "Sir Blackball has not been killed with the hammer."
-msgstr "Dhr Zwarbal is niet vermoord met de hamer."
+msgstr "Dhr Zwartbal is niet vermoord met de hamer."
 
 #  level: "Run Like Hell"
 #  author: "Ralf Westram" email "amgine@reallysoft.de"
@@ -6374,7 +6685,7 @@ msgstr "! -  GEVAAR  -  VERBODEN TOEGANG - GEVAAR  - !"
 #  author: "Jon 'WB' Sneyers" email ""
 #: po/level_i18n.cc:5341
 msgid "Oops ... you're stuck ...     Try again ..."
-msgstr "Oeps ... u zit vast ...     Probeer opnieuw ..."
+msgstr "Oeps ... je zit vast ...     Probeer opnieuw ..."
 
 #  level: "Little Puzzles"
 #  author: "Jon 'WB' Sneyers" email ""
@@ -6383,7 +6694,7 @@ msgid ""
 "Congratulations, you reached this side ...      but can you get to the "
 "oxyds? "
 msgstr ""
-"Gefeliciteerd, u bent aan deze kant gekomen ...      maar kunt u de oxyds "
+"Gefeliciteerd, je bent aan deze kant gekomen ...      maar kun je de oxyds "
 "bereiken?"
 
 #  level: "Little Puzzles"
@@ -6397,34 +6708,34 @@ msgstr "Goed gedaan!"
 #: po/level_i18n.cc:5350
 msgid ""
 "That wasn't fast enough; try "
-"F3.                                                                              "
+"F3."
 "(Or search for non-solid stones, if you "
-"want.)                                                                                                        "
+"want.)"
 "(But you won't find "
-"any.)                                                                                                                  "
+"any.)"
 "(Really!)"
 msgstr ""
 "Dat was niet snel genoeg; probeer "
-"F3.                                                                  (Of "
-"zoek naar niet-massieve stenen, als u "
-"wilt.)                                                                                                 "
+"F3."
+(Of zoek naar niet-massieve stenen, als u "
+"wilt.)"
 "(Maar u zult er geen vinden.)"
+"(Werkelijk!)"
 
 #  level: "How solid?"
 #  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:5351
 msgid ""
 "You can believe me: All stones you see in this level are "
-"solid!                                                                                      "
+"solid!"
 "You can really believe "
-"me!                                                                               "
+"me!"
 "Really!"
 msgstr ""
-"Geloof me: Alle stenen die u ziet in dit level "
-"zijn                                                                                "
-"massief!                                                                               "
-"U kan me echt                                              "
-"geloven!                                                                      "
+"Geloof me: Alle stenen die u ziet in dit level zijn"
+"massief!"
+"U kunt me echt"
+"geloven!"
 "Echt waar!"
 
 #~ msgid "New personal record, but over par!"
@@ -6456,7 +6767,7 @@ msgstr ""
 #  level: "Enigmastermind"
 #  author: "Alain Busser" email ""
 #~ msgid "This switch is to reset the game."
-#~ msgstr "Deze schakelaar reset het spel."
+#~ msgstr "Deze schakelaar hernieuwt het spel."
 
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
@@ -6464,13 +6775,13 @@ msgstr ""
 #~ "You play against Big Brother; each player in turn deletes 1, 2 or 3 "
 #~ "stones; the one who deletes the last stone LOOSES!!!"
 #~ msgstr ""
-#~ "U speelt tegen Big Brother; elke speler verwijdert per beurt 1, 2 of 3 "
+#~ "Je speelt tegen Big Brother; elke speler verwijdert per beurt 1, 2 of 3 "
 #~ "stenen; degene die de laatste steen verwijdert VERLIEST!!!"
 
 #  level: "Enignimm"
 #  author: "Alain Busser" email ""
 #~ msgid "Now you begin this game."
-#~ msgstr "Nu begint u dit spel."
+#~ msgstr "Nu begin je dit spel."
 
 #  level: "The Life Game"
 #  author: "Alain Busser" email ""
@@ -6516,7 +6827,7 @@ msgstr ""
 #  level: "Running Stone"
 #  author: "Christoph & Anita" email ""
 #~ msgid "Watch out for a disappearing stone."
-#~ msgstr "Let op voor een verdwijnende steen."
+#~ msgstr "Let op  een verdwijnende steen."
 
 #  level: "Waterworld"
 #  author: "illmind" email "support@mag-heut.net"
@@ -6574,9 +6885,8 @@ msgstr ""
 #~ msgid "Area closed"
 #~ msgstr "Gebied gesloten"
 
-#, fuzzy
 #~ msgid "Chromed sign: "
-#~ msgstr "Credits: "
+#~ msgstr "Naambord (verchroomd): "
 
 #~ msgid "Skip to next non-par level"
 #~ msgstr "Naar volgend niet-par level"
@@ -6594,10 +6904,10 @@ msgstr ""
 #~ msgstr "het bijgaande COPYING.GPL voor details."
 
 #~ msgid "Skip solved levels: "
-#~ msgstr "Opgeloste levels? "
+#~ msgstr "Sla opgeloste levels over: "
 
 #~ msgid "Time hunt: "
-#~ msgstr "Tijd jacht: "
+#~ msgstr "Tijdjacht: "
 
 #~ msgid "Select next non-par level"
 #~ msgstr "Selecteer volgend niet-par level"
@@ -6609,16 +6919,14 @@ msgstr ""
 #~ msgstr "Par: %d:%02d"
 
 #~ msgid "Difficulty: Easy"
-#~ msgstr "Makkelijk"
+#~ msgstr "Moeilijkheidsgraad: Makkelijk"
 
 #~ msgid "Difficulty: Normal"
-#~ msgstr "Normaal"
+#~ msgstr "Moeilijkheidsgraad: Normaal"
 
-#, fuzzy
 #~ msgid "Edit"
 #~ msgstr "Bewerker"
 
-#, fuzzy
 #~ msgid "Best: "
 #~ msgstr "Beste tijd!"
 
