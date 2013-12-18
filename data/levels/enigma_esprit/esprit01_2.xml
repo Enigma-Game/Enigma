@@ -3,34 +3,40 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="esprit 1" el:subtitle="esprit 1" el:id="martin45"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="Martin Hawlisch" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Martin Hawlisch" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+        <el:code>New API converted by /dev/null, December 2013</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-create_world( 20, 13)
-oxyd_default_flavor = "d"
+ti[" "] = {"fl_metal"}
+ti["#"] = {"st_metal"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble", 0.5}
 
-draw_border("st-metal")
-fill_floor("fl-metal")
+wo(ti, " ", {
+    "####################",
+    "#                  #",
+    "#                  #",
+    "#    O        O    #",
+    "#                  #",
+    "#                  #",
+    "#        @         #",
+    "#                  #",
+    "#                  #",
+    "#    O        O    #",
+    "#                  #",
+    "#                  #",
+    "####################"})
 
-oxyd( 5, 3)
-oxyd(14, 3)
-oxyd( 5, 9)
-oxyd(14, 9)
-
-oxyd_shuffle()
-
-set_actor("ac-blackball", 10,6.5)
-    ]]></el:luamain>
+wo:shuffleOxyd()
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

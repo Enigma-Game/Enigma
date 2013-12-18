@@ -3,38 +3,40 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="- Meditation -" el:subtitle="esprit 10" el:id="meditation10"/>
-      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
-      <el:author  el:name="anonymous" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="anonymous" el:email="" el:homepage=""/>
       <el:copyright>Copyright © anonymous</el:copyright>
       <el:license el:type="Donated to Enigma under the projects license" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
-        <el:code>Lua 5.1 and XML converted by Leveladministrators</el:code>
+        <el:code>New API converted by /dev/null, December 2013</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-levelw = 20
-levelh = 13
+ti[" "] = {"fl_gray"}
+ti["#"] = {"st_granite"}
+ti["o"] = {"it_meditation", state=MEDITATION_HOLLOW}
+ti["@"] = {"#ac_pearl"}
 
-create_world(levelw, levelh)
-oxyd_default_flavor = "a"       -- Default flavor for oxyd stones.
+wo(ti, " ", {
+    "####################",
+    "#@                @#",
+    "#                  #",
+    "#      o    o      #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#      o    o      #",
+    "#                  #",
+    "#@                @#",
+    "####################"})
 
-draw_border("st-rock1")
-fill_floor("fl-gray")
-
-hollow(7,3)
-hollow(level_width-8,level_height-4)
-hollow(level_width-8, 3)
-hollow(7,level_height-4)
-
-set_actor("ac-whiteball-small", 1.5,1.5, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small", 1.5,11.5, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small", 18.5,1.5, {player=0, mouseforce=1})
-set_actor("ac-whiteball-small", 18.5,11.5, {player=0, mouseforce=1})
-    ]]></el:luamain>
+wo:shuffleOxyd()
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>

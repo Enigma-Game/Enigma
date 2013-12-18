@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="10" title="Esprit"/>
+  <info enigma="1.00" group="Déjà-vu" location="20100" network="false" owner="Enigma Team" release="1" revision="11" title="Esprit"/>
 
   <attributes/>
 
   <levels>
-    <level _seq="1" _title="esprit 1" _xpath="./esprit01_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin45" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="2" _title="esprit 2" _xpath="./esprit02_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin46" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="3" _title="esprit 3" _xpath="./esprit03_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin47" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="4" _title="esprit 4" _xpath="./esprit04_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin55" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="esprit 5" _xpath="./esprit05_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin48" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="esprit 6" _xpath="./esprit06_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin53" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="7" _title="esprit 7" _xpath="./esprit07_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp07" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="8" _title="esprit 8" _xpath="./esprit08_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp08" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="esprit 9" _xpath="./esprit09_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp09" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="10" _title="- Meditation -" _xpath="./esprit10_1" author="anonymous" ctrl="force" easy="false" id="meditation10" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="1" _title="esprit 1" _xpath="./esprit01_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin45" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="2" _title="esprit 2" _xpath="./esprit02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin46" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="3" _title="esprit 3" _xpath="./esprit03_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin47" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="4" _title="esprit 4" _xpath="./esprit04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin55" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="esprit 5" _xpath="./esprit05_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin48" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="6" _title="esprit 6" _xpath="./esprit06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin53" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="7" _title="esprit 7" _xpath="./esprit07_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp07" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="8" _title="esprit 8" _xpath="./esprit08_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp08" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="esprit 9" _xpath="./esprit09_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp09" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="10" _title="- Meditation -" _xpath="./esprit10_2" author="anonymous" ctrl="force" easy="false" id="meditation10" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="esprit 11" _xpath="./esprit11_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp11" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="12" _title="esprit 12" _xpath="./esprit12_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp12" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="13" _title="Spin Cycle" _xpath="./esprit13_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin34" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="14" _title="esprit 14" _xpath="./esprit14_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin56" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="15" _title="esprit 15" _xpath="./esprit15_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin67" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="esprit 16" _xpath="./esprit16_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp16" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="17" _title="esprit 17" _xpath="./esprit17_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp17" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="18" _title="esprit 18" _xpath="./esprit18_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp18" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="19" _title="Skydiver" _xpath="./esprit19_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin13" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="- Meditation -" _xpath="./esprit20_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp20" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="esprit 21" _xpath="./esprit21_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp21" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="esprit 22" _xpath="./esprit22_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp22" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="esprit 23" _xpath="./esprit23_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp23" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="12" _title="esprit 12" _xpath="./esprit12_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp12" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="13" _title="Spin Cycle" _xpath="./esprit13_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin34" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="14" _title="esprit 14" _xpath="./esprit14_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin56" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="15" _title="esprit 15" _xpath="./esprit15_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin67" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="esprit 16" _xpath="./esprit16_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp16" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="17" _title="esprit 17" _xpath="./esprit17_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp17" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="18" _title="esprit 18" _xpath="./esprit18_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp18" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="19" _title="Skydiver" _xpath="./esprit19_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin13" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="- Meditation -" _xpath="./esprit20_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp20" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="esprit 21" _xpath="./esprit21_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp21" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="esprit 22" _xpath="./esprit22_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp22" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="esprit 23" _xpath="./esprit23_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp23" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="esprit 24" _xpath="./esprit24_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp24" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="esprit 25" _xpath="./esprit25_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp25" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="esprit 25" _xpath="./esprit25_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp25" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Bank-O-Mat" _xpath="./esprit26_3" author="Sven Siggelkow" ctrl="force" easy="false" id="ss4" rel="3" rev="4" score="3" target="time" unit="duration"/>
     <level _seq="27" _title="esprit 27" _xpath="./esprit27_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp27" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="esprit 28" _xpath="./esprit28_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp28" rel="1" rev="0" score="1" target="time" unit="duration"/>
