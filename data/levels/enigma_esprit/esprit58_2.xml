@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 58" el:subtitle="esprit 58" el:id="ss_esp58"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, December 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["WormholeStrength"] = 0.0
+
+ti["."] = {"fl_ice"}
+ti[" "] = ti["."] .. {"it_crack_i"}
+ti["-"] = {"fl_metal_7"}
+ti["_"] = {"fl_bast"}
+ti["2"] = {"fl_slope_ps"}
+ti["8"] = {"fl_slope_pn"}
+ti["6"] = {"fl_slope_pe"}
+ti["4"] = {"fl_slope_pw"}
+ti["7"] = {"fl_slope_inw"}
+ti["9"] = {"fl_slope_ine"}
+ti["1"] = {"fl_slope_isw"}
+ti["3"] = {"fl_slope_ise"}
+ti["#"] = {"st_brownpyramid"}
+ti[">"] = ti["-"] .. {"st_oneway_e"}
+ti["<"] = ti["-"] .. {"st_oneway_w"}
+ti["X"] = ti["-"] .. {"st_grate"}
+ti["c"] = ti["-"] .. {"it_coffee"}
+ti["p"] = ti["_"] .. {"it_hammer"}
+ti["^"] = ti["-"] .. {"it_meditation", state=MEDITATION_HILL}
+ti["o"] = ti["-"] .. {"it_meditation", state=MEDITATION_HOLLOW}
+ti["floors"] = {"fl_metal_7", name="floor%%"}
+ti["wormholes"] = ti["-"] .. {"it_wormhole", destination="floor%%"}
+ti["0"] = {"st_fake_quake"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = ti["-"] .. {"#ac_marble"}
+
+wo(res.autotile(ti, {"f", "m", "floors"}, {"F", "M", "wormholes"}), " ", {
+    "#######################################",
+    "#                   .............     #",
+    "# .....     ---     -------------     #",
+    "#.78889#    - -     k #######   --    #",
+    "#.4___6#    - - -<- J #78889#    ---- #",
+    "#.4_O_6#    - - - -   #4___6#       o #",
+    "#.4___6#    l - - o---X4_O_6#       - #",
+    "#.12223-->- L --- -   #4___6#  .....- #",
+    "#.####-#  -  .    o   #12223#  .78889 #",
+    "#..-L#-#L ---78889--  ###-###  .4___6 #",
+    "#..- #-#  ...4___6 -    #-#    .4_O_6 #",
+    "#..- #-#    .4_O_6----gF#-#GfiH 4_p_6 #",
+    "#..- #-#    .4___6      #-#    .12223 #",
+    "#..- #-----  12223-@---c--.     -.... #",
+    "#..- #-#- jK -.............     -     #",
+    "#..- #-#-   .-.          789    - I.  #",
+    "#..- #-#------.   ...    406    - h.  #",
+    "#..- .-.. . .   .78889.  123    - -.  #",
+    "#..- .m. . . .  .4___6.         - -.  #",
+    "#..- .M..78889. .4_O_6.   ##### - -.  #",
+    "#..-.   .4___6. .4___6----XXXX<------.#",
+    "#..--....4_O_6. .12223... #####     -.#",
+    "#...-----4^__6.M ......  M-----------.#",
+    "#.  .....12223.          ............ #",
+    "#######################################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

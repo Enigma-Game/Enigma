@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 52" el:subtitle="esprit 52" el:id="ss_esp52"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, December 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["FollowMethod"] = FOLLOW_SCROLL
+
+ti[" "] = {"fl_gravel"}
+ti["#"] = {"st_purplegray"}
+ti["="] = {"st_invisible"}
+ti["*"] = {"st_portal_horse"}
+ti["X"] = {"st_grate"}
+ti["|"] = {"st_door_c", name="door"}
+ti["T"] = {"it_trigger", target="openDoor", invisible=true}
+ti["d"] = {"it_document", text="text1"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#            ======#                  #",
+    "#          = =T    #                  #",
+    "#  **  *   * * *   |     **  *   *    #",
+    "# **** **  * * *   *=   **** **  *    #",
+    "# *  * **  * *  * *#    *  * **  *    #",
+    "# *  * * * * *   *=#    *  * * * *    #",
+    "# *  * *  ** *   *=#    *  * *  **    #",
+    "# **** *  ** *   *=#    **** *  **    #",
+    "#  ** =* @ * *** *=#     ** =*   *    #",
+    "#          =       #                  #",
+    "O          =      d#                  #",
+    "############################XX#########",
+    "#                                     #",
+    "#                                     #",
+    "#  **  *  * *   * ***     *   *   *=* #",
+    "# *  * *  * **  * *  *    *   *   * * #",
+    "# *    *  * **  * *   *  * *   * *  * #",
+    "#  **  *  * * * * *   *  * *    *   * #",
+    "#    * *  * *  ** *   * *****   *   *=#",
+    "#=*  * *  *=*  ** *  *  *   *   *     #",
+    "#  **   **  *   *=*** =*     *==*   O #",
+    "#                                     #",
+    "#                                     #",
+    "#######################################"})
+
+function openDoor()
+    if enigma.date("%A") == "Sunday" then
+        no["door"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Sunday, bloody Sunday!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

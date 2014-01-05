@@ -2,41 +2,40 @@
 <el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
   <el:protected>
     <el:info el:type="level">
-      <el:identity el:title="esprit 87" el:subtitle="esprit 87" el:id="ss_esp87"/>
-      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:identity el:title="- Meditation -" el:subtitle="esprit 80" el:id="ss_esp80"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
       <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.20"/>
-      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>New API converted by /dev/null, December 2013</el:code>
       </el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl_woven"}
-ti["#"] = ti({"fl_abyss"}) .. cond(wo["IsDifficult"], {"st_death"}, {"st_greenbrown"})
-ti["O"] = {"st_oxyd", flavor="b"}
-ti["*"] = {"#ac_top", range=5.0, strength=12.0}
-ti["@"] = {"#ac_marble"}
+wo["GlobalForce"] = po(0.0, 20.0)
+
+ti[" "] = {"fl_bluegray"}
+ti["#"] = {"st_purplegray"}
+ti["o"] = {"it_meditation", state=MEDITATION_HOLLOW}
+ti["@"] = {"#ac_pearl"}
 
 wo(ti, " ", {
-    "#######",
-    "#O   O#",
-    "# #*# #",
-    "#     #",
-    "# # # #",
-    "#  @  #",
-    "# # # #",
-    "#     #",
-    "# # # #",
-    "#     #",
-    "# #*# #",
-    "#O   O#",
-    "#######"})
-
-wo:shuffleOxyd()
+    "####################",
+    "#                  #",
+    "#                  #",
+    "#                  #",
+    "#        #o#       #",
+    "#        #o#       #",
+    "#        #o#       #",
+    "#        #o#       #",
+    "#                  #",
+    "#                  #",
+    "# @    @    @    @ #",
+    "#                  #",
+    "####################"})
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">

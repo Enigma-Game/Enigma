@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 86" el:subtitle="esprit 86" el:id="ss_esp86"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, December 2013</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SlopeStrength"] = 90.0
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_abyss"}
+ti["."] = {"fl_slope_ts"}
+ti["#"] = {"st_flat"}
+ti["I"] = ti["~"] .. {"st_actorimpulse"}
+ti["L"] = ti["~"] .. {"st_switch", target="leftDoor#*"}
+ti["R"] = ti["~"] .. {"st_switch", target="rightDoor#*"}
+ti["<"] = {"st_door_c", name="leftDoor#"}
+ti[">"] = {"st_door_c", name="rightDoor#"}
+ti["O"] = {"st_oxyd_c"}
+ti["*"] = ti["."] .. {"#ac_top", 0.5, range=100.0, strength=100.0}
+ti["@"] = {"ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#O  #          <  O#",
+    "#   >          #   #",
+    "##>##############<##",
+    "#   <          #   #",
+    "#O  #     @    >  O#",
+    "####################",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~~#I############I#~~",
+    "~~L......*.......R~~",
+    "~~#I############I#~~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
