@@ -145,7 +145,7 @@ RenamingObjectsNew2Old = {
     fl_wood_framed_v = "fl-stwood2",
     fl_woven = "fl-woven",
     fl_yinyang_yin_invisible = "fl-acblack",
-    fl_yinyang_yang_invisible = "fl-acwhite",    
+    fl_yinyang_yang_invisible = "fl-acwhite",
     it_banana = "it-banana",
     it_bag = "it-bag",
     it_blocker = "it-blocker",
@@ -178,7 +178,7 @@ RenamingObjectsNew2Old = {
     it_dynamite = "it-dynamite",
     it_explosion_nil = "it-explosion1",
     it_explosion_hollow = "it-explosion2",
-    it_explosion_debris = "it-explosion3",    
+    it_explosion_debris = "it-explosion3",
     it_extinguisher_empty = "it-extinguisher_empty",
     it_extinguisher_medium = "it-extinguisher_medium",
     it_extinguisher_full = "it-extinguisher",
@@ -461,7 +461,7 @@ RenamingObjectsNew2Old = {
     st_pull = "st-pull",
     st_purplegray = "st-rock6",
     st_purplemarble = "st-rock4",
-    
+
     st_puzzle = "st-puzzle",
     st_puzzle_blue_w = "st-puzzle-w",
     st_puzzle_blue_s = "st-puzzle-s",
@@ -707,7 +707,7 @@ end
 function enigma.GetKind(obj)
     local _newname = enigma.GetClass(obj)
     local _oldname = RenamingObjectsNew2Old[_newname]
-    
+
     if _oldname == nil then
         _oldname = RenamingObjectsNew2Old[enigma._GetKind(obj)]
     end
@@ -788,9 +788,9 @@ function enigma.SetAttrib(obj, key, val)
 
      if _obj_name == "st-oxyd" then
          if key == "color" then
-	     _val = 0 + val   -- convert to int
+             _val = 0 + val   -- convert to int
              _key = "oxydcolor"
-	 end
+         end
      end
      if key == "connections" then
          if  val == 2  then _val = "w"
@@ -1023,7 +1023,7 @@ function enigma.SetAttrib(obj, key, val)
          end
          return
      end
-     
+
      if key == "hit_factor" then
          _key = "hit_strength"
      end
@@ -1166,8 +1166,8 @@ function enigma.GetAttrib(obj, key)
      end
      if _obj_name == "st-oxyd" then
          if key == "color" then
-	     val = "" .. val   -- convert to string
-	 end
+             val = "" .. val   -- convert to string
+         end
      end
      if key == "targetx" then
          local d = enigma._GetAttrib(obj, "destination")
@@ -1322,6 +1322,10 @@ function CreateWorld(w, h)
     level_width = w
     level_height = h
     world.Resize(w, h)
+
+    -- Make sure there is no tile without a floor.
+    -- Otherwise Enigma crashes in some situations.
+    fill_floor("fl-metal")
 end
 
 
@@ -1350,7 +1354,7 @@ function set_attribs(obj, attrs)
         error("Can't assign attributes, expected table but got "..type(attrs)..".")
     end
     for key,val in pairs(attrs) do
-	set_attrib(obj, key, val)
+        set_attrib(obj, key, val)
     end
 end
 
@@ -1408,7 +1412,7 @@ function fill_floor(name, x0,y0, w,h)
     if w  == nil then w  = level_width end
     if h  == nil then h  = level_height end
     for y=y0,y0+h-1 do
-	for x=x0,x0+w-1 do
+        for x=x0,x0+w-1 do
             set_floor(name, x, y)
         end
     end
@@ -1416,7 +1420,7 @@ end
 
 function fill_items(name, x0,y0,w,h)
     for y=y0,y0+h-1 do
-	for x=x0,x0+w-1 do set_item(name, x, y) end
+        for x=x0,x0+w-1 do set_item(name, x, y) end
     end
 end
 
@@ -1429,9 +1433,9 @@ end
 function draw_floor(name, xy0, xystep, n, attrs)
     local x,y = xy0[1],xy0[2]
     for i=1,n do
-	set_floor(name, x, y, attrs)
-	x = x+xystep[1]
-	y = y+xystep[2]
+        set_floor(name, x, y, attrs)
+        x = x+xystep[1]
+        y = y+xystep[2]
     end
 end
 
@@ -1454,18 +1458,18 @@ end
 function draw_items(name, xy0, xystep, n, attrs)
     local x,y = xy0[1],xy0[2]
     for i=1,n do
-	set_item(name, x, y, attrs)
-	x = x+xystep[1]
-	y = y+xystep[2]
+        set_item(name, x, y, attrs)
+        x = x+xystep[1]
+        y = y+xystep[2]
     end
 end
 
 function draw_stones(name, xy0, xystep, n, attrs)
     local x,y = xy0[1],xy0[2]
     for i=1,n do
-	set_stone(name, x, y, attrs)
-	x = x+xystep[1]
-	y = y+xystep[2]
+        set_stone(name, x, y, attrs)
+        x = x+xystep[1]
+        y = y+xystep[2]
     end
 end
 
@@ -1482,7 +1486,7 @@ end
 
 function set_stones(name, poslist, attrs)
     for i,xy in pairs(poslist) do
-	set_stone(name, xy[1], xy[2], attrs)
+        set_stone(name, xy[1], xy[2], attrs)
     end
 end
 
@@ -1684,4 +1688,3 @@ doorh    = Doorh
 doorv    = Doorv
 gradient = Gradient
 wormhole = Wormhole
-
