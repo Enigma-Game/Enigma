@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Delta Time" el:subtitle="" el:id="devnull167"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="3:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["SubSoil"] = "SUBSOIL_WATER"
+
+ti["  "] = {"fl_wood"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_redmarble"}
+ti["= "] = {"st_rawglass"}
+ti["+ "] = {"st_box_wood"}
+ti["scales"] = {"fl_scales_bridgewood", target="door%%"}
+ti["doors"] = {"st_door_a", name="door%%"}
+ti["* "] = {"st_magic_oxydc"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["v "] = {"st_oneway_black", orientation=SOUTH}
+ti["- "] = {"st_door_d", faces="ns", target="jamb#*", action="hit"}
+ti["| "] = {"st_door_d", faces="ew", target="jamb#*", action="hit"}
+ti["Jb"] = {"st_jamb_black", name="jamb#"}
+ti["Jw"] = {"st_jamb_white", name="jamb#"}
+ti["! "] = {"it_crack_l", flavor="water"}
+ti[". "] = {"it_seed"}
+ti["O "] = {"st_oxyd_c", name="black#"}
+ti["0 "] = {"st_oxyd_c", name="white#"}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"D", "doors"}, {"_", "scales"})), "  ", {
+    "#~#~=~#~ ~#~#~#~#~#~#~#~#~#~#~#~#~#~O~#~",
+    "#~B     * *    ~  |       Da  Db ~Dd  O~",
+    "#~  # _a    *~+~+~Jb# #   +~ ~# + #   O~",
+    "#~  # #  ~+      ~|   #   +~ ~O   #   O~",
+    "#~  #   W   # # # # - Jw- # ! # ! #   O~",
+    "#~- Jb- # # _b ~  #    ~  #   +  ~#   O~",
+    "#~  #   B   # +   # @0 ~@1#   *~.~# v 0~",
+    "#~- Jw- #   #  ~# #    ~  #  ~ ~ ~#   0~",
+    "#~  #   *~  # + # _d ~ ~ ~# # # _c#   0~",
+    "#~- Jb- #   #  ~#  ~ ~ ~ ~ ~ ~ ~ ~ ~  0~",
+    "#~+ +~ ~Dc+  ~+ W     *      ~ ~ ~ ~  0~",
+    "#~ ~+  ~ ~ ~    B  ~+~       ~ ~ ~ ~  0~",
+    "#~#~=~#~=~#~#~#~#~#~#~#~#~#~#~#~#~#~0~#~"})
+
+wo:shuffleOxyd({"black#*", max=0}, {"white#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

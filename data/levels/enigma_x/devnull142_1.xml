@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Blocked III" el:subtitle="" el:id="devnull142"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="4:14"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+
+ti["# "] = {"st_granite"}
+ti["  "] = {"fl_blueslab"}
+ti[" ."] = {"fl_abyss"}
+ti["P"] = {"st_puzzle", color=YELLOW, intensity=0}
+ti["Q"] = ti[" ."] .. {"st_puzzle", color=YELLOW, intensity=0}
+ti["B "] = {"st_oxyd_a", oxydcolor=OXYD_BLACK}
+ti["W "] = {"st_oxyd_a", oxydcolor=OXYD_WHITE}
+ti["G "] = {"st_oxyd_a", oxydcolor=OXYD_GRAY}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(res.puzzle(ti, "P", "Q")), "  ", {
+    " . . . . . . . . . . .#.#.#.#.#.#.",
+    " . . . . . . . .PbPePePiPePl    #.",
+    "#.#.#.#.#. . . .Ph . .#.  Pe    #.",
+    "#.      #. . . .G. . .#.@1Pe    #.",
+    "#.   .  #. . .W. .B. .#.  Pe    #.",
+    "#.  PePePjPjPjQkQeQnPjPjPjPePe  #.",
+    "#.    Pe  #. .B. .W. .#.#.   .  #.",
+    "#.    Pe@0#. . .G. . . .#.      #.",
+    "#.    Pe  #. . .Pb . . .#.#.#.#.#.",
+    "#.    PcPePfPePePh . . . . . . . .",
+    "#.#.#.#.#.#. . . . . . . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

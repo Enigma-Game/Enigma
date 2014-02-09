@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="To and Fro" el:subtitle="" el:id="devnull161"/>
+      <el:version el:score="1" el:release="1" el:revision="4" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to Raoul Bourquin for valuable feedback.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_gravel"}
+ti[" ."] = {"fl_rough"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_redmarble"}
+ti["= "] = {"st_rawglass_quad"}
+ti["+ "] = {"st_box"}
+ti[" s"] = {"it_seed"}
+ti["<W"] = ti[" s"] .. {"st_oneway_w", color=WHITE}
+ti["vB"] = ti[" ."] .. {"st_oneway_s", color=BLACK}
+ti["Sw"] = {"st_switch_white", target="boulderBlack", action="flip"}
+ti["Sb"] = {"st_switch_black", target={"leftVortex", "rightVortex"}}
+ti["^ "] = ti[" ."] .. {"st_boulder_s", name="boulderBlack"}
+ti["t "] = {"fl_scales_brick", target={"blocker%a", "blocker%b", "blocker%c", "blocker%d", "blocker%e", "blockerWhite"}}
+ti["scales"] = {"fl_scales_brick", target="blocker%%"}
+ti["boulders"] = ti[" ~"] .. {"st_boulder_s", name="boulder%%"}
+ti["blockers"] = ti[" ."] .. {"st_blocker", name="blocker%%"}
+ti["K "] = {"st_blocker", name="blockerWhite"}
+ti["F1"] = {"st_fourswitch", target={"boulder%a", "boulder%b", "boulder%c"},
+            action_0={"flip", "nop", "nop"},
+            action_1={"nop", "flip", "flip"},
+            action_2={"flip", "nop", "nop"},
+            action_3={"flip", "flip", "flip"}}
+ti["F2"] = {"st_fourswitch", target={"boulder%c", "boulder%d", "boulder%e"},
+            action_0={"flip", "flip", "nop"},
+            action_1={"flip", "nop", "flip"},
+            action_2={"flip", "flip", "nop"},
+            action_3={"nop", "flip", "flip"}}
+ti["M "] = {"st_mail_e"}
+ti[" _"] = {"it_pipe", connections="ew"}
+ti[" /"] = {"it_pipe", connections="ws"}
+ti[" |"] = {"it_pipe", connections="ns"}
+ti["vl"] = {"it_vortex", name="leftVortex", autoclose=false, state=CLOSED, destination="rightVortex"}
+ti["vr"] = ti[" ~"] .. {"it_vortex", name="rightVortex", autoclose=false, state=CLOSED, destination="leftVortex"}
+ti["b "] = {"it_bottle"}
+ti[" d"] = {"it_document", text="BzG"}
+ti["Ob"] = ti[" ."] .. {"st_oxyd_a", name="oxydsBlack#"}
+ti["Ow"] = ti[" ."] .. {"st_oxyd_a", name="oxydsWhite#"}
+ti["@0"] = ti[" ."] .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"B", "blockers"}, {"V", "boulders"}, {"s", "scales"})), "  ", {
+    "# M =_=_=_=_=_=_=/# # # # # # # # ",
+    "#  ~#  ~+s@1# @0=|# # # # # #  ~# ",
+    "#  ~# +sF1+s#  .=|sasbscsdse# vr# ",
+    "#  ~#  ~+s ~#  . .VaVbVcVdVeb~ ~Sb",
+    "#  ~# # #  ~#  .# # # # # # Sw ~# ",
+    "#  ~ ~ ~+s+s#  . .BaBbBcBdBe+. ~# ",
+    "# K # +s#  ~# # # # # # # # # +.# ",
+    "# vl#  ~+s+s#  . . . . . . . . ~# ",
+    "#   # +sF2 ~# +.# # # # # # # +.# ",
+    "#   #  ~+s  #  . . . . . . . . .# ",
+    "# vB# # # # # t # # # # # # #  .# ",
+    "#  . . . . .# # #           <W^.# ",
+    "# OwOwOwOwOw# #d# ObObObObOb# # # "})
+
+wo:shuffleOxyd({"oxydsBlack#*", max=0}, {"oxydsWhite#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="BzG">
+        <el:english el:translate="false">Hey all you people. This is what you get now ...</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

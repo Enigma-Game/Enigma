@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Key Cupboard" el:subtitle="" el:id="pulley29"/>
+      <el:version el:score="1" el:release="1" el:revision="0" el:status="released"/>
+      <el:author el:name="Mark Pulley" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Mark Pulley</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="1:54"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_bluegray"}
+ti["a*"] = ti({"st_oneway_black", state=WEST, name="Arrow%%"}) .. {"it_sensor", action="callback", target="orientate_east"}
+ti["A*"] = {"it_key", code="%%"}
+ti["B*"] = {"st_key", code="%%", action="toggle", target="Door%%"}
+ti["C*"] = {"st_door_c", name="Door%%"}
+ti["E "] = {"st_door_c", name="DoorE", state=OPEN}
+ti["T "] = (ti["  "] .. {"st_chameleon"}) .. {"it_key", code="7"}
+ti["U "] = {"st_key", code="7", action={"toggle", "toggle", "flip"}, target={"DoorW", "DoorE", "Arrow7"}}
+ti["W "] = {"st_door_c", name="DoorW"}
+ti["X "] = {"st_grate_framed"}
+ti["O "] = {"st_oxyd_c"}
+ti["# "] = {"st_portal_horse"}
+ti["< "] = ti({"st_oneway_black", state=WEST, name="Arrow8"}) .. {"it_sensor", action="callback", target="orientate_west"}
+ti["> "] = {"st_oneway_black", state=WEST, name="Arrow7"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"A","A*"}, {"B","B*"}, {"C","C*"}, {"a","a*"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # # # # # #               # # # # # # # ",
+    "# A1a1      #                         #         # # # # # # # # #           B1",
+    "# # #       #                         #                         #     # # # # ",
+    "# A2a2      #                         E                         >           B2",
+    "# # #       #                       T #                         #     # # # # ",
+    "# A3a3      #                       # # # # # # # # # # # # U # #           B3",
+    "# # #       W                         #                         #     # # # # ",
+    "# A4a4      #                         X                         #           B4",
+    "# # #       #             @           #                         <     # # # # ",
+    "# A5a5      U                         #         # # # # # # # # #           B5",
+    "# # #       #                       # # # # # # # O O O O O O O #     # # # # ",
+    "# A6a6      #                         C1C2C3C4C5C6              #           B6",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # O O O O O O O # # # # # # # "})
+
+wo:shuffleOxyd()
+
+function orientate_east()
+    no["Arrow%*"]:orientate(EAST)
+end
+
+function orientate_west()
+    no["Arrow%*"]:orientate(WEST)
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

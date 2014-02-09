@@ -31,7 +31,7 @@
     <level _seq="23" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Duopal Variation II" _xpath="./devnull53_1" author="/dev/null" ctrl="force" easy="true" id="devnull53" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="25" _title="Blocked II" _xpath="./devnull86_1" author="/dev/null" ctrl="force" easy="false" id="devnull86" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="At the Pool" _xpath="./devnull36_1" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="At the Pool" _xpath="./devnull36_2" author="/dev/null" ctrl="force" easy="true" id="devnull36" rel="2" rev="5" score="2" target="time" unit="duration"/>
     <level _seq="27" _title="Spacer VII" _xpath="./devnull85_1" author="/dev/null" ctrl="force" easy="false" id="devnull85" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Steering The Flood" _xpath="./ais46_1" author="Alex Smith" ctrl="force" easy="true" id="ais46" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="See my pony run" _xpath="./devnull107_1" author="/dev/null" ctrl="force" easy="false" id="devnull107" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -39,6 +39,36 @@
     <level _seq="31" _title="Suckerfish I" _xpath="./devnull51_1" author="/dev/null" ctrl="force" easy="false" id="devnull51" rel="1" rev="7" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Pony trek" _xpath="./devnull106_1" author="/dev/null" ctrl="force" easy="false" id="devnull106" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Enigmas wildcat" _xpath="./cel3_1" author="Raoul Bourquin, Hairball, mecke, Mark Pulley, Alex Smith, Zephyr, /dev/null" ctrl="force" easy="false" id="cel3" rel="1" rev="31" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Chessopal III" _xpath="./devnull145_1" author="/dev/null" ctrl="force" easy="false" id="devnull145" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title=" - Meditation - " _xpath="./devnull131_1" author="/dev/null" ctrl="force" easy="false" id="devnull131" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Dual flash" _xpath="./icewing02_1" author="Icewing" ctrl="force" easy="false" id="icewing02" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Braking Distance" _xpath="./ais52353_1" author="Alex Smith" ctrl="force" easy="true" id="20091116ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Meandering Impulses" _xpath="./ais52376_1" author="Alex Smith" ctrl="force" easy="true" id="20110309ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Cage of Light" _xpath="./hadas09_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas09" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Checkmate III" _xpath="./harry06_1" author="daydreamer" ctrl="force" easy="false" id="harry06" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Cross The Chazm" _xpath="./joe02_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe02" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Mad Hatter's Tea Party" _xpath="./pzykosiz02_1" author="pzykosiz" ctrl="force" easy="true" id="pzykosiz02" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Wired Lone Star" _xpath="./ral40_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20081228ral" rel="1" rev="130" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="Key Cupboard" _xpath="./pulley29_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley29" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="Meteor Shower" _xpath="./zephyr42_1" author="Zephyr" ctrl="force" easy="true" id="zephyr42" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Panic Room" _xpath="./zephyr16_1" author="Zephyr" ctrl="force" easy="true" id="zephyr16" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Go with the Flow" _xpath="./ash27_1" author="Ash" ctrl="force" easy="false" id="ash27" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="Y Junction" _xpath="./devnull163_1" author="/dev/null" ctrl="force" easy="true" id="devnull163" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Riding light beams" _xpath="./devnull165_1" author="/dev/null" ctrl="force" easy="true" id="devnull165" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="To and Fro" _xpath="./devnull161_1" author="/dev/null" ctrl="force" easy="false" id="devnull161" rel="1" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="traceroute III" _xpath="./devnull162_1" author="/dev/null" ctrl="force" easy="true" id="devnull162" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Free Turns" _xpath="./devnull169_1" author="/dev/null" ctrl="force" easy="false" id="devnull169" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="53" _title="Door Jamb Switch" _xpath="./devnull170_1" author="/dev/null" ctrl="force" easy="false" id="devnull170" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Half Hertz" _xpath="./andreas66_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas66" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="55" _title="D-Day" _xpath="./devnull108_1" author="/dev/null" ctrl="force" easy="false" id="devnull108" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="56" _title="Inside I" _xpath="./devnull133_1" author="/dev/null" ctrl="force" easy="false" id="devnull133" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="57" _title="Chessopal I" _xpath="./devnull76_1" author="/dev/null" ctrl="force" easy="true" id="devnull76" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="Surgery" _xpath="./zephyr13_1" author="Zephyr" ctrl="force" easy="true" id="zephyr13" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="59" _title="Chessopal II" _xpath="./devnull77_1" author="/dev/null" ctrl="force" easy="true" id="devnull77" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Blocked III" _xpath="./devnull142_1" author="/dev/null" ctrl="force" easy="false" id="devnull142" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="61" _title="Mixed Puzzles" _xpath="./devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="62" _title="Blocked IV" _xpath="./devnull143_1" author="/dev/null" ctrl="force" easy="false" id="devnull143" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="63" _title="Delta Time" _xpath="./devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

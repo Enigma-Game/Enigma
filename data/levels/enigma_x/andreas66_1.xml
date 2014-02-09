@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Half Hertz" el:subtitle="" el:id="andreas66"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="4:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_redslab"}
+ti["#"] = {"st_concrete"}
+ti["L"] = {"st_laser", "laser#", orientation = SOUTH, state = ON}
+ti["M"] = {"st_laser", "laser#", orientation = NORTH, state = OFF}
+ti["1"] = {"st_mirror_slab", "mirror1", state = EAST, transparent = false, movable = false}
+ti["2"] = {"st_mirror_slab", "mirror2", state = WEST, transparent = false, movable = false}
+ti["3"] = {"st_mirror_slab", "mirror3", state = NORTH, transparent = false, movable = false}
+ti["4"] = {"st_mirror_slab", "mirror4", state = SOUTH, transparent = false, movable = false}
+ti["5"] = {"st_mirror_slab", "mirror5", state = EAST, transparent = false, movable = false}
+ti["6"] = {"st_mirror_slab", "mirror6", state = NORTH, transparent = false, movable = false}
+ti["7"] = {"st_mirror_slab", "mirror7", state = SOUTH, transparent = false, movable = false}
+ti["8"] = {"st_mirror_slab", "mirror8", state = WEST, transparent = false, movable = false}
+ti["9"] = {"st_mirror_slab", "mirror9", state = EAST, transparent = false, movable = false}
+ti["R"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror1", "mirror5"}}
+ti["S"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror2", "mirror3", "mirror4"}}
+ti["T"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror2", "mirror3"}}
+ti["U"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror3", "mirror4"}}
+ti["V"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror5", "mirror8"}}
+ti["W"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror6", "mirror8"}}
+ti["X"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror3", "mirror7"}}
+ti["Y"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror8"}}
+ti["Z"] = {"st_timer", "timer#", state = ON,  interval = 2, target = {"mirror6", "mirror8", "mirror9"}}
+ti["p"] = ti{"it_trigger", target = "@timer#*", action = "toggle"} .. ti{"#ac_bug"}
+ti["s"] = {"st_switch", target = "laser#*", action = "toggle"}
+ti["O"] = {"st_oxyd", flavor = "b", oxydcolor = OXYD_GRAY}
+ti["@"] = {"#ac_marble_black"}
+
+-- Should be solvable because
+--        R   S   T   U   V   W   X   Y   Z
+-- 1 [ [  1,  0,  0,  0,  0,  0,  0,  0,  0 ],
+-- 2   [  0,  1,  1,  0,  0,  0,  0,  0,  0 ],
+-- 3   [  0,  1,  1,  1,  0,  0,  1,  0,  0 ],
+-- 4   [  0,  1,  0,  1,  0,  0,  0,  0,  0 ],
+-- 5   [  1,  0,  0,  0,  1,  0,  0,  0,  0 ],
+-- 6   [  0,  0,  0,  0,  0,  1,  0,  0,  1 ],
+-- 7   [  0,  0,  0,  0,  0,  0,  1,  0,  0 ],
+-- 8   [  0,  0,  0,  0,  1,  1,  0,  1,  1 ],
+-- 9   [  0,  0,  0,  0,  0,  0,  0,  0,  1 ] ]
+-- has determinant one.
+
+wo(ti, " ", {
+    "##O##L##O###########",
+    "#         ##       #",
+    "O 1  2  3 O#    Rp #",
+    "#         ## X     #",
+    "O 4  5  6 O# p     #",
+    "#         ##     pY#",
+    "O 7  8  9 O#  S    #",
+    "#         ##  p    #",
+    "##O##O##M###Zp     #",
+    "###########    pT  #",
+    "#  U    p  Wp      #",
+    "#  p    V         @#",
+    "################s###"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

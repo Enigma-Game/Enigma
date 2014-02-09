@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Mad Hatter's Tea Party" el:id="pzykosiz02"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="pzykosiz"/>
+      <el:copyright>Copyright 2013 pzykosiz</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal"}
+ti["^"] = {"fl_slope_pn"}
+ti[">"] = {"fl_slope_pe"}
+ti["v"] = {"fl_slope_ps"}
+ti["<"] = {"fl_slope_pw"}
+ti["#"] = {"st_bluegray"}
+ti["H"] = {"st_bluegray_hollow"}
+ti["o"] = {"it_meditation_hollow", name="holes#"}
+ti["*"] = {"it_meditation", state=MEDITATION_HILL}
+ti["a"] = {"fl_metal", name="fla#"}
+ti["b"] = {"fl_metal", name="flb#"}
+ti["c"] = {"fl_metal", name="flc#"}
+ti["d"] = {"fl_metal", name="fld#"}
+ti["A"] = ti["a"] .. ti["o"]
+ti["B"] = ti["b"] .. ti["o"]
+ti["C"] = ti["c"] .. ti["o"]
+ti["D"] = ti["d"] .. ti["o"]
+ti["-"] = ti({"fl_wood"}) .. {"st_invisible"}
+ti["%"] = ti["-"] .. {"it_coffee"}
+ti["1"] = ti["<"] .. {"#ac_pearl_white"}
+ti["2"] = ti["v"] .. {"#ac_pearl_black"}
+ti["3"] = ti[">"] .. {"#ac_pearl_white"}
+ti["4"] = ti["^"] .. {"#ac_pearl_black"}
+if wo["IsDifficult"] then
+    ti["T"] = {"st_timer", interval=10.0, target="turner"}
+    ti["F"] = {"st_fourswitch", name="turner", action="callback", target_0="set_slopes", target_3="unset_slopes"}
+    ti["t"] = ti["H"] .. {"it_document", text="text2"}
+else
+    ti["T"] = ti["#"]
+    ti["F"] = ti["#"]
+    ti["t"] = ti["H"] .. {"it_document", text="text1"}
+end
+
+wo(ti, " ", {
+    "####################",
+    "#v<1<<<<<<<<<<1<<<<#",
+    "#v#####a####a#####^#",
+    "#v####ta####a###F#^#",
+    "#v#####A####A#####^#",
+    "#2###--%----%--###^#",
+    "#vddD%--------%Bbb^#",
+    "#v###--%----%--###^#",
+    "#v#####C####C#####^#",
+    "#v#T###c####c#####4#",
+    "#v#####c####c#####^#",
+    "#>>>>3>>>>3>>>>>>>^#",
+    "####################"})
+
+pos_slopes_n = po(no["fla#*"])
+pos_slopes_e = po(no["flb#*"])
+pos_slopes_s = po(no["flc#*"])
+pos_slopes_w = po(no["fld#*"])
+pos_holes = po(no["holes#*"])
+
+function set_slopes(name, sender)
+    wo[pos_slopes_n] = ti["^"]
+    wo[pos_slopes_e] = ti[">"]
+    wo[pos_slopes_s] = ti["v"]
+    wo[pos_slopes_w] = ti["<"]
+    wo[pos_holes] = ti["*"]
+end
+
+function unset_slopes(name, sender)
+    if name then
+        wo[pos_slopes_n] = ti[" "]
+        wo[pos_slopes_e] = ti[" "]
+        wo[pos_slopes_s] = ti[" "]
+        wo[pos_slopes_w] = ti[" "]
+        wo[pos_holes] = ti["o"]
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="text1">
+        <el:english el:translate="false">pzykosiz tip: no jumping on the table</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="false">pzykosiz tip: change places!</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

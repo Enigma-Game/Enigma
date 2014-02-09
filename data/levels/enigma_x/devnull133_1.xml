@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Inside I" el:subtitle="" el:id="devnull133"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="2:02"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["MaxOxydColor"] = OXYD_GRAY
+
+ti["  "] = {"fl_wood"}
+ti[" ."] = {"fl_abyss"}
+ti["# "] = {"st_fake_oxyda"}
+ti["+ "] = {"st_box"}
+ti["* "] = {"st_pull"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti[" -"] = {"fl_bridge_bs", name="bridges#"}
+ti["T "] = {"fl_scales_bridgewood", target="toggleBridges", action="signal"}
+ti["O "] = {"st_oxyd_a", name="oxydsNorth#"}
+ti["0 "] = {"st_oxyd_a", name="oxydsSouth#"}
+ti["@0"] = {"#ac_marble_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    "#.O.O.O.O.O.O.O.#.",
+    "O.B-B-B-B-B-B-B-O.",
+    "#.#.    @1    #.#.",
+    " .#.* * * * * #. .",
+    " .#.T T T T T #. .",
+    " .#.          #. .",
+    " .#. - - - - -#. .",
+    " .#.          #. .",
+    " .#.+ T T T + #. .",
+    " .#.T + + + T #. .",
+    "#.#.    @0    #.#.",
+    "0.W-W-W-W-W-W-W-0.",
+    "#.0.0.0.0.0.0.0.#."})
+
+wo:add({"ot_counter", name="toggleBridges", state=0, target="bridges#*", action_10="close", action_9="open"})
+wo:shuffleOxyd({"oxydsNorth#*", max=0}, {"oxydsSouth#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

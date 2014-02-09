@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Riding light beams" el:subtitle="" el:id="devnull165"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="1:31" el:difficult="3:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_wood"}
+ti[" ~"] = {"fl_water"}
+ti["# "] = {"st_redmarble"}
+ti["P "] = {"st_lightpassenger"}
+ti["doors"] = cond(wo["IsDifficult"], ti[" ~"] .. {"st_door_a", name="door%%"}, {"st_door_a", name="door%%"})
+ti["scales"] = {"fl_scales_bridgewood", target="door%%"}
+ti["Ls"] = {"st_laser_s", name="laserS"}
+ti["Ln"] = {"st_laser_n", name="laserN"}
+ti["< "] = {"st_mirror_triangle", state=WEST, movable=true}
+ti["> "] = {"st_mirror_triangle", state=EAST, movable=true}
+ti["D<"] = cond(wo["IsDifficult"], ti["< "], ti["  "])
+ti["D>"] = cond(wo["IsDifficult"], ti["> "], ti["  "])
+ti["E<"] = cond(wo["IsDifficult"], ti["  "], ti["< "])
+ti["E>"] = cond(wo["IsDifficult"], ti["  "], ti["> "])
+ti["^ "] = {"st_mirror_triangle", state=NORTH, movable=true, transparent=true}
+ti["v "] = {"st_mirror_triangle", state=SOUTH, movable=true, transparent=true}
+ti["| "] = {"st_mirror"}
+ti["_s"] = {"fl_scales_bridgewood", target="laserS", min=0.5}
+ti["_n"] = {"fl_scales_bridgewood", target="laserN", min=0.5}
+ti["Ob"] = {"st_oxyd_d", oxydcolor=OXYD_BLACK}
+ti["Ow"] = {"st_oxyd_d", oxydcolor=OXYD_WHITE}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"=", "doors"}, {"_", "scales"})), "  ", {
+    "# # # # # # # # # Ls# # # # # # # # # ",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "_a ~ ~ ~ ~ ~               ~ ~ ~ ~ ~_A",
+    "#  ~ ~ ~ ~ ~  ^   ^   ^    ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~    P   P      ~ ~ ~ ~ ~# ",
+    "Ob=B          E<      E>   ~    @0=bOw",
+    "#  ~  _nD> ~ ~ ~ ~ ~ ~ ~ ~ ~D<_s   ~# ",
+    "Ow=A@1     ~  E<      E>          =aOb",
+    "#  ~ ~ ~ ~ ~    P   P      ~ ~ ~ ~ ~# ",
+    "#  ~ ~ ~ ~ ~  v   v   v    ~ ~ ~ ~ ~# ",
+    "_b ~ ~ ~ ~ ~               ~ ~ ~ ~ ~_B",
+    "#  ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# ",
+    "# # # # # # # # # Ln# # # # # # # # # "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

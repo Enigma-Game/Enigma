@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="traceroute III" el:subtitle="" el:id="devnull162"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 dev0</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="11:11" el:difficult="12:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["AutoRespawn"] = true
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti[" "] = {"fl_dark_framed", checkerboard=0} .. ti({"fl_white_framed", checkerboard=1})
+ti["~"] = {"fl_water"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["Y"] = {"st_blur_cross"}
+ti["y"] = {"st_blur"}
+ti["#"] = {"st_nil"}
+ti["."] = {"st_oxyd_e", selection={"=B", "=#"}}
+ti["-"] = {"st_oxyd_e", selection={"=W", "=#"}}
+ti["O"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_ORANGE}
+ti["P"] = {"st_oxyd_e", name="peepAll", selection={"=B", "=W"}}
+ti["@"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["*"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~...........       ~",
+    "~................. ~",
+    "~.......Y..Y...... ~",
+    "~...YWY......YWY.. ~",
+    "~..yWOWY....YWOW..@~",
+    "~~~Y~~~~O~~O~~~~Y~~~",
+    "~*--BOBY-P--YBOBy--~",
+    "~ --YBY------YBY---~",
+    "~ ------Y--Y-------~",
+    "~ -----------------~",
+    "~       -----------~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd()
+
+if not wo["IsDifficult"] then
+    no["peepAll"]:peepall()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

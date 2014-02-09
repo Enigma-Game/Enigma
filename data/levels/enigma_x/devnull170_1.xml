@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Door Jamb Switch" el:subtitle="" el:id="devnull170"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 /dev/null</el:copyright>
+      <el:license el:type="GPJ v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="1:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+wo["ProvideExtralifes"] = false
+
+ti["  "] = {"fl_dark"}
+ti[" ."] = {"fl_bright"}
+ti["# "] = {"st_bluesand", cluster=1}
+ti["P "] = {"st_nil"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["J "] = {"st_jamb_black", name="jamb#"}
+ti["- "] = {"st_door_d", faces="ns", target="jamb#*", action="hit"}
+ti["| "] = {"st_door_d", faces="ew", target="jamb#*", action="hit"}
+ti["O "] = {"st_oxyd", flavor="c"}
+ti["@0"] = ti[" ."] .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(res.random(ti, "P ", {"W ", "B "})), "  ", {
+    "# O O O O O O O O # # # J # J # J # # # ",
+    "# W W W W W W W W W W W P P P P P P P # ",
+    "# # # # # # # # # # # J P J P J P J P # ",
+    "# @1P W P W P W P W # P P P P P P P P # ",
+    "# P J P J P J P J P # P J P J P J P J # ",
+    "# P P P P P P P P W # P P P P P P P P # ",
+    "# J P J P J P J P # # J P J P J P J P # ",
+    "# P P P P P P P P # P P P P P P P P P # ",
+    "# P J P J P J P J # J P J P J P J P # # ",
+    "# P P P P P P P P # P P P P P P P P W # ",
+    "# J P J P J P J P # P J P J P J P J.-.# ",
+    "# P P P P P P P P W P P P P P # W |.@0# ",
+    "# # J # J # J # J # J # J # J # # # # # "})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

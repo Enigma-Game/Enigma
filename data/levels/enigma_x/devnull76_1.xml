@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chessopal I" el:subtitle="" el:id="devnull76"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="7:00" el:difficult="11:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["AutoRespawn"] = true
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti["  "] = {"fl_bridge_gc", state=CLOSED}
+ti["~~"] = {"fl_abyss"}
+ti["Cb"] = ti["  "] .. {"st_chess_black"}
+ti["Cw"] = ti["  "] .. {"st_chess_white"}
+ti["BB"] = {"st_passage_black", flavor="frame"}
+ti["bb"] = cond(wo["IsDifficult"], ti["BB"], ti["  "])
+ti["WW"] = {"st_passage_white", flavor="frame"}
+ti["ww"] = cond(wo["IsDifficult"],  ti["WW"], ti["  "])
+ti["bridges"] = {"fl_bridge_gc", name="bridge%%", state=OPEN}
+ti["scales"] = {"fl_scales_darkgray", target="bridge%%"}
+ti["scalesEasy"] = cond(wo["IsDifficult"], ti["~~"], {"fl_scales_darkgray", target="bridge%%"})
+ti["scalesDiff"] = cond(wo["IsDifficult"], {"fl_scales_darkgray", target="bridge%%"}, ti["~~"])
+ti["scalesChessBlack"] = cond(wo["IsDifficult"], ti["Cw"] .. {"fl_scales_darkgray", target="bridge%%"}, ti["Cb"] .. {"fl_scales_darkgray", target="bridge%%"})
+ti["scalesChessWhite"] = cond(wo["IsDifficult"], ti["Cb"] .. {"fl_scales_darkgray", target="bridge%%"}, ti["Cw"] .. {"fl_scales_darkgray", target="bridge%%"})
+ti[".."] = {"st_oxyd_e", selection={"=Cb", "=Cw"}}
+ti["OO"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_BLACK}
+ti["00"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_WHITE}
+ti["PP"] = {"st_oxyd_e", name="peepAll", selection={"=Cb", "=Cw"}}
+ti["@B"] = ti["BB"] .. {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@W"] = ti["WW"] .. {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.autotile(ti, {"s", "scales"}, {"E", "scalesEasy"}, {"D", "scalesDiff"},
+                    {"c", "scalesChessBlack"}, {"d", "scalesChessWhite"}, {"-", "bridges"}), "  ", {
+    "~~OO~~sa~~Ej~~sf~~sgsH~~sE~~EI~~sB~~00~~",
+    "~~-C~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-c~~",
+    "~~-A~~~~ddWW-i-g-e    -F-H-JBBcC~~~~-b~~",
+    "~~WW    ww  ~~~~BB~~~~WW~~~~  bb    BB~~",
+    "~~      bb        ~~~~        ww      ~~",
+    "Dj  ............  ~~~~  ..........PP  DI",
+    "~~BB@BBBBBBBBBBBBB~~~~WWWWWWWWWWWW@WWW~~",
+    "Di  ............  ~~~~  ............  DJ",
+    "~~      bb        ~~~~        ww      ~~",
+    "~~WW    ww  ~~~~BB~~~~WW~~~~  bb    BB~~",
+    "~~-B~~~~dcWW-j-h-f    -E-G-IBBcD~~~~-a~~",
+    "~~-D~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-d~~",
+    "~~OO~~sb~~Ei~~se~~shsG~~sF~~EJ~~sA~~00~~"})
+
+wo:shuffleOxyd()
+
+if not wo["IsDifficult"] then
+    no["peepAll"]:peepall()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

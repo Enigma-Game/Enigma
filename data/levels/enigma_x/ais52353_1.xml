@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Braking Distance" el:subtitle="" el:id="20091116ais523001"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="Alex Smith" el:email="ais523@bham.ac.uk" el:homepage=""/>
+      <el:copyright>Copyright © 2009 Alex Smith</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:12" el:difficult="0:13"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_metal"}
+ti["."] = {"fl_abyss"}
+ti[">"] = {"fl_slope_pe"}
+ti["<"] = {"fl_slope_pw"}
+ti["#"] = {"st_metal"}
+ti["^"] = {"st_mail_n"}
+ti["A"] = cond(wo["IsDifficult"], ti["#"], ti["^"])
+ti["K"] = ti[">"] .. {"st_break"}
+ti["="] = {"st_door_a", name="door"}
+ti["y"] = {"it_dynamite"}
+ti["w"] = {"it_weight"}
+ti["p"] = {"it_pin"}
+ti["x"] = {"it_cross", action="open", target="door", interval=3}
+ti["1"] = {"it_document", text="text1"}
+ti["0"] = {"st_oxyd", flavor="b", oxydcolor=OXYD_GRAY}
+ti["W"] = ti[">"] .. {"#ac_marble_white", essential=INDISPENSABLE}
+ti["@"] = {"#ac_marble", essential=INDISPENSABLE}
+
+wo(ti," ",{
+    ".#################0.",
+    ".WK>>>>>>><<<<<<<<x.",
+    ".##^^^^^^AA^^^^^^#=.",
+    ".ywp1 @            .",
+    ".#################0."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true" />
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Make the white marble wait on the cross for 3 seconds.</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

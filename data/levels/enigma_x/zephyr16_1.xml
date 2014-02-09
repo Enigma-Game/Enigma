@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Panic Room" el:subtitle="" el:id="zephyr16"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Zephyr" el:email=""/>
+      <el:copyright>Copyright © 2009 Zephyr</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="0:54" el:difficult="1:24"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["."] = {"fl_plank"}
+ti["#"] = {"st_redrock"}
+ti["W"] = {"st_window", faces="ns"}
+ti["+"] = ti["."] .. ti["W"]
+ti["x"] = {"it_sensor", name="window", invisible=true, target="repair_window"}
+ti["T"] = {"st_timer", name="timer", target="startrotor", state=OFF, loop=false}
+ti["S"] = {"st_switch", target="stoprotor"}
+ti["R"] = {"#ac_rotor", name="rotor#", range=20.0, gohome=true, strength=30.0}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"ac_marble", name="ball", _outside=true}
+
+wo(ti, " ", {
+    "#########T#########",
+    "#R     #.S.#     R#",
+    "# O  O #...# O  O #",
+    "#      #...#      #",
+    "# O  O ##+## O  O #",
+    "#        x        #",
+    "# O  O       O  O #",
+    "#        @        #",
+    "# O  O       O  O #",
+    "#                 #",
+    "###################"})
+
+wo:shuffleOxyd()
+
+function startrotor()
+    no["rotor#*"]["range"] = 20.0
+end
+
+function stoprotor()
+    no["ball"]["_outside"] = false
+    no["rotor#*"]["range"] = 0.0
+    no["timer"]["interval"] = enigma.random(3, 12)
+    no["timer"]:message("on")
+end
+
+function repair_window()
+    if no["ball"]["_outside"] == false then
+        wo[no["window"] + N] = ti["W"]
+    end
+    no["ball"]["_outside"] = true
+end
+
+if not wo["IsDifficult"] then
+    wo:add(YIN, {"it_ring"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

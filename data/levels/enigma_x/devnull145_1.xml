@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chessopal III" el:subtitle="" el:id="devnull145"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="6:36"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti["  "] = {"fl_bridge_gc", state=CLOSED}
+ti["# "] = {"st_redmarble"}
+ti[" ~"] = {"fl_abyss"}
+ti["Cb"] = ti["  "] .. {"st_chess_black"}
+ti["Cw"] = ti["  "] .. {"st_chess_white"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["bridgesBlack"] = ti["B "] .. {"fl_bridge_gc", name="bridgeBlack%%", state=OPEN}
+ti["bridgesWhite"] = ti["W "] .. {"fl_bridge_gc", name="bridgeWhite%%", state=OPEN}
+ti["scalesChessBlack"] = {"fl_scales_darkgray", name="scb%%", target="bridgeBlack%%"}
+ti["scalesChessWhite"] = {"fl_scales_darkgray", name="scw%%", target="bridgeWhite%%"}
+ti["vorticesBlack"] = ti["B "] .. {"it_vortex", destination="scb%%"}
+ti["vorticesWhite"] = ti["W "] .. {"it_vortex", destination="scw%%"}
+ti[". "] =  {"st_oxyd_e", selection={"=Cb", "=Cw"}}
+ti[" b"] = {"#ac_pearl_black", owner=DEFAULT, controllers=CTRL_NONE}
+ti[" w"] = {"#ac_pearl_white", owner=DEFAULT, controllers=CTRL_NONE}
+ti["OB"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_BLACK}
+ti["OW"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_WHITE}
+ti["OG"] = {"st_oxyd_a", noshuffle=true, oxydcolor=OXYD_GRAY}
+ti["OO"] = {"st_oxyd_a", noshuffle=true, name="peepAll", oxydcolor=OXYD_ORANGE}
+ti["@0"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"v", "vorticesBlack"}, {"V", "vorticesWhite"}, {"b", "scalesChessBlack"}, {"w", "scalesChessWhite"}, {"-", "bridgesBlack"}, {"_", "bridgesWhite"})), "  ", {
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~babbbcbd ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~wdwcwbwa ~ ~ ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~w1w2w3w4w5w6w7w8 ~ ~ ~ ~ ~ ~ ~ ~ ~b8b7b6b5b4b3b2b1 ~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~#~#~#~#~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~ ~#~#~#~#~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~OW-d-1-8                Va ~ ~ ~ ~ ~ ~ ~va                _8_1_dOO ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~#~      .w.w      #~ ~ ~ ~ ~ ~ ~ ~#~      .b.b      #~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~OG-c-2-7  .w.w.w.w.w.w  Vb ~ ~ ~ ~ ~ ~ ~vb  .b.b.b.b.b.b  _7_2_cOB ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~#~B B B B B B B B #~ ~ ~ ~ ~ ~ ~ ~#~W W W W W W W W #~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~OB-b-3-6  .w.w.w.w.w.w  Vc ~ ~ ~ ~ ~ ~ ~vc  .b.b.b.b.b.b  _6_3_bOG ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~#~      .w.w      #~ ~ ~ ~ ~ ~ ~ ~#~      .b.b      #~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~OO-a-4-5      @0        Vd ~ ~ ~ ~ ~ ~ ~vd        @1      _5_4_aOW ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~#~#~#~#~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~ ~#~#~#~#~#~#~#~#~#~#~ ~ ~ ~ ~ ~ ~",
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~"})
+
+wo:shuffleOxyd()
+no["peepAll"]:peepall()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

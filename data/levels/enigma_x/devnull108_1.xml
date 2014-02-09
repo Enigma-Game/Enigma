@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="D-Day" el:subtitle="" el:id="devnull108"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="3:21"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["  "] = {"fl_rock"}
+ti["# "] = {"st_fake_oxydc_open"}
+ti[" ."] = {"fl_abyss"}
+ti["+ "] = {"st_box_rock"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["b "] = {"st_break_black"}
+ti["w "] = {"st_break_white"}
+ti["O "] = {"st_oxyd_c", name="oxydsWhite#"}
+ti["0 "] = {"st_oxyd_c", name="oxydsBlack#"}
+ti["@0"] = {"#ac_marble_black", 0.5, 0.0, owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", 0.5, 0.0, owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    "#.0.#.#.#.#.#.#.O. . . .",
+    "0.W  .b B b b b.w 0. . .",
+    "#.  b.b b.+ W +.W. .O. .",
+    "#.+.+.B   @0  w B b   0.",
+    "#. .w w #.#.#.W + b.  #.",
+    "#.w W  .O. . .O. .W   #.",
+    "#.w +   #. . .#.b w w.#.",
+    "#.w W b 0. . .0.+.b + #.",
+    "#.B w b #.#.#.B w w b #.",
+    "#.w +.w.+ @1  +.w.B b.O.",
+    "#.W     w w w b w B.0. .",
+    "O.b w.+ b B + w b.0. . .",
+    "#.O.#.#.#.#.#.#.O. . . ."})
+
+wo:add(YIN, {"it_hammer"})
+wo:add(YANG, {"it_hammer"})
+wo:shuffleOxyd({"oxydsWhite#*", max=0}, {"oxydsBlack#*", max=0})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

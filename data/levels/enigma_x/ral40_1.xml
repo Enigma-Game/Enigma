@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Wired Lone Star" el:subtitle="" el:id="20081228ral"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 130 $" el:status="released"/>
+      <el:author el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
+      <el:copyright>Copyright © 2008 Ronald Lamprecht</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/liblua" el:id="lib/liblua" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+      </el:comments>
+      <el:score el:easy="0:13" el:difficult="1:10"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_lawn"}
+ti["o"] = {"fl_lawn", name="oxyd#"}
+ti["boxes"] = {"st_box", name="box%%"}
+ti["x"] = {"it_trigger", name="t#", target="check"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble"}
+
+resolver = res.autotile(ti, {"A", "G", "boxes"})
+
+if wo["IsDifficult"] then
+    wo(resolver, " ", {
+        "                   ",
+        " o               o ",
+        "         A         ",
+        "       x   x       ",
+        "      C     F      ",
+        "     x       x     ",
+        "         @         ",
+        "     E       D     ",
+        "      x     x      ",
+        "       G   B       ",
+        "         x         ",
+        " o               o ",
+        "                   "})
+else
+    wo(resolver, " ", {
+        "                   ",
+        " o               o ",
+        "         x         ",
+        "                   ",
+        "         D         ",
+        "                   ",
+        "     x E @ C x     ",
+        "                   ",
+        "        A B        ",
+        "       x   x       ",
+        "                   ",
+        " o               o ",
+        "                   "})
+end
+
+triggers = no["t#*"]
+unfinished = true
+
+function check(value, sender)
+    for trigger in triggers do
+        if not (st(trigger):is("st_box")) then
+            return
+        end
+    end
+    if unfinished then
+        wo[no["oxyd#*"]] = ti["O"]
+        wo:shuffleOxyd()
+        unfinished = false
+    end
+end
+
+wo:add({"ot_wire", anchor1="box%1", anchor2="box%2"})
+wo:add({"ot_wire", anchor1="box%3", anchor2="box%2"})
+wo:add({"ot_wire", anchor1="box%3", anchor2="box%4"})
+wo:add({"ot_wire", anchor1="box%5", anchor2="box%4"})
+if wo["IsDifficult"] then
+    wo:add({"ot_wire", anchor1="box%5", anchor2="box%6"})
+    wo:add({"ot_wire", anchor1="box%7", anchor2="box%6"})
+    wo:add({"ot_wire", anchor1="box%7", anchor2="box%1"})
+else
+    wo:add({"ot_wire", anchor1="box%5", anchor2="box%1"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

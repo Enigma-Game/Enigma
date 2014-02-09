@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Meteor Shower" el:subtitle="" el:id="zephyr42"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Zephyr" el:email=""/>
+      <el:copyright>Copyright © 2009 Zephyr</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmaze" el:id="lib/libmaze" el:release="2" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["_"] = {"fl_lawn", name="ground#", burnable=false}
+ti["."] = {"fl_abyss"}
+ti["+"] = {"st_ice"}
+ti["-"] = ti["+"] .. {"fl_himalaya"}
+ti["#"] = ti["."] .. {"st_ancient"}
+ti[","] = cond(wo["IsDifficult"], ti["."] .. ti["+"], ti["-"])
+ti["O"] = {"st_oxyd"}
+ti["@"] = ti["_"] .. {"ac_marble"}
+
+wo(ti, " ", {
+    ".################.",
+    "####O##O##O##O####",
+    "###,-,,-,,-,,-,###",
+    "##,____________,##",
+    "#O-____________-O#",
+    "##,____________,##",
+    "##,______@_____,##",
+    "#O-____________-O#",
+    "##,____________,##",
+    "###,-,,-,,-,,-,###",
+    "####O##O##O##O####",
+    ".################."})
+
+wo:shuffleOxyd()
+wo:add({"ot_timer", target="meteor", interval=1.0})
+
+poground = po(no["ground#*"])
+ground = fl(poground):shuffle()
+
+function meteor()
+    no["spot#*"]:message("setfire")
+    toburn = ground:sub(9)
+    ground = ground - toburn
+    if #ground == 0 then
+        ground = fl(poground):shuffle()
+    end
+    wo[toburn] = {"fl_himalaya", name="spot#", burnable=true} .. ti({"it_nil"})
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

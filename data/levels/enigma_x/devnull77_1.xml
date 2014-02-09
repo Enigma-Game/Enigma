@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Chessopal II" el:subtitle="" el:id="devnull77"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2010 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="10:00" el:difficult="15:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AllowSuicide"] = false
+wo["AutoRespawn"] = true
+wo["MaxOxydColor"] = OXYD_PURPLE
+
+ti[" "] = ti({"fl_platinum", checkerboard=0}) .. {"fl_darkgray", checkerboard=1}
+ti["~"] = ti({"fl_abyss"}) .. {"st_disco"}
+ti["#"] = {"st_fake_oxyda"}
+ti["H"] = {"st_chess_black"}
+ti["C"] = {"st_chess_white"}
+ti["B"] = {"st_passage_black", flavor="frame"}
+ti["W"] = {"st_passage_white", flavor="frame"}
+ti["D"] = {"st_door_a", name="door#"}
+ti["w"] = {"fl_scales_darkgray", target="toggleDoors", action="signal"}
+ti["b"] = {"fl_scales_platinum", target="toggleDoors", action="signal"}
+ti["."] = {"st_oxyd_e", selection={"=H", "=C"}}
+ti["O"] = {"st_oxyd_b", noshuffle=true, oxydcolor=OXYD_BLACK}
+ti["0"] = {"st_oxyd_b", noshuffle=true, oxydcolor=OXYD_WHITE}
+ti["P"] = {"st_oxyd_e", name="peepAll", selection={"=H", "=C"}}
+ti["@"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE, -0.5, 0.0}
+ti["*"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE, 0.5, 0.0}
+
+wo(ti, " ", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~0D##############DO~",
+    "~D W... C..H ...B D~",
+    "~#W  ..Cw..bH..  B#~",
+    "~#.  .. C..H ..  .#~",
+    "~#.  ..Cw..bH..  .#~",
+    "~#. @.. CP.H ..* .#~",
+    "~#.  ..Cw..bH..  .#~",
+    "~#.  .. C..H ..  .#~",
+    "~#W  ..Cw..bH..  B#~",
+    "~D W... C..H ...B D~",
+    "~0D##############DO~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:add({"ot_counter", name="toggleDoors", state=0, target="door#*", action_8="open", action_7="close"})
+wo:shuffleOxyd()
+
+if not wo["IsDifficult"] then
+    no["peepAll"]:peepall()
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

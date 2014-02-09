@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Dual flash" el:subtitle="" el:id="icewing02"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Icewing" el:email=""/>
+      <el:copyright>Copyright © 2014 Icewing</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:score el:easy="-" el:difficult="02:06"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+
+ti[" "] = {"fl_abyss"}
+ti["-"] = {"fl_metal"}
+ti["."] = {"fl_adhesionless"}
+ti["X"] = {"st_oxyd"}
+ti["F"] = {"st_flash"}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, "-", {
+    "                   ",
+    "                   ",
+    "      F-----X      ",
+    "     X .   . F     ",
+    "     -..   ..-     ",
+    "     -       -     ",
+    "     -       -     ",
+    "     -       -     ",
+    "     @..   ..-     ",
+    "     F .   . X     ",
+    "      X-----F      ",
+    "                   ",
+    "                   ",
+    "         X         ",
+    "       -----       ",
+    "       . F .       ",
+    "     -..   ..-     ",
+    "     -       -     ",
+    "    X-F     F-X    ",
+    "     -       -     ",
+    "     A..   ..-     ",
+    "       . F .       ",
+    "       -----       ",
+    "         X         ",
+    "                   ",
+    "                   "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
