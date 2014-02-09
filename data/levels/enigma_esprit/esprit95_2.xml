@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Burn baby, burn" el:subtitle="esprit 95" el:id="ss_esp95"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, January 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_dark", burnable=true}
+ti["-"] = {"fl_dark"}
+ti["#"] = {"st_flat"}
+ti["X"] = {"st_grate_framed"}
+ti["C"] = {"st_coinslot", target="@door#*"}
+ti["K"] = {"st_key", target="@door#*"}
+ti["="] = {"st_door_c", name="door#"}
+ti["k"] = {"it_key"}
+ti["_"] = {"it_trigger", target="burn#*", action="ignite", invisible=true}
+ti["!"] = {"it_burnable", name="burn#"}
+ti["+"] = {"it_brake"}
+ti["|"] = {"it_sword"}
+ti["."] = {"it_seed"}
+ti["b"] = {"it_brush"}
+ti["c"] = {"it_coin_m"}
+ti["d"] = {"it_dynamite"}
+ti["f"] = {"it_extinguisher"}
+ti["g"] = {"it_weight"}
+ti["h"] = {"it_hammer"}
+ti["l"] = {"it_extralife"}
+ti["m"] = {"it_magicwand"}
+ti["s"] = {"it_spade"}
+ti["t"] = {"it_document"}
+ti["u"] = {"it_umbrella"}
+ti["w"] = {"it_wrench"}
+ti["y"] = {"it_cherry"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "#######################################",
+    "#bbb#uuuu#ffff#lm t#|h t#             #",
+    "#bbb#uuuu#ffff#yghy#m lw# O    O    O #",
+    "#bbb#uuuu#ffff#w.+|#w.+|#             #",
+    "#bbb#uuuu#ffff# ycc# hhh#             #",
+    "#   #=K###=K###XXXX#XXXX#             #",
+    "# @ _     !             C-            #",
+    "#k  #XXXX#XXXX#         =-            #",
+    "#sss#dddd#    #         #-            #",
+    "#sss#dddd#    #         #             #",
+    "#sss#dddd#    #         # O    O    O #",
+    "#sss#dddd#    #        !#             #",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
