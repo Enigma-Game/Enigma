@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Propeller" el:subtitle="Oxyd Extra 6" el:id="20080109ulf027"/>
+      <el:version el:score="1" el:release="2" el:revision="105" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="0:19"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_rough"}
+ti["#"] = {"st_purplemarble"}
+ti["vortices"] = {"it_vortex", name="vortex%%", destination="floor%%"}
+ti["floors"] = {"fl_rough", name="floor%%"}
+ti["s"] = {"it_surprise"}
+ti["O"] = {"st_oxyd_c"}
+ti["*"] = {"#ac_rotor", range=5.0, strength=25.0}
+ti["+"] = {"ac_rotor", 0.0, 0.5, range=5.0, strength=25.0}
+ti["@"] = {"#ac_marble", 1.0, 0.0}
+
+wo(res.autotile(ti, {"A", "D", "vortices"}, {"a", "d", "floors"}), " ", {
+    "####################",
+    "#A B#A  C##D  B#D C#",
+    "# * # + +## + +# * #",
+    "#   #    ##    #   #",
+    "#   #    ##    #   #",
+    "#   #    ##    # s #",
+    "#   #    ##    #   #",
+    "#   #    ##    #   #",
+    "#   #    ##    #   #",
+    "#O@c#O  a##O  d#O b#",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

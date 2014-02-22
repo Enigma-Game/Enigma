@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="14" title="Oxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20200" network="false" owner="Enigma Team" release="1" revision="15" title="Oxyd"/>
 
   <attributes/>
 
@@ -35,30 +35,31 @@
     <level _seq="27" _title="Moonwalking" _xpath="./oxyd52_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060629ulf006" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Scrooge" _xpath="./oxyd53_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried100" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Soaring High" _xpath="./oxyd54_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried101" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="30" _title="Oxyd 70" _xpath="./oxyd70_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd70" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Oxyd 77" _xpath="./oxyd77_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd77" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="32" _title="Oxyd 79" _xpath="./oxyd79_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070103ulf015" rel="1" rev="69" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Oxyd 90" _xpath="./oxyd90_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd90" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="34" _title="So Many Doors" _xpath="./oxyd93_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9b" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="35" _title="Oxyd 95" _xpath="./oxyd95_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070103ulf014" rel="1" rev="69" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Oxyd Link 1" _xpath="./oxydlink01_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p1" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="37" _title="Land of the Doors" _xpath="./oxydlink02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin65" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Oxyd Link 3" _xpath="./oxydlink03_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p3" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="Black or White" _xpath="./oxydlink05_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin42" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="40" _title="Advance Planning" _xpath="./oxydlink14_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried76" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="41" _title="Airlock" _xpath="./oxydlink17_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8b" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="42" _title="OxydLink 23" _xpath="./oxydlink23_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried104" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Preferences" _xpath="./oxydlink28_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10d" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="44" _title="Letter Bomb" _xpath="./oxydlink31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="oxydlink31" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="45" _title="Oxyd Link 33" _xpath="./oxydlink33_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p33" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="46" _title="Mirror III" _xpath="./oxydlink41_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried80" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="My Way, Your Way" _xpath="./oxydlink46_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10e" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="48" _title="Center Court" _xpath="./oxydlink61_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level11c" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="49" _title="Parcours" _xpath="./oxydlink65_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8a" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="Oxyd Link 68" _xpath="./oxydlink68_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p68" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="51" _title="Slide Show" _xpath="./oxydlink72_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8c" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="52" _title="Oxyd Link 87" _xpath="./oxydlink87_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p87" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="53" _title="OxydLink 95" _xpath="./oxydlink95_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried103" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Oxyd 59" _xpath="./oxyd59_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080111ulf035" rel="2" rev="105" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Oxyd 70" _xpath="./oxyd70_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd70" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Oxyd 77" _xpath="./oxyd77_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd77" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Oxyd 79" _xpath="./oxyd79_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070103ulf015" rel="1" rev="69" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Oxyd 90" _xpath="./oxyd90_1" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd90" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="So Many Doors" _xpath="./oxyd93_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level9b" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Oxyd 95" _xpath="./oxyd95_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20070103ulf014" rel="1" rev="69" score="1" target="time" unit="duration"/>
+    <level _seq="37" _title="Oxyd Link 1" _xpath="./oxydlink01_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p1" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Land of the Doors" _xpath="./oxydlink02_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin65" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Oxyd Link 3" _xpath="./oxydlink03_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p3" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="40" _title="Black or White" _xpath="./oxydlink05_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin42" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="41" _title="Advance Planning" _xpath="./oxydlink14_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried76" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="42" _title="Airlock" _xpath="./oxydlink17_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8b" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="OxydLink 23" _xpath="./oxydlink23_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried104" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="Preferences" _xpath="./oxydlink28_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10d" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="45" _title="Letter Bomb" _xpath="./oxydlink31_2" author="Siegfried Fennig" ctrl="force" easy="false" id="oxydlink31" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="46" _title="Oxyd Link 33" _xpath="./oxydlink33_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p33" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Mirror III" _xpath="./oxydlink41_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried80" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="48" _title="My Way, Your Way" _xpath="./oxydlink46_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10e" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Center Court" _xpath="./oxydlink61_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level11c" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Parcours" _xpath="./oxydlink65_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8a" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Oxyd Link 68" _xpath="./oxydlink68_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p68" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="52" _title="Slide Show" _xpath="./oxydlink72_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8c" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="53" _title="Oxyd Link 87" _xpath="./oxydlink87_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxyd2p87" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="OxydLink 95" _xpath="./oxydlink95_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried103" rel="2" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

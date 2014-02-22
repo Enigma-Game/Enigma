@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20400" network="false" owner="Enigma Team" release="1" revision="7" title="Oxyd Magnum"/>
+  <info enigma="1.00" group="Déjà-vu" location="20400" network="false" owner="Enigma Team" release="1" revision="8" title="Oxyd Magnum"/>
 
   <attributes/>
 
@@ -26,15 +26,21 @@
     <level _seq="18" _title="Tilt" _xpath="./oxm37_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin51" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Oxyd Magnum 40" _xpath="./oxm40_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnum40" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="20" _title="Light and Doors" _xpath="./oxm58_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried91" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="21" _title="Sensor Fields" _xpath="./oxm78_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried84" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="22" _title="Puller Mailing" _xpath="./oxm82_2" author="anonymous" ctrl="force" easy="false" id="magnum82" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="23" _title="Turnstiles" _xpath="./oxm84_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried82" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="Hall of Mirrors" _xpath="./oxm96_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried96" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="Letter Bomb" _xpath="./oxm99_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried97" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="26" _title="Magnum 100" _xpath="./oxm100_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss_mag100" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="27" _title="Oxyd Magnum Gold 17" _xpath="./oxmg17_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnumgold17" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Oxyd Magnum Gold 18" _xpath="./oxmg18_2" author="Edward" ctrl="force" easy="false" id="oxydmagnumgold18" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Oxyd Magnum Gold 19" _xpath="./oxmg19_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnumgold19" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="21" _title="Oxyd Magnum 61" _xpath="./oxm61_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080110ulf033" rel="2" rev="106" score="1" target="time" unit="duration"/>
+    <level _seq="22" _title="Oxyd Magnum 65" _xpath="./oxm65_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080110ulf031" rel="2" rev="106" score="1" target="time" unit="duration"/>
+    <level _seq="23" _title="Oxyd Magnum 73" _xpath="./oxm73_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080108ulf026" rel="2" rev="103" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="Oxyd Magnum 75" _xpath="./oxm75_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080110ulf032" rel="2" rev="105" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Sensor Fields" _xpath="./oxm78_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried84" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="26" _title="Puller Mailing" _xpath="./oxm82_2" author="anonymous" ctrl="force" easy="false" id="magnum82" rel="2" rev="4" score="1" target="time" unit="duration"/>
+    <level _seq="27" _title="Turnstiles" _xpath="./oxm84_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried82" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Oxyd Magnum 94" _xpath="./oxm94_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080110ulf030" rel="2" rev="106" score="1" target="time" unit="duration"/>
+    <level _seq="29" _title="Hall of Mirrors" _xpath="./oxm96_1" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried96" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="30" _title="Oxyd _agnum 98" _xpath="./oxm98_2" author="Ulf Stegemann" ctrl="force" easy="false" id="20080110ulf029" rel="2" rev="106" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Letter Bomb" _xpath="./oxm99_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried97" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="32" _title="Magnum 100" _xpath="./oxm100_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss_mag100" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Oxyd Magnum Gold 17" _xpath="./oxmg17_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnumgold17" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="34" _title="Oxyd Magnum Gold 18" _xpath="./oxmg18_2" author="Edward" ctrl="force" easy="false" id="oxydmagnumgold18" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="35" _title="Oxyd Magnum Gold 19" _xpath="./oxmg19_2" author="Raoul Bourquin" ctrl="force" easy="false" id="oxydmagnumgold19" rel="2" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

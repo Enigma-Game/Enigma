@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Per.Oxyd 76" el:subtitle="Per.Oxyd 76" el:id="20080109ulf028"/>
+      <el:version el:score="1" el:release="2" el:revision="104" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20">
+        <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2014</el:code>
+      </el:comments>
+      <el:score el:easy="0:31" el:difficult="1:53"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_samba"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_ancient"}
+ti["I"] = {"st_invisible"}
+ti["="] = cond(wo["IsDifficult"], ti["I"], ti["#"])
+ti["-"] = cond(wo["IsDifficult"], ti["I"], ti[" "])
+ti["P"] = {"st_puzzle", intensity=0, cluster=1}
+ti["s"] = ti["I"].. {"it_spring"}
+ti["O"] = {"st_oxyd_c"}
+ti["*"] = {"#ac_top", name="top", strength=5.0, range=100, gohome=false}
+ti["@"] = {"#ac_marble", name="black"}
+
+wo(res.puzzle(ti, "P"), " ", {
+    "####################",
+    "#*       -= #~#O   #",
+    "#           #~#    #",
+    "#  -   =   ##~#### #",
+    "#  P  =s=    ~     #",
+    "#@PPP  =    ~~~    #",
+    "#  P-        ~     #",
+    "#       -  ##~#### #",
+    "#  =        #~#    #",
+    "#     -     #~#O   #",
+    "####################"})
+
+wo:add({"ot_rubberband", anchor1="black", anchor2="top", strength=10, length=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="subtitle">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

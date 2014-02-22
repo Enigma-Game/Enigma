@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd 59" el:subtitle="Oxyd 59" el:id="20080111ulf035"/>
+      <el:version el:score="1" el:release="2" el:revision="105" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_wood"}
+ti["#"] = {"st_lightglass"}
+ti["!"] = {"it_bomb"}
+ti["="] = ti["!"] .. ti["#"]
+ti["+"] = {"st_flat_movable"}
+ti["X"] = {"st_grate"}
+ti["K"] = {"st_dispenser_bombblack"}
+ti["S"] = {"st_shogun_s"}
+ti["A"] = {"st_door", name="doorA", faces="ew"}
+ti["B"] = {"st_door", name="doorB", faces="ns"}
+ti["C"] = {"st_door", name="doorCD#", faces="ns"}
+ti["D"] = {"st_door", name="doorCD#", faces="ew"}
+ti["a"] = {"it_shogun_s", target="doorA"}
+ti["b"] = {"it_shogun_s", target="doorB"}
+ti["c"] = {"it_shogun_s", target="doorCD#*"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "#O################O#",
+    "#!!!+    X #   b##B#",
+    "# #!#    S +!!!!!  #",
+    "# #!###### # !###  #",
+    "# #!!!!+ S # =  #  #",
+    "# ##+##  # X K  #  #",
+    "#a!!! #  # # #     #",
+    "####!!!+SX!  #   #@#",
+    "#  #     #!! #  ##C#",
+    "#  A         #c  D #",
+    "#O################O#"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd Magnum 61" el:subtitle="Oxyd Magnum 61" el:id="20080110ulf033"/>
+      <el:version el:score="1" el:release="2" el:revision="106" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="2:08"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_wood"}
+ti[" ."] = {"fl_abyss"}
+ti["+ "] = {"st_box_wood"}
+ti["T "] = {"st_turnstile_red"}
+ti["^ "] = {"st_turnstilearm_n"}
+ti["> "] = {"st_turnstilearm_e"}
+ti["v "] = {"st_turnstilearm_s"}
+ti["< "] = {"st_turnstilearm_w"}
+ti[" c"] = {"it_coffee"}
+ti["O "] = {"st_oxyd_d"}
+ti["@0"] = {"#ac_marble_black", essential=INDISPENSABLE}
+ti["@1"] = {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(res.composer(ti), "  ", {
+    " . . . . . . . . . . . . . . . . . . . .",
+    " .                   . .           .O  .",
+    " .   . . .   .<.T >c^      . . .   . . .",
+    " .              v   T >.           .O  .",
+    " .   . . .   . .^.  v. .   .  ^.   . . .",
+    " .@1 . . .   .<.T   <.T >  .  T >  . . .",
+    " .@0+     +     v     v ^     v    . . .",
+    " .   . . .   . . .   . .T  .   .   . . .",
+    " .   . . .   .<.T >     v          . . .",
+    " .              v    . . . . . . . . . .",
+    " . . . . . . . . . . . . . . . . . . . ."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

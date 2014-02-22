@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Underground" el:subtitle="Oxyd Extra 24" el:id="oxe24"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2013 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_fake_trigger"}
+ti["##"] = {"st_redbrown"}
+ti["va"] = {"it_vortex", name="vg%1_%%", destination="@vg%%_*"}
+ti["vb"] = {"it_vortex", name="vg%2_%%", destination="@vg%%_*"}
+ti["vc"] = {"it_vortex", name="vg%3_%%", destination="@vg%%_*"}
+ti["vd"] = {"it_vortex", name="vg%4_%%", destination="@vg%%_*"}
+ti["ve"] = {"it_vortex", name="vg%5_%%", destination="@vg%%_*"}
+ti["vf"] = {"it_vortex", name="vg%6_%%", destination="@vg%%_*"}
+ti["b1"] = {"it_vortex", name="vg%2_#", destination="vg%1_%2"}
+ti["b3"] = {"it_vortex", name="vg%2_#", destination="vg%3_%2"}
+ti["b4"] = {"it_vortex", name="vg%2_#", destination="vg%4_%2"}
+ti["b6"] = {"it_vortex", name="vg%2_#", destination="vg%6_%2"}
+ti["e1"] = {"it_vortex", name="vg%5_#", destination="vg%1_%5"}
+ti["e3"] = {"it_vortex", name="vg%5_#", destination="vg%3_%5"}
+ti["e4"] = {"it_vortex", name="vg%5_#", destination="vg%4_%5"}
+ti["e6"] = {"it_vortex", name="vg%5_#", destination="vg%6_%5"}
+ti["OO"] = {"st_oxyd", flavor="a"}
+ti["@@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"A", "va"}, {"B", "vb"}, {"C", "vc"}, {"D", "vd"}, {"E", "ve"}, {"F", "vf"}), "  ", {
+    "######OO######OO######OO######OO######",
+    "##          ##          ##          ##",
+    "##          ##          ##          ##",
+    "##    A2A3  ##  b1  b3  ##  C1C2    ##",
+    "##  A4A5A6  ##  b4B5b6  ##  C4C5C6  ##",
+    "######################################",
+    "##  D1D2D3  ##  e1E2e3  ##  F1F2F3  ##",
+    "##    D5D6  ##  e4  e6  ##  F4F5    ##",
+    "##    @@    ##          ##          ##",
+    "##          ##          ##          ##",
+    "######OO######OO######OO######OO######"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

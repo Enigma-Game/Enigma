@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Surgery" el:subtitle="" el:id="zephyr13"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
       <el:author el:name="Zephyr" el:email=""/>
       <el:copyright>Copyright © 2009 Zephyr</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,27 +22,27 @@ ti["@"] = {"#ac_marble"}
 
 if wo["IsDifficult"] then
     world = {
-        "###################",
-        "#                 #",
-        "# @               #",
-        "#-#  -#  -#  -#  -#",
-        "#-# #-#-#-# #-#-#-#",
-        "#-#-#-#-#-#-#-#-#-#",
-        "#-#-#-#-#-#-#-#-#-#",
-        "#-#-#-#-#-#-#-#-#-#",
-        "#-#-#-#-#-#-#-#-#-#",
-        "#O#O#O#O#O#O#O#O#O#"}
+        "#################",
+        "#               #",
+        "# @             #",
+        "#-#  -#  -#  -# #",
+        "#-# #-#-#-# #-#-#",
+        "#-#-#-#-#-#-#-#-#",
+        "#-#-#-#-#-#-#-#-#",
+        "#-#-#-#-#-#-#-#-#",
+        "#-#-#-#-#-#-#-#-#",
+        "#O#O#O#O#O#O#O#O#"}
 else
     world = {
-        "###################",
-        "#                 #",
-        "# @               #",
-        "#   #-#           #",
-        "#-# #-#     #-#   #",
-        "#-#-#-#   #-#-#   #",
-        "#-#-#-#-# #-#-# #-#",
-        "#-#-#-#-#-#-#-#-#-#",
-        "#O#O#O#O#O#O#O#O#O#"}
+        "#################",
+        "#               #",
+        "# @             #",
+        "#   #-#         #",
+        "#-# #-#     #-# #",
+        "#-#-#-#   #-#-# #",
+        "#-#-#-#-# #-#-# #",
+        "#-#-#-#-#-#-#-#-#",
+        "#O#O#O#O#O#O#O#O#"}
 end
 
 wo(ti, " ", world)

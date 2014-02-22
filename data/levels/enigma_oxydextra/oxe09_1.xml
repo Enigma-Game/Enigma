@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Laser Cannons" el:subtitle="Oxyd Extra 9" el:id="oxe09"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2013 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_mortar"}
+ti["#"] = {"st_flat"}
+ti["X"] = {"st_break_oxydc"}
+ti["^"] = {"st_laser", orientation=NORTH, name="north"}
+ti["V"] = {"st_laser", orientation=SOUTH, name="south"}
+ti["S"] = {"st_switch", target="south"}
+ti["N"] = {"st_switch", target="north"}
+ti["O"] = {"st_oxyd"}
+ti["*"] = {"#ac_rotor", gohome=false, strength=24.0, range=12.5}
+ti["@"] = {"ac_marble_black", 0.0, 0.5}
+
+wo(ti, " ", {
+    "####################",
+    "#     V          N #",
+    "#                  #",
+    "######X      X######",
+    "#O    X      X *   #",
+    "######X   @  X######",
+    "#   * X      X    O#",
+    "######X      X######",
+    "#                  #",
+    "# S          ^     #",
+    "####################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

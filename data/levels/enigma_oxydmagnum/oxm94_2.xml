@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Oxyd Magnum 94" el:subtitle="Oxyd Magnum 94" el:id="20080110ulf030"/>
+      <el:version el:score="1" el:release="2" el:revision="106" el:status="released"/>
+      <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
+      <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, February 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="1:35"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_metal"}
+ti["#"] = {"st_woven"}
+ti["="] = {"st_redfiber"}
+ti["X"] = {"st_flat_breakable"}
+ti["B"] = {"st_break_laser"}
+ti["+"] = {"st_box_wood"}
+ti["!"] = {"st_death_invisible"}
+ti["I"] = {"st_actorimpulse_invisible"}
+ti["K"] = {"st_knight"}
+ti["L"] = {"st_laser_n", name="laser"}
+ti["C"] = {"st_coinslot", target="laser"}
+ti["1"] = {"it_coin_l"}
+ti["5"] = {"it_coin_m"}
+ti["b"] = {"it_bomb"}
+ti["^"] = {"it_puller_n"}
+ti["<"] = {"it_puller_w"}
+ti["O"] = {"st_oxyd_d"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "# I   !  #O  K K  O#",
+    "#  ^    I#####B#####",
+    "#I  ! <  X    b   +#",
+    "#     I  #         #",
+    "########K#####=#####",
+    "#          5       #",
+    "C+   @             #",
+    "# +++   1          #",
+    "# 1+1+             #",
+    "##############L#####"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
