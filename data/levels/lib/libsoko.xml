@@ -183,7 +183,7 @@ setmetatable(lib.soko.area, lib.soko.area_metatable)
 --  only slightly above the normal distribution. However, their
 --  ratio varies with the list length.
 --
--- See also: Landau function lib.soko.g(n) for determining the maximal
+-- See also: Landau function g(n) for determining the maximal
 --           order of an element in the symmetric group S(n).
 --
 function lib.soko.number_from_level(map, list_length)
