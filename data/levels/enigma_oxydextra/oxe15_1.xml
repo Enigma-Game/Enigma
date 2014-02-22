@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Break through" el:subtitle="Oxyd Extra 15" el:id="oxe15"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Raoul Bourquin" el:email=""/>
+      <el:copyright>Copyright © 2014 Raoul Bourquin</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["="] = {"fl_abyss"}
+ti[" "] = {"fl_pinkbumps"}
+ti["-"] = {"fl_space"}
+ti["#"] = {"st_flat"}
+ti["H"] = {"st_flat_hollow"}
+ti["M"] = {"st_flat_movable"}
+ti["B"] = {"st_flat_breakable"}
+ti["x"] = {"st_turnstile"}
+ti["^"] = {"st_turnstilearm", orientation=NORTH}
+ti[">"] = {"st_turnstilearm", orientation=EAST}
+ti["v"] = {"st_turnstilearm", orientation=SOUTH}
+ti["<"] = {"st_turnstilearm", orientation=WEST}
+ti["+"] = {"st_box"}
+ti["X"] = ti["="] .. {"st_grate"}
+ti["h"] = {"it_hammer"}
+ti["d"] = {"it_dynamite"}
+ti["1"] = ti["H"] .. {"it_coin_l"}
+ti["5"] = ti["H"] .. {"it_coin_m"}
+ti["c"] = ti["H"] .. {"it_cherry"}
+ti["g"] = ti["H"] .. {"it_glasses"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["R"] = ti["H"] .. {"#ac_rotor", strength=27, range=9.375}
+ti["@"] = {"ac_marble_black", 0.0, 0.5}
+
+wo(ti, " ", {
+    "==========================================================",
+    "==========================================================",
+    "##########################################################",
+    "#                  #                  B                  #",
+    "#                  #                  B    XXXXXXXXX     #",
+    "#     ^ ^  ^ ^     #                  B    + + + + +     #",
+    "#     x<x  x<x     #        M         B    + + + + +     #",
+    "#     vO^ @vO^     #       MOM        B    + + O + +     #",
+    "#     x>x  x>x     #        M         B    + + + + +     #",
+    "#     v v  v v     #                  B    + + + + +     #",
+    "#                  #                  B    XXXXXXXXX     #",
+    "#                  #BBBBBBBBBBBBBBBBBBB                  #",
+    "#########H##############BBBBBBBBBBBBBB#########HH#########",
+    "#              ddddR####BBBBBBBBBBBBBB#########HH#########",
+    "#               ddd##HHH # #   #   #  ##HHHHHHHHHHHHHHHHH#",
+    "#               ddd#H1HH # #     # # ##HHHH H#HH HHHHH HH#",
+    "#                dd#HH5H     ##### #  #HHHHHHHHHHH HHHHHH#",
+    "#                  #HcHg # ## #  # ## #H HHHHHHHHH#HH HH##",
+    "#        O         #HHHH # #O   ##    HHHH HH#HOHHHHHHHHH#",
+    "#                  #     ######  #### HH#H HHHHHHHHHHHHHH#",
+    "#                  #####            # #HHHHHHHHHHHH HHH#H#",
+    "#                  # #   ############ #H HHHHHH H#HHHHHHH#",
+    "#                  #   # #            #HHHHHHHHHHHHHH H H#",
+    "#                  #######HHHHH########BBBBBBBBBBBBBBBBBB#",
+    "#BBBBBBBBBBBBBBBBBB#######HHHHH#######BBBBBBBBBBBBBBBBBBB#",
+    "#BBBBBBBBBBBBBBBBBBBBB##B#B#BBBBBBB#BBB------------------#",
+    "#BBBBBBBBBBBBBBBBBBBB#BBBBB#B###BBB##BB------------------#",
+    "#                  BBB#BBBBBBBBBB#BBBBB------------------#",
+    "#                  BBB#BBBBBBBBB#BB#BBB------------------#",
+    "#        O  h      B##BBBB##OBBBBB#BBBB--------O---------#",
+    "#                  BBBBBBBBBBBBBBBBBB#B------------------#",
+    "#                  BBBBBB#BBBB#B##BBBBB------------------#",
+    "#                  B#B#BBBB#B#BBBB###BB------------------#",
+    "#                  BBBBBBBBB#BBBB#BBBBB------------------#",
+    "##########################################################",
+    "==========================================================",
+    "=========================================================="})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
