@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-12 21:19+0200\n"
-"PO-Revision-Date: 2013-12-16 11:47+0000\n"
+"PO-Revision-Date: 2014-02-15 01:10+0000\n"
 "Last-Translator: M T <michtrz@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/enigma/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -1299,7 +1299,13 @@ msgid ""
 "room  ..."
 msgstr "Ne felejtsd, csak annyi követ mozdíts, hogy a következő szobába be tudj nézni..."
 
-#: po/level_i18n.cc:292 po/level_i18n.cc:308
+#: po/level_i18n.cc:292
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr "Üdvözöljük a vezérlőteremben. A váltók és a kapcsolók segítségével tervezheti meg a teknős útját. A kapcsolók, az óramutató járásának megfelelően: Hozzátesz, Futtat és Újrakezd."
+
+#: po/level_i18n.cc:308
 msgid "Watch your step!"
 msgstr "Vigyázz, hova lépsz!"
 
@@ -1455,7 +1461,13 @@ msgid ""
 " of protection from danger (such as falling)."
 msgstr "Van ernyőd?  Egy ernyő nagyjából tíz másodpercig védelmet nyújt a veszélyek ellen (nem csak a zuhanástól!)."
 
-#: po/level_i18n.cc:450 po/level_i18n.cc:451
+#: po/level_i18n.cc:450
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr ""
+
+#: po/level_i18n.cc:451
 msgid ""
 "This area at the bottom of the screen is your inventory -- when you pick "
 "things up, they go here (there is a maximum of twelve).  To scroll through "
@@ -1537,13 +1549,26 @@ msgid ""
 "levels."
 msgstr "Lehet mást is csinálni a fadobozokkal? Igen! Fedezd fel a követező pályákat!"
 
-#: po/level_i18n.cc:480 po/level_i18n.cc:481
+#: po/level_i18n.cc:480
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr ""
+
+#: po/level_i18n.cc:481
 msgid ""
 "Now try to move these chess stones onto the triggers. They always move two "
 "steps plus one step."
 msgstr ""
 
-#: po/level_i18n.cc:485 po/level_i18n.cc:486
+#: po/level_i18n.cc:485
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr "Ez az oszcilláló kő egy időzítő kő. Nem tud vele kapcsolatba lépni, de tudjon róla, ha lát egyet: Egy bizonyos időtartam után bármi történhet..."
+
+#: po/level_i18n.cc:486
 msgid ""
 "The stones with arrows are one-way-stones. As you might have guessed, you "
 "can only pass them in one direction.                Mazes are cherished "
@@ -1568,7 +1593,13 @@ msgstr "Néhány kő pont úgy néz ki, mintha Oxyd kő volna!"
 msgid "Don't drown in the swamp."
 msgstr "Ne fulladj bele a mocsárba!"
 
-#: po/level_i18n.cc:503 po/level_i18n.cc:507
+#: po/level_i18n.cc:503
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr "A jobb oldalon lévő ajtók elállják az oxydokhoz vezető utat... a bal oldalon lát néhány váltót. Lehet, hogy van valami kapcsolat köztük?"
+
+#: po/level_i18n.cc:507
 msgid ""
 "The bright light beam is a laser beam.   Don't get too close to it!   But it"
 " has its uses ...    You can use the mirrors to direct the laser to its "
@@ -1967,26 +1998,20 @@ msgid ""
 " fault to finish the necklace."
 msgstr ""
 
-#  level: "Lost in Time and Space"
-#  author: "JuSt" email ""
 #: po/level_i18n.cc:1508
 msgid "Hey, where am I now?"
 msgstr ""
 
 #: po/level_i18n.cc:1510
 msgid ""
-"Moments ago i've been at home and wanted to take care about my two oxyd "
+"Moments ago I've been at home and wanted to take care about my two oxyd "
 "stones."
 msgstr ""
 
-#  level: "Lost in Time and Space"
-#  author: "JuSt" email ""
 #: po/level_i18n.cc:1512
 msgid "And now I'm stranded in this weird forest. How can I escape from here?"
 msgstr ""
 
-#  level: "Lost in Time and Space"
-#  author: "JuSt" email ""
 #: po/level_i18n.cc:1514
 msgid ""
 "If I should have a look-around? Perhaps I can find some things that could "
@@ -2018,7 +2043,7 @@ msgid "If there is finally an exit?"
 msgstr ""
 
 #: po/level_i18n.cc:1528
-msgid "I'm afraid, i need some assistance!"
+msgid "I'm afraid, I need some assistance!"
 msgstr ""
 
 #: po/level_i18n.cc:1530
@@ -2633,8 +2658,6 @@ msgid ""
 " fire. Tutoxyd will be grateful."
 msgstr ""
 
-#  level: "Tutoxyd's Pyramid"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2817
 msgid ""
 "Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
@@ -2662,8 +2685,6 @@ msgstr ""
 msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
 msgstr ""
 
-#  level: "Tutoxyd's Pyramid"
-#  author: "Ronald Lamprecht" email "ral@users.berlios.de"
 #: po/level_i18n.cc:2827
 msgid ""
 "Who dares to disturb my peace? Stranger - you have proven to be honorable. "
@@ -2984,8 +3005,6 @@ msgstr "Menj tovább, már nincsen visszaút!"
 msgid "STOP! Not this way! There's a short-cut ..."
 msgstr "ÁLLJ! Ne erre menj! Van egy rövidebb út..."
 
-#  level: "Designed with love"
-#  author: "JuSt" email ""
 #: po/level_i18n.cc:3278
 msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
@@ -3147,14 +3166,10 @@ msgstr ""
 msgid "Handle with care!"
 msgstr ""
 
-#  level: "Island Hopping III"
-#  author: "/dev/null" email ""
 #: po/level_i18n.cc:3558
 msgid "Attention! One way ticket to the island."
 msgstr ""
 
-#  level: "Suckerfish I"
-#  author: "/dev/null" email ""
 #: po/level_i18n.cc:3578
 msgid "No clear view? How about visiting an optician?"
 msgstr ""
@@ -3392,10 +3407,11 @@ msgstr ""
 msgid "Pleasure Garden"
 msgstr ""
 
-#  level: "Pleasure Garden"
-#  author: "Jacob Scott" email ""
 #: po/level_i18n.cc:3897
-msgid "Quickly ...or trickily!"
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
 msgstr ""
 
 #: po/level_i18n.cc:3904
@@ -3555,8 +3571,8 @@ msgid "Escape by Chaining Thieves"
 msgstr "Meneküljön a tolvajok láncolásával"
 
 #: po/level_i18n.cc:4155
-msgid "Remember Atreyu's horse Atrax!"
-msgstr "Emlékezzen Atráskó lovára!"
+msgid "Remember Atreyu's horse Artax!"
+msgstr ""
 
 #: po/level_i18n.cc:4157
 msgid "I am innocent! I've never stolen anything!"
@@ -4066,8 +4082,6 @@ msgid ""
 "items for next; you can only get 1 hint per minute this way, though."
 msgstr ""
 
-#  level: "Babylon"
-#  author: "mecke" email ""
 #: po/level_i18n.cc:4667
 msgid "This is Babylon. Be careful, stranger! It's dangerous to go inside"
 msgstr ""
@@ -4559,18 +4573,22 @@ msgstr "Gratulálunk, elérte ezt az oldalt... De vajon el tud-e jutni az Oxydok
 msgid "Well done!"
 msgstr "Szép munka!"
 
-#  level: "How solid?"
-#  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:5350
 msgid ""
-"That wasn't fast enough; try F3.(Or search for non-solid stones, if you "
-"want.)(But you won't find any.)(Really!)"
-msgstr ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr "Ez nem volt elég gyors, próbálja az F3-at.                                                                              (Vagy keressen nem tömör köveket, ha úgy gondolja.)                                                                                                        (De úgysem fog találni.)                                                                                                                  (Komolyan!)"
 
-#  level: "How solid?"
-#  author: "Andreas Lochmann" email ""
 #: po/level_i18n.cc:5351
 msgid ""
-"You can believe me: All stones you see in this level are solid!You can "
-"really believe me!Really!"
-msgstr ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr "Elhiheti nekem: Minden kő, amit ezen a pályán lát, tömör!                                                                                      Komolyan hihet nekem!                                                                               Komolyan!"
