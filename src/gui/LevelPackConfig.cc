@@ -332,7 +332,7 @@ namespace enigma { namespace gui {
         this->add(errorLabel, Rect(vshrink?5:10, vminfo.height-(vshrink?48:97), vminfo.width-(vshrink?10:20), vshrink?17:35));
         
         if (isReasignOnly) 
-            errorLabel->set_text(N_("Please reasign levelpack to another group for group deletion"));
+            errorLabel->set_text(N_("Please reassign levelpack to another group for group deletion"));
        
         // Create buttons - positioning identical to Levelmenu
         but_edit = new StaticTextButton(N_("Compose Pack"), this);
