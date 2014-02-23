@@ -126,7 +126,7 @@ namespace enigma {
     }
     
     void Door::actor_hit(const StoneContact &sc) {
-        if (getAttr("flavor").to_string() == "d") {
+        if ((getAttr("flavor").to_string() == "d") and (state == CLOSED)) {
             // door knocking
             Item *it = GetItem(get_pos());
             if (it != NULL && server::GameCompatibility != GAMET_PEROXYD 

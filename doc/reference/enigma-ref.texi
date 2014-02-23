@@ -16384,6 +16384,8 @@ the light without intervening the light.
 Just doors of type @code{"d"} allow an actor to knock on its closed faces.
 This causes an action that might open the door or do anything else. A common
 target is @ref{st_jamb} that evaluated the color of the knocking actor.
+The door has to be completely closed; opening or closing doors do not
+cause an action on knocking.
 
 Doors do support @ref{Flood Spreading} and @ref{Fire Spreading} through open
 faces and generally in @samp{OPEN} state.
@@ -16430,7 +16432,8 @@ Opens at value @samp{1}, and closes at value @samp{0}.
 Just flavor @code{"d"} doors will perform an action on an actor touching a face
 of a closed door. The action value will be the actor object, which can be
 evaluated on its kind. This action value fits the @samp{hit} messages of
-objects like @ref{st_jamb}.
+objects like @ref{st_jamb}. The door has to be completely closed; opening or
+closing doors do not cause an action on knocking.
 
 @item @b{Variants:}
 @multitable @columnfractions .08 .42 .08 .42
