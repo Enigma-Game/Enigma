@@ -30,7 +30,7 @@ namespace nls
         { "Česky",      "cs_CZ", "flags25x15/cz" },
         { "Deutsch",    "de_DE", "flags25x15/de" },
         { "Ελληνικά",   "el_GR", "flags25x15/gr" },
-        { "English",    "en_EN", "flags25x15/gb" },
+        { "English",    "en_GB", "flags25x15/gb" },
         { "Español",    "es_ES", "flags25x15/es" },
         { "Suomi",      "fi_FI", "flags25x15/fi" },
         { "Français",   "fr_FR", "flags25x15/fr" },
