@@ -604,7 +604,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         prefPath = ecl::ExpandPath(prefFilename);
         if (!ecl::FolderExists(prefPath))
             if(!ecl::FolderCreate(prefPath)) {
-                fprintf(stderr, ("Error cannot create pref directory.\n"));
+                fprintf(stderr, ("Error: Cannot create pref directory.\n"));
                 exit(1);
             }
         userStdPath = prefPath; // default if pref is a path
@@ -614,7 +614,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         if (!ecl::FolderExists(prefPath))
             // may happen on Windows
             if(!ecl::FolderCreate(prefPath)) {
-                fprintf(stderr, _("Error Home directory does not exist.\n"));
+                fprintf(stderr, _("Error: Home directory does not exist.\n"));
                 exit(1);
             }
 #ifdef MACOSX
@@ -629,7 +629,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         if (!ecl::FolderExists(winAppDataPath))
             // may happen on Windows
             if(!ecl::FolderCreate(winAppDataPath)) {
-                fprintf(stderr, _("Error Application Data directory does not exist.\n"));
+                fprintf(stderr, _("Error: Application Data directory does not exist.\n"));
                 exit(1);
             }
 //        Log << "winAppDataPath " << winAppDataPath << "\n";
@@ -637,7 +637,7 @@ void Application::initSysDatapaths(const std::string &prefFilename)
         prefPath = winAppDataPath + ecl::PathSeparator + "." + prefFilename;
 #endif
     } else {
-        fprintf(stderr, _("Error Home directory does not exist.\n"));
+        fprintf(stderr, _("Error: Home directory does not exist.\n"));
         exit(1);
     }
 }
@@ -930,7 +930,7 @@ int main(int argc, char **argv)
     }
     catch (XFrontend &e) {
         cerr << "Error: " << e.what() << endl;
-        std::string message = _("Fatal Error that causes the application to quit:\n\n");
+        std::string message = _("Fatal error that caused the application to quit:\n\n");
         if (app.errorInit) {
             gui::ErrorMenu m(message + e.what(), N_("Quit"));
             m.manage();
