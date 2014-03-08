@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="75" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="76" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -51,7 +51,7 @@
     <level _seq="43" _title="Microwire" _xpath="./ral27_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral427" rel="1" rev="128" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Southside Life" _xpath="./mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="More Microwire" _xpath="./ral28_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080717ral282" rel="1" rev="130" score="1" target="time" unit="duration"/>
-    <level _seq="46" _title="Status code 302" _xpath="./devnull02_2" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="2" rev="10" score="2" target="time" unit="duration"/>
+    <level _seq="46" _title="Status code 302" _xpath="./devnull02_2" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="2" rev="11" score="2" target="time" unit="duration"/>
     <level _seq="47" _title="Freestyle Microwire" _xpath="./ral29_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080719ral530" rel="1" rev="129" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Wireban Premiere" _xpath="./ral26_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20080715ral161" rel="1" rev="130" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Fifty Years Later ..." _xpath="./mecke23_1" author="mecke" ctrl="force" easy="true" id="mecke23" rel="1" rev="42" score="1" target="time" unit="duration"/>

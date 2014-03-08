@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="2" title="Enigma 1.21 new"/>
+  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma 1.21 new"/>
 
   <attributes/>
 
@@ -33,7 +33,7 @@
     <level _seq="25" _title="Surgery" _xpath="enigma_x/zephyr13_2" author="Zephyr" ctrl="force" easy="true" id="zephyr13" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="26" _title="Chessopal II" _xpath="enigma_x/devnull77_1" author="/dev/null" ctrl="force" easy="true" id="devnull77" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Blocked III" _xpath="enigma_x/devnull142_1" author="/dev/null" ctrl="force" easy="false" id="devnull142" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="28" _title="Mixed Puzzles" _xpath="enigma_x/devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="28" _title="Mixed Puzzles" _xpath="enigma_x/devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Blocked IV" _xpath="enigma_x/devnull143_1" author="/dev/null" ctrl="force" easy="false" id="devnull143" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Delta Time" _xpath="enigma_x/devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>

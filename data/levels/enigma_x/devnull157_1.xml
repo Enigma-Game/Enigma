@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Mixed Puzzles" el:subtitle="" el:id="devnull157"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author el:name="/dev/null" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2013 /dev/null</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -34,7 +34,7 @@ ti["b "] = {"st_break_black"}
 ti["w "] = {"st_break_white"}
 ti["P"] = {"st_puzzle_yellow", cluster="1"}
 ti["Q"] = ti[" ~"] .. {"st_puzzle_yellow", cluster="1"}
-ti["R"] = {"st_puzzle", cluster="2"}
+ti["R"] = {"st_puzzle", cluster="3"}
 ti["S"] = ti[" ~"] .. {"st_puzzle", cluster="2"}
 ti["T"] = ti[" ~"] .. {"st_puzzle", cluster="3"}
 ti[" m"] = {"it_magicwand"}
@@ -60,7 +60,7 @@ wo(res.composer(res.puzzle(ti, "P", "Q", "R", "S", "T")), "  ", {
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I # # # # I OBOBOBOBOBOBOBOBOBOBOB# # # #  ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I # w  ~+ W B B B B B B B B B B B b~  w #  ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I # w R P W P P P P  ~  R  ~R  ~#       #  ~",
-    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I # R R P # Q # # # # S S S T w #   R R #  ~",
+    " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I # R R P # Q # # # # S S S S w #   R R #  ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I #  ~b~Q # Q #     >W+m ~R  ~  # R R   #  ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~I I R P P <BP # @0P # # # # # +h<WW b~B #  ~",
     " ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~# w~w~w~#  ~#   P P P P   #  ~# b~b~b~#  ~",

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="105" title="Enigma 1.20 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="106" title="Enigma 1.20 new"/>
 
   <attributes/>
 
@@ -87,7 +87,7 @@
     <level _seq="79" _title="The Red Room" _xpath="enigma_viii/joe29_2" author="Joseph Dunne" ctrl="force" easy="true" id="joe29" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Enigmines" _xpath="enigma_vii/huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Red Cave" _xpath="enigma_viii/mecke21_2" author="mecke" ctrl="force" easy="true" id="mecke21" rel="2" rev="45" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Status code 302" _xpath="enigma_viii/devnull02_2" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="2" rev="10" score="2" target="time" unit="duration"/>
+    <level _seq="82" _title="Status code 302" _xpath="enigma_viii/devnull02_2" author="/dev/null" ctrl="force" easy="true" id="devnull02" rel="2" rev="11" score="2" target="time" unit="duration"/>
     <level _seq="83" _title="A Screenful of Secrets" _xpath="enigma_viii/mecke01_1" author="mecke" ctrl="force" easy="true" id="mecke01" rel="1" rev="36" score="1" target="time" unit="duration"/>
     <level _seq="84" _title="Southside Life" _xpath="enigma_viii/mecke10_2" author="mecke" ctrl="force" easy="true" id="mecke10" rel="2" rev="34" score="1" target="time" unit="duration"/>
     <level _seq="85" _title="Joona's Chess" _xpath="enigma_viii/joona02_1" author="Joona Laire" ctrl="force" easy="true" id="joona02" rel="1" rev="0" score="1" target="time" unit="duration"/>
@@ -268,7 +268,7 @@
     <level _seq="260" _title="Interlude I" _xpath="enigma_ix/devnull65_1" author="/dev/null" ctrl="force" easy="false" id="devnull65" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="261" _title="Thread-safe I" _xpath="enigma_ix/devnull61_1" author="/dev/null" ctrl="force" easy="false" id="devnull61" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="262" _title="Interlude II" _xpath="enigma_x/devnull69_1" author="/dev/null" ctrl="force" easy="false" id="devnull69" rel="1" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="263" _title="Interlude III" _xpath="enigma_x/devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="263" _title="Interlude III" _xpath="enigma_x/devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="264" _title="Thread-safe II" _xpath="enigma_ix/devnull71_1" author="/dev/null" ctrl="force" easy="false" id="devnull71" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="265" _title="Distribution Meditation" _xpath="enigma_ix/ais70_1" author="Alex Smith" ctrl="force" easy="false" id="ais70" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="266" _title="Origami" _xpath="enigma_ix/ais71_1" author="Alex Smith" ctrl="force" easy="false" id="ais71" rel="1" rev="1" score="1" target="time" unit="duration"/>

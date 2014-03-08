@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="3" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma X"/>
 
   <attributes/>
 
@@ -25,7 +25,7 @@
     <level _seq="17" _title="Island Hopping III" _xpath="./devnull63_1" author="/dev/null" ctrl="force" easy="false" id="devnull63" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Team Trial" _xpath="./devnull120_1" author="/dev/null" ctrl="force" easy="false" id="devnull120" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Spacer VI" _xpath="./devnull83_1" author="/dev/null" ctrl="force" easy="false" id="devnull83" rel="1" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Interlude III" _xpath="./devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Interlude III" _xpath="./devnull70_1" author="/dev/null" ctrl="force" easy="false" id="devnull70" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Near Halley II" _xpath="./devnull46_1" author="/dev/null" ctrl="force" easy="true" id="devnull46" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Chess Challenge II" _xpath="./harry08_1" author="daydreamer" ctrl="force" easy="false" id="harry08" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="double you" _xpath="./devnull49_1" author="/dev/null" ctrl="force" easy="false" id="devnull49" rel="1" rev="3" score="1" target="time" unit="duration"/>
@@ -66,7 +66,7 @@
     <level _seq="58" _title="Surgery" _xpath="./zephyr13_2" author="Zephyr" ctrl="force" easy="true" id="zephyr13" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="59" _title="Chessopal II" _xpath="./devnull77_1" author="/dev/null" ctrl="force" easy="true" id="devnull77" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Blocked III" _xpath="./devnull142_1" author="/dev/null" ctrl="force" easy="false" id="devnull142" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="61" _title="Mixed Puzzles" _xpath="./devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="61" _title="Mixed Puzzles" _xpath="./devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Blocked IV" _xpath="./devnull143_1" author="/dev/null" ctrl="force" easy="false" id="devnull143" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Delta Time" _xpath="./devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
