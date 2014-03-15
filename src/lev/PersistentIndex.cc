@@ -49,7 +49,7 @@
 #endif
 
 using namespace std;
-XERCES_CPP_NAMESPACE_USE 
+XERCES_CPP_NAMESPACE_USE
 
 namespace enigma { namespace lev {
     Variation::Variation(controlType ctrlValue, scoreUnitType unitValue,
@@ -61,12 +61,12 @@ namespace enigma { namespace lev {
         return ctrl == otherVar.ctrl && unit == otherVar.unit &&
             target == otherVar.target && extensions == otherVar.extensions;
     }
-    
+
     PersistentIndex * PersistentIndex::historyIndex = NULL;
     std::vector<PersistentIndex *> PersistentIndex::indexCandidates;
-    
+
     void PersistentIndex::checkCandidate(std::string thePackPath, bool systemOnly, bool userOwned,
-            bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation, 
+            bool isAuto, bool isSystemCross, bool isUserCross, double defaultLocation,
             std::string anIndexName, std::string theIndexFilename, std::string aGroupName) {
         int minRevision = 0;
         int systemPackIndex = -1;
@@ -76,7 +76,7 @@ namespace enigma { namespace lev {
                     if (!systemOnly && isSystemCross) {   // a system cross index update like enigma_cross
 //                        Log << "cross update check : " << theIndexFilename << "\n";
                         std::string::size_type p = theIndexFilename.find_last_of('_');
-                        if (p == std::string::npos)  // ignore wizard saves of system cross indices 
+                        if (p == std::string::npos)  // ignore wizard saves of system cross indices
                             return;
                         std::string indexBase = theIndexFilename.substr(0, p);
                         if ( indexBase + ".xml" == indexCandidates[i]->indexFilename) {
@@ -97,7 +97,7 @@ namespace enigma { namespace lev {
 //                        Log << "cross second copy check : " << theIndexFilename << "\n";
                         systemPackIndex = i;
                         minRevision = indexCandidates[i]->revision + 1;
-                        break;                        
+                        break;
                     } else if (!isSystemCross) {
 //                        Log << "other update check : " << thePackPath << "\n";
                         // it is an update to an already loaded system pack
@@ -105,7 +105,7 @@ namespace enigma { namespace lev {
                         userOwned = false;
                         if (!systemOnly) {  // no changes for multiple sys paths like ./data shadowing installed version
                             // add release to index name to retrieve matching version, e.g. "index_2.xml"
-                            theIndexFilename = theIndexFilename.insert(theIndexFilename.size() - 4, 
+                            theIndexFilename = theIndexFilename.insert(theIndexFilename.size() - 4,
                                     ecl::strf("_%d", indexCandidates[i]->release));
                         }
                         minRevision = indexCandidates[i]->revision + 1;
@@ -143,18 +143,18 @@ namespace enigma { namespace lev {
                         return;
                     }
                 }
-                
+
 //    Log << "candidate check : " << thePackPath << " -- " << theIndexFilename << " -- first one\n";
                 indexCandidates.push_back(candidate);
             }
         }
     }
-    
+
     void PersistentIndex::registerPersistentIndices(bool onlySystemIndices) {
         DirIter * dirIter;
         DirEntry dirEntry;
-        
-        // SystemPath: register dirs and zips with xml-indices 
+
+        // SystemPath: register dirs and zips with xml-indices
         std::vector<std::string> sysPaths = app.systemFS->getPaths();
         std::set<std::string> candidates;
         std::set<std::string> candidates2;
@@ -162,7 +162,7 @@ namespace enigma { namespace lev {
             dirIter = DirIter::instance(sysPaths[i] + "/levels");
             while (dirIter->get_next(dirEntry)) {
                 if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
-                        dirEntry.name != ".svn" && dirEntry.name != "enigma_cross" && 
+                        dirEntry.name != ".svn" && dirEntry.name != "enigma_cross" &&
                         dirEntry.name != "soko") {
                     candidates.insert(dirEntry.name);
                 }
@@ -192,7 +192,7 @@ namespace enigma { namespace lev {
             delete dirIter;
         }
 
-        for (std::set<std::string>::iterator i = candidates.begin(); 
+        for (std::set<std::string>::iterator i = candidates.begin();
                 i != candidates.end(); i++) {
             // register the index just on the system path even if the
             // user has an update on his path. We need to know the release to
@@ -205,26 +205,26 @@ namespace enigma { namespace lev {
         for (unsigned i = 0; i < sysPaths.size(); i++) {
             dirIter = DirIter::instance(sysPaths[i] + "/levels/enigma_cross");
             while (dirIter->get_next(dirEntry)) {
-                if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
+                if (!dirEntry.is_dir && dirEntry.name.size() > 4 &&
                         (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
-//                            Log << "enigma cross check: " << dirEntry.name << "\n"; 
+//                            Log << "enigma cross check: " << dirEntry.name << "\n";
                     checkCandidate("enigma_cross", true, false, false, true, false,
                             INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
                 }
             }
         }
         delete dirIter;
-        
+
         if (onlySystemIndices)
             return;
-        
+
         // register index free auto folder
         // this needs to be done prior history registration to avoid outdated proxies
         PersistentIndex * autoIndex = new PersistentIndex("auto", false, true, true,
                 INDEX_AUTO_PACK_LOCATION, INDEX_AUTO_PACK_NAME);
         autoIndex->isEditable = false;
         Index::registerIndex(autoIndex);
-        
+
         // register team auto not yet registered new files
         PersistentIndex * teamautoIndex = new PersistentIndex("team_test_new_api", false, true, true,
                 75000, "test_new_api");
@@ -234,13 +234,13 @@ namespace enigma { namespace lev {
         } else {
             delete teamautoIndex;
         }
-        
+
         // UserPath: register dirs and zips with xml-indices excl auto
         dirIter = DirIter::instance(app.userPath + "/levels");
         while (dirIter->get_next(dirEntry)) {
             if (dirEntry.is_dir && dirEntry.name != "." && dirEntry.name != ".." &&
                     dirEntry.name != ".svn" && dirEntry.name != "auto" &&
-                    dirEntry.name != "cross" && dirEntry.name != "enigma_cross" && 
+                    dirEntry.name != "cross" && dirEntry.name != "enigma_cross" &&
                     dirEntry.name != "legacy_dat" &&  dirEntry.name != "soko") {
                     candidates2.insert(dirEntry.name);
             }
@@ -275,50 +275,50 @@ namespace enigma { namespace lev {
         // and a lower case dir
         candidates2 = ecl::UniqueFilenameSet(candidates2);
 #endif
-        for (std::set<std::string>::iterator i = candidates2.begin(); 
+        for (std::set<std::string>::iterator i = candidates2.begin();
                 i != candidates2.end(); i++) {
 //            Log << "sokoball candidate2 " << *i << " - check \n";
             checkCandidate(*i, false,true);
         }
-       
+
         //add system cross indices updates
         dirIter = DirIter::instance(app.userPath + "/levels/enigma_cross");
         while (dirIter->get_next(dirEntry)) {
-            if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
+            if (!dirEntry.is_dir && dirEntry.name.size() > 4 &&
                     (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
                 checkCandidate("enigma_cross", false, false, false, true, false,
                         INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
             }
         }
         delete dirIter;
-        
+
         //add user cross indices
         dirIter = DirIter::instance(app.userPath + "/levels/cross");
         while (dirIter->get_next(dirEntry)) {
-            if (!dirEntry.is_dir && dirEntry.name.size() > 4 && 
+            if (!dirEntry.is_dir && dirEntry.name.size() > 4 &&
                     (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4)) {
                 checkCandidate("cross", false, true, false, false, true,
                         INDEX_DEFAULT_PACK_LOCATION, "", dirEntry.name);
             }
         }
         delete dirIter;
-        
+
         for (unsigned i = 0; i < indexCandidates.size(); i++) {
             Index::registerIndex(indexCandidates[i]);
         }
-	
+
         // check if history is available - else generate a new index
         Index * foundHistory = Index::findIndex("History");
         if ( foundHistory != NULL) {
             historyIndex = dynamic_cast<PersistentIndex *>(foundHistory);
         } else {
-            historyIndex = new PersistentIndex("cross", false, true, false, INDEX_HISTORY_PACK_LOCATION, 
+            historyIndex = new PersistentIndex("cross", false, true, false, INDEX_HISTORY_PACK_LOCATION,
                     INDEX_HISTORY_PACK_NAME, "history.xml");
             Index::registerIndex(historyIndex);
         }
         historyIndex->isEditable = false;
     }
-    
+
     void PersistentIndex::addCurrentToHistory() {
         Variation var;
         Proxy * curProxy = Index::getCurrentProxy();
@@ -335,21 +335,21 @@ namespace enigma { namespace lev {
         }
     }
 
-    PersistentIndex::PersistentIndex(std::string thePackPath, bool loadSystemFS, bool userOwned, 
-            bool autoLoading, double defaultLocation, std::string anIndexName, 
-            std::string theIndexFilename, std::string aGroupName) : 
+    PersistentIndex::PersistentIndex(std::string thePackPath, bool loadSystemFS, bool userOwned,
+            bool autoLoading, double defaultLocation, std::string anIndexName,
+            std::string theIndexFilename, std::string aGroupName) :
             Index(anIndexName, aGroupName, defaultLocation), packPath (thePackPath), isModified (false),
-            isUserOwned (userOwned), isEditable (true), isAuto (autoLoading), 
+            isUserOwned (userOwned), isEditable (true), isAuto (autoLoading),
             indexFilename(theIndexFilename), release (1), revision (1),
             compatibility (1.00), doc(NULL) {
 //        Log << "PersistentIndex AddLevelPack " << thePackPath << " - " << anIndexName <<  " - " << indexDefaultLocation <<"\n";
         load(loadSystemFS);
     }
-    
+
     int autoIndexProxyCompare(Proxy * first, Proxy * second) {
         return first->getNormLevelPath() < second->getNormLevelPath();
     }
-    
+
     void PersistentIndex::load(bool loadSystemFS, bool update) {
         if (doc != NULL) {
             doc->release();
@@ -358,17 +358,17 @@ namespace enigma { namespace lev {
         // new levelpacks are not loadable
         if (packPath == " ")
             return;
-        
+
         if (isAuto) {
             DirIter * dirIter;
             DirEntry dirEntry;
             dirIter = DirIter::instance(app.userPath + "/levels/" + packPath);
-            while (dirIter->get_next(dirEntry)) { 
+            while (dirIter->get_next(dirEntry)) {
                 if( !dirEntry.is_dir) {
                     if (dirEntry.name.size() > 4 && (
                             (dirEntry.name.rfind(".xml") == dirEntry.name.size() - 4) ||
                             (dirEntry.name.rfind(".lua") == dirEntry.name.size() - 4))) {
-                        Proxy * newProxy = Proxy::autoRegisterLevel(packPath, 
+                        Proxy * newProxy = Proxy::autoRegisterLevel(packPath,
                                 dirEntry.name.substr(0, dirEntry.name.size() - 4), 1);
                         if (newProxy != NULL) {
                             // first check that the proxy is not in the index
@@ -380,9 +380,9 @@ namespace enigma { namespace lev {
                             // do not delete Proxy if not used - we are not the owner!
                             // register additional sublevels
                             for (int i = 2; i <= newProxy->getQuantity(); i++) {
-                                Proxy * newSubProxy = Proxy::autoRegisterLevel(packPath, 
+                                Proxy * newSubProxy = Proxy::autoRegisterLevel(packPath,
                                         dirEntry.name.substr(0, dirEntry.name.size() - 4), i);
-                                appendProxy(newSubProxy);                                
+                                appendProxy(newSubProxy);
                             }
                         }
                     }
@@ -426,7 +426,7 @@ namespace enigma { namespace lev {
                             new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
                             indexCode.size(), absIndexPath.c_str(), false)));
                     doc = app.domParser->parse(domInputIndexSource.get());
-#else    
+#else
                     std::auto_ptr<Wrapper4InputSource> domInputIndexSource ( new Wrapper4InputSource(
                             new MemBufInputSource(reinterpret_cast<const XMLByte *>(&(indexCode[0])),
                             indexCode.size(), absIndexPath.c_str(), false)));
@@ -434,7 +434,7 @@ namespace enigma { namespace lev {
 #endif
                 }
 
-                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL
                         && !app.domParserErrorHandler->getSawErrors()) {
                     infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                             Utf8ToXML("info").x_str())->item(0));
@@ -460,13 +460,13 @@ namespace enigma { namespace lev {
                 Log << errMessage;   // make long error messages readable
                 std::string message;
                 if (update) {
-                    message = _("Error on  update of levelpack index: \n");
+                    message = _("Error on update of levelpack index: \n");
                     message += absIndexPath + "\n\n";
                     message += _("Note: the current version will be reloaded!\n\n");
                     message += errMessage;
                 } else {
                     if (doc != NULL) {
-                        doc->release();           // empty or errornous doc 
+                        doc->release();           // empty or errornous doc
                         doc = NULL;
                     }
                     message = _("Error on  registration of levelpack index: \n");
@@ -477,42 +477,42 @@ namespace enigma { namespace lev {
                 gui::ErrorMenu m(message, N_("Continue"));
                 m.manage();
                 if (update) {
-                    load(loadSystemFS, false);  // reload local version                    
+                    load(loadSystemFS, false);  // reload local version
                 }
                 return;
             } else if (doc != NULL) {
                 //TODO check if an updated index exists for system packs
                 loadDoc();
             }
-        }        
+        }
     }
-    
+
     void PersistentIndex::loadDoc() {
         if (doc != NULL) {
             clear();  // allow a reload of an index
-            indexName = XMLtoUtf8(infoElem->getAttribute( 
-                    Utf8ToXML("title").x_str())).c_str();                
-            indexGroup = XMLtoUtf8(infoElem->getAttribute( 
+            indexName = XMLtoUtf8(infoElem->getAttribute(
+                    Utf8ToXML("title").x_str())).c_str();
+            indexGroup = XMLtoUtf8(infoElem->getAttribute(
                     Utf8ToXML("group").x_str())).c_str();
             defaultGroup = indexGroup;
-            owner = XMLtoUtf8(infoElem->getAttribute( 
-                    Utf8ToXML("owner").x_str())).c_str();                
-            release = XMLString::parseInt(infoElem->getAttribute( 
+            owner = XMLtoUtf8(infoElem->getAttribute(
+                    Utf8ToXML("owner").x_str())).c_str();
+            release = XMLString::parseInt(infoElem->getAttribute(
                     Utf8ToXML("release").x_str()));
-            revision = XMLString::parseInt(infoElem->getAttribute( 
+            revision = XMLString::parseInt(infoElem->getAttribute(
                     Utf8ToXML("revision").x_str()));
-            XMLDouble * result = new XMLDouble(infoElem->getAttribute( 
+            XMLDouble * result = new XMLDouble(infoElem->getAttribute(
                     Utf8ToXML("enigma").x_str()));
             compatibility = result->getValue();
             delete result;
-            result = new XMLDouble(infoElem->getAttribute( 
+            result = new XMLDouble(infoElem->getAttribute(
                     Utf8ToXML("location").x_str()));
             indexDefaultLocation = result->getValue();
             indexLocation = indexDefaultLocation;
             delete result;
-            
+
             if (updateElem != NULL) {
-                indexUrl = XMLtoUtf8(updateElem->getAttribute( 
+                indexUrl = XMLtoUtf8(updateElem->getAttribute(
                         Utf8ToXML("indexurl").x_str())).c_str();
             }
             DOMNodeList *levelList = levelsElem->getElementsByTagName(
@@ -532,27 +532,27 @@ namespace enigma { namespace lev {
             knownAttributes.insert("target");
             for (int i = 0, l = levelList->getLength();  i < l; i++) {
                 DOMElement *levelElem = dynamic_cast<DOMElement *>(levelList->item(i));
-                std::string path = XMLtoUtf8(levelElem->getAttribute( 
+                std::string path = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("_xpath").x_str())).c_str();
-                std::string id = XMLtoUtf8(levelElem->getAttribute( 
+                std::string id = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("id").x_str())).c_str();
-                std::string title = XMLtoUtf8(levelElem->getAttribute( 
+                std::string title = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("_title").x_str())).c_str();
-                std::string author = XMLtoUtf8(levelElem->getAttribute( 
+                std::string author = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("author").x_str())).c_str();
-                int scoreVersion = XMLString::parseInt(levelElem->getAttribute( 
+                int scoreVersion = XMLString::parseInt(levelElem->getAttribute(
                         Utf8ToXML("score").x_str()));
-                int releaseVersion = XMLString::parseInt(levelElem->getAttribute( 
+                int releaseVersion = XMLString::parseInt(levelElem->getAttribute(
                         Utf8ToXML("rel").x_str()));
-                int revisionVersion = XMLString::parseInt(levelElem->getAttribute( 
+                int revisionVersion = XMLString::parseInt(levelElem->getAttribute(
                         Utf8ToXML("rev").x_str()));
-                bool hasEasymodeFlag = boolValue(levelElem->getAttribute( 
+                bool hasEasymodeFlag = boolValue(levelElem->getAttribute(
                         Utf8ToXML("easy").x_str()));
                 Proxy * newProxy = Proxy::registerLevel(path, packPath, id, title,
-                        author, scoreVersion, releaseVersion, hasEasymodeFlag, 
+                        author, scoreVersion, releaseVersion, hasEasymodeFlag,
                         GAMET_ENIGMA, STATUS_RELEASED, revisionVersion);
                 Variation var;
-                std::string controlString = XMLtoUtf8(levelElem->getAttribute( 
+                std::string controlString = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("ctrl").x_str())).c_str();
                 if (controlString == "balance")
                     var.ctrl = balance;
@@ -560,14 +560,14 @@ namespace enigma { namespace lev {
                     var.ctrl = key;
                 else if  (controlString == "other")
                     var.ctrl = other;
-                std::string txt = XMLtoUtf8(levelElem->getAttribute( 
+                std::string txt = XMLtoUtf8(levelElem->getAttribute(
                     Utf8ToXML("unit").x_str())).c_str();
                 if (txt == "number")
                     var.unit = number;
                 else
                     // default
                     var.unit = duration;
-                var.target = XMLtoUtf8(levelElem->getAttribute( 
+                var.target = XMLtoUtf8(levelElem->getAttribute(
                         Utf8ToXML("target").x_str())).c_str();
                 DOMNamedNodeMap * attrMap = levelElem->getAttributes();
                 for (int j = 0, k = attrMap->getLength();  j < k; j++) {
@@ -577,26 +577,26 @@ namespace enigma { namespace lev {
                         Log << "PersistentIndex Load unknown Attribut: " << attrName << "\n";
                         var.extensions[attrName]= XMLtoUtf8(levelAttr->getValue()).c_str();
                     }
-                    
+
                 }
-                appendProxy(newProxy, var.ctrl, var.unit, var.target, var.extensions);                 
+                appendProxy(newProxy, var.ctrl, var.unit, var.target, var.extensions);
             }
         }
     }
-        
+
     PersistentIndex::~PersistentIndex() {
        if (doc != NULL)
            doc->release();
     }
-    
+
     std::string PersistentIndex::getPackPath() {
         return packPath;
     }
-    
+
     bool PersistentIndex::setName(std::string newName, bool isSokoball) {
         if (findIndex(newName) != NULL)
             return false;  // do not allow duplicate names
-        
+
         // substitute spaces by underscores
         std::string fileName = newName;
         std::string::size_type pos = fileName.find_first_of(' ', 0);
@@ -604,14 +604,14 @@ namespace enigma { namespace lev {
             fileName.replace(pos, 1,"_");
             pos = fileName.find_first_of(' ', pos+1);
         }
-        
+
         if (packPath == " " || (packPath == "cross" && indexFilename == INDEX_STD_FILENAME)) {
             // generate usabale path name and check it it usable
             if (fileName == "cross" || fileName == "enigma_cross" ||
                     fileName == "legacy_dat" || fileName == "auto" ||
                     fileName == "soko" || fileName == "history") {
                 return false;
-            } 
+            }
             // check if the name would conflict with existing files
             std::auto_ptr<std::istream> isptr; // dummy
             absIndexPath = "";
@@ -627,7 +627,7 @@ namespace enigma { namespace lev {
             } else
                 indexFilename = fileName + ".xml";
         }
-        
+
         if (!getName().empty())
             renameIndex(newName);  // Index maps
         else
@@ -635,48 +635,48 @@ namespace enigma { namespace lev {
             indexName = newName;
         return true;
     }
-    
+
     bool PersistentIndex::isUpdatable() {
         return (updateElem != NULL) && !indexUrl.empty();
     }
-    
+
     bool PersistentIndex::isCross() {
         return packPath == "cross" || packPath == "enigma_cross";
     }
-    
+
     void PersistentIndex::markNewAsCross(){
         if (packPath == " ")
             packPath = "cross";
     }
-    
+
     std::string PersistentIndex::getOwner() {
         return owner;
     }
-    
+
     void PersistentIndex::setOwner(std::string newOwner) {
         owner = newOwner;
     }
-    
+
     int PersistentIndex::getRelease() {
         return release;
     }
-    
+
     void PersistentIndex::setRelease(int newRelease) {
         release = newRelease;
     }
-    
+
     int PersistentIndex::getRevision() {
         return revision;
     }
-    
+
     void PersistentIndex::setRevision(int newRevision) {
         revision = newRevision;
     }
-    
+
     double PersistentIndex::getCompatibility() {
         return compatibility;
     }
-    
+
     void PersistentIndex::setCompatibility(double newCompatibility) {
         compatibility = newCompatibility;
     }
@@ -684,18 +684,18 @@ namespace enigma { namespace lev {
     bool PersistentIndex::isUserEditable() {
         return isEditable && (isUserOwned || WizardMode);
     }
-    
+
     void PersistentIndex::clear() {
         proxies.clear();
         variations.clear();
         currentPosition = 0;
     }
-    
+
     void PersistentIndex::appendProxy(Proxy * newLevel, controlType varCtrl,
                 scoreUnitType varUnit, std::string varTarget,
                 std::map<std::string, std::string> varExtensions) {
         proxies.push_back(newLevel);
-        
+
         Variation var(varCtrl, varUnit, varTarget);
         var.extensions = varExtensions;
         variations.push_back(var);
@@ -705,10 +705,10 @@ namespace enigma { namespace lev {
                 controlType varCtrl, scoreUnitType varUnit, std::string varTarget,
                 std::map<std::string, std::string> varExtensions) {
         // TODO Assert pos >= size
-        
+
         Variation var(varCtrl, varUnit, varTarget);
         var.extensions = varExtensions;
-        
+
         std::vector<Proxy *>::iterator itProxy = proxies.begin();
         std::vector<Variation>::iterator itVar = variations.begin();
         if (!allowDuplicates) {
@@ -723,7 +723,7 @@ namespace enigma { namespace lev {
                     itProxy++; itVar++;
             }
         }
-        
+
         itProxy = proxies.begin();
         itVar = variations.begin();
         for (int i = 0; i < pos; i++) {
@@ -732,7 +732,7 @@ namespace enigma { namespace lev {
         proxies.insert(itProxy, newLevel);
         variations.insert(itVar, var);
     }
-    
+
     Variation PersistentIndex::getVariation(int pos) {
         // TODO Assert pos
         return variations[pos];
@@ -747,7 +747,7 @@ namespace enigma { namespace lev {
         proxies.erase(itProxy);
         variations.erase(itVar);
     }
-    
+
     void PersistentIndex::exchange(int pos1, int pos2) {
         Proxy * proxy = proxies[pos1];
         proxies[pos1] = proxies[pos2];
@@ -760,7 +760,7 @@ namespace enigma { namespace lev {
         else if (getCurrentPosition() == pos2)
             setCurrentPosition(pos1);
     }
-    
+
     bool PersistentIndex::isSource(Proxy * aProxy) {
         std::string proxyPath = aProxy->getNormFilePath();
         if (proxyPath[0] == '#')
@@ -773,17 +773,17 @@ namespace enigma { namespace lev {
             else
                 return false;
         } else {
-            if (proxyPath.find(packPath + "/") == 0) 
+            if (proxyPath.find(packPath + "/") == 0)
                 return true;
             else
                 return false;
         }
     }
-    
+
     void PersistentIndex::updateFromFolder() {
         if (!isAuto)
             return;
-        
+
         // force a reload of metadata to update existing proxies
         // for multilevels it is essential to do this prior the reload
         Index::updateFromProxies();
@@ -791,10 +791,10 @@ namespace enigma { namespace lev {
         // now reload - existing proxies are reused, but we have updated them already
         load(false);
     }
-    
+
     bool PersistentIndex::save(bool allowOverwrite) {
         bool result = true;
-        
+
         if (doc == NULL) {
             std::string errMessage;
             std::string indexTemplatePath;
@@ -806,7 +806,7 @@ namespace enigma { namespace lev {
                     app.domParserSchemaResolver->resetResolver();
                     app.domParserSchemaResolver->addSchemaId("index.xsd","index.xsd");
                     doc = app.domParser->parseURI(indexTemplatePath.c_str());
-                    if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL 
+                    if (app.domParserSchemaResolver->didResolveSchema() && doc != NULL
                             && !app.domParserErrorHandler->getSawErrors()) {
                         infoElem = dynamic_cast<DOMElement *>(doc->getElementsByTagName(
                                 Utf8ToXML("info").x_str())->item(0));
@@ -825,7 +825,7 @@ namespace enigma { namespace lev {
                 }
                 if (!errMessage.empty()) {
                     if (doc != NULL) {
-                        doc->release();           // empty or errornous doc 
+                        doc->release();           // empty or errornous doc
                         doc = NULL;
                     }
                     Log << errMessage;   // make long error messages readable
@@ -835,14 +835,14 @@ namespace enigma { namespace lev {
                 // TODO add error handling
                 return false;
         }
-        
-        // 
-        
-        infoElem->setAttribute( Utf8ToXML("title").x_str(), 
+
+        //
+
+        infoElem->setAttribute( Utf8ToXML("title").x_str(),
                 Utf8ToXML(&indexName).x_str());
-        infoElem->setAttribute( Utf8ToXML("group").x_str(), 
+        infoElem->setAttribute( Utf8ToXML("group").x_str(),
                 Utf8ToXML(&defaultGroup).x_str());
-        infoElem->setAttribute( Utf8ToXML("owner").x_str(), 
+        infoElem->setAttribute( Utf8ToXML("owner").x_str(),
                 Utf8ToXML(&owner).x_str());
         infoElem->setAttribute( Utf8ToXML("release").x_str(),
                 Utf8ToXML(ecl::strf("%d",release)).x_str());
@@ -867,7 +867,7 @@ namespace enigma { namespace lev {
             // add a new element
             levelElem = doc->createElement(Utf8ToXML("level").x_str());
             levelsElem->appendChild(levelElem);   // insert it at the end
-            
+
             Proxy * level = getProxy(i);
             // convert Proxy normLevelPath to pack local path ./* if possible
             std::string xpath = level->getNormFilePath();
@@ -915,23 +915,23 @@ namespace enigma { namespace lev {
                     Utf8ToXML(unit).x_str());
             levelElem->setAttribute( Utf8ToXML("target").x_str(),
                     Utf8ToXML(variations[i].target).x_str());
-            for (std::map<std::string, std::string>::iterator j= variations[i].extensions.begin(); 
+            for (std::map<std::string, std::string>::iterator j= variations[i].extensions.begin();
                     j != variations[i].extensions.end(); j++) {
 //                Log << "Persistent save extension: " << (*j).first << " - " << (*j).second << "\n";
                 levelElem->setAttribute( Utf8ToXML((*j).first).x_str(),
                         Utf8ToXML((*j).second).x_str());
             }
-        }       
-        
+        }
+
         // update the sequence number of the levels
         DOMNodeList *levList = levelsElem->getElementsByTagName(
                 Utf8ToXML("level").x_str());
         for (int i = 0, l = levList-> getLength();  i < l; i++) {
             DOMElement *levElem = dynamic_cast<DOMElement *>(levList->item(i));
             levElem->setAttribute( Utf8ToXML("_seq").x_str(),
-                    Utf8ToXML(ecl::strf("%d",i+1)).x_str());           
+                    Utf8ToXML(ecl::strf("%d",i+1)).x_str());
         }
-        
+
         stripIgnorableWhitespace(doc->getDocumentElement());
 
         std::string path = app.userPath + "/levels/" + packPath + "/" + indexFilename;
@@ -942,7 +942,7 @@ namespace enigma { namespace lev {
                 if (ecl::split_path(path, &directory, 0) && !ecl::FolderExists(directory)) {
                     ecl::FolderCreate (directory);
                 }
-    
+
 #if _XERCES_VERSION >= 30000
                 result = app.domSer->writeToURI(doc, LocalToXML(& path).x_str());
 #else
@@ -975,26 +975,26 @@ namespace enigma { namespace lev {
                 Log << "Index save " << path << " o.k.\n";
         } else
             result = false;
-        
+
         return result;
     }
 
 
-    PersistentIndex::PersistentIndex(std::istream *legacyIndexStream, 
-            std::string thePackPath, bool isZip, std::string anIndexName, 
-            std::string theIndexFilename) : 
-            Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()), 
-            indexFilename(theIndexFilename), isAuto (false), isModified (false), 
+    PersistentIndex::PersistentIndex(std::istream *legacyIndexStream,
+            std::string thePackPath, bool isZip, std::string anIndexName,
+            std::string theIndexFilename) :
+            Index(anIndexName, INDEX_DEFAULT_GROUP, Index::getNextUserLocation()),
+            indexFilename(theIndexFilename), isAuto (false), isModified (false),
             isUserOwned (true), isEditable (true), release (1), revision (1),
             compatibility (1.00), doc(NULL) {
         Log << "PersistentIndex convert 0.92 index " << thePackPath << " - " << anIndexName <<"\n";
         lev::RatingManager *theRatingMgr = lev::RatingManager::instance();
 
-        // prepare Proxy coding of pack path -        
+        // prepare Proxy coding of pack path -
         if (thePackPath == "levels")
             packPath = "";
         else {
-            //  cut off leading "levels/" 
+            //  cut off leading "levels/"
             packPath = thePackPath.substr(7);
         }
 
@@ -1004,9 +1004,9 @@ namespace enigma { namespace lev {
             while (std::getline(*legacyIndexStream, line)) {
                 using namespace std;
                 using namespace ecl;
-    
+
                 string   filename = "";              //< Filename of the level (exl. extension)
-                string   indexname = "";             //< The name used in the options file, 
+                string   indexname = "";             //< The name used in the options file,
                                                 //   empty string -> use filename entry
                 string   name = "";                  //< Complete name of the level
                 string   author = "";                //< Author of the level
@@ -1022,26 +1022,26 @@ namespace enigma { namespace lev {
                 int      patience = 0;
                 int      knowledge = 0 ;
                 int      speed = 0;
- 
+
                 ++linenumber;
-   
+
                 const char *wspace = " \t";
                 size_t      p      = line.find_first_not_of(wspace);
-        
+
                 if (p == string::npos || line.at(p) != '{')
                     continue;
-        
+
                 // found a level description
-        
+
                 int    par_time        = -1;
                 string par_time_by;
                 string par_moves_by;
-        
+
                 ++p;
                 while (true) {
                     string tag;
                     string content;
-        
+
                     // ugly parser code starts here.
                     // - it parses 'tag = content' or 'tag = "content"'
                     // - '\"' is allowed in '"content"'
@@ -1050,14 +1050,14 @@ namespace enigma { namespace lev {
                     size_t tag_start = line.find_first_not_of(wspace, p);
                     Assert <XLevelPackInit> (tag_start != string::npos, "Expected tag or '}'");
                     if (line.at(tag_start) == '}') break; // line done
-        
+
                     size_t equal = line.find('=', tag_start);
                     Assert <XLevelPackInit> (equal != string::npos, "'=' expected");
                     Assert <XLevelPackInit> (equal != tag_start, "empty tag");
-        
+
                     size_t tag_end = line.find_last_not_of(wspace, equal-1);
                     tag = line.substr(tag_start, tag_end-tag_start+1);
-        
+
                     size_t content_start = line.find_first_not_of(wspace, equal+1);
                     if (line.at(content_start) == '\"') { // content in ""
                         size_t oquote       = line.find('\"', content_start+1);
@@ -1081,7 +1081,7 @@ namespace enigma { namespace lev {
                         content = line.substr(content_start, content_end-content_start);
                         p = content_end;
                     }
-        
+
                     if      (tag == "file")     filename     = content;
                     else if (tag == "indexname")indexname    = content;
                     else if (tag == "name")     name         = content;
@@ -1102,10 +1102,10 @@ namespace enigma { namespace lev {
                     else
                         throw XLevelPackInit(strf("unknown tag '%s'", tag.c_str()));
                 }
-        
-                Assert <XLevelPackInit> (filename.length() != 0, 
+
+                Assert <XLevelPackInit> (filename.length() != 0,
                                          "mandatory tag 'file' missing");
-        
+
                 if (has_easymode) {
                     Assert <XLevelPackInit> (par_time == -1,
                                              "'par_time' not allowed when easymode=1 "
@@ -1117,8 +1117,8 @@ namespace enigma { namespace lev {
                     par_time_easy    = par_time_normal    = par_time;
                     par_time_easy_by = par_time_normal_by = par_time_by;
                 }
-                
-                // correct filename for zip 
+
+                // correct filename for zip
                 if (isZip) {
                     Log << "Zip " << thePackPath << " - " <<packPath << " - " << indexname << "\n";
                     if (filename.find('/') == std::string::npos) {
@@ -1136,35 +1136,35 @@ namespace enigma { namespace lev {
                     std::string::size_type n = filename.rfind('/');
                     if (n != std::string::npos) {
                         packPath = filename.substr(0, n);
-//                        Log << "Index convert pack '" << anIndexName << "' - guess pack directory is '" 
+//                        Log << "Index convert pack '" << anIndexName << "' - guess pack directory is '"
 //                                << packPath << "'\n";
                     }
                 }
-                
+
                 // register Proxy
                 appendProxy(Proxy::registerLevel(filename, packPath,
-                        (indexname.empty() ? filename : indexname), name, author, 
+                        (indexname.empty() ? filename : indexname), name, author,
                         revision, revision, has_easymode, GAMET_ENIGMA));
                 theRatingMgr->registerRating((indexname.empty() ? filename : indexname),
-                    revision, intelligence, dexterity, patience, knowledge, speed, 
+                    revision, intelligence, dexterity, patience, knowledge, speed,
                     par_time_easy, par_time_easy_by, par_time_normal, par_time_normal_by);
-                    
+
             }
         } catch (const XLevelPackInit &e) {
             std::string xerror = ecl::strf("in line %i: %s", linenumber, e.what());
             throw XLevelPackInit (xerror);
         }
-        
+
         // convert to XML
-        
+
         updateFromProxies();
-        
-        // save but do not overwrite existing index.xml - would be a second conversion, 
+
+        // save but do not overwrite existing index.xml - would be a second conversion,
         // but the user may already have modified the index.xml
-        save(false);  
+        save(false);
     }
 
-    void PersistentIndex::parsePar(const string& par, int& par_value, std::string& par_text) 
+    void PersistentIndex::parsePar(const string& par, int& par_value, std::string& par_text)
     {
         // 'par' is in format "value,text"
         // The value is stored in 'par_value' and the text in 'par_text'.
@@ -1190,7 +1190,7 @@ namespace enigma { namespace lev {
                     std::string filename = "";
                     ecl::split_path(path, &dir, &filename);
                     std::ifstream is(absPath.c_str());
-                
+
                     if (!is)
                         throw XLevelPackInit ("Cannot open index file");
                     Index::registerIndex(new PersistentIndex(&is, dir, false, indexName));
@@ -1220,9 +1220,9 @@ namespace enigma { namespace lev {
                 std::string dummy;
                 if(!app.resourceFS->findFile(indexfile, dummy, isptr))
                     throw XLevelPackInit ("No index in level pack: ");
-                
+
                 istream &is = *isptr;
-        
+
                 string line;
                 std::string indexName;
                 if (getline(is, line)) {
@@ -1232,9 +1232,9 @@ namespace enigma { namespace lev {
                         line.resize(line.size()-1);
                     }
                     indexName = line;
-                    
+
                     // check if already loaded
-                    
+
                     Index::registerIndex(new PersistentIndex(isptr.get(), dir, true, indexName));
                 }
                 else {

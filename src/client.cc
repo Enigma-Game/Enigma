@@ -696,17 +696,17 @@ void Client::tick (double dtime)
                     lev::Proxy *curProxy = ind->getCurrent();
                     lev::RatingManager *ratingMgr = lev::RatingManager::instance();
                     int    difficulty     = app.state->getInt("Difficulty");
-                    int    wr_time       = ratingMgr->getBestScore(curProxy, difficulty);
+                    int    wr_time        = ratingMgr->getBestScore(curProxy, difficulty);
                     int    best_user_time = scm->getBestUserScore(curProxy, difficulty);
                     string message;
 
                     if (wr_time>0 && (best_user_time<0 || best_user_time>wr_time)) {
                         message = string(_("Too slow for ")) +
                             ratingMgr->getBestScoreHolder(curProxy, difficulty) +
-                            ".. [Ctrl-A]";
+                            "... Ctrl-A";
                     }
                     else {
-                        message = string(_("You are slow today.. [Ctrl-A]"));
+                        message = string(_("You are slow today ... Ctrl-A"));
                     }
 
                     client::Msg_PlaySound("shatter", 1.0);
@@ -803,7 +803,7 @@ void Client::level_finished()
             //    text = _("New personal record, but over par!");
             else
                 text = _("New personal record!");
-	}
+        }
     }
 
     if (app.state->getInt("NextLevelMode") == lev::NEXT_LEVEL_NOT_BEST &&

@@ -16,7 +16,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
- 
+
 #include "gui/LevelPackComposer.hh"
 #include "gui/HelpMenu.hh"
 #include "ecl.hh"
@@ -35,17 +35,17 @@ using namespace ecl;
 using namespace std;
 
 namespace enigma { namespace gui {
-    
+
     lev::PersistentIndex * LevelPackComposer::clipboard = NULL;
 
     static const char *helptext[] = {
-        N_("Shift click:"),         N_("Add to clipboard"),
-        N_("Shift delete:"),        N_("Clear clipboard"),
+        N_("Shift-click:"),         N_("Add to clipboard"),
+        N_("Shift-delete:"),        N_("Clear clipboard"),
         N_("F8:"),                  N_("Insert clipboard as reference"),
         N_("F9:"),                  N_("Insert clipboard as copy"),
 //        N_("F10:"),                 N_("Move clipboard levels"),
-        N_("Alt left arrow:"),      N_("Exchange level with predecessor"),
-        N_("Alt right arrow:"),     N_("Exchange level with successor"),
+        N_("Alt-left arrow:"),      N_("Exchange level with predecessor"),
+        N_("Alt-right arrow:"),     N_("Exchange level with successor"),
         N_("Delete:"),              N_("Delete level"),
         N_("F5:"),                  N_("Update index from levels"),
         0
@@ -56,16 +56,16 @@ namespace enigma { namespace gui {
         _("Move clipboard levels")
 #endif
 
-    
-    LevelPackComposer::LevelPackComposer(bool enableEdit) : 
+
+    LevelPackComposer::LevelPackComposer(bool enableEdit) :
             isEditable (enableEdit), isModified (false) {
         if (clipboard == NULL) {
             std::vector<std::string> dummy;
             clipboard = new lev::PersistentIndex(" ", false); // mark as incomplete
         }
-        
+
         curIndex = dynamic_cast<lev::PersistentIndex *>(lev::Index::getCurrentIndex());
-        
+
         const video::VMInfo &vminfo = *video::GetInfo();
 
         // Add navigation buttons
@@ -73,7 +73,7 @@ namespace enigma { namespace gui {
         pgdown   = new ImageButton("ic-down", "ic-down1", this);
         start    = new ImageButton("ic-top", "ic-top1", this);
         end      = new ImageButton("ic-bottom", "ic-bottom1", this);
-    
+
         Rect r(vminfo.width-30, 60, 20, 50);
         r.y = 60;
         add (pgup, r);
@@ -90,7 +90,7 @@ namespace enigma { namespace gui {
         ecl::Rect previewarea(10, 60, vminfo.width-50, vminfo.height-130);
         levelwidget->realize (previewarea);
         levelwidget->set_area (previewarea);
-    
+
         this->add(levelwidget);
 
         // Information area
@@ -98,7 +98,7 @@ namespace enigma { namespace gui {
         lbl_clipinfo = new Label();
         lbl_levelname = new Label();
         lbl_clipcontent = new Label();
-        
+
         HList *hl = new HList;
         hl->set_spacing(10);
         hl->set_alignment(HALIGN_CENTER, VALIGN_TOP);
@@ -106,7 +106,7 @@ namespace enigma { namespace gui {
         hl->add_back (lbl_lpinfo);
         hl->add_back (lbl_clipinfo);
         this->add (hl, Rect (5, 10, vminfo.width - 10, 28));
-    
+
         hl = new HList;
         hl->set_spacing(10);
         hl->set_alignment(HALIGN_CENTER, VALIGN_TOP);
@@ -115,11 +115,11 @@ namespace enigma { namespace gui {
         hl->add_back (lbl_levelname);
         hl->add_back (lbl_clipcontent);
         this->add (hl, Rect (5, 10+20, vminfo.width - 10, 28));
-    
+
         // Create buttons - positioning identical to Levelmenu
         but_ignore = new StaticTextButton(N_("Undo"), this);
         but_back = new StaticTextButton(N_("Ok"), this);
-        
+
         HList * commandHList = new HList;
         commandHList->set_spacing(10);
         commandHList->set_alignment(HALIGN_CENTER, VALIGN_TOP);
@@ -129,14 +129,14 @@ namespace enigma { namespace gui {
         commandHList->add_back(but_ignore);
         commandHList->add_back(but_back);
         this->add(commandHList, Rect(10, vminfo.height-50, vminfo.width-20, 35));
-        
+
     }
 
-    void LevelPackComposer::tick(double dtime) 
+    void LevelPackComposer::tick(double dtime)
     {
         levelwidget->tick(dtime);
         static double timeaccu = 0.0;
-    
+
 //        // info texts disappear after some time
 //        if (shown_text_ttl>0.0) {
 //            shown_text_ttl -= dtime;
@@ -153,7 +153,7 @@ namespace enigma { namespace gui {
     bool LevelPackComposer::on_event (const SDL_Event &e) {
         // Pass all events to the level widget first
         bool handled=levelwidget->on_event(e);
-    
+
         if (!handled) {
             if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
@@ -172,7 +172,7 @@ namespace enigma { namespace gui {
                                 handled=true;
                                 break;
                             }
-                            if (curIndex->isSource(curProxy) && 
+                            if (curIndex->isSource(curProxy) &&
                                     backups.find(curProxy->getNormFilePath()) == backups.end()) {
                                 // mark as deletion candidate - the final check
                                 // if we delete it really occurs on save
@@ -225,7 +225,7 @@ namespace enigma { namespace gui {
                         handled=true;
                     }
                     break;
-                case SDLK_LEFT:     
+                case SDLK_LEFT:
                     if (isEditable && (SDL_GetModState() & KMOD_ALT)) {
                         int pos = curIndex->getCurrentPosition();
                         if (pos > 0) {
@@ -237,7 +237,7 @@ namespace enigma { namespace gui {
                         handled=true;
                     }
                     break;
-                case SDLK_RIGHT:     
+                case SDLK_RIGHT:
                     if (isEditable && (SDL_GetModState() & KMOD_ALT)) {
                         int pos = curIndex->getCurrentPosition();
                         if (pos < curIndex->size() - 1) {
@@ -257,7 +257,7 @@ namespace enigma { namespace gui {
                         handled=true;
                     }
                     break;
-                case SDLK_F1:     
+                case SDLK_F1:
                     displayHelp(helptext, 200);
                     invalidate_all();
                     handled=true;
@@ -271,7 +271,7 @@ namespace enigma { namespace gui {
         }
         return handled;
      }
-     
+
      void LevelPackComposer::on_action(Widget *w) {
         if (w==levelwidget) {
             if (w->lastModifierKeys() & KMOD_SHIFT) {
@@ -281,7 +281,7 @@ namespace enigma { namespace gui {
                     // all but absolute commandline proxies may be put on the clipboard
                     if (curIndex != NULL)
                         var = curIndex->getVariation(curIndex->getCurrentPosition());
-                    clipboard->appendProxy(curProxy, var.ctrl, 
+                    clipboard->appendProxy(curProxy, var.ctrl,
                             var.unit, var.target, var.extensions);
                     sound::EmitSoundEvent ("menuok");
                 } else {
@@ -340,24 +340,24 @@ namespace enigma { namespace gui {
         // as the formatted strings can no longer be translated.
         // The instant language change is guaranteed by the frequent
         // call of is method!
-        
+
         lev::Index *ind = lev::Index::getCurrentIndex();
         int size = ind->size();
         lev::Proxy *curProxy = ind->getCurrent();
-        
+
         lbl_lpinfo->set_text(ecl::strf(_("%s: %d levels"),
                 ind->getName().c_str(), size));
-                
+
         if (size == 0) {
             // empty level pack
             lbl_levelname->set_text ("-");
         }
         else {
             lbl_levelname->set_text(ecl::strf("#%d:(%s)",
-                      ind->getCurrentLevel(), 
+                      ind->getCurrentLevel(),
                       curProxy->getNormFilePath().c_str()));
         }
-        
+
         int csize = clipboard->size();
         lbl_clipinfo->set_text(ecl::strf(_("Clipboard: %d levels"), csize));
         if (csize == 0) {
@@ -367,24 +367,24 @@ namespace enigma { namespace gui {
         else {
             std::string clipstring = clipboard->getProxy(0)->getTitle();
             for (int i = 1; i < csize; i++)
-                clipstring += ", " + clipboard->getProxy(i)->getTitle(); 
+                clipstring += ", " + clipboard->getProxy(i)->getTitle();
             lbl_clipcontent->set_text(clipstring);
             if (enigma::GetFont("menufont")->get_width(clipstring.c_str()) > clipContentWidth)
                 lbl_clipcontent->set_alignment(HALIGN_RIGHT);
             else
                 lbl_clipcontent->set_alignment(HALIGN_CENTER);
         }
-        
+
     }
-    
+
     void LevelPackComposer::draw_background(ecl::GC &gc) {
         const video::VMInfo *vminfo = video::GetInfo();
-        
+
         video::SetCaption(("Enigma - Level Pack Composer"));
         blit(gc, vminfo->mbg_offsetx, vminfo->mbg_offsety, enigma::GetImage("menu_bg", ".jpg"));
         if (isModified)
           blit(gc, 0,0, enigma::GetImage(("ic-obsolete" + vminfo->thumbsext).c_str()));
     }
-    
+
 
 }} // namespace enigma::gui
