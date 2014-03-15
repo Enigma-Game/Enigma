@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Little Puzzles" el:subtitle="" el:id="wb11"/>
-      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
-      <el:author  el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jon 'WB' Sneyers" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2003 Jon 'WB' Sneyers</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -18,17 +18,17 @@ ti["."] = {"fl_space"}
 ti["~"] = {"fl_water"}
 ti["#"] = {"st_granite"}
 ti["+"] = {"st_box"}
-ti["d"] = {"it_trigger", target = "door"}
-ti["D"] = {"st_door", "door", faces= "ew", state = CLOSED}
-ti["^"] = {"st_oneway", orientation = NORTH}
-ti[">"] = {"st_oneway", orientation = EAST}
-ti["V"] = {"st_oneway", orientation = SOUTH}
-ti["<"] = {"st_oneway", orientation = WEST}
+ti["d"] = {"it_trigger", target="door"}
+ti["D"] = {"st_door", "door", faces="ew", state=CLOSED}
+ti["^"] = {"st_oneway", orientation=NORTH}
+ti[">"] = {"st_oneway", orientation=EAST}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["<"] = {"st_oneway", orientation=WEST}
 ti["I"] = {"st_stoneimpulse"}
 ti["y"] = {"it_yinyang"}
-ti["1"] = {"it_document", text = "text1"}
-ti["2"] = {"it_document", text = "text2"}
-ti["3"] = {"it_document", text = "text3"}
+ti["1"] = {"it_document", text="text1"}
+ti["2"] = {"it_document", text="text2"}
+ti["3"] = {"it_document", text="text3"}
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"#ac_marble_black"}
 ti["*"] = {"#ac_marble_white"}
@@ -70,7 +70,7 @@ wo:shuffleOxyd()
         <el:english el:translate="true">Oops ... you're stuck ...     Try again ...</el:english>
       </el:string>
       <el:string el:key="text2">
-        <el:english el:translate="true">Congratulations, you reached this side ...      but can you get to the oxyds? </el:english>
+        <el:english el:translate="true">Congratulations, you reached this side ...     but can you get to the oxyds?</el:english>
       </el:string>
       <el:string el:key="text3">
         <el:english el:translate="true">Well done!</el:english>
