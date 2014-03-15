@@ -469,7 +469,7 @@ namespace enigma { namespace lev {
                         doc->release();           // empty or errornous doc
                         doc = NULL;
                     }
-                    message = _("Error on  registration of levelpack index: \n");
+                    message = _("Error on registration of levelpack index: \n");
                     message += absIndexPath + "\n\n";
                     message += _("Note: the levelpack will not show up!\n\n");
                     message += errMessage;
