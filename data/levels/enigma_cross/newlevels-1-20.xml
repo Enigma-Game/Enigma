@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="109" title="Enigma 1.20 new"/>
+  <info enigma="1.10" group="Facets" location="15600" network="false" owner="Enigma Team" release="1" revision="110" title="Enigma 1.20 new"/>
 
   <attributes/>
 
@@ -201,7 +201,7 @@
     <level _seq="193" _title="Collapsing Building" _xpath="enigma_ix/pulley28_1" author="Mark Pulley" ctrl="force" easy="true" id="20081018pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="194" _title="Flashback" _xpath="enigma_ix/devnull10_1" author="/dev/null" ctrl="force" easy="false" id="devnull10" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="195" _title="Pillar" _xpath="enigma_ix/raoul39_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul39" rel="1" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="22" score="1" target="time" unit="duration"/>
+    <level _seq="196" _title="The Inferno" _xpath="enigma_ix/duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="23" score="1" target="time" unit="duration"/>
     <level _seq="197" _title="Caving" _xpath="enigma_viii/pulley31_1" author="Mark Pulley" ctrl="force" easy="false" id="20090424pulley001" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="198" _title="Flickering Passages" _xpath="enigma_ix/duffy182_1" author="Jacob Scott, Raoul Bourquin" ctrl="force" easy="true" id="duffy182" rel="1" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="199" _title="Carcassonne" _xpath="enigma_ix/mecke40_1" author="mecke" ctrl="force" easy="true" id="mecke40" rel="1" rev="23" score="1" target="time" unit="duration"/>

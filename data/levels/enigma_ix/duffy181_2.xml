@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="The Inferno" el:subtitle="With respects to Dante Alighieri" el:id="duffy181"/>
-      <el:version el:score="1" el:release="2" el:revision="22" el:status="released"/>
-      <el:author  el:name="Jacob Scott"/>
+      <el:version el:score="1" el:release="2" el:revision="23" el:status="released"/>
+      <el:author el:name="Jacob Scott"/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
@@ -1445,7 +1445,7 @@ function draw_joker(value, sender)
     wo[sender] = {"it_wormhole", destination=jokerdest, range=1, strength=50}
 end
 
-  ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
@@ -1463,15 +1463,15 @@ end
         <el:translation el:lang="de">Nicht ward vor mir Geschaffnes angetroffen / als Ewiges - und ewig daur’ auch ich. / Ihr, die ihr eingeht, laßt hier jedes Hoffen.</el:translation>
       </el:string>
       <el:string el:key="ferry_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto III / Terzine 33">...stilled the shaggy jowls / of the pilot of the livid marsh, / about whose eyes burned wheels of flame.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto III / Terzine 33">... stilled the shaggy jowls / of the pilot of the livid marsh, / about whose eyes burned wheels of flame.</el:english>
         <el:translation el:lang="de">Hierauf ließ ruhen die bewollten Wangen / des fahlen Sumpfs erzürnter Steuermann, / des Augen Flammenräder rings umschlangen.</el:translation>
       </el:string>
       <el:string el:key="ferry_charon">
-        <el:english el:translate="true">I am Charon, ferryman of the underworld.  I will transport you through the perilous swamps of Acheron, but the price is not cheap.              Wait!  You still seem alive....                                                   It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a symbol of life on that altar to keep the guards at bay, and then perhaps I will consider taking you across.</el:english>
+        <el:english el:translate="true">I am Charon, ferryman of the underworld.  I will transport you through the perilous swamps of Acheron, but the price is not cheap.              Wait!  You still seem alive ...                                                   It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a symbol of life on that altar to keep the guards at bay, and then perhaps I will consider taking you across.</el:english>
         <el:translation el:lang="de">Charon bin ich, Fährmann der Unterwelt. Ich will dich geleiten durch die Gefahren der Sümpfe Acherons, doch der Preis hierfür ist nicht gering. Doch halt! Was ist dies? Mir will scheinen, du weilest noch unter den Lebenden? ...                                           Dies kann nicht sein! Nur den Toten ist es gestattet, diesen Ort zu betreten.  Rasch! Bringe an jenem Altar dort ein Symbol des Lebens als Opfer dar - dies wird die Wächter beschwichtigen. Und dann vielleicht werde ich in Erwägung ziehen, dir Geleit hinüber auf die andere Seite zu gewähren.</el:translation>
       </el:string>
       <el:string el:key="ferry_life">
-        <el:english el:translate="true">Very well.  The demons and spirits that guard this place may now believe that you are truly dead, but I would still be cautious if I were you....                                             But you still need a coin.  Hmm, well normally I wouldn't do this, but that fellow over there has me kind of worried -- I think he's plotting something.  If he has a coin, maybe you could get it from him somehow.</el:english>
+        <el:english el:translate="true">Very well.  The demons and spirits that guard this place may now believe that you are truly dead, but I would still be cautious if I were you ...                                             But you still need a coin.  Hmm, well normally I wouldn't do this, but that fellow over there has me kind of worried -- I think he's plotting something.  If he has a coin, maybe you could get it from him somehow.</el:english>
         <el:translation el:lang="de">Wohl getan. Die Dämonen und Geister, die diesen Ort bewachen, mögen nun glauben, dass du wahrhaftig ein Entleibter bist, dennoch würde ich an deiner Statt stets Vorsicht walten lassen ...                                       Aber du benötigst trotzdem noch eine Münze. Hmm, normalerweise ist es nicht meine Art, so etwas zu tun, aber diese Gestalt dort drüben hat mein Misstrauen erweckt, ich glaube, er führt etwas im Schilde. Falls er eine Münze bei sich haben sollte, magst du eine Möglichkeit ersinnen, wie sie ihren Besitzer wechselt.</el:translation>
       </el:string>
       <el:string el:key="ferry_coin">
@@ -1479,7 +1479,7 @@ end
         <el:translation el:lang="de">Nein! Ich werde dich nicht hinübersetzen, solange du nicht ein angemessenes Opfer dargebracht hast, das dich von allem befreit, was als Lebenszeichen gedeutet werden könnte.</el:translation>
       </el:string>
       <el:string el:key="circle1_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto IV / Terzine 15">...for then I knew that beings of great worth / were here suspended in this Limbo.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto IV / Terzine 15">... for then I knew that beings of great worth / were here suspended in this Limbo.</el:english>
         <el:translation el:lang="de">Groß war mein Schmerz, als er dies kund gegeben, / denn Leute großen Werthes zeigten sich, / die unentschieden hier im Vorhof schweben.</el:translation>
       </el:string>
       <el:string el:key="minos_intro">
@@ -1495,7 +1495,7 @@ end
         <el:translation el:lang="de">Graus steht dort Minos, fletscht die Zähn’ und bringt / die Schuld ans Licht, wie tief sie sich verhehle, / urteilt, schickt fort - je wie er sich umschlingt.</el:translation>
       </el:string>
       <el:string el:key="circle2_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto V / Terzine 11">The hellish squall, which never rests, / sweeps spirits in its headlong rush...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto V / Terzine 11">The hellish squall, which never rests, / sweeps spirits in its headlong rush ...</el:english>
         <el:translation el:lang="de">Der Höllenwindsbraut unaufhörlich Toben / reißt wirbelnd die gequälten Geister fort / und dreht sie um - nach unten und nach oben.</el:translation>
       </el:string>
       <el:string el:key="circle3_intro">
@@ -1503,7 +1503,7 @@ end
         <el:translation el:lang="de">Dies war der dritte Kreis, den ich betrat, / von ew’gem, kaltem, maledeitem Regen / von gleicher Art und Regel früh und spat.</el:translation>
       </el:string>
       <el:string el:key="circle4_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VII / Terzine 9">...they, with great shouts, from opposite sides / were shoving burdens forward with their chests. / They crashed into each other, turned / and beat retreat, shoving their loads and shouting...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VII / Terzine 9">... they, with great shouts, from opposite sides / were shoving burdens forward with their chests. / They crashed into each other, turned / and beat retreat, shoving their loads and shouting ...</el:english>
         <el:translation el:lang="de">Noch nirgend war die Schar so groß wie dort. / Laut heulend kamen sie von beiden Enden, / und wälzten Lasten mit den Brüsten fort.</el:translation>
       </el:string>
       <el:string el:key="circle5_intro">
@@ -1511,19 +1511,19 @@ end
         <el:translation el:lang="de">Dann qualmt ein Sumpf, mit Namen Styx, entgegen, / dort wo der traur’ge Fluß vom Laufe ruht, / am Fuß des gräulichen Gestads gelegen. // Dort stand ich nun und sah nach jener Flut / und sah im Sumpfe Leute, kot’ge, nackte, / zugleich des Jammers Bilder und der Wut.</el:translation>
       </el:string>
       <el:string el:key="circle5_approach">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzine 23">...we approach the city known as Dis, / with its vast army and its burdened citizens.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzine 23">... we approach the city known as Dis, / with its vast army and its burdened citizens.</el:english>
         <el:translation el:lang="de">„Bald wird sich, Sohn, dir jene Stadt enthüllen,“ / so sprach mein guter Meister, „Dis genannt, / die scharenweis’ unsel’ge Bürger füllen.“</el:translation>
       </el:string>
       <el:string el:key="circle5_angels">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzines 28 - 31">At the threshold I saw more than a thousand angels / fallen from Heaven....they reined in their great disdain /  enough to say: 'You come -- alone.  Let him be gone, / who has so boldly made his way into this kingdom. / 'Let him retrace his reckless path alone...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto VIII / Terzines 28 - 31">At the threshold I saw more than a thousand angels / fallen from Heaven ... they reined in their great disdain / enough to say: 'You come -- alone.  Let him be gone, / who has so boldly made his way into this kingdom. / Let him retrace his reckless path alone' ...</el:english>
         <el:translation el:lang="de">Wohl tausend standen vor dem Tor bereit, / vom Himmel hergestürzt ... Da legte sich ein wenig ihre Wut. / Sie sprachen: „Komm’ allein, laß geh’n den Toren, / der hier hereindrang mit so keckem Mut. // Find’ er den Weg, den sich sein Wahn erkoren, / allein zurück!“ ...</el:translation>
       </el:string>
       <el:string el:key="circle6_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 1">Now my master takes a hidden / path between the city's ramparts and the torments, / and I come close behind him...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 1">Now my master takes a hidden / path between the city's ramparts and the torments, / and I come close behind him ...</el:english>
         <el:translation el:lang="de">Fort ging nun - hier die Mauer, dort die Pein - / auf still verborgnem Pfad der edle Weise, / er mir voraus und ich ihm hinterdrein.</el:translation>
       </el:string>
       <el:string el:key="circle6_tombs">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 13">...his hands, ready, encouraging, / thrust me towards him among the tombs.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto X / Terzine 13">... his hands, ready, encouraging, / thrust me towards him among the tombs.</el:english>
         <el:translation el:lang="de">Mein Führer, der mich schnell an mut’ger Hand / durch Gräberreih’n bis zu ihm mitgenommen, / sprach: „Was er fragt, das mach’ ihm klar bekannt.“</el:translation>
       </el:string>
       <el:string el:key="circle7_intro">
@@ -1531,7 +1531,7 @@ end
         <el:translation el:lang="de">So wie der Stier, vom Todesstreich versehrt, / emporsetzt und nicht gehen kann, nur springen, / und Satz um Satz hierhin und dorthin fährt, // so sahen wir den Minotaurus ringen. / Drum rief Virgil: „Jetzt weiter ohne Rast; / indess er tobt, ist’s gut hinab zu dringen.“</el:translation>
       </el:string>
       <el:string el:key="circle7_boil">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XII / Terzine 34">...we went on, / skirting the edge of the vermilion boil / from which the boiled cried out with piercing shrieks.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XII / Terzine 34">... we went on, / skirting the edge of the vermilion boil / from which the boiled cried out with piercing shrieks.</el:english>
         <el:translation el:lang="de">Da solch Geleit uns Sicherheit verlieh, / so gingen wir am roten Sud von hinnen, / aus dem die Rotte der Gesottnen schrie.</el:translation>
       </el:string>
       <el:string el:key="circle7_nest">
@@ -1539,7 +1539,7 @@ end
         <el:translation el:lang="de">Hier aber nisten die Harpy’n sich ein, / die, von den Inseln Troja’s Volk zu scheuchen, / es ängsteten mit Unglücks-Prophezein.</el:translation>
       </el:string>
       <el:string el:key="circle7_sand">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XIV / Terzines 4 &amp; 5">... Here, at the very edge, we stayed our steps / at an expanse of deep and arid sand...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XIV / Terzines 4 &amp; 5">... Here, at the very edge, we stayed our steps / at an expanse of deep and arid sand ...</el:english>
         <el:translation el:lang="de">... Hier weilten wir an beider Kreise Rand, / wo ward gefunden ein tiefer, dürrer Sand ...</el:translation>
       </el:string>
       <el:string el:key="circle8_intro">
@@ -1551,11 +1551,11 @@ end
         <el:translation el:lang="de">Drum wandt’ ich mich, und vor mir hin erschien /  und unter meinen Füßen auch, ein Weiher, / der durch den Frost Glas, und nicht Wasser, schien.</el:translation>
       </el:string>
       <el:string el:key="circle9_center">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 25">...we made our way toward the center, / where all things that have weight converge, / and I was shivering in the eternal chill...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 25">... we made our way toward the center, / where all things that have weight converge, / and I was shivering in the eternal chill ...</el:english>
         <el:translation el:lang="de">Und weiter ging’s zum Mittelpunkt zu streben, / auf welchem ruht des ganzen Alls Gewicht; / Selbst wandelt’ ich durch ew’gen Frost voll Beben.</el:translation>
       </el:string>
       <el:string el:key="circle9_universe">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 3">It is no enterprise undertaken lightly -- / to describe the very bottom of the universe...</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXII / Terzine 3">It is no enterprise undertaken lightly -- / to describe the very bottom of the universe ...</el:english>
         <el:translation el:lang="de">Denn nicht ein Spiel ist ja mein Unterfangen, / den Grund des Alls dem Liede zu vertrau’n, / und nicht mit Kinderlallen auszulangen.</el:translation>
       </el:string>
       <el:string el:key="circle9_emperor">
@@ -1603,11 +1603,11 @@ end
         <el:translation el:lang="de">Verrat</el:translation>
       </el:string>
       <el:string el:key="circleo_intro">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 37">...passed the point / to which all weights are drawn from every side.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 37">... passed the point / to which all weights are drawn from every side.</el:english>
         <el:translation el:lang="de">Du warst’s, so lang’ ich mich hinabgesenkt; / allein den Punkt, der anzieht alle Schwere, / durchdrangest du, da ich mich umgeschwenkt.</el:translation>
       </el:string>
       <el:string el:key="circleo_heaven">
-        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 46 &amp; final verse">...climbed up... far enough to see, through a round opening, / a few of those fair things the heavens bear. / Then we came forth, to see again the stars.</el:english>
+        <el:english el:translate="true" el:comment="Dante 'Devine Comedy': Canto XXXIV / Terzine 46 &amp; final verse">... climbed up ... far enough to see, through a round opening, / a few of those fair things the heavens bear. / Then we came forth, to see again the stars.</el:english>
         <el:translation el:lang="de">Da blickte durch der Felsschlucht ob’re Ründung / der schöne Himmel mir aus heitrer Ferne, / und wir entstiegen aus der engen Mündung. / Und traten vor zum Wiedersehn der Sterne.</el:translation>
       </el:string>
    </el:i18n>
