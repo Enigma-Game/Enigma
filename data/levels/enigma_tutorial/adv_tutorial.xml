@@ -4,11 +4,10 @@
     <el:info el:type="level">
       <el:identity el:title="Advanced Tutorial" el:subtitle="" el:id="m_tutor/adv_tutorial"/>
       <el:version el:score="1" el:release="2" el:revision="8" el:status="released"/>
-      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:comments>
         <el:code>New API version by Andreas, January 2009</el:code>
@@ -20,7 +19,7 @@
 -- The first part of this level file consists of tile-declarations.
 -- The key length is two, i.e. each tile is described by two characters.
 -- The characters to be used are not fixed - however, we encourage you
--- to follow some guidelines and conventions. 
+-- to follow some guidelines and conventions.
 
 ti["  "] = {"fl_lawn"}  -- The default floor typically is described by one or more blank spaces.
 ti[". "] = {"fl_hay"}   -- Less often used floors use small characters to make the map more easy to read.
@@ -197,89 +196,89 @@ end
 -- The texts are extracted from the level to ease translation, that's why they
 -- don't appear in the tile-declarations directly (see Reference Manual).
 
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text%A">
         <el:english el:translate="true">Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn how to play.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%B">
         <el:english el:translate="true">You control the black ball.  To pick up an object, just roll over it.  You can bounce off most walls (try it), but avoid the blue floor near the bottom of the room (actually, try falling into it and then restarting the level with the 'Esc' key).  While these messages are being displayed, don't click any buttons or push any keys or the message will stop.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%C">
         <el:english el:translate="true">This is pretty self-explanatory.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%D">
         <el:english el:translate="true">Enigma is full of puzzles of various types.  In the next room, you will encounter your first one.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%E">
         <el:english el:translate="true">You can't walk on water!  Try pushing the blocks into the water to get to the other side.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%F">
         <el:english el:translate="true">Notice that you can't push a row of two or more blocks.  Also, blocks can't be on the same squares as grates but you can.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%G">
         <el:english el:translate="true">There are different types of blocks here.  Those black blocks sink when they fall into water.  The tan blocks don't sink but don't form bridges either.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%H">
         <el:english el:translate="true">That thing is a top -- it will destroy your ball if they touch.  Also, as long as you are close enough to it, the top will chase you.  If you die, you will restart at the beginning of the level (if you have any balls left).  Try to find a way to get past and into the next room (you can use the blocks in the center of the room as barricades).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%I">
         <el:english el:translate="true">Good job!  Notice that the top can't go beneath that block with a black outline -- you're safe.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%J">
         <el:english el:translate="true">Those are different types of floors.  Try going over them.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%K">
         <el:english el:translate="true">The grayish floors are slopes.  The white floor is inverse-floor (you will see).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%L">
         <el:english el:translate="true">Watch what happens when you go over those triggers.  See if you can get the extra ball.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%M">
         <el:english el:translate="true">That's dynamite.  Try dropping some next to that yellowish wall (and moving out of the way).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%N">
         <el:english el:translate="true">Try using the spade on the holes caused by the dynamite.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%O">
         <el:english el:translate="true">Those things are boulders -- try moving one of the tan blocks.  Don't fall into the water or abyss (the black floor).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%P">
         <el:english el:translate="true">Take the magic wand and hit a boulder.  Try to let the row of three boulders pass the large column.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%Q">
         <el:english el:translate="true">Hit it hard enough!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%R">
         <el:english el:translate="true">It appears to be a simple room, but you're getting an extra ball anyway.  Maybe there is a reason ...</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%S">
         <el:english el:translate="true">Try to get the laser beam to hit that black stone, but don't get hit by it!  Use the mirrors to direct the beam.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%T">
         <el:english el:translate="true">Many objects change when hit with a laser beam.  Try hitting some of the coins with the laser beam.  Also, try hitting a block over a coin.  Those stones to your right are knights -- you need to fight (hit) them with a sword (in the front of your inventory) to get past.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%U">
         <el:english el:translate="true">Do you have any umbrellas?  Each one will give you approximately ten seconds of protection from danger (such as falling).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%V">
         <el:english el:translate="true">Those black stones are quake stones -- they reset all progress made with the oxyd stones.  The other stones are the oxyd stones.  Match them up to win!</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%W">
         <el:english el:translate="true">This area at the bottom of the screen is your inventory -- when you pick things up, they go here (there is a maximum of twelve).  To scroll through the inventory, use the right mouse button or the 'tab' key.  To drop or use an object, click the left mouse button.  Some objects, such as documents (like this one), can't be dropped but are instead used.  Those two balls in your inventory are your extra lives -- if you die in this level, you will restart at the beginning of the level if you have any balls left (and you will lose one of the balls).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%X">
         <el:english el:translate="true">Naturally, you're supposed to go through those closed gates at the top of the screen.                         Try going down that slope near the bottom of the room to see what's to the left.                                                         Don't bother with that trigger below the abyss yet.                                 If you could hit that small white ball through the one-way blocks (with the arrows), it might roll down and stop on that trigger.                  You will need to go in with it but you can't go through the white one-way block.                            Take the spoon and use it once the white ball is through (hit it hard).</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%Y">
         <el:english el:translate="true">The stone in the top-right of the room is a switch.  Hit it -- it is probably useful.  In this case the switch opens and closes a door (Do you remember a door that you weren't able to open?).  The bluish line is a window -- bridge the water before you do anything with it.</el:english>
-      </el:string> 
+      </el:string>
       <el:string el:key="text%Z">
         <el:english el:translate="true">That was a rotor (similar to a top).  Some levels have many rotors and tops to make them difficult.                            However, maybe this rotor has a purpose; maybe you could get it on that trigger near where the spoon was.                      It might be convenient to close the gate.</el:english>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

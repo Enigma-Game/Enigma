@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="46" title="Enigma III"/>
+  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma III"/>
 
   <attributes/>
 
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Hexagony" _xpath="./nat22_2" author="Nat Pryce" ctrl="force" easy="true" id="nat22" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="Set Me Free" _xpath="./illmind06_3" author="illmind" ctrl="force" easy="false" id="illmind06" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="53" _title="Danger Slide" _xpath="./luc15_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc15" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="54" _title="White Contrast" _xpath="./illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="White Contrast" _xpath="./illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="55" _title="Laser Tricks" _xpath="./duffy84_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy84" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Space Fishing" _xpath="./martin73_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin73" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Manamana" _xpath="./just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="5" score="1" target="time" unit="duration"/>

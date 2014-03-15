@@ -3,12 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Enigmines" el:subtitle="" el:id="huffman01"/>
-      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
       <el:author  el:name="Brian Huffman" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Brian Huffman</el:copyright>
       <el:license el:type="GPL version 2" el:open="true"/>
-      <el:compatibility el:enigma="1.00">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.00"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:score el:easy="1:22" el:difficult="2:00"/>
     </el:info>
@@ -233,7 +232,7 @@ end
         <el:english el:translate="true">Hit the switch to uncover one tile, but you will have to wait 10 seconds.</el:english>
       </el:string>
       <el:string el:key="text4">
-        <el:english el:translate="false">Shift+F3</el:english>
+        <el:english el:translate="false">Shift-F3</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

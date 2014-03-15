@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="80" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="81" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -14,7 +14,7 @@
     <level _seq="6" _title="Bendixxon" _xpath="enigma_i/alain06_2" author="Alain Busser" ctrl="force" easy="false" id="alain06" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="7" _title="Lissajous" _xpath="enigma_i/andreas01_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas01" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="8" _title="Lissajous' Revenge" _xpath="enigma_i/andreas12_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas12" rel="2" rev="6" score="1" target="time" unit="duration"/>
-    <level _seq="9" _title="Enigmawale" _xpath="enigma_i/alain20_1" author="Alain Busser" ctrl="force" easy="true" id="alain20" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="9" _title="Enigmawale" _xpath="enigma_i/alain20_1" author="Alain Busser" ctrl="force" easy="true" id="alain20" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="10" _title="Encased" _xpath="enigma_i/xerxes01_1" author="Xerxes M. Dynatos" ctrl="force" easy="false" id="xerxes01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="11" _title="Without Tremor" _xpath="enigma_i/richi04_2" author="Richi Bützer" ctrl="force" easy="false" id="richi04" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="12" _title="- Meditation -" _xpath="enigma_i/alain04_2" author="Alain Busser" ctrl="force" easy="false" id="alain04" rel="2" rev="3" score="2" target="time" unit="duration"/>
@@ -30,7 +30,7 @@
     <level _seq="22" _title="Floppy Floors" _xpath="enigma_i/andreas24_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Balance" _xpath="enigma_i/erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="- Meditation -" _xpath="enigma_i/raoul04_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="25" _title="Enignimm" _xpath="enigma_ii/ral52_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20091215ral591" rel="1" rev="193" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Enignimm" _xpath="enigma_ii/ral52_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20091215ral591" rel="1" rev="194" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="One Way Ticket" _xpath="enigma_ii/luc25_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="- Meditation -" _xpath="enigma_ii/andreas17_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas17" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="28" _title="Growing Boxes" _xpath="enigma_ii/luc26_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc26" rel="2" rev="2" score="1" target="time" unit="duration"/>
@@ -63,7 +63,7 @@
     <level _seq="55" _title="The Ditch" _xpath="enigma_iii/richi01_2" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Set Me Free" _xpath="enigma_iii/illmind06_3" author="illmind" ctrl="force" easy="false" id="illmind06" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="57" _title="Danger Slide" _xpath="enigma_iii/luc15_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc15" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="58" _title="White Contrast" _xpath="enigma_iii/illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="58" _title="White Contrast" _xpath="enigma_iii/illmind07_2" author="illmind" ctrl="force" easy="false" id="illmind07" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Manamana" _xpath="enigma_iii/just07_2" author="JuSt" ctrl="force" easy="false" id="just07" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="60" _title="Bad Flowers" _xpath="enigma_iii/nat30_2" author="Nat Pryce" ctrl="force" easy="true" id="nat30" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="61" _title="Don't Touch" _xpath="enigma_iii/raoul07_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul07" rel="3" rev="3" score="3" target="time" unit="duration"/>

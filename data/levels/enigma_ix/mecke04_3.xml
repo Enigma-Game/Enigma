@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Tour de France" el:subtitle="Marblics and Pearlics I" el:id="mecke04"/>
-      <el:version el:score="3" el:release="3" el:revision="$Revision:17 $" el:status="released"/>
+      <el:version el:score="3" el:release="3" el:revision="$Revision:18 $" el:status="released"/>
       <el:author el:name="mecke" el:email=""/>
       <el:copyright>Copyright © 2009 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -305,8 +305,8 @@ end
         <el:translation el:lang="de">Burdigala - Bordeaux</el:translation>
       </el:string>
       <el:string el:key="text12">
-        <el:english el:translate="true" el:comment="not translate Gallia omnis divisa est">Gallia omnis divisa est... - The whole of Gaul is divided... </el:english>
-        <el:translation el:lang="de">Gallia omnis divisa est... - Ganz Gallien ist ...</el:translation>
+        <el:english el:translate="true" el:comment="not translate Gallia omnis divisa est">Gallia omnis divisa est ... - The whole of Gaul is divided ...</el:english>
+        <el:translation el:lang="de">Gallia omnis divisa est ... - Ganz Gallien ist ...</el:translation>
       </el:string>
       <el:string el:key="text13">
         <el:english el:translate="true" el:comment="not translate Veni Vidi Vici">Veni, vidi, vici - I came, I saw, I conquered</el:english>

@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title ="Enignimm" el:subtitle="Yet another Nimm" el:id="20091215ral591"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision: 193 $" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="$Revision: 194 $" el:status="released"/>
       <el:author  el:name="Ronald Lamprecht" el:email="ral@users.berlios.de"/>
       <el:copyright>Copyright © 2009 Ronald Lamprecht</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -31,9 +31,9 @@ ti["x"] = {"st_stoneimpulse", "bIS"}
 ti["R"] = {"st_rotator_ccw"}
 ti["k"] = {"it_key", "ukey", code=1}
 ti["l"] = {"it_key", "bkey", code=2}
-ti["scale"] = {"fl_scales", "scale%%", min=0.9, target="step", _step="%%"} 
-ti["doorH"] = {"st_door_d", "doorH%%", faces = "ns"} 
-ti["doorV"] = {"st_door_d", "doorV%%", faces = "ew"} 
+ti["scale"] = {"fl_scales", "scale%%", min=0.9, target="step", _step="%%"}
+ti["doorH"] = {"st_door_d", "doorH%%", faces = "ns"}
+ti["doorV"] = {"st_door_d", "doorV%%", faces = "ew"}
 ti["@"] = {"#ac_marble"} .. ti{"st_lightglass_hollow", "marblehome"}
 ti["p"] = {"st_portal_horse"}
 ti["!"] = {"#ac_horse", "horse", target="horsecb", steady=false, strength=4, owner=YANG} .. ti["p"] .. {"it_trigger", invisible=true, target="horsehome"}
@@ -60,8 +60,7 @@ wo(resolver, " ", {
     "#R# Hp##############",
     "R   ...............#",
     "#7e>>>>>>>>>>>>>>Ml#",
-    "#x##################"
-})
+    "#x##################"})
 
 wo:add(YIN, {"it_magicwand"})
 wo:add(YANG, {"it_magicwand"})
@@ -124,7 +123,7 @@ function step(value, sender)
         if uState == 3 then
             local sel = 0
             for i = 1, #uBoulders do
-                if uBoulders[i]:exists() and 
+                if uBoulders[i]:exists() and
                         po(uBoulders[i]) ~= uBasepos + {i-1, 0} then
                     uBoulders[i]["orientation"] = EAST
                     sel = sel + 1
@@ -164,7 +163,7 @@ function step(value, sender)
     elseif sender._step == "%9" then
         local sel = 0
         for i = 1, #bBoulders do
-            if bBoulders[i]:exists() and 
+            if bBoulders[i]:exists() and
                     po(bBoulders[i]) ~= bBasepos + {1-i, 0} then
                 bBoulders[i]["orientation"] = WEST
                 sel = sel + 1
@@ -299,7 +298,7 @@ function bottomtime(value, sender)
         else
             no["doorH%4"]:open()
         end
-    elseif st(no["scale%8"]):exists() then 
+    elseif st(no["scale%8"]):exists() then
         sender["_numpulses"] = sender["_numpulses"] - 1
         no["bIS"]:signal(1)
         sender:on()
@@ -313,14 +312,13 @@ function horsehome(value, sender)
          no["doorV%4"]:open()
     end
 end
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="loss">
-        <el:english el:translate="true">Doomed ... 'SHIFT+F3'!!!</el:english>
-        <el:translation el:lang="fr">Perdu ... 'SHIFT+F3'!!!</el:translation>
-        <el:translation el:lang="de">Verloren ... 'SHIFT+F3'!!!</el:translation>
-      </el:string> 
+        <el:english el:translate="true">Doomed ... Shift-F3!!!</el:english>
+        <el:translation el:lang="fr">Perdu ... Shift-F3!!!</el:translation>
+        <el:translation el:lang="de">Verloren ... Shift-F3!!!</el:translation>
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>
-

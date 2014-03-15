@@ -4,11 +4,10 @@
     <el:info el:type="level">
       <el:identity el:title="Slopes, Jumps &amp; Falls" el:subtitle="" el:id="duffy167"/>
       <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
-      <el:author  el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="0.92">
-      </el:compatibility>
+      <el:compatibility el:enigma="0.92"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -302,7 +301,7 @@ function funcc3()
     enigma.SendMessage(door1, "openclose", nil)
     enigma.SendMessage(door2, "openclose", nil)
 end
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
@@ -316,4 +315,3 @@ end
     </el:i18n>
   </el:protected>
 </el:level>
-

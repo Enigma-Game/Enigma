@@ -4,18 +4,16 @@
     <el:info el:type="level">
       <el:identity el:title="Robin's Wood" el:subtitle="" el:id="andreas13"/>
       <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
-      <el:author  el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2005, 2009 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10">
-      </el:compatibility>
+      <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
       <el:comments>
       </el:comments>
       <el:score el:easy="04:16" el:difficult="05:36"/>
     </el:info>
     <el:luamain><![CDATA[
-
 wo["FollowGrid"] = true
 wo["FollowMethod"] = FOLLOW_SCROLL
 
@@ -114,7 +112,7 @@ if not wo["IsDifficult"] then
   wo[{53, 5}] = ti["c"]
 end
 
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
@@ -122,7 +120,7 @@ end
       <el:string el:key="text1">
         <el:english el:translate="true">A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   Between Might Lay   --   A Secret Way!   --   (If this you see, press Shift-F3.)</el:english>
         <el:translation el:lang="de">Erst ein Stein und dreimal Baum,   --   da liegt ein geheimer Raum.   --   Und ist nun dieser Text vorbei,   --   wart' nicht lang, drück Shift-F3.</el:translation>
-      </el:string> 
+      </el:string>
     </el:i18n>
   </el:protected>
 </el:level>

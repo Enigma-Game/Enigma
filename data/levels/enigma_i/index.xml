@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="41" title="Enigma I"/>
+  <info enigma="1.10" group="Enigma" location="10200" network="false" owner="Enigma Team" release="1" revision="42" title="Enigma I"/>
 
   <attributes/>
 
@@ -38,7 +38,7 @@
     <level _seq="30" _title="- Meditation -" _xpath="./siegfried39_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Where am I?" _xpath="./martin68_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin68" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="The Grim Reaper" _xpath="./daniel11_2" author="Daniel Heck" ctrl="force" easy="true" id="space" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="33" _title="Enigmawale" _xpath="./alain20_1" author="Alain Busser" ctrl="force" easy="true" id="alain20" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Enigmawale" _xpath="./alain20_1" author="Alain Busser" ctrl="force" easy="true" id="alain20" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Slalom" _xpath="./martin76_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin76" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="The Document" _xpath="./duffy04_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy4" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Space Travels" _xpath="./siegfried30_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level10b" rel="1" rev="1" score="1" target="time" unit="duration"/>

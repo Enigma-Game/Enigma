@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="White Contrast" el:subtitle="" el:id="illmind07"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
+      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+      <el:author el:name="illmind" el:email="support@mag-heut.net" el:homepage="http://www.mag-heut.net/"/>
       <el:copyright>Copyright © illmind</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -13,18 +13,18 @@
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
-ti[" "] = {"fl_yinyang", state = YIN, invisible = true}
+ti[" "] = {"fl_yinyang", state=YIN, invisible=true}
 ti["#"] = {"st_purplegray"}
 ti["+"] = {"st_box"}
 ti["h"] = {"it_hammer"}
-ti["d"] = {"it_document", text = "text2"}
-ti["D"] = ti["+"] .. {"it_document", text = "text1"}
-ti["x"] = {"st_grate", flavor = "cross"}
+ti["d"] = {"it_document", text="text2"}
+ti["D"] = ti["+"] .. {"it_document", text="text1"}
+ti["x"] = {"st_grate", flavor="cross"}
 ti["X"] = ti["x"] .. ti["h"]
 ti["B"] = {"st_break_oxydc"}
 ti["S"] = {"st_swap"}
 ti["O"] = {"st_oxyd_c"}
-ti["@"] = {"#ac_marble_white", controllers = CTRL_YIN, owner = YIN}
+ti["@"] = {"#ac_marble_white", controllers=CTRL_YIN, owner=YIN}
 
 wo(ti, " ", {
     "####################",
@@ -42,16 +42,16 @@ wo(ti, " ", {
     "####################"})
 
 wo:shuffleOxyd()
-    ]]></el:luamain>
+ ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
         <el:english el:translate="false"/>
       </el:string>
       <el:string el:key="text1">
-        <el:english el:translate="true">One  more  and  you  won't  get  this  hammer  until  you  don't  need  it  anymore!</el:english>
+        <el:english el:translate="true">One more and you won't get this hammer until you don't need it anymore!</el:english>
       </el:string>
       <el:string el:key="text2">
-        <el:english el:translate="false">illmind's  white  contrast  ...</el:english>
+        <el:english el:translate="false">illmind's white contrast ...</el:english>
       </el:string>
     </el:i18n>
   </el:protected>

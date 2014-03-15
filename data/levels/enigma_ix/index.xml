@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="43" title="Enigma IX"/>
+  <info enigma="1.10" group="Enigma" location="11100" network="false" owner="Enigma Team" release="1" revision="44" title="Enigma IX"/>
 
   <attributes/>
 
@@ -103,7 +103,7 @@
     <level _seq="95" _title="Odyssey in Space" _xpath="./duffy183_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy183" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="96" _title="The Pilgrim's Progress" _xpath="./pulley14_2" author="Mark Pulley" ctrl="force" easy="false" id="20080101pulley001" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Poe's Nightmare" _xpath="./ulf07_1" author="Ulf Stegemann" ctrl="force" easy="true" id="ulf07" rel="1" rev="122" score="1" target="time" unit="duration"/>
-    <level _seq="98" _title="Tour de France" _xpath="./mecke04_3" author="mecke" ctrl="force" easy="false" id="mecke04" rel="3" rev="17" score="3" target="time" unit="duration"/>
+    <level _seq="98" _title="Tour de France" _xpath="./mecke04_3" author="mecke" ctrl="force" easy="false" id="mecke04" rel="3" rev="18" score="3" target="time" unit="duration"/>
     <level _seq="99" _title="Smuggling" _xpath="./raoul40_1" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul40" rel="1" rev="10" score="1" target="time" unit="duration"/>
     <level _seq="100" _title="The Inferno" _xpath="./duffy181_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy181" rel="2" rev="22" score="1" target="time" unit="duration"/>
   </levels>

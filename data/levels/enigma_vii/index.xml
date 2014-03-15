@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="72" title="Enigma VII"/>
+  <info enigma="1.10" group="Enigma" location="10800" network="false" owner="Enigma Team" release="1" revision="73" title="Enigma VII"/>
 
   <attributes/>
 
@@ -48,7 +48,7 @@
     <level _seq="40" _title="Restless Meditation" _xpath="./ral09_2" author="Ronald Lamprecht" ctrl="force" easy="true" id="20070623ral914" rel="2" rev="182" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Black Liberation" _xpath="./mecke11_2" author="mecke" ctrl="force" easy="true" id="mecke11" rel="2" rev="44" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Shark" _xpath="./duffy169_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy169" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="43" _title="Enigmines" _xpath="./huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="43" _title="Enigmines" _xpath="./huffman01_1" author="Brian Huffman" ctrl="force" easy="true" id="huffman01" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="44" _title="Multiban" _xpath="./dpl01_2" author="Dominik Leipold" ctrl="force" easy="false" id="dpl01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Circulation" _xpath="./pulley03_3" author="Mark Pulley" ctrl="force" easy="false" id="pulley03" rel="3" rev="6" score="2" target="time" unit="duration"/>
     <level _seq="46" _title="Minor Tangler" _xpath="./joe24_2" author="Joseph Dunne" ctrl="force" easy="false" id="joe24" rel="2" rev="2" score="1" target="time" unit="duration"/>
