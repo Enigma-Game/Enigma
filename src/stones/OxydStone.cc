@@ -1134,10 +1134,14 @@ namespace enigma {
                 break;
         
             case OPEN_PAIR:
-                if (oldState == CLOSED) {
+                if ((oldState == CLOSED) || (oldState == CLOSING)) {
                     sound_event("oxydopen");
                     sound_event("oxydopened");
-                    set_anim(modelname+"_opening");
+                    if (oldState == CLOSING) {
+                        get_model()->reverse();
+                    } else {
+                        set_anim(modelname+"_opening");
+                    }
                 } else {
                     set_model(modelname + "_open");
                 }
