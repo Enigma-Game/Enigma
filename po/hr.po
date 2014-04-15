@@ -1,0 +1,4608 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ivica  Kolić <ikoli@yahoo.com>, 2014
+# anchorsound <anchorsound@gmail.com>, 2014
+# Tea Horvatic <teahorvatic@yahoo.co.uk>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Enigma\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-15 03:42+0100\n"
+"PO-Revision-Date: 2014-03-19 07:22+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
+"Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/enigma/language/hr_HR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#: src/server.cc:184 src/server.cc:198 src/gui/LevelInspector.cc:203
+msgid "Server Error: could not load level '"
+msgstr "Serverska greška: nemoguće učitati razinu '"
+
+#: src/client.cc:68
+#, c-format
+msgid "Mouse speed: %d"
+msgstr "Brzina miša: %d"
+
+#: src/client.cc:78
+msgid "Another nameless level"
+msgstr "Još jedna bezimena razina"
+
+#: src/client.cc:82
+msgid " by "
+msgstr "od"
+
+#: src/client.cc:517
+msgid "Left mouse button:"
+msgstr "Lijeva tipka miša:"
+
+#: src/client.cc:517
+msgid "Activate/drop leftmost inventory item"
+msgstr "Aktiviraj/ispusti skroz lijevi predmet u inventaru"
+
+#: src/client.cc:518
+msgid "Right mouse button:"
+msgstr "Desna tipka miša:"
+
+#: src/client.cc:518
+msgid "Rotate inventory items"
+msgstr "Rotiraj predmete u inventaru"
+
+#: src/client.cc:519 src/gui/LevelMenu.cc:193 src/gui/ScreenshotViewer.cc:34
+msgid "Escape:"
+msgstr "Escape:"
+
+#: src/client.cc:519
+msgid "Show game menu"
+msgstr "Prikaži izbornik igre"
+
+#: src/client.cc:520
+msgid "Shift+Escape:"
+msgstr "Shift+Escape:"
+
+#: src/client.cc:520
+msgid "Quit game immediately"
+msgstr "Napusti igru odmah"
+
+#: src/client.cc:521
+msgid "F1:"
+msgstr "F1:"
+
+#: src/client.cc:521 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
+msgid "Show this help"
+msgstr "Prikaži pomoć za ovo"
+
+#: src/client.cc:522
+msgid "F3:"
+msgstr "F3:"
+
+#: src/client.cc:522
+msgid "Kill current marble"
+msgstr "Uništiti trenutnu špekulu"
+
+#: src/client.cc:523
+msgid "Shift+F3:"
+msgstr "Shift+F3:"
+
+#: src/client.cc:523
+msgid "Restart the current level"
+msgstr "Ponovno pokreni trenutnu razinu"
+
+#: src/client.cc:524
+msgid "F4:"
+msgstr "F4:"
+
+#: src/client.cc:524
+msgid "Skip to next level"
+msgstr "Preskočiti na sljedeću razinu"
+
+#: src/client.cc:525 src/gui/LevelPackComposer.cc:50
+msgid "F5:"
+msgstr "F5:"
+
+#: src/client.cc:526
+msgid "F6:"
+msgstr "F6:"
+
+#: src/client.cc:526
+msgid "Jump back to last level"
+msgstr "Vrati natrag na posljednju razinu"
+
+#: src/client.cc:527
+msgid "F10:"
+msgstr "F10:"
+
+#: src/client.cc:527
+msgid "Make screenshot"
+msgstr "Napravi screenshot"
+
+#: src/client.cc:528
+msgid "Left/right arrow:"
+msgstr "Lijeva/desna strelica:"
+
+#: src/client.cc:528
+msgid "Change mouse speed"
+msgstr "Promijeni brzinu miša"
+
+#: src/client.cc:529
+msgid "Alt+x:"
+msgstr "Alt+x:"
+
+#: src/client.cc:529
+msgid "Return to level menu"
+msgstr "Povratak na izbornik razine"
+
+#: src/client.cc:540
+msgid "Skip to next level for best score hunt"
+msgstr "Preskoči na sljedeću razinu za lov na najbolji rezultat"
+
+#: src/client.cc:541
+msgid "Skip to next unsolved level"
+msgstr "Preskoči na sljedeću neriješenu razinu"
+
+#: src/client.cc:704
+msgid "Too slow for "
+msgstr "Presporo za"
+
+#: src/client.cc:709
+msgid "You are slow today ... Ctrl-A"
+msgstr "Spori ste danas ... Ctrl-A"
+
+#: src/client.cc:786
+msgid "Exactly the world record of "
+msgstr "Baš kao i svjetski rekord"
+
+#: src/client.cc:788
+msgid "Great! A new world record!"
+msgstr "Odlično! Novi svjetski rekord!"
+
+#: src/client.cc:793
+msgid "Again your personal record..."
+msgstr "Ponovo tvoj osobni rekord..."
+
+#: src/client.cc:799
+msgid "New personal record - better than par!"
+msgstr "Novi osobni rekord - bolje od redovnog stanja!"
+
+#: src/client.cc:805
+msgid "New personal record!"
+msgstr "Novi osobni rekord!"
+
+#: src/client.cc:817
+msgid "Your record, "
+msgstr "Tvoj rekord,"
+
+#: src/client.cc:824
+msgid "behind world record."
+msgstr "iza svjetskog rekorda."
+
+#: src/client.cc:826
+msgid "behind your record."
+msgstr "iza tvog rekorda."
+
+#: src/client.cc:834
+msgid "Level finished - better than par!"
+msgstr "Razina završena - bolje od redovnog stanja!"
+
+#: src/client.cc:840
+msgid "Level finished!"
+msgstr "Razina završena!"
+
+#: src/client.cc:843
+msgid " Cheater!"
+msgstr "Varalice!"
+
+#: src/client.cc:868
+#, c-format
+msgid "Enigma pack %s - level #%d: %s"
+msgstr "Enigma paket %s - razina #%d: %s"
+
+#: src/client.cc:879
+msgid "Your record: "
+msgstr "Tvoj rekord:"
+
+#: src/client.cc:881
+msgid "World record to beat: "
+msgstr "Svjetski rekord za pobjedu:"
+
+#: src/main.cc:344
+#, c-format
+msgid "Error in configuration file.\n"
+msgstr "Greška u datoteci konfiguracije.\n"
+
+#: src/main.cc:617 src/main.cc:640
+#, c-format
+msgid "Error: Home directory does not exist.\n"
+msgstr "Greška: Osobni direktorij ne postoji.\n"
+
+#: src/main.cc:632
+#, c-format
+msgid "Error: Application Data directory does not exist.\n"
+msgstr ""
+
+#: src/main.cc:659 src/main.cc:708
+#, c-format
+msgid "Error in XML initialization.\n"
+msgstr "Greška u XML inicijalizaciji.\n"
+
+#: src/main.cc:786
+#, c-format
+msgid ""
+"Mac OS X upgrade from Enigma 1.00\n"
+"\n"
+"The default user data path has changed from\n"
+"  %s \n"
+"\n"
+"to the visible data path\n"
+"  %s \n"
+"\n"
+"If ok Enigma will move your data to this new location.\n"
+"Note that you have to restart Enigma once for completion of this update."
+msgstr "Mac OS X nadogradnja s Enigma 1.00\n\nZadana staza podataka korisnika se promijenila iz\n  %s \n\nu vidljivu stazu podataka\n  %s \n\nAko je to u redu, Enigma će premjestiti Vaše podatke na ovu novu lokaciju.\nIpak, morate ponovo pokrenuti Enigmu da bi se nadogradnja završila."
+
+#: src/main.cc:787
+msgid "OK"
+msgstr "OK"
+
+#: src/main.cc:787 src/gui/OptionsMenu.cc:139 src/gui/OptionsMenu.cc:143
+msgid "Never"
+msgstr "Nikad"
+
+#: src/main.cc:787
+msgid "Remind"
+msgstr "Podsjeti"
+
+#: src/main.cc:933
+msgid ""
+"Fatal error that caused the application to quit:\n"
+"\n"
+msgstr ""
+
+#: src/main.cc:935 src/gui/MainMenu.cc:390
+msgid "Quit"
+msgstr "Izlaz"
+
+#: src/gui/MainMenu.cc:66 src/gui/MainMenu.cc:380 src/gui/LevelPackMenu.cc:66
+msgid "Start Game"
+msgstr "Započni igru"
+
+#: src/gui/MainMenu.cc:67
+msgid "Join Game"
+msgstr "Pridruži se igri"
+
+#: src/gui/MainMenu.cc:68 src/gui/MainMenu.cc:248
+#: src/gui/ScreenshotViewer.cc:34
+msgid "Back"
+msgstr "Natrag"
+
+#: src/gui/MainMenu.cc:105
+msgid "Main developers of the 1.20 release:"
+msgstr "Glavni developeri izdanja 1.20:"
+
+#: src/gui/MainMenu.cc:107
+msgid "  RONALD LAMPRECHT (lead)"
+msgstr "  RONALD LAMPRECHT (voditelj)"
+
+#: src/gui/MainMenu.cc:111
+msgid "Special Thanks To:"
+msgstr "Posebno zahvaljujemo:"
+
+#: src/gui/MainMenu.cc:113
+msgid "  DANIEL HECK (project founder)"
+msgstr "  DANIEL HECK (osnivač projekta)"
+
+#: src/gui/MainMenu.cc:114
+msgid "  MEINOLF SCHNEIDER (game idea, level design)"
+msgstr "  MEINOLF SCHNEIDER (ideja igre, dizajn razina)"
+
+#: src/gui/MainMenu.cc:116
+msgid "Please refer to the manual or the next pages for full credits."
+msgstr "Molimo, pogledajte upute ili sljedeće stranice za potpune zasluge."
+
+#: src/gui/MainMenu.cc:118
+msgid "Home Page: http://www.nongnu.org/enigma"
+msgstr "Početna stranica: http://www.nongnu.org/enigma"
+
+#: src/gui/MainMenu.cc:119
+msgid "Contact: enigma-devel@nongnu.org"
+msgstr "Kontakt: enigma-devel@nongnu.org"
+
+#: src/gui/MainMenu.cc:121
+msgid "Enigma is free software and may be distributed under the"
+msgstr "Enigma je besplatan softver i može se distribuirati pod"
+
+#: src/gui/MainMenu.cc:122
+msgid "terms of the GNU General Public License, version 2."
+msgstr "uvjetima GNU General Public licence, verzija 2."
+
+#: src/gui/MainMenu.cc:124
+msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
+msgstr "Autorska prava (C) 2002-2014 Daniel Heck i doprinositelji"
+
+#: src/gui/MainMenu.cc:126
+msgid "Main developers of all releases:"
+msgstr "Glavni developeri svih izdanja:"
+
+#: src/gui/MainMenu.cc:140
+msgid "Special Thanks:"
+msgstr "Posebno zahvaljujemo:"
+
+#: src/gui/MainMenu.cc:153
+msgid "Contributors:"
+msgstr "Doprinos dali:"
+
+#: src/gui/MainMenu.cc:242
+msgid "Homepage"
+msgstr "Početna stranica"
+
+#: src/gui/MainMenu.cc:243
+msgid "Documentation"
+msgstr "Dokumentacija"
+
+#: src/gui/MainMenu.cc:244 src/gui/OptionsMenu.cc:415
+msgid "Paths"
+msgstr "Staze"
+
+#: src/gui/MainMenu.cc:245
+msgid "Locate Auto"
+msgstr "Lociraj Auto"
+
+#: src/gui/MainMenu.cc:246
+msgid "Locate Score"
+msgstr "Lociraj rezultat"
+
+#: src/gui/MainMenu.cc:247
+msgid "Credits"
+msgstr "Zasluge"
+
+#: src/gui/MainMenu.cc:299
+msgid "Preferences Path:"
+msgstr "Staza postavki:"
+
+#: src/gui/MainMenu.cc:309
+msgid "User Path:"
+msgstr "Staza korisnika:"
+
+#: src/gui/MainMenu.cc:319
+msgid "User Image Path:"
+msgstr "Staza slike korisnika:"
+
+#: src/gui/MainMenu.cc:329
+msgid "System Path:"
+msgstr "Staza sustava:"
+
+#: src/gui/MainMenu.cc:339
+msgid "Resource Paths:"
+msgstr "Staze resursa:"
+
+#: src/gui/MainMenu.cc:349
+msgid "L10n Path:"
+msgstr "L10n Staza:"
+
+#: src/gui/MainMenu.cc:381 src/gui/LevelMenu.cc:49
+msgid "Level Pack"
+msgstr "Paket razine"
+
+#: src/gui/MainMenu.cc:383
+msgid "Network Game"
+msgstr "Mrežna igra"
+
+#: src/gui/MainMenu.cc:385 src/gui/GameMenu.cc:49
+msgid "Options"
+msgstr "Opcije"
+
+#: src/gui/MainMenu.cc:387
+msgid "Update"
+msgstr "Ažuriraj"
+
+#: src/gui/MainMenu.cc:389
+msgid "Help"
+msgstr "Pomoć"
+
+#: src/gui/OptionsMenu.cc:92 src/gui/OptionsMenu.cc:113
+msgid "muted"
+msgstr "bez zvuka"
+
+#: src/gui/OptionsMenu.cc:126
+msgid "Music in game"
+msgstr "Glazba u igri"
+
+#: src/gui/OptionsMenu.cc:126
+msgid "No music in game"
+msgstr "Bez glazbe u igri"
+
+#: src/gui/OptionsMenu.cc:131 src/gui/OptionsMenu.cc:135
+#: src/gui/OptionsMenu.cc:264 src/gui/LevelPackConfig.cc:94
+msgid "Yes"
+msgstr "Da"
+
+#: src/gui/OptionsMenu.cc:131 src/gui/OptionsMenu.cc:135
+#: src/gui/OptionsMenu.cc:264 src/gui/LevelPackConfig.cc:94
+msgid "No"
+msgstr "Ne"
+
+#: src/gui/OptionsMenu.cc:139
+msgid "Auto"
+msgstr "Auto"
+
+#: src/gui/OptionsMenu.cc:143
+msgid "Always"
+msgstr "Uvijek"
+
+#: src/gui/OptionsMenu.cc:252
+msgid "reversed"
+msgstr "unatrag"
+
+#: src/gui/OptionsMenu.cc:253
+msgid "mono"
+msgstr "mono"
+
+#: src/gui/OptionsMenu.cc:254
+msgid "normal"
+msgstr "normalno"
+
+#: src/gui/OptionsMenu.cc:297 src/gui/LevelInspector.cc:339
+#: src/gui/LevelInspector.cc:355 src/gui/LevelInspector.cc:369
+msgid "unknown"
+msgstr "nepoznato"
+
+#: src/gui/OptionsMenu.cc:407
+msgid "Main"
+msgstr "Glavno"
+
+#: src/gui/OptionsMenu.cc:409
+msgid "Video"
+msgstr "Video"
+
+#: src/gui/OptionsMenu.cc:411
+msgid "Audio"
+msgstr "Audio"
+
+#: src/gui/OptionsMenu.cc:413
+msgid "Config"
+msgstr "Postavke"
+
+#: src/gui/OptionsMenu.cc:434 src/gui/LevelPackComposer.cc:121
+#: src/gui/LevelPackConfig.cc:345 src/gui/LPGroupConfig.cc:102
+#: src/gui/LevelInspector.cc:177 src/gui/HelpMenu.cc:36
+msgid "Ok"
+msgstr "Ok"
+
+#: src/gui/OptionsMenu.cc:487 src/gui/OptionsMenu.cc:518
+msgid "Language: "
+msgstr "Jezik:"
+
+#: src/gui/OptionsMenu.cc:488 src/gui/OptionsMenu.cc:504
+msgid "Fullscreen: "
+msgstr "Cijeli zaslon:"
+
+#: src/gui/OptionsMenu.cc:489 src/gui/OptionsMenu.cc:506
+msgid "Video mode: "
+msgstr "Video mod:"
+
+#: src/gui/OptionsMenu.cc:490 src/gui/OptionsMenu.cc:519
+msgid "Mouse speed: "
+msgstr "Brzina miša:"
+
+#: src/gui/OptionsMenu.cc:491 src/gui/OptionsMenu.cc:513
+msgid "Sound volume: "
+msgstr "Glasnoća zvuka:"
+
+#: src/gui/OptionsMenu.cc:492 src/gui/OptionsMenu.cc:514
+msgid "Music volume: "
+msgstr "Glasnoća glazbe:"
+
+#: src/gui/OptionsMenu.cc:493 src/gui/OptionsMenu.cc:521
+msgid "Ratings update: "
+msgstr "Ažuriranje ocjena:"
+
+#: src/gui/OptionsMenu.cc:495
+msgid "Score upload: "
+msgstr "Slanje rezultata:"
+
+#: src/gui/OptionsMenu.cc:500 src/gui/OptionsMenu.cc:525
+msgid "User name: "
+msgstr "Korisničko ime:"
+
+#: src/gui/OptionsMenu.cc:507
+msgid "Gamma correction: "
+msgstr "Gamma ispravljanje:"
+
+#: src/gui/OptionsMenu.cc:510
+msgid "Sound set: "
+msgstr ""
+
+#: src/gui/OptionsMenu.cc:511
+msgid "Menu music: "
+msgstr "Izbornik glazbe:"
+
+#: src/gui/OptionsMenu.cc:512
+msgid "Music ingame: "
+msgstr "Glazba u igri:"
+
+#: src/gui/OptionsMenu.cc:515
+msgid "Stereo: "
+msgstr "Stereo:"
+
+#: src/gui/OptionsMenu.cc:520
+msgid "Text speed: "
+msgstr "Brzina teksta:"
+
+#: src/gui/OptionsMenu.cc:530
+msgid "User path: "
+msgstr "Staza korisnika:"
+
+#: src/gui/OptionsMenu.cc:533
+msgid "User image path: "
+msgstr "Staza slike korisnika:"
+
+#: src/gui/LevelMenu.cc:47 src/gui/LevelPackMenu.cc:67
+msgid "Main Menu"
+msgstr "Glavni Izbornik"
+
+#: src/gui/LevelMenu.cc:193
+msgid "Skip to main menu"
+msgstr "Preskoči na glavni izbornik"
+
+#: src/gui/LevelMenu.cc:196
+msgid "Update levelpack"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:197
+msgid "Arrows:"
+msgstr "Strelice:"
+
+#: src/gui/LevelMenu.cc:197
+msgid "Select level"
+msgstr "Odaberi razinu"
+
+#: src/gui/LevelMenu.cc:198
+msgid "Return:"
+msgstr "Vrati se:"
+
+#: src/gui/LevelMenu.cc:198 src/gui/LevelMenu.cc:203
+msgid "Play selected level"
+msgstr "Igraj odabranu razinu"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Back/Space:"
+msgstr "Natrag/Razmak:"
+
+#: src/gui/LevelMenu.cc:199
+msgid "Previous/next levelpack"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:200
+msgid "Mark current level as unsolved"
+msgstr "Označi trenutnu razinu kao neriješenu"
+
+#: src/gui/LevelMenu.cc:202
+msgid "Alt+Return:"
+msgstr "Alt+Return:"
+
+#: src/gui/LevelMenu.cc:202
+msgid "Switch between fullscreen and window"
+msgstr "Prebaci između cijelog zaslona i prozora"
+
+#: src/gui/LevelMenu.cc:203 src/gui/LevelPackMenu.cc:48
+msgid "Left click:"
+msgstr "Lijevi klik:"
+
+#: src/gui/LevelMenu.cc:204 src/gui/LevelPackMenu.cc:49
+msgid "Right or control click:"
+msgstr "Desni ili control klik:"
+
+#: src/gui/LevelMenu.cc:204
+msgid "Inspect selected level"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:221
+msgid "Select next level for world record hunt"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:223
+msgid "Select next unsolved level"
+msgstr "Odaberi slijedeću neriješenu razinu"
+
+#: src/gui/LevelMenu.cc:275
+msgid "You are not allowed to play this level yet."
+msgstr "Nije ti još dopušteno da igraš ovu razinu."
+
+#: src/gui/LevelMenu.cc:312 src/gui/LevelPackComposer.cc:348
+#, c-format
+msgid "%s: %d levels"
+msgstr "%s: %d razine"
+
+#: src/gui/LevelMenu.cc:326
+#, c-format
+msgid "%d%% best"
+msgstr "%d%% najbolji"
+
+#: src/gui/LevelMenu.cc:331
+#, c-format
+msgid "%d%% par, hcp %.1f"
+msgstr ""
+
+#: src/gui/LevelMenu.cc:335
+#, c-format
+msgid "%d%% solved"
+msgstr "%d%% riješeno"
+
+#: src/gui/LevelMenu.cc:370
+msgid "Your time: "
+msgstr "Tvoje vrijeme:"
+
+#: src/gui/LevelMenu.cc:375
+msgid "That's world record."
+msgstr "To je svjetski rekord."
+
+#: src/gui/LevelMenu.cc:377
+#, c-format
+msgid "That's %s below world record."
+msgstr "To je %s ispod svjetskog rekorda."
+
+#: src/gui/LevelMenu.cc:386 src/gui/LevelMenu.cc:389
+msgid "World record: "
+msgstr "Svjetski rekord:"
+
+#: src/gui/LevelMenu.cc:388 src/gui/LevelMenu.cc:405
+msgid "Par: "
+msgstr ""
+
+#: src/gui/LevelMenu.cc:402 src/gui/LevelMenu.cc:406
+#, c-format
+msgid "World record by %s: "
+msgstr ""
+
+#: src/gui/LevelMenu.cc:438
+msgid "No further unsolved level available!"
+msgstr "Nema dostupnih nerješenih razina!"
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Shift-click:"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:42
+msgid "Add to clipboard"
+msgstr "Dodaj u međuspremnik"
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Shift-delete:"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:43
+msgid "Clear clipboard"
+msgstr "Očisti međuspremnik"
+
+#: src/gui/LevelPackComposer.cc:44
+msgid "F8:"
+msgstr "F8:"
+
+#: src/gui/LevelPackComposer.cc:44
+msgid "Insert clipboard as reference"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "F9:"
+msgstr "F9:"
+
+#: src/gui/LevelPackComposer.cc:45
+msgid "Insert clipboard as copy"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:47
+msgid "Alt-left arrow:"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:47
+msgid "Exchange level with predecessor"
+msgstr "Razmjeni  razinu sa prethodnikom"
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Alt-right arrow:"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:48
+msgid "Exchange level with successor"
+msgstr "Razmjeni razinu sa nasljednikom"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Delete:"
+msgstr "Obriši:"
+
+#: src/gui/LevelPackComposer.cc:49
+msgid "Delete level"
+msgstr "Obriši razinu"
+
+#: src/gui/LevelPackComposer.cc:50
+msgid "Update index from levels"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:55
+msgid "F10"
+msgstr "F10"
+
+#: src/gui/LevelPackComposer.cc:56
+msgid "Move clipboard levels"
+msgstr ""
+
+#: src/gui/LevelPackComposer.cc:120 src/gui/LevelPackConfig.cc:344
+#: src/gui/LPGroupConfig.cc:101 src/gui/SearchMenu.cc:59
+msgid "Undo"
+msgstr "Poništi"
+
+#: src/gui/LevelPackComposer.cc:362
+#, c-format
+msgid "Clipboard: %d levels"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:174
+msgid "Levelpack:"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:175
+msgid "Owner:"
+msgstr "Vlasnik:"
+
+#: src/gui/LevelPackConfig.cc:176 src/gui/LPGroupConfig.cc:57
+msgid "Group:"
+msgstr "Grupa:"
+
+#: src/gui/LevelPackConfig.cc:177
+msgid "Location"
+msgstr "Lokacija"
+
+#: src/gui/LevelPackConfig.cc:178
+msgid "in [All Packs]:"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:235
+msgid "Edit Metadata"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:239
+msgid "Release:"
+msgstr "Izdanje:"
+
+#: src/gui/LevelPackConfig.cc:240
+msgid "Revision:"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:241
+msgid "Compatibility:"
+msgstr "Kompatibilnost:"
+
+#: src/gui/LevelPackConfig.cc:242
+msgid "Default Location:"
+msgstr "Zadana lokacija:"
+
+#: src/gui/LevelPackConfig.cc:243
+msgid "Level types:"
+msgstr "Tipovi razina:"
+
+#: src/gui/LevelPackConfig.cc:335
+msgid "Please reassign levelpack to another group for group deletion"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:338
+msgid "Compose Pack"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:340
+msgid "Update Pack"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:419
+msgid ""
+"Error: empty title not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:432
+msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
+msgstr ""
+
+#: src/gui/LevelPackConfig.cc:443
+msgid "Error: title already in use - choose another title"
+msgstr "Greška: naslov se već koristi - izaberite drugi naslov"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Left column:"
+msgstr "Lijevi stupac:"
+
+#: src/gui/LevelPackMenu.cc:46
+msgid "Levelpack groups"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Right columns:"
+msgstr "Desni stupci:"
+
+#: src/gui/LevelPackMenu.cc:47
+msgid "Levelpacks of selected group"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:48
+msgid "Select group or levelpack"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:49
+msgid "Configure group or levelpack"
+msgstr ""
+
+#: src/gui/LevelPackMenu.cc:64
+msgid "New Group"
+msgstr "Nova Grupa"
+
+#: src/gui/LevelPackMenu.cc:65 src/gui/SearchMenu.cc:60
+msgid "Search"
+msgstr "Traži"
+
+#: src/gui/LPGroupConfig.cc:65
+msgid "Position:"
+msgstr "Pozicija"
+
+#: src/gui/LPGroupConfig.cc:99
+msgid "New Pack"
+msgstr "Novo Pakiranje"
+
+#: src/gui/LPGroupConfig.cc:100
+msgid "Delete Group"
+msgstr "Obriši Grupu"
+
+#: src/gui/LPGroupConfig.cc:130
+msgid ""
+"Error: empty group name not allowed - press \"Undo\" to exit without "
+"modifications"
+msgstr "Greška: prazno ime grupe nije dozvoljeno - klikni \"Poništi\" da izađeš bez modificiranja"
+
+#: src/gui/LPGroupConfig.cc:141
+msgid "Error: group name is a duplicate of an existing group"
+msgstr "Greška: ime grupe je duplikat postojeće grupe"
+
+#: src/gui/LPGroupConfig.cc:146
+msgid "Error: \"Every group\" is a reserved group name"
+msgstr "Greška: \"Svaka grupa\" je rezervirano ime grupe"
+
+#: src/gui/LPGroupConfig.cc:151
+msgid "Error: group name must not be enclosed in square brackets"
+msgstr "Greška: ime grupe ne smije biti zatvoreno zagradama"
+
+#: src/gui/LPGroupConfig.cc:207
+msgid "Error: group not empty"
+msgstr "Greška: grupa nije prazna"
+
+#: src/gui/ScreenshotViewer.cc:36
+msgid "Page Up:"
+msgstr "Stranica Gore:"
+
+#: src/gui/ScreenshotViewer.cc:36
+msgid "Show previous screenshot"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Page Down:"
+msgstr "Stranica Dolje:"
+
+#: src/gui/ScreenshotViewer.cc:37
+msgid "Show next screenshot"
+msgstr ""
+
+#: src/gui/ScreenshotViewer.cc:107
+msgid "No screenshot available:"
+msgstr ""
+
+#: src/gui/SearchMenu.cc:41
+msgid "Shallow Search:"
+msgstr ""
+
+#. TRANSLATORS: the translation can have double size of the english text
+#: src/gui/SearchMenu.cc:43
+msgid "case independent search in title, author, filename"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:178
+msgid "Screenshot"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:231
+msgid "Level: "
+msgstr "Razina:"
+
+#: src/gui/LevelInspector.cc:233 src/gui/LevelInspector.cc:291
+msgid "Author: "
+msgstr "Autor:"
+
+#: src/gui/LevelInspector.cc:234
+msgid "Contact: "
+msgstr "Kontakt:"
+
+#: src/gui/LevelInspector.cc:235
+msgid "Homepage: "
+msgstr "Početna stranica"
+
+#: src/gui/LevelInspector.cc:256
+msgid "Public Ratings"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:258
+msgid "Intelligence: "
+msgstr "Inteligencija:"
+
+#: src/gui/LevelInspector.cc:259
+msgid "Dexterity: "
+msgstr "Spretnost:"
+
+#: src/gui/LevelInspector.cc:260
+msgid "Patience: "
+msgstr "Strpljenje:"
+
+#: src/gui/LevelInspector.cc:261
+msgid "Knowledge: "
+msgstr "Znanje:"
+
+#: src/gui/LevelInspector.cc:262
+msgid "Speed: "
+msgstr "Brzina:"
+
+#: src/gui/LevelInspector.cc:263
+msgid "Difficulty: "
+msgstr "Težina:"
+
+#: src/gui/LevelInspector.cc:284
+msgid "Scores"
+msgstr "Rezultati"
+
+#: src/gui/LevelInspector.cc:287
+msgid "You: "
+msgstr "Ti:"
+
+#: src/gui/LevelInspector.cc:288
+msgid "World: "
+msgstr "Svijet:"
+
+#. TRANSLATORS: PAR = professional average rate - an expression used by
+#. golfers
+#: src/gui/LevelInspector.cc:290
+msgid "PAR: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:292
+msgid "Solved %: "
+msgstr "Riješeno %:"
+
+#: src/gui/LevelInspector.cc:293
+msgid "Solved #: "
+msgstr "Riješeno #:"
+
+#: src/gui/LevelInspector.cc:315
+msgid "Version"
+msgstr "Verzija"
+
+#: src/gui/LevelInspector.cc:318
+msgid "Score: "
+msgstr "Rezultat:"
+
+#: src/gui/LevelInspector.cc:320 src/gui/LevelInspector.cc:324
+msgid "Status: "
+msgstr "Status:"
+
+#: src/gui/LevelInspector.cc:321
+msgid "Release: "
+msgstr "Izdanje:"
+
+#: src/gui/LevelInspector.cc:322
+msgid "Revision: "
+msgstr "Revizija:"
+
+#: src/gui/LevelInspector.cc:325
+msgid "Control: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:326
+msgid "Target: "
+msgstr "Meta:"
+
+#: src/gui/LevelInspector.cc:333 src/gui/LevelInspector.cc:349
+msgid "stable"
+msgstr "stabilno"
+
+#: src/gui/LevelInspector.cc:335 src/gui/LevelInspector.cc:351
+msgid "test"
+msgstr "test"
+
+#: src/gui/LevelInspector.cc:337 src/gui/LevelInspector.cc:353
+msgid "experimental"
+msgstr "eksperimentalno"
+
+#: src/gui/LevelInspector.cc:347
+msgid "released"
+msgstr "objavljeno"
+
+#: src/gui/LevelInspector.cc:360
+msgid "force"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:363
+msgid "balance"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:366
+msgid "key"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:374
+msgid "time"
+msgstr "vrijeme"
+
+#: src/gui/LevelInspector.cc:375
+msgid "pushes"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:376
+msgid "moves"
+msgstr ""
+
+#: src/gui/LevelInspector.cc:393
+msgid "World Record Holders: "
+msgstr "Vlasnici svjetskog rekorda:"
+
+#: src/gui/LevelInspector.cc:454
+msgid "Credits: "
+msgstr "Zasluge:"
+
+#: src/gui/LevelInspector.cc:465
+msgid "Dedication: "
+msgstr "Posveta:"
+
+#: src/gui/LevelInspector.cc:476
+msgid "Level Path: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:498
+msgid "Id: "
+msgstr ""
+
+#: src/gui/LevelInspector.cc:500
+msgid "Load time: "
+msgstr "Vrijeme učitavanja:"
+
+#: src/gui/LevelInspector.cc:505
+msgid "Compatibility: "
+msgstr "Kompatibilnost:"
+
+#: src/gui/LevelInspector.cc:513
+msgid "Annotation: "
+msgstr "Pribilješka:"
+
+#: src/gui/LevelInspector.cc:518
+msgid "Rating: "
+msgstr "Ocjena:"
+
+#: src/gui/LevelInspector.cc:520
+msgid "Average: "
+msgstr "Prosječno:"
+
+#: src/gui/GameMenu.cc:47
+msgid "Resume Level"
+msgstr "Nastavi Razinu"
+
+#: src/gui/GameMenu.cc:48
+msgid "Restart Level"
+msgstr "Ponovo počni razinu"
+
+#: src/gui/GameMenu.cc:50
+msgid "Level Info"
+msgstr "Info o razini"
+
+#: src/gui/GameMenu.cc:51
+msgid "Abort Level"
+msgstr "Prekini razinu"
+
+#: src/lev/Proxy.cc:204
+msgid "Error on auto registration of levelfile: "
+msgstr ""
+
+#: src/lev/Proxy.cc:206
+msgid ""
+"Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
+"\n"
+msgstr ""
+
+#: src/lev/Proxy.cc:208 src/lev/PersistentIndex.cc:477 src/d_models.cc:236
+#: src/d_models.cc:249 src/PreferenceManager.cc:181 src/StateManager.cc:178
+msgid "Continue"
+msgstr "Nastavi"
+
+#: src/lev/PersistentIndex.cc:463
+msgid "Error on update of levelpack index: \n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:465
+msgid ""
+"Note: the current version will be reloaded!\n"
+"\n"
+msgstr "Bilješka: trenutna inačica će biti ponovno učitana!\n\n"
+
+#: src/lev/PersistentIndex.cc:472
+msgid "Error on registration of levelpack index: \n"
+msgstr ""
+
+#: src/lev/PersistentIndex.cc:474
+msgid ""
+"Note: the levelpack will not show up!\n"
+"\n"
+msgstr ""
+
+#: src/lua.cc:3896
+#, c-format
+msgid "Cannot find '%s'.\n"
+msgstr "Ne mogu naći  '%s'.\n"
+
+#: src/lua.cc:3897 src/lua.cc:3904
+#, c-format
+msgid "Your installation may be incomplete or invalid.\n"
+msgstr "Tvoja instalacija je nepotpuna ili nije valjana.\n"
+
+#: src/lua.cc:3903
+#, c-format
+msgid "There was an error loading '%s'.\n"
+msgstr ""
+
+#: src/lua.cc:3905
+#, c-format
+msgid "Error: '%s'\n"
+msgstr "Greška: '%s'\n"
+
+#: src/d_models.cc:235 src/d_models.cc:248
+msgid ""
+"\n"
+"\n"
+"This error may cause the application to behave strange!"
+msgstr "\n\nOva greška može uzrokovati da se aplikacija ponaša čudno!"
+
+#: src/stones/KnightStone.cc:60
+msgid "All right, we'll call it a draw"
+msgstr ""
+
+#: po/level_i18n.cc:151 po/level_i18n.cc:3738
+msgid "Everything's been counted carefully!"
+msgstr "Sve je bilo pažljivo prebrojano!"
+
+#: po/level_i18n.cc:152 po/level_i18n.cc:3739
+msgid "Parts of the tubes disappear during detonation!"
+msgstr "Dijelovi cijevi nestaju prilikom detonacije!"
+
+#: po/level_i18n.cc:157 po/level_i18n.cc:3801
+msgid "It's easier with spikes!"
+msgstr "Lakše je sa šiljcima!"
+
+#: po/level_i18n.cc:200
+msgid "Same room, new mirrors ..."
+msgstr "Ista soba, nova zrcala ..."
+
+#: po/level_i18n.cc:213
+msgid "An English text based riddle"
+msgstr ""
+
+#: po/level_i18n.cc:272 po/level_i18n.cc:558 po/level_i18n.cc:914
+#: po/level_i18n.cc:1555 po/level_i18n.cc:2251 po/level_i18n.cc:2520
+#: po/level_i18n.cc:2958 po/level_i18n.cc:3530 po/level_i18n.cc:4408
+#: po/level_i18n.cc:5099
+msgid "Welcome"
+msgstr "Dobro došao"
+
+#: po/level_i18n.cc:316
+msgid "The Grim Reaper"
+msgstr ""
+
+#: po/level_i18n.cc:323
+msgid "You can fly for a short time if you use the umbrella."
+msgstr "Možeš letjeti kratko vrijeme ako koristiš kišobran."
+
+#: po/level_i18n.cc:341
+msgid "The Enigmhanoi Towers"
+msgstr "Enigmhanoi Tornjevi"
+
+#: po/level_i18n.cc:343
+msgid "Who speaks, does not know (Lao Tse)"
+msgstr "Onaj tko govori, ne zna (Lao Tse)"
+
+#: po/level_i18n.cc:345
+msgid "The wise man laughs (Lao Tse)"
+msgstr "Mudar čovjek se smije (Lao Tse)"
+
+#: po/level_i18n.cc:347
+msgid "Who knows, does not speak (Lao Tse)"
+msgstr "Onaj tko zna, ne govori (Lao Tse)"
+
+#: po/level_i18n.cc:372
+msgid ""
+"Sections which have the same color always turn at the same time and in the "
+"same way."
+msgstr ""
+
+#: po/level_i18n.cc:373
+msgid ""
+"Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
+"stone."
+msgstr ""
+
+#: po/level_i18n.cc:439
+msgid "The witch of this switch waits for your wish."
+msgstr ""
+
+#: po/level_i18n.cc:441
+msgid "The witch of this switch resets the awale game."
+msgstr ""
+
+#: po/level_i18n.cc:443
+msgid ""
+"A turn consists in taking the walnuts of a row behind the windowy walls and "
+"sowing them 1 by 1 in the following rows."
+msgstr ""
+
+#: po/level_i18n.cc:445
+msgid ""
+"Warning: What awaits the wailing warrior at the end of a turn? If there are "
+"2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
+"walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
+" row."
+msgstr ""
+
+#: po/level_i18n.cc:447
+msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
+msgstr ""
+
+#: po/level_i18n.cc:449
+msgid ""
+"When a warrior has awarded more than half the walnuts, he wins. What does he"
+" win? The way to the waiting oxyds he wants."
+msgstr ""
+
+#: po/level_i18n.cc:451
+msgid "Congratulations! You are the most aware awale player of the valley ..."
+msgstr ""
+
+#: po/level_i18n.cc:453
+msgid ""
+"Lost in the savannah? Don't wait and walk on the way to the reset switch on "
+"the far left ..."
+msgstr ""
+
+#: po/level_i18n.cc:455
+msgid "Validate your choice here."
+msgstr "Potvrdi svoj izbor ovdje."
+
+#: po/level_i18n.cc:457
+msgid "Reset the game."
+msgstr "Resetiraj igru."
+
+#: po/level_i18n.cc:459
+msgid ""
+"A turn consists in taking the stones of a row and sowing them 1 by 1 in "
+"one's other rows, counterclockwise, coming back to the beginning."
+msgstr ""
+
+#: po/level_i18n.cc:461
+msgid ""
+"At the end of a turn, if the last stone falls in a nonempty row, one takes "
+"the stones of the facing row if there is any, and repeats a turn."
+msgstr ""
+
+#: po/level_i18n.cc:463
+msgid "A turn begins in one of the leftmost rows, unless impossible."
+msgstr ""
+
+#: po/level_i18n.cc:465
+msgid ""
+"At the end of the game (if one player cannot move anymore), the player who "
+"has the most stones wins."
+msgstr ""
+
+#: po/level_i18n.cc:467
+msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
+msgstr ""
+
+#: po/level_i18n.cc:469
+msgid "A brown stone stands for 5 blue stones."
+msgstr ""
+
+#: po/level_i18n.cc:471
+msgid ""
+"This katro game comes from Madagascar; in Easy mode there is an african "
+"Awale."
+msgstr ""
+
+#: po/level_i18n.cc:473
+msgid "Only reset or Shift-F3 can make things evolve ..."
+msgstr ""
+
+#: po/level_i18n.cc:546
+msgid "Volatile Storage"
+msgstr ""
+
+#: po/level_i18n.cc:547
+msgid "Handle with care!"
+msgstr ""
+
+#: po/level_i18n.cc:559
+msgid "Welcome to Enigma X"
+msgstr "Dobrodošli u Enigmu X"
+
+#: po/level_i18n.cc:584
+msgid "Steering The Flood"
+msgstr ""
+
+#: po/level_i18n.cc:597
+msgid "Braking Distance"
+msgstr ""
+
+#: po/level_i18n.cc:598
+msgid "Make the white marble wait on the cross for 3 seconds."
+msgstr ""
+
+#: po/level_i18n.cc:645
+msgid "Interlude II"
+msgstr ""
+
+#: po/level_i18n.cc:650
+msgid "Interlude III"
+msgstr ""
+
+#: po/level_i18n.cc:654
+msgid "Enigmas wildcat"
+msgstr ""
+
+#: po/level_i18n.cc:662
+msgid "No clear view? How about visiting an optician?"
+msgstr ""
+
+#: po/level_i18n.cc:718
+msgid "Attention! One way ticket to the island."
+msgstr ""
+
+#: po/level_i18n.cc:734
+msgid "Meandering Impulses"
+msgstr ""
+
+#: po/level_i18n.cc:764
+msgid ""
+"Your uncle Sir Blackball has been murdered last night in his manor, in one "
+"of his 6 rooms, by one of the weapons which are in the cellar; the suspects "
+"are the shy Mrs Peacock, the secret Colonel Mustard, the absent-minded "
+"Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
+"discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
+" must find who killed your uncle, where and how."
+msgstr ""
+
+#: po/level_i18n.cc:766
+msgid "This room is not the crime scene."
+msgstr "Ova soba nije mjesto zločina."
+
+#: po/level_i18n.cc:768
+msgid "The murderer is not Mrs Peacock."
+msgstr "Ubojica nije gđa. Peacock."
+
+#: po/level_i18n.cc:770
+msgid "The murderer is not Colonel Mustard."
+msgstr ""
+
+#: po/level_i18n.cc:772
+msgid "The murderer is not Professor Plum."
+msgstr "Ubojica nije profesor Plum."
+
+#: po/level_i18n.cc:774
+msgid "The murderer is not Reverend Green."
+msgstr ""
+
+#: po/level_i18n.cc:776
+msgid "The murderer is not Mrs Whiteball."
+msgstr "Ubojica nije gđa. Whiteball."
+
+#: po/level_i18n.cc:778
+msgid "The murderer is not Miss Scarlett."
+msgstr "Ubojica nije gđica. Scarlett."
+
+#: po/level_i18n.cc:780
+msgid "Sir Blackball has not been killed with the bomb."
+msgstr "Sir Blackball nije ubijen bombom."
+
+#: po/level_i18n.cc:782
+msgid "Sir Blackball has not been killed with the dagger."
+msgstr ""
+
+#: po/level_i18n.cc:784
+msgid "Sir Blackball has not been killed with poison."
+msgstr "Sir Blackball nije ubijen otrovom."
+
+#: po/level_i18n.cc:786
+msgid "Sir Blackball has not been killed with the wrench."
+msgstr ""
+
+#: po/level_i18n.cc:788
+msgid "Sir Blackball has not been killed with the candlestick."
+msgstr "Sir Blackball nije ubijen svijećnjakom."
+
+#: po/level_i18n.cc:790
+msgid "Sir Blackball has not been killed with the hammer."
+msgstr "Sir Blackball nije ubijen čekićem."
+
+#: po/level_i18n.cc:813
+msgid "Wood robbing"
+msgstr ""
+
+#: po/level_i18n.cc:835
+msgid "Paint Ahead!"
+msgstr ""
+
+#: po/level_i18n.cc:839
+msgid "Fight appearing lava."
+msgstr ""
+
+#: po/level_i18n.cc:840
+msgid "A hammer destroys some black stones."
+msgstr ""
+
+#: po/level_i18n.cc:847
+msgid "Too many wooden blocks!  Try the other way ..."
+msgstr ""
+
+#: po/level_i18n.cc:848
+msgid ""
+"Greetings, adventurer!    The road ahead is long and dangerous, so be "
+"careful!"
+msgstr ""
+
+#: po/level_i18n.cc:849
+msgid "Well done, adventurer!    Good luck!"
+msgstr ""
+
+#: po/level_i18n.cc:850
+msgid "Congratulations, adventurer!  You did it!"
+msgstr "Čestitam, avanturistu! Uspio si!"
+
+#: po/level_i18n.cc:866
+msgid ""
+"That wasn't fast enough; try F3."
+"                                                                              "
+"(Or search for non-solid stones, if you want.)"
+"                                                                                                        "
+"(But you won't find any.)"
+"                                                                                                                  "
+"(Really!)"
+msgstr ""
+
+#: po/level_i18n.cc:867
+msgid ""
+"You can believe me: All stones you see in this level are solid!"
+"                                                                                      "
+"You can really believe me!"
+"                                                                               "
+"Really!"
+msgstr ""
+
+#: po/level_i18n.cc:878
+msgid "The Life Game"
+msgstr ""
+
+#: po/level_i18n.cc:903
+msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
+msgstr ""
+
+#: po/level_i18n.cc:915
+msgid "Welcome to Enigma IV"
+msgstr "Dobrodošli u Enigmu IV"
+
+#: po/level_i18n.cc:919
+msgid "Calm down!"
+msgstr "Smiri se!"
+
+#: po/level_i18n.cc:927
+msgid "The Flagstone Reaper"
+msgstr ""
+
+#: po/level_i18n.cc:930
+msgid ""
+"No hint today ...    Those flagstones pass away ...    The docu stands alone"
+" ...    Why is it so alone?    --    This hint today ...    Why is it on "
+"this side ...    The reaper passing by ...    Could know the reason why!"
+"     (orig. by Herman's Hermits)   "
+msgstr ""
+
+#: po/level_i18n.cc:934
+msgid "Danger ... laser beams!"
+msgstr ""
+
+#: po/level_i18n.cc:942
+msgid ".moor txen eht ot teg ot syaw owt era erehT"
+msgstr ""
+
+#: po/level_i18n.cc:967
+msgid "Don't wake it up!"
+msgstr ""
+
+#: po/level_i18n.cc:998
+msgid "Alfred Nobel says: This is definitely a meditation landscape!"
+msgstr ""
+
+#: po/level_i18n.cc:1047
+msgid ""
+"As long as there is motion around the oxyd-stones, you won't reach them.   "
+"So: Don't lose control of the level! It's possible."
+msgstr ""
+
+#: po/level_i18n.cc:1054
+msgid "It's a race!"
+msgstr ""
+
+#: po/level_i18n.cc:1076
+msgid "What a pity, and there's so much paint left ..."
+msgstr ""
+
+#: po/level_i18n.cc:1083
+msgid "Oops ... you're stuck ...     Try again ..."
+msgstr ""
+
+#: po/level_i18n.cc:1084
+msgid ""
+"Congratulations, you reached this side ...     but can you get to the oxyds?"
+msgstr ""
+
+#: po/level_i18n.cc:1085
+msgid "Well done!"
+msgstr ""
+
+#: po/level_i18n.cc:1108
+msgid ""
+"There are 56 fully connected puzzle piece arrangements, but just 34 of them "
+"are reachable from this first distribution."
+msgstr ""
+
+#: po/level_i18n.cc:1110
+msgid ""
+"This second distribution can just be converted to any of the other 28 "
+"arrangements."
+msgstr ""
+
+#: po/level_i18n.cc:1121
+msgid "Interlude I"
+msgstr "Međuigra I"
+
+#: po/level_i18n.cc:1137
+msgid "Search it."
+msgstr ""
+
+#: po/level_i18n.cc:1148
+msgid ""
+"I your dear friend am in myself undone, by reason of a Burden that lieth "
+"hard upon me."
+msgstr ""
+
+#: po/level_i18n.cc:1150
+msgid "Do you see yonder Wicket Gate?"
+msgstr ""
+
+#: po/level_i18n.cc:1152
+msgid ""
+"They drew nigh to a very miry Slough. The name of the Slough was Despond."
+msgstr ""
+
+#: po/level_i18n.cc:1154
+msgid "Knock, and it shall be opened unto you."
+msgstr ""
+
+#: po/level_i18n.cc:1156
+msgid ""
+"His Burden loosed from off his shoulders, and fell from his back, and began "
+"to tumble, and so continued to do, till it came to the mouth of the "
+"Sepulchre, where it fell in, and I saw it no more."
+msgstr ""
+
+#: po/level_i18n.cc:1158
+msgid "They came to the foot of the hill Difficulty."
+msgstr ""
+
+#: po/level_i18n.cc:1160
+msgid ""
+"There was a very stately palace before him, the name of which was Beautiful."
+msgstr ""
+
+#: po/level_i18n.cc:1162
+msgid ""
+"He had gone but a little way, before he espied a foul Fiend coming over the "
+"field to meet him."
+msgstr ""
+
+#: po/level_i18n.cc:1164
+msgid ""
+"At the end of this Valley was another, called, The Valley of the Shadow Of "
+"Death."
+msgstr ""
+
+#: po/level_i18n.cc:1166
+msgid "He saw Faithful before him on his Journey."
+msgstr ""
+
+#: po/level_i18n.cc:1168
+msgid ""
+"As they went on, Faithful, as he chanced to look to one side, saw a man "
+"whose name was Talkative."
+msgstr ""
+
+#: po/level_i18n.cc:1170
+msgid ""
+"They presently saw a Town before them, and the name of that Town is Vanity."
+msgstr ""
+
+#: po/level_i18n.cc:1172
+msgid ""
+"Christian went not forth alone; for there was one whose name was Hopeful who"
+" joined himself unto him."
+msgstr ""
+
+#: po/level_i18n.cc:1174
+msgid ""
+"There was on the Left Hand of the road a Meadow, and a Stile to go over into"
+" it, and that meadow is called By-Path-Meadow."
+msgstr ""
+
+#: po/level_i18n.cc:1176
+msgid ""
+"Now there was, not far from the place where they lay, a castle, called "
+"Doubting-Castle, the owner of which was Giant Despair."
+msgstr ""
+
+#: po/level_i18n.cc:1178
+msgid "They went then till they came to the Delectable Mountains."
+msgstr ""
+
+#: po/level_i18n.cc:1180
+msgid "Beware of the Flatterer."
+msgstr ""
+
+#: po/level_i18n.cc:1182
+msgid ""
+"Follow me, said the Flatterer, it is to the Coelestial City that I am going."
+msgstr ""
+
+#: po/level_i18n.cc:1184
+msgid ""
+"They came into a certain Country, whose air naturally tended to make one "
+"drowzy."
+msgstr ""
+
+#: po/level_i18n.cc:1186
+msgid ""
+"The Pilgrims were got over the Enchanted ground, and entering into the "
+"Country of Beulah."
+msgstr ""
+
+#: po/level_i18n.cc:1188
+msgid ""
+"There was then in that place one Vain-Hope, a ferryman, that with his boat "
+"helped him over."
+msgstr ""
+
+#: po/level_i18n.cc:1190
+msgid ""
+"At the sight therefore of this River, the Pilgrims were much astounded, but "
+"the men that went with them, said, You must go through, or you cannot come "
+"at the Gate."
+msgstr ""
+
+#: po/level_i18n.cc:1192
+msgid "I looked in after them; and behold the City shone like the Sun."
+msgstr ""
+
+#: po/level_i18n.cc:1194
+msgid ""
+"They also thought they heard there a rumbling noise, as of fire, and a Cry "
+"of some tormented, and that they smelt the scent of Brimstone."
+msgstr ""
+
+#: po/level_i18n.cc:1228
+msgid "Choices, choices ..."
+msgstr "Izbori, izbori ..."
+
+#: po/level_i18n.cc:1229
+msgid ""
+"Before trying this level in hard mode, it's a good idea to switch to easy "
+"mode to practice on the individual puzzles."
+msgstr ""
+
+#: po/level_i18n.cc:1230
+msgid "These dispensers are all empty ..."
+msgstr ""
+
+#: po/level_i18n.cc:1231
+msgid "The glass next to this document can be pushed to let you back out."
+msgstr ""
+
+#: po/level_i18n.cc:1238
+msgid "Distribution Meditation"
+msgstr ""
+
+#: po/level_i18n.cc:1245
+msgid "Use ~all~ Stones"
+msgstr ""
+
+#: po/level_i18n.cc:1251
+msgid "more is not less"
+msgstr ""
+
+#: po/level_i18n.cc:1254
+msgid "Sorry, but in difficult mode you need more ... Restart."
+msgstr ""
+
+#: po/level_i18n.cc:1280
+msgid "Poe's Nightmare"
+msgstr "Poeova noćna mora"
+
+#: po/level_i18n.cc:1282
+msgid ""
+"You find yourself in a dark, damp chamber. There's a light switch to the "
+"northeast and a passage to the west."
+msgstr ""
+
+#: po/level_i18n.cc:1284
+msgid ""
+"The corridor leads northwards and opens into a dim lit room packed with "
+"crates. You have an uneasy feeling about what lies ahead of you."
+msgstr ""
+
+#: po/level_i18n.cc:1286
+msgid ""
+"Huh, that was close. The way behind you is blocked. Maybe you should look "
+"for a place to leave a flag?!"
+msgstr ""
+
+#: po/level_i18n.cc:1288
+msgid ""
+"To the east the passage is blocked by laser beams. To the west a tunnel "
+"leads to a large pendulum. At the wall you see a hole where your flag fits "
+"in. What now?"
+msgstr ""
+
+#: po/level_i18n.cc:1290
+msgid ""
+"Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
+"may lurk behind the next corner?"
+msgstr ""
+
+#: po/level_i18n.cc:1292
+msgid ""
+"The room to the east does not look very stable, but does the passage to the "
+"south lead anywhere?"
+msgstr ""
+
+#: po/level_i18n.cc:1294
+msgid "Hmmm, these keys might prove useful."
+msgstr ""
+
+#: po/level_i18n.cc:1296
+msgid ""
+"Passing by the entrance you get a glimpse of the room to the south ... and "
+"suddenly feel very uneasy."
+msgstr ""
+
+#: po/level_i18n.cc:1298
+msgid "Uh-oh, the steps leading down are small and extremely slippery."
+msgstr ""
+
+#: po/level_i18n.cc:1300
+msgid ""
+"The passage opens into a room with a huge iron door to the east. The air "
+"seems to smell much fresher here."
+msgstr ""
+
+#: po/level_i18n.cc:1302
+msgid "Congratulations! You've survived Poe's Nightmare."
+msgstr ""
+
+#: po/level_i18n.cc:1322
+msgid "With respects to Dante Alighieri"
+msgstr ""
+
+#: po/level_i18n.cc:1324
+msgid ""
+"Switch on, if you like to play the regular difficulty with many jokers, or "
+"leave it switched off, if you like to face easier challenges with less "
+"jokers."
+msgstr ""
+
+#: po/level_i18n.cc:1327
+msgid ""
+"BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
+"ABANDON ALL HOPE, YOU WHO ENTER HERE."
+msgstr ""
+
+#: po/level_i18n.cc:1330
+msgid ""
+"... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
+"whose eyes burned wheels of flame."
+msgstr ""
+
+#: po/level_i18n.cc:1332
+msgid ""
+"I am Charon, ferryman of the underworld.  I will transport you through the "
+"perilous swamps of Acheron, but the price is not cheap.              Wait!  "
+"You still seem alive ...                                                   "
+"It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
+"symbol of life on that altar to keep the guards at bay, and then perhaps I "
+"will consider taking you across."
+msgstr ""
+
+#: po/level_i18n.cc:1334
+msgid ""
+"Very well.  The demons and spirits that guard this place may now believe "
+"that you are truly dead, but I would still be cautious if I were you ..."
+"                                             But you still need a coin.  "
+"Hmm, well normally I wouldn't do this, but that fellow over there has me "
+"kind of worried -- I think he's plotting something.  If he has a coin, maybe"
+" you could get it from him somehow."
+msgstr ""
+
+#: po/level_i18n.cc:1336
+msgid ""
+"No!  I will not ferry you across unless you make a proper sacrifice, ridding"
+" yourself of anything that could be interpreted as a sign of life.  Now "
+"begone!"
+msgstr ""
+
+#: po/level_i18n.cc:1339
+msgid ""
+"... for then I knew that beings of great worth / were here suspended in this"
+" Limbo."
+msgstr ""
+
+#: po/level_i18n.cc:1341
+msgid ""
+"You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
+"back now, or forever face the consequences!"
+msgstr ""
+
+#: po/level_i18n.cc:1343
+msgid "In that case, then begone!"
+msgstr ""
+
+#: po/level_i18n.cc:1346
+msgid ""
+"There stands Minos, snarling, terrible. / He examines each offender at the "
+"entrance, / judges and dispatches as he encoils himself."
+msgstr ""
+
+#: po/level_i18n.cc:1349
+msgid ""
+"The hellish squall, which never rests, / sweeps spirits in its headlong rush"
+" ..."
+msgstr ""
+
+#: po/level_i18n.cc:1352
+msgid ""
+"I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
+"changeless in its monotony."
+msgstr ""
+
+#: po/level_i18n.cc:1355
+msgid ""
+"... they, with great shouts, from opposite sides / were shoving burdens "
+"forward with their chests. / They crashed into each other, turned / and beat"
+" retreat, shoving their loads and shouting ..."
+msgstr ""
+
+#: po/level_i18n.cc:1358
+msgid ""
+"This dreary stream, once it has reached /  these malignant, ashen slopes, / "
+"drains out into the swamp called Styx. / And I, my gaze transfixed, could "
+"see / people with angry faces in that bog, / naked, their bodies smeared "
+"with mud."
+msgstr ""
+
+#: po/level_i18n.cc:1361
+msgid ""
+"... we approach the city known as Dis, / with its vast army and its burdened"
+" citizens."
+msgstr ""
+
+#: po/level_i18n.cc:1364
+msgid ""
+"At the threshold I saw more than a thousand angels / fallen from Heaven ... "
+"they reined in their great disdain / enough to say: 'You come -- alone.  Let"
+" him be gone, / who has so boldly made his way into this kingdom. / Let him "
+"retrace his reckless path alone' ..."
+msgstr ""
+
+#: po/level_i18n.cc:1367
+msgid ""
+"Now my master takes a hidden / path between the city's ramparts and the "
+"torments, / and I come close behind him ..."
+msgstr ""
+
+#: po/level_i18n.cc:1370
+msgid ""
+"... his hands, ready, encouraging, / thrust me towards him among the tombs."
+msgstr ""
+
+#: po/level_i18n.cc:1373
+msgid ""
+"Like the bull that breaks its tether / just as it receives the mortal blow /"
+" and cannot run, but lunges here and there, // so raged the Minotaur.  My "
+"artful guide / called out: 'Run to the passage: / hurry down while he is in "
+"his fury.'"
+msgstr ""
+
+#: po/level_i18n.cc:1376
+msgid ""
+"... we went on, / skirting the edge of the vermilion boil / from which the "
+"boiled cried out with piercing shrieks."
+msgstr ""
+
+#: po/level_i18n.cc:1379
+msgid ""
+"Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
+"with doleful prophecies of woe to come."
+msgstr ""
+
+#: po/level_i18n.cc:1382
+msgid ""
+"... Here, at the very edge, we stayed our steps / at an expanse of deep and "
+"arid sand ..."
+msgstr ""
+
+#: po/level_i18n.cc:1385
+msgid ""
+"A path that circles like a belt around / the base of that high rock runs "
+"round the pit, / its sides descending in ten ditches."
+msgstr ""
+
+#: po/level_i18n.cc:1388
+msgid ""
+"Under my feet I saw a lake / so frozen that it seemed more glass than water."
+" / Never in winter did the Austrian Danube / nor the far-off Don, under its "
+"frigid sky, / cover their currents with so thick a veil / as I saw there."
+msgstr ""
+
+#: po/level_i18n.cc:1391
+msgid ""
+"... we made our way toward the center, / where all things that have weight "
+"converge, / and I was shivering in the eternal chill ..."
+msgstr ""
+
+#: po/level_i18n.cc:1394
+msgid ""
+"It is no enterprise undertaken lightly -- / to describe the very bottom of "
+"the universe ..."
+msgstr ""
+
+#: po/level_i18n.cc:1397
+msgid ""
+"The emperor of the woeful kingdom / rose from the ice below his breast, / "
+"and I in size am closer to a giant / than giants are when measured to his "
+"arms."
+msgstr ""
+
+#: po/level_i18n.cc:1399
+msgid ""
+"You refused many times to leave my kingdom -- now you shall pay the "
+"consequences for your foolishness!"
+msgstr ""
+
+#: po/level_i18n.cc:1401
+msgid "Faithlessness"
+msgstr "Nevjernost"
+
+#: po/level_i18n.cc:1403
+msgid "Lust"
+msgstr "Požuda"
+
+#: po/level_i18n.cc:1405
+msgid "Gluttony"
+msgstr "Proždrljivost"
+
+#: po/level_i18n.cc:1407
+msgid "Avarice"
+msgstr "Škrtost"
+
+#: po/level_i18n.cc:1409
+msgid "Sloth"
+msgstr "Lijenost"
+
+#: po/level_i18n.cc:1411
+msgid "Heresy"
+msgstr "Krivovjerje"
+
+#: po/level_i18n.cc:1413
+msgid "Violence"
+msgstr "Nasilje"
+
+#: po/level_i18n.cc:1415
+msgid "Fraud"
+msgstr "Prijevara"
+
+#: po/level_i18n.cc:1417
+msgid "Treachery"
+msgstr "Izdaja"
+
+#: po/level_i18n.cc:1420
+msgid "... passed the point / to which all weights are drawn from every side."
+msgstr ""
+
+#: po/level_i18n.cc:1423
+msgid ""
+"... climbed up ... far enough to see, through a round opening, / a few of "
+"those fair things the heavens bear. / Then we came forth, to see again the "
+"stars."
+msgstr ""
+
+#: po/level_i18n.cc:1428
+msgid "Beware of shady mates!"
+msgstr ""
+
+#: po/level_i18n.cc:1432
+msgid "What I Don't Have"
+msgstr "Što nemam"
+
+#: po/level_i18n.cc:1437
+msgid ""
+"There are 19 fully connected puzzle piece arrangements, but just 9 of them "
+"are reachable from this first distribution."
+msgstr ""
+
+#: po/level_i18n.cc:1439
+msgid ""
+"This second distribution can just be converted to any of the other 10 "
+"arrangements."
+msgstr ""
+
+#: po/level_i18n.cc:1441
+msgid ""
+"There are just two symmetric puzzle piece arrangements that both are "
+"reachable."
+msgstr ""
+
+#: po/level_i18n.cc:1458
+msgid ""
+"Dorothy left the house to play with her little dog Toto, when suddenly the "
+"sky turned dark and a giant tornado rushed across Kansas."
+msgstr ""
+
+#: po/level_i18n.cc:1460
+msgid ""
+"The Good Witch of the North speaks: 'Your house has killed the ruler of this"
+" land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
+"Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
+"than pleased to help you return home. Go with my blessings!'"
+msgstr ""
+
+#: po/level_i18n.cc:1462
+msgid ""
+"A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
+"agrees to join her for an audience with the Wizard of Oz to ask him for a "
+"brain. 'If only you could release me from this pole, that is ...'"
+msgstr ""
+
+#: po/level_i18n.cc:1464
+msgid ""
+"The rusty Tin Woodman can't move anymore by himself. 'Though I wish to join "
+"you on your journey, Dorothy, for I need to ask the Wizard why I did not "
+"receive a heart, I fear I'm stuck here. It would be nice if you could help "
+"me out a bit ...'"
+msgstr ""
+
+#: po/level_i18n.cc:1466
+msgid ""
+"Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
+"of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
+"Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
+msgstr ""
+
+#: po/level_i18n.cc:1468
+msgid ""
+"The gate guardian says: 'Welcome to Emerald City! Please always wear these "
+"spectacles, or the splendid brilliance of the Wizard's city may blind you. "
+"The Wizard resides to the north.'"
+msgstr ""
+
+#: po/level_i18n.cc:1470
+msgid ""
+"A booming voice echoes through the corridor: 'I, the Wonderful Wizard of Oz,"
+" will help Thee find what Thou are looking for. However before Thou may pass"
+" here and see me, travel on to Winkie Country and defeat my arch rival, the "
+"Wicked Witch of the West.'"
+msgstr ""
+
+#: po/level_i18n.cc:1472
+msgid ""
+"This is the domain of the Wicked Witch of the West. She sends her minions "
+"against Dorothy and her friends. To destroy the witch, they need to steal "
+"her magic wand, kept deep inside her ice fortress."
+msgstr ""
+
+#: po/level_i18n.cc:1474
+msgid ""
+"Now that Dorothy finally made it to the Wonderful Wizard's dwelling, she "
+"realizes that he is nothing more but a humbug. Watching him flee with his "
+"hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
+"left of the Wizard is now his shrinkable cupboard."
+msgstr ""
+
+#: po/level_i18n.cc:1478
+msgid "and do not destroy the puzzles"
+msgstr ""
+
+#: po/level_i18n.cc:1482
+msgid "Once, No More No Less"
+msgstr ""
+
+#: po/level_i18n.cc:1508
+msgid ""
+"Each of the 6 women has a profession; and each of them carries or wears only"
+" one of the items."
+msgstr ""
+
+#: po/level_i18n.cc:1510
+msgid "Miss Black's best friends are the poet and the locksmith."
+msgstr ""
+
+#: po/level_i18n.cc:1512
+msgid ""
+"Miss Black, Miss White and Miss Pearl are impressed by the magician's "
+"talent."
+msgstr ""
+
+#: po/level_i18n.cc:1514
+msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
+msgstr ""
+
+#: po/level_i18n.cc:1516
+msgid ""
+"The hacker, the locksmith and the firewoman enjoy looking at their "
+"reflection in the glasses."
+msgstr ""
+
+#: po/level_i18n.cc:1518
+msgid "The magician carries the umbrella."
+msgstr "Mađioničar nosi kišobran."
+
+#: po/level_i18n.cc:1520
+msgid "Neither the magician nor the firewoman are permitted to wear the ring."
+msgstr "Niti mađioničaru niti vatrogaskinji nije dopušteno nošenje prstena."
+
+#: po/level_i18n.cc:1522
+msgid ""
+"Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
+msgstr ""
+
+#: po/level_i18n.cc:1524
+msgid ""
+"Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
+"bag and certainly not a weight."
+msgstr ""
+
+#: po/level_i18n.cc:1526
+msgid ""
+"Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
+msgstr ""
+
+#: po/level_i18n.cc:1556
+msgid "Welcome to Enigma IX"
+msgstr "Dobrodošli u Enigmu IX"
+
+#: po/level_i18n.cc:1560
+msgid "Origami"
+msgstr "Origami"
+
+#: po/level_i18n.cc:1571
+msgid "Trickshot?"
+msgstr ""
+
+#: po/level_i18n.cc:1573
+msgid "Sorry. The trickshot is not available in easy mode."
+msgstr ""
+
+#: po/level_i18n.cc:1580
+msgid "Marching Formation"
+msgstr ""
+
+#: po/level_i18n.cc:1581
+msgid "No sharing!"
+msgstr ""
+
+#: po/level_i18n.cc:1603
+msgid "Build me a Sokoban"
+msgstr ""
+
+#: po/level_i18n.cc:1604
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr ""
+
+#: po/level_i18n.cc:1605
+msgid ""
+"Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
+"solve. The seeds grow into boxes; the dice grow into walls."
+msgstr ""
+
+#: po/level_i18n.cc:1606
+msgid ""
+"I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
+"next time make sure the boxes finish growing before hitting the switch."
+msgstr ""
+
+#: po/level_i18n.cc:1607
+msgid ""
+"I don't think that puzzle can be solved. If you think you can prove me "
+"wrong, go get the oxyd!"
+msgstr ""
+
+#: po/level_i18n.cc:1608
+msgid ""
+"That puzzle was too easy! Use the spoon, and give me a harder one next time!"
+msgstr ""
+
+#: po/level_i18n.cc:1609
+msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
+msgstr ""
+
+#: po/level_i18n.cc:1619
+msgid "Seasonal Timings"
+msgstr ""
+
+#: po/level_i18n.cc:1620
+msgid "5, 8, or 10 seconds?"
+msgstr "5, 8, ili 10 sekundi?"
+
+#: po/level_i18n.cc:1624
+msgid ""
+"Choose your hemisphere: left switch for northern, right switch for southern."
+msgstr ""
+
+#: po/level_i18n.cc:1632
+msgid "Danger!"
+msgstr "Opasnost!"
+
+#: po/level_i18n.cc:1636
+msgid ""
+"This is Babylon. Be careful, stranger! It's dangerous to go inside.     "
+"There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
+"and have a look to the lions, the tigers. Semiramis is waiting for you, "
+"stranger, ha ha."
+msgstr ""
+
+#: po/level_i18n.cc:1637
+msgid "Try to find the mechanism to open the gate, stranger"
+msgstr ""
+
+#: po/level_i18n.cc:1638
+msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
+msgstr ""
+
+#: po/level_i18n.cc:1642
+msgid "Place 9 different items in each row, column, and 3x3 box."
+msgstr ""
+
+#: po/level_i18n.cc:1643
+msgid ""
+"Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
+"see if any of your items are misplaced, or which locations you can deduce "
+"items for next; you can only get 1 hint per minute this way, though."
+msgstr ""
+
+#: po/level_i18n.cc:1673
+msgid "Marblics and Pearlics I"
+msgstr ""
+
+#: po/level_i18n.cc:1676
+msgid ""
+"Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
+"self defence!"
+msgstr ""
+
+#: po/level_i18n.cc:1679
+msgid "Rotomagus - Rouen"
+msgstr ""
+
+#: po/level_i18n.cc:1682
+msgid "Lutetia - Paris"
+msgstr "Lutetia - Pariz"
+
+#: po/level_i18n.cc:1685
+msgid "Camaracum - Cambrai"
+msgstr "Camaracum - Cambrai"
+
+#: po/level_i18n.cc:1688
+msgid "Durocortorum - Rheims"
+msgstr "Durocortorum - Rheims"
+
+#: po/level_i18n.cc:1691
+msgid "Lugdunum - Lyons"
+msgstr ""
+
+#: po/level_i18n.cc:1694
+msgid "Nicae - Nice"
+msgstr "Nicae - Nica"
+
+#: po/level_i18n.cc:1697
+msgid "Massilia - Marseilles"
+msgstr ""
+
+#: po/level_i18n.cc:1700
+msgid "Aginum - Agen"
+msgstr "Aginum - Agen"
+
+#: po/level_i18n.cc:1703
+msgid "Detour de Tour - Detour of the Tour"
+msgstr ""
+
+#: po/level_i18n.cc:1706
+msgid "Burdigala - Bordeaux"
+msgstr "Burdigala - Bordeaux"
+
+#: po/level_i18n.cc:1709
+msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
+msgstr "Gallia omnis divisa est ... - Cijela Galija je podjeljena ..."
+
+#: po/level_i18n.cc:1712
+msgid "Veni, vidi, vici - I came, I saw, I conquered"
+msgstr "Veni, vidi, vici - Dođoh, vidjeh, pobjedih"
+
+#: po/level_i18n.cc:1714
+msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
+msgstr ""
+
+#: po/level_i18n.cc:1721
+msgid "Can you see the hidden oxyd stones?"
+msgstr ""
+
+#: po/level_i18n.cc:1728
+msgid "Watch out, slippery!"
+msgstr "Pazi, sklisko je!"
+
+#: po/level_i18n.cc:1735
+msgid "Umbrellas protect!"
+msgstr "Kišobrani štite!"
+
+#: po/level_i18n.cc:1754
+msgid "It's easier with a shovel!"
+msgstr "Lakše je sa lopatom!"
+
+#: po/level_i18n.cc:1773
+msgid "Please remember:    42"
+msgstr "Molim zapamti: 42"
+
+#: po/level_i18n.cc:1783
+msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
+msgstr ""
+
+#: po/level_i18n.cc:1826
+msgid "Take the key to the left first!"
+msgstr "Oprostite zbog neugodnosti, Bank-O-Mat je prazan."
+
+#: po/level_i18n.cc:1917
+msgid "If you haven't won, you've lost!"
+msgstr "Ako nisi pobijedio, izgubio si!"
+
+#: po/level_i18n.cc:1948
+msgid "Easy?"
+msgstr "Lagano?"
+
+#: po/level_i18n.cc:1961
+msgid "Sunday, bloody Sunday!"
+msgstr "Nedjelja, prokleta Nedjelja!"
+
+#: po/level_i18n.cc:1983
+msgid "If you think this is too easy, then play -Bavarian Madness-"
+msgstr ""
+
+#: po/level_i18n.cc:1987
+msgid "Watch out!!"
+msgstr "Pazi!!!"
+
+#: po/level_i18n.cc:2016
+msgid "Rotor Guards"
+msgstr ""
+
+#: po/level_i18n.cc:2018
+msgid "Hoisting guards with their own petard"
+msgstr ""
+
+#: po/level_i18n.cc:2022
+msgid "It isn't as easy as it looks."
+msgstr "Nije tako jednostavno kao što izgleda."
+
+#: po/level_i18n.cc:2030
+msgid "Pleasure Garden"
+msgstr ""
+
+#: po/level_i18n.cc:2031
+msgid ""
+"Quickly ..."
+"                                                                             "
+"or trickily!"
+msgstr ""
+
+#: po/level_i18n.cc:2039
+msgid "Meditation Disturbance"
+msgstr ""
+
+#: po/level_i18n.cc:2042
+msgid "Hit by a bolting horse"
+msgstr ""
+
+#: po/level_i18n.cc:2047
+msgid "Magic Trinity"
+msgstr "Magično Trojstvo"
+
+#: po/level_i18n.cc:2091
+msgid "Toreador"
+msgstr "Toreador"
+
+#: po/level_i18n.cc:2095
+msgid "Mark stones burnable"
+msgstr ""
+
+#: po/level_i18n.cc:2102
+msgid ""
+"Welcome to Mexico! Eight hours ago, your plane arrived at the Airport of "
+"\"Coatlicue\", which is a small village surrounded by unexplored jungle "
+"terrain. Now you find yourself in front of an impressive temple, which seems"
+" to be a relic of the ancient Aztec empire. But the temple is in "
+"surprisingly good condition ..."
+msgstr "Dobrodošli u Meksiko! Prije osam sati vaš je zrakoplov stigao u zračnu luku u \"Coatlicue\", koje je malo mjesto okruženo neistraženim terenom džungle. našli ste se ispred impresivnog hrama, koji je izgleda ostatak drevnog Aztečkog carstva. Ali hram je u iznenađujuće dobrom stanju..."
+
+#: po/level_i18n.cc:2103
+msgid ""
+"Next to the giant doors of the temple you see a chrome sign: \"Restoration "
+"by: G. G. Goshers, A.D. 1998\". A smaller sign beneath says: \"Property of "
+"G. G. Goshers. Trespassing prohibited!\". Now you notice the dog kennels "
+"built up along the front side of the temple. \"Goshers made this ancient "
+"relic a fortress\", you think, \"this cannot be legal, for Goshers received "
+"funding from the UK Government. I'll try to call him to account!\""
+msgstr ""
+
+#: po/level_i18n.cc:2104
+msgid "This guard doesn’t notice me."
+msgstr "Ovaj čuvar me ne primjećuje."
+
+#: po/level_i18n.cc:2105
+msgid ""
+"This lake was obviously made by Goshers. I think the correct way is south."
+msgstr "Ovo jezero je očito napravio  Goshers. Mislim da je pravi put jug."
+
+#: po/level_i18n.cc:2106
+msgid ""
+"There's an inscription on the old wall, saying in spanish: \"Careful! What "
+"you touch could be the last thing you touch!\""
+msgstr "Natpis na starom zidu, na španjolskom kaže: \"Pazi! Ono što dotakneš mogla bi biti posljednja stvar koju si dotaknuo!\""
+
+#: po/level_i18n.cc:2107
+msgid "Chrome sign: \"Control of the beast’s cage.\""
+msgstr ""
+
+#: po/level_i18n.cc:2108
+msgid "Oooh, this slope is steep! Try not to touch the skull!"
+msgstr "Oooh, ova nizbrdica je strma! Pokušaj ne dotaknuti lubanju!!"
+
+#: po/level_i18n.cc:2109
+msgid ""
+"This building down there looks like a prison. Let's see if I can determine "
+"its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
+"chrome signs. It says: \"Natives’ prison\"."
+msgstr ""
+
+#: po/level_i18n.cc:2110
+msgid ""
+"Getting beyond the prison building was a really good idea. But now you have "
+"to cross this lake. Be thrifty with those boxes!"
+msgstr ""
+
+#: po/level_i18n.cc:2111
+msgid ""
+"Now, peering through the grilled prison windows, you see a native woman "
+"imprisoned there. Obviously Goshers locked up all the natives, who disturbed"
+" his \"work\"; trying to enter the temple and to get rich from the treasures"
+" of the Aztecs. It might be helpful to be accompanied by someone, who knows "
+"the secrets of the jungle and this temple ..."
+msgstr ""
+
+#: po/level_i18n.cc:2112
+msgid ""
+"Since the white man there freed me from the prison, he certainly cannot be "
+"as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
+"and free my people. And even if this is not the case, it's better to be free"
+" than imprisoned. I think I should thank him."
+msgstr ""
+
+#: po/level_i18n.cc:2113
+msgid ""
+"You meet the English adventurer in the front of the prison. \"Hello, I'm "
+"Xila!\", you tell him in broken English. After he introduced himself as "
+"well, both of you begin to work out a plan against the evil G. G. Goshers."
+msgstr ""
+
+#: po/level_i18n.cc:2114
+msgid ""
+"This is a really hard puzzle. The English man will have to help me, if this "
+"enigma is to be solved."
+msgstr ""
+
+#: po/level_i18n.cc:2115
+msgid "You wonder what this switch could trigger."
+msgstr ""
+
+#: po/level_i18n.cc:2116
+msgid "Xila knows how to drain the lake!"
+msgstr "Xila zna kako isušiti jezero!"
+
+#: po/level_i18n.cc:2117
+msgid "You were lucky to find this hole. It prevents you from drowning."
+msgstr "Sretan si što si pronašao ovu rupu. Sprječava te od utapanja."
+
+#: po/level_i18n.cc:2118
+msgid "This glass stone must fulfill a purpose ..."
+msgstr "Ovaj stakleni kamen mora ispuniti svrhu ..."
+
+#: po/level_i18n.cc:2119
+msgid "It's funny that such a temple should have a side entrance."
+msgstr ""
+
+#: po/level_i18n.cc:2120
+msgid "Be careful! There are sensors in the walls."
+msgstr "Budi oprezan! Senzori su u zidovima."
+
+#: po/level_i18n.cc:2121
+msgid ""
+"After the huge doors of the old temple have opened, you see, that the "
+"entrance is protected by 11 knights, armed with spears. These guards are "
+"very dangerous. Without a sword you'll never be able to enter. Be careful. "
+"There are not only knights, but also thieves."
+msgstr ""
+
+#: po/level_i18n.cc:2122
+msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
+msgstr ""
+
+#: po/level_i18n.cc:2123
+msgid ""
+"\"You've been smarter than I expected. But you'll never enter the treasure "
+"room nor escape from here!\""
+msgstr "\"Bili ste pametniji nego što sam očekivao. ali nikada nećete ući u sobu s blagom niti pobjeći odavde!\""
+
+#: po/level_i18n.cc:2124
+msgid ""
+"\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
+"by just killing you!\""
+msgstr ""
+
+#: po/level_i18n.cc:2125
+msgid "\"Run for your life!\""
+msgstr "\"Bježi da spasiš svoj život!\""
+
+#: po/level_i18n.cc:2126
+msgid ""
+"Xila and you just entered the Diamond Room of the old Aztec Temple. By "
+"taking him back to Great Britain and rendering him to the police, you have "
+"ended the evil career of Gerald Gregory Goshers. Congratulations on the "
+"success of your expedition!"
+msgstr ""
+
+#: po/level_i18n.cc:2145
+msgid "illmind's jumping ball flash ..."
+msgstr ""
+
+#: po/level_i18n.cc:2146
+msgid "... of heaven comes the beast from the ..."
+msgstr ""
+
+#: po/level_i18n.cc:2147
+msgid "... t r a p p e d ..."
+msgstr "... z a r o b lj e n ..."
+
+#: po/level_i18n.cc:2151
+msgid "Edwards Mountain"
+msgstr "Edwardova Planina"
+
+#: po/level_i18n.cc:2171
+msgid "Are chess knights resistent to laser beams?"
+msgstr ""
+
+#: po/level_i18n.cc:2182
+msgid "The art of steering a quadriga"
+msgstr ""
+
+#: po/level_i18n.cc:2185
+msgid "Dropping the spoon redeems from being quartered!"
+msgstr ""
+
+#: po/level_i18n.cc:2196
+msgid "One-Way Woods"
+msgstr ""
+
+#: po/level_i18n.cc:2197
+msgid "Recycling by Swapping"
+msgstr ""
+
+#: po/level_i18n.cc:2216
+msgid "No Memory"
+msgstr ""
+
+#: po/level_i18n.cc:2221
+msgid "Pass the ball in time"
+msgstr ""
+
+#: po/level_i18n.cc:2226
+msgid "In the line of thieves"
+msgstr ""
+
+#: po/level_i18n.cc:2228
+msgid "Keys from left to right are NE, NW, SE, SW."
+msgstr ""
+
+#: po/level_i18n.cc:2232
+msgid "Useful unsuccessful drillings"
+msgstr ""
+
+#: po/level_i18n.cc:2237
+msgid "Procrustes"
+msgstr ""
+
+#: po/level_i18n.cc:2241
+msgid "Dialers"
+msgstr ""
+
+#: po/level_i18n.cc:2246
+msgid "Charging live ammunition"
+msgstr ""
+
+#: po/level_i18n.cc:2252
+msgid "Welcome to Enigma VI"
+msgstr "Dobrodošli u Enigmu VI"
+
+#: po/level_i18n.cc:2261
+msgid "Escape by Chaining Thieves"
+msgstr ""
+
+#: po/level_i18n.cc:2264
+msgid "Remember Atreyu's horse Atrax!"
+msgstr ""
+
+#: po/level_i18n.cc:2266
+msgid "I am innocent! I've never stolen anything!"
+msgstr ""
+
+#: po/level_i18n.cc:2268
+msgid "It is said that pirates have taken the treasure."
+msgstr ""
+
+#: po/level_i18n.cc:2270
+msgid "Pirates usually hide their treasure!"
+msgstr "Gusari obično skrivaju svoje blago!"
+
+#: po/level_i18n.cc:2272
+msgid "A closed door gives a better overview!"
+msgstr ""
+
+#: po/level_i18n.cc:2277
+msgid "Correspondence Chess"
+msgstr ""
+
+#: po/level_i18n.cc:2279
+msgid "Send smartly!"
+msgstr ""
+
+#: po/level_i18n.cc:2290
+msgid "Polar Bears' Paradise"
+msgstr "Raj Polarnih Medvjeda"
+
+#: po/level_i18n.cc:2292
+msgid "Witch Hunt on Ice"
+msgstr ""
+
+#: po/level_i18n.cc:2302
+msgid "illmind's be quick or be dead"
+msgstr ""
+
+#: po/level_i18n.cc:2307
+msgid "Tandem Chess"
+msgstr ""
+
+#: po/level_i18n.cc:2309
+msgid "Work together!"
+msgstr ""
+
+#: po/level_i18n.cc:2317
+msgid "The real value of coffee"
+msgstr "Stvarna vrijednost kave"
+
+#: po/level_i18n.cc:2322
+msgid "Hot Hurdle Race"
+msgstr ""
+
+#: po/level_i18n.cc:2324
+msgid "Run for your life!"
+msgstr ""
+
+#: po/level_i18n.cc:2329
+msgid "A really annoying Level"
+msgstr "Stvarno naporna razina"
+
+#: po/level_i18n.cc:2343
+msgid "Sorry, this switch is currently out of order."
+msgstr "Oprosti, ovaj prekidač trenutno ne radi."
+
+#: po/level_i18n.cc:2345
+msgid "As I already told you, this switch is out of order!"
+msgstr "Kao što sam ti već rekao, ovaj prekidač ne radi!"
+
+#: po/level_i18n.cc:2347
+msgid "How often are you going to try this?"
+msgstr "Koliko često ćeš to pokušati?"
+
+#: po/level_i18n.cc:2349
+msgid "Did anything happen? I'm not sure ..."
+msgstr "Da li se nešto dogodilo? Nisam siguran..."
+
+#: po/level_i18n.cc:2351
+msgid "Congrats, now it works again!"
+msgstr "Čestitam, sada opet radi!"
+
+#: po/level_i18n.cc:2353
+msgid "No hints available at the moment."
+msgstr "Trenutno nema dostupnih savjeta."
+
+#: po/level_i18n.cc:2355
+msgid "There is a passage right beneath this stone!"
+msgstr "Postoji prolaz odmah ispod ovog kamena!"
+
+#: po/level_i18n.cc:2383
+msgid "Al Capone's training camp."
+msgstr ""
+
+#: po/level_i18n.cc:2384
+msgid "There are at least two patterns to break through the wall."
+msgstr ""
+
+#: po/level_i18n.cc:2385
+msgid "It is a well known secret that a few prisoners did escape."
+msgstr "Dobro je poznata tajna da je nekoliko zatvorenika pobjeglo."
+
+#: po/level_i18n.cc:2386
+msgid "A window in the wall would be really nice."
+msgstr ""
+
+#: po/level_i18n.cc:2397
+msgid "Blitz Chess"
+msgstr ""
+
+#: po/level_i18n.cc:2399
+msgid "Move fast!"
+msgstr "Kreći se brzo!"
+
+#: po/level_i18n.cc:2413
+msgid "Hanging around in the Jungle"
+msgstr ""
+
+#: po/level_i18n.cc:2445
+msgid "Hey, where am i now?"
+msgstr "Hej, gdje sam sada?"
+
+#: po/level_i18n.cc:2447
+msgid ""
+"Moments ago i've been at home and wanted to take care about my two oxyd "
+"stones."
+msgstr ""
+
+#: po/level_i18n.cc:2449
+msgid "And now i'm stranded in this weird forest. How can i escape from here?"
+msgstr "A sada sam nasukan u ovoj čudnoj šumi. Kako mogu pobjeći odavde?"
+
+#: po/level_i18n.cc:2451
+msgid ""
+"If i should have a look-around? Perhaps i can find some things that could "
+"help me to find an exit."
+msgstr ""
+
+#: po/level_i18n.cc:2453
+msgid "WARNING: Highest caution is necessary."
+msgstr "UPOZORENJE: Potreban je najveći oprez."
+
+#: po/level_i18n.cc:2455
+msgid "Wild buffaloes are crossing the way."
+msgstr "Divlji bizoni prelaze put."
+
+#: po/level_i18n.cc:2457
+msgid "Help me, the forest is on fire!"
+msgstr "Pomozi mi, šuma gori!"
+
+#: po/level_i18n.cc:2459
+msgid "A herd of wild horses blocks the way."
+msgstr "Stado divljih konja blokira put."
+
+#: po/level_i18n.cc:2461
+msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
+msgstr ""
+
+#: po/level_i18n.cc:2463
+msgid "If there is finally an exit?"
+msgstr ""
+
+#: po/level_i18n.cc:2465
+msgid "I'm afraid, i need some assistance!"
+msgstr "Bojim se, potrebna mi je pomoć!"
+
+#: po/level_i18n.cc:2467
+msgid "Filling station for empty extinguishers."
+msgstr ""
+
+#: po/level_i18n.cc:2469
+msgid "Watch out: Angry mosquitoes!"
+msgstr "Pazi: Ljuti komarci!"
+
+#: po/level_i18n.cc:2471
+msgid "Useful things may also be hidden!"
+msgstr "Korisne stvari mogu također biti skrivene!"
+
+#: po/level_i18n.cc:2475
+msgid "Recover the Stone"
+msgstr ""
+
+#: po/level_i18n.cc:2479
+msgid "Perfect Trajectory"
+msgstr ""
+
+#: po/level_i18n.cc:2489
+msgid "Take the first exit"
+msgstr "Pođi prvim izlazom"
+
+#: po/level_i18n.cc:2500
+msgid ""
+"Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
+"been captured."
+msgstr ""
+
+#: po/level_i18n.cc:2502
+msgid "Don't forget your disguise!"
+msgstr "Ne zaboravi svoju krinku!"
+
+#: po/level_i18n.cc:2504
+msgid "Here lies the grave of John Reid."
+msgstr "Ovdje je grob Johna Reida."
+
+#: po/level_i18n.cc:2506
+msgid "Hi-yo Silver, away!"
+msgstr ""
+
+#: po/level_i18n.cc:2508
+msgid "Who was that masked man?"
+msgstr "Tko je bio taj maskirani čovjek?"
+
+#: po/level_i18n.cc:2510
+msgid "Hey! This tomb is empty!"
+msgstr "Hej! Ovaj grob je prazan!"
+
+#: po/level_i18n.cc:2515 po/level_i18n.cc:2665
+msgid "Open the Doors"
+msgstr "Otvori Vrata"
+
+#: po/level_i18n.cc:2521
+msgid "Welcome to Enigma VII"
+msgstr "Dobrodošli u Enigmu VII"
+
+#: po/level_i18n.cc:2543
+msgid "Clue: The starting point is where all dead marbles go"
+msgstr ""
+
+#: po/level_i18n.cc:2554
+msgid "Funeral on Deep Sea"
+msgstr "Sprovod na Dubokom Moru"
+
+#: po/level_i18n.cc:2556
+msgid ""
+"Warning: Do not play this level for more than 10 minutes - you may suffer "
+"sea sickness yourself!"
+msgstr "Upozorenje: Nemoj igrati ovu razinu više od 10 minuta - mogao bi i sam dobiti morsku bolest!"
+
+#: po/level_i18n.cc:2561
+msgid "The journey is the reward"
+msgstr "Putovanje je nagrada"
+
+#: po/level_i18n.cc:2565
+msgid "Left or Right Drive?"
+msgstr ""
+
+#: po/level_i18n.cc:2576
+msgid "The Wild Hunt"
+msgstr ""
+
+#: po/level_i18n.cc:2590
+msgid "Audience in Venice"
+msgstr "Publika u Veneciji"
+
+#: po/level_i18n.cc:2592
+msgid "Press the Triggers"
+msgstr "Pritisni Okidače"
+
+#: po/level_i18n.cc:2594
+msgid "Welcome to Venice"
+msgstr "Dobro došao u Veneciju"
+
+#: po/level_i18n.cc:2596
+msgid "Welcome to the Audience"
+msgstr ""
+
+#: po/level_i18n.cc:2598
+msgid "rialto"
+msgstr ""
+
+#: po/level_i18n.cc:2600
+msgid "... under construction"
+msgstr ""
+
+#: po/level_i18n.cc:2602
+msgid "try the boulders as gondola"
+msgstr ""
+
+#: po/level_i18n.cc:2604
+msgid "piazza san marco"
+msgstr "piazza san marco"
+
+#: po/level_i18n.cc:2606
+msgid "danger"
+msgstr "opasnost"
+
+#: po/level_i18n.cc:2608
+msgid "san giorgio"
+msgstr "san giorgio"
+
+#: po/level_i18n.cc:2610
+msgid "guardian ducale"
+msgstr ""
+
+#: po/level_i18n.cc:2612
+msgid "gondoliere on strike"
+msgstr "gondolijer štrajka"
+
+#: po/level_i18n.cc:2614
+msgid "palace ducale"
+msgstr ""
+
+#: po/level_i18n.cc:2616
+msgid "look at san michele"
+msgstr ""
+
+#: po/level_i18n.cc:2618
+msgid "use the gondola below"
+msgstr "upotrijebi gondolu ispod"
+
+#: po/level_i18n.cc:2620
+msgid "hurry to san giorgio"
+msgstr ""
+
+#: po/level_i18n.cc:2627
+msgid ""
+"This is a color maze. You have to work out what order you need to traverse "
+"the colored floors in order to reach the oxyds."
+msgstr ""
+
+#: po/level_i18n.cc:2638
+msgid "Change guaranteed"
+msgstr "Promjena zagarantirana"
+
+#: po/level_i18n.cc:2651
+msgid ""
+"Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
+"= 4, Deep Blue = 5, Deep Red = 6 ..."
+msgstr ""
+
+#: po/level_i18n.cc:2652
+msgid ""
+"Hint: Mines are never located along the edges.  If you still get stuck, look"
+" behind the wall!"
+msgstr ""
+
+#: po/level_i18n.cc:2653
+msgid ""
+"Hit the switch to uncover one tile, but you will have to wait 10 seconds."
+msgstr ""
+
+#: po/level_i18n.cc:2660
+msgid ""
+"Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
+"confusion being blackball's brain's blind."
+msgstr ""
+
+#: po/level_i18n.cc:2682
+msgid "Open the Doors, Open the Oxyds"
+msgstr ""
+
+#: po/level_i18n.cc:2690
+msgid "Restless Meditation"
+msgstr ""
+
+#: po/level_i18n.cc:2692
+msgid "Caution - Quick Sand!"
+msgstr ""
+
+#: po/level_i18n.cc:2699
+msgid "Bridge those synapses!"
+msgstr "Premosti te sinapse!"
+
+#: po/level_i18n.cc:2707
+msgid "Freeze by the Power of Light"
+msgstr ""
+
+#: po/level_i18n.cc:2714
+msgid "Watchmaker"
+msgstr "Urar"
+
+#: po/level_i18n.cc:2718
+msgid "Mend the clockwork"
+msgstr ""
+
+#: po/level_i18n.cc:2719
+msgid ""
+"Don't close the pools before the clockwork is done, unless you are Fred "
+"Astaire"
+msgstr ""
+
+#: po/level_i18n.cc:2726
+msgid "Rainbow Adjacencies"
+msgstr ""
+
+#: po/level_i18n.cc:2731
+msgid "Balance Beam"
+msgstr ""
+
+#: po/level_i18n.cc:2736
+msgid "Every marble is the architect of its own fortune"
+msgstr ""
+
+#: po/level_i18n.cc:2747
+msgid "Feed me!"
+msgstr "Nahrani me!"
+
+#: po/level_i18n.cc:2749
+msgid "Beware of Sadistic Dentist!"
+msgstr "Čuvaj se sadističkog zubara!"
+
+#: po/level_i18n.cc:2751
+msgid "The innocent victim."
+msgstr "Nevina žrtva."
+
+#: po/level_i18n.cc:2753
+msgid "Office of your boss."
+msgstr "Ured tvog šefa."
+
+#: po/level_i18n.cc:2755
+msgid "Aaaaaarrrrggghhhhhh!!!!!"
+msgstr ""
+
+#: po/level_i18n.cc:2757
+msgid "Everyone has gone, but the plant's still hungry!"
+msgstr "Svi su nestali, ali biljke su još uvijek gladne!"
+
+#: po/level_i18n.cc:2759
+msgid "No! No! Aaaarrrrgggghhhh!"
+msgstr ""
+
+#: po/level_i18n.cc:2763
+msgid "Can you relax amid all this chaos?"
+msgstr "Možeš li se opustiti usred sveg tog kaosa?"
+
+#: po/level_i18n.cc:2771
+msgid "The Green Hell"
+msgstr "Zeleni Pakao"
+
+#: po/level_i18n.cc:2773
+msgid "Exploration Trip to Green Waters"
+msgstr ""
+
+#: po/level_i18n.cc:2790
+msgid "Riverside"
+msgstr "Obala rijeke"
+
+#: po/level_i18n.cc:2792
+msgid "Wrong side!                   F3"
+msgstr "Pogrešna strana! F3"
+
+#: po/level_i18n.cc:2797
+msgid "The moving boulder can fall down holes but cannot fall into water."
+msgstr ""
+
+#: po/level_i18n.cc:2801
+msgid "You shouldn't have done that."
+msgstr "To nisi smio učiniti."
+
+#: po/level_i18n.cc:2802
+msgid "Careful."
+msgstr "Pažljivo."
+
+#: po/level_i18n.cc:2807
+msgid "Jack-Of-All-Trades"
+msgstr ""
+
+#: po/level_i18n.cc:2809
+msgid "Find The Paradise"
+msgstr "Nađi Raj"
+
+#: po/level_i18n.cc:2822
+msgid "Spaceship Control"
+msgstr ""
+
+#: po/level_i18n.cc:2823
+msgid "Bound to the blue nowhere"
+msgstr ""
+
+#: po/level_i18n.cc:2830
+msgid "Lady in Red"
+msgstr "Dama u Crvenom"
+
+#: po/level_i18n.cc:2838
+msgid "Remote Meditation"
+msgstr ""
+
+#: po/level_i18n.cc:2860
+msgid "4D Confusion ..."
+msgstr ""
+
+#: po/level_i18n.cc:2861
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
+"position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr ""
+
+#: po/level_i18n.cc:2862
+msgid ""
+"Ever mapped out a 4D-Labyrinth? Well, it's time to learn thinking in four "
+"dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
+"position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
+"oxyd ..."
+msgstr ""
+
+#: po/level_i18n.cc:2872
+msgid "Who broke the pearl necklace?"
+msgstr "Tko je potrgao bisernu ogrlicu?"
+
+#: po/level_i18n.cc:2873
+msgid ""
+"Mrs. Scarlett's wonderful pearl necklace tore, and all the colorful pearls "
+"rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
+"knows that succeeding pearls connect, when each is placed on a neigboring "
+"dot and a coin is inserted into the slot."
+msgstr ""
+
+#: po/level_i18n.cc:2874
+msgid ""
+"You did invert the sequence of this pair of pearls. You need to correct this"
+" fault to finish the necklace."
+msgstr ""
+
+#: po/level_i18n.cc:2891
+msgid "Carry that oxygen around."
+msgstr ""
+
+#: po/level_i18n.cc:2907
+msgid "Press F3 or finish."
+msgstr "Pritisni F3 ili završi."
+
+#: po/level_i18n.cc:2926
+msgid "Do not use too much magic!"
+msgstr "Ne koristi previše magije!"
+
+#: po/level_i18n.cc:2941
+msgid "The other document lies and the left wormhole is the right one."
+msgstr ""
+
+#: po/level_i18n.cc:2944
+msgid ""
+"The other document tells the truth and the other wormhole has been left on "
+"the right side."
+msgstr ""
+
+#: po/level_i18n.cc:2959
+msgid "Welcome to Enigma II"
+msgstr "Dobrodošli u Enigmu II"
+
+#: po/level_i18n.cc:2969
+msgid "Give it another try ..."
+msgstr "Pokušaj ponovo ..."
+
+#: po/level_i18n.cc:2979
+msgid "You'd need a portable box!"
+msgstr "Trebat ćeš prijenosnu kutiju!"
+
+#: po/level_i18n.cc:2980
+msgid ""
+"Congratulations! You found a seed! Try to use it behind the grate (and move "
+"away quickly)"
+msgstr "Čestitam! Pronašao si sjeme! Pokušaj ga upotrijebiti iza rešetke (i brzo se odmakni)"
+
+#: po/level_i18n.cc:2981
+msgid ""
+"Remember that you can't fill a closed bridge with a box ..."
+"                                           but maybe you can use the 3rd "
+"seed differently!"
+msgstr ""
+
+#: po/level_i18n.cc:2982
+msgid "There are different kinds of seeds ... Try to use them!"
+msgstr ""
+
+#: po/level_i18n.cc:2984
+msgid "Noitcerid etisoppo eht yrt! Tuo syaw owt? Rorrim, rorrim ..."
+msgstr ""
+
+#: po/level_i18n.cc:3030
+msgid "Take some money and build yourself the tools you need."
+msgstr ""
+
+#: po/level_i18n.cc:3034
+msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
+msgstr "Pa, gdje su vitezovi? - bit će ti žao što si pitao!"
+
+#: po/level_i18n.cc:3038
+msgid "...  now  go  back  and  get  the  hammer!"
+msgstr "... sada idi natrag i uzmi čekič!"
+
+#: po/level_i18n.cc:3054
+msgid "Just a hint: Try the easy-mode first ..."
+msgstr ""
+
+#: po/level_i18n.cc:3055
+msgid "Don't think too long ... it's easy!"
+msgstr "Ne misli predugo ... lako je!"
+
+#: po/level_i18n.cc:3074
+msgid "Dedicated to my friend Frank."
+msgstr "Posvećeno mom prijatelju Franku."
+
+#: po/level_i18n.cc:3075
+msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
+msgstr ""
+
+#: po/level_i18n.cc:3079
+msgid ""
+"One of the puzzle stones needs to be placed onto the trigger field."
+"                       Guess which ... :)"
+msgstr ""
+
+#: po/level_i18n.cc:3080
+msgid "The level preview might help ..."
+msgstr ""
+
+#: po/level_i18n.cc:3085
+msgid ""
+"Each color appears once. Each correct color produces whites in the wrong "
+"place, blacks in the right one."
+msgstr ""
+
+#: po/level_i18n.cc:3087
+msgid "This switch is to validate your guess."
+msgstr ""
+
+#: po/level_i18n.cc:3109
+msgid "Some stones are movable."
+msgstr "Neko kamenje se može pomaknuti."
+
+#: po/level_i18n.cc:3110
+msgid "You lost!"
+msgstr "Izgubio si!"
+
+#: po/level_i18n.cc:3132
+msgid "Beware! Black holes!"
+msgstr "Čuvaj se! Crne rupe!"
+
+#: po/level_i18n.cc:3141
+msgid "Road to Eden"
+msgstr "Cesta prema Raju"
+
+#: po/level_i18n.cc:3153
+msgid "Doomed ... Shift-F3!!!"
+msgstr ""
+
+#: po/level_i18n.cc:3162
+msgid ""
+"Our full attention this is worth:           Air and Fire, Water, Earth."
+msgstr ""
+
+#: po/level_i18n.cc:3165
+msgid ""
+"And if your answer can’t be found           then shame on you, eyes to the "
+"ground!"
+msgstr ""
+
+#: po/level_i18n.cc:3169
+msgid "Five form twelve!"
+msgstr ""
+
+#: po/level_i18n.cc:3176
+msgid "Make a Sword, & Umbrella."
+msgstr "Načini Mač, i Kišobran."
+
+#: po/level_i18n.cc:3210
+msgid "Dead end!"
+msgstr "Slijepa ulica!"
+
+#: po/level_i18n.cc:3211
+msgid "There are two HIDDEN items!"
+msgstr "Postoje dvije SKRIVENE stvari!"
+
+#: po/level_i18n.cc:3212
+msgid "Third stone from the rock is the hole!"
+msgstr ""
+
+#: po/level_i18n.cc:3247
+msgid ""
+"A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
+"Between Might Lay   --   A Secret Way!   --   (If this you see, press "
+"Shift-F3.)"
+msgstr ""
+
+#: po/level_i18n.cc:3254
+msgid "is  black  always  beautiful?"
+msgstr "da li je crno uvijek lijepo?"
+
+#: po/level_i18n.cc:3262
+msgid "Translate or let it be translated"
+msgstr "Prevedi ili pusti da bude prevedeno"
+
+#: po/level_i18n.cc:3266
+msgid "Read the right document"
+msgstr "Pročitaj pravi dokument"
+
+#: po/level_i18n.cc:3269
+msgid "The right one, not the right one!"
+msgstr "Pravi, ne desni!"
+
+#: po/level_i18n.cc:3300
+msgid ""
+"Why has there always to be an active volcano and a village of marble-eating "
+"inhabitants on a tropical island?"
+msgstr ""
+
+#: po/level_i18n.cc:3328
+msgid "Try the easy mode first ..."
+msgstr ""
+
+#: po/level_i18n.cc:3338
+msgid ""
+"Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
+"in the wrong direction."
+msgstr ""
+
+#: po/level_i18n.cc:3339
+msgid ""
+"To cure sea sickness hold a large bank note between your teeth and lean over"
+" the side."
+msgstr ""
+
+#: po/level_i18n.cc:3343
+msgid "This level is symmetric ..."
+msgstr "Ova razina je simetrična ..."
+
+#: po/level_i18n.cc:3349
+msgid "Fire or be fired"
+msgstr "Otpusti ili budi otpušten"
+
+#: po/level_i18n.cc:3352
+msgid ""
+"Do you think a bushman would start to search for an extinguisher in the "
+"cellar if a wall of fire were approaching? Be a Firefox - you have the first"
+" 5 items to deal with, no more no less!"
+msgstr ""
+
+#: po/level_i18n.cc:3354
+msgid ""
+"You can extinguish fire with water. This is a good place to refill your "
+"extinguisher. Be aware, water is rare!"
+msgstr "Možete ugasit vatru vodom. Ovo je dobro mjesto za ponovno punjenje aparata za gašenje. Budite svjesni, voda je rijetkost!"
+
+#: po/level_i18n.cc:3356
+msgid ""
+"OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
+msgstr ""
+
+#: po/level_i18n.cc:3369
+msgid "Make an umbrella."
+msgstr "Napravi kišobran."
+
+#: po/level_i18n.cc:3382
+msgid ""
+"You again! We won't let you pass this time! See these Oxyds? You can't reach"
+" them unless you rob our Four Holy Items! But they are well guarded! "
+"Bwahahahaha!"
+msgstr ""
+
+#: po/level_i18n.cc:3383
+msgid ""
+"Fire burns and destroys ... Want to remove blocking stones? Then dig your "
+"way to the Holy Hammer!"
+msgstr ""
+
+#: po/level_i18n.cc:3384
+msgid "Try again! Bwahahahaha!"
+msgstr "Pokušaj opet!  Bwahahahaha!"
+
+#: po/level_i18n.cc:3385
+msgid ""
+"Earth fills and lasts ... Want to replace missing floors? Then build your "
+"way to the Holy Seed!"
+msgstr ""
+
+#: po/level_i18n.cc:3386
+msgid ""
+"Air blows and goes by ... Want to jump across the void? Then make your way "
+"to the Holy Spring!"
+msgstr ""
+
+#: po/level_i18n.cc:3387
+msgid ""
+"Water waves and shifts ... Want to trade minds with your partner? Then find "
+"your way to the Holy Yin-Yang!"
+msgstr ""
+
+#: po/level_i18n.cc:3399
+msgid "Pirates Island"
+msgstr "Otok pirata"
+
+#: po/level_i18n.cc:3401
+msgid "The pirates have lost several hidden things on this island ..."
+msgstr ""
+
+#: po/level_i18n.cc:3438
+msgid "Look carefully at everything!"
+msgstr "Pogledaj sve pozorno!"
+
+#: po/level_i18n.cc:3439
+msgid "Do you need a helping hand?"
+msgstr "Trebaš li pomoć?"
+
+#: po/level_i18n.cc:3452
+msgid "If I only had a bag."
+msgstr "Da  bar imam torbu."
+
+#: po/level_i18n.cc:3453
+msgid "shh ... listen!"
+msgstr "šššš ... slušaj!"
+
+#: po/level_i18n.cc:3466
+msgid ""
+"Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
+"Laser ...?"
+msgstr ""
+
+#: po/level_i18n.cc:3472
+msgid ""
+"Mightie art the Knightes of The Olde Ages who keepe the Elfic Oxyde Stones, "
+"and numerous art the Ghostes who lye in the waye to them; many art the "
+"adventurers who tryed to steale Aylendil the Sworde but none has ever come "
+"back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
+"lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
+msgstr ""
+
+#: po/level_i18n.cc:3489
+msgid "Catwalk Meditation"
+msgstr ""
+
+#: po/level_i18n.cc:3498
+msgid ""
+"Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
+"guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
+msgstr ""
+
+#: po/level_i18n.cc:3511
+msgid "It is not quite that easy."
+msgstr "Nije baš tako lako."
+
+#: po/level_i18n.cc:3517
+msgid "April 1st"
+msgstr "1. April"
+
+#: po/level_i18n.cc:3519
+msgid "Do you REALLY want to do this???"
+msgstr "Da li STVARNO želiš to učiniti???"
+
+#: po/level_i18n.cc:3521
+msgid ""
+"Didn't your mother tell you that you should not spend your money in such a "
+"careless manner?"
+msgstr "Nije li ti majka govorila da ne bi smio trošiti novce na tako nemaran način?"
+
+#: po/level_i18n.cc:3523
+msgid "What is the current month?"
+msgstr "Koji je trenutni mjesec?"
+
+#: po/level_i18n.cc:3525
+msgid "What is this level's name?"
+msgstr "Koje je ime ove razine?"
+
+#: po/level_i18n.cc:3531
+msgid "Welcome to Enigma V"
+msgstr "Dobrodošli u Enigmu V"
+
+#: po/level_i18n.cc:3542
+msgid "Did you really think this one was so easy!?"
+msgstr ""
+
+#: po/level_i18n.cc:3544
+msgid "Did you forget something?"
+msgstr "Jesi li nešto zaboravio?"
+
+#: po/level_i18n.cc:3546
+msgid "Go on! There's no way back now!"
+msgstr "Hajde! Sada više nema povratka!"
+
+#: po/level_i18n.cc:3548
+msgid "STOP! Not this way! There's a short-cut ..."
+msgstr "STANI! Ne ovim putem! Postoji prečac ..."
+
+#: po/level_i18n.cc:3550
+msgid ""
+"There's a trigger one step to the left. If you could keep it depressed, it "
+"would help you a lot if you go back!"
+msgstr ""
+
+#: po/level_i18n.cc:3557
+msgid "Warning ... ... thieves!"
+msgstr "Upozorenje ... ...lopovi!"
+
+#: po/level_i18n.cc:3561
+msgid ""
+"If you have never heard about Brainf***, visit e.g. "
+"http://en.wikipedia.org/wiki/Brainfuck before you try to solve this level."
+msgstr ""
+
+#: po/level_i18n.cc:3566
+msgid ""
+"This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
+msgstr ""
+
+#: po/level_i18n.cc:3591
+msgid "Don't get too attracted!"
+msgstr ""
+
+#: po/level_i18n.cc:3595
+msgid "Keypad Corners"
+msgstr ""
+
+#: po/level_i18n.cc:3606
+msgid "Could you need something?"
+msgstr "Da li možda nešto trebaš?"
+
+#: po/level_i18n.cc:3616
+msgid "This is a meditation landscape: put a small marble into every hole ..."
+msgstr ""
+
+#: po/level_i18n.cc:3621
+msgid ""
+"When you change the color of one square, the colors of the 2 nearest squares"
+" change as well; you must get as many green squares as possible."
+msgstr ""
+
+#: po/level_i18n.cc:3623
+msgid ""
+"You are only allowed to change a color when it is surrounded by the other "
+"color."
+msgstr ""
+
+#: po/level_i18n.cc:3627
+msgid "No way out?"
+msgstr "Nema izlaza?"
+
+#: po/level_i18n.cc:3628
+msgid "Do you miss something?"
+msgstr "Jesi li nešto propustio?"
+
+#: po/level_i18n.cc:3633
+msgid "Send me the keys !"
+msgstr "Pošalji mi ključeve !"
+
+#: po/level_i18n.cc:3635
+msgid "ALL the keys!!!"
+msgstr "SVE ključeve!!!"
+
+#: po/level_i18n.cc:3642
+msgid ""
+"Beware, stranger! The ancient gods of Enigma have set many traps to protect "
+"their holy Oxyds! You will have to get through the Four Tests to prove your "
+"worth!"
+msgstr "Pazi stranče! Stari bogovi Enigme su postavili zamke da zaštite svoje svete Okside! Morat ćeš proći kroz Četiri Testa da dokažeš svoju vrijednost!"
+
+#: po/level_i18n.cc:3643
+msgid "Prove your speed in the Test of Fire!"
+msgstr "Dokaži svoju brzinu u Testu Vatre!"
+
+#: po/level_i18n.cc:3644
+msgid "You have proven your worth! The ancients grant you a FLAG!"
+msgstr ""
+
+#: po/level_i18n.cc:3645
+msgid "Prove your intelligence in the Test of Earth!"
+msgstr "Dokaži svoju inteligenciju u Testu Zemlje!"
+
+#: po/level_i18n.cc:3646
+msgid "You have proven your worth! The ancients grant you a SPRING!"
+msgstr ""
+
+#: po/level_i18n.cc:3647
+msgid "Prove your dexterity in the Test of Air!"
+msgstr "Dokaži svoju spretnost u Testu Zraka!"
+
+#: po/level_i18n.cc:3648
+msgid "You have proven your worth! The ancients grant you a NAIL!"
+msgstr ""
+
+#: po/level_i18n.cc:3649
+msgid "Prove your patience in the Test of Water!"
+msgstr "Dokaži svoje strpljene u Testu Vode!"
+
+#: po/level_i18n.cc:3650
+msgid ""
+"This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
+" Bwahahahaha!"
+msgstr ""
+
+#: po/level_i18n.cc:3654
+msgid "Don't get attracted!"
+msgstr ""
+
+#: po/level_i18n.cc:3660
+msgid ""
+"The most dangerous animals of the bayou are the alligators, the mosquitoes "
+"... and the zombies! (But the zombies at least, don't move ...)"
+msgstr ""
+
+#: po/level_i18n.cc:3697
+msgid "Let there be light!"
+msgstr "I bi svjetlo!"
+
+#: po/level_i18n.cc:3734
+msgid "You need to be fast!"
+msgstr "Trebaš biti brz!"
+
+#: po/level_i18n.cc:3747
+msgid "For heaven's sake ... don't drown!"
+msgstr "Zaboga ... nemoj se utopiti!"
+
+#: po/level_i18n.cc:3754
+msgid "You really will need every penny!"
+msgstr "Stvarno trebaš svaki novčič!"
+
+#: po/level_i18n.cc:3771
+msgid "Free fall with fatal consequences!"
+msgstr "Slobodni pad sa fatalnim posljedicama!"
+
+#: po/level_i18n.cc:3776
+msgid "Nothing but thieves!! Try the mailbox."
+msgstr ""
+
+#: po/level_i18n.cc:3780
+msgid "Business hours from 8am to 4pm"
+msgstr "Radni sati od 8am do 4pm"
+
+#: po/level_i18n.cc:3784
+msgid "Umbrellas prevent free fall!"
+msgstr "Kišobrani spriječavaju slobodan pad!"
+
+#: po/level_i18n.cc:3833
+msgid "Rotaryrotaryrot..."
+msgstr ""
+
+#: po/level_i18n.cc:3837
+msgid "No problem! Piece of cake!"
+msgstr "Nema problema! Jednostavno je!"
+
+#: po/level_i18n.cc:3838
+msgid "It was easy, wasn't it!"
+msgstr "Bilo je lako, zar ne!"
+
+#: po/level_i18n.cc:3854
+msgid "Don't believe all that you see!"
+msgstr "Ne vjeruj svemu što vidiš!"
+
+#: po/level_i18n.cc:3859
+msgid "It's a ring!"
+msgstr "Prsten je!"
+
+#: po/level_i18n.cc:4023
+msgid "If you think that's too easy, try \"Difficulty: Normal\"."
+msgstr "Ako misliš da je ovo prelako, pokušaj sa \"Težina: Normalna\"."
+
+#: po/level_i18n.cc:4025
+msgid "If you think that's too hard, try \"Difficulty: Easy\"."
+msgstr "Ako misliš da je ovo preteško, pokušaj \"Težina: Lako\"."
+
+#: po/level_i18n.cc:4030
+msgid "Some stones and stone rows can be moved!"
+msgstr ""
+
+#: po/level_i18n.cc:4049
+msgid "Dig in ..."
+msgstr ""
+
+#: po/level_i18n.cc:4066
+msgid "Bricks change!"
+msgstr ""
+
+#: po/level_i18n.cc:4116
+msgid "Watch out for water holes!"
+msgstr ""
+
+#: po/level_i18n.cc:4120
+msgid "Rest on the bright spot for a minute."
+msgstr ""
+
+#: po/level_i18n.cc:4121
+msgid "You'll do anything you're told!"
+msgstr "Učiniti ćeš sve što ti je rečeno!"
+
+#: po/level_i18n.cc:4132
+msgid "Umbrellas protect you against oncoming boulder!"
+msgstr "Kišobrani vas štite od nadolazeće stijene!"
+
+#: po/level_i18n.cc:4167
+msgid "... did it!"
+msgstr ""
+
+#: po/level_i18n.cc:4189
+msgid "Nothing can stop us!"
+msgstr "Ništa nas ne može zaustaviti!"
+
+#: po/level_i18n.cc:4197
+msgid "Did you bring your flag?"
+msgstr "Jesi li donio zastavu?"
+
+#: po/level_i18n.cc:4201
+msgid ""
+"This oscillating stone is a timer-stone. You cannot interact with it, but "
+"nevertheless be aware when you see one: After some time-period anything "
+"might happen ..."
+msgstr ""
+
+#: po/level_i18n.cc:4202
+msgid ""
+"The stones with arrows are one-way-stones. As you might have guessed, you "
+"can only pass them in one direction.                Mazes are cherished "
+"elements of Enigma - you will see lots of them."
+msgstr ""
+
+#: po/level_i18n.cc:4203
+msgid ""
+"Well done!     When you have finished this level, let's play some example "
+"levels from the actual Enigma packs!"
+msgstr ""
+
+#: po/level_i18n.cc:4210
+msgid ""
+"Use the right mouse-button to rotate your inventory,  it's the bar at the "
+"bottom of the screen.   And guess what these three items down there can be "
+"used to."
+msgstr ""
+
+#: po/level_i18n.cc:4211
+msgid ""
+"There are lots of different items to use in Enigma, as well as special "
+"floors and stones.   Let's explore some more of the actual Enigma levels!   "
+"And if you have problems with a level - take a look at the manual:   For "
+"some levels, there are hints."
+msgstr ""
+
+#: po/level_i18n.cc:4215
+msgid ""
+"But before this, take a look at the final tutorial level Jacob devised for "
+"you.   See it as an exam, if you want to.   It's quite difficult, so don't "
+"despair if you don't get through it at the first time.   Bye!"
+msgstr ""
+
+#: po/level_i18n.cc:4216
+msgid ""
+"Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
+"levels a second time in the Enigma packs, together with many new and much "
+"more difficult ones.   Just don't give up on them!"
+msgstr ""
+
+#: po/level_i18n.cc:4220
+msgid "Careful - you can not swim in the water."
+msgstr "Pazi - ne možeš plivati u vodi."
+
+#: po/level_i18n.cc:4224
+msgid "Remember the colors."
+msgstr "Zapamti boje."
+
+#: po/level_i18n.cc:4228
+msgid "Learn to move your black ball properly."
+msgstr ""
+
+#: po/level_i18n.cc:4232
+msgid "Levels can be larger than one screen."
+msgstr ""
+
+#: po/level_i18n.cc:4236
+msgid ""
+"The blue stones are Oxyd stones. Open them by touching them with your black "
+"marble."
+msgstr ""
+
+#: po/level_i18n.cc:4240
+msgid ""
+"Those doors on the right block your way to the oxyds ... on the left you see"
+" some triggers. Maybe they are somehow connected?"
+msgstr ""
+
+#: po/level_i18n.cc:4244
+msgid "Don't drown in the swamp."
+msgstr "Nemoj se utopiti u močvari."
+
+#: po/level_i18n.cc:4248
+msgid "Friction and acceleration depend on the floor type."
+msgstr ""
+
+#: po/level_i18n.cc:4252
+msgid ""
+"Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
+"how to play."
+msgstr "Dobrodošli u Enigmu! Ovaj tutorijal kori sam napravio ja (Jacob Scott) pomoći će vam da naučite kako igrati."
+
+#: po/level_i18n.cc:4253
+msgid ""
+"You control the black ball.  To pick up an object, just roll over it.  You "
+"can bounce off most walls (try it), but avoid the blue floor near the bottom"
+" of the room (actually, try falling into it and then restarting the level "
+"with the 'Esc' key).  While these messages are being displayed, don't click "
+"any buttons or push any keys or the message will stop."
+msgstr ""
+
+#: po/level_i18n.cc:4254
+msgid "This is pretty self-explanatory."
+msgstr ""
+
+#: po/level_i18n.cc:4255
+msgid ""
+"Enigma is full of puzzles of various types.  In the next room, you will "
+"encounter your first one."
+msgstr "Enigma je puna zagonetki različitih tipova. U sljedećoj sobi, naići ćeš na prvu."
+
+#: po/level_i18n.cc:4256
+msgid ""
+"You can't walk on water!  Try pushing the blocks into the water to get to "
+"the other side."
+msgstr "Ne možeš hodati po vodi! Pokušaj gurnuti blokove u vodu da bi došao na drugu stranu."
+
+#: po/level_i18n.cc:4257
+msgid ""
+"Notice that you can't push a row of two or more blocks.  Also, blocks can't "
+"be on the same squares as grates but you can."
+msgstr ""
+
+#: po/level_i18n.cc:4258
+msgid ""
+"There are different types of blocks here.  Those black blocks sink when they"
+" fall into water.  The tan blocks don't sink but don't form bridges either."
+msgstr ""
+
+#: po/level_i18n.cc:4259
+msgid ""
+"That thing is a top -- it will destroy your ball if they touch.  Also, as "
+"long as you are close enough to it, the top will chase you.  If you die, you"
+" will restart at the beginning of the level (if you have any balls left).  "
+"Try to find a way to get past and into the next room (you can use the blocks"
+" in the center of the room as barricades)."
+msgstr ""
+
+#: po/level_i18n.cc:4260
+msgid ""
+"Good job!  Notice that the top can't go beneath that block with a black "
+"outline -- you're safe."
+msgstr ""
+
+#: po/level_i18n.cc:4261
+msgid "Those are different types of floors.  Try going over them."
+msgstr ""
+
+#: po/level_i18n.cc:4262
+msgid ""
+"The grayish floors are slopes.  The white floor is inverse-floor (you will "
+"see)."
+msgstr ""
+
+#: po/level_i18n.cc:4263
+msgid ""
+"Watch what happens when you go over those triggers.  See if you can get the "
+"extra ball."
+msgstr ""
+
+#: po/level_i18n.cc:4264
+msgid ""
+"That's dynamite.  Try dropping some next to that yellowish wall (and moving "
+"out of the way)."
+msgstr ""
+
+#: po/level_i18n.cc:4265
+msgid "Try using the spade on the holes caused by the dynamite."
+msgstr ""
+
+#: po/level_i18n.cc:4266
+msgid ""
+"Those things are boulders -- try moving one of the tan blocks.  Don't fall "
+"into the water or abyss (the black floor)."
+msgstr ""
+
+#: po/level_i18n.cc:4267
+msgid ""
+"Take the magic wand and hit a boulder.  Try to let the row of three boulders"
+" pass the large column."
+msgstr ""
+
+#: po/level_i18n.cc:4268
+msgid "Hit it hard enough!"
+msgstr "Udari dovoljno jako!"
+
+#: po/level_i18n.cc:4269
+msgid ""
+"It appears to be a simple room, but you're getting an extra ball anyway.  "
+"Maybe there is a reason ..."
+msgstr ""
+
+#: po/level_i18n.cc:4270
+msgid ""
+"Try to get the laser beam to hit that black stone, but don't get hit by it!"
+"  Use the mirrors to direct the beam."
+msgstr ""
+
+#: po/level_i18n.cc:4271
+msgid ""
+"Many objects change when hit with a laser beam.  Try hitting some of the "
+"coins with the laser beam.  Also, try hitting a block over a coin.  Those "
+"stones to your right are knights -- you need to fight (hit) them with a "
+"sword (in the front of your inventory) to get past."
+msgstr ""
+
+#: po/level_i18n.cc:4272
+msgid ""
+"Do you have any umbrellas?  Each one will give you approximately ten seconds"
+" of protection from danger (such as falling)."
+msgstr ""
+
+#: po/level_i18n.cc:4273
+msgid ""
+"Those black stones are quake stones -- they reset all progress made with the"
+" oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
+msgstr ""
+
+#: po/level_i18n.cc:4274
+msgid ""
+"This area at the bottom of the screen is your inventory -- when you pick "
+"things up, they go here (there is a maximum of twelve).  To scroll through "
+"the inventory, use the right mouse button or the 'tab' key.  To drop or use "
+"an object, click the left mouse button.  Some objects, such as documents "
+"(like this one), can't be dropped but are instead used.  Those two balls in "
+"your inventory are your extra lives -- if you die in this level, you will "
+"restart at the beginning of the level if you have any balls left (and you "
+"will lose one of the balls)."
+msgstr ""
+
+#: po/level_i18n.cc:4275
+msgid ""
+"Naturally, you're supposed to go through those closed gates at the top of "
+"the screen.                         Try going down that slope near the "
+"bottom of the room to see what's to the left."
+"                                                         Don't bother with "
+"that trigger below the abyss yet.                                 If you "
+"could hit that small white ball through the one-way blocks (with the "
+"arrows), it might roll down and stop on that trigger.                  You "
+"will need to go in with it but you can't go through the white one-way block."
+"                            Take the spoon and use it once the white ball is"
+" through (hit it hard)."
+msgstr ""
+
+#: po/level_i18n.cc:4276
+msgid ""
+"The stone in the top-right of the room is a switch.  Hit it -- it is "
+"probably useful.  In this case the switch opens and closes a door (Do you "
+"remember a door that you weren't able to open?).  The bluish line is a "
+"window -- bridge the water before you do anything with it."
+msgstr ""
+
+#: po/level_i18n.cc:4277
+msgid ""
+"That was a rotor (similar to a top).  Some levels have many rotors and tops "
+"to make them difficult.                            However, maybe this rotor"
+" has a purpose; maybe you could get it on that trigger near where the spoon "
+"was.                      It might be convenient to close the gate."
+msgstr ""
+
+#: po/level_i18n.cc:4281
+msgid "Don't touch everything!"
+msgstr "Ne diraj sve!"
+
+#: po/level_i18n.cc:4285
+msgid "Prepare for even more mouse gymnastics in the next levels."
+msgstr ""
+
+#: po/level_i18n.cc:4289
+msgid ""
+"The bright light beam is a laser beam.   Don't get too close to it!   But it"
+" has its uses ...    You can use the mirrors to direct the laser to its "
+"targets.   From these, only the light-gray ones are movable, just try it!"
+msgstr ""
+
+#: po/level_i18n.cc:4293 po/level_i18n.cc:4685
+msgid "Take your time ..."
+msgstr ""
+
+#: po/level_i18n.cc:4297
+msgid ""
+"This wooden block is movable and heavy enough to hold down the trigger on "
+"the right.   Try to push it there!"
+msgstr ""
+
+#: po/level_i18n.cc:4298
+msgid ""
+"Remember?  There are different kinds of floors.  And these are steep ..."
+msgstr ""
+
+#: po/level_i18n.cc:4299
+msgid ""
+"Is there more one can do with wooden blocks?   Yes!  Just explore the next "
+"levels."
+msgstr ""
+
+#: po/level_i18n.cc:4303
+msgid "Some stones look exactly like the Oxyd stones!"
+msgstr ""
+
+#: po/level_i18n.cc:4307
+msgid ""
+"Move all small marbles into the holes. Only one marble per hole is allowed."
+msgstr ""
+
+#: po/level_i18n.cc:4311
+msgid ""
+"The stone with the horse's head is called ''chess stone''. Watch how the "
+"other marble hits one of them to move it. The angle is important."
+msgstr ""
+
+#: po/level_i18n.cc:4312
+msgid ""
+"Now try to move these chess stones onto the triggers. They always move two "
+"steps plus one step."
+msgstr ""
+
+#: po/level_i18n.cc:4320
+msgid ""
+"Attention! The trigger in the abyss is a weird one. It disappears when "
+"touched ..."
+msgstr ""
+
+#: po/level_i18n.cc:4322
+msgid "Go left to play the white part. Go right to play the black part."
+msgstr ""
+
+#: po/level_i18n.cc:4335
+msgid "Floating ..."
+msgstr ""
+
+#: po/level_i18n.cc:4336
+msgid "Don't be afraid -- It's only a ten mile drop!"
+msgstr ""
+
+#: po/level_i18n.cc:4350 po/level_i18n.cc:4588
+msgid "Keep distance!"
+msgstr "Drži razmak!"
+
+#: po/level_i18n.cc:4352 po/level_i18n.cc:4590
+msgid "Help! I can't see the forest for the trees!"
+msgstr ""
+
+#: po/level_i18n.cc:4357
+msgid "Inkblot 1"
+msgstr ""
+
+#: po/level_i18n.cc:4368
+msgid "Crabwise I"
+msgstr ""
+
+#: po/level_i18n.cc:4373
+msgid "Welcome to Liberty Island, New York City"
+msgstr "Dobrodošao na Liberty otok, grad New York."
+
+#: po/level_i18n.cc:4375
+msgid ""
+"To get a fuller picture of New York City, you should view it through every "
+"pair of glasses you can find."
+msgstr "Da biste dobili potpuniju sliku New Yorka, trebali biste pogledati kroz svaki par naočala koje možete naći."
+
+#: po/level_i18n.cc:4377
+msgid ""
+"There's always a terrible traffic jam on Broadway at Times Square.  It's a "
+"pity you don't have time to see a show!"
+msgstr ""
+
+#: po/level_i18n.cc:4379
+msgid ""
+"Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
+"music, and use the shogun to open some gates!"
+msgstr ""
+
+#: po/level_i18n.cc:4381
+msgid ""
+"These mechanized traffic signals are strange.  An outbound traffic sensor at"
+" Central park seems to be responsible for this street.  Use your glasses!"
+msgstr ""
+
+#: po/level_i18n.cc:4383
+msgid ""
+"It's funny that a fountain in Central Park should control the traffic flow."
+msgstr ""
+
+#: po/level_i18n.cc:4385
+msgid "Welcome to Chinatown"
+msgstr "Dobro došao u Kinesku četvrt"
+
+#: po/level_i18n.cc:4409
+msgid "Welcome to Enigma VIII"
+msgstr "Dobrodošli u Enigmu VIII"
+
+#: po/level_i18n.cc:4420
+msgid "Crabwise III"
+msgstr ""
+
+#: po/level_i18n.cc:4430
+msgid "FizzBuzz"
+msgstr ""
+
+#: po/level_i18n.cc:4431
+msgid ""
+"Counting the first pearl as 1, you must save every pearl that's a multiple "
+"of 3 or of 5 (or both)."
+msgstr ""
+
+#: po/level_i18n.cc:4437
+msgid "The Hand Mirror Cabinet"
+msgstr ""
+
+#: po/level_i18n.cc:4439
+msgid "Ever tried to look at the back of your head in the mirror?"
+msgstr "Jesi li ipak pokušao pogledati stražnju stranu svoje glave u zrcalu?"
+
+#: po/level_i18n.cc:4446
+msgid "It's not symmetric!"
+msgstr "Nije simetrično!"
+
+#: po/level_i18n.cc:4454 po/level_i18n.cc:4478
+msgid "Use the Lightpassenger"
+msgstr ""
+
+#: po/level_i18n.cc:4468
+msgid "A Baroque Game"
+msgstr "Barokna igra"
+
+#: po/level_i18n.cc:4473
+msgid "Only A Labyrinth"
+msgstr "Samo Labirint"
+
+#: po/level_i18n.cc:4491
+msgid "Number Crunching"
+msgstr ""
+
+#: po/level_i18n.cc:4513
+msgid "There's more help than you first think!"
+msgstr ""
+
+#: po/level_i18n.cc:4517
+msgid "Listen for the best place for an explosion"
+msgstr ""
+
+#: po/level_i18n.cc:4530
+msgid "Missing Oxyds?"
+msgstr ""
+
+#: po/level_i18n.cc:4534
+msgid "Not everything is as it seems ..."
+msgstr "Nije sve kako se čini ..."
+
+#: po/level_i18n.cc:4538
+msgid "Make sure you find all of them"
+msgstr ""
+
+#: po/level_i18n.cc:4551
+msgid "Danger Flag"
+msgstr ""
+
+#: po/level_i18n.cc:4565
+msgid "Just a Dance ?"
+msgstr "Samo Ples ?"
+
+#: po/level_i18n.cc:4598
+msgid "Deep ..."
+msgstr "Duboko ..."
+
+#: po/level_i18n.cc:4603
+msgid "Meditation! Silence? ... Have a Look ..."
+msgstr "Meditacija! Tišina? ... Pogledaj ..."
+
+#: po/level_i18n.cc:4605
+msgid "These stormy days ..."
+msgstr "Ovi olujni dani ..."
+
+#: po/level_i18n.cc:4610
+msgid "Alternation II"
+msgstr ""
+
+#: po/level_i18n.cc:4612
+msgid "Alternation in a Dark Area"
+msgstr ""
+
+#: po/level_i18n.cc:4623
+msgid "Plutos Confusion"
+msgstr ""
+
+#: po/level_i18n.cc:4625
+msgid "Dont eat cherries"
+msgstr "Ne jedi trešnje"
+
+#: po/level_i18n.cc:4633
+msgid "My First Level"
+msgstr "Moja Prva Razina"
+
+#: po/level_i18n.cc:4635
+msgid "Secrets? Use the items, ... use the glasses ..."
+msgstr ""
+
+#: po/level_i18n.cc:4640
+msgid "Survival Training in wasted Landscapes ..."
+msgstr ""
+
+#: po/level_i18n.cc:4648
+msgid "Crabwise II"
+msgstr ""
+
+#: po/level_i18n.cc:4656
+msgid "Ball Alley"
+msgstr ""
+
+#: po/level_i18n.cc:4661
+msgid "This is a SuperSecret!! Well done on finding it!!"
+msgstr ""
+
+#: po/level_i18n.cc:4669
+msgid "Alternation I"
+msgstr ""
+
+#: po/level_i18n.cc:4671
+msgid "Alternation in a Blue Area"
+msgstr ""
+
+#: po/level_i18n.cc:4679
+msgid "Start the next explosion at brick 17 (counting from left)!"
+msgstr ""
+
+#: po/level_i18n.cc:4681
+msgid "Hint: The white ball's got the key."
+msgstr ""
+
+#: po/level_i18n.cc:4683
+msgid "Use of ring only allowed on marked areas."
+msgstr ""
+
+#: po/level_i18n.cc:4687
+msgid "Caution! Don't use for bridge-building!"
+msgstr ""
+
+#: po/level_i18n.cc:4689
+msgid "Looks pretty dark!"
+msgstr "Izgleda prilično mračno!"
+
+#: po/level_i18n.cc:4691
+msgid "Prevent theft! Don't leave valuables in your inventory!"
+msgstr ""
+
+#: po/level_i18n.cc:4695
+msgid "Every pencil must go"
+msgstr ""
+
+#: po/level_i18n.cc:4712
+msgid "Tutoxyd's Pyramid"
+msgstr ""
+
+#: po/level_i18n.cc:4714
+msgid ""
+"Welcome Mr. Jones! Back from your \"Alternatives\" and \"The Walls\" "
+"training camp?  Got everything you ordered:  some money  --  40 marbleons --"
+" and a horse outside this shopping center.    Many adventurers lost their "
+"life in this pyramid.    Beware of the dangerous sand vipers and "
+"Enighomathep's curses."
+msgstr ""
+
+#: po/level_i18n.cc:4716
+msgid ""
+"Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
+"were the most usefull items in this desert. But nobody was willing to spend "
+"2 marbleons.  ---  Now a blacksmith offers his service."
+msgstr ""
+
+#: po/level_i18n.cc:4718
+msgid ""
+"Safety Precaution: in case one of these dangerous animals escapes, the gates"
+" of the shopping center will be closed immediately!"
+msgstr ""
+
+#: po/level_i18n.cc:4720
+msgid ""
+"Not much is known of the pyramid's architect Enighomathep. But it is said "
+"that he loved cherries. He ate so many of them that he sometimes became "
+"invisible."
+msgstr ""
+
+#: po/level_i18n.cc:4722
+msgid ""
+"Have a look at my collection!    A white scorpion   --   a rotodile   --  "
+"and a sand viper.  They cannot be sold.        But I can offer you a scarab "
+"that will be a better choice for you."
+msgstr ""
+
+#: po/level_i18n.cc:4724
+msgid ""
+"Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
+"thief is hanging around and nobody knows where the 4 pale kids that are "
+"playing with your horse came from."
+msgstr ""
+
+#: po/level_i18n.cc:4726
+msgid ""
+"Home of the last adventurer who never returned.   Said he would drill for "
+"oil -- but no one believed him."
+msgstr ""
+
+#: po/level_i18n.cc:4728
+msgid ""
+"Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
+"remain undone until you prove worthy!"
+msgstr ""
+
+#: po/level_i18n.cc:4730
+msgid ""
+"It's a pity that some explorers damaged this historic monument and did "
+"litter the environment.   But the pyramid magically repairs itself every "
+"time an adventurer gives up."
+msgstr ""
+
+#: po/level_i18n.cc:4732
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
+"feet!"
+msgstr ""
+
+#: po/level_i18n.cc:4734
+msgid ""
+"Be cursed for disturbing Tutoxyd's peace -- may your legs no longer be under"
+" your control!"
+msgstr ""
+
+#: po/level_i18n.cc:4736
+msgid ""
+"Trapped?   Either wait for a stupid tourist willing to exchange positions "
+"with you by using a magic ring - or press Shift-F3"
+msgstr ""
+
+#: po/level_i18n.cc:4738
+msgid ""
+"Private Property! This claim belongs to Mr. Whiteoil. In case of absence "
+"please send a letter."
+msgstr ""
+
+#: po/level_i18n.cc:4740
+msgid "Invoice -- 40 marbleons for 20 barrels of oil."
+msgstr ""
+
+#: po/level_i18n.cc:4742
+msgid ""
+"Welcome stranger -- have a look at our holy stone. It is said that it shows "
+"everyone his personal fortune color. As all visitors tried to touch it, we "
+"had to set up some protection."
+msgstr "Dobrodošao stranče -- pogledaj naš sveti kamen. Rečeno je da svakome pokazuje osobnu sretnu boju. Zato što ga svi posjetitelji žele dotaknuti, morali smo postaiti neku zaštitu."
+
+#: po/level_i18n.cc:4744
+msgid ""
+"May I ask for a donation. Just a few bugs - throw the donation into the holy"
+" fire. Tutoxyd will be grateful."
+msgstr ""
+
+#: po/level_i18n.cc:4746
+msgid ""
+"Mr. Whiteoil, we finished our library research. Enighomathep reports that 4 "
+"keys are required. One key got lost immediately after sealing the pyramid. "
+"One is hidden at the border of the pyramid. For the others you have to "
+"demonstrate boldness and cleverness."
+msgstr ""
+
+#: po/level_i18n.cc:4748
+msgid "Facing Death you can walk without fear."
+msgstr ""
+
+#: po/level_i18n.cc:4750
+msgid "Sorry, the useful item that was hidden here has been stolen."
+msgstr ""
+
+#: po/level_i18n.cc:4752
+msgid ""
+"Tomb raiders are cursed to be frozen in stone or floor for all eternity."
+"     Have a look at all these little funny sticks that they used to fight "
+"the curses."
+msgstr ""
+
+#: po/level_i18n.cc:4754
+msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
+msgstr ""
+
+#: po/level_i18n.cc:4756
+msgid ""
+"Who dares to disturb my peace? Stranger - you have proven to be honorable. "
+"Bring back my children for a joint meditation. But beware that upon seeing "
+"me they may want to join me instead of meditate. I make you responsible for "
+"the security of my children."
+msgstr ""
+
+#: po/level_i18n.cc:4758
+msgid ""
+"You are bringing back my children. As soon as they come to rest, I will "
+"deliver you from Enighomathep's curses so you may seek your next adventure."
+msgstr ""
+
+#: po/level_i18n.cc:4766
+msgid "Crabwise IV"
+msgstr ""
+
+#: po/level_i18n.cc:4776
+msgid ""
+"... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
+"the past. thank you ..."
+msgstr ""
+
+#: po/level_i18n.cc:4828
+msgid "Look ... they're over there!"
+msgstr "Gle ... tamo su!"
+
+#: po/level_i18n.cc:4842
+msgid "when you've been particular places"
+msgstr ""
+
+#: po/level_i18n.cc:4844
+msgid "that you know you've never seen before"
+msgstr ""
+
+#: po/level_i18n.cc:4846
+msgid "can you be sure?"
+msgstr "možeš li biti siguran?"
+
+#: po/level_i18n.cc:4848
+msgid "feel like I've been here before"
+msgstr ""
+
+#: po/level_i18n.cc:4850
+msgid "quote: Iron Maiden - Deja-Vu"
+msgstr "citat: Iron Maiden - Deja-Vu"
+
+#: po/level_i18n.cc:4852
+msgid "for illmind's deja vu try the top left corner ..."
+msgstr ""
+
+#: po/level_i18n.cc:4862
+msgid "Watch your step!"
+msgstr "Pazi gdje staješ!"
+
+#: po/level_i18n.cc:4872
+msgid ""
+"Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
+"room  ..."
+msgstr ""
+
+#: po/level_i18n.cc:4882
+msgid "Look closely!"
+msgstr "Pogledaj bolje!"
+
+#: po/level_i18n.cc:4896
+msgid "Risk your life ..."
+msgstr "Riskiraj svoj život ..."
+
+#: po/level_i18n.cc:4900
+msgid ""
+"One more and you won't get this hammer until you don't need it anymore!"
+msgstr ""
+
+#: po/level_i18n.cc:4950
+msgid "Restart with F3 ..."
+msgstr "Ponovo započni sa F3 ..."
+
+#: po/level_i18n.cc:4963
+msgid "Don't forget to open the door ..."
+msgstr "Ne zaboravi otvoriti vrata ..."
+
+#: po/level_i18n.cc:4964
+msgid "Good Luck!"
+msgstr "Sretno!"
+
+#: po/level_i18n.cc:4965
+msgid "Hurry!"
+msgstr "Požuri!"
+
+#: po/level_i18n.cc:4966
+msgid "Congratulations! (or try again)"
+msgstr "Čestitam! (ili pokušaj ponovno)"
+
+#: po/level_i18n.cc:4967
+msgid "Almost finished ..."
+msgstr "Skoro gotovo..."
+
+#: po/level_i18n.cc:5019
+msgid "This level is much bigger! Press F3!"
+msgstr "Ova razina je mnogo veća! Pritisni F3!"
+
+#: po/level_i18n.cc:5038
+msgid ""
+"I don't believe that you are the Marble. I won't let you pass until you "
+"prove me wrong: you have to be faster than my champion!"
+msgstr "Ne vjerujem ti sa si Marble. Neću te pustiti da prođeš dok ne dokažeš da sam u krivu: moraš biti brži nego moj prvak!"
+
+#: po/level_i18n.cc:5039
+msgid "Congratulations! You may pass!"
+msgstr "Čestitam! Možeš proći!"
+
+#: po/level_i18n.cc:5049
+msgid "The danger is not visible!!!"
+msgstr "Opasnost nije vidljiva!!!"
+
+#: po/level_i18n.cc:5065
+msgid "A castle lies before you ... beware of guardians!"
+msgstr "Dvorac je pred tobom ... čuvaj se čuvara!"
+
+#: po/level_i18n.cc:5069
+msgid "The block near the top-left can move."
+msgstr ""
+
+#: po/level_i18n.cc:5091
+msgid ""
+"Welcome to the control room. Use the triggers and switches to plan the "
+"movement of the turtle. The switches are, clockwise: Add, Run and Restart."
+msgstr ""
+
+#: po/level_i18n.cc:5100
+msgid "Welcome to Enigma III"
+msgstr "Dobrodošli u Enigma III"
+
+#: po/level_i18n.cc:5110
+msgid "Flood Control Dam #3 seems rather unstable. Be quick or be dead."
+msgstr ""
+
+#: po/level_i18n.cc:5123
+msgid "The left-most room is important!"
+msgstr ""
+
+#: po/level_i18n.cc:5124
+msgid "This is the control panel."
+msgstr "Ovo je korisnička ploča."
+
+#: po/level_i18n.cc:5134
+msgid "White helps black, black helps white."
+msgstr ""
+
+#: po/level_i18n.cc:5141
+msgid "It's a long way ..."
+msgstr "Dug je put ..."
+
+#: po/level_i18n.cc:5463
+msgid "Drop the hammer on side of a pentomino and use the switch!"
+msgstr ""
+
+#: po/level_i18n.cc:5464
+msgid "Drop the hammer on side of a pentomino, not beneath it!"
+msgstr ""

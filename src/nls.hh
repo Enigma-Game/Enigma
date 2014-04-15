@@ -35,6 +35,7 @@ namespace nls
         { "Suomi",      "fi_FI", "flags25x15/fi" },
         { "Français",   "fr_FR", "flags25x15/fr" },
         { "Gàidhlig",   "gd_GB", "flags25x15/gb-sct" },
+        { "Hrvatski",   "hr_HR", "flags25x15/hr" },
         { "Magyar",     "hu_HU", "flags25x15/hu" },
         { "Italiano",   "it_IT", "flags25x15/it" },
         { "Nederlands", "nl_NL", "flags25x15/nl" },
