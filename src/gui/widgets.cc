@@ -868,7 +868,14 @@ void ValueButton::init() {
 
 bool ValueButton::inc_value(int offset) {
     int old_value = get_value();
-    return update_value(old_value, old_value+offset);
+    int new_value = old_value + offset;
+    if(new_value > max_value) {
+        new_value = min_value;
+    }
+    if(new_value < min_value) {
+        new_value = max_value;
+    }
+    return update_value(old_value, new_value);
 }
 
 string ValueButton::get_text() const {
