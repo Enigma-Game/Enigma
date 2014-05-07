@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-03-19 07:22+0000\n"
-"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
+"PO-Revision-Date: 2014-04-21 14:41+0000\n"
+"Last-Translator: anchorsound <anchorsound@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/enigma/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -771,7 +771,7 @@ msgstr "Izdanje:"
 
 #: src/gui/LevelPackConfig.cc:240
 msgid "Revision:"
-msgstr ""
+msgstr "Revizija:"
 
 #: src/gui/LevelPackConfig.cc:241
 msgid "Compatibility:"
@@ -1046,7 +1046,7 @@ msgstr ""
 
 #: src/gui/LevelInspector.cc:376
 msgid "moves"
-msgstr ""
+msgstr "miče"
 
 #: src/gui/LevelInspector.cc:393
 msgid "World Record Holders: "
@@ -1168,7 +1168,7 @@ msgstr "\n\nOva greška može uzrokovati da se aplikacija ponaša čudno!"
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
-msgstr ""
+msgstr "U redu, izjednačeno je"
 
 #: po/level_i18n.cc:151 po/level_i18n.cc:3738
 msgid "Everything's been counted carefully!"
@@ -3830,7 +3830,7 @@ msgstr ""
 msgid ""
 "The blue stones are Oxyd stones. Open them by touching them with your black "
 "marble."
-msgstr ""
+msgstr "Plavo kamenje su Oxidi. Otvori ih tako da ih dotakneš sa svojom crnom špekulom."
 
 #: po/level_i18n.cc:4240
 msgid ""
@@ -3863,7 +3863,7 @@ msgstr ""
 
 #: po/level_i18n.cc:4254
 msgid "This is pretty self-explanatory."
-msgstr ""
+msgstr "Ovo je samo-objašnjavajuće."
 
 #: po/level_i18n.cc:4255
 msgid ""
@@ -4504,7 +4504,7 @@ msgstr "Pazi gdje staješ!"
 msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
-msgstr ""
+msgstr "Zapamti da pomakneš dovoljno kamenja samo da pogledaš u sljedeću sobu..."
 
 #: po/level_i18n.cc:4882
 msgid "Look closely!"
