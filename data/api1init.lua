@@ -1283,9 +1283,10 @@ end
 level_width = 0
 level_height = 0
 
-oxyd_default_flavor = "b"       -- Default flavor for oxyd stones.
+oxyd_default_flavor = "b"   -- Default flavor for oxyd stones.
 oxyd_count = 0
 oxyd_current_color = 0
+oxyd_max_color = 8   -- Old API had 8 colors having numbers from 0 to 7
 
 DefaultAttribs = {}
 
@@ -1513,12 +1514,8 @@ function oxyd(x, y, flavor, color)
 
     -- if "color" argument not provided, use next available color
     if not color then
-        oxyd_count = oxyd_count +1
-
-        if oxyd_count == 2 then
-            oxyd_count = 0
-            oxyd_current_color = oxyd_current_color + 1
-        end
+        oxyd_current_color = (oxyd_current_color + oxyd_count) % oxyd_max_color
+        oxyd_count = (oxyd_count + 1) % 2
     end
 
     return obj
