@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Bungeeball" el:subtitle="" el:id="duffy103"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_himalaya"}
+ti["#"] = {"st_purplegray"}
+ti["M"] = {"st_purplemarble", name="S%%"}
+ti["o"] = {"it_meditation"}
+ti["*"] = {"#ac_pearl", name="A%%", controllers=CTRL_NONE}
+ti["@"] = {"#ac_marble", name="A%0"}
+
+wo(res.autotile(ti, {"A", "G", "M"}, {"a", "j", "*"}), " ", {
+    "####################",
+    "#              f   #",
+    "#  b   o      hFg  #",
+    "#  B       o o     #",
+    "#               o  #",
+    "#   o      @       #",
+    "#     Ea  A        #",
+    "# o   e         o  #",
+    "#          o       #",
+    "#           i  D   #",
+    "#  cC       G  d   #",
+    "#         o        #",
+    "####################"})
+
+wo:add({"ot_rubberband", anchor1="A%0", anchor2="S%1", strength=5, length=1.0})
+wo:add({"ot_rubberband", anchor1="A%2", anchor2="S%2", strength=7, length=1.8})
+wo:add({"ot_rubberband", anchor1="A%3", anchor2="S%3", strength=3, length=1.7})
+wo:add({"ot_rubberband", anchor1="A%4", anchor2="S%4", strength=30, length=1.5})
+wo:add({"ot_rubberband", anchor1="A%5", anchor2="S%5", strength=17, length=1.3})
+wo:add({"ot_rubberband", anchor1="A%1", anchor2="A%5", strength=17, length=1.4})
+wo:add({"ot_rubberband", anchor1="A%6", anchor2="S%6", strength=18, length=1.1})
+wo:add({"ot_rubberband", anchor1="A%6", anchor2="A%7", strength=25, length=1.1})
+wo:add({"ot_rubberband", anchor1="A%6", anchor2="A%8", strength=13, length=1.3})
+wo:add({"ot_rubberband", anchor1="A%9", anchor2="S%7", strength=25, length=1.2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

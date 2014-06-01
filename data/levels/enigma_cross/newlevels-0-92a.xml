@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="52" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -21,7 +21,7 @@
     <level _seq="13" _title="Ice Skating" _xpath="enigma_i/siegfried22_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level7a" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="14" _title="Lasers 101" _xpath="enigma_i/daniel08_2" author="Daniel Heck" ctrl="force" easy="false" id="lasers101" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="15" _title="The Grim Reaper" _xpath="enigma_i/daniel11_2" author="Daniel Heck" ctrl="force" easy="true" id="space" rel="2" rev="4" score="1" target="time" unit="duration"/>
-    <level _seq="16" _title="Knock Knock!" _xpath="enigma_ii/nat03_1" author="Nat Pryce" ctrl="force" easy="false" id="nat3" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="16" _title="Knock Knock!" _xpath="enigma_ii/nat03_2" author="Nat Pryce" ctrl="force" easy="false" id="nat3" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="17" _title="Slalom Skiing" _xpath="enigma_ii/martin93_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin93" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Puzzle Hacker" _xpath="enigma_i/ant01_2" author="Petr Machata" ctrl="force" easy="false" id="ant01" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Sok It To 'Em" _xpath="enigma_i/nat07_2" author="Nat Pryce" ctrl="force" easy="false" id="nat7" rel="2" rev="1" score="1" target="time" unit="duration"/>

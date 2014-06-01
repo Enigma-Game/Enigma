@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Door Maze" el:subtitle="" el:id="immanuel02"/>
+      <el:version el:score="1" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Immanuel Herrmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Immanuel Herrmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_bluegray"}
+ti["_"] = {"fl_bluegreen"}
+ti["#"] = {"st_metal"}
+ti["X"] = {"st_grate"}
+ti["1"] = ti["_"] .. {"st_boulder", orientation=WEST, name="b%1", _d1=EAST, _d2=WEST}
+ti["2"] = ti["_"] .. {"st_boulder", orientation=SOUTH, name="b%2", _d1=SOUTH, _d2=NORTH}
+ti["3"] = ti["_"] .. {"st_boulder", orientation=EAST, name="b%3", _d1=EAST, _d2=WEST}
+ti["4"] = ti["_"] .. {"st_boulder", orientation=WEST, name="b%4", _d1=EAST, _d2=WEST}
+ti["5"] = ti["_"] .. {"st_boulder", orientation=SOUTH, name="b%5", _d1=SOUTH, _d2=NORTH}
+ti["="] = {"st_puzzle", connections="ew"}
+ti["|"] = {"st_puzzle", connections="ns"}
+ti["`"] = {"st_puzzle", connections="ne"}
+ti["'"] = {"st_puzzle", connections="nw"}
+ti[","] = {"st_puzzle", connections="es"}
+ti["."] = {"st_puzzle", connections="sw"}
+ti["+"] = {"st_puzzle", connections="nesw"}
+ti["o"] = {"st_puzzle", connections="ew", hollow=true}
+ti["*"] = {"st_puzzle", connections="ns", hollow=true}
+ti["t"] = {"it_trigger", target="flip", _type="_d1", _bid="b%%"}
+ti["T"] = {"it_trigger", target="flip", _type="_d2", _bid="b%%"}
+ti["O"] = {"st_oxyd", flavor="a"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(res.autotile(ti, {"a", "e", "t"}, {"A", "E", "T"}), " ", {
+    "####,======.########",
+    "#   D#     |      C.",
+    "# ## # # # `o.## ##|",
+    ",aO,o=o=o=_4_'O#   |",
+    "| #|@,o. # # ,_3_=o'",
+    "| e* _ | B #E* # # #",
+    "|,+'#2#|,'X ||#,_1_.",
+    "|d_  _ `+b# || * # |",
+    "|#5# `o='c=o+' |   |",
+    "| _  #      *  |###|",
+    "|X`========='##|   |",
+    "|     X        * #A'",
+    "`=============='####"})
+
+function flip(value, sender)
+    no[sender["_bid"]]:orientate(no[sender["_bid"]][sender["_type"]])
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

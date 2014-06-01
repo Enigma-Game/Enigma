@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Knock Knock!" el:subtitle="" el:id="nat3"/>
+      <el:version el:score="2" el:release="2" el:revision="1" el:status="released"/>
+      <el:author el:name="Nat Pryce" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2002 Nat Pryce</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["~"] = {"fl_water"}
+ti["."] = {"fl_sand"}
+ti["-"] = {"fl_lawn"}
+ti["="] = {"fl_gray"}
+ti["#"] = {"st_greenbrown"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door"}
+ti["*"] = ti["-"] .. {"st_brownie"}
+ti["t"] = {"it_trigger"}
+ti["u"] = {"it_trigger", target="door"}
+ti["M"] = ti["u"] .. {"st_greenbrown_movable"}
+ti["O"] = {"st_oxyd", flavor="a", name="outer#"}
+ti["o"] = {"st_oxyd", flavor="a", name="inner#"}
+ti["@"] = ti["-"] .. {"#ac_marble_black"}
+
+wo(ti, "=", {
+    "~~~~~~~~~~~~~~~~~~~~",
+    "~..................~",
+    "~.----------------.~",
+    "~.----*---O#####O-.~",
+    "~.--t---t-#o===o#-.~",
+    "~.---t-t--#=====#-.~",
+    "~.-*--@--*|=====M-.~",
+    "~.---t-t--#=====#-.~",
+    "~.--t---t-#o===o#-.~",
+    "~.----*---O#####O-.~",
+    "~.----------------.~",
+    "~..................~",
+    "~~~~~~~~~~~~~~~~~~~~"})
+
+wo:shuffleOxyd({"inner#*", "outer#*", min=2})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
