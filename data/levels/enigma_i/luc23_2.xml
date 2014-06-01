@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Advanced Lasers" el:subtitle="" el:id="luc23"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Lukas Schüller" el:email="Lucky_Luc@web.de" el:homepage=""/>
+      <el:copyright>Copyright © 2006 Lukas Schüller</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+
+ti[" "] = {"fl_gray"}
+ti["#"] = {"st_brick"}
+ti["V"] = {"st_oneway", orientation=SOUTH}
+ti["M"] = {"st_mirror", movable=true, orientation=SLASH}
+ti["T"] = {"st_mirror", movable=false, orientation=WEST, flavor="triangle"}
+ti["="] = {"st_door", flavor="a", name="door#"}
+ti["A"] = {"st_laser", orientation=EAST, state=OFF, name="L1"}
+ti["B"] = {"st_laser", orientation=EAST, state=OFF, name="L2"}
+ti["S"] = {"st_switch", target="timer?", action="on"}
+ti["D"] = {"st_laserswitch", name="S1", target="door#*", action="close"}
+ti["E"] = {"st_laserswitch", name="S2", target="open", action="callback"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################",
+    "#@               #O#",
+    "#  M  M  M  M  M #=#",
+    "#                # #",
+    "#                # #",
+    "#                # #",
+    "A                DT#",
+    "B                E #",
+    "#                # #",
+    "#                # #",
+    "#V#              #=#",
+    "# #              #O#",
+    "#S##################"})
+
+wo:add({"ot_timer", name="timer1", state=OFF, interval=0.01, loop=false, target="L1", action="on"})
+wo:add({"ot_timer", name="timer2", state=OFF, interval=0.02, loop=false, target="L2", action="on"})
+
+no["door#*"]:open()
+
+function open()
+    wo[no["S1"]] = {"st_rawglass"}
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

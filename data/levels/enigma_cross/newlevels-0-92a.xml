@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="51" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="52" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -38,7 +38,7 @@
     <level _seq="30" _title="- Meditation -" _xpath="enigma_i/siegfried38_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Bridgebuilder" _xpath="enigma_iii/siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Space Pirates" _xpath="enigma_v/siegfried19_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6a" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="33" _title="Mission Impossible" _xpath="enigma_i/martin14_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="33" _title="Mission Impossible" _xpath="enigma_i/martin14_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="34" _title="Send More Money" _xpath="enigma_ii/siegfried18_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Slippery Slopes" _xpath="enigma_i/martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Not Hard Atoll" _xpath="enigma_i/martin33_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin33" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -49,7 +49,7 @@
     <level _seq="41" _title="Chain Reaction" _xpath="enigma_iv/siegfried17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5e" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="The Prison" _xpath="enigma_v/martin30_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin30" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="43" _title="Indoor Pool" _xpath="enigma_ii/nat01_2" author="Nat Pryce" ctrl="force" easy="false" id="nat1" rel="2" rev="2" score="2" target="time" unit="duration"/>
-    <level _seq="44" _title="The Racetrack" _xpath="enigma_i/martin31_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin31" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="44" _title="The Racetrack" _xpath="enigma_i/martin31_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin31" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="45" _title="The Sargasso Sea" _xpath="enigma_iii/martin17_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Moonwalking" _xpath="enigma_oxyd/oxyd52_1" author="Ulf Stegemann" ctrl="force" easy="false" id="20060629ulf006" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Painting" _xpath="enigma_ii/siegfried21_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level6d" rel="1" rev="0" score="1" target="time" unit="duration"/>

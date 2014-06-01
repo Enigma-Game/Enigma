@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="81" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="82" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -25,11 +25,11 @@
     <level _seq="17" _title="Mirror Room II" _xpath="enigma_i/luc17_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc17" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="18" _title="Castle Maze" _xpath="enigma_i/luc19_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc19" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="19" _title="Laser Arena" _xpath="enigma_i/andreas14_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas14" rel="2" rev="5" score="1" target="time" unit="duration"/>
-    <level _seq="20" _title="Advanced Lasers" _xpath="enigma_i/luc23_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc23" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="20" _title="Advanced Lasers" _xpath="enigma_i/luc23_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc23" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="21" _title="Formentera!" _xpath="enigma_i/luc06_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc06" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="22" _title="Floppy Floors" _xpath="enigma_i/andreas24_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas24" rel="2" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Balance" _xpath="enigma_i/erich01_2" author="Erich Schubert" ctrl="force" easy="false" id="balance" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="24" _title="- Meditation -" _xpath="enigma_i/raoul04_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="24" _title="- Meditation -" _xpath="enigma_i/raoul04_2" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul04" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="25" _title="Enignimm" _xpath="enigma_ii/ral52_1" author="Ronald Lamprecht" ctrl="force" easy="false" id="20091215ral591" rel="1" rev="194" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="One Way Ticket" _xpath="enigma_ii/luc25_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc25" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="- Meditation -" _xpath="enigma_ii/andreas17_2" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas17" rel="2" rev="2" score="1" target="time" unit="duration"/>

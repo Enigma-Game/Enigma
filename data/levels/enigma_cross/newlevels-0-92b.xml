@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="61" title="Enigma 0.92 - 2"/>
+  <info enigma="1.10" group="Facets" location="15200" network="false" owner="Enigma Team" release="1" revision="62" title="Enigma 0.92 - 2"/>
 
   <attributes/>
 
@@ -30,7 +30,7 @@
     <level _seq="22" _title="Simon Says" _xpath="enigma_i/nat12_2" author="Nat Pryce" ctrl="force" easy="false" id="nat12" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="23" _title="Deadly Cross" _xpath="enigma_i/martin84_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin84" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="24" _title="Easy Shifting ..." _xpath="enigma_ii/ralf01_2" author="Ralf Westram" ctrl="force" easy="false" id="ralf01" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="25" _title="Why So Slow?" _xpath="enigma_i/jc03_1" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc03" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="25" _title="Why So Slow?" _xpath="enigma_i/jc03_2" author="Jens-Christian Korth" ctrl="force" easy="false" id="jc03" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="26" _title="Narrow Paths" _xpath="enigma_iii/martin105_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin105" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="ZigZag" _xpath="enigma_vi/ralf06_2" author="Ralf Westram" ctrl="force" easy="true" id="ralf06" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="28" _title="Bowling" _xpath="enigma_iii/martin80_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin80" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Easily Inflammable" _xpath="enigma_iv/martin95_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin95" rel="2" rev="0" score="2" target="time" unit="duration"/>
     <level _seq="52" _title="Yo-yo" _xpath="enigma_iii/duffy18_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy18" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Hurry!" _xpath="enigma_i/jc01_2" author="Jens-Christian Korth" ctrl="force" easy="true" id="jc01" rel="2" rev="6" score="2" target="time" unit="duration"/>
-    <level _seq="54" _title="Hit the Right One" _xpath="enigma_i/martin77_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin77" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Hit the Right One" _xpath="enigma_i/martin77_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin77" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="Arcoculture" _xpath="enigma_ii/ant17_1" author="Petr Machata" ctrl="force" easy="false" id="ant17" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Overshoot" _xpath="enigma_iii/ss02_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss2" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="57" _title="Slide it in" _xpath="enigma_iv/ss13_1" author="Sven Siggelkow" ctrl="force" easy="true" id="ss13" rel="1" rev="1" score="1" target="time" unit="duration"/>
