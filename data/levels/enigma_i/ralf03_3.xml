@@ -3,15 +3,14 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Welcome to the Machine" el:subtitle="" el:id="ralf03"/>
-      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
-      <el:author  el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
+      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:author el:name="Ralf Westram" el:email="amgine@reallysoft.de" el:homepage=""/>
       <el:copyright>Copyright © 2003 Ralf Westram</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10">
         <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1 " el:preload="true"/>
       </el:compatibility>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -65,7 +64,7 @@ local rotation = {MAP_IDENT, MAP_ROT_CW, MAP_ROT_180, MAP_ROT_CCW}
 local direction = {MAP_ROT_CW, MAP_ROT_CCW, MAP_ROT_CW, MAP_ROT_CCW}
 
 local part1 = {"    A  ", " SAAAA ", "AA   AA", "     A ", "AA   A ", " AA AA ", "  A A  "}
-local part2 = {"    B  ", " SBBBB ", "BB   BB", "     B ", "BB   B ", " BB BB ", "  B B  "}
+local part2 = {"    B  ", " SBBBB ", " B   BB", "     B ", "BB   B ", " BB BB ", "  B B  "}
 local part3 = {"    C  ", " SCCCC ", "CC   CC", "     C ", "CC   C ", " CC CC ", "  C C  "}
 local part4 = {"    D  ", " SDDDD ", "DD   DD", "     D ", "DD   D ", " DD DD ", "  D D  "}
 local part5 = {"    .  ", " ..... ", "..   ..", "     . ", "..   . ", " .. .. ", "  . .  "}
