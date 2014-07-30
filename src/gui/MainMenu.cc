@@ -235,7 +235,7 @@ namespace enigma { namespace gui {
         const bool vshrink = vminfo->width < 640 ;
 
         BuildVList b = vshrink? BuildVList(this, Rect(40, 40, 100, 25), 3)
-                : BuildVList(this, Rect((vminfo->width - 150)/2, vminfo->tt ? 80 : 150, 150, 40), 7);
+                : BuildVList(this, Rect((vminfo->width - 180)/2, vminfo->tt ? 80 : 150, 180, 40), 7);
         BuildVList br = vshrink? BuildVList(this, Rect(180, 40, 100, 25), 4) : BuildVList(this, Rect(0, 0, 0, 0), 0);
         BuildVList *brp = vshrink? &br : &b;
 
@@ -374,7 +374,7 @@ namespace enigma { namespace gui {
 #ifdef ENABLE_EXPERIMENTAL
         y[1] = 150;
 #endif
-        BuildVList b(this, Rect(vshrink?40:(vminfo->width - 150)/2, vshrink?120:y[vminfo->tt], vshrink?100:150, vshrink?25:40), vshrink?3:6);
+        BuildVList b(this, Rect(vshrink?40:(vminfo->width - 160)/2, vshrink?120:y[vminfo->tt], vshrink?100:160, vshrink?25:40), vshrink?3:6);
         BuildVList br = vshrink? BuildVList(this, Rect(180, 120, 100, 25), 3) : BuildVList(this, Rect(0, 0, 0, 0), 0);
         BuildVList *brp = vshrink? &br : &b;
         startgame = b.add(new StaticTextButton(N_("Start Game"), this));
@@ -389,7 +389,7 @@ namespace enigma { namespace gui {
         help        = brp->add(new StaticTextButton(N_("Help"), this));
         quit        = brp->add(new StaticTextButton(N_("Quit"), this));
 
-        int ly = vminfo->width - 5 - 35*(NUMENTRIES(nls::languages) - 1);
+        int ly = vminfo->width - 2 - 35*(NUMENTRIES(nls::languages) - 1);
         //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
         BuildHList l(this, Rect(ly, 10, 30, 20), 5);
         //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
