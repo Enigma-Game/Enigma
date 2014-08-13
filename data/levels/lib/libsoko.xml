@@ -817,6 +817,9 @@ function lib.soko.endphase_fourswitch()
 end
 
 function lib_soko_endphase_call_fourswitch(is_on, sender)
+    if not(sender:exists() and po(sender):exists()) then
+        return
+    end
     local j = sender._number
     lib.soko.area[po(sender)].current = sender.state
     -- When count is correct, make it "st_fake_oxyda".
