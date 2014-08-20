@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE(AC_PACKAGE_TARNAME, AC_PACKAGE_VERSION, -)
 AC_CONFIG_HEADERS([src/config.h])
 AC_GNU_SOURCE
 
-ALL_LINGUAS="de fr nl it es sv ru hu pt fi uk be el pl cs gd hr"
+ALL_LINGUAS="de fr nl it es sv ru hu pt fi uk be el pl cs gd hr sk"
 AC_SUBST(ALL_LINGUAS)
 AM_GNU_GETTEXT
 

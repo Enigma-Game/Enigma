@@ -43,6 +43,7 @@ namespace nls
         { "Português",  "pt_BR", "flags25x15/pt" },
         { "Русский",    "ru_RU", "flags25x15/ru" },
         { "Svenska",    "sv_SE", "flags25x15/se" },
+        { "Slovenčina", "sk_SK", "flags25x15/sk" },
         { "українська", "uk_UA", "flags25x15/ua" },
     };
 }
