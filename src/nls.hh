@@ -28,6 +28,7 @@ namespace nls
         { "default",    "",      "par" },
         { "беларуская", "be_BY", "flags25x15/by" },
         { "Česky",      "cs_CZ", "flags25x15/cz" },
+        { "Dansk",      "da_DK", "flags25x15/dk" },
         { "Deutsch",    "de_DE", "flags25x15/de" },
         { "Ελληνικά",   "el_GR", "flags25x15/gr" },
         { "English",    "en_GB", "flags25x15/gb" },
