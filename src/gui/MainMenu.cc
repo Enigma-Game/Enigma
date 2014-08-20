@@ -369,6 +369,7 @@ namespace enigma { namespace gui {
     {
         const video::VMInfo *vminfo = video::GetInfo();
         const int vshrink = vminfo->width < 640 ? 1 : 0;
+        const int vsmall = vminfo->width < 800 ? 1 : 0;
         int y[] = {75, 170, 190, 220, 220};
         // parameters to use when flags are not at top: {75, 150, 170, 200, 200};
 #ifdef ENABLE_EXPERIMENTAL
@@ -389,20 +390,29 @@ namespace enigma { namespace gui {
         help        = brp->add(new StaticTextButton(N_("Help"), this));
         quit        = brp->add(new StaticTextButton(N_("Quit"), this));
 
-        int ly = vminfo->width - 2 - 35*(NUMENTRIES(nls::languages) - 1);
-        //BuildHList l(this, Rect(ly, (vminfo->height) - 30, 30, 20), 5);
-        BuildHList l(this, Rect(ly, 10, 30, 20), 5);
-        //BuildVList l(this, Rect(vminfo->width - 45, 15, 30, 20), 5);
+        // We assume that we don't need more than two lines of flags.
+        const int num_flags = NUMENTRIES(nls::languages) - 1;
+        const int max_flags_per_line = (vminfo->width - 10) / 35;
+        int upper_count = (num_flags <= max_flags_per_line) ? num_flags : max_flags_per_line;
+        int lower_count = (num_flags <= max_flags_per_line) ? 0 : (num_flags - max_flags_per_line);
+        int xoffset_upper = vminfo->width - 2 - 35*upper_count;
+        int xoffset_lower = vminfo->width - 2 - 35*lower_count;
+        BuildHList l_upper(this, Rect(xoffset_upper, 10, 30, 20), 5);
+        BuildHList l_lower(this, Rect(xoffset_lower, 25, 30, 35), 5);
         flags.clear();  // remove old flags on screen resolution changes
         if(!vshrink) {
             std::string curname = ecl::SysMessageLocaleName();
             curname = curname.substr(0, curname.find('.'));
-            for (size_t i=1; i<NUMENTRIES(nls::languages); ++i) {
+            for (size_t i=1; i<=num_flags; ++i) {
                 BorderlessImageButton *but = new BorderlessImageButton(
                     nls::languages[i].flagimage + string("-shaded"),
                     nls::languages[i].flagimage,
                     nls::languages[i].flagimage, curname == nls::languages[i].localename, this);
-                l.add(but);
+                if (i <= upper_count) {
+                    l_upper.add(but);
+                } else {
+                    l_lower.add(but);
+                }
                 flags.push_back(but);
             }
         }
