@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="48" title="Enigma II"/>
+  <info enigma="1.10" group="Enigma" location="10300" network="false" owner="Enigma Team" release="1" revision="49" title="Enigma II"/>
 
   <attributes/>
 
@@ -73,7 +73,7 @@
     <level _seq="65" _title="Laser Magic" _xpath="./ant30_2" author="Petr Machata" ctrl="force" easy="false" id="ant30" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="66" _title="Moure-Switches" _xpath="./andreas10_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas10" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="67" _title="Khun Phan" _xpath="./ralf10_1" author="Ralf Westram" ctrl="force" easy="false" id="ralf10" rel="1" rev="0" score="1" target="time" unit="duration"/>
-    <level _seq="68" _title="Almost There" _xpath="./duffy89_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy89" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="Almost There" _xpath="./duffy89_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy89" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="69" _title="Question of Speed" _xpath="./siegfried32_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level11b" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="- Meditation -" _xpath="./ant16_3" author="Petr Machata" ctrl="force" easy="false" id="ant16" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="71" _title="Come To Me" _xpath="./ant20_2" author="Petr Machata" ctrl="force" easy="false" id="ant20" rel="2" rev="2" score="2" target="time" unit="duration"/>
