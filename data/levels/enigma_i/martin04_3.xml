@@ -3,8 +3,8 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Sokoban Revival" el:subtitle="" el:id="martin04"/>
-      <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
-      <el:author  el:name="Martin Hawlisch" el:email=""/>
+      <el:version el:score="2" el:release="3" el:revision="4" el:status="released"/>
+      <el:author el:name="Martin Hawlisch" el:email=""/>
       <el:copyright>Copyright © 2003 Martin Hawlisch</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
@@ -19,7 +19,7 @@
 ti[" "] = {"fl_yinyang_yin", invisible=true}
 ti["#"] = {"st_brownpyramid"}
 ti["+"] = {"st_box_wood"}
-ti["triggers"] = {"it_trigger", target = "hurdles%%"}
+ti["triggers"] = {"it_trigger", target="hurdles%%"}
 ti["laser_e"] = {"st_laser_e", name="hurdles%%", state=ON}
 ti["laser_w"] = {"st_laser_w", name="hurdles%%", state=ON}
 ti["door_h"] = {"st_door", name="hurdles%%", flavor="d", faces="ew"}

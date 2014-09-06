@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Pyramid Climbing" el:subtitle="" el:id="duffy186"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+wo["FollowGrid"] = true
+wo["FollowMethod"] = FOLLOW_SCROLL
+wo["FollowAction"] = FOLLOW_HALFSCREEN
+
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["0"] = {"fl_slope", slope=NODIR}
+ti["#"] = {"st_greenbrown"}
+ti["+"] = ti["0"] .. {"st_box"}
+ti["*"] = ti["0"] .. {"st_brownie"}
+ti["G"] = {"st_rawglass"}
+ti["S"] = {"st_stoneimpulse_hollow"}
+ti["^"] = {"st_boulder", orientation=NORTH}
+ti[">"] = {"st_boulder", orientation=EAST}
+ti["<"] = {"st_boulder", orientation=WEST}
+ti["v"] = {"st_boulder", orientation=SOUTH}
+ti["/"] = {"st_mirror_slab", transparent=false, orientation=SLASH}
+ti[";"] = {"st_mirror_slab", transparent=false, orientation=BACKSLASH}
+ti["?"] = {"st_mirror_slab", transparent=true, orientation=SLASH}
+ti[":"] = {"st_mirror_slab", transparent=true, orientation=BACKSLASH}
+ti["2"] = {"fl_slope", slope=SOUTH, shape="ps"}
+ti["4"] = {"fl_slope", slope=WEST, shape="pw"}
+ti["6"] = {"fl_slope", slope=EAST, shape="pe"}
+ti["8"] = {"fl_slope", slope=NORTH, shape="pn"}
+ti["1"] = {"fl_slope", slope=SOUTHWEST, shape="isw"}
+ti["3"] = {"fl_slope", slope=SOUTHEAST, shape="ise"}
+ti["7"] = {"fl_slope", slope=NORTHWEST, shape="inw"}
+ti["9"] = {"fl_slope", slope=NORTHEAST, shape="ine"}
+ti["L"] = {"st_laser", name="laser", orientation=SOUTH}
+ti["t"] = {"it_trigger", target="laser"}
+ti["D"] = ti["0"] .. {"st_door", flavor="b", name="door"}
+ti["s"] = ti["0"] .. {"st_switch", target="door"}
+ti["O"] = ti["0"] .. {"st_oxyd", oxydcolor=OXYD_PURPLE}
+ti["@"] = ti["8"] .. {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "#######################################",
+    "####################################tv#",
+    "#                                 Sv  #",
+    "#>S                                S  #",
+    "#S                                S^  #",
+    "# >GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGOG  L",
+    "# SG74444444444444444444444444449GDG  ?",
+    "#  O2GGGGGGGGGGGGGGGGGGGGGGGGGGG8G@G  ?",
+    "/  G2G7444444444444444444444449G8G8G  /",
+    ";  G2G2GGGGGGGGGGGGGGGGGGGGGGG8G8G8G  ;",
+    "/  G2G2G744444444444444444449G8G8G8G  /",
+    ":  G2G2G2GGGGGGGGGGGGGGGGGGG8G8G8G8G  ;",
+    ":  G2G2G2G000~~~0+000+000+0G8G8G8G8G  ?",
+    ":  G2G2G2G*Os***0000000000068G8G8G8G  /",
+    ";  G2G2G2GGGGGGGGGGGGGGGGGGGGG8G8G8G  ;",
+    "/  G2G2G16666666666666666666663G8G8G  /",
+    ";  G2G2GGGGGGGGGGGGGGGGGGGGGGGGG8G8G  ;",
+    "/  G2G166666666666666666666666663G8G  /",
+    ":  G2GGGGGGGGGGGGGGGGGGGGGGGGGGGGG8O  #",
+    ":  G1666666666666666666666666666663GS #",
+    "#  GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG< #",
+    "#  ^S                                S#",
+    "# S                                 S<#",
+    "# ^S                                  #",
+    "#######################################"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

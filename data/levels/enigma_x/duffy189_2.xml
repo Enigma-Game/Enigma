@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Safety Line" el:subtitle="" el:id="duffy189"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_tigris"}
+ti["."] = {"fl_tigris", name="wd"}
+ti["-"] = {"fl_space"}
+ti[","] = {"fl_abyss"}
+ti["^"] = {"fl_slope", slope=NORTH, shape="pn"}
+ti[">"] = {"fl_slope", slope=EAST, shape="pe"}
+ti["v"] = {"fl_slope", slope=SOUTH, shape="ps", strength=cond(wo["IsDifficult"], 25.0, 0.0)}
+ti["1"] = {"fl_slope", slope=NORTHEAST, shape="one"}
+ti["7"] = {"fl_slope", slope=SOUTHEAST, shape="ose"}
+ti["#"] = {"st_redbrown"}
+ti["m"] = {"st_brownie"}
+ti["h"] = ti["-"] .. {"st_grate"}
+ti["F"] = {"st_flash"}
+ti["X"] = {"st_death"}
+ti["x"] = ti["X"] .. ti["-"]
+ti["I"] = {"st_actorimpulse"}
+ti["Y"] = ti["-"] .. cond(wo["IsDifficult"], ti["X"], ti["I"])
+ti["2"] = ti["^"] .. ti["I"]
+ti["8"] = ti["v"] .. ti["I"]
+ti["S"] = {"st_scissors"}
+ti["R"] = {"st_rubberband", name="rubber"}
+ti["V"] = ti["v"] .. {"st_oneway", color=WHITE, orientation=SOUTH}
+ti["W"] = ti["v"] .. {"st_passage", color=WHITE, flavor="frame"}
+ti["w"] = ti[">"] .. {"st_passage", color=WHITE, flavor="frame"}
+ti["<"] = {"st_oneway", color=BLACK, orientation=WEST}
+ti["*"] = {"it_wormhole", range=1.0, destination="wd"}
+ti["O"] = {"st_oxyd", flavor="c"}
+ti["A"] = {"#ac_marble_white", essential=INDISPENSABLE}
+ti["@"] = {"#ac_marble_black", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "#OO#OO######Xxxxxx,,",
+    "#WWWWW#  * 78-----x,",
+    "#VVWVV#  @ >h------x",
+    "#wwwwww    12------x",
+    "####### mmm X------x",
+    "#           X------x",
+    "#        A  X------x",
+    "#           XY-----x",
+    "#   #FFFFF###Y-----x",
+    "#   F     < #7vvvvv#",
+    "#   ####### #      #",
+    "S   < .  R#        #",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

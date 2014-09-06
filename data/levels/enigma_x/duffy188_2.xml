@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Black-White Patterns" el:subtitle="" el:id="duffy188"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_lawn"}
+ti["~"] = {"fl_water"}
+ti["-"] = {"fl_space"}
+ti["#"] = {"st_tigris"}
+ti["B"] = {"st_passage", color=BLACK}
+ti["W"] = {"st_passage", color=WHITE}
+ti["X"] = {"st_grate", flavor="cross"}
+if wo["IsDifficult"] then
+    ti["1"] = {"st_passage", color=BLACK}
+    ti["2"] = {"st_passage", color=WHITE}
+    ti["3"] = {"st_grate", flavor="cross"}
+else
+    ti["G"] = {"st_lightglass"}
+    ti["1"] = ti["G"] .. {"#ac_marble_black", controllers=CTRL_NONE, owner=YANG}
+    ti["2"] = ti["G"] .. {"#ac_marble_white", controllers=CTRL_NONE, owner=YANG}
+    ti["3"] = ti["G"] .. {"#ac_pearl", controllers=CTRL_NONE, owner=YANG}
+end
+ti["o"] = {"it_meditation", essential=INDISPENSABLE}
+ti["R"] = {"it_meditation", name="pb#"}
+ti["L"] = {"it_meditation", name="pw#"}
+ti["S"] = {"it_meditation", name="po#"}
+ti["|"] = {"st_door", flavor="d", faces="ew", name="door"}
+ti["O"] = ti["o"] .. {"st_oxyd", name="oxyd"}
+ti["b"] = {"#ac_marble_black", name="ab#", controllers=CTRL_NONE, owner=YANG}
+ti["w"] = {"#ac_marble_white", name="aw#", controllers=CTRL_NONE, owner=YANG}
+ti["*"] = {"#ac_pearl", name="ao#", controllers=CTRL_NONE, owner=YANG}
+ti["@"] = {"#ac_marble_black"}
+
+wo(ti, " ", {
+    "####################~~~~~~~~~~~~~~~~~~~",
+    "# -              bb#~~~~~~~~~~~~~~~~~~~",
+    "# 31331133331131 bb#~~~########~~~~~~~~",
+    "# 31221323323321 bb#~~~#OOOOOO#~~~~~~~~",
+    "# 23231221122221 *b#~~~#BWBWBW#~~~~~~~~",
+    "# 23233223133331 **#####      #~~~~~~~~",
+    "# 21322311131RSR @*|          #~~~~~~~~",
+    "# 211323113LRRLS **#####      #~~~~~~~~",
+    "# 233111322SRSL3 ww#~~~#BWBWBW#~~~~~~~~",
+    "# 23311112L1RLL1 ww#~~~#OOOOOO#~~~~~~~~",
+    "# 23332232LSSL2R ww#~~~########~~~~~~~~",
+    "#              - ww#~~~~~~~~~~~~~~~~~~~",
+    "####################~~~~~~~~~~~~~~~~~~~"})
+
+wo:add({"ot_timer", loop=true, interval=1, target="checkit"})
+wo:shuffleOxyd({no["oxyd#*"]:sort("circular"), circular=true})
+
+function checkit()
+    if fl(no["pb#*"]) == fl(no["ab#*"]) and
+       fl(no["pw#*"]) == fl(no["aw#*"]) and
+       fl(no["po#*"]) == fl(no["ao#*"])
+    then
+        no["door"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="South Wind" el:subtitle="Sirocco" el:id="mecke43"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="5:50" el:difficult="0:00"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+wo["GlobalForce"] = cond(wo["IsDifficult"],  po(0.0, -4.0), po(0.0, -0.8))
+
+ti[" "] = {"fl_sahara"}
+ti["?"] = {"fl_water"}
+ti["-"] = {"it_crack_l", flavor = "water", spreading = 0}
+ti["@"] = {"#ac_marble_black"}
+ti["!"] = {"st_camouflage"}
+ti["*"] = {"st_oxyd", oxydcolor = OXYD_ORANGE}
+ti["+"] = {"st_oxyd", oxydcolor = OXYD_RED}
+
+ti["N"] = {"st_oneway", orientation = NORTH}
+ti["S"] = {"st_oneway", orientation = SOUTH}
+ti["E"] = {"st_oneway", orientation = EAST}
+ti["W"] = {"st_oneway", orientation = WEST}
+ti["("] = {"st_puzzle", cluster = 1}
+ti["%"] = {"st_box_wood"}
+ti["G"] = {"st_granite"}
+
+ti["1"] = {"it_trigger", target = "doorA"}
+ti["a"] = {"st_door", "doorA", flavor = "a"}
+ti["2"] = {"it_trigger", target = "doorB"}
+ti["b"] = {"st_door", "doorB", flavor = "a"}
+ti["3"] = {"it_trigger", target = "doorC"}
+ti["c"] = {"st_door", "doorC", flavor = "a"}
+ti["4"] = {"it_trigger", target = "doorD"}
+ti["d"] = {"st_door", "doorD", flavor = "a"}
+ti["5"] = {"it_trigger", target = "doorE"}
+ti["e"] = {"st_door", "doorE", flavor = "a"}
+ti["6"] = {"it_trigger", target = "doorF"}
+ti["f"] = {"st_door", "doorF", flavor = "a"}
+ti["7"] = {"it_trigger", target = "doorG"}
+ti["g"] = {"st_door", "doorG", flavor = "a"}
+ti["8"] = {"it_trigger", target = "doorH"}
+ti["h"] = {"st_door", "doorH", flavor = "a"}
+ti["k"] = ti["h"] .. {"it_key"}
+ti["L"] = {"st_key", target = "doorL"}
+ti["l"] = {"st_door", "doorL", flavor = "a"}
+ti["m"] = ti["e"] .. {"it_floppy"}
+ti["M"] = {"st_floppy", target = "doorn"}
+ti["n"] = {"st_door", "doorn", flavor = "a"}
+
+wo(ti, " ", {
+    "!!!!!!!!*!!+!!!!!!!!",
+    "!   M--?l!! W    - !",
+    "! %g!G!%!!!!G!G!f! !",
+    "!1!((     @    ((!5!",
+    "!2!(((( !SS! ((((%6!",
+    "! !  ((  %%  ((  ! !",
+    "!   E   %n %   W   !",
+    "! -  ((  %%  ((  ! !",
+    "!3!(((( !NN! ((((!7!",
+    "!4!((    --    ((!8!",
+    "! !     !!!!     ! !",
+    "!?Ek G abL!dc G mW?!",
+    "!!!!!!!!+!!*!!!!!!!!"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

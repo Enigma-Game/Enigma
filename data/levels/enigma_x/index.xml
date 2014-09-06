@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="4" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="5" title="Enigma X"/>
 
   <attributes/>
 
@@ -69,6 +69,16 @@
     <level _seq="61" _title="Mixed Puzzles" _xpath="./devnull157_1" author="/dev/null" ctrl="force" easy="false" id="devnull157" rel="1" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Blocked IV" _xpath="./devnull143_1" author="/dev/null" ctrl="force" easy="false" id="devnull143" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Delta Time" _xpath="./devnull167_1" author="/dev/null" ctrl="force" easy="false" id="devnull167" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="64" _title="Docking" _xpath="./duffy170_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy170" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="65" _title="Spacetunnel" _xpath="./duffy175_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy175" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="66" _title="Pyramid Climbing" _xpath="./duffy186_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy186" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="67" _title="White Excitation" _xpath="./duffy187_2" author="Jacob Scott, /dev/null" ctrl="force" easy="false" id="duffy187" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="68" _title="Black-White Patterns" _xpath="./duffy188_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy188" rel="2" rev="2" score="2" target="time" unit="duration"/>
+    <level _seq="69" _title="Safety Line" _xpath="./duffy189_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy189" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="70" _title="Even more Mess" _xpath="./duffy190_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy190" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="71" _title="West Wind" _xpath="./andreas67_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas67" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="South Wind" _xpath="./mecke43_1" author="mecke" ctrl="force" easy="true" id="mecke43" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="Nice Neighbour" _xpath="./devnull137_1" author="/dev/null" ctrl="force" easy="false" id="devnull137" rel="1" rev="1" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

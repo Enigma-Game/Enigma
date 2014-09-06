@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="82" title="Enigma 1.00 new"/>
+  <info enigma="1.10" group="Facets" location="15400" network="false" owner="Enigma Team" release="1" revision="83" title="Enigma 1.00 new"/>
 
   <attributes/>
 
@@ -59,7 +59,7 @@
     <level _seq="51" _title="Coloured Doors" _xpath="enigma_iii/luc03_2" author="Lukas Schüller" ctrl="force" easy="false" id="luc03" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="deja-vu" _xpath="enigma_iii/illmind09_1" author="illmind" ctrl="force" easy="false" id="illmind09" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="53" _title="Too Many Holes" _xpath="enigma_iii/nat31_2" author="Nat Pryce" ctrl="force" easy="false" id="nat31" rel="2" rev="3" score="2" target="time" unit="duration"/>
-    <level _seq="54" _title="Bright Dots" _xpath="enigma_iii/raoul09_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul09" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="54" _title="Bright Dots" _xpath="enigma_iii/raoul09_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul09" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="55" _title="The Ditch" _xpath="enigma_iii/richi01_2" author="Richi Bützer" ctrl="force" easy="false" id="richi01" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="56" _title="Set Me Free" _xpath="enigma_iii/illmind06_3" author="illmind" ctrl="force" easy="false" id="illmind06" rel="3" rev="3" score="3" target="time" unit="duration"/>
     <level _seq="57" _title="Danger Slide" _xpath="enigma_iii/luc15_1" author="Lukas Schüller" ctrl="force" easy="false" id="luc15" rel="1" rev="0" score="1" target="time" unit="duration"/>

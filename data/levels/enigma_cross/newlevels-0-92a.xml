@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="53" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -10,8 +10,8 @@
     <level _seq="2" _title="Is It Easy?" _xpath="enigma_i/martin06_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin06" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="3" _title="Pharaoh's Tomb" _xpath="enigma_ii/siegfried13_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4d" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="4" _title="Feel Your Way" _xpath="enigma_i/siegfried06_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level3a" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="5" _title="Sokoban Revival" _xpath="enigma_i/martin04_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="2" rev="3" score="1" target="time" unit="duration"/>
-    <level _seq="6" _title="Black Is Beautiful" _xpath="enigma_iii/martin15_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="5" _title="Sokoban Revival" _xpath="enigma_i/martin04_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin04" rel="3" rev="4" score="2" target="time" unit="duration"/>
+    <level _seq="6" _title="Black Is Beautiful" _xpath="enigma_iii/martin15_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="7" _title="Round Trip" _xpath="enigma_ii/martin35_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin35" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="8" _title="Light Switches" _xpath="enigma_i/martin08_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin08" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="9" _title="Floppy Swapping" _xpath="enigma_ii/martin19_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin19" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -38,10 +38,10 @@
     <level _seq="30" _title="- Meditation -" _xpath="enigma_i/siegfried38_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation5" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Bridgebuilder" _xpath="enigma_iii/siegfried20_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6b" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Space Pirates" _xpath="enigma_v/siegfried19_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level6a" rel="2" rev="0" score="2" target="time" unit="duration"/>
-    <level _seq="33" _title="Mission Impossible" _xpath="enigma_i/martin14_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="33" _title="Mission Impossible" _xpath="enigma_i/martin14_2" author="Martin Hawlisch" ctrl="force" easy="true" id="martin14" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="34" _title="Send More Money" _xpath="enigma_ii/siegfried18_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5f" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="35" _title="Slippery Slopes" _xpath="enigma_i/martin38_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin38" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="36" _title="Not Hard Atoll" _xpath="enigma_i/martin33_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin33" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="36" _title="Not Hard Atoll" _xpath="enigma_i/martin33_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin33" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="37" _title="Twelve Doors" _xpath="enigma_ii/nat06_2" author="Nat Pryce" ctrl="force" easy="false" id="nat6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Running Rings" _xpath="enigma_iv/siegfried14_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4f" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="39" _title="esprit 92" _xpath="enigma_esprit/esprit92_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp92" rel="1" rev="1" score="1" target="time" unit="duration"/>
@@ -78,7 +78,7 @@
     <level _seq="70" _title="Pools" _xpath="enigma_ii/martin70_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin70" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Light Switches" _xpath="enigma_iv/siegfried24_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8e" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="72" _title="A Narrow Path" _xpath="enigma_i/martin66_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin66" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="73" _title="MetaPuzzle" _xpath="enigma_iv/ant03_2" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="73" _title="MetaPuzzle" _xpath="enigma_iv/ant03_3" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="74" _title="Space Tubes" _xpath="enigma_i/duffy13_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy13" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="75" _title="The Cage" _xpath="enigma_v/qq02_2" author="Andrzej Szombierski" ctrl="force" easy="false" id="qq2" rel="2" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="76" _title="Sentinels" _xpath="enigma_ii/siegfried23_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level8d" rel="1" rev="0" score="1" target="time" unit="duration"/>

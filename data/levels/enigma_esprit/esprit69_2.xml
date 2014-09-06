@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 69" el:subtitle="esprit 69" el:id="ss_esp69"/>
+      <el:version el:score="2" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20" el:engine="oxyd1"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, September 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_redslab"}
+ti[" ."] = {"fl_wood", burnable=true, initfire=true}
+ti["# "] = {"st_brownpyramid"}
+ti["doors"] = {"st_door_c", name="door%%"}
+ti["keyHoles"] = {"st_key", code="%%", target="door%%"}
+ti["coinSlots"] = {"st_coinslot", target="door%%"}
+ti["switches"] = {"st_switch", target="door%%"}
+ti["keys"] = {"it_key", code="%%"}
+ti[" c"] = {"it_coin_l"}
+ti["*1"] = {"#ac_rotor", range=6.0, strength=20.0}
+ti["*2"] = {"#ac_rotor", range=50.0, strength=70.0}
+ti["O "] = {"#st_oxyd_b"}
+ti["@ "] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"D", "doors"}, {"k", "keys"}, {"K", "keyHoles"}, {"C", "coinSlots"}, {"S", "switches"}), "  ", {
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ",
+    "#  c                    # # #                 # # #                         # ",
+    "#  c                    # O #                 # O #                         # ",
+    "# # # K1                # D4# S4              # D3# K3                # # # # ",
+    "# *1  #                                   k2                          D7O # # ",
+    "#     D1                                                     c        # # # # ",
+    "# # # #                                               @        c     .S7 .  # ",
+    "# *2  D2                                      k3                     . . .  # ",
+    "#     #                                                                    c# ",
+    "# # # K2            # D5# C5        # D6# S6        # D8# C8                # ",
+    "#                   # O #           # O #           # O #  c                # ",
+    "#                   # # #           # # #           # # #                 k1# ",
+    "# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # " })
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

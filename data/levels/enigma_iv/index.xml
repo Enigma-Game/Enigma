@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="66" title="Enigma IV"/>
+  <info enigma="1.10" group="Enigma" location="10500" network="false" owner="Enigma Team" release="1" revision="67" title="Enigma IV"/>
 
   <attributes/>
 
@@ -77,7 +77,7 @@
     <level _seq="69" _title="The Dark Outside" _xpath="./andreas16_2" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas16" rel="2" rev="5" score="1" target="time" unit="duration"/>
     <level _seq="70" _title="Electric Meditation" _xpath="./duffy123_1" author="Jacob Scott" ctrl="force" easy="true" id="duffy123" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="71" _title="Seed Puzzle" _xpath="./duffy77_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy77" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="72" _title="Action at a Distance" _xpath="./duffy121_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="2" rev="2" score="1" target="time" unit="duration"/>
+    <level _seq="72" _title="Action at a Distance" _xpath="./duffy121_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy121" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="73" _title="Long Jump" _xpath="./duffy43_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy43" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="74" _title="Seed Puzzle 2" _xpath="./duffy93_3" author="Jacob Scott" ctrl="force" easy="false" id="duffy93" rel="3" rev="3" score="2" target="time" unit="duration"/>
     <level _seq="75" _title="Electrickery" _xpath="./nat17_2" author="Nat Pryce" ctrl="force" easy="false" id="nat17" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -100,7 +100,7 @@
     <level _seq="92" _title="Where Am I?" _xpath="./duffy72_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy72" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="93" _title="Flood Zone" _xpath="./duffy82_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy82" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="94" _title="Wildfire" _xpath="./duffy63_1" author="Jacob Scott" ctrl="force" easy="false" id="duffy63" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="95" _title="MetaPuzzle" _xpath="./ant03_2" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="2" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="95" _title="MetaPuzzle" _xpath="./ant03_3" author="Petr Machata" ctrl="force" easy="false" id="ant03" rel="3" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="96" _title=".c.R.a.Z.y.W.o.R.l.D." _xpath="./martin100_2" author="Martin Hawlisch, Ronald Lamprecht" ctrl="force" easy="true" id="martin100" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="97" _title="Over the Lake" _xpath="./siegfried27_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level9d" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="98" _title="Bizarro World" _xpath="./duffy73_3" author="Jacob Scott" ctrl="force" easy="true" id="duffy73" rel="3" rev="25" score="2" target="time" unit="duration"/>

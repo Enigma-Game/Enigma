@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="47" title="Enigma III"/>
+  <info enigma="1.10" group="Enigma" location="10400" network="false" owner="Enigma Team" release="1" revision="48" title="Enigma III"/>
 
   <attributes/>
 
@@ -36,14 +36,14 @@
     <level _seq="28" _title="Wells" _xpath="./ant19_2" author="Petr Machata" ctrl="force" easy="false" id="ant19" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="29" _title="Push? Pull!" _xpath="./siegfried01_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level1c" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="30" _title="Blind Date" _xpath="./ss11_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss11" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="31" _title="Black Is Beautiful" _xpath="./martin15_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="31" _title="Black Is Beautiful" _xpath="./martin15_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin15" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="32" _title="Upstream Journey" _xpath="./duffy58_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy58" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="33" _title="Narrow Paths" _xpath="./martin105_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin105" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="34" _title="Bishop" _xpath="./duffy75_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy75" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="35" _title="Brittle Floor!" _xpath="./martin91_1" author="Martin Hawlisch" ctrl="force" easy="true" id="martin91" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="36" _title="Keepaway" _xpath="./duffy54_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy54" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="37" _title="Fly High" _xpath="./duffy86_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy86" rel="2" rev="2" score="1" target="time" unit="duration"/>
-    <level _seq="38" _title="Bright Dots" _xpath="./raoul09_2" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul09" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="38" _title="Bright Dots" _xpath="./raoul09_3" author="Raoul Bourquin" ctrl="force" easy="false" id="raoul09" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="39" _title="Monster in the Dark" _xpath="./duffy52_2" author="Jacob Scott" ctrl="force" easy="false" id="duffy52" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Snow White -" _xpath="./ant15_2" author="Petr Machata" ctrl="force" easy="false" id="ant15" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Black Diamond Course" _xpath="./duffy28_2" author="Jacob Scott" ctrl="force" easy="true" id="duffy28" rel="2" rev="3" score="1" target="time" unit="duration"/>

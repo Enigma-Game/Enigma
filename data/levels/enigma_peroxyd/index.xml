@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.00" group="Déjà-vu" location="20300" network="false" owner="Enigma Team" release="1" revision="11" title="PerOxyd"/>
+  <info enigma="1.00" group="Déjà-vu" location="20300" network="false" owner="Enigma Team" release="1" revision="12" title="PerOxyd"/>
 
   <attributes/>
 
@@ -34,7 +34,7 @@
     <level _seq="26" _title="- Meditation -" _xpath="./peroxyd50_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried73" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="27" _title="Precision" _xpath="./peroxyd53_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried93" rel="2" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="28" _title="Cliffhanger" _xpath="./peroxyd54_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10f" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="29" _title="Per.Oxyd 55" _xpath="./peroxyd55_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_pox55" rel="2" rev="1" score="2" target="time" unit="duration"/>
+    <level _seq="29" _title="Per.Oxyd 55" _xpath="./peroxyd55_3" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_pox55" rel="3" rev="2" score="3" target="time" unit="duration"/>
     <level _seq="30" _title="Roadblock" _xpath="./peroxyd58_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level7b" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="31" _title="Per.Oxyd 62" _xpath="./peroxyd62_2" author="Raoul Bourquin" ctrl="force" easy="false" id="peroxyd62" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="32" _title="Serious Patching" _xpath="./peroxyd73_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level8f" rel="2" rev="1" score="1" target="time" unit="duration"/>
@@ -55,7 +55,7 @@
     <level _seq="47" _title="Monolith" _xpath="./peroxydlink22_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level10c" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Let Me Out!" _xpath="./peroxydlink44_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried92" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Crisscross" _xpath="./peroxydlink45_2" author="Martin Hawlisch" ctrl="force" easy="false" id="martin62" rel="2" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="50" _title="Stay Open" _xpath="./peroxydlink48_2" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried94" rel="2" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Stay Open" _xpath="./peroxydlink48_3" author="Siegfried Fennig" ctrl="force" easy="false" id="siegfried94" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="51" _title="Everything Changes" _xpath="./peroxydlink56_2" author="Siegfried Fennig" ctrl="force" easy="false" id="level7d" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="52" _title="- Meditation -" _xpath="./peroxydlink60_3" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation17" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="53" _title="Per.Oxyd Link 61" _xpath="./peroxydlink61_2" author="Raoul Bourquin" ctrl="force" easy="false" id="peroxyd2p61" rel="2" rev="1" score="1" target="time" unit="duration"/>
