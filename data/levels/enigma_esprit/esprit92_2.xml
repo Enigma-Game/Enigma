@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 92" el:subtitle="esprit 92" el:id="ss_esp92"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti[" "] = {"fl_blueslab"}
+ti["#"] = {"st_bluegray"}
+ti["."] = {"st_bluegray_hollow"}
+ti["="] = {"st_thief"}
+ti["!"] = {"st_death"}
+ti["*"] = {"st_break_oxydc"}
+ti["K"] = {"st_key", code="1", target="door"}
+ti["D"] = {"st_door_b", name="door"}
+ti["-"] = {"st_door_b"}
+ti["k"] = ti["."] .. {"it_key", code="1"}
+ti[","] = ti["."] .. {"it_document", text="text1"}
+ti[";"] = ti["."] .. {"it_document", text="text2"}
+ti["a"] = {"it_key", code="2"}
+ti["c"] = {"it_cherry"}
+ti["2"] = {"it_coin_s"}
+ti["5"] = {"it_coin_m"}
+ti["1"] = {"it_coin_l"}
+ti["h"] = {"it_hammer"}
+ti["f"] = {"it_flag"}
+ti["b"] = {"it_brush"}
+ti["s"] = {"it_spade"}
+ti["l"] = {"it_extralife"}
+ti["e"] = {"it_extinguisher"}
+ti["O"] = {"st_oxyd"}
+ti["@"] = {"#ac_marble"}
+
+wo(ti, " ", {
+    "####################",
+    "#      c    c      #",
+    "#  l a  2 O  2   2 #",
+    "#c              2  #",
+    "# 1    2   2      2#",
+    "#l O     @      5  #",
+    "# s 1         c    #",
+    "#    b      fa  c  #",
+    "#  =k=  =,=  =;=   #",
+    "#  =.=  =.=  =.=  e#",
+    "#  =.=  =.=  =.= O #",
+    "# !=.=h =.=  =.=!  #",
+    "####.###=.=###.#####",
+    "# !=.=  =.=  =.=!  #",
+    "#  =.=  =.=  =.=   #",
+    "#  =.=  =.=  =.=   #",
+    "#  =.=  =.=  =.=   #",
+    "#  #-#  #K#  #D# 5 #",
+    "#    55        5   #",
+    "#  5        5      #",
+    "#        5 5       #",
+    "#  5 5  ***     5  #",
+    "#       *O*  5   5 #",
+    "#       ***        #",
+    "####################"})
+
+wo:shuffleOxyd()
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+      <el:string el:key="text1">
+        <el:english el:translate="true">Take the key to the left first!</el:english>
+      </el:string>
+      <el:string el:key="text2">
+        <el:english el:translate="false">XYZZY</el:english>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

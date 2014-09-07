@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="esprit 100" el:subtitle="esprit 100" el:id="ss_esp100"/>
+      <el:version el:score="1" el:release="2" el:revision="2" el:status="released"/>
+      <el:author el:name="Sven Siggelkow" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2003 Sven Siggelkow</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:comments>
+        <el:code>New API converted by /dev/null, March 2014</el:code>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+ti["  "] = {"fl_metal"}
+ti[" ."] = {"fl_space"}
+ti[" :"] = {"fl_lawn"}
+ti[" ~"] = {"fl_abyss"}
+ti["# "] = {"st_granite"}
+ti["= "] = {"st_plaster"}
+ti["- "] = {"st_plaster_hollow"}
+ti["+ "] = {"st_plaster_movable"}
+ti["* "] = {"st_plaster_breakable"}
+ti["X "] = {"st_flat"}
+ti["A "] = {"st_actorimpulse"}
+ti["! "] = {"st_death"}
+ti["I "] = {"st_invisible"}
+ti["B "] = {"st_dispenser_bombblack"}
+ti["Y "] = cond(wo["IsDifficult"], ti["  "], ti["A "])
+ti["Z "] = cond(wo["IsDifficult"], ti["A "], ti["  "])
+ti["doors"] = {"st_door_c", name="door%%#"}
+ti["k1"] = ti["- "] .. {"it_key", code="%1"}
+ti["k2"] = {"it_key", code="%2"}
+ti["key3"] = {"it_key", code="%3"}
+ti["keyHoles"] = {"st_key", code="%%", target="door%%#*"}
+ti["coinSlots"] = {"st_coinslot", target="door%%#*"}
+ti["|4"] = {"st_door_b", name="door4"}
+ti["C4"] = {"st_coinslot", target="door4"}
+ti["^ "] = {"st_oneway_n"}
+ti["> "] = {"st_oneway_e"}
+ti["v "] = {"st_oneway_s"}
+ti["< "] = {"st_oneway_w"}
+ti[" f"] = {"it_flag"}
+ti[" h"] = {"it_hammer"}
+ti[" d"] = {"it_dynamite"}
+ti[" u"] = {"it_umbrella"}
+ti[" w"] = {"it_weight"}
+ti[" U"] = cond(wo["IsDifficult"], ti["  "], ti[" u"])
+ti["5 "] = {"it_coin_m"}
+ti["x "] = {"it_extralife"}
+ti["floors"] = {"fl_metal", name="dest%%"}
+ti["k3"] = ti["key3"].. {"fl_metal", name="dest%3"}
+ti["fd"] = ti[" U"].. {"fl_metal", name="dest%d"}
+ti["fc"] = ti[" u"].. {"fl_metal", name="dest%c"}
+ti[" ,"] = ti({"it_crack_s"}).. {"fl_metal", name="dest%k"}
+ti[" X"] = {"fl_lawn", name="dest%l"}
+ti["wormholes"] = {"it_wormhole", destination="dest%%", range=0.0, strength=0.0}
+ti["O "] = {"st_oxyd"}
+ti["@ "] = {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"D", "doors"}, {"K", "keyHoles"}, {"_", "floors"}, {"i", "itemFloors"}, {"e", "easyFloors"}, {"w", "wormholes"})), "  ", {
+    "#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.",
+    "#.   . . . .  #.              x       #. ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~=  . . . . . . . . . . . . . . . . . .#.",
+    "#. . . .#. . .#.= = =  . .= = = =     #. ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~   ~= I.I.I.I. . . . .I.I.I.I.I. .I.I.I.I.#.",
+    "#. . . .#. . .#. . .=  . .=  . .=     >     > - -  ~k1            -    ~   ~= we_awcI.I.I.I.I.I.wik3wfI. .I.wj_bw3#.",
+    "#. . . .#. . .#. . .=  . .=  . .= = = #. ~ ~ ~ ~-  ~   ~ ~ ~ ~ ~ ~ ~   ~   ~= I.I.I.I.I.w3fcwfI.I.I.I.I.I.I.I.I.I.#.",
+    "#. . . .#. . .#.5. . . . . . . . . . .#. ~ ~ ~ ~-  ~   ~ ~ ~ ~ ~ ~ ~   ~   ~=  . . . .I.I.I.I.I.I. .I.w3fdwbI. . .#.",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~ ~ ~ ~v  ~   ~ ~ ~ ~ ~       ~+  ~=  . . . . . . .I.I.I. .I.I.I.I.I. . .#.",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~ ~ ~ ~-  ~        +  ~  O. ~ ~   ~= I.I.I.I.I. . .I.whI. .I.I.I.I.I. . .#.",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~ ~ ~ ~-  ~   ~ ~ ~   ~   ~ ~ ~   ~= I.wa_ewcI.I.I.I._fI.I.I.I.I.wdI. . .#.",
+    "#. . . .#. . .#. . .A. .5. . . . .A. .#.    +  ~- O.   ~ ~     ~    +      ~= I.I.I.I.I.wcI.I.waI.I.wdI.I._gI. . .#.",
+    "#. . . .#. . .#. . . . . . . . . . . .#. w ~   ~      x  ~   ~ ~   ~ ~ ~   ~=  . . . .I._hI.I.I.I.I._iI.I.weI.I.I.#.",
+    "#. . . .#. . .#. . . . . . . . . . . .#.   ~       ~ ~   ~   ~     ~ ~ ~   ~= we . . .I.waI. . . .I.wgI.I.I.wh_jwk#.",
+    "#. . . .#. . .#. . .5. . . . . . .5. .#.= = = = = = =   = = = = = = = = * * * * = = = = = = = = = = = = = = = = * # ",
+    "#. . . .#. . .#. . . . . . . . . . . .#.     ~ ~         ~   ~          ^  ~= O                                 O # ",
+    "#. . . .#. . .#. . .5. . . . . . .5. .#. ~   ~ ~   ~ ~ ~ ~^  ~   ~ ~ ~ ~   ~=   X X K1X # # # # # # # X D1X X X   # ",
+    "#. . . .#. . .#. . . . .5. .A. . . . .#. ~   ~ ~   ~ ~ ~ ~   ~   ~ ~ ~ ~   ~=   X       #           #         X   # ",
+    "#. . . .#. . .#. . . . .5. . . . . . .#. ~   ~ ~+  ~         ~   ~ ~ ~ ~   ~=   D2      #   # # #   #         X   # ",
+    "#. . . .#. . .#. . .A. . . . . . . . .#.    -      ~   ~ ~ ~ ~   ~ ~ ~   w ~=   X       #   #  ,#   #         X   # ",
+    "#. . . .#. . .#. . . . . . . . .A. . .#.   ~ ~ ~   ~                 ~   ~ ~=   K2      #   #   #   # X X X X X   # ",
+    "#. . . .#. . .#. . .5. . . . .5. . . .#.   ~ ~ ~   ~ ~ ~ ~ ~ ~ ~ ~   ~   ~ ~=   X       #       #   #         D3  # ",
+    "#. . . .#. . .#. . .Y.Z. . . . . . . .#.   ~ ~ ~   ~ ~ ~ ~ ~ ~ ~ ~   ~   ~ ~=   X     ! # # # # #   #         X   # ",
+    "#. . . .#. . .#. . .5. . . . . . . .5.#.                  -              ~ ~=   X       wl          #         K3  # ",
+    "#. . . .#. . .#.5. . . . .5. .A. . . .#.   ~ ~ ~ ~ ~ ~ ~ ~ ~ ~|4 ~ ~ ~ ~ ~ ~=   X X D2! # # # # # # # X X D3X X   # ",
+    "#. . . .#. . .#. . . . . . . . . . . .#.C4 ~ ~ ~ ~ ~             d d d d d ~= O                                 O # ",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~         ~   ~ ~ ~ ~   ~ ~ ~ ~ d ~#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~   ~ ~O. ~   ~ ~ ~O.   ~ ~ ~ ~ d ~#: :+: :+: :+: :+: :+:O:+: :+: :+: :+:#:",
+    "#. . . .#. . .#. .A. . . . . . . . . .#. ~+  ~ ~                 ~       d ~#:+: :+: :+: :+:O:+: :+: :+: :+: :+: :#:",
+    "#. . . .#. . .#. . . . . . . . . . . .#. ~   ~ ~   ~   ~ ~   ~ U     ~O. d ~#: :+: :+: :+: :+:B:+:B:+:B:+: :+: :+:#:",
+    "#. . . .#. . .#. . .   . . .       .  #. ~    -    ~         ~ ~ ~   ~ ~ d ~#:+: :+: :+: :+: :+: :+: :+: :+: :+: :#:",
+    "#. . . .#. . .#. . .     .   . .  k2  #. ~   ~ ~       ~ ~-  ~    -         #: :+: :+: :+: :+: :+: :+: :+: :+: :+:#:",
+    "#. . . .#. . .#.     .     .     .    #. ~   ~ ~   ~ ~ ~ ~   ~   ~ ~ ~   ~  <: : : : : : : : : X : : : : : : : : :#:",
+    "#. . . .#. . .#.   .   .     . .     .#. ~   ~ ~   ~ ~ ~ ~   ~   ~ ~ ~   ~ ~#: :+: :+: :+: :+: :+: :+: :+: :+: :+:#:",
+    "#. . . .#. . .#. .   .   .       .    #. ~   ~ ~   ~ ~ ~ ~   ~   ~ ~ ~   ~ ~#:+: :+: :+: :+: :+: :+: :+: :+: :+: :#:",
+    "#. . . .#. . .#. . .     .   .     .  #. ~+  ~ ~   ~ ~ ~O.   ~   ~ ~ ~ ~ ~ ~#: :+: :+: :+: :+: :+: :+: :+: :+: :+:#:",
+    "#. . f .#. . .#. . . . .   . . . .   .#. ~                       ~    +h    #:+: :+: :+: :+: :+: :+: :+: :+: :+: :#:",
+    "#.  @   #. . . . . . . . . .   . .   .#. ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~#: :+: :+:O:+:O:+: :+: :+:O +: :+:O +:#:",
+    "#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#.#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:#:"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
