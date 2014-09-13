@@ -3,13 +3,13 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Techno Voodoo" el:subtitle="Just a Dance ?" el:id="mecke06"/>
-      <el:version el:score="1" el:release="1" el:revision="$Revision:20$" el:status="released"/>
+      <el:version el:score="2" el:release="2" el:revision="$Revision:21$" el:status="released"/>
       <el:author el:name="mecke" el:email=""/>
-      <el:copyright>Copyright © 2008 Thomas Bernhardt</el:copyright>
+      <el:copyright>Copyright © 2014 Thomas Bernhardt</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
-      <el:modes el:easy="false" el:single="true" el:network="false"/>
-      <el:score el:easy="-" el:difficult="02:12"/>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
 ti["  "] = {"fl_rough"}
@@ -30,8 +30,7 @@ ti[" F"] = {"fl_redslab"}
 ti["F "] = {"st_black_slash"}
 ti[" s"] = {"fl_space"}
 ti["w "] = {"it_wormhole", range=10, strength=3}
-ti["d "] = {"it_drop"}
-ti["X "] = {"#ac_marble_black"}
+ti["@ "] = {"#ac_marble_black"}
 ti["r "] = {"#ac_top", range=5, strength=7}
 ti["a "] = {"#ac_bug"}
 ti["$ "] = {"st_oxyd_c"}
@@ -40,35 +39,49 @@ ti["Y "] = {"st_timer", interval=5}
 ti["Z "] = {"st_timer", interval=3}
 ti["> "] = ti["  "] .. {"st_boulder_e"}
 ti["O "] = {"st_rotator_ccw"}
-ti["t1"] = ti["  "] .. {"it_trigger", target="laser1",action="turn"}
-ti["t2"] = ti["  "] .. {"it_trigger", target="laser1",action="toggle"}
+ti["t1"] = ti["  "] .. {"it_trigger", target="laser1", action="turn"}
+ti["t2"] = ti["  "] .. {"it_trigger", target="laser1", action="toggle"}
 ti["LS"] = ti["  "] .. {"st_laser_s", state=OFF, name="laser1"}
-ti["u1"] = ti["  "] .. {"it_trigger", target="maggi1",action="on"}
-ti["u2"] = ti["  "] .. {"it_trigger", target="maggi3",action="on"}
-ti["u3"] = ti["  "] .. {"it_trigger", target="maggi1",action="off"}
-ti["u4"] = ti["  "] .. {"it_trigger", target="maggi3",action="off"}
-ti["m1"] = ti[" !"] .. {"it_magnet", name="maggi1",state=OFF, range=20, strength=20}
-ti["m2"] = ti[" !"] .. {"it_magnet", name="maggi2",state=OFF, range=20, strength=20}
-ti["m3"] = ti[" !"] .. {"it_magnet", name="maggi3",state=OFF, range=20, strength=20}
-ti["m4"] = ti[" !"] .. {"it_magnet", name="maggi4",state=OFF, range=20, strength=20}
+ti["u1"] = ti["  "] .. {"it_trigger", target="maggi1", action="on"}
+ti["u2"] = ti["  "] .. {"it_trigger", target="maggi3", action="on"}
+ti["u3"] = ti["  "] .. {"it_trigger", target="maggi1", action="off"}
+ti["u4"] = ti["  "] .. {"it_trigger", target="maggi3", action="off"}
+ti["m1"] = ti[" !"] .. {"it_magnet", name="maggi1", state=OFF, range=20, strength=20}
+ti["m2"] = ti[" !"] .. {"it_magnet", name="maggi2", state=OFF, range=20, strength=20}
+ti["m3"] = ti[" !"] .. {"it_magnet", name="maggi3", state=OFF, range=20, strength=20}
+ti["m4"] = ti[" !"] .. {"it_magnet", name="maggi4", state=OFF, range=20, strength=20}
 ti["&h"] = ti[" !"] .. {"#ac_horse", name="horse", strength=7, destination={"1!","2!","3!","4!"}}
+ti["u "] = ti[" !"] .. {"st_death_movable"}
+ti["y "] = ti[" !"] .. {"it_drop"}
+ti["V "] = ti[" !"] .. {"st_disco"}
+ti["W "] = ti[" !"] .. {"it_crack_s"}
+ti["d "] = cond(wo["IsDifficult"], {"it_trigger", action="callback", target="speed"}, {"it_cherry"})
+ti["v "] = cond(wo["IsDifficult"], {"it_trigger", action="callback", target="speedy"}, {"it_cherry"})
 
 wo(res.composer(ti), "  ", {
     "Y!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!          ",
     "!!#!$!#!#!$!#!#!#!$!#!$!#!#!#!#!$!#!#!!!  O       ",
-    "!!#! E EdE E E E E E C C C C CdC C C$!!!  > t1  O ",
+    "!!#! E EvE E E E E E C C C C CdC C C$!!!  > t1  O ",
     "!!$! s4! s ! s ! s ! ! s ! s ! s3! s#!!!  u1  t1  ",
     "!!#! ! s !m1B! !a! ! !a! !B!m4 ! s !#!!!  t2  u3  ",
     "!!#! sa! !r! ! ! ! ! ! ! ! ! ! ! ! s#!!!      t2  ",
-    "!!$! ! s ! ! !a!X!LS ! ! ! ! ! ! s !#!!!  u4  t2  ",
+    "!!$! ! s ! ! !a!@!LS ! ! ! ! ! ! s !#!!!  u4  t2  ",
     "!!#! s&h ! ! ! ! ! ! ! ! ! ! !a! ! s#!!!  t1      ",
     "!!#! ! sa!m2B! ! !a! !r! !B!m3 ! s !#!!!  t2  t1  ",
     "!!$! s1! s ! s ! s ! ! s ! s ! s2! s#!!!O t1  u2  ",
-    "!!#! D DdD D D D D D B B B B BdB B B$!!!      O   ",
+    "!!#! D DvD D D D D D B B B B BdB B B$!!!      O   ",
     "!!#!$!#!#!#!#!$!$!#!#!#!$!#!#!#!$!$!#!!!          ",
     "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Z!B!B!B!B!B!"})
 
 wo:shuffleOxyd()
+
+function speed()
+    wo:drawMap(ti, po(6, 6), "  ", {"u y "})
+end
+
+function speedy()
+    wo:drawMap(ti, po(6, 6), "  ", {"V W "})
+end
  ]]></el:luamain>
     <el:i18n>
       <el:string el:key="title">
