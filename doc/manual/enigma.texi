@@ -1339,6 +1339,9 @@ floor.  Then search for the second screen with the ``hidden treasure''.
 @section Main developers
 
 @table @strong
+@item Thomas Bernhardt
+Level design and testing
+
 @item Raoul Bourquin
 Level admininstration and design, homepage, overall invaluable additions
 
@@ -1355,10 +1358,13 @@ Main developer, graphics, documentation
 XML, Gui, portability, core programming, documentation, homepage, score evaluation
 
 @item Andreas Lochmann
-Programming, level administration, level design, documentation, homepage
+Coordinator, programming, level administration and design, documentation, homepage
 
 @item Petr Machata
 Level design, programming
+
+@item Nobby
+Level design and testing, score evaluation
 
 @item Nat Pryce
 Level design
@@ -1418,7 +1424,6 @@ For various smaller contributions, thanks go to:
 
 @itemize @bullet
 @item Roberto Bardin (Level design)
-@item Thomas Bernhardt (Level design)
 @item Helge Blohmer (Level design)
 @item Nathan Bronecke (Level design)
 @item Harry Bruder (LotM articles)
@@ -1488,7 +1493,6 @@ For various smaller contributions, thanks go to:
 @item Joe Wreschnig (Manual page)
 @item Zephyr (Level design)
 @item Yuriy Zhyromskiy (Russian Manual)
-@item /dev/null (Level design)
 @end itemize
 
 @node Utilized Software,  , Contributors, Credits

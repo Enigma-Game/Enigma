@@ -1236,6 +1236,9 @@ Enigma. Здесь Вы найдете лазеры, зеркала и монеты. Вам прийдется решить простую
 @section Главные разработчики
 
 @table @strong
+@item Thomas Bernhardt
+Level design and testing
+
 @item Raoul Bourquin
 Руководство уровнями и дизайн, бесценные дополнения по всем вопросам
 
@@ -1252,10 +1255,13 @@ Enigma. Здесь Вы найдете лазеры, зеркала и монеты. Вам прийдется решить простую
 XML, графический интерфейс, программирование основной части, документация
 
 @item Andreas Lochmann
-Программирование, руководство уровнями, дизайн уровней, документация
+Coordination, Программирование, руководство уровнями, дизайн уровней, документация
 
 @item Petr Machata
 Дизайн уровней, программирование
+
+@item Nobby
+Level design and testing, score evaluation
 
 @item Nat Pryce
 Дизайн уровней
@@ -1315,7 +1321,6 @@ Music second generation, Proof reading
 
 @itemize @bullet
 @item Roberto Bardin (Дизайн уровней)
-@item Thomas Bernhardt (Дизайн уровней)
 @item Helge Blohmer (Дизайн уровней)
 @item Nathan Bronecke (Дизайн уровней)
 @item Harry Bruder (LotM articles)
@@ -1385,7 +1390,6 @@ Music second generation, Proof reading
 @item Joe Wreschnig (Руководство)
 @item Zephyr (Дизайн уровней)
 @item Yuriy Zhyromskiy (Русский перевод руководства)
-@item /dev/null (Дизайн уровней)
 @end itemize
 
 @node Используемое программное обеспечение,  , Помощники, Благодарности

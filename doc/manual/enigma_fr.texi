@@ -1199,6 +1199,9 @@ Assurez-vous un acc@`es @`a la chambre avec l'interrupteur; ensuite cherchez le 
 @section D@'eveloppeurs principaux
 
 @table @strong
+@item Thomas Bernhardt
+Conception et tests de niveaux
+
 @item Raoul Bourquin
 Administration et conception de niveaux, plus d'autres choses inestimables
 
@@ -1215,10 +1218,13 @@ Principal d@'eveloppeur, graphismes, documentation
 XML, interface graphique, portabilit@'e, programmation du noyau, documentation
 
 @item Andreas Lochmann
-Programmation, administration des niveaux, conception de niveaux, documentation
+Coordinateur, programmation, administration et conception de niveaux, documentation
 
 @item Petr Machata
 Conception de niveaux, programmation
+
+@item Nobby
+Conception et tests de niveaux, l'évaluation du score
 
 @item Nat Pryce
 Conception de niveaux
@@ -1278,7 +1284,6 @@ Pour diverses contributions, merci @`a:
 
 @itemize @bullet
 @item Roberto Bardin (conception de niveaux)
-@item Thomas Bernhardt (conception de niveaux)
 @item Helge Blohmer (conception de niveaux)
 @item Nathan Bronecke (conception de niveaux)
 @item Harry Bruder (LotM articles)
@@ -1348,7 +1353,6 @@ Pour diverses contributions, merci @`a:
 @item Joe Wreschnig (page Manual)
 @item Zephyr (conception de niveaux)
 @item Yuriy Zhyromskiy (Russian Manual)
-@item /dev/null (conception de niveaux)
 @end itemize
 
 @node Logiciels utilis@'es,  , Contributeurs, Cr@'edits
