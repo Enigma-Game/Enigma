@@ -10,6 +10,10 @@ pixmap_DATA = enigma.png
 # Install .desktop file in xdg standard location
 desktopdir = $(prefix)/share/applications
 desktop_DATA = enigma.desktop
+
+# Install AppData file
+appdatadir = $(prefix)/share/appdata
+dist_appdata_DATA = enigma.appdata.xml
 # endif !MINGW32
 
 EXTRA_DIST = \
@@ -22,6 +26,7 @@ EXTRA_DIST = \
 	mingw32-dist.sh \
 	nlcvt.pl \
 	enigma.desktop \
+        enigma.appdata.xml \
 	enigma.png \
 	Info.plist \
 	enigma.icns \
