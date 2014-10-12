@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="6" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma X"/>
 
   <attributes/>
 
@@ -52,7 +52,7 @@
     <level _seq="44" _title="Key Cupboard" _xpath="./pulley29_1" author="Mark Pulley" ctrl="force" easy="false" id="pulley29" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="45" _title="Meteor Shower" _xpath="./zephyr42_1" author="Zephyr" ctrl="force" easy="true" id="zephyr42" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="46" _title="Panic Room" _xpath="./zephyr16_1" author="Zephyr" ctrl="force" easy="true" id="zephyr16" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="47" _title="Go with the Flow" _xpath="./ash27_1" author="Ash" ctrl="force" easy="false" id="ash27" rel="1" rev="0" score="1" target="time" unit="duration"/>
+    <level _seq="47" _title="Go with the Flow" _xpath="./ash27_2" author="Ash" ctrl="force" easy="false" id="ash27" rel="2" rev="1" score="2" target="time" unit="duration"/>
     <level _seq="48" _title="Y Junction" _xpath="./devnull163_1" author="/dev/null" ctrl="force" easy="true" id="devnull163" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="49" _title="Riding light beams" _xpath="./devnull165_1" author="/dev/null" ctrl="force" easy="true" id="devnull165" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="50" _title="To and Fro" _xpath="./devnull161_1" author="/dev/null" ctrl="force" easy="false" id="devnull161" rel="1" rev="4" score="1" target="time" unit="duration"/>
