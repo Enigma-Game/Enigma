@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="78" title="Enigma VIII"/>
+  <info enigma="1.10" group="Enigma" location="10900" network="false" owner="Enigma Team" release="1" revision="79" title="Enigma VIII"/>
 
   <attributes/>
 
@@ -65,7 +65,7 @@
     <level _seq="57" _title="Alternation II" _xpath="./mecke31_1" author="mecke" ctrl="force" easy="false" id="mecke31" rel="1" rev="21" score="1" target="time" unit="duration"/>
     <level _seq="58" _title="Involution" _xpath="./raoul32_1" author="Raoul Bourquin" ctrl="force" easy="true" id="raoul32" rel="1" rev="6" score="1" target="time" unit="duration"/>
     <level _seq="59" _title="Wired Shogun" _xpath="./ral34_1" author="Ronald Lamprecht" ctrl="force" easy="true" id="20080828ral417" rel="1" rev="129" score="1" target="time" unit="duration"/>
-    <level _seq="60" _title="Meditation Sorting" _xpath="./wesley02_1" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="1" rev="3" score="1" target="time" unit="duration"/>
+    <level _seq="60" _title="Meditation Sorting" _xpath="./wesley02_2" author="Helge Blohmer" ctrl="force" easy="true" id="20080821wcr001" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="61" _title="Hang-dogging?" _xpath="./devnull16_1" author="/dev/null" ctrl="force" easy="true" id="devnull16" rel="1" rev="8" score="1" target="time" unit="duration"/>
     <level _seq="62" _title="Two Is A Company I" _xpath="./devnull24_1" author="/dev/null" ctrl="force" easy="true" id="devnull24" rel="1" rev="4" score="1" target="time" unit="duration"/>
     <level _seq="63" _title="Earthlink" _xpath="./pulley15_2" author="Mark Pulley" ctrl="force" easy="true" id="pulley15" rel="2" rev="2" score="1" target="time" unit="duration"/>

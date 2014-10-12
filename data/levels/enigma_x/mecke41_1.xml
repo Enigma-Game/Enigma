@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected >
+    <el:info el:type="level">
+      <el:identity el:title="Alaska" el:subtitle="A frozen Game" el:id="mecke41"/>
+      <el:version el:score="1" el:release="1" el:revision="3" el:status="released"/>
+      <el:author el:name="mecke"/>
+      <el:copyright>Copyright © 2014 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="5:55"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["SwampSinkTime"] = 8.0
+
+ti[" "] = {"fl_swamp"}
+ti["."] = {"fl_ice"}
+ti["-"] = {"fl_gravel"}
+ti[":"] = {"fl_water"}
+ti["#"] = {"st_darkgray"}
+ti["1"] = {"it_trap"}
+ti["2"] = ti["."] .. {"it_dynamite"}
+ti["w"] = ti["."] .. {"it_weight"}
+ti["3"] = {"it_seed"}
+ti["4"] = {"it_yinyang"}
+ti["5"] = ti["."] .. {"it_bomb"}
+ti["6"] = {"it_cherry"}
+ti["A"] = ti["1"] .. {"st_ice"}
+ti["B"] = ti["2"] .. {"st_barrier", name="dynamite#"}
+ti["W"] = ti["w"] .. {"st_barrier"}
+ti["C"] = {"st_mail"}
+ti["+"] = ti["-"] .. {"it_cherry"}
+ti["D"] = ti["+"] .. {"st_beads"}
+ti["E"] = ti["3"] .. {"st_ice"}
+ti["F"] = ti["4"] .. {"fl_ice"}
+ti["G"] = ti["-"] .. {"st_granite_hollow"}
+ti["M"] = ti["-"] .. {"st_ice"}
+ti["S"] = ti["5"] .. {"st_ice"}
+ti["X"] = ti["."] .. {"st_brake"}
+ti["y"] = ti["."] .. {"it_glasses", state=SPOT_TRAP}
+ti["O"] = {"st_oxyd"}
+ti["t"] = {"it_yinyang"}
+ti["Z"] = {"st_thief"}
+ti["T"] = {"st_timer", interval=10.0, target="jux"}
+ti["n"] = ti["."] .. {"st_fourswitch", state=SOUTH, name="n1", target="tresor1", action="callback"}
+ti["m"] = ti["-"] .. {"st_fourswitch", state=WEST, name="n2", target="tresor1", action="callback"}
+ti["o"] = ti["-"] .. {"st_fourswitch", state=EAST, name="n3", target="tresor1", action="callback"}
+ti["p"] = ti["."] .. {"st_fourswitch", state=NORTH, name="n4", target="tresor1", action="callback"}
+ti["*"] = {"it_trigger", target="door1#*", action="open"}
+ti["q"] = ti["-"] .. {"st_blocker", state=CLOSED, name="tresor#"}
+ti["r"] = ti["-"] .. {"st_blocker", state=CLOSED, name="door1#"}
+ti["@"] = ti["6"] .. {"#ac_marble_black", essential=INDISPENSABLE}
+ti["$"] = ti["D"] .. {"#ac_marble_white", essential=INDISPENSABLE}
+
+wo(ti, " ", {
+    "A##################A",
+    "## :   --M$M--  : ##",
+    "#  q     #C#    q  #",
+    "# qOq  qXAyAXq qOq #",
+    "#  q   #CM@MC#  q  #",
+    "#      Z.EBF.Z     #",
+    "Z  5   5##T##5  5  Z",
+    "#         #        #",
+    "#  r  W---S---W r  #",
+    "# rOr 1G##W##G1rOr #",
+    "#  r  #  ntm  # r  #",
+    "##    G  oMp  G   ##",
+    "A#########*########A"})
+
+wo:shuffleOxyd()
+
+function jux()
+    wo[no["dynamite#*"]] = {"it_dynamite"}
+end
+
+function tresor1(value, sender)
+    if no["n1"]["state"] == NORTH and no["n2"]["state"] == EAST and no["n3"]["state"] == WEST and no["n4"]["state"] == SOUTH then
+        no["tresor#*"]:open()
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="54" title="Enigma 0.92 - 1"/>
+  <info enigma="1.10" group="Facets" location="15100" network="false" owner="Enigma Team" release="1" revision="55" title="Enigma 0.92 - 1"/>
 
   <attributes/>
 
@@ -44,7 +44,7 @@
     <level _seq="36" _title="Not Hard Atoll" _xpath="enigma_i/martin33_3" author="Martin Hawlisch" ctrl="force" easy="false" id="martin33" rel="3" rev="2" score="2" target="time" unit="duration"/>
     <level _seq="37" _title="Twelve Doors" _xpath="enigma_ii/nat06_2" author="Nat Pryce" ctrl="force" easy="false" id="nat6" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Running Rings" _xpath="enigma_iv/siegfried14_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level4f" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="esprit 92" _xpath="enigma_esprit/esprit92_1" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp92" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="esprit 92" _xpath="enigma_esprit/esprit92_2" author="Sven Siggelkow" ctrl="force" easy="false" id="ss_esp92" rel="2" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="40" _title="- Meditation -" _xpath="enigma_oxyd/oxyd30_2" author="Siegfried Fennig" ctrl="force" easy="false" id="meditation9" rel="2" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Chain Reaction" _xpath="enigma_iv/siegfried17_1" author="Siegfried Fennig" ctrl="force" easy="false" id="level5e" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="The Prison" _xpath="enigma_v/martin30_1" author="Martin Hawlisch" ctrl="force" easy="false" id="martin30" rel="1" rev="0" score="1" target="time" unit="duration"/>

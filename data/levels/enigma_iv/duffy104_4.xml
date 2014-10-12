@@ -3,13 +3,12 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Termites" el:subtitle="" el:id="duffy104"/>
-      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:version el:score="4" el:release="4" el:revision="4" el:status="released"/>
       <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2004 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
       <el:compatibility el:enigma="1.10"/>
       <el:modes el:easy="true" el:single="true" el:network="false"/>
-      <el:comments><el:code>New API converted by R. Bourquin</el:code></el:comments>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
     <el:luamain><![CDATA[
@@ -19,7 +18,9 @@ ti[" "] = {"fl_wood"}
 ti["#"] = {"st_lightglass"}
 ti["+"] = cond(wo["IsDifficult"], {"st_box"}, {"st_puzzle"})
 ti["-"] = {"st_door", flavor="d", faces="ns", name="door#"}
+ti["_"] = ti["-"] .. {"fl_bridge", name="bridge%%"}
 ti["F"] = {"st_floppy", target="@door#*"}
+ti["4"] = {"st_fourswitch", target_0="bridge%1", target_1="bridge%2", target_2="bridge%3", target_3="bridge%4"}
 ti["f"] = {"it_floppy"}
 ti["."] = {"it_bomb_black"}
 ti[","] = {"it_bomb_black_burning"}
@@ -27,18 +28,18 @@ ti["*"] = ti["#"] .. ti["."]
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"ac_marble_black", 0.0, 0.5}
 
-wo(ti, " ", {
+wo(res.autotile(ti, {"a", "d", "_"}), " ", {
     "####################",
     "#O#       @      #O#",
-    "#-F ............ F-#",
+    "#aF ............ Fb#",
     "# ,..          ... #",
     "# #   ........   . #",
     "# ..... #####... . #",
-    "# .   + *. f# +. . #",
+    "# .   + *. f4 +. . #",
     "# . ....*+###... . #",
     "# .   + ......+  . #",
     "# ...     +    ... #",
-    "#-F ............ F-#",
+    "#dF ............ Fc#",
     "#O#              #O#",
     "####################"})
 
