@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Claudio B. <ahufactory@gmail.com>, 2014
 # luigif <luigif@gmail.com>, 2014
 # Samuele Kaplun <kaplun@aliceposta.it>, 2005
 # Samuele Kaplun <Samuele.Kaplun@cern.ch>, 2007
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-03-17 10:30+0000\n"
-"Last-Translator: luigif <luigif@gmail.com>\n"
+"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"Last-Translator: Claudio B. <ahufactory@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/projects/p/enigma/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -245,7 +246,7 @@ msgid ""
 "\n"
 "If ok Enigma will move your data to this new location.\n"
 "Note that you have to restart Enigma once for completion of this update."
-msgstr ""
+msgstr "Mac OS X aggiornamento da Enigma 1.00\n\nIl percorso predefinito dei dati utente è stato cambiato da\n%s\n\nal percorso dati visibile\n%s\n\nSe Ok, Enigma sposterà i tuoi dati a questa nuova posizione.\nNota che devi riavviare Enigma una volta per completare questo aggiornamento."
 
 #: src/main.cc:787
 msgid "OK"
@@ -1133,7 +1134,7 @@ msgstr "Nota: la versione attuale sarà ricaricata!\n\n"
 
 #: src/lev/PersistentIndex.cc:472
 msgid "Error on registration of levelpack index: \n"
-msgstr ""
+msgstr "Errore di registrazione dell'indice di livello\n"
 
 #: src/lev/PersistentIndex.cc:474
 msgid ""
@@ -1174,15 +1175,15 @@ msgstr "Bene, diciamo che siamo pari."
 
 #: po/level_i18n.cc:151 po/level_i18n.cc:3738
 msgid "Everything's been counted carefully!"
-msgstr ""
+msgstr "Ogni cosa è stata conteggiata attentamente!"
 
 #: po/level_i18n.cc:152 po/level_i18n.cc:3739
 msgid "Parts of the tubes disappear during detonation!"
-msgstr ""
+msgstr "Parte delle tubazioni spariscono durante le detonazioni!"
 
 #: po/level_i18n.cc:157 po/level_i18n.cc:3801
 msgid "It's easier with spikes!"
-msgstr ""
+msgstr "E' più facile con gli impulsi!"
 
 #: po/level_i18n.cc:200
 msgid "Same room, new mirrors ..."
@@ -1190,7 +1191,7 @@ msgstr "Stessa stanza, nuovi specchi ..."
 
 #: po/level_i18n.cc:213
 msgid "An English text based riddle"
-msgstr ""
+msgstr "Un rompicapo basato su un testo in Inglese"
 
 #: po/level_i18n.cc:272 po/level_i18n.cc:558 po/level_i18n.cc:914
 #: po/level_i18n.cc:1555 po/level_i18n.cc:2251 po/level_i18n.cc:2520
@@ -1227,13 +1228,13 @@ msgstr "Colui che sa, non parla (Lao Tse)"
 msgid ""
 "Sections which have the same color always turn at the same time and in the "
 "same way."
-msgstr ""
+msgstr "Le sezioni che hanno lo stesso colore cambiamo sempre nello stesso momento e allo stesso modo."
 
 #: po/level_i18n.cc:373
 msgid ""
 "Maintenance code: metal-stone-stone-stone-red-yellow-yellow-red-red-stone-"
 "stone."
-msgstr ""
+msgstr "Codice manutenzione: metallo-pietra-pietra-pietra-rosso-giallo-giallo-rosso-rosso-pietra-pietra."
 
 #: po/level_i18n.cc:439
 msgid "The witch of this switch waits for your wish."
@@ -3001,7 +3002,7 @@ msgstr ""
 msgid ""
 "Watch out for mines!        White = 0, Blue = 1, Black = 2, Red = 3, Yellow "
 "= 4, Deep Blue = 5, Deep Red = 6 ..."
-msgstr ""
+msgstr "Stai attento alle mine! Bianca = 0, Blu = 1, Nera = 2, Rossa = 3, Gialla = 4, Blu scuro = 5, Rosso scuro = 6 ..."
 
 #: po/level_i18n.cc:2652
 msgid ""
@@ -3665,7 +3666,7 @@ msgstr ""
 
 #: po/level_i18n.cc:3697
 msgid "Let there be light!"
-msgstr ""
+msgstr "E luce sia!"
 
 #: po/level_i18n.cc:3734
 msgid "You need to be fast!"
@@ -3689,11 +3690,11 @@ msgstr ""
 
 #: po/level_i18n.cc:3780
 msgid "Business hours from 8am to 4pm"
-msgstr ""
+msgstr "Orario lavorativo dalle 8 am alle 4 pm"
 
 #: po/level_i18n.cc:3784
 msgid "Umbrellas prevent free fall!"
-msgstr ""
+msgstr "Gli ombrelli evitano cadute libere!"
 
 #: po/level_i18n.cc:3833
 msgid "Rotaryrotaryrot..."
@@ -3705,7 +3706,7 @@ msgstr "Nessun problema! Fetta di torta!"
 
 #: po/level_i18n.cc:3838
 msgid "It was easy, wasn't it!"
-msgstr ""
+msgstr "E' stato facile, non è vero!"
 
 #: po/level_i18n.cc:3854
 msgid "Don't believe all that you see!"
@@ -3713,7 +3714,7 @@ msgstr "Non credere a tutto quello che vedi!"
 
 #: po/level_i18n.cc:3859
 msgid "It's a ring!"
-msgstr ""
+msgstr "E' un anello!"
 
 #: po/level_i18n.cc:4023
 msgid "If you think that's too easy, try \"Difficulty: Normal\"."
@@ -3781,7 +3782,7 @@ msgstr ""
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
-msgstr ""
+msgstr "Ben fatto! Quando hai finito questo livello, gioca alcuni livelli di esempio dall'attuale confezione di Enigma!"
 
 #: po/level_i18n.cc:4210
 msgid ""
@@ -3803,7 +3804,7 @@ msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
 "despair if you don't get through it at the first time.   Bye!"
-msgstr ""
+msgstr "Ma prima di questo, dai uno sguardo al tutorial del livello finale Jacob concepito per te. Vedilo come un esame, se vuoi. E' abbastanza difficile, quindi non disperarti se non lo superi la prima volta. Arrivederci!"
 
 #: po/level_i18n.cc:4216
 msgid ""
@@ -3846,7 +3847,7 @@ msgstr ""
 
 #: po/level_i18n.cc:4248
 msgid "Friction and acceleration depend on the floor type."
-msgstr ""
+msgstr "Attrito e accelerazione dipendono dal tipo di pavimento."
 
 #: po/level_i18n.cc:4252
 msgid ""
@@ -3861,7 +3862,7 @@ msgid ""
 " of the room (actually, try falling into it and then restarting the level "
 "with the 'Esc' key).  While these messages are being displayed, don't click "
 "any buttons or push any keys or the message will stop."
-msgstr ""
+msgstr "Tu controlli la palla nera. Per raccogliere un oggetto, rotolaci sopra. Puoi rimbalzare su molte pareti (provaci), ma evita i pavimenti blu vicino al fondo della stanza (sul serio, prova a caderci dentro e poi fa ripartire il livello con il tasto 'Esc'). Mentre questi messaggi sono mostrati, non cliccare su alcun bottone o premere su alcun tasto altrimenti il messaggio si interromperà."
 
 #: po/level_i18n.cc:4254
 msgid "This is pretty self-explanatory."
@@ -3883,13 +3884,13 @@ msgstr "Non puoi certo camminare sull'acqua. Prova a spingere i blocchi in acqua
 msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
-msgstr ""
+msgstr "Nota che non puoi spingere una fila di due o più blocchi. Inoltre, i blocchi non possono essere sugli stessi riquadri ma tu puoi."
 
 #: po/level_i18n.cc:4258
 msgid ""
 "There are different types of blocks here.  Those black blocks sink when they"
 " fall into water.  The tan blocks don't sink but don't form bridges either."
-msgstr ""
+msgstr "Ci sono differenti tipi di blocchi. Quelli neri affondano quando cadono nell'acqua. I blocchi marrone chiaro non affondano ma non formano nemmeno ponti."
 
 #: po/level_i18n.cc:4259
 msgid ""
@@ -3914,35 +3915,35 @@ msgstr "Ci sono diversi tipi di pavimento. Prova a passarci sopra."
 msgid ""
 "The grayish floors are slopes.  The white floor is inverse-floor (you will "
 "see)."
-msgstr ""
+msgstr "I pavimenti grigiastri sono inclinati. Il pavimento bianco è inversamente-piano (vedrai)."
 
 #: po/level_i18n.cc:4263
 msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
-msgstr ""
+msgstr "Guarda quello che accade quando vai sopra quei detonatori. Vedi se puoi ottenere palle extra."
 
 #: po/level_i18n.cc:4264
 msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
-msgstr ""
+msgstr "Questa è dinamite. Prova a buttare qualcosa accanto al muro giallognolo (e scappa via da li). "
 
 #: po/level_i18n.cc:4265
 msgid "Try using the spade on the holes caused by the dynamite."
-msgstr ""
+msgstr "Prova ad usare la vanga sui buchi causati dalla dinamite."
 
 #: po/level_i18n.cc:4266
 msgid ""
 "Those things are boulders -- try moving one of the tan blocks.  Don't fall "
 "into the water or abyss (the black floor)."
-msgstr ""
+msgstr "Queste cose sono dei macigni -- prova a muovere uno dei blocchi marroncini. Non cadere nell'acqua o nell'abisso (il pavimento nero)."
 
 #: po/level_i18n.cc:4267
 msgid ""
 "Take the magic wand and hit a boulder.  Try to let the row of three boulders"
 " pass the large column."
-msgstr ""
+msgstr "Prendi la bacchetta magica e colpisci un macigno. Prova a far passare la fila di tre macigni dalla colonna grande."
 
 #: po/level_i18n.cc:4268
 msgid "Hit it hard enough!"
@@ -3958,7 +3959,7 @@ msgstr "Sembra una stanza facile, ma ti diamo una palla extra comunque. Ci sarà
 msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!"
 "  Use the mirrors to direct the beam."
-msgstr ""
+msgstr "Prova a prendere il raggio laser per colpire quella pietra nera, ma non farti colpire dal raggio! Usa gli specchi per direzionare il raggio."
 
 #: po/level_i18n.cc:4271
 msgid ""
@@ -3966,13 +3967,13 @@ msgid ""
 "coins with the laser beam.  Also, try hitting a block over a coin.  Those "
 "stones to your right are knights -- you need to fight (hit) them with a "
 "sword (in the front of your inventory) to get past."
-msgstr ""
+msgstr "Molti oggetti cambiano quando colpiti con un raggio laser. Prova a colpire alcune delle monete con il raggio laser. Inoltre, prova a colpire un blocco sopra una moneta. Queste pietre alla tua destra sono cavalieri -- devi combattere (colpirli) con una spada (nel parte frontale del tuo inventario) per passare."
 
 #: po/level_i18n.cc:4272
 msgid ""
 "Do you have any umbrellas?  Each one will give you approximately ten seconds"
 " of protection from danger (such as falling)."
-msgstr ""
+msgstr "Hai degli ombrelli? Ciascuno ti darà approssimativamente dieci secondi di protezione dai pericoli (come cadere)."
 
 #: po/level_i18n.cc:4273
 msgid ""
@@ -3990,7 +3991,7 @@ msgid ""
 "your inventory are your extra lives -- if you die in this level, you will "
 "restart at the beginning of the level if you have any balls left (and you "
 "will lose one of the balls)."
-msgstr ""
+msgstr "Quest'area in fondo allo schermo è il tuo inventario -- quando raccogli le cose, loro vanno qui (c'è un limite massimo di 12). Per scorrere lungo l'inventario, usa il tasto destro del mouse o il tasto 'tab'. Per lasciare o usare un oggetto, clicca sul tasto sinistro del mouse. Alcuni oggetti, dei documenti (come questo), non possono essere lasciati ma sono invece usati. Queste due palle nel tuo inventario sono le tue vite extra -- se muori in questo livello, ripartirai dall'inizio del livello se hai delle palle disponibili (e perderai una delle palle)."
 
 #: po/level_i18n.cc:4275
 msgid ""
@@ -4004,7 +4005,7 @@ msgid ""
 "will need to go in with it but you can't go through the white one-way block."
 "                            Take the spoon and use it once the white ball is"
 " through (hit it hard)."
-msgstr ""
+msgstr "Naturalmente, supponevi di attraversare quei cancelli chiusi in cima allo schermo. Prova ad andare giù dal pendio vicino al fondo della stanza per vedere cosa c'è a sinistra. Non preoccuparti ancora di quel detonatore in fondo all'abisso. Se potessi colpire quella piccola palla bianca attraverso i blocchi di senso-unico (con le frecce), potrebbe rotolare giù e fermarsi su quel detonatore. Avrai bisogno di andare dentro ma non puoi attraversare il blocco bianco del senso-unico. Prendi il cucchiaio e usalo una volta cha la palla bianca è passata (colpisci duro)."
 
 #: po/level_i18n.cc:4276
 msgid ""
@@ -4012,7 +4013,7 @@ msgid ""
 "probably useful.  In this case the switch opens and closes a door (Do you "
 "remember a door that you weren't able to open?).  The bluish line is a "
 "window -- bridge the water before you do anything with it."
-msgstr ""
+msgstr "La pietra in cima a destra della stanza è un interruttore. Colpiscilo -- è probabilmente utile. In questo caso l'interruttore apre e chiude una porta (Ricordi la porta che non eri in grado di aprire?). La linea bluastra è una finestra -- colma l'acqua prima di fare qualsiasi cosa con questa."
 
 #: po/level_i18n.cc:4277
 msgid ""
@@ -4039,24 +4040,24 @@ msgstr ""
 
 #: po/level_i18n.cc:4293 po/level_i18n.cc:4685
 msgid "Take your time ..."
-msgstr ""
+msgstr "Fai con calma ..."
 
 #: po/level_i18n.cc:4297
 msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
-msgstr ""
+msgstr "Questo blocco di legno è mobile e pesante abbastanza da tenere giù il detonatore sulla destra. Prova a spingerlo la!"
 
 #: po/level_i18n.cc:4298
 msgid ""
 "Remember?  There are different kinds of floors.  And these are steep ..."
-msgstr ""
+msgstr "Ricordi? Ci sono differenti tipi di pavimento. E questi sono ripidi ..."
 
 #: po/level_i18n.cc:4299
 msgid ""
 "Is there more one can do with wooden blocks?   Yes!  Just explore the next "
 "levels."
-msgstr ""
+msgstr "C'è altro che si può fare con i blocchi di legno? Si! Esplora i prossimi livelli."
 
 #: po/level_i18n.cc:4303
 msgid "Some stones look exactly like the Oxyd stones!"
@@ -4065,7 +4066,7 @@ msgstr "Alcune pietre assomigliano agli ossidi!"
 #: po/level_i18n.cc:4307
 msgid ""
 "Move all small marbles into the holes. Only one marble per hole is allowed."
-msgstr ""
+msgstr "Muovi tutte le piccole biglie dentro i buchi. E' permessa solo una biglia per buco."
 
 #: po/level_i18n.cc:4311
 msgid ""

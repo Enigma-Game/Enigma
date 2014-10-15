@@ -4,11 +4,11 @@
 # 
 # Translators:
 # Bruno Queiros <bqueiros@gmail.com>, 2014
-# kongshaolong <de2a9293@opayq.com>, 2013
-# João Gaspar <joao.f.r.gaspar@gmail.com>, 2014
-# João Gaspar <joao.f.r.gaspar@gmail.com>, 2014
-# kongshaolong <de2a9293@opayq.com>, 2013
-# alfalb_mansil <manuela.silva@sky.com>, 2014
+# Gonçalo Silva <de2a9293@opayq.com>, 2013
+# João Filipe Rodrigues Gaspar <joao.f.r.gaspar@gmail.com>, 2014
+# João Filipe Rodrigues Gaspar <joao.f.r.gaspar@gmail.com>, 2014
+# Gonçalo Silva <de2a9293@opayq.com>, 2013
+# Manuela Silva <manuela.silva@sky.com>, 2014
 # Sérgio Marques <smarquespt@gmail.com>, 2014
 # Translator: Krishnamurti Nunes <krishnalelis@gmail.com>, 2006
 msgid ""
@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-05-05 15:13+0000\n"
-"Last-Translator: alfalb_mansil <manuela.silva@sky.com>\n"
+"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"Last-Translator: Manuela Silva <manuela.silva@sky.com>\n"
 "Language-Team: Portuguese (http://www.transifex.com/projects/p/enigma/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #: src/server.cc:184 src/server.cc:198 src/gui/LevelInspector.cc:203
 msgid "Server Error: could not load level '"
-msgstr "Erro de servidor: não foi possível carregar o nível '"
+msgstr "Erro do servidor: não foi possível carregar o nível '"
 
 #: src/client.cc:68
 #, c-format
@@ -48,7 +48,7 @@ msgstr "Botão esquerdo do rato:"
 
 #: src/client.cc:517
 msgid "Activate/drop leftmost inventory item"
-msgstr "Ativar/largar item mais à esquerda da lista"
+msgstr "Ative/largue o item do inventário mais à esquerda"
 
 #: src/client.cc:518
 msgid "Right mouse button:"
@@ -56,7 +56,7 @@ msgstr "Botão direito do rato:"
 
 #: src/client.cc:518
 msgid "Rotate inventory items"
-msgstr "Trocar itens de inventário"
+msgstr "Alternar os itens de inventário"
 
 #: src/client.cc:519 src/gui/LevelMenu.cc:193 src/gui/ScreenshotViewer.cc:34
 msgid "Escape:"
@@ -64,7 +64,7 @@ msgstr "Esc:"
 
 #: src/client.cc:519
 msgid "Show game menu"
-msgstr "Mostra o menu do jogo"
+msgstr "Mostrar o menu do jogo"
 
 #: src/client.cc:520
 msgid "Shift+Escape:"
@@ -72,7 +72,7 @@ msgstr "Shift+Esc:"
 
 #: src/client.cc:520
 msgid "Quit game immediately"
-msgstr "Sai imediatamente do jogo"
+msgstr "Sair imediatamente do jogo"
 
 #: src/client.cc:521
 msgid "F1:"
@@ -80,7 +80,7 @@ msgstr "F1:"
 
 #: src/client.cc:521 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
-msgstr "Mostra esta ajuda"
+msgstr "Mostrar esta ajuda"
 
 #: src/client.cc:522
 msgid "F3:"
@@ -88,7 +88,7 @@ msgstr "F3:"
 
 #: src/client.cc:522
 msgid "Kill current marble"
-msgstr "Mata a bola atual"
+msgstr "Mate o berlinde atual"
 
 #: src/client.cc:523
 msgid "Shift+F3:"
@@ -96,7 +96,7 @@ msgstr "Shift+F3:"
 
 #: src/client.cc:523
 msgid "Restart the current level"
-msgstr "Reinicia o nível atual"
+msgstr "Reiniciar o nível atual"
 
 #: src/client.cc:524
 msgid "F4:"
@@ -104,7 +104,7 @@ msgstr "F4:"
 
 #: src/client.cc:524
 msgid "Skip to next level"
-msgstr "Avança para o nível seguinte"
+msgstr "Avançar para o nível seguinte"
 
 #: src/client.cc:525 src/gui/LevelPackComposer.cc:50
 msgid "F5:"
@@ -116,7 +116,7 @@ msgstr "F6:"
 
 #: src/client.cc:526
 msgid "Jump back to last level"
-msgstr "Volta ao último nível"
+msgstr "Voltar ao último nível"
 
 #: src/client.cc:527
 msgid "F10:"
@@ -124,15 +124,15 @@ msgstr "F10:"
 
 #: src/client.cc:527
 msgid "Make screenshot"
-msgstr "Captura uma imagem"
+msgstr "Efetuar uma captura de ecrã"
 
 #: src/client.cc:528
 msgid "Left/right arrow:"
-msgstr "Seta para esquerda/direita:"
+msgstr "Seta esquerda/direita:"
 
 #: src/client.cc:528
 msgid "Change mouse speed"
-msgstr "Muda a velocidade do rato"
+msgstr "Alterar a velocidade do rato"
 
 #: src/client.cc:529
 msgid "Alt+x:"
@@ -1350,7 +1350,7 @@ msgstr "Distância de travagem"
 
 #: po/level_i18n.cc:598
 msgid "Make the white marble wait on the cross for 3 seconds."
-msgstr ""
+msgstr "Faça com que o berlinde branco espere 3 segundos na passagem."
 
 #: po/level_i18n.cc:645
 msgid "Interlude II"
@@ -2404,7 +2404,7 @@ msgstr "Domingo sangrento!"
 
 #: po/level_i18n.cc:1983
 msgid "If you think this is too easy, then play -Bavarian Madness-"
-msgstr ""
+msgstr "Se pensa que isto é muito fácil, então jogue - Loucura Bávaro -"
 
 #: po/level_i18n.cc:1987
 msgid "Watch out!!"
@@ -2816,15 +2816,15 @@ msgstr ""
 
 #: po/level_i18n.cc:2453
 msgid "WARNING: Highest caution is necessary."
-msgstr ""
+msgstr "AVISO: É necessário ter muita atenção."
 
 #: po/level_i18n.cc:2455
 msgid "Wild buffaloes are crossing the way."
-msgstr ""
+msgstr "Os búfalos selvagens estão a atravessar o caminho."
 
 #: po/level_i18n.cc:2457
 msgid "Help me, the forest is on fire!"
-msgstr ""
+msgstr "Ajude-me, a floresta está a arder!"
 
 #: po/level_i18n.cc:2459
 msgid "A herd of wild horses blocks the way."
@@ -2874,11 +2874,11 @@ msgstr ""
 
 #: po/level_i18n.cc:2502
 msgid "Don't forget your disguise!"
-msgstr ""
+msgstr "Não se esqueça do seu disfarce!"
 
 #: po/level_i18n.cc:2504
 msgid "Here lies the grave of John Reid."
-msgstr ""
+msgstr "Aqui está a campa do John Reid."
 
 #: po/level_i18n.cc:2506
 msgid "Hi-yo Silver, away!"
@@ -2886,11 +2886,11 @@ msgstr "Hi-yo Silver, away!"
 
 #: po/level_i18n.cc:2508
 msgid "Who was that masked man?"
-msgstr ""
+msgstr "Quem era o homem de máscara?"
 
 #: po/level_i18n.cc:2510
 msgid "Hey! This tomb is empty!"
-msgstr ""
+msgstr "Quê? Esta campa está vazia!"
 
 #: po/level_i18n.cc:2515 po/level_i18n.cc:2665
 msgid "Open the Doors"
@@ -2902,7 +2902,7 @@ msgstr "Bem-vindo ao Enigma VII"
 
 #: po/level_i18n.cc:2543
 msgid "Clue: The starting point is where all dead marbles go"
-msgstr ""
+msgstr "Pista: O ponto inicial é onde vão todos os berlindes mortos"
 
 #: po/level_i18n.cc:2554
 msgid "Funeral on Deep Sea"
@@ -2920,7 +2920,7 @@ msgstr "A viagem é a recompensa"
 
 #: po/level_i18n.cc:2565
 msgid "Left or Right Drive?"
-msgstr ""
+msgstr "Condução à Direita ou Esquerda?"
 
 #: po/level_i18n.cc:2576
 msgid "The Wild Hunt"
@@ -2956,7 +2956,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2604
 msgid "piazza san marco"
-msgstr ""
+msgstr "praça de são marco"
 
 #: po/level_i18n.cc:2606
 msgid "danger"
@@ -2984,7 +2984,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2618
 msgid "use the gondola below"
-msgstr ""
+msgstr "utilize a gôndola abaixo"
 
 #: po/level_i18n.cc:2620
 msgid "hurry to san giorgio"
@@ -2998,7 +2998,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2638
 msgid "Change guaranteed"
-msgstr ""
+msgstr "Alteração garantida"
 
 #: po/level_i18n.cc:2651
 msgid ""
@@ -3041,15 +3041,15 @@ msgstr ""
 
 #: po/level_i18n.cc:2707
 msgid "Freeze by the Power of Light"
-msgstr ""
+msgstr "Imobilizar pelo Poder da Luz "
 
 #: po/level_i18n.cc:2714
 msgid "Watchmaker"
-msgstr ""
+msgstr "Relojoeiro"
 
 #: po/level_i18n.cc:2718
 msgid "Mend the clockwork"
-msgstr ""
+msgstr "Conserte o mecanismo de relojoaria"
 
 #: po/level_i18n.cc:2719
 msgid ""
@@ -3067,7 +3067,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2736
 msgid "Every marble is the architect of its own fortune"
-msgstr ""
+msgstr "Cada berlinde é o arquiteto da sua própria fortuna"
 
 #: po/level_i18n.cc:2747
 msgid "Feed me!"
@@ -3111,7 +3111,7 @@ msgstr "Exploração das Águas Verdes"
 
 #: po/level_i18n.cc:2790
 msgid "Riverside"
-msgstr ""
+msgstr "Margem do Rio"
 
 #: po/level_i18n.cc:2792
 msgid "Wrong side!                   F3"
@@ -3139,7 +3139,7 @@ msgstr "Encontrar o Paraíso"
 
 #: po/level_i18n.cc:2822
 msgid "Spaceship Control"
-msgstr ""
+msgstr "Controlo da Nave"
 
 #: po/level_i18n.cc:2823
 msgid "Bound to the blue nowhere"
@@ -3193,7 +3193,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2891
 msgid "Carry that oxygen around."
-msgstr ""
+msgstr "Transporte esse oxigénio em redor."
 
 #: po/level_i18n.cc:2907
 msgid "Press F3 or finish."
@@ -3372,7 +3372,7 @@ msgstr "O certo, o errado!"
 msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
-msgstr "Por que sempre há um vulcão ativo e uma vila de canibaisem uma ilha tropical?"
+msgstr "Por que é que tem que existir sempre um vulcão ativo e uma vila de habitantes comedores de berlindes numa ilha tropical?"
 
 #: po/level_i18n.cc:3328
 msgid "Try the easy mode first ..."
@@ -3585,7 +3585,7 @@ msgstr ""
 
 #: po/level_i18n.cc:3616
 msgid "This is a meditation landscape: put a small marble into every hole ..."
-msgstr "Este é um território de meditação. Ponha uma bolinha em cada buraco..."
+msgstr "Isto é uma paisagem de meditação: coloque um berlinde pequeno em cada buraco ..."
 
 #: po/level_i18n.cc:3621
 msgid ""
@@ -3688,7 +3688,7 @@ msgstr "Queda livre com consequências fatais!"
 
 #: po/level_i18n.cc:3776
 msgid "Nothing but thieves!! Try the mailbox."
-msgstr ""
+msgstr "Nada, só ladrões!! Tente a caixa de correio."
 
 #: po/level_i18n.cc:3780
 msgid "Business hours from 8am to 4pm"
@@ -4407,7 +4407,7 @@ msgstr ""
 
 #: po/level_i18n.cc:4740
 msgid "Invoice -- 40 marbleons for 20 barrels of oil."
-msgstr ""
+msgstr "fatura -- 40 berlindes por 20 barris de petróleo."
 
 #: po/level_i18n.cc:4742
 msgid ""
@@ -4556,7 +4556,7 @@ msgstr "Este nível é muito maior! Prima F3!"
 msgid ""
 "I don't believe that you are the Marble. I won't let you pass until you "
 "prove me wrong: you have to be faster than my champion!"
-msgstr "Não acredito que você seja o berlinde. Por aqui não passará a menos que me prove que estou enganado. Você terá que ser mais rápido que o meu campeão."
+msgstr "Eu não acredito que tu és o Berlinde. Eu não o deixarei passar até que prove que eu estou enganado, terá que ser mais rápido do que o meu campeão!"
 
 #: po/level_i18n.cc:5039
 msgid "Congratulations! You may pass!"

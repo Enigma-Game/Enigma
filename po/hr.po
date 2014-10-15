@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Ivica  Kolić <ikoli@yahoo.com>, 2014
-# anchorsound <anchorsound@gmail.com>, 2014
+# Nikola Parsifal <anchorsound@gmail.com>, 2014
 # Tea Horvatic <teahorvatic@yahoo.co.uk>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-04-21 14:41+0000\n"
-"Last-Translator: anchorsound <anchorsound@gmail.com>\n"
+"PO-Revision-Date: 2014-10-10 04:40+0000\n"
+"Last-Translator: Ivica  Kolić <ikoli@yahoo.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/enigma/language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +223,7 @@ msgstr "Greška: Osobni direktorij ne postoji.\n"
 #: src/main.cc:632
 #, c-format
 msgid "Error: Application Data directory does not exist.\n"
-msgstr ""
+msgstr "Greška: Direktorij podataka programa ne postoji.\n"
 
 #: src/main.cc:659 src/main.cc:708
 #, c-format

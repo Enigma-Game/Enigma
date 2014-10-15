@@ -5,12 +5,13 @@
 # Translators:
 # GunChleoc, 2014
 # GunChleoc, 2014
+# GunChleoc, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-04-10 12:30+0000\n"
+"PO-Revision-Date: 2014-07-30 21:11+0000\n"
 "Last-Translator: GunChleoc\n"
 "Language-Team: Gaelic, Scottish (http://www.transifex.com/projects/p/enigma/language/gd/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +22,7 @@ msgstr ""
 
 #: src/server.cc:184 src/server.cc:198 src/gui/LevelInspector.cc:203
 msgid "Server Error: could not load level '"
-msgstr "Mearachd an fhrithealaiche: dh'fhàillig le luchdadh an leibheil '"
+msgstr "Mearachd an fhrithealaiche: dh’fhàillig le luchdadh an leibheil '"
 
 #: src/client.cc:68
 #, c-format
@@ -58,7 +59,7 @@ msgstr "Escape:"
 
 #: src/client.cc:519
 msgid "Show game menu"
-msgstr "Seall clàr-taice a' gheama"
+msgstr "Seall clàr-taice a’ gheama"
 
 #: src/client.cc:520
 msgid "Shift+Escape:"
@@ -74,7 +75,7 @@ msgstr "F1:"
 
 #: src/client.cc:521 src/gui/LevelMenu.cc:194 src/gui/ScreenshotViewer.cc:35
 msgid "Show this help"
-msgstr "Seall a' chobhair seo"
+msgstr "Seall a’ chobhair seo"
 
 #: src/client.cc:522
 msgid "F3:"
@@ -186,7 +187,7 @@ msgstr "nas miosa na an sàr-thoradh agad."
 
 #: src/client.cc:834
 msgid "Level finished - better than par!"
-msgstr "Tha an leibheil coileanta 's rinn thu na b' fhearr na bhathar an dùil!"
+msgstr "Tha an leibheil coileanta ’s rinn thu na b’ fhearr na bhathar an dùil!"
 
 #: src/client.cc:840
 msgid "Level finished!"
@@ -242,7 +243,7 @@ msgid ""
 "\n"
 "If ok Enigma will move your data to this new location.\n"
 "Note that you have to restart Enigma once for completion of this update."
-msgstr "Ùrachadh Mac OS X o Enigma 1.00\n\nDh'atharraich an t-slighe thùsail airson dàta a' chleachdaiche o\n  %s \n\ndhan t-slighe dàta a chithear\n  %s \n\nGluaisidh Enigma an dàta agad dhan ionad ùr seo ma tha seo ceart gu leòr.\nThoir an aire gum bi ath-thòiseachadh a dhìth air Enigma nuair a bhios an t-ùrachadh seo coileanta."
+msgstr "Ùrachadh Mac OS X o Enigma 1.00\n\nDh’atharraich an t-slighe thùsail airson dàta a’ chleachdaiche o\n  %s \n\ndhan t-slighe dàta a chithear\n  %s \n\nGluaisidh Enigma an dàta agad dhan ionad ùr seo ma tha seo ceart gu leòr.\nThoir an aire gum bi ath-thòiseachadh a dhìth air Enigma nuair a bhios an t-ùrachadh seo coileanta."
 
 #: src/main.cc:787
 msgid "OK"
@@ -260,7 +261,7 @@ msgstr "Cuir an cuimhne"
 msgid ""
 "Fatal error that caused the application to quit:\n"
 "\n"
-msgstr "Mearachd mharbhtach a dh'adhbharaich gun deach an aplacaid fhàgail:\n\n"
+msgstr "Mearachd mharbhtach a dh’adhbharaich gun deach an aplacaid fhàgail:\n\n"
 
 #: src/main.cc:935 src/gui/MainMenu.cc:390
 msgid "Quit"
@@ -293,11 +294,11 @@ msgstr "Taing shònraichte do:"
 
 #: src/gui/MainMenu.cc:113
 msgid "  DANIEL HECK (project founder)"
-msgstr "  DANIEL HECK (stèidheadair a' phròiseict)"
+msgstr "  DANIEL HECK (stèidheadair a’ phròiseict)"
 
 #: src/gui/MainMenu.cc:114
 msgid "  MEINOLF SCHNEIDER (game idea, level design)"
-msgstr "  MEINOLF SCHNEIDER (beachd a' gheama, dealbhadh leibheilean)"
+msgstr "  MEINOLF SCHNEIDER (beachd a’ gheama, dealbhadh leibheilean)"
 
 #: src/gui/MainMenu.cc:116
 msgid "Please refer to the manual or the next pages for full credits."
@@ -313,11 +314,11 @@ msgstr "Fios thugainn: enigma-devel@nongnu.org"
 
 #: src/gui/MainMenu.cc:121
 msgid "Enigma is free software and may be distributed under the"
-msgstr "'S e bhathar-bog saor a tha san Enigma agus faodaidh tu a sgaoileadh"
+msgstr "’S e bhathar-bog saor a tha san Enigma agus faodaidh tu a sgaoileadh"
 
 #: src/gui/MainMenu.cc:122
 msgid "terms of the GNU General Public License, version 2."
-msgstr "fo theirmichean a' cheadachais GNU General Public License, tionndadh 2."
+msgstr "fo theirmichean a’ cheadachais GNU General Public License, tionndadh 2."
 
 #: src/gui/MainMenu.cc:124
 msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
@@ -349,7 +350,7 @@ msgstr "Slighean"
 
 #: src/gui/MainMenu.cc:245
 msgid "Locate Auto"
-msgstr "Lorg gu fèin-obrachail"
+msgstr "Lorg “Auto”"
 
 #: src/gui/MainMenu.cc:246
 msgid "Locate Score"
@@ -365,11 +366,11 @@ msgstr "Slighe nan roghainnean:"
 
 #: src/gui/MainMenu.cc:309
 msgid "User Path:"
-msgstr "Slighe a' chleachdaiche:"
+msgstr "Slighe a’ chleachdaiche:"
 
 #: src/gui/MainMenu.cc:319
 msgid "User Image Path:"
-msgstr "Slighe dealbhan a' chleachdaiche:"
+msgstr "Slighe dealbhan a’ chleachdaiche:"
 
 #: src/gui/MainMenu.cc:329
 msgid "System Path:"
@@ -405,7 +406,7 @@ msgstr "Cobhair"
 
 #: src/gui/OptionsMenu.cc:92 src/gui/OptionsMenu.cc:113
 msgid "muted"
-msgstr "air a mhùchadh"
+msgstr "’Ga mhùchadh"
 
 #: src/gui/OptionsMenu.cc:126
 msgid "Music in game"
@@ -435,20 +436,20 @@ msgstr "An-còmhnaidh"
 
 #: src/gui/OptionsMenu.cc:252
 msgid "reversed"
-msgstr "contrarra"
+msgstr "Contrarra"
 
 #: src/gui/OptionsMenu.cc:253
 msgid "mono"
-msgstr "mono"
+msgstr "Mono"
 
 #: src/gui/OptionsMenu.cc:254
 msgid "normal"
-msgstr "àbhaisteach"
+msgstr "Àbhaisteach"
 
 #: src/gui/OptionsMenu.cc:297 src/gui/LevelInspector.cc:339
 #: src/gui/LevelInspector.cc:355 src/gui/LevelInspector.cc:369
 msgid "unknown"
-msgstr "chan eil fhios"
+msgstr "Chan eil fhios"
 
 #: src/gui/OptionsMenu.cc:407
 msgid "Main"
@@ -494,7 +495,7 @@ msgstr "Àirde na fuaime: "
 
 #: src/gui/OptionsMenu.cc:492 src/gui/OptionsMenu.cc:514
 msgid "Music volume: "
-msgstr "Àirde a' chiùil: "
+msgstr "Àirde a’ chiùil: "
 
 #: src/gui/OptionsMenu.cc:493 src/gui/OptionsMenu.cc:521
 msgid "Ratings update: "
@@ -518,7 +519,7 @@ msgstr "Seata fhuaimean:"
 
 #: src/gui/OptionsMenu.cc:511
 msgid "Menu music: "
-msgstr "Ceòl a' chlàir-thaice:"
+msgstr "Ceòl a’ chlàir-thaice:"
 
 #: src/gui/OptionsMenu.cc:512
 msgid "Music ingame: "
@@ -534,15 +535,15 @@ msgstr "Luaths an teacsa:"
 
 #: src/gui/OptionsMenu.cc:530
 msgid "User path: "
-msgstr "Slighe a' chleachdaiche:"
+msgstr "Slighe a’ chleachdaiche:"
 
 #: src/gui/OptionsMenu.cc:533
 msgid "User image path: "
-msgstr "Slighe dealbhan a' chleachdaiche:"
+msgstr "Slighe dealbhan a’ chleachdaiche:"
 
 #: src/gui/LevelMenu.cc:47 src/gui/LevelPackMenu.cc:67
 msgid "Main Menu"
-msgstr "Am prìomh chlàr-taice"
+msgstr "Prìomh chlàr-taice"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Skip to main menu"
@@ -586,7 +587,7 @@ msgstr "Alt+Enter:"
 
 #: src/gui/LevelMenu.cc:202
 msgid "Switch between fullscreen and window"
-msgstr "Thoir leum eadar modh làn-sgrìn 's uinneige"
+msgstr "Thoir leum eadar modh làn-sgrìn ’s uinneige"
 
 #: src/gui/LevelMenu.cc:203 src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
@@ -625,7 +626,7 @@ msgstr "%d%% as fhearr"
 #: src/gui/LevelMenu.cc:331
 #, c-format
 msgid "%d%% par, hcp %.1f"
-msgstr ""
+msgstr "%d%% pàr, hcp %.1f"
 
 #: src/gui/LevelMenu.cc:335
 #, c-format
@@ -664,7 +665,7 @@ msgstr "Chan eil leibheil gun fhuasgladh ri làimh tuilleadh!"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Shift-click:"
-msgstr "Shift 's briogadh:"
+msgstr "Shift ’s briogadh:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Add to clipboard"
@@ -672,7 +673,7 @@ msgstr "Cuir ris an stòr-bhòrd"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Shift-delete:"
-msgstr "Shift 's delete:"
+msgstr "Shift ’s delete:"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Clear clipboard"
@@ -696,7 +697,7 @@ msgstr "Cuir ann na ths san stòr-bhòrd mar lethbhreac"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Alt-left arrow:"
-msgstr "Alt 's saighead chlì:"
+msgstr "Alt ’s saighead chlì:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
@@ -704,7 +705,7 @@ msgstr "Dèan iomlaid leis an leibheil roimhe"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Alt-right arrow:"
-msgstr "Alt 's saighead dheas:"
+msgstr "Alt ’s saighead dheas:"
 
 #: src/gui/LevelPackComposer.cc:48
 msgid "Exchange level with successor"
@@ -786,7 +787,7 @@ msgstr "Seòrsaichean leibheil:"
 
 #: src/gui/LevelPackConfig.cc:335
 msgid "Please reassign levelpack to another group for group deletion"
-msgstr "Sònraich a' phacaid leibheilean dha bhuidheann eile gus am buidheann a sguabadh às"
+msgstr "Sònraich a’ phacaid leibheilean dha bhuidheann eile gus am buidheann a sguabadh às"
 
 #: src/gui/LevelPackConfig.cc:338
 msgid "Compose Pack"
@@ -800,15 +801,15 @@ msgstr "Ùraich pacaid"
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Mearachd: chan eil tiotal falamh ceadaichte – brùth air \"Neo-dhèan\" airson fàgail gun atharrachadh"
+msgstr "Mearachd: chan eil tiotal falamh ceadaichte – brùth air “Neo-dhèan” airson fàgail gun atharrachadh"
 
 #: src/gui/LevelPackConfig.cc:432
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr "Mearachd: na chleachd ach \"a-zA-Z0-9 _-#\" airson tiotal na pacaide leibheilean"
+msgstr "Mearachd: na chleachd ach “a-zA-Z0-9 _-#” airson tiotal na pacaide leibheilean"
 
 #: src/gui/LevelPackConfig.cc:443
 msgid "Error: title already in use - choose another title"
-msgstr "Mearachd: tha an tiotal seo 'ga chleachdadh mar-thà – tagh tiotal eile"
+msgstr "Mearachd: tha an tiotal seo ’ga chleachdadh mar-thà – tagh tiotal eile"
 
 #: src/gui/LevelPackMenu.cc:46
 msgid "Left column:"
@@ -824,7 +825,7 @@ msgstr "Colbhan deas:"
 
 #: src/gui/LevelPackMenu.cc:47
 msgid "Levelpacks of selected group"
-msgstr "Pacaidean leibheilean a' bhuidhinn a thagh thu"
+msgstr "Pacaidean leibheilean a’ bhuidhinn a thagh thu"
 
 #: src/gui/LevelPackMenu.cc:48
 msgid "Select group or levelpack"
@@ -852,13 +853,13 @@ msgstr "Pacaid ùr"
 
 #: src/gui/LPGroupConfig.cc:100
 msgid "Delete Group"
-msgstr "Sguab às am buidheann"
+msgstr "Sguab às dha"
 
 #: src/gui/LPGroupConfig.cc:130
 msgid ""
 "Error: empty group name not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Mearachd: chan eil ainm buidhinn falamh ceadaichte – brùth air \"Neo-dhèan\" airson fàgail gun atharrachadh"
+msgstr "Mearachd: chan eil ainm buidhinn falamh ceadaichte – brùth air “Neo-dhèan” airson fàgail gun atharrachadh"
 
 #: src/gui/LPGroupConfig.cc:141
 msgid "Error: group name is a duplicate of an existing group"
@@ -866,7 +867,7 @@ msgstr "Mearachd: tha an t-ainm seo air buidheann eile mar-thà"
 
 #: src/gui/LPGroupConfig.cc:146
 msgid "Error: \"Every group\" is a reserved group name"
-msgstr "Mearachd; 's e ainm glèidhte a tha sa \"Every group\""
+msgstr "Mearachd; ’s e ainm glèidhte a tha sa “Every group”"
 
 #: src/gui/LPGroupConfig.cc:151
 msgid "Error: group name must not be enclosed in square brackets"
@@ -903,7 +904,7 @@ msgstr "Lorg eu-domhain:"
 #. TRANSLATORS: the translation can have double size of the english text
 #: src/gui/SearchMenu.cc:43
 msgid "case independent search in title, author, filename"
-msgstr "Lorg ann an tiotal, ùghdar 's ainm fhaidhle gun aire air litrichean mòra/beaga"
+msgstr "Lorg ann an tiotal, ùghdar ’s ainm fhaidhle gun aire air litrichean mòra/beaga"
 
 #: src/gui/LevelInspector.cc:178
 msgid "Screenshot"
@@ -919,15 +920,15 @@ msgstr "Ùghdar:"
 
 #: src/gui/LevelInspector.cc:234
 msgid "Contact: "
-msgstr "Fios thugainn:"
+msgstr "Fios thuige:"
 
 #: src/gui/LevelInspector.cc:235
 msgid "Homepage: "
-msgstr "Duilleag-dhachaigh:"
+msgstr "Duilleag-lìn:"
 
 #: src/gui/LevelInspector.cc:256
 msgid "Public Ratings"
-msgstr "Rangachadh poblach"
+msgstr "Rangachadh"
 
 #: src/gui/LevelInspector.cc:258
 msgid "Intelligence: "
@@ -977,7 +978,7 @@ msgstr "% air fhuasgladh: "
 
 #: src/gui/LevelInspector.cc:293
 msgid "Solved #: "
-msgstr "Uiread air fhuasgladh: "
+msgstr "Fuasgladh: "
 
 #: src/gui/LevelInspector.cc:315
 msgid "Version"
@@ -1061,7 +1062,7 @@ msgstr "Tabhartas: "
 
 #: src/gui/LevelInspector.cc:476
 msgid "Level Path: "
-msgstr "Slighe an leibheil: "
+msgstr "Slighe: "
 
 #: src/gui/LevelInspector.cc:498
 msgid "Id: "
@@ -1077,7 +1078,7 @@ msgstr "Co-chòrdalachd: "
 
 #: src/gui/LevelInspector.cc:513
 msgid "Annotation: "
-msgstr "Nòtachadh: "
+msgstr "Nòta: "
 
 #: src/gui/LevelInspector.cc:518
 msgid "Rating: "
@@ -1093,7 +1094,7 @@ msgstr "Lean air an leibhheil"
 
 #: src/gui/GameMenu.cc:48
 msgid "Restart Level"
-msgstr "Tòisich an leibheil às ùr"
+msgstr "Tòisich air às ùr"
 
 #: src/gui/GameMenu.cc:50
 msgid "Level Info"
@@ -1111,7 +1112,7 @@ msgstr "Mearachd le clàradh fèin-obrachail aig faidhle an leibheil:"
 msgid ""
 "Note: the level will not show up in the \"Auto Folder\" levelpack!\n"
 "\n"
-msgstr "An aire: cha nochd an leibheil seo sa phacaid leibheilean \"Auto Folder\"!\n\n"
+msgstr "An aire: cha nochd an leibheil seo sa phacaid leibheilean “Auto Folder”!\n\n"
 
 #: src/lev/Proxy.cc:208 src/lev/PersistentIndex.cc:477 src/d_models.cc:236
 #: src/d_models.cc:249 src/PreferenceManager.cc:181 src/StateManager.cc:178
@@ -1136,34 +1137,34 @@ msgstr "Mearachd le clàradh inneacs pacaide leibheil: \n"
 msgid ""
 "Note: the levelpack will not show up!\n"
 "\n"
-msgstr "An aire: cha nochd a' phacaid leibheilean!\n\n"
+msgstr "An aire: cha nochd a’ phacaid leibheilean!\n\n"
 
 #: src/lua.cc:3896
 #, c-format
 msgid "Cannot find '%s'.\n"
-msgstr "Cha ghabh \"%s\" a lorg.\n"
+msgstr "Cha ghabh “%s” a lorg.\n"
 
 #: src/lua.cc:3897 src/lua.cc:3904
 #, c-format
 msgid "Your installation may be incomplete or invalid.\n"
-msgstr "Dh'fhaoidte gu bheil an stàladh agad neo-choileanta no mì-dhligheach.\n"
+msgstr "Dh’fhaoidte gu bheil an stàladh agad neo-choileanta no mì-dhligheach.\n"
 
 #: src/lua.cc:3903
 #, c-format
 msgid "There was an error loading '%s'.\n"
-msgstr "Mearachd le luchdadh \"%s\".\n"
+msgstr "Mearachd le luchdadh “%s”.\n"
 
 #: src/lua.cc:3905
 #, c-format
 msgid "Error: '%s'\n"
-msgstr "Mearachd: \"%s\"\n"
+msgstr "Mearachd: “%s”\n"
 
 #: src/d_models.cc:235 src/d_models.cc:248
 msgid ""
 "\n"
 "\n"
 "This error may cause the application to behave strange!"
-msgstr "\n\nDh'fhaoidte gum bi giùlan neònach air a' gheama ri linn na mearachd seo!"
+msgstr "\n\nDh’fhaoidte gum bi giùlan neònach air a’ gheama ri linn na mearachd seo!"
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
@@ -1187,7 +1188,7 @@ msgstr "An aon rum le sgàthanan ùra ..."
 
 #: po/level_i18n.cc:213
 msgid "An English text based riddle"
-msgstr "Seo tòimhseachan stèidhichte air a' Bheurla"
+msgstr "Seo tòimhseachan stèidhichte air a’ Bheurla"
 
 #: po/level_i18n.cc:272 po/level_i18n.cc:558 po/level_i18n.cc:914
 #: po/level_i18n.cc:1555 po/level_i18n.cc:2251 po/level_i18n.cc:2520
@@ -1224,7 +1225,7 @@ msgstr "Cha bhruinneas am fear a bhios eòlach (Lao Tse)"
 msgid ""
 "Sections which have the same color always turn at the same time and in the "
 "same way."
-msgstr "Cuairtichidh earrannan air a bheil an aon dath air ann aon dòigh 's aig an aon àm an-còmhnaidh."
+msgstr "Cuairtichidh earrannan air a bheil an aon dath air ann aon dòigh ’s aig an aon àm an-còmhnaidh."
 
 #: po/level_i18n.cc:373
 msgid ""
@@ -1234,7 +1235,7 @@ msgstr "Còd na h-obrach-glèidhidh: metailt-clach-clach-clach-dearg-buidhe-buid
 
 #: po/level_i18n.cc:439
 msgid "The witch of this switch waits for your wish."
-msgstr "Tha buidseach na suidse seo a' fuireach ri do mhiann."
+msgstr "Tha buidseach na suidse seo a’ fuireach ri do mhiann."
 
 #: po/level_i18n.cc:441
 msgid "The witch of this switch resets the awale game."
@@ -1252,11 +1253,11 @@ msgid ""
 "2 or 3 walnuts in a row, they are a warm award for the warrior, as are the "
 "walnuts in the rows which are in the way to this row, if they are 2 or 3 per"
 " row."
-msgstr "Rabhadh: Saoil na tha a' feitheamh air a' ghaisgeach aig deireadh gach cuairte? Ma bhios 2 no 3 gall-chnòthan san aon ràgh, bidh iad 'nan duais bhlàth a' ghaisgich mar a bhios na gall-chnòthan air an rathad san ràgh ud ma tha 2 no 3 anns gach ràgh."
+msgstr "Rabhadh: Saoil na tha a’ feitheamh air a’ ghaisgeach aig deireadh gach cuairte? Ma bhios 2 no 3 gall-chnòthan san aon ràgh, bidh iad ’nan duais bhlàth a’ ghaisgich mar a bhios na gall-chnòthan air an rathad san ràgh ud ma tha 2 no 3 anns gach ràgh."
 
 #: po/level_i18n.cc:447
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
-msgstr "Rabhadh: Ma tha ballachan gaisgich falamh, gheibh an sàr-ghaisgeach seo a' bhuannachd."
+msgstr "Rabhadh: Ma tha ballachan gaisgich falamh, gheibh an sàr-ghaisgeach seo a’ bhuannachd."
 
 #: po/level_i18n.cc:449
 msgid ""
@@ -1302,7 +1303,7 @@ msgstr "Tòisichidh cuairt air aon dhe na ràghan as fhaide clì ma ghabhas seo 
 msgid ""
 "At the end of the game (if one player cannot move anymore), the player who "
 "has the most stones wins."
-msgstr "Buannaichidh an cluicheadair leis a' mhòrchuid a chlachan aig deireadh a' gheama ('s e seo nuair a bhios cluicheadair ann aig nach eil comas gluasaid tuilleadh)."
+msgstr "Buannaichidh an cluicheadair leis a’ mhòrchuid a chlachan aig deireadh a’ gheama (’s e seo nuair a bhios cluicheadair ann aig nach eil comas gluasaid tuilleadh)."
 
 #: po/level_i18n.cc:467
 msgid "A yellow stone stands for 10 blue stones (then for 2 brown stones)."
@@ -1316,7 +1317,7 @@ msgstr "Riochdaichidh clach dhonn 5 clachan gorma."
 msgid ""
 "This katro game comes from Madagascar; in Easy mode there is an african "
 "Awale."
-msgstr "'S e geama Madagasgarach a tha sa katro; gheibh thu oware Afraganach sa mhodh fhurasta."
+msgstr "’S e geama Madagasgarach a tha sa katro; gheibh thu oware Afraganach sa mhodh fhurasta."
 
 #: po/level_i18n.cc:473
 msgid "Only reset or Shift-F3 can make things evolve ..."
@@ -1336,7 +1337,7 @@ msgstr "Fàilte gu Enigma X"
 
 #: po/level_i18n.cc:584
 msgid "Steering The Flood"
-msgstr "S' stiùireadh na tuile"
+msgstr "A’ stiùireadh na tuile"
 
 #: po/level_i18n.cc:597
 msgid "Braking Distance"
@@ -1344,7 +1345,7 @@ msgstr "Astar brèige"
 
 #: po/level_i18n.cc:598
 msgid "Make the white marble wait on the cross for 3 seconds."
-msgstr "Thoir air a' mharbhal gheal fuireach air a' chrois fad 3 diogan."
+msgstr "Thoir air a’ mharbhal gheal fuireach air a’ chrois fad 3 diogan."
 
 #: po/level_i18n.cc:645
 msgid "Interlude II"
@@ -1360,7 +1361,7 @@ msgstr "Cat-fiadhaich Enigma"
 
 #: po/level_i18n.cc:662
 msgid "No clear view? How about visiting an optician?"
-msgstr "'S gann gun lèir thu e? Tadhail air speuclairiche!"
+msgstr "’S gann gun lèir thu e? Tadhail air speuclairiche!"
 
 #: po/level_i18n.cc:718
 msgid "Attention! One way ticket to the island."
@@ -1378,7 +1379,7 @@ msgid ""
 "Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
 "discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
 " must find who killed your uncle, where and how."
-msgstr "Chaidh do bhràthair-athar an Ridire Dubh-bhàla a mharbhadh san taigh-mhaineir aige, ann an aon de na 6 seòmraichean a th' aige an-dè, le aon dhe na h-airm a tha sa t-seilear. Seo na daoine a tha fo amharas: a' Bhean-phòste Peucag dhiùid, an Còirneal Sgeallan dìomhair, an t-Ollamh Plumais smaoin-sheachranach an t-urramach Uaine sonn, a' Bhanaltram Geal-bhàla a lorg an corp agus Maighdean Sgàrlaid a' bhòidhchead cunnartaich ... feumaidh tu faighinn a-mach cò a mharbh do bhràthair-athar, càite agus carson."
+msgstr "Chaidh do bhràthair-athar an Ridire Dubh-bhàla a mharbhadh san taigh-mhaineir aige, ann an aon de na 6 seòmraichean a th’ aige an-dè, le aon dhe na h-airm a tha sa t-seilear. Seo na daoine a tha fo amharas: a’ Bhean-phòste Peucag dhiùid, an Còirneal Sgeallan dìomhair, an t-Ollamh Plumais smaoin-sheachranach an t-urramach Uaine sonn, a’ Bhanaltram Geal-bhàla a lorg an corp agus Maighdean Sgàrlaid a’ bhòidhchead cunnartaich ... feumaidh tu faighinn a-mach cò a mharbh do bhràthair-athar, càite agus carson."
 
 #: po/level_i18n.cc:766
 msgid "This room is not the crime scene."
@@ -1386,7 +1387,7 @@ msgstr "Cha deach a mharbhadh san t-seòmar seo."
 
 #: po/level_i18n.cc:768
 msgid "The murderer is not Mrs Peacock."
-msgstr "Chan e a' Bhean-phòsta Peucag a tha sa mhurtair."
+msgstr "Chan e a’ Bhean-phòsta Peucag a tha sa mhurtair."
 
 #: po/level_i18n.cc:770
 msgid "The murderer is not Colonel Mustard."
@@ -1402,19 +1403,19 @@ msgstr "Chan e an t-Urramach Uaine a tha sa mhurtair."
 
 #: po/level_i18n.cc:776
 msgid "The murderer is not Mrs Whiteball."
-msgstr "Chan e a' Bhean-phòsta Geal-bhàla a tha sa mhurtair."
+msgstr "Chan e a’ Bhean-phòsta Geal-bhàla a tha sa mhurtair."
 
 #: po/level_i18n.cc:778
 msgid "The murderer is not Miss Scarlett."
-msgstr "Chan e a' Mhaighdean Sgàrlaid a tha sa mhurtair."
+msgstr "Chan e a’ Mhaighdean Sgàrlaid a tha sa mhurtair."
 
 #: po/level_i18n.cc:780
 msgid "Sir Blackball has not been killed with the bomb."
-msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a' bhoma."
+msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a’ bhoma."
 
 #: po/level_i18n.cc:782
 msgid "Sir Blackball has not been killed with the dagger."
-msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a' bhiodag."
+msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a’ bhiodag."
 
 #: po/level_i18n.cc:784
 msgid "Sir Blackball has not been killed with poison."
@@ -1426,7 +1427,7 @@ msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis an toinnear."
 
 #: po/level_i18n.cc:788
 msgid "Sir Blackball has not been killed with the candlestick."
-msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a' choinnlear."
+msgstr "Cha deach an Ridire Dubh-bàla a mharbhadh leis a’ choinnlear."
 
 #: po/level_i18n.cc:790
 msgid "Sir Blackball has not been killed with the hammer."
@@ -1438,7 +1439,7 @@ msgstr "Mèirle fiodha"
 
 #: po/level_i18n.cc:835
 msgid "Paint Ahead!"
-msgstr ""
+msgstr "Peant ri thighinn!"
 
 #: po/level_i18n.cc:839
 msgid "Fight appearing lava."
@@ -1456,7 +1457,7 @@ msgstr "Tha cus bhlocaichean fiodha ann!  Feuch ri slighe eile ..."
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
-msgstr "Fàilte, fhir-dhàna!    Tha an rathad romhad fada 's cunnartach, mar sin bi faiceallach!"
+msgstr "Fàilte, fhir-dhàna!    Tha an rathad romhad fada ’s cunnartach, mar sin bi faiceallach!"
 
 #: po/level_i18n.cc:849
 msgid "Well done, adventurer!    Good luck!"
@@ -1464,7 +1465,7 @@ msgstr "Nach math a rinn thu, fhir-dhàna!    Gura math a thèid leat!"
 
 #: po/level_i18n.cc:850
 msgid "Congratulations, adventurer!  You did it!"
-msgstr "Meal do naidheachd, fhìr-dhàna!  Rinn thu a' chùis air!"
+msgstr "Meal do naidheachd, fhìr-dhàna!  Rinn thu a’ chùis air!"
 
 #: po/level_i18n.cc:866
 msgid ""
@@ -1488,7 +1489,7 @@ msgstr "Nach cuir thu earbsa annam? Tha gach clach a chì thu san leibheil seo c
 
 #: po/level_i18n.cc:878
 msgid "The Life Game"
-msgstr "Geama a' bheatha"
+msgstr "Geama a’ bheatha"
 
 #: po/level_i18n.cc:903
 msgid "! -  DANGER  -  NO TRESPASSING  -  DANGER  - !"
@@ -1512,7 +1513,7 @@ msgid ""
 " ...    Why is it so alone?    --    This hint today ...    Why is it on "
 "this side ...    The reaper passing by ...    Could know the reason why!"
 "     (orig. by Herman's Hermits)   "
-msgstr "Gun ghliocas an-diugh ...    Na leacan a' caochladh ...    Na mìneachaidhean 'nan aonar ...    Carson 'nan aonar?    --    An gliocas seo an-diugh ...    Carson a tha e air an taobh seo ...    Chaidh am buanaiche seachad gu faochnach ...    A bheil fios aigesan, saoil?"
+msgstr "Gun ghliocas an-diugh ...    Na leacan a’ caochladh ...    Na mìneachaidhean ’nan aonar ...    Carson ’nan aonar?    --    An gliocas seo an-diugh ...    Carson a tha e air an taobh seo ...    Chaidh am buanaiche seachad gu faochnach ...    A bheil fios aigesan, saoil?"
 
 #: po/level_i18n.cc:934
 msgid "Danger ... laser beams!"
@@ -1534,15 +1535,15 @@ msgstr "Thuirt Alfred Nobel: Seo cruth-tìre meòrachaidh gun teagamh sam bith!"
 msgid ""
 "As long as there is motion around the oxyd-stones, you won't reach them.   "
 "So: Don't lose control of the level! It's possible."
-msgstr "Cha ruig thu na clachan-ogsaid cho fad 's a bhios gluasad timcheall orra.   Mar sin: Na caill an smachd air an leibheil seo! Gabhaidh e dèanamh."
+msgstr "Cha ruig thu na clachan-ogsaid cho fad ’s a bhios gluasad timcheall orra.   Mar sin: Na caill an smachd air an leibheil seo! Gabhaidh e dèanamh."
 
 #: po/level_i18n.cc:1054
 msgid "It's a race!"
-msgstr "'S e rèis a th' ann!"
+msgstr "’S e rèis a th’ ann!"
 
 #: po/level_i18n.cc:1076
 msgid "What a pity, and there's so much paint left ..."
-msgstr "'S truagh sin 's tòrr peanta air fhàgail ..."
+msgstr "’S truagh sin ’s tòrr peanta air fhàgail ..."
 
 #: po/level_i18n.cc:1083
 msgid "Oops ... you're stuck ...     Try again ..."
@@ -1555,120 +1556,120 @@ msgstr "Meal do naidheachd, tha thu air an taobh seo a ruigsinn ...     ach an r
 
 #: po/level_i18n.cc:1085
 msgid "Well done!"
-msgstr "'S math a rinn thu!"
+msgstr "’S math a rinn thu!"
 
 #: po/level_i18n.cc:1108
 msgid ""
 "There are 56 fully connected puzzle piece arrangements, but just 34 of them "
 "are reachable from this first distribution."
-msgstr ""
+msgstr "Tha 56 suidheachadh nam mìrean-measgaichte ann ach cha ghabh ach 34 dhiubh ruigsinn on chiad sgaoileadh."
 
 #: po/level_i18n.cc:1110
 msgid ""
 "This second distribution can just be converted to any of the other 28 "
 "arrangements."
-msgstr ""
+msgstr "Gabhaidh gin dhen 28 suidheachadh eile a dhèanamh dhen dàrna sgaoileadh."
 
 #: po/level_i18n.cc:1121
 msgid "Interlude I"
-msgstr ""
+msgstr "Eadar-chluich I"
 
 #: po/level_i18n.cc:1137
 msgid "Search it."
-msgstr ""
+msgstr "Lorg e."
 
 #: po/level_i18n.cc:1148
 msgid ""
 "I your dear friend am in myself undone, by reason of a Burden that lieth "
 "hard upon me."
-msgstr ""
+msgstr "Chaidh mo mhilleadh annam fhìn, a charaid, air adhbhar eallaich ’na laighe gu trom orm."
 
 #: po/level_i18n.cc:1150
 msgid "Do you see yonder Wicket Gate?"
-msgstr ""
+msgstr "Am faic thu an cabharnach ud thall?"
 
 #: po/level_i18n.cc:1152
 msgid ""
 "They drew nigh to a very miry Slough. The name of the Slough was Despond."
-msgstr ""
+msgstr "Theann iad air boglach glè làthaich. B’ e “Traoghadh dòchais” an t-ainm a bh’ air a’ bhoglach."
 
 #: po/level_i18n.cc:1154
 msgid "Knock, and it shall be opened unto you."
-msgstr ""
+msgstr "Buailibh an doras agus fosgailear dhuibh."
 
 #: po/level_i18n.cc:1156
 msgid ""
 "His Burden loosed from off his shoulders, and fell from his back, and began "
 "to tumble, and so continued to do, till it came to the mouth of the "
 "Sepulchre, where it fell in, and I saw it no more."
-msgstr ""
+msgstr "Leigeadh eallach far a ghuailnean ’s thuit e far a dhruim ’s chaidh e car mu char gus an ràinig e beul na h-uaighe far an do thuit e a-steach ’s fhan fhaca mi tuilleadh e."
 
 #: po/level_i18n.cc:1158
 msgid "They came to the foot of the hill Difficulty."
-msgstr ""
+msgstr "Tachair iad air bonn cnoc an duilgheadais."
 
 #: po/level_i18n.cc:1160
 msgid ""
 "There was a very stately palace before him, the name of which was Beautiful."
-msgstr ""
+msgstr "Tha lùchairt glè eireachdail air a’ bheulaibh agus Bòidheach an t-ainm a bh’ oirre."
 
 #: po/level_i18n.cc:1162
 msgid ""
 "He had gone but a little way, before he espied a foul Fiend coming over the "
 "field to meet him."
-msgstr ""
+msgstr "Cha deach e fada mus an do lèir e deamhan olc a’ tighinn ’na choinneimh thar an achaidh."
 
 #: po/level_i18n.cc:1164
 msgid ""
 "At the end of this Valley was another, called, The Valley of the Shadow Of "
 "Death."
-msgstr ""
+msgstr "Bha gleann eile taobh thall an fhir seo ’s gleann dorcha sgàil a’ bhàis a bh’ air."
 
 #: po/level_i18n.cc:1166
 msgid "He saw Faithful before him on his Journey."
-msgstr ""
+msgstr "Chunnaic e Creidmheach roimhe air a thriall."
 
 #: po/level_i18n.cc:1168
 msgid ""
 "As they went on, Faithful, as he chanced to look to one side, saw a man "
 "whose name was Talkative."
-msgstr ""
+msgstr "Nuair a lean iad orra, thachair gun do sheall Creidmheach ri thaobh ’s chunnaic e duine air a bha Briathrach."
 
 #: po/level_i18n.cc:1170
 msgid ""
 "They presently saw a Town before them, and the name of that Town is Vanity."
-msgstr ""
+msgstr "Cha b’ fhada gus am faca iad baile romhpa agus ’s e Dìomhanas an t-ainm a th’ air."
 
 #: po/level_i18n.cc:1172
 msgid ""
 "Christian went not forth alone; for there was one whose name was Hopeful who"
 " joined himself unto him."
-msgstr ""
+msgstr "Cha deach Crìostaidh a shiubhal ’na aonar on a bha fear ann agus Dòchasach an t-ainm a bh’ air a chaidh còmhla ris."
 
 #: po/level_i18n.cc:1174
 msgid ""
 "There was on the Left Hand of the road a Meadow, and a Stile to go over into"
 " it, and that meadow is called By-Path-Meadow."
-msgstr ""
+msgstr "Bha dail taobh clì an rathaid agus staidhle gus dol thairis oirre agus ’s e “Dail an leth-rathaid” a th’ air an dail."
 
 #: po/level_i18n.cc:1176
 msgid ""
 "Now there was, not far from the place where they lay, a castle, called "
 "Doubting-Castle, the owner of which was Giant Despair."
-msgstr ""
+msgstr "Nise, cha b’ fhada on àite far an robh iad ’nan laighe, bha caisteal ann air a bha “Caisteal an teagaimh” agus ’s ann le Dubh-ghèill a bha e."
 
 #: po/level_i18n.cc:1178
 msgid "They went then till they came to the Delectable Mountains."
-msgstr ""
+msgstr "Lean iad orra gus an do ràinig iad na beanntan taitneach."
 
 #: po/level_i18n.cc:1180
 msgid "Beware of the Flatterer."
-msgstr "Bi air d' fhaicill ron t-soladaiche."
+msgstr "Bi air d’ fhaicill ron t-Soladaiche."
 
 #: po/level_i18n.cc:1182
 msgid ""
 "Follow me, said the Flatterer, it is to the Coelestial City that I am going."
-msgstr "Lean orm, thuirt an soladaiche, 's ann dhan Bhaile Speurach a thèid mi."
+msgstr "Lean orm, thuirt an Soladaiche, ’s ann dhan bhaile speurach a thèid mi."
 
 #: po/level_i18n.cc:1184
 msgid ""
@@ -1686,146 +1687,146 @@ msgstr "Chaidh na taistealaich thar na h-ùire seunta agus ràinig iad Dùthaich
 msgid ""
 "There was then in that place one Vain-Hope, a ferryman, that with his boat "
 "helped him over."
-msgstr ""
+msgstr "Agus an uairsin, bha Baoth-dhòchas san àite ud, seo portair a chuidich dha tighinn thairis air a bhàta."
 
 #: po/level_i18n.cc:1190
 msgid ""
 "At the sight therefore of this River, the Pilgrims were much astounded, but "
 "the men that went with them, said, You must go through, or you cannot come "
 "at the Gate."
-msgstr ""
+msgstr "Agus nuair a chunnaic iad an abhainn seo an uairsin, bha an t-iongnadh mòr air na taistealaich ach thuirt na daoine a chaidh còmhla riutha, feumaidh sibh dol troimhe no nach urrainn dhuibh tighinn don gheata."
 
 #: po/level_i18n.cc:1192
 msgid "I looked in after them; and behold the City shone like the Sun."
-msgstr ""
+msgstr "Seall mi orra; agus feuch, dhealraich am baile mar a’ ghrian."
 
 #: po/level_i18n.cc:1194
 msgid ""
 "They also thought they heard there a rumbling noise, as of fire, and a Cry "
 "of some tormented, and that they smelt the scent of Brimstone."
-msgstr ""
+msgstr "Agus shaoil iad gun do chuala iad torman an-siud mar o theine agus glaodhadh o fheadhainn phiantaichte agus gun do dh’fhairich iad fàileadh pronnaisg."
 
 #: po/level_i18n.cc:1228
 msgid "Choices, choices ..."
-msgstr ""
+msgstr "Roghadh is taghadh ..."
 
 #: po/level_i18n.cc:1229
 msgid ""
 "Before trying this level in hard mode, it's a good idea to switch to easy "
 "mode to practice on the individual puzzles."
-msgstr ""
+msgstr "B’ fheairrde thu gach tòimhseachan a chluich sa mhodh fhurasta mus till thu dhan mhodh dhoirbh airson an leibheil seo."
 
 #: po/level_i18n.cc:1230
 msgid "These dispensers are all empty ..."
-msgstr ""
+msgstr "Tha na h-innealan uile seo falamh ..."
 
 #: po/level_i18n.cc:1231
 msgid "The glass next to this document can be pushed to let you back out."
-msgstr ""
+msgstr "Gabhaidh a’ ghlainne ri taobh na sgrìobhainn seo a bhrùthadh ach am faigh thu a-mach."
 
 #: po/level_i18n.cc:1238
 msgid "Distribution Meditation"
-msgstr ""
+msgstr "Meòrachadh air sgaoileadh"
 
 #: po/level_i18n.cc:1245
 msgid "Use ~all~ Stones"
-msgstr ""
+msgstr "Cleachd ~na h-uile~ clach"
 
 #: po/level_i18n.cc:1251
 msgid "more is not less"
-msgstr ""
+msgstr "chan eil na tha nas motha nas lugha"
 
 #: po/level_i18n.cc:1254
 msgid "Sorry, but in difficult mode you need more ... Restart."
-msgstr ""
+msgstr "Duilich ach sa mhodh dhoirbh, bi feum agad air barrachd ... ath-thòiseachaidh."
 
 #: po/level_i18n.cc:1280
 msgid "Poe's Nightmare"
-msgstr ""
+msgstr "Trom-laighe Phoe"
 
 #: po/level_i18n.cc:1282
 msgid ""
 "You find yourself in a dark, damp chamber. There's a light switch to the "
 "northeast and a passage to the west."
-msgstr ""
+msgstr "Tha thu ann an seòmar dorch tais. Tha suidse solais gu ear-thuath agus slighe gu siar ort."
 
 #: po/level_i18n.cc:1284
 msgid ""
 "The corridor leads northwards and opens into a dim lit room packed with "
 "crates. You have an uneasy feeling about what lies ahead of you."
-msgstr ""
+msgstr "Tha an t-slighe a’ dol gu tuath ’s a crìochnachadh ann an seòmar doilleir làn chreataichean. Tha thu mì-shocair mu na tha romhad."
 
 #: po/level_i18n.cc:1286
 msgid ""
 "Huh, that was close. The way behind you is blocked. Maybe you should look "
 "for a place to leave a flag?!"
-msgstr ""
+msgstr "Abar thusa gun robh seo dlùth ort. Tha an t-slighe air do chùlaibh bacte. ’S dòcha gun lorg thu àite far am fàg thu bratach?"
 
 #: po/level_i18n.cc:1288
 msgid ""
 "To the east the passage is blocked by laser beams. To the west a tunnel "
 "leads to a large pendulum. At the wall you see a hole where your flag fits "
 "in. What now?"
-msgstr ""
+msgstr "Tha am t-slighe bacte le gathan leusair gu ear. Tha tunail gu siar a’ dol an comhair siùdain mhòir. Chì thu toll sa bhalla a fhreagras dhan bhratach agad. Dè a-nis?"
 
 #: po/level_i18n.cc:1290
 msgid ""
 "Shrinking rooms, a pendulum with razor sharp blades, laser beams ... what "
 "may lurk behind the next corner?"
-msgstr ""
+msgstr "Seòmraichean a’ crùbadh, siùdan le lannan geura, gathan leusair ... dè tha a’ feitheamh ort taobh thall an oisein?"
 
 #: po/level_i18n.cc:1292
 msgid ""
 "The room to the east does not look very stable, but does the passage to the "
 "south lead anywhere?"
-msgstr ""
+msgstr "Chan eil coltas glè sheasmhach air an t-seòmar gu ear ach an tèid an t-slighe gu deas àite sam bith?"
 
 #: po/level_i18n.cc:1294
 msgid "Hmmm, these keys might prove useful."
-msgstr ""
+msgstr "Saoil am bi na h-iuchraichean seo feumail?"
 
 #: po/level_i18n.cc:1296
 msgid ""
 "Passing by the entrance you get a glimpse of the room to the south ... and "
 "suddenly feel very uneasy."
-msgstr ""
+msgstr "fhuair thu buille sùla dhen t-seòmar gu deas nuair a chaidh thu seachad air an doras ... agus tha thu mì-shocair."
 
 #: po/level_i18n.cc:1298
 msgid "Uh-oh, the steps leading down are small and extremely slippery."
-msgstr ""
+msgstr "Obh obh, tha an staidhre sìos beag is sleamhainn."
 
 #: po/level_i18n.cc:1300
 msgid ""
 "The passage opens into a room with a huge iron door to the east. The air "
 "seems to smell much fresher here."
-msgstr ""
+msgstr "Tha an t-slighe a’ dol gu seòmar sa bheil doras iarainn mòr gu ear. Tha an t-adhar a’ faireachdainn mòran nas ùire an-seo."
 
 #: po/level_i18n.cc:1302
 msgid "Congratulations! You've survived Poe's Nightmare."
-msgstr ""
+msgstr "Meal do naidheachd! Rinn thu a’ chùis air trom-laighe Phoe."
 
 #: po/level_i18n.cc:1322
 msgid "With respects to Dante Alighieri"
-msgstr ""
+msgstr "Le urram do Dhante Alighieri"
 
 #: po/level_i18n.cc:1324
 msgid ""
 "Switch on, if you like to play the regular difficulty with many jokers, or "
 "leave it switched off, if you like to face easier challenges with less "
 "jokers."
-msgstr ""
+msgstr "Cuir seo air ma tha thu airson cluich le duilgheadas àbhaisteach ’s mòran jokers no fàg dheth e ma tha thu airson dùbhlain nas fhasa le beagan jokers."
 
 #: po/level_i18n.cc:1327
 msgid ""
 "BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
 "ABANDON ALL HOPE, YOU WHO ENTER HERE."
-msgstr ""
+msgstr "CHA ROBH ROMHAM ACH NITHEAN SÌORRAIDH, / AGUS FULAINGIDH MI GU SÌORRAIDH. / TRÈIGIBH GACH DÒCHAIS, SIBHSE A THÈID A-STEACH AN-SEO."
 
 #: po/level_i18n.cc:1330
 msgid ""
 "... stilled the shaggy jowls / of the pilot of the livid marsh, / about "
 "whose eyes burned wheels of flame."
-msgstr ""
+msgstr "... chuir seo tost air giallan peallach / màirnealach na boglaiche guirme, / ’s cuibhlean lasairean a’ losgadh mu shùilean."
 
 #: po/level_i18n.cc:1332
 msgid ""
@@ -1835,7 +1836,7 @@ msgid ""
 "It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
 "symbol of life on that altar to keep the guards at bay, and then perhaps I "
 "will consider taking you across."
-msgstr ""
+msgstr "’S mise Charon, portair na h-ifrinne.  Bheir mi tro bhoglaichean cunnartach Acheron sibh, ach bidh e daor oirbh.              Fuirichibh oirbh!  Tha coltas beò oirbh fhathast ...                                                   Chan fhaod seo bhith – chan fhaod ach na mairbh tighinn a-steach don àite seo.  Bithibh luath – cuiribh ìobairt de shamhla a’ bheatha air an altair ud gus na geàird a chumail air falbh agus ’s dòcha gun toir mi thall sibh."
 
 #: po/level_i18n.cc:1334
 msgid ""
@@ -1845,55 +1846,55 @@ msgid ""
 "Hmm, well normally I wouldn't do this, but that fellow over there has me "
 "kind of worried -- I think he's plotting something.  If he has a coin, maybe"
 " you could get it from him somehow."
-msgstr ""
+msgstr "Ceart gu leòr.  ’S dòcha gun saoil na deamhain agus spioradan a nì faire air an àite seo gu bheil sibh marbh dha-rìribh a-nis, ach b’ fheairrde sibh a bhith faiceallach ...                                             agus tha sibh feumach air bonn fhathast.  E, uill, cha dèanainn seo mar as àbhaist, ach tha amharas orm ron fhear an-siud thall – ar leam gu bheil cuilbheart fainear dha.  Ma tha bonn aige, ’s dòcha gun rachadh leibh a faighinn uaithe ann an dòigh air choireigin."
 
 #: po/level_i18n.cc:1336
 msgid ""
 "No!  I will not ferry you across unless you make a proper sacrifice, ridding"
 " yourself of anything that could be interpreted as a sign of life.  Now "
 "begone!"
-msgstr ""
+msgstr "Cha toir mi thairis sibh mus toir sibh ìobairt cheart, a’ faighinn cuidhteas de dad sam bith le coltas samhla a’ bheatha air.  Thalla!"
 
 #: po/level_i18n.cc:1339
 msgid ""
 "... for then I knew that beings of great worth / were here suspended in this"
 " Limbo."
-msgstr ""
+msgstr "... on a thuig mi gun robh bithean glè luachmhor / ’nan dàil sa Limbo seo."
 
 #: po/level_i18n.cc:1341
 msgid ""
 "You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
 "back now, or forever face the consequences!"
-msgstr ""
+msgstr "Chan fhaod sibh a bhith an-seo!  Cha cheadaich mise, Minos, britheamh nam marbh e.  Tillibh an-dràsta no creinidh sibh air gu sìorraidh!"
 
 #: po/level_i18n.cc:1343
 msgid "In that case, then begone!"
-msgstr ""
+msgstr "Mas e mar seo a tha a’ chùis, bithibh air ur falbh!"
 
 #: po/level_i18n.cc:1346
 msgid ""
 "There stands Minos, snarling, terrible. / He examines each offender at the "
 "entrance, / judges and dispatches as he encoils himself."
-msgstr ""
+msgstr "Siud Minos dreamach oillteil. / Sgrùdaidh e gach ciontach aig an doras a-steach, / breithnichidh e ’s cuiridh air falbh iad e fad ’s a lùbas e e fhèin."
 
 #: po/level_i18n.cc:1349
 msgid ""
 "The hellish squall, which never rests, / sweeps spirits in its headlong rush"
 " ..."
-msgstr ""
+msgstr "An t-sian ifrinneach nach tàmh, / siabaidh i spioradan le dian-bhrùchd ..."
 
 #: po/level_i18n.cc:1352
 msgid ""
 "I am in the third circle, of eternal, / hateful rain, cold and leaden, / "
 "changeless in its monotony."
-msgstr ""
+msgstr "Tha mi san treas cearcall an uisge / fhuathmhoir fhuaith thruim shìorraidh, / gun atharrachadh sa thorman."
 
 #: po/level_i18n.cc:1355
 msgid ""
 "... they, with great shouts, from opposite sides / were shoving burdens "
 "forward with their chests. / They crashed into each other, turned / and beat"
 " retreat, shoving their loads and shouting ..."
-msgstr ""
+msgstr "... bha iad a’ brùthadh eallaich leis am broilleach / an comhair a chèile le èigheachd mhòr / Bhuail iar ri chèile ’s thionndaidh iad / ri cùlachadh, a’ brùthadh an eallach ’s ag èigheachd ..."
 
 #: po/level_i18n.cc:1358
 msgid ""
@@ -1901,13 +1902,13 @@ msgid ""
 "drains out into the swamp called Styx. / And I, my gaze transfixed, could "
 "see / people with angry faces in that bog, / naked, their bodies smeared "
 "with mud."
-msgstr ""
+msgstr "Nuair a ruigeas an struth cianail seo  /  na slèibhtean tnùthail luaithreach seo, / dòirtidh e don bhoglach air a bheil Styx. / Agus, le m’ amharc air a bheò-ghlacadh, chunnaic mi / daoine le fiamh an fheirg orra sa bhoglach ud, / lomnochd, am bodhaigean aig an liacradh le poll."
 
 #: po/level_i18n.cc:1361
 msgid ""
 "... we approach the city known as Dis, / with its vast army and its burdened"
 " citizens."
-msgstr ""
+msgstr "...tha sinn a’ teannadh air a’ bhaile air a bheil Dis / leis a’ mhòr-fheachd aige ’s a shaoranaich fo eallach."
 
 #: po/level_i18n.cc:1364
 msgid ""
@@ -1915,18 +1916,18 @@ msgid ""
 "they reined in their great disdain / enough to say: 'You come -- alone.  Let"
 " him be gone, / who has so boldly made his way into this kingdom. / Let him "
 "retrace his reckless path alone' ..."
-msgstr ""
+msgstr "Chunnaic mi còrr is mìle aingeal air an stairsneach / air an tuiteam on Nèamh ... thug iad stad air an dìmheas mòr  / ach am b’ urrainn dhaibh ràdh: “Thigibh – ’nur n-aonar.  Gum falbhadh easan / a thàinig cho dàna don rìoghachd seo. / Gun tilleadh e air a shlighe chion-umhail ’na aonar” ..."
 
 #: po/level_i18n.cc:1367
 msgid ""
 "Now my master takes a hidden / path between the city's ramparts and the "
 "torments, / and I come close behind him ..."
-msgstr ""
+msgstr "Nise, tha mo mhaighstir a’ gabhail slighe / fhalaichte eadar rampairean a’ bhaile agus na cràdh / ’s mise a’ tighinn dhlùth às a dhèidh ..."
 
 #: po/level_i18n.cc:1370
 msgid ""
 "... his hands, ready, encouraging, / thrust me towards him among the tombs."
-msgstr ""
+msgstr "... brùthaidh a làmhan deiseil brosnachail mi / an comhair air am measg nan uaighean."
 
 #: po/level_i18n.cc:1373
 msgid ""
@@ -1934,142 +1935,142 @@ msgid ""
 " and cannot run, but lunges here and there, // so raged the Minotaur.  My "
 "artful guide / called out: 'Run to the passage: / hurry down while he is in "
 "his fury.'"
-msgstr ""
+msgstr "Mar an tabh a bhriseas a theadhair / san dearbh àm a gheibh e buille a’ bhàis / ’s chan urrainn dha ruith ach leum an-siud ’s an-seo, / seo boile a’ Mhìonothairbh.  / Dh’eugh an treòir seòlta: “Ruithibh don trannsa: / greasaibh oirbh fad ’s a tha e air boile.”"
 
 #: po/level_i18n.cc:1376
 msgid ""
 "... we went on, / skirting the edge of the vermilion boil / from which the "
 "boiled cried out with piercing shrieks."
-msgstr ""
+msgstr "... lean sinn oirnn, / timcheall air oir na goile deirge / on an do dh’eugh an fheadhainn ’gan goil le sgiamhail bhiorach."
 
 #: po/level_i18n.cc:1379
 msgid ""
 "Here the filthy Harpies nest, / who drove the Trojans from the Strophades / "
 "with doleful prophecies of woe to come."
-msgstr ""
+msgstr "Seo far a bheil nead nan arpagan salach, / a ruaig muinntir na Tròidhe far Strofadia / le fàisneachd bhrònach air dòlas ri teachd."
 
 #: po/level_i18n.cc:1382
 msgid ""
 "... Here, at the very edge, we stayed our steps / at an expanse of deep and "
 "arid sand ..."
-msgstr ""
+msgstr "... Ghabh sinn fois air oir / sgaoiltich de ghainmheach dhomhain thioram ..."
 
 #: po/level_i18n.cc:1385
 msgid ""
 "A path that circles like a belt around / the base of that high rock runs "
 "round the pit, / its sides descending in ten ditches."
-msgstr ""
+msgstr "Thèid slighe chearcallach mar chrios / mu bhunait na creige mòire ud timcheall air an t-sluic, / a thaobhan a’ teàrnadh ’na dheich dìgeachan."
 
 #: po/level_i18n.cc:1388
 msgid ""
 "Under my feet I saw a lake / so frozen that it seemed more glass than water."
 " / Never in winter did the Austrian Danube / nor the far-off Don, under its "
 "frigid sky, / cover their currents with so thick a veil / as I saw there."
-msgstr ""
+msgstr "Chunnaic mi loch fo mo chasan / cho reòite ’s a bha coltas a’ ghlainne air seach uisge. / Cha do chuir Danub na h-Ostaire / no an Don fad air falbh, fo iarmailt fhuar a’ gheamhraidh, / còmhdach air an sruthadh le falach cho tiugh a-riamh / agus a chunnaic mi an-siud."
 
 #: po/level_i18n.cc:1391
 msgid ""
 "... we made our way toward the center, / where all things that have weight "
 "converge, / and I was shivering in the eternal chill ..."
-msgstr ""
+msgstr "... chaidh sinn an comhair a’ mheadhain, / far an tig gach rud air a bheil cuideam còmhla / agus bha crith orm san fhuachd shìorraidh ..."
 
 #: po/level_i18n.cc:1394
 msgid ""
 "It is no enterprise undertaken lightly -- / to describe the very bottom of "
 "the universe ..."
-msgstr ""
+msgstr "Chan e gnìomh a nithear gun chùram – / bonn an domhainn fhèin a mhìneachadh ..."
 
 #: po/level_i18n.cc:1397
 msgid ""
 "The emperor of the woeful kingdom / rose from the ice below his breast, / "
 "and I in size am closer to a giant / than giants are when measured to his "
 "arms."
-msgstr ""
+msgstr "Dh’èirich impire na rìoghachd bhrònaich / on deigh fo bhroilleach, / agus tha m’ àirde as coltaiche ri àirde famhair / na meud nam famhair ri ghàirdeanan."
 
 #: po/level_i18n.cc:1399
 msgid ""
 "You refused many times to leave my kingdom -- now you shall pay the "
 "consequences for your foolishness!"
-msgstr ""
+msgstr "Dhiùlt thu iomadh turas mo rìoghachd fhàgail – bidh ceannachd agad air do ghòraiche a-nis!"
 
 #: po/level_i18n.cc:1401
 msgid "Faithlessness"
-msgstr ""
+msgstr "Mì-dhìlseachd"
 
 #: po/level_i18n.cc:1403
 msgid "Lust"
-msgstr ""
+msgstr "Drùis"
 
 #: po/level_i18n.cc:1405
 msgid "Gluttony"
-msgstr ""
+msgstr "Craos"
 
 #: po/level_i18n.cc:1407
 msgid "Avarice"
-msgstr ""
+msgstr "Sannt"
 
 #: po/level_i18n.cc:1409
 msgid "Sloth"
-msgstr ""
+msgstr "Leisg"
 
 #: po/level_i18n.cc:1411
 msgid "Heresy"
-msgstr ""
+msgstr "Eiriceachd"
 
 #: po/level_i18n.cc:1413
 msgid "Violence"
-msgstr ""
+msgstr "Ainneart"
 
 #: po/level_i18n.cc:1415
 msgid "Fraud"
-msgstr ""
+msgstr "Mealltachd"
 
 #: po/level_i18n.cc:1417
 msgid "Treachery"
-msgstr ""
+msgstr "Foill"
 
 #: po/level_i18n.cc:1420
 msgid "... passed the point / to which all weights are drawn from every side."
-msgstr ""
+msgstr "... chaidh e seachad air an àite / don tèid gach cuideam a tharraing o gach taobh."
 
 #: po/level_i18n.cc:1423
 msgid ""
 "... climbed up ... far enough to see, through a round opening, / a few of "
 "those fair things the heavens bear. / Then we came forth, to see again the "
 "stars."
-msgstr ""
+msgstr "... dhìrich sinn ... gus an do lèir sinn, tro fhosgladh cruinn, / cuid de na nithean àlainn a bheireas na nèamhan. / Thàinig sinn a-mach an uairsin ach am faiceamaid na reultan a-rithist."
 
 #: po/level_i18n.cc:1428
 msgid "Beware of shady mates!"
-msgstr ""
+msgstr "Thoir an aire air laochain lùbach!"
 
 #: po/level_i18n.cc:1432
 msgid "What I Don't Have"
-msgstr ""
+msgstr "Na nach eil agam"
 
 #: po/level_i18n.cc:1437
 msgid ""
 "There are 19 fully connected puzzle piece arrangements, but just 9 of them "
 "are reachable from this first distribution."
-msgstr ""
+msgstr "Tha 19 suidheachaidhean nam mìrean-measgaichte ann ach cha ghabh ach 9 dhiubh ruigsinn on chiad sgaoileadh."
 
 #: po/level_i18n.cc:1439
 msgid ""
 "This second distribution can just be converted to any of the other 10 "
 "arrangements."
-msgstr ""
+msgstr "Gabhaidh gin dhen 10 suidheachaidhean eile a dhèanamh dhen dàrna sgaoileadh."
 
 #: po/level_i18n.cc:1441
 msgid ""
 "There are just two symmetric puzzle piece arrangements that both are "
 "reachable."
-msgstr ""
+msgstr "Chan eil ach dà shuidheachadh mhìrean-measgaichte co-chothromach ann agus gabhaidh an dà chuid dhiubh ruigsinn."
 
 #: po/level_i18n.cc:1458
 msgid ""
 "Dorothy left the house to play with her little dog Toto, when suddenly the "
 "sky turned dark and a giant tornado rushed across Kansas."
-msgstr ""
+msgstr "Dh’fhàg Dorothy an taigh gus cluich leis a’ chù bheag Toto nuair an do dh’fhàs na speuran dorcha le tornado mòr a’ ruith that Kansas."
 
 #: po/level_i18n.cc:1460
 msgid ""
@@ -2077,14 +2078,14 @@ msgid ""
 " land, the Wicked Witch of the East. Take her Silver Shoes and follow the "
 "Yellow Brick Road to Emerald City, where the Wizard of Oz should be more "
 "than pleased to help you return home. Go with my blessings!'"
-msgstr ""
+msgstr "Tha Bana-buidseach Math a Tuath ag ràdh: “Mharbh do thaigh ceannard na dùthcha seo, Bana-bhuidseach Olc an Ear. Tog na brògan airgid aice agus lean air an Rathad Breige Buidhe dhan Bhaile Shmàragach far am bi Draoidh Oz toilichte taic a chur ort ach an till thu dhachaigh. Mo bheannachdan leat!”"
 
 #: po/level_i18n.cc:1462
 msgid ""
 "A Scarecrow dangles helplessly from a pole. After talking to Dorothy, it "
 "agrees to join her for an audience with the Wizard of Oz to ask him for a "
 "brain. 'If only you could release me from this pole, that is ...'"
-msgstr ""
+msgstr "Tha Bodach-ròcais truagh air crochadh o chrann. Às dèidh bruidhinn ri Dorothy, aontaichidh e tighinn còmhla rithe gun èisteachd aig Draoidh Oz gus eanchainn iarraidh uaithe. “Nam b’ urrainn dhut mo shaoradh on chrann seo ...”"
 
 #: po/level_i18n.cc:1464
 msgid ""
@@ -2092,21 +2093,21 @@ msgid ""
 "you on your journey, Dorothy, for I need to ask the Wizard why I did not "
 "receive a heart, I fear I'm stuck here. It would be nice if you could help "
 "me out a bit ...'"
-msgstr ""
+msgstr "Chan urrainn dhan Fhear-choille Staoine meirgeach gluasad leis fhèin tuilleadh. “Ged am bu mhiann leam tighinn còmhla riut air an triall agad, a Dhorothy, on a dh’fheumas mi faighneachd on Draoidh carson nach d’ fhuair mi cridhe, ’s eagal leam gu bheil mi stuicte ann a sheo. Nam biodh tu cho caoimhneach gun tugadh tu cobhair orm ...”"
 
 #: po/level_i18n.cc:1466
 msgid ""
 "Among the shallow waters of a merry creek, the Cowardly Lion sits shivering "
 "of fear. Dorothy shouts: 'Lion, it's not wide! You can jump over the creek! "
 "Let's see the Wizard of Oz, maybe he can do something to give you courage!'"
-msgstr ""
+msgstr "Ann an tanalach uillt meir, tha an Leòmhainn Gealtach ’na shuidhe ’s a’ crith leis an eagal. Tha Dorothy ag èigheadh dha; “A Leòmhainn, chan eil e leathann! ’S urrainn dhut leum thairis air an allt! Nach tadhail sinn air Draoidh Oz? ’S dòcha gun dèan e rudeigin gus misneach a thoirt dhut!”"
 
 #: po/level_i18n.cc:1468
 msgid ""
 "The gate guardian says: 'Welcome to Emerald City! Please always wear these "
 "spectacles, or the splendid brilliance of the Wizard's city may blind you. "
 "The Wizard resides to the north.'"
-msgstr ""
+msgstr "Tha freiceadan a’ gheata ag ràdh: “Fàilte oirbh dhan Bhaile Shmàragach! Cuiribh na speuclairean seo oirbh an-còmhnaidh ach nach dall dearrsadh loinnreach baile an Draoidh sibh. Tha an Draoidh a’ fuireach gu tuath.”"
 
 #: po/level_i18n.cc:1470
 msgid ""
@@ -2114,14 +2115,14 @@ msgid ""
 " will help Thee find what Thou are looking for. However before Thou may pass"
 " here and see me, travel on to Winkie Country and defeat my arch rival, the "
 "Wicked Witch of the West.'"
-msgstr ""
+msgstr "Tha mac-talla gutha bodharach a’ tighinn tron trannsa: “Cuidichidh mise, Draoidh Mìorbhaileach Oz, sibh ach an lorg sibh na tha sibh a’ sireadh. Co-dhiù, mus fhaod sibh tighinn a thadhal orm, siubhailibh gu Dùthaich Winkie agus cuiribh ruaig air an fheuchadair, Bana-bhuidseach Olc an Iar.”"
 
 #: po/level_i18n.cc:1472
 msgid ""
 "This is the domain of the Wicked Witch of the West. She sends her minions "
 "against Dorothy and her friends. To destroy the witch, they need to steal "
 "her magic wand, kept deep inside her ice fortress."
-msgstr ""
+msgstr "Seo dùthaich Bana-bhuidseach Olc an Iar. Tha i a’ cur a thànaistean an aghaidh Dorothy ’s a cuideachd. Feumaidh iad slat draoidheach na bana-buidseach a ghoid a chumas i domhain san dùn deighe aice gus a milleadh."
 
 #: po/level_i18n.cc:1474
 msgid ""
@@ -2129,143 +2130,143 @@ msgid ""
 "realizes that he is nothing more but a humbug. Watching him flee with his "
 "hot-air balloon, Dorothy loses all hope of ever returning home. All that's "
 "left of the Wizard is now his shrinkable cupboard."
-msgstr ""
+msgstr "Nise on a tha Dorothy air còmhnadh an Draoidh Mhìorbhailich a ruigsinn, mothaichidh nach e ach mealltair a th’ ann. Fhad ’s a tha i a’ coimhead air a’ teicheadh air a’ bhalùn adhair theth aige, tha Dorothy a’ call gach dòchas gun tilleadh i dhachaigh. Chan eil dad air fhàgail dhen Draoidh ach am preas do-chrùbaidh aige."
 
 #: po/level_i18n.cc:1478
 msgid "and do not destroy the puzzles"
-msgstr ""
+msgstr "agus na till na tòimhseachain"
 
 #: po/level_i18n.cc:1482
 msgid "Once, No More No Less"
-msgstr ""
+msgstr "Aon turas ’s an ann an corr"
 
 #: po/level_i18n.cc:1508
 msgid ""
 "Each of the 6 women has a profession; and each of them carries or wears only"
 " one of the items."
-msgstr ""
+msgstr "Tha dreuchd aig gach tè dhe na 6 boireannaich; agus cha bheir gach tè dhiubh ach aon nì."
 
 #: po/level_i18n.cc:1510
 msgid "Miss Black's best friends are the poet and the locksmith."
-msgstr ""
+msgstr "Is am filidh agus an gobhair na càirdean as fhearr aig NicGilleDhuibh."
 
 #: po/level_i18n.cc:1512
 msgid ""
 "Miss Black, Miss White and Miss Pearl are impressed by the magician's "
 "talent."
-msgstr ""
+msgstr "Dhrùidh tàlant an draoidh air NicGilleDhuibh, NicGilleBhàin ’s NicNeamhnaid."
 
 #: po/level_i18n.cc:1514
 msgid "Miss Pearl tells jokes to the poet, the hacker and the locksmith."
-msgstr ""
+msgstr "Innsidh NicNeamhnaid fealla-dhà dhan fhilidh, dha fhear nan coimpiutairean ’s dhan ghobha."
 
 #: po/level_i18n.cc:1516
 msgid ""
 "The hacker, the locksmith and the firewoman enjoy looking at their "
 "reflection in the glasses."
-msgstr ""
+msgstr "’S toil le fear nan coimpiutairean, leis a’ ghobha ’s leis an tè-smàlaidh coimhead orra fhèin sna speuclairean."
 
 #: po/level_i18n.cc:1518
 msgid "The magician carries the umbrella."
-msgstr ""
+msgstr "Bheir an draoidh an sgàilean-uisge."
 
 #: po/level_i18n.cc:1520
 msgid "Neither the magician nor the firewoman are permitted to wear the ring."
-msgstr ""
+msgstr "Chan fhaod an draoidh no an tè-smàlaidh fainne a chur orra."
 
 #: po/level_i18n.cc:1522
 msgid ""
 "Miss Black, Miss White and Miss Rotor like to tease the girl with the ring."
-msgstr ""
+msgstr "’S toil le NicGilleDhuibh, NicGilleBhàin ’s NicRotair tarraing à caileag an fhàinne."
 
 #: po/level_i18n.cc:1524
 msgid ""
 "Miss Top prefers to be unencumbered: She doesn't carry an umbrella, nor a "
 "bag and certainly not a weight."
-msgstr ""
+msgstr "’S fhearr le NicDòtamain a bhith gun uallach: Cha bheir i sgàilean-uisge no baga no cuideam sam bith."
 
 #: po/level_i18n.cc:1526
 msgid ""
 "Sometimes, Miss White and Miss Pearl help their friend to carry her weight."
-msgstr ""
+msgstr "Cuidichidh NicGilleBhàin ’s NicNeamhnaid a caraid gus eallach a bheirsinn o àm gu àm."
 
 #: po/level_i18n.cc:1556
 msgid "Welcome to Enigma IX"
-msgstr ""
+msgstr "Fàilte gu Enigma IX"
 
 #: po/level_i18n.cc:1560
 msgid "Origami"
-msgstr ""
+msgstr "Origami"
 
 #: po/level_i18n.cc:1571
 msgid "Trickshot?"
-msgstr ""
+msgstr "Cleas-thilgeil?"
 
 #: po/level_i18n.cc:1573
 msgid "Sorry. The trickshot is not available in easy mode."
-msgstr ""
+msgstr "Duilich ach chan eil cleas-thilgeil ri fhaighinn sa mhodh fhurasta."
 
 #: po/level_i18n.cc:1580
 msgid "Marching Formation"
-msgstr ""
+msgstr "Cumadh caismeachd"
 
 #: po/level_i18n.cc:1581
 msgid "No sharing!"
-msgstr ""
+msgstr "Na co-roinn!"
 
 #: po/level_i18n.cc:1603
 msgid "Build me a Sokoban"
-msgstr ""
+msgstr "Tog Sokoban dhomh"
 
 #: po/level_i18n.cc:1604
 msgid ""
 "Build me a solvable Sokoban puzzle that will take me 30 pushes or more to "
 "solve. The seeds grow into boxes; the dice grow into walls."
-msgstr ""
+msgstr "Tog tòimhseachan Sokoban dhomh a dh’fheumas 30 brùthadh no a bharrachd gus fhuasgladh. Thèid na sìl ’nam bogsaichean ’s na dìsnean ’nam ballachan."
 
 #: po/level_i18n.cc:1605
 msgid ""
 "Build me a solvable Sokoban puzzle that will take me 25 pushes or more to "
 "solve. The seeds grow into boxes; the dice grow into walls."
-msgstr ""
+msgstr "Tog tòimhseachan Sokoban dhomh a dh’fheumas 25 brùthadh no a bharrachd gus fhuasgladh. Thèid na sìl ’nam bogsaichean ’s na dìsnean ’nam ballachan."
 
 #: po/level_i18n.cc:1606
 msgid ""
 "I can't solve that puzzle; there aren't enough boxes! Use the spoon, and "
 "next time make sure the boxes finish growing before hitting the switch."
-msgstr ""
+msgstr "Chan urrainn dhomh an tòimhseachan seo fhuasgladh o nach eil bogsaichean gu leòr ann! Cleachd an spàin agus an ath thuras dèan cinnteach gu bheil na bogsaichean air am fàs mus buail thu air an t-suidse."
 
 #: po/level_i18n.cc:1607
 msgid ""
 "I don't think that puzzle can be solved. If you think you can prove me "
 "wrong, go get the oxyd!"
-msgstr ""
+msgstr "cha chreid mi gun gabh an tòimhseachan seo fhuasgladh. Thalla ’s faigh an ogsaid ma shaoileas tu gu bheil mi cearr!"
 
 #: po/level_i18n.cc:1608
 msgid ""
 "That puzzle was too easy! Use the spoon, and give me a harder one next time!"
-msgstr ""
+msgstr "Bha an tòimhseachan seo ro fhurasta! Cleachd an spàin ’s thoir dhomh fear as dorra an ath thuras!"
 
 #: po/level_i18n.cc:1609
 msgid "Thanks for that excellent puzzle, I really enjoyed solving it!"
-msgstr ""
+msgstr "Mòran taing airson an dheagh thòimhseachain ’s fhuair mi tlachd à fhuasgladh!"
 
 #: po/level_i18n.cc:1619
 msgid "Seasonal Timings"
-msgstr ""
+msgstr "Tìmeachadh na ràithe"
 
 #: po/level_i18n.cc:1620
 msgid "5, 8, or 10 seconds?"
-msgstr ""
+msgstr "5, 8 no 10 diogan?"
 
 #: po/level_i18n.cc:1624
 msgid ""
 "Choose your hemisphere: left switch for northern, right switch for southern."
-msgstr ""
+msgstr "Tagh an leth-chruinne agad: an t-suidse chlì airson an leth thuaith ’s an t-suidse dheas airson an leth dheis."
 
 #: po/level_i18n.cc:1632
 msgid "Danger!"
-msgstr ""
+msgstr "Cunnart!"
 
 #: po/level_i18n.cc:1636
 msgid ""
@@ -2273,88 +2274,88 @@ msgid ""
 "There are some gates, unfortunately closed, like the famous Gate of Ishtar, "
 "and have a look to the lions, the tigers. Semiramis is waiting for you, "
 "stranger, ha ha."
-msgstr ""
+msgstr "Seo Bàbilon. Thoir an aire, a choigrich! Tha e cunnartach dol a-steach.     Tha geataichean ann mar an geata Ištar cliùiteach ach tha iad dùinte, gu mì-fhortanach. Cuideachd, thoir sùil air na leòmhannan ’s tìgeirean. Tha Semiramis a’ feitheamh ort, a choigrich, hà hà."
 
 #: po/level_i18n.cc:1637
 msgid "Try to find the mechanism to open the gate, stranger"
-msgstr ""
+msgstr "Feuch an lorg thu an t-inneal a dh’fhosglas an geata, a choigrich."
 
 #: po/level_i18n.cc:1638
 msgid "Be afraid about the ~water~ , it is so deep, *hihi*, isn't it, Yeah???"
-msgstr ""
+msgstr "Eagal ort ron ~uisge~ , tha i cho domhain, *hìhì*, nach eil, nach eil???"
 
 #: po/level_i18n.cc:1642
 msgid "Place 9 different items in each row, column, and 3x3 box."
-msgstr ""
+msgstr "Cuir 9 nithean eadar-dhealaichte anns gach ràgh, colbh ’s bogsa 3x3."
 
 #: po/level_i18n.cc:1643
 msgid ""
 "Place 9 different items in each row, column, and 3x3 box. Hit the switch to "
 "see if any of your items are misplaced, or which locations you can deduce "
 "items for next; you can only get 1 hint per minute this way, though."
-msgstr ""
+msgstr "Cuir 9 nithean eadar-dhealaichte anns gach ràgh, colbh ’s bogsa 3x3. Buail ris an t-suidse gus sealltainn a bheil gin dhe na nithean agad ann an aite cearr no dè na h-ionadan dhan urrainn dhut beachdachadh dè an nì ceart; chan fhaigh thu ach 1 ghliocas gach mionaid san dòigh seo ma-thà."
 
 #: po/level_i18n.cc:1673
 msgid "Marblics and Pearlics I"
-msgstr ""
+msgstr "Marbhlaix ’s Neamhnaidix !"
 
 #: po/level_i18n.cc:1676
 msgid ""
 "Doping 'en Tour' not allowed for taking shortcuts, doping just allowed for "
 "self defence!"
-msgstr ""
+msgstr "Chan eil doping “en tour” ceadaichte ach an rachadh tu air adhart nas luaithe ach tha e ceadaiche gus do fhèin-dhìon."
 
 #: po/level_i18n.cc:1679
 msgid "Rotomagus - Rouen"
-msgstr ""
+msgstr "Rotomagus – Rouen"
 
 #: po/level_i18n.cc:1682
 msgid "Lutetia - Paris"
-msgstr ""
+msgstr "Lutetia – Paras"
 
 #: po/level_i18n.cc:1685
 msgid "Camaracum - Cambrai"
-msgstr ""
+msgstr "Camaracum – Cambrai"
 
 #: po/level_i18n.cc:1688
 msgid "Durocortorum - Rheims"
-msgstr ""
+msgstr "Durocortorum – Rheims"
 
 #: po/level_i18n.cc:1691
 msgid "Lugdunum - Lyons"
-msgstr ""
+msgstr "Lugdunum – Lyons"
 
 #: po/level_i18n.cc:1694
 msgid "Nicae - Nice"
-msgstr ""
+msgstr "Nicae – Nice"
 
 #: po/level_i18n.cc:1697
 msgid "Massilia - Marseilles"
-msgstr ""
+msgstr "Massilia – Marseilles"
 
 #: po/level_i18n.cc:1700
 msgid "Aginum - Agen"
-msgstr ""
+msgstr "Aginum – Agen"
 
 #: po/level_i18n.cc:1703
 msgid "Detour de Tour - Detour of the Tour"
-msgstr ""
+msgstr "Detour de Tour - Far-bhealach an turais"
 
 #: po/level_i18n.cc:1706
 msgid "Burdigala - Bordeaux"
-msgstr ""
+msgstr "Burdigala – Bordeaux"
 
 #: po/level_i18n.cc:1709
 msgid "Gallia omnis divisa est ... - The whole of Gaul is divided ..."
-msgstr ""
+msgstr "Gallia omnis divisa est ... - Tha a’ Ghall gu lèir sgaraichte ..."
 
 #: po/level_i18n.cc:1712
 msgid "Veni, vidi, vici - I came, I saw, I conquered"
-msgstr ""
+msgstr "Veni, vidi, vici - Thàinig mi, chunnaic mi, cheannsaich mi"
 
 #: po/level_i18n.cc:1714
 msgid "Welcome in L’Alpe d’Huez. Sorry, it is not yet stage of the Tour"
-msgstr ""
+msgstr "Fàilte gu L’Alpe d’Huez. Duilich ach chan eil seo ’na phàirt dhen turas fhathast"
 
 #: po/level_i18n.cc:1721
 msgid "Can you see the hidden oxyd stones?"
@@ -2378,7 +2379,7 @@ msgstr "Cuimhnich:    42"
 
 #: po/level_i18n.cc:1783
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
-msgstr "Gabhaidh ur leisgeul airson a' mhì-ghoireis ach tha t-inneal-airgid falamh."
+msgstr "Gabhaidh ur leisgeul airson a’ mhì-ghoireis ach tha t-inneal-airgid falamh."
 
 #: po/level_i18n.cc:1826
 msgid "Take the key to the left first!"
@@ -2406,46 +2407,46 @@ msgstr "Bi faiceallach!!"
 
 #: po/level_i18n.cc:2016
 msgid "Rotor Guards"
-msgstr ""
+msgstr "Freiceadain rotair"
 
 #: po/level_i18n.cc:2018
 msgid "Hoisting guards with their own petard"
-msgstr ""
+msgstr "Thoir an car às na freiceadain"
 
 #: po/level_i18n.cc:2022
 msgid "It isn't as easy as it looks."
-msgstr ""
+msgstr "Chan eil cho furasta ’s a shaoileadh tu."
 
 #: po/level_i18n.cc:2030
 msgid "Pleasure Garden"
-msgstr ""
+msgstr "Lios tlachdmhor"
 
 #: po/level_i18n.cc:2031
 msgid ""
 "Quickly ..."
 "                                                                             "
 "or trickily!"
-msgstr ""
+msgstr "Gu luath ...                                                                             no toinnte!"
 
 #: po/level_i18n.cc:2039
 msgid "Meditation Disturbance"
-msgstr ""
+msgstr "Buaireadh a’ mheòrachaidh"
 
 #: po/level_i18n.cc:2042
 msgid "Hit by a bolting horse"
-msgstr ""
+msgstr "Thèid do bhualadh le each a’ dèanadh às"
 
 #: po/level_i18n.cc:2047
 msgid "Magic Trinity"
-msgstr ""
+msgstr "Trianaid dhraoidheach"
 
 #: po/level_i18n.cc:2091
 msgid "Toreador"
-msgstr ""
+msgstr "Toreador"
 
 #: po/level_i18n.cc:2095
 msgid "Mark stones burnable"
-msgstr ""
+msgstr "Cuir comharra air clachan gun gabh an loasgadh"
 
 #: po/level_i18n.cc:2102
 msgid ""
@@ -2454,7 +2455,7 @@ msgid ""
 "terrain. Now you find yourself in front of an impressive temple, which seems"
 " to be a relic of the ancient Aztec empire. But the temple is in "
 "surprisingly good condition ..."
-msgstr ""
+msgstr "Fàilte a Mheagsago! Ràinig am plèana agad port-adhair “Coatlicue” o chionn ochd uairean, seo baile beag am meadhan dlùth-choille air nach eil eòlas aig duine. Tha thu air beulaibh teampaill iongantaich le coltas impireachd àrsaidh nan Azteceach air. Ach tha an teampall ann an cor nas fhearr na shaoileadh tu ..."
 
 #: po/level_i18n.cc:2103
 msgid ""
@@ -2464,43 +2465,43 @@ msgid ""
 "built up along the front side of the temple. \"Goshers made this ancient "
 "relic a fortress\", you think, \"this cannot be legal, for Goshers received "
 "funding from the UK Government. I'll try to call him to account!\""
-msgstr ""
+msgstr "Chì thu sanas cròim ri taobh dorsan mòra an teampaill: “Ath-thogail le: G. G. Goshers, A.D. 1998”. Tha sanas beag aig a’ bhonn ag ràdh: “Seilbheachd le G. G. Goshers. Tha ain-inntrigeadh toirmisgte!”. Tha thu ag mothachadh air na taighean-chon a thogadh air beulaibh an teampaill. Tha thu a’ bheachdachadh: “Rinn Goshers dùn dhen fhuigheall àrsaidh seo. Feumaidh gu bheil seo an aghaidh an lagha on a fhuair Goshers maoineachadh o riaghaltas na RA. Feuchaidh mi gun cuir mi gu ceart e!”"
 
 #: po/level_i18n.cc:2104
 msgid "This guard doesn’t notice me."
-msgstr ""
+msgstr "Cha do mhothaich am freiceadan seo orm."
 
 #: po/level_i18n.cc:2105
 msgid ""
 "This lake was obviously made by Goshers. I think the correct way is south."
-msgstr ""
+msgstr "Chaidh an loch seo a thogail le Goshers gu follaiseach. Saoilidh mi gum bu chòir dhomh doll gu deas."
 
 #: po/level_i18n.cc:2106
 msgid ""
 "There's an inscription on the old wall, saying in spanish: \"Careful! What "
 "you touch could be the last thing you touch!\""
-msgstr ""
+msgstr "Tha sgrìobhadh air an t-seann bhalla san Spàinntis: “Thoiribh an aire! Ma bhean sibh ri rud, ’s ma dh’fhaoidte nach bean sibh ri rud eile gu bràth tuilleadh!”"
 
 #: po/level_i18n.cc:2107
 msgid "Chrome sign: \"Control of the beast’s cage.\""
-msgstr ""
+msgstr "Sanas cròim: “Smachd air cèidse a’ bhèist”"
 
 #: po/level_i18n.cc:2108
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
-msgstr ""
+msgstr "Ò, abair thusa gu bheil an t-sliabh seo cas! Feuch nach bean tu ris a’ chlaigeann!"
 
 #: po/level_i18n.cc:2109
 msgid ""
 "This building down there looks like a prison. Let's see if I can determine "
 "its purpose ... Ah, there's another chrome sign. Goshers seems to favour "
 "chrome signs. It says: \"Natives’ prison\"."
-msgstr ""
+msgstr "Tha coltas a’ phrìosain air an togalach thall shìos. Saoil am faigh mi adhbhar a-mach ... À, seo sanas cròim eile. Saoil an toil le Goshers sanasan cròim? Seo na tha sgrìobhte air: “Prìosan nan tùsanach”."
 
 #: po/level_i18n.cc:2110
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
-msgstr ""
+msgstr "’S e fìr dheagh bheachd a bh’ ann faighinn taobh thall togalach a’ phrìosain. Ach feumaidh tu dol thar an locha seo a-nis. Na caith bogsa!"
 
 #: po/level_i18n.cc:2111
 msgid ""
@@ -2509,7 +2510,7 @@ msgid ""
 " his \"work\"; trying to enter the temple and to get rich from the treasures"
 " of the Aztecs. It might be helpful to be accompanied by someone, who knows "
 "the secrets of the jungle and this temple ..."
-msgstr ""
+msgstr "Nise, a’ coimhead air uinneagan crannaichte a’ phrìosain, chì thu boireannach nan tùsanach ’na prìosanach ann. Gu follaiseachd, chuir Goshers a h-uile tùsanach fo ghlas a bhuaireadh an “obair” aige; a’ feuchainn ri tighinn a-steach dhan teampaill ’s beartas fhaighinn o ulaidh nan Aztecich. ’S dòcha gum biodh e feumail dhut nan tigeadh cuideigin còmhla riut a bhios eòlach air a’ dhlùth-choille ’s an teampall seo ..."
 
 #: po/level_i18n.cc:2112
 msgid ""
@@ -2517,44 +2518,44 @@ msgid ""
 "as evil as this Goshers is. Perhaps he wants to end the mastery of Goshers "
 "and free my people. And even if this is not the case, it's better to be free"
 " than imprisoned. I think I should thank him."
-msgstr ""
+msgstr "On a shaoraich an duine geal ud on phrìosan mi, feumaidh nach eil e cho olc ’s a tha am fear Goshers ud. ’S dòcha gu bheil e airson crìoch a chur air ceannardas Goshers ’s mo mhuinntir a shaoradh. Agus eadhon mur eil, bidh e nas fhearr a bhith saor na a bhith ’nam phrìosanach. Bu chòir dhomh taing a thoirt dha."
 
 #: po/level_i18n.cc:2113
 msgid ""
 "You meet the English adventurer in the front of the prison. \"Hello, I'm "
 "Xila!\", you tell him in broken English. After he introduced himself as "
 "well, both of you begin to work out a plan against the evil G. G. Goshers."
-msgstr ""
+msgstr "Tha thu a’ coinneachadh ris a’ bhaoghlair Shasannach air beulaibh a’ phrìosain. Tha thu ag ràdh ris: “Halò, ’s mise Xila!” ann am Beurla bhriste. Às dèidh an aithne a chur air a chèile, beachdaichidh sibh air plana an aghaidh G. G. Goshers olc."
 
 #: po/level_i18n.cc:2114
 msgid ""
 "This is a really hard puzzle. The English man will have to help me, if this "
 "enigma is to be solved."
-msgstr ""
+msgstr "Seo tòimhseachan glè dhoirbh. Feumaidh an Sasannach mo chuideachadh ach am fuasgail mi an dubh-cheist seo."
 
 #: po/level_i18n.cc:2115
 msgid "You wonder what this switch could trigger."
-msgstr ""
+msgstr "Saoil dè chuireas an t-suidse seo air?"
 
 #: po/level_i18n.cc:2116
 msgid "Xila knows how to drain the lake!"
-msgstr ""
+msgstr "Tha fios aig Xila mar a leigeas sibh an loch!"
 
 #: po/level_i18n.cc:2117
 msgid "You were lucky to find this hole. It prevents you from drowning."
-msgstr ""
+msgstr "Tha thu fortanach gun do lorg thu an toll seo. Cumaidh e on bhàthadh thu."
 
 #: po/level_i18n.cc:2118
 msgid "This glass stone must fulfill a purpose ..."
-msgstr ""
+msgstr "Feumaidh gu bheil adhbhar air a’ chlach glaine seo ..."
 
 #: po/level_i18n.cc:2119
 msgid "It's funny that such a temple should have a side entrance."
-msgstr ""
+msgstr "Nach neònach gu bheil frith-dhoras aig teampall mar seo."
 
 #: po/level_i18n.cc:2120
 msgid "Be careful! There are sensors in the walls."
-msgstr ""
+msgstr "Thoir an aire! Tha mothaichearan sna ballachan."
 
 #: po/level_i18n.cc:2121
 msgid ""
@@ -2562,27 +2563,27 @@ msgid ""
 "entrance is protected by 11 knights, armed with spears. These guards are "
 "very dangerous. Without a sword you'll never be able to enter. Be careful. "
 "There are not only knights, but also thieves."
-msgstr ""
+msgstr "Às dèidh fosgladh dorsan an t-seann teampaill, chì thu gu bheil an t-inntrigeadh ’ga dhìon le 11 ridire le sleaghan. Tha na freiceadain seo uabhasach cunnartach. Chan fhaigh thu a-steach às aonais claidheimh idir. Bi cùramach. Chan eil ridirean a-mhàin an-seo ach mèirlich cuideachd."
 
 #: po/level_i18n.cc:2122
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr ""
+msgstr "“Meal do naidheachd. Chaidh leat tighinn an-steach dhan t-seann teampall Azteceach seo.”"
 
 #: po/level_i18n.cc:2123
 msgid ""
 "\"You've been smarter than I expected. But you'll never enter the treasure "
 "room nor escape from here!\""
-msgstr ""
+msgstr "“Tha thu nas glice na bha mi ’n dùil. Ach chan fhaigh thu a-steach a sheòmar an ulaidh ’s cha teich thu gu bràth tuilleadh!”"
 
 #: po/level_i18n.cc:2124
 msgid ""
 "\"I, Goshers, will certainly be able to rid myself of one of my archenemies "
 "by just killing you!\""
-msgstr ""
+msgstr "“Gheibh mise, Goshers, cuidhteas dhe dh’aon dhe na droch nàimhdean agam ma mharbhas mi thu!”"
 
 #: po/level_i18n.cc:2125
 msgid "\"Run for your life!\""
-msgstr ""
+msgstr "“Ruith mar do bheatha!”"
 
 #: po/level_i18n.cc:2126
 msgid ""
@@ -2590,91 +2591,91 @@ msgid ""
 "taking him back to Great Britain and rendering him to the police, you have "
 "ended the evil career of Gerald Gregory Goshers. Congratulations on the "
 "success of your expedition!"
-msgstr ""
+msgstr "Tha thu fhèin ’s Xila air tighinn a-steach gu Seòmar nan Daoimean san t-seann teampall Azteceach. On a thill thu e a Bhreatainn ’s a thug thu dhan phoileas e, thug thu crìoch air a’ ghnìomh olc aig Gerald Gregory Goshers. Meal do naidheachd gun do shoirbhich leis an triall agad!"
 
 #: po/level_i18n.cc:2145
 msgid "illmind's jumping ball flash ..."
-msgstr ""
+msgstr "Priobadh sa bhad le illmind  ..."
 
 #: po/level_i18n.cc:2146
 msgid "... of heaven comes the beast from the ..."
-msgstr ""
+msgstr "... on nèamh thig am biast on ..."
 
 #: po/level_i18n.cc:2147
 msgid "... t r a p p e d ..."
-msgstr ""
+msgstr "... g l a c t e ..."
 
 #: po/level_i18n.cc:2151
 msgid "Edwards Mountain"
-msgstr ""
+msgstr "Edwards Mountain"
 
 #: po/level_i18n.cc:2171
 msgid "Are chess knights resistent to laser beams?"
-msgstr ""
+msgstr "An seas ridirean tàileisg ri gathan leusair?"
 
 #: po/level_i18n.cc:2182
 msgid "The art of steering a quadriga"
-msgstr ""
+msgstr "Innleachd stiùireadh feuna"
 
 #: po/level_i18n.cc:2185
 msgid "Dropping the spoon redeems from being quartered!"
-msgstr ""
+msgstr "Bheir spàin faochadh on chairtealachadh dhut!"
 
 #: po/level_i18n.cc:2196
 msgid "One-Way Woods"
-msgstr ""
+msgstr "Coille aon-shligheach"
 
 #: po/level_i18n.cc:2197
 msgid "Recycling by Swapping"
-msgstr ""
+msgstr "Ath-chuairteachadh le iomlaid"
 
 #: po/level_i18n.cc:2216
 msgid "No Memory"
-msgstr ""
+msgstr "Gun chuimhne"
 
 #: po/level_i18n.cc:2221
 msgid "Pass the ball in time"
-msgstr ""
+msgstr "Pas am bàla ’na thràth"
 
 #: po/level_i18n.cc:2226
 msgid "In the line of thieves"
-msgstr ""
+msgstr "Tighinn a-steach nam mèirleach"
 
 #: po/level_i18n.cc:2228
 msgid "Keys from left to right are NE, NW, SE, SW."
-msgstr ""
+msgstr "Is E-Th, I-Th, E-Dh is I-Dh a tha sna h-iuchraichean on taobh chlì gun taobh deas."
 
 #: po/level_i18n.cc:2232
 msgid "Useful unsuccessful drillings"
-msgstr ""
+msgstr "Drileachadh feumail gun fheum"
 
 #: po/level_i18n.cc:2237
 msgid "Procrustes"
-msgstr ""
+msgstr "Procrustes"
 
 #: po/level_i18n.cc:2241
 msgid "Dialers"
-msgstr ""
+msgstr "Daithealadh"
 
 #: po/level_i18n.cc:2246
 msgid "Charging live ammunition"
-msgstr ""
+msgstr "A’ cur connadh dhan ghunna"
 
 #: po/level_i18n.cc:2252
 msgid "Welcome to Enigma VI"
-msgstr ""
+msgstr "Fàilte gu Enigma VI"
 
 #: po/level_i18n.cc:2261
 msgid "Escape by Chaining Thieves"
-msgstr ""
+msgstr "Cuibhrich na mèilich ’s teic"
 
 #: po/level_i18n.cc:2264
 msgid "Remember Atreyu's horse Atrax!"
-msgstr ""
+msgstr "Cuimhnich Atrax, an t-each aig Atreyu!"
 
 #: po/level_i18n.cc:2266
 msgid "I am innocent! I've never stolen anything!"
-msgstr "'S ann gu bheil mi neo-chiontach! Cha do ghoid mi dad a-riamh!"
+msgstr "’S ann gu bheil mi neo-chiontach! Cha do ghoid mi dad a-riamh!"
 
 #: po/level_i18n.cc:2268
 msgid "It is said that pirates have taken the treasure."
@@ -2690,103 +2691,103 @@ msgstr "Seallaidh doras dùinte barrachd dhut!"
 
 #: po/level_i18n.cc:2277
 msgid "Correspondence Chess"
-msgstr ""
+msgstr "Tàileasg co-fhreagairt"
 
 #: po/level_i18n.cc:2279
 msgid "Send smartly!"
-msgstr ""
+msgstr "Cuir le gliocas!"
 
 #: po/level_i18n.cc:2290
 msgid "Polar Bears' Paradise"
-msgstr ""
+msgstr "Pàrras a’ mhathain-bhàin"
 
 #: po/level_i18n.cc:2292
 msgid "Witch Hunt on Ice"
-msgstr ""
+msgstr "Sealg nam buidseach air an deigh"
 
 #: po/level_i18n.cc:2302
 msgid "illmind's be quick or be dead"
-msgstr ""
+msgstr "bi luath no bi marbh le illmind"
 
 #: po/level_i18n.cc:2307
 msgid "Tandem Chess"
-msgstr ""
+msgstr "Tàileasg càraide"
 
 #: po/level_i18n.cc:2309
 msgid "Work together!"
-msgstr ""
+msgstr "Obraich còmhla!"
 
 #: po/level_i18n.cc:2317
 msgid "The real value of coffee"
-msgstr ""
+msgstr "Fìor-luach a’ chofaidh"
 
 #: po/level_i18n.cc:2322
 msgid "Hot Hurdle Race"
-msgstr ""
+msgstr "Rèis-chliathan theth"
 
 #: po/level_i18n.cc:2324
 msgid "Run for your life!"
-msgstr ""
+msgstr "Ruith mar do bheatha!"
 
 #: po/level_i18n.cc:2329
 msgid "A really annoying Level"
-msgstr ""
+msgstr "Leibheil fìor shàrachail"
 
 #: po/level_i18n.cc:2343
 msgid "Sorry, this switch is currently out of order."
-msgstr ""
+msgstr "Duilich ach chan eil an t-suidse seo ag obrachadh an-dràsta."
 
 #: po/level_i18n.cc:2345
 msgid "As I already told you, this switch is out of order!"
-msgstr ""
+msgstr "Mar a thuirt mi riut ma-thà, chan eil an t-suidse seo ag obrachadh an-dràsta!"
 
 #: po/level_i18n.cc:2347
 msgid "How often are you going to try this?"
-msgstr ""
+msgstr "Cò mheud turas a dh’fheuchas tu ri seo?"
 
 #: po/level_i18n.cc:2349
 msgid "Did anything happen? I'm not sure ..."
-msgstr ""
+msgstr "An do thachair dad? Chan eil mi cinnteach ..."
 
 #: po/level_i18n.cc:2351
 msgid "Congrats, now it works again!"
-msgstr ""
+msgstr "Meal do naidheachd, tha e ag obrachadh a-rithist a-nis!"
 
 #: po/level_i18n.cc:2353
 msgid "No hints available at the moment."
-msgstr ""
+msgstr "Chan eil gliocas ri fhaighinn an-dràsta."
 
 #: po/level_i18n.cc:2355
 msgid "There is a passage right beneath this stone!"
-msgstr ""
+msgstr "Tha slighe fon chlach seo!"
 
 #: po/level_i18n.cc:2383
 msgid "Al Capone's training camp."
-msgstr ""
+msgstr "An campa trèanaidh aig Al Capone."
 
 #: po/level_i18n.cc:2384
 msgid "There are at least two patterns to break through the wall."
-msgstr ""
+msgstr "Tha dà phàtran no a bharrachd ann gus briseadh tron bhalla seo."
 
 #: po/level_i18n.cc:2385
 msgid "It is a well known secret that a few prisoners did escape."
-msgstr ""
+msgstr "Chan e rùn glè dhìomhair a th’ ann gun do theich prìosanach no dhà."
 
 #: po/level_i18n.cc:2386
 msgid "A window in the wall would be really nice."
-msgstr ""
+msgstr "Bhiodh uinneag sa bhalla seo glè shnog."
 
 #: po/level_i18n.cc:2397
 msgid "Blitz Chess"
-msgstr ""
+msgstr "Tàileasg aithghearr"
 
 #: po/level_i18n.cc:2399
 msgid "Move fast!"
-msgstr ""
+msgstr "Gluais gu luath!"
 
 #: po/level_i18n.cc:2413
 msgid "Hanging around in the Jungle"
-msgstr ""
+msgstr "A’ crochadh sa dhlùth-choille"
 
 #: po/level_i18n.cc:2445
 msgid "Hey, where am i now?"
@@ -2796,7 +2797,7 @@ msgstr "Nise, càite a bheil mi?"
 msgid ""
 "Moments ago i've been at home and wanted to take care about my two oxyd "
 "stones."
-msgstr "Bha mi aig an taigh o chionn diog 's airson cùram a ghabhail dhen dà chlach ogsaid agam."
+msgstr "Bha mi aig an taigh o chionn diog ’s airson cùram a ghabhail dhen dà chlach ogsaid agam."
 
 #: po/level_i18n.cc:2449
 msgid "And now i'm stranded in this weird forest. How can i escape from here?"
@@ -2806,7 +2807,7 @@ msgstr "Tha mi air mo chall sa choille neònach seo a-nis. Ciamar a gheibh mi a-
 msgid ""
 "If i should have a look-around? Perhaps i can find some things that could "
 "help me to find an exit."
-msgstr "An coimhead mi mu mo thimcheall? 'S dòcha gun lorg mi rud no dhà a chuidicheas mi gus an rathad a-mach a lorg."
+msgstr "An coimhead mi mu mo thimcheall? ’S dòcha gun lorg mi rud no dhà a chuidicheas mi gus an rathad a-mach a lorg."
 
 #: po/level_i18n.cc:2453
 msgid "WARNING: Highest caution is necessary."
@@ -2814,19 +2815,19 @@ msgstr "RABHADH: Feumaidh tu a bhith glè fhaiceallach."
 
 #: po/level_i18n.cc:2455
 msgid "Wild buffaloes are crossing the way."
-msgstr "Tha tairbh-allaidh a' tighinn tarsaing an rathaid."
+msgstr "Tha tairbh-allaidh a’ tighinn tarsaing an rathaid."
 
 #: po/level_i18n.cc:2457
 msgid "Help me, the forest is on fire!"
-msgstr "Cuidich mi, tha a' choille air teine!"
+msgstr "Cuidich mi, tha a’ choille air teine!"
 
 #: po/level_i18n.cc:2459
 msgid "A herd of wild horses blocks the way."
-msgstr "Tha treud each a' bacadh an rathaid."
+msgstr "Tha treud each a’ bacadh an rathaid."
 
 #: po/level_i18n.cc:2461
 msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
-msgstr "Baile beag le feansa, bothan no dhà 's sopag no dhà."
+msgstr "Baile beag le feansa, bothan no dhà ’s sopag no dhà."
 
 #: po/level_i18n.cc:2463
 msgid "If there is finally an exit?"
@@ -2834,7 +2835,7 @@ msgstr "A bheil slighe a-mach ann mu dheireadh thall?"
 
 #: po/level_i18n.cc:2465
 msgid "I'm afraid, i need some assistance!"
-msgstr "Tha an t-eagal orm 's cobhair a dhìth orm!"
+msgstr "Tha an t-eagal orm ’s cobhair a dhìth orm!"
 
 #: po/level_i18n.cc:2467
 msgid "Filling station for empty extinguishers."
@@ -2846,11 +2847,11 @@ msgstr "Thoir an aire air na meanbh-chuileagan feargach!"
 
 #: po/level_i18n.cc:2471
 msgid "Useful things may also be hidden!"
-msgstr "Dh'fhaoidte gu bheil nithean feumail falaichte ann!"
+msgstr "Dh’fhaoidte gu bheil nithean feumail falaichte ann!"
 
 #: po/level_i18n.cc:2475
 msgid "Recover the Stone"
-msgstr "Ath-bhuannaich a' chlach"
+msgstr "Ath-bhuannaich a’ chlach"
 
 #: po/level_i18n.cc:2479
 msgid "Perfect Trajectory"
@@ -2858,7 +2859,7 @@ msgstr "Uileann tilgidh fhoirfe"
 
 #: po/level_i18n.cc:2489
 msgid "Take the first exit"
-msgstr "Gabh a' chiad slighe a-mach"
+msgstr "Gabh a’ chiad slighe a-mach"
 
 #: po/level_i18n.cc:2500
 msgid ""
@@ -2900,13 +2901,13 @@ msgstr "Gliocas: tillidh gach marbhal marbh dhan toiseach"
 
 #: po/level_i18n.cc:2554
 msgid "Funeral on Deep Sea"
-msgstr "Tìodhlacadh air a' chuan"
+msgstr "Tìodhlacadh air a’ chuan"
 
 #: po/level_i18n.cc:2556
 msgid ""
 "Warning: Do not play this level for more than 10 minutes - you may suffer "
 "sea sickness yourself!"
-msgstr "Rabhadh: Na cluich an leibheil seo nas fhaide na 10 mionaidean – dh'fhaoidte gun tig an cur-na-mara ort fhèin!"
+msgstr "Rabhadh: Na cluich an leibheil seo nas fhaide na 10 mionaidean – dh’fhaoidte gun tig an cur-na-mara ort fhèin!"
 
 #: po/level_i18n.cc:2561
 msgid "The journey is the reward"
@@ -2914,7 +2915,7 @@ msgstr "Is an triall an duais"
 
 #: po/level_i18n.cc:2565
 msgid "Left or Right Drive?"
-msgstr ""
+msgstr "A’ draibheadh taobh clì no deas?"
 
 #: po/level_i18n.cc:2576
 msgid "The Wild Hunt"
@@ -2942,11 +2943,11 @@ msgstr "rialto"
 
 #: po/level_i18n.cc:2600
 msgid "... under construction"
-msgstr "... 'ga thogail"
+msgstr "... ’ga thogail"
 
 #: po/level_i18n.cc:2602
 msgid "try the boulders as gondola"
-msgstr "feuch na ulpagan 'nan gondola"
+msgstr "feuch na ulpagan ’nan gondola"
 
 #: po/level_i18n.cc:2604
 msgid "piazza san marco"
@@ -3004,7 +3005,7 @@ msgstr "Thoir an aire air na mèinnean!        Geal = 0, Gorm = 1, Dubh = 2, Dea
 msgid ""
 "Hint: Mines are never located along the edges.  If you still get stuck, look"
 " behind the wall!"
-msgstr "Gliocas: Cha lorg thu mèinn ris an oir. Ma tha thu stuicte fhathast, thoir sùil air na tha taobh thall a' bhalla!"
+msgstr "Gliocas: Cha lorg thu mèinn ris an oir. Ma tha thu stuicte fhathast, thoir sùil air na tha taobh thall a’ bhalla!"
 
 #: po/level_i18n.cc:2653
 msgid ""
@@ -3015,7 +3016,7 @@ msgstr "Buail ris an t-suidse gus leacag a nochdadh, ach feumaidh tu feitheamh f
 msgid ""
 "Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
 "confusion being blackball's brain's blind."
-msgstr ""
+msgstr "A thòimhseachain ghòraich, marasglaich seòltachd mo mharbhail gun seagh, a’ cumail air cruthachadh cumasg a’ dalladh tuigse a’ bhàla dhuibh."
 
 #: po/level_i18n.cc:2682
 msgid "Open the Doors, Open the Oxyds"
@@ -3113,7 +3114,7 @@ msgstr "Seo an taobh cearr! F3"
 
 #: po/level_i18n.cc:2797
 msgid "The moving boulder can fall down holes but cannot fall into water."
-msgstr "'S urrainn dhan ulpag a ghluaiseas tuiteam ann an toll ach cha tuit e dhan uisge."
+msgstr "’S urrainn dhan ulpag a ghluaiseas tuiteam ann an toll ach cha tuit e dhan uisge."
 
 #: po/level_i18n.cc:2801
 msgid "You shouldn't have done that."
@@ -3157,7 +3158,7 @@ msgid ""
 "dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
 "position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
-msgstr "Na rinn thu mapa de chuartan 4D a-riamh? Uill, thàinig an t-àm gus beachdachadh ann an ceithir dimeinseanan ... Gliocasan: Is 4x4x4x4 meud a' chuartain; tha thu aig (2|3|3|2) an-dràsta; tha ogsaid gorm anns gach fear dhe na 16 oiseanan aig an os-chiùb ..."
+msgstr "Na rinn thu mapa de chuartan 4D a-riamh? Uill, thàinig an t-àm gus beachdachadh ann an ceithir dimeinseanan ... Gliocasan: Is 4x4x4x4 meud a’ chuartain; tha thu aig (2|3|3|2) an-dràsta; tha ogsaid gorm anns gach fear dhe na 16 oiseanan aig an os-chiùb ..."
 
 #: po/level_i18n.cc:2862
 msgid ""
@@ -3165,7 +3166,7 @@ msgid ""
 "dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
 "position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
-msgstr "Na rinn thu mapa de chuartan 4D a-riamh? Uill, thàinig an t-àm gus beachdachadh ann an ceithir dimeinseanan ... Gliocasan: Is 3x3x3x3 meud a' chuartain; tha thu aig (2|2|2|2) an-dràsta; tha ogsaid gorm anns gach fear dhe na 16 oiseanan aig an os-chiùb ..."
+msgstr "Na rinn thu mapa de chuartan 4D a-riamh? Uill, thàinig an t-àm gus beachdachadh ann an ceithir dimeinseanan ... Gliocasan: Is 3x3x3x3 meud a’ chuartain; tha thu aig (2|2|2|2) an-dràsta; tha ogsaid gorm anns gach fear dhe na 16 oiseanan aig an os-chiùb ..."
 
 #: po/level_i18n.cc:2872
 msgid "Who broke the pearl necklace?"
@@ -3177,13 +3178,13 @@ msgid ""
 "rolled onto the floor. Mrs. Scarlett doesn't remember the sequence, but she "
 "knows that succeeding pearls connect, when each is placed on a neigboring "
 "dot and a coin is inserted into the slot."
-msgstr ""
+msgstr "Chaidh coileir neamhnaidean mìorbhaileach na Mnà Sgàrlaid a reubadh agus roilig na neamhnaidean dathach uile air an làr. Chan eil cuimhne aig a’ Mhnaoi Sgàrlaid air an òrdugh ach tha fios aice gun ceangail neamhnaidean san òrdugh cheart ri chèile nuair a chuireas tu iad taobh ri taobh agus bonn san slot an uairsin."
 
 #: po/level_i18n.cc:2874
 msgid ""
 "You did invert the sequence of this pair of pearls. You need to correct this"
 " fault to finish the necklace."
-msgstr ""
+msgstr "Chuir thu an t-òrdugh caochlaideach air an dà neamhnaid seo. Feumaidh tu an cur gu ceart mus urrainn dhut an coileir a choileanadh."
 
 #: po/level_i18n.cc:2891
 msgid "Carry that oxygen around."
@@ -3199,13 +3200,13 @@ msgstr "Na cleachd cus draoidheachd!"
 
 #: po/level_i18n.cc:2941
 msgid "The other document lies and the left wormhole is the right one."
-msgstr ""
+msgstr "Tha an sgrìobhainn eile ’na bhreug agus is an toll-cnuimhne cearr am fear ceart."
 
 #: po/level_i18n.cc:2944
 msgid ""
 "The other document tells the truth and the other wormhole has been left on "
 "the right side."
-msgstr ""
+msgstr "Tha an sgrìobhainn eile ag innse na fìrinn agus chaidh an toll-cnuimhne eile fhàgail air an taobh cheart."
 
 #: po/level_i18n.cc:2959
 msgid "Welcome to Enigma II"
@@ -3230,7 +3231,7 @@ msgid ""
 "Remember that you can't fill a closed bridge with a box ..."
 "                                           but maybe you can use the 3rd "
 "seed differently!"
-msgstr "Cuimhnich nach urrainn dhut drochaid dùinte a lìonadh le bogsa ... ach 's dòcha gur urrainn dhut an treas sìol a chleachdadh an dòigh eile!"
+msgstr "Cuimhnich nach urrainn dhut drochaid dùinte a lìonadh le bogsa ... ach ’s dòcha gur urrainn dhut an treas sìol a chleachdadh an dòigh eile!"
 
 #: po/level_i18n.cc:2982
 msgid "There are different kinds of seeds ... Try to use them!"
@@ -3246,7 +3247,7 @@ msgstr "Tog airgead agus dèan na h-acainnean air a bheil thu feumach."
 
 #: po/level_i18n.cc:3034
 msgid "So,  where  are  the  knights?  -  you'll  be  sorry  you  asked!"
-msgstr "Nise,  càite  a  bheil  na  ridirean?  –  bidh  thu  duilich  gun  do  dh'fhaighnich  thu!"
+msgstr "Nise,  càite  a  bheil  na  ridirean?  –  bidh  thu  duilich  gun  do  dh’fhaighnich  thu!"
 
 #: po/level_i18n.cc:3038
 msgid "...  now  go  back  and  get  the  hammer!"
@@ -3276,7 +3277,7 @@ msgstr "Feumaidh tu clach tòimhseachain a chur air an raon trigeir. Saoil dè a
 
 #: po/level_i18n.cc:3080
 msgid "The level preview might help ..."
-msgstr "'S dòcha gum biodh ro-shealladh an leibheil 'na chuideachadh dhut ..."
+msgstr "’S dòcha gum biodh ro-shealladh an leibheil ’na chuideachadh dhut ..."
 
 #: po/level_i18n.cc:3085
 msgid ""
@@ -3306,18 +3307,18 @@ msgstr "Rathan dhan phàrras"
 
 #: po/level_i18n.cc:3153
 msgid "Doomed ... Shift-F3!!!"
-msgstr ""
+msgstr "Seo an dàn dhut ... SHIFT+F3!!!"
 
 #: po/level_i18n.cc:3162
 msgid ""
 "Our full attention this is worth:           Air and Fire, Water, Earth."
-msgstr "Seo air an toireamaid ar n-aire:            Adhair 's teine, uisge, talamh."
+msgstr "Seo air an toireamaid ar n-aire:            Adhair ’s teine, uisge, talamh."
 
 #: po/level_i18n.cc:3165
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
-msgstr "'S mur gabh an fhreagairt a lorg            nàire ort 's cum do shùilean sìos dhan làr!"
+msgstr "’S mur gabh an fhreagairt a lorg            nàire ort ’s cum do shùilean sìos dhan làr!"
 
 #: po/level_i18n.cc:3169
 msgid "Five form twelve!"
@@ -3333,18 +3334,18 @@ msgstr "Cùil-dhùinte!"
 
 #: po/level_i18n.cc:3211
 msgid "There are two HIDDEN items!"
-msgstr "'S ann gu bheil dà nì falaichte ann!"
+msgstr "’S ann gu bheil dà nì falaichte ann!"
 
 #: po/level_i18n.cc:3212
 msgid "Third stone from the rock is the hole!"
-msgstr "'S e an treas clach on chreag a tha san toll!"
+msgstr "’S e an treas clach on chreag a tha san toll!"
 
 #: po/level_i18n.cc:3247
 msgid ""
 "A Stone, a Tree, and Trees be Three,   --   For to Defeat the Enemy,   --   "
 "Between Might Lay   --   A Secret Way!   --   (If this you see, press "
 "Shift-F3.)"
-msgstr "Clach is craobh is trì craobhan,    --   a chum ruaig air an nàmhaid,   --   agus eatorra, ma dh'fhaoidte    --   rathad rùnach!   --   (Ma chì thu seo, brùth air Shift-F3)"
+msgstr "Clach is craobh is trì craobhan,    --   a chum ruaig air an nàmhaid,   --   agus eatorra, ma dh’fhaoidte    --   rathad rùnach!   --   (Ma chì thu seo, brùth air Shift-F3)"
 
 #: po/level_i18n.cc:3254
 msgid "is  black  always  beautiful?"
@@ -3366,49 +3367,49 @@ msgstr "An tè cheart seadh an tè ro do làmh cheart!"
 msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
-msgstr ""
+msgstr "Carson a tha beinn-teine bheò ’s baile de dhaoine a dh’itheas marbhalan air eilean tropaigeach an-còmhnaidh?"
 
 #: po/level_i18n.cc:3328
 msgid "Try the easy mode first ..."
-msgstr "Feuch ris a' mhodh fhurasta an toiseach ..."
+msgstr "Feuch ris a’ mhodh fhurasta an toiseach ..."
 
 #: po/level_i18n.cc:3338
 msgid ""
 "Here lies Black Ball the pirate, marooned in the year 1802 after travelling "
 "in the wrong direction."
-msgstr "Seo cala Bhàla-dhuibh an spùinneadair a chaidh a thrèigsinn an-seo sa bhliadhna 1802 nuair a shiubhail e air a' chomhair chearr."
+msgstr "Seo cala Bhàla-dhuibh an spùinneadair a chaidh a thrèigsinn an-seo sa bhliadhna 1802 nuair a shiubhail e air a’ chomhair chearr."
 
 #: po/level_i18n.cc:3339
 msgid ""
 "To cure sea sickness hold a large bank note between your teeth and lean over"
 " the side."
-msgstr "Cum nòta-airgid mòr eadar d' fhiaclan agus cuir do cheann thar an rèile gu an cur-na-mara a leigheas."
+msgstr "Cum nòta-airgid mòr eadar d’ fhiaclan agus cuir do cheann thar an rèile gu an cur-na-mara a leigheas."
 
 #: po/level_i18n.cc:3343
 msgid "This level is symmetric ..."
-msgstr ""
+msgstr "Tha an leibheil seo co-chothromach ..."
 
 #: po/level_i18n.cc:3349
 msgid "Fire or be fired"
-msgstr ""
+msgstr "Cuir teine no rach ’nad theine"
 
 #: po/level_i18n.cc:3352
 msgid ""
 "Do you think a bushman would start to search for an extinguisher in the "
 "cellar if a wall of fire were approaching? Be a Firefox - you have the first"
 " 5 items to deal with, no more no less!"
-msgstr ""
+msgstr "Saoil am biodh fear-coille a’ sireadh inneal-smàlaidh san t-seilear nan robh balla teine a’ teannadh air? Bi ’nad sionnach teine - feumaidh tu dèiligeadh ris a’ chiad 5 nithean ’s sin agad e!"
 
 #: po/level_i18n.cc:3354
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
-msgstr ""
+msgstr "’S urrainn dhut teine a shmàladh le uisge. Seo deagh àite gus an t-inneal-smàlaidh agad a lìonadh. Thoir an aire gu bheil uisge gann!"
 
 #: po/level_i18n.cc:3356
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
-msgstr ""
+msgstr "OICH! Tha an cuartan briste! Ullaich gus an cuartan a chàradh mus urrainn dhut a mhilleadh."
 
 #: po/level_i18n.cc:3369
 msgid "Make an umbrella."
@@ -3419,35 +3420,35 @@ msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach"
 " them unless you rob our Four Holy Items! But they are well guarded! "
 "Bwahahahaha!"
-msgstr ""
+msgstr "’S tusa a th’ ann a-rithist! Cha tèid thu seachad oirnn an turas seo! Am faic thu na h-ogsaidean seo? Cha ruig thu iad mus goid thu na ceithir nithean naomha againn! Ach tha sinn a’ cumail sùil dhlùth orra! Uahahahaha!"
 
 #: po/level_i18n.cc:3383
 msgid ""
 "Fire burns and destroys ... Want to remove blocking stones? Then dig your "
 "way to the Holy Hammer!"
-msgstr ""
+msgstr "Loisgidh ’s millidh teine ... A bheil thu airson clachan bacaidh a thoirt air falbh? Cladhaich gus an ruig thu an t-Òrd naomh!"
 
 #: po/level_i18n.cc:3384
 msgid "Try again! Bwahahahaha!"
-msgstr ""
+msgstr "Feuch ris a-rithist! Uahahahaha!"
 
 #: po/level_i18n.cc:3385
 msgid ""
 "Earth fills and lasts ... Want to replace missing floors? Then build your "
 "way to the Holy Seed!"
-msgstr ""
+msgstr "Lìonaidh ùir gu maireannach ... A bheil thu airson rud a chur an àite nan làran a tha a dhìth? Dèan togail gus an ruig thu an Sìol naomh!"
 
 #: po/level_i18n.cc:3386
 msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
-msgstr ""
+msgstr "Sèididh gaoth ’s thèid i seachad ... A bheil thu airson leum thairis air an fhànas? Ruig an Sprionga naomh!"
 
 #: po/level_i18n.cc:3387
 msgid ""
 "Water waves and shifts ... Want to trade minds with your partner? Then find "
 "your way to the Holy Yin-Yang!"
-msgstr ""
+msgstr "Tha tonnan an uisge caochlaideach ... A bheil thu airson d’ inntinn a mhalairt le do charaid? Lorg an t-slighe gun Yin-Yang naomh!"
 
 #: po/level_i18n.cc:3399
 msgid "Pirates Island"
@@ -3467,17 +3468,17 @@ msgstr "A bheil cobhair a dhìth ort?"
 
 #: po/level_i18n.cc:3452
 msgid "If I only had a bag."
-msgstr ""
+msgstr "Gun robh baga agam."
 
 #: po/level_i18n.cc:3453
 msgid "shh ... listen!"
-msgstr ""
+msgstr "ist ... èist!"
 
 #: po/level_i18n.cc:3466
 msgid ""
 "Remember Seed Puzzle 2? There was a similar problem. Or was it Portable "
 "Laser ...?"
-msgstr ""
+msgstr "Cuimhne agad air Seed Puzzle 2? Bha ceist coltach ris an tè seo ri fuasgladh ann. No an e Portable Laser a bh’ ann ...?"
 
 #: po/level_i18n.cc:3472
 msgid ""
@@ -3486,21 +3487,21 @@ msgid ""
 "adventurers who tryed to steale Aylendil the Sworde but none has ever come "
 "back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
 "lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
-msgstr ""
+msgstr "Is neartmhor ridirean nan seann linntean a chumas clachan ogsaid nan sìthichean agus is lìonmhor na taibhsean a nì fàth-feitheamh orra; is iomadh baoghlar gun tilleadh a dh’fheuch ris a’ chlaidheamh a ghoid agus Aidhleandail an t-ainm dha. Is ceòthach a’ bhoglach far an do dh’adhlaiceadh draoidheachd nan sinnsear; gun seachnadh tu faiche dràgon an eich bhàin air eagal gun dùisgeadh e ..."
 
 #: po/level_i18n.cc:3489
 msgid "Catwalk Meditation"
-msgstr ""
+msgstr "Meòrachadh cumhang"
 
 #: po/level_i18n.cc:3498
 msgid ""
 "Caramba!! El Dictator has muchos pesos in his cristal safe but muchos costa "
 "guardia too; Hay!! Poor Bola Negra has only frutos and a lasero!!!"
-msgstr ""
+msgstr "Caramba!! Tha muchos pesos aig El Dictator sa phreas-làidir cristal aige ach muchos costa guardia cuideachd; Hay!! Chan eil ach frutos ’s lasero aig a’ Bola Negra bhochd!!!"
 
 #: po/level_i18n.cc:3511
 msgid "It is not quite that easy."
-msgstr ""
+msgstr "Chan eil e cho furasta sin."
 
 #: po/level_i18n.cc:3517
 msgid "April 1st"
@@ -3508,21 +3509,21 @@ msgstr "1ad den Ghiblean"
 
 #: po/level_i18n.cc:3519
 msgid "Do you REALLY want to do this???"
-msgstr ""
+msgstr "An e ’s gu bheil thu cinnteach gu bheil thu airson seo a dhèanamh???"
 
 #: po/level_i18n.cc:3521
 msgid ""
 "Didn't your mother tell you that you should not spend your money in such a "
 "careless manner?"
-msgstr ""
+msgstr "Nach do dh’innis do mhàthair dhut nach bu chòir dhut an airgead agad a chosg gun fheum?"
 
 #: po/level_i18n.cc:3523
 msgid "What is the current month?"
-msgstr ""
+msgstr "Dè am mìos a th’ againn an-dràsta?"
 
 #: po/level_i18n.cc:3525
 msgid "What is this level's name?"
-msgstr ""
+msgstr "Dè an t-ainm a tha an leibheil?"
 
 #: po/level_i18n.cc:3531
 msgid "Welcome to Enigma V"
@@ -3530,25 +3531,25 @@ msgstr "Fàilte gu Enigma V"
 
 #: po/level_i18n.cc:3542
 msgid "Did you really think this one was so easy!?"
-msgstr ""
+msgstr "An robh thu dhen bheachd gun robh e cho furasta sin!?"
 
 #: po/level_i18n.cc:3544
 msgid "Did you forget something?"
-msgstr ""
+msgstr "Nach do dhìochuimhnich thu rudeigin?"
 
 #: po/level_i18n.cc:3546
 msgid "Go on! There's no way back now!"
-msgstr ""
+msgstr "Air adhart! Chan eil rathad air ais ann tuilleadh!"
 
 #: po/level_i18n.cc:3548
 msgid "STOP! Not this way! There's a short-cut ..."
-msgstr ""
+msgstr "STAD! Chan e seo an rathad ceart. Tha rathad goirid ann ..."
 
 #: po/level_i18n.cc:3550
 msgid ""
 "There's a trigger one step to the left. If you could keep it depressed, it "
 "would help you a lot if you go back!"
-msgstr ""
+msgstr "Tha trigeir aon cheum gu clì. Nam b’ urrainn dhut a chumail sìos, bhiodh e ’na chuideachadh mòr dhut ma thèid thu air ais!"
 
 #: po/level_i18n.cc:3557
 msgid "Warning ... ... thieves!"
@@ -3563,7 +3564,7 @@ msgstr "Mur eil thu air cluinntinn mu Brainf*** roimhe fiamh, tadhail air http:/
 #: po/level_i18n.cc:3566
 msgid ""
 "This is my first landscape, dedicated to my father. I hope you'll enjoy it!"
-msgstr ""
+msgstr "Seo a’ chiad cruth-tìre agam, coisrigte dha m’ athair. Tha mi ’n dòchas gun còrd e riut!"
 
 #: po/level_i18n.cc:3591
 msgid "Don't get too attracted!"
@@ -3575,7 +3576,7 @@ msgstr "Oiseanan pada-iuchraichean"
 
 #: po/level_i18n.cc:3606
 msgid "Could you need something?"
-msgstr ""
+msgstr "Rudeigin a dhìth ort, an e?"
 
 #: po/level_i18n.cc:3616
 msgid "This is a meditation landscape: put a small marble into every hole ..."
@@ -3585,21 +3586,21 @@ msgstr "Seo cruth-tìre meòrachaidh: cuir marbhal beag sa h-uile toll ..."
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares"
 " change as well; you must get as many green squares as possible."
-msgstr ""
+msgstr "Ma dh’atharraicheas tu an dath air aon dhe na cheàrnagan, atharraichidh an dath air an dà cheàrnag as fhaisge air cuideachd; feumaidh tu na ghabhas a cheàrnagan uaine fhaighinn."
 
 #: po/level_i18n.cc:3623
 msgid ""
 "You are only allowed to change a color when it is surrounded by the other "
 "color."
-msgstr ""
+msgstr "Chan fhaod thu dath atharrachadh ach ma tha an dath eile timcheall air."
 
 #: po/level_i18n.cc:3627
 msgid "No way out?"
-msgstr ""
+msgstr "Gun rathad a-mach?"
 
 #: po/level_i18n.cc:3628
 msgid "Do you miss something?"
-msgstr ""
+msgstr "Cha deach theab a-riamh le creig."
 
 #: po/level_i18n.cc:3633
 msgid "Send me the keys !"
@@ -3614,51 +3615,51 @@ msgid ""
 "Beware, stranger! The ancient gods of Enigma have set many traps to protect "
 "their holy Oxyds! You will have to get through the Four Tests to prove your "
 "worth!"
-msgstr ""
+msgstr "Thoir an aire, a choigrich? Tha na diathan àrsaidh Enigma mòran ribe a chur gus na h-ogsaidean naomha aca a dhìon! Feumaidh tu tighinn tro na ceithir deuchainnean gus dearbhadh gu bheil thu airidh orra!"
 
 #: po/level_i18n.cc:3643
 msgid "Prove your speed in the Test of Fire!"
-msgstr ""
+msgstr "Dearbhaich gu bheil thu luath le deuchainn an teine!"
 
 #: po/level_i18n.cc:3644
 msgid "You have proven your worth! The ancients grant you a FLAG!"
-msgstr ""
+msgstr "Dhearbhaich thu gu bheil thu airidh air! Thug an fheadhainn àrsaidh BRATACH thugad!"
 
 #: po/level_i18n.cc:3645
 msgid "Prove your intelligence in the Test of Earth!"
-msgstr ""
+msgstr "Dearbhaich gu bheil thu glic le deuchainn na talmhainn!"
 
 #: po/level_i18n.cc:3646
 msgid "You have proven your worth! The ancients grant you a SPRING!"
-msgstr ""
+msgstr "Dhearbhaich thu gu bheil thu airidh air! Thug an fheadhainn àrsaidh SPRIONGA thugad!"
 
 #: po/level_i18n.cc:3647
 msgid "Prove your dexterity in the Test of Air!"
-msgstr ""
+msgstr "Dearbhaich gu bheil thu teòma le deuchainn an adhair!"
 
 #: po/level_i18n.cc:3648
 msgid "You have proven your worth! The ancients grant you a NAIL!"
-msgstr ""
+msgstr "Dhearbhaich thu gu bheil thu airidh air! Thug an fheadhainn àrsaidh TARRAG thugad!"
 
 #: po/level_i18n.cc:3649
 msgid "Prove your patience in the Test of Water!"
-msgstr ""
+msgstr "Dearbhaich gu bheil thu foighidinneach le deuchainn an uisge!"
 
 #: po/level_i18n.cc:3650
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
 " Bwahahahaha!"
-msgstr ""
+msgstr "Chan urrainn dha bhith! Cha ruig neach talmhaidh na h-ogsaidean naomha againn! Dearbhaidh thu fhèin turas eile! Uahahahaha!"
 
 #: po/level_i18n.cc:3654
 msgid "Don't get attracted!"
-msgstr ""
+msgstr "Na leig leat tarraing a-steach!"
 
 #: po/level_i18n.cc:3660
 msgid ""
 "The most dangerous animals of the bayou are the alligators, the mosquitoes "
 "... and the zombies! (But the zombies at least, don't move ...)"
-msgstr ""
+msgstr "Seo na creutairean as cunnartaiche sa bayou: na crogallan, a’ mheanbh-chuileag ... ’s na zombies! (Ach nach math nach ghluais na zombies ...)"
 
 #: po/level_i18n.cc:3697
 msgid "Let there be light!"
@@ -3682,7 +3683,7 @@ msgstr "Tuiteam saor le creineadh bàsmhor!"
 
 #: po/level_i18n.cc:3776
 msgid "Nothing but thieves!! Try the mailbox."
-msgstr ""
+msgstr "Chan eil ach mèirlich ann!! Feuch am bogsa-puist."
 
 #: po/level_i18n.cc:3780
 msgid "Business hours from 8am to 4pm"
@@ -3694,15 +3695,15 @@ msgstr "Bacaidh sgàilean-uisge tuiteam!"
 
 #: po/level_i18n.cc:3833
 msgid "Rotaryrotaryrot..."
-msgstr ""
+msgstr "Rotrotrotar..."
 
 #: po/level_i18n.cc:3837
 msgid "No problem! Piece of cake!"
-msgstr "'S beag a chuireas sin ort!"
+msgstr "’S beag a chuireas sin ort!"
 
 #: po/level_i18n.cc:3838
 msgid "It was easy, wasn't it!"
-msgstr "Nach b' fhurasta seo?"
+msgstr "Nach b’ fhurasta seo?"
 
 #: po/level_i18n.cc:3854
 msgid "Don't believe all that you see!"
@@ -3710,69 +3711,69 @@ msgstr "Cha chreid sa h-uile nì a chì thu!"
 
 #: po/level_i18n.cc:3859
 msgid "It's a ring!"
-msgstr "'S e fàinne a th' ann!"
+msgstr "’S e fàinne a th’ ann!"
 
 #: po/level_i18n.cc:4023
 msgid "If you think that's too easy, try \"Difficulty: Normal\"."
-msgstr ""
+msgstr "Ma tha seo ro fhurasta dhut, feuch “Duilgheadas: Àbhaisteach”."
 
 #: po/level_i18n.cc:4025
 msgid "If you think that's too hard, try \"Difficulty: Easy\"."
-msgstr ""
+msgstr "Ma tha seo ro dhoirbh dhut, feuch “Duilgheadas: Furasta”."
 
 #: po/level_i18n.cc:4030
 msgid "Some stones and stone rows can be moved!"
-msgstr ""
+msgstr "Gabhaidh cuid a chlachan ’s ràghan chlachan gluasad!"
 
 #: po/level_i18n.cc:4049
 msgid "Dig in ..."
-msgstr ""
+msgstr "Dùisg an talamh ..."
 
 #: po/level_i18n.cc:4066
 msgid "Bricks change!"
-msgstr ""
+msgstr "Atharraichidh breigichean!"
 
 #: po/level_i18n.cc:4116
 msgid "Watch out for water holes!"
-msgstr ""
+msgstr "Thoir an aire air tuill uisge!"
 
 #: po/level_i18n.cc:4120
 msgid "Rest on the bright spot for a minute."
-msgstr ""
+msgstr "Gabh fois air a’ bhad shoilleir greiseag."
 
 #: po/level_i18n.cc:4121
 msgid "You'll do anything you're told!"
-msgstr ""
+msgstr "Nì thu rud sam bith a dh’innsear dhut!"
 
 #: po/level_i18n.cc:4132
 msgid "Umbrellas protect you against oncoming boulder!"
-msgstr ""
+msgstr "Dìonaidh sgàilean thu on ulpag a thig!"
 
 #: po/level_i18n.cc:4167
 msgid "... did it!"
-msgstr ""
+msgstr "... rinn thu a’ chùis air!"
 
 #: po/level_i18n.cc:4189
 msgid "Nothing can stop us!"
-msgstr ""
+msgstr "Cha chuir nì fon ghrèin stad oirnn!"
 
 #: po/level_i18n.cc:4197
 msgid "Did you bring your flag?"
-msgstr ""
+msgstr "An tug thu am bratach agad?"
 
 #: po/level_i18n.cc:4201
 msgid ""
 "This oscillating stone is a timer-stone. You cannot interact with it, but "
 "nevertheless be aware when you see one: After some time-period anything "
 "might happen ..."
-msgstr ""
+msgstr "’S e tìmear a tha sa chlach luasganach. Chan urrainn dhut gnìomh a dhèanamh leotha ach thoir an aire nuair a chì thu tè: Faodaidh rud sam bith tachairt an ceann ùine ..."
 
 #: po/level_i18n.cc:4202
 msgid ""
 "The stones with arrows are one-way-stones. As you might have guessed, you "
 "can only pass them in one direction.                Mazes are cherished "
 "elements of Enigma - you will see lots of them."
-msgstr "'S e clachan aon-shligheach a tha sna clachan le saighdean orra. Mar a shaoileadh tu, chan urrainn dhut dol tromhpa ach an aon chomhair. 'S pàirt mòr-chòrdte dhe dh'Enigma a th' anns na cuartanan – chì thu grunn dhiubh."
+msgstr "’S e clachan aon-shligheach a tha sna clachan le saighdean orra. Mar a shaoileadh tu, chan urrainn dhut dol tromhpa ach an aon chomhair. ’S pàirt mòr-chòrdte dhe dh’Enigma a th’ anns na cuartanan – chì thu grunn dhiubh."
 
 #: po/level_i18n.cc:4203
 msgid ""
@@ -3785,7 +3786,7 @@ msgid ""
 "Use the right mouse-button to rotate your inventory,  it's the bar at the "
 "bottom of the screen.   And guess what these three items down there can be "
 "used to."
-msgstr "Cleachd putan deas na luchaige gus nithean san tasgadh a chur mun cuairt – 's e seo am bàr aig bonn na sgrìn. Agus saoil dè nì thu leis na trì nithean a tha ann?"
+msgstr "Cleachd putan deas na luchaige gus nithean san tasgadh a chur mun cuairt – ’s e seo am bàr aig bonn na sgrìn. Agus saoil dè nì thu leis na trì nithean a tha ann?"
 
 #: po/level_i18n.cc:4211
 msgid ""
@@ -3800,14 +3801,14 @@ msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
 "despair if you don't get through it at the first time.   Bye!"
-msgstr "Ach mus dèan thu seo, thoir sùil air leibheil mu dheireadh an oideachaidh a rinn Jacob air do shon. Beachdaich air mar dheuchainn ma thogras tu. Tha e caran doirbh, mar sin na toir gèill mur dèan thu a' chùis air sa bhad. Mar sin leat!"
+msgstr "Ach mus dèan thu seo, thoir sùil air leibheil mu dheireadh an oideachaidh a rinn Jacob air do shon. Beachdaich air mar dheuchainn ma thogras tu. Tha e caran doirbh, mar sin na toir gèill mur dèan thu a’ chùis air sa bhad. Mar sin leat!"
 
 #: po/level_i18n.cc:4216
 msgid ""
 "Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
 "levels a second time in the Enigma packs, together with many new and much "
 "more difficult ones.   Just don't give up on them!"
-msgstr "Uill, tha mi 'n dòchas gun do chòrd a' phacaid oideachaidh dhut. Chì thu a' mhòrchuid dhe na leibheilean seo turas eile na pacaidean Enigma còmhla ri grunn leibheilean ùra 's nas dorra. Cha leig thu leas ach cumail orra!"
+msgstr "Uill, tha mi ’n dòchas gun do chòrd a’ phacaid oideachaidh dhut. Chì thu a’ mhòrchuid dhe na leibheilean seo turas eile na pacaidean Enigma còmhla ri grunn leibheilean ùra ’s nas dorra. Cha leig thu leas ach cumail orra!"
 
 #: po/level_i18n.cc:4220
 msgid "Careful - you can not swim in the water."
@@ -3815,7 +3816,7 @@ msgstr "Thoir an aire – chan urrainn dhut snàmh san uisge."
 
 #: po/level_i18n.cc:4224
 msgid "Remember the colors."
-msgstr "Cuir na dathan 'nad chuimhne."
+msgstr "Cuir na dathan ’nad chuimhne."
 
 #: po/level_i18n.cc:4228
 msgid "Learn to move your black ball properly."
@@ -3829,7 +3830,7 @@ msgstr "Faodaidh leibheilean a bhith nas motha na sgrìn a-mhàin."
 msgid ""
 "The blue stones are Oxyd stones. Open them by touching them with your black "
 "marble."
-msgstr "'S e clachan ogsaid a tha sna clachan gorma. Bean riutha leis a' mharbhal dhubh gus am fosgladh."
+msgstr "’S e clachan ogsaid a tha sna clachan gorma. Bean riutha leis a’ mharbhal dubh gus am fosgladh."
 
 #: po/level_i18n.cc:4240
 msgid ""
@@ -3858,7 +3859,7 @@ msgid ""
 " of the room (actually, try falling into it and then restarting the level "
 "with the 'Esc' key).  While these messages are being displayed, don't click "
 "any buttons or push any keys or the message will stop."
-msgstr "Tha smachd agad air a' bhàla dhubh. Cha leig thu leas ach roiligeadh thar rud gus a thogail. Nì thu bocadh far a' mhòrchuid a bhallachan (feuch ris) ach seachnaich an làr gorm aig bonn an ruim (uill, nach feuch thu gun tuit thu ann agus gun tòisich thu an leibheil às ùr leis an iuchair \"Esc\"). Na briog leis an luchag 's na brùth air iuchair nuair a chì thu an teachdaireachd seo no tèid a toirt air falbh."
+msgstr "Tha smachd agad air a’ bhàla dhubh. Cha leig thu leas ach roiligeadh thar rud gus a thogail. Nì thu bocadh far a’ mhòrchuid a bhallachan (feuch ris) ach seachnaich an làr gorm aig bonn an ruim (uill, nach feuch thu gun tuit thu ann agus gun tòisich thu an leibheil às ùr leis an iuchair “Esc”). Na briog leis an luchag ’s na brùth air iuchair nuair a chì thu an teachdaireachd seo no tèid a toirt air falbh."
 
 #: po/level_i18n.cc:4254
 msgid "This is pretty self-explanatory."
@@ -3868,7 +3869,7 @@ msgstr "Chan eil mìneachadh a dhith."
 msgid ""
 "Enigma is full of puzzles of various types.  In the next room, you will "
 "encounter your first one."
-msgstr "Tha Enigma làn tòimhseachain de chaochladh seòrsa. Tachraidh tu air a' chiad fhear dhiubh san ath rum."
+msgstr "Tha Enigma làn tòimhseachain de chaochladh seòrsa. Tachraidh tu air a’ chiad fhear dhiubh san ath rum."
 
 #: po/level_i18n.cc:4256
 msgid ""
@@ -3880,7 +3881,7 @@ msgstr "Chan urrainn dhut coiseachd air uisge! Feuch am brùth thu na blocaichea
 msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
-msgstr "Thoir an aire nach urrainn dhut ràghan dhe dhà bhloca no a bharrachd a bhrùthadh aig an aon aom. Cuideachd, chan fhaod bloca ' cliath a bhith air an aon cheàrnag ach faodaidh tusa."
+msgstr "Thoir an aire nach urrainn dhut ràghan dhe dhà bhloca no a bharrachd a bhrùthadh aig an aon aom. Cuideachd, chan fhaod bloca ’s cliath a bhith air an aon cheàrnag ach faodaidh tusa."
 
 #: po/level_i18n.cc:4258
 msgid ""
@@ -3895,7 +3896,7 @@ msgid ""
 " will restart at the beginning of the level (if you have any balls left).  "
 "Try to find a way to get past and into the next room (you can use the blocks"
 " in the center of the room as barricades)."
-msgstr "Seo dòtaman – millidh e am bàla agad nuair a bheanas e ris. Cuideachd, bidh e às do dhèidh fhad 's a bhios tu faisg air. Tòisichidh tu a-rithist aig toiseach an leibheil nuair a gheibh thu bàs (ma tha bàla air fhàgail dhut). Feuch am faigh thu lorg air slighe seachad air agus dhan ath rum (faodaidh tu na blocaichean ann am meadhan an ruim a chleachdadh gus a bhacadh.)"
+msgstr "Seo dòtaman – millidh e am bàla agad nuair a bheanas e ris. Cuideachd, bidh e às do dhèidh fhad ’s a bhios tu faisg air. Tòisichidh tu a-rithist aig toiseach an leibheil nuair a gheibh thu bàs (ma tha bàla air fhàgail dhut). Feuch am faigh thu lorg air slighe seachad air agus dhan ath rum (faodaidh tu na blocaichean ann am meadhan an ruim a chleachdadh gus a bhacadh.)"
 
 #: po/level_i18n.cc:4260
 msgid ""
@@ -3911,7 +3912,7 @@ msgstr "Seo caochladh sheòrsaichean de làran. Feuch dol thairis orra."
 msgid ""
 "The grayish floors are slopes.  The white floor is inverse-floor (you will "
 "see)."
-msgstr "'S e slèibhtean a th' anns na làran liatha. 'S e làr contrarra a tha san fhear gheal (mothaichidh tu cò air a tha sinn a-mach)."
+msgstr "’S e slèibhtean a th’ anns na làran liatha. ’S e làr contrarra a tha san fhear gheal (mothaichidh tu cò air a tha sinn a-mach)."
 
 #: po/level_i18n.cc:4263
 msgid ""
@@ -3923,7 +3924,7 @@ msgstr "Thoir sùil air na thachras nuair a thèid thu seachad air na trigearan 
 msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
-msgstr "Seo dineamait. Leig slabaid dheth tuiteam ri taobh a' bhalla bhuidhe ud (agus gluais a-mach às an rathad)."
+msgstr "Seo dineamait. Leig slabaid dheth tuiteam ri taobh a’ bhalla bhuidhe ud (agus gluais a-mach às an rathad)."
 
 #: po/level_i18n.cc:4265
 msgid "Try using the spade on the holes caused by the dynamite."
@@ -3939,7 +3940,7 @@ msgstr "Seo ulpagan – feuch an gluais thu fear dhe na blocaichean tanaidh. Na 
 msgid ""
 "Take the magic wand and hit a boulder.  Try to let the row of three boulders"
 " pass the large column."
-msgstr "Tog an slat draoidheach agus buail ri ulpag. Feuch an tèid an r?agh dhe thrì ulpagan seachad air a' cholbh mhòr."
+msgstr "Tog an slat draoidheach agus buail ri ulpag. Feuch an tèid an r?agh dhe thrì ulpagan seachad air a’ cholbh mhòr."
 
 #: po/level_i18n.cc:4268
 msgid "Hit it hard enough!"
@@ -3949,13 +3950,13 @@ msgstr "Buail ris gu cruaidh!"
 msgid ""
 "It appears to be a simple room, but you're getting an extra ball anyway.  "
 "Maybe there is a reason ..."
-msgstr "Tha coltas furasta air an rum seo, ach gheibh thu bàla a bharrachd co-dhiù. 'S dòcha gu bheil adhbhar air seo ..."
+msgstr "Tha coltas furasta air an rum seo, ach gheibh thu bàla a bharrachd co-dhiù. ’S dòcha gu bheil adhbhar air seo ..."
 
 #: po/level_i18n.cc:4270
 msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!"
 "  Use the mirrors to direct the beam."
-msgstr "Feuch an toir thu air gath an leusair gum buail e ris a' chlach dhubh ud, ach thoir an aire nach buail e ortsa! Cleachd na sgàthanan gus an gath a stiùireadh."
+msgstr "Feuch an toir thu air gath an leusair gum buail e ris a’ chlach dhubh ud, ach thoir an aire nach buail e ortsa! Cleachd na sgàthanan gus an gath a stiùireadh."
 
 #: po/level_i18n.cc:4271
 msgid ""
@@ -3963,7 +3964,7 @@ msgid ""
 "coins with the laser beam.  Also, try hitting a block over a coin.  Those "
 "stones to your right are knights -- you need to fight (hit) them with a "
 "sword (in the front of your inventory) to get past."
-msgstr "Atharraichidh iomadh nì nuair a bhuaileas gath leusair ris. Feuch am buail thu ri cuid dhe na buinn leis. Cuideachd, feuch am buail thu ri bloca os cionn buinn. 'S e ridirean a th' anns na clachan ri do thaobh deas – feumaidh tu sabaid 'nan aghaidh (am bualadh) le claidheamh (air toiseach do thasgadh) gus faighinn seachad orra."
+msgstr "Atharraichidh iomadh nì nuair a bhuaileas gath leusair ris. Feuch am buail thu ri cuid dhe na buinn leis. Cuideachd, feuch am buail thu ri bloca os cionn buinn. ’S e ridirean a th’ anns na clachan ri do thaobh deas – feumaidh tu sabaid ’nan aghaidh (am bualadh) le claidheamh (air toiseach do thasgadh) gus faighinn seachad orra."
 
 #: po/level_i18n.cc:4272
 msgid ""
@@ -3975,7 +3976,7 @@ msgstr "A bheil sgàilean-uisge agad? Bheir gach fear dhiubh mu dheich diog de d
 msgid ""
 "Those black stones are quake stones -- they reset all progress made with the"
 " oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
-msgstr ""
+msgstr "Adhbharaichidh na clachan dubha crith-talmhainn – bheir iad gach adhartas a rinn thu leis na clachan ogsaid air falbh. ’S e clachan ogsaid a tha sna clachan eile.  Maidsich iad ach am buannaich thu!"
 
 #: po/level_i18n.cc:4274
 msgid ""
@@ -3987,7 +3988,7 @@ msgid ""
 "your inventory are your extra lives -- if you die in this level, you will "
 "restart at the beginning of the level if you have any balls left (and you "
 "will lose one of the balls)."
-msgstr "'S e an tasgadh agad a tha san roinn aig bonn na sgrìn – nuair a thogas tu stuth, seo far an tèid e (dusan nithean air a char as motha) Cleachd putan deas na luchaige no an iuchair \"tab\" airson sgroladh troimhe. Dèan briogadh clì gus nì a chleachdadh no a leigeil tuiteam. Tha cuid a nithean a leithid sgrìobhainnean (mar am fear seo) ann nach tuit ach a thèid a chleachdadh. 'S e beathannan a bharrachd a tha san dà bhàla san tasgadh agad – ma gheibh thu bàs san leibheil seo, tòisichidh tu às ur aig toiseach an leibheil ma tha bàla air fhàgail dhut (agus caillidh tu aon dhe na bàlaichean)."
+msgstr "’S e an tasgadh agad a tha san roinn aig bonn na sgrìn – nuair a thogas tu stuth, seo far an tèid e (dusan nithean air a char as motha) Cleachd putan deas na luchaige no an iuchair “tab” airson sgroladh troimhe. Dèan briogadh clì gus nì a chleachdadh no a leigeil tuiteam. Tha cuid a nithean a leithid sgrìobhainnean (mar am fear seo) ann nach tuit ach a thèid a chleachdadh. ’S e beathannan a bharrachd a tha san dà bhàla san tasgadh agad – ma gheibh thu bàs san leibheil seo, tòisichidh tu às ur aig toiseach an leibheil ma tha bàla air fhàgail dhut (agus caillidh tu aon dhe na bàlaichean)."
 
 #: po/level_i18n.cc:4275
 msgid ""
@@ -4001,7 +4002,7 @@ msgid ""
 "will need to go in with it but you can't go through the white one-way block."
 "                            Take the spoon and use it once the white ball is"
 " through (hit it hard)."
-msgstr "Gu nàdarra, gu chòir dhut dol tro na geataichean dùinte ud aig barr na sgrìn. Feuch an tèid thu sìos na slèibhe aig bonn na sgrìn gus faicinn na tha ann gu clì. Leig seachad an trigear fon t-sloc an-dràsta. Nam b' urrainn dhut bualadh ris a' bhàla bheag gheal tro aon dhe na blocaichean aon-shligheach (air a bheil saighdean), 's mathaid gun rolaig e sìos gus an stad e air an trigear. Feumaidh tu dol a-steach leis ach chan urrainn dhut dol tron bhloca aon-shligheach gheal. Tog an spàin agus cleachd e nuair a bhios am bàla geal troimhe (buail gu cruaidh e)."
+msgstr "Gu nàdarra, gu chòir dhut dol tro na geataichean dùinte ud aig barr na sgrìn. Feuch an tèid thu sìos na slèibhe aig bonn na sgrìn gus faicinn na tha ann gu clì. Leig seachad an trigear fon t-sloc an-dràsta. Nam b’ urrainn dhut bualadh ris a’ bhàla bheag gheal tro aon dhe na blocaichean aon-shligheach (air a bheil saighdean), ’s mathaid gun rolaig e sìos gus an stad e air an trigear. Feumaidh tu dol a-steach leis ach chan urrainn dhut dol tron bhloca aon-shligheach gheal. Tog an spàin agus cleachd e nuair a bhios am bàla geal troimhe (buail gu cruaidh e)."
 
 #: po/level_i18n.cc:4276
 msgid ""
@@ -4009,7 +4010,7 @@ msgid ""
 "probably useful.  In this case the switch opens and closes a door (Do you "
 "remember a door that you weren't able to open?).  The bluish line is a "
 "window -- bridge the water before you do anything with it."
-msgstr "'S e suidse a tha sa chlach aig a' bharr gu deas. Buail ris – feumaidh gu bheil e feumail. Fosglaidh agus dùinidh an t-suidse seo doras (a bheil cuimhne agad air an doras nach b' urrainn thu fosgladh?). 'S uinneag a tha san loidhne soilleir-ghorm – tog drochaid thar an uisge mus dèan thu dad leatha."
+msgstr "’S e suidse a tha sa chlach aig a’ bharr gu deas. Buail ris – feumaidh gu bheil e feumail. Fosglaidh agus dùinidh an t-suidse seo doras (a bheil cuimhne agad air an doras nach b’ urrainn thu fosgladh?). Is uinneag a tha san loidhne soilleir-ghorm – tog drochaid thar an uisge mus dèan thu dad leatha."
 
 #: po/level_i18n.cc:4277
 msgid ""
@@ -4017,7 +4018,7 @@ msgid ""
 "to make them difficult.                            However, maybe this rotor"
 " has a purpose; maybe you could get it on that trigger near where the spoon "
 "was.                      It might be convenient to close the gate."
-msgstr "Seo rotar (coltach ri dòtaman). Tha iomadh rotar 's dòtaman ann an cuid a leibheilean gus an dèanadh nas dorra. Chan eil an rotar seo ann gun adhbhar, 's dòcha, feuch an tàlaidh tu dhan trigear e faisg air far an robh an spàin. 'S mathaid gum biodh e goireasach an geata a dhùnadh."
+msgstr "Seo rotar (coltach ri dòtaman). Tha iomadh rotar ’s dòtaman ann an cuid a leibheilean gus an dèanadh nas dorra. Chan eil an rotar seo ann gun adhbhar, ’s dòcha, feuch an tàlaidh tu dhan trigear e faisg air far an robh an spàin. ’S mathaid gum biodh e goireasach an geata a dhùnadh."
 
 #: po/level_i18n.cc:4281
 msgid "Don't touch everything!"
@@ -4032,7 +4033,7 @@ msgid ""
 "The bright light beam is a laser beam.   Don't get too close to it!   But it"
 " has its uses ...    You can use the mirrors to direct the laser to its "
 "targets.   From these, only the light-gray ones are movable, just try it!"
-msgstr "'S e gath leusair a tha sa ghath solais shoilleir. Na tig faisg air! Faodaidh e a bhith feumail co-dhiù ... 's urrainn dhut sgàthanan a chleachdadh gus an leusair a stiùireadh dhan amais. Cha ghabh ach an fheadhainn liath a ghluasad, nach fheuch thu ris?"
+msgstr "’S e gath leusair a tha sa ghath solais shoilleir. Na tig faisg air! Faodaidh e a bhith feumail co-dhiù ... ’s urrainn dhut sgàthanan a chleachdadh gus an leusair a stiùireadh dhan amais. Cha ghabh ach an fheadhainn liath a ghluasad, nach fheuch thu ris?"
 
 #: po/level_i18n.cc:4293 po/level_i18n.cc:4685
 msgid "Take your time ..."
@@ -4057,7 +4058,7 @@ msgstr "A bheil barrachd rudan ann as urrainn dhut dèanamh le blocaichean fiodh
 
 #: po/level_i18n.cc:4303
 msgid "Some stones look exactly like the Oxyd stones!"
-msgstr "Tha an dearbh coltas air cuid a chlachan 's a tha air clachan ogsaid!"
+msgstr "Tha an dearbh coltas air cuid a chlachan ’s a tha air clachan ogsaid!"
 
 #: po/level_i18n.cc:4307
 msgid ""
@@ -4068,7 +4069,7 @@ msgstr "Gluais gach marbhal beag ann an toll. Cha chuir ach aonan dhiubh anns ga
 msgid ""
 "The stone with the horse's head is called ''chess stone''. Watch how the "
 "other marble hits one of them to move it. The angle is important."
-msgstr ""
+msgstr "’S e “clach tàileisg” a tha air a’ chlach le ceann eich air. Cum sùil air a’ mharbhal eile ’s mar a bhuaileas e rithe gus a gluasad. Tha an ceàrn cudromach."
 
 #: po/level_i18n.cc:4312
 msgid ""
@@ -4084,15 +4085,15 @@ msgstr "Thoir an aire! Tha an trigear san aibheis neònach. Thèid e a-mach à s
 
 #: po/level_i18n.cc:4322
 msgid "Go left to play the white part. Go right to play the black part."
-msgstr "Rach gu clì gus a' phàirt gheal a chluiche. Rach gu deas gus a' phàirt dhubh a chluiche."
+msgstr "Rach gu clì gus a’ phàirt gheal a chluiche. Rach gu deas gus a’ phàirt dhubh a chluiche."
 
 #: po/level_i18n.cc:4335
 msgid "Floating ..."
-msgstr ""
+msgstr "A’ flod ..."
 
 #: po/level_i18n.cc:4336
 msgid "Don't be afraid -- It's only a ten mile drop!"
-msgstr ""
+msgstr "Na bhiodh an t-eagal ort – cha tuitear ann ach deich mìle!"
 
 #: po/level_i18n.cc:4350 po/level_i18n.cc:4588
 msgid "Keep distance!"
@@ -4100,7 +4101,7 @@ msgstr "Cum air falbh!"
 
 #: po/level_i18n.cc:4352 po/level_i18n.cc:4590
 msgid "Help! I can't see the forest for the trees!"
-msgstr "Cobhair orm! Cha lèir mi a' choille leis na craobhan!"
+msgstr "Cobhair orm! Cha lèir mi a’ choille leis na craobhan!"
 
 #: po/level_i18n.cc:4357
 msgid "Inkblot 1"
@@ -4124,19 +4125,19 @@ msgstr "Seall air Nuadh Eabhrac le gach speuclair a lorgas tu ach am faigh thu b
 msgid ""
 "There's always a terrible traffic jam on Broadway at Times Square.  It's a "
 "pity you don't have time to see a show!"
-msgstr "Tha dùmhlachd trafaige uabhasach air Broadway aig Times Square an-còmhnaidh.  'S truagh nach eil ùine agad airson nan taighean-cluiche!"
+msgstr "Tha dùmhlachd trafaige uabhasach air Broadway aig Times Square an-còmhnaidh.  ’S truagh nach eil ùine agad airson nan taighean-cluiche!"
 
 #: po/level_i18n.cc:4379
 msgid ""
 "Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
 "music, and use the shogun to open some gates!"
-msgstr "Sgrìobh Charles Ives \"Central Park in the Dark\". Gabh tlachd às an ceòl aige agus cleachd an gunna gus geataichean fhosgladh!"
+msgstr "Sgrìobh Charles Ives “Central Park in the Dark”. Gabh tlachd às an ceòl aige agus cleachd an gunna gus geataichean fhosgladh!"
 
 #: po/level_i18n.cc:4381
 msgid ""
 "These mechanized traffic signals are strange.  An outbound traffic sensor at"
 " Central park seems to be responsible for this street.  Use your glasses!"
-msgstr "Tha na solasan-trafaige innealaichte seo neònach.  Tha mothaichear trafaige a-mach aig Central Park a' stiùireadh an sraid seo.  Cleachd na speuclairean agad!"
+msgstr "Tha na solasan-trafaige innealaichte seo neònach.  Tha mothaichear trafaige a-mach aig Central Park a’ stiùireadh an sraid seo.  Cleachd na speuclairean agad!"
 
 #: po/level_i18n.cc:4383
 msgid ""
@@ -4153,29 +4154,29 @@ msgstr "Fàilte gu Enigma VIII"
 
 #: po/level_i18n.cc:4420
 msgid "Crabwise III"
-msgstr ""
+msgstr "Mar chrùbag III"
 
 #: po/level_i18n.cc:4430
 msgid "FizzBuzz"
-msgstr ""
+msgstr "FizzBuzz"
 
 #: po/level_i18n.cc:4431
 msgid ""
 "Counting the first pearl as 1, you must save every pearl that's a multiple "
 "of 3 or of 5 (or both)."
-msgstr "A' cunntadh a' chiad neamhnaid mar 1, feumaidh tu gach neamhnaid a shàbhaladh a bhiod 'na iomadach aig 3 no 5 (no an dà chuid)."
+msgstr "A’ cunntadh a’ chiad neamhnaid mar 1, feumaidh tu gach neamhnaid a shàbhaladh a bhiod ’na iomadach aig 3 no 5 (no an dà chuid)."
 
 #: po/level_i18n.cc:4437
 msgid "The Hand Mirror Cabinet"
-msgstr ""
+msgstr "Caibineat an sgàthain-làimhe"
 
 #: po/level_i18n.cc:4439
 msgid "Ever tried to look at the back of your head in the mirror?"
-msgstr ""
+msgstr "An do dh’fheuch thu ri coimhead air cùl do chinn ann an sgàthan a-riamh?"
 
 #: po/level_i18n.cc:4446
 msgid "It's not symmetric!"
-msgstr ""
+msgstr "Chan eil e co-chothromach!"
 
 #: po/level_i18n.cc:4454 po/level_i18n.cc:4478
 msgid "Use the Lightpassenger"
@@ -4183,23 +4184,23 @@ msgstr "Siubhail leis an t-solas"
 
 #: po/level_i18n.cc:4468
 msgid "A Baroque Game"
-msgstr ""
+msgstr "Geama barocach"
 
 #: po/level_i18n.cc:4473
 msgid "Only A Labyrinth"
-msgstr "Chan e ach cuartan a th' ann"
+msgstr "Chan e ach cuartan a th’ ann"
 
 #: po/level_i18n.cc:4491
 msgid "Number Crunching"
-msgstr "Gu h-aon 's gu dhà"
+msgstr "Gu h-aon ’s gu dhà"
 
 #: po/level_i18n.cc:4513
 msgid "There's more help than you first think!"
-msgstr ""
+msgstr "Gheibh thu barrachd cuideachaidh na shaoileadh tu an toiseach!"
 
 #: po/level_i18n.cc:4517
 msgid "Listen for the best place for an explosion"
-msgstr ""
+msgstr "Èist airson an àite nas fhearr airson spreadhadh"
 
 #: po/level_i18n.cc:4530
 msgid "Missing Oxyds?"
@@ -4215,7 +4216,7 @@ msgstr "Dèan cinnteach gun lorg thu a h-uile gin dhiubh"
 
 #: po/level_i18n.cc:4551
 msgid "Danger Flag"
-msgstr ""
+msgstr "Bratach cunnairt"
 
 #: po/level_i18n.cc:4565
 msgid "Just a Dance ?"
@@ -4223,15 +4224,15 @@ msgstr "Nach e ach dannsa e?"
 
 #: po/level_i18n.cc:4598
 msgid "Deep ..."
-msgstr ""
+msgstr "Domhain ..."
 
 #: po/level_i18n.cc:4603
 msgid "Meditation! Silence? ... Have a Look ..."
-msgstr ""
+msgstr "Meòrachadh! Sàmhchair? ... Thoir sùil ..."
 
 #: po/level_i18n.cc:4605
 msgid "These stormy days ..."
-msgstr ""
+msgstr "Na làithean stoirmeil seo ..."
 
 #: po/level_i18n.cc:4610
 msgid "Alternation II"
@@ -4251,15 +4252,15 @@ msgstr "Na ith na sirisean"
 
 #: po/level_i18n.cc:4633
 msgid "My First Level"
-msgstr ""
+msgstr "A’ chiad leibheil agam"
 
 #: po/level_i18n.cc:4635
 msgid "Secrets? Use the items, ... use the glasses ..."
-msgstr ""
+msgstr "Rùintean-dìomhair? Cleachd na nithean ... cleachd na glainnichean .."
 
 #: po/level_i18n.cc:4640
 msgid "Survival Training in wasted Landscapes ..."
-msgstr ""
+msgstr "Trèanadh air mairsinn beò ann an fhàsaichean ..."
 
 #: po/level_i18n.cc:4648
 msgid "Crabwise II"
@@ -4271,7 +4272,7 @@ msgstr "Caol-shràid bàla"
 
 #: po/level_i18n.cc:4661
 msgid "This is a SuperSecret!! Well done on finding it!!"
-msgstr ""
+msgstr "Seo fìor rùn-dìomhair!! Meal do naidheachd gun do lorg thu e!"
 
 #: po/level_i18n.cc:4669
 msgid "Alternation I"
@@ -4283,31 +4284,31 @@ msgstr "Fear mu seach ann an raon gorm"
 
 #: po/level_i18n.cc:4679
 msgid "Start the next explosion at brick 17 (counting from left)!"
-msgstr ""
+msgstr "Tòisich air an spreadhadh aig breige 17 (a’ cunntadh on taobh chlì)!"
 
 #: po/level_i18n.cc:4681
 msgid "Hint: The white ball's got the key."
-msgstr ""
+msgstr "Gliocas: Tha an iuchair aig a’ bhàla gheal."
 
 #: po/level_i18n.cc:4683
 msgid "Use of ring only allowed on marked areas."
-msgstr ""
+msgstr "Chan fhaid thu an fhàinne a chleachdadh ach air raointean comharraichte."
 
 #: po/level_i18n.cc:4687
 msgid "Caution! Don't use for bridge-building!"
-msgstr ""
+msgstr "Bi faiceallach! Na cleachd e gus drochaid a thogail!"
 
 #: po/level_i18n.cc:4689
 msgid "Looks pretty dark!"
-msgstr ""
+msgstr "Tha coltas caran dorcha air!"
 
 #: po/level_i18n.cc:4691
 msgid "Prevent theft! Don't leave valuables in your inventory!"
-msgstr ""
+msgstr "Bac a’ mhèirle! Na fàg seilbh sa mhaoin agad!"
 
 #: po/level_i18n.cc:4695
 msgid "Every pencil must go"
-msgstr ""
+msgstr "Feumaidh tu cuidhteas fhaighinn de gach peann"
 
 #: po/level_i18n.cc:4712
 msgid "Tutoxyd's Pyramid"
@@ -4320,14 +4321,14 @@ msgid ""
 " and a horse outside this shopping center.    Many adventurers lost their "
 "life in this pyramid.    Beware of the dangerous sand vipers and "
 "Enighomathep's curses."
-msgstr ""
+msgstr "Fàilte, a Mhaighstir Jones! A bheil sibh air ais on champa trèanaidh “Alternatives” ’s “The Walls”?  Tha mi gach rud airson an do chuir sibh òrdugh a-steach:  airgead  –  40 marbhaileaon  –  agus each taobh a-muigh an ionad seopadaireachd seo.    Chaill iomadh baoghlair a bheatha sa phioramaid seo.    Thoiribh an aire air nathraichean gainmhich cunnartach agus mallachdan Enighomathep."
 
 #: po/level_i18n.cc:4716
 msgid ""
 "Mr. Rainmaker used to own this shop. He always insisted that his umbrellas "
 "were the most usefull items in this desert. But nobody was willing to spend "
 "2 marbleons.  ---  Now a blacksmith offers his service."
-msgstr ""
+msgstr "Bha am bùth seo aig a’ Mhaighstir Dèanadair-uisge uair. Chuireadh e an ìre an-còmhnaidh gur ann na sgàileanan-uisge aige a bhiodh an rud as fheumaile san fhàsach seo. Ach cha bhiodh duine deònach 2 mharbhaileon a chosg.  —   Tha bùth gobhainn ann a-nis."
 
 #: po/level_i18n.cc:4718
 msgid ""
@@ -4340,21 +4341,21 @@ msgid ""
 "Not much is known of the pyramid's architect Enighomathep. But it is said "
 "that he loved cherries. He ate so many of them that he sometimes became "
 "invisible."
-msgstr "Chan eil mòran fios againn mu Enighomathep, ailtire a' phioramaid. Ach thathar ag ràdh gun robh e measail air siristean. Dh'ith e an t-uabhas dhiubh gus an deach e a-mach à sealladh aig amannan."
+msgstr "Chan eil mòran fios againn mu Enighomathep, ailtire a’ phioramaid. Ach thathar ag ràdh gun robh e measail air siristean. Dh’ith e an t-uabhas dhiubh gus an deach e a-mach à sealladh aig amannan."
 
 #: po/level_i18n.cc:4722
 msgid ""
 "Have a look at my collection!    A white scorpion   --   a rotodile   --  "
 "and a sand viper.  They cannot be sold.        But I can offer you a scarab "
 "that will be a better choice for you."
-msgstr "Thoir sùil air a' chruinneachadh agam!    Sgairp gheal   --   rotall   --  agus nathair gainmhich.  Cha ghabh an reic.        Ach faodaidh tu sgarab fhaighinn a bhiodh na b' fheumaile dhut."
+msgstr "Thoir sùil air a’ chruinneachadh agam!    Sgairp gheal   --   rotall   --  agus nathair gainmhich.  Cha ghabh an reic.        Ach faodaidh tu sgarab fhaighinn a bhiodh na b’ fheumaile dhut."
 
 #: po/level_i18n.cc:4724
 msgid ""
 "Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
 "thief is hanging around and nobody knows where the 4 pale kids that are "
 "playing with your horse came from."
-msgstr "Bùth Ali Borbair airson gearradh fhuilt luath. A bheil thu airson faighinn a-mach dè tha dol? Tha mèirleach an làthair agus chan eil fios aig duine cò às a thàinig na 4 daoine cloinne bàna a tha a' cluich leis an each agad."
+msgstr "Bùth Ali Borbair airson gearradh fhuilt luath. A bheil thu airson faighinn a-mach dè tha dol? Tha mèirleach an làthair agus chan eil fios aig duine cò às a thàinig na 4 daoine cloinne bàna a tha a’ cluich leis an each agad."
 
 #: po/level_i18n.cc:4726
 msgid ""
@@ -4373,7 +4374,7 @@ msgid ""
 "It's a pity that some explorers damaged this historic monument and did "
 "litter the environment.   But the pyramid magically repairs itself every "
 "time an adventurer gives up."
-msgstr "'S truagh gun do mhill taisgealaichean an togalach eachdraidheil seo agus gun do dh'fhàg iad sgudal san àrainneachd.   Ach càraichidh a' phioramaid i fhèin gu draoidheil gach turas a leigeas fear-dàna seachad an obair."
+msgstr "’S truagh gun do mhill taisgealaichean an togalach eachdraidheil seo agus gun do dh’fhàg iad sgudal san àrainneachd.   Ach càraichidh a’ phioramaid i fhèin gu draoidheil gach turas a leigeas fear-dàna seachad an obair."
 
 #: po/level_i18n.cc:4732
 msgid ""
@@ -4391,7 +4392,7 @@ msgstr "Mallachd ort airson dragh a chur air tàmh Thutogsaid -- gun cailleadh t
 msgid ""
 "Trapped?   Either wait for a stupid tourist willing to exchange positions "
 "with you by using a magic ring - or press Shift-F3"
-msgstr ""
+msgstr "Air do glacadh?  Fuirich gus an tig amadan neach-turais a cleachdadh fàinne dhraoidheach gus d’ àite a ghabhail – no brùth air Shift-F3"
 
 #: po/level_i18n.cc:4738
 msgid ""
@@ -4408,7 +4409,7 @@ msgid ""
 "Welcome stranger -- have a look at our holy stone. It is said that it shows "
 "everyone his personal fortune color. As all visitors tried to touch it, we "
 "had to set up some protection."
-msgstr "Fàilte, a choigrich -- thoir sùil air a' chlach naomh againn. Thathar ag ràdh gun seall e do gach duine an dàth a tha fortanach dha. Bha againn ris a dìon on a dh'fheuch gach neach-tadhal beantainn oirre."
+msgstr "Fàilte, a choigrich -- thoir sùil air a’ chlach naomh againn. Thathar ag ràdh gun seall e do gach duine an dàth a tha fortanach dha. Bha againn ris a dìon on a dh’fheuch gach neach-tadhal beantainn oirre."
 
 #: po/level_i18n.cc:4744
 msgid ""
@@ -4422,22 +4423,22 @@ msgid ""
 "keys are required. One key got lost immediately after sealing the pyramid. "
 "One is hidden at the border of the pyramid. For the others you have to "
 "demonstrate boldness and cleverness."
-msgstr "Chuir sinn crìoch air rannsachadh san leabharlann, a Mhaighstir Geal-ola. Tha Enighomathep ag aithris gu bheil feum air 4 iuchraichean. Chaidh aon iuchair air chall dìreach nuair a bha iad air a' phioramaid a ghlasadh. Tha fear eile falaichte aig oir na pioramaid. Feumaidh tu a bhith dàna 's glic gus an corr a thogail."
+msgstr "Chuir sinn crìoch air rannsachadh san leabharlann, a Mhaighstir Geal-ola. Tha Enighomathep ag aithris gu bheil feum air 4 iuchraichean. Chaidh aon iuchair air chall dìreach nuair a bha iad air a’ phioramaid a ghlasadh. Tha fear eile falaichte aig oir na pioramaid. Feumaidh tu a bhith dàna ’s glic gus an corr a thogail."
 
 #: po/level_i18n.cc:4748
 msgid "Facing Death you can walk without fear."
-msgstr "'S urrainn dhut siubhal gun eagal ma chuireas tu d' aghaidh ris a' bhàs."
+msgstr "’S urrainn dhut siubhal gun eagal ma chuireas tu d’ aghaidh ris a’ bhàs."
 
 #: po/level_i18n.cc:4750
 msgid "Sorry, the useful item that was hidden here has been stolen."
-msgstr "Tha sinn duilich, ach chaidh an nì feumail a bhiodh 'na fhalach an-seo a ghoid."
+msgstr "Tha sinn duilich, ach chaidh an nì feumail a bhiodh ’na fhalach an-seo a ghoid."
 
 #: po/level_i18n.cc:4752
 msgid ""
 "Tomb raiders are cursed to be frozen in stone or floor for all eternity."
 "     Have a look at all these little funny sticks that they used to fight "
 "the curses."
-msgstr "Thèid mallachd a chur air spùinneadairean uaighe gus am bidh iad reòite 'nan clach no san làr gu sìorraidh buan.     Thoir sùil air na bataichean beaga neònach a chleachd iad gus strì an aghaidh nam mallachdan."
+msgstr "Thèid mallachd a chur air spùinneadairean uaighe gus am bidh iad reòite ’nan clach no san làr gu sìorraidh buan.     Thoir sùil air na bataichean beaga neònach a chleachd iad gus strì an aghaidh nam mallachdan."
 
 #: po/level_i18n.cc:4754
 msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
@@ -4449,13 +4450,13 @@ msgid ""
 "Bring back my children for a joint meditation. But beware that upon seeing "
 "me they may want to join me instead of meditate. I make you responsible for "
 "the security of my children."
-msgstr "Cò tha a' cur dragh air mo thàmh? A choigrich -- dhearbhaich thu gu bheil thu onarach. Till mo chuid cloinne ach an dèanamaid meòrachadh còmhla. Ach thoir an aire gum b' fhearr leotha tighinn thugam seach meòrachadh nuair a chì iad mi, ma dh'fhaoidte. 'S e do dhleastanas a th' ann an tèarainteachd mo chuid cloinne."
+msgstr "Cò tha a’ cur dragh air mo thàmh? A choigrich -- dhearbhaich thu gu bheil thu onarach. Till mo chuid cloinne ach an dèanamaid meòrachadh còmhla. Ach thoir an aire gum b’ fhearr leotha tighinn thugam seach meòrachadh nuair a chì iad mi, ma dh’fhaoidte. ’S e do dhleastanas a th’ ann an tèarainteachd mo chuid cloinne."
 
 #: po/level_i18n.cc:4758
 msgid ""
 "You are bringing back my children. As soon as they come to rest, I will "
 "deliver you from Enighomathep's curses so you may seek your next adventure."
-msgstr "Tha thu a' tilleadh mo chuid cloinne. Nuair a bhios iad air tàmh, lìbhrigidh mi o mhallachdan Enighomathep thu ach an urrainn dhut dùbhlan eile a lorg an uairsin."
+msgstr "Tha thu a’ tilleadh mo chuid cloinne. Nuair a bhios iad air tàmh, lìbhrigidh mi o mhallachdan Enighomathep thu ach an urrainn dhut dùbhlan eile a lorg an uairsin."
 
 #: po/level_i18n.cc:4766
 msgid "Crabwise IV"
@@ -4465,7 +4466,7 @@ msgstr "Mar chrùbag IV"
 msgid ""
 "... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
 "the past. thank you ..."
-msgstr ""
+msgstr "... meò-ill-rachadh le illmind ... seo tabhartas dha na leibheilean meòrachaidh esprit  on àm a chaidh seachad. mòran taing ..."
 
 #: po/level_i18n.cc:4828
 msgid "Look ... they're over there!"
@@ -4473,27 +4474,27 @@ msgstr "Seall ... siud iad!"
 
 #: po/level_i18n.cc:4842
 msgid "when you've been particular places"
-msgstr ""
+msgstr "nuair a bhios tu air a bhith an àiteigin sònraichte"
 
 #: po/level_i18n.cc:4844
 msgid "that you know you've never seen before"
-msgstr ""
+msgstr "’s fios agad nach robh thu riamh roimhe ann"
 
 #: po/level_i18n.cc:4846
 msgid "can you be sure?"
-msgstr ""
+msgstr "am bi thu cinnteach?"
 
 #: po/level_i18n.cc:4848
 msgid "feel like I've been here before"
-msgstr ""
+msgstr "nach robh mi an-seo roimhe?"
 
 #: po/level_i18n.cc:4850
 msgid "quote: Iron Maiden - Deja-Vu"
-msgstr ""
+msgstr "iomradh: Maighdeann iarainn – Déjà vu"
 
 #: po/level_i18n.cc:4852
 msgid "for illmind's deja vu try the top left corner ..."
-msgstr ""
+msgstr "feuch an t-oisean clì aig a’ bharr airson déja vu aig illmind ..."
 
 #: po/level_i18n.cc:4862
 msgid "Watch your step!"
@@ -4503,7 +4504,7 @@ msgstr "An aire air do chasan!"
 msgid ""
 "Remember  to  only  move  enough  stones  to  just  look  into  the  next  "
 "room  ..."
-msgstr "Cuimhnich nach gluais thu barrachd chlachan ach na dh'fheumas tu gus coimhead a-steach dhan ath rum..."
+msgstr "Cuimhnich nach gluais thu barrachd chlachan ach na dh’fheumas tu gus coimhead a-steach dhan ath rum..."
 
 #: po/level_i18n.cc:4882
 msgid "Look closely!"
@@ -4516,7 +4517,7 @@ msgstr "Cuir do bheatha fo chunnart ..."
 #: po/level_i18n.cc:4900
 msgid ""
 "One more and you won't get this hammer until you don't need it anymore!"
-msgstr ""
+msgstr "Aon a bharrachd ’s chan fhaigh tu an t-òrd seo ach nuair nach bi feum agad air tuilleadh!"
 
 #: po/level_i18n.cc:4950
 msgid "Restart with F3 ..."
@@ -4566,13 +4567,13 @@ msgstr "Tha caisteal romhad ... thoir an aire air na freiceadain!"
 
 #: po/level_i18n.cc:5069
 msgid "The block near the top-left can move."
-msgstr "Tha comas gluasaid air a' bhloca san oisean chlì aig a' bharr."
+msgstr "Tha comas gluasaid air a’ bhloca san oisean chlì aig a’ bharr."
 
 #: po/level_i18n.cc:5091
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
-msgstr ""
+msgstr "Fàilte dhan seòmar-stiùiridh. Cleachd na trigearan ’s suidsichean gus plana a dhèanamh air gluasad an turtair. Seo na suidsichean an òrdugh tuathail: cuir ris, ruith ’s ath-thòisich."
 
 #: po/level_i18n.cc:5100
 msgid "Welcome to Enigma III"
@@ -4600,8 +4601,8 @@ msgstr "Tha an rathad fada ..."
 
 #: po/level_i18n.cc:5463
 msgid "Drop the hammer on side of a pentomino and use the switch!"
-msgstr ""
+msgstr "Leig às an òrd ri taobh a’ pentomino ’s cleachd an t-suidse!"
 
 #: po/level_i18n.cc:5464
 msgid "Drop the hammer on side of a pentomino, not beneath it!"
-msgstr ""
+msgstr "Leig às an òrd ri taobh a’ pentomino ’s chan ann foidhe-san!"

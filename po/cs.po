@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-03-16 16:31+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
+"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"Last-Translator: fri\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/enigma/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgstr "Levé tlačítko myši:"
 
 #: src/client.cc:517
 msgid "Activate/drop leftmost inventory item"
-msgstr "Aktivovat/vyřadit první položku v seznamu"
+msgstr "Aktivovat/Vyřadit první položku v seznamu"
 
 #: src/client.cc:518
 msgid "Right mouse button:"
@@ -60,7 +60,7 @@ msgstr "Escape:"
 
 #: src/client.cc:519
 msgid "Show game menu"
-msgstr "Zobrazit menu"
+msgstr "Zobrazit nabídku"
 
 #: src/client.cc:520
 msgid "Shift+Escape:"
@@ -120,11 +120,11 @@ msgstr "F10:"
 
 #: src/client.cc:527
 msgid "Make screenshot"
-msgstr "Udělat screenshot"
+msgstr "Udělat snímek obrazovky"
 
 #: src/client.cc:528
 msgid "Left/right arrow:"
-msgstr "Vlevo/vpravo:"
+msgstr "Šipka vlevo/vpravo:"
 
 #: src/client.cc:528
 msgid "Change mouse speed"
@@ -136,15 +136,15 @@ msgstr "Alt+x:"
 
 #: src/client.cc:529
 msgid "Return to level menu"
-msgstr "Zpět do menu úrovní"
+msgstr "Zpět do nabídky úrovní"
 
 #: src/client.cc:540
 msgid "Skip to next level for best score hunt"
-msgstr "Přejít na další úroveň pro zajištění nejlepšího skóre"
+msgstr "Přejít na další úroveň pro zajištění nejlepšího výsledku"
 
 #: src/client.cc:541
 msgid "Skip to next unsolved level"
-msgstr "Přejít na další nevyřešnou úroveň"
+msgstr "Přejít na další nevyřešenou úroveň"
 
 #: src/client.cc:704
 msgid "Too slow for "
@@ -283,7 +283,7 @@ msgstr "Zpět"
 
 #: src/gui/MainMenu.cc:105
 msgid "Main developers of the 1.20 release:"
-msgstr "Hlavní vývojáři vezre 1.20:"
+msgstr "Hlavní vývojáři verze 1.20:"
 
 #: src/gui/MainMenu.cc:107
 msgid "  RONALD LAMPRECHT (lead)"
@@ -299,11 +299,11 @@ msgstr "  DANIEL HECK (zakladatel projektu)"
 
 #: src/gui/MainMenu.cc:114
 msgid "  MEINOLF SCHNEIDER (game idea, level design)"
-msgstr "  MEINOLF SCHNEIDER (myšlenka hry, design úrovní)"
+msgstr "  MEINOLF SCHNEIDER (myšlenka hry, provedení úrovní)"
 
 #: src/gui/MainMenu.cc:116
 msgid "Please refer to the manual or the next pages for full credits."
-msgstr "Další poděkování v uživatelské příčce nebo na dalších stránkách."
+msgstr "Další poděkování v uživatelské příručce nebo na dalších stránkách."
 
 #: src/gui/MainMenu.cc:118
 msgid "Home Page: http://www.nongnu.org/enigma"
@@ -311,7 +311,7 @@ msgstr "Domovské stránky: http://www.nongnu.org/enigma"
 
 #: src/gui/MainMenu.cc:119
 msgid "Contact: enigma-devel@nongnu.org"
-msgstr "Kontakt: enigma-devel@nongnu.org"
+msgstr "Spojení: enigma-devel@nongnu.org"
 
 #: src/gui/MainMenu.cc:121
 msgid "Enigma is free software and may be distributed under the"
@@ -323,7 +323,7 @@ msgstr "licencí GNU General Public License, verze 2."
 
 #: src/gui/MainMenu.cc:124
 msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
-msgstr "Autorské právo (C) 2002-2014 Daniel Heck a jeho kolegové."
+msgstr "Autorské právo (C) 2002-2014 Daniel Heck a jeho spolupracovníci."
 
 #: src/gui/MainMenu.cc:126
 msgid "Main developers of all releases:"
@@ -371,7 +371,7 @@ msgstr "Uživatelská cesta:"
 
 #: src/gui/MainMenu.cc:319
 msgid "User Image Path:"
-msgstr "Cesta uživatelova obrázku:"
+msgstr "Cesta k uživatelským obrázkům:"
 
 #: src/gui/MainMenu.cc:329
 msgid "System Path:"
@@ -437,7 +437,7 @@ msgstr "Vždy"
 
 #: src/gui/OptionsMenu.cc:252
 msgid "reversed"
-msgstr "obrátit"
+msgstr "obráceno"
 
 #: src/gui/OptionsMenu.cc:253
 msgid "mono"
@@ -458,11 +458,11 @@ msgstr "Hlavní"
 
 #: src/gui/OptionsMenu.cc:409
 msgid "Video"
-msgstr "Video"
+msgstr "Obraz"
 
 #: src/gui/OptionsMenu.cc:411
 msgid "Audio"
-msgstr "Audio"
+msgstr "Zvuk"
 
 #: src/gui/OptionsMenu.cc:413
 msgid "Config"
@@ -500,7 +500,7 @@ msgstr "Hlasitost hudby:"
 
 #: src/gui/OptionsMenu.cc:493 src/gui/OptionsMenu.cc:521
 msgid "Ratings update: "
-msgstr "Aktualizováno hodnocení: "
+msgstr "Aktualizace hodnocení: "
 
 #: src/gui/OptionsMenu.cc:495
 msgid "Score upload: "
@@ -520,7 +520,7 @@ msgstr "Ozvučení:"
 
 #: src/gui/OptionsMenu.cc:511
 msgid "Menu music: "
-msgstr "Hudba menu: "
+msgstr "Hudba v nabídce: "
 
 #: src/gui/OptionsMenu.cc:512
 msgid "Music ingame: "
@@ -540,15 +540,15 @@ msgstr "Uživatelská cesta:"
 
 #: src/gui/OptionsMenu.cc:533
 msgid "User image path: "
-msgstr "Cesta uživatelova obrázku:"
+msgstr "Cesta k uživatelským obrázkům:"
 
 #: src/gui/LevelMenu.cc:47 src/gui/LevelPackMenu.cc:67
 msgid "Main Menu"
-msgstr "Hlavní menu"
+msgstr "Hlavní nabídka"
 
 #: src/gui/LevelMenu.cc:193
 msgid "Skip to main menu"
-msgstr "Přejít do hlavního menu"
+msgstr "Přejít do hlavní nabídky"
 
 #: src/gui/LevelMenu.cc:196
 msgid "Update levelpack"
@@ -600,7 +600,7 @@ msgstr "Pravé tlačítko myši nebo tlačítko myši + Ctrl:"
 
 #: src/gui/LevelMenu.cc:204
 msgid "Inspect selected level"
-msgstr "Informace o vybraná úrovni"
+msgstr "Informace o vybrané úrovni"
 
 #: src/gui/LevelMenu.cc:221
 msgid "Select next level for world record hunt"
@@ -617,7 +617,7 @@ msgstr "Není ti povoleno hrát tuto úroveň."
 #: src/gui/LevelMenu.cc:312 src/gui/LevelPackComposer.cc:348
 #, c-format
 msgid "%s: %d levels"
-msgstr "%s: %d úrovně"
+msgstr "%s: %d úrovní"
 
 #: src/gui/LevelMenu.cc:326
 #, c-format
@@ -670,7 +670,7 @@ msgstr "Tlačítko myši + Shift:"
 
 #: src/gui/LevelPackComposer.cc:42
 msgid "Add to clipboard"
-msgstr "Přidat do uložiště"
+msgstr "Přidat do úložiště"
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Shift-delete:"
@@ -678,7 +678,7 @@ msgstr "Shift + Delete: "
 
 #: src/gui/LevelPackComposer.cc:43
 msgid "Clear clipboard"
-msgstr "Vymazat uložiště"
+msgstr "Vymazat úložiště"
 
 #: src/gui/LevelPackComposer.cc:44
 msgid "F8:"
@@ -686,7 +686,7 @@ msgstr "F8:"
 
 #: src/gui/LevelPackComposer.cc:44
 msgid "Insert clipboard as reference"
-msgstr "Vložit uložiště jako odkaz"
+msgstr "Vložit úložiště jako odkaz"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "F9:"
@@ -694,11 +694,11 @@ msgstr "F9:"
 
 #: src/gui/LevelPackComposer.cc:45
 msgid "Insert clipboard as copy"
-msgstr "Vložit uložiště jako kopii"
+msgstr "Vložit úložiště jako kopii"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Alt-left arrow:"
-msgstr "Alf + levá šipka:"
+msgstr "Alt + levá šipka:"
 
 #: src/gui/LevelPackComposer.cc:47
 msgid "Exchange level with predecessor"
@@ -730,7 +730,7 @@ msgstr "F10"
 
 #: src/gui/LevelPackComposer.cc:56
 msgid "Move clipboard levels"
-msgstr "Přesunout uložiště úrovní"
+msgstr "Přesunout úložiště úrovní"
 
 #: src/gui/LevelPackComposer.cc:120 src/gui/LevelPackConfig.cc:344
 #: src/gui/LPGroupConfig.cc:101 src/gui/SearchMenu.cc:59
@@ -740,7 +740,7 @@ msgstr "Zrušit"
 #: src/gui/LevelPackComposer.cc:362
 #, c-format
 msgid "Clipboard: %d levels"
-msgstr "Uložiště: %d úrovní"
+msgstr "Úložiště: %d úrovní"
 
 #: src/gui/LevelPackConfig.cc:174
 msgid "Levelpack:"
@@ -764,7 +764,7 @@ msgstr "v [All Packs]:"
 
 #: src/gui/LevelPackConfig.cc:235
 msgid "Edit Metadata"
-msgstr "Upravit metadata"
+msgstr "Upravit popisná data"
 
 #: src/gui/LevelPackConfig.cc:239
 msgid "Release:"
@@ -788,7 +788,7 @@ msgstr "Typy úrovní:"
 
 #: src/gui/LevelPackConfig.cc:335
 msgid "Please reassign levelpack to another group for group deletion"
-msgstr "Prosím přiřaďte balík úrovní do jiné skupiny, aby tato skupina mohla být vymazána"
+msgstr "Prosím, přiřaďte balík úrovní do jiné skupiny, aby tato skupina mohla být vymazána"
 
 #: src/gui/LevelPackConfig.cc:338
 msgid "Compose Pack"
@@ -802,11 +802,11 @@ msgstr "Aktualizovat balík"
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Chyba: Prádzný název není povolen - zvolte \"Zpět\" pro vrácení beze změny"
+msgstr "Chyba: Prázdný název není povolen - zvolte \"Zpět\" pro vrácení beze změny"
 
 #: src/gui/LevelPackConfig.cc:432
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
-msgstr "Chyba: Použíte pouze \"a-zA-Z0-9 _-#\" pro název balíku úrovní"
+msgstr "Chyba: Použijte pouze \"a-zA-Z0-9 _-#\" pro název balíku úrovní"
 
 #: src/gui/LevelPackConfig.cc:443
 msgid "Error: title already in use - choose another title"
@@ -834,7 +834,7 @@ msgstr "Vyber skupinu nebo balík úrovní"
 
 #: src/gui/LevelPackMenu.cc:49
 msgid "Configure group or levelpack"
-msgstr "Konfigurace skupiny nebo balíku úrovní"
+msgstr "Nastavení skupiny nebo balíku úrovní"
 
 #: src/gui/LevelPackMenu.cc:64
 msgid "New Group"
@@ -860,11 +860,11 @@ msgstr "Vymazat skupinu"
 msgid ""
 "Error: empty group name not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Chyba: Prázdná název skupiny není povolen - zvolte \"Zpět\" pro vrácení beze změny"
+msgstr "Chyba: Prázdný název skupiny není povolen - zvolte \"Zpět\" pro vrácení beze změny"
 
 #: src/gui/LPGroupConfig.cc:141
 msgid "Error: group name is a duplicate of an existing group"
-msgstr "Chyba: Název skupiny je duplicitní s název jiné skupiny"
+msgstr "Chyba: Název skupiny je duplicitní s názvem jiné skupiny"
 
 #: src/gui/LPGroupConfig.cc:146
 msgid "Error: \"Every group\" is a reserved group name"
@@ -884,7 +884,7 @@ msgstr "Nahoru:"
 
 #: src/gui/ScreenshotViewer.cc:36
 msgid "Show previous screenshot"
-msgstr "Zobrazit předchozí screenshot"
+msgstr "Zobrazit předchozí snímek obrazovky"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Page Down:"
@@ -892,11 +892,11 @@ msgstr "Dolů:"
 
 #: src/gui/ScreenshotViewer.cc:37
 msgid "Show next screenshot"
-msgstr "Zobrzait další screenshot"
+msgstr "Zobrazit další snímek obrazovky"
 
 #: src/gui/ScreenshotViewer.cc:107
 msgid "No screenshot available:"
-msgstr "Žádný screenshot k dispozici:"
+msgstr "Žádný dostupný snímek obrazovky:"
 
 #: src/gui/SearchMenu.cc:41
 msgid "Shallow Search:"
@@ -921,19 +921,19 @@ msgstr "Autor: "
 
 #: src/gui/LevelInspector.cc:234
 msgid "Contact: "
-msgstr "Kontakt: "
+msgstr "Spojení: "
 
 #: src/gui/LevelInspector.cc:235
 msgid "Homepage: "
-msgstr "Domácí stránky: "
+msgstr "Stránka: "
 
 #: src/gui/LevelInspector.cc:256
 msgid "Public Ratings"
-msgstr "Veřejné hodnocení"
+msgstr "Hodnocení"
 
 #: src/gui/LevelInspector.cc:258
 msgid "Intelligence: "
-msgstr "Inteligence: "
+msgstr "Rozum: "
 
 #: src/gui/LevelInspector.cc:259
 msgid "Dexterity: "
@@ -957,7 +957,7 @@ msgstr "Obtížnost: "
 
 #: src/gui/LevelInspector.cc:284
 msgid "Scores"
-msgstr "Skóre"
+msgstr "Výsledky"
 
 #: src/gui/LevelInspector.cc:287
 msgid "You: "
@@ -987,11 +987,11 @@ msgstr "Verze"
 
 #: src/gui/LevelInspector.cc:318
 msgid "Score: "
-msgstr "Skóre: "
+msgstr "Výsledek: "
 
 #: src/gui/LevelInspector.cc:320 src/gui/LevelInspector.cc:324
 msgid "Status: "
-msgstr "Status: "
+msgstr "Stav: "
 
 #: src/gui/LevelInspector.cc:321
 msgid "Release: "
@@ -1015,11 +1015,11 @@ msgstr "stabilní"
 
 #: src/gui/LevelInspector.cc:335 src/gui/LevelInspector.cc:351
 msgid "test"
-msgstr "test"
+msgstr "zkouška"
 
 #: src/gui/LevelInspector.cc:337 src/gui/LevelInspector.cc:353
 msgid "experimental"
-msgstr "experimentální"
+msgstr "pokusný"
 
 #: src/gui/LevelInspector.cc:347
 msgid "released"
@@ -1055,7 +1055,7 @@ msgstr "Světoví rekordmani: "
 
 #: src/gui/LevelInspector.cc:454
 msgid "Credits: "
-msgstr "Poděkování: "
+msgstr "Zásluhy: "
 
 #: src/gui/LevelInspector.cc:465
 msgid "Dedication: "
@@ -1067,7 +1067,7 @@ msgstr "Cesta úrovně: "
 
 #: src/gui/LevelInspector.cc:498
 msgid "Id: "
-msgstr "Id: "
+msgstr "ID: "
 
 #: src/gui/LevelInspector.cc:500
 msgid "Load time: "
@@ -1095,7 +1095,7 @@ msgstr "Pokračovat v úrovni"
 
 #: src/gui/GameMenu.cc:48
 msgid "Restart Level"
-msgstr "Restartovat úroveň"
+msgstr "Začít znovu úroveň"
 
 #: src/gui/GameMenu.cc:50
 msgid "Level Info"
@@ -1107,7 +1107,7 @@ msgstr "Přerušit úroveň"
 
 #: src/lev/Proxy.cc:204
 msgid "Error on auto registration of levelfile: "
-msgstr "Chyba při načítání úrovňe: "
+msgstr "Chyba při načítání úrovně: "
 
 #: src/lev/Proxy.cc:206
 msgid ""
@@ -1169,7 +1169,7 @@ msgstr "\n\nTato chyba může způsobit, že se aplikace nebude chovat správně
 
 #: src/stones/KnightStone.cc:60
 msgid "All right, we'll call it a draw"
-msgstr "No, řekněme, že to je remíza"
+msgstr "No, řekněme, že to je nerozhodný výsledek"
 
 #: po/level_i18n.cc:151 po/level_i18n.cc:3738
 msgid "Everything's been counted carefully!"
@@ -1240,13 +1240,13 @@ msgstr "Vypínač čeká na vaše rozkazy."
 
 #: po/level_i18n.cc:441
 msgid "The witch of this switch resets the awale game."
-msgstr "Tento přepínač resetuje awale hru."
+msgstr "Tento přepínač začne znovu hru awale."
 
 #: po/level_i18n.cc:443
 msgid ""
 "A turn consists in taking the walnuts of a row behind the windowy walls and "
 "sowing them 1 by 1 in the following rows."
-msgstr "Hráč si vezme ořechy, které jsou za skleněnou stěnou a zaseje je po jednom v těchto řádcích."
+msgstr "Hráč si vezme ořechy, které jsou za skleněnou stěnou, a zaseje je po jednom v těchto řádcích."
 
 #: po/level_i18n.cc:445
 msgid ""
@@ -1258,13 +1258,13 @@ msgstr "Varování: Co čeká na žalostné bojovníky na konci kola? V případ
 
 #: po/level_i18n.cc:447
 msgid "Warning: If one warrior's walls are empty, this awesome warrior wins."
-msgstr "Varování: Jestliže je zeď bojovníka prádzná, bojovník vyhrává."
+msgstr "Varování: Jestliže je zeď bojovníka prázdná, bojovník vyhrává."
 
 #: po/level_i18n.cc:449
 msgid ""
 "When a warrior has awarded more than half the walnuts, he wins. What does he"
 " win? The way to the waiting oxyds he wants."
-msgstr "Když bojovník získal více než polovinu ořechů, vyhrává. Jak to jde? Vítězství lze dostáhnout pomocí oxyd kamenů."
+msgstr "Když bojovník získal více než polovinu ořechů, vyhrává. Jak to jde? Vítězství lze dosáhnout pomocí oxyd kamenů."
 
 #: po/level_i18n.cc:451
 msgid "Congratulations! You are the most aware awale player of the valley ..."
@@ -1274,7 +1274,7 @@ msgstr "Gratuluji! Jsi nejlepší hráč v údolí ..."
 msgid ""
 "Lost in the savannah? Don't wait and walk on the way to the reset switch on "
 "the far left ..."
-msgstr "Ztracen v savaně? Nestyď se  a resetuj hru pomocí vypínače vlevo ..."
+msgstr "Ztracen v savaně? Nestyď se  a hru začni znovu pomocí vypínače vlevo ..."
 
 #: po/level_i18n.cc:455
 msgid "Validate your choice here."
@@ -1282,7 +1282,7 @@ msgstr "Potvrď svou volbu zde."
 
 #: po/level_i18n.cc:457
 msgid "Reset the game."
-msgstr "Resetovat hru."
+msgstr "Začít hru znovu."
 
 #: po/level_i18n.cc:459
 msgid ""
@@ -1298,7 +1298,7 @@ msgstr "Jesliže na konci kola poslední kámen je v neprázdném řádku, hrá�
 
 #: po/level_i18n.cc:463
 msgid "A turn begins in one of the leftmost rows, unless impossible."
-msgstr "Kolo začíná v řádku zcela vlevo, pokud je to monžé."
+msgstr "Kolo začíná v řádku zcela vlevo, pokud je to možné."
 
 #: po/level_i18n.cc:465
 msgid ""
@@ -1322,7 +1322,7 @@ msgstr "Tato katro hra pochází z Madagaskaru; snadný režim je africký Awale
 
 #: po/level_i18n.cc:473
 msgid "Only reset or Shift-F3 can make things evolve ..."
-msgstr "Pouze resetování nebo Shift+F3 ti může pomoci ..."
+msgstr "Pouze nový začátek nebo Shift+F3 ti může pomoci ..."
 
 #: po/level_i18n.cc:546
 msgid "Volatile Storage"
@@ -1346,7 +1346,7 @@ msgstr "Brzdná vzdálenost"
 
 #: po/level_i18n.cc:598
 msgid "Make the white marble wait on the cross for 3 seconds."
-msgstr "Nech bílou kuličku čekat na křížku po 3 sekundy."
+msgstr "Nech bílou kuličku čekat na křížku po tři sekundy."
 
 #: po/level_i18n.cc:645
 msgid "Interlude II"
@@ -1370,7 +1370,7 @@ msgstr "Pozor! Jednosměrný lístek na ostrov."
 
 #: po/level_i18n.cc:734
 msgid "Meandering Impulses"
-msgstr "Klikatící podněty"
+msgstr "Klikatící se impulsy"
 
 #: po/level_i18n.cc:764
 msgid ""
@@ -1380,7 +1380,7 @@ msgid ""
 "Professor Plum, the mysterious Rev. Green, the nurse Mrs Whiteball, who "
 "discovered the corpse, and Miss Scarlett whose beauty might be fatal ... you"
 " must find who killed your uncle, where and how."
-msgstr "Tvůj strýc Sir Černákulička byl minulou noc zavražděn ve svém sídle. Byl zavražděn v jedné ze 6 místností a byl zabit jednou zbraní, která byla ve sklepě. Podzřelý jsou: plachá paní Pávová, mlčenlivý plukovník Hořčice, roztržitý profesor Švestka, záhadný reverend Zelený, zdravotní sestra paní Bílákulička (,která objevila mrtvolu) a slečna Scarlett, jejíž krása může být vražedná ... musíš zjistit, kdo zabil tvého strýce, jak byl zabit a kde byl zabit."
+msgstr "Tvůj strýc Sir Černákulička byl minulou noc zavražděn ve svém sídle. Byl zavražděn v jedné ze šesti místností a byl zabit jednou zbraní, která byla ve sklepě. Podezřelí jsou: plachá paní Pávová, mlčenlivý plukovník Hořčice, roztržitý profesor Švestka, záhadný reverend Zelený, zdravotní sestra paní Bílákulička (která objevila mrtvolu) a slečna Scarlett, jejíž krása může být vražedná ... musíš zjistit, kdo zabil tvého strýce, jak byl zabit a kde byl zabit."
 
 #: po/level_i18n.cc:766
 msgid "This room is not the crime scene."
@@ -1448,7 +1448,7 @@ msgstr "Pozor! Láva!"
 
 #: po/level_i18n.cc:840
 msgid "A hammer destroys some black stones."
-msgstr "Kladivo niční některé černé kameny."
+msgstr "Kladivo ničí některé černé kameny."
 
 #: po/level_i18n.cc:847
 msgid "Too many wooden blocks!  Try the other way ..."
@@ -1458,15 +1458,15 @@ msgstr "Přiliš mnoho dřevených beden! Zkus jinou cestu ..."
 msgid ""
 "Greetings, adventurer!    The road ahead is long and dangerous, so be "
 "careful!"
-msgstr "Zdravím, dobrodruhu!    Cesta před tebou je dlouho na nebezpečná, buď opatrný! "
+msgstr "Zdravím, dobrodruhu!    Cesta před tebou je dlouhá a nebezpečná, buď opatrný! "
 
 #: po/level_i18n.cc:849
 msgid "Well done, adventurer!    Good luck!"
-msgstr "Výborně, dobroduhu!    Hodně štěstí!"
+msgstr "Výborně, dobrodruhu!    Hodně štěstí!"
 
 #: po/level_i18n.cc:850
 msgid "Congratulations, adventurer!  You did it!"
-msgstr "Blahopřeji, dobroduhu!  Zvládls to!"
+msgstr "Blahopřeji, dobrodruhu!  Zvládls to!"
 
 #: po/level_i18n.cc:866
 msgid ""
@@ -1477,7 +1477,7 @@ msgid ""
 "(But you won't find any.)"
 "                                                                                                                  "
 "(Really!)"
-msgstr "To nebyla dost rychlé; zkus F3.                                                                              (Nebo hledej nepevný kámen, jestli chceš)                                                                                                        (Ale žádný nenajdeš.)                                                                                                                  (Opravdu!)"
+msgstr "To nebylo dost rychlé; zkus F3.                                                                              (Nebo hledej nepevný kámen, jestli chceš)                                                                                                        (Ale žádný nenajdeš.)                                                                                                                  (Opravdu!)"
 
 #: po/level_i18n.cc:867
 msgid ""
@@ -1506,7 +1506,7 @@ msgstr "Uklidni se!"
 
 #: po/level_i18n.cc:927
 msgid "The Flagstone Reaper"
-msgstr "Flagstone Reaper"
+msgstr "Smrtka dlažebních kamenů"
 
 #: po/level_i18n.cc:930
 msgid ""
@@ -1514,7 +1514,7 @@ msgid ""
 " ...    Why is it so alone?    --    This hint today ...    Why is it on "
 "this side ...    The reaper passing by ...    Could know the reason why!"
 "     (orig. by Herman's Hermits)   "
-msgstr "Dneska žádná nápověda ...    A kameny zmizí ...    Pod nátlakem smrtky ...    Proč je tak sám?    --    Toto je nápověda ...    Proč na této straně ...    Obchází smrtka ...    Kdo ví!    (původ Hemanovi poustevníci)   "
+msgstr "Dneska žádná nápověda ...    A kameny zmizí ...    Pod nátlakem smrtky ...    Proč je tak sám?    --    Toto je nápověda ...    Proč na této straně ...    Obchází smrtka ...    Kdo ví!    (původ Hermanovi poustevníci)   "
 
 #: po/level_i18n.cc:934
 msgid "Danger ... laser beams!"
@@ -1522,7 +1522,7 @@ msgstr "Nebezpečí ... laserové paprsky!"
 
 #: po/level_i18n.cc:942
 msgid ".moor txen eht ot teg ot syaw owt era erehT"
-msgstr ".itsontsím íšlad od tatsod es kaj ,ybosůpz avd íjutsixE."
+msgstr ".itsontsím íšlad od tatsod es kaj ,ybosůpz avd eJ."
 
 #: po/level_i18n.cc:967
 msgid "Don't wake it up!"
@@ -1530,7 +1530,7 @@ msgstr "Nebuď to!"
 
 #: po/level_i18n.cc:998
 msgid "Alfred Nobel says: This is definitely a meditation landscape!"
-msgstr "Alfred Nobel řekl: To je určitě krajina pro meditaci!"
+msgstr "Alfred Nobel řekl: To je určitě krajina pro rozjímání!"
 
 #: po/level_i18n.cc:1047
 msgid ""
@@ -1544,7 +1544,7 @@ msgstr "To je závod!"
 
 #: po/level_i18n.cc:1076
 msgid "What a pity, and there's so much paint left ..."
-msgstr "Jaká škoda, tam je kolik barvy ještě zbývá ..."
+msgstr "Jaká škoda, a zbylo ještě tolik barvy ..."
 
 #: po/level_i18n.cc:1083
 msgid "Oops ... you're stuck ...     Try again ..."
@@ -1563,13 +1563,13 @@ msgstr "Výborně!"
 msgid ""
 "There are 56 fully connected puzzle piece arrangements, but just 34 of them "
 "are reachable from this first distribution."
-msgstr "Existuje 56 možností, jak vyřešit tuto hádanku, ale v této první distribuci je možné vyřešit hádanku pouze 34 možnostmi."
+msgstr "Je padesátšest možností, jak vyřešit tuto hádanku, ale v tomto prvním rozložení je možné vyřešit hádanku pouze čtyřiatřiceti možnostmi."
 
 #: po/level_i18n.cc:1110
 msgid ""
 "This second distribution can just be converted to any of the other 28 "
 "arrangements."
-msgstr "V této distribuci je možné použít dalších 28 možností řešení."
+msgstr "V tomto rozložení je možné použít dalších dvacetosm možností řešení."
 
 #: po/level_i18n.cc:1121
 msgid "Interlude I"
@@ -1603,7 +1603,7 @@ msgid ""
 "His Burden loosed from off his shoulders, and fell from his back, and began "
 "to tumble, and so continued to do, till it came to the mouth of the "
 "Sepulchre, where it fell in, and I saw it no more."
-msgstr "Jeho břemeno bylo sejmuto z jeho ramen a on začal padat. Padal dokud nedošel k okraji hrobu a břemeno do něj hodil."
+msgstr "Jeho břemeno bylo sejmuto z jeho ramen a on začal padat. Padal, dokud nedošel k okraji hrobu a břemeno do něj nehodil."
 
 #: po/level_i18n.cc:1158
 msgid "They came to the foot of the hill Difficulty."
@@ -1657,7 +1657,7 @@ msgstr "Na levé straně silnice byla louka a cesta, která vedla k té louce, l
 msgid ""
 "Now there was, not far from the place where they lay, a castle, called "
 "Doubting-Castle, the owner of which was Giant Despair."
-msgstr "Nedaleko od místa, kde byli se tyčil hrad. Hrad se jmenoval Pochybnost a patři obrovi, který se jmenoval Beznaděj."
+msgstr "Nedaleko od místa, kde byli, se tyčil hrad. Hrad se jmenoval Pochybnost a patřil obrovi, který se jmenoval Beznaděj."
 
 #: po/level_i18n.cc:1178
 msgid "They went then till they came to the Delectable Mountains."
@@ -1688,18 +1688,18 @@ msgstr "Poutníci se dostali přes Kouzelnou zem a vstoupili do země Beulaha."
 msgid ""
 "There was then in that place one Vain-Hope, a ferryman, that with his boat "
 "helped him over."
-msgstr "Byl tam převozní, který mu pomohl dostat na druhý břeh."
+msgstr "Byl tam převozník, který mu pomohl dostat se na druhý břeh."
 
 #: po/level_i18n.cc:1190
 msgid ""
 "At the sight therefore of this River, the Pilgrims were much astounded, but "
 "the men that went with them, said, You must go through, or you cannot come "
 "at the Gate."
-msgstr "Při pohledu na řeku byli poutníci zděšeni, ale muži, kteří s nimi šli řekli, že se musejí dostat přes řeku, pokud chtějí projít bránou."
+msgstr "Při pohledu na řeku byli poutníci zděšeni, ale muži, kteří s nimi šli, řekli, že se musejí dostat přes řeku, pokud chtějí projít bránou."
 
 #: po/level_i18n.cc:1192
 msgid "I looked in after them; and behold the City shone like the Sun."
-msgstr "Podíval jsem se tam, kam mi ukázali a já spatřil město,které zářilo jako slunce."
+msgstr "Podíval jsem se tam, kam mi ukázali, a já spatřil město, které zářilo jako slunce."
 
 #: po/level_i18n.cc:1194
 msgid ""
@@ -1719,11 +1719,11 @@ msgstr "Předtím, než zkusíš těžší režim, by sis měl zkusit lehčí re
 
 #: po/level_i18n.cc:1230
 msgid "These dispensers are all empty ..."
-msgstr "Všechny zásobníky jsou prádzné ..."
+msgstr "Všechny zásobníky jsou prázdné ..."
 
 #: po/level_i18n.cc:1231
 msgid "The glass next to this document can be pushed to let you back out."
-msgstr "Sklo a tento dokument můžeš posunout tak, aby si mohl projít."
+msgstr "Sklo a tento dokument můžeš posunout tak, aby jsi mohl projít."
 
 #: po/level_i18n.cc:1238
 msgid "Distribution Meditation"
@@ -1739,7 +1739,7 @@ msgstr "více není méně"
 
 #: po/level_i18n.cc:1254
 msgid "Sorry, but in difficult mode you need more ... Restart."
-msgstr "Promiň, ale v těžkém režimu toho musíš udělat víc ... Restartuj."
+msgstr "Promiň, ale v těžkém režimu toho musíš udělat víc ... Začni znovu."
 
 #: po/level_i18n.cc:1280
 msgid "Poe's Nightmare"
@@ -1790,7 +1790,7 @@ msgstr "Hmmm, tyhle klíče můžou být užitečné."
 msgid ""
 "Passing by the entrance you get a glimpse of the room to the south ... and "
 "suddenly feel very uneasy."
-msgstr "Projdi vchodem a dostaneš se do pokoje na jihu .... a nejdnou máš špatný pocit."
+msgstr "Projdi vchodem a dostaneš se do pokoje na jihu .... a najednou máš špatný pocit."
 
 #: po/level_i18n.cc:1298
 msgid "Uh-oh, the steps leading down are small and extremely slippery."
@@ -1815,13 +1815,13 @@ msgid ""
 "Switch on, if you like to play the regular difficulty with many jokers, or "
 "leave it switched off, if you like to face easier challenges with less "
 "jokers."
-msgstr "Zapni vypínač, jesliže chceš hrát na normální obížnosti s více vtipálsky, nebo vypínač vypni a pak budeš hrát lehčí úroveň s méně vtipálky."
+msgstr "Zapni vypínač, jesliže chceš hrát na normální obížnosti s více vtipálky, nebo vypínač vypni a pak budeš hrát lehčí úroveň s méně vtipálky."
 
 #: po/level_i18n.cc:1327
 msgid ""
 "BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
 "ABANDON ALL HOPE, YOU WHO ENTER HERE."
-msgstr "PŘEDEMNOU NIC NEBYLO, ALE VĚCI JSOU VĚČNÉ / A JÁ VYTRVAL NAVŽDY. / VZDEJ SE VEŠKERÉ NADĚJE, TY KTERÝ PŘICHÁZÍŠ."
+msgstr "PŘEDE MNOU NIC NEBYLO, ALE VĚCI JSOU VĚČNÉ / A JÁ VYTRVAL NAVŽDY. / VZDEJ SE VEŠKERÉ NADĚJE, TY KTERÝ PŘICHÁZÍŠ."
 
 #: po/level_i18n.cc:1330
 msgid ""
@@ -1837,7 +1837,7 @@ msgid ""
 "It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
 "symbol of life on that altar to keep the guards at bay, and then perhaps I "
 "will consider taking you across."
-msgstr "Jsem Charón, převozník v podsvětí. Převezu tě, přes nebezpečnou bažinu, ale nebude to levné.             Počkej! Ty si živý....                                                   Nemůžeš být živý -- pouze mrtví mohou vstoupit na toto místo.  Rychle -- obětuj symbol života na tomto oltáři, aby na tebe nezaútočili strážci a pak budu uvažovat o tom, zda tě převezu."
+msgstr "Jsem Charón, převozník v podsvětí. Převezu tě, přes nebezpečnou bažinu, ale nebude to levné.             Počkej! Ty jsi živý....                                                   Nemůžeš být živý -- pouze mrtví mohou vstoupit na toto místo.  Rychle -- obětuj symbol života na tomto oltáři, aby na tebe nezaútočili strážci, a pak budu uvažovat o tom, zda tě převezu."
 
 #: po/level_i18n.cc:1334
 msgid ""
@@ -1847,14 +1847,14 @@ msgid ""
 "Hmm, well normally I wouldn't do this, but that fellow over there has me "
 "kind of worried -- I think he's plotting something.  If he has a coin, maybe"
 " you could get it from him somehow."
-msgstr "Velmi dobře. Démoni a duchové, kteří střeží toto místo, věří, že jsi skutečně mrtví, ale já bych byl ještě opatrný, pokud byl byl tebou...                                             Ale budeš ještě potřebovat minci. Hmm, dobře za normálních okolností bych to udělal, ale ten chlapík támhle vypadá podezřele -- Jsem si jistý, že má něco za lubem. Pokud má minci, možná bys jí mohl od ní nějak dostat."
+msgstr "Velmi dobře. Démoni a duchové, kteří střeží toto místo, věří, že jsi skutečně mrtvý, ale já bych byl ještě opatrný, pokud bych byl tebou...                                             Ale budeš ještě potřebovat minci. Hmm, dobře za normálních okolností bych to udělal, ale ten chlapík támhle vypadá podezřele -- Jsem si jistý, že má něco za lubem. Pokud má minci, možná bys ji mohl od něj nějak dostat."
 
 #: po/level_i18n.cc:1336
 msgid ""
 "No!  I will not ferry you across unless you make a proper sacrifice, ridding"
 " yourself of anything that could be interpreted as a sign of life.  Now "
 "begone!"
-msgstr "Ne! Nepřevezu tě dokud neuděláš oběď správně, najdi něco, co by mohlo představovat znamení života. Teď jdi pryč!"
+msgstr "Ne! Nepřevezu tě dokud neuděláš oběť správně, najdi něco, co by mohlo představovat znamení života. Teď jdi pryč!"
 
 #: po/level_i18n.cc:1339
 msgid ""
@@ -1866,7 +1866,7 @@ msgstr "...neboť potom jsem věděl, že život je velké bohatství, / byl př
 msgid ""
 "You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
 "back now, or forever face the consequences!"
-msgstr "Nemůžeš zde být! Já, Minos, soudce mrtvých, to nedovolím. Jdi zpět nebo budeš navždy čelit následkům!"
+msgstr "Nemůžeš zde být! Já, Mínós, soudce mrtvých, to nedovolím. Jdi zpět nebo budeš navždy čelit následkům!"
 
 #: po/level_i18n.cc:1343
 msgid "In that case, then begone!"
@@ -1876,7 +1876,7 @@ msgstr "V tomto případě, jdi pryč!"
 msgid ""
 "There stands Minos, snarling, terrible. / He examines each offender at the "
 "entrance, / judges and dispatches as he encoils himself."
-msgstr "Slyšel jsem hrozivý křik Minosův. / Každý hříšník před ním stane, / a čeká na svůj osud."
+msgstr "Slyšel jsem hrozivý křik Mínósův. / Každý hříšník před ním stane, / a čeká na svůj osud."
 
 #: po/level_i18n.cc:1349
 msgid ""
@@ -1903,7 +1903,7 @@ msgid ""
 "drains out into the swamp called Styx. / And I, my gaze transfixed, could "
 "see / people with angry faces in that bog, / naked, their bodies smeared "
 "with mud."
-msgstr "Tato říčka, byla součást / tmavého svahu. / Říčká stéká do bažiny zvané Styx. / A já ohromeně spatřil / v této bažině tváře hříšníků, / kteří byli nazí a jejich těla byla potřísněna bahnem."
+msgstr "Tato říčka, byla součást / tmavého svahu. / Říčka stéká do bažiny zvané Styx. / A já ohromeně spatřil / v této bažině tváře hříšníků, / kteří byli nazí a jejich těla byla potřísněna bahnem."
 
 #: po/level_i18n.cc:1361
 msgid ""
@@ -1954,7 +1954,7 @@ msgstr "Zde je hnízdo odporných Harpyjí, /kdo je vyžene, / kterak předpově
 msgid ""
 "... Here, at the very edge, we stayed our steps / at an expanse of deep and "
 "arid sand ..."
-msgstr "A my jsme pokračovali k v naší cestě k okraji pouště, / která byla obrovská..."
+msgstr "A my jsme pokračovali v naší cestě k okraji pouště, / která byla obrovská..."
 
 #: po/level_i18n.cc:1385
 msgid ""
@@ -2053,19 +2053,19 @@ msgstr "Co nemám"
 msgid ""
 "There are 19 fully connected puzzle piece arrangements, but just 9 of them "
 "are reachable from this first distribution."
-msgstr "Existuje 19 možností, jak vyřešit tuto hádanku, ale v této první distribuci je možné vyřešit hádanku pouze 9 možnostmi."
+msgstr "Je devatenáct možností, jak vyřešit tuto hádanku, ale v tomto prvním rozložení je možné vyřešit hádanku pouze devíti možnostmi."
 
 #: po/level_i18n.cc:1439
 msgid ""
 "This second distribution can just be converted to any of the other 10 "
 "arrangements."
-msgstr "V této distribuci je možné použít dalších 10 možností řešení."
+msgstr "V tomto rozložení je možné použít dalších deset možností řešení."
 
 #: po/level_i18n.cc:1441
 msgid ""
 "There are just two symmetric puzzle piece arrangements that both are "
 "reachable."
-msgstr "Existují pouze dvě řešení této symetrické hádanky, obě možnosti řešení máš k dispozici."
+msgstr "Jsou pouze dvě řešení této souměrné hádanky, obě možnosti řešení máš k dispozici."
 
 #: po/level_i18n.cc:1458
 msgid ""
@@ -2376,11 +2376,11 @@ msgstr "Jednodušší to je lopatou!"
 
 #: po/level_i18n.cc:1773
 msgid "Please remember:    42"
-msgstr "Prosím zapamatuj si:    42"
+msgstr "Prosím, zapamatuj si:    42"
 
 #: po/level_i18n.cc:1783
 msgid "Sorry for inconvenience, the Bank-O-Mat is empty."
-msgstr "Omlouváme se za nepříjmenosti, bankomat je prázdný."
+msgstr "Omlouváme se za nepříjemnosti, bankomat je prázdný."
 
 #: po/level_i18n.cc:1826
 msgid "Take the key to the left first!"
@@ -2408,11 +2408,11 @@ msgstr "Dej si pozor!!"
 
 #: po/level_i18n.cc:2016
 msgid "Rotor Guards"
-msgstr "Střáže rotorů"
+msgstr "Stráže rotorů"
 
 #: po/level_i18n.cc:2018
 msgid "Hoisting guards with their own petard"
-msgstr "Pokus se porazit stáže v jejich vlastní pasti"
+msgstr "Pokus se porazit stráže v jejich vlastní pasti"
 
 #: po/level_i18n.cc:2022
 msgid "It isn't as easy as it looks."
@@ -2431,11 +2431,11 @@ msgstr "Rychle ...                                                              
 
 #: po/level_i18n.cc:2039
 msgid "Meditation Disturbance"
-msgstr "Rušení při meditaci"
+msgstr "Rušení při rozjímání"
 
 #: po/level_i18n.cc:2042
 msgid "Hit by a bolting horse"
-msgstr "Udeř do přišroubavného koně"
+msgstr "Srážka se splašeným koněm"
 
 #: po/level_i18n.cc:2047
 msgid "Magic Trinity"
@@ -2456,7 +2456,7 @@ msgid ""
 "terrain. Now you find yourself in front of an impressive temple, which seems"
 " to be a relic of the ancient Aztec empire. But the temple is in "
 "surprisingly good condition ..."
-msgstr "Vítej v Mexiku! Před osmi hodinami, přistálo tvoje letadlo na letišti  \"Coatlicue\", což je malá vesnička obklopená neprozkoumanou džunglí. Nyní jsi před impozantním chrámem, který je asi pozůstatkem starověké Aztécké říše. Chrám je v překvapivě dobrém stavu ..."
+msgstr "Vítej v Mexiku! Před osmi hodinami, přistálo tvoje letadlo na letišti  \"Coatlicue\", což je malá vesnička obklopená neprozkoumanou džunglí. Nyní jsi před působivým chrámem, který je asi pozůstatkem starověké Aztécké říše. Chrám je v překvapivě dobrém stavu ..."
 
 #: po/level_i18n.cc:2103
 msgid ""
@@ -2466,7 +2466,7 @@ msgid ""
 "built up along the front side of the temple. \"Goshers made this ancient "
 "relic a fortress\", you think, \"this cannot be legal, for Goshers received "
 "funding from the UK Government. I'll try to call him to account!\""
-msgstr "Vedle obrovských dveří je pochromovaný nápis: \"Restaurován: G. G. Goshers, 1998 n.l.\". Na menším nápisu pod ním stojí: \"Majetek G. G. Goshers. Vstup zakázán!\". Všimneš si psí boudy u přední zdi chrámu. \"Gosher udělal z tohoto starodávného chrámu pevnost\", pomyslíš si, \"to musí být nezákonné, Gosher obdržel finanční prostředky od vlády Spojeného království. Zkusím mu zavolat!\""
+msgstr "Vedle obrovských dveří je pochromovaný nápis: \"Restaurován: G. G. Goshers, 1998 n. l.\". Na menším nápisu pod ním stojí: \"Majetek G. G. Goshers. Vstup zakázán!\". Všimneš si psí boudy u přední zdi chrámu. \"Gosher udělal z tohoto starodávného chrámu pevnost\", pomyslíš si, \"to musí být nezákonné, Gosher obdržel finanční prostředky od vlády Spojeného království. Zkusím mu zavolat!\""
 
 #: po/level_i18n.cc:2104
 msgid "This guard doesn’t notice me."
@@ -2485,7 +2485,7 @@ msgstr "Na polorozpadlé zdi je nápis ve španělštině:  \"Opatrně! Pokud na
 
 #: po/level_i18n.cc:2107
 msgid "Chrome sign: \"Control of the beast’s cage.\""
-msgstr "Pochromovaný nápis: \"Kontrola nad bestií v kleci.\""
+msgstr "Pochromovaný nápis: \"Kontrola šelminy klece.\""
 
 #: po/level_i18n.cc:2108
 msgid "Oooh, this slope is steep! Try not to touch the skull!"
@@ -2502,7 +2502,7 @@ msgstr "Ta budova dole vypadá jako vězení. Jdi se tam podívat, ať zjistíš
 msgid ""
 "Getting beyond the prison building was a really good idea. But now you have "
 "to cross this lake. Be thrifty with those boxes!"
-msgstr "Proplížit se k vězení byl dobrý nápad, ale teď se musíš dostat přes jezero. Použij opatrně boxy!"
+msgstr "Proplížit se k vězení byl dobrý nápad, ale teď se musíš dostat přes jezero. Použij ty krabice opatrně!"
 
 #: po/level_i18n.cc:2111
 msgid ""
@@ -2511,7 +2511,7 @@ msgid ""
 " his \"work\"; trying to enter the temple and to get rich from the treasures"
 " of the Aztecs. It might be helpful to be accompanied by someone, who knows "
 "the secrets of the jungle and this temple ..."
-msgstr "V okně vězení je domorodá žena. Gosher zřejmě uvěznil všechny domorodce, aby mu nebránili v jeho \"práci\"; snaž se dostat do chrámu a zbohatni poklady Aztéků. Bylo by užitečné vzít sebou někoho, kdo zná okolní džungli i chrám ..."
+msgstr "V okně vězení je domorodá žena. Gosher zřejmě uvěznil všechny domorodce, aby mu nebránili v jeho \"práci\"; Snaž se dostat do chrámu a zbohatni poklady Aztéků. Bylo by užitečné vzít s sebou někoho, kdo zná okolní džungli i chrám ..."
 
 #: po/level_i18n.cc:2112
 msgid ""
@@ -2526,7 +2526,7 @@ msgid ""
 "You meet the English adventurer in the front of the prison. \"Hello, I'm "
 "Xila!\", you tell him in broken English. After he introduced himself as "
 "well, both of you begin to work out a plan against the evil G. G. Goshers."
-msgstr "U vchodu do vězení jsi potkal anglického dobrodruha. \"Zdravím, jsem Xila!\", řekl ti lámanou angličtinou. Poté, co ses také představil, začli jste plánovat, jak se zbavit ďábelského G. G. Goshera."
+msgstr "U vchodu do vězení jsi potkal anglického dobrodruha. \"Zdravím, jsem Xila!\", řekl ti lámanou angličtinou. Poté, co ses také představil, začali jste plánovat, jak se zbavit ďábelského G. G. Goshera."
 
 #: po/level_i18n.cc:2114
 msgid ""
@@ -2544,7 +2544,7 @@ msgstr "Xila ví, jak vypustit jezero!"
 
 #: po/level_i18n.cc:2117
 msgid "You were lucky to find this hole. It prevents you from drowning."
-msgstr "Měl jsi štěstí, že si našel tu díru. Ochrání tě to před utopením."
+msgstr "Měl jsi štěstí, že jsi našel tu díru. Ochrání tě to před utopením."
 
 #: po/level_i18n.cc:2118
 msgid "This glass stone must fulfill a purpose ..."
@@ -2552,11 +2552,11 @@ msgstr "Skleněný kámen musí splnit svůj účel ..."
 
 #: po/level_i18n.cc:2119
 msgid "It's funny that such a temple should have a side entrance."
-msgstr "Je zvláštní, že tento má chrám boční vchod."
+msgstr "Je zvláštní, že tento chrám má boční vchod."
 
 #: po/level_i18n.cc:2120
 msgid "Be careful! There are sensors in the walls."
-msgstr "Buď opatrný! Ve stěnách jsou senzory."
+msgstr "Buď opatrný! Ve stěnách jsou čidla."
 
 #: po/level_i18n.cc:2121
 msgid ""
@@ -2564,11 +2564,11 @@ msgid ""
 "entrance is protected by 11 knights, armed with spears. These guards are "
 "very dangerous. Without a sword you'll never be able to enter. Be careful. "
 "There are not only knights, but also thieves."
-msgstr "Poté, co se otevřeli obrovské dveře chrámu, jsi uviděl, že vstup je chráněn 11 rytíři, kteří jsou vyzbrojeni oštěpy. Stráže jsou velmi nebezepečné. Bez meče se nikdy nedostaneš dovnitř. Buď opatrný. Nejsou zde jenom rytři, ale i zloději."
+msgstr "Poté, co se otevřely obrovské dveře chrámu, jsi uviděl, že vstup je chráněn jedenácti rytíři, kteří jsou vyzbrojeni oštěpy. Stráže jsou velmi nebezpečné. Bez meče se nikdy nedostaneš dovnitř. Buď opatrný. Nejsou zde jenom rytíři, ale i zloději."
 
 #: po/level_i18n.cc:2122
 msgid "\"Congratulations. You just managed to enter this old Aztec Temple.\""
-msgstr "\"Gratuluji. Podařilo se ti vsotupit do aztéckého chrámu.\""
+msgstr "\"Gratuluji. Podařilo se ti vstoupit do aztéckého chrámu.\""
 
 #: po/level_i18n.cc:2123
 msgid ""
@@ -2592,15 +2592,15 @@ msgid ""
 "taking him back to Great Britain and rendering him to the police, you have "
 "ended the evil career of Gerald Gregory Goshers. Congratulations on the "
 "success of your expedition!"
-msgstr "Xila a ty jste vstoupili do diamantové místnosti v aztéckém chrámu. Tím, že si ho vzal do Velké Británie a vzal ho na policii, jsi ukončil vládu Geralda Gregora Goshera. Gratuluji k úspěchu tvé výpravy!"
+msgstr "Xila a ty jste vstoupili do diamantové místnosti v aztéckém chrámu. Tím, že jsi ho vzal do Velké Británie a vzal ho na policii, jsi ukončil vládu Geralda Gregora Goshera. Gratuluji k úspěchu tvé výpravy!"
 
 #: po/level_i18n.cc:2145
 msgid "illmind's jumping ball flash ..."
-msgstr "illmind's jumping ball flash ..."
+msgstr "bláznův skákající míč bliká ..."
 
 #: po/level_i18n.cc:2146
 msgid "... of heaven comes the beast from the ..."
-msgstr "... z nebe přišla bestie z ..."
+msgstr "... z nebe přichází šelma z ..."
 
 #: po/level_i18n.cc:2147
 msgid "... t r a p p e d ..."
@@ -2608,7 +2608,7 @@ msgstr "... c h y c e n ..."
 
 #: po/level_i18n.cc:2151
 msgid "Edwards Mountain"
-msgstr "Edwardovi hory"
+msgstr "Edwardovy hory"
 
 #: po/level_i18n.cc:2171
 msgid "Are chess knights resistent to laser beams?"
@@ -2616,7 +2616,7 @@ msgstr "Jsou šachoví koně odolní proti laserovým paprskům?"
 
 #: po/level_i18n.cc:2182
 msgid "The art of steering a quadriga"
-msgstr "Umění řízení quadriga"
+msgstr "Umění řízení dvoukolového vozu se čtyřspřežím"
 
 #: po/level_i18n.cc:2185
 msgid "Dropping the spoon redeems from being quartered!"
@@ -2652,7 +2652,7 @@ msgstr "Neúspěšné, ale užitečné"
 
 #: po/level_i18n.cc:2237
 msgid "Procrustes"
-msgstr "Procrustes"
+msgstr "Prokrústés"
 
 #: po/level_i18n.cc:2241
 msgid "Dialers"
@@ -2668,7 +2668,7 @@ msgstr "Vítej v Enigmě VI"
 
 #: po/level_i18n.cc:2261
 msgid "Escape by Chaining Thieves"
-msgstr "Osvoboď se z řetězů"
+msgstr "Abyste unikli, spoutejte zloděje řetězy"
 
 #: po/level_i18n.cc:2264
 msgid "Remember Atreyu's horse Atrax!"
@@ -2708,7 +2708,7 @@ msgstr "Hon na čarodějnice na ledě"
 
 #: po/level_i18n.cc:2302
 msgid "illmind's be quick or be dead"
-msgstr "illmind je rychlý nebo mrtvý"
+msgstr "Choromyslný je rychlý nebo mrtvý"
 
 #: po/level_i18n.cc:2307
 msgid "Tandem Chess"
@@ -2736,7 +2736,7 @@ msgstr "Opravdu otravná úroveň"
 
 #: po/level_i18n.cc:2343
 msgid "Sorry, this switch is currently out of order."
-msgstr "Promiň, tento přepínač je v současné době mimo provoz"
+msgstr "Promiň, tento přepínač je v současné době mimo provoz."
 
 #: po/level_i18n.cc:2345
 msgid "As I already told you, this switch is out of order!"
@@ -2756,7 +2756,7 @@ msgstr "Gratuluji, teď už to zase funguje!"
 
 #: po/level_i18n.cc:2353
 msgid "No hints available at the moment."
-msgstr "Žádná nápověda není v současné době k disozici!"
+msgstr "Žádná nápověda není v současné době k dispozici!"
 
 #: po/level_i18n.cc:2355
 msgid "There is a passage right beneath this stone!"
@@ -2764,11 +2764,11 @@ msgstr "Přimo pod kamenem je průchod!"
 
 #: po/level_i18n.cc:2383
 msgid "Al Capone's training camp."
-msgstr "Tréninkový kemp Al Capone."
+msgstr "Al Caponův výcvikový tábor."
 
 #: po/level_i18n.cc:2384
 msgid "There are at least two patterns to break through the wall."
-msgstr "Existují nejméně dva způsoby, jak prorazit zeď."
+msgstr "Jsou nejméně dva způsoby, jak prorazit zeď."
 
 #: po/level_i18n.cc:2385
 msgid "It is a well known secret that a few prisoners did escape."
@@ -2798,17 +2798,17 @@ msgstr "Hej, kde to jsem?"
 msgid ""
 "Moments ago i've been at home and wanted to take care about my two oxyd "
 "stones."
-msgstr "Před chvíli jsem byl doma a chtěl jsem postarat o mé dva oxyd kameny."
+msgstr "Před chvíli jsem byl doma a chtěl jsem se postarat o své dva oxyd kameny."
 
 #: po/level_i18n.cc:2449
 msgid "And now i'm stranded in this weird forest. How can i escape from here?"
-msgstr "A teď jsm uvízl v tomhle divném leze. Jak se odtud mohu dostat?"
+msgstr "A teď jsem uvízl v tomhle divném lese. Jak se odtud mohu dostat?"
 
 #: po/level_i18n.cc:2451
 msgid ""
 "If i should have a look-around? Perhaps i can find some things that could "
 "help me to find an exit."
-msgstr "Mám se podívat kolem? Možná bych našel nějaké věci, které by mi pomohli najít východ."
+msgstr "Mám se podívat kolem? Možná bych našel nějaké věci, které by mi pomohly najít východ."
 
 #: po/level_i18n.cc:2453
 msgid "WARNING: Highest caution is necessary."
@@ -2828,7 +2828,7 @@ msgstr "Stádo divokých koní blokuje cestu."
 
 #: po/level_i18n.cc:2461
 msgid "A small hamlet with a fence, a few huts, a pond, some bales of straw."
-msgstr "Mála vesnička s plotem, pár chat, rybník, několik stohů slámy."
+msgstr "Malá vesnička s plotem, pár chat, rybník, několik stohů slámy."
 
 #: po/level_i18n.cc:2463
 msgid "If there is finally an exit?"
@@ -2840,7 +2840,7 @@ msgstr "Obávám se, že potřebuji pomoc!"
 
 #: po/level_i18n.cc:2467
 msgid "Filling station for empty extinguishers."
-msgstr "Plnění prázdných hasících přístrojů."
+msgstr "Plnění prázdných hasicích přístrojů."
 
 #: po/level_i18n.cc:2469
 msgid "Watch out: Angry mosquitoes!"
@@ -2856,7 +2856,7 @@ msgstr "Odebrání kamene"
 
 #: po/level_i18n.cc:2479
 msgid "Perfect Trajectory"
-msgstr "Ideální trajektorie"
+msgstr "Přesná dráha"
 
 #: po/level_i18n.cc:2489
 msgid "Take the first exit"
@@ -2866,7 +2866,7 @@ msgstr "Použij první východ"
 msgid ""
 "Your faithful friend Tonto, your horse Silver, and Tonto's horse Scout have "
 "been captured."
-msgstr "Tvůj věrný přítel Tonto, tvůj kůň Silver a Tontův kůň Scout byli zajati"
+msgstr "Tvůj věrný přítel Tonda, tvůj kůň Stříbrňák a Tontův kůň Zvěd byli zajati."
 
 #: po/level_i18n.cc:2502
 msgid "Don't forget your disguise!"
@@ -2874,11 +2874,11 @@ msgstr "Nezapomeň na převlek!"
 
 #: po/level_i18n.cc:2504
 msgid "Here lies the grave of John Reid."
-msgstr "Zde je pohřben John Reid."
+msgstr "Zde je pohřben Jan Reid."
 
 #: po/level_i18n.cc:2506
 msgid "Hi-yo Silver, away!"
-msgstr "Hi-yo Silver, utíkej!"
+msgstr "Hijé, Stříbrňáku, utíkej!"
 
 #: po/level_i18n.cc:2508
 msgid "Who was that masked man?"
@@ -2886,7 +2886,7 @@ msgstr "Kdo byl ten maskovaný muž?"
 
 #: po/level_i18n.cc:2510
 msgid "Hey! This tomb is empty!"
-msgstr "Hej! Tento hrob je prádzný!"
+msgstr "Hej! Tento hrob je prázdný!"
 
 #: po/level_i18n.cc:2515 po/level_i18n.cc:2665
 msgid "Open the Doors"
@@ -2898,7 +2898,7 @@ msgstr "Vítej v Enigmě VII"
 
 #: po/level_i18n.cc:2543
 msgid "Clue: The starting point is where all dead marbles go"
-msgstr "Tip: Začni tam, kam odcházejí všechny zemřelé kuličky"
+msgstr "Rada: Začni tam, kam odcházejí všechny zemřelé kuličky"
 
 #: po/level_i18n.cc:2554
 msgid "Funeral on Deep Sea"
@@ -2928,7 +2928,7 @@ msgstr "Publikum v Benátkách"
 
 #: po/level_i18n.cc:2592
 msgid "Press the Triggers"
-msgstr "Stiskni spouštěč"
+msgstr "Stiskni podlahový spínač"
 
 #: po/level_i18n.cc:2594
 msgid "Welcome to Venice"
@@ -2952,7 +2952,7 @@ msgstr "použij balvany jako gondolu"
 
 #: po/level_i18n.cc:2604
 msgid "piazza san marco"
-msgstr "Piazza San Marco"
+msgstr "Náměstí svatého Marka"
 
 #: po/level_i18n.cc:2606
 msgid "danger"
@@ -2960,7 +2960,7 @@ msgstr "nebezpečí"
 
 #: po/level_i18n.cc:2608
 msgid "san giorgio"
-msgstr "San Giorgio"
+msgstr "Svatý Jiří"
 
 #: po/level_i18n.cc:2610
 msgid "guardian ducale"
@@ -2990,7 +2990,7 @@ msgstr "Pospěš do San Giorgia"
 msgid ""
 "This is a color maze. You have to work out what order you need to traverse "
 "the colored floors in order to reach the oxyds."
-msgstr "Toto je barevný labyrint. Musíš určit pořadí, jak projít po barevném povrhu, aby jsi dostal oxyd kameny."
+msgstr "Toto je barevné bludiště. Musíš určit pořadí, jak projít po barevném povrhu, abys dostal oxyd kameny."
 
 #: po/level_i18n.cc:2638
 msgid "Change guaranteed"
@@ -3011,13 +3011,13 @@ msgstr "Nápověda: Důl není nikdy umístěn podél okrajů. Jesliže se ti ne
 #: po/level_i18n.cc:2653
 msgid ""
 "Hit the switch to uncover one tile, but you will have to wait 10 seconds."
-msgstr "Použij tento připínač a odkryj jednu dlaždici, ale budeš muset počkat 10 sekund."
+msgstr "Použij tento přepínač a odkryj jednu dlaždici, ale budeš muset počkat 10 sekund."
 
 #: po/level_i18n.cc:2660
 msgid ""
 "Oh, ridiculous riddle rule my marble's meaningless mind, continue creating "
 "confusion being blackball's brain's blind."
-msgstr "Ach, vtipná hádanka upoutala pozornost mého drahého přítele a na dále mate myšlení."
+msgstr "Ach, vtipná hádanka upoutala pozornost mého drahého přítele a nadále mate myšlení."
 
 #: po/level_i18n.cc:2682
 msgid "Open the Doors, Open the Oxyds"
@@ -3025,7 +3025,7 @@ msgstr "Otevři dveře, otevři oxyd kámen."
 
 #: po/level_i18n.cc:2690
 msgid "Restless Meditation"
-msgstr "Meditace bez přeruešení"
+msgstr "Přemýšlení bez přerušení"
 
 #: po/level_i18n.cc:2692
 msgid "Caution - Quick Sand!"
@@ -3033,7 +3033,7 @@ msgstr "Pozor - Pohyblivý písek!"
 
 #: po/level_i18n.cc:2699
 msgid "Bridge those synapses!"
-msgstr "Připoj tyto synapse!"
+msgstr "Připoj tyto nervové spoje!"
 
 #: po/level_i18n.cc:2707
 msgid "Freeze by the Power of Light"
@@ -3055,7 +3055,7 @@ msgstr "Pokud nevíš, jak tančit jako Fred Astaire, tak nezavírej nádrže, p
 
 #: po/level_i18n.cc:2726
 msgid "Rainbow Adjacencies"
-msgstr "Duha sekvence"
+msgstr "Duha a přilehlé"
 
 #: po/level_i18n.cc:2731
 msgid "Balance Beam"
@@ -3067,7 +3067,7 @@ msgstr "Každá kulička je strůjce svého štěstí"
 
 #: po/level_i18n.cc:2747
 msgid "Feed me!"
-msgstr "Nakm mě!"
+msgstr "Nakrm mě!"
 
 #: po/level_i18n.cc:2749
 msgid "Beware of Sadistic Dentist!"
@@ -3079,7 +3079,7 @@ msgstr "Nevinná oběť."
 
 #: po/level_i18n.cc:2753
 msgid "Office of your boss."
-msgstr "Kancelář tvého séfa."
+msgstr "Kancelář tvého šéfa."
 
 #: po/level_i18n.cc:2755
 msgid "Aaaaaarrrrggghhhhhh!!!!!"
@@ -3103,7 +3103,7 @@ msgstr "Zelené peklo"
 
 #: po/level_i18n.cc:2773
 msgid "Exploration Trip to Green Waters"
-msgstr "Výzkumná expedice k zelené vodě"
+msgstr "Průzkumná výprava do Zelené vody"
 
 #: po/level_i18n.cc:2790
 msgid "Riverside"
@@ -3115,7 +3115,7 @@ msgstr "Špatná strana!                   F3"
 
 #: po/level_i18n.cc:2797
 msgid "The moving boulder can fall down holes but cannot fall into water."
-msgstr "Pohybující se balvan může spdnout do děr, ale nemůže spadnout do vody."
+msgstr "Pohybující se balvan může spadnout do děr, ale nemůže spadnout do vody."
 
 #: po/level_i18n.cc:2801
 msgid "You shouldn't have done that."
@@ -3147,7 +3147,7 @@ msgstr "Žena v červeném"
 
 #: po/level_i18n.cc:2838
 msgid "Remote Meditation"
-msgstr "Vzdálena meditace"
+msgstr "Vzdálené rozjímání"
 
 #: po/level_i18n.cc:2860
 msgid "4D Confusion ..."
@@ -3159,7 +3159,7 @@ msgid ""
 "dimensions ... Some hints: size of the labyrinth is 4x4x4x4; your current "
 "position is (2|3|3|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
-msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšelt ve čtyř dimenzích ... Několik rad: velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|3|3|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
+msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšlet ve čtyřech dimenzích ... Několik rad: Velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|3|3|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
 
 #: po/level_i18n.cc:2862
 msgid ""
@@ -3167,7 +3167,7 @@ msgid ""
 "dimensions ... Some hints: size of the labyrinth is 3x3x3x3; your current "
 "position is (2|2|2|2); in all of the 16 corners of the hypercube is a blue "
 "oxyd ..."
-msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšelt ve čtyř dimenzích ... Několik rad: velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|2|2|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
+msgstr "Viděl jsi už někdy čtyřrozměrný labyrint? Dobře, je na čase naučit se přemýšlet ve čtyřech dimenzích ... Několik rad: Velikost labyritnu je 4x4x4x4; tvoje aktuální poloha je (2|2|2|2); ve všech 16 rozích hyperkrychle je modrý oxyd ..."
 
 #: po/level_i18n.cc:2872
 msgid "Who broke the pearl necklace?"
@@ -3185,7 +3185,7 @@ msgstr "Krásný perlový náhrdelník paní Scarlett se roztrhl a všechny bare
 msgid ""
 "You did invert the sequence of this pair of pearls. You need to correct this"
 " fault to finish the necklace."
-msgstr "Tento pár perel je spojen ve špatném pořadí . Oprav chybu, aby si mohl dosložit náhrdelník."
+msgstr "Tento pár perel je spojen ve špatném pořadí. Oprav chybu, abys mohl dodělat náhrdelník."
 
 #: po/level_i18n.cc:2891
 msgid "Carry that oxygen around."
@@ -3197,7 +3197,7 @@ msgstr "Stiskni klávesu F3 nebo konec"
 
 #: po/level_i18n.cc:2926
 msgid "Do not use too much magic!"
-msgstr "Nepoužívej příliš magie!"
+msgstr "Nepoužívej příliš kouzel!"
 
 #: po/level_i18n.cc:2941
 msgid "The other document lies and the left wormhole is the right one."
@@ -3219,20 +3219,20 @@ msgstr "Zkus to znovu ..."
 
 #: po/level_i18n.cc:2979
 msgid "You'd need a portable box!"
-msgstr "Potřebuješ přenosné box!"
+msgstr "Potřebuješ přenosný box!"
 
 #: po/level_i18n.cc:2980
 msgid ""
 "Congratulations! You found a seed! Try to use it behind the grate (and move "
 "away quickly)"
-msgstr "Graguluji! Našel si semínko! Dej ho po mříž (a rychle odtud zmiz)"
+msgstr "Gratuluji! Našel jsi semínko! Dej ho pod mříž (a rychle odtud zmiz)"
 
 #: po/level_i18n.cc:2981
 msgid ""
 "Remember that you can't fill a closed bridge with a box ..."
 "                                           but maybe you can use the 3rd "
 "seed differently!"
-msgstr "Pamatuj, že nemůžeš zaplnit snížený most boxy ...                                           ale možná můžeš použít 3. semínko jinak!"
+msgstr "Pamatuj, že nemůžeš zaplnit snížený most boxy ...                                           ale možná můžeš použít třetí semínko jinak!"
 
 #: po/level_i18n.cc:2982
 msgid "There are different kinds of seeds ... Try to use them!"
@@ -3264,17 +3264,17 @@ msgstr "Nepřemýšlej příliš dlouho ... je to snadné!"
 
 #: po/level_i18n.cc:3074
 msgid "Dedicated to my friend Frank."
-msgstr "Věnováno mém příteli Frankovi."
+msgstr "Věnováno mému příteli Frankovi."
 
 #: po/level_i18n.cc:3075
 msgid "This level is quite straightforward, isn't it? Just continue ... ;-)"
-msgstr "Tato úroveň je docela jednoduché, ne? Jen pokračuj ... ;-)"
+msgstr "Tato úroveň je docela jednoduchá, ne? Jen pokračuj ... ;-)"
 
 #: po/level_i18n.cc:3079
 msgid ""
 "One of the puzzle stones needs to be placed onto the trigger field."
 "                       Guess which ... :)"
-msgstr "Jeden logický kámen musí být umístěn na spouštěcí poli.                       Hádej,který... :)"
+msgstr "Jeden logický kámen musí být umístěn na spouštěcím poli.                       Hádej, který ... :)"
 
 #: po/level_i18n.cc:3080
 msgid "The level preview might help ..."
@@ -3284,7 +3284,7 @@ msgstr "Možná ti pomůže náhled úrovně ..."
 msgid ""
 "Each color appears once. Each correct color produces whites in the wrong "
 "place, blacks in the right one."
-msgstr "Každá barva může být použita jednou. Pokud je špatně umístěna je bílá, každá pokud je správně umístěna je černá."
+msgstr "Každá barva může být použita jednou. Pokud je špatně umístěna, je bílá, každá, pokud je správně umístěna, je černá."
 
 #: po/level_i18n.cc:3087
 msgid "This switch is to validate your guess."
@@ -3319,7 +3319,7 @@ msgstr "Naše pozornost se obrátila na:           Vzduch a oheň, voda, země."
 msgid ""
 "And if your answer can’t be found           then shame on you, eyes to the "
 "ground!"
-msgstr "Pokud nemůžeš naléz odpověď           tak, pak se styď a sklop zrak!"
+msgstr "Pokud nemůžeš nalézt odpověď           tak, pak se styď a sklop zrak!"
 
 #: po/level_i18n.cc:3169
 msgid "Five form twelve!"
@@ -3354,7 +3354,7 @@ msgstr "je černá vždy krásná?"
 
 #: po/level_i18n.cc:3262
 msgid "Translate or let it be translated"
-msgstr "Přelož to a nebo to nech přeložit"
+msgstr "Přelož to, a nebo to nech přeložit"
 
 #: po/level_i18n.cc:3266
 msgid "Read the right document"
@@ -3368,11 +3368,11 @@ msgstr "Správný, není ten správný!"
 msgid ""
 "Why has there always to be an active volcano and a village of marble-eating "
 "inhabitants on a tropical island?"
-msgstr "Proč jsou vždycky aktivní sopka a vesnice plné pojídačů kuliček na tropickém ostrově?"
+msgstr "Proč jsou vždycky činná sopka a vesnice plné pojídačů kuliček na tropickém ostrově?"
 
 #: po/level_i18n.cc:3328
 msgid "Try the easy mode first ..."
-msgstr "Zkus nejdřív lehkou oblížnost ..."
+msgstr "Zkus nejdřív lehkou obtížnost ..."
 
 #: po/level_i18n.cc:3338
 msgid ""
@@ -3384,11 +3384,11 @@ msgstr "Zde leží pirát Černá Koule, opuštěn v roce 1802, poté co cestova
 msgid ""
 "To cure sea sickness hold a large bank note between your teeth and lean over"
 " the side."
-msgstr "K vyléčení mořšké nemoci drž velkou bankovku mezi zuby a nakloň se na stranu."
+msgstr "K vyléčení mořské nemoci drž velkou bankovku mezi zuby a nakloň se na stranu."
 
 #: po/level_i18n.cc:3343
 msgid "This level is symmetric ..."
-msgstr "Tato úroveň je symetrická ..."
+msgstr "Tato úroveň je souměrná ..."
 
 #: po/level_i18n.cc:3349
 msgid "Fire or be fired"
@@ -3399,18 +3399,18 @@ msgid ""
 "Do you think a bushman would start to search for an extinguisher in the "
 "cellar if a wall of fire were approaching? Be a Firefox - you have the first"
 " 5 items to deal with, no more no less!"
-msgstr "Myslíš si, že křovák začne hledat hasící přistroj ve sklepě, když se oheň blíží? Buď chytřejší - máš prvních 5 položek, které ti pomůžou při řešení, ne víc, ne míň!"
+msgstr "Myslíš si, že křovák začne hledat hasicí přistroj ve sklepě, když se oheň blíží? Buď chytřejší - máš prvních 5 položek, které ti pomůžou při řešení, ne víc, ne míň!"
 
 #: po/level_i18n.cc:3354
 msgid ""
 "You can extinguish fire with water. This is a good place to refill your "
 "extinguisher. Be aware, water is rare!"
-msgstr "Můžeš uhasit oheň vodou. Toto je dobré místo pro naplnění hasícího přistoje. Dej pozor, voda vzácná!"
+msgstr "Můžeš uhasit oheň vodou. Toto je dobré místo pro naplnění hasicího přístroje. Dej pozor, voda je vzácná!"
 
 #: po/level_i18n.cc:3356
 msgid ""
 "OOPS! The maze is broken! Prepare to repair the maze before you destroy it."
-msgstr "Jejda! Labyritn je rozbitý! Oprav ho dřív, než se zničí."
+msgstr "Jejda! Bludiště je rozbité! Oprav je dřív, než se zničí."
 
 #: po/level_i18n.cc:3369
 msgid "Make an umbrella."
@@ -3421,7 +3421,7 @@ msgid ""
 "You again! We won't let you pass this time! See these Oxyds? You can't reach"
 " them unless you rob our Four Holy Items! But they are well guarded! "
 "Bwahahahaha!"
-msgstr "Zase ty! Tentokrát tě nenecháme odejít! Vidíš ty oxyd kameny? Nemůžeš k nim dokud neukradneš naše čtyři svaté relikvie! Relikvie jsou dobře střeženy! Muhahahahaha!"
+msgstr "Zase ty! Tentokrát tě nenecháme odejít! Vidíš ty oxyd kameny? Nemůžeš k nim, dokud neukradneš naše čtyři svaté relikvie! Relikvie jsou dobře střeženy! Muhahahahaha!"
 
 #: po/level_i18n.cc:3383
 msgid ""
@@ -3443,7 +3443,7 @@ msgstr "Země vyplňuje prázdnotu ... Chceš vyplnit chybějící povrch? Pak p
 msgid ""
 "Air blows and goes by ... Want to jump across the void? Then make your way "
 "to the Holy Spring!"
-msgstr "Vzduch odvane vše, co sestojí v cestě ... Chceš přeskočit prázdnotu? Pak si udělej cestu ke Svatému jaru!"
+msgstr "Vzduch odvane vše, co stojí v cestě ... Chceš přeskočit prázdnotu? Pak si udělej cestu ke Svatému jaru!"
 
 #: po/level_i18n.cc:3387
 msgid ""
@@ -3488,11 +3488,11 @@ msgid ""
 "adventurers who tryed to steale Aylendil the Sworde but none has ever come "
 "back. Hazy is the swampe where the Magick of the Ancients is buryed; the "
 "lair of WhiteHorse the dragon thu shalt avoyd in feare of awaken him ..."
-msgstr "Silní bojovníci skal střeží elfské-oyd kameny. Mnoho duchů je na cestě k nim. Mnoho dobrodruhů se chlubilo, že ukradnou Aylendilský meč, ale žádný z nich se nikdy nevrátil. V bažině jsou ukryta starověká kouzla. Vyhni se raději doupěti draka Bílého Koně."
+msgstr "Silní bojovníci skal střeží elfské-oxyd kameny. Mnoho duchů je na cestě k nim. Mnoho dobrodruhů se chlubilo, že ukradnou Aylendilský meč, ale žádný z nich se nikdy nevrátil. V bažině jsou ukryta starověká kouzla. Vyhni se raději doupěti draka Bílého Koně."
 
 #: po/level_i18n.cc:3489
 msgid "Catwalk Meditation"
-msgstr "Meditace na molu"
+msgstr "Přemítání na molu"
 
 #: po/level_i18n.cc:3498
 msgid ""
@@ -3502,11 +3502,11 @@ msgstr "Caramba!! El Dictator má mnoho pesos v křišťálovém trezoru, ale m�
 
 #: po/level_i18n.cc:3511
 msgid "It is not quite that easy."
-msgstr "To není, tak úplně jednoduché."
+msgstr "To není tak úplně jednoduché."
 
 #: po/level_i18n.cc:3517
 msgid "April 1st"
-msgstr "1.dubna"
+msgstr "1. dubna"
 
 #: po/level_i18n.cc:3519
 msgid "Do you REALLY want to do this???"
@@ -3536,7 +3536,7 @@ msgstr "Opravdu si myslíš, že to bylo tak snadné!?"
 
 #: po/level_i18n.cc:3544
 msgid "Did you forget something?"
-msgstr "Nezapoměl jsi něco?"
+msgstr "Nezapomněl jsi něco?"
 
 #: po/level_i18n.cc:3546
 msgid "Go on! There's no way back now!"
@@ -3544,7 +3544,7 @@ msgstr "Pokračuj! Není již cesty zpět!"
 
 #: po/level_i18n.cc:3548
 msgid "STOP! Not this way! There's a short-cut ..."
-msgstr "STOP! Takhle ne! Tam je zkratka ..."
+msgstr "STÁT! Takhle ne! Tam je zkratka ..."
 
 #: po/level_i18n.cc:3550
 msgid ""
@@ -3581,13 +3581,13 @@ msgstr "Možná, že něco potřebuješ?"
 
 #: po/level_i18n.cc:3616
 msgid "This is a meditation landscape: put a small marble into every hole ..."
-msgstr "V této úrovni: umísti malou kuličku do každé díry ..."
+msgstr "V této úrovni: Umísti malou kuličku do každé díry ..."
 
 #: po/level_i18n.cc:3621
 msgid ""
 "When you change the color of one square, the colors of the 2 nearest squares"
 " change as well; you must get as many green squares as possible."
-msgstr "Když změníš barvu jednoho čtverce, barva 2 nejbližších čverců se změní také; musíš získat, co nejvíce zelených čtverců."
+msgstr "Když změníš barvu jednoho čtverce, barva dvou nejbližších čverců se změní také; musíš získat co nejvíce zelených čtverců."
 
 #: po/level_i18n.cc:3623
 msgid ""
@@ -3650,7 +3650,7 @@ msgstr "Dokaž svou trpělivost ve zkoušce vody!"
 msgid ""
 "This can't be! No mortal can reach our Holy Oxyds! Prove yourself once more!"
 " Bwahahahaha!"
-msgstr "To není možné! Žádný smrtelník nemůže dostat naše Svaté oyd kameny! Dokaž, že jsi jich hoden znovu! Muhahaha!"
+msgstr "To není možné! Žádný smrtelník nemůže dostat naše Svaté oxyd kameny! Dokaž, že jsi jich hoden znovu! Muhahaha!"
 
 #: po/level_i18n.cc:3654
 msgid "Don't get attracted!"
@@ -3660,7 +3660,7 @@ msgstr "Nenech se přitáhnout!"
 msgid ""
 "The most dangerous animals of the bayou are the alligators, the mosquitoes "
 "... and the zombies! (But the zombies at least, don't move ...)"
-msgstr "Nejnebezpečnější zvířata zátoy jsou aligátoři, komáři, ... a zombie! (Ale zombie se, alespoň nemůže hýbat ...)"
+msgstr "Nejnebezpečnější zvířata zátoky jsou aligátoři, komáři, ... a zombie! (Ale zombie se, alespoň nemůže hýbat ...)"
 
 #: po/level_i18n.cc:3697
 msgid "Let there be light!"
@@ -3668,7 +3668,7 @@ msgstr "Budiž světlo!"
 
 #: po/level_i18n.cc:3734
 msgid "You need to be fast!"
-msgstr "Musíš být ryhlejší!"
+msgstr "Musíš být rychlejší!"
 
 #: po/level_i18n.cc:3747
 msgid "For heaven's sake ... don't drown!"
@@ -3748,7 +3748,7 @@ msgstr "Udělej, co ti říkám!"
 
 #: po/level_i18n.cc:4132
 msgid "Umbrellas protect you against oncoming boulder!"
-msgstr "Deštníky tě ochrání, před blížícími balvany."
+msgstr "Deštníky tě ochrání, před blížícími se balvany."
 
 #: po/level_i18n.cc:4167
 msgid "... did it!"
@@ -3756,7 +3756,7 @@ msgstr "... je to hotovo!"
 
 #: po/level_i18n.cc:4189
 msgid "Nothing can stop us!"
-msgstr "Nic nás nemůžu zastavit!"
+msgstr "Nic nás nemůže zastavit!"
 
 #: po/level_i18n.cc:4197
 msgid "Did you bring your flag?"
@@ -3767,27 +3767,27 @@ msgid ""
 "This oscillating stone is a timer-stone. You cannot interact with it, but "
 "nevertheless be aware when you see one: After some time-period anything "
 "might happen ..."
-msgstr "Tento oscilační kámen je časovač. Nemůžeš s ním pracovat, ale měj se na pozoru: Za chvíli se můžu něco stát ..."
+msgstr "Tento kmitající kámen je časovač. Nemůžeš s ním pracovat, ale měj se na pozoru: Za chvíli se může něco stát ..."
 
 #: po/level_i18n.cc:4202
 msgid ""
 "The stones with arrows are one-way-stones. As you might have guessed, you "
 "can only pass them in one direction.                Mazes are cherished "
 "elements of Enigma - you will see lots of them."
-msgstr "Kameny se šipkami jsou jednosměrné kameny. Jak jis mohl uhodnout, můžeš jít přes ně pouze naznačeným směrem.               Směrové labyrinty jsou úchvatné prvky Enigmy - uvidíš spoustu z nich."
+msgstr "Kameny se šipkami jsou jednosměrné kameny. Jak jsi mohl uhodnout, můžeš jít přes ně pouze naznačeným směrem.               Směrové labyrinty jsou úchvatné prvky Enigmy - uvidíš spoustu z nich."
 
 #: po/level_i18n.cc:4203
 msgid ""
 "Well done!     When you have finished this level, let's play some example "
 "levels from the actual Enigma packs!"
-msgstr "Výborně.     Když si dokončil tuto úroveň, můžeš si zahrát například úrovně z aktuálního balíku Enigmy!"
+msgstr "Výborně.     Když jsi dokončil tuto úroveň, můžeš si zahrát například úrovně z aktuálního balíku Enigmy!"
 
 #: po/level_i18n.cc:4210
 msgid ""
 "Use the right mouse-button to rotate your inventory,  it's the bar at the "
 "bottom of the screen.   And guess what these three items down there can be "
 "used to."
-msgstr "Použij pravé tlačítko myši pro otočení inventáře, je to čára v dolní části obrazovky.   A hádej na co můžou být použity tyto tři pložky."
+msgstr "Použij pravé tlačítko myši pro otočení inventáře, je to čára v dolní části obrazovky.   A hádej, na co můžou být použity tyto tři pložky."
 
 #: po/level_i18n.cc:4211
 msgid ""
@@ -3795,21 +3795,21 @@ msgid ""
 "floors and stones.   Let's explore some more of the actual Enigma levels!   "
 "And if you have problems with a level - take a look at the manual:   For "
 "some levels, there are hints."
-msgstr "Existuje má mnoho různých zařízení, stejně tak jako speciální povrchy a kameny.   Prozkoumej několik dalších úrovní hry! A jestliže budeš mít problémy s úrovní - podívej se do tutoriálu: Pro pár úrovní zde najdeš nápovědu."
+msgstr "Existuje má mnoho různých zařízení, stejně tak jako zvláštní povrchy a kameny.   Prozkoumej několik dalších úrovní hry! A jestliže budeš mít problémy s úrovní - podívej se do výukového materiálu: Pro pár úrovní zde najdeš nápovědu."
 
 #: po/level_i18n.cc:4215
 msgid ""
 "But before this, take a look at the final tutorial level Jacob devised for "
 "you.   See it as an exam, if you want to.   It's quite difficult, so don't "
 "despair if you don't get through it at the first time.   Bye!"
-msgstr "Ale nejdřív se podívej nazávěrečný tutoriál úrovně, který Jacob vytvořil pro tebe.   Můžeš to považovat za zkoušku.   Tato úroveň je poměrně těžká, takže nezoufej, pokud jí neuděláš na první pokus.   Ahoj!"
+msgstr "Ale nejdřív se podívej na závěrečný výukový materiál úrovně, který Jacob vytvořil pro tebe.   Můžeš to považovat za zkoušku.   Tato úroveň je poměrně těžká, takže nezoufej, pokud ji neuděláš na první pokus.   Ahoj!"
 
 #: po/level_i18n.cc:4216
 msgid ""
 "Well, I hope you enjoyed this tutorial-pack.   You will see most of these "
 "levels a second time in the Enigma packs, together with many new and much "
 "more difficult ones.   Just don't give up on them!"
-msgstr "Dobře, já doufám, že se ti tento tutoriál líbil.   Uvidíš většinu z těchno úrovní podruhé v balíku Enigmy, společně s mnoha novými a mnohem náročnějšími.   Jenom to nevzdávej!"
+msgstr "Dobře, já doufám, že se ti toto cvičení líbilo.   Uvidíš většinu z těchto úrovní podruhé v balíku Enigmy, společně s mnoha novými a mnohem náročnějšími.   Jenom to nevzdávej!"
 
 #: po/level_i18n.cc:4220
 msgid "Careful - you can not swim in the water."
@@ -3837,7 +3837,7 @@ msgstr "Modré kameny jsou oxyd kameny. Mohou se otevřít zasáhem tvé černé
 msgid ""
 "Those doors on the right block your way to the oxyds ... on the left you see"
 " some triggers. Maybe they are somehow connected?"
-msgstr "Tyto dveře jsou zavřené, kvůli správné cestě k oxyd kamenům ... na levé straně můžeš vidět nějaké triggery. Možná, že jsou nějakým způsobem spojeny?"
+msgstr "Tyto dveře jsou zavřené, kvůli správné cestě k oxyd kamenům ... na levé straně můžeš vidět nějaké podlahové spínače. Možná, že jsou nějakým způsobem spojeny?"
 
 #: po/level_i18n.cc:4244
 msgid "Don't drown in the swamp."
@@ -3851,7 +3851,7 @@ msgstr "Tření a zrychlení závisí na typu povrchu."
 msgid ""
 "Welcome to Enigma!  This tutorial I (Jacob Scott) made will help you learn "
 "how to play."
-msgstr "Vítejte v Enigmě! Tímto tutoriálem tě naučím (Jacob Scott), jak hrát tuto hru."
+msgstr "Vítejte v Enigmě! Tímto výukovým materiálem tě naučím (Jacob Scott), jak hrát tuto hru."
 
 #: po/level_i18n.cc:4253
 msgid ""
@@ -3860,7 +3860,7 @@ msgid ""
 " of the room (actually, try falling into it and then restarting the level "
 "with the 'Esc' key).  While these messages are being displayed, don't click "
 "any buttons or push any keys or the message will stop."
-msgstr "Ovládáš černou kuličku. Pokud chceš zvednou nějaký objekt, pouze přes něj přejeď kuličkou. Můžeš se odrážet od většiny stěn (zkus to), ale vyhni se modrému povrchu v dolní části obrazovky (vlastně, zkus do něj spadnou a pak restartuj úroveň pomocí klávey \"Esc\"). Zatímco se tyto zprávy zobrazují, tak neklikej na žádné tlačítko ani nestiskni žádnou klávesu, jinak zpráva zmizí."
+msgstr "Ovládáš černou kuličku. Pokud chceš zvednout nějaký předmět, pouze přes něj přejeď kuličkou. Můžeš se odrážet od většiny stěn (zkus to), ale vyhni se modrému povrchu v dolní části obrazovky (vlastně, zkus do něj spadnout, a pak začni úroveň znovu pomocí klávesy \"Esc\"). Zatímco se tyto zprávy zobrazují, tak neklepej na žádné tlačítko ani nestiskni žádnou klávesu, jinak zpráva zmizí."
 
 #: po/level_i18n.cc:4254
 msgid "This is pretty self-explanatory."
@@ -3882,13 +3882,13 @@ msgstr "Nemůžeš chodit po vodě! Zkus dotlačit bedny do vody, aby ses dostal
 msgid ""
 "Notice that you can't push a row of two or more blocks.  Also, blocks can't "
 "be on the same squares as grates but you can."
-msgstr "Všimni si, že nemůžeš tlačit dvě nebo více beden. Bedny také nemůžeš zasunout pod mříž, ale můžeš přes ne."
+msgstr "Všimni si, že nemůžeš tlačit dvě nebo více beden. Bedny také nemůžeš zasunout pod mříž, ale můžeš přes ně."
 
 #: po/level_i18n.cc:4258
 msgid ""
 "There are different types of blocks here.  Those black blocks sink when they"
 " fall into water.  The tan blocks don't sink but don't form bridges either."
-msgstr "Existují zde různé druhy beden. Tyto černé bedny se potopí ,pokud spadnou do vody. Červenohnědé bedny se nemůžou potopit, ani nemůžeš postavit mosty mezi nimi."
+msgstr "Jsou zde různé druhy beden. Tyto černé bedny se potopí, pokud spadnou do vody. Červenohnědé bedny se nemůžou potopit, ani nemůžeš postavit mosty mezi nimi."
 
 #: po/level_i18n.cc:4259
 msgid ""
@@ -3897,13 +3897,13 @@ msgid ""
 " will restart at the beginning of the level (if you have any balls left).  "
 "Try to find a way to get past and into the next room (you can use the blocks"
 " in the center of the room as barricades)."
-msgstr "Tato věc je hrot -- zničí tvojí kuličku, jestliže se hrotu dotkneš. Pokud se k hrotu přiblížíš velmi blízko, začne tě hrot pronásledovat. Pokud zemřeš restartuj úroveń (pokud máš ještě nějkaé kuličky). Zkus najít způsob, jak se dostat do další místnosti (můžeš použít bedny ve středa místnosti jako barikády)."
+msgstr "Tato věc je hrot -- zničí tvojí kuličku, jestliže se hrotu dotkneš. Pokud se k hrotu přiblížíš velmi blízko, začne tě hrot pronásledovat. Pokud zemřeš začni úroveń znovu (pokud máš ještě nějaké kuličky). Zkus najít způsob, jak se dostat do další místnosti (můžeš použít bedny ve středu místnosti jako barikády)."
 
 #: po/level_i18n.cc:4260
 msgid ""
 "Good job!  Notice that the top can't go beneath that block with a black "
 "outline -- you're safe."
-msgstr "Dobrá práce! Všimni si, že hrot nemůže jít pod bednu s černý obrysem -- jsi v bezpečí."
+msgstr "Dobrá práce! Všimni si, že hrot nemůže jít pod bednu s černým obrysem -- jsi v bezpečí."
 
 #: po/level_i18n.cc:4261
 msgid "Those are different types of floors.  Try going over them."
@@ -3919,7 +3919,7 @@ msgstr "Šedavé povrchy jsou svahy. Bílý povrch je inverzní povrch (uvidíš
 msgid ""
 "Watch what happens when you go over those triggers.  See if you can get the "
 "extra ball."
-msgstr "Dívej se, co se stane, když příjdeš tyto triggry. Uvidíme, jestli můžeš dostat extra kuličku."
+msgstr "Dívej se, co se stane, když přejdeš tyto podlahové spínače. Uvidíme, jestli můžeš dostat kuličku navíc."
 
 #: po/level_i18n.cc:4264
 msgid ""
@@ -3929,7 +3929,7 @@ msgstr "Toto je dynamit. Zkus ho hodit ke žlutavé zdi (a okamžitě uteč)."
 
 #: po/level_i18n.cc:4265
 msgid "Try using the spade on the holes caused by the dynamite."
-msgstr "Zkus použít ryč na otvory způsobené dynamitem."
+msgstr "Zkus použít rýč na otvory způsobené dynamitem."
 
 #: po/level_i18n.cc:4266
 msgid ""
@@ -3951,13 +3951,13 @@ msgstr "Udeř více!"
 msgid ""
 "It appears to be a simple room, but you're getting an extra ball anyway.  "
 "Maybe there is a reason ..."
-msgstr "Zdá se, že je to jednoduchá místnost, ale dostal jsi extra kulličku. Monžá je pro to důvod ..."
+msgstr "Zdá se, že je to jednoduchá místnost, ale dostal jsi další kuličku. Možná je pro to důvod ..."
 
 #: po/level_i18n.cc:4270
 msgid ""
 "Try to get the laser beam to hit that black stone, but don't get hit by it!"
 "  Use the mirrors to direct the beam."
-msgstr "Zkus dostáhnout toho, aby laserový paprsek zasáhl černý kámen, ale nezasáhni vedle něj! Pomocí zrcadla naměruj paprsek."
+msgstr "Zkus dosáhnout toho, aby laserový paprsek zasáhl černý kámen, ale nezasáhni vedle něj! Pomocí zrcadla nasměruj paprsek."
 
 #: po/level_i18n.cc:4271
 msgid ""
@@ -3965,7 +3965,7 @@ msgid ""
 "coins with the laser beam.  Also, try hitting a block over a coin.  Those "
 "stones to your right are knights -- you need to fight (hit) them with a "
 "sword (in the front of your inventory) to get past."
-msgstr "Mnoho objektů se mění, když jsou zasaženi laserovým paprskem. Zkus zasáhnout nějakou minci laserovým paprskem. Také zkus zasáhnout bednu přes minci. Tyto kameny vpravo jsou rytíři -- musíš s nimi bojovat (zasáhnout je) mečem (,který je v tvém inventáři)."
+msgstr "Mnoho předmětů se mění, když jsou zasaženy laserovým paprskem. Zkus zasáhnout nějakou minci laserovým paprskem. Také zkus zasáhnout bednu přes minci. Tyto kameny vpravo jsou rytíři -- musíš s nimi bojovat (zasáhnout je) mečem (který je ve tvém inventáři)."
 
 #: po/level_i18n.cc:4272
 msgid ""
@@ -3977,7 +3977,7 @@ msgstr "Máš nějaké deštníky? Každý z nich ti dá přibližně deset seku
 msgid ""
 "Those black stones are quake stones -- they reset all progress made with the"
 " oxyd stones.  The other stones are the oxyd stones.  Match them up to win!"
-msgstr "Tyto černé kameny jsou zemětřesné kameny -- resetují veškerou činnost oxyd kamenů. Ostatní kameny jsou oxyd kameny. Najdi všechny schodné dvojce oxyd kamenů a vyhraj!"
+msgstr "Tyto černé kameny jsou zemětřesné kameny -- nastavují znovu veškerou činnost oxyd kamenů. Ostatní kameny jsou oxyd kameny. Najdi všechny shodné dvojice oxyd kamenů a vyhraj!"
 
 #: po/level_i18n.cc:4274
 msgid ""
@@ -3989,7 +3989,7 @@ msgid ""
 "your inventory are your extra lives -- if you die in this level, you will "
 "restart at the beginning of the level if you have any balls left (and you "
 "will lose one of the balls)."
-msgstr "Tato oblast v dolní části obrazovky je tvůj inventář -- můžeš si vybrat jednu z položek (maximálně je zda dvanáct položek). Chceš-li procháze inventář, použij pravé tlačíko myši nebo klávesu Tab. Chceš-li odstanit nebo použít objekt, klikni levým tlačítkem myši. Některé položky, jako dokumenty (jako tento), nemůžou být odstraněny, protože jsou používány. Tyto dvě kuličky v tvém inventáři jsou extra životy -- jestliže zemřeš v této úrovni, tak se úroveň restartuje, pokud máš ještě nějaké kuličky (a jedna kulička zmizí)."
+msgstr "Tato oblast v dolní části obrazovky je tvůj inventář -- můžeš si vybrat jednu z položek (nejvíce je zde dvanáct položek). Chceš-li procházet inventář, použij pravé tlačíko myši nebo klávesu Tab. Chceš-li odstanit nebo použít objekt, klepni levým tlačítkem myši. Některé položky, jako dokumenty (jako tento), nemůžou být odstraněny, protože jsou používány. Tyto dvě kuličky ve tvém inventáři jsou dodatečné životy -- jestliže zemřeš v této úrovni, tak se úroveň začne znovu, pokud máš ještě nějaké kuličky (a jedna kulička zmizí)."
 
 #: po/level_i18n.cc:4275
 msgid ""
@@ -4003,7 +4003,7 @@ msgid ""
 "will need to go in with it but you can't go through the white one-way block."
 "                            Take the spoon and use it once the white ball is"
 " through (hit it hard)."
-msgstr "Samozřejmě, máš projít zavřenými vraty v horní části obrazovky.                         Zkus jít dolů po svahu v dolní části místnosti, abys viděl, co je vlevo.                                                         Nemůžeš dělat s triggerem na protější straně propasti.                                Pokud můžeš zastáhni malý bílý míček jednosměrnou bednou (se šipkami), mohl by se valit na trigger a zastavit ho.                 Musíš jít s tím, ale nemůžeš jít přes bílé jednosměrné bedny.                             Vezmi lžíci a použij ji, když je bílá kulička na treiggeru (je těžké se trefit)."
+msgstr "Samozřejmě, máš projít zavřenými vraty v horní části obrazovky.                         Zkus jít dolů po svahu v dolní části místnosti, abys viděl, co je vlevo.                                                         Nemůžeš dělat s podlahovým spínačem na protější straně propasti.                                Pokud můžeš, zasáhni malý bílý míček jednosměrnou bednou (se šipkami), mohl by se valit na podlahový spínač a zastavit se na něm.                 Musíš jít s tím, ale nemůžeš jít přes bílé jednosměrné bedny.                             Vezmi lžíci a použij ji, když je bílá kulička na podlahovém spínači (je těžké zasáhnout)."
 
 #: po/level_i18n.cc:4276
 msgid ""
@@ -4011,7 +4011,7 @@ msgid ""
 "probably useful.  In this case the switch opens and closes a door (Do you "
 "remember a door that you weren't able to open?).  The bluish line is a "
 "window -- bridge the water before you do anything with it."
-msgstr "Kámen v horní pravé části místnosti je vypínač. Zasáhni ho -- je to užitečné. V tomto případě vypínač otevře a zavře dveře (Nezapoměl jsi dveře, které jsi nebyl schopen otevřít?). Modravá čára je okno -- přejdi přes vodu, před tím nic nedělej."
+msgstr "Kámen v horní pravé části místnosti je vypínač. Zasáhni ho -- je to užitečné. V tomto případě vypínač otevře a zavře dveře (Nezapomněl jsi dveře, které jsi nebyl schopen otevřít?). Modravá čára je okno -- přejdi přes vodu, před tím nic nedělej."
 
 #: po/level_i18n.cc:4277
 msgid ""
@@ -4019,7 +4019,7 @@ msgid ""
 "to make them difficult.                            However, maybe this rotor"
 " has a purpose; maybe you could get it on that trigger near where the spoon "
 "was.                      It might be convenient to close the gate."
-msgstr "Toto byl rotor (podobně jako hrot). Někteér úrovně mají hodně rotorů a vrcholů, aby byly těžší.                            Nicméně, možná má tento rotor svůj účel; možná bys ho mohl nalákat na trigger, v blízkosti místa, kde si našel lžíci.                       Možná by bylo vhodné zavřít bránu."
+msgstr "Toto byl rotor (podobně jako hrot). Některé úrovně mají hodně rotorů a vrcholů, aby byly těžší.                            Nicméně, možná má tento rotor svůj účel; možná bys ho mohl nalákat na podlahový spínač, v blízkosti místa, kde jsi našel lžíci.                       Možná by bylo vhodné zavřít bránu."
 
 #: po/level_i18n.cc:4281
 msgid "Don't touch everything!"
@@ -4034,7 +4034,7 @@ msgid ""
 "The bright light beam is a laser beam.   Don't get too close to it!   But it"
 " has its uses ...    You can use the mirrors to direct the laser to its "
 "targets.   From these, only the light-gray ones are movable, just try it!"
-msgstr "Ostré světlo je laserový paprsek.   Nepřibližuj se blízko k němu! Ale laserový paprsek se dá i využít ... Můžeš použít zrcadla k přeměrování paprsku k cílu. Z nich jsou pouze světle šedá pohyblivá, zkus to!"
+msgstr "Ostré světlo je laserový paprsek.   Nepřibližuj se blízko k němu! Ale laserový paprsek se dá i využít ... Můžeš použít zrcadla k přesměrování paprsku k jeho cílům. Z nich jsou pouze světle šedá pohyblivá, zkus to!"
 
 #: po/level_i18n.cc:4293 po/level_i18n.cc:4685
 msgid "Take your time ..."
@@ -4044,7 +4044,7 @@ msgstr "Dej si na čas ..."
 msgid ""
 "This wooden block is movable and heavy enough to hold down the trigger on "
 "the right.   Try to push it there!"
-msgstr "Tato dřevěná bedna je pohyblivá a dost těžká na to udržet trigger vpravo   Zkus jí dotlačit na trigger!"
+msgstr "Tato dřevěná bedna je pohyblivá a dost těžká na to udržet podlahový spínač vpravo.   Zkus ji dotlačit na podlahový spínač!"
 
 #: po/level_i18n.cc:4298
 msgid ""
@@ -4070,13 +4070,13 @@ msgstr "Přesuň všechny malé kuličky do otvorů. Je dovolena jenom jedna kul
 msgid ""
 "The stone with the horse's head is called ''chess stone''. Watch how the "
 "other marble hits one of them to move it. The angle is important."
-msgstr "Kámen s koňskou hlavou je jmenuje \"šachový kámen\". Podívej se jak jak jiná kulička tento kámen přesune. Úhel je důležitý."
+msgstr "Kámen s koňskou hlavou je jmenuje \"šachový kámen\". Podívej se, jak jak jiná kulička tento kámen přesune. Úhel je důležitý."
 
 #: po/level_i18n.cc:4312
 msgid ""
 "Now try to move these chess stones onto the triggers. They always move two "
 "steps plus one step."
-msgstr "Teď zkus přesunout tyto šachové kameny na triggery. Vždy se pohybují dva kroky plus jeden krok."
+msgstr "Teď zkus přesunout tyto šachové kameny na podlahové spínače. Vždy se pohybují dva kroky plus jeden krok."
 
 #: po/level_i18n.cc:4320
 msgid ""
@@ -4086,7 +4086,7 @@ msgstr "Pozor! Spouštěč v propasti se chová podivně. Pokud se ho dokneš, t
 
 #: po/level_i18n.cc:4322
 msgid "Go left to play the white part. Go right to play the black part."
-msgstr "Jdi vlevo jeslti chceš hrát v bílé části. Jdi vpravo jeslti chceš hrát v černé části."
+msgstr "Jdi vlevo, jestli chceš hrát v bílé části. Jdi vpravo, jestli chceš hrát v černé části."
 
 #: po/level_i18n.cc:4335
 msgid "Floating ..."
@@ -4126,24 +4126,24 @@ msgstr "Chceš-li získat úplnější obraz o New Yorku, podívej se na něj p�
 msgid ""
 "There's always a terrible traffic jam on Broadway at Times Square.  It's a "
 "pity you don't have time to see a show!"
-msgstr "Na Brodway je vždy hrozná zácpa. Je škoda, že nemáš čas na to, aby ses šel podívat na nějaké představení!"
+msgstr "Na Broadway je vždy hrozná zácpa. Je škoda, že nemáš čas na to, aby ses šel podívat na nějaké představení!"
 
 #: po/level_i18n.cc:4379
 msgid ""
 "Charles Ives was the composer of \"Central Park in the Dark\". Enjoy his "
 "music, and use the shogun to open some gates!"
-msgstr "Charles Ives byl skladatel \"Central Park in the Dark\". Užij si jeho hudbu a pomocí šogúna otevři nějaké brány!"
+msgstr "Charles Ives byl skladatel \"Central Park in the Dark\". Užij si jeho hudbu a pomocí šóguna otevři nějaké brány!"
 
 #: po/level_i18n.cc:4381
 msgid ""
 "These mechanized traffic signals are strange.  An outbound traffic sensor at"
 " Central park seems to be responsible for this street.  Use your glasses!"
-msgstr "Tyto semafory jsou zvláštní. Zdá se, že sensor v Central parku se zdá být zodpovědný za tuto ulici. Použij brýle!"
+msgstr "Tyto semafory jsou zvláštní. Zdá se, že čidlo v Ústředním parku zodpovídá za tuto ulici. Použij brýle!"
 
 #: po/level_i18n.cc:4383
 msgid ""
 "It's funny that a fountain in Central Park should control the traffic flow."
-msgstr "Je legrační, že fontána v Centarl Parku řídí dopravní provoz."
+msgstr "Je legrační, že fontána v Ústředním parku řídí dopravní provoz."
 
 #: po/level_i18n.cc:4385
 msgid "Welcome to Chinatown"
@@ -4177,11 +4177,11 @@ msgstr "Zkoušel ses někdy podívat  v zrcadle na zadní stranu hlavy?"
 
 #: po/level_i18n.cc:4446
 msgid "It's not symmetric!"
-msgstr "To není symetrické!"
+msgstr "To není souměrné!"
 
 #: po/level_i18n.cc:4454 po/level_i18n.cc:4478
 msgid "Use the Lightpassenger"
-msgstr "Použij Lightpassengera"
+msgstr "Použij poutníka světla"
 
 #: po/level_i18n.cc:4468
 msgid "A Baroque Game"
@@ -4285,7 +4285,7 @@ msgstr "Střídání v modré oblasti"
 
 #: po/level_i18n.cc:4679
 msgid "Start the next explosion at brick 17 (counting from left)!"
-msgstr "Spusť další explozi na cihle 17 (počítáno od leva)!"
+msgstr "Spusť další výbuch na cihle 17 (počítáno od leva)!"
 
 #: po/level_i18n.cc:4681
 msgid "Hint: The white ball's got the key."
@@ -4293,7 +4293,7 @@ msgstr "Nápověda: Bílá kulička má klíč."
 
 #: po/level_i18n.cc:4683
 msgid "Use of ring only allowed on marked areas."
-msgstr "Použití kroužku je povoleno pouze na vyznačních místech."
+msgstr "Použití kroužku je povoleno pouze na vyznačených místech."
 
 #: po/level_i18n.cc:4687
 msgid "Caution! Don't use for bridge-building!"
@@ -4322,7 +4322,7 @@ msgid ""
 " and a horse outside this shopping center.    Many adventurers lost their "
 "life in this pyramid.    Beware of the dangerous sand vipers and "
 "Enighomathep's curses."
-msgstr "Vítejte pane Jonesi! Zpět z vašeho \"Alternatives\" and \"The Walls\" tréninkového kempu? Mám vše, co jste si objednal: nějaké peníze  --  40 marbleonů -- a koně, který na vás čeká kousek od tohoto nákupního centa.    Mnoho dobrodruhů zemřelo v této pyramidě.    Dejte si pozor na nebezpečné písečné zmije a Enighomathepovo prokletí."
+msgstr "Vítejte pane Jonesi! Zpět z vašeho výcvikového tábora \"Alternatives\" a \"The Walls\"? Mám vše, co jste si objednal: nějaké peníze  --  40 marbleonů -- a koně, který na vás čeká kousek od tohoto nákupního střediska.    Mnoho dobrodruhů zemřelo v této pyramidě.    Dejte si pozor na nebezpečné písečné zmije a Enighomathepovo prokletí."
 
 #: po/level_i18n.cc:4716
 msgid ""
@@ -4335,14 +4335,14 @@ msgstr "Panu Vyvolávačideště patřil tento obchod. Vždycky tvrdil, že jeho
 msgid ""
 "Safety Precaution: in case one of these dangerous animals escapes, the gates"
 " of the shopping center will be closed immediately!"
-msgstr "Bezpečnostní upozornění: v případě, že jedno z těchto nebezpečných zvířat uteče, okamžitě se zavřou všechny brány obchodního centra!"
+msgstr "Bezpečnostní upozornění: V případě, že jedno z těchto nebezpečných zvířat uteče, okamžitě se zavřou všechny brány obchodního střediska!"
 
 #: po/level_i18n.cc:4720
 msgid ""
 "Not much is known of the pyramid's architect Enighomathep. But it is said "
 "that he loved cherries. He ate so many of them that he sometimes became "
 "invisible."
-msgstr "Není toho moc známo o architektu Enighomathepovi pyramidy. Ale říká se, že miloval třešně. Snědl jich prý tolik, že někdy stal neviditelným."
+msgstr "Není toho moc známo o architektu Enighomathepovy pyramidy. Ale říká se, že miloval třešně. Snědl jich prý tolik, že se někdy stal neviditelným."
 
 #: po/level_i18n.cc:4722
 msgid ""
@@ -4356,32 +4356,32 @@ msgid ""
 "Ali Barber's shop for quick hair cuts. Want to know what is going on?  A "
 "thief is hanging around and nobody knows where the 4 pale kids that are "
 "playing with your horse came from."
-msgstr "Holičství Ali Babera je nejlepší místo pro rychlý účes. Chceš vědět, co se děje? Zloděj se potlouká kolem a nikdo neví, kde jsou 4 bledé děti, které si hráli s tvým koněm."
+msgstr "Holičství Aliho Kadeřníka je nejlepší místo pro rychlý účes. Chceš vědět, co se děje? Zloděj se potlouká kolem a nikdo neví, kde jsou čtyři bledé děti, které si hrály s tvým koněm."
 
 #: po/level_i18n.cc:4726
 msgid ""
 "Home of the last adventurer who never returned.   Said he would drill for "
 "oil -- but no one believed him."
-msgstr "Domov posledního dobrodruha, který se nevrátil.   Řekl, že vyrábět olej -- ale nikdo mu nevěřil."
+msgstr "Domov posledního dobrodruha, který se nevrátil.   Řekl, že jde vyrábět olej -- ale nikdo mu nevěřil."
 
 #: po/level_i18n.cc:4728
 msgid ""
 "Be cursed for trying to explore Tutoxyd's last secret -- may your homework "
 "remain undone until you prove worthy!"
-msgstr "Budeš proklet, protože ses snažil prozkoumat Tutoxydovo poslední tajemství -- tvůj úkol nebude hotov,dokud neprokážeš, že si hoden!"
+msgstr "Budeš proklet, protože ses snažil prozkoumat Tutoxydovo poslední tajemství -- tvůj domácí úkol nebude hotov, dokud neprokážeš, že jsi hoden!"
 
 #: po/level_i18n.cc:4730
 msgid ""
 "It's a pity that some explorers damaged this historic monument and did "
 "litter the environment.   But the pyramid magically repairs itself every "
 "time an adventurer gives up."
-msgstr "Je škoda, že někteří průkumníci poškodili tuto historickou památku a zanechali zde tolik odpadků.   Ale pyramida se, vždy kouzelně opraví, když to dobrodruh vzdá."
+msgstr "Je škoda, že někteří průzkumníci poškodili tuto historickou památku a zanechali zde tolik odpadků.   Ale pyramida se, vždy kouzelně opraví, když to dobrodruh vzdá."
 
 #: po/level_i18n.cc:4732
 msgid ""
 "Be cursed for disturbing Tutoxyd's peace -- may the earth part under your "
 "feet!"
-msgstr "Budeš proklet, protože rušíš Tutoxydův klid -- ať se země otevře pod tvými nohami!"
+msgstr "Budeš proklet, protože rušíš Tutoxydův klid -- ať se země otevře pod tvýma nohama!"
 
 #: po/level_i18n.cc:4734
 msgid ""
@@ -4403,14 +4403,14 @@ msgstr "Soukromý majetek! Tento objekt patří panu Whiteoilovi. V případě n
 
 #: po/level_i18n.cc:4740
 msgid "Invoice -- 40 marbleons for 20 barrels of oil."
-msgstr "Faktura -- 40 marbleonů za 20 barrelů oleje."
+msgstr "Faktura -- 40 marbleonů za 20 sudů oleje."
 
 #: po/level_i18n.cc:4742
 msgid ""
 "Welcome stranger -- have a look at our holy stone. It is said that it shows "
 "everyone his personal fortune color. As all visitors tried to touch it, we "
 "had to set up some protection."
-msgstr "Vítej cizinče -- podívej se na náš svatý kámen. Říká se, že ti ukáže tvojí šťastnou barvu. Všichni návštevníci se ho snažili doknout, tak jsme ho museli nějak ochránit."
+msgstr "Vítej cizinče -- podívej se na náš svatý kámen. Říká se, že ti ukáže tvoji šťastnou barvu. Všichni návštevníci se ho snažili doknout, tak jsme ho museli nějak ochránit."
 
 #: po/level_i18n.cc:4744
 msgid ""
@@ -4424,7 +4424,7 @@ msgid ""
 "keys are required. One key got lost immediately after sealing the pyramid. "
 "One is hidden at the border of the pyramid. For the others you have to "
 "demonstrate boldness and cleverness."
-msgstr "Pane Whiteoili, dokončili jsme průzkum v knihovně. Enighomathep říká, že jsou potřebné 4 klíče. Jeden klíč se ztratil ihned po zapečetění pyramidy. Další klíč je skytý v blízkosti pyramidy. Pro získání ostatních budete muset prokázat odvahu a vynalézavost."
+msgstr "Pane Bílýoleji, dokončili jsme průzkum v knihovně. Enighomathep říká, že jsou potřebné čtyři klíče. Jeden klíč se ztratil ihned po zapečetění pyramidy. Další klíč je skytý v blízkosti pyramidy. Pro získání ostatních budete muset prokázat odvahu a vynalézavost."
 
 #: po/level_i18n.cc:4748
 msgid "Facing Death you can walk without fear."
@@ -4432,18 +4432,18 @@ msgstr "Tváří v tvář smrti můžeš jít bez obav."
 
 #: po/level_i18n.cc:4750
 msgid "Sorry, the useful item that was hidden here has been stolen."
-msgstr "Promiň, užitečný předmět, který zde byla skryt, byl ukraden."
+msgstr "Promiň, užitečný předmět, který zde byl skryt, byl ukraden."
 
 #: po/level_i18n.cc:4752
 msgid ""
 "Tomb raiders are cursed to be frozen in stone or floor for all eternity."
 "     Have a look at all these little funny sticks that they used to fight "
 "the curses."
-msgstr "Lupiči hrobek byli prokleti a stal se z nich kámen nebo podlaha na vždy.     Podívej se na tyto legrační hole, které se používají v boji proti kletbě."
+msgstr "Vykradači hrobek byli prokleti a stal se z nich kámen nebo podlaha navždy.     Podívej se na tyto legrační hole, které se používají v boji proti kletbě."
 
 #: po/level_i18n.cc:4754
 msgid "Remove all parts of the memorial plate before conjuring up Tutoxyd."
-msgstr "Odstraň všechny části pamětní desky předtím než vyvoláš Totoxyda."
+msgstr "Odstraň všechny části pamětní desky předtím než vyvoláš Tutoxyda."
 
 #: po/level_i18n.cc:4756
 msgid ""
@@ -4451,13 +4451,13 @@ msgid ""
 "Bring back my children for a joint meditation. But beware that upon seeing "
 "me they may want to join me instead of meditate. I make you responsible for "
 "the security of my children."
-msgstr "Kdo se odvažuje rušit můj klid? Cizinče - ukázal ses být čestným. Přiveď zpět mé děti ke společné meditaci. Ale pozor, při pohledu na mě se ke mě nebudou chtít přidat. Jsi zodpovědný za bezpečí mých dětí."
+msgstr "Kdo se odvažuje rušit můj klid? Cizinče - ukázal ses být čestným. Přiveď zpět mé děti ke společnému rozjímání. Ale pozor, při pohledu na mě se ke mně nebudou chtít přidat. Jsi zodpovědný za bezpečí mých dětí."
 
 #: po/level_i18n.cc:4758
 msgid ""
 "You are bringing back my children. As soon as they come to rest, I will "
 "deliver you from Enighomathep's curses so you may seek your next adventure."
-msgstr "Přivedl jsi zpět mé děti. Jakmile se usadí, osvobodím tě od Enighomathepovy kletby a pak můžeš vyhledat další dobrodružství."
+msgstr "Přivedl jsi zpět mé děti. Jakmile se usadí, osvobodím tě od Enighomathepovy kletby, a pak můžeš vyhledat další dobrodružství."
 
 #: po/level_i18n.cc:4766
 msgid "Crabwise IV"
@@ -4467,7 +4467,7 @@ msgstr "Ustoupit IV"
 msgid ""
 "... illmind's mad-ill-tation ... a tribute to esprit meditation levels from "
 "the past. thank you ..."
-msgstr "... illmind's mad-ill-tation ... na počest meditačním úrovním z minulosti. Děkuji ti. ..."
+msgstr "... choromyslného potrhlá-chorá-tace ... na počest meditačním úrovním z minulosti. Děkuji ti. ..."
 
 #: po/level_i18n.cc:4828
 msgid "Look ... they're over there!"
@@ -4479,7 +4479,7 @@ msgstr "když jsi někdy byl na zvláštních místech"
 
 #: po/level_i18n.cc:4844
 msgid "that you know you've never seen before"
-msgstr "ty víš, že jsi nikdy předtím neviděl"
+msgstr "o nichž víš, že jsi je nikdy předtím neviděl"
 
 #: po/level_i18n.cc:4846
 msgid "can you be sure?"
@@ -4522,7 +4522,7 @@ msgstr "Ještě jednou a kladivo nedostaneš, dokud ho nebudeš potřebovat!"
 
 #: po/level_i18n.cc:4950
 msgid "Restart with F3 ..."
-msgstr "Restartuj stisknutím klávesy F3 ..."
+msgstr "Začni znovu stisknutím klávesy F3 ..."
 
 #: po/level_i18n.cc:4963
 msgid "Don't forget to open the door ..."
@@ -4574,7 +4574,7 @@ msgstr "Bedna, která je blízko levého horní rohu, se může pohybovat."
 msgid ""
 "Welcome to the control room. Use the triggers and switches to plan the "
 "movement of the turtle. The switches are, clockwise: Add, Run and Restart."
-msgstr "Vítej ve velínu. Použij spouštěče a vypínače pro nastavení pohybu želvy. Vypínače jsou ve směru hodinových ručiček: přidat, spustit a restart."
+msgstr "Vítej ve velínu. Použij spouštěče a vypínače pro nastavení pohybu želvy. Vypínače jsou ve směru hodinových ručiček: přidat, spustit a začít znovu."
 
 #: po/level_i18n.cc:5100
 msgid "Welcome to Enigma III"
