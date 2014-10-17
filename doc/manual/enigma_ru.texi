@@ -1237,7 +1237,7 @@ Enigma. Здесь Вы найдете лазеры, зеркала и монеты. Вам прийдется решить простую
 
 @table @strong
 @item Thomas Bernhardt
-Level design and testing
+Level design and testing, movies
 
 @item Raoul Bourquin
 Руководство уровнями и дизайн, бесценные дополнения по всем вопросам
@@ -1312,6 +1312,12 @@ Graphics second generation
 
 @item Clifford J. Tasner
 Music second generation, Proof reading
+
+@item Micha@l{} Trzebiatowski
+Translation administration, German and Polish translations
+
+@item Юрий Жиромский - Yuriy Zhyromskiy
+Russian and Ukrainian translations, Russian manual and homepage translation, Slackware package
 @end table
 
 @node Помощники, Используемое программное обеспечение, Особые благодарности, Благодарности
@@ -1320,8 +1326,11 @@ Music second generation, Proof reading
 Наша признательность различным меньшим помощникам:
 
 @itemize @bullet
+@item Andreas Abraham (German translation)
 @item Another (Дизайн уровней)
+@item Yannis Anthymidis (Greek translation)
 @item Ash (Дизайн уровней)
+@item Claudio B. (Italian translation)
 @item Roberto Bardin (Дизайн уровней)
 @item Helge Blohmer (Дизайн уровней)
 @item Nathan Bronecke (Дизайн уровней)
@@ -1329,29 +1338,41 @@ Music second generation, Proof reading
 @item Alain Busser (Дизайн уровней, французский перевод игры и руководства)
 @item Guy Busser (Дизайн уровней)
 @item Richi B@"utzer (Дизайн уровней)
+@item Calinou (French translation)
 @item capkoh (Дизайн уровней)
 @item Manfredi Carta (Дизайн уровней)
 @item Christoph & Anita (Дизайн уровней)
+@item Dawid (Polish translation)
 @item daydreamer (Дизайн уровней)
 @item Serge Dremuk (Русский перевод)
 @item Joseph Dunne (Дизайн уровней)
 @item Xerxes M. Dynatos (Дизайн уровней)
 @item Edward (Дизайн уровней)
+@item Els van Eijk (Dutch translation)
 @item Manuel Eisentraut (Дизайн уровней)
 @item Stephanie Fabian (Бесценные сообщения об ошибках)
-@item Johann Freymuth (Дизайн уровней)
+@item Johann Freymuth (Дизайн уровней, invaluable bug reports)
+@item fri (Czech translation)
+@item firespin (Greek translation)
+@item Stefan Gagner (Swedish translation)
 @item Roberto Garc@'ia (Испанский перевод)
 @item Andy Geldmacher (Дизайн уровней)
 @item Edwin Groothuis (Портирование на FreeBSD)
+@item GunChleoc (Scottish Gaelic translation)
 @item Daniel Hadas (Дизайн уровней)
 @item Jonatan Hadas (Дизайн уровней)
 @item Hairball (Дизайн уровней)
+@item Joe Hansen (Danish translation)
 @item Immanuel Herrmann (Дизайн уровней)
+@item Zoltan Hopp@'ar (Hungarian translation)
+@item Tea Horvatic (Croatian translation)
 @item Brian Huffman (Дизайн уровней)
 @item Johannes H@"using (Дизайн уровней)
+@item Hypocrite (Finnish translation)
 @item Icewing (Дизайн уровней)
 @item M@'at@'e Lehel Juh@'asz (Венгерский перевод)
 @item Samuele Kaplun (Итальянский перевод)
+@item Ivica Koli@'c (Croatian translation)
 @item Manuel K@"onig (Дизайн уровней, сообщения об ошибках)
 @item Jens-Christian Korth (Дизайн уровней)
 @item Johannes Laire (Дизайн уровней)
@@ -1361,25 +1382,39 @@ Music second generation, Proof reading
 @item Dominik Leipold (Дизайн уровней)
 @item Ryan Lerch (AppData file)
 @item Edward Leuf (Отзывы, сообщения об ошибках)
+@item Christophe Lherieau (French translation)
+@item Lasse Liehu (Finnish translation)
 @item Ingo van Lil (Отзывы, сообщения об ошибках)
 @item Frank van der Loo (Немецкий перевод)
+@item @dotaccent{L}uboslava (Slovak translation)
+@item Dzmitry Ludzik (Belorussian and Russian translations)
+@item luigif (Italian translation)
 @item Lurcane (Дизайн уровней)
 @item Sidney Markowitz (Портирование на Mac OS X)
+@item S@'ergio Marques (Portuguese translation)
 @item Barry & Lori Mead (Дизайн уровней)
 @item Linda Mihalic (English proof reading)
 @item moonpearl (Дизайн уровней)
 @item Stephen Morley (Safalra) (Дизайн уровней)
 @item Krishnamurti Lelis Lima Vieira Nunes (Португальский перевод)
 @item Daniel Nylander (Шведский перевод)
+@item Nikola Parsifal (Croatian translation)
+@item Mark@'eta Pecoldov@'a(Czech translation)
 @item Andreas Persenius (Дизайн уровней)
+@item Grzegorz Pruchniakowski (Polish translation)
 @item Mark Pulley (Дизайн уровней)
 @item pzykosiz (Дизайн уровней)
+@item Bruno Queiros (Portuguese translation)
+@item Vincenzo Reale (Italian translation)
+@item Thomas De Rocker (Dutch translation)
 @item Rudolf (Дизайн уровней)
 @item Peter Santo (Дизайн уровней)
 @item Tobias Schmidbauer (Windows installer and icon)
 @item Lukas Sch@"uller (Дизайн уровней)
 @item Achim Settelmeier (специальный файл RPM)
-@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Дизайн уровней)
+@item ShadowPhrogg32642342 (D@'aniel Borb@'ely) (Дизайн уровней, Hungarian translation)
+@item Gon@,{c}alo Silva (Portuguese translation)
+@item Manuela Silva (Portuguese translation)
 @item Alex Smith (Дизайн уровней)
 @item Alan Smithee (Дизайн уровней)
 @item Jon Sneyers (Дизайн уровней)
@@ -1391,10 +1426,12 @@ Music second generation, Proof reading
 @item Tacvek (Обновление Lua 5.1)
 @item James Taylor (Дизайн уровней)
 @item Michael Terry (Файл .desktop)
+@item Vince38 (French translation)
 @item Ray Wick (Дизайн уровней)
 @item Joe Wreschnig (Руководство)
+@item Heikki Ylipaavalniemi (Finnish translation)
+@item Francisco Zamorano (Spanish translation)
 @item Zephyr (Дизайн уровней)
-@item Yuriy Zhyromskiy (Русский перевод руководства)
 @end itemize
 
 @node Используемое программное обеспечение,  , Помощники, Благодарности
