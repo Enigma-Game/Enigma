@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="7" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="8" title="Enigma X"/>
 
   <attributes/>
 
@@ -44,7 +44,7 @@
     <level _seq="36" _title="Dual flash" _xpath="./icewing02_1" author="Icewing" ctrl="force" easy="false" id="icewing02" rel="1" rev="1" score="1" target="time" unit="duration"/>
     <level _seq="37" _title="Braking Distance" _xpath="./ais52353_1" author="Alex Smith" ctrl="force" easy="true" id="20091116ais523001" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="38" _title="Meandering Impulses" _xpath="./ais52376_1" author="Alex Smith" ctrl="force" easy="true" id="20110309ais523001" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="39" _title="Cage of Light" _xpath="./hadas09_1" author="Daniel Hadas" ctrl="force" easy="true" id="hadas09" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="39" _title="Cage of Light" _xpath="./hadas09_2" author="Daniel Hadas" ctrl="force" easy="true" id="hadas09" rel="2" rev="4" score="2" target="time" unit="duration"/>
     <level _seq="40" _title="Checkmate III" _xpath="./harry06_1" author="daydreamer" ctrl="force" easy="false" id="harry06" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="41" _title="Cross The Chazm" _xpath="./joe02_1" author="Joseph Dunne" ctrl="force" easy="false" id="joe02" rel="1" rev="0" score="1" target="time" unit="duration"/>
     <level _seq="42" _title="Mad Hatter's Tea Party" _xpath="./pzykosiz02_1" author="pzykosiz" ctrl="force" easy="true" id="pzykosiz02" rel="1" rev="1" score="1" target="time" unit="duration"/>
