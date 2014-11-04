@@ -3002,7 +3002,7 @@ static int appendTile(lua_State *L) {
     // TODO check tables for position content
     
     // Lua currently does not provide a default metatable for tables - thus we cannot define
-    // a concat of new tables like  "{"fl-hay"} .. {"it-seed"}"
+    // a concat of new tables like  "{"fl_hay"} .. {"it_seed"}"
     // If this feature is added to Lua we would have to add:
 //    if (is_table(L, 1) && is_table(L, 2)) {
 //        pushNewTile(L, 1);  // wrap second table into a tile;

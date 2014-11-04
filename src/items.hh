@@ -182,7 +182,7 @@ namespace enigma {
     };
 
     struct ItemTraits {
-        const char *name;       //!< Name of the item, e.g., "it-hammer"
+        const char *name;       //!< Name of the item, e.g., "it_hammer"
         ItemID      id;
         int         flags;      //!< Combination of ItemFlags
         float       radius;     //!< Radius, 0.0 = default

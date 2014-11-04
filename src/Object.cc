@@ -462,7 +462,7 @@ namespace enigma {
     }
 
     double Object::squareDistance(const Object *other) const {
-        return 1e15;   // inifinity in enigma world
+        return 1e15;   // infinity in enigma world
     }
 
     bool Object::isSouthOrEastOf(const Object *other) const {

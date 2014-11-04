@@ -219,7 +219,7 @@ namespace enigma {
         ecl::V2      respawnpos;
         bool         flagRespawn;
         bool         firstGridStep;
-        bool         spikes; // set by "it-pin"
+        bool         spikes; // set by "it_pin"
         int          controllers;
         double       adhesion;
     };

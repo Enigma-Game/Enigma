@@ -178,15 +178,15 @@ void Floor::add_force (Actor *, V2 &f)
  *  A floor is allowed to catch fire when it is:
  *    - burnable by default
  *    - the "burnable"-attribute is set and in Enigma-comp.mode
- *    - it-burnable or it-burnable_oil is on it
+ *    - it_burnable or it_burnable_oil is on it
  *  Fire on a burnable floor can be ignited by:
  *    - "setfire"-message
  *    - "_explosion" or "ignite" message if the "ignitable"-attribute is set
- *        - thereby by it-dynamite or it-*bomb + "ignitable"
+ *        - thereby by it_dynamite or it_bomb* + "ignitable"
  *    - fire in the neighborhood (see below)
  *    - on initialisation ("_init"-message) when "initfire"-attribute is set
  *  On the floor itself it does
- *    - inform stones on it -> e.g. kill st-wood, st-hay
+ *    - inform stones on it -> e.g. kill st_wood, st_hay
  *    - keep on burning by chance or if eternal-attribute set
  *    - when stop burning
  *        - replace floor by floor given in floor-transform,
@@ -215,7 +215,7 @@ std::string Floor::get_firetransform() {
         std::string classname = getAttr("$firetransform").to_string();
         return (classname.length() > 0) ? classname : traits.firetransform;
     } else {
-        // In non-Enigma-compatibility-modes, only fl-wood and fl-stwood
+        // In non-Enigma-compatibility-modes, only fl_wood and fl_wood_framed
         // transform. Note: This might have been a bug, as fl-stwood1/2
         // and fl-wood1/2 were not included (at least fl-wood1/2 were of
         // a newer date). However, we include them here.
@@ -258,7 +258,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     // Movable stone && enigma-mode -> Burn items and replicate.
     // Movable stone && non-enigma-mode -> Only burn items.
     // Else -> Don't do anything.
-    // Special case: "st-flrock": No fire at all!
+    // Special case: "st_box_rock": No fire at all!
     bool no_closing_stone = true;
     if (Stone *st = GetStone(p)) {
         if (st->is_movable())
@@ -270,7 +270,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     if (server::GameCompatibility == GAMET_ENIGMA) {
         if (has_firetype(flft_burnable)) {
             // has_firetype also checks whether floor is already burning or ignited
-            // (via it-burnables), but not which stone is above it.
+            // (via it_burnables), but not which stone is above it.
             if (Item *it = GetItem(p)) {
                 // The item didn't respond to the "heat"-message, so we
                 // could assume it's burnable. However, as there might also
@@ -281,7 +281,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                     return force_fire();
             } else {
                 // Just spread. Use the fire-countdown to delay fire without
-                // it-burnable, but not in case of a message or a secure+last
+                // it_burnable, but not in case of a message or a secure+last
                 // call or a fastfire-floor.
                 if (   (get_fire_countdown() == 0) || (flhf == flhf_message)
                     || (has_firetype(flft_fastfire))
@@ -320,9 +320,9 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     // First of all: How are we allowed to react at all?
     // There are four branches of heating:
     //
-    //  1) item-transformation (e.g. igniting it-dynamite, *not* burning!)
+    //  1) item-transformation (e.g. igniting it_dynamite, *not* burning!)
     //  2) floor-heat-transformation (e.g. melting ice)
-    //  3) stone-heat-transformation (e.g. fireblocker st-flrock, itemfreeze)
+    //  3) stone-heat-transformation (e.g. fireblocker st_box_rock, itemfreeze)
     //  4) fire
     //
     //  a) Always do (1),(2),(3),(4) if try_heating is called from
