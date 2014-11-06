@@ -476,7 +476,7 @@ void Application::init(int argc, char **argv)
         std::set<lev::Proxy *> proxies = lev::Proxy::getProxies();
         int size = proxies.size();
         std::set<lev::Proxy *>::iterator it;
-        std::string message = ecl::strf("Make %d previews on system path '%s'",
+        std::string message = ecl::strf("Make 3 x %d previews on system path '%s'",
                 size, systemAppDataPath.c_str());
         Log << message;
 
@@ -495,14 +495,16 @@ void Application::init(int argc, char **argv)
         int i = 0;
         for (int m=0; m<3; m++) {
             switch (m) {
-                case 0 : video::SetThumbInfo(120, 78, ""); break;
+                case 0 : video::SetThumbInfo(120, 78, "-120x78"); break;
                 case 1 : video::SetThumbInfo(160, 104, "-160x104"); break;
                 case 2 : video::SetThumbInfo(60, 39, "-60x39"); break;
             }
             for (it = proxies.begin(); it != proxies.end(); it++, i++) {
                 Log << "Make preview " << (*it)->getId() << "\n";
                 gui::LevelPreviewCache::makeSystemPreview(*it, systemAppDataPath);
-                vline(gc, 170 + i*150 / size, 280, 20);
+                // i counts from 0 to 3*size (3 video modes),
+                // this makes up for the factor 100 = 300 / 3.
+                vline(gc, 170 + i*100 / size, 280, 20);
                 scr->update_all ();
                 scr->flush_updates();
             }
