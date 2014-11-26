@@ -45,6 +45,8 @@ AM_PROG_CC_C_O
 AC_PROG_CXX
 AC_PROG_CPP
 AC_PROG_RANLIB
+PKG_PROG_PKG_CONFIG
+
 dnl do not add the AC_PROG_CXX default CXXFLAGS
 CXXFLAGS="$CXXTMPFLAGS"
 
@@ -367,10 +369,25 @@ else
 fi
 
 dnl ----------------------------------------------------------
+dnl Decide whether to use system enet
+dnl ----------------------------------------------------------
+
+AC_MSG_CHECKING(whether to use system enet)
+AC_ARG_WITH(system-enet,
+  AS_HELP_STRING(--with-system-enet, Use system enet), system_enet=$withval,
+  system_enet=no
+)
+AM_CONDITIONAL([SYSTEM_ENET], [test "x$system_enet" = xyes])
+AM_COND_IF([SYSTEM_ENET],
+		   PKG_CHECK_MODULES(LIBENET, [libenet], ,AC_MSG_ERROR([libenet not found!])),
+		   AC_CONFIG_SUBDIRS([lib-src/enet]))
+
+
+
+dnl ----------------------------------------------------------
 dnl Configure libraries
 dnl ----------------------------------------------------------
 AC_CONFIG_SUBDIRS(lib-src/zipios++)
-AC_CONFIG_SUBDIRS(lib-src/enet)
 
 AC_CONFIG_FILES([Makefile m4/Makefile  intl/Makefile 
            data/Makefile
@@ -464,6 +481,7 @@ Enigma is now configured
    Libraries:           $LIBS
    Linker options:      $LDFLAGS
    Languages:		$ALL_LINGUAS
+   System enet:		$system_enet
 
 If these values seem to make sense, you can now run make.
 ])
