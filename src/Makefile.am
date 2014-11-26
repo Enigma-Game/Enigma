@@ -16,15 +16,16 @@ CXXFLAGS = @CXXFLAGS@\
 	-I$(top_srcdir)/lib-src/zipios++  \
 	-I$(top_builddir)/lib-src/zipios++ \
 	-I$(top_srcdir)/lib-src/lua \
-	-I$(top_srcdir)/lib-src/enigma-core \
-	-I$(top_srcdir)/lib-src \
-	-I$(top_builddir)/intl @SDL_CFLAGS@
+	-I$(top_srcdir)/lib-src/enigma-core
 
 if SYSTEM_ENET
 CXXFLAGS += $(LIBENET_CFLAGS)
 else
 CXXFLAGS += -I$(top_srcdir)/lib-src/enet/include
 endif
+
+CXXFLAGS += -I$(top_srcdir)/lib-src \
+	-I$(top_builddir)/intl @SDL_CFLAGS@
 
 
 enigma_SOURCES = 		\
@@ -446,18 +447,20 @@ endif
 enigma_LDADD = \
 	@LIBINTL@ \
 	$(top_builddir)/lib-src/enigma-core/libecl.a \
-	$(top_builddir)/lib-src/lua/liblua.a \
-	$(top_builddir)/lib-src/oxydlib/liboxyd.a \
-	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
-	-lz \
-	$(mingw_ldadd) \
-	@SDL_LIBS@
+	$(top_builddir)/lib-src/lua/liblua.a
 
 if SYSTEM_ENET
 enigma_LDADD += $(LIBENET_LIBS)
 else
 enigma_LDADD += $(top_builddir)/lib-src/enet/libenet.a
 endif
+
+enigma_LDADD += $(top_builddir)/lib-src/oxydlib/liboxyd.a \
+	$(top_builddir)/lib-src/zipios++/src/libzipios.a \
+	-lz \
+	$(mingw_ldadd) \
+	@SDL_LIBS@
+
 
 # Rule for creating Lua interfaces from package descriptions using 'tolua'
 TOLUA=@TOLUA@
