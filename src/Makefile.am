@@ -49,6 +49,7 @@ enigma_SOURCES = 		\
 	d_engine.hh		\
 	enigma.cc 		\
 	enigma.hh		\
+	enet_ver.hh		\
 	errors.hh		\
 	file.cc 		\
 	file.hh 		\
