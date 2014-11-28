@@ -12,6 +12,10 @@ AC_GNU_SOURCE
 
 ALL_LINGUAS="de fr nl it es sv ru hu pt fi uk be el pl cs gd hr sk da"
 AC_SUBST(ALL_LINGUAS)
+
+dnl Save a _NOGETTEXT state for possible MacOS special case
+LIBS_NOGETTEXT="$LIBS"
+
 AM_GNU_GETTEXT
 
 case $host_os in
@@ -35,6 +39,24 @@ esac
 
 AM_CONDITIONAL(MINGW32, test x$MINGW32 = xyes)
 AM_CONDITIONAL(LINUX, test x$LINUX = xyes)
+
+dnl ----------------------------------------
+dnl Mac requires libintl to be linked statically and doesn't make that easy
+dnl gettext project (for libintl) refuses to support use of pkg-config but doesn't provide an
+dnl equivalent way to get the lib directory it is installed in. This requires use of --with-libintl-prefix configure option.
+dnl ---------------------------------------
+if test "x$MACOSX" = xyes; then
+  LIBS="$LIBS_NOGETTEXT"
+  if test -z "$with_libintl_prefix" ; then
+    AC_MSG_ERROR([On MacOS --with-libintl-prefix must be specified to find lib/libintl.a for static link])
+  fi
+  if test -d "${with_libintl_prefix}/lib" && test -f "${with_libintl_prefix}/lib/libintl.a" ; then
+    LIBINTL="${with_libintl_prefix}/lib/libintl.a"
+    LIBS="$LIBINTL /usr/lib/libiconv.dylib $LIBS"
+  else
+    AC_MSG_ERROR([The specified --with-libintl-prefix did not contain lib/libintl.a which is required on MacOS for static link])
+  fi
+fi
 
 dnl ======================================================================
 dnl Check for programs
@@ -171,6 +193,13 @@ AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma
 
 SDL_LIBS="$SDL_LIBS -lSDL_ttf"
 
+dnl Add special hack for Mac static SDL after all other SDL stuff has been done
+if test "x$MACOSX" = xyes; then
+ SDL_STATIC_PREFIX=`$SDL_CONFIG $sdl_config_args --prefix`
+ SDL_LIBS="-framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL $SDL_STATIC_PREFIX/lib/libSDLmain.a $SDL_STATIC_PREFIX/lib/libSDL.a $SDL_STATIC_PREFIX/lib/libSDL_mixer.a $SDL_STATIC_PREFIX/lib/libSDL_image.a $SDL_STATIC_PREFIX/lib/libSDL_ttf.a"
+AC_SUBST(SDL_STATIC_PREFIX)
+fi
+
 dnl ---------------------------------------
 dnl Restoring variables to _NOSDL State
 dnl ---------------------------------------
@@ -218,6 +247,23 @@ else
         [AC_MSG_ERROR([Xerces >= 2.4 not found.])])
     AC_CHECK_LIB(xerces-c, main,,[AC_MSG_ERROR([xerces is required to compile Enigma])])
   fi
+fi
+
+dnl ----------------------------------------
+dnl Mac requires libintl, libpng, freetype  and xerces-c to be linked statically and doesn't make that easy
+dnl Handle it by reverting to LIBS before the AC_CHECK_LIBS of png and xerces-c and prepending the static libs
+dnl pkg-config is not convenient to use. This works around in a bug currently in freetype2.pc that puts in extra quotes
+dnl ---------------------------------------
+if test "x$MACOSX" = xyes; then
+  if test -z "$with_libintl_prefix" ; then
+    AC_MSG_ERROR([On MacOS --with-libintl-prefix must be specified to find lib/libintl.a for static link])
+  fi
+  CFLAGS="$CFLAGS_NOSDL"
+  CXXFLAGS="$CXXFLAGS_NOSDL"
+  FREETYPE_PREFIX=`$PKG_CONFIG freetype2 --variable libdir`
+  PNG_PREFIX=`$PKG_CONFIG libpng --variable libdir`
+  XERCESC_PREFIX=`$PKG_CONFIG xerces-c --variable libdir`
+  LIBS="-lz -lbz2 ${FREETYPE_PREFIX//\"/}/libfreetype.a ${PNG_PREFIX//\"/}/libpng.a ${XERCESC_PREFIX//\"/}/libxerces-c.a $LIBS_NOSDL"
 fi
 
 dnl ----------------------------------------

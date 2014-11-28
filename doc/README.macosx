@@ -1,171 +1,38 @@
-Building Enigma under MacOS X 10.6, 10.5, and 10.4
+Building Enigma under MacOS X 10.6 through 10.10
 
 Overview:
 ---------
 
 Due to which machines are available to Enigma developers, the latest
-version of Enigma has only been built under MacOS X 10.6. The
-instructions for building should apply identically under 10.4 and 10.5.
-The latest SDL library package no longer supports earlier versions of
-Mac OS and so Enigma has dropped support for 10.3 or earlier.
-Note that even though the build process is not run under Xcode,
-it does require that Xcode, which includes a number of developer tools,
-has been installed on the build machine.
+version of Enigma has only been built on 64-bit Intel Macs running
+Snow Leopard (10.6) and later.
 
-Enigma is built from the command line using make. There is a make
-target that will create a Mac OS application bundle in a compressed
-disk image file, enigma.dmg. That file can be copied to a Mac without
-any special runtime environment having to be installed, and the Enigma
-app simply dropped into a folder to be ready to run. The following
-instructions allow you to build a universal binary that will run
-on both PowerPc and Intel Macs running MacOS 10.4 or later.
+The build process has been simplified compared to earlier versions of
+Enigma by having it run under Homebrew.
 
-You do need some other packages installed in order to build Enigma on
-your MacOS X system. Earlier versions of this README used packages
-installed from Macports. That is no longer necessary. These instructions
-have you install packages in /usr/local. It is possible for libraries in
-that directory to conflict with other version of the same library that
-have been installed by Macports in its default /opt/local directory.
-If you normally use Macports, it may be advisable to temporarily rename
-/opt/local and your current /usr/local to get them out of the way,
-install your Enigma build environment in a  fresh /usr/local, then
-rename that to something like /usr/local-enigma to save it for the next
-time you need to build Enigma, restoring the original /opt/local and /usr/local.
+To install Homebrew, you will need to first install either Xcode or
+the Xcode Command Line Tools, then install Homebrew.
 
-One step in the build process uses the program mkalias which is part of osxutils,
-a package that can be downloaded from http://sourceforge.net/projects/osxutils/
-under the terms of the GNU GPL. It installs into /usr/local. If you are
-using a special version of /usr/local for the Enigma build, be sure to install
-osxutils after you have switched to that /usr/local.
+Complete documentation on Homebrew is in their wiki, whose link can be
+found just below the installation instructions on their web site home
+http://brew.sh
 
-Step 0: Create a text file to contain a shell script that you will use to
-build universal binaries that will work for MacOS 10.4, 10.5, and 10.6.
-You can name the file whatever you like, but in this README it will be
-referred to as builduniversal.sh. Place it somewhere convenient such as
-in a ~/bin directory. If you place it there and make ~/bin part of your PATH,
-you can refer to builduniversal.sh just by name in command lines and scripts.
-If you don't place it in your PATH make sure that you use the full path name
-wherever there is a command in the following that just says builduniversal.sh.
+After installing Xcode or the Command Line Tools, enter the following
+command line in Terminal to install Homebrew:
 
-Here are the contents of builduniversal.sh:
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-#!/bin/sh
-# build a package for universal 10.4+ if it is configured in standard way
-# does the configure but not the make or make install
-# You can add arguments to be passed to configure
-# You can pass in prefix values in CFLAGS, CXXFLAGS, LDFLAGS environment variables
-MACOSX_DEPLOYMENT_TARGET=10.4 \
-UNIFLAGS="-isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4 -arch i386 -arch ppc" \
-CC=/usr/bin/gcc-4.0 \
-CXX=/usr/bin/g++-4.0 \
-CFLAGS="$CFLAGS $UNIFLAGS" \
-CXXFLAGS="$CXXFLAGS $UNIFLAGS" \
-LDFLAGS="$LDFLAGS $UNIFLAGS  -Wl,-syslibroot,/Developer/SDKs/MacOSX10.4u.sdk" \
-./configure --disable-dependency-tracking $*
+Then follow the instructions to have Homebrew installed in just a few minutes.
+Be sure to run brew doctor as it advises you to, and correct any problems
+that it discovers with your configuration.
 
-Step 0b: You must make sure that the following is executed in any shell that you
-use during the build process. Either type this at the command line when you open
-a shell or put it in your ~/.profile file so it is executed automatically when you
-open a command line shell
+Once Homebrew is installed download the file enigmagame.rb from
+the Enigma web site and place it in directory /usr/local/Library/Formula/
+which is where the Hmebrew formula files are stored.
 
-export MACOSX_DEPLOYMENT_TARGET=10.4
+Then to build Enigma run the command
 
-Step 1. Download the required SDL 1.2.x libraries and related packages. At each
-of the following web pages you will find both a prebuilt binary framework
-for MacOS X in the form of a .dmg file, and the sources in the form of a
-compressed tar file (tar.gz, also called a 'tarball'). You will need to download both of
-those for each of the four packeges listed below. Note that there is a version 1.3.x
-of SDL that Enigma does not support. You need SDL 1.2.14, which is the last
-to be released in the 1.2. series. The other packages have their own version numbers.
+ brew -v install enigmagame
 
-SDL         http://www.libsdl.org/
-SDL_image   http://www.libsdl.org/projects/SDL_image/
-SDL_ttf     http://www.libsdl.org/projects/SDL_ttf/
-SDL_mixer   http://www.libsdl.org/projects/SDL_mixer/
-
-Step 2: For each of the four .dmg files downloaded in Step 1, double click
-the dmg file to open it in the Finder, then drag the Framework folder that is revealed
-into the /Library/Frameworks folder. Note that the system may ask you to enter
-your password to authenticate yourself as an administrator. We will use the
-four tarballs of source code you downloaded in a later step.
-
-Step 3: Download the source tarballs of the following libraries from the
-web sites that are indicated. In each case download the latest stable version.
-
-libjpeg  http://www.ijg.org/
-libpng   http://www.libpng.org/pub/png/libpng.html
-xerces-c http://xerces.apache.org/xerces-c/build-3.html
-gettext  http://www.gnu.org/software/gettext/#TOCdownloading
-
-Step 5. Unpack each of the source tarballs in any convenient directory.
-Each will go into its own subdirectory, as the tarballs are set up that way.
-
-Step 6: Install the SDL library. This is the trickiest one to build as it requires a
-special build script that is downloaded from a bug report about SDL. The steps to build it:
-
-Step 6a. Download the build script to some convenient directory.
-This command will get the file, naming it fatbuild.sh in the
-current directory.
-
- curl -o fatbuild.sh "http://bugzilla.libsdl.org/attachment.cgi?id=453"
-
-Step 6b. Copy the downloaded fatbuild.sh file to the build-scripts
-subdirectory of the unpacked SDL sources, replacing the original one that is there,
-then cd to the sources directory. For example,
-
- cp fatbuild.sh SDL-1.2.14/build-scripts/
- cd SDL-1.2.14
-
-Step 6c: Build SDL using the following commands. The export command doesn't have to
-be repeated if you remembered to do it as mentioned in Step 0b.
-
-     export MACOSX_DEPLOYMENT_TARGET=10.4
-     build-scripts/fatbuild.sh
-     sudo build-scripts/fatbuild.sh install
-
-Step 7. Install each of the other seven packages that you downloaded source tarballs for
-by unpacking them (each will go into its own subdirectory), cd to its directory,
-and run the commands (assuming you have placed builduniversal.sh in your PATH)
-
- builduniversal.sh
- make
- sudo make install
-
-Step 8. Install ImageMagick, which is needed to generate the documentation
-during the build process. ImageMagick will not be part of Enigma, so it does not
-have to built as a universal binary as long as it can run on the build computer.
-To build it, download the current sources of ImageMagick from
-  ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
-untar it into a convenient directory, cd to it, and build with the commands
-
- ./configure
- make
- sudo make install
-
-Step 9. Build Enigma:
-
-Important: The configure step requires you to be logged in with access
-to the window system, i.e., either at the Mac keyboard or using remote
-screen sharing, and in a Terminal.app comand line. It will hang trying
-to test the SDL library if you are using ssh to log in remotely with no
-GUI screen.
-
-Remember to perform Step 0b each time you open a new Termnal.app window.
-
-Then cd to the Enigma directory tree and
-run the following commands which make use of the builduniversal.sh
-script file that was listed in step 0 and is assumed to be in your PATH
-
-Important: If you have built in the Enigma directory tree before and
-made some change to the build environment, use make distclean to ensure
-that there are no files from the old build interfering with the new build
-
-./autogen.sh
-CFLAGS="-I/usr/local/include" CXXFLAGS="-I/usr/local/include" LDFLAGS="-L/usr/local/lib" builduniversal.sh
-make gmo
-make
-make macapp
-
-That's it! If it all works, there will be a copy of enigma.dmg in the
-etc/ subdirectory and a copy of Enigma.app in etc/macfiles/
-subdirectory.
+That will download, build, and install all the prerequisites and if all
+goes well will create the file /usr/local/share/enigma.dmg

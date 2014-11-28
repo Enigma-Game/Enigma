@@ -522,11 +522,6 @@ bundle:
 	cp $(top_builddir)/data/fonts/*.png $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.bmf $(bundle_name)/Contents/Resources/data/fonts
 	cp $(top_builddir)/data/fonts/*.ttf $(bundle_name)/Contents/Resources/data/fonts
-	mkdir -p $(bundle_name)/Contents/Frameworks
-	cp -R /Library/Frameworks/SDL.framework $(bundle_name)/Contents/Frameworks/
-	cp -R /Library/Frameworks/SDL_image.framework $(bundle_name)/Contents/Frameworks/
-	cp -R /Library/Frameworks/SDL_mixer.framework $(bundle_name)/Contents/Frameworks/
-	cp -R /Library/Frameworks/SDL_ttf.framework $(bundle_name)/Contents/Frameworks/
 	for cat in $(ALL_LINGUAS); do \
 	  dir=$(bundle_name)/Contents/Resources/locale/$$cat/LC_MESSAGES; \
 	  mkdir -p $$dir; \
@@ -536,8 +531,8 @@ bundle:
 
 # Special target to copy the binary to Enigma.app/Contents/MacOS.
 .PHONY: bundle-fw
-bundle-fw: enigma-fw-mosx
-	cp enigma-fw $(bundle_name)/Contents/MacOS/enigma
+bundle-fw:
+	cp enigma $(bundle_name)/Contents/MacOS/enigma
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to copy the doc files to the MacOS dmg staging area
@@ -573,13 +568,6 @@ bundle-doc:
 	cp $(top_builddir)/doc/manual/*.html $(bundle_doc)/manual/
 	cp $(top_builddir)/doc/reference/images/*.png $(bundle_doc)/reference/images/
 	cp $(top_builddir)/doc/reference/*.html $(bundle_doc)/reference/
-
-# Special target to create a binary linked with Mac OS X frameworks
-# note this assumes that xercesc and libpng are installed in same directory as the SDL libraries.
-static_prefix := `$(SDL_CONFIG) --prefix`
-.PHONY: enigma-fw-mosx
-enigma-fw-mosx: $(enigma_OBJECTS) $(enigma_DEPENDENCIES)
-	$(CXX) $(LDFLAGS) -o enigma-fw $(enigma_OBJECTS) $(enigma_DEPENDENCIES) $(static_prefix)/lib/libintl.a /usr/lib/libiconv.dylib /usr/lib/libcurl.dylib $(static_prefix)/lib/libxerces-c.a -L$(static_prefix)/lib -lsdlmain -lz -framework SDL -framework SDL_image -framework SDL_mixer -framework Cocoa -framework OpenGL -framework SDL_ttf $(static_prefix)/lib/libpng.a 
 
 # Special target to make a disk image of the bundled app
 .PHONY: bundle-dmg
