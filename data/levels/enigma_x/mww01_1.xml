@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+ <el:protected>
+   <el:info el:type="level">
+     <el:identity el:title="Don't waste wood" el:subtitle="" el:id="mww01"/>
+     <el:version el:score="1" el:release="2" el:revision="3" el:status="released"/>
+     <el:author el:name="Martin Woyda-Wolf" el:email="" el:homepage=""/>
+     <el:copyright>Copyright © 2010 Martin Woyda-Wolf</el:copyright>
+     <el:license el:type="GPL v2.0 or above" el:open="true"/>
+     <el:compatibility el:enigma="1.10">
+       <el:dependency el:path="lib/libpuzzle" el:id="lib/libpuzzle" el:release="3" el:preload="true"/>
+     </el:compatibility>
+     <el:modes el:easy="false" el:single="true" el:network="false"/>
+     <el:score el:easy="-" el:difficult="2:50"/>
+   </el:info>
+   <el:luamain><![CDATA[
+wo["ConserveLevel"] = false
+wo["ProvideExtralifes"] = false
+
+ti[" "] = {"fl_metal_7"}
+ti["!"] = {"fl_abyss"}
+ti["~"] = {"fl_water"}
+ti["#"] = {"st_metal"}
+ti["="] = {"st_metal_hollow"}
+ti["+"] = {"st_box"}
+ti["A"] = ti["+"] .. ti["!"]
+ti["X"] = {"st_grate"}
+ti["M"] = {"st_mail_e"}
+ti["T"] = {"st_swap"}
+ti["*"] = ti["="] .. {"it_seed"}
+ti["h"] = {"it_weight"}
+ti["m"] = {"it_magicwand"}
+ti["P"] = {"st_puzzle", cluster=1}
+ti["Q"] = ti["P"] .. {"it_puller_n"}
+ti["O"] = {"st_oxyd", flavor="d"}
+ti["@"] = {"#ac_marble"}
+
+wo(res.puzzle(ti, "P", "p"), " ", {
+    "####################",
+    "#O#O#         !OO  #",
+    "# # # #P# ######## #",
+    "# M~# #P# #        #",
+    "# #  PPQ  #!+A######",
+    "# ### #P# #!+!=   m#",
+    "#      P#  T+!+ ####",
+    "#++++++##    h  #! #",
+    "#O######  ### ##O  #",
+    "#  #=*##       ##!##",
+    "#  #===#           #",
+    "#  X!!      @      #",
+    "####################"})
+ ]]></el:luamain>
+   <el:i18n>
+     <el:string el:key="title">
+       <el:english el:translate="false"/>
+     </el:string>
+   </el:i18n>
+ </el:protected>
+</el:level>

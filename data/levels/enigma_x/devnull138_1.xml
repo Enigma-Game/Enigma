@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Entente" el:subtitle="" el:id="devnull138"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012, 2013 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="true"/>
+      <el:comments>
+        <el:credits el:showinfo="true" el:showstart="false">Thanks to daydreamer (SotIPD) for bug fixing and testing.</el:credits>
+      </el:comments>
+      <el:score el:easy="-" el:difficult="2:32"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"] = false
+
+ti[" ."] = {"fl_abyss"}
+ti["  "] = {"fl_wood"}
+ti[" +"] = {"st_box"}
+ti[" _"] = {"fl_bridge_bw"}
+ti["7 "] = {"st_window", faces="nw" ,secure=true}
+ti["8 "] = {"st_window", faces="n"  ,secure=true}
+ti["9 "] = {"st_window", faces="ne" ,secure=true}
+ti["6 "] = {"st_window", faces="e"  ,secure=true}
+ti["3 "] = {"st_window", faces="se" ,secure=true}
+ti["2 "] = {"st_window", faces="s"  ,secure=true}
+ti["1 "] = {"st_window", faces="sw" ,secure=true}
+ti["4 "] = {"st_window", faces="w"  ,secure=true}
+ti["= "] = {"st_window", faces="ns" ,secure=true}
+ti["5 "] = {"st_window", faces="nes" ,secure=true}
+ti[" !"] = {"it_bottle_broken"}
+ti["triggers"] = {"fl_scales_bridgewood", name="trigger%%", target="bridge%%", min=0.2}
+ti["bridges"] = {"fl_bridge_bw", name="bridge%%"}
+ti["o "] = {"it_meditation"}
+ti["@0"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@1"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"T", "triggers"}, {"-", "bridges"})), "  ", {
+    "6.8 8!8 8!8 8 8 8!8 4.",
+    "6. .  TA +   _-a +@04.",
+    "6.     ! . . + . +  4.",
+    "6. !    -b7.8.8.8.8. .",
+    "6.   !-c !1.2.2. . . .",
+    "6.  TD     . .o.4. . .",
+    "6.Td  TC + . .o.4. . .",
+    "6.  Tc !Tb7.8.8. . . .",
+    "6. . ! +-d1.2.2.2.2. .",
+    "6.  -C + +  Ta-B +  4.",
+    "6.  TB-D .    -A +@14.",
+    "6.2 2 2 2!2!2 2 2!2 4."})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

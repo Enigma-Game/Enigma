@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Christmas Star" el:subtitle="" el:id="andreas52"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+ti[" "] = {"fl_plank"}
+ti["#"] = {"st_camouflage"}
+ti["*"] = {"st_box", name="box%%"}
+ti["w"] = {"st_box", name="box8"}
+ti["t"] = {"it_trigger", target="door8"}
+ti["D"] = {"it_blocker", name="door#"}
+ti["d"] = {"st_blocker", name="door8"}
+ti["o"] = {"st_oxyd", oxydcolor=OXYD_GREEN}
+ti["@"] = {"#ac_marble"}
+
+wo(res.autotile(ti, {"1", "8", "*"}), " ", {
+   "#o###############o#",
+   "# #           dD#D#",
+   "# # #    t    #D#D#",
+   "#   #    w    #DDD#",
+   "#####         #####",
+   "#        1        #",
+   "#     3     6     #",
+   "#        @        #",
+   "#    5       4    #",
+   "#                 #",
+   "#      7   2      #",
+   "#                 #",
+   "###################"})
+
+wo:shuffleOxyd()
+
+doors = no["door#*"]
+triggers = no["box%*"]
+
+doors:shuffle()
+
+for j = 1, #triggers do
+    wo[triggers[j]] = {"it_trigger", target=doors[j]}
+end
+
+for j = 1, 7 do
+    wo:add({"ot_wire", anchor1=no["box%"..j], anchor2=no["box%"..((j % 7) +1)]})
+end
+
+wo:add({"ot_wire", anchor1=no["box%1"], anchor2=no["box8"]})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="true"/>
+        <el:translation el:lang="de">Der Weihnachtsstern</el:translation>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

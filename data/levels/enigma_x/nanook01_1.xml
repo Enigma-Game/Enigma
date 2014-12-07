@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Things Gonna Change" el:subtitle="" el:id="nanook01"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="nanook" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 nanook</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.20"/>
+      <el:modes el:easy="false" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ProvideExtralifes"]=false
+wo["WormholeStrength"]=0
+
+ti["# "] = {"st_flat"}
+ti["= "] = {"st_flat_movable"}
+ti["- "] = {"st_flat_hollow"}
+ti["* "] = {"st_flat_breakable"}
+ti["+ "] = {"st_plop"}
+ti["B "] = {"st_boulder_s"} .. ti({"it_blocker"})
+ti["K "] = {"st_blocker"}
+ti["X "] = {"st_grate"}
+ti["I "] = {"st_invisible"}
+ti["R1"] = {"st_rotator_cw"}
+ti["R2"] = {"st_rotator_cw", name="rotator#"}
+ti["BS"] = {"st_switch_black", target="rotator#*"}
+ti["O "] = {"st_oxyd", oxydcolor=OXYD_YELLOW}
+ti["W1"] = {"fl_bright", name="W2", friction=6.4, adhesion=2.0}
+ti["W2"] = {"fl_bright", name="W1", friction=6.4, adhesion=2.0}
+ti["  "] = {"fl_bright", friction=6.4, adhesion=2.0}
+ti[" ~"] = {"fl_abyss"}
+ti[" <"] = {"it_puller_w"}
+ti[" l"] = {"it_extralife"}
+ti[" 2"] = {"it_coin_s"}
+ti[" s"] = {"it_seed"}
+ti[" z"] = {"it_magicwand"}
+ti["w1"] = {"it_wormhole", destination="W1"}
+ti["w2"] = {"it_wormhole", destination="W2"}
+ti["laser"] = ti[" ~"] .. {"st_laser_w", name="laser%%"}
+ti["schalter"] = {"it_trigger", target={"tuer%%", "laser%%"}}
+ti["tuer"] = {"st_door_b", name="tuer%%"}
+ti["schluesselloch"] = {"st_key", code="%%", target="tuer%%"}
+ti["schluessel"] = {"it_key", code="%%"}
+ti["@ "] = ti["W1"] .. {"#ac_marble_black"}
+
+wo(res.composer(res.autotile(ti, {"L", "laser"}, {"t", "schalter"}, {"T", "tuer"}, {"S", "schluesselloch"}, {"s", "schluessel"})), "  ", {
+    " ~ ~ ~# # # # # # # # # # # # R2#  ~ ~ ~ ~ ~# # # # # # # # # # # # R2#  ~ ~ ~",
+    " ~ ~ ~# @ +  ~    sb    -sR1K K #  ~ ~ ~ ~ ~# W2   ~    sB    -sR1K K #  ~ ~ ~",
+    " ~ ~ ~ ~+ + # * * # # # Tb# K K #  ~ ~ ~ ~ ~ ~    # =<* # # # TB# K K #  ~ ~ ~",
+    " ~ ~ ~ ~+  ~#      ~ ~O   # K K O  ~ ~ ~ ~ ~ ~   ~#      ~ ~O   # K K O  ~ ~ ~",
+    " ~ ~ ~#   #      ~ ~ ~#   # K K #  ~ ~ ~ ~ ~#   #      ~ ~ ~#   # K K #  ~ ~ ~",
+    " ~ ~ ~#          ~Ll ~#   # K K #  ~ ~ ~ ~ ~#          ~Lr ~#   # K K #  ~ ~ ~",
+    " ~ ~ ~#  ~ ~     ~ ~ ~#   # K K #  ~ ~ ~ ~ ~#  ~ ~     ~ ~ ~#   # K K #  ~ ~ ~",
+    " ~ ~ ~#  ~+ + # # # # O   # K K O  ~ ~ ~ ~ ~#  ~    # # # # O   # K K O  ~ ~ ~",
+    " ~ ~ ~#      ~SBSC      scTctrK #  ~ ~ ~ ~ ~#      ~SbSc      sCTCtlK #  ~ ~ ~",
+    " ~ ~ ~#   * # # # # # # # #  ~B #  ~ ~ ~ ~ ~#   * # # # # # # * #  ~B #  ~ ~ ~",
+    " ~ ~ ~# tA+   TA  =~      # +zX~I~ ~ ~ ~ ~ ~# ta  + Ta  #       # +lX~I~ ~ ~ ~",
+    " ~ ~ ~#  ~  w1#       =2      # I~ ~ ~ ~ ~ ~#  ~  w2#       #       # I~ ~ ~ ~",
+    " ~ ~ ~# # # # # BS# # # # # # # #  ~ ~ ~ ~ ~# # # # # BS# # # # # # # #  ~ ~ ~"})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

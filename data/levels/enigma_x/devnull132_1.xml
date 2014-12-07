@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title=" - Meditation - " el:subtitle="" el:id="devnull132"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
+      <el:author el:name="/dev/null" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2012, 2014 /dev/null</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10"/>
+      <el:modes el:easy="true" el:single="true" el:network="true"/>
+      <el:score el:easy="1:01" el:difficult="1:11"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["AutoRespawn"] = true
+wo["AllowSuicide"] = false
+
+ti["# "] = {"st_bluesand"}
+ti["  "] = {"fl_red"}
+ti[" ."] = cond(wo["IsDifficult"], ti({"it_burnable_fireproof"}) .. {"fl_red", adhesion=-1.5}, ti["  "])
+ti[" ~"] = {"fl_water"}
+ti["+ "] = cond(wo["IsDifficult"], ti[" ~"], ti["# "])
+ti["W "] = {"st_passage_white", flavor="frame"}
+ti["B "] = {"st_passage_black", flavor="frame"}
+ti["vortices"] = {"it_vortex", destination="vortexDestination%%"}
+ti["vortDestinations"] = {"fl_red", name="vortexDestination%%"}
+ti[" o"] = {"it_meditation"}
+ti["@0"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE, adhesion=-2.0}
+ti["@1"] = {"#ac_pearl_black", owner=YIN, controllers=CTRL_YIN, essential=INDISPENSABLE}
+ti["@2"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE, adhesion=-2.0}
+ti["@3"] = {"#ac_pearl_white", owner=YANG, controllers=CTRL_YANG, essential=INDISPENSABLE}
+
+wo(res.composer(res.autotile(ti, {"V", "vortices"}, {"v", "vortDestinations"})), "  ", {
+    "# # # # # # # # # # # # # # # # # # # ",
+    "# Wo+~V0+~   .  +~  +~V3+~Bo+~   .  # ",
+    "# @0 ~v3 ~   ~   ~   ~v0 ~@3 ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~   ~   ~   ~   ~   ~   ~  # ",
+    "#    ~   ~@2 ~v1 ~   ~   ~   ~v2 ~@1# ",
+    "#    .  +~Bo+~V2+~  +~   .  +~V1+~Wo# ",
+    "# # # # # # # # # # # # # # # # # # # "})
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>
