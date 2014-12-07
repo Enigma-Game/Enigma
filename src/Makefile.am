@@ -535,6 +535,11 @@ bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
 	strip $(bundle_name)/Contents/MacOS/enigma
 
+# Special target to create the preview images into the app bundle
+.PHONY: bundle-preview
+bundle-preview:
+	$(bundle_name)/Contents/MacOS/enigma --makepreview
+
 # Special target to copy the doc files to the MacOS dmg staging area
 bundle_doc := $(bundle_name)/Contents/Resources/doc
 .PHONY: bundle-doc
