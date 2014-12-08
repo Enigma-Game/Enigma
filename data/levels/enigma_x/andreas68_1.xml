@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Freezing Ising" el:subtitle="Schroedinger's Maze" el:id="andreas68"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 Andreas Lochmann</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmath" el:id="lib/libmath" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="3:45" el:difficult="3:45"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+wo["MaxOxydColor"] = OXYD_BROWN
+
+ti[" "] = {"fl_scales_bridgewood", target="fixate", min=0.8}
+ti["r"] = {"fl_scales_bridgewood", name="room#", target="fixate", min=0.8, _fixed=false}
+ti["."] = {"fl_wood"}
+ti["#"] = {"st_rawglass"}
+ti["O"] = {"st_oxyd", flavor="e"}
+ti["T"] = {"st_timer", target="clock", interval=0.03}
+ti["@"] = ti[" "] .. {"#ac_marble_black"}
+ti["wn"] = {"st_oneway", name="oneway#", orientation=NORTH}
+ti["ws"] = {"st_oneway", name="oneway#", orientation=SOUTH}
+ti["we"] = {"st_oneway", name="oneway#", orientation=EAST}
+ti["ww"] = {"st_oneway", name="oneway#", orientation=WEST}
+
+wo(res.random(res.random(ti, "x", {"we", "ww"}), "y", {"wn", "ws"}), ".", {
+    "###################",
+    "#O #O #O #O #O #O #",
+    "# rx rx rx rx rx r#",
+    "##y##y##y##y##y##y#",
+    "#O #O #O@#O #O #O #",
+    "# rx rx rx rx rx r#",
+    "##y##y##yT#y##y##y#",
+    "#O #O #O #O #O #O #",
+    "# rx rx rx rx rx r#",
+    "##y##y##y##y##y##y#",
+    "#O #O #O #O #O #O #",
+    "# rx rx rx rx rx r#",
+    "###################"})
+
+wo:add(YIN, {"it_spoon"})
+wo:add(YIN, {"it_spoon"})
+
+wo:shuffleOxyd()
+
+neighboring_oneways = po(-2,0) .. po(0,-2) .. po(1,0) .. po(0,1)
+rooms = no["room#*"]
+oneways = no["oneway#*"]
+oneways:shuffle()
+
+count_fixations = 0
+evil_room = math.random(10, 16)
+
+function fixate(value, sender)
+    local room = rooms:nearest(sender)
+    if not room["_fixed"] then
+        room["_fixed"] = true
+        count_fixations = count_fixations + 1
+        if (count_fixations == evil_room) and wo["IsDifficult"] then
+            st(po(room) + po(-2,0))["_fixorientation"] = EAST
+            st(po(room) + po(0,-2))["_fixorientation"] = SOUTH
+            st(po(room) + po(1,0))["_fixorientation"] = WEST
+            st(po(room) + po(0,1))["_fixorientation"] = NORTH
+        end
+        st(po(room) + neighboring_oneways)["_fixed"] = true
+    end
+end
+
+onewaynr = 1
+
+function clock()
+    onewaynr = (onewaynr % #oneways) + 1
+    local oneway = oneways[onewaynr]
+    if oneway["_fixorientation"] then
+        if oneway["orientation"] ~= oneway["_fixorientation"] then
+            oneway:flip()
+        end
+    else
+        if not(oneway["_fixed"]) then
+            oneway:flip()
+        end
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+      <el:string el:key="title">
+        <el:english el:translate="false"/>
+      </el:string>
+    </el:i18n>
+  </el:protected>
+</el:level>

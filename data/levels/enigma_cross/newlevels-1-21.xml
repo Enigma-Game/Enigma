@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="11" title="Enigma 1.21 new"/>
+  <info enigma="1.20" group="Facets" location="15700" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma 1.21 new"/>
 
   <attributes/>
 
@@ -54,7 +54,9 @@
     <level _seq="46" _title="Things Gonna Change" _xpath="enigma_x/nanook01_1" author="nanook" ctrl="force" easy="false" id="nanook01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="47" _title="Don't waste wood" _xpath="enigma_x/mww01_2" author="Martin Woyda-Wolf" ctrl="force" easy="false" id="mww01" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="48" _title="Checklist" _xpath="enigma_x/nanook02_1" author="nanook" ctrl="force" easy="false" id="nanook02" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="49" _title="Christmas Star" _xpath="enigma_x/andreas52_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas52" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="49" _title="Wildflowers Party" _xpath="enigma_x/mecke65_1" author="mecke" ctrl="force" easy="true" id="mecke65" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="50" _title="Freezing Ising" _xpath="enigma_x/andreas68_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas68" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="51" _title="Christmas Star" _xpath="enigma_x/andreas52_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas52" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

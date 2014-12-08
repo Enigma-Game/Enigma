@@ -3,7 +3,7 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Christmas Star" el:subtitle="" el:id="andreas52"/>
-      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:version el:score="1" el:release="1" el:revision="2" el:status="released"/>
       <el:author el:name="Andreas Lochmann" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2008 Andreas Lochmann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -22,7 +22,7 @@ ti["t"] = {"it_trigger", target="door8"}
 ti["D"] = {"it_blocker", name="door#"}
 ti["d"] = {"st_blocker", name="door8"}
 ti["o"] = {"st_oxyd", oxydcolor=OXYD_GREEN}
-ti["@"] = {"#ac_marble"}
+ti["@"] = {"ac_marble", 0.5, 1.0}
 
 wo(res.autotile(ti, {"1", "8", "*"}), " ", {
    "#o###############o#",

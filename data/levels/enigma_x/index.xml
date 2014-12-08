@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <index xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd">
 
-  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="12" title="Enigma X"/>
+  <info enigma="1.10" group="Enigma" location="11200" network="false" owner="Enigma Team" release="1" revision="13" title="Enigma X"/>
 
   <attributes/>
 
@@ -87,7 +87,9 @@
     <level _seq="79" _title="Things Gonna Change" _xpath="./nanook01_1" author="nanook" ctrl="force" easy="false" id="nanook01" rel="1" rev="2" score="1" target="time" unit="duration"/>
     <level _seq="80" _title="Don't waste wood" _xpath="./mww01_2" author="Martin Woyda-Wolf" ctrl="force" easy="false" id="mww01" rel="2" rev="3" score="1" target="time" unit="duration"/>
     <level _seq="81" _title="Checklist" _xpath="./nanook02_1" author="nanook" ctrl="force" easy="false" id="nanook02" rel="1" rev="1" score="1" target="time" unit="duration"/>
-    <level _seq="82" _title="Christmas Star" _xpath="./andreas52_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas52" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="82" _title="Wildflowers Party" _xpath="./mecke65_1" author="mecke" ctrl="force" easy="true" id="mecke65" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="83" _title="Freezing Ising" _xpath="./andreas68_1" author="Andreas Lochmann" ctrl="force" easy="true" id="andreas68" rel="1" rev="1" score="1" target="time" unit="duration"/>
+    <level _seq="84" _title="Christmas Star" _xpath="./andreas52_1" author="Andreas Lochmann" ctrl="force" easy="false" id="andreas52" rel="1" rev="2" score="1" target="time" unit="duration"/>
   </levels>
 
 </index>

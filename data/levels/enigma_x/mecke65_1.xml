@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<el:level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://enigma-game.org/schema/level/1 level.xsd" xmlns:el="http://enigma-game.org/schema/level/1">
+  <el:protected>
+    <el:info el:type="level">
+      <el:identity el:title="Wildflowers Party" el:subtitle="Another Little Journey to Random Colours" el:id="mecke65"/>
+      <el:version el:score="1" el:release="1" el:revision="1" el:status="released"/>
+      <el:author el:name="mecke" el:email="" el:homepage=""/>
+      <el:copyright>Copyright © 2014 Thomas Bernhardt</el:copyright>
+      <el:license el:type="GPL v2.0 or above" el:open="true"/>
+      <el:compatibility el:enigma="1.10">
+        <el:dependency el:path="lib/libmap" el:id="lib/libmap" el:release="1" el:preload="true"/>
+        <el:dependency el:path="lib/libtrain" el:id="lib/libtrain" el:release="1" el:preload="true"/>
+      </el:compatibility>
+      <el:modes el:easy="true" el:single="true" el:network="false"/>
+      <el:score el:easy="-" el:difficult="-"/>
+    </el:info>
+    <el:luamain><![CDATA[
+wo["ConserveLevel"] = true
+
+if wo["IsDifficult"] then
+    ti["-"] = {"fl_aquamarine", name="pearls#"}
+    ti["+"] = {"fl_ice", name="holes#"}
+    ti["A"] = {"st_actorimpulse"}
+    ti["D"] = {"st_dispenser_extralife"}
+    ti["#"] = {"st_darkgray"}
+else
+    ti["-"] = {"fl_lawn", name="pearls#"}
+    ti["+"] = {"fl_red", name="holes#"}
+    ti["A"] = {"st_dispenser_extralife"}
+    ti["D"] = {"st_actorimpulse"}
+    ti["#"] = {"st_lightpassenger"}
+end
+ti["i"] = {"fl_inverse"}
+ti["~"] = {"fl_space"}
+ti["0"] = {"fl_abyss", name="floor#"}
+ti["1"] = {"fl_adhesionless", name="floor#"}
+ti["2"] = {"fl_inverse", name="floor#"}
+ti["3"] = {"fl_swamp", name="floor#"}
+ti["4"] = {"fl_space", name="floor#"}
+ti["o"] = {"#it_meditation_hollow"}
+ti["R"] = {"st_rotator"}
+ti["B"] = {"st_boulder_s"}
+
+local randomfloor = res.random(ti, "q", {{"1", 3/10}, {"2", 3/10}, {"3", 6/10}, {"2", 3/10}})
+
+wo(res.composer(res.train(randomfloor, {"x", edge=true}, {"t", train={"i", "~", orientation=EAST, length=9}})), "i", {
+    "##################R#",
+    "Rxtiiiiiiiiiiiiiiii#",
+    "#B+-+-+-+-+-+-+-+-i#",
+    "#i-+-+-+-+-+-+-+-+i#",
+    "#i+-+-+-+-+-+-+-+-i#",
+    "#i-+-+-+-+-+-+-+-+i#",
+    "DBA-+-+-+-+-+-+-+AiD",
+    "#i-+-+-+-+-+-+-+-+i#",
+    "#i+-+-+-+-+-+-+-+-i#",
+    "#i-+-+-+-+-+-+-+-+i#",
+    "#B+-+-+-+-+-+-+-+-i#",
+    "#iiiiiiiiiiiiiiiiixR",
+    "#R##################"})
+
+wo:add({"ot_timer", target="colorthefloor"})
+
+wo[no["pearls#*"]:sub(4):shuffle()] = {"#ac_pearl", essential=INDISPENSABLE}
+wo[no["holes#*"]:sub(4):shuffle()] = ti["0"] .. ti["o"]
+
+function colorthefloor()
+    for obj in no["floor#*"]:shuffle():sub(25) do
+        wo:drawRect(obj, obj, "q", randomfloor)
+    end
+end
+ ]]></el:luamain>
+    <el:i18n>
+        <el:string el:key="title">
+          <el:english el:translate="false"/>
+        </el:string>
+        <el:string el:key="subtitle">
+          <el:english el:translate="false"/>
+        </el:string>
+      </el:i18n>
+  </el:protected>
+</el:level>
