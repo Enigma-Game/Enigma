@@ -533,6 +533,10 @@ bundle:
 .PHONY: bundle-fw
 bundle-fw:
 	cp enigma $(bundle_name)/Contents/MacOS/enigma
+	mkdir  $(bundle_name)/Contents/Frameworks
+	for i in SDL SDL_mixer SDL_image SDL_ttf ; do \
+	  cp -a /Library/Frameworks/$${i}.framework $(bundle_name)/Contents/Frameworks/; \
+	done
 	strip $(bundle_name)/Contents/MacOS/enigma
 
 # Special target to create the preview images into the app bundle

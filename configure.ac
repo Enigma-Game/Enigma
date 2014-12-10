@@ -193,10 +193,12 @@ AC_CHECK_LIB(SDL_ttf, main,,[AC_MSG_ERROR([SDL_ttf is required to compile Enigma
 
 SDL_LIBS="$SDL_LIBS -lSDL_ttf"
 
-dnl Add special hack for Mac static SDL after all other SDL stuff has been done
+dnl Add special hack for Mac framework SDL after all other SDL stuff has been done
+dnl Note that SDL development environment must be installed for the build but SDL frameworks must also be installed for the build
+dnl If we had libSDLmain.a, which is not included in the framework, we should be able to get away with only installing framework
 if test "x$MACOSX" = xyes; then
  SDL_STATIC_PREFIX=`$SDL_CONFIG $sdl_config_args --prefix`
- SDL_LIBS="-framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL $SDL_STATIC_PREFIX/lib/libSDLmain.a $SDL_STATIC_PREFIX/lib/libSDL.a $SDL_STATIC_PREFIX/lib/libSDL_mixer.a $SDL_STATIC_PREFIX/lib/libSDL_image.a $SDL_STATIC_PREFIX/lib/libSDL_ttf.a"
+ SDL_LIBS="-Wl,-rpath,@loader_path/../Frameworks -framework AudioToolbox -framework AudioUnit -framework Cocoa -framework CoreAudio -framework IOKit -framework CoreFoundation -framework Carbon -framework CoreServices -framework ApplicationServices -framework Foundation -framework AppKit -framework OpenGL -framework SDL -framework SDL_mixer -framework SDL_image -framework SDL_ttf $SDL_STATIC_PREFIX/lib/libSDLmain.a"
 AC_SUBST(SDL_STATIC_PREFIX)
 fi
 
