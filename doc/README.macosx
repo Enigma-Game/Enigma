@@ -26,13 +26,55 @@ Then follow the instructions to have Homebrew installed in just a few minutes.
 Be sure to run brew doctor as it advises you to, and correct any problems
 that it discovers with your configuration.
 
-Once Homebrew is installed download the file enigmagame.rb from
+You also need to install four framework packages from the SDL project. The frameworks
+are required to build enigma, but do not have to be installed by end-users as the
+necessary framework files will be bundled with the Enigma application.
+
+On each of the following pages you will find a download link labeled for Mac OS X Intel 10.5+
+Download the dmg file at the link, open it, and drag the folder named, for example,
+SDL.framework,  into /Library/Frameworks/
+
+https://www.libsdl.org/download-1.2.php
+https://www.libsdl.org/projects/SDL_image/release-1.2.html
+https://www.libsdl.org/projects/SDL_mixer/release-1.2.html
+https://www.libsdl.org/projects/SDL_ttf/release-1.2.html
+
+If you have done this correctly, /Library/Frameworks will have added to it folders named
+
+SDL.framework
+SDL_image.framework
+SDL_mixer.framework
+SDL_ttf.framework
+
+Once Homebrew and the SDL frameworks are installed, download the file enigma-game.rb from
 the Enigma web site and place it in directory /usr/local/Library/Formula/
-which is where the Hmebrew formula files are stored.
+which is where the Homebrew formula files are stored.
 
 Then to build Enigma run the command
 
- brew -v install enigmagame
+ brew -v install enigma-game
 
 That will download, build, and install all the prerequisites and if all
 goes well will create the file /usr/local/share/enigma.dmg
+
+Build Options:
+
+Type the command
+
+ brew options enigma-game
+
+to see the options that are available for the build.
+
+To build the latest development snapshot, use the option --HEAD
+
+To construct the level preview images at build time and store them in the application bundle so
+that user's computer does not have to build each one the first time each level is run, use the
+option --make-preview. This option will take some time to run as it generates each level image.
+
+For example, to build the development version and include the previews, run the command
+
+ brew -v install enigma-game --HEAD --make-preview
+
+To build Enigma again, for example to build it with a different set of options, first run the command
+
+ brew remove enigma-game
