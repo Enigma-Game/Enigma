@@ -310,8 +310,11 @@ void Surface::blit (const GS &gs, int x, int y, const Surface* s, const Rect &r_
 }
 
 void Surface::blit (const GS &gs, int x, int y, const Surface* src) {
-    assert (src != 0);
-    blit (gs, x, y, src, src->size());
+    //assert (src != 0);
+    if(src != 0)
+    {
+        blit (gs, x, y, src, src->size());
+    }
 }
 
 void Surface::set_color_key (int r, int g, int b) {
