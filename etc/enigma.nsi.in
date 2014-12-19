@@ -31,6 +31,7 @@
   Name "${NAME} ${VERSION}"
   OutFile "Enigma-${VERSION}.exe"
   SetCompressor /SOLID lzma
+  Unicode true
 
   ;Default installation folder
   InstallDir "$PROGRAMFILES\Enigma"

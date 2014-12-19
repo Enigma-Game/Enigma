@@ -13,7 +13,7 @@
   !insertmacro MUI_LANGUAGE "Danish"
   !insertmacro MUI_LANGUAGE "Belarusian"
   !insertmacro MUI_LANGUAGE "Czech"
-  !insertmacro MUI_LANGUAGE "Gaelic"
+;  !insertmacro MUI_LANGUAGE "Gaelic"
 ;  !insertmacro MUI_LANGUAGE "Greek"
 ;  !insertmacro MUI_LANGUAGE "Croatian"
 ;  !insertmacro MUI_LANGUAGE "Slovak"
