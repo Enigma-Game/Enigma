@@ -21,10 +21,10 @@ cd po
 make update-gmo
 cd ..
 su
-make install
 # If possible, remove prior installation of Enigma in /usr/local/share/enigma
 # to make sure that only the newest levels and previews are copied in the
 # next steps.
+make install
 ./enigma --makepreview
 # Write down where the previews are generated, say /usr/local/share/enigma.
 # Make sure you have read-access to this directory as ordinary user.
@@ -54,10 +54,11 @@ make dist
 # Create a separate working copy of the trunk and update it.
 ./autogen.sh
 cd etc
+chmod u+x mxe-configure.sh
 ./mxe-configure.sh
 ..
 make
-cd pot
+cd po
 make update-gmo
 cd ..
 # We assume that previews have been generated in /usr/local/share/enigma.
