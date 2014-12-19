@@ -1,0 +1,109 @@
+This document gives a short guide/checklist to releasing Enigma.
+
+
+  STEP 1  -  Preparations
+
+Increase the version number everywhere.
+Update the CHANGES-file.
+Update contributors' lists:
+  gui/MainMenu.cc
+  doc/manual/*.texi
+  homepage -> input/credits*.html
+
+
+  STEP 2  -  Make for Linux
+
+# Create a separate working copy of the trunk and update it.
+./autogen.sh
+./configure
+make
+cd po
+make update-gmo
+cd ..
+su
+make install
+# If possible, remove prior installation of Enigma in /usr/local/share/enigma
+# to make sure that only the newest levels and previews are copied in the
+# next steps.
+./enigma --makepreview
+# Write down where the previews are generated, say /usr/local/share/enigma.
+# Make sure you have read-access to this directory as ordinary user.
+exit
+# The previews should be named
+#   LEVEL-60x39.png
+#   LEVEL-120x78.png
+#   LEVEL-160x104.png
+# If you find a file named
+#   LEVEL.png
+# without extension, remove it; it's from a prior version of Enigma.
+# If neccessary: alias cp='cp'
+cp -R --force /usr/local/share/enigma/levels data/
+# This merges the created previews into the data-directory.
+
+
+  STEP 3  -  Package for Linux
+
+make dist
+# This sets up ./enigma-VERSION.tar.gz, including previews.
+# You may distribute it this way (e.g. upload it to Sourceforge).
+
+
+  STEP 4  -  Make for Windows (with MXE)
+
+# Set up a working M cross environment (MXE).
+# Create a separate working copy of the trunk and update it.
+./autogen.sh
+cd etc
+./mxe-configure.sh
+..
+make
+cd pot
+make update-gmo
+cd ..
+# We assume that previews have been generated in /usr/local/share/enigma.
+cp -R --force /usr/local/share/enigma/levels data/
+
+
+  STEP 5  -  Package for Windows
+
+# Copy the following files to ./etc:
+#   jpeg.dll
+#   libcurl-4.dll
+#   libfreetype-6.dll
+#   libogg-0.dll
+#   libpng12-0.dll
+#   libvorbis-0.dll
+#   libvorbisfile-3.dll
+#   mikmod.dll
+#   SDL.dll
+#   SDL_image.dll
+#   SDL_mixer.dll
+#   SDL_ttf.dll
+#   zlib1.dll
+cd etc
+./mingw32-dist.sh
+# This sets up etc/Enigma-w32-VERSION.zip, with previews.
+# Use the Nullsoft Installer, and give it etc/enigma.nsi to process,
+# this generates the Autoinstaller Enigma-VERSION.exe.
+# Distribute it.
+
+
+  STEP 6  -  Make and package for MacOS
+
+See README.macosx.
+
+
+  STEP 7  -  Update Sourceforge
+
+Update Sourceforge to acknowledge the newly uploaded files.
+
+
+  STEP 8  -  Tell everyone
+
+Send a message to the enigma-announce-list.
+Post a message on mag-heut.net.
+Post a message at the Yahoo-Oxyd-Group.
+Post the news on the Enigma homepage.
+
+
+
