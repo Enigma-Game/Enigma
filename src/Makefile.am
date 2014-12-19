@@ -561,6 +561,8 @@ bundle-doc:
 	mkalias -r $(bundle_doc)/index.html $(bundle_root)/EnigmaDocs.html
 	cp $(top_builddir)/doc/gpl.txt $(bundle_doc)/
 	cp $(top_builddir)/doc/lgpl.txt $(bundle_doc)/
+	cp $(top_builddir)/doc/README.mingw32 $(bundle_doc)/
+	cp $(top_builddir)/doc/README.macosx $(bundle_doc)/
 	cp $(top_builddir)/doc/images/enigma.css $(bundle_doc)/images/
 	cp $(top_builddir)/doc/images/nav_enigma.gif $(bundle_doc)/images/
 	cp $(top_builddir)/doc/images/nav_cornerul.gif $(bundle_doc)/images/
