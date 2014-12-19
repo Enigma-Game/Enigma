@@ -3,16 +3,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Gabe Stilez <zorg@atw.hu>, 2014
 # Máté Lehel Juhász <jmatel@cs.elte.hu>, 2005-2007
-# shadowphrogg32642342, 2013
+# shadowphrogg32642342, 2013-2014
 # Zoltan Hoppár <zoltanh721@fedoraproject.org>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-03-15 23:09+0000\n"
-"Last-Translator: M T <michtrz@gmail.com>\n"
+"PO-Revision-Date: 2014-10-30 04:50+0000\n"
+"Last-Translator: Gabe Stilez <zorg@atw.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/enigma/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,7 +152,7 @@ msgstr "Lassabb, mint  "
 
 #: src/client.cc:709
 msgid "You are slow today ... Ctrl-A"
-msgstr ""
+msgstr "Ma lassú vagy ... Ctrl-A"
 
 #: src/client.cc:786
 msgid "Exactly the world record of "
@@ -1820,7 +1821,7 @@ msgstr ""
 msgid ""
 "BEFORE ME NOTHING WAS BUT THINGS ETERNAL, / AND I ENDURE ETERNALLY. / "
 "ABANDON ALL HOPE, YOU WHO ENTER HERE."
-msgstr ""
+msgstr "ÉN NEM VAGYOK EGYKORU SEMMI LÉNNYEL, / CSUPÁN ÖRÖKKEL; S ÉN ÖRÖKKÖN ÁLLOK. / KI ITT BELÉPSZ, HAGYJ FEL MINDEN REMÉNNYEL!"
 
 #: po/level_i18n.cc:1330
 msgid ""
@@ -1836,7 +1837,7 @@ msgid ""
 "It cannot be -- only the dead may enter this place.  Quickly -- sacrifice a "
 "symbol of life on that altar to keep the guards at bay, and then perhaps I "
 "will consider taking you across."
-msgstr ""
+msgstr "Kharón vagyok, az alvilág révésze. Átvihetlek Akherón veszélyes mocsarain, de az ár magas... Várj, élőnek tűnsz!... Dehát csak a halottak léphetnek be ide. Gyorsan áldozd fel az élet jelképét az oltáron, hogy távol tartsd az őrzőket, utána meggondolom, átvigyelek-e."
 
 #: po/level_i18n.cc:1334
 msgid ""
@@ -1865,7 +1866,7 @@ msgstr ""
 msgid ""
 "You cannot be here!  I, Minos, judger of the dead, will not allow it.  Go "
 "back now, or forever face the consequences!"
-msgstr ""
+msgstr "Nem lehetsz itt! Én, Minósz, a holtak bírája, nem engedem! Fordulj vissza most, vagy viseld a következményeket örökké!"
 
 #: po/level_i18n.cc:1343
 msgid "In that case, then begone!"
@@ -2257,7 +2258,7 @@ msgstr ""
 
 #: po/level_i18n.cc:1620
 msgid "5, 8, or 10 seconds?"
-msgstr ""
+msgstr "5, 8 vagy 10 másodperc?"
 
 #: po/level_i18n.cc:1624
 msgid ""
@@ -2623,7 +2624,7 @@ msgstr "Megmenekülsz a felnégyeléstől, ha elejted a kanalat!"
 
 #: po/level_i18n.cc:2196
 msgid "One-Way Woods"
-msgstr ""
+msgstr "Egyirányú Fenyvesek"
 
 #: po/level_i18n.cc:2197
 msgid "Recycling by Swapping"
@@ -2647,7 +2648,7 @@ msgstr "A kulcsok balról jobbra: ÉK, ÉNy, DK, DNy."
 
 #: po/level_i18n.cc:2232
 msgid "Useful unsuccessful drillings"
-msgstr ""
+msgstr "Hasznos sikertelen fúrások"
 
 #: po/level_i18n.cc:2237
 msgid "Procrustes"
@@ -2791,7 +2792,7 @@ msgstr "A dzsungelben lődörögve"
 
 #: po/level_i18n.cc:2445
 msgid "Hey, where am i now?"
-msgstr ""
+msgstr "Hé, hol vagyok most?"
 
 #: po/level_i18n.cc:2447
 msgid ""
@@ -2951,7 +2952,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2604
 msgid "piazza san marco"
-msgstr ""
+msgstr "Szent Márk tér"
 
 #: po/level_i18n.cc:2606
 msgid "danger"
@@ -3122,7 +3123,7 @@ msgstr ""
 
 #: po/level_i18n.cc:2802
 msgid "Careful."
-msgstr ""
+msgstr "Óvatosan."
 
 #: po/level_i18n.cc:2807
 msgid "Jack-Of-All-Trades"
@@ -3924,7 +3925,7 @@ msgstr "Figyeld meg, mi történik, ha ráállsz a pedálokra.  Meg tudod szerez
 msgid ""
 "That's dynamite.  Try dropping some next to that yellowish wall (and moving "
 "out of the way)."
-msgstr "Az egy rúd dinamit.  Ejts le párat a sárgás fal mellé (és menj el az útból)!"
+msgstr "Ez itt dinamit. Tegyél le párat a sárga fal mellé (és menj el az útból)!"
 
 #: po/level_i18n.cc:4265
 msgid "Try using the spade on the holes caused by the dynamite."
@@ -4188,7 +4189,7 @@ msgstr ""
 
 #: po/level_i18n.cc:4473
 msgid "Only A Labyrinth"
-msgstr ""
+msgstr "Csak Egy Labirintus"
 
 #: po/level_i18n.cc:4491
 msgid "Number Crunching"

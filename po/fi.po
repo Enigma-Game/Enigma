@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"PO-Revision-Date: 2014-11-04 04:00+0000\n"
 "Last-Translator: Lasse Liehu <larso@gmx.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/enigma/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -270,7 +270,7 @@ msgstr "Lopeta"
 
 #: src/gui/MainMenu.cc:66 src/gui/MainMenu.cc:380 src/gui/LevelPackMenu.cc:66
 msgid "Start Game"
-msgstr "Aloita Peli"
+msgstr "Aloita peli"
 
 #: src/gui/MainMenu.cc:67
 msgid "Join Game"
@@ -323,7 +323,7 @@ msgstr "GNU General Public License V.2 ehtojen alla."
 
 #: src/gui/MainMenu.cc:124
 msgid "Copyright (C) 2002-2014 Daniel Heck and contributors."
-msgstr ""
+msgstr "Copyright © 2002–2014 Daniel Heck ja avustajat."
 
 #: src/gui/MainMenu.cc:126
 msgid "Main developers of all releases:"
@@ -383,7 +383,7 @@ msgstr "Lähdepolut:"
 
 #: src/gui/MainMenu.cc:349
 msgid "L10n Path:"
-msgstr "Kielenkääntämispolku:"
+msgstr "Käännösten polku:"
 
 #: src/gui/MainMenu.cc:381 src/gui/LevelMenu.cc:49
 msgid "Level Pack"
@@ -399,7 +399,7 @@ msgstr "Asetukset"
 
 #: src/gui/MainMenu.cc:387
 msgid "Update"
-msgstr "Päivitä Pakka"
+msgstr "Päivitä pakka"
 
 #: src/gui/MainMenu.cc:389
 msgid "Help"
@@ -445,7 +445,7 @@ msgstr "mono"
 
 #: src/gui/OptionsMenu.cc:254
 msgid "normal"
-msgstr "normaali"
+msgstr "tavallinen"
 
 #: src/gui/OptionsMenu.cc:297 src/gui/LevelInspector.cc:339
 #: src/gui/LevelInspector.cc:355 src/gui/LevelInspector.cc:369
@@ -454,7 +454,7 @@ msgstr "tuntematon"
 
 #: src/gui/OptionsMenu.cc:407
 msgid "Main"
-msgstr "Päävalikko"
+msgstr "Pääsivu"
 
 #: src/gui/OptionsMenu.cc:409
 msgid "Video"
@@ -466,13 +466,13 @@ msgstr "Audio"
 
 #: src/gui/OptionsMenu.cc:413
 msgid "Config"
-msgstr "Konfiguraatio"
+msgstr "Muut"
 
 #: src/gui/OptionsMenu.cc:434 src/gui/LevelPackComposer.cc:121
 #: src/gui/LevelPackConfig.cc:345 src/gui/LPGroupConfig.cc:102
 #: src/gui/LevelInspector.cc:177 src/gui/HelpMenu.cc:36
 msgid "Ok"
-msgstr "Ok"
+msgstr "OK"
 
 #: src/gui/OptionsMenu.cc:487 src/gui/OptionsMenu.cc:518
 msgid "Language: "
@@ -480,11 +480,11 @@ msgstr "Kieli: "
 
 #: src/gui/OptionsMenu.cc:488 src/gui/OptionsMenu.cc:504
 msgid "Fullscreen: "
-msgstr "Kokonäyttö: "
+msgstr "Koko näyttö: "
 
 #: src/gui/OptionsMenu.cc:489 src/gui/OptionsMenu.cc:506
 msgid "Video mode: "
-msgstr "Resoluutio: "
+msgstr "Tarkkuus: "
 
 #: src/gui/OptionsMenu.cc:490 src/gui/OptionsMenu.cc:519
 msgid "Mouse speed: "
@@ -492,7 +492,7 @@ msgstr "Hiiren nopeus: "
 
 #: src/gui/OptionsMenu.cc:491 src/gui/OptionsMenu.cc:513
 msgid "Sound volume: "
-msgstr "Äänenvoimakkuus: "
+msgstr "Äänten voimakkuus: "
 
 #: src/gui/OptionsMenu.cc:492 src/gui/OptionsMenu.cc:514
 msgid "Music volume: "
@@ -552,7 +552,7 @@ msgstr "Hyppää päävalikkoon"
 
 #: src/gui/LevelMenu.cc:196
 msgid "Update levelpack"
-msgstr "Päivitä Pakka"
+msgstr "Päivitä pakka"
 
 #: src/gui/LevelMenu.cc:197
 msgid "Arrows:"
@@ -588,7 +588,7 @@ msgstr "Alt+Return:"
 
 #: src/gui/LevelMenu.cc:202
 msgid "Switch between fullscreen and window"
-msgstr "Vaihda kokonäytön ja ikkunaruudun välillä"
+msgstr "Vaihda koko näytön ja ikkunan välillä"
 
 #: src/gui/LevelMenu.cc:203 src/gui/LevelPackMenu.cc:48
 msgid "Left click:"
@@ -735,7 +735,7 @@ msgstr "Siirrä leikepöydän tasoja"
 #: src/gui/LevelPackComposer.cc:120 src/gui/LevelPackConfig.cc:344
 #: src/gui/LPGroupConfig.cc:101 src/gui/SearchMenu.cc:59
 msgid "Undo"
-msgstr "Peruuta"
+msgstr "Peru"
 
 #: src/gui/LevelPackComposer.cc:362
 #, c-format
@@ -764,7 +764,7 @@ msgstr "[All Packs] ryhmässä:"
 
 #: src/gui/LevelPackConfig.cc:235
 msgid "Edit Metadata"
-msgstr "Muokkaa Lähdetietoja"
+msgstr "Muokkaa metatietoja"
 
 #: src/gui/LevelPackConfig.cc:239
 msgid "Release:"
@@ -792,17 +792,17 @@ msgstr ""
 
 #: src/gui/LevelPackConfig.cc:338
 msgid "Compose Pack"
-msgstr "Muodosta Pakka"
+msgstr "Muodosta pakka"
 
 #: src/gui/LevelPackConfig.cc:340
 msgid "Update Pack"
-msgstr "Päivitä Pakka"
+msgstr "Päivitä pakka"
 
 #: src/gui/LevelPackConfig.cc:419
 msgid ""
 "Error: empty title not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Virhe: tyhjä nimi ei ole sallittua - paina \"Peruuta\" poistuaaksesi ilman muokkauksia"
+msgstr "Virhe: tyhjää nimeä ei sallita – paina ”Peru” poistuaksesi ilman muutoksia"
 
 #: src/gui/LevelPackConfig.cc:432
 msgid "Error: use only \"a-zA-Z0-9 _-#\" for levelpack title"
@@ -838,7 +838,7 @@ msgstr "Muotoile ryhmää tai tasopakkaa"
 
 #: src/gui/LevelPackMenu.cc:64
 msgid "New Group"
-msgstr "Uusi Ryhmä"
+msgstr "Uusi ryhmä"
 
 #: src/gui/LevelPackMenu.cc:65 src/gui/SearchMenu.cc:60
 msgid "Search"
@@ -850,17 +850,17 @@ msgstr "Sijainti:"
 
 #: src/gui/LPGroupConfig.cc:99
 msgid "New Pack"
-msgstr "Uusi Pakka"
+msgstr "Uusi pakka"
 
 #: src/gui/LPGroupConfig.cc:100
 msgid "Delete Group"
-msgstr "Poista Ryhmä"
+msgstr "Poista ryhmä"
 
 #: src/gui/LPGroupConfig.cc:130
 msgid ""
 "Error: empty group name not allowed - press \"Undo\" to exit without "
 "modifications"
-msgstr "Virhe: tyhjä ryhmännimi ei ole sallittua - paina \"Peruuta\"poistuakseen ilman muokkauksia"
+msgstr "Virhe: tyhjää ryhmän nimeä ei sallita – paina ”Peru” poistuaksesi ilman muutoksia"
 
 #: src/gui/LPGroupConfig.cc:141
 msgid "Error: group name is a duplicate of an existing group"
@@ -896,7 +896,7 @@ msgstr "Näytä seuraava kuvankaappaus"
 
 #: src/gui/ScreenshotViewer.cc:107
 msgid "No screenshot available:"
-msgstr "Ei kuvankaappausta vapaana:"
+msgstr "Kuvankaappaus ei saatavilla:"
 
 #: src/gui/SearchMenu.cc:41
 msgid "Shallow Search:"
@@ -929,7 +929,7 @@ msgstr "Kotisivu: "
 
 #: src/gui/LevelInspector.cc:256
 msgid "Public Ratings"
-msgstr "Julkiset Arvostelut"
+msgstr "Julkiset arvostelut"
 
 #: src/gui/LevelInspector.cc:258
 msgid "Intelligence: "
@@ -1051,7 +1051,7 @@ msgstr "siirrot"
 
 #: src/gui/LevelInspector.cc:393
 msgid "World Record Holders: "
-msgstr "Ennätyksen Haltijat: "
+msgstr "Ennätyksen haltijat: "
 
 #: src/gui/LevelInspector.cc:454
 msgid "Credits: "
@@ -1063,7 +1063,7 @@ msgstr "Osoitettu: "
 
 #: src/gui/LevelInspector.cc:476
 msgid "Level Path: "
-msgstr "Tasopolku: "
+msgstr "Tason polku: "
 
 #: src/gui/LevelInspector.cc:498
 msgid "Id: "
@@ -1087,23 +1087,23 @@ msgstr "Arvostelu: "
 
 #: src/gui/LevelInspector.cc:520
 msgid "Average: "
-msgstr "Keskimäärä: "
+msgstr "Keskiarvo: "
 
 #: src/gui/GameMenu.cc:47
 msgid "Resume Level"
-msgstr "Jatka Tasoa"
+msgstr "Jatka tasoa"
 
 #: src/gui/GameMenu.cc:48
 msgid "Restart Level"
-msgstr "Aloita Uudelleen"
+msgstr "Aloita alusta"
 
 #: src/gui/GameMenu.cc:50
 msgid "Level Info"
-msgstr "Tasotiedot"
+msgstr "Tason tiedot"
 
 #: src/gui/GameMenu.cc:51
 msgid "Abort Level"
-msgstr "Hylkää Taso"
+msgstr "Hylkää taso"
 
 #: src/lev/Proxy.cc:204
 msgid "Error on auto registration of levelfile: "

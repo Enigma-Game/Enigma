@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Enigma\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-03-15 03:42+0100\n"
-"PO-Revision-Date: 2014-07-30 21:11+0000\n"
+"PO-Revision-Date: 2014-10-27 12:11+0000\n"
 "Last-Translator: GunChleoc\n"
 "Language-Team: Gaelic, Scottish (http://www.transifex.com/projects/p/enigma/language/gd/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Gnìomhaich/leig tuiteam an nì as fhaide clì san tasgadh"
 
 #: src/client.cc:518
 msgid "Right mouse button:"
-msgstr "Putan deas na luchaige:"
+msgstr "Putan deas na luchaige: "
 
 #: src/client.cc:518
 msgid "Rotate inventory items"
@@ -63,7 +63,7 @@ msgstr "Seall clàr-taice a’ gheama"
 
 #: src/client.cc:520
 msgid "Shift+Escape:"
-msgstr "Shift+Escape:"
+msgstr "Shift+Escape: "
 
 #: src/client.cc:520
 msgid "Quit game immediately"
@@ -79,7 +79,7 @@ msgstr "Seall a’ chobhair seo"
 
 #: src/client.cc:522
 msgid "F3:"
-msgstr "F3:"
+msgstr "F3: "
 
 #: src/client.cc:522
 msgid "Kill current marble"
@@ -204,11 +204,11 @@ msgstr "Pacaid enigma %s – leibheil %d: %s"
 
 #: src/client.cc:879
 msgid "Your record: "
-msgstr "An sàr-thoradh agad:"
+msgstr "An sàr-thoradh agad: "
 
 #: src/client.cc:881
 msgid "World record to beat: "
-msgstr "Sàr-thoradh an t-saoghail ri bhriseadh:"
+msgstr "Sàr-thoradh an t-saoghail ri bhriseadh: "
 
 #: src/main.cc:344
 #, c-format
@@ -511,7 +511,7 @@ msgstr "Far-ainm: "
 
 #: src/gui/OptionsMenu.cc:507
 msgid "Gamma correction: "
-msgstr "Ceartachadh gamma:"
+msgstr "Ceartachadh gamma: "
 
 #: src/gui/OptionsMenu.cc:510
 msgid "Sound set: "
@@ -519,11 +519,11 @@ msgstr "Seata fhuaimean:"
 
 #: src/gui/OptionsMenu.cc:511
 msgid "Menu music: "
-msgstr "Ceòl a’ chlàir-thaice:"
+msgstr "Ceòl a’ chlàir-thaice: "
 
 #: src/gui/OptionsMenu.cc:512
 msgid "Music ingame: "
-msgstr "Ceòl sa gheama:"
+msgstr "Ceòl sa gheama: "
 
 #: src/gui/OptionsMenu.cc:515
 msgid "Stereo: "
@@ -531,15 +531,15 @@ msgstr "Stereo: "
 
 #: src/gui/OptionsMenu.cc:520
 msgid "Text speed: "
-msgstr "Luaths an teacsa:"
+msgstr "Luaths an teacsa: "
 
 #: src/gui/OptionsMenu.cc:530
 msgid "User path: "
-msgstr "Slighe a’ chleachdaiche:"
+msgstr "Slighe a’ chleachdaiche: "
 
 #: src/gui/OptionsMenu.cc:533
 msgid "User image path: "
-msgstr "Slighe dealbhan a’ chleachdaiche:"
+msgstr "Slighe dealbhan a’ chleachdaiche: "
 
 #: src/gui/LevelMenu.cc:47 src/gui/LevelPackMenu.cc:67
 msgid "Main Menu"
@@ -635,7 +635,7 @@ msgstr "%d%% air fhuasgladh"
 
 #: src/gui/LevelMenu.cc:370
 msgid "Your time: "
-msgstr "An ùine agad:"
+msgstr "An ùine agad: "
 
 #: src/gui/LevelMenu.cc:375
 msgid "That's world record."
@@ -648,16 +648,16 @@ msgstr "Seo %s fo shàr-thoradh an t-saoghail."
 
 #: src/gui/LevelMenu.cc:386 src/gui/LevelMenu.cc:389
 msgid "World record: "
-msgstr "Sàr-thoradh an t-saoghail:"
+msgstr "Sàr-thoradh an t-saoghail: "
 
 #: src/gui/LevelMenu.cc:388 src/gui/LevelMenu.cc:405
 msgid "Par: "
-msgstr "Pàr:"
+msgstr "Pàr: "
 
 #: src/gui/LevelMenu.cc:402 src/gui/LevelMenu.cc:406
 #, c-format
 msgid "World record by %s: "
-msgstr "Sàr-thoradh an t-saoghail le %s:"
+msgstr "Sàr-thoradh an t-saoghail le %s: "
 
 #: src/gui/LevelMenu.cc:438
 msgid "No further unsolved level available!"
@@ -867,7 +867,7 @@ msgstr "Mearachd: tha an t-ainm seo air buidheann eile mar-thà"
 
 #: src/gui/LPGroupConfig.cc:146
 msgid "Error: \"Every group\" is a reserved group name"
-msgstr "Mearachd; ’s e ainm glèidhte a tha sa “Every group”"
+msgstr "Mearachd: ’s e ainm glèidhte a tha sa “Every group”"
 
 #: src/gui/LPGroupConfig.cc:151
 msgid "Error: group name must not be enclosed in square brackets"
@@ -912,19 +912,19 @@ msgstr "Glacadh-sgrìn"
 
 #: src/gui/LevelInspector.cc:231
 msgid "Level: "
-msgstr "Leibheil:"
+msgstr "Leibheil: "
 
 #: src/gui/LevelInspector.cc:233 src/gui/LevelInspector.cc:291
 msgid "Author: "
-msgstr "Ùghdar:"
+msgstr "Ùghdar: "
 
 #: src/gui/LevelInspector.cc:234
 msgid "Contact: "
-msgstr "Fios thuige:"
+msgstr "Fios thuige: "
 
 #: src/gui/LevelInspector.cc:235
 msgid "Homepage: "
-msgstr "Duilleag-lìn:"
+msgstr "Duilleag-lìn: "
 
 #: src/gui/LevelInspector.cc:256
 msgid "Public Ratings"
@@ -932,27 +932,27 @@ msgstr "Rangachadh"
 
 #: src/gui/LevelInspector.cc:258
 msgid "Intelligence: "
-msgstr "Innleachd:"
+msgstr "Innleachd: "
 
 #: src/gui/LevelInspector.cc:259
 msgid "Dexterity: "
-msgstr "Teòmachd:"
+msgstr "Teòmachd: "
 
 #: src/gui/LevelInspector.cc:260
 msgid "Patience: "
-msgstr "Foighidinn:"
+msgstr "Foighidinn: "
 
 #: src/gui/LevelInspector.cc:261
 msgid "Knowledge: "
-msgstr "Eòlas:"
+msgstr "Eòlas: "
 
 #: src/gui/LevelInspector.cc:262
 msgid "Speed: "
-msgstr "Luaths:"
+msgstr "Luaths: "
 
 #: src/gui/LevelInspector.cc:263
 msgid "Difficulty: "
-msgstr "Duilgheas:"
+msgstr "Duilgheas: "
 
 #: src/gui/LevelInspector.cc:284
 msgid "Scores"
@@ -960,21 +960,21 @@ msgstr "Sgòran"
 
 #: src/gui/LevelInspector.cc:287
 msgid "You: "
-msgstr "Thu fhèin:"
+msgstr "Thu fhèin: "
 
 #: src/gui/LevelInspector.cc:288
 msgid "World: "
-msgstr "An saoghal:"
+msgstr "An saoghal: "
 
 #. TRANSLATORS: PAR = professional average rate - an expression used by
 #. golfers
 #: src/gui/LevelInspector.cc:290
 msgid "PAR: "
-msgstr "PÀR:"
+msgstr "PÀR: "
 
 #: src/gui/LevelInspector.cc:292
 msgid "Solved %: "
-msgstr "% air fhuasgladh: "
+msgstr "% fuasgailte: "
 
 #: src/gui/LevelInspector.cc:293
 msgid "Solved #: "
@@ -986,27 +986,27 @@ msgstr "Tionndadh"
 
 #: src/gui/LevelInspector.cc:318
 msgid "Score: "
-msgstr "Sgòr:"
+msgstr "Sgòr: "
 
 #: src/gui/LevelInspector.cc:320 src/gui/LevelInspector.cc:324
 msgid "Status: "
-msgstr "Staid:"
+msgstr "Staid: "
 
 #: src/gui/LevelInspector.cc:321
 msgid "Release: "
-msgstr "Sgaoileadh:"
+msgstr "Sgaoileadh: "
 
 #: src/gui/LevelInspector.cc:322
 msgid "Revision: "
-msgstr "Lèirmheas:"
+msgstr "Lèirmheas: "
 
 #: src/gui/LevelInspector.cc:325
 msgid "Control: "
-msgstr "Smachd:"
+msgstr "Smachd: "
 
 #: src/gui/LevelInspector.cc:326
 msgid "Target: "
-msgstr "Amas:"
+msgstr "Amas: "
 
 #: src/gui/LevelInspector.cc:333 src/gui/LevelInspector.cc:349
 msgid "stable"
@@ -1050,7 +1050,7 @@ msgstr "gluasadan"
 
 #: src/gui/LevelInspector.cc:393
 msgid "World Record Holders: "
-msgstr "Curaidhean an t-saoghail:"
+msgstr "Curaidhean an t-saoghail: "
 
 #: src/gui/LevelInspector.cc:454
 msgid "Credits: "
@@ -1106,7 +1106,7 @@ msgstr "Sguir dhen leibheil"
 
 #: src/lev/Proxy.cc:204
 msgid "Error on auto registration of levelfile: "
-msgstr "Mearachd le clàradh fèin-obrachail aig faidhle an leibheil:"
+msgstr "Mearachd le clàradh fèin-obrachail aig faidhle an leibheil: "
 
 #: src/lev/Proxy.cc:206
 msgid ""
