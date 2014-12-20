@@ -1,3 +1,22 @@
+Changes in Version 1.21
+=======================
+
+User-Visible changes
+--------------------
+
+    - New translations: Croatian, Czech, Danish, Scottish-Gaelic, and Slovak
+    - updated remaining translations
+    - fixed many English typos
+    - Russian reference manual
+    - rollover for options and rating buttons
+    - 51 new Enigma levels (now a total of 984 main-pack levels, plus 21 tutorials)
+
+Internal changes
+----------------
+
+    - further rewrites of old-API levels to new API (only 212 old-API left)
+    - many bug fixes
+
 Changes in Version 1.20
 =======================
 
@@ -150,7 +169,7 @@ User-Visible changes
 
     - Ice is working again
     - Cannonballs are working again
-    - Spanish translation (thanks to Samuel Elías Martínez �?lvarez)
+    - Spanish translation (thanks to Samuel Elías Martínez Álvarez)
     - New application icon on Windows (thanks to Tobias Schmidbauer)
 
 
