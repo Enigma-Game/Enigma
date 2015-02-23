@@ -3,7 +3,7 @@
   <el:protected >
     <el:info el:type="level">
       <el:identity el:title="Per.Oxyd 76" el:subtitle="Per.Oxyd 76" el:id="20080109ulf028"/>
-      <el:version el:score="1" el:release="2" el:revision="104" el:status="released"/>
+      <el:version el:score="1" el:release="2" el:revision="105" el:status="released"/>
       <el:author el:name="Ulf Stegemann" el:email="ulf-enigma@zeitform.de" el:homepage="http://ulf.zeitform.de"/>
       <el:copyright>Copyright © 2008 Ulf Stegemann</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
@@ -21,7 +21,7 @@ ti[" "] = {"fl_samba"}
 ti["~"] = {"fl_water"}
 ti["#"] = {"st_ancient"}
 ti["I"] = {"st_invisible"}
-ti["="] = cond(wo["IsDifficult"], ti["I"], ti["#"])
+ti["="] = cond(wo["IsDifficult"], ti[" "], ti["#"])
 ti["-"] = cond(wo["IsDifficult"], ti["I"], ti[" "])
 ti["P"] = {"st_puzzle", intensity=0, cluster=1}
 ti["s"] = ti["I"].. {"it_spring"}
