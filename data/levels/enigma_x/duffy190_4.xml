@@ -3,11 +3,11 @@
   <el:protected>
     <el:info el:type="level">
       <el:identity el:title="Even more Mess" el:subtitle="" el:id="duffy190"/>
-      <el:version el:score="2" el:release="3" el:revision="3" el:status="released"/>
+      <el:version el:score="3" el:release="4" el:revision="4" el:status="released"/>
       <el:author el:name="Jacob Scott" el:email="" el:homepage=""/>
       <el:copyright>Copyright © 2007 Jacob Scott</el:copyright>
       <el:license el:type="GPL v2.0 or above" el:open="true"/>
-      <el:compatibility el:enigma="1.10"/>
+      <el:compatibility el:enigma="1.20"/>
       <el:modes el:easy="false" el:single="true" el:network="false"/>
       <el:score el:easy="-" el:difficult="-"/>
     </el:info>
@@ -35,13 +35,13 @@ ti["."] = {"it_seed"}
 ti["b"] = {"it_bomb_black"}
 ti["o"] = {"it_meditation_dent"}
 ti["doors"] = {"st_door", flavor="a", name="door%%nr#"}
-ti["keystone"] = {"st_key", code=1, target="door%%nr#*"}
+ti["keystone"] = {"st_key", code="%%", target="door%%nr#*"}
 ti["trigger"] = {"it_trigger", target="@door%%nr#*", action="close"}
-ti["k"] = {"it_key", code=1}
+ti["keys"] = {"it_key", code="%%"}
 ti["O"] = {"st_oxyd"}
 ti["@"] = {"ac_marble_black", 0.0, 0.5}
 
-wo(res.autotile(ti, {"1", "4", "doors"}, {"K", "L", "keystone"}, {"t", "u", "trigger", 3}), " ", {
+wo(res.autotile(ti, {"1", "4", "doors"}, {"K", "L", "keystone"}, {"k", "l", "keys"}, {"t", "u", "trigger", 3}), " ", {
     "#IIIIIIIIIIIIIIIIII#",
     "#X%X*   >  <   *X%X#",
     "#XoXo####++####oXoX#",
@@ -53,7 +53,7 @@ wo(res.autotile(ti, {"1", "4", "doors"}, {"K", "L", "keystone"}, {"t", "u", "tri
     "# ++X# F3  3F #X++ #",
     "#+ + #X##11##X# + +#",
     "# + +#t##  ##t#+ + #",
-    "#ku  #B#O22O#B#  uk#",
+    "#ku  #B#O22O#B#  ul#",
     "####################"})
 
 function postinit()
