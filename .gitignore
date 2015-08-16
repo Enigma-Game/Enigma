@@ -1,6 +1,4 @@
 /+build
-/Makefile
-/Makefile.in
 /aclocal.m4
 /autom4te.cache
 /config.guess
@@ -12,3 +10,7 @@
 /install-sh
 /missing
 xcuserdata
+Makefile
+Makefile.in
+*.o
+*~
