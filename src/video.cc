@@ -49,63 +49,28 @@ using namespace ecl;
 using namespace video;
 using namespace enigma;
 
-namespace
-{
-    class Video_SDL {
-        SDL_Surface*    sdlScreen;
-        string          caption;
-        ecl::Screen*     screen;
-        bool            initialized;
-    public:
-        Video_SDL();
-        ~Video_SDL();
-
-        bool init(int w, int h, int bpp, bool fullscreen);
-        void toggle_fullscreen();
-        void set_fullscreen(bool on_off);
-        bool is_fullscreen() const;
-        void set_caption(const char *str);
-        const string& get_caption() const { return caption; }
-        ecl::Screen *get_screen() { return screen; }
-    };
-
-    class MouseCursor {
-    public:
-        MouseCursor ();
-        ~MouseCursor();
-
-        void set_image (ecl::Surface *s, int hotx_, int hoty_);
-        void move (int newx, int newy);
-        void redraw ();         // Redraw if position/image changed
-        void draw();            // Draw cursor if visible
-        void show ();
-        void hide ();
-        Rect get_rect() const;
-        Rect get_oldrect() const;
-
-	bool has_changed() { return changedp; }
-        int get_x() const { return x; }
-        int get_y() const { return y; }
-
-    private:
-        // Private methods
-        void grab_bg ();
-        void init_bg();
-        void restore_bg();
-
-        // Variables
-        Surface *background;    // Copy of screen contents behind cursor
-        Surface *cursor;        // Pixmap of the cursor
-
-        int      x, y;
-        int      oldx, oldy;
-        int      hotx, hoty;    // Coordinates of hotspot inside cursor image
-        int      visible;
-        bool     changedp;
-    };
-}
-
 /* -------------------- Video Engine -------------------- */
+
+namespace {
+
+class Video_SDL {
+    SDL_Surface *sdlScreen;
+    string caption;
+    ecl::Screen *screen;
+    bool initialized;
+
+public:
+    Video_SDL();
+    ~Video_SDL();
+
+    bool init(int w, int h, int bpp, bool fullscreen);
+    void toggle_fullscreen();
+    void set_fullscreen(bool on_off);
+    bool is_fullscreen() const;
+    void set_caption(const char *str);
+    const string &get_caption() const { return caption; }
+    ecl::Screen *get_screen() { return screen; }
+};
 
 Video_SDL::Video_SDL()
 : sdlScreen(0), 
@@ -113,11 +78,8 @@ Video_SDL::Video_SDL()
   initialized(false)
 {}
 
-Video_SDL::~Video_SDL() 
-{
+Video_SDL::~Video_SDL() {
     SDL_WM_GrabInput(SDL_GRAB_OFF);
-//     if (sdlScreen != 0 && fullScreen)
-//         SDL_WM_ToggleFullScreen(sdlScreen);
     delete screen;
 }
 
@@ -127,9 +89,7 @@ void Video_SDL::set_caption(const char *str) {
         SDL_WM_SetCaption(str, 0);
 }
 
-
-bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
-{
+bool Video_SDL::init(int w, int h, int bpp, bool fullscreen) {
 #ifndef MACOSX
     static bool firstInit = true;
     if (firstInit) {
@@ -169,14 +129,6 @@ bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
     screen = new Screen(sdlScreen);
     initialized = true;
 
-#if 0
-    // the Mac SDL port seems to ignore the following ShowCursor,
-    // so we just set the Cursor to be invisible.
-    SDL_Cursor *hiddenCursor=SDL_CreateCursor(NULL, NULL, 0, 0, 0, 0);
-    SDL_SetCursor(hiddenCursor);
-    SDL_FreeCursor(hiddenCursor);
-#endif
-    
     // Hack to hide the cursor after switching between
     // window/fullscreen mode.
     SDL_ShowCursor (SDL_ENABLE);
@@ -188,30 +140,63 @@ bool Video_SDL::init(int w, int h, int bpp, bool fullscreen)
     return true;
 }
 
-bool Video_SDL::is_fullscreen() const 
-{ 
+bool Video_SDL::is_fullscreen() const {
     if (sdlScreen)
-        return (sdlScreen->flags & SDL_FULLSCREEN) != 0; 
+        return (sdlScreen->flags & SDL_FULLSCREEN) != 0;
     return false;
 }
-
 
 void Video_SDL::set_fullscreen(bool on_off) {
     if (on_off != is_fullscreen())
         toggle_fullscreen();
 }
 
-void Video_SDL::toggle_fullscreen() 
-{
-    SDL_WM_ToggleFullScreen (sdlScreen);
+void Video_SDL::toggle_fullscreen() {
+    SDL_WM_ToggleFullScreen(sdlScreen);
 }
 
+}  // namespace
 
 /* -------------------- MouseCursor -------------------- */
 
-MouseCursor::MouseCursor ()
-: background(0), cursor(0)
-{
+namespace {
+
+class MouseCursor {
+public:
+    MouseCursor();
+    ~MouseCursor();
+
+    void set_image(ecl::Surface *s, int hotx_, int hoty_);
+    void move(int newx, int newy);
+    void redraw();  // Redraw if position/image changed
+    void draw();    // Draw cursor if visible
+    void show();
+    void hide();
+    Rect get_rect() const;
+    Rect get_oldrect() const;
+
+    bool has_changed() { return changedp; }
+    int get_x() const { return x; }
+    int get_y() const { return y; }
+
+private:
+    // Private methods
+    void grab_bg();
+    void init_bg();
+    void restore_bg();
+
+    // Variables
+    Surface *background;  // Copy of screen contents behind cursor
+    Surface *cursor;      // Pixmap of the cursor
+
+    int x, y;
+    int oldx, oldy;
+    int hotx, hoty;  // Coordinates of hotspot inside cursor image
+    int visible;
+    bool changedp;
+};
+
+MouseCursor::MouseCursor() : background(0), cursor(0) {
     oldx = oldy = 0;
     hotx = hoty = 0;
     visible = 0;
@@ -223,24 +208,23 @@ MouseCursor::~MouseCursor() {
     delete cursor;
 }
 
-void MouseCursor::set_image (ecl::Surface *s, int hx, int hy) {
+void MouseCursor::set_image(ecl::Surface *s, int hx, int hy) {
     delete cursor;
     cursor = s;
-    hotx   = hx;
-    hoty   = hy;
+    hotx = hx;
+    hoty = hy;
 
-    if (visible > 0) {
+    if (visible > 0)
         init_bg();
-    }
 }
 
-void MouseCursor::draw () {
+void MouseCursor::draw() {
     if (visible > 0) {
         grab_bg();
 
         GC gc(SCREEN->get_surface());
-        blit (gc, x-hotx, y-hoty, cursor);
-        SCREEN->update_rect (get_rect());
+        blit(gc, x - hotx, y - hoty, cursor);
+        SCREEN->update_rect(get_rect());
 
         changedp = false;
     }
@@ -248,14 +232,14 @@ void MouseCursor::draw () {
 
 void MouseCursor::redraw () {
     if (visible > 0 && changedp) {
-        restore_bg ();
+        restore_bg();
         draw();
     }
 }
 
 void MouseCursor::move(int newx, int newy) {
-    x        = newx;
-    y        = newy;
+    x = newx;
+    y = newy;
     changedp = true;
 }
 
@@ -276,48 +260,45 @@ void MouseCursor::hide () {
 }
 
 Rect MouseCursor::get_rect() const {
-    int scrx=x-hotx;
-    int scry=y-hoty;
-    return Rect(scrx,scry,cursor->width(), cursor->height());
+    int scrx = x - hotx;
+    int scry = y - hoty;
+    return Rect(scrx, scry, cursor->width(), cursor->height());
 }
 
 Rect MouseCursor::get_oldrect() const {
-    int scrx=oldx-hotx;
-    int scry=oldy-hoty;
-    return Rect(scrx,scry,cursor->width(), cursor->height());
+    int scrx = oldx - hotx;
+    int scry = oldy - hoty;
+    return Rect(scrx, scry, cursor->width(), cursor->height());
 }
 
 void MouseCursor::init_bg() {
-    assert (visible > 0);
-    assert (cursor != 0);
+    assert(visible > 0);
+    assert(cursor != 0);
 
-    if (background != 0) {
-        delete background;
-    }
-
-    background = ecl::MakeSurfaceLike (cursor->width(),
-                                      cursor->height(),
-                                      SCREEN->get_surface());
+    delete background;
+    background = ecl::MakeSurfaceLike(cursor->width(), cursor->height(), SCREEN->get_surface());
     grab_bg();
 }
 
-void MouseCursor::grab_bg () {
-    assert (background != 0);
+void MouseCursor::grab_bg() {
+    assert(background != 0);
 
     GC gc(background);
-    blit (gc, 0,0, SCREEN->get_surface(), get_rect());
+    blit(gc, 0, 0, SCREEN->get_surface(), get_rect());
 
-    oldx=x;
-    oldy=y;
+    oldx = x;
+    oldy = y;
 }
 
-void MouseCursor::restore_bg () {
+void MouseCursor::restore_bg() {
     if (background) {
         GC gc(SCREEN->get_surface());
-        blit (gc, oldx-hotx, oldy-hoty, background);
-        SCREEN->update_rect (get_oldrect());
+        blit(gc, oldx - hotx, oldy - hoty, background);
+        SCREEN->update_rect(get_oldrect());
     }
 }
+
+}  // namespace
 
 /* -------------------- Local Variables -------------------- */
 namespace
@@ -544,40 +525,36 @@ namespace
 
 /* -------------------- Auxiliary functions -------------------- */
 
-namespace
-{
-    bool vm_available (int w, int h, int &bpp, bool fullscreen)
-    {
-        Uint32 flags = SDL_HWSURFACE;
-        if (fullscreen)
-            flags |= SDL_FULLSCREEN;
+namespace {
 
-        int newbpp = SDL_VideoModeOK (w, h, bpp, flags);
-        if (newbpp != 0) {
-            bpp = newbpp;
-            return true;
-        }
-        return false;
+bool vm_available(int w, int h, int &bpp, bool fullscreen) {
+    Uint32 flags = SDL_HWSURFACE;
+    if (fullscreen)
+        flags |= SDL_FULLSCREEN;
+
+    int newbpp = SDL_VideoModeOK(w, h, bpp, flags);
+    if (newbpp != 0) {
+        bpp = newbpp;
+        return true;
     }
-
-/*! This function is installed as an event filter by video::Init.  It
-  intercepts mouse motions, which are used to update the position of
-  the mouse cursor (but passed on to the event queue) */
-    int event_filter(const SDL_Event *e)
-    {
-        if (e->type == SDL_MOUSEMOTION) {
-            cursor->move(e->motion.x, e->motion.y);
-            cursor->redraw();
-        }
-        return 1;
-    }
-
+    return false;
 }
+
+// This function is installed as an event filter by video::Init. It intercepts
+// mouse motions, which are used to update the position of the mouse cursor
+// (but passed on to the event queue).
+int event_filter(const SDL_Event *e) {
+    if (e->type == SDL_MOUSEMOTION) {
+        cursor->move(e->motion.x, e->motion.y);
+        cursor->redraw();
+    }
+    return 1;
+}
+
+}  // namespace
 
 
 /* -------------------- Functions -------------------- */
-
-
 
 void video::SetMouseCursor(ecl::Surface *s, int hotx, int hoty) {
     cursor->set_image(s, hotx, hoty);
@@ -604,39 +581,32 @@ int video::Mousey() {
 
 /* -------------------- Input grabbing -------------------- */
 
-
-TempInputGrab::TempInputGrab (bool onoff)
-{
-    old_onoff = SetInputGrab (onoff);
+TempInputGrab::TempInputGrab(bool onoff) {
+    old_onoff = SetInputGrab(onoff);
 }
 
-TempInputGrab::~TempInputGrab()
-{
-    SetInputGrab (old_onoff);
+TempInputGrab::~TempInputGrab() {
+    SetInputGrab(old_onoff);
 }
 
-bool video::GetInputGrab()
-{
-    return SDL_WM_GrabInput (SDL_GRAB_QUERY) == SDL_GRAB_ON;
+bool video::GetInputGrab() {
+    return SDL_WM_GrabInput(SDL_GRAB_QUERY) == SDL_GRAB_ON;
 }
 
-bool video::SetInputGrab (bool onoff)
-{
-    bool old_onoff = GetInputGrab (); 
+bool video::SetInputGrab(bool onoff) {
+    bool old_onoff = GetInputGrab();
     if (onoff) {
         Screen *screen = GetScreen();
-        SDL_WarpMouse (screen->width()/2, screen->height()/2);
+        SDL_WarpMouse(screen->width() / 2, screen->height() / 2);
         SDL_Event e;
         while (SDL_PollEvent(&e)) {
-            ;                   // swallow mouse motion event
+            ;  // swallow mouse motion event
         }
-        SDL_WM_GrabInput (SDL_GRAB_ON);
-    }
-    else
-        SDL_WM_GrabInput (SDL_GRAB_OFF);
+        SDL_WM_GrabInput(SDL_GRAB_ON);
+    } else
+        SDL_WM_GrabInput(SDL_GRAB_OFF);
     return old_onoff;
 }
-
 
 Surface* video::BackBuffer() {
     if (back_buffer==0) {
@@ -645,13 +615,11 @@ Surface* video::BackBuffer() {
     return back_buffer;
 }
 
-const video::VMInfo *video::GetInfo (VideoModes vm)
-{
+const video::VMInfo *video::GetInfo(VideoModes vm) {
     return &video_modes[vm];
 }
 
-const video::VMInfo *video::GetInfo ()
-{
+const video::VMInfo *video::GetInfo() {
     return GetInfo (current_video_mode);
 }
 
@@ -703,7 +671,6 @@ VideoModes video::GetBestUserMode(bool isFullscreen, int seq) {
     return VM_None;
 }
 
-
 int video::GetModeNumber(VideoModes mode, bool isFullscreen) {
     int avail = 0;
     for (int i = VM_None + 1; i < mode; i++)
@@ -712,40 +679,41 @@ int video::GetModeNumber(VideoModes mode, bool isFullscreen) {
     return avail;
 }
 
-
-bool video::ModeAvailable (VideoModes vm)
-{
+bool video::ModeAvailable (VideoModes vm) {
     const VMInfo *vminfo = GetInfo (vm);
     string fname;
     return (vminfo->w_available && app.systemFS->findFile (vminfo->initscript, fname));
 }
 
-
-void video::Init() 
-{
+void video::Init() {
     static bool isInit = false;
     static int bpp_default = 16;
-    int bpp = bpp_default; //options::BitsPerPixel;
+    int bpp = bpp_default;
 
-    
     if (!isInit) {
         assert (NUMENTRIES(video_modes) == VM_COUNT);
         isInit = true;
         for (int i = VM_None + 1; i < VM_COUNT; i++) {
             bpp = bpp_default;
-            if (video_modes[i].w_available && !vm_available(video_modes[i].width, video_modes[i].height, bpp, false)) {
+            if (video_modes[i].w_available &&
+                !vm_available(video_modes[i].width, video_modes[i].height, bpp, false)) {
                 video_modes[i].w_available = false;
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height << " window not available\n";
+                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
+                    << " window not available\n";
             }
             if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height << " window available with bpp " << bpp << "\n";
+                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
+                    << " window available with bpp " << bpp << "\n";
             bpp = bpp_default;
-            if (video_modes[i].f_available && !vm_available(video_modes[i].width, video_modes[i].height, bpp, true)) {
+            if (video_modes[i].f_available &&
+                !vm_available(video_modes[i].width, video_modes[i].height, bpp, true)) {
                 video_modes[i].f_available = false;
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height << " fullscreen not available\n";
+                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
+                    << " fullscreen not available\n";
             }
             if (bpp != bpp_default)
-                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height << " fullscreen available with bpp " << bpp << "\n";
+                Log << "Video mode " << video_modes[i].width << " x " << video_modes[i].height
+                    << " fullscreen available with bpp " << bpp << "\n";
         }
     }
 
@@ -805,12 +773,10 @@ void video::Init()
 
     SDL_SetEventFilter(event_filter);
 
-
     UpdateGamma();
 }
 
-void video::Shutdown() 
-{
+void video::Shutdown() {
     SDL_SetEventFilter(0);
     delete video_engine;
     delete cursor;
@@ -820,8 +786,7 @@ void video::Shutdown()
     back_buffer = 0;
 }
 
-void video::ChangeVideoMode() 
-{
+void video::ChangeVideoMode() {
     MouseCursor *oldcursor = cursor;
     cursor = 0;
     Shutdown();
@@ -838,8 +803,7 @@ VideoModes video::GetVideoMode() {
     return current_video_mode;
 }
 
-bool video::IsFullScreen()
-{
+bool video::IsFullScreen() {
     return video_engine->is_fullscreen();
 }
 
@@ -847,8 +811,7 @@ int video::GetColorDepth() {
     return SCREEN->get_surface()->bipp();
 }
 
-bool video::SetFullscreen(bool on) 
-{
+bool video::SetFullscreen(bool on) {
     if ((on && video_modes[current_video_mode].f_available) || 
             (!on && video_modes[current_video_mode].w_available)) {
         video_engine->set_fullscreen(on);
@@ -860,31 +823,26 @@ bool video::SetFullscreen(bool on)
     return video::IsFullScreen();
 }
 
-bool video::ToggleFullscreen() 
-{
+bool video::ToggleFullscreen() {
     return SetFullscreen (!video_engine->is_fullscreen());
 }
 
-void video::SetCaption(const char *str) 
-{
+void video::SetCaption(const char *str) {
     video_engine->set_caption(str);
 }
 
-const string& video::GetCaption() 
-{
+const string& video::GetCaption() {
     return video_engine->get_caption();
 }
 
-void video::UpdateGamma()
-{
+void video::UpdateGamma() {
     float gamma = static_cast<float> (app.prefs->getDouble ("Gamma"));
     if (gamma < 0.25)  
         gamma = 0.25;  // Windows does not set gamma for values < 0.2271
     SDL_SetGamma (gamma, gamma, gamma);
 }
 
-void video::Screenshot (const std::string &fname) 
-{
+void video::Screenshot (const std::string &fname) {
     // auto-create the directory if necessary
     string directory;
     if (ecl::split_path (fname, &directory, 0) && !ecl::FolderExists(directory)) {
@@ -897,8 +855,7 @@ void video::Screenshot (const std::string &fname)
 
 /* -------------------- Special Effects -------------------- */
 
-void video::FX_Fade(FadeMode mode) 
-{
+void video::FX_Fade(FadeMode mode) {
     ecl::Screen *screen = ecl::Screen::get_instance();
     Surface *d = screen->get_surface();
     const double fadesec = 0.6;
@@ -921,24 +878,22 @@ void video::FX_Fade(FadeMode mode)
         screen->flush_updates();
 
         dt = (SDL_GetTicks()-otime)/1000.0;
-        if (mode==FADEIN && (a+=v*dt) > 255)
-            break;
-        else if (mode==FADEOUT && (a-=v*dt) < 0)
+        if ((mode == FADEIN && (a += v * dt) > 255) || (mode == FADEOUT && (a -= v * dt) < 0))
             break;
     }
 
     if (mode==FADEIN) {
         buffer->set_alpha(255);
         blit(gc, 0,0,buffer);
-    } else
+    } else {
         box (gc, d->size());
+    }
     screen->update_all();
     screen->flush_updates();
     delete buffer;
 }
 
-void video::FX_Fly (Surface *newscr, int originx, int originy) 
-{
+void video::FX_Fly (Surface *newscr, int originx, int originy) {
     double rest_time = 0.5;
 
     double velx = -originx / rest_time;
@@ -950,8 +905,7 @@ void video::FX_Fly (Surface *newscr, int originx, int originy)
     Screen *scr = SCREEN;
     GC scrgc(scr->get_surface());
 
-    while (rest_time > 0)
-    {
+    while (rest_time > 0) {
         Uint32 otime = SDL_GetTicks();
 
         Rect r(static_cast<int>(origx),
@@ -971,43 +925,41 @@ void video::FX_Fly (Surface *newscr, int originx, int originy)
     }
 }
 
-namespace
-{
-    class Effect_Push : public TransitionEffect {
-    public:
-        Effect_Push(ecl::Surface *newscr, int originx, int originy);
-        void tick (double dtime);
-        bool finished() const;
-    private:
-        double rest_time;
-        ecl::Surface *newscr;
-        std::auto_ptr<ecl::Surface > oldscr;
-        int originx, originy;
-        double velx, vely;
-        double accx, accy;
-        double x, y;
-        double t;
-    };
-}
+namespace {
+
+class Effect_Push : public TransitionEffect {
+public:
+    Effect_Push(ecl::Surface *newscr, int originx, int originy);
+    void tick(double dtime);
+    bool finished() const;
+
+private:
+    double rest_time;
+    ecl::Surface *newscr;
+    std::auto_ptr<ecl::Surface> oldscr;
+    int originx, originy;
+    double velx, vely;
+    double accx, accy;
+    double x, y;
+    double t;
+};
 
 Effect_Push::Effect_Push(ecl::Surface *newscr_, int originx_, int originy_)
-: rest_time (0.7),
-  newscr (newscr_),
-  oldscr (Duplicate(SCREEN->get_surface())),
-  originx (originx_),
-  originy (originy_),
-  velx (-2 * originx / rest_time),
-  vely (-2 * originy / rest_time),
-  accx (-0.5*velx/rest_time),
-  accy (-0.5*vely/rest_time),
-  x (originx),
-  y (originy),
-  t (0)
-{
+: rest_time(0.7),
+  newscr(newscr_),
+  oldscr(Duplicate(SCREEN->get_surface())),
+  originx(originx_),
+  originy(originy_),
+  velx(-2 * originx / rest_time),
+  vely(-2 * originy / rest_time),
+  accx(-0.5 * velx / rest_time),
+  accy(-0.5 * vely / rest_time),
+  x(originx),
+  y(originy),
+  t(0) {
 }
 
-void Effect_Push::tick (double dtime)
-{
+void Effect_Push::tick(double dtime) {
     Screen *scr = SCREEN;
     GC scrgc(scr->get_surface());
 
@@ -1015,38 +967,34 @@ void Effect_Push::tick (double dtime)
         if (dtime > rest_time)
             dtime = rest_time;
         rest_time -= dtime;
-        t+=dtime;
+        t += dtime;
 
-        x = (accx*t + velx)*t + originx;
-        y = (accy*t + vely)*t + originy;
+        x = (accx * t + velx) * t + originx;
+        y = (accy * t + vely) * t + originy;
 
-        blit (scrgc, (int)x-originx, (int)y, oldscr.get());
-        blit (scrgc, (int)x, (int)y-originy, oldscr.get());
-        blit (scrgc, (int)x-originx, (int)y-originy, oldscr.get());
+        blit(scrgc, (int)x - originx, (int)y, oldscr.get());
+        blit(scrgc, (int)x, (int)y - originy, oldscr.get());
+        blit(scrgc, (int)x - originx, (int)y - originy, oldscr.get());
 
-        blit (scrgc, (int)x, (int) y, newscr);
+        blit(scrgc, (int)x, (int)y, newscr);
 
         scr->update_all();
         scr->flush_updates();
-    }
-    else {
-        blit(scrgc, 0,0, newscr);
+    } else {
+        blit(scrgc, 0, 0, newscr);
         scr->update_all();
         scr->flush_updates();
     }
 }
 
-bool Effect_Push::finished() const
-{
+bool Effect_Push::finished() const {
     return rest_time <= 0;
 }
 
-
-
+}  // namespace
 
 TransitionEffect *
-video::MakeEffect (TransitionModes tm, ecl::Surface *newscr)
-{
+video::MakeEffect(TransitionModes tm, ecl::Surface *newscr) {
     int scrw = SCREEN->width();
     int scrh = SCREEN->height();
 
@@ -1068,8 +1016,7 @@ video::MakeEffect (TransitionModes tm, ecl::Surface *newscr)
     };
 }
 
-
-void video::ShowScreen (TransitionModes tm, Surface *newscr) {
+void video::ShowScreen(TransitionModes tm, Surface *newscr) {
     int scrw = SCREEN->width();
     int scrh = SCREEN->height();
 
@@ -1089,4 +1036,3 @@ void video::ShowScreen (TransitionModes tm, Surface *newscr) {
         break;
     }
 }
-
