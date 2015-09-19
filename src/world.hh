@@ -25,6 +25,7 @@
 #include "actors.hh"
 #include "floors.hh"
 #include "items.hh"
+#include "server.hh"
 #include "stones.hh"
 #include "util.hh"
 #include "others/Other.hh"
@@ -310,7 +311,7 @@ void SendExplosionEffect(GridPos p, ExplosionType type);
 
 /* -------------------- Sound Events and Damping -------------------- */
 
-float getVolume(const char *name, Object *obj, float def_volume = 1.0);
+float GetVolume(const char *name, Object *obj, float def_volume = 1.0);
 
 /* -------------------- Creation/Definition of objects -------------------- */
 

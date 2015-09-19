@@ -18,7 +18,7 @@
  */
  
 #include "gui/OptionsMenu.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 #include "lev/ScoreManager.hh"
 #include "LocalToXML.hh"

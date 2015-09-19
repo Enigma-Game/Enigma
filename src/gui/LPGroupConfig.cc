@@ -19,7 +19,7 @@
  
 #include "gui/LPGroupConfig.hh"
 #include "gui/LevelPackConfig.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
 #include "errors.hh"
 #include "nls.hh"
 #include "video.hh"

@@ -39,7 +39,9 @@
 #include "lev/RatingManager.hh"
 #include "lev/ScoreManager.hh"
 
+#include "ecl_font.hh"
 #include "ecl_sdl.hh"
+#include "ecl_video.hh"
 
 #include "enet/enet.h"
 #include "enet_ver.hh"

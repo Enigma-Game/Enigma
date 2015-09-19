@@ -20,9 +20,7 @@
 #ifndef ENIGMA_HELP_HH
 #define ENIGMA_HELP_HH
 
-
 #include "gui/Menu.hh"
-#include "ecl.hh"
 
 namespace enigma { namespace gui {
     struct HelpMenuConfig {

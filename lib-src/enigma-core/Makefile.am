@@ -27,7 +27,6 @@ libecl_a_SOURCES = \
 	ecl_geom.hh			\
 	ecl_math.cc 			\
 	ecl_math.hh			\
-	ecl.hh				\
 	ecl_fwd.hh			\
 	ecl_sdl.hh 			\
 	ecl_sdl.cc			\

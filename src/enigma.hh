@@ -25,12 +25,8 @@
 // resource management.
 
 #include "fwd.hh"
-#include "file.hh"
 #include "ecl_fwd.hh"
 #include "ecl_math.hh"
-#include "ecl_util.hh"
-#include "ecl_cache.hh"
-#include <list>
 #include <stdint.h>
 
 #define NUMENTRIES(array) (sizeof(array) / sizeof(*array))
@@ -66,13 +62,6 @@ GameType GetGameType(std::string name);
 std::string GetGameTypeName(GameType type);
 
 /* -------------------- Resource Management -------------------- */
-
-class ImageCache : public ecl::PtrCache<ecl::Surface> {
-public:
-    using ecl::PtrCache<ecl::Surface>::store;
-
-    ecl::Surface *acquire(const std::string &name);
-};
 
 /* The `Get...' functions return a pointer to a cached copy of the
    font or image.  The `Load...' functions load a new copy which

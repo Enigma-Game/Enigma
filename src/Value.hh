@@ -20,13 +20,12 @@
 #ifndef VALUE_HH
 #define VALUE_HH
 
-/*
- * This file contains declarations for facilities used by several
- * different parts of the program, like common types and constants,
- * and routines for resource management.
- */
+// This file contains declarations for facilities used by several different
+// parts of the program, like common types and constants, and routines for
+// resource management.
 
 #include "enigma.hh"
+#include <list>
 
 namespace enigma { 
 

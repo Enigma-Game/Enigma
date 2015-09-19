@@ -23,6 +23,7 @@
  * sound effects.
  */
 
+#include "ecl_system.hh"
 #include "errors.hh"
 #include "oxyd.hh"
 #include "SoundEngine.hh"

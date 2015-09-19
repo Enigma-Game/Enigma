@@ -19,8 +19,11 @@
 
 #include "errors.hh"
 #include "enigma.hh"
-#include "ecl.hh"
+#include "ecl_cache.hh"
+#include "ecl_font.hh"
+#include "ecl_video.hh"
 #include "main.hh"
+#include "ImageCache.hh"
 #include "Object.hh"
 #include "server.hh"
 #include "world.hh"
@@ -241,6 +244,7 @@ const char *date(const char *format) {  // format see 'man strftime'
 /* -------------------- Resource management -------------------- */
 
 namespace {
+
 struct FontDescr {
     // Variables
     string name;
@@ -316,11 +320,8 @@ private:
 
 FontCache font_cache;
 ImageCache image_cache;
-}
 
-ecl::Surface *ImageCache::acquire(const std::string &name) {
-    return ecl::LoadImage(name.c_str());
-}
+}  // namespace
 
 void DefineFont(const char *name, const char *ttf_name, int ttf_size, const char *bmf_name, int r,
                 int g, int b) {

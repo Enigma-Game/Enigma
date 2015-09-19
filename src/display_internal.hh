@@ -4,6 +4,9 @@
 #include "display.hh"
 #include "enigma.hh"
 
+#include <list>
+#include <memory>
+
 namespace display {
 
 using ecl::V2;

@@ -134,7 +134,7 @@ namespace enigma { namespace lev {
                 double defaultLocation =INDEX_DEFAULT_PACK_LOCATION, std::string anIndexName ="",
                 std::string theIndexFilename =INDEX_STD_FILENAME, std::string aGroupName =INDEX_DEFAULT_GROUP);
         // legacy 0.92
-        void parsePar(const string& par, int& par_value, std::string& par_text);
+        void parsePar(const std::string& par, int& par_value, std::string& par_text);
     };
 
     void AddLevelPack (const char *init_file, const char *name);

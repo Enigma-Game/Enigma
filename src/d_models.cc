@@ -15,13 +15,13 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
-#include "display_internal.hh"
 #include "d_models.hh"
 
-//#include "errors.hh"
 #include "lua.hh"
 #include "options.hh"
 #include "d_engine.hh"
+#include "ecl_cache.hh"
+#include "ecl_video.hh"
 #include "video.hh"
 #include "main.hh"
 #include "nls.hh"

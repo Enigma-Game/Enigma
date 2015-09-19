@@ -18,7 +18,7 @@
  */
  
 #include "gui/LevelPreviewCache.hh"
-#include "ecl.hh"
+#include "ecl_system.hh"
 #include "file.hh"
 #include "game.hh"
 #include "main.hh"

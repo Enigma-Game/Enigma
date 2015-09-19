@@ -19,7 +19,8 @@
 
 #include "gui/ScreenshotViewer.hh"
 #include "gui/HelpMenu.hh"
-#include "ecl.hh"
+#include "ecl_font.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 #include "main.hh"
 #include "nls.hh"

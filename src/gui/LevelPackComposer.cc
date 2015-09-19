@@ -19,7 +19,7 @@
 
 #include "gui/LevelPackComposer.hh"
 #include "gui/HelpMenu.hh"
-#include "ecl.hh"
+#include "ecl_font.hh"
 #include "enigma.hh"
 #include "errors.hh"
 #include "nls.hh"

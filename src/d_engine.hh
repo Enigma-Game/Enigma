@@ -23,6 +23,8 @@
 #include "ecl_alist.hh"
 #include "ecl_fwd.hh"
 
+#include "SDL.h"
+
 namespace display {
 
 /* -------------------- DisplayEngine -------------------- */

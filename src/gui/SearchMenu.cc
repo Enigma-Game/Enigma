@@ -18,7 +18,8 @@
  */
  
 #include "gui/SearchMenu.hh"
-#include "ecl.hh"
+#include "ecl_font.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 #include "errors.hh"
 #include "lev/Index.hh"

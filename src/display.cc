@@ -24,10 +24,12 @@
 #include "client.hh"
 #include "errors.hh"
 #include "main.hh"
+#include "server.hh"
 #include "video.hh"
 
+#include "ecl_font.hh"
 #include "ecl_sdl.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
 
 #include <algorithm>
 #include <functional>

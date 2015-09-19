@@ -19,7 +19,6 @@
 #ifndef GUI_LEVELINSPECTOR_HH_INCLUDED
 #define GUI_LEVELINSPECTOR_HH_INCLUDED
 
-#include "ecl.hh"
 #include "gui/Menu.hh"
 #include "gui/TextField.hh"
 #include "lev/Proxy.hh"

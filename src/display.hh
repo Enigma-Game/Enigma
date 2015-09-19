@@ -19,8 +19,7 @@
 #define DISPLAY_HH_INCLUDED
 
 #include "enigma.hh"
-#include "ecl.hh"
-#include "server.hh"
+#include "ecl_geom.hh"
 
 namespace display {
 

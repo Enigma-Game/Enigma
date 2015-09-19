@@ -19,6 +19,7 @@
 #ifndef UTIL_HH
 #define UTIL_HH
 
+#include "ecl_util.hh"
 #include "enigma.hh"
 
 namespace enigma

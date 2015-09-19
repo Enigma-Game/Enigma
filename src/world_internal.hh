@@ -16,7 +16,10 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
+#include "ecl_array2.hh"
+#include <list>
 #include <memory>
+#include <vector>
 
 namespace enigma {
 
@@ -25,12 +28,11 @@ struct Signal;
 
 typedef ecl::Array2<Field> FieldArray;
 
-typedef vector<ForceField *> ForceList;
-//    typedef vector<StoneContact> StoneContactList;
-typedef list<Other *> OtherList;
-typedef list<Rubberband *> RubberbandList;
-typedef vector<Actor *> ActorList;
-typedef vector<Signal> SignalList;
+typedef std::vector<ForceField *> ForceList;
+typedef std::list<Other *> OtherList;
+typedef std::list<Rubberband *> RubberbandList;
+typedef std::vector<Actor *> ActorList;
+typedef std::vector<Signal> SignalList;
 
 /* -------------------- MouseForce -------------------- */
 

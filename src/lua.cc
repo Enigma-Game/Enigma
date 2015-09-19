@@ -50,7 +50,6 @@ extern "C" {
 #include "lua-enigma.hh"
 #include "lua-ecl.hh"
 
-#include "ecl.hh"
 #include <cassert>
 
 #include "nls.hh"

@@ -23,7 +23,6 @@
 #include "gui/HelpMenu.hh"
 #include "gui/LevelPackMenu.hh"
 
-#include "ecl.hh"
 #include "game.hh"
 #include "main.hh"
 #include "nls.hh"

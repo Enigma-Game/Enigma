@@ -23,7 +23,7 @@
 #include "gui/LevelInspector.hh"
 #include "client.hh"
 #include "display.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "server.hh"

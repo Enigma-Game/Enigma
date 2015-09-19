@@ -23,8 +23,8 @@
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"
-#include "ecl.hh"
 #include "ecl_font.hh"
+#include "ecl_video.hh"
 #include <cassert>
 #include <algorithm>
 #include <iostream>
@@ -87,8 +87,6 @@ bool Widget::on_event(const SDL_Event &e) {
 /* -------------------- Image -------------------- */
 
 void Image::draw (ecl::GC &gc, const ecl::Rect &/*r*/) {
-//    if (ecl::Surface *s = enigma::GetImage(imgname.c_str()))
-//        blit(gc, get_x(), get_y(), s);
     if (ecl::Surface *s = enigma::GetImage(imgname.c_str())) {
         int w=s->width();
         int h=s->height();

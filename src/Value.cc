@@ -22,7 +22,6 @@
 
 #include "errors.hh"
 #include "enigma.hh"
-#include "ecl.hh"
 #include "main.hh"
 #include "Object.hh"
 #include "world.hh"

@@ -21,6 +21,7 @@
 
 #include "enigma.hh"
 #include "ecl_geom.hh"
+#include "file.hh"
 #include "GridObject.hh"
 #include <map>
 

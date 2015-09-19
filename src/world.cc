@@ -1191,7 +1191,7 @@ void World::handle_stone_contact(StoneContact &sc) {
                         client::Msg_Sparkle(sc.contact_point);
                         double volume = std::max(0.25, length(ai.vel) / 8);
                         volume = std::min(1.0, volume);
-                        volume = getVolume(sc.sound.c_str(), a, volume);
+                        volume = GetVolume(sc.sound.c_str(), a, volume);
                         sound::EmitSoundEvent(sc.sound.c_str(), sc.contact_point, volume);
                     }
                 }
@@ -1316,7 +1316,7 @@ void World::handle_actor_contact(Actor *actor1, Actor *actor2) {
                 double volume = length(force) * ActorTimeStep;
                 volume = std::min(1.0, volume);
                 if (volume > 0.4) {
-                    volume = getVolume("ballcollision", NULL, volume);
+                    volume = GetVolume("ballcollision", NULL, volume);
                     sound::EmitSoundEvent("ballcollision", contact.pos, volume);
                 }
             }
@@ -2342,7 +2342,7 @@ void ChangeMeditation(int diffMeditatists, int diffIndispensableHollows,
     //    "\n";
 }
 
-float getVolume(const char *name, Object *obj, float def_volume) {
+float GetVolume(const char *name, Object *obj, float def_volume) {
     if ((def_volume == 0.0) || sound::IsSoundMute())
         return 0;
     // See SoundEffectManager.hh for details.

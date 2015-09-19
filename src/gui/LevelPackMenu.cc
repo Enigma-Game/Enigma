@@ -23,7 +23,6 @@
 #include "gui/LevelPackConfig.hh"
 #include "gui/SearchMenu.hh"
 #include "gui/HelpMenu.hh"
-#include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
 #include "video.hh"

@@ -19,7 +19,6 @@
  
 #include "gui/LevelPackConfig.hh"
 #include "gui/LevelPackComposer.hh"
-#include "ecl.hh"
 #include "errors.hh"
 #include "nls.hh"
 #include "video.hh"

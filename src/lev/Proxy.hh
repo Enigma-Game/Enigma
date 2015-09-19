@@ -24,6 +24,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <vector>
 #include <xercesc/dom/DOMDocument.hpp>
 
 namespace enigma { namespace lev {

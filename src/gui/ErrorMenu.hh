@@ -20,9 +20,7 @@
 #ifndef GUI_ERRORMENU_HH_INCLUDED
 #define GUI_ERRORMENU_HH_INCLUDED
 
-
 #include "gui/Menu.hh"
-#include "ecl.hh"
 
 namespace enigma { namespace gui {
     class ErrorMenu : public Menu {

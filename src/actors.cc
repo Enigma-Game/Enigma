@@ -363,7 +363,7 @@ bool Actor::can_move() const {
 
 
 bool Actor::sound_event (const char *name, double vol) {
-    return sound::EmitSoundEvent (name, get_pos(), getVolume(name, this, vol));
+    return sound::EmitSoundEvent (name, get_pos(), GetVolume(name, this, vol));
 }
 
     double Actor::squareDistance(const Object *other) const {

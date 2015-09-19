@@ -18,10 +18,10 @@
 #ifndef D_MODELS_HH
 #define D_MODELS_HH
 
+#include "display_internal.hh"
 #include "ecl_fwd.hh"
 #include <vector>
 #include <string>
-#include <cassert>
 
 namespace display {
 

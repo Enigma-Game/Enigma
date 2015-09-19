@@ -35,7 +35,8 @@
 #include "lua.hh"
 #include "options.hh"
 #include "main.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
+#include "ecl_system.hh"
 #include <cassert>
 #include <cstdio>
 #include <fstream>

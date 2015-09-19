@@ -30,6 +30,7 @@
 #include "MusicManager.hh"
 #include "video.hh"
 #include "ecl_argp.hh"
+#include "ecl_font.hh"
 #include "ecl_system.hh"
 #include "errors.hh"
 #include "world.hh"
@@ -470,7 +471,6 @@ void Application::init(int argc, char **argv)
     enigma::Randomize(false);
     enigma::Randomize(true);
 
-    //
     if (isMakePreviews) {
         app.state->setProperty("Difficulty", DIFFICULTY_HARD); // will not be saved
         std::set<lev::Proxy *> proxies = lev::Proxy::getProxies();

@@ -24,11 +24,11 @@
 #include "options.hh"
 #include "main.hh"
 #include "nls.hh"
-#include "ecl.hh"
+#include "ecl_video.hh"
+
 #include <cassert>
 #include <algorithm>
 #include <iostream>
-
 
 using namespace ecl;
 using namespace std;

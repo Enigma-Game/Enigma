@@ -22,6 +22,8 @@
 #include "enigma.hh"
 #include "nls.hh"
 #include "video.hh"
+#include "ecl_font.hh"
+#include "ecl_system.hh"
 #include "ecl_util.hh"
 #include "gui/MonospacedLabel.hh"
 #include "gui/LevelPreviewCache.hh"

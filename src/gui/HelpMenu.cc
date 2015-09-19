@@ -18,6 +18,8 @@
  */
 
 #include "gui/HelpMenu.hh"
+#include "ecl_font.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 #include "video.hh"
 #include "nls.hh"

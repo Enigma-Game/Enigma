@@ -22,7 +22,7 @@
 #include "gui/LevelMenu.hh"
 #include "gui/LevelInspector.hh"
 
-#include "ecl.hh"
+#include "ecl_font.hh"
 #include "main.hh"
 #include "nls.hh"
 #include "options.hh"

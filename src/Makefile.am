@@ -61,6 +61,7 @@ enigma_SOURCES = 		\
 	game.hh			\
 	GridObject.cc 		\
 	GridObject.hh 		\
+	ImageCache.hh		\
 	Inventory.cc		\
 	Inventory.hh		\
 	ItemHolder.hh		\

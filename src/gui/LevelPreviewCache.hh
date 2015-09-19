@@ -19,11 +19,13 @@
 #ifndef GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 #define GUI_LEVELPREVIEWCACHE_HH_INCLUDED
 
+#include "ImageCache.hh"
 #include "lev/Index.hh"
 #include "lev/Proxy.hh"
 #include <map>
 
 namespace enigma { namespace gui {
+
     /**
      * A singleton manager for level previews with autocaching.
      * Clients just need to know the level proxy to request a preview.

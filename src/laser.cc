@@ -206,7 +206,7 @@ void LaserBeam::all_emitted()
 
     if (count) {
         sound::EmitSoundEvent ("laseron", ecl::V2(x/count+.5, y/count+.5),
-                               getVolume("laseron", NULL));
+                               GetVolume("laseron", NULL));
     }
 }
 

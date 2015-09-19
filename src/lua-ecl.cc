@@ -14,7 +14,10 @@
 TOLUA_API int  tolua_px_open (lua_State* tolua_S);
 
 #include "SDL.h"
-#include "ecl.hh"
+#include "ecl_font.hh"
+#include "ecl_geom.hh"
+#include "ecl_math.hh"
+#include "ecl_video.hh"
 using namespace ecl;
 
 /* function to release collected object via destructor */

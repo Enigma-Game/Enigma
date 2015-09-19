@@ -17,7 +17,7 @@
  */
 
 #include "gui/MonospacedLabel.hh"
-#include "ecl.hh"
+#include "ecl_font.hh"
 #include "nls.hh"
 
 using namespace ecl;

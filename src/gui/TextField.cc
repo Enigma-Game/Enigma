@@ -20,13 +20,14 @@
 #include "main.hh"
 #include "gui/widgets.hh"
 #include "gui/TextField.hh"
+#include "ecl_font.hh"
 #include "ecl_utf.hh"
+#include "ecl_video.hh"
 #include "enigma.hh"
 #include "SoundEffectManager.hh"
 #include "video.hh"
 #include "options.hh"
 #include "nls.hh"
-#include "ecl.hh"
 #include <cassert>
 #include <algorithm>
 #include <iostream>

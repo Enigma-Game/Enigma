@@ -90,7 +90,7 @@ namespace enigma {
     
     bool GridObject::sound_event (const char *name, double vol)
     {
-        return sound::EmitSoundEvent (name, get_pos().center(), getVolume(name, this, vol));
+        return sound::EmitSoundEvent (name, get_pos().center(), GetVolume(name, this, vol));
     }
  
     void GridObject::warning(const char *format, ...) const 
