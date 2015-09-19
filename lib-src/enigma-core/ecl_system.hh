@@ -23,34 +23,36 @@
 #include <ctime>
 #include <set>
 
-namespace ecl
-{
-    extern const char *PathSeparator;
-    extern const char *PathSeparators;
-    extern const char *PathsSeparator;
+namespace ecl {
 
-    std::string ExpandPath (const std::string &path);
-    std::string BeautifyPath(const std::string path);
+extern const char *PathSeparator;
+extern const char *PathSeparators;
+extern const char *PathsSeparator;
 
-    bool        FileExists (const std::string &fname);
-    std::time_t FileModTime (const std::string &fname);
-        
-    bool FolderExists (const std::string &fname);
-    bool FolderCreate (const std::string &fname);
-    
-    bool BrowseUrl(const std::string url);
-    bool ExploreFolder(const std::string path);
+std::string ExpandPath(const std::string &path);
+std::string BeautifyPath(const std::string path);
+
+bool FileExists(const std::string &fname);
+std::time_t FileModTime(const std::string &fname);
+
+bool FolderExists(const std::string &fname);
+bool FolderCreate(const std::string &fname);
+
+bool BrowseUrl(const std::string url);
+bool ExploreFolder(const std::string path);
 
 #ifdef __MINGW32__
-    std::string ApplicationDataPath();
-    void ToLowerCase(std::string &filename);
-    std::set<std::string> UniqueFilenameSet(std::set<std::string> inSet);
+std::string ApplicationDataPath();
+void ToLowerCase(std::string &filename);
+std::set<std::string> UniqueFilenameSet(std::set<std::string> inSet);
 #endif
 
 /* -------------------- Locales -------------------- */
 
-    std::string SysMessageLocaleName();
+std::string SysMessageLocaleName();
 
-    std::string GetLanguageCode(const std::string &localename);
-}
+std::string GetLanguageCode(const std::string &localename);
+
+}  // namespace ecl
+
 #endif

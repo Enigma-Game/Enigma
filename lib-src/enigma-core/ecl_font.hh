@@ -6,12 +6,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -21,40 +21,37 @@
 
 #include <string>
 
-namespace ecl
-{
-    class GC;
-    class Surface;
+namespace ecl {
 
-    class Font {
-    public:
-        virtual ~Font() {}
+class GC;
+class Surface;
 
-        virtual int get_lineskip() =0;
-        virtual int get_height() = 0;
+class Font {
+public:
+    virtual ~Font() {}
 
-        virtual int get_width(char c) = 0;   // depreceated ! not utf-8 compatible!
-        virtual int get_width(const char *str, Font * altFont = NULL) = 0;
+    virtual int get_lineskip() = 0;
+    virtual int get_height() = 0;
 
-        virtual Surface *render(const char *str) = 0;
-        virtual void render(const GC &gc, int x, int y, const char *str) = 0;
-        virtual void render(const GC &gc, int x, int y, std::string text,
-                Font * altFont = NULL, int maxwidth = -1);
-    };
+    virtual int get_width(char c) = 0;  // depreceated ! not utf-8 compatible!
+    virtual int get_width(const char *str, Font *altFont = NULL) = 0;
 
-    std::string::size_type breakString(Font *font,
-                                       const std::string &theString, 
-                                       const std::string &breakChars, 
-                                       int targetWidth);
-    
+    virtual Surface *render(const char *str) = 0;
+    virtual void render(const GC &gc, int x, int y, const char *str) = 0;
+    virtual void render(const GC &gc, int x, int y, std::string text, Font *altFont = NULL,
+                        int maxwidth = -1);
+};
 
-    /** Load a bitmap font with image FILENAME and font metric
-      DESCRNAME. */
-    Font *LoadBitmapFont(const char * filename,
-                         const char * descrname);
+std::string::size_type breakString(Font *font, const std::string &theString,
+                                   const std::string &breakChars, int targetWidth);
 
-    /** Load a TrueType font from FILENAME with size PTSIZE. */ 
-    Font *LoadTTF (const char *filename, int ptsize, int r=0xff, int g=0xff, int b=0xff);
+/** Load a bitmap font with image FILENAME and font metric
+  DESCRNAME. */
+Font *LoadBitmapFont(const char *filename, const char *descrname);
 
-}
+/** Load a TrueType font from FILENAME with size PTSIZE. */
+Font *LoadTTF(const char *filename, int ptsize, int r = 0xff, int g = 0xff, int b = 0xff);
+
+}  // namespace ecl
+
 #endif

@@ -5,12 +5,12 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  
+ *
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
@@ -30,11 +30,10 @@ std::ostream& ecl::operator<<(std::ostream& os, const Rect& r) {
 
 /* -------------------- RectList -------------------- */
 
-RectList::RectList(const RectList& rl)
-: m_rectangles(rl.m_rectangles)
-{}
+RectList::RectList(const RectList& rl) : m_rectangles(rl.m_rectangles) {
+}
 
-void RectList::swap(RectList &rl) {
+void RectList::swap(RectList& rl) {
     std::swap(m_rectangles, rl.m_rectangles);
 }
 
@@ -59,12 +58,12 @@ void RectList::merge(const RectList& rl) {
 
 void RectList::intersect(const Rect& rect) {
     RectList rl;
-    for (iterator i=begin(); i != end(); ++i) {
+    for (iterator i = begin(); i != end(); ++i) {
         int a = max(i->x, rect.x);
         int b = min(i->x + i->w, rect.x + rect.w);
         int c = max(i->y, rect.y);
         int d = min(i->y + i->h, rect.y + rect.h);
-        rl.push_back(Rect(a, c, b-a, d-c));
+        rl.push_back(Rect(a, c, b - a, d - c));
     }
     swap(rl);
 }
@@ -72,7 +71,7 @@ void RectList::intersect(const Rect& rect) {
 void RectList::add(const Rect& r) {
     RectList rl;
     rl.push_back(r);
-    for (iterator i=begin(); i != end(); ++i)
+    for (iterator i = begin(); i != end(); ++i)
         rl.sub(*i);
     copy(rl.begin(), rl.end(), back_inserter(*this));
 }
@@ -81,7 +80,7 @@ void RectList::add(const Rect& r) {
    that are _not_ covered by `rect'. */
 void RectList::sub(const Rect& rect) {
     RectList rl;
-    for (iterator i=begin(); i != end(); ++i) {
+    for (iterator i = begin(); i != end(); ++i) {
         int lft = max(i->x, rect.x);
         int top = max(i->y, rect.y);
         int rgt = min(i->x + i->w, rect.x + rect.w);
@@ -89,12 +88,11 @@ void RectList::sub(const Rect& rect) {
 
         if (rgt > lft && bot > top) {
             // the coordinates of the intersection rectangle
-            rl.push_back(Rect(i->x, i->y, i->w,  top - i->y));
+            rl.push_back(Rect(i->x, i->y, i->w, top - i->y));
             rl.push_back(Rect(i->x, top, lft - i->x, bot - top));
             rl.push_back(Rect(rgt, top, i->x + i->w - rgt, bot - top));
             rl.push_back(Rect(i->x, bot, i->w, i->y + i->h - bot));
-        } 
-        else
+        } else
             rl.push_back(*i);
     }
     swap(rl);

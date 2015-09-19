@@ -43,17 +43,17 @@ using namespace ecl;
 using std::string;
 
 #ifdef __MINGW32__
-const char *ecl::PathSeparator = "\\";      // for path assembly
-const char *ecl::PathsSeparator = ";";      // for listing paths in a string
+const char *ecl::PathSeparator = "\\";  // for path assembly
+const char *ecl::PathsSeparator = ";";  // for listing paths in a string
 #else
-const char *ecl::PathSeparator = "/";       // for path assembly
-const char *ecl::PathsSeparator = ":";      // for listing paths in a string
+const char *ecl::PathSeparator = "/";   // for path assembly
+const char *ecl::PathsSeparator = ":";  // for listing paths in a string
 #endif
-const char *ecl::PathSeparators = "/\\";    // for path splits
+const char *ecl::PathSeparators = "/\\";  // for path splits
 
-std::string ecl::ExpandPath (const string &pth) {
+std::string ecl::ExpandPath(const string &pth) {
     std::string path = pth;
-    std::string::size_type p=path.find("~");
+    std::string::size_type p = path.find("~");
     if (p != string::npos) {
         std::string home;
         if (char *h = getenv("HOME"))
@@ -68,39 +68,35 @@ std::string ecl::BeautifyPath(const std::string path) {
     foreignSeparators.erase(foreignSeparators.find(ecl::PathSeparator));
     std::string result = path;
     for (std::string::size_type pos = result.find_first_of(foreignSeparators);
-            pos != std::string::npos; pos = result.find_first_of(foreignSeparators)) {
+         pos != std::string::npos; pos = result.find_first_of(foreignSeparators)) {
         result.replace(pos, 1, ecl::PathSeparator);
     }
     return result;
 }
 
-bool ecl::FileExists (const std::string &fname)
-{
+bool ecl::FileExists(const std::string &fname) {
     struct stat s;
-    return (stat(fname.c_str(), &s)==0 && S_ISREG(s.st_mode));
+    return (stat(fname.c_str(), &s) == 0 && S_ISREG(s.st_mode));
 }
 
-time_t ecl::FileModTime (const std::string &fname)
-{
+time_t ecl::FileModTime(const std::string &fname) {
     struct stat s;
     if (stat(fname.c_str(), &s) == 0) {
         return s.st_mtime;
     }
 
-    return 0;                   // beginning of time
+    return 0;  // beginning of time
 }
 
-bool ecl::FolderExists (const std::string &fname)
-{
+bool ecl::FolderExists(const std::string &fname) {
     struct stat s;
-    return (stat(fname.c_str(), &s)==0 && S_ISDIR(s.st_mode));
+    return (stat(fname.c_str(), &s) == 0 && S_ISDIR(s.st_mode));
 }
 
-bool ecl::FolderCreate (const std::string &fname)
-{
+bool ecl::FolderCreate(const std::string &fname) {
     string parent_folder;
     string sub_folder;
-    bool   ok = true;
+    bool ok = true;
 
     assert(!FolderExists(fname));
 
@@ -125,10 +121,10 @@ bool ecl::BrowseUrl(const std::string url) {
 #ifdef __MINGW32__
     result == ((int)ShellExecute(NULL, "open", url.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
 #elif MACOSX
-    CFStringRef cfurlStr = CFStringCreateWithCString( NULL, url.c_str(), kCFStringEncodingASCII);
+    CFStringRef cfurlStr = CFStringCreateWithCString(NULL, url.c_str(), kCFStringEncodingASCII);
 
     // Create a URL object:
-    CFURLRef cfurl = CFURLCreateWithString (NULL, cfurlStr, NULL);
+    CFURLRef cfurl = CFURLCreateWithString(NULL, cfurlStr, NULL);
 
     // Open the URL:
     LSOpenCFURLRef(cfurl, NULL);
@@ -148,7 +144,7 @@ bool ecl::ExploreFolder(const std::string path) {
     result == ((int)ShellExecute(NULL, "explore", path.c_str(), NULL, NULL, SW_SHOWNORMAL) >= 32);
 #elif MACOSX
     FSRef fref;
-    FSPathMakeRef((UInt8*)path.c_str(), &fref, NULL);
+    FSPathMakeRef((UInt8 *)path.c_str(), &fref, NULL);
     LSOpenFSRef(&fref, NULL);
 #else
     result = (system(("xdg-open " + path + " &").c_str()) == 0);
@@ -158,37 +154,33 @@ bool ecl::ExploreFolder(const std::string path) {
 
 #ifdef __MINGW32__
 // should be ecl_system_windows.cc ?
-std::string ecl::ApplicationDataPath()
-{
-    typedef HRESULT (WINAPI *SHGETFOLDERPATH)( HWND, int, HANDLE, DWORD, LPTSTR );
-#   define CSIDL_FLAG_CREATE 0x8000
-#   define CSIDL_APPDATA 0x1A
-#   define SHGFP_TYPE_CURRENT 0
+std::string ecl::ApplicationDataPath() {
+    typedef HRESULT(WINAPI * SHGETFOLDERPATH)(HWND, int, HANDLE, DWORD, LPTSTR);
+#define CSIDL_FLAG_CREATE 0x8000
+#define CSIDL_APPDATA 0x1A
+#define SHGFP_TYPE_CURRENT 0
 
     HINSTANCE shfolder_dll;
-    SHGETFOLDERPATH SHGetFolderPath ;
+    SHGETFOLDERPATH SHGetFolderPath;
 
     static bool didRun = false;
-    static std::string result = "";  // remember exec results 
-    
+    static std::string result = "";  // remember exec results
+
     if (!didRun) {
         didRun = true;
         /* load the shfolder.dll to retreive SHGetFolderPath */
-        if( ( shfolder_dll = LoadLibrary("shfolder.dll") ) != NULL )
-        {
-            SHGetFolderPath = (SHGETFOLDERPATH)GetProcAddress( shfolder_dll, "SHGetFolderPathA");
-            if ( SHGetFolderPath != NULL )
-            {
+        if ((shfolder_dll = LoadLibrary("shfolder.dll")) != NULL) {
+            SHGetFolderPath = (SHGETFOLDERPATH)GetProcAddress(shfolder_dll, "SHGetFolderPathA");
+            if (SHGetFolderPath != NULL) {
                 TCHAR szPath[MAX_PATH] = "";
-    
+
                 /* get the "Application Data" folder for the current user */
-                if( S_OK == SHGetFolderPath( NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE,
-                                             NULL, SHGFP_TYPE_CURRENT, szPath) )
-                {
+                if (S_OK == SHGetFolderPath(NULL, CSIDL_APPDATA | CSIDL_FLAG_CREATE, NULL,
+                                            SHGFP_TYPE_CURRENT, szPath)) {
                     result = szPath;
                 }
             }
-            FreeLibrary( shfolder_dll);
+            FreeLibrary(shfolder_dll);
         }
     }
     return result;
@@ -196,9 +188,9 @@ std::string ecl::ApplicationDataPath()
 
 void ecl::ToLowerCase(std::string &filename) {
     for (int i = 0; i < filename.length(); i++) {
-	char c = filename[i];
-	if (c >= 'A' && c <= 'Z')
-	    filename.replace(i, 1, 1, c - 'A' + 'a');
+        char c = filename[i];
+        if (c >= 'A' && c <= 'Z')
+            filename.replace(i, 1, 1, c - 'A' + 'a');
     }
 }
 
@@ -207,24 +199,21 @@ std::set<std::string> ecl::UniqueFilenameSet(std::set<std::string> inSet) {
     std::set<std::string> outSet;
     std::set<std::string> lowerSet;
     for (; it != inSet.end(); it++) {
-	std::string name = *it;
-	ecl::ToLowerCase(name);
-	if (lowerSet.find(name) == lowerSet.end()) {
-	    outSet.insert(*it);
-	    lowerSet.insert(name);
-	}
+        std::string name = *it;
+        ecl::ToLowerCase(name);
+        if (lowerSet.find(name) == lowerSet.end()) {
+            outSet.insert(*it);
+            lowerSet.insert(name);
+        }
     }
     return outSet;
 }
 
 #endif
 
-
-std::string ecl::GetLanguageCode (const std::string &ln)
-{
+std::string ecl::GetLanguageCode(const std::string &ln) {
     if (ln == "C" || ln == "POSIX" || ln.size() < 2)
         return "en";
 
-    return ln.substr (0, 2);
+    return ln.substr(0, 2);
 }
-

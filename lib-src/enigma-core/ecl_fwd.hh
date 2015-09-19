@@ -5,7 +5,7 @@
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -16,33 +16,34 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  */
-#ifndef ECLFWD_HH_INCLUDED
-#define ECLFWD_HH_INCLUDED
+#ifndef ECL_FWD_HH_INCLUDED
+#define ECL_FWD_HH_INCLUDED
 
-/*
- * This file contains forward declarations for various types provided
- * by the Enigma core library.
- */
+// This file contains forward declarations for various types provided
+// by the Enigma core library.
 
-namespace ecl
-{
-    class Buffer;
+namespace ecl {
 
-    // math.hh
-    template <class T, int N> class Vector;
-    class V3;
-    class V2;
+class Buffer;
 
-    // font.hh
-    class Font;
+// math.hh
+template <class T, int N>
+class Vector;
+class V3;
+class V2;
 
-    // video.hh
-    class Drawable;
-    class GC;
-    class Screen;
-    class Surface;
+// font.hh
+class Font;
 
-    // geom.hh
-    class RectList;
-}
+// video.hh
+class Drawable;
+class GC;
+class Screen;
+class Surface;
+
+// geom.hh
+class RectList;
+
+}  // namespace ecl
+
 #endif
