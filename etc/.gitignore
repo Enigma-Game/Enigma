@@ -1,8 +1,7 @@
-/Makefile
-/Makefile.in
-/enigma.nsi
-/enigma.spec
-/mingw32-dist.sh
-/*.dll
-/Enigma-w32-*.zip
-/Info.plist
+Makefile.in
+enigma.nsi
+enigma.spec
+mingw32-dist.sh
+*.dll
+Enigma-w32-*.zip
+Info.plist
