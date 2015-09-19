@@ -35,25 +35,24 @@ using namespace std;
 
 /* -------------------- Global variables -------------------- */
 
-namespace
-{
-    Uint32      last_tick_time;
-}
+namespace {
+
+Uint32 last_tick_time;
+
+}  // namespace
 
 /* -------------------- Level previews -------------------- */
 
-bool game::DrawLevelPreview (ecl::GC &gc, lev::Proxy *levelProxy)
-{
+bool game::DrawLevelPreview(ecl::GC &gc, lev::Proxy *levelProxy) {
     bool success = false;
 
     sound::TempDisableSound();
     try {
-        server::Msg_LoadLevel (levelProxy, true);
+        server::Msg_LoadLevel(levelProxy, true);
 
         display::DrawAll(gc);
         success = true;
-    }
-    catch (XLevelLoading &err) {
+    } catch (XLevelLoading &err) {
         // log the message as we cannot display it on the screen
         Log << "DrawLevelPreview load error:\n" << err.what();
         success = false;
@@ -62,44 +61,40 @@ bool game::DrawLevelPreview (ecl::GC &gc, lev::Proxy *levelProxy)
     return success;
 }
 
-
 /* -------------------- Functions -------------------- */
 
-void game::StartGame ()
-{
+void game::StartGame() {
     lev::Index *ind = lev::Index::getCurrentIndex();
 
     video::HideMouse();
     sdl::TempInputGrab grab(enigma::Nograb ? SDL_GRAB_OFF : SDL_GRAB_ON);
 
-//    Uint32 start_tick_time = SDL_GetTicks();
+    //    Uint32 start_tick_time = SDL_GetTicks();
 
     server::Msg_LoadLevel(ind->getCurrent(), false);
-    
-//    double dtimelog = (SDL_GetTicks() - start_tick_time)/1000.0;
-//    Log << "StartGame  time " << dtimelog << "\n";
+
+    //    double dtimelog = (SDL_GetTicks() - start_tick_time)/1000.0;
+    //    Log << "StartGame  time " << dtimelog << "\n";
 
     double dtime = 0;
-    last_tick_time=SDL_GetTicks();
+    last_tick_time = SDL_GetTicks();
     while (!client::AbortGameP() && !app.bossKeyPressed) {
         try {
-            client::Tick (dtime);
-            server::Tick (dtime);
-        }
-        catch (XLevelRuntime& err) {        
-            client::Msg_Error (string("Server Error: level runtime error:\n")
-                               + err.what());
+            client::Tick(dtime);
+            server::Tick(dtime);
+        } catch (XLevelRuntime &err) {
+            client::Msg_Error(string("Server Error: level runtime error:\n") + err.what());
             server::Msg_Panic(true);
         }
 
-        int sleeptime = 10 - (SDL_GetTicks()-last_tick_time);
-        if (sleeptime >= 3)      // only sleep if relatively idle
+        int sleeptime = 10 - (SDL_GetTicks() - last_tick_time);
+        if (sleeptime >= 3)  // only sleep if relatively idle
             SDL_Delay(sleeptime);
 
         Uint32 current_tick_time = SDL_GetTicks();
-        dtime = (current_tick_time - last_tick_time)/1000.0;
+        dtime = (current_tick_time - last_tick_time) / 1000.0;
 
-        if (abs(1-dtime/0.01) < 0.2) {
+        if (abs(1 - dtime / 0.01) < 0.2) {
             // less than 20% deviation from desired frame time?
             dtime = 0.01;
             last_tick_time += 10;
@@ -107,11 +102,10 @@ void game::StartGame ()
             last_tick_time = current_tick_time;
         }
 
-	if (dtime > 500.0) /* Time has done something strange, perhaps
-			      run backwards */
+        if (dtime > 500.0) {
+            // Time has done something strange, perhaps run backwards.
             dtime = 0.0;
-// 	else if (dtime > 0.5)
-//             dtime = 0.5;
+        }
     }
     // add last played level
     lev::PersistentIndex::addCurrentToHistory();
@@ -119,7 +113,6 @@ void game::StartGame ()
     video::ShowMouse();
 }
 
-void game::ResetGameTimer() 
-{
-    last_tick_time=SDL_GetTicks();
+void game::ResetGameTimer() {
+    last_tick_time = SDL_GetTicks();
 }
