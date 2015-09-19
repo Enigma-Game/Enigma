@@ -39,8 +39,6 @@
 
 #include "oxyd_internal.hh"
 
-#define SOUND sound::GetEngine()
-
 using namespace std;
 using namespace enigma;
 using namespace oxyd;

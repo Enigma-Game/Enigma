@@ -57,7 +57,7 @@ public:
 
     virtual Model *get_shadow() const { return 0; }
 
-    virtual void expose(ModelLayer * /*ml*/, int videox, int videoy) {}
+    virtual void expose(ModelLayer * /*ml*/, int /*videox*/, int /*videoy*/) {}
     virtual void remove(ModelLayer * /*ml*/) {}
 
     virtual Model *clone() = 0;
@@ -197,8 +197,6 @@ public:
 };
 
 StatusBar *GetStatusBar();
-
-#define STATUSBAR display::GetStatusBar()
 
 /* -------------------- Constants -------------------- */
 

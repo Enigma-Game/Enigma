@@ -531,8 +531,7 @@ Actor *player::GetMainActor (unsigned iplayer)
 
 void player::Tick(double dtime)
 {
-    STATUSBAR->set_counter (server::GetMoveCounter());
-
+    display::GetStatusBar()->set_counter (server::GetMoveCounter());
 
     // Tell clients about position of main actor for stereo sound and
     // screen position
@@ -672,6 +671,6 @@ void player::RedrawInventory()
         Item *it = inv->get_item(i);
         modelnames.push_back(it->get_inventory_model());
     }
-    STATUSBAR->set_inventory(CurrentPlayer() == 0 ? YIN : YANG, modelnames);
+    display::GetStatusBar()->set_inventory(CurrentPlayer() == 0 ? YIN : YANG, modelnames);
 }
 

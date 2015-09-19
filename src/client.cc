@@ -105,8 +105,6 @@ namespace
     const char HSEP = '^'; // history separator (use character that user cannot use)
 }
 
-#define CLIENT client_instance
-
 /* -------------------- Client class -------------------- */
 
 Client::Client()
@@ -281,7 +279,7 @@ void Client::on_mousebutton(SDL_Event &e)
 void Client::rotate_inventory (int direction)
 {
     m_user_input = "";
-    STATUSBAR->hide_text();
+    display::GetStatusBar()->hide_text();
     player::RotateInventory(direction);
 }
 
@@ -318,7 +316,7 @@ void Client::process_userinput() {
     commandHistory[0] = newCommand;
     newCommand = "";
     consoleIndex = 0;
-    STATUSBAR->hide_text();
+    display::GetStatusBar()->hide_text();
     server::Msg_Command(commandHistory[0]);
 }
 
@@ -342,7 +340,7 @@ void Client::user_input_backspace() {
             Msg_ShowText(newCommand, false);
         else {
             consoleIndex = 0;
-            STATUSBAR->hide_text();
+            display::GetStatusBar()->hide_text();
         }
     } else if (consoleIndex > 1) {
         newCommand =  commandHistory[consoleIndex - 2];
@@ -352,7 +350,7 @@ void Client::user_input_backspace() {
             Msg_ShowText(newCommand, false);
         } else {
             consoleIndex = 0;
-            STATUSBAR->hide_text();
+            display::GetStatusBar()->hide_text();
         }
     }
 }
@@ -365,7 +363,7 @@ void Client::user_input_previous() {
             Msg_ShowText(documentHistory[docIndex], true);
         } else {
             consoleIndex = 0;
-            STATUSBAR->hide_text();
+            display::GetStatusBar()->hide_text();
         }
     } else if (consoleIndex == 0) {
         if (newCommand.length() > 0) {
@@ -380,7 +378,7 @@ void Client::user_input_previous() {
         Msg_ShowText(commandHistory[consoleIndex - 2], false);
     } else {  // top of history or new command without history
         consoleIndex = 0;
-        STATUSBAR->hide_text();
+        display::GetStatusBar()->hide_text();
     }
 }
 
@@ -392,11 +390,11 @@ void Client::user_input_next() {
             Msg_ShowText(documentHistory[docIndex], true);
         } else {
             consoleIndex = 0;
-            STATUSBAR->hide_text();
+            display::GetStatusBar()->hide_text();
         }
     } else if (consoleIndex == 1 || (consoleIndex == 2 && newCommand.size() == 0)) {
         consoleIndex = 0;
-        STATUSBAR->hide_text();
+        display::GetStatusBar()->hide_text();
     } else if (consoleIndex > 1) {
         --consoleIndex;
         Msg_ShowText(consoleIndex == 1 ? newCommand : commandHistory[consoleIndex - 2], false);
@@ -733,7 +731,7 @@ void Client::tick (double dtime)
         }
 
         m_total_game_time += dtime;
-        STATUSBAR->set_time (m_total_game_time);
+        display::GetStatusBar()->set_time (m_total_game_time);
         // fall through
     case cls_finished: {
         m_timeaccu += dtime;
@@ -940,30 +938,30 @@ void Client::finishedText() {
 /* -------------------- Functions -------------------- */
 
 void client::ClientInit() {
-    CLIENT.init();
+    client_instance.init();
 }
 
 void client::ClientShutdown() {
-    CLIENT.shutdown();
+    client_instance.shutdown();
 }
 
 bool client::NetworkStart()
 {
-    return CLIENT.network_start();
+    return client_instance.network_start();
 }
 
 void client::Msg_LevelLoaded(bool isRestart)
 {
-    CLIENT.level_loaded(isRestart);
+    client_instance.level_loaded(isRestart);
 }
 
 void client::Tick (double dtime) {
-    CLIENT.tick (dtime);
+    client_instance.tick (dtime);
     sound::Tick (dtime);
 }
 
 void client::Stop() {
-    CLIENT.stop ();
+    client_instance.stop ();
 }
 
 void client::Msg_AdvanceLevel (lev::LevelAdvanceMode mode) {
@@ -987,22 +985,22 @@ void client::Msg_JumpBack() {
 }
 
 bool client::AbortGameP() {
-    return CLIENT.abort_p();
+    return client_instance.abort_p();
 }
 
 void client::Msg_Command(const string& cmd) {
     if (cmd == "abort") {
-        CLIENT.abort();
+        client_instance.abort();
     }
     else if (cmd == "level_finished") {
         client::Msg_PlaySound("finished", 1.0);
-        CLIENT.level_finished();
+        client_instance.level_finished();
     }
     else if (cmd == "cheater") {
-        CLIENT.mark_cheater();
+        client_instance.mark_cheater();
     }
     else if (cmd == "easy_going") {
-        CLIENT.easy_going();
+        client_instance.easy_going();
     }
     else {
         enigma::Log << "Warning: Client received unknown command '" << cmd << "'\n";
@@ -1035,19 +1033,19 @@ void client::Msg_Sparkle (const ecl::V2 &pos) {
 
 
 void client::Msg_ShowText(const std::string &text, bool scrolling, double duration) {
-    STATUSBAR->show_text (text, scrolling, duration);
+    display::GetStatusBar()->show_text (text, scrolling, duration);
 }
 
 void client::Msg_ShowDocument(const std::string &text, bool scrolling, double duration) {
-    CLIENT.registerDocument(text);
+    client_instance.registerDocument(text);
     Msg_ShowText(text, scrolling, duration);
 }
 
 void client::Msg_FinishedText() {
-    CLIENT.finishedText();
+    client_instance.finishedText();
 }
 
 void client::Msg_Error (const std::string &text)
 {
-    CLIENT.error (text);
+    client_instance.error (text);
 }

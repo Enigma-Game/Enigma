@@ -21,7 +21,6 @@
 
 #include "Object.hh"
 
-
 namespace enigma {
 
     /** 
