@@ -24,7 +24,6 @@
 // parts of the program, like common types and constants, and routines for
 // resource management.
 
-#include "fwd.hh"
 #include "ecl_font.hh"
 #include "ecl_math.hh"
 #include <stdint.h>

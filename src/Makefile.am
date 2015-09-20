@@ -58,7 +58,6 @@ enigma_SOURCES = 		\
 	file_zip.cc 		\
 	floors.cc 		\
 	floors.hh		\
-	fwd.hh			\
 	game.cc			\
 	game.hh			\
 	GridObject.cc 		\

@@ -639,8 +639,6 @@ void OxydLoader::connect_rubberbands ()
 
 void OxydLoader::connect_signals () 
 {
-    using namespace world;
-
     set<SignalLocation> senders;
     level.getSenders(&senders);
     set<SignalLocation>::const_iterator senderIter = senders.begin();

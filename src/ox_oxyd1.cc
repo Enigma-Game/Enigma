@@ -32,7 +32,6 @@
 #include "oxyd_internal.hh"
 
 using namespace enigma;
-using namespace world;
 using namespace oxyd;
 
 /* -------------------- Oxyd 1 level pack -------------------- */

@@ -44,7 +44,6 @@
 
 #include <cctype>
 
-using namespace world;
 using namespace std;
 
 namespace enigma {

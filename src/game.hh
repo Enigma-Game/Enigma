@@ -18,7 +18,6 @@
 #ifndef ENIGMA_GAME_HH
 #define ENIGMA_GAME_HH
 
-#include "fwd.hh"
 #include "lev/Proxy.hh"
 
 namespace enigma {
