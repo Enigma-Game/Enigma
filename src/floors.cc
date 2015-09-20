@@ -14,9 +14,8 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
-
+#include "floors.hh"
 #include "Inventory.hh"
 #include "errors.hh"
 #include "player.hh"
@@ -33,21 +32,18 @@ namespace enigma {
 
 Floor::Floor(const char *kind, double friction_, double mfactor, FloorFlags flags,
              FloorFireType flft, const char *firetransform_, const char *heattransform_)
-: GridObject (kind),
-  traits (kind, flags, flft, firetransform_, heattransform_),
+: GridObject(kind),
+  traits(kind, flags, flft, firetransform_, heattransform_),
   heating_animation(false),
   fire_countdown(1),
   var_floorforce(),
   adhesion(mfactor),
-  friction(friction_)
-{}
+  friction(friction_) {
+}
 
-Floor::Floor (const FloorTraits &tr)
-: GridObject (tr.name.c_str()),
-  traits (tr),
-  heating_animation(false),
-  fire_countdown(1)
-{}
+Floor::Floor(const FloorTraits &tr)
+: GridObject(tr.name.c_str()), traits(tr), heating_animation(false), fire_countdown(1) {
+}
 
 Value Floor::message(const Message &m) {
     // "_init"     : Start burning, if "initfire" is set.
@@ -76,99 +72,91 @@ Value Floor::message(const Message &m) {
     return GridObject::message(m);
 }
 
-ecl::V2 Floor::process_mouseforce (Actor *a, ecl::V2 force) {
+ecl::V2 Floor::process_mouseforce(Actor *a, ecl::V2 force) {
     if (a->controlled_by(player::CurrentPlayer()))
         return getAdhesion() * force;
     else
         return ecl::V2();
 }
 
-    void Floor::setAttr(const string& key, const Value &val) {
-        if (key == "adhesion")
-            adhesion = val;
-        else if (key == "friction")
-            friction = val;
-        else if (key == "force_x")
-            var_floorforce[0] = val;
-        else if (key == "force_y")
-            var_floorforce[1] = val;
-        GridObject::setAttr(key, val);
-        if (key == "faces" && isDisplayable())
-            init_model();
-    }
-
-    Value Floor::getAttr(const std::string &key) const {
-        if (key == "adhesion") {
-            return adhesion;
-        } else if (key == "friction") {
-            return friction;
-        }
-        return GridObject::getAttr(key);
-    }
-
-    void Floor::on_creation(GridPos p) {
-        if (Value v = GridObject::getAttr("adhesion"))
-            adhesion = v;
-        if (Value v = GridObject::getAttr("friction"))
-            friction = v;
-        GridObject::on_creation(p);
-
-        if (server::WorldInitialized && has_firetype(flft_initfire))
-            force_fire();
-    }
-
-void Floor::get_sink_speed (double &sinkspeed, double &raisespeed) const {
-//     sinkspeed = raisespeed = 0.0;
+void Floor::setAttr(const string &key, const Value &val) {
+    if (key == "adhesion")
+        adhesion = val;
+    else if (key == "friction")
+        friction = val;
+    else if (key == "force_x")
+        var_floorforce[0] = val;
+    else if (key == "force_y")
+        var_floorforce[1] = val;
+    GridObject::setAttr(key, val);
+    if (key == "faces" && isDisplayable())
+        init_model();
 }
 
-double Floor::get_friction() const
-{
+Value Floor::getAttr(const std::string &key) const {
+    if (key == "adhesion") {
+        return adhesion;
+    } else if (key == "friction") {
+        return friction;
+    }
+    return GridObject::getAttr(key);
+}
+
+void Floor::on_creation(GridPos p) {
+    if (Value v = GridObject::getAttr("adhesion"))
+        adhesion = v;
+    if (Value v = GridObject::getAttr("friction"))
+        friction = v;
+    GridObject::on_creation(p);
+
+    if (server::WorldInitialized && has_firetype(flft_initfire))
+        force_fire();
+}
+
+void Floor::get_sink_speed(double &sinkspeed, double &raisespeed) const {
+    //     sinkspeed = raisespeed = 0.0;
+}
+
+double Floor::get_friction() const {
     return friction;
 }
 
-    double Floor::getAdhesion() const {
-        return adhesion;
-    }
+double Floor::getAdhesion() const {
+    return adhesion;
+}
 
-bool Floor::is_destructible() const
-{
+bool Floor::is_destructible() const {
     return true;
 }
 
-bool Floor::is_freeze_check() const
-{
+bool Floor::is_freeze_check() const {
     return to_bool(this->getAttr("freeze_check"));
 }
 
-void Floor::set_model (const std::string &mname)
-{
-    display::SetModel (GridLoc(GRID_FLOOR, get_pos()), mname);
+void Floor::set_model(const std::string &mname) {
+    display::SetModel(GridLoc(GRID_FLOOR, get_pos()), mname);
 }
 
-display::Model *Floor::get_model ()
-{
-    return display::GetModel (GridLoc(GRID_FLOOR, get_pos()));
+display::Model *Floor::get_model() {
+    return display::GetModel(GridLoc(GRID_FLOOR, get_pos()));
 }
 
-void Floor::kill_model (GridPos p)
-{
-    display::KillModel (GridLoc (GRID_FLOOR, p));
+void Floor::kill_model(GridPos p) {
+    display::KillModel(GridLoc(GRID_FLOOR, p));
 }
 
-void Floor::add_force (Actor *, ecl::V2 &f)
-{
+void Floor::add_force(Actor *, ecl::V2 &f) {
     // Note that actor == 0 is possible from lightpassenger-calculation.
     f += var_floorforce;
 }
 
-    void Floor::stone_change(Stone *st) {
-        if (getDefaultedAttr("floodable", false).to_bool()) {
-            SendMessage(GetFloor(get_pos()), "_checkflood");
-            for (Direction d = NORTH; d != NODIR; d = previous(d))
-                SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
-        }
+void Floor::stone_change(Stone *st) {
+    if (getDefaultedAttr("floodable", false).to_bool()) {
+        SendMessage(GetFloor(get_pos()), "_checkflood");
+        for (Direction d = NORTH; d != NODIR; d = previous(d))
+            SendMessage(GetFloor(move(get_pos(), d)), "_checkflood");
     }
-
+}
 
 /* -------------- Fire Handling -------------- */
 
@@ -263,7 +251,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
     if (Stone *st = GetStone(p)) {
         if (st->is_movable())
             no_closing_stone = false;
-        else if(!st->allowsSpreading(sourcedir))
+        else if (!st->allowsSpreading(sourcedir))
             return false;
     }
 
@@ -283,9 +271,9 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                 // Just spread. Use the fire-countdown to delay fire without
                 // it_burnable, but not in case of a message or a secure+last
                 // call or a fastfire-floor.
-                if (   (get_fire_countdown() == 0) || (flhf == flhf_message)
-                    || (has_firetype(flft_fastfire))
-                    || (((bool) (flhf & flhf_last)) && has_firetype(flft_secure)))
+                if ((get_fire_countdown() == 0) || (flhf == flhf_message) ||
+                    (has_firetype(flft_fastfire)) ||
+                    (((bool)(flhf & flhf_last)) && has_firetype(flft_secure)))
                     return force_fire();
                 fire_countdown = max(fire_countdown - 1, 0);
             }
@@ -309,7 +297,7 @@ bool Floor::try_ignite(Direction sourcedir, FloorHeatFlags flhf) {
                         return force_fire();
                     else
                         this->setAttr("burnable", true);
-		}
+                }
             }
         }
     }
@@ -335,7 +323,7 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
     //  e) However, if (1), (2) or (3) led to success, then never do (4),
     //     this way we prevent fire to disturb any transformations.
     //
-    bool secure = ((bool) (flhf & flhf_last)) && has_firetype(flft_secure);
+    bool secure = ((bool)(flhf & flhf_last)) && has_firetype(flft_secure);
     bool doItem = (flhf == flhf_message) || secure || DoubleRand(0, 1) > 0.3;
     bool doStone = doItem;
     bool doIgnite = doItem;
@@ -363,7 +351,7 @@ bool Floor::try_heating(Direction sourcedir, FloorHeatFlags flhf) {
 
 bool Floor::on_heattransform(Direction sourcedir, FloorHeatFlags flhf) {
     // return true to forbid fire (message caught)
-    bool doHeatTransform = (flhf == flhf_message) || ((bool) (flhf & flhf_first));
+    bool doHeatTransform = (flhf == flhf_message) || ((bool)(flhf & flhf_first));
     if (!doHeatTransform || get_heattransform(false) == "")
         return false;
     if (doHeatTransform && get_heattransform(false) != "" && !heating_animation) {
@@ -395,7 +383,7 @@ bool Floor::stop_fire(bool is_message) {
             if (theid != it_burnable_burning && theid != it_burnable_ignited)
                 return false;  // no fire
         } else
-            return false; // no item == no fire
+            return false;  // no item == no fire
     }
 
     KillItem(p);
@@ -405,7 +393,7 @@ bool Floor::stop_fire(bool is_message) {
     // Remember, at this point "this" may be destroyed.
     if (!GetFloor(p)->has_firetype(flft_noash))
         SetItem(p, MakeItem("it_burnable_ash"));
-    return true; // fire extinguished
+    return true;  // fire extinguished
 }
 
 void Floor::on_burnable_animcb(bool justIgnited) {
@@ -414,19 +402,19 @@ void Floor::on_burnable_animcb(bool justIgnited) {
     SendMessage(GetStone(p), "_fire");
 
     // Will we stop this time with burning?
-    bool cont_fire = justIgnited || has_firetype(flft_eternal) || DoubleRand(0,1) < 0.7;
-    FloorHeatFlags flhf = (FloorHeatFlags) (flhf_fire
-        | (justIgnited ? flhf_first : flhf_fire) | (cont_fire ? flhf_fire : flhf_last));
+    bool cont_fire = justIgnited || has_firetype(flft_eternal) || DoubleRand(0, 1) < 0.7;
+    FloorHeatFlags flhf = (FloorHeatFlags)(flhf_fire | (justIgnited ? flhf_first : flhf_fire) |
+                                           (cont_fire ? flhf_fire : flhf_last));
 
-    Stone *st = GetStone(p);   // stone can be killed due to fire message
+    Stone *st = GetStone(p);  // stone can be killed due to fire message
     if (st == NULL || st->allowsSpreading(NORTH))
         heat_neighbor(NORTH, flhf);
     if (st == NULL || st->allowsSpreading(EAST))
-        heat_neighbor(EAST,  flhf);
+        heat_neighbor(EAST, flhf);
     if (st == NULL || st->allowsSpreading(SOUTH))
         heat_neighbor(SOUTH, flhf);
     if (st == NULL || st->allowsSpreading(WEST))
-        heat_neighbor(WEST,  flhf);
+        heat_neighbor(WEST, flhf);
 
     if (cont_fire)
         // continue burning
@@ -440,10 +428,10 @@ bool Floor::has_firetype(FloorFireType selector) {
     if (Item *it = GetItem(get_pos())) {
         ItemID id = get_id(it);
         if (selector == flft_burnable || selector == flft_ignitable) {
-            if (  id == it_burnable_invisible || id == it_burnable_oil )
+            if (id == it_burnable_invisible || id == it_burnable_oil)
                 return true;
-            if (  id == it_burnable_ash     || id == it_burnable_fireproof
-               || id == it_burnable_ignited || id == it_burnable_burning )
+            if (id == it_burnable_ash || id == it_burnable_fireproof || id == it_burnable_ignited ||
+                id == it_burnable_burning)
                 return false;
             // In non-Enigma-compatibility-modes, the item decides about
             // burnability and only it_burnable[_oil] is ignitable:
@@ -451,24 +439,16 @@ bool Floor::has_firetype(FloorFireType selector) {
                 return (selector == flft_burnable) && !has_flags(it, itf_fireproof);
         }
     }
-    bool dflt = (server::GameCompatibility == GAMET_ENIGMA)
-            && (traits.firetype & selector);
+    bool dflt = (server::GameCompatibility == GAMET_ENIGMA) && (traits.firetype & selector);
     // In non-Enigma-modes, without items on them, all floors behave the same:
     switch (selector) {
-        case flft_burnable :
-            return getDefaultedAttr("burnable", dflt).to_bool();
-        case flft_ignitable :
-            return getDefaultedAttr("ignitable", dflt).to_bool();
-        case flft_secure :
-            return getDefaultedAttr("secure", dflt).to_bool();
-        case flft_eternal :
-            return getDefaultedAttr("eternal", dflt).to_bool();
-        case flft_noash :
-            return getDefaultedAttr("noash", dflt).to_bool();
-        case flft_fastfire :
-            return getDefaultedAttr("fastfire", dflt).to_bool();
-        case flft_initfire :
-            return getDefaultedAttr("initfire", dflt).to_bool();
+    case flft_burnable: return getDefaultedAttr("burnable", dflt).to_bool();
+    case flft_ignitable: return getDefaultedAttr("ignitable", dflt).to_bool();
+    case flft_secure: return getDefaultedAttr("secure", dflt).to_bool();
+    case flft_eternal: return getDefaultedAttr("eternal", dflt).to_bool();
+    case flft_noash: return getDefaultedAttr("noash", dflt).to_bool();
+    case flft_fastfire: return getDefaultedAttr("fastfire", dflt).to_bool();
+    case flft_initfire: return getDefaultedAttr("initfire", dflt).to_bool();
     }
     return dflt;
 }
@@ -482,4 +462,4 @@ void Floor::animcb() {
     }
 }
 
-} // namespace enigma
+}  // namespace enigma

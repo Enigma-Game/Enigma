@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 
 #include "errors.hh"
@@ -34,7 +33,7 @@ namespace enigma {
 
 void Stone::on_creation(GridPos p) {
     // notify rubberbands that may now exceed max/min limits
-    ObjectList olist = getAttr("rubbers");   // a private deletion resistant copy
+    ObjectList olist = getAttr("rubbers");  // a private deletion resistant copy
     for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr)
         SendMessage(*itr, "_recheck");
     GridObject::on_creation(p);
@@ -42,7 +41,7 @@ void Stone::on_creation(GridPos p) {
 
 void Stone::transform(std::string kind) {
     Stone *newStone = MakeStone(kind.c_str());
-    transferIdentity(newStone);          // subclasses may hook this call
+    transferIdentity(newStone);  // subclasses may hook this call
     ObjectList olist = getAttr("rubbers");
     for (ObjectList::iterator itr = olist.begin(); itr != olist.end(); ++itr) {
         (*itr)->setAttr("anchor2", newStone);
@@ -54,49 +53,42 @@ void Stone::transform(std::string kind) {
     SetStone(get_pos(), newStone);
 }
 
-
-
 /*! Determine whether the actor hitting the stone can move stone
   and return either the direction the stone should move or NODIR. */
-Direction get_push_direction (const StoneContact &sc)
-{
-    ActorInfo *ai  = sc.actor->get_actorinfo();
-    Direction  dir = contact_face(sc);
+Direction get_push_direction(const StoneContact &sc) {
+    ActorInfo *ai = sc.actor->get_actorinfo();
+    Direction dir = contact_face(sc);
 
     // Make sure the speed component towards the face of the stone is
     // large enough and pointing towards the stone.
-    if (dir!=enigma::NODIR && ai->vel * sc.normal < -4)
+    if (dir != enigma::NODIR && ai->vel * sc.normal < -4)
         return reverse(dir);
     return NODIR;
 }
 
 /* Move a stone (by sending an impulse) Called when an actor hits a
    stone. */
-bool maybe_push_stone (const StoneContact &sc)
-{
+bool maybe_push_stone(const StoneContact &sc) {
     Direction dir = get_push_direction(sc);
     if (dir != enigma::NODIR) {
         sc.actor->send_impulse(sc.stonepos, dir);
-        return GetStone(sc.stonepos) == 0; // return true only if stone vanished
+        return GetStone(sc.stonepos) == 0;  // return true only if stone vanished
     }
     return false;
 }
 
-
-Stone::Stone() : freeze_check_running (false) {
+Stone::Stone() : freeze_check_running(false) {
 }
 
-Stone::Stone(const char * kind) : GridObject (kind), freeze_check_running (false) {
+Stone::Stone(const char *kind) : GridObject(kind), freeze_check_running(false) {
 }
 
 Stone::~Stone() {
 }
 
-const StoneTraits &Stone::get_traits() const
-{
-    static StoneTraits default_traits = {
-        "INVALID", st_INVALID, stf_none, material_stone, 1.0, MOVABLE_PERSISTENT
-    };
+const StoneTraits &Stone::get_traits() const {
+    static StoneTraits default_traits = {"INVALID", st_INVALID, stf_none, material_stone, 1.0,
+                                         MOVABLE_PERSISTENT};
     return default_traits;
 }
 
@@ -110,27 +102,25 @@ StoneResponse Stone::collision_response(const StoneContact &) {
     return STONE_REBOUND;
 }
 
-
-void Stone::actor_hit(const StoneContact &sc)
-{
+void Stone::actor_hit(const StoneContact &sc) {
     if (is_movable())
-        maybe_push_stone (sc);
+        maybe_push_stone(sc);
 }
 
 void Stone::actor_touch(const StoneContact &sc) {
 }
 
-void Stone::on_impulse(const Impulse& impulse) {
+void Stone::on_impulse(const Impulse &impulse) {
     if (is_movable()) {
         int theid = getId();
-        move_stone(impulse.dir);    // may kill the stone!
+        move_stone(impulse.dir);  // may kill the stone!
 
-        if (Object::getObject(theid) != NULL)   // not killed?
+        if (Object::getObject(theid) != NULL)  // not killed?
             propagateImpulse(impulse);
     }
 }
 
-void Stone::propagateImpulse(const Impulse& impulse) {
+void Stone::propagateImpulse(const Impulse &impulse) {
     if (!impulse.byWire) {
         ObjectList olist = getAttr("fellows");
         for (ObjectList::iterator it = olist.begin(); it != olist.end(); ++it) {
@@ -143,7 +133,7 @@ void Stone::propagateImpulse(const Impulse& impulse) {
     }
 }
 
-const char * Stone::collision_sound() {
+const char *Stone::collision_sound() {
     return "stone";
 }
 
@@ -155,10 +145,10 @@ const char * Stone::collision_sound() {
 */
 bool Stone::move_stone(GridPos newPos, const char *soundevent) {
     if (isDisplayable()) {
-        GridPos p      = get_pos();
+        GridPos p = get_pos();
 
         if (!GetStone(newPos)) {
-            sound_event (soundevent);
+            sound_event(soundevent);
 
             MoveStone(p, newPos);
             server::IncMoveCounter();
@@ -180,7 +170,7 @@ bool Stone::move_stone(Direction dir) {
 
 bool Stone::on_move(const GridPos &origin) {
     if (!is_floating())
-        ShatterActorsInsideField (get_pos());
+        ShatterActorsInsideField(get_pos());
     return true;
 }
 
@@ -188,73 +178,79 @@ bool Stone::on_move(const GridPos &origin) {
    hit_distortion_[xx,xy,yx,yy] and factor hit_factor
    If components are not set, use ((1,0),(0,1)) as
    default matrix, resp. defaultfactor as hit_factor. */
-ecl::V2 Stone::distortedVelocity (ecl::V2 vel, double defaultfactor = 1.0) {
+ecl::V2 Stone::distortedVelocity(ecl::V2 vel, double defaultfactor = 1.0) {
     ecl::V2 newvel;
     double factor = this->getDefaultedAttr("hit_strength", defaultfactor);
-    newvel[0] = (double)(this->getDefaultedAttr("hit_distortion_xx", 1)) * vel[0]
-                + (double)(this->getAttr("hit_distortion_xy")) * vel[1];
-    newvel[1] = (double)(this->getAttr("hit_distortion_yx")) * vel[0]
-                + (double)(this->getDefaultedAttr("hit_distortion_yy", 1)) * vel[1];
+    newvel[0] = (double)(this->getDefaultedAttr("hit_distortion_xx", 1)) * vel[0] +
+                (double)(this->getAttr("hit_distortion_xy")) * vel[1];
+    newvel[1] = (double)(this->getAttr("hit_distortion_yx")) * vel[0] +
+                (double)(this->getDefaultedAttr("hit_distortion_yy", 1)) * vel[1];
     return newvel * factor;
 }
 
 /* -------------------- Cluster routines -------------------- */
-    void Stone::autoJoinCluster() {
-        GridPos p = get_pos();
-        Value myCluster = getAttr("cluster");
-        for (int i = WEST; i <= NORTH; i++) {
-            Direction d = (Direction) i;
-            Stone *neighbour = GetStone(move(p, d));
-            if (isConnectable(neighbour)) {
-                Value neighbourCluster = neighbour->getAttr("cluster");
-                if (myCluster) {
-                    if (myCluster == neighbourCluster) {
-                        setAttr("$connections", getConnections() | to_bits(d));
-                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
-                    } else if (!neighbourCluster && neighbour->getConnections() & to_bits(reverse(d))) {
-                        setAttr("$connections", getConnections() | to_bits(d));
-                    } else {
-                        setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
-                    }
-                } else if (neighbourCluster)  {// I have fixed connections -> adapt neighbour
-                    if (getConnections() & to_bits(d))
-                        neighbour->setAttr("$connections", neighbour->getConnections() | to_bits(reverse(d)));
-                    else
-                        neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
+void Stone::autoJoinCluster() {
+    GridPos p = get_pos();
+    Value myCluster = getAttr("cluster");
+    for (int i = WEST; i <= NORTH; i++) {
+        Direction d = (Direction)i;
+        Stone *neighbour = GetStone(move(p, d));
+        if (isConnectable(neighbour)) {
+            Value neighbourCluster = neighbour->getAttr("cluster");
+            if (myCluster) {
+                if (myCluster == neighbourCluster) {
+                    setAttr("$connections", getConnections() | to_bits(d));
+                    neighbour->setAttr("$connections",
+                                       neighbour->getConnections() | to_bits(reverse(d)));
+                } else if (!neighbourCluster && neighbour->getConnections() & to_bits(reverse(d))) {
+                    setAttr("$connections", getConnections() | to_bits(d));
+                } else {
+                    setAttr("$connections",
+                            getConnections() & (ALL_DIRECTIONS ^ to_bits(d)));  // clear connection
                 }
-            } else if (myCluster) { // no neighbour -> no connection
-                setAttr("$connections", getConnections() & (ALL_DIRECTIONS ^ to_bits(d))); // clear connection
+            } else if (neighbourCluster) {  // I have fixed connections -> adapt neighbour
+                if (getConnections() & to_bits(d))
+                    neighbour->setAttr("$connections",
+                                       neighbour->getConnections() | to_bits(reverse(d)));
+                else
+                    neighbour->setAttr("$connections", neighbour->getConnections() &
+                                                           (ALL_DIRECTIONS ^ to_bits(reverse(d))));
             }
+        } else if (myCluster) {  // no neighbour -> no connection
+            setAttr("$connections",
+                    getConnections() & (ALL_DIRECTIONS ^ to_bits(d)));  // clear connection
         }
     }
+}
 
-    void Stone::autoLeaveCluster() {
-        GridPos p = get_pos();
-        for (int i = WEST; i <= NORTH; i++) {
-            Direction d = (Direction) i;
-            Stone *neighbour = GetStone(move(p, d));
-            if (isConnectable(neighbour) && neighbour->getAttr("cluster")) {
-                neighbour->setAttr("$connections", neighbour->getConnections() & (ALL_DIRECTIONS ^ to_bits(reverse(d))));
-            }
+void Stone::autoLeaveCluster() {
+    GridPos p = get_pos();
+    for (int i = WEST; i <= NORTH; i++) {
+        Direction d = (Direction)i;
+        Stone *neighbour = GetStone(move(p, d));
+        if (isConnectable(neighbour) && neighbour->getAttr("cluster")) {
+            neighbour->setAttr("$connections", neighbour->getConnections() &
+                                                   (ALL_DIRECTIONS ^ to_bits(reverse(d))));
         }
     }
+}
 
 /* -------------------- Freeze check routines -------------------- */
 
 FreezeStatusBits Stone::get_freeze_bits() {
-    if(is_floating())
+    if (is_floating())
         return FREEZEBIT_HOLLOW;
-    switch(get_traits().movable) {
-        case MOVABLE_PERSISTENT:  return FREEZEBIT_PERSISTENT;
-        case MOVABLE_BREAKABLE:   return FREEZEBIT_NO_STONE;
-        case MOVABLE_STANDARD:    return FREEZEBIT_STANDARD;
-        default:                  return FREEZEBIT_IRREGULAR;
+    switch (get_traits().movable) {
+    case MOVABLE_PERSISTENT: return FREEZEBIT_PERSISTENT;
+    case MOVABLE_BREAKABLE: return FREEZEBIT_NO_STONE;
+    case MOVABLE_STANDARD: return FREEZEBIT_STANDARD;
+    default: return FREEZEBIT_IRREGULAR;
     }
 }
 
 FreezeStatusBits Stone::get_freeze_bits(GridPos p) {
     Stone *st = GetStone(p);
-    if(st == NULL)
+    if (st == NULL)
         return FREEZEBIT_NO_STONE;
     return st->get_freeze_bits();
 }
@@ -274,12 +270,12 @@ bool Stone::freeze_check() {
         return false;
 
     // Query persistence status of neighboring stones
-    FreezeStatusBits ms_n  = get_freeze_bits(move(this_pos, NORTH));
+    FreezeStatusBits ms_n = get_freeze_bits(move(this_pos, NORTH));
     FreezeStatusBits ms_nw = get_freeze_bits(move(move(this_pos, NORTH), WEST));
     FreezeStatusBits ms_ne = get_freeze_bits(move(move(this_pos, NORTH), EAST));
-    FreezeStatusBits ms_w  = get_freeze_bits(move(this_pos, WEST));
-    FreezeStatusBits ms_e  = get_freeze_bits(move(this_pos, EAST));
-    FreezeStatusBits ms_s  = get_freeze_bits(move(this_pos, SOUTH));
+    FreezeStatusBits ms_w = get_freeze_bits(move(this_pos, WEST));
+    FreezeStatusBits ms_e = get_freeze_bits(move(this_pos, EAST));
+    FreezeStatusBits ms_s = get_freeze_bits(move(this_pos, SOUTH));
     FreezeStatusBits ms_sw = get_freeze_bits(move(move(this_pos, SOUTH), WEST));
     FreezeStatusBits ms_se = get_freeze_bits(move(move(this_pos, SOUTH), EAST));
 
@@ -306,25 +302,18 @@ bool Stone::freeze_check() {
     // if the stone east of THIS is persistent.
     int p = FREEZEBIT_PERSISTENT;
     int pm = FREEZEBIT_PERSISTENT | FREEZEBIT_STANDARD;
-    if(   ((ms_n & p) && (ms_e & p))
-       || ((ms_n & p) && (ms_w & p))
-       || ((ms_s & p) && (ms_e & p))
-       || ((ms_s & p) && (ms_w & p))
+    if (((ms_n & p) && (ms_e & p)) || ((ms_n & p) && (ms_w & p)) || ((ms_s & p) && (ms_e & p)) ||
+        ((ms_s & p) && (ms_w & p))
 
-       || ((ms_n & pm) && (ms_nw & pm) && (ms_w & pm))
-       || ((ms_n & pm) && (ms_ne & pm) && (ms_e & pm))
-       || ((ms_s & pm) && (ms_sw & pm) && (ms_w & pm))
-       || ((ms_s & pm) && (ms_se & pm) && (ms_e & pm))
+        || ((ms_n & pm) && (ms_nw & pm) && (ms_w & pm)) ||
+        ((ms_n & pm) && (ms_ne & pm) && (ms_e & pm)) ||
+        ((ms_s & pm) && (ms_sw & pm) && (ms_w & pm)) || ((ms_s & pm) && (ms_se & pm) && (ms_e & pm))
 
-       || ((ms_n & pm) && (ms_e & p) && (ms_nw & p))
-       || ((ms_n & pm) && (ms_w & p) && (ms_ne & p))
-       || ((ms_s & pm) && (ms_e & p) && (ms_sw & p))
-       || ((ms_s & pm) && (ms_w & p) && (ms_se & p))
-       || ((ms_w & pm) && (ms_n & p) && (ms_sw & p))
-       || ((ms_w & pm) && (ms_s & p) && (ms_nw & p))
-       || ((ms_e & pm) && (ms_n & p) && (ms_se & p))
-       || ((ms_e & pm) && (ms_s & p) && (ms_ne & p)))
-    {
+        || ((ms_n & pm) && (ms_e & p) && (ms_nw & p)) ||
+        ((ms_n & pm) && (ms_w & p) && (ms_ne & p)) || ((ms_s & pm) && (ms_e & p) && (ms_sw & p)) ||
+        ((ms_s & pm) && (ms_w & p) && (ms_se & p)) || ((ms_w & pm) && (ms_n & p) && (ms_sw & p)) ||
+        ((ms_w & pm) && (ms_s & p) && (ms_nw & p)) || ((ms_e & pm) && (ms_n & p) && (ms_se & p)) ||
+        ((ms_e & pm) && (ms_s & p) && (ms_ne & p))) {
         ReplaceStone(this_pos, MakeStone("st_death"));
         // recheck neighboring stones
         // avoid endless loop with bool freeze_check_running
@@ -345,4 +334,4 @@ bool Stone::freeze_check() {
     return false;
 }
 
-} // namespace enigma
+}  // namespace enigma

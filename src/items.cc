@@ -15,7 +15,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
  */
 
 #include "items.hh"
@@ -40,29 +39,27 @@ using enigma::Value;
 using enigma::DoubleRand;
 using ecl::V2;
 
-
 namespace enigma {
 
 /* -------------------- Item implementation -------------------- */
 
-Item::Item()
-{}
+Item::Item() {
+}
 
 void Item::kill() {
     KillItem(get_pos());
 }
 
-void Item::replace(std::string kind)
-{
+void Item::replace(std::string kind) {
     Item *newitem = MakeItem(kind.c_str());
-    transferName(newitem);          // TODO check where transfer of identity is better
-    setup_successor(newitem);           // hook for subclasses
-    SetItem (get_pos(), newitem);
+    transferName(newitem);     // TODO check where transfer of identity is better
+    setup_successor(newitem);  // hook for subclasses
+    SetItem(get_pos(), newitem);
 }
 
 void Item::transform(std::string kind) {
     Item *newitem = MakeItem(kind.c_str());
-    transferIdentity(newitem);          // subclasses may hook this call
+    transferIdentity(newitem);  // subclasses may hook this call
     SetItem(get_pos(), newitem);
 }
 
@@ -70,24 +67,22 @@ std::string Item::getClass() const {
     return get_traits().name;
 }
 
-    Value Item::getAttr(const std::string &key) const {
-        if (key == "liftable") {
-            return !isStatic();
-        } else if (key == "portable") {
-            return isPortable();
-        } else if (key == "freezable") {
-            return isFreezable();
-        }
-        return GridObject::getAttr(key);
+Value Item::getAttr(const std::string &key) const {
+    if (key == "liftable") {
+        return !isStatic();
+    } else if (key == "portable") {
+        return isPortable();
+    } else if (key == "freezable") {
+        return isFreezable();
     }
+    return GridObject::getAttr(key);
+}
 
-std::string Item::get_inventory_model()
-{
+std::string Item::get_inventory_model() {
     return getKind();
 }
 
-void Item::init_model()
-{
+void Item::init_model() {
     const ItemTraits &tr = get_traits();
     if (tr.flags & itf_invisible)
         set_model("invisible");
@@ -97,10 +92,10 @@ void Item::init_model()
         set_model(tr.name);
 }
 
-void Item::stone_change (Stone * /*st*/) {
+void Item::stone_change(Stone * /*st*/) {
 }
 
-void Item::on_stonehit (Stone * /*st*/) {
+void Item::on_stonehit(Stone * /*st*/) {
 }
 
 void Item::processLight(Direction d) {
@@ -118,23 +113,22 @@ ecl::V2 Item::calcMouseforce(Actor *a, ecl::V2 mouseForce, ecl::V2 floorForce) {
     return floorForce;
 }
 
-void Item::on_drop (Actor * /*a*/) {
+void Item::on_drop(Actor * /*a*/) {
 }
 
-void Item::drop (Actor *a, GridPos p) {
-    SetItem (p, this);
+void Item::drop(Actor *a, GridPos p) {
+    SetItem(p, this);
     on_drop(a);
 }
 
-
-void Item::on_pickup (Actor * /*a*/) {
+void Item::on_pickup(Actor * /*a*/) {
 }
 
-bool Item::can_drop_at (GridPos p) {
+bool Item::can_drop_at(GridPos p) {
     return GetItem(p) == 0;
 }
 
-ItemAction Item::activate(Actor* /*a*/, GridPos /*p*/) {
+ItemAction Item::activate(Actor * /*a*/, GridPos /*p*/) {
     return ITEM_DROP;
 }
 
@@ -153,8 +147,7 @@ bool Item::isFreezable() const {
 void Item::add_force(Actor *, V2 &) {
 }
 
-bool Item::actor_hit(Actor *actor)
-{
+bool Item::actor_hit(Actor *actor) {
     const ItemTraits &tr = get_traits();
     if (isStatic())
         return false;
@@ -162,12 +155,13 @@ bool Item::actor_hit(Actor *actor)
         double radius = 0.3;
         if (tr.radius != 0.0)
             radius = tr.radius;
-        return length(actor->get_pos()-get_pos().center()) < radius;
+        return length(actor->get_pos() - get_pos().center()) < radius;
     }
 }
 
-    std::list<GridPos> Item::warpSpreadPos(bool isWater) {
-        std::list<GridPos> results;
-        return results;
-    }
-} // namespace enigma
+std::list<GridPos> Item::warpSpreadPos(bool isWater) {
+    std::list<GridPos> results;
+    return results;
+}
+
+}  // namespace enigma
